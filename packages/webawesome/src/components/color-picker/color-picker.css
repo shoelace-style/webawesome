@@ -20,6 +20,10 @@
 .color-picker {
   background-color: var(--background-color);
   border-radius: var(--border-radius);
+  border-style: var(--border-style);
+  border-width: var(--border-width);
+  border-color: var(--border-color);
+  box-shadow: var(--wa-shadow-l);
   color: var(--color);
   font: inherit;
   user-select: none;

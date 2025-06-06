@@ -6,7 +6,9 @@ import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { WaInvalidEvent } from '../../events/invalid.js';
+import { animateWithClass } from '../../internal/animate.js';
 import { drag } from '../../internal/drag.js';
+import { waitForEvent } from '../../internal/event.js';
 import { clamp } from '../../internal/math.js';
 import { HasSlotController } from '../../internal/slot.js';
 import { RequiredValidator } from '../../internal/validators/required-validator.js';
@@ -18,11 +20,11 @@ import visuallyHidden from '../../styles/utilities/visually-hidden.css';
 import { LocalizeController } from '../../utilities/localize.js';
 import '../button-group/button-group.js';
 import '../button/button.js';
-import '../dropdown/dropdown.js';
-import type WaDropdown from '../dropdown/dropdown.js';
 import '../icon/icon.js';
 import '../input/input.js';
 import type WaInput from '../input/input.js';
+import '../popup/popup.js';
+import type WaPopup from '../popup/popup.js';
 import styles from './color-picker.css';
 
 interface EyeDropperConstructor {
@@ -43,8 +45,8 @@ declare const EyeDropper: EyeDropperConstructor;
  *
  * @dependency wa-button
  * @dependency wa-button-group
- * @dependency wa-dropdown
  * @dependency wa-input
+ * @dependency wa-popup
  * @dependency wa-visually-hidden
  *
  * @slot label - The color picker's form label. Alternatively, you can use the `label` attribute.
@@ -125,7 +127,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
   //   or is the new behavior okay?
   get validationTarget() {
     // This puts the popup on the element only if the color picker is expanded.
-    if (this.dropdown?.open) {
+    if (this.popup?.active) {
       return this.input;
     }
 
@@ -134,7 +136,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
     return this.trigger;
   }
 
-  @query('.color-dropdown') dropdown: WaDropdown;
+  @query('.color-popup') popup: WaPopup;
   @query('[part~="preview"]') previewButton: HTMLButtonElement;
   @query('[part~="trigger"]') trigger: HTMLButtonElement;
 
@@ -209,6 +211,12 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
   /** Disables the color picker. */
   @property({ type: Boolean }) disabled = false;
+
+  /**
+   * Indicates whether or not the popup is open. You can toggle this attribute to show and hide the popup, or you
+   * can use the `show()` and `hide()` methods and this attribute will reflect the popup's open state.
+   */
+  @property({ type: Boolean, reflect: true }) open = false;
 
   /** Shows the opacity slider. Enabling this will cause the formatted value to be HEXA, RGBA, or HSLA. */
   @property({ type: Boolean }) opacity = false;
@@ -790,8 +798,8 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
       elementToBlur.blur();
     }
 
-    if (this.dropdown?.open) {
-      this.dropdown.hide();
+    if (this.popup?.active) {
+      this.hide();
     }
   }
 
@@ -839,10 +847,10 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
   /** Checks for validity and shows the browser's validation message if the control is invalid. */
   reportValidity() {
     // This won't get called when a form is submitted. This is only for manual calls.
-    if (!this.validity.valid && !this.dropdown.open) {
-      // Show the dropdown so the browser can focus on it
+    if (!this.validity.valid && !this.open) {
+      // Show the popup so the browser can focus on it
       this.addEventListener('wa-after-show', this.reportValidityAfterShow, { once: true });
-      this.dropdown.show();
+      this.show();
 
       if (!this.disabled) {
         // By standards we have to emit a `wa-invalid` event here synchronously.
@@ -865,6 +873,158 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
     super.firstUpdated(changedProperties);
 
     this.hasEyeDropper = 'EyeDropper' in window;
+  }
+
+  private handleKeyDown = (event: KeyboardEvent) => {
+    // Close when escape is pressed inside an open popup. We need to listen on the panel itself and stop propagation
+    // in case any ancestors are also listening for this key.
+    if (this.open && event.key === 'Escape') {
+      event.stopPropagation();
+      this.hide();
+      this.focus();
+    }
+  };
+
+  private handleDocumentKeyDown = (event: KeyboardEvent) => {
+    // Close when escape or tab is pressed
+    if (event.key === 'Escape' && this.open) {
+      event.stopPropagation();
+      this.focus();
+      this.hide();
+      return;
+    }
+
+    // Handle tabbing
+    if (event.key === 'Tab') {
+      // Tabbing outside of the containing element closes the panel
+      //
+      // If the popup is used within a shadow DOM, we need to obtain the activeElement within that shadowRoot,
+      // otherwise `document.activeElement` will only return the name of the parent shadow DOM element.
+      setTimeout(() => {
+        const activeElement =
+          this.getRootNode() instanceof ShadowRoot
+            ? document.activeElement?.shadowRoot?.activeElement
+            : document.activeElement;
+
+        if (!this || activeElement?.closest(this.tagName.toLowerCase()) !== this) {
+          this.hide();
+        }
+      });
+    }
+  };
+
+  private handleDocumentMouseDown = (event: MouseEvent) => {
+    // Close when clicking outside of the popup panel and trigger
+    const path = event.composedPath();
+
+    // Check if click is inside the popup panel or the trigger element specifically
+    const isInsideRelevantArea = path.some(
+      element => element instanceof Element && (element.closest('.color-picker') || element === this.trigger),
+    );
+
+    if (this && !isInsideRelevantArea) {
+      this.hide();
+    }
+  };
+
+  handleTriggerClick() {
+    if (this.open) {
+      this.hide();
+    } else {
+      this.show();
+      this.focus();
+    }
+  }
+
+  async handleTriggerKeyDown(event: KeyboardEvent) {
+    // When spacebar/enter is pressed, show the panel but don't focus on the menu. This let's the user press the same
+    // key again to hide the menu in case they don't want to make a selection.
+    if ([' ', 'Enter'].includes(event.key)) {
+      event.preventDefault();
+      this.handleTriggerClick();
+      return;
+    }
+  }
+
+  handleTriggerKeyUp(event: KeyboardEvent) {
+    // Prevent space from triggering a click event in Firefox
+    if (event.key === ' ') {
+      event.preventDefault();
+    }
+  }
+
+  updateAccessibleTrigger() {
+    const accessibleTrigger = this.trigger;
+
+    if (accessibleTrigger) {
+      accessibleTrigger.setAttribute('aria-haspopup', 'true');
+      accessibleTrigger.setAttribute('aria-expanded', this.open ? 'true' : 'false');
+    }
+  }
+
+  /** Shows the color picker panel. */
+  async show() {
+    if (this.open) {
+      return undefined;
+    }
+
+    this.open = true;
+    return waitForEvent(this, 'wa-after-show');
+  }
+
+  /** Hides the color picker panel */
+  async hide() {
+    if (!this.open) {
+      return undefined;
+    }
+
+    this.open = false;
+    return waitForEvent(this, 'wa-after-hide');
+  }
+
+  addOpenListeners() {
+    this.base.addEventListener('keydown', this.handleKeyDown);
+    document.addEventListener('keydown', this.handleDocumentKeyDown);
+    document.addEventListener('mousedown', this.handleDocumentMouseDown);
+  }
+
+  removeOpenListeners() {
+    if (this.base) {
+      this.base.removeEventListener('keydown', this.handleKeyDown);
+    }
+    document.removeEventListener('keydown', this.handleDocumentKeyDown);
+    document.removeEventListener('mousedown', this.handleDocumentMouseDown);
+  }
+
+  @watch('open', { waitUntilFirstUpdate: true })
+  async handleOpenChange() {
+    if (this.disabled) {
+      this.open = false;
+      return;
+    }
+
+    this.updateAccessibleTrigger();
+
+    if (this.open) {
+      // Show
+      this.dispatchEvent(new CustomEvent('wa-show'));
+
+      this.addOpenListeners();
+      await this.updateComplete;
+      this.base.hidden = false;
+      this.popup.active = true;
+      await animateWithClass(this.popup.popup, 'show-with-scale');
+      this.dispatchEvent(new CustomEvent('wa-after-show'));
+    } else {
+      // Hide
+      this.dispatchEvent(new CustomEvent('wa-hide'));
+
+      this.removeOpenListeners();
+      await animateWithClass(this.popup.popup, 'hide-with-scale');
+      this.base.hidden = true;
+      this.popup.active = false;
+      this.dispatchEvent(new CustomEvent('wa-after-hide'));
+    }
   }
 
   render() {
@@ -1095,82 +1255,64 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
       </div>
     `;
 
-    // Render as a dropdown
+    // Render with popup
     return html`
-      <wa-dropdown
-        class="color-dropdown"
+      <div
+        class=${classMap({
+          container: true,
+          'form-control': true,
+          'form-control-has-label': hasLabel,
+        })}
+        part="trigger-container form-control"
+      >
+        <div part="form-control-label" class="label" id="form-control-label">
+          <slot name="label">${this.label}</slot>
+        </div>
+
+        <button
+          id="trigger"
+          part="trigger form-control-input"
+          class=${classMap({
+            trigger: true,
+            'trigger-empty': this.isEmpty,
+            'transparent-bg': true,
+            'form-control-input': true,
+          })}
+          style=${styleMap({
+            color: this.getHexString(this.hue, this.saturation, this.brightness, this.alpha),
+          })}
+          type="button"
+          aria-labelledby="form-control-label"
+          aria-describedby="hint"
+          .disabled=${this.disabled}
+          @click=${this.handleTriggerClick}
+          @keydown=${this.handleTriggerKeyDown}
+          @keyup=${this.handleTriggerKeyUp}
+        ></button>
+
+        <slot
+          name="hint"
+          part="hint"
+          class=${classMap({
+            'has-slotted': hasHint,
+          })}
+          >${this.hint}</slot
+        >
+      </div>
+
+      <wa-popup
+        class="color-popup"
+        anchor="trigger"
+        placement="bottom-start"
+        distance="0"
+        skidding="0"
+        sync="width"
         aria-disabled=${this.disabled ? 'true' : 'false'}
-        .containingElement=${this}
-        ?disabled=${this.disabled}
         @wa-after-show=${this.handleAfterShow}
         @wa-after-hide=${this.handleAfterHide}
       >
-        <div
-          class=${classMap({
-            container: true,
-            'form-control': true,
-            'form-control-has-label': hasLabel,
-          })}
-          part="trigger-container form-control"
-          slot="trigger"
-          @click=${(e: Event) => {
-            const composedPath = e.composedPath();
-            const triggerButton = this.triggerButton;
-            const triggerLabel = this.triggerLabel;
-            const buttonOrLabelClicked = composedPath.find(el => el === triggerButton || el === triggerLabel);
-
-            if (buttonOrLabelClicked) {
-              return;
-            }
-
-            // Stop clicks from bubbling on anything except the button and the label. This is a hacky work around i may come to regret, but this "fixes" the issue of `<wa-dropdown>` expecting all children in the "trigger slot" to open the trigger. [Konnor]
-            e.stopImmediatePropagation();
-            e.stopPropagation();
-
-            if (this.dropdown.open) {
-              this.dropdown.hide();
-            }
-          }}
-        >
-          <div part="form-control-label" class="label" id="form-control-label">
-            <slot name="label">${this.label}</slot>
-          </div>
-
-          <button
-            id="trigger"
-            part="trigger form-control-input"
-            class=${classMap({
-              trigger: true,
-              'trigger-empty': this.isEmpty,
-              'transparent-bg': true,
-              'form-control-input': true,
-            })}
-            style=${styleMap({
-              color: this.getHexString(this.hue, this.saturation, this.brightness, this.alpha),
-            })}
-            type="button"
-            aria-labelledby="form-control-label"
-            aria-describedby="hint"
-            .disabled=${this.disabled}
-          ></button>
-
-          <slot
-            name="hint"
-            part="hint"
-            class=${classMap({
-              'has-slotted': hasHint,
-            })}
-            >${this.hint}</slot
-          >
-        </div>
         ${colorPicker}
-      </wa-dropdown>
+      </wa-popup>
     `;
-  }
-}
-
-declare global {
-  interface HTMLElementTagNameMap {
-    'wa-color-picker': WaColorPicker;
   }
 }
