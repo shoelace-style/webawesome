@@ -33,8 +33,8 @@ const openDropdowns = new Set<WaDropdown>();
  * @event wa-after-hide - Emitted after the dropdown has been hidden.
  * @event wa-select - Emitted when an item in the dropdown is selected.
  *
- * @slot - The dropdown's items, typically <wa-dropdown-item> elements.
- * @slot trigger - The element that triggers the dropdown, such as a <wa-button> or <button>.
+ * @slot - The dropdown's items, typically `<wa-dropdown-item>` elements.
+ * @slot trigger - The element that triggers the dropdown, such as a `<wa-button>` or `<button>`.
  *
  * @csspart base - The component's host element.
  * @csspart menu - The dropdown menu container.

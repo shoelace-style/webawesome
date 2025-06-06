@@ -20,13 +20,13 @@ import styles from './dropdown-item.css';
  * @slot - The dropdown item's label.
  * @slot icon - An optional icon to display before the label.
  * @slot details - Additional content or details to display after the label.
- * @slot submenu - Submenu items, typically <wa-dropdown-item> elements, to create a nested menu.
+ * @slot submenu - Submenu items, typically `<wa-dropdown-item>` elements, to create a nested menu.
  *
- * @csspart checkmark - The checkmark icon (a <wa-icon> element) when the item is a checkbox.
+ * @csspart checkmark - The checkmark icon (a `<wa-icon>` element) when the item is a checkbox.
  * @csspart icon - The container for the icon slot.
  * @csspart label - The container for the label slot.
  * @csspart details - The container for the details slot.
- * @csspart submenu-icon - The submenu indicator icon (a <wa-icon> element).
+ * @csspart submenu-icon - The submenu indicator icon (a `<wa-icon>` element).
  * @csspart submenu - The submenu container.
  */
 @customElement('wa-dropdown-item')
