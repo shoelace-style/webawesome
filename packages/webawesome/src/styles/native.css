@@ -550,13 +550,91 @@
   }
   /* #endregion */
 
-  /* Native form controls */
+  /* #region
+  // Buttons
+  */
   button,
-  input,
-  select,
-  textarea {
-    font: inherit;
+  input[type='button'],
+  input[type='reset'],
+  input[type='submit'] {
+    --background-color: var(--wa-color-fill-loud, var(--wa-color-neutral-fill-loud));
+    --border-color: transparent;
+    --text-color: var(--wa-color-on-loud, var(--wa-color-neutral-on-loud));
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+
+    background-color: var(--background-color);
+    border-color: var(--border-color, var(--background-color));
+    color: var(--text-color);
+    border-radius: var(--wa-form-control-border-radius);
+    border-style: var(--wa-border-style);
+    border-width: max(1px, var(--wa-form-control-border-width));
+
+    font-family: inherit;
+    font-size: var(--wa-form-control-value-font-size);
+    font-weight: var(--wa-font-weight-action);
+    line-height: calc(var(--wa-form-control-height) - var(--border-width) * 2);
+    text-decoration: none;
+    vertical-align: middle;
+    white-space: nowrap;
+
+    height: var(--wa-form-control-height);
+    padding: 0 var(--wa-form-control-padding-inline);
+
+    transition-property: background, border, box-shadow, color;
+    transition-duration: var(--wa-transition-fast);
+    transition-timing-function: var(--wa-transition-easing);
+
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+
+    &:not(:disabled):hover {
+      background-color: var(
+        --background-color-hover,
+        color-mix(in oklab, var(--background-color), var(--wa-color-mix-hover))
+      );
+    }
+
+    &:not(:disabled):active {
+      background-color: var(
+        --background-color-active,
+        color-mix(in oklab, var(--background-color), var(--wa-color-mix-active))
+      );
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &:focus-visible {
+      outline: var(--wa-focus-ring);
+      outline-offset: var(--wa-focus-ring-offset);
+    }
+
+    /* Wrap in :is() so that Safari doesn't stop parsing this block */
+    &:is(::-moz-focus-inner) {
+      border: 0;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+
+      /* When disabled, prevent mouse events from bubbling up from children */
+      * {
+        pointer-events: none;
+      }
+    }
+
+    &.wa-pill {
+      border-radius: var(--wa-border-radius-pill);
+    }
   }
+  /* #endregion */
 
   /* #region 
   // Checkboxes + Radios
@@ -684,188 +762,9 @@
   }
   /* #endregion */
 
-  /* Select */
-  select,
-  label:has(select) {
-    /* Defaults for root element. */
-    --outlined-background-color: var(--wa-form-control-background-color);
-    --outlined-border-color: var(--wa-form-control-border-color);
-    --outlined-text-color: var(--wa-form-control-value-color);
-    --border-width: var(--wa-form-control-border-width);
-    --box-shadow: initial;
-  }
-
-  select {
-    background-color: var(--background-color, var(--wa-form-control-background-color));
-    border-color: var(--border-color, var(--wa-form-control-border-color));
-    border-radius: var(--wa-form-control-border-radius);
-    border-style: var(--wa-form-control-border-style);
-    border-width: var(--border-width);
-    box-shadow: var(--box-shadow);
-    color: var(--wa-form-control-value-color);
-    cursor: pointer;
-    font-family: inherit;
-    font-weight: var(--wa-form-control-value-font-weight);
-    line-height: var(--wa-form-control-value-line-height);
-    min-width: 0;
-    overflow: hidden;
-    padding: 0 var(--wa-form-control-padding-inline);
-    position: relative;
-    vertical-align: middle;
-    min-height: var(--wa-form-control-height);
-    width: 100%;
-    transition:
-      background-color var(--wa-transition-normal),
-      border var(--wa-transition-normal),
-      outline var(--wa-transition-fast);
-    transition-timing-function: var(--wa-transition-easing);
-  }
-
-  select:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    outline: none;
-  }
-
-  select:focus {
-    outline: var(--wa-focus-ring);
-    outline-offset: var(--wa-focus-ring-offset);
-  }
-
-  /* Replace native select caret */
-  select {
-    appearance: none;
-
-    --icon-caret: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 512 512"><path fill="rgb(180 180 200)" d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>');
-
-    background-image: var(--icon-caret), var(--icon-caret);
-    background-repeat: no-repeat;
-    background-position: center right var(--wa-form-control-padding-inline);
-    background-blend-mode: hue, difference;
-  }
-
-  select.wa-pill {
-    border-radius: var(--wa-border-radius-pill) !important;
-  }
-
-  /* Buttons */
-  button,
-  input[type='button'],
-  input[type='reset'],
-  input[type='submit'] {
-    --background-color: var(--wa-color-fill-loud, var(--wa-color-neutral-fill-loud));
-    --background-color-hover: color-mix(in oklab, var(--background-color), var(--wa-color-mix-hover));
-    --background-color-active: color-mix(in oklab, var(--background-color), var(--wa-color-mix-active));
-
-    --border-color: transparent;
-    --border-color-hover: var(--border-color);
-    --border-color-active: var(--border-color);
-    --border-width: max(1px, var(--wa-form-control-border-width));
-
-    --box-shadow: initial;
-
-    --text-color: var(--wa-color-on-loud, var(--wa-color-neutral-on-loud));
-    --text-color-hover: var(--text-color);
-    --text-color-active: var(--text-color);
-
-    gap: 0.5em;
-    border-radius: var(--wa-form-control-border-radius);
-    border-style: var(--wa-border-style);
-    border-width: var(--border-width);
-    box-shadow: var(--box-shadow);
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    user-select: none;
-    -webkit-user-select: none;
-    white-space: nowrap;
-    vertical-align: middle;
-    transition-property: background, border, box-shadow, color;
-    transition-duration: var(--wa-transition-fast);
-    transition-timing-function: var(--wa-transition-easing);
-    cursor: pointer;
-    padding: 0 var(--wa-form-control-padding-inline);
-    font-family: inherit;
-    font-weight: var(--wa-font-weight-action);
-    height: var(--wa-form-control-height);
-    line-height: calc(var(--wa-form-control-height) - var(--border-width) * 2);
-
-    display: inline-flex;
-    background-color: var(--background-color);
-    border-color: var(--border-color, var(--background-color));
-    color: var(--text-color);
-  }
-
-  /* Interactive states for native buttons */
-  button:not(:disabled):hover,
-  input[type='button']:not(:disabled):hover,
-  input[type='reset']:not(:disabled):hover,
-  input[type='submit']:not(:disabled):hover {
-    background-color: var(--background-color-hover, var(--background-color));
-    border-color: var(--border-color-hover, var(--border-color, var(--background-color-hover)));
-    color: var(--text-color-hover, var(--text-color));
-  }
-
-  button:not(:disabled):active,
-  input[type='button']:not(:disabled):active,
-  input[type='reset']:not(:disabled):active,
-  input[type='submit']:not(:disabled):active {
-    background-color: var(--background-color-active, var(--background-color));
-    border-color: var(--border-color-active, var(--border-color, var(--background-color-active)));
-    color: var(--text-color-active, var(--text-color));
-  }
-
-  /* Focus states */
-  button:focus,
-  input[type='button']:focus,
-  input[type='reset']:focus,
-  input[type='submit']:focus {
-    outline: none;
-  }
-
-  button:focus-visible,
-  input[type='button']:focus-visible,
-  input[type='reset']:focus-visible,
-  input[type='submit']:focus-visible {
-    outline: var(--wa-focus-ring);
-    outline-offset: var(--wa-focus-ring-offset);
-  }
-
-  /* Disabled state */
-  button:disabled,
-  input[type='button']:disabled,
-  input[type='reset']:disabled,
-  input[type='submit']:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-
-  /* When disabled, prevent mouse events from bubbling up from children */
-  button:disabled *,
-  input[type='button']:disabled *,
-  input[type='reset']:disabled *,
-  input[type='submit']:disabled * {
-    pointer-events: none;
-  }
-
-  /* Keep it last so Safari doesn't stop parsing this block */
-  button::-moz-focus-inner,
-  input[type='button']::-moz-focus-inner,
-  input[type='reset']::-moz-focus-inner,
-  input[type='submit']::-moz-focus-inner {
-    border: 0;
-  }
-
-  /* Pill modifier for native buttons */
-  button.wa-pill,
-  input[type='button'].wa-pill,
-  input[type='reset'].wa-pill,
-  input[type='submit'].wa-pill {
-    border-radius: var(--wa-border-radius-pill);
-  }
-
-  /* Input & textarea */
-  textarea,
+  /* #region
+  // Inputs + Textareas + Selects
+  */
   input:not(
     /* Exclude inputs that don't accept text */
     [type='button'],
@@ -878,116 +777,98 @@
     [type='range'],
     [type='reset'],
     [type='submit']
-  ) {
-    /* Style native inputs */
+  ), textarea, select {
+    background-color: var(--background-color, var(--wa-form-control-background-color));
     border-color: var(--border-color, var(--wa-form-control-border-color));
     border-radius: var(--wa-form-control-border-radius);
     border-style: var(--wa-form-control-border-style);
-    cursor: text;
+    border-width: var(--border-width, var(--wa-form-control-border-width));
+
     color: var(--wa-form-control-value-color);
     font-size: var(--wa-form-control-value-size);
     font-family: inherit;
     font-weight: var(--wa-form-control-value-font-weight);
     line-height: var(--wa-form-control-value-line-height);
     vertical-align: middle;
-    height: var(--wa-form-control-height);
+
     width: 100%;
+    height: var(--wa-form-control-height);
+    padding: 0 var(--wa-form-control-padding-inline);
+
     transition:
       background-color var(--wa-transition-normal),
       border var(--wa-transition-normal),
       outline var(--wa-transition-fast);
     transition-timing-function: var(--wa-transition-easing);
 
-    background-color: var(--background-color, var(--wa-form-control-background-color));
-    border-width: var(--border-width, var(--wa-form-control-border-width));
-    box-shadow: var(--box-shadow, initial);
-    padding: 0 var(--wa-form-control-padding-inline);
-
-    /* Textareas only */
-    &:not(input) {
-      line-height: var(--wa-line-height-normal);
-      height: auto;
-      min-height: var(--wa-form-control-height);
-      padding: calc(var(--wa-form-control-padding-block) - ((1lh - 1em) / 2)) var(--wa-form-control-padding-inline); /* accounts for the larger line height of textarea content */
-    }
-
-    /* Style focused inputs */
-    &:focus-within {
-      outline: var(--wa-focus-ring);
-      outline-offset: var(--wa-focus-ring-offset);
-    }
-
-    /* Style disabled inputs */
-    &:disabled {
-      cursor: not-allowed;
-      opacity: 0.5;
-    }
-
-    /* Actual inputs */
-    &:autofill {
-      &,
-      &:hover,
-      &:focus,
-      &:active {
-        box-shadow: none;
-        caret-color: var(--wa-form-control-value-color);
-      }
-    }
+    cursor: text;
 
     &::placeholder {
       color: var(--wa-form-control-placeholder-color);
       user-select: none;
       -webkit-user-select: none;
     }
-  }
 
-  textarea {
-    resize: vertical;
-  }
+    &:focus {
+      outline: none;
+    }
 
-  input.wa-pill,
-  textarea.wa-pill {
-    border-radius: var(--wa-border-radius-pill) !important;
-  }
+    &:focus-visible {
+      outline: var(--wa-focus-ring);
+      outline-offset: var(--wa-focus-ring-offset);
+    }
 
-  input::-webkit-search-decoration,
-  input::-webkit-search-cancel-button,
-  input::-webkit-search-results-button,
-  input::-webkit-search-results-decoration {
-    -webkit-appearance: none;
-  }
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
 
-  input:focus {
-    outline: none;
-  }
-
-  /* Don't show the browser's password toggle in Edge */
-  ::-ms-reveal {
-    display: none;
-  }
-
-  /* Hide the built-in number spinner */
-  input[type='number'][without-spin-buttons] {
-    -moz-appearance: textfield;
-
-    &::-webkit-outer-spin-button,
-    &::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      display: none;
+    &.wa-pill {
+      border-radius: var(--wa-border-radius-pill);
     }
   }
 
-  /* Color picker */
+  /* Textarea */
+  textarea {
+    line-height: var(--wa-line-height-normal);
+
+    height: auto;
+    min-height: var(--wa-form-control-height);
+    padding: calc(var(--wa-form-control-padding-block) - ((1lh - 1em) / 2)) var(--wa-form-control-padding-inline); /* accounts for the larger line height of textarea content */
+
+    resize: vertical;
+  }
+
+  /* Select */
+  select {
+    --icon-caret: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 512 512"><path fill="rgb(180 180 200)" d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>');
+
+    appearance: none;
+    position: relative;
+
+    background-image: var(--icon-caret), var(--icon-caret);
+    background-repeat: no-repeat;
+    background-position: center right var(--wa-form-control-padding-inline);
+    background-blend-mode: hue, difference;
+
+    min-width: 0;
+    overflow: hidden;
+
+    cursor: pointer;
+  }
+
+  /* Color Picker */
   input[type='color'] {
-    --border-width: var(--wa-form-control-border-width);
-    --trigger-border-radius: var(--wa-form-control-border-radius);
     display: block;
-    border-radius: var(--trigger-border-radius);
+
     background: transparent;
-    padding: calc(var(--border-width) * 2);
+    border-radius: var(--wa-form-control-border-radius);
+    border: var(--wa-form-control-border-width) var(--wa-border-style) var(--wa-form-control-border-color);
+
     width: var(--wa-form-control-height);
     height: var(--wa-form-control-height);
-    border: var(--border-width) var(--wa-border-style) var(--wa-form-control-border-color);
+    padding: calc(var(--wa-form-control-border-width) * 2);
+
     cursor: pointer;
     forced-color-adjust: none;
 
@@ -998,12 +879,12 @@
 
     &::-webkit-color-swatch {
       border: none;
-      border-radius: calc(var(--trigger-border-radius) - var(--border-width) * 3);
+      border-radius: calc(var(--wa-form-control-border-radius) - var(--wa-form-control-border-width) * 3);
     }
 
     &::-moz-color-swatch {
       border: none;
-      border-radius: calc(var(--trigger-border-radius) - var(--border-width) * 3);
+      border-radius: calc(var(--wa-form-control-border-radius) - var(--wa-form-control-border-width) * 3);
     }
 
     &:focus-visible {
