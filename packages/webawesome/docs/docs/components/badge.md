@@ -147,8 +147,10 @@ One of the most common use cases for badges is attaching them to buttons. To mak
 When including badges in menu items, use the `suffix` slot to make sure they're aligned correctly.
 
 ```html {.example}
-<wa-menu style="max-width: 240px;">
-  <wa-menu-label>Messages</wa-menu-label>
-  <wa-menu-item>Comments <wa-badge slot="suffix" variant="neutral" pill>4</wa-badge></wa-menu-item>
-  <wa-menu-item>Replies <wa-badge slot="suffix" variant="neutral" pill>12</wa-badge></wa-menu-item>
-</wa-menu>
+<wa-dropdown style="max-width: 240px;">
+  <wa-button slot="trigger" caret>Messages</wa-button>
+  <h3>Messages</h3>
+  <wa-dropdown-item>Comments <wa-badge slot="suffix" variant="neutral" pill>4</wa-badge></wa-dropdown-item>
+  <wa-dropdown-item>Replies <wa-badge slot="suffix" variant="neutral" pill>12</wa-badge></wa-dropdown-item>
+</wa-dropdown>
+```

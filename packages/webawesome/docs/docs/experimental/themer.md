@@ -2320,24 +2320,22 @@ hasOutline: false
             <td>
               <wa-dropdown>
                 <wa-button slot="trigger" caret size="small">Action</wa-button>
-                <wa-menu>
-                  <wa-menu-item>
-                    <wa-icon slot="prefix" name="check" variant="regular"></wa-icon>
-                    Resolved
-                  </wa-menu-item>
-                  <wa-menu-item>
-                    <wa-icon slot="prefix" name="clock" variant="regular"></wa-icon>
-                    Pending
-                  </wa-menu-item>
-                  <wa-menu-item>
-                    <wa-icon slot="prefix" name="arrow-rotate-left" variant="regular"></wa-icon>
-                    Re-open
-                  </wa-menu-item>
-                  <wa-menu-item>
-                    <wa-icon slot="prefix" name="xmark" variant="regular"></wa-icon>
-                    Delete
-                  </wa-menu-item>
-                </wa-menu>
+                <wa-dropdown-item>
+                  <wa-icon slot="prefix" name="check" variant="regular"></wa-icon>
+                  Resolved
+                </wa-dropdown-item>
+                <wa-dropdown-item>
+                  <wa-icon slot="prefix" name="clock" variant="regular"></wa-icon>
+                  Pending
+                </wa-dropdown-item>
+                <wa-dropdown-item>
+                  <wa-icon slot="prefix" name="arrow-rotate-left" variant="regular"></wa-icon>
+                  Re-open
+                </wa-dropdown-item>
+                <wa-dropdown-item>
+                  <wa-icon slot="prefix" name="xmark" variant="regular"></wa-icon>
+                  Delete
+                </wa-dropdown-item>
               </wa-dropdown>
             </td>
           </tr>
@@ -2348,26 +2346,24 @@ hasOutline: false
             <td><wa-avatar image="/assets/images/themer/avatar-char.jpg"  label="Char" style="margin-right: var(--wa-space-xs)"></wa-avatar>  Char McCoy</td>
             <td style="text-align: center;"><wa-tag variant="success" size="small">Resolved</wa-tag></td>
             <td>
-             <wa-dropdown>
+              <wa-dropdown>
                 <wa-button slot="trigger" caret size="small">Action</wa-button>
-                <wa-menu>
-                  <wa-menu-item>
-                    <wa-icon slot="prefix" name="check" variant="regular"></wa-icon>
-                    Resolved
-                  </wa-menu-item>
-                  <wa-menu-item>
-                    <wa-icon slot="prefix" name="clock" variant="regular"></wa-icon>
-                    Pending
-                  </wa-menu-item>
-                  <wa-menu-item>
-                    <wa-icon slot="prefix" name="arrow-rotate-left" variant="regular"></wa-icon>
-                    Re-open
-                  </wa-menu-item>
-                  <wa-menu-item>
-                    <wa-icon slot="prefix" name="xmark" variant="regular"></wa-icon>
-                    Delete
-                  </wa-menu-item>
-                </wa-menu>
+                <wa-dropdown-item>
+                  <wa-icon slot="prefix" name="check" variant="regular"></wa-icon>
+                  Resolved
+                </wa-dropdown-item>
+                <wa-dropdown-item>
+                  <wa-icon slot="prefix" name="clock" variant="regular"></wa-icon>
+                  Pending
+                </wa-dropdown-item>
+                <wa-dropdown-item>
+                  <wa-icon slot="prefix" name="arrow-rotate-left" variant="regular"></wa-icon>
+                  Re-open
+                </wa-dropdown-item>
+                <wa-dropdown-item>
+                  <wa-icon slot="prefix" name="xmark" variant="regular"></wa-icon>
+                  Delete
+                </wa-dropdown-item>
               </wa-dropdown>
             </td>
           </tr>
@@ -2378,26 +2374,24 @@ hasOutline: false
             <td><wa-avatar initials="DE" label="Avatar with initials: DE" style="margin-right: var(--wa-space-xs)"></wa-avatar>  Debbie Evans</td>
             <td style="text-align: center;"><wa-tag variant="warning" size="small">Pending</wa-tag></td>
             <td>
-             <wa-dropdown>
+              <wa-dropdown>
                 <wa-button slot="trigger" caret size="small">Action</wa-button>
-                <wa-menu>
-                  <wa-menu-item>
-                    <wa-icon slot="prefix" name="check" variant="regular"></wa-icon>
-                    Resolved
-                  </wa-menu-item>
-                  <wa-menu-item>
-                    <wa-icon slot="prefix" name="clock" variant="regular"></wa-icon>
-                    Pending
-                  </wa-menu-item>
-                  <wa-menu-item>
-                    <wa-icon slot="prefix" name="arrow-rotate-left" variant="regular"></wa-icon>
-                    Re-open
-                  </wa-menu-item>
-                  <wa-menu-item>
-                    <wa-icon slot="prefix" name="xmark" variant="regular"></wa-icon>
-                    Delete
-                  </wa-menu-item>
-                </wa-menu>
+                <wa-dropdown-item>
+                  <wa-icon slot="prefix" name="check" variant="regular"></wa-icon>
+                  Resolved
+                </wa-dropdown-item>
+                <wa-dropdown-item>
+                  <wa-icon slot="prefix" name="clock" variant="regular"></wa-icon>
+                  Pending
+                </wa-dropdown-item>
+                <wa-dropdown-item>
+                  <wa-icon slot="prefix" name="arrow-rotate-left" variant="regular"></wa-icon>
+                  Re-open
+                </wa-dropdown-item>
+                <wa-dropdown-item>
+                  <wa-icon slot="prefix" name="xmark" variant="regular"></wa-icon>
+                  Delete
+                </wa-dropdown-item>
               </wa-dropdown>
             </td>
           </tr>
@@ -2408,26 +2402,24 @@ hasOutline: false
             <td></td>
             <td style="text-align: center;"><wa-tag variant="danger" size="small">Bounced</wa-tag></td>
             <td>
-             <wa-dropdown>
+              <wa-dropdown>
                 <wa-button slot="trigger" caret size="small">Action</wa-button>
-                <wa-menu>
-                  <wa-menu-item>
-                    <wa-icon slot="prefix" name="check" variant="regular"></wa-icon>
-                    Resolved
-                  </wa-menu-item>
-                  <wa-menu-item>
-                    <wa-icon slot="prefix" name="clock" variant="regular"></wa-icon>
-                    Pending
-                  </wa-menu-item>
-                  <wa-menu-item>
-                    <wa-icon slot="prefix" name="arrow-rotate-left" variant="regular"></wa-icon>
-                    Re-open
-                  </wa-menu-item>
-                  <wa-menu-item>
-                    <wa-icon slot="prefix" name="xmark" variant="regular"></wa-icon>
-                    Delete
-                  </wa-menu-item>
-                </wa-menu>
+                <wa-dropdown-item>
+                  <wa-icon slot="prefix" name="check" variant="regular"></wa-icon>
+                  Resolved
+                </wa-dropdown-item>
+                <wa-dropdown-item>
+                  <wa-icon slot="prefix" name="clock" variant="regular"></wa-icon>
+                  Pending
+                </wa-dropdown-item>
+                <wa-dropdown-item>
+                  <wa-icon slot="prefix" name="arrow-rotate-left" variant="regular"></wa-icon>
+                  Re-open
+                </wa-dropdown-item>
+                <wa-dropdown-item>
+                  <wa-icon slot="prefix" name="xmark" variant="regular"></wa-icon>
+                  Delete
+                </wa-dropdown-item>
               </wa-dropdown>
             </td>
           </tr>
@@ -2438,26 +2430,24 @@ hasOutline: false
             <td><wa-avatar  image="/assets/images/themer/avatar-dara.jpg"  label="Dara" style="margin-right: var(--wa-space-xs)"></wa-avatar> Dara Prescott</td>
             <td style="text-align: center;"><wa-tag variant="neutral" size="small">Expired</wa-tag></td>
             <td>
-             <wa-dropdown>
+              <wa-dropdown>
                 <wa-button slot="trigger" caret size="small">Action</wa-button>
-                <wa-menu>
-                  <wa-menu-item>
-                    <wa-icon slot="prefix" name="check" variant="regular"></wa-icon>
-                    Resolved
-                  </wa-menu-item>
-                  <wa-menu-item>
-                    <wa-icon slot="prefix" name="clock" variant="regular"></wa-icon>
-                    Pending
-                  </wa-menu-item>
-                  <wa-menu-item>
-                    <wa-icon slot="prefix" name="arrow-rotate-left" variant="regular"></wa-icon>
-                    Re-open
-                  </wa-menu-item>
-                  <wa-menu-item>
-                    <wa-icon slot="prefix" name="xmark" variant="regular"></wa-icon>
-                    Delete
-                  </wa-menu-item>
-                </wa-menu>
+                <wa-dropdown-item>
+                  <wa-icon slot="prefix" name="check" variant="regular"></wa-icon>
+                  Resolved
+                </wa-dropdown-item>
+                <wa-dropdown-item>
+                  <wa-icon slot="prefix" name="clock" variant="regular"></wa-icon>
+                  Pending
+                </wa-dropdown-item>
+                <wa-dropdown-item>
+                  <wa-icon slot="prefix" name="arrow-rotate-left" variant="regular"></wa-icon>
+                  Re-open
+                </wa-dropdown-item>
+                <wa-dropdown-item>
+                  <wa-icon slot="prefix" name="xmark" variant="regular"></wa-icon>
+                  Delete
+                </wa-dropdown-item>
               </wa-dropdown>
             </td>
           </tr>

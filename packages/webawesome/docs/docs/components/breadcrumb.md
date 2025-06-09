@@ -139,11 +139,9 @@ Dropdown menus can be placed in the default slot to provide additional options.
       <wa-button slot="trigger" size="small" appearance="filled" pill>
         <wa-icon label="More options" name="ellipsis" variant="solid"></wa-icon>
       </wa-button>
-      <wa-menu>
-        <wa-menu-item type="checkbox" checked>Web Design</wa-menu-item>
-        <wa-menu-item type="checkbox">Web Development</wa-menu-item>
-        <wa-menu-item type="checkbox">Marketing</wa-menu-item>
-      </wa-menu>
+      <wa-dropdown-item type="checkbox" checked>Web Design</wa-dropdown-item>
+      <wa-dropdown-item type="checkbox">Web Development</wa-dropdown-item>
+      <wa-dropdown-item type="checkbox">Marketing</wa-dropdown-item>
     </wa-dropdown>
   </wa-breadcrumb-item>
   <wa-breadcrumb-item>Our Services</wa-breadcrumb-item>
@@ -164,11 +162,10 @@ Alternatively, you can place dropdown menus in a prefix or suffix slot.
       <wa-button slot="trigger" size="small" appearance="filled" pill>
         <wa-icon label="More options" name="ellipsis" variant="solid"></wa-icon>
       </wa-button>
-      <wa-menu>
-        <wa-menu-item type="checkbox" checked>Web Design</wa-menu-item>
-        <wa-menu-item type="checkbox">Web Development</wa-menu-item>
-        <wa-menu-item type="checkbox">Marketing</wa-menu-item>
-      </wa-menu>
+      <wa-dropdown-item type="checkbox" checked>Web Design</wa-dropdown-item>
+      <wa-dropdown-item type="checkbox">Web Development</wa-dropdown-item>
+      <wa-dropdown-item type="checkbox">Marketing</wa-dropdown-item>
     </wa-dropdown>
   </wa-breadcrumb-item>
 </wa-breadcrumb>
+```

@@ -58,13 +58,14 @@ The default orientation for dividers is `horizontal`. Set `orientation` attribut
 Use dividers in [menus](/docs/components/menu) to visually group menu items.
 
 ```html {.example}
-<wa-menu style="max-width: 200px;">
-  <wa-menu-item value="1">Option 1</wa-menu-item>
-  <wa-menu-item value="2">Option 2</wa-menu-item>
-  <wa-menu-item value="3">Option 3</wa-menu-item>
+<wa-dropdown style="max-width: 200px;">
+  <wa-button slot="trigger" caret>Menu</wa-button>
+  <wa-dropdown-item value="1">Option 1</wa-dropdown-item>
+  <wa-dropdown-item value="2">Option 2</wa-dropdown-item>
+  <wa-dropdown-item value="3">Option 3</wa-dropdown-item>
   <wa-divider></wa-divider>
-  <wa-menu-item value="4">Option 4</wa-menu-item>
-  <wa-menu-item value="5">Option 5</wa-menu-item>
-  <wa-menu-item value="6">Option 6</wa-menu-item>
-</wa-menu>
+  <wa-dropdown-item value="4">Option 4</wa-dropdown-item>
+  <wa-dropdown-item value="5">Option 5</wa-dropdown-item>
+  <wa-dropdown-item value="6">Option 6</wa-dropdown-item>
+</wa-dropdown>
 ```

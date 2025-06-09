@@ -166,11 +166,9 @@ Dropdowns can be placed into button groups.
   <wa-button>Button</wa-button>
   <wa-dropdown>
     <wa-button slot="trigger" caret>Dropdown</wa-button>
-    <wa-menu>
-      <wa-menu-item>Item 1</wa-menu-item>
-      <wa-menu-item>Item 2</wa-menu-item>
-      <wa-menu-item>Item 3</wa-menu-item>
-    </wa-menu>
+    <wa-dropdown-item>Item 1</wa-dropdown-item>
+    <wa-dropdown-item>Item 2</wa-dropdown-item>
+    <wa-dropdown-item>Item 3</wa-dropdown-item>
   </wa-dropdown>
   <wa-button>Button</wa-button>
 </wa-button-group>
@@ -187,11 +185,9 @@ Create a split button using a button and a dropdown. Use a [visually hidden](/do
     <wa-button slot="trigger" variant="brand">
       <wa-icon name="chevron-down" label="More options"></wa-icon>
     </wa-button>
-    <wa-menu>
-      <wa-menu-item>Save</wa-menu-item>
-      <wa-menu-item>Save as&hellip;</wa-menu-item>
-      <wa-menu-item>Save all</wa-menu-item>
-    </wa-menu>
+    <wa-dropdown-item>Save</wa-dropdown-item>
+    <wa-dropdown-item>Save as&hellip;</wa-dropdown-item>
+    <wa-dropdown-item>Save all</wa-dropdown-item>
   </wa-dropdown>
 </wa-button-group>
 ```
@@ -230,9 +226,15 @@ Create interactive toolbars with button groups.
   </wa-button-group>
 
   <wa-button-group label="Alignment">
-    <wa-button id="button-align-left"><wa-icon name="align-left" variant="solid" label="Align Left"></wa-icon></wa-button>
-    <wa-button id="button-align-center"><wa-icon name="align-center" variant="solid" label="Align Center"></wa-icon></wa-button>
-    <wa-button id="button-align-right"><wa-icon name="align-right" variant="solid" label="Align Right"></wa-icon></wa-button>
+    <wa-button id="button-align-left">
+      <wa-icon name="align-left" variant="solid" label="Align Left"></wa-icon>
+    </wa-button>
+    <wa-button id="button-align-center">
+      <wa-icon name="align-center" variant="solid" label="Align Center"></wa-icon>
+    </wa-button>
+    <wa-button id="button-align-right">
+      <wa-icon name="align-right" variant="solid" label="Align Right"></wa-icon>
+    </wa-button>
   </wa-button-group>
 </div>
 
