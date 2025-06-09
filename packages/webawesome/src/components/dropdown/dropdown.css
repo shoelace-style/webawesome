@@ -13,11 +13,11 @@
   width: max-content;
   margin: 0;
   padding: 0.25em;
-  border: var(--wa-border-style) var(--wa-border-width-s) var(--wa-color-neutral-border-quiet);
+  border: var(--wa-border-style) var(--wa-border-width-s) var(--wa-color-surface-border);
   border-radius: var(--wa-border-radius-m);
-  background-color: var(--wa-color-surface-default);
+  background-color: var(--wa-color-surface-raised);
   box-shadow: var(--wa-shadow-m);
-  color: var(--wa-color-neutral-on-quiet);
+  color: var(--wa-color-text-normal);
   text-align: start;
   user-select: none;
 
@@ -37,10 +37,11 @@
   ::slotted(h6) {
     display: block !important;
     margin: 0.25em 0 !important;
-    padding: 0.25em 1em !important;
+    padding: 0.25em 0.75em !important;
     color: var(--wa-color-text-quiet) !important;
+    font-family: var(--wa-font-family-body) !important;
     font-weight: var(--wa-font-weight-semibold) !important;
-    font-size: 0.75em !important;
+    font-size: var(--wa-font-size-smaller) !important;
   }
 
   ::slotted(wa-divider) {

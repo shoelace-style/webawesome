@@ -11,6 +11,7 @@ import { WaShowEvent } from '../../events/show.js';
 import { animateWithClass } from '../../internal/animate.js';
 import { uniqueId } from '../../internal/math.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
+import sizeStyles from '../../styles/utilities/size.css';
 import { LocalizeController } from '../../utilities/localize.js';
 import type WaButton from '../button/button.js';
 import '../dropdown-item/dropdown-item.js';
@@ -54,7 +55,7 @@ const openDropdowns = new Set<WaDropdown>();
  */
 @customElement('wa-dropdown')
 export default class WaDropdown extends WebAwesomeElement {
-  static css = styles;
+  static css = [sizeStyles, styles];
 
   private submenuCleanups: Map<WaDropdownItem, ReturnType<typeof autoUpdate>> = new Map();
   private readonly localize = new LocalizeController(this);

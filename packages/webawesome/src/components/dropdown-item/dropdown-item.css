@@ -2,11 +2,11 @@
   display: flex;
   position: relative;
   align-items: center;
-  padding: 0.33em 1em;
+  padding: 0.5em 1em;
   border-radius: var(--wa-border-radius-s);
   isolation: isolate;
-  color: var(--wa-color-neutral-on-quiet);
-  line-height: var(--wa-line-height-normal);
+  color: var(--wa-color-text-normal);
+  line-height: var(--wa-line-height-condensed);
   cursor: pointer;
   transition:
     100ms background-color ease,
@@ -15,35 +15,19 @@
 
 @media (hover: hover) {
   :host(:hover:not(:state(disabled))) {
-    background-color: var(--wa-color-neutral-fill-quiet);
-    color: var(--wa-color-neutral-on-quiet);
+    background-color: var(--wa-color-neutral-fill-normal);
   }
 }
 
 :host(:focus-visible) {
   z-index: 1;
-  outline: var(--wa-color-brand-border-loud);
-  outline-offset: var(--wa-focus-ring-offset);
-  background-color: var(--wa-color-neutral-fill-quiet);
-  color: var(--wa-color-neutral-on-quiet);
+  outline: var(--wa-focus-ring);
+  background-color: var(--wa-color-neutral-fill-normal);
 }
 
 :host(:state(disabled)) {
   opacity: 0.5;
   cursor: not-allowed;
-}
-
-/* Sizes */
-:host([size='small']) {
-  font-size: var(--wa-font-size-s);
-}
-
-:host([size='medium']) {
-  font-size: var(--wa-font-size-m);
-}
-
-:host([size='large']) {
-  font-size: var(--wa-font-size-l);
 }
 
 /* Danger variant */
@@ -54,14 +38,14 @@
 
 @media (hover: hover) {
   :host([variant='danger']:hover) {
-    background-color: var(--wa-color-danger-fill-quiet);
-    color: var(--wa-color-danger-on-quiet);
+    background-color: var(--wa-color-danger-fill-normal);
+    color: var(--wa-color-danger-on-normal);
   }
 }
 
 :host([variant='danger']:focus-visible) {
-  background-color: var(--wa-color-danger-fill-quiet);
-  color: var(--wa-color-danger-on-quiet);
+  background-color: var(--wa-color-danger-fill-normal);
+  color: var(--wa-color-danger-on-normal);
 }
 
 :host([checkbox-adjacent]) {
@@ -79,9 +63,9 @@
 
 #check {
   visibility: hidden;
-  margin-inline-start: -1.25em;
-  margin-inline-end: 0.25em;
-  font-size: 1.25em;
+  margin-inline-start: -1.5em;
+  margin-inline-end: 0.5em;
+  font-size: var(--wa-font-size-smaller);
 }
 
 :host(:state(checked)) #check {
@@ -92,8 +76,8 @@
   display: flex;
   flex: 0 0 auto;
   align-items: center;
-  margin-inline-end: 0.5em !important;
-  font-size: 1.25em;
+  margin-inline-end: 0.75em !important;
+  font-size: var(--wa-font-size-smaller);
 }
 
 #label {
@@ -109,8 +93,8 @@
   flex: 0 0 auto;
   align-items: center;
   justify-content: end;
-  color: var(--wa-color-neutral-border-normal);
-  font-size: 0.933334em !important;
+  color: var(--wa-color-text-quiet);
+  font-size: var(--wa-font-size-smaller) !important;
 }
 
 #details ::slotted(*) {
@@ -120,9 +104,9 @@
 /* Submenu indicator icon */
 #submenu-indicator {
   position: absolute;
-  inset-inline-end: 0.25em;
-  color: var(--wa-color-neutral-border-normal);
-  font-size: 1.25em;
+  inset-inline-end: 1em;
+  color: var(--wa-color-neutral-on-quiet);
+  font-size: var(--wa-font-size-smaller);
 }
 
 /* Flip chevron icon when RTL */
@@ -141,11 +125,11 @@
   width: max-content;
   margin: 0;
   padding: 0.25em;
-  border: var(--wa-border-style) var(--wa-border-width-s) var(--wa-color-neutral-border-quiet);
+  border: var(--wa-border-style) var(--wa-border-width-s) var(--wa-color-surface-border);
   border-radius: var(--wa-border-radius-m);
-  background-color: var(--wa-color-surface-default);
-  box-shadow: var(--wa-shadow-l);
-  color: var(--wa-color-neutral-on-quiet);
+  background-color: var(--wa-color-surface-raised);
+  box-shadow: var(--wa-shadow-m);
+  color: var(--wa-color-text-normal);
   text-align: start;
   user-select: none;
 
