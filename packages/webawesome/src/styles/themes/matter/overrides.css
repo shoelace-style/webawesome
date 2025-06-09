@@ -165,7 +165,6 @@
       }
     }
 
-    wa-menu-item,
     wa-option {
       --background-color-hover: color-mix(in oklch, var(--wa-color-surface-lowered), transparent);
       --text-color-hover: var(--wa-color-text-normal);
