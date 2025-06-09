@@ -8,7 +8,7 @@ parent: breadcrumb
 ```html {.example}
 <wa-breadcrumb>
   <wa-breadcrumb-item>
-    <wa-icon slot="prefix" name="house" variant="solid"></wa-icon>
+    <wa-icon slot="start" name="house" variant="solid"></wa-icon>
     Home
   </wa-breadcrumb-item>
   <wa-breadcrumb-item>Clothing</wa-breadcrumb-item>

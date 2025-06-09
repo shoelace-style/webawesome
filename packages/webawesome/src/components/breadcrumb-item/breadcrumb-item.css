@@ -45,25 +45,25 @@
   outline-offset: var(--wa-focus-ring-offset);
 }
 
-.prefix,
-.suffix {
+.start,
+.end {
   display: none;
   flex: 0 0 auto;
   display: flex;
   align-items: center;
 }
 
-.prefix,
-.suffix {
+.start,
+.end {
   display: inline-flex;
   color: var(--wa-color-text-quiet);
 }
 
-::slotted([slot='prefix']) {
+::slotted([slot='start']) {
   margin-inline-end: var(--wa-space-s);
 }
 
-::slotted([slot='suffix']) {
+::slotted([slot='end']) {
   margin-inline-start: var(--wa-space-s);
 }
 
