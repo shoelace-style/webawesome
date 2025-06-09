@@ -28,14 +28,13 @@
     }
 
     wa-callout {
-      --spacing: var(--wa-space-l);
+      --spacing: var(--wa-space-m);
       font-size: var(--wa-font-size-smaller);
 
       &:is([appearance~='outlined']) {
-        border-width: var(--wa-border-width-l) var(--wa-border-width-s) var(--wa-border-width-s)
-          var(--wa-border-width-s);
-        border-color: var(--border-color, var(--wa-color-border-loud)) var(--wa-color-surface-border)
-          var(--wa-color-surface-border) var(--wa-color-surface-border);
+        border-top-width: var(--wa-border-width-l);
+        border-color: var(--wa-color-surface-border);
+        border-top-color: var(--border-color, var(--wa-color-border-loud));
 
         &:not([appearance~='accent']) {
           --border-color: var(--wa-color-fill-loud);
@@ -52,16 +51,13 @@
     }
 
     wa-carousel {
-      --box-shadow: var(--wa-shadow-s);
       --pagination-color-active: var(--wa-color-neutral-fill-loud);
     }
 
-    wa-dialog,
-    wa-drawer {
-      --spacing: var(--wa-space-l);
-    }
-
     :is(
+        wa-input,
+        wa-select,
+        wa-textarea,
         input:where(
             :not(
               [type='button'],
@@ -77,21 +73,22 @@
             )
           ),
         select,
-        textarea,
-        wa-input,
-        wa-select,
-        wa-textarea
-      ):not([appearance='filled']) {
+        textarea
+      ):not([appearance='filled'], .wa-filled) {
       --wa-focus-ring: var(--wa-focus-ring-style) var(--wa-focus-ring-width)
         color-mix(in oklab, var(--wa-color-focus), transparent 50%);
       --wa-focus-ring-offset: 0;
     }
 
-    input[type='radio'],
-    wa-radio {
-      --background-color-checked: var(--border-color-checked);
+    wa-radio,
+    input[type='radio'] {
       --checked-icon-color: var(--wa-color-surface-default);
       --checked-icon-scale: 0.4;
+
+      &:checked,
+      &:state(checked)::part(control) {
+        background-color: var(--wa-form-control-activated-color);
+      }
     }
 
     wa-slider::part(thumb) {
@@ -114,12 +111,13 @@
       }
     }
 
-    wa-progress-bar {
-      --height: 1rem;
+    wa-progress-bar::part(base),
+    progress {
+      height: 1em;
     }
 
     wa-tab {
-      font-size: var(--wa-font-size-s);
+      font-size: var(--wa-font-size-smaller);
     }
   }
 }

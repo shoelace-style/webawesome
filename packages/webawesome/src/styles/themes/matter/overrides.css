@@ -68,9 +68,9 @@
     }
 
     input[type='checkbox'],
-    wa-checkbox,
+    wa-checkbox::part(control),
     wa-tree-item::part(checkbox__control) {
-      --border-radius: calc(var(--wa-border-radius-s) / 2);
+      border-radius: calc(var(--wa-border-radius-s) / 2);
     }
 
     input:where(
@@ -185,19 +185,17 @@
     }
 
     input:is([type='checkbox'], [type='radio']),
-    wa-checkbox,
+    wa-checkbox::part(control),
     wa-tree-item::part(checkbox__control),
-    wa-radio {
-      --border-width: var(--wa-border-width-m);
+    wa-radio::part(control) {
       --checked-icon-scale: 0.65;
 
-      &::part(control) {
-        margin-inline-end: 0.75em;
-      }
+      border-width: var(--wa-border-width-m);
+      margin-inline-end: 0.75em;
 
       @media (hover: hover) {
         &:hover {
-          --box-shadow: 0 0 0 0.5em color-mix(in oklab, var(--border-color), transparent 85%);
+          box-shadow: 0 0 0 0.5em color-mix(in oklab, var(--border-color), transparent 85%);
           &:is(:checked, :indeterminate, :state(checked), :state(indeterminate)) {
             --box-shadow: 0 0 0 0.5em color-mix(in oklab, var(--border-color-checked), transparent 85%);
           }

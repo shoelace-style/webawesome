@@ -11,11 +11,15 @@
       letter-spacing: -0.02em;
     }
 
-    input[type='radio'],
-    wa-radio {
-      --background-color-checked: var(--border-color-checked);
+    wa-radio,
+    input[type='radio'] {
       --checked-icon-color: var(--wa-color-surface-default);
       --checked-icon-scale: 0.4;
+
+      &:checked,
+      &:state(checked)::part(control) {
+        background-color: var(--wa-form-control-activated-color);
+      }
     }
   }
 }

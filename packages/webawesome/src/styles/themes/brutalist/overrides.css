@@ -59,6 +59,9 @@
     }
 
     :is(
+      wa-input::part(input),
+      wa-select::part(form-control-input),
+      wa-textarea::part(form-control-input),
       input:where(
           :not(
             [type='button'],
@@ -74,12 +77,9 @@
           )
         ),
       select,
-      textarea,
-      wa-input,
-      wa-select,
-      wa-textarea
+      textarea
     ) {
-      --border-width: 0 0 var(--wa-form-control-border-width) var(--wa-form-control-border-width);
+      border-width: 0 0 var(--wa-form-control-border-width) var(--wa-form-control-border-width);
     }
 
     wa-rating {
