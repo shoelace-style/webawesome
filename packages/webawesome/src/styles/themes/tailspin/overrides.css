@@ -32,11 +32,15 @@
       }
     }
 
-    input[type='radio'],
-    wa-radio {
-      --background-color-checked: var(--wa-form-control-activated-color);
-      --checked-icon-color: var(--wa-color-brand-on-loud);
+    wa-radio,
+    input[type='radio'] {
+      --checked-icon-color: var(--wa-color-surface-default);
       --checked-icon-scale: 0.4;
+
+      &:checked,
+      &:state(checked)::part(control) {
+        background-color: var(--wa-form-control-activated-color);
+      }
     }
 
     wa-switch {

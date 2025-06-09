@@ -1,3 +1,19 @@
+/* Prep our code blocks to host the copy button */
+pre[id*='code-block-']:has(code) {
+  position: relative;
+  padding: 0;
+  white-space: normal;
+
+  & code {
+    display: block;
+    font-size: 1em;
+    background-color: transparent;
+    padding: var(--wa-space-m);
+    white-space: pre;
+    overflow-x: auto;
+  }
+}
+
 wa-copy-button.copy-button {
   --background-color: var(--wa-color-gray-20);
   --background-color-hover: color-mix(in oklab, var(--background-color), white 5%);

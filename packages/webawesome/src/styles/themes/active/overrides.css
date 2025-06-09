@@ -2,11 +2,15 @@
   :where(:root),
   :host,
   .wa-theme-active {
-    input[type='radio'],
-    wa-radio {
-      --background-color-checked: var(--wa-form-control-activated-color);
+    wa-radio,
+    input[type='radio'] {
       --checked-icon-color: var(--wa-color-brand-on-loud);
       --checked-icon-scale: 0.4;
+
+      &:checked,
+      &:state(checked)::part(control) {
+        background-color: var(--wa-form-control-activated-color);
+      }
     }
   }
 }

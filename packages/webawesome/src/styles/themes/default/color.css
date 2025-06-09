@@ -36,7 +36,7 @@
 
     /* Overlays provide a backdrop for isolated content, often allowing background context to show through. */
     --wa-color-overlay-modal: color-mix(in oklab, var(--wa-color-neutral-05) 50%, transparent);
-    --wa-color-overlay-inline: color-mix(in oklab, var(--wa-color-neutral-80) 20%, transparent);
+    --wa-color-overlay-inline: color-mix(in oklab, var(--wa-color-neutral-80) 25%, transparent);
 
     /* Shadows indicate elevation. Shadow color is used in your theme's shadow properties.
    * By default, the opacity of your shadow color is tied to the blur of shadows in your theme.

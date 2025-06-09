@@ -77,16 +77,16 @@ Organized content in bulleted or numbered format with proper nesting support.
 <ol>
   <li>List item 1</li>
   <li>List item 2
-    <ul>
+    <ol>
       <li>Subitem a</li>
       <li>Subitem b</li>
-    </ul>
+    </ol>
   </li>
   <li>List item 3</li>
 </ol>
 ```
 
-### Definition Lists
+### Description Lists
 
 Term and definition pairs for glossaries and descriptions.
 
@@ -141,19 +141,19 @@ Various text formatting elements for emphasis and semantic meaning.
 ```html {.example}
 <div class="two-columns">
   <p><strong>Bold</strong></p>
-  <p><em>Italics</em></p>
+  <p><em>Italic</em></p>
   <p><u>Underline</u></p>
+  <p><s>Strike-through</s></p>
   <p><del>Deleted</del></p>
   <p><ins>Inserted</ins></p>
-  <p><s>Strike-through</s></p>
   <p><small>Small</small></p>
-  <p><span>Text <sub>Sub</sub></span></p>
-  <p><span>Text <sup>Sup</sup></span></p>
+  <p><span>Subscript <sub>Sub</sub></span></p>
+  <p><span>Superscript <sup>Sup</sup></span></p>
   <p><abbr title="Abbreviation">Abbr.</abbr></p>
-  <p><kbd>Keyboard</kbd></p>
   <p><mark>Highlighted</mark></p>
   <p><a href="#">Link text</a></p>
   <p><code>Inline code</code></p>
+  <p><kbd>Keyboard</kbd></p>
 </div>
 ```
 
@@ -161,11 +161,13 @@ Various text formatting elements for emphasis and semantic meaning.
 
 Formatted code snippets with proper syntax styling.
 
-```
+```html {.example}
+<pre>
 // do a thing
 export function thing() {
   return true;
 }
+</pre>
 ```
 
 ### Images
@@ -453,4 +455,13 @@ Multi-line text input fields for longer content.
 
 ```html {.example}
 <label>Textarea <textarea placeholder="Type something"></textarea></label>
+```
+
+### Fieldsets 
+
+```html {.example}
+<fieldset>
+  <legend>Legend</legend>
+  Nunc mi ipsum faucibus vitae aliquet nec ullamcorper. Tincidunt id aliquet risus feugiat in ante. Ac turpis egestas integer eget aliquet nibh praesent tristique magna.
+</fieldset>
 ```
