@@ -1,7 +1,6 @@
 ---
 title: Badge
 description: Badges are used to draw attention and display statuses or counts.
-tags: [feedback, content]
 icon: badge
 ---
 

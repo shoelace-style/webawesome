@@ -1,13 +1,11 @@
 ---
 title: Style Utilities
-description: Style utilities are preset rules that let you efficiently customize styles for components and native elements alike.
+description:
+  Style utilities are preset rules that let you efficiently customize styles for components and native elements alike.
   See the [installation instructions](#installation) to use style utilities in your project.
-layout: overview
-categories: ["layout"]
-override:tags: []
+layout: docs
 ---
 
-{% markdown %}
 ## Installation
 
 To use all Web Awesome page styles (including [native styles](/docs/utilities/native/)), include the following stylesheet in your project:
@@ -21,4 +19,3 @@ Or, to _only_ include utilities:
 ```html
 <link rel="stylesheet" href="{% cdnUrl 'styles/utilities.css' %}" />
 ```
-{% endmarkdown %}

@@ -1,8 +1,6 @@
 ---
 title: Tab Panel
 description: Tab panels are used inside tab groups to display tabbed content.
-tags: component
-parent: tab-group
 icon: tab-panel
 ---
 

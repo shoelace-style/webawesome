@@ -1,7 +1,6 @@
 ---
 title: Radio Group
 description: Radio groups are used to group multiple radios so they function as a single form control.
-tags: [inputs, forms]
 icon: radio-group
 ---
 
@@ -44,7 +43,7 @@ Set the `appearance` attribute to `button` on all radios to render a radio butto
   <wa-radio appearance="button" value="3">Option 3</wa-radio>
 </wa-radio-group>
 
-<br>
+<br />
 
 <wa-radio-group
   label="Vertical options"

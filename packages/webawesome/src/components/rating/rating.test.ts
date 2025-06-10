@@ -2,8 +2,8 @@ import { expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import sinon from 'sinon';
-import { clickOnElement } from '../../internal/test.js';
 import { fixtures } from '../../internal/test/fixture.js';
+import { clickOnElement } from '../../internal/test/pointer-utilities.js';
 import type WaRating from './rating.js';
 
 describe('<wa-rating>', () => {

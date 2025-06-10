@@ -4,8 +4,6 @@ description: Native styles apply your theme to native HTML elements so they matc
 layout: page-outline
 ---
 
-# Web Awesome Native Styles
-
 Web Awesome provides optional Native Styles that make native HTML elements look good so you can continue using what you know and gradually adopt Web Awesome as you see fit.
 
 ## Installation
@@ -42,9 +40,16 @@ Semantic heading elements with proper hierarchy and styling.
 Standard paragraph text with optimal spacing and readability.
 
 ```html {.example}
-<p>Vel risus commodo viverra maecenas accumsan lacus vel facilisis volutpat. Amet mauris commodo quis imperdiet. Bibendum ut tristique et egestas quis ipsum suspendisse. Sit amet nulla facilisi morbi tempus iaculis urna id volutpat.</p>
+<p>
+  Vel risus commodo viverra maecenas accumsan lacus vel facilisis volutpat. Amet mauris commodo quis imperdiet. Bibendum
+  ut tristique et egestas quis ipsum suspendisse. Sit amet nulla facilisi morbi tempus iaculis urna id volutpat.
+</p>
 
-<p>Cras pulvinar mattis nunc sed blandit libero. Facilisis magna etiam tempor orci. Scelerisque eleifend donec pretium vulputate sapien nec. Donec et odio pellentesque diam volutpat commodo sed egestas egestas. Mauris rhoncus aenean vel elit scelerisque mauris pellentesque.</p>
+<p>
+  Cras pulvinar mattis nunc sed blandit libero. Facilisis magna etiam tempor orci. Scelerisque eleifend donec pretium
+  vulputate sapien nec. Donec et odio pellentesque diam volutpat commodo sed egestas egestas. Mauris rhoncus aenean vel
+  elit scelerisque mauris pellentesque.
+</p>
 ```
 
 ### Blockquotes
@@ -53,7 +58,8 @@ Styled quotations that stand out from regular text.
 
 ```html {.example}
 <blockquote>
-  What is a Web year now, about three months? And when people can browse around, discover new things, and download them fast, when we all have agents - then Web years could slip by before human beings can notice.<br><br>
+  What is a Web year now, about three months? And when people can browse around, discover new things, and download them
+  fast, when we all have agents - then Web years could slip by before human beings can notice.<br /><br />
   — Tim Berners-Lee
 </blockquote>
 ```
@@ -65,7 +71,8 @@ Organized content in bulleted or numbered format with proper nesting support.
 ```html {.example}
 <ul>
   <li>List item 1</li>
-  <li>List item 2
+  <li>
+    List item 2
     <ul>
       <li>Subitem a</li>
       <li>Subitem b</li>
@@ -76,7 +83,8 @@ Organized content in bulleted or numbered format with proper nesting support.
 
 <ol>
   <li>List item 1</li>
-  <li>List item 2
+  <li>
+    List item 2
     <ol>
       <li>Subitem a</li>
       <li>Subitem b</li>
@@ -93,11 +101,20 @@ Term and definition pairs for glossaries and descriptions.
 ```html {.example}
 <dl>
   <dt>Definition 1</dt>
-  <dd>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</dd>
+  <dd>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+    aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+  </dd>
   <dt>Definition 2</dt>
-  <dd>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</dd>
+  <dd>
+    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
+    sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+  </dd>
   <dt>Definition 3</dt>
-  <dd>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</dd>
+  <dd>
+    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam,
+    eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+  </dd>
 </dl>
 ```
 
@@ -108,7 +125,10 @@ Collapsible content sections with expand/collapse functionality.
 ```html {.example}
 <details>
   <summary>Tincidunt nunc pulvinar</summary>
-  <p>Ut lectus arcu bibendum at varius. Convallis a cras semper auctor neque vitae. Odio pellentesque diam volutpat commodo sed egestas. Amet dictum sit amet justo donec enim diam vulputate ut.</p>
+  <p>
+    Ut lectus arcu bibendum at varius. Convallis a cras semper auctor neque vitae. Odio pellentesque diam volutpat
+    commodo sed egestas. Amet dictum sit amet justo donec enim diam vulputate ut.
+  </p>
 </details>
 ```
 
@@ -119,7 +139,7 @@ Modal dialog windows for alerts, confirmations, and overlays.
 ```html {.example}
 <dialog id="dialog-example">
   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-	<button type="button">Close</button>
+  <button type="button">Close</button>
 </dialog>
 
 <button>Open Dialog</button>
@@ -147,8 +167,12 @@ Various text formatting elements for emphasis and semantic meaning.
   <p><del>Deleted</del></p>
   <p><ins>Inserted</ins></p>
   <p><small>Small</small></p>
-  <p><span>Subscript <sub>Sub</sub></span></p>
-  <p><span>Superscript <sup>Sup</sup></span></p>
+  <p>
+    <span>Subscript <sub>Sub</sub></span>
+  </p>
+  <p>
+    <span>Superscript <sup>Sup</sup></span>
+  </p>
   <p><abbr title="Abbreviation">Abbr.</abbr></p>
   <p><mark>Highlighted</mark></p>
   <p><a href="#">Link text</a></p>
@@ -182,7 +206,7 @@ Visual indicators for task completion and loading states.
 
 ```html {.example}
 <progress value="40" max="100"></progress>
-<br>
+<br />
 <progress></progress>
 ```
 
@@ -192,7 +216,9 @@ Structured data presentation with clean styling and optional zebra striping.
 
 ```html {.example}
 <table>
-  <caption>I'm just a table</caption>
+  <caption>
+    I'm just a table
+  </caption>
   <thead>
     <tr>
       <th>Column 1</th>
@@ -234,7 +260,9 @@ You can use the `wa-zebra-rows` class to add alternating row colors to your tabl
 
 ```html {.example}
 <table class="wa-zebra-rows">
-  <caption>I'm just a table</caption>
+  <caption>
+    I'm just a table
+  </caption>
   <thead>
     <tr>
       <th>Column 1</th>
@@ -352,12 +380,12 @@ Use the `wa-pill` class to give buttons rounded edges.
 Multi-select form controls with checked, indeterminate, and disabled states.
 
 ```html {.example}
-<label><input type="checkbox" checked> Checked</label><br>
-<label><input type="checkbox" class="indeterminate"> Indeterminate</label><br>
-<label><input type="checkbox" disabled> Disabled</label>
+<label><input type="checkbox" checked /> Checked</label><br />
+<label><input type="checkbox" class="indeterminate" /> Indeterminate</label><br />
+<label><input type="checkbox" disabled /> Disabled</label>
 
 <script>
-  document.querySelector(".indeterminate").indeterminate = true;
+  document.querySelector('.indeterminate').indeterminate = true;
 </script>
 ```
 
@@ -369,15 +397,15 @@ You can wrap native radios in a flex container to give them a horizontal or vert
 
 ```html {.example}
 <div class="wa-cluster">
-  <label><input type="radio" name="b" value="1" checked> Option 1</label>
-  <label><input type="radio" name="b" value="2"> Option 2</label>
-  <label><input type="radio" name="b" value="3"> Option 3</label>
+  <label><input type="radio" name="b" value="1" checked /> Option 1</label>
+  <label><input type="radio" name="b" value="2" /> Option 2</label>
+  <label><input type="radio" name="b" value="3" /> Option 3</label>
 </div>
 
 <div class="wa-stack" style="margin-block-start: var(--wa-space-2xl);">
-  <label><input type="radio" name="g" value="1" checked> Option 1</label>
-  <label><input type="radio" name="g" value="2"> Option 2</label>
-  <label><input type="radio" name="g" value="3"> Option 3</label>
+  <label><input type="radio" name="g" value="1" checked /> Option 1</label>
+  <label><input type="radio" name="g" value="2" /> Option 2</label>
+  <label><input type="radio" name="g" value="3" /> Option 3</label>
 </div>
 ```
 
@@ -386,7 +414,8 @@ You can wrap native radios in a flex container to give them a horizontal or vert
 Dropdown menus for choosing from a list of options.
 
 ```html {.example}
-<label>Select
+<label
+  >Select
   <select id="select">
     <option value="option-1">Option 1</option>
     <option value="option-2">Option 2</option>
@@ -400,7 +429,7 @@ Dropdown menus for choosing from a list of options.
 Range inputs for selecting numeric values within a specified range.
 
 ```html {.example}
-<label>Select a value: <input type="range"></label>
+<label>Select a value: <input type="range" /></label>
 ```
 
 ### Text Fields
@@ -408,25 +437,25 @@ Range inputs for selecting numeric values within a specified range.
 Various input types for collecting user text and data.
 
 ```html {.example}
-<label>Text <input type="text" placeholder="placeholder"></label>
+<label>Text <input type="text" placeholder="placeholder" /></label>
 
-<label>Number <input type="number"></label>
+<label>Number <input type="number" /></label>
 
-<label>Password <input type="password" required></label>
+<label>Password <input type="password" required /></label>
 
-<label>Email <input type="email"></label>
+<label>Email <input type="email" /></label>
 
-<label>Search <input type="search"></label>
+<label>Search <input type="search" /></label>
 
-<label>Telephone <input type="tel"></label>
+<label>Telephone <input type="tel" /></label>
 
-<label>URL <input type="url"></label>
+<label>URL <input type="url" /></label>
 ```
 
 Add the `wa-pill` class to an `<input>` to make it pill-shaped.
 
 ```html {.example}
-<label>Input <input type="text" placeholder="placeholder" class="wa-pill"></label>
+<label>Input <input type="text" placeholder="placeholder" class="wa-pill" /></label>
 ```
 
 ### Color Pickers
@@ -434,7 +463,7 @@ Add the `wa-pill` class to an `<input>` to make it pill-shaped.
 Visual color selection interface with hex value input.
 
 ```html {.example}
-<label>Input (color) <input type="color" value="#ff0066"></label>
+<label>Input (color) <input type="color" value="#ff0066" /></label>
 ```
 
 ### Date & Time Pickers
@@ -442,11 +471,11 @@ Visual color selection interface with hex value input.
 Specialized inputs for selecting dates, times, and datetime values.
 
 ```html {.example}
-<label>Input (datetime-local) <input type="datetime-local"></label>
+<label>Input (datetime-local) <input type="datetime-local" /></label>
 
-<label>Input (date) <input type="date"></label>
+<label>Input (date) <input type="date" /></label>
 
-<label>Input (time) <input type="time"></label>
+<label>Input (time) <input type="time" /></label>
 ```
 
 ### Textareas
@@ -457,11 +486,12 @@ Multi-line text input fields for longer content.
 <label>Textarea <textarea placeholder="Type something"></textarea></label>
 ```
 
-### Fieldsets 
+### Fieldsets
 
 ```html {.example}
 <fieldset>
   <legend>Legend</legend>
-  Nunc mi ipsum faucibus vitae aliquet nec ullamcorper. Tincidunt id aliquet risus feugiat in ante. Ac turpis egestas integer eget aliquet nibh praesent tristique magna.
+  Nunc mi ipsum faucibus vitae aliquet nec ullamcorper. Tincidunt id aliquet risus feugiat in ante. Ac turpis egestas
+  integer eget aliquet nibh praesent tristique magna.
 </fieldset>
 ```

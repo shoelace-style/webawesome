@@ -1,7 +1,6 @@
 ---
 title: Icon
 description: Icons are symbols that can be used to represent various options within an application.
-tags: [imagery, apps, popular]
 icon: icon
 ---
 
@@ -20,11 +19,11 @@ The default icon library is Font Awesome Free, which comes with two icon familie
 Many Font Awesome Pro icon families have variants such as `thin`, `light`, `regular`, and `solid`. Font Awesome Pro users can [provide their kit code](/docs/#using-font-awesome-kit-codes) to unlock additional families, including `sharp`, `duotone`, and `sharp-duotone`. For these icon families, use the `variant` attribute to set the variant.
 
 ```html {.example}
-  <wa-icon family="brands" name="font-awesome"></wa-icon>
-  <wa-icon family="brands" name="web-awesome"></wa-icon>
-  <wa-icon family="classic" variant="light" name="sparkles"></wa-icon>
-  <wa-icon family="sharp" variant="solid" name="fire"></wa-icon>
-  <wa-icon family="duotone" variant="regular" name="cake-slice"></wa-icon>
+<wa-icon family="brands" name="font-awesome"></wa-icon>
+<wa-icon family="brands" name="web-awesome"></wa-icon>
+<wa-icon family="classic" variant="light" name="sparkles"></wa-icon>
+<wa-icon family="sharp" variant="solid" name="fire"></wa-icon>
+<wa-icon family="duotone" variant="regular" name="cake-slice"></wa-icon>
 ```
 
 ### Colors
@@ -120,7 +119,7 @@ Here's an example that registers an icon library located in the `/assets/icons` 
 
   registerIconLibrary('my-icons', {
     resolver: (name, family, variant) => `/assets/icons/${name}.svg`,
-    mutator: svg => svg.setAttribute('fill', 'currentColor')
+    mutator: svg => svg.setAttribute('fill', 'currentColor'),
   });
 </script>
 ```
@@ -149,8 +148,8 @@ Icons in this library are licensed under the [MIT License](https://github.com/tw
   registerIconLibrary('bootstrap', {
     resolver: (name, family) => {
       const suffix = family === 'filled' ? '-fill' : '';
-      return `https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/${name}${suffix}.svg`
-    }
+      return `https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/${name}${suffix}.svg`;
+    },
   });
 </script>
 
@@ -179,16 +178,16 @@ Icons in this library are licensed under the [Creative Commons 4.0 License](http
 
 ```html {.example}
 <script type="module">
-import { registerIconLibrary } from '/dist/webawesome.js';
+  import { registerIconLibrary } from '/dist/webawesome.js';
 
-registerIconLibrary('boxicons', {
+  registerIconLibrary('boxicons', {
     resolver: name => {
       let folder = 'regular';
       if (name.substring(0, 4) === 'bxs-') folder = 'solid';
       if (name.substring(0, 4) === 'bxl-') folder = 'logos';
       return `https://cdn.jsdelivr.net/npm/boxicons@2.0.5/svg/${folder}/${name}.svg`;
     },
-    mutator: svg => svg.setAttribute('fill', 'currentColor')
+    mutator: svg => svg.setAttribute('fill', 'currentColor'),
   });
 </script>
 
@@ -228,10 +227,11 @@ Icons in this library are licensed under the [MIT License](https://github.com/lu
 
   registerIconLibrary('lucide', {
     resolver: name => `https://cdn.jsdelivr.net/npm/lucide-static@0.16.29/icons/${name}.svg`,
-    mutator: svg => svg.querySelectorAll('path').forEach(path => {
-      path.setAttribute('fill', 'none');
-      path.setAttribute('stroke', 'currentColor');
-    })    
+    mutator: svg =>
+      svg.querySelectorAll('path').forEach(path => {
+        path.setAttribute('fill', 'none');
+        path.setAttribute('stroke', 'currentColor');
+      }),
   });
 </script>
 
@@ -257,10 +257,11 @@ Icons in this library are licensed under the [MIT License](https://github.com/ta
 
   registerIconLibrary('heroicons', {
     resolver: name => `https://cdn.jsdelivr.net/npm/heroicons@2.0.1/24/outline/${name}.svg`,
-    mutator: svg => svg.querySelectorAll('path').forEach(path => {
-      path.setAttribute('fill', 'none');
-      path.setAttribute('stroke', 'currentColor');
-    })
+    mutator: svg =>
+      svg.querySelectorAll('path').forEach(path => {
+        path.setAttribute('fill', 'none');
+        path.setAttribute('stroke', 'currentColor');
+      }),
   });
 </script>
 
@@ -286,10 +287,11 @@ Icons in this library are licensed under the [MIT License](https://github.com/lu
 
   registerIconLibrary('iconoir', {
     resolver: name => `https://cdn.jsdelivr.net/gh/lucaburgio/iconoir@latest/icons/${name}.svg`,
-    mutator: svg => svg.querySelectorAll('path').forEach(path => {
-      path.setAttribute('fill', 'none');
-      path.setAttribute('stroke', 'currentColor');
-    })    
+    mutator: svg =>
+      svg.querySelectorAll('path').forEach(path => {
+        path.setAttribute('fill', 'none');
+        path.setAttribute('stroke', 'currentColor');
+      }),
   });
 </script>
 
@@ -320,7 +322,7 @@ Icons in this library are licensed under the [MIT License](https://github.com/io
       svg.setAttribute('stroke', 'currentColor');
       [...svg.querySelectorAll('.ionicon-fill-none')].map(el => el.setAttribute('fill', 'none'));
       [...svg.querySelectorAll('.ionicon-stroke-width')].map(el => el.setAttribute('stroke-width', '32px'));
-    }
+    },
   });
 </script>
 
@@ -360,7 +362,7 @@ Icons in this library are licensed under the [MIT License](https://github.com/mi
 
   registerIconLibrary('jam', {
     resolver: name => `https://cdn.jsdelivr.net/npm/jam-icons@2.0.0/svg/${name}.svg`,
-    mutator: svg => svg.setAttribute('fill', 'currentColor')
+    mutator: svg => svg.setAttribute('fill', 'currentColor'),
   });
 </script>
 
@@ -396,7 +398,7 @@ Icons in this library are licensed under the [Apache 2.0 License](https://github
       const match = name.match(/^(.*?)(_(round|sharp))?$/);
       return `https://cdn.jsdelivr.net/npm/@material-icons/svg@1.0.5/svg/${match[1]}/${match[3] || 'outline'}.svg`;
     },
-    mutator: svg => svg.setAttribute('fill', 'currentColor')
+    mutator: svg => svg.setAttribute('fill', 'currentColor'),
   });
 </script>
 
@@ -440,7 +442,7 @@ Icons in this library are licensed under the [Apache 2.0 License](https://github
       match[1] = match[1].charAt(0).toUpperCase() + match[1].slice(1);
       return `https://cdn.jsdelivr.net/npm/remixicon@2.5.0/icons/${match[1]}/${match[2]}.svg`;
     },
-    mutator: svg => svg.setAttribute('fill', 'currentColor')
+    mutator: svg => svg.setAttribute('fill', 'currentColor'),
   });
 </script>
 
@@ -476,7 +478,7 @@ Icons in this library are licensed under the [MIT License](https://github.com/ta
     mutator: svg => {
       svg.style.fill = 'none';
       svg.setAttribute('stroke', 'currentColor');
-    }
+    },
   });
 </script>
 
@@ -514,7 +516,7 @@ Icons in this library are licensed under the [Apache 2.0 License](https://github
         match[1]
       }.svg`;
     },
-    mutator: svg => svg.setAttribute('fill', 'currentColor')
+    mutator: svg => svg.setAttribute('fill', 'currentColor'),
   });
 </script>
 
@@ -548,8 +550,8 @@ For example, this will change the default icon library to use [Bootstrap Icons](
   registerIconLibrary('default', {
     resolver: (name, family) => {
       const suffix = family === 'filled' ? '-fill' : '';
-      return `https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/${name}${suffix}.svg`
-    }
+      return `https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/${name}${suffix}.svg`;
+    },
   });
 </script>
 ```
@@ -573,7 +575,7 @@ For security reasons, browsers may apply the same-origin policy on `<use>` eleme
   registerIconLibrary('sprite', {
     resolver: name => `/assets/images/sprite.svg#${name}`,
     mutator: svg => svg.setAttribute('fill', 'currentColor'),
-    spriteSheet: true
+    spriteSheet: true,
   });
 </script>
 ```
@@ -589,7 +591,7 @@ If you want to change the icons Web Awesome uses internally, you can register an
   import { registerIconLibrary } from '/dist/webawesome.js';
 
   registerIconLibrary('system', {
-    resolver: name => `/path/to/custom/icons/${name}.svg`
+    resolver: name => `/path/to/custom/icons/${name}.svg`,
   });
 </script>
 ```

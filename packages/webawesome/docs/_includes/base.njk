@@ -10,7 +10,6 @@
     <script type="module" src="/assets/scripts/search.js"></script>
     <script type="module" src="/assets/scripts/outline.js"></script>
     {% if hasSidebar %}<script type="module" src="/assets/scripts/sidebar.js"></script>{% endif %}
-    {% if hasSidebar %}<script type="module" src="/assets/scripts/sidebar-tweaks.js"></script>{% endif %}
     <script defer data-domain="backers.webawesome.com" src="https://plausible.io/js/script.js"></script>
 
     {# Docs styles #}
@@ -94,7 +93,6 @@
         <div id="flashes">{% server "flashes" %}</div>
 
         {% block header %}
-          {% include 'breadcrumbs.njk' %}
           <h1 class="title">{{ title }}</h1>
         {% endblock %}
 

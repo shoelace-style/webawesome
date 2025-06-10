@@ -1,7 +1,6 @@
 ---
 title: Format Bytes
 description: Formats a number as a human readable bytes value.
-tags: [helpers, content, inline]
 icon: format-bytes
 ---
 

@@ -1,7 +1,6 @@
 ---
 title: QR Code
 description: Generates a QR code and renders it using the Canvas API.
-tags: [actions, apps, niche]
 icon: qr-code
 ---
 

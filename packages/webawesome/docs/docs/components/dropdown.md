@@ -1,7 +1,6 @@
 ---
 title: Dropdown
 description: 'Dropdowns expose additional content that "drops down" in a panel.'
-tags: [actions, apps]
 icon: dropdown
 ---
 

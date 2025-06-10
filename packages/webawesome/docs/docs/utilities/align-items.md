@@ -1,7 +1,7 @@
 ---
 title: Align Items
 description: Align items utilities set the gap property of flex and grid containers, like other Web Awesome layout utilities.
-tags: ["utilities", "layout"]
+layout: docs
 ---
 
 <style>
@@ -21,8 +21,8 @@ tags: ["utilities", "layout"]
 
 Web Awesome includes classes to set the `align-items` property of flex and grid containers. They can be used alongside other Web Awesome layout utilities, like [cluster](/docs/layout/cluster) and [stack](/docs/layout/stack), to align children in container on the container's cross axis.
 
-| Class Name          | `align-items` Value | Preview                                                                                                                            |
-| ------------------- | ------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| Class Name                | `align-items` Value | Preview                                                                                                                                  |
+| ------------------------- | ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
 | `wa-align-items-baseline` | `baseline`          | <div class="wa-cluster wa-align-items-baseline preview-wrapper"><div class="preview-block"></div><div class="preview-block"></div></div> |
 | `wa-align-items-center`   | `center`            | <div class="wa-cluster wa-align-items-center preview-wrapper"><div class="preview-block"></div><div class="preview-block"></div></div>   |
 | `wa-align-items-end`      | `flex-end`          | <div class="wa-cluster wa-align-items-end preview-wrapper"><div class="preview-block"></div><div class="preview-block"></div></div>      |

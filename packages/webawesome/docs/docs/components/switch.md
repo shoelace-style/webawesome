@@ -1,8 +1,6 @@
 ---
 title: Switch
 description: Switches allow the user to toggle an option on or off.
-tags: [inputs, forms]
-icon: switch
 keywords: toggle
 ---
 

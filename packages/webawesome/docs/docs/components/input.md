@@ -1,10 +1,6 @@
 ---
 title: Input
 description: Inputs collect data from the user.
-tags: [inputs, forms]
-icon: input
-native: input
-keywords: textfield text field
 ---
 
 ```html {.example}
@@ -148,7 +144,8 @@ Use [CSS parts](#css-parts) to customize the way form controls are drawn. This e
     gap: var(--wa-space-l);
     align-items: center;
 
-    wa-input, wa-textarea {
+    wa-input,
+    wa-textarea {
       grid-column: 1 / -1;
       grid-row-end: span 2;
       display: grid;

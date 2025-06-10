@@ -24,9 +24,6 @@
 <link rel="stylesheet" href="/assets/styles/hydration-errors.css">
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
 
-{# Internal components #}
-<script type="module" src="/assets/components/scoped.js"></script>
-
 {# Web Awesome #}
 <script type="module" src="/dist/webawesome.loader.js"></script>
 
@@ -45,22 +42,7 @@
   }
 </script>
 
-<script type="module" src="/assets/scripts/theme-picker.js"></script>
-{# Preset Theme #}
-{% if noTheme %}
-{% elif forceTheme %}
-<link id="theme-stylesheet" rel="stylesheet" id="theme-stylesheet" href="/dist/styles/themes/{{ forceTheme }}.css" render="blocking" fetchpriority="high" />
-{% else %}
-<noscript><link id="theme-stylesheet" rel="stylesheet" id="theme-stylesheet" href="/dist/styles/themes/default.css" render="blocking" fetchpriority="high" /></noscript>
-<script>
-{
-	let preset = localStorage.presetTheme ?? 'default';
-	let script = document.currentScript;
-	script.insertAdjacentHTML('beforebegin', `<link id="theme-stylesheet" rel="stylesheet" id="theme-stylesheet" href="/dist/styles/themes/${ preset }.css" render="blocking" fetchpriority="high" />`);
-}
-</script>
-<script type="module" src="/assets/scripts/preset-theme-picker.js"></script>
-{% endif %}
+<link rel="stylesheet" href="/dist/styles/themes/default.css" render="blocking" fetchpriority="high" />
 
 <link rel="stylesheet" href="/dist/styles/webawesome.css" />
 

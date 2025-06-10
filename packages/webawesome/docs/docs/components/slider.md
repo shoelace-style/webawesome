@@ -1,8 +1,6 @@
 ---
 title: Slider
 description: Ranges allow the user to select a single value within a given range using a slider.
-tags: [inputs, forms]
-native: slider
 icon: slider
 ---
 

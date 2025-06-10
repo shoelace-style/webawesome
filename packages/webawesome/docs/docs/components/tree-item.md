@@ -1,7 +1,6 @@
 ---
 title: Tree Item
 description: A tree item serves as a hierarchical node that lives inside a tree.
-tags: [navigation, disclosure, apps]
 icon: tree
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: Visual Tests
-description: TODO
+description: A page to visually test component styles against native styles.
 layout: page
 wide: true
 ---
@@ -47,7 +47,7 @@ These tests can come in handy when creating or customizing your own theme. Look 
 Alignment tests reveal the top boundary, vertical center, and bottom boundary of components. These help to evaluate how well components align with one another when arranged horizontally.
 
 {% include 'visual-tests/alignment.njk' %}
-  
+
 </wa-tab-panel>
 
 <wa-tab-panel name="color">

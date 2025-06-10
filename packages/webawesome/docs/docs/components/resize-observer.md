@@ -1,7 +1,6 @@
 ---
 title: Resize Observer
 description: The Resize Observer component offers a thin, declarative interface to the ResizeObserver API.
-tags: [helpers, primitives]
 icon: resize-observer
 ---
 

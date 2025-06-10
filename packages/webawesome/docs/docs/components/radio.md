@@ -1,9 +1,6 @@
 ---
 title: Radio
 description: Radios allow the user to select a single option from a group.
-tags: component
-parent: radio-group
-native: radio
 icon: radio-group
 ---
 
@@ -74,4 +71,3 @@ Add the `size` attribute to the [Radio Group](/docs/components/radio-group) to c
   <wa-radio value="3">Large 3</wa-radio>
 </wa-radio-group>
 ```
-

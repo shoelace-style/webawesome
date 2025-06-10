@@ -1,7 +1,6 @@
 ---
 title: Divider
 description: Dividers are used to visually separate or group elements.
-tags: [organization, content, forms]
 icon: divider
 ---
 

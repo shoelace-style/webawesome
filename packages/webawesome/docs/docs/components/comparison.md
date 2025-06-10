@@ -1,7 +1,6 @@
 ---
 title: Comparison
 description: Compare visual differences between similar content with a sliding panel.
-tags: [imagery, niche]
 icon: comparison
 ---
 

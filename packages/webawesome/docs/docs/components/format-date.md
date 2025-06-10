@@ -1,7 +1,6 @@
 ---
 title: Format Date
 description: Formats a date/time using the specified locale and options.
-tags: [helpers, content, inline]
 icon: format-date
 ---
 

@@ -1,7 +1,6 @@
 ---
 title: Tree
 description: Trees allow you to display a hierarchical list of selectable tree items. Items with children can be expanded and collapsed as desired by the user.
-tags: [navigation, disclosure, apps]
 icon: tree
 ---
 

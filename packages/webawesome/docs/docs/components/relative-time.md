@@ -1,7 +1,6 @@
 ---
 title: Relative Time
 description: Outputs a localized time phrase relative to the current date and time.
-tags: [helpers, inline, content]
 icon: relative-time
 ---
 

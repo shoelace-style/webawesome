@@ -1,7 +1,6 @@
 ---
 title: Tab Group
 description: Tab groups organize content into a container that shows one section at a time.
-tags: [navigation, disclosure]
 icon: tab-group
 ---
 
@@ -111,7 +110,7 @@ You can make a tab closable by adding a close button next to the tab and inside 
   <wa-tab-panel name="advanced">This is the advanced tab panel.</wa-tab-panel>
 </wa-tab-group>
 
-<br>
+<br />
 
 <wa-button disabled>Restore tab</wa-button>
 
@@ -119,7 +118,8 @@ You can make a tab closable by adding a close button next to the tab and inside 
   .tabs-closable wa-button {
     position: relative;
     left: -1.5em;
-    top: 0.675em;  }
+    top: 0.675em;
+  }
 </style>
 
 <script>
@@ -141,7 +141,7 @@ You can make a tab closable by adding a close button next to the tab and inside 
     restoreButton.disabled = true;
     generalTab.insertAdjacentElement('afterend', closeButton);
     generalTab.insertAdjacentElement('afterend', closableTab);
-  })
+  });
 </script>
 ```
 

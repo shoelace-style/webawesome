@@ -1,7 +1,6 @@
 ---
 title: Avatar
 description: Avatars are used to represent a person or object.
-tags: [imagery, apps, content]
 icon: avatar
 ---
 

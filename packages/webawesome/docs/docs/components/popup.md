@@ -1,7 +1,6 @@
 ---
 title: Popup
 description: 'Popup is a utility that lets you declaratively anchor "popup" containers to another element.'
-tags: [helpers, primitives]
 icon: popup
 ---
 
@@ -537,7 +536,14 @@ Scroll the container to see how the popup changes it's fallback placement to pre
 ```html {.example}
 <div class="popup-flip-fallbacks">
   <div class="overflow">
-    <wa-popup placement="top" flip flip-fallback-placements="right bottom" flip-fallback-strategy="initial" active boundary="scroll">
+    <wa-popup
+      placement="top"
+      flip
+      flip-fallback-placements="right bottom"
+      flip-fallback-strategy="initial"
+      active
+      boundary="scroll"
+    >
       <span slot="anchor"></span>
       <div class="box"></div>
     </wa-popup>
@@ -698,8 +704,8 @@ When a gap exists between the anchor and the popup element, this option will add
     <span slot="anchor"></span>
     <div class="box"></div>
   </wa-popup>
-  <br>
-  <wa-switch checked>Hover Bridge</wa-switch><br>
+  <br />
+  <wa-switch checked>Hover Bridge</wa-switch><br />
   <wa-slider min="0" max="50" step="1" value="10" label="Distance"></wa-slider>
   <wa-slider min="-50" max="50" step="1" value="0" label="Skidding"></wa-slider>
 </div>
@@ -721,12 +727,12 @@ When a gap exists between the anchor and the popup element, this option will add
 
   .popup-hover-bridge wa-slider {
     max-width: 260px;
-    margin-top: .5rem;
+    margin-top: 0.5rem;
   }
 
   .popup-hover-bridge wa-popup::part(hover-bridge) {
     background: tomato;
-    opacity: .5;
+    opacity: 0.5;
   }
 </style>
 <script>
@@ -750,7 +756,7 @@ const virtualElement = {
   getBoundingClientRect() {
     // ...
     return { width, height, x, y, top, left, right, bottom };
-  }
+  },
 };
 ```
 
@@ -784,9 +790,9 @@ This example anchors a popup to the mouse cursor using a virtual element. As suc
         top: clientY,
         left: clientX,
         right: clientX,
-        bottom: clientY
+        bottom: clientY,
       };
-    }
+    },
   };
 
   // Only activate the popup when the switch is checked
@@ -826,8 +832,12 @@ This example anchors a popup to the mouse cursor using a virtual element. As suc
   }
 
   @keyframes virtual-cursor {
-    0% { scale: 1; }
-    50% { scale: 1.1; }
+    0% {
+      scale: 1;
+    }
+    50% {
+      scale: 1.1;
+    }
   }
 </style>
 ```

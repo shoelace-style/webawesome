@@ -1,7 +1,6 @@
 ---
 title: Progress Ring
 description: Progress rings are used to show the progress of a determinate operation in a circular fashion.
-tags: [feedback, apps]
 icon: progress-ring
 ---
 

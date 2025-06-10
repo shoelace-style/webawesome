@@ -1,8 +1,6 @@
 ---
 title: Progress Bar
 description: Progress bars are used to show the status of an ongoing operation.
-tags: [feedback, apps]
-native: progress
 icon: progress-bar
 ---
 
@@ -17,6 +15,7 @@ icon: progress-bar
 ### Labels
 
 Use the `label` attribute to label the progress bar and tell assistive devices how to announce it.
+
 ```html {.example}
 <wa-progress-bar value="50" label="Upload progress"></wa-progress-bar>
 ```

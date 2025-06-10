@@ -1,7 +1,6 @@
 ---
 title: Format Number
 description: Formats a number using the specified locale and options.
-tags: [helpers, content, inline]
 icon: format-number
 ---
 

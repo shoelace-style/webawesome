@@ -1,8 +1,6 @@
 ---
 title: Color Picker
 description: Color pickers allow the user to select a color.
-tags: [inputs, forms]
-native: input
 icon: color-picker
 ---
 
