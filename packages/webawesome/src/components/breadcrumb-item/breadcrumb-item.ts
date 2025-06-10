@@ -18,8 +18,8 @@ import styles from './breadcrumb-item.css';
  * you want to change it for all items in the group, set the separator on `<wa-breadcrumb>` instead.
  *
  * @csspart label - The breadcrumb item's label.
- * @csspart start - The container that wraps the start slot.
- * @csspart end - The container that wraps the end slot.
+ * @csspart start - The container that wraps the `start` slot.
+ * @csspart end - The container that wraps the `end` slot.
  * @csspart separator - The container that wraps the separator.
  */
 @customElement('wa-breadcrumb-item')

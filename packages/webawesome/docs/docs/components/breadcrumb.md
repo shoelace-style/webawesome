@@ -36,7 +36,7 @@ For websites, you'll probably want to use links instead. You can make any breadc
 </wa-breadcrumb>
 ```
 
-### Start & end decorations
+### Start & End Decorations
 
 Use the `start` and `end` slots to add presentational elements like `<wa-icon>` next to any breadcrumb item.
 
