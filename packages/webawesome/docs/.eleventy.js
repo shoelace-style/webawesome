@@ -23,16 +23,6 @@ const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 const packageData = JSON.parse(await readFile(path.join(__dirname, '..', 'package.json'), 'utf-8'));
 const isDev = process.argv.includes('--develop');
 
-const globalData = {
-  package: packageData,
-  layout: 'page.njk',
-  server: {
-    head: '',
-    loginOrAvatar: '',
-    flashes: '',
-  },
-};
-
 export default async function (eleventyConfig) {
   /**
    * If you plan to add or remove any of these extensions, make sure to let either Konnor or Cory know as these
@@ -49,10 +39,16 @@ export default async function (eleventyConfig) {
    */
   const serverBuild = process.env.WEBAWESOME_SERVER === 'true';
 
-  // Add template data
-  for (let name in globalData) {
-    eleventyConfig.addGlobalData(name, globalData[name]);
-  }
+  //
+  // Set all global template data here
+  //
+  eleventyConfig.addGlobalData('package', packageData);
+  eleventyConfig.addGlobalData('layout', 'page.njk');
+  eleventyConfig.addGlobalData('server', {
+    head: '',
+    loginOrAvatar: '',
+    flashes: '',
+  });
 
   // Template filters - {{ content | filter }}
   eleventyConfig.addFilter('inlineMarkdown', content => markdown.renderInline(content || ''));
