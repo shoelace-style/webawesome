@@ -625,7 +625,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
 
     // Dispatch input events when the value changes by dragging
     if (this.value !== oldValue) {
-      this.dispatchEvent(new InputEvent('input'));
+      this.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
     }
   }
 
@@ -658,7 +658,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
 
     // Dispatch input events
     if (oldValue !== (thumb === 'min' ? this.minValue : this.maxValue)) {
-      this.dispatchEvent(new InputEvent('input'));
+      this.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
       this.updateFormValue();
     }
   }

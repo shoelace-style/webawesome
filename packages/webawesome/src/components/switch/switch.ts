@@ -125,14 +125,14 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
       event.preventDefault();
       this.checked = false;
       this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
-      this.dispatchEvent(new InputEvent('input'));
+      this.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
     }
 
     if (event.key === 'ArrowRight') {
       event.preventDefault();
       this.checked = true;
       this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
-      this.dispatchEvent(new InputEvent('input'));
+      this.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
     }
   }
 
