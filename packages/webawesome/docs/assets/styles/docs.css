@@ -16,6 +16,15 @@
   display: none;
 }
 
+body {
+  opacity: 1;
+  transition: opacity 50ms ease-out;
+}
+
+body.theme-transitioning {
+  opacity: 0;
+}
+
 wa-page {
   --wa-flow-spacing: var(--wa-space-xl);
 }
