@@ -50,7 +50,7 @@ function parse(contents, file) {
     try {
       color = new Color(color);
     } catch (e) {
-      console.warn(`[${file}] Unparseable color ${hue}-${level}: ${color}`);
+      console.warn(`[${file}] Unparsable color ${hue}-${level}: ${color}`);
     }
 
     if (level.startsWith('0')) {
