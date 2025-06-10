@@ -111,8 +111,8 @@
     --wa-color-brand-border-quiet: color-mix(in oklab, var(--wa-color-brand-20), transparent);
     --wa-color-brand-border-normal: color-mix(in oklab, var(--wa-color-brand-30), transparent);
     --wa-color-brand-border-loud: color-mix(in oklab, var(--wa-color-brand-40), transparent);
-    --wa-color-brand-on-quiet: var(--wa-color-brand-min-60);
-    --wa-color-brand-on-normal: var(--wa-color-brand-min-70);
+    --wa-color-brand-on-quiet: var(--wa-color-brand-60);
+    --wa-color-brand-on-normal: var(--wa-color-brand-70);
     --wa-color-brand-on-loud: white;
 
     --wa-color-success-fill-quiet: color-mix(in oklab, var(--wa-color-success-10) 90%, transparent);
@@ -121,8 +121,8 @@
     --wa-color-success-border-quiet: color-mix(in oklab, var(--wa-color-success-20), transparent);
     --wa-color-success-border-normal: color-mix(in oklab, var(--wa-color-success-30) 60%, transparent);
     --wa-color-success-border-loud: color-mix(in oklab, var(--wa-color-success-40) 70%, transparent);
-    --wa-color-success-on-quiet: var(--wa-color-success-min-60);
-    --wa-color-success-on-normal: var(--wa-color-success-min-70);
+    --wa-color-success-on-quiet: var(--wa-color-success-60);
+    --wa-color-success-on-normal: var(--wa-color-success-70);
     --wa-color-success-on-loud: white;
 
     --wa-color-warning-fill-quiet: color-mix(in oklab, var(--wa-color-warning-10) 90%, transparent);
@@ -131,8 +131,8 @@
     --wa-color-warning-border-quiet: color-mix(in oklab, var(--wa-color-warning-20), transparent);
     --wa-color-warning-border-normal: color-mix(in oklab, var(--wa-color-warning-30) 60%, transparent);
     --wa-color-warning-border-loud: color-mix(in oklab, var(--wa-color-warning-40) 70%, transparent);
-    --wa-color-warning-on-quiet: var(--wa-color-warning-min-60);
-    --wa-color-warning-on-normal: var(--wa-color-warning-min-70);
+    --wa-color-warning-on-quiet: var(--wa-color-warning-60);
+    --wa-color-warning-on-normal: var(--wa-color-warning-70);
     --wa-color-warning-on-loud: white;
 
     --wa-color-danger-fill-quiet: color-mix(in oklab, var(--wa-color-danger-10) 90%, transparent);
@@ -141,8 +141,8 @@
     --wa-color-danger-border-quiet: color-mix(in oklab, var(--wa-color-danger-20), transparent);
     --wa-color-danger-border-normal: color-mix(in oklab, var(--wa-color-danger-30) 60%, transparent);
     --wa-color-danger-border-loud: color-mix(in oklab, var(--wa-color-danger-40) 70%, transparent);
-    --wa-color-danger-on-quiet: var(--wa-color-danger-min-60);
-    --wa-color-danger-on-normal: var(--wa-color-danger-min-70);
+    --wa-color-danger-on-quiet: var(--wa-color-danger-60);
+    --wa-color-danger-on-normal: var(--wa-color-danger-70);
     --wa-color-danger-on-loud: white;
 
     --wa-color-neutral-fill-quiet: color-mix(in oklab, var(--wa-color-neutral-10) 90%, transparent);

@@ -16,23 +16,6 @@
     --wa-color-warning-10: var(--wa-color-pink-10);
     --wa-color-warning-05: var(--wa-color-pink-05);
     --wa-color-warning: var(--wa-color-pink);
-
-    --wa-color-warning-lt-50: var(--wa-color-pink-lt-50);
-    --wa-color-warning-gte-50: var(--wa-color-pink-gte-50);
-
-    --wa-color-warning-lt-60: var(--wa-color-pink-lt-60);
-    --wa-color-warning-gte-60: var(--wa-color-pink-gte-60);
-
-    --wa-color-warning-lt-70: var(--wa-color-pink-lt-70);
-    --wa-color-warning-gte-70: var(--wa-color-pink-gte-70);
-
-    --wa-color-warning-max-50: var(--wa-color-pink-max-50);
-    --wa-color-warning-min-50: var(--wa-color-pink-min-50);
-    --wa-color-warning-max-60: var(--wa-color-pink-max-60);
-    --wa-color-warning-min-60: var(--wa-color-pink-min-60);
-    --wa-color-warning-max-70: var(--wa-color-pink-max-70);
-    --wa-color-warning-min-70: var(--wa-color-pink-min-70);
-
     --wa-color-warning-on: var(--wa-color-pink-on);
   }
 }
