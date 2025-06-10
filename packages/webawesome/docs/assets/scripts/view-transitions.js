@@ -7,27 +7,21 @@ if (!initialPageLoadComplete) {
 }
 
 /**
- * A wrapper around `document.startViewTransition()` that falls back to no transitions in unsupportive browsers.
+ * A wrapper around `document.startViewTransition()` that fails gracefully in unsupportive browsers.
  */
-export function doViewTransition(callback, { behavior = 'smooth', ignoreInitialLoad = true } = {}) {
+export async function doViewTransition(callback, { ignoreInitialLoad = true } = {}) {
+  // Skip transitions on initial page load
+  if (!initialPageLoadComplete && ignoreInitialLoad) {
+    callback();
+    return;
+  }
+
   const canUseViewTransitions =
     document.startViewTransition && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Skip transitions on initial page load
-  if (!initialPageLoadComplete && ignoreInitialLoad) {
-    callback(false);
-    return null;
-  }
-
-  if (canUseViewTransitions && behavior === 'smooth') {
-    const transition = document.startViewTransition(() => {
-      callback(true);
-      // Wait a brief delay before finishing the transition to prevent jumpiness
-      return new Promise(resolve => setTimeout(resolve, 200));
-    });
-    return transition;
+  if (canUseViewTransitions) {
+    await document.startViewTransition(callback).finished;
   } else {
-    callback(false);
-    return null;
+    callback();
   }
 }
