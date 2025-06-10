@@ -1,4 +1,4 @@
-@layer wa-theme {
+@layer wa-dimension {
   :where(:root) {
     wa-button,
     button,

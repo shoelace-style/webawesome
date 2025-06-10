@@ -1,4 +1,4 @@
-@layer wa-theme {
+@layer wa-dimension {
   :where(:root) {
     --wa-subtle-shadow-pop-out:
       inset 0 0.0625rem 0 0.0625rem rgb(255 255 255 / 0.15) /* shine */,
