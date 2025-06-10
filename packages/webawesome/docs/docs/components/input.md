@@ -109,24 +109,24 @@ The `type` attribute controls the type of input the browser renders.
 <wa-input type="date" placeholder="Date"></wa-input>
 ```
 
-### Prefix & Suffix Icons
+### Start & End Decorations
 
-Use the `prefix` and `suffix` slots to add icons.
+Use the `start` and `end` slots to add presentational elements like `<wa-icon>` within the input.
 
 ```html {.example}
 <wa-input placeholder="Small" size="small">
-  <wa-icon name="house" variant="solid" slot="prefix"></wa-icon>
-  <wa-icon name="comment" variant="solid" slot="suffix"></wa-icon>
+  <wa-icon name="house" slot="start"></wa-icon>
+  <wa-icon name="comment" slot="end"></wa-icon>
 </wa-input>
 <br />
 <wa-input placeholder="Medium" size="medium">
-  <wa-icon name="house" variant="solid" slot="prefix"></wa-icon>
-  <wa-icon name="comment" variant="solid" slot="suffix"></wa-icon>
+  <wa-icon name="house" slot="start"></wa-icon>
+  <wa-icon name="comment" slot="end"></wa-icon>
 </wa-input>
 <br />
 <wa-input placeholder="Large" size="large">
-  <wa-icon name="house" variant="solid" slot="prefix"></wa-icon>
-  <wa-icon name="comment" variant="solid" slot="suffix"></wa-icon>
+  <wa-icon name="house" slot="start"></wa-icon>
+  <wa-icon name="comment" slot="end"></wa-icon>
 </wa-input>
 ```
 

@@ -129,8 +129,8 @@ textarea {
   }
 }
 
-.prefix,
-.suffix {
+.start,
+.end {
   display: inline-flex;
   flex: 0 0 auto;
   align-items: center;
@@ -141,11 +141,11 @@ textarea {
   }
 }
 
-.prefix::slotted(*) {
+.start::slotted(*) {
   margin-inline-end: var(--wa-form-control-padding-inline);
 }
 
-.suffix::slotted(*) {
+.end::slotted(*) {
   margin-inline-start: var(--wa-form-control-padding-inline);
 }
 
