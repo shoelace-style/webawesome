@@ -62,18 +62,18 @@
   visibility: visible;
 }
 
-.prefix,
-.suffix {
+.start,
+.end {
   flex: 0 0 auto;
   display: flex;
   align-items: center;
 }
 
-.prefix::slotted(*) {
+.start::slotted(*) {
   margin-inline-end: 0.5em;
 }
 
-.suffix::slotted(*) {
+.end::slotted(*) {
   margin-inline-start: 0.5em;
 }
 

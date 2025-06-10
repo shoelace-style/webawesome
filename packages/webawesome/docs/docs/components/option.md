@@ -28,28 +28,28 @@ Use the `disabled` attribute to disable an option and prevent it from being sele
 </wa-select>
 ```
 
-### Prefix & Suffix
+### Start & End Decorations
 
-Add icons to the start and end of menu items using the `prefix` and `suffix` slots.
+Use the `start` and `end` slots to add presentational elements like `<wa-icon>` next to the option label.
 
 ```html {.example}
 <wa-select label="Select one">
   <wa-option value="option-1">
-    <wa-icon slot="prefix" name="envelope" variant="solid"></wa-icon>
+    <wa-icon slot="start" name="envelope"></wa-icon>
     Email
-    <wa-icon slot="suffix" name="circle-check" variant="solid"></wa-icon>
+    <wa-icon slot="end" name="circle-check"></wa-icon>
   </wa-option>
 
   <wa-option value="option-2">
-    <wa-icon slot="prefix" name="phone" variant="solid"></wa-icon>
+    <wa-icon slot="start" name="phone"></wa-icon>
     Phone
-    <wa-icon slot="suffix" name="circle-check" variant="solid"></wa-icon>
+    <wa-icon slot="end" name="circle-check"></wa-icon>
   </wa-option>
 
   <wa-option value="option-3">
-    <wa-icon slot="prefix" name="comment" variant="solid"></wa-icon>
+    <wa-icon slot="start" name="comment"></wa-icon>
     Chat
-    <wa-icon slot="suffix" name="circle-check" variant="solid"></wa-icon>
+    <wa-icon slot="end" name="circle-check"></wa-icon>
   </wa-option>
 </wa-select>
 ```

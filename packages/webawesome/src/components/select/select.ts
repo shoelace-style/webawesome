@@ -41,8 +41,8 @@ import styles from './select.css';
  *
  * @slot - The listbox options. Must be `<wa-option>` elements. You can use `<wa-divider>` to group items visually.
  * @slot label - The input's label. Alternatively, you can use the `label` attribute.
- * @slot prefix - Used to prepend a presentational icon or similar element to the combobox.
- * @slot suffix - Used to append a presentational icon or similar element to the combobox.
+ * @slot start - An element, such as `<wa-icon>`, placed at the start of the combobox.
+ * @slot end - An element, such as `<wa-icon>`, placed at the end of the combobox.
  * @slot clear-icon - An icon to use in lieu of the default clear icon.
  * @slot expand-icon - The icon to show when the control is expanded and collapsed. Rotates on open and close.
  * @slot hint - Text that describes how to use the input. Alternatively, you can use the `hint` attribute.
@@ -62,9 +62,9 @@ import styles from './select.css';
  * @csspart form-control-label - The label's wrapper.
  * @csspart form-control-input - The select's wrapper.
  * @csspart hint - The hint's wrapper.
- * @csspart combobox - The container the wraps the prefix, suffix, combobox, clear icon, and expand button.
- * @csspart prefix - The container that wraps the prefix slot.
- * @csspart suffix - The container that wraps the suffix slot.
+ * @csspart combobox - The container the wraps the start, end, value, clear icon, and expand button.
+ * @csspart start - The container that wraps the `start` slot.
+ * @csspart end - The container that wraps the `end` slot.
  * @csspart display-input - The element that displays the selected option's label, an `<input>` element.
  * @csspart listbox - The listbox container where options are slotted.
  * @csspart tags - The container that houses option tags when `multiselect` is used.
@@ -900,7 +900,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
               @keydown=${this.handleComboboxKeyDown}
               @mousedown=${this.handleComboboxMouseDown}
             >
-              <slot part="prefix" name="prefix" class="prefix"></slot>
+              <slot part="start" name="start" class="start"></slot>
 
               <input
                 part="display-input"
@@ -962,7 +962,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
                   `
                 : ''}
 
-              <slot name="suffix" part="suffix" class="suffix"></slot>
+              <slot name="end" part="end" class="end"></slot>
 
               <slot name="expand-icon" part="expand-icon" class="expand-icon">
                 <wa-icon library="system" name="chevron-down" variant="solid"></wa-icon>

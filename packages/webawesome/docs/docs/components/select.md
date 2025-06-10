@@ -208,54 +208,30 @@ The preferred placement of the select's listbox can be set with the `placement` 
 </wa-select>
 ```
 
-### Prefix Icons
+### Start & End Decorations
 
-Use the `prefix` slot to prepend an icon to the control.
+Use the `start` and `end` slots to add presentational elements like `<wa-icon>` within the input.
 
 ```html {.example}
 <wa-select placeholder="Small" size="small" with-clear>
-  <wa-icon slot="prefix" name="house" variant="solid"></wa-icon>
+  <wa-icon slot="start" name="house" variant="solid"></wa-icon>
+  <wa-icon slot="end" name="flag-checkered"></wa-icon>
   <wa-option value="option-1">Option 1</wa-option>
   <wa-option value="option-2">Option 2</wa-option>
   <wa-option value="option-3">Option 3</wa-option>
 </wa-select>
 <br />
 <wa-select placeholder="Medium" size="medium" with-clear>
-  <wa-icon slot="prefix" name="house" variant="solid"></wa-icon>
+  <wa-icon slot="start" name="house" variant="solid"></wa-icon>
+  <wa-icon slot="end" name="flag-checkered"></wa-icon>
   <wa-option value="option-1">Option 1</wa-option>
   <wa-option value="option-2">Option 2</wa-option>
   <wa-option value="option-3">Option 3</wa-option>
 </wa-select>
 <br />
 <wa-select placeholder="Large" size="large" with-clear>
-  <wa-icon slot="prefix" name="house" variant="solid"></wa-icon>
-  <wa-option value="option-1">Option 1</wa-option>
-  <wa-option value="option-2">Option 2</wa-option>
-  <wa-option value="option-3">Option 3</wa-option>
-</wa-select>
-```
-
-### Suffix Icons
-
-Use the `suffix` slot to append an icon to the control.
-
-```html {.example}
-<wa-select placeholder="Small" size="small" with-clear>
-  <wa-icon name="house" slot="suffix"></wa-icon>
-  <wa-option value="option-1">Option 1</wa-option>
-  <wa-option value="option-2">Option 2</wa-option>
-  <wa-option value="option-3">Option 3</wa-option>
-</wa-select>
-<br />
-<wa-select placeholder="Medium" size="medium" with-clear>
-  <wa-icon name="house" slot="suffix"></wa-icon>
-  <wa-option value="option-1">Option 1</wa-option>
-  <wa-option value="option-2">Option 2</wa-option>
-  <wa-option value="option-3">Option 3</wa-option>
-</wa-select>
-<br />
-<wa-select placeholder="Large" size="large" with-clear>
-  <wa-icon name="house" slot="suffix"></wa-icon>
+  <wa-icon slot="start" name="house" variant="solid"></wa-icon>
+  <wa-icon slot="end" name="flag-checkered"></wa-icon>
   <wa-option value="option-1">Option 1</wa-option>
   <wa-option value="option-2">Option 2</wa-option>
   <wa-option value="option-3">Option 3</wa-option>
@@ -277,15 +253,15 @@ Remember that custom tags are rendered in a shadow root. To style them, you can 
   class="custom-tag"
 >
   <wa-option value="email">
-    <wa-icon slot="prefix" name="envelope" variant="solid"></wa-icon>
+    <wa-icon slot="start" name="envelope" variant="solid"></wa-icon>
     Email
   </wa-option>
   <wa-option value="phone">
-    <wa-icon slot="prefix" name="phone" variant="solid"></wa-icon>
+    <wa-icon slot="start" name="phone" variant="solid"></wa-icon>
     Phone
   </wa-option>
   <wa-option value="chat">
-    <wa-icon slot="prefix" name="comment" variant="solid"></wa-icon>
+    <wa-icon slot="start" name="comment" variant="solid"></wa-icon>
     Chat
   </wa-option>
 </wa-select>
@@ -297,7 +273,7 @@ Remember that custom tags are rendered in a shadow root. To style them, you can 
 
   select.getTag = (option, index) => {
     // Use the same icon used in wa-option
-    const name = option.querySelector('wa-icon[slot="prefix"]').name;
+    const name = option.querySelector('wa-icon[slot="start"]').name;
 
     // You can return a string, a Lit Template, or an HTMLElement here
     return `

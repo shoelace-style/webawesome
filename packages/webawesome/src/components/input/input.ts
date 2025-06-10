@@ -25,8 +25,8 @@ import styles from './input.css';
  * @dependency wa-icon
  *
  * @slot label - The input's label. Alternatively, you can use the `label` attribute.
- * @slot start - An element, such as `<wa-icon>`, placed before the input value.
- * @slot end - An element, such as `<wa-icon>`, placed after the input value.
+ * @slot start - An element, such as `<wa-icon>`, placed at the start of the input control.
+ * @slot end - An element, such as `<wa-icon>`, placed at the end of the input control.
  * @slot clear-icon - An icon to use in lieu of the default clear icon.
  * @slot show-password-icon - An icon to use in lieu of the default show password icon.
  * @slot hide-password-icon - An icon to use in lieu of the default hide password icon.
