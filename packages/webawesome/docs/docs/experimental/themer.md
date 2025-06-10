@@ -671,7 +671,7 @@ hasOutline: false
   <div style="display: grid; grid-template-rows: minmax(0, auto) minmax(0, 1fr); height: 100%; gap: 1rem;">
     <div style="display: flex; gap: 1.25rem;">
       <wa-input name="icon-search" autofocus placeholder="Search Icons" with-clear style="flex: 1 1 auto;">
-        <wa-icon slot="prefix" name="magnifying-glass"></wa-icon>
+        <wa-icon slot="start" name="magnifying-glass"></wa-icon>
       </wa-input>
       <wa-select name="icon-variant" value="solid" style="flex: 0 1 auto;">
         <wa-option value="solid">Solid</wa-option>
@@ -2017,7 +2017,7 @@ hasOutline: false
       <div class="title">
         <h1 class="hero-title">What you know you can't explain, but you feel it.</h1>
         <wa-button variant="brand" class="hero-cta">
-          <wa-icon slot="prefix" name="arrow-down"></wa-icon>
+          <wa-icon slot="start" name="arrow-down"></wa-icon>
           Free Your Mind
         </wa-button>
       </div>
@@ -2037,11 +2037,11 @@ hasOutline: false
         </div>
         <div slot="footer">
           <wa-button size="small">
-            <wa-icon slot="prefix" name="plus" variant="regular"></wa-icon>
+            <wa-icon slot="start" name="plus" variant="regular"></wa-icon>
             Add to Cart
           </wa-button>
           <wa-button size="small" appearance="outline">
-            <wa-icon slot="prefix" name="bookmark" variant="regular"></wa-icon>
+            <wa-icon slot="start" name="bookmark" variant="regular"></wa-icon>
             Save
           </wa-button>
         </div>
@@ -2060,11 +2060,11 @@ hasOutline: false
         </div>
         <div slot="footer">
           <wa-button size="small">
-            <wa-icon slot="prefix" name="plus" variant="regular"></wa-icon>
+            <wa-icon slot="start" name="plus" variant="regular"></wa-icon>
             Add to Cart
           </wa-button>
           <wa-button size="small" appearance="outline">
-            <wa-icon slot="prefix" name="bookmark" variant="regular"></wa-icon>
+            <wa-icon slot="start" name="bookmark" variant="regular"></wa-icon>
             Save
           </wa-button>
         </div>
@@ -2082,11 +2082,11 @@ hasOutline: false
         </div>
         <div slot="footer">
           <wa-button size="small">
-            <wa-icon slot="prefix" name="plus" variant="regular"></wa-icon>
+            <wa-icon slot="start" name="plus" variant="regular"></wa-icon>
             Add to Cart
           </wa-button>
           <wa-button size="small" appearance="outline">
-            <wa-icon slot="prefix" name="bookmark" variant="regular"></wa-icon>
+            <wa-icon slot="start" name="bookmark" variant="regular"></wa-icon>
             Save
           </wa-button>
         </div>
@@ -2236,7 +2236,7 @@ hasOutline: false
           </div>
           <div class="send">
             <wa-button variant="brand" size="small">
-              <wa-icon slot="prefix" name="paper-plane-top" variant="solid" label="Add File"></wa-icon>
+              <wa-icon slot="start" name="paper-plane-top" variant="solid" label="Add File"></wa-icon>
               Send
             </wa-button>
           </div>
@@ -2286,11 +2286,11 @@ hasOutline: false
           <div style="display: flex; align-items: end; gap: 1rem;">
             <wa-input type="number" label="How many?"></wa-input>
             <wa-button variant="brand">
-              <wa-icon slot="prefix" name="bag-shopping" variant="solid" label="Add to Basket"></wa-icon>
+              <wa-icon slot="start" name="bag-shopping" variant="solid" label="Add to Basket"></wa-icon>
               Add to Basket
             </wa-button>
             <wa-button variant="neutral">
-              <wa-icon slot="prefix" name="bookmark" variant="regular"></wa-icon>
+              <wa-icon slot="start" name="bookmark" variant="regular"></wa-icon>
               Save
             </wa-button>
           </div>
@@ -2321,19 +2321,19 @@ hasOutline: false
               <wa-dropdown>
                 <wa-button slot="trigger" caret size="small">Action</wa-button>
                 <wa-dropdown-item>
-                  <wa-icon slot="prefix" name="check" variant="regular"></wa-icon>
+                  <wa-icon slot="start" name="check" variant="regular"></wa-icon>
                   Resolved
                 </wa-dropdown-item>
                 <wa-dropdown-item>
-                  <wa-icon slot="prefix" name="clock" variant="regular"></wa-icon>
+                  <wa-icon slot="start" name="clock" variant="regular"></wa-icon>
                   Pending
                 </wa-dropdown-item>
                 <wa-dropdown-item>
-                  <wa-icon slot="prefix" name="arrow-rotate-left" variant="regular"></wa-icon>
+                  <wa-icon slot="start" name="arrow-rotate-left" variant="regular"></wa-icon>
                   Re-open
                 </wa-dropdown-item>
                 <wa-dropdown-item>
-                  <wa-icon slot="prefix" name="xmark" variant="regular"></wa-icon>
+                  <wa-icon slot="start" name="xmark" variant="regular"></wa-icon>
                   Delete
                 </wa-dropdown-item>
               </wa-dropdown>
@@ -2349,19 +2349,19 @@ hasOutline: false
               <wa-dropdown>
                 <wa-button slot="trigger" caret size="small">Action</wa-button>
                 <wa-dropdown-item>
-                  <wa-icon slot="prefix" name="check" variant="regular"></wa-icon>
+                  <wa-icon slot="start" name="check" variant="regular"></wa-icon>
                   Resolved
                 </wa-dropdown-item>
                 <wa-dropdown-item>
-                  <wa-icon slot="prefix" name="clock" variant="regular"></wa-icon>
+                  <wa-icon slot="start" name="clock" variant="regular"></wa-icon>
                   Pending
                 </wa-dropdown-item>
                 <wa-dropdown-item>
-                  <wa-icon slot="prefix" name="arrow-rotate-left" variant="regular"></wa-icon>
+                  <wa-icon slot="start" name="arrow-rotate-left" variant="regular"></wa-icon>
                   Re-open
                 </wa-dropdown-item>
                 <wa-dropdown-item>
-                  <wa-icon slot="prefix" name="xmark" variant="regular"></wa-icon>
+                  <wa-icon slot="start" name="xmark" variant="regular"></wa-icon>
                   Delete
                 </wa-dropdown-item>
               </wa-dropdown>
@@ -2377,19 +2377,19 @@ hasOutline: false
               <wa-dropdown>
                 <wa-button slot="trigger" caret size="small">Action</wa-button>
                 <wa-dropdown-item>
-                  <wa-icon slot="prefix" name="check" variant="regular"></wa-icon>
+                  <wa-icon slot="start" name="check" variant="regular"></wa-icon>
                   Resolved
                 </wa-dropdown-item>
                 <wa-dropdown-item>
-                  <wa-icon slot="prefix" name="clock" variant="regular"></wa-icon>
+                  <wa-icon slot="start" name="clock" variant="regular"></wa-icon>
                   Pending
                 </wa-dropdown-item>
                 <wa-dropdown-item>
-                  <wa-icon slot="prefix" name="arrow-rotate-left" variant="regular"></wa-icon>
+                  <wa-icon slot="start" name="arrow-rotate-left" variant="regular"></wa-icon>
                   Re-open
                 </wa-dropdown-item>
                 <wa-dropdown-item>
-                  <wa-icon slot="prefix" name="xmark" variant="regular"></wa-icon>
+                  <wa-icon slot="start" name="xmark" variant="regular"></wa-icon>
                   Delete
                 </wa-dropdown-item>
               </wa-dropdown>
@@ -2405,19 +2405,19 @@ hasOutline: false
               <wa-dropdown>
                 <wa-button slot="trigger" caret size="small">Action</wa-button>
                 <wa-dropdown-item>
-                  <wa-icon slot="prefix" name="check" variant="regular"></wa-icon>
+                  <wa-icon slot="start" name="check" variant="regular"></wa-icon>
                   Resolved
                 </wa-dropdown-item>
                 <wa-dropdown-item>
-                  <wa-icon slot="prefix" name="clock" variant="regular"></wa-icon>
+                  <wa-icon slot="start" name="clock" variant="regular"></wa-icon>
                   Pending
                 </wa-dropdown-item>
                 <wa-dropdown-item>
-                  <wa-icon slot="prefix" name="arrow-rotate-left" variant="regular"></wa-icon>
+                  <wa-icon slot="start" name="arrow-rotate-left" variant="regular"></wa-icon>
                   Re-open
                 </wa-dropdown-item>
                 <wa-dropdown-item>
-                  <wa-icon slot="prefix" name="xmark" variant="regular"></wa-icon>
+                  <wa-icon slot="start" name="xmark" variant="regular"></wa-icon>
                   Delete
                 </wa-dropdown-item>
               </wa-dropdown>
@@ -2433,19 +2433,19 @@ hasOutline: false
               <wa-dropdown>
                 <wa-button slot="trigger" caret size="small">Action</wa-button>
                 <wa-dropdown-item>
-                  <wa-icon slot="prefix" name="check" variant="regular"></wa-icon>
+                  <wa-icon slot="start" name="check" variant="regular"></wa-icon>
                   Resolved
                 </wa-dropdown-item>
                 <wa-dropdown-item>
-                  <wa-icon slot="prefix" name="clock" variant="regular"></wa-icon>
+                  <wa-icon slot="start" name="clock" variant="regular"></wa-icon>
                   Pending
                 </wa-dropdown-item>
                 <wa-dropdown-item>
-                  <wa-icon slot="prefix" name="arrow-rotate-left" variant="regular"></wa-icon>
+                  <wa-icon slot="start" name="arrow-rotate-left" variant="regular"></wa-icon>
                   Re-open
                 </wa-dropdown-item>
                 <wa-dropdown-item>
-                  <wa-icon slot="prefix" name="xmark" variant="regular"></wa-icon>
+                  <wa-icon slot="start" name="xmark" variant="regular"></wa-icon>
                   Delete
                 </wa-dropdown-item>
               </wa-dropdown>
@@ -2460,30 +2460,30 @@ hasOutline: false
           <h2 style="margin-bottom: var(--wa-space-3xl);">Payment</h2>
           <form>
             <wa-input type="email" placeholder="ex. tanderson@metacortex.com" label="Email">
-              <wa-icon name="envelope" variant="regular" slot="prefix"></wa-icon>
+              <wa-icon name="envelope" variant="regular" slot="start"></wa-icon>
             </wa-input>
             <wa-input placeholder="1234 1234 1234 1234" label="Card Number">
-              <wa-icon name="credit-card" variant="regular" slot="prefix"></wa-icon>
+              <wa-icon name="credit-card" variant="regular" slot="start"></wa-icon>
             </wa-input>
             <div style="display: flex; gap: 1rem;">
               <wa-input placeholder="MM / YY" label="Expiration">
-                <wa-icon name="calendar" variant="regular" slot="prefix"></wa-icon>
+                <wa-icon name="calendar" variant="regular" slot="start"></wa-icon>
               </wa-input>
               <wa-input placeholder="CVC" label="CVC">
-                <wa-icon name="lock" variant="regular" slot="prefix"></wa-icon>
+                <wa-icon name="lock" variant="regular" slot="start"></wa-icon>
               </wa-input>
             </div>
             <wa-input placeholder="Thomas Anderson" label="Cardholder Name">
-              <wa-icon name="user" variant="regular" slot="prefix"></wa-icon>
+              <wa-icon name="user" variant="regular" slot="start"></wa-icon>
             </wa-input>
             <div style="display: flex; gap: 1rem;">
               <wa-select label="Country" value="USA">
-              <wa-icon slot="prefix" name="globe" variant="regular"></wa-icon>
+              <wa-icon slot="start" name="globe" variant="regular"></wa-icon>
                 <wa-option value="USA">United States</wa-option>
                 <wa-option value="CAN">Canada</wa-option>
               </wa-select>
               <wa-input placeholder="12345" label="Zip">
-                <wa-icon name="location-dot" variant="regular" slot="prefix"></wa-icon>
+                <wa-icon name="location-dot" variant="regular" slot="start"></wa-icon>
               </wa-input>
             </div>
             <wa-switch checked style="margin: var(--wa-space-2xl) 0 var(--wa-space-3xl) 0;">Sign me up for more offers from this store</wa-switch>

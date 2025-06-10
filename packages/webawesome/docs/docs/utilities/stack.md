@@ -36,10 +36,10 @@ Stacks are well suited for forms, text, and ensuring consistent spacing between 
 ```html {.example}
 <div class="wa-stack">
   <wa-input label="Email">
-    <wa-icon slot="prefix" name="envelope" variant="regular"></wa-icon>
+    <wa-icon slot="start" name="envelope" variant="regular"></wa-icon>
   </wa-input>
   <wa-input label="Password" type="password">
-    <wa-icon slot="prefix" name="lock" variant="regular"></wa-icon>
+    <wa-icon slot="start" name="lock" variant="regular"></wa-icon>
   </wa-input>
   <wa-checkbox>Remember me on this device</wa-checkbox>
   <wa-button>Log In</wa-button>

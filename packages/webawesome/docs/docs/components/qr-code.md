@@ -13,7 +13,7 @@ QR codes are useful for providing small pieces of information to users who can q
   <br />
 
   <wa-input maxlength="255" with-clear label="Value">
-    <wa-icon slot="prefix" name="link"></wa-icon>
+    <wa-icon slot="start" name="link"></wa-icon>
   </wa-input>
 </div>
 
@@ -47,7 +47,7 @@ Use the `fill` and `background` attributes to modify the QR code's colors. You s
 
 ```html {.example}
 <wa-qr-code value="https://shoelace.style/" fill="deeppink" background="white">
-  <wa-icon slot="prefix" name="palette"></wa-icon>
+  <wa-icon slot="start" name="palette"></wa-icon>
 </wa-qr-code>
 ```
 
@@ -57,7 +57,7 @@ Use the `size` attribute to change the size of the QR code.
 
 ```html {.example}
 <wa-qr-code value="https://shoelace.style/" size="64">
-  <wa-icon slot="prefix" name="expand"></wa-icon>
+  <wa-icon slot="start" name="expand"></wa-icon>
 </wa-qr-code>
 ```
 
@@ -67,7 +67,7 @@ Create a rounded effect with the `radius` attribute.
 
 ```html {.example}
 <wa-qr-code value="https://shoelace.style/" radius="0.5">
-  <wa-icon slot="prefix" name="circle"></wa-icon>
+  <wa-icon slot="start" name="circle"></wa-icon>
 </wa-qr-code>
 ```
 
@@ -78,16 +78,16 @@ QR codes can be rendered with various levels of [error correction](https://www.q
 ```html {.example}
 <div class="qr-error-correction">
   <wa-qr-code value="https://shoelace.style/" error-correction="L">
-    <wa-icon slot="prefix" name="shield"></wa-icon>
+    <wa-icon slot="start" name="shield"></wa-icon>
   </wa-qr-code>
   <wa-qr-code value="https://shoelace.style/" error-correction="M">
-    <wa-icon slot="prefix" name="shield"></wa-icon>
+    <wa-icon slot="start" name="shield"></wa-icon>
   </wa-qr-code>
   <wa-qr-code value="https://shoelace.style/" error-correction="Q">
-    <wa-icon slot="prefix" name="shield"></wa-icon>
+    <wa-icon slot="start" name="shield"></wa-icon>
   </wa-qr-code>
   <wa-qr-code value="https://shoelace.style/" error-correction="H">
-    <wa-icon slot="prefix" name="shield"></wa-icon>
+    <wa-icon slot="start" name="shield"></wa-icon>
   </wa-qr-code>
 </div>
 

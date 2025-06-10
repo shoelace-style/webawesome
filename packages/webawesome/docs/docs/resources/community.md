@@ -18,7 +18,7 @@ The [discussion forum](https://github.com/shoelace-style/shoelace/discussions) i
 - Learn more about the project, its values, and its roadmap
 
 <wa-button variant="brand" href="https://github.com/shoelace-style/shoelace/discussions" target="_blank" style="margin-block-end: var(--wa-flow-spacing);">
-  <wa-icon name="github" family="brands" slot="prefix"></wa-icon>
+  <wa-icon name="github" family="brands" slot="start"></wa-icon>
   Join the Discussion
 </wa-button>
 
@@ -32,7 +32,7 @@ The [community chat](https://discord.gg/mg8f26C) is open to the public and power
 - Chat live with other designers, developers, and Web Awesome fans
 
 <wa-button variant="brand" href="https://discord.gg/mg8f26C" target="_blank" style="margin-block-end: var(--wa-flow-spacing);">
-  <wa-icon name="discord" family="brands" slot="prefix"></wa-icon>
+  <wa-icon name="discord" family="brands" slot="start"></wa-icon>
   Join the Chat
 </wa-button>
 
@@ -43,6 +43,6 @@ Follow [@webawesomer](https://twitter.com/webawesomer) on Twitter for general up
 **Please avoid using Twitter for support questions.** The [discussion forum](https://github.com/shoelace-style/shoelace/discussions) is a much better place to share code snippets, screenshots, and other troubleshooting info. You'll have much better luck there, as more users will have a chance to help you.
 
 <wa-button variant="brand" href="https://twitter.com/webawesomer" target="_blank" style="margin-block-end: var(--wa-flow-spacing);">
-  <wa-icon name="twitter" family="brands" slot="prefix"></wa-icon>
+  <wa-icon name="twitter" family="brands" slot="start"></wa-icon>
   Follow on Twitter
 </wa-button>

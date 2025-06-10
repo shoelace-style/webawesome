@@ -137,7 +137,7 @@ Use the [`autofocus`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_a
 </wa-popover>
 
 <wa-button id="popover__autofocus">
-  <wa-icon name="comment" slot="prefix"></wa-icon>
+  <wa-icon name="comment" slot="start"></wa-icon>
   Feedback
 </wa-button>
 ```
