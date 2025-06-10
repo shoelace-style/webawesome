@@ -29,13 +29,13 @@ import styles from './button.css';
  * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
  * @slot - The button's label.
- * @slot prefix - A presentational prefix icon or similar element.
- * @slot suffix - A presentational suffix icon or similar element.
+ * @slot start - An element, such as `<wa-icon>`, placed before the label.
+ * @slot end - An element, such as `<wa-icon>`, placed after the label.
  *
  * @csspart base - The component's base wrapper.
- * @csspart prefix - The container that wraps the prefix.
+ * @csspart start - The container that wraps the `start` slot.
  * @csspart label - The button's label.
- * @csspart suffix - The container that wraps the suffix.
+ * @csspart end - The container that wraps the `end` slot.
  * @csspart caret - The button's caret icon, a `<wa-icon>` element.
  * @csspart spinner - The spinner that shows when the button is in the loading state.
  *
@@ -60,7 +60,7 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
   }
 
   assumeInteractionOn = ['click'];
-  private readonly hasSlotController = new HasSlotController(this, '[default]', 'prefix', 'suffix');
+  private readonly hasSlotController = new HasSlotController(this, '[default]', 'start', 'end');
   private readonly localize = new LocalizeController(this);
 
   @query('.button') button: HTMLButtonElement | HTMLLinkElement;
@@ -263,8 +263,8 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
           loading: this.loading,
           rtl: this.localize.dir() === 'rtl',
           'has-label': this.hasSlotController.test('[default]'),
-          'has-prefix': this.hasSlotController.test('prefix'),
-          'has-suffix': this.hasSlotController.test('suffix'),
+          'has-start': this.hasSlotController.test('start'),
+          'has-end': this.hasSlotController.test('end'),
           'is-icon-button': this.isIconButton,
         })}
         ?disabled=${ifDefined(isLink ? undefined : this.disabled)}
@@ -282,9 +282,9 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
         @invalid=${this.isButton() ? this.handleInvalid : null}
         @click=${this.handleClick}
       >
-        <slot name="prefix" part="prefix" class="prefix"></slot>
+        <slot name="start" part="start" class="start"></slot>
         <slot part="label" class="label" @slotchange=${this.handleLabelSlotChange}></slot>
-        <slot name="suffix" part="suffix" class="suffix"></slot>
+        <slot name="end" part="end" class="end"></slot>
         ${
           this.caret
             ? html`

@@ -126,60 +126,60 @@ As expected, buttons can be given a custom width by setting the `width` CSS prop
 <wa-button size="large" style="width: 100%;">Large</wa-button>
 ```
 
-### Prefix and Suffix Icons
+### Start & End Decorations
 
-Use the `prefix` and `suffix` slots to add icons.
+Use the `start` and `end` slots to add presentational elements like `<wa-icon>` next to the button label.
 
 ```html {.example}
 <wa-button size="small">
-  <wa-icon slot="prefix" name="gear" variant="solid"></wa-icon>
+  <wa-icon slot="start" name="gear"></wa-icon>
   Settings
 </wa-button>
 
 <wa-button size="small">
-  <wa-icon slot="suffix" name="undo" variant="solid"></wa-icon>
+  <wa-icon slot="end" name="undo"></wa-icon>
   Refresh
 </wa-button>
 
 <wa-button size="small">
-  <wa-icon slot="prefix" name="link" variant="solid"></wa-icon>
-  <wa-icon slot="suffix" name="arrow-up-right-from-square" variant="solid"></wa-icon>
+  <wa-icon slot="start" name="link"></wa-icon>
+  <wa-icon slot="end" name="arrow-up-right-from-square"></wa-icon>
   Open
 </wa-button>
 
 <br /><br />
 
 <wa-button>
-  <wa-icon slot="prefix" name="gear" variant="solid"></wa-icon>
+  <wa-icon slot="start" name="gear"></wa-icon>
   Settings
 </wa-button>
 
 <wa-button>
-  <wa-icon slot="suffix" name="undo" variant="solid"></wa-icon>
+  <wa-icon slot="end" name="undo"></wa-icon>
   Refresh
 </wa-button>
 
 <wa-button>
-  <wa-icon slot="prefix" name="link" variant="solid"></wa-icon>
-  <wa-icon slot="suffix" name="arrow-up-right-from-square" variant="solid"></wa-icon>
+  <wa-icon slot="start" name="link"></wa-icon>
+  <wa-icon slot="end" name="arrow-up-right-from-square"></wa-icon>
   Open
 </wa-button>
 
 <br /><br />
 
 <wa-button size="large">
-  <wa-icon slot="prefix" name="gear" variant="solid"></wa-icon>
+  <wa-icon slot="start" name="gear"></wa-icon>
   Settings
 </wa-button>
 
 <wa-button size="large">
-  <wa-icon slot="suffix" name="undo" variant="solid"></wa-icon>
+  <wa-icon slot="end" name="undo"></wa-icon>
   Refresh
 </wa-button>
 
 <wa-button size="large">
-  <wa-icon slot="prefix" name="link" variant="solid"></wa-icon>
-  <wa-icon slot="suffix" name="arrow-up-right-from-square" variant="solid"></wa-icon>
+  <wa-icon slot="start" name="link"></wa-icon>
+  <wa-icon slot="end" name="arrow-up-right-from-square"></wa-icon>
   Open
 </wa-button>
 ```

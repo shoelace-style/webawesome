@@ -50,26 +50,26 @@ and it will override the inherited size,
 it is rarely a good idea to mix sizes within the same button group.
 :::
 
-### Vertical button groups
+### Vertical Button Groups
 
 Set the `orientation` attribute to `vertical` to make a vertical button group.
 
 ```html {.example}
 <wa-button-group orientation="vertical" label="Options" style="max-width: 120px;">
   <wa-button>
-    <wa-icon slot="prefix" name="plus"></wa-icon>
+    <wa-icon slot="start" name="plus"></wa-icon>
     New
   </wa-button>
   <wa-button>
-    <wa-icon slot="prefix" name="folder-open"></wa-icon>
+    <wa-icon slot="start" name="folder-open"></wa-icon>
     Open
   </wa-button>
   <wa-button>
-    <wa-icon slot="prefix" name="save"></wa-icon>
+    <wa-icon slot="start" name="save"></wa-icon>
     Save
   </wa-button>
   <wa-button>
-    <wa-icon slot="prefix" name="print"></wa-icon>
+    <wa-icon slot="start" name="print"></wa-icon>
     Print
   </wa-button>
 </wa-button-group>
