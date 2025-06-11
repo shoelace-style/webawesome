@@ -222,7 +222,7 @@ layout: page
     text-align: left;
     white-space: wrap;
   }
-  wa-button.tile::part(suffix) {
+  wa-button.tile::part(end) {
     display: none;
   }
   wa-button.tile {

@@ -189,7 +189,7 @@ html.wa-theme-brutalist .preview-container {
     padding-inline-start: var(--wa-space-xs);
   }
 
-  .product-card wa-button::part(suffix) {
+  .product-card wa-button::part(end) {
     padding-inline-end: var(--wa-space-xs);
   }
 

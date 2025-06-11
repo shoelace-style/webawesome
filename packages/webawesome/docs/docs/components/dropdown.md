@@ -240,7 +240,7 @@ The preferred placement of the dropdown can be set with the `placement` attribut
 <wa-dropdown placement="right-start">
   <wa-button slot="trigger">
     File formats
-    <wa-icon slot="suffix" name="chevron-right"></wa-icon>
+    <wa-icon slot="end" name="chevron-right"></wa-icon>
   </wa-button>
 
   <wa-dropdown-item value="pdf">PDF Document</wa-dropdown-item>
