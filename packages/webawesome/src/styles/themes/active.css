@@ -8,7 +8,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 @layer wa-theme {
-  :where(:root),
+  :root,
   .wa-theme-active,
   .wa-light,
   .wa-dark .wa-invert {
@@ -176,7 +176,7 @@
     /* #endregion */
   }
 
-  :where(:root),
+  :root,
   :host,
   .wa-theme-active,
   .wa-light,
@@ -361,7 +361,10 @@
 
 @layer wa-overrides {
   :root,
-  .wa-theme-active {
+  .wa-theme-active,
+  .wa-light,
+  .wa-dark,
+  .wa-invert {
     wa-radio,
     input[type='radio'] {
       --checked-icon-color: var(--wa-color-brand-on-loud);

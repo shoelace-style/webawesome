@@ -8,7 +8,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Azeret+Mono:ital@0;1&family=Fredoka:wght@300..700&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
 
 @layer wa-theme {
-  :where(:root),
+  :root,
   .wa-theme-playful,
   .wa-light,
   .wa-dark .wa-invert {
@@ -359,8 +359,11 @@
 }
 
 @layer wa-overrides {
-  :where(:root),
-  .wa-theme-playful {
+  :root,
+  .wa-theme-playful,
+  .wa-light,
+  .wa-dark,
+  .wa-invert {
     wa-badge,
     wa-button,
     button,

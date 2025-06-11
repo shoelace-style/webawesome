@@ -8,7 +8,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap');
 
 @layer wa-theme {
-  :where(:root),
+  :root,
   .wa-theme-glossy,
   .wa-light,
   .wa-dark .wa-invert {
@@ -359,8 +359,11 @@
 }
 
 @layer wa-overrides {
-  :where(:root),
-  .wa-theme-glossy {
+  :root,
+  .wa-theme-glossy,
+  .wa-light,
+  .wa-dark,
+  .wa-invert {
     h1,
     h2,
     h3,

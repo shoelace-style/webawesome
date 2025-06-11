@@ -6,7 +6,7 @@
 @import url('../neutral/gray.css');
 
 @layer wa-theme {
-  :where(:root),
+  :root,
   .wa-theme-shoelace,
   .wa-light,
   .wa-dark .wa-invert {
@@ -358,8 +358,11 @@
 }
 
 @layer wa-overrides {
-  :where(:root),
-  .wa-theme-shoelace {
+  :root,
+  .wa-theme-shoelace,
+  .wa-light,
+  .wa-dark,
+  .wa-invert {
     wa-avatar {
       --background-color: var(--wa-color-neutral-fill-loud);
       --text-color: var(--wa-color-neutral-on-loud);

@@ -1,12 +1,13 @@
 @import url('../color/default.css');
-@import url('../brand/blue.css');
+@import url('../brand/indigo.css');
 @import url('../success/green.css');
 @import url('../warning/yellow.css');
 @import url('../danger/red.css');
 @import url('../neutral/gray.css');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 @layer wa-theme {
-  :where(:root),
+  :root,
   .wa-theme-tailspin,
   .wa-light,
   .wa-dark .wa-invert {
@@ -348,8 +349,11 @@
 }
 
 @layer wa-overrides {
-  :where(:root),
-  .wa-theme-tailspin {
+  :root,
+  .wa-theme-tailspin,
+  .wa-light,
+  .wa-dark,
+  .wa-invert {
     h1,
     h2,
     h3,

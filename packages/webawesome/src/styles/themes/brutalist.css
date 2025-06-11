@@ -7,7 +7,7 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@100;200;300;400;500;600;700&family=Space+Grotesk:wght@300..700&family=Space+Mono:wght@400;700&display=swap');
 
 @layer wa-theme {
-  :where(:root),
+  :root,
   .wa-theme-brutalist,
   .wa-light,
   .wa-dark .wa-invert {
@@ -167,7 +167,7 @@
     /* #endregion */
   }
 
-  :where(:root),
+  :root,
   :host,
   .wa-theme-active,
   .wa-light,
@@ -351,8 +351,11 @@
 }
 
 @layer wa-overrides {
-  :where(:root),
-  .wa-theme-brutalist {
+  :root,
+  .wa-theme-brutalist,
+  .wa-light,
+  .wa-dark,
+  .wa-invert {
     blockquote,
     pre {
       border-inline-start: var(--wa-border-style) var(--wa-border-width-m) var(--wa-color-surface-border);

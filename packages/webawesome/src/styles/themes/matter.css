@@ -3,10 +3,11 @@
 @import url('../success/green.css');
 @import url('../warning/yellow.css');
 @import url('../danger/red.css');
-@import url('../neutral/purple.css');
+@import url('../neutral/gray.css');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Wix+Madefor+Text:ital,wght@0,400..800;1,400..800&display=swap');
 
 @layer wa-theme {
-  :where(:root),
+  :root,
   .wa-theme-matter,
   .wa-light,
   .wa-dark .wa-invert {
@@ -359,8 +360,11 @@
     inherits: false;
   }
 
-  :where(:root),
-  .wa-theme-matter {
+  :root,
+  .wa-theme-matter,
+  .wa-light,
+  .wa-dark,
+  .wa-invert {
     --wa-ripple-start-radius: 0.1em;
     --wa-ripple-start-opacity: 0.1;
     --wa-ripple-duration: calc(2 * var(--wa-transition-slow));

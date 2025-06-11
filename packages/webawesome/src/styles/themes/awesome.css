@@ -8,7 +8,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
 
 @layer wa-theme {
-  :where(:root),
+  :root,
   .wa-theme-awesome,
   .wa-light,
   .wa-dark .wa-invert {
@@ -176,7 +176,7 @@
     /* #endregion */
   }
 
-  :where(:root),
+  :root,
   :host,
   .wa-theme-active,
   .wa-light,
@@ -361,7 +361,10 @@
 
 @layer wa-overrides {
   :root,
-  .wa-theme-awesome {
+  .wa-theme-awesome,
+  .wa-light,
+  .wa-dark,
+  .wa-invert {
     :is(button, input:where([type='button'], [type='reset'], [type='submit']), wa-button):not(
         [appearance='plain'],
         .wa-plain
