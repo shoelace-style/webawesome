@@ -16,23 +16,6 @@
     --wa-color-success-10: var(--wa-color-green-10);
     --wa-color-success-05: var(--wa-color-green-05);
     --wa-color-success: var(--wa-color-green);
-
-    --wa-color-success-lt-50: var(--wa-color-green-lt-50);
-    --wa-color-success-gte-50: var(--wa-color-green-gte-50);
-
-    --wa-color-success-lt-60: var(--wa-color-green-lt-60);
-    --wa-color-success-gte-60: var(--wa-color-green-gte-60);
-
-    --wa-color-success-lt-70: var(--wa-color-green-lt-70);
-    --wa-color-success-gte-70: var(--wa-color-green-gte-70);
-
-    --wa-color-success-max-50: var(--wa-color-green-max-50);
-    --wa-color-success-min-50: var(--wa-color-green-min-50);
-    --wa-color-success-max-60: var(--wa-color-green-max-60);
-    --wa-color-success-min-60: var(--wa-color-green-min-60);
-    --wa-color-success-max-70: var(--wa-color-green-max-70);
-    --wa-color-success-min-70: var(--wa-color-green-min-70);
-
     --wa-color-success-on: var(--wa-color-green-on);
   }
 }

@@ -5,3 +5,24 @@
 @import url('../../warning/yellow.css');
 @import url('../../danger/red.css');
 @import url('../../neutral/gray.css');
+
+@layer wa-theme {
+  :where(:root),
+  :host,
+  .wa-theme-glossy,
+  .wa-light,
+  .wa-dark .wa-invert {
+    --wa-color-brand-fill-loud: var(--wa-color-brand-40);
+    --wa-color-success-fill-loud: var(--wa-color-success-40);
+    --wa-color-warning-fill-loud: var(--wa-color-warning-40);
+    --wa-color-danger-fill-loud: var(--wa-color-danger-40);
+  }
+
+  .wa-dark,
+  .wa-invert {
+    --wa-color-brand-fill-loud: var(--wa-color-brand-40);
+    --wa-color-success-fill-loud: var(--wa-color-success-40);
+    --wa-color-warning-fill-loud: var(--wa-color-warning-40);
+    --wa-color-danger-fill-loud: var(--wa-color-danger-40);
+  }
+}
