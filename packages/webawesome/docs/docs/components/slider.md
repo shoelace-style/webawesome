@@ -2,7 +2,7 @@
 title: Slider
 description: Ranges allow the user to select a single value within a given range using a slider.
 layout: component
-icon: slider
+category: Form Controls
 ---
 
 ```html {.example}

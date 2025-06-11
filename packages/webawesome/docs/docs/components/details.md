@@ -2,7 +2,7 @@
 title: Details
 description: Details show a brief summary and expand to show additional content.
 layout: component
-icon: details
+category: Organization
 ---
 
 <!-- cspell:dictionaries lorem-ipsum -->

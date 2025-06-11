@@ -2,7 +2,7 @@
 title: Breadcrumb
 description: Breadcrumbs provide a group of links so users can easily navigate a website's hierarchy.
 layout: component
-icon: breadcrumb
+category: Navigation
 ---
 
 Breadcrumbs are usually placed before a page's main content with the current page shown last to indicate the user's position in the navigation.

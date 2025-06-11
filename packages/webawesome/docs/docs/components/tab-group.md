@@ -2,7 +2,7 @@
 title: Tab Group
 description: Tab groups organize content into a container that shows one section at a time.
 layout: component
-icon: tab-group
+category: Navigation
 ---
 
 Tab groups make use of [tabs](/docs/components/tab) and [tab panels](/docs/components/tab-panel). Each panel should have a name that's unique within the tab group, and tabs should have a `panel` attribute that points to the respective panel's name.

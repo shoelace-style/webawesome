@@ -2,7 +2,7 @@
 title: Switch
 description: Switches allow the user to toggle an option on or off.
 layout: component
-icon: switch
+category: Form Controls
 ---
 
 ```html {.example}

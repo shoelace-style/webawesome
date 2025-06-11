@@ -23,6 +23,7 @@ const isDev = process.argv.includes('--develop');
 const packageData = JSON.parse(await readFile(path.join(__dirname, '..', 'package.json'), 'utf-8'));
 const docsDir = path.join(process.env.BASE_DIR || '.', 'docs');
 const passThroughExtensions = ['js', 'css', 'png', 'svg', 'jpg', 'mp4'];
+const allComponents = getComponents();
 
 /**
  * If you plan to add or remove any of these extensions, make sure to let either Konnor or Cory know as these
@@ -67,6 +68,29 @@ export default async function (eleventyConfig) {
     return typeof content === 'string' ? content.replace(/^(\s|\|)/g, '').replace(/(\s|\|)$/g, '') : content;
   });
 
+  // Add the componentPages collection
+  eleventyConfig.addCollection('componentPages', function (collectionApi) {
+    const componentPages = collectionApi.getFilteredByGlob(
+      path.join(eleventyConfig.directories.input, 'docs/components/**/*.md'),
+    );
+
+    return componentPages.map(page => {
+      // Extract component name from the file path or page data
+      const componentName = path.basename(page.inputPath, '.md');
+      const tagName = `wa-${componentName}`;
+
+      // Find the matching component
+      const component = allComponents.find(c => c.tagName === tagName);
+
+      // Add component to the page's data
+      if (component) {
+        page.data.component = component;
+      }
+
+      return page;
+    });
+  });
+
   // Shortcodes - {% shortCode arg1, arg2 %}
   eleventyConfig.addShortcode('cdnUrl', location => {
     return `https://early.webawesome.com/webawesome@${packageData.version}/dist/` + (location || '').replace(/^\//, '');
@@ -108,7 +132,7 @@ export default async function (eleventyConfig) {
 
   // Helpers
   eleventyConfig.addNunjucksGlobal('getComponent', tagName => {
-    const component = getComponents().find(c => c.tagName === tagName);
+    const component = allComponents.find(c => c.tagName === tagName);
     if (!component) {
       throw new Error(
         `Unable to find "<${tagName}>". Make sure the file name is the same as the tag name (without prefix).`,

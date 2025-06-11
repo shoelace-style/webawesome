@@ -2,6 +2,7 @@
 title: Breadcrumb Item
 description: Breadcrumb Items are used inside breadcrumbs to represent different links.
 layout: component
+category: Navigation
 ---
 
 ```html {.example}

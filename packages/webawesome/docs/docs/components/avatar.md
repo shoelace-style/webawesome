@@ -2,7 +2,7 @@
 title: Avatar
 description: Avatars are used to represent a person or object.
 layout: component
-icon: avatar
+category: Imagery
 ---
 
 By default, a generic icon will be shown. You can personalize avatars by adding custom icons, initials, and images. You should always provide a `label` for assistive devices.

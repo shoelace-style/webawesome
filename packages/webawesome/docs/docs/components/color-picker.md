@@ -2,7 +2,7 @@
 title: Color Picker
 description: Color pickers allow the user to select a color.
 layout: component
-icon: color-picker
+category: Form Controls
 ---
 
 ```html {.example}

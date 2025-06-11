@@ -2,7 +2,7 @@
 title: Progress Bar
 description: Progress bars are used to show the status of an ongoing operation.
 layout: component
-icon: progress-bar
+category: Feedback & Status
 ---
 
 ```html {.example}

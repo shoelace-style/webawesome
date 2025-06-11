@@ -2,7 +2,7 @@
 title: Tree Item
 description: A tree item serves as a hierarchical node that lives inside a tree.
 layout: component
-icon: tree
+category: Navigation
 ---
 
 ```html {.example}

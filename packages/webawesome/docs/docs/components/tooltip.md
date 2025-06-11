@@ -2,7 +2,7 @@
 title: Tooltip
 description: Tooltips display additional information based on a specific action.
 layout: component
-icon: tooltip
+category: Feedback & Status
 ---
 
 A tooltip's target is based on the `for` attribute which points to an element id.

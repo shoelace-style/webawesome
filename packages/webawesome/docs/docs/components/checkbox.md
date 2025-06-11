@@ -2,7 +2,7 @@
 title: Checkbox
 description: Checkboxes allow the user to toggle an option on or off.
 layout: component
-icon: checkbox
+category: Form Controls
 ---
 
 ```html {.example}
