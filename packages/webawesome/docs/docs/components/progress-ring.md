@@ -6,9 +6,7 @@ icon: progress-ring
 ---
 
 ```html {.example}
-<wa-progress-ring value="25">
-  <wa-icon slot="start" name="circle-notch"></wa-icon>
-</wa-progress-ring>
+<wa-progress-ring value="25"></wa-progress-ring>
 ```
 
 ## Examples
@@ -18,9 +16,7 @@ icon: progress-ring
 Use the `--size` custom property to set the diameter of the progress ring.
 
 ```html {.example}
-<wa-progress-ring value="50" style="--size: 200px;">
-  <wa-icon slot="start" name="expand"></wa-icon>
-</wa-progress-ring>
+<wa-progress-ring value="50" style="--size: 200px;"></wa-progress-ring>
 ```
 
 ### Track and Indicator Width
@@ -28,9 +24,7 @@ Use the `--size` custom property to set the diameter of the progress ring.
 Use the `--track-width` and `--indicator-width` custom properties to set the width of the progress ring's track and indicator.
 
 ```html {.example}
-<wa-progress-ring value="50" style="--track-width: 6px; --indicator-width: 12px;">
-  <wa-icon slot="start" name="arrows-alt"></wa-icon>
-</wa-progress-ring>
+<wa-progress-ring value="50" style="--track-width: 6px; --indicator-width: 12px;"></wa-progress-ring>
 ```
 
 ### Colors
@@ -45,7 +39,6 @@ To change the color, use the `--track-color` and `--indicator-color` custom prop
     --indicator-color: deeppink;
   "
 >
-  <wa-icon slot="start" name="palette"></wa-icon>
 </wa-progress-ring>
 ```
 

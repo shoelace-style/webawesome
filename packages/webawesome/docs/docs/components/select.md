@@ -210,7 +210,7 @@ The preferred placement of the select's listbox can be set with the `placement` 
 
 ### Start & End Decorations
 
-Use the `start` and `end` slots to add presentational elements like `<wa-icon>` within the input.
+Use the `start` and `end` slots to add presentational elements like `<wa-icon>` within the combobox.
 
 ```html {.example}
 <wa-select placeholder="Small" size="small" with-clear>
