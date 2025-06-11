@@ -175,7 +175,10 @@
   }
 
   :root,
-  .wa-theme-default {
+  .wa-theme-default,
+  .wa-light,
+  .wa-dark,
+  .wa-invert {
     /* #region Fonts ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
     --wa-font-family-body: ui-sans-serif, system-ui, sans-serif;
     --wa-font-family-heading: var(--wa-font-family-body);

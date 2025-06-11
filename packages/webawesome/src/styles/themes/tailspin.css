@@ -6,7 +6,7 @@
 @import url('../neutral/gray.css');
 
 @layer wa-theme {
-  :root,
+  :where(:root),
   .wa-theme-tailspin,
   .wa-light,
   .wa-dark .wa-invert {
@@ -167,7 +167,10 @@
   }
 
   :root,
-  .wa-theme-tailspin {
+  .wa-theme-tailspin,
+  .wa-light,
+  .wa-dark,
+  .wa-invert {
     /* #region Fonts ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
     --wa-font-family-body: 'Inter', sans-serif;
     --wa-font-family-heading: var(--wa-font-family-body);

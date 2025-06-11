@@ -7,7 +7,7 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@100;200;300;400;500;600;700&family=Space+Grotesk:wght@300..700&family=Space+Mono:wght@400;700&display=swap');
 
 @layer wa-theme {
-  :root,
+  :where(:root),
   .wa-theme-brutalist,
   .wa-light,
   .wa-dark .wa-invert {
@@ -167,8 +167,12 @@
     /* #endregion */
   }
 
-  :root,
-  .wa-theme-brutalist {
+  :where(:root),
+  :host,
+  .wa-theme-active,
+  .wa-light,
+  .wa-dark,
+  .wa-invert .wa-theme-brutalist {
     /* #region Fonts ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
     --wa-font-family-body: 'Space Grotesk', sans-serif;
     --wa-font-family-heading: 'IBM Plex Sans Condensed', sans-serif;

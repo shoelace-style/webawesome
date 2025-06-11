@@ -6,7 +6,7 @@
 @import url('../neutral/purple.css');
 
 @layer wa-theme {
-  :root,
+  :where(:root),
   .wa-theme-matter,
   .wa-light,
   .wa-dark .wa-invert {
@@ -171,7 +171,10 @@
   }
 
   :root,
-  .wa-theme-matter {
+  .wa-theme-matter,
+  .wa-light,
+  .wa-dark,
+  .wa-invert {
     /* #region Fonts ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
     --wa-font-family-body: 'Wix Madefor Text', sans-serif;
     --wa-font-family-heading: var(--wa-font-family-body);

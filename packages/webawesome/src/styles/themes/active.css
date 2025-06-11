@@ -8,7 +8,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 @layer wa-theme {
-  :root,
+  :where(:root),
   .wa-theme-active,
   .wa-light,
   .wa-dark .wa-invert {
@@ -176,8 +176,12 @@
     /* #endregion */
   }
 
-  :root,
-  .wa-theme-active {
+  :where(:root),
+  :host,
+  .wa-theme-active,
+  .wa-light,
+  .wa-dark,
+  .wa-invert {
     /* #region Fonts ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
     --wa-font-family-body: 'Inter', sans-serif;
     --wa-font-family-heading: var(--wa-font-family-body);
