@@ -5,7 +5,7 @@
  * <div class="search-list">
  *   <input class="search-list-input" type="search" placeholder="Search...">
  *
- *   <h2>Category Name</h2>  <!-- Any heading level h1-h6 works -->
+ *   <h2>Category Name</h2>  <!-- Optional heading; h1-h6 all work -->
  *   <section class="search-list-grid">
  *     <a href="...">
  *       <span class="page-name">Component Title</span>
@@ -33,6 +33,7 @@ function enableSearchLists() {
         const query = e.target.value.toLowerCase().trim();
         let totalVisible = 0;
 
+        // Handle sections with headings
         container.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(heading => {
           const section = heading.nextElementSibling;
           if (!section) return;
@@ -49,6 +50,21 @@ function enableSearchLists() {
           heading.style.display = sectionVisible > 0 ? '' : 'none';
           section.style.display = sectionVisible > 0 ? '' : 'none';
           totalVisible += sectionVisible;
+        });
+
+        // Handle standalone sections without headings
+        container.querySelectorAll('.search-list-grid').forEach(section => {
+          const prevElement = section.previousElementSibling;
+          const hasHeading = prevElement && /^H[1-6]$/.test(prevElement.tagName);
+
+          if (!hasHeading) {
+            section.querySelectorAll('a').forEach(card => {
+              const title = card.querySelector('.page-name')?.textContent?.toLowerCase() || '';
+              const visible = !query || title.includes(query);
+              card.style.display = visible ? '' : 'none';
+              if (visible) totalVisible++;
+            });
+          }
         });
 
         emptyState.hidden = totalVisible > 0;
