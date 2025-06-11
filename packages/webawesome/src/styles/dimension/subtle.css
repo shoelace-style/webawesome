@@ -1,12 +1,10 @@
-@layer wa-theme {
-  :where(:root),
-  :host,
-  .wa-theme-active {
-    --wa-theme-active-shadow-pop-out:
+@layer wa-dimension {
+  :where(:root) {
+    --wa-subtle-shadow-pop-out:
       inset 0 0.0625rem 0 0.0625rem rgb(255 255 255 / 0.15) /* shine */,
       inset 0 0.0625rem 0.125rem 0 rgb(255 255 255 / 0.2) /* inner highlight */,
       inset 0 -0.125rem 0.0625rem 0 rgb(0 0 0 / 0.2) /* inner shadow */;
-    --wa-theme-active-shadow-punch-in:
+    --wa-subtle-shadow-punch-in:
       inset 0 0 0 0 transparent /* shine */, inset 0 0.125rem 0.125rem 0 rgb(0 0 0 / 0.15) /* inner highlight */,
       inset 0 -0.0625rem 0.25rem 0 rgb(0 0 0 / 0.15) /* inner shadow */;
 
@@ -18,7 +16,7 @@
       &::part(base) {
         border-width: 0px;
         box-shadow:
-          var(--wa-theme-active-shadow-pop-out),
+          var(--wa-subtle-shadow-pop-out),
           inset 0 0 0 var(--border-width) var(--border-color, var(--background-color, transparent));
         padding-inline: calc(var(--wa-form-control-padding-inline) + var(--border-width));
       }
@@ -27,14 +25,14 @@
         &:where(:not(wa-button)),
         &::part(base) {
           box-shadow:
-            var(--wa-theme-active-shadow-punch-in),
+            var(--wa-subtle-shadow-punch-in),
             inset 0 0 0 var(--border-width) var(--border-color-active, var(--background-color-active, transparent));
         }
       }
     }
 
     wa-card {
-      box-shadow: var(--wa-theme-active-shadow-pop-out);
+      box-shadow: var(--wa-subtle-shadow-pop-out);
     }
 
     input:not([type='button'], [type='reset'], [type='submit'], :checked),
@@ -51,7 +49,7 @@
 
     wa-slider::part(thumb),
     wa-switch::part(thumb) {
-      box-shadow: var(--wa-theme-active-shadow-pop-out);
+      box-shadow: var(--wa-subtle-shadow-pop-out);
     }
 
     wa-progress-bar {

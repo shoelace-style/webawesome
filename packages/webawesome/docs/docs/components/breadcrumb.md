@@ -35,32 +35,20 @@ For websites, you'll probably want to use links instead. You can make any breadc
 </wa-breadcrumb>
 ```
 
-### Prefixes
+### Start & End Decorations
 
-Use the `prefix` slot to add content before any breadcrumb item.
+Use the `start` and `end` slots to add presentational elements like `<wa-icon>` next to any breadcrumb item.
 
 ```html {.example}
 <wa-breadcrumb>
   <wa-breadcrumb-item>
-    <wa-icon slot="prefix" name="house" variant="solid"></wa-icon>
+    <wa-icon slot="start" name="house"></wa-icon>
     Home
   </wa-breadcrumb-item>
   <wa-breadcrumb-item>Articles</wa-breadcrumb-item>
-  <wa-breadcrumb-item>Traveling</wa-breadcrumb-item>
-</wa-breadcrumb>
-```
-
-### Suffixes
-
-Use the `suffix` slot to add content after any breadcrumb item.
-
-```html {.example}
-<wa-breadcrumb>
-  <wa-breadcrumb-item>Documents</wa-breadcrumb-item>
-  <wa-breadcrumb-item>Policies</wa-breadcrumb-item>
   <wa-breadcrumb-item>
-    Security
-    <wa-icon slot="suffix" name="shield" variant="solid"></wa-icon>
+    <wa-icon slot="end" name="tree-palm"></wa-icon>
+    Traveling
   </wa-breadcrumb-item>
 </wa-breadcrumb>
 ```
@@ -98,7 +86,7 @@ Use the `separator` slot to change the separator that goes between breadcrumb it
 
 ### Custom Colors
 
-Breadcrumb labels match the color set on `<wa-breadcrumb-item>`. Prefixes, suffixes, and separators can be styled using CSS parts.
+Breadcrumb labels match the color set on `<wa-breadcrumb-item>`. Content in the `start`, `end`, and `separator` slots can be styled using CSS parts.
 
 ```html {.example}
 <style>
@@ -111,14 +99,14 @@ Breadcrumb labels match the color set on `<wa-breadcrumb-item>`. Prefixes, suffi
   .redcrumbs wa-breadcrumb-item::part(separator) {
     color: pink;
   }
-  .redcrumbs wa-breadcrumb-item::part(prefix),
-  .redcrumbs wa-breadcrumb-item::part(suffix) {
+  .redcrumbs wa-breadcrumb-item::part(start),
+  .redcrumbs wa-breadcrumb-item::part(end) {
     color: currentColor;
   }
 </style>
 <wa-breadcrumb class="redcrumbs">
   <wa-breadcrumb-item>
-    <wa-icon slot="prefix" name="house" variant="solid"></wa-icon>
+    <wa-icon slot="start" name="house" variant="solid"></wa-icon>
     Home
   </wa-breadcrumb-item>
   <wa-breadcrumb-item>Articles</wa-breadcrumb-item>
@@ -148,7 +136,7 @@ Dropdown menus can be placed in the default slot to provide additional options.
 </wa-breadcrumb>
 ```
 
-Alternatively, you can place dropdown menus in a prefix or suffix slot.
+Alternatively, you can place dropdown menus in a `start` or `end` slot.
 
 ```html {.example}
 <wa-breadcrumb>
@@ -157,7 +145,7 @@ Alternatively, you can place dropdown menus in a prefix or suffix slot.
   <wa-breadcrumb-item>Digital Media</wa-breadcrumb-item>
   <wa-breadcrumb-item>
     Web Design
-    <wa-dropdown slot="suffix">
+    <wa-dropdown slot="end">
       <wa-button slot="trigger" size="small" appearance="filled" pill>
         <wa-icon label="More options" name="ellipsis" variant="solid"></wa-icon>
       </wa-button>

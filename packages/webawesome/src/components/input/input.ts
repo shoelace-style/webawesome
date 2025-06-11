@@ -25,8 +25,8 @@ import styles from './input.css';
  * @dependency wa-icon
  *
  * @slot label - The input's label. Alternatively, you can use the `label` attribute.
- * @slot prefix - Used to prepend a presentational icon or similar element to the input.
- * @slot suffix - Used to append a presentational icon or similar element to the input.
+ * @slot start - An element, such as `<wa-icon>`, placed at the start of the input control.
+ * @slot end - An element, such as `<wa-icon>`, placed at the end of the input control.
  * @slot clear-icon - An icon to use in lieu of the default clear icon.
  * @slot show-password-icon - An icon to use in lieu of the default show password icon.
  * @slot hide-password-icon - An icon to use in lieu of the default hide password icon.
@@ -43,10 +43,10 @@ import styles from './input.css';
  * @csspart hint - The hint's wrapper.
  * @csspart input - The wrapper being rendered as an input
  * @csspart base - The internal `<input>` control.
- * @csspart prefix - The container that wraps the prefix.
+ * @csspart start - The container that wraps the `start` slot.
  * @csspart clear-button - The clear button.
  * @csspart password-toggle-button - The password toggle button.
- * @csspart suffix - The container that wraps the suffix.
+ * @csspart end - The container that wraps the `end` slot.
  *
  * @cssproperty --background-color - The input's background color.
  * @cssproperty --border-color - The color of the input's borders.
@@ -356,7 +356,7 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
       </label>
 
       <div part="input" class="text-field">
-        <slot name="prefix" part="prefix" class="prefix"></slot>
+        <slot name="start" part="start" class="start"></slot>
 
         <input
           part="base"
@@ -430,7 +430,7 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
             `
           : ''}
 
-        <slot name="suffix" part="suffix" class="suffix"></slot>
+        <slot name="end" part="end" class="end"></slot>
       </div>
 
       <slot

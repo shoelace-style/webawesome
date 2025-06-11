@@ -74,15 +74,15 @@ declare const EyeDropper: EyeDropperConstructor;
  * @csspart input - The text input.
  * @csspart eye-dropper-button - The eye dropper button.
  * @csspart eye-dropper-button__base - The eye dropper button's exported `button` part.
- * @csspart eye-dropper-button__prefix - The eye dropper button's exported `prefix` part.
+ * @csspart eye-dropper-button__start - The eye dropper button's exported `start` part.
  * @csspart eye-dropper-button__label - The eye dropper button's exported `label` part.
- * @csspart eye-dropper-button__suffix - The eye dropper button's exported `suffix` part.
+ * @csspart eye-dropper-button__end - The eye dropper button's exported `end` part.
  * @csspart eye-dropper-button__caret - The eye dropper button's exported `caret` part.
  * @csspart format-button - The format button.
  * @csspart format-button__base - The format button's exported `button` part.
- * @csspart format-button__prefix - The format button's exported `prefix` part.
+ * @csspart format-button__start - The format button's exported `start` part.
  * @csspart format-button__label - The format button's exported `label` part.
- * @csspart format-button__suffix - The format button's exported `suffix` part.
+ * @csspart format-button__end - The format button's exported `end` part.
  * @csspart format-button__caret - The format button's exported `caret` part.
  *
  * @cssproperty --background-color - The color picker's background color.
@@ -1181,9 +1181,9 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
                     aria-label=${this.localize.term('toggleColorFormat')}
                     exportparts="
                       base:format-button__base,
-                      prefix:format-button__prefix,
+                      start:format-button__start,
                       label:format-button__label,
-                      suffix:format-button__suffix,
+                      end:format-button__end,
                       caret:format-button__caret
                     "
                     @click=${this.handleFormatToggle}
@@ -1202,9 +1202,9 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
                     appearance="outlined"
                     exportparts="
                       base:eye-dropper-button__base,
-                      prefix:eye-dropper-button__prefix,
+                      start:eye-dropper-button__start,
                       label:eye-dropper-button__label,
-                      suffix:eye-dropper-button__suffix,
+                      end:eye-dropper-button__end,
                       caret:eye-dropper-button__caret
                     "
                     @click=${this.handleEyeDropper}

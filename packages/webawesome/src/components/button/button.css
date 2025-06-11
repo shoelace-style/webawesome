@@ -107,8 +107,8 @@
  * Label
  */
 
-.prefix,
-.suffix {
+.start,
+.end {
   flex: 0 0 auto;
   display: flex;
   align-items: center;
@@ -137,7 +137,7 @@ wa-icon[part~='caret'] {
     height: 0.875em;
   }
 
-  .button:has(&) .suffix {
+  .button:has(&) .end {
     display: none;
   }
 }
@@ -150,9 +150,9 @@ wa-icon[part~='caret'] {
   position: relative;
   cursor: wait;
 
-  .prefix,
+  .start,
   .label,
-  .suffix,
+  .end,
   .caret {
     visibility: hidden;
   }
@@ -191,11 +191,11 @@ button ::slotted(wa-badge) {
 * Button spacing
 */
 
-slot[name='prefix']::slotted(*) {
+slot[name='start']::slotted(*) {
   margin-inline-end: var(--wa-form-control-padding-inline);
 }
 
-slot[name='suffix']::slotted(*),
+slot[name='end']::slotted(*),
 .button:not(.visually-hidden-label) [part~='caret'] {
   margin-inline-start: var(--wa-form-control-padding-inline);
 }

@@ -1,7 +1,5 @@
-@layer wa-theme {
-  :where(:root),
-  :host,
-  .wa-theme-awesome {
+@layer wa-dimension {
+  :where(:root) {
     wa-button,
     button,
     input:where([type='button'], [type='reset'], [type='submit']) {

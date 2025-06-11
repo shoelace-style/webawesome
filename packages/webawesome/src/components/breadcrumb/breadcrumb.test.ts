@@ -95,12 +95,12 @@ describe('<wa-breadcrumb>', () => {
         });
       });
 
-      describe('when provided a standard list of el-breadcrumb-item children and an element in the slot "prefix" to support prefix icons', () => {
+      describe('when provided a standard list of el-breadcrumb-item children and an element in the slot "start" to support start icons', () => {
         it('should pass accessibility tests', async () => {
           const el = await fixture<WaBreadcrumb>(html`
             <wa-breadcrumb>
               <wa-breadcrumb-item>
-                <span class="prefix-example" slot="prefix">/</span>
+                <span class="start-example" slot="start">/</span>
                 Home
               </wa-breadcrumb-item>
               <wa-breadcrumb-item>First</wa-breadcrumb-item>
@@ -112,7 +112,7 @@ describe('<wa-breadcrumb>', () => {
         });
       });
 
-      describe('when provided a standard list of el-breadcrumb-item children and an element in the slot "suffix" to support suffix icons', () => {
+      describe('when provided a standard list of el-breadcrumb-item children and an element in the slot "end" to support end icons', () => {
         it('should pass accessibility tests', async () => {
           const el = await fixture<WaBreadcrumb>(html`
             <wa-breadcrumb>
@@ -120,7 +120,7 @@ describe('<wa-breadcrumb>', () => {
               <wa-breadcrumb-item>Second</wa-breadcrumb-item>
               <wa-breadcrumb-item>Third</wa-breadcrumb-item>
               <wa-breadcrumb-item>
-                <span class="prefix-example" slot="suffix">/</span>
+                <span class="end-example" slot="end">/</span>
                 Security
               </wa-breadcrumb-item>
             </wa-breadcrumb>

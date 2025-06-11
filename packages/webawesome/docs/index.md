@@ -222,7 +222,7 @@ layout: page
     text-align: left;
     white-space: wrap;
   }
-  wa-button.tile::part(suffix) {
+  wa-button.tile::part(end) {
     display: none;
   }
   wa-button.tile {
@@ -266,7 +266,7 @@ layout: page
     <div class="hero-cta">
       <span><em>Psst!</em> You can pre-order Web Awesome Pro at a low, guaranteed-for-life price &mdash; but not for long. Get in while the gettin’s good.</span>
       <wa-button class="wa-dark" size="small" href="https://www.kickstarter.com/projects/fontawesome/web-awesome">
-        <wa-icon slot="prefix" name="person-running"></wa-icon>
+        <wa-icon slot="start" name="person-running"></wa-icon>
         Pre-order WA Pro
       </wa-button>
     </div>

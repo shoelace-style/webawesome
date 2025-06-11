@@ -158,25 +158,25 @@ label:has(select),
   }
 }
 
-/* Prefix and Suffix */
+/* Start and End */
 
-.prefix,
-.suffix {
+.start,
+.end {
   flex: 0;
   display: inline-flex;
   align-items: center;
   color: var(--wa-color-neutral-on-quiet);
 }
 
-.suffix::slotted(*) {
+.end::slotted(*) {
   margin-inline-start: var(--wa-form-control-padding-inline);
 }
 
-.prefix::slotted(*) {
+.start::slotted(*) {
   margin-inline-end: var(--wa-form-control-padding-inline);
 }
 
-:host([multiple]) .prefix::slotted(*) {
+:host([multiple]) .start::slotted(*) {
   margin-inline: var(--wa-form-control-padding-inline);
 }
 

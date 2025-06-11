@@ -1,0 +1,5 @@
+@layer wa-dimension {
+  :where(:root) {
+    /* Nothing to see here */
+  }
+}

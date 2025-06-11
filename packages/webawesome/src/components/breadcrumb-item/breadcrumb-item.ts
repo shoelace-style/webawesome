@@ -12,14 +12,14 @@ import styles from './breadcrumb-item.css';
  * @since 2.0
  *
  * @slot - The breadcrumb item's label.
- * @slot prefix - An optional prefix, usually an icon.
- * @slot suffix - An optional suffix, usually an icon.
+ * @slot start - An element, such as `<wa-icon>`, placed before the label.
+ * @slot end - An element, such as `<wa-icon>`, placed after the label.
  * @slot separator - The separator to use for the breadcrumb item. This will only change the separator for this item. If
  * you want to change it for all items in the group, set the separator on `<wa-breadcrumb>` instead.
  *
  * @csspart label - The breadcrumb item's label.
- * @csspart prefix - The container that wraps the prefix.
- * @csspart suffix - The container that wraps the suffix.
+ * @csspart start - The container that wraps the `start` slot.
+ * @csspart end - The container that wraps the `end` slot.
  * @csspart separator - The container that wraps the separator.
  */
 @customElement('wa-breadcrumb-item')
@@ -71,8 +71,8 @@ export default class WaBreadcrumbItem extends WebAwesomeElement {
 
   render() {
     return html`
-      <span part="prefix" class="prefix">
-        <slot name="prefix"></slot>
+      <span part="start" class="start">
+        <slot name="start"></slot>
       </span>
 
       ${this.renderType === 'link'
@@ -103,8 +103,8 @@ export default class WaBreadcrumbItem extends WebAwesomeElement {
           `
         : ''}
 
-      <span part="suffix" class="suffix">
-        <slot name="suffix"></slot>
+      <span part="end" class="end">
+        <slot name="end"></slot>
       </span>
 
       <span part="separator" class="separator" aria-hidden="true">

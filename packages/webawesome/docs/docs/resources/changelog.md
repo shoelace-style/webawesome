@@ -52,6 +52,12 @@ During the alpha period, things might break! We take breaking changes very serio
 - 🚨 BREAKING: completely reworked `<wa-dropdown>` to be easier to use
   - Added `<wa-dropdown-item>`, greatly simplifying the dropdown's markup structure
   - Removed `<wa-menu>`, `<wa-menu-item>`, and `<wa-menu-label>`; use `<wa-dropdown-item>` and native headings instead
+- 🚨 BREAKING: renamed all `prefix` and `suffix` slots to `start` and `end`, affecting the following components:
+  - `<wa-breadcrumb-item>`
+  - `<wa-button>`
+  - `<wa-input>`
+  - `<wa-select>`
+  - `<wa-option>`
 - Added a new free component: `<wa-popover>` (#2 of 14 per stretch goals)
 - Added a new free component: `<wa-zoomable-frame>` (#3 of 14 per stretch goals)
 - Added a `min-block-size` to `<wa-divider orientation="vertical">` to ensure the divider is visible regardless of container height [issue:675]

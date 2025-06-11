@@ -122,11 +122,11 @@ describe('<wa-breadcrumb-item>', () => {
         });
       });
 
-      describe('when provided an element in the slot "prefix" to support prefix icons', () => {
+      describe('when provided an element in the slot "start" to support start icons', () => {
         it('should pass accessibility tests', async () => {
           const el = await fixture<WaBreadcrumbItem>(html`
             <wa-breadcrumb-item>
-              <span class="prefix-example" slot="prefix">/</span>
+              <span class="start-example" slot="start">/</span>
               Home
             </wa-breadcrumb-item>
           `);
@@ -136,22 +136,22 @@ describe('<wa-breadcrumb-item>', () => {
         it('should accept as an assigned child in the shadow root', async () => {
           const el = await fixture<WaBreadcrumbItem>(html`
             <wa-breadcrumb-item>
-              <span class="prefix-example" slot="prefix">/</span>
+              <span class="start-example" slot="start">/</span>
               Home
             </wa-breadcrumb-item>
           `);
-          const slot = el.shadowRoot!.querySelector<HTMLSlotElement>('slot[name=prefix]')!;
+          const slot = el.shadowRoot!.querySelector<HTMLSlotElement>('slot[name=start]')!;
           const childNodes = slot.assignedNodes({ flatten: true });
 
           expect(childNodes.length).to.eq(1);
         });
       });
 
-      describe('when provided an element in the slot "suffix" to support suffix icons', () => {
+      describe('when provided an element in the slot "end" to support end icons', () => {
         it('should pass accessibility tests', async () => {
           const el = await fixture<WaBreadcrumbItem>(html`
             <wa-breadcrumb-item>
-              <span class="prefix-example" slot="suffix">/</span>
+              <span class="end-example" slot="end">/</span>
               Security
             </wa-breadcrumb-item>
           `);
@@ -162,11 +162,11 @@ describe('<wa-breadcrumb-item>', () => {
         it('should accept as an assigned child in the shadow root', async () => {
           const el = await fixture<WaBreadcrumbItem>(html`
             <wa-breadcrumb-item>
-              <span class="prefix-example" slot="suffix">/</span>
+              <span class="end-example" slot="end">/</span>
               Security
             </wa-breadcrumb-item>
           `);
-          const slot = el.shadowRoot!.querySelector<HTMLSlotElement>('slot[name=suffix]')!;
+          const slot = el.shadowRoot!.querySelector<HTMLSlotElement>('slot[name=end]')!;
           const childNodes = slot.assignedNodes({ flatten: true });
 
           expect(childNodes.length).to.eq(1);

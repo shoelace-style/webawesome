@@ -108,11 +108,11 @@ For example, a button's default slot is used to populate its label.
 <wa-button>Click me</wa-button>
 ```
 
-Some components also have _named_ slots. A named slot can be populated by adding a child element with the appropriate `slot` attribute. Notice how the icon below has the `slot="prefix"` attribute? This tells the component to place the icon into its `prefix` slot.
+Some components also have _named_ slots. A named slot can be populated by adding a child element with the appropriate `slot` attribute. Notice how the icon below has the `slot="start"` attribute? This tells the component to place the icon into its `start` slot.
 
 ```html
 <wa-button>
-  <wa-icon slot="prefix" name="gear" variant="solid"></wa-icon>
+  <wa-icon slot="start" name="gear" variant="solid"></wa-icon>
   Settings
 </wa-button>
 ```

@@ -1,7 +1,5 @@
-@layer wa-theme {
-  :where(:root),
-  :host,
-  .wa-theme-glossy {
+@layer wa-dimension {
+  :where(:root) {
     --wa-theme-glossy-inner-shine: inset 0 0.125rem 0 0 rgb(255 255 255 / 0.3);
     --wa-theme-glossy-top-highlight: inset 0 0.25rem 0 0 rgb(255 255 255 / 0.1);
     --wa-theme-glossy-upper-tint: inset 0 1.25em 0 0 rgb(255 255 255 / 0.1);

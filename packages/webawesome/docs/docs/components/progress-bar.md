@@ -5,9 +5,7 @@ icon: progress-bar
 ---
 
 ```html {.example}
-<wa-progress-bar value="40">
-  <wa-icon slot="prefix" name="tasks"></wa-icon>
-</wa-progress-bar>
+<wa-progress-bar value="40"></wa-progress-bar>
 ```
 
 ## Examples

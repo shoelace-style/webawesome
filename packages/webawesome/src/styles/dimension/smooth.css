@@ -1,7 +1,5 @@
-@layer wa-theme {
-  :where(:root),
-  :host,
-  .wa-theme-playful {
+@layer wa-dimension {
+  :where(:root) {
     button,
     input:where([type='button'], [type='reset'], [type='submit']),
     wa-button {

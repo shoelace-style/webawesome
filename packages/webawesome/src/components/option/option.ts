@@ -16,8 +16,8 @@ import styles from './option.css';
  * @dependency wa-icon
  *
  * @slot - The option's label.
- * @slot prefix - Used to prepend an icon or similar element to the menu item.
- * @slot suffix - Used to append an icon or similar element to the menu item.
+ * @slot start - An element, such as `<wa-icon>`, placed before the label.
+ * @slot end - An element, such as `<wa-icon>`, placed after the label.
  *
  * @cssproperty --background-color-current - The current option's background color.
  * @cssproperty --background-color-hover - The options's background color on hover.
@@ -26,8 +26,8 @@ import styles from './option.css';
  *
  * @csspart checked-icon - The checked icon, a `<wa-icon>` element.
  * @csspart label - The option's label.
- * @csspart prefix - The container that wraps the prefix.
- * @csspart suffix - The container that wraps the suffix.
+ * @csspart start - The container that wraps the `start` slot.
+ * @csspart end - The container that wraps the `end` slot.
  *
  * @cssstate current - The user has keyed into the option, but hasn't selected it yet (shows a highlight)
  * @cssstate selected - The option is selected and has aria-selected="true"
@@ -192,9 +192,9 @@ export default class WaOption extends WebAwesomeElement {
         variant="solid"
         aria-hidden="true"
       ></wa-icon>
-      <slot part="prefix" name="prefix" class="prefix"></slot>
+      <slot part="start" name="start" class="start"></slot>
       <slot part="label" class="label" @slotchange=${this.handleDefaultSlotChange}></slot>
-      <slot part="suffix" name="suffix" class="suffix"></slot>
+      <slot part="end" name="end" class="end"></slot>
     `;
   }
 }

@@ -33,7 +33,7 @@ import styles from './dropdown-item.css';
 export default class WaDropdownItem extends WebAwesomeElement {
   static css = styles;
 
-  private readonly hasSlotController = new HasSlotController(this, '[default]', 'prefix', 'suffix');
+  private readonly hasSlotController = new HasSlotController(this, '[default]', 'start', 'end');
 
   @query('#submenu') submenuElement: HTMLDivElement;
 

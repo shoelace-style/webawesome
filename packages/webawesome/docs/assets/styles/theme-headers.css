@@ -185,11 +185,11 @@ html.wa-theme-brutalist .preview-container {
     text-align: right;
   }
 
-  .product-card wa-button::part(prefix) {
+  .product-card wa-button::part(start) {
     padding-inline-start: var(--wa-space-xs);
   }
 
-  .product-card wa-button::part(suffix) {
+  .product-card wa-button::part(end) {
     padding-inline-end: var(--wa-space-xs);
   }
 
