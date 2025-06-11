@@ -47,6 +47,14 @@ export default async function (eleventyConfig) {
     flashes: '',
   });
 
+  //
+  // Add free themes to preset themes global data
+  //
+  // TODO - let's iterate the directory and grab these. We'll need to figure out how to separate free from pro and
+  // update the pro config as well.
+  //
+  eleventyConfig.addGlobalData('freeThemes', ['default', 'awesome', 'shoelace']);
+
   // Template filters - {{ content | filter }}
   eleventyConfig.addFilter('inlineMarkdown', content => markdown.renderInline(content || ''));
   eleventyConfig.addFilter('markdown', content => markdown.render(content || ''));
