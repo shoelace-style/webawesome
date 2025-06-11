@@ -1,6 +1,7 @@
 ---
 title: Option
 description: Options define the selectable items within various form controls such as select.
+layout: component
 icon: option
 ---
 

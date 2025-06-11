@@ -6,6 +6,7 @@ import { codeExamplesPlugin } from './_utils/code-examples.js';
 import { copyCodePlugin } from './_utils/copy-code.js';
 import { currentLink } from './_utils/current-link.js';
 import { highlightCodePlugin } from './_utils/highlight-code.js';
+import { getComponents } from './_utils/manifest.js';
 import { markdown } from './_utils/markdown.js';
 // import { formatCodePlugin } from './_utils/format-code.js';
 // import litPlugin from '@lit-labs/eleventy-plugin-lit';
@@ -106,6 +107,15 @@ export default async function (eleventyConfig) {
   eleventyConfig.addPairedShortcode('markdown', content => markdown.render(content || ''));
 
   // Helpers
+  eleventyConfig.addNunjucksGlobal('getComponent', tagName => {
+    const component = getComponents().find(c => c.tagName === tagName);
+    if (!component) {
+      throw new Error(
+        `Unable to find "<${tagName}>". Make sure the file name is the same as the tag name (without prefix).`,
+      );
+    }
+    return component;
+  });
 
   // Use our own markdown instance
   eleventyConfig.setLibrary('md', markdown);

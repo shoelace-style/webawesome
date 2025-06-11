@@ -1,6 +1,8 @@
 ---
 title: Input
 description: Inputs collect data from the user.
+layout: component
+icon: input
 ---
 
 ```html {.example}

@@ -1,6 +1,7 @@
 ---
 title: Icon
 description: Icons are symbols that can be used to represent various options within an application.
+layout: component
 icon: icon
 ---
 

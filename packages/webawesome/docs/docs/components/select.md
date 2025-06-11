@@ -1,6 +1,7 @@
 ---
 title: Select
 description: Selects allow you to choose items from a menu of predefined options.
+layout: component
 icon: select
 ---
 

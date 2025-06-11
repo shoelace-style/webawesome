@@ -274,7 +274,7 @@ h1.title {
   }
 }
 
-.block-info {
+.component-info {
   display: flex;
   gap: var(--wa-space-xs);
   flex-wrap: wrap;

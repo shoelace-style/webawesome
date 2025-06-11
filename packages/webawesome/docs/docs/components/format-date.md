@@ -1,6 +1,7 @@
 ---
 title: Format Date
 description: Formats a date/time using the specified locale and options.
+layout: component
 icon: format-date
 ---
 

@@ -1,6 +1,7 @@
 ---
 title: QR Code
 description: Generates a QR code and renders it using the Canvas API.
+layout: component
 icon: qr-code
 ---
 

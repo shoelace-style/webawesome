@@ -1,6 +1,7 @@
 ---
 title: Dialog
 description: 'Dialogs, sometimes called "modals", appear above the page and require the user''s immediate attention.'
+layout: component
 icon: dialog
 ---
 

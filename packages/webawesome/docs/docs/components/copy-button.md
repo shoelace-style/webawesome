@@ -1,6 +1,7 @@
 ---
 title: Copy Button
 description: Copies data to the clipboard when the user clicks the button.
+layout: component
 icon: copy-button
 ---
 

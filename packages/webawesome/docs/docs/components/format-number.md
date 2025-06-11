@@ -1,6 +1,7 @@
 ---
 title: Format Number
 description: Formats a number using the specified locale and options.
+layout: component
 icon: format-number
 ---
 

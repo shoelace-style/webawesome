@@ -1,6 +1,7 @@
 ---
 title: Radio
 description: Radios allow the user to select a single option from a group.
+layout: component
 icon: radio-group
 ---
 

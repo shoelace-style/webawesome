@@ -1,6 +1,8 @@
 ---
 title: Details
 description: Details show a brief summary and expand to show additional content.
+layout: component
+icon: details
 ---
 
 <!-- cspell:dictionaries lorem-ipsum -->

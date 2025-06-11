@@ -1,6 +1,7 @@
 ---
 title: Skeleton
 description: Skeletons are used to provide a visual representation of where content will eventually be drawn.
+layout: component
 icon: skeleton
 ---
 

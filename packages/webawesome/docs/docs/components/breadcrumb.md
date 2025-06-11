@@ -1,6 +1,7 @@
 ---
 title: Breadcrumb
 description: Breadcrumbs provide a group of links so users can easily navigate a website's hierarchy.
+layout: component
 icon: breadcrumb
 ---
 

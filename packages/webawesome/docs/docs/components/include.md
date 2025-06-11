@@ -1,6 +1,7 @@
 ---
 title: Include
 description: Includes give you the power to embed external HTML files into the page.
+layout: component
 icon: include
 ---
 

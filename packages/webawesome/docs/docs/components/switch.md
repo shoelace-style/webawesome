@@ -1,7 +1,8 @@
 ---
 title: Switch
 description: Switches allow the user to toggle an option on or off.
-keywords: toggle
+layout: component
+icon: switch
 ---
 
 ```html {.example}
