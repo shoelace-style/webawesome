@@ -168,11 +168,10 @@
   }
 
   :root,
-  :host,
-  .wa-theme-active,
+  .wa-theme-brutalist,
   .wa-light,
   .wa-dark,
-  .wa-invert .wa-theme-brutalist {
+  .wa-invert {
     /* #region Fonts ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
     --wa-font-family-body: 'Space Grotesk', sans-serif;
     --wa-font-family-heading: 'IBM Plex Sans Condensed', sans-serif;

@@ -177,11 +177,10 @@
   }
 
   :root,
-  :host,
-  .wa-theme-active,
+  .wa-theme-awesome,
   .wa-light,
   .wa-dark,
-  .wa-invert .wa-theme-awesome {
+  .wa-invert {
     /* #region Fonts ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
     --wa-font-family-body: 'Quicksand', sans-serif;
     --wa-font-family-heading: var(--wa-font-family-body);
