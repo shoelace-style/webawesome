@@ -16,23 +16,6 @@
     --wa-color-success-10: var(--wa-color-purple-10);
     --wa-color-success-05: var(--wa-color-purple-05);
     --wa-color-success: var(--wa-color-purple);
-
-    --wa-color-success-lt-50: var(--wa-color-purple-lt-50);
-    --wa-color-success-gte-50: var(--wa-color-purple-gte-50);
-
-    --wa-color-success-lt-60: var(--wa-color-purple-lt-60);
-    --wa-color-success-gte-60: var(--wa-color-purple-gte-60);
-
-    --wa-color-success-lt-70: var(--wa-color-purple-lt-70);
-    --wa-color-success-gte-70: var(--wa-color-purple-gte-70);
-
-    --wa-color-success-max-50: var(--wa-color-purple-max-50);
-    --wa-color-success-min-50: var(--wa-color-purple-min-50);
-    --wa-color-success-max-60: var(--wa-color-purple-max-60);
-    --wa-color-success-min-60: var(--wa-color-purple-min-60);
-    --wa-color-success-max-70: var(--wa-color-purple-max-70);
-    --wa-color-success-min-70: var(--wa-color-purple-min-70);
-
     --wa-color-success-on: var(--wa-color-purple-on);
   }
 }

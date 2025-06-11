@@ -66,7 +66,7 @@
    */
     --wa-color-brand-fill-quiet: var(--wa-color-brand-95);
     --wa-color-brand-fill-normal: var(--wa-color-brand-90);
-    --wa-color-brand-fill-loud: var(--wa-color-brand-max-50);
+    --wa-color-brand-fill-loud: var(--wa-color-brand-50);
     --wa-color-brand-border-quiet: var(--wa-color-brand-90);
     --wa-color-brand-border-normal: var(--wa-color-brand-80);
     --wa-color-brand-border-loud: var(--wa-color-brand-60);
@@ -76,7 +76,7 @@
 
     --wa-color-success-fill-quiet: var(--wa-color-success-95);
     --wa-color-success-fill-normal: var(--wa-color-success-90);
-    --wa-color-success-fill-loud: var(--wa-color-success-max-50);
+    --wa-color-success-fill-loud: var(--wa-color-success-50);
     --wa-color-success-border-quiet: var(--wa-color-success-90);
     --wa-color-success-border-normal: var(--wa-color-success-80);
     --wa-color-success-border-loud: var(--wa-color-success-60);
@@ -86,7 +86,7 @@
 
     --wa-color-warning-fill-quiet: var(--wa-color-warning-95);
     --wa-color-warning-fill-normal: var(--wa-color-warning-90);
-    --wa-color-warning-fill-loud: var(--wa-color-warning-max-50);
+    --wa-color-warning-fill-loud: var(--wa-color-warning-50);
     --wa-color-warning-border-quiet: var(--wa-color-warning-90);
     --wa-color-warning-border-normal: var(--wa-color-warning-80);
     --wa-color-warning-border-loud: var(--wa-color-warning-60);
@@ -96,7 +96,7 @@
 
     --wa-color-danger-fill-quiet: var(--wa-color-danger-95);
     --wa-color-danger-fill-normal: var(--wa-color-danger-90);
-    --wa-color-danger-fill-loud: var(--wa-color-danger-max-50);
+    --wa-color-danger-fill-loud: var(--wa-color-danger-50);
     --wa-color-danger-border-quiet: var(--wa-color-danger-90);
     --wa-color-danger-border-normal: var(--wa-color-danger-80);
     --wa-color-danger-border-loud: var(--wa-color-danger-60);
@@ -156,7 +156,7 @@
     --wa-color-brand-border-quiet: var(--wa-color-brand-20);
     --wa-color-brand-border-normal: var(--wa-color-brand-30);
     --wa-color-brand-border-loud: var(--wa-color-brand-40);
-    --wa-color-brand-on-quiet: var(--wa-color-brand-min-60);
+    --wa-color-brand-on-quiet: var(--wa-color-brand-60);
     --wa-color-brand-on-normal: var(--wa-color-brand-70);
     --wa-color-brand-on-loud: white;
 
@@ -166,7 +166,7 @@
     --wa-color-success-border-quiet: var(--wa-color-success-20);
     --wa-color-success-border-normal: var(--wa-color-success-30);
     --wa-color-success-border-loud: var(--wa-color-success-40);
-    --wa-color-success-on-quiet: var(--wa-color-success-min-60);
+    --wa-color-success-on-quiet: var(--wa-color-success-60);
     --wa-color-success-on-normal: var(--wa-color-success-70);
     --wa-color-success-on-loud: white;
 
@@ -176,7 +176,7 @@
     --wa-color-warning-border-quiet: var(--wa-color-warning-20);
     --wa-color-warning-border-normal: var(--wa-color-warning-30);
     --wa-color-warning-border-loud: var(--wa-color-warning-40);
-    --wa-color-warning-on-quiet: var(--wa-color-warning-min-60);
+    --wa-color-warning-on-quiet: var(--wa-color-warning-60);
     --wa-color-warning-on-normal: var(--wa-color-warning-70);
     --wa-color-warning-on-loud: white;
 
@@ -186,7 +186,7 @@
     --wa-color-danger-border-quiet: var(--wa-color-danger-20);
     --wa-color-danger-border-normal: var(--wa-color-danger-30);
     --wa-color-danger-border-loud: var(--wa-color-danger-40);
-    --wa-color-danger-on-quiet: var(--wa-color-danger-min-60);
+    --wa-color-danger-on-quiet: var(--wa-color-danger-60);
     --wa-color-danger-on-normal: var(--wa-color-danger-70);
     --wa-color-danger-on-loud: white;
 
