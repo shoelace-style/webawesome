@@ -207,6 +207,8 @@
 
     --wa-font-weight-body: var(--wa-font-weight-normal);
     --wa-font-weight-heading: var(--wa-font-weight-semibold);
+    --wa-font-weight-code: var(--wa-font-weight-normal);
+    --wa-font-weight-longform: var(--wa-font-weight-normal);
     --wa-font-weight-action: var(--wa-font-weight-semibold);
 
     --wa-line-height-condensed: 1.1;
@@ -297,7 +299,7 @@
     /* #endregion */
 
     /* #region Components ~~~~~~~~~~~~~~~~~~~~~~~ */
-    /* Form controls */
+    /* Form Controls */
     --wa-form-control-background-color: transparent;
 
     --wa-form-control-border-color: var(--wa-color-neutral-border-loud);

@@ -198,6 +198,8 @@
 
     --wa-font-weight-body: var(--wa-font-weight-normal);
     --wa-font-weight-heading: var(--wa-font-weight-bold);
+    --wa-font-weight-code: var(--wa-font-weight-normal);
+    --wa-font-weight-longform: var(--wa-font-weight-normal);
     --wa-font-weight-action: var(--wa-font-weight-semibold);
 
     --wa-line-height-condensed: 1.2;
@@ -288,7 +290,7 @@
     /* #endregion */
 
     /* #region Components ~~~~~~~~~~~~~~~~~~~~~~~ */
-    /* Form controls */
+    /* Form Controls */
     --wa-form-control-background-color: color-mix(in oklab, var(--wa-color-surface-raised), transparent);
     --wa-form-control-border-color: var(--wa-color-neutral-border-normal);
     --wa-form-control-border-style: var(--wa-border-style);
