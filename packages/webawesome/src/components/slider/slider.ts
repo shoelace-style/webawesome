@@ -228,7 +228,9 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
         },
         stop: () => {
           if (this.minValue !== this.valueWhenDraggingStarted) {
-            this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
+            this.updateComplete.then(() => {
+              this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
+            })
             this.hasInteracted = true;
           }
           this.hideRangeTooltips();
@@ -251,7 +253,9 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
         },
         stop: () => {
           if (this.maxValue !== this.valueWhenDraggingStarted) {
-            this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
+            this.updateComplete.then(() => {
+              this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
+            })
             this.hasInteracted = true;
           }
           this.hideRangeTooltips();
@@ -321,7 +325,9 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
           if (this.activeThumb) {
             const currentValue = this.activeThumb === 'min' ? this.minValue : this.maxValue;
             if (currentValue !== this.valueWhenDraggingStarted) {
-              this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
+              this.updateComplete.then(() => {
+                this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
+              })
               this.hasInteracted = true;
             }
           }
@@ -346,7 +352,10 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
         },
         stop: () => {
           if (this.value !== this.valueWhenDraggingStarted) {
-            this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
+            this.updateComplete.then(() => {
+              this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
+            })
+
             this.hasInteracted = true;
           }
           this.hideTooltip();
@@ -476,7 +485,9 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
       this.hideTooltip();
     }
     this.customStates.set('focused', false);
-    this.dispatchEvent(new FocusEvent('blur', { bubbles: true, composed: true }));
+    this.updateComplete.then(() => {
+      this.dispatchEvent(new FocusEvent('blur', { bubbles: true, composed: true }));
+    })
   }
 
   private handleFocus(event: FocusEvent) {
@@ -495,7 +506,9 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
     }
 
     this.customStates.set('focused', true);
-    this.dispatchEvent(new FocusEvent('focus', { bubbles: true, composed: true }));
+    this.updateComplete.then(() => {
+      this.dispatchEvent(new FocusEvent('focus', { bubbles: true, composed: true }));
+    })
   }
 
   private handleKeyDown(event: KeyboardEvent) {
@@ -602,8 +615,10 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
     }
 
     // Dispatch events
-    this.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
-    this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
+    this.updateComplete.then(() => {
+      this.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
+      this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
+    })
     this.hasInteracted = true;
   }
 
@@ -625,7 +640,9 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
 
     // Dispatch input events when the value changes by dragging
     if (this.value !== oldValue) {
-      this.dispatchEvent(new InputEvent('input'));
+      this.updateComplete.then(() => {
+        this.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
+      })
     }
   }
 
@@ -658,8 +675,10 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
 
     // Dispatch input events
     if (oldValue !== (thumb === 'min' ? this.minValue : this.maxValue)) {
-      this.dispatchEvent(new InputEvent('input'));
       this.updateFormValue();
+      this.updateComplete.then(() => {
+        this.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
+      })
     }
   }
 
