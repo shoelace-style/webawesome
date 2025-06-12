@@ -1,14 +1,27 @@
+{{ themePages | dump }}
+
+<br><br>
+
 <wa-select appearance="filled" size="small" value="default" pill class="theme-selector">
   <wa-icon slot="prefix" name="paintbrush" variant="regular"></wa-icon>
-  {% for theme in freeThemes %}
-    <wa-option value="{{ theme }}">{{ theme | title }}</wa-option>
+
+  {# Free themes #}
+  {% for page in collections.themePages %}
+    {% if not page.data.isPro %}
+      <wa-option value="{{ page.data.file | stripExtension }}">{{ page.data.title }}</wa-option>
+    {% endif %}
   {% endfor %}
 
-  {% if proThemes.length > 0 %}
+  {# Only show divider if there are pro themes #}
+  {% if collections.themePages | selectattr('data.isPro') | list | length > 0 %}
     <wa-divider></wa-divider>
   {% endif %}
 
-  {% for theme in proThemes %}
-    <wa-option value="{{ theme }}">{{ theme | title }}</wa-option>
+  {# Pro themes #}
+  {% for page in collections.themePages %}
+    {% if loop.first %}<wa-divider></wa-divider>{% endif %}
+    {% if page.data.isPro %}
+      <wa-option value="{{ page.data.file | stripExtension }}">{{ page.data.title }}</wa-option>
+    {% endif %}
   {% endfor %}
 </wa-select>

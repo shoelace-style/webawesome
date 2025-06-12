@@ -49,18 +49,10 @@ export default async function (eleventyConfig) {
     flashes: '',
   });
 
-  //
-  // Add free themes to preset themes global data
-  //
-  // TODO - let's iterate the directory and grab these. We'll need to figure out how to separate free from pro and
-  // update the pro config as well.
-  //
-  eleventyConfig.addGlobalData('freeThemes', ['default', 'awesome', 'shoelace']);
-
   // Template filters - {{ content | filter }}
   eleventyConfig.addFilter('inlineMarkdown', content => markdown.renderInline(content || ''));
   eleventyConfig.addFilter('markdown', content => markdown.render(content || ''));
-  eleventyConfig.addFilter('stripExtension', string => parse(string).name);
+  eleventyConfig.addFilter('stripExtension', string => parse(string + '').name);
   eleventyConfig.addFilter('stripPrefix', content => content.replace(/^wa-/, ''));
   // Trims whitespace and pipes from the start and end of a string. Useful for CEM types, which can be pipe-delimited.
   // With Prettier 3, this means a leading pipe will exist be present when the line wraps.
@@ -68,7 +60,22 @@ export default async function (eleventyConfig) {
     return typeof content === 'string' ? content.replace(/^(\s|\|)/g, '').replace(/(\s|\|)$/g, '') : content;
   });
 
+  // Custom filter to sort with a priority item first, e.g.
+  // {{ collection | sortWithFirst('fileSlug', 'default') }} => the item with the fileSlug of 'default' will be first
+  eleventyConfig.addFilter('sortWithFirst', function (collection, property, firstValue) {
+    const items = [...collection]; // Create a copy to avoid mutating original
+    return items.sort((a, b) => {
+      const aValue = property ? a[property] : a;
+      const bValue = property ? b[property] : b;
+      if (aValue === firstValue) return -1;
+      if (bValue === firstValue) return 1;
+      return 0;
+    });
+  });
+
+  //
   // Add the componentPages collection
+  //
   eleventyConfig.addCollection('componentPages', function (collectionApi) {
     const componentPages = collectionApi.getFilteredByGlob(
       path.join(eleventyConfig.directories.input, 'docs/components/**/*.md'),
@@ -89,6 +96,13 @@ export default async function (eleventyConfig) {
 
       return page;
     });
+  });
+
+  //
+  // Add the themes collection
+  //
+  eleventyConfig.addCollection('themePages', function (collectionApi) {
+    return collectionApi.getFilteredByGlob(path.join(eleventyConfig.directories.input, 'docs/themes/**/*.md'));
   });
 
   // Shortcodes - {% shortCode arg1, arg2 %}

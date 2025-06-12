@@ -4,7 +4,7 @@
   --handle-color: var(--wa-color-neutral-on-quiet);
   --handle-size: 2.5rem;
 
-  display: inline-block;
+  display: block;
   position: relative;
   max-width: 100%;
   max-height: 100%;

@@ -1,0 +1,179 @@
+---
+title: Themes
+description: Themes galore
+layout: docs
+isPro: true
+---
+
+<div id="theme-viewer">
+  <wa-radio-group id="theme-picker" label="Theme Selector" value="default" orientation="horizontal">
+    {% for page in collections.themePages | sortWithFirst('fileSlug', 'default') %}
+      <wa-radio
+        class="theme-card"
+        value="{{ page.fileSlug | stripExtension }}"
+        data-description="{{ page.data.description }}"
+        data-title="{{ page.data.title }}"
+        {% if page.data.isPro %}data-is-pro{% endif %}
+      >
+        {{ page.data.title }}
+      </wa-radio>
+    {% endfor %}
+  </wa-radio-group>
+</div>
+
+<wa-comparison position="80">
+  <wa-zoomable-frame
+    slot="after"
+    without-controls
+    without-interaction
+  ></wa-zoomable-frame>
+  <wa-zoomable-frame
+    slot="before"
+    without-controls
+    without-interaction
+  ></wa-zoomable-frame>
+</wa-comparison>
+
+<script type="module">
+  function init() {
+    const themePicker = document.getElementById('theme-picker');
+    const afterFrame = document.querySelector('wa-zoomable-frame[slot="after"]');
+    const beforeFrame = document.querySelector('wa-zoomable-frame[slot="before"]');
+
+    function updateFrames(selectedValue, title, description, isPro) {
+      const baseUrl = '/assets/examples/themes/showcase.html';
+      const params = new URLSearchParams();
+
+      if (selectedValue !== 'default') {
+        params.set('theme', selectedValue);
+      }
+      if (title) params.set('name', title);
+      if (description) params.set('description', description);
+      if (isPro) params.set('isPro', 'true');
+
+      const darkParams = new URLSearchParams(params);
+      darkParams.set('color-scheme', 'dark');
+
+      const queryString = params.toString() ? '?' + params.toString() : '';
+      const darkQueryString = '?' + darkParams.toString();
+      console.log(queryString);
+      afterFrame.src = baseUrl + queryString;
+      beforeFrame.src = baseUrl + darkQueryString;
+    }
+
+    // Set default radio as checked and initialize frames
+    const defaultRadio = themePicker.querySelector('wa-radio[value="default"]');
+    if (defaultRadio) {
+      defaultRadio.checked = true;
+      const title = defaultRadio.getAttribute('data-title');
+      const description = defaultRadio.getAttribute('data-description');
+      const isPro = defaultRadio.hasAttribute('data-is-pro');
+      updateFrames('default', title, description, isPro);
+    }
+
+    // Listen for radio changes
+    themePicker.addEventListener('input', function(event) {
+      const radioGroup = event.target.closest('wa-radio-group');
+      const selectedRadio = radioGroup.querySelector(':state(checked)');
+      const selectedValue = event.target.value;
+      const title = selectedRadio.getAttribute('data-title');
+      const description = selectedRadio.getAttribute('data-description');
+      const isPro = selectedRadio.hasAttribute('data-is-pro');
+
+      updateFrames(selectedValue, title, description, isPro);
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', init);
+  window.addEventListener('turbo:load', init);
+</script>
+
+<style>
+  wa-page > main {
+    max-width: 140ch;
+    margin-inline: auto;
+  }
+
+  wa-zoomable-frame {
+    aspect-ratio: 8 / 4;
+  }
+
+  #theme-viewer {
+    #theme-picker {
+      margin-bottom: var(--wa-space-l);
+
+      &::part(form-control-input) {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: var(--wa-space-s);
+      }
+
+      &::part(form-control-label) {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        clip: rect(0 0 0 0);
+        clip-path: inset(50%);
+        border: none;
+        overflow: hidden;
+        white-space: nowrap;
+        padding: 0;
+      }
+    }
+
+    .theme-card {
+      --border-radius: var(--wa-border-radius-m);
+      --spacing: var(--wa-space-s) var(--wa-space-m);
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: var(--wa-space-3xl);
+      padding: var(--spacing);
+      border: 1px solid var(--wa-color-surface-border);
+      border-radius: var(--border-radius);
+      box-shadow: var(--wa-shadow-s);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+      font-weight: var(--wa-font-weight-action);
+      text-transform: capitalize;
+
+      &:state(checked) {
+        border-color: var(--wa-color-brand-border-loud);
+        background-color: var(--wa-color-brand-fill-quiet);
+        color: var(--wa-color-brand-text-loud);
+      }
+
+      &::part(control) {
+        display: none;
+      }
+
+      &::part(label) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        margin: 0;
+      }
+    }
+  }
+
+  /* Smaller screens */
+  @media (max-width: 768px) {
+    #theme-viewer {
+      padding: var(--wa-space-m);
+
+      #theme-picker::part(form-control-input) {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--wa-space-xs);
+      }
+
+      .theme-card {
+        min-height: var(--wa-space-2xl);
+        font-size: var(--wa-font-size-s);
+      }
+    }
+  }
+</style>

@@ -1,7 +1,7 @@
 ---
 title: Awesome
 description: Bustling with plenty of luster and shine.
-isPro: true
+isPro: false
 ---
 
 TODO
