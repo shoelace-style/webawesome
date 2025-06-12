@@ -35,62 +35,95 @@ isPro: true
 </wa-comparison>
 
 <script type="module">
-  let didInit = false;
+let didInit = false;
+let isTransitioning = false;
 
-  function init() {
-    if (didInit) return;
-    didInit = true;
+async function init() {
+  if (didInit) return;
+  didInit = true;
 
-    const themePicker = document.getElementById('theme-picker');
-    const afterFrame = document.querySelector('wa-zoomable-frame[slot="after"]');
-    const beforeFrame = document.querySelector('wa-zoomable-frame[slot="before"]');
+  const themePicker = document.getElementById('theme-picker');
+  const afterFrame = document.querySelector('wa-zoomable-frame[slot="after"]');
+  const beforeFrame = document.querySelector('wa-zoomable-frame[slot="before"]');
+  const comparison = document.querySelector('wa-comparison');
 
-    function updateFrames(selectedValue, title, description, isPro) {
-      const baseUrl = '/assets/examples/themes/showcase.html';
-      const params = new URLSearchParams();
+  // Apply initial fade-in effect
+  comparison.classList.add('theme-transitioning');
+  isTransitioning = true;
 
-      if (selectedValue !== 'default') {
-        params.set('theme', selectedValue);
-      }
-      if (title) params.set('name', title);
-      if (description) params.set('description', description);
-      if (isPro) params.set('isPro', 'true');
+  function getFrameUrls(selectedValue, title, description, isPro) {
+    const baseUrl = '/assets/examples/themes/showcase.html';
+    const params = new URLSearchParams();
+    if (selectedValue !== 'default') params.set('theme', selectedValue);
+    if (title) params.set('name', title);
+    if (description) params.set('description', description);
+    if (isPro) params.set('isPro', 'true');
 
-      const darkParams = new URLSearchParams(params);
-      darkParams.set('color-scheme', 'dark');
+    const darkParams = new URLSearchParams(params);
+    darkParams.set('color-scheme', 'dark');
 
-      const queryString = params.toString() ? '?' + params.toString() : '';
-      const darkQueryString = '?' + darkParams.toString();
+    return {
+      afterSrc: baseUrl + (params.toString() ? '?' + params.toString() : ''),
+      beforeSrc: baseUrl + '?' + darkParams.toString()
+    };
+  }
 
-      afterFrame.src = baseUrl + queryString;
-      beforeFrame.src = baseUrl + darkQueryString;
+  async function waitForTransitionAndLoad(afterSrc, beforeSrc, isInitial = false) {
+    if (!isInitial) {
+      comparison.classList.add('theme-transitioning');
+      await new Promise(resolve => setTimeout(resolve, 250));
     }
 
-    // Set default radio as checked and initialize frames
-    const defaultRadio = themePicker.querySelector('wa-radio[value="default"]');
-    if (defaultRadio) {
-      defaultRadio.checked = true;
-      const title = defaultRadio.getAttribute('data-title');
-      const description = defaultRadio.getAttribute('data-description');
-      const isPro = defaultRadio.hasAttribute('data-is-pro');
-      updateFrames('default', title, description, isPro);
-    }
+    afterFrame.src = afterSrc;
+    beforeFrame.src = beforeSrc;
 
-    // Listen for radio changes
-    themePicker.addEventListener('input', function(event) {
-      const radioGroup = event.target.closest('wa-radio-group');
-      const selectedRadio = radioGroup.querySelector(':state(checked)');
+    await Promise.all([
+      new Promise(resolve => afterFrame.addEventListener('load', resolve, { once: true })),
+      new Promise(resolve => beforeFrame.addEventListener('load', resolve, { once: true }))
+    ]);
+
+    await new Promise(resolve => setTimeout(resolve, isInitial ? 0 : 250));
+    comparison.classList.remove('theme-transitioning');
+    isTransitioning = false;
+  }
+
+  async function updateFrames(selectedValue, title, description, isPro, isInitial = false) {
+    if (isTransitioning && !isInitial) return;
+    isTransitioning = true;
+    const { afterSrc, beforeSrc } = getFrameUrls(selectedValue, title, description, isPro);
+
+    await waitForTransitionAndLoad(afterSrc, beforeSrc, isInitial);
+    comparison.classList.remove('theme-transitioning');
+    isTransitioning = false;
+  }
+
+  // Set default radio and initialize frames
+  const defaultRadio = themePicker.querySelector('wa-radio[value="default"]');
+  if (defaultRadio) {
+    defaultRadio.checked = true;
+    const title = defaultRadio.getAttribute('data-title');
+    const description = defaultRadio.getAttribute('data-description');
+    const isPro = defaultRadio.hasAttribute('data-is-pro');
+    await updateFrames('default', title, description, isPro, true);
+  }
+
+  // Debounce theme changes
+  let debounceTimeout;
+  themePicker.addEventListener('input', (event) => {
+    clearTimeout(debounceTimeout);
+    debounceTimeout = setTimeout(async () => {
+      const selectedRadio = themePicker.querySelector(':state(checked)');
       const selectedValue = event.target.value;
       const title = selectedRadio.getAttribute('data-title');
       const description = selectedRadio.getAttribute('data-description');
       const isPro = selectedRadio.hasAttribute('data-is-pro');
+      await updateFrames(selectedValue, title, description, isPro);
+    }, 100);
+  });
+}
 
-      updateFrames(selectedValue, title, description, isPro);
-    });
-  }
-
-  document.addEventListener('DOMContentLoaded', init);
-  window.addEventListener('turbo:load', init);
+document.addEventListener('DOMContentLoaded', init);
+window.addEventListener('turbo:load', init);
 </script>
 
 <style>
@@ -100,6 +133,12 @@ isPro: true
   }
 
   wa-comparison {
+   transition: opacity 0.25s ease;
+
+    &.theme-transitioning {
+      opacity: 0;
+    }
+
     &::part(before) {
       background-color: white;
     }
