@@ -171,10 +171,8 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
     }
 
     if (this.value !== oldValue) {
-      requestAnimationFrame(() => {
-        this.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
-        this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
-      });
+      this.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
+      this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
     }
   };
 
