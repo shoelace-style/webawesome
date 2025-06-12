@@ -37,8 +37,13 @@ isPro: true
   {% endfor %}
 </div>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
+<script type="module">
+  let didInit = false;
+
+  function init() {
+    if (didInit) return;
+    didInit = true;
+
     const paletteContainer = document.getElementById('color-palettes');
     const palettePicker = document.getElementById('palette-picker');
     const paletteStylesheet = document.getElementById('palette-stylesheet');
@@ -66,7 +71,10 @@ isPro: true
       // Update the palette stylesheet
       paletteStylesheet.href = `/dist/styles/color/${selectedValue}.css`;
     });
-  });
+  }
+
+  document.addEventListener('DOMContentLoaded', init);
+  window.addEventListener('turbo:load', init);
 </script>
 
 <style>

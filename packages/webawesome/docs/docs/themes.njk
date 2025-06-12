@@ -35,7 +35,12 @@ isPro: true
 </wa-comparison>
 
 <script type="module">
+  let didInit = false;
+
   function init() {
+    if (didInit) return;
+    didInit = true;
+
     const themePicker = document.getElementById('theme-picker');
     const afterFrame = document.querySelector('wa-zoomable-frame[slot="after"]');
     const beforeFrame = document.querySelector('wa-zoomable-frame[slot="before"]');
@@ -56,7 +61,7 @@ isPro: true
 
       const queryString = params.toString() ? '?' + params.toString() : '';
       const darkQueryString = '?' + darkParams.toString();
-      console.log(queryString);
+
       afterFrame.src = baseUrl + queryString;
       beforeFrame.src = baseUrl + darkQueryString;
     }
