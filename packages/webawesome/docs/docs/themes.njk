@@ -23,12 +23,12 @@ isPro: true
 
 <wa-comparison position="80">
   <wa-zoomable-frame
-    slot="after"
+    slot="before"
     without-controls
     without-interaction
   ></wa-zoomable-frame>
   <wa-zoomable-frame
-    slot="before"
+    slot="after"
     without-controls
     without-interaction
   ></wa-zoomable-frame>
@@ -97,6 +97,16 @@ isPro: true
   wa-page > main {
     max-width: 140ch;
     margin-inline: auto;
+  }
+
+  wa-comparison {
+    &::part(before) {
+      background-color: white;
+    }
+
+    &::part(after) {
+      background-color: var(--wa-color-surface-default);
+    }
   }
 
   wa-zoomable-frame {
