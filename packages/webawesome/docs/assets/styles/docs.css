@@ -18,11 +18,12 @@
 
 body {
   opacity: 1;
-  transition: opacity 50ms ease-out;
+  transition: opacity 200ms ease-out;
 }
 
 body.theme-transitioning {
   opacity: 0;
+  transition: opacity 200ms ease-out;
 }
 
 wa-page {
