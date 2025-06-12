@@ -35,6 +35,8 @@ isPro: true
 </wa-comparison>
 
 <script type="module">
+  import { allDefined } from '/dist/webawesome.js';
+
   let didInit = false;
 
   function init() {
@@ -45,7 +47,7 @@ isPro: true
     const afterFrame = document.querySelector('wa-zoomable-frame[slot="after"]');
     const beforeFrame = document.querySelector('wa-zoomable-frame[slot="before"]');
 
-    function updateFrames(selectedValue, title, description, isPro) {
+    async function updateFrames(selectedValue, title, description, isPro) {
       const baseUrl = '/assets/examples/themes/showcase.html';
       const params = new URLSearchParams();
 
@@ -61,6 +63,8 @@ isPro: true
 
       const queryString = params.toString() ? '?' + params.toString() : '';
       const darkQueryString = '?' + darkParams.toString();
+
+      await allDefined();
 
       afterFrame.src = baseUrl + queryString;
       beforeFrame.src = baseUrl + darkQueryString;

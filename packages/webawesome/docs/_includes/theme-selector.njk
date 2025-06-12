@@ -8,7 +8,7 @@
   {# Free themes #}
   {% for page in collections.themePages %}
     {% if not page.data.isPro %}
-      <wa-option value="{{ page.data.file | stripExtension }}">{{ page.data.title }}</wa-option>
+      <wa-option value="{{ page.fileSlug }}">{{ page.data.title }}</wa-option>
     {% endif %}
   {% endfor %}
 
@@ -21,7 +21,7 @@
   {% for page in collections.themePages %}
     {% if loop.first %}<wa-divider></wa-divider>{% endif %}
     {% if page.data.isPro %}
-      <wa-option value="{{ page.data.file | stripExtension }}">{{ page.data.title }}</wa-option>
+      <wa-option value="{{ page.fileSlug }}">{{ page.data.title }}</wa-option>
     {% endif %}
   {% endfor %}
 </wa-select>

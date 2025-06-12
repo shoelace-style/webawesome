@@ -161,7 +161,6 @@
     "rgba",
     "roadmap",
     "Roboto",
-    "rockstar",
     "roledescription",
     "Sapan",
     "saturationl",
@@ -171,6 +170,7 @@
     "scroller",
     "Scrollers",
     "Segoe",
+    "selectattr",
     "semibold",
     "shadowrootmode",
     "Shortcode",
@@ -229,8 +229,6 @@
     "src/translations/!(en).ts",
     "**/*.min.js"
   ],
-  "ignoreRegExpList": [
-    "(^|[^a-z])sl[a-z]*(^|[^a-z])"
-  ],
+  "ignoreRegExpList": ["(^|[^a-z])sl[a-z]*(^|[^a-z])"],
   "useGitignore": true
 }
