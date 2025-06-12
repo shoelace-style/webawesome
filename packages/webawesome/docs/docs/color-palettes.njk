@@ -1,0 +1,243 @@
+---
+title: Color Palettes
+description: Look at all the pretty colors
+layout: docs
+---
+
+{% set colorPalettes = ['default', 'anodized', 'bright', 'elegant', 'mild', 'natural', 'rudimentary', 'shoelace', 'vogue'] %}
+{% set colors = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'indigo', 'purple', 'pink', 'gray'] %}
+{% set levels = ['05', '10', '20', '30', '40', '50', '60', '70', '80', '90', '95'] %}
+
+<link id="palette-stylesheet" rel="stylesheet" href="/dist/styles/color/default.css">
+
+<div id="color-palettes">
+  <wa-radio-group id="palette-picker" label="Color Palette" value="default" orientation="horizontal">
+    {% for palette in colorPalettes %}
+      <wa-radio class="palette-card" value="{{ palette }}">{{ palette }}</wa-radio>
+    {% endfor %}
+  </wa-radio-group>
+
+  {% for color in colors %}
+  <div class="palette">
+    <div class="palette-label">{{ color }}</div>
+    <div class="palette-swatches">
+      {% for level in levels %}
+      <wa-copy-button
+        class="palette-swatch"
+        copy-label="{{ color }} {{ level }}"
+        value="var(--wa-color-{{ color }}-{{ level }})"
+        style="--color: var(--wa-color-{{ color }}-{{ level }}); --level: '{{ level }}'"
+      >
+        <span class="sr-only">--wa-color-{{ color }}-{{ level }}</span>
+      </wa-copy-button>
+      {% endfor %}
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const paletteContainer = document.getElementById('color-palettes');
+    const palettePicker = document.getElementById('palette-picker');
+    const paletteStylesheet = document.getElementById('palette-stylesheet');
+
+    // Set default radio as checked
+    const defaultRadio = palettePicker.querySelector('wa-radio[value="default"]');
+    if (defaultRadio) {
+      defaultRadio.checked = true;
+    }
+
+    // Add initial theme class
+    paletteContainer.classList.add('wa-theme-default');
+
+    // Listen for radio changes
+    palettePicker.addEventListener('input', function(event) {
+      const selectedValue = event.target.value;
+
+      // Remove all existing wa-theme-* classes
+      const existingThemeClasses = [...paletteContainer.classList].filter(className => className.startsWith('wa-theme-'));
+      existingThemeClasses.forEach(className => paletteContainer.classList.remove(className));
+
+      // Add new theme class
+      paletteContainer.classList.add(`wa-theme-${selectedValue}`);
+
+      // Update the palette stylesheet
+      paletteStylesheet.href = `/dist/styles/color/${selectedValue}.css`;
+    });
+  });
+</script>
+
+<style>
+  #palette-picker {
+    margin-bottom: var(--wa-space-l);
+
+    &::part(form-control-input) {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: var(--wa-space-s);
+    }
+
+    &::part(form-control-label) {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      clip: rect(0 0 0 0);
+      clip-path: inset(50%);
+      border: none;
+      overflow: hidden;
+      white-space: nowrap;
+      padding: 0;
+   }
+  }
+
+  .palette-card {
+    --border-radius: var(--wa-border-radius-m);
+    --spacing: var(--wa-space-s) var(--wa-space-m);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: var(--wa-space-3xl);
+    padding: var(--spacing);
+    background-color: var(--wa-color-surface-default);
+    border: 1px solid var(--wa-color-surface-border);
+    border-radius: var(--border-radius);
+    box-shadow: var(--wa-shadow-s);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+    font-weight: var(--wa-font-weight-action);
+    text-transform: capitalize;
+  }
+
+  .palette-card:state(checked) {
+    border-color: var(--wa-color-brand-border-loud);
+    background-color: var(--wa-color-brand-fill-quiet);
+    color: var(--wa-color-brand-text-loud);
+  }
+
+  .palette-card::part(control) {
+    display: none;
+  }
+
+  .palette-card::part(label) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 0;
+  }
+
+  wa-page > main {
+    max-width: 120ch;
+    margin-inline: auto;
+  }
+
+  .palette {
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+    align-items: center;
+    gap: var(--wa-space-m);
+    margin-bottom: var(--wa-space-s);
+    width: 100%;
+    padding-top: var(--wa-space-l);
+  }
+
+  .palette-label {
+    font-weight: var(--wa-font-weight-bold);
+    text-transform: capitalize;
+    font-size: var(--wa-font-size-s);
+    color: var(--wa-color-text-normal);
+  }
+
+  .palette-swatches {
+    display: grid;
+    grid-template-columns: repeat(11, 1fr);
+    gap: var(--wa-space-3xs);
+    width: 100%;
+  }
+
+  .palette-swatch {
+    padding: 0;
+    aspect-ratio: 1.5 / 1; /* Wider than tall on desktop */
+    position: relative;
+
+    &::before {
+      content: var(--level);
+      position: absolute;
+      top: calc(-1 * var(--wa-space-l));
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: var(--wa-font-size-xs);
+      color: var(--wa-color-text-quiet);
+      font-weight: var(--wa-font-weight-action);
+      text-align: center;
+      z-index: 2;
+    }
+
+    &::part(button) {
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+      background-color: var(--color);
+      border-radius: var(--wa-border-radius-m);
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+    }
+
+    &:hover::part(button) {
+      transform: scale(1.075);
+      box-shadow: var(--wa-shadow-s);
+      z-index: 1;
+      position: relative;
+    }
+
+    &::part(copy-icon),
+    &::part(success-icon),
+    &::part(error-icon) {
+      visibility: hidden;
+    }
+  }
+
+  /* Smaller screens */
+  @media (max-width: 768px) {
+    .palette {
+      grid-template-columns: 3.75rem 1fr;
+      gap: var(--wa-space-s);
+      margin-bottom: var(--wa-space-m);
+      padding-top: var(--wa-space-xl);
+    }
+
+    .palette-label {
+      font-size: var(--wa-font-size-xs);
+    }
+
+    .palette-swatches {
+      grid-template-columns: repeat(6, 1fr); /* Two rows on mobile */
+      gap: var(--wa-space-2xs);
+      row-gap: var(--wa-space-l);
+    }
+
+    .palette-swatch {
+      aspect-ratio: 1 / 1; /* Square on mobile */
+
+      &::before {
+        font-size: var(--wa-font-size-2xs);
+        top: calc(-1 * var(--wa-space-m));
+      }
+    }
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+</style>
