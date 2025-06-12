@@ -17,8 +17,7 @@
  *
  * Usage: import './search-list.js'
  */
-
-function enableSearchLists() {
+export function enableSearchLists() {
   document.querySelectorAll('.search-list').forEach(container => {
     const input = container.querySelector('.search-list-input');
     const emptyState = container.querySelector('.search-list-empty');
@@ -80,4 +79,4 @@ if (document.readyState === 'loading') {
   enableSearchLists();
 }
 
-export { enableSearchLists };
+window.addEventListener('turbo:load', enableSearchLists);
