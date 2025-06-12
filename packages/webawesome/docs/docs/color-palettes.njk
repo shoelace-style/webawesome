@@ -2,6 +2,7 @@
 title: Color Palettes
 description: Look at all the pretty colors
 layout: docs
+isPro: true
 ---
 
 {% set colorPalettes = ['default', 'anodized', 'bright', 'elegant', 'mild', 'natural', 'rudimentary', 'shoelace', 'vogue'] %}
@@ -69,6 +70,11 @@ layout: docs
 </script>
 
 <style>
+  wa-page > main {
+    max-width: 120ch;
+    margin-inline: auto;
+  }
+
   #palette-picker {
     margin-bottom: var(--wa-space-l);
 
@@ -128,11 +134,6 @@ layout: docs
     justify-content: center;
     width: 100%;
     margin: 0;
-  }
-
-  wa-page > main {
-    max-width: 120ch;
-    margin-inline: auto;
   }
 
   .palette {
