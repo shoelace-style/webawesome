@@ -174,7 +174,7 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
       this.updateComplete.then(() => {
         this.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
         this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
-      })
+      });
     }
   };
 
@@ -279,7 +279,7 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
       this.updateComplete.then(() => {
         this.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
         this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
-      })
+      });
     }
 
     event.preventDefault();

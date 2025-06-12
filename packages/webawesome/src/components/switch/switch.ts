@@ -119,7 +119,7 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
     this.checked = !this.checked;
     this.updateComplete.then(() => {
       this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
-    })
+    });
   }
 
   private handleKeyDown(event: KeyboardEvent) {
@@ -129,7 +129,7 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
       this.updateComplete.then(() => {
         this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
         this.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
-      })
+      });
     }
 
     if (event.key === 'ArrowRight') {
@@ -139,7 +139,7 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
       this.updateComplete.then(() => {
         this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
         this.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
-      })
+      });
     }
   }
 

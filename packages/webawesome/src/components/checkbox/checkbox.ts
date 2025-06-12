@@ -134,7 +134,7 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
     this.indeterminate = false;
     this.updateComplete.then(() => {
       this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
-    })
+    });
   }
 
   @watch('defaultChecked')

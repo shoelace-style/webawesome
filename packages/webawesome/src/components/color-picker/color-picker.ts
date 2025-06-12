@@ -279,7 +279,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
     this.updateComplete.then(() => {
       this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
       this.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
-    })
+    });
   }
 
   private handleAlphaDrag(event: PointerEvent) {
@@ -301,7 +301,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
           currentValue = this.value;
           this.updateComplete.then(() => {
             this.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
-          })
+          });
         }
       },
       onStop: () => {
@@ -310,7 +310,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
           this.updateComplete.then(() => {
             this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
-          })
+          });
         }
       },
       initialEvent: event,
@@ -336,7 +336,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
           currentValue = this.value;
           this.updateComplete.then(() => {
             this.dispatchEvent(new InputEvent('input'));
-          })
+          });
         }
       },
       onStop: () => {
@@ -344,7 +344,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
           initialValue = this.value;
           this.updateComplete.then(() => {
             this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
-          })
+          });
         }
       },
       initialEvent: event,
@@ -373,7 +373,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
           currentValue = this.value;
           this.updateComplete.then(() => {
             this.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
-          })
+          });
         }
       },
       onStop: () => {
@@ -382,7 +382,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
           initialValue = this.value;
           this.updateComplete.then(() => {
             this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
-          })
+          });
         }
       },
       initialEvent: event,
@@ -421,7 +421,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
       this.updateComplete.then(() => {
         this.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
         this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
-      })
+      });
     }
   }
 
@@ -457,7 +457,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
       this.updateComplete.then(() => {
         this.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
         this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
-      })
+      });
     }
   }
 
@@ -493,7 +493,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
       this.updateComplete.then(() => {
         this.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
         this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
-      })
+      });
     }
   }
 
@@ -515,7 +515,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
       this.updateComplete.then(() => {
         this.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
         this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
-      })
+      });
     }
   }
 
@@ -538,7 +538,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
           this.updateComplete.then(() => {
             this.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
             this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
-          })
+          });
         }
 
         setTimeout(() => this.input.select());
@@ -725,7 +725,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
           this.updateComplete.then(() => {
             this.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
             this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
-          })
+          });
         }
       })
       .catch(() => {
@@ -743,7 +743,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
         this.updateComplete.then(() => {
           this.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
           this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
-        })
+        });
       }
     }
   }

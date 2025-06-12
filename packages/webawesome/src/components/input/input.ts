@@ -238,7 +238,7 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
         this.dispatchEvent(new WaClearEvent());
         this.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
         this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
-      })
+      });
     }
 
     this.input.focus();
