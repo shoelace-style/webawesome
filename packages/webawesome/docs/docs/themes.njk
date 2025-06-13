@@ -21,18 +21,26 @@ isPro: true
   </wa-radio-group>
 </div>
 
-<wa-comparison position="80">
-  <wa-zoomable-frame
-    slot="before"
-    without-controls
-    without-interaction
-  ></wa-zoomable-frame>
-  <wa-zoomable-frame
-    slot="after"
-    without-controls
-    without-interaction
-  ></wa-zoomable-frame>
-</wa-comparison>
+<div id="theme-preview">
+  <header>
+    <h2 data-theme-name="name">Theme</h2>
+    <wa-badge data-free-badge appearance="outlined" variant="neutral" hidden>FREE</wa-badge>
+    <wa-badge data-pro-badge appearance="accent" hidden>PRO</wa-badge>
+    <p data-theme-description>Description</p>
+  </header>
+  <wa-comparison position="80">
+    <wa-zoomable-frame
+      slot="before"
+      without-controls
+      without-interaction
+    ></wa-zoomable-frame>
+    <wa-zoomable-frame
+      slot="after"
+      without-controls
+      without-interaction
+    ></wa-zoomable-frame>
+  </wa-comparison>
+</div>
 
 <script type="module">
   let didInit = false;
@@ -45,6 +53,12 @@ isPro: true
     const afterFrame = document.querySelector('wa-zoomable-frame[slot="after"]');
     const beforeFrame = document.querySelector('wa-zoomable-frame[slot="before"]');
 
+    // Get header elements that are now in the same document
+    const nameElement = document.querySelector('[data-theme-name]');
+    const descriptionElement = document.querySelector('[data-theme-description]');
+    const freeBadge = document.querySelector('[data-free-badge]');
+    const proBadge = document.querySelector('[data-pro-badge]');
+
     function updateFrames(selectedValue, title, description, isPro) {
       const baseUrl = '/assets/examples/themes/showcase.html';
       const params = new URLSearchParams();
@@ -52,9 +66,6 @@ isPro: true
       if (selectedValue !== 'default') {
         params.set('theme', selectedValue);
       }
-      if (title) params.set('name', title);
-      if (description) params.set('description', description);
-      if (isPro) params.set('isPro', 'true');
 
       const darkParams = new URLSearchParams(params);
       darkParams.set('color-scheme', 'dark');
@@ -64,6 +75,17 @@ isPro: true
 
       afterFrame.src = baseUrl + queryString;
       beforeFrame.src = baseUrl + darkQueryString;
+
+      // Update header elements directly
+      if (nameElement && title) {
+        nameElement.textContent = title;
+      }
+      if (descriptionElement && description) {
+        descriptionElement.textContent = description;
+      }
+
+      freeBadge.hidden = isPro;
+      proBadge.hidden = !isPro;
     }
 
     // Set default radio as checked and initialize frames
@@ -78,14 +100,11 @@ isPro: true
 
     // Listen for radio changes
     themePicker.addEventListener('input', function(event) {
-      const radioGroup = event.target.closest('wa-radio-group');
-      const selectedRadio = radioGroup.querySelector(':state(checked)');
-      const selectedValue = event.target.value;
+      const selectedRadio = event.target.querySelector(':state(checked)');
       const title = selectedRadio.getAttribute('data-title');
       const description = selectedRadio.getAttribute('data-description');
       const isPro = selectedRadio.hasAttribute('data-is-pro');
-
-      updateFrames(selectedValue, title, description, isPro);
+      updateFrames(selectedRadio.value, title, description, isPro);
     });
   }
 
@@ -94,6 +113,25 @@ isPro: true
 </script>
 
 <style>
+  [hidden] {
+    display: none !important;
+  }
+
+  #theme-preview {
+    header {
+      padding-block: var(--wa-space-xl);
+
+      h2 {
+        margin-block-end: var(--wa-space-2xs);
+      }
+
+      p {
+        font-size: var(--wa-font-size-s);
+        margin-block-start: var(--wa-space-s);
+      }
+    }
+  }
+
   wa-page > main {
     max-width: 140ch;
     margin-inline: auto;
