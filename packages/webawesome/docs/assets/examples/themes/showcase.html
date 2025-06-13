@@ -21,9 +21,6 @@
       const urlParams = new URLSearchParams(window.location.search);
       const theme = urlParams.get('theme');
       const colorScheme = urlParams.get('color-scheme');
-      const name = urlParams.get('name');
-      const description = urlParams.get('description');
-      const isPro = urlParams.get('isPro');
 
       // Theme
       if (theme) {
@@ -39,34 +36,9 @@
       } else if (colorScheme === 'light') {
         document.documentElement.classList.remove('wa-dark');
       }
-
-      // Inject content after DOM loads
-      document.addEventListener('DOMContentLoaded', () => {
-        const nameElement = document.querySelector('[data-theme-name]');
-        const descriptionElement = document.querySelector('[data-theme-description]');
-        const freeBadge = document.querySelector('[data-free-badge]');
-        const proBadge = document.querySelector('[data-pro-badge]');
-
-        if (nameElement && name) {
-          nameElement.textContent = name;
-        }
-        if (descriptionElement && description) {
-          descriptionElement.textContent = description;
-        }
-
-        freeBadge.hidden = isPro;
-        proBadge.hidden = !isPro;
-      });
     </script>
   </head>
   <body>
-    <header>
-      <h2 data-theme-name="name">Theme</h2>
-      <wa-badge data-free-badge appearance="outlined" variant="neutral" hidden>FREE</wa-badge>
-      <wa-badge data-pro-badge appearance="accent" hidden>PRO</wa-badge>
-      <p data-theme-description>Description</p>
-    </header>
-
     <div class="showcase-examples-wrapper" aria-hidden="true" data-no-outline>
       <div class="showcase-examples">
         <wa-card>
