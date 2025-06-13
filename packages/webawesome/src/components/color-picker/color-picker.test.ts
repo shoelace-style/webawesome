@@ -300,6 +300,7 @@ describe('<wa-color-picker>', () => {
           await sendKeys({ type: 'fc0' }); // type in a color
           input.blur(); // commit changes by blurring the field
           await el.updateComplete;
+          await aTimeout(1);
 
           expect(changeHandler).to.have.been.calledOnce;
           expect(inputHandler).to.have.been.calledOnce;

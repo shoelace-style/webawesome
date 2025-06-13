@@ -14,6 +14,7 @@ During the alpha period, things might break! We take breaking changes very serio
 
 ## Next
 
+- 🚨 BREAKING: `input` and `change` events on form controls like `<wa-input>` now are always set to `bubble` and `compose`.
 - 🚨 BREAKING: Greatly simplified how native styles work and removed redundant utilities
   - Removed `.wa-button`, `.wa-callout` classes
   - Removed `themes/native/*.css` files; use `native.css` to opt into native styles

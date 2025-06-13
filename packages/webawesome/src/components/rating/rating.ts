@@ -101,7 +101,9 @@ export default class WaRating extends WebAwesomeElement {
     }
 
     this.setValue(this.getValueFromMousePosition(event));
-    this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
+    this.updateComplete.then(() => {
+      this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
+    });
   }
 
   private setValue(newValue: number) {
@@ -145,7 +147,9 @@ export default class WaRating extends WebAwesomeElement {
     }
 
     if (this.value !== oldValue) {
-      this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
+      this.updateComplete.then(() => {
+        this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
+      });
     }
   }
 
@@ -178,7 +182,9 @@ export default class WaRating extends WebAwesomeElement {
   private handleTouchEnd(event: TouchEvent) {
     this.isHovering = false;
     this.setValue(this.hoverValue);
-    this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
+    this.updateComplete.then(() => {
+      this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
+    });
 
     // Prevent click on mobile devices
     event.preventDefault();
