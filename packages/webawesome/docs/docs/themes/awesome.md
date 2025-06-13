@@ -1,6 +1,6 @@
 ---
 title: Awesome
-description: Bustling with plenty of luster and shine.
+description: Punchy and vibrant, the rockstar of themes.
 isPro: false
 ---
 
