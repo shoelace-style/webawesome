@@ -247,14 +247,14 @@ export default class WaTooltip extends WebAwesomeElement {
 
     const { signal } = this.eventController;
 
-    // "\\b" is a space boundary, used for making sure we dont add the tooltip to aria-labelledby twice.
+    // "\\b" is a space boundary, used for making sure we don't add the tooltip to aria-labelledby twice.
     const labelRegex = new RegExp(`\\b${this.id}\\b`);
 
     if (newAnchor) {
       /**
-       * We use `aria-labelledby` because it seems to have the most consistent screenreader experience.
+       * We use `aria-labelledby` because it seems to have the most consistent screen reader experience.
        * Particularly for our "special" focusable elements like `<wa-button>`, `<wa-input>` etc.
-       * aria-describedby usually in some screenreaders is required to be on the actually focusable element,
+       * aria-describedby usually in some screen readers is required to be on the actually focusable element,
        * whereas with `aria-labelledby` it'll still read on first focus. The APG does and WAI-ARIA does recommend aria-describedby
        * so perhaps once we have cross-root aria, we can revisit this decision.
        */
