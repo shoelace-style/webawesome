@@ -48,6 +48,17 @@ export default async function (eleventyConfig) {
     loginOrAvatar: '',
     flashes: '',
   });
+  eleventyConfig.addGlobalData('colorPalettes', [
+    { slug: 'default', name: 'Default' },
+    { slug: 'anodized', name: 'Anodized' },
+    { slug: 'bright', name: 'Bright' },
+    { slug: 'elegant', name: 'Elegant' },
+    { slug: 'mild', name: 'Mild' },
+    { slug: 'natural', name: 'Natural' },
+    { slug: 'rudimentary', name: 'Rudimentary' },
+    { slug: 'shoelace', name: 'Shoelace' },
+    { slug: 'vogue', name: 'Vogue' },
+  ]);
 
   // Template filters - {{ content | filter }}
   eleventyConfig.addFilter('inlineMarkdown', content => markdown.renderInline(content || ''));
