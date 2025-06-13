@@ -485,9 +485,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
       this.hideTooltip();
     }
     this.customStates.set('focused', false);
-    this.updateComplete.then(() => {
-      this.dispatchEvent(new FocusEvent('blur', { bubbles: true, composed: true }));
-    });
+    this.dispatchEvent(new FocusEvent('blur', { bubbles: true, composed: true }));
   }
 
   private handleFocus(event: FocusEvent) {
@@ -506,9 +504,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
     }
 
     this.customStates.set('focused', true);
-    this.updateComplete.then(() => {
-      this.dispatchEvent(new FocusEvent('focus', { bubbles: true, composed: true }));
-    });
+    this.dispatchEvent(new FocusEvent('focus', { bubbles: true, composed: true }));
   }
 
   private handleKeyDown(event: KeyboardEvent) {
