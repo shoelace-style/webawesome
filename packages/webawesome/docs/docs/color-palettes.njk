@@ -9,23 +9,20 @@ isPro: true
 
 <p>Each palette defines 10 hues with a scale of 11 tints. While the tints have consistent lightness values across palettes, each palette has unique hue shifts and chroma to give it unique character so you can find just the right vibe to your project.</p>
 
-{% set hues = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'indigo', 'purple', 'pink', 'gray'] %}
-{% set tints = ['95', '90', '80', '70', '60', '50', '40', '30', '20', '10', '05'] %}
-
 <link id="palette-stylesheet" rel="stylesheet" href="/dist/styles/color/default.css">
 
 <div id="color-palettes">
   <wa-radio-group id="palette-picker" label="Color Palette" value="default" orientation="horizontal">
-    {% for palette in colorPalettes %}
-      <wa-radio class="palette-card" value="{{ palette.slug }}">{{ palette.name }}</wa-radio>
+    {% for palette in themer.palettes %}
+      <wa-radio class="palette-card" value="{{ palette.filename | stripExtension }}">{{ palette.name }}</wa-radio>
     {% endfor %}
   </wa-radio-group>
 
-  {% for hue in hues %}
+  {% for hue in themer.hues %}
   <div class="palette">
     <div class="palette-label">{{ hue }}</div>
     <div class="palette-swatches">
-      {% for tint in tints %}
+      {% for tint in themer.tints %}
       <wa-copy-button
         class="palette-swatch"
         copy-label="{{ hue }} {{ tint }}"

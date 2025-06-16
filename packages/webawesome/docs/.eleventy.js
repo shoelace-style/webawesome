@@ -48,17 +48,136 @@ export default async function (eleventyConfig) {
     loginOrAvatar: '',
     flashes: '',
   });
-  eleventyConfig.addGlobalData('colorPalettes', [
-    { slug: 'default', name: 'Default' },
-    { slug: 'anodized', name: 'Anodized' },
-    { slug: 'bright', name: 'Bright' },
-    { slug: 'elegant', name: 'Elegant' },
-    { slug: 'mild', name: 'Mild' },
-    { slug: 'natural', name: 'Natural' },
-    { slug: 'rudimentary', name: 'Rudimentary' },
-    { slug: 'shoelace', name: 'Shoelace' },
-    { slug: 'vogue', name: 'Vogue' },
-  ]);
+
+  //
+  // Themer data
+  //
+  eleventyConfig.addGlobalData('themer', {
+    colors: ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'indigo', 'purple', 'rose', 'gray'],
+    themes: [
+      // Free
+      {
+        name: 'Default',
+        description: 'Your trusty companion, like a perfectly broken-in pair of jeans.',
+        filename: 'default.css',
+        isPro: false,
+      },
+      {
+        name: 'Awesome',
+        description: 'Punchy and vibrant, the rock star of themes.',
+        filename: 'awesome.css',
+        isPro: false,
+      },
+      {
+        name: 'Shoelace',
+        description: 'The original, familiar look you know and love from Shoelace.',
+        filename: 'shoelace.css',
+        isPro: true,
+      },
+      // Pro
+      {
+        name: 'Active',
+        description: 'The original, familiar look you know and love from Shoelace.',
+        filename: 'active.css',
+        isPro: true,
+      },
+      {
+        name: 'Brutalist',
+        description: 'The original, familiar look you know and love from Shoelace.',
+        filename: 'brutalist.css',
+        isPro: true,
+      },
+      {
+        name: 'Glossy',
+        description: 'The original, familiar look you know and love from Shoelace.',
+        filename: 'glossy.css',
+        isPro: true,
+      },
+      {
+        name: 'Matter',
+        description: 'The original, familiar look you know and love from Shoelace.',
+        filename: 'matter.css',
+        isPro: true,
+      },
+      {
+        name: 'Mellow',
+        description: 'The original, familiar look you know and love from Shoelace.',
+        filename: 'mellow.css',
+        isPro: true,
+      },
+      {
+        name: 'Playful',
+        description: 'The original, familiar look you know and love from Shoelace.',
+        filename: 'playful.css',
+        isPro: true,
+      },
+      {
+        name: 'Premium',
+        description: 'The original, familiar look you know and love from Shoelace.',
+        filename: 'premium.css',
+        isPro: true,
+      },
+      {
+        name: 'Tailspin',
+        description: 'Like a bird in flight, guiding you from there to here.',
+        filename: 'tailspin.css',
+        isPro: true,
+      },
+    ],
+
+    palettes: [
+      // Free
+      {
+        name: 'Default',
+        filename: 'default.css',
+        isPro: false,
+      },
+      {
+        name: 'Shoelace',
+        filename: 'shoelace.css',
+        isPro: false,
+      },
+      // Pro
+      {
+        name: 'Anodized',
+        filename: 'anodized.css',
+        isPro: true,
+      },
+      {
+        name: 'Bright',
+        filename: 'bright.css',
+        isPro: true,
+      },
+      {
+        name: 'Elegant',
+        filename: 'elegant.css',
+        isPro: true,
+      },
+      {
+        name: 'Mild',
+        filename: 'mild.css',
+        isPro: true,
+      },
+      {
+        name: 'Natural',
+        filename: 'natural.css',
+        isPro: true,
+      },
+      {
+        name: 'Rudimentary',
+        filename: 'rudimentary.css',
+        isPro: true,
+      },
+      {
+        name: 'Vogue',
+        filename: 'vogue.css',
+        isPro: true,
+      },
+    ],
+
+    hues: ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'indigo', 'purple', 'pink', 'gray'],
+    tints: ['95', '90', '80', '70', '60', '50', '40', '30', '20', '10', '05'],
+  });
 
   // Template filters - {{ content | filter }}
   eleventyConfig.addFilter('inlineMarkdown', content => markdown.renderInline(content || ''));
