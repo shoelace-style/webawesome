@@ -20,21 +20,6 @@
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
 <script type="module" src="/dist/webawesome.loader.js"></script>
 
-{# Fallback loading when using the free repo #}
-<link rel="preconnect" href="https://early.webawesome.com">
-<script type="module">
-  document.addEventListener("wa-discovery-complete", loadLayout)
-  function loadLayout () {
-    if (!customElements.get("wa-page")) {
-      import("https://early.webawesome.com/webawesome@3.0.0-alpha.13/dist/components/page/page.js")
-        .catch((e) => {
-          console.error(e)
-        // known errors with dual registration. This is only a thing in the free repo.
-        })
-    }
-  }
-</script>
-
 <link id="theme-stylesheet" rel="stylesheet" href="/dist/styles/themes/default.css" render="blocking" fetchpriority="high" />
 <link rel="stylesheet" href="/dist/styles/webawesome.css" />
 
