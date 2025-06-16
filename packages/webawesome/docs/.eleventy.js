@@ -56,6 +56,30 @@ export default async function (eleventyConfig) {
     colors: ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'indigo', 'purple', 'rose', 'gray'],
     hues: ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'indigo', 'purple', 'pink', 'gray'],
     tints: ['95', '90', '80', '70', '60', '50', '40', '30', '20', '10', '05'],
+    fonts: [
+      { name: 'OS Default', css: 'ui-sans-serif, system-ui, sans-serif' },
+      { name: 'Quicksand', css: 'Quicksand, sans-serif' },
+      { name: 'Inter', css: `'Inter', sans-serif` },
+      { name: 'Space Grotesk', css: `'Space Grotesk', sans-serif` },
+      { name: 'Figtree', css: `'Figtree', sans-serif` },
+      { name: 'Wix Madefor Text', css: `'Wix Madefor Text', sans-serif` },
+      { name: 'Mulish', css: `'Mulish', sans-serif` },
+      { name: 'Nunito', css: `'Nunito', sans-serif` },
+      { name: 'DM Sans', css: `'DM Sans', sans-serif` },
+    ],
+    elementPacks: [
+      { name: 'Default', rounding: '1', spacing: '1', borderWidth: '1' },
+      { name: 'Awesome', rounding: '1.5', spacing: '1', borderWidth: '2' },
+      { name: 'Shoelace', rounding: '0.7', spacing: '1', borderWidth: '1' },
+      { name: 'Active', rounding: '1.75', spacing: '1', borderWidth: '1' },
+      { name: 'Brutalist', rounding: '0', spacing: '1.125', borderWidth: '2' },
+      { name: 'Glossy', rounding: '1.33', spacing: '1.125', borderWidth: '1' },
+      { name: 'Matter', rounding: '1.33', spacing: '1', borderWidth: '1' },
+      { name: 'Mellow', rounding: '1', spacing: '1.125', borderWidth: '1.5' },
+      { name: 'Playful', rounding: '2', spacing: '1', borderWidth: '3' },
+      { name: 'Premium', rounding: '0.5', spacing: '1', borderWidth: '1.5' },
+      { name: 'Tailspin', rounding: '1', spacing: '0.875', borderWidth: '1' },
+    ],
     fontPacks: [
       {
         name: 'OS Default',
@@ -197,7 +221,6 @@ export default async function (eleventyConfig) {
         isPro: true,
       },
     ],
-
     palettes: [
       // Free
       {
