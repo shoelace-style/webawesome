@@ -56,6 +56,77 @@ export default async function (eleventyConfig) {
     colors: ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'indigo', 'purple', 'rose', 'gray'],
     hues: ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'indigo', 'purple', 'pink', 'gray'],
     tints: ['95', '90', '80', '70', '60', '50', '40', '30', '20', '10', '05'],
+    fontPacks: [
+      {
+        name: 'OS Default',
+        body: 'ui-sans-serif, system-ui, sans-serif',
+        heading: 'ui-sans-serif, system-ui, sans-serif',
+        code: 'ui-monospace, monospace',
+        longform: 'ui-serif, serif',
+      },
+      {
+        name: 'Quicksand',
+        body: 'Quicksand, sans-serif',
+        heading: 'Quicksand, sans-serif',
+        code: 'ui-monospace, monospace',
+        longform: 'ui-serif, serif',
+      },
+      {
+        name: 'Inter',
+        body: `'Inter', sans-serif`,
+        heading: `'Inter', sans-serif`,
+        code: 'ui-monospace, monospace',
+        longform: 'ui-serif, serif',
+      },
+      {
+        name: 'Space Grotesk',
+        body: `'Space Grotesk', sans-serif`,
+        heading: `'IBM Plex Sans Condensed', sans-serif`,
+        code: `'Space Mono', monospace`,
+        longform: 'ui-serif, serif',
+      },
+      {
+        name: 'Figtree',
+        body: `'Figtree', sans-serif`,
+        heading: `'Figtree', sans-serif`,
+        code: 'ui-monospace, monospace',
+        longform: 'ui-serif, serif',
+      },
+      {
+        name: 'Wix Madefor Text',
+        body: `'Wix Madefor Text', sans-serif`,
+        heading: `'Wix Madefor Text', sans-serif`,
+        code: `'Roboto Mono', monospace`,
+        longform: `'Roboto Serif', serif`,
+      },
+      {
+        name: 'Mulish',
+        body: `'Mulish', sans-serif`,
+        heading: `'Lora', serif`,
+        code: 'ui-monospace, monospace',
+        longform: `'Lora', serif`,
+      },
+      {
+        name: 'Nunito',
+        body: `'Nunito', sans-serif`,
+        heading: `'Fredoka', sans-serif`,
+        code: `'Azeret Mono', monospace`,
+        longform: 'ui-serif, serif',
+      },
+      {
+        name: 'DM Sans',
+        body: `'DM Sans', sans-serif`,
+        heading: `'Playfair Display', serif`,
+        code: 'ui-monospace, monospace',
+        longform: `'Playfair', serif`,
+      },
+    ],
+    iconPacks: [
+      { name: 'Classic', libraryName: 'classic' },
+      { name: 'Sharp', libraryName: 'sharp' },
+      { name: 'Duotone', libraryName: 'duotone' },
+      { name: 'Sharp-duotone', libraryName: 'sharp-duotone' },
+    ],
     themes: [
       // Free
       {
