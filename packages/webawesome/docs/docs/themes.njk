@@ -7,15 +7,15 @@ isPro: true
 
 <div id="theme-viewer">
   <wa-radio-group id="theme-picker" label="Theme Selector" value="default" orientation="horizontal">
-    {% for page in collections.themePages | sortWithFirst('fileSlug', 'default') %}
+    {% for theme in themer.themes %}
       <wa-radio
         class="theme-card"
-        value="{{ page.fileSlug | stripExtension }}"
-        data-description="{{ page.data.description }}"
-        data-title="{{ page.data.title }}"
-        {% if page.data.isPro %}data-is-pro{% endif %}
+        value="{{ theme.filename | stripExtension }}"
+        data-description="{{ theme.description }}"
+        data-title="{{ theme.name }}"
+        {% if theme.isPro %}data-is-pro{% endif %}
       >
-        {{ page.data.title }}
+        {{ theme.name }}
       </wa-radio>
     {% endfor %}
   </wa-radio-group>
@@ -138,6 +138,10 @@ isPro: true
   }
 
   wa-comparison {
+    --handle-color: black;
+    --divider-color: white;
+    --divider-width: 4px;
+
     &::part(before) {
       border-radius: var(--wa-border-radius-m);
       background-color: white;

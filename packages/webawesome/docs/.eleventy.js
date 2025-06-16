@@ -54,6 +54,8 @@ export default async function (eleventyConfig) {
   //
   eleventyConfig.addGlobalData('themer', {
     colors: ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'indigo', 'purple', 'rose', 'gray'],
+    hues: ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'indigo', 'purple', 'pink', 'gray'],
+    tints: ['95', '90', '80', '70', '60', '50', '40', '30', '20', '10', '05'],
     themes: [
       // Free
       {
@@ -72,7 +74,7 @@ export default async function (eleventyConfig) {
         name: 'Shoelace',
         description: 'The original, familiar look you know and love from Shoelace.',
         filename: 'shoelace.css',
-        isPro: true,
+        isPro: false,
       },
       // Pro
       {
@@ -174,9 +176,6 @@ export default async function (eleventyConfig) {
         isPro: true,
       },
     ],
-
-    hues: ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'indigo', 'purple', 'pink', 'gray'],
-    tints: ['95', '90', '80', '70', '60', '50', '40', '30', '20', '10', '05'],
   });
 
   // Template filters - {{ content | filter }}
@@ -212,11 +211,8 @@ export default async function (eleventyConfig) {
     );
 
     return componentPages.map(page => {
-      // Extract component name from the file path or page data
       const componentName = path.basename(page.inputPath, '.md');
       const tagName = `wa-${componentName}`;
-
-      // Find the matching component
       const component = allComponents.find(c => c.tagName === tagName);
 
       // Add component to the page's data
@@ -226,13 +222,6 @@ export default async function (eleventyConfig) {
 
       return page;
     });
-  });
-
-  //
-  // Add the themes collection
-  //
-  eleventyConfig.addCollection('themePages', function (collectionApi) {
-    return collectionApi.getFilteredByGlob(path.join(eleventyConfig.directories.input, 'docs/themes/**/*.md'));
   });
 
   // Shortcodes - {% shortCode arg1, arg2 %}
