@@ -1,21 +1,23 @@
-:host {
-  display: inline-flex;
-  gap: 0.5em;
-  border-radius: var(--wa-border-radius-m);
-  align-items: center;
-  background-color: var(--background-color, var(--wa-color-fill-quiet));
-  border-color: var(--border-color, transparent);
-  border-style: var(--wa-border-style);
-  border-width: var(--wa-border-width-s);
-  color: var(--text-color, var(--wa-color-on-normal));
-  font-size: inherit;
-  line-height: 1;
-  white-space: nowrap;
-  user-select: none;
-  -webkit-user-select: none;
-  height: calc(var(--wa-form-control-height) * 0.8);
-  line-height: calc(var(--wa-form-control-height) - var(--wa-form-control-border-width) * 2);
-  padding: 0 0.75em;
+@layer wa-component {
+  :host {
+    display: inline-flex;
+    gap: 0.5em;
+    border-radius: var(--wa-border-radius-m);
+    align-items: center;
+    background-color: var(--background-color, var(--wa-color-fill-quiet));
+    border-color: var(--border-color, transparent);
+    border-style: var(--wa-border-style);
+    border-width: var(--wa-border-width-s);
+    color: var(--text-color, var(--wa-color-on-normal));
+    font-size: inherit;
+    line-height: 1;
+    white-space: nowrap;
+    user-select: none;
+    -webkit-user-select: none;
+    height: calc(var(--wa-form-control-height) * 0.8);
+    line-height: calc(var(--wa-form-control-height) - var(--wa-form-control-border-width) * 2);
+    padding: 0 0.75em;
+  }
 }
 
 .content {
