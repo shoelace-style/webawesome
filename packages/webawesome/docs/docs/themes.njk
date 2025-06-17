@@ -46,76 +46,68 @@ isPro: true
 
 <script type="module">
   import { doViewTransition } from '/assets/scripts/view-transitions.js';
-  let didInit = false;
 
-  function init() {
-    if (didInit) return;
-    didInit = true;
+  const themePicker = document.getElementById('theme-picker');
+  const afterFrame = document.querySelector('wa-zoomable-frame[slot="after"]');
+  const beforeFrame = document.querySelector('wa-zoomable-frame[slot="before"]');
+  const nameElement = document.querySelector('[data-theme-name]');
+  const descriptionElement = document.querySelector('[data-theme-description]');
+  const freeBadge = document.querySelector('[data-free-badge]');
+  const proBadge = document.querySelector('[data-pro-badge]');
 
-    const themePicker = document.getElementById('theme-picker');
-    const afterFrame = document.querySelector('wa-zoomable-frame[slot="after"]');
-    const beforeFrame = document.querySelector('wa-zoomable-frame[slot="before"]');
-    const nameElement = document.querySelector('[data-theme-name]');
-    const descriptionElement = document.querySelector('[data-theme-description]');
-    const freeBadge = document.querySelector('[data-free-badge]');
-    const proBadge = document.querySelector('[data-pro-badge]');
+  function updateFrames(selectedValue, title, description, isPro) {
+    // Update theme classes on both frames
+    [afterFrame, beforeFrame].forEach(frame => {
+      if (frame.contentDocument) {
+        const html = frame.contentDocument.documentElement;
+        if (!html) return;
 
-    function updateFrames(selectedValue, title, description, isPro) {
-      // Update theme classes on both frames
-      [afterFrame, beforeFrame].forEach(frame => {
-        if (frame.contentDocument) {
-          const html = frame.contentDocument.documentElement;
-
-          // Remove all existing wa-theme-* classes
-          html.classList.forEach(className => {
-            if (className.startsWith('wa-theme-')) {
-              html.classList.remove(className);
-            }
-          });
-
-          // Add new theme class if not default
-          if (selectedValue !== 'default') {
-            html.classList.add(`wa-theme-${selectedValue}`);
+        // Remove all existing wa-theme-* classes
+        html.classList.forEach(className => {
+          if (className.startsWith('wa-theme-')) {
+            html.classList.remove(className);
           }
+        });
+
+        // Add new theme class if not default
+        if (selectedValue !== 'default') {
+          html.classList.add(`wa-theme-${selectedValue}`);
         }
-      });
-
-      // Update header elements directly
-      if (nameElement && title) {
-        nameElement.textContent = title;
       }
-      if (descriptionElement && description) {
-        descriptionElement.textContent = description;
-      }
-
-      freeBadge.hidden = isPro;
-      proBadge.hidden = !isPro;
-    }
-
-    // Set default radio as checked and initialize frames
-    const defaultRadio = themePicker.querySelector('wa-radio[value="default"]');
-    if (defaultRadio) {
-      defaultRadio.checked = true;
-      const title = defaultRadio.getAttribute('data-title');
-      const description = defaultRadio.getAttribute('data-description');
-      const isPro = defaultRadio.hasAttribute('data-is-pro');
-      updateFrames('default', title, description, isPro);
-    }
-
-    // Listen for radio changes
-    themePicker.addEventListener('input', function(event) {
-      const selectedRadio = event.target.querySelector(':state(checked)');
-      const title = selectedRadio.getAttribute('data-title');
-      const description = selectedRadio.getAttribute('data-description');
-      const isPro = selectedRadio.hasAttribute('data-is-pro');
-      doViewTransition(() => {
-        updateFrames(selectedRadio.value, title, description, isPro);
-      });
     });
+
+    // Update header elements directly
+    if (nameElement && title) {
+      nameElement.textContent = title;
+    }
+    if (descriptionElement && description) {
+      descriptionElement.textContent = description;
+    }
+
+    freeBadge.hidden = isPro;
+    proBadge.hidden = !isPro;
   }
 
-  document.addEventListener('DOMContentLoaded', init);
-  window.addEventListener('turbo:load', init);
+  // Set default radio as checked and initialize frames
+  const defaultRadio = themePicker.querySelector('wa-radio[value="default"]');
+  if (defaultRadio) {
+    defaultRadio.checked = true;
+    const title = defaultRadio.getAttribute('data-title');
+    const description = defaultRadio.getAttribute('data-description');
+    const isPro = defaultRadio.hasAttribute('data-is-pro');
+    updateFrames('default', title, description, isPro);
+  }
+
+  // Listen for radio changes
+  themePicker.addEventListener('input', function(event) {
+    const selectedRadio = event.target.querySelector(':state(checked)');
+    const title = selectedRadio.getAttribute('data-title');
+    const description = selectedRadio.getAttribute('data-description');
+    const isPro = selectedRadio.hasAttribute('data-is-pro');
+    doViewTransition(() => {
+      updateFrames(selectedRadio.value, title, description, isPro);
+    });
+  });
 </script>
 
 <style>
