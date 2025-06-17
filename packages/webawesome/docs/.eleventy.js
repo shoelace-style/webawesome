@@ -57,15 +57,51 @@ export default async function (eleventyConfig) {
     hues: ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'indigo', 'purple', 'pink', 'gray'],
     tints: ['95', '90', '80', '70', '60', '50', '40', '30', '20', '10', '05'],
     fonts: [
-      { name: 'OS Default', css: 'ui-sans-serif, system-ui, sans-serif' },
-      { name: 'Quicksand', css: 'Quicksand, sans-serif' },
-      { name: 'Inter', css: `'Inter', sans-serif` },
-      { name: 'Space Grotesk', css: `'Space Grotesk', sans-serif` },
-      { name: 'Figtree', css: `'Figtree', sans-serif` },
-      { name: 'Wix Madefor Text', css: `'Wix Madefor Text', sans-serif` },
-      { name: 'Mulish', css: `'Mulish', sans-serif` },
-      { name: 'Nunito', css: `'Nunito', sans-serif` },
-      { name: 'DM Sans', css: `'DM Sans', sans-serif` },
+      {
+        name: 'OS Default',
+        css: 'ui-sans-serif, system-ui, sans-serif',
+        href: null,
+      },
+      {
+        name: 'Quicksand',
+        css: 'Quicksand, sans-serif',
+        href: 'https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap',
+      },
+      {
+        name: 'Inter',
+        css: `'Inter', sans-serif`,
+        href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap',
+      },
+      {
+        name: 'Space Grotesk',
+        css: `'Space Grotesk', sans-serif`,
+        href: 'https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500&display=swap',
+      },
+      {
+        name: 'Figtree',
+        css: `'Figtree', sans-serif`,
+        href: 'https://fonts.googleapis.com/css2?family=Figtree:wght@400;800&display=swap',
+      },
+      {
+        name: 'Wix Madefor Text',
+        css: `'Wix Madefor Text', sans-serif`,
+        href: 'https://fonts.googleapis.com/css2?family=Wix+Madefor+Text:wght@400;500&display=swap',
+      },
+      {
+        name: 'Mulish',
+        css: `'Mulish', sans-serif`,
+        href: 'https://fonts.googleapis.com/css2?family=Mulish:wght@400;700&display=swap',
+      },
+      {
+        name: 'Nunito',
+        css: `'Nunito', sans-serif`,
+        href: 'https://fonts.googleapis.com/css2?family=Nunito:wght@500;600&display=swap',
+      },
+      {
+        name: 'DM Sans',
+        css: `'DM Sans', sans-serif`,
+        href: 'https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500&display=swap',
+      },
     ],
     elementPresets: [
       { name: 'Default', borderRadiusScale: 1, spaceScale: 1, borderWidthScale: 1 },

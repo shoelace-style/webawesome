@@ -23,6 +23,13 @@ layout: false
       <link rel="stylesheet" href="/dist/styles/color/palettes/{{palette.filename}}" />
     {% endfor %}
 
+    <!-- Available fonts -->
+    {% for font in themer.fonts %}
+      {% if font.href %}
+        <link rel="stylesheet" href="{{ font.href }}" />
+      {% endif %}
+    {% endfor %}
+
     <!-- Set the initial theme and color scheme based on ?theme and ?color-scheme -->
     <script type="module">
       const htmlElement = document.documentElement;
