@@ -55,8 +55,6 @@ isPro: true
     const themePicker = document.getElementById('theme-picker');
     const afterFrame = document.querySelector('wa-zoomable-frame[slot="after"]');
     const beforeFrame = document.querySelector('wa-zoomable-frame[slot="before"]');
-
-    // Get header elements that are now in the same document
     const nameElement = document.querySelector('[data-theme-name]');
     const descriptionElement = document.querySelector('[data-theme-description]');
     const freeBadge = document.querySelector('[data-free-badge]');
@@ -81,16 +79,6 @@ isPro: true
           }
         }
       });
-
-      // Set dark mode on before frame only
-      if (beforeFrame.contentDocument) {
-        beforeFrame.contentDocument.documentElement.classList.add('wa-dark');
-      }
-
-      // Ensure after frame is light mode
-      if (afterFrame.contentDocument) {
-        afterFrame.contentDocument.documentElement.classList.remove('wa-dark');
-      }
 
       // Update header elements directly
       if (nameElement && title) {
