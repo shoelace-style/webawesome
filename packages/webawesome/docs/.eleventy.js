@@ -53,7 +53,7 @@ export default async function (eleventyConfig) {
   // Themer data
   //
   eleventyConfig.addGlobalData('themer', {
-    colors: ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'indigo', 'purple', 'rose', 'gray'],
+    colors: ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'indigo', 'purple', 'gray'],
     hues: ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'indigo', 'purple', 'pink', 'gray'],
     tints: ['95', '90', '80', '70', '60', '50', '40', '30', '20', '10', '05'],
     fonts: [
