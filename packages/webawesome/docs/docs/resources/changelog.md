@@ -43,7 +43,7 @@ During the alpha period, things might break! We take breaking changes very serio
   - Added support for range sliders with dual thumbs using the `range` attribute
   - Added vertical orientation support with `orientation="vertical"`
   - Added visual markers at each step with `with-markers`
-  - Added contextual reference labels with `with-references` and the `reference` slot
+  - Added contextual reference labels with the `reference` slot
   - Added tooltips showing current values with `with-tooltip`
   - Added customizable indicator offset with `indicator-offset` attribute
   - Added value formatting support with the `valueFormatter` property
