@@ -1,5 +1,6 @@
 ---
 unlisted: true
+layout: false
 ---
 <!doctype html>
 <html lang="en" class="wa-cloak" data-fa-kit-code="b10bfbde90">
@@ -12,9 +13,14 @@ unlisted: true
     <link rel="stylesheet" href="/dist/styles/webawesome.css" />
     <script type="module" src="/dist/webawesome.loader.js"></script>
 
-    <!-- Load all available themes -->
+    <!-- Available themes -->
     {% for theme in themer.themes %}
       <link rel="stylesheet" href="/dist/styles/themes/{{theme.filename}}" />
+    {% endfor %}
+
+    <!-- Available palettes -->
+    {% for palette in themer.palettes %}
+      <link rel="stylesheet" href="/dist/styles/color/{{palette.filename}}" />
     {% endfor %}
 
     <!-- Set the initial theme and color scheme based on ?theme and ?color-scheme -->
