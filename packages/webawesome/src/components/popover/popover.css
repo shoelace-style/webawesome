@@ -84,7 +84,7 @@
   border: var(--wa-panel-border-width) solid var(--wa-color-surface-border);
   border-radius: var(--wa-panel-border-radius);
   border-style: var(--wa-panel-border-style);
-  box-shadow: var(--wa-shadow-s);
+  box-shadow: var(--wa-shadow-l);
   color: var(--wa-color-text-normal);
   user-select: none;
   -webkit-user-select: none;
