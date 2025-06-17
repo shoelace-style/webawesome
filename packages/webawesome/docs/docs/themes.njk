@@ -30,11 +30,13 @@ isPro: true
   </header>
   <wa-comparison position="80">
     <wa-zoomable-frame
+      src="/docs/examples/themes/showcase?color-scheme=dark"
       slot="before"
       without-controls
       without-interaction
     ></wa-zoomable-frame>
     <wa-zoomable-frame
+      src="/docs/examples/themes/showcase"
       slot="after"
       without-controls
       without-interaction
@@ -43,6 +45,7 @@ isPro: true
 </div>
 
 <script type="module">
+  import { doViewTransition } from '/assets/scripts/view-transitions.js';
   let didInit = false;
 
   function init() {
@@ -60,21 +63,34 @@ isPro: true
     const proBadge = document.querySelector('[data-pro-badge]');
 
     function updateFrames(selectedValue, title, description, isPro) {
-      const baseUrl = '/assets/examples/themes/showcase.html';
-      const params = new URLSearchParams();
+      // Update theme classes on both frames
+      [afterFrame, beforeFrame].forEach(frame => {
+        if (frame.contentDocument) {
+          const html = frame.contentDocument.documentElement;
 
-      if (selectedValue !== 'default') {
-        params.set('theme', selectedValue);
+          // Remove all existing wa-theme-* classes
+          html.classList.forEach(className => {
+            if (className.startsWith('wa-theme-')) {
+              html.classList.remove(className);
+            }
+          });
+
+          // Add new theme class if not default
+          if (selectedValue !== 'default') {
+            html.classList.add(`wa-theme-${selectedValue}`);
+          }
+        }
+      });
+
+      // Set dark mode on before frame only
+      if (beforeFrame.contentDocument) {
+        beforeFrame.contentDocument.documentElement.classList.add('wa-dark');
       }
 
-      const darkParams = new URLSearchParams(params);
-      darkParams.set('color-scheme', 'dark');
-
-      const queryString = params.toString() ? '?' + params.toString() : '';
-      const darkQueryString = '?' + darkParams.toString();
-
-      afterFrame.src = baseUrl + queryString;
-      beforeFrame.src = baseUrl + darkQueryString;
+      // Ensure after frame is light mode
+      if (afterFrame.contentDocument) {
+        afterFrame.contentDocument.documentElement.classList.remove('wa-dark');
+      }
 
       // Update header elements directly
       if (nameElement && title) {
@@ -104,7 +120,9 @@ isPro: true
       const title = selectedRadio.getAttribute('data-title');
       const description = selectedRadio.getAttribute('data-description');
       const isPro = selectedRadio.hasAttribute('data-is-pro');
-      updateFrames(selectedRadio.value, title, description, isPro);
+      doViewTransition(() => {
+        updateFrames(selectedRadio.value, title, description, isPro);
+      });
     });
   }
 

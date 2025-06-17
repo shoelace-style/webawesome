@@ -1,3 +1,6 @@
+---
+unlisted: true
+---
 <!doctype html>
 <html lang="en" class="wa-cloak" data-fa-kit-code="b10bfbde90">
   <head>
@@ -6,35 +9,39 @@
     <title>Web Awesome: Theme Showcase</title>
 
     <!-- Web Awesome -->
-    <link
-      id="theme-stylesheet"
-      rel="stylesheet"
-      href="/dist/styles/themes/default.css"
-      render="blocking"
-      fetchpriority="high"
-    />
     <link rel="stylesheet" href="/dist/styles/webawesome.css" />
     <script type="module" src="/dist/webawesome.loader.js"></script>
 
-    <!-- Handle query params to adjust theme and color scheme -->
-    <script type="module">
-      const urlParams = new URLSearchParams(window.location.search);
-      const theme = urlParams.get('theme');
-      const colorScheme = urlParams.get('color-scheme');
+    <!-- Load all available themes -->
+    {% for theme in themer.themes %}
+      <link rel="stylesheet" href="/dist/styles/themes/{{theme.filename}}" />
+    {% endfor %}
 
-      // Theme
-      if (theme) {
-        const themeStylesheet = document.getElementById('theme-stylesheet');
-        const currentHref = themeStylesheet.href;
-        const newHref = currentHref.replace('/themes/default.css', `/themes/${theme}.css`);
-        themeStylesheet.href = newHref;
-      }
+    <!-- Set the initial theme and color scheme based on ?theme and ?color-scheme -->
+    <script type="module">
+      const htmlElement = document.documentElement;
+      const urlParams = new URLSearchParams(window.location.search);
+      const colorScheme = urlParams.get('color-scheme');
+      const theme = urlParams.get('theme');
 
       // Color scheme
       if (colorScheme === 'dark') {
-        document.documentElement.classList.add('wa-dark');
+        htmlElement.classList.add('wa-dark');
       } else if (colorScheme === 'light') {
-        document.documentElement.classList.remove('wa-dark');
+        htmlElement.classList.remove('wa-dark');
+      }
+
+      // Theme
+      if (theme) {
+        // Remove existing wa-theme-* classes
+        htmlElement.classList.forEach(className => {
+          if (className.startsWith('wa-theme-')) {
+            htmlElement.classList.remove(className);
+          }
+        });
+
+        // Add new theme class
+        htmlElement.classList.add(`wa-theme-${theme}`);
       }
     </script>
   </head>
