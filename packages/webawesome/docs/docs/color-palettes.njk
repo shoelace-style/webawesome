@@ -7,7 +7,7 @@ isPro: true
 
 <p>Color palettes give you a full spectrum of colors to add life to your project.</p>
 
-<p>Each palette defines 10 hues with a scale of 11 tints. While the tints have consistent lightness values across palettes, each palette has unique hue shifts and chroma to give it unique character so you can find just the right vibe to your project.</p>
+<p>Each palette defines 10 color hues with a scale of 11 tints. While the tints have consistent lightness values across palettes, each palette has unique hue shifts and chroma to give it unique character so you can find just the right vibe to your project.</p>
 
 {% for palette in themer.palettes %}
   <link rel="stylesheet" href="/dist/styles/color/palettes/{{palette.filename}}" />
@@ -16,22 +16,22 @@ isPro: true
 <div id="color-palettes">
   <wa-radio-group id="palette-picker" label="Color Palette" value="default" orientation="horizontal">
     {% for palette in themer.palettes %}
-      <wa-radio class="palette-card" value="{{ palette.filename | stripExtension }}">{{ palette.name }}</wa-radio>
+      <wa-radio class="palette-card" value="{{ palette.name | lower }}">{{ palette.name }}</wa-radio>
     {% endfor %}
   </wa-radio-group>
 
-  {% for hue in themer.hues %}
+  {% for color in themer.colors %}
   <div class="palette">
-    <div class="palette-label">{{ hue }}</div>
+    <div class="palette-label">{{ color }}</div>
     <div class="palette-swatches">
       {% for tint in themer.tints %}
       <wa-copy-button
         class="palette-swatch"
-        copy-label="{{ hue }} {{ tint }}"
-        value="var(--wa-color-{{ hue }}-{{ tint }})"
-        style="--color: var(--wa-color-{{ hue }}-{{ tint }}); --tint: '{{ tint }}'"
+        copy-label="{{ color }} {{ tint }}"
+        value="var(--wa-color-{{ color }}-{{ tint }})"
+        style="--color: var(--wa-color-{{ color }}-{{ tint }}); --tint: '{{ tint }}'"
       >
-        <span class="sr-only">--wa-color-{{ hue }}-{{ tint }}</span>
+        <span class="sr-only">--wa-color-{{ color }}-{{ tint }}</span>
       </wa-copy-button>
       {% endfor %}
     </div>
