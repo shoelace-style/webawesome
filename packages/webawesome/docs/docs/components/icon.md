@@ -20,29 +20,11 @@ The default icon library is Font Awesome Free, which comes with two icon familie
 Many Font Awesome Pro icon families have variants such as `thin`, `light`, `regular`, and `solid`. Font Awesome Pro users can [provide their kit code](/docs/#using-font-awesome-kit-codes) to unlock additional families, including `sharp`, `duotone`, and `sharp-duotone`. For these icon families, use the `variant` attribute to set the variant.
 
 ```html {.example}
-<script type="module">
-  import { setDefaultIconFamily } from '/dist/webawesome.js';
-
-  setDefaultIconFamily('duotone');
-</script>
-
-<div style="font-size: 3rem;">
-  Default<br />
-  <wa-icon name="eyedropper"></wa-icon>
-  <wa-icon name="grip-vertical"></wa-icon>
-  <wa-icon name="play"></wa-icon>
-  <wa-icon name="star"></wa-icon>
-  <wa-icon name="user"></wa-icon>
-
-  <br /><br />
-
-  System<br />
-  <wa-icon library="system" name="eyedropper"></wa-icon>
-  <wa-icon library="system" name="grip-vertical"></wa-icon>
-  <wa-icon library="system" name="play"></wa-icon>
-  <wa-icon library="system" name="star"></wa-icon>
-  <wa-icon library="system" name="user"></wa-icon>
-</div>
+<wa-icon name="eyedropper"></wa-icon>
+<wa-icon name="grip-vertical"></wa-icon>
+<wa-icon name="play"></wa-icon>
+<wa-icon name="star"></wa-icon>
+<wa-icon name="user"></wa-icon>
 ```
 
 ### Colors
