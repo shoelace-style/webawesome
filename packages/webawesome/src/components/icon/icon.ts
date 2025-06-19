@@ -6,7 +6,7 @@ import { WaLoadEvent } from '../../events/load.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import styles from './icon.css';
-import { getIconLibrary, unwatchIcon, watchIcon, type IconLibrary } from './library.js';
+import { getDefaultIconFamily, getIconLibrary, unwatchIcon, watchIcon, type IconLibrary } from './library.js';
 
 import type { HTMLTemplateResult, PropertyValues } from 'lit';
 
@@ -99,9 +99,11 @@ export default class WaIcon extends WebAwesomeElement {
 
   private getIconSource(): IconSource {
     const library = getIconLibrary(this.library);
+    const family = this.family || getDefaultIconFamily();
+
     if (this.name && library) {
       return {
-        url: library.resolver(this.name, this.family, this.variant),
+        url: library.resolver(this.name, family, this.variant),
         fromLibrary: true,
       };
     }

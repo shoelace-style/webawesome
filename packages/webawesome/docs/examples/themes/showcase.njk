@@ -57,6 +57,34 @@ layout: false
         htmlElement.classList.add(`wa-theme-${theme}`);
       }
     </script>
+
+    <script type="module">
+      import { setDefaultIconFamily } from '/dist/webawesome.js';
+
+      // Create a mutation observer to watch for changes to data-font-family attribute
+      const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+          if (mutation.type === 'attributes' && mutation.attributeName === 'data-font-family') {
+            const fontFamily = document.documentElement.getAttribute('data-font-family');
+            if (fontFamily) {
+              setDefaultIconFamily(fontFamily);
+            }
+          }
+        });
+      });
+
+      // Start observing the html element for attribute changes
+      observer.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['data-font-family']
+      });
+
+      // Also check for initial value if it exists
+      const initialFontFamily = document.documentElement.getAttribute('data-font-family');
+      if (initialFontFamily) {
+        setDefaultIconFamily(initialFontFamily);
+      }
+    </script>
   </head>
   <body>
     <div class="showcase-examples-wrapper" aria-hidden="true" data-no-outline>
