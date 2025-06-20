@@ -40,6 +40,9 @@ export const themes = [
       name: 'Default',
       filename: 'default.css',
     },
+    colorBrand: {
+      color: 'blue',
+    },
     tokens: {
       // Fonts
       '--wa-font-family-body': 'ui-sans-serif, system-ui, sans-serif',
@@ -96,6 +99,9 @@ export const themes = [
     palette: {
       name: 'Bright',
       filename: 'bright.css',
+    },
+    colorBrand: {
+      color: 'blue',
     },
     tokens: {
       // Fonts
@@ -154,6 +160,9 @@ export const themes = [
       name: 'Shoelace',
       filename: 'shoelace.css',
     },
+    colorBrand: {
+      color: 'blue',
+    },
     tokens: {
       // Fonts
       '--wa-font-family-body': 'ui-sans-serif, system-ui, sans-serif',
@@ -210,6 +219,9 @@ export const themes = [
     palette: {
       name: 'Rudimentary',
       filename: 'rudimentary.css',
+    },
+    colorBrand: {
+      color: 'green',
     },
     tokens: {
       // Fonts
@@ -268,6 +280,9 @@ export const themes = [
       name: 'Default',
       filename: 'default.css',
     },
+    colorBrand: {
+      color: 'blue',
+    },
     tokens: {
       // Fonts
       '--wa-font-family-body': 'Space Grotesk, sans-serif',
@@ -324,6 +339,9 @@ export const themes = [
     palette: {
       name: 'Elegant',
       filename: 'elegant.css',
+    },
+    colorBrand: {
+      color: 'indigo',
     },
     tokens: {
       // Fonts
@@ -382,6 +400,9 @@ export const themes = [
       name: 'Mild',
       filename: 'mild.css',
     },
+    colorBrand: {
+      color: 'purple',
+    },
     tokens: {
       // Fonts
       '--wa-font-family-body': 'Wix Madefor Text, sans-serif',
@@ -438,6 +459,9 @@ export const themes = [
     palette: {
       name: 'Natural',
       filename: 'natural.css',
+    },
+    colorBrand: {
+      color: 'blue',
     },
     tokens: {
       // Fonts
@@ -496,6 +520,9 @@ export const themes = [
       name: 'Rudimentary',
       filename: 'rudimentary.css',
     },
+    colorBrand: {
+      color: 'purple',
+    },
     tokens: {
       // Fonts
       '--wa-font-family-body': 'Nunito, sans-serif',
@@ -553,6 +580,9 @@ export const themes = [
       name: 'Anodized',
       filename: 'anodized.css',
     },
+    colorBrand: {
+      color: 'cyan',
+    },
     tokens: {
       // Fonts
       '--wa-font-family-body': 'DM Sans, sans-serif',
@@ -609,6 +639,9 @@ export const themes = [
     palette: {
       name: 'Vogue',
       filename: 'vogue.css',
+    },
+    colorBrand: {
+      color: 'indigo',
     },
     tokens: {
       // Fonts
