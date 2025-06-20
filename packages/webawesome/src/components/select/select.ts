@@ -127,12 +127,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   private _defaultValue: string | string[] = '';
 
   @property({
-    attribute: 'value',
-    reflect: true,
-    converter: {
-      fromAttribute: (value: string) => value.split(' '),
-      toAttribute: (value: string | string[]) => (Array.isArray(value) ? value.join(' ') : value),
-    },
+    attribute: false,
   })
   set defaultValue(val: string | string[]) {
     this._defaultValue = this.convertDefaultValue(val);
@@ -154,29 +149,33 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     const isMultiple = this.multiple || this.hasAttribute('multiple');
 
     if (!isMultiple && Array.isArray(val)) {
-      val = val.join(' ');
+      val = val[0];
     }
 
     return val;
   }
 
   private _value: string[] | undefined;
-  @property({ attribute: false })
+  @property({ attribute: "value", reflect: false })
   set value(val: string | string[]) {
     let oldValue = this.value;
+
+    if ((val as any) instanceof FormData) {
+      val = (val as unknown as FormData).getAll(this.name) as string[]
+    }
 
     if (!Array.isArray(val)) {
       val = val.split(' ');
     }
 
-    if (!this._value || this._value.join(' ') !== val.join(' ')) {
+    // if (!this._value || this._value.join(' ') !== val.join(' ')) {
       this._value = val;
       let newValue = this.value;
 
       if (newValue !== oldValue) {
         this.requestUpdate('value', oldValue);
       }
-    }
+    // }
   }
 
   get value() {
@@ -645,7 +644,10 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     const newSelectedOptions = Array.isArray(option) ? option : [option];
 
     // Clear existing selection
-    allOptions.forEach(el => (el.selected = false));
+    allOptions.forEach(el => {
+      if (newSelectedOptions.includes(el)) { return }
+      el.selected = false
+    });
 
     // Set the new selection
     if (newSelectedOptions.length) {
@@ -847,6 +849,11 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     this.value = this.defaultValue;
     super.formResetCallback();
     this.handleValueChange();
+
+    this.updateComplete.then(() => {
+      this.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
+      this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
+    })
   }
 
   render() {
