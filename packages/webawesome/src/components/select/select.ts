@@ -165,17 +165,15 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     }
 
     if (!Array.isArray(val)) {
-      val = val.split(' ');
+      val = [val];
     }
 
-    // if (!this._value || this._value.join(' ') !== val.join(' ')) {
-      this._value = val;
-      let newValue = this.value;
+    this._value = val;
+    let newValue = this.value;
 
-      if (newValue !== oldValue) {
-        this.requestUpdate('value', oldValue);
-      }
-    // }
+    if (newValue !== oldValue) {
+      this.requestUpdate('value', oldValue);
+    }
   }
 
   get value() {
@@ -565,7 +563,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     const value = this.value;
 
     // Select only the options that match the new value
-    this.setSelectedOptions(allOptions.filter(el => value.includes(el.value)));
+    this.setSelectedOptions(allOptions.filter(el => value.includes(el.value) || el.selected));
   }
 
   private handleTagRemove(event: WaRemoveEvent, directOption?: WaOption) {
@@ -675,7 +673,9 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     const options = this.getAllOptions();
 
     // Update selected options cache
-    this.selectedOptions = options.filter(el => el.selected);
+    this.selectedOptions = options.filter(el => {
+      return el.selected
+    });
     let selectedValues = new Set(this.selectedOptions.map(el => el.value));
 
     // Toggle values present in the DOM from this.value, while preserving options NOT present in the DOM (for lazy loading)

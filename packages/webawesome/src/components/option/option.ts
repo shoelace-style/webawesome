@@ -109,10 +109,6 @@ export default class WaOption extends WebAwesomeElement {
 
   private handleDefaultSlotChange() {
     // Tell the controller to update the label
-    if (customElements.get('wa-select')) {
-      this.closest('wa-select')?.selectionChanged();
-    }
-
     this.updateDefaultLabel();
 
     if (this.isInitialized) {
@@ -121,6 +117,7 @@ export default class WaOption extends WebAwesomeElement {
         const controller = this.closest('wa-select');
         if (controller) {
           controller.handleDefaultSlotChange();
+          controller.selectionChanged?.()
         }
       });
     } else {
@@ -159,7 +156,7 @@ export default class WaOption extends WebAwesomeElement {
     if (changedProperties.has('selected')) {
       this.setAttribute('aria-selected', this.selected ? 'true' : 'false');
       this.customStates.set('selected', this.selected);
-      this.closest("wa-select")?.selectionChanged?.()
+      this.handleDefaultSlotChange()
     }
 
     if (changedProperties.has('value')) {

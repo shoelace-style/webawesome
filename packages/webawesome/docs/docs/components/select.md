@@ -8,16 +8,27 @@ icon: select
 
 ```html {.example}
 <form id="base-example">
-  <wa-select name="select-1" value="option-2">
+  <wa-select name="select-1" multiple value="option-3">
+    <wa-option value="option-1">Option 1</wa-option>
+    <wa-option selected value="option-2">Option 2</wa-option>
+    <wa-option value="option-3">Option 3</wa-option>
+    <wa-option selected value="option-4">Option 4</wa-option>
+    <wa-option selected value="option-5">Option 5</wa-option>
+    <wa-option value="option-6">Option 6</wa-option>
+  </wa-select>
+
+  <br>
+
+  <wa-select name="select-2" value="option-2">
     <wa-option value="option-1">Option 1</wa-option>
     <wa-option value="option-2">Option 2</wa-option>
     <wa-option value="option-3">Option 3</wa-option>
     <wa-option value="option-4">Option 4</wa-option>
-    <wa-option value="option-5">Option 5</wa-option>
+    <wa-option selected value="option-5">Option 5</wa-option>
     <wa-option value="option-6">Option 6</wa-option>
   </wa-select>
   <br>
-  <wa-select name="select-2" multiple value="option-4">
+  <wa-select name="select-3" multiple value="option-4">
     <wa-option value="option-1">Option 1</wa-option>
     <wa-option value="option-2">Option 2</wa-option>
     <wa-option value="option-3">Option 3</wa-option>
