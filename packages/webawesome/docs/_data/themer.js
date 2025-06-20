@@ -728,7 +728,7 @@ export const icons = [
   { name: 'Classic', libraryName: 'classic' },
   { name: 'Sharp', libraryName: 'sharp' },
   { name: 'Duotone', libraryName: 'duotone' },
-  { name: 'Sharp-duotone', libraryName: 'sharp-duotone' },
+  { name: 'Sharp Duotone', libraryName: 'sharp-duotone' },
 ];
 
 export const colors = ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'indigo', 'purple', 'pink', 'gray'];
