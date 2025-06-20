@@ -208,8 +208,8 @@ export const themes = [
       weight: 1,
     },
     palette: {
-      name: 'Anodized',
-      filename: 'anodized.css',
+      name: 'Rudimentary',
+      filename: 'rudimentary.css',
     },
     tokens: {
       // Fonts
@@ -265,8 +265,8 @@ export const themes = [
       weight: 2,
     },
     palette: {
-      name: 'Rudimentary',
-      filename: 'rudimentary.css',
+      name: 'Default',
+      filename: 'default.css',
     },
     tokens: {
       // Fonts
@@ -379,8 +379,8 @@ export const themes = [
       weight: 1,
     },
     palette: {
-      name: 'Natural',
-      filename: 'natural.css',
+      name: 'Mild',
+      filename: 'mild.css',
     },
     tokens: {
       // Fonts
@@ -436,8 +436,8 @@ export const themes = [
       weight: 1.5,
     },
     palette: {
-      name: 'Mild',
-      filename: 'mild.css',
+      name: 'Natural',
+      filename: 'natural.css',
     },
     tokens: {
       // Fonts
@@ -493,8 +493,8 @@ export const themes = [
       weight: 3,
     },
     palette: {
-      name: 'Bright',
-      filename: 'bright.css',
+      name: 'Rudimentary',
+      filename: 'rudimentary.css',
     },
     tokens: {
       // Fonts
@@ -550,8 +550,8 @@ export const themes = [
       weight: 1.5,
     },
     palette: {
-      name: 'Elegant',
-      filename: 'elegant.css',
+      name: 'Anodized',
+      filename: 'anodized.css',
     },
     tokens: {
       // Fonts
