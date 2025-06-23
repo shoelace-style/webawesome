@@ -153,6 +153,8 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   }
 
   private _value: string[] | undefined;
+
+  /** The select's value. This will be a string for single select or an array for multi-select. */
   @property({ attribute: 'value', reflect: false })
   set value(val: string | string[]) {
     let oldValue = this.value;
