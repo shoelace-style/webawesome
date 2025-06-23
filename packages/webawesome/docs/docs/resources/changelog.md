@@ -59,6 +59,7 @@ During the alpha period, things might break! We take breaking changes very serio
   - `<wa-input>`
   - `<wa-select>`
   - `<wa-option>`
+- 🚨 BREAKING: reworked `<wa-select>` to use `<wa-option selected>` to set initially selected options, removing the "no spaces allowed" restrictions for option values
 - Added a new free component: `<wa-popover>` (#2 of 14 per stretch goals)
 - Added a new free component: `<wa-zoomable-frame>` (#3 of 14 per stretch goals)
 - Added a `min-block-size` to `<wa-divider orientation="vertical">` to ensure the divider is visible regardless of container height [issue:675]
