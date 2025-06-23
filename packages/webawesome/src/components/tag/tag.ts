@@ -28,7 +28,7 @@ import styles from './tag.css';
  */
 @customElement('wa-tag')
 export default class WaTag extends WebAwesomeElement {
-  static css = [sizeStyles, variantStyles, appearanceStyles, styles];
+  static css = [styles, variantStyles, sizeStyles, appearanceStyles];
 
   private readonly localize = new LocalizeController(this);
 
