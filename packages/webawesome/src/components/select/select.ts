@@ -134,9 +134,6 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   }
 
   get defaultValue() {
-    if (!this.hasUpdated) {
-      this._defaultValue = this.convertDefaultValue(this._defaultValue);
-    }
     return this._defaultValue;
   }
 
@@ -156,12 +153,12 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   }
 
   private _value: string[] | undefined;
-  @property({ attribute: "value", reflect: false })
+  @property({ attribute: 'value', reflect: false })
   set value(val: string | string[]) {
     let oldValue = this.value;
 
     if ((val as any) instanceof FormData) {
-      val = (val as unknown as FormData).getAll(this.name) as string[]
+      val = (val as unknown as FormData).getAll(this.name) as string[];
     }
 
     if (!Array.isArray(val)) {
@@ -297,6 +294,17 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
 
     // Because this is a form control, it shouldn't be opened initially
     this.open = false;
+
+    if (!this._defaultValue) {
+      const allOptions = this.getAllOptions();
+      const selectedOptions = allOptions.filter(el => el.selected || el.defaultSelected);
+      if (selectedOptions.length > 0) {
+        const selectedValues = selectedOptions.map(el => el.value);
+        this._defaultValue = this.multiple ? selectedValues : selectedValues[0];
+      } else if (this.hasAttribute('value')) {
+        this._defaultValue = this.getAttribute('value') || '';
+      }
+    }
   }
 
   private addOpenListeners() {
@@ -560,6 +568,15 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     const allOptions = this.getAllOptions();
     this.optionValues = undefined; // dirty the value so it gets recalculated
 
+    // Update defaultValue if it hasn't been explicitly set and we have selected options
+    if (!this._defaultValue && !this.hasUpdated) {
+      const selectedOptions = allOptions.filter(el => el.selected || el.defaultSelected);
+      if (selectedOptions.length > 0) {
+        const selectedValues = selectedOptions.map(el => el.value);
+        this._defaultValue = this.multiple ? selectedValues : selectedValues[0];
+      }
+    }
+
     const value = this.value;
 
     // Select only the options that match the new value
@@ -643,8 +660,10 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
 
     // Clear existing selection
     allOptions.forEach(el => {
-      if (newSelectedOptions.includes(el)) { return }
-      el.selected = false
+      if (newSelectedOptions.includes(el)) {
+        return;
+      }
+      el.selected = false;
     });
 
     // Set the new selection
@@ -674,7 +693,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
 
     // Update selected options cache
     this.selectedOptions = options.filter(el => {
-      return el.selected
+      return el.selected;
     });
     let selectedValues = new Set(this.selectedOptions.map(el => el.value));
 
@@ -853,7 +872,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     this.updateComplete.then(() => {
       this.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
       this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
-    })
+    });
   }
 
   render() {
