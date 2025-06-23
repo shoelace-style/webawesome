@@ -223,7 +223,7 @@ describe('<wa-select>', () => {
       it('should not throw on incomplete events', async () => {
         const el = await fixture<WaSelect>(html`
           <wa-select required>
-            <sl-option value="option-1">Option 1</sl-option>
+            <wa-option value="option-1">Option 1</wa-option>
           </wa-select>
         `);
 
@@ -416,10 +416,10 @@ describe('<wa-select>', () => {
         it('should serialize its name and value in FormData when multiple options are selected', async () => {
           const form = await fixture<HTMLFormElement>(html`
             <form>
-              <wa-select name="a" value="option-2 option-3" multiple>
+              <wa-select name="a" multiple>
                 <wa-option value="option-1">Option 1</wa-option>
-                <wa-option value="option-2">Option 2</wa-option>
-                <wa-option value="option-3">Option 3</wa-option>
+                <wa-option value="option-2" selected>Option 2</wa-option>
+                <wa-option value="option-3" selected>Option 3</wa-option>
               </wa-select>
             </form>
           `);
@@ -445,10 +445,10 @@ describe('<wa-select>', () => {
         it('should serialize its name and value in JSON when multiple options are selected', async () => {
           const form = await fixture<HTMLFormElement>(html`
             <form>
-              <wa-select name="a" value="option-2 option-3" multiple>
+              <wa-select name="a" multiple>
                 <wa-option value="option-1">Option 1</wa-option>
-                <wa-option value="option-2">Option 2</wa-option>
-                <wa-option value="option-3">Option 3</wa-option>
+                <wa-option value="option-2" selected>Option 2</wa-option>
+                <wa-option value="option-3" selected>Option 3</wa-option>
               </wa-select>
             </form>
           `);
@@ -576,10 +576,10 @@ describe('<wa-select>', () => {
 
       it('should emit change and input when a tag is removed', async () => {
         const el = await fixture<WaSelect>(html`
-          <wa-select value="option-1 option-2 option-3" multiple>
-            <wa-option value="option-1">Option 1</wa-option>
-            <wa-option value="option-2">Option 2</wa-option>
-            <wa-option value="option-3">Option 3</wa-option>
+          <wa-select multiple>
+            <wa-option value="option-1" selected>Option 1</wa-option>
+            <wa-option value="option-2" selected>Option 2</wa-option>
+            <wa-option value="option-3" selected>Option 3</wa-option>
           </wa-select>
         `);
         const changeHandler = sinon.spy();
@@ -628,9 +628,9 @@ describe('<wa-select>', () => {
 
       it('should have rounded tags when using the pill attribute', async () => {
         const el = await fixture<WaSelect>(html`
-          <wa-select value="option-1 option-2" multiple pill>
-            <wa-option value="option-1">Option 1</wa-option>
-            <wa-option value="option-2">Option 2</wa-option>
+          <wa-select multiple pill>
+            <wa-option value="option-1" selected>Option 1</wa-option>
+            <wa-option value="option-2" selected>Option 2</wa-option>
             <wa-option value="option-3">Option 3</wa-option>
           </wa-select>
         `);
@@ -714,24 +714,17 @@ describe('<wa-select>', () => {
           it('Should not select the option if options already exists for multiple select', async () => {
             const form = await fixture<HTMLFormElement>(
               html` <form>
-                <wa-select name="select" value="foo" multiple>
+                <wa-select name="select" multiple>
                   <wa-option value="bar">Bar</wa-option>
                   <wa-option value="baz">Baz</wa-option>
+                  <wa-option value="foo" selected>Foo</wa-option>
                 </wa-select>
               </form>`,
             );
 
             const el = form.querySelector<WaSelect>('wa-select')!;
             expect(el.value).to.be.an('array');
-            expect(el.value!.length).to.equal(0);
-
-            const option = document.createElement('wa-option');
-            option.value = 'foo';
-            option.innerText = 'Foo';
-            el.append(option);
-
-            await aTimeout(10);
-            await el.updateComplete;
+            expect(el.value!.length).to.equal(1);
             expect(el.value).to.have.members(['foo']);
             expect(new FormData(form).getAll('select')).to.have.members(['foo']);
           });
@@ -739,9 +732,9 @@ describe('<wa-select>', () => {
           it('Should only select the existing options if options already exists for multiple select', async () => {
             const form = await fixture<HTMLFormElement>(
               html` <form>
-                <wa-select name="select" value="foo bar baz" multiple>
-                  <wa-option value="bar">Bar</wa-option>
-                  <wa-option value="baz">Baz</wa-option>
+                <wa-select name="select" multiple>
+                  <wa-option value="bar" selected>Bar</wa-option>
+                  <wa-option value="baz" selected>Baz</wa-option>
                 </wa-select>
               </form>`,
             );
@@ -756,12 +749,13 @@ describe('<wa-select>', () => {
             const option = document.createElement('wa-option');
             option.value = 'foo';
             option.innerText = 'Foo';
+            option.selected = true;
             el.append(option);
 
             await aTimeout(10);
             await el.updateComplete;
-            expect(el.value).to.have.members(['foo', 'bar', 'baz']);
-            expect(new FormData(form).getAll('select')).to.have.members(['foo', 'bar', 'baz']);
+            expect(el.value).to.have.members(['bar', 'baz', 'foo']);
+            expect(new FormData(form).getAll('select')).to.have.members(['bar', 'baz', 'foo']);
           });
         });
 
@@ -793,6 +787,74 @@ describe('<wa-select>', () => {
             await el.updateComplete;
             expect(el.value).to.equal('foo');
           });
+        });
+      });
+
+      describe('with selected attribute', () => {
+        it('should select options using the selected attribute for single select', async () => {
+          const el = await fixture<WaSelect>(html`
+            <wa-select>
+              <wa-option value="option-1">Option 1</wa-option>
+              <wa-option value="option-2" selected>Option 2</wa-option>
+              <wa-option value="option-3">Option 3</wa-option>
+            </wa-select>
+          `);
+
+          expect(el.value).to.equal('option-2');
+          expect(el.displayInput.value).to.equal('Option 2');
+        });
+
+        it('should select multiple options using the selected attribute', async () => {
+          const el = await fixture<WaSelect>(html`
+            <wa-select multiple>
+              <wa-option value="option-1" selected>Option 1</wa-option>
+              <wa-option value="option-2">Option 2</wa-option>
+              <wa-option value="option-3" selected>Option 3</wa-option>
+            </wa-select>
+          `);
+
+          expect(el.value).to.have.members(['option-1', 'option-3']);
+          expect(el.value).to.have.length(2);
+        });
+
+        it('should handle options with spaces in values', async () => {
+          const el = await fixture<WaSelect>(html`
+            <wa-select>
+              <wa-option value="option with spaces">Option with spaces</wa-option>
+              <wa-option value="another option" selected>Another option</wa-option>
+            </wa-select>
+          `);
+
+          expect(el.value).to.equal('another option');
+          expect(el.displayInput.value).to.equal('Another option');
+        });
+
+        it('should handle multiple options with spaces in values', async () => {
+          const el = await fixture<WaSelect>(html`
+            <wa-select multiple>
+              <wa-option value="option with spaces" selected>Option with spaces</wa-option>
+              <wa-option value="another option">Another option</wa-option>
+              <wa-option value="third option" selected>Third option</wa-option>
+            </wa-select>
+          `);
+
+          expect(el.value).to.have.members(['option with spaces', 'third option']);
+          expect(el.value).to.have.length(2);
+        });
+
+        it('should serialize options with spaces correctly in FormData', async () => {
+          const form = await fixture<HTMLFormElement>(html`
+            <form>
+              <wa-select name="test" multiple>
+                <wa-option value="option with spaces" selected>Option with spaces</wa-option>
+                <wa-option value="another option" selected>Another option</wa-option>
+              </wa-select>
+            </form>
+          `);
+
+          const formData = new FormData(form);
+          const values = formData.getAll('test');
+          expect(values).to.have.members(['option with spaces', 'another option']);
         });
       });
 
