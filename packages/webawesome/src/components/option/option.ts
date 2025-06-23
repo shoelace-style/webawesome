@@ -8,7 +8,7 @@ import '../icon/icon.js';
 import styles from './option.css';
 
 /**
- * @summary Options define the selectable items within various form controls such as [select](/docs/components/select).
+ * @summary Options define the selectable items within a select component.
  * @documentation https://backers.webawesome.com/docs/components/option
  * @status stable
  * @since 2.0
@@ -46,8 +46,6 @@ export default class WaOption extends WebAwesomeElement {
   // Set via the parent select
   @state() current = false;
 
-  @state() selected = false;
-
   /**
    * The option's value. When selected, the containing form control will receive this value. The value must be unique
    * from other options in the same group. Values may not contain spaces, as spaces are used as delimiters when listing
@@ -56,7 +54,13 @@ export default class WaOption extends WebAwesomeElement {
   @property({ reflect: true }) value = '';
 
   /** Draws the option in a disabled state, preventing selection. */
-  @property({ type: Boolean, reflect: true }) disabled = false;
+  @property({ type: Boolean }) disabled = false;
+
+  /** @internal */
+  @property({ type: Boolean, attribute: false }) selected = false;
+
+  /** Selects an option initially. */
+  @property({ type: Boolean, attribute: 'selected' }) defaultSelected = false;
 
   _label: string = '';
   /**
@@ -107,10 +111,6 @@ export default class WaOption extends WebAwesomeElement {
 
   private handleDefaultSlotChange() {
     // Tell the controller to update the label
-    if (customElements.get('wa-select')) {
-      this.closest('wa-select')?.selectionChanged();
-    }
-
     this.updateDefaultLabel();
 
     if (this.isInitialized) {
@@ -119,6 +119,7 @@ export default class WaOption extends WebAwesomeElement {
         const controller = this.closest('wa-select');
         if (controller) {
           controller.handleDefaultSlotChange();
+          controller.selectionChanged?.();
         }
       });
     } else {
@@ -136,6 +137,17 @@ export default class WaOption extends WebAwesomeElement {
     }
   };
 
+  protected willUpdate(changedProperties: PropertyValues<this>): void {
+    if (changedProperties.has('defaultSelected')) {
+      if (!this.closest('wa-select')?.hasInteracted) {
+        const oldVal = this.selected;
+        this.selected = this.defaultSelected;
+        this.requestUpdate('selected', oldVal);
+      }
+    }
+    super.willUpdate(changedProperties);
+  }
+
   updated(changedProperties: PropertyValues<this>) {
     super.updated(changedProperties);
 
@@ -146,6 +158,7 @@ export default class WaOption extends WebAwesomeElement {
     if (changedProperties.has('selected')) {
       this.setAttribute('aria-selected', this.selected ? 'true' : 'false');
       this.customStates.set('selected', this.selected);
+      this.handleDefaultSlotChange();
     }
 
     if (changedProperties.has('value')) {
@@ -153,12 +166,6 @@ export default class WaOption extends WebAwesomeElement {
       // instead of requiring them to cast the value to a string.
       if (typeof this.value !== 'string') {
         this.value = String(this.value);
-      }
-
-      if (this.value.includes(' ')) {
-        // eslint-disable-next-line no-console
-        console.error(`Option values cannot include a space. All spaces have been replaced with underscores.`, this);
-        this.value = this.value.replace(/ /g, '_');
       }
 
       this.handleDefaultSlotChange();
