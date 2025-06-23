@@ -25,8 +25,6 @@ import styles from './zoomable-frame.css';
  * @csspart controls - The container that surrounds zoom control buttons.
  * @csspart zoom-in-button - The zoom in button.
  * @csspart zoom-out-button - The zoom out button.
- *
- * @cssproperty [--aspect-ratio=16/9] - The aspect ratio of the frame.
  */
 @customElement('wa-zoomable-frame')
 export default class WaZoomableFrame extends WebAwesomeElement {
