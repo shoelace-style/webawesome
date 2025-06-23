@@ -7,64 +7,6 @@ icon: select
 ---
 
 ```html {.example}
-<form id="base-example">
-  <wa-select name="select-1" multiple value="option-3">
-    <wa-option value="option-1">Option 1</wa-option>
-    <wa-option selected value="option-2">Option 2</wa-option>
-    <wa-option value="option-3">Option 3</wa-option>
-    <wa-option selected value="option-4">Option 4</wa-option>
-    <wa-option selected value="option-5">Option 5</wa-option>
-    <wa-option value="option-6">Option 6</wa-option>
-  </wa-select>
-
-  <br>
-
-  <wa-select name="select-2" value="option-2">
-    <wa-option value="option-1">Option 1</wa-option>
-    <wa-option value="option-2">Option 2</wa-option>
-    <wa-option value="option-3">Option 3</wa-option>
-    <wa-option value="option-4">Option 4</wa-option>
-    <wa-option selected value="option-5">Option 5</wa-option>
-    <wa-option value="option-6">Option 6</wa-option>
-  </wa-select>
-  <br>
-  <wa-select name="select-3" multiple value="option-4">
-    <wa-option value="option-1">Option 1</wa-option>
-    <wa-option value="option-2">Option 2</wa-option>
-    <wa-option value="option-3">Option 3</wa-option>
-    <wa-option value="option-4">Option 4</wa-option>
-    <wa-option value="option-5">Option 5</wa-option>
-    <wa-option value="option-6">Option 6</wa-option>
-  </wa-select>
-  <br>
-  <wa-button type="reset">Reset</wa-button>
-</form>
-<br>
-<pre><code id="formdata"></code></pre>
-<script type="module">
-const form = document.querySelector("#base-example")
-function showFormData() {
-  const code = document.querySelector("#formdata")
-  const formdata = new FormData(form)
-  const obj = {}
-  for (const key of formdata.keys()) {
-    obj[key] = formdata.getAll(key).length > 1 ? formdata.getAll(key) : formdata.get(key)
-  }
-  code.innerHTML = JSON.stringify(obj, null, 2)
-}
-form.addEventListener("change", (e) => {
-  showFormData()
-})
-await customElements.whenDefined("wa-select")
-await customElements.whenDefined("wa-option")
-setTimeout(() => {
-  showFormData()
-})
-</script>
-
-```
-
-```html {.example}
 <wa-select>
   <wa-option value="option-1">Option 1</wa-option>
   <wa-option value="option-2">Option 2</wa-option>
@@ -303,13 +245,7 @@ When multiple options can be selected, you can provide custom tags by passing a 
 Remember that custom tags are rendered in a shadow root. To style them, you can use the `style` attribute in your template or you can add your own [parts](/docs/customizing/#css-parts) and target them with the [`::part()`](https://developer.mozilla.org/en-US/docs/Web/CSS/::part) selector.
 
 ```html {.example}
-<wa-select
-  placeholder="Select one"
-  value="email phone"
-  multiple
-  with-clear
-  class="custom-tag"
->
+<wa-select placeholder="Select one" value="email phone" multiple with-clear class="custom-tag">
   <wa-option value="email">
     <wa-icon slot="start" name="envelope" variant="solid"></wa-icon>
     Email
@@ -325,9 +261,9 @@ Remember that custom tags are rendered in a shadow root. To style them, you can 
 </wa-select>
 
 <script type="module">
-  await customElements.whenDefined("wa-select")
+  await customElements.whenDefined('wa-select');
   const select = document.querySelector('.custom-tag');
-  await select.updateComplete
+  await select.updateComplete;
 
   select.getTag = (option, index) => {
     // Use the same icon used in wa-option
@@ -358,7 +294,7 @@ Here are the following conditions:
 
 EX: `<wa-select value="foo">` will have a value of `""` until `<wa-option value="foo">Foo</wa-option>` connects, at which point its value will become `"foo"` when submitting.
 
-- If a `<wa-select multiple>` with an initial value has multiple values, but only some of the options are present, it will only respect the options that are present, and if a selected option is loaded in later, *AND* the value of the select has not changed via user interaction or direct property assignment, it will add the selected option to the form value and to the `.value` of the select.
+- If a `<wa-select multiple>` with an initial value has multiple values, but only some of the options are present, it will only respect the options that are present, and if a selected option is loaded in later, _AND_ the value of the select has not changed via user interaction or direct property assignment, it will add the selected option to the form value and to the `.value` of the select.
 
 This can be hard to conceptualize, so heres a fairly large example showing how lazy loaded options work with `<wa-select>` and `<wa-select multiple>` when given initial value attributes. Feel free to play around with it in a codepen.
 
@@ -369,92 +305,90 @@ This can be hard to conceptualize, so heres a fairly large example showing how l
       <wa-option value="bar">Bar</wa-option>
       <wa-option value="baz">Baz</wa-option>
     </wa-select>
-    <br>
+    <br />
     <wa-button type="button">Add "foo" option</wa-button>
   </div>
 
-  <br>
+  <br />
 
   <div>
-    <wa-select name="select-2" value="foo" label="Single select (with no existing options)">
-    </wa-select>
-    <br>
+    <wa-select name="select-2" value="foo" label="Single select (with no existing options)"> </wa-select>
+    <br />
     <wa-button type="button">Add "foo" option</wa-button>
   </div>
 
-  <br>
+  <br />
 
   <div>
     <wa-select name="select-3" value="foo bar baz" multiple label="Multiple Select (with existing options)">
       <wa-option value="bar">Bar</wa-option>
       <wa-option value="baz">Baz</wa-option>
     </wa-select>
-    <br>
+    <br />
     <wa-button type="button">Add "foo" option</wa-button>
   </div>
 
-  <br>
+  <br />
 
   <div>
-    <wa-select name="select-4" value="foo" multiple label="Multiple Select (with no existing options)">
-    </wa-select>
-    <br>
+    <wa-select name="select-4" value="foo" multiple label="Multiple Select (with no existing options)"> </wa-select>
+    <br />
     <wa-button type="button">Add "foo" option</wa-button>
   </div>
 
-  <br><br>
+  <br /><br />
 
   <div style="display: flex; gap: 16px;">
     <wa-button type="reset">Reset</wa-button>
     <wa-button type="submit" variant="brand">Show FormData</wa-button>
   </div>
 
-  <br>
+  <br />
 
   <pre hidden><code id="lazy-options-example-form-data"></code></pre>
 
-  <br>
+  <br />
 </form>
 
 <script type="module">
   function addFooOption(e) {
-    const addFooButton = e.target.closest("wa-button[type='button']")
+    const addFooButton = e.target.closest("wa-button[type='button']");
     if (!addFooButton) {
-      return
+      return;
     }
-    const select = addFooButton.parentElement.querySelector("wa-select")
+    const select = addFooButton.parentElement.querySelector('wa-select');
 
     if (select.querySelector("wa-option[value='foo']")) {
       // Foo already exists. no-op.
-      return
+      return;
     }
 
-    const option = document.createElement("wa-option")
-    option.setAttribute("value", "foo")
-    option.innerText = "Foo"
-    select.append(option)
+    const option = document.createElement('wa-option');
+    option.setAttribute('value', 'foo');
+    option.innerText = 'Foo';
+    select.append(option);
   }
 
-  function handleLazySubmit (event) {
-    event.preventDefault()
+  function handleLazySubmit(event) {
+    event.preventDefault();
 
-    const formData = new FormData(event.target)
-    const codeElement = document.querySelector("#lazy-options-example-form-data")
+    const formData = new FormData(event.target);
+    const codeElement = document.querySelector('#lazy-options-example-form-data');
 
-    const obj = {}
+    const obj = {};
     for (const key of formData.keys()) {
-      const val = formData.getAll(key).length > 1 ? formData.getAll(key) : formData.get(key)
-      obj[key] = val
+      const val = formData.getAll(key).length > 1 ? formData.getAll(key) : formData.get(key);
+      obj[key] = val;
     }
 
-    codeElement.textContent = JSON.stringify(obj, null, 2)
+    codeElement.textContent = JSON.stringify(obj, null, 2);
 
-    const preElement = codeElement.parentElement
-    preElement.removeAttribute("hidden")
+    const preElement = codeElement.parentElement;
+    preElement.removeAttribute('hidden');
   }
 
-  const container = document.querySelector("#lazy-options-example")
-  container.addEventListener("click", addFooOption)
-  container.addEventListener("submit", handleLazySubmit)
+  const container = document.querySelector('#lazy-options-example');
+  container.addEventListener('click', addFooOption);
+  container.addEventListener('submit', handleLazySubmit);
 </script>
 ```
