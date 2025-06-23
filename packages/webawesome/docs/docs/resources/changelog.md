@@ -70,6 +70,7 @@ During the alpha period, things might break! We take breaking changes very serio
 - Added support for `data-dialog="open <id>"` to `<wa-dialog>`
 - Added support for `data-drawer="open <id>"` to `<wa-drawer>`
 - Added `@media (hover: hover)` to component hover styles to prevent sticky hover states
+- Added the ability to use `<wa-radio-group disabled>` to disable all radios in the group
 - Fixed a bug in `<wa-radio-group>` that caused radios to uncheck when assigning a numeric value [issue:924]
 - Fixed `<wa-button-group>` so dividers properly show between buttons
 - Fixed the tooltip position in `<wa-slider>` when using RTL
