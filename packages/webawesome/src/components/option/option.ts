@@ -56,9 +56,11 @@ export default class WaOption extends WebAwesomeElement {
   /** Draws the option in a disabled state, preventing selection. */
   @property({ type: Boolean }) disabled = false;
 
-  @property({ type: Boolean, attribute: false }) selected = false
+  /** @internal */
+  @property({ type: Boolean, attribute: false }) selected = false;
 
-  @property({ type: Boolean, attribute: "selected" }) defaultSelected = false
+  /** Selects an option initially. */
+  @property({ type: Boolean, attribute: 'selected' }) defaultSelected = false;
 
   _label: string = '';
   /**
@@ -117,7 +119,7 @@ export default class WaOption extends WebAwesomeElement {
         const controller = this.closest('wa-select');
         if (controller) {
           controller.handleDefaultSlotChange();
-          controller.selectionChanged?.()
+          controller.selectionChanged?.();
         }
       });
     } else {
@@ -137,13 +139,13 @@ export default class WaOption extends WebAwesomeElement {
 
   protected willUpdate(changedProperties: PropertyValues<this>): void {
     if (changedProperties.has('defaultSelected')) {
-      if (!this.closest("wa-select")?.hasInteracted) {
-        const oldVal = this.selected
-        this.selected = this.defaultSelected
-        this.requestUpdate("selected", oldVal)
+      if (!this.closest('wa-select')?.hasInteracted) {
+        const oldVal = this.selected;
+        this.selected = this.defaultSelected;
+        this.requestUpdate('selected', oldVal);
       }
     }
-    super.willUpdate(changedProperties)
+    super.willUpdate(changedProperties);
   }
 
   updated(changedProperties: PropertyValues<this>) {
@@ -156,7 +158,7 @@ export default class WaOption extends WebAwesomeElement {
     if (changedProperties.has('selected')) {
       this.setAttribute('aria-selected', this.selected ? 'true' : 'false');
       this.customStates.set('selected', this.selected);
-      this.handleDefaultSlotChange()
+      this.handleDefaultSlotChange();
     }
 
     if (changedProperties.has('value')) {
