@@ -6,7 +6,7 @@ import WebAwesomeElement from '../../internal/webawesome-element.js';
 import styles from './breadcrumb-item.css';
 
 /**
- * @summary Breadcrumb Items are used inside [breadcrumbs](/docs/components/breadcrumb) to represent different links.
+ * @summary Breadcrumb Items are used inside breadcrumbs to represent different links.
  * @documentation https://backers.webawesome.com/docs/components/breadcrumb-item
  * @status stable
  * @since 2.0

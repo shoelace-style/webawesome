@@ -5,17 +5,4 @@ tags: component
 parent: breadcrumb
 ---
 
-```html {.example}
-<wa-breadcrumb>
-  <wa-breadcrumb-item>
-    <wa-icon slot="start" name="house" variant="solid"></wa-icon>
-    Home
-  </wa-breadcrumb-item>
-  <wa-breadcrumb-item>Clothing</wa-breadcrumb-item>
-  <wa-breadcrumb-item>Shirts</wa-breadcrumb-item>
-</wa-breadcrumb>
-```
-
-:::info
-Additional demonstrations can be found in the [breadcrumb examples](/docs/components/breadcrumb).
-:::
+This component must be used as a child of `<wa-breadcrumb>`. Please see the [Breadcrumb docs](/docs/components/breadcrumb) to see examples of this component in action.

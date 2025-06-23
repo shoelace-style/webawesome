@@ -6,6 +6,4 @@ parent: tab-group
 icon: tab
 ---
 
-:::info
-Additional demonstrations can be found in the [tab group examples](/docs/components/tab-group).
-:::
+This component must be used as a child of `<wa-tab-group>`. Please see the [Tab Group docs](/docs/components/tab-group) to see examples of this component in action.
