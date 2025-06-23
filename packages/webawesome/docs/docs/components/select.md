@@ -109,13 +109,13 @@ Use the `disabled` attribute to disable a select.
 
 ### Multiple
 
-To allow multiple options to be selected, use the `multiple` attribute. It's a good practice to use `with-clear` when this option is enabled. To set multiple values at once, set `value` to a space-delimited list of values.
+To allow multiple options to be selected, use the `multiple` attribute. It's a good practice to use `with-clear` when this option is enabled. You can select multiple options by adding the `selected` attribute to individual options.
 
 ```html {.example}
-<wa-select label="Select a Few" value="option-1 option-2 option-3" multiple with-clear>
-  <wa-option value="option-1">Option 1</wa-option>
-  <wa-option value="option-2">Option 2</wa-option>
-  <wa-option value="option-3">Option 3</wa-option>
+<wa-select label="Select a Few" multiple with-clear>
+  <wa-option value="option-1" selected>Option 1</wa-option>
+  <wa-option value="option-2" selected>Option 2</wa-option>
+  <wa-option value="option-3" selected>Option 3</wa-option>
   <wa-option value="option-4">Option 4</wa-option>
   <wa-option value="option-5">Option 5</wa-option>
   <wa-option value="option-6">Option 6</wa-option>
@@ -123,32 +123,36 @@ To allow multiple options to be selected, use the `multiple` attribute. It's a g
 ```
 
 :::info
-Note that multi-select options may wrap, causing the control to expand vertically. You can use the `max-options-visible` attribute to control the maximum number of selected options to show at once.
+Selecting multiple options may result in wrapping, causing the control to expand vertically. You can use the `max-options-visible` attribute to control the maximum number of selected options to show at once.
 :::
 
 ### Setting Initial Values
 
-Use the `value` attribute to set the initial selection.
+Use the `selected` attribute on individual options to set the initial selection, similar to native HTML.
 
 ```html {.example}
-<wa-select value="option-1">
-  <wa-option value="option-1">Option 1</wa-option>
+<wa-select>
+  <wa-option value="option-1" selected>Option 1</wa-option>
   <wa-option value="option-2">Option 2</wa-option>
   <wa-option value="option-3">Option 3</wa-option>
   <wa-option value="option-4">Option 4</wa-option>
 </wa-select>
 ```
 
-When using `multiple`, the `value` _attribute_ uses space-delimited values to select more than one option. Because of this, `<wa-option>` values cannot contain spaces. If you're accessing the `value` _property_ through Javascript, it will be an array.
+For multiple selections, apply it to all selected options.
 
 ```html {.example}
-<wa-select value="option-1 option-2" multiple with-clear>
-  <wa-option value="option-1">Option 1</wa-option>
-  <wa-option value="option-2">Option 2</wa-option>
+<wa-select multiple with-clear>
+  <wa-option value="option-1" selected>Option 1</wa-option>
+  <wa-option value="option-2" selected>Option 2</wa-option>
   <wa-option value="option-3">Option 3</wa-option>
   <wa-option value="option-4">Option 4</wa-option>
 </wa-select>
 ```
+
+:::info
+Framework users can bind directly to the `value` property for reactive data binding and form state management.
+:::
 
 ### Grouping Options
 
@@ -240,17 +244,17 @@ Use the `start` and `end` slots to add presentational elements like `<wa-icon>` 
 
 ### Custom Tags
 
-When multiple options can be selected, you can provide custom tags by passing a function to the `getTag` property. Your function can return a string of HTML, a <a href="https://lit.dev/docs/templates/overview/">Lit Template</a>, or an [`HTMLElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement). The `getTag()` function will be called for each option. The first argument is an `<wa-option>` element and the second argument is the tag's index (its position in the tag list).
+When multiple options can be selected, you can provide custom tags by passing a function to the `getTag` property. Your function can return a string of HTML, a [Lit Template](https://lit.dev/docs/templates/overview/), or an [`HTMLElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement). The `getTag()` function will be called for each option. The first argument is an `<wa-option>` element and the second argument is the tag's index (its position in the tag list).
 
 Remember that custom tags are rendered in a shadow root. To style them, you can use the `style` attribute in your template or you can add your own [parts](/docs/customizing/#css-parts) and target them with the [`::part()`](https://developer.mozilla.org/en-US/docs/Web/CSS/::part) selector.
 
 ```html {.example}
-<wa-select placeholder="Select one" value="email phone" multiple with-clear class="custom-tag">
-  <wa-option value="email">
+<wa-select placeholder="Select one" multiple with-clear class="custom-tag">
+  <wa-option value="email" selected>
     <wa-icon slot="start" name="envelope" variant="solid"></wa-icon>
     Email
   </wa-option>
-  <wa-option value="phone">
+  <wa-option value="phone" selected>
     <wa-icon slot="start" name="phone" variant="solid"></wa-icon>
     Phone
   </wa-option>
@@ -286,17 +290,15 @@ Be sure you trust the content you are outputting! Passing unsanitized user input
 
 ### Lazy loading options
 
-Lazy loading options is very hard to get right. `<wa-select>` largely follows how a native `<select>` works.
+Lazy loading options works similarly to native `<select>` elements. The select component handles various scenarios intelligently:
 
-Here are the following conditions:
+#### Basic lazy loading scenarios:
 
-- If a `<wa-select>` is created without any options, but is given a `value` attribute, its `value` will be `""`, and then when options are added, if any of the options have a value equal to the `<wa-select>` value, the value of the `<wa-select>` will equal that of the option.
+- **Empty select with value**: If a `<wa-select>` is created without any options but given a `value` attribute, its value will be `""` initially. When options are added later, if any option has a value matching the select's value attribute, the select's value will update to match.
 
-EX: `<wa-select value="foo">` will have a value of `""` until `<wa-option value="foo">Foo</wa-option>` connects, at which point its value will become `"foo"` when submitting.
+- **Multiple select with partial options**: If a `<wa-select multiple>` has an initial value with multiple options, but only some options are present in the DOM, it will respect only the available options. When additional selected options are loaded later (and the user hasn't changed the selection), those options will be automatically added to the selection.
 
-- If a `<wa-select multiple>` with an initial value has multiple values, but only some of the options are present, it will only respect the options that are present, and if a selected option is loaded in later, _AND_ the value of the select has not changed via user interaction or direct property assignment, it will add the selected option to the form value and to the `.value` of the select.
-
-This can be hard to conceptualize, so heres a fairly large example showing how lazy loaded options work with `<wa-select>` and `<wa-select multiple>` when given initial value attributes. Feel free to play around with it in a codepen.
+Here's a comprehensive example showing different lazy loading scenarios:
 
 ```html {.example}
 <form id="lazy-options-example">
@@ -320,12 +322,12 @@ This can be hard to conceptualize, so heres a fairly large example showing how l
   <br />
 
   <div>
-    <wa-select name="select-3" value="foo bar baz" multiple label="Multiple Select (with existing options)">
-      <wa-option value="bar">Bar</wa-option>
-      <wa-option value="baz">Baz</wa-option>
+    <wa-select name="select-3" multiple label="Multiple Select (with existing selected options)">
+      <wa-option value="bar" selected>Bar</wa-option>
+      <wa-option value="baz" selected>Baz</wa-option>
     </wa-select>
     <br />
-    <wa-button type="button">Add "foo" option</wa-button>
+    <wa-button type="button">Add "foo" option (selected)</wa-button>
   </div>
 
   <br />
@@ -366,6 +368,12 @@ This can be hard to conceptualize, so heres a fairly large example showing how l
     const option = document.createElement('wa-option');
     option.setAttribute('value', 'foo');
     option.innerText = 'Foo';
+
+    // For the multiple select with existing selected options, make the new option selected
+    if (select.getAttribute('name') === 'select-3') {
+      option.selected = true;
+    }
+
     select.append(option);
   }
 
@@ -392,3 +400,7 @@ This can be hard to conceptualize, so heres a fairly large example showing how l
   container.addEventListener('submit', handleLazySubmit);
 </script>
 ```
+
+:::info
+The key principle is that the select component prioritizes user interactions and explicit selections over programmatic changes, ensuring a predictable user experience even with dynamically loaded content.
+:::
