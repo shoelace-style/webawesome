@@ -1,10 +1,10 @@
+import type { PropertyValues } from 'lit';
 import { html, isServer } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { uniqueId } from '../../internal/math.js';
 import { HasSlotController } from '../../internal/slot.js';
 import { RequiredValidator } from '../../internal/validators/required-validator.js';
-import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
 import formControlStyles from '../../styles/component/form-control.css';
 import sizeStyles from '../../styles/utilities/size.css';
@@ -72,6 +72,9 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
 
   /** The name of the radio group, submitted as a name/value pair with form data. */
   @property({ reflect: true }) name: string | null = null;
+
+  /** Disables the radio group and all child radios. */
+  @property({ type: Boolean, reflect: true }) disabled = false;
 
   /** The orientation in which to show radio items. */
   @property({ reflect: true }) orientation: 'horizontal' | 'vertical' = 'vertical';
@@ -141,6 +144,12 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
     return radio;
   }
 
+  updated(changedProperties: PropertyValues<this>) {
+    if (changedProperties.has('disabled') || changedProperties.has('value')) {
+      this.syncRadioElements();
+    }
+  }
+
   formResetCallback(...args: Parameters<WebAwesomeFormAssociatedElement['formResetCallback']>) {
     this.value = this.defaultValue;
 
@@ -152,7 +161,7 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
   private handleRadioClick = (e: Event) => {
     const clickedRadio = (e.target as HTMLElement).closest<WaRadio>('wa-radio');
 
-    if (!clickedRadio || clickedRadio.disabled) {
+    if (!clickedRadio || clickedRadio.disabled || (clickedRadio as any).forceDisabled || this.disabled) {
       return;
     }
 
@@ -199,6 +208,9 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
       radio.toggleAttribute('data-wa-radio-first', index === 0);
       radio.toggleAttribute('data-wa-radio-inner', index !== 0 && index !== radios.length - 1);
       radio.toggleAttribute('data-wa-radio-last', index === radios.length - 1);
+
+      // Set forceDisabled state based on radio group's disabled state
+      (radio as WaRadio).forceDisabled = this.disabled;
     });
 
     // If at least one radio button exists, we assume it's a radio button group
@@ -216,18 +228,42 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
       }),
     );
 
-    if (radios.length > 0 && !radios.some(radio => radio.checked)) {
-      radios[0].setAttribute('tabindex', '0');
+    // Manage tabIndex based on disabled state and checked status
+    if (this.disabled) {
+      // If radio group is disabled, all radios should not be tabbable
+      radios.forEach(radio => {
+        radio.tabIndex = -1;
+      });
+    } else {
+      // Normal tabbing behavior
+      const enabledRadios = radios.filter(radio => !radio.disabled);
+      const checkedRadio = enabledRadios.find(radio => radio.checked);
+
+      if (enabledRadios.length > 0) {
+        if (checkedRadio) {
+          // If there's a checked radio, it should be tabbable
+          enabledRadios.forEach(radio => {
+            radio.tabIndex = radio.checked ? 0 : -1;
+          });
+        } else {
+          // If no radio is checked, first enabled radio should be tabbable
+          enabledRadios.forEach((radio, index) => {
+            radio.tabIndex = index === 0 ? 0 : -1;
+          });
+        }
+      }
+
+      // Disabled radios should never be tabbable
+      radios
+        .filter(radio => radio.disabled)
+        .forEach(radio => {
+          radio.tabIndex = -1;
+        });
     }
   }
 
-  @watch('value')
-  handleValueChange() {
-    this.syncRadioElements();
-  }
-
   private handleKeyDown(event: KeyboardEvent) {
-    if (!['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', ' '].includes(event.key)) {
+    if (!['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', ' '].includes(event.key) || this.disabled) {
       return;
     }
 
@@ -287,6 +323,8 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
 
   /** Sets focus on the radio group. */
   public focus(options?: FocusOptions) {
+    if (this.disabled) return;
+
     const radios = this.getAllRadios();
     const checked = radios.find(radio => radio.checked);
     const firstEnabledRadio = radios.find(radio => !radio.disabled);

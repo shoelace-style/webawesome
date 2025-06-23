@@ -89,7 +89,7 @@
 }
 
 /* Disabled */
-:host([disabled]) {
+:host(:state(disabled)) {
   opacity: 0.5;
   cursor: not-allowed;
 }
@@ -142,7 +142,7 @@
 }
 
 @media (hover: hover) {
-  :host([appearance='button']:hover:not([disabled], :state(checked))) {
+  :host([appearance='button']:hover:not(:state(disabled), :state(checked))) {
     background-color: color-mix(in srgb, var(--wa-color-surface-default) 95%, var(--wa-color-mix-hover));
   }
 }
