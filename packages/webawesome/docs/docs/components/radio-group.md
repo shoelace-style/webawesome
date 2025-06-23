@@ -44,7 +44,7 @@ Set the `appearance` attribute to `button` on all radios to render a radio butto
   <wa-radio appearance="button" value="3">Option 3</wa-radio>
 </wa-radio-group>
 
-<br>
+<br />
 
 <wa-radio-group
   label="Vertical options"
@@ -60,12 +60,22 @@ Set the `appearance` attribute to `button` on all radios to render a radio butto
 </wa-radio-group>
 ```
 
-### Disabling Options
+### Disabling
 
-Radios and radio buttons can be disabled by adding the `disabled` attribute to the respective options inside the radio group.
+To disable the entire radio group, add the `disabled` attribute to the radio group.
 
 ```html {.example}
-<wa-radio-group label="Select an option" name="a" value="1">
+<wa-radio-group label="Select an option" disabled>
+  <wa-radio value="1">Option 1</wa-radio>
+  <wa-radio value="2" disabled>Option 2</wa-radio>
+  <wa-radio value="3">Option 3</wa-radio>
+</wa-radio-group>
+```
+
+To disable individual options, add the `disabled` attribute to the respective options.
+
+```html {.example}
+<wa-radio-group label="Select an option">
   <wa-radio value="1">Option 1</wa-radio>
   <wa-radio value="2" disabled>Option 2</wa-radio>
   <wa-radio value="3">Option 3</wa-radio>

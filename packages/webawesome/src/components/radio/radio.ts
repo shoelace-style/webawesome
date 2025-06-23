@@ -44,6 +44,9 @@ export default class WaRadio extends WebAwesomeFormAssociatedElement {
 
   @state() checked = false;
 
+  /** @internal Used by radio group to force disable radios while preserving their original disabled state. */
+  @state() forceDisabled = false;
+
   /**
    * The string pointing to a form's id.
    */
@@ -79,7 +82,7 @@ export default class WaRadio extends WebAwesomeFormAssociatedElement {
   private setInitialAttributes() {
     this.setAttribute('role', 'radio');
     this.tabIndex = 0;
-    this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
+    this.setAttribute('aria-disabled', this.disabled || this.forceDisabled ? 'true' : 'false');
   }
 
   updated(changedProperties: PropertyValues<this>) {
@@ -88,12 +91,24 @@ export default class WaRadio extends WebAwesomeFormAssociatedElement {
     if (changedProperties.has('checked')) {
       this.customStates.set('checked', this.checked);
       this.setAttribute('aria-checked', this.checked ? 'true' : 'false');
-      this.tabIndex = this.checked ? 0 : -1;
+      // Only set tabIndex if not disabled
+      if (!this.disabled && !this.forceDisabled) {
+        this.tabIndex = this.checked ? 0 : -1;
+      }
     }
 
-    if (changedProperties.has('disabled')) {
-      this.customStates.set('disabled', this.disabled);
-      this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
+    if (changedProperties.has('disabled') || changedProperties.has('forceDisabled')) {
+      const effectivelyDisabled = this.disabled || this.forceDisabled;
+      this.customStates.set('disabled', effectivelyDisabled);
+      this.setAttribute('aria-disabled', effectivelyDisabled ? 'true' : 'false');
+
+      // Set tabIndex based on disabled state
+      if (effectivelyDisabled) {
+        this.tabIndex = -1;
+      } else {
+        // Restore proper tabIndex - this will be managed by the radio group
+        this.tabIndex = this.checked ? 0 : -1;
+      }
     }
   }
 
@@ -104,8 +119,9 @@ export default class WaRadio extends WebAwesomeFormAssociatedElement {
     // We override `setValue` because we don't want to set form values from here. We want to do that in "RadioGroup" itself.
   }
 
+  // Update the handleClick method (around line 75)
   private handleClick = () => {
-    if (!this.disabled) {
+    if (!this.disabled && !this.forceDisabled) {
       this.checked = true;
     }
   };
