@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200..900;1,200..900&family=Quicksand:wght@300..700&display=swap');
 
 @layer wa-theme {
   .wa-theme-awesome,
@@ -187,7 +187,7 @@
     --wa-font-family-body: 'Quicksand', sans-serif;
     --wa-font-family-heading: var(--wa-font-family-body);
     --wa-font-family-code: ui-monospace, monospace;
-    --wa-font-family-longform: ui-serif, serif;
+    --wa-font-family-longform: 'Crimson Pro', serif;
 
     /* Font sizes use a ratio of 1.125 to scale sizes proportionally.
      * For larger font sizes, each size is twice 1.125x larger to maximize impact.
