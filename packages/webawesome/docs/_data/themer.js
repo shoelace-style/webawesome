@@ -187,7 +187,7 @@ export const themes = [
   //
   {
     name: 'Active',
-    description: 'The original, familiar look you know and love from Shoelace.',
+    description: 'Energetic and tactile, always in motion.',
     filename: 'active.css',
     isPro: true,
     fonts: {
@@ -247,7 +247,7 @@ export const themes = [
   //
   {
     name: 'Brutalist',
-    description: 'The original, familiar look you know and love from Shoelace.',
+    description: 'Sharp, square, and unapologetically bold.',
     filename: 'brutalist.css',
     isPro: true,
     fonts: {
@@ -307,7 +307,7 @@ export const themes = [
   //
   {
     name: 'Glossy',
-    description: 'The original, familiar look you know and love from Shoelace.',
+    description: 'Bustling with plenty of luster and shine.',
     filename: 'glossy.css',
     isPro: true,
     fonts: {
@@ -367,7 +367,7 @@ export const themes = [
   //
   {
     name: 'Matter',
-    description: 'The original, familiar look you know and love from Shoelace.',
+    description: 'Digital design inspired by the real world.',
     filename: 'matter.css',
     isPro: true,
     fonts: {
@@ -427,7 +427,7 @@ export const themes = [
   //
   {
     name: 'Mellow',
-    description: 'The original, familiar look you know and love from Shoelace.',
+    description: 'Soft and soothing, like a lazy Sunday morning.',
     filename: 'mellow.css',
     isPro: true,
     fonts: {
@@ -487,7 +487,7 @@ export const themes = [
   //
   {
     name: 'Playful',
-    description: 'The original, familiar look you know and love from Shoelace.',
+    description: 'Cheerful and engaging, like a playground on screen.',
     filename: 'playful.css',
     isPro: true,
     fonts: {
@@ -547,7 +547,7 @@ export const themes = [
   //
   {
     name: 'Premium',
-    description: 'The original, familiar look you know and love from Shoelace.',
+    description: 'The ultimate in sophistication and style.',
     filename: 'premium.css',
     isPro: true,
     fonts: {
