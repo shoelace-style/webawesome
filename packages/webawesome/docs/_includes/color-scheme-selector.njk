@@ -16,3 +16,10 @@
     System
   </wa-option>
 </wa-select>
+
+<script>
+  // Immediately set the correct value from storage
+  document.querySelectorAll('wa-select.color-scheme-selector').forEach(el => {
+    el.setAttribute('value', localStorage.getItem('color-scheme') || 'auto');
+  });
+</script>

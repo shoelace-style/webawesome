@@ -16,3 +16,10 @@
     {% endif %}
   {% endfor %}
 </wa-select>
+
+<script>
+  // Immediately set the correct value from storage
+  document.querySelectorAll('wa-select.theme-selector').forEach(el => {
+    el.setAttribute('value', localStorage.getItem('theme') || 'default');
+  });
+</script>
