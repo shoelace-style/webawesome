@@ -24,9 +24,21 @@ async function updateTheme(value, isInitialLoad = false) {
 
   localStorage.setItem('theme', value);
 
-  // Update theme classes
+  // Get brand and palette from the selected option
+  const themeSelector = document.querySelector('.theme-selector');
+  const selectedOption = themeSelector.querySelector(`wa-option[value="${value}"]`);
+  const brand = selectedOption?.getAttribute('data-brand') || 'blue';
+  const palette = selectedOption?.getAttribute('data-palette') || 'default';
   const htmlElement = document.documentElement;
-  const classesToRemove = Array.from(htmlElement.classList).filter(className => className.startsWith('wa-theme-'));
+
+  localStorage.setItem('brand', brand);
+  localStorage.setItem('palette', palette);
+
+  // Update theme classes
+  const classesToRemove = Array.from(htmlElement.classList).filter(
+    className =>
+      className.startsWith('wa-theme-') || className.startsWith('wa-brand-') || className.startsWith('wa-palette-'),
+  );
   const themeStylesheet = document.getElementById('theme-stylesheet');
   const href = `/dist/styles/themes/${value}.css`;
 
@@ -38,10 +50,10 @@ async function updateTheme(value, isInitialLoad = false) {
 
     htmlElement.classList.remove(...classesToRemove);
 
-    // Add the new theme class (skip 'default' as it's the base theme)
-    if (value !== 'default') {
-      htmlElement.classList.add(`wa-theme-${value}`);
-    }
+    // Add the new theme, brand, and palette classes
+    htmlElement.classList.add(`wa-theme-${value}`);
+    htmlElement.classList.add(`wa-brand-${brand}`);
+    htmlElement.classList.add(`wa-palette-${palette}`);
 
     // Sync all theme selectors
     document.querySelectorAll('.theme-selector').forEach(el => (el.value = value));
