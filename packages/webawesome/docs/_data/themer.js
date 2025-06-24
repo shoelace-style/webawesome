@@ -352,7 +352,7 @@ export const themes = [
       '--wa-font-weight-body': 400,
       '--wa-font-weight-heading': 800,
       '--wa-font-weight-code': 400,
-      '--wa-font-weight-longform': 400,
+      '--wa-font-weight-longform': 350,
 
       // Elements
       '--wa-border-radius-scale': 1.33,
@@ -531,8 +531,8 @@ export const themes = [
       '--wa-font-family-longform': 'BioRhyme, serif',
       '--wa-font-weight-body': 500,
       '--wa-font-weight-heading': 600,
-      '--wa-font-weight-code': 500,
-      '--wa-font-weight-longform': 500,
+      '--wa-font-weight-code': 400,
+      '--wa-font-weight-longform': 400,
 
       // Elements
       '--wa-border-radius-scale': 2,
