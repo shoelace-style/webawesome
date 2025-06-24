@@ -148,7 +148,7 @@ layout: false
           </div>
         </wa-card>
         <wa-card>
-          <wa-avatar shape="rounded" style="--size: 1.9lh; float: left; margin-right: var(--wa-space-m)">
+          <wa-avatar shape="rounded" style="--size: 1.8lh; float: left; margin-right: var(--wa-space-m)">
             <wa-icon slot="icon" name="hat-wizard" style="font-size: 1.75em"></wa-icon>
           </wa-avatar>
           <p class="wa-body-l" style="margin: 0; font-family: var(--wa-font-family-longform); font-weight: var(--wa-font-weight-longform)">
@@ -224,6 +224,33 @@ layout: false
             </div>
           </div>
         </wa-card>
+        <wa-callout variant="success">
+          <wa-icon slot="icon" name="user-bounty-hunter"></wa-icon>
+          <div class="wa-split">
+            <span>This is the way.</span>
+            <wa-button variant="success" size="small">
+              Follow the Creed
+            </wa-button>
+          </div>
+        </wa-callout>
+        <wa-callout variant="warning">
+          <wa-icon slot="icon" name="starfighter-twin-ion-engine"></wa-icon>
+          <div class="wa-split">
+            <span>It's a trap!</span>
+            <wa-button variant="warning" size="small">
+              Draw Fire
+            </wa-button>
+          </div>
+        </wa-callout>
+        <wa-callout variant="danger">
+          <wa-icon slot="icon" name="space-station-moon"></wa-icon>
+          <div class="wa-split">
+            <span>That's no moon.</span>
+            <wa-button variant="danger" size="small">
+              Turn Around
+            </wa-button>
+          </div>
+        </wa-callout>
         <wa-card>
           <div class="wa-stack">
             <h3 class="wa-heading-m">Chalmun's Spaceport Cantina</h3>
@@ -332,6 +359,17 @@ layout: false
             </div>
           </div>
         </wa-card>
+        <wa-card class="showcase-code-sample">
+          <pre>
+&lt;<span class="tag">div</span> <span class="attribute">class</span>="<span class="value">fellowship</span>"&gt;
+  &lt;<span class="tag">p</span> <span class="attribute">class</span>="<span class="value">ring-bearer</span>"&gt;Frodo carries the &lt;<span class="tag">span</span> <span class="attribute">id</span>="<span class="value">one-ring</span>"&gt;One Ring&lt;/<span class="tag">span</span>&gt;&lt;/<span class="tag">p</span>&gt;
+  &lt;<span class="tag">ul</span> <span class="attribute">class</span>="<span class="value">companions</span>"&gt;
+    &lt;<span class="tag">li</span> <span class="attribute">data-race</span>="<span class="value">wizard</span>"&gt;Gandalf the Grey&lt;/<span class="tag">li</span>&gt;
+    &lt;<span class="tag">li</span> <span class="attribute">data-race</span>="<span class="value">elf</span>"&gt;Legolas&lt;/<span class="tag">li</span>&gt;
+    &lt;<span class="tag">li</span> <span class="attribute">data-race</span>="<span class="value">dwarf</span>"&gt;Gimli&lt;/<span class="tag">li</span>&gt;
+  &lt;/<span class="tag">ul</span>&gt;
+&lt;/<span class="tag">div</span>&gt;</pre>
+        </wa-card>
         <wa-card with-footer>
           <div class="wa-flank:end">
             <div class="wa-stack wa-gap-xs">
@@ -339,7 +377,7 @@ layout: false
                 <h3 class="wa-heading-s">Migs Mayfeld</h3>
                 <wa-badge pill>Admin</wa-badge>
               </div>
-              <span class="wa-caption-m">Bounty Hunter</span>
+              <span class="wa-caption-m">Imperial Sharpshooter</span>
             </div>
             <wa-avatar
               image="https://images.unsplash.com/photo-1633268335280-a41fbde58707?q=80&w=3348&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -474,20 +512,22 @@ layout: false
         inline-size: 100%;
         min-block-size: 100%;
         box-sizing: border-box;
-        padding: var(--wa-space-xl);
+        padding: var(--wa-space-l);
         background-color: var(--wa-color-surface-lowered);
       }
 
       .showcase-examples {
         column-count: 1;
-        column-gap: var(--wa-space-xl);
+        column-gap: var(--wa-space-l);
 
-        & wa-card {
-          display: inline-block;
+        & wa-card,
+        & wa-callout {
+          display: inline-flex;
           width: 100%;
 
-          &:has(+ wa-card) {
-            margin-block-end: var(--wa-space-xl);
+          &:has(+ wa-card),
+          &:has(+ wa-callout) {
+            margin-block-end: var(--wa-space-l);
           }
         }
 
@@ -501,7 +541,42 @@ layout: false
 
         @container (width > 950px) {
           column-count: auto;
-          column-width: 32ch;
+          column-width: 22rem;
+        }
+      }
+
+      .showcase-code-sample {
+        --spacing: 0;
+        overflow: hidden;
+
+        pre {
+          color: var(--wa-color-text-quiet);
+        }
+
+        .tag {
+          color: var(--wa-color-indigo-40);
+        }
+
+        .attribute {
+          color: var(--wa-color-green-40);
+        }
+
+        .value {
+          color: var(--wa-color-brand-40);
+        }
+
+        .wa-dark & {
+          .tag {
+            color: var(--wa-color-indigo-70);
+          }
+
+          .attribute {
+            color: var(--wa-color-green-70);
+          }
+
+          .value {
+            color: var(--wa-color-brand-70);
+          }
         }
       }
 
