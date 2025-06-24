@@ -23,9 +23,11 @@ isPro: true
 
 <div id="theme-preview">
   <header>
-    <h2 data-theme-name="name">Theme</h2>
-    <wa-badge data-free-badge appearance="outlined" variant="neutral" hidden>FREE</wa-badge>
-    <wa-badge data-pro-badge appearance="accent" hidden>PRO</wa-badge>
+    <div class="wa-cluster">
+      <h2 data-theme-name="name">Theme</h2>
+      <wa-badge data-free-badge appearance="outlined" variant="neutral" hidden>FREE</wa-badge>
+      <wa-badge data-pro-badge appearance="accent" hidden>PRO</wa-badge>
+    </div>
     <p data-theme-description>Description</p>
   </header>
   <wa-comparison position="80">
@@ -152,7 +154,7 @@ isPro: true
   }
 
   wa-zoomable-frame {
-    aspect-ratio: 8 / 4;
+    aspect-ratio: 5 / 3;
   }
 
   #theme-viewer {
