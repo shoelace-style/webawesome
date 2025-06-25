@@ -516,7 +516,7 @@ layout: false
         inline-size: 100%;
         min-block-size: 100%;
         box-sizing: border-box;
-        padding: var(--wa-space-l);
+        padding: 1.75rem;
         background-color: var(--wa-color-surface-lowered);
       }
 
@@ -530,6 +530,11 @@ layout: false
 
           &:has(+ wa-card) {
             margin-block-end: var(--wa-space-l);
+          }
+
+          &[appearance='plain'] {
+            background-color: transparent !important;
+            border-color: transparent !important;
           }
         }
 
