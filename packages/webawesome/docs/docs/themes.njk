@@ -5,45 +5,63 @@ layout: page
 isPro: true
 ---
 
-<div id="theme-viewer">
-  <wa-radio-group id="theme-picker" label="Theme Selector" value="default" orientation="horizontal">
-    {% for theme in themer.themes %}
-      <wa-radio
-        class="theme-card"
-        value="{{ theme.filename | stripExtension }}"
-        data-description="{{ theme.description }}"
-        data-title="{{ theme.name }}"
-        {% if theme.isPro %}data-is-pro{% endif %}
-      >
-        {{ theme.name }}
-      </wa-radio>
-    {% endfor %}
-  </wa-radio-group>
-</div>
+<style>
+  .title {
+    display: none;
+  }
+</style>
 
-<div id="theme-preview">
-  <header>
-    <div class="wa-cluster">
-      <h2 data-theme-name="name">Theme</h2>
-      <wa-badge data-free-badge appearance="outlined" variant="neutral" hidden>FREE</wa-badge>
-      <wa-badge data-pro-badge appearance="accent" hidden>PRO</wa-badge>
-    </div>
-    <p data-theme-description>Description</p>
-  </header>
-  <wa-comparison position="80">
-    <wa-zoomable-frame
-      src="/examples/themes/showcase?color-scheme=dark"
-      slot="before"
-      without-controls
-      without-interaction
-    ></wa-zoomable-frame>
-    <wa-zoomable-frame
-      src="/examples/themes/showcase"
-      slot="after"
-      without-controls
-      without-interaction
-    ></wa-zoomable-frame>
-  </wa-comparison>
+<div class="wa-stack wa-gap-3xl">
+
+  <div class="wa-split">
+    <h1>{{ title }}</h1>
+    <wa-button variant="brand" href="/themer">
+      <wa-icon slot="start" name="plus" variant="regular"></wa-icon>
+      Create a Theme
+    </wa-button>
+  </div>
+
+  <div id="theme-viewer">
+    <wa-radio-group id="theme-picker" label="Theme Selector" value="default" orientation="horizontal">
+      {% for theme in themer.themes %}
+        <wa-radio
+          class="theme-card"
+          value="{{ theme.filename | stripExtension }}"
+          data-description="{{ theme.description }}"
+          data-title="{{ theme.name }}"
+          {% if theme.isPro %}data-is-pro{% endif %}
+        >
+          {{ theme.name }}
+        </wa-radio>
+      {% endfor %}
+    </wa-radio-group>
+  </div>
+
+  <div id="theme-preview" class="wa-stack">
+    <header class="wa-stack">
+      <div class="wa-cluster">
+        <h2 data-theme-name="name">Theme</h2>
+        <wa-badge data-free-badge appearance="outlined" variant="neutral" hidden>FREE</wa-badge>
+        <wa-badge data-pro-badge appearance="accent" hidden>PRO</wa-badge>
+      </div>
+      <p data-theme-description>Description</p>
+    </header>
+    <wa-comparison position="80">
+      <wa-zoomable-frame
+        src="/examples/themes/showcase?color-scheme=dark"
+        slot="before"
+        without-controls
+        without-interaction
+      ></wa-zoomable-frame>
+      <wa-zoomable-frame
+        src="/examples/themes/showcase"
+        slot="after"
+        without-controls
+        without-interaction
+      ></wa-zoomable-frame>
+    </wa-comparison>
+  </div>
+
 </div>
 
 <script type="module">
@@ -119,15 +137,8 @@ isPro: true
 
   #theme-preview {
     header {
-      padding-block: var(--wa-space-xl);
-
-      h2 {
-        margin-block-end: var(--wa-space-2xs);
-      }
-
       p {
         font-size: var(--wa-font-size-s);
-        margin-block-start: var(--wa-space-s);
       }
     }
   }
@@ -159,7 +170,6 @@ isPro: true
 
   #theme-viewer {
     #theme-picker {
-      margin-bottom: var(--wa-space-l);
 
       &::part(form-control-input) {
         display: flex;
