@@ -250,33 +250,37 @@ layout: false
             </div>
           </div>
         </wa-card>
-        <wa-callout variant="success">
-          <wa-icon slot="icon" name="user-bounty-hunter"></wa-icon>
-          <div class="wa-split">
-            <span>This is the way.</span>
-            <wa-button variant="success" size="small">
-              Follow the Creed
-            </wa-button>
+        <wa-card appearance="plain" style="--spacing: 0;">
+          <div class="wa-stack wa-gap-s">
+            <wa-callout variant="success">
+              <wa-icon slot="icon" name="user-bounty-hunter"></wa-icon>
+              <div class="wa-split">
+                <span>This is the way.</span>
+                <wa-button variant="success" size="small">
+                  Follow the Creed
+                </wa-button>
+              </div>
+            </wa-callout>
+            <wa-callout variant="warning">
+              <wa-icon slot="icon" name="starfighter-twin-ion-engine"></wa-icon>
+              <div class="wa-split">
+                <span>It's a trap!</span>
+                <wa-button variant="warning" size="small">
+                  Take Evasive Action
+                </wa-button>
+              </div>
+            </wa-callout>
+            <wa-callout variant="danger">
+              <wa-icon slot="icon" name="space-station-moon"></wa-icon>
+              <div class="wa-split">
+                <span>That's no moon.</span>
+                <wa-button variant="danger" size="small">
+                  Turn Around
+                </wa-button>
+              </div>
+            </wa-callout>
           </div>
-        </wa-callout>
-        <wa-callout variant="warning">
-          <wa-icon slot="icon" name="starfighter-twin-ion-engine"></wa-icon>
-          <div class="wa-split">
-            <span>It's a trap!</span>
-            <wa-button variant="warning" size="small">
-              Take Evasive Action
-            </wa-button>
-          </div>
-        </wa-callout>
-        <wa-callout variant="danger">
-          <wa-icon slot="icon" name="space-station-moon"></wa-icon>
-          <div class="wa-split">
-            <span>That's no moon.</span>
-            <wa-button variant="danger" size="small">
-              Turn Around
-            </wa-button>
-          </div>
-        </wa-callout>
+        </wa-card>
         <wa-card>
           <div class="wa-stack">
             <div class="wa-flank:end">
@@ -520,13 +524,11 @@ layout: false
         column-count: 1;
         column-gap: var(--wa-space-l);
 
-        & wa-card,
-        & wa-callout {
+        & wa-card {
           display: inline-flex;
           width: 100%;
 
-          &:has(+ wa-card),
-          &:has(+ wa-callout) {
+          &:has(+ wa-card) {
             margin-block-end: var(--wa-space-l);
           }
         }
