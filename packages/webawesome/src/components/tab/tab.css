@@ -1,5 +1,4 @@
 :host {
-  --active-tab-color: var(--wa-color-brand-on-quiet);
   display: inline-block;
   color: var(--wa-color-neutral-on-quiet);
   font-weight: var(--wa-font-weight-action);
@@ -40,8 +39,8 @@
   outline-offset: calc(-1 * var(--wa-border-width-l) - var(--wa-focus-ring-offset));
 }
 
-:host([active]:not([disabled])) .tab {
-  color: var(--active-tab-color);
+:host([active]:not([disabled])) {
+  color: var(--wa-color-brand-on-quiet);
 }
 
 :host([disabled]) .tab {

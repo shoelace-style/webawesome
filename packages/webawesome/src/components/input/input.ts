@@ -10,7 +10,6 @@ import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
 import formControlStyles from '../../styles/component/form-control.css';
-import appearanceStyles from '../../styles/utilities/appearance.css';
 import sizeStyles from '../../styles/utilities/size.css';
 import { LocalizeController } from '../../utilities/localize.js';
 import '../icon/icon.js';
@@ -57,7 +56,7 @@ import styles from './input.css';
  */
 @customElement('wa-input')
 export default class WaInput extends WebAwesomeFormAssociatedElement {
-  static css = [sizeStyles, appearanceStyles, formControlStyles, styles];
+  static css = [sizeStyles, formControlStyles, styles];
 
   static shadowRootOptions = { ...WebAwesomeFormAssociatedElement.shadowRootOptions, delegatesFocus: true };
 

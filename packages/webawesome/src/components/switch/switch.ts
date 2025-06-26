@@ -33,19 +33,9 @@ import styles from './switch.css';
  * @csspart label - The switch's label.
  * @csspart hint - The hint's wrapper.
  *
- * @cssproperty --background-color - The switch's background color.
- * @cssproperty --background-color-checked - The switch's background color when checked.
- * @cssproperty --border-color - The color of the switch's borders.
- * @cssproperty --border-color-checked - The color of the switch's borders when checked.
- * @cssproperty --border-style - The style of the switch's borders.
- * @cssproperty --border-width - The width of the switch's borders. Expects a single value.
- * @cssproperty --box-shadow - The shadow effects around the edges of the switch.
- * @cssproperty --height - The height of the switch.
- * @cssproperty --thumb-color - The color of the thumb.
- * @cssproperty --thumb-color-checked - The color of the thumb when checked.
- * @cssproperty --thumb-shadow - The shadow effects around the edges of the thumb.
- * @cssproperty --thumb-size - The size of the thumb.
  * @cssproperty --width - The width of the switch.
+ * @cssproperty --height - The height of the switch.
+ * @cssproperty --thumb-scale - The size of the thumb relative to the switch.
  */
 @customElement('wa-switch')
 export default class WaSwitch extends WebAwesomeFormAssociatedElement {

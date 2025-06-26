@@ -1,8 +1,5 @@
 :host {
-  --background-color: var(--wa-tooltip-background-color);
-  --border-radius: var(--wa-tooltip-border-radius);
   --max-width: 30ch;
-  --padding: 0.25em 0.5em;
 
   /** These styles are added so we don't interfere in the DOM. */
   display: inline-block;
@@ -45,9 +42,9 @@
   display: block;
   width: max-content;
   max-width: var(--max-width);
-  border-radius: var(--border-radius);
-  background-color: var(--background-color);
-  padding: var(--padding);
+  border-radius: var(--wa-tooltip-border-radius);
+  background-color: var(--wa-tooltip-background-color);
+  padding: 0.25em 0.5em;
   user-select: none;
   -webkit-user-select: none;
 }

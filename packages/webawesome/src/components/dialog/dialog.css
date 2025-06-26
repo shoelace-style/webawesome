@@ -1,7 +1,4 @@
 :host {
-  --background-color: var(--wa-color-surface-raised);
-  --border-radius: var(--wa-panel-border-radius);
-  --box-shadow: var(--wa-shadow-l);
   --width: 31rem;
   --spacing: var(--wa-space-l);
   --show-duration: 200ms;
@@ -24,10 +21,10 @@
   width: var(--width);
   max-width: calc(100% - var(--wa-space-2xl));
   max-height: calc(100% - var(--wa-space-2xl));
-  background-color: var(--background-color);
-  border-radius: var(--border-radius);
+  background-color: var(--wa-color-surface-raised);
+  border-radius: var(--wa-panel-border-radius);
   border: none;
-  box-shadow: var(--box-shadow);
+  box-shadow: var(--wa-shadow-l);
   padding: 0;
   margin: auto;
 

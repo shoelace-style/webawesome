@@ -57,9 +57,6 @@ import styles from './tree-item.css';
  * @csspart checkbox__indeterminate-icon - The checkbox's exported `indeterminate-icon` part.
  * @csspart checkbox__label - The checkbox's exported `label` part.
  *
- * @cssproperty --selection-background-color - The background color of selected tree items.
- * @cssproperty --selection-indicator-color - The color the indicator for selected tree items.
- * @cssproperty --expand-button-color - The color of the expand button.
  * @cssproperty [--show-duration=200ms] - The animation duration when expanding tree items.
  * @cssproperty [--hide-duration=200ms] - The animation duration when collapsing tree items.
  *

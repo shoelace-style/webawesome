@@ -1,11 +1,4 @@
-label:has(select),
 :host {
-  /* Defaults for root element. */
-  --outlined-background-color: var(--wa-form-control-background-color);
-  --outlined-border-color: var(--wa-form-control-border-color);
-  --outlined-text-color: var(--wa-form-control-value-color);
-  --border-width: var(--wa-form-control-border-width);
-  --box-shadow: initial;
   --tag-max-size: 10ch;
 }
 
@@ -61,12 +54,11 @@ label:has(select),
 
   min-height: var(--wa-form-control-height);
 
-  background-color: var(--background-color, var(--wa-form-control-background-color));
-  border-color: var(--border-color, var(--wa-form-control-border-color));
+  background-color: var(--wa-form-control-background-color);
+  border-color: var(--wa-form-control-border-color);
   border-radius: var(--wa-form-control-border-radius);
   border-style: var(--wa-form-control-border-style);
-  border-width: var(--border-width);
-  box-shadow: var(--box-shadow);
+  border-width: var(--wa-form-control-border-width);
   color: var(--wa-form-control-value-color);
   cursor: pointer;
   font-family: inherit;
@@ -91,6 +83,25 @@ label:has(select),
   /* Pills */
   :host([pill]) & {
     border-radius: var(--wa-border-radius-pill);
+  }
+}
+
+/* Appearance modifiers */
+:host([appearance='outlined']) {
+  .combobox {
+    background-color: var(--wa-form-control-background-color);
+    border-color: var(--wa-form-control-border-color);
+  }
+}
+
+:host([appearance='filled']) {
+  .combobox {
+    background-color: var(--wa-color-neutral-fill-quiet);
+    border-color: var(--wa-color-neutral-fill-quiet);
+  }
+
+  &:host([appearance~='outlined']) .combobox {
+    border-color: var(--wa-form-control-border-color);
   }
 }
 
@@ -234,7 +245,7 @@ label:has(select),
   border-color: var(--wa-color-surface-border);
   border-radius: var(--wa-border-radius-m);
   border-style: var(--wa-border-style);
-  border-width: var(--border-width);
+  border-width: var(--wa-border-width-s);
   padding-block: 0.5em;
   padding-inline: 0;
   overflow: auto;

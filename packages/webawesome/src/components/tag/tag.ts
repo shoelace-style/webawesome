@@ -2,7 +2,6 @@ import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { WaRemoveEvent } from '../../events/remove.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import appearanceStyles from '../../styles/utilities/appearance.css';
 import sizeStyles from '../../styles/utilities/size.css';
 import variantStyles from '../../styles/utilities/variants.css';
 import { LocalizeController } from '../../utilities/localize.js';
@@ -28,7 +27,7 @@ import styles from './tag.css';
  */
 @customElement('wa-tag')
 export default class WaTag extends WebAwesomeElement {
-  static css = [styles, variantStyles, sizeStyles, appearanceStyles];
+  static css = [styles, variantStyles, sizeStyles];
 
   private readonly localize = new LocalizeController(this);
 

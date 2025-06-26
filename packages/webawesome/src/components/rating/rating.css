@@ -24,6 +24,7 @@
 
 .symbols {
   display: inline-flex;
+  gap: 0.125em;
   position: relative;
   line-height: 0;
   color: var(--symbol-color);

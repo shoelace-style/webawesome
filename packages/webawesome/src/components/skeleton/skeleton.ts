@@ -11,7 +11,6 @@ import styles from './skeleton.css';
  *
  * @csspart indicator - The skeleton's indicator which is responsible for its color and animation.
  *
- * @cssproperty --border-radius - The skeleton's border radius.
  * @cssproperty --color - The color of the skeleton.
  * @cssproperty --sheen-color - The sheen color when the skeleton is in its loading state.
  */

@@ -17,7 +17,6 @@ import { RequiredValidator } from '../../internal/validators/required-validator.
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
 import formControlStyles from '../../styles/component/form-control.css';
-import appearanceStyles from '../../styles/utilities/appearance.css';
 import sizeStyles from '../../styles/utilities/size.css';
 import { LocalizeController } from '../../utilities/localize.js';
 import '../icon/icon.js';
@@ -75,17 +74,13 @@ import styles from './select.css';
  * @csspart clear-button - The clear button.
  * @csspart expand-icon - The container that wraps the expand icon.
  *
- * @cssproperty --background-color - The background color of the select's combobox.
- * @cssproperty --border-color - The border color of the select's combobox.
- * @cssproperty --border-width - The width of the select's borders, including the listbox.
- * @cssproperty --box-shadow - The shadow effects around the edges of the select's combobox.
  * @cssproperty [--tag-max-size=10ch] - When using `multiple`, the max size of tags before their content is truncated.
  *
  * @cssstate blank - The select is empty.
  */
 @customElement('wa-select')
 export default class WaSelect extends WebAwesomeFormAssociatedElement {
-  static css = [appearanceStyles, formControlStyles, sizeStyles, styles];
+  static css = [styles, formControlStyles, sizeStyles];
 
   static get validators() {
     const validators = isServer

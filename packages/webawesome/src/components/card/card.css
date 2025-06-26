@@ -23,22 +23,22 @@
 }
 
 :host([appearance~='outlined']) {
-  background-color: transparent;
+  background-color: var(--wa-color-surface-default);
   border-color: var(--wa-color-surface-border);
 }
 
 :host([appearance~='filled']) {
-  background-color: var(--wa-color-fill-quiet, var(--wa-color-neutral-fill-quiet));
+  background-color: var(--wa-color-neutral-fill-quiet);
   border-color: transparent;
 
   &:host([appearance~='outlined']) {
-    border-color: var(--wa-color-border-quiet, var(--wa-color-neutral-border-quiet));
+    border-color: var(--wa-color-neutral-border-quiet);
   }
 }
 
 :host([appearance~='accent']) {
-  color: var(--wa-color-on-loud, var(--wa-color-neutral-on-loud));
-  background-color: var(--wa-color-fill-loud, var(--wa-color-neutral-fill-loud));
+  color: var(--wa-color-neutral-on-loud);
+  background-color: var(--wa-color-neutral-fill-loud);
   border-color: transparent;
 }
 

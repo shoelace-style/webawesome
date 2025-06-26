@@ -2,7 +2,6 @@ import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { HasSlotController } from '../../internal/slot.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import appearanceStyles from '../../styles/utilities/appearance.css';
 import sizeStyles from '../../styles/utilities/size.css';
 import styles from './card.css';
 
@@ -26,7 +25,7 @@ import styles from './card.css';
  */
 @customElement('wa-card')
 export default class WaCard extends WebAwesomeElement {
-  static css = [sizeStyles, appearanceStyles, styles];
+  static css = [sizeStyles, styles];
 
   private readonly hasSlotController = new HasSlotController(this, 'footer', 'header', 'media');
 

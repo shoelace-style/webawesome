@@ -1,10 +1,4 @@
 :host {
-  --border-width: var(--wa-form-control-border-width);
-  --box-shadow: initial;
-  --outlined-background-color: var(--wa-form-control-background-color);
-  --outlined-border-color: var(--wa-form-control-border-color);
-  --outlined-text-color: var(--wa-form-control-value-color);
-
   border-width: 0;
 }
 
@@ -16,10 +10,10 @@
   position: relative;
   transition: inherit;
   height: var(--wa-form-control-height);
-  border-color: var(--border-color, var(--wa-form-control-border-color));
+  border-color: var(--wa-form-control-border-color);
   border-radius: var(--wa-form-control-border-radius);
   border-style: var(--wa-form-control-border-style);
-  border-width: var(--border-width);
+  border-width: var(--wa-form-control-border-width);
   cursor: text;
   color: var(--wa-form-control-value-color);
   font-size: var(--wa-form-control-value-font-size);
@@ -33,7 +27,7 @@
     border var(--wa-transition-normal),
     outline var(--wa-transition-fast);
   transition-timing-function: var(--wa-transition-easing);
-  background-color: var(--background-color, var(--wa-form-control-background-color));
+  background-color: var(--wa-form-control-background-color);
   box-shadow: var(--box-shadow);
   padding: 0 var(--wa-form-control-padding-inline);
 
@@ -46,6 +40,25 @@
   &:has(:disabled) {
     cursor: not-allowed;
     opacity: 0.5;
+  }
+}
+
+/* Appearance modifiers */
+:host([appearance='outlined']) {
+  .text-field {
+    background-color: var(--wa-form-control-background-color);
+    border-color: var(--wa-form-control-border-color);
+  }
+}
+
+:host([appearance='filled']) {
+  .text-field {
+    background-color: var(--wa-color-neutral-fill-quiet);
+    border-color: var(--wa-color-neutral-fill-quiet);
+  }
+
+  &:host([appearance~='outlined']) .text-field {
+    border-color: var(--wa-form-control-border-color);
   }
 }
 

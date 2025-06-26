@@ -9,7 +9,6 @@ import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
 import formControlStyles from '../../styles/component/form-control.css';
-import appearanceStyles from '../../styles/utilities/appearance.css';
 import sizeStyles from '../../styles/utilities/size.css';
 import styles from './textarea.css';
 
@@ -34,16 +33,11 @@ import styles from './textarea.css';
  * @csspart textarea - The internal `<textarea>` control.
  * @csspart base - The wrapper around the `<textarea>` control.
  *
- * @cssproperty --background-color - The textarea's background color.
- * @cssproperty --border-color - The color of the textarea's borders.
- * @cssproperty --border-width - The width of the textarea's borders.
- * @cssproperty --box-shadow - The shadow effects around the edges of the textarea.
- *
  * @cssstate blank - The textarea is empty.
  */
 @customElement('wa-textarea')
 export default class WaTextarea extends WebAwesomeFormAssociatedElement {
-  static css = [formControlStyles, appearanceStyles, sizeStyles, styles];
+  static css = [styles, formControlStyles, sizeStyles];
 
   static get validators() {
     return [...super.validators, MirrorValidator()];

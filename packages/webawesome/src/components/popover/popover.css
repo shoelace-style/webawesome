@@ -10,8 +10,8 @@
   display: contents;
 
   /** Defaults for inherited CSS properties */
-  font-size: var(--wa-popover-font-size);
-  line-height: var(--wa-popover-line-height);
+  font-size: var(--wa-font-size-m);
+  line-height: var(--wa-line-height-normal);
   text-align: start;
   white-space: normal;
 }

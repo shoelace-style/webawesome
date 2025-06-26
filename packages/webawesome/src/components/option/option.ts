@@ -19,11 +19,6 @@ import styles from './option.css';
  * @slot start - An element, such as `<wa-icon>`, placed before the label.
  * @slot end - An element, such as `<wa-icon>`, placed after the label.
  *
- * @cssproperty --background-color-current - The current option's background color.
- * @cssproperty --background-color-hover - The options's background color on hover.
- * @cssproperty --text-color-current - The current option's label color.
- * @cssproperty --text-color-hover - The label color on hover.
- *
  * @csspart checked-icon - The checked icon, a `<wa-icon>` element.
  * @csspart label - The option's label.
  * @csspart start - The container that wraps the `start` slot.

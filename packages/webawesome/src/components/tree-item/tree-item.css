@@ -1,7 +1,4 @@
 :host {
-  --selection-background-color: var(--wa-color-neutral-fill-quiet);
-  --selection-indicator-color: var(--wa-color-brand-fill-loud);
-  --expand-button-color: var(--wa-color-text-quiet);
   --show-duration: 200ms;
   --hide-duration: 200ms;
 
@@ -57,7 +54,7 @@ slot:not([name])::slotted(wa-icon) {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--expand-button-color);
+  color: var(--wa-color-text-quiet);
   width: 2em;
   height: 2em;
   flex-shrink: 0;
@@ -108,12 +105,12 @@ slot:not([name])::slotted(wa-icon) {
 }
 
 :host(:not([aria-disabled='true'])) .tree-item-selected .item {
-  background-color: var(--selection-background-color);
-  border-inline-start-color: var(--selection-indicator-color);
+  background-color: var(--wa-color-neutral-fill-quiet);
+  border-inline-start-color: var(--wa-color-brand-fill-loud);
 }
 
 :host(:not([aria-disabled='true'])) .expand-button {
-  color: var(--expand-button-color);
+  color: var(--wa-color-text-quiet);
 }
 
 .label {

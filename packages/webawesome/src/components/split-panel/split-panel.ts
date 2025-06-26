@@ -26,7 +26,6 @@ import styles from './split-panel.css';
  * @csspart panel - Targets both the start and end panels.
  * @csspart divider - The divider that separates the start and end panels.
  *
- * @cssproperty --divider-color - The color of the divider.
  * @cssproperty [--divider-width=4px] - The width of the visible divider.
  * @cssproperty [--divider-hit-area=12px] - The invisible region around the divider where dragging can occur. This is
  *  usually wider than the divider to facilitate easier dragging.

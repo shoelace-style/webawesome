@@ -1,5 +1,4 @@
 :host {
-  --divider-color: var(--wa-color-neutral-border-normal);
   --divider-width: 0.25rem;
   --divider-hit-area: 0.75rem;
   --min: 0%;
@@ -19,7 +18,7 @@
   position: relative;
   align-items: center;
   justify-content: center;
-  background-color: var(--divider-color);
+  background-color: var(--wa-color-neutral-border-normal);
   color: var(--wa-color-neutral-on-normal);
   z-index: 1;
 }

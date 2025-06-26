@@ -1,14 +1,5 @@
 :host {
-  --background-color: var(--wa-form-control-background-color);
-  --background-color-checked: var(--background-color);
-  --border-color: var(--wa-form-control-border-color);
-  --border-color-checked: var(--wa-form-control-activated-color);
-  --border-style: var(--wa-border-style);
-  --border-width: var(--wa-form-control-border-width);
-  --box-shadow: none;
-  --checked-icon-color: var(--wa-form-control-activated-color);
   --checked-icon-scale: 0.7;
-  --toggle-size: var(--wa-form-control-toggle-size);
 
   color: var(--wa-form-control-value-color);
   display: inline-flex;
@@ -47,14 +38,13 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: var(--toggle-size);
-    height: var(--toggle-size);
-    border-color: var(--border-color);
+    width: var(--wa-form-control-toggle-size);
+    height: var(--wa-form-control-toggle-size);
+    border-color: var(--wa-form-control-border-color);
     border-radius: 50%;
-    border-style: var(--border-style);
-    border-width: var(--border-width);
-    background-color: var(--background-color);
-    box-shadow: var(--box-shadow);
+    border-style: var(--wa-form-control-border-style);
+    border-width: var(--wa-form-control-border-width);
+    background-color: var(--wa-form-control-background-color);
     color: transparent;
     transition:
       background var(--wa-transition-normal),
@@ -69,17 +59,17 @@
   .checked-icon {
     display: flex;
     fill: currentColor;
-    width: var(--toggle-size);
-    height: var(--toggle-size);
+    width: var(--wa-form-control-toggle-size);
+    height: var(--wa-form-control-toggle-size);
     scale: var(--checked-icon-scale);
   }
 }
 
 /* Checked */
 :host(:state(checked)) .control {
-  color: var(--checked-icon-color);
-  border-color: var(--border-color-checked);
-  background-color: var(--background-color-checked);
+  color: var(--wa-form-control-activated-color);
+  border-color: var(--wa-form-control-activated-color);
+  background-color: var(--wa-form-control-background-color);
 }
 
 /* Focus */
@@ -99,7 +89,7 @@
   align-items: center;
   min-height: var(--wa-form-control-height);
   background-color: var(--wa-color-surface-default);
-  border: var(--border-width) var(--border-style) var(--wa-form-control-border-color);
+  border: var(--wa-form-control-border-width) var(--wa-form-control-border-style) var(--wa-form-control-border-color);
   border-radius: var(--wa-border-radius-m);
   padding: 0 var(--wa-form-control-padding-inline);
   transition:
@@ -153,7 +143,7 @@
 }
 
 :host([appearance='button']:state(checked)) {
-  border-color: var(--border-color-checked);
+  border-color: var(--wa-form-control-activated-color);
   background-color: var(--wa-color-brand-fill-quiet);
 }
 
@@ -164,11 +154,11 @@
 
 /* Remove inner borders and handle overlap */
 :host([appearance='button'][data-wa-radio-horizontal]:not([data-wa-radio-first])) {
-  margin-inline-start: calc(-1 * var(--border-width));
+  margin-inline-start: calc(-1 * var(--wa-form-control-border-width));
 }
 
 :host([appearance='button'][data-wa-radio-vertical]:not([data-wa-radio-first])) {
-  margin-block-start: calc(-1 * var(--border-width));
+  margin-block-start: calc(-1 * var(--wa-form-control-border-width));
 }
 
 /* Ensure interactive states are visible above adjacent buttons */

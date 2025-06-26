@@ -15,8 +15,6 @@ let id = 0;
  *
  * @slot - The tab's label.
  *
- * @cssproperty --active-tab-color - The color of the active tab's label.
- *
  * @csspart base - The component's base wrapper.
  */
 @customElement('wa-tab')

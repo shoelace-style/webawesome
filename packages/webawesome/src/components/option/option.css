@@ -1,9 +1,4 @@
 :host {
-  --background-color-current: var(--wa-color-brand-fill-loud);
-  --background-color-hover: var(--wa-color-neutral-fill-normal);
-  --text-color-current: var(--wa-color-brand-on-loud);
-  --text-color-hover: var(--wa-color-neutral-on-normal);
-
   display: block;
   color: var(--wa-color-text-normal);
   -webkit-user-select: none;
@@ -25,15 +20,15 @@
 
 @media (hover: hover) {
   :host(:not([disabled], :state(current)):is(:state(hover), :hover)) {
-    background-color: var(--background-color-hover);
-    color: var(--text-color-hover);
+    background-color: var(--wa-color-neutral-fill-normal);
+    color: var(--wa-color-neutral-on-normal);
   }
 }
 
 :host(:state(current)),
 :host([disabled]:state(current)) {
-  background-color: var(--background-color-current);
-  color: var(--text-color-current);
+  background-color: var(--wa-color-brand-fill-loud);
+  color: var(--wa-color-brand-on-loud);
   opacity: 1;
 }
 

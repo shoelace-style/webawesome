@@ -1,4 +1,5 @@
 :host {
+  --track-color: var(--wa-color-neutral-fill-normal);
   --indicator-color: var(--wa-color-brand-fill-loud);
 
   display: flex;
@@ -9,9 +10,9 @@
   display: flex;
   position: relative;
   overflow: hidden;
-  height: 1.25rem;
+  height: 1rem;
   border-radius: var(--wa-border-radius-pill);
-  background-color: var(--wa-color-neutral-fill-normal);
+  background-color: var(--track-color);
   color: var(--wa-color-brand-on-loud);
 }
 

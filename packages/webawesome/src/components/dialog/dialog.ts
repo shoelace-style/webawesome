@@ -45,9 +45,6 @@ import styles from './dialog.css';
  * @csspart body - The dialog's body.
  * @csspart footer - The dialog's footer.
  *
- * @cssproperty --background-color - The dialog's background color.
- * @cssproperty --border-radius - The radius of the dialog's corners.
- * @cssproperty --box-shadow - The shadow effects around the edges of the dialog.
  * @cssproperty --spacing - The amount of space around and between the dialog's content.
  * @cssproperty --width - The preferred width of the dialog. Note that the dialog will shrink to accommodate smaller screens.
  * @cssproperty [--show-duration=200ms] - The animation duration when showing the dialog.

@@ -135,19 +135,19 @@ Set a matching width and height to make a circle, square, or rounded avatar skel
     margin-right: 0.5rem;
   }
 
-  .skeleton-avatars wa-skeleton:nth-child(1) {
-    --border-radius: 0;
+  .skeleton-avatars wa-skeleton:nth-child(1)::part(indicator) {
+    border-radius: 0;
   }
 
-  .skeleton-avatars wa-skeleton:nth-child(2) {
-    --border-radius: var(--wa-border-radius-m);
+  .skeleton-avatars wa-skeleton:nth-child(2)::part(indicator) {
+    border-radius: var(--wa-border-radius-m);
   }
 </style>
 ```
 
 ### Custom Shapes
 
-Use the `--border-radius` custom property to make circles, squares, and rectangles. For more complex shapes, you can apply `clip-path` to the `indicator` part. [Try Clippy](https://bennettfeely.com/clippy/) if you need help generating custom shapes.
+Set a `border-radius` on the `indicator` part to make circles, squares, and rectangles. For more complex shapes, you can apply `clip-path` to the `indicator` part. [Try Clippy](https://bennettfeely.com/clippy/) if you need help generating custom shapes.
 
 ```html {.example}
 <div class="skeleton-shapes">
@@ -166,20 +166,20 @@ Use the `--border-radius` custom property to make circles, squares, and rectangl
   }
 
   .skeleton-shapes .square::part(indicator) {
-    --border-radius: var(--wa-border-radius-m);
+    border-radius: var(--wa-border-radius-m);
   }
 
   .skeleton-shapes .circle::part(indicator) {
-    --border-radius: var(--wa-border-radius-circle);
+    border-radius: var(--wa-border-radius-circle);
   }
 
   .skeleton-shapes .triangle::part(indicator) {
-    --border-radius: 0;
+    border-radius: 0;
     clip-path: polygon(50% 0, 0 100%, 100% 100%);
   }
 
   .skeleton-shapes .cross::part(indicator) {
-    --border-radius: 0;
+    border-radius: 0;
     clip-path: polygon(
       20% 0%,
       0% 20%,
@@ -197,7 +197,7 @@ Use the `--border-radius` custom property to make circles, squares, and rectangl
   }
 
   .skeleton-shapes .comment::part(indicator) {
-    --border-radius: 0;
+    border-radius: 0;
     clip-path: polygon(0% 0%, 100% 0%, 100% 75%, 75% 75%, 75% 100%, 50% 75%, 0% 75%);
   }
 

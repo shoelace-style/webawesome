@@ -33,10 +33,7 @@ import styles from './tooltip.css';
  * @csspart base__arrow - The popup's exported `arrow` part. Use this to target the tooltip's arrow.
  * @csspart body - The tooltip's body where its content is rendered.
  *
- * @cssproperty --background-color - The tooltip's background color.
- * @cssproperty --border-radius - The radius of the tooltip's corners.
  * @cssproperty --max-width - The maximum width of the tooltip before its content will wrap.
- * @cssproperty --padding - The padding within the tooltip.
  */
 @customElement('wa-tooltip')
 export default class WaTooltip extends WebAwesomeElement {
