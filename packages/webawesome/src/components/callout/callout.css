@@ -2,7 +2,7 @@
   display: flex;
   position: relative;
   align-items: stretch;
-  border-radius: var(--wa-border-radius-m);
+  border-radius: var(--wa-panel-border-radius);
   background-color: var(--wa-color-fill-quiet, var(--wa-color-brand-fill-quiet));
   border-color: var(--wa-color-border-quiet, var(--wa-color-brand-border-quiet));
   border-style: var(--wa-panel-border-style);
