@@ -23,8 +23,6 @@ import styles from './avatar.css';
  * @csspart initials - The container that wraps the avatar's initials.
  * @csspart image - The avatar image. Only shown when the `image` attribute is set.
  *
- * @cssproperty --background-color - The avatar's background color.
- * @cssproperty --text-color - The color of the avatar's content.
  * @cssproperty --size - The size of the avatar.
  */
 @customElement('wa-avatar')

@@ -43,12 +43,9 @@ import styles from './carousel.css';
  * @csspart navigation-button-next - Applied to the next button.
  *
  * @cssproperty [--aspect-ratio=16/9] - The aspect ratio of each slide.
- * @cssproperty --navigation-color - The color of the navigation arrows.
- * @cssproperty --pagination-color - The color of the dots indicating the number of slides.
- * @cssproperty --pagination-color-active - The color of the dot indicating the active slide.
  * @cssproperty --scroll-hint - The amount of padding to apply to the scroll area, allowing adjacent slides to become
  *  partially visible as a scroll hint.
- * @cssproperty --slide-gap - The space between each slide.
+ * @cssproperty [--slide-gap=var(--wa-space-m)] - The space between each slide.
  */
 @customElement('wa-carousel')
 export default class WaCarousel extends WebAwesomeElement {

@@ -1,7 +1,6 @@
 import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import appearanceStyles from '../../styles/utilities/appearance.css';
 import variantStyles from '../../styles/utilities/variants.css';
 import styles from './badge.css';
 
@@ -15,13 +14,10 @@ import styles from './badge.css';
  *
  * @csspart base - The component's base wrapper.
  *
- * @cssproperty --background-color - The badge's background color.
- * @cssproperty --border-color - The color of the badge's border.
- * @cssproperty --text-color - The color of the badge's content.
  */
 @customElement('wa-badge')
 export default class WaBadge extends WebAwesomeElement {
-  static css = [variantStyles, appearanceStyles, styles];
+  static css = [variantStyles, styles];
 
   /** The badge's theme variant. Defaults to `brand` if not within another element with a variant. */
   @property({ reflect: true }) variant: 'brand' | 'neutral' | 'success' | 'warning' | 'danger' = 'brand';

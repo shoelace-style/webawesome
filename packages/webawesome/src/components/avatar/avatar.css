@@ -1,6 +1,4 @@
 :host {
-  --background-color: var(--wa-color-neutral-fill-normal);
-  --text-color: var(--wa-color-neutral-on-normal);
   --size: 3rem;
 
   display: inline-flex;
@@ -9,14 +7,14 @@
   position: relative;
   width: var(--size);
   height: var(--size);
-  background-color: var(--background-color);
+  color: var(--wa-color-neutral-on-normal);
   font: inherit;
   font-size: calc(var(--size) * 0.4);
-  color: var(--text-color);
+  vertical-align: middle;
+  background-color: var(--wa-color-neutral-fill-normal);
+  border-radius: var(--wa-border-radius-circle);
   user-select: none;
   -webkit-user-select: none;
-  vertical-align: middle;
-  border-radius: var(--wa-border-radius-circle);
 }
 
 :host([shape='square']) {

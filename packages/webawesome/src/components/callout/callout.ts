@@ -1,7 +1,6 @@
 import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import appearanceStyles from '../../styles/utilities/appearance.css';
 import sizeStyles from '../../styles/utilities/size.css';
 import variantStyles from '../../styles/utilities/variants.css';
 import styles from './callout.css';
@@ -17,14 +16,10 @@ import styles from './callout.css';
  *
  * @csspart icon - The container that wraps the optional icon.
  * @csspart message - The container that wraps the callout's main content.
- *
- * @cssproperty --icon-color - The color of the callout's icon.
- * @cssproperty --icon-size - The size of the callout's icon.
- * @cssproperty --spacing - The amount of space around and between the callout's content. Expects a single value. If you want different spacing around and between the content, use `padding` on the callout itself.
  */
 @customElement('wa-callout')
 export default class WaCallout extends WebAwesomeElement {
-  static css = [variantStyles, appearanceStyles, sizeStyles, styles];
+  static css = [styles, variantStyles, sizeStyles];
 
   /** The callout's theme variant. Defaults to `brand` if not within another element with a variant. */
   @property({ reflect: true }) variant: 'brand' | 'neutral' | 'success' | 'warning' | 'danger' | 'brand' = 'brand';

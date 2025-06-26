@@ -29,9 +29,7 @@ import styles from './comparison.css';
  * @csspart divider - The divider that separates the before and after content.
  * @csspart handle - The handle that the user drags to expose the after content.
  *
- * @cssproperty --divider-color - The color of the divider.
  * @cssproperty --divider-width - The width of the dividing line.
- * @cssproperty --handle-color - The color of the icon used inside the handle.
  * @cssproperty --handle-size - The size of the compare handle.
  *
  * @cssstate dragging - Applied when the comparison is being dragged.

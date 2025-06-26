@@ -85,22 +85,11 @@ declare const EyeDropper: EyeDropperConstructor;
  * @csspart format-button__end - The format button's exported `end` part.
  * @csspart format-button__caret - The format button's exported `caret` part.
  *
- * @cssproperty --background-color - The color picker's background color.
- * @cssproperty --border-color - The color of the color picker's borders.
- * @cssproperty --border-radius - The radius of the color picker's corners.
- * @cssproperty --border-style - The style of the color picker's borders.
- * @cssproperty --border-width - The width of the color picker's borders.
  * @cssproperty --grid-width - The width of the color grid.
  * @cssproperty --grid-height - The height of the color grid.
  * @cssproperty --grid-handle-size - The size of the color grid's handle.
- * @cssproperty --preview-size - The size of the preview color.
- * @cssproperty --preview-border-radius - The corners of the preview color.
  * @cssproperty --slider-height - The height of the hue and alpha sliders.
  * @cssproperty --slider-handle-size - The diameter of the slider's handle.
- * @cssproperty --spacing - The amount of space around and between the color picker's controls.
- * @cssproperty --swatch-border-radius - The corners of each predefined color swatch.
- * @cssproperty --swatch-size - The size of each predefined color swatch.
- * @cssproperty --trigger-border-radius - The corners of the color picker's dropdown trigger.
  */
 @customElement('wa-color-picker')
 export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
@@ -1185,7 +1174,6 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
             part="input"
             type="text"
             name=${this.name}
-            size="small"
             autocomplete="off"
             autocorrect="off"
             autocapitalize="off"
@@ -1206,7 +1194,6 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
               ? html`
                   <wa-button
                     part="format-button"
-                    size="small"
                     appearance="outlined"
                     aria-label=${this.localize.term('toggleColorFormat')}
                     exportparts="
@@ -1228,7 +1215,6 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
               ? html`
                   <wa-button
                     part="eye-dropper-button"
-                    size="small"
                     appearance="outlined"
                     exportparts="
                       base:eye-dropper-button__base,

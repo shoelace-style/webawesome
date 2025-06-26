@@ -7,7 +7,6 @@ import { HasSlotController } from '../../internal/slot.js';
 import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
-import appearanceStyles from '../../styles/utilities/appearance.css';
 import sizeStyles from '../../styles/utilities/size.css';
 import variantStyles from '../../styles/utilities/variants.css';
 import { LocalizeController } from '../../utilities/localize.js';
@@ -38,22 +37,10 @@ import styles from './button.css';
  * @csspart end - The container that wraps the `end` slot.
  * @csspart caret - The button's caret icon, a `<wa-icon>` element.
  * @csspart spinner - The spinner that shows when the button is in the loading state.
- *
- * @cssproperty --display - Set to `none` to hide the element, or any other valid `display` value to override the internal `display` value of the `base` part.
- * @cssproperty --background-color - The button's background color when the button is not being interacted with.
- * @cssproperty --background-color-active - The button's background color when active.
- * @cssproperty --background-color-hover - The button's background color on hover.
- * @cssproperty --border-color - The color of the button's border when the button is not being interacted with.
- * @cssproperty --border-color-active - The color of the button's border when active.
- * @cssproperty --border-color-hover - The color of the button's border on hover.
- * @cssproperty --box-shadow - The shadow effects around the edges of the button.
- * @cssproperty --text-color - The color of the button's label when the button is not being interacted with.
- * @cssproperty --text-color-active - The color of the button's label when active.
- * @cssproperty --text-color-hover - The color of the button's label on hover.
  */
 @customElement('wa-button')
 export default class WaButton extends WebAwesomeFormAssociatedElement {
-  static css = [styles, variantStyles, sizeStyles, appearanceStyles];
+  static css = [styles, variantStyles, sizeStyles];
 
   static get validators() {
     return [...super.validators, MirrorValidator()];
@@ -75,7 +62,7 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
   @property({ reflect: true }) variant: 'neutral' | 'brand' | 'success' | 'warning' | 'danger' = 'neutral';
 
   /** The button's visual appearance. */
-  @property({ reflect: true }) appearance: 'accent' | 'filled' | 'outlined' | 'plain' = 'accent';
+  @property({ reflect: true }) appearance: 'accent' | 'filled' | 'outlined' | 'plain' = 'filled';
 
   /** The button's size. */
   @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';

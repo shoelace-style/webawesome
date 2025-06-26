@@ -1,20 +1,15 @@
 :host {
-  --background-color: transparent;
-  --background-color-hover: var(--wa-color-neutral-fill-quiet);
-  --error-color: var(--wa-color-danger-fill-loud);
-  --success-color: var(--wa-color-success-fill-loud);
-
   display: inline-block;
-  color: var(--wa-color-text-quiet);
+  color: var(--wa-color-neutral-on-quiet);
 }
 
 .button {
   flex: 0 0 auto;
   display: flex;
   align-items: center;
-  background-color: var(--background-color);
+  background-color: transparent;
   border: none;
-  border-radius: var(--wa-border-radius-m);
+  border-radius: var(--wa-form-control-border-radius);
   color: inherit;
   font-size: inherit;
   padding: 0.5em;
@@ -24,13 +19,13 @@
 
 @media (hover: hover) {
   .button:hover:not([disabled]) {
-    background-color: var(--background-color-hover);
+    background-color: var(--wa-color-neutral-fill-quiet);
     color: color-mix(in oklab, currentColor, var(--wa-color-mix-hover));
   }
 }
 
 .button:focus-visible:not([disabled]) {
-  background-color: var(--background-color-hover);
+  background-color: var(--wa-color-neutral-fill-quiet);
   color: color-mix(in oklab, currentColor, var(--wa-color-mix-hover));
 }
 
@@ -39,11 +34,11 @@
 }
 
 slot[name='success-icon'] {
-  color: var(--success-color);
+  color: var(--wa-color-success-on-quiet);
 }
 
 slot[name='error-icon'] {
-  color: var(--error-color);
+  color: var(--wa-color-danger-on-quiet);
 }
 
 .button:focus-visible {

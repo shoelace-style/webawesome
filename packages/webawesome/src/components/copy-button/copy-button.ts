@@ -36,11 +36,6 @@ import styles from './copy-button.css';
  * @csspart tooltip__base__popup - The tooltip's exported `popup` part.
  * @csspart tooltip__base__arrow - The tooltip's exported `arrow` part.
  * @csspart tooltip__body - The tooltip's exported `body` part.
- *
- * @cssproperty --background-color - The color of the button's background.
- * @cssproperty --background-color-hover - The color of the button's background on hover.
- * @cssproperty --success-color - The color to use for success feedback.
- * @cssproperty --error-color - The color to use for error feedback.
  */
 @customElement('wa-copy-button')
 export default class WaCopyButton extends WebAwesomeElement {

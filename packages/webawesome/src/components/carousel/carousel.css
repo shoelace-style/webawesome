@@ -1,10 +1,7 @@
 :host {
   --aspect-ratio: 16 / 9;
-  --navigation-color: var(--wa-color-text-quiet);
-  --pagination-color: var(--wa-form-control-border-color);
-  --pagination-color-active: var(--wa-form-control-activated-color);
   --scroll-hint: 0px;
-  --slide-gap: var(--wa-space-m, 1rem);
+  --slide-gap: var(--wa-space-m);
 
   display: flex;
 }
@@ -103,7 +100,7 @@
   border: none;
   border-radius: var(--wa-border-radius-m);
   font-size: inherit;
-  color: var(--navigation-color);
+  color: var(--wa-color-text-quiet);
   padding: var(--wa-space-xs);
   cursor: pointer;
   transition: var(--wa-transition-normal) color;
@@ -137,14 +134,14 @@
   border-radius: var(--wa-border-radius-circle);
   width: var(--wa-space-s);
   height: var(--wa-space-s);
-  background-color: var(--pagination-color);
+  background-color: var(--wa-color-neutral-fill-normal);
   padding: 0;
   margin: 0;
   transition: transform var(--wa-transition-slow);
 }
 
 .pagination-item-active {
-  background-color: var(--pagination-color-active);
+  background-color: var(--wa-form-control-activated-color);
   transform: scale(1.25);
 }
 

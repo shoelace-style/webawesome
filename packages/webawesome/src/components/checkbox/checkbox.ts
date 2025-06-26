@@ -37,16 +37,7 @@ import styles from './checkbox.css';
  * @csspart label - The container that wraps the checkbox's label.
  * @csspart hint - The hint's wrapper.
  *
- * @cssproperty --background-color - The checkbox's background color.
- * @cssproperty --background-color-checked - The checkbox's background color when checked.
- * @cssproperty --border-color - The color of the checkbox's borders.
- * @cssproperty --border-color-checked - The color of the checkbox's borders when checked.
- * @cssproperty --border-radius - The radius of the checkbox's corners.
- * @cssproperty --border-style - The style of the checkbox's borders.
- * @cssproperty --border-width - The width of the checkbox's borders. Expects a single value.
- * @cssproperty --box-shadow - The shadow effects around the edges of the checkbox.
- * @cssproperty --checked-icon-color - The color of the checkbox's icon.
- * @cssproperty --toggle-size - The size of the checkbox.
+ * @cssproperty --checked-icon-scale - The size of the checked and indeterminate icons relative to the checkbox.
  *
  * @cssstate checked - Applied when the checkbox is checked.
  * @cssstate disabled - Applied when the checkbox is disabled.
