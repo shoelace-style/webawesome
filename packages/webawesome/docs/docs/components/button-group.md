@@ -165,7 +165,7 @@ Dropdowns can be placed into button groups.
 <wa-button-group label="Example Button Group">
   <wa-button>Button</wa-button>
   <wa-dropdown>
-    <wa-button slot="trigger" caret>Dropdown</wa-button>
+    <wa-button slot="trigger" with-caret>Dropdown</wa-button>
     <wa-dropdown-item>Item 1</wa-dropdown-item>
     <wa-dropdown-item>Item 2</wa-dropdown-item>
     <wa-dropdown-item>Item 3</wa-dropdown-item>

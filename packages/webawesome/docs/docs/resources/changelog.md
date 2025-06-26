@@ -29,14 +29,12 @@ Many of these changes and improvements were the direct result of feedback from u
   - Removed `.wa-button`, `.wa-callout` classes
   - Removed `themes/native/*.css` files; use `native.css` to opt into native styles
   - Clarified which utilities classes can be applied to which native elements
-- Renamed the `classic` theme to `shoelace`
-- Removed `<wa-icon-button>`; use `<wa-button><wa-icon name="..." label="..."></wa-icon></wa-button>` instead
-- Completely reworked `<wa-dropdown>` to be easier to use
-  - Added `<wa-dropdown-item>`, greatly simplifying the dropdown's markup structure
-  - Removed `<wa-menu>`, `<wa-menu-item>`, and `<wa-menu-label>`; use `<wa-dropdown-item>` and native headings instead
-- Renamed `pulse` attribute in `<wa-badge>` to `attention="pulse"` and added `attention="bounce"`
-- Renamed the `vertical` attribute to `orientation="vertical"` in `<wa-split-panel>` and `<wa-divider>` to align with other components and the platform
-- Renamed certain boolean attributes to be more consistent using the `with-*` and `without-*` pattern:
+- 🚨 BREAKING: Removed the extra dash in the `<wa-carousel>` CSS part name `pagination-item--active` => `pagination-item-active`
+- 🚨 BREAKING: Renamed the `classic` theme to `shoelace`
+- 🚨 BREAKING: Renamed `pulse` attribute in `<wa-badge>` to `attention="pulse"` and added `attention="bounce"` [issue:#940]
+- 🚨 BREAKING: Renamed the `vertical` attribute to `orientation="vertical"` in `<wa-split-panel>` and `<wa-divider>` to align with other components and the platform [issue:674]
+- 🚨 BREAKING: Renamed certain boolean attributes to be consistent using the `with-*` and `without-*` pattern:
+  - `<wa-button caret>` => `<wa-button with-caret>`
   - `<wa-color-picker no-format-toggle>` => `<wa-color-picker without-format-toggle>`
   - `<wa-format-number no-grouping>` => `<wa-format-number without-grouping>`
   - `<wa-input no-spin-buttons>` => `<wa-input without-spin-buttons>`

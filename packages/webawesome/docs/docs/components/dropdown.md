@@ -11,7 +11,7 @@ Dropdowns are designed to work well with [dropdown items](/docs/components/dropd
 
 ```html {.example}
 <wa-dropdown>
-  <wa-button slot="trigger" caret>Dropdown</wa-button>
+  <wa-button slot="trigger" with-caret>Dropdown</wa-button>
 
   <wa-dropdown-item>
     <wa-icon slot="icon" name="scissors"></wa-icon>
@@ -51,7 +51,7 @@ When an item is selected, the `wa-select` event will be emitted by the dropdown.
 ```html {.example}
 <div class="dropdown-selection">
   <wa-dropdown>
-    <wa-button slot="trigger" caret>View</wa-button>
+    <wa-button slot="trigger" with-caret>View</wa-button>
     <wa-dropdown-item value="full-screen">Enter full screen</wa-dropdown-item>
     <wa-dropdown-item value="actual">Actual size</wa-dropdown-item>
     <wa-dropdown-item value="zoom-in">Zoom in</wa-dropdown-item>
@@ -79,7 +79,7 @@ Use the `icon` slot to add icons to [dropdown items](/docs/components/dropdown-i
 
 ```html {.example}
 <wa-dropdown>
-  <wa-button slot="trigger" caret>Edit</wa-button>
+  <wa-button slot="trigger" with-caret>Edit</wa-button>
 
   <wa-dropdown-item value="cut">
     <wa-icon slot="icon" name="scissors"></wa-icon>
@@ -109,7 +109,7 @@ Use any heading, e.g. `<h1>`–`<h6>` to add labels and the [`<wa-divider>`](/do
 
 ```html {.example}
 <wa-dropdown>
-  <wa-button slot="trigger" caret>Device</wa-button>
+  <wa-button slot="trigger" with-caret>Device</wa-button>
 
   <h3>Type</h3>
   <wa-dropdown-item value="phone">Phone</wa-dropdown-item>
@@ -128,7 +128,7 @@ Use the `details` slot to display details, such as keyboard shortcuts, inside [d
 
 ```html {.example}
 <wa-dropdown>
-  <wa-button slot="trigger" caret>Message</wa-button>
+  <wa-button slot="trigger" with-caret>Message</wa-button>
 
   <wa-dropdown-item value="reply">
     Reply
@@ -166,7 +166,7 @@ You can turn a [dropdown item](/docs/components/dropdown-item) into a checkable 
 ```html {.example}
 <div class="dropdown-checkboxes">
   <wa-dropdown>
-    <wa-button slot="trigger" caret>View</wa-button>
+    <wa-button slot="trigger" with-caret>View</wa-button>
 
     <wa-dropdown-item type="checkbox" value="canvas" checked>Show canvas</wa-dropdown-item>
     <wa-dropdown-item type="checkbox" value="grid" checked>Show grid</wa-dropdown-item>
@@ -204,7 +204,7 @@ Add `variant="danger"` to any [dropdown item](/docs/components/dropdown-item) to
 
 ```html {.example}
 <wa-dropdown>
-  <wa-button slot="trigger" caret>Project</wa-button>
+  <wa-button slot="trigger" with-caret>Project</wa-button>
 
   <wa-dropdown-item value="share">
     <wa-icon slot="icon" name="share"></wa-icon>
@@ -258,7 +258,7 @@ The distance from the panel to the trigger can be customized using the `distance
 
 ```html {.example}
 <wa-dropdown distance="30">
-  <wa-button slot="trigger" caret>Edit</wa-button>
+  <wa-button slot="trigger" with-caret>Edit</wa-button>
 
   <wa-dropdown-item>Cut</wa-dropdown-item>
   <wa-dropdown-item>Copy</wa-dropdown-item>
@@ -277,7 +277,7 @@ The offset of the panel along the trigger can be customized using the `offset` a
 
 ```html {.example}
 <wa-dropdown offset="30">
-  <wa-button slot="trigger" caret>Edit</wa-button>
+  <wa-button slot="trigger" with-caret>Edit</wa-button>
 
   <wa-dropdown-item>Cut</wa-dropdown-item>
   <wa-dropdown-item>Copy</wa-dropdown-item>
@@ -297,7 +297,7 @@ To create submenus, nest [dropdown items](/docs/components/dropdown-item) inside
 ```html {.example}
 <div class="dropdown-submenus">
   <wa-dropdown>
-    <wa-button slot="trigger" caret>Export</wa-button>
+    <wa-button slot="trigger" with-caret>Export</wa-button>
 
     <wa-dropdown-item>
       Documents
@@ -359,7 +359,7 @@ Add the `disabled` attribute to any [dropdown item](/docs/components/dropdown-it
 
 ```html {.example}
 <wa-dropdown>
-  <wa-button slot="trigger" caret>Payment method</wa-button>
+  <wa-button slot="trigger" with-caret>Payment method</wa-button>
 
   <wa-dropdown-item value="cash">Cash</wa-dropdown-item>
   <wa-dropdown-item value="check" disabled>Personal check</wa-dropdown-item>

@@ -75,9 +75,9 @@ describe('<wa-button>', () => {
         });
       });
 
-      describe('when caret', () => {
+      describe('when with-caret', () => {
         it('should have a caret present', async () => {
-          const el = await fixture<WaButton>(html` <wa-button caret>Button Label</wa-button> `);
+          const el = await fixture<WaButton>(html` <wa-button with-caret>Button Label</wa-button> `);
           expect(el.shadowRoot!.querySelector('[part~="caret"]')).to.exist;
         });
       });
