@@ -1174,6 +1174,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
             part="input"
             type="text"
             name=${this.name}
+            size="small"
             autocomplete="off"
             autocorrect="off"
             autocapitalize="off"
@@ -1194,6 +1195,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
               ? html`
                   <wa-button
                     part="format-button"
+                    size="small"
                     appearance="outlined"
                     aria-label=${this.localize.term('toggleColorFormat')}
                     exportparts="
@@ -1215,6 +1217,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
               ? html`
                   <wa-button
                     part="eye-dropper-button"
+                    size="small"
                     appearance="outlined"
                     exportparts="
                       base:eye-dropper-button__base,
