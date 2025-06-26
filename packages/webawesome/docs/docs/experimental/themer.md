@@ -2319,7 +2319,7 @@ hasOutline: false
             <td style="text-align: center;"><wa-tag variant="warning" size="small">Pending</wa-tag></td>
             <td>
               <wa-dropdown>
-                <wa-button slot="trigger" caret size="small">Action</wa-button>
+                <wa-button slot="trigger" with-caret size="small">Action</wa-button>
                 <wa-dropdown-item>
                   <wa-icon slot="start" name="check" variant="regular"></wa-icon>
                   Resolved
@@ -2347,7 +2347,7 @@ hasOutline: false
             <td style="text-align: center;"><wa-tag variant="success" size="small">Resolved</wa-tag></td>
             <td>
               <wa-dropdown>
-                <wa-button slot="trigger" caret size="small">Action</wa-button>
+                <wa-button slot="trigger" with-caret size="small">Action</wa-button>
                 <wa-dropdown-item>
                   <wa-icon slot="start" name="check" variant="regular"></wa-icon>
                   Resolved
@@ -2375,7 +2375,7 @@ hasOutline: false
             <td style="text-align: center;"><wa-tag variant="warning" size="small">Pending</wa-tag></td>
             <td>
               <wa-dropdown>
-                <wa-button slot="trigger" caret size="small">Action</wa-button>
+                <wa-button slot="trigger" with-caret size="small">Action</wa-button>
                 <wa-dropdown-item>
                   <wa-icon slot="start" name="check" variant="regular"></wa-icon>
                   Resolved
@@ -2403,7 +2403,7 @@ hasOutline: false
             <td style="text-align: center;"><wa-tag variant="danger" size="small">Bounced</wa-tag></td>
             <td>
               <wa-dropdown>
-                <wa-button slot="trigger" caret size="small">Action</wa-button>
+                <wa-button slot="trigger" with-caret size="small">Action</wa-button>
                 <wa-dropdown-item>
                   <wa-icon slot="start" name="check" variant="regular"></wa-icon>
                   Resolved
@@ -2431,7 +2431,7 @@ hasOutline: false
             <td style="text-align: center;"><wa-tag variant="neutral" size="small">Expired</wa-tag></td>
             <td>
               <wa-dropdown>
-                <wa-button slot="trigger" caret size="small">Action</wa-button>
+                <wa-button slot="trigger" with-caret size="small">Action</wa-button>
                 <wa-dropdown-item>
                   <wa-icon slot="start" name="check" variant="regular"></wa-icon>
                   Resolved
