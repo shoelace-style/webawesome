@@ -557,10 +557,6 @@
   input[type='button'],
   input[type='reset'],
   input[type='submit'] {
-    --background-color: var(--wa-color-fill-loud, var(--wa-color-neutral-fill-loud));
-    --border-color: transparent;
-    --text-color: var(--wa-color-on-loud, var(--wa-color-neutral-on-loud));
-
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -569,7 +565,7 @@
     height: var(--wa-form-control-height);
     padding: 0 var(--wa-form-control-padding-inline);
 
-    color: var(--text-color);
+    color: var(--wa-color-on-loud, var(--wa-color-neutral-on-loud));
     font-family: inherit;
     font-size: var(--wa-form-control-value-font-size);
     font-weight: var(--wa-font-weight-action);
@@ -578,8 +574,8 @@
     vertical-align: middle;
     white-space: nowrap;
 
-    background-color: var(--background-color);
-    border-color: var(--border-color, var(--background-color));
+    background-color: var(--wa-color-fill-loud, var(--wa-color-neutral-fill-loud));
+    border-color: transparent;
     border-style: var(--wa-border-style);
     border-width: max(1px, var(--wa-form-control-border-width));
     border-radius: var(--wa-form-control-border-radius);
@@ -592,18 +588,94 @@
     user-select: none;
     -webkit-user-select: none;
 
-    &:not(:disabled):hover {
-      background-color: var(
-        --background-color-hover,
-        color-mix(in oklab, var(--background-color), var(--wa-color-mix-hover))
-      );
+    &.wa-plain {
+      color: var(--wa-color-on-quiet, var(--wa-color-neutral-on-quiet));
+      background-color: transparent;
+      border-color: transparent;
+
+      &:not(:disabled):hover {
+        color: var(--wa-color-on-quiet, var(--wa-color-neutral-on-quiet));
+        background-color: var(--wa-color-fill-quiet, var(--wa-color-neutral-fill-quiet));
+      }
+
+      &:not(:disabled):active {
+        color: var(--wa-color-on-quiet, var(--wa-color-neutral-on-quiet));
+        background-color: color-mix(
+          in oklab,
+          var(--wa-color-fill-quiet, var(--wa-color-neutral-fill-quiet)),
+          var(--wa-color-mix-active)
+        );
+      }
     }
 
-    &:not(:disabled):active {
-      background-color: var(
-        --background-color-active,
-        color-mix(in oklab, var(--background-color), var(--wa-color-mix-active))
-      );
+    &.wa-outlined {
+      color: var(--wa-color-on-quiet, var(--wa-color-neutral-on-quiet));
+      background-color: transparent;
+      border-color: var(--wa-color-border-loud, var(--wa-color-neutral-border-loud));
+
+      &:not(:disabled):hover {
+        color: var(--wa-color-on-quiet, var(--wa-color-neutral-on-quiet));
+        background-color: var(--wa-color-fill-quiet, var(--wa-color-neutral-fill-quiet));
+      }
+
+      &:not(:disabled):active {
+        color: var(--wa-color-on-quiet, var(--wa-color-neutral-on-quiet));
+        background-color: color-mix(
+          in oklab,
+          var(--wa-color-fill-quiet, var(--wa-color-neutral-fill-quiet)),
+          var(--wa-color-mix-active)
+        );
+      }
+    }
+
+    &.wa-filled {
+      color: var(--wa-color-on-normal, var(--wa-color-neutral-on-normal));
+      background-color: var(--wa-color-fill-normal, var(--wa-color-neutral-fill-normal));
+      border-color: transparent;
+
+      &:not(:disabled):hover {
+        color: var(--wa-color-on-normal, var(--wa-color-neutral-on-normal));
+        background-color: color-mix(
+          in oklab,
+          var(--wa-color-fill-normal, var(--wa-color-neutral-fill-normal)),
+          var(--wa-color-mix-hover)
+        );
+      }
+
+      &:not(:disabled):active {
+        color: var(--wa-color-on-normal, var(--wa-color-neutral-on-normal));
+        background-color: color-mix(
+          in oklab,
+          var(--wa-color-fill-normal, var(--wa-color-neutral-fill-normal)),
+          var(--wa-color-mix-active)
+        );
+      }
+
+      &.wa-outlined {
+        border-color: var(--wa-color-border-normal, var(--wa-color-neutral-border-normal));
+      }
+    }
+
+    &.wa-accent {
+      color: var(--wa-color-on-loud, var(--wa-color-neutral-on-loud));
+      background-color: var(--wa-color-fill-loud, var(--wa-color-neutral-fill-loud));
+      border-color: transparent;
+
+      &:not(:disabled):hover {
+        background-color: color-mix(
+          in oklab,
+          var(--wa-color-fill-loud, var(--wa-color-neutral-fill-loud)),
+          var(--wa-color-mix-hover)
+        );
+      }
+
+      &:not(:disabled):active {
+        background-color: color-mix(
+          in oklab,
+          var(--wa-color-fill-loud, var(--wa-color-neutral-fill-loud)),
+          var(--wa-color-mix-active)
+        );
+      }
     }
 
     &:focus {
@@ -794,10 +866,10 @@
     line-height: var(--wa-form-control-value-line-height);
     vertical-align: middle;
 
-    background-color: var(--background-color, var(--wa-form-control-background-color));
-    border-color: var(--border-color, var(--wa-form-control-border-color));
+    background-color: var(--wa-form-control-background-color);
+    border-color: var(--wa-form-control-border-color);
     border-style: var(--wa-form-control-border-style);
-    border-width: var(--border-width, var(--wa-form-control-border-width));
+    border-width: var(--wa-form-control-border-width);
     border-radius: var(--wa-form-control-border-radius);
 
     transition:
@@ -828,6 +900,20 @@
       opacity: 0.5;
 
       cursor: not-allowed;
+    }
+
+    &.wa-outlined {
+      background-color: var(--wa-form-control-background-color);
+      border-color: var(--wa-form-control-border-color);
+    }
+
+    &.wa-filled {
+      background-color: var(--wa-color-neutral-fill-quiet);
+      border-color: var(--wa-color-neutral-fill-quiet);
+
+      &.wa-outlined {
+        border-color: var(--wa-form-control-border-color);
+      }
     }
 
     &.wa-pill {
@@ -870,9 +956,11 @@
   input[type='color'] {
     display: block;
 
-    width: var(--wa-form-control-height);
-    height: var(--wa-form-control-height);
+    block-size: var(--wa-form-control-height);
+    inline-size: var(--wa-form-control-height);
     padding: calc(var(--wa-form-control-border-width) * 2);
+
+    font-size: 1em;
 
     background: transparent;
     border: var(--wa-form-control-border-width) var(--wa-border-style) var(--wa-form-control-border-color);

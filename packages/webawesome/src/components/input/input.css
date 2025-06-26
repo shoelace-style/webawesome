@@ -44,14 +44,14 @@
 }
 
 /* Appearance modifiers */
-:host([appearance='outlined']) {
+:host([appearance~='outlined']) {
   .text-field {
     background-color: var(--wa-form-control-background-color);
     border-color: var(--wa-form-control-border-color);
   }
 }
 
-:host([appearance='filled']) {
+:host([appearance~='filled']) {
   .text-field {
     background-color: var(--wa-color-neutral-fill-quiet);
     border-color: var(--wa-color-neutral-fill-quiet);

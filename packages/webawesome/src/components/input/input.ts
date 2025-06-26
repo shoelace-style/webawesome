@@ -47,11 +47,6 @@ import styles from './input.css';
  * @csspart password-toggle-button - The password toggle button.
  * @csspart end - The container that wraps the `end` slot.
  *
- * @cssproperty --background-color - The input's background color.
- * @cssproperty --border-color - The color of the input's borders.
- * @cssproperty --border-width - The width of the input's borders. Expects a single value.
- * @cssproperty --box-shadow - The shadow effects around the edges of the input.
- *
  * @cssstate blank - The input is empty.
  */
 @customElement('wa-input')
