@@ -81,7 +81,7 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
   @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
 
   /** Draws the button with a caret. Used to indicate that the button triggers a dropdown menu or similar behavior. */
-  @property({ type: Boolean, reflect: true }) caret = false;
+  @property({ attribute: 'with-caret', type: Boolean, reflect: true }) withCaret = false;
 
   /** Disables the button. Does not apply to link buttons. */
   @property({ type: Boolean }) disabled = false;
@@ -258,7 +258,7 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
         part="base"
         class=${classMap({
           button: true,
-          caret: this.caret,
+          caret: this.withCaret,
           disabled: this.disabled,
           loading: this.loading,
           rtl: this.localize.dir() === 'rtl',
@@ -286,7 +286,7 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
         <slot part="label" class="label" @slotchange=${this.handleLabelSlotChange}></slot>
         <slot name="end" part="end" class="end"></slot>
         ${
-          this.caret
+          this.withCaret
             ? html`
                 <wa-icon part="caret" class="caret" library="system" name="chevron-down" variant="solid"></wa-icon>
               `

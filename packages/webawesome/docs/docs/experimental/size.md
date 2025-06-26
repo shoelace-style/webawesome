@@ -39,7 +39,7 @@ Dropdown:
 <p>
   Small dropdown:
   <wa-dropdown size="small">
-    <wa-button slot="trigger" caret>Dropdown</wa-button>
+    <wa-button slot="trigger" with-caret>Dropdown</wa-button>
     <wa-dropdown-item>Dropdown Item 1</wa-dropdown-item>
     <wa-dropdown-item>Dropdown Item 2</wa-dropdown-item>
     <wa-dropdown-item>Dropdown Item 3</wa-dropdown-item>
@@ -49,7 +49,7 @@ Dropdown:
 <p>
   Small menu:
   <wa-dropdown>
-    <wa-button slot="trigger" caret>Dropdown</wa-button>
+    <wa-button slot="trigger" with-caret>Dropdown</wa-button>
     <wa-dropdown-item size="small">Dropdown Item 1</wa-dropdown-item>
     <wa-dropdown-item size="small">Dropdown Item 2</wa-dropdown-item>
     <wa-dropdown-item size="small">Dropdown Item 3</wa-dropdown-item>
@@ -59,7 +59,7 @@ Dropdown:
 <p>
   Small menu item:
   <wa-dropdown>
-    <wa-button slot="trigger" caret>Dropdown</wa-button>
+    <wa-button slot="trigger" with-caret>Dropdown</wa-button>
     <wa-dropdown-item size="small">Dropdown Item 1</wa-dropdown-item>
     <wa-dropdown-item size="small">Dropdown Item 2</wa-dropdown-item>
     <wa-dropdown-item size="small">Dropdown Item 3</wa-dropdown-item>
@@ -69,7 +69,7 @@ Dropdown:
 <p>
   No size:
   <wa-dropdown>
-    <wa-button slot="trigger" caret>Dropdown</wa-button>
+    <wa-button slot="trigger" with-caret>Dropdown</wa-button>
     <wa-dropdown-item>Dropdown Item 1</wa-dropdown-item>
     <wa-dropdown-item>Dropdown Item 2</wa-dropdown-item>
     <wa-dropdown-item>Dropdown Item 3</wa-dropdown-item>

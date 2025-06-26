@@ -23,7 +23,8 @@ During the alpha period, things might break! We take breaking changes very serio
 - 🚨 BREAKING: Renamed the `classic` theme to `shoelace`
 - 🚨 BREAKING: Renamed `pulse` attribute in `<wa-badge>` to `attention="pulse"` and added `attention="bounce"` [issue:#940]
 - 🚨 BREAKING: Renamed the `vertical` attribute to `orientation="vertical"` in `<wa-split-panel>` and `<wa-divider>` to align with other components and the platform [issue:674]
-- 🚨 BREAKING: Renamed certain boolean attributes to be more consistent using the `with-*` and `without-*` pattern:
+- 🚨 BREAKING: Renamed certain boolean attributes to be consistent using the `with-*` and `without-*` pattern:
+  - `<wa-button caret>` => `<wa-button with-caret>`
   - `<wa-color-picker no-format-toggle>` => `<wa-color-picker without-format-toggle>`
   - `<wa-format-number no-grouping>` => `<wa-format-number without-grouping>`
   - `<wa-input no-spin-buttons>` => `<wa-input without-spin-buttons>`
