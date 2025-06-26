@@ -26,7 +26,7 @@ async function updateTheme(value, isInitialLoad = false) {
 
   // Get brand and palette from the selected option
   const themeSelector = document.querySelector('.theme-selector');
-  const selectedOption = themeSelector.querySelector(`wa-option[value="${value}"]`);
+  const selectedOption = themeSelector?.querySelector(`wa-option[value="${value}"]`);
   const brand = selectedOption?.getAttribute('data-brand') || 'blue';
   const palette = selectedOption?.getAttribute('data-palette') || 'default';
   const htmlElement = document.documentElement;
