@@ -1,7 +1,7 @@
 ---
 title: Color Palettes
 description: 'Color palettes give you a full spectrum of colors to add life to your project.'
-layout: docs
+layout: page
 isPro: true
 ---
 
@@ -39,29 +39,42 @@ isPro: true
   {% endfor %}
 </div>
 
+<h2>Using This Palette</h2>
+<div id="import-code">
+  {% for palette in themer.palettes %}
+  <div class="palette-instructions" data-palette="{{ palette.name | lower }}" {% if not loop.first %}hidden{% endif %}>
+    <p>
+      To import this palette, set <code>&lt;html class=&quot;wa-theme-{{ palette.name | lower }}&quot;&gt;</code> and import the following stylesheet:
+    </p>
+    <pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;{% cdnUrl %}styles/color/palettes/{{ palette.filename }}&quot; /&gt;</code></pre>
+  </div>
+  {% endfor %}
+</div>
+
 <script type="module">
   const paletteContainer = document.getElementById('color-palettes');
   const palettePicker = document.getElementById('palette-picker');
 
-  // Set default radio as checked
-  const defaultRadio = palettePicker.querySelector('wa-radio[value="default"]');
-  if (defaultRadio) {
-    defaultRadio.checked = true;
+  // Set first radio as checked and add initial theme class
+  const firstRadio = palettePicker.querySelector('wa-radio');
+  if (firstRadio) {
+    firstRadio.checked = true;
+    paletteContainer.classList.add(`wa-palette-${firstRadio.value}`);
   }
-
-  // Add initial theme class
-  paletteContainer.classList.add('wa-palette-default');
 
   // Listen for radio changes
   palettePicker.addEventListener('input', function(event) {
     const selectedValue = event.target.value;
 
-    // Remove all existing wa-palette-* classes
+    // Update palette container class
     const existingThemeClasses = [...paletteContainer.classList].filter(className => className.startsWith('wa-palette-'));
     existingThemeClasses.forEach(className => paletteContainer.classList.remove(className));
-
-    // Add new theme class
     paletteContainer.classList.add(`wa-palette-${selectedValue}`);
+
+    // Show/hide appropriate instructions
+    document.querySelectorAll('.palette-instructions').forEach(instruction => {
+      instruction.hidden = instruction.dataset.palette !== selectedValue;
+    });
   });
 </script>
 
@@ -69,6 +82,10 @@ isPro: true
   wa-page > main {
     max-width: 120ch;
     margin-inline: auto;
+  }
+
+  #color-palettes {
+    margin-block-end: var(--wa-space-xl);
   }
 
   #palette-picker {

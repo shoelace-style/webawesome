@@ -5,12 +5,6 @@ layout: page
 isPro: true
 ---
 
-<style>
-  .title {
-    display: none;
-  }
-</style>
-
 <div class="wa-stack wa-gap-3xl">
 
   <div class="wa-split">
@@ -62,6 +56,18 @@ isPro: true
     </wa-comparison>
   </div>
 
+  <h2>Using This Theme</h2>
+  <div id="import-code">
+    {% for theme in themer.themes %}
+    <div class="theme-instructions" data-theme="{{ theme.filename | stripExtension }}" {% if not loop.first %}hidden{% endif %}>
+      <p>
+        To import this theme, set <code>&lt;html class=&quot;wa-theme-{{ theme.filename | stripExtension }}&quot;&gt;</code> and import the following stylesheet:
+      </p>
+      <pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;{% cdnUrl %}styles/themes/{{ theme.filename }}&quot; /&gt;</code></pre>
+    </div>
+    {% endfor %}
+  </div>
+
 </div>
 
 <script type="module">
@@ -106,6 +112,11 @@ isPro: true
 
     freeBadge.hidden = isPro;
     proBadge.hidden = !isPro;
+
+    // Show/hide appropriate instructions
+    document.querySelectorAll('.theme-instructions').forEach(instruction => {
+      instruction.hidden = instruction.dataset.theme !== selectedValue;
+    });
   }
 
   // Set default radio as checked and initialize frames
@@ -133,6 +144,10 @@ isPro: true
 <style>
   [hidden] {
     display: none !important;
+  }
+
+  .title {
+    display: none;
   }
 
   #theme-preview {
