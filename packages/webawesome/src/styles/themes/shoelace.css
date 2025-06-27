@@ -362,8 +362,8 @@
 @layer wa-theme-overrides {
   .wa-theme-shoelace {
     wa-avatar {
-      --background-color: var(--wa-color-neutral-fill-loud);
-      --text-color: var(--wa-color-neutral-on-loud);
+      background-color: var(--wa-color-neutral-fill-loud);
+      color: var(--wa-color-neutral-on-loud);
     }
 
     wa-button::part(label),
@@ -387,30 +387,18 @@
     }
 
     wa-callout {
-      --spacing: var(--wa-space-m);
+      padding: var(--wa-space-m);
       font-size: var(--wa-font-size-smaller);
 
       &:is([appearance~='outlined']) {
         border-top-width: var(--wa-border-width-l);
         border-color: var(--wa-color-surface-border);
         border-top-color: var(--border-color, var(--wa-color-border-loud));
-
-        &:not([appearance~='accent']) {
-          --border-color: var(--wa-color-fill-loud);
-        }
-      }
-      &:not([appearance~='accent']) {
-        --icon-color: var(--wa-color-fill-loud);
-        --text-color: var(--wa-color-text-normal);
       }
     }
 
     wa-card {
       background-color: var(--wa-color-surface-raised);
-    }
-
-    wa-carousel {
-      --pagination-color-active: var(--wa-color-neutral-fill-loud);
     }
 
     :is(
@@ -455,18 +443,26 @@
     }
 
     wa-switch {
-      --background-color: var(--wa-color-gray-50);
-      --border-color: var(--background-color);
-      --height: calc(1em * var(--wa-form-control-value-line-height) - var(--border-width) * 2);
-      --thumb-color: var(--wa-color-surface-default);
-      --thumb-size: calc(var(--height) + 4px);
+      --height: calc(1em * var(--wa-form-control-value-line-height) - var(--wa-form-control-border-width) * 2);
+      --thumb-size: calc(var(--height) + 0.25em);
       --width: calc(var(--height) * 2);
 
+      &::part(control) {
+        background-color: var(--wa-color-gray-50);
+        border-color: var(--wa-color-gray-50);
+      }
+
+      &[checked]::part(control) {
+        background-color: var(--wa-form-control-activated-color);
+        border-color: var(--wa-form-control-activated-color);
+      }
+
       &::part(thumb) {
-        border: var(--wa-border-width-s) var(--wa-border-style) var(--background-color);
+        background-color: var(--wa-color-surface-default);
+        border: var(--wa-border-width-s) var(--wa-border-style) var(--wa-color-gray-50);
       }
       &[checked]::part(thumb) {
-        border-color: var(--background-color-checked);
+        border-color: var(--wa-form-control-activated-color);
       }
     }
 
