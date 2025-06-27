@@ -1,16 +1,14 @@
 ---
 title: Tooltip
 description: Tooltips display additional information based on a specific action.
-tags: [feedback, apps, disclosure]
-icon: tooltip
+layout: component
+category: Feedback & Status
 ---
-
 
 A tooltip's target is based on the `for` attribute which points to an element id.
 
 ```html {.example}
-<wa-tooltip for="my-button">This is a tooltip</wa-tooltip>
-<wa-button id="my-button">Hover Me</wa-button>
+<wa-tooltip for="my-button">This is a tooltip</wa-tooltip> <wa-button id="my-button">Hover Me</wa-button>
 ```
 
 ## Examples
@@ -151,4 +149,3 @@ Use the `--max-width` custom property to change the width the tooltip can grow t
 </wa-tooltip>
 <wa-button id="wrapping-tooltip">Hover me</wa-button>
 ```
-

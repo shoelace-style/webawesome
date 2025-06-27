@@ -17,7 +17,7 @@ getAllComponents(metadata).forEach(component => {
   componentImports.push(`/dist-cdn/components/${name}/${name}.js`);
 });
 
-// os.availableParallelism only available as of Node 18.14.0 , maybe dont need the fallback?
+// os.availableParallelism only available as of Node 18.14.0 , maybe don't need the fallback?
 // I've found the browser is more stable if you give it concurrency up front.
 const cores = os.availableParallelism?.() ?? os.cpus.length;
 const concurrency = Math.max(Math.floor(cores / 3), 1);

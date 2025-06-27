@@ -52,7 +52,6 @@
     "create": "plop --plopfile scripts/plop/plopfile.js",
     "test": "CSR_ONLY=\"true\" web-test-runner --group default",
     "test:component": "CSR_ONLY=\"true\" web-test-runner -- --watch --group",
-    "test:contrast": "cd src/styles/color && node contrast.test.js",
     "test:watch": "web-test-runner --watch --group default",
     "prettier": "prettier --check --log-level=warn --ignore-path=\"../../.prettierignore\" .",
     "prettier:fix": "prettier --write --log-level=warn --ignore-path=\"../../.prettierignore\" .",
@@ -74,8 +73,7 @@
     "qr-creator": "^1.0.0",
     "style-observer": "^0.0.7"
   },
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "lint-staged": {
     "*.{ts,js}": [
       "prettier --write"

@@ -2,6 +2,7 @@
 title: Server Side Rendering
 description: A document on how to get started with SSR in Web Awesome.
 layout: page-outline
+unlisted: true
 ---
 
 Server Side Rendering ("SSR") means your webpage is rendered on the server before being sent to the user's browser. This provides a fully formed HTML page right from the start, which is great for SEO and initial load times. Once the page is rendered, JavaScript kicks in to "hydrate" the components which makes them interactive. The Web platform supports this through a feature called [Declarative Shadow DOM](https://web.dev/articles/declarative-shadow-dom).
@@ -23,10 +24,10 @@ If you're using a bundler, make sure it comes _before_ any components are import
 
 ```js
 // Make sure this import is first.
-import "@lit-labs/ssr-client/lit-element-hydrate-support.js"
+import '@lit-labs/ssr-client/lit-element-hydrate-support.js';
 
-import "webawesome/dist/components/button/button.js"
-import "webawesome/dist/components/input/input.js"
+import 'webawesome/dist/components/button/button.js';
+import 'webawesome/dist/components/input/input.js';
 ```
 
 ## Enable Server Rendering
@@ -40,12 +41,9 @@ For example, here's what the [11ty](https://www.11ty.dev/) integration looks lik
 
 import litPlugin from '@lit-labs/eleventy-plugin-lit';
 
- eleventyConfig.addPlugin(litPlugin, {
+eleventyConfig.addPlugin(litPlugin, {
   mode: 'worker',
-  componentModules: [
-    "webawesome/dist/components/button/button.js",
-    "webawesome/dist/components/input/input.js"
-  ]
+  componentModules: ['webawesome/dist/components/button/button.js', 'webawesome/dist/components/input/input.js'],
 });
 ```
 
@@ -60,7 +58,7 @@ As SSR becomes more stable, we'll work to add more instructions for various fram
 All Web Awesome components that get rendered for SSR will receive the `did-ssr` attribute.
 
 ```html
-<wa-button did-ssr>
+<wa-button did-ssr></wa-button>
 ```
 
 This can help if you need some styling prior to the element connecting.

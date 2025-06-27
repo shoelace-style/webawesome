@@ -1,9 +1,0 @@
-{# Preset theme selector #}
-<wa-select appearance="filled" size="small" value="default" pill class="preset-theme-selector">
-  <wa-icon slot="start" name="paintbrush" variant="regular"></wa-icon>
-  {% for theme in collections.theme | sort %}
-    <wa-option value="{{ theme.page.fileSlug }}">
-      {{ theme.data.title }}
-    </wa-option>
-  {% endfor %}
-</wa-select>

@@ -1,20 +1,15 @@
-@import url('../color/default.css');
-@import url('../brand/blue.css');
-@import url('../success/green.css');
-@import url('../warning/yellow.css');
-@import url('../danger/red.css');
-@import url('../neutral/gray.css');
-
 @layer wa-theme {
-  :root,
+  :where(:root),
   .wa-theme-default,
   .wa-light,
-  .wa-dark .wa-invert {
+  .wa-dark .wa-invert,
+  .wa-light .wa-theme-default,
+  .wa-dark .wa-theme-default.wa-invert,
+  .wa-dark .wa-theme-default .wa-invert {
     /* #region Colors (Light) ~~~~~~~~~~~~~~~~~~~~~ */
     color-scheme: light;
     color: var(--wa-color-text-normal);
 
-    /* Foundational Colors */
     --wa-color-surface-raised: white;
     --wa-color-surface-default: white;
     --wa-color-surface-lowered: var(--wa-color-neutral-95);
@@ -38,7 +33,6 @@
     --wa-color-mix-hover: black 10%;
     --wa-color-mix-active: black 20%;
 
-    /* Semantic Colors */
     --wa-color-brand-fill-quiet: var(--wa-color-brand-95);
     --wa-color-brand-fill-normal: var(--wa-color-brand-90);
     --wa-color-brand-fill-loud: var(--wa-color-brand-50);
@@ -92,12 +86,14 @@
   }
 
   .wa-dark,
-  .wa-invert {
+  .wa-invert,
+  .wa-dark .wa-theme-default,
+  .wa-light .wa-theme-default.wa-invert,
+  .wa-light .wa-theme-default .wa-invert {
     /* #region Colors (Dark) ~~~~~~~~~~~~~~~~~~~~~~ */
     color-scheme: dark;
     color: var(--wa-color-text-normal);
 
-    /* Foundational Colors */
     --wa-color-surface-raised: var(--wa-color-neutral-10);
     --wa-color-surface-default: var(--wa-color-neutral-05);
     --wa-color-surface-lowered: color-mix(in oklab, var(--wa-color-surface-default), black 20%);
@@ -121,7 +117,6 @@
     --wa-color-mix-hover: black 8%;
     --wa-color-mix-active: black 16%;
 
-    /* Semantic Colors */
     --wa-color-brand-fill-quiet: var(--wa-color-brand-10);
     --wa-color-brand-fill-normal: var(--wa-color-brand-20);
     --wa-color-brand-fill-loud: var(--wa-color-brand-50);
@@ -174,7 +169,7 @@
     /* #endregion */
   }
 
-  :root,
+  :where(:root),
   .wa-theme-default,
   .wa-light,
   .wa-dark,

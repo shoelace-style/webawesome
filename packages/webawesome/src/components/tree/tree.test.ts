@@ -2,8 +2,8 @@ import { aTimeout, expect, triggerBlurFor, triggerFocusFor } from '@open-wc/test
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import sinon from 'sinon';
-import { clickOnElement } from '../../internal/test.js';
 import { fixtures } from '../../internal/test/fixture.js';
+import { clickOnElement } from '../../internal/test/pointer-utilities.js';
 import type WaTreeItem from '../tree-item/tree-item.js';
 import type WaTree from './tree.js';
 

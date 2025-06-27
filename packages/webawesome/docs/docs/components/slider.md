@@ -1,9 +1,8 @@
 ---
 title: Slider
 description: Ranges allow the user to select a single value within a given range using a slider.
-tags: [inputs, forms]
-native: slider
-icon: slider
+layout: component
+category: Form Controls
 ---
 
 ```html {.example}
@@ -16,7 +15,6 @@ icon: slider
   max="6"
   with-markers
   with-tooltip
-  with-references
 >
   <span slot="reference">Less</span>
   <span slot="reference">More</span>
@@ -71,10 +69,10 @@ Use the `with-markers` attribute to display visual indicators at each step incre
 
 ### Adding references
 
-Use the `with-references` attribute along with the `reference` slot to add contextual labels below the slider. References are automatically spaced using `space-between`, making them easy to align with the start, center, and end positions.
+Use the `reference` slot to add contextual labels below the slider. References are automatically spaced using `space-between`, making them easy to align with the start, center, and end positions.
 
 ```html {.example}
-<wa-slider label="Speed" name="speed" min="1" max="5" value="3" with-markers with-references>
+<wa-slider label="Speed" name="speed" min="1" max="5" value="3" with-markers>
   <span slot="reference">Slow</span>
   <span slot="reference">Medium</span>
   <span slot="reference">Fast</span>
@@ -158,7 +156,6 @@ Use the `range` attribute to enable dual-thumb selection for choosing a range of
   min-value="20"
   max-value="80"
   with-tooltip
-  with-references
   id="slider__range"
 >
   <span slot="reference">$0</span>
@@ -261,7 +258,6 @@ By default, the filled indicator extends from the minimum value to the current p
   indicator-offset="0"
   with-markers
   with-tooltip
-  with-references
 >
   <span slot="reference">Lazy</span>
   <span slot="reference">Zoomies</span>

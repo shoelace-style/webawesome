@@ -1,4 +1,3 @@
-{# Color scheme selector #}
 <wa-select class="color-scheme-selector" appearance="filled" size="small" value="auto" pill title="Press \ to toggle">
   <wa-icon class="only-light" slot="start" name="sun" variant="regular"></wa-icon>
   <wa-icon class="only-dark" slot="start" name="moon" variant="regular"></wa-icon>
@@ -17,3 +16,10 @@
     System
   </wa-option>
 </wa-select>
+
+<script>
+  // Immediately set the correct value from storage
+  document.querySelectorAll('wa-select.color-scheme-selector').forEach(el => {
+    el.setAttribute('value', localStorage.getItem('color-scheme') || 'auto');
+  });
+</script>

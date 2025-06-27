@@ -1,8 +1,8 @@
 ---
 title: Copy Button
 description: Copies data to the clipboard when the user clicks the button.
-tags: [actions, apps]
-icon: copy-button
+layout: component
+category: Actions
 ---
 
 ```html {.example}
@@ -53,13 +53,13 @@ To copy data from an attribute, use `from="id[attr]"` where `id` is the id of th
 <span id="my-phone">+1 (234) 456-7890</span>
 <wa-copy-button from="my-phone"></wa-copy-button>
 
-<br><br>
+<br /><br />
 
 <!-- Copies the input's "value" property -->
 <wa-input id="my-input" type="text" value="User input" style="display: inline-block; max-width: 300px;"></wa-input>
 <wa-copy-button from="my-input.value"></wa-copy-button>
 
-<br><br>
+<br /><br />
 
 <!-- Copies the link's "href" attribute -->
 <a id="my-link" href="https://shoelace.style/">Web Awesome Website</a>

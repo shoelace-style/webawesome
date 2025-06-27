@@ -1,9 +1,8 @@
 ---
 title: Details
 description: Details show a brief summary and expand to show additional content.
-tags: [organization, apps, content, disclosure]
-icon: details
-native: details
+layout: component
+category: Organization
 ---
 
 <!-- cspell:dictionaries lorem-ipsum -->
@@ -83,22 +82,22 @@ Use the `appearance` attribute to change the element’s visual appearance.
 
 ```html {.example}
 <div class="wa-stack">
-<wa-details summary="Outlined (default)">
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-  aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-</wa-details>
-<wa-details summary="Filled" appearance="filled">
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-  aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-</wa-details>
-<wa-details summary="Filled + Outlined" appearance="filled outlined">
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-  aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-</wa-details>
-<wa-details summary="Plain" appearance="plain">
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-  aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-</wa-details>
+  <wa-details summary="Outlined (default)">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+    aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+  </wa-details>
+  <wa-details summary="Filled" appearance="filled">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+    aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+  </wa-details>
+  <wa-details summary="Filled + Outlined" appearance="filled outlined">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+    aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+  </wa-details>
+  <wa-details summary="Plain" appearance="plain">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+    aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+  </wa-details>
 </div>
 ```
 
@@ -109,18 +108,18 @@ Use the `name` attribute to create accordion-like behavior where only one detail
 ```html {.example}
 <div class="wa-stack">
   <wa-details name="group-1" summary="Section 1" open>
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-  aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+    aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
   </wa-details>
 
   <wa-details name="group-1" summary="Section 2">
-  Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam,
-  eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam,
+    eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
   </wa-details>
 
   <wa-details name="group-1" summary="Section 3">
-  At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque
-  corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.
+    At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque
+    corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.
   </wa-details>
 </div>
 ```

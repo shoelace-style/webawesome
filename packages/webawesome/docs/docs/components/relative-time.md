@@ -1,8 +1,8 @@
 ---
 title: Relative Time
 description: Outputs a localized time phrase relative to the current date and time.
-tags: [helpers, inline, content]
-icon: relative-time
+layout: component
+category: Utilities
 ---
 
 Localization is handled by the browser's [`Intl.RelativeTimeFormat` API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/RelativeTimeFormat). No language packs are required.

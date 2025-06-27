@@ -1,9 +1,8 @@
 ---
 title: Spinner
 description: Spinners are used to show the progress of an indeterminate operation.
-tags: [feedback, apps]
-keywords: loader
-icon: spinner
+layout: component
+category: Feedback & Status
 ---
 
 ```html {.example}

@@ -1,8 +1,8 @@
 ---
 title: Comparison
 description: Compare visual differences between similar content with a sliding panel.
-tags: [imagery, niche]
-icon: comparison
+layout: component
+category: Imagery
 ---
 
 This is especially useful for comparing images, but can be used for comparing any type of content (for an example of using it to compare entire UIs, check out our [theme pages](/docs/themes/default/)).

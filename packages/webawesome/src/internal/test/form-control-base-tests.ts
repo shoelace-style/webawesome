@@ -1,10 +1,10 @@
 import { aTimeout, expect } from '@open-wc/testing';
 import { html, type TemplateResult } from 'lit';
 import { html as staticHTML, unsafeStatic } from 'lit/static-html.js';
-import { clickOnElement } from '../test.js';
 import type { WebAwesomeFormControl } from '../webawesome-form-associated-element.js';
 import type { clientFixture, hydratedFixture } from './fixture.js';
 import { fixtures } from './fixture.js';
+import { clickOnElement } from './pointer-utilities.js';
 
 type CreateControlFn = () => Promise<WebAwesomeFormControl>;
 

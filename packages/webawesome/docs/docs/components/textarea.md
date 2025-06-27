@@ -1,9 +1,8 @@
 ---
 title: Textarea
 description: Textareas collect data from the user and allow multiple lines of text.
-tags: [inputs, forms]
-icon: textarea
-native: input
+layout: component
+category: Form Controls
 ---
 
 ```html {.example}

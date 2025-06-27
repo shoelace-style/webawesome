@@ -11,6 +11,7 @@ export interface IconLibrary {
   spriteSheet?: boolean;
 }
 
+let defaultIconFamily = 'classic';
 let registry: IconLibrary[] = [defaultLibrary, systemLibrary];
 let watchedIcons: WaIcon[] = [];
 
@@ -50,4 +51,17 @@ export function registerIconLibrary(name: string, options: Omit<IconLibrary, 'na
 /** Removes an icon library from the registry. */
 export function unregisterIconLibrary(name: string) {
   registry = registry.filter(lib => lib.name !== name);
+}
+
+/** Sets the default icon family. */
+export function setDefaultIconFamily(family: string) {
+  defaultIconFamily = family;
+
+  // Update watched icons
+  watchedIcons.forEach(icon => icon.setIcon());
+}
+
+/** Gets the default icon family. */
+export function getDefaultIconFamily() {
+  return defaultIconFamily;
 }

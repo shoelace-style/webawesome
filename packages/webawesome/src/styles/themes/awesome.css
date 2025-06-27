@@ -1,22 +1,18 @@
-@import url('../color/bright.css');
-@import url('../brand/blue.css');
-@import url('../success/green.css');
-@import url('../warning/yellow.css');
-@import url('../danger/red.css');
-@import url('../neutral/gray.css');
-@import url('../dimension/blocky.css');
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200..900;1,200..900&family=Quicksand:wght@300..700&display=swap');
 
 @layer wa-theme {
-  :root,
   .wa-theme-awesome,
-  .wa-light,
-  .wa-dark .wa-invert {
+  .wa-theme-awesome.wa-light,
+  .wa-theme-awesome .wa-light,
+  .wa-theme-awesome.wa-dark .wa-invert,
+  .wa-theme-awesome .wa-dark .wa-invert,
+  .wa-light .wa-theme-awesome,
+  .wa-dark .wa-theme-awesome.wa-invert,
+  .wa-dark .wa-theme-awesome .wa-invert {
     /* #region Colors (Light) ~~~~~~~~~~~~~~~~~~~~~ */
     color-scheme: light;
     color: var(--wa-color-text-normal);
 
-    /* Foundational Colors */
     --wa-color-surface-raised: white;
     --wa-color-surface-default: white;
     --wa-color-surface-lowered: var(--wa-color-neutral-95);
@@ -40,7 +36,6 @@
     --wa-color-mix-hover: black 10%;
     --wa-color-mix-active: black 20%;
 
-    /* Semantic Colors */
     --wa-color-brand-fill-quiet: var(--wa-color-brand-95);
     --wa-color-brand-fill-normal: var(--wa-color-brand-90);
     --wa-color-brand-fill-loud: var(--wa-color-brand-70);
@@ -93,13 +88,17 @@
     /* #endregion */
   }
 
-  .wa-dark,
-  .wa-invert {
+  .wa-theme-awesome.wa-dark,
+  .wa-theme-awesome .wa-dark,
+  .wa-theme-awesome.wa-invert,
+  .wa-theme-awesome .wa-invert,
+  .wa-dark .wa-theme-awesome,
+  .wa-light .wa-theme-awesome.wa-invert,
+  .wa-light .wa-theme-awesome .wa-invert {
     /* #region Colors (Dark) ~~~~~~~~~~~~~~~~~~~~~~ */
     color-scheme: dark;
     color: var(--wa-color-text-normal);
 
-    /* Foundational Colors */
     --wa-color-surface-raised: var(--wa-color-neutral-10);
     --wa-color-surface-default: var(--wa-color-neutral-05);
     --wa-color-surface-lowered: color-mix(in oklab, var(--wa-color-surface-default), black 20%);
@@ -123,7 +122,6 @@
     --wa-color-mix-hover: black 8%;
     --wa-color-mix-active: black 16%;
 
-    /* Semantic Colors */
     --wa-color-brand-fill-quiet: var(--wa-color-brand-10);
     --wa-color-brand-fill-normal: var(--wa-color-brand-20);
     --wa-color-brand-fill-loud: var(--wa-color-brand-50);
@@ -176,16 +174,20 @@
     /* #endregion */
   }
 
-  :root,
   .wa-theme-awesome,
-  .wa-light,
-  .wa-dark,
-  .wa-invert {
+  .wa-theme-awesome.wa-light,
+  .wa-theme-awesome .wa-light,
+  .wa-theme-awesome.wa-dark,
+  .wa-theme-awesome .wa-dark,
+  .wa-theme-awesome.wa-invert,
+  .wa-theme-awesome .wa-invert {
+    font-family: var(--wa-font-family-body);
+
     /* #region Fonts ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
     --wa-font-family-body: 'Quicksand', sans-serif;
     --wa-font-family-heading: var(--wa-font-family-body);
     --wa-font-family-code: ui-monospace, monospace;
-    --wa-font-family-longform: ui-serif, serif;
+    --wa-font-family-longform: 'Crimson Pro', serif;
 
     /* Font sizes use a ratio of 1.125 to scale sizes proportionally.
      * For larger font sizes, each size is twice 1.125x larger to maximize impact.
@@ -358,12 +360,116 @@
   }
 }
 
-@layer wa-overrides {
-  :root,
-  .wa-theme-awesome,
-  .wa-light,
-  .wa-dark,
-  .wa-invert {
+@layer wa-theme-dimension {
+  .wa-theme-awesome {
+    wa-button,
+    button,
+    input:where([type='button'], [type='reset'], [type='submit']) {
+      &:not([appearance='plain'], .wa-plain) {
+        --wa-color-shadow: var(--wa-color-border-normal);
+        --wa-transition-slow: 0;
+        --wa-transition-normal: 0;
+        --wa-transition-fast: 0;
+
+        --background-color-active: var(--border-color-active);
+        --border-color-hover: var(--wa-color-shadow);
+        --border-color-active: var(--wa-color-shadow);
+        --box-shadow: var(--wa-shadow-offset-x-s) var(--wa-shadow-offset-y-s) 0 0 var(--wa-color-shadow);
+
+        .wa-dark &,
+        .wa-invert & {
+          --wa-color-shadow: var(--wa-color-border-quiet);
+        }
+      }
+
+      &[appearance='filled'],
+      &.wa-filled {
+        --wa-color-shadow: var(--wa-color-border-quiet);
+      }
+
+      &[appearance~='outlined'],
+      &.wa-outlined {
+        --wa-color-shadow: var(--border-color);
+
+        --border-color: oklab(from var(--background-color) calc(l - 0.07) a b);
+        --text-color-active: var(--background-color);
+        --outlined-background-color: var(--wa-color-surface-default);
+
+        .wa-dark &,
+        .wa-invert & {
+          --border-color: var(--wa-color-border-quiet);
+          --text-color-active: var(--wa-color-on-quiet);
+        }
+      }
+    }
+
+    :is(wa-button, button, input:where([type='button'], [type='reset'], [type='submit'])):not(
+        [appearance='plain'],
+        .wa-plain
+      ) {
+      &:where(:not(wa-button)),
+      &::part(base) {
+        height: calc(var(--wa-form-control-height) - var(--wa-shadow-offset-y-s));
+        margin-bottom: var(--wa-shadow-offset-y-s);
+        margin-right: var(--wa-shadow-offset-x-s);
+      }
+      &:not([disabled], [loading]):active {
+        &:where(:not(wa-button)),
+        &::part(base) {
+          box-shadow: none;
+          transform: translate(var(--wa-shadow-offset-x-s), var(--wa-shadow-offset-y-s));
+        }
+      }
+    }
+
+    wa-radio[appearance='button'] {
+      &:state(checked) {
+        background-color: var(--wa-form-control-activated-color);
+        border-color: var(--wa-form-control-activated-color);
+        color: var(--wa-color-surface-default);
+      }
+    }
+    wa-radio-group[orientation='horizontal'] wa-radio[appearance='button'] {
+      box-shadow: var(--wa-shadow-offset-x-s) max(var(--wa-shadow-offset-y-s), var(--border-width)) 0 0
+        var(--wa-form-control-border-color);
+      margin-bottom: var(--wa-shadow-offset-y-s);
+      margin-right: var(--wa-shadow-offset-x-s);
+
+      &:state(checked) {
+        box-shadow: initial;
+        transform: translate(var(--wa-shadow-offset-x-s), var(--wa-shadow-offset-y-s));
+      }
+    }
+
+    :is(
+        input:where(
+            :not(
+              [type='button'],
+              [type='checkbox'],
+              [type='color'],
+              [type='file'],
+              [type='hidden'],
+              [type='image'],
+              [type='radio'],
+              [type='range'],
+              [type='reset'],
+              [type='submit']
+            )
+          ),
+        select,
+        textarea,
+        wa-input,
+        wa-select,
+        wa-textarea
+      ):not(:focus, [appearance='filled']) {
+      --box-shadow: inset var(--wa-shadow-offset-x-s) max(var(--wa-shadow-offset-y-s), var(--border-width)) 0 0
+        var(--wa-color-shadow);
+    }
+  }
+}
+
+@layer wa-theme-overrides {
+  .wa-theme-awesome {
     :is(button, input:where([type='button'], [type='reset'], [type='submit']), wa-button):not(
         [appearance='plain'],
         .wa-plain

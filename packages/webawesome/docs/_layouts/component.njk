@@ -1,5 +1,22 @@
-{% extends '../_layouts/block.njk' %}
-{% set component = components[page.fileSlug] %}
+{% extends '../_layouts/docs.njk' %}
+{% set component = getComponent('wa-' + page.fileSlug) %}
+
+{# Component header #}
+{% block beforeContent %}
+  <div class="component-info">
+    <code class="component-tag">&lt;{{ component.tagName }}&gt;</code>
+    <wa-badge variant="neutral">Since {{ component.since }}</wa-badge>
+    <wa-badge
+      {% if component.status == 'stable' %}variant="brand"{% endif %}
+      {% if component.status == 'experimental' %}variant="warning"{% endif %}
+    >
+      {{ component.status }}
+    </wa-badge>
+  </div>
+  <p class="component-summary">
+    {{ component.summary | inlineMarkdown | safe }}
+  </p>
+{% endblock %}
 
 {# Component API #}
 {% block afterContent %}

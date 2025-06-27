@@ -16,6 +16,16 @@
   display: none;
 }
 
+body {
+  opacity: 1;
+  transition: opacity 200ms ease-out;
+}
+
+body.theme-transitioning {
+  opacity: 0;
+  transition: opacity 200ms ease-out;
+}
+
 wa-page {
   --wa-flow-spacing: var(--wa-space-xl);
 }
@@ -265,7 +275,7 @@ h1.title {
   }
 }
 
-.block-info {
+.component-info {
   display: flex;
   gap: var(--wa-space-xs);
   flex-wrap: wrap;
@@ -359,52 +369,54 @@ h1.title {
   }
 }
 
-/* Index Pages */
-wa-page > main:has(> .index-grid) {
+/* Search list pages */
+wa-page > main:has(> .search-list) {
   max-width: 120ch;
   margin-inline: auto;
 }
 
-.index-summary {
-  max-inline-size: 80ch;
-}
-
-.index-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--wa-space-2xl);
-  margin-block-end: var(--wa-space-3xl);
-
-  @media screen and (max-width: 1470px) {
-    grid-template-columns: repeat(3, 1fr);
+.search-list {
+  .search-list-input {
+    margin-block-end: var(--wa-space-3xl);
   }
 
-  @media screen and (max-width: 960px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  .search-list-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--wa-space-2xl);
+    margin-block-end: var(--wa-space-3xl);
 
-  @media screen and (max-width: 500px) {
-    grid-template-columns: repeat(1, 1fr);
-  }
-
-  a {
-    border-radius: var(--wa-border-radius-l);
-    text-decoration: none;
-  }
-
-  wa-card {
-    --spacing: var(--wa-space-m);
-
-    [slot='header'] {
-      display: flex;
+    @media screen and (max-width: 1470px) {
+      grid-template-columns: repeat(3, 1fr);
     }
 
-    &::part(header) {
-      background-color: var(--header-background, var(--wa-color-neutral-fill-quiet));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-block-size: calc(6rem + var(--spacing));
+    @media screen and (max-width: 960px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media screen and (max-width: 500px) {
+      grid-template-columns: repeat(1, 1fr);
+    }
+
+    a {
+      border-radius: var(--wa-border-radius-l);
+      text-decoration: none;
+    }
+
+    wa-card {
+      --spacing: var(--wa-space-m);
+
+      [slot='header'] {
+        display: flex;
+      }
+
+      &::part(header) {
+        background-color: var(--header-background, var(--wa-color-neutral-fill-quiet));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-block-size: calc(6rem + var(--spacing));
+      }
     }
   }
 }
@@ -412,12 +424,6 @@ wa-page > main:has(> .index-grid) {
 wa-card .page-name {
   font-size: var(--wa-font-size-s);
   font-weight: var(--wa-font-weight-action);
-}
-
-.index-category {
-  grid-column: 1 / -1;
-  margin-block-end: 0;
-  margin-block-start: var(--wa-space-2xl);
 }
 
 /* Swatches */

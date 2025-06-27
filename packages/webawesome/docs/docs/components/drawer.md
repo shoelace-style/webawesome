@@ -1,8 +1,8 @@
 ---
 title: Drawer
 description: Drawers slide in from a container to expose additional options and information.
-tags: [organization, disclosure]
-icon: drawer
+layout: component
+category: Organization
 ---
 
 <!-- cspell:dictionaries lorem-ipsum -->
@@ -19,7 +19,7 @@ icon: drawer
   const drawer = document.querySelector('#drawer-overview');
   const openButton = drawer.nextElementSibling;
 
-  openButton.addEventListener('click', () => drawer.open = true);
+  openButton.addEventListener('click', () => (drawer.open = true));
 </script>
 ```
 
@@ -41,7 +41,7 @@ Headers are enabled by default. To render a drawer without a header, add the `wi
   const drawer = document.querySelector('.drawer-without-header');
   const openButton = drawer.nextElementSibling;
 
-  openButton.addEventListener('click', () => drawer.open = true);
+  openButton.addEventListener('click', () => (drawer.open = true));
 </script>
 ```
 
@@ -61,7 +61,7 @@ Footers can be used to display titles and more. Use the `footer` slot to add a f
   const drawer = document.querySelector('.drawer-footer');
   const openButton = drawer.nextElementSibling;
 
-  openButton.addEventListener('click', () => drawer.open = true);
+  openButton.addEventListener('click', () => (drawer.open = true));
 </script>
 ```
 
@@ -105,7 +105,7 @@ By default, drawers slide in from the end. To make the drawer slide in from the 
   const drawer = document.querySelector('.drawer-placement-start');
   const openButton = drawer.nextElementSibling;
 
-  openButton.addEventListener('click', () => drawer.open = true);
+  openButton.addEventListener('click', () => (drawer.open = true));
 </script>
 ```
 
@@ -125,7 +125,7 @@ To make the drawer slide in from the top, set the `placement` attribute to `top`
   const drawer = document.querySelector('.drawer-placement-top');
   const openButton = drawer.nextElementSibling;
 
-  openButton.addEventListener('click', () => drawer.open = true);
+  openButton.addEventListener('click', () => (drawer.open = true));
 </script>
 ```
 
@@ -145,7 +145,7 @@ To make the drawer slide in from the bottom, set the `placement` attribute to `b
   const drawer = document.querySelector('.drawer-placement-bottom');
   const openButton = drawer.nextElementSibling;
 
-  openButton.addEventListener('click', () => drawer.open = true);
+  openButton.addEventListener('click', () => (drawer.open = true));
 </script>
 ```
 
@@ -165,7 +165,7 @@ Use the `--size` custom property to set the drawer's size. This will be applied 
   const drawer = document.querySelector('.drawer-custom-size');
   const openButton = drawer.nextElementSibling;
 
-  openButton.addEventListener('click', () => drawer.open = true);
+  openButton.addEventListener('click', () => (drawer.open = true));
 </script>
 ```
 
@@ -187,7 +187,7 @@ By design, a drawer's height will never exceed 100% of its container. As such, d
   const drawer = document.querySelector('.drawer-scrolling');
   const openButton = drawer.nextElementSibling;
 
-  openButton.addEventListener('click', () => drawer.open = true);
+  openButton.addEventListener('click', () => (drawer.open = true));
 </script>
 ```
 
@@ -211,7 +211,7 @@ The header shows a functional close button by default. You can use the `header-a
   const openButton = drawer.nextElementSibling;
   const newWindowButton = drawer.querySelector('.new-window');
 
-  openButton.addEventListener('click', () => drawer.open = true);
+  openButton.addEventListener('click', () => (drawer.open = true));
   newWindowButton.addEventListener('click', () => window.open(location.href));
 </script>
 ```
@@ -232,7 +232,7 @@ If you want the drawer to close when the user clicks on the overlay, add the `li
   const drawer = document.querySelector('.drawer-light-dismiss');
   const openButton = drawer.nextElementSibling;
 
-  openButton.addEventListener('click', () => drawer.open = true);
+  openButton.addEventListener('click', () => (drawer.open = true));
 </script>
 ```
 
@@ -257,7 +257,7 @@ You can use `event.detail.source` to determine what triggered the request to clo
   const openButton = drawer.nextElementSibling;
   const closeButton = drawer.querySelector('wa-button[slot="footer"]');
 
-  openButton.addEventListener('click', () => drawer.open = true);
+  openButton.addEventListener('click', () => (drawer.open = true));
 
   // Prevent the drawer from closing unless the close button is clicked
   drawer.addEventListener('wa-hide', event => {
@@ -285,6 +285,6 @@ To give focus to a specific element when the drawer opens, use the `autofocus` a
   const input = drawer.querySelector('wa-input');
   const openButton = drawer.nextElementSibling;
 
-  openButton.addEventListener('click', () => drawer.open = true);
+  openButton.addEventListener('click', () => (drawer.open = true));
 </script>
 ```
