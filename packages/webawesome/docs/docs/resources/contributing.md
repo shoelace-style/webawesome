@@ -25,10 +25,10 @@ Please take a moment to review these guidelines to make the contribution process
 
 ## Using the Issue Tracker
 
-The [issue tracker](https://github.com/shoelace-style/webawesome-alpha/issues) is for bug reports, feature requests, and pull requests.
+The [issue tracker](https://github.com/shoelace-style/webawesome/issues) is for bug reports, feature requests, and pull requests.
 
-- Please **do not** use the issue tracker for personal support requests. Use [the discussion forum](https://github.com/shoelace-style/webawesome-alpha/discussions/categories/help-support) instead.
-- Please **do not** use the issue tracker for feature requests. Use [the discussion forum](https://github.com/shoelace-style/webawesome-alpha/discussions/categories/ideas) instead.
+- Please **do not** use the issue tracker for personal support requests. Use [the discussion forum](https://github.com/shoelace-style/webawesome/discussions/categories/help-support) instead.
+- Please **do not** use the issue tracker for feature requests. Use [the discussion forum](https://github.com/shoelace-style/webawesome/discussions/categories/ideas) instead.
 - Please **do not** derail, hijack, or troll issues. Keep the discussion on topic and be respectful of others.
 - Please **do not** post comments with "+1" or "👍". Use [reactions](https://github.blog/2016-03-10-add-reactions-to-pull-requests-issues-and-comments/) instead.
 - Please **do** use the issue tracker for bug reports and pull requests.
@@ -37,7 +37,7 @@ Issues that do not follow these guidelines are subject to closure. There simply 
 
 ### Feature Requests
 
-Feature requests can be added using [the discussion forum](https://github.com/shoelace-style/webawesome-alpha/discussions/categories/ideas).
+Feature requests can be added using [the discussion forum](https://github.com/shoelace-style/webawesome/discussions/categories/ideas).
 
 - Please **do** search for an existing request before suggesting a new feature.
 - Please **do** use the voting buttons to vote for a feature.
@@ -164,7 +164,7 @@ This section can be a lot to digest in one sitting, so don't feel like you need 
 
 Web Awesome is built with accessibility in mind. Creating generic components that are fully accessible to users with varying capabilities across a multitude of circumstances is a daunting challenge. Oftentimes, the solution to an a11y problem is not written in black and white and, therefore, we may not get it right the first time around. There are, however, guidelines we can follow in our effort to make Web Awesome an accessible foundation from which applications and websites can be built.
 
-We take this commitment seriously, so please ensure your contributions have this goal in mind. If you need help with anything a11y-related, please [reach out to the community](/resources/community) for assistance. If you discover an accessibility concern within the library, please file a bug on the [issue tracker](https://github.com/shoelace-style/webawesome-alpha/issues).
+We take this commitment seriously, so please ensure your contributions have this goal in mind. If you need help with anything a11y-related, please [reach out to the community](/resources/community) for assistance. If you discover an accessibility concern within the library, please file a bug on the [issue tracker](https://github.com/shoelace-style/webawesome/issues).
 
 It's important to remember that, although accessibility starts with foundational components, it doesn't end with them. It everyone's responsibility to encourage best practices and ensure we're providing an optimal experience for all of our users.
 

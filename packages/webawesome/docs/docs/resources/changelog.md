@@ -4,13 +4,9 @@ description: Changes to each version of the project are documented here.
 layout: page-outline
 ---
 
-Web Awesome follows [Semantic Versioning](https://semver.org/). Breaking changes in components with the <wa-badge variant="brand" pill>Stable</wa-badge> badge will not be accepted until the next major version. As such, all contributions must consider the project's roadmap and take this into consideration. Features that are deemed no longer necessary will be deprecated but not removed.
+Web Awesome follows [Semantic Versioning](https://semver.org/). Breaking changes in components with the <wa-badge variant="brand">Stable</wa-badge> badge will not be accepted until the next major version. As such, all contributions must consider the project's roadmap and take this into consideration. Features that are deemed no longer necessary will be deprecated but not removed.
 
-Components with the <wa-badge variant="warning" pill>Experimental</wa-badge> badge should not be used in production. They are made available as release candidates for development and testing purposes. As such, changes to experimental components will not be subject to semantic versioning.
-
-:::warning
-During the alpha period, things might break! We take breaking changes very seriously, but sometimes they're necessary to make the final product that much better. We appreciate your patience!
-:::
+Components with the <wa-badge variant="warning">Experimental</wa-badge> badge should not be used in production. They are made available as release candidates for development and testing purposes. As such, changes to experimental components will not be subject to semantic versioning.
 
 ## Next
 
@@ -337,7 +333,7 @@ During the alpha period, things might break! We take breaking changes very serio
 
 ==If you're new to Web Awesome, you can skip this section.== If you're coming from [Shoelace](https://shoelace.style/), you're in the right place!
 
-Here's a list of some of the things that have changed since Shoelace v2. For questions or help upgrading, [the alpha discussion board](https://github.com/shoelace-style/webawesome-alpha/discussions) is a great place to get help!
+Here's a list of some of the things that have changed since Shoelace v2. For questions or help upgrading, [the discussion board](https://github.com/shoelace-style/webawesome/discussions) is a great place to get help!
 
 - Added `setKitCode()` and `getKitCode()` functions as well as support for setting kit codes declaratively with `data-webawesome-kit`
 - Added `family` and `variant` attributes to `<wa-icon>` and `<wa-icon-button>`
@@ -378,6 +374,6 @@ Here's a list of some of the things that have changed since Shoelace v2. For que
   setter: `waInput.value = 5.toString()`
   getter: `Number(waInput.value)`
 
-Did we miss something? [Let us know!](https://github.com/shoelace-style/webawesome-alpha/discussions)
+Did we miss something? [Let us know!](https://github.com/shoelace-style/webawesome/discussions)
 
 Are you coming from Shoelace? [The 2.x changelog can be found here.](https://shoelace.style/resources/changelog/)

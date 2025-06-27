@@ -10,8 +10,8 @@ Welcome to the Web Awesome alpha release for early backers! 👋
 
 Thank you so much for backing us!
 
-- [Report a bug](https://github.com/shoelace-style/webawesome-alpha/issues)
-- [Get help / ask a question](https://github.com/shoelace-style/webawesome-alpha/discussions)
+- [Report a bug](https://github.com/shoelace-style/webawesome/issues)
+- [Get help / ask a question](https://github.com/shoelace-style/webawesome/discussions)
 - [See what's new since the last version](/docs/resources/changelog)
 
 :::warning
@@ -62,7 +62,7 @@ The autoloader is the easiest way to use Web Awesome, but different projects (or
 
 ### Installing via npm
 
-An npm package isn't available in the early backer alpha release, but we'll have one soon! For now, please enjoy [Web Awesome from the CDN](#quick-start-autoloading-via-cdn).
+An npm package isn't yet available, but we'll have one soon! For now, please enjoy [Web Awesome from the CDN](#quick-start-autoloading-via-cdn).
 
 ### Cherry Picking
 
