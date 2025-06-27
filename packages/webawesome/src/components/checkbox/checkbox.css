@@ -1,4 +1,5 @@
 :host {
+  --checked-icon-color: var(--wa-color-brand-on-loud);
   --checked-icon-scale: 0.8;
 
   display: inline-flex;
@@ -47,7 +48,7 @@
 
 /* Checked */
 [part~='control']:has(:checked, :indeterminate) {
-  color: var(--wa-color-brand-on-loud);
+  color: var(--checked-icon-color);
   border-color: var(--wa-form-control-activated-color);
   background-color: var(--wa-form-control-activated-color);
 }

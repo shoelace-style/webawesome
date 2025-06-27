@@ -1,7 +1,7 @@
 :host {
   --height: var(--wa-form-control-toggle-size);
   --width: calc(var(--height) * 1.75);
-  --thumb-scale: 0.7;
+  --thumb-size: 0.75em;
 
   display: inline-flex;
   line-height: var(--wa-form-control-value-line-height);
@@ -37,13 +37,12 @@ label {
 
 .switch .thumb {
   aspect-ratio: 1 / 1;
-  width: auto;
-  height: 100%;
+  width: var(--thumb-size);
+  height: var(--thumb-size);
   background-color: var(--wa-form-control-border-color);
   border-radius: 50%;
   translate: calc((var(--width) - var(--height)) / -2);
   transition: inherit;
-  scale: var(--thumb-scale);
 }
 
 .input {

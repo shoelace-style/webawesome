@@ -24,6 +24,7 @@ import styles from './radio.css';
  * @csspart checked-icon - The checked icon.
  * @csspart label - The container that wraps the radio's label.
  *
+ * @cssproperty --checked-icon-color - The color of the checked icon.
  * @cssproperty --checked-icon-scale - The size of the checked icon relative to the radio.
  *
  * @cssstate checked - Applied when the control is checked.
