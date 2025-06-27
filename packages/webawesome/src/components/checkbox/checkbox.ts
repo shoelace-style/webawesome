@@ -37,6 +37,7 @@ import styles from './checkbox.css';
  * @csspart label - The container that wraps the checkbox's label.
  * @csspart hint - The hint's wrapper.
  *
+ * @cssproperty --checked-icon-color - The color of the checked and indeterminate icons.
  * @cssproperty --checked-icon-scale - The size of the checked and indeterminate icons relative to the checkbox.
  *
  * @cssstate checked - Applied when the checkbox is checked.
