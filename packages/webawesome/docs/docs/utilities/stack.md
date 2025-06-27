@@ -2,6 +2,7 @@
 title: Stack
 description: 'Use `wa-stack` to arrange elements in the block direction with even spacing.'
 layout: docs
+tags: layoutUtilities
 ---
 
 <style>

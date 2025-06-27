@@ -99,7 +99,7 @@ wa-page > header {
 #sidebar,
 #outline {
   h2 {
-    font-size: var(--wa-font-size-m);
+    font-size: var(--wa-font-size-s);
     margin: 0;
   }
 
@@ -108,7 +108,16 @@ wa-page > header {
   }
 
   wa-details {
-    --spacing: var(--wa-space-xs);
+    --spacing: 0;
+
+    &::part(header) {
+      padding: 0;
+      padding-block-start: var(--wa-space-xs);
+    }
+
+    &::part(content) {
+      padding-block-start: var(--wa-space-m);
+    }
 
     &::part(base) {
       border: none;
@@ -171,6 +180,7 @@ wa-page > header {
 
 /* Pro badges */
 wa-badge.pro {
+  color: white;
   background-color: var(--wa-brand-orange);
   border-color: var(--wa-brand-orange);
 }
@@ -405,6 +415,7 @@ wa-page > main:has(> .search-list) {
 
     wa-card {
       --spacing: var(--wa-space-m);
+      box-shadow: none;
 
       [slot='header'] {
         display: flex;
@@ -416,6 +427,11 @@ wa-page > main:has(> .search-list) {
         align-items: center;
         justify-content: center;
         min-block-size: calc(6rem + var(--spacing));
+      }
+
+      &:hover {
+        border-color: var(--wa-color-brand-border-loud);
+        box-shadow: 0 0 0 0.0625rem var(--wa-color-brand-border-loud);
       }
     }
   }

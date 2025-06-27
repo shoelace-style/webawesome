@@ -2,6 +2,7 @@
 title: Text
 description: Text utility classes combine custom properties from your Web Awesome theme to conveniently style text content.
 layout: docs
+tags: styleUtilities
 ---
 
 Web Awesome includes classes to set multiple text properties at once to style body text, headings, and captions.

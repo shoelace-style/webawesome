@@ -2,6 +2,7 @@
 title: Align Items
 description: Align items utilities set the gap property of flex and grid containers, like other Web Awesome layout utilities.
 layout: docs
+tags: layoutUtilities
 ---
 
 <style>

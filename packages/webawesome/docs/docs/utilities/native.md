@@ -2,6 +2,7 @@
 title: Native Styles
 description: Native styles apply your theme to native HTML elements so they match the look and feel of Web Awesome components.
 layout: page-outline
+tags: styleUtilities
 ---
 
 Web Awesome provides optional Native Styles that make native HTML elements look good so you can continue using what you know and gradually adopt Web Awesome as you see fit.
