@@ -104,9 +104,9 @@ You can customize the button to your liking with CSS.
 </wa-copy-button>
 
 <style>
-  .custom-styles {
-    --success-color: white;
-    --error-color: white;
+  .custom-styles,
+  .custom-styles::part(success-icon),
+  .custom-styles::part(error-icon) {
     color: white;
   }
 

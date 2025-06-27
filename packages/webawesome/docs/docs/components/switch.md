@@ -57,5 +57,5 @@ Add descriptive hint to a switch with the `hint` attribute. For hints that conta
 Use the available custom properties to change how the switch is styled.
 
 ```html {.example}
-<wa-switch style="--width: 80px; --height: 40px; --thumb-size: 36px;">Really big</wa-switch>
+<wa-switch style="--width: 80px; --height: 40px; --thumb-scale: 0.8;">Really big</wa-switch>
 ```

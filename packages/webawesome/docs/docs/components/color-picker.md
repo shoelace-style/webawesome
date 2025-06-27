@@ -86,5 +86,5 @@ The color picker can be rendered as disabled.
 Add descriptive hint to a color picker with the `hint` attribute. For hints that contain HTML, use the `hint` slot instead.
 
 ```html {.example}
-<wa-color-picker label="Select a color" hint="Choose a color with appropate contrast!"></wa-color-picker>
+<wa-color-picker label="Select a color" hint="Choose a color with appropriate contrast!"></wa-color-picker>
 ```

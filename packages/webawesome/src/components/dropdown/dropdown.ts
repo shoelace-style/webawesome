@@ -45,13 +45,6 @@ const openDropdowns = new Set<WaDropdown>();
  *
  * @cssproperty --show-duration - The duration of the show animation.
  * @cssproperty --hide-duration - The duration of the hide animation.
- * @cssproperty --menu-background-color - The background color of the dropdown menu.
- * @cssproperty --menu-border-color - The border color of the dropdown menu.
- * @cssproperty --menu-border-width - The border width of the dropdown menu.
- * @cssproperty --menu-border-radius - The border radius of the dropdown menu.
- * @cssproperty --menu-box-shadow - The box shadow of the dropdown menu.
- * @cssproperty --menu-text-color - The text color of the dropdown menu items.
- * @cssproperty --menu-padding - The padding of the dropdown menu.
  */
 @customElement('wa-dropdown')
 export default class WaDropdown extends WebAwesomeElement {
