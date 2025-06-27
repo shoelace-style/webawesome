@@ -19,24 +19,25 @@ import { replaceTextPlugin } from './_utils/replace-text.js';
 import { searchPlugin } from './_utils/search.js';
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 const isDev = process.argv.includes('--develop');
-const packageData = JSON.parse(await readFile(path.join(__dirname, '..', 'package.json'), 'utf-8'));
-const docsDir = path.join(process.env.BASE_DIR || '.', 'docs');
 const passThroughExtensions = ['js', 'css', 'png', 'svg', 'jpg', 'mp4'];
-const allComponents = getComponents();
-
-/**
- * If you plan to add or remove any of these extensions, make sure to let either Konnor or Cory know as these
- * passthrough extensions will also need to be updated in the Web Awesome App.
- */
-const passThrough = [...passThroughExtensions.map(ext => path.join(docsDir, '**/*.' + ext))];
-
-/**
- * This is the guard we use for now to make sure our final built files don't need a 2nd pass by the server. This keeps
- * us able to still deploy the bare HTML files on Vercel until the app is ready.
- */
-const serverBuild = process.env.WEBAWESOME_SERVER === 'true';
 
 export default async function (eleventyConfig) {
+  const packageData = JSON.parse(await readFile(path.join(__dirname, '..', 'package.json'), 'utf-8'));
+  const docsDir = path.join(process.env.BASE_DIR || '.', 'docs');
+  const allComponents = getComponents();
+
+  /**
+   * If you plan to add or remove any of these extensions, make sure to let either Konnor or Cory know as these
+   * passthrough extensions will also need to be updated in the Web Awesome App.
+   */
+  const passThrough = [...passThroughExtensions.map(ext => path.join(docsDir, '**/*.' + ext))];
+
+  /**
+   * This is the guard we use for now to make sure our final built files don't need a 2nd pass by the server. This keeps
+   * us able to still deploy the bare HTML files on Vercel until the app is ready.
+   */
+  const serverBuild = process.env.WEBAWESOME_SERVER === 'true';
+
   //
   // Set all global template data here
   //

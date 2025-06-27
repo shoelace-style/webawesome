@@ -4,18 +4,18 @@ description: Choose the installation method that works best for you.
 layout: page-outline
 ---
 
-Welcome to the Web Awesome alpha release for early backers! 👋
+Welcome to your exclusive early access to Web Awesome Beta! 👋
 
-==This is a very early alpha release!== For this preview, we're offering access to Web Awesome through a temporary CDN. Please be aware: Things can change. Things can break. You probably shouldn't be using this software in production yet! But fear not, we're working hard to polish up everything you see here _plus_ all the great stuff we have planned for Web Awesome Pro!
+At this time, we're offering access to Web Awesome Free and Pro through a temporary CDN while we prepare for a public release. This beta is tried, true, and stable, but please be aware that things may change here and there before our production release to the public.
 
 Thank you so much for backing us!
 
-- [Report a bug](https://github.com/shoelace-style/webawesome-alpha/issues)
-- [Get help / ask a question](https://github.com/shoelace-style/webawesome-alpha/discussions)
+- [Report a bug](https://github.com/shoelace-style/webawesome/issues)
+- [Get help / ask a question](https://github.com/shoelace-style/webawesome/discussions)
 - [See what's new since the last version](/docs/resources/changelog)
 
 :::warning
-As a Web Awesome backer, this early alpha release is _just for you_. Please refrain from sharing it for the time being!
+As a Web Awesome backer, this beta release is _just for you_. Please refrain from sharing it for the time being!
 :::
 
 ---
@@ -62,7 +62,7 @@ The autoloader is the easiest way to use Web Awesome, but different projects (or
 
 ### Installing via npm
 
-An npm package isn't available in the early backer alpha release, but we'll have one soon! For now, please enjoy [Web Awesome from the CDN](#quick-start-autoloading-via-cdn).
+An npm package isn't yet available, but we'll have one soon! For now, please enjoy [Web Awesome from the CDN](#quick-start-autoloading-via-cdn).
 
 ### Cherry Picking
 

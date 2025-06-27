@@ -84,12 +84,14 @@ layout: page
       flex: 1 1 67%;
     }
     & wa-button {
-      --border-color: black;
-      --border-width: 0.125rem;
-      box-shadow: 0 0.25rem 0 0 var(--border-color);
-      flex: 1 1 auto;
-      height: 2.5rem;
-      &:active:not([disabled]) {
+      &::part(base) {
+        border-color: black;
+        border-width: 0.125rem;
+        box-shadow: 0 0.25rem 0 0 black;
+        flex: 1 1 auto;
+        height: 2.5rem;
+      }
+      &:active:not([disabled])::part(base) {
         box-shadow: 0 0 0 0 transparent;
         transform: translateY(0.25rem);
       }
@@ -187,13 +189,13 @@ layout: page
         flex: 1 1 auto;
         gap: 0.5rem;
       }
-      & wa-button {
+      & wa-button::part(base) {
         height: 1.5rem;
         font-size: 0.75rem;
       }
     }
   }
-  .alpha-notice {
+  .beta-notice {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
@@ -247,8 +249,8 @@ layout: page
     height: 100%;
 
     & .icon-heading wa-icon {
-      background-color: var(--wa-color-warning-fill-normal);
-      color: var(--wa-color-warning-on-normal);
+      background-color: var(--wa-color-brand-fill-normal);
+      color: var(--wa-color-brand-on-normal);
     }
 
     & p {
@@ -274,14 +276,14 @@ layout: page
 </div>
 
 <div class="home-wrapper">
-  <div class="alpha-notice">
+  <div class="beta-notice">
     <div>
-      <wa-callout variant="warning">
+      <wa-callout variant="brand">
         <div class="icon-heading">
-          <wa-icon name="triangle-exclamation" variant="regular" fixed-width></wa-icon>
-          <h3>You're in alpha territory</h3>
+          <wa-icon name="sparkles" variant="regular" fixed-width></wa-icon>
+          <h3>Rise and shine, backers!</h3>
         </div>
-        <p>What you see may not be perfect (we're only humans!) and is subject to change. We encourage you to <a href="https://github.com/shoelace-style/webawesome-alpha/issues">report bugs</a> or <a href="https://github.com/shoelace-style/webawesome-alpha/discussions">ask for help</a>!</p>
+        <p>Dig in to your exclusive Web Awesome Beta access. This beta is battle-tested and built to last, but if you see something, say something. Please <a href="https://github.com/shoelace-style/webawesome/issues">report bugs</a> or <a href="https://github.com/shoelace-style/webawesome/discussions">ask for help</a>!</p>
       </wa-callout>
     </div>
     <div>
@@ -352,7 +354,7 @@ layout: page
           <wa-icon name="hashtag" fixed-width></wa-icon>
           <h3>Follow us</h3>
         </div>
-        <p>Keep up with Web Awesome through updates, announcements, and polls. Find us on <a href="https://x.com/webawesomer">Twitter (X)</a> and <a href="https://www.instagram.com/web.awesome">Instagram</a>.</p>
+        <p>Keep up with Web Awesome through updates, announcements, and polls. Find us on <a href="https://bsky.app/profile/webawesome.com">Bluesky</a>, <a href="https://x.com/webawesomer">Twitter (X)</a>, and <a href="https://www.threads.com/@web.awesome">Threads</a>.</p>
       </div>
     </div>
   </div>

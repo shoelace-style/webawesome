@@ -1,14 +1,14 @@
 import { readFileSync } from 'fs';
-import { dirname, resolve } from 'path';
+import { dirname, join, resolve } from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-
-const manifest = JSON.parse(readFileSync(resolve(__dirname, '../../dist/custom-elements.json'), 'utf-8'));
 /**
  * @returns Fetches components from custom-elements.json and returns them in more sane format.
  */
 export function getComponents() {
+  const distDir = process.env.UNBUNDLED_DIST_DIRECTORY || resolve(__dirname, '../../dist');
+  const manifest = JSON.parse(readFileSync(join(distDir, 'custom-elements.json'), 'utf-8'));
   const components = [];
 
   manifest.modules?.forEach(module => {
