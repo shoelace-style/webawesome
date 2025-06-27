@@ -35,7 +35,7 @@ import styles from './switch.css';
  *
  * @cssproperty --width - The width of the switch.
  * @cssproperty --height - The height of the switch.
- * @cssproperty --thumb-scale - The size of the thumb relative to the switch.
+ * @cssproperty --thumb-size - The size of the thumb.
  */
 @customElement('wa-switch')
 export default class WaSwitch extends WebAwesomeFormAssociatedElement {
