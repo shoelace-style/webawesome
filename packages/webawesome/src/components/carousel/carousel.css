@@ -1,7 +1,7 @@
 :host {
   --aspect-ratio: 16 / 9;
   --scroll-hint: 0px;
-  --slide-gap: var(--wa-space-m);
+  --slide-gap: var(--wa-space-m, 1rem); /* fallback value is necessary */
 
   display: flex;
 }
