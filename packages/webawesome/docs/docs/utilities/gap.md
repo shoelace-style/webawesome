@@ -1,8 +1,7 @@
 ---
 title: Gap
 description: Gap utilities set the gap property of flex and grid containers, like other Web Awesome layout utilities.
-tags: ["utilities", "layout"]
-file: styles/utilities/gap.css
+layout: docs
 ---
 
 <style>
@@ -31,4 +30,3 @@ Besides `wa-gap-0`, which sets `gap` to zero, each class corresponds to one of t
 | `wa-gap-xl`  | `--wa-space-xl`  | <div class="wa-cluster wa-gap-xl"><div class="preview-block"></div><div class="preview-block"></div></div>  |
 | `wa-gap-2xl` | `--wa-space-2xl` | <div class="wa-cluster wa-gap-2xl"><div class="preview-block"></div><div class="preview-block"></div></div> |
 | `wa-gap-3xl` | `--wa-space-3xl` | <div class="wa-cluster wa-gap-3xl"><div class="preview-block"></div><div class="preview-block"></div></div> |
-

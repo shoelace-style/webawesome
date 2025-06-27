@@ -7,7 +7,7 @@
  *   // Early return
  *   for (const activeElement of activeElements()) {
  *     if (<cond>) {
- *       break; // Break the loop, dont need to iterate over the whole array or store an array in memory!
+ *       break; // Break the loop, don't need to iterate over the whole array or store an array in memory!
  *     }
  *   }
  */

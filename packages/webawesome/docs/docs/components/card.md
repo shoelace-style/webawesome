@@ -1,8 +1,8 @@
 ---
 title: Card
 description: Cards can be used to group related subjects in a container.
-tags: [organization, layout]
-icon: card
+layout: component
+category: Organization
 ---
 
 ```html {.example}
@@ -115,7 +115,7 @@ If using SSR, you need to also use the `with-media` attribute to add a media sec
   </wa-card>
   <wa-card class="card-media">
     <video slot="media" controls>
-      <source src="https://uploads.webawesome.com/dog-with-glasses.mp4">
+      <source src="https://uploads.webawesome.com/dog-with-glasses.mp4" />
       <p>Your browser doesn't support HTML video</p>
     </video>
     This is a kitten, but not just any kitten. This kitten likes walking along pallets.
@@ -135,25 +135,25 @@ Use the `appearance` attribute to change the card's visual appearance.
 
 ```html {.example}
 <div class="wa-grid">
-<wa-card>
-  <img
-    slot="media"
-    src="https://images.unsplash.com/photo-1559209172-0ff8f6d49ff7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"
-    alt="A kitten sits patiently between a terracotta pot and decorative grasses."
-  />
-  <div slot="header">Outlined (default)</div>
-  Card content.
-</wa-card>
-{% for appearance in ['outlined filled', 'outlined accent', 'plain', 'filled', 'accent'] -%}
-<wa-card appearance="{{ appearance }}">
-  <img
-    slot="media"
-    src="https://images.unsplash.com/photo-1559209172-0ff8f6d49ff7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"
-    alt="A kitten sits patiently between a terracotta pot and decorative grasses."
-  />
-  <div slot="header">{{ appearance | capitalize }}</div>
-  Card content.
-</wa-card>
-{%- endfor %}
+  <wa-card>
+    <img
+      slot="media"
+      src="https://images.unsplash.com/photo-1559209172-0ff8f6d49ff7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"
+      alt="A kitten sits patiently between a terracotta pot and decorative grasses."
+    />
+    <div slot="header">Outlined (default)</div>
+    Card content.
+  </wa-card>
+  {% for appearance in ['outlined filled', 'outlined accent', 'plain', 'filled', 'accent'] -%}
+  <wa-card appearance="{{ appearance }}">
+    <img
+      slot="media"
+      src="https://images.unsplash.com/photo-1559209172-0ff8f6d49ff7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"
+      alt="A kitten sits patiently between a terracotta pot and decorative grasses."
+    />
+    <div slot="header">{{ appearance | capitalize }}</div>
+    Card content.
+  </wa-card>
+  {%- endfor %}
 </div>
 ```

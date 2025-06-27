@@ -1,8 +1,7 @@
 ---
 title: Color Variants
 description: Color utilities allow you to apply the brand, neutral, success, warning, and danger colors from your theme to any element.
-icon: tokens/color
-file: styles/utilities/variants.css
+layout: docs
 ---
 
 Some Web Awesome components, like `<wa-button>`, allow you to change the color by using a `variant` attribute:
@@ -22,7 +21,7 @@ You can create the same effect on any element by using the color variant utility
 - `.wa-danger`
 
 Using these classes is a two-way handshake:
-they do not directly apply styles, but define generic color tokens modeled after our [Semantic Colors](/docs/tokens/color/#semantic-colors) but *without* the group identifier (`neutral`, `brand`, `success`, `warning`, `danger`), defaulting to `neutral`.
+they do not directly apply styles, but define generic color tokens modeled after our [Semantic Colors](/docs/tokens/color/#semantic-colors) but _without_ the group identifier (`neutral`, `brand`, `success`, `warning`, `danger`), defaulting to `neutral`.
 This means that styles can be written to respond to variants by using e.g. `--wa-color-fill-loud` instead of e.g. `--wa-color-brand-fill-loud`,
 and all of our [native styles](/docs/utilities/native/) do so (where it made sense).
 
@@ -38,10 +37,10 @@ This is all we need to do:
 
 <style>
   .callout {
-	background-color: var(--wa-color-fill-quiet);
-	border: 1px solid var(--wa-color-border-quiet);
-	color: var(--wa-color-on-quiet);
-	padding: var(--wa-space-m) var(--wa-space-l);
+    background-color: var(--wa-color-fill-quiet);
+    border: 1px solid var(--wa-color-border-quiet);
+    color: var(--wa-color-on-quiet);
+    padding: var(--wa-space-m) var(--wa-space-l);
   }
 </style>
 ```

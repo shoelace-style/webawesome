@@ -8,15 +8,39 @@
     <script type="module" src="/assets/scripts/scroll.js"></script>
     <script type="module" src="/assets/scripts/turbo.js"></script>
     <script type="module" src="/assets/scripts/search.js"></script>
+    <script type="module" src="/assets/scripts/search-list.js"></script>
     <script type="module" src="/assets/scripts/outline.js"></script>
+    <script type="module" src="/assets/scripts/color-scheme.js"></script>
+    <script type="module" src="/assets/scripts/theme.js"></script>
     {% if hasSidebar %}<script type="module" src="/assets/scripts/sidebar.js"></script>{% endif %}
-    {% if hasSidebar %}<script type="module" src="/assets/scripts/sidebar-tweaks.js"></script>{% endif %}
     <script defer data-domain="backers.webawesome.com" src="https://plausible.io/js/script.js"></script>
 
     {# Docs styles #}
     <link rel="stylesheet" href="/assets/styles/docs.css" />
 
     {% block head %}{% endblock %}
+
+    <script type="module">
+      // Set the initial color scheme before the page renders to prevent flashing
+      const value = localStorage.getItem('color-scheme') || 'auto';
+      const isDark = value === 'dark' || (value === 'auto' && matchMedia('(prefers-color-scheme: dark)').matches);
+      document.documentElement.classList.toggle('wa-dark', isDark);
+    </script>
+
+    <script type="module">
+      // Set the initial theme before the page renders to prevent flashing
+      const savedTheme = localStorage.getItem('theme') || 'default';
+
+      // Update the theme stylesheet link first
+      const themeStylesheet = document.getElementById('theme-stylesheet');
+      if (themeStylesheet) {
+        themeStylesheet.href = `/dist/styles/themes/${savedTheme}.css`;
+      }
+
+      if (savedTheme !== 'default') {
+        document.documentElement.classList.add(`wa-theme-${savedTheme}`);
+      }
+    </script>
   </head>
   <body class="layout-{{ layout | stripExtension }}{{ ' page-wide' if wide }}">
     <!-- use view="desktop" as default to reduce layout jank on desktop site. -->
@@ -40,7 +64,7 @@
         <div id="docs-toolbar" class="wa-cluster wa-gap-xs">
           {# Desktop selectors #}
           <div class="wa-desktop-only wa-cluster wa-gap-xs">
-            {% include "preset-theme-selector.njk" %}
+            {% include "theme-selector.njk" %}
             {% include "color-scheme-selector.njk" %}
           </div>
 
@@ -61,7 +85,7 @@
         {# Mobile selectors #}
         <div class="wa-mobile-only" slot="navigation-header">
           <div class="wa-cluster wa-gap-xs">
-            {% include "preset-theme-selector.njk" %}
+            {% include "theme-selector.njk" %}
             {% include "color-scheme-selector.njk" %}
           </div>
         </div>
@@ -79,7 +103,6 @@
         </aside>
       {% endif %}
 
-
       {# Main #}
       <main id="content">
         {# Expandable outline #}
@@ -94,9 +117,10 @@
         <div id="flashes">{% server "flashes" %}</div>
 
         {% block header %}
-          {% include 'breadcrumbs.njk' %}
           <h1 class="title">{{ title }}</h1>
         {% endblock %}
+
+        {% block beforeContent %}{% endblock %}
 
         {% block content %}
           {{ content | safe }}

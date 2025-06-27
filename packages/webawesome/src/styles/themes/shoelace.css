@@ -1,20 +1,16 @@
-@import url('../color/shoelace.css');
-@import url('../brand/blue.css');
-@import url('../success/green.css');
-@import url('../warning/yellow.css');
-@import url('../danger/red.css');
-@import url('../neutral/gray.css');
-
 @layer wa-theme {
-  :root,
   .wa-theme-shoelace,
-  .wa-light,
-  .wa-dark .wa-invert {
+  .wa-theme-shoelace.wa-light,
+  .wa-theme-shoelace .wa-light,
+  .wa-theme-shoelace.wa-dark .wa-invert,
+  .wa-theme-shoelace .wa-dark .wa-invert,
+  .wa-light .wa-theme-shoelace,
+  .wa-dark .wa-theme-shoelace.wa-invert,
+  .wa-dark .wa-theme-shoelace .wa-invert {
     /* #region Colors (Light) ~~~~~~~~~~~~~~~~~~~~~ */
     color-scheme: light;
     color: var(--wa-color-text-normal);
 
-    /* Foundational Colors */
     --wa-color-surface-raised: white;
     --wa-color-surface-default: white;
     --wa-color-surface-lowered: var(--wa-color-neutral-95);
@@ -38,7 +34,6 @@
     --wa-color-mix-hover: black 10%;
     --wa-color-mix-active: black 20%;
 
-    /* Semantic Colors */
     --wa-color-brand-fill-quiet: var(--wa-color-brand-95);
     --wa-color-brand-fill-normal: var(--wa-color-brand-90);
     --wa-color-brand-fill-loud: var(--wa-color-brand-50);
@@ -91,13 +86,17 @@
     /* #endregion */
   }
 
-  .wa-dark,
-  .wa-invert {
+  .wa-theme-shoelace.wa-dark,
+  .wa-theme-shoelace .wa-dark,
+  .wa-theme-shoelace.wa-invert,
+  .wa-theme-shoelace .wa-invert,
+  .wa-dark .wa-theme-shoelace,
+  .wa-light .wa-theme-shoelace.wa-invert,
+  .wa-light .wa-theme-shoelace .wa-invert {
     /* #region Colors (Dark) ~~~~~~~~~~~~~~~~~~~~~~ */
     color-scheme: dark;
     color: var(--wa-color-text-normal);
 
-    /* Foundational Colors */
     --wa-color-surface-raised: var(--wa-color-neutral-10);
     --wa-color-surface-default: var(--wa-color-neutral-05);
     --wa-color-surface-lowered: color-mix(in oklab, var(--wa-color-surface-default), black 20%);
@@ -121,7 +120,6 @@
     --wa-color-mix-hover: black 8%;
     --wa-color-mix-active: black 16%;
 
-    /* Semantic Colors */
     --wa-color-brand-fill-quiet: var(--wa-color-brand-20);
     --wa-color-brand-fill-normal: var(--wa-color-brand-30);
     --wa-color-brand-fill-loud: var(--wa-color-brand-70);
@@ -174,11 +172,15 @@
     /* #endregion */
   }
 
-  :root,
   .wa-theme-shoelace,
-  .wa-light,
-  .wa-dark,
-  .wa-invert {
+  .wa-theme-shoelace.wa-light,
+  .wa-theme-shoelace .wa-light,
+  .wa-theme-shoelace.wa-dark,
+  .wa-theme-shoelace .wa-dark,
+  .wa-theme-shoelace.wa-invert,
+  .wa-theme-shoelace .wa-invert {
+    font-family: var(--wa-font-family-body);
+
     /* #region Fonts ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
     --wa-font-family-body: ui-sans-serif, system-ui, sans-serif;
     --wa-font-family-heading: var(--wa-font-family-body);
@@ -357,12 +359,8 @@
   }
 }
 
-@layer wa-overrides {
-  :root,
-  .wa-theme-shoelace,
-  .wa-light,
-  .wa-dark,
-  .wa-invert {
+@layer wa-theme-overrides {
+  .wa-theme-shoelace {
     wa-avatar {
       --background-color: var(--wa-color-neutral-fill-loud);
       --text-color: var(--wa-color-neutral-on-loud);

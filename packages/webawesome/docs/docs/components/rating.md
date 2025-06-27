@@ -1,8 +1,8 @@
 ---
 title: Rating
 description: Ratings give users a way to quickly view and provide feedback.
-tags: [inputs, interactive]
-icon: rating
+layout: component
+category: Form Controls
 ---
 
 ```html {.example}
@@ -40,8 +40,8 @@ Use the `precision` attribute to let users select fractional ratings.
 Use the `size` attribute to adjust the size of the rating.
 
 ```html {.example}
-<wa-rating label="Rating" size="small"></wa-rating><br>
-<wa-rating label="Rating" size="medium"></wa-rating><br>
+<wa-rating label="Rating" size="small"></wa-rating><br />
+<wa-rating label="Rating" size="medium"></wa-rating><br />
 <wa-rating label="Rating" size="large"></wa-rating>
 ```
 
@@ -122,8 +122,8 @@ You can provide custom icons by passing a function to the `getSymbol` property.
 <script type="module">
   const rating = document.querySelector('.rating-hearts');
 
-  await customElements.whenDefined("wa-rating")
-  await rating.updateComplete
+  await customElements.whenDefined('wa-rating');
+  await rating.updateComplete;
 
   rating.getSymbol = () => '<wa-icon name="heart" variant="solid"></wa-icon>';
 </script>
@@ -139,8 +139,8 @@ You can also use the `getSymbol` property to render different icons based on val
 <script type="module">
   const rating = document.querySelector('.rating-emojis');
 
-  await customElements.whenDefined("wa-rating")
-  await rating.updateComplete
+  await customElements.whenDefined('wa-rating');
+  await rating.updateComplete;
 
   rating.getSymbol = (value, isSelected) => {
     const icons = ['face-angry', 'face-frown', 'face-meh', 'face-smile', 'face-laugh'];

@@ -1,8 +1,8 @@
 ---
 title: Animation
 description: Animate elements declaratively with nearly 100 baked-in presets, or roll your own with custom keyframes.
-tags: [helpers, primitives]
-icon: animation
+layout: component
+category: Utilities
 ---
 
 To animate an element, wrap it in `<wa-animation>` and set an animation `name`. The animation will not start until you add the `play` attribute. Refer to the [properties table](#properties) for a list of all animation options.
@@ -45,8 +45,7 @@ This example demonstrates all of the baked-in animations and easings. Animations
   <div class="controls">
     <wa-select label="Animation" value="bounce"></wa-select>
     <wa-select label="Easing" value="linear"></wa-select>
-    <wa-input label="Playback Rate" type="number" min="0" max="2" step=".25" value="1">
-    </wa-input>
+    <wa-input label="Playback Rate" type="number" min="0" max="2" step=".25" value="1"> </wa-input>
   </div>
 </div>
 
@@ -64,7 +63,7 @@ This example demonstrates all of the baked-in animations and easings. Animations
   animations.map(name => {
     const option = Object.assign(document.createElement('wa-option'), {
       textContent: name,
-      value: name
+      value: name,
     });
     animationName.appendChild(option);
   });
@@ -72,7 +71,7 @@ This example demonstrates all of the baked-in animations and easings. Animations
   easings.map(name => {
     const option = Object.assign(document.createElement('wa-option'), {
       textContent: name,
-      value: name
+      value: name,
     });
     easingName.appendChild(option);
   });
@@ -156,15 +155,15 @@ Supply your own [keyframe formats](https://developer.mozilla.org/en-US/docs/Web/
       easing: 'cubic-bezier(0.250, 0.460, 0.450, 0.940)',
       fillMode: 'both',
       transformOrigin: 'center center',
-      transform: 'rotate(0)'
+      transform: 'rotate(0)',
     },
     {
       offset: 1,
       easing: 'cubic-bezier(0.250, 0.460, 0.450, 0.940)',
       fillMode: 'both',
       transformOrigin: 'center center',
-      transform: 'rotate(90deg)'
-    }
+      transform: 'rotate(90deg)',
+    },
   ];
 </script>
 
@@ -197,3 +196,4 @@ Animations won't play until you apply the `play` attribute. You can omit it init
     animation.play = true;
   });
 </script>
+```

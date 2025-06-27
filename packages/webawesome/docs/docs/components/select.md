@@ -1,9 +1,8 @@
 ---
 title: Select
 description: Selects allow you to choose items from a menu of predefined options.
-tags: [inputs, forms]
-native: select
-icon: select
+layout: component
+category: Form Controls
 ---
 
 ```html {.example}

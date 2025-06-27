@@ -199,9 +199,6 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
   /** Draws markers at each step along the slider. */
   @property({ attribute: 'with-markers', type: Boolean }) withMarkers = false;
 
-  /** Renders the slider with the `references` slot. */
-  @property({ attribute: 'with-references', type: Boolean, reflect: true }) withReferences = false;
-
   /** Draws a tooltip above the thumb when the control has focus or is dragged. */
   @property({ attribute: 'with-tooltip', type: Boolean }) withTooltip = false;
 
@@ -774,6 +771,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
   render() {
     const hasLabel = this.hasSlotController.test('label');
     const hasHint = this.hasSlotController.test('hint');
+    const hasReference = this.hasSlotController.test('reference');
 
     const sliderClasses = classMap({
       small: this.size === 'small',
@@ -817,7 +815,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
         `
       : '';
 
-    const referencesTemplate = this.withReferences
+    const referencesTemplate = hasReference
       ? html`
           <div id="references" part="references" aria-hidden="true">
             <slot name="reference"></slot>

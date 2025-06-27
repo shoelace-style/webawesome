@@ -4,9 +4,9 @@ import { sendKeys } from '@web/test-runner-commands'; // must come from the same
 import { html } from 'lit';
 import sinon from 'sinon';
 import { serialize } from '../../../dist-cdn/webawesome.js';
-import { isSafari } from '../../internal/test.js';
 import { fixtures } from '../../internal/test/fixture.js';
 import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
+import { isSafari } from '../../internal/test/pointer-utilities.js';
 import type WaInput from './input.js';
 
 describe('<wa-input>', () => {

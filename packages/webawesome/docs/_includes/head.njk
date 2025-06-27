@@ -17,51 +17,13 @@
 
 <link rel="icon" href="/assets/images/webawesome-logo.svg" />
 <link rel="apple-touch-icon" href="/assets/images/app-icon.png">
-
-{# Scripts #}
-{# Hydration stuff #}
-<script src="/assets/scripts/hydration-errors.js"></script>
-<link rel="stylesheet" href="/assets/styles/hydration-errors.css">
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
-
-{# Internal components #}
-<script type="module" src="/assets/components/scoped.js"></script>
-
-{# Web Awesome #}
 <script type="module" src="/dist/webawesome.loader.js"></script>
 
-{# Fallback loading when using the free repo #}
-<link rel="preconnect" href="https://early.webawesome.com">
-<script type="module">
-  document.addEventListener("wa-discovery-complete", loadLayout)
-  function loadLayout () {
-    if (!customElements.get("wa-page")) {
-      import("https://early.webawesome.com/webawesome@3.0.0-alpha.13/dist/components/page/page.js")
-        .catch((e) => {
-          console.error(e)
-        // known errors with dual registration. This is only a thing in the free repo.
-        })
-    }
-  }
-</script>
-
-<script type="module" src="/assets/scripts/theme-picker.js"></script>
-{# Preset Theme #}
-{% if noTheme %}
-{% elif forceTheme %}
-<link id="theme-stylesheet" rel="stylesheet" id="theme-stylesheet" href="/dist/styles/themes/{{ forceTheme }}.css" render="blocking" fetchpriority="high" />
-{% else %}
-<noscript><link id="theme-stylesheet" rel="stylesheet" id="theme-stylesheet" href="/dist/styles/themes/default.css" render="blocking" fetchpriority="high" /></noscript>
-<script>
-{
-	let preset = localStorage.presetTheme ?? 'default';
-	let script = document.currentScript;
-	script.insertAdjacentHTML('beforebegin', `<link id="theme-stylesheet" rel="stylesheet" id="theme-stylesheet" href="/dist/styles/themes/${ preset }.css" render="blocking" fetchpriority="high" />`);
-}
-</script>
-<script type="module" src="/assets/scripts/preset-theme-picker.js"></script>
-{% endif %}
-
+<link id="theme-stylesheet" rel="stylesheet" href="/dist/styles/themes/default.css" render="blocking" fetchpriority="high" />
+{% for palette in themer.palettes %}
+	<link rel="stylesheet" href="/dist/styles/color/palettes/{{palette.filename}}" />
+{% endfor %}
 <link rel="stylesheet" href="/dist/styles/webawesome.css" />
 
 {# Used by Web Awesome App to inject other assets into the head. #}

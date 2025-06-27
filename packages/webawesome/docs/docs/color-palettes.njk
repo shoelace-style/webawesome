@@ -1,0 +1,256 @@
+---
+title: Color Palettes
+description: 'Color palettes give you a full spectrum of colors to add life to your project.'
+layout: page
+isPro: true
+---
+
+<p>Color palettes give you a full spectrum of colors to add life to your project.</p>
+
+<p>Each palette defines 10 color hues with a scale of 11 tints. While the tints have consistent lightness values across palettes, each palette has unique hue shifts and chroma to give it unique character so you can find just the right vibe to your project.</p>
+
+{% for palette in themer.palettes %}
+  <link rel="stylesheet" href="/dist/styles/color/palettes/{{palette.filename}}" />
+{% endfor %}
+
+<div id="color-palettes">
+  <wa-radio-group id="palette-picker" label="Color Palette" value="default" orientation="horizontal">
+    {% for palette in themer.palettes %}
+      <wa-radio class="palette-card" value="{{ palette.name | lower }}">{{ palette.name }}</wa-radio>
+    {% endfor %}
+  </wa-radio-group>
+
+  {% for color in themer.colors %}
+  <div class="palette">
+    <div class="palette-label">{{ color }}</div>
+    <div class="palette-swatches">
+      {% for tint in themer.tints %}
+      <wa-copy-button
+        class="palette-swatch"
+        copy-label="{{ color }} {{ tint }}"
+        value="var(--wa-color-{{ color }}-{{ tint }})"
+        style="--color: var(--wa-color-{{ color }}-{{ tint }}); --tint: '{{ tint }}'"
+      >
+        <span class="sr-only">--wa-color-{{ color }}-{{ tint }}</span>
+      </wa-copy-button>
+      {% endfor %}
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<h2>Using This Palette</h2>
+<div id="import-code">
+  {% for palette in themer.palettes %}
+  <div class="palette-instructions" data-palette="{{ palette.name | lower }}" {% if not loop.first %}hidden{% endif %}>
+    <p>
+      To import this palette, set <code>&lt;html class=&quot;wa-theme-{{ palette.name | lower }}&quot;&gt;</code> and import the following stylesheet:
+    </p>
+    <pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;{% cdnUrl %}styles/color/palettes/{{ palette.filename }}&quot; /&gt;</code></pre>
+  </div>
+  {% endfor %}
+</div>
+
+<script type="module">
+  const paletteContainer = document.getElementById('color-palettes');
+  const palettePicker = document.getElementById('palette-picker');
+
+  // Set first radio as checked and add initial theme class
+  const firstRadio = palettePicker.querySelector('wa-radio');
+  if (firstRadio) {
+    firstRadio.checked = true;
+    paletteContainer.classList.add(`wa-palette-${firstRadio.value}`);
+  }
+
+  // Listen for radio changes
+  palettePicker.addEventListener('input', function(event) {
+    const selectedValue = event.target.value;
+
+    // Update palette container class
+    const existingThemeClasses = [...paletteContainer.classList].filter(className => className.startsWith('wa-palette-'));
+    existingThemeClasses.forEach(className => paletteContainer.classList.remove(className));
+    paletteContainer.classList.add(`wa-palette-${selectedValue}`);
+
+    // Show/hide appropriate instructions
+    document.querySelectorAll('.palette-instructions').forEach(instruction => {
+      instruction.hidden = instruction.dataset.palette !== selectedValue;
+    });
+  });
+</script>
+
+<style>
+  wa-page > main {
+    max-width: 120ch;
+    margin-inline: auto;
+  }
+
+  #color-palettes {
+    margin-block-end: var(--wa-space-xl);
+  }
+
+  #palette-picker {
+    margin-bottom: var(--wa-space-l);
+
+    &::part(form-control-input) {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: var(--wa-space-s);
+    }
+
+    &::part(form-control-label) {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      clip: rect(0 0 0 0);
+      clip-path: inset(50%);
+      border: none;
+      overflow: hidden;
+      white-space: nowrap;
+      padding: 0;
+   }
+  }
+
+  .palette-card {
+    --border-radius: var(--wa-border-radius-m);
+    --spacing: var(--wa-space-s) var(--wa-space-m);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: var(--wa-space-3xl);
+    padding: var(--spacing);
+    background-color: var(--wa-color-surface-default);
+    border: 1px solid var(--wa-color-surface-border);
+    border-radius: var(--border-radius);
+    box-shadow: var(--wa-shadow-s);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+    font-weight: var(--wa-font-weight-action);
+    text-transform: capitalize;
+  }
+
+  .palette-card:state(checked) {
+    border-color: var(--wa-color-brand-border-loud);
+    background-color: var(--wa-color-brand-fill-quiet);
+    color: var(--wa-color-brand-text-loud);
+  }
+
+  .palette-card::part(control) {
+    display: none;
+  }
+
+  .palette-card::part(label) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 0;
+  }
+
+  .palette {
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+    align-items: center;
+    gap: var(--wa-space-m);
+    margin-bottom: var(--wa-space-s);
+    width: 100%;
+    padding-top: var(--wa-space-l);
+  }
+
+  .palette-label {
+    font-weight: var(--wa-font-weight-bold);
+    text-transform: capitalize;
+    font-size: var(--wa-font-size-s);
+    color: var(--wa-color-text-normal);
+  }
+
+  .palette-swatches {
+    display: grid;
+    grid-template-columns: repeat(11, 1fr);
+    gap: var(--wa-space-3xs);
+  }
+
+  .palette-swatch {
+    padding: 0;
+    aspect-ratio: 1.75 / 1; /* Wider than tall on desktop */
+    position: relative;
+
+    &::before {
+      content: var(--tint);
+      position: absolute;
+      top: calc(-1 * var(--wa-space-l));
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: var(--wa-font-size-xs);
+      color: var(--wa-color-text-quiet);
+      font-weight: var(--wa-font-weight-action);
+      text-align: center;
+      z-index: 2;
+    }
+
+    &::part(button) {
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+      background-color: var(--color);
+      border-radius: var(--wa-border-radius-m);
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+    }
+
+    &:hover::part(button) {
+      transform: scale(1.075);
+      box-shadow: var(--wa-shadow-s);
+      z-index: 1;
+      position: relative;
+    }
+
+    &::part(copy-icon),
+    &::part(success-icon),
+    &::part(error-icon) {
+      visibility: hidden;
+    }
+  }
+
+  /* Smaller screens */
+  @media (max-width: 768px) {
+    .palette {
+      grid-template-columns: 3.75rem 1fr;
+      gap: var(--wa-space-s);
+      margin-bottom: var(--wa-space-m);
+      padding-top: var(--wa-space-xl);
+    }
+
+    .palette-label {
+      font-size: var(--wa-font-size-xs);
+    }
+
+    .palette-swatches {
+      grid-template-columns: repeat(6, 1fr); /* Two rows on mobile */
+      gap: var(--wa-space-2xs);
+      row-gap: var(--wa-space-l);
+    }
+
+    .palette-swatch {
+      aspect-ratio: 1 / 1; /* Square on mobile */
+
+      &::before {
+        font-size: var(--wa-font-size-2xs);
+        top: calc(-1 * var(--wa-space-m));
+      }
+    }
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+</style>

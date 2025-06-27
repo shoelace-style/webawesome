@@ -1,8 +1,8 @@
 ---
 title: Carousel
 description: Carousels display an arbitrary number of content slides along a horizontal or vertical axis.
-tags: [imagery, disclosure]
-icon: carousel
+layout: component
+category: Imagery
 ---
 
 ```html {.example}
@@ -536,7 +536,11 @@ The carousel has a robust API that makes it possible to extend and customize. Th
 
 <div class="thumbnails">
   <div class="scroller">
-    <img alt="Thumbnail by 1" class="image active" src="https://images.unsplash.com/photo-1426604966848-d7adac402bff?q=10" />
+    <img
+      alt="Thumbnail by 1"
+      class="image active"
+      src="https://images.unsplash.com/photo-1426604966848-d7adac402bff?q=10"
+    />
     <img alt="Thumbnail by 2" class="image" src="https://images.unsplash.com/photo-1473448912268-2022ce9509d8?q=10" />
     <img alt="Thumbnail by 3" class="image" src="https://images.unsplash.com/photo-1499002238440-d264edd596ec?q=10" />
     <img alt="Thumbnail by 4" class="image" src="https://images.unsplash.com/photo-1475113548554-5a36f1f523d6?q=10" />
@@ -606,7 +610,7 @@ The carousel has a robust API that makes it possible to extend and customize. Th
         thumb.classList.toggle('active', i === slideIndex);
         if (i === slideIndex) {
           thumb.scrollIntoView({
-            block: 'nearest'
+            block: 'nearest',
           });
         }
       });

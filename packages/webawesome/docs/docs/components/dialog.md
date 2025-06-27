@@ -1,10 +1,8 @@
 ---
 title: Dialog
 description: 'Dialogs, sometimes called "modals", appear above the page and require the user''s immediate attention.'
-tags: [organization, apps, disclosure]
-icon: dialog
-native: dialog
-keywords: modal
+layout: component
+category: Organization
 ---
 
 <!-- cspell:dictionaries lorem-ipsum -->
@@ -21,7 +19,7 @@ keywords: modal
   const dialog = document.querySelector('#dialog-overview');
   const openButton = dialog.nextElementSibling;
 
-  openButton.addEventListener('click', () => dialog.open = true);
+  openButton.addEventListener('click', () => (dialog.open = true));
 </script>
 ```
 
@@ -43,7 +41,7 @@ Headers are enabled by default. To render a dialog without a header, add the `wi
   const dialog = document.querySelector('.dialog-without-header');
   const openButton = dialog.nextElementSibling;
 
-  openButton.addEventListener('click', () => dialog.open = true);
+  openButton.addEventListener('click', () => (dialog.open = true));
 </script>
 ```
 
@@ -63,7 +61,7 @@ Footers can be used to display titles and more. Use the `footer` slot to add a f
   const dialog = document.querySelector('.dialog-footer');
   const openButton = dialog.nextElementSibling;
 
-  openButton.addEventListener('click', () => dialog.open = true);
+  openButton.addEventListener('click', () => (dialog.open = true));
 </script>
 ```
 
@@ -107,7 +105,7 @@ Just use the `--width` custom property to set the dialog's width.
   const dialog = document.querySelector('.dialog-width');
   const openButton = dialog.nextElementSibling;
 
-  openButton.addEventListener('click', () => dialog.open = true);
+  openButton.addEventListener('click', () => (dialog.open = true));
 </script>
 ```
 
@@ -129,7 +127,7 @@ By design, a dialog's height will never exceed that of the viewport. As such, di
   const dialog = document.querySelector('.dialog-scrolling');
   const openButton = dialog.nextElementSibling;
 
-  openButton.addEventListener('click', () => dialog.open = true);
+  openButton.addEventListener('click', () => (dialog.open = true));
 </script>
 ```
 
@@ -153,7 +151,7 @@ The header shows a functional close button by default. You can use the `header-a
   const openButton = dialog.nextElementSibling;
   const newWindowButton = dialog.querySelector('.new-window');
 
-  openButton.addEventListener('click', () => dialog.open = true);
+  openButton.addEventListener('click', () => (dialog.open = true));
   newWindowButton.addEventListener('click', () => window.open(location.href));
 </script>
 ```
@@ -174,7 +172,7 @@ If you want the dialog to close when the user clicks on the overlay, add the `li
   const dialog = document.querySelector('.dialog-light-dismiss');
   const openButton = dialog.nextElementSibling;
 
-  openButton.addEventListener('click', () => dialog.open = true);
+  openButton.addEventListener('click', () => (dialog.open = true));
 </script>
 ```
 
@@ -199,7 +197,7 @@ You can use `event.detail.source` to determine which element triggered the reque
   const openButton = dialog.nextElementSibling;
   const closeButton = dialog.querySelector('wa-button[slot="footer"]');
 
-  openButton.addEventListener('click', () => dialog.open = true);
+  openButton.addEventListener('click', () => (dialog.open = true));
 
   // Prevent the dialog from closing unless the close button was clicked
   dialog.addEventListener('wa-hide', event => {
@@ -227,6 +225,6 @@ To give focus to a specific element when the dialog opens, use the `autofocus` a
   const input = dialog.querySelector('wa-input');
   const openButton = dialog.nextElementSibling;
 
-  openButton.addEventListener('click', () => dialog.open = true);
+  openButton.addEventListener('click', () => (dialog.open = true));
 </script>
 ```

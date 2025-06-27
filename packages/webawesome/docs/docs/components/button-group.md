@@ -1,8 +1,8 @@
 ---
 title: Button Group
 description: Button groups can be used to group related buttons into sections.
-tags: [actions, forms, apps]
-icon: button-group
+layout: component
+category: Actions
 ---
 
 ```html {.example}

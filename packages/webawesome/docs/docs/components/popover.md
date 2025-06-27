@@ -1,6 +1,8 @@
 ---
 title: Popover
+description: Popovers display interactive content when their anchor element is clicked.
 layout: component
+category: Utilities
 ---
 
 Popovers display interactive content when their anchor element is clicked. Unlike [tooltips](/docs/components/tooltip), popovers can contain links, buttons, and form controls. They appear without an overlay and will close when you click outside or press [[Escape]]. Only one popover can be open at a time.
@@ -25,17 +27,13 @@ Use `<wa-button>` or `<button>` elements as popover anchors. Connect the popover
 ```html {.example}
 <wa-button id="popover__anchor-button">Show Popover</wa-button>
 
-<wa-popover for="popover__anchor-button">
-  I'm anchored to a Web Awesome button.
-</wa-popover>
+<wa-popover for="popover__anchor-button"> I'm anchored to a Web Awesome button. </wa-popover>
 
-<br><br>
+<br /><br />
 
 <button id="popover__anchor-native-button">Show Popover</button>
 
-<wa-popover for="popover__anchor-native-button">
-  I'm anchored to a native button.
-</wa-popover>
+<wa-popover for="popover__anchor-native-button"> I'm anchored to a native button. </wa-popover>
 ```
 
 :::warning
@@ -123,16 +121,8 @@ Use the [`autofocus`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_a
 ```html {.example}
 <wa-popover for="popover__autofocus">
   <div style="display: flex; flex-direction: column; gap: 1rem;">
-    <wa-textarea 
-      autofocus
-      placeholder="What's on your mind?"
-      size="small" 
-      resize="none"
-      rows="3"
-    ></wa-textarea>
-    <wa-button variant="primary" size="small" data-popover="close">
-      Submit
-    </wa-button>
+    <wa-textarea autofocus placeholder="What's on your mind?" size="small" resize="none" rows="3"></wa-textarea>
+    <wa-button variant="primary" size="small" data-popover="close"> Submit </wa-button>
   </div>
 </wa-popover>
 

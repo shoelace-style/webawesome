@@ -1,8 +1,8 @@
 ---
 title: Dropdown
 description: 'Dropdowns expose additional content that "drops down" in a panel.'
-tags: [actions, apps]
-icon: dropdown
+layout: component
+category: Actions
 ---
 
 Dropdowns consist of a trigger and a panel. By default, activating the trigger will expose the panel and interacting outside of the panel will close it.

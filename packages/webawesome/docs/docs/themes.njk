@@ -1,0 +1,263 @@
+---
+title: Themes
+description: Themes galore
+layout: page
+isPro: true
+---
+
+<div class="wa-stack wa-gap-3xl">
+
+  <div class="wa-split">
+    <h1>{{ title }}</h1>
+    <wa-button variant="brand" href="/themer">
+      <wa-icon slot="start" name="plus" variant="regular"></wa-icon>
+      Create a Theme
+    </wa-button>
+  </div>
+
+  <div id="theme-viewer">
+    <wa-radio-group id="theme-picker" label="Theme Selector" value="default" orientation="horizontal">
+      {% for theme in themer.themes %}
+        <wa-radio
+          class="theme-card"
+          value="{{ theme.filename | stripExtension }}"
+          data-description="{{ theme.description }}"
+          data-title="{{ theme.name }}"
+          {% if theme.isPro %}data-is-pro{% endif %}
+        >
+          {{ theme.name }}
+        </wa-radio>
+      {% endfor %}
+    </wa-radio-group>
+  </div>
+
+  <div id="theme-preview" class="wa-stack">
+    <header class="wa-stack">
+      <div class="wa-cluster">
+        <h2 data-theme-name="name">Theme</h2>
+        <wa-badge data-free-badge appearance="outlined" variant="neutral" hidden>FREE</wa-badge>
+        <wa-badge data-pro-badge appearance="accent" hidden>PRO</wa-badge>
+      </div>
+      <p data-theme-description>Description</p>
+    </header>
+    <wa-comparison position="80">
+      <wa-zoomable-frame
+        src="/examples/themes/showcase?color-scheme=dark"
+        slot="before"
+        without-controls
+        without-interaction
+      ></wa-zoomable-frame>
+      <wa-zoomable-frame
+        src="/examples/themes/showcase"
+        slot="after"
+        without-controls
+        without-interaction
+      ></wa-zoomable-frame>
+    </wa-comparison>
+  </div>
+
+  <h2>Using This Theme</h2>
+  <div id="import-code">
+    {% for theme in themer.themes %}
+    <div class="theme-instructions" data-theme="{{ theme.filename | stripExtension }}" {% if not loop.first %}hidden{% endif %}>
+      <p>
+        To import this theme, set <code>&lt;html class=&quot;wa-theme-{{ theme.filename | stripExtension }}&quot;&gt;</code> and import the following stylesheet:
+      </p>
+      <pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;{% cdnUrl %}styles/themes/{{ theme.filename }}&quot; /&gt;</code></pre>
+    </div>
+    {% endfor %}
+  </div>
+
+</div>
+
+<script type="module">
+  import { doViewTransition } from '/assets/scripts/view-transitions.js';
+
+  const themePicker = document.getElementById('theme-picker');
+  const afterFrame = document.querySelector('wa-zoomable-frame[slot="after"]');
+  const beforeFrame = document.querySelector('wa-zoomable-frame[slot="before"]');
+  const nameElement = document.querySelector('[data-theme-name]');
+  const descriptionElement = document.querySelector('[data-theme-description]');
+  const freeBadge = document.querySelector('[data-free-badge]');
+  const proBadge = document.querySelector('[data-pro-badge]');
+
+  function updateFrames(selectedValue, title, description, isPro) {
+    // Update theme classes on both frames
+    [afterFrame, beforeFrame].forEach(frame => {
+      if (frame.contentDocument) {
+        const html = frame.contentDocument.documentElement;
+        if (!html) return;
+
+        // Remove all existing wa-theme-* classes
+        html.classList.forEach(className => {
+          if (className.startsWith('wa-theme-')) {
+            html.classList.remove(className);
+          }
+        });
+
+        // Add new theme class if not default
+        if (selectedValue !== 'default') {
+          html.classList.add(`wa-theme-${selectedValue}`);
+        }
+      }
+    });
+
+    // Update header elements directly
+    if (nameElement && title) {
+      nameElement.textContent = title;
+    }
+    if (descriptionElement && description) {
+      descriptionElement.textContent = description;
+    }
+
+    freeBadge.hidden = isPro;
+    proBadge.hidden = !isPro;
+
+    // Show/hide appropriate instructions
+    document.querySelectorAll('.theme-instructions').forEach(instruction => {
+      instruction.hidden = instruction.dataset.theme !== selectedValue;
+    });
+  }
+
+  // Set default radio as checked and initialize frames
+  const defaultRadio = themePicker.querySelector('wa-radio[value="default"]');
+  if (defaultRadio) {
+    defaultRadio.checked = true;
+    const title = defaultRadio.getAttribute('data-title');
+    const description = defaultRadio.getAttribute('data-description');
+    const isPro = defaultRadio.hasAttribute('data-is-pro');
+    updateFrames('default', title, description, isPro);
+  }
+
+  // Listen for radio changes
+  themePicker.addEventListener('input', function(event) {
+    const selectedRadio = event.target.querySelector(':state(checked)');
+    const title = selectedRadio.getAttribute('data-title');
+    const description = selectedRadio.getAttribute('data-description');
+    const isPro = selectedRadio.hasAttribute('data-is-pro');
+    doViewTransition(() => {
+      updateFrames(selectedRadio.value, title, description, isPro);
+    });
+  });
+</script>
+
+<style>
+  [hidden] {
+    display: none !important;
+  }
+
+  .title {
+    display: none;
+  }
+
+  #theme-preview {
+    header {
+      p {
+        font-size: var(--wa-font-size-s);
+      }
+    }
+  }
+
+  wa-page > main {
+    max-width: 140ch;
+    margin-inline: auto;
+  }
+
+  wa-comparison {
+    --handle-color: black;
+    --divider-color: white;
+    --divider-width: 4px;
+
+    &::part(before) {
+      border-radius: var(--wa-border-radius-m);
+      background-color: white;
+    }
+
+    &::part(after) {
+      border-radius: var(--wa-border-radius-m);
+      background-color: var(--wa-color-surface-default);
+    }
+  }
+
+  wa-zoomable-frame {
+    aspect-ratio: 5 / 3;
+  }
+
+  #theme-viewer {
+    #theme-picker {
+
+      &::part(form-control-input) {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: var(--wa-space-s);
+      }
+
+      &::part(form-control-label) {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        clip: rect(0 0 0 0);
+        clip-path: inset(50%);
+        border: none;
+        overflow: hidden;
+        white-space: nowrap;
+        padding: 0;
+      }
+    }
+
+    .theme-card {
+      --border-radius: var(--wa-border-radius-m);
+      --spacing: var(--wa-space-s) var(--wa-space-m);
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: var(--wa-space-3xl);
+      padding: var(--spacing);
+      border: 1px solid var(--wa-color-surface-border);
+      border-radius: var(--border-radius);
+      box-shadow: var(--wa-shadow-s);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+      font-weight: var(--wa-font-weight-action);
+      text-transform: capitalize;
+
+      &:state(checked) {
+        border-color: var(--wa-color-brand-border-loud);
+        background-color: var(--wa-color-brand-fill-quiet);
+        color: var(--wa-color-brand-text-loud);
+      }
+
+      &::part(control) {
+        display: none;
+      }
+
+      &::part(label) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        margin: 0;
+      }
+    }
+  }
+
+  /* Smaller screens */
+  @media (max-width: 768px) {
+    #theme-viewer {
+      padding: var(--wa-space-m);
+
+      #theme-picker::part(form-control-input) {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--wa-space-xs);
+      }
+
+      .theme-card {
+        min-height: var(--wa-space-2xl);
+        font-size: var(--wa-font-size-s);
+      }
+    }
+  }
+</style>

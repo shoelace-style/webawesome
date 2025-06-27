@@ -2,7 +2,7 @@
 (async () => {
   const hostname = new URL(document.baseURI).hostname;
 
-  // Only diff on localhost. We dont need to show hydration errors on main site. Only locally.
+  // Only diff on localhost. We don't need to show hydration errors on main site. Only locally.
   if (hostname !== 'localhost') {
     return;
   }

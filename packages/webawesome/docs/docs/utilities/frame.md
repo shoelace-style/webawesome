@@ -1,9 +1,7 @@
 ---
 title: Frame
 description: 'Use the `wa-frame` class to create a responsive container with consistent proportions to enclose content.'
-tags: ["utilities", "layout"]
-layout: element
-icon: layout/frame
+layout: docs
 ---
 
 <style>
@@ -33,7 +31,7 @@ Frames are well-suited for images and image placeholders.
 ```html {.example}
 <div class="wa-flank" style="--flank-size: 8rem;">
   <div class="wa-frame wa-border-radius-m">
-    <img src="https://images.unsplash.com/photo-1523593288094-3ccfb6b2c192?q=20" alt=""/>
+    <img src="https://images.unsplash.com/photo-1523593288094-3ccfb6b2c192?q=20" alt="" />
   </div>
   <div class="wa-flank:end" style="--content-percentage: 70%">
     <div class="wa-stack wa-gap-xs">
@@ -141,6 +139,7 @@ Frames have a square aspect ratio by default. You can append `:square` (1 / 1), 
 ## Border Radius
 
 Frames have a square border radius by default. You can add any of the following [`wa-border-radius-*`](/docs/style-utilities/border-radius) classes to an element with `wa-frame` to specify the border radius:
+
 - `wa-border-radius-s`
 - `wa-border-radius-m`
 - `wa-border-radius-l`

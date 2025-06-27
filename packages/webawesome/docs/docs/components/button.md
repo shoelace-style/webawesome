@@ -1,9 +1,8 @@
 ---
 title: Button
 description: Buttons represent actions that are available to the user.
-tags: [actions, forms]
-native: button
-icon: button
+layout: component
+category: Actions
 ---
 
 ```html {.example}

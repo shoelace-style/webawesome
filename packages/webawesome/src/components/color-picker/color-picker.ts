@@ -72,12 +72,12 @@ declare const EyeDropper: EyeDropperConstructor;
  * @csspart opacity-slider-handle - The opacity slider's handle.
  * @csspart preview - The preview color.
  * @csspart input - The text input.
- * @csspart eye-dropper-button - The eye dropper button.
- * @csspart eye-dropper-button__base - The eye dropper button's exported `button` part.
- * @csspart eye-dropper-button__start - The eye dropper button's exported `start` part.
- * @csspart eye-dropper-button__label - The eye dropper button's exported `label` part.
- * @csspart eye-dropper-button__end - The eye dropper button's exported `end` part.
- * @csspart eye-dropper-button__caret - The eye dropper button's exported `caret` part.
+ * @csspart eyedropper-button - The eye dropper button.
+ * @csspart eyedropper-button__base - The eye dropper button's exported `button` part.
+ * @csspart eyedropper-button__start - The eye dropper button's exported `start` part.
+ * @csspart eyedropper-button__label - The eye dropper button's exported `label` part.
+ * @csspart eyedropper-button__end - The eye dropper button's exported `end` part.
+ * @csspart eyedropper-button__caret - The eye dropper button's exported `caret` part.
  * @csspart format-button - The format button.
  * @csspart format-button__base - The format button's exported `button` part.
  * @csspart format-button__start - The format button's exported `start` part.
@@ -866,7 +866,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
   }
 
   private reportValidityAfterShow = () => {
-    // Remove the event so we dont emit "wa-invalid" twice
+    // Remove the event so we don't emit "wa-invalid" twice
     this.removeEventListener('invalid', this.emitInvalid);
 
     this.reportValidity();
@@ -1227,15 +1227,15 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
             ${this.hasEyeDropper
               ? html`
                   <wa-button
-                    part="eye-dropper-button"
+                    part="eyedropper-button"
                     size="small"
                     appearance="outlined"
                     exportparts="
-                      base:eye-dropper-button__base,
-                      start:eye-dropper-button__start,
-                      label:eye-dropper-button__label,
-                      end:eye-dropper-button__end,
-                      caret:eye-dropper-button__caret
+                      base:eyedropper-button__base,
+                      start:eyedropper-button__start,
+                      label:eyedropper-button__label,
+                      end:eyedropper-button__end,
+                      caret:eyedropper-button__caret
                     "
                     @click=${this.handleEyeDropper}
                     @blur=${this.stopNestedEventPropagation}
@@ -1243,7 +1243,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
                   >
                     <wa-icon
                       library="system"
-                      name="eye-dropper"
+                      name="eyedropper"
                       variant="solid"
                       label=${this.localize.term('selectAColorFromTheScreen')}
                     ></wa-icon>

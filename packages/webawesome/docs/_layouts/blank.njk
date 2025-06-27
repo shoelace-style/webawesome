@@ -5,14 +5,8 @@
     {% block head %}{% endblock %}
   </head>
   <body class="layout-{{ layout | stripExtension }}">
-
-        {% block header %}{% endblock %}
-
-        {% block content %}
-          {{ content | safe }}
-        {% endblock %}
-
-        {% block afterContent %}{% endblock %}
-
+    {% block content %}
+      {{ content | safe }}
+    {% endblock %}
   </body>
 </html>

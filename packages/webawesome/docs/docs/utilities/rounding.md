@@ -1,7 +1,7 @@
 ---
 title: Rounding Utilities
 description: Border radius utilities set an element's border radius property.
-tags: ["utilities"]
+layout: docs
 ---
 
 <style>
@@ -17,10 +17,9 @@ Each class corresponds to one of the [`--wa-border-radius-*`](/docs/tokens/borde
 
 | Class Name                | `border-radius` Value       | Preview                                                                                 |
 | ------------------------- | --------------------------- | --------------------------------------------------------------------------------------- |
-| `wa-border-radius-s`     | `--wa-border-radius-s`     | <div class="preview-block" style="border-radius: var(--wa-border-radius-s)"></div>     |
+| `wa-border-radius-s`      | `--wa-border-radius-s`      | <div class="preview-block" style="border-radius: var(--wa-border-radius-s)"></div>      |
 | `wa-border-radius-m`      | `--wa-border-radius-m`      | <div class="preview-block" style="border-radius: var(--wa-border-radius-m)"></div>      |
 | `wa-border-radius-l`      | `--wa-border-radius-l`      | <div class="preview-block" style="border-radius: var(--wa-border-radius-l)"></div>      |
 | `wa-border-radius-pill`   | `--wa-border-radius-pill`   | <div class="preview-block" style="border-radius: var(--wa-border-radius-pill)"></div>   |
 | `wa-border-radius-circle` | `--wa-border-radius-circle` | <div class="preview-block" style="border-radius: var(--wa-border-radius-circle)"></div> |
 | `wa-border-radius-square` | `--wa-border-radius-square` | <div class="preview-block" style="border-radius: var(--wa-border-radius-square)"></div> |
-

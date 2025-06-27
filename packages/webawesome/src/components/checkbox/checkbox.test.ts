@@ -2,9 +2,9 @@ import { aTimeout, expect, oneEvent, waitUntil } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import sinon from 'sinon';
-import { clickOnElement } from '../../internal/test.js';
 import { fixtures } from '../../internal/test/fixture.js';
 import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
+import { clickOnElement } from '../../internal/test/pointer-utilities.js';
 import type WaCheckbox from './checkbox.js';
 
 describe('<wa-checkbox>', () => {

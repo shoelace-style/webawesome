@@ -5,8 +5,8 @@ import { map } from 'lit/directives/map.js';
 import { range } from 'lit/directives/range.js';
 import type { SinonStub } from 'sinon';
 import sinon from 'sinon';
-import { clickOnElement, dragElement, moveMouseOnElement } from '../../internal/test.js';
 import { clientFixture } from '../../internal/test/fixture.js';
+import { clickOnElement, dragElement, moveMouseOnElement } from '../../internal/test/pointer-utilities.js';
 import type WaCarousel from './carousel.js';
 
 describe('<wa-carousel>', () => {

@@ -1,7 +1,7 @@
 import { expect, oneEvent } from '@open-wc/testing';
 import { html } from 'lit';
-import { clickOnElement } from '../../internal/test.js';
 import { clientFixture } from '../../internal/test/fixture.js';
+import { clickOnElement } from '../../internal/test/pointer-utilities.js';
 import type WaAnimatedImage from './animated-image.js';
 
 describe('<wa-animated-image>', () => {

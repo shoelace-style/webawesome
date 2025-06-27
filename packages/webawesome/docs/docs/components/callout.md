@@ -1,9 +1,8 @@
 ---
 title: Callout
 description: Callouts are used to display important messages inline.
-tags: [feedback, content]
-icon: callout
-native: callout
+layout: component
+category: Feedback & Status
 ---
 
 ```html {.example}
@@ -135,5 +134,6 @@ Icons are optional. Simply omit the `icon` slot if you don't want them.
 ### Styling
 
 You can customize the callout's appearance mostly by setting regular CSS properties:
+
 - `background`, `border`, `border-radius`, `color`, `padding`, `margin`, etc. work as expected
 - `gap` sets the space between the icon and the content
