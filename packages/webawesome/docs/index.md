@@ -283,7 +283,7 @@ layout: page
           <wa-icon name="sparkles" variant="regular" fixed-width></wa-icon>
           <h3>Rise and shine, backers!</h3>
         </div>
-        <p>Dig in to your exclusive Web Awesome Beta access. This beta is battle-tested and built to last, but if you see something, say something. Please <a href="https://github.com/shoelace-style/webawesome/issues">report bugs</a> or <a href="https://github.com/shoelace/webawesome/discussions">ask for help</a>!</p>
+        <p>Dig in to your exclusive Web Awesome Beta access. This beta is battle-tested and built to last, but if you see something, say something. Please <a href="https://github.com/shoelace-style/webawesome/issues">report bugs</a> or <a href="https://github.com/shoelace-style/webawesome/discussions">ask for help</a>!</p>
       </wa-callout>
     </div>
     <div>
