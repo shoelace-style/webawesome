@@ -15,11 +15,13 @@ layout: page
   </div>
 
   <div id="theme-viewer">
-    {% if not currentUser.hasPro %}
-      <p>
-        Additional themes are available to pro users. Please <a href="/login">login to view pro themes</a>.
-      </p>
-    {% endif %}
+    {% raw %}
+      {% if not currentUser.hasPro %}
+        <p>
+          Additional themes are available to pro users. Please <a href="/login">login to view pro themes</a>.
+        </p>
+      {% endif %}
+    {% endraw %}
 
     <wa-radio-group id="theme-picker" label="Theme Selector" value="default" orientation="horizontal">
       {% for theme in themer.themes %}
