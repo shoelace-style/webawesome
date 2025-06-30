@@ -715,7 +715,10 @@ export const elementPresets = themes.map(theme => ({
  * All palettes used by themes in a simple array.
  */
 export const palettes = themes
-  .map(theme => theme.palette)
+  .map(theme => ({
+    ...theme.palette,
+    isPro: theme.isPro,
+  }))
   .filter(
     (palette, index, array) =>
       array.findIndex(p => p.name === palette.name && p.filename === palette.filename) === index,
