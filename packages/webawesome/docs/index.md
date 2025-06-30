@@ -268,7 +268,7 @@ layout: page
     <div class="hero-cta">
       {%- raw -%}
         {% if currentUser.hasPro %}
-          Thanks for being a Web Awesome Pro subscriber!
+          <span style="text-align: center; width: 100%; font-size: var(--wa-font-size-l);">Thanks for being a Web Awesome Pro subscriber!</span>
         {% else %}
           <span><em>Psst!</em> You can pre-order Web Awesome Pro at a low, guaranteed-for-life price &mdash; but not for long. Get in while the gettin’s good.</span>
           <wa-button class="wa-dark" size="small" href="https://www.kickstarter.com/projects/fontawesome/web-awesome">
