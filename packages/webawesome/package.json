@@ -29,7 +29,7 @@
   },
   "files": [
     "dist",
-    "cdn"
+    "dist-cdn"
   ],
   "keywords": [
     "web components",
