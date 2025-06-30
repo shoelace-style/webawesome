@@ -124,7 +124,7 @@ export default async function (eleventyConfig) {
     return nunjucks.renderString(content, {
       // Stub the server EJS shortcodes.
       currentUser: {
-        hasPro: false
+        hasPro: false,
       },
       server: {
         head: '',
