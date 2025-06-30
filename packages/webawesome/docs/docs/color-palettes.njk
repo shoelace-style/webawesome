@@ -12,23 +12,36 @@ layout: page
   <link rel="stylesheet" href="/dist/styles/color/palettes/{{palette.filename}}" />
 {% endfor %}
 
-{% raw %}
 <div id="color-palettes">
-  {% if not currentUser.hasPro %}
-    <p>
-      Additional palettes are available to pro users. Please <a href="/login">login to view pro palettes</a>.
-    </p>
-  {% endif %}
-
+  {% raw %}
+    {% if not currentUser.hasPro %}
+      <p>
+        Additional palettes are available to pro users. Please <a href="/login">login to view pro palettes</a>.
+      </p>
+    {% endif %}
+  {% endraw %}
   <wa-radio-group id="palette-picker" label="Color Palette" value="default" orientation="horizontal">
     {% for palette in themer.palettes %}
-      {% if not palette.isPro or currentUser.hasPro %}
+      {% if not palette.isPro %}
         <wa-radio
           class="palette-card"
           value="{{ palette.name | lower }}"
         >
           {{ palette.name }}
         </wa-radio>
+      {% else %}
+        {% raw %}
+          {% if currentUser.hasPro %}
+        {% endraw %}
+            <wa-radio
+              class="palette-card"
+              value="{{ palette.name | lower }}"
+            >
+              {{ palette.name }}
+            </wa-radio>
+        {% raw %}
+          {% endif %}
+        {% endraw %}
       {% endif %}
     {% endfor %}
   </wa-radio-group>
@@ -51,7 +64,6 @@ layout: page
   </div>
   {% endfor %}
 </div>
-{% endraw %}
 
 <h2>Using This Palette</h2>
 <div id="import-code">

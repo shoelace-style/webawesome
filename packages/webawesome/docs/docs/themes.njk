@@ -14,7 +14,6 @@ layout: page
     </wa-button>
   </div>
 
-  {% raw %}
   <div id="theme-viewer">
     {% if not currentUser.hasPro %}
       <p>
@@ -24,7 +23,7 @@ layout: page
 
     <wa-radio-group id="theme-picker" label="Theme Selector" value="default" orientation="horizontal">
       {% for theme in themer.themes %}
-        {% if not theme.isPro or currentUser.hasPro %}
+        {% if not theme.isPro %}
           <wa-radio
             class="theme-card"
             value="{{ theme.filename | stripExtension }}"
@@ -34,11 +33,26 @@ layout: page
           >
             {{ theme.name }}
           </wa-radio>
+        {% else %}
+          {% raw %}
+            {% if currentUser.hasPro %}
+          {% endraw %}
+            <wa-radio
+              class="theme-card"
+              value="{{ theme.filename | stripExtension }}"
+              data-description="{{ theme.description }}"
+              data-title="{{ theme.name }}"
+              {% if theme.isPro %}data-is-pro{% endif %}
+            >
+              {{ theme.name }}
+            </wa-radio>
+          {% raw %}
+            {% endif %}
+          {% endraw %}
         {% endif %}
       {% endfor %}
     </wa-radio-group>
   </div>
-  {% endraw %}
 
   <div id="theme-preview" class="wa-stack">
     <header class="wa-stack">
