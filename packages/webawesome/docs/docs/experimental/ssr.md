@@ -26,8 +26,8 @@ If you're using a bundler, make sure it comes _before_ any components are import
 // Make sure this import is first.
 import '@lit-labs/ssr-client/lit-element-hydrate-support.js';
 
-import 'webawesome/dist/components/button/button.js';
-import 'webawesome/dist/components/input/input.js';
+import '@awesome.me/webawesome/dist/components/button/button.js';
+import '@awesome.me/webawesome/dist/components/input/input.js';
 ```
 
 ## Enable Server Rendering
@@ -43,7 +43,7 @@ import litPlugin from '@lit-labs/eleventy-plugin-lit';
 
 eleventyConfig.addPlugin(litPlugin, {
   mode: 'worker',
-  componentModules: ['webawesome/dist/components/button/button.js', 'webawesome/dist/components/input/input.js'],
+  componentModules: ['@awesome.me/webawesome/dist/components/button/button.js', '@awesome.me/webawesome/dist/components/input/input.js'],
 });
 ```
 

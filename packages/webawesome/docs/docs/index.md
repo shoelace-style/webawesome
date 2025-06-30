@@ -83,7 +83,7 @@ You will see files named `chunk.[hash].js` in the `chunks` directory. Never impo
 ### Installing via npm
 
 ```bash
-npm install webawesome
+npm install @awesome.me/webawesome
 ```
 
 And then in your JavaScript files, import the components you need.
@@ -94,15 +94,15 @@ Web Awesome does not a provide a single import with all Web Awesome components. 
 
 ```js
 // import the Web Awesome base stylesheet
-import "webawesome/dist/styles/webawesome.css"
+import "@awesome.me/webawesome/dist/styles/webawesome.css"
 
 // import the default "theme"
-import "webawesome/dist/styles/themes/default.css"
+import "@awesome.me/webawesome/dist/styles/themes/default.css"
 
 // <wa-button>
-import "webawesome/dist/components/button/button.js"
+import "@awesome.me/webawesome/dist/components/button/button.js"
 // <wa-input>
-import "webawesome/dist/components/input/input.js"
+import "@awesome.me/webawesome/dist/components/input/input.js"
 ```
 
 Once they've been imported, you can use them in your HTML normally. Component imports are located in the "Importing" section of each component's documentation.
@@ -130,7 +130,7 @@ Most of the magic behind assets is handled internally by Web Awesome, but if you
 
 ```html
 <script type="module">
-  import { getBasePath, setBasePath } from '/path/to/web-awesome/dist/webawesome.js';
+  import { getBasePath, setBasePath } from '/path/to/webawesome/dist/webawesome.js';
 
   setBasePath('/path/to/assets');
 
@@ -152,5 +152,5 @@ The `/dist-cdn` files are bundled differently than the `/dist` files. The `/dist
 
 TLDR:
 
-- `webawesome/dist-cdn` is for CDNs or people not using a bundler.
-- `webawesome/dist` is for bundlers or importmaps.
+- `@awesome.me/webawesome/dist-cdn` is for CDNs or people not using a bundler.
+- `@awesome.me/webawesome/dist` is for bundlers or importmaps.
