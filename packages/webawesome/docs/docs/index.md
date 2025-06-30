@@ -14,9 +14,8 @@ Thank you so much for backing us!
 - [Get help / ask a question](https://github.com/shoelace-style/webawesome/discussions)
 - [See what's new since the last version](/docs/resources/changelog)
 
-:::warning
 As a Web Awesome backer, this beta release is _just for you_. Please refrain from sharing it for the time being!
-:::
+Welcome to Web Awesome beta! [Learn more](https://webawesome.com/) about this project and [how to contribute to it.](https://webawesome.com/docs/resources/contributing)
 
 ---
 
