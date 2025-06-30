@@ -60,11 +60,7 @@ Font Awesome users can set their kit code to unlock Font Awesome Pro icons. You 
 
 The autoloader is the easiest way to use Web Awesome, but different projects (or your own preferences!) may require different installation methods.
 
-### Installing via npm
-
-An npm package isn't yet available, but we'll have one soon! For now, please enjoy [Web Awesome from the CDN](#quick-start-autoloading-via-cdn).
-
-### Cherry Picking
+### Cherry Picking from CDN
 
 Cherry picking will only load the components you need up front, while limiting the number of files the browser has to download. The disadvantage is that you need to import each individual component on each page it's used. You'll still need to include the default theme (`styles/themes/default.css`) or another theme to style any imported components.
 
@@ -86,6 +82,32 @@ You can copy and paste the code to import a component from the "Importing" secti
 You will see files named `chunk.[hash].js` in the `chunks` directory. Never import these files directly, as they are generated and change from version to version.
 :::
 
+### Installing via npm
+
+```bash
+npm install webawesome
+```
+
+And then in your JavaScript files, import the components you need.
+
+:::warning
+Web Awesome does not a provide a single import with all Web Awesome components. Instead, you must "cherry pick" the components you want to use.
+:::
+
+```js
+// import the Web Awesome base stylesheet
+import "webawesome/dist/styles/webawesome.css"
+
+// import the default "theme"
+import "webawesome/dist/styles/themes/default.css"
+
+// <wa-button>
+import "webawesome/dist/components/button/button.js"
+// <wa-input>
+import "webawesome/dist/components/input/input.js"
+```
+
+Once they've been imported, you can use them in your HTML normally. Component imports are located in the "Importing" section of each component's documentation.
 
 ### Setting the Base Path
 
@@ -95,12 +117,12 @@ Some components rely on assets (icons, images, etc.) and Web Awesome needs to kn
 
 ```html
 <!-- Option 1: the data-webawesome attribute -->
-<script src="bundle.js" data-webawesome="/path/to/web-awesome/dist"></script>
+<script src="bundle.js" data-webawesome="/path/to/webawesome/dist"></script>
 
 <!-- Option 2: the setBasePath() method -->
 <script type="module">
-  import { setBasePath } from '/path/to/web-awesome/dist/webawesome.js';
-  setBasePath('/path/to/web-awesome/dist');
+  import { setBasePath } from '/path/to/webawesome/dist/webawesome.js';
+  setBasePath('/path/to/webawesome/dist');
 </script>
 ```
 
@@ -123,3 +145,14 @@ Most of the magic behind assets is handled internally by Web Awesome, but if you
   const assetPath = getBasePath('file.ext');
 </script>
 ```
+
+## The difference between `/dist` and `/dist-cdn`
+
+If you have Web Awesome installed locally via NPM, you'll notice 2 directories. `/dist-cdn` and `/cdn`.
+
+The `/dist-cdn` files are bundled differently than the `/dist` files. The `/dist-cdn` files come pre-bundled, which means all dependencies are "inlined" so there are no "bare" references like `import "lit"`. The `/dist` files **DO NOT** come pre-bundled, allowing your bundler of choice to more efficiently de-duplicate dependencies, resulting in smaller bundles and optimal code sharing.
+
+TLDR:
+
+- `webawesome/dist-cdn` is for CDNs or people not using a bundler.
+- `webawesome/dist` is for bundlers or importmaps.
