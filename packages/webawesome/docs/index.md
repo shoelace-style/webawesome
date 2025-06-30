@@ -266,7 +266,7 @@ layout: page
     </div>
     <h1 class="brand-font">Make something <span class="emphasis">awesome</span> with open-source web components</h1>
     <div class="hero-cta">
-      {% raw %}
+      {%- raw -%}
         {% if currentUser.hasPro %}
           Thanks for being a Web Awesome Pro subscriber!
         {% else %}
