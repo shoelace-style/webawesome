@@ -2,7 +2,6 @@
 title: Themes
 description: Themes galore
 layout: page
-isPro: true
 ---
 
 <div class="wa-stack wa-gap-3xl">
@@ -15,21 +14,31 @@ isPro: true
     </wa-button>
   </div>
 
+  {% raw %}
   <div id="theme-viewer">
+    {% if not currentUser.hasPro %}
+      <p>
+        Additional themes are available to pro users. Please <a href="/login">login to view pro themes</a>.
+      </p>
+    {% endif %}
+
     <wa-radio-group id="theme-picker" label="Theme Selector" value="default" orientation="horizontal">
       {% for theme in themer.themes %}
-        <wa-radio
-          class="theme-card"
-          value="{{ theme.filename | stripExtension }}"
-          data-description="{{ theme.description }}"
-          data-title="{{ theme.name }}"
-          {% if theme.isPro %}data-is-pro{% endif %}
-        >
-          {{ theme.name }}
-        </wa-radio>
+        {% if not theme.isPro or currentUser.hasPro %}
+          <wa-radio
+            class="theme-card"
+            value="{{ theme.filename | stripExtension }}"
+            data-description="{{ theme.description }}"
+            data-title="{{ theme.name }}"
+            {% if theme.isPro %}data-is-pro{% endif %}
+          >
+            {{ theme.name }}
+          </wa-radio>
+        {% endif %}
       {% endfor %}
     </wa-radio-group>
   </div>
+  {% endraw %}
 
   <div id="theme-preview" class="wa-stack">
     <header class="wa-stack">
@@ -218,11 +227,14 @@ isPro: true
       border: 1px solid var(--wa-color-surface-border);
       border-radius: var(--border-radius);
       box-shadow: var(--wa-shadow-s);
-      cursor: pointer;
       transition: all 0.2s ease;
       text-align: center;
       font-weight: var(--wa-font-weight-action);
       text-transform: capitalize;
+
+      &:not(:state(disabled)) {
+        cursor: pointer;
+      }
 
       &:state(checked) {
         border-color: var(--wa-color-brand-border-loud);

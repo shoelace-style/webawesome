@@ -2,7 +2,6 @@
 title: Color Palettes
 description: 'Color palettes give you a full spectrum of colors to add life to your project.'
 layout: page
-isPro: true
 ---
 
 <p>Color palettes give you a full spectrum of colors to add life to your project.</p>
@@ -13,10 +12,24 @@ isPro: true
   <link rel="stylesheet" href="/dist/styles/color/palettes/{{palette.filename}}" />
 {% endfor %}
 
+{% raw %}
 <div id="color-palettes">
+  {% if not currentUser.hasPro %}
+    <p>
+      Additional palettes are available to pro users. Please <a href="/login">login to view pro palettes</a>.
+    </p>
+  {% endif %}
+
   <wa-radio-group id="palette-picker" label="Color Palette" value="default" orientation="horizontal">
     {% for palette in themer.palettes %}
-      <wa-radio class="palette-card" value="{{ palette.name | lower }}">{{ palette.name }}</wa-radio>
+      {% if not palette.isPro or currentUser.hasPro %}
+        <wa-radio
+          class="palette-card"
+          value="{{ palette.name | lower }}"
+        >
+          {{ palette.name }}
+        </wa-radio>
+      {% endif %}
     {% endfor %}
   </wa-radio-group>
 
@@ -38,6 +51,7 @@ isPro: true
   </div>
   {% endfor %}
 </div>
+{% endraw %}
 
 <h2>Using This Palette</h2>
 <div id="import-code">
@@ -124,11 +138,14 @@ isPro: true
     border: 1px solid var(--wa-color-surface-border);
     border-radius: var(--border-radius);
     box-shadow: var(--wa-shadow-s);
-    cursor: pointer;
     transition: all 0.2s ease;
     text-align: center;
     font-weight: var(--wa-font-weight-action);
     text-transform: capitalize;
+  }
+
+  .palette-card:not(:state(disabled)) {
+    cursor: pointer;
   }
 
   .palette-card:state(checked) {
