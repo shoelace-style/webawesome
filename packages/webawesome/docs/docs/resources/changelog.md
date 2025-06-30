@@ -25,11 +25,12 @@ Many of these changes and improvements were the direct result of feedback from u
   - Removed `.wa-button`, `.wa-callout` classes
   - Removed `themes/native/*.css` files; use `native.css` to opt into native styles
   - Clarified which utilities classes can be applied to which native elements
-- 🚨 BREAKING: Removed the extra dash in the `<wa-carousel>` CSS part name `pagination-item--active` => `pagination-item-active`
-- 🚨 BREAKING: Renamed the `classic` theme to `shoelace`
-- 🚨 BREAKING: Renamed `pulse` attribute in `<wa-badge>` to `attention="pulse"` and added `attention="bounce"` [issue:#940]
-- 🚨 BREAKING: Renamed the `vertical` attribute to `orientation="vertical"` in `<wa-split-panel>` and `<wa-divider>` to align with other components and the platform [issue:674]
-- 🚨 BREAKING: Renamed certain boolean attributes to be consistent using the `with-*` and `without-*` pattern:
+- Renamed the `classic` theme to `shoelace`
+- Removed `:root` selector from all theme, color palette, and semantic color stylesheets except for the default theme and colors. All of these styles are now solely scoped to classes, such as `.wa-theme-awesome`, `.wa-palette-bright`, and `.wa-brand-orange`.
+- Removed most custom properties from components that can otherwise be styled with `::part()` selectors and standard CSS properties.
+- Renamed `pulse` attribute in `<wa-badge>` to `attention="pulse"` and added `attention="bounce"` [issue:#940]
+- Renamed the `vertical` attribute to `orientation="vertical"` in `<wa-split-panel>` and `<wa-divider>` to align with other components and the platform [issue:674]
+- Renamed certain boolean attributes to be consistent using the `with-*` and `without-*` pattern:
   - `<wa-button caret>` => `<wa-button with-caret>`
   - `<wa-color-picker no-format-toggle>` => `<wa-color-picker without-format-toggle>`
   - `<wa-format-number no-grouping>` => `<wa-format-number without-grouping>`
