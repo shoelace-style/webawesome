@@ -28,6 +28,7 @@
     "./dist/translations/*": "./dist/translations/*"
   },
   "files": [
+    "README.md",
     "dist",
     "dist-cdn"
   ],
