@@ -123,6 +123,9 @@ export default async function (eleventyConfig) {
     /** This largely mimics what an app would do and just stubs out what we don't care about. */
     return nunjucks.renderString(content, {
       // Stub the server EJS shortcodes.
+      currentUser: {
+        hasPro: false
+      },
       server: {
         head: '',
         loginOrAvatar: '',
