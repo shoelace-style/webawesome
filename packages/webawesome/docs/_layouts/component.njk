@@ -264,6 +264,9 @@
     The <a href="/docs/#quick-start-autoloading-via-cdn">autoloader</a> is the recommended way to import components. If you prefer to do it manually, use one of the following code snippets.
   </p>
 
+
+  {% set componentName = component.tagName | stripPrefix %}
+  {% set componentPath = ["components/", componentName, "/", componentName, ".js"] | join("") %}
   <wa-tab-group label="How would you like to import this component?">
     <wa-tab panel="cdn">CDN</wa-tab>
     <wa-tab panel="npm">npm</wa-tab>
@@ -272,19 +275,20 @@
       <p>
         To manually import this component from the CDN, use the following code.
       </p>
-      <pre><code class="language-js">import '{% cdnUrl component.path %}';</code></pre>
+
+      <pre><code class="language-js">import '{% cdnUrl componentPath %}';</code></pre>
     </wa-tab-panel>
     <wa-tab-panel name="npm">
-      Coming soon!
+      <p>
+        To manually import this component from NPM, use the following code.
+      </p>
+      <pre><code class="language-js">import '@awesome.me/webawesome/dist/components/{{ componentPath }}';</code></pre>
     </wa-tab-panel>
     <wa-tab-panel name="react">
-      Coming soon!
-      {# NOTE - disabled for alpha/beta
       <p>
         To manually import this component from React, use the following code.
       </p>
-      <pre><code class="language-js">import '@shoelace-style/webawesome/react/{{ component.tagName | stripPrefix }}';</code></pre>
-      #}
+      <pre><code class="language-js">import '@awesome.me/webawesome/dist/react/{{ componentName }}';</code></pre>
     </wa-tab-panel>
   </wa-tab-group>
 
