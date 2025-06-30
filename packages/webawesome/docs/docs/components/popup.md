@@ -416,6 +416,8 @@ By default, the arrow will be aligned as close to the center of the _anchor_ as 
 </div>
 ```
 
+{# TODO: this example totally destroys browsers. Needs investigation.
+
 ### Syncing with the Anchor's Dimensions
 
 Use the `sync` attribute to make the popup the same width or height as the anchor element. This is useful for controls that need the popup to stay the same width or height as the trigger.
@@ -467,6 +469,7 @@ Use the `sync` attribute to make the popup the same width or height as the ancho
   sync.addEventListener('change', () => (popup.sync = sync.value));
 </script>
 ```
+#}
 
 ### Flip
 
