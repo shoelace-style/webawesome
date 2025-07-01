@@ -28,7 +28,7 @@ To get everything included in Web Awesome, add the following code to the `<head>
 ```
 
 This snippet adds:
-- **Web Awesome styles**, a collection of stylesheets including the [default theme](/docs/themes), optional [styles for native elements](/docs/utilities/native) and optional [utility classes](/docs/utilities)
+- **Web Awesome styles**, a collection of stylesheets including essential default theme styles, optional [styles for native elements](/docs/utilities/native) and optional [utility classes](/docs/utilities)
 - **The autoloader**, a lightweight script watches the DOM for unregistered Web Awesome elements and lazy loads them for you — even if they're added dynamically
 
 Now you can [start using Web Awesome!](/docs/usage)
