@@ -213,7 +213,7 @@ Visual indicators for task completion and loading states.
 
 ### Tables
 
-Structured data presentation with clean styling and optional zebra striping.
+Structured data presentation with clean styling, optional row highlighting on hover, and optional zebra striping.
 
 ```html {.example}
 <table>
@@ -257,10 +257,10 @@ Structured data presentation with clean styling and optional zebra striping.
 </table>
 ```
 
-You can use the `wa-zebra-rows` class to add alternating row colors to your table:
+You can use the `wa-hover-rows` class to highlight table rows on hover and the `wa-zebra-rows` class to add alternating row colors to your table.
 
 ```html {.example}
-<table class="wa-zebra-rows">
+<table class="wa-zebra-rows wa-hover-rows">
   <caption>
     I'm just a table
   </caption>
