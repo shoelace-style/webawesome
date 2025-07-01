@@ -23,15 +23,13 @@ Welcome to Web Awesome beta! [Learn more](https://webawesome.com/) about this pr
 To get everything included in Web Awesome, add the following code to the `<head>` of your site:
 
 ```html
-<link rel="stylesheet" href="{% cdnUrl 'styles/themes/default.css' %}" />
 <link rel="stylesheet" href="{% cdnUrl 'styles/webawesome.css' %}" />
 <script type="module" src="{% cdnUrl 'webawesome.loader.js' %}"></script>
 ```
 
-This snippet includes three parts:
-1. **The default theme**, a stylesheet that gives a cohesive look to Web Awesome components with both light and dark modes
-2. **Web Awesome styles**, an optional stylesheet that [styles native HTML elements](/docs/utilities/native) and includes [utility classes](/docs/utilities) you can use in your project
-3. **The autoloader**, a lightweight script watches the DOM for unregistered Web Awesome elements and lazy loads them for you — even if they're added dynamically
+This snippet adds:
+- **Web Awesome styles**, a collection of stylesheets including the [default theme](/docs/themes), optional [styles for native elements](/docs/utilities/native) and optional [utility classes](/docs/utilities)
+- **The autoloader**, a lightweight script watches the DOM for unregistered Web Awesome elements and lazy loads them for you — even if they're added dynamically
 
 Now you can [start using Web Awesome!](/docs/usage)
 
