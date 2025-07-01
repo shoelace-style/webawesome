@@ -357,13 +357,15 @@
         background-color: color-mix(in oklab, var(--wa-color-fill-quiet) 60%, transparent);
       }
 
-      @media (hover: hover) {
-        &:hover {
-          background-color: var(--wa-color-fill-quiet);
+      :where(table.wa-hover-rows) & {
+        @media (hover: hover) {
+          &:hover {
+            background-color: var(--wa-color-fill-quiet);
 
-          &,
-          + tr {
-            border-top-color: var(--wa-color-border-normal);
+            &,
+            + tr {
+              border-top-color: var(--wa-color-border-normal);
+            }
           }
         }
       }
