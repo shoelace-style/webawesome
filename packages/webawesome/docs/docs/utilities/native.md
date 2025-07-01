@@ -5,11 +5,11 @@ layout: page-outline
 tags: styleUtilities
 ---
 
-Web Awesome provides optional Native Styles that make native HTML elements look good so you can continue using what you know and gradually adopt Web Awesome as you see fit.
+Native styles use design tokens to spruce up native HTML elements so that they match the look and feel of your theme. While these native styles are completely optional, they're a great starting point for a cohesive design and a huge help when using a combination of native elements and Web Awesome components in your project.
 
 ## Installation
 
-To use all Web Awesome page styles (including [utilities](/docs/utilities/)), include the following stylesheet in your project:
+To use all Web Awesome styles (including [utilities](/docs/utilities/)), include the following stylesheet in your project:
 
 ```html
 <link rel="stylesheet" href="{% cdnUrl 'styles/webawesome.css' %}" />
