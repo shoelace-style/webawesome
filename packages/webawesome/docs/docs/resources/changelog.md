@@ -8,6 +8,12 @@ Web Awesome follows [Semantic Versioning](https://semver.org/). Breaking changes
 
 Components with the <wa-badge variant="warning">Experimental</wa-badge> badge should not be used in production. They are made available as release candidates for development and testing purposes. As such, changes to experimental components will not be subject to semantic versioning.
 
+## next
+
+### New Features {data-no-outline}
+
+- Added `.wa-hover-rows` to native styles to opt-in to highlighting table rows on hover.
+
 ## 3.0.0-beta.1
 
 We're excited to share the first beta release of Web Awesome, which includes some breaking changes that make the library significantly more intuitive and consistent!
