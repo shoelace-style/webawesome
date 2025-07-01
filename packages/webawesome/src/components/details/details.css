@@ -49,32 +49,26 @@ details {
 }
 
 /* Appearance modifiers */
-:host([appearance~='plain']) {
-  details {
-    background-color: transparent;
-    border-color: transparent;
-  }
+:host([appearance~='plain']) details {
+  background-color: transparent;
+  border-color: transparent;
 }
 
-:host([appearance~='outlined']) {
-  details {
-    background-color: var(--wa-color-surface-default);
-    border-color: var(--wa-color-surface-border);
-  }
+:host([appearance~='outlined']) details {
+  background-color: var(--wa-color-surface-default);
+  border-color: var(--wa-color-surface-border);
 }
 
-:host([appearance~='filled']) {
-  details {
-    background-color: var(--wa-color-neutral-fill-quiet);
-    border-color: transparent;
-  }
-
-  &:host([appearance~='outlined']) details {
-    border-color: var(--wa-color-neutral-border-quiet);
-  }
+:host([appearance~='filled']) details {
+  background-color: var(--wa-color-neutral-fill-quiet);
+  border-color: transparent;
 }
 
-:host([appearance='plain']) {
+:host([appearance~='filled'][appearance~='outlined']) details {
+  border-color: var(--wa-color-neutral-border-quiet);
+}
+
+:host([appearance='plain']) details {
   border-radius: 0;
 }
 

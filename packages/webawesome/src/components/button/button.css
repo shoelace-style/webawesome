@@ -103,10 +103,10 @@
       var(--wa-color-mix-active)
     );
   }
+}
 
-  &:host([appearance~='outlined']) .button {
-    border-color: var(--wa-color-border-normal, var(--wa-color-neutral-border-normal));
-  }
+:host([appearance~='filled'][appearance~='outlined']) .button {
+  border-color: var(--wa-color-border-normal, var(--wa-color-neutral-border-normal));
 }
 
 :host([appearance~='accent']) {

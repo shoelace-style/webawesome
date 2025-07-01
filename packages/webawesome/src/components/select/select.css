@@ -87,22 +87,18 @@
 }
 
 /* Appearance modifiers */
-:host([appearance~='outlined']) {
-  .combobox {
-    background-color: var(--wa-form-control-background-color);
-    border-color: var(--wa-form-control-border-color);
-  }
+:host([appearance~='outlined']) .combobox {
+  background-color: var(--wa-form-control-background-color);
+  border-color: var(--wa-form-control-border-color);
 }
 
-:host([appearance~='filled']) {
-  .combobox {
-    background-color: var(--wa-color-neutral-fill-quiet);
-    border-color: var(--wa-color-neutral-fill-quiet);
-  }
+:host([appearance~='filled']) .combobox {
+  background-color: var(--wa-color-neutral-fill-quiet);
+  border-color: var(--wa-color-neutral-fill-quiet);
+}
 
-  &:host([appearance~='outlined']) .combobox {
-    border-color: var(--wa-form-control-border-color);
-  }
+:host([appearance~='filled'][appearance~='outlined']) .combobox {
+  border-color: var(--wa-form-control-border-color);
 }
 
 .display-input {

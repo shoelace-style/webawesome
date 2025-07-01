@@ -30,10 +30,10 @@
     color: var(--wa-color-on-quiet, var(--wa-color-neutral-on-quiet));
     background-color: var(--wa-color-fill-quiet, var(--wa-color-neutral-fill-quiet));
     border-color: transparent;
+  }
 
-    &:host([appearance~='outlined']) {
-      border-color: var(--wa-color-border-normal, var(--wa-color-neutral-border-normal));
-    }
+  :host([appearance~='filled'][appearance~='outlined']) {
+    border-color: var(--wa-color-border-normal, var(--wa-color-neutral-border-normal));
   }
 
   :host([appearance~='accent']) {

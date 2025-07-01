@@ -35,10 +35,10 @@
   color: var(--wa-color-on-normal, var(--wa-color-brand-on-normal));
   background-color: var(--wa-color-fill-normal, var(--wa-color-brand-fill-normal));
   border-color: transparent;
+}
 
-  &:host([appearance~='outlined']) {
-    border-color: var(--wa-color-border-normal, var(--wa-color-brand-border-normal));
-  }
+:host([appearance~='filled'][appearance~='outlined']) {
+  border-color: var(--wa-color-border-normal, var(--wa-color-brand-border-normal));
 }
 
 :host([appearance~='accent']) {
