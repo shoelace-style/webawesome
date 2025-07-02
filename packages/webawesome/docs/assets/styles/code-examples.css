@@ -100,8 +100,8 @@
 .code-example-buttons {
   display: flex;
   align-items: stretch;
-  background: var(--wa-color-surface-default) !important; /* TODO - remove after native styles refactor */
-  color: var(--wa-color-text-quiet) !important; /* TODO - remove after native styles refactor */
+  background: var(--wa-color-surface-default);
+  color: var(--wa-color-text-quiet);
   border-bottom-left-radius: inherit;
   border-bottom-right-radius: inherit;
 
@@ -115,14 +115,6 @@
     text-align: center;
     padding: 0.5rem;
     cursor: pointer;
-
-    @media (hover: hover) {
-      &:hover {
-        border-left: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet) !important; /* TODO - remove after native styles refactor */
-        background: var(--wa-color-surface-default) !important; /* TODO - remove after native styles refactor */
-        color: var(--wa-color-text-quiet) !important; /* TODO - remove after native styles refactor */
-      }
-    }
 
     &:first-of-type {
       border-left: none;
