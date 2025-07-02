@@ -7,7 +7,7 @@ tags: styleUtilities
 
 Native styles use design tokens to spruce up native HTML elements so that they match the look and feel of your theme. While these native styles are completely optional, they're a great starting point for a cohesive design and a huge help when using a combination of native elements and Web Awesome components in your project.
 
-## Installation
+## Using native styles
 
 To use all Web Awesome styles (including [utilities](/docs/utilities/)), include the following stylesheet in your project:
 
@@ -15,17 +15,18 @@ To use all Web Awesome styles (including [utilities](/docs/utilities/)), include
 <link rel="stylesheet" href="{% cdnUrl 'styles/webawesome.css' %}" />
 ```
 
-Or, to _only_ include styles for native elements:
+Or, if you only want styles for native elements, include the default theme and native styles individually:
 
 ```html
+<link rel="stylesheet" href="{% cdnUrl 'styles/themes/default.css' %}" />
 <link rel="stylesheet" href="{% cdnUrl 'styles/native.css' %}" />
 ```
 
-## Elements
+## Typography
 
 ### Headings
 
-Semantic heading elements with proper hierarchy and styling.
+Create headings with `<h1>` through `<h6>`.
 
 ```html {.example}
 <h1>Heading 1</h1>
