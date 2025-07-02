@@ -4,17 +4,11 @@ description: Choose the installation method that works best for you.
 layout: page-outline
 ---
 
-Welcome to your exclusive early access to Web Awesome Beta! 👋
-
-At this time, we're offering access to Web Awesome Free and Pro through a temporary CDN while we prepare for a public release. This beta is tried, true, and stable, but please be aware that things may change here and there before our production release to the public.
-
-Thank you so much for backing us!
+Welcome to Web Awesome beta! [Learn more](https://webawesome.com/) about this project and [how to contribute to it](https://webawesome.com/docs/resources/contributing).
 
 - [Report a bug](https://github.com/shoelace-style/webawesome/issues)
 - [Get help / ask a question](https://github.com/shoelace-style/webawesome/discussions)
 - [See what's new since the last version](/docs/resources/changelog)
-
-Welcome to Web Awesome beta! [Learn more](https://webawesome.com/) about this project and [how to contribute to it.](https://webawesome.com/docs/resources/contributing)
 
 ---
 
@@ -58,7 +52,7 @@ The autoloader is the easiest way to use Web Awesome, but different projects (or
 
 ### Cherry Picking from CDN
 
-Cherry picking will only load the components you need up front, while limiting the number of files the browser has to download. The disadvantage is that you need to import each individual component on each page it's used. You'll still need to include the default theme (`styles/themes/default.css`) or another theme to style any imported components.
+Cherry picking will only load the components you need up front, while limiting the number of files the browser has to download. The disadvantage is that you need to import each individual component on each page it's used. Additionally, you must include the default theme (`styles/themes/default.css`) to style any imported components. To use a different theme, include your preferred theme _in addition to_ the default theme.
 
 Here's an example that loads only the button component.
 
@@ -91,10 +85,10 @@ Web Awesome does not a provide a single import with all Web Awesome components. 
 :::
 
 ```js
-// import the Web Awesome base stylesheet
+// Option 1: import all Web Awesome styles
 import "@awesome.me/webawesome/dist/styles/webawesome.css"
 
-// import the default "theme"
+// Option 2: import only the default theme
 import "@awesome.me/webawesome/dist/styles/themes/default.css"
 
 // <wa-button>

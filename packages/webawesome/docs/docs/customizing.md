@@ -10,17 +10,16 @@ You can customize the look and feel of Web Awesome at a high level with themes. 
 
 Web Awesome uses [themes](/docs/themes) to apply a cohesive look and feel across the entire library. Themes are built with a collection of predefined CSS custom properties, which we call [design tokens](/docs/tokens), and there are many premade themes you can choose from.
 
-To use a theme, simply add a link to the theme's stylesheet to the `<head>` of your page. For example, you can replace the link to `default.css` in the [installation code](/docs/#quick-start-autoloading-via-cdn) with this snippet to use the *Awesome* theme:
+To use a theme, simply add a link to the theme's stylesheet to the `<head>` of your page. For example, you can add this snippet alongside th [installation code](/docs/#quick-start-autoloading-via-cdn) to use the *Awesome* theme:
 
 ```html
 <link rel="stylesheet" href="{% cdnUrl 'styles/themes/awesome.css' %}" />
 ```
 
-You can [customize any theme](/docs/themes/creating) just with CSS — no preprocessor required. All design tokens are prefixed with `--wa-` to avoid collisions with other libraries or your own custom properties. Simply override any design token in your own stylesheet by scoping your styles to `:where(:root)`, `:host`, the class for the specific theme you want to override (if needed), and the class for the relevant color scheme (if needed). Here's an example that changes the default brand color to purple in light mode:
+You can customize any theme just with CSS — no preprocessor required. All design tokens are prefixed with `--wa-` to avoid collisions with other libraries and your own custom properties. Simply override any design token in your own stylesheet by scoping your styles to `:root`, the class for the specific theme you want to override (if needed), and the class for the relevant color scheme (if needed). Here's an example that changes the default brand color to purple in light mode:
 
 ```css
-:where(:root),
-:host,
+:root,
 .wa-light,
 .wa-dark .wa-invert {
   --wa-color-brand-fill-quiet: var(--wa-color-purple-95);
@@ -34,10 +33,6 @@ You can [customize any theme](/docs/themes/creating) just with CSS — no prepro
   --wa-color-brand-on-loud: white;
 }
 ```
-
-:::info
-Wrapping the `:root` selector in `:where()` gives this selector 0 specificity. This allows us to define our design tokens' default values while ensuring they can be cleanly overridden as needed.
-:::
 
 For a complete list of all custom properties used for theming, refer to `src/styles/themes/default.css` in the project's source code.
 
