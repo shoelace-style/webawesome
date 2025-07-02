@@ -14,6 +14,10 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 - Added `.wa-hover-rows` to native styles to opt-in to highlighting table rows on hover.
 
+### Bug Fixes and Improvements {data-no-outline}
+
+- Fixed the themes page so it shows the correct palette and imports
+
 ## 3.0.0-beta.1
 
 We're excited to share the first beta release of Web Awesome, which includes some breaking changes that make the library significantly more intuitive and consistent!
