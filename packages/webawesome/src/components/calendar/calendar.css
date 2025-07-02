@@ -1,0 +1,223 @@
+:host {
+  display: block;
+  inline-size: fit-content;
+  position: relative;
+
+  --color-accent: var(--wa-color-brand-fill-loud);
+  --color-text-on-accent: var(--wa-color-brand-on-loud);
+  --color-range: #0000000d;
+}
+
+button {
+  border-radius: var(--wa-border-radius-s);
+  background-color: transparent;
+  border: 1px solid hsl(240, 5%, 84%);
+  padding: var(--wa-space-xs);
+}
+
+.calendar {
+  display: flex;
+  flex-direction: row;
+  gap: 2em;
+}
+
+.calendar-month {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.month-name {
+  display: flex;
+  margin: auto;
+  font-weight: bold;
+  font-size: 1.25em;
+}
+
+.calendar-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  text-align: center;
+  inline-size: fit-content;
+}
+
+.calendar-table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  table-layout: fixed;
+  inline-size: max-content;
+  font-size: 0.875rem;
+}
+
+.calendar-table th {
+  font-weight: bold;
+  block-size: 2.25rem;
+  min-width: 36px;
+}
+
+.calendar-table td {
+  padding-inline: 0;
+  padding-block: 1px;
+  min-width: 36px;
+}
+
+.calendar-table td.weeknumber {
+  font-size: 0.875em;
+}
+
+.navigation-button {
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navigation-button[aria-disabled] {
+  cursor: default;
+  opacity: 0.5;
+}
+
+.calendar-table button {
+  color: inherit;
+  font-size: inherit;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  font-variant-numeric: tabular-nums;
+  block-size: 2.25rem;
+  inline-size: 2.25rem;
+
+  border-radius: var(--wa-border-radius-rounded-square);
+}
+
+.calendar-table button:disabled,
+.calendar-table button.outside,
+.calendar-table button.disallowed {
+  cursor: default;
+  opacity: 0.5;
+}
+
+.calendar-table button.disallowed {
+  text-decoration: line-through;
+}
+
+.calendar-table button.today {
+  border: 1px solid var(--color-accent);
+}
+
+/* calendar button styles */
+.calendar-table {
+  button:hover:where(:not(:disabled, [aria-disabled])) {
+    background-color: color-mix(in srgb, var(--wa-color-surface-default) 100%, var(--wa-color-mix-hover));
+  }
+
+  button:is(.selected, :focus-visible) {
+    background: var(--color-accent);
+    color: var(--color-text-on-accent);
+  }
+
+  button:focus-visible {
+    outline: 1px solid var(--color-text-on-accent);
+    outline-offset: -2px;
+  }
+
+  button.range-start,
+  button.range-end {
+    border-radius: var(--wa-border-radius-rounded-square);
+    --background-color: var(--color-accent);
+    background-color: var(--background-color);
+    color: var(--color-text-on-accent);
+  }
+
+  button.in-range {
+    border-radius: 0;
+    --background-color: color-mix(in srgb, var(--color-accent) 100%, var(--wa-color-mix-surface));
+    background-color: var(--background-color);
+    color: var(--color-text-on-accent);
+  }
+
+  button.range-start:hover,
+  button.range-end:hover,
+  button.in-range:hover {
+    background-color: color-mix(in srgb, var(--background-color) 60%, var(--wa-color-mix-surface));
+  }
+
+  button.range-start {
+    border-start-end-radius: 0;
+    border-end-end-radius: 0;
+  }
+
+  button.range-end {
+    border-start-start-radius: 0;
+    border-end-start-radius: 0;
+  }
+}
+
+.month-selection,
+.year-selection {
+  padding: 1rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.months-grid,
+.years-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+
+.month-button,
+.year-button {
+  padding: 0.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background: none;
+  cursor: pointer;
+}
+
+.month-button.selected,
+.year-button.selected {
+  background-color: var(--color-accent);
+  color: white;
+}
+
+.calendar-heading {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.calendar-heading select {
+  padding: 0.25rem 0.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background: var(--background-color);
+  font-size: inherit;
+  cursor: pointer;
+}
+
+.calendar-heading button {
+  padding: 0.25rem 0.5rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: inherit;
+}
+
+.calendar-heading button:hover {
+  text-decoration: underline;
+}

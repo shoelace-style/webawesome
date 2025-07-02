@@ -33,6 +33,9 @@
     --wa-color-mix-hover: black 10%;
     --wa-color-mix-active: black 20%;
 
+    /* The surface mix color is used to create a color that has a slightly mixed color with the surface color. */
+    --wa-color-mix-surface: var(--wa-color-surface-default) 15%;
+
     --wa-color-brand-fill-quiet: var(--wa-color-brand-95);
     --wa-color-brand-fill-normal: var(--wa-color-brand-90);
     --wa-color-brand-fill-loud: var(--wa-color-brand-50);
@@ -250,6 +253,7 @@
     --wa-border-radius-pill: 9999px;
     --wa-border-radius-circle: 50%;
     --wa-border-radius-square: 0px;
+    --wa-border-radius-rounded-square: 0.25rem;
     /* #endregion */
 
     /* #region Focus ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
