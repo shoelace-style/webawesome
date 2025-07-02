@@ -181,7 +181,7 @@
   }
 
   del {
-    color: var(--wa-color-text-quiet);
+    color: color-mix(in oklab, currentColor, transparent 10%);
     text-decoration-color: var(--wa-color-danger-on-quiet);
     text-decoration-line: line-through;
     text-decoration-thickness: 0.09375em;
@@ -190,7 +190,7 @@
   mark {
     padding: 0.125em 0.25em;
 
-    color: inherit;
+    color: var(--wa-color-warning-on-quiet);
 
     background-color: var(--wa-color-warning-fill-quiet);
     border-radius: var(--wa-border-radius-s);
@@ -226,13 +226,12 @@
   kbd {
     padding: 0.125em 0.25em;
 
-    color: var(--wa-color-text-normal);
     font-family: var(--wa-font-family-code);
     font-size: var(--wa-font-size-smaller);
 
-    border: solid var(--wa-border-width-s) var(--wa-color-neutral-border-quiet);
+    border: solid var(--wa-border-width-s) color-mix(in oklab, currentColor, transparent 50%);
     border-radius: var(--wa-border-radius-s);
-    box-shadow: 0 0.125em 0 0 var(--wa-color-neutral-border-quiet);
+    box-shadow: 0 0.125em 0 0 color-mix(in oklab, currentColor, transparent 50%);
 
     wa-icon {
       vertical-align: -2px;
@@ -249,8 +248,12 @@
     text-underline-offset: 0.125em;
   }
 
+  *:is([appearance~='accent'], .wa-accent) a {
+    color: var(--wa-color-brand-on-loud);
+  }
+
   a:hover {
-    color: color-mix(in oklab, var(--wa-color-text-link), var(--wa-color-mix-hover));
+    color: color-mix(in oklab, currentColor, var(--wa-color-mix-hover));
     text-decoration: var(--wa-link-decoration-hover);
     -webkit-text-decoration: var(--wa-link-decoration-hover);
   }
