@@ -372,10 +372,6 @@
       --wa-transition-normal: 0;
       --wa-transition-fast: 0;
 
-      .wa-dark & {
-        --wa-color-shadow: var(--wa-color-border-quiet);
-      }
-
       &[appearance='outlined'],
       &.wa-outlined:not(.wa-filled) {
         --wa-color-shadow: var(--wa-color-border-loud);
@@ -398,7 +394,7 @@
         &:not([disabled]):not(:disabled):active {
           &:where(:not(wa-button)),
           &::part(base) {
-            color: var(--wa-color-fill-normal);
+            color: var(--wa-color-fill-quiet);
             background-color: var(--wa-color-shadow);
             border-color: var(--wa-color-shadow);
             box-shadow: none;
@@ -407,11 +403,12 @@
         }
       }
       .wa-dark & {
-        &:not([appearance~='plain']):not(.wa-plain) {
+        &[appearance~='accent'],
+        &.wa-accent {
           &:not([disabled]):not(:disabled):active {
             &:where(:not(wa-button)),
             &::part(base) {
-              color: var(--wa-color-fill-loud);
+              color: var(--wa-color-on-quiet);
             }
           }
         }
@@ -480,8 +477,8 @@
       &.wa-accent {
         &:where(:not(wa-button)),
         &::part(base) {
-          --wa-color-shadow: currentColor;
-          border-color: currentColor;
+          --wa-color-shadow: var(--wa-color-on-loud);
+          border-color: var(--wa-color-shadow);
         }
       }
 
@@ -491,7 +488,6 @@
           &:where(:not(wa-button)),
           &::part(base) {
             --wa-color-shadow: var(--wa-color-border-quiet);
-            border-color: var(--wa-color-border-quiet);
           }
         }
       }
