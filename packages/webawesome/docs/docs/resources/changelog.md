@@ -28,6 +28,7 @@ Many of these changes and improvements were the direct result of feedback from u
 - Renamed the `classic` theme to `shoelace`
 - Removed `:root` selector from all theme, color palette, and semantic color stylesheets except for the default theme and colors. All of these styles are now solely scoped to classes, such as `.wa-theme-awesome`, `.wa-palette-bright`, and `.wa-brand-orange`.
 - Removed most custom properties from components that can otherwise be styled with `::part()` selectors and standard CSS properties.
+- `<wa-dropdown>` was reworked and simplified to not use menu, menu item, menu label; use `<wa-dropdown-item>` instead
 - Renamed `pulse` attribute in `<wa-badge>` to `attention="pulse"` and added `attention="bounce"` [issue:#940]
 - Renamed the `vertical` attribute to `orientation="vertical"` in `<wa-split-panel>` and `<wa-divider>` to align with other components and the platform [issue:674]
 - Renamed certain boolean attributes to be consistent using the `with-*` and `without-*` pattern:
@@ -96,6 +97,9 @@ Many of these changes and improvements were the direct result of feedback from u
 ### Removals {data-no-outline}
 
 - Removed the experimental `<wa-code-demo>` component
+- `<wa-menu>`, `<wa-menu-item>`, `<wa-menu-label>` were dropped; use `<wa-dropdown-item>` instead
+- `<wa-icon-button>` was removed; icon buttons can be added via `<wa-button>` now
+- `<wa-radio-button>` was dropped; use `<wa-radio appearance="button">` instead
 
 <details>
 <summary>Alpha Changelogs</summary>
