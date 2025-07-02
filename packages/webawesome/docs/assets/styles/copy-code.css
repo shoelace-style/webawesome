@@ -25,6 +25,11 @@ wa-copy-button.copy-button {
   border-radius: var(--wa-border-radius-m);
   padding: 0.25rem;
 
+  &::part(button) {
+    background: transparent;
+    cursor: copy;
+  }
+
   @media (hover: hover) {
     &:hover {
       color: white;
