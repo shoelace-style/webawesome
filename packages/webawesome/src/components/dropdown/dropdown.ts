@@ -698,7 +698,16 @@ export default class WaDropdown extends WebAwesomeElement {
     let active = this.hasUpdated ? this.popup.active : this.open;
 
     return html`
-      <wa-popup placement=${this.placement} distance=${this.distance} skidding=${this.skidding} ?active=${active}>
+      <wa-popup
+        placement=${this.placement}
+        distance=${this.distance}
+        skidding=${this.skidding}
+        ?active=${active}
+        flip
+        flip-fallback-strategy="best-fit"
+        shift
+        shift-padding="8"
+      >
         <slot
           name="trigger"
           slot="anchor"
