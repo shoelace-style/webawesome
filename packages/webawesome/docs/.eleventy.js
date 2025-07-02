@@ -188,17 +188,17 @@ export default async function (eleventyConfig) {
       // Replace [issue:1234] with a link to the issue on GitHub
       {
         replace: /\[pr:([0-9]+)\]/gs,
-        replaceWith: '<a href="https://github.com/shoelace-style/webawesome/pull/$1">#$1</a>',
+        replaceWith: '<a href="https://github.com/shoelace-style/webawesome/pull/$1" target="_blank">#$1</a>',
       },
       // Replace [pr:1234] with a link to the pull request on GitHub
       {
         replace: /\[issue:([0-9]+)\]/gs,
-        replaceWith: '<a href="https://github.com/shoelace-style/webawesome/issues/$1">#$1</a>',
+        replaceWith: '<a href="https://github.com/shoelace-style/webawesome/issues/$1" target="_blank">#$1</a>',
       },
       // Replace [discuss:1234] with a link to the discussion on GitHub
       {
         replace: /\[discuss:([0-9]+)\]/gs,
-        replaceWith: '<a href="https://github.com/shoelace-style/webawesome/discussions/$1">#$1</a>',
+        replaceWith: '<a href="https://github.com/shoelace-style/webawesome/discussions/$1" target="_blank">#$1</a>',
       },
     ]),
   );
