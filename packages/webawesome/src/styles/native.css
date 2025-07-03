@@ -248,12 +248,15 @@
     text-underline-offset: 0.125em;
   }
 
-  *:is([appearance~='accent'], .wa-accent) a {
-    color: var(--wa-color-brand-on-loud);
+  *:is([appearance~='accent'], .wa-accent) {
+    a,
+    a:hover {
+      color: currentColor;
+    }
   }
 
   a:hover {
-    color: color-mix(in oklab, currentColor, var(--wa-color-mix-hover));
+    color: color-mix(in oklab, var(--wa-color-text-link), var(--wa-color-mix-hover));
     text-decoration: var(--wa-link-decoration-hover);
     -webkit-text-decoration: var(--wa-link-decoration-hover);
   }
