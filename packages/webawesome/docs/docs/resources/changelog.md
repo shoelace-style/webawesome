@@ -8,8 +8,7 @@ Web Awesome follows [Semantic Versioning](https://semver.org/). Breaking changes
 
 Components with the <wa-badge variant="warning">Experimental</wa-badge> badge should not be used in production. They are made available as release candidates for development and testing purposes. As such, changes to experimental components will not be subject to semantic versioning.
 
-## Next
-
+## 3.0.0-beta.2
 
 ### New Features {data-no-outline}
 
@@ -20,6 +19,14 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed a bug in `<wa-select>` with options that had blank string values. [issue:1106]
 - Fixed a bug in `<wa-dropdown>` that prevented the menu from flipping/shifting to keep the menu in the viewport [issue:1136]
 - Fixed the themes page so it shows the correct palette and imports
+- Added `.wa-hover-rows` to native styles to opt-in to highlighting table rows on hover [pr:1111]
+- Added missing changelog entries for beta.1 [pr:1117]
+- Fixed a bug in `<wa-dropdown>` that prevented the menu from flipping/shifting to keep the menu in the viewport [pr:1122]
+- Fixed the themes page so it shows the correct palette and imports [pr:1125]
+- Fixed `filled` and `outlined` appearance styles in various components [issue:1102]
+- Fixed active state styles in the Awesome theme [pr:1129]
+- Fixed native text styles when applied to certain backgrounds [pr:https://github.com/shoelace-style/webawesome/pull/1130]
+- Improved the organization of essential and optional styles [pr:1113]
 
 ## 3.0.0-beta.1
 
