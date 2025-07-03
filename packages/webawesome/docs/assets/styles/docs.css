@@ -260,6 +260,12 @@ wa-button.delete {
   }
 }
 
+[slot='navigation-header'] {
+  wa-select::part(listbox) {
+    font-weight: var(--wa-font-weight-normal);
+  }
+}
+
 #sidebar-close-button {
   display: none;
 }
@@ -664,7 +670,7 @@ wa-scroller:has(.component-table) {
 }
 
 /** desktop */
-@media screen and not (max-width: 768px) {
+@media screen and not (max-width: 1180px) {
   /* Navigation sidebar */
   wa-page::part(navigation) {
     border-right: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-surface-border);
