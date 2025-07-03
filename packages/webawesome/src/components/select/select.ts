@@ -535,7 +535,6 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   private handleOptionClick(event: MouseEvent) {
     const target = event.target as HTMLElement;
     const option = target.closest('wa-option');
-    const oldValue = this.value;
 
     if (option && !option.disabled) {
       this.hasInteracted = true
