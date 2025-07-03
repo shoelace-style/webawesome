@@ -7,7 +7,7 @@ category: Form Controls
 
 ```html {.example}
 <wa-select>
-  <wa-option value="option-1">Option 1</wa-option>
+  <wa-option value="">Option 1</wa-option>
   <wa-option value="option-2">Option 2</wa-option>
   <wa-option value="option-3">Option 3</wa-option>
   <wa-option value="option-4">Option 4</wa-option>
@@ -366,6 +366,7 @@ Here's a comprehensive example showing different lazy loading scenarios:
 
     const option = document.createElement('wa-option');
     option.setAttribute('value', 'foo');
+    option.selected = true
     option.innerText = 'Foo';
 
     // For the multiple select with existing selected options, make the new option selected
