@@ -16,9 +16,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 ### Bug Fixes and Improvements {data-no-outline}
 
-- Fixed a bug in `<wa-select>` with options that had blank string values. [issue:1106]
-- Fixed a bug in `<wa-dropdown>` that prevented the menu from flipping/shifting to keep the menu in the viewport [issue:1136]
-- Fixed the themes page so it shows the correct palette and imports
+- Fixed a bug in `<wa-select>` with options that had blank string values. [pr:1136]
 - Added `.wa-hover-rows` to native styles to opt-in to highlighting table rows on hover [pr:1111]
 - Added missing changelog entries for beta.1 [pr:1117]
 - Fixed a bug in `<wa-dropdown>` that prevented the menu from flipping/shifting to keep the menu in the viewport [pr:1122]
