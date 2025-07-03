@@ -904,23 +904,24 @@ describe('<wa-select>', () => {
 
         await el.show();
         const options = el.querySelectorAll('wa-option');
+        await aTimeout(100);
         // firefox doesnt like clicks -.-
         await clickOnElement(options[0]);
         await resetMouse();
         await el.updateComplete;
         expect(el.value).to.equal('');
 
-        await aTimeout(1);
+        await aTimeout(100);
         await clickOnElement(options[1]);
         await resetMouse();
         await el.updateComplete;
-        await aTimeout(1);
+        await aTimeout(100);
         expect(el.value).to.equal('option-2');
 
         await clickOnElement(options[0]);
         await resetMouse();
         await el.updateComplete;
-        await aTimeout(1);
+        await aTimeout(100);
         expect(el.value).to.equal('');
         await resetMouse();
       });
