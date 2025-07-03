@@ -200,23 +200,22 @@ describe('<wa-select>', () => {
             </wa-select>
           `);
           const option2 = el.querySelectorAll('wa-option')[1];
-          const handler = sinon.spy((_event: InputEvent | Event) => {
-          });
+          const handler = sinon.spy((_event: InputEvent | Event) => {});
 
           el.addEventListener('change', handler);
           el.addEventListener('input', handler);
 
           await clickOnElement(el);
           await aTimeout(500);
-          await el.updateComplete
-          await aTimeout(100)
+          await el.updateComplete;
+          await aTimeout(100);
           await clickOnElement(option2);
           await el.updateComplete;
-          await aTimeout(500)
+          await aTimeout(500);
 
           // debugger
           expect(handler).to.be.calledTwice;
-          expect(el.value).to.equal(option2.value)
+          expect(el.value).to.equal(option2.value);
         });
       });
 
@@ -506,7 +505,7 @@ describe('<wa-select>', () => {
           // clickOnElement causes some weird behavior where the `reset` event never fires.
           // Maybe one day in the future this can go back to using the `clickOnElement`.
           // await clickOnElement(resetButton);
-          resetButton.click()
+          resetButton.click();
           await select.updateComplete;
 
           expect(resetSpy).to.have.been.calledOnce;
@@ -892,7 +891,7 @@ describe('<wa-select>', () => {
       });
 
       // https://github.com/shoelace-style/webawesome/issues/1131
-      it("Should work properly with empty values on select", async () => {
+      it('Should work properly with empty values on select', async () => {
         const el = await fixture<WaSelect>(html`
           <wa-select label="Select one">
             <wa-option value="">Blank Option</wa-option>
@@ -901,30 +900,30 @@ describe('<wa-select>', () => {
           </wa-select>
         `);
 
-        await resetMouse()
+        await resetMouse();
 
         await el.show();
-        const options = el.querySelectorAll("wa-option")
+        const options = el.querySelectorAll('wa-option');
         // firefox doesnt like clicks -.-
         await clickOnElement(options[0]);
-        await resetMouse()
-        await el.updateComplete
-        expect(el.value).to.equal("")
+        await resetMouse();
+        await el.updateComplete;
+        expect(el.value).to.equal('');
 
-        await aTimeout(1)
+        await aTimeout(1);
         await clickOnElement(options[1]);
-        await resetMouse()
-        await el.updateComplete
-        await aTimeout(1)
-        expect(el.value).to.equal("option-2")
+        await resetMouse();
+        await el.updateComplete;
+        await aTimeout(1);
+        expect(el.value).to.equal('option-2');
 
         await clickOnElement(options[0]);
-        await resetMouse()
-        await el.updateComplete
-        await aTimeout(1)
-        expect(el.value).to.equal("")
-        await resetMouse()
-      })
+        await resetMouse();
+        await el.updateComplete;
+        await aTimeout(1);
+        expect(el.value).to.equal('');
+        await resetMouse();
+      });
     });
   }
 });
