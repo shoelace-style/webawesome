@@ -32,7 +32,7 @@ Dropdowns are designed to work well with [dropdown items](/docs/components/dropd
     <wa-dropdown-item slot="submenu" value="show-thumbnails">Show Thumbnails</wa-dropdown-item>
   </wa-dropdown-item>
   <wa-divider></wa-divider>
-  <wa-dropdown-item type="checkbox" checked>Emoji Shortcuts<wa-dropdown-item>
+  <wa-dropdown-item type="checkbox" checked>Emoji Shortcuts</wa-dropdown-item>
   <wa-dropdown-item type="checkbox" checked>Word Wrap</wa-dropdown-item>
   <wa-divider></wa-divider>
   <wa-dropdown-item variant="danger">
