@@ -56,10 +56,12 @@ To copy data from an attribute, use `from="id[attr]"` where `id` is the id of th
 <br /><br />
 
 <!-- Copies the input's "value" property -->
-<wa-input id="my-input" type="text" value="User input" style="display: inline-block; max-width: 300px;"></wa-input>
-<wa-copy-button from="my-input.value"></wa-copy-button>
+<span class="wa-align-items-center wa-gap-2xs">
+  <wa-input id="my-input" type="text" value="User input" style="display: inline-block; max-width: 300px;"></wa-input>
+  <wa-copy-button from="my-input.value"></wa-copy-button>
+</span>
 
-<br /><br />
+<br />
 
 <!-- Copies the link's "href" attribute -->
 <a id="my-link" href="https://shoelace.style/">Web Awesome Website</a>
