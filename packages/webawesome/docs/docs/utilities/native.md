@@ -22,11 +22,15 @@ Or, if you only want styles for native elements, include the default theme and n
 <link rel="stylesheet" href="{% cdnUrl 'styles/native.css' %}" />
 ```
 
+You can additionally include any pre-made [theme](/docs/themes/) or [color palette](docs/color-palettes/) to change the look of native elements.
+
 ## Typography
+
+Native styles use [typography design tokens](/docs/tokens/typography/) to style text elements. A number of styles — such as `color`, `font-family`, `font-size`, `font-weight`, and `line-height` — are set on the `<body>` element to be inherited by child text elements.
 
 ### Headings
 
-Create headings with `<h1>` through `<h6>`.
+Create headings with `<h1>` through `<h6>`. Headings use tokens with the `-heading` suffix, condensed line height, and `text-wrap: balance` for a prominent yet compact appearance.
 
 ```html {.example}
 <h1>Heading 1</h1>
@@ -39,7 +43,7 @@ Create headings with `<h1>` through `<h6>`.
 
 ### Paragraphs
 
-Standard paragraph text with optimal spacing and readability.
+Create paragraphs with `<p>`. Paragraphs inherit the default text styles set on the `<body>` element and use `text-wrap: pretty` in supported browsers to prevent orphaned lines.
 
 ```html {.example}
 <p>
@@ -56,7 +60,7 @@ Standard paragraph text with optimal spacing and readability.
 
 ### Blockquotes
 
-Styled quotations that stand out from regular text.
+Emphasize longer quotations with `<blockquote>`. Block quotes use your theme's serif font family and a subtle border at the start to stand out.
 
 ```html {.example}
 <blockquote>
@@ -68,21 +72,9 @@ Styled quotations that stand out from regular text.
 
 ### Lists
 
-Organized content in bulleted or numbered format with proper nesting support.
+Create ordered and unordered lists with `<ol>` and `<ul>`, plus `<li>` for list items within.
 
 ```html {.example}
-<ul>
-  <li>List item 1</li>
-  <li>
-    List item 2
-    <ul>
-      <li>Subitem a</li>
-      <li>Subitem b</li>
-    </ul>
-  </li>
-  <li>List item 3</li>
-</ul>
-
 <ol>
   <li>List item 1</li>
   <li>
@@ -94,11 +86,21 @@ Organized content in bulleted or numbered format with proper nesting support.
   </li>
   <li>List item 3</li>
 </ol>
+
+<ul>
+  <li>List item 1</li>
+  <li>
+    List item 2
+    <ul>
+      <li>Subitem a</li>
+      <li>Subitem b</li>
+    </ul>
+  </li>
+  <li>List item 3</li>
+</ul>
 ```
 
-### Description Lists
-
-Term and definition pairs for glossaries and descriptions.
+Use `<dl>` to create lists of terms (`<dt>`) and definitions (`<dd>`).
 
 ```html {.example}
 <dl>
@@ -120,45 +122,22 @@ Term and definition pairs for glossaries and descriptions.
 </dl>
 ```
 
-### Details
+### Code blocks
 
-Collapsible content sections with expand/collapse functionality.
-
-```html {.example}
-<details>
-  <summary>Tincidunt nunc pulvinar</summary>
-  <p>
-    Ut lectus arcu bibendum at varius. Convallis a cras semper auctor neque vitae. Odio pellentesque diam volutpat
-    commodo sed egestas. Amet dictum sit amet justo donec enim diam vulputate ut.
-  </p>
-</details>
-```
-
-### Dialog
-
-Modal dialog windows for alerts, confirmations, and overlays.
+Create code blocks or other preformatted text with `<pre>`. Preformatted text uses your theme's monospace font family and a subtle background color.
 
 ```html {.example}
-<dialog id="dialog-example">
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-  <button type="button">Close</button>
-</dialog>
-
-<button>Open Dialog</button>
-
-<script>
-  const dialog = document.querySelector('#dialog-example');
-  const openButton = dialog.nextElementSibling;
-  const closeButton = dialog.querySelector('button');
-
-  openButton.addEventListener('click', () => dialog.showModal());
-  closeButton.addEventListener('click', () => dialog.close());
-</script>
+<pre>
+// do a thing
+export function thing() {
+  return true;
+}
+</pre>
 ```
 
-### Inline Text
+### Inline text
 
-Various text formatting elements for emphasis and semantic meaning.
+Use any inline text element like `<strong>`, `<em>`, `<a>`, `<kbd>`, and others to stylize or emphasize text.
 
 ```html {.example}
 <div class="two-columns">
@@ -183,123 +162,150 @@ Various text formatting elements for emphasis and semantic meaning.
 </div>
 ```
 
-### Code Blocks
+## Widgets & media
 
-Formatted code snippets with proper syntax styling.
+### Media
+
+Add responsive media with `<img>`, `<svg>`, `<video>`, `<iframe>`, and others. Media takes up 100% width by default and scales according to its container's width.
 
 ```html {.example}
-<pre>
-// do a thing
-export function thing() {
-  return true;
-}
-</pre>
+<img 
+  src="https://images.unsplash.com/photo-1620196244888-d31ff5bbf163?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+  alt="A gray kitten lays next to a toy"
+/>
 ```
 
-### Images
+### Tables
 
-Responsive images with proper scaling and styling.
+Structure tabular data with `<table>` and related elements like `<caption>`, `<thead>`, `<tbody>`, `<th>`, `<tr>`, and `<td>`.
 
-![A gray kitten lays next to a toy](https://images.unsplash.com/photo-1620196244888-d31ff5bbf163?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)
+```html {.example}
+<table>
+  <caption>
+    This <code>&lt;caption&gt;</code> describes the table
+  </caption>
+  <thead>
+    <tr>
+      <th>Column 1</th>
+      <th>Column 2</th>
+      <th>Column 3</th>
+      <th>Column 4</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Data</td>
+      <td>Data</td>
+      <td>Data</td>
+      <td>Data</td>
+    </tr>
+    <tr>
+      <td>Data</td>
+      <td>Data</td>
+      <td>Data</td>
+      <td>Data</td>
+    </tr>
+    <tr>
+      <td>Data</td>
+      <td>Data</td>
+      <td>Data</td>
+      <td>Data</td>
+    </tr>
+    <tr>
+      <td>Data</td>
+      <td>Data</td>
+      <td>Data</td>
+      <td>Data</td>
+    </tr>
+  </tbody>
+</table>
+```
 
-### Progress Bars
+Add the `wa-hover-rows` class to highlight table rows on hover and the `wa-zebra-rows` class to add alternating row colors to your table.
 
-Visual indicators for task completion and loading states.
+```html {.example}
+<table class="wa-zebra-rows wa-hover-rows">
+  <thead>
+    <tr>
+      <th>Column 1</th>
+      <th>Column 2</th>
+      <th>Column 3</th>
+      <th>Column 4</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Data</td>
+      <td>Data</td>
+      <td>Data</td>
+      <td>Data</td>
+    </tr>
+    <tr>
+      <td>Data</td>
+      <td>Data</td>
+      <td>Data</td>
+      <td>Data</td>
+    </tr>
+    <tr>
+      <td>Data</td>
+      <td>Data</td>
+      <td>Data</td>
+      <td>Data</td>
+    </tr>
+    <tr>
+      <td>Data</td>
+      <td>Data</td>
+      <td>Data</td>
+      <td>Data</td>
+    </tr>
+  </tbody>
+</table>
+```
+
+### Details
+
+Create disclosure widgets with `<details>` and `<summary>`. Details closely match the appearance of [`<wa-details>`](/docs/components/details/).
+
+```html {.example}
+<details>
+  <summary>Tincidunt nunc pulvinar</summary>
+  <p>
+    Ut lectus arcu bibendum at varius. Convallis a cras semper auctor neque vitae. Odio pellentesque diam volutpat
+    commodo sed egestas. Amet dictum sit amet justo donec enim diam vulputate ut.
+  </p>
+</details>
+```
+
+### Dialog
+
+Create modal and non-modal dialog boxes with `<dialog>`. Dialogs closely match the appearance of [`<wa-dialog>`](/docs/components/dialog/).
+
+```html {.example}
+<dialog id="dialog-example">
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+  <button type="button">Close</button>
+</dialog>
+
+<button>Open Dialog</button>
+
+<script>
+  const dialog = document.querySelector('#dialog-example');
+  const openButton = dialog.nextElementSibling;
+  const closeButton = dialog.querySelector('button');
+
+  openButton.addEventListener('click', () => dialog.showModal());
+  closeButton.addEventListener('click', () => dialog.close());
+</script>
+```
+
+### Progress
+
+Create progress indicators with `<progress>`. Progress indicators closely match the appearance of [`<wa-progress-bar>`](/docs/components/progress-bar/).
 
 ```html {.example}
 <progress value="40" max="100"></progress>
 <br />
 <progress></progress>
-```
-
-### Tables
-
-Structured data presentation with clean styling, optional row highlighting on hover, and optional zebra striping.
-
-```html {.example}
-<table>
-  <caption>
-    I'm just a table
-  </caption>
-  <thead>
-    <tr>
-      <th>Column 1</th>
-      <th>Column 2</th>
-      <th>Column 3</th>
-      <th>Column 4</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Cell</td>
-      <td>Cell</td>
-      <td>Cell</td>
-      <td>Cell</td>
-    </tr>
-    <tr>
-      <td>Cell</td>
-      <td>Cell</td>
-      <td>Cell</td>
-      <td>Cell</td>
-    </tr>
-    <tr>
-      <td>Cell</td>
-      <td>Cell</td>
-      <td>Cell</td>
-      <td>Cell</td>
-    </tr>
-    <tr>
-      <td>Cell</td>
-      <td>Cell</td>
-      <td>Cell</td>
-      <td>Cell</td>
-    </tr>
-  </tbody>
-</table>
-```
-
-You can use the `wa-hover-rows` class to highlight table rows on hover and the `wa-zebra-rows` class to add alternating row colors to your table.
-
-```html {.example}
-<table class="wa-zebra-rows wa-hover-rows">
-  <caption>
-    I'm just a table
-  </caption>
-  <thead>
-    <tr>
-      <th>Column 1</th>
-      <th>Column 2</th>
-      <th>Column 3</th>
-      <th>Column 4</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Cell</td>
-      <td>Cell</td>
-      <td>Cell</td>
-      <td>Cell</td>
-    </tr>
-    <tr>
-      <td>Cell</td>
-      <td>Cell</td>
-      <td>Cell</td>
-      <td>Cell</td>
-    </tr>
-    <tr>
-      <td>Cell</td>
-      <td>Cell</td>
-      <td>Cell</td>
-      <td>Cell</td>
-    </tr>
-    <tr>
-      <td>Cell</td>
-      <td>Cell</td>
-      <td>Cell</td>
-      <td>Cell</td>
-    </tr>
-  </tbody>
-</table>
 ```
 
 ## Form Controls
