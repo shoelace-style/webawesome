@@ -55,9 +55,9 @@ Web Awesome's color system is made up of CSS custom properties to help with cons
 
 Color is organized by three main categories:
 
-- [Color scales](/#color-scales) that gives you a full spectrum of hues to work with
-- [Foundational colors](/#foundational-colors) that lay the groundwork for your theme
-- [Semantic colors](/#semantic-colors) that draw attention and convey meaning
+- [Color scales](#color-scales) that gives you a full spectrum of hues to work with
+- [Foundational colors](#foundational-colors) that lay the groundwork for your theme
+- [Semantic colors](#semantic-colors) that draw attention and convey meaning
 
 
 ## Color Scales
