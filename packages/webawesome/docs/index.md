@@ -136,35 +136,21 @@ layout: page
       margin-block-start: 1rem;
     }
   }
-  .link-panel {
-    background-color: var(--wa-color-neutral-fill-quiet);
-    border-radius: 0.75rem;
-    padding: 1.25rem;
-    & h3 {
-      font-size: 1rem;
-    }
-    & .icon-heading wa-icon {
-      background-color: var(--wa-color-neutral-fill-loud);
-      color: var(--wa-color-neutral-on-loud);
-    }
-    & p {
-      font-size: 0.875rem;
-    }
-  }
   .icon-heading {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-block-end: 1rem;
-    & wa-icon {
+    > wa-icon {
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: var(--wa-brand-orange);
-      color: white;
+      background-color: var(--wa-color-neutral-fill-loud);
+      color: var(--wa-color-neutral-on-loud);
       border-radius: 0.25rem;
       aspect-ratio: 1;
       padding: 0.5em;
+
+      &.brand-orange {
+        background-color: var(--wa-brand-orange);
+        color: white;
+      }
     }
     & h3 {
       font-size: 1rem;
@@ -224,8 +210,8 @@ layout: page
     text-align: left;
     white-space: wrap;
   }
-  wa-button.tile::part(end) {
-    display: none;
+  wa-button.tile::part(label) {
+    width: 100%;
   }
   wa-button.tile {
     width: 100%;
@@ -285,23 +271,27 @@ layout: page
   <div class="beta-notice">
     <div>
       <wa-callout variant="brand">
-        <div class="icon-heading">
-          <wa-icon name="sparkles" variant="regular" fixed-width></wa-icon>
-          <h3>Rise and shine, backers!</h3>
+        <div class="wa-stack">
+          <div class="wa-cluster icon-heading">
+            <wa-icon name="sparkles" variant="regular" fixed-width></wa-icon>
+            <h3>Bigger and beta than ever</h3>
+          </div>
+          <p>This beta is battle-tested and built to last, but if you see something, say something. Please <a href="https://github.com/shoelace-style/webawesome/issues">report bugs</a> or <a href="https://github.com/shoelace-style/webawesome/discussions">ask for help</a>!</p>
         </div>
-        <p>Dig in to your exclusive Web Awesome Beta access. This beta is battle-tested and built to last, but if you see something, say something. Please <a href="https://github.com/shoelace-style/webawesome/issues">report bugs</a> or <a href="https://github.com/shoelace-style/webawesome/discussions">ask for help</a>!</p>
       </wa-callout>
     </div>
     <div>
       <wa-button href="/docs/" appearance="outlined" class="tile">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-block-end: 1rem;">
-          <div class="icon-heading" style="margin-block-end: 0;">
-            <wa-icon name="pen-ruler" fixed-width></wa-icon>
-            <h3>Get started</h3>
+        <div class="wa-stack">
+          <div class="wa-split">
+            <div class="wa-cluster icon-heading">
+              <wa-icon name="pen-ruler" fixed-width class="brand-orange"></wa-icon>
+              <h3>Get started</h3>
+            </div>
+            <wa-icon name="arrow-right" fixed-width></wa-icon>
           </div>
-          <wa-icon name="arrow-right" fixed-width></wa-icon>
+          <p>Check out our installation guide to start building with Web Awesome.</p>
         </div>
-        <p>Check out our installation guide to start building with Web Awesome.</p>
       </wa-button>
     </div>
   </div>
@@ -310,30 +300,30 @@ layout: page
     <h2 class="brand-font">What's <span class="emphasis">Web</span> Awesome?</h2>
     <p>Web Awesome is the biggest open-source library of meticulously designed, highly customizable, and framework-agnostic UI components.</p>
     <div class="grid">
-      <div>
-        <div class="icon-heading">
-          <wa-icon name="code" fixed-width></wa-icon>
+      <div class="wa-stack">
+        <div class="wa-cluster icon-heading">
+          <wa-icon name="code" fixed-width class="brand-orange"></wa-icon>
           <h3>Entirely native</h3>
         </div>
         <p>Built on web standards to last for years to come. No excess tooling. No third-party bloat.</p>
       </div>
-      <div>
-        <div class="icon-heading">
-          <wa-icon name="palette" fixed-width></wa-icon>
+      <div class="wa-stack">
+        <div class="wa-cluster icon-heading">
+          <wa-icon name="palette" fixed-width class="brand-orange"></wa-icon>
           <h3>Fully customizable</h3>
         </div>
         <p>Show off your own style with components that consistently adapt to your theme.</p>
       </div>
-      <div>
-        <div class="icon-heading">
-          <wa-icon name="wheelchair-move" fixed-width></wa-icon>
+      <div class="wa-stack">
+        <div class="wa-cluster icon-heading">
+          <wa-icon name="wheelchair-move" fixed-width class="brand-orange"></wa-icon>
           <h3>Accessibility forward</h3>
         </div>
         <p>Build a website that everyone can use. Designed to be inclusive and usable by everyone.</p>
       </div>
-      <div>
-        <div class="icon-heading">
-          <wa-icon name="handshake-simple" fixed-width></wa-icon>
+      <div class="wa-stack">
+        <div class="wa-cluster icon-heading">
+          <wa-icon name="handshake-simple" fixed-width class="brand-orange"></wa-icon>
           <h3>Proudly open source</h3>
         </div>
         <p>Use Web Awesome Free however you like. Always free, always open source.</p>
@@ -348,20 +338,80 @@ layout: page
       <p>Whether you’re a developer, designer, or budding tech nerd, we want you a part of the conversation.</p>
     </div>
     <div>
-      <div class="link-panel">
-        <div class="icon-heading">
-          <wa-icon name="envelope-open" fixed-width></wa-icon>
-          <h3>Get in touch</h3>
+      <wa-button href="https://github.com/shoelace-style/webawesome" rel="noopener noreferrer" target="_blank" appearance="filled" class="tile">
+        <div class="wa-stack">
+          <div class="wa-split">
+            <div class="wa-cluster icon-heading">
+              <wa-icon family="brands" name="github" fixed-width></wa-icon>
+              <h3>GitHub</h3>
+            </div>
+            <wa-icon name="arrow-up-right" fixed-width></wa-icon>
+          </div>
+          <p>Get involved by opening issues, contributing to discussions, or creating PRs.</p>
         </div>
-        <p>Have a question? Want to share your feedback? Just stopping by to say 'hi'? Email us at <a href="mailto:hello@webawesome.com">hello@webawesome.com</a>.</p>
-      </div>
-      <div class="link-panel">
-        <div class="icon-heading">
-          <wa-icon name="hashtag" fixed-width></wa-icon>
-          <h3>Follow us</h3>
+      </wa-button>
+      <wa-button href="https://discord.gg/a74U7eYH" rel="noopener noreferrer" target="_blank" appearance="filled" class="tile">
+        <div class="wa-stack">
+          <div class="wa-split">
+            <div class="wa-cluster icon-heading">
+              <wa-icon family="brands" name="discord" fixed-width></wa-icon>
+              <h3>Discord</h3>
+            </div>
+            <wa-icon name="arrow-up-right" fixed-width></wa-icon>
+          </div>
+          <p>Share your work, ask questions, and explore ideas with other Web Awesome builders.</p>
         </div>
-        <p>Keep up with Web Awesome through updates, announcements, and polls. Find us on <a href="https://bsky.app/profile/webawesome.com">Bluesky</a>, <a href="https://x.com/webawesomer">Twitter (X)</a>, and <a href="https://www.threads.com/@web.awesome">Threads</a>.</p>
-      </div>
+      </wa-button>
+      <wa-button href="mailto:hello@webawesome.com" appearance="filled" class="tile">
+        <div class="wa-split">
+          <div class="wa-cluster icon-heading">
+            <wa-icon name="envelope-open" fixed-width></wa-icon>
+            <h3 class="wa-cluster wa-gap-xs">
+              <span>hello@webawesome.com</span>
+              <wa-icon name="hand-wave" variant="regular"></wa-icon>
+            </h3>
+          </div>
+          <wa-icon name="arrow-up-right" fixed-width></wa-icon>
+        </div>
+      </wa-button>
+    </div>
+  </div>
+
+  <wa-divider></wa-divider>
+
+  <div class="wa-stack wa-gap-xl">
+    <h2 class="wa-cluster brand-font">
+      <wa-icon name="hashtag" style="color: var(--wa-brand-orange);"></wa-icon>
+      <span>Stay in the know</span>
+    </h2>
+    <div class="wa-grid">
+      <wa-button href="https://bsky.app/profile/webawesome.com" rel="noopener noreferrer" target="_blank" appearance="filled" class="tile">
+        <div class="wa-split">
+          <div class="wa-cluster icon-heading">
+            <wa-icon family="brands" name="bluesky" fixed-width></wa-icon>
+            <h3>Bluesky</h3>
+          </div>
+          <wa-icon name="arrow-up-right" fixed-width></wa-icon>
+        </div>
+      </wa-button>
+      <wa-button href="https://x.com/webawesomer" rel="noopener noreferrer" target="_blank" appearance="filled" class="tile">
+        <div class="wa-split">
+          <div class="wa-cluster icon-heading">
+            <wa-icon family="brands" name="x-twitter" fixed-width></wa-icon>
+            <h3>Twitter (X)</h3>
+          </div>
+          <wa-icon name="arrow-up-right" fixed-width></wa-icon>
+        </div>
+      </wa-button>
+      <wa-button href="https://www.threads.com/@web.awesome" rel="noopener noreferrer" target="_blank" appearance="filled" class="tile">
+        <div class="wa-split">
+          <div class="wa-cluster icon-heading">
+            <wa-icon family="brands" name="threads" fixed-width></wa-icon>
+            <h3>Threads</h3>
+          </div>
+          <wa-icon name="arrow-up-right" fixed-width></wa-icon>
+        </div>
+      </wa-button>
     </div>
   </div>
 
@@ -379,9 +429,9 @@ layout: page
       <div class="attribution">
         <span>Special thanks</span>
         <div class="button-list">
+          <wa-button appearance="filled" pill href="https://www.11ty.dev/">11ty</wa-button>
           <wa-button appearance="filled" pill href="https://lit.dev/">Lit</wa-button>
           <wa-button appearance="filled" pill href="https://github.com/open-wc/custom-elements-manifest">Custom Elements Manifest</wa-button>
-          <wa-button appearance="filled" pill href="https://www.11ty.dev/">11ty</wa-button>
           <wa-button appearance="filled" pill href="https://floating-ui.com/">Floating UI</wa-button>
           <wa-button appearance="filled" pill href="https://animate.style/">animate.css</wa-button>
           <wa-button appearance="filled" pill href="https://lunrjs.com/">Lunr</wa-button>

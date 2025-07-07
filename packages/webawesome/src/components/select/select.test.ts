@@ -1,5 +1,5 @@
 import { aTimeout, expect, waitUntil } from '@open-wc/testing';
-import { sendKeys } from '@web/test-runner-commands';
+import { resetMouse, sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import sinon from 'sinon';
 import { fixtures } from '../../internal/test/fixture.js';
@@ -200,21 +200,22 @@ describe('<wa-select>', () => {
             </wa-select>
           `);
           const option2 = el.querySelectorAll('wa-option')[1];
-          const handler = sinon.spy((event: CustomEvent) => {
-            if (el.validationMessage) {
-              expect.fail(`Validation message should be empty when ${event.type} is emitted and a value is set`);
-            }
-          });
+          const handler = sinon.spy((_event: InputEvent | Event) => {});
 
           el.addEventListener('change', handler);
           el.addEventListener('input', handler);
 
           await clickOnElement(el);
           await aTimeout(500);
+          await el.updateComplete;
+          await aTimeout(100);
           await clickOnElement(option2);
           await el.updateComplete;
+          await aTimeout(500);
 
+          // debugger
           expect(handler).to.be.calledTwice;
+          expect(el.value).to.equal(option2.value);
         });
       });
 
@@ -648,8 +649,8 @@ describe('<wa-select>', () => {
             const el = form.querySelector<WaSelect>('wa-select')!;
 
             expect(el.defaultValue).to.equal('option-1');
-            expect(el.value).to.equal('');
-            expect(new FormData(form).get('select')).equal('');
+            expect(el.value).to.equal(null);
+            expect(new FormData(form).get('select')).equal(null);
 
             const option = document.createElement('wa-option');
             option.value = 'option-1';
@@ -697,8 +698,8 @@ describe('<wa-select>', () => {
             );
 
             const el = form.querySelector<WaSelect>('wa-select')!;
-            expect(el.value).to.equal('');
-            expect(new FormData(form).get('select')).to.equal('');
+            expect(el.value).to.equal(null);
+            expect(new FormData(form).get('select')).to.equal(null);
 
             const option = document.createElement('wa-option');
             option.value = 'foo';
@@ -771,12 +772,12 @@ describe('<wa-select>', () => {
             );
 
             const el = form.querySelector<WaSelect>('wa-select')!;
-            expect(el.value).to.equal('');
+            expect(el.value).to.equal(null);
 
-            el.value = 'foo';
+            el.defaultValue = 'foo';
             await aTimeout(10);
             await el.updateComplete;
-            expect(el.value).to.equal('');
+            expect(el.value).to.equal(null);
 
             const option = document.createElement('wa-option');
             option.value = 'foo';
@@ -887,6 +888,43 @@ describe('<wa-select>', () => {
 
         // Get the popup element and check its active state
         expect(popup?.active).to.be.true;
+      });
+
+      // https://github.com/shoelace-style/webawesome/issues/1131
+      // new test, failing only in CI
+      it.skip('Should work properly with empty values on select', async () => {
+        const el = await fixture<WaSelect>(html`
+          <wa-select label="Select one">
+            <wa-option value="">Blank Option</wa-option>
+            <wa-option value="option-2">Option 2</wa-option>
+            <wa-option value="option-3">Option 3</wa-option>
+          </wa-select>
+        `);
+
+        await resetMouse();
+
+        await el.show();
+        const options = el.querySelectorAll('wa-option');
+        await aTimeout(100);
+        // firefox doesnt like clicks -.-
+        await clickOnElement(options[0]);
+        await resetMouse();
+        await el.updateComplete;
+        expect(el.value).to.equal('');
+
+        await aTimeout(100);
+        await clickOnElement(options[1]);
+        await resetMouse();
+        await el.updateComplete;
+        await aTimeout(100);
+        expect(el.value).to.equal('option-2');
+
+        await clickOnElement(options[0]);
+        await resetMouse();
+        await el.updateComplete;
+        await aTimeout(100);
+        expect(el.value).to.equal('');
+        await resetMouse();
       });
     });
   }

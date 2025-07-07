@@ -73,7 +73,33 @@ wa-page > header {
   #docs-toolbar {
     display: flex;
     align-items: center;
-    gap: var(--wa-space-xs);
+    gap: var(--wa-space-s);
+
+    .color-scheme-selector,
+    .theme-selector {
+      max-inline-size: 20ch;
+    }
+
+    wa-divider:last-child {
+      display: none;
+    }
+  }
+
+  #github-buttons {
+    > wa-button {
+      &::part(base) {
+        color: var(--wa-color-on-quiet);
+        background-color: var(--wa-color-fill-quiet);
+      }
+      > wa-icon {
+        font-size: round(1.25em, 1px);
+      }
+    }
+
+    > wa-tooltip {
+      --wa-tooltip-arrow-size: 0;
+      font-size: var(--wa-font-size-xs);
+    }
   }
 
   #version-number {
@@ -85,14 +111,6 @@ wa-page > header {
   #version-number + wa-badge {
     font-size: var(--wa-font-size-2xs);
     text-transform: uppercase;
-  }
-  wa-button#search-trigger {
-    --background-color: var(--wa-form-control-background-color);
-    --border-color: var(--wa-form-control-border-color);
-  }
-  #search-trigger kbd {
-    font-size: var(--wa-font-size-2xs);
-    line-height: var(--wa-form-control-value-line-height);
   }
 }
 
@@ -242,6 +260,12 @@ wa-button.delete {
   }
 }
 
+[slot='navigation-header'] {
+  wa-select::part(listbox) {
+    font-weight: var(--wa-font-weight-normal);
+  }
+}
+
 #sidebar-close-button {
   display: none;
 }
@@ -377,6 +401,22 @@ h1.title {
   code {
     background-color: var(--wa-color-warning-fill-normal);
   }
+}
+
+/* Search trigger */
+wa-button#search-trigger {
+  &::part(base) {
+    background-color: var(--wa-form-control-background-color);
+    border: var(--wa-form-control-border-width) var(--wa-form-control-border-style) var(--wa-form-control-border-color);
+    box-shadow: none;
+  }
+  &::part(label) {
+    width: 100%;
+  }
+}
+#search-trigger kbd {
+  font-size: var(--wa-font-size-2xs);
+  line-height: var(--wa-form-control-value-line-height);
 }
 
 /* Search list pages */
@@ -630,7 +670,7 @@ wa-scroller:has(.component-table) {
 }
 
 /** desktop */
-@media screen and not (max-width: 768px) {
+@media screen and not (max-width: 1180px) {
   /* Navigation sidebar */
   wa-page::part(navigation) {
     border-right: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-surface-border);

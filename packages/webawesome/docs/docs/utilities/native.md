@@ -214,7 +214,7 @@ Visual indicators for task completion and loading states.
 
 ### Tables
 
-Structured data presentation with clean styling and optional zebra striping.
+Structured data presentation with clean styling, optional row highlighting on hover, and optional zebra striping.
 
 ```html {.example}
 <table>
@@ -258,10 +258,10 @@ Structured data presentation with clean styling and optional zebra striping.
 </table>
 ```
 
-You can use the `wa-zebra-rows` class to add alternating row colors to your table:
+You can use the `wa-hover-rows` class to highlight table rows on hover and the `wa-zebra-rows` class to add alternating row colors to your table.
 
 ```html {.example}
-<table class="wa-zebra-rows">
+<table class="wa-zebra-rows wa-hover-rows">
   <caption>
     I'm just a table
   </caption>
@@ -320,43 +320,38 @@ Use the [appearance utility classes](/docs/utilities/appearance) to change the b
 
 ```html {.example}
 <div style="margin-block-end: 1rem;">
-  <button class="wa-accent wa-outlined wa-neutral">A + O</button>
   <button class="wa-accent wa-neutral">Accent</button>
-  <button class="wa-outlined wa-neutral">Outlined</button>
-  <button class="wa-filled wa-outlined wa-neutral">F + O</button>
+  <button class="wa-filled wa-outlined wa-neutral">Filled + Outlined</button>
   <button class="wa-filled wa-neutral">Filled</button>
+  <button class="wa-outlined wa-neutral">Outlined</button>
   <button class="wa-plain wa-neutral">Plain</button>
 </div>
 <div style="margin-block-end: 1rem;">
-  <button class="wa-accent wa-outlined wa-brand">A + O</button>
   <button class="wa-accent wa-brand">Accent</button>
-  <button class="wa-outlined wa-brand">Outlined</button>
-  <button class="wa-filled wa-outlined wa-brand">F + O</button>
+  <button class="wa-filled wa-outlined wa-brand">Filled + Outlined</button>
   <button class="wa-filled wa-brand">Filled</button>
+  <button class="wa-outlined wa-brand">Outlined</button>
   <button class="wa-plain wa-brand">Plain</button>
 </div>
 <div style="margin-block-end: 1rem;">
-  <button class="wa-accent wa-outlined wa-success">A + O</button>
   <button class="wa-accent wa-success">Accent</button>
-  <button class="wa-outlined wa-success">Outlined</button>
-  <button class="wa-filled wa-outlined wa-success">F + O</button>
+  <button class="wa-filled wa-outlined wa-success">Filled + Outlined</button>
   <button class="wa-filled wa-success">Filled</button>
+  <button class="wa-outlined wa-success">Outlined</button>
   <button class="wa-plain wa-success">Plain</button>
 </div>
 <div style="margin-block-end: 1rem;">
-  <button class="wa-accent wa-outlined wa-warning">A + O</button>
   <button class="wa-accent wa-warning">Accent</button>
-  <button class="wa-outlined wa-warning">Outlined</button>
-  <button class="wa-filled wa-outlined wa-warning">F + O</button>
+  <button class="wa-filled wa-outlined wa-warning">Filled + Outlined</button>
   <button class="wa-filled wa-warning">Filled</button>
+  <button class="wa-outlined wa-warning">Outlined</button>
   <button class="wa-plain wa-warning">Plain</button>
 </div>
 <div>
-  <button class="wa-accent wa-outlined wa-danger">A + O</button>
   <button class="wa-accent wa-danger">Accent</button>
-  <button class="wa-outlined wa-danger">Outlined</button>
-  <button class="wa-filled wa-outlined wa-danger">F + O</button>
+  <button class="wa-filled wa-outlined wa-danger">Filled + Outlined</button>
   <button class="wa-filled wa-danger">Filled</button>
+  <button class="wa-outlined wa-danger">Outlined</button>
   <button class="wa-plain wa-danger">Plain</button>
 </div>
 ```

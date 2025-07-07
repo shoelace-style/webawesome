@@ -61,19 +61,27 @@
           <wa-badge variant="brand" appearance="filled" class="wa-desktop-only">Beta</wa-badge>
         </div>
 
-        <div id="docs-toolbar" class="wa-cluster wa-gap-xs">
+        <div id="docs-toolbar" class="wa-cluster">
           {# Desktop selectors #}
           <div class="wa-desktop-only wa-cluster wa-gap-xs">
             {% include "theme-selector.njk" %}
             {% include "color-scheme-selector.njk" %}
           </div>
 
-          {# Search #}
-          <wa-button id="search-trigger" appearance="outlined" size="small" data-search>
-            <wa-icon slot="start" name="magnifying-glass"></wa-icon>
-            Search
-            <kbd slot="end" class="wa-desktop-only">/</kbd>
-          </wa-button>
+          <wa-divider orientation="vertical" class="wa-desktop-only"></wa-divider>
+
+          <div id="github-buttons" class="wa-cluster wa-gap-xs">
+            <wa-button id="github-repo-button" href="https://github.com/shoelace-style/webawesome" rel="noopener noreferrer" target="_blank" appearance="filled" size="small">
+              <wa-icon family="brands" name="github" label="GitHub"></wa-icon>
+            </wa-button>
+            <wa-tooltip for="github-repo-button" distance="2">GitHub</wa-tooltip>
+            <wa-button id="github-star-button" href="https://github.com/shoelace-style/webawesome/stargazers" rel="noopener noreferrer" target="_blank" appearance="filled" size="small">
+              <wa-icon name="star" variant="regular" label="Star this repository"></wa-icon>
+            </wa-button>
+            <wa-tooltip for="github-star-button" distance="2">Star this repository</wa-tooltip>
+          </div>
+
+          <wa-divider orientation="vertical"></wa-divider>
 
           {# Login #}
           {% server "loginOrAvatar" %}
@@ -84,7 +92,7 @@
       {% if hasSidebar %}
         {# Mobile selectors #}
         <div class="wa-mobile-only" slot="navigation-header">
-          <div class="wa-cluster wa-gap-xs">
+          <div class="wa-cluster wa-gap-xs" style="flex-wrap: nowrap;">
             {% include "theme-selector.njk" %}
             {% include "color-scheme-selector.njk" %}
           </div>

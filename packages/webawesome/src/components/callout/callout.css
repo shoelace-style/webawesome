@@ -25,10 +25,10 @@
 :host([appearance~='filled']) {
   background-color: var(--wa-color-fill-quiet, var(--wa-color-brand-fill-quiet));
   border-color: transparent;
+}
 
-  &:host([appearance~='outlined']) {
-    border-color: var(--wa-color-border-quiet, var(--wa-color-brand-border-quiet));
-  }
+:host([appearance~='filled'][appearance~='outlined']) {
+  border-color: var(--wa-color-border-quiet, var(--wa-color-brand-border-quiet));
 }
 
 :host([appearance~='accent']) {

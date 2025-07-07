@@ -181,7 +181,7 @@
   }
 
   del {
-    color: var(--wa-color-text-quiet);
+    color: color-mix(in oklab, currentColor, transparent 10%);
     text-decoration-color: var(--wa-color-danger-on-quiet);
     text-decoration-line: line-through;
     text-decoration-thickness: 0.09375em;
@@ -190,7 +190,7 @@
   mark {
     padding: 0.125em 0.25em;
 
-    color: inherit;
+    color: var(--wa-color-warning-on-quiet);
 
     background-color: var(--wa-color-warning-fill-quiet);
     border-radius: var(--wa-border-radius-s);
@@ -226,13 +226,12 @@
   kbd {
     padding: 0.125em 0.25em;
 
-    color: var(--wa-color-text-normal);
     font-family: var(--wa-font-family-code);
     font-size: var(--wa-font-size-smaller);
 
-    border: solid var(--wa-border-width-s) var(--wa-color-neutral-border-quiet);
+    border: solid var(--wa-border-width-s) color-mix(in oklab, currentColor, transparent 50%);
     border-radius: var(--wa-border-radius-s);
-    box-shadow: 0 0.125em 0 0 var(--wa-color-neutral-border-quiet);
+    box-shadow: 0 0.125em 0 0 color-mix(in oklab, currentColor, transparent 50%);
 
     wa-icon {
       vertical-align: -2px;
@@ -247,6 +246,13 @@
     -webkit-text-decoration: var(--wa-link-decoration-default);
     text-decoration-thickness: 0.09375em;
     text-underline-offset: 0.125em;
+  }
+
+  *:is([appearance~='accent'], .wa-accent) {
+    a,
+    a:hover {
+      color: currentColor;
+    }
   }
 
   a:hover {
@@ -357,13 +363,15 @@
         background-color: color-mix(in oklab, var(--wa-color-fill-quiet) 60%, transparent);
       }
 
-      @media (hover: hover) {
-        &:hover {
-          background-color: var(--wa-color-fill-quiet);
+      :where(table.wa-hover-rows) & {
+        @media (hover: hover) {
+          &:hover {
+            background-color: var(--wa-color-fill-quiet);
 
-          &,
-          + tr {
-            border-top-color: var(--wa-color-border-normal);
+            &,
+            + tr {
+              border-top-color: var(--wa-color-border-normal);
+            }
           }
         }
       }

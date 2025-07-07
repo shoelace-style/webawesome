@@ -25,22 +25,18 @@
 }
 
 /* Appearance modifiers */
-:host([appearance~='outlined']) {
-  .textarea {
-    background-color: var(--wa-form-control-background-color);
-    border-color: var(--wa-form-control-border-color);
-  }
+:host([appearance~='outlined']) .textarea {
+  background-color: var(--wa-form-control-background-color);
+  border-color: var(--wa-form-control-border-color);
 }
 
-:host([appearance~='filled']) {
-  .textarea {
-    background-color: var(--wa-color-neutral-fill-quiet);
-    border-color: var(--wa-color-neutral-fill-quiet);
-  }
+:host([appearance~='filled']) .textarea {
+  background-color: var(--wa-color-neutral-fill-quiet);
+  border-color: var(--wa-color-neutral-fill-quiet);
+}
 
-  &:host([appearance~='outlined']) .textarea {
-    border-color: var(--wa-form-control-border-color);
-  }
+:host([appearance~='filled'][appearance~='outlined']) .textarea {
+  border-color: var(--wa-form-control-border-color);
 }
 
 textarea {

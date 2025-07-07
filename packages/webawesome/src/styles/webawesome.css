@@ -6,14 +6,5 @@
 /* CSS Utilities */
 @import url('utilities.css');
 
-/* Color */
-@import url('color/palettes/default.css');
-
-@import url('color/variants/brand.css');
-@import url('color/variants/neutral.css');
-@import url('color/variants/success.css');
-@import url('color/variants/warning.css');
-@import url('color/variants/danger.css');
-
 /* Theme */
 @import url('themes/default.css');

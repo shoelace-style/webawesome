@@ -8,6 +8,24 @@ Web Awesome follows [Semantic Versioning](https://semver.org/). Breaking changes
 
 Components with the <wa-badge variant="warning">Experimental</wa-badge> badge should not be used in production. They are made available as release candidates for development and testing purposes. As such, changes to experimental components will not be subject to semantic versioning.
 
+## 3.0.0-beta.2
+
+### New Features {data-no-outline}
+
+- Added `.wa-hover-rows` to native styles to opt-in to highlighting table rows on hover.
+
+### Bug Fixes and Improvements {data-no-outline}
+
+- Fixed a bug in `<wa-select>` with options that had blank string values. [pr:1136]
+- Added `.wa-hover-rows` to native styles to opt-in to highlighting table rows on hover [pr:1111]
+- Added missing changelog entries for beta.1 [pr:1117]
+- Fixed a bug in `<wa-dropdown>` that prevented the menu from flipping/shifting to keep the menu in the viewport [pr:1122]
+- Fixed the themes page so it shows the correct palette and imports [pr:1125]
+- Fixed `filled` and `outlined` appearance styles in various components [issue:1102]
+- Fixed active state styles in the Awesome theme [pr:1129]
+- Fixed native text styles when applied to certain backgrounds [pr:https://github.com/shoelace-style/webawesome/pull/1130]
+- Improved the organization of essential and optional styles [pr:1113]
+
 ## 3.0.0-beta.1
 
 We're excited to share the first beta release of Web Awesome, which includes some breaking changes that make the library significantly more intuitive and consistent!
@@ -28,7 +46,8 @@ Many of these changes and improvements were the direct result of feedback from u
 - Renamed the `classic` theme to `shoelace`
 - Removed `:root` selector from all theme, color palette, and semantic color stylesheets except for the default theme and colors. All of these styles are now solely scoped to classes, such as `.wa-theme-awesome`, `.wa-palette-bright`, and `.wa-brand-orange`.
 - Removed most custom properties from components that can otherwise be styled with `::part()` selectors and standard CSS properties.
-- Renamed `pulse` attribute in `<wa-badge>` to `attention="pulse"` and added `attention="bounce"` [issue:#940]
+- `<wa-dropdown>` was reworked and simplified to not use menu, menu item, menu label; use `<wa-dropdown-item>` instead
+- Renamed `pulse` attribute in `<wa-badge>` to `attention="pulse"` and added `attention="bounce"` [issue:940]
 - Renamed the `vertical` attribute to `orientation="vertical"` in `<wa-split-panel>` and `<wa-divider>` to align with other components and the platform [issue:674]
 - Renamed certain boolean attributes to be consistent using the `with-*` and `without-*` pattern:
   - `<wa-button caret>` => `<wa-button with-caret>`
@@ -96,6 +115,9 @@ Many of these changes and improvements were the direct result of feedback from u
 ### Removals {data-no-outline}
 
 - Removed the experimental `<wa-code-demo>` component
+- `<wa-menu>`, `<wa-menu-item>`, `<wa-menu-label>` were dropped; use `<wa-dropdown-item>` instead
+- `<wa-icon-button>` was removed; icon buttons can be added via `<wa-button>` now
+- `<wa-radio-button>` was dropped; use `<wa-radio appearance="button">` instead
 
 <details>
 <summary>Alpha Changelogs</summary>

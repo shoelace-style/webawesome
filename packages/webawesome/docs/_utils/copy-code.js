@@ -32,8 +32,7 @@ export function copyCodePlugin(eleventyConfig, options = {}) {
       }
 
       // Add a copy button
-      pre.innerHTML += `<wa-button href="#${preId}" class="block-link-icon" appearance="plain" size="small"><wa-icon name="link" label="Copy link"></wa-icon></wa-button>
-        <wa-copy-button from="${codeId}" class="copy-button"></wa-copy-button>`;
+      pre.innerHTML += `<wa-copy-button from="${codeId}" class="copy-button wa-dark"></wa-copy-button>`;
     });
 
     return doc.toString();

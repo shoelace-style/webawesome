@@ -40,9 +40,26 @@ export default {
   middleware: [
     // When using relative CSS imports, we need to rewrite the paths so the test runner can find them.
     function rewriteCssUrls(context, next) {
-      if (context.url.endsWith('.css') && context.url.match(/^\/[^/]+\//)) {
-        const theme = context.url.split('/')[1];
-        context.url = `/dist/styles/themes/${theme}${context.url.slice(theme.length + 1)}`;
+      if (context.url.endsWith('.css')) {
+        // Okay, this is all fucked up. WTR doesn't seem to like how we use `@import`.
+        if (context.url.startsWith('/base.css')) {
+          context.url = '/dist/styles/color/palettes/base.css';
+        }
+
+        if (context.url.startsWith('/variants')) {
+          context.url = '/dist/styles/color' + context.url;
+        }
+
+        if (context.url.startsWith('/color/variants.css')) {
+          context.url = '/dist/styles' + context.url;
+        }
+
+        if (context.url.startsWith('/color/palettes')) {
+          context.url = '/dist/styles' + context.url;
+        }
+
+        // console.log(context)
+        // console.log({ context, before, after: context.url })
       }
       return next();
     },

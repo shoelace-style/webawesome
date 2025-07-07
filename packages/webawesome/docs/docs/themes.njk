@@ -4,96 +4,99 @@ description: Themes galore
 layout: page
 ---
 
-<div class="wa-stack wa-gap-3xl">
+<div class="wa-split">
+  <h1>{{ title }}</h1>
+  <wa-button variant="brand" href="/themer">
+    <wa-icon slot="start" name="plus" variant="regular"></wa-icon>
+    Create a Theme
+  </wa-button>
+</div>
 
-  <div class="wa-split">
-    <h1>{{ title }}</h1>
-    <wa-button variant="brand" href="/themer">
-      <wa-icon slot="start" name="plus" variant="regular"></wa-icon>
-      Create a Theme
-    </wa-button>
-  </div>
+<div id="theme-viewer">
+  {% raw %}
+    {% if not currentUser.hasPro %}
+      <p>
+        Additional themes are available to pro users. Please <a href="/login">login to view pro themes</a>.
+      </p>
+    {% endif %}
+  {% endraw %}
 
-  <div id="theme-viewer">
-    {% raw %}
-      {% if not currentUser.hasPro %}
-        <p>
-          Additional themes are available to pro users. Please <a href="/login">login to view pro themes</a>.
-        </p>
-      {% endif %}
-    {% endraw %}
-
-    <wa-radio-group id="theme-picker" label="Theme Selector" value="default" orientation="horizontal">
-      {% for theme in themer.themes %}
-        {% if not theme.isPro %}
+  <wa-radio-group id="theme-picker" label="Theme Selector" value="default" orientation="horizontal">
+    {% for theme in themer.themes %}
+      {% if not theme.isPro %}
+        <wa-radio
+          class="theme-card"
+          value="{{ theme.filename | stripExtension }}"
+          data-description="{{ theme.description }}"
+          data-title="{{ theme.name }}"
+          data-palette="{{ theme.palette.filename | stripExtension}}"
+          data-brand="{{ theme.colorBrand.color }}"
+          {% if theme.isPro %}data-is-pro{% endif %}
+        >
+          {{ theme.name }}
+        </wa-radio>
+      {% else %}
+        {% raw %}
+          {% if currentUser.hasPro %}
+        {% endraw %}
           <wa-radio
             class="theme-card"
             value="{{ theme.filename | stripExtension }}"
             data-description="{{ theme.description }}"
             data-title="{{ theme.name }}"
+            data-palette="{{ theme.palette.filename | stripExtension}}"
+            data-brand="{{ theme.colorBrand.color }}"
             {% if theme.isPro %}data-is-pro{% endif %}
           >
             {{ theme.name }}
           </wa-radio>
-        {% else %}
-          {% raw %}
-            {% if currentUser.hasPro %}
-          {% endraw %}
-            <wa-radio
-              class="theme-card"
-              value="{{ theme.filename | stripExtension }}"
-              data-description="{{ theme.description }}"
-              data-title="{{ theme.name }}"
-              {% if theme.isPro %}data-is-pro{% endif %}
-            >
-              {{ theme.name }}
-            </wa-radio>
-          {% raw %}
-            {% endif %}
-          {% endraw %}
-        {% endif %}
-      {% endfor %}
-    </wa-radio-group>
-  </div>
-
-  <div id="theme-preview" class="wa-stack">
-    <header class="wa-stack">
-      <div class="wa-cluster">
-        <h2 data-theme-name="name">Theme</h2>
-        <wa-badge data-free-badge appearance="outlined" variant="neutral" hidden>FREE</wa-badge>
-        <wa-badge data-pro-badge appearance="accent" hidden>PRO</wa-badge>
-      </div>
-      <p data-theme-description>Description</p>
-    </header>
-    <wa-comparison position="80">
-      <wa-zoomable-frame
-        src="/examples/themes/showcase?color-scheme=dark"
-        slot="before"
-        without-controls
-        without-interaction
-      ></wa-zoomable-frame>
-      <wa-zoomable-frame
-        src="/examples/themes/showcase"
-        slot="after"
-        without-controls
-        without-interaction
-      ></wa-zoomable-frame>
-    </wa-comparison>
-  </div>
-
-  <h2>Using This Theme</h2>
-  <div id="import-code">
-    {% for theme in themer.themes %}
-    <div class="theme-instructions" data-theme="{{ theme.filename | stripExtension }}" {% if not loop.first %}hidden{% endif %}>
-      <p>
-        To import this theme, set <code>&lt;html class=&quot;wa-theme-{{ theme.filename | stripExtension }}&quot;&gt;</code> and import the following stylesheet:
-      </p>
-      <pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;{% cdnUrl %}styles/themes/{{ theme.filename }}&quot; /&gt;</code></pre>
-    </div>
+        {% raw %}
+          {% endif %}
+        {% endraw %}
+      {% endif %}
     {% endfor %}
-  </div>
-
+  </wa-radio-group>
 </div>
+
+<div id="theme-preview" class="wa-stack">
+  <header class="wa-stack">
+    <div class="wa-cluster">
+      <h2 data-theme-name="name">Theme</h2>
+      <wa-badge data-free-badge appearance="outlined" variant="neutral" hidden>FREE</wa-badge>
+      <wa-badge data-pro-badge appearance="accent" hidden>PRO</wa-badge>
+    </div>
+    <p data-theme-description>Description</p>
+  </header>
+  <wa-comparison position="80">
+    <wa-zoomable-frame
+      src="/examples/themes/showcase?color-scheme=dark"
+      slot="before"
+      without-controls
+      without-interaction
+    ></wa-zoomable-frame>
+    <wa-zoomable-frame
+      src="/examples/themes/showcase"
+      slot="after"
+      without-controls
+      without-interaction
+    ></wa-zoomable-frame>
+  </wa-comparison>
+</div>
+
+<h2>Using This Theme</h2>
+<div id="import-code">
+  {% for theme in themer.themes %}
+  <div class="theme-instructions" data-theme="{{ theme.filename | stripExtension }}" {% if not loop.first %}hidden{% endif %}>
+    <p>
+      To import this theme, apply the following classes to the <code>&lt;html&gt;</code> element and import the theme's stylesheet.
+    </p>
+<pre><code class="language-html">&lt;html class=&quot;wa-theme-{{ theme.filename | stripExtension }} wa-palette-{{ theme.palette.filename | stripExtension }} wa-brand-{{ theme.colorBrand.color}}&quot;&gt;
+...
+&lt;link rel=&quot;stylesheet&quot; href=&quot;{% cdnUrl %}styles/themes/{{ theme.filename }}&quot; /&gt;</code></pre>
+  </div>
+  {% endfor %}
+</div>
+
 
 <script type="module">
   import { doViewTransition } from '/assets/scripts/view-transitions.js';
@@ -106,23 +109,25 @@ layout: page
   const freeBadge = document.querySelector('[data-free-badge]');
   const proBadge = document.querySelector('[data-pro-badge]');
 
-  function updateFrames(selectedValue, title, description, isPro) {
+  function updateFrames(selectedValue, title, description, isPro, palette, brand) {
     // Update theme classes on both frames
     [afterFrame, beforeFrame].forEach(frame => {
       if (frame.contentDocument) {
         const html = frame.contentDocument.documentElement;
         if (!html) return;
 
-        // Remove all existing wa-theme-* classes
-        html.classList.forEach(className => {
-          if (className.startsWith('wa-theme-')) {
+        // Remove all existing wa-theme-*, wa-palette-*, and wa-brand-* classes
+        [...html.classList].forEach(className => {
+          if (className.startsWith('wa-theme-') || className.startsWith('wa-palette-') || className.startsWith('wa-brand-')) {
             html.classList.remove(className);
           }
         });
 
-        // Add new theme class if not default
+        // Add new theme, palette, and brand classes
         if (selectedValue !== 'default') {
           html.classList.add(`wa-theme-${selectedValue}`);
+          html.classList.add(`wa-palette-${palette}`);
+          html.classList.add(`wa-brand-${brand}`);
         }
       }
     });
@@ -150,8 +155,10 @@ layout: page
     defaultRadio.checked = true;
     const title = defaultRadio.getAttribute('data-title');
     const description = defaultRadio.getAttribute('data-description');
+    const palette = defaultRadio.getAttribute('data-palette');
+    const brand = defaultRadio.getAttribute('data-brand');
     const isPro = defaultRadio.hasAttribute('data-is-pro');
-    updateFrames('default', title, description, isPro);
+    updateFrames('default', title, description, isPro, palette, brand);
   }
 
   // Listen for radio changes
@@ -159,9 +166,11 @@ layout: page
     const selectedRadio = event.target.querySelector(':state(checked)');
     const title = selectedRadio.getAttribute('data-title');
     const description = selectedRadio.getAttribute('data-description');
+    const palette = selectedRadio.getAttribute('data-palette');
+    const brand = selectedRadio.getAttribute('data-brand');
     const isPro = selectedRadio.hasAttribute('data-is-pro');
     doViewTransition(() => {
-      updateFrames(selectedRadio.value, title, description, isPro);
+      updateFrames(selectedRadio.value, title, description, isPro, palette, brand);
     });
   });
 </script>
@@ -169,6 +178,11 @@ layout: page
 <style>
   [hidden] {
     display: none !important;
+  }
+
+  #theme-preview,
+  #using-this-theme {
+    margin-block-start: var(--wa-space-3xl);
   }
 
   .title {
