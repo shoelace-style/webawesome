@@ -24,9 +24,29 @@ Or, if you only want styles for native elements, include the default theme and n
 
 You can additionally include any pre-made [theme](/docs/themes/) or [color palette](docs/color-palettes/) to change the look of native elements.
 
+## Content flow
+
+Native styles set default space between many block-level HTML elements using the `--wa-content-spacing` token from your theme. This helps ensure that your content is readable.
+
+```html {.example}
+<h3>Curabitur odio ligula</h3>
+<p>Fusce mollis quam lorem, et gravida arcu laoreet ut. Pellentesque et malesuada mi. Morbi faucibus nisl nec nulla porta, ac scelerisque elit finibus.</p>
+<blockquote>The Road goes ever on and on<br />
+Out from the door where it began.</blockquote>
+<p>Donec varius, ipsum sit amet lobortis tristique, quam arcu pellentesque turpis, non porta lacus arcu non arcu. Morbi luctus at nisl sit amet faucibus.</p>
+<hr />
+<ul>
+  <li>Aenean imperdiet</li>
+  <li>Vivamus consectetur at est</li>
+  <li>Quisque vel leo in leo semper</li>
+</ul>
+```
+
+To remove this default spacing, you can set `--wa-content-spacing: 0` in your styles.
+
 ## Typography
 
-Native styles use [typography design tokens](/docs/tokens/typography/) to style text elements. A number of styles — such as `color`, `font-family`, `font-size`, `font-weight`, and `line-height` — are set on the `<body>` element to be inherited by child text elements.
+Native styles use [typography design tokens](/docs/tokens/typography/) to style text elements. A number of styles — such as `color`, `font-family`, `font-size`, `font-weight`, and `line-height` — are set on the `<body>` element to be inherited by child elements.
 
 ### Headings
 
@@ -75,46 +95,48 @@ Emphasize longer quotations with `<blockquote>`. Block quotes use your theme's s
 Create ordered and unordered lists with `<ol>` and `<ul>`, plus `<li>` for list items within.
 
 ```html {.example}
-<ol>
-  <li>List item 1</li>
-  <li>
-    List item 2
-    <ol>
-      <li>Subitem a</li>
-      <li>Subitem b</li>
-    </ol>
-  </li>
-  <li>List item 3</li>
-</ol>
+<div class="wa-grid">
+  <ol>
+    <li>First item</li>
+    <li>
+      Another item
+      <ol>
+        <li>Nested item</li>
+        <li>Another nested item</li>
+      </ol>
+    </li>
+    <li>Final item</li>
+  </ol>
 
-<ul>
-  <li>List item 1</li>
-  <li>
-    List item 2
-    <ul>
-      <li>Subitem a</li>
-      <li>Subitem b</li>
-    </ul>
-  </li>
-  <li>List item 3</li>
-</ul>
+  <ul>
+    <li>First item</li>
+    <li>
+      Another item
+      <ul>
+        <li>Nested item</li>
+        <li>Another nested item</li>
+      </ul>
+    </li>
+    <li>Final item</li>
+  </ul>
+</div>
 ```
 
 Use `<dl>` to create lists of terms (`<dt>`) and definitions (`<dd>`).
 
 ```html {.example}
 <dl>
-  <dt>Definition 1</dt>
+  <dt>First term</dt>
   <dd>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
     aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
   </dd>
-  <dt>Definition 2</dt>
+  <dt>Second term</dt>
   <dd>
     Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
     sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
   </dd>
-  <dt>Definition 3</dt>
+  <dt>Final term</dt>
   <dd>
     Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam,
     eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
@@ -140,25 +162,25 @@ export function thing() {
 Use any inline text element like `<strong>`, `<em>`, `<a>`, `<kbd>`, and others to stylize or emphasize text.
 
 ```html {.example}
-<div class="two-columns">
-  <p><strong>Bold</strong></p>
-  <p><em>Italic</em></p>
-  <p><u>Underline</u></p>
-  <p><s>Strike-through</s></p>
-  <p><del>Deleted</del></p>
-  <p><ins>Inserted</ins></p>
-  <p><small>Small</small></p>
-  <p>
+<div class="wa-grid">
+  <div class="wa-stack wa-align-items-start">
+    <strong>Bold</strong>
+    <em>Italic</em>
+    <u>Underline</u>
+    <s>Strike-through</s>
+    <del>Deleted</del>
+    <ins>Inserted</ins>
+    <small>Small</small>
+  </div>
+  <div class="wa-stack wa-align-items-start">
     <span>Subscript <sub>Sub</sub></span>
-  </p>
-  <p>
     <span>Superscript <sup>Sup</sup></span>
-  </p>
-  <p><abbr title="Abbreviation">Abbr.</abbr></p>
-  <p><mark>Highlighted</mark></p>
-  <p><a href="#">Link text</a></p>
-  <p><code>Inline code</code></p>
-  <p><kbd>Keyboard</kbd></p>
+    <abbr title="Abbreviation">Abbr.</abbr>
+    <mark>Highlighted</mark>
+    <a href="#">Link text</a>
+    <code>Inline code</code>
+    <kbd>Keyboard</kbd>
+  </div>
 </div>
 ```
 
@@ -186,10 +208,10 @@ Structure tabular data with `<table>` and related elements like `<caption>`, `<t
   </caption>
   <thead>
     <tr>
-      <th>Column 1</th>
-      <th>Column 2</th>
-      <th>Column 3</th>
-      <th>Column 4</th>
+      <th>First column</th>
+      <th>Second column</th>
+      <th>Third column</th>
+      <th>Final column</th>
     </tr>
   </thead>
   <tbody>
@@ -227,10 +249,10 @@ Add the `wa-hover-rows` class to highlight table rows on hover and the `wa-zebra
 <table class="wa-zebra-rows wa-hover-rows">
   <thead>
     <tr>
-      <th>Column 1</th>
-      <th>Column 2</th>
-      <th>Column 3</th>
-      <th>Column 4</th>
+      <th>First column</th>
+      <th>Second column</th>
+      <th>Third column</th>
+      <th>Final column</th>
     </tr>
   </thead>
   <tbody>
@@ -268,7 +290,7 @@ Create disclosure widgets with `<details>` and `<summary>`. Details closely matc
 
 ```html {.example}
 <details>
-  <summary>Tincidunt nunc pulvinar</summary>
+  <summary>Summary</summary>
   <p>
     Ut lectus arcu bibendum at varius. Convallis a cras semper auctor neque vitae. Odio pellentesque diam volutpat
     commodo sed egestas. Amet dictum sit amet justo donec enim diam vulputate ut.
@@ -308,61 +330,43 @@ Create progress indicators with `<progress>`. Progress indicators closely match 
 <progress></progress>
 ```
 
-## Form Controls
+## Forms
+
+Native styles use [form control design tokens](/docs/tokens/component-groups/#form-controls) to style form elements like buttons and inputs. Form elements additionally inherit `font-family` from the `<body>` element.
 
 ### Buttons
 
-Use the [variant utility classes](../utilities/color.md) to set the button's semantic variant.
+Create buttons with `<button>` or `<input type="button | submit | reset">`. Buttons closely match the appearance of [`<wa-button>`](/docs/components/button/).
 
 ```html {.example}
-<button class="wa-neutral"><wa-icon name="home"></wa-icon> Neutral</button>
+<button>Button</button>
+<input type="button" value="Input (button)" />
+<input type="submit" value="Input (submit)" />
+<input type="reset" value="Input (reset)" />
+```
+
+Add the `wa-brand`, `wa-neutral`, `wa-success`, `wa-warning`, or `wa-danger` class to specify the button's [color variant](/docs/utilities/color/).
+
+
+```html {.example}
+<button class="wa-neutral">Neutral</button>
 <button class="wa-brand">Brand</button>
 <button class="wa-success">Success</button>
 <button class="wa-warning">Warning</button>
 <button class="wa-danger">Danger</button>
 ```
 
-Use the [appearance utility classes](/docs/utilities/appearance) to change the button's visual appearance:
+Add the `wa-accent`, `wa-filled`, `wa-outlined`, or `wa-plain` class to specify the button's visual appearance.
 
 ```html {.example}
-<div style="margin-block-end: 1rem;">
-  <button class="wa-accent wa-neutral">Accent</button>
-  <button class="wa-filled wa-outlined wa-neutral">Filled + Outlined</button>
-  <button class="wa-filled wa-neutral">Filled</button>
-  <button class="wa-outlined wa-neutral">Outlined</button>
-  <button class="wa-plain wa-neutral">Plain</button>
-</div>
-<div style="margin-block-end: 1rem;">
-  <button class="wa-accent wa-brand">Accent</button>
-  <button class="wa-filled wa-outlined wa-brand">Filled + Outlined</button>
-  <button class="wa-filled wa-brand">Filled</button>
-  <button class="wa-outlined wa-brand">Outlined</button>
-  <button class="wa-plain wa-brand">Plain</button>
-</div>
-<div style="margin-block-end: 1rem;">
-  <button class="wa-accent wa-success">Accent</button>
-  <button class="wa-filled wa-outlined wa-success">Filled + Outlined</button>
-  <button class="wa-filled wa-success">Filled</button>
-  <button class="wa-outlined wa-success">Outlined</button>
-  <button class="wa-plain wa-success">Plain</button>
-</div>
-<div style="margin-block-end: 1rem;">
-  <button class="wa-accent wa-warning">Accent</button>
-  <button class="wa-filled wa-outlined wa-warning">Filled + Outlined</button>
-  <button class="wa-filled wa-warning">Filled</button>
-  <button class="wa-outlined wa-warning">Outlined</button>
-  <button class="wa-plain wa-warning">Plain</button>
-</div>
-<div>
-  <button class="wa-accent wa-danger">Accent</button>
-  <button class="wa-filled wa-outlined wa-danger">Filled + Outlined</button>
-  <button class="wa-filled wa-danger">Filled</button>
-  <button class="wa-outlined wa-danger">Outlined</button>
-  <button class="wa-plain wa-danger">Plain</button>
-</div>
+<button class="wa-accent wa-neutral">Accent</button>
+<button class="wa-filled wa-outlined wa-neutral">Filled + Outlined</button>
+<button class="wa-filled wa-neutral">Filled</button>
+<button class="wa-outlined wa-neutral">Outlined</button>
+<button class="wa-plain wa-neutral">Plain</button>
 ```
 
-Use the [size utility classes](../utilities/size.md) to change a button's size.
+Add the `wa-size-s`, `wa-size-m`, or `wa-size-l` class to specify the size of the button.
 
 ```html {.example}
 <button class="wa-size-s">Small</button>
@@ -370,131 +374,113 @@ Use the [size utility classes](../utilities/size.md) to change a button's size.
 <button class="wa-size-l">Large</button>
 ```
 
-Use the `wa-pill` class to give buttons rounded edges.
+Add the `wa-pill` class to give buttons rounded edges.
 
 ```html {.example}
-<button class="wa-size-s wa-pill">Small</button>
-<button class="wa-size-m wa-pill">Medium</button>
-<button class="wa-size-l wa-pill">Large</button>
+<button class="wa-pill">Pill button</button>
 ```
 
-### Checkboxes
+### Form controls
 
-Multi-select form controls with checked, indeterminate, and disabled states.
+Create a variety of form controls with `<input type="">`, `<select>`, and `<textarea>`. Each control closely matches the appearance of the corresponding Web Awesome component.
 
 ```html {.example}
-<label><input type="checkbox" checked /> Checked</label><br />
-<label><input type="checkbox" class="indeterminate" /> Indeterminate</label><br />
-<label><input type="checkbox" disabled /> Disabled</label>
+<div class="wa-stack">
+  <label>Text <input type="text" placeholder="add some text" /></label>
+  <label>Date <input type="date" /></label>
+  <label>Time <input type="time" /></label>
+  <label>Number <input type="number" placeholder="12345" /></label>
+  <label>Color <input type="color" value="#f36944" /></label>
+  <label>Range <input type="range" /></label>
+  <label>Select
+    <select>
+      <option value="option-1">Option 1</option>
+      <option value="option-2">Option 2</option>
+      <option value="option-3">Option 3</option>
+    </select>
+  </label>
+  <label>Textarea <textarea placeholder="add more text"></textarea></label>
+  <div class="wa-cluster">
+    <label><input type="checkbox" checked /> Checked</label>
+    <label><input type="checkbox" class="indeterminate" /> Indeterminate</label>
+    <label><input type="checkbox" /> Unchecked</label>
+  </div>
+  <div class="wa-cluster">
+    <label><input type="radio" name="radio-group" value="1" checked /> First radio</label>
+    <label><input type="radio" name="radio-group" value="2" /> Second radio</label>
+    <label><input type="radio" name="radio-group" value="3" /> Third radio</label>
+  </div>
+</div>
 
 <script>
   document.querySelector('.indeterminate').indeterminate = true;
 </script>
 ```
 
-### Radios
-
-Single-select form controls for mutually exclusive choices.
-
-You can wrap native radios in a flex container to give them a horizontal or vertical orientation with even spacing. The convenience [`wa-cluster`](/docs/utilities/cluster) and [`wa-stack`](/docs/utilities/stack) utilities make this easy.
+Add the `wa-filled` class to an input to give it a filled background.
 
 ```html {.example}
-<div class="wa-cluster">
-  <label><input type="radio" name="b" value="1" checked /> Option 1</label>
-  <label><input type="radio" name="b" value="2" /> Option 2</label>
-  <label><input type="radio" name="b" value="3" /> Option 3</label>
-</div>
-
-<div class="wa-stack" style="margin-block-start: var(--wa-space-2xl);">
-  <label><input type="radio" name="g" value="1" checked /> Option 1</label>
-  <label><input type="radio" name="g" value="2" /> Option 2</label>
-  <label><input type="radio" name="g" value="3" /> Option 3</label>
-</div>
-```
-
-### Selects
-
-Dropdown menus for choosing from a list of options.
-
-```html {.example}
-<label
-  >Select
-  <select id="select">
-    <option value="option-1">Option 1</option>
-    <option value="option-2">Option 2</option>
-    <option value="option-3">Option 3</option>
+<div class="wa-stack">
+  <input type="text" placeholder="Filled input" class="wa-filled" />
+  <select class="wa-filled">
+    <option value="filled">Filled select</option>
   </select>
-</label>
+  <textarea placeholder="Filled textarea" class="wa-filled"></textarea>
+</div>
 ```
 
-### Sliders
-
-Range inputs for selecting numeric values within a specified range.
+Add the `wa-pill` class to an input or select to give it rounded edges.
 
 ```html {.example}
-<label>Select a value: <input type="range" /></label>
-```
-
-### Text Fields
-
-Various input types for collecting user text and data.
-
-```html {.example}
-<label>Text <input type="text" placeholder="placeholder" /></label>
-
-<label>Number <input type="number" /></label>
-
-<label>Password <input type="password" required /></label>
-
-<label>Email <input type="email" /></label>
-
-<label>Search <input type="search" /></label>
-
-<label>Telephone <input type="tel" /></label>
-
-<label>URL <input type="url" /></label>
-```
-
-Add the `wa-pill` class to an `<input>` to make it pill-shaped.
-
-```html {.example}
-<label>Input <input type="text" placeholder="placeholder" class="wa-pill" /></label>
-```
-
-### Color Pickers
-
-Visual color selection interface with hex value input.
-
-```html {.example}
-<label>Input (color) <input type="color" value="#ff0066" /></label>
-```
-
-### Date & Time Pickers
-
-Specialized inputs for selecting dates, times, and datetime values.
-
-```html {.example}
-<label>Input (datetime-local) <input type="datetime-local" /></label>
-
-<label>Input (date) <input type="date" /></label>
-
-<label>Input (time) <input type="time" /></label>
-```
-
-### Textareas
-
-Multi-line text input fields for longer content.
-
-```html {.example}
-<label>Textarea <textarea placeholder="Type something"></textarea></label>
+<div class="wa-stack">
+  <input type="text" placeholder="Pill input" class="wa-pill" />
+  <select class="wa-pill">
+    <option value="pill">Pill select</option>
+  </select>
+</div>
 ```
 
 ### Fieldsets
 
+Group form controls together with `<fieldset>` and `<legend>`.
+
 ```html {.example}
-<fieldset>
+<fieldset class="wa-stack wa-align-items-start">
   <legend>Legend</legend>
-  Nunc mi ipsum faucibus vitae aliquet nec ullamcorper. Tincidunt id aliquet risus feugiat in ante. Ac turpis egestas
-  integer eget aliquet nibh praesent tristique magna.
+  <label><input type="radio" name="legends" value="1" checked /> King Arthur</label>
+  <label><input type="radio" name="legends" value="2" /> Robin Hood</label>
+  <label><input type="radio" name="legends" value="3" /> Odysseus</label>
 </fieldset>
+```
+
+### Form layouts
+
+Wrap form controls in a flex container to arrange them horizontally or vertically with even spacing. Layout utility classes like [`wa-cluster`](/docs/utilities/cluster) and [`wa-stack`](/docs/utilities/stack) can be added directly to a `<fieldset>` or `<form>` to make this especially easy.
+
+```html {.example}
+<fieldset class="wa-cluster">
+  <legend>Ducks in a row</legend>
+  <label><input type="checkbox" checked /> Mallard</label>
+  <label><input type="checkbox" /> Common Loon</label>
+  <label><input type="checkbox" /> Least Grebe</label>
+</fieldset>
+
+<br />
+
+<form class="wa-stack">
+  <label>Number of pancakes <input type="number" value="5" /></label>
+  <label>Syrup flavor
+    <select>
+      <option value="maple">Maple</option>
+      <option value="strawberry">Strawberry</option>
+      <option value="blueberry">Blueberry</option>
+      <option value="pecan">Butter pecan</option>
+    </select>
+  </label>
+  <label><input type="checkbox" checked /> Add whipped butter</label>
+  <button>
+    <wa-icon name="pancakes"></wa-icon>
+    Stack 'em up
+  </button>
+</form>
 ```
