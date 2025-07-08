@@ -3,7 +3,7 @@
   border: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
   border-radius: var(--wa-border-radius-l);
   color: var(--wa-color-text-normal);
-  margin-block-end: var(--wa-flow-spacing);
+  margin-block-end: var(--wa-content-spacing);
   isolation: isolate;
 }
 
