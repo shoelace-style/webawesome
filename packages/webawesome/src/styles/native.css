@@ -49,6 +49,7 @@
   h4,
   h5,
   h6,
+  hr,
   iframe,
   ol,
   p,
@@ -103,10 +104,6 @@
 
   p {
     text-wrap: pretty;
-
-    &:not(:last-child) {
-      margin-block-end: 1lh;
-    }
   }
 
   blockquote {
@@ -129,13 +126,12 @@
   /* #region Lists ~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
   ul,
   ol {
-    margin-inline-start: 1.125em;
     padding: 0;
   }
 
   li > ul,
   li > ol {
-    margin-inline-start: 1.375em;
+    margin-inline-start: 0.25em;
   }
 
   ul {
@@ -143,6 +139,7 @@
   }
 
   li {
+    margin-inline-start: 1.125em;
     padding: 0;
   }
 

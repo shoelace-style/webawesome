@@ -144,7 +144,6 @@ wa-page > header {
     border-inline-start: var(--wa-border-width-s) solid var(--wa-color-surface-border);
     font-size: var(--wa-font-size-s);
     line-height: var(--wa-line-height-condensed);
-    margin: 0;
     padding-inline-start: var(--wa-space-m);
   }
 
@@ -158,6 +157,7 @@ wa-page > header {
 
   li {
     list-style: none;
+    margin: 0;
 
     + li {
       margin-block-start: var(--wa-space-m);
@@ -618,12 +618,6 @@ table.colors {
 }
 .layout-example-mixed-sizing .layout-example-block:nth-child(3n + 2) {
   min-inline-size: 8rem;
-}
-
-/* Utilities */
-.two-columns {
-  columns: 2;
-  gap: 1rem;
 }
 
 /* Component API tables */
