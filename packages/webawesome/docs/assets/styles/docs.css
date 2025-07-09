@@ -26,10 +26,6 @@ body.theme-transitioning {
   transition: opacity 200ms ease-out;
 }
 
-wa-page {
-  --wa-flow-spacing: var(--wa-space-xl);
-}
-
 /* Header */
 wa-page::part(header) {
   background-color: var(--wa-color-surface-default);
@@ -314,7 +310,7 @@ h1.title {
   gap: var(--wa-space-xs);
   flex-wrap: wrap;
   align-items: center;
-  margin-block-end: var(--wa-flow-spacing);
+  margin-block-end: var(--wa-content-spacing);
 
   code {
     line-height: var(--wa-line-height-condensed);
@@ -357,7 +353,7 @@ h1.title {
   border: var(--wa-border-style) var(--wa-border-width-s);
   border-radius: var(--wa-border-radius-l);
   padding: 1rem;
-  margin-block-end: var(--wa-flow-spacing);
+  margin-block-end: var(--wa-content-spacing);
 
   :first-child {
     margin-block-start: 0;
