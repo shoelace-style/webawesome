@@ -343,7 +343,6 @@
   }
 
   caption {
-    caption-side: bottom;
     color: var(--wa-color-text-quiet);
     font-size: var(--wa-font-size-smaller);
 

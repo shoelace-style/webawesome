@@ -22,7 +22,7 @@ Or, if you only want styles for native elements, include the default theme and n
 <link rel="stylesheet" href="{% cdnUrl 'styles/native.css' %}" />
 ```
 
-You can additionally include any pre-made [theme](/docs/themes/) or [color palette](docs/color-palettes/) to change the look of native elements.
+You can additionally include any pre-made [theme](/docs/themes/) or [color palette](/docs/color-palettes/) to change the look of native elements.
 
 ## Content flow
 
@@ -63,7 +63,7 @@ Create headings with `<h1>` through `<h6>`. Headings use tokens with the `-headi
 
 ### Paragraphs
 
-Create paragraphs with `<p>`. Paragraphs inherit the default text styles set on the `<body>` element and use `text-wrap: pretty` in supported browsers to prevent orphaned lines.
+Create paragraphs with `<p>`. Paragraphs inherit the default text styles set on the `<body>` element and use `text-wrap: pretty` to prevent orphaned lines in supported browsers.
 
 ```html {.example}
 <p>
@@ -80,7 +80,7 @@ Create paragraphs with `<p>`. Paragraphs inherit the default text styles set on 
 
 ### Blockquotes
 
-Emphasize longer quotations with `<blockquote>`. Block quotes use your theme's serif font family and a subtle border at the start to stand out.
+Emphasize longer quotations with `<blockquote>`. Block quotes use your theme's serif font family and a leading border to stand out.
 
 ```html {.example}
 <blockquote>
