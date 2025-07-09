@@ -466,11 +466,6 @@
       }
     }
 
-    wa-progress-bar::part(base),
-    progress {
-      height: 1em;
-    }
-
     wa-tab {
       font-size: var(--wa-font-size-smaller);
     }
