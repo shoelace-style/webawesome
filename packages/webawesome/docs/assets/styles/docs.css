@@ -149,6 +149,7 @@ wa-page > header {
     font-size: var(--wa-font-size-s);
     line-height: var(--wa-line-height-condensed);
     padding-inline-start: var(--wa-space-m);
+    margin: 0;
   }
 
   ul ul {
