@@ -21,10 +21,10 @@ Use the `label` attribute to label the progress bar and tell assistive devices h
 
 ### Custom Height
 
-Use the `height` CSS property to set the progress bar's height.
+Use the `--track-height` custom property to set the progress bar's height.
 
 ```html {.example}
-<wa-progress-bar value="50" style="height: 6px;"></wa-progress-bar>
+<wa-progress-bar value="50" style="--track-height: 6px;"></wa-progress-bar>
 ```
 
 ### Showing Values

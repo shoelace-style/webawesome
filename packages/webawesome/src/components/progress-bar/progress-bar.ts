@@ -19,8 +19,9 @@ import styles from './progress-bar.css';
  * @csspart indicator - The progress bar's indicator.
  * @csspart label - The progress bar's label.
  *
- * @cssproperty --track-color - The color of the track.
- * @cssproperty --indicator-color - The color of the indicator.
+ * @cssproperty [--track-height=1rem] - The color of the track.
+ * @cssproperty [--track-color=var(--wa-color-neutral-fill-normal)] - The color of the track.
+ * @cssproperty [--indicator-color=var(--wa-color-brand-fill-loud)] - The color of the indicator.
  */
 @customElement('wa-progress-bar')
 export default class WaProgressBar extends WebAwesomeElement {
