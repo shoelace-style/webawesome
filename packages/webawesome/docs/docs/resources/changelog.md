@@ -92,6 +92,7 @@ Many of these changes and improvements were the direct result of feedback from u
 - Added a new free component: `<wa-zoomable-frame>` (#3 of 14 per stretch goals)
 - Added a `min-block-size` to `<wa-divider orientation="vertical">` to ensure the divider is visible regardless of container height
 - Added support for `name` in `<wa-details>` for exclusively opening one in a group
+- Added `--wa-content-spacing` to themes to set default spacing between HTML elements in Native Styles
 - Added `--checked-icon-scale` to `<wa-checkbox>`
 - Added `--tag-max-size` to `<wa-select>` when using `multiple`
 - Added support for `data-dialog="open <id>"` to `<wa-dialog>`
