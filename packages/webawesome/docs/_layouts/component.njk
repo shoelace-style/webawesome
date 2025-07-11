@@ -223,9 +223,13 @@
   {% if component.cssParts.length %}
     <h2>CSS parts</h2>
     <p>Learn more about <a href="/docs/customizing/#css-parts">CSS parts</a>.</p>
+    
+    <{{ component.tagName }} id="parts-example"></{{ component.tagName }}>
+
+    {{ demo }}
 
     <wa-scroller>
-      <table class="component-table wa-hover-rows">
+      <table id="css-parts-table" class="component-table wa-hover-rows">
         <thead>
           <tr>
             <th class="table-name">Name</th>
@@ -234,7 +238,7 @@
         </thead>
         <tbody>
           {% for cssPart in component.cssParts %}
-            <tr>
+            <tr data-part="{{ cssPart.name }}">
               <td class="table-name"><code>{{ cssPart.name }}</code></td>
               <td class="table-description">{{ cssPart.description | inlineMarkdown | safe }}</td>
             </tr>
@@ -305,4 +309,6 @@
       Ask for help
     </wa-button>
   </div>
+
+  <script type="module" src="/assets/scripts/parts-diagram.js"></script>
 {% endblock %}
