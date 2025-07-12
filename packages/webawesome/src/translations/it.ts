@@ -28,7 +28,7 @@ const translation: Translation = {
   resize: 'Ridimensiona',
   scrollableRegion: 'Area scorrevole',
   scrollToEnd: 'Scorri alla fine',
-  scrollToStart: "Scorri all'inizio",
+  scrollToStart: "Scorri all’inizio",
   selectAColorFromTheScreen: 'Seleziona un colore dalla schermo',
   showPassword: 'Mostra password',
   slideNum: slide => `Diapositiva ${slide}`,
