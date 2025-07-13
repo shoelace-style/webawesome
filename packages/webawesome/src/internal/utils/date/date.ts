@@ -85,16 +85,15 @@ const formatDate = (value: Segment | Date, format: InputFormat, isUTC: boolean):
       return `${padYear(segment.year)}-${padMonth(segment.month)}`;
     case Format.yyyyMMdd:
       return `${padYear(segment.year)}-${padMonth(segment.month)}-${padDay(segment.day)}`;
-    // no default
+    default:
+      throw throwInvalidFormat(format);
   }
-
-  throw throwInvalidFormat(format);
 };
 
 /**
  * Format Date or Segment to Local Date string.
  * @param value A valid Date or Segment
- * @param [format='yyyy-MM-dd'] Date format, one of 'yyyy-MM-dd' | 'yyyy-MM' | 'yyyy'
+ * @param [dateFormat='yyyy-MM-dd'] Date format, one of 'yyyy-MM-dd' | 'yyyy-MM' | 'yyyy'
  * @returns A formatted date
  */
 const format = (value: Segment | Date, dateFormat: InputFormat = Format.yyyyMMdd): string =>
@@ -103,7 +102,7 @@ const format = (value: Segment | Date, dateFormat: InputFormat = Format.yyyyMMdd
 /**
  * Format Date or Segment to UTC Date string.
  * @param value A valid Date or Segment
- * @param [format='yyyy-MM-dd'] Date format, one of 'yyyy-MM-dd' | 'yyyy-MM' | 'yyyy'
+ * @param [dateTimeFormat='yyyy-MM-dd'] Date format, one of 'yyyy-MM-dd' | 'yyyy-MM' | 'yyyy'
  * @returns A formatted date
  */
 const utcFormat = (value: Segment | Date, dateTimeFormat: InputFormat = Format.yyyyMMdd): string =>
@@ -131,7 +130,7 @@ const getFormat = (value: string): Format | null => {
 /**
  * Return true if value confirms ta a passed format
  * @param value Value to check
- * @param [format] The format to validate value against. If not defined, try to guess the format
+ * @param [inputFormat] The format to validate value against. If not defined, try to guess the format
  * @returns true if value format is correct
  */
 const isValid = (value: string, inputFormat?: InputFormat | null): boolean => {
@@ -196,10 +195,10 @@ const parse = (value: string | Segment): Date => parseDate(value, false);
 const utcParse = (value: string | Segment): Date => parseDate(value, true);
 
 /**
- * Get number of day in a month
+ * Gets the number of days in a month
  * @param year A year to check
  * @param month A month to check
- * @returns the number of days in month
+ * @returns Number of days in the month
  */
 const getDaysInMonth = (year: number, month: number): number => {
   const lastDayOfMonth = utcParse({ year, month: month + 1, day: 0 });

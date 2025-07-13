@@ -3,7 +3,7 @@ import { html, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { repeat } from 'lit/directives/repeat.js';
-import { format, getDaysInMonth, parse, toSegment } from '../../internal/utils/date/date.js';
+import { utcFormat as format, getDaysInMonth, utcParse as parse, toSegment } from '../../internal/utils/date/date.js';
 import { Locale } from '../../internal/utils/date/Locale.js';
 import { addUnit, isAfter, isBefore, isToday } from '../../internal/utils/date/shared.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
@@ -135,7 +135,11 @@ export default class WaCalendar extends WebAwesomeElement {
 
         if (parsedValueDate && !Number.isNaN(parsedValueDate.getTime())) {
           newFocusedDate = parsedValueDate;
-          newCurrentDate = new Date(parsedValueDate.getFullYear(), parsedValueDate.getMonth(), 1);
+          newCurrentDate = parse({
+            year: parsedValueDate.getUTCFullYear(),
+            month: parsedValueDate.getUTCMonth(),
+            day: 1,
+          });
         }
       }
 
@@ -143,8 +147,8 @@ export default class WaCalendar extends WebAwesomeElement {
       // This ensures the displayed month updates when a value is set/changed.
       if (
         newCurrentDate &&
-        (newCurrentDate.getFullYear() !== this.currentDate.getFullYear() ||
-          newCurrentDate.getMonth() !== this.currentDate.getMonth())
+        (newCurrentDate.getUTCFullYear() !== this.currentDate.getUTCFullYear() ||
+          newCurrentDate.getUTCMonth() !== this.currentDate.getUTCMonth())
       ) {
         this.currentDate = newCurrentDate;
       } else if (!newCurrentDate && this.value === '') {
@@ -158,7 +162,9 @@ export default class WaCalendar extends WebAwesomeElement {
       // We prioritize the newFocusedDate derived from 'value'.
       // If no valid newFocusedDate, fall back to the first day of the *current* `this.currentDate` month.
       // This is crucial for ensuring a `tabindex="0"` exists in the displayed month.
-      this.focusedDate = newFocusedDate || new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), 1);
+      this.focusedDate =
+        newFocusedDate ||
+        parse({ year: this.currentDate.getUTCFullYear(), month: this.currentDate.getUTCMonth(), day: 1 });
     }
 
     // Locale changes
@@ -185,7 +191,7 @@ export default class WaCalendar extends WebAwesomeElement {
     const weekdays = this.localeFormatter.weekdayNames;
     const firstDay = this.firstDayOfWeek;
     return [...weekdays.slice(firstDay), ...weekdays.slice(0, firstDay)].map(
-      day => day.name.charAt(0).toUpperCase() + day.name.slice(1)
+      day => day.name.charAt(0).toUpperCase() + day.name.slice(1),
     );
   }
 
@@ -208,9 +214,9 @@ export default class WaCalendar extends WebAwesomeElement {
     const firstDay = parse({ year, month, day: 1 });
     const lastDay = parse({ year, month, day: daysInMonth });
     const firstDayOfWeek = this.firstDayOfWeek;
-    const firstDayOfMonth = firstDay.getDay();
+    const firstDayOfMonth = firstDay.getUTCDay();
     const offset = (firstDayOfMonth - firstDayOfWeek + 7) % 7;
-    const lastDayOfWeek = (lastDay.getDay() - firstDayOfWeek + 7) % 7;
+    const lastDayOfWeek = (lastDay.getUTCDay() - firstDayOfWeek + 7) % 7;
 
     const days: (Date | null)[] = [];
 
@@ -219,7 +225,7 @@ export default class WaCalendar extends WebAwesomeElement {
       const prevMonthYear = month === 0 ? year - 1 : year;
       const prevMonthDays = getDaysInMonth(prevMonthYear, prevMonth);
       for (let i = offset - 1; i >= 0; i--) {
-        days.push(new Date(prevMonthYear, prevMonth, prevMonthDays - i));
+        days.push(parse({ year: prevMonthYear, month: prevMonth, day: prevMonthDays - i }));
       }
     } else {
       for (let i = 0; i < offset; i++) {
@@ -228,14 +234,14 @@ export default class WaCalendar extends WebAwesomeElement {
     }
 
     for (let i = 1; i <= daysInMonth; i++) {
-      days.push(new Date(year, month, i));
+      days.push(parse({ year, month, day: i }));
     }
 
     if (this.showOutsideDays) {
       const nextMonth = month === 11 ? 0 : month + 1;
       const nextMonthYear = month === 11 ? year + 1 : year;
       for (let i = 1; i <= 6 - lastDayOfWeek; i++) {
-        days.push(new Date(nextMonthYear, nextMonth, i));
+        days.push(parse({ year: nextMonthYear, month: nextMonth, day: i }));
       }
     } else {
       for (let i = 0; i < 6 - lastDayOfWeek; i++) {
@@ -254,7 +260,7 @@ export default class WaCalendar extends WebAwesomeElement {
     const segment = toSegment(date);
     const firstDayOfYear = parse({ year: segment.year, month: 0, day: 1 });
     const pastDaysOfYear = (date.getTime() - firstDayOfYear.getTime()) / 86400000;
-    return Math.ceil((pastDaysOfYear + firstDayOfYear.getDay() + 1) / 7);
+    return Math.ceil((pastDaysOfYear + firstDayOfYear.getUTCDay() + 1) / 7);
   }
 
   /**
@@ -271,7 +277,7 @@ export default class WaCalendar extends WebAwesomeElement {
   }
 
   protected isDateOutsideMonth(date: Date, month: number): boolean {
-    return date.getMonth() !== month;
+    return date.getUTCMonth() !== month;
   }
 
   protected isDateToday(date: Date): boolean {
@@ -287,7 +293,7 @@ export default class WaCalendar extends WebAwesomeElement {
     switch (this.type) {
       case 'date': {
         if (!this.value) return false;
-        const selected = new Date(this.value);
+        const selected = parse(this.value);
         if (Number.isNaN(selected.getTime())) return false;
         return this.isSameDay(date, selected);
       }
@@ -296,7 +302,7 @@ export default class WaCalendar extends WebAwesomeElement {
         const selectedDates = this.value
           .split(/[, ]+/)
           .filter(Boolean)
-          .map(d => new Date(d));
+          .map(d => parse(d));
         return selectedDates.some(selected => !Number.isNaN(selected.getTime()) && this.isSameDay(date, selected));
       }
       case 'range': {
@@ -441,11 +447,15 @@ export default class WaCalendar extends WebAwesomeElement {
         break;
       case 'Home':
         // Go to the first day of the first displayed month.
-        newDate = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), 1);
+        newDate = parse({ year: this.currentDate.getUTCFullYear(), month: this.currentDate.getUTCMonth(), day: 1 });
         break;
       case 'End':
         // Go to the last day of the last displayed month.
-        newDate = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth() + this.months, 0); // Correctly targets last day of the last displayed month
+        newDate = parse({
+          year: this.currentDate.getUTCFullYear(),
+          month: this.currentDate.getUTCMonth() + this.months,
+          day: 0,
+        }); // Correctly targets last day of the last displayed month
         break;
       case 'Enter':
       case ' ':
@@ -458,7 +468,7 @@ export default class WaCalendar extends WebAwesomeElement {
         return;
     }
 
-    const cleanedNewDate = new Date(newDate.getFullYear(), newDate.getMonth(), newDate.getDate());
+    const cleanedNewDate = new Date(newDate.getUTCFullYear(), newDate.getUTCMonth(), newDate.getUTCDate());
 
     if (!this.isDateDisabled(cleanedNewDate)) {
       this.focusedDate = cleanedNewDate;
@@ -468,12 +478,16 @@ export default class WaCalendar extends WebAwesomeElement {
       }
 
       // Determine the range of currently displayed months
-      const firstDisplayedMonthStart = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(), 1);
-      const lastDisplayedMonthEnd = new Date(
-        this.currentDate.getFullYear(),
-        this.currentDate.getMonth() + this.months,
-        0
-      ); // Last day of the last displayed month
+      const firstDisplayedMonthStart = parse({
+        year: this.currentDate.getUTCFullYear(),
+        month: this.currentDate.getUTCMonth(),
+        day: 1,
+      });
+      const lastDisplayedMonthEnd = parse({
+        year: this.currentDate.getUTCFullYear(),
+        month: this.currentDate.getUTCMonth() + this.months,
+        day: 0,
+      }); // Last day of the last displayed month
 
       // Check if the new focused date falls outside the current block of displayed months.
       const isNewDateBeforeFirstDisplayed = cleanedNewDate < firstDisplayedMonthStart;
@@ -482,7 +496,11 @@ export default class WaCalendar extends WebAwesomeElement {
       if (isNewDateBeforeFirstDisplayed || isNewDateAfterLastDisplayed) {
         // If outside, adjust currentDate to bring the new focusedDate into view.
         // For multi-month display, we want to align the first month of the view with the new focused month.
-        this.currentDate = new Date(cleanedNewDate.getFullYear(), cleanedNewDate.getMonth(), 1);
+        this.currentDate = parse({
+          year: cleanedNewDate.getUTCFullYear(),
+          month: cleanedNewDate.getUTCMonth(),
+          day: 1,
+        });
       }
     }
 
@@ -504,7 +522,7 @@ export default class WaCalendar extends WebAwesomeElement {
   protected handleDateClick(date: Date) {
     if (this.isDateDisabled(date)) return;
 
-    this.focusedDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    this.focusedDate = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
 
     switch (this.type) {
       case 'date': {
@@ -562,7 +580,7 @@ export default class WaCalendar extends WebAwesomeElement {
     const currentDateStr = format(this.currentDate);
     const newCurrentDate = parse(addUnit(currentDateStr, 'month', -this.months));
     this.currentDate = newCurrentDate;
-    this.focusedDate = new Date(newCurrentDate.getFullYear(), newCurrentDate.getMonth(), 1);
+    this.focusedDate = parse({ year: newCurrentDate.getUTCFullYear(), month: newCurrentDate.getUTCMonth(), day: 1 });
   }
 
   /**
@@ -573,7 +591,7 @@ export default class WaCalendar extends WebAwesomeElement {
     const currentDateStr = format(this.currentDate);
     const newCurrentDate = parse(addUnit(currentDateStr, 'month', this.months));
     this.currentDate = newCurrentDate;
-    this.focusedDate = new Date(newCurrentDate.getFullYear(), newCurrentDate.getMonth(), 1);
+    this.focusedDate = parse({ year: newCurrentDate.getUTCFullYear(), month: newCurrentDate.getUTCMonth(), day: 1 });
   }
 
   /**
@@ -610,7 +628,7 @@ export default class WaCalendar extends WebAwesomeElement {
                 ${repeat(
                   weekDays,
                   day => day,
-                  day => html`<th part="weekday">${day}</th>`
+                  day => html`<th part="weekday">${day}</th>`,
                 )}
               </tr>
             </thead>
@@ -621,20 +639,16 @@ export default class WaCalendar extends WebAwesomeElement {
                 week => (week[0] ? format(week[0]) : String(Math.random())),
                 week => html`
                   <tr>
-                    ${
-                      this.showWeekNumbers
-                        ? html`
+                    ${this.showWeekNumbers
+                      ? html`
                           <td class="weeknumber" part="weeknumber">
-                            ${
-                              week.find(d => d)?.getDate()
-                                ? /* biome-ignore lint/style/noNonNullAssertion: We know that at least one date exists in the week */
-                                  this.weekNumberFormatter(this.getWeekNumber(week.find(d => d)!))
-                                : ''
-                            }
+                            ${week.find(d => d)?.getDate()
+                              ? /* biome-ignore lint/style/noNonNullAssertion: We know that at least one date exists in the week */
+                                this.weekNumberFormatter(this.getWeekNumber(week.find(d => d)!))
+                              : ''}
                           </td>
                         `
-                        : nothing
-                    }
+                      : nothing}
                     ${repeat(
                       week,
                       date => (date ? format(date) : String(Math.random())),
@@ -650,7 +664,7 @@ export default class WaCalendar extends WebAwesomeElement {
                                     'in-range': this.isDateInRange(date),
                                     today: this.isDateToday(date),
                                     'range-start': this.isRangeStart(date),
-                                    'range-end': this.isRangeEnd(date)
+                                    'range-end': this.isRangeEnd(date),
                                   })}
                                   part=${[
                                     'day',
@@ -661,7 +675,7 @@ export default class WaCalendar extends WebAwesomeElement {
                                     this.isDateInRange(date) ? 'in-range' : '',
                                     this.isDateOutsideMonth(date, month) ? 'outside' : '',
                                     this.isDateDisabled(date) ? 'disabled' : '',
-                                    this.isDateDisallowed?.(date) ? 'disallowed' : ''
+                                    this.isDateDisallowed?.(date) ? 'disallowed' : '',
                                   ]
                                     .filter(Boolean)
                                     .join(' ')}
@@ -669,21 +683,21 @@ export default class WaCalendar extends WebAwesomeElement {
                                   ?aria-disabled=${this.isDateDisabled(date) ? 'true' : undefined}
                                   ?aria-pressed=${this.isDateSelected(date) ? 'true' : undefined}
                                   aria-current=${this.isDateToday(date) ? 'date' : undefined}
-                                  aria-label=${`${this.localizedMonthNames[date.getMonth()]} ${date.getDate()}`}
+                                  aria-label=${`${this.localizedMonthNames[date.getUTCMonth()]} ${date.getUTCDate()}`}
                                   tabindex=${this.focusedDate && this.isSameDay(date, this.focusedDate) ? 0 : -1}
                                   @click=${() => this.handleDateClick(date)}
                                   @keydown=${(e: KeyboardEvent) => this.handleKeyDown(e, date)}
                                   @mouseenter=${() => this.handleDateHover(date)}
                                   @mouseleave=${() => this.handleDateLeave()}
                                 >
-                                  ${date.getDate()}
+                                  ${date.getUTCDate()}
                                 </button>
                               </td>
                             `
-                          : html`<td></td>`
+                          : html`<td></td>`,
                     )}
                   </tr>
-                `
+                `,
               )}
             </tbody>
           </table>
@@ -704,32 +718,40 @@ export default class WaCalendar extends WebAwesomeElement {
 
   // Modified handlers to accept a date if coming from a specific month's header
   protected handleMonthSelect(month: number) {
-    this.currentDate = new Date(this.currentDate.getFullYear(), month, 1);
+    this.currentDate = parse({ year: this.currentDate.getUTCFullYear(), month, day: 1 });
     this.viewMode = 'calendar';
   }
 
   // Modified handlers to accept a date if coming from a specific month's header
   protected handleYearSelect(year: number) {
-    this.currentDate = new Date(year, this.currentDate.getMonth(), 1);
+    this.currentDate = parse({ year, month: this.currentDate.getUTCMonth(), day: 1 });
     this.viewMode = 'calendar';
   }
 
   protected handlePreviousYear() {
-    this.currentDate = new Date(this.currentDate.getFullYear() - 1, this.currentDate.getMonth(), 1);
+    this.currentDate = parse({
+      year: this.currentDate.getUTCFullYear() - 1,
+      month: this.currentDate.getUTCMonth(),
+      day: 1,
+    });
   }
 
   protected handleNextYear() {
-    this.currentDate = new Date(this.currentDate.getFullYear() + 1, this.currentDate.getMonth(), 1);
+    this.currentDate = parse({
+      year: this.currentDate.getUTCFullYear() + 1,
+      month: this.currentDate.getUTCMonth(),
+      day: 1,
+    });
   }
 
   protected handlePreviousYearRange() {
-    const currentYear = this.currentDate.getFullYear();
-    this.currentDate = new Date(currentYear - 12, this.currentDate.getMonth(), 1);
+    const currentYear = this.currentDate.getUTCFullYear();
+    this.currentDate = parse({ year: currentYear - 12, month: this.currentDate.getUTCMonth(), day: 1 });
   }
 
   protected handleNextYearRange() {
-    const currentYear = this.currentDate.getFullYear();
-    this.currentDate = new Date(currentYear + 12, this.currentDate.getMonth(), 1);
+    const currentYear = this.currentDate.getUTCFullYear();
+    this.currentDate = parse({ year: currentYear + 12, month: this.currentDate.getUTCMonth(), day: 1 });
   }
 
   /**
@@ -749,8 +771,8 @@ export default class WaCalendar extends WebAwesomeElement {
 
   protected renderMonthSelection() {
     const months = this.localizedMonthNames;
-    const currentMonth = this.currentDate.getMonth();
-    const currentYear = this.currentDate.getFullYear();
+    const currentMonth = this.currentDate.getUTCMonth();
+    const currentYear = this.currentDate.getUTCFullYear();
 
     return html`
       <div class="month-selection">
@@ -771,13 +793,13 @@ export default class WaCalendar extends WebAwesomeElement {
               <button
                 class=${classMap({
                   'month-button': true,
-                  selected: index === currentMonth
+                  selected: index === currentMonth,
                 })}
                 @click=${() => this.handleMonthSelect(index)}
               >
                 ${m}
               </button>
-            `
+            `,
           )}
         </div>
       </div>
@@ -785,7 +807,7 @@ export default class WaCalendar extends WebAwesomeElement {
   }
 
   protected renderYearSelection() {
-    const currentYear = this.currentDate.getFullYear();
+    const currentYear = this.currentDate.getUTCFullYear();
     const startYear = currentYear - 5;
     const years = Array.from({ length: 12 }, (_, i) => startYear + i);
 
@@ -808,13 +830,13 @@ export default class WaCalendar extends WebAwesomeElement {
               <button
                 class=${classMap({
                   'year-button': true,
-                  selected: year === currentYear
+                  selected: year === currentYear,
                 })}
                 @click=${() => this.handleYearSelect(year)}
               >
                 ${year}
               </button>
-            `
+            `,
           )}
         </div>
       </div>
@@ -822,9 +844,9 @@ export default class WaCalendar extends WebAwesomeElement {
   }
 
   protected renderCalendarView() {
-    const year = this.currentDate.getFullYear();
-    const month = this.currentDate.getMonth();
-    const monthsArray = Array.from({ length: this.months }, (_, i) => new Date(year, month + i, 1));
+    const year = this.currentDate.getUTCFullYear();
+    const month = this.currentDate.getUTCMonth();
+    const monthsArray = Array.from({ length: this.months }, (_, i) => parse({ year, month: month + i, day: 1 }));
 
     // Determine the content for the main header's center section
     let mainHeaderCenterContent: TemplateResult | string;
@@ -844,12 +866,12 @@ export default class WaCalendar extends WebAwesomeElement {
             <div class="calendar-heading">
               <select @change=${(e: Event) => this.handleMonthSelect(Number((e.target as HTMLSelectElement).value))}>
                 ${this.localizedMonthNames.map(
-                  (name, index) => html`<option value=${index} ?selected=${index === month}>${name}</option>`
+                  (name, index) => html`<option value=${index} ?selected=${index === month}>${name}</option>`,
                 )}
               </select>
               <select @change=${(e: Event) => this.handleYearSelect(Number((e.target as HTMLSelectElement).value))}>
                 ${Array.from({ length: 12 }, (_, i) => year - 5 + i).map(
-                  y => html`<option value=${y} ?selected=${y === year}>${y}</option>`
+                  y => html`<option value=${y} ?selected=${y === year}>${y}</option>`,
                 )}
               </select>
             </div>
@@ -866,8 +888,8 @@ export default class WaCalendar extends WebAwesomeElement {
       const lastMonthDisplayed = monthsArray[monthsArray.length - 1];
       mainHeaderCenterContent = html`
         <div part="heading" class="calendar-heading main-heading">
-          ${this.localizedMonthNames[firstMonthDisplayed.getMonth()]} ${firstMonthDisplayed.getFullYear()} –
-          ${this.localizedMonthNames[lastMonthDisplayed.getMonth()]} ${lastMonthDisplayed.getFullYear()}
+          ${this.localizedMonthNames[firstMonthDisplayed.getUTCMonth()]} ${firstMonthDisplayed.getUTCFullYear()} –
+          ${this.localizedMonthNames[lastMonthDisplayed.getUTCMonth()]} ${lastMonthDisplayed.getUTCFullYear()}
         </div>
       `;
     }
@@ -875,9 +897,8 @@ export default class WaCalendar extends WebAwesomeElement {
     return html`
       <div class="calendar-container">
         <div class="calendar-header">
-          ${
-            !this.disableNavigation
-              ? html`
+          ${!this.disableNavigation
+            ? html`
                 <button
                   part="button previous"
                   class="navigation-button"
@@ -887,12 +908,10 @@ export default class WaCalendar extends WebAwesomeElement {
                   <wa-icon name="chevron-left"></wa-icon>
                 </button>
               `
-              : nothing
-          }
+            : nothing}
           ${mainHeaderCenterContent}
-          ${
-            !this.disableNavigation
-              ? html`
+          ${!this.disableNavigation
+            ? html`
                 <button
                   part="button next"
                   class="navigation-button"
@@ -902,14 +921,13 @@ export default class WaCalendar extends WebAwesomeElement {
                   <wa-icon name="chevron-right"></wa-icon>
                 </button>
               `
-              : nothing
-          }
+            : nothing}
         </div>
         <div class="calendar-months-row" style="display: flex; gap: 2em;">
           ${monthsArray.map(
             date => html`
-              <div class="calendar-month-container">${this.renderMonth(date.getFullYear(), date.getMonth())}</div>
-            `
+              <div class="calendar-month-container">${this.renderMonth(date.getUTCFullYear(), date.getUTCMonth())}</div>
+            `,
           )}
         </div>
       </div>
