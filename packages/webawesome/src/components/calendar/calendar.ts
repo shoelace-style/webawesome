@@ -642,7 +642,7 @@ export default class WaCalendar extends WebAwesomeElement {
                     ${this.showWeekNumbers
                       ? html`
                           <td class="weeknumber" part="weeknumber">
-                            ${week.find(d => d)?.getDate()
+                            ${week.find(d => d)?.getUTCDate()
                               ? /* biome-ignore lint/style/noNonNullAssertion: We know that at least one date exists in the week */
                                 this.weekNumberFormatter(this.getWeekNumber(week.find(d => d)!))
                               : ''}
