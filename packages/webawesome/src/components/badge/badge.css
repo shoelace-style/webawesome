@@ -1,4 +1,6 @@
 :host {
+  --background-color: var(--wa-color-fill-loud, var(--wa-color-brand-fill-loud));
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -8,7 +10,7 @@
   font-weight: var(--wa-font-weight-semibold);
   line-height: 1;
   white-space: nowrap;
-  background-color: var(--wa-color-fill-loud, var(--wa-color-brand-fill-loud));
+  background-color: var(--background-color);
   border-color: transparent;
   border-radius: var(--wa-border-radius-s);
   border-style: var(--wa-border-style);
