@@ -8,6 +8,13 @@ Web Awesome follows [Semantic Versioning](https://semver.org/). Breaking changes
 
 Components with the <wa-badge variant="warning">Experimental</wa-badge> badge should not be used in production. They are made available as release candidates for development and testing purposes. As such, changes to experimental components will not be subject to semantic versioning.
 
+## Next
+
+### Bug Fixes and Improvements {data-no-outline}
+
+- Fixed a bug in `<wa-badge>` where `appearance="pulse"` was not working as expected [pr:1173]
+- Fixed a missing TypeScript type for `<wa-badge>` for its `attention` property missing `bounce` value. [pr:1173]
+
 ## 3.0.0-beta.2
 
 ### New Features {data-no-outline}
