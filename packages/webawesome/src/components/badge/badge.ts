@@ -14,6 +14,8 @@ import styles from './badge.css';
  *
  * @csspart base - The component's base wrapper.
  *
+ * @cssproperty --pulse-color - The color of the badge's pulse effect when using `attention="pulse"`.
+ *
  */
 @customElement('wa-badge')
 export default class WaBadge extends WebAwesomeElement {
@@ -28,8 +30,8 @@ export default class WaBadge extends WebAwesomeElement {
   /** Draws a pill-style badge with rounded edges. */
   @property({ type: Boolean, reflect: true }) pill = false;
 
-  /** Makes the badge pulsate to draw attention. */
-  @property({ reflect: true }) attention: 'none' | 'pulse' = 'none';
+  /** Adds an animation to draw attention to the badge. */
+  @property({ reflect: true }) attention: 'none' | 'pulse' | 'bounce' = 'none';
 
   render() {
     return html` <slot part="base" role="status"></slot>`;
