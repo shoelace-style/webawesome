@@ -7,7 +7,7 @@ import styles from './callout.css';
 
 /**
  * @summary Callouts are used to display important messages inline.
- * @documentation https://backers.webawesome.com/docs/components/callout
+ * @documentation https://webawesome.com/docs/components/callout
  * @status stable
  * @since 2.0
  *

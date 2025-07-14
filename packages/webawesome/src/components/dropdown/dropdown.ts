@@ -24,7 +24,7 @@ const openDropdowns = new Set<WaDropdown>();
 /**
  * @summary Dropdowns display a list of options that can be triggered by a button or other element. They support
  *  keyboard navigation, submenus, and various customization options.
- * @documentation https://backers.webawesome.com/docs/components/dropdown
+ * @documentation https://webawesome.com/docs/components/dropdown
  * @status stable
  * @since 2.0
  *

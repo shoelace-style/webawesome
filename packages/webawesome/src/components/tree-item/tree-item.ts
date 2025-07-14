@@ -21,7 +21,7 @@ import styles from './tree-item.css';
 
 /**
  * @summary A tree item serves as a hierarchical node that lives inside a [tree](/docs/components/tree).
- * @documentation https://backers.webawesome.com/docs/components/tree-item
+ * @documentation https://webawesome.com/docs/components/tree-item
  * @status stable
  * @since 2.0
  *

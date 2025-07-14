@@ -6,13 +6,15 @@ import styles from './badge.css';
 
 /**
  * @summary Badges are used to draw attention and display statuses or counts.
- * @documentation https://backers.webawesome.com/docs/components/badge
+ * @documentation https://webawesome.com/docs/components/badge
  * @status stable
  * @since 2.0
  *
  * @slot - The badge's content.
  *
  * @csspart base - The component's base wrapper.
+ *
+ * @cssproperty --pulse-color - The color of the badge's pulse effect when using `attention="pulse"`.
  *
  */
 @customElement('wa-badge')
@@ -28,8 +30,8 @@ export default class WaBadge extends WebAwesomeElement {
   /** Draws a pill-style badge with rounded edges. */
   @property({ type: Boolean, reflect: true }) pill = false;
 
-  /** Makes the badge pulsate to draw attention. */
-  @property({ reflect: true }) attention: 'none' | 'pulse' = 'none';
+  /** Adds an animation to draw attention to the badge. */
+  @property({ reflect: true }) attention: 'none' | 'pulse' | 'bounce' = 'none';
 
   render() {
     return html` <slot part="base" role="status"></slot>`;

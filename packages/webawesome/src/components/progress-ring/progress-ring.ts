@@ -7,7 +7,7 @@ import styles from './progress-ring.css';
 
 /**
  * @summary Progress rings are used to show the progress of a determinate operation in a circular fashion.
- * @documentation https://backers.webawesome.com/docs/components/progress-ring
+ * @documentation https://webawesome.com/docs/components/progress-ring
  * @status stable
  * @since 2.0
  *

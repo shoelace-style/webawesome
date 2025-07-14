@@ -10,7 +10,7 @@ import styles from './button-group.css';
 
 /**
  * @summary Button groups can be used to group related buttons into sections.
- * @documentation https://backers.webawesome.com/docs/components/button-group
+ * @documentation https://webawesome.com/docs/components/button-group
  * @status stable
  * @since 2.0
  *

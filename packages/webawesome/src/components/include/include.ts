@@ -9,7 +9,7 @@ import { requestInclude } from './request.js';
 
 /**
  * @summary Includes give you the power to embed external HTML files into the page.
- * @documentation https://backers.webawesome.com/docs/components/include
+ * @documentation https://webawesome.com/docs/components/include
  * @status stable
  * @since 2.0
  *

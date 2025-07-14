@@ -15,7 +15,7 @@ import styles from './tooltip.css';
 
 /**
  * @summary Tooltips display additional information based on a specific action.
- * @documentation https://backers.webawesome.com/docs/components/tooltip
+ * @documentation https://webawesome.com/docs/components/tooltip
  * @status stable
  * @since 2.0
  *

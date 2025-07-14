@@ -10,7 +10,7 @@ import styles from './tag.css';
 
 /**
  * @summary Tags are used as labels to organize things or to indicate a selection.
- * @documentation https://backers.webawesome.com/docs/components/tag
+ * @documentation https://webawesome.com/docs/components/tag
  * @status stable
  * @since 2.0
  *

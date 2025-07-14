@@ -4,7 +4,7 @@ import { LocalizeController } from '../../utilities/localize.js';
 
 /**
  * @summary Formats a number as a human readable bytes value.
- * @documentation https://backers.webawesome.com/docs/components/format-bytes
+ * @documentation https://webawesome.com/docs/components/format-bytes
  * @status stable
  * @since 2.0
  */

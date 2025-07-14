@@ -14,7 +14,7 @@ import styles from './radio-group.css';
 
 /**
  * @summary Radio groups are used to group multiple [radios](/docs/components/radio) so they function as a single form control.
- * @documentation https://backers.webawesome.com/docs/components/radio-group
+ * @documentation https://webawesome.com/docs/components/radio-group
  * @status stable
  * @since 2.0
  *

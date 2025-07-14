@@ -14,7 +14,7 @@ import styles from './details.css';
 
 /**
  * @summary Details show a brief summary and expand to show additional content.
- * @documentation https://backers.webawesome.com/docs/components/details
+ * @documentation https://webawesome.com/docs/components/details
  * @status stable
  * @since 2.0
  *

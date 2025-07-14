@@ -37,7 +37,7 @@ const SUPPORTS_POPOVER = globalThis?.HTMLElement?.prototype.hasOwnProperty('popo
 
 /**
  * @summary Popup is a utility that lets you declaratively anchor "popup" containers to another element.
- * @documentation https://backers.webawesome.com/docs/components/popup
+ * @documentation https://webawesome.com/docs/components/popup
  * @status stable
  * @since 2.0
  *

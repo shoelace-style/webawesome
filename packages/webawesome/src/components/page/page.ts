@@ -79,7 +79,7 @@ function toLength(px: number | string): string {
 
 /**
  * @summary Pages offer an easy way to scaffold entire page layouts using minimal markup.
- * @documentation https://backers.webawesome.com/docs/components/page
+ * @documentation https://webawesome.com/docs/components/page
  * @status experimental
  * @since 3.0
  *

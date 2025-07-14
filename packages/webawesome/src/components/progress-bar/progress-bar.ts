@@ -9,7 +9,7 @@ import styles from './progress-bar.css';
 
 /**
  * @summary Progress bars are used to show the status of an ongoing operation.
- * @documentation https://backers.webawesome.com/docs/components/progress-bar
+ * @documentation https://webawesome.com/docs/components/progress-bar
  * @status stable
  * @since 2.0
  *

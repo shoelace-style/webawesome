@@ -14,7 +14,7 @@ import styles from './copy-button.css';
 
 /**
  * @summary Copies text data to the clipboard when the user clicks the trigger.
- * @documentation https://backers.webawesome.com/docs/components/copy
+ * @documentation https://webawesome.com/docs/components/copy
  * @status experimental
  * @since 2.7
  *
