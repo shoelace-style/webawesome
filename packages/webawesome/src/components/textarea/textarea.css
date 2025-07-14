@@ -72,8 +72,13 @@ textarea {
   }
 }
 
+.textarea {
+  position: relative;
+}
+
 .size-adjuster {
   visibility: hidden;
+  position: absolute;
   pointer-events: none;
   opacity: 0;
   padding: 0;
