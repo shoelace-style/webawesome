@@ -769,8 +769,10 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
   }
 
   render() {
-    const hasLabel = this.hasSlotController.test('label');
-    const hasHint = this.hasSlotController.test('hint');
+    const hasLabelSlot = this.hasSlotController.test('label');
+    const hasHintSlot = this.hasSlotController.test('hint');
+    const hasLabel = this.label ? true : !!hasLabelSlot;
+    const hasHint = this.hint ? true : !!hasHintSlot;
     const hasReference = this.hasSlotController.test('reference');
 
     const sliderClasses = classMap({
@@ -791,7 +793,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
     }
 
     // Common UI fragments
-    const labelAndHint = html`
+    const label = html`
       <label
         id="label"
         part="label"
@@ -801,8 +803,16 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
       >
         <slot name="label">${this.label}</slot>
       </label>
+    `;
 
-      <div id="hint" part="hint" class=${classMap({ vh: !hasHint })}>
+    const hint = html`
+      <div
+        id="hint"
+        part="hint"
+        class=${classMap({
+          'has-slotted': hasHint,
+        })}
+      >
         <slot name="hint">${this.hint}</slot>
       </div>
     `;
@@ -856,7 +866,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
       const maxThumbPosition = clamp(this.getPercentageFromValue(this.maxValue), 0, 100);
 
       return html`
-        ${labelAndHint}
+        ${label}
 
         <div id="slider" part="slider" class=${sliderClasses}>
           <div id="track" part="track">
@@ -914,7 +924,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
             ></span>
           </div>
 
-          ${referencesTemplate}
+          ${referencesTemplate} ${hint}
         </div>
 
         ${createTooltip('thumb-min', this.minValue)} ${createTooltip('thumb-max', this.maxValue)}
@@ -929,7 +939,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
       );
 
       return html`
-        ${labelAndHint}
+        ${label}
 
         <div
           id="slider"
@@ -963,7 +973,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
             <span id="thumb" part="thumb" style="--position: ${thumbPosition}%"></span>
           </div>
 
-          ${referencesTemplate}
+          ${referencesTemplate} ${hint}
         </div>
 
         ${createTooltip('thumb', this.value)}
