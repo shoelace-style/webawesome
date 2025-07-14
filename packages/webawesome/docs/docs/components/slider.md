@@ -7,8 +7,8 @@ category: Form Controls
 
 ```html {.example}
 <wa-slider
-  label="Number of cats"
-  hint="Limit six per household"
+  label="Number of users"
+  hint="Limit six per team"
   name="value"
   value="3"
   min="0"
