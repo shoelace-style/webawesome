@@ -19,46 +19,46 @@ export function outlinePlugin(options = {}) {
   };
 
   return function (doc) {
-      const container = doc.querySelector(options.container);
-      const ul = parse('<ul></ul>');
-      let numLinks = 0;
+    const container = doc.querySelector(options.container);
+    const ul = parse('<ul></ul>');
+    let numLinks = 0;
 
-      if (!container) {
+    if (!container) {
+      return;
+    }
+
+    container.querySelectorAll(options.selector).forEach(heading => {
+      const id = heading.getAttribute('id');
+      const level = heading.tagName.slice(1);
+      const clone = parse(heading.outerHTML);
+
+      if (heading.closest('[data-no-outline]')) {
         return;
       }
 
-      container.querySelectorAll(options.selector).forEach(heading => {
-        const id = heading.getAttribute('id');
-        const level = heading.tagName.slice(1);
-        const clone = parse(heading.outerHTML);
+      // Create a clone of the heading so we can remove links and [data-no-outline] elements from the text content
+      clone.querySelectorAll('.wa-visually-hidden, [hidden], [aria-hidden="true"]').forEach(el => el.remove());
+      clone.querySelectorAll('[data-no-outline]').forEach(el => el.remove());
 
-        if (heading.closest('[data-no-outline]')) {
-          return;
-        }
+      // Generate the link
+      const li = parse(`<li data-level="${level}"><a></a></li>`);
+      const a = li.querySelector('a');
+      a.setAttribute('href', `#${encodeURIComponent(id)}`);
+      a.textContent = clone.textContent.trim().replace(/#$/, '');
 
-        // Create a clone of the heading so we can remove links and [data-no-outline] elements from the text content
-        clone.querySelectorAll('.wa-visually-hidden, [hidden], [aria-hidden="true"]').forEach(el => el.remove());
-        clone.querySelectorAll('[data-no-outline]').forEach(el => el.remove());
+      // Add it to the list
+      ul.firstChild.appendChild(li);
+      numLinks++;
+    });
 
-        // Generate the link
-        const li = parse(`<li data-level="${level}"><a></a></li>`);
-        const a = li.querySelector('a');
-        a.setAttribute('href', `#${encodeURIComponent(id)}`);
-        a.textContent = clone.textContent.trim().replace(/#$/, '');
-
-        // Add it to the list
-        ul.firstChild.appendChild(li);
-        numLinks++;
+    if (numLinks > 0) {
+      // Append the list to all matching targets
+      doc.querySelectorAll(options.target).forEach(target => {
+        target.appendChild(parse(ul.outerHTML));
       });
-
-      if (numLinks > 0) {
-        // Append the list to all matching targets
-        doc.querySelectorAll(options.target).forEach(target => {
-          target.appendChild(parse(ul.outerHTML));
-        });
-      } else {
-        // Remove if empty
-        options.ifEmpty(doc);
-      }
+    } else {
+      // Remove if empty
+      options.ifEmpty(doc);
+    }
   };
 }

@@ -1,8 +1,8 @@
 import { parse } from 'node-html-parser';
 import { v4 as uuid } from 'uuid';
 import { markdown } from '../_utils/markdown.js';
-import { highlightCode } from './highlight-code.js';
 import { copyCode, copyCodePlugin } from './copy-code.js';
+import { highlightCode } from './highlight-code.js';
 
 /**
  * Eleventy plugin to turn `<code class="example">` blocks into live examples.
@@ -14,35 +14,34 @@ export function codeExamplesPlugin(options = {}) {
   };
 
   return function (doc) {
-      const container = doc.querySelector(options.container);
+    const container = doc.querySelector(options.container);
 
-      if (!container) {
-        return;
-      }
+    if (!container) {
+      return;
+    }
 
+    // Look for external links
+    container.querySelectorAll('code.example').forEach(code => {
+      let pre = code.closest('pre');
+      const hasButtons = !code.classList.contains('no-buttons');
+      const isOpen = code.classList.contains('open') || !hasButtons;
+      const noEdit = code.classList.contains('no-edit');
+      const id = `code-example-${uuid().slice(-12)}`;
+      let preview = pre.textContent;
 
-      // Look for external links
-      container.querySelectorAll('code.example').forEach(code => {
-        let pre = code.closest('pre');
-        const hasButtons = !code.classList.contains('no-buttons');
-        const isOpen = code.classList.contains('open') || !hasButtons;
-        const noEdit = code.classList.contains('no-edit');
-        const id = `code-example-${uuid().slice(-12)}`;
-        let preview = pre.textContent;
+      const langClass = [...code.classList.values()].find(val => val.startsWith('language-'));
+      const lang = langClass ? langClass.replace(/^language-/, '') : 'plain';
 
-        const langClass = [...code.classList.values()].find(val => val.startsWith('language-'));
-        const lang = langClass ? langClass.replace(/^language-/, '') : 'plain';
+      code.innerHTML = highlightCode(code.textContent ?? '', lang);
 
-        code.innerHTML = highlightCode(code.textContent ?? '', lang);
+      // Run preview scripts as modules to prevent collisions
+      const root = parse(preview, { blockTextElements: { script: true } });
+      root.querySelectorAll('script').forEach(script => script.setAttribute('type', 'module'));
+      preview = root.toString();
 
-        // Run preview scripts as modules to prevent collisions
-        const root = parse(preview, { blockTextElements: { script: true } });
-        root.querySelectorAll('script').forEach(script => script.setAttribute('type', 'module'));
-        preview = root.toString();
+      copyCode(code);
 
-        copyCode(code)
-
-        const codeExample = parse(`
+      const codeExample = parse(`
           <div class="code-example ${isOpen ? 'open' : ''}">
             <div class="code-example-preview">
               ${preview}
@@ -85,7 +84,7 @@ export function codeExamplesPlugin(options = {}) {
           </div>
         `);
 
-        pre.replaceWith(codeExample);
-      });
-  }
+      pre.replaceWith(codeExample);
+    });
+  };
 }

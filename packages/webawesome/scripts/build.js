@@ -5,17 +5,17 @@ import { deleteAsync } from 'del';
 import esbuild from 'esbuild';
 import { replace } from 'esbuild-plugin-replace';
 
+import Eleventy from '@11ty/eleventy';
 import { mkdir, readFile } from 'fs/promises';
 import getPort, { portNumbers } from 'get-port';
 import { globby } from 'globby';
-import { dirname, join, relative, extname } from 'node:path';
+import { dirname, extname, join, relative } from 'node:path';
 import process from 'node:process';
 import { fileURLToPath } from 'node:url';
 import ora from 'ora';
 import copy from 'recursive-copy';
-import { getCdnDir, getDistDir, getDocsDir, getRootDir, getSiteDir, getEleventyConfigPath } from './utils.js';
-import Eleventy from '@11ty/eleventy';
 import { SimulateWebAwesomeApp } from '../docs/_utils/simulate-webawesome-app.js';
+import { getCdnDir, getDistDir, getDocsDir, getEleventyConfigPath, getRootDir, getSiteDir } from './utils.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const isDeveloping = process.argv.includes('--develop');
@@ -27,41 +27,41 @@ let buildContexts = {
   unbundledContext: {},
 };
 
-const debugPerf = process.env.DEBUG_PERFORMANCE === "1"
+const debugPerf = process.env.DEBUG_PERFORMANCE === '1';
 
-const isIncremental = process.argv.includes('--incremental')
+const isIncremental = process.argv.includes('--incremental');
 
 // 11ty
-async function createEleventy () {
+async function createEleventy() {
   const eleventy = new Eleventy(getDocsDir(), getSiteDir(), {
     quietMode: true,
     configPath: getEleventyConfigPath(),
-    config: (eleventyConfig) => {
+    config: eleventyConfig => {
       if (isDeveloping || isIncremental) {
-        eleventyConfig.setUseTemplateCache(false)
+        eleventyConfig.setUseTemplateCache(false);
       }
     },
-    source: "script",
+    source: 'script',
     runMode: isIncremental ? 'watch' : 'build',
   });
-  eleventy.setIncrementalBuild(isIncremental)
+  eleventy.setIncrementalBuild(isIncremental);
 
-  await eleventy.init()
+  await eleventy.init();
 
   if (isIncremental) {
-	  await eleventy.watch();
+    await eleventy.watch();
 
-	  process.on("SIGINT", async () => {
-		  await eleventy.stopWatch();
-		  process.exitCode = 0;
-	  });
+    process.on('SIGINT', async () => {
+      await eleventy.stopWatch();
+      process.exitCode = 0;
+    });
   }
 
-  return eleventy
+  return eleventy;
 }
 
 // We can't initialize 11ty here because we need to wait for the `/dist` build to execute so we can read the custom-elements.json.
-let eleventy = null
+let eleventy = null;
 
 /**
  * @typedef {Object} BuildOptions
@@ -82,8 +82,7 @@ export async function build(options = {}) {
     options.watchedDocsDirectories = [getDocsDir()];
   }
 
-  function measureStep () {
-  }
+  function measureStep() {}
 
   /**
    * Runs the full build.
@@ -92,22 +91,16 @@ export async function build(options = {}) {
     const start = Date.now();
 
     try {
-      const steps = [
-        cleanup,
-        generateManifest,
-        generateReactWrappers,
-        generateTypes,
-        generateStyles
-      ]
+      const steps = [cleanup, generateManifest, generateReactWrappers, generateTypes, generateStyles];
 
       for (const step of steps) {
         if (debugPerf) {
-          const stepStart = Date.now()
-          await step()
+          const stepStart = Date.now();
+          await step();
           const elapsedTime = (Date.now() - stepStart) / 1000 + 's';
-          spinner.succeed(`${step.name}: ${elapsedTime}`)
+          spinner.succeed(`${step.name}: ${elapsedTime}`);
         } else {
-          await step()
+          await step();
         }
       }
 
@@ -326,9 +319,9 @@ export async function build(options = {}) {
     spinner.start('Writing the docs');
 
     if (isIncremental) {
-      eleventy ||= await createEleventy()
+      eleventy ||= await createEleventy();
     } else {
-      eleventy = await createEleventy()
+      eleventy = await createEleventy();
     }
 
     try {
@@ -408,18 +401,20 @@ export async function build(options = {}) {
             const finalString = [];
             const encoding = 'utf-8';
 
-            if (!next) { return }
-
-            if (!req.url) {
-              next()
-              return
+            if (!next) {
+              return;
             }
 
-            const extension = extname(req.url)
-            if (extension !== "" && extension !== '.html') {
+            if (!req.url) {
+              next();
+              return;
+            }
+
+            const extension = extname(req.url);
+            if (extension !== '' && extension !== '.html') {
               // Assume its something like .svg / .png / .css etc. that we don't want to transform.
-              next()
-              return
+              next();
+              return;
             }
 
             const _write = res.write;
@@ -431,7 +426,7 @@ export async function build(options = {}) {
 
             const _end = res.end;
             res.end = function (...args) {
-              const transformedStr = SimulateWebAwesomeApp(finalString.join(""))
+              const transformedStr = SimulateWebAwesomeApp(finalString.join(''));
               _write.call(res, transformedStr, encoding);
               _end.call(res, ...args);
             };

@@ -1,6 +1,6 @@
 import nunjucks from 'nunjucks';
 
-export function SimulateWebAwesomeApp (str) {
+export function SimulateWebAwesomeApp(str) {
   return nunjucks.renderString(str, {
     // Stub the server EJS shortcodes.
     currentUser: {

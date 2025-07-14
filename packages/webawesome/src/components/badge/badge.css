@@ -73,7 +73,6 @@
   }
 }
 
-
 /* Bounce attention */
 :host([attention='bounce']) {
   animation: bounce 1s cubic-bezier(0.28, 0.84, 0.42, 1) infinite;

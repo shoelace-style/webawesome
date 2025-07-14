@@ -1,4 +1,4 @@
-export function copyCode (code) {
+export function copyCode(code) {
   const pre = code.closest('pre');
   let preId = pre.getAttribute('id') || `code-block-${crypto.randomUUID()}`;
   let codeId = code.getAttribute('id') || `${preId}-inner`;
@@ -24,7 +24,7 @@ export function copyCodePlugin(options = {}) {
   };
 
   return function (doc) {
-    const container = doc.querySelector(options.container)
+    const container = doc.querySelector(options.container);
 
     if (!container) {
       return;
@@ -32,7 +32,7 @@ export function copyCodePlugin(options = {}) {
 
     // Look for code blocks
     container.querySelectorAll('pre > code').forEach(code => {
-      copyCode(code)
+      copyCode(code);
     });
-  }
+  };
 }

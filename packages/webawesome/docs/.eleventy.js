@@ -1,14 +1,14 @@
+import { parse as HTMLParse } from 'node-html-parser';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { parse as HTMLParse } from 'node-html-parser';
 import { anchorHeadingsPlugin } from './_utils/anchor-headings.js';
-import { SimulateWebAwesomeApp } from './_utils/simulate-webawesome-app.js'
 import { codeExamplesPlugin } from './_utils/code-examples.js';
 import { copyCodePlugin } from './_utils/copy-code.js';
 import { currentLink } from './_utils/current-link.js';
 import { highlightCodePlugin } from './_utils/highlight-code.js';
 import { getComponents } from './_utils/manifest.js';
 import { markdown } from './_utils/markdown.js';
+import { SimulateWebAwesomeApp } from './_utils/simulate-webawesome-app.js';
 // import { formatCodePlugin } from './_utils/format-code.js';
 // import litPlugin from '@lit-labs/eleventy-plugin-lit';
 import { readFile } from 'fs/promises';
@@ -127,11 +127,11 @@ export default async function (eleventyConfig) {
   eleventyConfig.setLibrary('md', markdown);
 
   // Add anchors to headings
-  eleventyConfig.addTransform("doc-transforms", function (content) {
+  eleventyConfig.addTransform('doc-transforms', function (content) {
     let doc = HTMLParse(content, { blockTextElements: { code: true } });
 
     const plugins = [
-      anchorHeadingsPlugin({ container: "#content" }),
+      anchorHeadingsPlugin({ container: '#content' }),
       outlinePlugin({
         container: '#content',
         target: '.outline-links',
@@ -145,14 +145,14 @@ export default async function (eleventyConfig) {
       codeExamplesPlugin(),
       highlightCodePlugin(),
       copyCodePlugin(),
-    ]
+    ];
 
     for (const plugin of plugins) {
-      plugin.call(this, doc)
+      plugin.call(this, doc);
     }
 
-    return doc.toString()
-  })
+    return doc.toString();
+  });
 
   eleventyConfig.addPlugin(
     replaceTextPlugin([
@@ -175,8 +175,8 @@ export default async function (eleventyConfig) {
         replace: /\[discuss:([0-9]+)\]/gs,
         replaceWith: '<a href="https://github.com/shoelace-style/webawesome/discussions/$1" target="_blank">#$1</a>',
       },
-    ])
-  )
+    ]),
+  );
 
   // Build the search index
   eleventyConfig.addPlugin(
@@ -202,7 +202,6 @@ export default async function (eleventyConfig) {
   for (let glob of passThrough) {
     eleventyConfig.addPassthroughCopy(glob);
   }
-
 
   // // SSR plugin
   // if (!isDev) {
@@ -241,7 +240,7 @@ export default async function (eleventyConfig) {
       }
 
       /** This largely mimics what an app would do and just stubs out what we don't care about. */
-      return SimulateWebAwesomeApp(content)
+      return SimulateWebAwesomeApp(content);
     });
   }
 }
