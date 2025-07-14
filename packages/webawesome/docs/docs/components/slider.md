@@ -40,7 +40,7 @@ Use the `label` attribute to give the slider an accessible label. For labels tha
 Add descriptive hint to a slider with the `hint` attribute. For hints that contain HTML, use the `hint` slot instead.
 
 ```html {.example}
-<wa-slider label="Volume" hint="Controls the volume of the current song." min="0" max="100"></wa-slider>
+<wa-slider label="Volume" hint="Controls the volume of the current song." min="0" max="100" value="50"></wa-slider>
 ```
 
 ### Showing tooltips
@@ -72,7 +72,15 @@ Use the `with-markers` attribute to display visual indicators at each step incre
 Use the `reference` slot to add contextual labels below the slider. References are automatically spaced using `space-between`, making them easy to align with the start, center, and end positions.
 
 ```html {.example}
-<wa-slider label="Speed" name="speed" min="1" max="5" value="3" with-markers>
+<wa-slider
+  label="Speed"
+  name="speed"
+  min="1"
+  max="5"
+  value="3"
+  with-markers
+  hint="Controls the speed of the thing you're currently doing."
+>
   <span slot="reference">Slow</span>
   <span slot="reference">Medium</span>
   <span slot="reference">Fast</span>
