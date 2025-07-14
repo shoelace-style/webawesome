@@ -25,7 +25,7 @@ for await (const component of components) {
   const tagWithoutPrefix = component.tagName.replace(/^wa-/, '');
   const componentDir = path.join(reactDir, tagWithoutPrefix);
   const componentFile = path.join(componentDir, 'index.ts');
-  const importPath = path.relative(srcDir, component.path);
+  const importPath = path.posix.relative(srcDir, component.path);
 
   // We only want to wrap wa- prefixed events, because the others are native
   const eventsToWrap = component.events?.filter(event => event.name.startsWith('wa-')) || [];
