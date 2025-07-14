@@ -10,7 +10,8 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 ## Next
 
-- Fixed a bug in `<wa-slider>` that prevented the hint from showing up
+- Fixed the missing `nanoid` dependency in `package.json` [discuss:1139]
+- Fixed a bug in `<wa-slider>` that prevented the hint from showing up [discuss:1172]
 
 ## 3.0.0-beta.2
 

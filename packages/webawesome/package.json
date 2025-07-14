@@ -77,10 +77,10 @@
     "@shoelace-style/localize": "^3.2.1",
     "composed-offset-position": "^0.0.6",
     "lit": "^3.2.1",
+    "nanoid": "^5.1.5",
     "qr-creator": "^1.0.0",
     "style-observer": "^0.0.7"
   },
-  "devDependencies": {},
   "lint-staged": {
     "*.{ts,js}": [
       "prettier --write"
