@@ -42,7 +42,7 @@ async function createEleventy () {
       }
     },
     source: "script",
-    runMode: isDeveloping ? 'watch' : 'build',
+    runMode: isIncremental ? 'watch' : 'build',
   });
   eleventy.setIncrementalBuild(isIncremental)
 
@@ -60,7 +60,8 @@ async function createEleventy () {
   return eleventy
 }
 
-let eleventy = await createEleventy()
+// We can't initialize 11ty here because we need to wait for the `/dist` build to execute so we can read the custom-elements.json.
+let eleventy = null
 
 /**
  * @typedef {Object} BuildOptions
@@ -92,21 +93,21 @@ export async function build(options = {}) {
 
     try {
       const steps = [
-        { name: "cleanup", fn: cleanup },
-        { name: "generateManifest", fn: generateManifest },
-        { name: "generateReactWrappers", fn: generateReactWrappers },
-        { name: "generateTypes", fn: generateTypes },
-        { name: "generateStyles", fn: generateStyles },
+        cleanup,
+        generateManifest,
+        generateReactWrappers,
+        generateTypes,
+        generateStyles
       ]
 
       for (const step of steps) {
         if (debugPerf) {
           const stepStart = Date.now()
-          await step.fn()
+          await step()
           const elapsedTime = (Date.now() - stepStart) / 1000 + 's';
           spinner.succeed(`${step.name}: ${elapsedTime}`)
         } else {
-          await step.fn()
+          await step()
         }
       }
 
@@ -324,17 +325,18 @@ export async function build(options = {}) {
 
     spinner.start('Writing the docs');
 
-    const args = [];
-    if (isDeveloping) {
-      args.push('--develop')
-    };
+    if (isIncremental) {
+      eleventy ||= await createEleventy()
+    } else {
+      eleventy = await createEleventy()
+    }
 
     try {
-      if (isDeveloping) {
+      if (isIncremental) {
+        // no-op.
+      } else if (isDeveloping) {
         // Cleanup
         await deleteAsync(getSiteDir());
-
-        eleventy = await createEleventy()
 
         await eleventy.write();
       } else {
@@ -344,7 +346,6 @@ export async function build(options = {}) {
         // Write it
         await eleventy.write();
       }
-
 
       // Copy dist (production only)
       if (!isDeveloping) {
