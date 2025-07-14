@@ -27,59 +27,55 @@ export function anchorHeadingsPlugin(options = {}) {
     ...options,
   };
 
-  return function (eleventyConfig) {
-    eleventyConfig.addTransform('anchor-headings', content => {
-      const doc = parse(content);
-      const container = doc.querySelector(options.container);
+  /** doc is a parsed HTML document */
+  return function (doc) {
+    const container = doc.querySelector(options.container);
 
-      if (!container) {
-        return content;
+    if (!container) {
+      return doc;
+    }
+
+    // Look for headings
+    let selector = `:is(${options.headingSelector}):not([data-no-anchor], [data-no-anchor] *)`;
+    container.querySelectorAll(selector).forEach(heading => {
+      const hasAnchor = heading.querySelector('a');
+      const existingId = heading.getAttribute('id');
+      const clone = parse(heading.outerHTML);
+
+      // Create a clone of the heading so we can remove [data-no-anchor] elements from the text content
+      clone.querySelectorAll('[data-no-anchor]').forEach(el => el.remove());
+
+      if (hasAnchor) {
+        return;
       }
 
-      // Look for headings
-      let selector = `:is(${options.headingSelector}):not([data-no-anchor], [data-no-anchor] *)`;
-      container.querySelectorAll(selector).forEach(heading => {
-        const hasAnchor = heading.querySelector('a');
-        const existingId = heading.getAttribute('id');
-        const clone = parse(heading.outerHTML);
+      let id = existingId;
+      if (!id) {
+        const slug = createId(clone.textContent ?? '') ?? uuid().slice(-12);
+        id = slug;
+        let suffix = 1;
 
-        // Create a clone of the heading so we can remove [data-no-anchor] elements from the text content
-        clone.querySelectorAll('[data-no-anchor]').forEach(el => el.remove());
-
-        if (hasAnchor) {
-          return;
+        // Make sure the slug is unique in the document
+        while (doc.getElementById(id) !== null) {
+          id = `${slug}-${++suffix}`;
         }
+      }
 
-        let id = existingId;
-        if (!id) {
-          const slug = createId(clone.textContent ?? '') ?? uuid().slice(-12);
-          id = slug;
-          let suffix = 1;
+      // Create the anchor
+      const anchor = parse(`
+        <a href="#${encodeURIComponent(id)}">
+          <span class="wa-visually-hidden"></span>
+          <span aria-hidden="true">#</span>
+        </a>
+      `);
+      anchor.querySelector('.wa-visually-hidden').textContent = options.anchorLabel;
 
-          // Make sure the slug is unique in the document
-          while (doc.getElementById(id) !== null) {
-            id = `${slug}-${++suffix}`;
-          }
-        }
-
-        // Create the anchor
-        const anchor = parse(`
-          <a href="#${encodeURIComponent(id)}">
-            <span class="wa-visually-hidden"></span>
-            <span aria-hidden="true">#</span>
-          </a>
-        `);
-        anchor.querySelector('.wa-visually-hidden').textContent = options.anchorLabel;
-
-        // Update the heading
-        if (!existingId) {
-          heading.setAttribute('id', id);
-        }
-        heading.classList.add('anchor-heading');
-        heading.appendChild(anchor);
-      });
-
-      return doc.toString();
+      // Update the heading
+      if (!existingId) {
+        heading.setAttribute('id', id);
+      }
+      heading.classList.add('anchor-heading');
+      heading.appendChild(anchor);
     });
   };
 }

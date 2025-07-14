@@ -43,30 +43,25 @@ export function highlightCodePlugin(options = {}) {
     ...options,
   };
 
-  return function (eleventyConfig) {
-    eleventyConfig.addTransform('highlight-code', content => {
-      const doc = parse(content, { blockTextElements: { code: true } });
-      const container = doc.querySelector(options.container);
+  return function (doc) {
+    const container = doc.querySelector(options.container);
 
-      if (!container) {
-        return content;
-      }
+    if (!container) {
+      return;
+    }
 
-      // Look for <code class="language-*"> and highlight each one
-      container.querySelectorAll('code[class*="language-"]').forEach(code => {
-        const langClass = [...code.classList.values()].find(val => val.startsWith('language-'));
-        const lang = langClass ? langClass.replace(/^language-/, '') : 'plain';
+    // Look for <code class="language-*"> and highlight each one
+    container.querySelectorAll('code[class*="language-"]').forEach(code => {
+      const langClass = [...code.classList.values()].find(val => val.startsWith('language-'));
+      const lang = langClass ? langClass.replace(/^language-/, '') : 'plain';
 
-        try {
-          code.innerHTML = highlightCode(code.textContent ?? '', lang);
-        } catch (err) {
-          if (!options.ignoreMissingLangs) {
-            throw new Error(err.message);
-          }
+      try {
+        code.innerHTML = highlightCode(code.textContent ?? '', lang);
+      } catch (err) {
+        if (!options.ignoreMissingLangs) {
+          throw new Error(err.message);
         }
-      });
-
-      return doc.toString();
+      }
     });
   };
 }

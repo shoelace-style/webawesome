@@ -1,40 +1,38 @@
-import { parse } from 'node-html-parser';
+export function copyCode (code) {
+  const pre = code.closest('pre');
+  let preId = pre.getAttribute('id') || `code-block-${crypto.randomUUID()}`;
+  let codeId = code.getAttribute('id') || `${preId}-inner`;
+
+  if (!code.getAttribute('id')) {
+    code.setAttribute('id', codeId);
+  }
+  if (!pre.getAttribute('id')) {
+    pre.setAttribute('id', preId);
+  }
+
+  // Add a copy button
+  pre.innerHTML += `<wa-copy-button from="${codeId}" class="copy-button wa-dark"></wa-copy-button>`;
+}
 
 /**
  * Eleventy plugin to add copy buttons to code blocks.
  */
-export function copyCodePlugin(eleventyConfig, options = {}) {
+export function copyCodePlugin(options = {}) {
   options = {
     container: 'body',
     ...options,
   };
 
-  let codeCount = 0;
-  eleventyConfig.addTransform('copy-code', content => {
-    const doc = parse(content, { blockTextElements: { code: true } });
-    const container = doc.querySelector(options.container);
+  return function (doc) {
+    const container = doc.querySelector(options.container)
 
     if (!container) {
-      return content;
+      return;
     }
 
     // Look for code blocks
     container.querySelectorAll('pre > code').forEach(code => {
-      const pre = code.closest('pre');
-      let preId = pre.getAttribute('id') || `code-block-${++codeCount}`;
-      let codeId = code.getAttribute('id') || `${preId}-inner`;
-
-      if (!code.getAttribute('id')) {
-        code.setAttribute('id', codeId);
-      }
-      if (!pre.getAttribute('id')) {
-        pre.setAttribute('id', preId);
-      }
-
-      // Add a copy button
-      pre.innerHTML += `<wa-copy-button from="${codeId}" class="copy-button wa-dark"></wa-copy-button>`;
+      copyCode(code)
     });
-
-    return doc.toString();
-  });
+  }
 }

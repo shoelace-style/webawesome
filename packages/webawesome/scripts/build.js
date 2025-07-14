@@ -8,12 +8,14 @@ import { replace } from 'esbuild-plugin-replace';
 import { mkdir, readFile } from 'fs/promises';
 import getPort, { portNumbers } from 'get-port';
 import { globby } from 'globby';
-import { dirname, join, relative } from 'node:path';
+import { dirname, join, relative, extname } from 'node:path';
 import process from 'node:process';
 import { fileURLToPath } from 'node:url';
 import ora from 'ora';
 import copy from 'recursive-copy';
-import { getCdnDir, getDistDir, getDocsDir, getRootDir, getSiteDir, runScript } from './utils.js';
+import { getCdnDir, getDistDir, getDocsDir, getRootDir, getSiteDir, getEleventyConfigPath } from './utils.js';
+import Eleventy from '@11ty/eleventy';
+import { SimulateWebAwesomeApp } from '../docs/_utils/simulate-webawesome-app.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const isDeveloping = process.argv.includes('--develop');
@@ -24,6 +26,41 @@ let buildContexts = {
   bundledContext: {},
   unbundledContext: {},
 };
+
+const debugPerf = process.env.DEBUG_PERFORMANCE === "1"
+
+const isIncremental = process.argv.includes('--incremental')
+
+// 11ty
+async function createEleventy () {
+  const eleventy = new Eleventy(getDocsDir(), getSiteDir(), {
+    quietMode: true,
+    configPath: getEleventyConfigPath(),
+    config: (eleventyConfig) => {
+      if (isDeveloping || isIncremental) {
+        eleventyConfig.setUseTemplateCache(false)
+      }
+    },
+    source: "script",
+    runMode: isDeveloping ? 'watch' : 'build',
+  });
+  eleventy.setIncrementalBuild(isIncremental)
+
+  await eleventy.init()
+
+  if (isIncremental) {
+	  await eleventy.watch();
+
+	  process.on("SIGINT", async () => {
+		  await eleventy.stopWatch();
+		  process.exitCode = 0;
+	  });
+  }
+
+  return eleventy
+}
+
+let eleventy = await createEleventy()
 
 /**
  * @typedef {Object} BuildOptions
@@ -44,6 +81,9 @@ export async function build(options = {}) {
     options.watchedDocsDirectories = [getDocsDir()];
   }
 
+  function measureStep () {
+  }
+
   /**
    * Runs the full build.
    */
@@ -51,11 +91,24 @@ export async function build(options = {}) {
     const start = Date.now();
 
     try {
-      await cleanup();
-      await generateManifest();
-      await generateReactWrappers();
-      await generateTypes();
-      await generateStyles();
+      const steps = [
+        { name: "cleanup", fn: cleanup },
+        { name: "generateManifest", fn: generateManifest },
+        { name: "generateReactWrappers", fn: generateReactWrappers },
+        { name: "generateTypes", fn: generateTypes },
+        { name: "generateStyles", fn: generateStyles },
+      ]
+
+      for (const step of steps) {
+        if (debugPerf) {
+          const stepStart = Date.now()
+          await step.fn()
+          const elapsedTime = (Date.now() - stepStart) / 1000 + 's';
+          spinner.succeed(`${step.name}: ${elapsedTime}`)
+        } else {
+          await step.fn()
+        }
+      }
 
       // copy everything to unbundled before we generate bundles.
       await copy(getCdnDir(), getDistDir(), { overwrite: true });
@@ -272,25 +325,34 @@ export async function build(options = {}) {
     spinner.start('Writing the docs');
 
     const args = [];
-    if (isDeveloping) args.push('--develop');
+    if (isDeveloping) {
+      args.push('--develop')
+    };
 
-    let output;
     try {
-      // 11ty
-      output = (await runScript(join(__dirname, 'docs.js'), args, { env: process.env }))
-        // Cleanup the output
-        .replace('[11ty]', '')
-        .replace(' seconds', 's')
-        .replace(/\(.*?\)/, '')
-        .toLowerCase()
-        .trim();
+      if (isDeveloping) {
+        // Cleanup
+        await deleteAsync(getSiteDir());
+
+        eleventy = await createEleventy()
+
+        await eleventy.write();
+      } else {
+        // Cleanup
+        await deleteAsync(getSiteDir());
+
+        // Write it
+        await eleventy.write();
+      }
+
 
       // Copy dist (production only)
       if (!isDeveloping) {
         await copy(getCdnDir(), join(getSiteDir(), 'dist'));
       }
 
-      spinner.succeed(`Writing the docs ${chalk.gray(`(${output}`)})`);
+      // ${chalk.gray(`(${output}`)})
+      spinner.succeed(`Writing the docs`);
     } catch (error) {
       console.error('\n\n' + chalk.red(error) + '\n');
 
@@ -338,6 +400,44 @@ export async function build(options = {}) {
             '/dist/': './dist-cdn/',
           },
         },
+        middleware: [
+          function simulateWebawesomeApp(req, res, next) {
+            // Accumulator for strings so we can pass them through nunjucks a second time similar to how the webawesome-app
+            // will be running nunjucks twice.
+            const finalString = [];
+            const encoding = 'utf-8';
+
+            if (!next) { return }
+
+            if (!req.url) {
+              next()
+              return
+            }
+
+            const extension = extname(req.url)
+            if (extension !== "" && extension !== '.html') {
+              // Assume its something like .svg / .png / .css etc. that we don't want to transform.
+              next()
+              return
+            }
+
+            const _write = res.write;
+
+            res.write = function (chunk, encoding) {
+              // Buffer chunks into an array so that we do a single transform.
+              finalString.push(chunk.toString());
+            };
+
+            const _end = res.end;
+            res.end = function (...args) {
+              const transformedStr = SimulateWebAwesomeApp(finalString.join(""))
+              _write.call(res, transformedStr, encoding);
+              _end.call(res, ...args);
+            };
+
+            next();
+          },
+        ],
         callbacks: {
           ready: (_err, instance) => {
             // 404 errors

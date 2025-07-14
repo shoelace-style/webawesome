@@ -1,6 +1,8 @@
 import { parse } from 'node-html-parser';
 import { v4 as uuid } from 'uuid';
 import { markdown } from '../_utils/markdown.js';
+import { highlightCode } from './highlight-code.js';
+import { copyCode, copyCodePlugin } from './copy-code.js';
 
 /**
  * Eleventy plugin to turn `<code class="example">` blocks into live examples.
@@ -11,28 +13,34 @@ export function codeExamplesPlugin(options = {}) {
     ...options,
   };
 
-  return function (eleventyConfig) {
-    eleventyConfig.addTransform('code-examples', content => {
-      const doc = parse(content, { blockTextElements: { code: true } });
+  return function (doc) {
       const container = doc.querySelector(options.container);
 
       if (!container) {
-        return content;
+        return;
       }
+
 
       // Look for external links
       container.querySelectorAll('code.example').forEach(code => {
-        const pre = code.closest('pre');
+        let pre = code.closest('pre');
         const hasButtons = !code.classList.contains('no-buttons');
         const isOpen = code.classList.contains('open') || !hasButtons;
         const noEdit = code.classList.contains('no-edit');
         const id = `code-example-${uuid().slice(-12)}`;
         let preview = pre.textContent;
 
+        const langClass = [...code.classList.values()].find(val => val.startsWith('language-'));
+        const lang = langClass ? langClass.replace(/^language-/, '') : 'plain';
+
+        code.innerHTML = highlightCode(code.textContent ?? '', lang);
+
         // Run preview scripts as modules to prevent collisions
         const root = parse(preview, { blockTextElements: { script: true } });
         root.querySelectorAll('script').forEach(script => script.setAttribute('type', 'module'));
         preview = root.toString();
+
+        copyCode(code)
 
         const codeExample = parse(`
           <div class="code-example ${isOpen ? 'open' : ''}">
@@ -79,8 +87,5 @@ export function codeExamplesPlugin(options = {}) {
 
         pre.replaceWith(codeExample);
       });
-
-      return doc.toString();
-    });
-  };
+  }
 }

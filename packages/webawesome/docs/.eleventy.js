@@ -1,7 +1,8 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { parse } from 'path';
+import { parse as HTMLParse } from 'node-html-parser';
 import { anchorHeadingsPlugin } from './_utils/anchor-headings.js';
+import { SimulateWebAwesomeApp } from './_utils/simulate-webawesome-app.js'
 import { codeExamplesPlugin } from './_utils/code-examples.js';
 import { copyCodePlugin } from './_utils/copy-code.js';
 import { currentLink } from './_utils/current-link.js';
@@ -11,7 +12,6 @@ import { markdown } from './_utils/markdown.js';
 // import { formatCodePlugin } from './_utils/format-code.js';
 // import litPlugin from '@lit-labs/eleventy-plugin-lit';
 import { readFile } from 'fs/promises';
-import nunjucks from 'nunjucks';
 import process from 'process';
 import * as url from 'url';
 import { outlinePlugin } from './_utils/outline.js';
@@ -52,7 +52,7 @@ export default async function (eleventyConfig) {
   // Template filters - {{ content | filter }}
   eleventyConfig.addFilter('inlineMarkdown', content => markdown.renderInline(content || ''));
   eleventyConfig.addFilter('markdown', content => markdown.render(content || ''));
-  eleventyConfig.addFilter('stripExtension', string => parse(string + '').name);
+  eleventyConfig.addFilter('stripExtension', string => path.parse(string + '').name);
   eleventyConfig.addFilter('stripPrefix', content => content.replace(/^wa-/, ''));
   // Trims whitespace and pipes from the start and end of a string. Useful for CEM types, which can be pipe-delimited.
   // With Prettier 3, this means a leading pipe will exist be present when the line wraps.
@@ -109,31 +109,6 @@ export default async function (eleventyConfig) {
     return '';
   });
 
-  eleventyConfig.addTransform('second-nunjucks-transform', function NunjucksTransform(content) {
-    // For a server build, we expect a server to run the second transform.
-    if (serverBuild) {
-      return content;
-    }
-
-    // Only run the transform on files nunjucks would transform.
-    if (!this.page.inputPath.match(/.(md|html|njk)$/)) {
-      return content;
-    }
-
-    /** This largely mimics what an app would do and just stubs out what we don't care about. */
-    return nunjucks.renderString(content, {
-      // Stub the server EJS shortcodes.
-      currentUser: {
-        hasPro: false,
-      },
-      server: {
-        head: '',
-        loginOrAvatar: '',
-        flashes: '',
-      },
-    });
-  });
-
   // Paired shortcodes - {% shortCode %}content{% endShortCode %}
   eleventyConfig.addPairedShortcode('markdown', content => markdown.render(content || ''));
 
@@ -152,33 +127,33 @@ export default async function (eleventyConfig) {
   eleventyConfig.setLibrary('md', markdown);
 
   // Add anchors to headings
-  eleventyConfig.addPlugin(anchorHeadingsPlugin({ container: '#content' }));
+  eleventyConfig.addTransform("doc-transforms", function (content) {
+    let doc = HTMLParse(content, { blockTextElements: { code: true } });
 
-  // Add an outline to the page
-  eleventyConfig.addPlugin(
-    outlinePlugin({
-      container: '#content',
-      target: '.outline-links',
-      selector: 'h2, h3',
-      ifEmpty: doc => {
-        doc.querySelector('#outline')?.remove();
-      },
-    }),
-  );
+    const plugins = [
+      anchorHeadingsPlugin({ container: "#content" }),
+      outlinePlugin({
+        container: '#content',
+        target: '.outline-links',
+        selector: 'h2, h3',
+        ifEmpty: doc => {
+          doc.querySelector('#outline')?.remove();
+        },
+      }),
+      // Add current link classes
+      currentLink(),
+      codeExamplesPlugin(),
+      highlightCodePlugin(),
+      copyCodePlugin(),
+    ]
 
-  // Add current link classes
-  eleventyConfig.addPlugin(currentLink());
+    for (const plugin of plugins) {
+      plugin.call(this, doc)
+    }
 
-  // Add code examples for `<code class="example">` blocks
-  eleventyConfig.addPlugin(codeExamplesPlugin());
+    return doc.toString()
+  })
 
-  // Highlight code blocks with Prism
-  eleventyConfig.addPlugin(highlightCodePlugin());
-
-  // Add copy code buttons to code blocks
-  eleventyConfig.addPlugin(copyCodePlugin);
-
-  // Various text replacements
   eleventyConfig.addPlugin(
     replaceTextPlugin([
       {
@@ -200,8 +175,8 @@ export default async function (eleventyConfig) {
         replace: /\[discuss:([0-9]+)\]/gs,
         replaceWith: '<a href="https://github.com/shoelace-style/webawesome/discussions/$1" target="_blank">#$1</a>',
       },
-    ]),
-  );
+    ])
+  )
 
   // Build the search index
   eleventyConfig.addPlugin(
@@ -228,9 +203,8 @@ export default async function (eleventyConfig) {
     eleventyConfig.addPassthroughCopy(glob);
   }
 
+
   // // SSR plugin
-  // // Make sure this is the last thing, we don't want to run the risk of accidentally transforming shadow roots with
-  // // the nunjucks 2nd transform.
   // if (!isDev) {
   //   //
   //   // Problematic components in SSR land:
@@ -253,6 +227,23 @@ export default async function (eleventyConfig) {
   //     componentModules,
   //   });
   // }
+
+  if (!isDev) {
+    eleventyConfig.addTransform('simulate-webawesome-app', function (content) {
+      // For a server build, we expect a server to run the second transform.
+      if (serverBuild) {
+        return content;
+      }
+
+      // Only run the transform on files nunjucks would transform.
+      if (!this.page.inputPath.match(/.(md|html|njk)$/)) {
+        return content;
+      }
+
+      /** This largely mimics what an app would do and just stubs out what we don't care about. */
+      return SimulateWebAwesomeApp(content)
+    });
+  }
 }
 
 export const config = {

@@ -18,15 +18,13 @@ export function outlinePlugin(options = {}) {
     ...options,
   };
 
-  return function (eleventyConfig) {
-    eleventyConfig.addTransform('outline', content => {
-      const doc = parse(content);
+  return function (doc) {
       const container = doc.querySelector(options.container);
       const ul = parse('<ul></ul>');
       let numLinks = 0;
 
       if (!container) {
-        return content;
+        return;
       }
 
       container.querySelectorAll(options.selector).forEach(heading => {
@@ -62,8 +60,5 @@ export function outlinePlugin(options = {}) {
         // Remove if empty
         options.ifEmpty(doc);
       }
-
-      return doc.toString();
-    });
   };
 }
