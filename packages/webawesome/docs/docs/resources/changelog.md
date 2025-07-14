@@ -10,6 +10,10 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 ## Next
 
+### New Features {data-no-outline}
+- Added `--track-height` custom property to `<wa-progress-bar>` [pr:1154]
+- Added `--pulse-color` custom property to `<wa-badge>` [pr:1173]
+
 ### Bug Fixes and Improvements {data-no-outline}
 
 - Fixed a bug in `<wa-badge>` where `appearance="pulse"` was not working as expected [pr:1173]
