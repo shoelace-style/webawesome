@@ -6,7 +6,7 @@ import styles from './badge.css';
 
 /**
  * @summary Badges are used to draw attention and display statuses or counts.
- * @documentation https://backers.webawesome.com/docs/components/badge
+ * @documentation https://webawesome.com/docs/components/badge
  * @status stable
  * @since 2.0
  *

@@ -7,7 +7,7 @@ import styles from './resize-observer.css';
 
 /**
  * @summary The Resize Observer component offers a thin, declarative interface to the [`ResizeObserver API`](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver).
- * @documentation https://backers.webawesome.com/docs/components/resize-observer
+ * @documentation https://webawesome.com/docs/components/resize-observer
  * @status stable
  * @since 2.0
  *

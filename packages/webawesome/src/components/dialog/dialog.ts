@@ -17,7 +17,7 @@ import styles from './dialog.css';
 
 /**
  * @summary Dialogs, sometimes called "modals", appear above the page and require the user's immediate attention.
- * @documentation https://backers.webawesome.com/docs/components/dialog
+ * @documentation https://webawesome.com/docs/components/dialog
  * @status stable
  * @since 2.0
  *

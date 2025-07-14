@@ -11,7 +11,7 @@ import styles from './comparison.css';
 
 /**
  * @summary Compare visual differences between similar content with a sliding panel.
- * @documentation https://backers.webawesome.com/docs/components/comparison
+ * @documentation https://webawesome.com/docs/components/comparison
  * @status stable
  * @since 2.0
  *

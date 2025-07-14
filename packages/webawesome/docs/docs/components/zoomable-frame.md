@@ -6,7 +6,7 @@ category: Imagery
 ---
 
 ```html {.example}
-<wa-zoomable-frame src="https://backers.webawesome.com/" zoom="0.5"> </wa-zoomable-frame>
+<wa-zoomable-frame src="https://webawesome.com/" zoom="0.5"> </wa-zoomable-frame>
 ```
 
 ## Examples
@@ -43,7 +43,7 @@ Set the `zoom` attribute to control the frame's zoom level. Use `1` for 100%, `2
 Define specific zoom increments with the `zoom-levels` attribute using space-separated percentages and decimal values like `zoom-levels="0.25 0.5 75% 100%"`.
 
 ```html {.example}
-<wa-zoomable-frame src="https://backers.webawesome.com/" zoom="0.5" zoom-levels="50% 0.75 100%"> </wa-zoomable-frame>
+<wa-zoomable-frame src="https://webawesome.com/" zoom="0.5" zoom-levels="50% 0.75 100%"> </wa-zoomable-frame>
 ```
 
 ### Hiding zoom controls
@@ -51,7 +51,7 @@ Define specific zoom increments with the `zoom-levels` attribute using space-sep
 Add the `without-controls` attribute to hide the zoom control interface from the frame.
 
 ```html {.example}
-<wa-zoomable-frame src="https://backers.webawesome.com/" without-controls zoom="0.5"> </wa-zoomable-frame>
+<wa-zoomable-frame src="https://webawesome.com/" without-controls zoom="0.5"> </wa-zoomable-frame>
 ```
 
 ### Preventing user interaction
@@ -59,5 +59,5 @@ Add the `without-controls` attribute to hide the zoom control interface from the
 Apply the `without-interaction` attribute to make the frame non-interactive. Note that this prevents keyboard navigation into the frame, which may impact accessibility for some users.
 
 ```html {.example}
-<wa-zoomable-frame src="https://backers.webawesome.com/" zoom="0.5" without-interaction> </wa-zoomable-frame>
+<wa-zoomable-frame src="https://webawesome.com/" zoom="0.5" without-interaction> </wa-zoomable-frame>
 ```

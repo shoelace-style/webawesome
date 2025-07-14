@@ -29,7 +29,7 @@ import styles from './select.css';
 
 /**
  * @summary Selects allow you to choose items from a menu of predefined options.
- * @documentation https://backers.webawesome.com/docs/components/select
+ * @documentation https://webawesome.com/docs/components/select
  * @status stable
  * @since 2.0
  *

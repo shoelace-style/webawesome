@@ -7,7 +7,7 @@ import styles from './card.css';
 
 /**
  * @summary Cards can be used to group related subjects in a container.
- * @documentation https://backers.webawesome.com/docs/components/card
+ * @documentation https://webawesome.com/docs/components/card
  * @status stable
  * @since 2.0
  *

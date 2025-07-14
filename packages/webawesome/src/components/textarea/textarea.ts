@@ -14,7 +14,7 @@ import styles from './textarea.css';
 
 /**
  * @summary Textareas collect data from the user and allow multiple lines of text.
- * @documentation https://backers.webawesome.com/docs/components/textarea
+ * @documentation https://webawesome.com/docs/components/textarea
  * @status stable
  * @since 2.0
  *

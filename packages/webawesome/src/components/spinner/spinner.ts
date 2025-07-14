@@ -6,7 +6,7 @@ import styles from './spinner.css';
 
 /**
  * @summary Spinners are used to show the progress of an indeterminate operation.
- * @documentation https://backers.webawesome.com/docs/components/spinner
+ * @documentation https://webawesome.com/docs/components/spinner
  * @status stable
  * @since 2.0
  *

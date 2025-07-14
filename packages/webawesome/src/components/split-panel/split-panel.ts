@@ -11,7 +11,7 @@ import styles from './split-panel.css';
 
 /**
  * @summary Split panels display two adjacent panels, allowing the user to reposition them.
- * @documentation https://backers.webawesome.com/docs/components/split-panel
+ * @documentation https://webawesome.com/docs/components/split-panel
  * @status stable
  * @since 2.0
  *

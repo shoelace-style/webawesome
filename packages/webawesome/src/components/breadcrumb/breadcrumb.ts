@@ -8,7 +8,7 @@ import styles from './breadcrumb.css';
 
 /**
  * @summary Breadcrumbs provide a group of links so users can easily navigate a website's hierarchy.
- * @documentation https://backers.webawesome.com/docs/components/breadcrumb
+ * @documentation https://webawesome.com/docs/components/breadcrumb
  * @status stable
  * @since 2.0
  *

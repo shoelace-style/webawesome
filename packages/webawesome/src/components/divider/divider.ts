@@ -5,7 +5,7 @@ import styles from './divider.css';
 
 /**
  * @summary Dividers are used to visually separate or group elements.
- * @documentation https://backers.webawesome.com/docs/components/divider
+ * @documentation https://webawesome.com/docs/components/divider
  * @status stable
  * @since 2.0
  *

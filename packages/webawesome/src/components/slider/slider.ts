@@ -19,7 +19,7 @@ import styles from './slider.css';
  * <wa-slider>
  *
  * @summary Ranges allow the user to select a single value within a given range using a slider.
- * @documentation https://backers.webawesome.com/docs/components/range
+ * @documentation https://webawesome.com/docs/components/range
  * @status stable
  * @since 2.0
  *
