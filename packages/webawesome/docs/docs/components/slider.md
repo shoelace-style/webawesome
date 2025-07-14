@@ -257,8 +257,8 @@ By default, the filled indicator extends from the minimum value to the current p
 
 ```html {.example}
 <wa-slider
-  label="Cat playfulness"
-  hint="Energy level during playtime"
+  label="User Friendliness"
+  hint="Did you find our product easy to use?"
   name="value"
   value="0"
   min="-5"
@@ -267,8 +267,9 @@ By default, the filled indicator extends from the minimum value to the current p
   with-markers
   with-tooltip
 >
-  <span slot="reference">Lazy</span>
-  <span slot="reference">Zoomies</span>
+  <span slot="reference">Easy</span>
+  <span slot="reference">Moderate</span>
+  <span slot="reference">Difficult</span>
 </wa-slider>
 ```
 
