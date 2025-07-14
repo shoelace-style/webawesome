@@ -7,8 +7,8 @@ category: Form Controls
 
 ```html {.example}
 <wa-slider
-  label="Number of cats"
-  hint="Limit six per household"
+  label="Number of users"
+  hint="Limit six per team"
   name="value"
   value="3"
   min="0"
@@ -40,7 +40,7 @@ Use the `label` attribute to give the slider an accessible label. For labels tha
 Add descriptive hint to a slider with the `hint` attribute. For hints that contain HTML, use the `hint` slot instead.
 
 ```html {.example}
-<wa-slider label="Volume" hint="Controls the volume of the current song." min="0" max="100"></wa-slider>
+<wa-slider label="Volume" hint="Controls the volume of the current song." min="0" max="100" value="50"></wa-slider>
 ```
 
 ### Showing tooltips
@@ -72,7 +72,15 @@ Use the `with-markers` attribute to display visual indicators at each step incre
 Use the `reference` slot to add contextual labels below the slider. References are automatically spaced using `space-between`, making them easy to align with the start, center, and end positions.
 
 ```html {.example}
-<wa-slider label="Speed" name="speed" min="1" max="5" value="3" with-markers>
+<wa-slider
+  label="Speed"
+  name="speed"
+  min="1"
+  max="5"
+  value="3"
+  with-markers
+  hint="Controls the speed of the thing you're currently doing."
+>
   <span slot="reference">Slow</span>
   <span slot="reference">Medium</span>
   <span slot="reference">Fast</span>
@@ -249,8 +257,8 @@ By default, the filled indicator extends from the minimum value to the current p
 
 ```html {.example}
 <wa-slider
-  label="Cat playfulness"
-  hint="Energy level during playtime"
+  label="User Friendliness"
+  hint="Did you find our product easy to use?"
   name="value"
   value="0"
   min="-5"
@@ -259,8 +267,9 @@ By default, the filled indicator extends from the minimum value to the current p
   with-markers
   with-tooltip
 >
-  <span slot="reference">Lazy</span>
-  <span slot="reference">Zoomies</span>
+  <span slot="reference">Easy</span>
+  <span slot="reference">Moderate</span>
+  <span slot="reference">Difficult</span>
 </wa-slider>
 ```
 
