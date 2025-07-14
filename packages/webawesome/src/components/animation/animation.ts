@@ -10,7 +10,7 @@ import { animations } from './animations.js';
 
 /**
  * @summary Animate elements declaratively with nearly 100 baked-in presets, or roll your own with custom keyframes. Powered by the [Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API).
- * @documentation https://backers.webawesome.com/docs/components/animation
+ * @documentation https://webawesome.com/docs/components/animation
  * @status stable
  * @since 2.0
  *

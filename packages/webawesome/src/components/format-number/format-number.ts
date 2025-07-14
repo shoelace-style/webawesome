@@ -4,7 +4,7 @@ import { LocalizeController } from '../../utilities/localize.js';
 
 /**
  * @summary Formats a number using the specified locale and options.
- * @documentation https://backers.webawesome.com/docs/components/format-number
+ * @documentation https://webawesome.com/docs/components/format-number
  * @status stable
  * @since 2.0
  */

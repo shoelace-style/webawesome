@@ -1,4 +1,6 @@
 :host {
+  --pulse-color: var(--wa-color-fill-loud, var(--wa-color-brand-fill-loud));
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -19,29 +21,31 @@
 }
 
 /* Appearance modifiers */
-:host([appearance~='plain']) {
-  color: var(--wa-color-on-quiet, var(--wa-color-brand-on-quiet));
-  background-color: transparent;
-  border-color: transparent;
-}
-
 :host([appearance~='outlined']) {
+  --pulse-color: var(--wa-color-border-loud, var(--wa-color-brand-border-loud));
+
   color: var(--wa-color-on-quiet, var(--wa-color-brand-on-quiet));
   background-color: transparent;
   border-color: var(--wa-color-border-loud, var(--wa-color-brand-border-loud));
 }
 
 :host([appearance~='filled']) {
+  --pulse-color: var(--wa-color-fill-normal, var(--wa-color-brand-fill-normal));
+
   color: var(--wa-color-on-normal, var(--wa-color-brand-on-normal));
   background-color: var(--wa-color-fill-normal, var(--wa-color-brand-fill-normal));
   border-color: transparent;
 }
 
 :host([appearance~='filled'][appearance~='outlined']) {
+  --pulse-color: var(--wa-color-border-normal, var(--wa-color-brand-border-normal));
+
   border-color: var(--wa-color-border-normal, var(--wa-color-brand-border-normal));
 }
 
 :host([appearance~='accent']) {
+  --pulse-color: var(--wa-color-fill-loud, var(--wa-color-brand-fill-loud));
+
   color: var(--wa-color-on-loud, var(--wa-color-brand-on-loud));
   background-color: var(--wa-color-fill-loud, var(--wa-color-brand-fill-loud));
   border-color: transparent;
@@ -54,8 +58,6 @@
 
 /* Pulse attention */
 :host([attention='pulse']) {
-  --pulse-color: var(--background-color);
-
   animation: pulse 1.5s infinite;
 }
 

@@ -7,7 +7,7 @@ import styles from './breadcrumb-item.css';
 
 /**
  * @summary Breadcrumb Items are used inside breadcrumbs to represent different links.
- * @documentation https://backers.webawesome.com/docs/components/breadcrumb-item
+ * @documentation https://webawesome.com/docs/components/breadcrumb-item
  * @status stable
  * @since 2.0
  *

@@ -9,7 +9,7 @@ import styles from './zoomable-frame.css';
 
 /**
  * @summary Zoomable frames render iframe content with zoom and interaction controls.
- * @documentation https://backers.webawesome.com/docs/components/zoomable-frame
+ * @documentation https://webawesome.com/docs/components/zoomable-frame
  * @status stable
  * @since 3.0
  *

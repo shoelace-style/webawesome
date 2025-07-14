@@ -3,7 +3,7 @@ import type { Translation } from '../utilities/localize.js';
 
 const translation: Translation = {
   $code: 'it',
-  $name: 'Italian',
+  $name: 'Italiano',
   $dir: 'ltr',
 
   carousel: 'Carosello',

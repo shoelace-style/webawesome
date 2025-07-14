@@ -9,7 +9,7 @@ let id = 0;
 
 /**
  * @summary Tab panels are used inside [tab groups](/docs/components/tab-group) to display tabbed content.
- * @documentation https://backers.webawesome.com/docs/components/tab-panel
+ * @documentation https://webawesome.com/docs/components/tab-panel
  * @status stable
  * @since 2.0
  *

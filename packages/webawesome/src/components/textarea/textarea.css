@@ -2,10 +2,9 @@
   border-width: 0;
 }
 
-/* Shared textarea and size-adjuster positioning */
-.textarea,
-.size-adjuster {
-  grid-area: 1 / 1 / 2 / 2;
+.textarea {
+  display: grid;
+  align-items: center;
   margin: 0;
   border: none;
   outline: none;
@@ -70,6 +69,12 @@ textarea {
   &:focus {
     outline: none;
   }
+}
+
+/* Shared textarea and size-adjuster positioning */
+.control,
+.size-adjuster {
+  grid-area: 1 / 1 / 2 / 2;
 }
 
 .size-adjuster {

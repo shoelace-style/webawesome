@@ -15,7 +15,7 @@ import styles from './checkbox.css';
 
 /**
  * @summary Checkboxes allow the user to toggle an option on or off.
- * @documentation https://backers.webawesome.com/docs/components/checkbox
+ * @documentation https://webawesome.com/docs/components/checkbox
  * @status stable
  * @since 2.0
  *

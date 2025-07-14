@@ -14,7 +14,7 @@ import styles from './switch.css';
 
 /**
  * @summary Switches allow the user to toggle an option on or off.
- * @documentation https://backers.webawesome.com/docs/components/switch
+ * @documentation https://webawesome.com/docs/components/switch
  * @status stable
  * @since 2.0
  *

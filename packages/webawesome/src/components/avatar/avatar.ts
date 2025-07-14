@@ -8,7 +8,7 @@ import styles from './avatar.css';
 
 /**
  * @summary Avatars are used to represent a person or object.
- * @documentation https://backers.webawesome.com/docs/components/avatar
+ * @documentation https://webawesome.com/docs/components/avatar
  * @status stable
  * @since 2.0
  *

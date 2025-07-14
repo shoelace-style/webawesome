@@ -57,9 +57,7 @@ document.addEventListener('click', event => {
     const cdnUrl = document.documentElement.dataset.cdnUrl;
     const html =
       `<script data-fa-kit-code="b10bfbde90" type="module" src="${cdnUrl}webawesome.loader.js"></script>\n` +
-      `<link rel="stylesheet" href="${cdnUrl}styles/themes/default.css">\n` +
-      `<link rel="stylesheet" href="${cdnUrl}styles/webawesome.css">\n` +
-      `<link rel="stylesheet" href="${cdnUrl}styles/utilities.css">\n\n` +
+      `<link rel="stylesheet" href="${cdnUrl}styles/webawesome.css">\n\n` +
       `${code.textContent}`;
     const css = 'html > body {\n  padding: 2rem !important;\n}';
     const js = '';

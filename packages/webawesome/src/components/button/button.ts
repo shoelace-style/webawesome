@@ -16,7 +16,7 @@ import styles from './button.css';
 
 /**
  * @summary Buttons represent actions that are available to the user.
- * @documentation https://backers.webawesome.com/docs/components/button
+ * @documentation https://webawesome.com/docs/components/button
  * @status stable
  * @since 2.0
  *

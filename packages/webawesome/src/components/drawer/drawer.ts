@@ -17,7 +17,7 @@ import styles from './drawer.css';
 
 /**
  * @summary Drawers slide in from a container to expose additional options and information.
- * @documentation https://backers.webawesome.com/docs/components/drawer
+ * @documentation https://webawesome.com/docs/components/drawer
  * @status stable
  * @since 2.0
  *

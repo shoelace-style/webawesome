@@ -9,7 +9,7 @@ import styles from './radio.css';
 
 /**
  * @summary Radios allow the user to select a single option from a group.
- * @documentation https://backers.webawesome.com/docs/components/radio
+ * @documentation https://webawesome.com/docs/components/radio
  * @status stable
  * @since 2.0
  *

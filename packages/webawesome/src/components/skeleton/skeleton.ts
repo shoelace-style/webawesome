@@ -5,7 +5,7 @@ import styles from './skeleton.css';
 
 /**
  * @summary Skeletons are used to provide a visual representation of where content will eventually be drawn.
- * @documentation https://backers.webawesome.com/docs/components/skeleton
+ * @documentation https://webawesome.com/docs/components/skeleton
  * @status stable
  * @since 2.0
  *
