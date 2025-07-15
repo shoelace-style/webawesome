@@ -7,7 +7,7 @@ import styles from './scroller.css';
 /**
  * @summary Scrollers create an accessible container while providing visual cues that help users identify and navigate
  *  through content that scrolls.
- * @documentation https://webawesome.com/docs/components/card
+ * @documentation https://webawesome.com/docs/components/scroller
  * @status stable
  * @since 3.0
  *
