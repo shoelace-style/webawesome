@@ -197,7 +197,8 @@ export default async function (eleventyConfig) {
   // }
 
   let assetsDir = path.join(process.env.BASE_DIR || 'docs', 'assets');
-  fs.cpSync(assetsDir, path.join(eleventyConfig.directories.output, 'assets'), { recursive: true });
+  const siteAssetsDir = path.join(eleventyConfig.directories.output, 'assets')
+  fs.cpSync(assetsDir, siteAssetsDir, { recursive: true });
 
   for (let glob of passThrough) {
     eleventyConfig.addPassthroughCopy(glob);

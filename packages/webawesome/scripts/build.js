@@ -4,8 +4,6 @@ import { execSync } from 'child_process';
 import { deleteAsync } from 'del';
 import esbuild from 'esbuild';
 import { replace } from 'esbuild-plugin-replace';
-
-import Eleventy from '@11ty/eleventy';
 import { mkdir, readFile } from 'fs/promises';
 import getPort, { portNumbers } from 'get-port';
 import { globby } from 'globby';
@@ -15,10 +13,11 @@ import { fileURLToPath } from 'node:url';
 import ora from 'ora';
 import copy from 'recursive-copy';
 import { SimulateWebAwesomeApp } from '../docs/_utils/simulate-webawesome-app.js';
+import { generateDocs } from './docs.js'
 import { getCdnDir, getDistDir, getDocsDir, getEleventyConfigPath, getRootDir, getSiteDir } from './utils.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const isDeveloping = process.argv.includes('--develop');
+
 const spinner = ora({ text: 'Web Awesome', color: 'cyan' }).start();
 const getPackageData = async () => JSON.parse(await readFile(join(getRootDir(), 'package.json'), 'utf-8'));
 const getVersion = async () => JSON.stringify((await getPackageData()).version.toString());
@@ -29,39 +28,8 @@ let buildContexts = {
 
 const debugPerf = process.env.DEBUG_PERFORMANCE === '1';
 
-const isIncremental = process.argv.includes('--incremental');
-
-// 11ty
-async function createEleventy() {
-  const eleventy = new Eleventy(getDocsDir(), getSiteDir(), {
-    quietMode: true,
-    configPath: getEleventyConfigPath(),
-    config: eleventyConfig => {
-      if (isDeveloping || isIncremental) {
-        eleventyConfig.setUseTemplateCache(false);
-      }
-    },
-    source: 'script',
-    runMode: isIncremental ? 'watch' : 'build',
-  });
-  eleventy.setIncrementalBuild(isIncremental);
-
-  await eleventy.init();
-
-  if (isIncremental) {
-    await eleventy.watch();
-
-    process.on('SIGINT', async () => {
-      await eleventy.stopWatch();
-      process.exitCode = 0;
-    });
-  }
-
-  return eleventy;
-}
-
-// We can't initialize 11ty here because we need to wait for the `/dist` build to execute so we can read the custom-elements.json.
-let eleventy = null;
+const isDeveloping = process.argv.includes('--develop');
+// const isIncremental = process.argv.includes('--incremental');
 
 /**
  * @typedef {Object} BuildOptions
@@ -108,7 +76,7 @@ export async function build(options = {}) {
       await copy(getCdnDir(), getDistDir(), { overwrite: true });
 
       await generateBundle();
-      await generateDocs();
+      await generateDocs({ spinner });
 
       const time = (Date.now() - start) / 1000 + 's';
       spinner.succeed(`The build is complete ${chalk.gray(`(finished in ${time})`)}`);
@@ -305,58 +273,6 @@ export async function build(options = {}) {
     spinner.succeed();
   }
 
-  /**
-   * Generates the documentation site.
-   */
-  async function generateDocs() {
-    /**
-     * Used by the webawesome-app to skip doc generation since it will do its own.
-     */
-    if (process.env.SKIP_ELEVENTY === 'true') {
-      return;
-    }
-
-    spinner.start('Writing the docs');
-
-    if (isIncremental) {
-      eleventy ||= await createEleventy();
-    } else {
-      eleventy = await createEleventy();
-    }
-
-    try {
-      if (isIncremental) {
-        // no-op.
-      } else if (isDeveloping) {
-        // Cleanup
-        await deleteAsync(getSiteDir());
-
-        await eleventy.write();
-      } else {
-        // Cleanup
-        await deleteAsync(getSiteDir());
-
-        // Write it
-        await eleventy.write();
-      }
-
-      // Copy dist (production only)
-      if (!isDeveloping) {
-        await copy(getCdnDir(), join(getSiteDir(), 'dist'));
-      }
-
-      // ${chalk.gray(`(${output}`)})
-      spinner.succeed(`Writing the docs`);
-    } catch (error) {
-      console.error('\n\n' + chalk.red(error) + '\n');
-
-      spinner.fail(chalk.red(`Error while writing the docs.`));
-      if (!isDeveloping) {
-        process.exit(1);
-      }
-    }
-  }
-
   // Initial build
   await buildAll();
 
@@ -506,7 +422,7 @@ export async function build(options = {}) {
             }
 
             // This needs to be outside of "isComponent" check because SSR needs to run on CSS files too.
-            await generateDocs();
+            await generateDocs(spinner);
 
             reload();
           } catch (err) {
@@ -534,7 +450,7 @@ export async function build(options = {}) {
           if (typeof options.onWatchEvent === 'function') {
             await options.onWatchEvent(evt, filename);
           }
-          await generateDocs();
+          await generateDocs(spinner);
           reload();
         };
       }
