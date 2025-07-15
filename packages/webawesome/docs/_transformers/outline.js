@@ -9,7 +9,7 @@ import { parse } from 'node-html-parser';
  *
  * See the `node-html-parser` docs for more details: https://www.npmjs.com/package/node-html-parser
  */
-export function outlinePlugin(options = {}) {
+export function outlineTransformer(options = {}) {
   options = {
     container: 'body',
     target: '.outline',

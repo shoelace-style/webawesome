@@ -19,7 +19,7 @@ function createId(text) {
 /**
  * Eleventy plugin to add anchors to headings to content.
  */
-export function anchorHeadingsPlugin(options = {}) {
+export function anchorHeadingsTransformer(options = {}) {
   options = {
     container: 'body',
     headingSelector: 'h2, h3, h4, h5, h6',

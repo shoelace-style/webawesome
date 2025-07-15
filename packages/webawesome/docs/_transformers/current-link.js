@@ -24,7 +24,7 @@ function normalize(pathname) {
 /**
  * Eleventy plugin to decorate current links with a custom class.
  */
-export function currentLink(options = {}) {
+export function currentLinkTransformer(options = {}) {
   options = {
     container: 'body',
     className: 'current',

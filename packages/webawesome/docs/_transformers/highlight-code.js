@@ -37,7 +37,7 @@ export function highlightCode(code, language = 'plain') {
  * Eleventy plugin to highlight code blocks with the `language-*` attribute using Prism.js. Unlike most plugins, this
  * works on the entire document — not just markdown content.
  */
-export function highlightCodePlugin(options = {}) {
+export function highlightCodeTransformer(options = {}) {
   options = {
     container: 'body',
     ...options,

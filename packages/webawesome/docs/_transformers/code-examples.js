@@ -1,13 +1,12 @@
 import { parse } from 'node-html-parser';
 import { v4 as uuid } from 'uuid';
-import { markdown } from '../_utils/markdown.js';
-import { copyCode, copyCodePlugin } from './copy-code.js';
+import { copyCode } from './copy-code.js';
 import { highlightCode } from './highlight-code.js';
 
 /**
  * Eleventy plugin to turn `<code class="example">` blocks into live examples.
  */
-export function codeExamplesPlugin(options = {}) {
+export function codeExamplesTransformer(options = {}) {
   options = {
     container: 'body',
     ...options,

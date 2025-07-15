@@ -17,7 +17,7 @@ export function copyCode(code) {
 /**
  * Eleventy plugin to add copy buttons to code blocks.
  */
-export function copyCodePlugin(options = {}) {
+export function copyCodeTransformer(options = {}) {
   options = {
     container: 'body',
     ...options,

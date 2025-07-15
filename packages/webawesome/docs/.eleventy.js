@@ -1,22 +1,22 @@
 import { parse as HTMLParse } from 'node-html-parser';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { anchorHeadingsPlugin } from './_utils/anchor-headings.js';
-import { codeExamplesPlugin } from './_utils/code-examples.js';
-import { copyCodePlugin } from './_utils/copy-code.js';
-import { currentLink } from './_utils/current-link.js';
-import { highlightCodePlugin } from './_utils/highlight-code.js';
+import { anchorHeadingsTransformer } from './_transformers/anchor-headings.js';
+import { codeExamplesTransformer } from './_transformers/code-examples.js';
+import { copyCodeTransformer } from './_transformers/copy-code.js';
+import { currentLinkTransformer } from './_transformers/current-link.js';
+import { highlightCodeTransformer } from './_transformers/highlight-code.js';
+import { outlineTransformer } from './_transformers/outline.js';
 import { getComponents } from './_utils/manifest.js';
 import { markdown } from './_utils/markdown.js';
 import { SimulateWebAwesomeApp } from './_utils/simulate-webawesome-app.js';
-// import { formatCodePlugin } from './_utils/format-code.js';
+// import { formatCodePlugin } from './_plugins/format-code.js';
 // import litPlugin from '@lit-labs/eleventy-plugin-lit';
 import { readFile } from 'fs/promises';
 import process from 'process';
 import * as url from 'url';
-import { outlinePlugin } from './_utils/outline.js';
-import { replaceTextPlugin } from './_utils/replace-text.js';
-import { searchPlugin } from './_utils/search.js';
+import { replaceTextPlugin } from './_plugins/replace-text.js';
+import { searchPlugin } from './_plugins/search.js';
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 const isDev = process.argv.includes('--develop');
 const passThroughExtensions = ['js', 'css', 'png', 'svg', 'jpg', 'mp4'];
@@ -130,9 +130,9 @@ export default async function (eleventyConfig) {
   eleventyConfig.addTransform('doc-transforms', function (content) {
     let doc = HTMLParse(content, { blockTextElements: { code: true } });
 
-    const plugins = [
-      anchorHeadingsPlugin({ container: '#content' }),
-      outlinePlugin({
+    const transformers = [
+      anchorHeadingsTransformer({ container: '#content' }),
+      outlineTransformer({
         container: '#content',
         target: '.outline-links',
         selector: 'h2, h3',
@@ -141,14 +141,14 @@ export default async function (eleventyConfig) {
         },
       }),
       // Add current link classes
-      currentLink(),
-      codeExamplesPlugin(),
-      highlightCodePlugin(),
-      copyCodePlugin(),
+      currentLinkTransformer(),
+      codeExamplesTransformer(),
+      highlightCodeTransformer(),
+      copyCodeTransformer(),
     ];
 
-    for (const plugin of plugins) {
-      plugin.call(this, doc);
+    for (const transformer of transformers) {
+      transformer.call(this, doc);
     }
 
     return doc.toString();
