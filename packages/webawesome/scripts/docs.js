@@ -4,14 +4,12 @@ import copy from 'recursive-copy';
 
 import chalk from 'chalk';
 import { deleteAsync } from 'del';
-import { getCdnDir, getDocsDir, getEleventyConfigPath, getSiteDir } from './utils.js';
 import { join } from 'path';
-
-
+import { getCdnDir, getDocsDir, getEleventyConfigPath, getSiteDir } from './utils.js';
 
 // 11ty
 export async function createEleventy(options = {}) {
-  let { isIncremental, isDeveloping, rootDir } = options
+  let { isIncremental, isDeveloping, rootDir } = options;
 
   isDeveloping ??= process.argv.includes('--develop');
   isIncremental ??= process.argv.includes('--incremental');
@@ -44,18 +42,18 @@ export async function createEleventy(options = {}) {
 }
 
 /**
-  * Generates the documentation site.
-  */
+ * Generates the documentation site.
+ */
 export async function generateDocs(options = {}) {
-  let { spinner, isIncremental, isDeveloping } = options
+  let { spinner, isIncremental, isDeveloping } = options;
 
   isDeveloping ??= process.argv.includes('--develop');
   isIncremental ??= process.argv.includes('--incremental');
 
-  let eleventy = globalThis.eleventy
+  let eleventy = globalThis.eleventy;
   /**
-    * Used by the webawesome-app to skip doc generation since it will do its own.
-    */
+   * Used by the webawesome-app to skip doc generation since it will do its own.
+   */
   if (process.env.SKIP_ELEVENTY === 'true') {
     return;
   }
@@ -66,8 +64,7 @@ export async function generateDocs(options = {}) {
   } else {
   }
 
-
-  const output = []
+  const output = [];
 
   try {
     if (isIncremental) {
@@ -78,7 +75,7 @@ export async function generateDocs(options = {}) {
       await deleteAsync(getSiteDir());
 
       globalThis.eleventy = await createEleventy(options);
-      const eleventy = globalThis.eleventy
+      const eleventy = globalThis.eleventy;
 
       // Write it
       await eleventy.write();
@@ -99,4 +96,3 @@ export async function generateDocs(options = {}) {
     }
   }
 }
-

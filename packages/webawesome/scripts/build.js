@@ -13,7 +13,7 @@ import { fileURLToPath } from 'node:url';
 import ora from 'ora';
 import copy from 'recursive-copy';
 import { SimulateWebAwesomeApp } from '../docs/_utils/simulate-webawesome-app.js';
-import { generateDocs } from './docs.js'
+import { generateDocs } from './docs.js';
 import { getCdnDir, getDistDir, getDocsDir, getRootDir, getSiteDir } from './utils.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
