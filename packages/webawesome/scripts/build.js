@@ -421,7 +421,7 @@ export async function build(options = {}) {
             }
 
             // This needs to be outside of "isComponent" check because SSR needs to run on CSS files too.
-            await generateDocs(spinner);
+            await generateDocs({ spinner });
 
             reload();
           } catch (err) {
@@ -449,7 +449,7 @@ export async function build(options = {}) {
           if (typeof options.onWatchEvent === 'function') {
             await options.onWatchEvent(evt, filename);
           }
-          await generateDocs(spinner);
+          await generateDocs({ spinner });
           reload();
         };
       }

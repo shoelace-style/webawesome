@@ -7,12 +7,21 @@ import { deleteAsync } from 'del';
 import { join } from 'path';
 import { getCdnDir, getDocsDir, getEleventyConfigPath, getSiteDir } from './utils.js';
 
+let eleventyBuildResolver
+let eleventyBuildPromise
+
+function queueBuild () {
+  eleventyBuildPromise = new Promise((resolve) => {
+    eleventyBuildResolver = resolve
+  })
+}
+
 // 11ty
 export async function createEleventy(options = {}) {
   let { isIncremental, isDeveloping, rootDir } = options;
 
   isDeveloping ??= process.argv.includes('--develop');
-  isIncremental ??= process.argv.includes('--incremental');
+  isIncremental ??= isDeveloping && !process.argv.includes('--no-incremental');
 
   const eleventy = new Eleventy(rootDir || getDocsDir(), getSiteDir(), {
     quietMode: true,
@@ -20,6 +29,16 @@ export async function createEleventy(options = {}) {
     config: eleventyConfig => {
       if (isDeveloping || isIncremental) {
         eleventyConfig.setUseTemplateCache(false);
+
+        eleventyConfig.on("eleventy.before", function () {
+          queueBuild()
+        })
+        eleventyConfig.on("eleventy.beforeWatch", function () {
+          queueBuild()
+        })
+        eleventyConfig.on("eleventy.after", async function () {
+          eleventyBuildResolver()
+        })
       }
     },
     source: 'script',
@@ -28,6 +47,9 @@ export async function createEleventy(options = {}) {
   eleventy.setIncrementalBuild(isIncremental);
 
   await eleventy.init();
+
+  eleventy.logger.isChalkEnabled = false
+  eleventy.logger.overrideLogger(new CustomLogger())
 
   if (isIncremental) {
     await eleventy.watch();
@@ -48,7 +70,7 @@ export async function generateDocs(options = {}) {
   let { spinner, isIncremental, isDeveloping } = options;
 
   isDeveloping ??= process.argv.includes('--develop');
-  isIncremental ??= process.argv.includes('--incremental');
+  isIncremental ??= isDeveloping && !process.argv.includes('--no-incremental');
 
   let eleventy = globalThis.eleventy;
   /**
@@ -60,30 +82,65 @@ export async function generateDocs(options = {}) {
 
   spinner?.start?.('Writing the docs');
 
-  const output = [];
+  const outputs = {
+    warn: [],
+  }
+
+  function stubConsole (key) {
+    const originalFn = console[key]
+    console[key] = function (...args) {
+      outputs[key].push(...args)
+    }
+    return originalFn
+  }
+
+  // Works around a bug in 11ty where it still prints warnings despite the logger being overriden and in quietMode.
+  const originalWarn = stubConsole("warn")
+
+  let output = ""
 
   try {
     if (isIncremental) {
-      globalThis.eleventy ||= await createEleventy(options);
-      // eleventy incremental does its own writing, so we just kinda trust it for right now.
+      if (!globalThis.eleventy) {
+        // First run
+        globalThis.eleventy = await createEleventy(options);
+        eleventy = globalThis.eleventy;
+        output = chalk.gray(`(${eleventy.logFinished()})`)
+      } else {
+        // eleventy incremental does its own writing, so we just kinda trust it for right now.
+        eleventy = globalThis.eleventy;
+
+        await eleventyBuildPromise
+        let info = eleventy.logger.logger.outputs.log
+
+        // TODO: The first write with incremental seems to be 1 behind. Not sure why. But its good enough for now.
+        info = info.filter((line) => {
+          return !line.includes("Watching")
+        })
+        const lastLine = info[info.length - 1]
+        output = chalk.gray(`(${lastLine})`)
+        eleventy.logger.logger.reset()
+      }
     } else {
       // Cleanup
       await deleteAsync(getSiteDir());
 
       globalThis.eleventy = await createEleventy(options);
-      const eleventy = globalThis.eleventy;
+      eleventy = globalThis.eleventy;
 
       // Write it
       await eleventy.write();
+      output = chalk.gray(`(${eleventy.logFinished()})`)
     }
 
     // Copy dist (production only)
     if (!isDeveloping) {
       await copy(getCdnDir(), join(getSiteDir(), 'dist'));
     }
-
-    spinner?.succeed?.(`Writing the docs ${chalk.gray(`(${output}`)})`);
+    spinner?.succeed?.(`Writing the docs ${output}`);
   } catch (error) {
+    console.warn = originalWarn
+
     console.error('\n\n' + chalk.red(error) + '\n');
 
     spinner?.fail?.(chalk.red(`Error while writing the docs.`));
@@ -91,4 +148,116 @@ export async function generateDocs(options = {}) {
       process.exit(1);
     }
   }
+}
+
+/**
+ * Much of this code is taken from 11ty's ConsoleLogger here:
+ * https://github.com/11ty/eleventy/blob/main/src/Util/ConsoleLogger.js
+ *
+ * Patches 11ty logger so it doesnt log everything, but we can still use its output for our own build.
+ * @typedef {'error'|'log'|'warn'|'info'} LogType
+ */
+class CustomLogger {
+  #outputStream
+
+  constructor () {
+    this.reset()
+  }
+
+  flush () {
+    Object.keys(this.outputs).forEach((outputType) => {
+      console[outputType](this.outputs[outputType].join(""))
+    })
+    this.reset()
+  }
+
+  reset () {
+    this.outputs = {
+      log: [],
+      info: [],
+      warn: [],
+      error: [],
+    }
+  }
+
+	/** @param {string} msg */
+	log(msg) {
+		this.message(msg);
+	}
+
+	/**
+	 * @typedef LogOptions
+	 * @property {string} message
+	 * @property {string=} prefix
+	 * @property {LogType=} type
+	 * @property {string=} color
+	 * @property {boolean=} force
+	 * @param {LogOptions} options
+	 */
+	logWithOptions({ message, type, prefix, color, force }) {
+		this.message(message, type, color, force, prefix);
+	}
+
+	/** @param {string} msg */
+	forceLog(msg) {
+		this.message(msg, undefined, undefined, true);
+	}
+
+	/** @param {string} msg */
+	info(msg) {
+		this.message(msg, "info", "blue");
+	}
+
+	/** @param {string} msg */
+	warn(msg) {
+		this.message(msg, "warn", "yellow");
+	}
+
+	/** @param {string} msg */
+	error(msg) {
+		this.message(msg, "error", "red");
+	}
+
+	get outputStream() {
+		if (!this.#outputStream) {
+			this.#outputStream = new Readable({
+				read() {},
+			});
+		}
+		return this.#outputStream;
+	}
+
+	/** @param {string} msg */
+	toStream(msg) {
+		this.outputStream.push(msg);
+	}
+
+	closeStream() {
+		this.outputStream.push(null);
+		return this.outputStream;
+	}
+
+	/**
+	 * Formats the message to log.
+	 *
+	 * @param {string} message - The raw message to log.
+	 * @param {LogType} [type='log'] - The error level to log.
+	 * @param {string|undefined} [chalkColor=undefined] - Color name or falsy to disable
+	 * @param {boolean} [forceToConsole=false] - Enforce a log on console instead of specified target.
+	 */
+	message(
+		message,
+		type = "log",
+		chalkColor = undefined,
+		_forceToConsole = false,
+		prefix = "",
+	) {
+		// if (chalkColor && this.isChalkEnabled) {
+		//   message = `${chalk.gray(prefix)} ${message.split("\n").join(`\n${chalk.gray(prefix)} `)}`;
+		// 	this.outputs[type].push(chalk[chalkColor](message));
+		// } else {
+		  message = `${prefix}${message.split("\n").join(`\n${prefix}`)}`;
+			this.outputs[type].push(message);
+		// }
+	}
 }
