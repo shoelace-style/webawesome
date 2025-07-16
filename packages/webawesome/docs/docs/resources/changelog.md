@@ -11,6 +11,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 ## Next
 
 ### New Features {data-no-outline}
+
 - Added `--track-height` custom property to `<wa-progress-bar>` [pr:1154]
 - Added `--pulse-color` custom property to `<wa-badge>` [pr:1173]
 
@@ -21,6 +22,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed the missing `nanoid` dependency in `package.json` [discuss:1139]
 - Fixed a bug in `<wa-slider>` that prevented the hint from showing up [discuss:1172]
 - Fixed a bug in `<wa-textarea>` where setting `resize="auto"` caused the height of the textarea to double [issue:1155]
+- Fixed a bug in `<wa-card>` that caused slotted media to have incorrectly rounded corners [issue:1107]
 
 ## 3.0.0-beta.2
 
