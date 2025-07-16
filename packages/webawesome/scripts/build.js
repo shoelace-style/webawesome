@@ -29,7 +29,6 @@ let buildContexts = {
 const debugPerf = process.env.DEBUG_PERFORMANCE === '1';
 
 const isDeveloping = process.argv.includes('--develop');
-// const isIncremental = process.argv.includes('--incremental');
 
 /**
  * @typedef {Object} BuildOptions

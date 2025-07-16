@@ -60,16 +60,12 @@ export async function generateDocs(options = {}) {
 
   spinner?.start?.('Writing the docs');
 
-  if (isIncremental) {
-  } else {
-  }
-
   const output = [];
 
   try {
     if (isIncremental) {
-      // no-op.
       globalThis.eleventy ||= await createEleventy(options);
+      // eleventy incremental does its own writing, so we just kinda trust it for right now.
     } else {
       // Cleanup
       await deleteAsync(getSiteDir());
