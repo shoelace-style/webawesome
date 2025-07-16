@@ -33,6 +33,8 @@ export interface Translation extends DefaultTranslation {
   loading: string;
   nextSlide: string;
   numOptionsSelected: (num: number) => string;
+  pauseAnimation: string;
+  playAnimation: string;
   previousSlide: string;
   progress: string;
   remove: string;

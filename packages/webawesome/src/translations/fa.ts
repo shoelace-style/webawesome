@@ -22,6 +22,8 @@ const translation: Translation = {
     if (num === 1) return '1 گزینه انتخاب شده است';
     return `${num} گزینه انتخاب شده است`;
   },
+  pauseAnimation: 'مکث انیمیشن',
+  playAnimation: 'پخش انیمیشن',
   previousSlide: 'اسلاید قبلی',
   progress: 'پیشرفت',
   remove: 'حذف',

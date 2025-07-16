@@ -24,6 +24,8 @@ const translation: Translation = {
     if (num > 2 && num < 11) return `تم تحديد ${num} خيارات`;
     return `تم تحديد ${num} خيار`;
   },
+  pauseAnimation: 'إيقاف الرسوم المتحركة مؤقتًا',
+  playAnimation: 'تشغيل الرسوم المتحركة',
   previousSlide: 'الشريحة السابقة',
   progress: 'مقدار التقدم',
   remove: 'حذف',

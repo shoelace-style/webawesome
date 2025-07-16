@@ -42,11 +42,24 @@ img[aria-hidden='true'] {
   }
 }
 
-:host([play]:not(:hover)) .control-box {
+:where(:host([play]:not(:hover))) .control-box {
   opacity: 0;
 }
 
 :host([play]) slot[name='play-icon'],
 :host(:not([play])) slot[name='pause-icon'] {
   display: none;
+}
+
+/* Show control box on keyboard focus */
+.animated-image {
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible .control-box {
+    opacity: 1;
+    outline: var(--wa-focus-ring);
+    outline-offset: var(--wa-focus-ring-offset);
+  }
 }

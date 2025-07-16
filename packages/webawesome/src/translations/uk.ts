@@ -24,6 +24,8 @@ const translation: Translation = {
     if (n === 2 || n === 3 || n === 4) return `вибрано ${num} варіанти`;
     return `вибрано ${num} варіантів`;
   },
+  pauseAnimation: 'Призупинити анімацію',
+  playAnimation: 'Відтворити анімацію',
   previousSlide: 'Попередній слайд',
   progress: 'Поступ',
   remove: 'Видалити',

@@ -22,6 +22,8 @@ const translation: Translation = {
     if (num === 1) return '1 alternativ valt';
     return `${num} alternativ valda`;
   },
+  pauseAnimation: 'Pausa animation',
+  playAnimation: 'Spela upp animation',
   previousSlide: 'Föregående bild',
   progress: 'Framsteg',
   remove: 'Ta bort',

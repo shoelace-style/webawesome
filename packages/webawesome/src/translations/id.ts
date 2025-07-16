@@ -22,6 +22,8 @@ const translation: Translation = {
     if (num === 1) return '1 opsi yang dipilih';
     return `${num} opsi yang dipilih`;
   },
+  pauseAnimation: 'Jeda animasi',
+  playAnimation: 'Putar animasi',
   previousSlide: 'Slide sebelumnya',
   progress: 'Kemajuan',
   remove: 'Hapus',

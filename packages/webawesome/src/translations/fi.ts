@@ -22,6 +22,8 @@ const translation: Translation = {
     if (num === 1) return 'Yksi vaihtoehto valittu';
     return `${num} vaihtoehtoa valittu`;
   },
+  pauseAnimation: 'Keskeytä animaatio',
+  playAnimation: 'Toista animaatio',
   previousSlide: 'Edellinen dia',
   progress: 'Edistyminen',
   remove: 'Poista',

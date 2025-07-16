@@ -24,6 +24,8 @@ const translation: Translation = {
     if (num === 3 || num === 4) return `${num} možnosti izbrane`;
     return `${num} možnosti izbranih`;
   },
+  pauseAnimation: 'Zaustavi animacijo',
+  playAnimation: 'Predvajaj animacijo',
   previousSlide: 'Prejšnji diapozitiv',
   progress: 'Napredek',
   remove: 'Odstrani',

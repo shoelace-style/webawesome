@@ -21,6 +21,8 @@ const translation: Translation = {
     if (num === 0) return '項目が選択されていません';
     return `${num} 個の項目が選択されました`;
   },
+  pauseAnimation: 'アニメーションを一時停止',
+  playAnimation: 'アニメーションを再生',
   previousSlide: '前のスライド',
   progress: '進行',
   remove: '削除',

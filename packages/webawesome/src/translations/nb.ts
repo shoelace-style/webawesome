@@ -22,6 +22,8 @@ const translation: Translation = {
     if (num === 1) return 'Ett alternativ valgt';
     return `${num} alternativer valgt`;
   },
+  pauseAnimation: 'Sett animasjon på pause',
+  playAnimation: 'Spill av animasjon',
   previousSlide: 'Forrige visning',
   progress: 'Fremdrift',
   remove: 'Fjern',

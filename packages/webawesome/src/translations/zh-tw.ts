@@ -22,6 +22,8 @@ const translation: Translation = {
     if (num === 1) return '已選擇 1 個項目';
     return `${num} 選擇項目`;
   },
+  pauseAnimation: '暫停動畫',
+  playAnimation: '播放動畫',
   previousSlide: '上一張幻燈片',
   progress: '進度',
   remove: '移除',

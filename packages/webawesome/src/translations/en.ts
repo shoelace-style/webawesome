@@ -22,6 +22,8 @@ const translation: Translation = {
     if (num === 1) return '1 option selected';
     return `${num} options selected`;
   },
+  pauseAnimation: 'Pause animation',
+  playAnimation: 'Play animation',
   previousSlide: 'Previous slide',
   progress: 'Progress',
   remove: 'Remove',

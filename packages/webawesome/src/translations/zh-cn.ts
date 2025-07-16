@@ -22,6 +22,8 @@ const translation: Translation = {
     if (num === 1) return '已选择 1 个项目';
     return `${num} 选择项目`;
   },
+  pauseAnimation: '暂停动画',
+  playAnimation: '播放动画',
   previousSlide: '上一张幻灯片',
   progress: '进度',
   remove: '删除',

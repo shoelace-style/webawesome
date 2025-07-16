@@ -4,6 +4,7 @@ import { WaErrorEvent } from '../../events/error.js';
 import { WaLoadEvent } from '../../events/load.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
+import { LocalizeController } from '../../utilities/localize.js';
 import '../icon/icon.js';
 import styles from './animated-image.css';
 
@@ -30,6 +31,8 @@ import styles from './animated-image.css';
 export default class WaAnimatedImage extends WebAwesomeElement {
   static css = styles;
 
+  private readonly localize = new LocalizeController(this);
+
   @query('.animated') animatedImage: HTMLImageElement;
 
   @state() frozenFrame: string;
@@ -46,6 +49,13 @@ export default class WaAnimatedImage extends WebAwesomeElement {
 
   private handleClick() {
     this.play = !this.play;
+  }
+
+  private handleKeyDown(event: KeyboardEvent) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      this.play = !this.play;
+    }
   }
 
   private handleLoad() {
@@ -82,15 +92,26 @@ export default class WaAnimatedImage extends WebAwesomeElement {
   }
 
   render() {
+    const verb = this.localize.term(this.play ? 'pauseAnimation' : 'playAnimation');
+    const label = `${verb} ${this.alt}`;
+
     return html`
-      <div class="animated-image">
+      <div
+        class="animated-image"
+        tabindex="0"
+        role="button"
+        aria-pressed=${this.play ? 'true' : 'false'}
+        aria-label=${label}
+        @click=${this.handleClick}
+        @keydown=${this.handleKeyDown}
+      >
         <img
           class="animated"
           src=${this.src}
           alt=${this.alt}
           crossorigin="anonymous"
           aria-hidden=${this.play ? 'false' : 'true'}
-          @click=${this.handleClick}
+          role="presentation"
           @load=${this.handleLoad}
           @error=${this.handleError}
         />
@@ -102,10 +123,10 @@ export default class WaAnimatedImage extends WebAwesomeElement {
                 src=${this.frozenFrame}
                 alt=${this.alt}
                 aria-hidden=${this.play ? 'true' : 'false'}
-                @click=${this.handleClick}
+                role="presentation"
               />
 
-              <div part="control-box" class="control-box">
+              <div part="control-box" class="control-box" aria-hidden="true">
                 <slot name="play-icon">
                   <wa-icon
                     name="play"

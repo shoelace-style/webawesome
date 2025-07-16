@@ -22,6 +22,8 @@ const translation: Translation = {
     if (num === 1) return '1 opcija je odabrana';
     return `${num} odabranih opcija`;
   },
+  pauseAnimation: 'Pauziraj animaciju',
+  playAnimation: 'Reproduciraj animaciju',
   previousSlide: 'Prethodni slajd',
   progress: 'Napredak',
   remove: 'Makni',

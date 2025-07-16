@@ -22,6 +22,8 @@ const translation: Translation = {
     if (num === 1) return 'Выбран 1 вариант';
     return `выбрано ${num} варианта`;
   },
+  pauseAnimation: 'Приостановить анимацию',
+  playAnimation: 'Воспроизвести анимацию',
   previousSlide: 'Предыдущий слайд',
   progress: 'Прогресс',
   remove: 'Удалить',

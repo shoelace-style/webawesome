@@ -22,6 +22,8 @@ const translation: Translation = {
     if (num === 1) return '1 valgt';
     return `${num} valgt`;
   },
+  pauseAnimation: 'Pause animation',
+  playAnimation: 'Afspil animation',
   previousSlide: 'Forrige dias',
   progress: 'Status',
   remove: 'Fjern',

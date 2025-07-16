@@ -22,6 +22,8 @@ const translation: Translation = {
     if (num === 1) return '1 lehetőség kiválasztva';
     return `${num} lehetőség kiválasztva`;
   },
+  pauseAnimation: 'Animáció szüneteltetése',
+  playAnimation: 'Animáció lejátszása',
   previousSlide: 'Előző dia',
   progress: 'Folyamat',
   remove: 'Eltávolítás',

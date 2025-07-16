@@ -22,6 +22,8 @@ const translation: Translation = {
     if (num === 1) return 'Je vybrána jedna možnost';
     return `Počet vybraných možností: ${num}`;
   },
+  pauseAnimation: 'Pozastavit animaci',
+  playAnimation: 'Přehrát animaci',
   previousSlide: 'Předchozí slide',
   progress: 'Průběh',
   remove: 'Odstranit',

@@ -22,6 +22,8 @@ const translation: Translation = {
     if (num === 1) return '1 seçenek seçildi';
     return `${num} seçenek seçildi`;
   },
+  pauseAnimation: 'Animasyonu duraklat',
+  playAnimation: 'Animasyonu oynat',
   previousSlide: 'Bir onceki slayt',
   progress: 'İlerleme',
   remove: 'Kaldır',
