@@ -32,12 +32,32 @@ export default async function (eleventyConfig) {
 
   const distDir = process.env.UNBUNDLED_DIST_DIRECTORY || path.resolve(__dirname, '../dist');
   const customElementsManifest = path.join(distDir, "custom-elements.json")
+  const stylesheets = path.join(distDir, "styles")
 
   eleventyConfig.addWatchTarget(customElementsManifest);
+	eleventyConfig.setWatchThrottleWaitTime(10); // in milliseconds
 
-  eleventyConfig.on("eleventy.beforeWatch", async function () {
-    packageData = await getPackageData()
-    allComponents = getComponents()
+  eleventyConfig.on("eleventy.beforeWatch", async function (changedFiles) {
+    let updatePackageData = false
+    let updateComponentData = false
+    changedFiles.forEach((file) => {
+      if (file.includes("package.json")) {
+        updatePackageData = true
+      }
+
+      if (file.includes("custom-elements.json")) {
+        updateComponentData = true
+      }
+    })
+
+    if (updatePackageData) {
+      packageData = await getPackageData()
+    }
+
+    if (updateComponentData) {
+      allComponents = getComponents()
+    }
+
   })
 
   /**
