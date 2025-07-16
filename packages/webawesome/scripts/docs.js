@@ -58,7 +58,7 @@ export async function generateDocs(options = {}) {
     return;
   }
 
-  spinner?.start('Writing the docs');
+  spinner?.start?.('Writing the docs');
 
   if (isIncremental) {
   } else {
@@ -86,11 +86,11 @@ export async function generateDocs(options = {}) {
       await copy(getCdnDir(), join(getSiteDir(), 'dist'));
     }
 
-    spinner?.succeed(`Writing the docs ${chalk.gray(`(${output}`)})`);
+    spinner?.succeed?.(`Writing the docs ${chalk.gray(`(${output}`)})`);
   } catch (error) {
     console.error('\n\n' + chalk.red(error) + '\n');
 
-    spinner?.fail(chalk.red(`Error while writing the docs.`));
+    spinner?.fail?.(chalk.red(`Error while writing the docs.`));
     if (!isDeveloping) {
       process.exit(1);
     }
