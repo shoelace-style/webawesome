@@ -21,44 +21,43 @@ const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 const isDev = process.argv.includes('--develop');
 const passThroughExtensions = ['js', 'css', 'png', 'svg', 'jpg', 'mp4'];
 
-async function getPackageData () {
+async function getPackageData() {
   return JSON.parse(await readFile(path.join(__dirname, '..', 'package.json'), 'utf-8'));
 }
 
 export default async function (eleventyConfig) {
   const docsDir = path.join(process.env.BASE_DIR || '.', 'docs');
-  let packageData = await getPackageData()
+  let packageData = await getPackageData();
   let allComponents = getComponents();
 
   const distDir = process.env.UNBUNDLED_DIST_DIRECTORY || path.resolve(__dirname, '../dist');
-  const customElementsManifest = path.join(distDir, "custom-elements.json")
-  const stylesheets = path.join(distDir, "styles")
+  const customElementsManifest = path.join(distDir, 'custom-elements.json');
+  const stylesheets = path.join(distDir, 'styles');
 
   eleventyConfig.addWatchTarget(customElementsManifest);
-	eleventyConfig.setWatchThrottleWaitTime(10); // in milliseconds
+  eleventyConfig.setWatchThrottleWaitTime(10); // in milliseconds
 
-  eleventyConfig.on("eleventy.beforeWatch", async function (changedFiles) {
-    let updatePackageData = false
-    let updateComponentData = false
-    changedFiles.forEach((file) => {
-      if (file.includes("package.json")) {
-        updatePackageData = true
+  eleventyConfig.on('eleventy.beforeWatch', async function (changedFiles) {
+    let updatePackageData = false;
+    let updateComponentData = false;
+    changedFiles.forEach(file => {
+      if (file.includes('package.json')) {
+        updatePackageData = true;
       }
 
-      if (file.includes("custom-elements.json")) {
-        updateComponentData = true
+      if (file.includes('custom-elements.json')) {
+        updateComponentData = true;
       }
-    })
+    });
 
     if (updatePackageData) {
-      packageData = await getPackageData()
+      packageData = await getPackageData();
     }
 
     if (updateComponentData) {
-      allComponents = getComponents()
+      allComponents = getComponents();
     }
-
-  })
+  });
 
   /**
    * If you plan to add or remove any of these extensions, make sure to let either Konnor or Cory know as these
