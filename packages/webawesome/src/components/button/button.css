@@ -309,22 +309,22 @@ slot[name='end']::slotted(*),
 }
 
 /* Handle pill modifier for button groups */
-:host([pill]) .wa-button-group__horizontal.wa-button-group__button-first {
+:host([pill].wa-button-group__horizontal.wa-button-group__button-first) .button {
   border-start-start-radius: var(--wa-border-radius-pill);
   border-end-start-radius: var(--wa-border-radius-pill);
 }
 
-:host([pill]) .wa-button-group__horizontal.wa-button-group__button-last {
+:host([pill].wa-button-group__horizontal.wa-button-group__button-last) .button {
   border-start-end-radius: var(--wa-border-radius-pill);
   border-end-end-radius: var(--wa-border-radius-pill);
 }
 
-:host([pill]) .wa-button-group__vertical.wa-button-group__button-first {
+:host([pill].wa-button-group__vertical.wa-button-group__button-first) .button {
   border-start-start-radius: var(--wa-border-radius-pill);
   border-start-end-radius: var(--wa-border-radius-pill);
 }
 
-:host([pill]) .wa-button-group__vertical.wa-button-group__button-last {
+:host([pill].wa-button-group__vertical.wa-button-group__button-last) .button {
   border-end-start-radius: var(--wa-border-radius-pill);
   border-end-end-radius: var(--wa-border-radius-pill);
 }
