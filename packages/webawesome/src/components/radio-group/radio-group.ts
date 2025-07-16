@@ -370,6 +370,7 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
         <slot part="form-control-input" @slotchange=${this.syncRadioElements}></slot>
 
         <slot
+          id="hint"
           name="hint"
           part="hint"
           class=${classMap({

@@ -243,6 +243,7 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
       </label>
 
       <slot
+        id="hint"
         name="hint"
         part="hint"
         class=${classMap({

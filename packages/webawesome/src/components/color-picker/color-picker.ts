@@ -1310,6 +1310,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
         ></button>
 
         <slot
+          id="hint"
           name="hint"
           part="hint"
           class=${classMap({

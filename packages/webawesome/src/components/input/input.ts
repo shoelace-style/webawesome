@@ -432,8 +432,9 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
       </div>
 
       <slot
-        name="hint"
+        id="hint"
         part="hint"
+        name="hint"
         class=${classMap({
           'has-slotted': hasHint,
         })}
