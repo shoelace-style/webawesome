@@ -10,7 +10,7 @@
   font-weight: var(--wa-font-weight-semibold);
   line-height: 1;
   white-space: nowrap;
-  background-color: var(--background-color);
+  background-color: var(--wa-color-fill-loud, var(--wa-color-brand-fill-loud));
   border-color: transparent;
   border-radius: var(--wa-border-radius-s);
   border-style: var(--wa-border-style);
