@@ -7,13 +7,13 @@ import { deleteAsync } from 'del';
 import { join } from 'path';
 import { getCdnDir, getDocsDir, getEleventyConfigPath, getSiteDir } from './utils.js';
 
-let eleventyBuildResolver
-let eleventyBuildPromise
+let eleventyBuildResolver;
+let eleventyBuildPromise;
 
-function queueBuild () {
-  eleventyBuildPromise = new Promise((resolve) => {
-    eleventyBuildResolver = resolve
-  })
+function queueBuild() {
+  eleventyBuildPromise = new Promise(resolve => {
+    eleventyBuildResolver = resolve;
+  });
 }
 
 // 11ty
@@ -30,15 +30,15 @@ export async function createEleventy(options = {}) {
       if (isDeveloping || isIncremental) {
         eleventyConfig.setUseTemplateCache(false);
 
-        eleventyConfig.on("eleventy.before", function () {
-          queueBuild()
-        })
-        eleventyConfig.on("eleventy.beforeWatch", function () {
-          queueBuild()
-        })
-        eleventyConfig.on("eleventy.after", async function () {
-          eleventyBuildResolver()
-        })
+        eleventyConfig.on('eleventy.before', function () {
+          queueBuild();
+        });
+        eleventyConfig.on('eleventy.beforeWatch', function () {
+          queueBuild();
+        });
+        eleventyConfig.on('eleventy.after', async function () {
+          eleventyBuildResolver();
+        });
       }
     },
     source: 'script',
@@ -48,8 +48,8 @@ export async function createEleventy(options = {}) {
 
   await eleventy.init();
 
-  eleventy.logger.isChalkEnabled = false
-  eleventy.logger.overrideLogger(new CustomLogger())
+  eleventy.logger.isChalkEnabled = false;
+  eleventy.logger.overrideLogger(new CustomLogger());
 
   if (isIncremental) {
     await eleventy.watch();
@@ -84,20 +84,20 @@ export async function generateDocs(options = {}) {
 
   const outputs = {
     warn: [],
-  }
+  };
 
-  function stubConsole (key) {
-    const originalFn = console[key]
+  function stubConsole(key) {
+    const originalFn = console[key];
     console[key] = function (...args) {
-      outputs[key].push(...args)
-    }
-    return originalFn
+      outputs[key].push(...args);
+    };
+    return originalFn;
   }
 
   // Works around a bug in 11ty where it still prints warnings despite the logger being overriden and in quietMode.
-  const originalWarn = stubConsole("warn")
+  const originalWarn = stubConsole('warn');
 
-  let output = ""
+  let output = '';
 
   try {
     if (isIncremental) {
@@ -105,21 +105,21 @@ export async function generateDocs(options = {}) {
         // First run
         globalThis.eleventy = await createEleventy(options);
         eleventy = globalThis.eleventy;
-        output = chalk.gray(`(${eleventy.logFinished()})`)
+        output = chalk.gray(`(${eleventy.logFinished()})`);
       } else {
         // eleventy incremental does its own writing, so we just kinda trust it for right now.
         eleventy = globalThis.eleventy;
 
-        await eleventyBuildPromise
-        let info = eleventy.logger.logger.outputs.log
+        await eleventyBuildPromise;
+        let info = eleventy.logger.logger.outputs.log;
 
         // TODO: The first write with incremental seems to be 1 behind. Not sure why. But its good enough for now.
-        info = info.filter((line) => {
-          return !line.includes("Watching")
-        })
-        const lastLine = info[info.length - 1]
-        output = chalk.gray(`(${lastLine})`)
-        eleventy.logger.logger.reset()
+        info = info.filter(line => {
+          return !line.includes('Watching');
+        });
+        const lastLine = info[info.length - 1];
+        output = chalk.gray(`(${lastLine})`);
+        eleventy.logger.logger.reset();
       }
     } else {
       // Cleanup
@@ -130,7 +130,7 @@ export async function generateDocs(options = {}) {
 
       // Write it
       await eleventy.write();
-      output = chalk.gray(`(${eleventy.logFinished()})`)
+      output = chalk.gray(`(${eleventy.logFinished()})`);
     }
 
     // Copy dist (production only)
@@ -139,7 +139,7 @@ export async function generateDocs(options = {}) {
     }
     spinner?.succeed?.(`Writing the docs ${output}`);
   } catch (error) {
-    console.warn = originalWarn
+    console.warn = originalWarn;
 
     console.error('\n\n' + chalk.red(error) + '\n');
 
@@ -158,106 +158,100 @@ export async function generateDocs(options = {}) {
  * @typedef {'error'|'log'|'warn'|'info'} LogType
  */
 class CustomLogger {
-  #outputStream
+  #outputStream;
 
-  constructor () {
-    this.reset()
+  constructor() {
+    this.reset();
   }
 
-  flush () {
-    Object.keys(this.outputs).forEach((outputType) => {
-      console[outputType](this.outputs[outputType].join(""))
-    })
-    this.reset()
+  flush() {
+    Object.keys(this.outputs).forEach(outputType => {
+      console[outputType](this.outputs[outputType].join(''));
+    });
+    this.reset();
   }
 
-  reset () {
+  reset() {
     this.outputs = {
       log: [],
       info: [],
       warn: [],
       error: [],
-    }
+    };
   }
 
-	/** @param {string} msg */
-	log(msg) {
-		this.message(msg);
-	}
+  /** @param {string} msg */
+  log(msg) {
+    this.message(msg);
+  }
 
-	/**
-	 * @typedef LogOptions
-	 * @property {string} message
-	 * @property {string=} prefix
-	 * @property {LogType=} type
-	 * @property {string=} color
-	 * @property {boolean=} force
-	 * @param {LogOptions} options
-	 */
-	logWithOptions({ message, type, prefix, color, force }) {
-		this.message(message, type, color, force, prefix);
-	}
+  /**
+   * @typedef LogOptions
+   * @property {string} message
+   * @property {string=} prefix
+   * @property {LogType=} type
+   * @property {string=} color
+   * @property {boolean=} force
+   * @param {LogOptions} options
+   */
+  logWithOptions({ message, type, prefix, color, force }) {
+    this.message(message, type, color, force, prefix);
+  }
 
-	/** @param {string} msg */
-	forceLog(msg) {
-		this.message(msg, undefined, undefined, true);
-	}
+  /** @param {string} msg */
+  forceLog(msg) {
+    this.message(msg, undefined, undefined, true);
+  }
 
-	/** @param {string} msg */
-	info(msg) {
-		this.message(msg, "info", "blue");
-	}
+  /** @param {string} msg */
+  info(msg) {
+    this.message(msg, 'info', 'blue');
+  }
 
-	/** @param {string} msg */
-	warn(msg) {
-		this.message(msg, "warn", "yellow");
-	}
+  /** @param {string} msg */
+  warn(msg) {
+    this.message(msg, 'warn', 'yellow');
+  }
 
-	/** @param {string} msg */
-	error(msg) {
-		this.message(msg, "error", "red");
-	}
+  /** @param {string} msg */
+  error(msg) {
+    this.message(msg, 'error', 'red');
+  }
 
-	get outputStream() {
-		if (!this.#outputStream) {
-			this.#outputStream = new Readable({
-				read() {},
-			});
-		}
-		return this.#outputStream;
-	}
+  get outputStream() {
+    if (!this.#outputStream) {
+      this.#outputStream = new Readable({
+        read() {},
+      });
+    }
+    return this.#outputStream;
+  }
 
-	/** @param {string} msg */
-	toStream(msg) {
-		this.outputStream.push(msg);
-	}
+  /** @param {string} msg */
+  toStream(msg) {
+    this.outputStream.push(msg);
+  }
 
-	closeStream() {
-		this.outputStream.push(null);
-		return this.outputStream;
-	}
+  closeStream() {
+    this.outputStream.push(null);
+    return this.outputStream;
+  }
 
-	/**
-	 * Formats the message to log.
-	 *
-	 * @param {string} message - The raw message to log.
-	 * @param {LogType} [type='log'] - The error level to log.
-	 * @param {string|undefined} [chalkColor=undefined] - Color name or falsy to disable
-	 * @param {boolean} [forceToConsole=false] - Enforce a log on console instead of specified target.
-	 */
-	message(
-		message,
-		type = "log",
-		chalkColor = undefined,
-		_forceToConsole = false,
-		prefix = "",
-	) {
-		// if (chalkColor && this.isChalkEnabled) {
-		//   message = `${chalk.gray(prefix)} ${message.split("\n").join(`\n${chalk.gray(prefix)} `)}`;
-		// 	this.outputs[type].push(chalk[chalkColor](message));
-		// } else {
-		  message = `${prefix}${message.split("\n").join(`\n${prefix}`)}`;
-			this.outputs[type].push(message);
-		// }
-	}
+  /**
+   * Formats the message to log.
+   *
+   * @param {string} message - The raw message to log.
+   * @param {LogType} [type='log'] - The error level to log.
+   * @param {string|undefined} [chalkColor=undefined] - Color name or falsy to disable
+   * @param {boolean} [forceToConsole=false] - Enforce a log on console instead of specified target.
+   */
+  message(message, type = 'log', chalkColor = undefined, _forceToConsole = false, prefix = '') {
+    // if (chalkColor && this.isChalkEnabled) {
+    //   message = `${chalk.gray(prefix)} ${message.split("\n").join(`\n${chalk.gray(prefix)} `)}`;
+    // 	this.outputs[type].push(chalk[chalkColor](message));
+    // } else {
+    message = `${prefix}${message.split('\n').join(`\n${prefix}`)}`;
+    this.outputs[type].push(message);
+    // }
+  }
 }
