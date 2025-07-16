@@ -33,7 +33,7 @@ export async function createEleventy(options = {}) {
         eleventyConfig.on('eleventy.before', function () {
           queueBuild();
         });
-        eleventyConfig.on('eleventy.beforeWatch', function () {
+        eleventyConfig.on('eleventy.beforeWatch', async function () {
           queueBuild();
         });
         eleventyConfig.on('eleventy.after', async function () {

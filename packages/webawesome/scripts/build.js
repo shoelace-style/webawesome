@@ -408,7 +408,6 @@ export async function build(options = {}) {
             if (typeof options.onWatchEvent === 'function') {
               await options.onWatchEvent(evt, filename);
             }
-            await regenerateBundle();
 
             // Copy stylesheets when CSS files change
             if (isCssStylesheet) {
@@ -419,6 +418,10 @@ export async function build(options = {}) {
             if (isComponent) {
               await generateManifest();
             }
+
+            // copy everything to unbundled before we generate bundles.
+            await copy(getCdnDir(), getDistDir(), { overwrite: true });
+            await regenerateBundle();
 
             // This needs to be outside of "isComponent" check because SSR needs to run on CSS files too.
             await generateDocs({ spinner });
