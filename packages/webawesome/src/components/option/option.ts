@@ -9,7 +9,7 @@ import styles from './option.css';
 
 /**
  * @summary Options define the selectable items within a select component.
- * @documentation https://backers.webawesome.com/docs/components/option
+ * @documentation https://webawesome.com/docs/components/option
  * @status stable
  * @since 2.0
  *

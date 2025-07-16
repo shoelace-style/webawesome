@@ -9,7 +9,7 @@ let id = 0;
 
 /**
  * @summary Tabs are used inside [tab groups](/docs/components/tab-group) to represent and activate [tab panels](/docs/components/tab-panel).
- * @documentation https://backers.webawesome.com/docs/components/tab
+ * @documentation https://webawesome.com/docs/components/tab
  * @status stable
  * @since 2.0
  *

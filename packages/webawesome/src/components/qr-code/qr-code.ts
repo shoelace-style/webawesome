@@ -10,7 +10,7 @@ let QrCreator: _QrCreator.default;
 
 /**
  * @summary Generates a [QR code](https://www.qrcode.com/) and renders it using the [Canvas API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API).
- * @documentation https://backers.webawesome.com/docs/components/qr-code
+ * @documentation https://webawesome.com/docs/components/qr-code
  * @status stable
  * @since 2.0
  *

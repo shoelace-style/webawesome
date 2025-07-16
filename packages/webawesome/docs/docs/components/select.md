@@ -173,7 +173,7 @@ Use `<wa-divider>` to group listbox items visually. You can also use `<small>` t
 
 ### Sizes
 
-Use the `size` attribute to change a select's size. Note that size does not apply to listbox options.
+Use the `size` attribute to change a select's size.
 
 ```html {.example}
 <wa-select placeholder="Small" size="small">

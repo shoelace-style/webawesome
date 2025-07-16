@@ -24,7 +24,7 @@ interface IconSource {
 
 /**
  * @summary Icons are symbols that can be used to represent various options within an application.
- * @documentation https://backers.webawesome.com/docs/components/icon
+ * @documentation https://webawesome.com/docs/components/icon
  * @status stable
  * @since 2.0
  *

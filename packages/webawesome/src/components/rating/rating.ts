@@ -14,7 +14,7 @@ import styles from './rating.css';
 
 /**
  * @summary Ratings give users a way to quickly view and provide feedback.
- * @documentation https://backers.webawesome.com/docs/components/rating
+ * @documentation https://webawesome.com/docs/components/rating
  * @status stable
  * @since 2.0
  *

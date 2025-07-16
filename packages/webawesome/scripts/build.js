@@ -7,14 +7,14 @@ import { replace } from 'esbuild-plugin-replace';
 import { mkdir, readFile } from 'fs/promises';
 import getPort, { portNumbers } from 'get-port';
 import { globby } from 'globby';
-import { dirname, extname, join, relative } from 'node:path';
+import { dirname, join, posix, relative } from 'node:path';
 import process from 'node:process';
 import { fileURLToPath } from 'node:url';
 import ora from 'ora';
 import copy from 'recursive-copy';
 import { SimulateWebAwesomeApp } from '../docs/_utils/simulate-webawesome-app.js';
 import { generateDocs } from './docs.js'
-import { getCdnDir, getDistDir, getDocsDir, getEleventyConfigPath, getRootDir, getSiteDir } from './utils.js';
+import { getCdnDir, getDistDir, getDocsDir, getRootDir, getSiteDir } from './utils.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -201,11 +201,11 @@ export async function build(options = {}) {
         join(rootDir, 'src/webawesome.loader.ts'),
         join(rootDir, 'src/webawesome.ssr-loader.ts'),
         // Individual components
-        ...(await globby(join(rootDir, 'src/components/**/!(*.(style|test)).ts'))),
+        ...(await globby(posix.join(rootDir, 'src/components/**/!(*.(style|test)).ts'))),
         // Translations
-        ...(await globby(join(rootDir, 'src/translations/**/*.ts'))),
+        ...(await globby(posix.join(rootDir, 'src/translations/**/*.ts'))),
         // React wrappers
-        ...(await globby(join(rootDir, 'src/react/**/*.ts'))),
+        ...(await globby(posix.join(rootDir, 'src/react/**/*.ts'))),
       ],
       outdir: getCdnDir(),
       chunkNames: 'chunks/[name].[hash]',

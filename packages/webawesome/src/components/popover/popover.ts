@@ -18,7 +18,7 @@ const openPopovers = new Set<WaPopover>();
 
 /**
  * @summary Popovers display contextual content and interactive elements in a floating panel.
- * @documentation https://backers.webawesome.com/docs/components/popover
+ * @documentation https://webawesome.com/docs/components/popover
  * @status stable
  * @since 3.0
  *
