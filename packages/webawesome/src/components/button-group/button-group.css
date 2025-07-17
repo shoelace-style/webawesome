@@ -26,8 +26,7 @@
     z-index: 2 !important;
   }
 }
-
-:host([orientation='vertical']) {
+:host([orientation='vertical']) .button-group {
   flex-direction: column;
 }
 

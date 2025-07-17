@@ -23,6 +23,9 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed a bug in `<wa-slider>` that prevented the hint from showing up [discuss:1172]
 - Fixed a bug in `<wa-textarea>` where setting `resize="auto"` caused the height of the textarea to double [issue:1155]
 - Fixed a bug in `<wa-color-picker>`, `<wa-checkbox>`, `<wa-input>`, `<wa-radio-group>`, `<wa-switch>`, and `<wa-textarea>` that prevented screen readers from announcing hints [issue:1186]
+- Fixed a bug in `<wa-card>` that caused slotted media to have incorrectly rounded corners [issue:1107]
+- Fixed a bug in `<wa-button-group>` that prevented pill buttons from rendering corners properly [issue:1165]
+- Fixed a bug in `<wa-button-group>` that caused some vertical groups to appear horizontal [issue:1152]
 
 ## 3.0.0-beta.2
 

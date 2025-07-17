@@ -4,19 +4,20 @@ import { execSync } from 'child_process';
 import { deleteAsync } from 'del';
 import esbuild from 'esbuild';
 import { replace } from 'esbuild-plugin-replace';
-
 import { mkdir, readFile } from 'fs/promises';
 import getPort, { portNumbers } from 'get-port';
 import { globby } from 'globby';
-import { dirname, join, posix, relative } from 'node:path';
+import { dirname, extname, join, posix, relative } from 'node:path';
 import process from 'node:process';
 import { fileURLToPath } from 'node:url';
 import ora from 'ora';
 import copy from 'recursive-copy';
-import { getCdnDir, getDistDir, getDocsDir, getRootDir, getSiteDir, runScript } from './utils.js';
+import { SimulateWebAwesomeApp } from '../docs/_utils/simulate-webawesome-app.js';
+import { generateDocs } from './docs.js';
+import { getCdnDir, getDistDir, getDocsDir, getRootDir, getSiteDir } from './utils.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const isDeveloping = process.argv.includes('--develop');
+
 const spinner = ora({ text: 'Web Awesome', color: 'cyan' }).start();
 const getPackageData = async () => JSON.parse(await readFile(join(getRootDir(), 'package.json'), 'utf-8'));
 const getVersion = async () => JSON.stringify((await getPackageData()).version.toString());
@@ -24,6 +25,10 @@ let buildContexts = {
   bundledContext: {},
   unbundledContext: {},
 };
+
+const debugPerf = process.env.DEBUG_PERFORMANCE === '1';
+
+const isDeveloping = process.argv.includes('--develop');
 
 /**
  * @typedef {Object} BuildOptions
@@ -44,6 +49,8 @@ export async function build(options = {}) {
     options.watchedDocsDirectories = [getDocsDir()];
   }
 
+  function measureStep() {}
+
   /**
    * Runs the full build.
    */
@@ -51,17 +58,24 @@ export async function build(options = {}) {
     const start = Date.now();
 
     try {
-      await cleanup();
-      await generateManifest();
-      await generateReactWrappers();
-      await generateTypes();
-      await generateStyles();
+      const steps = [cleanup, generateManifest, generateReactWrappers, generateTypes, generateStyles];
+
+      for (const step of steps) {
+        if (debugPerf) {
+          const stepStart = Date.now();
+          await step();
+          const elapsedTime = (Date.now() - stepStart) / 1000 + 's';
+          spinner.succeed(`${step.name}: ${elapsedTime}`);
+        } else {
+          await step();
+        }
+      }
 
       // copy everything to unbundled before we generate bundles.
       await copy(getCdnDir(), getDistDir(), { overwrite: true });
 
       await generateBundle();
-      await generateDocs();
+      await generateDocs({ spinner });
 
       const time = (Date.now() - start) / 1000 + 's';
       spinner.succeed(`The build is complete ${chalk.gray(`(finished in ${time})`)}`);
@@ -258,49 +272,6 @@ export async function build(options = {}) {
     spinner.succeed();
   }
 
-  /**
-   * Generates the documentation site.
-   */
-  async function generateDocs() {
-    /**
-     * Used by the webawesome-app to skip doc generation since it will do its own.
-     */
-    if (process.env.SKIP_ELEVENTY === 'true') {
-      return;
-    }
-
-    spinner.start('Writing the docs');
-
-    const args = [];
-    if (isDeveloping) args.push('--develop');
-
-    let output;
-    try {
-      // 11ty
-      output = (await runScript(join(__dirname, 'docs.js'), args, { env: process.env }))
-        // Cleanup the output
-        .replace('[11ty]', '')
-        .replace(' seconds', 's')
-        .replace(/\(.*?\)/, '')
-        .toLowerCase()
-        .trim();
-
-      // Copy dist (production only)
-      if (!isDeveloping) {
-        await copy(getCdnDir(), join(getSiteDir(), 'dist'));
-      }
-
-      spinner.succeed(`Writing the docs ${chalk.gray(`(${output}`)})`);
-    } catch (error) {
-      console.error('\n\n' + chalk.red(error) + '\n');
-
-      spinner.fail(chalk.red(`Error while writing the docs.`));
-      if (!isDeveloping) {
-        process.exit(1);
-      }
-    }
-  }
-
   // Initial build
   await buildAll();
 
@@ -338,6 +309,46 @@ export async function build(options = {}) {
             '/dist/': './dist-cdn/',
           },
         },
+        middleware: [
+          function simulateWebawesomeApp(req, res, next) {
+            // Accumulator for strings so we can pass them through nunjucks a second time similar to how the webawesome-app
+            // will be running nunjucks twice.
+            const finalString = [];
+            const encoding = 'utf-8';
+
+            if (!next) {
+              return;
+            }
+
+            if (!req.url) {
+              next();
+              return;
+            }
+
+            const extension = extname(req.url);
+            if (extension !== '' && extension !== '.html') {
+              // Assume its something like .svg / .png / .css etc. that we don't want to transform.
+              next();
+              return;
+            }
+
+            const _write = res.write;
+
+            res.write = function (chunk, encoding) {
+              // Buffer chunks into an array so that we do a single transform.
+              finalString.push(chunk.toString());
+            };
+
+            const _end = res.end;
+            res.end = function (...args) {
+              const transformedStr = SimulateWebAwesomeApp(finalString.join(''));
+              _write.call(res, transformedStr, encoding);
+              _end.call(res, ...args);
+            };
+
+            next();
+          },
+        ],
         callbacks: {
           ready: (_err, instance) => {
             // 404 errors
@@ -397,7 +408,6 @@ export async function build(options = {}) {
             if (typeof options.onWatchEvent === 'function') {
               await options.onWatchEvent(evt, filename);
             }
-            await regenerateBundle();
 
             // Copy stylesheets when CSS files change
             if (isCssStylesheet) {
@@ -409,8 +419,12 @@ export async function build(options = {}) {
               await generateManifest();
             }
 
+            // copy everything to unbundled before we generate bundles.
+            await copy(getCdnDir(), getDistDir(), { overwrite: true });
+            await regenerateBundle();
+
             // This needs to be outside of "isComponent" check because SSR needs to run on CSS files too.
-            await generateDocs();
+            await generateDocs({ spinner });
 
             reload();
           } catch (err) {
@@ -438,7 +452,7 @@ export async function build(options = {}) {
           if (typeof options.onWatchEvent === 'function') {
             await options.onWatchEvent(evt, filename);
           }
-          await generateDocs();
+          await generateDocs({ spinner });
           reload();
         };
       }
