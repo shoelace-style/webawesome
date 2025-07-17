@@ -374,6 +374,7 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
       </div>
 
       <slot
+        id="hint"
         name="hint"
         part="hint"
         aria-hidden=${hasHint ? 'false' : 'true'}

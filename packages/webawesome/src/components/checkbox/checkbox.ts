@@ -234,13 +234,14 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
       </label>
 
       <slot
+        id="hint"
+        part="hint"
         name="hint"
         aria-hidden=${hasHint ? 'false' : 'true'}
         class="${classMap({ 'has-slotted': hasHint })}"
-        id="hint"
-        part="hint"
-        >${this.hint}</slot
       >
+        ${this.hint}
+      </slot>
     `;
   }
 }
