@@ -564,7 +564,6 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5em;
 
     height: var(--wa-form-control-height);
     padding: 0 var(--wa-form-control-padding-inline);
@@ -708,6 +707,16 @@
 
     &.wa-pill {
       border-radius: var(--wa-border-radius-pill);
+    }
+
+    /* Adds space between icons and adjacent elements
+     * Prefer sibling selectors over :first-child/:last-child to avoid extra space when an icon is used alone */
+    & > wa-icon:has(+ *) {
+      margin-inline-end: 0.75em;
+    }
+
+    & > * + wa-icon {
+      margin-inline-start: 0.75em;
     }
   }
   /* #endregion */

@@ -380,6 +380,19 @@ Add the `wa-pill` class to give buttons rounded edges.
 <button class="wa-pill">Pill button</button>
 ```
 
+When using `<wa-icon>` within a button, wrap adjacent label text in `<span>` or similar to automatically add margin between the icon and the label, just like the `start` and `end` slots of `<wa-button>`.
+
+```html {.example}
+<button>
+  <wa-icon name="plane-departure"></wa-icon>
+  <span>Start Icon</span>
+</button>
+<button>
+  <span>End Icon</span>
+  <wa-icon name="plane-arrival"></wa-icon>
+</button>
+```
+
 ### Form controls
 
 Create a variety of form controls with `<input type="">`, `<select>`, and `<textarea>`. Each control closely matches the appearance of the corresponding Web Awesome component.
