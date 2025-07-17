@@ -34,7 +34,8 @@ const isDeveloping = process.argv.includes('--develop');
  * @typedef {Object} BuildOptions
  * @property {Array<string>} [watchedSrcDirectories]
  * @property {Array<string>} [watchedDocsDirectories]
- * @property {(eventName: "change" | "add" | "unlink", filePath: string) => unknown} [onWatchEvent]
+ * @property {(eventName: "change" | "add" | "unlink", filePath: string) => unknown} [beforeWatchEvent]
+ * @property {(eventName: "change" | "add" | "unlink", filePath: string) => unknown} [afterWatchEvent]
  */
 
 /**
@@ -405,8 +406,8 @@ export async function build(options = {}) {
               return;
             }
 
-            if (typeof options.onWatchEvent === 'function') {
-              await options.onWatchEvent(evt, filename);
+            if (typeof options.beforeWatchEvent === 'function') {
+              await options.beforeWatchEvent(evt, filename);
             }
 
             // Copy stylesheets when CSS files change
@@ -425,6 +426,10 @@ export async function build(options = {}) {
 
             // This needs to be outside of "isComponent" check because SSR needs to run on CSS files too.
             await generateDocs({ spinner });
+
+            if (typeof options.afterWatchEvent === 'function') {
+              await options.afterWatchEvent(evt, filename);
+            }
 
             reload();
           } catch (err) {
@@ -449,10 +454,14 @@ export async function build(options = {}) {
       function handleWatchEvent(evt) {
         return async filename => {
           spinner.info(`File modified ${chalk.gray(`(${relative(getRootDir(), filename)})`)}`);
-          if (typeof options.onWatchEvent === 'function') {
-            await options.onWatchEvent(evt, filename);
+          if (typeof options.beforeWatchEvent === 'function') {
+            await options.beforeWatchEvent(evt, filename);
           }
           await generateDocs({ spinner });
+
+          if (typeof options.beforeWatchEvent === 'function') {
+            await options.afterWatchEvent(evt, filename);
+          }
           reload();
         };
       }

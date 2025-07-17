@@ -118,7 +118,7 @@ export async function generateDocs(options = {}) {
           return !line.includes('Watching');
         });
         const lastLine = info[info.length - 1];
-        output = chalk.gray(`(${lastLine})`);
+        output = chalk.gray(`(${info.join("")})`);
         eleventy.logger.logger.reset();
       }
     } else {
