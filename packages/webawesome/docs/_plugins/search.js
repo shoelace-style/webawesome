@@ -1,4 +1,5 @@
 /* eslint-disable no-invalid-this */
+import { readFileSync } from 'fs';
 import { mkdir, writeFile } from 'fs/promises';
 import lunr from 'lunr';
 import { parse } from 'node-html-parser';
@@ -23,19 +24,22 @@ export function searchPlugin(options = {}) {
     ...options,
   };
 
+  // Hoist above so that it can "cache" properly for incremental builds.
   return function (eleventyConfig) {
-    const pagesToIndex = new Map();
+    let pagesToIndex = new Map();
 
     eleventyConfig.addPreprocessor('exclude-unlisted-from-search', '*', function (data, content) {
       if (data.unlisted) {
         // no-op
+        pagesToIndex.delete(data.page.inputPath);
       } else {
-        pagesToIndex.set(data.page.inputPath, {});
+        pagesToIndex.set(data.page.inputPath, true);
       }
 
       return content;
     });
 
+    // With incremental builds we need this to be last in case stuff was added from metadata. _BUT_ in incremental builds, not every page is added to the "transform".
     eleventyConfig.addTransform('search', function (content) {
       if (!pagesToIndex.has(this.page.inputPath)) {
         return content;
@@ -67,11 +71,30 @@ export function searchPlugin(options = {}) {
       return content;
     });
 
-    eleventyConfig.on('eleventy.after', ({ directories }) => {
+    eleventyConfig.on('eleventy.after', async ({ directories }) => {
       const { output } = directories;
       const outputFilename = path.resolve(join(output, 'search.json'));
+      const cachedPages = path.resolve(join(output, 'cached_pages.json'));
+
+      function getCachedPages() {
+        let content = { pages: [] };
+        try {
+          content = JSON.parse(readFileSync(cachedPages));
+        } catch (e) {}
+
+        const cachedPagesMap = new Map(content.pages);
+        for (const [key, value] of cachedPagesMap.entries()) {
+          // A page uses a cached value if `true` and it didnt get its value set in the "transform" hook. This is to get around the limitation of incremental builds not going over every file in transform.
+          if (pagesToIndex.get(key) === true) {
+            pagesToIndex.set(key, value);
+          }
+        }
+      }
+
       const map = [];
-      const searchIndex = lunr(async function () {
+
+      getCachedPages();
+      const searchIndex = lunr(function () {
         let index = 0;
 
         this.ref('id');
@@ -84,9 +107,11 @@ export function searchPlugin(options = {}) {
           map[index] = { title: page.title, description: page.description, url: page.url };
           index++;
         }
-        await mkdir(dirname(outputFilename), { recursive: true });
-        await writeFile(outputFilename, JSON.stringify({ searchIndex, map }), 'utf-8');
       });
+
+      await mkdir(dirname(outputFilename), { recursive: true });
+      await writeFile(outputFilename, JSON.stringify({ searchIndex, map }), 'utf-8');
+      await writeFile(cachedPages, JSON.stringify({ pages: [...pagesToIndex.entries()] }, null, 2));
     });
   };
 }

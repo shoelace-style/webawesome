@@ -90,6 +90,7 @@ Copy buttons can be disabled by adding the `disabled` attribute.
 
 A success indicator is briefly shown after copying. You can customize the length of time the indicator is shown using the `feedback-duration` attribute.
 
+
 ```html {.example}
 <wa-copy-button value="Web Awesome rocks!" feedback-duration="250"></wa-copy-button>
 ```

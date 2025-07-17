@@ -101,7 +101,10 @@ export default class WaButtonGroup extends WebAwesomeElement {
     return html`
       <slot
         part="base"
-        class=${classMap({ 'button-group': true, 'has-outlined': this.hasOutlined })}
+        class=${classMap({
+          'button-group': true,
+          'has-outlined': this.hasOutlined,
+        })}
         role="${this.disableRole ? 'presentation' : 'group'}"
         aria-label=${this.label}
         aria-orientation=${this.orientation}

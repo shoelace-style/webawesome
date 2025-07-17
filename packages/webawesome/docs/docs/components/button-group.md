@@ -55,7 +55,7 @@ it is rarely a good idea to mix sizes within the same button group.
 Set the `orientation` attribute to `vertical` to make a vertical button group.
 
 ```html {.example}
-<wa-button-group orientation="vertical" label="Options" style="max-width: 120px;">
+<wa-button-group orientation="vertical" label="Options">
   <wa-button>
     <wa-icon slot="start" name="plus"></wa-icon>
     New
