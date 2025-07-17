@@ -261,13 +261,10 @@ export default async function (eleventyConfig) {
   //   });
   // }
 
-  if (!isDev) {
+  // For a server build, we expect a server to run the second transform.
+  // For dev builds, we run the second transform in a middleware.
+  if (!isDev && !serverBuild) {
     eleventyConfig.addTransform('simulate-webawesome-app', function (content) {
-      // For a server build, we expect a server to run the second transform.
-      if (serverBuild) {
-        return content;
-      }
-
       // Only run the transform on files nunjucks would transform.
       if (!this.page.inputPath.match(/.(md|html|njk)$/)) {
         return content;

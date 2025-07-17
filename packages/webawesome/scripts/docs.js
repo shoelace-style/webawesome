@@ -72,13 +72,14 @@ export async function generateDocs(options = {}) {
   isDeveloping ??= process.argv.includes('--develop');
   isIncremental ??= isDeveloping && !process.argv.includes('--no-incremental');
 
-  let eleventy = globalThis.eleventy;
   /**
    * Used by the webawesome-app to skip doc generation since it will do its own.
    */
   if (process.env.SKIP_ELEVENTY === 'true') {
     return;
   }
+
+  let eleventy = globalThis.eleventy;
 
   spinner?.start?.('Writing the docs');
 
@@ -141,9 +142,9 @@ export async function generateDocs(options = {}) {
   } catch (error) {
     console.warn = originalWarn;
 
-    console.error('\n\n' + chalk.red(error) + '\n');
-
     spinner?.fail?.(chalk.red(`Error while writing the docs.`));
+
+    console.error('\n\n' + chalk.red(error) + '\n');
     if (!isDeveloping) {
       process.exit(1);
     }

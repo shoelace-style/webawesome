@@ -50,8 +50,6 @@ export async function build(options = {}) {
     options.watchedDocsDirectories = [getDocsDir()];
   }
 
-  function measureStep() {}
-
   /**
    * Runs the full build.
    */
@@ -378,11 +376,10 @@ export async function build(options = {}) {
       },
     );
 
-    // TODO: Should probably listen for all of these instead of just "change"
     const watchEvents = [
       'change',
-      // "unlink",
-      // "add"
+      "unlink",
+      "add"
     ];
     // Rebuild and reload when source files change
     options.watchedSrcDirectories.forEach(dir => {
@@ -393,7 +390,15 @@ export async function build(options = {}) {
       });
       function handleWatchEvent(evt) {
         return async filename => {
-          spinner.info(`File modified ${chalk.gray(`(${relative(getRootDir(), filename)})`)}`);
+          const changedFile = relative(getRootDir(), filename)
+
+          if (evt === "changed") {
+            spinner.info(`File modified ${chalk.gray(`(${changedFile})`)}`);
+          } else if (evt === "unlink") {
+            spinner.info(`File deleted ${chalk.gray(`(${changedFile})`)}`);
+          } else if (evt === "add") {
+            spinner.info(`File added ${chalk.gray(`(${changedFile})`)}`);
+          }
 
           try {
             const isTestFile = filename.includes('.test.ts');
