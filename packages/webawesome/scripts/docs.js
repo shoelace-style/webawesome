@@ -138,13 +138,22 @@ export async function generateDocs(options = {}) {
     if (!isDeveloping) {
       await copy(getCdnDir(), join(getSiteDir(), 'dist'));
     }
-    spinner?.succeed?.(`Writing the docs ${output}`);
+
+    if (spinner) {
+      spinner.succeed(`Writing the docs ${output}`);
+    } else {
+      console.log(`Writing the docs ${output}`);
+    }
+
   } catch (error) {
     console.warn = originalWarn;
 
-    spinner?.fail?.(chalk.red(`Error while writing the docs.`));
+    if (spinner) {
+      spinner.fail(chalk.red(`Error while writing the docs.`));
+    } else {
+      console.error(chalk.red(`Error while writing the docs.`));
+    }
 
-    console.error('\n\n' + chalk.red(error) + '\n');
     if (!isDeveloping) {
       process.exit(1);
     }

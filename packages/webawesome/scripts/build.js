@@ -121,6 +121,11 @@ export async function build(options = {}) {
    * Generates React wrappers for all components.
    */
   function generateReactWrappers() {
+    // Used by webawesome-app to make re-rendering not miserable with extra React file generation.
+    if (process.env.SKIP_SLOW_STEPS === "true") {
+      return Promise.resolve()
+    }
+
     spinner.start('Generating React wrappers');
 
     try {
@@ -155,6 +160,11 @@ export async function build(options = {}) {
    * Runs TypeScript to generate types.
    */
   async function generateTypes() {
+    // Used by webawesome-app to make re-rendering not miserable with extra TS compilations.
+    if (process.env.SKIP_SLOW_STEPS === "true") {
+      return Promise.resolve()
+    }
+
     spinner.start('Running the TypeScript compiler');
 
     const cwd = process.cwd();
