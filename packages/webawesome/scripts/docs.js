@@ -119,7 +119,7 @@ export async function generateDocs(options = {}) {
           return !line.includes('Watching');
         });
         const lastLine = info[info.length - 1];
-        output = chalk.gray(`(${info.join("")})`);
+        output = chalk.gray(`(${info.join('')})`);
         eleventy.logger.logger.reset();
       }
     } else {
@@ -144,7 +144,6 @@ export async function generateDocs(options = {}) {
     } else {
       console.log(`Writing the docs ${output}`);
     }
-
   } catch (error) {
     console.warn = originalWarn;
 

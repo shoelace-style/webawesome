@@ -122,8 +122,8 @@ export async function build(options = {}) {
    */
   function generateReactWrappers() {
     // Used by webawesome-app to make re-rendering not miserable with extra React file generation.
-    if (process.env.SKIP_SLOW_STEPS === "true") {
-      return Promise.resolve()
+    if (process.env.SKIP_SLOW_STEPS === 'true') {
+      return Promise.resolve();
     }
 
     spinner.start('Generating React wrappers');
@@ -161,8 +161,8 @@ export async function build(options = {}) {
    */
   async function generateTypes() {
     // Used by webawesome-app to make re-rendering not miserable with extra TS compilations.
-    if (process.env.SKIP_SLOW_STEPS === "true") {
-      return Promise.resolve()
+    if (process.env.SKIP_SLOW_STEPS === 'true') {
+      return Promise.resolve();
     }
 
     spinner.start('Running the TypeScript compiler');
@@ -386,11 +386,7 @@ export async function build(options = {}) {
       },
     );
 
-    const watchEvents = [
-      'change',
-      "unlink",
-      "add"
-    ];
+    const watchEvents = ['change', 'unlink', 'add'];
     // Rebuild and reload when source files change
     options.watchedSrcDirectories.forEach(dir => {
       const watcher = bs.watch(join(dir, '**', '!(*.test).*'));
@@ -400,13 +396,13 @@ export async function build(options = {}) {
       });
       function handleWatchEvent(evt) {
         return async filename => {
-          const changedFile = relative(getRootDir(), filename)
+          const changedFile = relative(getRootDir(), filename);
 
-          if (evt === "changed") {
+          if (evt === 'changed') {
             spinner.info(`File modified ${chalk.gray(`(${changedFile})`)}`);
-          } else if (evt === "unlink") {
+          } else if (evt === 'unlink') {
             spinner.info(`File deleted ${chalk.gray(`(${changedFile})`)}`);
-          } else if (evt === "add") {
+          } else if (evt === 'add') {
             spinner.info(`File added ${chalk.gray(`(${changedFile})`)}`);
           }
 
