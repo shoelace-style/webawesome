@@ -46,6 +46,18 @@ Font Awesome users can set their kit code to unlock Font Awesome Pro icons. You 
 
 ---
 
+{# This looks weird, but without it, markdownItAttrs flags the raw calls incorrectly. #}
+<div>
+{%- raw -%}
+  {% if currentUser.hasPro %}
+    <div>
+      {% include "server/pro-setup.njk" ignore missing %}
+    </div>
+  {% endif %}
+{% endraw %}
+</div>
+
+
 ## Advanced Setup
 
 The autoloader is the easiest way to use Web Awesome, but different projects (or your own preferences!) may require different installation methods.

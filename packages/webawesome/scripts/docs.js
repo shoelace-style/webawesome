@@ -147,6 +147,8 @@ export async function generateDocs(options = {}) {
   } catch (error) {
     console.warn = originalWarn;
 
+    console.error('\n\n' + chalk.red(error) + '\n');
+
     if (spinner) {
       spinner.fail(chalk.red(`Error while writing the docs.`));
     } else {
