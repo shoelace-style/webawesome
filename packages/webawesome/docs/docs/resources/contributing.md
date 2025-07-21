@@ -131,7 +131,7 @@ To link to a GitHub issue, PR, or discussion, use the following syntax.
 
 ### Frontmatter
 
-There's a number of frontmatter properties for doing different things in the Web Awesome documention.
+There's a number of frontmatter properties for doing different things in the Web Awesome documentation.
 
 For example, to only show a page in development, use the `unpublished: true` key / value pair.
 
@@ -363,7 +363,7 @@ Form controls should support submission and validation through the following con
 
 - Form Controls should extend from `WebAwesomeFormAssociatedElement`
 - All form controls must use `name`, `value`, and `disabled` properties in the same manner as `HTMLInputElement`
-- All form controls with the `disabled` property *NOT* reflect the `disabled` attribute.
+- All form controls with the `disabled` property _NOT_ reflect the `disabled` attribute.
 - All form controls must have an `invalid` property that reflects their validity
 - All form controls should mirror their native validation attributes such as `required`, `pattern`, `minlength`, `maxlength`, etc. when possible and use the `MirrorValidator`.
 - All form controls must be tested to work with the standard `<form>` element
