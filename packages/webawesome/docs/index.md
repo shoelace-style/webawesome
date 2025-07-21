@@ -350,7 +350,7 @@ layout: page
           <p>Get involved by opening issues, contributing to discussions, or creating PRs.</p>
         </div>
       </wa-button>
-      <wa-button href="https://discord.gg/a74U7eYH" rel="noopener noreferrer" target="_blank" appearance="filled" class="tile">
+      <wa-button href="https://discord.gg/mg8f26C" rel="noopener noreferrer" target="_blank" appearance="filled" class="tile">
         <div class="wa-stack">
           <div class="wa-split">
             <div class="wa-cluster icon-heading">
