@@ -115,7 +115,7 @@ Once they've been imported, you can use them in your HTML normally. Component im
 
 Some components rely on assets (icons, images, etc.) and Web Awesome needs to know where they're located. For convenience, Web Awesome will try to auto-detect the correct location based on the script you've loaded it from. This assumes assets are colocated with `webawesome.loader.js` and will "just work" for most users.
 
-==If you're using the CDN, you can skip this section.== However, if you're [cherry picking](#cherry-picking) or bundling Web Awesome, you'll need to set the base path. You can do this one of two ways.
+==If you're using the CDN, you can skip this section.== However, if you're [cherry picking](#cherry-picking-from-cdn) or bundling Web Awesome, you'll need to set the base path. You can do this one of two ways.
 
 ```html
 <!-- Option 1: the data-webawesome attribute -->
