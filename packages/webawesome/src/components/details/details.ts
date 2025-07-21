@@ -72,7 +72,7 @@ export default class WaDetails extends WebAwesomeElement {
   @property({ reflect: true }) appearance: 'filled' | 'outlined' | 'plain' = 'outlined';
 
   /** The position of the expand/collapse icon. */
-  @property({ reflect: true }) iconPosition: 'start' | 'end' = 'end';
+  @property({ attribute: 'icon-position', reflect: true }) iconPosition: 'start' | 'end' = 'end';
 
   firstUpdated() {
     this.body.style.height = this.open ? 'auto' : '0';
