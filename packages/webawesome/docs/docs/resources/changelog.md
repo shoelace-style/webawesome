@@ -12,6 +12,8 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 ### New Features {data-no-outline}
 
+- Added the `animating` custom state to `<wa-details>`
+
 ### Bug Fixes and Improvements {data-no-outline}
 
 - Fixed a bug in `<wa-details>` that caused the content to overflow the container when animating [issue:1149]

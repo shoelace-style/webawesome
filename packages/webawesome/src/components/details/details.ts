@@ -1,5 +1,7 @@
+import type { PropertyValues } from 'lit';
 import { html } from 'lit';
-import { customElement, property, query } from 'lit/decorators.js';
+import { customElement, property, query, state } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { WaAfterHideEvent } from '../../events/after-hide.js';
 import { WaAfterShowEvent } from '../../events/after-show.js';
 import { WaHideEvent } from '../../events/hide.js';
@@ -40,6 +42,8 @@ import styles from './details.css';
  * @cssproperty --spacing - The amount of space around and between the details' content. Expects a single value.
  * @cssproperty [--show-duration=200ms] - The show duration to use when applying built-in animation classes.
  * @cssproperty [--hide-duration=200ms] - The hide duration to use when applying built-in animation classes.
+ *
+ * @cssstate animating - Applied when the details is animating expand/collapse.
  */
 @customElement('wa-details')
 export default class WaDetails extends WebAwesomeElement {
@@ -52,6 +56,8 @@ export default class WaDetails extends WebAwesomeElement {
   @query('summary') header: HTMLElement;
   @query('.body') body: HTMLElement;
   @query('.expand-icon-slot') expandIconSlot: HTMLSlotElement;
+
+  @state() isAnimating = false;
 
   /**
    * Indicates whether or not the details is open. You can toggle this attribute to show and hide the details, or you
@@ -70,6 +76,11 @@ export default class WaDetails extends WebAwesomeElement {
 
   /** The element's visual appearance. */
   @property({ reflect: true }) appearance: 'filled' | 'outlined' | 'plain' = 'outlined';
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    this.detailsObserver?.disconnect();
+  }
 
   firstUpdated() {
     this.body.style.height = this.open ? 'auto' : '0';
@@ -91,9 +102,10 @@ export default class WaDetails extends WebAwesomeElement {
     this.detailsObserver.observe(this.details, { attributes: true });
   }
 
-  disconnectedCallback() {
-    super.disconnectedCallback();
-    this.detailsObserver?.disconnect();
+  updated(changedProperties: PropertyValues<this>) {
+    if (changedProperties.has('isAnimating')) {
+      this.customStates.set('animating', this.isAnimating);
+    }
   }
 
   private handleSummaryClick(event: MouseEvent) {
@@ -168,6 +180,7 @@ export default class WaDetails extends WebAwesomeElement {
       // Close other details with the same name
       this.closeOthersWithSameName();
 
+      this.isAnimating = true;
       const duration = parseDuration(getComputedStyle(this.body).getPropertyValue('--show-duration'));
       // We can't animate to 'auto', so use the scroll height for now
       await animate(
@@ -182,6 +195,7 @@ export default class WaDetails extends WebAwesomeElement {
         },
       );
       this.body.style.height = 'auto';
+      this.isAnimating = false;
 
       this.dispatchEvent(new WaAfterShowEvent());
     } else {
@@ -194,6 +208,7 @@ export default class WaDetails extends WebAwesomeElement {
         return;
       }
 
+      this.isAnimating = true;
       const duration = parseDuration(getComputedStyle(this.body).getPropertyValue('--hide-duration'));
       // We can't animate from 'auto', so use the scroll height for now
       await animate(
@@ -205,7 +220,7 @@ export default class WaDetails extends WebAwesomeElement {
         { duration, easing: 'linear' },
       );
       this.body.style.height = 'auto';
-
+      this.isAnimating = false;
       this.details.open = false;
       this.dispatchEvent(new WaAfterHideEvent());
     }
@@ -268,7 +283,14 @@ export default class WaDetails extends WebAwesomeElement {
           </span>
         </summary>
 
-        <div class="body" role="region" aria-labelledby="header">
+        <div
+          class=${classMap({
+            body: true,
+            animating: this.isAnimating,
+          })}
+          role="region"
+          aria-labelledby="header"
+        >
           <slot part="content" id="content" class="content"></slot>
         </div>
       </details>

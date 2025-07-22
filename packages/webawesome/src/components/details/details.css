@@ -122,7 +122,7 @@ details {
   display: none;
 }
 
-.body {
+.body.animating {
   overflow: hidden;
 }
 
