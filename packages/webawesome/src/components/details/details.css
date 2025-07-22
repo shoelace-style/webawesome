@@ -122,8 +122,7 @@ details {
   display: none;
 }
 
-/* Overflows get clipped during the closing animation if we don't wait until the close is gone. */
-:host(:not([open])) .body {
+.body {
   overflow: hidden;
 }
 
@@ -132,11 +131,4 @@ details {
   padding-block-start: var(--spacing);
   padding-inline: var(--spacing); /* Add horizontal padding */
   padding-block-end: var(--spacing); /* Add bottom padding */
-}
-
-@keyframes show {
-  from {
-  }
-  to {
-  }
 }
