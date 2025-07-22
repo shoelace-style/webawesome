@@ -81,6 +81,7 @@ details {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: var(--spacing);
   user-select: none;
   -webkit-user-select: none;
   cursor: pointer;
@@ -99,6 +100,12 @@ details {
     outline: var(--wa-focus-ring);
     outline-offset: calc(var(--spacing) + var(--wa-focus-ring-offset));
   }
+}
+
+/* 'Start' icon position */
+:host([icon-position='start']) summary {
+  flex-direction: row-reverse;
+  justify-content: start;
 }
 
 [part~='icon'] {
