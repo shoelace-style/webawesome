@@ -218,9 +218,7 @@ export default class WaDrawer extends WebAwesomeElement {
   }
 
   render() {
-    const hasHeader =
-      !this.withoutHeader &&
-      (this.label.length > 0 || this.hasSlotController.test('label') || this.hasSlotController.test('header-actions'));
+    const hasHeader = !this.withoutHeader;
     const hasFooter = this.hasSlotController.test('footer');
 
     return html`

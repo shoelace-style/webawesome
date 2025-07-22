@@ -8,6 +8,14 @@ Web Awesome follows [Semantic Versioning](https://semver.org/). Breaking changes
 
 Components with the <wa-badge variant="warning">Experimental</wa-badge> badge should not be used in production. They are made available as release candidates for development and testing purposes. As such, changes to experimental components will not be subject to semantic versioning.
 
+## Next
+
+### New Features {data-no-outline}
+
+### Bug Fixes and Improvements {data-no-outline}
+
+- Fixed a bug in `<wa-dialog>` and `<wa-drawer>` that prevented the header from showing when the label was missing [issue:1209]
+
 ## 3.0.0-beta.3
 
 ### New Features {data-no-outline}
