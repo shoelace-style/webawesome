@@ -398,7 +398,8 @@ export async function build(options = {}) {
         return async filename => {
           const changedFile = relative(getRootDir(), filename);
 
-          if (evt === 'changed') {
+          console.log({ changedFile })
+          if (evt === 'change') {
             spinner.info(`File modified ${chalk.gray(`(${changedFile})`)}`);
           } else if (evt === 'unlink') {
             spinner.info(`File deleted ${chalk.gray(`(${changedFile})`)}`);
@@ -470,7 +471,7 @@ export async function build(options = {}) {
           }
           await generateDocs({ spinner });
 
-          if (typeof options.beforeWatchEvent === 'function') {
+          if (typeof options.afterWatchEvent === 'function') {
             await options.afterWatchEvent(evt, filename);
           }
           reload();

@@ -229,9 +229,12 @@ export default async function (eleventyConfig) {
   //   eleventyConfig.addPlugin(formatCodePlugin());
   // }
 
-  let assetsDir = path.join(process.env.BASE_DIR || 'docs', 'assets');
-  const siteAssetsDir = path.join(eleventyConfig.directories.output, 'assets');
-  fs.cpSync(assetsDir, siteAssetsDir, { recursive: true });
+  // This needs to happen in "eleventy.after" otherwise incremental builds never update.
+  eleventyConfig.on("eleventy.after", function () {
+    let assetsDir = path.join(process.env.BASE_DIR || 'docs', 'assets');
+    const siteAssetsDir = path.join(eleventyConfig.directories.output, 'assets');
+    fs.cpSync(assetsDir, siteAssetsDir, { recursive: true });
+  })
 
   for (let glob of passThrough) {
     eleventyConfig.addPassthroughCopy(glob);
