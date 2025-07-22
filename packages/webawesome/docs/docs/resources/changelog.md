@@ -181,7 +181,7 @@ Many of these changes and improvements were the direct result of feedback from u
 
 ### Bug fixes {data-no-outline}
 
-- Specifying inherited CSS properties on `<wa-tooltip>` now works as expected ([thanks Dennis!](https://github.com/shoelace-style/webawesome-alpha/discussions/203))
+- Specifying inherited CSS properties on `<wa-tooltip>` now works as expected
 - Fixed a bug in `<wa-select>` that made it hard to use with VueJS, Svelte, and many other frameworks
 - Fixed a bug in `<wa-select multiple>` that sometimes resulted in empty `<div>` elements being output
 - Fixed a bug where changing a `<wa-option>` label wouldn't update the display label in `<wa-select>`
@@ -401,4 +401,4 @@ Many of these changes and improvements were the direct result of feedback from u
 
 </details>
 
-Did we miss something? [Let us know!](https://github.com/shoelace-style/webawesome-alpha/discussions)
+Did we miss something? [Let us know!](https://github.com/shoelace-style/webawesome/discussions)

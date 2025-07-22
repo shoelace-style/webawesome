@@ -859,7 +859,6 @@ describe('<wa-select>', () => {
         });
       });
 
-      // https://github.com/shoelace-style/webawesome-alpha/issues/263
       it('should allow interaction after being disabled and re-enabled', async () => {
         const el = await fixture<WaSelect>(html`
           <wa-select label="Select one">
