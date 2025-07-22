@@ -398,7 +398,6 @@ export async function build(options = {}) {
         return async filename => {
           const changedFile = relative(getRootDir(), filename);
 
-          console.log({ changedFile });
           if (evt === 'change') {
             spinner.info(`File modified ${chalk.gray(`(${changedFile})`)}`);
           } else if (evt === 'unlink') {
