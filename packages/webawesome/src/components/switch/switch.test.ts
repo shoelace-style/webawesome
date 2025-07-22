@@ -329,7 +329,6 @@ describe('<wa-switch>', () => {
         expect(window.scrollY).to.equal(0);
       });
 
-      // https://github.com/shoelace-style/webawesome-alpha/discussions/124
       it('Should properly flag changes to checked and reflect', async () => {
         const el = await fixture<WaSwitch>(html`<wa-switch></wa-switch>`);
         await el.updateComplete;
