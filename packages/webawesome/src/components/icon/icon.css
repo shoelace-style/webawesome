@@ -5,9 +5,10 @@
   --secondary-opacity: 0.4;
 
   display: inline-flex;
+  justify-content: center;
   box-sizing: content-box !important;
   width: auto;
-  height: 1em;
+  height: 1.25em;
 }
 
 svg {
@@ -15,6 +16,8 @@ svg {
   width: auto;
   height: inherit;
   fill: currentColor;
+  /* This prevents cropped SVGs from being cut off */
+  overflow: visible;
 
   .fa-primary {
     color: var(--primary-color);
@@ -27,7 +30,6 @@ svg {
   }
 }
 
-:host([fixed-width]) {
-  width: 1em;
-  justify-content: center;
+:host([auto-width]) {
+  height: 1em;
 }
