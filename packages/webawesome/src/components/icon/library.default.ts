@@ -52,7 +52,7 @@ function getIconUrl(name: string, family: string, variant: string, autoWidth: bo
 
 const library: IconLibrary = {
   name: 'default',
-  resolver: (name: string, family = 'classic', variant = 'solid', autoWidth = 'false') => {
+  resolver: (name: string, family = 'classic', variant = 'solid', autoWidth = false) => {
     return getIconUrl(name, family, variant, autoWidth);
   },
 };
