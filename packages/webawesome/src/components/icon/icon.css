@@ -8,10 +8,15 @@
   justify-content: center;
   box-sizing: content-box !important;
   width: auto;
-  height: 1.25em;
+  height: 1em;
 }
 
 svg {
+  --fa-primary-color: var(--primary-color);
+  --fa-primary-opacity: var(--primary-opacity);
+  --fa-secondary-color: var(--secondary-color);
+  --fa-secondary-opacity: var(--secondary-opacity);
+  
   display: inline-block;
   width: auto;
   height: inherit;
@@ -19,17 +24,15 @@ svg {
   /* This prevents cropped SVGs from being cut off */
   overflow: visible;
 
-  .fa-primary {
-    color: var(--primary-color);
-    opacity: var(--primary-opacity);
+  :host([swap-opacity]) & {
+    --fa-primary-color: var(--secondary-color);
+    --fa-primary-opacity: var(--secondary-opacity);
+    --fa-secondary-color: var(--primary-color);
+    --fa-secondary-opacity: var(--primary-opacity);
   }
 
-  .fa-secondary {
-    color: var(--secondary-color);
-    opacity: var(--secondary-opacity);
+  path {
+    /* This should work well with the updated icon canvas in FA 7 */
+    scale: 1.25;
   }
-}
-
-:host([auto-width]) {
-  height: 1em;
 }
