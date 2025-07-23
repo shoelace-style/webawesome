@@ -81,6 +81,7 @@ details {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: var(--spacing);
   user-select: none;
   -webkit-user-select: none;
   cursor: pointer;
@@ -99,6 +100,12 @@ details {
     outline: var(--wa-focus-ring);
     outline-offset: calc(var(--spacing) + var(--wa-focus-ring-offset));
   }
+}
+
+/* 'Start' icon position */
+:host([icon-position='start']) summary {
+  flex-direction: row-reverse;
+  justify-content: start;
 }
 
 [part~='icon'] {
@@ -122,8 +129,7 @@ details {
   display: none;
 }
 
-/* Overflows get clipped during the closing animation if we don't wait until the close is gone. */
-:host(:not([open])) .body {
+.body.animating {
   overflow: hidden;
 }
 
@@ -132,11 +138,4 @@ details {
   padding-block-start: var(--spacing);
   padding-inline: var(--spacing); /* Add horizontal padding */
   padding-block-end: var(--spacing); /* Add bottom padding */
-}
-
-@keyframes show {
-  from {
-  }
-  to {
-  }
 }
