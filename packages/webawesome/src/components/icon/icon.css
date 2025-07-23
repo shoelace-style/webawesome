@@ -25,9 +25,7 @@ svg {
   overflow: visible;
 
   :host([swap-opacity]) & {
-    --fa-primary-color: var(--secondary-color);
     --fa-primary-opacity: var(--secondary-opacity);
-    --fa-secondary-color: var(--primary-color);
     --fa-secondary-opacity: var(--primary-opacity);
   }
 
