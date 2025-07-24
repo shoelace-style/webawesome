@@ -1,4 +1,4 @@
-import type { IconLibrary } from "./library.js";
+import type { IconLibrary } from './library.js';
 
 function dataUri(svg: string) {
   return `data:image/svg+xml,${encodeURIComponent(svg)}`;
@@ -43,18 +43,18 @@ export const icons: { [key: string]: { [key: string]: string } } = {
 // default library.
 //
 const systemLibrary: IconLibrary = {
-  name: "system",
-  resolver: (name: string, _family = "classic", variant = "solid") => {
+  name: 'system',
+  resolver: (name: string, _family = 'classic', variant = 'solid') => {
     let collection = icons[variant];
 
     // Fall back to a question mark if the icon is missing
-    let svg = collection[name] ?? icons.regular[name] ?? icons.regular["circle-question"];
+    let svg = collection[name] ?? icons.regular[name] ?? icons.regular['circle-question'];
 
     if (svg) {
       return dataUri(svg);
     }
 
-    return "";
+    return '';
   },
 };
 
