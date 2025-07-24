@@ -6,26 +6,33 @@ wide: true
 ---
 
 <style>
-  p {
-    max-width: 90ch;
-  }
-  tbody {
-    & .wa-grid {
-      --min-column-size: 5ch;
+  #content {
+    p {
+      max-width: 90ch;
     }
-    & tr th:first-of-type {
-      width: 20ch;
+
+    tbody {
+      & .wa-grid {
+        --min-column-size: 5ch;
+      }
+
+      & tr th:first-of-type {
+        width: 20ch;
+      }
+
+      & th {
+        vertical-align: middle;
+      }
+
+      & tr:hover {
+        background-color: color-mix(in oklch, var(--wa-color-fill-quiet), transparent 60%)
+      }
     }
-    & th {
-      vertical-align: middle;
+
+    wa-divider {
+      --width: var(--wa-border-width-m);
+      --spacing: var(--wa-space-3xl);
     }
-    & tr:hover {
-      background-color: color-mix(in oklch, var(--wa-color-fill-quiet), transparent 60%)
-    }
-  }
-  wa-divider {
-    --width: var(--wa-border-width-m);
-    --spacing: var(--wa-space-3xl);
   }
 </style>
 
