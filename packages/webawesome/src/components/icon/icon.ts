@@ -67,7 +67,7 @@ export default class WaIcon extends WebAwesomeElement {
   @property({ attribute: 'auto-width', type: Boolean, reflect: true }) autoWidth: false;
 
   /** Swaps the opacity of duotone icons. */
-  @property({ attribute: "swap-opacity", type: Boolean, reflect: true }) swapOpacity = false;
+  @property({ attribute: 'swap-opacity', type: Boolean, reflect: true }) swapOpacity = false;
 
   /**
    * An external URL of an SVG file. Be sure you trust the content you are including, as it will be executed as code and
