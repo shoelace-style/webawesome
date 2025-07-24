@@ -32,5 +32,7 @@ svg {
   :host(:not([auto-width])) path {
     /* This should work well with the updated icon canvas in FA 7 */
     scale: 1.25;
+    /* This centres the SVG paths within the SVG */
+    transform-origin: center;
   }
 }
