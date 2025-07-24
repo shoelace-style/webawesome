@@ -16,7 +16,7 @@ svg {
   --fa-primary-opacity: var(--primary-opacity);
   --fa-secondary-color: var(--secondary-color);
   --fa-secondary-opacity: var(--secondary-opacity);
-  
+
   display: inline-block;
   width: auto;
   height: inherit;
