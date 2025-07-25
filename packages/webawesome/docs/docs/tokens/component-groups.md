@@ -2,6 +2,7 @@
 title: Component Groups
 description: Style groups of components that share similar qualities with these Web Awesome custom properties.
 order: 9999
+layout: page-outline
 ---
 
 For components that share similar qualities, Web Awesome includes custom properties to change the appearance of these related components all at once.
@@ -84,16 +85,19 @@ Panels consist of components with larger, contained surface areas like [callout]
 
 ## Tooltips
 
-Tooltip styles are shared between the [tooltip](/docs/components/tooltip) component and the tooltip implementation in [range](/docs/components/range).
+Tooltip styles are shared between the [tooltip](/docs/components/tooltip) component and the tooltips in [slider](/docs/components/slider) and [copy button](/docs/components/copy-button).
 
-| Custom Property              | Default Value                       |
-| ---------------------------- | ----------------------------------- |
-| `--wa-tooltip-arrow-size`    | `0.375rem` <small>(6px)</small>     |
-| `--wa-tooltip-background-color`    | `var(--wa-color-neutral-fill-loud)` |
-| `--wa-tooltip-border-radius` | `var(--wa-border-radius-m)`         |
-| `--wa-tooltip-content-color` | `var(--wa-color-neutral-on-loud)`   |
-| `--wa-tooltip-font-size`     | `var(--wa-font-size-s)`             |
-| `--wa-tooltip-line-height`   | `var(--wa-line-height-normal)`      |
+| Custom Property                 | Default Value                        |
+| ------------------------------- | ------------------------------------ |
+| `--wa-tooltip-arrow-size`       | `0.375rem` <small>(6px)</small>      |
+| `--wa-tooltip-background-color` | `var(--wa-color-neutral-fill-loud)`  |
+| `--wa-tooltip-border-color`     | `var(--wa-tooltip-background-color)` |
+| `--wa-tooltip-border-style`     | `var(--wa-border-style)`             |
+| `--wa-tooltip-border-width`     | `var(--wa-border-width-s)`           |
+| `--wa-tooltip-border-radius`    | `var(--wa-border-radius-s)`          |
+| `--wa-tooltip-content-color`    | `var(--wa-color-neutral-on-loud)`    |
+| `--wa-tooltip-font-size`        | `var(--wa-font-size-s)`              |
+| `--wa-tooltip-line-height`      | `var(--wa-line-height-normal)`       |
 
 ```html {.example}
 <wa-button id="bullseye-example" appearance="plain">

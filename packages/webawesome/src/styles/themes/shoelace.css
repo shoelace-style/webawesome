@@ -350,6 +350,9 @@
 
     --wa-tooltip-background-color: var(--wa-color-text-normal);
 
+    --wa-tooltip-border-color: var(--wa-tooltip-background-color);
+    --wa-tooltip-border-style: var(--wa-border-style);
+    --wa-tooltip-border-width: var(--wa-border-width-s);
     --wa-tooltip-border-radius: var(--wa-border-radius-s);
 
     --wa-tooltip-content-color: var(--wa-color-surface-default);

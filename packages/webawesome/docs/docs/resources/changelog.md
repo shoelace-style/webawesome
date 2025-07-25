@@ -14,13 +14,11 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 - Added the `icon-position` attribute to `<wa-details>` [discuss:1099]
 - Added the `animating` custom state to `<wa-details>`
+- Added `--wa-tooltip-border-color`, `--wa-tooltip-border-style`, and `--wa-tooltip-border-width` tokens [issue:1224]
 
 ### Bug Fixes and Improvements {data-no-outline}
 
 - Fixed a bug in `<wa-details>` that caused the content to overflow the container when animating [issue:1149]
-
-### Bug Fixes and Improvements {data-no-outline}
-
 - Fixed a bug in `<wa-dialog>` and `<wa-drawer>` that prevented the header from showing when the label was missing [issue:1209]
 
 ## 3.0.0-beta.3
