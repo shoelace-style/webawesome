@@ -50,7 +50,7 @@
   -webkit-user-select: none;
 }
 
-.tooltip::part(popup__arrow) {
+.tooltip::part(arrow) {
   border-bottom: var(--wa-tooltip-border-width) var(--wa-tooltip-border-style) var(--wa-tooltip-border-color);
   border-right: var(--wa-tooltip-border-width) var(--wa-tooltip-border-style) var(--wa-tooltip-border-color);
 }
