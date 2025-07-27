@@ -29,7 +29,9 @@
   transition-timing-function: var(--wa-transition-easing);
   background-color: var(--wa-form-control-background-color);
   box-shadow: var(--box-shadow);
-  padding: 0 var(--wa-form-control-padding-inline);
+  &:not(:has(input[type="file"])) {
+    padding: 0 var(--wa-form-control-padding-inline);
+  }
 
   &:focus-within {
     outline: var(--wa-focus-ring);
@@ -102,6 +104,13 @@ input {
     }
   }
 
+  &::file-selector-button {
+      height: 100%;
+      margin-inline-end: var(--wa-form-control-padding-inline);
+      box-sizing: border-box;
+      font: inherit;
+    } 
+  
   &::placeholder {
     color: var(--wa-form-control-placeholder-color);
     user-select: none;

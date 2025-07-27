@@ -519,7 +519,6 @@
             [type='button'],
             [type='checkbox'],
             [type='color'],
-            [type='file'],
             [type='hidden'],
             [type='image'],
             [type='radio'],
@@ -860,7 +859,6 @@
     [type='button'],
     [type='checkbox'],
     [type='color'],
-    [type='file'],
     [type='hidden'],
     [type='image'],
     [type='radio'],
@@ -898,6 +896,14 @@
 
       user-select: none;
       -webkit-user-select: none;
+    }
+
+    &::file-selector-button {
+      height: 100%;
+      margin-inline-start: calc(-1 * var(--wa-form-control-padding-inline));
+      margin-inline-end: var(--wa-form-control-padding-inline);
+      box-sizing: border-box;
+      font: inherit;
     }
 
     &:focus {

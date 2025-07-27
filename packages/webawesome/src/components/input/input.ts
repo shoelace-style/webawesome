@@ -75,6 +75,7 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
     | 'date'
     | 'datetime-local'
     | 'email'
+    | 'file'
     | 'number'
     | 'password'
     | 'search'
@@ -204,7 +205,7 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
    * Tells the browser what type of data will be entered by the user, allowing it to display the appropriate virtual
    * keyboard on supportive devices.
    */
-  @property() inputmode: 'none' | 'text' | 'decimal' | 'numeric' | 'tel' | 'search' | 'email' | 'url';
+  @property() inputmode: 'none' | 'text' | 'decimal' | 'numeric' | 'tel' | 'search' | 'email' | 'url' | 'file';
 
   /**
    * Used for SSR. Will determine if the SSRed component will have the label slot rendered on initial paint.
