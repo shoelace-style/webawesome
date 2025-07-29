@@ -18,13 +18,12 @@
   "engines": {
     "node": ">=14.17.0"
   },
-  "dependencies": {},
   "devDependencies": {
     "@11ty/eleventy": "3.0.0",
     "@custom-elements-manifest/analyzer": "^0.10.4",
     "@lit-labs/eleventy-plugin-lit": "^1.0.3",
     "@lit-labs/testing": "^0.2.5",
-    "@lit/react": "^1.0.6",
+    "@lit/react": "^1.0.8",
     "@open-wc/testing": "^3.2.0",
     "@types/mocha": "^10.0.10",
     "@types/react": "^18.2.28",
@@ -87,4 +86,3 @@
     ]
   }
 }
-

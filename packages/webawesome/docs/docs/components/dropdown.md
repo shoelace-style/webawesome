@@ -273,10 +273,10 @@ The distance from the panel to the trigger can be customized using the `distance
 
 ### Offset
 
-The offset of the panel along the trigger can be customized using the `offset` attribute. This value is specified in pixels.
+The offset of the panel along the trigger can be customized using the `skidding` attribute. This value is specified in pixels.
 
 ```html {.example}
-<wa-dropdown offset="30">
+<wa-dropdown skidding="30">
   <wa-button slot="trigger" with-caret>Edit</wa-button>
 
   <wa-dropdown-item>Cut</wa-dropdown-item>
