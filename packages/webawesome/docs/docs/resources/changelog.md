@@ -13,8 +13,9 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 ### New Features {data-no-outline}
 
 - Added the `icon-position` attribute to `<wa-details>` [discuss:1099]
-- Added the `animating` custom state to `<wa-details>`
+- Added the `animating` custom state to `<wa-details>` [pr:1214]
 - Added `--wa-tooltip-border-color`, `--wa-tooltip-border-style`, and `--wa-tooltip-border-width` tokens [issue:1224]
+- Added the `without-arrow` attribute to `<wa-popover>` and `<wa-tooltip>` to hide arrows without artifacts
 
 ### Bug Fixes and Improvements {data-no-outline}
 

@@ -85,6 +85,9 @@ export default class WaPopover extends WebAwesomeElement {
   /** The ID of the popover's anchor element. This must be an interactive/focusable element such as a button. */
   @property() for: string | null = null;
 
+  /** Removes the arrow from the popover. */
+  @property({ attribute: 'without-arrow', type: Boolean, reflect: true }) withoutArrow = false;
+
   private eventController = new AbortController();
 
   connectedCallback() {
@@ -300,7 +303,7 @@ export default class WaPopover extends WebAwesomeElement {
           skidding=${this.skidding}
           flip
           shift
-          arrow
+          ?arrow=${!this.withoutArrow}
           .anchor=${this.anchor}
         >
           <div part="body" class="body" @click=${this.handleBodyClick}>
