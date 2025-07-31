@@ -86,5 +86,8 @@
     "*.{ts,js}": [
       "prettier --write"
     ]
+  },
+  "devDependencies": {
+    "@wc-toolkit/jsx-types": "^1.3.0"
   }
 }

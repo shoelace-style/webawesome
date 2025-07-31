@@ -22,6 +22,7 @@ To get everything included in Web Awesome, add the following code to the `<head>
 ```
 
 This snippet adds:
+
 - **Web Awesome styles**, a collection of stylesheets including essential default theme styles, optional [styles for native elements](/docs/utilities/native) and optional [utility classes](/docs/utilities)
 - **The autoloader**, a lightweight script watches the DOM for unregistered Web Awesome elements and lazy loads them for you — even if they're added dynamically
 
@@ -47,6 +48,7 @@ Font Awesome users can set their kit code to unlock Font Awesome Pro icons. You 
 ---
 
 {# This looks weird, but without it, markdownItAttrs flags the raw calls incorrectly. #}
+
 <div>
 {%- raw -%}
   {% if currentUser.hasPro %}
@@ -56,7 +58,6 @@ Font Awesome users can set their kit code to unlock Font Awesome Pro icons. You 
   {% endif %}
 {% endraw %}
 </div>
-
 
 ## Advanced Setup
 
@@ -98,15 +99,15 @@ Web Awesome does not a provide a single import with all Web Awesome components. 
 
 ```js
 // Option 1: import all Web Awesome styles
-import "@awesome.me/webawesome/dist/styles/webawesome.css"
+import '@awesome.me/webawesome/dist/styles/webawesome.css';
 
 // Option 2: import only the default theme
-import "@awesome.me/webawesome/dist/styles/themes/default.css"
+import '@awesome.me/webawesome/dist/styles/themes/default.css';
 
 // <wa-button>
-import "@awesome.me/webawesome/dist/components/button/button.js"
+import '@awesome.me/webawesome/dist/components/button/button.js';
 // <wa-input>
-import "@awesome.me/webawesome/dist/components/input/input.js"
+import '@awesome.me/webawesome/dist/components/input/input.js';
 ```
 
 Once they've been imported, you can use them in your HTML normally. Component imports are located in the "Importing" section of each component's documentation.
@@ -148,13 +149,63 @@ Most of the magic behind assets is handled internally by Web Awesome, but if you
 </script>
 ```
 
-## The difference between `/dist` and `/dist-cdn`
+### The Difference Between `/dist` & `/dist-cdn`
 
-If you have Web Awesome installed locally via NPM, you'll notice 2 directories. `/dist-cdn` and `/cdn`.
+If you have Web Awesome installed locally via npm, you'll notice the following directories in the project's root:
 
-The `/dist-cdn` files are bundled differently than the `/dist` files. The `/dist-cdn` files come pre-bundled, which means all dependencies are "inlined" so there are no "bare" references like `import "lit"`. The `/dist` files **DO NOT** come pre-bundled, allowing your bundler of choice to more efficiently de-duplicate dependencies, resulting in smaller bundles and optimal code sharing.
+```
+dist/
+dist-cdn/
+```
 
-TLDR:
+The `dist-cdn` files come with everything bundled together, so you can use them directly without a build tool. The dist files keep dependencies separate, which lets your bundler optimize and share code more efficiently.
 
-- `@awesome.me/webawesome/dist-cdn` is for CDNs or people not using a bundler.
-- `@awesome.me/webawesome/dist` is for bundlers or importmaps.
+Use `dist-cdn` if you're loading directly in the browser or from a CDN. Use `dist` if you're using a bundler like Webpack or Vite.
+
+## React Users
+
+React 19+ [supports custom elements](https://react.dev/blog/2024/04/25/react-19#support-for-custom-elements), so you can import them and use them as you'd expect. Just make sure you've included your Web Awesome theme into your app first.
+
+```jsx
+import '@awesome.me/webawesome/dist/components/button/button.js';
+
+function App() {
+  return <wa-button variant="brand">Button</wa-button>;
+}
+
+export default App;
+```
+
+If you're using TypeScript, you can add type safety using the types file located at:
+
+```
+node_modules/@awesome.me/webawesome/dist/custom-elements-jsx.d.ts
+```
+
+This gives you inline documentation, autocomplete, and type-safe validation for every component. You can add the types to your project by updating your `tsconfig.json` file as shown below.
+
+```json
+{
+  "compilerOptions": {
+    "types": ["node-modules/@awesome.me/webawesome/dist/custom-elements-jsx.d.ts"]
+  }
+}
+```
+
+Another way is to create a declaration file and extend JSX's `IntrinsicElements`:
+
+```ts
+import type { CustomElements, CustomCssProperties } from '@awesome.me/webawesome/dist/custom-elements-jsx.d.ts';
+
+declare module 'react' {
+  namespace JSX {
+    interface IntrinsicElements extends CustomElements {}
+  }
+  interface CSSProperties extends CustomCssProperties {}
+}
+```
+
+:::details React 18 and below
+React 18 and below have [poor support](https://custom-elements-everywhere.com/#react) for custom elements. For legacy versions of React, we provide React wrappers for every component. You can find the import instructions by selecting the _React_ tab from the _Importing_ section of each
+component's documentation.
+:::
