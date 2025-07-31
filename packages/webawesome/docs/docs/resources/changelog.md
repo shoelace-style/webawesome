@@ -16,6 +16,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Added the `animating` custom state to `<wa-details>` [pr:1214]
 - Added `--wa-tooltip-border-color`, `--wa-tooltip-border-style`, and `--wa-tooltip-border-width` tokens [issue:1224]
 - Added the `without-arrow` attribute to `<wa-popover>` and `<wa-tooltip>` to hide arrows without artifacts
+- Added JSX types for use with React and others [pr:1256]
 
 ### Bug Fixes and Improvements {data-no-outline}
 
