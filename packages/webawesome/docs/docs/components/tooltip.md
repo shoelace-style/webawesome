@@ -113,11 +113,11 @@ Tooltips can be controller programmatically by setting the `trigger` attribute t
 
 ### Removing Arrows
 
-You can control the size of tooltip arrows by overriding the `--wa-tooltip-arrow-size` design token. To remove them, set the value to `0` as shown below.
+You can control the size of tooltip arrows by overriding the `--wa-tooltip-arrow-size` design token. To remove the arrow, use the `without-arrow` attribute.
 
 ```html {.example}
 <wa-button id="no-arrow">No Arrow</wa-button>
-<wa-tooltip for="no-arrow" style="--wa-tooltip-arrow-size: 0;">This is a tooltip with no arrow</wa-tooltip>
+<wa-tooltip for="no-arrow" without-arrow>This is a tooltip with no arrow</wa-tooltip>
 ```
 
 To override it globally, set it in a root block in your stylesheet after the Web Awesome stylesheet is loaded.

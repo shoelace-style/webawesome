@@ -91,7 +91,7 @@ Use the `distance` attribute to control how far the popover appears from its anc
 
 ### Arrow Size
 
-Use the `--arrow-size` custom property to change the size of the popover's arrow. Set it to `0` to remove the arrow entirely.
+Use the `--arrow-size` custom property to change the size of the popover's arrow. To remove it, use the `without-arrow` attribute.
 
 ```html {.example}
 <div style="display: flex; gap: 1rem; align-items: center;">
@@ -99,7 +99,7 @@ Use the `--arrow-size` custom property to change the size of the popover's arrow
   <wa-popover for="popover__big-arrow" style="--arrow-size: 8px;">I have a big arrow</wa-popover>
 
   <wa-button id="popover__no-arrow">No arrow</wa-button>
-  <wa-popover for="popover__no-arrow" style="--arrow-size: 0;">I don't have an arrow</wa-popover>
+  <wa-popover for="popover__no-arrow" without-arrow>I don't have an arrow</wa-popover>
 </div>
 ```
 

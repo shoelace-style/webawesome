@@ -89,6 +89,9 @@ export default class WaTooltip extends WebAwesomeElement {
    */
   @property() trigger = 'hover focus';
 
+  /** Removes the arrow from the tooltip. */
+  @property({ attribute: 'without-arrow', type: Boolean, reflect: true }) withoutArrow = false;
+
   @property() for: string | null = null;
 
   @state() anchor: null | Element = null;
@@ -332,7 +335,7 @@ export default class WaTooltip extends WebAwesomeElement {
         skidding=${this.skidding}
         flip
         shift
-        arrow
+        ?arrow=${!this.withoutArrow}
         hover-bridge
         .anchor=${this.anchor}
       >

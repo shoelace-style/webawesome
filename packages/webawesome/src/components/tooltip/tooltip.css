@@ -44,7 +44,13 @@
   max-width: var(--max-width);
   border-radius: var(--wa-tooltip-border-radius);
   background-color: var(--wa-tooltip-background-color);
+  border: var(--wa-tooltip-border-width) var(--wa-tooltip-border-style) var(--wa-tooltip-border-color);
   padding: 0.25em 0.5em;
   user-select: none;
   -webkit-user-select: none;
+}
+
+.tooltip::part(arrow) {
+  border-bottom: var(--wa-tooltip-border-width) var(--wa-tooltip-border-style) var(--wa-tooltip-border-color);
+  border-right: var(--wa-tooltip-border-width) var(--wa-tooltip-border-style) var(--wa-tooltip-border-color);
 }

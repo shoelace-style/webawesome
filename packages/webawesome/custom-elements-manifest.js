@@ -1,3 +1,4 @@
+import { jsxTypesPlugin } from '@wc-toolkit/jsx-types';
 import { customElementJetBrainsPlugin } from 'custom-element-jet-brains-integration';
 import { customElementVsCodePlugin } from 'custom-element-vs-code-integration';
 // import { customElementVuejsPlugin } from 'custom-element-vuejs-integration';
@@ -164,6 +165,7 @@ export default {
       ],
     }),
 
+    // Generate custom JetBrains data
     customElementJetBrainsPlugin({
       outdir: './dist-cdn',
       excludeCss: true,
@@ -174,6 +176,12 @@ export default {
           url: `https://webawesome.com/docs/components/${tag.replace('wa-', '')}`,
         };
       },
+    }),
+
+    // Generate JSX types (see https://wc-toolkit.com/integrations/jsx/)
+    jsxTypesPlugin({
+      fileName: 'custom-elements-jsx.d.ts',
+      outdir,
     }),
 
     //
