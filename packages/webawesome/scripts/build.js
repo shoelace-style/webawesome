@@ -464,22 +464,22 @@ export async function build(options = {}) {
 
       function handleWatchEvent(evt) {
         return async filename => {
-          const changedFile = relative(getRootDir(), filename)
+          const changedFile = relative(getRootDir(), filename);
 
-          let message = ""
-          if (evt === "change") {
-            message = chalk.blue(`File modified ${chalk.gray(`(${changedFile})`)}`)
-          } else if (evt === "unlink") {
-            message = chalk.red(`File deleted ${chalk.gray(`(${changedFile})`)}`)
-          } else if (evt === "add") {
-            message = chalk.green(`File added ${chalk.gray(`(${changedFile})`)}`)
+          let message = '';
+          if (evt === 'change') {
+            message = chalk.blue(`File modified ${chalk.gray(`(${changedFile})`)}`);
+          } else if (evt === 'unlink') {
+            message = chalk.red(`File deleted ${chalk.gray(`(${changedFile})`)}`);
+          } else if (evt === 'add') {
+            message = chalk.green(`File added ${chalk.gray(`(${changedFile})`)}`);
           }
 
           if (message) {
             if (spinner) {
-              spinner.info(message)
+              spinner.info(message);
             } else {
-              console.log(message)
+              console.log(message);
             }
           }
 
