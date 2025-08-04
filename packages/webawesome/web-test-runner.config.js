@@ -5,6 +5,7 @@ import { globbySync } from 'globby';
 import * as os from 'os';
 import * as process from 'process';
 import { getAllComponents } from './scripts/shared.js';
+import {litSsrPlugin} from '@lit-labs/testing/web-test-runner-ssr-plugin.js';
 
 // Get a list of all Web Awesome component imports for the test runner
 const metadata = JSON.parse(readFileSync('./dist/custom-elements.json'), 'utf8');
@@ -74,6 +75,7 @@ export default {
       ts: true,
       target: 'es2020',
     }),
+    litSsrPlugin()
   ],
   browsers: [
     playwrightLauncher({ product: 'chromium', concurrency }),
@@ -93,6 +95,8 @@ export default {
           window.process = {env: { NODE_ENV: "production" }}
         </script>
         <script>
+          window.SSR_ONLY = ${process.env.SSR_ONLY === "true"}
+          window.CSR_ONLY = ${process.env.CSR_ONLY === "true"}
           window.serverComponents = [
             ${serverComponents.map(str => `"${str}"`).join(',\n')}
           ]
