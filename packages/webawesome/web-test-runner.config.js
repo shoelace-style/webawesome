@@ -17,6 +17,11 @@ getAllComponents(metadata).forEach(component => {
   componentImports.push(`/dist-cdn/components/${name}/${name}.js`);
 });
 
+if (!process.env.CSR_ONLY && !process.env.SSR_ONLY) {
+  // Make CSR (client side rendering) the default if neither exists.
+  process.env.CSR_ONLY = "true"
+}
+
 // os.availableParallelism only available as of Node 18.14.0 , maybe don't need the fallback?
 // I've found the browser is more stable if you give it concurrency up front.
 const cores = os.availableParallelism?.() ?? os.cpus.length;
