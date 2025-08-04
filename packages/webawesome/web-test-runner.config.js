@@ -19,7 +19,7 @@ getAllComponents(metadata).forEach(component => {
 
 if (!process.env.CSR_ONLY && !process.env.SSR_ONLY) {
   // Make CSR (client side rendering) the default if neither exists.
-  process.env.CSR_ONLY = "true"
+  process.env.CSR_ONLY = 'true';
 }
 
 // os.availableParallelism only available as of Node 18.14.0 , maybe don't need the fallback?
