@@ -2,5 +2,7 @@
 {% set hasOutline = true %}
 {% set section = 'docs' %}
 
-
+{% block beforeContent %}
+    <p>{{ description }}</p>
+{% endblock %}
 {% extends "../_includes/base.njk" %}
