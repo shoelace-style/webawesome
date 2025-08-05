@@ -128,7 +128,9 @@
           <h1 class="title">{{ title }}</h1>
         {% endblock %}
         
-        <p>{{ patternDescription }}</p>
+        {% if patternDescription %}
+          <p>{{ patternDescription }}</p>
+        {% endif %}
       
         {% block beforeContent %}{% endblock %}
 
