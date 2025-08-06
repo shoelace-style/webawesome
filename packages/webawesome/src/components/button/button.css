@@ -186,6 +186,9 @@
 .label {
   display: flex;
 }
+:not(.is-icon-button) .label {
+  display: inline-block;
+}
 
 .label::slotted(wa-icon) {
   align-self: center;

@@ -45,6 +45,9 @@
   vertical-align: middle;
   cursor: pointer;
 }
+[part~='label'] {
+  display: inline-block;
+}
 
 /* Checked */
 [part~='control']:has(:checked, :indeterminate) {
