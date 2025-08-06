@@ -184,6 +184,10 @@
 }
 
 .label {
+  display: inline-block;
+}
+
+.is-icon-button .label {
   display: flex;
 }
 
