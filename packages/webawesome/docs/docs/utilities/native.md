@@ -404,6 +404,7 @@ Create a variety of form controls with `<input type="">`, `<select>`, and `<text
   <label>Time <input type="time" /></label>
   <label>Number <input type="number" placeholder="12345" /></label>
   <label>Color <input type="color" value="#f36944" /></label>
+  <label>File <input type="file" multiple /></label>
   <label>Range <input type="range" /></label>
   <label>Select
     <select>
