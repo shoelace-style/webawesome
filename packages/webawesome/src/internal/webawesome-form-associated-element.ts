@@ -125,10 +125,6 @@ export class WebAwesomeFormAssociatedElement
     super.connectedCallback();
     this.updateValidity();
 
-    setTimeout(() => {
-      this.updateValidity();
-    })
-
     // Lazily evaluate after the constructor to allow people to override the `assumeInteractionOn`
     this.assumeInteractionOn.forEach(event => {
       this.addEventListener(event, this.handleInteraction);
