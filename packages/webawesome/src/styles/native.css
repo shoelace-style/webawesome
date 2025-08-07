@@ -969,6 +969,8 @@
   input[type='file'] {
     display: block;
 
+    max-inline-size: 100%;
+
     color: var(--wa-form-control-value-color);
     font-size: var(--wa-form-control-value-size);
     font-family: inherit;
