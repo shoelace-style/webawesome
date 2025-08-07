@@ -20,11 +20,53 @@ The default icon library is Font Awesome Free, which comes with two icon familie
 Many Font Awesome Pro icon families have variants such as `thin`, `light`, `regular`, and `solid`. Font Awesome Pro users can [provide their kit code](/docs/#using-font-awesome-kit-codes) to unlock additional families, including `sharp`, `duotone`, and `sharp-duotone`. For these icon families, use the `variant` attribute to set the variant.
 
 ```html {.example}
-<wa-icon name="eyedropper"></wa-icon>
-<wa-icon name="grip-vertical"></wa-icon>
-<wa-icon name="play"></wa-icon>
-<wa-icon name="star"></wa-icon>
-<wa-icon name="user"></wa-icon>
+<div class="wa-stack wa-gap-xl">
+  <div class="wa-stack wa-gap-s">
+    <span>Classic</span>
+    <div class="wa-cluster wa-gap-xl" style="font-size: var(--wa-space-xl)">
+      <wa-icon name="eyedropper"></wa-icon>
+      <wa-icon variant="regular" name="grip-vertical"></wa-icon>
+      <wa-icon variant="light" name="play"></wa-icon>
+      <wa-icon variant="thin" name="star"></wa-icon>
+    </div>
+  </div>
+  <div class="wa-stack wa-gap-s">
+    <span>Duotone</span>
+    <div class="wa-cluster wa-gap-xl" style="font-size: var(--wa-space-xl)">
+      <wa-icon family="duotone" name="eyedropper"></wa-icon>
+      <wa-icon family="duotone" variant="regular" name="grip-vertical"></wa-icon>
+      <wa-icon family="duotone" variant="light" name="play"></wa-icon>
+      <wa-icon family="duotone" variant="thin" name="star"></wa-icon>
+    </div>
+  </div>
+  <div class="wa-stack wa-gap-s">
+    <span>Sharp</span>
+    <div class="wa-cluster wa-gap-xl" style="font-size: var(--wa-space-xl)">
+      <wa-icon family="sharp" name="eyedropper"></wa-icon>
+      <wa-icon family="sharp" variant="regular" name="grip-vertical"></wa-icon>
+      <wa-icon family="sharp" variant="light" name="play"></wa-icon>
+      <wa-icon family="sharp" variant="thin" name="star"></wa-icon>
+    </div>
+  </div>
+  <div class="wa-stack wa-gap-s">
+    <span>Sharp Duotone</span>
+    <div class="wa-cluster wa-gap-xl" style="font-size: var(--wa-space-xl)">
+      <wa-icon family="sharp-duotone" name="eyedropper"></wa-icon>
+      <wa-icon family="sharp-duotone" variant="regular" name="grip-vertical"></wa-icon>
+      <wa-icon family="sharp-duotone" variant="light" name="play"></wa-icon>
+      <wa-icon family="sharp-duotone" variant="thin" name="star"></wa-icon>
+    </div>
+  </div>
+  <div class="wa-stack wa-gap-s">
+    <span>Brands</span>
+    <div class="wa-cluster wa-gap-xl" style="font-size: var(--wa-space-xl)">
+      <wa-icon family="brands" name="font-awesome"></wa-icon>
+      <wa-icon family="brands" name="web-awesome"></wa-icon>
+      <wa-icon family="brands" name="github"></wa-icon>
+      <wa-icon family="brands" name="discord"></wa-icon>
+    </div>
+  </div>
+</div>
 ```
 
 ### Colors
