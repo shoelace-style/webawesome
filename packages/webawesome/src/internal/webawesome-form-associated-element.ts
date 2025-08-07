@@ -125,6 +125,10 @@ export class WebAwesomeFormAssociatedElement
     super.connectedCallback();
     this.updateValidity();
 
+    setTimeout(() => {
+      this.updateValidity();
+    })
+
     // Lazily evaluate after the constructor to allow people to override the `assumeInteractionOn`
     this.assumeInteractionOn.forEach(event => {
       this.addEventListener(event, this.handleInteraction);
@@ -179,8 +183,8 @@ export class WebAwesomeFormAssociatedElement
       }
     }
 
-    this.updateValidity();
     super.willUpdate(changedProperties);
+    this.updateValidity();
   }
 
   private handleInteraction = (event: Event) => {
@@ -245,8 +249,9 @@ export class WebAwesomeFormAssociatedElement
       anchor = this.validationTarget;
     }
 
+    const validity = this.internals.validity
     this.internals.setValidity(flags, message, anchor || undefined);
-    this.requestUpdate('validity');
+    this.requestUpdate('validity', validity);
     this.setCustomStates();
   }
 

@@ -27,7 +27,8 @@ export default {
   files: 'src/**/*.test.ts', // "default" group
   concurrentBrowsers: 3,
   nodeResolve: {
-    exportConditions: ['production', 'default'],
+    // exportConditions: ['production', 'default'],
+    exportConditions: ['development', 'default'],
   },
   testFramework: {
     config: {
@@ -85,7 +86,7 @@ export default {
         <link rel="stylesheet" href="/dist/styles/themes/default.css">
 
         <script>
-          window.process = {env: { NODE_ENV: "production" }}
+          window.process = {env: { NODE_ENV: "development" }}
         </script>
         <script>
           window.serverComponents = [
@@ -111,6 +112,15 @@ export default {
   `,
   // Create a named group for every test file to enable running single tests. If a test file is `split-panel.test.ts`
   // then you can run `npm run test -- --group split-panel` to run only that component's tests.
+  filterBrowserLogs: ({ type, args }) => {
+    const filteredStrings = [
+      "Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information."
+    ]
+
+    const string = args.join("")
+
+    return !filteredStrings.includes(string)
+  },
   groups: globbySync('src/**/*.test.ts').map(path => {
     const groupName = path.match(/^.*\/(?<fileName>.*)\.test\.ts/).groups.fileName;
     return {

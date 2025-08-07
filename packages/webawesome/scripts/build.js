@@ -218,8 +218,9 @@ export async function build(options = {}) {
       outdir: getCdnDir(),
       chunkNames: 'chunks/[name].[hash]',
       define: {
-        'process.env.NODE_ENV': '"production"', // required by Floating UI
+        'process.env.NODE_ENV': '"development"', // required by Floating UI
       },
+      conditions: ['development'],
       bundle: true,
       splitting: true,
       minify: false,

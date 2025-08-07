@@ -773,12 +773,12 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     });
   }
 
-  updated(changedProperties: PropertyValues<this>) {
-    super.updated(changedProperties);
-
+  willUpdate(changedProperties: PropertyValues<this>) {
     if (changedProperties.has('value')) {
       this.customStates.set('blank', !this.value);
     }
+
+    super.willUpdate(changedProperties);
   }
 
   @watch('disabled', { waitUntilFirstUpdate: true })
