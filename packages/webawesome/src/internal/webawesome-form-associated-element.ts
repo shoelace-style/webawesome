@@ -245,7 +245,7 @@ export class WebAwesomeFormAssociatedElement
       anchor = this.validationTarget;
     }
 
-    const validity = this.internals.validity
+    const validity = this.internals.validity;
     this.internals.setValidity(flags, message, anchor || undefined);
     this.requestUpdate('validity', validity);
     this.setCustomStates();
