@@ -560,124 +560,219 @@
   button,
   input[type='button'],
   input[type='reset'],
-  input[type='submit'] {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+  input[type='submit'],
+  input[type='file'] {
+    /* We allow modifier classes on <input type="file">,
+     * but these selectors ensure the styles only apply to
+     * the file selector button in the user agent's shadow root */
+    &:not(input[type='file']),
+    &::file-selector-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
 
-    height: var(--wa-form-control-height);
-    padding: 0 var(--wa-form-control-padding-inline);
+      height: var(--wa-form-control-height);
+      padding: 0 var(--wa-form-control-padding-inline);
 
-    color: var(--wa-color-on-loud, var(--wa-color-neutral-on-loud));
-    font-family: inherit;
-    font-size: var(--wa-form-control-value-font-size);
-    font-weight: var(--wa-font-weight-action);
-    line-height: calc(var(--wa-form-control-height) - var(--border-width) * 2);
-    text-decoration: none;
-    vertical-align: middle;
-    white-space: nowrap;
+      font-family: inherit;
+      font-size: var(--wa-form-control-value-font-size);
+      font-weight: var(--wa-font-weight-action);
+      line-height: calc(var(--wa-form-control-height) - var(--border-width) * 2);
+      text-decoration: none;
+      vertical-align: middle;
+      white-space: nowrap;
 
-    background-color: var(--wa-color-fill-loud, var(--wa-color-neutral-fill-loud));
-    border-color: transparent;
-    border-style: var(--wa-border-style);
-    border-width: max(1px, var(--wa-form-control-border-width));
-    border-radius: var(--wa-form-control-border-radius);
+      border-style: var(--wa-border-style);
+      border-width: max(1px, var(--wa-form-control-border-width));
+      border-radius: var(--wa-form-control-border-radius);
 
-    transition-property: background, border, box-shadow, color;
-    transition-duration: var(--wa-transition-fast);
-    transition-timing-function: var(--wa-transition-easing);
+      transition-property: background, border, box-shadow, color;
+      transition-duration: var(--wa-transition-fast);
+      transition-timing-function: var(--wa-transition-easing);
 
-    cursor: pointer;
-    user-select: none;
-    -webkit-user-select: none;
-
-    &.wa-plain {
-      color: var(--wa-color-on-quiet, var(--wa-color-neutral-on-quiet));
-      background-color: transparent;
-      border-color: transparent;
-
-      &:not(:disabled):hover {
-        color: var(--wa-color-on-quiet, var(--wa-color-neutral-on-quiet));
-        background-color: var(--wa-color-fill-quiet, var(--wa-color-neutral-fill-quiet));
-      }
-
-      &:not(:disabled):active {
-        color: var(--wa-color-on-quiet, var(--wa-color-neutral-on-quiet));
-        background-color: color-mix(
-          in oklab,
-          var(--wa-color-fill-quiet, var(--wa-color-neutral-fill-quiet)),
-          var(--wa-color-mix-active)
-        );
-      }
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
     }
 
-    &.wa-outlined {
-      color: var(--wa-color-on-quiet, var(--wa-color-neutral-on-quiet));
-      background-color: transparent;
-      border-color: var(--wa-color-border-loud, var(--wa-color-neutral-border-loud));
-
-      &:not(:disabled):hover {
-        color: var(--wa-color-on-quiet, var(--wa-color-neutral-on-quiet));
-        background-color: var(--wa-color-fill-quiet, var(--wa-color-neutral-fill-quiet));
-      }
-
-      &:not(:disabled):active {
-        color: var(--wa-color-on-quiet, var(--wa-color-neutral-on-quiet));
-        background-color: color-mix(
-          in oklab,
-          var(--wa-color-fill-quiet, var(--wa-color-neutral-fill-quiet)),
-          var(--wa-color-mix-active)
-        );
-      }
-    }
-
-    &.wa-filled {
-      color: var(--wa-color-on-normal, var(--wa-color-neutral-on-normal));
-      background-color: var(--wa-color-fill-normal, var(--wa-color-neutral-fill-normal));
-      border-color: transparent;
-
-      &:not(:disabled):hover {
-        color: var(--wa-color-on-normal, var(--wa-color-neutral-on-normal));
-        background-color: color-mix(
-          in oklab,
-          var(--wa-color-fill-normal, var(--wa-color-neutral-fill-normal)),
-          var(--wa-color-mix-hover)
-        );
-      }
-
-      &:not(:disabled):active {
-        color: var(--wa-color-on-normal, var(--wa-color-neutral-on-normal));
-        background-color: color-mix(
-          in oklab,
-          var(--wa-color-fill-normal, var(--wa-color-neutral-fill-normal)),
-          var(--wa-color-mix-active)
-        );
-      }
-
-      &.wa-outlined {
-        border-color: var(--wa-color-border-normal, var(--wa-color-neutral-border-normal));
-      }
-    }
-
-    &.wa-accent {
+    /* Default styles for standard buttons */
+    :where(&:not(input[type='file'])) {
       color: var(--wa-color-on-loud, var(--wa-color-neutral-on-loud));
       background-color: var(--wa-color-fill-loud, var(--wa-color-neutral-fill-loud));
       border-color: transparent;
 
-      &:not(:disabled):hover {
-        background-color: color-mix(
-          in oklab,
-          var(--wa-color-fill-loud, var(--wa-color-neutral-fill-loud)),
-          var(--wa-color-mix-hover)
-        );
+      &:not(:disabled) {
+        &:hover {
+          background-color: color-mix(
+            in oklab,
+            var(--wa-color-fill-loud, var(--wa-color-neutral-fill-loud)),
+            var(--wa-color-mix-hover)
+          );
+        }
+
+        &:active {
+          background-color: color-mix(
+            in oklab,
+            var(--wa-color-fill-loud, var(--wa-color-neutral-fill-loud)),
+            var(--wa-color-mix-active)
+          );
+        }
+      }
+    }
+
+    /* Default styles for file selector buttons */
+    :where(&:is(input[type='file'])) {
+      &::file-selector-button {
+        color: var(--wa-color-on-normal, var(--wa-color-neutral-on-normal));
+        background-color: var(--wa-color-fill-normal, var(--wa-color-neutral-fill-normal));
+        border-color: transparent;
       }
 
-      &:not(:disabled):active {
-        background-color: color-mix(
-          in oklab,
-          var(--wa-color-fill-loud, var(--wa-color-neutral-fill-loud)),
-          var(--wa-color-mix-active)
-        );
+      &:not(:disabled) {
+        &::file-selector-button:hover {
+          background-color: color-mix(
+            in oklab,
+            var(--wa-color-fill-normal, var(--wa-color-neutral-fill-normal)),
+            var(--wa-color-mix-hover)
+          );
+        }
+
+        &::file-selector-button:active {
+          background-color: color-mix(
+            in oklab,
+            var(--wa-color-fill-normal, var(--wa-color-neutral-fill-normal)),
+            var(--wa-color-mix-active)
+          );
+        }
+      }
+    }
+
+    /* Modifier classes */
+    &.wa-plain {
+      &:not(input[type='file']),
+      &::file-selector-button {
+        color: var(--wa-color-on-quiet, var(--wa-color-neutral-on-quiet));
+        background-color: transparent;
+        border-color: transparent;
+      }
+
+      &:not(:disabled) {
+        &:not(input[type='file']):hover,
+        &::file-selector-button:hover {
+          color: var(--wa-color-on-quiet, var(--wa-color-neutral-on-quiet));
+          background-color: var(--wa-color-fill-quiet, var(--wa-color-neutral-fill-quiet));
+        }
+
+        &:not(input[type='file']):active,
+        &::file-selector-button:active {
+          color: var(--wa-color-on-quiet, var(--wa-color-neutral-on-quiet));
+          background-color: color-mix(
+            in oklab,
+            var(--wa-color-fill-quiet, var(--wa-color-neutral-fill-quiet)),
+            var(--wa-color-mix-active)
+          );
+        }
+      }
+    }
+
+    &.wa-outlined {
+      &:not(input[type='file']),
+      &::file-selector-button {
+        color: var(--wa-color-on-quiet, var(--wa-color-neutral-on-quiet));
+        background-color: transparent;
+        border-color: var(--wa-color-border-loud, var(--wa-color-neutral-border-loud));
+      }
+
+      &:not(:disabled) {
+        &:not(input[type='file']):hover,
+        &::file-selector-button:hover {
+          color: var(--wa-color-on-quiet, var(--wa-color-neutral-on-quiet));
+          background-color: var(--wa-color-fill-quiet, var(--wa-color-neutral-fill-quiet));
+        }
+
+        &:not(input[type='file']):active,
+        &::file-selector-button:active {
+          color: var(--wa-color-on-quiet, var(--wa-color-neutral-on-quiet));
+          background-color: color-mix(
+            in oklab,
+            var(--wa-color-fill-quiet, var(--wa-color-neutral-fill-quiet)),
+            var(--wa-color-mix-active)
+          );
+        }
+      }
+    }
+
+    &.wa-filled {
+      &:not(input[type='file']),
+      &::file-selector-button {
+        color: var(--wa-color-on-normal, var(--wa-color-neutral-on-normal));
+        background-color: var(--wa-color-fill-normal, var(--wa-color-neutral-fill-normal));
+        border-color: transparent;
+      }
+
+      &:not(:disabled) {
+        &:not(input[type='file']):hover,
+        &::file-selector-button:hover {
+          color: var(--wa-color-on-normal, var(--wa-color-neutral-on-normal));
+          background-color: color-mix(
+            in oklab,
+            var(--wa-color-fill-normal, var(--wa-color-neutral-fill-normal)),
+            var(--wa-color-mix-hover)
+          );
+        }
+
+        &:not(input[type='file']):active,
+        &::file-selector-button:active {
+          color: var(--wa-color-on-normal, var(--wa-color-neutral-on-normal));
+          background-color: color-mix(
+            in oklab,
+            var(--wa-color-fill-normal, var(--wa-color-neutral-fill-normal)),
+            var(--wa-color-mix-active)
+          );
+        }
+      }
+
+      &.wa-outlined {
+        &:not(input[type='file']),
+        &::file-selector-button {
+          border-color: var(--wa-color-border-normal, var(--wa-color-neutral-border-normal));
+        }
+      }
+    }
+
+    &.wa-accent {
+      &:not(input[type='file']),
+      &::file-selector-button {
+        color: var(--wa-color-on-loud, var(--wa-color-neutral-on-loud));
+        background-color: var(--wa-color-fill-loud, var(--wa-color-neutral-fill-loud));
+        border-color: transparent;
+      }
+
+      &:not(:disabled) {
+        &:not(input[type='file']):hover,
+        &::file-selector-button:hover {
+          background-color: color-mix(
+            in oklab,
+            var(--wa-color-fill-loud, var(--wa-color-neutral-fill-loud)),
+            var(--wa-color-mix-hover)
+          );
+        }
+
+        &:not(input[type='file']):active,
+        &::file-selector-button:active {
+          background-color: color-mix(
+            in oklab,
+            var(--wa-color-fill-loud, var(--wa-color-neutral-fill-loud)),
+            var(--wa-color-mix-active)
+          );
+        }
+      }
+    }
+
+    &.wa-pill {
+      &:not(input[type='file']),
+      &::file-selector-button {
+        border-radius: var(--wa-border-radius-pill);
       }
     }
 
@@ -705,10 +800,6 @@
       }
     }
 
-    &.wa-pill {
-      border-radius: var(--wa-border-radius-pill);
-    }
-
     /* Adds space between icons and adjacent elements
      * Prefer sibling selectors over :first-child/:last-child to avoid extra space when an icon is used alone */
     & > wa-icon:has(+ *) {
@@ -718,6 +809,25 @@
     & > * + wa-icon {
       margin-inline-start: 0.75em;
     }
+  }
+  /* #endregion */
+
+  /* #region File Inputs */
+  input[type='file'] {
+    display: block;
+
+    max-inline-size: 100%;
+
+    color: var(--wa-form-control-value-color);
+    font-family: inherit;
+    font-size: var(--wa-form-control-value-font-size);
+    font-weight: var(--wa-form-control-value-font-weight);
+    line-height: var(--wa-form-control-value-line-height);
+    vertical-align: middle;
+
+    border-radius: var(--wa-border-radius-m);
+
+    cursor: pointer;
   }
   /* #endregion */
 
@@ -962,61 +1072,6 @@
     background-blend-mode: hue, difference;
 
     cursor: pointer;
-  }
-  /* #endregion */
-
-  /* #region File Inputs */
-  input[type='file'] {
-    display: block;
-
-    max-inline-size: 100%;
-
-    color: var(--wa-form-control-value-color);
-    font-size: var(--wa-form-control-value-size);
-    font-family: inherit;
-    font-weight: var(--wa-form-control-value-font-weight);
-    line-height: var(--wa-form-control-value-line-height);
-    vertical-align: middle;
-
-    border-radius: var(--wa-border-radius-m);
-
-    cursor: pointer;
-
-    &::file-selector-button {
-      height: var(--wa-form-control-height);
-      padding-inline: var(--wa-form-control-padding-inline);
-      padding-block: 0;
-
-      color: var(--wa-color-neutral-on-normal);
-      font-family: inherit;
-      font-weight: var(--wa-font-weight-action);
-      line-height: var(--wa-form-control-height);
-
-      background-color: var(--wa-color-neutral-fill-normal);
-      border: var(--wa-border-style) var(--wa-border-width-s) transparent;
-      border-radius: var(--wa-border-radius-m);
-
-      transition-property: background-color, color;
-      transition-duration: var(--wa-transition-fast);
-      transition-timing-function: var(--wa-transition-easing);
-
-      cursor: pointer;
-    }
-
-    @media (hover: hover) {
-      &::file-selector-button:hover {
-        background-color: color-mix(
-          in oklab,
-          var(--wa-color-fill-normal, var(--wa-color-neutral-fill-normal)),
-          var(--wa-color-mix-hover)
-        );
-      }
-    }
-
-    &:focus-visible {
-      outline: var(--wa-focus-ring);
-      outline-offset: var(--wa-focus-ring-offset);
-    }
   }
   /* #endregion */
 
