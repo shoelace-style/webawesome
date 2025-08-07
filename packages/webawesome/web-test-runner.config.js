@@ -114,7 +114,10 @@ export default {
   // then you can run `npm run test -- --group split-panel` to run only that component's tests.
   filterBrowserLogs: ({ type, args }) => {
     const filteredStrings = [
-      "Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information."
+      "Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.",
+      // This is expected because `formControlBaseTests` is loading its own version of Lit for templating, and we're not using the NPM version of Web Awesome to run the tests.
+      "Multiple versions of Lit loaded. Loading multiple versions is not recommended. See https://lit.dev/msg/multiple-versions for more information."
+
     ]
 
     const string = args.join("")
