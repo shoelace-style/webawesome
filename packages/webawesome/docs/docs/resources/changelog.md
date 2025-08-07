@@ -17,12 +17,14 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Added `--wa-tooltip-border-color`, `--wa-tooltip-border-style`, and `--wa-tooltip-border-width` tokens [issue:1224]
 - Added the `without-arrow` attribute to `<wa-popover>` and `<wa-tooltip>` to hide arrows without artifacts
 - Added JSX types for use with React and others [pr:1256]
+- Added `<input type="file">` to native styles [pr:1279]
 
 ### Bug Fixes and Improvements {data-no-outline}
 
 - Fixed a bug in `<wa-details>` that caused the content to overflow the container when animating [issue:1149]
 - Fixed a bug in `<wa-dialog>` and `<wa-drawer>` that prevented the header from showing when the label was missing [issue:1209]
 - Fixed a missing dependency required for React wrappers
+- Fixed missing `:hover` and `:active` styles on native buttons without an appearance modifier class
 
 ## 3.0.0-beta.3
 
