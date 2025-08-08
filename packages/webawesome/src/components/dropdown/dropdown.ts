@@ -8,6 +8,7 @@ import { WaAfterShowEvent } from '../../events/after-show.js';
 import { WaHideEvent } from '../../events/hide.js';
 import { WaSelectEvent } from '../../events/select.js';
 import { WaShowEvent } from '../../events/show.js';
+import { activeElements } from '../../internal/active-elements.js';
 import { animateWithClass } from '../../internal/animate.js';
 import { uniqueId } from '../../internal/math.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
@@ -288,7 +289,7 @@ export default class WaDropdown extends WebAwesomeElement {
       return;
     }
 
-    const activeElement = document.activeElement as HTMLElement;
+    const activeElement = [...activeElements()].find(el => el.localName === 'wa-dropdown-item');
     const isFocusedOnItem = activeElement?.localName === 'wa-dropdown-item';
     const currentSubmenuItem = this.getCurrentSubmenuItem();
     const isInSubmenu = !!currentSubmenuItem;
