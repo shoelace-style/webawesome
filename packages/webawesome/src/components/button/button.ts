@@ -62,7 +62,7 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
   @property({ reflect: true }) variant: 'neutral' | 'brand' | 'success' | 'warning' | 'danger' = 'neutral';
 
   /** The button's visual appearance. */
-  @property({ reflect: true }) appearance: 'accent' | 'filled' | 'outlined' | 'plain' = 'accent';
+  @property({ reflect: true }) appearance: 'accent' | 'filled' | 'outlined' | 'plain' | 'filled outlined' = 'accent';
 
   /** The button's size. */
   @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
