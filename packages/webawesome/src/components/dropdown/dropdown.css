@@ -17,6 +17,9 @@
   color: var(--wa-color-text-normal);
   text-align: start;
   user-select: none;
+  overflow: auto;
+  max-width: var(--auto-size-available-width) !important;
+  max-height: var(--auto-size-available-height) !important;
 
   &.show {
     animation: show var(--show-duration) ease;

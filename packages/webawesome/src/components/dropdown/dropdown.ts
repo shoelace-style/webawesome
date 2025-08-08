@@ -706,7 +706,9 @@ export default class WaDropdown extends WebAwesomeElement {
         flip
         flip-fallback-strategy="best-fit"
         shift
-        shift-padding="8"
+        shift-padding="10"
+        auto-size="vertical"
+        auto-size-padding="10"
       >
         <slot
           name="trigger"
