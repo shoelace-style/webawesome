@@ -123,19 +123,30 @@ export default class WaDropdown extends WebAwesomeElement {
     }
   }
 
-  /** Gets all <wa-dropdown-item> elements slotted in the menu that aren't disabled. */
+  /** Gets all dropdown items slotted in the menu. */
   private getItems(includeDisabled = false): WaDropdownItem[] {
-    const items = [...this.children].filter(
-      el => el.localName === 'wa-dropdown-item' && !el.hasAttribute('slot'),
-    ) as WaDropdownItem[];
+    const items = this.defaultSlot
+      .assignedElements({ flatten: true })
+      .filter(el => el.localName === 'wa-dropdown-item') as WaDropdownItem[];
+
     return includeDisabled ? items : items.filter(item => !item.disabled);
   }
 
   /** Gets all dropdown items in a specific submenu. */
   private getSubmenuItems(parentItem: WaDropdownItem, includeDisabled = false): WaDropdownItem[] {
-    const items = [...parentItem.children].filter(
-      el => el.localName === 'wa-dropdown-item' && el.getAttribute('slot') === 'submenu',
-    ) as WaDropdownItem[];
+    // Find the submenu slot within the parent item
+    const submenuSlot =
+      parentItem.shadowRoot?.querySelector<HTMLSlotElement>('slot[name="submenu"]') ||
+      parentItem.querySelector<HTMLSlotElement>('slot[name="submenu"]');
+    if (!submenuSlot) {
+      return [];
+    }
+
+    // Get the items from the submenu slot
+    const items = submenuSlot
+      .assignedElements({ flatten: true })
+      .filter(el => el.localName === 'wa-dropdown-item') as WaDropdownItem[];
+
     return includeDisabled ? items : items.filter(item => !item.disabled);
   }
 

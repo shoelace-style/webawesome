@@ -12,6 +12,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 - Fixed incorrectly named exported tooltip parts in `<wa-slider>` [pr:1277]
 - Fixed a bug that caused dropdowns to overflow the viewport instead of resizing [issue:1267]
+- Fixed a bug that prevented dropdown items passed in from slots from being detected [issue:1271]
 
 ## 3.0.0-beta.4
 
