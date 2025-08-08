@@ -17,6 +17,7 @@ import process from 'process';
 import * as url from 'url';
 import { replaceTextPlugin } from './_plugins/replace-text.js';
 import { searchPlugin } from './_plugins/search.js';
+import { cdnUrl } from './_utils/cdnUrl.js';
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 const isDev = process.argv.includes('--develop');
 const passThroughExtensions = ['js', 'css', 'png', 'svg', 'jpg', 'mp4'];
@@ -130,7 +131,7 @@ export default async function (eleventyConfig) {
 
   // Shortcodes - {% shortCode arg1, arg2 %}
   eleventyConfig.addShortcode('cdnUrl', location => {
-    return `https://early.webawesome.com/webawesome@${packageData.version}/dist/` + (location || '').replace(/^\//, '');
+    return cdnUrl(location, packageData.version);
   });
 
   // Turns `{% server "foo" %} into `{{ server.foo | safe }}` when the WEBAWESOME_SERVER variable is set to "true"
