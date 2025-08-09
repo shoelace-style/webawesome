@@ -11,6 +11,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 ## Next
 
 - Fixed incorrectly named exported tooltip parts in `<wa-slider>` [pr:1277]
+- Fixed a bug where clicks inside `<wa-select>` caused parent `<wa-details>` to toggle; clicks within the select now stop propagation. [issue:1252]
 
 ## 3.0.0-beta.4
 

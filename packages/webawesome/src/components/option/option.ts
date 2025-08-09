@@ -94,6 +94,7 @@ export default class WaOption extends WebAwesomeElement {
 
     this.addEventListener('mouseenter', this.handleHover);
     this.addEventListener('mouseleave', this.handleHover);
+    this.addEventListener('click', this.handleClickStopPropagation);
     this.updateDefaultLabel();
   }
 
@@ -102,7 +103,13 @@ export default class WaOption extends WebAwesomeElement {
 
     this.removeEventListener('mouseenter', this.handleHover);
     this.removeEventListener('mouseleave', this.handleHover);
+    this.removeEventListener('click', this.handleClickStopPropagation);
   }
+
+  private handleClickStopPropagation = (event: MouseEvent) => {
+    event.stopPropagation();
+    event.preventDefault();
+  };
 
   private handleDefaultSlotChange() {
     // Tell the controller to update the label

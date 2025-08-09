@@ -501,8 +501,20 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     }
 
     event.preventDefault();
+    event.stopPropagation();
     this.displayInput.focus({ preventScroll: true });
     this.open = !this.open;
+  }
+
+  private handleComboboxClick(event: MouseEvent) {
+    // Prevent bubbling clicks from toggling ancestor components such as <wa-details>
+    event.stopPropagation();
+    event.preventDefault();
+  }
+
+  private handleListboxClick(event: MouseEvent) {
+    event.stopPropagation();
+    event.preventDefault();
   }
 
   private handleComboboxKeyDown(event: KeyboardEvent) {
@@ -533,6 +545,8 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   }
 
   private handleOptionClick(event: MouseEvent) {
+    event.stopPropagation();
+    event.preventDefault();
     const target = event.target as HTMLElement;
     const option = target.closest('wa-option');
 
@@ -942,6 +956,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
               slot="anchor"
               @keydown=${this.handleComboboxKeyDown}
               @mousedown=${this.handleComboboxMouseDown}
+              @click=${this.handleComboboxClick}
             >
               <slot part="start" name="start" class="start"></slot>
 
@@ -1022,6 +1037,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
               class="listbox"
               tabindex="-1"
               @mouseup=${this.handleOptionClick}
+              @click=${this.handleListboxClick}
             >
               <slot @slotchange=${this.handleDefaultSlotChange}></slot>
             </div>
