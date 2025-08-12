@@ -14,6 +14,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed a bug in `<wa-dropdown>` that caused menus to overflow the viewport instead of resizing [issue:1267]
 - Fixed a bug in `<wa-dropdown>` that prevented keyboard selection of items when nested in shadow roots [issue:1270]
 - Fixed a bug in `<wa-dropdown>` that prevented items passed in from slots from being detected [issue:1271]
+- Updated `<wa-icon>` to use Font Awesome 7 [pr:1222]
 
 ## 3.0.0-beta.4
 

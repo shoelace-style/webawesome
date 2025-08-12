@@ -115,19 +115,6 @@ Icons are sized relative to the current font size. To change their size, set the
 </div>
 ```
 
-### Fixed Width Icons
-
-By default, icons have a 1em height and a variable width. Use the `fixed-width` attribute to render the host element in a 1em by 1em box.
-
-```html {.example}
-<wa-icon fixed-width name="cloud"></wa-icon>
-<wa-icon fixed-width name="user"></wa-icon>
-<wa-icon fixed-width name="truck"></wa-icon>
-<wa-icon fixed-width name="file"></wa-icon>
-<wa-icon fixed-width name="skating"></wa-icon>
-<wa-icon fixed-width name="snowplow"></wa-icon>
-```
-
 ### Labels
 
 For non-decorative icons, use the `label` attribute to announce it to assistive devices.

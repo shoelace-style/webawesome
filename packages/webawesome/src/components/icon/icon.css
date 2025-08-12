@@ -24,16 +24,4 @@ svg {
   fill: currentColor;
   /* This prevents cropped SVGs from being cut off */
   overflow: visible;
-
-  :host([swap-opacity]) & {
-    --fa-primary-opacity: var(--secondary-opacity);
-    --fa-secondary-opacity: var(--primary-opacity);
-  }
-
-  :host(:not([auto-width])) path {
-    /* This should work well with the updated icon canvas in FA 7 */
-    scale: 1.25;
-    /* This centres the SVG paths within the SVG */
-    transform-origin: center;
-  }
 }
