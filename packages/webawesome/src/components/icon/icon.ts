@@ -63,8 +63,11 @@ export default class WaIcon extends WebAwesomeElement {
    */
   @property() variant: string;
 
-  /** Draws the icon in a fixed-width both. */
-  @property({ attribute: 'fixed-width', type: Boolean, reflect: true }) fixedWidth: false;
+  /** Sets the width of the icon to match the cropped SVG viewBox. It reflects the Font Awesome `fa-width-auto` class. */
+  @property({ attribute: 'auto-width', type: Boolean, reflect: true }) autoWidth: false;
+
+  /** Swaps the opacity of duotone icons. */
+  @property({ attribute: 'swap-opacity', type: Boolean, reflect: true }) swapOpacity = false;
 
   /**
    * An external URL of an SVG file. Be sure you trust the content you are including, as it will be executed as code and
@@ -184,7 +187,7 @@ export default class WaIcon extends WebAwesomeElement {
     }
   }
 
-  @watch(['family', 'name', 'library', 'variant', 'src'])
+  @watch(['family', 'name', 'library', 'variant', 'src', 'autoWidth'])
   async setIcon() {
     const { url, fromLibrary } = this.getIconSource();
     const library = fromLibrary ? getIconLibrary(this.library) : undefined;
