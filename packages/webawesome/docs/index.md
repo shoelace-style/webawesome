@@ -273,7 +273,7 @@ layout: page
       <wa-callout variant="brand">
         <div class="wa-stack">
           <div class="wa-cluster icon-heading">
-            <wa-icon name="sparkles" variant="regular" fixed-width></wa-icon>
+            <wa-icon name="sparkles" variant="regular"></wa-icon>
             <h3>Bigger and beta than ever</h3>
           </div>
           <p>This beta is battle-tested and built to last, but if you see something, say something. Please <a href="https://github.com/shoelace-style/webawesome/issues">report bugs</a> or <a href="https://github.com/shoelace-style/webawesome/discussions">ask for help</a>!</p>
@@ -285,10 +285,10 @@ layout: page
         <div class="wa-stack">
           <div class="wa-split">
             <div class="wa-cluster icon-heading">
-              <wa-icon name="pen-ruler" fixed-width class="brand-orange"></wa-icon>
+              <wa-icon name="pen-ruler" class="brand-orange"></wa-icon>
               <h3>Get started</h3>
             </div>
-            <wa-icon name="arrow-right" fixed-width></wa-icon>
+            <wa-icon name="arrow-right"></wa-icon>
           </div>
           <p>Check out our installation guide to start building with Web Awesome.</p>
         </div>
@@ -302,28 +302,28 @@ layout: page
     <div class="grid">
       <div class="wa-stack">
         <div class="wa-cluster icon-heading">
-          <wa-icon name="code" fixed-width class="brand-orange"></wa-icon>
+          <wa-icon name="code" class="brand-orange"></wa-icon>
           <h3>Entirely native</h3>
         </div>
         <p>Built on web standards to last for years to come. No excess tooling. No third-party bloat.</p>
       </div>
       <div class="wa-stack">
         <div class="wa-cluster icon-heading">
-          <wa-icon name="palette" fixed-width class="brand-orange"></wa-icon>
+          <wa-icon name="palette" class="brand-orange"></wa-icon>
           <h3>Fully customizable</h3>
         </div>
         <p>Show off your own style with components that consistently adapt to your theme.</p>
       </div>
       <div class="wa-stack">
         <div class="wa-cluster icon-heading">
-          <wa-icon name="wheelchair-move" fixed-width class="brand-orange"></wa-icon>
+          <wa-icon name="wheelchair-move" class="brand-orange"></wa-icon>
           <h3>Accessibility forward</h3>
         </div>
         <p>Build a website that everyone can use. Designed to be inclusive and usable by everyone.</p>
       </div>
       <div class="wa-stack">
         <div class="wa-cluster icon-heading">
-          <wa-icon name="handshake-simple" fixed-width class="brand-orange"></wa-icon>
+          <wa-icon name="handshake-simple" class="brand-orange"></wa-icon>
           <h3>Proudly open source</h3>
         </div>
         <p>Use Web Awesome Free however you like. Always free, always open source.</p>
@@ -342,10 +342,10 @@ layout: page
         <div class="wa-stack">
           <div class="wa-split">
             <div class="wa-cluster icon-heading">
-              <wa-icon family="brands" name="github" fixed-width></wa-icon>
+              <wa-icon family="brands" name="github"></wa-icon>
               <h3>GitHub</h3>
             </div>
-            <wa-icon name="arrow-up-right" fixed-width></wa-icon>
+            <wa-icon name="arrow-up-right"></wa-icon>
           </div>
           <p>Get involved by opening issues, contributing to discussions, or creating PRs.</p>
         </div>
@@ -354,10 +354,10 @@ layout: page
         <div class="wa-stack">
           <div class="wa-split">
             <div class="wa-cluster icon-heading">
-              <wa-icon family="brands" name="discord" fixed-width></wa-icon>
+              <wa-icon family="brands" name="discord"></wa-icon>
               <h3>Discord</h3>
             </div>
-            <wa-icon name="arrow-up-right" fixed-width></wa-icon>
+            <wa-icon name="arrow-up-right"></wa-icon>
           </div>
           <p>Share your work, ask questions, and explore ideas with other Web Awesome builders.</p>
         </div>
@@ -365,19 +365,19 @@ layout: page
       <wa-button href="mailto:hello@webawesome.com" appearance="filled" class="tile">
         <div class="wa-split">
           <div class="wa-cluster icon-heading">
-            <wa-icon name="envelope-open" fixed-width></wa-icon>
+            <wa-icon name="envelope-open"></wa-icon>
             <h3 class="wa-cluster wa-gap-xs">
               <span>hello@webawesome.com</span>
               <wa-icon name="hand-wave" variant="regular"></wa-icon>
             </h3>
           </div>
-          <wa-icon name="arrow-up-right" fixed-width></wa-icon>
+          <wa-icon name="arrow-up-right"></wa-icon>
         </div>
       </wa-button>
     </div>
   </div>
 
-  <wa-divider></wa-divider>
+<wa-divider></wa-divider>
 
   <div class="wa-stack wa-gap-xl">
     <h2 class="wa-cluster brand-font">
@@ -388,34 +388,34 @@ layout: page
       <wa-button href="https://bsky.app/profile/webawesome.com" rel="noopener noreferrer" target="_blank" appearance="filled" class="tile">
         <div class="wa-split">
           <div class="wa-cluster icon-heading">
-            <wa-icon family="brands" name="bluesky" fixed-width></wa-icon>
+            <wa-icon family="brands" name="bluesky"></wa-icon>
             <h3>Bluesky</h3>
           </div>
-          <wa-icon name="arrow-up-right" fixed-width></wa-icon>
+          <wa-icon name="arrow-up-right"></wa-icon>
         </div>
       </wa-button>
       <wa-button href="https://x.com/webawesomer" rel="noopener noreferrer" target="_blank" appearance="filled" class="tile">
         <div class="wa-split">
           <div class="wa-cluster icon-heading">
-            <wa-icon family="brands" name="x-twitter" fixed-width></wa-icon>
+            <wa-icon family="brands" name="x-twitter"></wa-icon>
             <h3>Twitter (X)</h3>
           </div>
-          <wa-icon name="arrow-up-right" fixed-width></wa-icon>
+          <wa-icon name="arrow-up-right"></wa-icon>
         </div>
       </wa-button>
       <wa-button href="https://www.threads.com/@web.awesome" rel="noopener noreferrer" target="_blank" appearance="filled" class="tile">
         <div class="wa-split">
           <div class="wa-cluster icon-heading">
-            <wa-icon family="brands" name="threads" fixed-width></wa-icon>
+            <wa-icon family="brands" name="threads"></wa-icon>
             <h3>Threads</h3>
           </div>
-          <wa-icon name="arrow-up-right" fixed-width></wa-icon>
+          <wa-icon name="arrow-up-right"></wa-icon>
         </div>
       </wa-button>
     </div>
   </div>
 
-  <wa-divider></wa-divider>
+<wa-divider></wa-divider>
 
   <footer>
     <div class="wa-crown">
