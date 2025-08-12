@@ -1,6 +1,8 @@
 import { getKitCode } from '../../utilities/base-path.js';
 import type { IconLibrary } from './library.js';
 
+const FA_VERSION = '7.0.0';
+
 function getIconUrl(name: string, family: string, variant: string, autoWidth: boolean) {
   const basePath = autoWidth ? 'svgs' : 'svgs-full';
   const kitCode = getKitCode();
@@ -46,8 +48,8 @@ function getIconUrl(name: string, family: string, variant: string, autoWidth: bo
 
   // Use the default CDN
   return isPro
-    ? `https://ka-p.fontawesome.com/releases/v7.0.0/${basePath}/${folder}/${name}.svg?token=${encodeURIComponent(kitCode)}`
-    : `https://ka-f.fontawesome.com/releases/v7.0.0/${basePath}/${folder}/${name}.svg`;
+    ? `https://ka-p.fontawesome.com/releases/v${FA_VERSION}/${basePath}/${folder}/${name}.svg?token=${encodeURIComponent(kitCode)}`
+    : `https://ka-f.fontawesome.com/releases/v${FA_VERSION}/${basePath}/${folder}/${name}.svg`;
 }
 
 const library: IconLibrary = {
