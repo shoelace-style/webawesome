@@ -119,16 +119,6 @@ Theme buttons are supported through the button group's `variant` attribute.
 </wa-button-group>
 ```
 
-You can still use the buttons’ own `variant` attribute to override the inherited variant.
-
-```html {.example}
-<wa-button-group label="Alignment" variant="brand">
-  <wa-button>Left</wa-button>
-  <wa-button>Center</wa-button>
-  <wa-button variant="neutral">Right</wa-button>
-</wa-button-group>
-```
-
 ### Pill Buttons
 
 Pill buttons are supported through the button's `pill` attribute.
