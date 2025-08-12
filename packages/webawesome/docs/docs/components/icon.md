@@ -329,7 +329,9 @@ Icons in this library are licensed under the [MIT License](https://github.com/lu
   import { registerIconLibrary } from '/dist/webawesome.js';
 
   registerIconLibrary('iconoir', {
-    resolver: name => `https://cdn.jsdelivr.net/gh/lucaburgio/iconoir@latest/icons/${name}.svg`,
+    resolver: (name, family) => {
+      return `https://cdn.jsdelivr.net/npm/iconoir@7.11.0/icons/regular/${name}.svg`;
+    },
     mutator: svg =>
       svg.querySelectorAll('path').forEach(path => {
         path.setAttribute('fill', 'none');
@@ -339,7 +341,7 @@ Icons in this library are licensed under the [MIT License](https://github.com/lu
 </script>
 
 <div style="font-size: 24px;">
-  <wa-icon library="iconoir" name="check-circled-outline"></wa-icon>
+  <wa-icon library="iconoir" name="check-circle"></wa-icon>
   <wa-icon library="iconoir" name="drawer"></wa-icon>
   <wa-icon library="iconoir" name="keyframes"></wa-icon>
   <wa-icon library="iconoir" name="headset-help"></wa-icon>
