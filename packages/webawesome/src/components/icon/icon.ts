@@ -63,6 +63,12 @@ export default class WaIcon extends WebAwesomeElement {
    */
   @property() variant: string;
 
+  /** Sets the width of the icon to match the cropped SVG viewBox. This operates like the Font `fa-width-auto` class. */
+  @property({ attribute: 'auto-width', type: Boolean, reflect: true }) autoWidth: false;
+
+  /** Swaps the opacity of duotone icons. */
+  @property({ attribute: 'swap-opacity', type: Boolean, reflect: true }) swapOpacity = false;
+
   /**
    * An external URL of an SVG file. Be sure you trust the content you are including, as it will be executed as code and
    * can result in XSS attacks.
@@ -100,7 +106,7 @@ export default class WaIcon extends WebAwesomeElement {
 
     if (this.name && library) {
       return {
-        url: library.resolver(this.name, family, this.variant),
+        url: library.resolver(this.name, family, this.variant, this.autoWidth),
         fromLibrary: true,
       };
     }
@@ -112,7 +118,7 @@ export default class WaIcon extends WebAwesomeElement {
   }
 
   /** Given a URL, this function returns the resulting SVG element or an appropriate error symbol. */
-  private async resolveIcon(url: string, library?: IconLibrary): Promise<SVGResult> {
+  private resolveIcon = async (url: string, library?: IconLibrary): Promise<SVGResult> => {
     let fileData: Response;
 
     if (library?.spriteSheet) {
@@ -130,10 +136,10 @@ export default class WaIcon extends WebAwesomeElement {
       // to be passed to the library's mutator function.
       await this.updateComplete;
 
-      const svg = this.shadowRoot!.querySelector("[part='svg']")!;
+      const svg = this.shadowRoot!.querySelector<SVGElement>("[part='svg']")!;
 
       if (typeof library.mutator === 'function') {
-        library.mutator(svg as SVGElement);
+        library.mutator(svg, this);
       }
 
       return this.svg;
@@ -164,7 +170,7 @@ export default class WaIcon extends WebAwesomeElement {
     } catch {
       return CACHEABLE_ERROR;
     }
-  }
+  };
 
   @watch('label')
   handleLabelChange() {
@@ -181,7 +187,7 @@ export default class WaIcon extends WebAwesomeElement {
     }
   }
 
-  @watch(['family', 'name', 'library', 'variant', 'src'])
+  @watch(['family', 'name', 'library', 'variant', 'src', 'autoWidth', 'swapOpacity'])
   async setIcon() {
     const { url, fromLibrary } = this.getIconSource();
     const library = fromLibrary ? getIconLibrary(this.library) : undefined;
@@ -221,7 +227,7 @@ export default class WaIcon extends WebAwesomeElement {
         break;
       default:
         this.svg = svg.cloneNode(true) as SVGElement;
-        library?.mutator?.(this.svg);
+        library?.mutator?.(this.svg, this);
         this.dispatchEvent(new WaLoadEvent());
     }
   }
@@ -234,7 +240,7 @@ export default class WaIcon extends WebAwesomeElement {
 
     const svg = this.shadowRoot?.querySelector('svg');
     if (svg) {
-      library?.mutator?.(svg);
+      library?.mutator?.(svg, this);
     }
   }
 

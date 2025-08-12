@@ -23,7 +23,7 @@ Many Font Awesome Pro icon families have variants such as `thin`, `light`, `regu
 <div class="wa-stack wa-gap-xl">
   <div class="wa-stack wa-gap-s">
     <span>Classic</span>
-    <div class="wa-cluster wa-gap-xl" style="font-size: var(--wa-space-xl)">
+    <div class="wa-cluster" style="font-size: 24px;">
       <wa-icon name="eyedropper"></wa-icon>
       <wa-icon variant="regular" name="grip-vertical"></wa-icon>
       <wa-icon variant="light" name="play"></wa-icon>
@@ -32,7 +32,7 @@ Many Font Awesome Pro icon families have variants such as `thin`, `light`, `regu
   </div>
   <div class="wa-stack wa-gap-s">
     <span>Duotone</span>
-    <div class="wa-cluster wa-gap-xl" style="font-size: var(--wa-space-xl)">
+    <div class="wa-cluster" style="font-size: 24px;">
       <wa-icon family="duotone" name="eyedropper"></wa-icon>
       <wa-icon family="duotone" variant="regular" name="grip-vertical"></wa-icon>
       <wa-icon family="duotone" variant="light" name="play"></wa-icon>
@@ -41,7 +41,7 @@ Many Font Awesome Pro icon families have variants such as `thin`, `light`, `regu
   </div>
   <div class="wa-stack wa-gap-s">
     <span>Sharp</span>
-    <div class="wa-cluster wa-gap-xl" style="font-size: var(--wa-space-xl)">
+    <div class="wa-cluster" style="font-size: 24px;">
       <wa-icon family="sharp" name="eyedropper"></wa-icon>
       <wa-icon family="sharp" variant="regular" name="grip-vertical"></wa-icon>
       <wa-icon family="sharp" variant="light" name="play"></wa-icon>
@@ -50,7 +50,7 @@ Many Font Awesome Pro icon families have variants such as `thin`, `light`, `regu
   </div>
   <div class="wa-stack wa-gap-s">
     <span>Sharp Duotone</span>
-    <div class="wa-cluster wa-gap-xl" style="font-size: var(--wa-space-xl)">
+    <div class="wa-cluster" style="font-size: 24px;">
       <wa-icon family="sharp-duotone" name="eyedropper"></wa-icon>
       <wa-icon family="sharp-duotone" variant="regular" name="grip-vertical"></wa-icon>
       <wa-icon family="sharp-duotone" variant="light" name="play"></wa-icon>
@@ -59,7 +59,7 @@ Many Font Awesome Pro icon families have variants such as `thin`, `light`, `regu
   </div>
   <div class="wa-stack wa-gap-s">
     <span>Brands</span>
-    <div class="wa-cluster wa-gap-xl" style="font-size: var(--wa-space-xl)">
+    <div class="wa-cluster" style="font-size: 24px;">
       <wa-icon family="brands" name="font-awesome"></wa-icon>
       <wa-icon family="brands" name="web-awesome"></wa-icon>
       <wa-icon family="brands" name="github"></wa-icon>
@@ -69,35 +69,12 @@ Many Font Awesome Pro icon families have variants such as `thin`, `light`, `regu
 </div>
 ```
 
-### Colors
+### Labels
 
-Icons inherit their color from the current text color. Thus, you can set the `color` property on the `<wa-icon>` element or an ancestor to change the color.
+For non-decorative icons, use the `label` attribute to announce it to assistive devices.
 
 ```html {.example}
-<div style="color: #4a90e2;">
-  <wa-icon name="exclamation-triangle"></wa-icon>
-  <wa-icon name="archive"></wa-icon>
-  <wa-icon name="battery-three-quarters"></wa-icon>
-  <wa-icon name="bell"></wa-icon>
-</div>
-<div style="color: #9013fe;">
-  <wa-icon name="clock"></wa-icon>
-  <wa-icon name="cloud"></wa-icon>
-  <wa-icon name="download"></wa-icon>
-  <wa-icon name="file"></wa-icon>
-</div>
-<div style="color: #417505;">
-  <wa-icon name="flag"></wa-icon>
-  <wa-icon name="heart"></wa-icon>
-  <wa-icon name="image"></wa-icon>
-  <wa-icon name="bolt-lightning"></wa-icon>
-</div>
-<div style="color: #f5a623;">
-  <wa-icon name="microphone"></wa-icon>
-  <wa-icon name="search"></wa-icon>
-  <wa-icon name="star"></wa-icon>
-  <wa-icon name="trash"></wa-icon>
-</div>
+<wa-icon name="star" label="Add to favorites"></wa-icon>
 ```
 
 ### Sizing
@@ -115,12 +92,248 @@ Icons are sized relative to the current font size. To change their size, set the
 </div>
 ```
 
-### Labels
+### Auto Width Icons
 
-For non-decorative icons, use the `label` attribute to announce it to assistive devices.
+By default, icons have a 1em height and a fixed 1em width. Use the `auto-width` attribute to allow the icon to use its natural variable width.
 
 ```html {.example}
-<wa-icon name="star" label="Add to favorites"></wa-icon>
+Without auto-width<br />
+<div style="font-size: 36px; color: #193154;">
+  <wa-icon family="solid" name="exclamation" style="background: lightsalmon;"></wa-icon>
+  <wa-icon family="solid" name="circle-check" style="background: lightsalmon;"></wa-icon>
+  <wa-icon family="solid" name="input-numeric" style="background: lightsalmon;"></wa-icon>
+  <wa-icon family="solid" name="ruler-vertical" style="background: lightsalmon;"></wa-icon>
+  <wa-icon family="solid" name="ruler-horizontal" style="background: lightsalmon;"></wa-icon>
+  <wa-icon family="solid" name="airplay" style="background: lightsalmon;"></wa-icon>
+</div>
+
+<br />
+
+With auto-width<br />
+<div style="font-size: 36px; color: #193154;">
+  <wa-icon auto-width family="solid" name="exclamation" style="background: lightsalmon;"></wa-icon>
+  <wa-icon auto-width family="solid" name="circle-check" style="background: lightsalmon;"></wa-icon>
+  <wa-icon auto-width family="solid" name="input-numeric" style="background: lightsalmon;"></wa-icon>
+  <wa-icon auto-width family="solid" name="ruler-vertical" style="background: lightsalmon;"></wa-icon>
+  <wa-icon auto-width family="solid" name="ruler-horizontal" style="background: lightsalmon;"></wa-icon>
+  <wa-icon auto-width family="solid" name="airplay" style="background: lightsalmon;"></wa-icon>
+</div>
+```
+
+### Colors
+
+Icons inherit their color from the current text color. Thus, you can set the `color` property on the `<wa-icon>` element or an ancestor to change the color.
+
+```html {.example}
+<div style="color: #4a90e2; font-size: 24px;">
+  <wa-icon name="exclamation-triangle"></wa-icon>
+  <wa-icon name="archive"></wa-icon>
+  <wa-icon name="battery-three-quarters"></wa-icon>
+  <wa-icon name="bell"></wa-icon>
+</div>
+
+<div style="color: #9013fe; font-size: 24px;">
+  <wa-icon name="clock"></wa-icon>
+  <wa-icon name="cloud"></wa-icon>
+  <wa-icon name="download"></wa-icon>
+  <wa-icon name="file"></wa-icon>
+</div>
+
+<div style="color: #417505; font-size: 24px;">
+  <wa-icon name="flag"></wa-icon>
+  <wa-icon name="heart"></wa-icon>
+  <wa-icon name="image"></wa-icon>
+  <wa-icon name="bolt-lightning"></wa-icon>
+</div>
+
+<div style="color: #f5a623; font-size: 24px;">
+  <wa-icon name="microphone"></wa-icon>
+  <wa-icon name="search"></wa-icon>
+  <wa-icon name="star"></wa-icon>
+  <wa-icon name="trash"></wa-icon>
+</div>
+```
+
+### Duotone Icons
+
+Font Awesome's [Duotone icons](https://docs.fontawesome.com/web/style/duotone) change with the `color` property as well, but you can customize the primary and secondary colors independently using the `--primary-color` and `--secondary-color` custom properties. To change the opacity of either, use `--primary-opacity` and `--secondary-opacity`.
+
+Note that these custom properties will not inherit and _must be applied directly to the icon_.
+
+```html {.example}
+<div class="wa-cluster" style="font-size: 48px;">
+  <wa-icon
+    family="duotone"
+    name="crow"
+    style="--primary-color: dodgerblue; --secondary-color: gold; --secondary-opacity: 1.0;"
+  ></wa-icon>
+  <wa-icon
+    family="duotone"
+    name="campfire"
+    style="--primary-color: sienna; --secondary-color: red; --secondary-opacity: 1.0;"
+  ></wa-icon>
+  <wa-icon
+    family="duotone"
+    name="birthday-cake"
+    style="--primary-color: pink; --secondary-color: palevioletred; --secondary-opacity: 1.0;"
+  ></wa-icon>
+  <wa-icon
+    family="duotone"
+    name="ear"
+    style="--primary-color: sandybrown; --secondary-color: bisque; --secondary-opacity: 1.0;"
+  ></wa-icon>
+  <wa-icon
+    family="duotone"
+    name="corn"
+    style="--primary-color: mediumseagreen; --secondary-color: gold; --secondary-opacity: 1.0;"
+  ></wa-icon>
+  <wa-icon
+    family="duotone"
+    name="cookie-bite"
+    style="--primary-color: saddlebrown; --secondary-color: burlywood; --secondary-opacity: 1.0;"
+  ></wa-icon>
+</div>
+
+<div class="wa-cluster" style="font-size: 48px;">
+  <wa-icon
+    family="duotone"
+    variant="regular"
+    name="crow"
+    style="--primary-color: dodgerblue; --secondary-color: gold; --secondary-opacity: 1.0;"
+  ></wa-icon>
+  <wa-icon
+    family="duotone"
+    variant="regular"
+    name="campfire"
+    style="--primary-color: sienna; --secondary-color: red; --secondary-opacity: 1.0;"
+  ></wa-icon>
+  <wa-icon
+    family="duotone"
+    variant="regular"
+    name="birthday-cake"
+    style="--primary-color: pink; --secondary-color: palevioletred; --secondary-opacity: 1.0;"
+  ></wa-icon>
+  <wa-icon
+    family="duotone"
+    variant="regular"
+    name="ear"
+    style="--primary-color: sandybrown; --secondary-color: bisque; --secondary-opacity: 1.0;"
+  ></wa-icon>
+  <wa-icon
+    family="duotone"
+    variant="regular"
+    name="corn"
+    style="--primary-color: mediumseagreen; --secondary-color: gold; --secondary-opacity: 1.0;"
+  ></wa-icon>
+  <wa-icon
+    family="duotone"
+    variant="regular"
+    name="cookie-bite"
+    style="--primary-color: saddlebrown; --secondary-color: burlywood; --secondary-opacity: 1.0;"
+  ></wa-icon>
+</div>
+
+<div class="wa-cluster" style="font-size: 48px;">
+  <wa-icon
+    family="duotone"
+    variant="light"
+    name="crow"
+    style="--primary-color: dodgerblue; --secondary-color: gold; --secondary-opacity: 1.0;"
+  ></wa-icon>
+  <wa-icon
+    family="duotone"
+    variant="light"
+    name="campfire"
+    style="--primary-color: sienna; --secondary-color: red; --secondary-opacity: 1.0;"
+  ></wa-icon>
+  <wa-icon
+    family="duotone"
+    variant="light"
+    name="birthday-cake"
+    style="--primary-color: pink; --secondary-color: palevioletred; --secondary-opacity: 1.0;"
+  ></wa-icon>
+  <wa-icon
+    family="duotone"
+    variant="light"
+    name="ear"
+    style="--primary-color: sandybrown; --secondary-color: bisque; --secondary-opacity: 1.0;"
+  ></wa-icon>
+  <wa-icon
+    family="duotone"
+    variant="light"
+    name="corn"
+    style="--primary-color: mediumseagreen; --secondary-color: gold; --secondary-opacity: 1.0;"
+  ></wa-icon>
+  <wa-icon
+    family="duotone"
+    variant="light"
+    name="cookie-bite"
+    style="--primary-color: saddlebrown; --secondary-color: burlywood; --secondary-opacity: 1.0;"
+  ></wa-icon>
+</div>
+
+<div class="wa-cluster" style="font-size: 48px;">
+  <wa-icon
+    family="duotone"
+    variant="thin"
+    name="crow"
+    style="--primary-color: dodgerblue; --secondary-color: gold; --secondary-opacity: 1.0;"
+  ></wa-icon>
+  <wa-icon
+    family="duotone"
+    variant="thin"
+    name="campfire"
+    style="--primary-color: sienna; --secondary-color: red; --secondary-opacity: 1.0;"
+  ></wa-icon>
+  <wa-icon
+    family="duotone"
+    variant="thin"
+    name="birthday-cake"
+    style="--primary-color: pink; --secondary-color: palevioletred; --secondary-opacity: 1.0;"
+  ></wa-icon>
+  <wa-icon
+    family="duotone"
+    variant="thin"
+    name="ear"
+    style="--primary-color: sandybrown; --secondary-color: bisque; --secondary-opacity: 1.0;"
+  ></wa-icon>
+  <wa-icon
+    family="duotone"
+    variant="thin"
+    name="corn"
+    style="--primary-color: mediumseagreen; --secondary-color: gold; --secondary-opacity: 1.0;"
+  ></wa-icon>
+  <wa-icon
+    family="duotone"
+    variant="thin"
+    name="cookie-bite"
+    style="--primary-color: saddlebrown; --secondary-color: burlywood; --secondary-opacity: 1.0;"
+  ></wa-icon>
+</div>
+```
+
+### Swap Duotone Opacity
+
+For duotone icons, you can swap the primary and secondary opacity values using the `swap-opacity` attribute. This is useful when you want to emphasize the secondary layer of the icon.
+
+```html {.example}
+Normal duotone
+<div class="wa-cluster" style="font-size: 36px;">
+  <wa-icon family="duotone" name="home"></wa-icon>
+  <wa-icon family="duotone" name="user"></wa-icon>
+  <wa-icon family="duotone" name="envelope"></wa-icon>
+  <wa-icon family="duotone" name="calendar"></wa-icon>
+</div>
+
+<br />
+
+Swapped duotone<br />
+<div class="wa-cluster" style="font-size: 36px;">
+  <wa-icon family="duotone" name="home" swap-opacity></wa-icon>
+  <wa-icon family="duotone" name="user" swap-opacity></wa-icon>
+  <wa-icon family="duotone" name="envelope" swap-opacity></wa-icon>
+  <wa-icon family="duotone" name="calendar" swap-opacity></wa-icon>
+</div>
 ```
 
 ### Custom Icons
