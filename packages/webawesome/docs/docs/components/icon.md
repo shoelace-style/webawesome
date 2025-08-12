@@ -17,7 +17,9 @@ Not sure which icon to use? [Find the perfect icon over at Font Awesome!](https:
 
 The default icon library is Font Awesome Free, which comes with two icon families: `classic` and `brands`. Use the `family` attribute to set the icon family.
 
-Many Font Awesome Pro icon families have variants such as `thin`, `light`, `regular`, and `solid`. Font Awesome Pro users can [provide their kit code](/docs/#using-font-awesome-kit-codes) to unlock additional families, including `sharp`, `duotone`, and `sharp-duotone`. For these icon families, use the `variant` attribute to set the variant.
+Many Font Awesome Pro icon families have variants such as `thin`, `light`, `regular`, and `solid`. Font Awesome Pro users can [provide their kit code](/docs/#using-font-awesome-kit-codes) to unlock additional premium icon families, including `sharp`, `duotone`, `sharp-duotone`, and additional Pro+ icon packs.
+
+For supportive icon families, use the `variant` attribute to set the variant.
 
 ```html {.example}
 <div class="wa-stack wa-gap-xl">
@@ -312,6 +314,10 @@ Note that these custom properties will not inherit and _must be applied directly
 </div>
 ```
 
+:::info
+Duotone icons can be unlocked by [providing a valid Font Awesome kit code](/docs/#using-font-awesome-kit-codes).
+:::
+
 ### Swap Duotone Opacity
 
 For duotone icons, you can swap the primary and secondary opacity values using the `swap-opacity` attribute. This is useful when you want to emphasize the secondary layer of the icon.
@@ -335,6 +341,91 @@ Swapped duotone<br />
   <wa-icon family="duotone" name="calendar" swap-opacity></wa-icon>
 </div>
 ```
+
+### Font Awesome Pro+ Icons
+
+If you're a [Font Awesome Pro+ customer](https://fontawesome.com/), you have access to even more premium icons! Just set the appropriate `family`, `variant`, and `name` on the icon.
+
+```html {.example}
+<div class="wa-stack wa-gap-xl">
+  <div class="wa-stack wa-gap-s">
+    <a href="https://fontawesome.com/icons/packs/notdog" target="_blank">Notdog</a>
+    <div class="wa-cluster" style="font-size: 48px;">
+      <wa-icon family="notdog" variant="solid" name="house"></wa-icon>
+      <wa-icon
+        family="notdog"
+        variant="duo-solid"
+        name="house"
+        style="--primary-color: dodgerblue; --secondary-color: gold; --secondary-opacity: 1.0;"
+      ></wa-icon>
+    </div>
+  </div>
+
+  <div class="wa-stack wa-gap-s">
+    <a href="https://fontawesome.com/icons/packs/chisel" target="_blank">Chisel</a>
+    <div class="wa-cluster" style="font-size: 48px;">
+      <wa-icon family="chisel" variant="regular" name="house"></wa-icon>
+    </div>
+  </div>
+
+  <div class="wa-stack wa-gap-s">
+    <a href="https://fontawesome.com/icons/packs/etch" target="_blank">Etch</a>
+    <div class="wa-cluster" style="font-size: 48px;">
+      <wa-icon family="etch" variant="solid" name="house"></wa-icon>
+    </div>
+  </div>
+
+  <div class="wa-stack wa-gap-s">
+    <a href="https://fontawesome.com/icons/packs/jelly" target="_blank">Jelly</a>
+    <div class="wa-cluster" style="font-size: 48px;">
+      <wa-icon family="jelly" variant="regular" name="house"></wa-icon>
+      <wa-icon
+        family="jelly"
+        variant="duo-regular"
+        name="house"
+        style="--primary-color: dodgerblue; --secondary-color: gold; --secondary-opacity: 1.0;"
+      ></wa-icon>
+      <wa-icon family="jelly" variant="fill-regular" name="house"></wa-icon>
+    </div>
+  </div>
+
+  <div class="wa-stack wa-gap-s">
+    <a href="https://fontawesome.com/icons/packs/slab" target="_blank">Slab</a>
+    <div class="wa-cluster" style="font-size: 48px;">
+      <wa-icon family="slab" variant="regular" name="house"></wa-icon>
+      <wa-icon family="slab" variant="press-regular" name="house"></wa-icon>
+    </div>
+  </div>
+
+  <div class="wa-stack wa-gap-s">
+    <a href="https://fontawesome.com/icons/packs/thumbprint" target="_blank">Thumbprint</a>
+    <div class="wa-cluster" style="font-size: 48px;">
+      <wa-icon
+        family="thumbprint"
+        variant="light"
+        name="house"
+        style="--primary-color: dodgerblue; --secondary-color: gold; --secondary-opacity: 1.0;"
+      ></wa-icon>
+    </div>
+  </div>
+
+  <div class="wa-stack wa-gap-s">
+    <a href="https://fontawesome.com/icons/packs/whiteboard" target="_blank">Whiteboard</a>
+    <div class="wa-cluster" style="font-size: 48px;">
+      <wa-icon
+        family="whiteboard"
+        variant="semibold"
+        name="house"
+        style="--primary-color: dodgerblue; --secondary-color: gold; --secondary-opacity: 1.0;"
+      ></wa-icon>
+    </div>
+  </div>
+</div>
+```
+
+:::info
+Pro+ icons can be unlocked by [providing a valid Font Awesome kit code](/docs/#using-font-awesome-kit-codes).
+:::
 
 ### Custom Icons
 
