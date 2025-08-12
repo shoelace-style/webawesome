@@ -12,6 +12,7 @@
 }
 
 svg {
+  /* Wire up our custom properties to Font Awesome's custom properties */
   --fa-primary-color: var(--primary-color);
   --fa-primary-opacity: var(--primary-opacity);
   --fa-secondary-color: var(--secondary-color);
