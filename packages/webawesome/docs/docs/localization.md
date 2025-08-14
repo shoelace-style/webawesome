@@ -22,43 +22,7 @@ Through the magic of a mutation observer, changing the `lang` attribute will aut
 
 ## Available Translations
 
-Web Awesome ships with a number of translations. The default is English (US), which also serves as the fallback locale. As such, you do not need to import the English translation.
-
-Available translations include:
-
-<div style="columns: 3; gap: 1rem; margin-block-end: 1.5rem;">
-
-- ar
-- cs
-- da
-- de-ch
-- de
-- en-gb
-- en
-- es
-- fa
-- fi
-- fr
-- he
-- hr
-- hu
-- id
-- it
-- ja
-- nb
-- nl
-- nn
-- pl
-- pt
-- ru
-- sl
-- sv
-- tr
-- uk
-- zh-cn
-- zh-tw
-
-</div>
+Web Awesome ships with [a number of translations](https://github.com/shoelace-style/webawesome/tree/next/packages/webawesome/src/translations). The default is English (US), which also serves as the fallback locale. As such, you do not need to import the English translation.
 
 You can import translations using the following syntax, where `<code>` is replaced with any language code shown above.
 
