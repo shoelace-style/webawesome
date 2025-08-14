@@ -1,5 +1,5 @@
 {
-  "name": "@webawesome/monorepo",
+  "name": "@home-assistant/webawesome-monorepo",
   "private": true,
   "description": "A forward-thinking library of web components.",
   "version": "3.0.0-alpha.13",

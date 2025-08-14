@@ -1,5 +1,5 @@
 {
-  "name": "@awesome.me/webawesome",
+  "name": "@home-assistant/webawesome",
   "publishConfig": {
     "access": "public"
   },

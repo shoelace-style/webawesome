@@ -189,6 +189,22 @@ export async function build(options = {}) {
   }
 
   /**
+   * ESBuild plugin that transforms CSS for older browsers into text modules.
+   * This loader reads CSS files, processes them through esbuild's CSS transformer
+   * targeting Safari 15, and returns the transformed CSS as a text module.
+   */
+  const cssToTextLoader = {
+    name: 'css-to-text',
+    setup(build) {
+      build.onLoad({ filter: /\.css$/ }, async args => {
+        const f = await readFile(args.path);
+        const css = await esbuild.transform(f, { target: 'safari15', loader: 'css' });
+        return { loader: 'text', contents: css.code };
+      });
+    },
+  };
+
+  /**
    * Runs esbuild to generate the final dist.
    */
   async function generateBundle() {
@@ -198,7 +214,7 @@ export async function build(options = {}) {
     // Bundled config
     const config = {
       format: 'esm',
-      target: 'es2020',
+      target: ['es2020', 'safari15'],
       entryPoints: [
         //
         // IMPORTANT: Entry points MUST be mapped in package.json => exports
@@ -223,10 +239,7 @@ export async function build(options = {}) {
       bundle: true,
       splitting: true,
       minify: false,
-      plugins: [replace({ __WEBAWESOME_VERSION__: await getVersion() })],
-      loader: {
-        '.css': 'text',
-      },
+      plugins: [cssToTextLoader, replace({ __WEBAWESOME_VERSION__: await getVersion() })],
     };
 
     const unbundledConfig = {

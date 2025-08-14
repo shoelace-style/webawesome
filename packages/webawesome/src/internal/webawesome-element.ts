@@ -2,6 +2,7 @@ import type { CSSResult, CSSResultGroup, PropertyValues } from 'lit';
 import { LitElement, isServer, unsafeCSS } from 'lit';
 import { property } from 'lit/decorators.js';
 import hostStyles from '../styles/component/host.css';
+import { StateSet } from '../utilities/polyfills/stateset.js';
 
 // Augment Lit's module
 declare module 'lit' {
@@ -39,6 +40,18 @@ export default class WebAwesomeElement extends LitElement {
   @property() dir: string;
   @property() lang: string;
   @property({ type: Boolean, reflect: true, attribute: 'did-ssr' }) didSSR = isServer || Boolean(this.shadowRoot);
+
+  /**
+   * Attaches element internals and adds a polyfill for the `states` property to support
+   * custom states in older browsers that don't have native CustomStateSet support.
+   */
+  attachInternals() {
+    const internals = super.attachInternals();
+    Object.defineProperty(internals, 'states', {
+      value: new StateSet(this, internals.states),
+    });
+    return internals;
+  }
 
   constructor() {
     super();
