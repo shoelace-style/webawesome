@@ -408,6 +408,7 @@ wa-button#search-trigger {
     box-shadow: none;
   }
   &::part(label) {
+    text-align: start;
     width: 100%;
   }
 }
