@@ -35,8 +35,7 @@ export default class WaTag extends WebAwesomeElement {
   @property({ reflect: true }) variant: 'brand' | 'neutral' | 'success' | 'warning' | 'danger' = 'neutral';
 
   /** The tag's visual appearance. */
-  @property({ reflect: true }) appearance: 'accent' | 'outlined accent' | 'filled' | 'outlined' | 'outlined filled' =
-    'outlined filled';
+  @property({ reflect: true }) appearance: 'accent' | 'filled' | 'outlined' | 'outlined filled' = 'outlined filled';
 
   /** The tag's size. */
   @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
