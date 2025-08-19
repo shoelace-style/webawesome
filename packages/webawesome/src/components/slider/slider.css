@@ -33,6 +33,8 @@
 }
 
 #slider {
+  touch-action: none;
+
   &:focus {
     outline: none;
   }
