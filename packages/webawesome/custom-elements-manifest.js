@@ -182,6 +182,10 @@ export default {
     jsxTypesPlugin({
       fileName: 'custom-elements-jsx.d.ts',
       outdir,
+      defaultExport: true,
+      componentTypePath: (_name, _tag, modulePath) => {
+        return `./${modulePath}`;
+      },
     }),
 
     //
