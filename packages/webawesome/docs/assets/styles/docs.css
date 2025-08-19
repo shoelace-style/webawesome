@@ -215,10 +215,10 @@ wa-badge.pro {
       }
 
       &:hover {
-        color: var(--wa-color-brand-on-normal);
+        text-decoration: underline;
 
         wa-icon {
-          color: var(--wa-color-brand-on-quiet);
+          color: var(--wa-color-text-normal);
         }
       }
     }
