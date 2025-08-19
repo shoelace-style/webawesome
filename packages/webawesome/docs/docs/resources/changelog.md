@@ -24,6 +24,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed a bug in JSX typings that prevented the types file from being exported [pr:1295]
 - Fixed a bug in JSX typings that generated the incorrect component imports [issue:1303]
 - Fixed a bug in `<wa-slider>` that prevented the thumb from receiving focus when clicking/tapping [issue:1312]
+- Fixed a bug in `<wa-scroller>` that caused the shadow to appear below relatively-positioned elements [issue:1326]
 
 ## 3.0.0-beta.4
 
