@@ -50,15 +50,15 @@ Use the `expand-icon` and `collapse-icon` slots to change the expand and collaps
 
 ### Icon Position
 
-The default position for the expand and collapse icons is at the end of the summary. Set the `icon-position` attribute to `start` to place the icon at the start of the summary.
+The default position for the expand and collapse icons is at the end of the summary. Set the `icon-placement` attribute to `start` to place the icon at the start of the summary.
 
 ```html {.example}
 <div class="wa-stack">
-  <wa-details summary="Start" icon-position="start">
+  <wa-details summary="Start" icon-placement="start">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
     aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
   </wa-details>
-  <wa-details summary="End" icon-position="end">
+  <wa-details summary="End" icon-placement="end">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
     aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
   </wa-details>
@@ -85,14 +85,14 @@ Links and other interactive elements will still retain their behavior:
 
 ### Right-to-Left Languages
 
-The details component, including its `icon-position`, automatically adapts to right-to-left languages:
+The details component, including its `icon-placement`, automatically adapts to right-to-left languages:
 
 ```html {.example}
 <div class="wa-stack">
   <wa-details summary="تبديلني" lang="ar" dir="rtl">
     استخدام طريقة لوريم إيبسوم لأنها تعطي توزيعاَ طبيعياَ -إلى حد ما- للأحرف عوضاً عن
   </wa-details>
-  <wa-details summary="تبديلني" lang="ar" dir="rtl" icon-position="start">
+  <wa-details summary="تبديلني" lang="ar" dir="rtl" icon-placement="start">
     استخدام طريقة لوريم إيبسوم لأنها تعطي توزيعاَ طبيعياَ -إلى حد ما- للأحرف عوضاً عن
   </wa-details>
 </div>
