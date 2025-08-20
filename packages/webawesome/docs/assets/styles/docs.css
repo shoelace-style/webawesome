@@ -181,11 +181,6 @@ wa-page > header {
 
   li wa-icon {
     color: var(--wa-color-text-quiet);
-    vertical-align: middle;
-
-    &[name='flask'] {
-      margin-inline: 0.125em;
-    }
   }
 }
 
