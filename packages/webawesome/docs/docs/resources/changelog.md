@@ -17,6 +17,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
   - Improved support for duotone icons in `<wa-icon>`, including custom colors, custom opacity, and opacity swapping
   - Removed the `fixed-width` attribute as it's now the default behavior
 - Added the Hindi translation [pr:1307]
+- Added `--show-duration` and `--hide-duration` to `<wa-select>` [issue:1281]
 - Fixed incorrectly named exported tooltip parts in `<wa-slider>` [pr:1277]
 - Fixed a bug in `<wa-dropdown>` that caused menus to overflow the viewport instead of resizing [issue:1267]
 - Fixed a bug in `<wa-dropdown>` that prevented keyboard selection of items when nested in shadow roots [issue:1270]
