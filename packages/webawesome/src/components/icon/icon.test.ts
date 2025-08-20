@@ -140,8 +140,8 @@ describe('<wa-icon>', () => {
           // Still renders svgs for empty icons.
           expect(el.shadowRoot?.querySelector('svg')).to.be.instanceof(SVGElement);
 
-          expect(el.getBoundingClientRect().height).to.equal(16);
-          expect(el.getBoundingClientRect().width).to.equal(16);
+          expect(el.getBoundingClientRect().height).to.equal(20);
+          expect(el.getBoundingClientRect().width).to.equal(20);
         });
 
         it('emits wa-error when the file cant be retrieved', async () => {
