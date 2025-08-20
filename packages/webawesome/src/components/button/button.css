@@ -1,6 +1,9 @@
 @layer wa-component {
   :host {
     display: inline-block;
+  }
+
+  :host(:has(wa-badge)) {
     position: relative;
   }
 }
