@@ -7,9 +7,10 @@ import { WaAfterShowEvent } from '../../events/after-show.js';
 import { WaHideEvent } from '../../events/hide.js';
 import { WaShowEvent } from '../../events/show.js';
 import { animate, parseDuration } from '../../internal/animate.js';
-import { getTargetElement, waitForEvent } from '../../internal/event.js';
+import { waitForEvent } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
+import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
 import { LocalizeController } from '../../utilities/localize.js';
 import '../icon/icon.js';
 import styles from './details.css';
@@ -112,9 +113,27 @@ export default class WaDetails extends WebAwesomeElement {
   }
 
   private handleSummaryClick(event: MouseEvent) {
-    let targetElement = getTargetElement(event);
+    const eventPath = event.composedPath() as HTMLElement[];
 
-    if (targetElement?.closest('a, button, wa-button, input, wa-input, textarea, wa-textarea, select, wa-select')) {
+    // Check if any element in the path is interactive
+    const hasInteractiveElement = eventPath.some(element => {
+      if (!(element instanceof HTMLElement)) return false;
+
+      // Check native interactive elements
+      const tagName = element.tagName?.toLowerCase();
+      if (['a', 'button', 'input', 'textarea', 'select'].includes(tagName)) {
+        return true;
+      }
+
+      // Check for Web Awesome form controls
+      if (element instanceof WebAwesomeFormAssociatedElement) {
+        return !('disabled' in element) || !element.disabled;
+      }
+
+      return false;
+    });
+
+    if (hasInteractiveElement) {
       // Let interactive elements handle their own clicks, fixes #309
       return;
     }

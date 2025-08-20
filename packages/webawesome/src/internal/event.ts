@@ -11,17 +11,3 @@ export function waitForEvent(el: HTMLElement, eventName: string) {
     el.addEventListener(eventName, done);
   });
 }
-
-export function getTargetElement(event: Event) {
-  if (event.target instanceof Node) {
-    switch (event.target.nodeType) {
-      case Node.TEXT_NODE:
-      case Node.COMMENT_NODE:
-        return event.target.parentNode as Element;
-      case Node.ELEMENT_NODE:
-        return event.target as Element;
-    }
-  }
-
-  return null;
-}
