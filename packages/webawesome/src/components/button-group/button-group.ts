@@ -3,7 +3,6 @@ import { html } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import sizeStyles from '../../styles/utilities/size.css';
 import variantStyles from '../../styles/utilities/variants.css';
 import type WaButton from '../button/button.js';
 import styles from './button-group.css';
@@ -20,7 +19,7 @@ import styles from './button-group.css';
  */
 @customElement('wa-button-group')
 export default class WaButtonGroup extends WebAwesomeElement {
-  static css = [sizeStyles, variantStyles, styles];
+  static css = [variantStyles, styles];
 
   @query('slot') defaultSlot: HTMLSlotElement;
 
@@ -35,9 +34,6 @@ export default class WaButtonGroup extends WebAwesomeElement {
 
   /** The button group's orientation. */
   @property({ reflect: true }) orientation: 'horizontal' | 'vertical' = 'horizontal';
-
-  /** The component's size. */
-  @property({ reflect: true }) size: 'small' | 'medium' | 'large'; // unset by default to not override child elements
 
   /** The button group's theme variant. Defaults to `neutral` if not within another element with a variant. */
   @property({ reflect: true }) variant: 'neutral' | 'brand' | 'success' | 'warning' | 'danger' = 'neutral';
@@ -85,7 +81,6 @@ export default class WaButtonGroup extends WebAwesomeElement {
 
       if (button) {
         if ((button as WaButton).appearance === 'outlined') this.hasOutlined = true;
-        if (this.size) button.setAttribute('size', this.size);
         button.classList.add('wa-button-group__button');
         button.classList.toggle('wa-button-group__horizontal', this.orientation === 'horizontal');
         button.classList.toggle('wa-button-group__vertical', this.orientation === 'vertical');
