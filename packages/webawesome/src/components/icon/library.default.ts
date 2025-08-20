@@ -3,8 +3,7 @@ import type { IconLibrary } from './library.js';
 
 const FA_VERSION = '7.0.0';
 
-function getIconUrl(name: string, family: string, variant: string, autoWidth: boolean) {
-  const basePath = autoWidth ? 'svgs' : 'svgs-full';
+function getIconUrl(name: string, family: string, variant: string) {
   const kitCode = getKitCode();
   const isPro = kitCode.length > 0;
   let folder = 'solid';
@@ -90,14 +89,14 @@ function getIconUrl(name: string, family: string, variant: string, autoWidth: bo
 
   // Use the default CDN
   return isPro
-    ? `https://ka-p.fontawesome.com/releases/v${FA_VERSION}/${basePath}/${folder}/${name}.svg?token=${encodeURIComponent(kitCode)}`
-    : `https://ka-f.fontawesome.com/releases/v${FA_VERSION}/${basePath}/${folder}/${name}.svg`;
+    ? `https://ka-p.fontawesome.com/releases/v${FA_VERSION}/svgs/${folder}/${name}.svg?token=${encodeURIComponent(kitCode)}`
+    : `https://ka-f.fontawesome.com/releases/v${FA_VERSION}/svgs/${folder}/${name}.svg`;
 }
 
 const library: IconLibrary = {
   name: 'default',
-  resolver: (name: string, family = 'classic', variant = 'solid', autoWidth = false) => {
-    return getIconUrl(name, family, variant, autoWidth);
+  resolver: (name: string, family = 'classic', variant = 'solid') => {
+    return getIconUrl(name, family, variant);
   },
   mutator: (svg, hostEl) => {
     // Duotone families
