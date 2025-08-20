@@ -190,6 +190,10 @@ textarea {
   }
 }
 
+.clear + .password-toggle {
+  margin-inline-start: var(--wa-space-2xs);
+}
+
 /* Don't show the browser's password toggle in Edge */
 ::-ms-reveal {
   display: none;

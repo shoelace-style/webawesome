@@ -29,6 +29,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed a bug in `<wa-slider>` that prevented the thumb from receiving focus when clicking/tapping [issue:1312]
 - Fixed a bug in `<wa-scroller>` that caused the shadow to appear below relatively-positioned elements [issue:1326]
 - Fixed `<wa-button>` to have `static` positioning by default and `relative` positioning only when used with `<wa-badge>` [pr:1346]
+- Fixed spacing in `<wa-input>` when both clear and password toggle icons are present [issue:1325]
 
 ## 3.0.0-beta.4
 
