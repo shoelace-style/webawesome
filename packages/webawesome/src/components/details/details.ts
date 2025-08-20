@@ -77,8 +77,8 @@ export default class WaDetails extends WebAwesomeElement {
   /** The element's visual appearance. */
   @property({ reflect: true }) appearance: 'filled' | 'outlined' | 'plain' = 'outlined';
 
-  /** The position of the expand/collapse icon. */
-  @property({ attribute: 'icon-position', reflect: true }) iconPosition: 'start' | 'end' = 'end';
+  /** The location of the expand/collapse icon. */
+  @property({ attribute: 'icon-placement', reflect: true }) iconPlacement: 'start' | 'end' = 'end';
 
   disconnectedCallback() {
     super.disconnectedCallback();

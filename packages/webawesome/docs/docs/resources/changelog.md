@@ -16,6 +16,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
   - Added the `auto-width` attribute to automatically size icons, since FA7 is fixed-width by default now
   - Improved support for duotone icons in `<wa-icon>`, including custom colors, custom opacity, and opacity swapping
   - Removed the `fixed-width` attribute as it's now the default behavior
+- 🚨 BREAKING: Renamed the `icon-position` attribute to `icon-placement` in `<wa-details>` [discuss:1340]
 - Added the Hindi translation [pr:1307]
 - Fixed incorrectly named exported tooltip parts in `<wa-slider>` [pr:1277]
 - Fixed a bug in `<wa-dropdown>` that caused menus to overflow the viewport instead of resizing [issue:1267]
