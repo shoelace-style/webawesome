@@ -211,15 +211,10 @@ wa-badge.pro {
       wa-icon {
         font-size: var(--wa-font-size-s);
         font-weight: var(--wa-font-weight-action);
-        color: var(--wa-color-gray-70);
       }
 
       &:hover {
         text-decoration: underline;
-
-        wa-icon {
-          color: var(--wa-color-text-normal);
-        }
       }
     }
   }
