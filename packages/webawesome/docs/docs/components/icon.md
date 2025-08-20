@@ -7,6 +7,10 @@ category: Imagery
 
 Web Awesome comes bundled with over 2,000 free icons courtesy of [Font Awesome](https://fontawesome.com/). These icons are part of the `default` icon library. Font Awesome Pro users can unlock additional icon families. Or, if you prefer, you can register your own [custom icon library](#icon-library).
 
+```html {.example}
+<wa-icon name="face-awesome" variant="light" label="Awesome" style="font-size: 2em;"></wa-icon>
+```
+
 :::info
 Not sure which icon to use? [Find the perfect icon over at Font Awesome!](https://fontawesome.com/search?o=r&m=free&f=brands%2Cclassic)
 :::
@@ -25,7 +29,7 @@ For supportive icon families, use the `variant` attribute to set the variant.
 <div class="wa-stack wa-gap-xl">
   <div class="wa-flank" style="--flank-size: 12ch;">
     <span>Classic</span>
-    <div class="wa-cluster" style="font-size: 2em;">
+    <div class="wa-cluster" style="font-size: 1.5em;">
       <wa-icon name="eyedropper"></wa-icon>
       <wa-icon variant="regular" name="grip-vertical"></wa-icon>
       <wa-icon variant="light" name="play"></wa-icon>
@@ -34,7 +38,7 @@ For supportive icon families, use the `variant` attribute to set the variant.
   </div>
   <div class="wa-flank" style="--flank-size: 12ch;">
     <span>Duotone</span>
-    <div class="wa-cluster" style="font-size: 2em;">
+    <div class="wa-cluster" style="font-size: 1.5em;">
       <wa-icon family="duotone" name="eyedropper"></wa-icon>
       <wa-icon family="duotone" variant="regular" name="grip-vertical"></wa-icon>
       <wa-icon family="duotone" variant="light" name="play"></wa-icon>
@@ -43,7 +47,7 @@ For supportive icon families, use the `variant` attribute to set the variant.
   </div>
   <div class="wa-flank" style="--flank-size: 12ch;">
     <span>Sharp</span>
-    <div class="wa-cluster" style="font-size: 2em;">
+    <div class="wa-cluster" style="font-size: 1.5em;">
       <wa-icon family="sharp" name="eyedropper"></wa-icon>
       <wa-icon family="sharp" variant="regular" name="grip-vertical"></wa-icon>
       <wa-icon family="sharp" variant="light" name="play"></wa-icon>
@@ -52,7 +56,7 @@ For supportive icon families, use the `variant` attribute to set the variant.
   </div>
   <div class="wa-flank" style="--flank-size: 12ch;">
     <span>Sharp Duotone</span>
-    <div class="wa-cluster" style="font-size: 2em;">
+    <div class="wa-cluster" style="font-size: 1.5em;">
       <wa-icon family="sharp-duotone" name="eyedropper"></wa-icon>
       <wa-icon family="sharp-duotone" variant="regular" name="grip-vertical"></wa-icon>
       <wa-icon family="sharp-duotone" variant="light" name="play"></wa-icon>
@@ -61,7 +65,7 @@ For supportive icon families, use the `variant` attribute to set the variant.
   </div>
   <div class="wa-flank" style="--flank-size: 12ch;">
     <span>Brands</span>
-    <div class="wa-cluster" style="font-size: 2em;">
+    <div class="wa-cluster" style="font-size: 1.5em;">
       <wa-icon family="brands" name="font-awesome"></wa-icon>
       <wa-icon family="brands" name="web-awesome"></wa-icon>
       <wa-icon family="brands" name="github"></wa-icon>
@@ -76,7 +80,7 @@ For supportive icon families, use the `variant` attribute to set the variant.
 For non-decorative icons, use the `label` attribute to announce it to assistive devices.
 
 ```html {.example}
-<wa-icon name="star" label="Favorite" style="font-size: 2em;"></wa-icon>
+<wa-icon name="star" label="Favorite" style="font-size: 1.5em;"></wa-icon>
 ```
 
 ### Sizing
@@ -100,7 +104,7 @@ By default, icons have a 1em height and a fixed 1em width. Use the `auto-width` 
 
 ```html {.example}
 Without auto-width<br />
-<div style="font-size: 2em; color: #193154;">
+<div style="font-size: 1.5em; color: #193154;">
   <wa-icon family="solid" name="exclamation" style="background: lightsalmon;"></wa-icon>
   <wa-icon family="solid" name="circle-check" style="background: lightsalmon;"></wa-icon>
   <wa-icon family="solid" name="input-numeric" style="background: lightsalmon;"></wa-icon>
@@ -112,7 +116,7 @@ Without auto-width<br />
 <br />
 
 With auto-width<br />
-<div style="font-size: 2em; color: #193154;">
+<div style="font-size: 1.5em; color: #193154;">
   <wa-icon auto-width family="solid" name="exclamation" style="background: lightsalmon;"></wa-icon>
   <wa-icon auto-width family="solid" name="circle-check" style="background: lightsalmon;"></wa-icon>
   <wa-icon auto-width family="solid" name="input-numeric" style="background: lightsalmon;"></wa-icon>
@@ -127,7 +131,7 @@ With auto-width<br />
 Icons inherit their color from the current text color. Thus, you can set the `color` property on the `<wa-icon>` element or an ancestor to change the color.
 
 ```html {.example}
-<div class="wa-cluster" style="font-size: 2em;">
+<div class="wa-cluster" style="font-size: 1.5em;">
   <wa-icon name="strawberry" style="color: salmon;"></wa-icon>
   <wa-icon name="crab" style="color: coral;"></wa-icon>
   <wa-icon name="sun" style="color: gold;"></wa-icon>
@@ -145,7 +149,7 @@ Note that these custom properties will not inherit and _must be applied directly
 
 ```html {.example}
 <div class="wa-stack">
-  <div class="wa-cluster" style="font-size: 2em;">
+  <div class="wa-cluster" style="font-size: 1.5em;">
     <wa-icon
       family="duotone"
       name="crow"
@@ -178,7 +182,7 @@ Note that these custom properties will not inherit and _must be applied directly
     ></wa-icon>
   </div>
 
-  <div class="wa-cluster" style="font-size: 2em;">
+  <div class="wa-cluster" style="font-size: 1.5em;">
     <wa-icon
       family="duotone"
       variant="regular"
@@ -217,7 +221,7 @@ Note that these custom properties will not inherit and _must be applied directly
     ></wa-icon>
   </div>
 
-  <div class="wa-cluster" style="font-size: 2em;">
+  <div class="wa-cluster" style="font-size: 1.5em;">
     <wa-icon
       family="duotone"
       variant="light"
@@ -256,7 +260,7 @@ Note that these custom properties will not inherit and _must be applied directly
     ></wa-icon>
   </div>
 
-  <div class="wa-cluster" style="font-size: 2em;">
+  <div class="wa-cluster" style="font-size: 1.5em;">
     <wa-icon
       family="duotone"
       variant="thin"
@@ -307,7 +311,7 @@ For duotone icons, you can swap the primary and secondary opacity values using t
 
 ```html {.example}
 Normal duotone<br />
-<div class="wa-cluster" style="font-size: 2em;">
+<div class="wa-cluster" style="font-size: 1.5em;">
   <wa-icon family="duotone" name="home"></wa-icon>
   <wa-icon family="duotone" name="user"></wa-icon>
   <wa-icon family="duotone" name="envelope"></wa-icon>
@@ -317,7 +321,7 @@ Normal duotone<br />
 <br />
 
 Swapped duotone<br />
-<div class="wa-cluster" style="font-size: 2em;">
+<div class="wa-cluster" style="font-size: 1.5em;">
   <wa-icon family="duotone" name="home" swap-opacity></wa-icon>
   <wa-icon family="duotone" name="user" swap-opacity></wa-icon>
   <wa-icon family="duotone" name="envelope" swap-opacity></wa-icon>
@@ -333,7 +337,7 @@ If you're a [Font Awesome Pro+ customer](https://fontawesome.com/), you have acc
 <div class="wa-stack wa-gap-xl">
   <div class="wa-flank" style="--flank-size: 10ch;">
     <a href="https://fontawesome.com/icons/packs/notdog" target="_blank">Notdog</a>
-    <div class="wa-cluster" style="font-size: 2em;">
+    <div class="wa-cluster" style="font-size: 1.5em;">
       <wa-icon family="notdog" variant="solid" name="house"></wa-icon>
       <wa-icon
         family="notdog"
@@ -346,21 +350,21 @@ If you're a [Font Awesome Pro+ customer](https://fontawesome.com/), you have acc
 
   <div class="wa-flank" style="--flank-size: 10ch;">
     <a href="https://fontawesome.com/icons/packs/chisel" target="_blank">Chisel</a>
-    <div class="wa-cluster" style="font-size: 2em;">
+    <div class="wa-cluster" style="font-size: 1.5em;">
       <wa-icon family="chisel" variant="regular" name="house"></wa-icon>
     </div>
   </div>
 
   <div class="wa-flank" style="--flank-size: 10ch;">
     <a href="https://fontawesome.com/icons/packs/etch" target="_blank">Etch</a>
-    <div class="wa-cluster" style="font-size: 2em;">
+    <div class="wa-cluster" style="font-size: 1.5em;">
       <wa-icon family="etch" variant="solid" name="house"></wa-icon>
     </div>
   </div>
 
   <div class="wa-flank" style="--flank-size: 10ch;">
     <a href="https://fontawesome.com/icons/packs/jelly" target="_blank">Jelly</a>
-    <div class="wa-cluster" style="font-size: 2em;">
+    <div class="wa-cluster" style="font-size: 1.5em;">
       <wa-icon family="jelly" variant="regular" name="house"></wa-icon>
       <wa-icon
         family="jelly"
@@ -374,7 +378,7 @@ If you're a [Font Awesome Pro+ customer](https://fontawesome.com/), you have acc
 
   <div class="wa-flank" style="--flank-size: 10ch;">
     <a href="https://fontawesome.com/icons/packs/slab" target="_blank">Slab</a>
-    <div class="wa-cluster" style="font-size: 2em;">
+    <div class="wa-cluster" style="font-size: 1.5em;">
       <wa-icon family="slab" variant="regular" name="house"></wa-icon>
       <wa-icon family="slab" variant="press-regular" name="house"></wa-icon>
     </div>
@@ -382,7 +386,7 @@ If you're a [Font Awesome Pro+ customer](https://fontawesome.com/), you have acc
 
   <div class="wa-flank" style="--flank-size: 10ch;">
     <a href="https://fontawesome.com/icons/packs/thumbprint" target="_blank">Thumbprint</a>
-    <div class="wa-cluster" style="font-size: 2em;">
+    <div class="wa-cluster" style="font-size: 1.5em;">
       <wa-icon
         family="thumbprint"
         variant="light"
@@ -395,12 +399,7 @@ If you're a [Font Awesome Pro+ customer](https://fontawesome.com/), you have acc
   <div class="wa-flank" style="--flank-size: 10ch;">
     <a href="https://fontawesome.com/icons/packs/whiteboard" target="_blank">Whiteboard</a>
     <div class="wa-cluster" style="font-size: 32px;">
-      <wa-icon
-        family="whiteboard"
-        variant="semibold"
-        name="house"
-        
-      ></wa-icon>
+      <wa-icon family="whiteboard" variant="semibold" name="house"></wa-icon>
     </div>
   </div>
 </div>
