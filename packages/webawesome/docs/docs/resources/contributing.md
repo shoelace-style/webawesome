@@ -252,22 +252,16 @@ This creates confusion because the part will be documented, but it won't work wh
 
 ### Emitting Events
 
-Components must only emit events that start with `wa-` as a namespace. For compatibility with frameworks that utilize DOM templates, events must have lowercase, kebab-style names. For example, use `wa-change` instead of `waChange`.
+Components must only emit events that start with `wa-` as a namespace. For compatibility with frameworks that utilize DOM templates, events must have lowercase, kebab-style names. For example, use `wa-event` instead of `waEvent`.
 
 This convention avoids the problem of browsers lowercasing attributes, causing some frameworks to be unable to listen to them. This problem isn't specific to one framework, but [Vue's documentation](https://vuejs.org/v2/guide/components-custom-events.html#Event-Names) provides a good explanation of the problem.
-
-### Change Events
-
-When change events are emitted by Web Awesome components, they should be named `wa-change` and they should only be emitted as a result of user input. Programmatic changes, such as setting `el.value = '…'` _should not_ result in a change event being emitted. This is consistent with how native form controls work.
 
 ### Data Attribute Invokers
 
 Some components can be controlled using [data attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Global_attributes/data-*) that trigger specific behaviors. These controls must use the following convention:
 
 ```html
-<button data-component="action id">
-  Button text
-</button>
+<button data-component="action id">Button text</button>
 ```
 
 The `data-component` portion corresponds to the component's name without the `wa-` prefix. For example, `data-dialog` must control a `<wa-dialog>` component.
@@ -277,13 +271,9 @@ The `action` parameter is required and must be a concise, descriptive term indic
 The `id` parameter must point to the ID of the target component. The ID may be omitted if and only if the target component wraps the element with the `data-` attribute.
 
 ```html
-<wa-dialog id="my-dialog">
-  Dialog content
-</wa-dialog>
+<wa-dialog id="my-dialog"> Dialog content </wa-dialog>
 
-<button data-dialog="open my-dialog">
-  Open dialog
-</button>
+<button data-dialog="open my-dialog">Open dialog</button>
 ```
 
 ### CSS Custom Properties
