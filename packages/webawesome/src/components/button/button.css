@@ -1,8 +1,17 @@
 @layer wa-component {
   :host {
     display: inline-block;
+
+    /* Workaround because Chrome doesn't like :host(:has()) below
+     * https://issues.chromium.org/issues/40062355 
+     * Firefox doesn't like this nested rule, so both are needed */
+    &:has(wa-badge) {
+      position: relative;
+    }
   }
 
+  /* Apply relative positioning only when needed to position wa-badge
+   * This avoids creating a new stacking context for every button */
   :host(:has(wa-badge)) {
     position: relative;
   }
