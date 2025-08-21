@@ -141,10 +141,11 @@ layout: page
       display: flex;
       align-items: center;
       justify-content: center;
+      block-size: 2em;
+      inline-size: 2em;
       background-color: var(--wa-color-neutral-fill-loud);
       color: var(--wa-color-neutral-on-loud);
       border-radius: 0.25rem;
-      aspect-ratio: 1;
       padding: 0.5em;
 
       &.brand-orange {
