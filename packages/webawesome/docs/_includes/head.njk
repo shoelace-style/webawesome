@@ -26,5 +26,17 @@
 {% endfor %}
 <link rel="stylesheet" href="/dist/styles/webawesome.css" />
 
+<script type="module">
+  document.addEventListener("wa-discovery-complete", loadLayout)
+  function loadLayout () {
+    if (!customElements.get("wa-layout")) {
+      import("{% cdnUrl 'components/page/page.js' %}")
+        .catch((e) => {
+        // known errors with dual registration. This is only a thing in the free repo.
+        })
+    }
+  }
+</script>
+
 {# Used by Web Awesome App to inject other assets into the head. #}
 {% server "head" %}
