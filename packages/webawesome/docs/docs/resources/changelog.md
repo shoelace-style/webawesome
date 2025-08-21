@@ -30,6 +30,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed a bug in `<wa-scroller>` that caused the shadow to appear below relatively-positioned elements [issue:1326]
 - Fixed `<wa-button>` to have `static` positioning by default and `relative` positioning only when used with `<wa-badge>` [pr:1346]
 - Fixed spacing in `<wa-input>` when both clear and password toggle icons are present [issue:1325]
+- Fixed a bug in `<wa-radio-group>` and `<wa-radio>` where changing appearances dynamically would render incorrectly [issue:1178]
 
 ## 3.0.0-beta.4
 

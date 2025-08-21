@@ -57,8 +57,6 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
 
   private readonly hasSlotController = new HasSlotController(this, 'hint', 'label');
 
-  @state() hasRadioButtons = false;
-
   @query('slot:not([name])') defaultSlot: HTMLSlotElement;
 
   /**
@@ -197,11 +195,9 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
 
   private async syncRadioElements() {
     const radios = this.getAllRadios();
-    let hasRadioButtons = false;
 
-    // Add data attributes to support styling
+    // Set positioning data attributes and properties
     radios.forEach((radio, index) => {
-      if (radio.appearance === 'button') hasRadioButtons = true;
       radio.setAttribute('size', this.size);
       radio.toggleAttribute('data-wa-radio-horizontal', this.orientation !== 'vertical');
       radio.toggleAttribute('data-wa-radio-vertical', this.orientation === 'vertical');
@@ -212,9 +208,6 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
       // Set forceDisabled state based on radio group's disabled state
       (radio as WaRadio).forceDisabled = this.disabled;
     });
-
-    // If at least one radio button exists, we assume it's a radio button group
-    this.hasRadioButtons = hasRadioButtons;
 
     await Promise.all(
       radios.map(async radio => {
@@ -349,7 +342,6 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
           'form-control': true,
           'form-control-radio-group': true,
           'form-control-has-label': hasLabel,
-          'has-radio-buttons': this.hasRadioButtons,
         })}
         role="radiogroup"
         aria-labelledby="label"
