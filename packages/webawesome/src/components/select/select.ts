@@ -493,6 +493,10 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     this.displayInput.focus();
   }
 
+  private handleComboboxClick(event: MouseEvent) {
+    event.preventDefault();
+  }
+
   private handleComboboxMouseDown(event: MouseEvent) {
     const path = event.composedPath();
     const isButton = path.some(el => el instanceof Element && el.tagName.toLowerCase() === 'wa-button');
@@ -944,6 +948,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
               slot="anchor"
               @keydown=${this.handleComboboxKeyDown}
               @mousedown=${this.handleComboboxMouseDown}
+              @click=${this.handleComboboxClick}
             >
               <slot part="start" name="start" class="start"></slot>
 
