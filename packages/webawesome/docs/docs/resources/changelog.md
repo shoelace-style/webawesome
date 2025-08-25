@@ -31,6 +31,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed a bug in `<wa-details>` that caused it to expand/collapse when clicking on interactive elements in the summary [issue:1252]
 - Fixed `<wa-button>` to have `static` positioning by default and `relative` positioning only when used with `<wa-badge>` [pr:1346]
 - Fixed spacing in `<wa-input>` when both clear and password toggle icons are present [issue:1325]
+- Fixed a bug in `<wa-input>` that prevented the value from changing when assigning non-string values to `value` [issue:1323]
 
 ## 3.0.0-beta.4
 
