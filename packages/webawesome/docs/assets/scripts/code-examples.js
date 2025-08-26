@@ -56,7 +56,7 @@ document.addEventListener('click', event => {
     const code = codeExample.querySelector('code');
     const cdnUrl = document.documentElement.dataset.cdnUrl;
     const html =
-      `<script data-fa-kit-code="b10bfbde90" type="module" src="${cdnUrl}webawesome.loader.js"></script>\n` +
+      `<script data-fa-kit-code="38c11e3f20" type="module" src="${cdnUrl}webawesome.loader.js"></script>\n` +
       `<link rel="stylesheet" href="${cdnUrl}styles/webawesome.css">\n\n` +
       `${code.textContent}`;
     const css = 'html > body {\n  padding: 2rem !important;\n}';

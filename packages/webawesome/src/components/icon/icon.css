@@ -4,30 +4,38 @@
   --secondary-color: currentColor;
   --secondary-opacity: 0.4;
 
+  box-sizing: content-box;
   display: inline-flex;
-  box-sizing: content-box !important;
+  align-items: center;
+  justify-content: center;
+  vertical-align: -0.125em;
+}
+
+/* Standard */
+:host(:not([auto-width])) {
+  width: 1.25em;
+  height: 1em;
+}
+
+/* Auto-width */
+:host([auto-width]) {
   width: auto;
   height: 1em;
 }
 
 svg {
-  display: inline-block;
-  width: auto;
-  height: inherit;
+  height: 1em;
   fill: currentColor;
+  overflow: visible;
 
-  .fa-primary {
+  /* Duotone colors with path-specific opacity fallback */
+  path[data-duotone-primary] {
     color: var(--primary-color);
-    opacity: var(--primary-opacity);
+    opacity: var(--path-opacity, var(--primary-opacity));
   }
 
-  .fa-secondary {
+  path[data-duotone-secondary] {
     color: var(--secondary-color);
-    opacity: var(--secondary-opacity);
+    opacity: var(--path-opacity, var(--secondary-opacity));
   }
-}
-
-:host([fixed-width]) {
-  width: 1em;
-  justify-content: center;
 }

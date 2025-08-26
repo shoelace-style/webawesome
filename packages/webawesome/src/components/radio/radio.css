@@ -31,6 +31,41 @@
   margin-block-start: 0.5em;
 }
 
+/* Default spacing for default appearance radios */
+:host([appearance='default']) {
+  margin-block: 0.375em; /* Half of the original 0.75em gap on each side */
+}
+
+:host([appearance='default'][data-wa-radio-horizontal]) {
+  margin-block: 0;
+  margin-inline: 0.5em; /* Half of the original 1em gap on each side */
+}
+
+/* Remove margin from first/last items to prevent extra space */
+:host([appearance='default'][data-wa-radio-first]) {
+  margin-block-start: 0;
+  margin-inline-start: 0;
+}
+
+:host([appearance='default'][data-wa-radio-last]) {
+  margin-block-end: 0;
+  margin-inline-end: 0;
+}
+
+/* Button appearance have no spacing, they get handled by the overlap margins below */
+:host([appearance='button']) {
+  margin: 0;
+  align-items: center;
+  min-height: var(--wa-form-control-height);
+  background-color: var(--wa-color-surface-default);
+  border: var(--wa-form-control-border-width) var(--wa-form-control-border-style) var(--wa-form-control-border-color);
+  border-radius: var(--wa-border-radius-m);
+  padding: 0 var(--wa-form-control-padding-inline);
+  transition:
+    background-color var(--wa-transition-fast),
+    border-color var(--wa-transition-fast);
+}
+
 /* Default appearance */
 :host([appearance='default']) {
   .control {
@@ -66,6 +101,13 @@
   }
 }
 
+/* Button appearance */
+:host([appearance='button']) {
+  .control {
+    display: none;
+  }
+}
+
 /* Checked */
 :host(:state(checked)) .control {
   color: var(--checked-icon-color);
@@ -83,23 +125,6 @@
 :host(:state(disabled)) {
   opacity: 0.5;
   cursor: not-allowed;
-}
-
-/* Button appearance */
-:host([appearance='button']) {
-  align-items: center;
-  min-height: var(--wa-form-control-height);
-  background-color: var(--wa-color-surface-default);
-  border: var(--wa-form-control-border-width) var(--wa-form-control-border-style) var(--wa-form-control-border-color);
-  border-radius: var(--wa-border-radius-m);
-  padding: 0 var(--wa-form-control-padding-inline);
-  transition:
-    background-color var(--wa-transition-fast),
-    border-color var(--wa-transition-fast);
-
-  .control {
-    display: none;
-  }
 }
 
 /* Horizontal grouping - remove inner border radius */
@@ -153,7 +178,7 @@
   outline-offset: var(--wa-focus-ring-offset);
 }
 
-/* Remove inner borders and handle overlap */
+/* Button overlap margins */
 :host([appearance='button'][data-wa-radio-horizontal]:not([data-wa-radio-first])) {
   margin-inline-start: calc(-1 * var(--wa-form-control-border-width));
 }

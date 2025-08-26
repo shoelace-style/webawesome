@@ -20,6 +20,7 @@
 }
 
 #content {
+  z-index: 1; /* below shadows */
   border-radius: inherit;
   scroll-behavior: smooth;
   scrollbar-width: thin;
@@ -102,6 +103,7 @@
   #start-shadow,
   #end-shadow {
     position: absolute;
+    z-index: 2;
     right: 0;
     left: 0;
     height: var(--shadow-size);

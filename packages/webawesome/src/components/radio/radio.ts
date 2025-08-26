@@ -111,7 +111,6 @@ export default class WaRadio extends WebAwesomeFormAssociatedElement {
     // We override `setValue` because we don't want to set form values from here. We want to do that in "RadioGroup" itself.
   }
 
-  // Update the handleClick method (around line 75)
   private handleClick = () => {
     if (!this.disabled && !this.forceDisabled) {
       this.checked = true;

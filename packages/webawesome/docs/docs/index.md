@@ -32,7 +32,7 @@ Now you can [start using Web Awesome!](/docs/usage)
 
 ## Using Font Awesome Kit Codes
 
-Font Awesome users can set their kit code to unlock Font Awesome Pro icons. You can provide it by adding the `data-fa-kit-code` attribute to any element on the page, or by calling the `setKitCode()` method.
+Font Awesome users can provide their kit code to unlock premium icon packs. You can provide yours by adding the `data-fa-kit-code` attribute to any element on the page, or by calling the `setKitCode()` method.
 
 ```html
 <!-- Option 1: the data-fa-kit-code attribute -->
@@ -44,6 +44,10 @@ Font Awesome users can set their kit code to unlock Font Awesome Pro icons. You 
   setKitCode('YOUR_KIT_CODE_HERE');
 </script>
 ```
+
+:::info
+Not a Font Awesome user yet? [Learn more about premium icon packs](https://fontawesome.com/) and sign up for an account to unlock them!
+:::
 
 ---
 

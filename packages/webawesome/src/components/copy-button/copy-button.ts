@@ -191,13 +191,13 @@ export default class WaCopyButton extends WebAwesomeElement {
         <!-- Render a visually hidden label to appease the accessibility checking gods -->
         <span class="wa-visually-hidden">${this.currentLabel}</span>
         <slot part="copy-icon" name="copy-icon">
-          <wa-icon library="system" name="copy" variant="regular" fixed-width></wa-icon>
+          <wa-icon library="system" name="copy" variant="regular"></wa-icon>
         </slot>
         <slot part="success-icon" name="success-icon" variant="solid" hidden>
-          <wa-icon library="system" name="check" fixed-width></wa-icon>
+          <wa-icon library="system" name="check"></wa-icon>
         </slot>
         <slot part="error-icon" name="error-icon" variant="solid" hidden>
-          <wa-icon library="system" name="xmark" fixed-width></wa-icon>
+          <wa-icon library="system" name="xmark"></wa-icon>
         </slot>
         <wa-tooltip
           class=${classMap({

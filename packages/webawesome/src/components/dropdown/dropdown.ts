@@ -8,6 +8,7 @@ import { WaAfterShowEvent } from '../../events/after-show.js';
 import { WaHideEvent } from '../../events/hide.js';
 import { WaSelectEvent } from '../../events/select.js';
 import { WaShowEvent } from '../../events/show.js';
+import { activeElements } from '../../internal/active-elements.js';
 import { animateWithClass } from '../../internal/animate.js';
 import { uniqueId } from '../../internal/math.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
@@ -123,19 +124,30 @@ export default class WaDropdown extends WebAwesomeElement {
     }
   }
 
-  /** Gets all <wa-dropdown-item> elements slotted in the menu that aren't disabled. */
+  /** Gets all dropdown items slotted in the menu. */
   private getItems(includeDisabled = false): WaDropdownItem[] {
-    const items = [...this.children].filter(
-      el => el.localName === 'wa-dropdown-item' && !el.hasAttribute('slot'),
-    ) as WaDropdownItem[];
+    const items = this.defaultSlot
+      .assignedElements({ flatten: true })
+      .filter(el => el.localName === 'wa-dropdown-item') as WaDropdownItem[];
+
     return includeDisabled ? items : items.filter(item => !item.disabled);
   }
 
   /** Gets all dropdown items in a specific submenu. */
   private getSubmenuItems(parentItem: WaDropdownItem, includeDisabled = false): WaDropdownItem[] {
-    const items = [...parentItem.children].filter(
-      el => el.localName === 'wa-dropdown-item' && el.getAttribute('slot') === 'submenu',
-    ) as WaDropdownItem[];
+    // Find the submenu slot within the parent item
+    const submenuSlot =
+      parentItem.shadowRoot?.querySelector<HTMLSlotElement>('slot[name="submenu"]') ||
+      parentItem.querySelector<HTMLSlotElement>('slot[name="submenu"]');
+    if (!submenuSlot) {
+      return [];
+    }
+
+    // Get the items from the submenu slot
+    const items = submenuSlot
+      .assignedElements({ flatten: true })
+      .filter(el => el.localName === 'wa-dropdown-item') as WaDropdownItem[];
+
     return includeDisabled ? items : items.filter(item => !item.disabled);
   }
 
@@ -277,7 +289,7 @@ export default class WaDropdown extends WebAwesomeElement {
       return;
     }
 
-    const activeElement = document.activeElement as HTMLElement;
+    const activeElement = [...activeElements()].find(el => el.localName === 'wa-dropdown-item');
     const isFocusedOnItem = activeElement?.localName === 'wa-dropdown-item';
     const currentSubmenuItem = this.getCurrentSubmenuItem();
     const isInSubmenu = !!currentSubmenuItem;
@@ -706,7 +718,9 @@ export default class WaDropdown extends WebAwesomeElement {
         flip
         flip-fallback-strategy="best-fit"
         shift
-        shift-padding="8"
+        shift-padding="10"
+        auto-size="vertical"
+        auto-size-padding="10"
       >
         <slot
           name="trigger"

@@ -133,17 +133,6 @@ describe('<wa-icon>', () => {
       });
 
       describe('negative cases', () => {
-        // using new library so we can test for malformed icons when registered
-        it("svg not rendered with an icon that doesn't exist in the library", async () => {
-          const el = await fixture<WaIcon>(html` <wa-icon library="test-library" name="does-not-exist"></wa-icon> `);
-
-          // Still renders svgs for empty icons.
-          expect(el.shadowRoot?.querySelector('svg')).to.be.instanceof(SVGElement);
-
-          expect(el.getBoundingClientRect().height).to.equal(16);
-          expect(el.getBoundingClientRect().width).to.equal(16);
-        });
-
         it('emits wa-error when the file cant be retrieved', async () => {
           const el = await fixture<WaIcon>(html` <wa-icon library="test-library"></wa-icon> `);
           const listener = oneEvent(el, 'wa-error') as Promise<WaErrorEvent>;

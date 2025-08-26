@@ -46,6 +46,10 @@
   cursor: pointer;
 }
 
+[part~='label'] {
+  display: inline;
+}
+
 /* Checked */
 [part~='control']:has(:checked, :indeterminate) {
   color: var(--checked-icon-color);

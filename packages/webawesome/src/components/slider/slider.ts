@@ -841,8 +841,8 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
               id=${`tooltip${thumbId !== 'thumb' ? '-' + thumbId : ''}`}
               part="tooltip"
               exportparts="
-                tooltip:tooltip__tooltip,
-                content:tooltip__content,
+                base:tooltip__base,
+                body:tooltip__body,
                 arrow:tooltip__arrow
               "
               trigger="manual"

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-fa-kit-code="b10bfbde90" data-cdn-url="{% cdnUrl %}" class="wa-cloak">
+<html lang="en" data-fa-kit-code="38c11e3f20" data-cdn-url="{% cdnUrl %}" class="wa-cloak">
   <head>
     {% include 'head.njk' %}
     <meta name="theme-color" content="#f36944">
@@ -44,7 +44,7 @@
   </head>
   <body class="layout-{{ layout | stripExtension }}{{ ' page-wide' if wide }}">
     <!-- use view="desktop" as default to reduce layout jank on desktop site. -->
-    <wa-page view="desktop" disable-navigation-toggle="" mobile-breakpoint="1180">
+    <wa-page view="desktop" disable-navigation-toggle mobile-breakpoint="1180">
       <header slot="header" class="wa-split">
         {# Logo #}
         <div id="docs-branding">
@@ -127,7 +127,7 @@
         {% block header %}
           <h1 class="title">{{ title }}</h1>
         {% endblock %}
-      
+
         {% block beforeContent %}{% endblock %}
 
         {% block content %}
