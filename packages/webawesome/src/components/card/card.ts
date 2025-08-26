@@ -55,7 +55,7 @@ export default class WaCard extends WebAwesomeElement {
 
   render() {
     if (this.orientation === 'horizontal') {
-      return html`horizontal`;
+      return html`<slot name="media" part="media" class="media"></slot><slot part="body" class="body"></slot>`;
     }
     return html`
       <slot name="media" part="media" class="media"></slot>

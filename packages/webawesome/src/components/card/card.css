@@ -42,6 +42,11 @@
   border-color: transparent;
 }
 
+/* Orientation Styles */
+:host([orientation='horizontal']) {
+  display: flex;
+}
+
 /* Take care of top and bottom radii */
 .media,
 :host(:not([with-media])) .header,
