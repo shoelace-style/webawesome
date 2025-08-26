@@ -1,7 +1,0 @@
-.anchor-heading:has(+ wa-code-demo, + template + wa-code-demo) {
-  font-size: var(--wa-font-size-l);
-}
-
-wa-code-demo:has(+ .anchor-heading) {
-  margin-block-end: var(--wa-space-3xl);
-}

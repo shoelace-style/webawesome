@@ -1,0 +1,48 @@
+@layer wa-utilities {
+  /* Apply Flexbox with 0 specificity to ensure a gap util produces a visible change */
+  :where(
+    .wa-gap-0,
+    .wa-gap-3xs,
+    .wa-gap-2xs,
+    .wa-gap-xs,
+    .wa-gap-s,
+    .wa-gap-m,
+    .wa-gap-l,
+    .wa-gap-xl,
+    .wa-gap-2xl,
+    .wa-gap-3xl
+  ) {
+    display: flex;
+  }
+
+  .wa-gap-0 {
+    gap: 0px;
+  }
+  .wa-gap-3xs {
+    gap: var(--wa-space-3xs);
+  }
+  .wa-gap-2xs {
+    gap: var(--wa-space-2xs);
+  }
+  .wa-gap-xs {
+    gap: var(--wa-space-xs);
+  }
+  .wa-gap-s {
+    gap: var(--wa-space-s);
+  }
+  .wa-gap-m {
+    gap: var(--wa-space-m);
+  }
+  .wa-gap-l {
+    gap: var(--wa-space-l);
+  }
+  .wa-gap-xl {
+    gap: var(--wa-space-xl);
+  }
+  .wa-gap-2xl {
+    gap: var(--wa-space-2xl);
+  }
+  .wa-gap-3xl {
+    gap: var(--wa-space-3xl);
+  }
+}

@@ -1,9 +1,5 @@
 #!/bin/bash
 
-# if [[ $VERCEL_GIT_COMMIT_REF == "alpha"  ]] ; then
-  echo "Running the build!"
-  npm run build
-# else
-#   npm run build
-# fi
-
+echo "Running the build!"
+git clone "https://konnorrogers:$GITHUB_ACCESS_TOKEN@github.com/shoelace-style/webawesome-pro" packages/webawesome-pro
+cd packages/webawesome-pro && npm run build

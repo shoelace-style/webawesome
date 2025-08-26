@@ -1,0 +1,20 @@
+@layer wa-utilities {
+  .wa-border-radius-s {
+    border-radius: var(--wa-border-radius-s);
+  }
+  .wa-border-radius-m {
+    border-radius: var(--wa-border-radius-m);
+  }
+  .wa-border-radius-l {
+    border-radius: var(--wa-border-radius-l);
+  }
+  .wa-border-radius-pill {
+    border-radius: var(--wa-border-radius-pill);
+  }
+  .wa-border-radius-circle {
+    border-radius: var(--wa-border-radius-circle);
+  }
+  .wa-border-radius-square {
+    border-radius: var(--wa-border-radius-square);
+  }
+}

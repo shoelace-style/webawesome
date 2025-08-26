@@ -1,0 +1,64 @@
+---
+title: Layout
+description: Layout components and utility classes help you organize content that can adapt to any device or screen size. See the [installation instructions](#installation) to use Web Awesome's layout tools in your project.
+layout: docs
+---
+
+<p>
+{% markdown %}
+  {{ description }}
+{% endmarkdown %}
+</p>
+
+<div class="search-list">
+  <wa-input class="search-list-input" type="search" placeholder="Search layout utilities" autofocus>
+    <wa-icon name="search" slot="start"></wa-icon>
+  </wa-input>
+
+  <section class="search-list-grid">
+    {% for page in collections.layoutUtilities | sort(false, false, 'data.title') %}
+      <a href="{{ page.url }}">
+        <wa-card with-header="" appearance="outlined">
+          <div slot="header">
+            {# Look for an icon based on the page name #}
+            {% set iconPath = "svgs/layout/" + page.fileSlug + ".njk" %}
+            {% set iconContent %}{% include iconPath ignore missing %}{% endset %}
+            {% if iconContent.trim() %}
+              {# An icon exists! Show it #}
+              {{ iconContent | safe }}
+            {% else %}
+              {# Fallback to the placeholder #}
+              {% include 'svgs/thumbnail-placeholder.njk' %}
+            {% endif %}
+          </div>
+          <span class="page-name">{{ page.data.title }}</span>
+        </wa-card>
+      </a>
+    {% endfor %}
+  </section>
+  <div class="search-list-empty" hidden>
+    No results found
+  </div>
+</div>
+
+<wa-divider style="--spacing: var(--wa-space-3xl);"></wa-divider>
+
+<div class="max-line-length">
+{% markdown %}
+## Installation
+
+Layout components are included in Web Awesome's [autoloader](/docs/#quick-start-autoloading-via-cdn). You can also import them individually via [cherry picking](/docs/#cherry-picking).
+
+Layout utilities are bundled with all [style utilities](/docs/utilities). You can import all Web Awesome page styles (including [native styles](/docs/utilities/native/)) by including the following stylesheet in your project:
+
+```html
+<link rel="stylesheet" href="{% cdnUrl 'styles/webawesome.css' %}" />
+```
+
+Or, you can choose to import _only_ the utilities:
+
+```html
+<link rel="stylesheet" href="{% cdnUrl 'styles/utilities.css' %}" />
+```
+{% endmarkdown %}
+</div>

@@ -1,0 +1,9 @@
+@layer wa-utilities {
+  .wa-placeholder {
+    align-self: stretch;
+    background-color: var(--wa-color-neutral-fill-quiet);
+    border: dashed var(--wa-border-width-s) var(--wa-color-neutral-border-normal);
+    border-radius: var(--wa-border-radius-l);
+    padding: var(--wa-space-3xl);
+  }
+}

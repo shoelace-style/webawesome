@@ -1,0 +1,225 @@
+:host {
+  --indicator-color: var(--wa-color-brand-fill-loud);
+  --track-color: var(--wa-color-neutral-fill-normal);
+  --track-width: 0.125rem;
+
+  display: block;
+}
+
+.tab-group {
+  display: flex;
+  border-radius: 0;
+}
+
+.tabs {
+  display: flex;
+  position: relative;
+}
+
+.indicator {
+  position: absolute;
+}
+
+.tab-group-has-scroll-controls .nav-container {
+  position: relative;
+  padding: 0 1.5em;
+}
+
+.body {
+  display: block;
+  overflow: auto;
+}
+
+.scroll-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1.5em;
+}
+
+.scroll-button-start {
+  inset-inline-start: 0;
+}
+
+.scroll-button-end {
+  inset-inline-end: 0;
+}
+
+/*
+   * Top
+   */
+
+.tab-group-top {
+  flex-direction: column;
+}
+
+.tab-group-top .nav-container {
+  order: 1;
+}
+
+.tab-group-top .nav {
+  display: flex;
+  overflow-x: auto;
+
+  /* Hide scrollbar in Firefox */
+  scrollbar-width: none;
+}
+
+/* Hide scrollbar in Chrome/Safari */
+.tab-group-top .nav::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.tab-group-top .tabs {
+  flex: 1 1 auto;
+  position: relative;
+  flex-direction: row;
+  border-bottom: solid var(--track-width) var(--track-color);
+}
+
+.tab-group-top .indicator {
+  bottom: calc(-1 * var(--track-width));
+  border-bottom: solid var(--track-width) var(--indicator-color);
+}
+
+.tab-group-top .body {
+  order: 2;
+}
+
+.tab-group-top ::slotted(wa-tab[active]) {
+  border-block-end: solid var(--track-width) var(--indicator-color);
+  margin-block-end: calc(-1 * var(--track-width));
+}
+
+.tab-group-top ::slotted(wa-tab-panel) {
+  --padding: var(--wa-space-xl) 0;
+}
+
+/*
+   * Bottom
+   */
+
+.tab-group-bottom {
+  flex-direction: column;
+}
+
+.tab-group-bottom .nav-container {
+  order: 2;
+}
+
+.tab-group-bottom .nav {
+  display: flex;
+  overflow-x: auto;
+
+  /* Hide scrollbar in Firefox */
+  scrollbar-width: none;
+}
+
+/* Hide scrollbar in Chrome/Safari */
+.tab-group-bottom .nav::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.tab-group-bottom .tabs {
+  flex: 1 1 auto;
+  position: relative;
+  flex-direction: row;
+  border-top: solid var(--track-width) var(--track-color);
+}
+
+.tab-group-bottom .indicator {
+  top: calc(-1 * var(--track-width));
+  border-top: solid var(--track-width) var(--indicator-color);
+}
+
+.tab-group-bottom .body {
+  order: 1;
+}
+
+.tab-group-bottom ::slotted(wa-tab[active]) {
+  border-block-start: solid var(--track-width) var(--indicator-color);
+  margin-block-start: calc(-1 * var(--track-width));
+}
+
+.tab-group-bottom ::slotted(wa-tab-panel) {
+  --padding: var(--wa-space-xl) 0;
+}
+
+/*
+   * Start
+   */
+
+.tab-group-start {
+  flex-direction: row;
+}
+
+.tab-group-start .nav-container {
+  order: 1;
+}
+
+.tab-group-start .tabs {
+  flex: 0 0 auto;
+  flex-direction: column;
+  border-inline-end: solid var(--track-width) var(--track-color);
+}
+
+.tab-group-start .indicator {
+  inset-inline-end: calc(-1 * var(--track-width));
+  border-right: solid var(--track-width) var(--indicator-color);
+}
+
+.tab-group-start .body {
+  flex: 1 1 auto;
+  order: 2;
+}
+
+.tab-group-start ::slotted(wa-tab[active]) {
+  border-inline-end: solid var(--track-width) var(--indicator-color);
+  margin-inline-end: calc(-1 * var(--track-width));
+}
+
+.tab-group-start ::slotted(wa-tab-panel) {
+  --padding: 0 var(--wa-space-xl);
+}
+
+/*
+   * End
+   */
+
+.tab-group-end {
+  flex-direction: row;
+}
+
+.tab-group-end .nav-container {
+  order: 2;
+}
+
+.tab-group-end .tabs {
+  flex: 0 0 auto;
+  flex-direction: column;
+  border-left: solid var(--track-width) var(--track-color);
+}
+
+.tab-group-end .indicator {
+  inset-inline-start: calc(-1 * var(--track-width));
+  border-inline-start: solid var(--track-width) var(--indicator-color);
+}
+
+.tab-group-end .body {
+  flex: 1 1 auto;
+  order: 1;
+}
+
+.tab-group-end ::slotted(wa-tab[active]) {
+  border-inline-start: solid var(--track-width) var(--indicator-color);
+  margin-inline-start: calc(-1 * var(--track-width));
+}
+
+.tab-group-end ::slotted(wa-tab-panel) {
+  --padding: 0 var(--wa-space-xl);
+}

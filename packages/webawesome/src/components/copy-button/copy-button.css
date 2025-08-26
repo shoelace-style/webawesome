@@ -1,0 +1,75 @@
+:host {
+  display: inline-block;
+  color: var(--wa-color-neutral-on-quiet);
+}
+
+.button {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  border-radius: var(--wa-form-control-border-radius);
+  color: inherit;
+  font-size: inherit;
+  padding: 0.5em;
+  cursor: pointer;
+  transition: color var(--wa-transition-fast) var(--wa-transition-easing);
+}
+
+@media (hover: hover) {
+  .button:hover:not([disabled]) {
+    background-color: var(--wa-color-neutral-fill-quiet);
+    color: color-mix(in oklab, currentColor, var(--wa-color-mix-hover));
+  }
+}
+
+.button:focus-visible:not([disabled]) {
+  background-color: var(--wa-color-neutral-fill-quiet);
+  color: color-mix(in oklab, currentColor, var(--wa-color-mix-hover));
+}
+
+.button:active:not([disabled]) {
+  color: color-mix(in oklab, currentColor, var(--wa-color-mix-active));
+}
+
+slot[name='success-icon'] {
+  color: var(--wa-color-success-on-quiet);
+}
+
+slot[name='error-icon'] {
+  color: var(--wa-color-danger-on-quiet);
+}
+
+.button:focus-visible {
+  outline: var(--wa-focus-ring);
+  outline-offset: var(--wa-focus-ring-offset);
+}
+
+.button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+
+slot {
+  display: inline-flex;
+}
+
+.show {
+  animation: show 100ms ease;
+}
+
+.hide {
+  animation: show 100ms ease reverse;
+}
+
+@keyframes show {
+  from {
+    scale: 0.25;
+    opacity: 0.25;
+  }
+  to {
+    scale: 1;
+    opacity: 1;
+  }
+}

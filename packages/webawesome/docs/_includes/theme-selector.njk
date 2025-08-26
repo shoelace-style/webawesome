@@ -1,0 +1,41 @@
+<wa-select appearance="filled" size="small" value="default" class="theme-selector">
+  <wa-icon slot="start" name="paintbrush" variant="regular"></wa-icon>
+
+  {# Free themes #}
+  {% for theme in themer.themes %}
+    {% if not theme.isPro %}
+      <wa-option
+        value="{{ theme.filename | stripExtension }}"
+        data-brand="{{ theme.colorBrand.color }}"
+        data-palette="{{ theme.palette.filename | stripExtension }}"
+      >
+        {{ theme.name }}
+      </wa-option>
+    {% endif %}
+  {% endfor %}
+
+  {# Pro themes #}
+  {% for theme in themer.themes %}
+    {% if loop.first %}<wa-divider></wa-divider>{% endif %}
+    {% if theme.isPro %}
+      <wa-option
+        value="{{ theme.filename | stripExtension }}"
+        data-brand="{{ theme.colorBrand.color }}"
+        data-palette="{{ theme.palette.filename | stripExtension }}"
+      >
+        {{ theme.name }}
+      </wa-option>
+    {% endif %}
+  {% endfor %}
+</wa-select>
+
+<script>
+  // Immediately set the correct values from storage
+  document.querySelectorAll('wa-select.theme-selector').forEach(el => {
+    el.setAttribute('value', localStorage.getItem('theme') || 'default');
+  });
+
+  // Apply saved brand and palette classes
+  document.documentElement.classList.add(`wa-brand-${localStorage.getItem('brand') || 'blue'}`);
+  document.documentElement.classList.add(`wa-palette-${localStorage.getItem('palette') || 'default'}`);
+</script>

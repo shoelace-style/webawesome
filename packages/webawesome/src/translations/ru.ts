@@ -1,0 +1,44 @@
+import type { Translation } from '../utilities/localize.js';
+import { registerTranslation } from '../utilities/localize.js';
+
+const translation: Translation = {
+  $code: 'ru',
+  $name: 'Русский',
+  $dir: 'ltr',
+
+  carousel: 'Карусель',
+  clearEntry: 'Очистить запись',
+  close: 'Закрыть',
+  copied: 'Скопировано',
+  copy: 'Скопировать',
+  currentValue: 'Текущее значение',
+  error: 'Ошибка',
+  goToSlide: (slide, count) => `Перейти к слайду ${slide} из ${count}`,
+  hidePassword: 'Скрыть пароль',
+  loading: 'Загрузка',
+  nextSlide: 'Следующий слайд',
+  numOptionsSelected: num => {
+    if (num === 0) return 'выбрано 0 вариантов';
+    if (num === 1) return 'Выбран 1 вариант';
+    return `выбрано ${num} варианта`;
+  },
+  pauseAnimation: 'Приостановить анимацию',
+  playAnimation: 'Воспроизвести анимацию',
+  previousSlide: 'Предыдущий слайд',
+  progress: 'Прогресс',
+  remove: 'Удалить',
+  resize: 'Изменить размер',
+  scrollableRegion: 'Scrollable region',
+  scrollToEnd: 'Пролистать до конца',
+  scrollToStart: 'Пролистать к началу',
+  selectAColorFromTheScreen: 'Выберите цвет на экране',
+  showPassword: 'Показать пароль',
+  slideNum: slide => `Слайд ${slide}`,
+  toggleColorFormat: 'Переключить цветовую модель',
+  zoomIn: 'Увеличить',
+  zoomOut: 'Уменьшить',
+};
+
+registerTranslation(translation);
+
+export default translation;

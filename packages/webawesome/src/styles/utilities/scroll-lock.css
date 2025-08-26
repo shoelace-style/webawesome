@@ -1,0 +1,20 @@
+@layer wa-utilities {
+  /* These scroll lock helpers are put into this CSS file to avoid strict CSPs that affect style tag loading. */
+  @supports (scrollbar-gutter: stable) {
+    .wa-scroll-lock {
+      scrollbar-gutter: var(--wa-scroll-lock-gutter) !important;
+    }
+
+    .wa-scroll-lock body {
+      overflow: hidden !important;
+    }
+  }
+
+  /** This can go away once Safari has scrollbar-gutter support. */
+  @supports not (scrollbar-gutter: stable) {
+    .wa-scroll-lock body {
+      padding-right: var(--wa-scroll-lock-size) !important;
+      overflow: hidden !important;
+    }
+  }
+}

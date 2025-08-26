@@ -1,0 +1,17 @@
+@layer wa-utilities {
+  /*
+   * Utility to minimize FOUCE and show custom elements only after they're registered
+   */
+  .wa-cloak:has(:not(:defined)) {
+    animation: 2s step-end wa-fouce-cloak;
+  }
+
+  @keyframes wa-fouce-cloak {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}

@@ -1,0 +1,41 @@
+---
+title: Components
+description: Browse the library of customizable, framework-friendly web components included in Web Awesome.
+layout: docs
+---
+
+<div class="search-list">
+  <wa-input class="search-list-input" type="search" placeholder="Search Components" autofocus>
+    <wa-icon name="search" slot="start"></wa-icon>
+  </wa-input>
+
+  {# Group by category and sort categories alphabetically #}
+  {% for category, pages in collections.componentPages | groupby('data.category') | dictsort %}
+    <h2>{{ 'Other' if category == 'undefined' else category }}</h2>
+    <section class="search-list-grid">
+      {# Sort components within category by tag name #}
+      {% for page in pages | sort(false, false, 'data.component.tagName') %}
+        <a href="{{ page.url }}">
+          <wa-card with-header="" appearance="outlined">
+            <div slot="header">
+              {# Look for an icon based on the tag name #}
+              {% set iconPath = "svgs/" + page.data.component.tagName.replace('wa-', '') + ".njk" %}
+              {% set iconContent %}{% include iconPath ignore missing %}{% endset %}
+              {% if iconContent.trim() %}
+                {# An icon exists! Show it #}
+                {{ iconContent | safe }}
+              {% else %}
+                {# Fallback to the placeholder #}
+                {% include 'svgs/thumbnail-placeholder.njk' %}
+              {% endif %}
+            </div>
+            <span class="page-name">{{ page.data.title }}</span>
+          </wa-card>
+        </a>
+      {% endfor %}
+    </section>
+  {% endfor %}
+  <div class="search-list-empty" hidden>
+    No results found
+  </div>
+</div>

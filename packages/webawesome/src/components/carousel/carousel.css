@@ -1,0 +1,154 @@
+:host {
+  --aspect-ratio: 16 / 9;
+  --scroll-hint: 0px;
+  --slide-gap: var(--wa-space-m, 1rem); /* fallback value is necessary */
+
+  display: flex;
+}
+
+.carousel {
+  display: grid;
+  grid-template-columns: min-content 1fr min-content;
+  grid-template-rows: 1fr min-content;
+  grid-template-areas:
+    '. slides .'
+    '. pagination .';
+  gap: var(--wa-space-m);
+  align-items: center;
+  min-height: 100%;
+  min-width: 100%;
+  position: relative;
+}
+
+.pagination {
+  grid-area: pagination;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--wa-space-s);
+}
+
+.slides {
+  grid-area: slides;
+
+  display: grid;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  justify-items: center;
+  overflow: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  aspect-ratio: calc(var(--aspect-ratio) * var(--slides-per-page));
+  border-radius: var(--wa-border-radius-m);
+
+  --slide-size: calc((100% - (var(--slides-per-page) - 1) * var(--slide-gap)) / var(--slides-per-page));
+}
+
+@media (prefers-reduced-motion) {
+  :where(.slides) {
+    scroll-behavior: auto;
+  }
+}
+
+.slides-horizontal {
+  grid-auto-flow: column;
+  grid-auto-columns: var(--slide-size);
+  grid-auto-rows: 100%;
+  column-gap: var(--slide-gap);
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--scroll-hint);
+  padding-inline: var(--scroll-hint);
+  overflow-y: hidden;
+}
+
+.slides-vertical {
+  grid-auto-flow: row;
+  grid-auto-columns: 100%;
+  grid-auto-rows: var(--slide-size);
+  row-gap: var(--slide-gap);
+  scroll-snap-type: y mandatory;
+  scroll-padding-block: var(--scroll-hint);
+  padding-block: var(--scroll-hint);
+  overflow-x: hidden;
+}
+
+.slides-dragging,
+.slides-dropping {
+  scroll-snap-type: unset;
+}
+
+:host([vertical]) ::slotted(wa-carousel-item) {
+  height: 100%;
+}
+
+.slides::-webkit-scrollbar {
+  display: none;
+}
+
+.navigation {
+  grid-area: navigation;
+  display: contents;
+  font-size: var(--wa-font-size-l);
+}
+
+.navigation-button {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  border-radius: var(--wa-border-radius-m);
+  font-size: inherit;
+  color: var(--wa-color-text-quiet);
+  padding: var(--wa-space-xs);
+  cursor: pointer;
+  transition: var(--wa-transition-normal) color;
+  appearance: none;
+}
+
+.navigation-button-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.navigation-button-disabled::part(base) {
+  pointer-events: none;
+}
+
+.navigation-button-previous {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.navigation-button-next {
+  grid-column: 3;
+  grid-row: 1;
+}
+
+.pagination-item {
+  display: block;
+  cursor: pointer;
+  background: none;
+  border: 0;
+  border-radius: var(--wa-border-radius-circle);
+  width: var(--wa-space-s);
+  height: var(--wa-space-s);
+  background-color: var(--wa-color-neutral-fill-normal);
+  padding: 0;
+  margin: 0;
+  transition: transform var(--wa-transition-slow);
+}
+
+.pagination-item-active {
+  background-color: var(--wa-form-control-activated-color);
+  transform: scale(1.25);
+}
+
+/* Focus styles */
+.slides:focus-visible,
+.navigation-button:focus-visible,
+.pagination-item:focus-visible {
+  outline: var(--wa-focus-ring);
+  outline-offset: var(--wa-focus-ring-offset);
+}

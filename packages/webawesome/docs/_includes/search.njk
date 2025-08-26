@@ -1,0 +1,61 @@
+<wa-dialog id="site-search" without-header light-dismiss>
+  <div id="site-search-container">
+    {# Header #}
+    <header>
+      <div id="site-search-input-wrapper">
+        <wa-input
+          id="site-search-input"
+          type="search"
+          appearance="filled"
+          size="large"
+          with-clear
+          placeholder="Search"
+          autofocus
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="off"
+          enterkeyhint="go"
+          spellcheck="false"
+          maxlength="100"
+          role="combobox"
+          aria-autocomplete="list"
+          aria-expanded="true"
+          aria-controls="site-search-listbox"
+          aria-haspopup="listbox"
+          aria-activedescendant
+        >
+          <wa-icon slot="start" name="search"></wa-icon>
+        </wa-input>
+      </div>
+    </header>
+
+    {# Body #}
+    <div id="site-search-body">
+      <ul
+        id="site-search-listbox"
+        role="listbox"
+        aria-label="Search results"
+      ></ul>
+      <div id="site-search-empty">
+        <wa-icon name="web-awesome" family="brands"></wa-icon>
+        No results
+      </div>
+    </div>
+
+    {# Footer #}
+    <footer>
+      <small>
+        <kbd aria-label="Up"><wa-icon name="arrow-up" family="micro"></wa-icon></kbd>
+        <kbd aria-label="Down"><wa-icon name="arrow-down" family="micro"></wa-icon></kbd>
+        Navigate
+      </small>
+
+      <small>
+        <kbd>Enter</kbd>
+        Select
+      </small>
+
+      <small><kbd>Esc</kbd> Close</small>
+    </footer>
+  </div>
+</wa-dialog>

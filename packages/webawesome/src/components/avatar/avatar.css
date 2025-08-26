@@ -1,0 +1,53 @@
+:host {
+  --size: 3rem;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: var(--size);
+  height: var(--size);
+  color: var(--wa-color-neutral-on-normal);
+  font: inherit;
+  font-size: calc(var(--size) * 0.4);
+  vertical-align: middle;
+  background-color: var(--wa-color-neutral-fill-normal);
+  border-radius: var(--wa-border-radius-circle);
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+:host([shape='square']) {
+  border-radius: 0;
+}
+
+:host([shape='rounded']) {
+  border-radius: var(--wa-border-radius-m);
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.initials {
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  overflow: hidden;
+  border-radius: inherit;
+}

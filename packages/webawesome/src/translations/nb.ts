@@ -1,0 +1,44 @@
+import type { Translation } from '../utilities/localize.js';
+import { registerTranslation } from '../utilities/localize.js';
+
+const translation: Translation = {
+  $code: 'nb',
+  $name: 'Norwegian Bokmål',
+  $dir: 'ltr',
+
+  carousel: 'Karusell',
+  clearEntry: 'Tøm felt',
+  close: 'Lukk',
+  copied: 'Kopiert',
+  copy: 'Kopier',
+  currentValue: 'Nåværende verdi',
+  error: 'Feil',
+  goToSlide: (slide, count) => `Gå til visning ${slide} av ${count}`,
+  hidePassword: 'Skjul passord',
+  loading: 'Laster',
+  nextSlide: 'Neste visning',
+  numOptionsSelected: num => {
+    if (num === 0) return 'Ingen alternativer valgt';
+    if (num === 1) return 'Ett alternativ valgt';
+    return `${num} alternativer valgt`;
+  },
+  pauseAnimation: 'Sett animasjon på pause',
+  playAnimation: 'Spill av animasjon',
+  previousSlide: 'Forrige visning',
+  progress: 'Fremdrift',
+  remove: 'Fjern',
+  resize: 'Endre størrelse',
+  scrollableRegion: 'Rullbar region',
+  scrollToEnd: 'Rull til slutten',
+  scrollToStart: 'Rull til starten',
+  selectAColorFromTheScreen: 'Velg en farge fra skjermen',
+  showPassword: 'Vis passord',
+  slideNum: slide => `Visning ${slide}`,
+  toggleColorFormat: 'Bytt fargeformat',
+  zoomIn: 'Zoom inn',
+  zoomOut: 'Zoom ut',
+};
+
+registerTranslation(translation);
+
+export default translation;

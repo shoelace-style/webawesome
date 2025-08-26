@@ -1,0 +1,76 @@
+@layer wa-component {
+  :host {
+    display: inline-flex;
+    gap: 0.5em;
+    border-radius: var(--wa-border-radius-m);
+    align-items: center;
+    background-color: var(--wa-color-fill-quiet, var(--wa-color-neutral-fill-quiet));
+    border-color: var(--wa-color-border-normal, var(--wa-color-neutral-border-normal));
+    border-style: var(--wa-border-style);
+    border-width: var(--wa-border-width-s);
+    color: var(--wa-color-on-quiet, var(--wa-color-neutral-on-quiet));
+    font-size: inherit;
+    line-height: 1;
+    white-space: nowrap;
+    user-select: none;
+    -webkit-user-select: none;
+    height: calc(var(--wa-form-control-height) * 0.8);
+    line-height: calc(var(--wa-form-control-height) - var(--wa-form-control-border-width) * 2);
+    padding: 0 0.75em;
+  }
+
+  /* Appearance modifiers */
+  :host([appearance~='outlined']) {
+    color: var(--wa-color-on-quiet, var(--wa-color-neutral-on-quiet));
+    background-color: transparent;
+    border-color: var(--wa-color-border-loud, var(--wa-color-neutral-border-loud));
+  }
+
+  :host([appearance~='filled']) {
+    color: var(--wa-color-on-quiet, var(--wa-color-neutral-on-quiet));
+    background-color: var(--wa-color-fill-quiet, var(--wa-color-neutral-fill-quiet));
+    border-color: transparent;
+  }
+
+  :host([appearance~='filled'][appearance~='outlined']) {
+    border-color: var(--wa-color-border-normal, var(--wa-color-neutral-border-normal));
+  }
+
+  :host([appearance~='accent']) {
+    color: var(--wa-color-on-loud, var(--wa-color-neutral-on-loud));
+    background-color: var(--wa-color-fill-loud, var(--wa-color-neutral-fill-loud));
+    border-color: transparent;
+  }
+}
+
+.content {
+  font-size: var(--wa-font-size-smaller);
+}
+
+[part='remove-button'] {
+  color: inherit;
+  line-height: 1;
+}
+
+[part='remove-button']::part(base) {
+  padding: 0;
+  height: 1em;
+  width: 1em;
+}
+
+@media (hover: hover) {
+  :host(:hover) > [part='remove-button']::part(base) {
+    color: color-mix(in oklab, currentColor, var(--wa-color-mix-hover));
+  }
+}
+
+:host(:active) > [part='remove-button']::part(base) {
+  color: color-mix(in oklab, currentColor, var(--wa-color-mix-active));
+}
+
+/*
+ * Pill modifier
+ */
+:host([pill]) {
+  border-radius: var(--wa-border-radius-pill);
+}

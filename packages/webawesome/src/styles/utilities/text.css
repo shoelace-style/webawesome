@@ -1,0 +1,129 @@
+@layer wa-utilities {
+  .wa-heading-xs,
+  .wa-heading-s,
+  .wa-heading-m,
+  .wa-heading-l,
+  .wa-heading-xl,
+  .wa-heading-2xl,
+  .wa-heading-3xl {
+    font-family: var(--wa-font-family-heading);
+    font-weight: var(--wa-font-weight-heading);
+    line-height: var(--wa-line-height-condensed);
+    text-wrap: balance;
+  }
+
+  .wa-heading-xs {
+    font-size: var(--wa-font-size-s);
+  }
+
+  .wa-heading-s {
+    font-size: var(--wa-font-size-m);
+  }
+
+  .wa-heading-m {
+    font-size: var(--wa-font-size-l);
+  }
+
+  .wa-heading-l {
+    font-size: var(--wa-font-size-xl);
+  }
+
+  .wa-heading-xl {
+    font-size: var(--wa-font-size-2xl);
+  }
+
+  .wa-heading-2xl {
+    font-size: var(--wa-font-size-3xl);
+  }
+
+  .wa-heading-3xl {
+    font-size: var(--wa-font-size-4xl);
+  }
+
+  .wa-body-xs,
+  .wa-body-s,
+  .wa-body-m,
+  .wa-body-l,
+  .wa-body-xl {
+    font-family: var(--wa-font-family-body);
+    font-weight: var(--wa-font-weight-body);
+    line-height: var(--wa-line-height-normal);
+  }
+
+  .wa-body-xs {
+    font-size: var(--wa-font-size-xs);
+  }
+
+  .wa-body-s {
+    font-size: var(--wa-font-size-s);
+  }
+
+  .wa-body-m {
+    font-size: var(--wa-font-size-m);
+  }
+
+  .wa-body-l {
+    font-size: var(--wa-font-size-l);
+  }
+
+  .wa-body-xl {
+    font-size: var(--wa-font-size-xl);
+  }
+
+  .wa-caption-xs,
+  .wa-caption-s,
+  .wa-caption-m,
+  .wa-caption-l,
+  .wa-caption-xl {
+    color: var(--wa-color-text-quiet);
+    font-family: var(--wa-font-family-body);
+    font-weight: var(--wa-font-weight-body);
+    line-height: var(--wa-line-height-condensed);
+  }
+
+  .wa-caption-xs {
+    font-size: var(--wa-font-size-2xs);
+  }
+
+  .wa-caption-s {
+    font-size: var(--wa-font-size-xs);
+  }
+
+  .wa-caption-m {
+    font-size: var(--wa-font-size-s);
+  }
+
+  .wa-caption-l {
+    font-size: var(--wa-font-size-m);
+  }
+
+  .wa-caption-xl {
+    font-size: var(--wa-font-size-l);
+  }
+
+  .wa-link {
+    color: var(--wa-color-text-link);
+    text-decoration: var(--wa-link-decoration-default);
+    -webkit-text-decoration: var(--wa-link-decoration-default);
+
+    @media (hover: hover) {
+      &:hover {
+        color: color-mix(in oklab, var(--wa-color-text-link) 100%, var(--wa-color-mix-hover));
+        text-decoration: var(--wa-link-decoration-hover);
+        -webkit-text-decoration: var(--wa-link-decoration-hover);
+      }
+    }
+  }
+
+  .wa-link-plain {
+    color: var(--wa-color-text-normal);
+    text-decoration: none;
+
+    @media (hover: hover) {
+      &:hover {
+        color: color-mix(in oklab, currentColor, var(--wa-color-mix-hover));
+        text-decoration: none;
+      }
+    }
+  }
+}

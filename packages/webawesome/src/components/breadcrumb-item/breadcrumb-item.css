@@ -1,0 +1,81 @@
+:host {
+  color: var(--wa-color-text-link);
+  display: inline-flex;
+  align-items: center;
+  font: inherit;
+  font-weight: var(--wa-font-weight-action);
+  line-height: var(--wa-line-height-normal);
+  white-space: nowrap;
+}
+
+:host(:last-of-type) {
+  color: var(--wa-color-text-quiet);
+}
+
+.label {
+  display: inline-block;
+  font: inherit;
+  text-decoration: none;
+  color: currentColor;
+  background: none;
+  border: none;
+  border-radius: var(--wa-border-radius-m);
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  transition: color var(--wa-transition-normal) var(--wa-transition-easing);
+}
+
+@media (hover: hover) {
+  :host(:not(:last-of-type)) .label:hover {
+    color: color-mix(in oklab, currentColor, var(--wa-color-mix-hover));
+  }
+}
+
+:host(:not(:last-of-type)) .label:active {
+  color: color-mix(in oklab, currentColor, var(--wa-color-mix-active));
+}
+
+.label:focus {
+  outline: none;
+}
+
+.label:focus-visible {
+  outline: var(--wa-focus-ring);
+  outline-offset: var(--wa-focus-ring-offset);
+}
+
+.start,
+.end {
+  display: none;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+.start,
+.end {
+  display: inline-flex;
+  color: var(--wa-color-text-quiet);
+}
+
+::slotted([slot='start']) {
+  margin-inline-end: var(--wa-space-s);
+}
+
+::slotted([slot='end']) {
+  margin-inline-start: var(--wa-space-s);
+}
+
+:host(:last-of-type) .separator {
+  display: none;
+}
+
+.separator {
+  color: var(--wa-color-text-quiet);
+  display: inline-flex;
+  align-items: center;
+  margin: 0 var(--wa-space-s);
+  user-select: none;
+  -webkit-user-select: none;
+}

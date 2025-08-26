@@ -1,0 +1,42 @@
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="{{ description }}">
+{% if noindex or unlisted %}<meta name="robots" content="noindex">{% endif %}
+
+<title>{{ title }}</title>
+
+{# Dark mode #}
+<script>
+	let colorScheme = localStorage.colorScheme;
+	let isDark = localStorage.colorScheme === "dark";
+	if (!colorScheme || colorScheme === "auto") {
+		isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+	}
+	document.documentElement.classList.toggle('wa-dark', isDark);
+</script>
+
+<link rel="icon" href="/assets/images/webawesome-logo.svg" />
+<link rel="apple-touch-icon" href="/assets/images/app-icon.png">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<script type="module" src="/dist/webawesome.loader.js"></script>
+
+<link id="theme-stylesheet" rel="stylesheet" href="/dist/styles/themes/default.css" render="blocking" fetchpriority="high" />
+{% for palette in themer.palettes %}
+	<link rel="stylesheet" href="/dist/styles/color/palettes/{{palette.filename}}" />
+{% endfor %}
+<link rel="stylesheet" href="/dist/styles/webawesome.css" />
+
+<script type="module">
+  document.addEventListener("wa-discovery-complete", loadLayout)
+  function loadLayout () {
+    if (!customElements.get("wa-layout")) {
+      import("{% cdnUrl 'components/page/page.js' %}")
+        .catch((e) => {
+        // known errors with dual registration. This is only a thing in the free repo.
+        })
+    }
+  }
+</script>
+
+{# Used by Web Awesome App to inject other assets into the head. #}
+{% server "head" %}

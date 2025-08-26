@@ -1,0 +1,17 @@
+@layer wa-utilities {
+  .wa-align-items-start {
+    align-items: flex-start;
+  }
+  .wa-align-items-end {
+    align-items: flex-end;
+  }
+  .wa-align-items-center {
+    align-items: center;
+  }
+  .wa-align-items-stretch {
+    align-items: stretch;
+  }
+  .wa-align-items-baseline {
+    align-items: baseline;
+  }
+}

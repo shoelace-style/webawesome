@@ -1,0 +1,308 @@
+{% extends '../_layouts/docs.njk' %}
+{% set component = getComponent('wa-' + page.fileSlug) %}
+
+{# Component header #}
+{% block beforeContent %}
+  <div class="component-info">
+    <code class="component-tag">&lt;{{ component.tagName }}&gt;</code>
+    <wa-badge variant="neutral">Since {{ component.since }}</wa-badge>
+    <wa-badge
+      {% if component.status == 'stable' %}variant="brand"{% endif %}
+      {% if component.status == 'experimental' %}variant="warning"{% endif %}
+    >
+      {{ component.status }}
+    </wa-badge>
+  </div>
+  <p class="component-summary">
+    {{ component.summary | inlineMarkdown | safe }}
+  </p>
+{% endblock %}
+
+{# Component API #}
+{% block afterContent %}
+  {# Slots #}
+  {% if component.slots.length %}
+    <h2>Slots</h2>
+    <p>Learn more about <a href="/docs/usage/#slots">using slots</a>.</p>
+
+    <wa-scroller>
+      <table class="component-table wa-hover-rows">
+        <thead>
+          <tr>
+            <th class="table-name">Name</th>
+            <th class="table-description">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for slot in component.slots %}
+            <tr>
+              <td class="table-name">
+                {% if slot.name %}
+                  <code>{{ slot.name }}</code>
+                {% else %}
+                  (default)
+                {% endif %}
+              </td>
+              <td class="table-description">{{ slot.description | inlineMarkdown | safe }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </wa-scroller>
+  {% endif %}
+
+  {# Properties #}
+  {% if component.properties.length %}
+    <h2>Attributes & Properties</h2>
+    <p>Learn more about <a href="/docs/usage/#attributes-and-properties">attributes and properties</a>.</p>
+
+    <wa-scroller>
+      <table class="component-table wa-hover-rows">
+        <thead>
+          <tr>
+            <th class="table-name">Name</th>
+            <th class="table-description">Description</th>
+            <th class="table-reflect">Reflects</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for prop in component.properties %}
+            <tr>
+              <td class="table-name">
+                <code title="JS property">{{ prop.name }}</code><br>
+                {% if prop.attribute %}
+                  <div><small><code title="HTML attribute">{{ prop.attribute }}</code></small></div>
+                {% endif %}
+              </td>
+              <td class="table-description">
+                <div>{{ prop.description | inlineMarkdown | safe }}</div>
+                {% if prop.type.text %}
+                  <div><small><strong>Type</strong>&nbsp;<code>{{ prop.type.text | trimPipes | inlineMarkdown | safe }}</code></small></div>
+                {% endif %}
+                {% if prop.default %}
+                  <div><small><strong>Default</strong>&nbsp;<code>{{ prop.default | inlineMarkdown | safe }}</code></small></div>
+                {% endif %}
+              </td>
+              <td class="table-reflect">
+                {% if prop.reflects %}
+                  <wa-icon name="check"></wa-icon>
+                {% endif %}
+              </td>
+              <td class="table-default">
+
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </wa-scroller>
+  {% endif %}
+
+  {# Methods #}
+  {% if component.methods.length %}
+    <h2>Methods</h2>
+    <p>Learn more about <a href="/docs/usage/#methods">methods</a>.</p>
+
+    <wa-scroller>
+      <table class="component-table wa-hover-rows">
+        <thead>
+          <tr>
+            <th class="table-name">Name</th>
+            <th class="table-description">Description</th>
+            <th class="table-arguments">Arguments</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for method in component.methods %}
+            <tr>
+              <td class="table-name"><code>{{ method.name }}()</code></td>
+              <td class="table-description">{{ method.description | inlineMarkdown | safe }}</td>
+              <td class="table-arguments">
+                {% if method.parameters.length %}
+                  <code>
+                    {% for param in method.parameters %}
+                      {{ param.name }}: {{ param.type.text | trimPipes }}{% if not loop.last %},{% endif %}
+                    {% endfor %}
+                  </code>
+                {% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </wa-scroller>
+  {% endif %}
+
+  {# Events #}
+  {% if component.events.length %}
+    <h2>Events</h2>
+    <p>Learn more about <a href="/docs/usage/#events">events</a>.</p>
+
+    <wa-scroller>
+      <table class="component-table wa-hover-rows">
+        <thead>
+          <tr>
+            <th class="table-name">Name</th>
+            <th class="table-description">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for event in component.events %}
+            {% if event.name %}
+              <tr>
+                <td class="table-name"><code>{{ event.name }}</code></td>
+                <td class="table-description">{{ event.description | inlineMarkdown | safe }}</td>
+              </tr>
+            {% endif %}
+          {% endfor %}
+        </tbody>
+      </table>
+    </wa-scroller>
+  {% endif %}
+
+  {# Custom Properties #}
+  {% if component.cssProperties.length %}
+    <h2>CSS custom properties</h2>
+    <p>Learn more about <a href="/docs/customizing/#custom-properties">CSS custom properties</a>.</p>
+
+    <wa-scroller>
+      <table class="component-table wa-hover-rows">
+        <thead>
+          <tr>
+            <th class="table-name">Name</th>
+            <th class="table-description">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for cssProperty in component.cssProperties %}
+            <tr>
+              <td class="table-name"><code>{{ cssProperty.name }}</code></td>
+              <td class="table-description">
+                <div>{{ cssProperty.description | inlineMarkdown | safe }}</div>
+                {% if cssProperty.default %}
+                  <div>
+                    <small><strong>Default</strong>&nbsp;<code>{{ cssProperty.default }}</code></small>
+                    </div>
+                {% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </wa-scroller>
+  {% endif %}
+
+  {# Custom States #}
+  {% if component.cssStates.length %}
+    <h2>Custom States</h2>
+    <p>Learn more about <a href="/docs/customizing/#custom-states">custom states</a>.</p>
+
+    <wa-scroller>
+      <table class="component-table wa-hover-rows">
+        <thead>
+          <tr>
+            <th class="table-name">Name</th>
+            <th class="table-description">Description</th>
+            <th class="table-selector">CSS selector</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for state in component.cssStates %}
+            <tr>
+              <td class="table-name"><code>{{ state.name }}</code></td>
+              <td class="table-description">{{ state.description | inlineMarkdown | safe }}</td>
+              <td class="table-selector"><code>:state({{ state.name }})</code></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </wa-scroller>
+  {% endif %}
+
+  {# CSS Parts #}
+  {% if component.cssParts.length %}
+    <h2>CSS parts</h2>
+    <p>Learn more about <a href="/docs/customizing/#css-parts">CSS parts</a>.</p>
+
+    <wa-scroller>
+      <table class="component-table wa-hover-rows">
+        <thead>
+          <tr>
+            <th class="table-name">Name</th>
+            <th class="table-description">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for cssPart in component.cssParts %}
+            <tr>
+              <td class="table-name"><code>{{ cssPart.name }}</code></td>
+              <td class="table-description">{{ cssPart.description | inlineMarkdown | safe }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </wa-scroller>
+  {% endif %}
+
+  {# Dependencies #}
+  {% if component.dependencies.length %}
+    <h2>Dependencies</h2>
+    <p>
+      This component automatically imports the following elements. Sub-dependencies, if any exist, will also be included in this list.
+    </p>
+
+    <ul class="dependency-list">
+      {% for dependency in component.dependencies %}
+        <li><a href="/docs/components/{{ dependency | stripPrefix }}"><code>&lt;{{ dependency }}&gt;</code></a></li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  {# Importing #}
+  <h2>Importing</h2>
+  <p>
+    The <a href="/docs/#quick-start-autoloading-via-cdn">autoloader</a> is the recommended way to import components. If you prefer to do it manually, use one of the following code snippets.
+  </p>
+
+
+  {% set componentName = component.tagName | stripPrefix %}
+  {% set componentPath = ["components/", componentName, "/", componentName, ".js"] | join("") %}
+  <wa-tab-group label="How would you like to import this component?">
+    <wa-tab panel="cdn">CDN</wa-tab>
+    <wa-tab panel="npm">npm</wa-tab>
+    <wa-tab panel="react">React</wa-tab>
+    <wa-tab-panel name="cdn">
+      <p>
+        To manually import this component from the CDN, use the following code.
+      </p>
+
+      <pre><code class="language-js">import '{% cdnUrl componentPath %}';</code></pre>
+    </wa-tab-panel>
+    <wa-tab-panel name="npm">
+      <p>
+        To manually import this component from NPM, use the following code.
+      </p>
+      <pre><code class="language-js">import '@awesome.me/webawesome/dist/{{ componentPath }}';</code></pre>
+    </wa-tab-panel>
+    <wa-tab-panel name="react">
+      <p>
+        To manually import this component from React, use the following code.
+      </p>
+      <pre><code class="language-js">import {{ component.name }} from '@awesome.me/webawesome/dist/react/{{ componentName }}';</code></pre>
+    </wa-tab-panel>
+  </wa-tab-group>
+
+  <wa-divider></wa-divider>
+
+  <div class="component-help">
+    <strong>Need a hand?</strong>
+    <wa-button size="small" appearance="filled" variant="neutral" href="https://github.com/shoelace-style/webawesome/issues" target="_blank">
+      <wa-icon slot="prefix" name="bug"></wa-icon>
+      Report a bug
+    </wa-button>
+    <wa-button size="small" appearance="filled" variant="neutral" href="https://github.com/shoelace-style/webawesome/discussions" target="_blank">
+      <wa-icon slot="prefix" name="message-question"></wa-icon>
+      Ask for help
+    </wa-button>
+  </div>
+{% endblock %}

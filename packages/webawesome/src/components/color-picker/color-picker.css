@@ -1,0 +1,341 @@
+:host {
+  --grid-width: 17em;
+  --grid-height: 12em;
+  --grid-handle-size: 1.25em;
+  --slider-height: 1em;
+  --slider-handle-size: calc(var(--slider-height) + 0.25em);
+}
+
+.color-picker {
+  background-color: var(--wa-color-surface-raised);
+  border-radius: var(--wa-border-radius-m);
+  border-style: var(--wa-border-style);
+  border-width: var(--wa-border-width-s);
+  border-color: var(--wa-color-surface-border);
+  box-shadow: var(--wa-shadow-m);
+  color: var(--color);
+  font: inherit;
+  font-size: inherit;
+  user-select: none;
+  width: var(--grid-width);
+  -webkit-user-select: none;
+}
+
+.grid {
+  position: relative;
+  height: var(--grid-height);
+  background-image:
+    linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%),
+    linear-gradient(to right, #fff 0%, rgba(255, 255, 255, 0) 100%);
+  border-top-left-radius: calc(var(--wa-border-radius-m) - var(--wa-border-width-s));
+  border-top-right-radius: calc(var(--wa-border-radius-m) - var(--wa-border-width-s));
+  cursor: crosshair;
+  forced-color-adjust: none;
+}
+
+.grid-handle {
+  position: absolute;
+  width: var(--grid-handle-size);
+  height: var(--grid-handle-size);
+  border-radius: var(--wa-border-radius-circle);
+  box-shadow: 0 0 0 0.0625rem rgba(0, 0, 0, 0.2);
+  border: solid 0.125rem white;
+  margin-top: calc(var(--grid-handle-size) / -2);
+  margin-left: calc(var(--grid-handle-size) / -2);
+  transition: scale var(--wa-transition-normal) var(--wa-transition-easing);
+}
+
+.grid-handle-dragging {
+  cursor: none;
+  scale: 1.5;
+}
+
+.grid-handle:focus-visible {
+  outline: var(--wa-focus-ring);
+}
+
+.controls {
+  padding: 0.75em;
+  display: flex;
+  align-items: center;
+}
+
+.sliders {
+  flex: 1 1 auto;
+}
+
+.slider {
+  position: relative;
+  height: var(--slider-height);
+  border-radius: var(--wa-border-radius-s);
+  box-shadow: inset 0 0 0 0.0625rem rgba(0, 0, 0, 0.2);
+  forced-color-adjust: none;
+}
+
+.slider:not(:last-of-type) {
+  margin-bottom: 0.75em;
+}
+
+.slider-handle {
+  position: absolute;
+  top: calc(50% - var(--slider-handle-size) / 2);
+  width: var(--slider-handle-size);
+  height: var(--slider-handle-size);
+  border-radius: var(--wa-border-radius-circle);
+  border: solid 0.125rem white;
+  box-shadow: 0 0 0 0.0625rem rgba(0, 0, 0, 0.2);
+  margin-left: calc(var(--slider-handle-size) / -2);
+}
+
+.slider-handle:focus-visible {
+  outline: var(--wa-focus-ring);
+}
+
+.hue {
+  background-image: linear-gradient(
+    to right,
+    rgb(255, 0, 0) 0%,
+    rgb(255, 255, 0) 17%,
+    rgb(0, 255, 0) 33%,
+    rgb(0, 255, 255) 50%,
+    rgb(0, 0, 255) 67%,
+    rgb(255, 0, 255) 83%,
+    rgb(255, 0, 0) 100%
+  );
+}
+
+.alpha .alpha-gradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+}
+
+.preview {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 3em;
+  height: 3em;
+  border: none;
+  border-radius: var(--wa-border-radius-circle);
+  background: none;
+  font-size: inherit;
+  margin-inline-start: 0.75em;
+  cursor: copy;
+  forced-color-adjust: none;
+}
+
+.preview:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 0.0625rem rgba(0, 0, 0, 0.2);
+
+  /* We use a custom property in lieu of currentColor because of https://bugs.webkit.org/show_bug.cgi?id=216780 */
+  background-color: var(--preview-color);
+}
+
+.preview:focus-visible {
+  outline: var(--wa-focus-ring);
+  outline-offset: var(--wa-focus-ring-offset);
+}
+
+.preview-color {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: solid 0.0625rem rgba(0, 0, 0, 0.125);
+}
+
+.preview-color-copied {
+  animation: pulse 850ms;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 var(--wa-color-brand-fill-loud);
+  }
+  70% {
+    box-shadow: 0 0 0 0.5rem transparent;
+  }
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+
+.user-input {
+  display: flex;
+  align-items: center;
+  padding: 0 0.75em 0.75em 0.75em;
+}
+
+.user-input wa-input {
+  min-width: 0; /* fix input width in Safari */
+  flex: 1 1 auto;
+
+  &::part(form-control-label) {
+    /* Visually hidden */
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    clip: rect(0 0 0 0) !important;
+    clip-path: inset(50%) !important;
+    border: none !important;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+    padding: 0 !important;
+  }
+}
+
+.user-input wa-button-group {
+  margin-inline-start: 0.75em;
+
+  &::part(base) {
+    flex-wrap: nowrap;
+  }
+}
+
+.user-input wa-button:first-of-type {
+  min-width: 3em;
+  max-width: 3em;
+}
+
+.swatches {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(1.5em, 100%), 1fr));
+  grid-gap: 0.5em;
+  justify-items: center;
+  border-block-start: var(--wa-form-control-border-style) var(--wa-form-control-border-width)
+    var(--wa-color-surface-border);
+  padding: 0.5em;
+  forced-color-adjust: none;
+}
+
+.swatch {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  border-radius: var(--wa-border-radius-s);
+}
+
+.swatch .swatch-color {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: solid 0.0625rem rgba(0, 0, 0, 0.125);
+  border-radius: inherit;
+  cursor: pointer;
+}
+
+.swatch:focus-visible {
+  outline: var(--wa-focus-ring);
+  outline-offset: var(--wa-focus-ring-offset);
+}
+
+.transparent-bg {
+  background-image:
+    linear-gradient(45deg, var(--wa-color-neutral-fill-normal) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, var(--wa-color-neutral-fill-normal) 75%),
+    linear-gradient(45deg, transparent 75%, var(--wa-color-neutral-fill-normal) 75%),
+    linear-gradient(45deg, var(--wa-color-neutral-fill-normal) 25%, transparent 25%);
+  background-size: 0.5rem 0.5rem;
+  background-position:
+    0 0,
+    0 0,
+    -0.25rem -0.25rem,
+    0.25rem 0.25rem;
+}
+
+:host([disabled]) {
+  opacity: 0.5;
+  cursor: not-allowed;
+
+  .grid,
+  .grid-handle,
+  .slider,
+  .slider-handle,
+  .preview,
+  .swatch,
+  .swatch-color {
+    pointer-events: none;
+  }
+}
+
+/*
+ * Color dropdown
+ */
+
+.color-dropdown {
+  display: contents;
+}
+
+.color-dropdown::part(panel) {
+  max-height: none;
+  background-color: var(--wa-color-surface-raised);
+  border: var(--wa-border-style) var(--wa-border-width-s) var(--wa-color-surface-border);
+  border-radius: var(--wa-border-radius-m);
+  overflow: visible;
+}
+
+.trigger {
+  display: block;
+  position: relative;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: inherit;
+  forced-color-adjust: none;
+  width: var(--wa-form-control-height);
+  height: var(--wa-form-control-height);
+  border-radius: var(--wa-form-control-border-radius);
+}
+
+.trigger:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background-color: currentColor;
+  box-shadow:
+    inset 0 0 0 var(--wa-form-control-border-width) var(--wa-form-control-border-color),
+    inset 0 0 0 calc(var(--wa-form-control-border-width) * 3) var(--wa-color-surface-default);
+}
+
+.trigger-empty:before {
+  background-color: transparent;
+}
+
+.trigger:focus-visible {
+  outline: none;
+}
+
+.trigger:focus-visible:not(.trigger:disabled) {
+  outline: var(--wa-focus-ring);
+  outline-offset: var(--wa-focus-ring-offset);
+}
+
+:host([disabled]) :is(.label, .trigger) {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.form-control.form-control-has-label .label {
+  cursor: pointer;
+  display: inline-block;
+}

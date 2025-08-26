@@ -1,0 +1,79 @@
+```html {.example}
+<style>
+  div.alignment {
+    background: linear-gradient(to bottom, lightblue, lightblue 1px, transparent 1px, transparent), linear-gradient(to top, lightblue, lightblue 1px, transparent 1px, transparent);
+    position: relative;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+  div.alignment::after {
+    content: '';
+    position: absolute;
+    top: calc(50% - 0.5px);
+    width: 100%;
+    height: 1px;
+    background-color: red;
+  }
+</style>
+<div class="wa-stack wa-gap-xl">
+  <div class="alignment">
+    <wa-switch size="small">Switch</wa-switch>
+    <wa-checkbox size="small">Checkbox</wa-checkbox>
+    <wa-radio value="1" size="small">Radio</wa-radio>
+  </div>
+  <div class="alignment">
+    <wa-switch>Switch</wa-switch>
+    <wa-checkbox>Checkbox</wa-checkbox>
+    <wa-radio value="1">Radio</wa-radio>
+  </div>
+  <div class="alignment">
+    <wa-switch size="large">Switch</wa-switch>
+    <wa-checkbox size="large">Checkbox</wa-checkbox>
+    <wa-radio value="1" size="large">Radio</wa-radio>
+  </div>
+  <div class="alignment">
+    <wa-textarea placeholder="textarea" size="small" rows="1"></wa-textarea>
+    <wa-input placeholder="input" size="small"></wa-input>
+    <wa-select size="small" value="1" multiple>
+      <wa-option value="1">Option</wa-option>
+    </wa-select>
+    <wa-color-picker size="small"></wa-color-picker>
+    <wa-button size="small">Button</wa-button>
+  </div>
+  <div class="alignment">
+    <wa-textarea placeholder="textarea" size="medium" rows="1"></wa-textarea>
+    <wa-input placeholder="input" size="medium"></wa-input>
+    <wa-select size="medium" value="1" multiple>
+      <wa-option value="1">Option</wa-option>
+    </wa-select>
+    <wa-color-picker size="medium"></wa-color-picker>
+    <wa-button size="medium">Button</wa-button>
+  </div>
+  <div class="alignment">
+    <wa-textarea placeholder="textarea" size="large" rows="1"></wa-textarea>
+    <wa-input placeholder="input" size="large"></wa-input>
+    <wa-select size="large" value="1" multiple>
+      <wa-option value="1">Option</wa-option>
+    </wa-select>
+    <wa-color-picker size="large"></wa-color-picker>
+    <wa-button size="large">Button</wa-button>
+  </div>
+  <div class="alignment">
+    <wa-badge>Badge</wa-badge>
+    <code>Code</code>
+    <kbd>Keyboard</kbd>
+    <ins>Inserted</ins>
+    <del>Deleted</del>
+    <mark>Highlighted</mark>
+  </div>
+  <div class="alignment">
+    <wa-avatar></wa-avatar>
+    <wa-rating></wa-rating>
+    <wa-button appearance="plain">
+      <wa-icon name="gear" label="Settings"></wa-icon>
+    </wa-button>
+    <wa-spinner></wa-spinner>
+  </div>
+</div>
+```

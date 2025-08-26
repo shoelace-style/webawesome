@@ -1,0 +1,25 @@
+<wa-select class="color-scheme-selector" appearance="filled" size="small" value="auto" title="Press \ to toggle">
+  <wa-icon class="only-light" slot="start" name="sun" variant="regular"></wa-icon>
+  <wa-icon class="only-dark" slot="start" name="moon" variant="regular"></wa-icon>
+  <wa-option value="light">
+    <wa-icon slot="start" name="sun" variant="regular"></wa-icon>
+    Light
+  </wa-option>
+  <wa-option value="dark">
+    <wa-icon slot="start" name="moon" variant="regular"></wa-icon>
+    Dark
+  </wa-option>
+  <wa-divider></wa-divider>
+  <wa-option value="auto">
+    <wa-icon class="only-light" slot="start" name="sun" variant="regular"></wa-icon>
+    <wa-icon class="only-dark" slot="start" name="moon" variant="regular"></wa-icon>
+    System
+  </wa-option>
+</wa-select>
+
+<script>
+  // Immediately set the correct value from storage
+  document.querySelectorAll('wa-select.color-scheme-selector').forEach(el => {
+    el.setAttribute('value', localStorage.getItem('color-scheme') || 'auto');
+  });
+</script>

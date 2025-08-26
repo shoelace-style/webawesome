@@ -1,0 +1,217 @@
+wa-card:has(
+    > .theme-icon-host,
+    > [slot='header'] > .theme-icon-host,
+    > .fonts-icon-host,
+    > [slot='header'] > .fonts-icon-host
+  ) {
+  &::part(header) {
+    /* We want to add a background color, so any spacing needs to go on .theme-icon */
+    flex: 1;
+    padding: 0;
+    min-block-size: 0;
+  }
+
+  [slot='header'] {
+    width: 100%;
+  }
+}
+
+.theme-icon-host,
+.fonts-icon-host,
+.palette-icon-host {
+  flex: 1;
+  border-radius: inherit;
+
+  &[slot='header'],
+  [slot='header']:has(&) {
+    flex: 1;
+    border-radius: inherit;
+  }
+}
+
+.theme-icon:not(.theme-color-icon),
+.palette-icon,
+.icons-icon {
+  min-height: 5.5rem;
+}
+
+.palette-icon {
+  display: grid;
+  grid-template-columns: repeat(var(--hues, 9), 1fr);
+  gap: var(--wa-space-3xs);
+  min-width: 20ch;
+  align-content: center;
+
+  .swatch {
+    height: 0.7em;
+    background: var(--color);
+    border-radius: var(--wa-border-radius-s);
+
+    &[data-suffix=''] {
+      height: 1.1em;
+    }
+  }
+}
+
+.theme-icon,
+.fonts-icon {
+  min-width: 18ch;
+  padding: var(--wa-space-xs) var(--wa-space-m);
+  border-radius: inherit;
+  box-sizing: border-box;
+
+  h2,
+  h3,
+  p {
+    margin-block: 0;
+    padding: 0;
+  }
+}
+
+.theme-color-icon {
+  display: flex;
+  gap: var(--wa-space-xs);
+  min-width: 15ch;
+  background: var(--wa-color-surface-lowered);
+
+  & + & {
+    border-start-start-radius: 0;
+    border-start-end-radius: 0;
+  }
+
+  div {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    border-radius: var(--wa-border-radius-m);
+    background-color: var(--background-color);
+    border: var(--wa-border-width-s) var(--wa-border-style) var(--border-color);
+    padding: var(--wa-space-2xs) var(--wa-space-xs);
+    color: var(--text-color);
+    font-weight: var(--wa-font-weight-semibold);
+  }
+}
+
+.theme-icon.theme-overall-icon,
+.fonts-icon {
+  display: flex;
+  flex-flow: column;
+  gap: var(--wa-space-2xs);
+  justify-content: center;
+  width: 100%;
+  min-height: 6.75rem;
+  box-sizing: border-box;
+  background: var(--wa-color-surface-lowered);
+
+  .row {
+    display: flex;
+    gap: var(--wa-space-xs);
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .row-2 {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    contain: inline-size;
+    width: 100%;
+
+    wa-input {
+      min-width: 1em;
+    }
+  }
+
+  .swatches {
+    display: flex;
+    gap: var(--wa-space-3xs);
+
+    > div {
+      width: 1.25rem;
+      height: 1.25rem;
+      border-radius: var(--wa-border-radius-s);
+      background: var(--wa-color-fill-loud);
+      color: var(--wa-color-on-loud);
+
+      &.wa-brand {
+        width: 2.5rem;
+      }
+    }
+  }
+}
+
+.theme-icon.theme-dimensionality-icon {
+  display: flex;
+  flex-flow: column;
+  gap: var(--wa-space-2xs);
+  justify-content: center;
+  width: 100%;
+  min-height: 6.75rem;
+  box-sizing: border-box;
+
+  wa-card {
+    display: block;
+
+    &::part(body) {
+      display: flex;
+      gap: var(--wa-space-xs);
+    }
+
+    wa-input {
+      flex: 4;
+      min-width: 1em;
+    }
+
+    wa-button {
+      flex: 1;
+    }
+  }
+}
+
+.fonts-icon {
+  font-family: var(--wa-font-family-body);
+  padding-block: var(--wa-space-s);
+  overflow: hidden;
+  position: relative;
+
+  & h2,
+  & p {
+    white-space: nowrap;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    background-image: linear-gradient(to left, var(--wa-color-surface-lowered), 20%, transparent);
+  }
+}
+
+.icons-icon {
+  display: grid;
+  grid-template-columns: repeat(var(--columns, 5), auto);
+  gap: var(--wa-space-xs);
+  place-items: center;
+  place-content: center;
+
+  & wa-icon {
+    font-size: 1.25em;
+  }
+}
+
+.page-card {
+  wa-badge {
+    margin-inline: var(--wa-space-3xs);
+  }
+}
+
+:is(.theme-card, .icons-card)::part(header) {
+  background: var(--wa-color-surface-lowered);
+}
+
+.icons-card::part(header) {
+  color: var(--wa-color-neutral-on-quiet);
+}

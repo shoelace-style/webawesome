@@ -1,0 +1,281 @@
+:host {
+  --size: 25rem;
+  --spacing: var(--wa-space-l);
+  --show-duration: 200ms;
+  --hide-duration: 200ms;
+
+  display: none;
+}
+
+:host([open]) {
+  display: block;
+}
+
+.drawer {
+  display: flex;
+  flex-direction: column;
+  top: 0;
+  inset-inline-start: 0;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  overflow: hidden;
+  background-color: var(--wa-color-surface-raised);
+  border: none;
+  box-shadow: var(--wa-shadow-l);
+  overflow: auto;
+  padding: 0;
+  margin: 0;
+  animation-duration: var(--show-duration);
+  animation-timing-function: ease;
+
+  &.show::backdrop {
+    animation: show-backdrop var(--show-duration, 200ms) ease;
+  }
+
+  &.hide::backdrop {
+    animation: show-backdrop var(--hide-duration, 200ms) ease reverse;
+  }
+
+  &.show.top {
+    animation: show-drawer-from-top var(--show-duration) ease;
+  }
+
+  &.hide.top {
+    animation: show-drawer-from-top var(--hide-duration) ease reverse;
+  }
+
+  &.show.end {
+    animation: show-drawer-from-end var(--show-duration) ease;
+
+    &:dir(rtl) {
+      animation-name: show-drawer-from-start;
+    }
+  }
+
+  &.hide.end {
+    animation: show-drawer-from-end var(--hide-duration) ease reverse;
+
+    &:dir(rtl) {
+      animation-name: show-drawer-from-start;
+    }
+  }
+
+  &.show.bottom {
+    animation: show-drawer-from-bottom var(--show-duration) ease;
+  }
+
+  &.hide.bottom {
+    animation: show-drawer-from-bottom var(--hide-duration) ease reverse;
+  }
+
+  &.show.start {
+    animation: show-drawer-from-start var(--show-duration) ease;
+
+    &:dir(rtl) {
+      animation-name: show-drawer-from-end;
+    }
+  }
+
+  &.hide.start {
+    animation: show-drawer-from-start var(--hide-duration) ease reverse;
+
+    &:dir(rtl) {
+      animation-name: show-drawer-from-end;
+    }
+  }
+
+  &.pulse {
+    animation: pulse 250ms ease;
+  }
+}
+
+.drawer:focus {
+  outline: none;
+}
+
+.top {
+  top: 0;
+  inset-inline-end: auto;
+  bottom: auto;
+  inset-inline-start: 0;
+  width: 100%;
+  height: var(--size);
+}
+
+.end {
+  top: 0;
+  inset-inline-end: 0;
+  bottom: auto;
+  inset-inline-start: auto;
+  width: var(--size);
+  height: 100%;
+}
+
+.bottom {
+  top: auto;
+  inset-inline-end: auto;
+  bottom: 0;
+  inset-inline-start: 0;
+  width: 100%;
+  height: var(--size);
+}
+
+.start {
+  top: 0;
+  inset-inline-end: auto;
+  bottom: auto;
+  inset-inline-start: 0;
+  width: var(--size);
+  height: 100%;
+}
+
+.header {
+  display: flex;
+  flex-wrap: nowrap;
+  padding-inline-start: var(--spacing);
+  padding-block-end: 0;
+
+  /* Subtract the close button's padding so that the X is visually aligned with the edges of the dialog content */
+  padding-inline-end: calc(var(--spacing) - var(--wa-form-control-padding-block));
+  padding-block-start: calc(var(--spacing) - var(--wa-form-control-padding-block));
+}
+
+.title {
+  align-self: center;
+  flex: 1 1 auto;
+  font: inherit;
+  font-size: var(--wa-font-size-l);
+  font-weight: var(--wa-font-weight-heading);
+  line-height: var(--wa-line-height-condensed);
+  margin: 0;
+}
+
+.header-actions {
+  align-self: start;
+  display: flex;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  justify-content: end;
+  gap: var(--wa-space-2xs);
+  padding-inline-start: var(--spacing);
+}
+
+.header-actions wa-button,
+.header-actions ::slotted(wa-button) {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+.body {
+  flex: 1 1 auto;
+  display: block;
+  padding: var(--spacing);
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--wa-space-xs);
+  justify-content: end;
+  padding: var(--spacing);
+  padding-block-start: 0;
+}
+
+.footer ::slotted(wa-button:not(:last-of-type)) {
+  margin-inline-end: var(--wa-spacing-xs);
+}
+
+.drawer::backdrop {
+  /*
+      NOTE: the ::backdrop element doesn't inherit properly in Safari yet, but it will in 17.4! At that time, we can
+      remove the fallback values here.
+    */
+  background-color: var(--wa-color-overlay-modal, rgb(0 0 0 / 0.25));
+}
+
+@keyframes pulse {
+  0% {
+    scale: 1;
+  }
+  50% {
+    scale: 1.01;
+  }
+  100% {
+    scale: 1;
+  }
+}
+
+@keyframes show-drawer {
+  from {
+    opacity: 0;
+    scale: 0.8;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+@keyframes show-drawer-from-top {
+  from {
+    opacity: 0;
+    translate: 0 -100%;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes show-drawer-from-end {
+  from {
+    opacity: 0;
+    translate: 100%;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes show-drawer-from-bottom {
+  from {
+    opacity: 0;
+    translate: 0 100%;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes show-drawer-from-start {
+  from {
+    opacity: 0;
+    translate: -100% 0;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes show-backdrop {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (forced-colors: active) {
+  .drawer {
+    border: solid 1px white;
+  }
+}
