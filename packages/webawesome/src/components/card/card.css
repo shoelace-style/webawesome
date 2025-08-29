@@ -117,8 +117,8 @@
 :host([orientation='horizontal']) ::slotted(*) {
     display: block;
     height: 100%;
-    margin: 0 !important;
-    object-fit: cover !important;
+    margin: 0;
+    object-fit: cover;
 }
 :host([orientation='horizontal']) ::slotted([slot='actions']) {
     display: flex;
