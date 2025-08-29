@@ -191,7 +191,7 @@ This gives you inline documentation, autocomplete, and type-safe validation for 
 ```json
 {
   "compilerOptions": {
-    "types": ["node-modules/@awesome.me/webawesome/dist/custom-elements-jsx.d.ts"]
+    "types": ["node_modules/@awesome.me/webawesome/dist/custom-elements-jsx.d.ts"]
   }
 }
 ```
