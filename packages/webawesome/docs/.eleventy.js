@@ -76,6 +76,7 @@ export default async function (eleventyConfig) {
   //
   eleventyConfig.addGlobalData('package', packageData);
   eleventyConfig.addGlobalData('layout', 'page.njk');
+  eleventyConfig.addGlobalData('pageType', 'docs'); // Default page type
   eleventyConfig.addGlobalData('server', {
     head: '',
     loginOrAvatar: '',
