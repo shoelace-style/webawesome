@@ -366,7 +366,7 @@ Here's a comprehensive example showing different lazy loading scenarios:
 
     const option = document.createElement('wa-option');
     option.setAttribute('value', 'foo');
-    option.selected = true
+    option.selected = true;
     option.innerText = 'Foo';
 
     // For the multiple select with existing selected options, make the new option selected

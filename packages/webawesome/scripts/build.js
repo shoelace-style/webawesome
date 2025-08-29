@@ -464,7 +464,25 @@ export async function build(options = {}) {
 
       function handleWatchEvent(evt) {
         return async filename => {
-          spinner.info(`File modified ${chalk.gray(`(${relative(getRootDir(), filename)})`)}`);
+          const changedFile = relative(getRootDir(), filename);
+
+          let message = '';
+          if (evt === 'change') {
+            message = chalk.blue(`File modified ${chalk.gray(`(${changedFile})`)}`);
+          } else if (evt === 'unlink') {
+            message = chalk.red(`File deleted ${chalk.gray(`(${changedFile})`)}`);
+          } else if (evt === 'add') {
+            message = chalk.green(`File added ${chalk.gray(`(${changedFile})`)}`);
+          }
+
+          if (message) {
+            if (spinner) {
+              spinner.info(message);
+            } else {
+              console.log(message);
+            }
+          }
+
           if (typeof options.beforeWatchEvent === 'function') {
             await options.beforeWatchEvent(evt, filename);
           }

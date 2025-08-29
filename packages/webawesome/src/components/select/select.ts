@@ -74,6 +74,8 @@ import styles from './select.css';
  * @csspart clear-button - The clear button.
  * @csspart expand-icon - The container that wraps the expand icon.
  *
+ * @cssproperty [--show-duration=100ms] - The duration of the show animation.
+ * @cssproperty [--hide-duration=100ms] - The duration of the hide animation.
  * @cssproperty [--tag-max-size=10ch] - When using `multiple`, the max size of tags before their content is truncated.
  *
  * @cssstate blank - The select is empty.
@@ -489,6 +491,10 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
 
   private handleLabelClick() {
     this.displayInput.focus();
+  }
+
+  private handleComboboxClick(event: MouseEvent) {
+    event.preventDefault();
   }
 
   private handleComboboxMouseDown(event: MouseEvent) {
@@ -942,6 +948,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
               slot="anchor"
               @keydown=${this.handleComboboxKeyDown}
               @mousedown=${this.handleComboboxMouseDown}
+              @click=${this.handleComboboxClick}
             >
               <slot part="start" name="start" class="start"></slot>
 

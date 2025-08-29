@@ -404,6 +404,7 @@ Create a variety of form controls with `<input type="">`, `<select>`, and `<text
   <label>Time <input type="time" /></label>
   <label>Number <input type="number" placeholder="12345" /></label>
   <label>Color <input type="color" value="#f36944" /></label>
+  <label>File <input type="file" multiple /></label>
   <label>Range <input type="range" /></label>
   <label>Select
     <select>
@@ -430,6 +431,27 @@ Create a variety of form controls with `<input type="">`, `<select>`, and `<text
 </script>
 ```
 
+Add the `wa-size-s`, `wa-size-m`, or `wa-size-l` class to any form control or its parent `<label>` to specify its size.
+```html {.example}
+<div class="wa-stack">
+  <input type="text" placeholder="Small input" class="wa-size-s" />
+  <div class="wa-cluster">
+    <label class="wa-size-s"><input type="checkbox" checked /> Small checkbox</label>
+    <label class="wa-size-s"><input type="radio" name="radio-small" value="1" checked /> Small radio</label>
+  </div>
+  <input type="text" placeholder="Medium input" class="wa-size-m" />
+  <div class="wa-cluster">
+    <label class="wa-size-m"><input type="checkbox" checked /> Medium checkbox</label>
+    <label class="wa-size-m"><input type="radio" name="radio-medium" value="1" checked /> Medium radio</label>
+  </div>
+  <input type="text" placeholder="Large input" class="wa-size-l" />
+  <div class="wa-cluster">
+    <label class="wa-size-l"><input type="checkbox" checked /> Large checkbox</label>
+    <label class="wa-size-l"><input type="radio" name="radio-large" value="1" checked /> Large radio</label>
+  </div>
+</div>
+```
+
 Add the `wa-filled` class to an input to give it a filled background.
 
 ```html {.example}
@@ -451,6 +473,12 @@ Add the `wa-pill` class to an input or select to give it rounded edges.
     <option value="pill">Pill select</option>
   </select>
 </div>
+```
+
+Add any [button](#buttons) modifier class to `<input type="file">` to change the file selector button's color variant, appearance, size, and shape.
+
+```html {.example}
+<input type="file" class="wa-filled wa-outlined wa-warning wa-size-s wa-pill" />
 ```
 
 ### Fieldsets

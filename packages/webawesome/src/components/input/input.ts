@@ -372,7 +372,7 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
           min=${ifDefined(this.min)}
           max=${ifDefined(this.max)}
           step=${ifDefined(this.step as number)}
-          .value=${live(this.value || '')}
+          .value=${live(this.value ?? '')}
           autocapitalize=${ifDefined(this.autocapitalize)}
           autocomplete=${ifDefined(this.autocomplete)}
           autocorrect=${ifDefined(this.autocorrect)}

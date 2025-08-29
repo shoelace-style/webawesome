@@ -15,41 +15,6 @@ category: Actions
 
 ## Examples
 
-### Button Sizes
-
-Unless otherwise specified,
-the size of [buttons](/docs/components/button) will be determined by the Button Group's `size` attribute.
-
-```html {.example}
-<wa-button-group size="small" label="Alignment">
-  <wa-button>Left</wa-button>
-  <wa-button>Center</wa-button>
-  <wa-button>Right</wa-button>
-</wa-button-group>
-
-<br /><br />
-
-<wa-button-group size="medium" label="Alignment">
-  <wa-button>Left</wa-button>
-  <wa-button>Center</wa-button>
-  <wa-button>Right</wa-button>
-</wa-button-group>
-
-<br /><br />
-
-<wa-button-group size="large" label="Alignment">
-  <wa-button>Left</wa-button>
-  <wa-button>Center</wa-button>
-  <wa-button>Right</wa-button>
-</wa-button-group>
-```
-
-:::info
-While you can still set the size of [buttons](/docs/components/button) individually,
-and it will override the inherited size,
-it is rarely a good idea to mix sizes within the same button group.
-:::
-
 ### Vertical Button Groups
 
 Set the `orientation` attribute to `vertical` to make a vertical button group.

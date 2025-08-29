@@ -19,6 +19,7 @@
       "import": "./dist/webawesome.js"
     },
     "./dist/custom-elements.json": "./dist/custom-elements.json",
+    "./dist/custom-elements-jsx.d.ts": "./dist/custom-elements-jsx.d.ts",
     "./dist/webawesome.js": "./dist/webawesome.js",
     "./dist/webawesome.loader.js": "./dist/webawesome.loader.js",
     "./dist/styles": "./dist/styles",

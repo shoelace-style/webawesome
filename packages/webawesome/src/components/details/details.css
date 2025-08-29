@@ -102,8 +102,8 @@ details {
   }
 }
 
-/* 'Start' icon position */
-:host([icon-position='start']) summary {
+/* 'Start' icon placement */
+:host([icon-placement='start']) summary {
   flex-direction: row-reverse;
   justify-content: start;
 }

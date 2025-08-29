@@ -454,7 +454,7 @@
     &::after {
       content: '';
       background-color: var(--wa-color-text-quiet);
-      mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="16" width="10" viewBox="0 0 320 512"><path d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg>')
+      mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="16" width="10" viewBox="0 0 320 512"><!--! Font Awesome Pro 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2025 Fonticons, Inc. --><path fill="currentColor" d="M311.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L243.2 256 73.9 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg>')
         center no-repeat;
       width: 1rem;
       height: 1rem;
@@ -560,124 +560,219 @@
   button,
   input[type='button'],
   input[type='reset'],
-  input[type='submit'] {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+  input[type='submit'],
+  input[type='file'] {
+    /* We allow modifier classes on <input type="file">,
+     * but these selectors ensure the styles only apply to
+     * the file selector button in the user agent's shadow root */
+    &:not(input[type='file']),
+    &::file-selector-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
 
-    height: var(--wa-form-control-height);
-    padding: 0 var(--wa-form-control-padding-inline);
+      height: var(--wa-form-control-height);
+      padding: 0 var(--wa-form-control-padding-inline);
 
-    color: var(--wa-color-on-loud, var(--wa-color-neutral-on-loud));
-    font-family: inherit;
-    font-size: var(--wa-form-control-value-font-size);
-    font-weight: var(--wa-font-weight-action);
-    line-height: calc(var(--wa-form-control-height) - var(--border-width) * 2);
-    text-decoration: none;
-    vertical-align: middle;
-    white-space: nowrap;
+      font-family: inherit;
+      font-size: var(--wa-form-control-value-font-size);
+      font-weight: var(--wa-font-weight-action);
+      line-height: calc(var(--wa-form-control-height) - var(--border-width) * 2);
+      text-decoration: none;
+      vertical-align: middle;
+      white-space: nowrap;
 
-    background-color: var(--wa-color-fill-loud, var(--wa-color-neutral-fill-loud));
-    border-color: transparent;
-    border-style: var(--wa-border-style);
-    border-width: max(1px, var(--wa-form-control-border-width));
-    border-radius: var(--wa-form-control-border-radius);
+      border-style: var(--wa-border-style);
+      border-width: max(1px, var(--wa-form-control-border-width));
+      border-radius: var(--wa-form-control-border-radius);
 
-    transition-property: background, border, box-shadow, color;
-    transition-duration: var(--wa-transition-fast);
-    transition-timing-function: var(--wa-transition-easing);
+      transition-property: background, border, box-shadow, color;
+      transition-duration: var(--wa-transition-fast);
+      transition-timing-function: var(--wa-transition-easing);
 
-    cursor: pointer;
-    user-select: none;
-    -webkit-user-select: none;
-
-    &.wa-plain {
-      color: var(--wa-color-on-quiet, var(--wa-color-neutral-on-quiet));
-      background-color: transparent;
-      border-color: transparent;
-
-      &:not(:disabled):hover {
-        color: var(--wa-color-on-quiet, var(--wa-color-neutral-on-quiet));
-        background-color: var(--wa-color-fill-quiet, var(--wa-color-neutral-fill-quiet));
-      }
-
-      &:not(:disabled):active {
-        color: var(--wa-color-on-quiet, var(--wa-color-neutral-on-quiet));
-        background-color: color-mix(
-          in oklab,
-          var(--wa-color-fill-quiet, var(--wa-color-neutral-fill-quiet)),
-          var(--wa-color-mix-active)
-        );
-      }
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
     }
 
-    &.wa-outlined {
-      color: var(--wa-color-on-quiet, var(--wa-color-neutral-on-quiet));
-      background-color: transparent;
-      border-color: var(--wa-color-border-loud, var(--wa-color-neutral-border-loud));
-
-      &:not(:disabled):hover {
-        color: var(--wa-color-on-quiet, var(--wa-color-neutral-on-quiet));
-        background-color: var(--wa-color-fill-quiet, var(--wa-color-neutral-fill-quiet));
-      }
-
-      &:not(:disabled):active {
-        color: var(--wa-color-on-quiet, var(--wa-color-neutral-on-quiet));
-        background-color: color-mix(
-          in oklab,
-          var(--wa-color-fill-quiet, var(--wa-color-neutral-fill-quiet)),
-          var(--wa-color-mix-active)
-        );
-      }
-    }
-
-    &.wa-filled {
-      color: var(--wa-color-on-normal, var(--wa-color-neutral-on-normal));
-      background-color: var(--wa-color-fill-normal, var(--wa-color-neutral-fill-normal));
-      border-color: transparent;
-
-      &:not(:disabled):hover {
-        color: var(--wa-color-on-normal, var(--wa-color-neutral-on-normal));
-        background-color: color-mix(
-          in oklab,
-          var(--wa-color-fill-normal, var(--wa-color-neutral-fill-normal)),
-          var(--wa-color-mix-hover)
-        );
-      }
-
-      &:not(:disabled):active {
-        color: var(--wa-color-on-normal, var(--wa-color-neutral-on-normal));
-        background-color: color-mix(
-          in oklab,
-          var(--wa-color-fill-normal, var(--wa-color-neutral-fill-normal)),
-          var(--wa-color-mix-active)
-        );
-      }
-
-      &.wa-outlined {
-        border-color: var(--wa-color-border-normal, var(--wa-color-neutral-border-normal));
-      }
-    }
-
-    &.wa-accent {
+    /* Default styles for standard buttons */
+    :where(&:not(input[type='file'])) {
       color: var(--wa-color-on-loud, var(--wa-color-neutral-on-loud));
       background-color: var(--wa-color-fill-loud, var(--wa-color-neutral-fill-loud));
       border-color: transparent;
 
-      &:not(:disabled):hover {
-        background-color: color-mix(
-          in oklab,
-          var(--wa-color-fill-loud, var(--wa-color-neutral-fill-loud)),
-          var(--wa-color-mix-hover)
-        );
+      &:not(:disabled) {
+        &:hover {
+          background-color: color-mix(
+            in oklab,
+            var(--wa-color-fill-loud, var(--wa-color-neutral-fill-loud)),
+            var(--wa-color-mix-hover)
+          );
+        }
+
+        &:active {
+          background-color: color-mix(
+            in oklab,
+            var(--wa-color-fill-loud, var(--wa-color-neutral-fill-loud)),
+            var(--wa-color-mix-active)
+          );
+        }
+      }
+    }
+
+    /* Default styles for file selector buttons */
+    :where(&:is(input[type='file'])) {
+      &::file-selector-button {
+        color: var(--wa-color-on-normal, var(--wa-color-neutral-on-normal));
+        background-color: var(--wa-color-fill-normal, var(--wa-color-neutral-fill-normal));
+        border-color: transparent;
       }
 
-      &:not(:disabled):active {
-        background-color: color-mix(
-          in oklab,
-          var(--wa-color-fill-loud, var(--wa-color-neutral-fill-loud)),
-          var(--wa-color-mix-active)
-        );
+      &:not(:disabled) {
+        &::file-selector-button:hover {
+          background-color: color-mix(
+            in oklab,
+            var(--wa-color-fill-normal, var(--wa-color-neutral-fill-normal)),
+            var(--wa-color-mix-hover)
+          );
+        }
+
+        &::file-selector-button:active {
+          background-color: color-mix(
+            in oklab,
+            var(--wa-color-fill-normal, var(--wa-color-neutral-fill-normal)),
+            var(--wa-color-mix-active)
+          );
+        }
+      }
+    }
+
+    /* Modifier classes */
+    &.wa-plain {
+      &:not(input[type='file']),
+      &::file-selector-button {
+        color: var(--wa-color-on-quiet, var(--wa-color-neutral-on-quiet));
+        background-color: transparent;
+        border-color: transparent;
+      }
+
+      &:not(:disabled) {
+        &:not(input[type='file']):hover,
+        &::file-selector-button:hover {
+          color: var(--wa-color-on-quiet, var(--wa-color-neutral-on-quiet));
+          background-color: var(--wa-color-fill-quiet, var(--wa-color-neutral-fill-quiet));
+        }
+
+        &:not(input[type='file']):active,
+        &::file-selector-button:active {
+          color: var(--wa-color-on-quiet, var(--wa-color-neutral-on-quiet));
+          background-color: color-mix(
+            in oklab,
+            var(--wa-color-fill-quiet, var(--wa-color-neutral-fill-quiet)),
+            var(--wa-color-mix-active)
+          );
+        }
+      }
+    }
+
+    &.wa-outlined {
+      &:not(input[type='file']),
+      &::file-selector-button {
+        color: var(--wa-color-on-quiet, var(--wa-color-neutral-on-quiet));
+        background-color: transparent;
+        border-color: var(--wa-color-border-loud, var(--wa-color-neutral-border-loud));
+      }
+
+      &:not(:disabled) {
+        &:not(input[type='file']):hover,
+        &::file-selector-button:hover {
+          color: var(--wa-color-on-quiet, var(--wa-color-neutral-on-quiet));
+          background-color: var(--wa-color-fill-quiet, var(--wa-color-neutral-fill-quiet));
+        }
+
+        &:not(input[type='file']):active,
+        &::file-selector-button:active {
+          color: var(--wa-color-on-quiet, var(--wa-color-neutral-on-quiet));
+          background-color: color-mix(
+            in oklab,
+            var(--wa-color-fill-quiet, var(--wa-color-neutral-fill-quiet)),
+            var(--wa-color-mix-active)
+          );
+        }
+      }
+    }
+
+    &.wa-filled {
+      &:not(input[type='file']),
+      &::file-selector-button {
+        color: var(--wa-color-on-normal, var(--wa-color-neutral-on-normal));
+        background-color: var(--wa-color-fill-normal, var(--wa-color-neutral-fill-normal));
+        border-color: transparent;
+      }
+
+      &:not(:disabled) {
+        &:not(input[type='file']):hover,
+        &::file-selector-button:hover {
+          color: var(--wa-color-on-normal, var(--wa-color-neutral-on-normal));
+          background-color: color-mix(
+            in oklab,
+            var(--wa-color-fill-normal, var(--wa-color-neutral-fill-normal)),
+            var(--wa-color-mix-hover)
+          );
+        }
+
+        &:not(input[type='file']):active,
+        &::file-selector-button:active {
+          color: var(--wa-color-on-normal, var(--wa-color-neutral-on-normal));
+          background-color: color-mix(
+            in oklab,
+            var(--wa-color-fill-normal, var(--wa-color-neutral-fill-normal)),
+            var(--wa-color-mix-active)
+          );
+        }
+      }
+
+      &.wa-outlined {
+        &:not(input[type='file']),
+        &::file-selector-button {
+          border-color: var(--wa-color-border-normal, var(--wa-color-neutral-border-normal));
+        }
+      }
+    }
+
+    &.wa-accent {
+      &:not(input[type='file']),
+      &::file-selector-button {
+        color: var(--wa-color-on-loud, var(--wa-color-neutral-on-loud));
+        background-color: var(--wa-color-fill-loud, var(--wa-color-neutral-fill-loud));
+        border-color: transparent;
+      }
+
+      &:not(:disabled) {
+        &:not(input[type='file']):hover,
+        &::file-selector-button:hover {
+          background-color: color-mix(
+            in oklab,
+            var(--wa-color-fill-loud, var(--wa-color-neutral-fill-loud)),
+            var(--wa-color-mix-hover)
+          );
+        }
+
+        &:not(input[type='file']):active,
+        &::file-selector-button:active {
+          background-color: color-mix(
+            in oklab,
+            var(--wa-color-fill-loud, var(--wa-color-neutral-fill-loud)),
+            var(--wa-color-mix-active)
+          );
+        }
+      }
+    }
+
+    &.wa-pill {
+      &:not(input[type='file']),
+      &::file-selector-button {
+        border-radius: var(--wa-border-radius-pill);
       }
     }
 
@@ -705,10 +800,6 @@
       }
     }
 
-    &.wa-pill {
-      border-radius: var(--wa-border-radius-pill);
-    }
-
     /* Adds space between icons and adjacent elements
      * Prefer sibling selectors over :first-child/:last-child to avoid extra space when an icon is used alone */
     & > wa-icon:has(+ *) {
@@ -718,6 +809,25 @@
     & > * + wa-icon {
       margin-inline-start: 0.75em;
     }
+  }
+  /* #endregion */
+
+  /* #region File Inputs ~~~~~~~~~~~~~~~~~~~~~ */
+  input[type='file'] {
+    display: block;
+
+    max-inline-size: 100%;
+
+    color: var(--wa-form-control-value-color);
+    font-family: inherit;
+    font-size: var(--wa-form-control-value-font-size);
+    font-weight: var(--wa-form-control-value-font-weight);
+    line-height: var(--wa-form-control-value-line-height);
+    vertical-align: middle;
+
+    border-radius: var(--wa-border-radius-m);
+
+    cursor: pointer;
   }
   /* #endregion */
 
@@ -806,8 +916,8 @@
     &:indeterminate::after {
       position: absolute;
 
-      width: 100%;
-      height: 100%;
+      width: round(calc(100% - var(--wa-form-control-border-width) * 2), 1px);
+      height: round(calc(100% - var(--wa-form-control-border-width) * 2), 1px);
 
       content: '';
 
@@ -817,7 +927,7 @@
     }
 
     &:checked::after {
-      mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>')
+      mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2025 Fonticons, Inc. --><path fill="currentColor" d="M434.8 70.1c14.3 10.4 17.5 30.4 7.1 44.7l-256 352c-5.5 7.6-14 12.3-23.4 13.1s-18.5-2.7-25.1-9.3l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l101.5 101.5 234-321.7c10.4-14.3 30.4-17.5 44.7-7.1z"/></svg>')
         center no-repeat;
     }
 
@@ -830,7 +940,7 @@
   /* Radio */
   input[type='radio'] {
     --checked-icon-color: var(--wa-form-control-activated-color);
-    --checked-icon-scale: 0.75;
+    --checked-icon-scale: 0.7;
 
     color: transparent;
 
@@ -948,6 +1058,8 @@
   /* Select */
   select {
     --icon-caret: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 512 512"><path fill="rgb(180 180 200)" d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>');
+
+    --icon-caret: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 448 512"><!--! Font Awesome Pro 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2025 Fonticons, Inc. --><path fill="rgb(180 180 200)" d="M201.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 338.7 54.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>');
 
     appearance: none;
 

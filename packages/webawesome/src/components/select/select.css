@@ -1,5 +1,7 @@
 :host {
   --tag-max-size: 10ch;
+  --show-duration: 100ms;
+  --hide-duration: 100ms;
 }
 
 /* Add ellipses to multi select options */
@@ -29,6 +31,10 @@
   width: 100%;
   position: relative;
   vertical-align: middle;
+
+  /* Pass through from select to the popup */
+  --show-duration: inherit;
+  --hide-duration: inherit;
 
   &::part(popup) {
     z-index: 900;

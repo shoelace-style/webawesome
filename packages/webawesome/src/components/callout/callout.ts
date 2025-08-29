@@ -25,13 +25,8 @@ export default class WaCallout extends WebAwesomeElement {
   @property({ reflect: true }) variant: 'brand' | 'neutral' | 'success' | 'warning' | 'danger' = 'brand';
 
   /** The callout's visual appearance. */
-  @property({ reflect: true }) appearance:
-    | 'accent'
-    | 'filled'
-    | 'outlined'
-    | 'plain'
-    | 'outlined filled'
-    | 'outlined accent' = 'outlined filled';
+  @property({ reflect: true }) appearance: 'accent' | 'filled' | 'outlined' | 'plain' | 'outlined filled' =
+    'outlined filled';
 
   /** The callout's size. */
   @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
