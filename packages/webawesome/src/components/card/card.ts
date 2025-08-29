@@ -15,6 +15,7 @@ import styles from './card.css';
  * @slot header - An optional header for the card.
  * @slot footer - An optional footer for the card.
  * @slot media - An optional media section to render at the start of the card.
+ * @slot actions - An optional actions section to render at the end for the horizontal card.
  *
  * @csspart media - The container that wraps the card's media.
  * @csspart header - The container that wraps the card's header.
@@ -55,7 +56,11 @@ export default class WaCard extends WebAwesomeElement {
 
   render() {
     if (this.orientation === 'horizontal') {
-      return html`<slot name="media" part="media" class="media"></slot><slot part="body" class="body"></slot>`;
+      return html`
+        <slot name="media" part="media" class="media"></slot>
+        <slot part="body" class="body"></slot>
+        <slot name="actions" part="actions" class="actions"></slot>
+      `;
     }
     return html`
       <slot name="media" part="media" class="media"></slot>

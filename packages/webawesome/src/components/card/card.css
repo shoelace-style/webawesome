@@ -42,11 +42,6 @@
   border-color: transparent;
 }
 
-/* Orientation Styles */
-:host([orientation='horizontal']) {
-  display: flex;
-}
-
 /* Take care of top and bottom radii */
 .media,
 :host(:not([with-media])) .header,
@@ -106,4 +101,27 @@
 :host(:not([with-footer])) .footer,
 :host(:not([with-media])) .media {
   display: none;
+}
+
+/* Orientation Styles */
+:host([orientation='horizontal']) {
+  flex-direction: row;
+  
+  .media {
+    border-start-start-radius: var(--inner-border-radius);
+    border-end-start-radius: var(--inner-border-radius);
+    border-start-end-radius: 0;
+  }
+}
+
+:host([orientation='horizontal']) ::slotted(*) {
+    display: block;
+    height: 100%;
+    margin: 0 !important;
+    object-fit: cover !important;
+}
+:host([orientation='horizontal']) ::slotted([slot='actions']) {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing);
 }

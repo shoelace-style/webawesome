@@ -158,15 +158,28 @@ Use the `appearance` attribute to change the card's visual appearance.
 
 ### Orientation
 
+Set the `orientation` attribute to `horizontal` to create a card with a horizontal, side-by-side layout. Make sure to set a width or maximum width for the media slot. Horizontal cards do not currently contain the header and footer slots.
+
 ```html {.example}
 <div class="wa-grid">
-  <wa-card orientation="horizontal">
+  <wa-card orientation="horizontal" class="horizontal-card">
     <img
       slot="media"
       src="https://images.unsplash.com/photo-1559209172-0ff8f6d49ff7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"
       alt="A kitten sits patiently between a terracotta pot and decorative grasses."
     />
-    Outlined (default)
+    This is a kitten, but not just any kitten. This kitten likes walking along pallets.
+    <wa-button slot="actions" variant="neutral" appearance="plain"
+      ><wa-icon name="ellipsis" label="actions"></wa-icon
+    ></wa-button>
   </wa-card>
 </div>
+
+<style>
+  .horizontal-card {
+    img[slot='media'] {
+      max-width: 300px;
+    }
+  }
+</style>
 ```
