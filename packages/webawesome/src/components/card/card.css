@@ -106,7 +106,7 @@
 /* Orientation Styles */
 :host([orientation='horizontal']) {
   flex-direction: row;
-  
+
   .media {
     border-start-start-radius: var(--inner-border-radius);
     border-end-start-radius: var(--inner-border-radius);
@@ -115,13 +115,14 @@
 }
 
 :host([orientation='horizontal']) ::slotted(*) {
-    display: block;
-    height: 100%;
-    margin: 0;
-    object-fit: cover;
+  display: block;
+  height: 100%;
+  margin: 0;
+  object-fit: cover;
 }
+
 :host([orientation='horizontal']) ::slotted([slot='actions']) {
-    display: flex;
-    align-items: center;
-    padding: var(--spacing);
+  display: flex;
+  align-items: center;
+  padding: var(--spacing);
 }
