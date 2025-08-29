@@ -1,4 +1,8 @@
 :host {
+  --icon-color: currentColor;
+  --icon-size: 1.25em;
+  --spacing: var(--wa-space-m);
+
   display: flex;
   position: relative;
   align-items: stretch;
@@ -7,7 +11,7 @@
   border-color: var(--wa-color-border-quiet, var(--wa-color-brand-border-quiet));
   border-style: var(--wa-panel-border-style);
   border-width: var(--wa-panel-border-width);
-  color: var(--wa-color-text-normal);
+  color: var(--wa-color-on-quiet, var(--wa-color-text-normal));
   padding: 1em;
 }
 
@@ -45,8 +49,8 @@
   flex: 0 0 auto;
   display: flex;
   align-items: center;
-  color: var(--wa-color-on-quiet);
-  font-size: 1.25em;
+  color: var(--icon-color);
+  font-size: var(--icon-size);
 }
 
 ::slotted([slot='icon']) {
@@ -57,4 +61,11 @@
   flex: 1 1 auto;
   display: block;
   overflow: hidden;
+  align-self: center;
+}
+
+[part~='action'] {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: flex-start;
 }

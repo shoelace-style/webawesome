@@ -7,6 +7,7 @@
 @import url('utilities/gap.css');
 @import url('utilities/text.css');
 @import url('utilities/layout.css');
+@import url('utilities/toast-stack.css');
 
 @import url('utilities/size.css');
 @import url('utilities/variants.css');

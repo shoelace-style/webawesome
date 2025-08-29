@@ -13,9 +13,14 @@ import styles from './callout.css';
  *
  * @slot - The callout's main content.
  * @slot icon - An icon to show in the callout. Works best with `<wa-icon>`.
+ * @slot action - A callout action to show in the callout. Works best with `<biskin-button>`.
  *
  * @csspart icon - The container that wraps the optional icon.
  * @csspart message - The container that wraps the callout's main content.
+ * @csspart action - The container that wraps the optional action.
+ *
+ * @cssproperty --icon-color - The color of the callout's icon.
+ * @cssproperty --icon-size - The size of the callout's icon.
  */
 @customElement('wa-callout')
 export default class WaCallout extends WebAwesomeElement {
@@ -39,6 +44,10 @@ export default class WaCallout extends WebAwesomeElement {
 
       <div part="message">
         <slot></slot>
+      </div>
+
+      <div part="action">
+        <slot name="action"></slot>
       </div>
     `;
   }

@@ -1,0 +1,17 @@
+@layer wa-utilities {
+  .wa-toast-stack {
+    position: fixed;
+    top: 0;
+    inset-inline-end: 0;
+    z-index: 950;
+    width: 28rem;
+    max-width: 100%;
+    max-height: 100%;
+    overflow: auto;
+  }
+
+  .wa-toast-stack wa-alert {
+    --elevation-level: 1;
+    margin: var(--wa-space-m);
+  }
+}
