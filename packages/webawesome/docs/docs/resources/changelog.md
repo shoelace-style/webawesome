@@ -33,6 +33,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed spacing in `<wa-input>` when both clear and password toggle icons are present [issue:1325]
 - Fixed a bug in `<wa-radio-group>` and `<wa-radio>` where changing appearances dynamically would render incorrectly [issue:1178]
 - Fixed a bug in `<wa-input>` that prevented the value from changing when assigning non-string values to `value` [issue:1323]
+- Fixed a bug in `<wa-color-picker>` that prevent the picker from staying in the viewport
 
 ## 3.0.0-beta.4
 
