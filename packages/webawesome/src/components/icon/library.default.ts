@@ -1,7 +1,7 @@
 import { getKitCode } from '../../utilities/base-path.js';
 import type { IconLibrary } from './library.js';
 
-const FA_VERSION = '7.0.0';
+const FA_VERSION = '7.0.1';
 
 function getIconUrl(name: string, family: string, variant: string) {
   const kitCode = getKitCode();
