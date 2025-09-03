@@ -46,7 +46,7 @@ export default class WaIcon extends WebAwesomeElement {
   @state() private svg: SVGElement | HTMLTemplateResult | null = null;
 
   /** The name of the icon to draw. Available names depend on the icon library being used. */
-  @property() name?: string;
+  @property({ reflect: true }) name?: string;
 
   /**
    * The family of icons to choose from. For Font Awesome Free, valid options include `classic` and `brands`. For
@@ -54,14 +54,14 @@ export default class WaIcon extends WebAwesomeElement {
    * A valid kit code must be present to show pro icons via CDN. You can set `<html data-fa-kit-code="...">` to provide
    * one.
    */
-  @property() family: string;
+  @property({ reflect: true }) family: string;
 
   /**
    * The name of the icon's variant. For Font Awesome, valid options include `thin`, `light`, `regular`, and `solid` for
    * the `classic` and `sharp` families. Some variants require a Font Awesome Pro subscription. Custom icon libraries
    * may or may not use this property.
    */
-  @property() variant: string;
+  @property({ reflect: true }) variant: string;
 
   /** Sets the width of the icon to match the cropped SVG viewBox. This operates like the Font `fa-width-auto` class. */
   @property({ attribute: 'auto-width', type: Boolean, reflect: true }) autoWidth: false;
@@ -82,7 +82,7 @@ export default class WaIcon extends WebAwesomeElement {
   @property() label = '';
 
   /** The name of a registered custom icon library. */
-  @property() library = 'default';
+  @property({ reflect: true }) library = 'default';
 
   connectedCallback() {
     super.connectedCallback();
