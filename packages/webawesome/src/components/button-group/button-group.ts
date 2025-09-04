@@ -38,6 +38,9 @@ export default class WaButtonGroup extends WebAwesomeElement {
   /** The button group's theme variant. Defaults to `neutral` if not within another element with a variant. */
   @property({ reflect: true }) variant: 'neutral' | 'brand' | 'success' | 'warning' | 'danger' = 'neutral';
 
+  /** The selector for child elements within the button group. This is used to set custom css classes to the children. A child should be like a wa-button or wa-radio-button */
+  @property() childSelector = 'wa-button, wa-radio-button';
+
   updated(changedProperties: PropertyValues<this>) {
     super.updated(changedProperties);
 
@@ -114,7 +117,7 @@ export default class WaButtonGroup extends WebAwesomeElement {
 }
 
 function findButton(el: HTMLElement) {
-  const selector = 'wa-button, wa-radio-button';
+  const selector = this.childSelector;
 
   // The button could be the target element or a child of it (e.g. a dropdown or tooltip anchor)
   return (el.closest(selector) ?? el.querySelector(selector)) as WaButton;

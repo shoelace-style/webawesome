@@ -77,6 +77,12 @@ export default class WaTabGroup extends WebAwesomeElement {
   /** Disables the scroll arrows that appear when tabs overflow. */
   @property({ attribute: 'without-scroll-controls', type: Boolean }) withoutScrollControls = false;
 
+  /** The tag name of the tab element. Needs to be set if a custom tab element is used */
+  @property() tabTag = 'wa-tab';
+
+  /** The tag name of the tab panel element. Needs to be set if a custom panel element is used */
+  @property() tabPanelTag = 'wa-tab-panel';
+
   connectedCallback() {
     super.connectedCallback();
 
@@ -93,7 +99,7 @@ export default class WaTabGroup extends WebAwesomeElement {
       // Only process mutations for elements that are children of this tab group
       const relevantMutations = mutations.filter(m => {
         const target = m.target as HTMLElement;
-        return target.closest('wa-tab-group') === this;
+        return target.closest(this.localName) === this;
       });
 
       // Sync tabs when disabled states change
@@ -101,11 +107,11 @@ export default class WaTabGroup extends WebAwesomeElement {
         this.syncTabsAndPanels();
       } else if (relevantMutations.some(m => m.attributeName === 'active')) {
         const tabs = relevantMutations
-          .filter(m => m.attributeName === 'active' && (m.target as HTMLElement).tagName.toLowerCase() === 'wa-tab')
+          .filter(m => m.attributeName === 'active' && (m.target as HTMLElement).tagName.toLowerCase() === this.tabTag)
           .map(m => m.target as WaTab);
         const newActiveTab = tabs.find(tab => tab.active);
 
-        if (newActiveTab && newActiveTab.closest('wa-tab-group') === this) {
+        if (newActiveTab && newActiveTab.closest(this.localName) === this) {
           this.setActiveTab(newActiveTab);
         }
       }
@@ -152,12 +158,14 @@ export default class WaTabGroup extends WebAwesomeElement {
     const slot = this.shadowRoot!.querySelector<HTMLSlotElement>('slot[name="nav"]')!;
 
     return [...(slot.assignedElements() as WaTab[])].filter(el => {
-      return el.tagName.toLowerCase() === 'wa-tab';
+      return el.tagName.toLowerCase() === this.tabTag;
     });
   }
 
   private getAllPanels() {
-    return [...this.body.assignedElements()].filter(el => el.tagName.toLowerCase() === 'wa-tab-panel') as [WaTabPanel];
+    return [...this.body.assignedElements()].filter(el => el.tagName.toLowerCase() === this.tabPanelTag) as [
+      WaTabPanel,
+    ];
   }
 
   private getActiveTab() {
@@ -166,8 +174,8 @@ export default class WaTabGroup extends WebAwesomeElement {
 
   private handleClick(event: MouseEvent) {
     const target = event.target as HTMLElement;
-    const tab = target.closest('wa-tab');
-    const tabGroup = tab?.closest('wa-tab-group');
+    const tab = target.closest(this.tabTag) as WaTab | null;
+    const tabGroup = tab?.closest(this.localName);
 
     // Ensure the target tab is in this specific tab group instance
     if (tabGroup !== this) {
@@ -181,8 +189,8 @@ export default class WaTabGroup extends WebAwesomeElement {
 
   private handleKeyDown(event: KeyboardEvent) {
     const target = event.target as HTMLElement;
-    const tab = target.closest('wa-tab');
-    const tabGroup = tab?.closest('wa-tab-group');
+    const tab = target.closest(this.tabTag) as WaTab | null;
+    const tabGroup = tab?.closest(this.localName);
 
     // Ensure the target tab is in this specific tab group instance
     if (tabGroup !== this) {
@@ -204,7 +212,7 @@ export default class WaTabGroup extends WebAwesomeElement {
       const isRtl = this.localize.dir() === 'rtl';
       let nextTab: null | WaTab = null;
 
-      if (activeEl?.tagName.toLowerCase() === 'wa-tab') {
+      if (activeEl?.tagName.toLowerCase() === this.tabTag) {
         if (event.key === 'Home') {
           nextTab = this.focusableTabs[0];
         } else if (event.key === 'End') {
@@ -303,7 +311,7 @@ export default class WaTabGroup extends WebAwesomeElement {
     };
 
     // Ensure the tab belongs to this tab group before activating
-    if (tab.closest('wa-tab-group') !== this) {
+    if (tab.closest(this.localName) !== this) {
       return;
     }
 
