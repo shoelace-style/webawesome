@@ -4,7 +4,7 @@ import { execSync } from 'child_process';
 import { deleteAsync } from 'del';
 import esbuild from 'esbuild';
 import { replace } from 'esbuild-plugin-replace';
-import { mkdir, readFile } from 'fs/promises';
+import { mkdir, readFile, writeFile } from 'fs/promises';
 import getPort, { portNumbers } from 'get-port';
 import { globby } from 'globby';
 import { dirname, extname, join, posix, relative } from 'node:path';
@@ -74,6 +74,11 @@ export async function build(options = {}) {
       await copy(getCdnDir(), getDistDir(), { overwrite: true });
 
       await generateBundle();
+
+      // Generate CSS to JS modules for unbundled build
+      await generateCssToJsModules();
+      await updateCssImportsUnbundledBuild();
+
       await generateDocs({ spinner });
 
       const time = (Date.now() - start) / 1000 + 's';
@@ -189,20 +194,58 @@ export async function build(options = {}) {
   }
 
   /**
-   * ESBuild plugin that transforms CSS for older browsers into text modules.
-   * This loader reads CSS files, processes them through esbuild's CSS transformer
-   * targeting Safari 15, and returns the transformed CSS as a text module.
+   * Process CSS files separately to convert them to css in js modules
    */
-  const cssToTextLoader = {
-    name: 'css-to-text',
-    setup(build) {
-      build.onLoad({ filter: /\.css$/ }, async args => {
-        const f = await readFile(args.path);
-        const css = await esbuild.transform(f, { target: 'safari15', loader: 'css' });
-        return { loader: 'text', contents: css.code };
+  async function generateCssToJsModules() {
+    spinner.start('Processing CSS files as text modules');
+
+    const rootDir = process.env.ROOT_DIR || '.';
+    const cssFiles = await globby([
+      posix.join(rootDir, 'src/components/**/*.css'),
+      posix.join(rootDir, 'src/styles/**/*.css'),
+    ]);
+
+    for (const cssFile of cssFiles) {
+      const cssContent = await readFile(cssFile, 'utf-8');
+
+      // Use esbuild to transform the CSS (e.g., handle nesting, autoprefixing)
+      const transformedCss = await esbuild.transform(cssContent, {
+        target: 'safari15',
+        loader: 'css',
       });
-    },
-  };
+
+      // Create a JS module that exports the CSS as text
+      const jsContent = `import { css } from 'lit';\nexport default css\`${transformedCss.code}\`;\n`;
+
+      // Write to dist directory with .css.js extension to avoid conflicts
+      const outputPath = join(getDistDir(), relative(join(rootDir, 'src'), cssFile)) + '.js';
+      await mkdir(dirname(outputPath), { recursive: true });
+      await writeFile(outputPath, jsContent);
+    }
+
+    spinner.succeed();
+  }
+
+  /**
+   * Update CSS import paths in JavaScript files
+   * Use js in css instead of .css
+   */
+  async function updateCssImportsUnbundledBuild() {
+    spinner.start('Updating CSS import paths');
+
+    const jsFiles = await globby(posix.join(getDistDir(), 'components/**/*.js'));
+
+    for (const jsFile of jsFiles) {
+      let content = await readFile(jsFile, 'utf-8');
+
+      // Replace CSS imports with the new .css.js files
+      content = content.replace(/from\s+["'](.*?)\.css["']/g, 'from "$1.css.js"');
+
+      await writeFile(jsFile, content);
+    }
+
+    spinner.succeed();
+  }
 
   /**
    * Runs esbuild to generate the final dist.
@@ -239,16 +282,26 @@ export async function build(options = {}) {
       bundle: true,
       splitting: true,
       minify: false,
-      plugins: [cssToTextLoader, replace({ __WEBAWESOME_VERSION__: await getVersion() })],
+      plugins: [replace({ __WEBAWESOME_VERSION__: await getVersion() })],
+      loader: {
+        '.css': 'text',
+      },
     };
 
     const unbundledConfig = {
       ...config,
-      splitting: true,
+      bundle: false,
+      splitting: false,
       treeShaking: true,
       // Don't inline libraries like Lit etc.
       packages: 'external',
       outdir: getDistDir(),
+      entryPoints: [
+        ...config.entryPoints,
+        ...(await globby(posix.join(rootDir, 'src/internal/**/*.ts'))),
+        ...(await globby(posix.join(rootDir, 'src/utilities/**/*.ts'))),
+        ...(await globby(posix.join(rootDir, 'src/events/**/*.ts'))),
+      ],
     };
 
     try {
