@@ -11,6 +11,7 @@ export type { WaExpandEvent } from './expand.js';
 export type { WaFinishEvent } from './finish.js';
 export type { WaHideEvent } from './hide.js';
 export type { WaHoverEvent } from './hover.js';
+export type { WaIntersectEvent } from './intersect.js';
 export type { WaInvalidEvent } from './invalid.js';
 export type { WaLazyChangeEvent } from './lazy-change.js';
 export type { WaLazyLoadEvent } from './lazy-load.js';

@@ -18,6 +18,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
   - Removed the `fixed-width` attribute as it's now the default behavior
 - 🚨 BREAKING: Renamed the `icon-position` attribute to `icon-placement` in `<wa-details>` [discuss:1340]
 - 🚨 BREAKING: Removed the `size` attribute from `<wa-button-group>` as it only set the initial size and gets out of sync when buttons are updated (apply a `size` to each button instead)
+- Added the `<wa-intersection-observer>` component
 - Added the Hindi translation [pr:1307]
 - Added `--show-duration` and `--hide-duration` to `<wa-select>` [issue:1281]
 - Fixed incorrectly named exported tooltip parts in `<wa-slider>` [pr:1277]
