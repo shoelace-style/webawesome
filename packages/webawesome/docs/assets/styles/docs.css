@@ -513,6 +513,7 @@ wa-card .page-name {
     }
 
     &::part(button):hover {
+      background-color: transparent;
       cursor: copy;
     }
 
