@@ -84,12 +84,12 @@ export default class WaIntersectionObserver extends WebAwesomeElement {
       const target = doc.getElementById(this.root);
 
       if (!target) {
-        console.warn(`[wa-intersection-observer]: Root element with ID "${this.root}" could not be found.`, this);
+        console.warn(`Root element with ID "${this.root}" could not be found.`, this);
       }
 
       return target;
     } catch {
-      console.warn(`[wa-intersection-observer]: Invalid selector for root: "${this.root}"`, this);
+      console.warn(`Invalid selector for root: "${this.root}"`, this);
       return null;
     }
   }
