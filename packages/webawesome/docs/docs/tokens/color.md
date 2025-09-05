@@ -59,7 +59,6 @@ Color is organized by three main categories:
 - [Foundational colors](#foundational-colors) that lay the groundwork for your theme
 - [Semantic colors](#semantic-colors) that draw attention and convey meaning
 
-
 ## Color Scales
 
 Color scales are determined by your [color palette](/docs/color-palettes) and are made up of the lowest level color tokens in your theme. Each token is identified by a name, like red or gray, and numerical tint based on the color's lightness. On this scale, 100 is equal to pure white and 0 is equal to pure black.
@@ -73,6 +72,7 @@ You can use these tints to ensure accessible color contrast per [WCAG 2.1 succes
 You have several hand-crafted [color palettes](/docs/color-palettes) to choose from. Each palette defines 10 hues each with a scale of 11 tints using the format `--wa-color-{hue}-{tint}`.
 
 {% for hue in ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'indigo', 'purple', 'pink', 'gray'] -%}
+
 <div class="color-name">{{ hue | capitalize }}</div>
 <ul class="color-group">
   {% for tint in ['95', '90', '80', '70', '60', '50', '40', '30', '20', '10', '05'] -%}
@@ -91,6 +91,7 @@ You have several hand-crafted [color palettes](/docs/color-palettes) to choose f
 Any hue can be mapped to `brand`, `neutral`, `success`, `warning`, and `danger` scales. Like the tokens in a color scale, each token is identified by its semantic group and a numerical tint using the format `--wa-color-{group}-{tint}`.
 
 {% for group in ['brand', 'neutral', 'success', 'warning', 'danger'] -%}
+
 <div class="color-name">{{ group | capitalize }}</div>
 <ul class="color-group">
   {% for tint in ['95', '90', '80', '70', '60', '50', '40', '30', '20', '10', '05'] -%}
@@ -112,19 +113,19 @@ Foundational colors lay the groundwork for the content and structure of your pro
 
 Surfaces are background layers that other content rests on. Surface colors help convey hierarchy through a sense of elevation, where `--wa-color-surface-raised` is the closest to the user (e.g., dialogs and popup menus) and `--wa-color-surface-lowered` is the farthest away (e.g., wells).
 
-| Custom Property               | Preview                                                                                                                         |
-| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| `--wa-color-surface-raised`   | <div class="swatch" style="background-color: var(--wa-color-surface-raised); box-shadow:var(--wa-shadow-s)"></div>              |
-| `--wa-color-surface-default`  | <div class="swatch" style="background-color: var(--wa-color-surface-default)"></div>                                            |
-| `--wa-color-surface-lowered`  | <div class="swatch" style="background-color: var(--wa-color-surface-lowered); box-shadow: inset var(--wa-shadow-s)"></div>      |
-| `--wa-color-surface-border`   | <div class="swatch" style="border-color: var(--wa-color-surface-border)"></div>                                                 |
+| Custom Property              | Preview                                                                                                                    |
+| ---------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `--wa-color-surface-raised`  | <div class="swatch" style="background-color: var(--wa-color-surface-raised); box-shadow:var(--wa-shadow-s)"></div>         |
+| `--wa-color-surface-default` | <div class="swatch" style="background-color: var(--wa-color-surface-default)"></div>                                       |
+| `--wa-color-surface-lowered` | <div class="swatch" style="background-color: var(--wa-color-surface-lowered); box-shadow: inset var(--wa-shadow-s)"></div> |
+| `--wa-color-surface-border`  | <div class="swatch" style="border-color: var(--wa-color-surface-border)"></div>                                            |
 
 ### Text
 
 Text colors are used for standard text elements. We recommend a minimum 4.5:1 contrast ratio between text colors and surface colors.
 
-| Custom Property          | Preview                                                    |
-| ------------------------ | ---------------------------------------------------------- |
+| Custom Property          | Preview                                                                                                                          |
+| ------------------------ | -------------------------------------------------------------------------------------------------------------------------------- |
 | `--wa-color-text-normal` | <div class="swatch" value="--wa-color-text-normal" style="color: var(--wa-color-text-normal); display: inline-block;">AaBb</div> |
 | `--wa-color-text-quiet`  | <div class="swatch" value="--wa-color-text-normal" style="color: var(--wa-color-text-quiet); display: inline-block;">AaBb</div>  |
 | `--wa-color-text-link`   | <div class="swatch" value="--wa-color-text-normal" style="color: var(--wa-color-text-link); display: inline-block;">AaBb</div>   |
@@ -153,23 +154,23 @@ This is used alongside other [shadow tokens](/docs/tokens/shadows) to construct 
 
 Web Awesome uses a single focus color for predictable keyboard navigation. This is used alongside other [focus tokens](/docs/tokens/focus) to construct `--wa-focus-ring`. We recommend a minimum 3:1 contrast ratio against surface colors and background colors wherever possible.
 
-| Custom Property    | Preview                                                                                                                 |
-| ------------------ | ----------------------------------------------------------------------------------------------------------------------- |
+| Custom Property    | Preview                                                                                                                                          |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `--wa-color-focus` | <div class="swatch" value="--wa-color-focus" style="outline: var(--wa-focus-ring-style) var(--wa-focus-ring-width) var(--wa-color-focus)"></div> |
 
 #### Hover and Active
 
 Web Awesome leverages `color-mix()` to achieve consistent hover and active states across components without the need for untold numbers of handpicked colors. Through `color-mix()`, these custom properties contextually generate hover and active colors based on the color of the component.
 
-| Custom Property         | Preview                                                                                                          |
-| ----------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| `--wa-color-mix-hover`  | <div class="swatch color-mix-example" value="--wa-color-mix-hover" style="--mix-color: var(--wa-color-mix-hover)"><small>mixed</small></div>  |
+| Custom Property         | Preview                                                                                                                                        |
+| ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--wa-color-mix-hover`  | <div class="swatch color-mix-example" value="--wa-color-mix-hover" style="--mix-color: var(--wa-color-mix-hover)"><small>mixed</small></div>   |
 | `--wa-color-mix-active` | <div class="swatch color-mix-example" value="--wa-color-mix-active" style="--mix-color: var(--wa-color-mix-active)"><small>mixed</small></div> |
-
 
 ## Semantic Colors
 
 Semantic colors reinforce a specific message, intended usage, or expected results through familiar, meaningful hues. Each color is identified by its semantic group, role, and attention using the format `--wa-color-{group}-{role}-{attention}`. There are five groups of semantic colors:
+
 - **Brand** to emphasize your brand color
 - **Success** for validity or confirmation
 - **Neutral** for ordinary or inactive content
@@ -177,16 +178,19 @@ Semantic colors reinforce a specific message, intended usage, or expected result
 - **Danger** for errors or risk
 
 Each group defines colors for specific roles so that colors can be easily assembled with predictable results and readable contrast. There are three roles:
+
 - **Fill** for background colors or areas larger than a few pixels
 - **Border** for borders, dividers, and other stroke-width elements
 - **On** for content displayed on a fill (e.g., pair `--wa-color-danger-on-loud` with `--wa-color-danger-fill-loud`)
 
 Finally, each color is named according to how much attention it draws. Here, we use noise as an analogy: a loud noise draws more attention than a quiet one. There are three levels of attention:
+
 - **Quiet** draws the least attention
 - **Normal** draws some attention
 - **Loud** draws the most attention
 
 {% set variants = ['brand', 'success', 'neutral', 'warning', 'danger'] %}
+
 <table>
   <thead>
     <tr>
