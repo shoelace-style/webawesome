@@ -224,7 +224,7 @@ export default class WaDialog extends WebAwesomeElement {
               <header part="header" class="header">
                 <h2 part="title" class="title" id="title">
                   <!-- If there's no label, use an invisible character to prevent the header from collapsing -->
-                  <slot name="label"> ${this.label.length > 0 ? this.label : String.fromCharCode(65279)} </slot>
+                  <slot name="label"> ${this.label.length > 0 ? this.label : String.fromCharCode(8203)} </slot>
                 </h2>
                 <div part="header-actions" class="header-actions">
                   <slot name="header-actions"></slot>
