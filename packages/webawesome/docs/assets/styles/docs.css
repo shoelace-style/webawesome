@@ -504,7 +504,6 @@ wa-card .page-name {
     width: 100%;
     height: 100%;
     display: block;
-    --background-color-hover: transparent;
     font-family: var(--wa-font-family-code);
 
     &::part(button) {
@@ -514,6 +513,7 @@ wa-card .page-name {
     }
 
     &::part(button):hover {
+      background-color: transparent;
       cursor: copy;
     }
 

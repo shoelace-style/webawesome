@@ -18,6 +18,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
   - Removed the `fixed-width` attribute as it's now the default behavior
 - 🚨 BREAKING: Renamed the `icon-position` attribute to `icon-placement` in `<wa-details>` [discuss:1340]
 - 🚨 BREAKING: Removed the `size` attribute from `<wa-button-group>` as it only set the initial size and gets out of sync when buttons are updated (apply a `size` to each button instead)
+- Added the `<wa-intersection-observer>` component
 - Added the Hindi translation [pr:1307]
 - Added `--show-duration` and `--hide-duration` to `<wa-select>` [issue:1281]
 - Fixed incorrectly named exported tooltip parts in `<wa-slider>` [pr:1277]
@@ -33,6 +34,8 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed spacing in `<wa-input>` when both clear and password toggle icons are present [issue:1325]
 - Fixed a bug in `<wa-radio-group>` and `<wa-radio>` where changing appearances dynamically would render incorrectly [issue:1178]
 - Fixed a bug in `<wa-input>` that prevented the value from changing when assigning non-string values to `value` [issue:1323]
+- Fixed a bug in `<wa-color-picker>` that prevent the picker from staying in the viewport
+- Fixed a bug that in `<wa-icon>` that caused `library`, `family`, `variant` and `name` to not reflect [pr:#1395]
 - Added horizontal orientation support with `orientation="horizontal"` for `<wa-card>`
 
 ## 3.0.0-beta.4

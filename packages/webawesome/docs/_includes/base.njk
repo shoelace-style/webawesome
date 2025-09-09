@@ -15,8 +15,14 @@
     {% if hasSidebar %}<script type="module" src="/assets/scripts/sidebar.js"></script>{% endif %}
     <script defer data-domain="webawesome.com" src="https://plausible.io/js/script.js"></script>
 
-    {# Docs styles #}
-    <link rel="stylesheet" href="/assets/styles/docs.css" />
+    {% if pageType == 'marketing' %}
+      {# Marketing styles #}
+      <link rel="stylesheet" href="/assets/styles/marketing.css" />
+    {% else %}
+      {# Docs styles (default) #}
+      <link rel="stylesheet" href="/assets/styles/docs.css" />
+    {% endif %}
+
 
     {% block head %}{% endblock %}
 
@@ -42,51 +48,55 @@
       }
     </script>
   </head>
-  <body class="layout-{{ layout | stripExtension }}{{ ' page-wide' if wide }}">
+  <body class="layout-{{ layout | stripExtension }} page-{{ page.fileSlug or 'home' }}{{ ' page-wide' if wide }} page-{{ pageType or 'docs' }}">
     <!-- use view="desktop" as default to reduce layout jank on desktop site. -->
-    <wa-page view="desktop" disable-navigation-toggle mobile-breakpoint="1180">
-      <header slot="header" class="wa-split">
-        {# Logo #}
-        <div id="docs-branding">
-          {# Nav toggle #}
-          <wa-button appearance="plain" size="small" data-toggle-nav>
-            <wa-icon name="bars" label="Toggle navigation"></wa-icon>
-          </wa-button>
+    <wa-page view="desktop" disable-navigation-toggle {% if pageType == 'marketing' %}disable-sticky="header"{% endif %} mobile-breakpoint="1180">
+      {% if pageHeader %}
+        {% include pageHeader %}
+      {% else %}
+        <header slot="header" class="wa-split">
+          {# Logo #}
+          <div id="docs-branding">
+            {# Nav toggle #}
+            <wa-button appearance="plain" size="small" data-toggle-nav>
+              <wa-icon name="bars" label="Toggle navigation"></wa-icon>
+            </wa-button>
 
-          <a href="/" aria-label="Web Awesome">
-            <span class="wa-desktop-only">{% include "logo.njk" %}</span>
-            <span class="wa-mobile-only">{% include "logo-simple.njk" %}</span>
-          </a>
-          <small id="version-number" class="wa-desktop-only">{{ package.version }}</small>
-          <wa-badge variant="brand" appearance="filled" class="wa-desktop-only">Beta</wa-badge>
-        </div>
-
-        <div id="docs-toolbar" class="wa-cluster">
-          {# Desktop selectors #}
-          <div class="wa-desktop-only wa-cluster wa-gap-xs">
-            {% include "theme-selector.njk" %}
-            {% include "color-scheme-selector.njk" %}
+            <a href="/" aria-label="Web Awesome">
+              <span class="wa-desktop-only">{% include "logo.njk" %}</span>
+              <span class="wa-mobile-only">{% include "logo-simple.njk" %}</span>
+            </a>
+            <small id="version-number" class="wa-desktop-only">{{ package.version }}</small>
+            <wa-badge variant="brand" appearance="filled" class="wa-desktop-only">Beta</wa-badge>
           </div>
 
-          <wa-divider orientation="vertical" class="wa-desktop-only"></wa-divider>
+          <div id="docs-toolbar" class="wa-cluster">
+            {# Desktop selectors #}
+            <div class="wa-desktop-only wa-cluster wa-gap-xs">
+              {% include "theme-selector.njk" %}
+              {% include "color-scheme-selector.njk" %}
+            </div>
 
-          <div id="github-buttons" class="wa-cluster wa-gap-xs">
-            <wa-button id="github-repo-button" href="https://github.com/shoelace-style/webawesome" rel="noopener noreferrer" target="_blank" appearance="filled" size="small">
-              <wa-icon family="brands" name="github" label="GitHub"></wa-icon>
-            </wa-button>
-            <wa-tooltip for="github-repo-button" distance="2">GitHub</wa-tooltip>
-            <wa-button id="github-star-button" href="https://github.com/shoelace-style/webawesome/stargazers" rel="noopener noreferrer" target="_blank" appearance="filled" size="small">
-              <wa-icon name="star" variant="regular" label="Star this repository"></wa-icon>
-            </wa-button>
-            <wa-tooltip for="github-star-button" distance="2">Star this repository</wa-tooltip>
+            <wa-divider orientation="vertical" class="wa-desktop-only"></wa-divider>
+
+            <div id="github-buttons" class="wa-cluster wa-gap-xs">
+              <wa-button id="github-repo-button" href="https://github.com/shoelace-style/webawesome" rel="noopener noreferrer" target="_blank" appearance="filled" size="small">
+                <wa-icon family="brands" name="github" label="GitHub"></wa-icon>
+              </wa-button>
+              <wa-tooltip for="github-repo-button" distance="2">GitHub</wa-tooltip>
+              <wa-button id="github-star-button" href="https://github.com/shoelace-style/webawesome/stargazers" rel="noopener noreferrer" target="_blank" appearance="filled" size="small">
+                <wa-icon name="star" variant="regular" label="Star this repository"></wa-icon>
+              </wa-button>
+              <wa-tooltip for="github-star-button" distance="2">Star this repository</wa-tooltip>
+            </div>
+
+            <wa-divider orientation="vertical"></wa-divider>
+
+            {# Login #}
+            {% server "loginOrAvatar" %}
           </div>
-
-          <wa-divider orientation="vertical"></wa-divider>
-
-          {# Login #}
-          {% server "loginOrAvatar" %}
-        </div>
-      </header>
+        </header>
+      {% endif %}
 
       {# Sidebar #}
       {% if hasSidebar %}
@@ -138,6 +148,11 @@
       </main>
 
       {% include 'search.njk' %}
+
+      {# Footer #}
+      {% if pageFooter %}
+        {% include pageFooter %}
+      {% endif %}
     </wa-page>
 
   </body>
