@@ -1,0 +1,57 @@
+:host {
+  display: block;
+  max-width: 100%;
+  background: #000;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.frame {
+  position: relative;
+}
+video {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #000;
+}
+
+.controls {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+}
+button {
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  padding: 0.25rem 0.75rem;
+  cursor: pointer;
+}
+button:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+.time {
+  font-size: 14px;
+  color: #fff;
+}
+input[type='range'] {
+  flex: 1;
+}
+
+.title {
+  position: absolute;
+  left: 0.5rem;
+  top: 0.5rem;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  padding: 0.15rem 0.5rem;
+  border-radius: 8px;
+  font-size: 12px;
+}
