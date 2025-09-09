@@ -17,10 +17,8 @@ category: Organization
   This kitten is as cute as he is playful. Bring him home today!<br />
   <small class="wa-caption-m">6 weeks old</small>
 
-  <div slot="footer" class="wa-split">
-    <wa-button variant="brand" pill>More Info</wa-button>
-    <wa-rating label="Rating"></wa-rating>
-  </div>
+  <wa-button slot="footer" variant="brand" pill>More Info</wa-button>
+  <wa-rating slot="footer-actions" label="Rating"></wa-rating>
 </wa-card>
 
 <style>
@@ -55,13 +53,7 @@ If using SSR, you need to also use the `with-header` attribute to add a header t
 
 ```html {.example}
 <wa-card class="card-header">
-  <div slot="header" class="wa-split">
-    Header Title
-    <wa-button appearance="plain">
-      <wa-icon name="gear" variant="solid" label="Settings"></wa-icon>
-    </wa-button>
-  </div>
-
+  <h3 slot="header">Header Title</h3>
   This card has a header. You can put all sorts of things in it!
 </wa-card>
 
@@ -85,10 +77,9 @@ If using SSR, you need to also use the `with-footer` attribute to add a footer t
 <wa-card class="card-footer">
   This card has a footer. You can put all sorts of things in it!
 
-  <div slot="footer" class="wa-split">
-    <wa-rating></wa-rating>
-    <wa-button variant="brand">Preview</wa-button>
-  </div>
+  <wa-rating slot="footer"></wa-rating>
+
+  <wa-button slot="footer-actions" variant="brand">Preview</wa-button>
 </wa-card>
 
 <style>
@@ -159,6 +150,10 @@ Use the `appearance` attribute to change the card's visual appearance.
 ### Orientation
 
 Set the `orientation` attribute to `horizontal` to create a card with a horizontal, side-by-side layout. Make sure to set a width or maximum width for the media slot. Horizontal cards do not currently contain the header and footer slots.
+<wa-callout>
+<wa-icon slot="icon" name="circle-info" variant="regular"></wa-icon>
+The `actions` slot is only available for the horizontal orientation
+</wa-callout>
 
 ```html {.example}
 <div class="wa-grid">

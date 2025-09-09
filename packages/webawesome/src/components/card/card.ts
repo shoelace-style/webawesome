@@ -55,6 +55,7 @@ export default class WaCard extends WebAwesomeElement {
   }
 
   render() {
+    // Horizontal Orientation
     if (this.orientation === 'horizontal') {
       return html`
         <slot name="media" part="media" class="media"></slot>
@@ -62,11 +63,19 @@ export default class WaCard extends WebAwesomeElement {
         <slot name="actions" part="actions" class="actions"></slot>
       `;
     }
+
+    // Vertical Orientation
     return html`
       <slot name="media" part="media" class="media"></slot>
-      <slot name="header" part="header" class="header"></slot>
+      <header part="header" class="header">
+        <slot name="header"></slot>
+        <slot name="header-actions"></slot>
+      </header>
       <slot part="body" class="body"></slot>
-      <slot name="footer" part="footer" class="footer"></slot>
+      <footer part="footer" class="footer">
+        <slot name="footer"></slot>
+        <slot name="footer-actions"></slot>
+      </footer>
     `;
   }
 }

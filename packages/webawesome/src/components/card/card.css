@@ -77,7 +77,9 @@
 }
 
 .header {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   border-block-end-style: inherit;
   border-block-end-color: var(--wa-color-surface-border);
   border-block-end-width: var(--wa-panel-border-width);
@@ -90,7 +92,9 @@
 }
 
 .footer {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   border-block-start-style: inherit;
   border-block-start-color: var(--wa-color-surface-border);
   border-block-start-width: var(--wa-panel-border-width);
@@ -111,14 +115,14 @@
     border-start-start-radius: var(--inner-border-radius);
     border-end-start-radius: var(--inner-border-radius);
     border-start-end-radius: 0;
+    object-fit: cover;
   }
 }
 
-:host([orientation='horizontal']) ::slotted(*) {
+:host([orientation='horizontal']) ::slotted([slot='body']) {
   display: block;
   height: 100%;
   margin: 0;
-  object-fit: cover;
 }
 
 :host([orientation='horizontal']) ::slotted([slot='actions']) {
