@@ -56,7 +56,7 @@ To contribute new translations or improvements to existing translations, please 
 
 Regional translations are welcome! For example, if a German translation (`de`) exists it's perfectly acceptable to submit a German (Switzerland) (`de-CH`) translation.
 
-If you have any questions, please start a [discussion](https://github.com/shoelace-style/shoelace/discussions) or ask in the [community chat](https://discord.gg/mg8f26C).
+If you have any questions, please start a [discussion](https://github.com/shoelace-style/webawesome/discussions) or ask in the [community chat](https://discord.gg/mg8f26C).
 
 :::info
 Web Awesome provides a localization mechanism for component internals. This is not designed to be used as localization tool for your entire application. You should use a more appropriate tool such as [i18next](https://www.i18next.com/) if you need to localize content in your app.

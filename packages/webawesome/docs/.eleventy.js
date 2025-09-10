@@ -160,6 +160,15 @@ export default async function (eleventyConfig) {
   // Use our own markdown instance
   eleventyConfig.setLibrary('md', markdown);
 
+  // for files with `unpublished: true`, it will make sure they do not make it into the final build at all, but will be usable in development.
+  eleventyConfig.addPreprocessor('unpublished', '*', (data, content) => {
+    if (data.unpublished && process.env.ELEVENTY_RUN_MODE === 'build') {
+      return false;
+    }
+
+    return content;
+  });
+
   // Add anchors to headings
   eleventyConfig.addTransform('doc-transforms', function (content) {
     let doc = HTMLParse(content, { blockTextElements: { code: true } });

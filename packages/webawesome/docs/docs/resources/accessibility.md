@@ -14,7 +14,7 @@ Furthermore, accessibility doesn’t stop at the component level. Using accessib
 
 My commitment to Web Awesome users is this: Everything we develop will be built with accessibility in mind. We will test and improve every component to the best of our ability and knowledge. We will work around upstream issues, such as browser bugs and limitations, to the best of our ability and within reason.
 
-We’re fully aware that we may not get it right every time for every user, so we invite the community to participate in this ongoing effort by submitting [issues](https://github.com/shoelace-style/shoelace/issues?q=is%3Aissue+is%3Aopen+label%3Aa11y), [pull requests](https://github.com/shoelace-style/shoelace/pulls?q=is%3Aopen+is%3Apr+label%3Aa11y), and [discussions](https://github.com/shoelace-style/shoelace/discussions). Many accessibility improvements have already been made thanks to contributors submitting code, feedback, and suggestions.
+We’re fully aware that we may not get it right every time for every user, so we invite the community to participate in this ongoing effort by submitting [issues](https://github.com/shoelace-style/shoelace/issues?q=is%3Aissue+is%3Aopen+label%3Aa11y), [pull requests](https://github.com/shoelace-style/shoelace/pulls?q=is%3Aopen+is%3Apr+label%3Aa11y), and [discussions](https://github.com/shoelace-style/webawesome/discussions). Many accessibility improvements have already been made thanks to contributors submitting code, feedback, and suggestions.
 
 This is the path forward. Together, we will continue to make Web Awesome accessible to as many users as possible.
 

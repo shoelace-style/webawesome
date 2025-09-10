@@ -66,23 +66,22 @@ export default class WaFormatDate extends WebAwesomeElement {
       return undefined;
     }
 
-    return html`
-      <time datetime=${date.toISOString()}>
-        ${this.localize.date(date, {
-          weekday: this.weekday,
-          era: this.era,
-          year: this.year,
-          month: this.month,
-          day: this.day,
-          hour: this.hour,
-          minute: this.minute,
-          second: this.second,
-          timeZoneName: this.timeZoneName,
-          timeZone: this.timeZone,
-          hour12: hour12,
-        })}
-      </time>
-    `;
+    const displayDate = this.localize.date(date, {
+      weekday: this.weekday,
+      era: this.era,
+      year: this.year,
+      month: this.month,
+      day: this.day,
+      hour: this.hour,
+      minute: this.minute,
+      second: this.second,
+      timeZoneName: this.timeZoneName,
+      timeZone: this.timeZone,
+      hour12: hour12,
+    });
+
+    // No whitespace before or after
+    return html`<time datetime=${date.toISOString()}>${displayDate}</time>`;
   }
 }
 

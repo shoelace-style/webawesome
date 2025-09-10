@@ -10,14 +10,14 @@ Please be respectful of other users and remember that Web Awesome is an open sou
 
 ## Discussion Forum
 
-The [discussion forum](https://github.com/shoelace-style/shoelace/discussions) is open to anyone with a GitHub account. This is the best place to:
+The [discussion forum](https://github.com/shoelace-style/webawesome/discussions) is open to anyone with a GitHub account. This is the best place to:
 
 - Ask for help
 - Share ideas and get feedback
 - Show the community what you're working on
 - Learn more about the project, its values, and its roadmap
 
-<wa-button variant="brand" href="https://github.com/shoelace-style/shoelace/discussions" target="_blank" style="margin-block-end: var(--wa-content-spacing);">
+<wa-button variant="brand" href="https://github.com/shoelace-style/webawesome/discussions" target="_blank" style="margin-block-end: var(--wa-content-spacing);">
   <wa-icon name="github" family="brands" slot="start"></wa-icon>
   Join the Discussion
 </wa-button>
@@ -40,7 +40,7 @@ The [community chat](https://discord.gg/mg8f26C) is open to the public and power
 
 Follow [@webawesomer](https://twitter.com/webawesomer) on Twitter for general updates and announcements about Web Awesome. This is a great place to say "hi" or to share something you're working on.
 
-**Please avoid using Twitter for support questions.** The [discussion forum](https://github.com/shoelace-style/shoelace/discussions) is a much better place to share code snippets, screenshots, and other troubleshooting info. You'll have much better luck there, as more users will have a chance to help you.
+**Please avoid using Twitter for support questions.** The [discussion forum](https://github.com/shoelace-style/webawesome/discussions) is a much better place to share code snippets, screenshots, and other troubleshooting info. You'll have much better luck there, as more users will have a chance to help you.
 
 <wa-button variant="brand" href="https://twitter.com/webawesomer" target="_blank" style="margin-block-end: var(--wa-content-spacing);">
   <wa-icon name="twitter" family="brands" slot="start"></wa-icon>

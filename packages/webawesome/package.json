@@ -29,7 +29,8 @@
     "./dist/react": "./dist/react/index.js",
     "./dist/react/*": "./dist/react/*",
     "./dist/translations": "./dist/translations",
-    "./dist/translations/*": "./dist/translations/*"
+    "./dist/translations/*": "./dist/translations/*",
+    "./package.json": "./package.json"
   },
   "files": [
     "README.md",

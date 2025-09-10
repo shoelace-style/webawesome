@@ -123,6 +123,7 @@ export async function build(options = {}) {
   function generateReactWrappers() {
     // Used by webawesome-app to make re-rendering not miserable with extra React file generation.
     if (process.env.SKIP_SLOW_STEPS === 'true') {
+      spinner.info('Skipping React Wrapper generation.');
       return Promise.resolve();
     }
 
@@ -162,6 +163,7 @@ export async function build(options = {}) {
   async function generateTypes() {
     // Used by webawesome-app to make re-rendering not miserable with extra TS compilations.
     if (process.env.SKIP_SLOW_STEPS === 'true') {
+      spinner.info('Skipping TypeScript compiler.');
       return Promise.resolve();
     }
 
