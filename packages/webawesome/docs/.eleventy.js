@@ -163,11 +163,11 @@ export default async function (eleventyConfig) {
   // for files with `unpublished: true`, it will make sure they do not make it into the final build at all, but will be usable in development.
   eleventyConfig.addPreprocessor('unpublished', '*', (data, content) => {
     if (data.unpublished && process.env.ELEVENTY_RUN_MODE === 'build') {
-      return false
+      return false;
     }
 
-    return content
-  })
+    return content;
+  });
 
   // Add anchors to headings
   eleventyConfig.addTransform('doc-transforms', function (content) {
