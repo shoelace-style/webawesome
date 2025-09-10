@@ -1,5 +1,5 @@
 import { html } from 'lit';
-import { customElement, property, query, state } from 'lit/decorators.js';
+import { customElement, eventOptions, property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { WaTabHideEvent } from '../../events/tab-hide.js';
 import { WaTabShowEvent } from '../../events/tab-show.js';
@@ -8,9 +8,7 @@ import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import { LocalizeController } from '../../utilities/localize.js';
 import '../button/button.js';
-import '../tab-panel/tab-panel.js';
 import type WaTabPanel from '../tab-panel/tab-panel.js';
-import '../tab/tab.js';
 import type WaTab from '../tab/tab.js';
 import styles from './tab-group.css';
 
@@ -61,6 +59,8 @@ export default class WaTabGroup extends WebAwesomeElement {
   @query('.nav') nav: HTMLElement;
 
   @state() private hasScrollControls = false;
+  @state() private shouldHideScrollStartButton = false;
+  @state() private shouldHideScrollEndButton = false;
 
   /** Sets the active tab. */
   @property({ reflect: true }) active = '';
@@ -78,10 +78,13 @@ export default class WaTabGroup extends WebAwesomeElement {
   @property({ attribute: 'without-scroll-controls', type: Boolean }) withoutScrollControls = false;
 
   /** The tag name of the tab element. Needs to be set if a custom tab element is used */
-  @property() tabTag = 'wa-tab';
+  @property({ attribute: 'tab-tag' }) tabTag = 'wa-tab';
 
   /** The tag name of the tab panel element. Needs to be set if a custom panel element is used */
-  @property() tabPanelTag = 'wa-tab-panel';
+  @property({ attribute: 'tab-panel-tag' }) tabPanelTag = 'wa-tab-panel';
+
+  /** When true, only the tab elements will be rendered and the tab panels will be ignored. */
+  @property({ attribute: 'tab-only', type: Boolean }) tabOnly = false;
 
   connectedCallback() {
     super.connectedCallback();
@@ -163,6 +166,9 @@ export default class WaTabGroup extends WebAwesomeElement {
   }
 
   private getAllPanels() {
+    if (this.tabOnly) {
+      return [];
+    }
     return [...this.body.assignedElements()].filter(el => el.tagName.toLowerCase() === this.tabPanelTag) as [
       WaTabPanel,
     ];
@@ -172,7 +178,7 @@ export default class WaTabGroup extends WebAwesomeElement {
     return this.tabs.find(el => el.active);
   }
 
-  private handleClick(event: MouseEvent) {
+  protected handleClick(event: MouseEvent) {
     const target = event.target as HTMLElement;
     const tab = target.closest(this.tabTag) as WaTab | null;
     const tabGroup = tab?.closest(this.localName);
@@ -344,14 +350,16 @@ export default class WaTabGroup extends WebAwesomeElement {
   }
 
   private setAriaLabels() {
-    // Link each tab with its corresponding panel
-    this.tabs.forEach(tab => {
-      const panel = this.panels.find(el => el.name === tab.panel);
-      if (panel) {
-        tab.setAttribute('aria-controls', panel.getAttribute('id')!);
-        panel.setAttribute('aria-labelledby', tab.getAttribute('id')!);
-      }
-    });
+    if (!this.tabOnly) {
+      // Link each tab with its corresponding panel
+      this.tabs.forEach(tab => {
+        const panel = this.panels.find(el => el.name === tab.panel);
+        if (panel) {
+          tab.setAttribute('aria-controls', panel.getAttribute('id')!);
+          panel.setAttribute('aria-labelledby', tab.getAttribute('id')!);
+        }
+      });
+    }
   }
 
   // This stores tabs and panels so we can refer to a cache instead of calling querySelectorAll() multiple times.
@@ -373,6 +381,28 @@ export default class WaTabGroup extends WebAwesomeElement {
     }
   }
 
+  /**
+   * The reality of the browser means that we can't expect the scroll position to be exactly what we want it to be, so
+   * we add one pixel of wiggle room to our calculations.
+   */
+  private scrollOffset = 1;
+
+  @eventOptions({ passive: true })
+  private updateScrollButtons() {
+    if (this.hasScrollControls) {
+      this.shouldHideScrollStartButton = this.scrollFromStart() <= this.scrollOffset;
+      this.shouldHideScrollEndButton = this.isScrolledToEnd();
+    }
+  }
+
+  private isScrolledToEnd() {
+    return this.scrollFromStart() + this.nav.clientWidth >= this.nav.scrollWidth - this.scrollOffset;
+  }
+
+  private scrollFromStart() {
+    return this.localize.dir() === 'rtl' ? -this.nav.scrollLeft : this.nav.scrollLeft;
+  }
+
   @watch('withoutScrollControls', { waitUntilFirstUpdate: true })
   updateScrollControls() {
     if (this.withoutScrollControls) {
@@ -386,6 +416,8 @@ export default class WaTabGroup extends WebAwesomeElement {
       this.hasScrollControls =
         ['top', 'bottom'].includes(this.placement) && this.nav.scrollWidth > this.nav.clientWidth + 1;
     }
+
+    this.updateScrollButtons();
   }
 
   render() {
@@ -406,7 +438,7 @@ export default class WaTabGroup extends WebAwesomeElement {
         @keydown=${this.handleKeyDown}
       >
         <div class="nav-container" part="nav">
-          ${this.hasScrollControls
+          ${this.hasScrollControls && !this.shouldHideScrollStartButton
             ? html`
                 <wa-button
                   part="scroll-button scroll-button-start"
@@ -426,13 +458,17 @@ export default class WaTabGroup extends WebAwesomeElement {
             : ''}
 
           <!-- We have a focus listener because in Firefox (and soon to be Chrome) overflow containers are focusable. -->
-          <div class="nav" @focus=${() => this.activeTab?.focus({ preventScroll: true })}>
+          <div
+            class="nav"
+            @focus=${() => this.activeTab?.focus({ preventScroll: true })}
+            @scrollend=${this.updateScrollButtons}
+          >
             <div part="tabs" class="tabs" role="tablist">
               <slot name="nav" @slotchange=${this.syncTabsAndPanels}></slot>
             </div>
           </div>
 
-          ${this.hasScrollControls
+          ${this.hasScrollControls && !this.shouldHideScrollEndButton
             ? html`
                 <wa-button
                   part="scroll-button scroll-button-end"
