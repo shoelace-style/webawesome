@@ -71,26 +71,21 @@ export default class WaCard extends WebAwesomeElement {
       <slot name="media" part="media" class="media"></slot>
 
       ${this.hasSlotController.test('header-actions')
-        ? html`
-          <header part="header" class="header has-actions">
+        ? html` <header part="header" class="header has-actions">
             <slot name="header"></slot>
             <slot name="header-actions"></slot>
           </header>`
-        : html`
-          <header part="header" class="header">
+        : html` <header part="header" class="header">
             <slot name="header"></slot>
-            </header>`
-      }
+          </header>`}
 
       <slot part="body" class="body"></slot>
       ${this.hasSlotController.test('footer-actions')
-        ? html`
-          <footer part="footer" class="footer has-actions">
+        ? html` <footer part="footer" class="footer has-actions">
             <slot name="footer"></slot>
             <slot name="footer-actions"></slot>
           </footer>`
-        : html`
-          <footer part="footer" class="footer">
+        : html` <footer part="footer" class="footer">
             <slot name="footer"></slot>
           </footer>`}
     `;
