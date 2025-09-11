@@ -84,11 +84,12 @@
 
 /* Push slots to sides when the action slots renders */
 .has-actions {
+  display: flex;
   justify-content: space-between;
 }
 
 .header {
-  display: flex;
+  display: block;
   align-items: center;
   border-block-end-style: inherit;
   border-block-end-color: var(--wa-color-surface-border);
@@ -102,7 +103,7 @@
 }
 
 .footer {
-  display: flex;
+  display: block;
   align-items: center;
   border-block-start-style: inherit;
   border-block-start-color: var(--wa-color-surface-border);
