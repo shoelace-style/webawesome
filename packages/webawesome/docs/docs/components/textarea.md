@@ -6,7 +6,7 @@ category: Form Controls
 ---
 
 ```html {.example}
-<wa-textarea label="Type something, will ya"></wa-textarea>
+<wa-textarea label="Type somethin', will ya"></wa-textarea>
 ```
 
 :::info
