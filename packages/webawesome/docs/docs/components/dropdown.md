@@ -96,7 +96,7 @@ Use the `icon` slot to add icons to [dropdown items](/docs/components/dropdown-i
     Paste
   </wa-dropdown-item>
 
-  <wa-dropdown-item value="delete">
+  <wa-dropdown-item value="delete" variant="danger">
     <wa-icon slot="icon" name="trash"></wa-icon>
     Delete
   </wa-dropdown-item>
