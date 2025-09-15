@@ -10,7 +10,10 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 ## Next
 
+## 3.0.0-beta.6
+
 - Fixed a bug in `<wa-dropdown>` that closed the dropdown event when preventing `wa-select` [issue:1432]
+- Pin `@ctrl/tinycolor` to `4.1.0` due to malware in `4.1.1` and `4.1.2`. <https://socket.dev/npm/package/@ctrl/tinycolor/overview/4.1.1>
 
 ## 3.0.0-beta.5
 

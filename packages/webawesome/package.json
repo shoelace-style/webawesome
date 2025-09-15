@@ -73,7 +73,7 @@
     "node": ">=14.17.0"
   },
   "dependencies": {
-    "@ctrl/tinycolor": "^4.1.0",
+    "@ctrl/tinycolor": "4.1.0",
     "@floating-ui/dom": "^1.6.13",
     "@lit/react": "^1.0.8",
     "@shoelace-style/animations": "^1.2.0",
@@ -81,8 +81,7 @@
     "composed-offset-position": "^0.0.6",
     "lit": "^3.2.1",
     "nanoid": "^5.1.5",
-    "qr-creator": "^1.0.0",
-    "style-observer": "^0.0.7"
+    "qr-creator": "^1.0.0"
   },
   "lint-staged": {
     "*.{ts,js}": [
