@@ -1,6 +1,8 @@
 @layer wa-utilities {
   .wa-visually-hidden:not(:focus-within),
-  .wa-visually-hidden-force {
+  .wa-visually-hidden-force,
+  .wa-visually-hidden-hint::part(hint),
+  .wa-visually-hidden-label::part(label) {
     position: absolute !important;
     width: 1px !important;
     height: 1px !important;
