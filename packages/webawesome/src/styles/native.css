@@ -407,6 +407,8 @@
 
       padding: var(--wa-space-m);
 
+      border-radius: calc(var(--wa-panel-border-radius) - var(--wa-panel-border-width));
+
       cursor: pointer;
       user-select: none;
       -webkit-user-select: none;
@@ -421,7 +423,7 @@
 
       &:focus-visible {
         outline: var(--wa-focus-ring);
-        outline-offset: var(--wa-focus-ring-offset);
+        outline-offset: calc(var(--wa-panel-border-width) + var(--wa-focus-ring-offset));
       }
     }
 
@@ -430,6 +432,9 @@
 
       summary {
         margin-inline: calc(-1 * var(--wa-space-m));
+
+        border-end-start-radius: 0;
+        border-end-end-radius: 0;
       }
     }
 
