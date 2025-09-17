@@ -70,7 +70,7 @@ layout: page
   {% for palette in themer.palettes %}
   <div class="palette-instructions" data-palette="{{ palette.name | lower }}" {% if not loop.first %}hidden{% endif %}>
     <p>
-      To import this palette, set <code>&lt;html class=&quot;wa-theme-{{ palette.name | lower }}&quot;&gt;</code> and import the following stylesheet:
+      To import this palette, set <code>&lt;html class=&quot;wa-palette-{{ palette.name | lower }}&quot;&gt;</code> and import the following stylesheet:
     </p>
     <pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;{% cdnUrl %}styles/color/palettes/{{ palette.filename }}&quot; /&gt;</code></pre>
   </div>
@@ -81,7 +81,7 @@ layout: page
   const paletteContainer = document.getElementById('color-palettes');
   const palettePicker = document.getElementById('palette-picker');
 
-  // Set first radio as checked and add initial theme class
+  // Set first radio as checked and add initial palette class
   const firstRadio = palettePicker.querySelector('wa-radio');
   if (firstRadio) {
     firstRadio.checked = true;
