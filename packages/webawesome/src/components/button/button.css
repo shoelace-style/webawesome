@@ -258,7 +258,7 @@ wa-icon[part~='caret'] {
  * Badges
  */
 
-button ::slotted(wa-badge) {
+.button ::slotted(wa-badge) {
   border-color: var(--wa-color-surface-default);
   position: absolute;
   inset-block-start: 0;
