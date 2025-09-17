@@ -6,29 +6,6 @@
   display: block;
 }
 
-:host summary {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  user-select: none;
-  -webkit-user-select: none;
-  cursor: pointer;
-
-  &::marker,
-  &::-webkit-details-marker {
-    display: none;
-  }
-
-  &:focus {
-    outline: none;
-  }
-
-  &:focus-visible {
-    outline: var(--wa-focus-ring);
-    outline-offset: calc(var(--spacing) + var(--wa-focus-ring-offset));
-  }
-}
-
 details {
   display: block;
   overflow-anchor: none;
@@ -77,15 +54,16 @@ details {
   cursor: not-allowed;
 }
 
-:host summary {
+summary {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--spacing);
+  padding: var(--spacing); /* Add padding here */
+  border-radius: calc(var(--wa-panel-border-radius) - var(--wa-panel-border-width));
   user-select: none;
   -webkit-user-select: none;
   cursor: pointer;
-  padding: var(--spacing); /* Add padding here */
 
   &::marker,
   &::-webkit-details-marker {
@@ -98,8 +76,13 @@ details {
 
   &:focus-visible {
     outline: var(--wa-focus-ring);
-    outline-offset: calc(var(--spacing) + var(--wa-focus-ring-offset));
+    outline-offset: calc(var(--wa-panel-border-width) + var(--wa-focus-ring-offset));
   }
+}
+
+:host([open]) summary {
+  border-end-start-radius: 0;
+  border-end-end-radius: 0;
 }
 
 /* 'Start' icon placement */
