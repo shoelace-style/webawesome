@@ -178,6 +178,10 @@
   aspect-ratio: 1;
 }
 
+.button.is-icon-button:has(wa-icon) {
+  width: auto;
+}
+
 /* Pill modifier */
 :host([pill]) .button {
   border-radius: var(--wa-border-radius-pill);

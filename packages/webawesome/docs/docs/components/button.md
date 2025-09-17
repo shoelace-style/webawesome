@@ -183,6 +183,9 @@ Use the `start` and `end` slots to add presentational elements like `<wa-icon>` 
 Use the `with-caret` attribute to add a dropdown indicator when a button will trigger a dropdown, menu, or popover.
 
 ```html {.example}
+<wa-button size="small" with-caret>
+  <wa-icon name="gear" label="Settings"></wa-icon>
+</wa-button>
 <wa-button size="small" with-caret>Small</wa-button>
 <wa-button size="medium" with-caret>Medium</wa-button>
 <wa-button size="large" with-caret>Large</wa-button>
