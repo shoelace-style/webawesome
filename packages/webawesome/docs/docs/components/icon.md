@@ -100,7 +100,7 @@ Icons are sized relative to the current font size. To change their size, set the
 
 ### Auto Width
 
-By default, icons have a 1em height and a fixed 1em width. Use the `auto-width` attribute to allow the icon to use its natural variable width.
+By default, icons have a `1em` height and a fixed `1.25em` width. Use the `auto-width` attribute to allow the icon to use its natural variable width.
 
 ```html {.example}
 Without auto-width<br />
