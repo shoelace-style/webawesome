@@ -21,6 +21,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 - 🚨 BREAKING: Updated `<wa-icon>` to use Font Awesome 7 [pr:1222]
   - Added the `auto-width` attribute to automatically size icons, since FA7 is fixed-width by default now
+  - Changed the default width of icons to `1.25em` to match FA7's fixed-width proportions
   - Improved support for duotone icons in `<wa-icon>`, including custom colors, custom opacity, and opacity swapping
   - Removed the `fixed-width` attribute as it's now the default behavior
 - 🚨 BREAKING: Renamed the `icon-position` attribute to `icon-placement` in `<wa-details>` [discuss:1340]
