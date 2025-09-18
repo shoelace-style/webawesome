@@ -6,5 +6,6 @@
 /* CSS Utilities */
 @import url('utilities.css');
 
-/* Theme */
+/* Palette & Theme */
+@import url('palettes/default.css');
 @import url('themes/default.css');

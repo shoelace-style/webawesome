@@ -1,6 +1,3 @@
-@import url('../color/palettes/default.css');
-@import url('../color/variants.css');
-
 @layer wa-theme {
   :where(:root),
   .wa-theme-default,
