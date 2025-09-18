@@ -10,6 +10,9 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 ## Next
 
+- Fixed a bug in `<wa-button>` where slotted badges weren't properly positioned in buttons with an `href` [issue:1377]
+- Fixed focus outline styles in `<wa-details>` and native `<details>` [issue:1456]
+
 ## 3.0.0-beta.6
 
 - Fixed a bug in `<wa-dropdown>` that closed the dropdown event when preventing `wa-select` [issue:1432]
