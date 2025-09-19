@@ -41,7 +41,7 @@
       }
     </script>
   </head>
-  <body class="layout-{{ layout | stripExtension }} page-{{ page.fileSlug or 'home' }}{{ ' page-wide' if wide }} page-{{ pageType or 'docs' }}">
+  <body class="layout-{{ layout | stripExtension }} page-{{ page.fileSlug or 'home' }}{{ ' page-wide' if wide }}">
     <!-- use view="desktop" as default to reduce layout jank on desktop site. -->
     <wa-page
       view="desktop"
