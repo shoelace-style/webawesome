@@ -15,15 +15,9 @@
     {% if hasSidebar %}<script type="module" src="/assets/scripts/sidebar.js"></script>{% endif %}
     <script defer data-domain="webawesome.com" src="https://plausible.io/js/script.js"></script>
 
-    {% if pageType == 'marketing' %}
-      {# Marketing styles #}
-      <link rel="stylesheet" href="/assets/styles/marketing.css" />
-    {% else %}
-      {# Docs styles (default) #}
+    {% block head %}
       <link rel="stylesheet" href="/assets/styles/docs.css" />
-    {% endif %}
-
-    {% block head %}{% endblock %}
+    {% endblock %}
 
     <script type="module">
       // Set the initial color scheme before the page renders to prevent flashing
