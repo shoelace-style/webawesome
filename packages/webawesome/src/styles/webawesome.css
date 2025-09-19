@@ -7,5 +7,5 @@
 @import url('utilities.css');
 
 /* Palette & Theme */
-@import url('palettes/default.css');
+@import url('color/palettes/default.css');
 @import url('themes/default.css');
