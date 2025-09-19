@@ -23,7 +23,6 @@
       <link rel="stylesheet" href="/assets/styles/docs.css" />
     {% endif %}
 
-
     {% block head %}{% endblock %}
 
     <script type="module">
@@ -50,7 +49,13 @@
   </head>
   <body class="layout-{{ layout | stripExtension }} page-{{ page.fileSlug or 'home' }}{{ ' page-wide' if wide }} page-{{ pageType or 'docs' }}">
     <!-- use view="desktop" as default to reduce layout jank on desktop site. -->
-    <wa-page view="desktop" disable-navigation-toggle {% if pageType == 'marketing' %}disable-sticky="header"{% endif %} mobile-breakpoint="1180">
+    <wa-page
+      view="desktop"
+      {% block wa_page_attributes %}
+        disable-navigation-toggle
+        mobile-breakpoint="1180"
+      {% endblock %}
+    >
         {% block pageHeader %}
           <header slot="header" class="wa-split">
             {# Logo #}
