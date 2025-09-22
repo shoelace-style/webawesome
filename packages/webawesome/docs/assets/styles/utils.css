@@ -72,6 +72,7 @@
     color: white;
     background-color: var(--wa-brand-orange);
     border-color: var(--wa-brand-orange);
+    text-transform: uppercase;
   }
 
   /* search trigger */
