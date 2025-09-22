@@ -41,7 +41,7 @@
       }
     </script>
   </head>
-  <body class="layout-{{ layout | stripExtension }} page-{{ page.fileSlug or 'home' }}{{ ' page-wide' if wide }}">
+  <body class="layout-{{ layout | stripExtension }} page-{{ pageClass or page.fileSlug or 'home' }}{{ ' page-wide' if wide }}">
     {% set defaultWaPageAttributes = defaultWaPageAttributes or { view: 'desktop', 'disable-navigation-toggle': true, 'mobile-breakpoint': 1180 } %}
     {% set waPageAttributes = waPageAttributes or {} %}
     {% set mergedWaPageAttributes = defaultWaPageAttributes | merge(waPageAttributes) %}
