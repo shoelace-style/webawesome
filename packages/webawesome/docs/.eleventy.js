@@ -93,6 +93,17 @@ export default async function (eleventyConfig) {
     return typeof content === 'string' ? content.replace(/^(\s|\|)/g, '').replace(/(\s|\|)$/g, '') : content;
   });
 
+  /**
+   * @example
+    {% set foo = {foo: "bar"} %}
+    {% set bar = {bar: "baz"} %}
+    {% set merged = foo | merge(bar) %}
+    {{ merged | dump }}
+   */
+  eleventyConfig.addFilter('merge', function (obj1, obj2) {
+    return Object.assign({}, obj1, obj2);
+  });
+
   // Custom filter to sort with a priority item first, e.g.
   // {{ collection | sortWithFirst('fileSlug', 'default') }} => the item with the fileSlug of 'default' will be first
   eleventyConfig.addFilter('sortWithFirst', function (collection, property, firstValue) {
