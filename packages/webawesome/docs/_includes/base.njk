@@ -26,20 +26,22 @@
       document.documentElement.classList.toggle('wa-dark', isDark);
     </script>
 
-    <script type="module">
-      // Set the initial theme before the page renders to prevent flashing
-      const savedTheme = localStorage.getItem('theme') || 'default';
+    {% block themeScript %}
+      <script type="module">
+        // Set the initial theme before the page renders to prevent flashing
+        const savedTheme = localStorage.getItem('theme') || 'default';
 
-      // Update the theme stylesheet link first
-      const themeStylesheet = document.getElementById('theme-stylesheet');
-      if (themeStylesheet) {
-        themeStylesheet.href = `/dist/styles/themes/${savedTheme}.css`;
-      }
+        // Update the theme stylesheet link first
+        const themeStylesheet = document.getElementById('theme-stylesheet');
+        if (themeStylesheet) {
+          themeStylesheet.href = `/dist/styles/themes/${savedTheme}.css`;
+        }
 
-      if (savedTheme !== 'default') {
-        document.documentElement.classList.add(`wa-theme-${savedTheme}`);
-      }
-    </script>
+        if (savedTheme !== 'default') {
+          document.documentElement.classList.add(`wa-theme-${savedTheme}`);
+        }
+      </script>
+    {% endblock %}
   </head>
   <body class="layout-{{ layout | stripExtension }} page-{{ pageClass or page.fileSlug or 'home' }}{{ ' page-wide' if wide }}">
     {% set defaultWaPageAttributes = defaultWaPageAttributes or { view: 'desktop', 'disable-navigation-toggle': true, 'mobile-breakpoint': 1180 } %}
