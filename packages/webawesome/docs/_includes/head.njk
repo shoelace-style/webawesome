@@ -20,7 +20,9 @@
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
 <script type="module" src="/dist/webawesome.loader.js"></script>
 
-<link id="theme-stylesheet" rel="stylesheet" href="/dist/styles/themes/default.css" render="blocking" fetchpriority="high" />
+{% block themeStylesheet %}
+  <link id="theme-stylesheet" rel="stylesheet" href="/dist/styles/themes/default.css" render="blocking" fetchpriority="high" />
+{% endblock %}
 
 <link rel="stylesheet" href="/dist/styles/webawesome.css" />
 
