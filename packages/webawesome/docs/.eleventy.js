@@ -76,7 +76,6 @@ export default async function (eleventyConfig) {
   //
   eleventyConfig.addGlobalData('package', packageData);
   eleventyConfig.addGlobalData('layout', 'page.njk');
-  eleventyConfig.addGlobalData('pageType', 'docs'); // Default page type
   eleventyConfig.addGlobalData('server', {
     head: '',
     loginOrAvatar: '',
@@ -92,6 +91,17 @@ export default async function (eleventyConfig) {
   // With Prettier 3, this means a leading pipe will exist be present when the line wraps.
   eleventyConfig.addFilter('trimPipes', content => {
     return typeof content === 'string' ? content.replace(/^(\s|\|)/g, '').replace(/(\s|\|)$/g, '') : content;
+  });
+
+  /**
+   * @example
+    {% set foo = {foo: "bar"} %}
+    {% set bar = {bar: "baz"} %}
+    {% set merged = foo | merge(bar) %}
+    {{ merged | dump }}
+   */
+  eleventyConfig.addFilter('merge', function (obj1, obj2) {
+    return Object.assign({}, obj1, obj2);
   });
 
   // Custom filter to sort with a priority item first, e.g.

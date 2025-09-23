@@ -15,16 +15,9 @@
     {% if hasSidebar %}<script type="module" src="/assets/scripts/sidebar.js"></script>{% endif %}
     <script defer data-domain="webawesome.com" src="https://plausible.io/js/script.js"></script>
 
-    {% if pageType == 'marketing' %}
-      {# Marketing styles #}
-      <link rel="stylesheet" href="/assets/styles/marketing.css" />
-    {% else %}
-      {# Docs styles (default) #}
+    {% block head %}
       <link rel="stylesheet" href="/assets/styles/docs.css" />
-    {% endif %}
-
-
-    {% block head %}{% endblock %}
+    {% endblock %}
 
     <script type="module">
       // Set the initial color scheme before the page renders to prevent flashing
@@ -48,9 +41,17 @@
       }
     </script>
   </head>
-  <body class="layout-{{ layout | stripExtension }} page-{{ page.fileSlug or 'home' }}{{ ' page-wide' if wide }} page-{{ pageType or 'docs' }}">
-    <!-- use view="desktop" as default to reduce layout jank on desktop site. -->
-    <wa-page view="desktop" disable-navigation-toggle {% if pageType == 'marketing' %}disable-sticky="header"{% endif %} mobile-breakpoint="1180">
+  <body class="layout-{{ layout | stripExtension }} page-{{ pageClass or page.fileSlug or 'home' }}{{ ' page-wide' if wide }}">
+    {% set defaultWaPageAttributes = defaultWaPageAttributes or { view: 'desktop', 'disable-navigation-toggle': true, 'mobile-breakpoint': 1180 } %}
+    {% set waPageAttributes = waPageAttributes or {} %}
+    {% set mergedWaPageAttributes = defaultWaPageAttributes | merge(waPageAttributes) %}
+    <wa-page
+      {% for key, value in mergedWaPageAttributes %}
+        {% if value != null and value != false %}
+          {{ key }}="{{ value }}"
+        {% endif %}
+      {% endfor %}
+    >
         {% block pageHeader %}
           <header slot="header" class="wa-split">
             {# Logo #}
