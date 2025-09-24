@@ -71,45 +71,6 @@ wa-page > header {
     width: auto;
     height: 1.75rem;
   }
-
-  #docs-branding,
-  #docs-toolbar {
-    display: flex;
-    align-items: center;
-    gap: var(--wa-space-s);
-
-    wa-divider:last-child {
-      display: none;
-    }
-  }
-
-  #github-buttons {
-    > wa-button {
-      &::part(base) {
-        color: var(--wa-color-on-quiet);
-        background-color: var(--wa-color-fill-quiet);
-      }
-      > wa-icon {
-        font-size: round(1.25em, 1px);
-      }
-    }
-
-    > wa-tooltip {
-      --wa-tooltip-arrow-size: 0;
-      font-size: var(--wa-font-size-xs);
-    }
-  }
-
-  #version-number {
-    color: var(--wa-color-text-quiet);
-    font-size: var(--wa-font-size-xs);
-    line-height: 1;
-    margin-block-start: var(--wa-space-2xs);
-  }
-  #version-number + wa-badge {
-    font-size: var(--wa-font-size-2xs);
-    text-transform: uppercase;
-  }
 }
 
 #sidebar,
