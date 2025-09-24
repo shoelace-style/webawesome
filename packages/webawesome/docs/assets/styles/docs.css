@@ -240,6 +240,11 @@ wa-page > [slot='navigation-header'] {
   .brand-logo svg {
     height: 1.25rem;
   }
+
+  /* resetting font-weight of dropdown items in .title */
+  wa-dropdown {
+    font-weight: var(--wa-font-weight-normal);
+  }
 }
 
 wa-page[view='mobile'] :is([slot='navigation-header'], [slot='navigation']) {
