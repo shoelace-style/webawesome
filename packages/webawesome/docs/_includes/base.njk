@@ -54,22 +54,19 @@
     >
         {% block pageHeader %}
           <header slot="header" class="wa-split">
-            {# Logo #}
-            <div id="docs-branding">
-              {# Nav toggle #}
+            {# Nav toggle #}
               <wa-button appearance="plain" size="small" data-toggle-nav>
                 <wa-icon name="bars" label="Toggle navigation"></wa-icon>
               </wa-button>
 
+              {# Logo - Desktop #}
               <a class="wa-desktop-only" href="/" aria-label="Web Awesome">
                 {% include "logo.njk" %}
               </a>
-              <small id="version-number" class="wa-desktop-only">{{ package.version }}</small>
-              <wa-badge variant="brand" appearance="filled" class="wa-desktop-only">Beta</wa-badge>
-            </div>
 
             {#- Logo - mobile branding -#}
             <a href="/" class="brand-logo wa-mobile-only" aria-label="Web Awesome">
+              {# Logo - Mobile #}
               {% include "logo-simple.njk" %}
             </a>
 
