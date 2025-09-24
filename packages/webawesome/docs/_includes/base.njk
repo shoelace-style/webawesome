@@ -70,19 +70,10 @@
             </div>
 
             <div id="docs-toolbar" class="wa-cluster gap-s">
-              <div class="wa-cluster wa-gap-2xs">
-                <div class="wa-desktop-only wa-cluster wa-gap-2xs">
-                  {% include "theme-selector.njk" %}
-                  {% include "color-scheme-selector.njk" %}
-                </div>
-                <wa-button id="github-repo-button" href="https://github.com/shoelace-style/webawesome" rel="noopener noreferrer" target="_blank" appearance="plain">
-                  <wa-icon family="brands" name="github" label="View Repository on GitHub"></wa-icon>
-                </wa-button>
-                <wa-tooltip for="github-repo-button" distance="2">View on GitHub</wa-tooltip>
-                <wa-button id="github-star-button" href="https://github.com/shoelace-style/webawesome/stargazers" rel="noopener noreferrer" target="_blank" appearance="plain">
-                  <wa-icon name="star" variant="regular" label="Star Repository on GitHub"></wa-icon>
-                </wa-button>
-                <wa-tooltip for="github-star-button" distance="2">Star on GitHub</wa-tooltip>
+              <div class="wa-desktop-only wa-cluster wa-gap-2xs">
+                {% include "theme-selector.njk" %}
+                {% include "color-scheme-selector.njk" %}
+                {% include "github-icon-buttons.njk" %}
               </div>
               {#- Login -#}
               {% server "loginOrAvatar" %}
@@ -97,6 +88,7 @@
           <div class="wa-cluster wa-gap-xs" style="flex-wrap: nowrap;">
             {% include "theme-selector.njk" %}
             {% include "color-scheme-selector.njk" %}
+            {% include "github-icon-buttons.njk" %}
           </div>
         </div>
         <div slot="navigation" id="sidebar" class="docs-aside" data-remember-scroll>
