@@ -35,9 +35,17 @@ async function updateTheme(value, isInitialLoad = false) {
     });
   }
 
-  localStorage.setItem('theme', value);
-  localStorage.setItem('brand', brand);
-  localStorage.setItem('palette', palette);
+  // Handle site theme vs regular theme
+  let href = `/dist/styles/themes/${value}.css`;
+
+  if (document.querySelector('wa-page').dataset.pageType === 'site') {
+    value = 'site';
+    href = `/assets/styles/theme-site.css`;
+  } else {
+    localStorage.setItem('theme', value);
+    localStorage.setItem('brand', brand);
+    localStorage.setItem('palette', palette);
+  }
 
   // Update theme classes
   const htmlElement = document.documentElement;
@@ -46,7 +54,6 @@ async function updateTheme(value, isInitialLoad = false) {
       className.startsWith('wa-theme-') || className.startsWith('wa-brand-') || className.startsWith('wa-palette-'),
   );
   const themeStylesheet = document.getElementById('theme-stylesheet');
-  const href = `/dist/styles/themes/${value}.css`;
 
   await doViewTransition(() => {
     // Update the theme
@@ -93,5 +100,11 @@ document.addEventListener('input', event => {
 });
 
 // Initialize
-const savedTheme = localStorage.getItem('theme') || 'default';
-updateTheme(savedTheme, true);
+function initializeTheme() {
+  const savedTheme = localStorage.getItem('theme') || 'default';
+  updateTheme(savedTheme, true);
+}
+
+initializeTheme();
+
+document.addEventListener('turbo:render', initializeTheme);
