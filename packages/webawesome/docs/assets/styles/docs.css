@@ -233,6 +233,15 @@ wa-page::part(menu) {
   scrollbar-width: thin;
 }
 
+/* smaller viewports-based navigation */
+wa-page > [slot='navigation-header'] {
+  padding: 0;
+
+  .brand-logo svg {
+    height: 1.25rem;
+  }
+}
+
 wa-page[view='mobile'] :is([slot='navigation-header'], [slot='navigation']) {
   padding: 0;
 
