@@ -6,7 +6,20 @@ import { doViewTransition } from '../scripts/view-transitions.js';
 async function updateTheme(value, isInitialLoad = false) {
   const body = document.body;
 
+  // Get brand, palette, and theme name from the selected option
+  const themeSelector = document.querySelector('.theme-selector');
+  const selectedOption = themeSelector?.querySelector(`wa-dropdown-item[value="${value}"]`);
+  const brand = selectedOption?.getAttribute('data-brand') || 'blue';
+  const palette = selectedOption?.getAttribute('data-palette') || 'default';
+  const themeName = selectedOption?.textContent.trim() || 'Unknown';
+
   if (!isInitialLoad) {
+    // Disable tooltip during theme transition
+    const tooltip = document.querySelector('#theme-tooltip');
+    if (tooltip) {
+      tooltip.disabled = true;
+    }
+
     // Add fade-out class
     body.classList.add('theme-transitioning');
 
@@ -23,18 +36,11 @@ async function updateTheme(value, isInitialLoad = false) {
   }
 
   localStorage.setItem('theme', value);
-
-  // Get brand and palette from the selected option
-  const themeSelector = document.querySelector('.theme-selector');
-  const selectedOption = themeSelector?.querySelector(`wa-option[value="${value}"]`);
-  const brand = selectedOption?.getAttribute('data-brand') || 'blue';
-  const palette = selectedOption?.getAttribute('data-palette') || 'default';
-  const htmlElement = document.documentElement;
-
   localStorage.setItem('brand', brand);
   localStorage.setItem('palette', palette);
 
   // Update theme classes
+  const htmlElement = document.documentElement;
   const classesToRemove = Array.from(htmlElement.classList).filter(
     className =>
       className.startsWith('wa-theme-') || className.startsWith('wa-brand-') || className.startsWith('wa-palette-'),
@@ -42,7 +48,7 @@ async function updateTheme(value, isInitialLoad = false) {
   const themeStylesheet = document.getElementById('theme-stylesheet');
   const href = `/dist/styles/themes/${value}.css`;
 
-  doViewTransition(() => {
+  await doViewTransition(() => {
     // Update the theme
     if (themeStylesheet) {
       themeStylesheet.href = href;
@@ -56,16 +62,26 @@ async function updateTheme(value, isInitialLoad = false) {
     htmlElement.classList.add(`wa-palette-${palette}`);
 
     // Sync all theme selectors
-    document.querySelectorAll('.theme-selector').forEach(el => (el.value = value));
+    document.querySelectorAll('.theme-selector').forEach(el => {
+      el.value = value;
+      el.setAttribute('value', value);
+    });
+
+    // Update tooltip content to reflect the new theme
+    const tooltip = document.querySelector('#theme-tooltip');
+    if (tooltip) {
+      tooltip.textContent = `${themeName} Theme`;
+    }
   });
 
   if (!isInitialLoad) {
-    // Waiting for the stylesheet and all it's imports to load is tricky. Preloading doesn't work for most themes
-    // because applying the new stylesheet to the document, even without adding the `wa-theme-*` class, causes jank.
-    // Suggestions welcome.
-    setTimeout(() => {
-      body.classList.remove('theme-transitioning');
-    }, 500);
+    // Remove transition class and re-enable tooltip after view transition completes
+    body.classList.remove('theme-transitioning');
+
+    const tooltip = document.querySelector('#theme-tooltip');
+    if (tooltip) {
+      tooltip.disabled = false;
+    }
   }
 }
 

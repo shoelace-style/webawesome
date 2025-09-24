@@ -60,6 +60,13 @@ wa-page > header {
     }
   }
 
+  /* increasing visual size of icons-only within buttons */
+  wa-button[appearance='plain'] {
+    > wa-icon {
+      font-size: round(1.125em, 1px);
+    }
+  }
+
   svg {
     width: auto;
     height: 1.75rem;
@@ -70,11 +77,6 @@ wa-page > header {
     display: flex;
     align-items: center;
     gap: var(--wa-space-s);
-
-    .color-scheme-selector,
-    .theme-selector {
-      max-inline-size: 20ch;
-    }
 
     wa-divider:last-child {
       display: none;
