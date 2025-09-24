@@ -61,13 +61,17 @@
                 <wa-icon name="bars" label="Toggle navigation"></wa-icon>
               </wa-button>
 
-              <a href="/" aria-label="Web Awesome">
-                <span class="wa-desktop-only">{% include "logo.njk" %}</span>
-                <span class="wa-mobile-only">{% include "logo-simple.njk" %}</span>
+              <a class="wa-desktop-only" href="/" aria-label="Web Awesome">
+                {% include "logo.njk" %}
               </a>
               <small id="version-number" class="wa-desktop-only">{{ package.version }}</small>
               <wa-badge variant="brand" appearance="filled" class="wa-desktop-only">Beta</wa-badge>
             </div>
+
+            {#- Logo - mobile branding -#}
+            <a href="/" class="brand-logo wa-mobile-only" aria-label="Web Awesome">
+              {% include "logo-simple.njk" %}
+            </a>
 
             <div id="docs-toolbar" class="wa-cluster gap-s">
               <div class="wa-desktop-only wa-cluster wa-gap-2xs">
