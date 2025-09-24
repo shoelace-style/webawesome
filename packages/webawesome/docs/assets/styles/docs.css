@@ -48,6 +48,16 @@ wa-page > header {
     line-height: 1;
   }
 
+  .brand-logo {
+    color: var(--wa-color-text-normal);
+    line-height: 1;
+  }
+
+  .brand-logo svg {
+    width: auto;
+    height: 1.75rem;
+  }
+
   wa-button[data-toggle-nav] {
     --text-color: currentColor;
     font-size: 1rem;
@@ -65,11 +75,6 @@ wa-page > header {
     > wa-icon {
       font-size: round(1.125em, 1px);
     }
-  }
-
-  svg {
-    width: auto;
-    height: 1.75rem;
   }
 }
 
