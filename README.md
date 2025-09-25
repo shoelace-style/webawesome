@@ -51,7 +51,7 @@ Any dependencies that will be used at runtime by a package should be part of the
 
 Individual packages are also free to install `devDependencies` as needed as long as they are specific to that package only.
 
-To do install a package specific to a package, change your working directory to that package’s root (i.e., `cd packages/webawesome && npm install <package-name>`).
+To install a package specific to a Web Awesome package, change your working directory to that package’s root (i.e., `cd packages/webawesome && npm install <package-name>`).
 
 ### Forking the Repo
 
