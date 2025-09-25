@@ -87,7 +87,7 @@ label:has(> :disabled) {
 :host([required]) [part~='label']::after {
   content: var(--wa-form-control-required-content);
   color: var(--wa-form-control-required-content-color);
-  margin-inline-start: var(--wa-form-control-required-content-offset);
+  margin-inline-start: calc(var(--wa-form-control-required-content-offset) * -1.5);
 }
 
 @media (forced-colors: active) {
