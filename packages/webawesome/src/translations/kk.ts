@@ -7,7 +7,7 @@ const translation: Translation = {
   $dir: 'ltr',
 
   carousel: 'Карусель',
-  clearEntry: 'Карусель',
+  clearEntry: 'Жазбаны жою',
   close: 'Жабу',
   copied: 'Көшірілді',
   copy: 'Көшіру',
