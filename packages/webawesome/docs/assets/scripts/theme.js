@@ -9,9 +9,9 @@ async function updateTheme(value, isInitialLoad = false) {
   // Get brand, palette, and theme name from the selected option
   const themeSelector = document.querySelector('.theme-selector');
   const selectedOption = themeSelector?.querySelector(`wa-dropdown-item[value="${value}"]`);
-  const brand = selectedOption?.getAttribute('data-brand') || 'blue';
-  const palette = selectedOption?.getAttribute('data-palette') || 'default';
-  const themeName = selectedOption?.textContent.trim() || 'Unknown';
+  let brand = selectedOption?.getAttribute('data-brand') || 'blue';
+  let palette = selectedOption?.getAttribute('data-palette') || 'default';
+  let themeName = selectedOption?.textContent.trim() || 'Unknown';
 
   if (!isInitialLoad) {
     // Disable tooltip during theme transition
@@ -39,12 +39,14 @@ async function updateTheme(value, isInitialLoad = false) {
   let href = `/dist/styles/themes/${value}.css`;
 
   if (document.querySelector('wa-page').dataset.pageType === 'site') {
-    value = 'site';
+    brand = 'orange';
     href = `/assets/styles/theme-site.css`;
+    palette = 'default';
+    value = 'site';
   } else {
-    localStorage.setItem('theme', value);
     localStorage.setItem('brand', brand);
     localStorage.setItem('palette', palette);
+    localStorage.setItem('theme', value);
   }
 
   // Update theme classes
