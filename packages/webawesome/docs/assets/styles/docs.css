@@ -48,6 +48,16 @@ wa-page > header {
     line-height: 1;
   }
 
+  .brand-logo {
+    color: var(--wa-color-text-normal);
+    line-height: 1;
+  }
+
+  .brand-logo svg {
+    width: auto;
+    height: 1.75rem;
+  }
+
   wa-button[data-toggle-nav] {
     --text-color: currentColor;
     font-size: 1rem;
@@ -60,53 +70,11 @@ wa-page > header {
     }
   }
 
-  svg {
-    width: auto;
-    height: 1.75rem;
-  }
-
-  #docs-branding,
-  #docs-toolbar {
-    display: flex;
-    align-items: center;
-    gap: var(--wa-space-s);
-
-    .color-scheme-selector,
-    .theme-selector {
-      max-inline-size: 20ch;
+  /* increasing visual size of icons-only within buttons */
+  wa-button[appearance='plain'] {
+    > wa-icon {
+      font-size: round(1.125em, 1px);
     }
-
-    wa-divider:last-child {
-      display: none;
-    }
-  }
-
-  #github-buttons {
-    > wa-button {
-      &::part(base) {
-        color: var(--wa-color-on-quiet);
-        background-color: var(--wa-color-fill-quiet);
-      }
-      > wa-icon {
-        font-size: round(1.25em, 1px);
-      }
-    }
-
-    > wa-tooltip {
-      --wa-tooltip-arrow-size: 0;
-      font-size: var(--wa-font-size-xs);
-    }
-  }
-
-  #version-number {
-    color: var(--wa-color-text-quiet);
-    font-size: var(--wa-font-size-xs);
-    line-height: 1;
-    margin-block-start: var(--wa-space-2xs);
-  }
-  #version-number + wa-badge {
-    font-size: var(--wa-font-size-2xs);
-    text-transform: uppercase;
   }
 }
 
@@ -268,6 +236,20 @@ wa-button.delete {
 
 wa-page::part(menu) {
   scrollbar-width: thin;
+}
+
+/* smaller viewports-based navigation */
+wa-page > [slot='navigation-header'] {
+  padding: 0;
+
+  .brand-logo svg {
+    height: 1.25rem;
+  }
+
+  /* resetting font-weight of dropdown items in .title */
+  wa-dropdown {
+    font-weight: var(--wa-font-weight-normal);
+  }
 }
 
 wa-page[view='mobile'] :is([slot='navigation-header'], [slot='navigation']) {

@@ -1,9 +1,5 @@
 {# Search #}
-<wa-button id="search-trigger" appearance="outlined" size="small" data-search>
-  <wa-icon slot="start" name="magnifying-glass"></wa-icon>
-  Search
-  <kbd slot="end" class="wa-desktop-only">/</kbd>
-</wa-button>
+{% include "search-trigger-button.njk" %}
 
 {# Getting started #}
 <h2>Getting Started</h2>
@@ -399,3 +395,16 @@
     <li><a href="/docs/tokens/component-groups/">Component Groups</a></li>
   </ul>
 </wa-details>
+
+<wa-divider style="--spacing: var(--wa-space-xl);"></wa-divider>
+
+<div class="wa-stack wa-gap-xs" id="colophon">
+  {% include "logo-simple.njk" %}
+  <div class="wa-cluster wa-gap-xs">
+    <h2 class="wa-heading-xs">Web Awesome</h2>
+    <wa-badge id="version-beta-badge" variant="orange" appearance="filled" style="font-size: var(--wa-font-size-2xs);">Beta</wa-badge>
+    <wa-tooltip for="version-beta-badge" distance="2" style="font-size: var(--wa-font-size-xs);">Here be freshly made Awesome&hellip; and possible dragons</wa-tooltip>
+  </div>
+  <p class="wa-caption-s">Version {{ package.version }}</p>
+  <p class="wa-caption-s">&copy; Fonticons, Inc.</p>
+</div>

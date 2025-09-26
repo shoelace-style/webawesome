@@ -1,16 +1,18 @@
-<wa-select appearance="filled" size="small" value="default" class="theme-selector">
-  <wa-icon slot="start" name="paintbrush" variant="regular"></wa-icon>
+<wa-dropdown class="theme-selector" title="Select Theme">
+  <wa-button slot="trigger" id="theme-selector-trigger" appearance="plain">
+    <wa-icon name="paintbrush" variant="regular"></wa-icon>
+  </wa-button>
 
   {# Free themes #}
   {% for theme in themer.themes %}
     {% if not theme.isPro %}
-      <wa-option
+      <wa-dropdown-item
         value="{{ theme.filename | stripExtension }}"
         data-brand="{{ theme.colorBrand.color }}"
         data-palette="{{ theme.palette.filename | stripExtension }}"
       >
         {{ theme.name }}
-      </wa-option>
+      </wa-dropdown-item>
     {% endif %}
   {% endfor %}
 
@@ -18,24 +20,27 @@
   {% for theme in themer.themes %}
     {% if loop.first %}<wa-divider></wa-divider>{% endif %}
     {% if theme.isPro %}
-      <wa-option
+      <wa-dropdown-item
         value="{{ theme.filename | stripExtension }}"
         data-brand="{{ theme.colorBrand.color }}"
         data-palette="{{ theme.palette.filename | stripExtension }}"
       >
         {{ theme.name }}
-      </wa-option>
+      </wa-dropdown-item>
     {% endif %}
   {% endfor %}
-</wa-select>
+</wa-dropdown>
+<wa-tooltip for="theme-selector-trigger" id="theme-tooltip">Select Theme</wa-tooltip>
 
 <script>
-  // Immediately set the correct values from storage
-  document.querySelectorAll('wa-select.theme-selector').forEach(el => {
-    el.setAttribute('value', localStorage.getItem('theme') || 'default');
-  });
+  // Handle dropdown selection and trigger input event for theme.js
+  document.querySelectorAll('wa-dropdown.theme-selector').forEach(el => {
+    el.addEventListener('wa-select', (event) => {
+      const selectedValue = event.detail.item.value;
 
-  // Apply saved brand and palette classes
-  document.documentElement.classList.add(`wa-brand-${localStorage.getItem('brand') || 'blue'}`);
-  document.documentElement.classList.add(`wa-palette-${localStorage.getItem('palette') || 'default'}`);
+      // Trigger input event for theme.js
+      el.value = selectedValue;
+      el.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+  });
 </script>

@@ -3,17 +3,30 @@ import { doViewTransition } from '../scripts/view-transitions.js';
 //
 // Updates the color scheme when a color scheme selector changes
 //
-function updateTheme(value) {
+async function updateTheme(value) {
   localStorage.setItem('color-scheme', value);
 
   const isDark = value === 'dark' || (value === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
 
-  doViewTransition(() => {
+  // Disable tooltip during transition
+  const tooltip = document.querySelector('#color-scheme-tooltip');
+  if (tooltip) {
+    tooltip.disabled = true;
+  }
+
+  await doViewTransition(() => {
     document.documentElement.classList.toggle('wa-dark', isDark);
   });
 
-  // Sync all selectors
+  // Sync all selectors and update tooltip
   document.querySelectorAll('.color-scheme-selector').forEach(el => (el.value = value));
+
+  // Update tooltip content and re-enable after transition completes
+  if (tooltip) {
+    const schemeText = value === 'light' ? 'Light' : value === 'dark' ? 'Dark' : 'System';
+    tooltip.textContent = schemeText;
+    tooltip.disabled = false;
+  }
 }
 
 // Handle changes
