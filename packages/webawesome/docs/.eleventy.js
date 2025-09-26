@@ -1,3 +1,4 @@
+import { nanoid } from 'nanoid';
 import { parse as HTMLParse } from 'node-html-parser';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
@@ -87,6 +88,7 @@ export default async function (eleventyConfig) {
   eleventyConfig.addFilter('markdown', content => markdown.render(content || ''));
   eleventyConfig.addFilter('stripExtension', string => path.parse(string + '').name);
   eleventyConfig.addFilter('stripPrefix', content => content.replace(/^wa-/, ''));
+  eleventyConfig.addFilter('uniqueId', (_value, length = 8) => nanoid(length));
   // Trims whitespace and pipes from the start and end of a string. Useful for CEM types, which can be pipe-delimited.
   // With Prettier 3, this means a leading pipe will exist be present when the line wraps.
   eleventyConfig.addFilter('trimPipes', content => {
