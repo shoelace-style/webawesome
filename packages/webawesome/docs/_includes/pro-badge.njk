@@ -1,1 +1,3 @@
-<wa-badge appearance="accent" pill class="pro">Pro</wa-badge>
+{% set badgeId = proBadgeId or ("pro-badge-" + ("" | uniqueId(8))) %}
+<wa-badge appearance="accent" pill class="pro" id="{{ badgeId }}">Pro</wa-badge>
+<wa-tooltip for="{{ badgeId }}">{{ proBadgeDescription or "This requires access to Web Awesome Pro" }}</wa-tooltip>
