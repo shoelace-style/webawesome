@@ -108,13 +108,6 @@
   /* #endregion */
 
   /* #region resets */
-  /* increasing visual size of icon-only plain buttons */
-  wa-button[appearance='plain'] {
-    > wa-icon:only-child {
-      font-size: round(1.125em, 1px);
-    }
-  }
-
   code.appearance-plain {
     background: transparent;
     border: none;
@@ -127,6 +120,11 @@
     &:hover {
       text-decoration: underline;
     }
+  }
+
+  /* increasing visual size of icons in certain contexts (such as in plain buttons) */
+  wa-icon.icon-embiggen {
+    font-size: round(1.125em, 1px);
   }
   /* #endregion */
 }
