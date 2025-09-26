@@ -73,6 +73,11 @@
     background-color: var(--wa-brand-orange);
     border-color: var(--wa-brand-orange);
     text-transform: uppercase;
+
+    + wa-tooltip {
+      font-size: var(--wa-font-size-xs);
+      --max-width: unset;
+    }
   }
 
   /* search trigger */
