@@ -23,9 +23,9 @@ Twitter: [@webawesomer](https://twitter.com/webawesomer)
 
 Developers can use this documentation to learn how to build Web Awesome from source. You will need Node.js 14.17 or later to build and run the project locally.
 
-**You don’t need to do any of this to use Web Awesome!** This page is for people who want to contribute to the project, tinker with the source, or create a custom build of Web Awesome.
+**You don't need to do any of this to use Web Awesome!** This page is for people who want to contribute to the project, tinker with the source, or create a custom build of Web Awesome.
 
-If that’s not what you’re trying to do, the [documentation website](https://webawesome.com) is where you want to be.
+If that's not what you're trying to do, the [documentation website](https://webawesome.com) is where you want to be.
 
 ### What are you using to build Web Awesome?
 
@@ -47,11 +47,11 @@ Any dependencies intended to be used across all packages (i.e., `prettier`, `esl
 npm install -D -w prettier
 ```
 
-Any dependencies that will be used at runtime by a package should be part of the specific package’s `dependencies` such as `lit`. This is required because if that dependency is not in the `packages/*/package.json`, it will not be installed when used via npm.
+Any dependencies that will be used at runtime by a package should be part of the specific package's `dependencies` such as `lit`. This is required because if that dependency is not in the `packages/*/package.json`, it will not be installed when used via npm.
 
 Individual packages are also free to install `devDependencies` as needed as long as they are specific to that package only.
 
-To install a package specific to a Web Awesome package, change your working directory to that package’s root (i.e., `cd packages/webawesome && npm install <package-name>`).
+To install a package specific to a Web Awesome package, change your working directory to that package's root (i.e., `cd packages/webawesome && npm install <package-name>`).
 
 ### Forking the Repo
 
@@ -72,7 +72,7 @@ cd packages/webawesome
 npm start
 ```
 
-This will spin up the dev server. After the initial build, a browser will open automatically. There is currently no hot module reloading (HMR), as browsers don’t provide a way to reregister custom elements, but most changes to the source will reload the browser automatically.
+This will spin up the dev server. After the initial build, a browser will open automatically. There is currently no hot module reloading (HMR), as browsers don't provide a way to reregister custom elements, but most changes to the source will reload the browser automatically.
 
 ### Building
 
@@ -94,7 +94,7 @@ cd packages/webawesome
 npm run create wa-tag-name
 ```
 
-This will generate a source file, a stylesheet, and a docs page for you. When you start the dev server, you’ll find the new component in the “Components” section of the sidebar.
+This will generate a source file, a stylesheet, and a docs page for you. When you start the dev server, you'll find the new component in the "Components" section of the sidebar.
 
 ### Adding additional packages
 
@@ -106,7 +106,7 @@ Make sure to run `npm install` at the root of the monorepo after adding your pac
 
 ### Contributing
 
-Web Awesome is an open source project and contributions are encouraged! If you’re interesting in contributing, please review the [contribution guidelines](CONTRIBUTING.md) first.
+Web Awesome is an open source project and contributions are encouraged! If you're interesting in contributing, please review the [contribution guidelines](CONTRIBUTING.md) first.
 
 ## License
 
