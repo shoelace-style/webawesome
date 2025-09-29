@@ -38,6 +38,7 @@ import styles from './drawer.css';
  *  the drawer has been closed programmatically. Avoid using this unless closing the drawer will result in destructive
  *  behavior such as data loss.
  *
+ * @csspart dialog - The drawer's internal `<dialog>` element.
  * @csspart header - The drawer's header. This element wraps the title and header actions.
  * @csspart header-actions - Optional actions to add to the header. Works best with `<wa-button>`.
  * @csspart title - The drawer's title.
