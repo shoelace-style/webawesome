@@ -88,6 +88,12 @@ export default class WaPopover extends WebAwesomeElement {
   /** Removes the arrow from the popover. */
   @property({ attribute: 'without-arrow', type: Boolean, reflect: true }) withoutArrow = false;
 
+  /** When set, this will cause the popup to automatically resize itself to prevent it from overflowing. */
+  @property({ attribute: 'auto-size' }) autoSize: 'horizontal' | 'vertical' | 'both';
+
+  /** The amount of padding, in pixels, to exceed before the auto-size behavior will occur. */
+  @property({ attribute: 'auto-size-padding', type: Number }) autoSizePadding = 0;
+
   private eventController = new AbortController();
 
   connectedCallback() {
@@ -305,6 +311,8 @@ export default class WaPopover extends WebAwesomeElement {
           shift
           ?arrow=${!this.withoutArrow}
           .anchor=${this.anchor}
+          .autoSize=${this.autoSize}
+          .autoSizePadding=${this.autoSizePadding}
         >
           <div part="body" class="body" @click=${this.handleBodyClick}>
             <slot></slot>
