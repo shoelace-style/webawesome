@@ -67,6 +67,12 @@ export default class WaDropdown extends WebAwesomeElement {
   /** The dropdown's size. */
   @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
 
+  /** The tag name of the dropdown element. Needs to be set if a custom dropdown element is used */
+  @property() dropdownTag = 'wa-dropdown';
+
+  /** The tag name of the dropdown item element. Needs to be set if a custom dropdown item element is used */
+  @property() dropdownItemTag = 'wa-dropdown-item';
+
   /**
    * The placement of the dropdown menu in reference to the trigger. The menu will shift to a more optimal location if
    * the preferred placement doesn't have enough room.
@@ -128,7 +134,7 @@ export default class WaDropdown extends WebAwesomeElement {
   private getItems(includeDisabled = false): WaDropdownItem[] {
     const items = this.defaultSlot
       .assignedElements({ flatten: true })
-      .filter(el => el.localName === 'wa-dropdown-item') as WaDropdownItem[];
+      .filter(el => el.localName === this.dropdownItemTag) as WaDropdownItem[];
 
     return includeDisabled ? items : items.filter(item => !item.disabled);
   }
@@ -146,7 +152,7 @@ export default class WaDropdown extends WebAwesomeElement {
     // Get the items from the submenu slot
     const items = submenuSlot
       .assignedElements({ flatten: true })
-      .filter(el => el.localName === 'wa-dropdown-item') as WaDropdownItem[];
+      .filter(el => el.localName === this.dropdownItemTag) as WaDropdownItem[];
 
     return includeDisabled ? items : items.filter(item => !item.disabled);
   }
@@ -155,7 +161,7 @@ export default class WaDropdown extends WebAwesomeElement {
   private syncItemSizes() {
     const items = this.defaultSlot
       .assignedElements({ flatten: true })
-      .filter(el => el.localName === 'wa-dropdown-item') as WaDropdownItem[];
+      .filter(el => el.localName === this.dropdownItemTag) as WaDropdownItem[];
     items.forEach(item => (item.size = this.size));
   }
 
@@ -190,7 +196,7 @@ export default class WaDropdown extends WebAwesomeElement {
 
   /** Closes sibling submenus at the same level as the specified item. */
   private closeSiblingSubmenus(item: WaDropdownItem) {
-    const parentDropdownItem = item.closest<WaDropdownItem>('wa-dropdown-item:not([slot="submenu"])');
+    const parentDropdownItem = item.closest<WaDropdownItem>(this.dropdownItemTag + ':not([slot="submenu"])');
     let siblingItems: WaDropdownItem[];
 
     if (parentDropdownItem) {
@@ -289,8 +295,8 @@ export default class WaDropdown extends WebAwesomeElement {
       return;
     }
 
-    const activeElement = [...activeElements()].find(el => el.localName === 'wa-dropdown-item');
-    const isFocusedOnItem = activeElement?.localName === 'wa-dropdown-item';
+    const activeElement = [...activeElements()].find(el => el.localName === this.dropdownItemTag);
+    const isFocusedOnItem = activeElement?.localName === this.dropdownItemTag;
     const currentSubmenuItem = this.getCurrentSubmenuItem();
     const isInSubmenu = !!currentSubmenuItem;
 
@@ -447,7 +453,7 @@ export default class WaDropdown extends WebAwesomeElement {
     const path = event.composedPath();
     const isInDropdownHierarchy = path.some(el => {
       if (el instanceof HTMLElement) {
-        return el === this || el.closest('wa-dropdown, [part="submenu"]');
+        return el === this || el.closest(this.dropdownTag + ', [part="submenu"]');
       }
       return false;
     });
@@ -459,7 +465,7 @@ export default class WaDropdown extends WebAwesomeElement {
 
   /** Handles clicks on the menu. */
   private handleMenuClick(event: MouseEvent) {
-    const item = (event.target as Element).closest('wa-dropdown-item');
+    const item = (event.target as Element).closest(this.dropdownItemTag);
 
     if (!item || item.disabled) return;
 
@@ -534,7 +540,7 @@ export default class WaDropdown extends WebAwesomeElement {
     const slot = event.target as HTMLSlotElement;
     if (!slot) return;
 
-    const items = slot.assignedElements().filter(el => el.localName === 'wa-dropdown-item') as WaDropdownItem[];
+    const items = slot.assignedElements().filter(el => el.localName === this.dropdownItemTag) as WaDropdownItem[];
 
     if (items.length === 0) return;
 
