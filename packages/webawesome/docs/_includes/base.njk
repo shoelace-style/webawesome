@@ -63,7 +63,7 @@
                 {% include "github-icon-buttons.njk" %}
               </div>
               {#- Login -#}
-              {% server "loginOrAvatar" %}
+              {% include "login-or-avatar.njk" ignore missing %}
             </div>
           </header>
         {% endblock %}
