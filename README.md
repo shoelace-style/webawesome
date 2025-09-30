@@ -65,7 +65,7 @@ npm install
 
 ### Developing
 
-Once you’ve cloned the repo, run the following command from the respective directory within `packages/*`.
+Once you've cloned the repo, run the following command from the respective directory within `packages/*`.
 
 ```bash
 cd packages/webawesome
