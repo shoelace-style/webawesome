@@ -461,7 +461,7 @@ export default class WaTabGroup extends WebAwesomeElement {
           <div
             class="nav"
             @focus=${() => this.activeTab?.focus({ preventScroll: true })}
-            @scrollend=${this.updateScrollButtons}
+            @scroll=${this.updateScrollButtons}
           >
             <div part="tabs" class="tabs" role="tablist">
               <slot name="nav" @slotchange=${this.syncTabsAndPanels}></slot>
