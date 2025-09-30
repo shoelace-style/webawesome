@@ -4,11 +4,12 @@
 
 @layer wa-utils {
   :root {
-    /* max-width for fixed width app-based pages */
-    --content-width-l: 132ch;
-    --content-width-m: 110ch;
-    --content-width-s: 80ch;
-    --content-width-xs: 50ch;
+    /* max-width for fixed width app-based pages
+     * We round() these to avoid obscure component rendering bugs caused by widths with fractional pixels */
+    --content-width-l: round(up, 132ch, 1px);
+    --content-width-m: round(up, 110ch, 1px);
+    --content-width-s: round(up, 80ch, 1px);
+    --content-width-xs: round(up, 50ch, 1px);
     --content-padding-inline: 4ch;
     --content-flow-spacing: 8ch;
 
