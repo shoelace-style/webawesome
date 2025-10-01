@@ -185,6 +185,20 @@ wa-page > header {
     --show-duration: 0;
     --hide-duration: 0;
   }
+
+  .the-socials {
+    /* nudge those linkies left */
+    margin-inline-start: calc(var(--wa-space-xs) * -1);
+
+    a[target='_blank'] {
+      color: var(--wa-color-text-quiet);
+      padding-inline: var(--wa-space-xs);
+
+      &:hover {
+        color: var(--wa-color-text-normal);
+      }
+    }
+  }
 }
 
 wa-button.delete {

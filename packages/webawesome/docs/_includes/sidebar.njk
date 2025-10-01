@@ -393,13 +393,34 @@
 
 <wa-divider style="--spacing: var(--wa-space-xl);"></wa-divider>
 
-<div class="wa-stack wa-gap-xs" id="colophon">
-  {% include "logo-simple.njk" %}
-  <div class="wa-cluster wa-gap-xs">
-    <h2 class="wa-heading-xs">Web Awesome</h2>
-    <wa-badge id="version-beta-badge" variant="orange" appearance="filled" style="font-size: var(--wa-font-size-2xs);">Beta</wa-badge>
-    <wa-tooltip for="version-beta-badge" distance="2" style="font-size: var(--wa-font-size-xs);">Here be freshly made Awesome&hellip; and possible dragons</wa-tooltip>
+<div class="wa-stack wa-gap-xl" id="colophon">
+  <div class="wa-stack wa-gap-xs">
+    {% include "logo-simple.njk" %}
+    <div class="wa-cluster wa-gap-xs">
+      <h2 class="wa-heading-xs">Web Awesome</h2>
+      <wa-badge id="version-beta-badge" variant="orange" appearance="filled" style="font-size: var(--wa-font-size-2xs);">Beta</wa-badge>
+      <wa-tooltip for="version-beta-badge" distance="2" style="font-size: var(--wa-font-size-xs);">Here be freshly made Awesome&hellip; and possible dragons</wa-tooltip>
+    </div>
+    <p class="wa-caption-s">Version {{ package.version }}</p>
+    <p class="wa-caption-s">&copy; Fonticons, Inc.</p>
   </div>
-  <p class="wa-caption-s">Version {{ package.version }}</p>
-  <p class="wa-caption-s">&copy; Fonticons, Inc.</p>
+
+  <div class="wa-cluster wa-gap-0 wa-caption-s the-socials">
+    <h2 class="wa-visually-hidden">Web Awesome Elsewhere</h2>
+    <a href="https://github.com/shoelace-style/webawesome" rel="noopener noreferrer" target="_blank" class="appearance-plain">
+      <wa-icon family="brands" name="github" label="GitHub"></wa-icon>
+    </a>
+    <a href="https://bsky.app/profile/webawesome.com" rel="noopener noreferrer" target="_blank" class="appearance-plain">
+      <wa-icon family="brands" name="bluesky" label="Bluesky"></wa-icon>
+    </a>
+    <a href="https://mastodon.social/@webawesome" rel="noopener noreferrer" target="_blank" class="appearance-plain">
+      <wa-icon family="brands" name="mastodon" label="Mastodon"></wa-icon>
+    </a>
+    <a href="https://x.com/webawesomer" rel="noopener noreferrer" target="_blank" class="appearance-plain">
+      <wa-icon family="brands" name="x-twitter" label="Twitter (X)"></wa-icon>
+    </a>
+    <a href="https://www.threads.com/@web.awesome" rel="noopener noreferrer" target="_blank" class="appearance-plain">
+      <wa-icon family="brands" name="threads" label="Threads"></wa-icon>
+    </a>
+  </div>
 </div>
