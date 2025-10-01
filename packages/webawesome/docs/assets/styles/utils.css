@@ -128,6 +128,18 @@
     }
   }
 
+  ul,
+  ol {
+    &.appearance-plain {
+      list-style: none;
+      padding-inline-start: 0;
+
+      li {
+        padding-inline-start: 0;
+      }
+    }
+  }
+
   /* increasing visual size of icons in certain contexts (such as in plain buttons) */
   wa-icon.icon-embiggen {
     font-size: round(1.125em, 1px);
