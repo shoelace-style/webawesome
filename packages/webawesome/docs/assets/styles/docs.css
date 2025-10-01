@@ -196,6 +196,16 @@ wa-button.delete {
   &:not(:hover, :focus) {
     opacity: 0.5;
   }
+
+  #colophon .the-socials {
+    a[target='_blank'] {
+      color: var(--wa-color-text-quiet);
+
+      &:hover {
+        color: var(--wa-color-text-normal);
+      }
+    }
+  }
 }
 
 [slot='navigation-header'] {
