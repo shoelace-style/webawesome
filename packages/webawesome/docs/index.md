@@ -385,12 +385,21 @@ layout: page
       <wa-icon name="hashtag" style="color: var(--wa-brand-orange);"></wa-icon>
       <span>Stay in the know</span>
     </h2>
-    <div class="wa-grid">
+    <div class="wa-grid" style="--min-column-size: 30ch;">
       <wa-button href="https://bsky.app/profile/webawesome.com" rel="noopener noreferrer" target="_blank" appearance="filled" class="tile">
         <div class="wa-split">
           <div class="wa-cluster icon-heading">
             <wa-icon family="brands" name="bluesky"></wa-icon>
             <h3>Bluesky</h3>
+          </div>
+          <wa-icon name="arrow-up-right"></wa-icon>
+        </div>
+      </wa-button>
+      <wa-button href="https://mastodon.social/@webawesome" rel="noopener noreferrer" target="_blank" appearance="filled" class="tile">
+        <div class="wa-split">
+          <div class="wa-cluster icon-heading">
+            <wa-icon family="brands" name="mastodon"></wa-icon>
+            <h3>Mastodon</h3>
           </div>
           <wa-icon name="arrow-up-right"></wa-icon>
         </div>
