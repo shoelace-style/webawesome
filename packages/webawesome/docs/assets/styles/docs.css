@@ -263,7 +263,7 @@ wa-page[view='mobile'] :is([slot='navigation-header'], [slot='navigation']) {
 
 /* Main content */
 wa-page > main {
-  max-width: 80ch;
+  max-width: var(--content-width-s);
   padding: var(--wa-space-xl);
   margin-inline: auto;
 }
@@ -371,7 +371,7 @@ h1.title {
 
 /* Search list pages */
 wa-page > main:has(> .search-list) {
-  max-width: 120ch;
+  max-width: var(--content-width-l);
   margin-inline: auto;
 }
 
@@ -586,7 +586,7 @@ wa-scroller:has(.component-table) {
 
   .table-arguments,
   .table-description {
-    min-width: 40ch;
+    min-width: var(--line-length-xs);
   }
 
   .table-reflect {
@@ -635,10 +635,10 @@ wa-scroller:has(.component-table) {
 
 .page-wide {
   wa-page > main {
-    max-width: 140ch;
+    max-width: var(--content-width-l);
 
     .max-line-length {
-      max-width: 80ch;
+      max-width: var(--line-length-l);
     }
   }
 }
