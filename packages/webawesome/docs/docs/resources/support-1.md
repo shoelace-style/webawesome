@@ -5,89 +5,89 @@ layout: page
 wide: true
 ---
 
- <p>We know people have their own way of reaching out, so our team makes sure you can find us wherever you need — whether it’s filing an issue on GitHub, chatting with the community on Discord, or getting private help via HelpScout. If you’re just getting started, don’t miss our <a href="/docs/">Instillation Guide</a>.</p>
-<div class="wa-grid">
+ <p>We know people have their own way of reaching out, so our team makes sure you can find us wherever you need — whether it’s filing an issue on GitHub, chatting with the community on Discord, or getting private help via email. If you’re just getting started, don’t miss our <a href="/docs/">Instillation Guide</a>.</p>
+ <div class="wa-grid">
     <wa-card>
         <div class="wa-stack">
-            <wa-avatar label="Avatar with an image icon">
-                <wa-icon slot="icon" name="github" family="brands"></wa-icon>
-            </wa-avatar>
-            <span class="wa-heading-m">Feature requests & bugs</span>
-            <p>Notice a bug or have an idea? Open an issue on GitHub so we can triage, track, and ship fixes.</p>
-            <wa-button size="large">
+            <div class="wa-stack">        
+                    <wa-icon slot="icon" name="github" family="brands" style="font-size: 6ch;"></wa-icon>
+                <div class="wa-stack wa-gap-2xs">
+                    <span class="wa-heading-m">Feature requests & bugs</span>
+                    <p class="wa-caption-l">Notice a bug or have an idea? Open an issue on GitHub so we can triage, track, and ship fixes.</p>
+                </div>
+            </div>
+              <wa-button>
                 Go to Github
             </wa-button>
+            <wa-divider></wa-divider>
+            <ul>
+                <li>Report reproducible bugs with clear steps.</li>
+                <li>Suggest features that improve developer workflow</li>
+                <li>Vote on issues others have filed to help us prioritize.</li>
+            </ul>
         </div>
     </wa-card>
     <wa-card>
         <div class="wa-stack">
-            <wa-avatar label="Avatar with an image icon">
-                <wa-icon slot="icon" name="discord" family="brands"></wa-icon>
-            </wa-avatar>
-            <span class="wa-heading-m">Community & discussion</span>
-            <p>Ask questions, share tips, and connect with other developers in real time..</p>
-            <wa-button size="large">
+            <div class="wa-stack">
+                    <wa-icon slot="icon" name="discord" family="brands" style="font-size: 6ch;"></wa-icon>
+                <div class="wa-stack wa-gap-2xs"> 
+                    <span class="wa-heading-m">Community & Discussion</span>
+                    <p class="wa-caption-l">Ask questions, share tips, and connect with other developers in real time.</p>
+                </div>
+            </div>
+              <wa-button>
                 Join our Discord
             </wa-button>
+            <wa-divider></wa-divider>
+            <ul>
+                <li>Ask for help</li>
+                <li>Share ideas and get feedback</li>
+                <li>Show the community what you're working on</li>
+                <li>Chat live with other designers, developers, and Web Awesome fans</li>
+            </ul>
         </div>
     </wa-card>
     <wa-card>
         <div class="wa-stack">
-            <wa-avatar label="Avatar with an image icon">
-                <wa-icon slot="icon" name="envelope" ></wa-icon>
-            </wa-avatar>
-            <span class="wa-heading-m">Anything Else</span>
-            <p>Billing questions, account access, or sensitive issues—reach our support team directly.</p>
-            <wa-button size="large">
-                Contact via Helpscout
+            <div class="wa-stack">
+                    <wa-icon slot="icon" name="envelope" style="font-size: 6ch;"></wa-icon>
+                <div class="wa-stack wa-gap-2xs"> 
+                    <span class="wa-heading-m">Anything Else</span>
+                    <p class="wa-caption-l">Billing questions, account access, or sensitive issues—reach our support team directly.</p>
+                </div>
+            </div>
+              <wa-button>
+                Get Help via Email
             </wa-button>
+            <wa-divider></wa-divider>
+            <ul>
+                <li>Account access & login issues.</li>
+                <li>Billing or subscription questions.</li>
+                <li>Private matters you don’t want to post publicly.</li>
+            </ul>
         </div>
     </wa-card>
-</div>
+ </div>
+ <wa-divider></wa-divider>
 
-<wa-divider></wa-divider>
+## Socials
 
-## Github Guidelines
-
-The [discussion forum](https://github.com/shoelace-style/webawesome/discussions) is open to anyone with a GitHub account. This is the best place to:
-
-- Ask for help
-- Share ideas and get feedback
-- Show the community what you're working on
-- Learn more about the project, its values, and its roadmap
-
-<wa-button variant="brand" href="https://github.com/shoelace-style/webawesome/discussions" target="_blank" style="margin-block-end: var(--wa-content-spacing);">
-  <wa-icon name="github" family="brands" slot="start"></wa-icon>
-  Join the Discussion
+<div class="wa-grid">
+<wa-button variant="brand" href="https://twitter.com/webawesomer" target="_blank" style="margin-block-end: var(--wa-content-spacing);">
+  <wa-icon name="bluesky" family="brands" slot="start"></wa-icon>
+  Follow on Twitter
 </wa-button>
-
-## Community Chat
-
-The [community chat](https://discord.gg/mg8f26C) is open to the public and powered by [Discord](https://discord.com/). This is a good place to:
-
-- Ask for help
-- Share ideas and get feedback
-- Show the community what you're working on
-- Chat live with other designers, developers, and Web Awesome fans
-
-<wa-button variant="brand" href="https://discord.gg/mg8f26C" target="_blank" style="margin-block-end: var(--wa-content-spacing);">
-  <wa-icon name="discord" family="brands" slot="start"></wa-icon>
-  Join the Chat
-</wa-button>
-
-## Support Topics
-
-- Account access & login issues.
-- Billing or subscription questions.
-- Private matters you don’t want to post publicly.
-
-## Twitter
-
-Follow [@webawesomer](https://twitter.com/webawesomer) on Twitter for general updates and announcements about Web Awesome. This is a great place to say "hi" or to share something you're working on.
-
-**Please avoid using Twitter for support questions.** The [discussion forum](https://github.com/shoelace-style/webawesome/discussions) is a much better place to share code snippets, screenshots, and other troubleshooting info. You'll have much better luck there, as more users will have a chance to help you.
-
 <wa-button variant="brand" href="https://twitter.com/webawesomer" target="_blank" style="margin-block-end: var(--wa-content-spacing);">
   <wa-icon name="twitter" family="brands" slot="start"></wa-icon>
   Follow on Twitter
 </wa-button>
+<wa-button variant="brand" href="https://twitter.com/webawesomer" target="_blank" style="margin-block-end: var(--wa-content-spacing);">
+  <wa-icon name="mastodon" family="brands" slot="start"></wa-icon>
+  Follow on Twitter
+</wa-button>
+<wa-button variant="brand" href="https://twitter.com/webawesomer" target="_blank" style="margin-block-end: var(--wa-content-spacing);">
+  <wa-icon name="threads" family="brands" slot="start"></wa-icon>
+  Follow on Twitter
+</wa-button>
+</div>
