@@ -218,6 +218,11 @@ wa-button.delete {
   }
 }
 
+/* planned sidebar item */
+.is-planned {
+  color: var(--wa-color-neutral-50);
+}
+
 #sidebar-close-button {
   display: none;
 }
