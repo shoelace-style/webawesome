@@ -134,13 +134,12 @@ export default class WaPopover extends WebAwesomeElement {
   };
 
   private handleBodyClick = (event: PointerEvent) => {
-    // prevent close from document click handler
-    event.stopPropagation();
     const target = event.target as HTMLElement;
     const button = target.closest('[data-popover="close"]');
 
     // Watch for [data-popover="close"] clicks
     if (button) {
+      event.stopPropagation();
       this.open = false;
     }
   };
