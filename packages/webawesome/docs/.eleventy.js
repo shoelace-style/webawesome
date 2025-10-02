@@ -1,5 +1,6 @@
 import { nanoid } from 'nanoid';
 import { parse as HTMLParse } from 'node-html-parser';
+import { execFileSync } from 'node:child_process';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { anchorHeadingsTransformer } from './_transformers/anchor-headings.js';
@@ -20,6 +21,7 @@ import { replaceTextPlugin } from './_plugins/replace-text.js';
 import { searchPlugin } from './_plugins/search.js';
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 const isDev = process.argv.includes('--develop');
+const ignoreGit = process.env.ELEVENTY_IGNORE_GIT === 'true';
 const passThroughExtensions = ['js', 'css', 'png', 'svg', 'jpg', 'mp4'];
 
 async function getPackageData() {
@@ -58,6 +60,15 @@ export default async function (eleventyConfig) {
     if (updateComponentData) {
       allComponents = getComponents();
     }
+
+    // Invalidate last-modified cache for changed content files during watch
+    if (Array.isArray(changedFiles)) {
+      for (const file of changedFiles) {
+        if (/\.(md|njk|html)$/i.test(file)) {
+          lastModCache.delete(file);
+        }
+      }
+    }
   });
 
   /**
@@ -89,6 +100,79 @@ export default async function (eleventyConfig) {
   eleventyConfig.addFilter('stripExtension', string => path.parse(string + '').name);
   eleventyConfig.addFilter('stripPrefix', content => content.replace(/^wa-/, ''));
   eleventyConfig.addFilter('uniqueId', (_value, length = 8) => nanoid(length));
+  // Returns last modified date as ISO 8601 (UTC, Z-suffixed)
+  // Fallback order: front matter override -> Git last commit date -> filesystem mtime -> now
+  // Caching: in-memory per inputPath during one build/dev session
+  // Override: pass a Date or string: {{ page.inputPath | gitLastModifiedISO(lastUpdated) }}
+  const lastModCache = new Map();
+  let repoRoot = null; // lazily resolved; null => not resolved, undefined => failed
+
+  function getLastModifiedISO(inputPath, overrideDate) {
+    if (overrideDate instanceof Date) {
+      return overrideDate.toISOString();
+    }
+    if (typeof overrideDate === 'string' && overrideDate) {
+      const parsed = new Date(overrideDate);
+      if (!isNaN(parsed.getTime())) return parsed.toISOString();
+    }
+    if (!inputPath) return new Date().toISOString();
+    if (lastModCache.has(inputPath)) return lastModCache.get(inputPath);
+
+    // Try Git (ISO via %cI). Use a repo-root-relative path for portability.
+    if (!ignoreGit) {
+      try {
+        if (repoRoot === null) {
+          try {
+            repoRoot = execFileSync('git', ['rev-parse', '--show-toplevel'], {
+              stdio: ['ignore', 'pipe', 'ignore'],
+              cwd: __dirname,
+            })
+              .toString()
+              .trim();
+          } catch (_) {
+            repoRoot = undefined;
+          }
+        }
+
+        const gitPath = repoRoot ? path.relative(repoRoot, inputPath) : inputPath;
+        const args = ['log', '-1', '--format=%cI', '--follow', '--', gitPath];
+        const result = execFileSync('git', args, {
+          stdio: ['ignore', 'pipe', 'ignore'],
+          cwd: repoRoot || path.dirname(inputPath),
+        })
+          .toString()
+          .trim();
+        if (result) {
+          const iso = new Date(result).toISOString();
+          lastModCache.set(inputPath, iso);
+          return iso;
+        }
+      } catch (_) {
+        // continue to fs fallback
+      }
+    }
+
+    // Fallback to filesystem mtime
+    try {
+      const stats = fs.statSync(inputPath);
+      const iso = new Date(stats.mtime).toISOString();
+      lastModCache.set(inputPath, iso);
+      return iso;
+    } catch (_) {
+      const now = new Date().toISOString();
+      lastModCache.set(inputPath, now);
+      return now;
+    }
+  }
+
+  eleventyConfig.addFilter('gitLastModifiedISO', function (inputPath, overrideDate) {
+    return getLastModifiedISO(inputPath, overrideDate);
+  });
+
+  // Attach lastUpdatedISO to page data so templates can use {{ lastUpdatedISO }} directly
+  eleventyConfig.addGlobalData('eleventyComputed', {
+    lastUpdatedISO: data => getLastModifiedISO(data.page?.inputPath, data.lastUpdated),
+  });
   // Trims whitespace and pipes from the start and end of a string. Useful for CEM types, which can be pipe-delimited.
   // With Prettier 3, this means a leading pipe will exist be present when the line wraps.
   eleventyConfig.addFilter('trimPipes', content => {
