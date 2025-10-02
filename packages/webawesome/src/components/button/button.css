@@ -1,9 +1,11 @@
 @layer wa-component {
   :host {
     display: inline-block;
+    border-radius: var(--wa-form-control-border-radius);
+    overflow: hidden;
 
     /* Workaround because Chrome doesn't like :host(:has()) below
-     * https://issues.chromium.org/issues/40062355 
+     * https://issues.chromium.org/issues/40062355
      * Firefox doesn't like this nested rule, so both are needed */
     &:has(wa-badge) {
       position: relative;
