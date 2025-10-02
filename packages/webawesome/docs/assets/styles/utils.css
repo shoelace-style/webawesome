@@ -81,6 +81,16 @@
     }
   }
 
+  /* planned badge */
+  wa-badge.planned {
+    background-color: var(--wa-color-neutral-fill-quiet);
+
+    + wa-tooltip {
+      font-size: var(--wa-font-size-xs);
+      --max-width: unset;
+    }
+  }
+
   /* search trigger */
   wa-button#search-trigger {
     &::part(base) {
