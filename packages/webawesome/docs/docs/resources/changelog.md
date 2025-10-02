@@ -4,6 +4,8 @@ description: Changes to each version of the project are documented here.
 layout: page-outline
 ---
 
+<p class="wa-caption-m">Last updated: <wa-format-date month="long" day="numeric" year="numeric" date="{{ lastUpdatedISO }}"></wa-format-date></p>
+
 Web Awesome follows [Semantic Versioning](https://semver.org/). Breaking changes in components with the <wa-badge variant="brand">Stable</wa-badge> badge will not be accepted until the next major version. As such, all contributions must consider the project's roadmap and take this into consideration. Features that are deemed no longer necessary will be deprecated but not removed.
 
 Components with the <wa-badge variant="warning">Experimental</wa-badge> badge should not be used in production. They are made available as release candidates for development and testing purposes. As such, changes to experimental components will not be subject to semantic versioning.
