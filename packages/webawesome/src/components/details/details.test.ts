@@ -1,5 +1,5 @@
 // cspell:dictionaries lorem-ipsum
-import { expect, waitUntil } from '@open-wc/testing';
+import { expect, waitUntil, aTimeout } from '@open-wc/testing';
 import { html } from 'lit';
 import sinon from 'sinon';
 import type { WaHideEvent } from '../../events/hide.js';
@@ -22,6 +22,13 @@ describe('<wa-details>', () => {
 
           await expect(details).to.be.accessible();
         });
+      });
+
+      it('should reflect the name property', async () => {
+        const el = await fixture<WaDetails>(html`<wa-details></wa-details>`);
+        el.name = 'test'
+        await aTimeout(100);
+        expect(el.getAttribute('name')).to.equal('test');
       });
 
       it('should be visible with the open attribute', async () => {
