@@ -79,10 +79,6 @@
       font-size: var(--wa-font-size-xs);
       --max-width: unset;
     }
-
-    &.shrink {
-      font-size: round(calc(var(--wa-font-size-2xs) / 1.125), 1px); /* ~10px */
-    }
   }
 
   /* planned badge */
