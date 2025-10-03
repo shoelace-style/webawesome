@@ -43,7 +43,7 @@
         <a class="wa-cluster wa-gap-xs" href="/docs/components/page/">
           Page <wa-icon name="flask" aria-hidden="true" class="icon-shrink"></wa-icon>
         </a>
-        {{ proBadge() }}
+        {{ proBadge({ shrink: true }) }}
       </span>
     </li>
     <li><a href="/docs/components/animated-image/">Animated Image</a></li>
@@ -188,7 +188,7 @@
         <a class="wa-cluster wa-gap-xs" href="/docs/components/page/">
           Page <wa-icon name="flask" aria-hidden="true" class="icon-shrink"></wa-icon>
         </a>
-        {{ proBadge() }}
+        {{ proBadge({ shrink: true }) }}
       </span>
     </li>
   </ul>
@@ -206,7 +206,7 @@
     <li>
       <span class="wa-split">
         <a href="/docs/patterns/app/">App</a>
-        {{ proBadge() }}
+        {{ proBadge({ shrink: true }) }}
       </span>
       <ul>
         <li>
@@ -252,7 +252,7 @@
     <li>
       <span class="wa-split">
         <a href="/docs/patterns/blog-news/">Blog &amp; News</a>
-        {{ proBadge() }}
+        {{ proBadge({ shrink: true }) }}
       </span>
       <ul>
       <li>
@@ -314,7 +314,7 @@
     <li>
       <span class="wa-split">
         <a href="/docs/patterns/ecommerce/">Ecommerce</a>
-        {{ proBadge() }}
+        {{ proBadge({ shrink: true }) }}
       </span>
       <ul>
         <li>
@@ -355,7 +355,7 @@
     <li>
       <span class="wa-split">
         <a href="/docs/patterns/layouts/">Layouts</a>
-        {{ proBadge() }}
+        {{ proBadge({ shrink: true }) }}
       </span>
       <ul>
         <li>
@@ -380,7 +380,7 @@
   <li>
     <span class="wa-split">
       <a href="/themer" data-turbo="false">Theme Builder</a>
-      {{ proBadge("This requires an active Web Awesome Pro subscription") }}
+      {{ proBadge({ description: "This requires an active Web Awesome Pro subscription", shrink: true }) }}
     </span>
   </li>
 </ul>
