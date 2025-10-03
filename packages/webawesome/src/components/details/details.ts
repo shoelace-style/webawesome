@@ -297,9 +297,9 @@ export default class WaDetails extends WebAwesomeElement {
 
         <div
           class=${classMap({
-      body: true,
-      animating: this.isAnimating,
-    })}
+            body: true,
+            animating: this.isAnimating,
+          })}
           role="region"
           aria-labelledby="header"
         >
