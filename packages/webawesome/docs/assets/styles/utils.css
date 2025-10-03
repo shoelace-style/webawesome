@@ -155,5 +155,10 @@
   wa-icon.icon-embiggen {
     font-size: round(1.125em, 1px);
   }
+
+  /* decreasing visual size of icons in certain contexts (such as in sidebar nav) */
+  wa-icon.icon-shrink {
+    font-size: round(0.875em, 1px);
+  }
   /* #endregion */
 }
