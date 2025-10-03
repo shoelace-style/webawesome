@@ -1,5 +1,5 @@
 // cspell:dictionaries lorem-ipsum
-import { expect, waitUntil, aTimeout } from '@open-wc/testing';
+import { expect, waitUntil } from '@open-wc/testing';
 import { html } from 'lit';
 import sinon from 'sinon';
 import type { WaHideEvent } from '../../events/hide.js';
