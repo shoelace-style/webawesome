@@ -88,6 +88,7 @@
   /* planned badge */
   wa-badge.planned {
     background-color: var(--wa-color-neutral-fill-quiet);
+    color: var(--wa-color-neutral-on-quiet);
 
     + wa-tooltip {
       font-size: var(--wa-font-size-xs);

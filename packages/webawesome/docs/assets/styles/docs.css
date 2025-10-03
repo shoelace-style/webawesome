@@ -220,7 +220,7 @@ wa-button.delete {
 
 /* planned sidebar item */
 .is-planned {
-  color: var(--wa-color-neutral-50);
+  color: var(--wa-color-text-quiet);
 }
 
 #sidebar-close-button {
