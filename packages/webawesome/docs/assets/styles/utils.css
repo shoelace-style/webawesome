@@ -1,0 +1,149 @@
+/* Monorepo Styles
+* These styles include elements that are shared across this repo as well as others included in the Web Awesome monorepo
+ */
+
+@layer wa-utils {
+  :root {
+    /* max-width for fixed width app-based pages
+     * We round() these to avoid obscure component rendering bugs caused by widths with fractional pixels */
+    --content-width-l: round(up, 132ch, 1px);
+    --content-width-m: round(up, 110ch, 1px);
+    --content-width-s: round(up, 80ch, 1px);
+    --content-width-xs: round(up, 50ch, 1px);
+    --content-padding-inline: 4ch;
+    --content-flow-spacing: 8ch;
+
+    --line-length-xs: 30ch;
+    --line-length-s: 45ch;
+    --line-length-m: 66ch;
+    --line-length-l: 77ch;
+    --line-length-xl: 90ch;
+    --line-length-none: none;
+  }
+
+  /* #region brand utilities */
+  .logo-webawesome {
+    color: var(--wa-brand-orange);
+  }
+  /* #endregion */
+
+  /* #region layout utilities */
+  .content-container {
+    margin-inline: auto;
+    max-width: var(--max-width, var(--content-width-l));
+    padding-inline: var(--content-padding-inline);
+  }
+  /* #endregion */
+
+  /* #region Text utilities */
+  .text-truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* line-length */
+  .line-length {
+    max-width: var(--line-length, none);
+  }
+
+  .line-length-xs {
+    --line-length: var(--line-length-xs);
+  }
+  .line-length-s {
+    --line-length: var(--line-length-s);
+  }
+  .line-length-m {
+    --line-length: var(--line-length-m);
+  }
+  .line-length-l {
+    --line-length: var(--line-length-l);
+  }
+  .line-length-xl {
+    --line-length: var(--line-length-xl);
+  }
+  .line-length-none {
+    --line-length: none;
+  }
+  /* #endregion */
+
+  /* #region shared UI */
+  /* pro badge */
+  wa-badge.pro {
+    color: white;
+    background-color: var(--wa-brand-orange);
+    border-color: var(--wa-brand-orange);
+    text-transform: uppercase;
+
+    + wa-tooltip {
+      font-size: var(--wa-font-size-xs);
+      --max-width: unset;
+    }
+  }
+
+  /* search trigger */
+  wa-button#search-trigger {
+    &::part(base) {
+      background-color: var(--wa-form-control-background-color);
+      border: var(--wa-form-control-border-width) var(--wa-form-control-border-style)
+        var(--wa-form-control-border-color);
+      box-shadow: none;
+    }
+    &::part(label) {
+      text-align: start;
+      width: 100%;
+    }
+  }
+  #search-trigger kbd {
+    font-size: var(--wa-font-size-2xs);
+    line-height: var(--wa-form-control-value-line-height);
+    padding-inline: 0.33em;
+  }
+  /* #endregion */
+
+  /* #region funsies */
+  /* buttons with icon toggle on hover */
+  wa-button .icon-hover {
+    display: none;
+  }
+  wa-button:hover .icon-default {
+    display: none;
+  }
+  wa-button:hover .icon-hover {
+    display: inline-flex;
+  }
+  /* #endregion */
+
+  /* #region resets */
+  code.appearance-plain {
+    background: transparent;
+    border: none;
+  }
+
+  a.appearance-plain {
+    --wa-color-text-link: var(--wa-color-text-normal);
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  ul,
+  ol {
+    &.appearance-plain {
+      list-style: none;
+      padding-inline-start: 0;
+
+      li {
+        padding-inline-start: 0;
+      }
+    }
+  }
+
+  /* increasing visual size of icons in certain contexts (such as in plain buttons) */
+  wa-icon.icon-embiggen {
+    font-size: round(1.125em, 1px);
+  }
+  /* #endregion */
+}

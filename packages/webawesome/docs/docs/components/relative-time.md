@@ -8,7 +8,7 @@ category: Utilities
 Localization is handled by the browser's [`Intl.RelativeTimeFormat` API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/RelativeTimeFormat). No language packs are required.
 
 ```html {.example}
-<!-- Web Awesome 2 release date 🎉 -->
+<!-- Shoelace 2 release date 🎉 -->
 <wa-relative-time date="2020-07-15T09:17:00-04:00"></wa-relative-time>
 ```
 

@@ -11,7 +11,6 @@ export function SimulateWebAwesomeApp(str) {
     },
     server: {
       head: '',
-      loginOrAvatar: '',
       flashes: '',
     },
   });

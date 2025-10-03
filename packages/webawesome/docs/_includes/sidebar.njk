@@ -1,9 +1,6 @@
 {# Search #}
-<wa-button id="search-trigger" appearance="outlined" size="small" data-search>
-  <wa-icon slot="start" name="magnifying-glass"></wa-icon>
-  Search
-  <kbd slot="end" class="wa-desktop-only">/</kbd>
-</wa-button>
+{% include "search-trigger-button.njk" %}
+{% from "pro-badge.njk" import proBadge %}
 
 {# Getting started #}
 <h2>Getting Started</h2>
@@ -25,6 +22,9 @@
   <li><a href="/docs/resources/browser-support">Browser Support</a></li>
   <li><a href="/docs/resources/contributing">Contributing</a></li>
   <li><a href="/docs/resources/changelog">Changelog</a></li>
+  <li><a href="/license"><span class="wa-visually-hidden">Web Awesome </span>Free License</a></li>
+  <li><a href="/license/pro"><span class="wa-visually-hidden">Web Awesome </span>Pro License</a></li>
+  <li><a href="/tos">Terms of Service</a></li>
   <li><a href="/docs/resources/visual-tests">Visual Tests</a></li>
 </ul>
 
@@ -42,7 +42,7 @@
         <a class="wa-cluster wa-gap-xs" href="/docs/components/page/">
           Page <wa-icon name="flask" aria-hidden="true"></wa-icon>
         </a>
-        <wa-badge class="pro" appearance="accent" attention="none">PRO</wa-badge>
+        {{ proBadge() }}
       </span>
     </li>
     <li><a href="/docs/components/animated-image/">Animated Image</a></li>
@@ -183,7 +183,7 @@
         <a class="wa-cluster wa-gap-xs" href="/docs/components/page/">
           Page <wa-icon name="flask" aria-hidden="true"></wa-icon>
         </a>
-        <wa-badge class="pro" appearance="accent" attention="none">PRO</wa-badge>
+        {{ proBadge() }}
       </span>
     </li>
   </ul>
@@ -201,7 +201,7 @@
     <li>
       <span class="wa-split">
         <a href="/docs/patterns/app/">App</a>
-        <wa-badge class="pro" appearance="accent" attention="none">PRO</wa-badge>
+        {{ proBadge() }}
       </span>
       <ul>
         <li>
@@ -247,7 +247,7 @@
     <li>
       <span class="wa-split">
         <a href="/docs/patterns/blog-news/">Blog &amp; News</a>
-        <wa-badge class="pro" appearance="accent" attention="none">PRO</wa-badge>
+        {{ proBadge() }}
       </span>
       <ul>
       <li>
@@ -309,7 +309,7 @@
     <li>
       <span class="wa-split">
         <a href="/docs/patterns/ecommerce/">Ecommerce</a>
-        <wa-badge class="pro" appearance="accent" attention="none">PRO</wa-badge>
+        {{ proBadge() }}
       </span>
       <ul>
         <li>
@@ -350,7 +350,7 @@
     <li>
       <span class="wa-split">
         <a href="/docs/patterns/layouts/">Layouts</a>
-        <wa-badge class="pro" appearance="accent" attention="none">PRO</wa-badge>
+        {{ proBadge() }}
       </span>
       <ul>
         <li>
@@ -375,7 +375,7 @@
   <li>
     <span class="wa-split">
       <a href="/themer" data-turbo="false">Theme Builder</a>
-      <wa-badge class="pro" appearance="accent" attention="none">PRO</wa-badge>
+      {{ proBadge("This requires an active Web Awesome Pro subscription") }}
     </span>
   </li>
 </ul>
@@ -399,3 +399,37 @@
     <li><a href="/docs/tokens/component-groups/">Component Groups</a></li>
   </ul>
 </wa-details>
+
+<wa-divider style="--spacing: var(--wa-space-xl);"></wa-divider>
+
+<div class="wa-stack wa-gap-xl" id="colophon">
+  <div class="wa-stack wa-gap-xs">
+    {% include "logo-simple.njk" %}
+    <div class="wa-cluster wa-gap-xs">
+      <h2 class="wa-heading-xs">Web Awesome</h2>
+      <wa-badge id="version-beta-badge" variant="orange" appearance="filled" style="font-size: var(--wa-font-size-2xs);">Beta</wa-badge>
+      <wa-tooltip for="version-beta-badge" distance="2" style="font-size: var(--wa-font-size-xs);">Here be freshly made Awesome&hellip; and possible dragons</wa-tooltip>
+    </div>
+    <p class="wa-caption-s">Version {{ package.version }}</p>
+    <p class="wa-caption-s">&copy; Fonticons, Inc.</p>
+  </div>
+
+  <div class="wa-cluster wa-gap-0 wa-caption-s the-socials">
+    <h2 class="wa-visually-hidden">Web Awesome Elsewhere</h2>
+    <a href="https://github.com/shoelace-style/webawesome" rel="noopener noreferrer" target="_blank" class="appearance-plain">
+      <wa-icon family="brands" name="github" label="GitHub"></wa-icon>
+    </a>
+    <a href="https://bsky.app/profile/webawesome.com" rel="noopener noreferrer" target="_blank" class="appearance-plain">
+      <wa-icon family="brands" name="bluesky" label="Bluesky"></wa-icon>
+    </a>
+    <a href="https://mastodon.social/@webawesome" rel="noopener noreferrer" target="_blank" class="appearance-plain">
+      <wa-icon family="brands" name="mastodon" label="Mastodon"></wa-icon>
+    </a>
+    <a href="https://x.com/webawesomer" rel="noopener noreferrer" target="_blank" class="appearance-plain">
+      <wa-icon family="brands" name="x-twitter" label="Twitter (X)"></wa-icon>
+    </a>
+    <a href="https://www.threads.com/@web.awesome" rel="noopener noreferrer" target="_blank" class="appearance-plain">
+      <wa-icon family="brands" name="threads" label="Threads"></wa-icon>
+    </a>
+  </div>
+</div>

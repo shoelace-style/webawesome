@@ -175,6 +175,15 @@
   padding: var(--spacing);
   overflow: auto;
   -webkit-overflow-scrolling: touch;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: var(--wa-focus-ring);
+    outline-offset: var(--wa-focus-ring-offset);
+  }
 }
 
 .footer {

@@ -1,3 +1,6 @@
+@import url('utilities/size.css');
+@import url('utilities/variants.css');
+
 @layer wa-native {
   /* #region General ~~~~~~~~~~~~~~~~~~~~~~~~~ */
   html {
