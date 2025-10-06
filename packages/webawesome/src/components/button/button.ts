@@ -181,7 +181,7 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
     [...nodes].forEach(node => {
       if (node.nodeType === Node.ELEMENT_NODE && (node as HTMLElement).localName === 'wa-icon') {
         hasIcon = true;
-        if (!hasIconLabel) hasIconLabel = (node as HTMLElement).hasAttribute('label');
+        if (!hasIconLabel) hasIconLabel = (node as HTMLElement).label !== undefined;
       }
 
       // Concatenate text nodes
