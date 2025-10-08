@@ -465,7 +465,7 @@ export default class WaDropdown extends WebAwesomeElement {
 
   /** Handles clicks on the menu. */
   private handleMenuClick(event: MouseEvent) {
-    const item = (event.target as Element).closest(this.dropdownItemTag);
+    const item = (event.target as Element).closest(this.dropdownItemTag) as WaDropdownItem;
 
     if (!item || item.disabled) return;
 
@@ -530,17 +530,19 @@ export default class WaDropdown extends WebAwesomeElement {
 
     const submenuSlot = item.submenuElement.querySelector('slot[name="submenu"]');
     if (submenuSlot) {
-      submenuSlot.removeEventListener('slotchange', WaDropdown.handleSubmenuSlotChange);
-      submenuSlot.addEventListener('slotchange', WaDropdown.handleSubmenuSlotChange);
-      WaDropdown.handleSubmenuSlotChange({ target: submenuSlot } as unknown as Event);
+      submenuSlot.removeEventListener('slotchange', WaDropdown.handleSubmenuSlotChange as EventListener);
+      submenuSlot.addEventListener('slotchange', (event: Event) => {
+        WaDropdown.handleSubmenuSlotChange(event, this.dropdownItemTag);
+      });
+      WaDropdown.handleSubmenuSlotChange({ target: submenuSlot } as unknown as Event, this.dropdownItemTag);
     }
   }
 
-  private static handleSubmenuSlotChange(event: Event) {
+  private static handleSubmenuSlotChange(event: Event, dropdownItemTag: string) {
     const slot = event.target as HTMLSlotElement;
     if (!slot) return;
 
-    const items = slot.assignedElements().filter(el => el.localName === this.dropdownItemTag) as WaDropdownItem[];
+    const items = slot.assignedElements().filter(el => el.localName === dropdownItemTag) as WaDropdownItem[];
 
     if (items.length === 0) return;
 
