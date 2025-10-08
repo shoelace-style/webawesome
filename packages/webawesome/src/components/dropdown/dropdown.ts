@@ -68,10 +68,10 @@ export default class WaDropdown extends WebAwesomeElement {
   @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
 
   /** The tag name of the dropdown element. Needs to be set if a custom dropdown element is used */
-  @property({ attribute: "tag" }) dropdownTag = 'wa-dropdown';
+  @property({ attribute: 'tag' }) dropdownTag = 'wa-dropdown';
 
   /** The tag name of the dropdown item element. Needs to be set if a custom dropdown item element is used */
-  @property({ attribute: "item-tag" }) dropdownItemTag = 'wa-dropdown-item';
+  @property({ attribute: 'item-tag' }) dropdownItemTag = 'wa-dropdown-item';
 
   /**
    * The placement of the dropdown menu in reference to the trigger. The menu will shift to a more optimal location if
@@ -530,13 +530,15 @@ export default class WaDropdown extends WebAwesomeElement {
 
     const submenuSlot = item.submenuElement.querySelector('slot[name="submenu"]');
     if (submenuSlot) {
-      submenuSlot.removeEventListener('slotchange', WaDropdown.handleSubmenuSlotChange as EventListener);
-      submenuSlot.addEventListener('slotchange', (event: Event) => {
-        WaDropdown.handleSubmenuSlotChange(event, this.dropdownItemTag);
-      });
-      WaDropdown.handleSubmenuSlotChange({ target: submenuSlot } as unknown as Event, this.dropdownItemTag);
+      submenuSlot.removeEventListener('slotchange', this._onSubmenuSlotChange);
+      submenuSlot.addEventListener('slotchange', this._onSubmenuSlotChange);
+      this._onSubmenuSlotChange({ target: submenuSlot } as unknown as Event);
     }
   }
+
+  private _onSubmenuSlotChange = (event: Event) => {
+    WaDropdown.handleSubmenuSlotChange(event, this.dropdownItemTag);
+  };
 
   private static handleSubmenuSlotChange(event: Event, dropdownItemTag: string) {
     const slot = event.target as HTMLSlotElement;
