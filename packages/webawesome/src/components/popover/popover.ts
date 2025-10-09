@@ -116,9 +116,7 @@ export default class WaPopover extends WebAwesomeElement {
   firstUpdated() {
     // If the popover is visible on init, update its position
     if (this.open) {
-      this.dialog.show();
-      this.popup.active = true;
-      this.popup.reposition();
+      this.handleOpenChange();
     }
   }
 
@@ -202,6 +200,10 @@ export default class WaPopover extends WebAwesomeElement {
           this.dialog.focus();
         }
       });
+
+      if (!this.popup.popup) {
+        await this.popup.updateComplete;
+      }
 
       await animateWithClass(this.popup.popup, 'show-with-scale');
       this.popup.reposition();
