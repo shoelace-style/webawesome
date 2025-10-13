@@ -192,7 +192,7 @@ Web Awesome ships with a file called `vscode.html-custom-data.json` that can be 
 }
 ```
 
-If settings.json already exists, simply add the above line to the root of the object. Note that you may need to restart VS Code for the changes to take effect.
+If `settings.json` already exists, simply add the above line to the root of the object. Note that you may need to restart VS Code for the changes to take effect.
 
 If you are using WebAwesome through the [CDN](/docs/#quick-start-autoloading-via-cdn) you can also manually download the `vscode.html-custom-data.json` file here: [{% cdnUrl 'vscode.html-custom-data.json' %}]({% cdnUrl 'vscode.html-custom-data.json' %})
 
