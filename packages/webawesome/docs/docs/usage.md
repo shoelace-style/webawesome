@@ -211,6 +211,7 @@ If you are installing from the CDN, you can [download a local copy]({% cdnUrl 'w
 
 If you are using types from multiple projects, you can add an array of references.
 
+```json
 {
   ...
   "web-types": [
@@ -219,6 +220,7 @@ If you are using types from multiple projects, you can add an array of reference
   ]
   ...
 }
+```
 
 ### Other Editors
 Most popular editors support custom code completion with a bit of configuration. Please [submit a feature request](https://github.com/shoelace-style/webawesome/issues/new/choose) for your editor of choice. PRs are also welcome!
