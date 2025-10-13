@@ -201,11 +201,13 @@ If you are using a [JetBrains IDE](https://www.jetbrains.com/) and you are insta
 
 If you are installing from the CDN, you can [download a local copy]({% cdnUrl 'web-types.json' %}) and add it to the root of your project. Be sure to add a reference to the web-types.json file in your package.json in order for your editor to properly detect it.
 
+```json
 {
   ...
   "web-types": "./web-types.json"
   ...
 }
+```
 
 If you are using types from multiple projects, you can add an array of references.
 
