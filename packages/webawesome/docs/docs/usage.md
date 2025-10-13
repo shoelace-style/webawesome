@@ -178,6 +178,7 @@ To wait for multiple components to update, you can use `requestAnimationFrame()`
 ## Code Completion
 
 ### VS Code
+
 Web Awesome ships with a file called `vscode.html-custom-data.json` that can be used to describe its custom elements to [Visual Studio Code](https://code.visualstudio.com/). This enables code completion for Web Awesome components (also known as “code hinting” or “IntelliSense”). To enable it, you need to tell VS Code where the file is.
 
 1. [Install Web Awesome locally](/docs/#installing-via-npm)
