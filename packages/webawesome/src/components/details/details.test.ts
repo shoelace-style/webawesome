@@ -26,7 +26,7 @@ describe('<wa-details>', () => {
 
       it('should reflect the name property', async () => {
         const el = await fixture<WaDetails>(html`<wa-details></wa-details>`);
-        el.name = 'test'
+        el.name = 'test';
         await el.updateComplete;
         expect(el.getAttribute('name')).to.equal('test');
       });
