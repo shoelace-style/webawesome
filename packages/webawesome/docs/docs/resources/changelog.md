@@ -13,9 +13,13 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 ## Next
 
 - Added the Kazakh translation [pr:1496]
+- Added docs for code completion for VS Code and JetBrains [pr:1550]
+- Added back the missing `form-control-label` part to `<wa-textarea>` for consistency with other form controls [pr:1533]
 - Fixed a bug in `<wa-button>` where slotted badges weren't properly positioned in buttons with an `href` [issue:1377]
 - Fixed focus outline styles in `<wa-details>` and native `<details>` [issue:1456]
 - Fixed focus outline styles in `<wa-scroller>`, `<wa-dialog>`, and `<wa-drawer>` [issue:1484]
+- Fixed a bug that caused icon button labels to not render in frameworks [issue:1542]
+- Fixed a bug in `<wa-details>` that caused the `name` property not to reflect [pr:1538]
 
 ## 3.0.0-beta.6
 
