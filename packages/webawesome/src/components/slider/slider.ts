@@ -99,7 +99,6 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
   @query('#thumb-max') thumbMax: HTMLElement;
   @query('#track') track: HTMLElement;
   @query('#tooltip') tooltip: WaTooltip;
-  @queryAll('wa-tooltip') tooltips: NodeListOf<WaTooltip>;
 
   /**
    * The slider's label. If you need to provide HTML in the label, use the `label` slot instead.
@@ -688,19 +687,29 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
   }
 
   private showRangeTooltips() {
-    if (this.withTooltip) {
-      this.tooltips.forEach(tooltip => {
-        tooltip.open = true;
-      });
+    if (!this.withTooltip) return;
+
+    // Show only the active tooltip, hide the other
+    const tooltipMin = this.shadowRoot?.querySelector('#tooltip-thumb-min') as WaTooltip;
+    const tooltipMax = this.shadowRoot?.querySelector('#tooltip-thumb-max') as WaTooltip;
+
+    if (this.activeThumb === 'min') {
+      if (tooltipMin) tooltipMin.open = true;
+      if (tooltipMax) tooltipMax.open = false;
+    } else if (this.activeThumb === 'max') {
+      if (tooltipMax) tooltipMax.open = true;
+      if (tooltipMin) tooltipMin.open = false;
     }
   }
 
   private hideRangeTooltips() {
-    if (this.withTooltip) {
-      this.tooltips.forEach(tooltip => {
-        tooltip.open = false;
-      });
-    }
+    if (!this.withTooltip) return;
+
+    const tooltipMin = this.shadowRoot?.querySelector('#tooltip-thumb-min') as WaTooltip;
+    const tooltipMax = this.shadowRoot?.querySelector('#tooltip-thumb-max') as WaTooltip;
+
+    if (tooltipMin) tooltipMin.open = false;
+    if (tooltipMax) tooltipMax.open = false;
   }
 
   /** Updates the form value submission for range sliders */

@@ -20,6 +20,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed focus outline styles in `<wa-scroller>`, `<wa-dialog>`, and `<wa-drawer>` [issue:1484]
 - Fixed a bug that caused icon button labels to not render in frameworks [issue:1542]
 - Fixed a bug in `<wa-details>` that caused the `name` property not to reflect [pr:1538]
+- Modified `<wa-slider>` to only show the tooltip on the handle being dragged when in range mode [issue:1320]
 
 ## 3.0.0-beta.6
 
