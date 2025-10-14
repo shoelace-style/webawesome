@@ -84,7 +84,7 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
   @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
 
   /** The textarea's visual appearance. */
-  @property({ reflect: true }) appearance: 'filled' | 'outlined' = 'outlined';
+  @property({ reflect: true }) appearance: 'filled' | 'outlined' | 'filled-outlined' = 'outlined';
 
   /** The textarea's label. If you need to display HTML, use the `label` slot instead. */
   @property() label = '';

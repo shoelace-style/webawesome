@@ -108,7 +108,7 @@ Use the `appearance` attribute to change the element’s visual appearance.
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
     aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
   </wa-details>
-  <wa-details summary="Filled + Outlined" appearance="filled outlined">
+  <wa-details summary="Filled + Outlined" appearance="filled-outlined">
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
     aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
   </wa-details>

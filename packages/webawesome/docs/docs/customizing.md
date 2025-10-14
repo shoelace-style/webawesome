@@ -10,7 +10,7 @@ You can customize the look and feel of Web Awesome at a high level with themes. 
 
 Web Awesome uses [themes](/docs/themes) to apply a cohesive look and feel across the entire library. Themes are built with a collection of predefined CSS custom properties, which we call [design tokens](/docs/tokens), and there are many premade themes you can choose from.
 
-To use a theme, simply add a link to the theme's stylesheet to the `<head>` of your page. For example, you can add this snippet alongside th [installation code](/docs/#quick-start-autoloading-via-cdn) to use the *Awesome* theme:
+To use a theme, simply add a link to the theme's stylesheet to the `<head>` of your page. For example, you can add this snippet alongside th [installation code](/docs/#quick-start-autoloading-via-cdn) to use the _Awesome_ theme:
 
 ```html
 <link rel="stylesheet" href="{% cdnUrl 'styles/themes/awesome.css' %}" />
@@ -87,7 +87,7 @@ Custom states can be combined with CSS parts and custom properties to create sop
 
 CSS parts offer further flexibility to customize individual components. The "parts" exposed by each component can be targeted with the [CSS part selector](https://developer.mozilla.org/en-US/docs/Web/CSS/::part), or `::part()`.
 
-Parts allow you to style *any* standard CSS property, not just those exposed through custom properties. Here's an example that modifies buttons with the `gradient-button` class.
+Parts allow you to style _any_ standard CSS property, not just those exposed through custom properties. Here's an example that modifies buttons with the `gradient-button` class.
 
 ```html {.example}
 <wa-button class="gradient-button"> Gradient Button </wa-button>
@@ -96,7 +96,9 @@ Parts allow you to style *any* standard CSS property, not just those exposed thr
   .gradient-button::part(base) {
     background: linear-gradient(217deg, var(--wa-color-indigo-50), var(--wa-color-purple-50), var(--wa-color-red-50));
     border: solid 1px var(--wa-color-purple-50);
-    transition: transform 100ms, box-shadow 100ms;
+    transition:
+      transform 100ms,
+      box-shadow 100ms;
   }
 
   .gradient-button::part(base):hover {
@@ -131,6 +133,7 @@ Most (but not all) components expose parts. You can find them in each component'
 If you're using [native styles](/docs/utilities/native), any custom styles added for a component should also target the corresponding native element. In general, the same styles you declare for components will work just the same to style their native counterparts.
 
 For example, we can give `<input type="checkbox">` the same custom styles as `<wa-checkbox>` by using the custom properties required to style the component:
+
 ```html {.example}
 <wa-checkbox class="pinkify">Web Awesome checkbox</wa-checkbox>
 <br />
@@ -141,7 +144,7 @@ For example, we can give `<input type="checkbox">` the same custom styles as `<w
 
 <style>
   wa-checkbox.pinkify,
-  input[type="checkbox"].pinkify {
+  input[type='checkbox'].pinkify {
     --background-color-checked: hotpink;
     --border-color-checked: hotpink;
     --border-width: 3px;
@@ -151,6 +154,7 @@ For example, we can give `<input type="checkbox">` the same custom styles as `<w
 ```
 
 Or, if using CSS parts, we can give both checkboxes the same custom styles using standard CSS properties:
+
 ```html {.example}
 <wa-checkbox class="purpleify">Web Awesome checkbox</wa-checkbox>
 <br />
@@ -161,12 +165,12 @@ Or, if using CSS parts, we can give both checkboxes the same custom styles using
 
 <style>
   wa-checkbox.purpleify::part(control),
-  input[type="checkbox"].purpleify {
+  input[type='checkbox'].purpleify {
     border-width: 3px;
   }
 
   wa-checkbox.purpleify:state(checked)::part(control),
-  input[type="checkbox"].purpleify:checked {
+  input[type='checkbox'].purpleify:checked {
     background-color: darkorchid;
     border-color: darkorchid;
     color: lavender;
@@ -174,14 +178,14 @@ Or, if using CSS parts, we can give both checkboxes the same custom styles using
 </style>
 ```
 
-
 ## Style Utilities
 
 Similarly, if you're using [style utilities](/docs/utilities), any custom styles added for a specific attribute variation of a component — such as `appearance`, `variant`, or `size` — should also target the corresponding style utility class. This ensures that the attribute and its utility class counterpart work interchangeably.
 
 For example, we can give all outlined callouts a thick left border, regardless of whether they are styled with `appearance="outlined"` or `class="wa-outlined"`:
+
 ```html {.example}
-<wa-callout appearance="outlined filled">
+<wa-callout appearance="filled-outlined">
   <wa-icon slot="icon" name="circle-star"></wa-icon>
   Here's a callout with <code>appearance="outlined"</code>
 </wa-callout>
@@ -191,7 +195,7 @@ For example, we can give all outlined callouts a thick left border, regardless o
 </wa-callout>
 
 <style>
-  wa-callout:is([appearance~="outlined"]) {
+  wa-callout:is([appearance~='outlined']) {
     border-left-width: var(--wa-panel-border-radius);
   }
 </style>

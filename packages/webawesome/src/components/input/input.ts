@@ -111,7 +111,7 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
   @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
 
   /** The input's visual appearance. */
-  @property({ reflect: true }) appearance: 'filled' | 'outlined' = 'outlined';
+  @property({ reflect: true }) appearance: 'filled' | 'outlined' | 'filled-outlined' = 'outlined';
 
   /** Draws a pill-style input with rounded edges. */
   @property({ type: Boolean, reflect: true }) pill = false;
