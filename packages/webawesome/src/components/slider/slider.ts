@@ -1,6 +1,6 @@
 import type { PropertyValues } from 'lit';
 import { html } from 'lit';
-import { customElement, property, query, queryAll, state } from 'lit/decorators.js';
+import { customElement, property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { DraggableElement } from '../../internal/drag.js';
 import { clamp } from '../../internal/math.js';
