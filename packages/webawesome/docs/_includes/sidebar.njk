@@ -410,12 +410,12 @@
 <div class="wa-stack wa-gap-xl" id="colophon">
   <div class="wa-stack wa-gap-xs">
     {% include "logo-simple.njk" %}
-    <div class="wa-cluster wa-gap-xs">
-      <h2 class="wa-heading-xs">Web Awesome</h2>
-      <wa-badge id="version-beta-badge" variant="orange" appearance="filled" style="font-size: var(--wa-font-size-2xs);">Beta</wa-badge>
-      <wa-tooltip for="version-beta-badge" distance="2" style="font-size: var(--wa-font-size-xs);">Here be freshly made Awesome&hellip; and possible dragons</wa-tooltip>
-    </div>
-    <p class="wa-caption-s">Version {{ package.version }}</p>
+    <h2 class="wa-heading-xs">Web Awesome</h2>
+    <p class="wa-caption-s wa-cluster wa-gap-xs">
+      Version {{ package.version }}
+      <wa-icon id="version-icon-info" family="duotone" variant="regular" name="party-horn"></wa-icon>
+      <wa-tooltip for="version-icon-info" distance="2" style="font-size: var(--wa-font-size-xs);">Here be freshly launched Awesome and no wa-dragons</wa-tooltip>
+    </p>
     <p class="wa-caption-s">&copy; Fonticons, Inc.</p>
   </div>
 
