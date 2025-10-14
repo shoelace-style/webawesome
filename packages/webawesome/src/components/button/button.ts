@@ -11,6 +11,7 @@ import sizeStyles from '../../styles/utilities/size.css';
 import variantStyles from '../../styles/utilities/variants.css';
 import { LocalizeController } from '../../utilities/localize.js';
 import '../icon/icon.js';
+import type WaIcon from '../icon/icon.js';
 import '../spinner/spinner.js';
 import styles from './button.css';
 
@@ -179,9 +180,9 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
 
     // If there's only an icon and no text, it's an icon button
     [...nodes].forEach(node => {
-      if (node.nodeType === Node.ELEMENT_NODE && (node as HTMLElement).localName === 'wa-icon') {
+      if (node.nodeType === Node.ELEMENT_NODE && (node as WaIcon).localName === 'wa-icon') {
         hasIcon = true;
-        if (!hasIconLabel) hasIconLabel = (node as HTMLElement).hasAttribute('label');
+        if (!hasIconLabel) hasIconLabel = (node as WaIcon).label !== undefined;
       }
 
       // Concatenate text nodes

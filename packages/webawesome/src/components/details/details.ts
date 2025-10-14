@@ -70,7 +70,7 @@ export default class WaDetails extends WebAwesomeElement {
   @property() summary: string;
 
   /** Groups related details elements. When one opens, others with the same name will close. */
-  @property() name: string;
+  @property({ reflect: true }) name: string;
 
   /** Disables the details so it can't be toggled. */
   @property({ type: Boolean, reflect: true }) disabled = false;
