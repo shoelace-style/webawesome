@@ -52,7 +52,7 @@ To make a field required, use the `required` attribute. Required fields will aut
     customElements.whenDefined('wa-input'),
     customElements.whenDefined('wa-option'),
     customElements.whenDefined('wa-select'),
-    customElements.whenDefined('wa-textarea')
+    customElements.whenDefined('wa-textarea'),
   ]).then(() => {
     form.addEventListener('submit', event => {
       event.preventDefault();
@@ -78,10 +78,7 @@ To restrict a value to a specific [pattern](https://developer.mozilla.org/en-US/
   const form = document.querySelector('.input-validation-pattern');
 
   // Wait for controls to be defined before attaching form listeners
-  await Promise.all([
-    customElements.whenDefined('wa-button'),
-    customElements.whenDefined('wa-input')
-  ]).then(() => {
+  await Promise.all([customElements.whenDefined('wa-button'), customElements.whenDefined('wa-input')]).then(() => {
     form.addEventListener('submit', event => {
       event.preventDefault();
       alert('All fields are valid!');
@@ -108,10 +105,7 @@ Some input types will automatically trigger constraints, such as `email` and `ur
   const form = document.querySelector('.input-validation-type');
 
   // Wait for controls to be defined before attaching form listeners
-  await Promise.all([
-    customElements.whenDefined('wa-button'),
-    customElements.whenDefined('wa-input')
-  ]).then(() => {
+  await Promise.all([customElements.whenDefined('wa-button'), customElements.whenDefined('wa-input')]).then(() => {
     form.addEventListener('submit', event => {
       event.preventDefault();
       alert('All fields are valid!');
@@ -137,10 +131,7 @@ To create a custom validation error, pass a non-empty string to the `setCustomVa
   const input = form.querySelector('wa-input');
 
   // Wait for controls to be defined before attaching form listeners
-  await Promise.all([
-    customElements.whenDefined('wa-button'),
-    customElements.whenDefined('wa-input')
-  ]).then(() => {
+  await Promise.all([customElements.whenDefined('wa-button'), customElements.whenDefined('wa-input')]).then(() => {
     form.addEventListener('submit', event => {
       event.preventDefault();
       alert('All fields are valid!');
@@ -163,17 +154,15 @@ Custom validation can be applied to any form control that supports the `setCusto
 
 ## Custom Validation Styles
 
-Due to the many ways form controls are used, Web Awesome doesn't provide out of the box validation styles for form controls as part of its default theme. Instead, the following attributes will be applied to reflect a control's validity as users interact with it. You can use them to create custom styles for any of the validation states you're interested in.
+Due to the many ways form controls are used, Web Awesome doesn't provide out of the box validation styles for form controls as part of its default theme.
 
-- `required` - the form control is required
-- `optional` - the form control is optional
-- `invalid` - the form control is invalid
-- `valid` - the form control is valid
-- `user-invalid` - the form control is invalid and the user has interacted with it
-- `user-valid` - the form control is valid and the user has interacted with it
+Instead, the following [custom states](https://developer.mozilla.org/en-US/docs/Web/API/ElementInternals/states) will be applied to reflect a control's validity as users interact with it. You can use them to create custom styles for any of the validation states you're interested in.
 
-These attributes map to the browser's built-in pseudo classes for validation: [`:required`](https://developer.mozilla.org/en-US/docs/Web/CSS/:required), [`:optional`](https://developer.mozilla.org/en-US/docs/Web/CSS/:optional), [`:invalid`](https://developer.mozilla.org/en-US/docs/Web/CSS/:invalid), [`:valid`](https://developer.mozilla.org/en-US/docs/Web/CSS/:valid), [`:user-invalid`](https://developer.mozilla.org/en-US/docs/Web/CSS/:user-invalid), and [`:user-valid`](https://developer.mozilla.org/en-US/docs/Web/CSS/:user-valid).
+- `:state(required)` - the form control is required
+- `:state(optional)` - the form control is optional
+- `:state(invalid)` - the form control is invalid
+- `:state(valid)` - the form control is valid
+- `:state(user-invalid)` - the form control is invalid and the user has interacted with it
+- `:state(user-valid)` - the form control is valid and the user has interacted with it
 
-:::info
-In the future, data attribute selectors will be replaced with custom states such as `:state(valid)` and `:state(invalid)`. Web Awesome is using data attributes as a workaround until browsers fully support [custom states](https://developer.mozilla.org/en-US/docs/Web/API/ElementInternals/states).
-:::
+These custom states work alongside the browser's built-in pseudo classes for validation: [`:required`](https://developer.mozilla.org/en-US/docs/Web/CSS/:required), [`:optional`](https://developer.mozilla.org/en-US/docs/Web/CSS/:optional), [`:invalid`](https://developer.mozilla.org/en-US/docs/Web/CSS/:invalid), [`:valid`](https://developer.mozilla.org/en-US/docs/Web/CSS/:valid), [`:user-invalid`](https://developer.mozilla.org/en-US/docs/Web/CSS/:user-invalid), and [`:user-valid`](https://developer.mozilla.org/en-US/docs/Web/CSS/:user-valid).
