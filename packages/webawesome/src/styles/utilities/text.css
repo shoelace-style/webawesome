@@ -12,57 +12,73 @@
     text-wrap: balance;
   }
 
+  [class*='wa-caption'] {
+    color: var(--wa-color-text-quiet);
+    font-family: var(--wa-font-family-body);
+    font-weight: var(--wa-font-weight-body);
+    line-height: var(--wa-line-height-condensed);
+  }
+
   .wa-font-size-2xs,
   .wa-body-2xs,
-  .wa-heading-2xs {
+  .wa-heading-2xs,
+  .wa-caption-2xs {
     font-size: var(--wa-font-size-2xs);
   }
 
   .wa-font-size-xs,
   .wa-body-xs,
-  .wa-heading-xs {
+  .wa-heading-xs,
+  .wa-caption-xs {
     font-size: var(--wa-font-size-xs);
   }
 
   .wa-font-size-s,
   .wa-body-s,
-  .wa-heading-s {
+  .wa-heading-s,
+  .wa-caption-s {
     font-size: var(--wa-font-size-s);
   }
 
   .wa-font-size-m,
   .wa-body-m,
-  .wa-heading-m {
+  .wa-heading-m,
+  .wa-caption-m {
     font-size: var(--wa-font-size-m);
   }
 
   .wa-font-size-l,
   .wa-body-l,
-  .wa-heading-l {
+  .wa-heading-l,
+  .wa-caption-l {
     font-size: var(--wa-font-size-l);
   }
 
   .wa-font-size-xl,
   .wa-body-xl,
-  .wa-heading-xl {
+  .wa-heading-xl,
+  .wa-caption-xl {
     font-size: var(--wa-font-size-xl);
   }
 
   .wa-font-size-2xl,
   .wa-body-2xl,
-  .wa-heading-2xl {
+  .wa-heading-2xl,
+  .wa-caption-2xl {
     font-size: var(--wa-font-size-2xl);
   }
 
   .wa-font-size-3xl,
   .wa-body-3xl,
-  .wa-heading-3xl {
+  .wa-heading-3xl,
+  .wa-caption-3xl {
     font-size: var(--wa-font-size-3xl);
   }
 
   .wa-font-size-4xl,
   .wa-body-4xl,
-  .wa-heading-4xl {
+  .wa-heading-4xl,
+  .wa-caption-4xl {
     font-size: var(--wa-font-size-4xl);
   }
 
