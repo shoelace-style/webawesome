@@ -30,6 +30,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed a bug in `<wa-checkbox>` where its value would revert to `""` when checked / unchecked [pr:1547]
 - Fixed a bug that caused icon button labels to not render in frameworks [issue:1542]
 - Fixed a bug in `<wa-details>` that caused the `name` property not to reflect [pr:1538]
+- Modified `<wa-slider>` to only show the tooltip on the handle being dragged when in range mode [issue:1320]
 - Fixed a bug in `<wa-dialog>` and `<wa-drawer>` that prevented focus from being set on the dialog/drawer when opened [issue:1302]
 - Fixed an overflow style that was causing tab group content to be unnecessarily truncated [issue:1401]
 - Fixed a bug in `<wa-icon>` that caused icon buttons to render when non-text nodes were slotted in [issue:1475]
