@@ -210,6 +210,8 @@ export default class WaDrawer extends WebAwesomeElement {
       const elementToFocus = this.querySelector<HTMLButtonElement>('[autofocus]');
       if (elementToFocus && typeof elementToFocus.focus === 'function') {
         elementToFocus.focus();
+      } else {
+        this.drawer.focus();
       }
     });
 

@@ -4,7 +4,7 @@ description: Choose the installation method that works best for you.
 layout: page-outline
 ---
 
-Welcome to Web Awesome beta! [Learn more](https://webawesome.com/) about this project and [how to contribute to it](https://webawesome.com/docs/resources/contributing).
+Welcome to Web Awesome! [Learn more](https://webawesome.com/) about this project and [how to contribute to it](https://webawesome.com/docs/resources/contributing).
 
 - [Report a bug](https://github.com/shoelace-style/webawesome/issues)
 - [Get help / ask a question](https://github.com/shoelace-style/webawesome/discussions)

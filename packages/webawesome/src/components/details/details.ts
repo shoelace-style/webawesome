@@ -76,7 +76,7 @@ export default class WaDetails extends WebAwesomeElement {
   @property({ type: Boolean, reflect: true }) disabled = false;
 
   /** The element's visual appearance. */
-  @property({ reflect: true }) appearance: 'filled' | 'outlined' | 'plain' = 'outlined';
+  @property({ reflect: true }) appearance: 'filled' | 'outlined' | 'filled-outlined' | 'plain' = 'outlined';
 
   /** The location of the expand/collapse icon. */
   @property({ attribute: 'icon-placement', reflect: true }) iconPlacement: 'start' | 'end' = 'end';

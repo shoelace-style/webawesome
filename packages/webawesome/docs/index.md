@@ -182,25 +182,6 @@ layout: page
       }
     }
   }
-  .beta-notice {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    & > * {
-      flex-basis: calc(((30ch * 2 + 1rem) - 100%) * 999);
-    }
-    & > * {
-      flex-grow: 2;
-    }
-    & > * + * {
-      flex-grow: 1;
-    }
-    & wa-callout,
-    & wa-button::part(base) {
-      height: 100%;
-      width: 100%;
-    }
-  }
   wa-button.tile::part(base) {
     border-color: var(--wa-color-surface-border);
     border-radius: 0.75rem;
@@ -280,33 +261,18 @@ layout: page
 </div>
 
 <div class="home-wrapper">
-  <div class="beta-notice">
-    <div>
-      <wa-callout variant="brand">
-        <div class="wa-stack">
-          <div class="wa-cluster icon-heading">
-            <wa-icon name="sparkles" variant="regular"></wa-icon>
-            <h3>Bigger and beta than ever</h3>
-          </div>
-          <p>This beta is battle-tested and built to last, but if you see something, say something. Please <a href="https://github.com/shoelace-style/webawesome/issues">report bugs</a> or <a href="https://github.com/shoelace-style/webawesome/discussions">ask for help</a>!</p>
+  <wa-button href="/docs/" appearance="outlined" class="tile">
+    <div class="wa-stack">
+      <div class="wa-split">
+        <div class="wa-cluster icon-heading">
+          <wa-icon name="pen-ruler" class="brand-orange"></wa-icon>
+          <h3>Get started</h3>
         </div>
-      </wa-callout>
+        <wa-icon name="arrow-right"></wa-icon>
+      </div>
+      <p>Check out our installation guide to start building with Web Awesome.</p>
     </div>
-    <div>
-      <wa-button href="/docs/" appearance="outlined" class="tile">
-        <div class="wa-stack">
-          <div class="wa-split">
-            <div class="wa-cluster icon-heading">
-              <wa-icon name="pen-ruler" class="brand-orange"></wa-icon>
-              <h3>Get started</h3>
-            </div>
-            <wa-icon name="arrow-right"></wa-icon>
-          </div>
-          <p>Check out our installation guide to start building with Web Awesome.</p>
-        </div>
-      </wa-button>
-    </div>
-  </div>
+  </wa-button>
   <wa-divider></wa-divider>
   <div class="summary">
     <h2 class="brand-font">What's <span class="emphasis">Web</span> Awesome?</h2>
