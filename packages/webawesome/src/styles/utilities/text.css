@@ -83,6 +83,22 @@
     font-size: var(--wa-font-size-4xl);
   }
 
+  .wa-font-weight-light {
+    font-weight: var(--wa-font-weight-light);
+  }
+
+  .wa-font-weight-normal {
+    font-weight: var(--wa-font-weight-normal);
+  }
+
+  .wa-font-weight-semibold {
+    font-weight: var(--wa-font-weight-semibold);
+  }
+
+  .wa-font-weight-bold {
+    font-weight: var(--wa-font-weight-bold);
+  }
+
   .wa-color-text-normal {
     color: var(--wa-color-text-normal);
   }
