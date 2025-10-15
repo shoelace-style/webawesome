@@ -1,4 +1,5 @@
 @layer wa-utilities {
+  /* #region General ~~~~~ */
   [class*='wa-body'] {
     font-family: var(--wa-font-family-body);
     font-weight: var(--wa-font-weight-body);
@@ -105,26 +106,9 @@
   .wa-color-text-quiet {
     color: var(--wa-color-text-quiet);
   }
+  /* #endregion */
 
-  .wa-form-control-label {
-    color: var(--wa-form-control-label-color);
-    font-weight: var(--wa-form-control-label-font-weight);
-    line-height: var(--wa-form-control-label-line-height);
-  }
-
-  .wa-form-control-value {
-    color: var(--wa-form-control-value-color);
-    font-weight: var(--wa-form-control-value-font-weight);
-    line-height: var(--wa-form-control-value-line-height);
-  }
-
-  .wa-form-control-hint {
-    color: var(--wa-form-control-hint-color);
-    font-weight: var(--wa-form-control-hint-font-weight);
-    font-size: var(--wa-font-size-smaller);
-    line-height: var(--wa-form-control-label-line-height);
-  }
-
+  /* #region Links ~~~~~~~ */
   .wa-link {
     color: var(--wa-color-text-link);
     text-decoration: var(--wa-link-decoration-default);
@@ -150,4 +134,26 @@
       }
     }
   }
+  /* #endregion */
+
+  /* #region Form Controls */
+  .wa-form-control-label {
+    color: var(--wa-form-control-label-color);
+    font-weight: var(--wa-form-control-label-font-weight);
+    line-height: var(--wa-form-control-label-line-height);
+  }
+
+  .wa-form-control-value {
+    color: var(--wa-form-control-value-color);
+    font-weight: var(--wa-form-control-value-font-weight);
+    line-height: var(--wa-form-control-value-line-height);
+  }
+
+  .wa-form-control-hint {
+    color: var(--wa-form-control-hint-color);
+    font-weight: var(--wa-form-control-hint-font-weight);
+    font-size: var(--wa-font-size-smaller);
+    line-height: var(--wa-form-control-label-line-height);
+  }
+  /* #endregion */
 }
