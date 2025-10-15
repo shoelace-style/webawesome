@@ -24,34 +24,34 @@ The default appearance is `filled-outlined`.
 <div class="wa-stack">
   <p>
     <wa-tag variant="brand" appearance="accent">Accent</wa-tag>
-    <wa-tag variant="brand" appearance="filled-outlined">Filled + Outlined</wa-tag>
+    <wa-tag variant="brand" appearance="filled-outlined">Filled-Outlined</wa-tag>
     <wa-tag variant="brand" appearance="filled">Filled</wa-tag>
     <wa-tag variant="brand" appearance="outlined">Outlined</wa-tag>
   </p>
   <p>
     <wa-tag variant="success" appearance="accent">Accent</wa-tag>
-    <wa-tag variant="success" appearance="filled-outlined">Filled + Outlined</wa-tag>
+    <wa-tag variant="success" appearance="filled-outlined">Filled-Outlined</wa-tag>
     <wa-tag variant="success" appearance="filled">Filled</wa-tag>
     <wa-tag variant="success" appearance="outlined">Outlined</wa-tag>
   </p>
 
   <p>
     <wa-tag variant="neutral" appearance="accent">Accent</wa-tag>
-    <wa-tag variant="neutral" appearance="filled-outlined">Filled + Outlined</wa-tag>
+    <wa-tag variant="neutral" appearance="filled-outlined">Filled-Outlined</wa-tag>
     <wa-tag variant="neutral" appearance="filled">Filled</wa-tag>
     <wa-tag variant="neutral" appearance="outlined">Outlined</wa-tag>
   </p>
 
   <p>
     <wa-tag variant="warning" appearance="accent">Accent</wa-tag>
-    <wa-tag variant="warning" appearance="filled-outlined">Filled + Outlined</wa-tag>
+    <wa-tag variant="warning" appearance="filled-outlined">Filled-Outlined</wa-tag>
     <wa-tag variant="warning" appearance="filled">Filled</wa-tag>
     <wa-tag variant="warning" appearance="outlined">Outlined</wa-tag>
   </p>
 
   <p>
     <wa-tag variant="danger" appearance="accent">Accent</wa-tag>
-    <wa-tag variant="danger" appearance="filled-outlined">Filled + Outlined</wa-tag>
+    <wa-tag variant="danger" appearance="filled-outlined">Filled-Outlined</wa-tag>
     <wa-tag variant="danger" appearance="filled">Filled</wa-tag>
     <wa-tag variant="danger" appearance="outlined">Outlined</wa-tag>
   </p>
