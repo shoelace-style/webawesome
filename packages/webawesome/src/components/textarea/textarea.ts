@@ -84,7 +84,7 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
   @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
 
   /** The textarea's visual appearance. */
-  @property({ reflect: true }) appearance: 'filled' | 'outlined' = 'outlined';
+  @property({ reflect: true }) appearance: 'filled' | 'outlined' | 'filled-outlined' = 'outlined';
 
   /** The textarea's label. If you need to display HTML, use the `label` slot instead. */
   @property() label = '';
@@ -338,7 +338,7 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
     const hasHint = this.hint ? true : !!hasHintSlot;
 
     return html`
-      <label part="label" class="label" for="input" aria-hidden=${hasLabel ? 'false' : 'true'}>
+      <label part="form-control-label label" class="label" for="input" aria-hidden=${hasLabel ? 'false' : 'true'}>
         <slot name="label">${this.label}</slot>
       </label>
 

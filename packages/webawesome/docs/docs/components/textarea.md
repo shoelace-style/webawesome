@@ -52,7 +52,9 @@ Use the `placeholder` attribute to add a placeholder.
 Use the `appearance` attribute to change the textarea's visual appearance.
 
 ```html {.example}
-<wa-textarea placeholder="Type something" appearance="filled"></wa-textarea>
+<wa-textarea placeholder="Type something" appearance="filled"></wa-textarea><br />
+<wa-textarea placeholder="Type something" appearance="filled-outlined"></wa-textarea><br />
+<wa-textarea placeholder="Type something" appearance="outlined"></wa-textarea>
 ```
 
 ### Disabled

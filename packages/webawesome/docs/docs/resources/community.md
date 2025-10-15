@@ -36,13 +36,27 @@ The [community chat](https://discord.gg/mg8f26C) is open to the public and power
   Join the Chat
 </wa-button>
 
-## Twitter
+## Social Networks
 
-Follow [@webawesomer](https://twitter.com/webawesomer) on Twitter for general updates and announcements about Web Awesome. This is a great place to say "hi" or to share something you're working on.
+Follow Web Awesome on [Bluesky](https://bsky.app/profile/webawesome.com), [X (Twitter)](https://x.com/webawesomer), [Mastodon](https://mastodon.social/@webawesome), or [Threads](https://www.threads.com/@web.awesome) for general updates and announcements. This is a great place to say "hi" or to share something you're working on.
 
-**Please avoid using Twitter for support questions.** The [discussion forum](https://github.com/shoelace-style/webawesome/discussions) is a much better place to share code snippets, screenshots, and other troubleshooting info. You'll have much better luck there, as more users will have a chance to help you.
+**Please avoid using Social Networks for support questions.** The [discussion forum](https://github.com/shoelace-style/webawesome/discussions) is a much better place to share code snippets, screenshots, and other troubleshooting info. You'll have much better luck there, as more users will have a chance to help you.
 
-<wa-button variant="brand" href="https://twitter.com/webawesomer" target="_blank" style="margin-block-end: var(--wa-content-spacing);">
-  <wa-icon name="twitter" family="brands" slot="start"></wa-icon>
-  Follow on Twitter
-</wa-button>
+<div class="wa-cluster wa-gap-l">
+  <wa-button variant="brand" href="https://bsky.app/profile/webawesome.com" rel="noopener noreferrer" target="_blank">
+    <wa-icon name="bluesky" family="brands" slot="start"></wa-icon>
+    Bluesky
+  </wa-button>
+  <wa-button variant="brand" href="https://twitter.com/webawesomer" rel="noopener noreferrer" target="_blank">
+    <wa-icon name="x-twitter" family="brands" slot="start"></wa-icon>
+    X (Twitter)
+  </wa-button>
+  <wa-button variant="brand" href="https://mastodon.social/@webawesome" rel="noopener noreferrer" target="_blank">
+    <wa-icon name="mastodon" family="brands" slot="start"></wa-icon>
+    Mastodon
+  </wa-button>
+  <wa-button variant="brand" href="https://www.threads.com/@web.awesome" rel="noopener noreferrer" target="_blank">
+    <wa-icon name="threads" family="brands" slot="start"></wa-icon>
+    Threads
+  </wa-button>
+</div>

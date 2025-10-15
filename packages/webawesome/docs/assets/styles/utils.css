@@ -1,0 +1,206 @@
+/* Monorepo Styles
+* These styles include elements that are shared across this repo as well as others included in the Web Awesome monorepo
+ */
+
+@layer wa-utils {
+  :root {
+    /* max-width for fixed width app-based pages
+     * We round() these to avoid obscure component rendering bugs caused by widths with fractional pixels */
+    --content-width-l: round(up, 132ch, 1px);
+    --content-width-m: round(up, 110ch, 1px);
+    --content-width-s: round(up, 80ch, 1px);
+    --content-width-xs: round(up, 50ch, 1px);
+    --content-padding-inline: 4ch;
+    --content-flow-spacing: 8ch;
+
+    --line-length-xs: 30ch;
+    --line-length-s: 45ch;
+    --line-length-m: 66ch;
+    --line-length-l: 77ch;
+    --line-length-xl: 90ch;
+    --line-length-none: none;
+  }
+
+  /* #region brand utilities */
+  .logo-webawesome {
+    color: var(--wa-brand-orange);
+  }
+  /* #endregion */
+
+  /* #region layout utilities */
+  .content-container {
+    margin-inline: auto;
+    max-width: var(--max-width, var(--content-width-l));
+    padding-inline: var(--content-padding-inline);
+  }
+  /* #endregion */
+
+  /* #region Text utilities */
+  .text-truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* line-length */
+  .line-length {
+    max-width: var(--line-length, none);
+  }
+
+  .line-length-xs {
+    --line-length: var(--line-length-xs);
+  }
+  .line-length-s {
+    --line-length: var(--line-length-s);
+  }
+  .line-length-m {
+    --line-length: var(--line-length-m);
+  }
+  .line-length-l {
+    --line-length: var(--line-length-l);
+  }
+  .line-length-xl {
+    --line-length: var(--line-length-xl);
+  }
+  .line-length-none {
+    --line-length: none;
+  }
+  /* #endregion */
+
+  /* #region shared UI */
+  /* pro badge */
+  wa-badge.pro {
+    color: white;
+    background-color: var(--wa-brand-orange);
+    border-color: var(--wa-brand-orange);
+
+    + wa-tooltip {
+      font-size: var(--wa-font-size-xs);
+      --max-width: unset;
+    }
+  }
+
+  /* planned badge */
+  wa-badge.planned {
+    background-color: var(--wa-color-neutral-fill-quiet);
+    color: var(--wa-color-neutral-on-quiet);
+
+    + wa-tooltip {
+      font-size: var(--wa-font-size-xs);
+      --max-width: unset;
+    }
+  }
+
+  /* search trigger */
+  wa-button#search-trigger {
+    &::part(base) {
+      background-color: var(--wa-form-control-background-color);
+      border: var(--wa-form-control-border-width) var(--wa-form-control-border-style)
+        var(--wa-form-control-border-color);
+      box-shadow: none;
+    }
+    &::part(label) {
+      text-align: start;
+      width: 100%;
+    }
+  }
+  #search-trigger kbd {
+    font-size: var(--wa-font-size-2xs);
+    line-height: var(--wa-form-control-value-line-height);
+    padding-inline: 0.33em;
+  }
+  /* #endregion */
+
+  /* #region funsies + cosmetics */
+
+  /* grid background */
+  .background-grid {
+    --grid-spacing: var(--wa-space-2xl);
+    --grid-line-color: color-mix(in oklab, var(--wa-color-text-normal), transparent 90%);
+    --grid-line-width: var(--wa-border-width-s);
+    --subgrid-spacing: calc(var(--grid-spacing) / 2);
+    --subgrid-line-color: color-mix(in oklab, var(--wa-color-text-normal), transparent 95%);
+    --subgrid-line-width: var(--wa-border-width-s);
+
+    background-image:
+      /* main grid - vertical lines */
+      linear-gradient(to right, var(--grid-line-color) var(--grid-line-width), transparent var(--grid-line-width)),
+      /* main grid - horizontal lines */
+        linear-gradient(to bottom, var(--grid-line-color) var(--grid-line-width), transparent var(--grid-line-width)),
+      /* sub-grid - vertical lines (offset by half the main grid spacing) */
+        linear-gradient(
+          to right,
+          var(--subgrid-line-color) var(--subgrid-line-width),
+          transparent var(--subgrid-line-width)
+        ),
+      /* sub-grid - horizontal lines (offset by half the main grid spacing) */
+        linear-gradient(
+          to bottom,
+          var(--subgrid-line-color) var(--subgrid-line-width),
+          transparent var(--subgrid-line-width)
+        );
+
+    background-size:
+      var(--grid-spacing) var(--grid-spacing),
+      var(--grid-spacing) var(--grid-spacing),
+      var(--subgrid-spacing) var(--subgrid-spacing),
+      var(--subgrid-spacing) var(--subgrid-spacing);
+
+    background-position:
+      0 0,
+      0 0,
+      calc(var(--grid-spacing) / 2) calc(var(--grid-spacing) / 2),
+      calc(var(--grid-spacing) / 2) calc(var(--grid-spacing) / 2);
+  }
+  /* #endregion */
+
+  /* buttons with icon toggle on hover */
+  wa-button .icon-hover {
+    display: none;
+  }
+  wa-button:hover .icon-default {
+    display: none;
+  }
+  wa-button:hover .icon-hover {
+    display: inline-flex;
+  }
+  /* #endregion */
+
+  /* #region resets */
+  code.appearance-plain {
+    background: transparent;
+    border: none;
+  }
+
+  a.appearance-plain {
+    --wa-color-text-link: var(--wa-color-text-normal);
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  ul,
+  ol {
+    &.appearance-plain {
+      list-style: none;
+      padding-inline-start: 0;
+
+      li {
+        padding-inline-start: 0;
+      }
+    }
+  }
+
+  /* increasing visual size of icons in certain contexts (such as in plain buttons) */
+  wa-icon.icon-embiggen {
+    font-size: round(1.125em, 1px);
+  }
+
+  /* decreasing visual size of icons in certain contexts (such as in sidebar nav) */
+  wa-icon.icon-shrink {
+    font-size: round(0.875em, 1px);
+  }
+  /* #endregion */
+}

@@ -5,6 +5,7 @@
 @import 'search.css';
 @import 'cera-typeface.css';
 @import 'theme-icons.css';
+@import 'utils.css';
 
 :root {
   --wa-brand-orange: #f36944;
@@ -67,13 +68,6 @@ wa-page > header {
     &::part(base) {
       padding: 0;
       padding-inline: 0.875rem;
-    }
-  }
-
-  /* increasing visual size of icons-only within buttons */
-  wa-button[appearance='plain'] {
-    > wa-icon {
-      font-size: round(1.125em, 1px);
     }
   }
 }
@@ -156,13 +150,6 @@ wa-page > header {
   margin-block-end: var(--wa-space-m);
 }
 
-/* Pro badges */
-wa-badge.pro {
-  color: white;
-  background-color: var(--wa-brand-orange);
-  border-color: var(--wa-brand-orange);
-}
-
 #sidebar {
   h2 {
     color: var(--wa-color-text-quiet);
@@ -194,9 +181,35 @@ wa-badge.pro {
     }
   }
 
+  li wa-badge {
+    /* adding 1 scale below --wa-font-size-2xs to handle badge proportions in sidebar nav */
+    --font-size-3xs: round(calc(var(--wa-font-size-2xs) / 1.125), 1px); /* 10px */
+    font-size: var(--font-size-3xs);
+  }
+
   wa-details {
     --show-duration: 0;
     --hide-duration: 0;
+  }
+
+  .the-socials {
+    /* nudge those linkies left */
+    margin-inline-start: calc(var(--wa-space-xs) * -1);
+
+    a[target='_blank'] {
+      color: var(--wa-color-text-quiet);
+      padding-inline: var(--wa-space-xs);
+
+      &:hover {
+        color: var(--wa-color-text-normal);
+      }
+    }
+  }
+
+  #version-icon-info {
+    --secondary-opacity: 1;
+    --secondary-color: var(--wa-brand-orange);
+    padding-inline: var(--wa-space-xs);
   }
 }
 
@@ -215,6 +228,11 @@ wa-button.delete {
   wa-select::part(listbox) {
     font-weight: var(--wa-font-weight-normal);
   }
+}
+
+/* planned sidebar item */
+.is-planned {
+  color: var(--wa-color-text-quiet);
 }
 
 #sidebar-close-button {
@@ -262,7 +280,7 @@ wa-page[view='mobile'] :is([slot='navigation-header'], [slot='navigation']) {
 
 /* Main content */
 wa-page > main {
-  max-width: 80ch;
+  max-width: var(--content-width-s);
   padding: var(--wa-space-xl);
   margin-inline: auto;
 }
@@ -368,27 +386,9 @@ h1.title {
   }
 }
 
-/* Search trigger */
-wa-button#search-trigger {
-  &::part(base) {
-    background-color: var(--wa-form-control-background-color);
-    border: var(--wa-form-control-border-width) var(--wa-form-control-border-style) var(--wa-form-control-border-color);
-    box-shadow: none;
-  }
-  &::part(label) {
-    text-align: start;
-    width: 100%;
-  }
-}
-#search-trigger kbd {
-  font-size: var(--wa-font-size-2xs);
-  line-height: var(--wa-form-control-value-line-height);
-  padding-inline: 0.33em;
-}
-
 /* Search list pages */
 wa-page > main:has(> .search-list) {
-  max-width: 120ch;
+  max-width: var(--content-width-l);
   margin-inline: auto;
 }
 
@@ -603,7 +603,7 @@ wa-scroller:has(.component-table) {
 
   .table-arguments,
   .table-description {
-    min-width: 40ch;
+    min-width: var(--line-length-xs);
   }
 
   .table-reflect {
@@ -652,10 +652,10 @@ wa-scroller:has(.component-table) {
 
 .page-wide {
   wa-page > main {
-    max-width: 140ch;
+    max-width: var(--content-width-l);
 
     .max-line-length {
-      max-width: 80ch;
+      max-width: var(--line-length-l);
     }
   }
 }

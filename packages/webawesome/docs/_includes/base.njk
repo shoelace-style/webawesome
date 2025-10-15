@@ -41,7 +41,8 @@
           <header slot="header" class="wa-split">
             {# Nav toggle #}
               <wa-button appearance="plain" size="small" data-toggle-nav>
-                <wa-icon name="bars" label="Toggle navigation"></wa-icon>
+                <wa-icon name="bars" label="Toggle navigation" class="icon-default icon-embiggen"></wa-icon>
+                <wa-icon name="burger" aria-hidden="true" class="icon-hover icon-embiggen"></wa-icon>
               </wa-button>
 
               {# Logo - Desktop #}
@@ -62,7 +63,7 @@
                 {% include "github-icon-buttons.njk" %}
               </div>
               {#- Login -#}
-              {% server "loginOrAvatar" %}
+              {% include "login-or-avatar.njk" ignore missing %}
             </div>
           </header>
         {% endblock %}
