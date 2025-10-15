@@ -21,7 +21,7 @@ describe('<wa-checkbox>', () => {
         const el = await fixture<WaCheckbox>(html` <wa-checkbox></wa-checkbox> `);
 
         expect(el.name).to.equal('');
-        expect(el.value).to.equal('on');
+        expect(el.value).to.equal(null);
         expect(el.title).to.equal('');
         expect(el.disabled).to.be.false;
         expect(el.required).to.be.false;
@@ -134,7 +134,7 @@ describe('<wa-checkbox>', () => {
         await checkbox.updateComplete;
 
         expect(checkbox.checked).to.equal(false);
-        expect(checkbox.value).to.equal('myvalue');
+        expect(checkbox.value).to.equal(null);
         expect(new FormData(form).get('test')).to.equal(null);
 
         checkbox.checked = true;
