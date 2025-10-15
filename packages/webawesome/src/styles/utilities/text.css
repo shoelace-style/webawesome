@@ -106,6 +106,12 @@
   .wa-color-text-quiet {
     color: var(--wa-color-text-quiet);
   }
+
+  .wa-text-truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
   /* #endregion */
 
   /* #region Links ~~~~~~~ */
@@ -132,6 +138,17 @@
         color: color-mix(in oklab, currentColor, var(--wa-color-mix-hover));
         text-decoration: none;
       }
+    }
+  }
+  /* #endregion */
+
+  /* #region Lists */
+  .wa-list-plain:is(ol, ul) {
+    list-style: none;
+    padding-inline-start: 0;
+
+    > li {
+      margin-inline-start: 0;
     }
   }
   /* #endregion */
