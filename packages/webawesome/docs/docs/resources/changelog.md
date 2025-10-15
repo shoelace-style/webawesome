@@ -12,10 +12,31 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 ## Next
 
+- 🚨 BREAKING: Changed `appearance="filled outlined"` to `appearance="filled-outlined"` in the following elements [issue:1127]
+  - `<wa-badge>`
+  - `<wa-button>`
+  - `<wa-callout>`
+  - `<wa-details>`
+  - `<wa-input>`
+  - `<wa-select>`
+  - `<wa-tag>`
+  - `<wa-textarea>`
 - Added the Kazakh translation [pr:1496]
+- Added docs for code completion for VS Code and JetBrains [pr:1550]
+- Added back the missing `form-control-label` part to `<wa-textarea>` for consistency with other form controls [pr:1533]
 - Fixed a bug in `<wa-button>` where slotted badges weren't properly positioned in buttons with an `href` [issue:1377]
 - Fixed focus outline styles in `<wa-details>` and native `<details>` [issue:1456]
 - Fixed focus outline styles in `<wa-scroller>`, `<wa-dialog>`, and `<wa-drawer>` [issue:1484]
+- Fixed a bug in `<wa-checkbox>` where its value would revert to `""` when checked / unchecked [pr:1547]
+- Fixed a bug that caused icon button labels to not render in frameworks [issue:1542]
+- Fixed a bug in `<wa-details>` that caused the `name` property not to reflect [pr:1538]
+- Fixed a bug in `<wa-dialog>` and `<wa-drawer>` that prevented focus from being set on the dialog/drawer when opened [issue:1302]
+- Fixed an overflow style that was causing tab group content to be unnecessarily truncated [issue:1401]
+- Fixed a bug in `<wa-icon>` that caused icon buttons to render when non-text nodes were slotted in [issue:1475]
+- Fixed a bug in `<wa-tooltip>` that prevented tooltips from showing when disconnecting and then reconnecting to the DOM [issue:1595]
+- Fixed a bug that caused the required `*` in form labels to have incorrect spacing in `<wa-checkbox>` and `<wa-switch>` [issue:1472]
+- Improved autofill styles in `<wa-input>` so they span the entire width of the visual input [issue:1439]
+- Modified `<wa-slider>` to only show the tooltip on the handle being dragged when in range mode [issue:1320]
 
 ## 3.0.0-beta.6
 

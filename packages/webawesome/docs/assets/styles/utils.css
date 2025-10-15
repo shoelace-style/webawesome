@@ -73,7 +73,17 @@
     color: white;
     background-color: var(--wa-brand-orange);
     border-color: var(--wa-brand-orange);
-    text-transform: uppercase;
+
+    + wa-tooltip {
+      font-size: var(--wa-font-size-xs);
+      --max-width: unset;
+    }
+  }
+
+  /* planned badge */
+  wa-badge.planned {
+    background-color: var(--wa-color-neutral-fill-quiet);
+    color: var(--wa-color-neutral-on-quiet);
 
     + wa-tooltip {
       font-size: var(--wa-font-size-xs);
@@ -110,7 +120,49 @@
 
   /* #endregion */
 
-  /* #region funsies */
+  /* #region funsies + cosmetics */
+
+  /* grid background */
+  .background-grid {
+    --grid-spacing: var(--wa-space-2xl);
+    --grid-line-color: color-mix(in oklab, var(--wa-color-text-normal), transparent 90%);
+    --grid-line-width: var(--wa-border-width-s);
+    --subgrid-spacing: calc(var(--grid-spacing) / 2);
+    --subgrid-line-color: color-mix(in oklab, var(--wa-color-text-normal), transparent 95%);
+    --subgrid-line-width: var(--wa-border-width-s);
+
+    background-image:
+      /* main grid - vertical lines */
+      linear-gradient(to right, var(--grid-line-color) var(--grid-line-width), transparent var(--grid-line-width)),
+      /* main grid - horizontal lines */
+        linear-gradient(to bottom, var(--grid-line-color) var(--grid-line-width), transparent var(--grid-line-width)),
+      /* sub-grid - vertical lines (offset by half the main grid spacing) */
+        linear-gradient(
+          to right,
+          var(--subgrid-line-color) var(--subgrid-line-width),
+          transparent var(--subgrid-line-width)
+        ),
+      /* sub-grid - horizontal lines (offset by half the main grid spacing) */
+        linear-gradient(
+          to bottom,
+          var(--subgrid-line-color) var(--subgrid-line-width),
+          transparent var(--subgrid-line-width)
+        );
+
+    background-size:
+      var(--grid-spacing) var(--grid-spacing),
+      var(--grid-spacing) var(--grid-spacing),
+      var(--subgrid-spacing) var(--subgrid-spacing),
+      var(--subgrid-spacing) var(--subgrid-spacing);
+
+    background-position:
+      0 0,
+      0 0,
+      calc(var(--grid-spacing) / 2) calc(var(--grid-spacing) / 2),
+      calc(var(--grid-spacing) / 2) calc(var(--grid-spacing) / 2);
+  }
+  /* #endregion */
+
   /* buttons with icon toggle on hover */
   wa-button .icon-hover {
     display: none;
@@ -153,6 +205,11 @@
   /* increasing visual size of icons in certain contexts (such as in plain buttons) */
   wa-icon.icon-embiggen {
     font-size: round(1.125em, 1px);
+  }
+
+  /* decreasing visual size of icons in certain contexts (such as in sidebar nav) */
+  wa-icon.icon-shrink {
+    font-size: round(0.875em, 1px);
   }
   /* #endregion */
 }

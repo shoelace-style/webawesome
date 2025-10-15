@@ -60,7 +60,9 @@ Add the `password-toggle` attribute to add a toggle button that will show the pa
 Use the `appearance` attribute to change the input's visual appearance.
 
 ```html {.example}
-<wa-input placeholder="Type something" appearance="filled"></wa-input>
+<wa-input placeholder="Type something" appearance="filled"></wa-input><br />
+<wa-input placeholder="Type something" appearance="filled-outlined"></wa-input><br />
+<wa-input placeholder="Type something" appearance="outlined"></wa-input>
 ```
 
 ### Disabled

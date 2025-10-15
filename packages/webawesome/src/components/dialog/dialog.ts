@@ -197,6 +197,8 @@ export default class WaDialog extends WebAwesomeElement {
       const elementToFocus = this.querySelector<HTMLButtonElement>('[autofocus]');
       if (elementToFocus && typeof elementToFocus.focus === 'function') {
         elementToFocus.focus();
+      } else {
+        this.dialog.focus();
       }
     });
 

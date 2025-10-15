@@ -174,3 +174,54 @@ This time we see an empty string, which means the boolean attribute is now prese
 :::info
 To wait for multiple components to update, you can use `requestAnimationFrame()` instead of awaiting each element.
 :::
+
+## Code Completion
+
+### VS Code
+
+Web Awesome ships with a file called `vscode.html-custom-data.json` that can be used to describe its custom elements to [Visual Studio Code](https://code.visualstudio.com/). This enables code completion for Web Awesome components (also known as “code hinting” or “IntelliSense”). To enable it, you need to tell VS Code where the file is.
+
+1. [Install Web Awesome locally](/docs/#installing-via-npm)
+2. If it doesn’t already exist, create a folder called `.vscode` at the root of your project
+3. If it doesn’t already exist, create a file inside that folder called `settings.json`
+4. Add the following to the file
+
+```json
+{
+  "html.customData": ["./node_modules/@awesome.me/webawesome/dist/vscode.html-custom-data.json"]
+}
+```
+
+If `settings.json` already exists, simply add the above line to the root of the object. Note that you may need to restart VS Code for the changes to take effect.
+
+If you are using WebAwesome through the [CDN](/docs/#quick-start-autoloading-via-cdn) you can manually [download the file]({% cdnUrl 'vscode.html-custom-data.json' %}]({% cdnUrl 'vscode.html-custom-data.json' %}) instead.
+
+### JetBrains IDEs
+If you are using a [JetBrains IDE](https://www.jetbrains.com/) and you are installing Web Awesome from NPM, the editor will automatically detect the web-types.json file from the package and you should immediately see component information in your editor.
+
+If you are installing from the CDN, you can [download a local copy]({% cdnUrl 'web-types.json' %}) and add it to the root of your project. Be sure to add a reference to the web-types.json file in your package.json in order for your editor to properly detect it.
+
+```json
+{
+  ...
+  "web-types": "./web-types.json"
+  ...
+}
+```
+
+If you are using types from multiple projects, you can add an array of references.
+
+```json
+{
+  ...
+  "web-types": [
+    ...,
+    "./web-types.json"
+  ]
+  ...
+}
+```
+
+### Other Editors
+
+Most popular editors support custom code completion with a bit of configuration. Please [submit a feature request](https://github.com/shoelace-style/webawesome/issues/new/choose) for your editor of choice. PRs are also welcome!

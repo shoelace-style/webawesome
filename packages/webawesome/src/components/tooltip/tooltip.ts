@@ -101,6 +101,11 @@ export default class WaTooltip extends WebAwesomeElement {
   connectedCallback() {
     super.connectedCallback();
 
+    // Recreate event controller if it was aborted
+    if (this.eventController.signal.aborted) {
+      this.eventController = new AbortController();
+    }
+
     // TODO: This is a hack that I need to revisit [Konnor]
     if (this.open) {
       this.open = false;
@@ -112,6 +117,15 @@ export default class WaTooltip extends WebAwesomeElement {
     // If the user doesn't give us an id, generate one.
     if (!this.id) {
       this.id = uniqueId('wa-tooltip-');
+    }
+
+    // Re-establish anchor connection after being disconnected
+    if (this.for && this.anchor) {
+      this.anchor = null; // force reattach
+      this.handleForChange();
+    } else if (this.for) {
+      // Initial connection
+      this.handleForChange();
     }
   }
 

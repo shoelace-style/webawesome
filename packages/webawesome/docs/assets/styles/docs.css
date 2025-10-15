@@ -181,6 +181,12 @@ wa-page > header {
     }
   }
 
+  li wa-badge {
+    /* adding 1 scale below --wa-font-size-2xs to handle badge proportions in sidebar nav */
+    --font-size-3xs: round(calc(var(--wa-font-size-2xs) / 1.125), 1px); /* 10px */
+    font-size: var(--font-size-3xs);
+  }
+
   wa-details {
     --show-duration: 0;
     --hide-duration: 0;
@@ -199,6 +205,12 @@ wa-page > header {
       }
     }
   }
+
+  #version-icon-info {
+    --secondary-opacity: 1;
+    --secondary-color: var(--wa-brand-orange);
+    padding-inline: var(--wa-space-xs);
+  }
 }
 
 wa-button.delete {
@@ -216,6 +228,11 @@ wa-button.delete {
   wa-select::part(listbox) {
     font-weight: var(--wa-font-weight-normal);
   }
+}
+
+/* planned sidebar item */
+.is-planned {
+  color: var(--wa-color-text-quiet);
 }
 
 #sidebar-close-button {

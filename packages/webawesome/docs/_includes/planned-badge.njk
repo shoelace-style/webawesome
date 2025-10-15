@@ -1,0 +1,5 @@
+{% macro plannedBadge(plannedBadgeDescription, plannedBadgeId) %}
+  {% set badgeId = plannedBadgeId or ("planned-badge-" + ("" | uniqueId(8))) %}
+  <wa-badge appearance="filled" variant="neutral" pill class="planned" id="{{ badgeId }}">Planned</wa-badge>
+  <wa-tooltip for="{{ badgeId }}">{{ plannedBadgeDescription or "This is a planned feature" }}</wa-tooltip>
+{% endmacro %}

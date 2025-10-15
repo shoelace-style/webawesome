@@ -20,23 +20,25 @@
   }
 
   /* Appearance modifiers */
-  :host([appearance~='outlined']) {
+  :host([appearance='outlined']) {
     color: var(--wa-color-on-quiet, var(--wa-color-neutral-on-quiet));
     background-color: transparent;
     border-color: var(--wa-color-border-loud, var(--wa-color-neutral-border-loud));
   }
 
-  :host([appearance~='filled']) {
+  :host([appearance='filled']) {
     color: var(--wa-color-on-quiet, var(--wa-color-neutral-on-quiet));
     background-color: var(--wa-color-fill-quiet, var(--wa-color-neutral-fill-quiet));
     border-color: transparent;
   }
 
-  :host([appearance~='filled'][appearance~='outlined']) {
+  :host([appearance='filled-outlined']) {
+    color: var(--wa-color-on-quiet, var(--wa-color-neutral-on-quiet));
+    background-color: var(--wa-color-fill-quiet, var(--wa-color-neutral-fill-quiet));
     border-color: var(--wa-color-border-normal, var(--wa-color-neutral-border-normal));
   }
 
-  :host([appearance~='accent']) {
+  :host([appearance='accent']) {
     color: var(--wa-color-on-loud, var(--wa-color-neutral-on-loud));
     background-color: var(--wa-color-fill-loud, var(--wa-color-neutral-fill-loud));
     border-color: transparent;
