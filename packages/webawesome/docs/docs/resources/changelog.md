@@ -34,6 +34,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed an overflow style that was causing tab group content to be unnecessarily truncated [issue:1401]
 - Fixed a bug in `<wa-icon>` that caused icon buttons to render when non-text nodes were slotted in [issue:1475]
 - Fixed a bug in `<wa-tooltip>` that prevented tooltips from showing when disconnecting and then reconnecting to the DOM [issue:1595]
+- Fixed a bug that caused the required `*` in form labels to have incorrect spacing in `<wa-checkbox>` and `<wa-switch>` [issue:1472]
 - Improved autofill styles in `<wa-input>` so they span the entire width of the visual input [issue:1439]
 - Modified `<wa-slider>` to only show the tooltip on the handle being dragged when in range mode [issue:1320]
 
