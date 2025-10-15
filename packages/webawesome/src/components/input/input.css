@@ -63,8 +63,15 @@
   border-radius: var(--wa-border-radius-pill) !important;
 }
 
-.text-field input,
-.text-field textarea {
+.text-field {
+  /* Show autofill styles over the entire text field, not just the native <input> */
+  &:has(:autofill),
+  &:has(:-webkit-autofill) {
+    background-color: var(--wa-color-brand-fill-quiet) !important;
+  }
+
+  input,
+  textarea {
   /*
     Fixes an alignment issue with placeholders.
     https://github.com/shoelace-style/webawesome/issues/342
@@ -79,6 +86,16 @@
   cursor: inherit;
   -webkit-appearance: none;
   font: inherit;
+
+  /* Turn off Safari's autofill styles */
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    -webkit-background-clip: text;
+    background-color: transparent;
+    -webkit-text-fill-color: inherit;
+  }
 }
 
 input {
