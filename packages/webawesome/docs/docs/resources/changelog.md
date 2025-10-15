@@ -12,6 +12,15 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 ## Next
 
+- 🚨 BREAKING: Changed `appearance="filled outlined"` to `appearance="filled-outlined"` in the following elements [issue:1127]
+  - `<wa-badge>`
+  - `<wa-button>`
+  - `<wa-callout>`
+  - `<wa-details>`
+  - `<wa-input>`
+  - `<wa-select>`
+  - `<wa-tag>`
+  - `<wa-textarea>`
 - Added the Kazakh translation [pr:1496]
 - Added docs for code completion for VS Code and JetBrains [pr:1550]
 - Added back the missing `form-control-label` part to `<wa-textarea>` for consistency with other form controls [pr:1533]

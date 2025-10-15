@@ -80,6 +80,18 @@ Use the `appearance` attribute to change the select's visual appearance.
   <wa-option value="option-2">Option 2</wa-option>
   <wa-option value="option-3">Option 3</wa-option>
 </wa-select>
+<br />
+<wa-select appearance="filled-outlined">
+  <wa-option value="option-1">Option 1</wa-option>
+  <wa-option value="option-2">Option 2</wa-option>
+  <wa-option value="option-3">Option 3</wa-option>
+</wa-select>
+<br />
+<wa-select appearance="outlined">
+  <wa-option value="option-1">Option 1</wa-option>
+  <wa-option value="option-2">Option 2</wa-option>
+  <wa-option value="option-3">Option 3</wa-option>
+</wa-select>
 ```
 
 ### Pill
