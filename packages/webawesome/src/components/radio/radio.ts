@@ -47,7 +47,7 @@ export default class WaRadio extends WebAwesomeFormAssociatedElement {
   /** The radio's value. When selected, the radio group will receive this value. */
   @property({ reflect: true }) value: string;
 
-  /** The radio's value. When selected, the radio group will receive this value. */
+  /** The radio's visual appearance. */
   @property({ reflect: true }) appearance: 'default' | 'button' = 'default';
 
   /**

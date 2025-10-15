@@ -176,22 +176,32 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
     const nodes = this.labelSlot.assignedNodes({ flatten: true });
     let hasIconLabel = false;
     let hasIcon = false;
-    let text = '';
+    let hasText = false;
+    let hasOtherElements = false;
 
-    // If there's only an icon and no text, it's an icon button
+    // Check all slotted nodes
     [...nodes].forEach(node => {
-      if (node.nodeType === Node.ELEMENT_NODE && (node as WaIcon).localName === 'wa-icon') {
-        hasIcon = true;
-        if (!hasIconLabel) hasIconLabel = (node as WaIcon).label !== undefined;
-      }
+      if (node.nodeType === Node.ELEMENT_NODE) {
+        const element = node as HTMLElement;
 
-      // Concatenate text nodes
-      if (node.nodeType === Node.TEXT_NODE) {
-        text += node.textContent;
+        if (element.localName === 'wa-icon') {
+          hasIcon = true;
+          if (!hasIconLabel) hasIconLabel = (element as WaIcon).label !== undefined;
+        } else {
+          // Any other element type means it's not an icon button
+          hasOtherElements = true;
+        }
+      } else if (node.nodeType === Node.TEXT_NODE) {
+        // Check if text node has actual content
+        const text = node.textContent?.trim() || '';
+        if (text.length > 0) {
+          hasText = true;
+        }
       }
     });
 
-    this.isIconButton = text.trim() === '' && hasIcon;
+    // It's only an icon button if there's an icon and nothing else
+    this.isIconButton = hasIcon && !hasText && !hasOtherElements;
 
     if (this.isIconButton && !hasIconLabel) {
       console.warn(
