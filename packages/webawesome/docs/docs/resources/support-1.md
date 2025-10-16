@@ -71,23 +71,29 @@ wide: true
  </div>
  <wa-divider></wa-divider>
 
-## Socials
-
-<div class="wa-grid">
-<wa-button variant="brand" href="https://twitter.com/webawesomer" target="_blank" style="margin-block-end: var(--wa-content-spacing);">
-  <wa-icon name="bluesky" family="brands" slot="start"></wa-icon>
-  Follow on Twitter
-</wa-button>
-<wa-button variant="brand" href="https://twitter.com/webawesomer" target="_blank" style="margin-block-end: var(--wa-content-spacing);">
-  <wa-icon name="twitter" family="brands" slot="start"></wa-icon>
-  Follow on Twitter
-</wa-button>
-<wa-button variant="brand" href="https://twitter.com/webawesomer" target="_blank" style="margin-block-end: var(--wa-content-spacing);">
-  <wa-icon name="mastodon" family="brands" slot="start"></wa-icon>
-  Follow on Twitter
-</wa-button>
-<wa-button variant="brand" href="https://twitter.com/webawesomer" target="_blank" style="margin-block-end: var(--wa-content-spacing);">
-  <wa-icon name="threads" family="brands" slot="start"></wa-icon>
-  Follow on Twitter
-</wa-button>
+<div>
+<h2>Socials</h2>
+<p>We want to be available where possible</p>
+<div class="wa-align-items-start wa-stack">
+<div class="wa-cluster">
+<a href="#" class="wa-align-items-center wa-gap-xs wa-link-plain wa-stack">
+<wa-avatar label="Avatar with an image icon">
+  <wa-icon slot="icon" name="bluesky" variant="solid" family="brands"></wa-icon>
+</wa-avatar>
+Title
+</a>
+<a href="#" class="wa-align-items-center wa-gap-xs wa-link-plain wa-stack">
+<wa-avatar label="User avatar"></wa-avatar>
+Title
+</a>
+<a href="#" class="wa-align-items-center wa-gap-xs wa-link-plain wa-stack">
+<wa-avatar label="User avatar"></wa-avatar>
+Title
+</a>
+<a href="#" class="wa-align-items-center wa-gap-xs wa-link-plain wa-stack">
+<wa-avatar label="User avatar"></wa-avatar>
+Title
+</a>
+</div>
+</div>
 </div>
