@@ -115,7 +115,7 @@
     --primary-color: var(--wa-color-neutral-on-normal);
     --secondary-color: var(--wa-color-neutral-fill-normal);
     --secondary-opacity: 1;
-    font-size: var(--wa-font-size-2xl);
+    font-size: 2em;
   }
 
   /* #endregion */
