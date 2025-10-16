@@ -95,7 +95,7 @@ export default class WaPopover extends WebAwesomeElement {
   @property({ attribute: 'auto-size-padding', type: Number }) autoSizePadding = 0;
 
   /** Keep keyboard focus within the popover */
-  @property({ attribute: 'focus-trap', type: Boolean }) focusTrap = false;
+  @property({ attribute: 'trap-focus', type: Boolean }) trapFocus = false;
 
   private eventController = new AbortController();
 
@@ -188,7 +188,7 @@ export default class WaPopover extends WebAwesomeElement {
       document.addEventListener('keydown', this.handleDocumentKeyDown, { signal: this.eventController.signal });
       document.addEventListener('click', this.handleDocumentClick, { signal: this.eventController.signal });
 
-      if (this.focusTrap) {
+      if (this.trapFocus) {
         // Show the dialog modally to trap focus
         this.dialog.showModal();
       } else {
