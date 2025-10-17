@@ -252,6 +252,8 @@ wa-button.delete {
   padding-bottom: 1rem;
 }
 
+
+wa-page::part(drawer__dialog),
 wa-page::part(menu) {
   overflow: unset;
 }
