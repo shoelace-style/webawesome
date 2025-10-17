@@ -153,6 +153,138 @@ export default {
       },
     },
 
+    {
+      name: 'wa-css-vars',
+      packageLinkPhase({ customElementsManifest }) {
+        const root = __dirname;
+
+        // Known token scales we want to surface when any member is used
+        const SPACE_SCALES = ['2xs', 'xs', 's', 'm', 'l', 'xl', '2xl'];
+        const FONT_SIZE_SCALES = ['2xs', 'xs', 's', 'm', 'l', 'xl', '2xl'];
+        const BORDER_RADIUS_SCALES = ['s', 'm', 'l', 'xl', '2xl', 'pill', 'circle'];
+        const BORDER_WIDTH_SCALES = ['s', 'm', 'l'];
+        const FONT_WEIGHT_SCALES = ['light', 'regular', 'normal', 'medium', 'semibold', 'bold', 'black'];
+        const LINE_HEIGHT_SCALES = ['condensed', 'normal', 'expanded'];
+        const TRANSITION_DURATION_SCALES = ['fast', 'normal', 'slow'];
+        const FOCUS_RING_KEYS = ['style', 'width', 'offset'];
+
+        /**
+         * Given a CSS var name, returns an array of additional variants to include
+         * when it belongs to a known scale family (spacing, font-size, etc.).
+         */
+        function expandScaleVariants(varName) {
+          const expansions = [];
+          // Expand spacing tokens: --wa-space-{scale}
+          const mSpace = varName.match(/^--wa-space-(2xs|xs|s|m|l|xl|2xl)$/);
+          if (mSpace) {
+            const prefix = '--wa-space-';
+            for (const s of SPACE_SCALES) {
+              expansions.push(`${prefix}${s}`);
+            }
+          }
+          // Expand font-size tokens: --wa-font-size-{scale}
+          const mFont = varName.match(/^--wa-font-size-(2xs|xs|s|m|l|xl|2xl)$/);
+          if (mFont) {
+            const prefix = '--wa-font-size-';
+            for (const s of FONT_SIZE_SCALES) {
+              expansions.push(`${prefix}${s}`);
+            }
+          }
+          // Expand border-radius tokens: --wa-border-radius-{scale|shape}
+          const mRadius = varName.match(/^--wa-border-radius-(s|m|l|xl|2xl|pill|circle)$/);
+          if (mRadius) {
+            const prefix = '--wa-border-radius-';
+            for (const s of BORDER_RADIUS_SCALES) {
+              expansions.push(`${prefix}${s}`);
+            }
+          }
+          // Expand border-width tokens: --wa-border-width-{scale}
+          const mBorderW = varName.match(/^--wa-border-width-(s|m|l)$/);
+          if (mBorderW) {
+            const prefix = '--wa-border-width-';
+            for (const s of BORDER_WIDTH_SCALES) {
+              expansions.push(`${prefix}${s}`);
+            }
+          }
+          // Expand font-weight tokens: --wa-font-weight-{weight}
+          const mWeight = varName.match(/^--wa-font-weight-(light|regular|normal|medium|semibold|bold|black)$/);
+          if (mWeight) {
+            const prefix = '--wa-font-weight-';
+            for (const s of FONT_WEIGHT_SCALES) {
+              expansions.push(`${prefix}${s}`);
+            }
+          }
+          // Expand line-height tokens: --wa-line-height-{scale}
+          const mLineHeight = varName.match(/^--wa-line-height-(condensed|normal|expanded)$/);
+          if (mLineHeight) {
+            const prefix = '--wa-line-height-';
+            for (const s of LINE_HEIGHT_SCALES) {
+              expansions.push(`${prefix}${s}`);
+            }
+          }
+          // Expand transition duration tokens: --wa-transition-{fast|normal|slow}
+          const mTransitionDur = varName.match(/^--wa-transition-(fast|normal|slow)$/);
+          if (mTransitionDur) {
+            const prefix = '--wa-transition-';
+            for (const s of TRANSITION_DURATION_SCALES) {
+              expansions.push(`${prefix}${s}`);
+            }
+            // also ensure easing token is present as a companion
+            expansions.push('--wa-transition-easing');
+          }
+          // If easing itself is referenced, include it (but no family)
+          if (varName === '--wa-transition-easing') {
+            expansions.push('--wa-transition-easing');
+          }
+          // Expand focus ring tokens: --wa-focus-ring[-style|-width|-offset]
+          const mFocusRing = varName.match(/^--wa-focus-ring(?:-(style|width|offset))?$/);
+          if (mFocusRing) {
+            // include composite and parts
+            expansions.push('--wa-focus-ring');
+            for (const k of FOCUS_RING_KEYS) {
+              expansions.push(`--wa-focus-ring-${k}`);
+            }
+          }
+          return expansions;
+        }
+
+        customElementsManifest?.modules?.forEach(mod => {
+          // Infer the source CSS file path for each component module
+          // Module path looks like: components/button/button.js
+          // We want: src/components/button/button.css
+          const cssPath = path.join(root, 'src', mod.path.replace(/\.js$/, '.css'));
+          let cssContent = '';
+          try {
+            if (fs.existsSync(cssPath)) {
+              cssContent = fs.readFileSync(cssPath, 'utf8');
+            }
+          } catch (_) {
+            // ignore
+          }
+          if (!cssContent) return;
+          // Collect unique CSS custom property names
+          const varMatches = Array.from(cssContent.matchAll(/--[a-zA-Z0-9_-]+/g)).map(m => m[0]);
+          const unique = new Set(varMatches);
+
+          // Add expanded variants for known scale families if any one is referenced
+          for (const v of Array.from(unique)) {
+            for (const ex of expandScaleVariants(v)) {
+              unique.add(ex);
+            }
+          }
+
+          const uniqueVars = Array.from(unique);
+          if (uniqueVars.length === 0) return;
+          for (const dec of mod.declarations ?? []) {
+            if (dec.kind === 'class') {
+              // Attach to CEM so IDE plugins can pick them up
+              dec.cssProperties = uniqueVars.map(v => ({ name: v }));
+            }
+          }
+        });
+      }
+    },
+
     // Generate custom VS Code data
     customElementVsCodePlugin({
       outdir,
@@ -168,7 +300,7 @@ export default {
     // Generate custom JetBrains data
     customElementJetBrainsPlugin({
       outdir: './dist-cdn',
-      excludeCss: true,
+      excludeCss: false,
       packageJson: false,
       referencesTemplate: (_, tag) => {
         return {
