@@ -60,7 +60,7 @@ Set the `variant` attribute to change the callout's variant.
 
 ### Appearance
 
-Use the `appearance` attribute to change the callout's visual appearance (the default is `outlined filled`).
+Use the `appearance` attribute to change the callout's visual appearance (the default is `filled-outlined`).
 
 ```html {.example}
 <wa-callout variant="brand" appearance="accent">
@@ -70,7 +70,7 @@ Use the `appearance` attribute to change the callout's visual appearance (the de
 
 <br />
 
-<wa-callout variant="brand" appearance="outlined filled">
+<wa-callout variant="brand" appearance="filled-outlined">
   <wa-icon slot="icon" name="fill-drip" variant="regular"></wa-icon>
   This callout is both <strong>filled</strong> and <strong>outlined</strong>
 </wa-callout>

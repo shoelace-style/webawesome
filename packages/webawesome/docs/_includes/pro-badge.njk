@@ -1,5 +1,6 @@
-{% macro proBadge(proBadgeDescription, proBadgeId) %}
-  {% set badgeId = proBadgeId or ("pro-badge-" + ("" | uniqueId(8))) %}
+{% macro proBadge(params) %}
+  {% set description = params.description or "This requires access to Web Awesome Pro" %}
+  {% set badgeId = params.id or ("pro-badge-" + ("" | uniqueId(8))) %}
   <wa-badge appearance="accent" pill class="pro" id="{{ badgeId }}">Pro</wa-badge>
-  <wa-tooltip for="{{ badgeId }}">{{ proBadgeDescription or "This requires access to Web Awesome Pro" }}</wa-tooltip>
+  <wa-tooltip for="{{ badgeId }}">{{ description }}</wa-tooltip>
 {% endmacro %}

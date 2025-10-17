@@ -26,27 +26,25 @@ details {
 }
 
 /* Appearance modifiers */
-:host([appearance~='plain']) details {
+:host([appearance='plain']) details {
   background-color: transparent;
   border-color: transparent;
+  border-radius: 0;
 }
 
-:host([appearance~='outlined']) details {
+:host([appearance='outlined']) details {
   background-color: var(--wa-color-surface-default);
   border-color: var(--wa-color-surface-border);
 }
 
-:host([appearance~='filled']) details {
+:host([appearance='filled']) details {
   background-color: var(--wa-color-neutral-fill-quiet);
   border-color: transparent;
 }
 
-:host([appearance~='filled'][appearance~='outlined']) details {
+:host([appearance='filled-outlined']) details {
+  background-color: var(--wa-color-neutral-fill-quiet);
   border-color: var(--wa-color-neutral-border-quiet);
-}
-
-:host([appearance='plain']) details {
-  border-radius: 0;
 }
 
 :host([disabled]) details {
