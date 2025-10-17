@@ -253,7 +253,7 @@ wa-button.delete {
 }
 
 wa-page::part(menu) {
-  scrollbar-width: thin;
+  overflow: unset;
 }
 
 /* smaller viewports-based navigation */
