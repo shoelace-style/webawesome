@@ -137,7 +137,7 @@ Use the `appearance` attribute to change the card's visual appearance.
     />
     Outlined (default)
   </wa-card>
-  {% for appearance in ['outlined filled', 'plain', 'filled', 'accent'] -%}
+  {% for appearance in ['filled-outlined', 'plain', 'filled', 'accent'] -%}
   <wa-card appearance="{{ appearance }}">
     <img
       slot="media"

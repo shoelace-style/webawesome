@@ -30,31 +30,31 @@ Use the `appearance` attribute to change the badge's visual appearance.
 ```html {.example}
 <div style="margin-block-end: 1rem;">
   <wa-badge appearance="accent" variant="neutral">Accent</wa-badge>
-  <wa-badge appearance="filled outlined" variant="neutral">Filled + Outlined</wa-badge>
+  <wa-badge appearance="filled-outlined" variant="neutral">Filled-Outlined</wa-badge>
   <wa-badge appearance="filled" variant="neutral">Filled</wa-badge>
   <wa-badge appearance="outlined" variant="neutral">Outlined</wa-badge>
 </div>
 <div style="margin-block-end: 1rem;">
   <wa-badge appearance="accent" variant="brand">Accent</wa-badge>
-  <wa-badge appearance="filled outlined" variant="brand">Filled + Outlined</wa-badge>
+  <wa-badge appearance="filled-outlined" variant="brand">Filled-Outlined</wa-badge>
   <wa-badge appearance="filled" variant="brand">Filled</wa-badge>
   <wa-badge appearance="outlined" variant="brand">Outlined</wa-badge>
 </div>
 <div style="margin-block-end: 1rem;">
   <wa-badge appearance="accent" variant="success">Accent</wa-badge>
-  <wa-badge appearance="filled outlined" variant="success">Filled + Outlined</wa-badge>
+  <wa-badge appearance="filled-outlined" variant="success">Filled-Outlined</wa-badge>
   <wa-badge appearance="filled" variant="success">Filled</wa-badge>
   <wa-badge appearance="outlined" variant="success">Outlined</wa-badge>
 </div>
 <div style="margin-block-end: 1rem;">
   <wa-badge appearance="accent" variant="warning">Accent</wa-badge>
-  <wa-badge appearance="filled outlined" variant="warning">Filled + Outlined</wa-badge>
+  <wa-badge appearance="filled-outlined" variant="warning">Filled-Outlined</wa-badge>
   <wa-badge appearance="filled" variant="warning">Filled</wa-badge>
   <wa-badge appearance="outlined" variant="warning">Outlined</wa-badge>
 </div>
 <div>
   <wa-badge appearance="accent" variant="danger">Accent</wa-badge>
-  <wa-badge appearance="filled outlined" variant="danger">Filled + Outlined</wa-badge>
+  <wa-badge appearance="filled-outlined" variant="danger">Filled-Outlined</wa-badge>
   <wa-badge appearance="filled" variant="danger">Filled</wa-badge>
   <wa-badge appearance="outlined" variant="danger">Outlined</wa-badge>
 </div>
