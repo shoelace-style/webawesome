@@ -15,7 +15,7 @@ category: Organization
 
   <strong>Mittens</strong><br />
   This kitten is as cute as he is playful. Bring him home today!<br />
-  <small class="wa-caption-m">6 weeks old</small>
+  <small class="wa-caption-s">6 weeks old</small>
 
   <wa-button slot="footer" variant="brand" pill>More Info</wa-button>
   <wa-rating slot="footer-actions" label="Rating"></wa-rating>

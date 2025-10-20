@@ -240,7 +240,7 @@ layout: page
         {% else %}
           {% if App.flags.stripeEnabled %}
             <div class="wa-stack wa-gap-xs">
-              <h3 class="wa-heading-s">Get More with Web Awesome Pro!</h3>
+              <h3 class="wa-heading-m">Get More with Web Awesome Pro!</h3>
               <p>Unlock Pro-only themes, components, patterns, and great services like the Theme Builder.</p>
             </div>
             <wa-button class="wa-dark" size="small" href="/purchase">
