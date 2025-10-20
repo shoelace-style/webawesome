@@ -37,6 +37,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed a bug that caused the required `*` in form labels to have incorrect spacing in `<wa-checkbox>` and `<wa-switch>` [issue:1472]
 - Improved autofill styles in `<wa-input>` so they span the entire width of the visual input [issue:1439]
 - Modified `<wa-slider>` to only show the tooltip on the handle being dragged when in range mode [issue:1320]
+- Upgraded `<wa-page>` from _experimental_ to _stable_
 
 ## 3.0.0-beta.6
 
