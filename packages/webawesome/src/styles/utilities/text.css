@@ -22,7 +22,7 @@
 
   [class*='wa-longform'] {
     font-family: var(--wa-font-family-longform);
-    font-weight: var(--wa-font-weight-body);
+    font-weight: var(--wa-font-weight-longform);
     line-height: var(--wa-line-height-normal);
   }
 
