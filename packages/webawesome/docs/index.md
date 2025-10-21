@@ -236,7 +236,7 @@ layout: page
     <div class="hero-cta">
       {%- raw -%}
         {% if currentUser.hasPro %}
-          <span style="text-align: center; width: 100%; font-size: var(--wa-font-size-l);">Thanks for being a Web Awesome Pro subscriber!</span>
+          <span class="wa-font-size-l" style="text-align: center; width: 100%;">Thanks for being a Web Awesome Pro subscriber!</span>
         {% else %}
           {% if App.flags.stripeEnabled %}
             <div class="wa-stack wa-gap-xs">
