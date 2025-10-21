@@ -166,6 +166,39 @@
       calc(var(--grid-spacing) / 2) calc(var(--grid-spacing) / 2),
       calc(var(--grid-spacing) / 2) calc(var(--grid-spacing) / 2);
   }
+
+  /* dot grid background */
+  .background-dot-grid {
+    --dot-spacing: 1.5rem;
+    --dot-radius: 1.5px;
+    --dot-color: color-mix(in oklab, var(--wa-color-text-normal), transparent 85%);
+
+    background-image: radial-gradient(circle, var(--dot-color) var(--dot-radius), transparent var(--dot-radius));
+    background-size: var(--dot-spacing) var(--dot-spacing);
+  }
+
+  /* wa illustration background pattern */
+  .background-wa-pattern {
+    position: relative;
+
+    & > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    &::after {
+      --background-pattern-image: url('/assets/images/bg-wa-pattern.svg');
+
+      position: absolute;
+      inset: 0;
+      background-color: var(--background-pattern-color, transparent);
+      background-image: var(--background-pattern-image);
+      background-repeat: repeat;
+      content: '';
+      opacity: var(--background-pattern-opacity, 0.3);
+      z-index: 0;
+    }
+  }
   /* #endregion */
 
   /* buttons with icon toggle on hover */
