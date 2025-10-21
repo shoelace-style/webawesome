@@ -4,7 +4,7 @@ description: Changes to each version of the project are documented here.
 layout: page-outline
 ---
 
-<p class="wa-caption-m">Last updated: <wa-format-date month="long" day="numeric" year="numeric" date="{{ lastUpdatedISO }}"></wa-format-date></p>
+<p class="wa-caption-s">Last updated: <wa-format-date month="long" day="numeric" year="numeric" date="{{ lastUpdatedISO }}"></wa-format-date></p>
 
 Web Awesome follows [Semantic Versioning](https://semver.org/). Breaking changes in components with the <wa-badge variant="brand">Stable</wa-badge> badge will not be accepted until the next major version. As such, all contributions must consider the project's roadmap and take this into consideration. Features that are deemed no longer necessary will be deprecated but not removed.
 
@@ -37,6 +37,9 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed a bug that caused the required `*` in form labels to have incorrect spacing in `<wa-checkbox>` and `<wa-switch>` [issue:1472]
 - Improved autofill styles in `<wa-input>` so they span the entire width of the visual input [issue:1439]
 - Modified `<wa-slider>` to only show the tooltip on the handle being dragged when in range mode [issue:1320]
+- Improved [text utilities](/docs/utilities/text/) so that each size modifier always exactly matches the applied font size [pr:1602]
+- Added [text utilities](/docs/utilities/text/) for longform text, form control text, font sizes, font weights, text color, and truncation [pr:1602]
+- Upgraded `<wa-page>` from _experimental_ to _stable_
 
 ## 3.0.0-beta.6
 

@@ -15,24 +15,25 @@ pre[id*='code-block-']:has(code) {
 }
 
 wa-copy-button.copy-button {
-  --background-color: var(--wa-color-gray-20);
-  --background-color-hover: color-mix(in oklab, var(--background-color), white 5%);
   position: absolute;
-  top: 0.25rem;
-  right: 0.25rem;
+  top: 0.5rem;
+  right: 0.5rem;
   font-family: var(--wa-font-family-body);
-  color: var(--wa-color-gray-80);
+  font-size: var(--wa-font-size-m);
+  color: white;
   border-radius: var(--wa-border-radius-m);
-  padding: 0.25rem;
 
   &::part(button) {
-    background: transparent;
+    aspect-ratio: 1;
+    background-color: var(--wa-color-neutral-20);
     cursor: copy;
   }
 
   @media (hover: hover) {
     &:hover {
-      color: white;
+      &::part(button) {
+        background-color: var(--wa-color-neutral-30);
+      }
     }
   }
 
