@@ -167,6 +167,16 @@
       calc(var(--grid-spacing) / 2) calc(var(--grid-spacing) / 2);
   }
 
+  /* dot grid background */
+  .background-dot-grid {
+    --dot-spacing: 1.5rem;
+    --dot-radius: 1.5px;
+    --dot-color: color-mix(in oklab, var(--wa-color-text-normal), transparent 85%);
+
+    background-image: radial-gradient(circle, var(--dot-color) var(--dot-radius), transparent var(--dot-radius));
+    background-size: var(--dot-spacing) var(--dot-spacing);
+  }
+
   /* wa illustration background pattern */
   .background-wa-pattern {
     position: relative;
