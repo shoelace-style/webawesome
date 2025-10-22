@@ -129,7 +129,7 @@ export default class WaDialog extends WebAwesomeElement {
   private handleDialogCancel(event: Event) {
     event.preventDefault();
 
-    if (!this.dialog.classList.contains('hide')) {
+    if (!this.dialog.classList.contains('hide') && event.target === this.dialog) {
       this.requestClose(this.dialog);
     }
   }
