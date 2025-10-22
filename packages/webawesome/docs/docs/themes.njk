@@ -8,19 +8,19 @@ layout: page
 
 <p>Themes are collections of <a href="/docs/tokens">design tokens</a> that give a cohesive look and feel to the entire Web Awesome library. Style and restyle your website at will by loading any pre-built theme.</p>
 
+{% raw %}
 <p>See one you like?&nbsp;
 {%- if not session.isLoggedIn -%}
   <a href="/login">Log in</a>&nbsp;
-{%- elif data.teams and data.teams.length > 1 -%}
-  Head over to one of <a href="/teams">your teams</a>&nbsp;
-{%- elif App.flags.projectsEnabled and data.teams and data.teams.length == 1 -%}
-  Head over to <a href="/teams/{{ data.teams[0].id }}/projects">your projects</a>&nbsp;
+{%- else -%}
+  Head over to <a href="/teams">your teams</a>&nbsp;
 {%- endif -%}
 to create a project with any one of these themes.
 {%- if not currentUser.hasPro -%}
   &nbsp;(Plus, there are even more themes to love with Web Awesome Pro. <wa-icon name="heart" style="color: var(--wa-color-red-70);"></wa-icon>)
 {%- endif -%}
 </p>
+{% endraw %}
 
 <div id="theme-viewer">
   <wa-radio-group id="theme-picker" label="Theme Selector" value="default" orientation="horizontal">
