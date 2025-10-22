@@ -1,26 +1,28 @@
 ---
 title: Themes
-description: Themes galore
+description: Style (and restyle) your website at will with any of Web Awesome's pre-built themes.
 layout: page
 ---
 
-<div class="wa-split">
-  <h1>{{ title }}</h1>
-  <wa-button variant="brand" href="/themer">
-    <wa-icon slot="start" name="plus" variant="regular"></wa-icon>
-    Create a Theme
-  </wa-button>
-</div>
+<h1>{{ title }}</h1>
+
+<p>Themes are collections of <a href="/docs/tokens">design tokens</a> that give a cohesive look and feel to the entire Web Awesome library. Style and restyle your website at will by loading any pre-built theme.</p>
+
+<p>See one you like?&nbsp;
+{%- if not session.isLoggedIn -%}
+  <a href="/login">Log in</a>&nbsp;
+{%- elif data.teams and data.teams.length > 1 -%}
+  Head over to one of <a href="/teams">your teams</a>&nbsp;
+{%- elif App.flags.projectsEnabled and data.teams and data.teams.length == 1 -%}
+  Head over to <a href="/teams/{{ data.teams[0].id }}/projects">your projects</a>&nbsp;
+{%- endif -%}
+to create a project with any one of these themes.
+{%- if not currentUser.hasPro -%}
+  &nbsp;(Plus, there are even more themes to love with Web Awesome Pro. <wa-icon name="heart" style="color: var(--wa-color-red-70);"></wa-icon>)
+{%- endif -%}
+</p>
 
 <div id="theme-viewer">
-  {% raw %}
-    {% if not currentUser.hasPro %}
-      <p>
-        Additional themes are available to pro users. Please <a href="/login">login to view pro themes</a>.
-      </p>
-    {% endif %}
-  {% endraw %}
-
   <wa-radio-group id="theme-picker" label="Theme Selector" value="default" orientation="horizontal">
     {% for theme in themer.themes %}
       {% if not theme.isPro %}
