@@ -964,7 +964,8 @@
       content: '';
 
       aspect-ratio: 1;
-      width: round(calc(100% * var(--checked-icon-scale)), 1px);
+      width: 100%;
+      scale: var(--checked-icon-scale);
 
       background-color: currentColor;
       border-radius: 50%;
