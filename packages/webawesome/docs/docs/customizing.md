@@ -132,7 +132,7 @@ Most (but not all) components expose parts. You can find them in each component'
 
 If you're using [native styles](/docs/utilities/native), any custom styles added for a component should also target the corresponding native element. In general, the same styles you declare for components will work just the same to style their native counterparts.
 
-For example, we can give `<input type="checkbox">` the same custom styles as `<wa-checkbox>` by using the custom properties required to style the component:
+For example, we can give `<input type="checkbox">` the same custom styles as `<wa-checkbox>` by using standard CSS properties and CSS parts:
 
 ```html {.example}
 <wa-checkbox class="pinkify">Web Awesome checkbox</wa-checkbox>
@@ -143,37 +143,16 @@ For example, we can give `<input type="checkbox">` the same custom styles as `<w
 </label>
 
 <style>
-  wa-checkbox.pinkify,
+  wa-checkbox.pinkify::part(control),
   input[type='checkbox'].pinkify {
-    --background-color-checked: hotpink;
-    --border-color-checked: hotpink;
-    --border-width: 3px;
-    --checked-icon-color: lavenderblush;
-  }
-</style>
-```
-
-Or, if using CSS parts, we can give both checkboxes the same custom styles using standard CSS properties:
-
-```html {.example}
-<wa-checkbox class="purpleify">Web Awesome checkbox</wa-checkbox>
-<br />
-<label>
-  <input type="checkbox" class="purpleify" />
-  HTML checkbox
-</label>
-
-<style>
-  wa-checkbox.purpleify::part(control),
-  input[type='checkbox'].purpleify {
     border-width: 3px;
   }
 
-  wa-checkbox.purpleify:state(checked)::part(control),
-  input[type='checkbox'].purpleify:checked {
-    background-color: darkorchid;
-    border-color: darkorchid;
-    color: lavender;
+  wa-checkbox.pinkify:state(checked)::part(control),
+  input[type='checkbox'].pinkify:checked {
+    background-color: hotpink;
+    border-color: hotpink;
+    color: lavenderblush;
   }
 </style>
 ```
