@@ -255,7 +255,7 @@ wa-button.delete {
 
 wa-page::part(drawer__dialog),
 wa-page::part(menu) {
-  overflow: hidden;
+  overflow: clip;
 }
 
 /* smaller viewports-based navigation */
