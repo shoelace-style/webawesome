@@ -156,26 +156,3 @@ For example, we can give `<input type="checkbox">` the same custom styles as `<w
   }
 </style>
 ```
-
-## Style Utilities
-
-Similarly, if you're using [style utilities](/docs/utilities), any custom styles added for a specific attribute variation of a component — such as `appearance`, `variant`, or `size` — should also target the corresponding style utility class. This ensures that the attribute and its utility class counterpart work interchangeably.
-
-For example, we can give all outlined callouts a thick left border, regardless of whether they are styled with `appearance="outlined"` or `class="wa-outlined"`:
-
-```html {.example}
-<wa-callout appearance="filled-outlined">
-  <wa-icon slot="icon" name="circle-star"></wa-icon>
-  Here's a callout with <code>appearance="outlined"</code>
-</wa-callout>
-<wa-callout class="wa-outlined wa-filled">
-  <wa-icon slot="icon" name="circle-star"></wa-icon>
-  Here's a callout with <code>class="wa-outlined"</code>
-</wa-callout>
-
-<style>
-  wa-callout:is([appearance~='outlined']) {
-    border-left-width: var(--wa-panel-border-radius);
-  }
-</style>
-```
