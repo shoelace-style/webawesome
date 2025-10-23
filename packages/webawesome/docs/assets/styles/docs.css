@@ -447,7 +447,6 @@ wa-page > main:has(> .search-list) {
 
       [slot='header'] {
         display: flex;
-        justify-content: center;
       }
 
       &::part(header) {
