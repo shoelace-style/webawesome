@@ -4,7 +4,7 @@
     {% include 'head.njk' %}
     {% block head %}{% endblock %}
   </head>
-  <body class="layout-{{ layout | stripExtension }}">
+  <body class="layout-{{ layout | stripExtension }} page-{{ pageClass or page.fileSlug or 'home' }}">
     {% block content %}
       {{ content | safe }}
     {% endblock %}

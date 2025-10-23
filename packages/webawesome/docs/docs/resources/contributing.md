@@ -296,6 +296,7 @@ Then use the following syntax for comments so they appear in the generated docs.
  * @cssproperty --color: The component's text color.
  * @cssproperty --background-color: The component's background color.
  */
+@customElement('wa-example')
 export default class WaExample {
   // ...
 }
@@ -396,7 +397,7 @@ Guidelines for writing tests:
 
 ### Running tests
 
-Right now, tests run both "hydrated" (SSR -> client hydrated) and "client only". If you're debugging only one specific kind you can set an environment variable. For example, to run only the client tests, you can do:
+Right now, tests run both "hydrated" (SSR → client hydrated) and "client only". If you're debugging only one specific kind you can set an environment variable. For example, to run only the client tests, you can do:
 
 ```bash
 CSR_ONLY="true" npm run test

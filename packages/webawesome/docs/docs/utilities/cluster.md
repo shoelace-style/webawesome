@@ -60,7 +60,7 @@ Clusters are great for inline lists and aligning items of varying sizes.
 
 ```html {.example}
 <div class="wa-stack">
-  <h3 class="wa-heading-xl">Withywindle Pub and Eatery</h3>
+  <h3 class="wa-heading-2xl">Withywindle Pub and Eatery</h3>
   <div class="wa-cluster wa-gap-xs">
     <wa-rating value="4.6" read-only></wa-rating>
     <strong>4.6</strong>
@@ -72,7 +72,7 @@ Clusters are great for inline lists and aligning items of varying sizes.
       <wa-icon name="dollar" style="color: var(--wa-color-green-60);"></wa-icon>
       <wa-icon name="dollar" style="color: var(--wa-color-green-60);"></wa-icon>
     </div>
-    <span class="wa-caption-m">&bull;</span>
+    <span class="wa-caption-s">&bull;</span>
     <wa-tag size="small">Comfort Food</wa-tag>
     <wa-tag size="small">Gastropub</wa-tag>
     <wa-tag size="small">Cocktail Bar</wa-tag>

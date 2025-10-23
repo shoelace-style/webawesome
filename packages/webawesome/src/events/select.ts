@@ -2,7 +2,7 @@ export class WaSelectEvent extends Event {
   readonly detail;
 
   constructor(detail: WaSelectEventDetail) {
-    super('wa-select', { bubbles: true, cancelable: false, composed: true });
+    super('wa-select', { bubbles: true, cancelable: true, composed: true });
     this.detail = detail;
   }
 }

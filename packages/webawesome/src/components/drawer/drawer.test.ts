@@ -115,6 +115,18 @@ describe('<wa-drawer>', () => {
         expect(el.open).to.be.true;
       });
 
+      it('should not close when bubbled cancel event originates from within the drawer', async () => {
+        const el = await fixture<WaDrawer>(html`<wa-drawer open><input type="file" /></wa-drawer>`);
+        const input = el.querySelector('input')!;
+
+        const cancelEvent = new Event('cancel', { bubbles: true });
+        input.dispatchEvent(cancelEvent);
+
+        await aTimeout(250);
+
+        expect(el.open).to.be.true;
+      });
+
       it('should allow initial focus to be set', async () => {
         const el = await fixture<WaDrawer>(html` <wa-drawer><wa-input autofocus></wa-input></wa-drawer> `);
         const input = el.querySelector('wa-input')!;
