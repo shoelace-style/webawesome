@@ -388,6 +388,27 @@ h1.title {
   }
 }
 
+/* Images & Figures */
+
+figure.signpost {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--wa-space-s);
+
+  img {
+    border: var(--wa-border-style) var(--wa-border-width-m) var(--wa-color-surface-border);
+  }
+
+  figcaption {
+    color: var(--wa-color-text-quiet);
+    font-size: var(--wa-font-size-xs);
+    line-height: var(--wa-line-height-condensed);
+    text-align: center;
+  }
+}
+
 /* Search list pages */
 wa-page > main:has(> .search-list) {
   max-width: var(--content-width-l);

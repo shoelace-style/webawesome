@@ -132,7 +132,7 @@ Most (but not all) components expose parts. You can find them in each component'
 
 If you're using [native styles](/docs/utilities/native), any custom styles added for a component should also target the corresponding native element. In general, the same styles you declare for components will work just the same to style their native counterparts.
 
-For example, we can give `<input type="checkbox">` the same custom styles as `<wa-checkbox>` by using the custom properties required to style the component:
+For example, we can give `<input type="checkbox">` the same custom styles as `<wa-checkbox>` by using standard CSS properties and CSS parts:
 
 ```html {.example}
 <wa-checkbox class="pinkify">Web Awesome checkbox</wa-checkbox>
@@ -143,60 +143,16 @@ For example, we can give `<input type="checkbox">` the same custom styles as `<w
 </label>
 
 <style>
-  wa-checkbox.pinkify,
+  wa-checkbox.pinkify::part(control),
   input[type='checkbox'].pinkify {
-    --background-color-checked: hotpink;
-    --border-color-checked: hotpink;
-    --border-width: 3px;
-    --checked-icon-color: lavenderblush;
-  }
-</style>
-```
-
-Or, if using CSS parts, we can give both checkboxes the same custom styles using standard CSS properties:
-
-```html {.example}
-<wa-checkbox class="purpleify">Web Awesome checkbox</wa-checkbox>
-<br />
-<label>
-  <input type="checkbox" class="purpleify" />
-  HTML checkbox
-</label>
-
-<style>
-  wa-checkbox.purpleify::part(control),
-  input[type='checkbox'].purpleify {
     border-width: 3px;
   }
 
-  wa-checkbox.purpleify:state(checked)::part(control),
-  input[type='checkbox'].purpleify:checked {
-    background-color: darkorchid;
-    border-color: darkorchid;
-    color: lavender;
-  }
-</style>
-```
-
-## Style Utilities
-
-Similarly, if you're using [style utilities](/docs/utilities), any custom styles added for a specific attribute variation of a component — such as `appearance`, `variant`, or `size` — should also target the corresponding style utility class. This ensures that the attribute and its utility class counterpart work interchangeably.
-
-For example, we can give all outlined callouts a thick left border, regardless of whether they are styled with `appearance="outlined"` or `class="wa-outlined"`:
-
-```html {.example}
-<wa-callout appearance="filled-outlined">
-  <wa-icon slot="icon" name="circle-star"></wa-icon>
-  Here's a callout with <code>appearance="outlined"</code>
-</wa-callout>
-<wa-callout class="wa-outlined wa-filled">
-  <wa-icon slot="icon" name="circle-star"></wa-icon>
-  Here's a callout with <code>class="wa-outlined"</code>
-</wa-callout>
-
-<style>
-  wa-callout:is([appearance~='outlined']) {
-    border-left-width: var(--wa-panel-border-radius);
+  wa-checkbox.pinkify:state(checked)::part(control),
+  input[type='checkbox'].pinkify:checked {
+    background-color: hotpink;
+    border-color: hotpink;
+    color: lavenderblush;
   }
 </style>
 ```

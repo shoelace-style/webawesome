@@ -59,11 +59,13 @@ Common weights let you easily adjust the full range of weights for your theme.
 
 Role-based weights allow you to uniformly adjust the weight of certain types of text to keep styles consistent.
 
-| Custom Property            | Default Value                    | Preview                                                            |
-| -------------------------- | -------------------------------- | ------------------------------------------------------------------ |
-| `--wa-font-weight-body`    | `var(--wa-font-weight-normal)`   | <div style="font-weight: var(--wa-font-weight-body)">AaBb</div>    |
-| `--wa-font-weight-heading` | `var(--wa-font-weight-bold)`     | <div style="font-weight: var(--wa-font-weight-heading)">AaBb</div> |
-| `--wa-font-weight-action`  | `var(--wa-font-weight-semibold)` | <div style="font-weight: var(--wa-font-weight-action)">AaBb</div>  |
+| Custom Property             | Default Value                    | Preview                                                            |
+| --------------------------- | -------------------------------- | ------------------------------------------------------------------ |
+| `--wa-font-weight-body`     | `var(--wa-font-weight-normal)`   | <div style="font-weight: var(--wa-font-weight-body)">AaBb</div>    |
+| `--wa-font-weight-heading`  | `var(--wa-font-weight-bold)`     | <div style="font-weight: var(--wa-font-weight-heading)">AaBb</div> |
+| `--wa-font-weight-code`     | `var(--wa-font-weight-normal)`   | <div style="font-weight: var(--wa-font-weight-code)">AaBb</div> |
+| `--wa-font-weight-longform` | `var(--wa-font-weight-normal)`   | <div style="font-weight: var(--wa-font-weight-longform)">AaBb</div> |
+| `--wa-font-weight-action`   | `var(--wa-font-weight-semibold)` | <div style="font-weight: var(--wa-font-weight-action)">AaBb</div>  |
 
 In Web Awesome, we use `--wa-font-weight-action` for interactive text, such as button labels and tab names. We also recommend using `--wa-font-weight-action` for text that uses color alone to signal interactivity, such as links without text decoration.
 

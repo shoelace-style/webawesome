@@ -18,14 +18,17 @@
 <ul>
   <li><a href="https://github.com/shoelace-style/webawesome/discussions" target="_blank">Help &amp; Support</a></li>
   <li><a href="https://github.com/shoelace-style/webawesome/">Source Code</a></li>
+  <li>
+    <span class="wa-split">
+      <a href="/docs/resources/figma">Figma Design Kit</a></li>
+      {{ proBadge() }}
+    </span>
+  </li>
   <li><a href="/docs/resources/community">Community</a></li>
   <li><a href="/docs/resources/accessibility">Accessibility</a></li>
   <li><a href="/docs/resources/browser-support">Browser Support</a></li>
   <li><a href="/docs/resources/contributing">Contributing</a></li>
   <li><a href="/docs/resources/changelog">Changelog</a></li>
-  <li><a href="/license"><span class="wa-visually-hidden">Web Awesome </span>Free License</a></li>
-  <li><a href="/license/pro"><span class="wa-visually-hidden">Web Awesome </span>Pro License</a></li>
-  <li><a href="/tos">Terms of Service</a></li>
   <li><a href="/docs/resources/visual-tests">Visual Tests</a></li>
 </ul>
 
@@ -377,12 +380,6 @@
 <ul>
   <li><a href="/docs/color-palettes">Color Palettes</a></li>
   <li><a href="/docs/themes">Themes</a></li>
-  <li>
-    <span class="wa-split">
-      <a href="/themer" data-turbo="false">Theme Builder</a>
-      {{ proBadge({ description: "This requires an active Web Awesome Pro subscription", shrink: true }) }}
-    </span>
-  </li>
 </ul>
 
 <!-- Design tokens -->
@@ -405,21 +402,31 @@
   </ul>
 </wa-details>
 
+{# Policies #}
+<h2>Terms &amp; Policies</h2>
+<ul>
+  <li><a href="/license"><span class="wa-visually-hidden">Web Awesome </span>Free License</a></li>
+  <li><a href="/license/pro"><span class="wa-visually-hidden">Web Awesome </span>Pro License</a></li>
+  <li><a href="/tos">Terms of Service</a></li>
+  <li><a href="/privacy">Privacy Policy</a></li>
+  <li><a href="/refunds">Refund Policy</a></li>
+</ul>
+
 <wa-divider style="--spacing: var(--wa-space-xl);"></wa-divider>
 
 <div class="wa-stack wa-gap-xl" id="colophon">
   <div class="wa-stack wa-gap-xs">
     {% include "logo-simple.njk" %}
-    <h2 class="wa-heading-xs">Web Awesome</h2>
-    <p class="wa-caption-s wa-cluster wa-gap-xs">
+    <h2 class="wa-heading-s">Web Awesome</h2>
+    <p class="wa-caption-xs wa-cluster wa-gap-xs">
       Version {{ package.version }}
       <wa-icon id="version-icon-info" family="duotone" variant="regular" name="party-horn"></wa-icon>
-      <wa-tooltip for="version-icon-info" distance="2" style="font-size: var(--wa-font-size-xs);">Here be freshly launched Awesome and no wa-dragons</wa-tooltip>
+      <wa-tooltip for="version-icon-info" distance="2" class="wa-font-size-xs">Here be freshly launched Awesome and no wa-dragons</wa-tooltip>
     </p>
-    <p class="wa-caption-s">&copy; Fonticons, Inc.</p>
+    <p class="wa-caption-xs">&copy; Fonticons, Inc.</p>
   </div>
 
-  <div class="wa-cluster wa-gap-0 wa-caption-s the-socials">
+  <div class="wa-cluster wa-gap-0 wa-caption-xs the-socials">
     <h2 class="wa-visually-hidden">Web Awesome Elsewhere</h2>
     <a href="https://github.com/shoelace-style/webawesome" rel="noopener noreferrer" target="_blank" class="appearance-plain">
       <wa-icon family="brands" name="github" label="GitHub"></wa-icon>

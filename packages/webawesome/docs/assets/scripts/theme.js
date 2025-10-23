@@ -38,7 +38,7 @@ async function updateTheme(value, isInitialLoad = false) {
   // Handle site theme vs regular theme
   let href = `/dist/styles/themes/${value}.css`;
 
-  if (document.querySelector('wa-page').dataset.pageType === 'site') {
+  if (document.querySelector('wa-page')?.dataset.pageType === 'site') {
     brand = 'orange';
     href = `/assets/styles/theme-site.css`;
     palette = 'default';
