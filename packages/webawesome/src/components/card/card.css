@@ -76,21 +76,8 @@
   }
 }
 
-/* Make these slots "full width"  */
-::slotted([slot='header']),
-::slotted([slot='footer']) {
-  flex-grow: 1;
-}
-
-/* Push slots to sides when the action slots renders */
-.has-actions {
-  display: flex;
-  justify-content: space-between;
-}
-
 .header {
   display: block;
-  align-items: center;
   border-block-end-style: inherit;
   border-block-end-color: var(--wa-color-surface-border);
   border-block-end-width: var(--wa-panel-border-width);
@@ -104,11 +91,17 @@
 
 .footer {
   display: block;
-  align-items: center;
   border-block-start-style: inherit;
   border-block-start-color: var(--wa-color-surface-border);
   border-block-start-width: var(--wa-panel-border-width);
   padding: var(--spacing);
+}
+
+/* Push slots to sides when the action slots renders */
+.has-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 :host(:not([with-header])) .header,
@@ -125,7 +118,12 @@
     border-start-start-radius: var(--inner-border-radius);
     border-end-start-radius: var(--inner-border-radius);
     border-start-end-radius: 0;
-    object-fit: cover;
+
+    &::slotted(*) {
+      block-size: 100%;
+      inline-size: 100%;
+      object-fit: cover;
+    }
   }
 }
 
