@@ -2,22 +2,25 @@
 pre[id*='code-block-'] {
   color-scheme: dark;
   color: white;
-  background-color: var(--wa-color-neutral-20);
+  background-color: var(--wa-code-background, var(--wa-color-neutral-20));
 
   /* Ensures a discernible background color in dark mode
    * Useful for themes that use gray-20 as --wa-color-surface-default  */
   .wa-dark & {
-    background-color: var(--wa-color-surface-lowered);
+    background-color: var(--wa-code-background-dark, var(--wa-color-surface-lowered));
   }
 }
 
 .code-comment,
 .code-prolog,
 .code-doctype,
-.code-cdata,
+.code-cdata {
+  color: var(--wa-code-comment, var(--wa-color-gray-70));
+}
+
 .code-operator,
 .code-punctuation {
-  color: var(--wa-color-gray-70);
+  color: var(--wa-code-operator, var(--wa-color-gray-70));
 }
 
 .code-namespace {
@@ -28,24 +31,27 @@ pre[id*='code-block-'] {
 .code-keyword,
 .code-tag,
 .code-url {
-  color: var(--wa-color-indigo-70);
+  color: var(--wa-code-keyword, var(--wa-color-indigo-70));
 }
 
 .code-symbol,
 .code-deleted,
 .code-important {
-  color: var(--wa-color-red-70);
+  color: var(--wa-code-error, var(--wa-color-red-70));
+}
+
+.code-string,
+.code-char,
+.code-constant {
+  color: var(--wa-code-string, var(--wa-color-green-70));
 }
 
 .code-boolean,
-.code-constant,
 .code-selector,
 .code-attr-name,
-.code-string,
-.code-char,
 .code-builtin,
 .code-inserted {
-  color: var(--wa-color-green-70);
+  color: var(--wa-code-literal, var(--wa-color-green-70));
 }
 
 .code-atrule,
@@ -55,7 +61,7 @@ pre[id*='code-block-'] {
 .code-function,
 .code-class-name,
 .code-regex {
-  color: var(--wa-color-blue-70);
+  color: var(--wa-code-value, var(--wa-color-blue-70));
 }
 
 .code-important,
