@@ -21,6 +21,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
   - `<wa-select>`
   - `<wa-tag>`
   - `<wa-textarea>`
+- 🚨 BREAKING: Fixed a bug where `base` and `input` parts were swapped in `<wa-input>` [issue:1646]
 - Added the Kazakh translation [pr:1496]
 - Added docs for code completion for VS Code and JetBrains [pr:1550]
 - Added back the missing `form-control-label` part to `<wa-textarea>` for consistency with other form controls [pr:1533]

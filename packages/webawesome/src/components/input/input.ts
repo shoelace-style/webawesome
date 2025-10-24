@@ -40,8 +40,8 @@ import styles from './input.css';
  *
  * @csspart label - The label
  * @csspart hint - The hint's wrapper.
- * @csspart input - The wrapper being rendered as an input
- * @csspart base - The internal `<input>` control.
+ * @csspart base - The wrapper being rendered as an input
+ * @csspart input - The internal `<input>` control.
  * @csspart start - The container that wraps the `start` slot.
  * @csspart clear-button - The clear button.
  * @csspart password-toggle-button - The password toggle button.
@@ -353,11 +353,11 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
         <slot name="label">${this.label}</slot>
       </label>
 
-      <div part="input" class="text-field">
+      <div part="base" class="text-field">
         <slot name="start" part="start" class="start"></slot>
 
         <input
-          part="base"
+          part="input"
           id="input"
           class="control"
           type=${this.type === 'password' && this.passwordVisible ? 'text' : this.type}
