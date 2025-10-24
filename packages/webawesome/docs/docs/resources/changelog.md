@@ -40,6 +40,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed a bug in `<wa-dialog>` and `<wa-drawer>` that caused the component to prematurely hide when certain child elements are used [pr:1636]
 - Improved autofill styles in `<wa-input>` so they span the entire width of the visual input [issue:1439]
 - Improved [text utilities](/docs/utilities/text/) so that each size modifier always exactly matches the applied font size [pr:1602]
+- Improved Native Styles to use the `--wa-font-weight-code` design token
 - Modified `<wa-slider>` to only show the tooltip on the handle being dragged when in range mode [issue:1320]
 - Upgraded `<wa-page>` from _experimental_ to _stable_
 
