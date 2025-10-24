@@ -228,6 +228,7 @@
 
     font-family: var(--wa-font-family-code);
     font-size: var(--wa-font-size-smaller);
+    font-weight: var(--wa-font-weight-code);
 
     border: solid var(--wa-border-width-s) color-mix(in oklab, currentColor, transparent 50%);
     border-radius: var(--wa-border-radius-s);
@@ -281,6 +282,7 @@
 
     font-family: var(--wa-font-family-code);
     font-size: var(--wa-font-size-smaller);
+    font-weight: var(--wa-font-weight-code);
 
     background-color: var(--wa-color-overlay-inline);
     border-radius: var(--wa-border-radius-s);
@@ -291,6 +293,7 @@
 
     font-family: var(--wa-font-family-code);
     font-size: var(--wa-font-size-smaller);
+    font-weight: var(--wa-font-weight-code);
     white-space: pre;
 
     background-color: var(--wa-color-overlay-inline);
