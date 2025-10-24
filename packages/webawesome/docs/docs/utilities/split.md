@@ -139,7 +139,7 @@ These modifiers specify how items are aligned in the block direction for `wa-spl
 
 ## Gap
 
-A split's gap determines how close items can be before they wrap. By default, the gap between split items uses `--wa-space-m` from your theme. You can add any of the following [`wa-gap-*`](/docs/style-utilities/gap) classes to an element with `wa-split` to specify the gap between items:
+A split's gap determines how close items can be before they wrap. By default, the gap between split items uses `--wa-space-m` from your theme. You can add any of the following [`wa-gap-*`](/docs/utilities/gap) classes to an element with `wa-split` to specify the gap between items:
 
 - `wa-gap-0`
 - `wa-gap-3xs`
