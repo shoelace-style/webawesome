@@ -106,7 +106,7 @@ Items can be split across a row or a column by appending `:row` or `:column` to 
 
 ## Align Items
 
-By default, items are centered on the cross axis of the `wa-split` container. You can add any of the following [`wa-align-items-*`](/docs/style-utilities/align-items) classes to an element with `wa-split` to specify how items are aligned:
+By default, items are centered on the cross axis of the `wa-split` container. You can add any of the following [`wa-align-items-*`](/docs/utilities/align-items) classes to an element with `wa-split` to specify how items are aligned:
 
 - `wa-align-items-start`
 - `wa-align-items-end`

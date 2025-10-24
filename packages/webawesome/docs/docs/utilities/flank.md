@@ -137,7 +137,7 @@ The main content fills the remaining inline space of the container. By default, 
 
 ## Align Items
 
-By default, items are centered in the block direction of the `wa-flank` container. You can add any of the following [`wa-align-items-*`](/docs/style-utilities/align-items) classes to an element with `wa-flank` to specify how items are aligned in the block direction:
+By default, items are centered in the block direction of the `wa-flank` container. You can add any of the following [`wa-align-items-*`](/docs/utilities/align-items) classes to an element with `wa-flank` to specify how items are aligned in the block direction:
 
 - `wa-align-items-start`
 - `wa-align-items-end`

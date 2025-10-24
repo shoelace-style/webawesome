@@ -84,7 +84,7 @@ Clusters are great for inline lists and aligning items of varying sizes.
 
 ## Align Items
 
-By default, items are centered in the block direction of the `wa-cluster` container. You can add any of the following [`wa-align-items-*`](/docs/style-utilities/align-items) classes to an element with `wa-cluster` to specify how items are aligned in the block direction:
+By default, items are centered in the block direction of the `wa-cluster` container. You can add any of the following [`wa-align-items-*`](/docs/utilities/align-items) classes to an element with `wa-cluster` to specify how items are aligned in the block direction:
 
 - `wa-align-items-start`
 - `wa-align-items-end`
