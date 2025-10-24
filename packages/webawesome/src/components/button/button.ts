@@ -41,6 +41,7 @@ import styles from './button.css';
  */
 @customElement('wa-button')
 export default class WaButton extends WebAwesomeFormAssociatedElement {
+  static shadowRootOptions = { ...WebAwesomeFormAssociatedElement.shadowRootOptions, delegatesFocus: true };
   static css = [styles, variantStyles, sizeStyles];
 
   static get validators() {
