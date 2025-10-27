@@ -4,13 +4,6 @@ description: Web Awesome has a growing community of designers and developers tha
 layout: page
 ---
 
-<style>
-    wa-button.discord::part(base) {
-  
-    background: var(--wa-color-purple-50);
-
-  }
-</style>
   <p>We know people have their own way of reaching out, so our team makes sure you can find us wherever you need — whether it’s filing an issue on GitHub, chatting with the community on Discord, or getting private help via email. If you’re just getting started, don’t miss our <a href="/docs/">Instillation Guide</a>.</p>
 
 <wa-divider></wa-divider>
@@ -39,7 +32,7 @@ layout: page
 <wa-divider></wa-divider>
 <div class="wa-stack wa-align-items-start">
   <div class="wa-stack wa-gap-s">
-    <h2 class="anchor-heading wa-cluster wa-gap-xs" data-no-anchor><wa-icon name="discord" family="brands" style="font-size: 2ch;"></wa-icon>Discord</h2>
+    <h2 class="anchor-heading wa-cluster wa-gap-xs" data-no-anchor style="color: var(--wa-color-purple-50)"><wa-icon name="discord" family="brands" style="font-size: 2ch;"></wa-icon>Discord</h2>
     <span class="wa-heading-m">Community & Discussion</span>
     <p class="wa-caption-l">Ask questions, share tips, and connect with other developers in real time.</p>
   </div>
@@ -49,7 +42,7 @@ layout: page
     <li>Show the community what you're working on</li>
     <li>Chat live with other designers, developers, and Web Awesome supporters.</li>
   </ul>
-  <wa-button href="https://discord.com/invite/mg8f26C" class="discord">
+  <wa-button href="https://discord.com/invite/mg8f26C" appearance="filled">
     Join Discord
   </wa-button>
 </div>
