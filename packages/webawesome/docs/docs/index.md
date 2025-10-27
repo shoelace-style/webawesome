@@ -12,42 +12,27 @@ Welcome to Web Awesome! [Learn more](https://webawesome.com/) about this project
 
 ---
 
-## Quick Start (Autoloading via CDN)
+## 🚀 Using a Project
 
-To get everything included in Web Awesome, add the following code to the `<head>` of your site:
+A project gives you your own, personal CDN to use Web Awesome on your site. Each project uses a single line of code to install your preferred version, theme, Font Awesome kit...the works! And, when you update your project's settings, your project code pulls in all of the right stuff automatically — no need to update your own code or redeploy your site.
 
-```html
-<link rel="stylesheet" href="{% cdnUrl 'styles/webawesome.css' %}" />
-<script type="module" src="{% cdnUrl 'webawesome.loader.js' %}"></script>
-```
+One line of code from us. The entire Web Awesome library for you.
 
-This snippet adds:
+To use a project:
 
-- **Web Awesome styles**, a collection of stylesheets including essential default theme styles, optional [styles for native elements](/docs/utilities/native) and optional [utility classes](/docs/utilities)
-- **The autoloader**, a lightweight script watches the DOM for unregistered Web Awesome elements and lazy loads them for you — even if they're added dynamically
-
-Now you can [start using Web Awesome!](/docs/usage)
-
----
-
-## Using Font Awesome Kit Codes
-
-Font Awesome users can provide their kit code to unlock premium icon packs. You can provide yours by adding the `data-fa-kit-code` attribute to any element on the page, or by calling the `setKitCode()` method.
-
-```html
-<!-- Option 1: the data-fa-kit-code attribute -->
-<script src="bundle.js" data-fa-kit-code="abc123"></script>
-
-<!-- Option 2: the setKitCode() method -->
-<script type="module">
-  import { setKitCode } from '{% cdnUrl 'webawesome.loader.js' %}';
-  setKitCode('YOUR_KIT_CODE_HERE');
-</script>
-```
-
-:::info
-Not a Font Awesome user yet? [Learn more about premium icon packs](https://fontawesome.com/) and sign up for an account to unlock them!
-:::
+{% raw %}
+<ol>
+  <li>
+    {% if not session.isLoggedIn %}
+      <a href="/signup">Sign up</a> or <a href="/login">log in</a> to create a project.
+    {% else %}
+      Head over to <a href="/teams">your favorite team</a> and open up the project you'd like to use.
+    {% endif %}
+  </li>
+  <li>Copy and paste your unique project code into the <code>&lt;head&gt;</code> of each page on your site.</li>
+  <li><a href="/docs/usage">Start using Web Awesome!</a></li>
+</ol>
+{% endraw %}
 
 ---
 
@@ -63,31 +48,9 @@ Not a Font Awesome user yet? [Learn more about premium icon packs](https://fonta
 {% endraw %}
 </div>
 
-## Advanced Setup
+## 🛠️ Advanced Setup
 
-The autoloader is the easiest way to use Web Awesome, but different projects (or your own preferences!) may require different installation methods.
-
-### Cherry Picking from CDN
-
-Cherry picking will only load the components you need up front, while limiting the number of files the browser has to download. The disadvantage is that you need to import each individual component on each page it's used. Additionally, you must include the default theme (`styles/themes/default.css`) to style any imported components. To use a different theme, include your preferred theme _in addition to_ the default theme.
-
-Here's an example that loads only the button component.
-
-```html
-<link rel="stylesheet" href="{% cdnUrl 'styles/themes/default.css' %}" />
-
-<script type="module">
-  import '{% cdnUrl 'components/button/button.js' %}';
-
-  // <wa-button> is ready to use!
-</script>
-```
-
-You can copy and paste the code to import a component from the "Importing" section of the component's documentation. Note that some components have dependencies that are automatically imported when you cherry pick. If a component has dependencies, they will be listed in the "Dependencies" section of its docs.
-
-:::warning
-You will see files named `chunk.[hash].js` in the `chunks` directory. Never import these files directly, as they are generated and change from version to version.
-:::
+Projects are our favorite way to use Web Awesome, but different environments (or your own preferences!) may require different installation methods. If you're self-hosting Web Awesome or using npm, refer to the instructions in this section.
 
 ### Installing via npm
 
@@ -116,11 +79,48 @@ import '@awesome.me/webawesome/dist/components/input/input.js';
 
 Once they've been imported, you can use them in your HTML normally. Component imports are located in the "Importing" section of each component's documentation.
 
+
+### The Difference Between `/dist` & `/dist-cdn`
+
+If you have Web Awesome installed locally via npm, you'll notice the following directories in the project's root:
+
+```
+dist/
+dist-cdn/
+```
+
+The `dist-cdn` files come with everything bundled together, so you can use them directly without a build tool. The dist files keep dependencies separate, which lets your bundler optimize and share code more efficiently.
+
+Use `dist-cdn` if you're loading directly in the browser or from a CDN. Use `dist` if you're using a bundler like Webpack or Vite.
+
+### Referencing Necessary Styles
+
+If you're self-hosting Web Awesome, you'll need to set up your pages to reference any necessary styles. You can do so by referencing `webawesome.css`, or you can pick and choose specific stylesheets you'd like to use.
+
+```html
+<!-- Option 1: use all Web Awesome styles -->
+<link rel="stylesheet" href="/dist/styles/webawesome.css" />
+
+
+<!-- Option 2: pick and choose styles -->
+
+<!-- theme (required) -->
+<link rel="stylesheet" href="/dist/styles/themes/default.css" />
+
+<!-- native styles (optional) -->
+<link rel="stylesheet" href="/dist/styles/native.css" />
+
+<!-- CSS utilities (optional) -->
+<link rel="stylesheet" href="/dist/styles/utilities.css" />
+```
+
+If you choose to use a theme other than the default theme, be sure to add the corresponding class (e.g. `.wa-theme-awesome`) to your `<html>` element so that the class is applied.
+
 ### Setting the Base Path
 
 Some components rely on assets (icons, images, etc.) and Web Awesome needs to know where they're located. For convenience, Web Awesome will try to auto-detect the correct location based on the script you've loaded it from. This assumes assets are colocated with `webawesome.loader.js` and will "just work" for most users.
 
-==If you're using the CDN, you can skip this section.== However, if you're [cherry picking](#cherry-picking-from-cdn) or bundling Web Awesome, you'll need to set the base path. You can do this one of two ways.
+==If you're using a Web Awesome project, you can skip this section.== However, if you're [cherry picking](#cherry-picking-from-cdn) or bundling Web Awesome, you'll need to set the base path. You can do this one of two ways.
 
 ```html
 <!-- Option 1: the data-webawesome attribute -->
@@ -153,18 +153,26 @@ Most of the magic behind assets is handled internally by Web Awesome, but if you
 </script>
 ```
 
-### The Difference Between `/dist` & `/dist-cdn`
+### Using Font Awesome Pro and Pro+
 
-If you have Web Awesome installed locally via npm, you'll notice the following directories in the project's root:
+Font Awesome users can provide their kit code to unlock Pro and Pro+ icon packs. If you're using a project, simply add your Font Awesome Kit Code in your project's settings, and boom! Done.
 
+If you're using Web Awesome through other methods like npm, you can provide yours by adding the `data-fa-kit-code` attribute to any element on the page, or by calling the `setKitCode()` method.
+
+```html
+<!-- Option 1: the data-fa-kit-code attribute -->
+<script src="bundle.js" data-fa-kit-code="abc123"></script>
+
+<!-- Option 2: the setKitCode() method -->
+<script type="module">
+  import { setKitCode } from '{% cdnUrl 'webawesome.loader.js' %}';
+  setKitCode('YOUR_KIT_CODE_HERE');
+</script>
 ```
-dist/
-dist-cdn/
-```
 
-The `dist-cdn` files come with everything bundled together, so you can use them directly without a build tool. The dist files keep dependencies separate, which lets your bundler optimize and share code more efficiently.
-
-Use `dist-cdn` if you're loading directly in the browser or from a CDN. Use `dist` if you're using a bundler like Webpack or Vite.
+:::info
+Not a Font Awesome user yet? [Learn more about Font Awesome icon packs](https://fontawesome.com/) and sign up for an account to unlock them!
+:::
 
 ## React Users
 

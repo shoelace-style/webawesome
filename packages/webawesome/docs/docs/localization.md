@@ -27,7 +27,7 @@ Web Awesome ships with [a number of translations](https://github.com/shoelace-st
 You can import translations using the following syntax, where `<code>` is replaced with any language code shown above.
 
 ```js
-import '{% cdnUrl "translations/<code>.js" %}';
+import '/dist/translations/<code>.js';
 ```
 
 You do not need to load translations up front. You can import them dynamically even after updating the `lang` attribute. Once a translation is registered, localized components will update automatically.
@@ -37,7 +37,7 @@ You do not need to load translations up front. You can import them dynamically e
 document.documentElement.lang = 'de';
 
 // Import the translation
-import('{% cdnUrl "translations/<code>.js" %}');
+import('/translations/<code>.js');
 ```
 
 ### Translation Resolution

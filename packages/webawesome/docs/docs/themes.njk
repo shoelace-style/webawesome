@@ -86,16 +86,50 @@ to create a project with any one of these themes.
 </div>
 
 <h2>Using This Theme</h2>
+
 <div id="import-code">
   {% for theme in themer.themes %}
-  <div class="theme-instructions" data-theme="{{ theme.filename | stripExtension }}" {% if not loop.first %}hidden{% endif %}>
-    <p>
-      To import this theme, apply the following classes to the <code>&lt;html&gt;</code> element and import the theme's stylesheet.
-    </p>
-<pre><code class="language-html">&lt;html class=&quot;wa-theme-{{ theme.filename | stripExtension }} wa-palette-{{ theme.palette.filename | stripExtension }} wa-brand-{{ theme.colorBrand.color}}&quot;&gt;
-...
-&lt;link rel=&quot;stylesheet&quot; href=&quot;{% cdnUrl %}styles/themes/{{ theme.filename }}&quot; /&gt;</code></pre>
-  </div>
+    <div class="theme-instructions" data-theme="{{ theme.filename | stripExtension }}" {% if not loop.first %}hidden{% endif %}>
+      <wa-tab-group>
+        <wa-tab panel="projects"><wa-icon name="briefcase" variant="regular"></wa-icon> Projects</wa-tab>
+        <wa-tab panel="npm"><wa-icon name="box-open" variant="regular"></wa-icon> npm</wa-tab>
+        <wa-tab panel="self-hosted"><wa-icon name="file-zipper" variant="regular"></wa-icon> Self-Hosted</wa-tab>
+
+        <wa-tab-panel name="projects">
+          <h3 class="wa-heading-m">For Pro Projects:</h3>
+          <p>
+              In your project's <wa-icon name="gear" variant="regular"></wa-icon> Settings, <wa-icon name="paintbrush" variant="regular"></wa-icon> Edit Your Theme to open the Theme Builder. Select <strong>{{ theme.filename | stripExtension | capitalize }}</strong> as your Starting Theme.
+          </p>
+          <h3 class="wa-heading-m">For Free Projects:</h3>
+          <p>
+              In your project's <wa-icon name="gear" variant="regular"></wa-icon> Settings, set your Theme to <wa-icon name="paintbrush" variant="regular"></wa-icon> <strong>{{ theme.filename | stripExtension | capitalize }}</strong> and your Color Palette to <wa-icon name="swatchbook" variant="regular"></wa-icon> <strong>{{ theme.palette.filename | stripExtension | capitalize }}</strong>.
+          </p>
+          <p>Save your theme and watch it come to life anywhere you're using your project.</p>
+        </wa-tab-panel>
+
+        <wa-tab-panel name="npm">
+          <p>
+            To use this theme, import the theme's stylesheet:
+          </p>
+          <pre><code class="language-js">import &apos;@awesome.me/webawesome/dist/styles/themes/{{ theme.filename }}&apos;;</code></pre>
+          <p>
+            Then apply the following classes to the <code>&lt;html&gt;</code> element:
+          </p>
+          <pre><code class="language-html">&lt;html class=&quot;wa-theme-{{ theme.filename | stripExtension }} wa-palette-{{ theme.palette.filename | stripExtension }} wa-brand-{{ theme.colorBrand.color}}&quot;&gt;</code></pre>
+        </wa-tab-panel>
+
+        <wa-tab-panel name="self-hosted">
+          <p>
+            To use this theme, import the theme's stylesheet:
+          </p>
+          <pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;/dist/styles/themes/{{ theme.filename }}&quot; /&gt;</code></pre>
+          <p>
+            Then apply the following classes to the <code>&lt;html&gt;</code> element:
+          </p>
+          <pre><code class="language-html">&lt;html class=&quot;wa-theme-{{ theme.filename | stripExtension }} wa-palette-{{ theme.palette.filename | stripExtension }} wa-brand-{{ theme.colorBrand.color}}&quot;&gt;</code></pre>
+        </wa-tab-panel>
+      </wa-tab-group>
+    </div>
   {% endfor %}
 </div>
 
