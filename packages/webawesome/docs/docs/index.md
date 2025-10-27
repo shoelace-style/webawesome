@@ -17,8 +17,8 @@ Welcome to Web Awesome! [Learn more](https://webawesome.com/) about this project
 To get everything included in Web Awesome, add the following code to the `<head>` of your site:
 
 ```html
-<link rel="stylesheet" href="{% cdnUrl 'styles/webawesome.css' %}" />
-<script type="module" src="{% cdnUrl 'webawesome.loader.js' %}"></script>
+<link rel="stylesheet" href="/dist/styles/webawesome.css" />
+<script type="module" src="/dist/webawesome.loader.js"></script>
 ```
 
 This snippet adds:
@@ -40,7 +40,7 @@ Font Awesome users can provide their kit code to unlock premium icon packs. You 
 
 <!-- Option 2: the setKitCode() method -->
 <script type="module">
-  import { setKitCode } from '{% cdnUrl 'webawesome.loader.js' %}';
+  import { setKitCode } from '/dist/webawesome.loader.js';
   setKitCode('YOUR_KIT_CODE_HERE');
 </script>
 ```
@@ -74,10 +74,10 @@ Cherry picking will only load the components you need up front, while limiting t
 Here's an example that loads only the button component.
 
 ```html
-<link rel="stylesheet" href="{% cdnUrl 'styles/themes/default.css' %}" />
+<link rel="stylesheet" href="/dist/styles/themes/default.css" />
 
 <script type="module">
-  import '{% cdnUrl 'components/button/button.js' %}';
+  import '/dist/components/button/button.js';
 
   // <wa-button> is ready to use!
 </script>

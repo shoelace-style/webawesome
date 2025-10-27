@@ -12,14 +12,14 @@ Native styles use design tokens to spruce up native HTML elements so that they m
 To use all Web Awesome styles (including [utilities](/docs/utilities/)), include the following stylesheet in your project:
 
 ```html
-<link rel="stylesheet" href="{% cdnUrl 'styles/webawesome.css' %}" />
+<link rel="stylesheet" href="/dist/styles/webawesome.css" />
 ```
 
 Or, if you only want styles for native elements, include the default theme and native styles individually:
 
 ```html
-<link rel="stylesheet" href="{% cdnUrl 'styles/themes/default.css' %}" />
-<link rel="stylesheet" href="{% cdnUrl 'styles/native.css' %}" />
+<link rel="stylesheet" href="/dist/styles/themes/default.css" />
+<link rel="stylesheet" href="/dist/styles/native.css" />
 ```
 
 You can additionally include any pre-made [theme](/docs/themes/) or [color palette](/docs/color-palettes/) to change the look of native elements.
@@ -30,10 +30,18 @@ Native styles set default space between many block-level HTML elements using the
 
 ```html {.example}
 <h3>Curabitur odio ligula</h3>
-<p>Fusce mollis quam lorem, et gravida arcu laoreet ut. Pellentesque et malesuada mi. Morbi faucibus nisl nec nulla porta, ac scelerisque elit finibus.</p>
-<blockquote>The Road goes ever on and on<br />
-Out from the door where it began.</blockquote>
-<p>Donec varius, ipsum sit amet lobortis tristique, quam arcu pellentesque turpis, non porta lacus arcu non arcu. Morbi luctus at nisl sit amet faucibus.</p>
+<p>
+  Fusce mollis quam lorem, et gravida arcu laoreet ut. Pellentesque et malesuada mi. Morbi faucibus nisl nec nulla
+  porta, ac scelerisque elit finibus.
+</p>
+<blockquote>
+  The Road goes ever on and on<br />
+  Out from the door where it began.
+</blockquote>
+<p>
+  Donec varius, ipsum sit amet lobortis tristique, quam arcu pellentesque turpis, non porta lacus arcu non arcu. Morbi
+  luctus at nisl sit amet faucibus.
+</p>
 <hr />
 <ul>
   <li>Aenean imperdiet</li>
@@ -191,8 +199,8 @@ Use any inline text element like `<strong>`, `<em>`, `<a>`, `<kbd>`, and others 
 Add responsive media with `<img>`, `<svg>`, `<video>`, `<iframe>`, and others. Media takes up 100% width by default and scales according to its container's width.
 
 ```html {.example}
-<img 
-  src="https://images.unsplash.com/photo-1620196244888-d31ff5bbf163?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+<img
+  src="https://images.unsplash.com/photo-1620196244888-d31ff5bbf163?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
   alt="A gray kitten lays next to a toy"
 />
 ```
@@ -204,7 +212,9 @@ Structure tabular data with `<table>` and related elements like `<caption>`, `<t
 ```html {.example}
 <table>
   <caption>
-    This <code>&lt;caption&gt;</code> describes the table
+    This
+    <code>&lt;caption&gt;</code>
+    describes the table
   </caption>
   <thead>
     <tr>
@@ -347,7 +357,6 @@ Create buttons with `<button>` or `<input type="button | submit | reset">`. Butt
 
 Add the `wa-brand`, `wa-neutral`, `wa-success`, `wa-warning`, or `wa-danger` class to specify the button's [color variant](/docs/utilities/color/).
 
-
 ```html {.example}
 <button class="wa-neutral">Neutral</button>
 <button class="wa-brand">Brand</button>
@@ -406,7 +415,8 @@ Create a variety of form controls with `<input type="">`, `<select>`, and `<text
   <label>Color <input type="color" value="#f36944" /></label>
   <label>File <input type="file" multiple /></label>
   <label>Range <input type="range" /></label>
-  <label>Select
+  <label
+    >Select
     <select>
       <option value="option-1">Option 1</option>
       <option value="option-2">Option 2</option>
@@ -432,6 +442,7 @@ Create a variety of form controls with `<input type="">`, `<select>`, and `<text
 ```
 
 Add the `wa-size-s`, `wa-size-m`, or `wa-size-l` class to any form control or its parent `<label>` to specify its size.
+
 ```html {.example}
 <div class="wa-stack">
   <input type="text" placeholder="Small input" class="wa-size-s" />
@@ -510,7 +521,8 @@ Wrap form controls in a flex container to arrange them horizontally or verticall
 
 <form class="wa-stack">
   <label>Number of pancakes <input type="number" value="5" /></label>
-  <label>Syrup flavor
+  <label
+    >Syrup flavor
     <select>
       <option value="maple">Maple</option>
       <option value="strawberry">Strawberry</option>

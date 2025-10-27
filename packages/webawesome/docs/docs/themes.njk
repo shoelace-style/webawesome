@@ -94,7 +94,7 @@ to create a project with any one of these themes.
     </p>
 <pre><code class="language-html">&lt;html class=&quot;wa-theme-{{ theme.filename | stripExtension }} wa-palette-{{ theme.palette.filename | stripExtension }} wa-brand-{{ theme.colorBrand.color}}&quot;&gt;
 ...
-&lt;link rel=&quot;stylesheet&quot; href=&quot;{% cdnUrl %}styles/themes/{{ theme.filename }}&quot; /&gt;</code></pre>
+&lt;link rel=&quot;stylesheet&quot; href=&quot;/dist/styles/themes/{{ theme.filename }}&quot; /&gt;</code></pre>
   </div>
   {% endfor %}
 </div>

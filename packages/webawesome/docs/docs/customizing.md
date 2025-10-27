@@ -13,7 +13,7 @@ Web Awesome uses [themes](/docs/themes) to apply a cohesive look and feel across
 To use a theme, simply add a link to the theme's stylesheet to the `<head>` of your page. For example, you can add this snippet alongside th [installation code](/docs/#quick-start-autoloading-via-cdn) to use the _Awesome_ theme:
 
 ```html
-<link rel="stylesheet" href="{% cdnUrl 'styles/themes/awesome.css' %}" />
+<link rel="stylesheet" href="/dist/styles/themes/awesome.css" />
 ```
 
 You can customize any theme just with CSS — no preprocessor required. All design tokens are prefixed with `--wa-` to avoid collisions with other libraries and your own custom properties. Simply override any design token in your own stylesheet by scoping your styles to `:root`, the class for the specific theme you want to override (if needed), and the class for the relevant color scheme (if needed). Here's an example that changes the default brand color to purple in light mode:

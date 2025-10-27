@@ -40,6 +40,7 @@ await allDefined();
 
 By default, `allDefined()` will wait for all `wa-` prefixed custom elements within the current `document` to be registered.
 You can customize this behavior by passing in options:
+
 - `root` allows you to pass in a different element to search within, or a different document entirely (defaults to `document`).
 - `match` allows you to specify a custom function to determine which elements to wait for. This function should return `true` for elements you want to wait for and `false` for those you don't.
 - `additionalElements` allows you to wait for custom elements to be defined that may not be present in the DOM at the time `allDefined()` is called. This can be useful for elements that are loaded dynamically via JS.
@@ -52,7 +53,7 @@ import { allDefined } from '/dist/webawesome.js';
 await allDefined({
   match: tagName => tagName.startsWith('wa-') || tagName === 'my-component',
   root: document.getElementById('sidebar'),
-  additionalElements: ['wa-slider', 'other-slider']
+  additionalElements: ['wa-slider', 'other-slider'],
 });
 ```
 
@@ -194,12 +195,11 @@ Web Awesome ships with a file called `vscode.html-custom-data.json` that can be 
 
 If `settings.json` already exists, simply add the above line to the root of the object. Note that you may need to restart VS Code for the changes to take effect.
 
-If you are using WebAwesome through the [CDN](/docs/#quick-start-autoloading-via-cdn) you can manually [download the file]({% cdnUrl 'vscode.html-custom-data.json' %}]({% cdnUrl 'vscode.html-custom-data.json' %}) instead.
-
 ### JetBrains IDEs
-If you are using a [JetBrains IDE](https://www.jetbrains.com/) and you are installing Web Awesome from NPM, the editor will automatically detect the web-types.json file from the package and you should immediately see component information in your editor.
 
-If you are installing from the CDN, you can [download a local copy]({% cdnUrl 'web-types.json' %}) and add it to the root of your project. Be sure to add a reference to the web-types.json file in your package.json in order for your editor to properly detect it.
+If you are using a [JetBrains IDE](https://www.jetbrains.com/) and you are installing Web Awesome from NPM, the editor will automatically detect the `web-types.json` file from the package and you should immediately see component information in your editor.
+
+Be sure to add a reference to the `web-types.json` file in your `package.json` in order for your editor to properly detect it.
 
 ```json
 {
