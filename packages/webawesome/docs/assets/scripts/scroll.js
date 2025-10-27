@@ -34,7 +34,8 @@ document.addEventListener('click', event => {
         top: target.offsetTop - headerHeight,
         behavior: 'smooth',
       });
-      history.pushState(undefined, undefined, `#${id}`);
+
+      history.replaceState(history.state, '', `#${id}`);
     }
   }
 });

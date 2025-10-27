@@ -38,6 +38,7 @@ import styles from './drawer.css';
  *  the drawer has been closed programmatically. Avoid using this unless closing the drawer will result in destructive
  *  behavior such as data loss.
  *
+ * @csspart dialog - The drawer's internal `<dialog>` element.
  * @csspart header - The drawer's header. This element wraps the title and header actions.
  * @csspart header-actions - Optional actions to add to the header. Works best with `<wa-button>`.
  * @csspart title - The drawer's title.
@@ -140,7 +141,7 @@ export default class WaDrawer extends WebAwesomeElement {
   private handleDialogCancel(event: Event) {
     event.preventDefault();
 
-    if (!this.drawer.classList.contains('hide')) {
+    if (!this.drawer.classList.contains('hide') && event.target === this.drawer) {
       this.requestClose(this.drawer);
     }
   }
@@ -209,6 +210,8 @@ export default class WaDrawer extends WebAwesomeElement {
       const elementToFocus = this.querySelector<HTMLButtonElement>('[autofocus]');
       if (elementToFocus && typeof elementToFocus.focus === 'function') {
         elementToFocus.focus();
+      } else {
+        this.drawer.focus();
       }
     });
 

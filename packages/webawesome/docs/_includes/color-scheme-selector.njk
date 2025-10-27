@@ -1,25 +1,35 @@
-<wa-select class="color-scheme-selector" appearance="filled" value="auto" title="Press \ to toggle">
-  <wa-icon class="only-light" slot="start" name="sun-bright" variant="regular"></wa-icon>
-  <wa-icon class="only-dark" slot="start" name="moon-stars" variant="regular"></wa-icon>
-  <wa-option value="light">
-    <wa-icon slot="start" name="sun-bright" variant="regular"></wa-icon>
+<wa-dropdown class="color-scheme-selector" title="Press \ to toggle">
+  <wa-button slot="trigger" id="color-scheme-selector-trigger" appearance="plain">
+    <wa-icon name="sun-bright" variant="regular" class="icon-embiggen only-light"></wa-icon>
+    <wa-icon name="moon-stars" variant="regular" class="icon-embiggen only-dark"></wa-icon>
+  </wa-button>
+  <wa-dropdown-item value="light">
+    <wa-icon slot="icon" name="sun-bright" variant="regular" class="icon-embiggen"></wa-icon>
     Light
-  </wa-option>
-  <wa-option value="dark">
-    <wa-icon slot="start" name="moon-stars" variant="regular"></wa-icon>
+  </wa-dropdown-item>
+  <wa-dropdown-item value="dark">
+    <wa-icon slot="icon" name="moon-stars" variant="regular" class="icon-embiggen"></wa-icon>
     Dark
-  </wa-option>
+  </wa-dropdown-item>
   <wa-divider></wa-divider>
-  <wa-option value="auto">
-    <wa-icon class="only-light" slot="start" name="sun-bright" variant="regular"></wa-icon>
-    <wa-icon class="only-dark" slot="start" name="moon-stars" variant="regular"></wa-icon>
+  <wa-dropdown-item value="auto">
+    <wa-icon  slot="icon" name="sun-bright" variant="regular" class="only-light icon-embiggen"></wa-icon>
+    <wa-icon slot="icon" name="moon-stars" variant="regular" class="only-dark icon-embiggen"></wa-icon>
     System
-  </wa-option>
-</wa-select>
+  </wa-dropdown-item>
+</wa-dropdown>
+<wa-tooltip for="color-scheme-selector-trigger" id="color-scheme-tooltip">Select Color Scheme</wa-tooltip>
 
 <script>
-  // Immediately set the correct value from storage
-  document.querySelectorAll('wa-select.color-scheme-selector').forEach(el => {
-    el.setAttribute('value', localStorage.getItem('color-scheme') || 'auto');
+  // Handle dropdown selection and trigger input event for color-scheme.js
+  document.querySelectorAll('wa-dropdown.color-scheme-selector').forEach(el => {
+    el.addEventListener('wa-select', (event) => {
+      const selectedValue = event.detail.item.value;
+
+      // Trigger input event for color-scheme.js
+      el.value = selectedValue;
+      el.dispatchEvent(new Event('input', { bubbles: true }));
+    });
   });
 </script>
+

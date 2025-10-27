@@ -182,25 +182,6 @@ layout: page
       }
     }
   }
-  .beta-notice {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    & > * {
-      flex-basis: calc(((30ch * 2 + 1rem) - 100%) * 999);
-    }
-    & > * {
-      flex-grow: 2;
-    }
-    & > * + * {
-      flex-grow: 1;
-    }
-    & wa-callout,
-    & wa-button::part(base) {
-      height: 100%;
-      width: 100%;
-    }
-  }
   wa-button.tile::part(base) {
     border-color: var(--wa-color-surface-border);
     border-radius: 0.75rem;
@@ -255,13 +236,24 @@ layout: page
     <div class="hero-cta">
       {%- raw -%}
         {% if currentUser.hasPro %}
-          <span style="text-align: center; width: 100%; font-size: var(--wa-font-size-l);">Thanks for being a Web Awesome Pro subscriber!</span>
+          <span class="wa-font-size-l" style="text-align: center; width: 100%;">Thanks for being a Web Awesome Pro subscriber!</span>
         {% else %}
-          <span><em>Psst!</em> You can pre-order Web Awesome Pro at a low, guaranteed-for-life price &mdash; but not for long. Get in while the gettin’s good.</span>
-          <wa-button class="wa-dark" size="small" href="https://www.kickstarter.com/projects/fontawesome/web-awesome">
-            <wa-icon slot="start" name="person-running"></wa-icon>
-            Pre-order WA Pro
-          </wa-button>
+          {% if App.flags.stripeEnabled %}
+            <div class="wa-stack wa-gap-xs">
+              <h3 class="wa-heading-m">Get More with Web Awesome Pro!</h3>
+              <p>Unlock Pro-only themes, components, patterns, and great services like the Theme Builder.</p>
+            </div>
+            <wa-button class="wa-dark" size="small" href="/purchase">
+              <wa-icon slot="start" name="rocket-launch"></wa-icon>
+              Purchase Pro
+            </wa-button>
+          {% else %}
+            <span><em>Psst!</em> You can pre-order Web Awesome Pro at a low, guaranteed-for-life price &mdash; but not for long. Get in while the gettin’s good.</span>
+            <wa-button class="wa-dark" size="small" href="https://www.kickstarter.com/projects/fontawesome/web-awesome">
+              <wa-icon slot="start" name="person-running"></wa-icon>
+              Pre-order WA Pro
+            </wa-button>
+          {% endif %}
         {% endif %}
       {% endraw %}
     </div>
@@ -269,33 +261,18 @@ layout: page
 </div>
 
 <div class="home-wrapper">
-  <div class="beta-notice">
-    <div>
-      <wa-callout variant="brand">
-        <div class="wa-stack">
-          <div class="wa-cluster icon-heading">
-            <wa-icon name="sparkles" variant="regular"></wa-icon>
-            <h3>Bigger and beta than ever</h3>
-          </div>
-          <p>This beta is battle-tested and built to last, but if you see something, say something. Please <a href="https://github.com/shoelace-style/webawesome/issues">report bugs</a> or <a href="https://github.com/shoelace-style/webawesome/discussions">ask for help</a>!</p>
+  <wa-button href="/docs/" appearance="outlined" class="tile">
+    <div class="wa-stack">
+      <div class="wa-split">
+        <div class="wa-cluster icon-heading">
+          <wa-icon name="pen-ruler" class="brand-orange"></wa-icon>
+          <h3>Get started</h3>
         </div>
-      </wa-callout>
+        <wa-icon name="arrow-right"></wa-icon>
+      </div>
+      <p>Check out our installation guide to start building with Web Awesome.</p>
     </div>
-    <div>
-      <wa-button href="/docs/" appearance="outlined" class="tile">
-        <div class="wa-stack">
-          <div class="wa-split">
-            <div class="wa-cluster icon-heading">
-              <wa-icon name="pen-ruler" class="brand-orange"></wa-icon>
-              <h3>Get started</h3>
-            </div>
-            <wa-icon name="arrow-right"></wa-icon>
-          </div>
-          <p>Check out our installation guide to start building with Web Awesome.</p>
-        </div>
-      </wa-button>
-    </div>
-  </div>
+  </wa-button>
   <wa-divider></wa-divider>
   <div class="summary">
     <h2 class="brand-font">What's <span class="emphasis">Web</span> Awesome?</h2>
@@ -385,12 +362,21 @@ layout: page
       <wa-icon name="hashtag" style="color: var(--wa-brand-orange);"></wa-icon>
       <span>Stay in the know</span>
     </h2>
-    <div class="wa-grid">
+    <div class="wa-grid" style="--min-column-size: 30ch;">
       <wa-button href="https://bsky.app/profile/webawesome.com" rel="noopener noreferrer" target="_blank" appearance="filled" class="tile">
         <div class="wa-split">
           <div class="wa-cluster icon-heading">
             <wa-icon family="brands" name="bluesky"></wa-icon>
             <h3>Bluesky</h3>
+          </div>
+          <wa-icon name="arrow-up-right"></wa-icon>
+        </div>
+      </wa-button>
+      <wa-button href="https://mastodon.social/@webawesome" rel="noopener noreferrer" target="_blank" appearance="filled" class="tile">
+        <div class="wa-split">
+          <div class="wa-cluster icon-heading">
+            <wa-icon family="brands" name="mastodon"></wa-icon>
+            <h3>Mastodon</h3>
           </div>
           <wa-icon name="arrow-up-right"></wa-icon>
         </div>

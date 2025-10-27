@@ -27,7 +27,7 @@
   border-color: transparent;
 }
 
-:host([appearance~='filled'][appearance~='outlined']) {
+:host([appearance~='filled-outlined']) {
   border-color: var(--wa-color-border-quiet, var(--wa-color-brand-border-quiet));
 }
 
