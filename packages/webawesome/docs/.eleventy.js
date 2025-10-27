@@ -95,14 +95,14 @@ export default async function (eleventyConfig) {
   });
 
   // Site metadata for social sharing (Open Graph, canonical URLs, etc.)
-  const site = {
+  const siteMetadata = {
     url: 'https://webawesome.com',
     name: 'Web Awesome',
     description: 'Build better with Web Awesome, the open source library of web components from Font Awesome.',
     image: 'https://webawesome.com/assets/images/open-graph/default.png',
   };
 
-  eleventyConfig.addGlobalData('site', site);
+  eleventyConfig.addGlobalData('siteMetadata', siteMetadata);
 
   // Template filters - {{ content | filter }}
   eleventyConfig.addFilter('inlineMarkdown', content => markdown.renderInline(content || ''));
@@ -185,11 +185,11 @@ export default async function (eleventyConfig) {
     // Open Graph metadata with smart defaults
     ogTitle: data => data.ogTitle || data.title,
     ogDescription: data => data.ogDescription || data.description,
-    ogImage: data => data.ogImage || site.image,
+    ogImage: data => data.ogImage || siteMetadata.image,
     ogUrl: data => {
       if (data.ogUrl) return data.ogUrl;
       const url = data.page?.url || '';
-      return url ? `${site.url}${url}` : site.url;
+      return url ? `${siteMetadata.url}${url}` : siteMetadata.url;
     },
     ogType: data => data.ogType || 'website',
   });
