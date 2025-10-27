@@ -40,6 +40,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed a bug that caused the required `*` in form labels to have incorrect spacing in `<wa-checkbox>` and `<wa-switch>` [issue:1472]
 - Fixed a bug in `<wa-dialog>` and `<wa-drawer>` that caused the component to prematurely hide when certain child elements are used [pr:1636]
 - Fixed a bug in `<wa-popover>` and `<wa-tooltip>` that prevented dots and other valid ID characters from being used [issue:1648]
+- Fixed incorrect docs for the `wa-include-error` event which is dispatched by `<wa-include>` [issue:1663]
 - Improved autofill styles in `<wa-input>` so they span the entire width of the visual input [issue:1439]
 - Improved [text utilities](/docs/utilities/text/) so that each size modifier always exactly matches the applied font size [pr:1602]
 - Improved Native Styles to use the `--wa-font-weight-code` design token

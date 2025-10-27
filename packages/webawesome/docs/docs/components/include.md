@@ -19,7 +19,7 @@ The included content will be inserted into the `<wa-include>` element's default 
 
 When an include file loads successfully, the `wa-load` event will be emitted. You can listen for this event to add custom loading logic to your includes.
 
-If the request fails, the `wa-error` event will be emitted. In this case, `event.detail.status` will contain the resulting HTTP status code of the request, e.g. 404 (not found).
+If the request fails, the `wa-include-error` event will be emitted. In this case, `event.detail.status` will contain the resulting HTTP status code of the request, e.g. 404 (not found).
 
 ```html
 <wa-include src="https://shoelace.style/assets/examples/include.html"></wa-include>
@@ -33,7 +33,7 @@ If the request fails, the `wa-error` event will be emitted. In this case, `event
     }
   });
 
-  include.addEventListener('wa-error', event => {
+  include.addEventListener('wa-include-error', event => {
     if (event.eventPhase === Event.AT_TARGET) {
       console.log('Error', event.detail.status);
     }
