@@ -182,6 +182,16 @@ export default async function (eleventyConfig) {
   // Attach lastUpdatedISO to page data so templates can use {{ lastUpdatedISO }} directly
   eleventyConfig.addGlobalData('eleventyComputed', {
     lastUpdatedISO: data => getLastModifiedISO(data.page?.inputPath, data.lastUpdated),
+    // Open Graph metadata with smart defaults
+    ogTitle: data => data.ogTitle || data.title,
+    ogDescription: data => data.ogDescription || data.description,
+    ogImage: data => data.ogImage || site.image,
+    ogUrl: data => {
+      if (data.ogUrl) return data.ogUrl;
+      const url = data.page?.url || '';
+      return url ? `${site.url}${url}` : site.url;
+    },
+    ogType: data => data.ogType || 'website',
   });
   // Trims whitespace and pipes from the start and end of a string. Useful for CEM types, which can be pipe-delimited.
   // With Prettier 3, this means a leading pipe will exist be present when the line wraps.
