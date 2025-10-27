@@ -3,13 +3,13 @@
 <meta name="description" content="{{ description }}">
 {% if noindex or unlisted %}<meta name="robots" content="noindex">{% endif %}
 
-<title>{{ title }} | {{ siteMetadata.name }}</title>
+<title>{{ pageTitle }}</title>
 
 {# Skip OG tags for unlisted/noindex pages to prevent social sharing #}
 {% if not (noindex or unlisted) %}
   <meta property="og:type" content="{{ ogType }}" />
   <meta property="og:url" content="{{ ogUrl }}" />
-  <meta property="og:title" content="{{ ogTitle }} | {{ siteMetadata.name }}" />
+  <meta property="og:title" content="{{ ogTitle }}" />
   <meta property="og:description" content="{{ ogDescription }}" />
   <meta property="og:image" content="{{ ogImage }}" />
   <meta property="og:site_name" content="{{ siteMetadata.name }}" />
