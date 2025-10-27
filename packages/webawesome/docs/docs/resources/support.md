@@ -32,7 +32,7 @@ layout: page
 <wa-divider></wa-divider>
 <div class="wa-stack wa-align-items-start">
   <div class="wa-stack wa-gap-s">
-    <h2 class="anchor-heading wa-cluster wa-gap-xs" data-no-anchor style="color: var(--wa-color-purple-50)"><wa-icon name="discord" family="brands" style="font-size: 2ch;"></wa-icon>Discord</h2>
+    <h2 class="anchor-heading wa-cluster wa-gap-xs" data-no-anchor><wa-icon name="discord" family="brands" style="font-size: 2ch;"></wa-icon>Discord</h2>
     <span class="wa-heading-m">Community & Discussion</span>
     <p class="wa-caption-l">Ask questions, share tips, and connect with other developers in real time.</p>
   </div>
@@ -64,9 +64,9 @@ layout: page
 </div>
 <wa-divider></wa-divider>
 </div>
-<div class="wa-stack">
+<div class="wa-stack" style="margin-block-start: var(--wa-space-xl);">
   <div class="wa-stack wa-gap-s">
-    <h2>Socials</h2>
+    <h2 data-no-anchor>Socials</h2>
     <p>We’re everywhere you are — follow us on your favorite social media platforms for the latest news and updates.</p>
   </div>
 <div class="wa-cluster wa-caption-2xl">
