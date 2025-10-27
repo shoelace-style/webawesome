@@ -350,6 +350,9 @@ export default async function (eleventyConfig) {
     eleventyConfig.addPassthroughCopy(glob);
   }
 
+  // Passthrough copy for manifest.json (PWA manifest file)
+  eleventyConfig.addPassthroughCopy('manifest.json');
+
   // // SSR plugin
   // if (!isDev) {
   //   //
