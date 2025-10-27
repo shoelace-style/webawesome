@@ -27,6 +27,43 @@ body.theme-transitioning {
   transition: opacity 200ms ease-out;
 }
 
+/* banner */
+wa-page > [slot='banner'] {
+  padding: var(--wa-space-0);
+
+  .banner-content {
+    /* match docs header padding-inline by default */
+    padding-inline: var(--wa-space-xl);
+    padding-block: var(--wa-space-m);
+  }
+
+  &.banner-wa-launch {
+    /* custom brand colors carrried over from theme-site for the banner */
+    --wa-color-brand-95: #fef0ec;
+    --wa-color-brand-90: #fce0d8;
+    --wa-color-brand-80: #f8bcac;
+    --wa-color-brand-70: #fa9378;
+    --wa-color-brand-60: #f46a45;
+    --wa-color-brand-50: #cb4b27;
+    --wa-color-brand-40: #9d371a;
+    --wa-color-brand-30: #7c2a13;
+    --wa-color-brand-20: #5d1d0b;
+    --wa-color-brand-10: #3b0f05;
+    --wa-color-brand-05: #270802;
+    --wa-color-brand: var(--wa-color-brand-60);
+    --wa-color-brand-on: var(--wa-color-brand-10);
+
+    .banner-icon {
+      color: var(--wa-color-brand-fill-loud);
+      font-size: var(--wa-font-size-xl);
+    }
+
+    .appearance-underlined.variant-drawn {
+      --underline-color: var(--wa-color-brand);
+    }
+  }
+}
+
 /* Header */
 wa-page::part(header) {
   background-color: var(--wa-color-surface-default);

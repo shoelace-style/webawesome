@@ -37,6 +37,11 @@
         {% endif %}
       {% endfor %}
     >
+        {% block pageBanner %}
+          {#- WA Launch Banner -#}
+          {% include "_banner-wa-launch.njk" ignore missing %}
+        {% endblock %}
+
         {% block pageHeader %}
           <header slot="header" class="wa-split">
             {# Nav toggle #}
