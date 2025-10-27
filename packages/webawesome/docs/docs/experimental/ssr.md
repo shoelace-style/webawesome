@@ -16,8 +16,8 @@ SSR in Web Awesome is experimental! There are some known bugs and timing issues.
 If you're using the `webawesome.loader.js` file which automatically loads, make sure to change it to `webawesome.ssr-loader.js`.
 
 ```diff
-- <script type="module" src="https://early.webawesome.com/webawesome@3.0.0-alpha.2/dist/webawesome.loader.js"></script>
-+ <script type="module" src="https://early.webawesome.com/webawesome@3.0.0-alpha.2/dist/webawesome.ssr-loader.js"></script>
+- <script type="module" src="/dist/webawesome.loader.js"></script>
++ <script type="module" src="/dist/webawesome.ssr-loader.js"></script>
 ```
 
 If you're using a bundler, make sure it comes _before_ any components are imported.
@@ -43,7 +43,10 @@ import litPlugin from '@lit-labs/eleventy-plugin-lit';
 
 eleventyConfig.addPlugin(litPlugin, {
   mode: 'worker',
-  componentModules: ['@awesome.me/webawesome/dist/components/button/button.js', '@awesome.me/webawesome/dist/components/input/input.js'],
+  componentModules: [
+    '@awesome.me/webawesome/dist/components/button/button.js',
+    '@awesome.me/webawesome/dist/components/input/input.js',
+  ],
 });
 ```
 
