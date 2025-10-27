@@ -94,6 +94,16 @@ export default async function (eleventyConfig) {
     flashes: '',
   });
 
+  // Site metadata for social sharing (Open Graph, canonical URLs, etc.)
+  const site = {
+    url: 'https://webawesome.com',
+    name: 'Web Awesome',
+    description: 'Build better with Web Awesome, the open source library of web components from Font Awesome.',
+    image: 'https://webawesome.com/assets/images/open-graph/default.png',
+  };
+
+  eleventyConfig.addGlobalData('site', site);
+
   // Template filters - {{ content | filter }}
   eleventyConfig.addFilter('inlineMarkdown', content => markdown.renderInline(content || ''));
   eleventyConfig.addFilter('markdown', content => markdown.render(content || ''));
