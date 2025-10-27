@@ -5,6 +5,16 @@
 
 <title>{{ title }}</title>
 
+{# Skip OG tags for unlisted/noindex pages to prevent social sharing #}
+{% if not (noindex or unlisted) %}
+  <meta property="og:type" content="{{ ogType }}" />
+  <meta property="og:url" content="{{ ogUrl }}" />
+  <meta property="og:title" content="{{ ogTitle }}" />
+  <meta property="og:description" content="{{ ogDescription }}" />
+  <meta property="og:image" content="{{ ogImage }}" />
+  <meta property="og:site_name" content="{{ site.name }}" />
+{% endif %}
+
 {# Dark mode #}
 <script>
 	let colorScheme = localStorage.colorScheme;
