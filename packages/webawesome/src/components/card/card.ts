@@ -69,15 +69,25 @@ export default class WaCard extends WebAwesomeElement {
     // Vertical Orientation
     return html`
       <slot name="media" part="media" class="media"></slot>
-      <header part="header" class="header">
-        <slot name="header"></slot>
-        <slot name="header-actions"></slot>
-      </header>
+
+      ${this.hasSlotController.test('header-actions')
+        ? html` <header part="header" class="header has-actions">
+            <slot name="header"></slot>
+            <slot name="header-actions"></slot>
+          </header>`
+        : html` <header part="header" class="header">
+            <slot name="header"></slot>
+          </header>`}
+
       <slot part="body" class="body"></slot>
-      <footer part="footer" class="footer">
-        <slot name="footer"></slot>
-        <slot name="footer-actions"></slot>
-      </footer>
+      ${this.hasSlotController.test('footer-actions')
+        ? html` <footer part="footer" class="footer has-actions">
+            <slot name="footer"></slot>
+            <slot name="footer-actions"></slot>
+          </footer>`
+        : html` <footer part="footer" class="footer">
+            <slot name="footer"></slot>
+          </footer>`}
     `;
   }
 }
