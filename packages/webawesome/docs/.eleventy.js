@@ -182,8 +182,16 @@ export default async function (eleventyConfig) {
   // Attach lastUpdatedISO to page data so templates can use {{ lastUpdatedISO }} directly
   eleventyConfig.addGlobalData('eleventyComputed', {
     lastUpdatedISO: data => getLastModifiedISO(data.page?.inputPath, data.lastUpdated),
-    // Open Graph metadata with smart defaults
-    ogTitle: data => data.ogTitle || data.title,
+    // Page title with smart + default site name formatting
+    pageTitle: data => {
+      const title = data.title || siteMetadata.name;
+      return title !== siteMetadata.name ? `${title} | ${siteMetadata.name}` : title;
+    },
+    // Open Graph title with smart + default site name formatting
+    ogTitle: data => {
+      const ogTitle = data.ogTitle || data.title || siteMetadata.name;
+      return ogTitle !== siteMetadata.name ? `${ogTitle} | ${siteMetadata.name}` : ogTitle;
+    },
     ogDescription: data => data.ogDescription || data.description,
     ogImage: data => data.ogImage || siteMetadata.image,
     ogUrl: data => {
