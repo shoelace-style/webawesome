@@ -178,6 +178,7 @@ Then apply the following class to the `<html>` element:
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
+      gap: var(--wa-space-m);
     }
 
     &::part(form-control-label) {
@@ -190,7 +191,11 @@ Then apply the following class to the `<html>` element:
       overflow: hidden;
       white-space: nowrap;
       padding: 0;
-   }
+    }
+
+    wa-radio {
+      margin-inline: 0;
+    }
   }
 
   .palette-card {
