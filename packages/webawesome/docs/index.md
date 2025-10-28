@@ -238,22 +238,14 @@ layout: page
         {% if currentUser.hasPro %}
           <span class="wa-font-size-l" style="text-align: center; width: 100%;">Thanks for being a Web Awesome Pro subscriber!</span>
         {% else %}
-          {% if App.flags.stripeEnabled %}
-            <div class="wa-stack wa-gap-xs">
-              <h3 class="wa-heading-m">Get More with Web Awesome Pro!</h3>
-              <p>Unlock Pro-only themes, components, patterns, and great services like the Theme Builder.</p>
-            </div>
-            <wa-button class="wa-dark" size="small" href="/purchase">
-              <wa-icon slot="start" name="rocket-launch"></wa-icon>
-              Purchase Pro
-            </wa-button>
-          {% else %}
-            <span><em>Psst!</em> You can pre-order Web Awesome Pro at a low, guaranteed-for-life price &mdash; but not for long. Get in while the gettin’s good.</span>
-            <wa-button class="wa-dark" size="small" href="https://www.kickstarter.com/projects/fontawesome/web-awesome">
-              <wa-icon slot="start" name="person-running"></wa-icon>
-              Pre-order WA Pro
-            </wa-button>
-          {% endif %}
+          <div class="wa-stack wa-gap-xs">
+            <h3 class="wa-heading-m">Get More with Web Awesome Pro!</h3>
+            <p>Unlock Pro-only themes, components, patterns, and great services like the Theme Builder.</p>
+          </div>
+          <wa-button class="wa-dark" size="small" href="/purchase">
+            <wa-icon slot="start" name="rocket-launch"></wa-icon>
+            Purchase Pro
+          </wa-button>
         {% endif %}
       {% endraw %}
     </div>

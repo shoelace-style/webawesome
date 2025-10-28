@@ -12,22 +12,22 @@ export const themes = [
     isPro: false,
     fonts: {
       body: {
-        name: 'OS Default',
+        name: 'OS Default (sans-serif)',
         css: 'ui-sans-serif, system-ui, sans-serif',
         href: null,
       },
       heading: {
-        name: 'OS Default',
+        name: 'OS Default (sans-serif)',
         css: 'ui-sans-serif, system-ui, sans-serif',
         href: null,
       },
       code: {
-        name: 'OS Default',
+        name: 'OS Default (monospace)',
         css: 'ui-monospace, monospace',
         href: null,
       },
       longform: {
-        name: 'OS Default',
+        name: 'OS Default (serif)',
         css: 'ui-serif, serif',
         href: null,
       },
@@ -82,7 +82,7 @@ export const themes = [
         href: 'https://fonts.bunny.net/css2?family=Quicksand:wght@300..700&display=swap',
       },
       code: {
-        name: 'OS Default',
+        name: 'OS Default (monospace)',
         css: 'ui-monospace, monospace',
         href: null,
       },
@@ -132,22 +132,22 @@ export const themes = [
     isPro: false,
     fonts: {
       body: {
-        name: 'OS Default',
+        name: 'OS Default (sans-serif)',
         css: 'ui-sans-serif, system-ui, sans-serif',
         href: null,
       },
       heading: {
-        name: 'OS Default',
+        name: 'OS Default (sans-serif)',
         css: 'ui-sans-serif, system-ui, sans-serif',
         href: null,
       },
       code: {
-        name: 'OS Default',
+        name: 'OS Default (monospace)',
         css: 'ui-monospace, monospace',
         href: null,
       },
       longform: {
-        name: 'OS Default',
+        name: 'OS Default (serif)',
         css: 'ui-serif, serif',
         href: null,
       },
@@ -442,7 +442,7 @@ export const themes = [
         href: 'https://fonts.bunny.net/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap',
       },
       code: {
-        name: 'OS Default',
+        name: 'OS Default (monospace)',
         css: 'ui-monospace, monospace',
         href: null,
       },
@@ -562,7 +562,7 @@ export const themes = [
         href: 'https://fonts.bunny.net/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap',
       },
       code: {
-        name: 'OS Default',
+        name: 'OS Default (monospace)',
         css: 'ui-monospace, monospace',
         href: null,
       },
@@ -622,12 +622,12 @@ export const themes = [
         href: 'https://fonts.bunny.net/css2?family=Inter:ital,wght@0,100..900;1,100..900&display=swap',
       },
       code: {
-        name: 'OS Default',
+        name: 'OS Default (monospace)',
         css: 'ui-monospace, monospace',
         href: null,
       },
       longform: {
-        name: 'OS Default',
+        name: 'OS Default (serif)',
         css: 'ui-serif, serif',
         href: null,
       },

@@ -43,22 +43,56 @@ layout: docs
 
 <wa-divider style="--spacing: var(--wa-space-3xl);"></wa-divider>
 
-<div class="max-line-length">
 {% markdown %}
-## Installation
+## Using Layout Utilities
 
-Layout components are included in Web Awesome's [autoloader](/docs/#quick-start-autoloading-via-cdn). You can also import them individually via [cherry picking](/docs/#cherry-picking).
+Layout utility classes are bundled with Web Awesome's [style utilities](/docs/utilities). By including style utilities in your project, you'll have access to layout utilities like `.wa-grid` and `.wa-stack`. 
+{% endmarkdown %}
 
-Layout utilities are bundled with all [style utilities](/docs/utilities). You can import all Web Awesome page styles (including [native styles](/docs/utilities/native/)) by including the following stylesheet in your project:
+<wa-tab-group>
+  <wa-tab panel="cdn"><wa-icon name="rocket-launch" variant="regular"></wa-icon> CDN</wa-tab>
+  <wa-tab panel="npm"><wa-icon name="box-open" variant="regular"></wa-icon> npm</wa-tab>
+  <wa-tab panel="self-hosted"><wa-icon name="arrow-down-to-line" variant="regular"></wa-icon> Self-Hosted</wa-tab>
 
-```html
-<link rel="stylesheet" href="{% cdnUrl 'styles/webawesome.css' %}" />
+  <wa-tab-panel name="cdn">
+{% markdown %}
+1. Head over to your project's <wa-icon name="gear" variant="regular"></wa-icon> **Settings**.
+2. Next to **Features**, select the **CSS utilities** checkbox.
+3. **Save Changes** to immediately update anywhere you're using your project.
+{% endmarkdown %}
+  </wa-tab-panel>
+
+  <wa-tab-panel name="npm">
+{% markdown %}
+To use all Web Awesome styles (including [native styles](/docs/utilities/native/)), import the following stylesheet in your project:
+
+```js
+import '@awesome.me/webawesome/dist/styles/webawesome.css';
 ```
 
-Or, you can choose to import _only_ the utilities:
+Or, if you only want CSS utility classes, import a theme and the utilities individually:
 
-```html
-<link rel="stylesheet" href="{% cdnUrl 'styles/utilities.css' %}" />
+```js
+import '@awesome.me/webawesome/dist/styles/themes/default.css';
+import '@awesome.me/webawesome/dist/styles/utilities.css';
 ```
 {% endmarkdown %}
-</div>
+  </wa-tab-panel>
+
+  <wa-tab-panel name="self-hosted">
+{% markdown %}
+To use all Web Awesome styles (including [native styles](/docs/utilities/native/)), include the following stylesheet in your project:
+
+```html
+<link rel="stylesheet" href="/dist/styles/webawesome.css" />
+```
+
+Or, if you only want CSS utility classes, include a theme and the utilities individually:
+
+```html
+<link rel="stylesheet" href="/dist/styles/themes/default.css" />
+<link rel="stylesheet" href="/dist/styles/utilities.css" />
+```
+{% endmarkdown %}
+  </wa-tab-panel>
+</wa-tab-group>

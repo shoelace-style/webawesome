@@ -252,8 +252,9 @@ wa-button.delete {
   padding-bottom: 1rem;
 }
 
+wa-page::part(drawer__dialog),
 wa-page::part(menu) {
-  scrollbar-width: thin;
+  overflow: clip;
 }
 
 /* smaller viewports-based navigation */

@@ -94,6 +94,16 @@ export default async function (eleventyConfig) {
     flashes: '',
   });
 
+  // Site metadata for social sharing (Open Graph, canonical URLs, etc.)
+  const siteMetadata = {
+    url: 'https://webawesome.com',
+    name: 'Web Awesome',
+    description: 'Build better with Web Awesome, the open source library of web components from Font Awesome.',
+    image: 'https://webawesome.com/assets/images/open-graph/default.png',
+  };
+
+  eleventyConfig.addGlobalData('siteMetadata', siteMetadata);
+
   // Template filters - {{ content | filter }}
   eleventyConfig.addFilter('inlineMarkdown', content => markdown.renderInline(content || ''));
   eleventyConfig.addFilter('markdown', content => markdown.render(content || ''));
@@ -172,6 +182,24 @@ export default async function (eleventyConfig) {
   // Attach lastUpdatedISO to page data so templates can use {{ lastUpdatedISO }} directly
   eleventyConfig.addGlobalData('eleventyComputed', {
     lastUpdatedISO: data => getLastModifiedISO(data.page?.inputPath, data.lastUpdated),
+    // Page title with smart + default site name formatting
+    pageTitle: data => {
+      const title = data.title || siteMetadata.name;
+      return title !== siteMetadata.name ? `${title} | ${siteMetadata.name}` : title;
+    },
+    // Open Graph title with smart + default site name formatting
+    ogTitle: data => {
+      const ogTitle = data.ogTitle || data.title || siteMetadata.name;
+      return ogTitle !== siteMetadata.name ? `${ogTitle} | ${siteMetadata.name}` : ogTitle;
+    },
+    ogDescription: data => data.ogDescription || data.description,
+    ogImage: data => data.ogImage || siteMetadata.image,
+    ogUrl: data => {
+      if (data.ogUrl) return data.ogUrl;
+      const url = data.page?.url || '';
+      return url ? `${siteMetadata.url}${url}` : siteMetadata.url;
+    },
+    ogType: data => data.ogType || 'website',
   });
   // Trims whitespace and pipes from the start and end of a string. Useful for CEM types, which can be pipe-delimited.
   // With Prettier 3, this means a leading pipe will exist be present when the line wraps.
@@ -227,7 +255,11 @@ export default async function (eleventyConfig) {
 
   // Shortcodes - {% shortCode arg1, arg2 %}
   eleventyConfig.addShortcode('cdnUrl', location => {
-    return `https://early.webawesome.com/webawesome@${packageData.version}/dist/` + (location || '').replace(/^\//, '');
+    // We use WA (free) via the public CDN for CodePen examples
+    return (
+      `https://cdn.jsdelivr.net/npm/@awesome.me/webawesome@${packageData.version}/dist-cdn/` +
+      (location || '').replace(/^\//, '')
+    );
   });
 
   // Turns `{% server "foo" %} into `{{ server.foo | safe }}` when the WEBAWESOME_SERVER variable is set to "true"
@@ -345,6 +377,9 @@ export default async function (eleventyConfig) {
   for (let glob of passThrough) {
     eleventyConfig.addPassthroughCopy(glob);
   }
+
+  // Passthrough copy for manifest.json (PWA manifest file)
+  eleventyConfig.addPassthroughCopy('manifest.json');
 
   // // SSR plugin
   // if (!isDev) {

@@ -460,7 +460,7 @@
         wa-textarea
       ):not(:focus):not([appearance='filled']) {
       &:where(:not(wa-input):not(wa-select):not(wa-textarea)),
-      &:where(wa-input)::part(input),
+      &:where(wa-input)::part(base),
       &:where(wa-select)::part(combobox),
       &:where(wa-textarea)::part(base) {
         box-shadow: inset var(--wa-shadow-offset-x-s)

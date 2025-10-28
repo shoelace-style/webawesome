@@ -690,8 +690,8 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
     if (!this.withTooltip) return;
 
     // Show only the active tooltip, hide the other
-    const tooltipMin = this.shadowRoot?.querySelector('#tooltip-thumb-min') as WaTooltip;
-    const tooltipMax = this.shadowRoot?.querySelector('#tooltip-thumb-max') as WaTooltip;
+    const tooltipMin = this.shadowRoot?.getElementById('tooltip-thumb-min') as WaTooltip;
+    const tooltipMax = this.shadowRoot?.getElementById('tooltip-thumb-max') as WaTooltip;
 
     if (this.activeThumb === 'min') {
       if (tooltipMin) tooltipMin.open = true;
@@ -705,8 +705,8 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
   private hideRangeTooltips() {
     if (!this.withTooltip) return;
 
-    const tooltipMin = this.shadowRoot?.querySelector('#tooltip-thumb-min') as WaTooltip;
-    const tooltipMax = this.shadowRoot?.querySelector('#tooltip-thumb-max') as WaTooltip;
+    const tooltipMin = this.shadowRoot?.getElementById('tooltip-thumb-min') as WaTooltip;
+    const tooltipMax = this.shadowRoot?.getElementById('tooltip-thumb-max') as WaTooltip;
 
     if (tooltipMin) tooltipMin.open = false;
     if (tooltipMax) tooltipMax.open = false;

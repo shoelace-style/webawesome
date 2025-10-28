@@ -228,6 +228,7 @@
 
     font-family: var(--wa-font-family-code);
     font-size: var(--wa-font-size-smaller);
+    font-weight: var(--wa-font-weight-code);
 
     border: solid var(--wa-border-width-s) color-mix(in oklab, currentColor, transparent 50%);
     border-radius: var(--wa-border-radius-s);
@@ -281,6 +282,7 @@
 
     font-family: var(--wa-font-family-code);
     font-size: var(--wa-font-size-smaller);
+    font-weight: var(--wa-font-weight-code);
 
     background-color: var(--wa-color-overlay-inline);
     border-radius: var(--wa-border-radius-s);
@@ -291,6 +293,7 @@
 
     font-family: var(--wa-font-family-code);
     font-size: var(--wa-font-size-smaller);
+    font-weight: var(--wa-font-weight-code);
     white-space: pre;
 
     background-color: var(--wa-color-overlay-inline);
@@ -462,7 +465,7 @@
     &::after {
       content: '';
       background-color: var(--wa-color-text-quiet);
-      mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="16" width="10" viewBox="0 0 320 512"><!--! Font Awesome Pro 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2025 Fonticons, Inc. --><path fill="currentColor" d="M311.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L243.2 256 73.9 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg>')
+      mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc. --><path fill="currentColor" d="M311.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L243.2 256 73.9 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg>')
         center no-repeat;
       width: 1rem;
       height: 1rem;
@@ -874,7 +877,6 @@
   input[type='radio'] {
     appearance: none;
 
-    position: relative;
     flex: 0 0 auto;
     align-items: center;
     justify-content: center;
@@ -922,21 +924,18 @@
 
     &:checked::after,
     &:indeterminate::after {
-      position: absolute;
-
-      width: round(calc(100% - var(--wa-form-control-border-width) * 2), 1px);
-      height: round(calc(100% - var(--wa-form-control-border-width) * 2), 1px);
-
       content: '';
 
-      background-color: currentColor;
-
+      width: var(--wa-form-control-toggle-size);
+      height: var(--wa-form-control-toggle-size);
       scale: var(--checked-icon-scale);
+
+      background-color: currentColor;
     }
 
     &:checked::after {
-      mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2025 Fonticons, Inc. --><path fill="currentColor" d="M434.8 70.1c14.3 10.4 17.5 30.4 7.1 44.7l-256 352c-5.5 7.6-14 12.3-23.4 13.1s-18.5-2.7-25.1-9.3l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l101.5 101.5 234-321.7c10.4-14.3 30.4-17.5 44.7-7.1z"/></svg>')
-        center no-repeat;
+      mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc. --><path fill="currentColor" d="M434.8 70.1c14.3 10.4 17.5 30.4 7.1 44.7l-256 352c-5.5 7.6-14 12.3-23.4 13.1s-18.5-2.7-25.1-9.3l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l101.5 101.5 234-321.7c10.4-14.3 30.4-17.5 44.7-7.1z"/></svg>')
+        center / 1em 1em no-repeat;
     }
 
     &:indeterminate::after {
@@ -964,7 +963,8 @@
       content: '';
 
       aspect-ratio: 1;
-      width: round(calc(100% * var(--checked-icon-scale)), 1px);
+      width: 100%;
+      scale: var(--checked-icon-scale);
 
       background-color: currentColor;
       border-radius: 50%;
@@ -1065,9 +1065,7 @@
 
   /* Select */
   select {
-    --icon-caret: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 512 512"><path fill="rgb(180 180 200)" d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>');
-
-    --icon-caret: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 448 512"><!--! Font Awesome Pro 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2025 Fonticons, Inc. --><path fill="rgb(180 180 200)" d="M201.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 338.7 54.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>');
+    --icon-caret: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc. --><path fill="rgb(180 180 200)" d="M201.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 338.7 54.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg>');
 
     appearance: none;
 
@@ -1080,6 +1078,7 @@
     background-repeat: no-repeat;
     background-position: center right var(--wa-form-control-padding-inline);
     background-blend-mode: hue, difference;
+    background-size: 1rem 1rem;
 
     cursor: pointer;
   }

@@ -10,27 +10,32 @@ You can customize the look and feel of Web Awesome at a high level with themes. 
 
 Web Awesome uses [themes](/docs/themes) to apply a cohesive look and feel across the entire library. Themes are built with a collection of predefined CSS custom properties, which we call [design tokens](/docs/tokens), and there are many premade themes you can choose from.
 
-To use a theme, simply add a link to the theme's stylesheet to the `<head>` of your page. For example, you can add this snippet alongside th [installation code](/docs/#quick-start-autoloading-via-cdn) to use the _Awesome_ theme:
+{% raw %}
+  <p>
+    To use a pre-built theme {%- if currentUser.hasPro -%}&nbsp;or build your own{%- endif -%},&nbsp;
+    {%- if not session.isLoggedIn -%}
+      <a href="/signup">sign up</a> or <a href="/login">log in</a> to create a project.&nbsp;
+    {%- else -%}
+      head over to <a href="/teams">your teams</a> and open up the project you'd like to use.&nbsp;
+    {%- endif -%}
+    In your project's <wa-icon name="gear" variant="regular"></wa-icon> <strong>Settings</strong>,&nbsp;
+    {%- if not currentUser.hasPro -%}
+      select a <wa-icon name="paintbrush" variant="regular"></wa-icon> <strong>Theme</strong> and a <wa-icon name="swatchbook" variant="regular"></wa-icon> <strong>Color Palette</strong> to use, save your changes, and bask in the glory of your new theme.
+    {%- else -%}
+      <wa-icon name="paintbrush" variant="regular"></wa-icon> <strong>Edit Your Theme</strong> to open the Theme Builder and select a pre-built theme or customize your colors, fonts, icons, and more.
+    {%- endif -%}
+  </p>
+{% endraw %}
 
-```html
-<link rel="stylesheet" href="{% cdnUrl 'styles/themes/awesome.css' %}" />
-```
-
-You can customize any theme just with CSS — no preprocessor required. All design tokens are prefixed with `--wa-` to avoid collisions with other libraries and your own custom properties. Simply override any design token in your own stylesheet by scoping your styles to `:root`, the class for the specific theme you want to override (if needed), and the class for the relevant color scheme (if needed). Here's an example that changes the default brand color to purple in light mode:
+For even more customizations, you can off-road and override any theme just with CSS — no preprocessor required. All design tokens are prefixed with `--wa-` to avoid collisions with other libraries and your own custom properties. Simply style any design token in your own stylesheet by scoping your styles to `:root` and the class for the relevant color scheme (if needed). Here's an example that uses tinted surface colors in light mode:
 
 ```css
 :root,
 .wa-light,
 .wa-dark .wa-invert {
-  --wa-color-brand-fill-quiet: var(--wa-color-purple-95);
-  --wa-color-brand-fill-normal: var(--wa-color-purple-90);
-  --wa-color-brand-fill-loud: var(--wa-color-purple-50);
-  --wa-color-brand-border-quiet: var(--wa-color-purple-90);
-  --wa-color-brand-border-normal: var(--wa-color-purple-80);
-  --wa-color-brand-border-loud: var(--wa-color-purple-60);
-  --wa-color-brand-on-quiet: var(--wa-color-purple-40);
-  --wa-color-brand-on-normal: var(--wa-color-purple-30);
-  --wa-color-brand-on-loud: white;
+  --wa-color-surface-raised: var(--wa-color-neutral-95);
+  --wa-color-surface-default: var(--wa-color-neutral-90);
+  --wa-color-surface-lowered: var(--wa-color-neutral-80);
 }
 ```
 
