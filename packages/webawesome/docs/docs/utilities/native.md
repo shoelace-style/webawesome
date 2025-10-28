@@ -9,18 +9,53 @@ Native styles use design tokens to spruce up native HTML elements so that they m
 
 ## Using native styles
 
+<wa-tab-group>
+  <wa-tab panel="cdn"><wa-icon name="rocket-launch" variant="regular"></wa-icon> CDN</wa-tab>
+  <wa-tab panel="npm"><wa-icon name="box-open" variant="regular"></wa-icon> npm</wa-tab>
+  <wa-tab panel="self-hosted"><wa-icon name="arrow-down-to-line" variant="regular"></wa-icon> Self-Hosted</wa-tab>
+
+  <wa-tab-panel name="cdn">
+{% markdown %}
+1. Head over to your project's <wa-icon name="gear" variant="regular"></wa-icon> **Settings**.
+2. Next to **Features**, select the **Native styles** checkbox.
+3. **Save Changes** to immediately update anywhere you're using your project.
+{% endmarkdown %}
+  </wa-tab-panel>
+
+  <wa-tab-panel name="npm">
+{% markdown %}
+To use all Web Awesome styles (including [utilities](/docs/utilities/)), import the following stylesheet in your project:
+
+```js
+import '@awesome.me/webawesome/dist/styles/webawesome.css';
+```
+
+Or, if you only want styles for native elements, import a theme and native styles individually:
+
+```js
+import '@awesome.me/webawesome/dist/styles/themes/default.css';
+import '@awesome.me/webawesome/dist/styles/native.css';
+```
+{% endmarkdown %}
+  </wa-tab-panel>
+
+  <wa-tab-panel name="self-hosted">
+{% markdown %}
 To use all Web Awesome styles (including [utilities](/docs/utilities/)), include the following stylesheet in your project:
 
 ```html
 <link rel="stylesheet" href="/dist/styles/webawesome.css" />
 ```
 
-Or, if you only want styles for native elements, include the default theme and native styles individually:
+Or, if you only want styles for native elements, include a theme and native styles individually:
 
 ```html
 <link rel="stylesheet" href="/dist/styles/themes/default.css" />
 <link rel="stylesheet" href="/dist/styles/native.css" />
 ```
+{% endmarkdown %}
+  </wa-tab-panel>
+</wa-tab-group>
 
 You can additionally include any pre-made [theme](/docs/themes/) or [color palette](/docs/color-palettes/) to change the look of native elements.
 
