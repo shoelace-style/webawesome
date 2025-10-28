@@ -27,6 +27,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Added back the missing `form-control-label` part to `<wa-textarea>` for consistency with other form controls [pr:1533]
 - Added focus delegation to `<wa-button>` to ensure tabbing works properly when using `tabindex` [issue:1622]
 - Added [text utilities](/docs/utilities/text/) for longform text, form control text, font sizes, font weights, text color, and truncation [pr:1602]
+- Added version 1.0.0 of the [official Web Awesome Figma Design Kit](/docs/resources/figma)
 - Fixed a bug in `<wa-button>` where slotted badges weren't properly positioned in buttons with an `href` [issue:1377]
 - Fixed focus outline styles in `<wa-details>` and native `<details>` [issue:1456]
 - Fixed focus outline styles in `<wa-scroller>`, `<wa-dialog>`, and `<wa-drawer>` [issue:1484]
@@ -41,6 +42,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed a bug in `<wa-dialog>` and `<wa-drawer>` that caused the component to prematurely hide when certain child elements are used [pr:1636]
 - Fixed a bug in `<wa-popover>` and `<wa-tooltip>` that prevented dots and other valid ID characters from being used [issue:1648]
 - Fixed incorrect docs for the `wa-include-error` event which is dispatched by `<wa-include>` [issue:1663]
+- Fixed a bug in `<wa-card>` where slotted header and footer content wasn't properly aligned [pr:1435]
 - Improved autofill styles in `<wa-input>` so they span the entire width of the visual input [issue:1439]
 - Improved [text utilities](/docs/utilities/text/) so that each size modifier always exactly matches the applied font size [pr:1602]
 - Improved Native Styles to use the `--wa-font-weight-code` design token
