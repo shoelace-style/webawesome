@@ -27,6 +27,10 @@
     </script>
   </head>
   <body class="layout-{{ layout | stripExtension }} page-{{ pageClass or page.fileSlug or 'home' }}{{ ' page-wide' if wide }}">
+    {% if hasBanner == undefined %}
+      {% set hasBanner = true %}
+    {% endif %}
+
     {% set defaultWaPageAttributes = defaultWaPageAttributes or { view: 'desktop', 'disable-navigation-toggle': true, 'mobile-breakpoint': 1180, 'disable-sticky': 'banner' } %}
     {% set waPageAttributes = waPageAttributes or {} %}
     {% set mergedWaPageAttributes = defaultWaPageAttributes | merge(waPageAttributes) %}
@@ -38,8 +42,10 @@
       {% endfor %}
     >
         {% block pageBanner %}
-          {#- WA Launch Banner -#}
-          {% include "_banner-wa-launch.njk" ignore missing %}
+          {% if hasBanner %}
+            {#- WA Launch Banner -#}
+            {% include "_banner-wa-launch.njk" ignore missing %}
+          {% endif %}
         {% endblock %}
 
         {% block pageHeader %}
