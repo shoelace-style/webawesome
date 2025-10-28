@@ -10,7 +10,7 @@ Web Awesome follows [Semantic Versioning](https://semver.org/). Breaking changes
 
 Components with the <wa-badge variant="warning">Experimental</wa-badge> badge should not be used in production. They are made available as release candidates for development and testing purposes. As such, changes to experimental components will not be subject to semantic versioning.
 
-## Next
+## 3.0.0
 
 - 🚨 BREAKING: Changed `appearance="filled outlined"` to `appearance="filled-outlined"` in the following elements [issue:1127]
   - `<wa-badge>`
@@ -41,7 +41,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed a bug that caused the required `*` in form labels to have incorrect spacing in `<wa-checkbox>` and `<wa-switch>` [issue:1472]
 - Fixed a bug in `<wa-dialog>` and `<wa-drawer>` that caused the component to prematurely hide when certain child elements are used [pr:1636]
 - Fixed a bug in `<wa-popover>` and `<wa-tooltip>` that prevented dots and other valid ID characters from being used [issue:1648]
-- [Pro] Fixed a bug in `<wa-page>` that caused menu and aside content to reserve space for slots with `disable-sticky` 
+- [Pro] Fixed a bug in `<wa-page>` that caused menu and aside content to reserve space for slots with `disable-sticky`
 - Fixed incorrect docs for the `wa-include-error` event which is dispatched by `<wa-include>` [issue:1663]
 - Fixed a bug in `<wa-card>` where slotted header and footer content wasn't properly aligned [pr:1435]
 - Improved autofill styles in `<wa-input>` so they span the entire width of the visual input [issue:1439]
