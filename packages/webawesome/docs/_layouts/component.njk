@@ -230,6 +230,7 @@
           <tr>
             <th class="table-name">Name</th>
             <th class="table-description">Description</th>
+            <th class="table-selector">CSS selector</th>
           </tr>
         </thead>
         <tbody>
@@ -237,6 +238,12 @@
             <tr>
               <td class="table-name"><code>{{ cssPart.name }}</code></td>
               <td class="table-description">{{ cssPart.description | inlineMarkdown | safe }}</td>
+              <td class="table-selector">
+                <span class="wa-cluster wa-gap-3xs">
+                  <code>::part({{ cssPart.name }})</code>
+                  <wa-copy-button value="::part({{ cssPart.name }})"></wa-copy-button>
+                </span>
+              </td>
             </tr>
           {% endfor %}
         </tbody>

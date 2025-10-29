@@ -665,6 +665,10 @@ wa-scroller:has(.component-table) {
     min-width: var(--line-length-xs);
   }
 
+  .table-selector .wa-cluster {
+    flex-wrap: nowrap;
+  }
+
   .table-reflect {
     text-align: center;
   }
