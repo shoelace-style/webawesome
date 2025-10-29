@@ -211,7 +211,12 @@
             <tr>
               <td class="table-name"><code>{{ state.name }}</code></td>
               <td class="table-description">{{ state.description | inlineMarkdown | safe }}</td>
-              <td class="table-selector"><code>:state({{ state.name }})</code></td>
+              <td class="table-selector">
+                <span class="wa-cluster wa-gap-3xs">
+                  <code>:state({{ state.name }})</code>
+                  <wa-copy-button value=":state({{ state.name }})"></wa-copy-button>
+                </span>
+              </td>
             </tr>
           {% endfor %}
         </tbody>
