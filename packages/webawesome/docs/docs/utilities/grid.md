@@ -169,7 +169,7 @@ By default, grid items will wrap when the grid's column size is less than `20ch`
 
 ## Gap
 
-By default, the gap between grid items uses `--wa-space-m` from your theme. You can add any of the following [`wa-gap-*`](/docs/style-utilities/gap) classes to an element with `wa-grid` to specify the gap between items:
+By default, the gap between grid items uses `--wa-space-m` from your theme. You can add any of the following [`wa-gap-*`](/docs/utilities/gap) classes to an element with `wa-grid` to specify the gap between items:
 
 - `wa-gap-0`
 - `wa-gap-3xs`
