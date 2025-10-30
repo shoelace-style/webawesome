@@ -16,6 +16,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
   - `<wa-badge>`
   - `<wa-button>`
   - `<wa-callout>`
+  - `<wa-card>`
   - `<wa-details>`
   - `<wa-input>`
   - `<wa-select>`
