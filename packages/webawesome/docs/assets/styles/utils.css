@@ -72,7 +72,6 @@
   wa-badge.pro {
     color: var(--wa-color-brand-on-loud);
     background-color: var(--wa-brand-orange);
-    border-color: var(--wa-brand-orange);
 
     + wa-tooltip {
       font-size: var(--wa-font-size-xs);
