@@ -2,69 +2,25 @@
 {% include "search-trigger-button.njk" %}
 {% from "pro-badge.njk" import proBadge %}
 {% from "planned-badge.njk" import plannedBadge %}
+
 {# Getting started #}
 <h2>Getting Started</h2>
 <ul>
-  <li>
-    <a href="/docs/">Installation</a>
-  </li>
-  <li>
-    <a href="/docs/usage">Usage</a>
-  </li>
-  <li>
-    <a href="/docs/customizing">Customizing</a>
-  </li>
-  <li>
-    <a href="/docs/form-controls">Form Controls</a>
-  </li>
-  <li>
-    <a href="/docs/localization">Localization</a>
-  </li>
+  <li><a href="/docs/">Installation</a></li>
+  <li><a href="/docs/usage">Usage</a></li>
+  <li><a href="/docs/customizing">Customizing</a></li>
+  <li><a href="/docs/form-controls">Form Controls</a></li>
+  <li><a href="/docs/localization">Localization</a></li>
 </ul>
+
 {# Resources #}
 <h2>Resources</h2>
 <ul>
-  <li>
-    <a href="/docs/resources/support">Help & Support</a>
-  </li>
-  <li>
-    <a href="https://github.com/shoelace-style/webawesome/">Source Code</a>
-  </li>
+  <li><a href="/docs/resources/support">Help & Support</a></li>
+  <li><a href="https://github.com/shoelace-style/webawesome/">Source Code</a></li>
   <li>
     <span class="wa-split">
-      <a href="/docs/resources/figma">Figma Design Kit</a>
-    </li>
-    {{ proBadge() }}
-  </span>
-</li>
-<li>
-  <a href="/docs/resources/accessibility">Accessibility</a>
-</li>
-<li>
-  <a href="/docs/resources/browser-support">Browser Support</a>
-</li>
-<li>
-  <a href="/docs/resources/contributing">Contributing</a>
-</li>
-<li>
-  <a href="/docs/resources/changelog">Changelog</a>
-</li>
-<li>
-  <a href="/docs/resources/visual-tests">Visual Tests</a>
-</li></ul><!-- Components --><wa-details appearance="outlined">
-<h2 slot="summary">
-  <a class="wa-cluster wa-gap-xs" href="/docs/components/" title="Overview">
-    <wa-icon name="grid-2" aria-hidden="true"></wa-icon>
-    Components
-  </a>
-</h2>
-<ul>
-  <li>
-    <span class="wa-split">
-      <a class="wa-cluster wa-gap-xs" href="/docs/components/page/">
-        Page
-        <wa-icon name="flask" aria-hidden="true" class="icon-shrink"></wa-icon>
-      </a>
+      <a href="/docs/resources/figma">Figma Design Kit</a></li>
       {{ proBadge() }}
     </span>
   </li>
@@ -73,6 +29,8 @@
   <li><a href="/docs/resources/contributing">Contributing</a></li>
   <li><a href="/docs/resources/changelog">Changelog</a></li>
   <li><a href="/docs/resources/visual-tests">Visual Tests</a></li>
+  
+
 </ul>
 
 <!-- Components -->
@@ -82,222 +40,52 @@
       <wa-icon name="grid-2" aria-hidden="true"></wa-icon>
       Components
     </a>
-    <ul>
-      <li>
-        <a class="wa-cluster wa-gap-xs" href="/docs/components/carousel-item/">
-          Carousel Item
-          <wa-icon name="flask" aria-hidden="true" class="icon-shrink"></wa-icon>
+  </h2>
+  <ul>
+    <li>
+      <span class="wa-split">
+        <a class="wa-cluster wa-gap-xs" href="/docs/components/page/">
+          Page <wa-icon name="flask" aria-hidden="true" class="icon-shrink"></wa-icon>
         </a>
-      </li>
-    </ul>
-  </li>
-  <li>
-    <span class="is-planned wa-split">Charts
-      <a href="https://github.com/shoelace-style/webawesome/issues/1073" target="_blank">{{ plannedBadge("A Web Awesome Kickstarter stretch goal!") }}</a>
-    </span>
-  </li>
-  <li>
-    <a href="/docs/components/checkbox/">Checkbox</a>
-  </li>
-  <li>
-    <a href="/docs/components/color-picker/">Color Picker</a>
-  </li>
-  <li>
-    <span class="is-planned wa-split">Combobox
-      <a href="https://github.com/shoelace-style/webawesome/issues/1074" target="_blank">{{ plannedBadge("A Web Awesome Kickstarter stretch goal!") }}</a>
-    </span>
-  </li>
-  <li>
-    <a href="/docs/components/comparison/">Comparison</a>
-  </li>
-  <li>
-    <a class="wa-cluster wa-gap-xs" href="/docs/components/copy-button/">
-      Copy Button
-      <wa-icon name="flask" aria-hidden="true" class="icon-shrink"></wa-icon>
-    </a>
-  </li>
-  <li>
-    <span class="is-planned wa-split">Data Grid
-      <a href="https://github.com/shoelace-style/webawesome/issues/1072" target="_blank">{{ plannedBadge("A Web Awesome Kickstarter stretch goal!") }}</a>
-    </span>
-  </li>
-  <li>
-    <span class="is-planned wa-split">Datepicker
-      <a href="https://github.com/shoelace-style/webawesome/issues/1075" target="_blank">{{ plannedBadge("A Web Awesome Kickstarter stretch goal!") }}</a>
-    </span>
-  </li>
-  <li>
-    <a href="/docs/components/details/">Details</a>
-  </li>
-  <li>
-    <a href="/docs/components/dialog/">Dialog</a>
-  </li>
-  <li>
-    <a href="/docs/components/divider/">Divider</a>
-  </li>
-  <li>
-    <a href="/docs/components/drawer/">Drawer</a>
-  </li>
-  <li>
-    <a href="/docs/components/dropdown">Dropdown</a>
-    <ul>
-      <li><a href="/docs/components/dropdown-item">Dropdown Item</a></li>
-    </ul>
-  </li>
-  <li>
-    <a href="/docs/components/format-bytes/">Format Bytes</a>
-  </li>
-  <li>
-    <a href="/docs/components/format-date/">Format Date</a>
-  </li>
-  <li>
-    <a href="/docs/components/format-number/">Format Number</a>
-  </li>
-  <li>
-    <a href="/docs/components/icon/">Icon</a>
-  </li>
-  <li>
-    <a href="/docs/components/include/">Include</a>
-  </li>
-  <li>
-    <a href="/docs/components/input/">Input</a>
-  </li>
-  <li>
-    <a href="/docs/components/intersection-observer">Intersection Observer</a>
-  </li>
-  <li>
-    <a href="/docs/components/mutation-observer/">Mutation Observer</a>
-  </li>
-  <li>
-    <a href="/docs/components/popover/">Popover</a>
-  </li>
-  <li>
-    <a href="/docs/components/popup/">Popup</a>
-  </li>
-  <li>
-    <a href="/docs/components/progress-bar/">Progress Bar</a>
-  </li>
-  <li>
-    <a href="/docs/components/progress-ring/">Progress Ring</a>
-  </li>
-  <li>
-    <a href="/docs/components/qr-code/">QR Code</a>
-  </li>
-  <li>
-    <a href="/docs/components/radio-group/">Radio Group</a>
-    <ul>
-      <li><a href="/docs/components/radio/">Radio</a></li>
-    </ul>
-  </li>
-  <li>
-    <a href="/docs/components/rating/">Rating</a>
-  </li>
-  <li>
-    <a href="/docs/components/relative-time/">Relative Time</a>
-  </li>
-  <li>
-    <a href="/docs/components/resize-observer/">Resize Observer</a>
-  </li>
-  <li>
-    <a href="/docs/components/scroller/">Scroller</a>
-  </li>
-  <li>
-    <a href="/docs/components/select/">Select</a>
-    <ul>
-      <li><a href="/docs/components/option/">Option</a></li>
-    </ul>
-  </li>
-  <li>
-    <a href="/docs/components/skeleton/">Skeleton</a>
-  </li>
-  <li>
-    <a href="/docs/components/slider/">Slider</a>
-  </li>
-  <li>
-    <a href="/docs/components/spinner/">Spinner</a>
-  </li>
-  <li>
-    <a href="/docs/components/split-panel/">Split Panel</a>
-  </li>
-  <li>
-    <a href="/docs/components/switch/">Switch</a>
-  </li>
-  <li>
-    <a href="/docs/components/tab-group/">Tab Group</a>
-    <ul>
-      <li><a href="/docs/components/tab/">Tab</a></li>
-      <li><a href="/docs/components/tab-panel/">Tab Panel</a></li>
-    </ul>
-  </li>
-  <li>
-    <a href="/docs/components/tag/">Tag</a>
-  </li>
-  <li>
-    <a href="/docs/components/textarea/">Textarea</a>
-  </li>
-  <li>
-    <a href="/docs/components/tooltip/">Tooltip</a>
-  </li>
-  <li>
-    <a href="/docs/components/tree/">Tree</a>
-  </li>
-  <li>
-    <a href="/docs/components/tree-item/">Tree Item</a>
-  </li>
-  <li>
-    <a href="/docs/components/zoomable-frame">Zoomable Frame</a>
-  </li>
-  {# PLOP_NEW_COMPONENT_PLACEHOLDER #}
-</ul></wa-details><!-- Style utilities --><wa-details appearance="outlined">
-<h2 slot="summary">
-  <a class="wa-cluster wa-gap-xs" href="/docs/utilities/" title="Overview">
-    <wa-icon name="grid-2" aria-hidden="true"></wa-icon>
-    Style Utilities
-  </a>
-</h2>
-<ul>
-  <li><a href="/docs/utilities/native/">Native Styles</a></li>
-  <li><a href="/docs/utilities/color/">Color</a></li>
-  <li><a href="/docs/utilities/fouce/">Reducing FOUCE</a></li>
-  <li><a href="/docs/utilities/rounding/">Rounding</a></li>
-  <li><a href="/docs/utilities/text/">Text</a></li>
-  <li><a href="/docs/utilities/visually-hidden/">Visually Hidden</a></li>
-</ul></wa-details><!-- Layout --><wa-details appearance="outlined">
-<h2 slot="summary">
-  <a class="wa-cluster wa-gap-xs" href="/docs/layout/" title="Overview">
-    <wa-icon name="grid-2" aria-hidden="true"></wa-icon>
-    Layout
-  </a>
-</h2>
-<ul>
-  <li>
-    <a href="/docs/utilities/align-items/">Align Items</a>
-  </li>
-  <li>
-    <a href="/docs/utilities/gap/">Gap</a>
-  </li>
-  <li>
-    <a href="/docs/utilities/cluster/">Cluster</a>
-  </li>
-  <li>
-    <a href="/docs/utilities/flank/">Flank</a>
-  </li>
-  <li>
-    <a href="/docs/utilities/frame/">Frame</a>
-  </li>
-  <li>
-    <a href="/docs/utilities/grid/">Grid</a>
-  </li>
-  <li>
-    <a href="/docs/utilities/split/">Split</a>
-  </li>
-  <li>
-    <a href="/docs/utilities/stack/">Stack</a>
-  </li>
-  <li>
-    <span class="wa-split">
-      <a class="wa-cluster wa-gap-xs" href="/docs/components/page/">
-        Page
+        {{ proBadge() }}
+      </span>
+    </li>
+    <li><a href="/docs/components/animated-image/">Animated Image</a></li>
+    <li><a href="/docs/components/animation/">Animation</a></li>
+    <li><a href="/docs/components/avatar/">Avatar</a></li>
+    <li><a href="/docs/components/badge/">Badge</a></li>
+    <li>
+      <a href="/docs/components/breadcrumb/">Breadcrumb</a>
+      <ul>
+        <li><a href="/docs/components/breadcrumb-item/">Breadcrumb Item</a></li>
+      </ul>
+    </li>
+    <li><a href="/docs/components/button/">Button</a></li>
+    <li><a href="/docs/components/button-group/">Button Group</a></li>
+    <li><a href="/docs/components/callout/">Callout</a></li>
+    <li><a href="/docs/components/card/">Card</a></li>
+    <li>
+      <a class="wa-cluster wa-gap-xs" href="/docs/components/carousel/">
+        Carousel
+        <wa-icon name="flask" aria-hidden="true" class="icon-shrink"></wa-icon>
+      </a>
+      <ul>
+        <li>
+          <a class="wa-cluster wa-gap-xs" href="/docs/components/carousel-item/">
+            Carousel Item
+            <wa-icon name="flask" aria-hidden="true" class="icon-shrink"></wa-icon>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <li><span class="is-planned wa-split">Charts <a href="https://github.com/shoelace-style/webawesome/issues/1073" target="_blank">{{ plannedBadge("A Web Awesome Kickstarter stretch goal!") }}</a></span></li>
+    <li><a href="/docs/components/checkbox/">Checkbox</a></li>
+    <li><a href="/docs/components/color-picker/">Color Picker</a></li>
+    <li><span class="is-planned wa-split">Combobox <a href="https://github.com/shoelace-style/webawesome/issues/1074" target="_blank">{{ plannedBadge("A Web Awesome Kickstarter stretch goal!") }}</a></span></li>
+    <li><a href="/docs/components/comparison/">Comparison</a></li>
+    <li>
+      <a class="wa-cluster wa-gap-xs" href="/docs/components/copy-button/">
+        Copy Button
         <wa-icon name="flask" aria-hidden="true" class="icon-shrink"></wa-icon>
       </a>
     </li>
@@ -357,12 +145,8 @@
     <li><a href="/docs/components/tag/">Tag</a></li>
     <li><a href="/docs/components/textarea/">Textarea</a></li>
     <li><a href="/docs/components/tooltip/">Tooltip</a></li>
-    <li>
-      <a href="/docs/components/tree/">Tree</a>
-      <ul>
-        <li><a href="/docs/components/tree-item/">Tree Item</a></li>
-      </ul>
-    </li>
+    <li><a href="/docs/components/tree/">Tree</a></li>
+    <li><a href="/docs/components/tree-item/">Tree Item</a></li>
     <li><a href="/docs/components/zoomable-frame">Zoomable Frame</a></li>
     {# PLOP_NEW_COMPONENT_PLACEHOLDER #}
   </ul>
@@ -582,9 +366,6 @@
           <a href="/docs/patterns/layouts/ecommerce/">Ecommerce</a>
         </li>
         <li>
-          <a href="/docs/patterns/layouts/app/">App</a>
-        </li>
-        <li>
           <a href="/docs/patterns/layouts/blog/">Blog</a>
         </li>
       </ul>
@@ -595,154 +376,70 @@
 <!-- Theming -->
 <h2>Theming</h2>
 <ul>
-  <li>
-    <span class="wa-split">
-      <a href="/docs/patterns/app/">App</a>
-      {{ proBadge() }}
-    </span>
-    <ul>
-      <li><a href="/docs/patterns/app/action-panel/">Action Panel</a></li>
-      <li><a href="/docs/patterns/app/activity-log/">Activity Log</a></li>
-      <li><a href="/docs/patterns/app/comments/">Comments</a></li>
-      <li><a href="/docs/patterns/app/data-display/">Data Display</a></li>
-      <li><a href="/docs/patterns/app/description-list/">Description List</a></li>
-      <li><a href="/docs/patterns/app/empty-state/">Empty State</a></li>
-      <li><a href="/docs/patterns/app/faq/">FAQ</a></li>
-      <li><a href="/docs/patterns/app/grid-list/">Grid List</a></li>
-      <li><a href="/docs/patterns/app/leaderboard/">Leaderboard</a></li>
-      <li><a href="/docs/patterns/app/pagination/">Pagination</a></li>
-      <li><a href="/docs/patterns/app/password/">Password</a></li>
-      <li><a href="/docs/patterns/app/permissions/">Permissions</a></li>
-      <li><a href="/docs/patterns/app/pricing/">Pricing</a></li>
-    </ul>
-  </li>
-  <li>
-    <span class="wa-split">
-      <a href="/docs/patterns/blog-news/">Blog &amp; News</a>
-      {{ proBadge() }}
-    </span>
-    <ul>
-      <li><a href="/docs/patterns/blog-news/banners/">Banners</a></li>
-      <li><a href="/docs/patterns/blog-news/call-to-action/">Call To Action</a></li>
-      <li><a href="/docs/patterns/blog-news/category-list/">Category List</a></li>
-      <li><a href="/docs/patterns/blog-news/contact/">Contact</a></li>
-      <li><a href="/docs/patterns/blog-news/featured-post/">Featured Post</a></li>
-      <li><a href="/docs/patterns/blog-news/footer/">Footer</a></li>
-      <li><a href="/docs/patterns/blog-news/grid-section/">Grid Section</a></li>
-      <li><a href="/docs/patterns/blog-news/header/">Header</a></li>
-      <li><a href="/docs/patterns/blog-news/newsletter/">Newsletter</a></li>
-      <li><a href="/docs/patterns/blog-news/paywall/">Paywall</a></li>
-      <li><a href="/docs/patterns/blog-news/post-footer/">Post Footer</a></li>
-      <li><a href="/docs/patterns/blog-news/post-header/">Post Header</a></li>
-      <li><a href="/docs/patterns/blog-news/post-list/">Post List</a></li>
-      <li><a href="/docs/patterns/blog-news/login/">Sign Up &amp; Login</a></li>
-      <li><a href="/docs/patterns/blog-news/numbers/">Numbers</a></li>
-      <li><a href="/docs/patterns/blog-news/social-share/">Social Share</a></li>
-      <li><a href="/docs/patterns/blog-news/teams/">Teams</a></li>
-      <li><a href="/docs/patterns/blog-news/testimonials/">Testimonials</a></li>
-    </ul>
-  </li>
-  <li>
-    <span class="wa-split">
-      <a href="/docs/patterns/ecommerce/">Ecommerce</a>
-      {{ proBadge() }}
-    </span>
-    <ul>
-      <li><a href="/docs/patterns/ecommerce/category-filter/">Category Filter</a></li>
-      <li><a href="/docs/patterns/ecommerce/category-preview/">Category Preview</a></li>
-      <li><a href="/docs/patterns/ecommerce/checkout-form/">Checkout Form</a></li>
-      <li><a href="/docs/patterns/ecommerce/incentives/">Incentives</a></li>
-      <li><a href="/docs/patterns/ecommerce/order-history/">Order History</a></li>
-      <li><a href="/docs/patterns/ecommerce/order-summary/">Order Summary</a></li>
-      <li><a href="/docs/patterns/ecommerce/product-list/">Product Lists</a></li>
-      <li><a href="/docs/patterns/ecommerce/product-overview/">Product Overview</a></li>
-      <li><a href="/docs/patterns/ecommerce/product-preview/">Product Preview</a></li>
-      <li><a href="/docs/patterns/ecommerce/review/">Product Reviews</a></li>
-      <li><a href="/docs/patterns/ecommerce/shopping-cart/">Shopping Cart</a></li>
-    </ul>
-  </li>
-  <li>
-    <span class="wa-split">
-      <a href="/docs/patterns/layouts/">Layouts</a>
-      {{ proBadge() }}
-    </span>
-    <ul>
-      <li><a href="/docs/patterns/layouts/ecommerce/">Ecommerce</a></li>
-      <li><a href="/docs/patterns/layouts/blog/">Blog</a></li>
-    </ul>
-  </li>
-</ul></wa-details><!-- Theming --><h2>Theming</h2><ul>
-<li>
-  <a href="/docs/color-palettes">Color Palettes</a>
-</li>
-<li>
-  <a href="/docs/themes">Themes</a>
-</li></ul><!-- Design tokens --><wa-details appearance="outlined">
-<h2 slot="summary">
-  <a class="wa-cluster wa-gap-xs" href="/docs/tokens/" title="Overview">
-    <wa-icon name="grid-2" aria-hidden="true"></wa-icon>
-    Design Tokens
-  </a>
-</h2>
+  <li><a href="/docs/color-palettes">Color Palettes</a></li>
+  <li><a href="/docs/themes">Themes</a></li>
+</ul>
+
+<!-- Design tokens -->
+<wa-details appearance="outlined">
+  <h2 slot="summary">
+    <a class="wa-cluster wa-gap-xs" href="/docs/tokens/" title="Overview">
+      <wa-icon name="grid-2" aria-hidden="true"></wa-icon>
+      Design Tokens
+    </a>
+  </h2>
+  <ul>
+    <li><a href="/docs/tokens/borders/">Borders</a></li>
+    <li><a href="/docs/tokens/color/">Color</a></li>
+    <li><a href="/docs/tokens/focus/">Focus</a></li>
+    <li><a href="/docs/tokens/shadows/">Shadows</a></li>
+    <li><a href="/docs/tokens/space/">Space</a></li>
+    <li><a href="/docs/tokens/transitions/">Transitions</a></li>
+    <li><a href="/docs/tokens/typography/">Typography</a></li>
+    <li><a href="/docs/tokens/component-groups/">Component Groups</a></li>
+  </ul>
+</wa-details>
+
+{# Policies #}
+<h2>Terms &amp; Policies</h2>
 <ul>
-  <li><a href="/docs/tokens/borders/">Borders</a></li>
-  <li><a href="/docs/tokens/color/">Color</a></li>
-  <li><a href="/docs/tokens/focus/">Focus</a></li>
-  <li><a href="/docs/tokens/shadows/">Shadows</a></li>
-  <li><a href="/docs/tokens/space/">Space</a></li>
-  <li><a href="/docs/tokens/transitions/">Transitions</a></li>
-  <li><a href="/docs/tokens/typography/">Typography</a></li>
-  <li><a href="/docs/tokens/component-groups/">Component Groups</a></li>
-</ul></wa-details>{# Policies #}<h2>Terms &amp; Policies</h2><ul>
-<li>
-  <a href="/license">
-    <span class="wa-visually-hidden">Web Awesome
-    </span>Free License</a>
-</li>
-<li>
-  <a href="/license/pro">
-    <span class="wa-visually-hidden">Web Awesome
-    </span>Pro License</a>
-</li>
-<li>
-  <a href="/tos">Terms of Service</a>
-</li>
-<li>
-  <a href="/privacy">Privacy Policy</a>
-</li>
-<li>
-  <a href="/refunds">Refund Policy</a>
-</li></ul><wa-divider style="--spacing: var(--wa-space-xl);"></wa-divider><div class="wa-stack wa-gap-xl" id="colophon">
-<div class="wa-stack wa-gap-xs">
-  {% include "logo-simple.njk" %}
-  <h2 class="wa-heading-s">Web Awesome</h2>
-  <p class="wa-caption-xs wa-cluster wa-gap-xs">
-    Version {{ package.version }}
-    <wa-icon id="version-icon-info" family="duotone" variant="regular" name="party-horn"></wa-icon>
-    <wa-tooltip for="version-icon-info" distance="2" class="wa-font-size-xs">Here be freshly launched Awesome and no
-      wa-dragons</wa-tooltip>
-  </p>
-  <p class="wa-caption-xs">&copy; Fonticons, Inc.</p>
+  <li><a href="/license"><span class="wa-visually-hidden">Web Awesome </span>Free License</a></li>
+  <li><a href="/license/pro"><span class="wa-visually-hidden">Web Awesome </span>Pro License</a></li>
+  <li><a href="/tos">Terms of Service</a></li>
+  <li><a href="/privacy">Privacy Policy</a></li>
+  <li><a href="/refunds">Refund Policy</a></li>
+</ul>
+
+<wa-divider style="--spacing: var(--wa-space-xl);"></wa-divider>
+
+<div class="wa-stack wa-gap-xl" id="colophon">
+  <div class="wa-stack wa-gap-xs">
+    {% include "logo-simple.njk" %}
+    <h2 class="wa-heading-s">Web Awesome</h2>
+    <p class="wa-caption-xs wa-cluster wa-gap-xs">
+      Version {{ package.version }}
+      <wa-icon id="version-icon-info" family="duotone" variant="regular" name="party-horn"></wa-icon>
+      <wa-tooltip for="version-icon-info" distance="2" class="wa-font-size-xs">Here be freshly launched Awesome and no wa-dragons</wa-tooltip>
+    </p>
+    <p class="wa-caption-xs">&copy; Fonticons, Inc.</p>
+  </div>
+
+  <div class="wa-cluster wa-gap-0 wa-caption-xs the-socials">
+    <h2 class="wa-visually-hidden">Web Awesome Elsewhere</h2>
+    <a href="https://github.com/shoelace-style/webawesome" rel="noopener noreferrer" target="_blank" class="appearance-plain">
+      <wa-icon family="brands" name="github" label="GitHub"></wa-icon>
+    </a>
+    <a href="https://bsky.app/profile/webawesome.com" rel="noopener noreferrer" target="_blank" class="appearance-plain">
+      <wa-icon family="brands" name="bluesky" label="Bluesky"></wa-icon>
+    </a>
+    <a href="https://mastodon.social/@webawesome" rel="noopener noreferrer" target="_blank" class="appearance-plain">
+      <wa-icon family="brands" name="mastodon" label="Mastodon"></wa-icon>
+    </a>
+    <a href="https://x.com/webawesomer" rel="noopener noreferrer" target="_blank" class="appearance-plain">
+      <wa-icon family="brands" name="x-twitter" label="Twitter (X)"></wa-icon>
+    </a>
+    <a href="https://www.threads.com/@web.awesome" rel="noopener noreferrer" target="_blank" class="appearance-plain">
+      <wa-icon family="brands" name="threads" label="Threads"></wa-icon>
+    </a>
+  </div>
 </div>
-<div class="wa-cluster wa-gap-0 wa-caption-xs the-socials">
-  <h2 class="wa-visually-hidden">Web Awesome Elsewhere</h2>
-  <a
-    href="https://github.com/shoelace-style/webawesome"
-    rel="noopener noreferrer"
-    target="_blank"
-    class="appearance-plain">
-    <wa-icon family="brands" name="github" label="GitHub"></wa-icon>
-  </a>
-  <a href="https://bsky.app/profile/webawesome.com" rel="noopener noreferrer" target="_blank" class="appearance-plain">
-    <wa-icon family="brands" name="bluesky" label="Bluesky"></wa-icon>
-  </a>
-  <a href="https://mastodon.social/@webawesome" rel="noopener noreferrer" target="_blank" class="appearance-plain">
-    <wa-icon family="brands" name="mastodon" label="Mastodon"></wa-icon>
-  </a>
-  <a href="https://x.com/webawesomer" rel="noopener noreferrer" target="_blank" class="appearance-plain">
-    <wa-icon family="brands" name="x-twitter" label="Twitter (X)"></wa-icon>
-  </a>
-  <a href="https://www.threads.com/@web.awesome" rel="noopener noreferrer" target="_blank" class="appearance-plain">
-    <wa-icon family="brands" name="threads" label="Threads"></wa-icon>
-  </a>
-</div></div>
