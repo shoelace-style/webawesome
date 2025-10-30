@@ -70,7 +70,7 @@
   /* #region shared UI */
   /* pro badge */
   wa-badge.pro {
-    color: white;
+    color: var(--wa-color-brand-on-loud);
     background-color: var(--wa-brand-orange);
     border-color: var(--wa-brand-orange);
 
