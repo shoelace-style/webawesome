@@ -102,6 +102,31 @@ export default async function (eleventyConfig) {
     image: 'https://webawesome.com/assets/images/open-graph/default.png',
   };
 
+  // Title composition/stripping config - single source of truth
+  const SITE_NAME = siteMetadata.name;
+  const SITE_TITLE_SEPARATORS = ['|'];
+
+  // Helper to escape user-provided strings for safe use inside RegExp sources
+  const escapeRegExp = string => (string + '').replace(/[.*+?^${}()|[\\]\\]/g, '\\$&');
+
+  // Precompute a reusable regex to strip a trailing site name suffix from titles, e.g. " | Web Awesome"
+  // Supports configured separators and flexible whitespace. This keeps search titles clean and improves Lunr scoring
+  const siteNameEscapedForRegex = escapeRegExp(SITE_NAME);
+  const separatorsEscaped = SITE_TITLE_SEPARATORS.map(s => escapeRegExp(s)).join('');
+  const siteTitleSuffixPattern = new RegExp(`\\s*[${separatorsEscaped}]\\s*${siteNameEscapedForRegex}$`);
+
+  // Helper to remove the site suffix from a page title. Keep this in sync with how page titles
+  // are composed (see eleventyComputed.pageTitle) so search indexing stays consistent
+  const stripSiteTitleSuffix = title => (title || '').replace(siteTitleSuffixPattern, '');
+
+  // Helper to compose a full page title with site suffix when appropriate
+  // Uses the same separator set as the stripping logic for consistency
+  const composePageTitle = baseTitle => {
+    const title = baseTitle || SITE_NAME;
+    const preferredSeparator = SITE_TITLE_SEPARATORS[0] || '|';
+    return title !== SITE_NAME ? `${title} ${preferredSeparator} ${SITE_NAME}` : title;
+  };
+
   eleventyConfig.addGlobalData('siteMetadata', siteMetadata);
 
   // Template filters - {{ content | filter }}
@@ -183,15 +208,9 @@ export default async function (eleventyConfig) {
   eleventyConfig.addGlobalData('eleventyComputed', {
     lastUpdatedISO: data => getLastModifiedISO(data.page?.inputPath, data.lastUpdated),
     // Page title with smart + default site name formatting
-    pageTitle: data => {
-      const title = data.title || siteMetadata.name;
-      return title !== siteMetadata.name ? `${title} | ${siteMetadata.name}` : title;
-    },
+    pageTitle: data => composePageTitle(data.title),
     // Open Graph title with smart + default site name formatting
-    ogTitle: data => {
-      const ogTitle = data.ogTitle || data.title || siteMetadata.name;
-      return ogTitle !== siteMetadata.name ? `${ogTitle} | ${siteMetadata.name}` : ogTitle;
-    },
+    ogTitle: data => composePageTitle(data.ogTitle || data.title),
     ogDescription: data => data.ogDescription || data.description,
     ogImage: data => data.ogImage || siteMetadata.image,
     ogUrl: data => {
@@ -354,6 +373,11 @@ export default async function (eleventyConfig) {
     searchPlugin({
       filename: '',
       selectorsToIgnore: ['code.example'],
+      // Use <title> but strip a trailing site name suffix for cleaner search results
+      getTitle: doc => {
+        const raw = doc.querySelector('title')?.textContent ?? '';
+        return stripSiteTitleSuffix(raw);
+      },
       getContent: doc => doc.querySelector('#content')?.textContent ?? '',
     }),
   );
