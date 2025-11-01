@@ -1,12 +1,12 @@
 {
-  "name": "@awesome.me/webawesome",
+  "name": "@motions.io/webawesome",
   "publishConfig": {
     "access": "public"
   },
   "description": "A forward-thinking library of web components.",
   "version": "3.0.0",
-  "homepage": "https://webawesome.com/",
-  "author": "Web Awesome",
+  "homepage": "https://motions.io/",
+  "author": "motions.io",
   "license": "MIT",
   "customElements": "dist/custom-elements.json",
   "web-types": "./dist/web-types.json",
@@ -44,10 +44,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/shoelace-style/webawesome.git"
+    "url": "git+git@github.com:motions-io/webawesome.git"
   },
   "bugs": {
-    "url": "https://github.com/shoelace-style/webawesome/issues"
+    "url": "https://github.com/motions-io/webawesome/issues"
   },
   "scripts": {
     "start": "node scripts/build.js --develop",
