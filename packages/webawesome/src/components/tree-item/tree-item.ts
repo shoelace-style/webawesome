@@ -252,6 +252,7 @@ export default class WaTreeItem extends WebAwesomeElement {
         class="${classMap({
           'tree-item': true,
           'tree-item-expanded': this.expanded,
+          'tree-item-loading': this.loading,
           'tree-item-selected': this.selected,
           'tree-item-leaf': this.isLeaf,
           'tree-item-has-expand-button': showExpandButton,
@@ -268,11 +269,13 @@ export default class WaTreeItem extends WebAwesomeElement {
             })}
             aria-hidden="true"
           >
+            ${when(
+              this.loading,
+              () => html`<slot class="spinner-slot" name="spinner">
+                <wa-spinner part="spinner" exportparts="base:spinner__base"></wa-spinner>
+              </slot>`,
+            )}
             <slot class="expand-icon-slot" name="expand-icon">
-              ${when(
-                this.loading,
-                () => html` <wa-spinner part="spinner" exportparts="base:spinner__base"></wa-spinner> `,
-              )}
               <wa-icon name=${isRtl ? 'chevron-left' : 'chevron-right'} library="system" variant="solid"></wa-icon>
             </slot>
             <slot class="expand-icon-slot" name="collapse-icon">
