@@ -84,8 +84,8 @@ export class DraggableElement {
   }
 
   private handleDragStart = (event: PointerEvent | TouchEvent) => {
-    const clientX = supportsTouch && 'touches' in event ? event.touches[0].clientX : (event as PointerEvent).clientX;
-    const clientY = supportsTouch && 'touches' in event ? event.touches[0].clientY : (event as PointerEvent).clientY;
+    const clientX = 'touches' in event ? event.touches[0].clientX : (event as PointerEvent).clientX;
+    const clientY = 'touches' in event ? event.touches[0].clientY : (event as PointerEvent).clientY;
 
     if (
       this.isDragging ||
@@ -105,8 +105,8 @@ export class DraggableElement {
   };
 
   private handleDragStop = (event: PointerEvent | TouchEvent) => {
-    const clientX = supportsTouch && 'touches' in event ? event.touches[0].clientX : (event as PointerEvent).clientX;
-    const clientY = supportsTouch && 'touches' in event ? event.touches[0].clientY : (event as PointerEvent).clientY;
+    const clientX = 'touches' in event ? event.touches[0].clientX : (event as PointerEvent).clientX;
+    const clientY = 'touches' in event ? event.touches[0].clientY : (event as PointerEvent).clientY;
 
     this.isDragging = false;
     document.removeEventListener('pointerup', this.handleDragStop);
@@ -117,8 +117,8 @@ export class DraggableElement {
   };
 
   private handleDragMove = (event: PointerEvent | TouchEvent) => {
-    const clientX = supportsTouch && 'touches' in event ? event.touches[0].clientX : (event as PointerEvent).clientX;
-    const clientY = supportsTouch && 'touches' in event ? event.touches[0].clientY : (event as PointerEvent).clientY;
+    const clientX = 'touches' in event ? event.touches[0].clientX : (event as PointerEvent).clientX;
+    const clientY = 'touches' in event ? event.touches[0].clientY : (event as PointerEvent).clientY;
 
     // Prevent text selection while dragging
     window.getSelection()?.removeAllRanges();
