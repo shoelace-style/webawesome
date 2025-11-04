@@ -4,6 +4,173 @@ description: Learn more about using custom elements.
 layout: page-outline
 ---
 
+  <!-- WA Pattern Background Examples -->
+  <div class="example">
+    <h3>WA Pattern: Default</h3>
+    <div class="background-overlay-wa-pattern example-content"
+         style="--background-color: var(--wa-color-neutral-border-quiet);">
+      <p>Default settings with normal blend mode</p>
+    </div>
+  </div>
+
+  <div class="example">
+    <h3>WA Pattern: Custom Opacity (Subtle)</h3>
+    <div class="background-overlay-wa-pattern example-content"
+         style="--background-color: var(--wa-color-neutral-border-quiet);
+                --background-opacity: 0.1;">
+      <p>Very subtle pattern with 0.1 opacity</p>
+    </div>
+  </div>
+
+  <div class="example">
+    <h3>WA Pattern: Custom Opacity (Prominent)</h3>
+    <div class="background-overlay-wa-pattern example-content"
+         style="--background-color: var(--wa-color-neutral-border-quiet);
+                --background-opacity: 0.3;">
+      <p>More prominent pattern with 0.3 opacity</p>
+    </div>
+  </div>
+
+  <div class="example">
+    <h3>WA Pattern: Background Color - Brand</h3>
+    <div class="background-overlay-wa-pattern example-content"
+         style="--background-color: var(--wa-color-brand-border-normal);">
+      <p>Pattern with brand color - automatically blends with multiply (light) or screen (dark)</p>
+    </div>
+  </div>
+
+  <div class="example">
+    <h3>WA Pattern: Multiply/Screen Blend Mode</h3>
+    <div class="background-overlay-wa-pattern example-content"
+         style="--background-blend-mode: multiply;
+                --background-blend-mode-dark: screen;
+                --background-color: var(--wa-color-neutral-border-quiet);
+                --background-opacity: 0.15;">
+      <p>Multiply blend mode in light mode, automatically switches to screen blend mode in dark mode. Set both <code>--background-blend-mode: multiply</code> and <code>--background-blend-mode-dark: screen</code>.</p>
+    </div>
+  </div>
+
+  <div class="example">
+    <h3>WA Pattern: Grayscale (Luminosity Blend Mode)</h3>
+    <div class="background-overlay-wa-pattern example-content"
+         style="--background-blend-mode: luminosity;
+                --background-color: transparent;
+                --background-opacity: 0.2;">
+      <p>Luminosity blend mode creates a grayscale effect that uses the pattern's brightness to modulate the content behind it, while preserving the color of the background content.</p>
+    </div>
+  </div>
+
+  <!-- Grid Background Examples -->
+  <div class="example">
+    <h3>Grid: Default</h3>
+    <div class="background-overlay-grid example-content">
+      <p>Default settings with normal blend mode</p>
+    </div>
+  </div>
+
+  <div class="example">
+    <h3>Grid: Custom Opacity (Subtle)</h3>
+    <div class="background-overlay-grid example-content"
+         style="--grid-opacity: 0.05;
+                --subgrid-opacity: 0.025;">
+      <p>Very subtle grid with reduced opacity</p>
+    </div>
+  </div>
+
+  <div class="example">
+    <h3>Grid: Custom Opacity (Prominent)</h3>
+    <div class="background-overlay-grid example-content"
+         style="--grid-opacity: 0.2;
+                --subgrid-opacity: 0.1;">
+      <p>More prominent grid with increased opacity</p>
+    </div>
+  </div>
+
+  <div class="example">
+    <h3>Grid: Background Color - Brand</h3>
+    <div class="background-overlay-grid example-content"
+         style="--background-color: var(--wa-color-brand-fill-quiet);
+                --grid-line-color: var(--wa-color-brand-border-normal);
+                --subgrid-line-color: var(--wa-color-brand-border-normal);">
+      <p>Grid with brand background and line colors - automatically blends with multiply (light) or screen (dark)</p>
+    </div>
+  </div>
+
+  <div class="example">
+    <h3>Grid: Multiply/Screen Blend Mode</h3>
+    <div class="background-overlay-grid example-content"
+         style="--background-blend-mode: multiply;
+                --background-blend-mode-dark: screen;
+                --grid-opacity: 0.15;
+                --subgrid-opacity: 0.08;">
+      <p>Multiply blend mode in light mode, automatically switches to screen blend mode in dark mode. Set both <code>--background-blend-mode: multiply</code> and <code>--background-blend-mode-dark: screen</code>.</p>
+    </div>
+  </div>
+
+  <div class="example">
+    <h3>Grid: Grayscale (Luminosity Blend Mode)</h3>
+    <div class="background-overlay-grid example-content"
+         style="--background-blend-mode: luminosity;
+                --background-color: transparent;
+                --grid-opacity: 0.2;
+                --subgrid-opacity: 0.1;">
+      <p>Luminosity blend mode creates a grayscale effect that uses the grid's brightness to modulate the content behind it, while preserving the color of the background content.</p>
+    </div>
+  </div>
+
+  <!-- Dot Grid Background Examples -->
+  <div class="example">
+    <h3>Dot Grid: Default</h3>
+    <div class="background-overlay-dot-grid example-content">
+      <p>Default settings with normal blend mode</p>
+    </div>
+  </div>
+
+  <div class="example">
+    <h3>Dot Grid: Custom Opacity (Subtle)</h3>
+    <div class="background-overlay-dot-grid example-content"
+         style="--dot-opacity: 0.05;">
+      <p>Very subtle dots with 0.05 opacity</p>
+    </div>
+  </div>
+
+  <div class="example">
+    <h3>Dot Grid: Custom Opacity (Prominent)</h3>
+    <div class="background-overlay-dot-grid example-content"
+         style="--dot-opacity: 0.3;">
+      <p>More prominent dots with 0.3 opacity</p>
+    </div>
+  </div>
+
+  <div class="example">
+    <h3>Dot Grid: Background Color - Brand</h3>
+    <div class="background-overlay-dot-grid example-content"
+         style="--background-color: var(--wa-color-brand-fill-quiet);
+                --dot-color: var(--wa-color-brand-border-normal);">
+      <p>Dots with brand background and dot colors - automatically blends with multiply (light) or screen (dark)</p>
+    </div>
+  </div>
+
+  <div class="example">
+    <h3>Dot Grid: Multiply/Screen Blend Mode</h3>
+    <div class="background-overlay-dot-grid example-content"
+         style="--background-blend-mode: multiply;
+                --background-blend-mode-dark: screen;
+                --dot-opacity: 0.2;">
+      <p>Multiply blend mode in light mode, automatically switches to screen blend mode in dark mode. Set both <code>--background-blend-mode: multiply</code> and <code>--background-blend-mode-dark: screen</code>.</p>
+    </div>
+  </div>
+
+  <div class="example">
+    <h3>Dot Grid: Grayscale (Luminosity Blend Mode)</h3>
+    <div class="background-overlay-dot-grid example-content"
+         style="--background-blend-mode: luminosity;
+                --background-color: transparent;
+                --dot-opacity: 0.2;">
+      <p>Luminosity blend mode creates a grayscale effect that uses the dot grid's brightness to modulate the content behind it, while preserving the color of the background content.</p>
+    </div>
+  </div>
+
 Web Awesome components are just regular HTML elements, or [custom elements](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements) to be precise. You can use them like any other element. Each component has detailed documentation that describes its full API, including properties, events, methods, and more.
 
 If you're new to custom elements, often referred to as "web components," this section will familiarize you with how to use them.
@@ -225,3 +392,4 @@ If you are using types from multiple projects, you can add an array of reference
 ### Other Editors
 
 Most popular editors support custom code completion with a bit of configuration. Please [submit a feature request](https://github.com/shoelace-style/webawesome/issues/new/choose) for your editor of choice. PRs are also welcome!
+

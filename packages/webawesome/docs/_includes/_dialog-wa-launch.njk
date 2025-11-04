@@ -2,7 +2,7 @@
   {%- if req.stripe.discount.active and not currentUser.hasPro -%}
     <wa-dialog id="dialog-site" light-dismiss without-header>
 
-      <div class="background-wa-pattern" style="justify-content: center; margin-inline: calc(var(--spacing) * -1); margin-block-start: calc(var(--spacing) * -1); margin-block-end: var(--spacing); background: linear-gradient(to bottom, var(--wa-color-brand), var(--wa-color-brand-50)); color: var(--wa-color-brand-on-loud); padding: var(--wa-space-3xl) var(--spacing); --background-pattern-opacity: 0.2; --background-pattern-image: url('/assets/images/bg-wa-pattern.svg');">
+      <div class="background-overlay-wa-pattern" style="justify-content: center; margin-inline: calc(var(--spacing) * -1); margin-block-start: calc(var(--spacing) * -1); margin-block-end: var(--spacing); background: linear-gradient(to bottom, var(--wa-color-brand), var(--wa-color-brand-50)); color: var(--wa-color-brand-on-loud); padding: var(--wa-space-3xl) var(--spacing); --background-opacity: 0.2;">
 
         <div class="wa-stack wa-align-items-center" style="text-align: center;">
           <wa-icon name="party-horn" family="duotone" variant="solid" style="font-size: var(--wa-font-size-3xl); --secondary-color: var(--wa-color-brand-40); --secondary-opacity: 1.0;"></wa-icon>
