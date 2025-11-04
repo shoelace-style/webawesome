@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" data-fa-kit-code="38c11e3f20" data-cdn-url="{% cdnUrl %}">
+<html lang="en" data-fa-kit-code="38c11e3f20" data-version="{{ package.version }}">
   <head>
     {% include 'head.njk' %}
     {% block head %}{% endblock %}
   </head>
-  <body class="layout-{{ layout | stripExtension }}">
+  <body class="layout-{{ layout | stripExtension }} page-{{ pageClass or page.fileSlug or 'home' }}">
     {% block content %}
       {{ content | safe }}
     {% endblock %}

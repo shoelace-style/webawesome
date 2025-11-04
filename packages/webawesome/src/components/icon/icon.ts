@@ -64,7 +64,7 @@ export default class WaIcon extends WebAwesomeElement {
   @property({ reflect: true }) variant: string;
 
   /** Sets the width of the icon to match the cropped SVG viewBox. This operates like the Font `fa-width-auto` class. */
-  @property({ attribute: 'auto-width', type: Boolean, reflect: true }) autoWidth: false;
+  @property({ attribute: 'auto-width', type: Boolean, reflect: true }) autoWidth = false;
 
   /** Swaps the opacity of duotone icons. */
   @property({ attribute: 'swap-opacity', type: Boolean, reflect: true }) swapOpacity = false;

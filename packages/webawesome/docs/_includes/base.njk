@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-fa-kit-code="38c11e3f20" data-cdn-url="{% cdnUrl %}" class="wa-cloak">
+<html lang="en" data-fa-kit-code="38c11e3f20" data-version="{{ package.version }}" class="wa-cloak">
   <head>
     {% include 'head.njk' %}
     <meta name="theme-color" content="#f36944">
@@ -15,10 +15,9 @@
     {% if hasSidebar %}<script type="module" src="/assets/scripts/sidebar.js"></script>{% endif %}
     <script defer data-domain="webawesome.com" src="https://plausible.io/js/script.js"></script>
 
-    {# Docs styles #}
-    <link rel="stylesheet" href="/assets/styles/docs.css" />
-
-    {% block head %}{% endblock %}
+    {% block head %}
+      <link rel="stylesheet" href="/assets/styles/docs.css" />
+    {% endblock %}
 
     <script type="module">
       // Set the initial color scheme before the page renders to prevent flashing
@@ -26,75 +25,71 @@
       const isDark = value === 'dark' || (value === 'auto' && matchMedia('(prefers-color-scheme: dark)').matches);
       document.documentElement.classList.toggle('wa-dark', isDark);
     </script>
-
-    <script type="module">
-      // Set the initial theme before the page renders to prevent flashing
-      const savedTheme = localStorage.getItem('theme') || 'default';
-
-      // Update the theme stylesheet link first
-      const themeStylesheet = document.getElementById('theme-stylesheet');
-      if (themeStylesheet) {
-        themeStylesheet.href = `/dist/styles/themes/${savedTheme}.css`;
-      }
-
-      if (savedTheme !== 'default') {
-        document.documentElement.classList.add(`wa-theme-${savedTheme}`);
-      }
-    </script>
   </head>
-  <body class="layout-{{ layout | stripExtension }}{{ ' page-wide' if wide }}">
-    <!-- use view="desktop" as default to reduce layout jank on desktop site. -->
-    <wa-page view="desktop" disable-navigation-toggle mobile-breakpoint="1180">
-      <header slot="header" class="wa-split">
-        {# Logo #}
-        <div id="docs-branding">
-          {# Nav toggle #}
-          <wa-button appearance="plain" size="small" data-toggle-nav>
-            <wa-icon name="bars" label="Toggle navigation"></wa-icon>
-          </wa-button>
+  <body class="layout-{{ layout | stripExtension }} page-{{ pageClass or page.fileSlug or 'home' }}{{ ' page-wide' if wide }}">
+    {% if hasBanner == undefined %}
+      {% set hasBanner = true %}
+    {% endif %}
 
-          <a href="/" aria-label="Web Awesome">
-            <span class="wa-desktop-only">{% include "logo.njk" %}</span>
-            <span class="wa-mobile-only">{% include "logo-simple.njk" %}</span>
-          </a>
-          <small id="version-number" class="wa-desktop-only">{{ package.version }}</small>
-          <wa-badge variant="brand" appearance="filled" class="wa-desktop-only">Beta</wa-badge>
-        </div>
+    {% set defaultWaPageAttributes = defaultWaPageAttributes or { view: 'desktop', 'disable-navigation-toggle': true, 'mobile-breakpoint': 1180, 'disable-sticky': 'banner' } %}
+    {% set waPageAttributes = waPageAttributes or {} %}
+    {% set mergedWaPageAttributes = defaultWaPageAttributes | merge(waPageAttributes) %}
+    <wa-page
+      {% for key, value in mergedWaPageAttributes %}
+        {% if value != null and value != false %}
+          {{ key }}="{{ value }}"
+        {% endif %}
+      {% endfor %}
+    >
+        {% block pageBanner %}
+          {% if hasBanner %}
+            {#- WA Launch Banner -#}
+            {% include "_banner-wa-launch.njk" ignore missing %}
+          {% endif %}
+        {% endblock %}
 
-        <div id="docs-toolbar" class="wa-cluster">
-          {# Desktop selectors #}
-          <div class="wa-desktop-only wa-cluster wa-gap-xs">
-            {% include "theme-selector.njk" %}
-            {% include "color-scheme-selector.njk" %}
-          </div>
+        {% block pageHeader %}
+          <header slot="header" class="wa-split">
+            {# Nav toggle #}
+              <wa-button appearance="plain" size="small" data-toggle-nav>
+                <wa-icon name="bars" label="Toggle navigation" class="icon-default icon-embiggen"></wa-icon>
+                <wa-icon name="burger" aria-hidden="true" class="icon-hover icon-embiggen"></wa-icon>
+              </wa-button>
 
-          <wa-divider orientation="vertical" class="wa-desktop-only"></wa-divider>
+              {# Logo - Desktop #}
+              <a class="brand-logo wa-desktop-only" href="/" aria-label="Web Awesome">
+                {% include "logo.njk" %}
+              </a>
 
-          <div id="github-buttons" class="wa-cluster wa-gap-xs">
-            <wa-button id="github-repo-button" href="https://github.com/shoelace-style/webawesome" rel="noopener noreferrer" target="_blank" appearance="filled" size="small">
-              <wa-icon family="brands" name="github" label="GitHub"></wa-icon>
-            </wa-button>
-            <wa-tooltip for="github-repo-button" distance="2">GitHub</wa-tooltip>
-            <wa-button id="github-star-button" href="https://github.com/shoelace-style/webawesome/stargazers" rel="noopener noreferrer" target="_blank" appearance="filled" size="small">
-              <wa-icon name="star" variant="regular" label="Star this repository"></wa-icon>
-            </wa-button>
-            <wa-tooltip for="github-star-button" distance="2">Star this repository</wa-tooltip>
-          </div>
+            {#- Logo - mobile branding -#}
+            <a href="/" class="brand-logo wa-mobile-only" aria-label="Web Awesome">
+              {# Logo - Mobile #}
+              {% include "logo-simple.njk" %}
+            </a>
 
-          <wa-divider orientation="vertical"></wa-divider>
-
-          {# Login #}
-          {% server "loginOrAvatar" %}
-        </div>
-      </header>
+            <div id="docs-toolbar" class="wa-cluster gap-s">
+              <div class="wa-desktop-only wa-cluster wa-gap-2xs">
+                {% include "theme-selector.njk" %}
+                {% include "color-scheme-selector.njk" %}
+                {% include "github-icon-buttons.njk" %}
+              </div>
+              {#- Login -#}
+              {% include "login-or-avatar.njk" ignore missing %}
+            </div>
+          </header>
+        {% endblock %}
 
       {# Sidebar #}
       {% if hasSidebar %}
         {# Mobile selectors #}
         <div class="wa-mobile-only" slot="navigation-header">
-          <div class="wa-cluster wa-gap-xs" style="flex-wrap: nowrap;">
-            {% include "theme-selector.njk" %}
-            {% include "color-scheme-selector.njk" %}
+          <div class="wa-cluster wa-gap-s">
+            <a class="brand-logo" href="/" aria-label="Web Awesome">{% include "logo-simple.njk" %}</a>
+            <div class="wa-cluster wa-gap-2xs" style="flex-wrap: nowrap;">
+              {% include "theme-selector.njk" %}
+              {% include "color-scheme-selector.njk" %}
+              {% include "github-icon-buttons.njk" %}
+            </div>
           </div>
         </div>
         <div slot="navigation" id="sidebar" class="docs-aside" data-remember-scroll>
@@ -138,6 +133,9 @@
       </main>
 
       {% include 'search.njk' %}
+
+      {# Footer #}
+      {% block pageFooter %}{% endblock %}
     </wa-page>
 
   </body>

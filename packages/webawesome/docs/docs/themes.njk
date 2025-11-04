@@ -1,26 +1,28 @@
 ---
 title: Themes
-description: Themes galore
+description: Style (and restyle) your website at will with any of Web Awesome's pre-built themes.
 layout: page
 ---
 
-<div class="wa-split">
-  <h1>{{ title }}</h1>
-  <wa-button variant="brand" href="/themer">
-    <wa-icon slot="start" name="plus" variant="regular"></wa-icon>
-    Create a Theme
-  </wa-button>
-</div>
+<h1>{{ title }}</h1>
+
+<p>Themes are collections of <a href="/docs/tokens">design tokens</a> that give a cohesive look and feel to the entire Web Awesome library. Style and restyle your website at will by loading any pre-built theme.</p>
+
+{% raw %}
+<p>See one you like?&nbsp;
+{%- if not session.isLoggedIn -%}
+  <a href="/login">Log in</a>&nbsp;
+{%- else -%}
+  Head over to <a href="/teams">your teams</a>&nbsp;
+{%- endif -%}
+to create a project with any one of these themes.
+{%- if not currentUser.hasPro -%}
+  &nbsp;(Plus, there are even more themes to love with Web Awesome Pro. <wa-icon name="heart" style="color: var(--wa-color-red-70);"></wa-icon>)
+{%- endif -%}
+</p>
+{% endraw %}
 
 <div id="theme-viewer">
-  {% raw %}
-    {% if not currentUser.hasPro %}
-      <p>
-        Additional themes are available to pro users. Please <a href="/login">login to view pro themes</a>.
-      </p>
-    {% endif %}
-  {% endraw %}
-
   <wa-radio-group id="theme-picker" label="Theme Selector" value="default" orientation="horizontal">
     {% for theme in themer.themes %}
       {% if not theme.isPro %}
@@ -84,16 +86,70 @@ layout: page
 </div>
 
 <h2>Using This Theme</h2>
+
 <div id="import-code">
   {% for theme in themer.themes %}
-  <div class="theme-instructions" data-theme="{{ theme.filename | stripExtension }}" {% if not loop.first %}hidden{% endif %}>
-    <p>
-      To import this theme, apply the following classes to the <code>&lt;html&gt;</code> element and import the theme's stylesheet.
-    </p>
-<pre><code class="language-html">&lt;html class=&quot;wa-theme-{{ theme.filename | stripExtension }} wa-palette-{{ theme.palette.filename | stripExtension }} wa-brand-{{ theme.colorBrand.color}}&quot;&gt;
-...
-&lt;link rel=&quot;stylesheet&quot; href=&quot;{% cdnUrl %}styles/themes/{{ theme.filename }}&quot; /&gt;</code></pre>
-  </div>
+    <div class="theme-instructions" data-theme="{{ theme.filename | stripExtension }}" {% if not loop.first %}hidden{% endif %}>
+      <wa-tab-group>
+        <wa-tab panel="cdn"><wa-icon name="rocket-launch" variant="regular"></wa-icon> CDN</wa-tab>
+        <wa-tab panel="npm"><wa-icon name="box-open" variant="regular"></wa-icon> npm</wa-tab>
+        <wa-tab panel="self-hosted"><wa-icon name="arrow-down-to-line" variant="regular"></wa-icon> Self-Hosted</wa-tab>
+
+        <wa-tab-panel name="cdn">
+{% markdown %}
+{% if theme.isPro %}
+<wa-callout variant="neutral" size="small">
+  <wa-icon name="info-circle" variant="regular"></wa-icon>
+  This theme can only be used on teams with a Pro subscription.
+</wa-callout>
+<br />
+{% else %}
+**For projects on Free teams:**
+1. Head over to your project's <wa-icon name="gear" variant="regular"></wa-icon> **Settings**.
+2. For your **Theme**, select <wa-icon name="paintbrush" variant="regular"></wa-icon> **{{ theme.filename | stripExtension | capitalize }}**.
+3. For your **Color Palette**, select <wa-icon name="swatchbook" variant="regular"></wa-icon> **{{ theme.palette.filename | stripExtension | capitalize }}**.
+4. Press **Save Changes** to immediately update anywhere you're using your project.
+{% endif %}
+
+**For projects on Pro teams:**
+1. Head over to your project's <wa-icon name="gear" variant="regular"></wa-icon> **Settings**.
+2. Press <wa-icon name="paintbrush" variant="regular"></wa-icon> **Edit Your Theme** to open the Theme Builder.
+3. Open **Theme** and select **{{ theme.filename | stripExtension | capitalize }}**.
+4. Press **Save Theme** to immediately update anywhere you're using your project.
+{% endmarkdown %}
+        </wa-tab-panel>
+
+        <wa-tab-panel name="npm">
+{% markdown %}
+To use this theme, import the theme's stylesheet:
+```js
+import '@awesome.me/webawesome/dist/styles/themes/{{ theme.filename }}';
+```
+
+Then apply the following classes to the `<html>` element:
+
+```html
+<html class="wa-theme-{{ theme.filename | stripExtension }} wa-palette-{{ theme.palette.filename | stripExtension }} wa-brand-{{ theme.colorBrand.color}}">
+```
+{% endmarkdown %}
+        </wa-tab-panel>
+
+        <wa-tab-panel name="self-hosted">
+{% markdown %}
+To use this theme, include the theme's stylesheet:
+```html
+<link rel="stylesheet" href="/dist/styles/themes/{{ theme.filename }}" />
+```
+
+Then apply the following classes to the `<html>` element:
+
+```html
+<html class="wa-theme-{{ theme.filename | stripExtension }} wa-palette-{{ theme.palette.filename | stripExtension }} wa-brand-{{ theme.colorBrand.color}}">
+```
+{% endmarkdown %}
+        </wa-tab-panel>
+      </wa-tab-group>
+    </div>
   {% endfor %}
 </div>
 
@@ -229,7 +285,7 @@ layout: page
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-        gap: var(--wa-space-s);
+        gap: var(--wa-space-m);
       }
 
       &::part(form-control-label) {
@@ -242,6 +298,10 @@ layout: page
         overflow: hidden;
         white-space: nowrap;
         padding: 0;
+      }
+
+      wa-radio {
+        margin-inline: 0;
       }
     }
 

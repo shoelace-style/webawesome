@@ -15,6 +15,9 @@ import styles from './card.css';
  * @slot header - An optional header for the card.
  * @slot footer - An optional footer for the card.
  * @slot media - An optional media section to render at the start of the card.
+ * @slot actions - An optional actions section to render at the end for the horizontal card.
+ * @slot header-actions - An optional actions section to render in the header of the vertical card.
+ * @slot footer-actions - An optional actions section to render in the footer of the vertical card.
  *
  * @csspart media - The container that wraps the card's media.
  * @csspart header - The container that wraps the card's header.
@@ -42,6 +45,10 @@ export default class WaCard extends WebAwesomeElement {
   /** Renders the card with a footer. Only needed for SSR, otherwise is automatically added. */
   @property({ attribute: 'with-footer', type: Boolean, reflect: true }) withFooter = false;
 
+  /** Renders the card's orientation **/
+  @property({ reflect: true })
+  orientation: 'horizontal' | 'vertical' = 'vertical';
+
   updated() {
     // Enable the respective slots when detected
     if (!this.withHeader && this.hasSlotController.test('header')) this.withHeader = true;
@@ -50,11 +57,37 @@ export default class WaCard extends WebAwesomeElement {
   }
 
   render() {
+    // Horizontal Orientation
+    if (this.orientation === 'horizontal') {
+      return html`
+        <slot name="media" part="media" class="media"></slot>
+        <slot part="body" class="body"></slot>
+        <slot name="actions" part="actions" class="actions"></slot>
+      `;
+    }
+
+    // Vertical Orientation
     return html`
       <slot name="media" part="media" class="media"></slot>
-      <slot name="header" part="header" class="header"></slot>
+
+      ${this.hasSlotController.test('header-actions')
+        ? html` <header part="header" class="header has-actions">
+            <slot name="header"></slot>
+            <slot name="header-actions"></slot>
+          </header>`
+        : html` <header part="header" class="header">
+            <slot name="header"></slot>
+          </header>`}
+
       <slot part="body" class="body"></slot>
-      <slot name="footer" part="footer" class="footer"></slot>
+      ${this.hasSlotController.test('footer-actions')
+        ? html` <footer part="footer" class="footer has-actions">
+            <slot name="footer"></slot>
+            <slot name="footer-actions"></slot>
+          </footer>`
+        : html` <footer part="footer" class="footer">
+            <slot name="footer"></slot>
+          </footer>`}
     `;
   }
 }

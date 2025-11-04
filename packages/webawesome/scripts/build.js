@@ -18,6 +18,7 @@ import { getCdnDir, getDistDir, getDocsDir, getRootDir, getSiteDir } from './uti
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
+const currentYear = new Date().getFullYear();
 const spinner = ora({ text: 'Web Awesome', color: 'cyan' }).start();
 const getPackageData = async () => JSON.parse(await readFile(join(getRootDir(), 'package.json'), 'utf-8'));
 const getVersion = async () => JSON.stringify((await getPackageData()).version.toString());
@@ -123,6 +124,7 @@ export async function build(options = {}) {
   function generateReactWrappers() {
     // Used by webawesome-app to make re-rendering not miserable with extra React file generation.
     if (process.env.SKIP_SLOW_STEPS === 'true') {
+      spinner.info('Skipping React Wrapper generation.');
       return Promise.resolve();
     }
 
@@ -162,6 +164,7 @@ export async function build(options = {}) {
   async function generateTypes() {
     // Used by webawesome-app to make re-rendering not miserable with extra TS compilations.
     if (process.env.SKIP_SLOW_STEPS === 'true') {
+      spinner.info('Skipping TypeScript compiler.');
       return Promise.resolve();
     }
 
@@ -223,6 +226,9 @@ export async function build(options = {}) {
       bundle: true,
       splitting: true,
       minify: false,
+      banner: {
+        js: `/*! Copyright ${currentYear} Fonticons, Inc. - https://webawesome.com/license */`,
+      },
       plugins: [replace({ __WEBAWESOME_VERSION__: await getVersion() })],
       loader: {
         '.css': 'text',

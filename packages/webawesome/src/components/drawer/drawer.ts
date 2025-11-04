@@ -38,6 +38,7 @@ import styles from './drawer.css';
  *  the drawer has been closed programmatically. Avoid using this unless closing the drawer will result in destructive
  *  behavior such as data loss.
  *
+ * @csspart dialog - The drawer's internal `<dialog>` element.
  * @csspart header - The drawer's header. This element wraps the title and header actions.
  * @csspart header-actions - Optional actions to add to the header. Works best with `<wa-button>`.
  * @csspart title - The drawer's title.
@@ -140,7 +141,7 @@ export default class WaDrawer extends WebAwesomeElement {
   private handleDialogCancel(event: Event) {
     event.preventDefault();
 
-    if (!this.drawer.classList.contains('hide')) {
+    if (!this.drawer.classList.contains('hide') && event.target === this.drawer) {
       this.requestClose(this.drawer);
     }
   }
@@ -209,6 +210,8 @@ export default class WaDrawer extends WebAwesomeElement {
       const elementToFocus = this.querySelector<HTMLButtonElement>('[autofocus]');
       if (elementToFocus && typeof elementToFocus.focus === 'function') {
         elementToFocus.focus();
+      } else {
+        this.drawer.focus();
       }
     });
 
@@ -241,7 +244,7 @@ export default class WaDrawer extends WebAwesomeElement {
               <header part="header" class="header">
                 <h2 part="title" class="title" id="title">
                   <!-- If there's no label, use an invisible character to prevent the header from collapsing -->
-                  <slot name="label"> ${this.label.length > 0 ? this.label : String.fromCharCode(65279)} </slot>
+                  <slot name="label"> ${this.label.length > 0 ? this.label : String.fromCharCode(8203)} </slot>
                 </h2>
                 <div part="header-actions" class="header-actions">
                   <slot name="header-actions"></slot>

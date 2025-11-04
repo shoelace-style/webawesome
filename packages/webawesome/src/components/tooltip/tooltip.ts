@@ -101,6 +101,11 @@ export default class WaTooltip extends WebAwesomeElement {
   connectedCallback() {
     super.connectedCallback();
 
+    // Recreate event controller if it was aborted
+    if (this.eventController.signal.aborted) {
+      this.eventController = new AbortController();
+    }
+
     // TODO: This is a hack that I need to revisit [Konnor]
     if (this.open) {
       this.open = false;
@@ -113,6 +118,15 @@ export default class WaTooltip extends WebAwesomeElement {
     if (!this.id) {
       this.id = uniqueId('wa-tooltip-');
     }
+
+    // Re-establish anchor connection after being disconnected
+    if (this.for && this.anchor) {
+      this.anchor = null; // force reattach
+      this.handleForChange();
+    } else if (this.for) {
+      // Initial connection
+      this.handleForChange();
+    }
   }
 
   disconnectedCallback() {
@@ -123,8 +137,7 @@ export default class WaTooltip extends WebAwesomeElement {
     this.eventController.abort();
 
     if (this.anchor) {
-      const label = this.anchor.getAttribute('aria-labelledby') || '';
-      this.anchor.setAttribute('aria-labelledby', label.replace(this.id, ''));
+      this.removeFromAriaLabelledBy(this.anchor, this.id);
     }
   }
 
@@ -188,6 +201,34 @@ export default class WaTooltip extends WebAwesomeElement {
     return triggers.includes(triggerType);
   }
 
+  /** Adds the tooltip ID to the aria-labelledby attribute */
+  private addToAriaLabelledBy(element: Element, id: string) {
+    const currentLabel = element.getAttribute('aria-labelledby') || '';
+    const labels = currentLabel.split(/\s+/).filter(Boolean);
+
+    // Only add if not already present
+    if (!labels.includes(id)) {
+      labels.push(id);
+      element.setAttribute('aria-labelledby', labels.join(' '));
+    }
+  }
+
+  /** Removes the tooltip ID from the aria-labelledby attribute */
+  private removeFromAriaLabelledBy(element: Element, id: string) {
+    const currentLabel = element.getAttribute('aria-labelledby') || '';
+    const labels = currentLabel.split(/\s+/).filter(Boolean);
+
+    // Remove the ID
+    const filteredLabels = labels.filter(label => label !== id);
+
+    if (filteredLabels.length > 0) {
+      element.setAttribute('aria-labelledby', filteredLabels.join(' '));
+    } else {
+      // Remove the attribute if empty
+      element.removeAttribute('aria-labelledby');
+    }
+  }
+
   @watch('open', { waitUntilFirstUpdate: true })
   async handleOpenChange() {
     if (this.open) {
@@ -238,7 +279,7 @@ export default class WaTooltip extends WebAwesomeElement {
       return;
     }
 
-    const newAnchor = this.for ? rootNode.querySelector(`#${this.for}`) : null;
+    const newAnchor = this.for ? rootNode.getElementById(this.for) : null;
     const oldAnchor = this.anchor;
 
     if (newAnchor === oldAnchor) {
@@ -246,9 +287,6 @@ export default class WaTooltip extends WebAwesomeElement {
     }
 
     const { signal } = this.eventController;
-
-    // "\\b" is a space boundary, used for making sure we don't add the tooltip to aria-labelledby twice.
-    const labelRegex = new RegExp(`\\b${this.id}\\b`);
 
     if (newAnchor) {
       /**
@@ -258,10 +296,7 @@ export default class WaTooltip extends WebAwesomeElement {
        * whereas with `aria-labelledby` it'll still read on first focus. The APG does and WAI-ARIA does recommend aria-describedby
        * so perhaps once we have cross-root aria, we can revisit this decision.
        */
-      const currentLabel = newAnchor.getAttribute('aria-labelledby') || '';
-      if (!currentLabel.match(labelRegex)) {
-        newAnchor.setAttribute('aria-labelledby', currentLabel + ' ' + this.id);
-      }
+      this.addToAriaLabelledBy(newAnchor, this.id);
 
       newAnchor.addEventListener('blur', this.handleBlur, { capture: true, signal });
       newAnchor.addEventListener('focus', this.handleFocus, { capture: true, signal });
@@ -271,8 +306,7 @@ export default class WaTooltip extends WebAwesomeElement {
     }
 
     if (oldAnchor) {
-      const label = oldAnchor.getAttribute('aria-labelledby') || '';
-      oldAnchor.setAttribute('aria-labelledby', label.replace(labelRegex, ''));
+      this.removeFromAriaLabelledBy(oldAnchor, this.id);
       oldAnchor.removeEventListener('blur', this.handleBlur, { capture: true });
       oldAnchor.removeEventListener('focus', this.handleFocus, { capture: true });
       oldAnchor.removeEventListener('click', this.handleClick);

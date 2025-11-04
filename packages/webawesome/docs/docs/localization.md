@@ -27,7 +27,7 @@ Web Awesome ships with [a number of translations](https://github.com/shoelace-st
 You can import translations using the following syntax, where `<code>` is replaced with any language code shown above.
 
 ```js
-import '{% cdnUrl "translations/<code>.js" %}';
+import '/dist/translations/<code>.js';
 ```
 
 You do not need to load translations up front. You can import them dynamically even after updating the `lang` attribute. Once a translation is registered, localized components will update automatically.
@@ -37,7 +37,7 @@ You do not need to load translations up front. You can import them dynamically e
 document.documentElement.lang = 'de';
 
 // Import the translation
-import('{% cdnUrl "translations/<code>.js" %}');
+import('/translations/<code>.js');
 ```
 
 ### Translation Resolution
@@ -56,7 +56,7 @@ To contribute new translations or improvements to existing translations, please 
 
 Regional translations are welcome! For example, if a German translation (`de`) exists it's perfectly acceptable to submit a German (Switzerland) (`de-CH`) translation.
 
-If you have any questions, please start a [discussion](https://github.com/shoelace-style/shoelace/discussions) or ask in the [community chat](https://discord.gg/mg8f26C).
+If you have any questions, please start a [discussion](https://github.com/shoelace-style/webawesome/discussions) or ask in the [community chat](https://discord.gg/mg8f26C).
 
 :::info
 Web Awesome provides a localization mechanism for component internals. This is not designed to be used as localization tool for your entire application. You should use a more appropriate tool such as [i18next](https://www.i18next.com/) if you need to localize content in your app.

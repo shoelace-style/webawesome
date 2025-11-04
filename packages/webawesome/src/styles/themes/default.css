@@ -1,5 +1,4 @@
 @import url('../color/palettes/default.css');
-@import url('../color/variants.css');
 
 @layer wa-theme {
   :where(:root),
@@ -327,7 +326,7 @@
 
     --wa-form-control-required-content: '*';
     --wa-form-control-required-content-color: inherit;
-    --wa-form-control-required-content-offset: -0.1em;
+    --wa-form-control-required-content-offset: 0.1em;
 
     --wa-form-control-padding-block: 0.75em;
     --wa-form-control-padding-inline: 1em;

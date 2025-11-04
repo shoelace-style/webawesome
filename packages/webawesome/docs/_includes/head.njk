@@ -3,7 +3,17 @@
 <meta name="description" content="{{ description }}">
 {% if noindex or unlisted %}<meta name="robots" content="noindex">{% endif %}
 
-<title>{{ title }}</title>
+<title>{{ pageTitle }}</title>
+
+{# Skip OG tags for unlisted/noindex pages to prevent social sharing #}
+{% if not (noindex or unlisted) %}
+  <meta property="og:type" content="{{ ogType }}" />
+  <meta property="og:url" content="{{ ogUrl }}" />
+  <meta property="og:title" content="{{ ogTitle }}" />
+  <meta property="og:description" content="{{ ogDescription }}" />
+  <meta property="og:image" content="{{ ogImage }}" />
+  <meta property="og:site_name" content="{{ siteMetadata.name }}" />
+{% endif %}
 
 {# Dark mode #}
 <script>
@@ -15,24 +25,25 @@
 	document.documentElement.classList.toggle('wa-dark', isDark);
 </script>
 
-<link rel="icon" href="/assets/images/webawesome-logo.svg" />
-<link rel="apple-touch-icon" href="/assets/images/app-icon.png">
+<link rel="manifest" href="/manifest.json" />
+<link rel="icon" href="/assets/images/app-icons/favicon.ico" sizes="any">
+<link rel="icon" href="/assets/images/app-icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/images/app-icons/apple-touch-icon.png">
+
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
 <script type="module" src="/dist/webawesome.loader.js"></script>
 
 <link id="theme-stylesheet" rel="stylesheet" href="/dist/styles/themes/default.css" render="blocking" fetchpriority="high" />
-{% for palette in themer.palettes %}
-	<link rel="stylesheet" href="/dist/styles/color/palettes/{{palette.filename}}" />
-{% endfor %}
+
 <link rel="stylesheet" href="/dist/styles/webawesome.css" />
 
 <script type="module">
-  document.addEventListener("wa-discovery-complete", loadLayout)
+  document.addEventListener('wa-discovery-complete', loadLayout)
   function loadLayout () {
-    if (!customElements.get("wa-layout")) {
-      import("{% cdnUrl 'components/page/page.js' %}")
+    if (!customElements.get('wa-page')) {
+      import('https://early.webawesome.com/webawesome@3.0.0-beta.6/dist/components/page/page.js')
         .catch((e) => {
-        // known errors with dual registration. This is only a thing in the free repo.
+          // known errors with dual registration. This is only a thing in the free repo.
         })
     }
   }

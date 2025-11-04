@@ -62,7 +62,7 @@ Stacks are well suited for forms, text, and ensuring consistent spacing between 
 
 ## Align Items
 
-By default, items stretch to fill the inline size of the `wa-stack` container. You can add any of the following [`wa-align-items-*`](/docs/style-utilities/align-items) classes to an element with `wa-stack` to specify how items are aligned in the inline direction:
+By default, items stretch to fill the inline size of the `wa-stack` container. You can add any of the following [`wa-align-items-*`](/docs/utilities/align-items) classes to an element with `wa-stack` to specify how items are aligned in the inline direction:
 
 - `wa-align-items-start`
 - `wa-align-items-end`
@@ -92,7 +92,7 @@ By default, items stretch to fill the inline size of the `wa-stack` container. Y
 
 ## Gap
 
-By default, the gap between stack items uses `--wa-space-m` from your theme. You can add any of the following [`wa-gap-*`](/docs/style-utilities/gap) classes to an element with `wa-stack` to specify the gap between items:
+By default, the gap between stack items uses `--wa-space-m` from your theme. You can add any of the following [`wa-gap-*`](/docs/utilities/gap) classes to an element with `wa-stack` to specify the gap between items:
 
 - `wa-gap-0`
 - `wa-gap-3xs`

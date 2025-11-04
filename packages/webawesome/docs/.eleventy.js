@@ -1,4 +1,6 @@
+import { nanoid } from 'nanoid';
 import { parse as HTMLParse } from 'node-html-parser';
+import { execFileSync } from 'node:child_process';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { anchorHeadingsTransformer } from './_transformers/anchor-headings.js';
@@ -19,6 +21,7 @@ import { replaceTextPlugin } from './_plugins/replace-text.js';
 import { searchPlugin } from './_plugins/search.js';
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 const isDev = process.argv.includes('--develop');
+const ignoreGit = process.env.ELEVENTY_IGNORE_GIT === 'true';
 const passThroughExtensions = ['js', 'css', 'png', 'svg', 'jpg', 'mp4'];
 
 async function getPackageData() {
@@ -57,6 +60,15 @@ export default async function (eleventyConfig) {
     if (updateComponentData) {
       allComponents = getComponents();
     }
+
+    // Invalidate last-modified cache for changed content files during watch
+    if (Array.isArray(changedFiles)) {
+      for (const file of changedFiles) {
+        if (/\.(md|njk|html)$/i.test(file)) {
+          lastModCache.delete(file);
+        }
+      }
+    }
   });
 
   /**
@@ -82,15 +94,147 @@ export default async function (eleventyConfig) {
     flashes: '',
   });
 
+  // Site metadata for social sharing (Open Graph, canonical URLs, etc.)
+  const siteMetadata = {
+    url: 'https://webawesome.com',
+    name: 'Web Awesome',
+    description: 'Build better with Web Awesome, the open source library of web components from Font Awesome.',
+    image: 'https://webawesome.com/assets/images/open-graph/default.png',
+  };
+
+  // Title composition/stripping config - single source of truth
+  const SITE_NAME = siteMetadata.name;
+  const SITE_TITLE_SEPARATORS = ['|'];
+
+  // Helper to escape user-provided strings for safe use inside RegExp sources
+  const escapeRegExp = string => (string + '').replace(/[.*+?^${}()|[\\]\\]/g, '\\$&');
+
+  // Precompute a reusable regex to strip a trailing site name suffix from titles, e.g. " | Web Awesome"
+  // Supports configured separators and flexible whitespace. This keeps search titles clean and improves Lunr scoring
+  const siteNameEscapedForRegex = escapeRegExp(SITE_NAME);
+  const separatorsEscaped = SITE_TITLE_SEPARATORS.map(s => escapeRegExp(s)).join('');
+  const siteTitleSuffixPattern = new RegExp(`\\s*[${separatorsEscaped}]\\s*${siteNameEscapedForRegex}$`);
+
+  // Helper to remove the site suffix from a page title. Keep this in sync with how page titles
+  // are composed (see eleventyComputed.pageTitle) so search indexing stays consistent
+  const stripSiteTitleSuffix = title => (title || '').replace(siteTitleSuffixPattern, '');
+
+  // Helper to compose a full page title with site suffix when appropriate
+  // Uses the same separator set as the stripping logic for consistency
+  const composePageTitle = baseTitle => {
+    const title = baseTitle || SITE_NAME;
+    const preferredSeparator = SITE_TITLE_SEPARATORS[0] || '|';
+    return title !== SITE_NAME ? `${title} ${preferredSeparator} ${SITE_NAME}` : title;
+  };
+
+  eleventyConfig.addGlobalData('siteMetadata', siteMetadata);
+
   // Template filters - {{ content | filter }}
   eleventyConfig.addFilter('inlineMarkdown', content => markdown.renderInline(content || ''));
   eleventyConfig.addFilter('markdown', content => markdown.render(content || ''));
   eleventyConfig.addFilter('stripExtension', string => path.parse(string + '').name);
   eleventyConfig.addFilter('stripPrefix', content => content.replace(/^wa-/, ''));
+  eleventyConfig.addFilter('uniqueId', (_value, length = 8) => nanoid(length));
+  // Returns last modified date as ISO 8601 (UTC, Z-suffixed)
+  // Fallback order: front matter override -> Git last commit date -> filesystem mtime -> now
+  // Caching: in-memory per inputPath during one build/dev session
+  // Override: pass a Date or string: {{ page.inputPath | gitLastModifiedISO(lastUpdated) }}
+  const lastModCache = new Map();
+  let repoRoot = null; // lazily resolved; null => not resolved, undefined => failed
+
+  function getLastModifiedISO(inputPath, overrideDate) {
+    if (overrideDate instanceof Date) {
+      return overrideDate.toISOString();
+    }
+    if (typeof overrideDate === 'string' && overrideDate) {
+      const parsed = new Date(overrideDate);
+      if (!isNaN(parsed.getTime())) return parsed.toISOString();
+    }
+    if (!inputPath) return new Date().toISOString();
+    if (lastModCache.has(inputPath)) return lastModCache.get(inputPath);
+
+    // Try Git (ISO via %cI). Use a repo-root-relative path for portability.
+    if (!ignoreGit) {
+      try {
+        if (repoRoot === null) {
+          try {
+            repoRoot = execFileSync('git', ['rev-parse', '--show-toplevel'], {
+              stdio: ['ignore', 'pipe', 'ignore'],
+              cwd: __dirname,
+            })
+              .toString()
+              .trim();
+          } catch (_) {
+            repoRoot = undefined;
+          }
+        }
+
+        const gitPath = repoRoot ? path.relative(repoRoot, inputPath) : inputPath;
+        const args = ['log', '-1', '--format=%cI', '--follow', '--', gitPath];
+        const result = execFileSync('git', args, {
+          stdio: ['ignore', 'pipe', 'ignore'],
+          cwd: repoRoot || path.dirname(inputPath),
+        })
+          .toString()
+          .trim();
+        if (result) {
+          const iso = new Date(result).toISOString();
+          lastModCache.set(inputPath, iso);
+          return iso;
+        }
+      } catch (_) {
+        // continue to fs fallback
+      }
+    }
+
+    // Fallback to filesystem mtime
+    try {
+      const stats = fs.statSync(inputPath);
+      const iso = new Date(stats.mtime).toISOString();
+      lastModCache.set(inputPath, iso);
+      return iso;
+    } catch (_) {
+      const now = new Date().toISOString();
+      lastModCache.set(inputPath, now);
+      return now;
+    }
+  }
+
+  eleventyConfig.addFilter('gitLastModifiedISO', function (inputPath, overrideDate) {
+    return getLastModifiedISO(inputPath, overrideDate);
+  });
+
+  // Attach lastUpdatedISO to page data so templates can use {{ lastUpdatedISO }} directly
+  eleventyConfig.addGlobalData('eleventyComputed', {
+    lastUpdatedISO: data => getLastModifiedISO(data.page?.inputPath, data.lastUpdated),
+    // Page title with smart + default site name formatting
+    pageTitle: data => composePageTitle(data.title),
+    // Open Graph title with smart + default site name formatting
+    ogTitle: data => composePageTitle(data.ogTitle || data.title),
+    ogDescription: data => data.ogDescription || data.description,
+    ogImage: data => data.ogImage || siteMetadata.image,
+    ogUrl: data => {
+      if (data.ogUrl) return data.ogUrl;
+      const url = data.page?.url || '';
+      return url ? `${siteMetadata.url}${url}` : siteMetadata.url;
+    },
+    ogType: data => data.ogType || 'website',
+  });
   // Trims whitespace and pipes from the start and end of a string. Useful for CEM types, which can be pipe-delimited.
   // With Prettier 3, this means a leading pipe will exist be present when the line wraps.
   eleventyConfig.addFilter('trimPipes', content => {
     return typeof content === 'string' ? content.replace(/^(\s|\|)/g, '').replace(/(\s|\|)$/g, '') : content;
+  });
+
+  /**
+   * @example
+    {% set foo = {foo: "bar"} %}
+    {% set bar = {bar: "baz"} %}
+    {% set merged = foo | merge(bar) %}
+    {{ merged | dump }}
+   */
+  eleventyConfig.addFilter('merge', function (obj1, obj2) {
+    return Object.assign({}, obj1, obj2);
   });
 
   // Custom filter to sort with a priority item first, e.g.
@@ -130,7 +274,11 @@ export default async function (eleventyConfig) {
 
   // Shortcodes - {% shortCode arg1, arg2 %}
   eleventyConfig.addShortcode('cdnUrl', location => {
-    return `https://early.webawesome.com/webawesome@${packageData.version}/dist/` + (location || '').replace(/^\//, '');
+    // We use WA (free) via the public CDN for CodePen examples
+    return (
+      `https://cdn.jsdelivr.net/npm/@awesome.me/webawesome@${packageData.version}/dist-cdn/` +
+      (location || '').replace(/^\//, '')
+    );
   });
 
   // Turns `{% server "foo" %} into `{{ server.foo | safe }}` when the WEBAWESOME_SERVER variable is set to "true"
@@ -158,6 +306,15 @@ export default async function (eleventyConfig) {
 
   // Use our own markdown instance
   eleventyConfig.setLibrary('md', markdown);
+
+  // for files with `unpublished: true`, it will make sure they do not make it into the final build at all, but will be usable in development.
+  eleventyConfig.addPreprocessor('unpublished', '*', (data, content) => {
+    if (data.unpublished && process.env.ELEVENTY_RUN_MODE === 'build') {
+      return false;
+    }
+
+    return content;
+  });
 
   // Add anchors to headings
   eleventyConfig.addTransform('doc-transforms', function (content) {
@@ -216,6 +373,11 @@ export default async function (eleventyConfig) {
     searchPlugin({
       filename: '',
       selectorsToIgnore: ['code.example'],
+      // Use <title> but strip a trailing site name suffix for cleaner search results
+      getTitle: doc => {
+        const raw = doc.querySelector('title')?.textContent ?? '';
+        return stripSiteTitleSuffix(raw);
+      },
       getContent: doc => doc.querySelector('#content')?.textContent ?? '',
     }),
   );
@@ -239,6 +401,9 @@ export default async function (eleventyConfig) {
   for (let glob of passThrough) {
     eleventyConfig.addPassthroughCopy(glob);
   }
+
+  // Passthrough copy for manifest.json (PWA manifest file)
+  eleventyConfig.addPassthroughCopy('manifest.json');
 
   // // SSR plugin
   // if (!isDev) {

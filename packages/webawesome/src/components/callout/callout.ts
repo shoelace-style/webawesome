@@ -9,7 +9,7 @@ import styles from './callout.css';
  * @summary Callouts are used to display important messages inline.
  * @documentation https://webawesome.com/docs/components/callout
  * @status stable
- * @since 2.0
+ * @since 3.0
  *
  * @slot - The callout's main content.
  * @slot icon - An icon to show in the callout. Works best with `<wa-icon>`.
@@ -25,8 +25,7 @@ export default class WaCallout extends WebAwesomeElement {
   @property({ reflect: true }) variant: 'brand' | 'neutral' | 'success' | 'warning' | 'danger' = 'brand';
 
   /** The callout's visual appearance. */
-  @property({ reflect: true }) appearance: 'accent' | 'filled' | 'outlined' | 'plain' | 'outlined filled' =
-    'outlined filled';
+  @property({ reflect: true }) appearance: 'accent' | 'filled' | 'outlined' | 'plain' | 'filled-outlined';
 
   /** The callout's size. */
   @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';

@@ -20,7 +20,7 @@ tags: layoutUtilities
   }
 </style>
 
-Web Awesome includes classes to set the `align-items` property of flex and grid containers. They can be used alongside other Web Awesome layout utilities, like [cluster](/docs/layout/cluster) and [stack](/docs/layout/stack), to align children in container on the container's cross axis.
+Web Awesome includes classes to set the `align-items` property of flex and grid containers. They can be used alongside other Web Awesome layout utilities, like [cluster](/docs/utilities/cluster) and [stack](/docs/utilities/stack), to align children in container on the container's cross axis.
 
 | Class Name                | `align-items` Value | Preview                                                                                                                                  |
 | ------------------------- | ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |

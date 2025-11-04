@@ -344,7 +344,7 @@ The content of the carousel can be changed by adding or removing carousel items.
 
 ### Vertical Scrolling
 
-Setting the `orientation` attribute to `vertical` will render the carousel in a vertical layout. If the content of your slides vary in height, you will need to set amn explicit `height` or `max-height` on the carousel using CSS.
+Setting the `orientation` attribute to `vertical` will render the carousel in a vertical layout. If the content of your slides vary in height, you will need to set an explicit `height` or `max-height` on the carousel using CSS.
 
 ```html {.example}
 <wa-carousel class="vertical" pagination orientation="vertical">

@@ -97,8 +97,44 @@
   padding: var(--spacing);
 }
 
+/* Push slots to sides when the action slots renders */
+.has-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 :host(:not([with-header])) .header,
 :host(:not([with-footer])) .footer,
 :host(:not([with-media])) .media {
   display: none;
+}
+
+/* Orientation Styles */
+:host([orientation='horizontal']) {
+  flex-direction: row;
+
+  .media {
+    border-start-start-radius: var(--inner-border-radius);
+    border-end-start-radius: var(--inner-border-radius);
+    border-start-end-radius: 0;
+
+    &::slotted(*) {
+      block-size: 100%;
+      inline-size: 100%;
+      object-fit: cover;
+    }
+  }
+}
+
+:host([orientation='horizontal']) ::slotted([slot='body']) {
+  display: block;
+  height: 100%;
+  margin: 0;
+}
+
+:host([orientation='horizontal']) ::slotted([slot='actions']) {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing);
 }

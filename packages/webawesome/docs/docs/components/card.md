@@ -15,12 +15,10 @@ category: Organization
 
   <strong>Mittens</strong><br />
   This kitten is as cute as he is playful. Bring him home today!<br />
-  <small class="wa-caption-m">6 weeks old</small>
+  <small class="wa-caption-s">6 weeks old</small>
 
-  <div slot="footer" class="wa-split">
-    <wa-button variant="brand" pill>More Info</wa-button>
-    <wa-rating label="Rating"></wa-rating>
-  </div>
+  <wa-button slot="footer" variant="brand" pill>More Info</wa-button>
+  <wa-rating slot="footer-actions" label="Rating"></wa-rating>
 </wa-card>
 
 <style>
@@ -55,14 +53,11 @@ If using SSR, you need to also use the `with-header` attribute to add a header t
 
 ```html {.example}
 <wa-card class="card-header">
-  <div slot="header" class="wa-split">
-    Header Title
-    <wa-button appearance="plain">
-      <wa-icon name="gear" variant="solid" label="Settings"></wa-icon>
-    </wa-button>
-  </div>
-
+  <h3 slot="header">Header Title</h3>
   This card has a header. You can put all sorts of things in it!
+  <wa-button appearance="plain" slot="header-actions">
+    <wa-icon name="gear" variant="solid" label="Settings"></wa-icon>
+  </wa-button>
 </wa-card>
 
 <style>
@@ -85,10 +80,9 @@ If using SSR, you need to also use the `with-footer` attribute to add a footer t
 <wa-card class="card-footer">
   This card has a footer. You can put all sorts of things in it!
 
-  <div slot="footer" class="wa-split">
-    <wa-rating></wa-rating>
-    <wa-button variant="brand">Preview</wa-button>
-  </div>
+  <wa-rating slot="footer"></wa-rating>
+
+  <wa-button slot="footer-actions" variant="brand">Preview</wa-button>
 </wa-card>
 
 <style>
@@ -106,19 +100,20 @@ If using SSR, you need to also use the `with-media` attribute to add a media sec
 ```html {.example}
 <div class="wa-grid">
   <wa-card class="card-media">
-    <img
-      slot="media"
-      src="https://images.unsplash.com/photo-1547191783-94d5f8f6d8b1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=80"
-      alt="A kitten walks towards camera on top of pallet."
-    />
-    This is a kitten, but not just any kitten. This kitten likes walking along pallets.
+    <div slot="media" class="wa-frame:landscape">
+      <img
+        src="https://images.unsplash.com/photo-1547191783-94d5f8f6d8b1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=80"
+        alt="A kitten walks towards camera on top of pallet."
+      />
+    </div>
+    This card has an image of a kitten walking along a pallet. 
   </wa-card>
   <wa-card class="card-media">
     <video slot="media" controls>
       <source src="https://uploads.webawesome.com/dog-with-glasses.mp4" />
       <p>Your browser doesn't support HTML video</p>
     </video>
-    This is a kitten, but not just any kitten. This kitten likes walking along pallets.
+    This card has a video of a dog wearing shades.
   </wa-card>
 </div>
 
@@ -143,7 +138,7 @@ Use the `appearance` attribute to change the card's visual appearance.
     />
     Outlined (default)
   </wa-card>
-  {% for appearance in ['outlined filled', 'plain', 'filled', 'accent'] -%}
+  {% for appearance in ['filled-outlined', 'plain', 'filled', 'accent'] -%}
   <wa-card appearance="{{ appearance }}">
     <img
       slot="media"
@@ -154,4 +149,36 @@ Use the `appearance` attribute to change the card's visual appearance.
   </wa-card>
   {%- endfor %}
 </div>
+```
+
+### Orientation
+
+Set the `orientation` attribute to `horizontal` to create a card with a horizontal, side-by-side layout. Make sure to set a width or maximum width for the media slot. Horizontal cards do not currently contain the header and footer slots.
+
+:::info
+The `actions` slot is only available for the horizontal orientation
+:::
+
+```html {.example}
+<div class="wa-grid">
+  <wa-card orientation="horizontal" class="horizontal-card">
+    <img
+      slot="media"
+      src="https://images.unsplash.com/photo-1559209172-0ff8f6d49ff7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"
+      alt="A kitten sits patiently between a terracotta pot and decorative grasses."
+    />
+    This card has a horizontal orientation with media, body, and actions arranged side-by-side.
+    <wa-button slot="actions" variant="neutral" appearance="plain"
+      ><wa-icon name="ellipsis" label="actions"></wa-icon
+    ></wa-button>
+  </wa-card>
+</div>
+
+<style>
+  .horizontal-card {
+    img[slot='media'] {
+      max-width: 300px;
+    }
+  }
+</style>
 ```

@@ -40,6 +40,7 @@ await allDefined();
 
 By default, `allDefined()` will wait for all `wa-` prefixed custom elements within the current `document` to be registered.
 You can customize this behavior by passing in options:
+
 - `root` allows you to pass in a different element to search within, or a different document entirely (defaults to `document`).
 - `match` allows you to specify a custom function to determine which elements to wait for. This function should return `true` for elements you want to wait for and `false` for those you don't.
 - `additionalElements` allows you to wait for custom elements to be defined that may not be present in the DOM at the time `allDefined()` is called. This can be useful for elements that are loaded dynamically via JS.
@@ -52,7 +53,7 @@ import { allDefined } from '/dist/webawesome.js';
 await allDefined({
   match: tagName => tagName.startsWith('wa-') || tagName === 'my-component',
   root: document.getElementById('sidebar'),
-  additionalElements: ['wa-slider', 'other-slider']
+  additionalElements: ['wa-slider', 'other-slider'],
 });
 ```
 
@@ -174,3 +175,53 @@ This time we see an empty string, which means the boolean attribute is now prese
 :::info
 To wait for multiple components to update, you can use `requestAnimationFrame()` instead of awaiting each element.
 :::
+
+## Code Completion
+
+### VS Code
+
+Web Awesome ships with a file called `vscode.html-custom-data.json` that can be used to describe its custom elements to [Visual Studio Code](https://code.visualstudio.com/). This enables code completion for Web Awesome components (also known as “code hinting” or “IntelliSense”). To enable it, you need to tell VS Code where the file is.
+
+1. [Install Web Awesome locally](/docs/#installing-via-npm)
+2. If it doesn’t already exist, create a folder called `.vscode` at the root of your project
+3. If it doesn’t already exist, create a file inside that folder called `settings.json`
+4. Add the following to the file
+
+```json
+{
+  "html.customData": ["./node_modules/@awesome.me/webawesome/dist/vscode.html-custom-data.json"]
+}
+```
+
+If `settings.json` already exists, simply add the above line to the root of the object. Note that you may need to restart VS Code for the changes to take effect.
+
+### JetBrains IDEs
+
+If you are using a [JetBrains IDE](https://www.jetbrains.com/) and you are installing Web Awesome from NPM, the editor will automatically detect the `web-types.json` file from the package and you should immediately see component information in your editor.
+
+Be sure to add a reference to the `web-types.json` file in your `package.json` in order for your editor to properly detect it.
+
+```json
+{
+  ...
+  "web-types": "./web-types.json"
+  ...
+}
+```
+
+If you are using types from multiple projects, you can add an array of references.
+
+```json
+{
+  ...
+  "web-types": [
+    ...,
+    "./web-types.json"
+  ]
+  ...
+}
+```
+
+### Other Editors
+
+Most popular editors support custom code completion with a bit of configuration. Please [submit a feature request](https://github.com/shoelace-style/webawesome/issues/new/choose) for your editor of choice. PRs are also welcome!

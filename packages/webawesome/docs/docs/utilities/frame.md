@@ -54,7 +54,7 @@ Frames are well-suited for images and image placeholders.
       <img src="https://images.unsplash.com/photo-1533743983669-94fa5c4338ec?q=20" alt="Grey and white tabby kitten" />
     </div>
     <div class="wa-stack wa-gap-xs">
-      <h3 class="wa-heading-s">White-socks</h3>
+      <h3 class="wa-heading-m">White-socks</h3>
       <span class="wa-body-s">Kitten &bull; Male</span>
       <div class="wa-flank:end wa-gap-xs">
         <wa-button size="small" appearance="filled" variant="brand">Adopt this pet</wa-button>
@@ -67,13 +67,13 @@ Frames are well-suited for images and image placeholders.
   </wa-card>
   <wa-card>
     <div class="wa-frame:landscape" slot="header">
-      <div class="wa-stack wa-align-items-center wa-gap-xs wa-caption-m">
+      <div class="wa-stack wa-align-items-center wa-gap-xs wa-caption-s">
         <wa-icon name="paw"></wa-icon>
         <span>Photo coming soon</span>
       </div>
     </div>
     <div class="wa-stack wa-gap-xs">
-      <h3 class="wa-heading-s">Bumpkin</h3>
+      <h3 class="wa-heading-m">Bumpkin</h3>
       <span class="wa-body-s">Adult &bull; Male</span>
       <div class="wa-flank:end wa-gap-xs">
         <wa-button size="small" appearance="filled" variant="brand">Adopt this pet</wa-button>
@@ -89,7 +89,7 @@ Frames are well-suited for images and image placeholders.
       <img src="https://images.unsplash.com/photo-1445499348736-29b6cdfc03b9?q=20" alt="Diluted calico kitten" />
     </div>
     <div class="wa-stack wa-gap-xs">
-      <h3 class="wa-heading-s">Swish-tail</h3>
+      <h3 class="wa-heading-m">Swish-tail</h3>
       <span class="wa-body-s">Kitten &bull; Female</span>
       <div class="wa-flank:end wa-gap-xs">
         <wa-button size="small" appearance="filled" variant="brand">Adopt this pet</wa-button>
@@ -105,7 +105,7 @@ Frames are well-suited for images and image placeholders.
       <img src="https://images.unsplash.com/photo-1517451330947-7809dead78d5?q=20" alt="Short-haired tabby cat" />
     </div>
     <div class="wa-stack wa-gap-xs">
-      <h3 class="wa-heading-s">Sharp-ears</h3>
+      <h3 class="wa-heading-m">Sharp-ears</h3>
       <span class="wa-body-s">Adult &bull; Female</span>
       <div class="wa-flank:end wa-gap-xs">
         <wa-button size="small" appearance="filled" variant="brand">Adopt this pet</wa-button>
@@ -139,7 +139,7 @@ Frames have a square aspect ratio by default. You can append `:square` (1 / 1), 
 
 ## Border Radius
 
-Frames have a square border radius by default. You can add any of the following [`wa-border-radius-*`](/docs/style-utilities/border-radius) classes to an element with `wa-frame` to specify the border radius:
+Frames have a square border radius by default. You can add any of the following [`wa-border-radius-*`](/docs/utilities/border-radius) classes to an element with `wa-frame` to specify the border radius:
 
 - `wa-border-radius-s`
 - `wa-border-radius-m`

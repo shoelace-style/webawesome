@@ -3,7 +3,7 @@
     display: inline-block;
 
     /* Workaround because Chrome doesn't like :host(:has()) below
-     * https://issues.chromium.org/issues/40062355 
+     * https://issues.chromium.org/issues/40062355
      * Firefox doesn't like this nested rule, so both are needed */
     &:has(wa-badge) {
       position: relative;
@@ -47,7 +47,7 @@
 }
 
 /* Appearance modifiers */
-:host([appearance~='plain']) {
+:host([appearance='plain']) {
   .button {
     color: var(--wa-color-on-quiet, var(--wa-color-neutral-on-quiet));
     background-color: transparent;
@@ -69,7 +69,7 @@
   }
 }
 
-:host([appearance~='outlined']) {
+:host([appearance='outlined']) {
   .button {
     color: var(--wa-color-on-quiet, var(--wa-color-neutral-on-quiet));
     background-color: transparent;
@@ -91,7 +91,7 @@
   }
 }
 
-:host([appearance~='filled']) {
+:host([appearance='filled']) {
   .button {
     color: var(--wa-color-on-normal, var(--wa-color-neutral-on-normal));
     background-color: var(--wa-color-fill-normal, var(--wa-color-neutral-fill-normal));
@@ -117,11 +117,33 @@
   }
 }
 
-:host([appearance~='filled'][appearance~='outlined']) .button {
-  border-color: var(--wa-color-border-normal, var(--wa-color-neutral-border-normal));
+:host([appearance='filled-outlined']) {
+  .button {
+    color: var(--wa-color-on-normal, var(--wa-color-neutral-on-normal));
+    background-color: var(--wa-color-fill-normal, var(--wa-color-neutral-fill-normal));
+    border-color: var(--wa-color-border-normal, var(--wa-color-neutral-border-normal));
+  }
+  @media (hover: hover) {
+    .button:not(.disabled):not(.loading):hover {
+      color: var(--wa-color-on-normal, var(--wa-color-neutral-on-normal));
+      background-color: color-mix(
+        in oklab,
+        var(--wa-color-fill-normal, var(--wa-color-neutral-fill-normal)),
+        var(--wa-color-mix-hover)
+      );
+    }
+  }
+  .button:not(.disabled):not(.loading):active {
+    color: var(--wa-color-on-normal, var(--wa-color-neutral-on-normal));
+    background-color: color-mix(
+      in oklab,
+      var(--wa-color-fill-normal, var(--wa-color-neutral-fill-normal)),
+      var(--wa-color-mix-active)
+    );
+  }
 }
 
-:host([appearance~='accent']) {
+:host([appearance='accent']) {
   .button {
     color: var(--wa-color-on-loud, var(--wa-color-neutral-on-loud));
     background-color: var(--wa-color-fill-loud, var(--wa-color-neutral-fill-loud));
@@ -178,6 +200,10 @@
   aspect-ratio: 1;
 }
 
+.button.is-icon-button:has(wa-icon) {
+  width: auto;
+}
+
 /* Pill modifier */
 :host([pill]) .button {
   border-radius: var(--wa-border-radius-pill);
@@ -211,7 +237,7 @@
  * Caret modifier
  */
 
-wa-icon[part~='caret'] {
+wa-icon[part='caret'] {
   display: flex;
   align-self: center;
   align-items: center;
@@ -258,7 +284,7 @@ wa-icon[part~='caret'] {
  * Badges
  */
 
-button ::slotted(wa-badge) {
+.button ::slotted(wa-badge) {
   border-color: var(--wa-color-surface-default);
   position: absolute;
   inset-block-start: 0;
@@ -280,7 +306,7 @@ slot[name='start']::slotted(*) {
 }
 
 slot[name='end']::slotted(*),
-.button:not(.visually-hidden-label) [part~='caret'] {
+.button:not(.visually-hidden-label) [part='caret'] {
   margin-inline-start: 0.75em;
 }
 

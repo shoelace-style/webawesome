@@ -60,7 +60,7 @@ Clusters are great for inline lists and aligning items of varying sizes.
 
 ```html {.example}
 <div class="wa-stack">
-  <h3 class="wa-heading-xl">Withywindle Pub and Eatery</h3>
+  <h3 class="wa-heading-2xl">Withywindle Pub and Eatery</h3>
   <div class="wa-cluster wa-gap-xs">
     <wa-rating value="4.6" read-only></wa-rating>
     <strong>4.6</strong>
@@ -72,7 +72,7 @@ Clusters are great for inline lists and aligning items of varying sizes.
       <wa-icon name="dollar" style="color: var(--wa-color-green-60);"></wa-icon>
       <wa-icon name="dollar" style="color: var(--wa-color-green-60);"></wa-icon>
     </div>
-    <span class="wa-caption-m">&bull;</span>
+    <span class="wa-caption-s">&bull;</span>
     <wa-tag size="small">Comfort Food</wa-tag>
     <wa-tag size="small">Gastropub</wa-tag>
     <wa-tag size="small">Cocktail Bar</wa-tag>
@@ -84,7 +84,7 @@ Clusters are great for inline lists and aligning items of varying sizes.
 
 ## Align Items
 
-By default, items are centered in the block direction of the `wa-cluster` container. You can add any of the following [`wa-align-items-*`](/docs/style-utilities/align-items) classes to an element with `wa-cluster` to specify how items are aligned in the block direction:
+By default, items are centered in the block direction of the `wa-cluster` container. You can add any of the following [`wa-align-items-*`](/docs/utilities/align-items) classes to an element with `wa-cluster` to specify how items are aligned in the block direction:
 
 - `wa-align-items-start`
 - `wa-align-items-end`
@@ -119,7 +119,7 @@ By default, items are centered in the block direction of the `wa-cluster` contai
 
 ## Gap
 
-By default, the gap between cluster items uses `--wa-space-m` from your theme. You can add any of the following [`wa-gap-*`](/docs/style-utilities/gap) classes to an element with `wa-cluster` to specify the gap between items:
+By default, the gap between cluster items uses `--wa-space-m` from your theme. You can add any of the following [`wa-gap-*`](/docs/utilities/gap) classes to an element with `wa-cluster` to specify the gap between items:
 
 - `wa-gap-0`
 - `wa-gap-3xs`
