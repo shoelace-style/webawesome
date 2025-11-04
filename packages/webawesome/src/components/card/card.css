@@ -37,7 +37,7 @@
   border-color: var(--wa-color-surface-border);
 }
 
-:host([appearance~='accent']) {
+:host([appearance='accent']) {
   color: var(--wa-color-neutral-on-loud);
   background-color: var(--wa-color-neutral-fill-loud);
   border-color: transparent;
