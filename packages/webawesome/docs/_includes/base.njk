@@ -27,9 +27,8 @@
     </script>
   </head>
   <body class="layout-{{ layout | stripExtension }} page-{{ pageClass or page.fileSlug or 'home' }}{{ ' page-wide' if wide }}">
-    {% if hasBanner == undefined %}
-      {% set hasBanner = true %}
-    {% endif %}
+    {% if hasBanner == undefined %}{% set hasBanner = true %}{% endif %}
+    {% if hasGeneratedTitle == undefined %}{% set hasGeneratedTitle = true %}{% endif %}
 
     {% set defaultWaPageAttributes = defaultWaPageAttributes or { view: 'desktop', 'disable-navigation-toggle': true, 'mobile-breakpoint': 1180, 'disable-sticky': 'banner' } %}
     {% set waPageAttributes = waPageAttributes or {} %}
@@ -120,7 +119,9 @@
         <div id="flashes">{% server "flashes" %}</div>
 
         {% block header %}
-          <h1 class="title">{{ title }}</h1>
+          {% if hasGeneratedTitle %}
+            <h1 class="title">{{ title }}</h1>
+          {% endif %}
         {% endblock %}
 
         {% block beforeContent %}{% endblock %}

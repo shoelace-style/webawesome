@@ -13,6 +13,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 ## Next
 
 - Modified the default `transition` styles of `<wa-dropdown-item>` to use design tokens [pr:1693]
+- Fixed a bug in `<wa-slider>` that caused some touch devices to end up with the incorrect value [issue:1703]
 
 ## 3.0.0
 
