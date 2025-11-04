@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+{% if hasAnchors == undefined %}{% set hasAnchors = true %}{% endif %}
+{% if hasBanner == undefined %}{% set hasBanner = true %}{% endif %}
+{% if hasGeneratedTitle == undefined %}{% set hasGeneratedTitle = true %}{% endif %}
 <html lang="en" data-fa-kit-code="38c11e3f20" data-version="{{ package.version }}" class="wa-cloak"{% if hasAnchors == false %} data-no-anchor{% endif %}>
   <head>
     {% include 'head.njk' %}
@@ -27,9 +30,6 @@
     </script>
   </head>
   <body class="layout-{{ layout | stripExtension }} page-{{ pageClass or page.fileSlug or 'home' }}{{ ' page-wide' if wide }}">
-    {% if hasBanner == undefined %}{% set hasBanner = true %}{% endif %}
-    {% if hasGeneratedTitle == undefined %}{% set hasGeneratedTitle = true %}{% endif %}
-    {% if hasAnchors == undefined %}{% set hasAnchors = true %}{% endif %}
 
     {% set defaultWaPageAttributes = defaultWaPageAttributes or { view: 'desktop', 'disable-navigation-toggle': true, 'mobile-breakpoint': 1180, 'disable-sticky': 'banner' } %}
     {% set waPageAttributes = waPageAttributes or {} %}
