@@ -16,18 +16,18 @@
 }
 
 /* Appearance modifiers */
-:host([appearance~='plain']) {
+:host([appearance='plain']) {
   background-color: transparent;
   border-color: transparent;
   box-shadow: none;
 }
 
-:host([appearance~='outlined']) {
+:host([appearance='outlined']) {
   background-color: var(--wa-color-surface-default);
   border-color: var(--wa-color-surface-border);
 }
 
-:host([appearance~='filled']) {
+:host([appearance='filled']) {
   background-color: var(--wa-color-neutral-fill-quiet);
   border-color: transparent;
 }
