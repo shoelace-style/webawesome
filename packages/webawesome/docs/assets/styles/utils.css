@@ -68,10 +68,6 @@
   /* #endregion */
 
   /* #region shared UI */
-  /* hide 11ty generated titles (set hasGeneratedTitle: false in front matter to hide the title) */
-  .title-generated.hidden {
-    display: none;
-  }
   /* pro badge */
   wa-badge.pro {
     color: white;

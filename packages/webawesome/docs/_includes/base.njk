@@ -119,7 +119,9 @@
         <div id="flashes">{% server "flashes" %}</div>
 
         {% block header %}
-          <h1 class="title title-generated{{ ' hidden' if not hasGeneratedTitle }}">{{ title }}</h1>
+          {% if hasGeneratedTitle %}
+            <h1 class="title">{{ title }}</h1>
+          {% endif %}
         {% endblock %}
 
         {% block beforeContent %}{% endblock %}
