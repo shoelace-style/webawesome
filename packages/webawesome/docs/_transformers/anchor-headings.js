@@ -79,7 +79,7 @@ export function anchorHeadingsTransformer(options = {}) {
       const anchor = parse(`
         <a href="#${encodeURIComponent(id)}">
           <span class="wa-visually-hidden"></span>
-          <span aria-hidden="true">#</span>
+          <wa-icon variant="regular" name="hashtag" class="icon-shrink"></wa-icon>
         </a>
       `);
       anchor.querySelector('.wa-visually-hidden').textContent = options.anchorLabel;
