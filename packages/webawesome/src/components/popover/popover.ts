@@ -2,6 +2,7 @@ import type { PropertyValues } from 'lit';
 import { html } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { WaAfterHideEvent } from '../../events/after-hide.js';
 import { WaAfterShowEvent } from '../../events/after-show.js';
 import { WaHideEvent } from '../../events/hide.js';
@@ -96,6 +97,12 @@ export default class WaPopover extends WebAwesomeElement {
 
   /** Keep keyboard focus within the popover */
   @property({ attribute: 'trap-focus', type: Boolean }) trapFocus = false;
+
+  /** The ID of the element that labels the popover dialog. */
+  @property({ attribute: 'aria-labelledby' }) ariaLabelledby?: string;
+
+  /** The ID of the element that describes the popover dialog. */
+  @property({ attribute: 'aria-describedby' }) ariaDescribedby?: string;
 
   private eventController = new AbortController();
 
@@ -312,7 +319,13 @@ export default class WaPopover extends WebAwesomeElement {
 
   render() {
     return html`
-      <dialog part="dialog" class="dialog" @cancel=${this.handleDialogCancel}>
+      <dialog
+        aria-labelledby=${ifDefined(this.ariaLabelledby)}
+        aria-describedby=${ifDefined(this.ariaDescribedby)}
+        part="dialog"
+        class="dialog"
+        @cancel=${this.handleDialogCancel}
+      >
         <wa-popup
           part="popup"
           exportparts="

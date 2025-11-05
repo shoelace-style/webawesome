@@ -1,6 +1,7 @@
 import { html, isServer } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { WaAfterHideEvent } from '../../events/after-hide.js';
 import { WaAfterShowEvent } from '../../events/after-show.js';
 import { WaHideEvent } from '../../events/hide.js';
@@ -74,6 +75,13 @@ export default class WaDialog extends WebAwesomeElement {
 
   /** When enabled, the dialog will be closed when the user clicks outside of it. */
   @property({ attribute: 'light-dismiss', type: Boolean }) lightDismiss = false;
+
+  /** The ID of the element that labels the dialog.
+   *  Overrides the default `aria-labelledby="title"`. */
+  @property({ attribute: 'aria-labelledby' }) ariaLabelledby?: string;
+
+  /** The ID of the element that describes the dialog. */
+  @property({ attribute: 'aria-describedby' }) ariaDescribedby?: string;
 
   firstUpdated() {
     if (this.open) {
@@ -210,6 +218,8 @@ export default class WaDialog extends WebAwesomeElement {
 
     return html`
       <dialog
+        aria-labelledby=${this.ariaLabelledby ?? 'title'}
+        aria-describedby=${ifDefined(this.ariaDescribedby)}
         part="dialog"
         class=${classMap({
           dialog: true,
