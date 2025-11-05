@@ -11,7 +11,7 @@ layout: page
 <div class="wa-stack wa-gap-xl">
 <div class="wa-stack wa-align-items-start">
   <div class="wa-stack wa-gap-s">
-    <h2 class="anchor-heading wa-cluster wa-gap-xs" data-no-anchor><wa-icon name="github" family="brands" style="font-size: 2ch;"></wa-icon>Github</h2>
+    <h2 class="anchor-heading wa-cluster wa-gap-xs" data-no-anchor><wa-icon name="github" family="brands" style="font-size: 2ch;"></wa-icon>GitHub</h2>
     <span class="wa-heading-m">Feature requests & bugs</span>
     <p class="wa-caption-l">Notice a bug or have an idea? Open an issue on GitHub so we can triage, track, and ship fixes.</p>
   </div>
