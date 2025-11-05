@@ -35,9 +35,23 @@ export function anchorHeadingsTransformer(options = {}) {
       return doc;
     }
 
-    // Look for headings
-    let selector = `:is(${options.headingSelector}):not([data-no-anchor], [data-no-anchor] *)`;
+    // Check if the document or container has data-no-anchor (view-level)
+    const hasNoAnchorOnDocument = doc.querySelector('html')?.hasAttribute('data-no-anchor') || false;
+    const hasNoAnchorOnContainer = container.closest('[data-no-anchor]') !== null;
+
+    // If view-level data-no-anchor is set, skip processing all headings
+    if (hasNoAnchorOnDocument || hasNoAnchorOnContainer) {
+      return doc;
+    }
+
+    // Look for headings (selector excludes headings with data-no-anchor attribute)
+    let selector = `:is(${options.headingSelector}):not([data-no-anchor])`;
     container.querySelectorAll(selector).forEach(heading => {
+      // Skip if heading is a descendant of an element with data-no-anchor
+      // (selector already excludes headings with the attribute directly)
+      if (heading.closest('[data-no-anchor]') !== null) {
+        return;
+      }
       const hasAnchor = heading.querySelector('a');
       const existingId = heading.getAttribute('id');
       const clone = parse(heading.outerHTML);
