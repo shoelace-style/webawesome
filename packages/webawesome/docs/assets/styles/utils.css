@@ -123,16 +123,19 @@
     }
   }
 
-  /* anchor headings */
+  /* anchor headings  */
   .anchor-heading a {
+    opacity: 0;
     visibility: hidden;
     text-decoration: none;
+    transition: opacity var(--wa-transition-normal) var(--wa-transition-easing);
   }
 
   @media (hover: hover) {
     .anchor-heading:hover a {
+      opacity: 1;
       visibility: visible;
-      padding: 0 0.125em;
+      padding: var(--wa-space-3xs);
     }
   }
 
