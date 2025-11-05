@@ -351,26 +351,6 @@ h1.title {
   }
 }
 
-/* Anchor headings */
-.anchor-heading a {
-  visibility: hidden;
-  text-decoration: none;
-}
-
-@media (hover: hover) {
-  .anchor-heading:hover a {
-    visibility: visible;
-    padding: 0 0.125em;
-  }
-}
-
-@media print {
-  /* Show URLs for printed links */
-  a:not(.anchor-heading)[href]::after {
-    content: ' (' attr(href) ')';
-  }
-}
-
 /* Callouts */
 .callout {
   display: flex;

@@ -122,6 +122,26 @@
       --secondary-color: var(--wa-color-neutral-30);
     }
   }
+
+  /* anchor headings */
+  .anchor-heading a {
+    visibility: hidden;
+    text-decoration: none;
+  }
+
+  @media (hover: hover) {
+    .anchor-heading:hover a {
+      visibility: visible;
+      padding: 0 0.125em;
+    }
+  }
+
+  @media print {
+    /* show URLs for printed links */
+    a:not(.anchor-heading)[href]::after {
+      content: ' (' attr(href) ')';
+    }
+  }
   /* #endregion */
 
   /* #region funsies + cosmetics */
