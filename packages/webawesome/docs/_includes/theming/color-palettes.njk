@@ -1,0 +1,267 @@
+{% for palette in themer.palettes %}
+  <link rel="stylesheet" href="/dist/styles/color/palettes/{{palette.filename}}" />
+{% endfor %}
+
+<div id="color-palettes" class="wa-stack wa-gap-xl">
+  <wa-radio-group id="palette-picker" value="default" class="radio-cards">
+    <span slot="label" class="wa-visually-hidden">Color Palette</span>
+    <div class="wa-grid">
+    {%- for palette in themer.palettes -%}
+      {%- if not palette.isPro -%}
+        <wa-radio value="{{ palette.name | lower }}">
+          <div class="wa-stack wa-gap-xs">
+            <span>{{ palette.name }}</span>
+            <div class="wa-palette-{{ palette.name | lower }} palette-preview wa-grid wa-gap-3xs">
+              <span class="preview-swatch"></span>
+              <span class="preview-swatch"></span>
+              <span class="preview-swatch"></span>
+              <span class="preview-swatch"></span>
+              <span class="preview-swatch"></span>
+              <span class="preview-swatch"></span>
+              <span class="preview-swatch"></span>
+              <span class="preview-swatch"></span>
+              <span class="preview-swatch"></span>
+              <span class="preview-swatch"></span>
+            </div>
+          </div>
+        </wa-radio>
+      {%- else -%}
+        {% raw %}{%- if currentUser.hasPro -%}{% endraw %}
+          <wa-radio value="{{ palette.name | lower }}">
+            <div class="wa-stack wa-gap-xs">
+              <span>{{ palette.name }}</span>
+              <div class="wa-palette-{{ palette.name | lower }} palette-preview wa-grid wa-gap-3xs">
+                <span class="preview-swatch"></span>
+                <span class="preview-swatch"></span>
+                <span class="preview-swatch"></span>
+                <span class="preview-swatch"></span>
+                <span class="preview-swatch"></span>
+                <span class="preview-swatch"></span>
+                <span class="preview-swatch"></span>
+                <span class="preview-swatch"></span>
+                <span class="preview-swatch"></span>
+                <span class="preview-swatch"></span>
+              </div>
+            </div>
+          </wa-radio>
+        {% raw %}{%- endif -%}{% endraw %}
+      {%- endif -%}
+    {%-  endfor -%}
+  </div>
+  </wa-radio-group>
+
+  <div class="wa-stack wa-gap-xs">
+    {%- for color in themer.colors -%}
+      <div class="palette wa-flank wa-gap-xs">
+        <div class="palette-label">{{ color }}</div>
+        <div class="palette-swatches wa-grid wa-gap-2xs">
+          {%- for tint in themer.tints -%}
+          <wa-copy-button
+            class="palette-swatch"
+            copy-label="{{ color }} {{ tint }}"
+            value="var(--wa-color-{{ color }}-{{ tint }})"
+            style="--color: var(--wa-color-{{ color }}-{{ tint }}); --tint: '{{ tint }}'"
+          >
+            <span class="wa-visually-hidden">--wa-color-{{ color }}-{{ tint }}</span>
+          </wa-copy-button>
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+<script type="module">
+  const paletteContainer = document.getElementById('color-palettes');
+  const palettePicker = document.getElementById('palette-picker');
+
+  // Set first radio as checked and add initial palette class
+  const firstRadio = palettePicker.querySelector('wa-radio');
+  if (firstRadio) {
+    firstRadio.checked = true;
+    paletteContainer.classList.add(`wa-palette-${firstRadio.value}`);
+  }
+
+  // Listen for radio changes
+  palettePicker.addEventListener('input', function(event) {
+    const selectedValue = event.target.value;
+
+    // Update palette container class
+    const existingThemeClasses = [...paletteContainer.classList].filter(className => className.startsWith('wa-palette-'));
+    existingThemeClasses.forEach(className => paletteContainer.classList.remove(className));
+    paletteContainer.classList.add(`wa-palette-${selectedValue}`);
+
+    // Show/hide appropriate instructions
+    document.querySelectorAll('.palette-instructions').forEach(instruction => {
+      instruction.hidden = instruction.dataset.palette !== selectedValue;
+    });
+  });
+</script>
+
+<style>
+  #color-palettes {
+    margin-block-end: var(--wa-content-spacing);
+  }
+
+  .palette {
+    --flank-size: 6ch;
+    --content-percentage: 88%;
+    --reserved-tint-space: calc(var(--wa-font-size-xs) + var(--wa-space-xs)); /* TODO: rename */
+    margin-bottom: var(--reserved-tint-space);
+  }
+
+  .palette-swatches {
+    --min-column-size: 2.5rem;
+    grid-row-gap: calc(var(--reserved-tint-space) + var(--wa-space-xs));
+  }
+
+  wa-radio-group.radio-cards {
+    &::part(form-control-input) {
+      display: grid;
+    }
+
+    > .wa-grid {
+      --max-column-count: 3;
+      --min-column-size: 12ch;
+
+      --_max-gap-count: calc(var(--max-column-count) - 1);
+      --_gap-width-sum: calc(var(--_max-gap-count) * var(--wa-space-m));
+      --_max-column-width: calc((100% - var(--_gap-width-sum)) / var(--max-column-count));
+
+      grid-template-columns: repeat(auto-fill, minmax(max(var(--min-column-size), var(--_max-column-width)), 1fr));
+    }
+
+    wa-radio {
+      display: block;
+      inline-size: var(--popover-min-inline-size);
+      background-color: var(--wa-form-control-background-color);
+      border: var(--wa-form-control-border-width) var(--wa-form-control-border-style) var(--wa-color-neutral-border-quiet);
+      border-radius: var(--wa-border-radius-m);
+      padding: 0.75em;
+      font-size: var(--wa-font-size-s);
+      color: var(--wa-color-text-quiet);
+
+      &::part(control) {
+        display: none;
+      }
+
+      &::part(label) {
+        font-weight: var(--wa-font-weight-bold);
+      }
+
+      @media (hover: hover) {
+        &:hover {
+          border-color: var(--wa-color-neutral-border-normal);
+        }
+      }
+
+      &:state(checked) {
+        border-color: var(--wa-color-neutral-border-loud);
+        box-shadow: 0 0 0 0.0625rem var(--wa-color-neutral-border-loud);
+        color: var(--wa-color-text-normal);
+      }
+
+      &:focus-visible {
+        outline: var(--wa-focus-ring);
+        outline-offset: var(--wa-focus-ring-offset);
+      }
+    }
+  }
+
+  .palette-label {
+    font-weight: var(--wa-font-weight-bold);
+    text-transform: capitalize;
+    font-size: var(--wa-font-size-s);
+    color: var(--wa-color-text-normal);
+  }
+
+  .palette-swatch {
+    padding: 0;
+    aspect-ratio: 1;
+    position: relative;
+
+    &::before {
+      content: var(--tint);
+      position: absolute;
+      bottom: calc(-1 * var(--reserved-tint-space));
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: var(--wa-font-size-xs);
+      line-height: 1;
+      color: var(--wa-color-text-quiet);
+      text-align: center;
+      z-index: 2;
+    }
+
+    &::part(button) {
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+      background-color: var(--color);
+      border-radius: var(--wa-border-radius-s);
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+    }
+
+    &:hover::part(button) {
+      transform: scale(1.075);
+      box-shadow: var(--wa-shadow-s);
+      z-index: 1;
+      position: relative;
+    }
+
+    &::part(copy-icon),
+    &::part(success-icon),
+    &::part(error-icon) {
+      visibility: hidden;
+    }
+  }
+
+  .palette-preview {
+    --min-column-size: 0rem;
+  }
+
+  .preview-swatch {
+    aspect-ratio: 1 / 1;
+    height: 100%;
+    width: 100%;
+    border-radius: var(--wa-border-radius-s);
+
+      &:nth-child(1) {
+        background-color: var(--wa-color-red);
+      }
+      &:nth-child(2) {
+        background-color: var(--wa-color-orange);
+      }
+      &:nth-child(3) {
+        background-color: var(--wa-color-yellow);
+      }
+      &:nth-child(4) {
+        background-color: var(--wa-color-green);
+      }
+      &:nth-child(5) {
+        background-color: var(--wa-color-cyan);
+      }
+      &:nth-child(6) {
+        background-color: var(--wa-color-blue);
+      }
+      &:nth-child(7) {
+        background-color: var(--wa-color-indigo);
+      }
+      &:nth-child(8) {
+        background-color: var(--wa-color-purple);
+      }
+      &:nth-child(9) {
+        background-color: var(--wa-color-pink);
+      }
+      &:nth-child(10) {
+        background-color: var(--wa-color-gray);
+      }
+    }
+
+  /* Smaller screens */
+  @media (max-width: 768px) {
+    .palette-swatch {
+      aspect-ratio: 1.5 / 1;
+    }
+  }
+</style>

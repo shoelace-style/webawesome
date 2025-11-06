@@ -13,13 +13,11 @@ There are 3 pre-made Free themes to choose from and an additional 8 pre-made the
 ### Color Palettes
 `.wa-palette-{name}`
 
-Color palettes give you a full spectrum of colors to use in your project. A color palette defines 10 hues — red, orange, yellow, green, cyan, blue, indigo, purple, pink, and gray — each with 11 tints.
+Color palettes give you a full spectrum of colors to use in your project. A color palette defines 10 hues — red, orange, yellow, green, cyan, blue, indigo, purple, pink, and gray — each with 11 tints. Tints are assigned numbers that correlate to their lightness.
 
 There are 3 Free color palettes to choose from and an additional 6 color palettes in Web Awesome Pro.
 
-While the tints have consistent lightness values across palettes, each palette has unique hue shifts and chroma to give it character so you can find just the right vibe to your project.
-
-TODO: Add color palette preview
+{% include 'theming/color-palettes.njk' %}
 
 Your color palette is determined by `class="wa-palette-{name}"` on the `<html>` element. If no class is specified, the default color palette for your chosen theme is used.
 
@@ -51,7 +49,7 @@ Themes assign specific tints from your chosen variant colors — along with qual
 
 TODO: Add theme preview
 
-Your color palette is determined by `class="wa-theme-{name}"` on the `<html>` element. If no class is specified, the default theme is used.
+Your theme is determined by `class="wa-theme-{name}"` on the `<html>` element. If no class is specified, the default theme is used.
 
 ### Light and Dark Modes
 `.wa-light` | `.wa-dark`
@@ -133,7 +131,24 @@ You can force a section to behave like `.wa-dark` in light mode and like `.wa-li
 
 #### Detecting Color Scheme Preference
 
-TODO
+While both light and dark mode styles are built-in to all themes, Web Awesome doesn't automatically detect the user's color scheme preference. We recommend doing this at the application level.
+
+Follow these best practices for supporting both light and dark mode:
+- Check for [`prefers-color-scheme`](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/prefers-color-scheme) and use its value by default
+- Allow the user to override this setting in your app
+- Remember the user's preference and restore it on subsequent visits
+
+Let's assume you store the user's color scheme preference for your app in a variable called `colorScheme` (values: `auto` | `light` | `dark`). You can use the following JS snippet to apply `class="wa-dark"` to the `<html>` element accordingly:
+
+```js
+const systemDark = window.matchMedia('(prefers-color-scheme: dark)');
+const applyDark = function (event = systemDark) {
+  const isDark = colorScheme === 'auto' ? event.matches : colorScheme === 'dark';
+  document.documentElement.classList.toggle('wa-dark', isDark);
+};
+systemDark.addEventListener('change', applyDark);
+applyDark();
+```
 
 ## Bringing it Together
 
