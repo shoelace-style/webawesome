@@ -249,7 +249,7 @@ Many of these changes and improvements were the direct result of feedback from u
 - 🚨 BREAKING: Renamed `<image-comparer>` to `<wa-comparison>` and improved compatibility for non-image content
 - 🚨 BREAKING: Added slot detection to `<wa-dialog>` and `<wa-drawer>` so you don't need to specify `with-header` and `with-footer`; headers are on by default now, but you can use the `without-header` attribute to turn them off
 - 🚨 BREAKING: Renamed the `image` slot to `media` for a more appropriate naming convention
-- Added [a theme builder](/docs/themes/edit/) to create your own themes
+- Added Theme Builder to create your own themes
 - Added a new Blog & News pattern category
 - Added a new free component: `<wa-scroller>` (#1 of 14 per stretch goals)
 - Added support for Duotone Thin, Light, and Regular styles and the Sharp Duotone family of styles to `<wa-icon>`
@@ -266,7 +266,7 @@ Many of these changes and improvements were the direct result of feedback from u
 
 ### Enhancements {data-no-outline}
 
-- Added `appearance` to [`<wa-details>`](/docs/components/details) and [`<wa-card>`](/docs/components/card) and support for the [appearance utilities](/docs/utilities/appearance/) in the [`<details>` native styles](/docs/utilities/native/details).
+- Added `appearance` to [`<wa-details>`](/docs/components/details) and [`<wa-card>`](/docs/components/card) and support for the appearance utilities in the [`<details>` native styles](/docs/utilities/native/#details).
 - Added an `orange` scale to all color palettes
 - Added the [`.wa-cloak` utility](/docs/utilities/fouce) to prevent FOUCE
 - Added the [`allDefined()` utility](/docs/usage/#all-defined) for awaiting component registration
@@ -291,7 +291,7 @@ Many of these changes and improvements were the direct result of feedback from u
 - Revert `<wa-dialog>` structure and CSS to fix clipped content in dialogs (WA-A #123) and light dismiss in iOS Safari (WA-A #201)
 - Fixed a bug in `<wa-color-picker>` that prevented light dismiss from working when clicking immediately above the color picker dropdown
 - Fixed a bug in `<wa-progress>` that prevented Safari from animation progress changes
-- Fixed the missing indeterminate icon in [native checkbox styles](/docs/utilities/native/checkbox)
+- Fixed the missing indeterminate icon in [native checkbox styles](/docs/utilities/native/#form-controls)
 - Fixed a bug in `<wa-radio>` where elements would stack instead of display inline
 - Docs fixes:
   - Fixed the search dialog's styles so it doesn't jump around as you search
@@ -438,13 +438,13 @@ Many of these changes and improvements were the direct result of feedback from u
 ### Native styles {data-no-outline}
 
 - Added native styles for
-  [buttons](/docs/utilities/native/button),
-  [input fields](/docs/utilities/native/input),
-  [dialogs](/docs/utilities/native/dialog),
-  [details](/docs/utilities/native/details),
-  [tables](/docs/utilities/native/table),
-  [lists](/docs/utilities/native/lists),
-  and most [content elements](/docs/utilities/native/content).
+  [buttons](/docs/utilities/native/#buttons),
+  [input fields](/docs/utilities/native/#form-controls),
+  [dialogs](/docs/utilities/native/#dialog),
+  [details](/docs/utilities/native/#details),
+  [tables](/docs/utilities/native/#tables),
+  [lists](/docs/utilities/native/#lists),
+  and most [content elements](/docs/utilities/native/#content-flow).
 
 ### Style utilities {data-no-outline}
 
@@ -452,7 +452,7 @@ Many of these changes and improvements were the direct result of feedback from u
 - Added [appearance utilities](/docs/utilities/appearance/)
 - Added [size utilities](/docs/utilities/size/)
 - Added [layout utilities](/docs/layout/#utilities)
-- Added [`.wa-visually hidden`](/docs/utilities/a11y/#visually-hidden) utility
+- Added [`.wa-visually hidden`](/docs/utilities/visually-hidden) utility
 - Added [`<wa-page>`](/docs/components/page/#styles) native styles and utilities
 
 ### Components {data-no-outline}
