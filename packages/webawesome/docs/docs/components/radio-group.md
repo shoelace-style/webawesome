@@ -113,7 +113,7 @@ The size of [Radios](/docs/components/radio) will be determined by the Radio Gro
 ```
 
 :::info
-[Radios](/docs/components/radio) and [Radio Buttons](/docs/components/radio-button) also have a `size` attribute,
+[Radios](/docs/components/radio) and [Radio Buttons](#radio-buttons) also have a `size` attribute,
 which will override the inherited size when used.
 :::
 
