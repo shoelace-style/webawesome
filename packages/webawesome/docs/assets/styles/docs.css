@@ -38,7 +38,7 @@ wa-page > [slot='banner'] {
   }
 
   &.banner-wa-launch {
-    /* custom brand colors carrried over from theme-site for the banner */
+    /* custom brand colors carried over from theme-site for the banner */
     --wa-color-brand-95: #fef0ec;
     --wa-color-brand-90: #fce0d8;
     --wa-color-brand-80: #f8bcac;
