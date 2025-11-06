@@ -139,6 +139,11 @@
 
       {#- Site-Wide Dialog -#}
       {% if hasSiteDialog %}
+        {% raw %}
+          {%- if not currentUser.hasPro -%}
+            {% include "_dialog-wa-launch.njk" ignore missing %}
+          {%- endif -%}
+        {% endraw %}
       {% endif %}
 
       {# Footer #}
