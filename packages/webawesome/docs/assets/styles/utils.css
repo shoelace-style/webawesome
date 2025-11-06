@@ -70,10 +70,17 @@
   /* #region shared UI */
   /* pro badge */
   wa-badge.pro {
-    color: white;
+    color: var(--wa-color-brand-on-loud);
     background-color: var(--wa-brand-orange);
-    border-color: var(--wa-brand-orange);
 
+    + wa-tooltip {
+      font-size: var(--wa-font-size-xs);
+      --max-width: unset;
+    }
+  }
+
+  /* free badge */
+  wa-badge.free {
     + wa-tooltip {
       font-size: var(--wa-font-size-xs);
       --max-width: unset;
