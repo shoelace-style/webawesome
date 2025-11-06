@@ -54,7 +54,7 @@ TODO: Add theme preview
 Your color palette is determined by `class="wa-theme-{name}"` on the `<html>` element. If no class is specified, the default theme is used.
 
 ### Light and Dark Modes
-`.wa-light` | `.wa-dark` | `.wa-invert`
+`.wa-light` | `.wa-dark`
 
 Every theme is designed to adapt to light and dark mode. Light mode styles are applied by default, but you can apply a specific color scheme to an entire page or just a section with `class="wa-light"` or `class="wa-dark"`.
 
@@ -102,7 +102,10 @@ Every theme is designed to adapt to light and dark mode. Light mode styles are a
 </div>
 ```
 
-You can also use `class="wa-invert"`, which allows a section to behave as `.wa-dark` in light mode and like `.wa-light` in dark mode.
+#### Inverting the Color Scheme
+`.wa-invert`
+
+You can force a section to behave like `.wa-dark` in light mode and like `.wa-light` in dark mode by using `class="wa-invert"`.
 
 ```html {.example}
 <p>This card will always use the opposite of the color scheme applied to the docs.</p>
