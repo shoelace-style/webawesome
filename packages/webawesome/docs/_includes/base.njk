@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 {% if hasAnchors == undefined %}{% set hasAnchors = true %}{% endif %}
 {% if hasBanner == undefined %}{% set hasBanner = true %}{% endif %}
+{% if hasSiteDialog == undefined %}{% set hasSiteDialog = true %}{% endif %}
 {% if hasGeneratedTitle == undefined %}{% set hasGeneratedTitle = true %}{% endif %}
 <html lang="en" data-fa-kit-code="38c11e3f20" data-version="{{ package.version }}" class="wa-cloak"{% if hasAnchors == false %} data-no-anchor{% endif %}>
   <head>
@@ -135,6 +136,10 @@
       </main>
 
       {% include 'search.njk' %}
+
+      {#- Site-Wide Dialog -#}
+      {% if hasSiteDialog %}
+      {% endif %}
 
       {# Footer #}
       {% block pageFooter %}{% endblock %}
