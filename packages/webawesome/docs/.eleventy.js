@@ -38,7 +38,9 @@ export default async function (eleventyConfig) {
   const stylesheets = path.join(distDir, 'styles');
 
   eleventyConfig.addWatchTarget(customElementsManifest);
-  eleventyConfig.setWatchThrottleWaitTime(10); // in milliseconds
+  // Not sure why this is needed :think:
+  eleventyConfig.addWatchTarget(distDir);
+  eleventyConfig.setWatchThrottleWaitTime(50); // in milliseconds
 
   eleventyConfig.on('eleventy.beforeWatch', async function (changedFiles) {
     let updatePackageData = false;
@@ -200,13 +202,13 @@ export default async function (eleventyConfig) {
     }
   }
 
-  eleventyConfig.addFilter('gitLastModifiedISO', function (inputPath, overrideDate) {
-    return getLastModifiedISO(inputPath, overrideDate);
-  });
+  // eleventyConfig.addFilter('gitLastModifiedISO', function (inputPath, overrideDate) {
+  //   return getLastModifiedISO(inputPath, overrideDate);
+  // });
 
   // Attach lastUpdatedISO to page data so templates can use {{ lastUpdatedISO }} directly
   eleventyConfig.addGlobalData('eleventyComputed', {
-    lastUpdatedISO: data => getLastModifiedISO(data.page?.inputPath, data.lastUpdated),
+    // lastUpdatedISO: data => getLastModifiedISO(data.page?.inputPath, data.lastUpdated),
     // Page title with smart + default site name formatting
     pageTitle: data => composePageTitle(data.title),
     // Open Graph title with smart + default site name formatting
