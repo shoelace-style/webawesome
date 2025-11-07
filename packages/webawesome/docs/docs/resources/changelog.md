@@ -444,7 +444,7 @@ Many of these changes and improvements were the direct result of feedback from u
   [details](/docs/utilities/native/#details),
   [tables](/docs/utilities/native/#tables),
   [lists](/docs/utilities/native/#lists),
-  and most [content elements](/docs/utilities/native/#content-flow).
+  and most [content elements](/docs/utilities/native/#typography).
 
 ### Style utilities {data-no-outline}
 
