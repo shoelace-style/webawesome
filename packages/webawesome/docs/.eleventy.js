@@ -22,7 +22,7 @@ import { searchPlugin } from './_plugins/search.js';
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 const isDev = process.argv.includes('--develop');
 const ignoreGit = process.env.ELEVENTY_IGNORE_GIT === 'true';
-const passThroughExtensions = ['js', 'css', 'png', 'svg', 'jpg', 'mp4'];
+const passThroughExtensions = ['js', 'css', 'png', 'svg', 'jpg', 'mp4', 'json'];
 
 async function getPackageData() {
   return JSON.parse(await readFile(path.join(__dirname, '..', 'package.json'), 'utf-8'));
@@ -401,9 +401,6 @@ export default async function (eleventyConfig) {
   for (let glob of passThrough) {
     eleventyConfig.addPassthroughCopy(glob);
   }
-
-  // Passthrough copy for manifest.json (PWA manifest file)
-  eleventyConfig.addPassthroughCopy('manifest.json');
 
   // // SSR plugin
   // if (!isDev) {
