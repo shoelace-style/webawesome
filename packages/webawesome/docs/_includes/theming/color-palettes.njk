@@ -73,28 +73,23 @@
 
 <script type="module">
   const paletteContainer = document.getElementById('color-palettes');
-  const palettePicker = document.getElementById('palette-picker');
+  const palettePreviewPicker = document.getElementById('palette-picker');
 
   // Set first radio as checked and add initial palette class
-  const firstPaletteRadio = palettePicker.querySelector('wa-radio');
+  const firstPaletteRadio = palettePreviewPicker.querySelector('wa-radio');
   if (firstPaletteRadio) {
     firstPaletteRadio.checked = true;
     paletteContainer.classList.add(`wa-palette-${firstPaletteRadio.value}`);
   }
 
   // Listen for radio changes
-  palettePicker.addEventListener('input', function(event) {
+  palettePreviewPicker.addEventListener('input', function(event) {
     const selectedValue = event.target.value;
 
     // Update palette container class
     const existingThemeClasses = [...paletteContainer.classList].filter(className => className.startsWith('wa-palette-'));
     existingThemeClasses.forEach(className => paletteContainer.classList.remove(className));
     paletteContainer.classList.add(`wa-palette-${selectedValue}`);
-
-    // Show/hide appropriate instructions
-    document.querySelectorAll('.palette-instructions').forEach(instruction => {
-      instruction.hidden = instruction.dataset.palette !== selectedValue;
-    });
   });
 </script>
 
