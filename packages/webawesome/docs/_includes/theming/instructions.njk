@@ -1,0 +1,300 @@
+{% from "pro-badge.njk" import proBadge %}
+{% from "free-badge.njk" import freeBadge %}
+
+<div id="using-themes">
+  <fieldset class="theme-options wa-stack" style="margin-block-end: var(--wa-content-spacing);">
+    <legend style="align-self: start;">Theme Options</legend>
+    <wa-select id="pick-theme" label="Theme" value="default" size="small">
+      <wa-badge slot="end" appearance="accent" pill class="pro pro-only-value">Pro</wa-badge>
+      {%- for theme in themer.themes -%}
+        {%- if not theme.isPro -%}
+          <wa-option 
+            value="{{ theme.name | lower }}"
+            data-palette="{{ theme.palette.filename | stripExtension}}"
+            data-brand="{{ theme.colorBrand.color }}"
+          >
+            {{ theme.name | capitalize }}
+          </wa-option>
+        {%- endif -%}
+      {%- endfor -%}
+      {% raw %}{% if currentUser.hasPro %}{% endraw %}
+        {%- for theme in themer.themes -%}
+          {% if loop.first %}<wa-divider></wa-divider>{% endif %}
+          {%- if theme.isPro -%}
+            <wa-option 
+              value="{{ theme.name | lower }}"
+              data-palette="{{ theme.palette.filename | stripExtension}}"
+              data-brand="{{ theme.colorBrand.color }}"
+              {% if theme.isPro %}data-is-pro{% endif %}
+            >
+              {{ theme.name | capitalize }}
+            </wa-option>
+          {%- endif -%}
+        {%- endfor -%}
+      {% raw %}{% endif %}{% endraw %}
+    </wa-select>
+    <wa-select id="pick-palette" label="Color Palette" value="default" size="small">
+      <wa-badge slot="end" appearance="accent" pill class="pro pro-only-value">Pro</wa-badge>
+      {%- for palette in themer.palettes -%}
+        {%- if not palette.isPro -%}
+          <wa-option 
+            value="{{ palette.name | lower }}"
+          >
+            {{ palette.name | capitalize }}
+          </wa-option>
+        {%- endif -%}
+      {%- endfor -%}
+      {% raw %}{% if currentUser.hasPro %}{% endraw %}
+        {%- for palette in themer.palettes -%}
+          {% if loop.first %}<wa-divider></wa-divider>{% endif %}
+          {%- if palette.isPro -%}
+            <wa-option 
+              value="{{ palette.name | lower }}"
+              {% if palette.isPro %}data-is-pro{% endif %}
+            >
+              {{ palette.name | capitalize }}
+            </wa-option>
+          {%- endif -%}
+        {%- endfor -%}
+      {% raw %}{% endif %}{% endraw %}
+    </wa-select>
+    <div class="wa-grid">
+      {%- set colorVariants = ['brand', 'neutral', 'success', 'warning', 'danger'] -%}
+      {%- for colorVariant in colorVariants -%}
+        <wa-select id="pick-{{ colorVariant }}" label="{{ colorVariant | capitalize }}" size="small">
+          <wa-icon slot="start" name="square" class="selected-color"></wa-icon>
+          {%- for color in themer.colors -%}
+            <wa-option value="{{ color }}">
+              {{ color | capitalize }}
+              <wa-icon slot="start" name="square" style="--color: var(--wa-color-{{ color }}); color: var(--color);"></wa-icon>
+            </wa-option>
+          {%- endfor -%}
+        </wa-select>
+      {%- endfor -%}
+    </div>
+  </fieldset>
+</div>
+
+<wa-tab-group>
+  <wa-tab panel="cdn"><wa-icon name="rocket-launch" variant="regular"></wa-icon> CDN</wa-tab>
+  <wa-tab panel="npm"><wa-icon name="box-open" variant="regular"></wa-icon> npm</wa-tab>
+  <wa-tab panel="self-hosted"><wa-icon name="arrow-down-to-line" variant="regular"></wa-icon> Self-Hosted</wa-tab>
+
+  <wa-tab-panel name="cdn">
+    <div class="wa-stack wa-gap-xl">
+      <wa-callout variant="neutral" size="small" id="pro-only-callout">
+        <wa-icon name="info-circle" variant="regular"></wa-icon>
+        This combination can only be used on teams with a Pro subscription.
+      </wa-callout>
+      <div id="free-instructions">
+        <strong>For projects on <wa-badge appearance="filled" variant="neutral" pill class="free">Free</wa-badge> teams:</strong>
+        <ol>
+          <li>Head over to your project's <wa-icon name="gear" variant="regular"></wa-icon> <strong>Settings</strong>.</li>
+          <li>For <strong>Theme</strong>, select <wa-icon name="paintbrush" variant="regular"></wa-icon> <strong class="theme-name"></strong>.</li>
+          <li>For <strong>Color Palette</strong>, select <wa-icon name="swatchbook" variant="regular"></wa-icon> <strong class="palette-name"></strong>.</li>
+          <li>Press <strong>Save Changes</strong> to update anywhere you're using your project.</li>
+          <li class="custom-variants">In your own files, apply the following classes to the <code>&lt;html&gt;</code> element:<br />
+            <pre><code class="variant-classes" class="language-html"></code></pre>
+          </li>
+        </ol>
+      </div>
+      <div id="pro-instructions">
+        <strong>For projects on <wa-badge appearance="accent" pill class="pro">Pro</wa-badge> teams:</strong>
+        <ol>
+          <li>Head over to your project's <wa-icon name="gear" variant="regular"></wa-icon> <strong>Settings</strong>.</li>
+          <li>Press <wa-icon name="paintbrush" variant="regular"></wa-icon> <strong>Edit Your Theme</strong> to open the Theme Builder.</li>
+          <li>Open <strong>Theme</strong> and select <strong class="theme-name"></strong>.</li>
+          <li>Open <strong>Colors</strong>. On the <strong>Basic</strong> tab, select <strong class="palette-name"></strong>. <span class="custom-variants">On the <strong>Advanced</strong> tab, select your preferred variant colors.</span></li>
+          <li>Press <strong>Save Changes</strong> to update anywhere you're using your project.</li>
+        </ol>
+      </div>
+    </div>
+  </wa-tab-panel>
+
+  <wa-tab-panel name="npm">
+    <p>To use this theme, include the following stylesheet(s):</p>
+    <pre><code id="stylesheet-imports" class="language-html"></code></pre>
+    <p>Then, apply the following classes to the <code>&lt;html&gt;</code> element:</p>
+    <pre><code class="html-classes" class="language-html"></code></pre>
+  </wa-tab-panel>
+
+  <wa-tab-panel name="self-hosted">
+    <p>To use this theme, include the following stylesheet(s):</p>
+    <pre><code id="stylesheet-links" class="language-html"></code></pre>
+    <p>Then, apply the following classes to the <code>&lt;html&gt;</code> element:</p>
+    <pre><code class="html-classes" class="language-html"></code></pre>
+  </wa-tab-panel>
+</wa-tab-group>
+
+<script type="module">
+  const themePicker = document.getElementById('pick-theme');
+  const palettePicker = document.getElementById('pick-palette');
+  const brandPicker = document.getElementById('pick-brand');
+  const neutralPicker = document.getElementById('pick-neutral');
+  const successPicker = document.getElementById('pick-success');
+  const warningPicker = document.getElementById('pick-warning');
+  const dangerPicker = document.getElementById('pick-danger');
+  
+  const stylesheetLinks = document.getElementById('stylesheet-links');
+  const stylesheetImports = document.getElementById('stylesheet-imports');
+  const htmlClassList = document.querySelectorAll('.html-classes');
+  const variantClassList = document.querySelectorAll('.variant-classes');
+  const themeNames = document.querySelectorAll('.theme-name');
+  const paletteNames = document.querySelectorAll('.palette-name');
+
+  // Default values for color variants
+  const defaultColors = {
+    brand: 'blue',
+    neutral: 'gray',
+    success: 'green',
+    warning: 'yellow',
+    danger: 'red'
+  };
+
+  // Update dynamic instructions based on current picker values
+  function updateInstructions() {
+    const theme = themePicker.value;
+    const palette = palettePicker.value;
+    const brand = brandPicker.value;
+    const neutral = neutralPicker.value;
+    const success = successPicker.value;
+    const warning = warningPicker.value;
+    const danger = dangerPicker.value;
+
+    // Get the default palette for the selected theme
+    const selectedThemeOption = themePicker.querySelector(`wa-option[value="${theme}"]`);
+    const themeDefaultPalette = selectedThemeOption?.getAttribute('data-palette') || 'default';
+    const proOnlyTheme = selectedThemeOption?.hasAttribute('data-is-pro') || false;
+    const proOnlyPalette = palettePicker.querySelector(`wa-option[value="${palette}"]`)?.hasAttribute('data-is-pro') || false;
+
+    // Show/hide Pro-only callout
+    const proOnlyCallout = document.getElementById('pro-only-callout');
+    const freeInstructions = document.getElementById('free-instructions');
+    if (proOnlyTheme || proOnlyPalette) {
+      proOnlyCallout.style.display = '';
+      freeInstructions.style.display = 'none';
+    } else {
+      proOnlyCallout.style.display = 'none';
+      freeInstructions.style.display = '';
+    }
+
+    // Show/hide Pro badge on selected Pro values
+    document.querySelectorAll('.pro-only-value').forEach(badge => {
+      if ((badge.parentElement.id === 'pick-theme' && proOnlyTheme) ||
+          (badge.parentElement.id === 'pick-palette' && proOnlyPalette)) {
+        badge.style.display = '';
+      } else {
+        badge.style.display = 'none';
+      }
+    });
+
+    // Build stylesheet links
+    const links = [`<link rel="stylesheet" href="/dist/styles/themes/${theme}.css" />`];
+    const imports = [`import '@awesome.me/webawesome/dist/styles/themes/${theme}.css';`];
+    
+    // Only include palette link if it differs from theme's default
+    if (palette !== themeDefaultPalette) {
+      links.push(`<link rel="stylesheet" href="/dist/styles/color/palettes/${palette}.css" />`);
+      imports.push(`import '@awesome.me/webawesome/dist/styles/color/palettes/${palette}.css';`);
+    }
+    
+    stylesheetLinks.textContent = links.join('\n');
+    stylesheetImports.textContent = imports.join('\n');
+
+    // Build HTML classes
+    const classes = [`wa-theme-${theme}`];
+    const variantClasses = [];
+    
+    // Only include palette class if it differs from theme's default
+    if (palette !== themeDefaultPalette) {
+      classes.push(`wa-palette-${palette}`);
+    }
+    
+    // Only include color classes if they differ from defaults
+    if (brand !== defaultColors.brand) {
+      [classes, variantClasses].forEach(classList => classList.push(`wa-brand-${brand}`));
+    }
+    if (neutral !== defaultColors.neutral) {
+      [classes, variantClasses].forEach(classList => classList.push(`wa-neutral-${neutral}`));
+    }
+    if (success !== defaultColors.success) {
+      [classes, variantClasses].forEach(classList => classList.push(`wa-success-${success}`));
+    }
+    if (warning !== defaultColors.warning) {
+      [classes, variantClasses].forEach(classList => classList.push(`wa-warning-${warning}`));
+    }
+    if (danger !== defaultColors.danger) {
+      [classes, variantClasses].forEach(classList => classList.push(`wa-danger-${danger}`));
+    }
+
+    htmlClassList.forEach(instance => {
+      instance.textContent = `class="${classes.join(' ')}"`;
+    });
+
+    variantClassList.forEach(instance => {
+      instance.textContent = `class="${variantClasses.join(' ')}"`;
+    });
+
+    if (variantClasses.length === 0) {
+      document.querySelectorAll('.custom-variants').forEach(el => el.style.display = 'none');
+    } else {
+      document.querySelectorAll('.custom-variants').forEach(el => el.style.display = '');
+    }
+
+    // Update theme and palette names in CDN instructions
+    themeNames.forEach(instance => {
+      instance.textContent = `${theme.charAt(0).toUpperCase() + theme.slice(1)}`;
+    });
+    paletteNames.forEach(instance => {
+      instance.textContent = `${palette.charAt(0).toUpperCase() + palette.slice(1)}`;
+    });
+
+    // Match color picker icons to selected palette and color
+    [brandPicker, neutralPicker, successPicker, warningPicker, dangerPicker].forEach(picker => {
+      const color = picker.value;
+      const selectedColorIcon = picker.querySelector('wa-icon.selected-color');
+      const optionsColorIcons = picker.querySelectorAll('wa-option wa-icon[slot="start"]');
+
+      if (selectedColorIcon) {
+        selectedColorIcon.style.setProperty('color', `var(--wa-color-${color})`);
+        selectedColorIcon.classList.remove(...[...selectedColorIcon.classList].filter(className => className.startsWith('wa-palette-')));
+        selectedColorIcon.classList.add(`wa-palette-${palette}`);
+      }
+
+
+      optionsColorIcons.forEach(icon => {
+        icon.classList.remove(...[...icon.classList].filter(className => className.startsWith('wa-palette-')));
+        icon.classList.add(`wa-palette-${palette}`);
+      });
+    });
+  }
+
+  // Set palette and brand based on theme selection
+  themePicker.addEventListener('input', function() {
+    const selectedOption = themePicker.querySelector(`wa-option[value="${themePicker.value}"]`);
+    const palette = selectedOption.getAttribute('data-palette');
+    const brand = selectedOption.getAttribute('data-brand');
+
+    palettePicker.value = palette;
+    brandPicker.value = brand;
+    
+    updateInstructions();
+  });
+
+  // Update instructions when any picker changes
+  [palettePicker, brandPicker, neutralPicker, successPicker, warningPicker, dangerPicker].forEach(picker => {
+    picker.addEventListener('input', updateInstructions);
+  });
+
+  // Set initial values
+  themePicker.value = 'default';
+  palettePicker.value = 'default';
+  brandPicker.value = 'blue';
+  neutralPicker.value = 'gray';
+  successPicker.value = 'green';
+  warningPicker.value = 'yellow';
+  dangerPicker.value = 'red';
+
+  // Initial update
+  updateInstructions();
+</script>

@@ -154,7 +154,11 @@ applyDark();
 
 ## Using Themes
 
-TODO
+Use and update themes instantly via CDN with [Web Awesome projects](/teams). Or, assemble the pieces together using npm or in your self-hosted app.
+
+Select your favorite options and follow the instructions for your preferred method.
+
+{% include 'theming/instructions.njk' %}
 
 ## Creating Your Own
 
