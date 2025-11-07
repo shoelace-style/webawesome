@@ -6,27 +6,8 @@
   <wa-radio-group id="palette-picker" value="default" class="radio-cards">
     <span slot="label" class="wa-visually-hidden">Color Palette</span>
     <div class="wa-grid">
-    {%- for palette in themer.palettes -%}
-      {%- if not palette.isPro -%}
-        <wa-radio value="{{ palette.name | lower }}">
-          <div class="wa-stack wa-gap-xs">
-            <span>{{ palette.name }}</span>
-            <div class="wa-palette-{{ palette.name | lower }} palette-preview wa-grid wa-gap-3xs">
-              <span class="preview-swatch"></span>
-              <span class="preview-swatch"></span>
-              <span class="preview-swatch"></span>
-              <span class="preview-swatch"></span>
-              <span class="preview-swatch"></span>
-              <span class="preview-swatch"></span>
-              <span class="preview-swatch"></span>
-              <span class="preview-swatch"></span>
-              <span class="preview-swatch"></span>
-              <span class="preview-swatch"></span>
-            </div>
-          </div>
-        </wa-radio>
-      {%- else -%}
-        {% raw %}{%- if currentUser.hasPro -%}{% endraw %}
+      {%- for palette in themer.palettes -%}
+        {%- if not palette.isPro -%}
           <wa-radio value="{{ palette.name | lower }}">
             <div class="wa-stack wa-gap-xs">
               <span>{{ palette.name }}</span>
@@ -44,20 +25,39 @@
               </div>
             </div>
           </wa-radio>
-        {% raw %}{%- endif -%}{% endraw %}
-      {%- endif -%}
-    {%-  endfor -%}
-  </div>
+        {%- else -%}
+          {% raw %}{%- if currentUser.hasPro -%}{% endraw %}
+            <wa-radio value="{{ palette.name | lower }}">
+              <div class="wa-stack wa-gap-xs">
+                <span>{{ palette.name }}</span>
+                <div class="wa-palette-{{ palette.name | lower }} palette-preview wa-grid wa-gap-3xs">
+                  <span class="preview-swatch"></span>
+                  <span class="preview-swatch"></span>
+                  <span class="preview-swatch"></span>
+                  <span class="preview-swatch"></span>
+                  <span class="preview-swatch"></span>
+                  <span class="preview-swatch"></span>
+                  <span class="preview-swatch"></span>
+                  <span class="preview-swatch"></span>
+                  <span class="preview-swatch"></span>
+                  <span class="preview-swatch"></span>
+                </div>
+              </div>
+            </wa-radio>
+          {% raw %}{%- endif -%}{% endraw %}
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
   </wa-radio-group>
 
-  <div class="wa-stack wa-gap-xs">
+  <div id="palette" class="wa-stack wa-gap-xs">
     {%- for color in themer.colors -%}
-      <div class="palette wa-flank wa-gap-xs">
-        <div class="palette-label">{{ color }}</div>
-        <div class="palette-swatches wa-grid wa-gap-2xs">
+      <div class="color-scale wa-flank wa-gap-xs">
+        <div class="color-name">{{ color }}</div>
+        <div class="color-swatches wa-grid wa-gap-2xs">
           {%- for tint in themer.tints -%}
           <wa-copy-button
-            class="palette-swatch"
+            class="color-swatch"
             copy-label="{{ color }} {{ tint }}"
             value="var(--wa-color-{{ color }}-{{ tint }})"
             style="--color: var(--wa-color-{{ color }}-{{ tint }}); --tint: '{{ tint }}'"
@@ -76,10 +76,10 @@
   const palettePicker = document.getElementById('palette-picker');
 
   // Set first radio as checked and add initial palette class
-  const firstRadio = palettePicker.querySelector('wa-radio');
-  if (firstRadio) {
-    firstRadio.checked = true;
-    paletteContainer.classList.add(`wa-palette-${firstRadio.value}`);
+  const firstPaletteRadio = palettePicker.querySelector('wa-radio');
+  if (firstPaletteRadio) {
+    firstPaletteRadio.checked = true;
+    paletteContainer.classList.add(`wa-palette-${firstPaletteRadio.value}`);
   }
 
   // Listen for radio changes
@@ -99,20 +99,8 @@
 </script>
 
 <style>
-  #color-palettes {
+  #color-palettes:has(+ *) {
     margin-block-end: var(--wa-content-spacing);
-  }
-
-  .palette {
-    --flank-size: 6ch;
-    --content-percentage: 88%;
-    --reserved-tint-space: calc(var(--wa-font-size-xs) + var(--wa-space-xs)); /* TODO: rename */
-    margin-bottom: var(--reserved-tint-space);
-  }
-
-  .palette-swatches {
-    --min-column-size: 2.5rem;
-    grid-row-gap: calc(var(--reserved-tint-space) + var(--wa-space-xs));
   }
 
   wa-radio-group.radio-cards {
@@ -168,54 +156,6 @@
     }
   }
 
-  .palette-label {
-    font-weight: var(--wa-font-weight-bold);
-    text-transform: capitalize;
-    font-size: var(--wa-font-size-s);
-    color: var(--wa-color-text-normal);
-  }
-
-  .palette-swatch {
-    padding: 0;
-    aspect-ratio: 1;
-    position: relative;
-
-    &::before {
-      content: var(--tint);
-      position: absolute;
-      bottom: calc(-1 * var(--reserved-tint-space));
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: var(--wa-font-size-xs);
-      line-height: 1;
-      color: var(--wa-color-text-quiet);
-      text-align: center;
-      z-index: 2;
-    }
-
-    &::part(button) {
-      width: 100%;
-      height: 100%;
-      cursor: pointer;
-      background-color: var(--color);
-      border-radius: var(--wa-border-radius-s);
-      transition: transform 0.1s ease, box-shadow 0.1s ease;
-    }
-
-    &:hover::part(button) {
-      transform: scale(1.075);
-      box-shadow: var(--wa-shadow-s);
-      z-index: 1;
-      position: relative;
-    }
-
-    &::part(copy-icon),
-    &::part(success-icon),
-    &::part(error-icon) {
-      visibility: hidden;
-    }
-  }
-
   .palette-preview {
     --min-column-size: 0rem;
   }
@@ -257,11 +197,4 @@
         background-color: var(--wa-color-gray);
       }
     }
-
-  /* Smaller screens */
-  @media (max-width: 768px) {
-    .palette-swatch {
-      aspect-ratio: 1.5 / 1;
-    }
-  }
 </style>

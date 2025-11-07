@@ -629,6 +629,68 @@ table.colors {
   --icon-color: var(--wa-color-success-fill-quiet);
 }
 
+/* Theming */
+
+.color-scale.wa-flank {
+    --flank-size: 6ch;
+    --content-percentage: 88%;
+    --reserved-tint-space: calc(var(--wa-font-size-xs) + var(--wa-space-xs)); /* TODO: rename */
+    margin-bottom: var(--reserved-tint-space);
+
+    .color-swatches.wa-grid {
+      --min-column-size: 2.5rem;
+      grid-row-gap: calc(var(--reserved-tint-space) + var(--wa-space-xs));
+    }
+
+    .color-name {
+      font-weight: var(--wa-font-weight-bold);
+      text-transform: capitalize;
+      font-size: var(--wa-font-size-s);
+      color: var(--wa-color-text-normal);
+    }
+
+    wa-copy-button.color-swatch {
+      padding: 0;
+      aspect-ratio: 1;
+      position: relative;
+  
+      &::before {
+        content: var(--tint);
+        position: absolute;
+        bottom: calc(-1 * var(--reserved-tint-space));
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: var(--wa-font-size-xs);
+        line-height: 1;
+        color: var(--wa-color-text-quiet);
+        text-align: center;
+        z-index: 2;
+      }
+  
+      &::part(button) {
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+        background-color: var(--color);
+        border-radius: var(--wa-border-radius-s);
+        transition: transform 0.1s ease, box-shadow 0.1s ease;
+      }
+  
+      &:hover::part(button) {
+        transform: scale(1.075);
+        box-shadow: var(--wa-shadow-s);
+        z-index: 1;
+        position: relative;
+      }
+  
+      &::part(copy-icon),
+      &::part(success-icon),
+      &::part(error-icon) {
+        visibility: hidden;
+      }
+    }
+}
+
 /* Layout Examples */
 .layout-example-boundary {
   border: var(--wa-border-width-s) dashed var(--wa-color-neutral-border-normal);
