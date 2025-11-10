@@ -1,6 +1,6 @@
 ---
 title: Changelog
-date: git Last Modified
+date: Last Modified
 description: Changes to each version of the project are documented here.
 layout: page-outline
 ---
