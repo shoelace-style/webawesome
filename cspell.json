@@ -236,5 +236,6 @@
   "ignoreRegExpList": [
     "(^|[^a-z])sl[a-z]*(^|[^a-z])"
   ],
+  "language": "en, en-US, lorem",
   "useGitignore": true
 }
