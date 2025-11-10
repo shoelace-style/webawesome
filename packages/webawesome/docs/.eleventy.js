@@ -38,9 +38,8 @@ export default async function (eleventyConfig) {
   const stylesheets = path.join(distDir, 'styles');
 
   eleventyConfig.addWatchTarget(customElementsManifest);
-  // Not sure why this is needed :think:
-  eleventyConfig.addWatchTarget(distDir);
-  eleventyConfig.setWatchThrottleWaitTime(50); // in milliseconds
+  // eleventyConfig.addWatchTarget(path.join(distDir, "**"));
+  eleventyConfig.setWatchThrottleWaitTime(40); // in milliseconds
 
   eleventyConfig.on('eleventy.beforeWatch', async function (changedFiles) {
     let updatePackageData = false;

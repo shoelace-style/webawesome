@@ -401,62 +401,73 @@ export async function build(options = {}) {
         watcher.on(evt, handleWatchEvent(evt));
       });
       function handleWatchEvent(evt) {
+        let debounceTime = 20
+        let timer = null
         return async filename => {
-          const changedFile = relative(getRootDir(), filename);
 
-          if (evt === 'change') {
-            spinner.info(`File modified ${chalk.gray(`(${changedFile})`)}`);
-          } else if (evt === 'unlink') {
-            spinner.info(`File deleted ${chalk.gray(`(${changedFile})`)}`);
-          } else if (evt === 'add') {
-            spinner.info(`File added ${chalk.gray(`(${changedFile})`)}`);
-          }
-
-          try {
-            const isTestFile = filename.includes('.test.ts');
-            const isCssStylesheet = filename.includes('.css');
-            const isComponent =
-              filename.includes('components/') && filename.includes('.ts') && !isCssStylesheet && !isTestFile;
-
-            // Re-bundle when relevant files change
-            if (isTestFile) {
-              return;
+          return new Promise((resolve) => {
+            if (timer) {
+              clearTimeout(timer)
             }
+            timer = setTimeout(async () => {
+              const changedFile = relative(getRootDir(), filename);
 
-            if (typeof options.beforeWatchEvent === 'function') {
-              await options.beforeWatchEvent(evt, filename);
-            }
+              if (evt === 'change') {
+                spinner.info(`File modified ${chalk.gray(`(${changedFile})`)}`);
+              } else if (evt === 'unlink') {
+                spinner.info(`File deleted ${chalk.gray(`(${changedFile})`)}`);
+              } else if (evt === 'add') {
+                spinner.info(`File added ${chalk.gray(`(${changedFile})`)}`);
+              }
 
-            // Copy stylesheets when CSS files change
-            if (isCssStylesheet) {
-              await generateStyles();
-            }
+              try {
+                const isTestFile = filename.includes('.test.ts');
+                const isCssStylesheet = filename.includes('.css');
+                const isComponent =
+                  filename.includes('components/') && filename.includes('.ts') && !isCssStylesheet && !isTestFile;
 
-            // Regenerate metadata when components change
-            if (isComponent) {
-              await generateManifest();
-            }
+                // Re-bundle when relevant files change
+                if (isTestFile) {
+                  return;
+                }
 
-            // copy everything to unbundled before we generate bundles.
-            await copy(getCdnDir(), getDistDir(), { overwrite: true });
-            await regenerateBundle();
+                if (typeof options.beforeWatchEvent === 'function') {
+                  await options.beforeWatchEvent(evt, filename);
+                }
 
-            // This needs to be outside of "isComponent" check because SSR needs to run on CSS files too.
-            await generateDocs({ spinner });
+                // Copy stylesheets when CSS files change
+                if (isCssStylesheet) {
+                  await generateStyles();
+                }
 
-            if (typeof options.afterWatchEvent === 'function') {
-              await options.afterWatchEvent(evt, filename);
-            }
+                // Regenerate metadata when components change
+                if (isComponent) {
+                  await generateManifest();
+                }
 
-            reload();
-          } catch (err) {
-            console.error(chalk.red(err));
+                // copy everything to unbundled before we generate bundles.
+                await copy(getCdnDir(), getDistDir(), { overwrite: true });
+                await regenerateBundle();
 
-            if (!isDeveloping) {
-              process.exit(1);
-            }
-          }
-        };
+                // This needs to be outside of "isComponent" check because SSR needs to run on CSS files too.
+                await generateDocs({ spinner });
+
+                if (typeof options.afterWatchEvent === 'function') {
+                  await options.afterWatchEvent(evt, filename);
+                }
+
+                reload();
+                resolve()
+              } catch (err) {
+                console.error(chalk.red(err));
+
+                if (!isDeveloping) {
+                  process.exit(1);
+                }
+              }
+            }, debounceTime)
+          })
+        }
       }
     });
 
@@ -469,36 +480,46 @@ export async function build(options = {}) {
       });
 
       function handleWatchEvent(evt) {
-        return async filename => {
-          const changedFile = relative(getRootDir(), filename);
-
-          let message = '';
-          if (evt === 'change') {
-            message = chalk.blue(`File modified ${chalk.gray(`(${changedFile})`)}`);
-          } else if (evt === 'unlink') {
-            message = chalk.red(`File deleted ${chalk.gray(`(${changedFile})`)}`);
-          } else if (evt === 'add') {
-            message = chalk.green(`File added ${chalk.gray(`(${changedFile})`)}`);
-          }
-
-          if (message) {
-            if (spinner) {
-              spinner.info(message);
-            } else {
-              console.log(message);
+        let debounceTime = 20
+        let timer = null
+        return filename => {
+          return new Promise((resolve) => {
+            if (timer) {
+              clearTimeout(timer)
             }
-          }
+            timer = setTimeout(async () => {
+              const changedFile = relative(getRootDir(), filename);
 
-          if (typeof options.beforeWatchEvent === 'function') {
-            await options.beforeWatchEvent(evt, filename);
-          }
-          await generateDocs({ spinner });
+              let message = '';
+              if (evt === 'change') {
+                message = chalk.blue(`File modified ${chalk.gray(`(${changedFile})`)}`);
+              } else if (evt === 'unlink') {
+                message = chalk.red(`File deleted ${chalk.gray(`(${changedFile})`)}`);
+              } else if (evt === 'add') {
+                message = chalk.green(`File added ${chalk.gray(`(${changedFile})`)}`);
+              }
 
-          if (typeof options.afterWatchEvent === 'function') {
-            await options.afterWatchEvent(evt, filename);
-          }
-          reload();
-        };
+              if (message) {
+                if (spinner) {
+                  spinner.info(message);
+                } else {
+                  console.log(message);
+                }
+              }
+
+              if (typeof options.beforeWatchEvent === 'function') {
+                await options.beforeWatchEvent(evt, filename);
+              }
+              await generateDocs({ spinner });
+
+              if (typeof options.afterWatchEvent === 'function') {
+                await options.afterWatchEvent(evt, filename);
+              }
+              reload();
+              resolve()
+            }, debounceTime)
+          })
+        }
       }
     });
   }

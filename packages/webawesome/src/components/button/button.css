@@ -17,6 +17,10 @@
   }
 }
 
+:host {
+  outline: 8px solid tomato !important;
+}
+
 .button {
   display: inline-flex;
   align-items: center;
