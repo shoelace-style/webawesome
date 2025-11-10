@@ -243,10 +243,12 @@
 
     // Update theme and palette names in CDN instructions
     themeNames.forEach(instance => {
-      instance.textContent = `${theme.charAt(0).toUpperCase() + theme.slice(1)}`;
+      instance.textContent = theme;
+      instance.style.textTransform = 'capitalize';
     });
     paletteNames.forEach(instance => {
-      instance.textContent = `${palette.charAt(0).toUpperCase() + palette.slice(1)}`;
+      instance.textContent = palette;
+      instance.style.textTransform = 'capitalize';
     });
 
     // Match color picker icons to selected palette and color
