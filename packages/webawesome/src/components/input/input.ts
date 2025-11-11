@@ -353,7 +353,7 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
         part="form-control-label label"
         class=${classMap({
           label: true,
-          slotted: hasLabelSlot,
+          'has-slotted': hasLabelSlot,
         })}
         for="input"
         aria-hidden=${hasLabel ? 'false' : 'true'}

@@ -8,7 +8,7 @@ export default css`
 
   /* Label */
   :is([part~='form-control-label'], [part~='label']):has(*:not(:empty)),
-  :is([part~='form-control-label'], [part~='label']).slotted {
+  :is([part~='form-control-label'], [part~='label']).has-slotted {
     display: inline-flex;
     color: var(--wa-form-control-label-color);
     font-weight: var(--wa-form-control-label-font-weight);
