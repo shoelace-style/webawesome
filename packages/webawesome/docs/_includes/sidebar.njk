@@ -1,5 +1,7 @@
 {# Search #}
 {% include "search-trigger-button.njk" %}
+{% from "pro-badge.njk" import proBadge %}
+{% from "planned-badge.njk" import plannedBadge %}
 
 {# Getting started #}
 <h2>Getting Started</h2>
@@ -14,14 +16,21 @@
 {# Resources #}
 <h2>Resources</h2>
 <ul>
-  <li><a href="https://github.com/shoelace-style/webawesome/discussions" target="_blank">Help &amp; Support</a></li>
+  <li><a href="/docs/resources/support">Help & Support</a></li>
   <li><a href="https://github.com/shoelace-style/webawesome/">Source Code</a></li>
-  <li><a href="/docs/resources/community">Community</a></li>
+  <li>
+    <span class="wa-split">
+      <a href="/docs/resources/figma">Figma Design Kit</a></li>
+      {{ proBadge() }}
+    </span>
+  </li>
   <li><a href="/docs/resources/accessibility">Accessibility</a></li>
   <li><a href="/docs/resources/browser-support">Browser Support</a></li>
   <li><a href="/docs/resources/contributing">Contributing</a></li>
   <li><a href="/docs/resources/changelog">Changelog</a></li>
   <li><a href="/docs/resources/visual-tests">Visual Tests</a></li>
+
+
 </ul>
 
 <!-- Components -->
@@ -36,9 +45,9 @@
     <li>
       <span class="wa-split">
         <a class="wa-cluster wa-gap-xs" href="/docs/components/page/">
-          Page <wa-icon name="flask" aria-hidden="true"></wa-icon>
+          Page <wa-icon name="flask" aria-hidden="true" class="icon-shrink"></wa-icon>
         </a>
-        <wa-badge class="pro" appearance="accent" attention="none">PRO</wa-badge>
+        {{ proBadge() }}
       </span>
     </li>
     <li><a href="/docs/components/animated-image/">Animated Image</a></li>
@@ -58,26 +67,30 @@
     <li>
       <a class="wa-cluster wa-gap-xs" href="/docs/components/carousel/">
         Carousel
-        <wa-icon name="flask" aria-hidden="true"></wa-icon>
+        <wa-icon name="flask" aria-hidden="true" class="icon-shrink"></wa-icon>
       </a>
       <ul>
         <li>
           <a class="wa-cluster wa-gap-xs" href="/docs/components/carousel-item/">
             Carousel Item
-            <wa-icon name="flask" aria-hidden="true"></wa-icon>
+            <wa-icon name="flask" aria-hidden="true" class="icon-shrink"></wa-icon>
           </a>
         </li>
       </ul>
     </li>
+    <li><span class="is-planned wa-split">Charts <a href="https://github.com/shoelace-style/webawesome/issues/1073" target="_blank">{{ plannedBadge("A Web Awesome Kickstarter stretch goal!") }}</a></span></li>
     <li><a href="/docs/components/checkbox/">Checkbox</a></li>
     <li><a href="/docs/components/color-picker/">Color Picker</a></li>
+    <li><span class="is-planned wa-split">Combobox <a href="https://github.com/shoelace-style/webawesome/issues/1074" target="_blank">{{ plannedBadge("A Web Awesome Kickstarter stretch goal!") }}</a></span></li>
     <li><a href="/docs/components/comparison/">Comparison</a></li>
     <li>
       <a class="wa-cluster wa-gap-xs" href="/docs/components/copy-button/">
         Copy Button
-        <wa-icon name="flask" aria-hidden="true"></wa-icon>
+        <wa-icon name="flask" aria-hidden="true" class="icon-shrink"></wa-icon>
       </a>
     </li>
+    <li><span class="is-planned wa-split">Data Grid <a href="https://github.com/shoelace-style/webawesome/issues/1072" target="_blank">{{ plannedBadge("A Web Awesome Kickstarter stretch goal!") }}</a></span></li>
+    <li><span class="is-planned wa-split">Datepicker <a href="https://github.com/shoelace-style/webawesome/issues/1075" target="_blank">{{ plannedBadge("A Web Awesome Kickstarter stretch goal!") }}</a></span></li>
     <li><a href="/docs/components/details/">Details</a></li>
     <li><a href="/docs/components/dialog/">Dialog</a></li>
     <li><a href="/docs/components/divider/">Divider</a></li>
@@ -177,9 +190,9 @@
     <li>
       <span class="wa-split">
         <a class="wa-cluster wa-gap-xs" href="/docs/components/page/">
-          Page <wa-icon name="flask" aria-hidden="true"></wa-icon>
+          Page <wa-icon name="flask" aria-hidden="true" class="icon-shrink"></wa-icon>
         </a>
-        <wa-badge class="pro" appearance="accent" attention="none">PRO</wa-badge>
+        {{ proBadge() }}
       </span>
     </li>
   </ul>
@@ -197,7 +210,7 @@
     <li>
       <span class="wa-split">
         <a href="/docs/patterns/app/">App</a>
-        <wa-badge class="pro" appearance="accent" attention="none">PRO</wa-badge>
+        {{ proBadge() }}
       </span>
       <ul>
         <li>
@@ -243,7 +256,7 @@
     <li>
       <span class="wa-split">
         <a href="/docs/patterns/blog-news/">Blog &amp; News</a>
-        <wa-badge class="pro" appearance="accent" attention="none">PRO</wa-badge>
+        {{ proBadge() }}
       </span>
       <ul>
       <li>
@@ -305,7 +318,7 @@
     <li>
       <span class="wa-split">
         <a href="/docs/patterns/ecommerce/">Ecommerce</a>
-        <wa-badge class="pro" appearance="accent" attention="none">PRO</wa-badge>
+        {{ proBadge() }}
       </span>
       <ul>
         <li>
@@ -346,7 +359,7 @@
     <li>
       <span class="wa-split">
         <a href="/docs/patterns/layouts/">Layouts</a>
-        <wa-badge class="pro" appearance="accent" attention="none">PRO</wa-badge>
+        {{ proBadge() }}
       </span>
       <ul>
         <li>
@@ -368,12 +381,6 @@
 <ul>
   <li><a href="/docs/color-palettes">Color Palettes</a></li>
   <li><a href="/docs/themes">Themes</a></li>
-  <li>
-    <span class="wa-split">
-      <a href="/themer" data-turbo="false">Theme Builder</a>
-      <wa-badge class="pro" appearance="accent" attention="none">PRO</wa-badge>
-    </span>
-  </li>
 </ul>
 
 <!-- Design tokens -->
@@ -396,15 +403,46 @@
   </ul>
 </wa-details>
 
+{# Policies #}
+<h2>Terms &amp; Policies</h2>
+<ul>
+  <li><a href="/license"><span class="wa-visually-hidden">Web Awesome </span>Free License</a></li>
+  <li><a href="/license/pro"><span class="wa-visually-hidden">Web Awesome </span>Pro License</a></li>
+  <li><a href="/tos">Terms of Service</a></li>
+  <li><a href="/privacy">Privacy Policy</a></li>
+  <li><a href="/refunds">Refund Policy</a></li>
+</ul>
+
 <wa-divider style="--spacing: var(--wa-space-xl);"></wa-divider>
 
-<div class="wa-stack wa-gap-xs" id="colophon">
-  {% include "logo-simple.njk" %}
-  <div class="wa-cluster wa-gap-xs">
-    <h2 class="wa-heading-xs">Web Awesome</h2>
-    <wa-badge id="version-beta-badge" variant="orange" appearance="filled" style="font-size: var(--wa-font-size-2xs);">Beta</wa-badge>
-    <wa-tooltip for="version-beta-badge" distance="2" style="font-size: var(--wa-font-size-xs);">Here be freshly made Awesome&hellip; and possible dragons</wa-tooltip>
+<div class="wa-stack wa-gap-xl" id="colophon">
+  <div class="wa-stack wa-gap-xs">
+    {% include "logo-simple.njk" %}
+    <h2 class="wa-heading-s">Web Awesome</h2>
+    <p class="wa-caption-xs wa-cluster wa-gap-xs">
+      Version {{ package.version }}
+      <wa-icon id="version-icon-info" family="duotone" variant="regular" name="party-horn"></wa-icon>
+      <wa-tooltip for="version-icon-info" distance="2" class="wa-font-size-xs">Here be freshly launched Awesome and no wa-dragons</wa-tooltip>
+    </p>
+    <p class="wa-caption-xs">&copy; Fonticons, Inc.</p>
   </div>
-  <p class="wa-caption-s">Version {{ package.version }}</p>
-  <p class="wa-caption-s">&copy; Fonticons, Inc.</p>
+
+  <div class="wa-cluster wa-gap-0 wa-caption-xs the-socials">
+    <h2 class="wa-visually-hidden">Web Awesome Elsewhere</h2>
+    <a href="https://github.com/shoelace-style/webawesome" rel="noopener noreferrer" target="_blank" class="appearance-plain">
+      <wa-icon family="brands" name="github" label="GitHub"></wa-icon>
+    </a>
+    <a href="https://bsky.app/profile/webawesome.com" rel="noopener noreferrer" target="_blank" class="appearance-plain">
+      <wa-icon family="brands" name="bluesky" label="Bluesky"></wa-icon>
+    </a>
+    <a href="https://mastodon.social/@webawesome" rel="noopener noreferrer" target="_blank" class="appearance-plain">
+      <wa-icon family="brands" name="mastodon" label="Mastodon"></wa-icon>
+    </a>
+    <a href="https://x.com/webawesomer" rel="noopener noreferrer" target="_blank" class="appearance-plain">
+      <wa-icon family="brands" name="x-twitter" label="Twitter (X)"></wa-icon>
+    </a>
+    <a href="https://www.threads.com/@web.awesome" rel="noopener noreferrer" target="_blank" class="appearance-plain">
+      <wa-icon family="brands" name="threads" label="Threads"></wa-icon>
+    </a>
+  </div>
 </div>

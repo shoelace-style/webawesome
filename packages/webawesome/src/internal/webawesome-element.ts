@@ -137,17 +137,30 @@ export default class WebAwesomeElement extends LitElement {
     /** Adds or removes the specified custom state. */
     set: (customState: string, active: boolean) => {
       if (!Boolean(this.internals?.states)) return;
-      if (active) {
-        this.internals.states.add(customState);
-      } else {
-        this.internals.states.delete(customState);
+      try {
+        if (active) {
+          this.internals.states.add(customState);
+        } else {
+          this.internals.states.delete(customState);
+        }
+      } catch (e) {
+        if (String(e).includes("must start with '--'")) {
+          /* eslint-disable-next-line */
+          console.error('Your browser implements an outdated version of CustomStateSet. Consider using a polyfill');
+        } else {
+          throw e;
+        }
       }
     },
 
     /** Determines whether or not the element currently has the specified state. */
     has: (customState: string) => {
       if (!Boolean(this.internals?.states)) return false;
-      return this.internals.states.has(customState);
+      try {
+        return this.internals.states.has(customState);
+      } catch {
+        return false;
+      }
     },
   };
 

@@ -119,6 +119,19 @@ describe('<wa-dialog>', () => {
         expect(el.open).to.be.true;
       });
 
+      it('should not close when bubbled cancel event originates from within the drawer', async () => {
+        const el = await fixture<WaDialog>(html` <wa-dialog open><input type="file" /></wa-dialog> `);
+        const input = el.querySelector('input')!;
+
+        await clickOnElement(el); // Chromium wants the page to have been clicked prior to closing the dialog.
+        const cancelEvent = new Event('cancel', { bubbles: true });
+        input.dispatchEvent(cancelEvent);
+
+        await aTimeout(250);
+
+        expect(el.open).to.be.true;
+      });
+
       it('should allow initial focus to be set', async () => {
         const el = await fixture<WaDialog>(html` <wa-dialog><wa-input autofocus></wa-input></wa-dialog> `);
         const input = el.querySelector('wa-input')!;

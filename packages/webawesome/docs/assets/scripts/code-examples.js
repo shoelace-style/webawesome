@@ -1,3 +1,6 @@
+const version = document.documentElement.getAttribute('data-version') || '';
+const CDN_URL = `https://cdn.jsdelivr.net/npm/@awesome.me/webawesome@${version}/dist-cdn/`;
+
 //
 // Resizing previews
 //
@@ -54,10 +57,9 @@ document.addEventListener('click', event => {
   if (pen) {
     const codeExample = pen.closest('.code-example');
     const code = codeExample.querySelector('code');
-    const cdnUrl = document.documentElement.dataset.cdnUrl;
     const html =
-      `<script data-fa-kit-code="38c11e3f20" type="module" src="${cdnUrl}webawesome.loader.js"></script>\n` +
-      `<link rel="stylesheet" href="${cdnUrl}styles/webawesome.css">\n\n` +
+      `<script data-fa-kit-code="38c11e3f20" type="module" src="${CDN_URL}webawesome.loader.js"></script>\n` +
+      `<link rel="stylesheet" href="${CDN_URL}styles/webawesome.css">\n\n` +
       `${code.textContent}`;
     const css = 'html > body {\n  padding: 2rem !important;\n}';
     const js = '';

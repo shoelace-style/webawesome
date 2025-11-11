@@ -1,0 +1,21 @@
+{
+  "name": "Web Awesome",
+  "short_name": "Web Awesome",
+  "description": "Build better with Web Awesome, the open source library of web components from Font Awesome.",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#f36944",
+  "background_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/assets/images/app-icons/app-icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/images/app-icons/app-icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

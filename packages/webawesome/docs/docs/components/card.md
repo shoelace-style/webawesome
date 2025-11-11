@@ -15,7 +15,7 @@ category: Organization
 
   <strong>Mittens</strong><br />
   This kitten is as cute as he is playful. Bring him home today!<br />
-  <small class="wa-caption-m">6 weeks old</small>
+  <small class="wa-caption-s">6 weeks old</small>
 
   <wa-button slot="footer" variant="brand" pill>More Info</wa-button>
   <wa-rating slot="footer-actions" label="Rating"></wa-rating>
@@ -100,19 +100,20 @@ If using SSR, you need to also use the `with-media` attribute to add a media sec
 ```html {.example}
 <div class="wa-grid">
   <wa-card class="card-media">
-    <img
-      slot="media"
-      src="https://images.unsplash.com/photo-1547191783-94d5f8f6d8b1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=80"
-      alt="A kitten walks towards camera on top of pallet."
-    />
-    This is a kitten, but not just any kitten. This kitten likes walking along pallets.
+    <div slot="media" class="wa-frame:landscape">
+      <img
+        src="https://images.unsplash.com/photo-1547191783-94d5f8f6d8b1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=80"
+        alt="A kitten walks towards camera on top of pallet."
+      />
+    </div>
+    This card has an image of a kitten walking along a pallet. 
   </wa-card>
   <wa-card class="card-media">
     <video slot="media" controls>
       <source src="https://uploads.webawesome.com/dog-with-glasses.mp4" />
       <p>Your browser doesn't support HTML video</p>
     </video>
-    This is a kitten, but not just any kitten. This kitten likes walking along pallets.
+    This card has a video of a dog wearing shades.
   </wa-card>
 </div>
 
@@ -137,7 +138,7 @@ Use the `appearance` attribute to change the card's visual appearance.
     />
     Outlined (default)
   </wa-card>
-  {% for appearance in ['outlined filled', 'plain', 'filled', 'accent'] -%}
+  {% for appearance in ['filled-outlined', 'plain', 'filled', 'accent'] -%}
   <wa-card appearance="{{ appearance }}">
     <img
       slot="media"
@@ -153,10 +154,10 @@ Use the `appearance` attribute to change the card's visual appearance.
 ### Orientation
 
 Set the `orientation` attribute to `horizontal` to create a card with a horizontal, side-by-side layout. Make sure to set a width or maximum width for the media slot. Horizontal cards do not currently contain the header and footer slots.
-<wa-callout>
-<wa-icon slot="icon" name="circle-info" variant="regular"></wa-icon>
+
+:::info
 The `actions` slot is only available for the horizontal orientation
-</wa-callout>
+:::
 
 ```html {.example}
 <div class="wa-grid">
@@ -166,7 +167,7 @@ The `actions` slot is only available for the horizontal orientation
       src="https://images.unsplash.com/photo-1559209172-0ff8f6d49ff7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"
       alt="A kitten sits patiently between a terracotta pot and decorative grasses."
     />
-    This is a kitten, but not just any kitten. This kitten likes walking along pallets.
+    This card has a horizontal orientation with media, body, and actions arranged side-by-side.
     <wa-button slot="actions" variant="neutral" appearance="plain"
       ><wa-icon name="ellipsis" label="actions"></wa-icon
     ></wa-button>

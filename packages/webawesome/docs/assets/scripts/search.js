@@ -1,5 +1,6 @@
 // Search data
-const res = await Promise.all([import('https://cdn.jsdelivr.net/npm/lunr/+esm'), fetch('/search.json')]);
+const version = document.documentElement.getAttribute('data-version') || '';
+const res = await Promise.all([import('https://cdn.jsdelivr.net/npm/lunr/+esm'), fetch(`/search.json?v=${version}`)]);
 const lunr = res[0].default;
 const searchData = await res[1].json();
 const searchIndex = lunr.Index.load(searchData.searchIndex);

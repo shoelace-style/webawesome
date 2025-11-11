@@ -18,6 +18,7 @@ import { getCdnDir, getDistDir, getDocsDir, getRootDir, getSiteDir } from './uti
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
+const currentYear = new Date().getFullYear();
 const spinner = ora({ text: 'Web Awesome', color: 'cyan' }).start();
 const getPackageData = async () => JSON.parse(await readFile(join(getRootDir(), 'package.json'), 'utf-8'));
 const getVersion = async () => JSON.stringify((await getPackageData()).version.toString());

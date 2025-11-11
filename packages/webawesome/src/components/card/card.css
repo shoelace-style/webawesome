@@ -101,6 +101,13 @@
   padding: var(--spacing);
 }
 
+/* Push slots to sides when the action slots renders */
+.has-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 :host(:not([with-header])) .header,
 :host(:not([with-footer])) .footer,
 :host(:not([with-media])) .media {
@@ -115,7 +122,12 @@
     border-start-start-radius: var(--inner-border-radius);
     border-end-start-radius: var(--inner-border-radius);
     border-start-end-radius: 0;
-    object-fit: cover;
+
+    &::slotted(*) {
+      block-size: 100%;
+      inline-size: 100%;
+      object-fit: cover;
+    }
   }
 }
 

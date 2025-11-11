@@ -27,6 +27,43 @@ body.theme-transitioning {
   transition: opacity 200ms ease-out;
 }
 
+/* banner */
+wa-page > [slot='banner'] {
+  padding: var(--wa-space-0);
+
+  .banner-content {
+    /* match docs header padding-inline by default */
+    padding-inline: var(--wa-space-xl);
+    padding-block: var(--wa-space-m);
+  }
+
+  &.banner-wa-launch {
+    /* custom brand colors carrried over from theme-site for the banner */
+    --wa-color-brand-95: #fef0ec;
+    --wa-color-brand-90: #fce0d8;
+    --wa-color-brand-80: #f8bcac;
+    --wa-color-brand-70: #fa9378;
+    --wa-color-brand-60: #f46a45;
+    --wa-color-brand-50: #cb4b27;
+    --wa-color-brand-40: #9d371a;
+    --wa-color-brand-30: #7c2a13;
+    --wa-color-brand-20: #5d1d0b;
+    --wa-color-brand-10: #3b0f05;
+    --wa-color-brand-05: #270802;
+    --wa-color-brand: var(--wa-color-brand-60);
+    --wa-color-brand-on: var(--wa-color-brand-10);
+
+    .banner-icon {
+      color: var(--wa-color-brand-fill-loud);
+      font-size: var(--wa-font-size-xl);
+    }
+
+    .appearance-underlined.variant-drawn {
+      --underline-color: var(--wa-color-brand);
+    }
+  }
+}
+
 /* Header */
 wa-page::part(header) {
   background-color: var(--wa-color-surface-default);
@@ -181,9 +218,35 @@ wa-page > header {
     }
   }
 
+  li wa-badge {
+    /* adding 1 scale below --wa-font-size-2xs to handle badge proportions in sidebar nav */
+    --font-size-3xs: round(calc(var(--wa-font-size-2xs) / 1.125), 1px); /* 10px */
+    font-size: var(--font-size-3xs);
+  }
+
   wa-details {
     --show-duration: 0;
     --hide-duration: 0;
+  }
+
+  .the-socials {
+    /* nudge those linkies left */
+    margin-inline-start: calc(var(--wa-space-xs) * -1);
+
+    a[target='_blank'] {
+      color: var(--wa-color-text-quiet);
+      padding-inline: var(--wa-space-xs);
+
+      &:hover {
+        color: var(--wa-color-text-normal);
+      }
+    }
+  }
+
+  #version-icon-info {
+    --secondary-opacity: 1;
+    --secondary-color: var(--wa-brand-orange);
+    padding-inline: var(--wa-space-xs);
   }
 }
 
@@ -204,6 +267,11 @@ wa-button.delete {
   }
 }
 
+/* planned sidebar item */
+.is-planned {
+  color: var(--wa-color-text-quiet);
+}
+
 #sidebar-close-button {
   display: none;
 }
@@ -221,8 +289,23 @@ wa-button.delete {
   padding-bottom: 1rem;
 }
 
+wa-page::part(drawer__dialog),
 wa-page::part(menu) {
-  scrollbar-width: thin;
+  overflow: clip;
+}
+
+/* smaller viewports-based navigation */
+wa-page > [slot='navigation-header'] {
+  padding: 0;
+
+  .brand-logo svg {
+    height: 1.25rem;
+  }
+
+  /* resetting font-weight of dropdown items in .title */
+  wa-dropdown {
+    font-weight: var(--wa-font-weight-normal);
+  }
 }
 
 /* smaller viewports-based navigation */
@@ -249,7 +332,7 @@ wa-page[view='mobile'] :is([slot='navigation-header'], [slot='navigation']) {
 
 /* Main content */
 wa-page > main {
-  max-width: 80ch;
+  max-width: var(--content-width-s);
   padding: var(--wa-space-xl);
   margin-inline: auto;
 }
@@ -355,9 +438,30 @@ h1.title {
   }
 }
 
+/* Images & Figures */
+
+figure.signpost {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--wa-space-s);
+
+  img {
+    border: var(--wa-border-style) var(--wa-border-width-m) var(--wa-color-surface-border);
+  }
+
+  figcaption {
+    color: var(--wa-color-text-quiet);
+    font-size: var(--wa-font-size-xs);
+    line-height: var(--wa-line-height-condensed);
+    text-align: center;
+  }
+}
+
 /* Search list pages */
 wa-page > main:has(> .search-list) {
-  max-width: 120ch;
+  max-width: var(--content-width-l);
   margin-inline: auto;
 }
 
@@ -572,7 +676,7 @@ wa-scroller:has(.component-table) {
 
   .table-arguments,
   .table-description {
-    min-width: 40ch;
+    min-width: var(--line-length-xs);
   }
 
   .table-reflect {
@@ -621,10 +725,10 @@ wa-scroller:has(.component-table) {
 
 .page-wide {
   wa-page > main {
-    max-width: 140ch;
+    max-width: var(--content-width-l);
 
     .max-line-length {
-      max-width: 80ch;
+      max-width: var(--line-length-l);
     }
   }
 }
