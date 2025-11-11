@@ -338,7 +338,15 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
     const hasHint = this.hint ? true : !!hasHintSlot;
 
     return html`
-      <label part="form-control-label label" class="label" for="input" aria-hidden=${hasLabel ? 'false' : 'true'}>
+      <label
+        part="form-control-label label"
+        class=${classMap({
+          label: true,
+          'has-slotted': hasLabelSlot,
+        })}
+        for="input"
+        aria-hidden=${hasLabel ? 'false' : 'true'}
+      >
         <slot name="label">${this.label}</slot>
       </label>
 

@@ -352,7 +352,10 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
         <label
           part="form-control-label"
           id="label"
-          class="label"
+          class=${classMap({
+            label: true,
+            'has-slotted': hasLabelSlot,
+          })}
           aria-hidden=${hasLabel ? 'false' : 'true'}
           @click=${this.handleLabelClick}
         >

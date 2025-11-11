@@ -155,7 +155,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   /** The select's value. This will be a string for single select or an array for multi-select. */
   @property({ attribute: 'value', reflect: false })
   set value(val: string | string[] | null) {
-    let oldValue = this.value;
+    const oldValue = this.value;
 
     if ((val as any) instanceof FormData) {
       val = (val as unknown as FormData).getAll(this.name) as string[];
@@ -166,7 +166,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     }
 
     this._value = val ?? null;
-    let newValue = this.value;
+    const newValue = this.value;
 
     if (newValue !== oldValue) {
       this.valueHasChanged = true;
@@ -751,7 +751,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
       const oldValue = this._value;
       if (this._value == null) {
         // First time it's set
-        let value = this.defaultValue ?? [];
+        const value = this.defaultValue ?? [];
         this._value = Array.isArray(value) ? value : [value];
       }
 
@@ -945,7 +945,10 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
         <label
           id="label"
           part="form-control-label label"
-          class="label"
+          class=${classMap({
+            label: true,
+            'has-slotted': hasLabelSlot,
+          })}
           aria-hidden=${hasLabel ? 'false' : 'true'}
           @click=${this.handleLabelClick}
         >
