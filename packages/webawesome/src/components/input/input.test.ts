@@ -48,6 +48,13 @@ describe('<wa-input>', () => {
         expect(input.title).to.equal('Test');
       });
 
+      it('should have label with "slotted" class if label has a slot target', async () => {
+        const el = await fixture<WaInput>(html` <wa-input><span slot="label">Name</span></wa-input> `);
+        await el.updateComplete;
+        const label = el.shadowRoot!.querySelector('[part~="form-control-label"]')!;
+        expect(label.classList.contains('slotted')).to.equal(true);
+      });
+
       it('should be disabled with the disabled attribute', async () => {
         const el = await fixture<WaInput>(html` <wa-input disabled></wa-input> `);
         await el.updateComplete;

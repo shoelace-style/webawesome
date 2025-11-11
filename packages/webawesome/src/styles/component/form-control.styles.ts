@@ -7,7 +7,8 @@ export default css`
   }
 
   /* Label */
-  :is([part~='form-control-label'], [part~='label']):has(*:not(:empty)) {
+  :is([part~='form-control-label'], [part~='label']):has(*:not(:empty)),
+  :is([part~='form-control-label'], [part~='label']).slotted {
     display: inline-flex;
     color: var(--wa-form-control-label-color);
     font-weight: var(--wa-form-control-label-font-weight);
@@ -26,7 +27,6 @@ export default css`
     display: block;
     color: var(--wa-form-control-hint-color);
     font-weight: var(--wa-form-control-hint-font-weight);
-    line-height: var(--wa-form-control-hint-line-height);
     margin-block-start: 0.5em;
     font-size: var(--wa-font-size-smaller);
     line-height: var(--wa-form-control-label-line-height);
