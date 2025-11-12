@@ -1,11 +1,11 @@
 ---
 title: Changelog
-date: Last Modified
+dateLastUpdated: 2025-11-07
 description: Changes to each version of the project are documented here.
 layout: page-outline
 ---
 
-<p class="wa-caption-s">Last updated: <wa-format-date month="long" day="numeric" year="numeric" date="{{ page.date.toISOString() }}"></wa-format-date></p>
+<p class="wa-caption-s">Last updated: <wa-format-date month="long" day="numeric" year="numeric" date="{{ dateLastUpdated }}"></wa-format-date></p>
 
 Web Awesome follows [Semantic Versioning](https://semver.org/). Breaking changes in components with the <wa-badge variant="brand">Stable</wa-badge> badge will not be accepted until the next major version. As such, all contributions must consider the project's roadmap and take this into consideration. Features that are deemed no longer necessary will be deprecated but not removed.
 
