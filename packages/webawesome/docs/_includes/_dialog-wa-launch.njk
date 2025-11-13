@@ -86,14 +86,9 @@
           }, 500);
         };
 
-        // Initialize when ready
-        if (customElements.get('wa-dialog')) {
-          initDialog();
-        } else {
-          document.addEventListener('wa-discovery-complete', initDialog, { once: true });
-          // Fallback timeout in case wa-discovery-complete doesn't fire
-          setTimeout(initDialog, 100);
-        }
+      customElements.whenDefined("wa-dialog").then(() => {
+        initDialog()
+      })
       })();
     </script>
   {%- endif -%}
