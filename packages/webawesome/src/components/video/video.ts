@@ -36,6 +36,7 @@ export default class WaVideo extends WebAwesomeElement {
   @state() private volume = 1;
   @state() private isPlaying = false;
   @state() private captionsOn = false;
+  @state() private muted = false;
   @state() private bufferedEnd = 0; // seconds
 
   @state() private hoverTime: number | null = null;
@@ -93,6 +94,12 @@ export default class WaVideo extends WebAwesomeElement {
     v.addEventListener('progress', () => this.#updateBuffered());
     v.addEventListener('play', () => {
       this.isPlaying = true;
+    });
+    v.addEventListener('mute', () => {
+      this.muted = true;
+    });
+    v.addEventListener('unmute', () => {
+      this.muted = false;
     });
     v.addEventListener('pause', () => {
       this.isPlaying = false;
@@ -305,19 +312,33 @@ export default class WaVideo extends WebAwesomeElement {
         </div>
 
         <div class="controls" role="group" aria-label="Controls">
-          <button class="play" aria-label="Play/Pause" aria-pressed=${this.isPlaying} @click=${this.toggle.bind(this)}>
-            ${this.isPlaying ? 'Pause' : 'Play'}
-          </button>
+          <wa-button
+            class="play"
+            aria-label="Play/Pause"
+            aria-pressed=${this.isPlaying}
+            @click=${this.toggle.bind(this)}
+            variant="neutral"
+            appearance="accent"
+          >
+            ${this.isPlaying
+              ? html`<wa-icon name="pause" label="pause"></wa-icon>`
+              : html`<wa-icon name="play" label="play"></wa-icon>`}
+          </wa-button>
+
           <span class="time">${cur}</span><span class="time">/</span><span class="time">${dur}</span>
           <div class="spacer"></div>
-          <button
+          <wa-button
             class="mute"
             aria-label="Mute/Unmute"
             aria-pressed=${this.videoEl?.muted || this.volume === 0}
             @click=${() => (this.videoEl.muted = !this.videoEl.muted)}
+            variant="neutral"
+            appearance="accent"
           >
-            Mute
-          </button>
+            ${this.muted
+              ? html`<wa-icon name="volume-slash" label="closed captioning off"></wa-icon>`
+              : html`<wa-icon name="volume" label="close captioning on"></wa-icon>`}
+          </wa-button>
           <input
             class="volume"
             type="range"
@@ -338,19 +359,25 @@ export default class WaVideo extends WebAwesomeElement {
           >
             ${[0.5, 0.75, 1, 1.25, 1.5, 2].map(r => html`<option value=${r} ?selected=${r === 1}>${r}×</option>`)}
           </select>
-          <button
+          <wa-button
             class="captions"
             aria-label="Toggle captions"
             ?hidden=${this.#noTextTracks()}
             aria-pressed=${this.captionsOn}
             @click=${this.#toggleCaptions}
+            variant="neutral"
+            appearance="accent"
           >
-            CC
-          </button>
-          <button class="pip" aria-label="Picture in Picture" ?hidden=${!pipSupported} @click=${this.#togglePiP}>
-            PiP
-          </button>
-          <button class="fs" aria-label="Fullscreen" @click=${this.#toggleFullscreen}>FS</button>
+            ${this.captionsOn
+              ? html`<wa-icon name="closed-captioning-slash" label="closed captioning off"></wa-icon>`
+              : html`<wa-icon name="closed-captioning" label="close captioning on"></wa-icon>`}
+          </wa-button>
+          <wa-button class="pip" aria-label="Picture in Picture" ?hidden=${!pipSupported} @click=${this.#togglePiP}>
+            <wa-icon name="picture-in-picture" label="close captioning on"></wa-icon>
+          </wa-button>
+          <wa-button class="fs" aria-label="Fullscreen" @click=${this.#toggleFullscreen}>
+            <wa-icon name="expand" label="close captioning on"></wa-icon>
+          </wa-button>
         </div>
       </div>
     `;
