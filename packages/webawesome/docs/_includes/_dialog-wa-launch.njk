@@ -1,5 +1,5 @@
 {% raw %}
-  {%- if data.stripeDiscount.active and not currentUser.hasPro -%}
+  {%- if req.stripe.discount.active and not currentUser.hasPro -%}
     <wa-dialog id="dialog-site" light-dismiss without-header>
 
       <div class="background-wa-pattern" style="justify-content: center; margin-inline: calc(var(--spacing) * -1); margin-block-start: calc(var(--spacing) * -1); margin-block-end: var(--spacing); background: linear-gradient(to bottom, var(--wa-color-brand), var(--wa-color-brand-50)); color: var(--wa-color-brand-on-loud); padding: var(--wa-space-3xl) var(--spacing); --background-pattern-opacity: 0.2; --background-pattern-image: url('/assets/images/bg-wa-pattern.svg');">
