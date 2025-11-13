@@ -353,12 +353,12 @@ export default class WaVideo extends WebAwesomeElement {
               this.videoEl.muted = v === 0;
             }}
           />
-          <select
+          <wa-select
             aria-label="Playback speed"
             @change=${(e: Event) => (this.videoEl.playbackRate = Number((e.target as HTMLSelectElement).value))}
           >
-            ${[0.5, 0.75, 1, 1.25, 1.5, 2].map(r => html`<option value=${r} ?selected=${r === 1}>${r}×</option>`)}
-          </select>
+            ${[0.5, 0.75, 1, 1.25, 1.5, 2].map(r => html`<wa-option value=${r} ?selected=${r === 1}>${r}×</wa-option>`)}
+          </wa-select>
           <wa-button
             class="captions"
             aria-label="Toggle captions"
