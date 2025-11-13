@@ -1,5 +1,5 @@
 {% raw %}
-  {%- if not currentUser.hasPro -%}
+  {%- if data.stripeDiscount.active and not currentUser.hasPro -%}
   <div slot="banner" class="banner-wa-launch wa-dark">
     <div class="banner-content wa-split">
       <div class="wa-cluster wa-gap-s">

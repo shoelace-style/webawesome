@@ -140,9 +140,7 @@
       {#- Site-Wide Dialog -#}
       {% if hasSiteDialog %}
         {% raw %}
-          {%- if not currentUser.hasPro -%}
-            {% include "_dialog-wa-launch.njk" ignore missing %}
-          {%- endif -%}
+          {% include "_dialog-wa-launch.njk" ignore missing %}
         {% endraw %}
       {% endif %}
 
