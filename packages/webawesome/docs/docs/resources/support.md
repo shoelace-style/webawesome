@@ -4,7 +4,18 @@ description: Web Awesome has a growing community of designers and developers tha
 layout: page
 ---
 
-  <p>We know people have their own way of reaching out, so our team makes sure you can find us wherever you need — whether it’s filing an issue on GitHub, chatting with the community on Discord, or getting private help via email. If you’re just getting started, don’t miss our <a href="/docs/">Installation Guide</a>.</p>
+<style>
+  .faqs wa-details::part(header) {
+    padding-inline: var(--wa-space-0);
+  }
+
+  .faqs wa-details::part(content) {
+    padding-block-start: var(--wa-space-0);
+    padding-inline: var(--wa-space-0);
+  }
+</style>
+
+<p>We know people have their own way of reaching out, so our team makes sure you can find us wherever you need — whether it’s filing an issue on GitHub, chatting with the community on Discord, or getting private help via email. If you’re just getting started, don’t miss our <a href="/docs/">Installation Guide</a>.</p>
 
 <wa-divider></wa-divider>
 
@@ -88,4 +99,9 @@ layout: page
     </a>
   </div>
 
+  <wa-divider></wa-divider>
+
+  ## Frequently Asked Questions
+
+  {% include "support/faqs.njk" %}
 </div>
