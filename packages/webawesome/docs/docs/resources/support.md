@@ -4,7 +4,7 @@ description: Web Awesome has a growing community of designers and developers tha
 layout: page
 ---
 
-  <p>We know people have their own way of reaching out, so our team makes sure you can find us wherever you need — whether it’s filing an issue on GitHub, chatting with the community on Discord, or getting private help via email. If you’re just getting started, don’t miss our <a href="/docs/">Instillation Guide</a>.</p>
+  <p>We know people have their own way of reaching out, so our team makes sure you can find us wherever you need — whether it’s filing an issue on GitHub, chatting with the community on Discord, or getting private help via email. If you’re just getting started, don’t miss our <a href="/docs/">Installation Guide</a>.</p>
 
 <wa-divider></wa-divider>
 
