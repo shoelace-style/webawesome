@@ -518,6 +518,8 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
 
   private handleClearClick(event: MouseEvent) {
     event.stopPropagation();
+    this.hasInteracted = true
+    this.valueHasChanged = true
 
     if (this.value !== null) {
       this.setSelectedOptions([]);
@@ -602,6 +604,9 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     event.stopPropagation();
 
     if (this.disabled) return;
+
+    this.hasInteracted = true
+    this.valueHasChanged = true
 
     // Use the directly provided option if available (from getTag method)
     let option = directOption;
