@@ -249,7 +249,7 @@ export default class WaIcon extends WebAwesomeElement {
       return this.svg;
     }
 
-    return html`<svg part="svg" fill="currentColor" width="16" height="16"></svg>`;
+    return html`<svg part="svg" width="16" height="16"></svg>`;
   }
 }
 
