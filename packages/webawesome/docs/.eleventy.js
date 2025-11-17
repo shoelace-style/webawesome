@@ -318,6 +318,7 @@ export default async function (eleventyConfig) {
     const siteAssetsDir = path.join(eleventyConfig.directories.output, 'assets');
     fs.cpSync(assetsDir, siteAssetsDir, { recursive: true });
 
+    // Passthrough copy for manifest.json (PWA manifest file)
     fs.cpSync(
       path.join(baseDir, "manifest.json"),
       path.join(eleventyConfig.directories.output, "manifest.json")
@@ -328,7 +329,6 @@ export default async function (eleventyConfig) {
     eleventyConfig.addPassthroughCopy(glob);
   }
 
-  // Passthrough copy for manifest.json (PWA manifest file)
 
   // // SSR plugin
   // if (!isDev) {
