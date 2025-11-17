@@ -313,9 +313,15 @@ export default async function (eleventyConfig) {
 
   // This needs to happen in "eleventy.after" otherwise incremental builds never update.
   eleventyConfig.on('eleventy.after', function () {
-    let assetsDir = path.join(process.env.BASE_DIR || 'docs', 'assets');
+    const baseDir = process.env.BASE_DIR || 'docs'
+    let assetsDir = path.join(baseDir, 'assets');
     const siteAssetsDir = path.join(eleventyConfig.directories.output, 'assets');
     fs.cpSync(assetsDir, siteAssetsDir, { recursive: true });
+
+    fs.cpSync(
+      path.join(baseDir, "manifest.json"),
+      path.join(eleventyConfig.directories.output, "manifest.json")
+    );
   });
 
   for (let glob of passThrough) {
@@ -323,7 +329,6 @@ export default async function (eleventyConfig) {
   }
 
   // Passthrough copy for manifest.json (PWA manifest file)
-  eleventyConfig.addPassthroughCopy('manifest.json');
 
   // // SSR plugin
   // if (!isDev) {
