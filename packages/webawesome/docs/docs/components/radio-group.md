@@ -102,7 +102,7 @@ The default orientation for radio items is `vertical`. Set the `orientation` to 
 
 ### Sizing Options
 
-The size of [Radios](/docs/components/radio) will be determined by the Radio Group's `size` attribute.
+The size of radios will be determined by the Radio Group's `size` attribute.
 
 ```html {.example}
 <wa-radio-group label="Select an option" size="medium" value="medium" onchange="this.size = this.value">
@@ -113,7 +113,7 @@ The size of [Radios](/docs/components/radio) will be determined by the Radio Gro
 ```
 
 :::info
-[Radios](/docs/components/radio) and [Radio Buttons](/docs/components/radio-button) also have a `size` attribute,
+[Radios](/docs/components/radio) also have a `size` attribute,
 which will override the inherited size when used.
 :::
 

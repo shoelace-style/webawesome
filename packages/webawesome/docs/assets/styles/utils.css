@@ -70,10 +70,17 @@
   /* #region shared UI */
   /* pro badge */
   wa-badge.pro {
-    color: white;
+    color: var(--wa-color-brand-on-loud);
     background-color: var(--wa-brand-orange);
-    border-color: var(--wa-brand-orange);
 
+    + wa-tooltip {
+      font-size: var(--wa-font-size-xs);
+      --max-width: unset;
+    }
+  }
+
+  /* free badge */
+  wa-badge.free {
     + wa-tooltip {
       font-size: var(--wa-font-size-xs);
       --max-width: unset;
@@ -120,6 +127,29 @@
     .wa-dark & {
       --primary-color: var(--wa-color-neutral-90);
       --secondary-color: var(--wa-color-neutral-30);
+    }
+  }
+
+  /* anchor headings  */
+  .anchor-heading a {
+    opacity: 0;
+    visibility: hidden;
+    text-decoration: none;
+    transition: opacity var(--wa-transition-normal) var(--wa-transition-easing);
+  }
+
+  @media (hover: hover) {
+    .anchor-heading:hover a {
+      opacity: 1;
+      visibility: visible;
+      padding: var(--wa-space-3xs);
+    }
+  }
+
+  @media print {
+    /* show URLs for printed links */
+    a:not(.anchor-heading)[href]::after {
+      content: ' (' attr(href) ')';
     }
   }
   /* #endregion */
