@@ -13,7 +13,6 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 ## Next
 
-- 🚨 BREAKING: Changed `appearance="filled outlined"` to `appearance="filled-outlined"` in `<wa-card>` [issue:1671]
 - Fixed a bug in `<wa-slider>` that caused some touch devices to end up with the incorrect value [issue:1703]
 - Fixed a bug in `<wa-card>` that prevented some slots from being detected correctly [discuss:1450]
 - Fixed a bug in `<wa-tree-item>` that caused the spinner to not show when lazy loading [issue:1678]
@@ -22,7 +21,6 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 ## 3.0.0
 
 - 🚨 BREAKING: Changed `appearance="filled outlined"` to `appearance="filled-outlined"` in the following elements [issue:1127]
-  - `<wa-badge>`
   - `<wa-button>`
   - `<wa-callout>`
   - `<wa-card>`
