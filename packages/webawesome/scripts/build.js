@@ -437,7 +437,7 @@ export async function build(options = {}) {
               await generateManifest();
             }
 
-            // copy everything to unbundled before we generate bundles.
+            // Rebuild the bundle before rebuilding the site
             await regenerateBundle();
 
             // This needs to be outside of "isComponent" check because SSR needs to run on CSS files too.
