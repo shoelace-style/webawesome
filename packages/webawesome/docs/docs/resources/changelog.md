@@ -15,6 +15,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 - Fixed a bug in `<wa-slider>` that caused some touch devices to end up with the incorrect value [issue:1703]
 - Fixed a bug in `<wa-card>` that prevented some slots from being detected correctly [discuss:1450]
+- Fixed a bug in `<wa-icon>` that caused some icon libraries to render with the incorrect SVG fill [issue:1733]
 - Improved performance of `<wa-icon>` so initial rendering occurs faster, especially with multiple icons on the page [issue:1729]
 
 ## 3.0.0
