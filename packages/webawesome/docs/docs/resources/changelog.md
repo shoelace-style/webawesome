@@ -14,6 +14,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 ## Next
 
 - Fixed a bug in `<wa-slider>` that caused some touch devices to end up with the incorrect value [issue:1703]
+- Fixed a bug in `<wa-card>` that prevented some slots from being detected correctly [discuss:1450]
 
 ## 3.0.0
 
