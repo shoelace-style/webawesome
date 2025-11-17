@@ -174,7 +174,7 @@
 }
 
 :host([appearance='button']:state(checked):focus-visible) {
-  outline: var(--wa-focus-ring-style) var(--wa-focus-ring-width) var(--wa-color-brand-border-loud);
+  outline: var(--wa-focus-ring);
   outline-offset: var(--wa-focus-ring-offset);
 }
 

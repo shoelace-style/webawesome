@@ -53,9 +53,9 @@ The default orientation for dividers is `horizontal`. Set `orientation` attribut
 </div>
 ```
 
-### Menu Dividers
+### Dropdown Dividers
 
-Use dividers in [menus](/docs/components/menu) to visually group menu items.
+Use dividers in [dropdowns](/docs/components/dropdown) to visually group dropdown items.
 
 ```html {.example}
 <wa-dropdown style="max-width: 200px;">

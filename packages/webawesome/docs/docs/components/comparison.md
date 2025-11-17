@@ -5,7 +5,7 @@ layout: component
 category: Imagery
 ---
 
-This is especially useful for comparing images, but can be used for comparing any type of content (for an example of using it to compare entire UIs, check out our [theme pages](/docs/themes/default/)).
+This is especially useful for comparing images, but can be used for comparing any type of content (for an example of using it to compare entire UIs, check out our [theme page](/docs/themes)).
 For best results, use content that shares the same dimensions.
 The slider can be controlled by dragging or pressing the left and right arrow keys. (Tip: press shift + arrows to move the slider in larger intervals, or home + end to jump to the beginning or end.)
 
