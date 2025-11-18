@@ -16,6 +16,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - 🚨 BREAKING: Changed `appearance="filled outlined"` to `appearance="filled-outlined"` in `<wa-card>` [issue:1671]
 - Fixed a bug in `<wa-slider>` that caused some touch devices to end up with the incorrect value [issue:1703]
 - Fixed a bug in `<wa-card>` that prevented some slots from being detected correctly [discuss:1450]
+- Fixed a bug in `<wa-dropdown>` that caused the browser to hang when cancelling the `wa-hide` event [issue:1483]
 - Improved performance of `<wa-icon>` so initial rendering occurs faster, especially with multiple icons on the page [issue:1729]
 
 ## 3.0.0
