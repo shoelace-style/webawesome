@@ -9,9 +9,9 @@ describe('<wa-dropdown>', () => {
     expect(el).to.exist;
   });
 
-  it('should not be open by default', async () => {
+  it('should respect the open attribute when included', async () => {
     const el = await fixture<WaDropdown>(html`
-      <wa-dropdown>
+      <wa-dropdown open>
         <wa-button slot="trigger">Dropdown</wa-button>
         <wa-dropdown-item>One</wa-dropdown-item>
       </wa-dropdown>
@@ -20,7 +20,7 @@ describe('<wa-dropdown>', () => {
     await el.updateComplete;
     await aTimeout(200);
 
-    expect(el.open).to.be.false;
+    expect(el.open).to.be.true;
   });
 
   it('should fire a single show/after-show and hide/after-hide in normal open/close flow', async () => {
