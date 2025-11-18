@@ -1,3 +1,6 @@
+@import url('layers.css');
+
+/* Required utilities */
 @import url('utilities/size.css');
 @import url('utilities/variants.css');
 
