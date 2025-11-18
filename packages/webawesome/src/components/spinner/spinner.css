@@ -24,10 +24,12 @@ svg {
 
 .track {
   stroke: var(--track-color);
+  stroke-width: var(--track-width);
 }
 
 .indicator {
   stroke: var(--indicator-color);
+  stroke-width: var(--track-width);
   stroke-dasharray: 75, 100;
   stroke-dashoffset: -5;
   animation: dash 1.5s ease-in-out infinite;
