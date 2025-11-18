@@ -11,6 +11,8 @@ import styles from './spinner.css';
  * @since 2.0
  *
  * @csspart base - The component's base wrapper.
+ * @csspart track - The spinner's track.
+ * @csspart indicator - The spinner's indicator.
  *
  * @cssproperty --track-width - The width of the track.
  * @cssproperty --track-color - The color of the track.
@@ -25,17 +27,10 @@ export default class WaSpinner extends WebAwesomeElement {
 
   render() {
     return html`
-      <svg
-        part="base"
-        role="progressbar"
-        aria-label=${this.localize.term('loading')}
-        fill="none"
-        viewBox="0 0 50 50"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <circle class="track" cx="25" cy="25" r="20" fill="none" stroke-width="5" />
-        <circle class="indicator" cx="25" cy="25" r="20" fill="none" stroke-width="5" />
-      </svg>
+      <div part="base" role="progressbar" aria-label=${this.localize.term('loading')}>
+        <div class="track" part="track"></div>
+        <div class="indicator" part="indicator"></div>
+      </div>
     `;
   }
 }
