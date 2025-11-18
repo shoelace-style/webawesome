@@ -74,7 +74,6 @@
   padding: 0 var(--wa-form-control-padding-inline);
   position: relative;
   vertical-align: middle;
-  width: 100%;
   transition:
     background-color var(--wa-transition-normal),
     border var(--wa-transition-normal),

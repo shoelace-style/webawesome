@@ -109,6 +109,18 @@ export default class WaDropdown extends WebAwesomeElement {
 
   async updated(changedProperties: PropertyValues) {
     if (changedProperties.has('open')) {
+      const previousOpen = changedProperties.get('open');
+      // check if the previous value is the same
+      // (if they are, do not trigger menu showing / hiding)
+      if (previousOpen === this.open) {
+        return;
+      }
+      // check if we are changing from undefined to false
+      // (if we are, we can skip menu hiding)
+      if (previousOpen === undefined && this.open === false) {
+        return;
+      }
+
       this.customStates.set('open', this.open);
 
       if (this.open) {
@@ -224,6 +236,12 @@ export default class WaDropdown extends WebAwesomeElement {
     this.dispatchEvent(showEvent);
     if (showEvent.defaultPrevented) {
       this.open = false;
+      return;
+    }
+
+    // if this dropdown is already open, do nothing
+    // (this can happen when wa-hide was cancelled)
+    if (this.popup.active) {
       return;
     }
 
