@@ -19,6 +19,11 @@
     {% if hasSidebar %}<script type="module" src="/assets/scripts/sidebar.js"></script>{% endif %}
     <script defer data-domain="webawesome.com" src="https://plausible.io/js/script.js"></script>
 
+    {#- Analytics initialization -#}
+    {% if analytics_init %}
+      {{ analytics_init | safe }}
+    {% endif %}
+
     {% block head %}
       <link rel="stylesheet" href="/assets/styles/docs.css" />
     {% endblock %}
@@ -145,6 +150,5 @@
       {# Footer #}
       {% block pageFooter %}{% endblock %}
     </wa-page>
-
   </body>
 </html>
