@@ -14,8 +14,8 @@
         <p>Celebrate our official launch with a 20% discount on a Web Awesome Pro plan&hellip;<span class="appearance-underlined variant-drawn" style="--underline-color: var(--wa-color-brand);">for life</span>! But hurry, this lifetime discount is only available for a limited time.</p>
 
         <div class="wa-split">
-          <wa-button type="button" appearance="plain" data-dialog="close" class="plausible-event-name=launch_dialog:close_button_click">Maybe Later</wa-button>
-          <wa-button variant="neutral" appearance="accent" href="/purchase" class="brand-font plausible-event-name=launch_dialog:pro_purchase_button_click">
+          <wa-button type="button" appearance="plain" data-dialog="close">Maybe Later</wa-button>
+          <wa-button variant="neutral" appearance="accent" href="/purchase" class="brand-font">
             <wa-icon slot="start" variant="regular" name="rocket-launch"></wa-icon>
             Get Pro + Save 20%
           </wa-button>
@@ -43,13 +43,6 @@
           return;
         }
 
-        // Helper function to safely track Plausible events
-        const trackEvent = (eventName) => {
-          if (typeof plausible !== 'undefined') {
-            plausible(eventName);
-          }
-        };
-
         // Initialize dialog functionality
         let initCalled = false;
         const initDialog = () => {
@@ -59,19 +52,8 @@
           }
           initCalled = true;
 
-          // Track when dialog is shown
-          dialog.addEventListener('wa-show', () => {
-            trackEvent('launch_dialog:view');
-          }, { once: true });
-
           // Track when dialog is dismissed
           dialog.addEventListener('wa-hide', (event) => {
-            // Track overlay click or Escape key dismissal
-            // Button clicks are tracked via CSS classes, so we only track non-button dismissals
-            if (event.detail?.source === dialog) {
-              trackEvent('launch_dialog:overlay_click');
-            }
-
             // Save dismissal state to localStorage
             try {
               localStorage.setItem(SITE_DIALOG_DISMISSED_KEY, 'true');
