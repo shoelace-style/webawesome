@@ -9,8 +9,8 @@
   line-height: var(--wa-line-height-condensed);
   cursor: pointer;
   transition:
-    100ms background-color ease,
-    100ms color ease;
+    var(--wa-transition-fast) background-color var(--wa-transition-easing),
+    var(--wa-transition-fast) color var(--wa-transition-easing);
 }
 
 @media (hover: hover) {
