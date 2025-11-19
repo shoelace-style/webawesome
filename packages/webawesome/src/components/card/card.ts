@@ -42,7 +42,7 @@ export default class WaCard extends WebAwesomeElement {
 
   /** The card's visual appearance. */
   @property({ reflect: true })
-  appearance: 'accent' | 'filled' | 'outlined' | 'plain' = 'outlined';
+  appearance: 'accent' | 'filled' | 'outlined' | 'filled-outlined' | 'plain' = 'outlined';
 
   /** Renders the card with a header. Only needed for SSR, otherwise is automatically added. */
   @property({ attribute: 'with-header', type: Boolean, reflect: true }) withHeader = false;

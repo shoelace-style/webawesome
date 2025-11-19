@@ -73,12 +73,16 @@ slot:not([name])::slotted(wa-icon) {
   rotate: -90deg;
 }
 
-.tree-item-expanded slot[name='expand-icon'],
+.tree-item-expanded:not(.tree-item-loading) slot[name='expand-icon'],
 .tree-item:not(.tree-item-expanded) slot[name='collapse-icon'] {
   display: none;
 }
 
-.tree-item:not(.tree-item-has-expand-button) .expand-icon-slot {
+.tree-item:not(.tree-item-has-expand-button):not(.tree-item-loading) .expand-icon-slot {
+  display: none;
+}
+
+.tree-item-loading .expand-icon-slot wa-icon {
   display: none;
 }
 
