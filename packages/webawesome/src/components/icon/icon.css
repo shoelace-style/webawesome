@@ -25,7 +25,6 @@
 
 svg {
   height: 1em;
-  fill: currentColor;
   overflow: visible;
 
   /* Duotone colors with path-specific opacity fallback */

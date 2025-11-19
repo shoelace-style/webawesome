@@ -53,6 +53,19 @@
   overflow-y: auto;
 }
 
+#start-shadow,
+#end-shadow {
+  z-index: 2;
+}
+
+#start-shadow {
+  opacity: var(--start-shadow-opacity);
+}
+
+#end-shadow {
+  opacity: var(--end-shadow-opacity);
+}
+
 /* Horizontal shadows */
 :host([orientation='horizontal']) {
   #start-shadow,
@@ -62,14 +75,6 @@
     bottom: 0;
     width: var(--shadow-size);
     pointer-events: none;
-  }
-
-  #start-shadow {
-    opacity: var(--start-shadow-opacity);
-  }
-
-  #end-shadow {
-    opacity: var(--end-shadow-opacity);
   }
 
   #start-shadow {
@@ -102,19 +107,10 @@
   #start-shadow,
   #end-shadow {
     position: absolute;
-    z-index: 2;
     right: 0;
     left: 0;
     height: var(--shadow-size);
     pointer-events: none;
-  }
-
-  #start-shadow {
-    opacity: var(--start-shadow-opacity);
-  }
-
-  #end-shadow {
-    opacity: var(--end-shadow-opacity);
   }
 
   #start-shadow {
