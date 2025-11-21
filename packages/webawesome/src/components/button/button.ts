@@ -136,7 +136,7 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
     const button = document.createElement('button');
 
     for (const attribute of this.attributes) {
-      button.setAttribute(attribute.name, attribute.value)
+      button.setAttribute(attribute.name, attribute.value);
     }
 
     button.type = this.type;

@@ -209,18 +209,17 @@ export class WebAwesomeFormAssociatedElement
    * to place the form control outside of a form and associate it with the form that has this `id`. The form must be in
    * the same document or shadow root for this to work.
    */
-  set form (val: string) {
+  set form(val: string) {
     if (val) {
-      this.setAttribute("form", val)
+      this.setAttribute('form', val);
     } else {
-      this.removeAttribute("form")
+      this.removeAttribute('form');
     }
   }
 
-  get form (): HTMLFormElement | null {
-    return this.internals.form
+  get form(): HTMLFormElement | null {
+    return this.internals.form;
   }
-
 
   @property({ attribute: false, state: true, type: Object })
   get validity() {
