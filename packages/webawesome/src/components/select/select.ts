@@ -256,13 +256,6 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
    */
   @property({ attribute: 'with-hint', type: Boolean }) withHint = false;
 
-  /**
-   * By default, form controls are associated with the nearest containing `<form>` element. This attribute allows you
-   * to place the form control outside of a form and associate it with the form that has this `id`. The form must be in
-   * the same document or shadow root for this to work.
-   */
-  @property({ reflect: true }) form = null;
-
   /** The select's required attribute. */
   @property({ type: Boolean, reflect: true }) required = false;
 

@@ -167,12 +167,6 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
   /** The starting value from which to draw the slider's fill, which is based on its current value. */
   @property({ attribute: 'indicator-offset', type: Number }) indicatorOffset: number;
 
-  /**
-   * The form to associate this control with. If omitted, the closest containing `<form>` will be used. The value of
-   * this attribute must be an ID of a form in the same document or shadow root.
-   */
-  @property({ reflect: true }) form = null;
-
   /** The minimum value allowed. */
   @property({ type: Number }) min: number = 0;
 

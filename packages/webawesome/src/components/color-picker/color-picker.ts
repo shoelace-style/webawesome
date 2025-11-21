@@ -220,13 +220,6 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
    */
   @property() swatches: string | string[] = '';
 
-  /**
-   * By default, form controls are associated with the nearest containing `<form>` element. This attribute allows you
-   * to place the form control outside of a form and associate it with the form that has this `id`. The form must be in
-   * the same document or shadow root for this to work.
-   */
-  @property({ reflect: true }) form = null;
-
   /** Makes the color picker a required field. */
   @property({ type: Boolean, reflect: true }) required = false;
 

@@ -115,7 +115,6 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
    * The "form owner" to associate the button with. If omitted, the closest containing form will be used instead. The
    * value of this attribute must be an id of a form in the same document or shadow root as the button.
    */
-  @property({ reflect: true }) form: string | null = null;
 
   /** Used to override the form owner's `action` attribute. */
   @property({ attribute: 'formaction' }) formAction: string;
