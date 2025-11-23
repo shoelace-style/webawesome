@@ -187,7 +187,7 @@ export default class WaIcon extends WebAwesomeElement {
     }
   }
 
-  @watch(['family', 'name', 'library', 'variant', 'src', 'autoWidth', 'swapOpacity'])
+  @watch(['family', 'name', 'library', 'variant', 'src', 'autoWidth', 'swapOpacity'], { waitUntilFirstUpdate: true })
   async setIcon() {
     const { url, fromLibrary } = this.getIconSource();
     const library = fromLibrary ? getIconLibrary(this.library) : undefined;
@@ -249,7 +249,7 @@ export default class WaIcon extends WebAwesomeElement {
       return this.svg;
     }
 
-    return html`<svg part="svg" fill="currentColor" width="16" height="16"></svg>`;
+    return html`<svg part="svg" width="16" height="16"></svg>`;
   }
 }
 

@@ -13,14 +13,22 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 ## Next
 
+- Added `layers.css` to define cascade layer order and updated palettes, themes, native styles, and utilities to import the new rule for more fail-safe modularity [pr:1793]
 - Fixed a bug in `<wa-slider>` that caused some touch devices to end up with the incorrect value [issue:1703]
+- Fixed a bug in `<wa-card>` that prevented some slots from being detected correctly [discuss:1450]
+- Fixed a z-index bug in `<wa-scroller>` styles [issue:1724]
+- Fixed a bug in `<wa-icon>` that caused some icon libraries to render with the incorrect SVG fill [issue:1733]
+- Fixed a bug in `<wa-tree-item>` that caused the spinner to not show when lazy loading [issue:1678]
+- Fixed a bug in `<wa-dropdown>` that caused the browser to hang when cancelling the `wa-hide` event [issue:1483]
+- Improved performance of `<wa-icon>` so initial rendering occurs faster, especially with multiple icons on the page [issue:1729]
+- Modified the default `transition` styles of `<wa-dropdown-item>` to use design tokens [pr:1693]
 
 ## 3.0.0
 
 - 🚨 BREAKING: Changed `appearance="filled outlined"` to `appearance="filled-outlined"` in the following elements [issue:1127]
-  - `<wa-badge>`
   - `<wa-button>`
   - `<wa-callout>`
+  - `<wa-card>`
   - `<wa-details>`
   - `<wa-input>`
   - `<wa-select>`

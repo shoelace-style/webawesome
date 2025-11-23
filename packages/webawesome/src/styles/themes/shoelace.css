@@ -1,3 +1,4 @@
+@import url('../layers.css');
 @import url('../color/palettes/shoelace.css'); /* To use this palette, add class="wa-palette-shoelace" to the <html> element */
 
 @layer wa-theme {

@@ -124,6 +124,22 @@ export default async function (eleventyConfig) {
   eleventyConfig.addFilter('stripExtension', string => path.parse(string + '').name);
   eleventyConfig.addFilter('stripPrefix', content => content.replace(/^wa-/, ''));
   eleventyConfig.addFilter('uniqueId', (_value, length = 8) => nanoid(length));
+
+  eleventyConfig.addGlobalData('eleventyComputed', {
+    // Page title with smart + default site name formatting
+    pageTitle: data => composePageTitle(data.title),
+    // Open Graph title with smart + default site name formatting
+    ogTitle: data => composePageTitle(data.ogTitle || data.title),
+    ogDescription: data => data.ogDescription || data.description,
+    ogImage: data => data.ogImage || siteMetadata.image,
+    ogUrl: data => {
+      if (data.ogUrl) return data.ogUrl;
+      const url = data.page?.url || '';
+      return url ? `${siteMetadata.url}${url}` : siteMetadata.url;
+    },
+    ogType: data => data.ogType || 'website',
+  });
+
   // Trims whitespace and pipes from the start and end of a string. Useful for CEM types, which can be pipe-delimited.
   // With Prettier 3, this means a leading pipe will exist be present when the line wraps.
   eleventyConfig.addFilter('trimPipes', content => {
@@ -297,17 +313,18 @@ export default async function (eleventyConfig) {
 
   // This needs to happen in "eleventy.after" otherwise incremental builds never update.
   eleventyConfig.on('eleventy.after', function () {
-    let assetsDir = path.join(process.env.BASE_DIR || 'docs', 'assets');
+    const baseDir = process.env.BASE_DIR || 'docs';
+    let assetsDir = path.join(baseDir, 'assets');
     const siteAssetsDir = path.join(eleventyConfig.directories.output, 'assets');
     fs.cpSync(assetsDir, siteAssetsDir, { recursive: true });
+
+    // Passthrough copy for manifest.json (PWA manifest file)
+    fs.cpSync(path.join(baseDir, 'manifest.json'), path.join(eleventyConfig.directories.output, 'manifest.json'));
   });
 
   for (let glob of passThrough) {
     eleventyConfig.addPassthroughCopy(glob);
   }
-
-  // Passthrough copy for manifest.json (PWA manifest file)
-  eleventyConfig.addPassthroughCopy('manifest.json');
 
   // // SSR plugin
   // if (!isDev) {

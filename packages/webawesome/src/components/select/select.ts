@@ -119,7 +119,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   @state() optionValues: Set<string | null> | undefined;
 
   /** The name of the select, submitted as a name/value pair with form data. */
-  @property() name = '';
+  @property({ reflect: true }) name = '';
 
   private _defaultValue: null | string | string[] = null;
 
