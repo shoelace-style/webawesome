@@ -6,7 +6,7 @@ import { fixtures } from '../../internal/test/fixture.js';
 import { registerIconLibrary } from '../../../dist-cdn/webawesome.js';
 import type { WaErrorEvent } from '../../events/error.js';
 import type { WaLoadEvent } from '../../events/load.js';
-import type WaIcon from './icon.js';
+import WaIcon, { type IconEffect } from './icon.js';
 
 const testLibraryIcons = {
   'test-icon1': `
@@ -251,6 +251,72 @@ describe('<wa-icon>', () => {
           expect(ev).to.exist;
         });
       });
+
+      describe('transformations', () => {
+        it('rotates the SVG 90 degrees when the "rotate" attribute is "90"', async () => {
+          const el = await fixture<WaIcon>(html` <wa-icon library="system" name="check" rotate="90"></wa-icon> `);
+          await elementUpdated(el);
+          const svg = el.shadowRoot?.querySelector('svg');
+          expect(svg).to.exist;
+          const computedStyle = getComputedStyle(svg!);
+          console.log(computedStyle.transform);
+          expect(computedStyle.transform).to.equal('matrix(0, 1, -1, 0, 0, 0)');
+        });
+
+        it('flips the SVG horizontally when the "flip" attribute is "x"', async () => {
+          const el = await fixture<WaIcon>(html` <wa-icon library="system" name="check" flip="x"></wa-icon> `);
+          await elementUpdated(el);
+          const svg = el.shadowRoot?.querySelector('svg');
+          expect(svg).to.exist;
+          const computedStyle = getComputedStyle(svg!);
+          expect(computedStyle.transform).to.equal('matrix(-1, 0, 0, 1, 0, 0)');
+        });
+
+        it('flips the SVG vertically when the "flip" attribute is "y"', async () => {
+          const el = await fixture<WaIcon>(html` <wa-icon library="system" name="check" flip="y"></wa-icon> `);
+          await elementUpdated(el);
+          const svg = el.shadowRoot?.querySelector('svg');
+          expect(svg).to.exist;
+          const computedStyle = getComputedStyle(svg!);
+          expect(computedStyle.transform).to.equal('matrix(1, 0, 0, -1, 0, 0)');
+        });
+
+        it('flips the SVG on both axes when the "flip" attribute is "both"', async () => {
+          const el = await fixture<WaIcon>(html` <wa-icon library="system" name="check" flip="both"></wa-icon> `);
+          await elementUpdated(el);
+          const svg = el.shadowRoot?.querySelector('svg');
+          expect(svg).to.exist;
+          const computedStyle = getComputedStyle(svg!);
+          expect(computedStyle.transform).to.equal('matrix(-1, 0, 0, -1, 0, 0)');
+        });
+      });
+
+      describe('animations', () => {
+        it('applies the proper animations when the "effect" attribute is set', async () => {
+          const animations: Array<IconEffect> = [
+            'beat',
+            'beat-fade',
+            'bounce',
+            'fade',
+            'flip',
+            //'shake',
+            //'spin',
+            //'spin-pulse',
+          ];
+
+          for (const animation of animations) {
+            const el = await fixture<WaIcon>(html`
+              <wa-icon library="system" name="check" effect=${animation}></wa-icon>
+            `);
+            await elementUpdated(el);
+            const svg = el.shadowRoot?.querySelector('svg');
+            expect(svg).to.exist;
+            const computedStyle = getComputedStyle(svg!);
+            expect(computedStyle.animationName).to.equal(animation);
+          }
+        });
+      });
+
       /* eslint-enable */
     });
   }

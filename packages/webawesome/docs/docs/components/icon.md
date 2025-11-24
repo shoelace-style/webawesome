@@ -126,6 +126,88 @@ With auto-width<br />
 </div>
 ```
 
+### Rotating & Flipping
+Sometimes you need to rotate, flip, or mirror an icon for it to work in your project or design. We’ve included some quick utilities to help with that. To arbitrarily rotate and flip icons, use the `rotate` and `flip` when you reference an icon.
+
+```html {.example}
+<wa-icon name="face-awesome" rotate="0" variant="light" label="Awesome" style="font-size: 2em;"></wa-icon>
+<wa-icon name="face-awesome" rotate="90" variant="light" label="Awesome" style="font-size: 2em;"></wa-icon>
+<wa-icon name="face-awesome" rotate="180" variant="light" label="Awesome" style="font-size: 2em;"></wa-icon>
+<wa-icon name="face-awesome" rotate="270" variant="light" label="Awesome" style="font-size: 2em;"></wa-icon>
+<br />
+<wa-icon name="face-awesome" flip="x" variant="light" label="Awesome" style="font-size: 2em;"></wa-icon>
+<wa-icon name="face-awesome" flip="y" variant="light" label="Awesome" style="font-size: 2em;"></wa-icon>
+<wa-icon name="face-awesome" flip="both" variant="light" label="Awesome" style="font-size: 2em;"></wa-icon>
+```
+
+### Animating
+Our Styling Toolkit takes the trouble out of sizing, rotating, and stacking icons, so you can make your site pop with animations. To select different types of animations, use `effect` when you reference an icon.
+
+#### Beat
+Use the `beat` animation to scale an icon up or down. This is useful for grabbing attention or for use with health/heart-centric icons.
+
+```html {.example}
+<wa-icon name="face-awesome" effect="beat" variant="light" label="Awesome" style="font-size: 2em;"></wa-icon>
+<wa-icon name="face-awesome" effect="beat" variant="light" label="Awesome" style="font-size: 2em; --animation-duration: 2s;"></wa-icon>
+<wa-icon name="face-awesome" effect="beat" variant="light" label="Awesome" style="font-size: 2em; --animation-duration: 0.5s;"></wa-icon>
+<wa-icon name="face-awesome" effect="beat" variant="light" label="Awesome" style="font-size: 2em; --beat-scale: 2;"></wa-icon>
+```
+
+#### Fade
+Use the `fade` animation to fade an icon in and out visually to grab attention in a subtle (or not so subtle) way.
+```html {.example}
+<wa-icon name="face-awesome" effect="fade" variant="light" label="Awesome" style="font-size: 2em;"></wa-icon>
+<wa-icon name="face-awesome" effect="fade" variant="light" label="Awesome" style="font-size: 2em; --animation-duration: 2s; --fade-opacity: 0.6;"></wa-icon>
+```
+
+#### Beat-Fade
+Use the `beat-fade` animation to grab attention by visually scaling and pulsing an icon in and out.
+```html {.example}
+<wa-icon name="face-awesome" effect="beat-fade" variant="light" label="Awesome" style="font-size: 2em;"></wa-icon>
+<wa-icon name="face-awesome" effect="beat-fade" variant="light" label="Awesome" style="font-size: 2em; --beat-fade-opacity: 0.1;--beat-fade-scale: 1.25"></wa-icon>
+```
+
+#### Bounce
+Use the `bounce` animation to grab attention by visually bouncing an icon up and down.
+
+```html {.example}
+<wa-icon name="volleyball" effect="bounce" variant="light" label="Awesome" style="font-size: 2em;"></wa-icon>
+<wa-icon name="basketball" effect="bounce" variant="light" label="Awesome" style="font-size: 2em; --bounce-land-scale-x: 1.2;--bounce-land-scale-y: .8;--bounce-rebound: 5px;"></wa-icon>
+<wa-icon name="frog" effect="bounce" variant="light" label="Awesome" style="font-size: 2em; --bounce-start-scale-x: 1; --bounce-start-scale-y: 1; --bounce-jump-scale-x: 1; --bounce-jump-scale-y: 1; --bounce-land-scale-x: 1; --bounce-land-scale-y: 1;"></wa-icon>
+<wa-icon name="envelope" effect="bounce" variant="light" label="Awesome" style="font-size: 2em; --bounce-start-scale-x: 1;--bounce-start-scale-y: 1;--bounce-jump-scale-x: 1;--bounce-jump-scale-y: 1;--bounce-land-scale-x: 1;--bounce-land-scale-y: 1;--bounce-rebound: 0;"></wa-icon>
+
+```
+
+#### Flip
+Use the `flip` animation to rotate an icon in 3D space. By default, flip rotates an icon about the Y axis 180 degrees. Flipping is helpful for transitions, processing states, or for using physical objects that one flips in the real world.
+
+```html {.example}
+<wa-icon name="compact-disc" effect="flip" variant="light" label="Awesome" style="font-size: 2em;"></wa-icon>
+<wa-icon name="camera-rotate" effect="flip" variant="light" label="Awesome" style="font-size: 2em;"></wa-icon>
+<wa-icon name="cassette-tape" effect="flip" variant="light" label="Awesome" style="font-size: 2em;"></wa-icon>
+<wa-icon name="scroll" effect="flip" variant="light" label="Awesome" style="font-size: 2em; --flip-x: 1; --flip-y: 0"></wa-icon>
+<wa-icon name="money-check-dollar" effect="flip" variant="light" label="Awesome" style="font-size: 2em; animation-duration: 3s;"></wa-icon>
+```
+
+#### Shake
+Use the `shake` animation to grab attention or note that something is not allowed by shaking an icon back and forth.
+```html {.example}
+<wa-icon name="bell" effect="shake" variant="light" label="Awesome" style="font-size: 2em;"></wa-icon>
+<wa-icon name="lock" effect="shake" variant="light" label="Awesome" style="font-size: 2em;"></wa-icon>
+<wa-icon name="stopwatch" effect="shake" variant="light" label="Awesome" style="font-size: 2em;"></wa-icon>
+<wa-icon name="bomb" effect="shake" variant="light" label="Awesome" style="font-size: 2em;"></wa-icon>
+```
+
+#### Spin
+Use the `spin`to get any icon to rotate, and use `spin-pulse` to have it rotate with eight steps. This works especially well with `spinner` and everything in the spinner icons category.
+
+```html {.example}
+<wa-icon name="spinner" effect="spin" variant="light" label="Awesome" style="font-size: 2em;"></wa-icon>
+<wa-icon name="spinner" effect="spin" variant="light" label="Awesome" style="font-size: 2em; --animation-direction: reverse"></wa-icon>
+<wa-icon name="spinner" effect="spin-pulse" variant="light" label="Awesome" style="font-size: 2em;"></wa-icon>
+<wa-icon name="spinner" effect="spin-pulse" variant="light" label="Awesome" style="font-size: 2em; --animation-direction: reverse"></wa-icon>
+```
+
 ### Colors
 
 Icons inherit their color from the current text color. Thus, you can set the `color` property on the `<wa-icon>` element or an ancestor to change the color.
