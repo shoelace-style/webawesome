@@ -142,6 +142,9 @@
         {% include "_dialog-wa-launch.njk" ignore missing %}
       {% endif %}
 
+      {#- Cookie Consent Dialog -#}
+      {% include "cookie-consent.njk" ignore missing %}
+
       {# Footer #}
       {% block pageFooter %}{% endblock %}
     </wa-page>
