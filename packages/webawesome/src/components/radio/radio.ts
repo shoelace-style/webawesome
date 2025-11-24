@@ -39,11 +39,6 @@ export default class WaRadio extends WebAwesomeFormAssociatedElement {
   /** @internal Used by radio group to force disable radios while preserving their original disabled state. */
   @state() forceDisabled = false;
 
-  /**
-   * The string pointing to a form's id.
-   */
-  @property({ reflect: true }) form: string | null = null;
-
   /** The radio's value. When selected, the radio group will receive this value. */
   @property({ reflect: true }) value: string;
 
