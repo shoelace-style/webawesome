@@ -6,8 +6,6 @@ layout: component
 
 ```html {.example}
 <wa-video>
-  >
-  <source />
   <track kind="captions" srclang="en" label="English" src="/assets/video/captions.vtt" default />
 </wa-video>
 ```

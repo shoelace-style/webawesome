@@ -26,7 +26,7 @@ export default class WaVideo extends WebAwesomeElement {
   @property({ type: String }) src: string = '';
   @property({ type: String }) poster: string = '';
   @property({ type: Boolean, reflect: true }) autoplay: boolean = false;
-  @property({ type: Boolean, reflect: true }) muted: boolean = false;
+
   @property({ type: Boolean, reflect: true }) loop: boolean = false;
   @property({ type: String }) preload: 'none' | 'metadata' | 'auto' = 'metadata';
   @property({ type: Boolean, reflect: true }) playsinline: boolean = false;
