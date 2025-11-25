@@ -4,6 +4,7 @@ import { customElement, property, query, state } from 'lit/decorators.js';
 import { animateWithClass } from '../../internal/animate.js';
 import { HasSlotController } from '../../internal/slot.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
+import '../icon/icon.js';
 import styles from './dropdown-item.css';
 
 /**
