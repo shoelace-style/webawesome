@@ -12,7 +12,7 @@ tags: styleUtilities
   }
 </style>
 
-Web Awesome includes classes to set an element's `border-radius` property. They can be used alongside Web Awesome layout utilities, like [frame](/docs/layout/frame), to round all corners of an element.
+Web Awesome includes classes to set an element's `border-radius` property. They can be used alongside Web Awesome layout utilities, like [frame](/docs/utilities/frame), to round all corners of an element.
 
 Each class corresponds to one of the [`--wa-border-radius-*`](/docs/tokens/borders/#radius) tokens in your theme.
 

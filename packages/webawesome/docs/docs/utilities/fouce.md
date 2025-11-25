@@ -22,7 +22,7 @@ As soon as all elements are registered _or_ after two seconds have elapsed, the 
 
 :::details Are you using Turbo in your app?
 
-If you're using [Turbo](https://turbo.hotwired.dev/) to serve a multi-page application (MPA) as a single page application (SPA), you might notice FOUCE when navigating from page to page. This is because Turbo renders the new page's content before the autoloader has a change to register new components.
+If you're using [Turbo](https://turbo.hotwired.dev/) to serve a multi-page application (MPA) as a single page application (SPA), you might notice FOUCE when navigating from page to page. This is because Turbo renders the new page's content before the autoloader has a chance to register new components.
 
 The following function acts as a middleware to ensure components are registered _before_ the page shows, eliminating FOUCE for page-to-page navigation with Turbo.
 

@@ -4,6 +4,9 @@ description: Style (and restyle) your website at will with any of Web Awesome's 
 layout: page
 ---
 
+{% from "pro-badge.njk" import proBadge %}
+{% from "free-badge.njk" import freeBadge %}
+
 <h1>{{ title }}</h1>
 
 <p>Themes are collections of <a href="/docs/tokens">design tokens</a> that give a cohesive look and feel to the entire Web Awesome library. Style and restyle your website at will by loading any pre-built theme.</p>
@@ -64,8 +67,9 @@ to create a project with any one of these themes.
   <header class="wa-stack">
     <div class="wa-cluster">
       <h2 data-theme-name="name">Theme</h2>
-      <wa-badge data-free-badge appearance="outlined" variant="neutral" hidden>FREE</wa-badge>
-      <wa-badge data-pro-badge appearance="accent" hidden>PRO</wa-badge>
+      {{ freeBadge({ id: "free-badge", description: "This theme is available in the free version of Web Awesome." }) }}
+      {{ proBadge({ id: "pro-badge", description: "This theme requires access to Web Awesome Pro." }) }}
+
     </div>
     <p data-theme-description>Description</p>
   </header>
@@ -162,8 +166,12 @@ Then apply the following classes to the `<html>` element:
   const beforeFrame = document.querySelector('wa-zoomable-frame[slot="before"]');
   const nameElement = document.querySelector('[data-theme-name]');
   const descriptionElement = document.querySelector('[data-theme-description]');
-  const freeBadge = document.querySelector('[data-free-badge]');
-  const proBadge = document.querySelector('[data-pro-badge]');
+  const freeBadge = document.getElementById('free-badge');
+  const proBadge = document.getElementById('pro-badge');
+
+  // Hide both badges initially
+  if (freeBadge) freeBadge.hidden = true;
+  if (proBadge) proBadge.hidden = true;
 
   function updateFrames(selectedValue, title, description, isPro, palette, brand) {
     // Update theme classes on both frames
