@@ -437,8 +437,14 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
   /** Clamps a number to min/max while ensuring it's a valid step interval. */
   private clampAndRoundToStep(value: number) {
     const stepPrecision = (String(this.step).split('.')[1] || '').replace(/0+$/g, '').length;
-    value = Math.round(value / this.step) * this.step;
-    value = clamp(value, this.min, this.max);
+
+    // Ensure we're working with numbers (in case the user passes strings to the respective properties)
+    const step = Number(this.step);
+    const min = Number(this.min);
+    const max = Number(this.max);
+
+    value = Math.round(value / step) * step;
+    value = clamp(value, min, max);
 
     return parseFloat(value.toFixed(stepPrecision));
   }

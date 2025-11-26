@@ -22,6 +22,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed a bug in `<wa-dropdown>` that caused the browser to hang when cancelling the `wa-hide` event [issue:1483]
 - Fixed a bug in `<wa-dropdown-item>` that prevented the icon dependency from being imported [issue:1825]
 - Improved performance of `<wa-icon>` so initial rendering occurs faster, especially with multiple icons on the page [issue:1729]
+- Improved `<wa-slider>` to not throw an error when string values are passed to the `min`, `max`, and `step` properties [issue:1823]
 - Modified the default `transition` styles of `<wa-dropdown-item>` to use design tokens [pr:1693]
 
 ## 3.0.0
