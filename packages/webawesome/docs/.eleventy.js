@@ -119,7 +119,13 @@ export default async function (eleventyConfig) {
   eleventyConfig.addGlobalData('siteMetadata', siteMetadata);
 
   // Template filters - {{ content | filter }}
-  eleventyConfig.addFilter('inlineMarkdown', content => markdown.renderInline(content || ''));
+  // Escape curly braces in content to prevent markdown-it-attrs from trying to parse them as attributes
+  const escapeMarkdownAttrs = content => {
+    if (!content) return content;
+    // Replace { and } with HTML entities to prevent markdown-it-attrs parsing
+    return content.replace(/\{/g, '&#123;').replace(/\}/g, '&#125;');
+  };
+  eleventyConfig.addFilter('inlineMarkdown', content => markdown.renderInline(escapeMarkdownAttrs(content) || ''));
   eleventyConfig.addFilter('markdown', content => markdown.render(content || ''));
   eleventyConfig.addFilter('stripExtension', string => path.parse(string + '').name);
   eleventyConfig.addFilter('stripPrefix', content => content.replace(/^wa-/, ''));
