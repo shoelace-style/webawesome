@@ -1,35 +1,21 @@
 ---
 title: Video
-description: Videos embed a media player that supports multiple sources and adds functionality beyond that of a native video element
+description: Description of component.
 layout: component
 ---
 
 ```html {.example}
 <wa-video>
-  <track kind="captions" srclang="en" label="English" src="/assets/video/captions.vtt" default />
+  <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" type="video/mp4" />
 </wa-video>
 ```
 
-## Playlist
+## Examples
 
-If there's more than one video detected, a playlist will generate
+### First Example
 
-<wa-video-player>
-  <wa-video-item slot="playlist" title="Video 1" thumbnail="thumb1.jpg">
-    <source src="video1.mp4" type="video/mp4" />
-  </wa-video-item>
-  <wa-video-item slot="playlist" title="Video 2" thumbnail="thumb2.jpg">
-    <source src="video2.mp4" type="video/mp4" />
-    <source src="video2.ogg" type="video/ogg" />
-  </wa-video-item>
-</wa-video-player>
+TODO
 
-### Placement
+### Second Example
 
-## Captions
-
-if text tracks are detected
-
-## Controls
-
-A variable way to show which controls you want
+TODO
