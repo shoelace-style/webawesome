@@ -7,7 +7,7 @@ import { WaAfterHideEvent } from '../../events/after-hide.js';
 import { WaAfterShowEvent } from '../../events/after-show.js';
 import { WaClearEvent } from '../../events/clear.js';
 import { WaHideEvent } from '../../events/hide.js';
-import type { WaRemoveEvent } from '../../events/remove.js';
+import { WaRemoveEvent } from '../../events/remove.js';
 import { WaShowEvent } from '../../events/show.js';
 import { animateWithClass } from '../../internal/animate.js';
 import { waitForEvent } from '../../internal/event.js';
@@ -99,6 +99,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
 
   private readonly hasSlotController = new HasSlotController(this, 'hint', 'label');
   private readonly localize = new LocalizeController(this);
+  private selectionOrder: Map<string, number> = new Map();
   private typeToSelectString = '';
   private typeToSelectTimeout: number;
 
@@ -285,6 +286,8 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
           ?pill=${this.pill}
           size=${this.size}
           with-remove
+          data-value=${option.value}
+          @wa-remove=${(event: WaRemoveEvent) => this.handleTagRemove(event, option)}
         >
           ${option.label}
         </wa-tag>
@@ -520,6 +523,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     event.stopPropagation();
 
     if (this.value !== null) {
+      this.selectionOrder.clear();
       this.setSelectedOptions([]);
       this.displayInput.focus({ preventScroll: true });
 
@@ -603,24 +607,20 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
 
     if (this.disabled) return;
 
+    // Mark as interacted so selectionChanged() uses the correct filter logic
+    this.hasInteracted = true;
+    this.valueHasChanged = true;
+
     // Use the directly provided option if available (from getTag method)
     let option = directOption;
 
-    // If no direct option was provided, find the option from the event path
+    // If no direct option was provided, find the option from the data-value attribute
     if (!option) {
-      const tagElement = (event.target as Element).closest('wa-tag[part~=tag]');
+      const tagElement = (event.target as Element).closest('wa-tag[data-value]') as HTMLElement | null;
 
       if (tagElement) {
-        // Find the index of this tag among all tags
-        const tagsContainer = this.shadowRoot?.querySelector('[part="tags"]');
-        if (tagsContainer) {
-          const allTags = Array.from(tagsContainer.children);
-          const index = allTags.indexOf(tagElement as HTMLElement);
-
-          if (index >= 0 && index < this.selectedOptions.length) {
-            option = this.selectedOptions[index];
-          }
-        }
+        const value = tagElement.dataset.value;
+        option = this.selectedOptions.find(opt => opt.value === value);
       }
     }
 
@@ -707,7 +707,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     const options = this.getAllOptions();
 
     // Update selected options cache
-    this.selectedOptions = options.filter(el => {
+    const newSelectedOptions = options.filter(el => {
       if (!this.hasInteracted && !this.valueHasChanged) {
         const defaultValue = this.defaultValue;
         const defaultValues = Array.isArray(defaultValue) ? defaultValue : [defaultValue];
@@ -715,6 +715,32 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
       }
 
       return el.selected;
+    });
+
+    // Update the selection order map
+    const newSelectedValues = new Set(newSelectedOptions.map(el => el.value));
+
+    // Remove deselected options from the order map
+    for (const value of this.selectionOrder.keys()) {
+      if (!newSelectedValues.has(value)) {
+        this.selectionOrder.delete(value);
+      }
+    }
+
+    // Add newly selected options
+    const maxOrder = this.selectionOrder.size > 0 ? Math.max(...this.selectionOrder.values()) : -1;
+    let nextOrder = maxOrder + 1;
+    for (const option of newSelectedOptions) {
+      if (!this.selectionOrder.has(option.value)) {
+        this.selectionOrder.set(option.value, nextOrder++);
+      }
+    }
+
+    // Sort options by selection order
+    this.selectedOptions = newSelectedOptions.sort((a, b) => {
+      const orderA = this.selectionOrder.get(a.value) ?? 0;
+      const orderB = this.selectionOrder.get(b.value) ?? 0;
+      return orderA - orderB;
     });
 
     let selectedValues = new Set(this.selectedOptions.map(el => el.value));
@@ -888,6 +914,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   }
 
   formResetCallback() {
+    this.selectionOrder.clear();
     this.value = this.defaultValue;
     super.formResetCallback();
     this.handleValueChange();
