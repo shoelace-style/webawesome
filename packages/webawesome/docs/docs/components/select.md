@@ -287,7 +287,7 @@ Remember that custom tags are rendered in a shadow root. To style them, you can 
     // You can return a string, a Lit Template, or an HTMLElement here
     return `
       <wa-tag with-remove>
-        <wa-icon name="${name}" style="padding-inline-end: .5rem;"></wa-icon>
+        <wa-icon name="${name}"></wa-icon>
         ${option.label}
       </wa-tag>
     `;
