@@ -8,7 +8,7 @@
     <wa-badge variant="neutral">Since {{ component.since }}</wa-badge>
     <wa-badge
       {% if component.status == 'stable' %}variant="brand"{% endif %}
-      {% if component.status == 'experimental' %}variant="warning"{% endif %}
+      {% if component.status == 'experimental' %}variant="warning" appearance="filled"{% endif %}
     >
       {{ component.status }}
     </wa-badge>
