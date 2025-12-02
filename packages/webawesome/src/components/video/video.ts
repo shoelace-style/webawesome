@@ -15,7 +15,7 @@ import styles from './video.css';
  * @dependency wa-slider
  * @dependency wa-select
  *
- * @slot - Place source and track elements here (parsed once on initialization).
+ * @slot - Place source and track elements here. Changes are detected automatically via slotchange.
  *
  * @attribute src - Direct video source URL (alternative to using source elements)
  * @attribute type - Video MIME type when using src attribute (default: video/mp4)
@@ -24,6 +24,8 @@ import styles from './video.css';
  * @csspart base - The component's base wrapper.
  * @csspart video - The video element.
  * @csspart controls - The controls container.
+ *
+ * @method syncVideoSources - Manually sync source and track elements from light DOM. Call this if you programmatically change source element properties (not attributes).
  */
 @customElement('wa-video')
 export default class WaVideo extends WebAwesomeElement {
@@ -42,6 +44,59 @@ export default class WaVideo extends WebAwesomeElement {
 
   private sources: Array<{ src: string; type: string }> = [];
   private tracks: Array<{ src: string; kind: string; srclang: string; label: string }> = [];
+
+  /**
+   * Syncs source and track elements from light DOM to shadow DOM.
+   * This is called automatically on slotchange, but can be called manually
+   * if you programmatically change source element properties (not attributes).
+   *
+   * @example
+   * ```js
+   * const video = document.querySelector('wa-video');
+   * const source = video.querySelector('source');
+   * source.src = 'new-video.mp4'; // Property change, not attribute
+   * video.syncVideoSources(); // Manually sync
+   * ```
+   */
+  syncVideoSources() {
+    // Parse light DOM for source elements
+    const lightDomSources = Array.from(this.querySelectorAll('source'));
+    if (lightDomSources.length > 0) {
+      this.sources = lightDomSources.map(source => ({
+        src: source.getAttribute('src') || '',
+        type: source.getAttribute('type') || 'video/mp4',
+      }));
+    } else {
+      this.sources = [];
+    }
+
+    // Parse light DOM for track elements
+    const lightDomTracks = Array.from(this.querySelectorAll('track'));
+    if (lightDomTracks.length > 0) {
+      this.tracks = lightDomTracks.map(track => ({
+        src: track.getAttribute('src') || '',
+        kind: track.getAttribute('kind') || 'subtitles',
+        srclang: track.getAttribute('srclang') || '',
+        label: track.getAttribute('label') || '',
+      }));
+    } else {
+      this.tracks = [];
+    }
+
+    // Trigger re-render and reload video
+    this.requestUpdate();
+
+    // Wait for render to complete, then reload video
+    this.updateComplete.then(() => {
+      if (this.videoElement) {
+        this.videoElement.load();
+      }
+    });
+  }
+
+  private handleSlotChange() {
+    this.syncVideoSources();
+  }
 
   private handleLoadedMetadata() {
     if (this.videoElement) {
@@ -106,30 +161,6 @@ export default class WaVideo extends WebAwesomeElement {
     }
   }
 
-  connectedCallback() {
-    super.connectedCallback();
-
-    // Parse light DOM for source elements
-    const lightDomSources = Array.from(this.querySelectorAll('source'));
-    if (lightDomSources.length > 0) {
-      this.sources = lightDomSources.map(source => ({
-        src: source.getAttribute('src') || '',
-        type: source.getAttribute('type') || 'video/mp4',
-      }));
-    }
-
-    // Parse light DOM for track elements
-    const lightDomTracks = Array.from(this.querySelectorAll('track'));
-    if (lightDomTracks.length > 0) {
-      this.tracks = lightDomTracks.map(track => ({
-        src: track.getAttribute('src') || '',
-        kind: track.getAttribute('kind') || 'subtitles',
-        srclang: track.getAttribute('srclang') || '',
-        label: track.getAttribute('label') || '',
-      }));
-    }
-  }
-
   render() {
     return html`
       <div class="video-container" part="base">
@@ -163,6 +194,8 @@ export default class WaVideo extends WebAwesomeElement {
             ></wa-icon>
           </wa-button>
         </div>
+
+        <slot @slotchange=${this.handleSlotChange} style="display: none;"></slot>
       </div>
     `;
   }
