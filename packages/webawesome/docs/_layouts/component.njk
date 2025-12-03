@@ -12,6 +12,9 @@
     >
       {{ component.status }}
     </wa-badge>
+    {% if isProComponent %}
+      <wa-badge class="pro">Pro</wa-badge>
+    {% endif %}
   </div>
   <p class="component-summary">
     {{ component.summary | inlineMarkdown | safe }}
