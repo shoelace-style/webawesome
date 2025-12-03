@@ -72,7 +72,7 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
   /** Draws the button with a caret. Used to indicate that the button triggers a dropdown menu or similar behavior. */
   @property({ attribute: 'with-caret', type: Boolean, reflect: true }) withCaret = false;
 
-  /** Disables the button. Does not apply to link buttons. */
+  /** Disables the button. */
   @property({ type: Boolean }) disabled = false;
 
   /** Draws the button in a loading state. */
@@ -269,6 +269,7 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
           'is-icon-button': this.isIconButton,
         })}
         ?disabled=${ifDefined(isLink ? undefined : this.disabled)}
+        ?inert=${ifDefined(isLink ? this.disabled : undefined)}
         type=${ifDefined(isLink ? undefined : this.type)}
         title=${this.title /* An empty title prevents browser validation tooltips from appearing on hover */}
         name=${ifDefined(isLink ? undefined : this.name)}

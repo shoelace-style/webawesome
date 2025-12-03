@@ -59,6 +59,11 @@ describe('<wa-button>', () => {
           const el = await fixture<WaButton>(html` <wa-button href="some/path" disabled>Button Label</wa-button> `);
           expect(el.shadowRoot!.querySelector('a[disabled]')).not.to.exist;
         });
+
+        it('should inert the native <a> when rendering an <a>', async () => {
+          const el = await fixture<WaButton>(html` <wa-button href="some/path" disabled>Button Label</wa-button> `);
+          expect(el.shadowRoot!.querySelector('a[inert]')).to.exist;
+        });
       });
 
       it('should have title if title attribute is set', async () => {
