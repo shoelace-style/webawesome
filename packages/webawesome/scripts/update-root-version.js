@@ -6,13 +6,23 @@ import * as url from 'url';
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
-const rootPackageJSONFile = path.join(path.resolve(__dirname, "..", "..", ".."), "package.json")
+const monorepoRoot = path.resolve(__dirname, "..", "..", "..")
+const rootPackageJSONFile = path.join(monorepoRoot, "package.json")
 const webawesomePackageJSONFile = path.join(path.resolve(__dirname, ".."), "package.json")
 
 const rootPackageJSON = JSON.parse(fs.readFileSync(rootPackageJSONFile))
 const webawesomePackageJSON = JSON.parse(fs.readFileSync(webawesomePackageJSONFile))
 
-rootPackageJSON.version = webawesomePackageJSON.version
+const currentVersion = webawesomePackageJSON.version
+rootPackageJSON.version = currentVersion
 
 fs.writeFileSync(rootPackageJSONFile, JSON.stringify(rootPackageJSON, null, 2))
+
+const versionsFile = path.join(monorepoRoot, "VERSIONS.txt")
+const versions = fs.readFileSync(versions).split(/\r?\n/)
+
+// TODO: Make this smart and understand semver and "insert" in the correct spot instead of appending.
+if (!versions.includes(currentVersion)) {
+  fs.appendFileSync(webawesomePackageJSON.version)
+}
 
