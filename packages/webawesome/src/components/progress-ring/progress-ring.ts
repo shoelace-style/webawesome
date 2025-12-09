@@ -21,6 +21,7 @@ import styles from './progress-ring.styles.js';
  * @cssproperty --track-color - The color of the track.
  * @cssproperty --indicator-width - The width of the indicator. Defaults to the track width.
  * @cssproperty --indicator-color - The color of the indicator.
+ * @cssproperty --indicator-linecap - The shape at the ends of the indicator.
  * @cssproperty --indicator-transition-duration - The duration of the indicator's transition when the value changes.
  */
 @customElement('wa-progress-ring')

@@ -27,6 +27,14 @@ Use the `--track-width` and `--indicator-width` custom properties to set the wid
 <wa-progress-ring value="50" style="--track-width: 6px; --indicator-width: 12px;"></wa-progress-ring>
 ```
 
+### Indicator Linecap
+
+Use the `--indicator-linecap` custom property to set shape at the ends of the progress ring's indicator.
+
+```html {.example}
+<wa-progress-ring value="10" style="--track-width: 50%; --indicator-width: 50%; --indicator-linecap: butt"></wa-progress-ring>
+```
+
 ### Colors
 
 To change the color, use the `--track-color` and `--indicator-color` custom properties.

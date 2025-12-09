@@ -7,6 +7,7 @@ export default css`
     --track-color: var(--wa-color-neutral-fill-normal);
     --indicator-width: var(--track-width);
     --indicator-color: var(--wa-color-brand-fill-loud);
+    --indicator-linecap: round;
     --indicator-transition-duration: 0.35s;
 
     display: inline-flex;
@@ -45,7 +46,7 @@ export default css`
   .indicator {
     stroke: var(--indicator-color);
     stroke-width: var(--indicator-width);
-    stroke-linecap: round;
+    stroke-linecap: var(--indicator-linecap);
     transition-property: stroke-dashoffset;
     transition-duration: var(--indicator-transition-duration);
     stroke-dasharray: var(--circumference) var(--circumference);
