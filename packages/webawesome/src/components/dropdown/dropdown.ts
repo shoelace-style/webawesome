@@ -12,7 +12,7 @@ import { activeElements } from '../../internal/active-elements.js';
 import { animateWithClass } from '../../internal/animate.js';
 import { uniqueId } from '../../internal/math.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import sizeStyles from '../../styles/utilities/size.styles.js';
+import sizeStyles from '../../styles/component/size.styles.js';
 import { LocalizeController } from '../../utilities/localize.js';
 import type WaButton from '../button/button.js';
 import '../dropdown-item/dropdown-item.js';

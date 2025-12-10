@@ -1,7 +1,7 @@
 import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import variantStyles from '../../styles/utilities/variants.styles.js';
+import variantStyles from '../../styles/component/variants.styles.js';
 import styles from './badge.styles.js';
 
 /**

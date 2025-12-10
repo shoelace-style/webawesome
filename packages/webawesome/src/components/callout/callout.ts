@@ -1,8 +1,8 @@
 import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import sizeStyles from '../../styles/utilities/size.styles.js';
-import variantStyles from '../../styles/utilities/variants.styles.js';
+import sizeStyles from '../../styles/component/size.styles.js';
+import variantStyles from '../../styles/component/variants.styles.js';
 import styles from './callout.styles.js';
 
 /**

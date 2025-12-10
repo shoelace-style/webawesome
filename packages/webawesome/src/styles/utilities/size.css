@@ -1,0 +1,13 @@
+@layer wa-utilities {
+  .wa-size-s {
+    font-size: var(--wa-font-size-s);
+  }
+
+  .wa-size-m {
+    font-size: var(--wa-font-size-m);
+  }
+
+  .wa-size-l {
+    font-size: var(--wa-font-size-l);
+  }
+}
