@@ -1,20 +1,18 @@
 import { css } from 'lit';
 
 export default css`
-  @layer wa-utilities {
-    :host([size='small']),
-    .wa-size-s {
-      font-size: var(--wa-font-size-s);
-    }
+  :host([size='small']),
+  .wa-size-s {
+    font-size: var(--wa-font-size-s);
+  }
 
-    :host([size='medium']),
-    .wa-size-m {
-      font-size: var(--wa-font-size-m);
-    }
+  :host([size='medium']),
+  .wa-size-m {
+    font-size: var(--wa-font-size-m);
+  }
 
-    :host([size='large']),
-    .wa-size-l {
-      font-size: var(--wa-font-size-l);
-    }
+  :host([size='large']),
+  .wa-size-l {
+    font-size: var(--wa-font-size-l);
   }
 `;
