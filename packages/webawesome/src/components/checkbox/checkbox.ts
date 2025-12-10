@@ -8,10 +8,10 @@ import { HasSlotController } from '../../internal/slot.js';
 import { RequiredValidator } from '../../internal/validators/required-validator.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
-import formControlStyles from '../../styles/component/form-control.css';
-import sizeStyles from '../../styles/utilities/size.css';
+import formControlStyles from '../../styles/component/form-control.styles.js';
+import sizeStyles from '../../styles/utilities/size.styles.js';
 import '../icon/icon.js';
-import styles from './checkbox.css';
+import styles from './checkbox.styles.js';
 
 /**
  * @summary Checkboxes allow the user to toggle an option on or off.

@@ -7,13 +7,13 @@ import { HasSlotController } from '../../internal/slot.js';
 import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
-import sizeStyles from '../../styles/utilities/size.css';
-import variantStyles from '../../styles/utilities/variants.css';
+import sizeStyles from '../../styles/utilities/size.styles.js';
+import variantStyles from '../../styles/utilities/variants.styles.js';
 import { LocalizeController } from '../../utilities/localize.js';
 import '../icon/icon.js';
 import type WaIcon from '../icon/icon.js';
 import '../spinner/spinner.js';
-import styles from './button.css';
+import styles from './button.styles.js';
 
 /**
  * @summary Buttons represent actions that are available to the user.

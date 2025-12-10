@@ -5,12 +5,12 @@ import { WaCopyEvent } from '../../events/copy.js';
 import { WaErrorEvent } from '../../events/error.js';
 import { animateWithClass } from '../../internal/animate.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import visuallyHidden from '../../styles/utilities/visually-hidden.css';
+import visuallyHidden from '../../styles/utilities/visually-hidden.styles.js';
 import { LocalizeController } from '../../utilities/localize.js';
 import '../icon/icon.js';
 import '../tooltip/tooltip.js';
 import type WaTooltip from '../tooltip/tooltip.js';
-import styles from './copy-button.css';
+import styles from './copy-button.styles.js';
 
 /**
  * @summary Copies text data to the clipboard when the user clicks the trigger.

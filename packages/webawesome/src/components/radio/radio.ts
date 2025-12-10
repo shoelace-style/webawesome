@@ -2,10 +2,10 @@ import type { PropertyValues } from 'lit';
 import { html, isServer } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
-import formControlStyles from '../../styles/component/form-control.css';
-import sizeStyles from '../../styles/utilities/size.css';
+import formControlStyles from '../../styles/component/form-control.styles.js';
+import sizeStyles from '../../styles/utilities/size.styles.js';
 import '../icon/icon.js';
-import styles from './radio.css';
+import styles from './radio.styles.js';
 
 /**
  * @summary Radios allow the user to select a single option from a group.

@@ -1,8 +1,8 @@
 import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import variantStyles from '../../styles/utilities/variants.css';
-import styles from './badge.css';
+import variantStyles from '../../styles/utilities/variants.styles.js';
+import styles from './badge.styles.js';
 
 /**
  * @summary Badges are used to draw attention and display statuses or counts.

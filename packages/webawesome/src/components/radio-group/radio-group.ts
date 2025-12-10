@@ -6,11 +6,11 @@ import { uniqueId } from '../../internal/math.js';
 import { HasSlotController } from '../../internal/slot.js';
 import { RequiredValidator } from '../../internal/validators/required-validator.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
-import formControlStyles from '../../styles/component/form-control.css';
-import sizeStyles from '../../styles/utilities/size.css';
+import formControlStyles from '../../styles/component/form-control.styles.js';
+import sizeStyles from '../../styles/utilities/size.styles.js';
 import '../radio/radio.js';
 import type WaRadio from '../radio/radio.js';
-import styles from './radio-group.css';
+import styles from './radio-group.styles.js';
 
 /**
  * @summary Radio groups are used to group multiple [radios](/docs/components/radio) so they function as a single form control.
