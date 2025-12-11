@@ -1,0 +1,108 @@
+import { css } from 'lit';
+
+export default css`
+  :host {
+    --pulse-color: var(--wa-color-fill-loud, var(--wa-color-brand-fill-loud));
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.375em 0.625em;
+    color: var(--wa-color-on-loud, var(--wa-color-brand-on-loud));
+    font-size: max(var(--wa-font-size-2xs), 0.75em);
+    font-weight: var(--wa-font-weight-semibold);
+    line-height: 1;
+    white-space: nowrap;
+    background-color: var(--wa-color-fill-loud, var(--wa-color-brand-fill-loud));
+    border-color: transparent;
+    border-radius: var(--wa-border-radius-s);
+    border-style: var(--wa-border-style);
+    border-width: var(--wa-border-width-s);
+    user-select: none;
+    -webkit-user-select: none;
+    cursor: inherit;
+  }
+
+  /* Appearance modifiers */
+  :host([appearance='outlined']) {
+    --pulse-color: var(--wa-color-border-loud, var(--wa-color-brand-border-loud));
+
+    color: var(--wa-color-on-quiet, var(--wa-color-brand-on-quiet));
+    background-color: transparent;
+    border-color: var(--wa-color-border-loud, var(--wa-color-brand-border-loud));
+  }
+
+  :host([appearance='filled']) {
+    --pulse-color: var(--wa-color-fill-normal, var(--wa-color-brand-fill-normal));
+
+    color: var(--wa-color-on-normal, var(--wa-color-brand-on-normal));
+    background-color: var(--wa-color-fill-normal, var(--wa-color-brand-fill-normal));
+    border-color: transparent;
+  }
+
+  :host([appearance='filled-outlined']) {
+    --pulse-color: var(--wa-color-border-normal, var(--wa-color-brand-border-normal));
+
+    color: var(--wa-color-on-normal, var(--wa-color-brand-on-normal));
+    background-color: var(--wa-color-fill-normal, var(--wa-color-brand-fill-normal));
+    border-color: var(--wa-color-border-normal, var(--wa-color-brand-border-normal));
+  }
+
+  :host([appearance='accent']) {
+    --pulse-color: var(--wa-color-fill-loud, var(--wa-color-brand-fill-loud));
+
+    color: var(--wa-color-on-loud, var(--wa-color-brand-on-loud));
+    background-color: var(--wa-color-fill-loud, var(--wa-color-brand-fill-loud));
+    border-color: transparent;
+  }
+
+  /* Pill modifier */
+  :host([pill]) {
+    border-radius: var(--wa-border-radius-pill);
+  }
+
+  /* Pulse attention */
+  :host([attention='pulse']) {
+    animation: pulse 1.5s infinite;
+  }
+
+  @keyframes pulse {
+    0% {
+      box-shadow: 0 0 0 0 var(--pulse-color);
+    }
+    70% {
+      box-shadow: 0 0 0 0.5rem transparent;
+    }
+    100% {
+      box-shadow: 0 0 0 0 transparent;
+    }
+  }
+
+  /* Bounce attention */
+  :host([attention='bounce']) {
+    animation: bounce 1s cubic-bezier(0.28, 0.84, 0.42, 1) infinite;
+  }
+
+  @keyframes bounce {
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+      transform: translateY(0);
+    }
+    40% {
+      transform: translateY(-5px);
+    }
+    60% {
+      transform: translateY(-2px);
+    }
+  }
+
+  ::slotted(wa-icon) {
+    margin-inline-end: var(--wa-space-2xs, 0.25em);
+    opacity: 90%;
+    line-height: 1;
+    height: 0.85em;
+  }
+`;

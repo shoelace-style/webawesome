@@ -6,7 +6,7 @@ import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import { LocalizeController } from '../../utilities/localize.js';
 import '../icon/icon.js';
-import styles from './animated-image.css';
+import styles from './animated-image.styles.js';
 
 /**
  * @summary A component for displaying animated GIFs and WEBPs that play and pause on interaction.

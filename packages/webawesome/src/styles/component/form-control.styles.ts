@@ -1,0 +1,38 @@
+import { css } from 'lit';
+
+export default css`
+  :host {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Label */
+  :is([part~='form-control-label'], [part~='label']):has(*:not(:empty)) {
+    display: inline-flex;
+    color: var(--wa-form-control-label-color);
+    font-weight: var(--wa-form-control-label-font-weight);
+    line-height: var(--wa-form-control-label-line-height);
+    margin-block-end: 0.5em;
+  }
+
+  :host([required]) :is([part~='form-control-label'], [part~='label'])::after {
+    content: var(--wa-form-control-required-content);
+    margin-inline-start: var(--wa-form-control-required-content-offset);
+    color: var(--wa-form-control-required-content-color);
+  }
+
+  /* Help text */
+  [part~='hint'] {
+    display: block;
+    color: var(--wa-form-control-hint-color);
+    font-weight: var(--wa-form-control-hint-font-weight);
+    line-height: var(--wa-form-control-hint-line-height);
+    margin-block-start: 0.5em;
+    font-size: var(--wa-font-size-smaller);
+    line-height: var(--wa-form-control-label-line-height);
+
+    &:not(.has-slotted) {
+      display: none;
+    }
+  }
+`;

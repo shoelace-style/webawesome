@@ -5,7 +5,7 @@ import { clamp } from '../../internal/math.js';
 import { parseSpaceDelimitedTokens } from '../../internal/parse.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import styles from './intersection-observer.css';
+import styles from './intersection-observer.styles.js';
 
 /**
  * @summary Tracks immediate child elements and fires events as they move in and out of view.

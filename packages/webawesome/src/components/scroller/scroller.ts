@@ -2,7 +2,7 @@ import { html } from 'lit';
 import { customElement, eventOptions, property, query, state } from 'lit/decorators.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import { LocalizeController } from '../../utilities/localize.js';
-import styles from './scroller.css';
+import styles from './scroller.styles.js';
 
 /**
  * @summary Scrollers create an accessible container while providing visual cues that help users identify and navigate

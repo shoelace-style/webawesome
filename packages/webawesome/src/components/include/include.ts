@@ -4,7 +4,7 @@ import { WaIncludeErrorEvent } from '../../events/include-error.js';
 import { WaLoadEvent } from '../../events/load.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import styles from './include.css';
+import styles from './include.styles.js';
 import { requestInclude } from './request.js';
 
 /**

@@ -14,9 +14,9 @@ import { HasSlotController } from '../../internal/slot.js';
 import { RequiredValidator } from '../../internal/validators/required-validator.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
-import formControlStyles from '../../styles/component/form-control.css';
-import sizeStyles from '../../styles/utilities/size.css';
-import visuallyHidden from '../../styles/utilities/visually-hidden.css';
+import formControlStyles from '../../styles/component/form-control.styles.js';
+import sizeStyles from '../../styles/component/size.styles.js';
+import visuallyHidden from '../../styles/component/visually-hidden.styles.js';
 import { LocalizeController } from '../../utilities/localize.js';
 import '../button-group/button-group.js';
 import '../button/button.js';
@@ -25,7 +25,7 @@ import '../input/input.js';
 import type WaInput from '../input/input.js';
 import '../popup/popup.js';
 import type WaPopup from '../popup/popup.js';
-import styles from './color-picker.css';
+import styles from './color-picker.styles.js';
 
 interface EyeDropperConstructor {
   new (): EyeDropperInterface;

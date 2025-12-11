@@ -1,9 +1,9 @@
 import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import sizeStyles from '../../styles/utilities/size.css';
-import variantStyles from '../../styles/utilities/variants.css';
-import styles from './callout.css';
+import sizeStyles from '../../styles/component/size.styles.js';
+import variantStyles from '../../styles/component/variants.styles.js';
+import styles from './callout.styles.js';
 
 /**
  * @summary Callouts are used to display important messages inline.
