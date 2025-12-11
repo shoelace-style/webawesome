@@ -13,6 +13,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 ## Next
 
+- Added `<wa-combobox>` as an experimental pro component [issue:1074]
 - Added `layers.css` to define cascade layer order and updated palettes, themes, native styles, and utilities to import the new rule for more fail-safe modularity [pr:1793]
 - Fixed a bug in `<wa-slider>` that caused some touch devices to end up with the incorrect value [issue:1703]
 - Fixed a bug in `<wa-card>` that prevented some slots from being detected correctly [discuss:1450]
@@ -21,6 +22,8 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed a bug in `<wa-tree-item>` that caused the spinner to not show when lazy loading [issue:1678]
 - Fixed a bug in `<wa-dropdown>` that caused the browser to hang when cancelling the `wa-hide` event [issue:1483]
 - Fixed a bug in `<wa-dropdown-item>` that prevented the icon dependency from being imported [issue:1825]
+- Fixed a bug in `<wa-select>` that prevented clicks on the tag's remove button from removing options in multiple mode
+- Fixed a bug in `<wa-select>` that caused tags to appear in alphabetical order instead of selection order when using `multiple`
 - Improved performance of `<wa-icon>` so initial rendering occurs faster, especially with multiple icons on the page [issue:1729]
 - Improved performance of all components by fixing how CSS is imported and reused [issue:1812]
 - Modified the default `transition` styles of `<wa-dropdown-item>` to use design tokens [pr:1693]

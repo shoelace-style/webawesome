@@ -5,6 +5,7 @@ import getText from '../../internal/get-text.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import { LocalizeController } from '../../utilities/localize.js';
 import '../icon/icon.js';
+import type WaSelect from '../select/select.js';
 import styles from './option.styles.js';
 
 /**
@@ -109,9 +110,19 @@ export default class WaOption extends WebAwesomeElement {
     this.updateDefaultLabel();
 
     if (this.isInitialized) {
-      // When the label changes, tell the controller to update
+      // When the label changes, tell the parent <wa-select> to update
       customElements.whenDefined('wa-select').then(() => {
         const controller = this.closest('wa-select');
+        if (controller) {
+          controller.handleDefaultSlotChange();
+          controller.selectionChanged?.();
+        }
+      });
+
+      // When the label changes, tell the parent <wa-combobox> to update
+      customElements.whenDefined('wa-combobox').then(() => {
+        // We cast to <wa-select> because it shares the same API as combobox
+        const controller = this.closest<WaSelect>('wa-combobox');
         if (controller) {
           controller.handleDefaultSlotChange();
           controller.selectionChanged?.();
@@ -134,7 +145,8 @@ export default class WaOption extends WebAwesomeElement {
 
   protected willUpdate(changedProperties: PropertyValues<this>): void {
     if (changedProperties.has('defaultSelected')) {
-      if (!this.closest('wa-select')?.hasInteracted) {
+      // We cast to <wa-select> because it shares the same API as combobox
+      if (!this.closest<WaSelect>('wa-combobox, wa-select')?.hasInteracted) {
         const oldVal = this.selected;
         this.selected = this.defaultSelected;
         this.requestUpdate('selected', oldVal);

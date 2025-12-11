@@ -8,10 +8,13 @@
     <wa-badge variant="neutral">Since {{ component.since }}</wa-badge>
     <wa-badge
       {% if component.status == 'stable' %}variant="brand"{% endif %}
-      {% if component.status == 'experimental' %}variant="warning"{% endif %}
+      {% if component.status == 'experimental' %}variant="warning" appearance="filled"{% endif %}
     >
       {{ component.status }}
     </wa-badge>
+    {% if isProComponent %}
+      <wa-badge class="pro">Pro</wa-badge>
+    {% endif %}
   </div>
   <p class="component-summary">
     {{ component.summary | inlineMarkdown | safe }}
@@ -20,6 +23,37 @@
 
 {# Component API #}
 {% block afterContent %}
+  {# Importing #}
+  <h2>Importing</h2>
+  <p>
+    Autoloading components via <a href="/docs/#using-a-project">projects</a> is the recommended way to import components. If you prefer to do it manually, use one of the following code snippets.
+  </p>
+
+  {% set componentName = component.tagName | stripPrefix %}
+  {% set componentPath = ["components/", componentName, "/", componentName, ".js"] | join("") %}
+  <wa-tab-group label="How would you like to import this component?">
+    <wa-tab panel="cdn">CDN</wa-tab>
+    <wa-tab panel="npm">npm</wa-tab>
+    <wa-tab panel="react">React</wa-tab>
+    <wa-tab-panel name="cdn">
+      <p>
+        Let your project code do the work! <a href="/signup">Sign up for free</a> to use a project with your very own CDN &mdash; it's the fastest and easiest way to use Web Awesome.
+      </p>
+    </wa-tab-panel>
+    <wa-tab-panel name="npm">
+      <p>
+        To manually import this component from NPM, use the following code.
+      </p>
+      <pre><code class="language-js">import '@awesome.me/webawesome/dist/{{ componentPath }}';</code></pre>
+    </wa-tab-panel>
+    <wa-tab-panel name="react">
+      <p>
+        To manually import this component from React, use the following code.
+      </p>
+      <pre><code class="language-js">import {{ component.name }} from '@awesome.me/webawesome/dist/react/{{ componentName }}';</code></pre>
+    </wa-tab-panel>
+  </wa-tab-group>
+
   {# Slots #}
   {% if component.slots.length %}
     <h2>Slots</h2>
@@ -269,38 +303,6 @@
       {% endfor %}
     </ul>
   {% endif %}
-
-  {# Importing #}
-  <h2>Importing</h2>
-  <p>
-    Autoloading components via <a href="/docs/#using-a-project">projects</a> is the recommended way to import components. If you prefer to do it manually, use one of the following code snippets.
-  </p>
-
-
-  {% set componentName = component.tagName | stripPrefix %}
-  {% set componentPath = ["components/", componentName, "/", componentName, ".js"] | join("") %}
-  <wa-tab-group label="How would you like to import this component?">
-    <wa-tab panel="cdn">CDN</wa-tab>
-    <wa-tab panel="npm">npm</wa-tab>
-    <wa-tab panel="react">React</wa-tab>
-    <wa-tab-panel name="cdn">
-      <p>
-        Let your project code do the work! <a href="/signup">Sign up for free</a> to use a project with your very own CDN &mdash; it's the fastest and easiest way to use Web Awesome.
-      </p>
-    </wa-tab-panel>
-    <wa-tab-panel name="npm">
-      <p>
-        To manually import this component from NPM, use the following code.
-      </p>
-      <pre><code class="language-js">import '@awesome.me/webawesome/dist/{{ componentPath }}';</code></pre>
-    </wa-tab-panel>
-    <wa-tab-panel name="react">
-      <p>
-        To manually import this component from React, use the following code.
-      </p>
-      <pre><code class="language-js">import {{ component.name }} from '@awesome.me/webawesome/dist/react/{{ componentName }}';</code></pre>
-    </wa-tab-panel>
-  </wa-tab-group>
 
   <wa-divider></wa-divider>
 

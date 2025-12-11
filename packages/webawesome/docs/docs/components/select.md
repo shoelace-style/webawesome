@@ -285,9 +285,10 @@ Remember that custom tags are rendered in a shadow root. To style them, you can 
     const name = option.querySelector('wa-icon[slot="start"]').name;
 
     // You can return a string, a Lit Template, or an HTMLElement here
+    // Important: include data-value so the tag can be removed properly!
     return `
-      <wa-tag with-remove>
-        <wa-icon name="${name}" style="padding-inline-end: .5rem;"></wa-icon>
+      <wa-tag with-remove data-value="${option.value}">
+        <wa-icon name="${name}"></wa-icon>
         ${option.label}
       </wa-tag>
     `;
@@ -297,6 +298,10 @@ Remember that custom tags are rendered in a shadow root. To style them, you can 
 
 :::warning
 Be sure you trust the content you are outputting! Passing unsanitized user input to `getTag()` can result in XSS vulnerabilities.
+:::
+
+:::info
+When using custom tags with `with-remove`, you must include the `data-value` attribute set to the option's value. This allows the select to identify which option to deselect when the tag's remove button is clicked.
 :::
 
 ### Lazy loading options
