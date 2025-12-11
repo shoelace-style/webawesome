@@ -6,7 +6,7 @@ import WebAwesomeElement from '../../internal/webawesome-element.js';
 import { LocalizeController } from '../../utilities/localize.js';
 import '../icon/icon.js';
 import type WaSelect from '../select/select.js';
-import styles from './option.css';
+import styles from './option.styles.js';
 
 /**
  * @summary Options define the selectable items within a select component.

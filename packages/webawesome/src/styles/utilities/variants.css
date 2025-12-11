@@ -1,7 +1,6 @@
 @layer wa-utilities {
   :where(:root),
-  .wa-neutral,
-  :host([variant='neutral']) {
+  .wa-neutral {
     --wa-color-fill-loud: var(--wa-color-neutral-fill-loud);
     --wa-color-fill-normal: var(--wa-color-neutral-fill-normal);
     --wa-color-fill-quiet: var(--wa-color-neutral-fill-quiet);
@@ -13,8 +12,7 @@
     --wa-color-on-quiet: var(--wa-color-neutral-on-quiet);
   }
 
-  .wa-brand,
-  :host([variant='brand']) {
+  .wa-brand {
     --wa-color-fill-loud: var(--wa-color-brand-fill-loud);
     --wa-color-fill-normal: var(--wa-color-brand-fill-normal);
     --wa-color-fill-quiet: var(--wa-color-brand-fill-quiet);
@@ -26,8 +24,7 @@
     --wa-color-on-quiet: var(--wa-color-brand-on-quiet);
   }
 
-  .wa-success,
-  :host([variant='success']) {
+  .wa-success {
     --wa-color-fill-loud: var(--wa-color-success-fill-loud);
     --wa-color-fill-normal: var(--wa-color-success-fill-normal);
     --wa-color-fill-quiet: var(--wa-color-success-fill-quiet);
@@ -39,8 +36,7 @@
     --wa-color-on-quiet: var(--wa-color-success-on-quiet);
   }
 
-  .wa-warning,
-  :host([variant='warning']) {
+  .wa-warning {
     --wa-color-fill-loud: var(--wa-color-warning-fill-loud);
     --wa-color-fill-normal: var(--wa-color-warning-fill-normal);
     --wa-color-fill-quiet: var(--wa-color-warning-fill-quiet);
@@ -52,8 +48,7 @@
     --wa-color-on-quiet: var(--wa-color-warning-on-quiet);
   }
 
-  .wa-danger,
-  :host([variant='danger']) {
+  .wa-danger {
     --wa-color-fill-loud: var(--wa-color-danger-fill-loud);
     --wa-color-fill-normal: var(--wa-color-danger-fill-normal);
     --wa-color-fill-quiet: var(--wa-color-danger-fill-quiet);

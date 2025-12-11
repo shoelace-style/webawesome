@@ -17,7 +17,7 @@ import { LocalizeController } from '../../utilities/localize.js';
 import '../checkbox/checkbox.js';
 import '../icon/icon.js';
 import '../spinner/spinner.js';
-import styles from './tree-item.css';
+import styles from './tree-item.styles.js';
 
 /**
  * @summary A tree item serves as a hierarchical node that lives inside a [tree](/docs/components/tree).

@@ -13,7 +13,7 @@ import WebAwesomeElement from '../../internal/webawesome-element.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
 import { LocalizeController } from '../../utilities/localize.js';
 import '../icon/icon.js';
-import styles from './details.css';
+import styles from './details.styles.js';
 
 /**
  * @summary Details show a brief summary and expand to show additional content.

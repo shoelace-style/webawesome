@@ -1,0 +1,69 @@
+import { css } from 'lit';
+
+export default css`
+  :host {
+    --control-box-size: 3rem;
+    --icon-size: calc(var(--control-box-size) * 0.625);
+
+    display: inline-flex;
+    position: relative;
+    cursor: pointer;
+  }
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  img[aria-hidden='true'] {
+    display: none;
+  }
+
+  .control-box {
+    display: flex;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    top: calc(50% - var(--control-box-size) / 2);
+    right: calc(50% - var(--control-box-size) / 2);
+    width: var(--control-box-size);
+    height: var(--control-box-size);
+    font-size: calc(var(--icon-size) * 0.75);
+    background: none;
+    border: solid var(--wa-border-width-s) currentColor;
+    background-color: rgb(0 0 0 / 50%);
+    border-radius: var(--wa-border-radius-circle);
+    color: white;
+    pointer-events: none;
+    transition: opacity var(--wa-transition-normal) var(--wa-transition-easing);
+  }
+
+  @media (hover: hover) {
+    :host([play]:hover) .control-box {
+      opacity: 1;
+    }
+  }
+
+  :where(:host([play]:not(:hover))) .control-box {
+    opacity: 0;
+  }
+
+  :host([play]) slot[name='play-icon'],
+  :host(:not([play])) slot[name='pause-icon'] {
+    display: none;
+  }
+
+  /* Show control box on keyboard focus */
+  .animated-image {
+    &:focus {
+      outline: none;
+    }
+
+    &:focus-visible .control-box {
+      opacity: 1;
+      outline: var(--wa-focus-ring);
+      outline-offset: var(--wa-focus-ring-offset);
+    }
+  }
+`;
