@@ -300,8 +300,28 @@ export class WebAwesomeFormAssociatedElement
    * "restore", state is a string, File, or FormData object previously set as the second argument to setFormValue.
    */
   formStateRestoreCallback(state: string | File | FormData | null, reason: 'autocomplete' | 'restore') {
-    // @ts-expect-error We purposely do not have a value property. It makes things hard to extend.
-    this.value = state;
+    if (state instanceof FormData) {
+      // When we get FormData (like in Firefox) we need to need to make sure we match the value + element.
+      const form = this.getForm()
+      if (form) {
+        const index = Array.from(form.elements)
+          // Filter first so we can find the index of our element in respect to other elements with the same name.
+          .filter((el) => {
+            // @ts-expect-error
+            return this.name && el.name && el.name === this.name
+          })
+          .findIndex((el) => {
+            return el === this
+          })
+        if (index >= 0) {
+          // @ts-expect-error We purposely do not have a value property. It makes things hard to extend.
+          this.value = state.getAll(this.name)[index]
+        }
+      }
+    } else {
+      // @ts-expect-error We purposely do not have a value property. It makes things hard to extend.
+      this.value = state;
+    }
 
     if (reason === 'restore') {
       this.resetValidity();
