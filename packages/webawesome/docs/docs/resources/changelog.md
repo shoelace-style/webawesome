@@ -24,6 +24,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed a bug in `<wa-dropdown-item>` that prevented the icon dependency from being imported [issue:1825]
 - Fixed a bug in `<wa-select>` that prevented clicks on the tag's remove button from removing options in multiple mode
 - Fixed a bug in `<wa-select>` that caused tags to appear in alphabetical order instead of selection order when using `multiple`
+- Fixed a bug in Form Controls where Firefox would restore the incorrect data. [pr:]
 - Improved performance of `<wa-icon>` so initial rendering occurs faster, especially with multiple icons on the page [issue:1729]
 - Improved performance of all components by fixing how CSS is imported and reused [issue:1812]
 - Modified the default `transition` styles of `<wa-dropdown-item>` to use design tokens [pr:1693]
