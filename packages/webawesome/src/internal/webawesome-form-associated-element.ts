@@ -302,20 +302,20 @@ export class WebAwesomeFormAssociatedElement
   formStateRestoreCallback(state: string | File | FormData | null, reason: 'autocomplete' | 'restore') {
     if (state instanceof FormData) {
       // When we get FormData (like in Firefox) we need to need to make sure we match the value + element.
-      const form = this.getForm()
+      const form = this.getForm();
       if (form) {
         const index = Array.from(form.elements)
           // Filter first so we can find the index of our element in respect to other elements with the same name.
-          .filter((el) => {
+          .filter(el => {
             // @ts-expect-error
-            return this.name && el.name && el.name === this.name
+            return this.name && el.name && el.name === this.name;
           })
-          .findIndex((el) => {
-            return el === this
-          })
+          .findIndex(el => {
+            return el === this;
+          });
         if (index >= 0) {
           // @ts-expect-error We purposely do not have a value property. It makes things hard to extend.
-          this.value = state.getAll(this.name)[index]
+          this.value = state.getAll(this.name)[index];
         }
       }
     } else {
