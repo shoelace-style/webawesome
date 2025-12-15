@@ -162,7 +162,25 @@
         <li><a href="/docs/components/tree-item/">Tree Item</a></li>
       </ul>
     </li>
-    <li><span class="is-planned wa-split">Video <span><a href="https://github.com/shoelace-style/webawesome/issues/985" target="_blank">{{ plannedBadge("A Web Awesome Kickstarter stretch goal!") }}</a>{{ proBadge( { description: "This will require access to Web Awesome Pro" }) }}</span></span></li>
+    <li>
+      <span class="wa-split">
+        <span>
+          <a href="/docs/components/video">Video</a>
+          <wa-icon name="flask" aria-hidden="true" class="icon-shrink"></wa-icon>
+        </span>
+        {{ proBadge() }}
+        <ul style="margin-block-start: var(--wa-space-3xs);">
+          <li>
+            <span class="wa-split">
+              <span>
+                <a href="/docs/components/video-item/">Video Item</a>
+              </li>
+              <wa-icon name="flask" aria-hidden="true" class="icon-shrink"></wa-icon>
+            </span>
+          </span>
+        </ul>
+      </span>
+    </li>
     <li><a href="/docs/components/zoomable-frame">Zoomable Frame</a></li>
     {# PLOP_NEW_COMPONENT_PLACEHOLDER #}
   </ul>
