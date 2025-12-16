@@ -115,7 +115,6 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
    * The "form owner" to associate the button with. If omitted, the closest containing form will be used instead. The
    * value of this attribute must be an id of a form in the same document or shadow root as the button.
    */
-  @property({ reflect: true }) form: string | null = null;
 
   /** Used to override the form owner's `action` attribute. */
   @property({ attribute: 'formaction' }) formAction: string;
@@ -135,23 +134,26 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
 
   private constructLightDOMButton() {
     const button = document.createElement('button');
+
+    for (const attribute of this.attributes) {
+      if (attribute.name === 'style') {
+        // Skip style attributes as they *shouldn't* be necessary
+        continue;
+      }
+      button.setAttribute(attribute.name, attribute.value);
+    }
+
     button.type = this.type;
-    button.style.position = 'absolute';
-    button.style.width = '0';
-    button.style.height = '0';
-    button.style.clipPath = 'inset(50%)';
-    button.style.overflow = 'hidden';
-    button.style.whiteSpace = 'nowrap';
+    button.style.position = 'absolute !important';
+    button.style.width = '0 !important';
+    button.style.height = '0 !important';
+    button.style.clipPath = 'inset(50%) !important';
+    button.style.overflow = 'hidden !important';
+    button.style.whiteSpace = 'nowrap !important';
     if (this.name) {
       button.name = this.name;
     }
     button.value = this.value || '';
-
-    ['form', 'formaction', 'formenctype', 'formmethod', 'formnovalidate', 'formtarget'].forEach(attr => {
-      if (this.hasAttribute(attr)) {
-        button.setAttribute(attr, this.getAttribute(attr)!);
-      }
-    });
 
     return button;
   }

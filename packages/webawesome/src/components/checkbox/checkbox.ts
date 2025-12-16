@@ -108,13 +108,6 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
   @property({ type: Boolean, reflect: true, attribute: 'checked' }) defaultChecked: boolean =
     this.hasAttribute('checked');
 
-  /**
-   * By default, form controls are associated with the nearest containing `<form>` element. This attribute allows you
-   * to place the form control outside of a form and associate it with the form that has this `id`. The form must be in
-   * the same document or shadow root for this to work.
-   */
-  @property({ reflect: true }) form = null;
-
   /** Makes the checkbox a required field. */
   @property({ type: Boolean, reflect: true }) required = false;
 
