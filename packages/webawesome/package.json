@@ -4,7 +4,7 @@
     "access": "public"
   },
   "description": "A forward-thinking library of web components.",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "homepage": "https://webawesome.com/",
   "author": "Web Awesome",
   "license": "MIT",
@@ -67,7 +67,7 @@
     "check-updates": "npm-check-updates --cooldown 7 --interactive --format group",
     "print-version": "echo $npm_package_version",
     "tag-version": "git tag -a \"v$(npm run print-version | tail -n1)\" -m \"tag v$(npm run print-version | tail -n1)\"",
-    "postversion": "npm run tag-version && node ./scripts/update-root-version.js"
+    "postversion": "node ./scripts/update-root-version.js"
   },
   "engines": {
     "node": ">=14.17.0"
