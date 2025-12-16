@@ -2,11 +2,11 @@ import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { WaRemoveEvent } from '../../events/remove.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import sizeStyles from '../../styles/utilities/size.css';
-import variantStyles from '../../styles/utilities/variants.css';
+import sizeStyles from '../../styles/component/size.styles.js';
+import variantStyles from '../../styles/component/variants.styles.js';
 import { LocalizeController } from '../../utilities/localize.js';
 import '../button/button.js';
-import styles from './tag.css';
+import styles from './tag.styles.js';
 
 /**
  * @summary Tags are used as labels to organize things or to indicate a selection.

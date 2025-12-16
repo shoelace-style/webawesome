@@ -12,13 +12,13 @@ import { activeElements } from '../../internal/active-elements.js';
 import { animateWithClass } from '../../internal/animate.js';
 import { uniqueId } from '../../internal/math.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import sizeStyles from '../../styles/utilities/size.css';
+import sizeStyles from '../../styles/component/size.styles.js';
 import { LocalizeController } from '../../utilities/localize.js';
 import type WaButton from '../button/button.js';
 import '../dropdown-item/dropdown-item.js';
 import type WaDropdownItem from '../dropdown-item/dropdown-item.js';
 import WaPopup from '../popup/popup.js'; // Added import for wa-popup
-import styles from './dropdown.css';
+import styles from './dropdown.styles.js';
 
 const openDropdowns = new Set<WaDropdown>();
 

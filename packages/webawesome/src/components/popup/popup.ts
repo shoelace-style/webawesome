@@ -17,7 +17,7 @@ import { classMap } from 'lit/directives/class-map.js';
 import { WaRepositionEvent } from '../../events/reposition.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import { LocalizeController } from '../../utilities/localize.js';
-import styles from './popup.css';
+import styles from './popup.styles.js';
 
 export interface VirtualElement {
   getBoundingClientRect: () => DOMRect;

@@ -1,7 +1,7 @@
 import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import styles from './skeleton.css';
+import styles from './skeleton.styles.js';
 
 /**
  * @summary Skeletons are used to provide a visual representation of where content will eventually be drawn.
