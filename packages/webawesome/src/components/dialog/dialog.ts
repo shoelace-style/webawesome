@@ -13,7 +13,7 @@ import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import { LocalizeController } from '../../utilities/localize.js';
 import '../button/button.js';
-import styles from './dialog.css';
+import styles from './dialog.styles.js';
 
 /**
  * @summary Dialogs, sometimes called "modals", appear above the page and require the user's immediate attention.

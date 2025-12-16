@@ -11,7 +11,7 @@ import { uniqueId } from '../../internal/math.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import WaPopup from '../popup/popup.js';
-import styles from './tooltip.css';
+import styles from './tooltip.styles.js';
 
 /**
  * @summary Tooltips display additional information based on a specific action.

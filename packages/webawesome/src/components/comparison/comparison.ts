@@ -7,7 +7,7 @@ import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import { LocalizeController } from '../../utilities/localize.js';
 import '../icon/icon.js';
-import styles from './comparison.css';
+import styles from './comparison.styles.js';
 
 /**
  * @summary Compare visual differences between similar content with a sliding panel.

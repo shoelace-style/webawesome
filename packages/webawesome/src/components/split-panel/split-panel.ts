@@ -7,7 +7,7 @@ import { clamp } from '../../internal/math.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import { LocalizeController } from '../../utilities/localize.js';
-import styles from './split-panel.css';
+import styles from './split-panel.styles.js';
 
 /**
  * @summary Split panels display two adjacent panels, allowing the user to reposition them.
