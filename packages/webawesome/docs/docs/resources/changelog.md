@@ -30,6 +30,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Improved `<wa-slider>` to not throw an error when string values are passed to the `min`, `max`, and `step` properties [issue:1823]
 - Fixed a bug in Web Awesome form controls that caused `<wa-input form="foo">` to set the form property to equal `"foo"` instead of returning an `HTMLFormElement` breaking platform expectations. [pr:1815]
 - Fixed a bug in `<wa-button>` causing it to not copy over attributes for form submissions. [pr:1815]
+- Fixed a bug where the build script was not building `/dist/(utilities|events).js` [pr:1816]
 - Improved performance of all components by fixing how CSS is imported and reused [issue:1812]
 - Modified the default `transition` styles of `<wa-dropdown-item>` to use design tokens [pr:1693]
 
