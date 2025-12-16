@@ -235,9 +235,6 @@ export async function build(options = {}) {
         js: `/*! Copyright ${currentYear} Fonticons, Inc. - https://webawesome.com/license */`,
       },
       plugins: [replace({ __WEBAWESOME_VERSION__: await getVersion() })],
-      loader: {
-        '.css': 'text',
-      },
     };
 
     const unbundledConfig = {

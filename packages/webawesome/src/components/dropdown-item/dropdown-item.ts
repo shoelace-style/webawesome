@@ -4,7 +4,8 @@ import { customElement, property, query, state } from 'lit/decorators.js';
 import { animateWithClass } from '../../internal/animate.js';
 import { HasSlotController } from '../../internal/slot.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import styles from './dropdown-item.css';
+import '../icon/icon.js';
+import styles from './dropdown-item.styles.js';
 
 /**
  * @summary Represents an individual item within a dropdown menu, supporting standard items, checkboxes, and submenus.

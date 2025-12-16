@@ -1,0 +1,276 @@
+import { css } from 'lit';
+
+export default css`
+  :host {
+    --tag-max-size: 10ch;
+    --show-duration: 100ms;
+    --hide-duration: 100ms;
+  }
+
+  /* Add ellipses to multi select options */
+  :host wa-tag::part(content) {
+    display: initial;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: var(--tag-max-size);
+  }
+
+  :host .disabled [part~='combobox'] {
+    opacity: 0.5;
+    cursor: not-allowed;
+    outline: none;
+  }
+
+  :host .enabled:is(.open, :focus-within) [part~='combobox'] {
+    outline: var(--wa-focus-ring);
+    outline-offset: var(--wa-focus-ring-offset);
+  }
+
+  /** The popup */
+  .select {
+    flex: 1 1 auto;
+    display: inline-flex;
+    width: 100%;
+    position: relative;
+    vertical-align: middle;
+
+    /* Pass through from select to the popup */
+    --show-duration: inherit;
+    --hide-duration: inherit;
+
+    &::part(popup) {
+      z-index: 900;
+    }
+
+    &[data-current-placement^='top']::part(popup) {
+      transform-origin: bottom;
+    }
+
+    &[data-current-placement^='bottom']::part(popup) {
+      transform-origin: top;
+    }
+  }
+
+  /* Combobox */
+  .combobox {
+    flex: 1;
+    display: flex;
+    width: 100%;
+    min-width: 0;
+    align-items: center;
+    justify-content: start;
+
+    min-height: var(--wa-form-control-height);
+
+    background-color: var(--wa-form-control-background-color);
+    border-color: var(--wa-form-control-border-color);
+    border-radius: var(--wa-form-control-border-radius);
+    border-style: var(--wa-form-control-border-style);
+    border-width: var(--wa-form-control-border-width);
+    color: var(--wa-form-control-value-color);
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: var(--wa-form-control-value-font-weight);
+    line-height: var(--wa-form-control-value-line-height);
+    overflow: hidden;
+    padding: 0 var(--wa-form-control-padding-inline);
+    position: relative;
+    vertical-align: middle;
+    transition:
+      background-color var(--wa-transition-normal),
+      border var(--wa-transition-normal),
+      outline var(--wa-transition-fast);
+    transition-timing-function: var(--wa-transition-easing);
+
+    :host([multiple]) .select:not(.placeholder-visible) & {
+      padding-inline-start: 0;
+      padding-block: calc(var(--wa-form-control-height) * 0.1 - var(--wa-form-control-border-width));
+    }
+
+    /* Pills */
+    :host([pill]) & {
+      border-radius: var(--wa-border-radius-pill);
+    }
+  }
+
+  /* Appearance modifiers */
+  :host([appearance='outlined']) .combobox {
+    background-color: var(--wa-form-control-background-color);
+    border-color: var(--wa-form-control-border-color);
+  }
+
+  :host([appearance='filled']) .combobox {
+    background-color: var(--wa-color-neutral-fill-quiet);
+    border-color: var(--wa-color-neutral-fill-quiet);
+  }
+
+  :host([appearance='filled-outlined']) .combobox {
+    background-color: var(--wa-color-neutral-fill-quiet);
+    border-color: var(--wa-form-control-border-color);
+  }
+
+  .display-input {
+    position: relative;
+    width: 100%;
+    font: inherit;
+    border: none;
+    background: none;
+    line-height: var(--wa-form-control-value-line-height);
+    color: var(--wa-form-control-value-color);
+    cursor: inherit;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    -webkit-appearance: none;
+
+    &:focus {
+      outline: none;
+    }
+
+    &::placeholder {
+      color: var(--wa-form-control-placeholder-color);
+    }
+  }
+
+  /* Visually hide the display input when multiple is enabled */
+  :host([multiple]) .select:not(.placeholder-visible) .display-input {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+  }
+
+  .value-input {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    padding: 0;
+    margin: 0;
+  }
+
+  .tags {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-inline-start: 0.25em;
+    gap: 0.25em;
+
+    &::slotted(wa-tag) {
+      cursor: pointer !important;
+    }
+
+    .disabled &,
+    .disabled &::slotted(wa-tag) {
+      cursor: not-allowed !important;
+    }
+  }
+
+  /* Start and End */
+
+  .start,
+  .end {
+    flex: 0;
+    display: inline-flex;
+    align-items: center;
+    color: var(--wa-color-neutral-on-quiet);
+  }
+
+  .end::slotted(*) {
+    margin-inline-start: var(--wa-form-control-padding-inline);
+  }
+
+  .start::slotted(*) {
+    margin-inline-end: var(--wa-form-control-padding-inline);
+  }
+
+  :host([multiple]) .start::slotted(*) {
+    margin-inline: var(--wa-form-control-padding-inline);
+  }
+
+  /* Clear button */
+  [part~='clear-button'] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: inherit;
+    color: var(--wa-color-neutral-on-quiet);
+    border: none;
+    background: none;
+    padding: 0;
+    transition: color var(--wa-transition-normal);
+    cursor: pointer;
+    margin-inline-start: var(--wa-form-control-padding-inline);
+
+    &:focus {
+      outline: none;
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        color: color-mix(in oklab, currentColor, var(--wa-color-mix-hover));
+      }
+    }
+
+    &:active {
+      color: color-mix(in oklab, currentColor, var(--wa-color-mix-active));
+    }
+  }
+
+  /* Expand icon */
+  .expand-icon {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    color: var(--wa-color-neutral-on-quiet);
+    transition: rotate var(--wa-transition-slow) ease;
+    rotate: 0deg;
+    margin-inline-start: var(--wa-form-control-padding-inline);
+
+    .open & {
+      rotate: -180deg;
+    }
+  }
+
+  /* Listbox */
+  .listbox {
+    display: block;
+    position: relative;
+    font: inherit;
+    box-shadow: var(--wa-shadow-m);
+    background: var(--wa-color-surface-raised);
+    border-color: var(--wa-color-surface-border);
+    border-radius: var(--wa-border-radius-m);
+    border-style: var(--wa-border-style);
+    border-width: var(--wa-border-width-s);
+    padding-block: 0.5em;
+    padding-inline: 0;
+    overflow: auto;
+    overscroll-behavior: none;
+
+    /* Make sure it adheres to the popup's auto size */
+    max-width: var(--auto-size-available-width);
+    max-height: var(--auto-size-available-height);
+
+    &::slotted(wa-divider) {
+      --spacing: 0.5em;
+    }
+  }
+
+  slot:not([name])::slotted(small) {
+    display: block;
+    font-size: var(--wa-font-size-smaller);
+    font-weight: var(--wa-font-weight-semibold);
+    color: var(--wa-color-text-quiet);
+    padding-block: 0.5em;
+    padding-inline: 2.25em;
+  }
+`;

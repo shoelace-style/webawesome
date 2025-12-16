@@ -23,7 +23,8 @@ export interface WebAwesomeFormControl extends WebAwesomeElement {
   checked?: boolean;
   defaultSelected?: boolean;
   selected?: boolean;
-  form?: string | null;
+  get form(): HTMLFormElement | null;
+  set form(val: string);
 
   value?: unknown;
 
@@ -200,6 +201,23 @@ export class WebAwesomeFormAssociatedElement
   }
 
   getForm() {
+    return this.internals.form;
+  }
+
+  /**
+   * By default, form controls are associated with the nearest containing `<form>` element. This attribute allows you
+   * to place the form control outside of a form and associate it with the form that has this `id`. The form must be in
+   * the same document or shadow root for this to work.
+   */
+  set form(val: string) {
+    if (val) {
+      this.setAttribute('form', val);
+    } else {
+      this.removeAttribute('form');
+    }
+  }
+
+  get form(): HTMLFormElement | null {
     return this.internals.form;
   }
 

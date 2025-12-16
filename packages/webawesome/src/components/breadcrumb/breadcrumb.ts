@@ -4,7 +4,7 @@ import WebAwesomeElement from '../../internal/webawesome-element.js';
 import { LocalizeController } from '../../utilities/localize.js';
 import type WaBreadcrumbItem from '../breadcrumb-item/breadcrumb-item.js';
 import '../icon/icon.js';
-import styles from './breadcrumb.css';
+import styles from './breadcrumb.styles.js';
 
 /**
  * @summary Breadcrumbs provide a group of links so users can easily navigate a website's hierarchy.

@@ -1,0 +1,48 @@
+import { css } from 'lit';
+
+export default css`
+  :host {
+    display: inline-flex;
+  }
+
+  .button-group {
+    display: flex;
+    position: relative;
+    isolation: isolate;
+    flex-wrap: wrap;
+    gap: 1px;
+
+    @media (hover: hover) {
+      > :hover,
+      &::slotted(:hover) {
+        z-index: 1;
+      }
+    }
+
+    /* Focus and checked are always on top */
+    > :focus,
+    &::slotted(:focus),
+    > [aria-checked='true'],
+    &::slotted([aria-checked='true']),
+    > [checked],
+    &::slotted([checked]) {
+      z-index: 2 !important;
+    }
+  }
+  :host([orientation='vertical']) .button-group {
+    flex-direction: column;
+  }
+
+  /* Button groups with at least one outlined button will not have a gap and instead have borders overlap */
+  .button-group.has-outlined {
+    gap: 0;
+
+    &:not([aria-orientation='vertical']):not(.button-group-vertical)::slotted(:not(:first-child)) {
+      margin-inline-start: calc(-1 * var(--border-width));
+    }
+
+    &:is([aria-orientation='vertical'], .button-group-vertical)::slotted(:not(:first-child)) {
+      margin-block-start: calc(-1 * var(--border-width));
+    }
+  }
+`;

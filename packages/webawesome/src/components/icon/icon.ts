@@ -5,7 +5,7 @@ import { WaErrorEvent } from '../../events/error.js';
 import { WaLoadEvent } from '../../events/load.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import styles from './icon.css';
+import styles from './icon.styles.js';
 import { getDefaultIconFamily, getIconLibrary, unwatchIcon, watchIcon, type IconLibrary } from './library.js';
 
 import type { HTMLTemplateResult, PropertyValues } from 'lit';

@@ -1,0 +1,60 @@
+import { css } from 'lit';
+
+export default css`
+  :host {
+    --max-width: 30ch;
+
+    /** These styles are added so we don't interfere in the DOM. */
+    display: inline-block;
+    position: absolute;
+
+    /** Defaults for inherited CSS properties */
+    color: var(--wa-tooltip-content-color);
+    font-size: var(--wa-tooltip-font-size);
+    line-height: var(--wa-tooltip-line-height);
+    text-align: start;
+    white-space: normal;
+  }
+
+  .tooltip {
+    --arrow-size: var(--wa-tooltip-arrow-size);
+    --arrow-color: var(--wa-tooltip-background-color);
+  }
+
+  .tooltip::part(popup) {
+    z-index: 1000;
+  }
+
+  .tooltip[placement^='top']::part(popup) {
+    transform-origin: bottom;
+  }
+
+  .tooltip[placement^='bottom']::part(popup) {
+    transform-origin: top;
+  }
+
+  .tooltip[placement^='left']::part(popup) {
+    transform-origin: right;
+  }
+
+  .tooltip[placement^='right']::part(popup) {
+    transform-origin: left;
+  }
+
+  .body {
+    display: block;
+    width: max-content;
+    max-width: var(--max-width);
+    border-radius: var(--wa-tooltip-border-radius);
+    background-color: var(--wa-tooltip-background-color);
+    border: var(--wa-tooltip-border-width) var(--wa-tooltip-border-style) var(--wa-tooltip-border-color);
+    padding: 0.25em 0.5em;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .tooltip::part(arrow) {
+    border-bottom: var(--wa-tooltip-border-width) var(--wa-tooltip-border-style) var(--wa-tooltip-border-color);
+    border-right: var(--wa-tooltip-border-width) var(--wa-tooltip-border-style) var(--wa-tooltip-border-color);
+  }
+`;

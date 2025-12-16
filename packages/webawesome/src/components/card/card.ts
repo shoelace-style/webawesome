@@ -2,8 +2,8 @@ import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { HasSlotController } from '../../internal/slot.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import sizeStyles from '../../styles/utilities/size.css';
-import styles from './card.css';
+import sizeStyles from '../../styles/component/size.styles.js';
+import styles from './card.styles.js';
 
 /**
  * @summary Cards can be used to group related subjects in a container.

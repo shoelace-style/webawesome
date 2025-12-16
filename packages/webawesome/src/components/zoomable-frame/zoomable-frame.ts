@@ -5,7 +5,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { parseSpaceDelimitedTokens } from '../../internal/parse.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import { LocalizeController } from '../../utilities/localize.js';
-import styles from './zoomable-frame.css';
+import styles from './zoomable-frame.styles.js';
 
 /**
  * @summary Zoomable frames render iframe content with zoom and interaction controls.
