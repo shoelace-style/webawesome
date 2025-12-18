@@ -155,7 +155,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   /** The select's value. This will be a string for single select or an array for multi-select. */
   @property({ attribute: 'value', reflect: false })
   set value(val: string | string[] | null) {
-    const oldValue = this.value;
+    let oldValue = this.value;
 
     if ((val as any) instanceof FormData) {
       val = (val as unknown as FormData).getAll(this.name) as string[];
@@ -166,7 +166,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     }
 
     this._value = val ?? null;
-    const newValue = this.value;
+    let newValue = this.value;
 
     if (newValue !== oldValue) {
       this.valueHasChanged = true;
@@ -751,7 +751,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
       const oldValue = this._value;
       if (this._value == null) {
         // First time it's set
-        const value = this.defaultValue ?? [];
+        let value = this.defaultValue ?? [];
         this._value = Array.isArray(value) ? value : [value];
       }
 

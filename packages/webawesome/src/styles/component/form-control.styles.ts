@@ -27,9 +27,9 @@ export default css`
     display: block;
     color: var(--wa-form-control-hint-color);
     font-weight: var(--wa-form-control-hint-font-weight);
+    line-height: var(--wa-form-control-hint-line-height);
     margin-block-start: 0.5em;
     font-size: var(--wa-font-size-smaller);
-    line-height: var(--wa-form-control-label-line-height);
 
     &:not(.has-slotted) {
       display: none;
