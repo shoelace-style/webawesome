@@ -8,9 +8,9 @@ import { HasSlotController } from '../../internal/slot.js';
 import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
-import formControlStyles from '../../styles/component/form-control.css';
-import sizeStyles from '../../styles/utilities/size.css';
-import styles from './textarea.css';
+import formControlStyles from '../../styles/component/form-control.styles.js';
+import sizeStyles from '../../styles/component/size.styles.js';
+import styles from './textarea.styles.js';
 
 /**
  * @summary Textareas collect data from the user and allow multiple lines of text.
@@ -106,13 +106,6 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
 
   /** Makes the textarea readonly. */
   @property({ type: Boolean, reflect: true }) readonly = false;
-
-  /**
-   * By default, form controls are associated with the nearest containing `<form>` element. This attribute allows you
-   * to place the form control outside of a form and associate it with the form that has this `id`. The form must be in
-   * the same document or shadow root for this to work.
-   */
-  @property({ reflect: true }) form = null;
 
   /** Makes the textarea a required field. */
   @property({ type: Boolean, reflect: true }) required = false;

@@ -1,0 +1,16 @@
+import { css } from 'lit';
+
+export default css`
+  :host {
+    --size: 128px;
+    display: inline-block;
+  }
+
+  :host,
+  canvas {
+    max-width: var(--size);
+    max-height: var(--size);
+    width: var(--size);
+    height: var(--size);
+  }
+`;

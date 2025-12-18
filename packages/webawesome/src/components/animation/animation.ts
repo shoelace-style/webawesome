@@ -5,7 +5,7 @@ import { WaFinishEvent } from '../../events/finish.js';
 import { WaStartEvent } from '../../events/start.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import styles from './animation.css';
+import styles from './animation.styles.js';
 import { animations } from './animations.js';
 
 /**

@@ -5,7 +5,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { clamp } from '../../internal/math.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import { LocalizeController } from '../../utilities/localize.js';
-import styles from './progress-bar.css';
+import styles from './progress-bar.styles.js';
 
 /**
  * @summary Progress bars are used to show the status of an ongoing operation.

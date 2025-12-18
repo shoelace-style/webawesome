@@ -1,0 +1,97 @@
+import { css } from 'lit';
+
+export default css`
+  :host {
+    --show-duration: 50ms;
+    --hide-duration: 50ms;
+    display: contents;
+  }
+
+  #menu {
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+    margin: 0;
+    padding: 0.25em;
+    border: var(--wa-border-style) var(--wa-border-width-s) var(--wa-color-surface-border);
+    border-radius: var(--wa-border-radius-m);
+    background-color: var(--wa-color-surface-raised);
+    box-shadow: var(--wa-shadow-m);
+    color: var(--wa-color-text-normal);
+    text-align: start;
+    user-select: none;
+    overflow: auto;
+    max-width: var(--auto-size-available-width) !important;
+    max-height: var(--auto-size-available-height) !important;
+
+    &.show {
+      animation: show var(--show-duration) ease;
+    }
+
+    &.hide {
+      animation: show var(--hide-duration) ease reverse;
+    }
+
+    ::slotted(h1),
+    ::slotted(h2),
+    ::slotted(h3),
+    ::slotted(h4),
+    ::slotted(h5),
+    ::slotted(h6) {
+      display: block !important;
+      margin: 0.25em 0 !important;
+      padding: 0.25em 0.75em !important;
+      color: var(--wa-color-text-quiet) !important;
+      font-family: var(--wa-font-family-body) !important;
+      font-weight: var(--wa-font-weight-semibold) !important;
+      font-size: var(--wa-font-size-smaller) !important;
+    }
+
+    ::slotted(wa-divider) {
+      --spacing: 0.25em; /* Component-specific, left as-is */
+    }
+  }
+
+  wa-popup[data-current-placement^='top'] #menu {
+    transform-origin: bottom;
+  }
+
+  wa-popup[data-current-placement^='bottom'] #menu {
+    transform-origin: top;
+  }
+
+  wa-popup[data-current-placement^='left'] #menu {
+    transform-origin: right;
+  }
+
+  wa-popup[data-current-placement^='right'] #menu {
+    transform-origin: left;
+  }
+
+  wa-popup[data-current-placement='left-start'] #menu {
+    transform-origin: right top;
+  }
+
+  wa-popup[data-current-placement='left-end'] #menu {
+    transform-origin: right bottom;
+  }
+
+  wa-popup[data-current-placement='right-start'] #menu {
+    transform-origin: left top;
+  }
+
+  wa-popup[data-current-placement='right-end'] #menu {
+    transform-origin: left bottom;
+  }
+
+  @keyframes show {
+    from {
+      scale: 0.9;
+      opacity: 0;
+    }
+    to {
+      scale: 1;
+      opacity: 1;
+    }
+  }
+`;

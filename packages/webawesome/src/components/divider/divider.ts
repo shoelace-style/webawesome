@@ -1,7 +1,7 @@
 import { customElement, property } from 'lit/decorators.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import styles from './divider.css';
+import styles from './divider.styles.js';
 
 /**
  * @summary Dividers are used to visually separate or group elements.

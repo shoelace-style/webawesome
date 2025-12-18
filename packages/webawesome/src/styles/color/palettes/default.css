@@ -1,5 +1,4 @@
 @import url('base.css');
-@import url('../variants.css');
 
 @layer wa-color-palette {
   :where(:root),

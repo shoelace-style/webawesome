@@ -3,9 +3,8 @@ import { html } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import variantStyles from '../../styles/utilities/variants.css';
 import type WaButton from '../button/button.js';
-import styles from './button-group.css';
+import styles from './button-group.styles.js';
 
 /**
  * @summary Button groups can be used to group related buttons into sections.
@@ -19,7 +18,7 @@ import styles from './button-group.css';
  */
 @customElement('wa-button-group')
 export default class WaButtonGroup extends WebAwesomeElement {
-  static css = [variantStyles, styles];
+  static css = [styles];
 
   @query('slot') defaultSlot: HTMLSlotElement;
 
@@ -34,9 +33,6 @@ export default class WaButtonGroup extends WebAwesomeElement {
 
   /** The button group's orientation. */
   @property({ reflect: true }) orientation: 'horizontal' | 'vertical' = 'horizontal';
-
-  /** The button group's theme variant. Defaults to `neutral` if not within another element with a variant. */
-  @property({ reflect: true }) variant: 'neutral' | 'brand' | 'success' | 'warning' | 'danger' = 'neutral';
 
   updated(changedProperties: PropertyValues<this>) {
     super.updated(changedProperties);

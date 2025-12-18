@@ -1,0 +1,124 @@
+import { css } from 'lit';
+
+export default css`
+  :host {
+    border-width: 0;
+  }
+
+  .textarea {
+    display: grid;
+    align-items: center;
+    margin: 0;
+    border: none;
+    outline: none;
+    cursor: inherit;
+    font: inherit;
+    background-color: var(--wa-form-control-background-color);
+    border-color: var(--wa-form-control-border-color);
+    border-radius: var(--wa-form-control-border-radius);
+    border-style: var(--wa-form-control-border-style);
+    border-width: var(--wa-form-control-border-width);
+    -webkit-appearance: none;
+
+    &:focus-within {
+      outline: var(--wa-focus-ring);
+      outline-offset: var(--wa-focus-ring-offset);
+    }
+  }
+
+  /* Appearance modifiers */
+  :host([appearance='outlined']) .textarea {
+    background-color: var(--wa-form-control-background-color);
+    border-color: var(--wa-form-control-border-color);
+  }
+
+  :host([appearance='filled']) .textarea {
+    background-color: var(--wa-color-neutral-fill-quiet);
+    border-color: var(--wa-color-neutral-fill-quiet);
+  }
+
+  :host([appearance='filled-outlined']) .textarea {
+    background-color: var(--wa-color-neutral-fill-quiet);
+    border-color: var(--wa-form-control-border-color);
+  }
+
+  textarea {
+    display: block;
+    width: 100%;
+    border: none;
+    background: transparent;
+    font: inherit;
+    color: inherit;
+    padding: calc(var(--wa-form-control-padding-block) - ((1lh - 1em) / 2)) var(--wa-form-control-padding-inline); /* accounts for the larger line height of textarea content */
+    min-height: calc(var(--wa-form-control-height) - var(--border-width) * 2);
+    box-shadow: none;
+    margin: 0;
+
+    &::placeholder {
+      color: var(--wa-form-control-placeholder-color);
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    &:autofill {
+      &,
+      &:hover,
+      &:focus,
+      &:active {
+        box-shadow: none;
+        caret-color: var(--wa-form-control-value-color);
+      }
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  /* Shared textarea and size-adjuster positioning */
+  .control,
+  .size-adjuster {
+    grid-area: 1 / 1 / 2 / 2;
+  }
+
+  .size-adjuster {
+    visibility: hidden;
+    pointer-events: none;
+    opacity: 0;
+    padding: 0;
+  }
+
+  textarea::-webkit-search-decoration,
+  textarea::-webkit-search-cancel-button,
+  textarea::-webkit-search-results-button,
+  textarea::-webkit-search-results-decoration {
+    -webkit-appearance: none;
+  }
+
+  /*
+   * Resize types
+   */
+
+  :host([resize='none']) textarea {
+    resize: none;
+  }
+
+  textarea,
+  :host([resize='vertical']) textarea {
+    resize: vertical;
+  }
+
+  :host([resize='horizontal']) textarea {
+    resize: horizontal;
+  }
+
+  :host([resize='both']) textarea {
+    resize: both;
+  }
+
+  :host([resize='auto']) textarea {
+    height: auto;
+    resize: none;
+    overflow-y: hidden;
+  }
+`;

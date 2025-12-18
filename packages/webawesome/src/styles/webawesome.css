@@ -1,9 +1,10 @@
-@layer wa-native, wa-utilities, wa-color-palette, wa-color-variant, wa-theme, wa-theme-dimension, wa-theme-overrides;
+/* Cascade layers */
+@import url('layers.css');
 
-/* Native Styles */
+/* Native styles */
 @import url('native.css');
 
-/* CSS Utilities */
+/* CSS utilities */
 @import url('utilities.css');
 
 /* Theme */

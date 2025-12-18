@@ -12,13 +12,13 @@ import { activeElements } from '../../internal/active-elements.js';
 import { animateWithClass } from '../../internal/animate.js';
 import { uniqueId } from '../../internal/math.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import sizeStyles from '../../styles/utilities/size.css';
+import sizeStyles from '../../styles/component/size.styles.js';
 import { LocalizeController } from '../../utilities/localize.js';
 import type WaButton from '../button/button.js';
 import '../dropdown-item/dropdown-item.js';
 import type WaDropdownItem from '../dropdown-item/dropdown-item.js';
 import WaPopup from '../popup/popup.js'; // Added import for wa-popup
-import styles from './dropdown.css';
+import styles from './dropdown.styles.js';
 
 const openDropdowns = new Set<WaDropdown>();
 
@@ -109,6 +109,18 @@ export default class WaDropdown extends WebAwesomeElement {
 
   async updated(changedProperties: PropertyValues) {
     if (changedProperties.has('open')) {
+      const previousOpen = changedProperties.get('open');
+      // check if the previous value is the same
+      // (if they are, do not trigger menu showing / hiding)
+      if (previousOpen === this.open) {
+        return;
+      }
+      // check if we are changing from undefined to false
+      // (if we are, we can skip menu hiding)
+      if (previousOpen === undefined && this.open === false) {
+        return;
+      }
+
       this.customStates.set('open', this.open);
 
       if (this.open) {
@@ -224,6 +236,12 @@ export default class WaDropdown extends WebAwesomeElement {
     this.dispatchEvent(showEvent);
     if (showEvent.defaultPrevented) {
       this.open = false;
+      return;
+    }
+
+    // if this dropdown is already open, do nothing
+    // (this can happen when wa-hide was cancelled)
+    if (this.popup.active) {
       return;
     }
 
