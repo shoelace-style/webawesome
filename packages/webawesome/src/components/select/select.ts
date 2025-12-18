@@ -947,7 +947,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
           part="form-control-label label"
           class=${classMap({
             label: true,
-            'has-slotted': hasLabelSlot,
+            'has-label': hasLabel,
           })}
           aria-hidden=${hasLabel ? 'false' : 'true'}
           @click=${this.handleLabelClick}

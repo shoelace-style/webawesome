@@ -1288,7 +1288,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
           part="form-control-label"
           class=${classMap({
             label: true,
-            'has-slotted': hasLabelSlot,
+            'has-label': hasLabel,
           })}
           id="form-control-label"
         >

@@ -807,7 +807,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
         id="label"
         part="label"
         for=${this.isRange ? 'thumb-min' : 'text-box'}
-        class=${classMap({ vh: !hasLabel, 'has-slotted': hasLabelSlot })}
+        class=${classMap({ vh: !hasLabel, 'has-label': hasLabel })}
         @pointerdown=${this.handleLabelPointerDown}
       >
         <slot name="label">${this.label}</slot>
