@@ -17,6 +17,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 ## 3.1.0
 
+- Added `<wa-video>` as an experimental pro component
 - Added `<wa-combobox>` as an experimental pro component [issue:1074]
 - Added version 2.0.0 of the [official Web Awesome Figma Design Kit](/docs/resources/figma)
 - Added npm support for Web Awesome Pro
