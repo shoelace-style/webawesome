@@ -13,22 +13,20 @@ Web Awesome offers a React version of every component to provide an idiomatic ex
 To add Web Awesome to your React app, install the package from npm.
 
 ```bash
-npm install @shoelace-style/shoelace
+npm install @awesome.me/webawesome
 ```
 
-Next, [include a theme](/getting-started/themes) and set the [base path](/getting-started/installation#setting-the-base-path) for icons and other assets. In this example, we'll import the light theme and use the CDN as a base path.
+Next, import the Web Awesome stylesheet, import the components you need, and then start using Web Awesome!
 
 ```jsx
-// App.jsx
-import '@shoelace-style/shoelace/%NPMDIR%/themes/light.css';
-import { setBasePath } from '@shoelace-style/shoelace/%NPMDIR%/utilities/base-path.js';
+// App.jsx (React 19, using native custom elements)
+import '@awesome.me/webawesome/dist/styles/webawesome.css';
+import '@awesome.me/webawesome/dist/components/button/button.js';
 
-setBasePath('https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@%VERSION%/%CDNDIR%/');
+export default function App () {
+  return <wa-button>I'm a button!</wa-button>
+}
 ```
-
-:::tip
-If you'd rather not use the CDN for assets, you can create a [build task](https://webpack.js.org/plugins/copy-webpack-plugin/) that copies `node_modules/@shoelace-style/shoelace/%NPMDIR%/assets` into your app's `public` directory. Then you can point the base path to that folder instead.
-:::
 
 Now you can start using components!
 
@@ -40,12 +38,12 @@ Preact users facing type errors using components may benefit from setting "paths
 
 ### Importing Components
 
-Every Web Awesome component is available to import as a React component. Note that we're importing the `<SlButton>` _React component_ instead of the `<sl-button>` _custom element_ in the example below.
+Every Web Awesome component is available to import as a React component. Note that we're importing the `<WaButton>` _React component_ instead of the `<wa-button>` _custom element_ in the example below.
 
 ```jsx
-import SlButton from '@shoelace-style/shoelace/%NPMDIR%/react/button/index.js';
+import WaButton from '@awesome.me/webawesome/react/button/index.js';
 
-const MyComponent = () => <SlButton variant="primary">Click me</SlButton>;
+const MyComponent = () => <WaButton variant="primary">Click me</WaButton>;
 
 export default MyComponent;
 ```
@@ -55,32 +53,35 @@ export default MyComponent;
 Previously, it was recommended to import from a single entrypoint like so:
 
 ```jsx
-import { SlButton } from '@shoelace-style/shoelace/%NPMDIR%/react';
+import { WaButton } from '@awesome.me/webawesome/dist/react';
 ```
 
 However, tree-shaking extra Web Awesome components proved to be a challenge. As a result, we now recommend cherry-picking components you want to use, rather than importing from a single entrypoint.
 
 ```diff
-- import { SlButton } from '@shoelace-style/shoelace/%NPMDIR%/react';
-+ import SlButton from '@shoelace-style/shoelace/%NPMDIR%/react/button/index.js';
+- import { WaButton } from '@awesome.me/webawesome/dist/react';
++ import WaButton from '@awesome.me/webawesome/dist/react/button/index.js';
 ```
 
 You can find a copy + paste import for each component in the "importing" section of its documentation.
 
 ### Event Handling
 
-Many Web Awesome components emit [custom events](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent). For example, the [input component](/components/input) emits the `sl-input` event when it receives input. In React, you can listen for the event using `onSlInput`.
+Many Web Awesome components emit [native events](https://developer.mozilla.org/en-US/docs/Web/API/Event). For example, the [input component](/components/input) emits the `input` event when it receives input. In React, you can listen for the event using `onInput`.
 
 Here's how you can bind the input's value to a state variable.
 
 ```jsx
 import { useState } from 'react';
-import SlInput from '@shoelace-style/shoelace/%NPMDIR%/react/input/index.js';
+import WaInput from '@awesome.me/webawesome/dist/react/input/index.js';
 
 function MyComponent() {
   const [value, setValue] = useState('');
 
-  return <SlInput value={value} onSlInput={event => setValue(event.target.value)} />;
+  return <>
+    <WaInput value={value} onInput={event => setValue(event.target.value)} />;
+    <WaInput defaultValue={"Foo"} /> {/* This is an "uncontrolled input" */}
+  </>
 }
 
 export default MyComponent;
@@ -90,13 +91,13 @@ If you're using TypeScript, it's important to note that `event.target` will be a
 
 ```tsx
 import { useState } from 'react';
-import SlInput from '@shoelace-style/shoelace/%NPMDIR%/react/input/index.js';
-import type SlInputElement from '@shoelace-style/shoelace/%NPMDIR%/components/input/input.js';
+import WaInput from '@awesome.me/webawesome/dist/react/input/index.js';
+import type WaInputElement from '@awesome.me/webawesome/dist/components/input/input.js';
 
 function MyComponent() {
   const [value, setValue] = useState('');
 
-  return <SlInput value={value} onSlInput={event => setValue((event.target as SlInputElement).value)} />;
+  return <WaInput value={value} onInput={event => setValue((event.target as WaInputElement).value)} />;
 }
 
 export default MyComponent;
@@ -106,16 +107,16 @@ You can also import the event type for use in your callbacks, shown below.
 
 ```tsx
 import { useCallback, useState } from 'react';
-import SlInput, { type SlInputEvent } from '@shoelace-style/shoelace/%NPMDIR%/react/input/index.js';
-import type SlInputElement from '@shoelace-style/shoelace/%NPMDIR%/components/input/input.js';
+import WaInput, { type WaInputEvent } from '@awesome.me/webawesome/dist/react/input/index.js';
+import type WaInputElement from '@awesome.me/webawesome/dist/components/input/input.js';
 
 function MyComponent() {
   const [value, setValue] = useState('');
-  const onInput = useCallback((event: SlInputEvent) => {
+  const onInput = useCallback((event: WaInputEvent) => {
     setValue(event.detail);
   }, []);
 
-  return <SlInput value={value} onSlInput={event => setValue((event.target as SlInputElement).value)} />;
+  return <WaInput value={value} onInput={event => setValue((event.target as WaInputElement).value)} />;
 }
 
 export default MyComponent;
@@ -178,7 +179,7 @@ To fix this, add the following to your `package.json` which tells the transpiler
 ```js
 {
   "jest": {
-    "transformIgnorePatterns": ["node_modules/(?!(@shoelace))"]
+    "transformIgnorePatterns": ["node_modules/(?!(@awesome.me|lit|@lit-labs))"]
   }
 }
 ```
@@ -188,5 +189,5 @@ These instructions are for apps created via Create React App. If you're using Je
 For more details, refer to Jest's [`transformIgnorePatterns` customization](https://jestjs.io/docs/tutorial-react-native#transformignorepatterns-customization) documentation.
 
 :::tip
-Are you using Web Awesome with React? [Help us improve this page!](https://github.com/shoelace-style/shoelace/blob/next/docs/frameworks/react.md)
+Are you using Web Awesome with React? [Help us improve this page!](https://github.com/shoelace-style/webawesome/blob/next/docs/frameworks/react.md)
 :::

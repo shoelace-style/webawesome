@@ -20,11 +20,12 @@ To add Web Awesome to your Vue app, install the package from npm.
 npm install @awesome.me/webawesome
 ```
 
-Next, [include a theme](/getting-started/themes) and set the [base path](/getting-started/installation#setting-the-base-path) for icons and other assets. In this example, we'll import the light theme and use the CDN as a base path.
+Next, import the Web Awesome stylesheet, import the components you need, and then start using Web Awesome!
 
-```js
+```jsx
 // main.js or main.ts
-import '@awesome.me/webawesome/dist/themes/default.css';
+import '@awesome.me/webawesome/dist/styles/webawesome.css';
+import '@awesome.me/webawesome/dist/components/button/button.js';
 ```
 
 ## Configuration
@@ -95,7 +96,7 @@ One caveat is there's currently [no support for v-model on custom elements](http
 <wa-input :value="name" @input="name = $event.target.value"></wa-input>
 ```
 
-If that's too verbose for your liking, you can use a custom directive instead. [This utility](https://www.npmjs.com/package/@shoelace-style/vue-sl-model) adds a custom directive that will work just like `v-model` but for Web Awesome components.
+If that's too verbose for your liking, you can use a custom directive instead. [This utility](https://www.npmjs.com/package/@shoelace-style/vue-wa-model) adds a custom directive that will work just like `v-model` but for Web Awesome components.
 
 ### Slots
 
