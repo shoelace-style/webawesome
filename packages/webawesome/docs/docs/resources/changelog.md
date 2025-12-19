@@ -13,6 +13,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 ## Next
 
+- Added llms.txt to assist AI agents with using Web Awesome [discuss:1100]
 - Fixed a bug in `<wa-combobox>` that prevented the listbox from opening when options were preselected [issue:1883]
 
 ## 3.1.0
