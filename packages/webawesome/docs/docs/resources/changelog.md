@@ -11,6 +11,10 @@ Web Awesome follows [Semantic Versioning](https://semver.org/). Breaking changes
 
 Components with the <wa-badge variant="warning">Experimental</wa-badge> badge should not be used in production. They are made available as release candidates for development and testing purposes. As such, changes to experimental components will not be subject to semantic versioning.
 
+## Next
+
+- Fixed a bug in `<wa-combobox>` that prevented the listbox from opening when options were preselected [issue:1883]
+
 ## 3.1.0
 
 - Added `<wa-combobox>` as an experimental pro component [issue:1074]
