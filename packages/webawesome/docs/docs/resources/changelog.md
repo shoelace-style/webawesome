@@ -14,6 +14,8 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 ## Next
 
 - Fixed a bug in `<wa-combobox>` that prevented the listbox from opening when options were preselected [issue:1883]
+- Fixed a bug in draggable elements that caused a TypeError on `touchend` events when `event.touches` was empty
+- Added `pointercancel` and `touchcancel` event handling to draggable elements to prevent drags from getting stuck
 
 ## 3.1.0
 
