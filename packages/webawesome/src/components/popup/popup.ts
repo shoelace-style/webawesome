@@ -286,11 +286,11 @@ export default class WaPopup extends WebAwesomeElement {
 
   private start() {
     // We can't start the positioner without an anchor
-    if (!this.anchorEl || !this.active) {
+    if (!this.anchorEl || !this.active || !this.isConnected) {
       return;
     }
 
-    this.popup.showPopover?.();
+    this.popup?.showPopover?.();
 
     this.cleanup = autoUpdate(this.anchorEl, this.popup, () => {
       this.reposition();
@@ -299,7 +299,7 @@ export default class WaPopup extends WebAwesomeElement {
 
   private async stop(): Promise<void> {
     return new Promise(resolve => {
-      this.popup.hidePopover?.();
+      this.popup?.hidePopover?.();
 
       if (this.cleanup) {
         this.cleanup();

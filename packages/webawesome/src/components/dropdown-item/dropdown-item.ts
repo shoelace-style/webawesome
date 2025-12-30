@@ -155,13 +155,13 @@ export default class WaDropdownItem extends WebAwesomeElement {
 
   /** Opens the submenu. */
   async openSubmenu() {
-    if (!this.hasSubmenu || !this.submenuElement) return;
+    if (!this.hasSubmenu || !this.submenuElement || !this.isConnected) return;
 
     // Notify parent dropdown to handle positioning
     this.notifyParentOfOpening();
 
     // Use Popover API to show the submenu
-    this.submenuElement.showPopover();
+    this.submenuElement.showPopover?.();
     this.submenuElement.hidden = false;
     this.submenuElement.setAttribute('data-visible', '');
     this.submenuOpen = true;
@@ -219,7 +219,7 @@ export default class WaDropdownItem extends WebAwesomeElement {
       await animateWithClass(this.submenuElement, 'hide');
       this.submenuElement.hidden = true;
       this.submenuElement.removeAttribute('data-visible');
-      this.submenuElement.hidePopover();
+      this.submenuElement.hidePopover?.();
     }
   }
 
