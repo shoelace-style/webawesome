@@ -1,10 +1,14 @@
 import { css } from 'lit';
 
 export default css`
-  :host,
-  [part~='form-control'] {
+  :host {
     display: flex;
     flex-direction: column;
+  }
+
+  /* Treat wrapped labels, inputs, and hints as direct children of the host element */
+  [part~='form-control'] {
+    display: contents;
   }
 
   /* Label */
