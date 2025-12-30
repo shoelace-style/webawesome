@@ -317,7 +317,7 @@ export default class WaPopup extends WebAwesomeElement {
   /** Forces the popup to recalculate and reposition itself. */
   reposition() {
     // Nothing to do if the popup is inactive or the anchor doesn't exist
-    if (!this.active || !this.anchorEl) {
+    if (!this.active || !this.anchorEl || !this.popup) {
       return;
     }
 
@@ -498,7 +498,7 @@ export default class WaPopup extends WebAwesomeElement {
   }
 
   private updateHoverBridge = () => {
-    if (this.hoverBridge && this.anchorEl) {
+    if (this.hoverBridge && this.anchorEl && this.popup) {
       const anchorRect = this.anchorEl.getBoundingClientRect();
       const popupRect = this.popup.getBoundingClientRect();
       const isVertical = this.placement.includes('top') || this.placement.includes('bottom');
