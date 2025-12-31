@@ -6,6 +6,11 @@ export default css`
     flex-direction: column;
   }
 
+  /* Treat wrapped labels, inputs, and hints as direct children of the host element */
+  [part~='form-control'] {
+    display: contents;
+  }
+
   /* Label */
   :is([part~='form-control-label'], [part~='label']):has(*:not(:empty)),
   :is([part~='form-control-label'], [part~='label']).has-label {

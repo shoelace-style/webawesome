@@ -6,7 +6,6 @@ export default css`
   }
 
   .text-field {
-    flex: auto;
     display: flex;
     align-items: stretch;
     justify-content: start;
