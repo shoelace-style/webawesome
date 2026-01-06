@@ -104,6 +104,9 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
     this._value = val;
   }
 
+  /** The name of the input, submitted as a name/value pair with form data. */
+  @property({ reflect: true }) name = '';
+
   /** The default value of the form control. Primarily used for resetting the form control. */
   @property({ attribute: 'value', reflect: true }) defaultValue: string | null = this.getAttribute('value') || null;
 
