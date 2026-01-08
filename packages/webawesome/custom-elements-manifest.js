@@ -183,6 +183,7 @@ export default {
       fileName: 'custom-elements-jsx.d.ts',
       outdir,
       defaultExport: true,
+      stronglyTypedEvents: true,
       componentTypePath: (_name, _tag, modulePath) => {
         return `./${modulePath}`;
       },

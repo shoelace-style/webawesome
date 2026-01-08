@@ -14,6 +14,8 @@ import '../tab/tab.js';
 import type WaTab from '../tab/tab.js';
 import styles from './tab-group.styles.js';
 
+export type { WaTabHideEvent, WaTabShowEvent };
+
 /**
  * @summary Tab groups organize content into a container that shows one section at a time.
  * @documentation https://webawesome.com/docs/components/tab-group
@@ -28,8 +30,8 @@ import styles from './tab-group.styles.js';
  * @slot nav - Used for grouping tabs in the tab group. Must be `<wa-tab>` elements. Note that `<wa-tab>` will set this
  *  slot on itself automatically.
  *
- * @event {{ name: String }} wa-tab-show - Emitted when a tab is shown.
- * @event {{ name: String }} wa-tab-hide - Emitted when a tab is hidden.
+ * @event {WaTabShowEvent} wa-tab-show - Emitted when a tab is shown.
+ * @event {WaTabHideEvent} wa-tab-hide - Emitted when a tab is hidden.
  *
  * @csspart base - The component's base wrapper.
  * @csspart nav - The tab group's navigation container where tabs are slotted in.

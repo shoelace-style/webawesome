@@ -8,7 +8,7 @@
   "homepage": "https://webawesome.com/",
   "author": "Web Awesome",
   "license": "MIT",
-  "customElements": "dist/custom-elements.json",
+  "customElements": "dist-cdn/custom-elements.json",
   "web-types": "./dist/web-types.json",
   "type": "module",
   "types": "dist/webawesome.d.ts",
@@ -89,7 +89,7 @@
     ]
   },
   "devDependencies": {
-    "@wc-toolkit/jsx-types": "^1.3.0",
+    "@wc-toolkit/jsx-types": "^1.5.2",
     "eleventy-plugin-git-commit-date": "^0.1.3",
     "esbuild": "^0.25.11",
     "npm-check-updates": "^19.1.2"

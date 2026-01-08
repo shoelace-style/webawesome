@@ -15,6 +15,8 @@ import { LocalizeController } from '../../utilities/localize.js';
 import '../button/button.js';
 import styles from './dialog.styles.js';
 
+export type { WaHideEvent };
+
 /**
  * @summary Dialogs, sometimes called "modals", appear above the page and require the user's immediate attention.
  * @documentation https://webawesome.com/docs/components/dialog
@@ -30,7 +32,7 @@ import styles from './dialog.styles.js';
  *
  * @event wa-show - Emitted when the dialog opens.
  * @event wa-after-show - Emitted after the dialog opens and all animations are complete.
- * @event {{ source: Element }} wa-hide - Emitted when the dialog is requested to close. Calling
+ * @event {WaHideEvent} wa-hide - Emitted when the dialog is requested to close. Calling
  *  `event.preventDefault()` will prevent the dialog from closing. You can inspect `event.detail.source` to see which
  *  element caused the dialog to close. If the source is the dialog element itself, the user has pressed [[Escape]] or
  *  the dialog has been closed programmatically. Avoid using this unless closing the dialog will result in destructive
