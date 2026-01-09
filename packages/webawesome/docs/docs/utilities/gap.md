@@ -14,8 +14,7 @@ tags: layoutUtilities
   }
 </style>
 
-Web Awesome includes classes to set the `gap` property of flex and grid containers. They can be used alongside other Web Awesome layout utilities, like [cluster](/docs/utilities/cluster) and [stack](/docs/utilities/stack), to change the space between items.
-Or even by themselves — all gap properties also set `display: flex` with a specificity of 0 so that it can be trivially overridden.
+Web Awesome includes classes to set the `gap` property of flex and grid containers. Use them alone to create a flex container with a gap, or use them alongside other Web Awesome layout utilities, like [cluster](/docs/utilities/cluster) and [stack](/docs/utilities/stack), to change the space between items.
 
 Besides `wa-gap-0`, which sets `gap` to zero, each class corresponds to one of the [`--wa-space-*`](/docs/tokens/space) tokens in your theme.
 
@@ -31,3 +30,4 @@ Besides `wa-gap-0`, which sets `gap` to zero, each class corresponds to one of t
 | `wa-gap-xl`  | `--wa-space-xl`  | <div class="wa-cluster wa-gap-xl"><div class="preview-block"></div><div class="preview-block"></div></div>  |
 | `wa-gap-2xl` | `--wa-space-2xl` | <div class="wa-cluster wa-gap-2xl"><div class="preview-block"></div><div class="preview-block"></div></div> |
 | `wa-gap-3xl` | `--wa-space-3xl` | <div class="wa-cluster wa-gap-3xl"><div class="preview-block"></div><div class="preview-block"></div></div> |
+| `wa-gap-4xl` | `--wa-space-4xl` | <div class="wa-cluster wa-gap-4xl"><div class="preview-block"></div><div class="preview-block"></div></div> |
