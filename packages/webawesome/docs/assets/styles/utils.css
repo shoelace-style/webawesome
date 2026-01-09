@@ -257,7 +257,6 @@
       z-index: 0;
     }
   }
-  /* #endregion */
 
   /* buttons with icon toggle on hover */
   wa-button .icon-hover {
@@ -268,6 +267,13 @@
   }
   wa-button:hover .icon-hover {
     display: inline-flex;
+  }
+
+  /* buttons that are "shushed" (visually muted) by default, but have their full presentation otherwise  */
+  wa-button.shush {
+    &:not(:hover):not(active)::part(base) {
+      color: var(--wa-color-text-quiet);
+    }
   }
   /* #endregion */
 
