@@ -14,7 +14,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 ## Next
 
 - Fixed a bug in `<wa-combobox>` that prevented the listbox from opening when options were preselected [issue:1883]
-- Added `justify-content` CSS utilities
+- Added `justify-content` CSS utilities [pr:1930]
 
 ## 3.1.0
 
