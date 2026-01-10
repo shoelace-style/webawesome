@@ -231,8 +231,10 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
     this.input.focus();
   }
 
-  private handleInput() {
+  private handleInput(event: Event) {
     this.value = this.input.value;
+
+    this.relayNativeEvent(event, { bubbles: true, composed: true });
   }
 
   private handleKeyDown(event: KeyboardEvent) {
