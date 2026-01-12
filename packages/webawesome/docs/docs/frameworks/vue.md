@@ -87,7 +87,7 @@ When binding complex data such as objects and arrays, use the `.prop` modifier t
 
 ### Two-way Binding
 
-One caveat is there's currently [no support for v-model on custom elements](https://github.com/vuejs/vue/issues/7830), but you can still achieve two-way binding manually.
+One caveat is there's currently [varying levels of support for v-model on custom elements](https://github.com/vuejs/vue/issues/7830), but you can still achieve two-way binding manually.
 
 ```html
 <!-- ❌ This doesn't work -->
@@ -96,7 +96,8 @@ One caveat is there's currently [no support for v-model on custom elements](http
 <wa-input :value="name" @input="name = $event.target.value"></wa-input>
 ```
 
-If that's too verbose for your liking, you can use a custom directive instead. [This utility](https://www.npmjs.com/package/@shoelace-style/vue-wa-model) adds a custom directive that will work just like `v-model` but for Web Awesome components.
+<!-- Remove this until we can test it works, and if there is interest. Vue3 kinda clobbered it all up
+If that's too verbose for your liking, you can use a custom directive instead. [This utility](https://www.npmjs.com/package/@shoelace-style/vue-wa-model) adds a custom directive that will work just like `v-model` but for Web Awesome components. -->
 
 ### Slots
 
