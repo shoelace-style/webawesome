@@ -9,15 +9,16 @@ unlisted: true
 
 <style>
   .preview-wrapper {
-    border: var(--wa-border-width-s) dashed var(--wa-color-neutral-border-normal);
+    border: var(--layout-example-border);
     border-radius: var(--wa-border-radius-m);
     min-block-size: 3em;
     min-inline-size: 5em;
     padding: var(--wa-space-2xs);
   }
+
   .preview-block {
     aspect-ratio: 1 / 1;
-    background-color: var(--wa-color-neutral-fill-loud);
+    background-color: var(--layout-example-element-background);
     border-radius: var(--wa-border-radius-s);
     min-block-size: 1em;
   }
