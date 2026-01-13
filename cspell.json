@@ -70,6 +70,7 @@
     "exportparts",
     "fetchpriority",
     "fieldsets",
+    "flexbox",
     "focusin",
     "focusout",
     "fontawesome",
@@ -240,8 +241,6 @@
     "src/translations/!(en).ts",
     "**/*.min.js"
   ],
-  "ignoreRegExpList": [
-    "(^|[^a-z])sl[a-z]*(^|[^a-z])"
-  ],
+  "ignoreRegExpList": ["(^|[^a-z])sl[a-z]*(^|[^a-z])"],
   "useGitignore": true
 }
