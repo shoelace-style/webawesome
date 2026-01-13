@@ -14,8 +14,9 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 ## Next
 
 - Fixed a bug in `<wa-combobox>` that prevented the listbox from opening when options were preselected [issue:1883]
-- Added `justify-content` CSS utilities [pr:1930]
-- Added missing `.wa-gap-4xl` utility class [pr:1931]
+- Added `wa-justify-content-*` utility classes [pr:1930]
+- Added missing `wa-gap-4xl` utility class [pr:1931]
+- Modified `wa-align-items-*` utility classes to apply `display: flex` by default [pr:1943]
 
 ## 3.1.0
 
