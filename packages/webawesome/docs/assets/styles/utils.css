@@ -130,6 +130,13 @@
     }
   }
 
+  /* dialogs */
+  wa-dialog:has([slot='footer']) [slot='footer'] {
+    border-block-start: var(--wa-border-width-s) solid var(--wa-color-surface-border);
+    flex-grow: 1; /* make footer contents span entire width of dialog */
+    padding-block-start: var(--wa-space-l);
+  }
+
   /* anchor headings  */
   .anchor-heading a {
     opacity: 0;
@@ -250,7 +257,6 @@
       z-index: 0;
     }
   }
-  /* #endregion */
 
   /* buttons with icon toggle on hover */
   wa-button .icon-hover {
@@ -261,6 +267,13 @@
   }
   wa-button:hover .icon-hover {
     display: inline-flex;
+  }
+
+  /* buttons that are "shushed" (visually muted) by default, but have their full presentation otherwise  */
+  wa-button.shush {
+    &:not(:hover):not(active)::part(base) {
+      color: var(--wa-color-text-quiet);
+    }
   }
   /* #endregion */
 
