@@ -70,6 +70,7 @@
     "exportparts",
     "fetchpriority",
     "fieldsets",
+    "flexbox",
     "focusin",
     "focusout",
     "fontawesome",
@@ -151,6 +152,7 @@
     "ParamagicDev",
     "peta",
     "petabit",
+    "pointercancel",
     "Preact",
     "preconnect",
     "prerendered",
@@ -204,6 +206,8 @@
     "thead",
     "Themer",
     "tinycolor",
+    "touchcancel",
+    "touchend",
     "transitionend",
     "treeitem",
     "treeshaking",
@@ -237,8 +241,6 @@
     "src/translations/!(en).ts",
     "**/*.min.js"
   ],
-  "ignoreRegExpList": [
-    "(^|[^a-z])sl[a-z]*(^|[^a-z])"
-  ],
+  "ignoreRegExpList": ["(^|[^a-z])sl[a-z]*(^|[^a-z])"],
   "useGitignore": true
 }
