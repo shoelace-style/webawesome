@@ -41,7 +41,7 @@ Use the `--spacing` custom property to change the amount of space between the di
 
 ### Orientation
 
-The default orientation for dividers is `horizontal`. Set `orientation` attribute to `vertical` to draw a vertical divider. The divider will span the full height of its container.
+The default orientation for dividers is `horizontal`. Set `orientation` attribute to `vertical` to draw a vertical divider. The divider will span the full height of its [Flexbox](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/CSS_layout/Flexbox) or [CSS Grid](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/grid) container.
 
 ```html {.example}
 <div style="display: flex; align-items: center;">
@@ -52,6 +52,10 @@ The default orientation for dividers is `horizontal`. Set `orientation` attribut
   Last
 </div>
 ```
+
+:::info
+If your container isn't Flexbox or CSS Grid, you may need to set an explicit height for the divider.
+:::
 
 ### Dropdown Dividers
 
