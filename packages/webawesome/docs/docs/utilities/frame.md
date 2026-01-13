@@ -19,6 +19,8 @@ tags: layoutUtilities
   }
 </style>
 
+{{ description }}
+
 ```html {.example}
 <div class="wa-frame" style="max-inline-size: 20rem;">
   <div></div>
