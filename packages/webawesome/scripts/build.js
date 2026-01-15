@@ -215,6 +215,11 @@ export async function build(options = {}) {
         ...(await globby(posix.join(rootDir, 'src/components/**/!(*.(style|test)).ts'))),
         // Translations
         ...(await globby(posix.join(rootDir, 'src/translations/**/*.ts'))),
+        // Utilities
+        ...(await globby(posix.join(rootDir, 'src/utilities/**/*.ts'))),
+        // Events
+        ...(await globby(posix.join(rootDir, 'src/events/**/*.ts'))),
+        // TODO: Should `src/internal` be included?
         // React wrappers
         ...(await globby(posix.join(rootDir, 'src/react/**/*.ts'))),
       ],
@@ -435,6 +440,7 @@ export async function build(options = {}) {
             }
 
             // copy everything to unbundled before we generate bundles.
+            // this may cause watcher events to break. if things are broken with file watching, comment this out.
             await copy(getCdnDir(), getDistDir(), { overwrite: true });
             await regenerateBundle();
 
