@@ -11,6 +11,10 @@ const metadata = JSON.parse(readFileSync('./dist/custom-elements.json'), 'utf8')
 const serverComponents = [];
 const componentImports = [];
 getAllComponents(metadata).forEach(component => {
+  if (!component.tagName) {
+    return
+  }
+
   const name = component.tagName.replace(/^wa-/, '');
 
   serverComponents.push(`/dist/components/${name}/${name}.js`);
