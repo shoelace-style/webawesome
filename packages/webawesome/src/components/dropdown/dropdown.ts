@@ -662,16 +662,17 @@ export default class WaDropdown extends WebAwesomeElement {
     currentSubmenuItem.submenuElement.style.setProperty('--safe-triangle-cursor-y', `${constrainedY}px`);
 
     // Calculate these up front since this event cant fire a lot.
-    const composedPath = event.composedPath()
-    const submenuItemHovered = currentSubmenuItem.matches(':hover')
-    const submenuElementHovered = Boolean(currentSubmenuItem.submenuElement?.matches(':hover'))
+    const composedPath = event.composedPath();
+    const submenuItemHovered = currentSubmenuItem.matches(':hover');
+    const submenuElementHovered = Boolean(currentSubmenuItem.submenuElement?.matches(':hover'));
 
-    const isOverItem = submenuItemHovered ||
-      !!composedPath.find(el => el === currentSubmenuItem);
+    const isOverItem = submenuItemHovered || !!composedPath.find(el => el === currentSubmenuItem);
 
-    const isOverSubmenu = submenuElementHovered ||
-      !!composedPath
-        .find(el => el instanceof HTMLElement && el.closest('[part="submenu"]') === currentSubmenuItem.submenuElement);
+    const isOverSubmenu =
+      submenuElementHovered ||
+      !!composedPath.find(
+        el => el instanceof HTMLElement && el.closest('[part="submenu"]') === currentSubmenuItem.submenuElement,
+      );
 
     if (!isOverItem && !isOverSubmenu) {
       setTimeout(() => {

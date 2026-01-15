@@ -1,18 +1,18 @@
+import { cemInheritancePlugin } from '@wc-toolkit/cem-inheritance';
+import { cemValidatorPlugin } from '@wc-toolkit/cem-validator';
 import { jsxTypesPlugin } from '@wc-toolkit/jsx-types';
+import { getTsProgram, typeParserPlugin } from '@wc-toolkit/type-parser';
+import { parse } from 'comment-parser';
 import { customElementJetBrainsPlugin } from 'custom-element-jet-brains-integration';
+import { customElementSveltePlugin } from 'custom-element-svelte-integration';
 import { customElementVsCodePlugin } from 'custom-element-vs-code-integration';
 import { customElementVuejsPlugin } from 'custom-element-vuejs-integration';
-import { parse } from 'comment-parser';
 import fs from 'fs';
 import * as path from 'node:path';
 import { pascalCase } from 'pascal-case';
 import * as url from 'url';
 import { llmsTxtPlugin } from './scripts/llms.js';
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
-import { getTsProgram, typeParserPlugin } from "@wc-toolkit/type-parser";
-import { cemValidatorPlugin } from "@wc-toolkit/cem-validator";
-import { cemInheritancePlugin } from "@wc-toolkit/cem-inheritance";
-import { customElementSveltePlugin } from "custom-element-svelte-integration";
 
 const packageData = JSON.parse(fs.readFileSync(path.join(__dirname, 'package.json'), 'utf8'));
 const { name, description, version, author, homepage, license } = packageData;
@@ -34,11 +34,9 @@ export default {
   dependencies: true,
   outdir,
   // Give the plugin access to the TypeScript type checker
-  overrideModuleCreation({ts, globs}) {
-    const program = getTsProgram(ts, globs, "tsconfig.json");
-    return program
-      .getSourceFiles()
-      .filter((sf) => globs.find((glob) => sf.fileName.includes(glob)));
+  overrideModuleCreation({ ts, globs }) {
+    const program = getTsProgram(ts, globs, 'tsconfig.json');
+    return program.getSourceFiles().filter(sf => globs.find(glob => sf.fileName.includes(glob)));
   },
 
   plugins: [
@@ -52,7 +50,7 @@ export default {
     },
 
     cemInheritancePlugin({
-      fileName: "custom-elements.json",
+      fileName: 'custom-elements.json',
       outdir,
     }),
 
@@ -220,11 +218,11 @@ export default {
     customElementVuejsPlugin({
       outdir: './dist-cdn/types/vue',
       fileName: 'index.d.ts',
-      componentTypePath: (_, tag) => `../../components/${tag.replace('wa-', '')}/${tag.replace('wa-', '')}.js`
+      componentTypePath: (_, tag) => `../../components/${tag.replace('wa-', '')}/${tag.replace('wa-', '')}.js`,
     }),
     customElementSveltePlugin({
-      outdir: "./dist-cdn/types/svelte",
-      fileName: "index.d.ts"
+      outdir: './dist-cdn/types/svelte',
+      fileName: 'index.d.ts',
     }),
     // cemValidatorPlugin({
     //   cemFileName: "./dist-cdn/custom-elements.json"
