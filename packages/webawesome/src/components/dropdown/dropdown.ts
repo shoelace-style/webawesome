@@ -661,19 +661,21 @@ export default class WaDropdown extends WebAwesomeElement {
     currentSubmenuItem.submenuElement.style.setProperty('--safe-triangle-cursor-x', `${constrainedX}px`);
     currentSubmenuItem.submenuElement.style.setProperty('--safe-triangle-cursor-y', `${constrainedY}px`);
 
-    const isOverItem = currentSubmenuItem.matches(':hover') ||
-      !!event
-        .composedPath()
-        .find(el => el instanceof HTMLElement && el === currentSubmenuItem);
-    const isOverSubmenu =
-      currentSubmenuItem.submenuElement?.matches(':hover') ||
-      !!event
-        .composedPath()
+    // Calculate these up front since this event cant fire a lot.
+    const composedPath = event.composedPath()
+    const submenuItemHovered = currentSubmenuItem.matches(':hover')
+    const submenuElementHovered = Boolean(currentSubmenuItem.submenuElement?.matches(':hover'))
+
+    const isOverItem = submenuItemHovered ||
+      !!composedPath.find(el => el === currentSubmenuItem);
+
+    const isOverSubmenu = submenuElementHovered ||
+      !!composedPath
         .find(el => el instanceof HTMLElement && el.closest('[part="submenu"]') === currentSubmenuItem.submenuElement);
 
     if (!isOverItem && !isOverSubmenu) {
       setTimeout(() => {
-        if (!currentSubmenuItem.matches(':hover') && !currentSubmenuItem.submenuElement?.matches(':hover')) {
+        if (!submenuItemHovered && !submenuElementHovered) {
           currentSubmenuItem.submenuOpen = false;
         }
       }, 100);
