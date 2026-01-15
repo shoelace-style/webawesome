@@ -440,8 +440,8 @@ export async function build(options = {}) {
             }
 
             // copy everything to unbundled before we generate bundles.
-            // this would cause watcher events to break.
-            // await copy(getCdnDir(), getDistDir(), { overwrite: true });
+            // this may cause watcher events to break. if things are broken with file watching, comment this out.
+            await copy(getCdnDir(), getDistDir(), { overwrite: true });
             await regenerateBundle();
 
             // This needs to be outside of "isComponent" check because SSR needs to run on CSS files too.
