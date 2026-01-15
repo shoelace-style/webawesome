@@ -16,6 +16,8 @@ function loadAllFrontMatter(components, docsDir) {
   const cache = new Map();
 
   for (const component of components) {
+    if (!component.tagName) { continue }
+
     const componentName = component.tagName.replace(/^wa-/, '');
     const mdPath = path.join(docsDir, 'docs/components', `${componentName}.md`);
 
