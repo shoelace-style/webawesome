@@ -155,20 +155,21 @@ export default class WaDropdownItem extends WebAwesomeElement {
 
   /** Opens the submenu. */
   async openSubmenu() {
-    if (!this.hasSubmenu || !this.submenuElement) return;
+    const submenu = this.submenuElement;
+    if (!this.hasSubmenu || !submenu || !this.isConnected) return;
 
     // Notify parent dropdown to handle positioning
     this.notifyParentOfOpening();
 
     // Use Popover API to show the submenu
-    this.submenuElement.showPopover();
-    this.submenuElement.hidden = false;
-    this.submenuElement.setAttribute('data-visible', '');
+    submenu.showPopover?.();
+    submenu.hidden = false;
+    submenu.setAttribute('data-visible', '');
     this.submenuOpen = true;
     this.setAttribute('aria-expanded', 'true');
 
     // Animate the submenu
-    await animateWithClass(this.submenuElement, 'show');
+    await animateWithClass(submenu, 'show');
 
     // Set focus to the first submenu item
     setTimeout(() => {
@@ -210,16 +211,19 @@ export default class WaDropdownItem extends WebAwesomeElement {
 
   /** Closes the submenu. */
   async closeSubmenu() {
-    if (!this.hasSubmenu || !this.submenuElement) return;
+    const submenu = this.submenuElement;
+    if (!this.hasSubmenu || !submenu) return;
 
     this.submenuOpen = false;
     this.setAttribute('aria-expanded', 'false');
 
-    if (!this.submenuElement.hidden) {
-      await animateWithClass(this.submenuElement, 'hide');
-      this.submenuElement.hidden = true;
-      this.submenuElement.removeAttribute('data-visible');
-      this.submenuElement.hidePopover();
+    if (!submenu.hidden) {
+      await animateWithClass(submenu, 'hide');
+      if (submenu?.isConnected) {
+        submenu.hidden = true;
+        submenu.removeAttribute('data-visible');
+        submenu.hidePopover?.();
+      }
     }
   }
 

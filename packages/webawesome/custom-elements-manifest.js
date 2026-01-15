@@ -7,6 +7,7 @@ import fs from 'fs';
 import * as path from 'node:path';
 import { pascalCase } from 'pascal-case';
 import * as url from 'url';
+import { llmsTxtPlugin } from './scripts/llms.js';
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 import { getTsProgram, typeParserPlugin } from "@wc-toolkit/type-parser";
 import { cemValidatorPlugin } from "@wc-toolkit/cem-validator";
@@ -204,6 +205,13 @@ export default {
       componentTypePath: (_name, _tag, modulePath) => {
         return `./${modulePath}`;
       },
+    }),
+
+    // Generate llms.txt
+    llmsTxtPlugin({
+      outdir,
+      docsDir: path.join(__dirname, 'docs'),
+      baseUrl: 'https://webawesome.com',
     }),
 
     //
