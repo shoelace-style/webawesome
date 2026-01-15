@@ -153,6 +153,7 @@ function generateComponentApiSection(component, frontMatterCache, baseUrl) {
  * Generates the complete llms.txt content.
  */
 function generateLlmsTxt({ components, packageData, frontMatterCache, baseUrl }) {
+  // Account for base "abstract elements" that don't have a tagName.
   components = components.filter(c => c.tagName);
   const lines = [];
 
