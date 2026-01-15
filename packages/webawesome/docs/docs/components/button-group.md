@@ -40,60 +40,6 @@ Set the `orientation` attribute to `vertical` to make a vertical button group.
 </wa-button-group>
 ```
 
-### Theme Buttons
-
-Theme buttons are supported through the button group's `variant` attribute.
-
-```html {.example}
-<wa-button-group label="Alignment" variant="brand">
-  <wa-button>Left</wa-button>
-  <wa-button>Center</wa-button>
-  <wa-button>Right</wa-button>
-</wa-button-group>
-
-<br /><br />
-
-<wa-button-group label="Alignment" variant="success">
-  <wa-button>Left</wa-button>
-  <wa-button>Center</wa-button>
-  <wa-button>Right</wa-button>
-</wa-button-group>
-
-<br /><br />
-
-<wa-button-group label="Alignment">
-  <wa-button>Left</wa-button>
-  <wa-button>Center</wa-button>
-  <wa-button>Right</wa-button>
-</wa-button-group>
-
-<br /><br />
-
-<wa-button-group label="Alignment" variant="warning">
-  <wa-button>Left</wa-button>
-  <wa-button>Center</wa-button>
-  <wa-button>Right</wa-button>
-</wa-button-group>
-
-<br /><br />
-
-<wa-button-group label="Alignment" variant="danger">
-  <wa-button>Left</wa-button>
-  <wa-button>Center</wa-button>
-  <wa-button>Right</wa-button>
-</wa-button-group>
-```
-
-You can still use the buttons’ own `variant` attribute to override the inherited variant.
-
-```html {.example}
-<wa-button-group label="Alignment" variant="brand">
-  <wa-button>Left</wa-button>
-  <wa-button>Center</wa-button>
-  <wa-button variant="neutral">Right</wa-button>
-</wa-button-group>
-```
-
 ### Pill Buttons
 
 Pill buttons are supported through the button's `pill` attribute.

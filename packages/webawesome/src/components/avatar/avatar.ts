@@ -4,7 +4,7 @@ import { WaErrorEvent } from '../../events/error.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import '../icon/icon.js';
-import styles from './avatar.css';
+import styles from './avatar.styles.js';
 
 /**
  * @summary Avatars are used to represent a person or object.

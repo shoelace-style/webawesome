@@ -1,3 +1,4 @@
+@import url('../layers.css');
 @import url('../color/palettes/bright.css'); /* To use this palette, add class="wa-palette-bright" to the <html> element */
 @import url('https://fonts.bunny.net/css2?family=Crimson+Pro:ital,wght@0,200..900;1,200..900&family=Quicksand:wght@300..700&display=swap');
 

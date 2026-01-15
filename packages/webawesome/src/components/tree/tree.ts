@@ -6,7 +6,7 @@ import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import { LocalizeController } from '../../utilities/localize.js';
 import WaTreeItem from '../tree-item/tree-item.js';
-import styles from './tree.css';
+import styles from './tree.styles.js';
 
 function syncCheckboxes(changedTreeItem: WaTreeItem, initialSync = false) {
   function syncParentItem(treeItem: WaTreeItem) {

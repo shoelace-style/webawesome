@@ -9,11 +9,11 @@ import { submitOnEnter } from '../../internal/submit-on-enter.js';
 import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
-import formControlStyles from '../../styles/component/form-control.css';
-import sizeStyles from '../../styles/utilities/size.css';
+import formControlStyles from '../../styles/component/form-control.styles.js';
+import sizeStyles from '../../styles/component/size.styles.js';
 import { LocalizeController } from '../../utilities/localize.js';
 import '../icon/icon.js';
-import styles from './input.css';
+import styles from './input.styles.js';
 
 /**
  * @summary Inputs collect data from the user.
@@ -139,13 +139,6 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
 
   /** Hides the browser's built-in increment/decrement spin buttons for number inputs. */
   @property({ attribute: 'without-spin-buttons', type: Boolean }) withoutSpinButtons = false;
-
-  /**
-   * By default, form controls are associated with the nearest containing `<form>` element. This attribute allows you
-   * to place the form control outside of a form and associate it with the form that has this `id`. The form must be in
-   * the same document or shadow root for this to work.
-   */
-  @property({ reflect: true }) form = null;
 
   /** Makes the input a required field. */
   @property({ type: Boolean, reflect: true }) required = false;
@@ -349,7 +342,15 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
       (typeof this.value === 'number' || (this.value && this.value.length > 0));
 
     return html`
-      <label part="form-control-label label" class="label" for="input" aria-hidden=${hasLabel ? 'false' : 'true'}>
+      <label
+        part="form-control-label label"
+        class=${classMap({
+          label: true,
+          'has-label': hasLabel,
+        })}
+        for="input"
+        aria-hidden=${hasLabel ? 'false' : 'true'}
+      >
         <slot name="label">${this.label}</slot>
       </label>
 

@@ -13,17 +13,45 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 ## Next
 
-- 🚨 BREAKING: Changed `appearance="filled outlined"` to `appearance="filled-outlined"` in `<wa-card>` [issue:1671]
+- Added `justify-content` CSS utilities [pr:1930]
+- Added missing `.wa-gap-4xl` utility class [pr:1931]
+- Added `pointercancel` and `touchcancel` event handling to draggable elements to prevent drags from getting stuck
+- Added `wa-justify-content-*` utility classes [pr:1930]
+- Added missing `wa-gap-4xl` utility class [pr:1931]
+- Fixed a bug in `<wa-combobox>` that prevented the listbox from opening when options were preselected [issue:1883]
+- Fixed a bug in `<wa-popup>` and `<wa-dropdown-item>` that caused an error when removing a popup while it was opening [issue:1910]
+- Fixed a bug in `<wa-popup>` and `<wa-dropdown>` that caused errors when shadow DOM queries returned null [issue:1911]
+- Fixed a bug in `<wa-combobox>` that prevented the listbox from opening when options were preselected [issue:1883]
+- Fixed a bug in draggable elements that caused a TypeError on `touchend` events when `event.touches` was empty
+- Modified `wa-align-items-*` utility classes to apply `display: flex` by default [pr:1943]
+
+## 3.1.0
+
+- Added `<wa-combobox>` as an experimental pro component [issue:1074]
+- Added version 2.0.0 of the [official Web Awesome Figma Design Kit](/docs/resources/figma)
+- Added npm support for Web Awesome Pro
+- Added `layers.css` to define cascade layer order and updated palettes, themes, native styles, and utilities to import the new rule for more fail-safe modularity [pr:1793]
+- [PRO]: Fixed a few sizing bugs in `<wa-page>` and `slot="footer"` no longer will always "overflow" the container.
 - Fixed a bug in `<wa-slider>` that caused some touch devices to end up with the incorrect value [issue:1703]
 - Fixed a bug in `<wa-card>` that prevented some slots from being detected correctly [discuss:1450]
+- Fixed a z-index bug in `<wa-scroller>` styles [issue:1724]
+- Fixed a bug in `<wa-icon>` that caused some icon libraries to render with the incorrect SVG fill [issue:1733]
+- Fixed a bug in `<wa-tree-item>` that caused the spinner to not show when lazy loading [issue:1678]
 - Fixed a bug in `<wa-dropdown>` that caused the browser to hang when cancelling the `wa-hide` event [issue:1483]
 - Fixed a bug in `<wa-tab-group>` that ensures the active indicator always shows [issue:1206]
+- Fixed a bug in `<wa-dropdown-item>` that prevented the icon dependency from being imported [issue:1825]
+- Fixed a bug in `<wa-select>` that prevented clicks on the tag's remove button from removing options in multiple mode
+- Fixed a bug in `<wa-select>` that caused tags to appear in alphabetical order instead of selection order when using `multiple`
 - Improved performance of `<wa-icon>` so initial rendering occurs faster, especially with multiple icons on the page [issue:1729]
+- Improved `<wa-slider>` to not throw an error when string values are passed to the `min`, `max`, and `step` properties [issue:1823]
+- Fixed a bug in Web Awesome form controls that caused `<wa-input form="foo">` to set the form property to equal `"foo"` instead of returning an `HTMLFormElement` breaking platform expectations. [pr:1815]
+- Fixed a bug in `<wa-button>` causing it to not copy over attributes for form submissions. [pr:1815]
+- Improved performance of all components by fixing how CSS is imported and reused [issue:1812]
+- Modified the default `transition` styles of `<wa-dropdown-item>` to use design tokens [pr:1693]
 
 ## 3.0.0
 
 - 🚨 BREAKING: Changed `appearance="filled outlined"` to `appearance="filled-outlined"` in the following elements [issue:1127]
-  - `<wa-badge>`
   - `<wa-button>`
   - `<wa-callout>`
   - `<wa-card>`

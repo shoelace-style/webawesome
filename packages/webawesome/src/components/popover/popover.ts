@@ -12,7 +12,7 @@ import { uniqueId } from '../../internal/math.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import WaPopup from '../popup/popup.js';
-import styles from './popover.css';
+import styles from './popover.styles.js';
 
 const openPopovers = new Set<WaPopover>();
 

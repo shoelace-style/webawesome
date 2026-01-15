@@ -1,3 +1,7 @@
+/* Rules shared by all palettes */
+@import url('../../layers.css');
+@import url('../variants.css');
+
 /* Generates --wa-color-{hue}-on tokens for pairing with any palette's key colors */
 :where(:root),
 :host {

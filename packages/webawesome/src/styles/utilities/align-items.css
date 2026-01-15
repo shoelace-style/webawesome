@@ -1,4 +1,15 @@
 @layer wa-utilities {
+  /* Apply Flexbox with 0 specificity to ensure an align-items util produces a visible change */
+  :where(
+    .wa-align-items-start,
+    .wa-align-items-end,
+    .wa-align-items-center,
+    .wa-align-items-stretch,
+    .wa-align-items-baseline
+  ) {
+    display: flex;
+  }
+
   .wa-align-items-start {
     align-items: flex-start;
   }
