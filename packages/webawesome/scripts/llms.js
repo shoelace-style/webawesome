@@ -40,6 +40,9 @@ function loadAllFrontMatter(components, docsDir) {
 /** Generates the API reference section for a single component. */
 function generateComponentApiSection(component, frontMatterCache, baseUrl) {
   const lines = [];
+
+  if (!component.tagName) { return lines }
+
   const frontMatter = frontMatterCache.get(component.tagName);
   const componentSlug = component.tagName.replace(/^wa-/, '');
   const description = removeNewlines(frontMatter?.description || component.summary || '');
@@ -148,6 +151,7 @@ function generateComponentApiSection(component, frontMatterCache, baseUrl) {
  * Generates the complete llms.txt content.
  */
 function generateLlmsTxt({ components, packageData, frontMatterCache, baseUrl }) {
+  components = components.filter((c) => c.tagName)
   const lines = [];
 
   // H1 Title (required by llmstxt.org spec)
