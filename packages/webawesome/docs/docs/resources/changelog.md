@@ -24,6 +24,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed a bug in `<wa-combobox>` that prevented the listbox from opening when options were preselected [issue:1883]
 - Fixed a bug in draggable elements that caused a TypeError on `touchend` events when `event.touches` was empty
 - Fixed a bug in `<wa-tree-item>` that caused the cursor to show a pointer when no expand icon was present [pr:1936]
+- Fixed a bug in `<wa-tree-item>` that caused the chevron to render the wrong direction in RTL [pr:1798]
 - Modified `wa-align-items-*` utility classes to apply `display: flex` by default [pr:1943]
 
 ## 3.1.0
