@@ -659,7 +659,10 @@ export default class WaDropdown extends WebAwesomeElement {
     currentSubmenuItem.submenuElement.style.setProperty('--safe-triangle-cursor-x', `${constrainedX}px`);
     currentSubmenuItem.submenuElement.style.setProperty('--safe-triangle-cursor-y', `${constrainedY}px`);
 
-    const isOverItem = currentSubmenuItem.matches(':hover');
+    const isOverItem = currentSubmenuItem.matches(':hover') ||
+      !!event
+        .composedPath()
+        .find(el => el instanceof HTMLElement && el === currentSubmenuItem);
     const isOverSubmenu =
       currentSubmenuItem.submenuElement?.matches(':hover') ||
       !!event
