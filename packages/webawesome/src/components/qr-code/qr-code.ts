@@ -4,7 +4,7 @@ import { customElement, property, query, state } from 'lit/decorators.js';
 import type _QrCreator from 'qr-creator';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import styles from './qr-code.css';
+import styles from './qr-code.styles.js';
 
 let QrCreator: _QrCreator.default;
 

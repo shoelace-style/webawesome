@@ -8,12 +8,12 @@ import { HasSlotController } from '../../internal/slot.js';
 import { submitOnEnter } from '../../internal/submit-on-enter.js';
 import { SliderValidator } from '../../internal/validators/slider-validator.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
-import formControlStyles from '../../styles/component/form-control.css';
-import sizeStyles from '../../styles/utilities/size.css';
+import formControlStyles from '../../styles/component/form-control.styles.js';
+import sizeStyles from '../../styles/component/size.styles.js';
 import { LocalizeController } from '../../utilities/localize.js';
 import '../tooltip/tooltip.js';
 import type WaTooltip from '../tooltip/tooltip.js';
-import styles from './slider.css';
+import styles from './slider.styles.js';
 
 /**
  * <wa-slider>
@@ -166,12 +166,6 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
 
   /** The starting value from which to draw the slider's fill, which is based on its current value. */
   @property({ attribute: 'indicator-offset', type: Number }) indicatorOffset: number;
-
-  /**
-   * The form to associate this control with. If omitted, the closest containing `<form>` will be used. The value of
-   * this attribute must be an ID of a form in the same document or shadow root.
-   */
-  @property({ reflect: true }) form = null;
 
   /** The minimum value allowed. */
   @property({ type: Number }) min: number = 0;
@@ -437,8 +431,14 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
   /** Clamps a number to min/max while ensuring it's a valid step interval. */
   private clampAndRoundToStep(value: number) {
     const stepPrecision = (String(this.step).split('.')[1] || '').replace(/0+$/g, '').length;
-    value = Math.round(value / this.step) * this.step;
-    value = clamp(value, this.min, this.max);
+
+    // Ensure we're working with numbers (in case the user passes strings to the respective properties)
+    const step = Number(this.step);
+    const min = Number(this.min);
+    const max = Number(this.max);
+
+    value = Math.round(value / step) * step;
+    value = clamp(value, min, max);
 
     return parseFloat(value.toFixed(stepPrecision));
   }
@@ -807,7 +807,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
         id="label"
         part="label"
         for=${this.isRange ? 'thumb-min' : 'text-box'}
-        class=${classMap({ vh: !hasLabel })}
+        class=${classMap({ vh: !hasLabel, 'has-label': hasLabel })}
         @pointerdown=${this.handleLabelPointerDown}
       >
         <slot name="label">${this.label}</slot>

@@ -37,7 +37,7 @@ export default function (plop) {
       },
       {
         type: 'add',
-        path: '../../src/components/{{ tagWithoutPrefix tag }}/{{ tagWithoutPrefix tag }}.css',
+        path: '../../src/components/{{ tagWithoutPrefix tag }}/{{ tagWithoutPrefix tag }}.styles.ts',
         templateFile: 'templates/component/styles.hbs',
       },
       {

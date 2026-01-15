@@ -99,20 +99,24 @@ export class DraggableElement {
 
     document.addEventListener('pointerup', this.handleDragStop);
     document.addEventListener('pointermove', this.handleDragMove);
+    document.addEventListener('pointercancel', this.handleDragStop);
     document.addEventListener('touchend', this.handleDragStop);
     document.addEventListener('touchmove', this.handleDragMove);
+    document.addEventListener('touchcancel', this.handleDragStop);
     this.options.start(clientX, clientY);
   };
 
   private handleDragStop = (event: PointerEvent | TouchEvent) => {
-    const clientX = 'touches' in event ? event.touches[0].clientX : (event as PointerEvent).clientX;
-    const clientY = 'touches' in event ? event.touches[0].clientY : (event as PointerEvent).clientY;
+    const clientX = 'changedTouches' in event ? event.changedTouches[0].clientX : (event as PointerEvent).clientX;
+    const clientY = 'changedTouches' in event ? event.changedTouches[0].clientY : (event as PointerEvent).clientY;
 
     this.isDragging = false;
     document.removeEventListener('pointerup', this.handleDragStop);
     document.removeEventListener('pointermove', this.handleDragMove);
+    document.removeEventListener('pointercancel', this.handleDragStop);
     document.removeEventListener('touchend', this.handleDragStop);
     document.removeEventListener('touchmove', this.handleDragMove);
+    document.removeEventListener('touchcancel', this.handleDragStop);
     this.options.stop(clientX, clientY);
   };
 
@@ -141,8 +145,10 @@ export class DraggableElement {
   public stop() {
     document.removeEventListener('pointerup', this.handleDragStop);
     document.removeEventListener('pointermove', this.handleDragMove);
+    document.removeEventListener('pointercancel', this.handleDragStop);
     document.removeEventListener('touchend', this.handleDragStop);
     document.removeEventListener('touchmove', this.handleDragMove);
+    document.removeEventListener('touchcancel', this.handleDragStop);
     this.element.removeEventListener('pointerdown', this.handleDragStart);
     if (supportsTouch) {
       this.element.removeEventListener('touchstart', this.handleDragStart);

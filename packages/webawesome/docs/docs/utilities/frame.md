@@ -7,17 +7,19 @@ tags: layoutUtilities
 
 <style>
   [class*='wa-frame']:has(div:empty) {
-    border: var(--wa-border-width-s) dashed var(--wa-color-neutral-border-normal);
-    padding: var(--wa-space-s);
+    border: var(--layout-example-border);
+    padding: var(--layout-example-padding);
   }
 
   [class*='wa-frame'] div:empty {
-    background-color: var(--wa-color-indigo-60);
-    border-radius: var(--wa-border-radius-m);
+    background-color: var(--layout-example-element-background);
+    border-radius: var(--layout-example-element-border-radius);
     min-block-size: 4rem;
     min-inline-size: 4rem;
   }
 </style>
+
+{{ description }}
 
 ```html {.example}
 <div class="wa-frame" style="max-inline-size: 20rem;">
@@ -139,7 +141,7 @@ Frames have a square aspect ratio by default. You can append `:square` (1 / 1), 
 
 ## Border Radius
 
-Frames have a square border radius by default. You can add any of the following [`wa-border-radius-*`](/docs/utilities/border-radius) classes to an element with `wa-frame` to specify the border radius:
+Frames have a square border radius by default. You can add any of the following [`wa-border-radius-*`](/docs/utilities/rounding) classes to an element with `wa-frame` to specify the border radius:
 
 - `wa-border-radius-s`
 - `wa-border-radius-m`

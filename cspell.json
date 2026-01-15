@@ -70,6 +70,7 @@
     "exportparts",
     "fetchpriority",
     "fieldsets",
+    "flexbox",
     "focusin",
     "focusout",
     "fontawesome",
@@ -105,6 +106,7 @@
     "keydown",
     "keyframes",
     "keymaker",
+    "Kickstarter",
     "Konnor",
     "Kool",
     "labelledby",
@@ -117,6 +119,7 @@
     "lowercasing",
     "Lucide",
     "maxlength",
+    "mdash",
     "Menlo",
     "menuitemcheckbox",
     "menuitemradio",
@@ -130,6 +133,7 @@
     "mouseout",
     "mouseup",
     "multiselectable",
+    "nbsp",
     "nextjs",
     "nocheck",
     "noindex",
@@ -148,6 +152,7 @@
     "ParamagicDev",
     "peta",
     "petabit",
+    "pointercancel",
     "Preact",
     "preconnect",
     "prerendered",
@@ -179,6 +184,7 @@
     "shadowrootmode",
     "Shortcode",
     "Shortcodes",
+    "signup",
     "sitedir",
     "slotchange",
     "smartquotes",
@@ -200,6 +206,8 @@
     "thead",
     "Themer",
     "tinycolor",
+    "touchcancel",
+    "touchend",
     "transitionend",
     "treeitem",
     "treeshaking",
@@ -233,8 +241,6 @@
     "src/translations/!(en).ts",
     "**/*.min.js"
   ],
-  "ignoreRegExpList": [
-    "(^|[^a-z])sl[a-z]*(^|[^a-z])"
-  ],
+  "ignoreRegExpList": ["(^|[^a-z])sl[a-z]*(^|[^a-z])"],
   "useGitignore": true
 }

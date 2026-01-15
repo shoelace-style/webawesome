@@ -17,7 +17,7 @@ import { LocalizeController } from '../../utilities/localize.js';
 import '../checkbox/checkbox.js';
 import '../icon/icon.js';
 import '../spinner/spinner.js';
-import styles from './tree-item.css';
+import styles from './tree-item.styles.js';
 
 /**
  * @summary A tree item serves as a hierarchical node that lives inside a [tree](/docs/components/tree).
@@ -254,6 +254,7 @@ export default class WaTreeItem extends WebAwesomeElement {
           'tree-item-expanded': this.expanded,
           'tree-item-selected': this.selected,
           'tree-item-leaf': this.isLeaf,
+          'tree-item-loading': this.loading,
           'tree-item-has-expand-button': showExpandButton,
         })}"
       >
@@ -272,8 +273,10 @@ export default class WaTreeItem extends WebAwesomeElement {
               ${when(
                 this.loading,
                 () => html` <wa-spinner part="spinner" exportparts="base:spinner__base"></wa-spinner> `,
+                () => html`
+                  <wa-icon name=${isRtl ? 'chevron-left' : 'chevron-right'} library="system" variant="solid"></wa-icon>
+                `,
               )}
-              <wa-icon name=${isRtl ? 'chevron-left' : 'chevron-right'} library="system" variant="solid"></wa-icon>
             </slot>
             <slot class="expand-icon-slot" name="collapse-icon">
               <wa-icon name=${isRtl ? 'chevron-left' : 'chevron-right'} library="system" variant="solid"></wa-icon>

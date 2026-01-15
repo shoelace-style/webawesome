@@ -1,0 +1,230 @@
+import { css } from 'lit';
+
+export default css`
+  :host {
+    border-width: 0;
+  }
+
+  .text-field {
+    display: flex;
+    align-items: stretch;
+    justify-content: start;
+    position: relative;
+    transition: inherit;
+    height: var(--wa-form-control-height);
+    border-color: var(--wa-form-control-border-color);
+    border-radius: var(--wa-form-control-border-radius);
+    border-style: var(--wa-form-control-border-style);
+    border-width: var(--wa-form-control-border-width);
+    cursor: text;
+    color: var(--wa-form-control-value-color);
+    font-size: var(--wa-form-control-value-font-size);
+    font-family: inherit;
+    font-weight: var(--wa-form-control-value-font-weight);
+    line-height: var(--wa-form-control-value-line-height);
+    vertical-align: middle;
+    width: 100%;
+    transition:
+      background-color var(--wa-transition-normal),
+      border var(--wa-transition-normal),
+      outline var(--wa-transition-fast);
+    transition-timing-function: var(--wa-transition-easing);
+    background-color: var(--wa-form-control-background-color);
+    box-shadow: var(--box-shadow);
+    padding: 0 var(--wa-form-control-padding-inline);
+
+    &:focus-within {
+      outline: var(--wa-focus-ring);
+      outline-offset: var(--wa-focus-ring-offset);
+    }
+
+    /* Style disabled inputs */
+    &:has(:disabled) {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+  }
+
+  /* Appearance modifiers */
+  :host([appearance='outlined']) .text-field {
+    background-color: var(--wa-form-control-background-color);
+    border-color: var(--wa-form-control-border-color);
+  }
+
+  :host([appearance='filled']) .text-field {
+    background-color: var(--wa-color-neutral-fill-quiet);
+    border-color: var(--wa-color-neutral-fill-quiet);
+  }
+
+  :host([appearance='filled-outlined']) .text-field {
+    background-color: var(--wa-color-neutral-fill-quiet);
+    border-color: var(--wa-form-control-border-color);
+  }
+
+  :host([pill]) .text-field {
+    border-radius: var(--wa-border-radius-pill) !important;
+  }
+
+  .text-field {
+    /* Show autofill styles over the entire text field, not just the native <input> */
+    &:has(:autofill),
+    &:has(:-webkit-autofill) {
+      background-color: var(--wa-color-brand-fill-quiet) !important;
+    }
+
+    input,
+    textarea {
+      /*
+      Fixes an alignment issue with placeholders.
+      https://github.com/shoelace-style/webawesome/issues/342
+    */
+      height: 100%;
+
+      padding: 0;
+      border: none;
+      outline: none;
+      box-shadow: none;
+      margin: 0;
+      cursor: inherit;
+      -webkit-appearance: none;
+      font: inherit;
+
+      /* Turn off Safari's autofill styles */
+      &:-webkit-autofill,
+      &:-webkit-autofill:hover,
+      &:-webkit-autofill:focus,
+      &:-webkit-autofill:active {
+        -webkit-background-clip: text;
+        background-color: transparent;
+        -webkit-text-fill-color: inherit;
+      }
+    }
+  }
+
+  input {
+    flex: 1 1 auto;
+    min-width: 0;
+    height: 100%;
+    transition: inherit;
+
+    /* prettier-ignore */
+    background-color: rgb(118 118 118 / 0); /* ensures proper placeholder styles in webkit's date input */
+    height: calc(var(--wa-form-control-height) - var(--border-width) * 2);
+    padding-block: 0;
+    color: inherit;
+
+    &:autofill {
+      &,
+      &:hover,
+      &:focus,
+      &:active {
+        box-shadow: none;
+        caret-color: var(--wa-form-control-value-color);
+      }
+    }
+
+    &::placeholder {
+      color: var(--wa-form-control-placeholder-color);
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    &::-webkit-search-decoration,
+    &::-webkit-search-cancel-button,
+    &::-webkit-search-results-button,
+    &::-webkit-search-results-decoration {
+      -webkit-appearance: none;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  textarea {
+    &:autofill {
+      &,
+      &:hover,
+      &:focus,
+      &:active {
+        box-shadow: none;
+        caret-color: var(--wa-form-control-value-color);
+      }
+    }
+
+    &::placeholder {
+      color: var(--wa-form-control-placeholder-color);
+      user-select: none;
+      -webkit-user-select: none;
+    }
+  }
+
+  .start,
+  .end {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    cursor: default;
+
+    &::slotted(wa-icon) {
+      color: var(--wa-color-neutral-on-quiet);
+    }
+  }
+
+  .start::slotted(*) {
+    margin-inline-end: var(--wa-form-control-padding-inline);
+  }
+
+  .end::slotted(*) {
+    margin-inline-start: var(--wa-form-control-padding-inline);
+  }
+
+  /*
+   * Clearable + Password Toggle
+   */
+
+  .clear,
+  .password-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: inherit;
+    color: var(--wa-color-neutral-on-quiet);
+    border: none;
+    background: none;
+    padding: 0;
+    transition: var(--wa-transition-normal) color;
+    cursor: pointer;
+    margin-inline-start: var(--wa-form-control-padding-inline);
+
+    @media (hover: hover) {
+      &:hover {
+        color: color-mix(in oklab, currentColor, var(--wa-color-mix-hover));
+      }
+    }
+
+    &:active {
+      color: color-mix(in oklab, currentColor, var(--wa-color-mix-active));
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  /* Don't show the browser's password toggle in Edge */
+  ::-ms-reveal {
+    display: none;
+  }
+
+  /* Hide the built-in number spinner */
+  :host([without-spin-buttons]) input[type='number'] {
+    -moz-appearance: textfield;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      display: none;
+    }
+  }
+`;

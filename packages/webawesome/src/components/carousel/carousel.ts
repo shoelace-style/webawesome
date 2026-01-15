@@ -16,7 +16,7 @@ import { LocalizeController } from '../../utilities/localize.js';
 import type WaCarouselItem from '../carousel-item/carousel-item.js';
 import '../icon/icon.js';
 import { AutoplayController } from './autoplay-controller.js';
-import styles from './carousel.css';
+import styles from './carousel.styles.js';
 
 /**
  * @summary Carousels display an arbitrary number of content slides along a horizontal or vertical axis.

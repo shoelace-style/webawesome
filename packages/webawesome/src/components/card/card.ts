@@ -2,8 +2,8 @@ import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { HasSlotController } from '../../internal/slot.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import sizeStyles from '../../styles/utilities/size.css';
-import styles from './card.css';
+import sizeStyles from '../../styles/component/size.styles.js';
+import styles from './card.styles.js';
 
 /**
  * @summary Cards can be used to group related subjects in a container.
@@ -30,11 +30,19 @@ import styles from './card.css';
 export default class WaCard extends WebAwesomeElement {
   static css = [sizeStyles, styles];
 
-  private readonly hasSlotController = new HasSlotController(this, 'footer', 'header', 'media');
+  private readonly hasSlotController = new HasSlotController(
+    this,
+    'footer',
+    'header',
+    'media',
+    'header-actions',
+    'footer-actions',
+    'actions',
+  );
 
   /** The card's visual appearance. */
   @property({ reflect: true })
-  appearance: 'accent' | 'filled' | 'outlined' | 'plain' = 'outlined';
+  appearance: 'accent' | 'filled' | 'outlined' | 'filled-outlined' | 'plain' = 'outlined';
 
   /** Renders the card with a header. Only needed for SSR, otherwise is automatically added. */
   @property({ attribute: 'with-header', type: Boolean, reflect: true }) withHeader = false;

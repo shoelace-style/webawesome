@@ -4,7 +4,7 @@
     "access": "public"
   },
   "description": "A forward-thinking library of web components.",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "homepage": "https://webawesome.com/",
   "author": "Web Awesome",
   "license": "MIT",
@@ -64,10 +64,10 @@
     "spellcheck": "cspell \"**/*.{js,ts,json,html,css,md}\" --no-progress --config=\"../../cspell.json\"",
     "verify": "npm run prettier && npm run build && npm run test",
     "prepublishOnly": "npm run verify",
-    "check-updates": "npx npm-check-updates --interactive --format group",
+    "check-updates": "npm-check-updates --cooldown 7 --interactive --format group",
     "print-version": "echo $npm_package_version",
     "tag-version": "git tag -a \"v$(npm run print-version | tail -n1)\" -m \"tag v$(npm run print-version | tail -n1)\"",
-    "postversion": "npm run tag-version"
+    "postversion": "node ./scripts/update-root-version.js"
   },
   "engines": {
     "node": ">=14.17.0"
@@ -91,6 +91,7 @@
   "devDependencies": {
     "@wc-toolkit/jsx-types": "^1.3.0",
     "eleventy-plugin-git-commit-date": "^0.1.3",
-    "esbuild": "^0.25.11"
+    "esbuild": "^0.25.11",
+    "npm-check-updates": "^19.1.2"
   }
 }

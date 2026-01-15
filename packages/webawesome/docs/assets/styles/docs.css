@@ -10,6 +10,13 @@
 :root {
   --wa-brand-orange: #f36944;
   --wa-brand-grey: #30323b;
+
+  /* layout-based example style aspects */
+  --layout-example-border: var(--wa-border-width-s) dashed var(--wa-color-neutral-border-normal);
+  --layout-example-border-radius: var(--wa-border-radius-l);
+  --layout-example-padding: var(--wa-space-s);
+  --layout-example-element-background: var(--wa-color-indigo-60);
+  --layout-example-element-border-radius: var(--wa-border-radius-m);
 }
 
 .wa-dark .only-light,
@@ -38,7 +45,7 @@ wa-page > [slot='banner'] {
   }
 
   &.banner-wa-launch {
-    /* custom brand colors carrried over from theme-site for the banner */
+    /* custom brand colors carried over from theme-site for the banner */
     --wa-color-brand-95: #fef0ec;
     --wa-color-brand-90: #fce0d8;
     --wa-color-brand-80: #f8bcac;
@@ -62,6 +69,24 @@ wa-page > [slot='banner'] {
       --underline-color: var(--wa-color-brand);
     }
   }
+}
+
+/* Site-Wide Dialog */
+#dialog-site {
+  /* custom brand colors carrried over from theme-site for the banner */
+  --wa-color-brand-95: #fef0ec;
+  --wa-color-brand-90: #fce0d8;
+  --wa-color-brand-80: #f8bcac;
+  --wa-color-brand-70: #fa9378;
+  --wa-color-brand-60: #f46a45;
+  --wa-color-brand-50: #cb4b27;
+  --wa-color-brand-40: #9d371a;
+  --wa-color-brand-30: #7c2a13;
+  --wa-color-brand-20: #5d1d0b;
+  --wa-color-brand-10: #3b0f05;
+  --wa-color-brand-05: #270802;
+  --wa-color-brand: var(--wa-color-brand-60);
+  --wa-color-brand-on: var(--wa-color-brand-10);
 }
 
 /* Header */

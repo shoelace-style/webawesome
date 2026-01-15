@@ -20,4 +20,5 @@ packages/**/*/src/react/index.ts
 node_modules
 
 packages/**/*/_site
+packages/**/*/_bundle_
 packages/webawesome/docs/assets/scripts/prism-downloaded.js
