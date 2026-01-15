@@ -41,8 +41,7 @@ export default {
   },
 
   plugins: [
-    typeParserPlugin({
-    }),
+    typeParserPlugin(),
     // Append package data
     {
       name: 'wa-package-data',
