@@ -16,7 +16,9 @@ function loadAllFrontMatter(components, docsDir) {
   const cache = new Map();
 
   for (const component of components) {
-    if (!component.tagName) continue;
+    if (!component.tagName) {
+      continue;
+    }
 
     const componentName = component.tagName.replace(/^wa-/, '');
     const mdPath = path.join(docsDir, 'docs/components', `${componentName}.md`);
@@ -38,6 +40,11 @@ function loadAllFrontMatter(components, docsDir) {
 /** Generates the API reference section for a single component. */
 function generateComponentApiSection(component, frontMatterCache, baseUrl) {
   const lines = [];
+
+  if (!component.tagName) {
+    return lines;
+  }
+
   const frontMatter = frontMatterCache.get(component.tagName);
   const componentSlug = component.tagName.replace(/^wa-/, '');
   const description = removeNewlines(frontMatter?.description || component.summary || '');
@@ -146,6 +153,8 @@ function generateComponentApiSection(component, frontMatterCache, baseUrl) {
  * Generates the complete llms.txt content.
  */
 function generateLlmsTxt({ components, packageData, frontMatterCache, baseUrl }) {
+  // Account for base "abstract elements" that don't have a tagName.
+  components = components.filter(c => c.tagName);
   const lines = [];
 
   // H1 Title (required by llmstxt.org spec)
