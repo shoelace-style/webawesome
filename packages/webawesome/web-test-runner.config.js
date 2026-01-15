@@ -12,7 +12,7 @@ const serverComponents = [];
 const componentImports = [];
 getAllComponents(metadata).forEach(component => {
   if (!component.tagName) {
-    return
+    return;
   }
 
   const name = component.tagName.replace(/^wa-/, '');
