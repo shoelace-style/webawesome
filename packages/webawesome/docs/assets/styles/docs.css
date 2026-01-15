@@ -10,6 +10,13 @@
 :root {
   --wa-brand-orange: #f36944;
   --wa-brand-grey: #30323b;
+
+  /* layout-based example style aspects */
+  --layout-example-border: var(--wa-border-width-s) dashed var(--wa-color-neutral-border-normal);
+  --layout-example-border-radius: var(--wa-border-radius-l);
+  --layout-example-padding: var(--wa-space-s);
+  --layout-example-element-background: var(--wa-color-indigo-60);
+  --layout-example-element-border-radius: var(--wa-border-radius-m);
 }
 
 .wa-dark .only-light,
