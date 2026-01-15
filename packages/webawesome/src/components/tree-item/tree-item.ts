@@ -243,7 +243,7 @@ export default class WaTreeItem extends WebAwesomeElement {
   }
 
   render() {
-    const isRtl = this.localize ? this.localize.dir() === 'rtl' : this.dir === 'rtl';
+    const isRtl = this.localize.dir() === 'rtl';
     const showExpandButton = !this.loading && (!this.isLeaf || this.lazy);
 
     return html`
