@@ -397,6 +397,20 @@ If you're a [Font Awesome Pro+ customer](https://fontawesome.com/), you have acc
   </div>
 
   <div class="wa-flank" style="--flank-size: 10ch;">
+    <a href="https://fontawesome.com/icons/packs/utility" target="_blank">Utility</a>
+    <div class="wa-cluster" style="font-size: 1.5em;">
+      <wa-icon family="utility" variant="semibold" name="house"></wa-icon>
+      <wa-icon
+        family="utility-duo"
+        variant="semibold"
+        name="house"
+        style="--secondary-color: skyblue; --secondary-opacity: 0.8;"
+      ></wa-icon>
+      <wa-icon family="utility-fill" variant="semibold" name="house"></wa-icon>
+    </div>
+  </div>
+
+  <div class="wa-flank" style="--flank-size: 10ch;">
     <a href="https://fontawesome.com/icons/packs/whiteboard" target="_blank">Whiteboard</a>
     <div class="wa-cluster" style="font-size: 32px;">
       <wa-icon family="whiteboard" variant="semibold" name="house"></wa-icon>
