@@ -23,7 +23,6 @@ export async function createEleventy(options = {}) {
   isDeveloping ??= process.argv.includes('--develop');
   isIncremental ??= isDeveloping && !process.argv.includes('--no-incremental');
 
-
   const eleventy = new Eleventy(rootDir || getDocsDir(), getSiteDir(), {
     quietMode: true,
     configPath: getEleventyConfigPath(),
