@@ -51,7 +51,7 @@ export function codeExamplesTransformer(options = {}) {
         }
         const selectors = frame?.getAttribute('data-select-src');
         if (selectors) {
-          const sourceNode = parse(source, { voidTag: { closingSlash: true } });
+          const sourceNode = parse(source, { comment: true, voidTag: { closingSlash: true } });
           sourceNode.querySelectorAll(selectors).forEach((fragment, i) => {
             // Fix parse() formatting of wrapped first attributes and reduce
             // indentation to match the least-indented line for each fragment
