@@ -10,3 +10,4 @@ yarn.lock
 _bundle_
 /packages/webawesome-pro
 /packages/webawesome-app
+custom-elements.json

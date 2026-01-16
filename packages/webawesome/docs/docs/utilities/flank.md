@@ -20,7 +20,7 @@ tags: layoutUtilities
   }
 </style>
 
-When space is limited, the items wrap.
+{{ description }} When space is limited, the items wrap.
 
 ```html {.example}
 <div class="wa-flank">

@@ -20,6 +20,8 @@ tags: layoutUtilities
   }
 </style>
 
+{{ description }}
+
 ```html {.example}
 <div class="wa-split">
   <div></div>
