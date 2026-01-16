@@ -24,6 +24,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - [Docs]: component APIs like slots, state, methods, etc, are now alphabetized [pr:1895]
 - [Docs]: component APIs now properly check their inheritance chain [pr:1895]
 - [Docs]: Included framework specific documentation for Svelte, Vue, and Angular. [pr:1895]
+- Fixed a bug in `<wa-icon>` to support Font Awesome Pro+ icon families that include qualifiers (e.g., `family="jelly-duo"` now works correctly instead of requiring `family="jelly" variant="duo-regular"`) and updated Font Awesome to 7.1.0
 - Fixed a bug in `<wa-dropdown>` where submenu detection would not work in shadow dom. [pr:]
 - Fixed a bug in `<wa-combobox>` that prevented the listbox from opening when options were preselected [issue:1883]
 - Fixed a bug in `<wa-combobox>` that prevented the listbox from opening when options were preselected [issue:1883]
