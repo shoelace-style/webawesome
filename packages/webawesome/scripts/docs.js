@@ -23,6 +23,7 @@ export async function createEleventy(options = {}) {
   isDeveloping ??= process.argv.includes('--develop');
   isIncremental ??= isDeveloping && !process.argv.includes('--no-incremental');
 
+
   const eleventy = new Eleventy(rootDir || getDocsDir(), getSiteDir(), {
     quietMode: true,
     configPath: getEleventyConfigPath(),
@@ -52,7 +53,8 @@ export async function createEleventy(options = {}) {
   eleventy.logger.overrideLogger(new CustomLogger());
 
   if (isIncremental) {
-    await eleventy.watch();
+    // For some reason, removing the await here fixes incremental loading?
+    eleventy.watch();
 
     process.on('SIGINT', async () => {
       await eleventy.stopWatch();
