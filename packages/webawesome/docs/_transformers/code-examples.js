@@ -35,7 +35,11 @@ export function codeExamplesTransformer(options = {}) {
 
       // Run preview scripts as modules to prevent collisions
       const root = parse(preview, { blockTextElements: { script: true } });
-      root.querySelectorAll('script').forEach(script => script.setAttribute('type', 'module'));
+      root.querySelectorAll('script').forEach(script => {
+        if (!script.type?.trim()) {
+          script.setAttribute('type', 'module');
+        }
+      });
       preview = root.toString();
 
       copyCode(code);
