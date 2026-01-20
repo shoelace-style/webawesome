@@ -37,7 +37,7 @@ export function codeExamplesTransformer(options = {}) {
       const root = parse(preview, { blockTextElements: { script: true } });
       root.querySelectorAll('script').forEach(script => {
         if (!script.type?.trim()) {
-          script.setAttribute('type', 'module')
+          script.setAttribute('type', 'module');
         }
       });
       preview = root.toString();

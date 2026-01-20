@@ -193,18 +193,18 @@ export default class WaTooltip extends WebAwesomeElement {
 
   private handleMouseOut = () => {
     if (this.hasTrigger('hover')) {
-      const anchorHovered = Boolean(this.anchor?.matches(":hover"))
-      const tooltipHovered = this.matches(":hover")
+      const anchorHovered = Boolean(this.anchor?.matches(':hover'));
+      const tooltipHovered = this.matches(':hover');
 
       if (anchorHovered || tooltipHovered) {
-        return
+        return;
       }
 
       clearTimeout(this.hoverTimeout);
 
       if (!(anchorHovered || tooltipHovered)) {
         this.hoverTimeout = window.setTimeout(() => {
-          this.hide()
+          this.hide();
         }, this.hideDelay);
       }
     }
@@ -301,7 +301,6 @@ export default class WaTooltip extends WebAwesomeElement {
     }
 
     const { signal } = this.eventController;
-
 
     if (newAnchor) {
       /**
