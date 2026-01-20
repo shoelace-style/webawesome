@@ -106,6 +106,8 @@ export default class WaTooltip extends WebAwesomeElement {
       this.eventController = new AbortController();
     }
 
+    this.addEventListener('mouseout', this.handleMouseOut);
+
     // TODO: This is a hack that I need to revisit [Konnor]
     if (this.open) {
       this.open = false;
@@ -191,8 +193,20 @@ export default class WaTooltip extends WebAwesomeElement {
 
   private handleMouseOut = () => {
     if (this.hasTrigger('hover')) {
+      const anchorHovered = Boolean(this.anchor?.matches(":hover"))
+      const tooltipHovered = this.matches(":hover")
+
+      if (anchorHovered || tooltipHovered) {
+        return
+      }
+
       clearTimeout(this.hoverTimeout);
-      this.hoverTimeout = window.setTimeout(() => this.hide(), this.hideDelay);
+
+      if (!(anchorHovered || tooltipHovered)) {
+        this.hoverTimeout = window.setTimeout(() => {
+          this.hide()
+        }, this.hideDelay);
+      }
     }
   };
 
@@ -287,6 +301,7 @@ export default class WaTooltip extends WebAwesomeElement {
     }
 
     const { signal } = this.eventController;
+
 
     if (newAnchor) {
       /**
