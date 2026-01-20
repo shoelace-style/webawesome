@@ -29,6 +29,7 @@ export default css`
   svg {
     height: 1em;
     overflow: visible;
+    width: auto;
 
     /* Duotone colors with path-specific opacity fallback */
     path[data-duotone-primary] {
