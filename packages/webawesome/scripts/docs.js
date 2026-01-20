@@ -52,7 +52,8 @@ export async function createEleventy(options = {}) {
   eleventy.logger.overrideLogger(new CustomLogger());
 
   if (isIncremental) {
-    await eleventy.watch();
+    // For some reason, removing the await here fixes incremental loading?
+    eleventy.watch();
 
     process.on('SIGINT', async () => {
       await eleventy.stopWatch();

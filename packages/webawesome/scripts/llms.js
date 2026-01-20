@@ -200,7 +200,7 @@ icon names.
   lines.push('## Components');
   lines.push('');
 
-  const sortedComponentsList = [...components].sort((a, b) => a.tagName.localeCompare(b.tagName));
+  const sortedComponentsList = components.filter(c => c.tagName).sort((a, b) => a.tagName.localeCompare(b.tagName));
 
   for (const component of sortedComponentsList) {
     const frontMatter = frontMatterCache.get(component.tagName);
@@ -225,7 +225,7 @@ icon names.
   lines.push('');
 
   // Sort components alphabetically by tag name for the API reference
-  const sortedComponents = [...components].sort((a, b) => a.tagName.localeCompare(b.tagName));
+  const sortedComponents = components.filter(c => c.tagName).sort((a, b) => a.tagName.localeCompare(b.tagName));
 
   for (const component of sortedComponents) {
     lines.push(...generateComponentApiSection(component, frontMatterCache, baseUrl));
