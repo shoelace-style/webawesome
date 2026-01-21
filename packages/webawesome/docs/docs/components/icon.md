@@ -412,7 +412,7 @@ If you're a [Font Awesome Pro+ customer](https://fontawesome.com/), you have acc
 
   <div class="wa-flank" style="--flank-size: 10ch;">
     <a href="https://fontawesome.com/icons/packs/whiteboard" target="_blank">Whiteboard</a>
-    <div class="wa-cluster" style="font-size: 32px;">
+    <div class="wa-cluster" style="font-size: 1.5em;">
       <wa-icon family="whiteboard" variant="semibold" name="house"></wa-icon>
     </div>
   </div>
