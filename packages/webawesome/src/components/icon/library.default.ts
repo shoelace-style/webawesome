@@ -34,7 +34,7 @@ function getIconUrl(name: string, family: string, variant: string) {
   if (family === 'jelly') {
     // NOTE: variant="duo-regular" and variant="fill-regular" are deprecated
     // Use family="jelly-duo" variant="regular" or family="jelly-fill" variant="regular" instead
-    if (variant === 'regular') folder = 'jelly-regular';
+    folder = 'jelly-regular';
     if (variant === 'duo-regular') folder = 'jelly-duo-regular';
     if (variant === 'fill-regular') folder = 'jelly-fill-regular';
   }
