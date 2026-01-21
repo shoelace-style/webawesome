@@ -12,6 +12,8 @@ const translation: Translation = {
   copied: 'Zkopírováno',
   copy: 'Kopírovat',
   currentValue: 'Současná hodnota',
+  dropFileHere: 'Drop file here or click to browse',
+  dropFilesHere: 'Drop files here or click to browse',
   error: 'Chyba',
   goToSlide: (slide, count) => `Přejít na slide ${slide} z ${count}`,
   hidePassword: 'Skrýt heslo',

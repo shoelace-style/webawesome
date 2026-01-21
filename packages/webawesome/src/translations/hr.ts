@@ -12,6 +12,8 @@ const translation: Translation = {
   copied: 'Kopirano',
   copy: 'Kopiraj',
   currentValue: 'Trenutna vrijednost',
+  dropFileHere: 'Drop file here or click to browse',
+  dropFilesHere: 'Drop files here or click to browse',
   error: 'Greška',
   goToSlide: (slide, count) => `Idi na slajd ${slide} od ${count}`,
   hidePassword: 'Sakrij lozinku',

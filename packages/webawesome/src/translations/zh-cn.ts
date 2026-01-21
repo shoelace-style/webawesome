@@ -12,6 +12,8 @@ const translation: Translation = {
   copied: '已复制',
   copy: '复制',
   currentValue: '当前值',
+  dropFileHere: 'Drop file here or click to browse',
+  dropFilesHere: 'Drop files here or click to browse',
   error: '错误',
   goToSlide: (slide, count) => `转到第 ${slide} 张幻灯片，共 ${count} 张`,
   hidePassword: '隐藏密码',

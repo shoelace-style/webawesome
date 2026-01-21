@@ -12,6 +12,8 @@ const translation: Translation = {
   copied: 'تم النسخ',
   copy: 'نسخ',
   currentValue: 'القيمة الحالية',
+  dropFileHere: 'أسقط الملف هنا أو انقر للتصفح',
+  dropFilesHere: 'أسقط الملفات هنا أو انقر للتصفح',
   error: 'خطأ',
   goToSlide: (slide, count) => `عرض شريحة رقم ${slide} من ${count}`,
   hidePassword: 'اخفاء كلمة المرور',

@@ -12,6 +12,8 @@ const translation: Translation = {
   copied: 'Kopioitu',
   copy: 'Kopioi',
   currentValue: 'Nykyinen arvo',
+  dropFileHere: 'Drop file here or click to browse',
+  dropFilesHere: 'Drop files here or click to browse',
   error: 'Virhe',
   goToSlide: (slide, count) => `Siirry diaan ${slide} / ${count}`,
   hidePassword: 'Piilota salasana',
