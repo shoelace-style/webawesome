@@ -14,21 +14,19 @@ function getIconUrl(name: string, family: string, variant: string) {
     // NOTE: variant="duo-solid" is deprecated, use family="notdog-duo" variant="solid" instead
     if (variant === 'solid') folder = 'notdog-solid';
     if (variant === 'duo-solid') folder = 'notdog-duo-solid';
-    return `https://ka-p.fontawesome.com/releases/v${FA_VERSION}/svgs/${folder}/${name}.svg?token=${encodeURIComponent(kitCode)}`;
   }
   if (family === 'notdog-duo') {
     folder = 'notdog-duo-solid';
-    return `https://ka-p.fontawesome.com/releases/v${FA_VERSION}/svgs/${folder}/${name}.svg?token=${encodeURIComponent(kitCode)}`;
   }
 
   // Chisel (Pro+)
   if (family === 'chisel') {
-    return `https://ka-p.fontawesome.com/releases/v${FA_VERSION}/svgs/chisel-regular/${name}.svg?token=${encodeURIComponent(kitCode)}`;
+    folder = 'chisel-regular';
   }
 
   // Etch (Pro+)
   if (family === 'etch') {
-    return `https://ka-p.fontawesome.com/releases/v${FA_VERSION}/svgs/etch-solid/${name}.svg?token=${encodeURIComponent(kitCode)}`;
+    folder = 'etch-solid';
   }
 
   // Jelly (Pro+)
@@ -39,15 +37,12 @@ function getIconUrl(name: string, family: string, variant: string) {
     if (variant === 'regular') folder = 'jelly-regular';
     if (variant === 'duo-regular') folder = 'jelly-duo-regular';
     if (variant === 'fill-regular') folder = 'jelly-fill-regular';
-    return `https://ka-p.fontawesome.com/releases/v${FA_VERSION}/svgs/${folder}/${name}.svg?token=${encodeURIComponent(kitCode)}`;
   }
   if (family === 'jelly-duo') {
     folder = 'jelly-duo-regular';
-    return `https://ka-p.fontawesome.com/releases/v${FA_VERSION}/svgs/${folder}/${name}.svg?token=${encodeURIComponent(kitCode)}`;
   }
   if (family === 'jelly-fill') {
     folder = 'jelly-fill-regular';
-    return `https://ka-p.fontawesome.com/releases/v${FA_VERSION}/svgs/${folder}/${name}.svg?token=${encodeURIComponent(kitCode)}`;
   }
 
   // Slab (Pro+)
@@ -56,36 +51,31 @@ function getIconUrl(name: string, family: string, variant: string) {
     // NOTE: variant="press-regular" is deprecated, use family="slab-press" variant="regular" instead
     if (variant === 'solid' || variant === 'regular') folder = 'slab-regular';
     if (variant === 'press-regular') folder = 'slab-press-regular';
-    return `https://ka-p.fontawesome.com/releases/v${FA_VERSION}/svgs/${folder}/${name}.svg?token=${encodeURIComponent(kitCode)}`;
   }
   if (family === 'slab-press') {
     folder = 'slab-press-regular';
-    return `https://ka-p.fontawesome.com/releases/v${FA_VERSION}/svgs/${folder}/${name}.svg?token=${encodeURIComponent(kitCode)}`;
   }
 
   // Thumbprint (Pro+)
   if (family === 'thumbprint') {
-    return `https://ka-p.fontawesome.com/releases/v${FA_VERSION}/svgs/thumbprint-light/${name}.svg?token=${encodeURIComponent(kitCode)}`;
+    folder = 'thumbprint-light';
   }
 
   // Whiteboard (Pro+)
   if (family === 'whiteboard') {
-    return `https://ka-p.fontawesome.com/releases/v${FA_VERSION}/svgs/whiteboard-semibold/${name}.svg?token=${encodeURIComponent(kitCode)}`;
+    folder = 'whiteboard-semibold';
   }
 
   // Utility (Pro+)
   // Correct usage: family="utility", family="utility-duo", or family="utility-fill", variant="semibold"
   if (family === 'utility') {
     folder = 'utility-semibold';
-    return `https://ka-p.fontawesome.com/releases/v${FA_VERSION}/svgs/${folder}/${name}.svg?token=${encodeURIComponent(kitCode)}`;
   }
   if (family === 'utility-duo') {
     folder = 'utility-duo-semibold';
-    return `https://ka-p.fontawesome.com/releases/v${FA_VERSION}/svgs/${folder}/${name}.svg?token=${encodeURIComponent(kitCode)}`;
   }
   if (family === 'utility-fill') {
     folder = 'utility-fill-semibold';
-    return `https://ka-p.fontawesome.com/releases/v${FA_VERSION}/svgs/${folder}/${name}.svg?token=${encodeURIComponent(kitCode)}`;
   }
 
   // Classic
