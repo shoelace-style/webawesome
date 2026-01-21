@@ -54,6 +54,8 @@
     "start:alpha": "echo 'This command has been deprecated. Use: \"npm start\"\n'",
     "build": "node scripts/build.js",
     "build:serve": "npm run build && npx http-server _site -p 4000",
+    "analyze": "cem analyze --config './custom-elements-manifest.js'",
+    "clean": "git clean -fdx",
     "publish-alpha-cdn": "./publish-alpha-cdn.sh",
     "create": "plop --plopfile scripts/plop/plopfile.js",
     "test": "CSR_ONLY=\"true\" web-test-runner --group default",
@@ -89,6 +91,7 @@
     ]
   },
   "devDependencies": {
+    "@wc-toolkit/cem-validator": "^1.2.1",
     "@wc-toolkit/jsx-types": "^1.5.2",
     "eleventy-plugin-git-commit-date": "^0.1.3",
     "esbuild": "^0.25.11",

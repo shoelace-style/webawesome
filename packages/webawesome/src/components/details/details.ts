@@ -15,6 +15,8 @@ import { LocalizeController } from '../../utilities/localize.js';
 import '../icon/icon.js';
 import styles from './details.styles.js';
 
+export type { WaAfterShowEvent }
+
 /**
  * @summary Details show a brief summary and expand to show additional content.
  * @documentation https://webawesome.com/docs/components/details

@@ -19,6 +19,8 @@ import '../icon/icon.js';
 import '../spinner/spinner.js';
 import styles from './tree-item.styles.js';
 
+export type { WaCollapseEvent };
+
 /**
  * @summary A tree item serves as a hierarchical node that lives inside a [tree](/docs/components/tree).
  * @documentation https://webawesome.com/docs/components/tree-item

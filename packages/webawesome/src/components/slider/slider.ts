@@ -15,6 +15,8 @@ import '../tooltip/tooltip.js';
 import type WaTooltip from '../tooltip/tooltip.js';
 import styles from './slider.styles.js';
 
+export type { WaTooltip };
+
 /**
  * <wa-slider>
  *

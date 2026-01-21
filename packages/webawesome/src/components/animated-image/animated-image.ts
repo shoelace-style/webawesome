@@ -8,6 +8,8 @@ import { LocalizeController } from '../../utilities/localize.js';
 import '../icon/icon.js';
 import styles from './animated-image.styles.js';
 
+export type { WaLoadEvent };
+
 /**
  * @summary A component for displaying animated GIFs and WEBPs that play and pause on interaction.
  * @documentation https://webawesome.com/docs/components/animated-image

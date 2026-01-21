@@ -1,6 +1,7 @@
 import { jsxTypesPlugin } from '@wc-toolkit/jsx-types';
 import { customElementJetBrainsPlugin } from 'custom-element-jet-brains-integration';
 import { customElementVsCodePlugin } from 'custom-element-vs-code-integration';
+import { cemValidatorPlugin } from "@wc-toolkit/cem-validator";
 // import { customElementVuejsPlugin } from 'custom-element-vuejs-integration';
 import { parse } from 'comment-parser';
 import fs from 'fs';
@@ -197,5 +198,13 @@ export default {
     //   fileName: 'index.d.ts',
     //   componentTypePath: (_, tag) => `../../components/${tag.replace('wa-', '')}/${tag.replace('wa-', '')}.js`
     // })
+
+    cemValidatorPlugin({
+      rules: {
+        manifest: {
+          schemaVersion: 'off'
+        }
+      }
+    })
   ],
 };

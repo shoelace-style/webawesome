@@ -8,6 +8,8 @@ import { LocalizeController } from '../../utilities/localize.js';
 import '../button/button.js';
 import styles from './tag.styles.js';
 
+export type { WaRemoveEvent };
+
 /**
  * @summary Tags are used as labels to organize things or to indicate a selection.
  * @documentation https://webawesome.com/docs/components/tag

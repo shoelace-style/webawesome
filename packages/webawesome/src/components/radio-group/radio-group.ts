@@ -12,6 +12,8 @@ import '../radio/radio.js';
 import type WaRadio from '../radio/radio.js';
 import styles from './radio-group.styles.js';
 
+export type { WebAwesomeFormAssociatedElement };
+
 /**
  * @summary Radio groups are used to group multiple [radios](/docs/components/radio) so they function as a single form control.
  * @documentation https://webawesome.com/docs/components/radio-group

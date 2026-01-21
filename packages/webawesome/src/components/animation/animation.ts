@@ -8,6 +8,8 @@ import WebAwesomeElement from '../../internal/webawesome-element.js';
 import styles from './animation.styles.js';
 import { animations } from './animations.js';
 
+export type { WaStartEvent };
+
 /**
  * @summary Animate elements declaratively with nearly 100 baked-in presets, or roll your own with custom keyframes. Powered by the [Web Animations API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API).
  * @documentation https://webawesome.com/docs/components/animation

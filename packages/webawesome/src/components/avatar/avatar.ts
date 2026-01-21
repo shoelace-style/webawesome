@@ -6,6 +6,8 @@ import WebAwesomeElement from '../../internal/webawesome-element.js';
 import '../icon/icon.js';
 import styles from './avatar.styles.js';
 
+export type { WaErrorEvent };
+
 /**
  * @summary Avatars are used to represent a person or object.
  * @documentation https://webawesome.com/docs/components/avatar

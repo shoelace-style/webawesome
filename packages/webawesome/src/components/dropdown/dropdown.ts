@@ -20,6 +20,8 @@ import type WaDropdownItem from '../dropdown-item/dropdown-item.js';
 import WaPopup from '../popup/popup.js'; // Added import for wa-popup
 import styles from './dropdown.styles.js';
 
+export type { WaAfterShowEvent };
+
 const openDropdowns = new Set<WaDropdown>();
 
 /**
