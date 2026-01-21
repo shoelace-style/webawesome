@@ -45,4 +45,7 @@
   .wa-gap-3xl {
     gap: var(--wa-space-3xl);
   }
+  .wa-gap-4xl {
+    gap: var(--wa-space-4xl);
+  }
 }

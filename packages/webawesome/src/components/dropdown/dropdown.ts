@@ -140,9 +140,9 @@ export default class WaDropdown extends WebAwesomeElement {
 
   /** Gets all dropdown items slotted in the menu. */
   private getItems(includeDisabled = false): WaDropdownItem[] {
-    const items = this.defaultSlot
-      .assignedElements({ flatten: true })
-      .filter(el => el.localName === 'wa-dropdown-item') as WaDropdownItem[];
+    const items = (this.defaultSlot?.assignedElements({ flatten: true }) ?? []).filter(
+      el => el.localName === 'wa-dropdown-item',
+    ) as WaDropdownItem[];
 
     return includeDisabled ? items : items.filter(item => !item.disabled);
   }
@@ -167,9 +167,9 @@ export default class WaDropdown extends WebAwesomeElement {
 
   /** Syncs item sizes with the dropdown's size property. */
   private syncItemSizes() {
-    const items = this.defaultSlot
-      .assignedElements({ flatten: true })
-      .filter(el => el.localName === 'wa-dropdown-item') as WaDropdownItem[];
+    const items = (this.defaultSlot?.assignedElements({ flatten: true }) ?? []).filter(
+      el => el.localName === 'wa-dropdown-item',
+    ) as WaDropdownItem[];
     items.forEach(item => (item.size = this.size));
   }
 
@@ -232,7 +232,7 @@ export default class WaDropdown extends WebAwesomeElement {
   /** Shows the dropdown menu. This should only be called from within updated(). */
   private async showMenu() {
     const anchor = this.getTrigger();
-    if (!anchor) return;
+    if (!anchor || !this.popup || !this.menu) return;
 
     const showEvent = new WaShowEvent();
     this.dispatchEvent(showEvent);
@@ -272,6 +272,8 @@ export default class WaDropdown extends WebAwesomeElement {
 
   /** Hides the dropdown menu. This should only be called from within updated(). */
   private async hideMenu() {
+    if (!this.popup || !this.menu) return;
+
     const hideEvent = new WaHideEvent({ source: this });
     this.dispatchEvent(hideEvent);
     if (hideEvent.defaultPrevented) {
@@ -661,16 +663,22 @@ export default class WaDropdown extends WebAwesomeElement {
     currentSubmenuItem.submenuElement.style.setProperty('--safe-triangle-cursor-x', `${constrainedX}px`);
     currentSubmenuItem.submenuElement.style.setProperty('--safe-triangle-cursor-y', `${constrainedY}px`);
 
-    const isOverItem = currentSubmenuItem.matches(':hover');
+    // Calculate these up front since this event cant fire a lot.
+    const composedPath = event.composedPath();
+    const submenuItemHovered = currentSubmenuItem.matches(':hover');
+    const submenuElementHovered = Boolean(currentSubmenuItem.submenuElement?.matches(':hover'));
+
+    const isOverItem = submenuItemHovered || !!composedPath.find(el => el === currentSubmenuItem);
+
     const isOverSubmenu =
-      currentSubmenuItem.submenuElement?.matches(':hover') ||
-      !!event
-        .composedPath()
-        .find(el => el instanceof HTMLElement && el.closest('[part="submenu"]') === currentSubmenuItem.submenuElement);
+      submenuElementHovered ||
+      !!composedPath.find(
+        el => el instanceof HTMLElement && el.closest('[part="submenu"]') === currentSubmenuItem.submenuElement,
+      );
 
     if (!isOverItem && !isOverSubmenu) {
       setTimeout(() => {
-        if (!currentSubmenuItem.matches(':hover') && !currentSubmenuItem.submenuElement?.matches(':hover')) {
+        if (!submenuItemHovered && !submenuElementHovered) {
           currentSubmenuItem.submenuOpen = false;
         }
       }, 100);
@@ -722,12 +730,12 @@ export default class WaDropdown extends WebAwesomeElement {
     nativeButton.setAttribute('aria-haspopup', 'menu');
     nativeButton.setAttribute('aria-expanded', this.open ? 'true' : 'false');
 
-    this.menu.setAttribute('aria-expanded', 'false');
+    this.menu?.setAttribute('aria-expanded', 'false');
   }
 
   render() {
     // On initial render, we want to use this.open, for everything else, we sync off of this.popup.active to get animations working.
-    let active = this.hasUpdated ? this.popup.active : this.open;
+    let active = this.hasUpdated ? this.popup?.active : this.open;
 
     return html`
       <wa-popup

@@ -22,6 +22,9 @@ const components = getAllComponents(metadata);
 const index = [];
 
 for await (const component of components) {
+  if (!component.tagName) {
+    continue;
+  }
   const tagWithoutPrefix = component.tagName.replace(/^wa-/, '');
   const componentDir = path.join(reactDir, tagWithoutPrefix);
   const componentFile = path.join(componentDir, 'index.ts');

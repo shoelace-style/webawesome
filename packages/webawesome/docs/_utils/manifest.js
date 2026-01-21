@@ -11,6 +11,7 @@ export function getComponents() {
   const manifest = JSON.parse(readFileSync(join(distDir, 'custom-elements.json'), 'utf-8'));
   const components = [];
 
+  const sortByName = (a, b) => (a.name || '').localeCompare(b.name || '');
   manifest.modules?.forEach(module => {
     module.declarations?.forEach(declaration => {
       if (declaration.customElement) {
@@ -18,7 +19,16 @@ export function getComponents() {
         declaration.path = module.path.replace(/^src\//, 'dist/').replace(/\.ts$/, '.js');
 
         // Remove private members and those that lack a description
-        const members = declaration.members?.filter(member => member.description && member.privacy !== 'private');
+        const slots = declaration.slots?.sort(sortByName);
+        const events = declaration.events?.sort(sortByName);
+        const cssProperties = declaration.cssProperties?.sort(sortByName);
+        const cssParts = declaration.cssParts?.sort(sortByName);
+        const cssStates = declaration.cssStates?.sort(sortByName);
+        const dependencies = declaration.dependencies?.sort((a, b) => a.localeCompare(b));
+
+        const members = declaration.members
+          ?.filter(member => member.description && member.privacy !== 'private')
+          ?.sort(sortByName);
         const methods = members?.filter(prop => prop.kind === 'method' && prop.privacy !== 'private');
         const properties = members?.filter(prop => {
           // Look for a corresponding attribute
@@ -31,6 +41,12 @@ export function getComponents() {
         });
         components.push({
           ...declaration,
+          slots,
+          events,
+          cssProperties,
+          cssStates,
+          cssParts,
+          dependencies,
           methods,
           properties,
         });

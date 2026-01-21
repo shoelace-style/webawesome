@@ -81,7 +81,7 @@ export default class WaTooltip extends WebAwesomeElement {
   /** The amount of time to wait before showing the tooltip when the user mouses in. */
   @property({ attribute: 'show-delay', type: Number }) showDelay = 150;
 
-  /** The amount of time to wait before hiding the tooltip when the user mouses out.. */
+  /** The amount of time to wait before hiding the tooltip when the user mouses out. */
   @property({ attribute: 'hide-delay', type: Number }) hideDelay = 0;
 
   /**
@@ -107,6 +107,8 @@ export default class WaTooltip extends WebAwesomeElement {
     if (this.eventController.signal.aborted) {
       this.eventController = new AbortController();
     }
+
+    this.addEventListener('mouseout', this.handleMouseOut);
 
     // TODO: This is a hack that I need to revisit [Konnor]
     if (this.open) {
@@ -193,8 +195,20 @@ export default class WaTooltip extends WebAwesomeElement {
 
   private handleMouseOut = () => {
     if (this.hasTrigger('hover')) {
+      const anchorHovered = Boolean(this.anchor?.matches(':hover'));
+      const tooltipHovered = this.matches(':hover');
+
+      if (anchorHovered || tooltipHovered) {
+        return;
+      }
+
       clearTimeout(this.hoverTimeout);
-      this.hoverTimeout = window.setTimeout(() => this.hide(), this.hideDelay);
+
+      if (!(anchorHovered || tooltipHovered)) {
+        this.hoverTimeout = window.setTimeout(() => {
+          this.hide();
+        }, this.hideDelay);
+      }
     }
   };
 

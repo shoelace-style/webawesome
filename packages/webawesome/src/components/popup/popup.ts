@@ -288,11 +288,11 @@ export default class WaPopup extends WebAwesomeElement {
 
   private start() {
     // We can't start the positioner without an anchor
-    if (!this.anchorEl || !this.active) {
+    if (!this.anchorEl || !this.active || !this.isConnected) {
       return;
     }
 
-    this.popup.showPopover?.();
+    this.popup?.showPopover?.();
 
     this.cleanup = autoUpdate(this.anchorEl, this.popup, () => {
       this.reposition();
@@ -301,7 +301,7 @@ export default class WaPopup extends WebAwesomeElement {
 
   private async stop(): Promise<void> {
     return new Promise(resolve => {
-      this.popup.hidePopover?.();
+      this.popup?.hidePopover?.();
 
       if (this.cleanup) {
         this.cleanup();
@@ -319,7 +319,7 @@ export default class WaPopup extends WebAwesomeElement {
   /** Forces the popup to recalculate and reposition itself. */
   reposition() {
     // Nothing to do if the popup is inactive or the anchor doesn't exist
-    if (!this.active || !this.anchorEl) {
+    if (!this.active || !this.anchorEl || !this.popup) {
       return;
     }
 
@@ -500,7 +500,7 @@ export default class WaPopup extends WebAwesomeElement {
   }
 
   private updateHoverBridge = () => {
-    if (this.hoverBridge && this.anchorEl) {
+    if (this.hoverBridge && this.anchorEl && this.popup) {
       const anchorRect = this.anchorEl.getBoundingClientRect();
       const popupRect = this.popup.getBoundingClientRect();
       const isVertical = this.placement.includes('top') || this.placement.includes('bottom');

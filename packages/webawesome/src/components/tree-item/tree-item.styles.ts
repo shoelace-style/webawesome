@@ -85,6 +85,10 @@ export default css`
     display: none;
   }
 
+  .tree-item:not(.tree-item-has-expand-button):not(.tree-item-loading) .expand-button {
+    cursor: default;
+  }
+
   .tree-item-loading .expand-icon-slot wa-icon {
     display: none;
   }

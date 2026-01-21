@@ -154,6 +154,8 @@ export default class WebAwesomeElement extends LitElement {
   relayNativeEvent(event: Event, eventOptions?: EventInit) {
     event.stopImmediatePropagation();
 
+    // This triggers an error in CEM, so we need to ignore it.
+    /** @internal */
     this.dispatchEvent(
       new (event.constructor as typeof Event)(event.type, {
         ...event,
