@@ -6,6 +6,9 @@ export default css`
     --track-color: var(--wa-color-neutral-fill-normal);
     --track-width: 0.125rem;
 
+    /* Private */
+    --safe-track-width: max(0.5px, round(var(--track-width), 0.5px));
+
     display: block;
   }
 
@@ -51,8 +54,8 @@ export default css`
   }
 
   /*
-   * Top
-   */
+    * Top
+    */
 
   .tab-group-top {
     flex-direction: column;
@@ -80,12 +83,12 @@ export default css`
     flex: 1 1 auto;
     position: relative;
     flex-direction: row;
-    border-bottom: solid var(--track-width) var(--track-color);
+    border-bottom: solid var(--safe-track-width) var(--track-color);
   }
 
   .tab-group-top .indicator {
-    bottom: calc(-1 * var(--track-width));
-    border-bottom: solid var(--track-width) var(--indicator-color);
+    bottom: calc(-1 * var(--safe-track-width));
+    border-bottom: solid var(--safe-track-width) var(--indicator-color);
   }
 
   .tab-group-top .body {
@@ -93,8 +96,8 @@ export default css`
   }
 
   .tab-group-top ::slotted(wa-tab[active]) {
-    border-block-end: solid var(--track-width) var(--indicator-color);
-    margin-block-end: calc(-1 * var(--track-width));
+    border-block-end: solid var(--safe-track-width) var(--indicator-color);
+    margin-block-end: calc(-1 * var(--safe-track-width));
   }
 
   .tab-group-top ::slotted(wa-tab-panel) {
@@ -102,8 +105,8 @@ export default css`
   }
 
   /*
-   * Bottom
-   */
+    * Bottom
+    */
 
   .tab-group-bottom {
     flex-direction: column;
@@ -131,12 +134,12 @@ export default css`
     flex: 1 1 auto;
     position: relative;
     flex-direction: row;
-    border-top: solid var(--track-width) var(--track-color);
+    border-top: solid var(--safe-track-width) var(--track-color);
   }
 
   .tab-group-bottom .indicator {
-    top: calc(-1 * var(--track-width));
-    border-top: solid var(--track-width) var(--indicator-color);
+    top: calc(-1 * var(--safe-track-width));
+    border-top: solid var(--safe-track-width) var(--indicator-color);
   }
 
   .tab-group-bottom .body {
@@ -144,8 +147,8 @@ export default css`
   }
 
   .tab-group-bottom ::slotted(wa-tab[active]) {
-    border-block-start: solid var(--track-width) var(--indicator-color);
-    margin-block-start: calc(-1 * var(--track-width));
+    border-block-start: solid var(--safe-track-width) var(--indicator-color);
+    margin-block-start: calc(-1 * var(--safe-track-width));
   }
 
   .tab-group-bottom ::slotted(wa-tab-panel) {
@@ -153,8 +156,8 @@ export default css`
   }
 
   /*
-   * Start
-   */
+    * Start
+    */
 
   .tab-group-start {
     flex-direction: row;
@@ -167,12 +170,12 @@ export default css`
   .tab-group-start .tabs {
     flex: 0 0 auto;
     flex-direction: column;
-    border-inline-end: solid var(--track-width) var(--track-color);
+    border-inline-end: solid var(--safe-track-width) var(--track-color);
   }
 
   .tab-group-start .indicator {
-    inset-inline-end: calc(-1 * var(--track-width));
-    border-right: solid var(--track-width) var(--indicator-color);
+    inset-inline-end: calc(-1 * var(--safe-track-width));
+    border-right: solid var(--safe-track-width) var(--indicator-color);
   }
 
   .tab-group-start .body {
@@ -181,8 +184,8 @@ export default css`
   }
 
   .tab-group-start ::slotted(wa-tab[active]) {
-    border-inline-end: solid var(--track-width) var(--indicator-color);
-    margin-inline-end: calc(-1 * var(--track-width));
+    border-inline-end: solid var(--safe-track-width) var(--indicator-color);
+    margin-inline-end: calc(-1 * var(--safe-track-width));
   }
 
   .tab-group-start ::slotted(wa-tab-panel) {
@@ -190,8 +193,8 @@ export default css`
   }
 
   /*
-   * End
-   */
+    * End
+    */
 
   .tab-group-end {
     flex-direction: row;
@@ -204,12 +207,12 @@ export default css`
   .tab-group-end .tabs {
     flex: 0 0 auto;
     flex-direction: column;
-    border-left: solid var(--track-width) var(--track-color);
+    border-left: solid var(--safe-track-width) var(--track-color);
   }
 
   .tab-group-end .indicator {
-    inset-inline-start: calc(-1 * var(--track-width));
-    border-inline-start: solid var(--track-width) var(--indicator-color);
+    inset-inline-start: calc(-1 * var(--safe-track-width));
+    border-inline-start: solid var(--safe-track-width) var(--indicator-color);
   }
 
   .tab-group-end .body {
@@ -218,8 +221,8 @@ export default css`
   }
 
   .tab-group-end ::slotted(wa-tab[active]) {
-    border-inline-start: solid var(--track-width) var(--indicator-color);
-    margin-inline-start: calc(-1 * var(--track-width));
+    border-inline-start: solid var(--safe-track-width) var(--indicator-color);
+    margin-inline-start: calc(-1 * var(--safe-track-width));
   }
 
   .tab-group-end ::slotted(wa-tab-panel) {

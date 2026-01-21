@@ -26,6 +26,8 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - [Docs]: Included framework specific documentation for Svelte, Vue, and Angular. [pr:1895]
 - Fixed a bug in `<wa-icon>` to support Font Awesome Pro+ icon families that include qualifiers (e.g., `family="jelly-duo"` now works correctly instead of requiring `family="jelly" variant="duo-regular"`) and updated Font Awesome to 7.1.0
 - Fixed a bug in `<wa-dropdown>` where submenu detection would not work in shadow dom. [pr:]
+- Fixed a bug in `<wa-tooltip>` where safe triangles were not being respected. [pr:1967]
+- Fixed a bug in `<wa-dropdown>` where submenu detection would not work in shadow dom. [pr:1956]
 - Fixed a bug in `<wa-combobox>` that prevented the listbox from opening when options were preselected [issue:1883]
 - Fixed a bug in `<wa-combobox>` that prevented the listbox from opening when options were preselected [issue:1883]
 - Fixed a bug in `<wa-popup>` and `<wa-dropdown-item>` that caused an error when removing a popup while it was opening [issue:1910]
@@ -50,14 +52,15 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed a bug in `<wa-icon>` that caused some icon libraries to render with the incorrect SVG fill [issue:1733]
 - Fixed a bug in `<wa-tree-item>` that caused the spinner to not show when lazy loading [issue:1678]
 - Fixed a bug in `<wa-dropdown>` that caused the browser to hang when cancelling the `wa-hide` event [issue:1483]
+- Fixed a bug in `<wa-tab-group>` that ensures the active indicator always shows [issue:1206]
 - Fixed a bug in `<wa-dropdown-item>` that prevented the icon dependency from being imported [issue:1825]
 - Fixed a bug in `<wa-select>` that prevented clicks on the tag's remove button from removing options in multiple mode
 - Fixed a bug in `<wa-select>` that caused tags to appear in alphabetical order instead of selection order when using `multiple`
-- Improved performance of `<wa-icon>` so initial rendering occurs faster, especially with multiple icons on the page [issue:1729]
-- Improved `<wa-slider>` to not throw an error when string values are passed to the `min`, `max`, and `step` properties [issue:1823]
 - Fixed a bug in Web Awesome form controls that caused `<wa-input form="foo">` to set the form property to equal `"foo"` instead of returning an `HTMLFormElement` breaking platform expectations. [pr:1815]
 - Fixed a bug in `<wa-button>` causing it to not copy over attributes for form submissions. [pr:1815]
 - Fixed a bug where the build script was not building `/dist/(utilities|events).js` [pr:1816]
+- Improved performance of `<wa-icon>` so initial rendering occurs faster, especially with multiple icons on the page [issue:1729]
+- Improved `<wa-slider>` to not throw an error when string values are passed to the `min`, `max`, and `step` properties [issue:1823]
 - Improved performance of all components by fixing how CSS is imported and reused [issue:1812]
 - Modified the default `transition` styles of `<wa-dropdown-item>` to use design tokens [pr:1693]
 
