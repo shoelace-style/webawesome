@@ -127,7 +127,7 @@ With auto-width<br />
 ```
 
 ### Rotating & Flipping
-Sometimes you need to rotate, flip, or mirror an icon for it to work in your project or design. We’ve included some quick utilities to help with that. To arbitrarily rotate and flip icons, use the `rotate` and `flip` when you reference an icon.
+Web Awesome supports [Font Awesome's rotation and flip utilities](https://docs.fontawesome.com/web/style/rotate/) for adjusting icon orientation. To rotate or flip icons, use the `rotate` and `flip` attributes when you reference an icon.
 
 ```html {.example}
 <wa-icon name="snowboarding" label="Snowboarding" style="font-size: 2em;"></wa-icon>
@@ -140,7 +140,7 @@ Sometimes you need to rotate, flip, or mirror an icon for it to work in your pro
 ```
 
 ### Animating
-Our Styling Toolkit takes the trouble out of sizing, rotating, and stacking icons, so you can make your site pop with animations. To select different types of animations, use `animation` when you reference an icon.
+Web Awesome supports [Font Awesome's animation utilities](https://docs.fontawesome.com/web/style/animate/) for adding visual interest to icons. To select different types of animations, use the `animation` attribute when you reference an icon.
 
 #### Beat
 Use the `beat` animation to scale an icon up or down. This is useful for grabbing attention or for use with health/heart-centric icons.
