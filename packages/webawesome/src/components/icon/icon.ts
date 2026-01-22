@@ -133,6 +133,10 @@ export default class WaIcon extends WebAwesomeElement {
 
   firstUpdated(changedProperties: PropertyValues<this>) {
     super.firstUpdated(changedProperties);
+    // Set initial rotate angle if rotate attribute is present
+    if (this.hasAttribute('rotate')) {
+      this.style.setProperty('--rotate-angle', `${this.rotate}deg`);
+    }
     this.setIcon();
   }
 
@@ -277,7 +281,8 @@ export default class WaIcon extends WebAwesomeElement {
     super.updated(changedProperties);
     // Sometimes (like with SSR -> hydration) mutators don't get applied due to race conditions. This ensures mutators get re-applied.
     const library = getIconLibrary(this.library);
-    if (changedProperties.has('rotate')) {
+    // Set rotate angle whenever rotate attribute is present (not just on change)
+    if (this.hasAttribute('rotate')) {
       this.style.setProperty('--rotate-angle', `${this.rotate}deg`);
     }
     const svg = this.shadowRoot?.querySelector('svg');
