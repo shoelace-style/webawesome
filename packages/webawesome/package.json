@@ -9,7 +9,6 @@
   "author": "Web Awesome",
   "license": "MIT",
   "customElements": "dist-cdn/custom-elements.json",
-  "customElements": "dist-cdn/custom-elements.json",
   "web-types": "./dist/web-types.json",
   "type": "module",
   "types": "dist/webawesome.d.ts",
@@ -99,7 +98,7 @@
     ]
   },
   "devDependencies": {
-    "@wc-toolkit/cem-validator": "^1.2.1",
+    "@wc-toolkit/cem-validator": "^1.3.0",
     "@wc-toolkit/jsx-types": "^1.5.2",
     "eleventy-plugin-git-commit-date": "^0.1.3",
     "esbuild": "^0.25.11",

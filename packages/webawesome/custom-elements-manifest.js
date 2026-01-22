@@ -6,7 +6,6 @@ import { parse } from 'comment-parser';
 import { customElementJetBrainsPlugin } from 'custom-element-jet-brains-integration';
 import { customElementSveltePlugin } from 'custom-element-svelte-integration';
 import { customElementVsCodePlugin } from 'custom-element-vs-code-integration';
-import { cemValidatorPlugin } from "@wc-toolkit/cem-validator";
 import { customElementVuejsPlugin } from 'custom-element-vuejs-integration';
 import fs from 'fs';
 import * as path from 'node:path';
@@ -227,6 +226,7 @@ export default {
       fileName: 'index.d.ts',
     }),
     cemValidatorPlugin({
+      exclude: ['WebAwesomeElement'],
       rules: {
         manifest: {
           schemaVersion: 'off'
