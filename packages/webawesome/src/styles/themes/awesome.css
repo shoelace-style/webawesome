@@ -367,11 +367,7 @@
 
 @layer wa-theme-dimension {
   .wa-theme-awesome {
-    wa-button,
-    button,
-    input[type='button'],
-    input[type='reset'],
-    input[type='submit'] {
+    wa-button {
       --wa-color-shadow: var(--wa-color-border-normal);
       --wa-transition-slow: 0;
       --wa-transition-normal: 0;
@@ -383,13 +379,8 @@
       }
     }
 
-    wa-button,
-    button,
-    input[type='button'],
-    input[type='reset'],
-    input[type='submit'] {
+    wa-button {
       &:not([appearance~='plain']):not(.wa-plain) {
-        &:where(:not(wa-button)),
         &::part(base) {
           height: calc(var(--wa-form-control-height) - var(--wa-shadow-offset-y-s));
           margin-bottom: var(--wa-shadow-offset-y-s);
@@ -397,7 +388,6 @@
           box-shadow: var(--wa-shadow-offset-x-s) var(--wa-shadow-offset-y-s) 0 0 var(--wa-color-shadow);
         }
         &:not([disabled]):not(:disabled):active {
-          &:where(:not(wa-button)),
           &::part(base) {
             color: var(--wa-color-fill-quiet);
             background-color: var(--wa-color-shadow);
@@ -411,7 +401,6 @@
         &[appearance~='accent'],
         &.wa-accent {
           &:not([disabled]):not(:disabled):active {
-            &:where(:not(wa-button)),
             &::part(base) {
               color: var(--wa-color-on-quiet);
             }

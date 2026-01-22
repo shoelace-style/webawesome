@@ -823,6 +823,50 @@
     & > * + wa-icon {
       margin-inline-start: 0.75em;
     }
+
+    /* Awesome theme-specific styling */
+    .wa-theme-awesome & {
+      --wa-color-shadow: var(--wa-color-border-normal);
+      --wa-transition-slow: 0;
+      --wa-transition-normal: 0;
+      --wa-transition-fast: 0;
+
+      &[appearance='outlined'],
+      &.wa-outlined:not(.wa-filled) {
+        --wa-color-shadow: var(--wa-color-border-loud);
+      }
+
+      &:not([appearance~='plain']):not(.wa-plain) {
+        &:not(input[type='file']),
+        &::file-selector-button {
+          height: calc(var(--wa-form-control-height) - var(--wa-shadow-offset-y-s));
+          margin-bottom: var(--wa-shadow-offset-y-s);
+          margin-right: var(--wa-shadow-offset-x-s);
+          box-shadow: var(--wa-shadow-offset-x-s) var(--wa-shadow-offset-y-s) 0 0 var(--wa-color-shadow);
+        }
+
+        &:not([disabled]):not(:disabled):active {
+          &:not(input[type='file']),
+          &::file-selector-button {
+            color: var(--wa-color-fill-quiet);
+            background-color: var(--wa-color-shadow);
+            border-color: var(--wa-color-shadow);
+            box-shadow: none;
+            transform: translate(var(--wa-shadow-offset-x-s), var(--wa-shadow-offset-y-s));
+          }
+        }
+      }
+
+      &[appearance~='accent'],
+      &.wa-accent {
+        &:not([disabled]):not(:disabled):active {
+          .wa-dark &:not(input[type='file']),
+          .wa-dark &::file-selector-button {
+            color: var(--wa-color-on-quiet);
+          }
+        }
+      }
+    }
   }
   /* #endregion */
 
