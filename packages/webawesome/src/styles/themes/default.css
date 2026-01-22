@@ -213,6 +213,18 @@
     --wa-font-weight-longform: var(--wa-font-weight-normal);
     --wa-font-weight-action: var(--wa-font-weight-semibold);
 
+    --wa-letter-spacing-body: normal;
+    --wa-letter-spacing-heading: normal;
+    --wa-letter-spacing-code: normal;
+    --wa-letter-spacing-longform: normal;
+    --wa-letter-spacing-action: normal;
+
+    --wa-text-transform-body: none;
+    --wa-text-transform-heading: none;
+    --wa-text-transform-code: none;
+    --wa-text-transform-longform: none;
+    --wa-text-transform-action: none;
+
     --wa-line-height-condensed: 1.2;
     --wa-line-height-normal: 1.6;
     --wa-line-height-expanded: 2;
