@@ -6,7 +6,7 @@ import { fixtures } from '../../internal/test/fixture.js';
 import { registerIconLibrary } from '../../../dist-cdn/webawesome.js';
 import type { WaErrorEvent } from '../../events/error.js';
 import type { WaLoadEvent } from '../../events/load.js';
-import WaIcon, { type IconEffect } from './icon.js';
+import WaIcon, { type IconAnimation } from './icon.js';
 
 const testLibraryIcons = {
   'test-icon1': `
@@ -292,8 +292,8 @@ describe('<wa-icon>', () => {
       });
 
       describe('animations', () => {
-        it('applies the proper animations when the "effect" attribute is set', async () => {
-          const animations: Array<IconEffect> = [
+        it('applies the proper animations when the "animation" attribute is set', async () => {
+          const animations: Array<IconAnimation> = [
             'beat',
             'beat-fade',
             'bounce',
@@ -306,7 +306,7 @@ describe('<wa-icon>', () => {
 
           for (const animation of animations) {
             const el = await fixture<WaIcon>(html`
-              <wa-icon library="system" name="check" effect=${animation}></wa-icon>
+              <wa-icon library="system" name="check" animation=${animation}></wa-icon>
             `);
             await elementUpdated(el);
             const svg = el.shadowRoot?.querySelector('svg');

@@ -22,7 +22,7 @@ interface IconSource {
   fromLibrary: boolean;
 }
 
-export type IconEffect = 'beat' | 'fade' | 'beat-fade' | 'bounce' | 'flip' | 'shake' | 'spin' | 'spin-pulse';
+export type IconAnimation = 'beat' | 'fade' | 'beat-fade' | 'bounce' | 'flip' | 'shake' | 'spin' | 'spin-pulse';
 
 /**
  * @summary Icons are symbols that can be used to represent various options within an application.
@@ -113,8 +113,8 @@ export default class WaIcon extends WebAwesomeElement {
   /** Sets the flip direction of the icon along the 'x' (horizontal), 'y' (vertical), or 'both' axes. */
   @property({ type: String, reflect: true }) flip?: 'x' | 'y' | 'both';
 
-  /** Sets several effects to selected icon */
-  @property({ type: String, reflect: true }) effect?: IconEffect;
+  /** Sets the animation for the icon */
+  @property({ type: String, reflect: true }) animation?: IconAnimation;
 
   connectedCallback() {
     super.connectedCallback();

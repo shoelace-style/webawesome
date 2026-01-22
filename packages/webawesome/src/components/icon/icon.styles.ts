@@ -60,7 +60,7 @@ export default css`
   }
 
   /* Animations */
-  :host([effect='beat']) svg {
+  :host([animation='beat']) svg {
     animation-name: beat;
     animation-delay: var(--animation-delay, 0s);
     animation-direction: var(--animation-direction, normal);
@@ -69,7 +69,7 @@ export default css`
     animation-timing-function: var(--animation-timing, ease-in-out);
   }
 
-  :host([effect='fade']) svg {
+  :host([animation='fade']) svg {
     animation-name: fade;
     animation-delay: var(--animation-delay, 0s);
     animation-direction: var(--animation-direction, normal);
@@ -78,7 +78,7 @@ export default css`
     animation-timing-function: var(--animation-timing, cubic-bezier(0.4, 0, 0.6, 1));
   }
 
-  :host([effect='beat-fade']) svg {
+  :host([animation='beat-fade']) svg {
     animation-name: beat-fade;
     animation-delay: var(--animation-delay, 0s);
     animation-direction: var(--animation-direction, normal);
@@ -87,7 +87,7 @@ export default css`
     animation-timing-function: var(--animation-timing, cubic-bezier(0.4, 0, 0.6, 1));
   }
 
-  :host([effect='bounce']) svg {
+  :host([animation='bounce']) svg {
     animation-name: bounce;
     animation-delay: var(--animation-delay, 0s);
     animation-direction: var(--animation-direction, normal);
@@ -96,7 +96,7 @@ export default css`
     animation-timing-function: var(--animation-timing, cubic-bezier(0.28, 0.84, 0.42, 1));
   }
 
-  :host([effect='flip']) svg {
+  :host([animation='flip']) svg {
     animation-name: flip;
     animation-delay: var(--animation-delay, 0s);
     animation-direction: var(--animation-direction, normal);
@@ -105,7 +105,7 @@ export default css`
     animation-timing-function: var(--animation-timing, ease-in-out);
   }
 
-  :host([effect='shake']) {
+  :host([animation='shake']) {
     animation-name: shake;
     animation-delay: var(--animation-delay, 0s);
     animation-direction: var(--animation-direction, normal);
@@ -114,7 +114,7 @@ export default css`
     animation-timing-function: var(--animation-timing, linear);
   }
 
-  :host([effect='spin']) {
+  :host([animation='spin']) {
     animation-name: spin;
     animation-delay: var(--animation-delay, 0s);
     animation-direction: var(--animation-direction, normal);
@@ -123,7 +123,7 @@ export default css`
     animation-timing-function: var(--animation-timing, linear);
   }
 
-  :host([effect='spin-pulse']) {
+  :host([animation='spin-pulse']) {
     animation-name: spin-pulse;
     animation-direction: var(--animation-direction, normal);
     animation-duration: var(--animation-duration, 1s);
