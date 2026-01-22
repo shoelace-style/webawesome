@@ -105,7 +105,7 @@ export default css`
     animation-timing-function: var(--animation-timing, ease-in-out);
   }
 
-  :host([animation='shake']) {
+  :host([animation='shake']) svg {
     animation-name: shake;
     animation-delay: var(--animation-delay, 0s);
     animation-direction: var(--animation-direction, normal);
@@ -114,7 +114,7 @@ export default css`
     animation-timing-function: var(--animation-timing, linear);
   }
 
-  :host([animation='spin']) {
+  :host([animation='spin']) svg {
     animation-name: spin;
     animation-delay: var(--animation-delay, 0s);
     animation-direction: var(--animation-direction, normal);
@@ -123,7 +123,7 @@ export default css`
     animation-timing-function: var(--animation-timing, linear);
   }
 
-  :host([animation='spin-pulse']) {
+  :host([animation='spin-pulse']) svg {
     animation-name: spin-pulse;
     animation-direction: var(--animation-direction, normal);
     animation-duration: var(--animation-duration, 1s);
@@ -131,7 +131,7 @@ export default css`
     animation-timing-function: var(--animation-timing, steps(8));
   }
 
-  :host([animation='spin-reverse']) {
+  :host([animation='spin-reverse']) svg {
     animation-name: spin;
     animation-delay: var(--animation-delay, 0s);
     animation-direction: reverse;
@@ -142,27 +142,15 @@ export default css`
 
   /* Keyframes */
   @media (prefers-reduced-motion: reduce) {
-    .beat,
-    .bounce,
-    .fade,
-    .beat-fade,
-    .flip,
-    .pulse,
-    .shake,
-    .spin,
-    .spin-pulse {
-      animation: none !important;
-      transition: none !important;
-    }
-    :host([animation='beat']),
-    :host([animation='bounce']),
-    :host([animation='fade']),
-    :host([animation='beat-fade']),
-    :host([animation='flip']),
-    :host([animation='shake']),
-    :host([animation='spin']),
-    :host([animation='spin-pulse']),
-    :host([animation='spin-reverse']) {
+    :host([animation='beat']) svg,
+    :host([animation='bounce']) svg,
+    :host([animation='fade']) svg,
+    :host([animation='beat-fade']) svg,
+    :host([animation='flip']) svg,
+    :host([animation='shake']) svg,
+    :host([animation='spin']) svg,
+    :host([animation='spin-pulse']) svg,
+    :host([animation='spin-reverse']) svg {
       animation: none !important;
       transition: none !important;
     }
