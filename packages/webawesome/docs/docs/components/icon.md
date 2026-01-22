@@ -199,7 +199,7 @@ Use the `shake` animation to grab attention or note that something is not allowe
 ```
 
 #### Spin
-Use the `spin`to get any icon to rotate, and use `spin-pulse` to have it rotate with eight steps. This works especially well with `spinner` and everything in the spinner icons category.
+Use the `spin` to get any icon to rotate, and use `spin-pulse` to have it rotate with eight steps. This works especially well with `spinner` and everything in the spinner icons category.
 
 ```html {.example}
 <wa-icon name="spinner" animation="spin" variant="light" label="Awesome" style="font-size: 2em;"></wa-icon>
