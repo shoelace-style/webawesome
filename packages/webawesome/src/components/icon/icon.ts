@@ -40,27 +40,27 @@ export type IconAnimation = 'beat' | 'fade' | 'beat-fade' | 'bounce' | 'flip' | 
  * @cssproperty [--primary-opacity=1] - Sets a duotone icon's primary opacity.
  * @cssproperty [--secondary-color=currentColor] - Sets a duotone icon's secondary color.
  * @cssproperty [--secondary-opacity=0.4] - Sets a duotone icon's secondary opacity.
- * @cssproperty [--animation-delay=0] Sets when the animation will start
- * @cssproperty [--animation-direction=normal] Defines whether or not the animation should play in reverse on alternate cycles
- * @cssproperty [--animation-duration=1s] Defines the length of time that an animation takes to complete one cycle
- * @cssproperty [--animation-iteration-count=infinite] Defines the number of times an animation cycle is played
- * @cssproperty [--animation-timing] Describes how the animation will progress over one cycle of its duration
- * @cssproperty [--beat-scale] Set max value that an icon will scale
- * @cssproperty [--fade-opacity] Set lowest opacity value an icon will fade to and from
- * @cssproperty [--beat-fade-scale] Set max value that an icon will scale
- * @cssproperty [--beat-fade-opacity] Set lowest opacity value an icon will fade to and from
- * @cssproperty [--bounce-rebound] Set the amount of rebound an icon has when landing after the jump
- * @cssproperty [--bounce-height] Set the max height an icon will jump to when bouncing
- * @cssproperty [--bounce-start-scale-x] Set the icon’s horizontal distortion (“squish”) when starting to bounce
- * @cssproperty [--bounce-start-scale-y] Set the icon’s vertical distortion (“squish”) when starting to bounce
- * @cssproperty [--bounce-jump-scale-x] Set the icon’s horizontal distortion (“squish”) at the top of the jump
- * @cssproperty [--bounce-jump-scale-y] Set the icon’s vertical distortion (“squish”) at the top of the jump
- * @cssproperty [--bounce-land-scale-x] Set the icon’s horizontal distortion (“squish”) when landing after the jump
- * @cssproperty [--bounce-land-scale-y] Set the icon’s vertical distortion (“squish”) when landing after the jump
- * @cssproperty [--flip-x] Set x-coordinate of the vector denoting the axis of rotation (between 0 and 1)
- * @cssproperty [--flip-y] Set y-coordinate of the vector denoting the axis of rotation (between 0 and 1)
- * @cssproperty [--flip-z] Set z-coordinate of the vector denoting the axis of rotation (between 0 and 1)
- * @cssproperty [--flip-angle] Set rotation angle of flip. A positive angle denotes a clockwise rotation, a negative angle a counter-clockwise one
+ * @cssproperty [--animation-delay=0] Sets when the animation will start.
+ * @cssproperty [--animation-direction=normal] Defines whether or not the animation should play in reverse on alternate cycles.
+ * @cssproperty [--animation-duration=1s] Defines the length of time that an animation takes to complete one cycle.
+ * @cssproperty [--animation-iteration-count=infinite] Defines the number of times an animation cycle is played.
+ * @cssproperty [--animation-timing] Describes how the animation will progress over one cycle of its duration.
+ * @cssproperty [--beat-scale] Set max value that an icon with `beat` animation will scale.
+ * @cssproperty [--fade-opacity] Set lowest opacity value an icon with `fade` animation will fade to and from.
+ * @cssproperty [--beat-fade-scale] Set max value that an icon with `beat-fade` animation will scale.
+ * @cssproperty [--beat-fade-opacity] Set lowest opacity value an icon with `beat-fade` animation will fade to and from.
+ * @cssproperty [--bounce-rebound] Set the amount of rebound an icon with `bounce` animation has when landing after the jump.
+ * @cssproperty [--bounce-height] Set the max height an icon with `bounce` animation will jump to when bouncing.
+ * @cssproperty [--bounce-start-scale-x] Set the icon’s horizontal distortion (“squish”) when starting to bounce.
+ * @cssproperty [--bounce-start-scale-y] Set the icon’s vertical distortion (“squish”) when starting to bounce.
+ * @cssproperty [--bounce-jump-scale-x] Set the icon’s horizontal distortion (“squish”) at the top of the jump.
+ * @cssproperty [--bounce-jump-scale-y] Set the icon’s vertical distortion (“squish”) at the top of the jump.
+ * @cssproperty [--bounce-land-scale-x] Set the icon’s horizontal distortion (“squish”) when landing after the jump.
+ * @cssproperty [--bounce-land-scale-y] Set the icon’s vertical distortion (“squish”) when landing after the jump.
+ * @cssproperty [--flip-x] Set x-coordinate of the vector denoting the axis of rotation (between 0 and 1) for an icon with `flip` animation.
+ * @cssproperty [--flip-y] Set y-coordinate of the vector denoting the axis of rotation (between 0 and 1) for an icon with `flip` animation.
+ * @cssproperty [--flip-z] Set z-coordinate of the vector denoting the axis of rotation (between 0 and 1) for an icon with `flip` animation.
+ * @cssproperty [--flip-angle] Set rotation angle of flip for an icon with `flip` animation. A positive angle denotes a clockwise rotation, a negative angle a counter-clockwise one.
  */
 @customElement('wa-icon')
 export default class WaIcon extends WebAwesomeElement {
