@@ -302,6 +302,7 @@ describe('<wa-icon>', () => {
             //'shake',
             //'spin',
             //'spin-pulse',
+            //'spin-reverse',
           ];
 
           for (const animation of animations) {

@@ -22,7 +22,7 @@ interface IconSource {
   fromLibrary: boolean;
 }
 
-export type IconAnimation = 'beat' | 'fade' | 'beat-fade' | 'bounce' | 'flip' | 'shake' | 'spin' | 'spin-pulse';
+export type IconAnimation = 'beat' | 'fade' | 'beat-fade' | 'bounce' | 'flip' | 'shake' | 'spin' | 'spin-pulse' | 'spin-reverse';
 
 /**
  * @summary Icons are symbols that can be used to represent various options within an application.

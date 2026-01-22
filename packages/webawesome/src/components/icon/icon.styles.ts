@@ -131,6 +131,15 @@ export default css`
     animation-timing-function: var(--animation-timing, steps(8));
   }
 
+  :host([animation='spin-reverse']) {
+    animation-name: spin;
+    animation-delay: var(--animation-delay, 0s);
+    animation-direction: reverse;
+    animation-duration: var(--animation-duration, 2s);
+    animation-iteration-count: var(--animation-iteration-count, infinite);
+    animation-timing-function: var(--animation-timing, linear);
+  }
+
   /* Keyframes */
   @media (prefers-reduced-motion: reduce) {
     .beat,
@@ -142,6 +151,18 @@ export default css`
     .shake,
     .spin,
     .spin-pulse {
+      animation: none !important;
+      transition: none !important;
+    }
+    :host([animation='beat']),
+    :host([animation='bounce']),
+    :host([animation='fade']),
+    :host([animation='beat-fade']),
+    :host([animation='flip']),
+    :host([animation='shake']),
+    :host([animation='spin']),
+    :host([animation='spin-pulse']),
+    :host([animation='spin-reverse']) {
       animation: none !important;
       transition: none !important;
     }
