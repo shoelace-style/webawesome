@@ -148,31 +148,31 @@ Web Awesome supports [Font Awesome's animation utilities](https://docs.fontaweso
 Use the `beat` animation to scale an icon up or down. This is useful for grabbing attention or for use with health/heart-centric icons.
 
 ```html {.example}
-<wa-icon name="circle-plus" animation="beat" label="Add" style="font-size: 2em;"></wa-icon>
-<wa-icon name="heart" animation="beat" label="Heart" style="font-size: 2em;"></wa-icon>
-<wa-icon name="heart" animation="beat" label="Heart" style="font-size: 2em; --animation-duration: 0.5s;"></wa-icon>
-<wa-icon name="heart" animation="beat" label="Heart" style="font-size: 2em; --animation-duration: 2s;"></wa-icon>
-<wa-icon name="heart" animation="beat" label="Heart" style="font-size: 2em; --beat-scale: 2;"></wa-icon>
+<wa-icon name="circle-plus" animation="beat" label="Beating Circle Plus" style="font-size: 2em;"></wa-icon>
+<wa-icon name="heart" animation="beat" label="Beating Heart" style="font-size: 2em;"></wa-icon>
+<wa-icon name="heart" animation="beat" label="Beating Heart" style="font-size: 2em; --animation-duration: 0.5s;"></wa-icon>
+<wa-icon name="heart" animation="beat" label="Beating Heart" style="font-size: 2em; --animation-duration: 2s;"></wa-icon>
+<wa-icon name="heart" animation="beat" label="Beating Heart" style="font-size: 2em; --beat-scale: 2;"></wa-icon>
 ```
 
 #### Fade
 
 Use the `fade` animation to fade an icon in and out visually to grab attention in a subtle (or not so subtle) way.
 ```html {.example}
-<wa-icon name="triangle-exclamation" animation="fade" label="Warning" style="font-size: 2em;"></wa-icon>
-<wa-icon name="skull-crossbones" animation="fade" label="Danger" style="font-size: 2em;"></wa-icon>
-<wa-icon name="desktop-arrow-down" animation="fade" label="Download" style="font-size: 2em;"></wa-icon>
-<wa-icon name="i-cursor" animation="fade" label="Cursor" style="font-size: 2em; --animation-duration: 2s; --fade-opacity: 0.6;"></wa-icon>
+<wa-icon name="triangle-exclamation" animation="fade" label="Fading Warning" style="font-size: 2em;"></wa-icon>
+<wa-icon name="skull-crossbones" animation="fade" label="Fading Danger" style="font-size: 2em;"></wa-icon>
+<wa-icon name="desktop-arrow-down" animation="fade" label="Fading Download" style="font-size: 2em;"></wa-icon>
+<wa-icon name="i-cursor" animation="fade" label="Fading Cursor" style="font-size: 2em; --animation-duration: 2s; --fade-opacity: 0.6;"></wa-icon>
 ```
 
 #### Beat-Fade
 
 Use the `beat-fade` animation to grab attention by visually scaling and pulsing an icon in and out.
 ```html {.example}
-<wa-icon name="triangle-person-digging" animation="beat-fade" label="Construction" style="font-size: 2em;"></wa-icon>
-<wa-icon name="square-exclamation" animation="beat-fade" label="Alert" style="font-size: 2em;"></wa-icon>
-<wa-icon name="poo-bolt" animation="beat-fade" label="Lightning" style="font-size: 2em; --beat-fade-opacity: 0.1;--beat-fade-scale: 1.25"></wa-icon>
-<wa-icon name="circle-info" animation="beat-fade" label="Info" style="font-size: 2em; --beat-fade-opacity: 0.67;--beat-fade-scale: 1.075"></wa-icon>
+<wa-icon name="triangle-person-digging" animation="beat-fade" label="Beat-Fading Construction" style="font-size: 2em;"></wa-icon>
+<wa-icon name="square-exclamation" animation="beat-fade" label="Beat-Fading Alert" style="font-size: 2em;"></wa-icon>
+<wa-icon name="poo-bolt" animation="beat-fade" label="Beat-Fading Lightning" style="font-size: 2em; --beat-fade-opacity: 0.1;--beat-fade-scale: 1.25"></wa-icon>
+<wa-icon name="circle-info" animation="beat-fade" label="Beat-Fading Info" style="font-size: 2em; --beat-fade-opacity: 0.67;--beat-fade-scale: 1.075"></wa-icon>
 ```
 
 #### Bounce
@@ -180,16 +180,16 @@ Use the `beat-fade` animation to grab attention by visually scaling and pulsing 
 Use the `bounce` animation to grab attention by visually bouncing an icon up and down.
 
 ```html {.example}
-<wa-icon name="volleyball" animation="bounce" label="Volleyball" style="font-size: 2em;"></wa-icon>
+<wa-icon name="volleyball" animation="bounce" label="Bouncing Volleyball" style="font-size: 2em;"></wa-icon>
 
 <!-- bounce with extra rebound and "squish" on landing -->
-<wa-icon name="basketball" animation="bounce" label="Basketball" style="font-size: 2em; --bounce-land-scale-x: 1.2;--bounce-land-scale-y: .8;--bounce-rebound: 5px;"></wa-icon>
+<wa-icon name="basketball" animation="bounce" label="Bouncing Basketball" style="font-size: 2em; --bounce-land-scale-x: 1.2;--bounce-land-scale-y: .8;--bounce-rebound: 5px;"></wa-icon>
 
 <!-- bounce animation with no "squish" -->
-<wa-icon name="frog" animation="bounce" label="Frog" style="font-size: 2em; --bounce-start-scale-x: 1; --bounce-start-scale-y: 1; --bounce-jump-scale-x: 1; --bounce-jump-scale-y: 1; --bounce-land-scale-x: 1; --bounce-land-scale-y: 1;"></wa-icon>
+<wa-icon name="frog" animation="bounce" label="Bouncing Frog" style="font-size: 2em; --bounce-start-scale-x: 1; --bounce-start-scale-y: 1; --bounce-jump-scale-x: 1; --bounce-jump-scale-y: 1; --bounce-land-scale-x: 1; --bounce-land-scale-y: 1;"></wa-icon>
 
 <!-- bounce animation with no "squish" or "rebound" -->
-<wa-icon name="envelope" animation="bounce" label="Envelope" style="font-size: 2em; --bounce-start-scale-x: 1;--bounce-start-scale-y: 1;--bounce-jump-scale-x: 1;--bounce-jump-scale-y: 1;--bounce-land-scale-x: 1;--bounce-land-scale-y: 1;--bounce-rebound: 0;"></wa-icon>
+<wa-icon name="envelope" animation="bounce" label="Bouncing Envelope" style="font-size: 2em; --bounce-start-scale-x: 1;--bounce-start-scale-y: 1;--bounce-jump-scale-x: 1;--bounce-jump-scale-y: 1;--bounce-land-scale-x: 1;--bounce-land-scale-y: 1;--bounce-rebound: 0;"></wa-icon>
 ```
 
 #### Flip
@@ -197,21 +197,21 @@ Use the `bounce` animation to grab attention by visually bouncing an icon up and
 Use the `flip` animation to rotate an icon in 3D space. By default, flip rotates an icon about the Y axis 180 degrees. Flipping is helpful for transitions, processing states, or for using physical objects that one flips in the real world.
 
 ```html {.example}
-<wa-icon name="compact-disc" animation="flip" label="Awesome" style="font-size: 2em;"></wa-icon>
-<wa-icon name="camera-rotate" animation="flip" label="Awesome" style="font-size: 2em;"></wa-icon>
-<wa-icon name="cassette-tape" animation="flip" label="Awesome" style="font-size: 2em;"></wa-icon>
-<wa-icon name="scroll" animation="flip" label="Awesome" style="font-size: 2em; --flip-x: 1; --flip-y: 0"></wa-icon>
-<wa-icon name="money-check-dollar" animation="flip" label="Money" style="font-size: 2em; --animation-duration: 3s;"></wa-icon>
+<wa-icon name="compact-disc" animation="flip" label="Flipping Compact Disc" style="font-size: 2em;"></wa-icon>
+<wa-icon name="camera-rotate" animation="flip" label="Flipping Camera Rotate" style="font-size: 2em;"></wa-icon>
+<wa-icon name="cassette-tape" animation="flip" label="Flipping Cassette Tape" style="font-size: 2em;"></wa-icon>
+<wa-icon name="scroll" animation="flip" label="Flipping Scroll" style="font-size: 2em; --flip-x: 1; --flip-y: 0"></wa-icon>
+<wa-icon name="money-check-dollar" animation="flip" label="Flipping Money Check Dollar" style="font-size: 2em; --animation-duration: 3s;"></wa-icon>
 ```
 
 #### Shake
 
 Use the `shake` animation to grab attention or note that something is not allowed by shaking an icon back and forth.
 ```html {.example}
-<wa-icon name="bell" animation="shake" label="Awesome" style="font-size: 2em;"></wa-icon>
-<wa-icon name="lock" animation="shake" label="Awesome" style="font-size: 2em;"></wa-icon>
-<wa-icon name="stopwatch" animation="shake" label="Awesome" style="font-size: 2em;"></wa-icon>
-<wa-icon name="bomb" animation="shake" label="Awesome" style="font-size: 2em;"></wa-icon>
+<wa-icon name="bell" animation="shake" label="Shaking Bell" style="font-size: 2em;"></wa-icon>
+<wa-icon name="lock" animation="shake" label="Shaking Lock" style="font-size: 2em;"></wa-icon>
+<wa-icon name="stopwatch" animation="shake" label="Shaking Stopwatch" style="font-size: 2em;"></wa-icon>
+<wa-icon name="bomb" animation="shake" label="Shaking Bomb" style="font-size: 2em;"></wa-icon>
 ```
 
 #### Spin
@@ -219,12 +219,12 @@ Use the `shake` animation to grab attention or note that something is not allowe
 Use the `spin` animation to get any icon to rotate, and use `spin-pulse` to have it rotate with eight steps. Use `spin-reverse` to rotate counter-clockwise. This works especially well with `spinner` and everything in the spinner icons category.
 
 ```html {.example}
-<wa-icon name="sync" animation="spin" label="Sync" style="font-size: 2em;"></wa-icon>
-<wa-icon name="circle-notch" animation="spin" label="Loading" style="font-size: 2em;"></wa-icon>
-<wa-icon name="cog" animation="spin" label="Settings" style="font-size: 2em;"></wa-icon>
-<wa-icon name="cog" animation="spin-reverse" label="Settings" style="font-size: 2em;"></wa-icon>
-<wa-icon name="spinner" animation="spin-pulse" label="Spinner" style="font-size: 2em;"></wa-icon>
-<wa-icon name="spinner" animation="spin-pulse" label="Spinner" style="font-size: 2em; --animation-direction: reverse"></wa-icon>
+<wa-icon name="sync" animation="spin" label="Spinning Sync" style="font-size: 2em;"></wa-icon>
+<wa-icon name="circle-notch" animation="spin" label="Spinning Circle Notch" style="font-size: 2em;"></wa-icon>
+<wa-icon name="cog" animation="spin" label="Spinning Cog" style="font-size: 2em;"></wa-icon>
+<wa-icon name="cog" animation="spin-reverse" label="Reverse Spinning Cog" style="font-size: 2em;"></wa-icon>
+<wa-icon name="spinner" animation="spin-pulse" label="Pulse Spinning Spinner" style="font-size: 2em;"></wa-icon>
+<wa-icon name="spinner" animation="spin-pulse" label="Pulse Spinning Spinner" style="font-size: 2em; --animation-direction: reverse"></wa-icon>
 ```
 
 :::info

@@ -134,7 +134,7 @@ export default css`
   :host([animation='spin-reverse']) svg {
     animation-name: spin;
     animation-delay: var(--animation-delay, 0s);
-    animation-direction: reverse;
+    animation-direction: var(--animation-direction, reverse);
     animation-duration: var(--animation-duration, 2s);
     animation-iteration-count: var(--animation-iteration-count, infinite);
     animation-timing-function: var(--animation-timing, linear);
