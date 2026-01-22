@@ -140,9 +140,11 @@ Web Awesome supports [Font Awesome's rotation and flip utilities](https://docs.f
 ```
 
 ### Animating
+
 Web Awesome supports [Font Awesome's animation utilities](https://docs.fontawesome.com/web/style/animate/) for adding visual interest to icons. To select different types of animations, use the `animation` attribute when you reference an icon.
 
 #### Beat
+
 Use the `beat` animation to scale an icon up or down. This is useful for grabbing attention or for use with health/heart-centric icons.
 
 ```html {.example}
@@ -154,6 +156,7 @@ Use the `beat` animation to scale an icon up or down. This is useful for grabbin
 ```
 
 #### Fade
+
 Use the `fade` animation to fade an icon in and out visually to grab attention in a subtle (or not so subtle) way.
 ```html {.example}
 <wa-icon name="triangle-exclamation" animation="fade" label="Warning" style="font-size: 2em;"></wa-icon>
@@ -163,6 +166,7 @@ Use the `fade` animation to fade an icon in and out visually to grab attention i
 ```
 
 #### Beat-Fade
+
 Use the `beat-fade` animation to grab attention by visually scaling and pulsing an icon in and out.
 ```html {.example}
 <wa-icon name="triangle-person-digging" animation="beat-fade" label="Construction" style="font-size: 2em;"></wa-icon>
@@ -172,6 +176,7 @@ Use the `beat-fade` animation to grab attention by visually scaling and pulsing 
 ```
 
 #### Bounce
+
 Use the `bounce` animation to grab attention by visually bouncing an icon up and down.
 
 ```html {.example}
@@ -188,6 +193,7 @@ Use the `bounce` animation to grab attention by visually bouncing an icon up and
 ```
 
 #### Flip
+
 Use the `flip` animation to rotate an icon in 3D space. By default, flip rotates an icon about the Y axis 180 degrees. Flipping is helpful for transitions, processing states, or for using physical objects that one flips in the real world.
 
 ```html {.example}
@@ -199,6 +205,7 @@ Use the `flip` animation to rotate an icon in 3D space. By default, flip rotates
 ```
 
 #### Shake
+
 Use the `shake` animation to grab attention or note that something is not allowed by shaking an icon back and forth.
 ```html {.example}
 <wa-icon name="bell" animation="shake" label="Awesome" style="font-size: 2em;"></wa-icon>
@@ -208,6 +215,7 @@ Use the `shake` animation to grab attention or note that something is not allowe
 ```
 
 #### Spin
+
 Use the `spin` animation to get any icon to rotate, and use `spin-pulse` to have it rotate with eight steps. Use `spin-reverse` to rotate counter-clockwise. This works especially well with `spinner` and everything in the spinner icons category.
 
 ```html {.example}
@@ -218,6 +226,10 @@ Use the `spin` animation to get any icon to rotate, and use `spin-pulse` to have
 <wa-icon name="spinner" animation="spin-pulse" label="Spinner" style="font-size: 2em;"></wa-icon>
 <wa-icon name="spinner" animation="spin-pulse" label="Spinner" style="font-size: 2em; --animation-direction: reverse"></wa-icon>
 ```
+
+:::info
+All [icon animations respect](https://docs.fontawesome.com/web/style/animate/#accessibility) `prefers-reduced-motion` and are automatically disabled when set to `reduce`.
+:::
 
 ### Colors
 
