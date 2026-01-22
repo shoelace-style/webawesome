@@ -31,7 +31,9 @@
     font-family: var(--wa-font-family-body);
     font-size: var(--wa-font-size-m);
     font-weight: var(--wa-font-weight-body);
+    letter-spacing: var(--wa-letter-spacing-body);
     line-height: var(--wa-line-height-normal);
+    text-transform: var(--wa-text-transform-body);
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
     text-size-adjust: none;
@@ -80,7 +82,9 @@
   h6 {
     font-family: var(--wa-font-family-heading);
     font-weight: var(--wa-font-weight-heading);
+    letter-spacing: var(--wa-letter-spacing-heading);
     line-height: var(--wa-line-height-condensed);
+    text-transform: var(--wa-text-transform-heading);
     text-wrap: balance;
   }
 
@@ -117,6 +121,9 @@
 
     font-family: var(--wa-font-family-longform);
     font-size: var(--wa-font-size-l);
+    font-weight: var(--wa-font-weight-longform);
+    letter-spacing: var(--wa-letter-spacing-longform);
+    text-transform: var(--wa-text-transform-longform);
 
     border-inline-start: var(--wa-border-style) var(--wa-border-width-l) var(--wa-color-neutral-border-quiet);
   }
@@ -232,6 +239,8 @@
     font-family: var(--wa-font-family-code);
     font-size: var(--wa-font-size-smaller);
     font-weight: var(--wa-font-weight-code);
+    letter-spacing: var(--wa-letter-spacing-code);
+    text-transform: var(--wa-text-transform-code);
 
     border: solid var(--wa-border-width-s) color-mix(in oklab, currentColor, transparent 50%);
     border-radius: var(--wa-border-radius-s);
@@ -286,6 +295,8 @@
     font-family: var(--wa-font-family-code);
     font-size: var(--wa-font-size-smaller);
     font-weight: var(--wa-font-weight-code);
+    letter-spacing: var(--wa-letter-spacing-code);
+    text-transform: var(--wa-text-transform-code);
 
     background-color: var(--wa-color-overlay-inline);
     border-radius: var(--wa-border-radius-s);
@@ -297,6 +308,8 @@
     font-family: var(--wa-font-family-code);
     font-size: var(--wa-font-size-smaller);
     font-weight: var(--wa-font-weight-code);
+    letter-spacing: var(--wa-letter-spacing-code);
+    text-transform: var(--wa-text-transform-code);
     white-space: pre;
 
     background-color: var(--wa-color-overlay-inline);
@@ -591,7 +604,9 @@
       font-family: inherit;
       font-size: var(--wa-form-control-value-font-size);
       font-weight: var(--wa-font-weight-action);
+      letter-spacing: var(--wa-letter-spacing-action);
       line-height: calc(var(--wa-form-control-height) - var(--border-width) * 2);
+      text-transform: var(--wa-text-transform-action);
       text-decoration: none;
       vertical-align: middle;
       white-space: nowrap;
