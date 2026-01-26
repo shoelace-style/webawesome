@@ -2,6 +2,7 @@ import type { PropertyValues } from 'lit';
 import { html } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
+import { styleMap } from 'lit/directives/style-map.js';
 import { DraggableElement } from '../../internal/drag.js';
 import { clamp } from '../../internal/math.js';
 import { HasSlotController } from '../../internal/slot.js';
@@ -829,7 +830,10 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
     const markersTemplate = this.withMarkers
       ? html`
           <div id="markers" part="markers">
-            ${markers.map(marker => html`<span part="marker" class="marker" style="--position: ${marker}%"></span>`)}
+            ${markers.map(
+              marker =>
+                html`<span part="marker" class="marker" style=${styleMap({ '--position': `${marker}%` })}></span>`,
+            )}
           </div>
         `
       : '';
@@ -882,10 +886,10 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
             <div
               id="indicator"
               part="indicator"
-              style="--start: ${Math.min(minThumbPosition, maxThumbPosition)}%; --end: ${Math.max(
-                minThumbPosition,
-                maxThumbPosition,
-              )}%"
+              style=${styleMap({
+                '--start': `${Math.min(minThumbPosition, maxThumbPosition)}%`,
+                '--end': `${Math.max(minThumbPosition, maxThumbPosition)}%`,
+              })}
             ></div>
 
             ${markersTemplate}
@@ -893,7 +897,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
             <span
               id="thumb-min"
               part="thumb thumb-min"
-              style="--position: ${minThumbPosition}%"
+              style=${styleMap({ '--position': `${minThumbPosition}%` })}
               role="slider"
               aria-valuemin=${this.min}
               aria-valuenow=${this.minValue}
@@ -914,7 +918,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
             <span
               id="thumb-max"
               part="thumb thumb-max"
-              style="--position: ${maxThumbPosition}%"
+              style=${styleMap({ '--position': `${maxThumbPosition}%` })}
               role="slider"
               aria-valuemin=${this.min}
               aria-valuenow=${this.maxValue}
@@ -975,11 +979,11 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
             <div
               id="indicator"
               part="indicator"
-              style="--start: ${indicatorOffsetPosition}%; --end: ${thumbPosition}%"
+              style=${styleMap({ '--start': `${indicatorOffsetPosition}%`, '--end': `${thumbPosition}%` })}
             ></div>
 
             ${markersTemplate}
-            <span id="thumb" part="thumb" style="--position: ${thumbPosition}%"></span>
+            <span id="thumb" part="thumb" style=${styleMap({ '--position': `${thumbPosition}%` })}></span>
           </div>
 
           ${referencesTemplate} ${hint}
