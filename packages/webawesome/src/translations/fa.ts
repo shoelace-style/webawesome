@@ -12,6 +12,8 @@ const translation: Translation = {
   copied: 'کپی شد',
   copy: 'کپی',
   currentValue: 'مقدار فعلی',
+  dropFileHere: 'Drop file here or click to browse',
+  dropFilesHere: 'Drop files here or click to browse',
   error: 'خطا',
   goToSlide: (slide, count) => `رفتن به اسلاید ${slide} از ${count}`,
   hidePassword: 'پنهان کردن رمز',

@@ -22,6 +22,17 @@ interface IconSource {
   fromLibrary: boolean;
 }
 
+export type IconAnimation =
+  | 'beat'
+  | 'fade'
+  | 'beat-fade'
+  | 'bounce'
+  | 'flip'
+  | 'shake'
+  | 'spin'
+  | 'spin-pulse'
+  | 'spin-reverse';
+
 /**
  * @summary Icons are symbols that can be used to represent various options within an application.
  * @documentation https://webawesome.com/docs/components/icon
@@ -34,6 +45,27 @@ interface IconSource {
  * @csspart svg - The internal SVG element.
  * @csspart use - The `<use>` element generated when using `spriteSheet: true`
  *
+ * @cssproperty [--animation-delay=0] Sets when the animation will start.
+ * @cssproperty [--animation-direction=normal] Defines whether or not the animation should play in reverse on alternate cycles.
+ * @cssproperty [--animation-duration=1s] Defines the length of time that an animation takes to complete one cycle.
+ * @cssproperty [--animation-iteration-count=infinite] Defines the number of times an animation cycle is played.
+ * @cssproperty [--animation-timing] Describes how the animation will progress over one cycle of its duration.
+ * @cssproperty [--beat-fade-opacity] Set lowest opacity value an icon with `beat-fade` animation will fade to and from.
+ * @cssproperty [--beat-fade-scale] Set max value that an icon with `beat-fade` animation will scale.
+ * @cssproperty [--beat-scale] Set max value that an icon with `beat` animation will scale.
+ * @cssproperty [--bounce-height] Set the max height an icon with `bounce` animation will jump to when bouncing.
+ * @cssproperty [--bounce-jump-scale-x] Set the icon’s horizontal distortion (“squish”) at the top of the jump.
+ * @cssproperty [--bounce-jump-scale-y] Set the icon’s vertical distortion (“squish”) at the top of the jump.
+ * @cssproperty [--bounce-land-scale-x] Set the icon’s horizontal distortion (“squish”) when landing after the jump.
+ * @cssproperty [--bounce-land-scale-y] Set the icon’s vertical distortion (“squish”) when landing after the jump.
+ * @cssproperty [--bounce-rebound] Set the amount of rebound an icon with `bounce` animation has when landing after the jump.
+ * @cssproperty [--bounce-start-scale-x] Set the icon’s horizontal distortion (“squish”) when starting to bounce.
+ * @cssproperty [--bounce-start-scale-y] Set the icon’s vertical distortion (“squish”) when starting to bounce.
+ * @cssproperty [--fade-opacity] Set lowest opacity value an icon with `fade` animation will fade to and from.
+ * @cssproperty [--flip-angle] Set rotation angle of flip for an icon with `flip` animation. A positive angle denotes a clockwise rotation, a negative angle a counter-clockwise one.
+ * @cssproperty [--flip-x] Set x-coordinate of the vector denoting the axis of rotation (between 0 and 1) for an icon with `flip` animation.
+ * @cssproperty [--flip-y] Set y-coordinate of the vector denoting the axis of rotation (between 0 and 1) for an icon with `flip` animation.
+ * @cssproperty [--flip-z] Set z-coordinate of the vector denoting the axis of rotation (between 0 and 1) for an icon with `flip` animation.
  * @cssproperty [--primary-color=currentColor] - Sets a duotone icon's primary color.
  * @cssproperty [--primary-opacity=1] - Sets a duotone icon's primary opacity.
  * @cssproperty [--secondary-color=currentColor] - Sets a duotone icon's secondary color.
@@ -84,6 +116,15 @@ export default class WaIcon extends WebAwesomeElement {
   /** The name of a registered custom icon library. */
   @property({ reflect: true }) library = 'default';
 
+  /** Sets the rotation degree of the icon */
+  @property({ type: Number, reflect: true }) rotate = 0;
+
+  /** Sets the flip direction of the icon along the 'x' (horizontal), 'y' (vertical), or 'both' axes. */
+  @property({ type: String, reflect: true }) flip?: 'x' | 'y' | 'both';
+
+  /** Sets the animation for the icon */
+  @property({ type: String, reflect: true }) animation?: IconAnimation;
+
   connectedCallback() {
     super.connectedCallback();
 
@@ -92,6 +133,10 @@ export default class WaIcon extends WebAwesomeElement {
 
   firstUpdated(changedProperties: PropertyValues<this>) {
     super.firstUpdated(changedProperties);
+    // Set initial rotate angle if rotate attribute is present
+    if (this.hasAttribute('rotate')) {
+      this.style.setProperty('--rotate-angle', `${this.rotate}deg`);
+    }
     this.setIcon();
   }
 
@@ -234,10 +279,12 @@ export default class WaIcon extends WebAwesomeElement {
 
   updated(changedProperties: PropertyValues<this>) {
     super.updated(changedProperties);
-
     // Sometimes (like with SSR -> hydration) mutators don't get applied due to race conditions. This ensures mutators get re-applied.
     const library = getIconLibrary(this.library);
-
+    // Set rotate angle whenever rotate attribute is present (not just on change)
+    if (this.hasAttribute('rotate')) {
+      this.style.setProperty('--rotate-angle', `${this.rotate}deg`);
+    }
     const svg = this.shadowRoot?.querySelector('svg');
     if (svg) {
       library?.mutator?.(svg, this);
@@ -248,7 +295,6 @@ export default class WaIcon extends WebAwesomeElement {
     if (this.hasUpdated) {
       return this.svg;
     }
-
     return html`<svg part="svg" width="16" height="16"></svg>`;
   }
 }

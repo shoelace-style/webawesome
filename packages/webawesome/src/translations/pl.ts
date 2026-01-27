@@ -12,6 +12,8 @@ const translation: Translation = {
   copied: 'Skopiowane',
   copy: 'Kopiuj',
   currentValue: 'Aktualna wartość',
+  dropFileHere: 'Drop file here or click to browse',
+  dropFilesHere: 'Drop files here or click to browse',
   error: 'Błąd',
   goToSlide: (slide, count) => `Przejdź do slajdu ${slide} z ${count}`,
   hidePassword: 'Ukryj hasło',

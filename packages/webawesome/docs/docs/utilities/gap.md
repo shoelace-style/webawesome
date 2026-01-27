@@ -38,5 +38,4 @@ Besides `wa-gap-0`, which sets `gap` to zero, each class corresponds to one of t
 | `wa-gap-xl`  | `--wa-space-xl`  | <div class="preview-wrapper wa-cluster wa-gap-xl"><div class="preview-block"></div><div class="preview-block"></div></div>  |
 | `wa-gap-2xl` | `--wa-space-2xl` | <div class="preview-wrapper wa-cluster wa-gap-2xl"><div class="preview-block"></div><div class="preview-block"></div></div> |
 | `wa-gap-3xl` | `--wa-space-3xl` | <div class="preview-wrapper wa-cluster wa-gap-3xl"><div class="preview-block"></div><div class="preview-block"></div></div> |
-<!-- Pending 3.2.0 release -->
-<!-- | `wa-gap-4xl` | `--wa-space-4xl` | <div class="preview-wrapper wa-cluster wa-gap-4xl"><div class="preview-block"></div><div class="preview-block"></div></div> | -->
+| `wa-gap-4xl` | `--wa-space-4xl` | <div class="preview-wrapper wa-cluster wa-gap-4xl"><div class="preview-block"></div><div class="preview-block"></div></div> |

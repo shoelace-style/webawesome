@@ -12,6 +12,8 @@ const translation: Translation = {
   copied: 'Көшірілді',
   copy: 'Көшіру',
   currentValue: 'Қазіргі мән',
+  dropFileHere: 'Drop file here or click to browse',
+  dropFilesHere: 'Drop files here or click to browse',
   error: 'Қате',
   goToSlide: (slide, count) => `${slide}/${count} слайдқа өту`,
   hidePassword: 'Құпиясөзді жасыру',
