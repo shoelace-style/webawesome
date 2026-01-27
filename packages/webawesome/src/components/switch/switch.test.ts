@@ -36,6 +36,22 @@ describe('<wa-switch>', () => {
         expect(input.title).to.equal('Test');
       });
 
+      it('should not show required asterisk when required but no label is provided', async () => {
+        const el = await fixture<WaSwitch>(html` <wa-switch required></wa-switch> `);
+        await el.updateComplete;
+        const label = el.shadowRoot!.querySelector('[part~="label"]')!;
+        const afterContent = getComputedStyle(label, '::after').content;
+        expect(afterContent).to.equal('none');
+      });
+
+      it('should show required asterisk when required and label is provided', async () => {
+        const el = await fixture<WaSwitch>(html` <wa-switch required>Enable notifications</wa-switch> `);
+        await el.updateComplete;
+        const label = el.shadowRoot!.querySelector('[part~="label"]')!;
+        const afterContent = getComputedStyle(label, '::after').content;
+        expect(afterContent).to.not.equal('none');
+      });
+
       it('should be disabled with the disabled attribute', async () => {
         const el = await fixture<WaSwitch>(html` <wa-switch disabled></wa-switch> `);
         const input = el.shadowRoot!.querySelector<HTMLInputElement>('input')!;

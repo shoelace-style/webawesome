@@ -96,7 +96,7 @@ export default css`
     }
   }
 
-  :host([required]) [part~='label']::after {
+  :host([required]) [part~='label']:has(*:not(:empty))::after {
     content: var(--wa-form-control-required-content);
     color: var(--wa-form-control-required-content-color);
     margin-inline-start: var(--wa-form-control-required-content-offset);

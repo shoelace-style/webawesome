@@ -38,6 +38,22 @@ describe('<wa-checkbox>', () => {
         expect(input.title).to.equal('Test');
       });
 
+      it('should not show required asterisk when required but no label is provided', async () => {
+        const el = await fixture<WaCheckbox>(html` <wa-checkbox required></wa-checkbox> `);
+        await el.updateComplete;
+        const label = el.shadowRoot!.querySelector('[part~="label"]')!;
+        const afterContent = getComputedStyle(label, '::after').content;
+        expect(afterContent).to.equal('none');
+      });
+
+      it('should show required asterisk when required and label is provided', async () => {
+        const el = await fixture<WaCheckbox>(html` <wa-checkbox required>Accept terms</wa-checkbox> `);
+        await el.updateComplete;
+        const label = el.shadowRoot!.querySelector('[part~="label"]')!;
+        const afterContent = getComputedStyle(label, '::after').content;
+        expect(afterContent).to.not.equal('none');
+      });
+
       it('should be disabled with the disabled attribute', async () => {
         const el = await fixture<WaCheckbox>(html` <wa-checkbox disabled></wa-checkbox> `);
         const checkbox = el.shadowRoot!.querySelector('input')!;

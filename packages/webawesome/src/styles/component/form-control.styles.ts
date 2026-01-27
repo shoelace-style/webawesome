@@ -21,7 +21,7 @@ export default css`
     margin-block-end: 0.5em;
   }
 
-  :host([required]) :is([part~='form-control-label'], [part~='label'])::after {
+  :host([required]) :is([part~='form-control-label'], [part~='label']):is(:has(*:not(:empty)), .has-label)::after {
     content: var(--wa-form-control-required-content);
     margin-inline-start: var(--wa-form-control-required-content-offset);
     color: var(--wa-form-control-required-content-color);

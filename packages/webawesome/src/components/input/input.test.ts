@@ -69,6 +69,22 @@ describe('<wa-input>', () => {
         expect(label.classList.contains('has-label')).to.equal(false);
       });
 
+      it('should not show required asterisk when required but no label is provided', async () => {
+        const el = await fixture<WaInput>(html` <wa-input required></wa-input> `);
+        await el.updateComplete;
+        const label = el.shadowRoot!.querySelector('[part~="form-control-label"]')!;
+        const afterContent = getComputedStyle(label, '::after').content;
+        expect(afterContent).to.equal('none');
+      });
+
+      it('should show required asterisk when required and label is provided', async () => {
+        const el = await fixture<WaInput>(html` <wa-input required label="Email"></wa-input> `);
+        await el.updateComplete;
+        const label = el.shadowRoot!.querySelector('[part~="form-control-label"]')!;
+        const afterContent = getComputedStyle(label, '::after').content;
+        expect(afterContent).to.not.equal('none');
+      });
+
       it('should be disabled with the disabled attribute', async () => {
         const el = await fixture<WaInput>(html` <wa-input disabled></wa-input> `);
         await el.updateComplete;
