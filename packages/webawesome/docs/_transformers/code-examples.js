@@ -2,6 +2,7 @@ import { readFileSync } from 'fs';
 import { parse } from 'node-html-parser';
 import { copyCode } from './copy-code.js';
 import { highlightCode } from './highlight-code.js';
+import * as path from "node:path"
 
 /**
  * Eleventy plugin to turn `<code class="example">` blocks into live examples.
@@ -51,7 +52,8 @@ export function codeExamplesTransformer(options = {}) {
         let source = frame.getAttribute('srcdoc');
         if (!source && src) {
           src += src.match(/\.html$/) ? '' : `${src.endsWith('/') ? '' : '/'}index.html`;
-          source = readFileSync(`./docs${src}`, 'utf8');
+          const baseDir = process.env.BASE_DIR
+          source = readFileSync(`${path.join(baseDir, src)}`, 'utf8');
         }
         const selectors = frame?.getAttribute('data-select-src');
         if (selectors) {
