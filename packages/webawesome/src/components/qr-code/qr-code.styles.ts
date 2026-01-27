@@ -6,10 +6,13 @@ export default css`
     display: inline-block;
   }
 
-  :host,
+  .qr-code__base {
+    display: block;
+    box-sizing: content-box;
+  }
+
   canvas {
-    max-width: var(--size);
-    max-height: var(--size);
+    display: block;
     width: var(--size);
     height: var(--size);
   }

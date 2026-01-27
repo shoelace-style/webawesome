@@ -1,6 +1,7 @@
 import type { PropertyValues } from 'lit';
 import { html } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
+import { styleMap } from 'lit/directives/style-map.js';
 import type _QrCreator from 'qr-creator';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
@@ -44,6 +45,12 @@ export default class WaQrCode extends WebAwesomeElement {
   @property({ attribute: 'error-correction' }) errorCorrection: 'L' | 'M' | 'Q' | 'H' = 'H';
 
   /**
+   * The size of the quiet zone, a border around the QR code that helps with scanning. This should be at least 4
+   * modules wide (the default), but you can set it to any non-negative number. Set to 0 to remove the quiet zone.
+   */
+  @property({ type: Number }) margin = 4;
+
+  /**
    * Whether or not the qr-code generated.
    */
   // @ts-expect-error Don't know why it marks it as unused.
@@ -51,17 +58,17 @@ export default class WaQrCode extends WebAwesomeElement {
 
   firstUpdated(changedProperties: PropertyValues<this>) {
     super.firstUpdated(changedProperties);
-
-    if (this.hasUpdated) {
-      this.generate();
-    }
+    this.generate();
   }
 
-  @watch(['background', 'errorCorrection', 'fill', 'radius', 'size', 'value'])
+  @watch(['background', 'errorCorrection', 'fill', 'margin', 'radius', 'size', 'value'])
   generate() {
+    const totalSize = this.size + this.margin * 2;
     this.style.setProperty('--size', `${this.size}px`);
+    this.style.setProperty('width', `${totalSize}px`);
+    this.style.setProperty('height', `${totalSize}px`);
 
-    if (!this.hasUpdated) {
+    if (!this.canvas) {
       return;
     }
 
@@ -92,12 +99,20 @@ export default class WaQrCode extends WebAwesomeElement {
 
   render() {
     return html`
-      <canvas
+      <div
         part="base"
-        class="qr-code"
-        role="img"
-        aria-label=${this.label?.length > 0 ? this.label : this.value}
-      ></canvas>
+        class="qr-code__base"
+        style=${styleMap({
+          padding: `${this.margin}px`,
+          backgroundColor: this.background
+        })}
+      >
+        <canvas
+          class="qr-code"
+          role="img"
+          aria-label=${this.label?.length > 0 ? this.label : this.value}
+        ></canvas>
+      </div>
     `;
   }
 }

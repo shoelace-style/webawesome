@@ -139,10 +139,42 @@ describe('<wa-qr-code>', () => {
       it('has the expected size', async () => {
         const qrCode = await fixture<WaQrCode>(html` <wa-qr-code value="test data" size="100"></wa-qr-code>`);
 
-        const height = qrCode.getBoundingClientRect().height;
-        const width = qrCode.getBoundingClientRect().width;
-        expect(height).to.equal(100);
-        expect(width).to.equal(100);
+        const canvas = getCanvas(qrCode);
+        const canvasHeight = canvas.getBoundingClientRect().height;
+        const canvasWidth = canvas.getBoundingClientRect().width;
+        expect(canvasHeight).to.equal(100);
+        expect(canvasWidth).to.equal(100);
+      });
+
+      it('has a default margin of 4px', async () => {
+        const qrCode = await fixture<WaQrCode>(html` <wa-qr-code value="test data" size="100"></wa-qr-code>`);
+        await qrCode.updateComplete;
+
+        // The quiet zone should have the default margin
+        const baseEl = qrCode.shadowRoot?.querySelector('[part="base"]') as HTMLElement;
+        expect(baseEl).to.exist;
+        expect(baseEl.style.padding).to.equal('4px');
+        expect(baseEl.style.backgroundColor).to.equal('white');
+      });
+
+      it('respects custom margin value', async () => {
+        const qrCode = await fixture<WaQrCode>(html` <wa-qr-code value="test data" size="100" margin="10"></wa-qr-code>`);
+        await qrCode.updateComplete;
+
+        // The quiet zone should have the custom margin
+        const baseEl = qrCode.shadowRoot?.querySelector('[part="base"]') as HTMLElement;
+        expect(baseEl).to.exist;
+        expect(baseEl.style.padding).to.equal('10px');
+      });
+
+      it('can have margin set to 0', async () => {
+        const qrCode = await fixture<WaQrCode>(html` <wa-qr-code value="test data" size="100" margin="0"></wa-qr-code>`);
+        await qrCode.updateComplete;
+
+        // When margin is 0, the quiet zone padding should be 0
+        const baseEl = qrCode.shadowRoot?.querySelector('[part="base"]') as HTMLElement;
+        expect(baseEl).to.exist;
+        expect(baseEl.style.padding).to.equal('0px');
       });
     });
   }
