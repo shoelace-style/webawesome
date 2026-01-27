@@ -1,7 +1,7 @@
 import { getKitCode } from '../../utilities/base-path.js';
 import type { IconLibrary } from './library.js';
 
-const FA_VERSION = '7.0.1';
+const FA_VERSION = '7.1.0';
 
 function getIconUrl(name: string, family: string, variant: string) {
   const kitCode = getKitCode();
@@ -9,45 +9,73 @@ function getIconUrl(name: string, family: string, variant: string) {
   let folder = 'solid';
 
   // Notdog (Pro+)
+  // Correct usage: family="notdog" or family="notdog-duo", variant="solid"
   if (family === 'notdog') {
-    if (variant === 'solid') folder = 'solid';
-    if (variant === 'duo-solid') folder = 'duo-solid';
-    return `https://ka-p.fontawesome.com/releases/v${FA_VERSION}/svgs/notdog-${folder}/${name}.svg?token=${encodeURIComponent(kitCode)}`;
+    // NOTE: variant="duo-solid" is deprecated, use family="notdog-duo" variant="solid" instead
+    if (variant === 'solid') folder = 'notdog-solid';
+    if (variant === 'duo-solid') folder = 'notdog-duo-solid';
+  }
+  if (family === 'notdog-duo') {
+    folder = 'notdog-duo-solid';
   }
 
   // Chisel (Pro+)
   if (family === 'chisel') {
-    return `https://ka-p.fontawesome.com/releases/v${FA_VERSION}/svgs/chisel-regular/${name}.svg?token=${encodeURIComponent(kitCode)}`;
+    folder = 'chisel-regular';
   }
 
   // Etch (Pro+)
   if (family === 'etch') {
-    return `https://ka-p.fontawesome.com/releases/v${FA_VERSION}/svgs/etch-solid/${name}.svg?token=${encodeURIComponent(kitCode)}`;
+    folder = 'etch-solid';
   }
 
   // Jelly (Pro+)
+  // Correct usage: family="jelly", family="jelly-duo", or family="jelly-fill", variant="regular"
   if (family === 'jelly') {
-    if (variant === 'regular') folder = 'regular';
-    if (variant === 'duo-regular') folder = 'duo-regular';
-    if (variant === 'fill-regular') folder = 'fill-regular';
-    return `https://ka-p.fontawesome.com/releases/v${FA_VERSION}/svgs/jelly-${folder}/${name}.svg?token=${encodeURIComponent(kitCode)}`;
+    // NOTE: variant="duo-regular" and variant="fill-regular" are deprecated
+    // Use family="jelly-duo" variant="regular" or family="jelly-fill" variant="regular" instead
+    folder = 'jelly-regular';
+    if (variant === 'duo-regular') folder = 'jelly-duo-regular';
+    if (variant === 'fill-regular') folder = 'jelly-fill-regular';
+  }
+  if (family === 'jelly-duo') {
+    folder = 'jelly-duo-regular';
+  }
+  if (family === 'jelly-fill') {
+    folder = 'jelly-fill-regular';
   }
 
   // Slab (Pro+)
+  // Correct usage: family="slab" or family="slab-press", variant="regular"
   if (family === 'slab') {
-    if (variant === 'solid' || variant === 'regular') folder = 'regular';
-    if (variant === 'press-regular') folder = 'press-regular';
-    return `https://ka-p.fontawesome.com/releases/v${FA_VERSION}/svgs/slab-${folder}/${name}.svg?token=${encodeURIComponent(kitCode)}`;
+    // NOTE: variant="press-regular" is deprecated, use family="slab-press" variant="regular" instead
+    if (variant === 'solid' || variant === 'regular') folder = 'slab-regular';
+    if (variant === 'press-regular') folder = 'slab-press-regular';
+  }
+  if (family === 'slab-press') {
+    folder = 'slab-press-regular';
   }
 
   // Thumbprint (Pro+)
   if (family === 'thumbprint') {
-    return `https://ka-p.fontawesome.com/releases/v${FA_VERSION}/svgs/thumbprint-light/${name}.svg?token=${encodeURIComponent(kitCode)}`;
+    folder = 'thumbprint-light';
   }
 
   // Whiteboard (Pro+)
   if (family === 'whiteboard') {
-    return `https://ka-p.fontawesome.com/releases/v${FA_VERSION}/svgs/whiteboard-semibold/${name}.svg?token=${encodeURIComponent(kitCode)}`;
+    folder = 'whiteboard-semibold';
+  }
+
+  // Utility (Pro+)
+  // Correct usage: family="utility", family="utility-duo", or family="utility-fill", variant="semibold"
+  if (family === 'utility') {
+    folder = 'utility-semibold';
+  }
+  if (family === 'utility-duo') {
+    folder = 'utility-duo-semibold';
+  }
+  if (family === 'utility-fill') {
+    folder = 'utility-fill-semibold';
   }
 
   // Classic
@@ -108,10 +136,16 @@ const library: IconLibrary = {
         family === 'duotone' ||
         // Sharp duotone
         family === 'sharp-duotone' ||
-        // Notdog duo-solid
+        // Notdog duo (correct usage: family="notdog-duo")
+        family === 'notdog-duo' ||
+        // NOTE: family="notdog" variant="duo-solid" is deprecated
         (family === 'notdog' && variant === 'duo-solid') ||
-        // Jelly duo-regular
+        // Jelly duo (correct usage: family="jelly-duo")
+        family === 'jelly-duo' ||
+        // NOTE: family="jelly" variant="duo-regular" is deprecated
         (family === 'jelly' && variant === 'duo-regular') ||
+        // Utility duo (correct usage: family="utility-duo")
+        family === 'utility-duo' ||
         // Thumbprint
         family === 'thumbprint'
       ) {

@@ -27,6 +27,8 @@ export interface Translation extends DefaultTranslation {
   copied: string;
   copy: string;
   currentValue: string;
+  dropFileHere: string;
+  dropFilesHere: string;
   error: string;
   goToSlide: (slide: number, count: number) => string;
   hidePassword: string;

@@ -178,11 +178,11 @@ If you want the dialog to close when the user clicks on the overlay, add the `li
 
 ### Preventing the Dialog from Closing
 
-By default, dialogs will close when the user clicks the close button, clicks the overlay, or presses the [[Escape]] key. In most cases, the default behavior is the best behavior in terms of UX. However, there are situations where this may be undesirable, such as when data loss will occur.
+By default, dialogs will close when the user clicks the close button or presses the [[Escape]] key. In most cases, the default behavior is the best behavior in terms of UX. However, there are situations where this may be undesirable, such as when data loss will occur.
 
 To keep the dialog open in such cases, you can cancel the `wa-hide` event. When canceled, the dialog will remain open and pulse briefly to draw the user's attention to it.
 
-You can use `event.detail.source` to determine which element triggered the request to close. This example prevents the dialog from closing when the overlay is clicked, but allows the close button or [[Escape]] to dismiss it.
+You can use `event.detail.source` to determine which element triggered the request to close. This example prevents the dialog from closing unless a specific button is clicked.
 
 ```html {.example}
 <wa-dialog label="Dialog" class="dialog-deny-close">

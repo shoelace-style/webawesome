@@ -12,6 +12,8 @@ const translation: Translation = {
   copied: 'מוּעֲתָק',
   copy: 'העתק',
   currentValue: 'ערך נוכחי',
+  dropFileHere: 'Drop file here or click to browse',
+  dropFilesHere: 'Drop files here or click to browse',
   error: 'שְׁגִיאָה',
   goToSlide: (slide, count) => `עבור לשקופית ${slide} של ${count}`,
   hidePassword: 'הסתר סיסמא',

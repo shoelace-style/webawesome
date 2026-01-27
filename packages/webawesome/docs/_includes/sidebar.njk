@@ -29,8 +29,12 @@
   <li><a href="/docs/resources/contributing">Contributing</a></li>
   <li><a href="/docs/resources/changelog">Changelog</a></li>
   <li><a href="/docs/resources/visual-tests">Visual Tests</a></li>
-
-
+  <li>
+    <a class="wa-cluster wa-gap-xs" href="/docs/resources/llms">
+      LLMs
+      <wa-icon name="flask" aria-hidden="true" class="icon-shrink"></wa-icon>
+    </a>
+  </li>
 </ul>
 
 <!-- Components -->
@@ -109,7 +113,15 @@
         <li><a href="/docs/components/dropdown-item">Dropdown Item</a></li>
       </ul>
     </li>
-    <li><span class="is-planned wa-split">File Input <span><a href="https://github.com/shoelace-style/webawesome/issues/1240" target="_blank">{{ plannedBadge("A Web Awesome Kickstarter stretch goal!") }}</a>{{ proBadge({ description: "This will require access to Web Awesome Pro" }) }}</span></span></li>
+    <li>
+      <span class="wa-split">
+        <span>
+          <a href="/docs/components/file-input">File Input</a>
+          <wa-icon name="flask" aria-hidden="true" class="icon-shrink"></wa-icon>
+        </span>
+        {{ proBadge() }}
+      </span>
+    </li>
     <li><a href="/docs/components/format-bytes/">Format Bytes</a></li>
     <li><a href="/docs/components/format-date/">Format Date</a></li>
     <li><a href="/docs/components/format-number/">Format Number</a></li>
@@ -164,6 +176,7 @@
     </li>
     <li><span class="is-planned wa-split">Video <span><a href="https://github.com/shoelace-style/webawesome/issues/985" target="_blank">{{ plannedBadge("A Web Awesome Kickstarter stretch goal!") }}</a>{{ proBadge( { description: "This will require access to Web Awesome Pro" }) }}</span></span></li>
     <li><a href="/docs/components/zoomable-frame">Zoomable Frame</a></li>
+    <li><a href="/docs/components/file-input">File Input</a></li>
     {# PLOP_NEW_COMPONENT_PLACEHOLDER #}
   </ul>
 </wa-details>
@@ -196,8 +209,7 @@
   </h2>
   <ul>
     <li><a href="/docs/utilities/align-items/">Align Items</a></li>
-    <!-- Pending 3.2.0 release -->
-    <!-- <li><a href="/docs/utilities/justify-content/">Justify Content</a></li> -->
+    <li><a href="/docs/utilities/justify-content/">Justify Content</a></li>
     <li><a href="/docs/utilities/gap/">Gap</a></li>
     <li><a href="/docs/utilities/cluster/">Cluster</a></li>
     <li><a href="/docs/utilities/flank/">Flank</a></li>

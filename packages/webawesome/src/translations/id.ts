@@ -12,6 +12,8 @@ const translation: Translation = {
   copied: 'Disalin',
   copy: 'Salin',
   currentValue: 'Nilai saat ini',
+  dropFileHere: 'Drop file here or click to browse',
+  dropFilesHere: 'Drop files here or click to browse',
   error: 'Kesalahan',
   goToSlide: (slide, count) => `Pergi ke slide ${slide} dari ${count}`,
   hidePassword: 'Sembunyikan sandi',

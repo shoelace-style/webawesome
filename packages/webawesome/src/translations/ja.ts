@@ -12,6 +12,8 @@ const translation: Translation = {
   copied: 'コピーしました',
   copy: 'コピー',
   currentValue: '現在の値',
+  dropFileHere: 'Drop file here or click to browse',
+  dropFilesHere: 'Drop files here or click to browse',
   error: 'エラー',
   goToSlide: (slide, count) => `${count} 枚中 ${slide} 枚のスライドに移動`,
   hidePassword: 'パスワードを隠す',
