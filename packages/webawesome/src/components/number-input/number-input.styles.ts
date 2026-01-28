@@ -34,7 +34,7 @@ export default css`
     }
 
     /* Style disabled inputs */
-    &:has(:disabled) {
+    &:has(input:disabled) {
       cursor: not-allowed;
       opacity: 0.5;
     }
