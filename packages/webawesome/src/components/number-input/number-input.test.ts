@@ -48,7 +48,9 @@ describe('<wa-number-input>', () => {
       });
 
       it('should have label with "has-label" class if label has a slotted element', async () => {
-        const el = await fixture<WaNumberInput>(html` <wa-number-input><span slot="label">Quantity</span></wa-number-input> `);
+        const el = await fixture<WaNumberInput>(html`
+          <wa-number-input><span slot="label">Quantity</span></wa-number-input>
+        `);
         await el.updateComplete;
         const label = el.shadowRoot!.querySelector('[part~="form-control-label"]')!;
         expect(label.classList.contains('has-label')).to.equal(true);
@@ -167,7 +169,9 @@ describe('<wa-number-input>', () => {
         });
 
         it('should receive validation attributes ("states") even when novalidate is used on the parent form', async () => {
-          const el = await fixture<HTMLFormElement>(html` <form novalidate><wa-number-input required></wa-number-input></form> `);
+          const el = await fixture<HTMLFormElement>(html`
+            <form novalidate><wa-number-input required></wa-number-input></form>
+          `);
           const input = el.querySelector<WaNumberInput>('wa-number-input')!;
 
           expect(input.customStates.has('required')).to.be.true;
@@ -181,13 +185,17 @@ describe('<wa-number-input>', () => {
 
       describe('when submitting a form', () => {
         it('should serialize its name and value with FormData', async () => {
-          const form = await fixture<HTMLFormElement>(html` <form><wa-number-input name="a" value="1"></wa-number-input></form> `);
+          const form = await fixture<HTMLFormElement>(html`
+            <form><wa-number-input name="a" value="1"></wa-number-input></form>
+          `);
           const formData = new FormData(form);
           expect(formData.get('a')).to.equal('1');
         });
 
         it('should serialize its name and value with JSON', async () => {
-          const form = await fixture<HTMLFormElement>(html` <form><wa-number-input name="a" value="1"></wa-number-input></form> `);
+          const form = await fixture<HTMLFormElement>(html`
+            <form><wa-number-input name="a" value="1"></wa-number-input></form>
+          `);
           const json = serialize(form) as { a: '1' };
           expect(json.a).to.equal('1');
         });
@@ -343,7 +351,6 @@ describe('<wa-number-input>', () => {
 
           await el.updateComplete;
         });
-
       });
 
       describe('step functionality', () => {
@@ -531,7 +538,9 @@ describe('<wa-number-input>', () => {
         });
 
         it('should be valid when value is within min and max', async () => {
-          const el = await fixture<WaNumberInput>(html` <wa-number-input min="0" max="10" value="5"></wa-number-input> `);
+          const el = await fixture<WaNumberInput>(html`
+            <wa-number-input min="0" max="10" value="5"></wa-number-input>
+          `);
           expect(el.checkValidity()).to.be.true;
         });
       });
