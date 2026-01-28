@@ -12,11 +12,13 @@ const translation: Translation = {
   copied: 'Kopiert',
   copy: 'Kopier',
   currentValue: 'Nåværende verdi',
+  decrement: 'Reduser',
   dropFileHere: 'Drop file here or click to browse',
   dropFilesHere: 'Drop files here or click to browse',
   error: 'Feil',
   goToSlide: (slide, count) => `Gå til visning ${slide} av ${count}`,
   hidePassword: 'Skjul passord',
+  increment: 'Øk',
   loading: 'Laster',
   nextSlide: 'Neste visning',
   numOptionsSelected: num => {

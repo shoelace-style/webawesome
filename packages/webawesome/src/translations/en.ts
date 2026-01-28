@@ -13,10 +13,12 @@ const translation: Translation = {
   copy: 'Copy',
   currentValue: 'Current value',
   dropFileHere: 'Drop file here or click to browse',
+  decrement: 'Decrement',
   dropFilesHere: 'Drop files here or click to browse',
   error: 'Error',
   goToSlide: (slide, count) => `Go to slide ${slide} of ${count}`,
   hidePassword: 'Hide password',
+  increment: 'Increment',
   loading: 'Loading',
   nextSlide: 'Next slide',
   numOptionsSelected: num => {

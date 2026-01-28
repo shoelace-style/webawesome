@@ -12,11 +12,13 @@ const translation: Translation = {
   copied: 'Kopyalandı',
   copy: 'Kopya',
   currentValue: 'Mevcut değer',
+  decrement: 'Azalt',
   dropFileHere: 'Drop file here or click to browse',
   dropFilesHere: 'Drop files here or click to browse',
   error: 'Hata',
   goToSlide: (slide, count) => `${count} slayttan ${slide} slayta gidin`,
   hidePassword: 'Şifreyi sakla',
+  increment: 'Artır',
   loading: 'Yükleme',
   nextSlide: 'Sonraki slayt',
   numOptionsSelected: num => {
