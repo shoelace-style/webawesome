@@ -114,7 +114,7 @@ export default class WebAwesomeElement extends LitElement {
   }
 
   /**
-   * Methods for setting and checking custom states.
+   * @internal Methods for setting and checking custom states.
    */
   public customStates = {
     /** Adds or removes the specified custom state. */
