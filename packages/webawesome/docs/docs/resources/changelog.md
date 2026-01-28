@@ -39,6 +39,10 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed a bug in `<wa-tree-item>` that caused the cursor to show a pointer when no expand icon was present [pr:1936]
 - Fixed a bug in `<wa-tree-item>` that caused the chevron to render the wrong direction in RTL [pr:1798]
 - Improved the Persian translation [#1923]
+- Improved `<wa-qr-code>` to use CSS `color` for fill and `background-color` on the host for background
+  - Deprecated the `fill` and `background` attributes
+  - Existing implementations now correctly adapt to light/dark mode automatically
+  - When using CSS, the QR code will now adapt to `color` and `background` color changes automatically
 - Modified `wa-align-items-*` utility classes to apply `display: flex` by default [pr:1943]
 
 ## 3.1.0
