@@ -78,6 +78,7 @@ const getQrCodeColors = (qrCode: WaQrCode): QrCodeColors => {
 const red = new Color(255, 0, 0, 255);
 const white = new Color(255, 255, 255, 255);
 const blue = new Color(0, 0, 255, 255);
+const transparent = new Color(0, 0, 0, 0);
 
 const expectQrCodeColorsToBe = (qrCode: WaQrCode, expectedColors: QrCodeColors): void => {
   const qrCodeColors = getQrCodeColors(qrCode);
@@ -122,18 +123,32 @@ describe('<wa-qr-code>', () => {
         expectCanvasToHaveAriaLabel(qrCode, 'test label');
       });
 
-      it('sets the correct color for the qr code', async () => {
+      it('sets the correct color for the qr code using deprecated fill attribute', async () => {
         const qrCode = await fixture<WaQrCode>(html` <wa-qr-code value="test data" fill="red"></wa-qr-code>`);
 
-        expectQrCodeColorsToBe(qrCode, { foreground: red, background: white });
+        expectQrCodeColorsToBe(qrCode, { foreground: red, background: transparent });
       });
 
-      it('sets the correct background for the qr code', async () => {
+      it('sets the correct background for the qr code using deprecated background attribute', async () => {
         const qrCode = await fixture<WaQrCode>(
           html` <wa-qr-code value="test data" fill="red" background="blue"></wa-qr-code>`,
         );
 
         expectQrCodeColorsToBe(qrCode, { foreground: red, background: blue });
+      });
+
+      it('sets the correct color for the qr code using CSS color property', async () => {
+        const qrCode = await fixture<WaQrCode>(
+          html` <wa-qr-code value="test data" style="color: red;"></wa-qr-code>`,
+        );
+
+        expectQrCodeColorsToBe(qrCode, { foreground: red, background: transparent });
+      });
+
+      it('uses transparent background by default', async () => {
+        const qrCode = await fixture<WaQrCode>(html` <wa-qr-code value="test data" fill="white"></wa-qr-code>`);
+
+        expectQrCodeColorsToBe(qrCode, { foreground: white, background: transparent });
       });
 
       it('has the expected size', async () => {
