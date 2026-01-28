@@ -78,16 +78,34 @@ export default css`
     }
 
     input {
+      flex: 1 1 auto;
       height: 100%;
+      min-width: 0;
+      margin: 0;
       padding: 0;
-      border: none;
       outline: none;
       box-shadow: none;
-      margin: 0;
+      border: none;
+      background-color: transparent;
+      font: inherit;
+      transition: inherit;
       cursor: inherit;
       -webkit-appearance: none;
+
+      /* Center-align and use tabular numbers for better alignment */
+      text-align: center;
+      font-variant-numeric: tabular-nums;
+
+      /* Hide the number spinners in Firefox */
       -moz-appearance: textfield;
-      font: inherit;
+
+      /* Hide the number spinners in Chrome/Safari */
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+        display: none;
+      }
 
       /* Turn off Safari's autofill styles */
       &:-webkit-autofill,
@@ -99,26 +117,6 @@ export default css`
         -webkit-text-fill-color: inherit;
       }
     }
-  }
-
-  input {
-    flex: 1 1 auto;
-    min-width: 0;
-    height: 100%;
-    transition: inherit;
-
-    /* prettier-ignore */
-    background-color: rgb(118 118 118 / 0); /* ensures proper placeholder styles in webkit's date input */
-    height: calc(var(--wa-form-control-height) - var(--border-width) * 2);
-    padding-block: 0;
-    color: inherit;
-
-    /* Center-align and use tabular numbers for better alignment */
-    text-align: center;
-    font-variant-numeric: tabular-nums;
-
-    /* Hide the number spinners in Firefox */
-    -moz-appearance: textfield;
 
     &:autofill {
       &,
@@ -138,14 +136,6 @@ export default css`
 
     &:focus {
       outline: none;
-    }
-
-    /* Hide the number spinners in Chrome/Safari */
-    &::-webkit-outer-spin-button,
-    &::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-      display: none;
     }
   }
 
