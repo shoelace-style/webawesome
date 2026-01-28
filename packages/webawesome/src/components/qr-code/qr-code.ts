@@ -108,7 +108,11 @@ export default class WaQrCode extends WebAwesomeElement {
         class="qr-code"
         role="img"
         aria-label=${this.label?.length > 0 ? this.label : this.value}
-        @transitionend=${() => this.generate()}
+        @transitionend=${(event: TransitionEvent) => {
+          if (event.propertyName === 'color') {
+            this.generate();
+          }
+        }}
       ></canvas>
     `;
   }
