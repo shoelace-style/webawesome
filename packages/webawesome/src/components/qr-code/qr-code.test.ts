@@ -138,9 +138,7 @@ describe('<wa-qr-code>', () => {
       });
 
       it('sets the correct color for the qr code using CSS color property', async () => {
-        const qrCode = await fixture<WaQrCode>(
-          html` <wa-qr-code value="test data" style="color: red;"></wa-qr-code>`,
-        );
+        const qrCode = await fixture<WaQrCode>(html` <wa-qr-code value="test data" style="color: red;"></wa-qr-code>`);
 
         expectQrCodeColorsToBe(qrCode, { foreground: red, background: transparent });
       });
