@@ -87,6 +87,7 @@ export default css`
       margin: 0;
       cursor: inherit;
       -webkit-appearance: none;
+      -moz-appearance: textfield;
       font: inherit;
 
       /* Turn off Safari's autofill styles */
