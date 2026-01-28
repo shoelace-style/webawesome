@@ -14,7 +14,7 @@ export default css`
     border-width: var(--wa-form-control-border-width);
     cursor: text;
     color: var(--wa-form-control-value-color);
-    font-size: var(--wa-form-control-value-font-size);
+    font-size: inherit;
     font-family: inherit;
     font-weight: var(--wa-form-control-value-font-weight);
     line-height: var(--wa-form-control-value-line-height);
@@ -26,7 +26,6 @@ export default css`
       outline var(--wa-transition-fast);
     transition-timing-function: var(--wa-transition-easing);
     background-color: var(--wa-form-control-background-color);
-    box-shadow: var(--box-shadow);
     padding: 0;
 
     &:focus-within {
