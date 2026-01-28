@@ -51,8 +51,14 @@ export async function discover(root: Document | Element | ShadowRoot) {
     }
   }
 
-  // Wait a cycle to allow the first Lit update to run
-  await new Promise(requestAnimationFrame);
+  // Wait for all components to complete their first render to prevent FOUCE.
+  // Using updateComplete ensures the component's shadow DOM is fully rendered.
+  if (tagsToRegister.length > 0) {
+    const elements = root.querySelectorAll<HTMLElement>(tagsToRegister.join(','));
+    await Promise.all(
+      [...elements].map(el => (el as HTMLElement & { updateComplete?: Promise<boolean> }).updateComplete),
+    );
+  }
 
   // Dispatch an event when discovery is complete.
   root.dispatchEvent(
