@@ -6,7 +6,6 @@ export default css`
     align-items: stretch;
     justify-content: start;
     position: relative;
-    transition: inherit;
     height: var(--wa-form-control-height);
     border-color: var(--wa-form-control-border-color);
     border-radius: var(--wa-form-control-border-radius);
