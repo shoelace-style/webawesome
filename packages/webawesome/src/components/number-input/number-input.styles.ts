@@ -40,33 +40,80 @@ export default css`
   }
 
   /* Appearance modifiers */
-  :host([appearance='outlined']) .number-field {
-    background-color: var(--wa-form-control-background-color);
-    border-color: var(--wa-form-control-border-color);
+  :host([appearance='outlined']) {
+    .number-field {
+      background-color: var(--wa-form-control-background-color);
+      border-color: var(--wa-form-control-border-color);
+    }
+
+    .stepper {
+      color: var(--wa-color-neutral-on-quiet);
+      
+      @media (hover: hover) {
+        &:hover:not(:disabled) {
+          color: var(--wa-color-neutral-on-quiet);
+          background-color: var(--wa-color-neutral-fill-quiet);
+        }
+      }
+
+      &:active:not(:disabled) {
+        color: color-mix(in oklab, var(--wa-color-neutral-on-quiet), var(--wa-color-mix-active));
+        background-color: color-mix(in oklab, var(--wa-color-neutral-fill-quiet), var(--wa-color-mix-active));
+      }
+    }
   }
 
-  :host([appearance='filled']) .number-field {
-    background-color: var(--wa-color-neutral-fill-quiet);
-    border-color: var(--wa-color-neutral-fill-quiet);
+  :host([appearance='filled']) {
+    .number-field {
+      background-color: var(--wa-color-neutral-fill-quiet);
+      border-color: var(--wa-color-neutral-fill-quiet);
+    }
+
+    .stepper {
+      color: var(--wa-color-neutral-on-quiet);
+
+      @media (hover: hover) {
+        &:hover:not(:disabled) {
+          color: var(--wa-color-neutral-on-normal);
+          background-color: var(--wa-color-neutral-fill-normal);
+        }
+      }
+
+      &:active:not(:disabled) {
+        color: color-mix(in oklab, var(--wa-color-neutral-on-normal), var(--wa-color-mix-active));
+        background-color: color-mix(in oklab, var(--wa-color-neutral-fill-normal), var(--wa-color-mix-active));
+      }
+    }
   }
 
-  :host([appearance='filled-outlined']) .number-field {
-    background-color: var(--wa-color-neutral-fill-quiet);
-    border-color: var(--wa-form-control-border-color);
+  :host([appearance='filled-outlined']) {
+    .number-field {
+      background-color: var(--wa-color-neutral-fill-quiet);
+      border-color: var(--wa-form-control-border-color);
+    }
+
+    .stepper {
+      color: var(--wa-color-neutral-on-quiet);
+      
+      @media (hover: hover) {
+        &:hover:not(:disabled) {
+          color: var(--wa-color-neutral-on-normal);
+          background-color: var(--wa-color-neutral-fill-normal);
+        }
+      }
+
+      &:active:not(:disabled) {
+        color: color-mix(in oklab, var(--wa-color-neutral-on-normal), var(--wa-color-mix-active));
+        background-color: color-mix(in oklab, var(--wa-color-neutral-fill-normal), var(--wa-color-mix-active));
+      }
+    }
   }
 
-  :host([pill]) .number-field {
-    border-radius: var(--wa-border-radius-pill);
-  }
-
-  :host([pill]) .stepper-decrement {
-    border-start-start-radius: calc(var(--wa-border-radius-pill) - var(--wa-form-control-border-width));
-    border-end-start-radius: calc(var(--wa-border-radius-pill) - var(--wa-form-control-border-width));
-  }
-
-  :host([pill]) .stepper-increment {
-    border-start-end-radius: calc(var(--wa-border-radius-pill) - var(--wa-form-control-border-width));
-    border-end-end-radius: calc(var(--wa-border-radius-pill) - var(--wa-form-control-border-width));
+  :host([pill]) {
+    .number-field,
+    .stepper {
+      border-radius: var(--wa-border-radius-pill);
+    }
   }
 
   .number-field {
@@ -169,26 +216,19 @@ export default css`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: var(--stepper-width, 2.5em);
-    height: 100%;
+    aspect-ratio: 1 / 1;
+    height: calc(100% - var(--wa-form-control-border-width) * 2);
     flex: 0 0 auto;
     border: none;
+    border-radius: calc(var(--wa-form-control-border-radius) - var(--wa-form-control-border-width) * 2);
     background: transparent;
-    color: var(--wa-color-neutral-on-quiet);
     cursor: pointer;
+    margin: var(--wa-form-control-border-width);
     padding: 0;
     font-size: inherit;
-    transition: var(--wa-transition-normal) color;
-
-    @media (hover: hover) {
-      &:hover:not(:disabled) {
-        color: color-mix(in oklab, currentColor, var(--wa-color-mix-hover));
-      }
-    }
-
-    &:active:not(:disabled) {
-      color: color-mix(in oklab, currentColor, var(--wa-color-mix-active));
-    }
+    transition-property: background-color, color;
+    transition-duration: var(--wa-transition-fast);
+    transition-timing-function: var(--wa-transition-easing);
 
     &:disabled {
       opacity: 0.5;
@@ -198,18 +238,6 @@ export default css`
     &:focus {
       outline: none;
     }
-  }
-
-  /* Decrement button on the start (left in LTR, right in RTL) */
-  .stepper-decrement {
-    border-inline-end: var(--wa-form-control-border-width) var(--wa-form-control-border-style)
-      var(--wa-form-control-border-color);
-  }
-
-  /* Increment button on the end (right in LTR, left in RTL) */
-  .stepper-increment {
-    border-inline-start: var(--wa-form-control-border-width) var(--wa-form-control-border-style)
-      var(--wa-form-control-border-color);
   }
 
   :host([without-steppers]) .stepper {
