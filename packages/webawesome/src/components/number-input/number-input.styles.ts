@@ -77,11 +77,12 @@ export default css`
     }
 
     input {
-      flex: 1 1 auto;
+      flex: auto;
       height: 100%;
+      width: auto;
       min-width: 0;
       margin: 0;
-      padding: 0;
+      padding: 0 var(--wa-form-control-padding-inline);
       outline: none;
       box-shadow: none;
       border: none;
@@ -141,14 +142,23 @@ export default css`
   .start,
   .end {
     display: inline-flex;
-    flex: 0 0 auto;
+    flex: 1;
     align-items: center;
     cursor: default;
-    margin-inline: var(--wa-space-m);
 
     &::slotted(wa-icon) {
       color: var(--wa-color-neutral-on-quiet);
     }
+  }
+
+  .start {
+    justify-content: start;
+    margin-inline-start: var(--wa-form-control-padding-inline);
+  }
+
+  .end {
+    justify-content: end;
+    margin-inline-end: var(--wa-form-control-padding-inline);
   }
 
   /*
@@ -204,10 +214,5 @@ export default css`
 
   :host([without-steppers]) .stepper {
     display: none;
-  }
-
-  /* Add padding when steppers are hidden */
-  :host([without-steppers]) .number-field {
-    padding: 0 var(--wa-form-control-padding-inline);
   }
 `;
