@@ -572,69 +572,6 @@ wa-card .page-name {
   }
 }
 
-table.colors {
-  thead {
-    th {
-      text-align: center;
-      padding-block: 0;
-    }
-  }
-
-  tbody {
-    tr {
-      border: none;
-      @media (hover: hover) {
-        &:hover {
-          background: transparent;
-        }
-      }
-    }
-
-    th {
-      width: 0;
-      vertical-align: middle;
-      text-align: right;
-    }
-
-    td {
-      padding-inline: var(--wa-space-3xs);
-      padding-block: var(--wa-space-s);
-    }
-  }
-
-  .core-column {
-    padding-inline-end: var(--wa-space-xl);
-  }
-}
-
-.value-up,
-.value-down {
-  position: relative;
-
-  &::after {
-    content: ' ' var(--icon);
-    position: absolute;
-    margin-inline-start: 3em;
-    scale: 1 0.6;
-    color: color-mix(in oklch, oklch(from var(--icon-color) none c h) 0%, oklch(from currentColor l none none));
-    font-size: 90%;
-  }
-}
-
-.value-down {
-  --icon: '▼';
-  --icon-color: var(--wa-color-danger-fill-quiet);
-
-  &::after {
-    margin-block-end: -0.2em;
-  }
-}
-
-.value-up {
-  --icon: '▲';
-  --icon-color: var(--wa-color-success-fill-quiet);
-}
-
 /* Theming */
 
 .color-scale.wa-flank {
