@@ -552,9 +552,12 @@ Web Awesome provides CSS utilities for common styling tasks:
 - **Spacing**: \`wa-gap-*\` utilities
 - **Text**: Typography utilities
 - **Color**: Color variant utilities
+- **Rounding**: \`wa-border-radius-*\` utilities
+- **Accessibility**: \`wa-visually-hidden\` utilities
+- **FOUCE Prevention**: \`wa-cloak\` utility
 - **Native Styles**: Enhanced styling for native HTML elements
 
-See [Layout Utilities](references/utilities/layout.md) and [Native Styles](references/utilities/native.md).
+See [Layout Utilities](references/utilities/layout.md), [Rounding](references/utilities/rounding.md), [Visually Hidden](references/utilities/visually-hidden.md), [FOUCE](references/utilities/fouce.md), and [Native Styles](references/utilities/native.md).
 
 ## Design Tokens
 
@@ -787,7 +790,7 @@ function copyAndProcessDoc(siteDir, docsDir, destDir, htmlRelPath, destFileName,
   const title = frontmatter.title || htmlTitle || destFileName.replace('.md', '');
   const docPath = options.docPath || htmlRelPath.replace('/index.html', '').replace('.html', '');
 
-  const header = [`# ${title}`, '', `**Full documentation:** ${baseUrl}/${docPath}`, ''].join('\n');
+  const header = [`# ${title}`, '', `**Full documentation:** ${baseUrl}/${docPath}`, '', ''].join('\n');
 
   fs.writeFileSync(path.join(destDir, destFileName), header + processed, 'utf-8');
   return true;
@@ -831,7 +834,8 @@ function copyAllComponentDocs(siteDir, destDir, baseUrl, frontMatterCache) {
       '',
       `**Full documentation:** ${baseUrl}/docs/components/${componentName}`,
       '',
-      isProComponent ? `> This component requires [Web Awesome Pro](${baseUrl}/purchase).\n` : '',
+      isProComponent ? `> This component requires [Web Awesome Pro](${baseUrl}/purchase).` : '',
+      '',
     ].join('\n');
 
     fs.writeFileSync(path.join(componentsDestDir, `${componentName}.md`), header + processed, 'utf-8');
@@ -1003,6 +1007,26 @@ export async function generateAgentSkill(options = {}) {
     docPath: 'docs/utilities/color',
     mdPath: 'docs/utilities/color.md',
   });
+  copyAndProcessDoc(siteDir, docsDir, utilitiesDir, 'docs/utilities/fouce/index.html', 'fouce.md', baseUrl, {
+    docPath: 'docs/utilities/fouce',
+    mdPath: 'docs/utilities/fouce.md',
+  });
+  copyAndProcessDoc(siteDir, docsDir, utilitiesDir, 'docs/utilities/rounding/index.html', 'rounding.md', baseUrl, {
+    docPath: 'docs/utilities/rounding',
+    mdPath: 'docs/utilities/rounding.md',
+  });
+  copyAndProcessDoc(
+    siteDir,
+    docsDir,
+    utilitiesDir,
+    'docs/utilities/visually-hidden/index.html',
+    'visually-hidden.md',
+    baseUrl,
+    {
+      docPath: 'docs/utilities/visually-hidden',
+      mdPath: 'docs/utilities/visually-hidden.md',
+    },
+  );
 
   // Design token docs
   copyAndProcessDoc(siteDir, docsDir, tokensDir, 'docs/tokens/borders/index.html', 'borders.md', baseUrl, {
