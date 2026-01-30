@@ -31,11 +31,17 @@ export default class WaQrCode extends WebAwesomeElement {
   /** The size of the QR code, in pixels. */
   @property({ type: Number }) size = 128;
 
-  /** The fill color. This can be any valid CSS color, but not a CSS custom property. */
-  @property() fill = 'black';
+  /**
+   * The fill color. This can be any valid CSS color, but not a CSS custom property.
+   * @deprecated Use the `color` CSS property instead.
+   */
+  @property() fill = '';
 
-  /** The background color. This can be any valid CSS color or `transparent`. It cannot be a CSS custom property. */
-  @property() background = 'white';
+  /**
+   * The background color. This can be any valid CSS color or `transparent`. It cannot be a CSS custom property.
+   * @deprecated Use the `background` or `background-color` CSS property on the host element instead.
+   */
+  @property() background = '';
 
   /** The edge radius of each module. Must be between 0 and 0.5. */
   @property({ type: Number }) radius = 0;
@@ -57,10 +63,8 @@ export default class WaQrCode extends WebAwesomeElement {
     }
   }
 
-  @watch(['background', 'errorCorrection', 'fill', 'radius', 'size', 'value'])
+  @watch(['background', 'errorCorrection', 'fill', 'radius', 'size', 'value'], { waitUntilFirstUpdate: true })
   generate() {
-    this.style.setProperty('--size', `${this.size}px`);
-
     if (!this.hasUpdated) {
       return;
     }
@@ -74,13 +78,20 @@ export default class WaQrCode extends WebAwesomeElement {
       return;
     }
 
+    this.canvas.style.maxWidth = `${this.size}px`;
+    this.canvas.style.maxHeight = `${this.size}px`;
+
+    const computedStyle = getComputedStyle(this);
+
     (QrCreator as unknown as typeof _QrCreator.default).render(
       {
         text: this.value,
         radius: this.radius,
         ecLevel: this.errorCorrection,
-        fill: this.fill,
-        background: this.background,
+        // Use the deprecated `fill` attribute if set, otherwise use the current text color
+        fill: this.fill || computedStyle.color,
+        // Use the deprecated `background` attribute if set, otherwise use transparent (the host has the bg color now)
+        background: this.background || null,
         // We draw the canvas larger and scale its container down to avoid blurring on high-density displays
         size: this.size * 2,
       },
@@ -97,6 +108,11 @@ export default class WaQrCode extends WebAwesomeElement {
         class="qr-code"
         role="img"
         aria-label=${this.label?.length > 0 ? this.label : this.value}
+        @transitionend=${(event: TransitionEvent) => {
+          if (event.propertyName === 'color') {
+            this.generate();
+          }
+        }}
       ></canvas>
     `;
   }

@@ -16,6 +16,7 @@
   --layout-example-border-radius: var(--wa-border-radius-l);
   --layout-example-padding: var(--wa-space-s);
   --layout-example-element-background: var(--wa-color-indigo-60);
+  --layout-example-element-color: var(--wa-color-indigo-05);
   --layout-example-element-border-radius: var(--wa-border-radius-m);
 }
 
