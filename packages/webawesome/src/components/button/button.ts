@@ -160,8 +160,8 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
 
   private handleClick() {
     // Only create a light dom button for submit / reset buttons.
-    if (this.type !== "submit" && this.type !== "reset") {
-      return
+    if (this.type !== 'submit' && this.type !== 'reset') {
+      return;
     }
 
     const form = this.getForm();
