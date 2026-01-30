@@ -83,7 +83,7 @@ Claude Code can also discover and use the skill automatically if it's in your pr
 
 ### Cursor
 
-In [Cursor](https://cursor.sh/), you can add the skill directory to your project's documentation sources via **Cursor Settings > Features > Docs**. Point it to the `dist/skills/webawesome/` directory in your node_modules.
+In [Cursor](https://cursor.sh/), you can add the skill directory to your project's documentation sources via **Cursor Settings > Features > Docs**. Point it to the `dist/skills/webawesome/` directory in your `node_modules` folder.
 
 ### Other AI Tools
 
