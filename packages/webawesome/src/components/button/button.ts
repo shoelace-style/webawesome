@@ -136,7 +136,7 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
     const button = document.createElement('button');
 
     for (const attribute of this.attributes) {
-      if (attribute.name === 'style') {
+      if (['style', 'slot'].includes(attribute.name)) {
         // Skip style attributes as they *shouldn't* be necessary
         continue;
       }

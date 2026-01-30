@@ -38,6 +38,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed a bug in draggable elements that caused a TypeError on `touchend` events when `event.touches` was empty
 - Fixed a bug in `<wa-tree-item>` that caused the cursor to show a pointer when no expand icon was present [pr:1936]
 - Fixed a bug in `<wa-tree-item>` that caused the chevron to render the wrong direction in RTL [pr:1798]
+- Fixed a bug in `<wa-button>` that caused `<wa-dropdown>` elements to close immediately after opening when placed inside a `<form>` element
 - Improved the Persian translation [#1923]
 - Improved `<wa-qr-code>` to use CSS `color` for fill and `background-color` on the host for background
   - Deprecated the `fill` and `background` attributes
