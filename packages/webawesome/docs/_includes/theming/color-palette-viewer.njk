@@ -1,0 +1,25 @@
+<div id="palette" class="wa-stack wa-gap-xs">
+  {%- for color in themer.colors -%}
+    <div class="color-scale wa-flank wa-gap-xs">
+      <div class="color-name">{{ color }}</div>
+      <div class="color-swatches wa-grid wa-gap-2xs">
+        {%- for tint in themer.tints -%}
+        <wa-copy-button
+          class="color-swatch"
+          copy-label="{{ color }} {{ tint }}"
+          value="var(--wa-color-{{ color }}-{{ tint }})"
+          style="--color: var(--wa-color-{{ color }}-{{ tint }}); --tint: '{{ tint }}'"
+        >
+          <span class="wa-visually-hidden">--wa-color-{{ color }}-{{ tint }}</span>
+        </wa-copy-button>
+        {%- endfor -%}
+      </div>
+    </div>
+  {%- endfor -%}
+</div>
+
+<style>
+  #palette:has(+ *) {
+    margin-block-end: var(--wa-content-spacing);
+  }
+</style>

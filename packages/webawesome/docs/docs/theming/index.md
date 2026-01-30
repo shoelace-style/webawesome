@@ -17,9 +17,9 @@ Themes are made up of several layers of increasing specificity, each represented
 
 Color palettes give you a full spectrum of colors to use in your project. A color palette defines 10 hues — red, orange, yellow, green, cyan, blue, indigo, purple, pink, and gray — each with 11 tints. Tints are assigned numbers that correlate to their lightness.
 
-There are 9 specially crafted color palettes; 3 are free to use with an additional 6 available in Web Awesome Pro.
+Both Web Awesome Free and Pro offer multiple handcrafted color palettes. [Check out the palettes available to you <wa-icon name="arrow-right" variant="regular"></wa-icon>](/docs/color-palettes)
 
-{% include 'theming/color-palettes.njk' %}
+{% include 'theming/color-palette-viewer.njk' %}
 
 Your color palette is determined by `class="wa-palette-{name}"` on the `<html>` element. If no class is specified, the default color palette for your chosen theme is used.
 
