@@ -447,7 +447,7 @@ ${renderComponentList(proByCategory[category], true)}`,
   return `---
 name: webawesome
 description: Web Awesome is a UI component library built with web components. Use when building buttons, inputs, selects, checkboxes, dialogs, modals, drawers, tabs, dropdowns, tooltips, carousels, forms, or using CSS utilities like wa-stack, wa-cluster, wa-grid. Supports React, Vue, Angular, Svelte, and vanilla JS.
-license: MIT
+license: MIT / Commercial (for Web Awesome Pro)
 metadata:
   author: Web Awesome
   version: "${packageData.version || '0.0.0'}"
