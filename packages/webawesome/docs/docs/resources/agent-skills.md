@@ -55,7 +55,19 @@ How you reference the skill depends on which AI tool you're using.
 
 ### Claude Code
 
-If you're using [Claude Code](https://claude.ai/code), you can reference the skill directory directly:
+If you're using [Claude Code](https://claude.ai/code), you can install the Web Awesome skill locally using the [skills CLI](https://skills.sh/):
+
+```bash
+# Install the skill
+npx skills add ./node_modules/@awesome.me/webawesome/dist/skills/webawesome
+
+# Uninstall the skill
+npx skills remove webawesome
+```
+
+Once installed, the skill will be available to Claude Code automatically. The skill is installed as a symlink, so it will automatically stay up to date when you update Web Awesome via npm.
+
+You can also reference the skill directory manually:
 
 ```
 @node_modules/@awesome.me/webawesome/dist/skills/webawesome/
