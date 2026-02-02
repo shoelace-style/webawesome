@@ -9,8 +9,6 @@ import WebAwesomeElement from '../../internal/webawesome-element.js';
 import { LocalizeController } from '../../utilities/localize.js';
 import styles from './split-panel.styles.js';
 
-export type { WaRepositionEvent };
-
 /**
  * @summary Split panels display two adjacent panels, allowing the user to reposition them.
  * @documentation https://webawesome.com/docs/components/split-panel

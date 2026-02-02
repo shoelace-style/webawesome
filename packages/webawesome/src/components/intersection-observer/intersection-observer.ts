@@ -7,8 +7,6 @@ import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import styles from './intersection-observer.styles.js';
 
-export type { WaIntersectEvent };
-
 /**
  * @summary Tracks immediate child elements and fires events as they move in and out of view.
  * @documentation https://webawesome.com/docs/components/intersection-observer
@@ -17,7 +15,7 @@ export type { WaIntersectEvent };
  *
  * @slot - Elements to track. Only immediate children of the host are monitored.
  *
- * @event {WaIntersectEvent} wa-intersect - Fired when a tracked element begins or ceases intersecting.
+ * @event {{ entry: IntersectionObserverEntry }} wa-intersect - Fired when a tracked element begins or ceases intersecting.
  */
 @customElement('wa-intersection-observer')
 export default class WaIntersectionObserver extends WebAwesomeElement {

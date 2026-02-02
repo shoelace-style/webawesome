@@ -18,8 +18,6 @@ import '../icon/icon.js';
 import { AutoplayController } from './autoplay-controller.js';
 import styles from './carousel.styles.js';
 
-export type { WaSlideChangeEvent };
-
 /**
  * @summary Carousels display an arbitrary number of content slides along a horizontal or vertical axis.
  *
@@ -28,7 +26,7 @@ export type { WaSlideChangeEvent };
  *
  * @dependency wa-icon
  *
- * @event {WaSlideChangeEvent} wa-slide-change - Emitted when the active slide changes.
+ * @event {{ index: number, slide: WaCarouselItem }} wa-slide-change - Emitted when the active slide changes.
  *
  * @slot - The carousel's main content, one or more `<wa-carousel-item>` elements.
  * @slot next-icon - Optional next icon to use instead of the default. Works best with `<wa-icon>`.

@@ -7,9 +7,6 @@ import WebAwesomeElement from '../../internal/webawesome-element.js';
 import styles from './include.styles.js';
 import { requestInclude } from './request.js';
 
-
-export type { WaIncludeErrorEvent };
-
 /**
  * @summary Includes give you the power to embed external HTML files into the page.
  * @documentation https://webawesome.com/docs/components/include
@@ -17,7 +14,7 @@ export type { WaIncludeErrorEvent };
  * @since 2.0
  *
  * @event wa-load - Emitted when the included file is loaded.
- * @event {WaIncludeErrorEvent} wa-include-error - Emitted when the included file fails to load due to an error.
+ * @event {{ status: number }} wa-include-error - Emitted when the included file fails to load due to an error.
  */
 @customElement('wa-include')
 export default class WaInclude extends WebAwesomeElement {

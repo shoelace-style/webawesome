@@ -27,8 +27,6 @@ import '../popup/popup.js';
 import type WaPopup from '../popup/popup.js';
 import styles from './color-picker.styles.js';
 
-export type { WaInvalidEvent, WaInput, WaPopup };
-
 interface EyeDropperConstructor {
   new (): EyeDropperInterface;
 }

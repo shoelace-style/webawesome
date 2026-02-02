@@ -12,8 +12,6 @@ import { LocalizeController } from '../../utilities/localize.js';
 import '../icon/icon.js';
 import styles from './rating.styles.js';
 
-export type { WaHoverEvent };
-
 /**
  * @summary Ratings give users a way to quickly view and provide feedback.
  * @documentation https://webawesome.com/docs/components/rating
@@ -23,7 +21,7 @@ export type { WaHoverEvent };
  * @dependency wa-icon
  *
  * @event change - Emitted when the rating's value changes.
- * @event {WaHoverEvent} wa-hover - Emitted when the user hovers over a value. The
+ * @event {{ phase: 'start' | 'move' | 'end', value: number }} wa-hover - Emitted when the user hovers over a value. The
  *  `phase` property indicates when hovering starts, moves to a new value, or ends. The `value` property tells what the
  *  rating's value would be if the user were to commit to the hovered value.
  *

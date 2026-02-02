@@ -15,8 +15,6 @@ import { LocalizeController } from '../../utilities/localize.js';
 import '../button/button.js';
 import styles from './drawer.styles.js';
 
-export type { WaHideEvent, WaAfterHideEvent };
-
 /**
  * @summary Drawers slide in from a container to expose additional options and information.
  * @documentation https://webawesome.com/docs/components/drawer
@@ -34,7 +32,7 @@ export type { WaHideEvent, WaAfterHideEvent };
  * @event wa-after-show - Emitted after the drawer opens and all animations are complete.
  * @event wa-hide - Emitted when the drawer closes.
  * @event wa-after-hide - Emitted after the drawer closes and all animations are complete.
- * @event {WaHideEvent} wa-hide - Emitted when the drawer is requesting to close. Calling
+ * @event {{ source: Element }} wa-hide - Emitted when the drawer is requesting to close. Calling
  *  `event.preventDefault()` will prevent the drawer from closing. You can inspect `event.detail.source` to see which
  *  element caused the drawer to close. If the source is the drawer element itself, the user has pressed [[Escape]] or
  *  the drawer has been closed programmatically. Avoid using this unless closing the drawer will result in destructive
@@ -55,6 +53,9 @@ export type { WaHideEvent, WaAfterHideEvent };
  * @cssproperty [--show-duration=200ms] - The animation duration when showing the drawer.
  * @cssproperty [--hide-duration=200ms] - The animation duration when hiding the drawer.
  *
+ * @property modal - Exposes the internal modal utility that controls focus trapping. To temporarily disable focus
+ *   trapping and allow third-party modals spawned from an active Shoelace modal, call `modal.activateExternal()` when
+ *   the third-party modal opens. Upon closing, call `modal.deactivateExternal()` to restore Shoelace's focus trapping.
  */
 @customElement('wa-drawer')
 export default class WaDrawer extends WebAwesomeElement {

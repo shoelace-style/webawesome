@@ -8,8 +8,6 @@ import { LocalizeController } from '../../utilities/localize.js';
 import WaTreeItem from '../tree-item/tree-item.js';
 import styles from './tree.styles.js';
 
-export type { WaSelectionChangeEvent };
-
 function syncCheckboxes(changedTreeItem: WaTreeItem, initialSync = false) {
   function syncParentItem(treeItem: WaTreeItem) {
     const children = treeItem.getChildrenItems({ includeDisabled: false });
@@ -58,7 +56,7 @@ function syncCheckboxes(changedTreeItem: WaTreeItem, initialSync = false) {
  *
  * @dependency wa-tree-item
  *
- * @event {WaSelectionChangeEvent} wa-selection-change - Emitted when a tree item is selected or deselected.
+ * @event {{ selection: WaTreeItem[] }} wa-selection-change - Emitted when a tree item is selected or deselected.
  *
  * @slot - The default slot.
  * @slot expand-icon - The icon to show when the tree item is expanded. Works best with `<wa-icon>`.

@@ -10,8 +10,6 @@ import { getDefaultIconFamily, getIconLibrary, unwatchIcon, watchIcon, type Icon
 
 import type { HTMLTemplateResult, PropertyValues } from 'lit';
 
-export type { WaErrorEvent };
-
 const CACHEABLE_ERROR = Symbol();
 const RETRYABLE_ERROR = Symbol();
 type SVGResult = HTMLTemplateResult | SVGSVGElement | typeof RETRYABLE_ERROR | typeof CACHEABLE_ERROR;

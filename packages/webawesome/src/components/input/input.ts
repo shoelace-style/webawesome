@@ -15,8 +15,6 @@ import { LocalizeController } from '../../utilities/localize.js';
 import '../icon/icon.js';
 import styles from './input.styles.js';
 
-export type { WaClearEvent };
-
 /**
  * @summary Inputs collect data from the user.
  * @documentation https://webawesome.com/docs/components/input

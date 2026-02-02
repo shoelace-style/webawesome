@@ -15,8 +15,6 @@ import type WaIcon from '../icon/icon.js';
 import '../spinner/spinner.js';
 import styles from './button.styles.js';
 
-export type { WaInvalidEvent, WebAwesomeFormAssociatedElement };
-
 /**
  * @summary Buttons represent actions that are available to the user.
  * @documentation https://webawesome.com/docs/components/button

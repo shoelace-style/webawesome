@@ -13,8 +13,6 @@ import WebAwesomeElement from '../../internal/webawesome-element.js';
 import WaPopup from '../popup/popup.js';
 import styles from './tooltip.styles.js';
 
-export type { WaAfterShowEvent, WaPopup };
-
 /**
  * @summary Tooltips display additional information based on a specific action.
  * @documentation https://webawesome.com/docs/components/tooltip

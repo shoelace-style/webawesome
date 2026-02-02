@@ -5,8 +5,6 @@ import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import styles from './resize-observer.styles.js';
 
-export type { WaResizeEvent };
-
 /**
  * @summary The Resize Observer component offers a thin, declarative interface to the [`ResizeObserver API`](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver).
  * @documentation https://webawesome.com/docs/components/resize-observer
@@ -15,7 +13,7 @@ export type { WaResizeEvent };
  *
  * @slot - One or more elements to watch for resizing.
  *
- * @event {WaResizeEvent} wa-resize - Emitted when the element is resized.
+ * @event {{ entries: ResizeObserverEntry[] }} wa-resize - Emitted when the element is resized.
  */
 @customElement('wa-resize-observer')
 export default class WaResizeObserver extends WebAwesomeElement {

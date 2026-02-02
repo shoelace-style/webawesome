@@ -12,8 +12,6 @@ import '../tooltip/tooltip.js';
 import type WaTooltip from '../tooltip/tooltip.js';
 import styles from './copy-button.styles.js';
 
-export type { WaErrorEvent, WaTooltip };
-
 /**
  * @summary Copies text data to the clipboard when the user clicks the trigger.
  * @documentation https://webawesome.com/docs/components/copy

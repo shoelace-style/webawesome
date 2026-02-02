@@ -19,8 +19,6 @@ import WebAwesomeElement from '../../internal/webawesome-element.js';
 import { LocalizeController } from '../../utilities/localize.js';
 import styles from './popup.styles.js';
 
-export type { WaRepositionEvent };
-
 export interface VirtualElement {
   getBoundingClientRect: () => DOMRect;
   contextElement?: Element;

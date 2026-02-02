@@ -199,7 +199,6 @@ export default {
       fileName: 'custom-elements-jsx.d.ts',
       outdir,
       defaultExport: true,
-      stronglyTypedEvents: true,
       componentTypePath: (_name, _tag, modulePath) => {
         return `./${modulePath}`;
       },
@@ -217,13 +216,8 @@ export default {
       outdir: './dist-cdn/types/svelte',
       fileName: 'index.d.ts',
     }),
-    cemValidatorPlugin({
-      exclude: ['WebAwesomeElement'],
-      rules: {
-        manifest: {
-          schemaVersion: 'off',
-        },
-      },
-    }),
+    // cemValidatorPlugin({
+    //   cemFileName: "./dist-cdn/custom-elements.json"
+    // }),
   ],
 };

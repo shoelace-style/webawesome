@@ -14,8 +14,6 @@ import WebAwesomeElement from '../../internal/webawesome-element.js';
 import WaPopup from '../popup/popup.js';
 import styles from './popover.styles.js';
 
-export type { WaAfterShowEvent, WaPopup };
-
 const openPopovers = new Set<WaPopover>();
 
 /**

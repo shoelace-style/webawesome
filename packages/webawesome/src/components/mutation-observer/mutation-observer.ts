@@ -5,15 +5,13 @@ import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import styles from './mutation-observer.styles.js';
 
-export type { WaMutationEvent };
-
 /**
  * @summary The Mutation Observer component offers a thin, declarative interface to the [`MutationObserver API`](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver).
  * @documentation https://webawesome.com/docs/components/mutation-observer
  * @status stable
  * @since 2.0
  *
- * @event {WaMutationEvent} wa-mutation - Emitted when a mutation occurs.
+ * @event {{ mutationList: MutationRecord[] }} wa-mutation - Emitted when a mutation occurs.
  *
  * @slot - The content to watch for mutations.
  */
