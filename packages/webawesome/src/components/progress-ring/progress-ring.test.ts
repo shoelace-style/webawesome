@@ -37,7 +37,7 @@ describe('<wa-progress-ring>', () => {
         });
 
         it('translates the value parameter to a percentage, and uses translation on the base, as percentage css variable', () => {
-          expect(base).attribute('style', '--percentage: 0.25');
+          expect(base).attribute('style', '--percentage:0.25;');
         });
       });
 

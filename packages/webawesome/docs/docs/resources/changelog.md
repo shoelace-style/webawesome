@@ -13,6 +13,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 ## Next
 
+- Fixed a bug in `<wa-animated-image>`, `<wa-carousel>`, `<wa-progress-ring>`, `<wa-slider>` that violated the `style-src-attr` CSP directive when enabled [pr:1937]
 - Added `<wa-file-input>` as an experimental pro component [issue:1240]
 - Added `<wa-number-input>` as an experimental component for numeric input with stepper buttons [issue:1688]
 - Added [Agent Skill](/docs/resources/agent-skills) for AI coding assistants following the [agentskills.io](https://agentskills.io/) specification
