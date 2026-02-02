@@ -2,3 +2,6 @@ _site
 dist
 dist-cdn
 src/react
+
+# Ignore -er-user Claude settings
+.claude/settings.local.json
