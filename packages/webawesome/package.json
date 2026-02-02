@@ -57,7 +57,8 @@
     "url": "https://github.com/shoelace-style/webawesome/issues"
   },
   "scripts": {
-    "start": "node scripts/build.js --develop -- --no-incremental",
+    "start": "node scripts/build.js --develop --no-incremental",
+    "start:alpha": "echo 'This command has been deprecated. Use: \"npm start\"\n'",
     "build": "node scripts/build.js",
     "build:serve": "npm run build && npx http-server _site -p 4000",
     "publish-alpha-cdn": "./publish-alpha-cdn.sh",
