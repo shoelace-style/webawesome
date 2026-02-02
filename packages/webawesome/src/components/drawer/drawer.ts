@@ -15,7 +15,7 @@ import { LocalizeController } from '../../utilities/localize.js';
 import '../button/button.js';
 import styles from './drawer.styles.js';
 
-export type { WaHideEvent, WaAfterHideEvent };
+export type { WaAfterHideEvent, WaHideEvent };
 
 /**
  * @summary Drawers slide in from a container to expose additional options and information.

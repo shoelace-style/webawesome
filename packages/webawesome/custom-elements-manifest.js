@@ -221,9 +221,9 @@ export default {
       exclude: ['WebAwesomeElement'],
       rules: {
         manifest: {
-          schemaVersion: 'off'
-        }
-      }
-    })
+          schemaVersion: 'off',
+        },
+      },
+    }),
   ],
 };

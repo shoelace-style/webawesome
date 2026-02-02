@@ -15,7 +15,7 @@ import { LocalizeController } from '../../utilities/localize.js';
 import '../icon/icon.js';
 import styles from './details.styles.js';
 
-export type { WaAfterShowEvent }
+export type { WaAfterShowEvent };
 
 /**
  * @summary Details show a brief summary and expand to show additional content.

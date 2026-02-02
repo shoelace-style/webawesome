@@ -27,7 +27,7 @@ import type WaPopup from '../popup/popup.js';
 import '../tag/tag.js';
 import styles from './select.styles.js';
 
-export type { WaClearEvent, WaPopup, WaOption, TemplateResult }
+export type { TemplateResult, WaClearEvent, WaOption, WaPopup };
 
 /**
  * @summary Selects allow you to choose items from a menu of predefined options.

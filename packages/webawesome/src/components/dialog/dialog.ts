@@ -15,7 +15,7 @@ import { LocalizeController } from '../../utilities/localize.js';
 import '../button/button.js';
 import styles from './dialog.styles.js';
 
-export type { WaHideEvent, WaAfterHideEvent };
+export type { WaAfterHideEvent, WaHideEvent };
 
 /**
  * @summary Dialogs, sometimes called "modals", appear above the page and require the user's immediate attention.
