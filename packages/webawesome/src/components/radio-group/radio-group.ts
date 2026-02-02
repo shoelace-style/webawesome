@@ -98,8 +98,8 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
   /** The default value of the form control. Primarily used for resetting the form control. */
   @property({ attribute: 'value', reflect: true }) defaultValue: string | null = this.getAttribute('value') || null;
 
-  /** The radio group's size. This size will be applied to all child radios and radio buttons, except when explicitly overridden. */
-  @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
+  /** The radio group's size. When present, this size will be applied to all `<wa-radio>` item inside. */
+  @property({ reflect: true }) size: 'small' | 'medium' | 'large';
 
   /** Ensures a child radio is checked before allowing the containing form to submit. */
   @property({ type: Boolean, reflect: true }) required = false;
@@ -143,7 +143,7 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
   }
 
   updated(changedProperties: PropertyValues<this>) {
-    if (changedProperties.has('disabled') || changedProperties.has('value')) {
+    if (changedProperties.has('disabled') || changedProperties.has('size') || changedProperties.has('value')) {
       this.syncRadioElements();
     }
   }
@@ -198,7 +198,7 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
 
     // Set positioning data attributes and properties
     radios.forEach((radio, index) => {
-      radio.setAttribute('size', this.size);
+      if (this.size) radio.setAttribute('size', this.size);
       radio.toggleAttribute('data-wa-radio-horizontal', this.orientation !== 'vertical');
       radio.toggleAttribute('data-wa-radio-vertical', this.orientation === 'vertical');
       radio.toggleAttribute('data-wa-radio-first', index === 0);
