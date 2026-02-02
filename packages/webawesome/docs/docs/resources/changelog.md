@@ -27,6 +27,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Added missing `wa-gap-4xl` utility class [pr:1931]
 - Added `track` and `indicator` CSS parts to `<wa-progress-ring>` [pr:1863]
 - Added rotation, flip, and animation support to `<wa-icon>` with `rotate`, `flip`, and `animation` attributes supporting Font Awesome's animation utilities [pr:1824]
+- Added the ability to disabled link buttons in `<wa-button>` [pr:1848]
 - [Docs]: component APIs like slots, state, methods, etc, are now alphabetized [pr:1895]
 - [Docs]: component APIs now properly check their inheritance chain [pr:1895]
 - [Docs]: Included framework specific documentation for Svelte, Vue, and Angular. [pr:1895]
