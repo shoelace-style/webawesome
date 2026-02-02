@@ -11,11 +11,13 @@ const translation: Translation = {
   copied: 'कॉपी किया गया',
   copy: 'कॉपी करें',
   currentValue: 'वर्तमान मान',
+  decrement: 'घटाएं',
   dropFileHere: 'Drop file here or click to browse',
   dropFilesHere: 'Drop files here or click to browse',
   error: 'त्रुटि',
   goToSlide: (slide, count) => `${count} में से स्लाइड ${slide} पर जाएं`,
   hidePassword: 'पासवर्ड छुपाएं',
+  increment: 'बढ़ाएं',
   loading: 'लोड हो रहा है',
   nextSlide: 'अगली स्लाइड',
   numOptionsSelected: num => {

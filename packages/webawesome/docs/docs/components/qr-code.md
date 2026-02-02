@@ -41,20 +41,32 @@ QR codes are useful for providing small pieces of information to users who can q
 
 ## Examples
 
-### Colors
-
-Use the `fill` and `background` attributes to modify the QR code's colors. You should always ensure good contrast for optimal compatibility with QR code scanners.
-
-```html {.example}
-<wa-qr-code value="https://shoelace.style/" fill="deeppink" background="white"></wa-qr-code>
-```
-
 ### Size
 
 Use the `size` attribute to change the size of the QR code.
 
 ```html {.example}
 <wa-qr-code value="https://shoelace.style/" size="64"></wa-qr-code>
+```
+
+### Colors
+
+The QR code's fill color is determined by the current text color. To change it, set the CSS `color` property on the host element or an ancestor element.
+
+The canvas is always transparent, so use the `background` or `background-color` CSS property on the host element to set a background color.
+
+A _quiet zone_ is the blank space around a QR code that helps scanners detect it more reliably. Use the `padding` CSS property on the host element to add one.
+
+```html {.example}
+<wa-qr-code
+  value="https://shoelace.style/"
+  style="
+    color: var(--wa-color-indigo-20);
+    background-color: var(--wa-color-indigo-90);
+    border-radius: var(--wa-border-radius-m);
+    padding: 1rem;
+  "
+></wa-qr-code>
 ```
 
 ### Radius

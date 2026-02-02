@@ -97,6 +97,17 @@ export default class WaPopover extends WebAwesomeElement {
     if (!this.id) {
       this.id = uniqueId('wa-popover-');
     }
+
+    // Recreate event controller if it was aborted
+    if (this.eventController.signal.aborted) {
+      this.eventController = new AbortController();
+    }
+
+    // Re-establish anchor connection after being moved in the DOM
+    if (this.for && this.anchor) {
+      this.anchor = null; // force reattach
+      this.handleForChange();
+    }
   }
 
   disconnectedCallback() {
