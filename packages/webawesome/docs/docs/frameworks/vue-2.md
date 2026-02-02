@@ -67,5 +67,5 @@ One caveat is there's currently [no support for v-model on custom elements](http
 ```
 
 :::info
-Are you using Web Awesome with Vue 2? [Help us improve this page!](https://github.com/shoelace-style/shoelace/blob/next/docs/frameworks/vue-2.md)
+Are you using Web Awesome with Vue 2? [Help us improve this page!](https://github.com/shoelace-style/webawesome/blob/next/packages/webawesome/docs/docs/frameworks/vue-2.md)
 :::

@@ -181,14 +181,14 @@ export default css`
   }
 
   /* Disabled state */
-  .button.disabled {
+  :host([disabled]) {
     opacity: 0.5;
     cursor: not-allowed;
-  }
 
-  /* When disabled, prevent mouse events from bubbling up from children */
-  .button.disabled * {
-    pointer-events: none;
+    /* When disabled, prevent mouse events from bubbling up from children */
+    .button {
+      pointer-events: none;
+    }
   }
 
   /* Keep it last so Safari doesn't stop parsing this block */

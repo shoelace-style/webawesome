@@ -95,5 +95,5 @@ export class DrawerExampleComponent implements OnInit {
 Now you can start using Web Awesome components in your app!
 
 :::info
-Are you using Web Awesome with Angular? [Help us improve this page!](https://github.com/shoelace-style/webawesome/blob/next/docs/frameworks/angular.md)
+Are you using Web Awesome with Angular? [Help us improve this page!](https://github.com/shoelace-style/webawesome/blob/next/packages/webawesome/docs/docs/frameworks/angular.md)
 :::

@@ -112,5 +112,5 @@ Here is an example:
 For more on slots and limitations with Web Components, check out the Vue documentation here: <https://vuejs.org/guide/extras/web-components#slots>
 
 :::info
-Are you using Web Awesome with Vue? [Help us improve this page!](https://github.com/shoelace-style/webawesome/blob/next/docs/frameworks/vue.md)
+Are you using Web Awesome with Vue? [Help us improve this page!](https://github.com/shoelace-style/webawesome/blob/next/packages/webawesome/docs/docs/frameworks/vue.md)
 :::
