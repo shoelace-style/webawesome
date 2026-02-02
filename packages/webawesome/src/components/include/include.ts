@@ -7,6 +7,7 @@ import WebAwesomeElement from '../../internal/webawesome-element.js';
 import styles from './include.styles.js';
 import { requestInclude } from './request.js';
 
+
 export type { WaIncludeErrorEvent };
 
 /**
