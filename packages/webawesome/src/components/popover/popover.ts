@@ -306,9 +306,9 @@ export default class WaPopover extends WebAwesomeElement {
             arrow:popup__arrow
           "
           class=${classMap({
-      popover: true,
-      'popover-open': this.open,
-    })}
+            popover: true,
+            'popover-open': this.open,
+          })}
           placement=${this.placement}
           distance=${this.distance}
           skidding=${this.skidding}
