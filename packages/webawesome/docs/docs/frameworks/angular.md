@@ -4,8 +4,6 @@ description: Tips for using Web Awesome in your Angular app.
 layout: page-outline
 ---
 
-# Angular
-
 Angular [plays nice](https://custom-elements-everywhere.com/#angular) with custom elements, so you can use Web Awesome in your Angular apps with ease.
 
 ## Installation
@@ -96,6 +94,6 @@ export class DrawerExampleComponent implements OnInit {
 
 Now you can start using Web Awesome components in your app!
 
-:::tip
+:::info
 Are you using Web Awesome with Angular? [Help us improve this page!](https://github.com/shoelace-style/webawesome/blob/next/docs/frameworks/angular.md)
 :::

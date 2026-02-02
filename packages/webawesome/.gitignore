@@ -2,3 +2,6 @@ _site
 dist
 dist-cdn
 src/react
+
+# Claude Code local settings
+.claude/settings.local.json
