@@ -13,7 +13,6 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 ## Next
 
-- Fixed a bug in `<wa-animated-image>`, `<wa-carousel>`, `<wa-progress-ring>`, `<wa-slider>` that violated the `style-src-attr` CSP directive when enabled [pr:1937]
 - Added `<wa-file-input>` as an experimental pro component [issue:1240]
 - Added `<wa-number-input>` as an experimental component for numeric input with stepper buttons [issue:1688]
 - Added [Agent Skill](/docs/resources/agent-skills) for AI coding assistants following the [agentskills.io](https://agentskills.io/) specification
@@ -32,6 +31,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - [Docs]: component APIs like slots, state, methods, etc, are now alphabetized [pr:1895]
 - [Docs]: component APIs now properly check their inheritance chain [pr:1895]
 - [Docs]: Included framework specific documentation for Svelte, Vue, and Angular [pr:1895]
+- Fixed a bug in `<wa-animated-image>`, `<wa-carousel>`, `<wa-progress-ring>`, `<wa-slider>` that violated the `style-src-attr` CSP directive when enabled [pr:1937]
 - Fixed a bug in `<wa-icon>` to support Font Awesome Pro+ icon families that include qualifiers (e.g., `family="jelly-duo"` now works correctly instead of requiring `family="jelly" variant="duo-regular"`) and updated Font Awesome to 7.1.0
 - Fixed a bug in `<wa-icon>` where bootstrap icon sizes were being overwritten [pr:1968]
 - Fixed a bug in `<wa-dropdown>` where submenu detection would not work in shadow dom [pr:]
