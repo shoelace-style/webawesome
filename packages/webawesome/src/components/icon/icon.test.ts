@@ -6,7 +6,7 @@ import { fixtures } from '../../internal/test/fixture.js';
 import { registerIconLibrary } from '../../../dist-cdn/webawesome.js';
 import type { WaErrorEvent } from '../../events/error.js';
 import type { WaLoadEvent } from '../../events/load.js';
-import WaIcon, { type IconEffect } from './icon.js';
+import WaIcon, { type IconAnimation } from './icon.js';
 
 const testLibraryIcons = {
   'test-icon1': `
@@ -253,67 +253,97 @@ describe('<wa-icon>', () => {
       });
 
       describe('transformations', () => {
-        it('rotates the SVG 90 degrees when the "rotate" attribute is "90"', async () => {
+        it('rotates the icon 0 degrees when the "rotate" attribute is "0"', async () => {
+          const el = await fixture<WaIcon>(html` <wa-icon library="system" name="check" rotate="0"></wa-icon> `);
+          await elementUpdated(el);
+          await el.updateComplete;
+          const computedStyle = getComputedStyle(el);
+          // rotate(0deg) may be optimized to 'none' by the browser, so check for either
+          expect(['matrix(1, 0, 0, 1, 0, 0)', 'none']).to.include(computedStyle.transform);
+        });
+
+        it('rotates the icon 90 degrees when the "rotate" attribute is "90"', async () => {
           const el = await fixture<WaIcon>(html` <wa-icon library="system" name="check" rotate="90"></wa-icon> `);
           await elementUpdated(el);
-          const svg = el.shadowRoot?.querySelector('svg');
-          expect(svg).to.exist;
-          const computedStyle = getComputedStyle(svg!);
-          console.log(computedStyle.transform);
+          await el.updateComplete;
+          const computedStyle = getComputedStyle(el);
           expect(computedStyle.transform).to.equal('matrix(0, 1, -1, 0, 0, 0)');
         });
 
-        it('flips the SVG horizontally when the "flip" attribute is "x"', async () => {
+        it('rotates the icon 180 degrees when the "rotate" attribute is "180"', async () => {
+          const el = await fixture<WaIcon>(html` <wa-icon library="system" name="check" rotate="180"></wa-icon> `);
+          await elementUpdated(el);
+          await el.updateComplete;
+          const computedStyle = getComputedStyle(el);
+          expect(computedStyle.transform).to.equal('matrix(-1, 0, 0, -1, 0, 0)');
+        });
+
+        it('rotates the icon 270 degrees when the "rotate" attribute is "270"', async () => {
+          const el = await fixture<WaIcon>(html` <wa-icon library="system" name="check" rotate="270"></wa-icon> `);
+          await elementUpdated(el);
+          await el.updateComplete;
+          const computedStyle = getComputedStyle(el);
+          expect(computedStyle.transform).to.equal('matrix(0, -1, 1, 0, 0, 0)');
+        });
+
+        it('flips the icon horizontally when the "flip" attribute is "x"', async () => {
           const el = await fixture<WaIcon>(html` <wa-icon library="system" name="check" flip="x"></wa-icon> `);
           await elementUpdated(el);
-          const svg = el.shadowRoot?.querySelector('svg');
-          expect(svg).to.exist;
-          const computedStyle = getComputedStyle(svg!);
+          await el.updateComplete;
+          const computedStyle = getComputedStyle(el);
           expect(computedStyle.transform).to.equal('matrix(-1, 0, 0, 1, 0, 0)');
         });
 
-        it('flips the SVG vertically when the "flip" attribute is "y"', async () => {
+        it('flips the icon vertically when the "flip" attribute is "y"', async () => {
           const el = await fixture<WaIcon>(html` <wa-icon library="system" name="check" flip="y"></wa-icon> `);
           await elementUpdated(el);
-          const svg = el.shadowRoot?.querySelector('svg');
-          expect(svg).to.exist;
-          const computedStyle = getComputedStyle(svg!);
+          await el.updateComplete;
+          const computedStyle = getComputedStyle(el);
           expect(computedStyle.transform).to.equal('matrix(1, 0, 0, -1, 0, 0)');
         });
 
-        it('flips the SVG on both axes when the "flip" attribute is "both"', async () => {
+        it('flips the icon on both axes when the "flip" attribute is "both"', async () => {
           const el = await fixture<WaIcon>(html` <wa-icon library="system" name="check" flip="both"></wa-icon> `);
           await elementUpdated(el);
-          const svg = el.shadowRoot?.querySelector('svg');
-          expect(svg).to.exist;
-          const computedStyle = getComputedStyle(svg!);
+          await el.updateComplete;
+          const computedStyle = getComputedStyle(el);
           expect(computedStyle.transform).to.equal('matrix(-1, 0, 0, -1, 0, 0)');
         });
       });
 
       describe('animations', () => {
-        it('applies the proper animations when the "effect" attribute is set', async () => {
-          const animations: Array<IconEffect> = [
-            'beat',
-            'beat-fade',
-            'bounce',
-            'fade',
-            'flip',
-            //'shake',
-            //'spin',
-            //'spin-pulse',
-          ];
+        const animations: Array<IconAnimation> = [
+          'beat',
+          'beat-fade',
+          'bounce',
+          'fade',
+          'flip',
+          'shake',
+          'spin',
+          'spin-pulse',
+        ];
 
-          for (const animation of animations) {
+        animations.forEach(animation => {
+          it(`applies the "${animation}" animation when the "animation" attribute is "${animation}"`, async () => {
             const el = await fixture<WaIcon>(html`
-              <wa-icon library="system" name="check" effect=${animation}></wa-icon>
+              <wa-icon library="system" name="check" animation=${animation}></wa-icon>
             `);
             await elementUpdated(el);
-            const svg = el.shadowRoot?.querySelector('svg');
-            expect(svg).to.exist;
-            const computedStyle = getComputedStyle(svg!);
+            await el.updateComplete;
+            const computedStyle = getComputedStyle(el);
             expect(computedStyle.animationName).to.equal(animation);
-          }
+          });
+        });
+
+        it('applies the "spin-reverse" animation with reverse direction', async () => {
+          const el = await fixture<WaIcon>(html`
+            <wa-icon library="system" name="check" animation="spin-reverse"></wa-icon>
+          `);
+          await elementUpdated(el);
+          await el.updateComplete;
+          const computedStyle = getComputedStyle(el);
+          expect(computedStyle.animationName).to.equal('spin');
+          expect(computedStyle.animationDirection).to.equal('reverse');
         });
       });
 

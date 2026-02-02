@@ -30,6 +30,7 @@ export default css`
   svg {
     height: 1em;
     overflow: visible;
+    width: auto;
 
     /* Duotone colors with path-specific opacity fallback */
     path[data-duotone-primary] {
@@ -44,23 +45,34 @@ export default css`
   }
 
   /* Rotation */
-  :host([rotate]) svg {
+  :host([rotate]) {
     transform: rotate(var(--rotate-angle, 0deg));
   }
 
   /* Flipping */
-  :host([flip='x']) svg {
+  :host([flip='x']) {
     transform: scaleX(-1);
   }
-  :host([flip='y']) svg {
+  :host([flip='y']) {
     transform: scaleY(-1);
   }
-  :host([flip='both']) svg {
+  :host([flip='both']) {
     transform: scale(-1, -1);
   }
 
+  /* Rotation and Flipping combined */
+  :host([rotate][flip='x']) {
+    transform: rotate(var(--rotate-angle, 0deg)) scaleX(-1);
+  }
+  :host([rotate][flip='y']) {
+    transform: rotate(var(--rotate-angle, 0deg)) scaleY(-1);
+  }
+  :host([rotate][flip='both']) {
+    transform: rotate(var(--rotate-angle, 0deg)) scale(-1, -1);
+  }
+
   /* Animations */
-  :host([effect='beat']) svg {
+  :host([animation='beat']) {
     animation-name: beat;
     animation-delay: var(--animation-delay, 0s);
     animation-direction: var(--animation-direction, normal);
@@ -69,7 +81,7 @@ export default css`
     animation-timing-function: var(--animation-timing, ease-in-out);
   }
 
-  :host([effect='fade']) svg {
+  :host([animation='fade']) {
     animation-name: fade;
     animation-delay: var(--animation-delay, 0s);
     animation-direction: var(--animation-direction, normal);
@@ -78,7 +90,7 @@ export default css`
     animation-timing-function: var(--animation-timing, cubic-bezier(0.4, 0, 0.6, 1));
   }
 
-  :host([effect='beat-fade']) svg {
+  :host([animation='beat-fade']) {
     animation-name: beat-fade;
     animation-delay: var(--animation-delay, 0s);
     animation-direction: var(--animation-direction, normal);
@@ -87,7 +99,7 @@ export default css`
     animation-timing-function: var(--animation-timing, cubic-bezier(0.4, 0, 0.6, 1));
   }
 
-  :host([effect='bounce']) svg {
+  :host([animation='bounce']) {
     animation-name: bounce;
     animation-delay: var(--animation-delay, 0s);
     animation-direction: var(--animation-direction, normal);
@@ -96,7 +108,7 @@ export default css`
     animation-timing-function: var(--animation-timing, cubic-bezier(0.28, 0.84, 0.42, 1));
   }
 
-  :host([effect='flip']) svg {
+  :host([animation='flip']) {
     animation-name: flip;
     animation-delay: var(--animation-delay, 0s);
     animation-direction: var(--animation-direction, normal);
@@ -105,7 +117,7 @@ export default css`
     animation-timing-function: var(--animation-timing, ease-in-out);
   }
 
-  :host([effect='shake']) {
+  :host([animation='shake']) {
     animation-name: shake;
     animation-delay: var(--animation-delay, 0s);
     animation-direction: var(--animation-direction, normal);
@@ -114,7 +126,7 @@ export default css`
     animation-timing-function: var(--animation-timing, linear);
   }
 
-  :host([effect='spin']) {
+  :host([animation='spin']) {
     animation-name: spin;
     animation-delay: var(--animation-delay, 0s);
     animation-direction: var(--animation-direction, normal);
@@ -123,7 +135,7 @@ export default css`
     animation-timing-function: var(--animation-timing, linear);
   }
 
-  :host([effect='spin-pulse']) {
+  :host([animation='spin-pulse']) {
     animation-name: spin-pulse;
     animation-direction: var(--animation-direction, normal);
     animation-duration: var(--animation-duration, 1s);
@@ -131,17 +143,26 @@ export default css`
     animation-timing-function: var(--animation-timing, steps(8));
   }
 
+  :host([animation='spin-reverse']) {
+    animation-name: spin;
+    animation-delay: var(--animation-delay, 0s);
+    animation-direction: var(--animation-direction, reverse);
+    animation-duration: var(--animation-duration, 2s);
+    animation-iteration-count: var(--animation-iteration-count, infinite);
+    animation-timing-function: var(--animation-timing, linear);
+  }
+
   /* Keyframes */
   @media (prefers-reduced-motion: reduce) {
-    .beat,
-    .bounce,
-    .fade,
-    .beat-fade,
-    .flip,
-    .pulse,
-    .shake,
-    .spin,
-    .spin-pulse {
+    :host([animation='beat']),
+    :host([animation='bounce']),
+    :host([animation='fade']),
+    :host([animation='beat-fade']),
+    :host([animation='flip']),
+    :host([animation='shake']),
+    :host([animation='spin']),
+    :host([animation='spin-pulse']),
+    :host([animation='spin-reverse']) {
       animation: none !important;
       transition: none !important;
     }

@@ -1,5 +1,6 @@
+import { readFileSync } from 'fs';
 import { parse } from 'node-html-parser';
-import { v4 as uuid } from 'uuid';
+import * as path from 'node:path';
 import { copyCode } from './copy-code.js';
 import { highlightCode } from './highlight-code.js';
 
@@ -25,7 +26,8 @@ export function codeExamplesTransformer(options = {}) {
       const hasButtons = !code.classList.contains('no-buttons');
       const isOpen = code.classList.contains('open') || !hasButtons;
       const noEdit = code.classList.contains('no-edit');
-      const id = `code-example-${uuid().slice(-12)}`;
+      const uuid = crypto.randomUUID();
+      const id = `code-example-${uuid.slice(-12)}`;
       let preview = pre.textContent;
 
       const langClass = [...code.classList.values()].find(val => val.startsWith('language-'));
@@ -42,7 +44,38 @@ export function codeExamplesTransformer(options = {}) {
       });
       preview = root.toString();
 
-      copyCode(code);
+      // Show the relevant code for <wa-zoomable-frame data-select-src>
+      let framePre, frameCode;
+      const frame = root.querySelector('wa-zoomable-frame');
+      if (frame?.hasAttribute('data-select-src')) {
+        let src = frame.getAttribute('src');
+        let source = frame.getAttribute('srcdoc');
+        if (!source && src) {
+          src += src.match(/\.html$/) ? '' : `${src.endsWith('/') ? '' : '/'}index.html`;
+          const baseDir = process.env.BASE_DIR;
+          source = readFileSync(`${path.join(baseDir, src)}`, 'utf8');
+        }
+        const selectors = frame?.getAttribute('data-select-src');
+        if (selectors) {
+          const sourceNode = parse(source, { comment: true, voidTag: { closingSlash: true } });
+          sourceNode.querySelectorAll(selectors).forEach((fragment, i) => {
+            // Fix parse() formatting of wrapped first attributes and reduce
+            // indentation to match the least-indented line for each fragment
+            const html = fragment.outerHTML
+              .replace(/<([^\s>]+)(\s{2,})(?=[^\s>])/g, (_, tag, spaces) => `<${tag}\n${spaces.slice(1)}`)
+              .split('\n');
+            const lastLine = html[html.length - 1] || '';
+            const indent = new RegExp(`^${lastLine.match(/^\s*/)?.[0] ?? ''}`);
+            source = `${i ? source : ''}${html.map(line => line.replace(indent, '')).join('\n')}\n\n`;
+          });
+        }
+        const highlightedCode = highlightCode(source?.trim(), 'html');
+        framePre = parse(`<pre id="code-block-${uuid}"></pre>`).firstChild;
+        frameCode = parse(`<code class="example">${highlightedCode}</code>`).firstChild;
+        framePre.appendChild(frameCode);
+      }
+
+      copyCode(frameCode ?? code);
 
       const codeExample = parse(`
           <div class="code-example ${isOpen ? 'open' : ''}">
@@ -55,7 +88,7 @@ export function codeExamplesTransformer(options = {}) {
               </div>
             </div>
             <div class="code-example-source" id="${id}">
-              ${pre.outerHTML}
+              ${framePre?.outerHTML ?? pre.outerHTML}
             </div>
             ${
               hasButtons

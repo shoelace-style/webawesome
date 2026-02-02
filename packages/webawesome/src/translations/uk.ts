@@ -12,9 +12,13 @@ const translation: Translation = {
   copied: 'Скопійовано',
   copy: 'Скопіювати',
   currentValue: 'Поточне значення',
+  decrement: 'Зменшити',
+  dropFileHere: 'Drop file here or click to browse',
+  dropFilesHere: 'Drop files here or click to browse',
   error: 'Збій',
   goToSlide: (slide, count) => `Перейти до слайда №${slide} з ${count}`,
   hidePassword: 'Приховати пароль',
+  increment: 'Збільшити',
   loading: 'Завантаження',
   nextSlide: 'Наступний слайд',
   numOptionsSelected: num => {

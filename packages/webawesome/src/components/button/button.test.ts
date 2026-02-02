@@ -59,6 +59,14 @@ describe('<wa-button>', () => {
           const el = await fixture<WaButton>(html` <wa-button href="some/path" disabled>Button Label</wa-button> `);
           expect(el.shadowRoot!.querySelector('a[disabled]')).not.to.exist;
         });
+
+        it('should prevent clicks when disabled and rendering an <a>', async () => {
+          const el = await fixture<WaButton>(html` <wa-button href="some/path" disabled>Button Label</wa-button> `);
+          const clickHandler = sinon.spy();
+          el.addEventListener('click', clickHandler);
+          el.click();
+          expect(clickHandler).not.to.have.been.called;
+        });
       });
 
       it('should have title if title attribute is set', async () => {
