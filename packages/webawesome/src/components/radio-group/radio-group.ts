@@ -98,7 +98,7 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
   /** The default value of the form control. Primarily used for resetting the form control. */
   @property({ attribute: 'value', reflect: true }) defaultValue: string | null = this.getAttribute('value') || null;
 
-  /** The radio group's size. When present, this size will be applied to all `<wa-radio>` item inside. */
+  /** The radio group's size. When present, this size will be applied to all `<wa-radio>` items inside. */
   @property({ reflect: true }) size: 'small' | 'medium' | 'large';
 
   /** Ensures a child radio is checked before allowing the containing form to submit. */
