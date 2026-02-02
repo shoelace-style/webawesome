@@ -4,8 +4,6 @@ description: Tips for using Web Awesome in your SolidJS app.
 layout: page-outline
 ---
 
-# SolidJS
-
 Web Awesome components work seamlessly with SolidJS using native custom elements. This guide will show you how to integrate Web Awesome into your SolidJS project with full TypeScript support.
 
 ## Installation
@@ -74,7 +72,7 @@ declare module 'csstype' {
 }
 ```
 
-:::tip
+:::info
 Note the use of `CustomElementsSolidJs` instead of `CustomElements`. SolidJS requires special type definitions that include property prefixes for different binding scenarios.
 :::
 
@@ -226,6 +224,8 @@ function MyComponent() {
 
 Here's a complete example showing various Web Awesome components in a SolidJS app:
 
+{% raw %}
+
 ```tsx
 // App.tsx
 import { createSignal } from 'solid-js';
@@ -245,14 +245,14 @@ function App() {
   return (
     <div style={{ padding: '2rem' }}>
       <h1>Web Awesome + SolidJS</h1>
-      
+
       <wa-input
         value={name()}
         label="Your Name"
         attr:placeholder="Enter your name"
         on:wa-input={(e) => setName(e.target.value)}
       />
-      
+
       <wa-button
         attr:variant="brand"
         on:click={handleSubmit}
@@ -260,7 +260,7 @@ function App() {
       >
         Submit
       </wa-button>
-      
+
       {showAlert() && (
         <wa-alert
           attr:variant="success"
@@ -279,6 +279,8 @@ function App() {
 export default App;
 ```
 
-:::tip
-Are you using Web Awesome with SolidJS? [Help us improve this page!](https://github.com/shoelace-style/webawesome/blob/next/docs/frameworks/solidjs.md)
+{% endraw %}
+
+:::info
+Are you using Web Awesome with SolidJS? [Help us improve this page!](https://github.com/shoelace-style/webawesome/blob/next/packages/webawesome/docs/docs/frameworks/solidjs.md)
 :::

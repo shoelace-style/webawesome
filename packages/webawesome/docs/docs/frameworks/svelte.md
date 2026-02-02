@@ -84,5 +84,5 @@ Here is an example:
 ```
 
 :::info
-Are you using Web Awesome with Svelte? [Help us improve this page!](https://github.com/shoelace-style/webawesome/blob/next/docs/frameworks/svelte.md)
+Are you using Web Awesome with Svelte? [Help us improve this page!](https://github.com/shoelace-style/webawesome/blob/next/packages/webawesome/docs/docs/frameworks/svelte.md)
 :::

@@ -187,5 +187,5 @@ These instructions are for apps created via Create React App. If you're using Je
 For more details, refer to Jest's [`transformIgnorePatterns` customization](https://jestjs.io/docs/tutorial-react-native#transformignorepatterns-customization) documentation.
 
 :::info
-Are you using Web Awesome with React? [Help us improve this page!](https://github.com/shoelace-style/webawesome/blob/next/docs/frameworks/react.md)
+Are you using Web Awesome with React? [Help us improve this page!](https://github.com/shoelace-style/webawesome/blob/next/packages/webawesome/docs/docs/frameworks/react.md)
 :::
