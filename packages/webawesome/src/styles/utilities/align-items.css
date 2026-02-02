@@ -25,4 +25,20 @@
   .wa-align-items-baseline {
     align-items: baseline;
   }
+
+  .wa-align-self-start {
+    align-self: flex-start;
+  }
+  .wa-align-self-end {
+    align-self: flex-end;
+  }
+  .wa-align-self-center {
+    align-self: center;
+  }
+  .wa-align-self-stretch {
+    align-self: stretch;
+  }
+  .wa-align-self-baseline {
+    align-self: baseline;
+  }
 }
