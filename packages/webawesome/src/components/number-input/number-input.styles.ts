@@ -48,7 +48,7 @@ export default css`
 
     .stepper {
       color: var(--wa-color-neutral-on-quiet);
-      
+
       @media (hover: hover) {
         &:hover:not(:disabled) {
           color: var(--wa-color-neutral-on-quiet);
@@ -94,7 +94,7 @@ export default css`
 
     .stepper {
       color: var(--wa-color-neutral-on-quiet);
-      
+
       @media (hover: hover) {
         &:hover:not(:disabled) {
           color: var(--wa-color-neutral-on-normal);
