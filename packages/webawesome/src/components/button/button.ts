@@ -158,7 +158,14 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
     return button;
   }
 
-  private handleClick() {
+  private handleClick(event: PointerEvent) {
+    // Prevent disabled and loading buttons from being clicked
+    if (this.disabled || this.loading) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      return;
+    }
+
     // Only create a light dom button for submit / reset buttons.
     if (this.type !== 'submit' && this.type !== 'reset') {
       return;
@@ -274,7 +281,6 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
           'is-icon-button': this.isIconButton,
         })}
         ?disabled=${ifDefined(isLink ? undefined : this.disabled)}
-        ?inert=${ifDefined(isLink ? this.disabled : undefined)}
         type=${ifDefined(isLink ? undefined : this.type)}
         title=${this.title /* An empty title prevents browser validation tooltips from appearing on hover */}
         name=${ifDefined(isLink ? undefined : this.name)}
@@ -284,7 +290,7 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
         download=${ifDefined(isLink ? this.download : undefined)}
         rel=${ifDefined(isLink && this.rel ? this.rel : undefined)}
         role=${ifDefined(isLink ? undefined : 'button')}
-        aria-disabled=${this.disabled ? 'true' : 'false'}
+        aria-disabled=${ifDefined(isLink && this.disabled ? 'true' : undefined)}
         tabindex=${this.disabled ? '-1' : '0'}
         @invalid=${this.isButton() ? this.handleInvalid : null}
         @click=${this.handleClick}
