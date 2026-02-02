@@ -1,5 +1,6 @@
 import { html } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
+import { styleMap } from 'lit/directives/style-map.js';
 import { WaErrorEvent } from '../../events/error.js';
 import { WaLoadEvent } from '../../events/load.js';
 import { watch } from '../../internal/watch.js';
@@ -133,7 +134,7 @@ export default class WaAnimatedImage extends WebAwesomeElement {
                     library="system"
                     variant="solid"
                     class="default"
-                    style="margin-inline-start: 3px;"
+                    style=${styleMap({ 'margin-inline-start': '3px' })}
                   ></wa-icon>
                 </slot>
                 <slot name="pause-icon">

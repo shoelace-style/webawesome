@@ -12,11 +12,13 @@ const translation: Translation = {
   copied: 'Másolva',
   copy: 'Másolás',
   currentValue: 'Aktuális érték',
+  decrement: 'Csökkentés',
   dropFileHere: 'Drop file here or click to browse',
   dropFilesHere: 'Drop files here or click to browse',
   error: 'Hiba',
   goToSlide: (slide, count) => `Ugrás a ${count}/${slide}. diára`,
   hidePassword: 'Jelszó elrejtése',
+  increment: 'Növelés',
   loading: 'Betöltés',
   nextSlide: 'Következő dia',
   numOptionsSelected: num => {

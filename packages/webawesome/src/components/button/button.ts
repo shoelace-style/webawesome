@@ -72,7 +72,7 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
   /** Draws the button with a caret. Used to indicate that the button triggers a dropdown menu or similar behavior. */
   @property({ attribute: 'with-caret', type: Boolean, reflect: true }) withCaret = false;
 
-  /** Disables the button. Does not apply to link buttons. */
+  /** Disables the button. */
   @property({ type: Boolean }) disabled = false;
 
   /** Draws the button in a loading state. */
@@ -158,7 +158,19 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
     return button;
   }
 
-  private handleClick() {
+  private handleClick(event: PointerEvent) {
+    // Prevent disabled and loading buttons from being clicked
+    if (this.disabled || this.loading) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      return;
+    }
+
+    // Only create a light dom button for submit / reset buttons.
+    if (this.type !== 'submit' && this.type !== 'reset') {
+      return;
+    }
+
     const form = this.getForm();
 
     if (!form) return;
@@ -278,7 +290,7 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
         download=${ifDefined(isLink ? this.download : undefined)}
         rel=${ifDefined(isLink && this.rel ? this.rel : undefined)}
         role=${ifDefined(isLink ? undefined : 'button')}
-        aria-disabled=${this.disabled ? 'true' : 'false'}
+        aria-disabled=${ifDefined(isLink && this.disabled ? 'true' : undefined)}
         tabindex=${this.disabled ? '-1' : '0'}
         @invalid=${this.isButton() ? this.handleInvalid : null}
         @click=${this.handleClick}

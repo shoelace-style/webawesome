@@ -2,15 +2,16 @@ import { css } from 'lit';
 
 export default css`
   :host {
-    --size: 128px;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1;
   }
 
-  :host,
   canvas {
-    max-width: var(--size);
-    max-height: var(--size);
-    width: var(--size);
-    height: var(--size);
+    width: 100%;
+    height: 100%;
+    /* We force a near-instant transition so we can listen for transitionend when the color changes */
+    transition: color 1ms;
   }
 `;

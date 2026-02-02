@@ -46,10 +46,10 @@ export default class WaRadio extends WebAwesomeFormAssociatedElement {
   @property({ reflect: true }) appearance: 'default' | 'button' = 'default';
 
   /**
-   * The radio's size. When used inside a radio group, the size will be determined by the radio group's size so this
-   * attribute can typically be omitted.
+   * The radio's size. When used inside a radio group, the size will be determined by the radio group's size, which will
+   * override this attribute.
    */
-  @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
+  @property({ reflect: true }) size: 'small' | 'medium' | 'large';
 
   /** Disables the radio. */
   @property({ type: Boolean }) disabled = false;
