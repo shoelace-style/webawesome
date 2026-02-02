@@ -81,6 +81,19 @@ The llms.txt file contains:
   - CSS parts
   - CSS states
 
+## llms.txt vs Agent Skills
+
+Web Awesome provides both an [Agent Skill](https://agentskills.io/) and an [llms.txt file](/docs/resources/llms). Here's when to use each:
+
+| Feature | llms.txt | Agent Skill |
+|---------|----------|-------------|
+| Format | Single text file | Directory with multiple markdown files |
+| Best for | Quick context, simple queries | Deep integration, complex tasks |
+| Context usage | Loads everything at once | Progressive disclosure (loads as needed) |
+| Supported by | Most AI tools | Tools supporting agentskills.io spec |
+
+If your AI tool supports Agent Skills, we recommend using the skill for better context efficiency. Otherwise, the llms.txt file is a great option that works with nearly any AI tool.
+
 ## Feedback
 
 Since this is experimental, we'd love to hear how it works for you! If you find issues with the generated content or have suggestions for improvement, please [open an issue on GitHub](https://github.com/shoelace-style/webawesome/issues).

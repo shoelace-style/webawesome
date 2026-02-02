@@ -101,6 +101,7 @@
     "eleventy-plugin-git-commit-date": "^0.1.3",
     "esbuild": "^0.25.11",
     "gray-matter": "^4.0.3",
-    "npm-check-updates": "^19.1.2"
+    "npm-check-updates": "^19.1.2",
+    "turndown": "^7.2.2"
   }
 }

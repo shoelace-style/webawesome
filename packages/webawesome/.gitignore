@@ -3,5 +3,5 @@ dist
 dist-cdn
 src/react
 
-# Ignore -er-user Claude settings
+# Claude Code local settings
 .claude/settings.local.json
