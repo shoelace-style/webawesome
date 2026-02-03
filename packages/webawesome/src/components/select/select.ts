@@ -102,6 +102,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   private selectionOrder: Map<string, number> = new Map();
   private typeToSelectString = '';
   private typeToSelectTimeout: number;
+  private _selectionUpdatePending = false;
 
   @query('.select') popup: WaPopup;
   @query('.combobox') combobox: HTMLSlotElement;
@@ -696,7 +697,19 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
 
   // @internal This method must be called whenever the selection changes. It will update the selected options cache, the
   // current value, and the display value. The option component uses it internally to update labels as they change.
+  // Multiple calls are batched into a single update via microtask to avoid performance issues when many options
+  // notify the parent simultaneously (e.g., during initial render with framework bindings).
   public selectionChanged() {
+    if (this._selectionUpdatePending) return;
+    this._selectionUpdatePending = true;
+
+    queueMicrotask(() => {
+      this._selectionUpdatePending = false;
+      this._doSelectionUpdate();
+    });
+  }
+
+  private _doSelectionUpdate() {
     const options = this.getAllOptions();
 
     // Update selected options cache
