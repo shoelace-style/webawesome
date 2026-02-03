@@ -1,6 +1,6 @@
 ---
 title: Align Items
-description: Align items and align self utilities align items within flex and grid containers on the cross axis.
+description: Control cross-axis alignment in flex and grid containers with align-items and align-self utility classes.
 layout: docs
 tags: layoutUtilities
 ---
