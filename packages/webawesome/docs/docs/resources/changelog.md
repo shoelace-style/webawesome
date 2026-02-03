@@ -48,6 +48,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed a bug in `<wa-radio-group>` where `<wa-radio>` elements with an explicit size would be overridden by the radio group even when the group had no size set.
 - Fixed a bug in `<wa-radio-group>` that caused radio sizes to no work as documented [issue:2001]
 - Fixed a bug in `<wa-popover>` that caused event handlers to be lost when moving the host element around in the DOM [pr:1976]
+- Fixed a bug preventing the `wa-visually-hidden-label` class from hiding labels for radio groups and color pickers [pr:2012]
 - Improved the Persian translation [pr:1923]
 - Improved `<wa-qr-code>` to use CSS `color` for fill and `background-color` on the host for background
   - Deprecated the `fill` and `background` attributes
