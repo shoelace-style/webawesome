@@ -3,6 +3,8 @@ title: Align Items
 description: Control cross-axis alignment in flex and grid containers with align-items and align-self utility classes.
 layout: docs
 tags: layoutUtilities
+aliases:
+  - /docs/utilities/self-align
 ---
 
 <style>
