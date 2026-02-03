@@ -61,6 +61,7 @@ export default css`
     padding: 0;
     height: 1em;
     width: 1em;
+    color: currentColor;
   }
 
   @media (hover: hover) {
