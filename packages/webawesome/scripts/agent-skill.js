@@ -713,8 +713,8 @@ CSS variables follow the pattern \`--wa-color-{hue}-{tint}\`:
 
 \`\`\`css
 .my-element {
-  color: var(--wa-color-blue-600);
-  background: var(--wa-color-gray-100);
+  color: var(--wa-color-blue-60);
+  background: var(--wa-color-gray-10);
 }
 \`\`\`
 
