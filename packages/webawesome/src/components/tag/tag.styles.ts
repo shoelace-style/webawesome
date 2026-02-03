@@ -53,7 +53,6 @@ export default css`
   }
 
   [part='remove-button'] {
-    color: inherit;
     line-height: 1;
   }
 
@@ -66,11 +65,13 @@ export default css`
 
   @media (hover: hover) {
     :host(:hover) > [part='remove-button']::part(base) {
+      background-color: transparent;
       color: color-mix(in oklab, currentColor, var(--wa-color-mix-hover));
     }
   }
 
   :host(:active) > [part='remove-button']::part(base) {
+    background-color: transparent;
     color: color-mix(in oklab, currentColor, var(--wa-color-mix-active));
   }
 
