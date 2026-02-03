@@ -29,6 +29,17 @@
   <li><a href="/docs/resources/contributing">Contributing</a></li>
   <li><a href="/docs/resources/changelog">Changelog</a></li>
   <li><a href="/docs/resources/visual-tests">Visual Tests</a></li>
+</ul>
+
+{# AI #}
+<h2>Using AI with Web Awesome</h2>
+<ul>
+  <li>
+    <a class="wa-cluster wa-gap-xs" href="/docs/resources/agent-skills">
+      Agent Skills
+      <wa-icon name="flask" aria-hidden="true" class="icon-shrink"></wa-icon>
+    </a>
+  </li>
   <li>
     <a class="wa-cluster wa-gap-xs" href="/docs/resources/llms">
       LLMs
@@ -36,6 +47,42 @@
     </a>
   </li>
 </ul>
+<!-- Frameworks -->
+<wa-details appearance="outlined">
+  <h2 slot="summary">
+    <a class="wa-cluster wa-gap-xs" href="/docs/frameworks/">
+      <wa-icon name="grid-2" aria-hidden="true"></wa-icon>
+      Frameworks
+    </a>
+  </h2>
+  <ul>
+    <li>
+      <a href="/docs/frameworks/angular">
+        Angular
+      </a>
+    </li>
+    <li>
+      <a href="/docs/frameworks/react">
+        React
+      </a>
+    </li>
+    <li>
+      <a href="/docs/frameworks/svelte">
+        Svelte
+      </a>
+    </li>
+    <li>
+      <a href="/docs/frameworks/vue">
+        Vue 3
+      </a>
+    </li>
+    <li>
+      <a href="/docs/frameworks/vue-2">
+        Vue 2
+      </a>
+    </li>
+  </ul>
+</wa-details>
 
 <!-- Components -->
 <wa-details appearance="outlined">
@@ -130,7 +177,7 @@
     <li><a href="/docs/components/input/">Input</a></li>
     <li><a href="/docs/components/intersection-observer">Intersection Observer</a></li>
     <li><a href="/docs/components/mutation-observer/">Mutation Observer</a></li>
-    <li><span class="is-planned wa-split">Number Input <a href="https://github.com/shoelace-style/webawesome/issues/1688" target="_blank">{{ plannedBadge("A Web Awesome Kickstarter stretch goal!") }}</a></span></li>
+    <li><a href="/docs/components/number-input">Number Input</a></li>
     <li><a href="/docs/components/popover/">Popover</a></li>
     <li><a href="/docs/components/popup/">Popup</a></li>
     <li><a href="/docs/components/progress-bar/">Progress Bar</a></li>
@@ -181,6 +228,25 @@
   </ul>
 </wa-details>
 
+<!-- Data Visualization -->
+<wa-details appearance="outlined">
+  <h2 slot="summary">
+    <wa-icon name="chart-area" aria-hidden="true"></wa-icon>
+    Data Visualization
+  </h2>
+  <ul>
+    <li>
+      <span class="wa-split">
+        <span>
+          <a href="/docs/components/sparkline">Sparkline</a>
+          <wa-icon name="flask" aria-hidden="true" class="icon-shrink"></wa-icon>
+        </span>
+        {{ proBadge() }}
+      </span>
+    </li>
+  </ul>
+</wa-details>
+
 <!-- Style utilities -->
 <wa-details appearance="outlined">
   <h2 slot="summary">
@@ -210,6 +276,7 @@
   <ul>
     <li><a href="/docs/utilities/align-items/">Align Items</a></li>
     <li><a href="/docs/utilities/justify-content/">Justify Content</a></li>
+    <li><a href="/docs/utilities/flex-wrap/">Flex Wrap</a></li>
     <li><a href="/docs/utilities/gap/">Gap</a></li>
     <li><a href="/docs/utilities/cluster/">Cluster</a></li>
     <li><a href="/docs/utilities/flank/">Flank</a></li>
@@ -438,6 +505,7 @@
   <li><a href="/tos">Terms of Service</a></li>
   <li><a href="/privacy">Privacy Policy</a></li>
   <li><a href="/refunds">Refund Policy</a></li>
+  <li><a href="/dpa">Data Processing Agreement</a></li>
 </ul>
 
 <wa-divider style="--spacing: var(--wa-space-xl);"></wa-divider>

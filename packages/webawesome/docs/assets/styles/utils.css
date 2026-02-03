@@ -275,6 +275,11 @@
       color: var(--wa-color-text-quiet);
     }
   }
+
+  /* reducing the visual weight of peripheral presentational content */
+  .de-emphasize {
+    opacity: 0.6;
+  }
   /* #endregion */
 
   /* #region resets */

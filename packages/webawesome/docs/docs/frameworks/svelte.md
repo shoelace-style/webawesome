@@ -4,8 +4,6 @@ description: Tips for using Web Awesome in your Svelte app.
 layout: page-outline
 ---
 
-# Svelte
-
 Svelte [plays nice](https://custom-elements-everywhere.com/#svelte) with custom elements, so you can use Web Awesome in your Svelte apps with ease.
 
 ## Installation
@@ -68,10 +66,6 @@ One caveat is there's currently Svelte only supports `bind:value` directive in `
 </wa-select>
 ```
 
-:::tip
-Are you using Web Awesome with Svelte? [Help us improve this page!](https://github.com/shoelace-style/webawesome/blob/next/docs/frameworks/svelte.md)
-:::
-
 ### Slots
 
 Slots in Web Awesome/web components are functionally the same as basic slots in Svelte. Slots can be assigned to elements using the `slot` attribute followed by the name of the slot it is being assigned to.
@@ -88,3 +82,7 @@ Here is an example:
   </div>
 </wa-drawer>
 ```
+
+:::info
+Are you using Web Awesome with Svelte? [Help us improve this page!](https://github.com/shoelace-style/webawesome/blob/next/packages/webawesome/docs/docs/frameworks/svelte.md)
+:::

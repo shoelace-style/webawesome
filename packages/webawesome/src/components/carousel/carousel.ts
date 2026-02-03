@@ -6,6 +6,7 @@ import { customElement, eventOptions, property, query, state } from 'lit/decorat
 import { classMap } from 'lit/directives/class-map.js';
 import { map } from 'lit/directives/map.js';
 import { range } from 'lit/directives/range.js';
+import { styleMap } from 'lit/directives/style-map.js';
 import { WaSlideChangeEvent } from '../../events/slide-change.js';
 import { prefersReducedMotion } from '../../internal/animate.js';
 import { waitForEvent } from '../../internal/event.js';
@@ -576,7 +577,7 @@ export default class WaCarousel extends WebAwesomeElement {
             'slides-vertical': this.orientation === 'vertical',
             'slides-dragging': this.dragging,
           })}"
-          style="--slides-per-page: ${this.slidesPerPage};"
+          style=${styleMap({ '--slides-per-page': this.slidesPerPage })}
           aria-busy="${scrolling ? 'true' : 'false'}"
           aria-atomic="true"
           tabindex="0"
