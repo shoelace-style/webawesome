@@ -19,10 +19,6 @@ tags: layoutUtilities
     background-color: var(--layout-example-element-background);
     border-radius: var(--wa-border-radius-s);
     min-block-size: 1em;
-
-    &.de-emphasize {
-      opacity: 0.6;
-    }
   }
 </style>
 
