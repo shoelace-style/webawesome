@@ -103,6 +103,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   private typeToSelectString = '';
   private typeToSelectTimeout: number;
   private _selectionUpdatePending = false;
+  private _selectionUpdatePromise: Promise<void> | null = null;
 
   @query('.select') popup: WaPopup;
   @query('.combobox') combobox: HTMLSlotElement;
@@ -295,6 +296,15 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
 
     // Because this is a form control, it shouldn't be opened initially
     this.open = false;
+  }
+
+  protected async getUpdateComplete(): Promise<boolean> {
+    const result = await super.getUpdateComplete();
+    // Wait for any pending selection update to complete
+    if (this._selectionUpdatePromise) {
+      await this._selectionUpdatePromise;
+    }
+    return result;
   }
 
   private updateDefaultValue() {
@@ -703,9 +713,13 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     if (this._selectionUpdatePending) return;
     this._selectionUpdatePending = true;
 
-    queueMicrotask(() => {
-      this._selectionUpdatePending = false;
-      this._doSelectionUpdate();
+    this._selectionUpdatePromise = new Promise<void>(resolve => {
+      queueMicrotask(() => {
+        this._selectionUpdatePending = false;
+        this._doSelectionUpdate();
+        this._selectionUpdatePromise = null;
+        resolve();
+      });
     });
   }
 
