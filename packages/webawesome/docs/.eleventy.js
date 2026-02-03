@@ -124,6 +124,7 @@ export default async function (eleventyConfig) {
   eleventyConfig.addFilter('stripExtension', string => path.parse(string + '').name);
   eleventyConfig.addFilter('stripPrefix', content => content.replace(/^wa-/, ''));
   eleventyConfig.addFilter('uniqueId', (_value, length = 8) => nanoid(length));
+  eleventyConfig.addFilter('urlencode', value => encodeURI(String(value ?? '')));
 
   eleventyConfig.addGlobalData('eleventyComputed', {
     // Page title with smart + default site name formatting
@@ -168,6 +169,20 @@ export default async function (eleventyConfig) {
       if (bValue === firstValue) return 1;
       return 0;
     });
+  });
+
+  eleventyConfig.addCollection('aliasRedirects', function (collectionApi) {
+    const pairs = [];
+    for (const page of collectionApi.getAll()) {
+      const aliases = page.data?.aliases;
+      if (!Array.isArray(aliases)) continue;
+      const to = page.url ?? '';
+      for (const alias of aliases) {
+        const from = (alias + '').split('/').filter(Boolean).join('/');
+        if (from) pairs.push({ from, to });
+      }
+    }
+    return pairs;
   });
 
   //
