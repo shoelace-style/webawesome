@@ -11,7 +11,6 @@ import fs from 'fs';
 import * as path from 'node:path';
 import { pascalCase } from 'pascal-case';
 import * as url from 'url';
-import { llmsTxtPlugin } from './scripts/llms.js';
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 const packageData = JSON.parse(fs.readFileSync(path.join(__dirname, 'package.json'), 'utf8'));
@@ -203,13 +202,6 @@ export default {
       componentTypePath: (_name, _tag, modulePath) => {
         return `./${modulePath}`;
       },
-    }),
-
-    // Generate llms.txt
-    llmsTxtPlugin({
-      outdir,
-      docsDir: path.join(__dirname, 'docs'),
-      baseUrl: 'https://webawesome.com',
     }),
 
     //

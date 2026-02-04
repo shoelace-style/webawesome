@@ -12,9 +12,13 @@ const translation: Translation = {
   copied: 'Kopirano',
   copy: 'Kopiraj',
   currentValue: 'Trenutna vrijednost',
+  decrement: 'Smanji',
+  dropFileHere: 'Drop file here or click to browse',
+  dropFilesHere: 'Drop files here or click to browse',
   error: 'Greška',
   goToSlide: (slide, count) => `Idi na slajd ${slide} od ${count}`,
   hidePassword: 'Sakrij lozinku',
+  increment: 'Povećaj',
   loading: 'Učitavanje',
   nextSlide: 'Sljedeći slajd',
   numOptionsSelected: num => {

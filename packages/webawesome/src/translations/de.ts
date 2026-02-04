@@ -12,9 +12,13 @@ const translation: Translation = {
   copied: 'Kopiert',
   copy: 'Kopieren',
   currentValue: 'Aktueller Wert',
+  decrement: 'Verringern',
+  dropFileHere: 'Datei hier ablegen oder zum Durchsuchen klicken',
+  dropFilesHere: 'Dateien hier ablegen oder zum Durchsuchen klicken',
   error: 'Fehler',
   goToSlide: (slide, count) => `Zu Folie ${slide} von ${count} gehen`,
   hidePassword: 'Passwort verbergen',
+  increment: 'Erhöhen',
   loading: 'Wird geladen',
   nextSlide: 'Nächste Folie',
   numOptionsSelected: num => {

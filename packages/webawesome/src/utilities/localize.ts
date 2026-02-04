@@ -27,9 +27,13 @@ export interface Translation extends DefaultTranslation {
   copied: string;
   copy: string;
   currentValue: string;
+  dropFileHere: string;
+  decrement: string;
+  dropFilesHere: string;
   error: string;
   goToSlide: (slide: number, count: number) => string;
   hidePassword: string;
+  increment: string;
   loading: string;
   nextSlide: string;
   numOptionsSelected: (num: number) => string;

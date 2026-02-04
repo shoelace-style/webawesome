@@ -213,6 +213,12 @@ Use the `disabled` attribute to disable a button.
 <wa-button variant="neutral" disabled>Neutral</wa-button>
 <wa-button variant="warning" disabled>Warning</wa-button>
 <wa-button variant="danger" disabled>Danger</wa-button>
+
+<br /><br />
+
+<wa-button href="https://example.com/" disabled>Link</wa-button>
+<wa-button href="https://example.com/" target="_blank" disabled>New Window</wa-button>
+<wa-button href="/assets/images/logo.svg" download="shoelace.svg" disabled>Download</wa-button>
 ```
 
 ### Styling Buttons

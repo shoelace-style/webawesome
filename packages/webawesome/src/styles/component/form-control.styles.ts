@@ -36,7 +36,7 @@ export default css`
     margin-block-start: 0.5em;
     font-size: var(--wa-font-size-smaller);
 
-    &:not(.has-slotted) {
+    &:not(.has-slotted, .has-hint) {
       display: none;
     }
   }

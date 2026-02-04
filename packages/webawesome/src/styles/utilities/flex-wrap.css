@@ -1,0 +1,16 @@
+@layer wa-utilities {
+  /* Apply Flexbox with 0 specificity to ensure a flex wrap util produces a visible change */
+  :where(.wa-flex-wrap, .wa-flex-nowrap, .wa-flex-wrap-reverse) {
+    display: flex;
+  }
+
+  .wa-flex-wrap {
+    flex-wrap: wrap;
+  }
+  .wa-flex-nowrap {
+    flex-wrap: nowrap;
+  }
+  .wa-flex-wrap-reverse {
+    flex-wrap: wrap-reverse;
+  }
+}
