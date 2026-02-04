@@ -4,7 +4,10 @@
 {% from "planned-badge.njk" import plannedBadge %}
 
 {# Getting started #}
-<h2>Getting Started</h2>
+<h2 class="wa-cluster wa-gap-xs">
+  <wa-icon name="rocket-launch" aria-hidden="true"></wa-icon>
+  Getting Started
+</h2>
 <ul>
   <li><a href="/docs/">Installation</a></li>
   <li><a href="/docs/usage">Usage</a></li>
@@ -14,15 +17,19 @@
 </ul>
 
 {# Resources #}
-<h2>Resources</h2>
+<h2 class="wa-cluster wa-gap-xs">
+  <wa-icon name="book-spine" aria-hidden="true"></wa-icon>
+  Resources
+</h2>
 <ul>
   <li><a href="/docs/resources/support">Help & Support</a></li>
   <li><a href="https://github.com/shoelace-style/webawesome/">Source Code</a></li>
   <li>
     <span class="wa-split">
-      <a href="/docs/resources/figma">Figma Design Kit</a></li>
-      {{ proBadge() }}
-    </span>
+      <a href="/docs/resources/figma">Figma Design Kit</a>
+  </li>
+  {{ proBadge() }}
+  </span>
   </li>
   <li><a href="/docs/resources/accessibility">Accessibility</a></li>
   <li><a href="/docs/resources/browser-support">Browser Support</a></li>
@@ -32,7 +39,10 @@
 </ul>
 
 {# AI #}
-<h2>Using AI with Web Awesome</h2>
+<h2 class="wa-cluster wa-gap-xs">
+  <wa-icon name="sparkles" aria-hidden="true"></wa-icon>
+  Using AI with Web Awesome
+</h2>
 <ul>
   <li>
     <a class="wa-cluster wa-gap-xs" href="/docs/resources/agent-skills">
@@ -129,7 +139,10 @@
         </li>
       </ul>
     </li>
-    <li><span class="is-planned wa-split">Charts <span><a href="https://github.com/shoelace-style/webawesome/issues/1073" target="_blank">{{ plannedBadge("A Web Awesome Kickstarter stretch goal!") }}</a>{{ proBadge({ description: "This will require access to Web Awesome Pro" }) }}</span></span></li>
+    <li><span class="is-planned wa-split">Charts <span><a
+            href="https://github.com/shoelace-style/webawesome/issues/1073" target="_blank">{{ plannedBadge("A Web
+            Awesome Kickstarter stretch goal!") }}</a>{{ proBadge({ description: "This will require access to Web
+          Awesome Pro" }) }}</span></span></li>
     <li><a href="/docs/components/checkbox/">Checkbox</a></li>
     <li><a href="/docs/components/color-picker/">Color Picker</a></li>
     <li>
@@ -148,8 +161,14 @@
         <wa-icon name="flask" aria-hidden="true" class="icon-shrink"></wa-icon>
       </a>
     </li>
-    <li><span class="is-planned wa-split">Data Grid <span><a href="https://github.com/shoelace-style/webawesome/issues/1072" target="_blank">{{ plannedBadge("A Web Awesome Kickstarter stretch goal!") }}</a>{{ proBadge({ description: "This will require access to Web Awesome Pro" }) }}</span></span></li>
-    <li><span class="is-planned wa-split">Date Picker <span><a href="https://github.com/shoelace-style/webawesome/issues/1075" target="_blank">{{ plannedBadge("A Web Awesome Kickstarter stretch goal!") }}</a>{{ proBadge({ description: "This will require access to Web Awesome Pro" }) }}</span></span></li>
+    <li><span class="is-planned wa-split">Data Grid <span><a
+            href="https://github.com/shoelace-style/webawesome/issues/1072" target="_blank">{{ plannedBadge("A Web
+            Awesome Kickstarter stretch goal!") }}</a>{{ proBadge({ description: "This will require access to Web
+          Awesome Pro" }) }}</span></span></li>
+    <li><span class="is-planned wa-split">Date Picker <span><a
+            href="https://github.com/shoelace-style/webawesome/issues/1075" target="_blank">{{ plannedBadge("A Web
+            Awesome Kickstarter stretch goal!") }}</a>{{ proBadge({ description: "This will require access to Web
+          Awesome Pro" }) }}</span></span></li>
     <li><a href="/docs/components/details/">Details</a></li>
     <li><a href="/docs/components/dialog/">Dialog</a></li>
     <li><a href="/docs/components/divider/">Divider</a></li>
@@ -213,7 +232,9 @@
     </li>
     <li><a href="/docs/components/tag/">Tag</a></li>
     <li><a href="/docs/components/textarea/">Textarea</a></li>
-    <li><span class="is-planned wa-split">Toast <span><a href="https://github.com/shoelace-style/webawesome/issues/105" target="_blank">{{ plannedBadge("A Web Awesome Kickstarter stretch goal!") }}</a>{{ proBadge( { description: "This will require access to Web Awesome Pro" }) }}</span></span></li>
+    <li><span class="is-planned wa-split">Toast <span><a href="https://github.com/shoelace-style/webawesome/issues/105"
+            target="_blank">{{ plannedBadge("A Web Awesome Kickstarter stretch goal!") }}</a>{{ proBadge( { description:
+          "This will require access to Web Awesome Pro" }) }}</span></span></li>
     <li><a href="/docs/components/tooltip/">Tooltip</a></li>
     <li>
       <a href="/docs/components/tree/">Tree</a>
@@ -221,7 +242,9 @@
         <li><a href="/docs/components/tree-item/">Tree Item</a></li>
       </ul>
     </li>
-    <li><span class="is-planned wa-split">Video <span><a href="https://github.com/shoelace-style/webawesome/issues/985" target="_blank">{{ plannedBadge("A Web Awesome Kickstarter stretch goal!") }}</a>{{ proBadge( { description: "This will require access to Web Awesome Pro" }) }}</span></span></li>
+    <li><span class="is-planned wa-split">Video <span><a href="https://github.com/shoelace-style/webawesome/issues/985"
+            target="_blank">{{ plannedBadge("A Web Awesome Kickstarter stretch goal!") }}</a>{{ proBadge( { description:
+          "This will require access to Web Awesome Pro" }) }}</span></span></li>
     <li><a href="/docs/components/zoomable-frame">Zoomable Frame</a></li>
     {# PLOP_NEW_COMPONENT_PLACEHOLDER #}
   </ul>
@@ -338,7 +361,8 @@
         </li>
         <li>
           <a href="/docs/patterns/app/pagination/">Pagination</a>
-        </li><li>
+        </li>
+        <li>
           <a href="/docs/patterns/app/password/">Password</a>
         </li>
         <li>
@@ -355,7 +379,7 @@
         {{ proBadge() }}
       </span>
       <ul>
-      <li>
+        <li>
           <a href="/docs/patterns/blog-news/banners/">Banners</a>
         </li>
         <li>
@@ -470,7 +494,10 @@
 </wa-details>
 
 <!-- Theming -->
-<h2>Theming</h2>
+<h2 class="wa-cluster wa-gap-xs">
+  <wa-icon name="palette" aria-hidden="true"></wa-icon>
+  Theming
+</h2>
 <ul>
   <li><a href="/docs/color-palettes">Color Palettes</a></li>
   <li><a href="/docs/themes">Themes</a></li>
@@ -497,7 +524,10 @@
 </wa-details>
 
 {# Policies #}
-<h2>Terms &amp; Policies</h2>
+<h2 class="wa-cluster wa-gap-xs">
+  <wa-icon name="file-contract" aria-hidden="true"></wa-icon>
+  Terms &amp; Policies
+</h2>
 <ul>
   <li><a href="/license"><span class="wa-visually-hidden">Web Awesome </span>Free License</a></li>
   <li><a href="/license/pro"><span class="wa-visually-hidden">Web Awesome </span>Pro License</a></li>
@@ -516,17 +546,20 @@
     <p class="wa-caption-xs wa-cluster wa-gap-xs">
       Version {{ package.version }}
       <wa-icon id="version-icon-info" family="duotone" variant="regular" name="party-horn"></wa-icon>
-      <wa-tooltip for="version-icon-info" distance="2" class="wa-font-size-xs">Here be freshly launched Awesome and no wa-dragons</wa-tooltip>
+      <wa-tooltip for="version-icon-info" distance="2" class="wa-font-size-xs">Here be freshly launched Awesome and no
+        wa-dragons</wa-tooltip>
     </p>
     <p class="wa-caption-xs">&copy; Fonticons, Inc.</p>
   </div>
 
   <div class="wa-cluster wa-gap-0 wa-caption-xs the-socials">
     <h2 class="wa-visually-hidden">Web Awesome Elsewhere</h2>
-    <a href="https://github.com/shoelace-style/webawesome" rel="noopener noreferrer" target="_blank" class="appearance-plain">
+    <a href="https://github.com/shoelace-style/webawesome" rel="noopener noreferrer" target="_blank"
+      class="appearance-plain">
       <wa-icon family="brands" name="github" label="GitHub"></wa-icon>
     </a>
-    <a href="https://bsky.app/profile/webawesome.com" rel="noopener noreferrer" target="_blank" class="appearance-plain">
+    <a href="https://bsky.app/profile/webawesome.com" rel="noopener noreferrer" target="_blank"
+      class="appearance-plain">
       <wa-icon family="brands" name="bluesky" label="Bluesky"></wa-icon>
     </a>
     <a href="https://mastodon.social/@webawesome" rel="noopener noreferrer" target="_blank" class="appearance-plain">
