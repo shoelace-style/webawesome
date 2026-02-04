@@ -220,20 +220,8 @@ wa-page > header {
 }
 
 #sidebar {
-  h2 {
-    a {
-      color: var(--wa-color-text-normal);
-      text-decoration: none;
-
-      wa-icon {
-        font-size: var(--wa-font-size-s);
-        font-weight: var(--wa-font-weight-action);
-      }
-
-      &:hover {
-        text-decoration: underline;
-      }
-    }
+  h2 a {
+    --wa-color-text-link: var(--wa-color-text-normal);
   }
 
   wa-button.delete {
