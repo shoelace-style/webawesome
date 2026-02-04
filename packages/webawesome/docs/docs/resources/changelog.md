@@ -34,7 +34,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed a bug in `<wa-icon>` to support Font Awesome Pro+ icon families that include qualifiers (e.g., `family="jelly-duo"` now works correctly instead of requiring `family="jelly" variant="duo-regular"`) and updated Font Awesome to 7.1.0
 - Fixed a bug in `<wa-icon>` where Bootstrap icon sizes were overwritten [pr:1968]
 - Fixed a bug in `<wa-tooltip>` where safe triangles were not respected [pr:1967]
-- Fixed a bug in `<wa-dropdown>` where submenu detection would not work in shadow dom [pr:1956]
+- Fixed a bug in `<wa-dropdown>` where submenu detection would not work in shadow DOM [pr:1956]
 - Fixed a bug in `<wa-popup>` and `<wa-dropdown-item>` that caused an error when removing a popup while it was opening [issue:1910]
 - Fixed a bug in `<wa-popup>` and `<wa-dropdown>` that caused errors when shadow DOM queries returned null [issue:1911]
 - Fixed a bug in `<wa-combobox>` that prevented the listbox from opening when options were preselected [issue:1883]
