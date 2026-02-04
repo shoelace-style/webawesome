@@ -716,9 +716,9 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     this._selectionUpdatePromise = new Promise<void>(resolve => {
       queueMicrotask(() => {
         this._selectionUpdatePending = false;
-        this._doSelectionUpdate();
         this._selectionUpdatePromise = null;
         resolve();
+        this._doSelectionUpdate();
       });
     });
   }
