@@ -17,6 +17,7 @@ import { generateAgentSkill } from './agent-skill.js';
 import { generateDocs } from './docs.js';
 import { generateLlmsTxtFile } from './llms.js';
 import { getCdnDir, getDistDir, getDocsDir, getRootDir, getSiteDir } from './utils.js';
+import { verifyCem } from './verify-cem.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -60,7 +61,7 @@ export async function build(options = {}) {
     const start = Date.now();
 
     try {
-      const steps = [cleanup, generateManifest, generateReactWrappers, generateTypes, generateStyles];
+      const steps = [cleanup, generateManifest, verifyManifest, generateReactWrappers, generateTypes, generateStyles];
 
       for (const step of steps) {
         if (debugPerf) {
@@ -128,6 +129,26 @@ export async function build(options = {}) {
     spinner.succeed();
 
     return Promise.resolve();
+  }
+
+  /**
+   * Verifies the custom elements manifest doesn't have issues like unnamed events.
+   */
+  async function verifyManifest() {
+    spinner.start('Verifying CEM');
+
+    try {
+      await verifyCem();
+    } catch (error) {
+      spinner.fail();
+      console.error(`\n\n${error.message}`);
+
+      if (!isDeveloping) {
+        process.exit(1);
+      }
+    }
+
+    spinner.succeed();
   }
 
   /**
