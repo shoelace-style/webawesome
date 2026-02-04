@@ -115,6 +115,7 @@ export default class WaDropdownItem extends WebAwesomeElement {
     if (changedProperties.has('disabled')) {
       this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
       this.customStates.set('disabled', this.disabled);
+      this.style.pointerEvents = this.disabled ? 'none' : '';
     }
 
     if (changedProperties.has('type')) {
