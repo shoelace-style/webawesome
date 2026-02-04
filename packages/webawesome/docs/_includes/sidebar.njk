@@ -224,7 +224,27 @@
     <li><span class="is-planned wa-split">Video <span><a href="https://github.com/shoelace-style/webawesome/issues/985" target="_blank">{{ plannedBadge("A Web Awesome Kickstarter stretch goal!") }}</a>{{ proBadge( { description: "This will require access to Web Awesome Pro" }) }}</span></span></li>
 
     <li><a href="/docs/components/zoomable-frame">Zoomable Frame</a></li>
-    <li><a href="/docs/components/file-input">File Input</a></li>
+    {# PLOP_NEW_COMPONENT_PLACEHOLDER #}
+  </ul>
+</wa-details>
+
+<!-- Data Visualization -->
+<wa-details appearance="outlined">
+  <h2 slot="summary">
+    <wa-icon name="chart-area" aria-hidden="true"></wa-icon>
+    Data Visualization
+  </h2>
+  <ul>
+    <li>
+      <span class="wa-split">
+        <span>
+          <a href="/docs/components/sparkline">Sparkline</a>
+          <wa-icon name="flask" aria-hidden="true" class="icon-shrink"></wa-icon>
+        </span>
+        {{ proBadge() }}
+      </span>
+    </li>
+
     <li>
       Charts
       <ul>
@@ -238,7 +258,6 @@
         <li><a href="/docs/components/scatter-chart">Scatter Chart</a></li>
       </ul>
     </li>
-    {# PLOP_NEW_COMPONENT_PLACEHOLDER #}
   </ul>
 </wa-details>
 
