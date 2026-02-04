@@ -146,6 +146,12 @@ wa-page > header {
     margin-block-start: var(--wa-space-xs);
   }
 
+  /* visually align icon with child list's border-start */
+  h2:has(wa-icon) {
+    position: relative;
+    inset-inline-start: calc(var(--wa-space-xs) * -1);
+  }
+
   wa-details {
     --spacing: 0;
 
