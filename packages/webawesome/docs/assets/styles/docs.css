@@ -221,8 +221,6 @@ wa-page > header {
 
 #sidebar {
   h2 {
-    color: var(--wa-color-text-quiet);
-
     a {
       color: var(--wa-color-text-normal);
       text-decoration: none;
