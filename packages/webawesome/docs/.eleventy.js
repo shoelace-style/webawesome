@@ -18,6 +18,8 @@ import process from 'process';
 import * as url from 'url';
 import { replaceTextPlugin } from './_plugins/replace-text.js';
 import { searchPlugin } from './_plugins/search.js';
+import { generateAgentSkill } from '../scripts/agent-skill.js';
+import { getSiteDir } from '../scripts/utils.js';
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 const isDev = process.argv.includes('--develop');
 const passThroughExtensions = ['js', 'css', 'png', 'svg', 'jpg', 'mp4'];
@@ -310,6 +312,13 @@ export default async function (eleventyConfig) {
   //   // Run Prettier on each file (prod only because it can be slow)
   //   eleventyConfig.addPlugin(formatCodePlugin());
   // }
+  eleventyConfig.on('eleventy.after', async () => {
+    const siteDir = getSiteDir()
+    await generateAgentSkill({
+      siteDir
+    })
+  })
+
 
   // This needs to happen in "eleventy.after" otherwise incremental builds never update.
   eleventyConfig.on('eleventy.after', function () {

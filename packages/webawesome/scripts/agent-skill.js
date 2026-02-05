@@ -880,6 +880,7 @@ function generateLayoutUtilitiesDoc(siteDir, docsDir, destDir, baseUrl) {
  */
 function copyDirSync(src, dest) {
   fs.mkdirSync(dest, { recursive: true });
+
   const entries = fs.readdirSync(src, { withFileTypes: true });
 
   for (const entry of entries) {
@@ -901,9 +902,11 @@ function copyDirSync(src, dest) {
 export async function generateAgentSkill(options = {}) {
   const {
     outdir = path.join(getDistDir(), 'skills/webawesome'),
-    copyTo = [path.join(getCdnDir(), 'skills/webawesome')],
     docsDir = getDocsDir(),
     siteDir = getSiteDir(),
+    copyTo = [
+      path.join(getCdnDir(), 'skills/webawesome'),
+    ],
     cemPath = path.join(getCdnDir(), 'custom-elements.json'),
     baseUrl = 'https://webawesome.com',
   } = options;
