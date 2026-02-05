@@ -1,6 +1,6 @@
 ---
 title: Changelog
-dateLastUpdated: 2025-11-07
+dateLastUpdated: 2026-02-05
 description: Changes to each version of the project are documented here.
 layout: page-outline
 ---
