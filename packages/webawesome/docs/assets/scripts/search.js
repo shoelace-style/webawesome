@@ -20,6 +20,40 @@ let resultSelected = false;
 const trackModule = res[2];
 const trackEvent = trackModule?.trackEvent || window.trackEvent || (() => {});
 
+const iconByPrefix = [
+  ['/license', 'file-contract'],
+  ['/tos', 'file-contract'],
+  ['/privacy', 'file-contract'],
+  ['/refunds', 'file-contract'],
+  ['/dpa', 'file-contract'],
+  ['/docs/color-palettes', 'palette'],
+  ['/docs/themes', 'palette'],
+  ['/docs/layout', 'ruler-combined'],
+  ['/docs/utilities/align-items', 'ruler-combined'],
+  ['/docs/utilities/justify-content', 'ruler-combined'],
+  ['/docs/utilities/flex-wrap', 'ruler-combined'],
+  ['/docs/utilities/gap', 'ruler-combined'],
+  ['/docs/utilities/cluster', 'ruler-combined'],
+  ['/docs/utilities/flank', 'ruler-combined'],
+  ['/docs/utilities/frame', 'ruler-combined'],
+  ['/docs/utilities/grid', 'ruler-combined'],
+  ['/docs/utilities/split', 'ruler-combined'],
+  ['/docs/utilities/stack', 'ruler-combined'],
+  ['/docs/utilities/native', 'code'],
+  ['/docs/utilities', 'brush'],
+  ['/docs/usage', 'rocket-launch'],
+  ['/docs/customizing', 'rocket-launch'],
+  ['/docs/form-controls', 'rocket-launch'],
+  ['/docs/localization', 'rocket-launch'],
+  ['/docs/components', 'trowel-bricks'],
+  ['/docs/patterns', 'block-brick'],
+  ['/docs/frameworks', 'puzzle'],
+  ['/docs/tokens', 'coin-front'],
+  ['/docs/resources/agent-skills', 'sparkles'],
+  ['/docs/resources/llms', 'sparkles'],
+  ['/docs/resources', 'book-spine'],
+].sort((a, b) => b[0].length - a[0].length);
+
 // We're using Turbo, so references to these elements aren't guaranteed to remain intact
 function getElements() {
   return {
@@ -325,13 +359,15 @@ async function updateResults(query = '') {
       li.setAttribute('id', `search-result-item-${match.ref}`);
       li.setAttribute('data-selected', index === 0 ? 'true' : 'false');
       if (page.url === '/') icon = 'home';
-      if (page.url.startsWith('/docs/utilities/native')) icon = 'code';
-      if (page.url.startsWith('/docs/components')) icon = 'trowel-bricks';
-      if (page.url.startsWith('/docs/patterns')) icon = 'block-brick';
-      if (page.url.startsWith('/docs/frameworks')) icon = 'puzzle';
-      if (page.url.startsWith('/docs/tokens')) icon = 'coin-front';
-      if (page.url.startsWith('/docs/resources')) icon = 'book-spine';
-      if (page.url.startsWith('/docs/theme') || page.url.startsWith('/docs/restyle')) icon = 'palette';
+      else if (page.url === '/docs') icon = 'rocket-launch';
+      else {
+        for (const [prefix, name] of iconByPrefix) {
+          if (page.url.startsWith(prefix)) {
+            icon = name;
+            break;
+          }
+        }
+      }
       a.href = page.url;
       a.innerHTML = `
         <div class="site-search-result-icon" aria-hidden="true">
