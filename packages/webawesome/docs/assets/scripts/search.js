@@ -326,7 +326,11 @@ async function updateResults(query = '') {
       li.setAttribute('data-selected', index === 0 ? 'true' : 'false');
       if (page.url === '/') icon = 'home';
       if (page.url.startsWith('/docs/utilities/native')) icon = 'code';
-      if (page.url.startsWith('/docs/components')) icon = 'puzzle-piece';
+      if (page.url.startsWith('/docs/components')) icon = 'trowel-bricks';
+      if (page.url.startsWith('/docs/patterns')) icon = 'block-brick';
+      if (page.url.startsWith('/docs/frameworks')) icon = 'puzzle';
+      if (page.url.startsWith('/docs/tokens')) icon = 'coin-front';
+      if (page.url.startsWith('/docs/resources')) icon = 'book-spine';
       if (page.url.startsWith('/docs/theme') || page.url.startsWith('/docs/restyle')) icon = 'palette';
       a.href = page.url;
       a.innerHTML = `
