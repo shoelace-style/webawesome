@@ -137,7 +137,7 @@ export async function generateDocs(options = {}) {
 
     // Copy dist (production only)
     if (!isDeveloping) {
-      await copy(getCdnDir(), join(getSiteDir(), 'dist'));
+      await copy(getCdnDir(), join(getSiteDir(), 'dist'), { overwrite: true });
     }
 
     if (spinner) {
@@ -148,7 +148,7 @@ export async function generateDocs(options = {}) {
   } catch (error) {
     console.warn = originalWarn;
 
-    console.error('\n\n' + chalk.red(error) + '\n');
+    console.error('\n\n' + chalk.red(error.cause) + '\n');
 
     if (spinner) {
       spinner.fail(chalk.red(`Error while writing the docs.`));
