@@ -904,9 +904,7 @@ export async function generateAgentSkill(options = {}) {
     outdir = path.join(getDistDir(), 'skills/webawesome'),
     docsDir = getDocsDir(),
     siteDir = getSiteDir(),
-    copyTo = [
-      path.join(getCdnDir(), 'skills/webawesome'),
-    ],
+    copyTo = [path.join(getCdnDir(), 'skills/webawesome')],
     cemPath = path.join(getCdnDir(), 'custom-elements.json'),
     baseUrl = 'https://webawesome.com',
   } = options;
