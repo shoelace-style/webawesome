@@ -11,6 +11,10 @@ Web Awesome follows [Semantic Versioning](https://semver.org/). Breaking changes
 
 Components with the <wa-badge variant="warning">Experimental</wa-badge> badge should not be used in production. They are made available as release candidates for development and testing purposes. As such, changes to experimental components will not be subject to semantic versioning.
 
+## Next
+
+- Fixed a bug `<wa-color-picker>` that prevented it from flipping horizontally when position to the right of the viewport. [pr:2024]
+
 ## 3.2.1
 
 - Fixed a bug in the build script causing `llms.txt` and `dist/skills` to be omitted from Web Awesome Pro packages. [pr:2022]
