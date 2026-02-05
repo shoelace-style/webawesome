@@ -146,6 +146,12 @@ wa-page > header {
     margin-block-start: var(--wa-space-xs);
   }
 
+  /* visually align icon with child list's border-start */
+  h2:has(wa-icon) {
+    position: relative;
+    inset-inline-start: calc(var(--wa-space-xs) * -1);
+  }
+
   wa-details {
     --spacing: 0;
 
@@ -214,22 +220,8 @@ wa-page > header {
 }
 
 #sidebar {
-  h2 {
-    color: var(--wa-color-text-quiet);
-
-    a {
-      color: var(--wa-color-text-normal);
-      text-decoration: none;
-
-      wa-icon {
-        font-size: var(--wa-font-size-s);
-        font-weight: var(--wa-font-weight-action);
-      }
-
-      &:hover {
-        text-decoration: underline;
-      }
-    }
+  h2 a {
+    --wa-color-text-link: var(--wa-color-text-normal);
   }
 
   wa-button.delete {

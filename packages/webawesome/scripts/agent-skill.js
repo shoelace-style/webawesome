@@ -5,6 +5,7 @@ import path from 'path';
 import TurndownService from 'turndown';
 import { fileURLToPath } from 'url';
 import { getAllComponents } from './shared.js';
+import { getCdnDir, getDistDir, getDocsDir, getSiteDir } from './utils.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -899,11 +900,11 @@ function copyDirSync(src, dest) {
  */
 export async function generateAgentSkill(options = {}) {
   const {
-    outdir = path.resolve(__dirname, '../dist/skills/webawesome'),
-    copyTo = [path.resolve(__dirname, '../dist-cdn/skills/webawesome')],
-    docsDir = path.resolve(__dirname, '../docs'),
-    siteDir = path.resolve(__dirname, '../_site'),
-    cemPath = path.resolve(__dirname, '../dist-cdn/custom-elements.json'),
+    outdir = path.join(getDistDir(), 'skills/webawesome'),
+    copyTo = [path.join(getCdnDir(), 'skills/webawesome')],
+    docsDir = getDocsDir(),
+    siteDir = getSiteDir(),
+    cemPath = path.join(getCdnDir(), 'custom-elements.json'),
     baseUrl = 'https://webawesome.com',
   } = options;
 

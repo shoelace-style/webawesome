@@ -21,20 +21,7 @@ Popup is a low-level utility built specifically for positioning elements. Do not
   </wa-popup>
 
   <div class="popup-overview-options">
-    <wa-select label="Placement" name="placement" value="top" class="popup-overview-select">
-      <wa-option value="top">top</wa-option>
-      <wa-option value="top-start">top-start</wa-option>
-      <wa-option value="top-end">top-end</wa-option>
-      <wa-option value="bottom">bottom</wa-option>
-      <wa-option value="bottom-start">bottom-start</wa-option>
-      <wa-option value="bottom-end">bottom-end</wa-option>
-      <wa-option value="right">right</wa-option>
-      <wa-option value="right-start">right-start</wa-option>
-      <wa-option value="right-end">right-end</wa-option>
-      <wa-option value="left">left</wa-option>
-      <wa-option value="left-start">left-start</wa-option>
-      <wa-option value="left-end">left-end</wa-option>
-    </wa-select>
+    <wa-combobox label="Placement" name="placement" placeholder="Select placement..." class="popup-overview-select"></wa-combobox>
     <wa-input type="number" name="distance" label="distance" value="0"></wa-input>
     <wa-input type="number" name="skidding" label="Skidding" value="0"></wa-input>
   </div>
@@ -45,16 +32,32 @@ Popup is a low-level utility built specifically for positioning elements. Do not
   </div>
 </div>
 
-<script>
+<script type="module">
+  await customElements.whenDefined('wa-combobox');
+  await customElements.whenDefined('wa-option');
+
   const container = document.querySelector('.popup-overview');
   const popup = container.querySelector('wa-popup');
-  const select = container.querySelector('wa-select[name="placement"]');
+  const placement = container.querySelector('wa-combobox[name="placement"]');
   const distance = container.querySelector('wa-input[name="distance"]');
   const skidding = container.querySelector('wa-input[name="skidding"]');
   const active = container.querySelector('wa-switch[name="active"]');
   const arrow = container.querySelector('wa-switch[name="arrow"]');
 
-  select.addEventListener('change', () => (popup.placement = select.value));
+  const placements = ['top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'right', 'right-start', 'right-end', 'left', 'left-start', 'left-end'];
+
+  placements.forEach(value => {
+    const option = document.createElement('wa-option');
+    option.value = value;
+    option.textContent = value;
+    placement.append(option);
+  });
+
+  await placement.updateComplete;
+
+  placement.value = 'top';
+
+  placement.addEventListener('change', () => (popup.placement = placement.value));
   distance.addEventListener('input', () => (popup.distance = distance.value));
   skidding.addEventListener('input', () => (popup.skidding = skidding.value));
   active.addEventListener('change', () => (popup.active = active.checked));
@@ -88,7 +91,7 @@ Popup is a low-level utility built specifically for positioning elements. Do not
     gap: 1rem;
   }
 
-  .popup-overview-options wa-select {
+  .popup-overview-options wa-combobox {
     width: 160px;
   }
 
@@ -191,20 +194,7 @@ Since placement is preferred when using `flip`, you can observe the popup's curr
     <div class="box"></div>
   </wa-popup>
 
-  <wa-select label="Placement" value="top">
-    <wa-option value="top">top</wa-option>
-    <wa-option value="top-start">top-start</wa-option>
-    <wa-option value="top-end">top-end</wa-option>
-    <wa-option value="bottom">bottom</wa-option>
-    <wa-option value="bottom-start">bottom-start</wa-option>
-    <wa-option value="bottom-end">bottom-end</wa-option>
-    <wa-option value="right">right</wa-option>
-    <wa-option value="right-start">right-start</wa-option>
-    <wa-option value="right-end">right-end</wa-option>
-    <wa-option value="left">left</wa-option>
-    <wa-option value="left-start">left-start</wa-option>
-    <wa-option value="left-end">left-end</wa-option>
-  </wa-select>
+  <wa-combobox name="placement" label="Placement" placeholder="Select placement..."></wa-combobox>
 </div>
 
 <style>
@@ -223,17 +213,33 @@ Since placement is preferred when using `flip`, you can observe the popup's curr
     border-radius: var(--wa-border-radius-m);
   }
 
-  .popup-placement wa-select {
+  .popup-placement wa-combobox {
     max-width: 280px;
   }
 </style>
 
-<script>
+<script type="module">
+  await customElements.whenDefined('wa-combobox');
+  await customElements.whenDefined('wa-option');
+
   const container = document.querySelector('.popup-placement');
   const popup = container.querySelector('wa-popup');
-  const select = container.querySelector('wa-select');
+  const placement = container.querySelector('wa-combobox');
 
-  select.addEventListener('change', () => (popup.placement = select.value));
+  const placements = ['top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'right', 'right-start', 'right-end', 'left', 'left-start', 'left-end'];
+
+  placements.forEach(value => {
+    const option = document.createElement('wa-option');
+    option.value = value;
+    option.textContent = value;
+    placement.append(option);
+  });
+
+  await placement.updateComplete;
+
+  placement.value = 'top';
+
+  placement.addEventListener('change', () => (popup.placement = placement.value));
 </script>
 ```
 
@@ -339,20 +345,7 @@ By default, the arrow will be aligned as close to the center of the _anchor_ as 
   </wa-popup>
 
   <div class="popup-arrow-options">
-    <wa-select label="Placement" name="placement" value="top" class="popup-overview-select">
-      <wa-option value="top">top</wa-option>
-      <wa-option value="top-start">top-start</wa-option>
-      <wa-option value="top-end">top-end</wa-option>
-      <wa-option value="bottom">bottom</wa-option>
-      <wa-option value="bottom-start">bottom-start</wa-option>
-      <wa-option value="bottom-end">bottom-end</wa-option>
-      <wa-option value="right">right</wa-option>
-      <wa-option value="right-start">right-start</wa-option>
-      <wa-option value="right-end">right-end</wa-option>
-      <wa-option value="left">left</wa-option>
-      <wa-option value="left-start">left-start</wa-option>
-      <wa-option value="left-end">left-end</wa-option>
-    </wa-select>
+    <wa-combobox label="Placement" name="placement" placeholder="Select placement..." class="popup-overview-select"></wa-combobox>
 
     <wa-select label="Arrow Placement" name="arrow-placement" value="anchor">
       <wa-option value="anchor">anchor</wa-option>
@@ -393,6 +386,7 @@ By default, the arrow will be aligned as close to the center of the _anchor_ as 
       gap: 1rem;
     }
 
+    .popup-arrow-options wa-combobox,
     .popup-arrow-options wa-select {
       width: 160px;
     }
@@ -402,12 +396,28 @@ By default, the arrow will be aligned as close to the center of the _anchor_ as 
     }
   </style>
 
-  <script>
+  <script type="module">
+    await customElements.whenDefined('wa-combobox');
+    await customElements.whenDefined('wa-option');
+
     const container = document.querySelector('.popup-arrow');
     const popup = container.querySelector('wa-popup');
-    const placement = container.querySelector('[name="placement"]');
-    const arrowPlacement = container.querySelector('[name="arrow-placement"]');
+    const placement = container.querySelector('wa-combobox[name="placement"]');
+    const arrowPlacement = container.querySelector('wa-select[name="arrow-placement"]');
     const arrow = container.querySelector('[name="arrow"]');
+
+    const placements = ['top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'right', 'right-start', 'right-end', 'left', 'left-start', 'left-end'];
+
+    placements.forEach(value => {
+      const option = document.createElement('wa-option');
+      option.value = value;
+      option.textContent = value;
+      placement.append(option);
+    });
+
+    await placement.updateComplete;
+
+    placement.value = 'top';
 
     placement.addEventListener('change', () => (popup.placement = placement.value));
     arrowPlacement.addEventListener('change', () => (popup.arrowPlacement = arrowPlacement.value));

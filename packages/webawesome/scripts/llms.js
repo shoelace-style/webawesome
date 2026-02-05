@@ -3,6 +3,7 @@ import matter from 'gray-matter';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { getAllComponents } from './shared.js';
+import { getCdnDir, getDistDir, getDocsDir } from './utils.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -240,10 +241,10 @@ icon names.
  */
 export async function generateLlmsTxtFile(options = {}) {
   const {
-    outdir = path.resolve(__dirname, '../dist-cdn'),
-    copyTo = [path.resolve(__dirname, '../dist')],
-    docsDir = path.resolve(__dirname, '../docs'),
-    cemPath = path.resolve(__dirname, '../dist-cdn/custom-elements.json'),
+    outdir = getCdnDir(),
+    copyTo = [getDistDir()],
+    docsDir = getDocsDir(),
+    cemPath = path.join(getCdnDir(), 'custom-elements.json'),
     baseUrl = 'https://webawesome.com',
   } = options;
 
