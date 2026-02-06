@@ -362,7 +362,12 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
 
     if (this.isRange) {
       // Handle min/max values for range mode - clamp during willUpdate to avoid change-in-update warnings
-      if (changedProperties.has('minValue') || changedProperties.has('maxValue') || changedProperties.has('min') || changedProperties.has('max')) {
+      if (
+        changedProperties.has('minValue') ||
+        changedProperties.has('maxValue') ||
+        changedProperties.has('min') ||
+        changedProperties.has('max')
+      ) {
         // Ensure min doesn't exceed max
         const clampedMinValue = clamp(this.minValue, this.min, this.maxValue);
         const clampedMaxValue = clamp(this.maxValue, this.minValue, this.max);
