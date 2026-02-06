@@ -331,7 +331,7 @@ Add the `wa-hover-rows` class to highlight table rows on hover and the `wa-zebra
 
 ### Details
 
-Create disclosure widgets with `<details>` and `<summary>`. Details match the appearance of [`<wa-details>`](/docs/components/details/).
+Create disclosure widgets with `<details>` and `<summary>`. Details closely match the appearance of [`<wa-details>`](/docs/components/details/).
 
 ```html {.example}
 <details>
@@ -345,7 +345,7 @@ Create disclosure widgets with `<details>` and `<summary>`. Details match the ap
 
 ### Dialog
 
-Create modal and non-modal dialog boxes with `<dialog>`. Dialogs match the appearance of [`<wa-dialog>`](/docs/components/dialog/).
+Create modal and non-modal dialog boxes with `<dialog>`. Dialogs closely match the appearance of [`<wa-dialog>`](/docs/components/dialog/).
 
 ```html {.example}
 <dialog id="dialog-example">
@@ -367,7 +367,7 @@ Create modal and non-modal dialog boxes with `<dialog>`. Dialogs match the appea
 
 ### Progress
 
-Create progress indicators with `<progress>`. Progress indicators match the appearance of [`<wa-progress-bar>`](/docs/components/progress-bar/).
+Create progress indicators with `<progress>`. Progress indicators closely match the appearance of [`<wa-progress-bar>`](/docs/components/progress-bar/).
 
 ```html {.example}
 <progress value="40" max="100"></progress>
@@ -445,7 +445,7 @@ When using `<wa-icon>` within a button, wrap adjacent label text in `<span>` or 
 
 ### Form controls
 
-Create a variety of form controls with `<input type="">`, `<select>`, and `<textarea>`. Each control matches the appearance of the corresponding Web Awesome component.
+Create a variety of form controls with `<input type="">`, `<select>`, and `<textarea>`. Each control closely matches the appearance of the corresponding Web Awesome component.
 
 ```html {.example}
 <div class="wa-stack">

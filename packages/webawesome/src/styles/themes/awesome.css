@@ -410,15 +410,6 @@
         }
       }
       .wa-dark & {
-        &:not(
-            [appearance='filled-outlined'],
-            [appearance='filled'],
-            [appearance='outlined'],
-            [appearance='plain'],
-            .wa-filled,
-            .wa-outlined,
-            .wa-plain
-          ),
         &[appearance~='accent'],
         &.wa-accent {
           &:not([disabled]):not(:disabled):active {
@@ -490,15 +481,6 @@
     input[type='reset'],
     input[type='submit'],
     a.wa-button {
-      &:not(
-          [appearance='filled-outlined'],
-          [appearance='filled'],
-          [appearance='outlined'],
-          [appearance='plain'],
-          .wa-filled,
-          .wa-outlined,
-          .wa-plain
-        ),
       &[appearance='accent'],
       &.wa-accent {
         &:where(:not(wa-button)),
@@ -509,15 +491,6 @@
       }
 
       .wa-dark & {
-        &:not(
-            [appearance='filled-outlined'],
-            [appearance='filled'],
-            [appearance='outlined'],
-            [appearance='plain'],
-            .wa-filled,
-            .wa-outlined,
-            .wa-plain
-          ),
         &[appearance='accent'],
         &.wa-accent {
           &:where(:not(wa-button)),
