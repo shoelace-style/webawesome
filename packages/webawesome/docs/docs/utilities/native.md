@@ -381,7 +381,7 @@ Native styles use [form control design tokens](/docs/tokens/component-groups/#fo
 
 ### Buttons
 
-Create buttons with `<button>` or `<input type="button | submit | reset">`. Buttons match the appearance of [`<wa-button>`](/docs/components/button/).
+Create buttons with `<button>` or `<input type="button | submit | reset">`. Buttons closely match the appearance of [`<wa-button>`](/docs/components/button/).
 
 ```html {.example}
 <button>Button</button>
