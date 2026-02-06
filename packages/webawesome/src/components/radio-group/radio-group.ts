@@ -193,7 +193,7 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
     this.focus();
   }
 
-  private async syncRadioElements() {
+  private syncRadioElements() {
     const radios = this.getAllRadios();
 
     // Set positioning data attributes and properties
@@ -205,27 +205,23 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
       radio.toggleAttribute('data-wa-radio-inner', index !== 0 && index !== radios.length - 1);
       radio.toggleAttribute('data-wa-radio-last', index === radios.length - 1);
 
-      // Set forceDisabled state based on radio group's disabled state
-      (radio as WaRadio).forceDisabled = this.disabled;
+      // Set forceDisabled state based on radio group's disabled state - only if changed
+      if ((radio as WaRadio).forceDisabled !== this.disabled) {
+        (radio as WaRadio).forceDisabled = this.disabled;
+      }
+
+      // Set checked state - only if changed to avoid triggering unnecessary updates
+      const shouldBeChecked = !radio.disabled && radio.value === this.value;
+      if (radio.checked !== shouldBeChecked) {
+        radio.checked = shouldBeChecked;
+      }
     });
-
-    await Promise.all(
-      radios.map(async radio => {
-        await radio.updateComplete;
-
-        if (!radio.disabled && radio.value === this.value) {
-          radio.checked = true;
-        } else {
-          radio.checked = false;
-        }
-      }),
-    );
 
     // Manage tabIndex based on disabled state and checked status
     if (this.disabled) {
       // If radio group is disabled, all radios should not be tabbable
       radios.forEach(radio => {
-        radio.tabIndex = -1;
+        if (radio.tabIndex !== -1) radio.tabIndex = -1;
       });
     } else {
       // Normal tabbing behavior
@@ -236,12 +232,14 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
         if (checkedRadio) {
           // If there's a checked radio, it should be tabbable
           enabledRadios.forEach(radio => {
-            radio.tabIndex = radio.checked ? 0 : -1;
+            const expectedTabIndex = radio.checked ? 0 : -1;
+            if (radio.tabIndex !== expectedTabIndex) radio.tabIndex = expectedTabIndex;
           });
         } else {
           // If no radio is checked, first enabled radio should be tabbable
           enabledRadios.forEach((radio, index) => {
-            radio.tabIndex = index === 0 ? 0 : -1;
+            const expectedTabIndex = index === 0 ? 0 : -1;
+            if (radio.tabIndex !== expectedTabIndex) radio.tabIndex = expectedTabIndex;
           });
         }
       }
@@ -250,7 +248,7 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
       radios
         .filter(radio => radio.disabled)
         .forEach(radio => {
-          radio.tabIndex = -1;
+          if (radio.tabIndex !== -1) radio.tabIndex = -1;
         });
     }
   }

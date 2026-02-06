@@ -123,14 +123,6 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
     });
   }
 
-  @watch('defaultChecked')
-  handleDefaultCheckedChange() {
-    if (!this.hasInteracted && this.checked !== this.defaultChecked) {
-      this.checked = this.defaultChecked;
-      this.handleValueOrCheckedChange();
-    }
-  }
-
   handleValueOrCheckedChange() {
     // These @watch() commands seem to override the base element checks for changes, so we need to setValue for the form and and updateValidity()
     this.setValue(this.checked ? this.value : null, this._value);

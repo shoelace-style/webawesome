@@ -57,7 +57,7 @@ export default class WaCard extends WebAwesomeElement {
   @property({ reflect: true })
   orientation: 'horizontal' | 'vertical' = 'vertical';
 
-  updated() {
+  protected willUpdate() {
     // Enable the respective slots when detected
     if (!this.withHeader && this.hasSlotController.test('header')) this.withHeader = true;
     if (!this.withMedia && this.hasSlotController.test('media')) this.withMedia = true;

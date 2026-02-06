@@ -357,6 +357,27 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
     }
   }
 
+  protected willUpdate(changedProperties: PropertyValues<this>) {
+    super.willUpdate(changedProperties);
+
+    if (this.isRange) {
+      // Handle min/max values for range mode - clamp during willUpdate to avoid change-in-update warnings
+      if (changedProperties.has('minValue') || changedProperties.has('maxValue') || changedProperties.has('min') || changedProperties.has('max')) {
+        // Ensure min doesn't exceed max
+        const clampedMinValue = clamp(this.minValue, this.min, this.maxValue);
+        const clampedMaxValue = clamp(this.maxValue, this.minValue, this.max);
+        if (clampedMinValue !== this.minValue) this.minValue = clampedMinValue;
+        if (clampedMaxValue !== this.maxValue) this.maxValue = clampedMaxValue;
+      }
+    } else {
+      // Handle value for single thumb mode
+      if (changedProperties.has('value') || changedProperties.has('min') || changedProperties.has('max')) {
+        const clampedValue = clamp(this.value, this.min, this.max);
+        if (clampedValue !== this.value) this.value = clampedValue;
+      }
+    }
+  }
+
   updated(changedProperties: PropertyValues<this>) {
     // Handle range mode changes
     if (changedProperties.has('range')) {
@@ -364,29 +385,14 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
     }
 
     if (this.isRange) {
-      // Handle min/max values for range mode
+      // Update form value when range values change
       if (changedProperties.has('minValue') || changedProperties.has('maxValue')) {
-        // Ensure min doesn't exceed max
-        this.minValue = clamp(this.minValue, this.min, this.maxValue);
-        this.maxValue = clamp(this.maxValue, this.minValue, this.max);
-        // Update form value
         this.updateFormValue();
       }
     } else {
-      // Handle value for single thumb mode
+      // Update form value for single thumb mode
       if (changedProperties.has('value')) {
-        this.value = clamp(this.value, this.min, this.max);
         this.setValue(String(this.value));
-      }
-    }
-
-    // Handle min/max
-    if (changedProperties.has('min') || changedProperties.has('max')) {
-      if (this.isRange) {
-        this.minValue = clamp(this.minValue, this.min, this.max);
-        this.maxValue = clamp(this.maxValue, this.min, this.max);
-      } else {
-        this.value = clamp(this.value, this.min, this.max);
       }
     }
 

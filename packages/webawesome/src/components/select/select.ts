@@ -117,7 +117,9 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   @state() displayLabel = '';
   @state() currentOption: WaOption;
   @state() selectedOptions: WaOption[] = [];
-  @state() optionValues: Set<string | null> | undefined;
+
+  // Not reactive - only used internally for filtering, not rendering
+  private optionValues: Set<string | null> | undefined;
 
   /** The name of the select, submitted as a name/value pair with form data. */
   @property({ reflect: true }) name = '';
