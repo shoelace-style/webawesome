@@ -13,6 +13,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 ## Next
 
+- Fixed a bug in `<wa-card>`, `<wa-slider>`, `<wa-checkbox>`, `<wa-radio-group>`, and `<wa-select>` that occurred when reactive properties were set after update cycles completed [pr:1269]
 - Fixed a bug `<wa-color-picker>` that prevented it from flipping horizontally when position to the right of the viewport. [pr:2024]
 
 ## 3.2.1
