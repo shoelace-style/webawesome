@@ -44,7 +44,10 @@ export default css`
     background-color: var(--wa-color-fill-loud, var(--wa-color-neutral-fill-loud));
     border-color: transparent;
     color: var(--wa-color-on-loud, var(--wa-color-neutral-on-loud));
-    border-radius: var(--wa-form-control-border-radius);
+    border-start-start-radius: var(--_wa-button-start-start-radius, var(--wa-form-control-border-radius));
+    border-start-end-radius: var(--_wa-button-start-end-radius, var(--wa-form-control-border-radius));
+    border-end-start-radius: var(--_wa-button-end-start-radius, var(--wa-form-control-border-radius));
+    border-end-end-radius: var(--_wa-button-end-end-radius, var(--wa-form-control-border-radius));
     border-style: var(--wa-border-style);
     border-width: var(--wa-border-width-s);
   }
@@ -229,7 +232,10 @@ export default css`
 
   /* Pill modifier */
   :host([pill]) .button {
-    border-radius: var(--wa-border-radius-pill);
+    border-start-start-radius: var(--_wa-button-start-start-radius, var(--wa-border-radius-pill));
+    border-start-end-radius: var(--_wa-button-start-end-radius, var(--wa-border-radius-pill));
+    border-end-start-radius: var(--_wa-button-end-start-radius, var(--wa-border-radius-pill));
+    border-end-end-radius: var(--_wa-button-end-end-radius, var(--wa-border-radius-pill));
   }
 
   /*
