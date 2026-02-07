@@ -51,6 +51,10 @@ export default css`
 
   /* Appearance modifiers */
   :host([appearance='plain']) {
+    /* Indentation overrides for grouping */
+    margin-inline-start: var(--_wa-button-horizontal-indent);
+    margin-block-start: var(--_wa-button-vertical-indent);
+
     .button {
       color: var(--wa-color-on-quiet, var(--wa-color-neutral-on-quiet));
       background-color: transparent;
@@ -73,6 +77,10 @@ export default css`
   }
 
   :host([appearance='outlined']) {
+    /* Indentation overrides for grouping outlined */
+    margin-inline-start: var(--_wa-button-horizontal-indent-outlined);
+    margin-block-start: var(--_wa-button-vertical-indent-outlined);
+
     .button {
       color: var(--wa-color-on-quiet, var(--wa-color-neutral-on-quiet));
       background-color: transparent;
@@ -95,6 +103,10 @@ export default css`
   }
 
   :host([appearance='filled']) {
+    /* Indentation overrides for grouping */
+    margin-inline-start: var(--_wa-button-horizontal-indent);
+    margin-block-start: var(--_wa-button-vertical-indent);
+
     .button {
       color: var(--wa-color-on-normal, var(--wa-color-neutral-on-normal));
       background-color: var(--wa-color-fill-normal, var(--wa-color-neutral-fill-normal));
@@ -121,6 +133,10 @@ export default css`
   }
 
   :host([appearance='filled-outlined']) {
+    /* Indentation overrides for grouping outlined */
+    margin-inline-start: var(--_wa-button-horizontal-indent-outlined);
+    margin-block-start: var(--_wa-button-vertical-indent-outlined);
+
     .button {
       color: var(--wa-color-on-normal, var(--wa-color-neutral-on-normal));
       background-color: var(--wa-color-fill-normal, var(--wa-color-neutral-fill-normal));
@@ -147,6 +163,10 @@ export default css`
   }
 
   :host([appearance='accent']) {
+    /* Indentation overrides for grouping */
+    margin-inline-start: var(--_wa-button-horizontal-indent);
+    margin-block-start: var(--_wa-button-vertical-indent);
+
     .button {
       color: var(--wa-color-on-loud, var(--wa-color-neutral-on-loud));
       background-color: var(--wa-color-fill-loud, var(--wa-color-neutral-fill-loud));
