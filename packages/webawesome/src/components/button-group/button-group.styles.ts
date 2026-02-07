@@ -10,7 +10,6 @@ export default css`
     position: relative;
     isolation: isolate;
     flex-wrap: wrap;
-    gap: 1px;
 
     @media (hover: hover) {
       > :hover,
@@ -28,9 +27,26 @@ export default css`
     &::slotted([checked]) {
       z-index: 2 !important;
     }
+
+    :host([orientation='horizontal']) & {
+      flex-direction: row;
+    }
+
+    :host([orientation='vertical']) & {
+      flex-direction: column;
+    }
   }
-  :host([orientation='vertical']) .button-group {
-    flex-direction: column;
+
+  /* Set custom properties to be inherited by slotted buttons */
+  :host([orientation='horizontal']) {
+    --_wa-button-horizontal-indent: 1px;
+    --_wa-button-horizontal-indent-outlined: calc(var(--wa-border-width-s) * -1);
+  }
+
+  :host([orientation='vertical']) {
+    --_wa-button-vertical-indent: 1px;
+    --_wa-button-vertical-indent-outlined: calc(var(--wa-border-width-s) * -1);
+  }
   }
 
   /* Button groups with at least one outlined button will not have a gap and instead have borders overlap */
