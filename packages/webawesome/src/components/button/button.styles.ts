@@ -339,26 +339,6 @@ export default css`
     margin-inline-start: 0.75em;
   }
 
-  /*
-   * Button group border radius modifications
-   */
-
-  /* Remove border radius from all grouped buttons by default */
-  :host(.wa-button-group__button) .button {
-    border-radius: 0;
-  }
-
-  /* Horizontal orientation */
-  :host(.wa-button-group__horizontal.wa-button-group__button-first) .button {
-    border-start-start-radius: var(--wa-form-control-border-radius);
-    border-end-start-radius: var(--wa-form-control-border-radius);
-  }
-
-  :host(.wa-button-group__horizontal.wa-button-group__button-last) .button {
-    border-start-end-radius: var(--wa-form-control-border-radius);
-    border-end-end-radius: var(--wa-form-control-border-radius);
-  }
-
   /* Vertical orientation */
   :host(.wa-button-group__vertical) {
     flex: 1 1 auto;
@@ -367,36 +347,5 @@ export default css`
   :host(.wa-button-group__vertical) .button {
     width: 100%;
     justify-content: start;
-  }
-
-  :host(.wa-button-group__vertical.wa-button-group__button-first) .button {
-    border-start-start-radius: var(--wa-form-control-border-radius);
-    border-start-end-radius: var(--wa-form-control-border-radius);
-  }
-
-  :host(.wa-button-group__vertical.wa-button-group__button-last) .button {
-    border-end-start-radius: var(--wa-form-control-border-radius);
-    border-end-end-radius: var(--wa-form-control-border-radius);
-  }
-
-  /* Handle pill modifier for button groups */
-  :host([pill].wa-button-group__horizontal.wa-button-group__button-first) .button {
-    border-start-start-radius: var(--wa-border-radius-pill);
-    border-end-start-radius: var(--wa-border-radius-pill);
-  }
-
-  :host([pill].wa-button-group__horizontal.wa-button-group__button-last) .button {
-    border-start-end-radius: var(--wa-border-radius-pill);
-    border-end-end-radius: var(--wa-border-radius-pill);
-  }
-
-  :host([pill].wa-button-group__vertical.wa-button-group__button-first) .button {
-    border-start-start-radius: var(--wa-border-radius-pill);
-    border-start-end-radius: var(--wa-border-radius-pill);
-  }
-
-  :host([pill].wa-button-group__vertical.wa-button-group__button-last) .button {
-    border-end-start-radius: var(--wa-border-radius-pill);
-    border-end-end-radius: var(--wa-border-radius-pill);
   }
 `;
