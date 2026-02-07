@@ -338,14 +338,4 @@ export default css`
   .button:not(.visually-hidden-label) [part='caret'] {
     margin-inline-start: 0.75em;
   }
-
-  /* Vertical orientation */
-  :host(.wa-button-group__vertical) {
-    flex: 1 1 auto;
-  }
-
-  :host(.wa-button-group__vertical) .button {
-    width: 100%;
-    justify-content: start;
-  }
 `;
