@@ -47,18 +47,37 @@ export default css`
     --_wa-button-vertical-indent: 1px;
     --_wa-button-vertical-indent-outlined: calc(var(--wa-border-width-s) * -1);
   }
+
+  /* All buttons that are not in front or at the end get their border radius removed */
+  ::slotted(:not(:first-child):not(:last-child)) {
+    --_wa-button-start-start-radius: 0;
+    --_wa-button-start-end-radius: 0;
+    --_wa-button-end-start-radius: 0;
+    --_wa-button-end-end-radius: 0;
   }
 
-  /* Button groups with at least one outlined button will not have a gap and instead have borders overlap */
-  .button-group.has-outlined {
-    gap: 0;
-
-    &:not([aria-orientation='vertical']):not(.button-group-vertical)::slotted(:not(:first-child)) {
-      margin-inline-start: calc(-1 * var(--border-width));
+  /* Remove leading and trailing buttons border radius individually */
+  :host([orientation='horizontal']) {
+    ::slotted(:first-child) {
+      --_wa-button-start-end-radius: 0;
+      --_wa-button-end-end-radius: 0;
     }
 
-    &:is([aria-orientation='vertical'], .button-group-vertical)::slotted(:not(:first-child)) {
-      margin-block-start: calc(-1 * var(--border-width));
+    ::slotted(:last-child) {
+      --_wa-button-start-start-radius: 0;
+      --_wa-button-end-start-radius: 0;
+    }
+  }
+
+  :host([orientation='vertical']) {
+    ::slotted(:first-child) {
+      --_wa-button-end-start-radius: 0;
+      --_wa-button-end-end-radius: 0;
+    }
+
+    ::slotted(:last-child) {
+      --_wa-button-start-start-radius: 0;
+      --_wa-button-start-end-radius: 0;
     }
   }
 `;
