@@ -66,7 +66,7 @@ layout: page
     }
 
     .logo-app {
-      color: var(--wa-color-brand-on-loud)
+      color: var(--wa-color-brand-on-loud);
     }
   }
   .hero-cta {

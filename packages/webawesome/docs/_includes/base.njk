@@ -4,7 +4,7 @@
 {% if hasSiteDialog == undefined %}{% set hasSiteDialog = true %}{% endif %}
 {% if hasGeneratedTitle == undefined %}{% set hasGeneratedTitle = true %}{% endif %}
 <html lang="en" data-fa-kit-code="38c11e3f20" data-version="{{ package.version }}" class="wa-cloak" {% if
-  hasAnchors==false %} data-no-anchor{% endif %}>
+  hasAnchors == false %} data-no-anchor{% endif %}>
 <head>
   {% include 'head.njk' %}
   <meta name="theme-color" content="#f36944">
@@ -38,7 +38,7 @@
   'mobile-breakpoint': 1180, 'disable-sticky': 'banner' } %}
   {% set waPageAttributes = waPageAttributes or {} %}
   {% set mergedWaPageAttributes = defaultWaPageAttributes | merge(waPageAttributes) %}
-  <wa-page {% for key, value in mergedWaPageAttributes %} {% if value !=null and value !=false %} {{ key
+  <wa-page {% for key, value in mergedWaPageAttributes %} {% if value != null and value != false %} {{ key
     }}="{{ value }}" {% endif %} {% endfor %}>
     {# wa-page-based Skip to Content #}
     {% block pageSkipToContent %}{% endblock %}
@@ -53,28 +53,28 @@
 
     {# wa-page-based Header #}
     {% block pageHeader %}
-    <header slot="header" class="wa-split">
-      {# Nav toggle #}
-      <wa-button appearance="plain" size="small" data-toggle-nav>
-        <wa-icon name="bars" label="Toggle navigation" class="icon-default icon-embiggen"></wa-icon>
-        <wa-icon name="burger" aria-hidden="true" class="icon-hover icon-embiggen"></wa-icon>
-      </wa-button>
+    <header slot="header">
+      {% include 'nav-products.njk' %}
 
-      {# Logo - Desktop #}
-      <a href="/" class="brand-logo wa-desktop-only" aria-label="Web Awesome">{% include "logo.njk" %}</a>
+      <div id="docs-header" class="wa-split">
+        {% include "nav-docs.njk" %}
 
-      {# Logo - Mobile #}
-      <a href="/" class="brand-logo wa-mobile-only" aria-label="Web Awesome">{% include "logo-simple.njk" %}</a>
+        {# Nav toggle #}
+        {% include "nav-toggle.njk" %}
 
-      <div id="docs-toolbar" class="wa-cluster gap-s">
-        <div class="wa-desktop-only wa-cluster wa-gap-2xs">
-          {% include "theme-selector.njk" %}
-          {% include "color-scheme-selector.njk" %}
-          {% include "github-icon-buttons.njk" %}
+        {# Logo - Mobile #}
+        {% include "header-logo-simple.njk" %}
+
+        <div id="docs-toolbar" class="wa-cluster gap-s">
+          <div class="header-toolbar wa-cluster wa-gap-2xs">
+            {% include "theme-selector.njk" %}
+            {% include "color-scheme-selector.njk" %}
+            {% include "github-icon-buttons.njk" %}
+          </div>
+
+          {#- Login -#}
+          {% include "login-or-avatar.njk" ignore missing %}
         </div>
-
-        {#- Login -#}
-        {% include "login-or-avatar.njk" ignore missing %}
       </div>
     </header>
     {% endblock %}
@@ -87,11 +87,10 @@
     {# Sidebar - Mobile Selectors #}
     {% if hasSidebar %}
     <div class="wa-mobile-only" slot="navigation-header">
-      <div class="wa-cluster wa-gap-s">
-        <a href="/" class="logo-app" aria-label="Web Awesome">
-          <wa-icon name="web-awesome" family="brands"></wa-icon>
-        </a>
-        <div class="wa-cluster wa-gap-2xs" style="flex-wrap: nowrap;">
+      <div class="wa-split">
+        {% include "nav-products-drawer.njk" %}
+
+        <div class="wa-cluster wa-gap-0 wa-flex-nowrap">
           {% include "theme-selector.njk" %}
           {% include "color-scheme-selector.njk" %}
           {% include "github-icon-buttons.njk" %}
