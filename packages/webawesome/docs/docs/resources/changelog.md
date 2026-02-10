@@ -10,6 +10,8 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 ## Unreleased
 
+<small>TBD</small>
+
 - Added `wa-button` class for styling `<a>` elements as buttons [pr:2040]
 - Fixed a bug `<wa-color-picker>` that prevented it from flipping horizontally when position to the right of the viewport. [pr:2024]
 
