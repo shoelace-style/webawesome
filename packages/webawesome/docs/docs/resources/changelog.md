@@ -1,26 +1,27 @@
 ---
 title: Changelog
-dateLastUpdated: 2026-02-05
 description: Changes to each version of the project are documented here.
 layout: page-outline
 ---
-
-<p class="wa-caption-s">Last updated: <wa-format-date month="long" day="numeric" year="numeric" date="{{ dateLastUpdated }}"></wa-format-date></p>
 
 Web Awesome follows [Semantic Versioning](https://semver.org/). Breaking changes in components with the <wa-badge variant="brand">Stable</wa-badge> badge will not be accepted until the next major version. As such, all contributions must consider the project's roadmap and take this into consideration. Features that are deemed no longer necessary will be deprecated but not removed.
 
 Components with the <wa-badge variant="warning">Experimental</wa-badge> badge should not be used in production. They are made available as release candidates for development and testing purposes. As such, changes to experimental components will not be subject to semantic versioning.
 
-## Next
+## Unreleased
 
 - Added `wa-button` class for styling `<a>` elements as buttons [pr:2040]
 - Fixed a bug `<wa-color-picker>` that prevented it from flipping horizontally when position to the right of the viewport. [pr:2024]
 
 ## 3.2.1
 
+<small>February 4, 2026</small>
+
 - Fixed a bug in the build script causing `llms.txt` and `dist/skills` to be omitted from Web Awesome Pro packages. [pr:2022]
 
 ## 3.2.0
+
+<small>February 4, 2026</small>
 
 - Added `<wa-file-input>` as an experimental pro component [issue:1240]
 - Added `<wa-sparkline>` as an experimental pro component
@@ -65,6 +66,8 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 ## 3.1.0
 
+<small>December 16, 2025</small>
+
 - Added `<wa-combobox>` as an experimental pro component [issue:1074]
 - Added version 2.0.0 of the [official Web Awesome Figma Design Kit](/docs/resources/figma)
 - Added npm support for Web Awesome Pro
@@ -89,6 +92,8 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Modified the default `transition` styles of `<wa-dropdown-item>` to use design tokens [pr:1693]
 
 ## 3.0.0
+
+<small>December 2, 2025</small>
 
 - 🚨 BREAKING: Changed `appearance="filled outlined"` to `appearance="filled-outlined"` in the following elements [issue:1127]
   - `<wa-button>`
@@ -127,6 +132,10 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Improved Native Styles to use the `--wa-font-weight-code` design token
 - Modified `<wa-slider>` to only show the tooltip on the handle being dragged when in range mode [issue:1320]
 - Upgraded `<wa-page>` from _experimental_ to _stable_
+
+<details>
+
+<summary>Pre-release Versions</summary>
 
 ## 3.0.0-beta.6
 
@@ -314,9 +323,6 @@ Many of these changes and improvements were the direct result of feedback from u
 - `<wa-menu>`, `<wa-menu-item>`, `<wa-menu-label>` were dropped; use `<wa-dropdown-item>` instead
 - `<wa-icon-button>` was removed; icon buttons can be added via `<wa-button>` now
 - `<wa-radio-button>` was dropped; use `<wa-radio appearance="button">` instead
-
-<details>
-<summary>Alpha Changelogs</summary>
 
 ## 3.0.0-alpha.13
 
@@ -571,3 +577,10 @@ Many of these changes and improvements were the direct result of feedback from u
 </details>
 
 Did we miss something? [Let us know!](https://github.com/shoelace-style/webawesome/discussions)
+
+<style>
+  /* This page only */
+  h2 + p:has(> small) {
+    margin-block-start: -1.5rem;
+  }
+</style>
