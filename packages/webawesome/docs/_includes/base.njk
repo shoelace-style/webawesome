@@ -88,7 +88,9 @@
     {% if hasSidebar %}
     <div class="wa-mobile-only" slot="navigation-header">
       <div class="wa-cluster wa-gap-s">
-        <a class="brand-logo" href="/" aria-label="Web Awesome">{% include "logo-simple.njk" %}</a>
+        <a href="/" class="logo-app" aria-label="Web Awesome">
+          <wa-icon name="web-awesome" family="brands"></wa-icon>
+        </a>
         <div class="wa-cluster wa-gap-2xs" style="flex-wrap: nowrap;">
           {% include "theme-selector.njk" %}
           {% include "color-scheme-selector.njk" %}
