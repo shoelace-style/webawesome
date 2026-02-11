@@ -10,8 +10,8 @@
     --content-width-m: round(up, 110ch, 1px);
     --content-width-s: round(up, 80ch, 1px);
     --content-width-xs: round(up, 50ch, 1px);
-    --content-padding-inline: 4ch;
     --content-flow-spacing: 8ch;
+    --content-padding-inline: var(--wa-space-xl);
 
     --line-length-xs: 30ch;
     --line-length-s: 45ch;
