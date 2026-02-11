@@ -1326,7 +1326,6 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
         placement="bottom-start"
         distance="0"
         skidding="0"
-        sync="width"
         flip
         flip-fallback-strategy="best-fit"
         shift
