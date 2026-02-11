@@ -14,7 +14,7 @@
       {{ component.status }}
     </wa-badge>
     {% if isProComponent %}
-      {{ proBadge({ description: "This component requires access to Web Awesome Pro" }) }}
+      {{ proBadge({ description: (component.tagName | stripPrefix) | capitalize ~ " requires access to Web Awesome Pro" }) }}
     {% endif %}
   </div>
   <p class="component-summary">
