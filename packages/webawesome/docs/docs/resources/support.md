@@ -55,7 +55,7 @@ layout: page
 <wa-divider></wa-divider>
 <div class="wa-stack wa-align-items-start">
   <div class="wa-stack wa-gap-s">
-    <h2 class="anchor-heading"><wa-icon name="envelope"></wa-icon>Email</h2>
+    <h2 class="anchor-heading"><wa-icon name="envelope" variant="regular"></wa-icon>Email</h2>
     <span class="wa-heading-m">Anything Else</span>
     <p class="wa-caption-l">Billing questions, account access, or sensitive issues—reach our support team directly.</p>
   </div>
