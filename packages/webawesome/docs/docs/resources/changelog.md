@@ -13,7 +13,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 ## Next
 
-- Fixed a bug in `<wa-select>` where the `selected` attribute on `<wa-option>` was ignored when `with-clear` was present [#1922]
+- Added `wa-button` class for styling `<a>` elements as buttons [pr:2040]
 - Fixed a bug `<wa-color-picker>` that prevented it from flipping horizontally when position to the right of the viewport. [pr:2024]
 
 ## 3.2.1
