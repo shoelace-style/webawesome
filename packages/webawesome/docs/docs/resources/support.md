@@ -4,14 +4,20 @@ description: Web Awesome has a growing community of designers and developers tha
 layout: page
 ---
 
-  <p>We know people have their own way of reaching out, so our team makes sure you can find us wherever you need — whether it’s filing an issue on GitHub, chatting with the community on Discord, or getting private help via email. If you’re just getting started, don’t miss our <a href="/docs/">Instillation Guide</a>.</p>
+<style>
+  h2.anchor-heading wa-icon {
+    margin-inline-end: var(--wa-space-xs);
+  }
+</style>
+
+<p>We know people have their own way of reaching out, so our team makes sure you can find us wherever you need — whether it’s filing an issue on GitHub, chatting with the community on Discord, or getting private help via email. If you’re just getting started, don’t miss our <a href="/docs/">Instillation Guide</a>.</p>
 
 <wa-divider></wa-divider>
 
 <div class="wa-stack wa-gap-xl">
 <div class="wa-stack wa-align-items-start">
   <div class="wa-stack wa-gap-s">
-    <h2 class="anchor-heading wa-cluster wa-gap-xs"><wa-icon name="github" family="brands" style="font-size: 2ch;"></wa-icon>GitHub</h2>
+    <h2 class="anchor-heading"><wa-icon name="github" family="brands"></wa-icon>GitHub</h2>
     <span class="wa-heading-m">Feature requests & bugs</span>
     <p class="wa-caption-l">Notice a bug or have an idea? Open an issue on GitHub so we can triage, track, and ship fixes.</p>
   </div>
@@ -32,7 +38,7 @@ layout: page
 <wa-divider></wa-divider>
 <div class="wa-stack wa-align-items-start">
   <div class="wa-stack wa-gap-s">
-    <h2 class="anchor-heading wa-cluster wa-gap-xs"><wa-icon name="discord" family="brands" style="font-size: 2ch;"></wa-icon>Discord</h2>
+    <h2 class="anchor-heading"><wa-icon name="discord" family="brands"></wa-icon>Discord</h2>
     <span class="wa-heading-m">Community & Discussion</span>
     <p class="wa-caption-l">Ask questions, share tips, and connect with other developers in real time.</p>
   </div>
@@ -49,7 +55,7 @@ layout: page
 <wa-divider></wa-divider>
 <div class="wa-stack wa-align-items-start">
   <div class="wa-stack wa-gap-s">
-    <h2 class="anchor-heading wa-cluster wa-gap-xs"><wa-icon name="envelope" style="font-size: 2ch;"></wa-icon>Email</h2>
+    <h2 class="anchor-heading"><wa-icon name="envelope"></wa-icon>Email</h2>
     <span class="wa-heading-m">Anything Else</span>
     <p class="wa-caption-l">Billing questions, account access, or sensitive issues—reach our support team directly.</p>
   </div>
