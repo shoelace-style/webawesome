@@ -27,10 +27,12 @@ layout: page
     <li>Vote on issues others have filed to help us prioritize.</li>
   </ul>
   <div class="wa-cluster wa-gap-s">
-    <wa-button href="https://github.com/shoelace-style/webawesome/discussions/categories/ideas-suggestions" appearance="filled">
+    <wa-button href="https://github.com/shoelace-style/webawesome/discussions/categories/ideas-suggestions">
+      <wa-icon slot="start" variant="regular" name="lightbulb-on"></wa-icon>
       Request a Feature
     </wa-button>
     <wa-button href="https://github.com/shoelace-style/webawesome/issues" appearance="outlined">
+      <wa-icon slot="start" variant="regular" name="bug"></wa-icon>
       Report a Bug
     </wa-button>
   </div>  
@@ -48,7 +50,8 @@ layout: page
     <li>Show the community what you're working on</li>
     <li>Chat live with other designers, developers, and Web Awesome supporters.</li>
   </ul>
-  <wa-button href="https://discord.com/invite/mg8f26C" appearance="filled">
+  <wa-button href="https://discord.com/invite/mg8f26C">
+    <wa-icon slot="start" name="discord" family="brands"></wa-icon>
     Join Discord
   </wa-button>
 </div>
@@ -64,7 +67,8 @@ layout: page
     <li>Billing or subscription questions.</li>
     <li>Private matters you don’t want to post publicly.</li>
   </ul>
-  <wa-button href="mailto:help@webawesome.com" appearance="filled">
+  <wa-button href="mailto:help@webawesome.com">
+    <wa-icon slot="start" name="envelope" variant="regular"></wa-icon>
     Get Help via Email
   </wa-button>
 </div>
