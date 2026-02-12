@@ -390,6 +390,12 @@ Create buttons with `<button>` or `<input type="button | submit | reset">`. Butt
 <input type="reset" value="Input (reset)" />
 ```
 
+To create links that look like buttons, add the `wa-button` class to an `<a>` element.
+
+```html {.example}
+<a href="" class="wa-button">Link Button</a>
+```
+
 Add the `wa-brand`, `wa-neutral`, `wa-success`, `wa-warning`, or `wa-danger` class to specify the button's [color variant](/docs/utilities/color/).
 
 ```html {.example}

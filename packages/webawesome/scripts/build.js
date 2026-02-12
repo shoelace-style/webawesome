@@ -13,7 +13,6 @@ import { fileURLToPath } from 'node:url';
 import ora from 'ora';
 import copy from 'recursive-copy';
 import { SimulateWebAwesomeApp } from '../docs/_utils/simulate-webawesome-app.js';
-import { generateAgentSkill } from './agent-skill.js';
 import { generateDocs } from './docs.js';
 import { generateLlmsTxtFile } from './llms.js';
 import { getCdnDir, getDistDir, getDocsDir, getRootDir, getSiteDir } from './utils.js';
@@ -83,11 +82,6 @@ export async function build(options = {}) {
       // Generate llms.txt (needs CEM, runs before docs)
       spinner.start('Generating llms.txt');
       await generateLlmsTxtFile();
-      spinner.succeed();
-
-      // Generate Agent Skill (must run after Eleventy generates _site)
-      spinner.start('Generating Agent Skill');
-      await generateAgentSkill();
       spinner.succeed();
 
       const time = (Date.now() - start) / 1000 + 's';

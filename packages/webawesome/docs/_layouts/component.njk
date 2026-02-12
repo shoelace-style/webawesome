@@ -1,4 +1,5 @@
 {% extends '../_layouts/docs.njk' %}
+{% from "pro-badge.njk" import proBadge %}
 {% set component = getComponent('wa-' + page.fileSlug) %}
 
 {# Component header #}
@@ -13,7 +14,7 @@
       {{ component.status }}
     </wa-badge>
     {% if isProComponent %}
-      <wa-badge class="pro">Pro</wa-badge>
+      {{ proBadge({ description: (component.tagName | stripPrefix) | capitalize ~ " requires access to Web Awesome Pro" }) }}
     {% endif %}
   </div>
   <p class="component-summary">
