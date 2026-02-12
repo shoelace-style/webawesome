@@ -544,8 +544,8 @@ If you're a [Font Awesome Pro+ customer](https://fontawesome.com/), you have acc
     <div class="wa-cluster" style="font-size: 1.5em;">
       <wa-icon family="notdog" variant="solid" name="house"></wa-icon>
       <wa-icon
-        family="notdog"
-        variant="duo-solid"
+        family="notdog-duo"
+        variant="solid"
         name="house"
         style="--secondary-color: skyblue; --secondary-opacity: 0.8;"
       ></wa-icon>
