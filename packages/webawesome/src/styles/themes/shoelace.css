@@ -373,9 +373,12 @@
     }
 
     wa-button::part(label),
-    wa-radio[appearance='button']:not(.wa-size-s, .wa-size-m, .wa-size-l),
-    button:not(.wa-size-s, .wa-size-m, .wa-size-l),
-    input:where([type='button'], [type='reset'], [type='submit']):not(.wa-size-s, .wa-size-m, .wa-size-l) {
+    wa-radio[appearance='button'],
+    button,
+    input[type='button'],
+    input[type='reset'],
+    input[type='submit'],
+    a.wa-button {
       font-size: var(--wa-font-size-smaller);
     }
 

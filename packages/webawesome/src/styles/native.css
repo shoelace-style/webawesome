@@ -575,7 +575,8 @@
   input[type='button'],
   input[type='reset'],
   input[type='submit'],
-  input[type='file'] {
+  input[type='file'],
+  a.wa-button {
     /* We allow modifier classes on <input type="file">,
      * but these selectors ensure the styles only apply to
      * the file selector button in the user agent's shadow root */
@@ -610,7 +611,7 @@
     }
 
     /* Default styles for standard buttons */
-    :where(&:not(input[type='file'])) {
+    &:not(input[type='file']) {
       color: var(--wa-color-on-loud, var(--wa-color-neutral-on-loud));
       background-color: var(--wa-color-fill-loud, var(--wa-color-neutral-fill-loud));
       border-color: transparent;
@@ -635,7 +636,7 @@
     }
 
     /* Default styles for file selector buttons */
-    :where(&:is(input[type='file'])) {
+    &:is(input[type='file']) {
       &::file-selector-button {
         color: var(--wa-color-on-normal, var(--wa-color-neutral-on-normal));
         background-color: var(--wa-color-fill-normal, var(--wa-color-neutral-fill-normal));
