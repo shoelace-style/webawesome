@@ -505,19 +505,6 @@ If you're a [Font Awesome Pro+ customer](https://fontawesome.com/), you have acc
 ```html {.example}
 <div class="wa-stack wa-gap-xl">
   <div class="wa-flank" style="--flank-size: 10ch;">
-    <a href="https://fontawesome.com/icons/packs/notdog" target="_blank">Notdog</a>
-    <div class="wa-cluster" style="font-size: 1.5em;">
-      <wa-icon family="notdog" variant="solid" name="house"></wa-icon>
-      <wa-icon
-        family="notdog"
-        variant="duo-solid"
-        name="house"
-        style="--secondary-color: skyblue; --secondary-opacity: 0.8;"
-      ></wa-icon>
-    </div>
-  </div>
-
-  <div class="wa-flank" style="--flank-size: 10ch;">
     <a href="https://fontawesome.com/icons/packs/chisel" target="_blank">Chisel</a>
     <div class="wa-cluster" style="font-size: 1.5em;">
       <wa-icon family="chisel" variant="regular" name="house"></wa-icon>
@@ -532,6 +519,13 @@ If you're a [Font Awesome Pro+ customer](https://fontawesome.com/), you have acc
   </div>
 
   <div class="wa-flank" style="--flank-size: 10ch;">
+    <a href="https://fontawesome.com/icons/packs/graphite" target="_blank">Graphite</a>
+    <div class="wa-cluster" style="font-size: 1.5em;">
+      <wa-icon family="graphite" variant="thin" name="house"></wa-icon>
+    </div>
+  </div>
+
+  <div class="wa-flank" style="--flank-size: 10ch;">
     <a href="https://fontawesome.com/icons/packs/jelly" target="_blank">Jelly</a>
     <div class="wa-cluster" style="font-size: 1.5em;">
       <wa-icon family="jelly" variant="regular" name="house"></wa-icon>
@@ -542,6 +536,19 @@ If you're a [Font Awesome Pro+ customer](https://fontawesome.com/), you have acc
         style="--secondary-color: skyblue; --secondary-opacity: 0.8;"
       ></wa-icon>
       <wa-icon family="jelly" variant="fill-regular" name="house"></wa-icon>
+    </div>
+  </div>
+
+  <div class="wa-flank" style="--flank-size: 10ch;">
+    <a href="https://fontawesome.com/icons/packs/notdog" target="_blank">Notdog</a>
+    <div class="wa-cluster" style="font-size: 1.5em;">
+      <wa-icon family="notdog" variant="solid" name="house"></wa-icon>
+      <wa-icon
+        family="notdog-duo"
+        variant="solid"
+        name="house"
+        style="--secondary-color: skyblue; --secondary-opacity: 0.8;"
+      ></wa-icon>
     </div>
   </div>
 
