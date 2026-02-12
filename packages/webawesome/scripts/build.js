@@ -17,7 +17,6 @@ import { generateDocs } from './docs.js';
 import { generateLlmsTxtFile } from './llms.js';
 import { getCdnDir, getDistDir, getDocsDir, getRootDir, getSiteDir } from './utils.js';
 
-
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const currentYear = new Date().getFullYear();
@@ -134,7 +133,7 @@ export async function build(options = {}) {
               if (!event.name) {
                 errors.push(
                   `Component "${declaration.name}" has an event without a name (type: ${event.type?.text || 'unknown'}). ` +
-                    `This will generate "onundefined" in JSX types. Add an @event JSDoc tag with the event name.`
+                    `This will generate "onundefined" in JSX types. Add an @event JSDoc tag with the event name.`,
                 );
               }
             }
@@ -148,7 +147,7 @@ export async function build(options = {}) {
       if (jsxTypes.includes('onundefined')) {
         errors.push(
           'custom-elements-jsx.d.ts contains "onundefined" event handlers. ' +
-            'This indicates events are missing names in the Custom Elements Manifest.'
+            'This indicates events are missing names in the Custom Elements Manifest.',
         );
       }
 
