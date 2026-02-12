@@ -66,6 +66,11 @@ function getIconUrl(name: string, family: string, variant: string) {
     folder = 'whiteboard-semibold';
   }
 
+  // Graphite (Pro+)
+  if (family === 'graphite') {
+    folder = 'graphite-thin';
+  }
+
   // Utility (Pro+)
   // Correct usage: family="utility", family="utility-duo", or family="utility-fill", variant="semibold"
   if (family === 'utility') {
