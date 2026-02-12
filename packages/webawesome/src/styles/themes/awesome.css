@@ -371,7 +371,8 @@
     button,
     input[type='button'],
     input[type='reset'],
-    input[type='submit'] {
+    input[type='submit'],
+    a.wa-button {
       --wa-color-shadow: var(--wa-color-border-normal);
       --wa-transition-slow: 0;
       --wa-transition-normal: 0;
@@ -387,7 +388,8 @@
     button,
     input[type='button'],
     input[type='reset'],
-    input[type='submit'] {
+    input[type='submit'],
+    a.wa-button {
       &:not([appearance~='plain']):not(.wa-plain) {
         &:where(:not(wa-button)),
         &::part(base) {
@@ -477,7 +479,8 @@
     button,
     input[type='button'],
     input[type='reset'],
-    input[type='submit'] {
+    input[type='submit'],
+    a.wa-button {
       &[appearance='accent'],
       &.wa-accent {
         &:where(:not(wa-button)),
