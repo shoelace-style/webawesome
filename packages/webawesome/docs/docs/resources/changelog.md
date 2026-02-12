@@ -15,6 +15,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 - Added `wa-button` class for styling `<a>` elements as buttons [pr:2040]
 - Fixed a bug `<wa-color-picker>` that prevented it from flipping horizontally when position to the right of the viewport. [pr:2024]
+- Fixed a bug where `wa-size-*` was not working on native buttons styles in shoelace theme. [pr:2049]
 
 ## 3.2.1
 
