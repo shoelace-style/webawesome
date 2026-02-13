@@ -1,6 +1,6 @@
 ---
 title: Changelog
-dateLastUpdated: 2025-11-07
+dateLastUpdated: 2026-02-05
 description: Changes to each version of the project are documented here.
 layout: page-outline
 ---
@@ -14,6 +14,9 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 ## Next
 
 - Fixed a bug in `<wa-dropdown-item>` where a click event would fire on `disabled`. [pr:2023]
+- Added `wa-button` class for styling `<a>` elements as buttons [pr:2040]
+- Fixed a bug `<wa-color-picker>` that prevented it from flipping horizontally when position to the right of the viewport. [pr:2024]
+- Updated `<wa-icon>` to use [Font Awesome 7.2.0](https://fontawesome.com/changelog#v7-2-0) [pr:2059]
 
 ## 3.2.1
 
