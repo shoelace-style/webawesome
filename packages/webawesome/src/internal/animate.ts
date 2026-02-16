@@ -19,14 +19,12 @@ export function animateWithClass(el: Element, className: string) {
     }
     el.classList.add(className);
 
-    // if there are no animations or animation is set to 0ms, resolve immediately
-    if (el.getAnimations().length === 0) {
-      el.classList.remove(className);
-      resolve();
-      return;
-    }
-
+    let resolved = false;
     let onEnd = () => {
+      if (resolved) {
+        return;
+      }
+      resolved = true;
       el.classList.remove(className);
       resolve();
       controller.abort();
@@ -34,6 +32,13 @@ export function animateWithClass(el: Element, className: string) {
 
     el.addEventListener('animationend', onEnd, { once: true, signal });
     el.addEventListener('animationcancel', onEnd, { once: true, signal });
+
+    // if there are no animations or animation is set to 0ms, end immediately
+    requestAnimationFrame(() => {
+      if (!resolved && el.getAnimations().length === 0) {
+        onEnd();
+      }
+    });
   });
 }
 
