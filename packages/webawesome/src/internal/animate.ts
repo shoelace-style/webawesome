@@ -17,8 +17,14 @@ export function animateWithClass(el: Element, className: string) {
     if (el.classList.contains(className)) {
       return;
     }
-    el.classList.remove(className);
     el.classList.add(className);
+
+    // if there are no animations or animation is set to 0ms, resolve immediately
+    if (el.getAnimations().length === 0) {
+      el.classList.remove(className);
+      resolve();
+      return;
+    }
 
     let onEnd = () => {
       el.classList.remove(className);
@@ -28,7 +34,6 @@ export function animateWithClass(el: Element, className: string) {
 
     el.addEventListener('animationend', onEnd, { once: true, signal });
     el.addEventListener('animationcancel', onEnd, { once: true, signal });
-    // TODO add failsafe if neither of these fires
   });
 }
 
