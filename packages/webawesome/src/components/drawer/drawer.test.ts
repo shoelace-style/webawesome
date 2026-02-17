@@ -1,4 +1,3 @@
-// cspell:dictionaries lorem-ipsum
 import { aTimeout, expect, waitUntil } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
@@ -12,7 +11,7 @@ describe('<wa-drawer>', () => {
     describe(`with "${fixture.type}" rendering`, () => {
       it('should be visible with the open attribute', async () => {
         const el = await fixture<WaDrawer>(html`
-          <wa-drawer open>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</wa-drawer>
+          <wa-drawer open>This is a drawer for testing purposes.</wa-drawer>
         `);
 
         expect(getComputedStyle(el).display).to.not.equal('none');
@@ -20,7 +19,7 @@ describe('<wa-drawer>', () => {
 
       it('should not be visible without the open attribute', async () => {
         const el = await fixture<WaDrawer>(html`
-          <wa-drawer>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</wa-drawer>
+          <wa-drawer>This is a drawer for testing purposes.</wa-drawer>
         `);
 
         expect(getComputedStyle(el).display).to.equal('none');
@@ -28,7 +27,7 @@ describe('<wa-drawer>', () => {
 
       it('should emit wa-show and wa-after-show when calling show()', async () => {
         const el = await fixture<WaDrawer>(html`
-          <wa-drawer>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</wa-drawer>
+          <wa-drawer>This is a drawer for testing purposes.</wa-drawer>
         `);
         const showHandler = sinon.spy();
         const afterShowHandler = sinon.spy();
@@ -47,7 +46,7 @@ describe('<wa-drawer>', () => {
 
       it('should emit wa-hide and wa-after-hide when calling hide()', async () => {
         const el = await fixture<WaDrawer>(html`
-          <wa-drawer open>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</wa-drawer>
+          <wa-drawer open>This is a drawer for testing purposes.</wa-drawer>
         `);
         const hideHandler = sinon.spy();
         const afterHideHandler = sinon.spy();
@@ -66,7 +65,7 @@ describe('<wa-drawer>', () => {
 
       it('should emit wa-show and wa-after-show when setting open = true', async () => {
         const el = await fixture<WaDrawer>(html`
-          <wa-drawer>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</wa-drawer>
+          <wa-drawer>This is a drawer for testing purposes.</wa-drawer>
         `);
         const showHandler = sinon.spy();
         const afterShowHandler = sinon.spy();
@@ -85,7 +84,7 @@ describe('<wa-drawer>', () => {
 
       it('should emit wa-hide and wa-after-hide when setting open = false', async () => {
         const el = await fixture<WaDrawer>(html`
-          <wa-drawer open>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</wa-drawer>
+          <wa-drawer open>This is a drawer for testing purposes.</wa-drawer>
         `);
         const hideHandler = sinon.spy();
         const afterHideHandler = sinon.spy();
@@ -104,7 +103,7 @@ describe('<wa-drawer>', () => {
 
       it('should not close when wa-hide is prevented', async () => {
         const el = await fixture<WaDrawer>(html`
-          <wa-drawer open>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</wa-drawer>
+          <wa-drawer open>This is a drawer for testing purposes.</wa-drawer>
         `);
 
         el.addEventListener('wa-hide', event => {
