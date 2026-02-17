@@ -4,14 +4,20 @@ export default css`
   :host {
     --arrow-color: black;
     --arrow-size: var(--wa-tooltip-arrow-size);
+    --arrow-border-size: 0;
     --show-duration: 100ms;
     --hide-duration: 100ms;
 
     /*
      * These properties are computed to account for the arrow's dimensions after being rotated 45º. The constant
      * 0.7071 is derived from sin(45), which is the diagonal size of the arrow's container after rotating.
+     *
+     * The diamond will be translated inward by the border thickness to ensure crop point is o the inner edge of
+     * the border. This also means we need to increase the size of the diamond by sqrt(2) time the border width
+     * to keep it central (== 2 * sin(45)).
      */
-    --arrow-size-diagonal: calc(var(--arrow-size) * 0.7071);
+    --arrow-offset: var(--arrow-border-size);
+    --arrow-size-diagonal: calc((var(--arrow-size) + var(--arrow-offset) * 2) * 0.7071);
     --arrow-padding-offset: calc(var(--arrow-size-diagonal) - var(--arrow-size));
 
     display: contents;
@@ -53,18 +59,22 @@ export default css`
     background: var(--arrow-color);
     z-index: 3;
     clip-path: polygon(0 100%, 100% 0, 100% 100%);
+    translate: 0 calc(var(--arrow-offset) * -1);
   }
 
   :host([data-current-placement~='left']) .arrow {
     rotate: -45deg;
+    translate: calc(var(--arrow-offset) * -1) 0;
   }
 
   :host([data-current-placement~='right']) .arrow {
     rotate: 135deg;
+    translate: var(--arrow-offset) 0;
   }
 
   :host([data-current-placement~='bottom']) .arrow {
     rotate: 225deg;
+    translate: 0 var(--arrow-offset);
   }
 
   /* Hover bridge */
