@@ -62,17 +62,17 @@ export default css`
     translate: 0 calc(var(--arrow-offset) * -1);
   }
 
-  :host([data-current-placement~='left']) .arrow {
+  :host([data-current-placement^='left']) .arrow {
     rotate: -45deg;
     translate: calc(var(--arrow-offset) * -1) 0;
   }
 
-  :host([data-current-placement~='right']) .arrow {
+  :host([data-current-placement^='right']) .arrow {
     rotate: 135deg;
     translate: var(--arrow-offset) 0;
   }
 
-  :host([data-current-placement~='bottom']) .arrow {
+  :host([data-current-placement^='bottom']) .arrow {
     rotate: 225deg;
     translate: 0 var(--arrow-offset);
   }
