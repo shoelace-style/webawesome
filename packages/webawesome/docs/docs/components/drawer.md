@@ -5,11 +5,9 @@ layout: component
 category: Organization
 ---
 
-<!-- cspell:dictionaries lorem-ipsum -->
-
 ```html {.example}
 <wa-drawer label="Drawer" id="drawer-overview">
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  Drawers are great for showing additional content without leaving the current page.
   <wa-button slot="footer" variant="brand" data-drawer="close">Close</wa-button>
 </wa-drawer>
 
@@ -31,7 +29,7 @@ Headers are enabled by default. To render a drawer without a header, add the `wi
 
 ```html {.example}
 <wa-drawer label="Drawer" without-header class="drawer-without-header">
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  Look ma, no header!
   <wa-button slot="footer" variant="brand" data-drawer="close">Close</wa-button>
 </wa-drawer>
 
@@ -51,7 +49,7 @@ Footers can be used to display titles and more. Use the `footer` slot to add a f
 
 ```html {.example}
 <wa-drawer label="Drawer" class="drawer-footer">
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  This drawer has a footer where you can put actions and other controls.
   <wa-button slot="footer" variant="brand" data-drawer="close">Close</wa-button>
 </wa-drawer>
 
@@ -71,7 +69,7 @@ You can open and close drawers with JavaScript by toggling the `open` attribute,
 
 ```html {.example}
 <wa-drawer label="Drawer" id="drawer-opening">
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  This drawer was opened declaratively using a data attribute on the button.
   <wa-button slot="footer" variant="brand" data-drawer="close">Close</wa-button>
 </wa-drawer>
 
@@ -82,7 +80,7 @@ Similarly, you can add `data-drawer="close"` to a button _inside_ of a drawer to
 
 ```html {.example}
 <wa-drawer label="Drawer" id="drawer-dismiss">
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  Click the button below to close this drawer — no JavaScript required!
   <wa-button slot="footer" variant="brand" data-drawer="close">Close</wa-button>
 </wa-drawer>
 
@@ -200,7 +198,7 @@ The header shows a functional close button by default. You can use the `header-a
   <wa-button class="new-window" slot="header-actions" appearance="plain">
     <wa-icon name="arrow-up-right-from-square" variant="solid" label="Open in new window"></wa-icon>
   </wa-button>
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  You can add custom actions to the header, like the button up there to open in a new window.
   <wa-button slot="footer" variant="brand" data-drawer="close">Close</wa-button>
 </wa-drawer>
 
