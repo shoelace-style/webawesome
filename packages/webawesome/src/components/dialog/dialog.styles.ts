@@ -24,6 +24,7 @@ export default css`
     width: var(--width);
     max-width: calc(100% - var(--wa-space-2xl));
     max-height: calc(100% - var(--wa-space-2xl));
+    color: inherit;
     background-color: var(--wa-color-surface-raised);
     border-radius: var(--wa-panel-border-radius);
     border: none;
