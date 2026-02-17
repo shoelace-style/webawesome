@@ -10,25 +10,19 @@ describe('<wa-dialog>', () => {
   for (const fixture of fixtures) {
     describe(`with "${fixture.type}" rendering`, () => {
       it('should be visible with the open attribute', async () => {
-        const el = await fixture<WaDialog>(html`
-          <wa-dialog open>This is a dialog for testing purposes.</wa-dialog>
-        `);
+        const el = await fixture<WaDialog>(html` <wa-dialog open>This is a dialog for testing purposes.</wa-dialog> `);
 
         expect(getComputedStyle(el).display).to.not.equal('none');
       });
 
       it('should not be visible without the open attribute', async () => {
-        const el = await fixture<WaDialog>(html`
-          <wa-dialog>This is a dialog for testing purposes.</wa-dialog>
-        `);
+        const el = await fixture<WaDialog>(html` <wa-dialog>This is a dialog for testing purposes.</wa-dialog> `);
 
         expect(getComputedStyle(el).display).to.equal('none');
       });
 
       it('should emit wa-show and wa-after-show when calling show()', async () => {
-        const el = await fixture<WaDialog>(html`
-          <wa-dialog>This is a dialog for testing purposes.</wa-dialog>
-        `);
+        const el = await fixture<WaDialog>(html` <wa-dialog>This is a dialog for testing purposes.</wa-dialog> `);
         const showHandler = sinon.spy();
         const afterShowHandler = sinon.spy();
 
@@ -45,9 +39,7 @@ describe('<wa-dialog>', () => {
       });
 
       it('should emit wa-hide and wa-after-hide when calling hide()', async () => {
-        const el = await fixture<WaDialog>(html`
-          <wa-dialog open>This is a dialog for testing purposes.</wa-dialog>
-        `);
+        const el = await fixture<WaDialog>(html` <wa-dialog open>This is a dialog for testing purposes.</wa-dialog> `);
         const hideHandler = sinon.spy();
         const afterHideHandler = sinon.spy();
 
@@ -64,9 +56,7 @@ describe('<wa-dialog>', () => {
       });
 
       it('should emit wa-show and wa-after-show when setting open = true', async () => {
-        const el = await fixture<WaDialog>(html`
-          <wa-dialog>This is a dialog for testing purposes.</wa-dialog>
-        `);
+        const el = await fixture<WaDialog>(html` <wa-dialog>This is a dialog for testing purposes.</wa-dialog> `);
         const showHandler = sinon.spy();
         const afterShowHandler = sinon.spy();
 
@@ -83,9 +73,7 @@ describe('<wa-dialog>', () => {
       });
 
       it('should emit wa-hide and wa-after-hide when setting open = false', async () => {
-        const el = await fixture<WaDialog>(html`
-          <wa-dialog open>This is a dialog for testing purposes.</wa-dialog>
-        `);
+        const el = await fixture<WaDialog>(html` <wa-dialog open>This is a dialog for testing purposes.</wa-dialog> `);
         const hideHandler = sinon.spy();
         const afterHideHandler = sinon.spy();
 
@@ -102,9 +90,7 @@ describe('<wa-dialog>', () => {
       });
 
       it('should not close when wa-hide is prevented', async () => {
-        const el = await fixture<WaDialog>(html`
-          <wa-dialog open>This is a dialog for testing purposes.</wa-dialog>
-        `);
+        const el = await fixture<WaDialog>(html` <wa-dialog open>This is a dialog for testing purposes.</wa-dialog> `);
 
         const spy = sinon.spy();
         el.addEventListener('wa-hide', event => {
