@@ -17,7 +17,8 @@ import { LocalizeController } from '../../utilities/localize.js';
 import type WaButton from '../button/button.js';
 import '../dropdown-item/dropdown-item.js';
 import type WaDropdownItem from '../dropdown-item/dropdown-item.js';
-import WaPopup from '../popup/popup.js'; // Added import for wa-popup
+import '../popup/popup.js';
+import type WaPopup from '../popup/popup.js';
 import styles from './dropdown.styles.js';
 
 const openDropdowns = new Set<WaDropdown>();
