@@ -52,6 +52,7 @@ export default css`
     rotate: 45deg;
     background: var(--arrow-color);
     z-index: 3;
+    clip-path: polygon(0 100%, 100% 0, 100% 100%);
   }
 
   :host([data-current-placement~='left']) .arrow {
