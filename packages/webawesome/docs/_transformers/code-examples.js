@@ -73,11 +73,7 @@ export function codeExamplesTransformer(options = {}) {
 
             let includeSrc = include.getAttribute('src');
             if (!includeSrc) return;
-            if (includeSrc.startsWith('.')) {
-              includeSrc = includeSrc.slice(1);
-            }
-            // Todo: Can't just reference payments. How to find the correct path?
-            includeSrc = `/assets-pro/patterns/app/payments/${includeSrc}`;
+
             let includeSource = readFileSync(`${path.join(baseDir, includeSrc)}`, 'utf8');
             const includeNode = parse(
               `\n${includeSource
@@ -91,10 +87,10 @@ export function codeExamplesTransformer(options = {}) {
               },
             );
             include.replaceWith(includeNode);
-            includeNode.querySelectorAll('wa-include').forEach(i => replaceInclude(i));
+            includeNode.querySelectorAll('wa-include').forEach(e => replaceInclude(e));
           };
 
-          sourceNode.querySelectorAll('wa-include').forEach(i => replaceInclude(i));
+          sourceNode.querySelectorAll('wa-include').forEach(e => replaceInclude(e));
 
           sourceNode.querySelectorAll(selectors).forEach((fragment, i) => {
             // Fix parse() formatting of wrapped first attributes and reduce
