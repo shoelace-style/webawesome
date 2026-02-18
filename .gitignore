@@ -11,3 +11,4 @@ _bundle_
 /packages/webawesome-pro
 /packages/webawesome-app
 custom-elements.json
+.claude/settings.local.json
