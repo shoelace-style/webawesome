@@ -11,6 +11,31 @@ category: Feedback & Status
 
 ## Examples
 
+### Temporary Tests
+
+TODO: Remove before merging
+
+```html {.example}
+<wa-badge appearance="filled-outlined">Label Only</wa-badge>
+<wa-badge appearance="filled-outlined">
+  <wa-icon slot="start" name="opossum"></wa-icon>
+  Start Icon
+</wa-badge>
+<br />
+<wa-badge appearance="filled-outlined">Label Only</wa-badge>
+<wa-badge appearance="filled-outlined">
+  <wa-icon slot="end" name="opossum"></wa-icon>
+  End Icon
+</wa-badge>
+<br />
+<wa-badge appearance="filled-outlined">Label Only</wa-badge>
+<wa-badge appearance="filled-outlined">
+  <wa-icon slot="start" name="opossum"></wa-icon>
+  <wa-icon slot="end" name="opossum"></wa-icon>
+  Both Icons
+</wa-badge>
+```
+
 ### Variants
 
 Set the `variant` attribute to change the badge's variant.
@@ -30,8 +55,8 @@ Use the `appearance` attribute to change the badge's visual appearance.
 ```html {.example}
 <div style="margin-block-end: 1rem;">
   <wa-badge appearance="accent" variant="neutral">Accent</wa-badge>
-  <wa-badge appearance="filled-outlined" variant="neutral"><wa-icon name="skull"></wa-icon> Filled-Outlined</wa-badge>
-  <wa-badge appearance="filled" variant="neutral"><wa-icon slot="start" name="skull"></wa-icon>Filled</wa-badge>
+  <wa-badge appearance="filled-outlined" variant="neutral">Filled-Outlined</wa-badge>
+  <wa-badge appearance="filled" variant="neutral">Filled</wa-badge>
   <wa-badge appearance="outlined" variant="neutral">Outlined</wa-badge>
 </div>
 <div style="margin-block-end: 1rem;">
@@ -41,7 +66,7 @@ Use the `appearance` attribute to change the badge's visual appearance.
   <wa-badge appearance="outlined" variant="brand">Outlined</wa-badge>
 </div>
 <div style="margin-block-end: 1rem;">
-  <wa-badge appearance="accent" variant="success"><wa-icon slot="start" name="skull"></wa-icon>Accent</wa-badge>
+  <wa-badge appearance="accent" variant="success">Accent</wa-badge>
   <wa-badge appearance="filled-outlined" variant="success">Filled-Outlined</wa-badge>
   <wa-badge appearance="filled" variant="success">Filled</wa-badge>
   <wa-badge appearance="outlined" variant="success">Outlined</wa-badge>
@@ -55,7 +80,7 @@ Use the `appearance` attribute to change the badge's visual appearance.
 <div>
   <wa-badge appearance="accent" variant="danger">Accent</wa-badge>
   <wa-badge appearance="filled-outlined" variant="danger">Filled-Outlined</wa-badge>
-  <wa-badge appearance="filled" variant="danger"><wa-icon slot="start" name="skull"></wa-icon>Filled</wa-badge>
+  <wa-badge appearance="filled" variant="danger">Filled</wa-badge>
   <wa-badge appearance="outlined" variant="danger">Outlined</wa-badge>
 </div>
 ```
@@ -123,16 +148,16 @@ Use the `start` and `end` slots to add presentational elements like `<wa-icon>` 
 ```html {.example}
 <div class="wa-cluster">
   <wa-badge>
-    <wa-icon slot="start" name="skull"></wa-icon>
+    <wa-icon slot="start" name="acorn"></wa-icon>
     Start
   </wa-badge>
   <wa-badge>
-    <wa-icon slot="end" name="skull"></wa-icon>
+    <wa-icon slot="end" name="tree-deciduous"></wa-icon>
     End
   </wa-badge>
   <wa-badge>
-    <wa-icon slot="start" name="skull"></wa-icon>
-    <wa-icon slot="end" name="skull"></wa-icon>
+    <wa-icon slot="start" name="cow"></wa-icon>
+    <wa-icon slot="end" name="ufo-beam"></wa-icon>
     Both
   </wa-badge>
 </div>
