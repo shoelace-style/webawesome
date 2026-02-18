@@ -34,6 +34,9 @@ TODO: Remove before merging
   <wa-icon slot="end" name="opossum"></wa-icon>
   Both Icons
 </wa-badge>
+<br />
+<br />
+<p>Here are <wa-badge><wa-icon slot="start" name="opossum"></wa-icon>Some</wa-badge> <wa-badge><wa-icon slot="end" name="opossum"></wa-icon>Badges</wa-badge> inside text.</p>
 ```
 
 ### Variants

@@ -18,6 +18,7 @@ export default css`
     border-radius: var(--wa-border-radius-s);
     border-style: var(--wa-border-style);
     border-width: var(--wa-border-width-s);
+    vertical-align: middle;
     user-select: none;
     -webkit-user-select: none;
     cursor: inherit;
@@ -101,11 +102,11 @@ export default css`
 
   /* Slots */
   slot[name='start']::slotted(*) {
-    margin-inline-end: 0.25em;
+    margin-inline-end: 0.375em;
   }
 
   slot[name='end']::slotted(*) {
-    margin-inline-start: 0.25em;
+    margin-inline-start: 0.375em;
   }
 
   ::slotted(wa-icon) { 
