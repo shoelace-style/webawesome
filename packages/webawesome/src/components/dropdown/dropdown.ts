@@ -17,7 +17,8 @@ import { LocalizeController } from '../../utilities/localize.js';
 import type WaButton from '../button/button.js';
 import '../dropdown-item/dropdown-item.js';
 import type WaDropdownItem from '../dropdown-item/dropdown-item.js';
-import WaPopup from '../popup/popup.js'; // Added import for wa-popup
+import '../popup/popup.js';
+import type WaPopup from '../popup/popup.js';
 import styles from './dropdown.styles.js';
 
 const openDropdowns = new Set<WaDropdown>();
@@ -262,7 +263,7 @@ export default class WaDropdown extends WebAwesomeElement {
     const items = this.getItems();
     if (items.length > 0) {
       items.forEach((item, index) => (item.active = index === 0));
-      items[0].focus();
+      items[0].focus({ preventScroll: true });
     }
 
     this.dispatchEvent(new WaAfterShowEvent());
@@ -305,7 +306,7 @@ export default class WaDropdown extends WebAwesomeElement {
       event.stopPropagation();
 
       this.open = false;
-      trigger?.focus();
+      trigger?.focus({ preventScroll: true });
       return;
     }
 
@@ -362,7 +363,7 @@ export default class WaDropdown extends WebAwesomeElement {
           const submenuItems = this.getSubmenuItems(activeItem!);
           if (submenuItems.length > 0) {
             submenuItems.forEach((item, index) => (item.active = index === 0));
-            submenuItems[0].focus();
+            submenuItems[0].focus({ preventScroll: true });
           }
         }, 0);
 
@@ -379,7 +380,7 @@ export default class WaDropdown extends WebAwesomeElement {
         removedItem.submenuOpen = false;
 
         setTimeout(() => {
-          removedItem.focus();
+          removedItem.focus({ preventScroll: true });
           removedItem.active = true;
 
           const parentItems =
@@ -437,7 +438,7 @@ export default class WaDropdown extends WebAwesomeElement {
       event.preventDefault();
       event.stopPropagation();
       items.forEach(item => (item.active = item === itemToSelect));
-      itemToSelect.focus();
+      itemToSelect.focus({ preventScroll: true });
       return;
     }
 
@@ -453,7 +454,7 @@ export default class WaDropdown extends WebAwesomeElement {
           const submenuItems = this.getSubmenuItems(activeItem!);
           if (submenuItems.length > 0) {
             submenuItems.forEach((item, index) => (item.active = index === 0));
-            submenuItems[0].focus();
+            submenuItems[0].focus({ preventScroll: true });
           }
         }, 0);
       } else {
@@ -700,7 +701,7 @@ export default class WaDropdown extends WebAwesomeElement {
 
     if (!selectEvent.defaultPrevented) {
       this.open = false;
-      trigger?.focus();
+      trigger?.focus({ preventScroll: true });
     }
   }
 
