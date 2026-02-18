@@ -13,6 +13,82 @@ export function codeExamplesTransformer(options = {}) {
     ...options,
   };
 
+  const baseDir = process.env.BASE_DIR;
+
+  /**
+   * Return the expanded source code referenced by a `<wa-zoomable-frame>`.
+   * Instances of `<wa-include>` are replaced with the referenced source code.
+   * @param {HTMLElement} frame
+   * @returns {string}
+   */
+  const getFrameSource = frame => {
+    const selectSrc = frame?.hasAttribute('data-select-src');
+    if (!selectSrc) return;
+    let src = frame.getAttribute('src');
+    let source = frame.getAttribute('srcdoc');
+    if (!source && src) {
+      // Normalize src for file path resolution:
+      // - Add index.html if src is a directory
+      // - Remove query string and url fragment
+      src += src.match(/\.html/) ? '' : `${src.endsWith('/') ? '' : '/'}index.html`;
+      src = src.split('?')[0].split('#')[0];
+      source = readFileSync(path.join(baseDir, src), 'utf8');
+    }
+    const selectors = frame?.getAttribute('data-select-src');
+    if (selectors) {
+      const sourceNode = parse(source, { comment: true, voidTag: { closingSlash: true } });
+      sourceNode.querySelectorAll('wa-include').forEach(e => replaceIncludeWithSource(e));
+      sourceNode.querySelectorAll(selectors).forEach((fragment, i) => {
+        // Normalize formatting:
+        // - Fix bad parse() formatting of wrapped first attributes
+        // - Reduce indentation to top-level
+        // - Collapse multiple blank lines
+        // - Trim trailing whitespace (i.e. newlines)
+        const html = fragment.outerHTML
+          .replace(/<([^\s>]+)(\s{2,})(?=[^\s>])/g, (_, tag, spaces) => `<${tag}\n${spaces.slice(1)}`)
+          .split('\n');
+        const lastLine = html[html.length - 1] || '';
+        const indent = new RegExp(`^${lastLine.match(/^\s*/)?.[0] ?? ''}`);
+        source = `${i ? source : ''}${html
+          .map(line => line.replace(indent, ''))
+          .join('\n')
+          .replace(/(\n\s*){2,}\n/g, '\n\n')}\n\n`;
+      });
+    }
+    return source.trim();
+  };
+
+  /**
+   * Recursively replace instances of `<wa-include>` with the referenced source code.
+   * @param {HTMLElement} include - The `<wa-include>` element to replace.
+   */
+  const replaceIncludeWithSource = include => {
+    const src = include.getAttribute('src');
+    if (!src) return;
+    const tab = '  ';
+    const parent = include.parentNode;
+    const parentHtml = parent.outerHTML.split('\n');
+    const parentLastLine = parentHtml[parentHtml.length - 1] || '';
+    const parentIndent = parentLastLine.match(/^\s*/)?.[0] ?? '';
+    const source = readFileSync(path.join(baseDir, src), 'utf8');
+    // Normalize formatting:
+    // - Trim trailing whitespace (i.e. newlines)
+    // - Indent to match the parent plus one additional tab
+    const sourceNode = parse(
+      `${source
+        .trimEnd()
+        .split('\n')
+        .map((line, i) => `${i ? `${parentIndent}${tab}` : ''}${line}`)
+        .join('\n')}`,
+      {
+        comment: true,
+        voidTag: { closingSlash: true },
+      },
+    );
+    include.replaceWith(sourceNode);
+    sourceNode.querySelectorAll('wa-include').forEach(e => replaceIncludeWithSource(e));
+  };
+
   return function (doc) {
     const container = doc.querySelector(options.container);
 
@@ -44,78 +120,13 @@ export function codeExamplesTransformer(options = {}) {
       });
       preview = root.toString();
 
-      // Show the relevant code for <wa-zoomable-frame data-select-src>
+      // Substitute the expanded source code for any `<wa-zoomable-frame data-select-src="...">` in the preview
       let framePre, frameCode;
-      const frame = root.querySelector('wa-zoomable-frame');
-      if (frame?.hasAttribute('data-select-src')) {
-        const baseDir = process.env.BASE_DIR;
-        let src = frame.getAttribute('src');
-        let source = frame.getAttribute('srcdoc');
-        if (!source && src) {
-          // Add index.html if src references a directory
-          src += src.match(/\.html/) ? '' : `${src.endsWith('/') ? '' : '/'}index.html`;
-          // Remove query string and url fragment for file path resolution
-          src = src.split('?')[0].split('#')[0];
-          source = readFileSync(`${path.join(baseDir, src)}`, 'utf8');
-        }
-        const selectors = frame?.getAttribute('data-select-src');
-        if (selectors) {
-          const sourceNode = parse(source, { comment: true, voidTag: { closingSlash: true } });
-
-          // Recursively replace instances of <wa-include> with the contents of the src file
-          const replaceInclude = include => {
-            const parentNode = include.parentNode;
-            const parentNodeHtml = parentNode.outerHTML
-              .replace(/<([^\s>]+)(\s{2,})(?=[^\s>])/g, (_, tag, spaces) => `<${tag}\n${spaces.slice(1)}`)
-              .split('\n');
-            const lastLine = parentNodeHtml[parentNodeHtml.length - 1] || '';
-            const indent = lastLine.match(/^\s*/)?.[0] ?? '';
-
-            let includeSrc = include.getAttribute('src');
-            if (!includeSrc) return;
-
-            let includeSource = readFileSync(`${path.join(baseDir, includeSrc)}`, 'utf8');
-            const includeNode = parse(
-              `\n${includeSource
-                .trimEnd() // newline to ensure correct indentation of first line (todo: leads to extra space)
-                .split('\n')
-                .map(line => `${indent}  ${line}`) // add two more spaces to indent
-                .join('\n')}`,
-              {
-                comment: true,
-                voidTag: { closingSlash: true },
-              },
-            );
-            include.replaceWith(includeNode);
-            includeNode.querySelectorAll('wa-include').forEach(e => replaceInclude(e));
-          };
-
-          sourceNode.querySelectorAll('wa-include').forEach(e => replaceInclude(e));
-
-          sourceNode.querySelectorAll(selectors).forEach((fragment, i) => {
-            // Fix parse() formatting of wrapped first attributes and reduce
-            // indentation to match the least-indented line for each fragment
-
-            // replace leading \n introduced by replaceInclude
-            fragment.innerHTML = fragment.innerHTML.replace(/^\n/, '');
-
-            const html = fragment.outerHTML
-              .replace(/<([^\s>]+)(\s{2,})(?=[^\s>])/g, (_, tag, spaces) => `<${tag}\n${spaces.slice(1)}`)
-              .split('\n');
-            const lastLine = html[html.length - 1] || '';
-            const indent = new RegExp(`^${lastLine.match(/^\s*/)?.[0] ?? ''}`);
-
-            source = `${i ? source : ''}${
-              html
-                .map(line => line.replace(indent, ''))
-                .join('\n')
-                .replace(/(\n\s*){2,}\n/g, '\n\n') // replace multiple blank lines with a single blank line
-            }\n\n`;
-          });
-        }
-        const highlightedCode = highlightCode(source?.trim(), 'html');
+      const frameSource = getFrameSource(root.querySelector('wa-zoomable-frame'));
+      if (frameSource) {
+        const highlightedSource = highlightCode(frameSource, 'html');
+        frameCode = parse(`<code class="example">${highlightedSource}</code>`).firstChild;
         framePre = parse(`<pre id="code-block-${uuid}"></pre>`).firstChild;
-        frameCode = parse(`<code class="example">${highlightedCode}</code>`).firstChild;
         framePre.appendChild(frameCode);
       }
 
