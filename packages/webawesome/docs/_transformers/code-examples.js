@@ -75,11 +75,11 @@ export function codeExamplesTransformer(options = {}) {
     // - Trim trailing whitespace (i.e. newlines)
     // - Indent to match the parent plus one additional tab
     const sourceNode = parse(
-      `${source
+      source
         .trimEnd()
         .split('\n')
         .map((line, i) => `${i ? `${parentIndent}${tab}` : ''}${line}`)
-        .join('\n')}`,
+        .join('\n'),
       {
         comment: true,
         voidTag: { closingSlash: true },
