@@ -48,25 +48,73 @@ export function codeExamplesTransformer(options = {}) {
       let framePre, frameCode;
       const frame = root.querySelector('wa-zoomable-frame');
       if (frame?.hasAttribute('data-select-src')) {
+        const baseDir = process.env.BASE_DIR;
         let src = frame.getAttribute('src');
         let source = frame.getAttribute('srcdoc');
         if (!source && src) {
-          src += src.match(/\.html$/) ? '' : `${src.endsWith('/') ? '' : '/'}index.html`;
-          const baseDir = process.env.BASE_DIR;
+          // Add index.html if src references a directory
+          src += src.match(/\.html/) ? '' : `${src.endsWith('/') ? '' : '/'}index.html`;
+          // Remove query string and url fragment for file path resolution
+          src = src.split('?')[0].split('#')[0];
           source = readFileSync(`${path.join(baseDir, src)}`, 'utf8');
         }
         const selectors = frame?.getAttribute('data-select-src');
         if (selectors) {
           const sourceNode = parse(source, { comment: true, voidTag: { closingSlash: true } });
+
+          // Recursively replace instances of <wa-include> with the contents of the src file
+          const replaceInclude = include => {
+            const parentNode = include.parentNode;
+            const parentNodeHtml = parentNode.outerHTML
+              .replace(/<([^\s>]+)(\s{2,})(?=[^\s>])/g, (_, tag, spaces) => `<${tag}\n${spaces.slice(1)}`)
+              .split('\n');
+            const lastLine = parentNodeHtml[parentNodeHtml.length - 1] || '';
+            const indent = lastLine.match(/^\s*/)?.[0] ?? '';
+
+            let includeSrc = include.getAttribute('src');
+            if (!includeSrc) return;
+            if (includeSrc.startsWith('.')) {
+              includeSrc = includeSrc.slice(1);
+            }
+            // Todo: Can't just reference payments. How to find the correct path?
+            includeSrc = `/assets-pro/patterns/app/payments/${includeSrc}`;
+            let includeSource = readFileSync(`${path.join(baseDir, includeSrc)}`, 'utf8');
+            const includeNode = parse(
+              `\n${includeSource
+                .trimEnd() // newline to ensure correct indentation of first line (todo: leads to extra space)
+                .split('\n')
+                .map(line => `${indent}  ${line}`) // add two more spaces to indent
+                .join('\n')}`,
+              {
+                comment: true,
+                voidTag: { closingSlash: true },
+              },
+            );
+            include.replaceWith(includeNode);
+            includeNode.querySelectorAll('wa-include').forEach(i => replaceInclude(i));
+          };
+
+          sourceNode.querySelectorAll('wa-include').forEach(i => replaceInclude(i));
+
           sourceNode.querySelectorAll(selectors).forEach((fragment, i) => {
             // Fix parse() formatting of wrapped first attributes and reduce
             // indentation to match the least-indented line for each fragment
+
+            // replace leading \n introduced by replaceInclude
+            fragment.innerHTML = fragment.innerHTML.replace(/^\n/, '');
+
             const html = fragment.outerHTML
               .replace(/<([^\s>]+)(\s{2,})(?=[^\s>])/g, (_, tag, spaces) => `<${tag}\n${spaces.slice(1)}`)
               .split('\n');
             const lastLine = html[html.length - 1] || '';
             const indent = new RegExp(`^${lastLine.match(/^\s*/)?.[0] ?? ''}`);
-            source = `${i ? source : ''}${html.map(line => line.replace(indent, '')).join('\n')}\n\n`;
+
+            source = `${i ? source : ''}${
+              html
+                .map(line => line.replace(indent, ''))
+                .join('\n')
+                .replace(/(\n\s*){2,}\n/g, '\n\n') // replace multiple blank lines with a single blank line
+            }\n\n`;
           });
         }
         const highlightedCode = highlightCode(source?.trim(), 'html');
