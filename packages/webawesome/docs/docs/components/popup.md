@@ -333,7 +333,9 @@ The `skidding` attribute is similar to `distance`, but instead allows you to off
 
 ### Arrows
 
-Add an arrow to your popup with the `arrow` attribute. It's usually a good idea to set a `distance` to make room for the arrow. To adjust the arrow's color and size, use the `--arrow-color` and `--arrow-size` custom properties, respectively. You can also target the `arrow` part to add additional styles such as shadows and borders.
+Add an arrow to your popup with the `arrow` attribute. It's usually a good idea to set a `distance` to make room for the arrow. To adjust the arrow's color and size, use the `--arrow-color` and `--arrow-size` custom properties, respectively. 
+
+You can also target the `arrow` part to add additional styles such as shadows and borders to match styles applied to rest of the popup element. When adding borders to the popup arrow, make sure to set the `--arrow-border-width` custom property to match the width of the border to so that the size calculations can take account for this.
 
 By default, the arrow will be aligned as close to the center of the _anchor_ as possible, considering available space and `arrow-padding`. You can use the `arrow-placement` attribute to force the arrow to align to the start, end, or center of the _popup_ instead.
 
