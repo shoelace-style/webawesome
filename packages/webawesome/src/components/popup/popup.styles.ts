@@ -13,12 +13,12 @@ export default css`
      * 0.7071 is derived from sin(45), which is the diagonal size of the arrow's container after rotating.
      *
      * The diamond will be translated inward by the border thickness to ensure crop point is on the inner edge of
-     * the border. This also means we need to increase the size of the diamond by sqrt(2) times the border width
-     * to keep it central (== 2 * sin(45)). The clipping mask is set to 1px larger than the diamond, and the offset
-     * reduced by 0.5px to minimise rounding artefacts.
+     * the border. This also means we need to increase the size of the diamond by sin(45) times the border width
+     * to keep it central.
      */
-    --arrow-offset: calc(max(var(--arrow-border-width) - 0.5px, 0px));
-    --arrow-size-diagonal: calc((var(--arrow-size) + var(--arrow-offset) * 2) * 0.7071);
+
+    --arrow-offset: calc(var(--arrow-border-width) + 0.5px);
+    --arrow-size-diagonal: calc((var(--arrow-size) + var(--arrow-border-width)) * 0.7071);
     --arrow-padding-offset: calc(var(--arrow-size-diagonal) - var(--arrow-size));
 
     display: contents;
@@ -58,24 +58,20 @@ export default css`
     height: calc(var(--arrow-size-diagonal) * 2);
     background: var(--arrow-color);
     z-index: 3;
-    clip-path: polygon(-1px 100%, 100% -1px, 100% 100%);
+    clip-path: polygon(0px 100%, 100% 0px, 100% 100%);
     rotate: 45deg;
-    translate: 0 calc(var(--arrow-offset) * -1);
   }
 
   :host([data-current-placement^='left']) .arrow {
     rotate: -45deg;
-    translate: calc(var(--arrow-offset) * -1) 0;
   }
 
   :host([data-current-placement^='right']) .arrow {
     rotate: 135deg;
-    translate: var(--arrow-offset) 0;
   }
 
   :host([data-current-placement^='bottom']) .arrow {
     rotate: 225deg;
-    translate: 0 var(--arrow-offset);
   }
 
   /* Hover bridge */

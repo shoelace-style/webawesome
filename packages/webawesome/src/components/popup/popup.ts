@@ -486,7 +486,7 @@ export default class WaPopup extends WebAwesomeElement {
           right,
           bottom,
           left,
-          [staticSide]: 'calc(var(--arrow-size-diagonal) * -1)',
+          [staticSide]: 'calc(var(--arrow-offset) - var(--arrow-size-diagonal))',
         });
       }
     });
