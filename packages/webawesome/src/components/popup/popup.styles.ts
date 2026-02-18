@@ -4,7 +4,7 @@ export default css`
   :host {
     --arrow-color: black;
     --arrow-size: var(--wa-tooltip-arrow-size);
-    --arrow-border-size: 0;
+    --arrow-border-size: 0px;
     --show-duration: 100ms;
     --hide-duration: 100ms;
 
