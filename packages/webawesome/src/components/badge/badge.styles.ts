@@ -99,10 +99,16 @@ export default css`
     }
   }
 
-  ::slotted(wa-icon) {
-    margin-inline-end: var(--wa-space-2xs, 0.25em);
-    opacity: 90%;
-    line-height: 1;
-    height: 0.85em;
+  /* Slots */
+  slot[name='start']::slotted(*) {
+    margin-inline-end: 0.25em;
   }
+
+  slot[name='end']::slotted(*) {
+    margin-inline-start: 0.25em;
+  }
+
+  ::slotted(wa-icon) { 
+    /* TODO: Need to fix odd positioning with slotted icons */
+   } 
 `;

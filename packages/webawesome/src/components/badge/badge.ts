@@ -11,8 +11,12 @@ import styles from './badge.styles.js';
  * @since 2.0
  *
  * @slot - The badge's content.
+ * @slot start - An element, such as `<wa-icon>`, placed before the label.
+ * @slot end - An element, such as `<wa-icon>`, placed after the label.
  *
  * @csspart base - The component's base wrapper.
+ * @csspart start - The container that wraps the `start` slot.
+ * @csspart end - The container that wraps the `end` slot.
  *
  * @cssproperty --pulse-color - The color of the badge's pulse effect when using `attention="pulse"`.
  *
@@ -34,7 +38,13 @@ export default class WaBadge extends WebAwesomeElement {
   @property({ reflect: true }) attention: 'none' | 'pulse' | 'bounce' = 'none';
 
   render() {
-    return html` <slot part="base" role="status"></slot>`;
+    return html` 
+      <slot name="start" part="start"></slot>
+
+      <slot part="base" role="status"></slot>
+
+      <slot name="end" part="end"></slot>
+      `;
   }
 }
 

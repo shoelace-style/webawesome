@@ -30,8 +30,8 @@ Use the `appearance` attribute to change the badge's visual appearance.
 ```html {.example}
 <div style="margin-block-end: 1rem;">
   <wa-badge appearance="accent" variant="neutral">Accent</wa-badge>
-  <wa-badge appearance="filled-outlined" variant="neutral">Filled-Outlined</wa-badge>
-  <wa-badge appearance="filled" variant="neutral">Filled</wa-badge>
+  <wa-badge appearance="filled-outlined" variant="neutral"><wa-icon name="skull"></wa-icon> Filled-Outlined</wa-badge>
+  <wa-badge appearance="filled" variant="neutral"><wa-icon slot="start" name="skull"></wa-icon>Filled</wa-badge>
   <wa-badge appearance="outlined" variant="neutral">Outlined</wa-badge>
 </div>
 <div style="margin-block-end: 1rem;">
@@ -41,7 +41,7 @@ Use the `appearance` attribute to change the badge's visual appearance.
   <wa-badge appearance="outlined" variant="brand">Outlined</wa-badge>
 </div>
 <div style="margin-block-end: 1rem;">
-  <wa-badge appearance="accent" variant="success">Accent</wa-badge>
+  <wa-badge appearance="accent" variant="success"><wa-icon slot="start" name="skull"></wa-icon>Accent</wa-badge>
   <wa-badge appearance="filled-outlined" variant="success">Filled-Outlined</wa-badge>
   <wa-badge appearance="filled" variant="success">Filled</wa-badge>
   <wa-badge appearance="outlined" variant="success">Outlined</wa-badge>
@@ -55,7 +55,7 @@ Use the `appearance` attribute to change the badge's visual appearance.
 <div>
   <wa-badge appearance="accent" variant="danger">Accent</wa-badge>
   <wa-badge appearance="filled-outlined" variant="danger">Filled-Outlined</wa-badge>
-  <wa-badge appearance="filled" variant="danger">Filled</wa-badge>
+  <wa-badge appearance="filled" variant="danger"><wa-icon slot="start" name="skull"></wa-icon>Filled</wa-badge>
   <wa-badge appearance="outlined" variant="danger">Outlined</wa-badge>
 </div>
 ```
@@ -114,6 +114,28 @@ Use the `attention` attribute to draw attention to the badge with a subtle anima
     }
   }
 </style>
+```
+
+### Start & End Decorations
+
+Use the `start` and `end` slots to add presentational elements like `<wa-icon>` alongside the badge's label.
+
+```html {.example}
+<div class="wa-cluster">
+  <wa-badge>
+    <wa-icon slot="start" name="skull"></wa-icon>
+    Start
+  </wa-badge>
+  <wa-badge>
+    <wa-icon slot="end" name="skull"></wa-icon>
+    End
+  </wa-badge>
+  <wa-badge>
+    <wa-icon slot="start" name="skull"></wa-icon>
+    <wa-icon slot="end" name="skull"></wa-icon>
+    Both
+  </wa-badge>
+</div>
 ```
 
 ### With Buttons
