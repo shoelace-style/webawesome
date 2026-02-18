@@ -42,7 +42,7 @@ export default css`
   /* The <wa-popup> element */
   .popover {
     --arrow-size: inherit;
-    --arrow-border-size: var(--wa-panel-border-width);
+    --arrow-border-width: var(--wa-panel-border-width);
     --show-duration: inherit;
     --hide-duration: inherit;
 

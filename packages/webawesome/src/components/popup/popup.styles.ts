@@ -4,7 +4,7 @@ export default css`
   :host {
     --arrow-color: black;
     --arrow-size: var(--wa-tooltip-arrow-size);
-    --arrow-border-size: 0px;
+    --arrow-border-width: 0px;
     --show-duration: 100ms;
     --hide-duration: 100ms;
 
@@ -17,7 +17,7 @@ export default css`
      * to keep it central (== 2 * sin(45)). The clipping mask is set to 1px larger than the diamond, and the offset
      * reduced by 0.5px to minimise rounding artefacts.
      */
-    --arrow-offset: calc(max(var(--arrow-border-size) - 0.5px, 0px));
+    --arrow-offset: calc(max(var(--arrow-border-width) - 0.5px, 0px));
     --arrow-size-diagonal: calc((var(--arrow-size) + var(--arrow-offset) * 2) * 0.7071);
     --arrow-padding-offset: calc(var(--arrow-size-diagonal) - var(--arrow-size));
 
