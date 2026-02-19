@@ -112,6 +112,7 @@
         padding-block: var(--wa-space-m);
         padding-inline: var(--wa-space-xl);
         border-radius: var(--wa-border-radius-s) var(--wa-border-radius-s) 0 0;
+        line-height: 1;
 
         &.product-active {
           background-color: var(--wa-color-surface-default);
