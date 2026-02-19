@@ -38,13 +38,13 @@ export default class WaBadge extends WebAwesomeElement {
   @property({ reflect: true }) attention: 'none' | 'pulse' | 'bounce' = 'none';
 
   render() {
-    return html` 
+    return html`
       <slot name="start" part="start"></slot>
 
       <slot part="base" role="status"></slot>
 
       <slot name="end" part="end"></slot>
-      `;
+    `;
   }
 }
 
