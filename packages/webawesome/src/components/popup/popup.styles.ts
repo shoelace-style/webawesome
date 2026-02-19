@@ -17,7 +17,7 @@ export default css`
      * to keep it central.
      */
 
-    --arrow-offset: calc(var(--arrow-border-width) + 0.5px);
+    --arrow-base-offset: calc(var(--arrow-border-width) + 0.5px);
     --arrow-size-diagonal: calc((var(--arrow-size) + var(--arrow-border-width)) * 0.7071);
     --arrow-padding-offset: calc(var(--arrow-size-diagonal) - var(--arrow-size));
 
