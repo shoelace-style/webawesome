@@ -12,13 +12,13 @@ export default css`
     font-size: max(var(--wa-font-size-2xs), 0.75em);
     font-weight: var(--wa-font-weight-semibold);
     line-height: 1;
+    vertical-align: middle;
     white-space: nowrap;
     background-color: var(--wa-color-fill-loud, var(--wa-color-brand-fill-loud));
     border-color: transparent;
     border-radius: var(--wa-border-radius-s);
     border-style: var(--wa-border-style);
     border-width: var(--wa-border-width-s);
-    vertical-align: middle;
     user-select: none;
     -webkit-user-select: none;
     cursor: inherit;
@@ -108,8 +108,4 @@ export default css`
   slot[name='end']::slotted(*) {
     margin-inline-start: 0.375em;
   }
-
-  ::slotted(wa-icon) { 
-    /* TODO: Need to fix odd positioning with slotted icons */
-   } 
 `;

@@ -11,34 +11,6 @@ category: Feedback & Status
 
 ## Examples
 
-### Temporary Tests
-
-TODO: Remove before merging
-
-```html {.example}
-<wa-badge appearance="filled-outlined">Label Only</wa-badge>
-<wa-badge appearance="filled-outlined">
-  <wa-icon slot="start" name="opossum"></wa-icon>
-  Start Icon
-</wa-badge>
-<br />
-<wa-badge appearance="filled-outlined">Label Only</wa-badge>
-<wa-badge appearance="filled-outlined">
-  <wa-icon slot="end" name="opossum"></wa-icon>
-  End Icon
-</wa-badge>
-<br />
-<wa-badge appearance="filled-outlined">Label Only</wa-badge>
-<wa-badge appearance="filled-outlined">
-  <wa-icon slot="start" name="opossum"></wa-icon>
-  <wa-icon slot="end" name="opossum"></wa-icon>
-  Both Icons
-</wa-badge>
-<br />
-<br />
-<p>Here are <wa-badge><wa-icon slot="start" name="opossum"></wa-icon>Some</wa-badge> <wa-badge><wa-icon slot="end" name="opossum"></wa-icon>Badges</wa-badge> inside text.</p>
-```
-
 ### Variants
 
 Set the `variant` attribute to change the badge's variant.
@@ -149,21 +121,19 @@ Use the `attention` attribute to draw attention to the badge with a subtle anima
 Use the `start` and `end` slots to add presentational elements like `<wa-icon>` alongside the badge's label.
 
 ```html {.example}
-<div class="wa-cluster">
-  <wa-badge>
-    <wa-icon slot="start" name="acorn"></wa-icon>
-    Start
-  </wa-badge>
-  <wa-badge>
-    <wa-icon slot="end" name="tree-deciduous"></wa-icon>
-    End
-  </wa-badge>
-  <wa-badge>
-    <wa-icon slot="start" name="cow"></wa-icon>
-    <wa-icon slot="end" name="ufo-beam"></wa-icon>
-    Both
-  </wa-badge>
-</div>
+<wa-badge>
+  <wa-icon slot="start" name="acorn"></wa-icon>
+  Start
+</wa-badge>
+<wa-badge>
+  <wa-icon slot="end" name="tree-deciduous"></wa-icon>
+  End
+</wa-badge>
+<wa-badge>
+  <wa-icon slot="start" name="cow"></wa-icon>
+  <wa-icon slot="end" name="ufo-beam"></wa-icon>
+  Both
+</wa-badge>
 ```
 
 ### With Buttons
