@@ -1,9 +1,10 @@
 import { getKitCode } from '../../utilities/base-path.js';
+import type WaIcon from './icon.js';
 import type { IconLibrary } from './library.js';
 
 const FA_VERSION = '7.2.0';
 
-function getIconUrl(name: string, family: string, variant: string) {
+function getIconUrl(name: string, family: string, variant: string, _autoWidth: boolean, iconElement: null | WaIcon) {
   const kitCode = getKitCode();
   const isPro = kitCode.length > 0;
   let folder = 'solid';
@@ -120,6 +121,15 @@ function getIconUrl(name: string, family: string, variant: string) {
     folder = 'brands';
   }
 
+  let version = FA_VERSION
+
+  if (iconElement) {
+    const el = iconElement.closest<HTMLElement>("[data-fa-version]")
+    if (el && el.dataset.faVersion) {
+      version = el.dataset.faVersion
+    }
+  }
+
   // Use the default CDN
   return isPro
     ? `https://ka-p.fontawesome.com/releases/v${FA_VERSION}/svgs/${folder}/${name}.svg?token=${encodeURIComponent(kitCode)}`
@@ -128,8 +138,8 @@ function getIconUrl(name: string, family: string, variant: string) {
 
 const library: IconLibrary = {
   name: 'default',
-  resolver: (name: string, family = 'classic', variant = 'solid') => {
-    return getIconUrl(name, family, variant);
+  resolver: (name: string, family = 'classic', variant = 'solid', autoWidth = false, element = null) => {
+    return getIconUrl(name, family, variant, autoWidth, element);
   },
   mutator: (svg, hostEl) => {
     // Duotone families
