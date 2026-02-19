@@ -18,7 +18,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed a bug that caused 0ms animations to not fire correctly in the internal `animateWithClass()` function [pr#2068]
 - Fixed a bug that caused `<wa-dropdown>` elements to scroll the document in Chrome 145
 - Updated `<wa-icon>` to use [Font Awesome 7.2.0](https://fontawesome.com/changelog#v7-2-0) [pr:2059]
-- Update `wa-popup` arrow styling to prevent larger sized arrow from overlapping the contents of the popup [pr:2070]
+- Updated `<wa-popup>` arrow styling to prevent larger sized arrow from overlapping the contents of the popup [pr:2070]
 - Modified native styles so that `border-radius` does not apply to `svg` elements by default [pr:2078]
 
 ## 3.2.1
