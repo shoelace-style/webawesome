@@ -7,6 +7,12 @@ const FA_VERSION = '7.2.0';
 function getIconUrl(name: string, family: string, variant: string, _autoWidth: boolean, iconElement: null | WaIcon) {
   const kitCode = getKitCode();
   const isPro = kitCode.length > 0;
+
+  // Support custom icons
+  if (family ===  "kit" || family === "kit-duotone") {
+    return `https://kit.fontawesome.com/${kitCode}/icons/${family}/custom/${name}.svg`;
+  }
+
   let folder = 'solid';
 
   // Chisel (Pro+)
