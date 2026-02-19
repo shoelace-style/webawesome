@@ -161,15 +161,13 @@ export default class WaPopover extends WebAwesomeElement {
   };
 
   private handleDocumentClick = (event: PointerEvent) => {
-    const target = event.target as HTMLElement;
-
     // Ignore clicks on the anchor so it will be closed by the anchor's click handler
     if (this.anchor && event.composedPath().includes(this.anchor)) {
       return;
     }
 
-    // Detect when clicks occur outside the popover
-    if (target.closest('wa-popover') !== this) {
+    // Detect when clicks occur outside the popover (using composedPath to traverse shadow DOM boundaries)
+    if (!event.composedPath().includes(this)) {
       this.open = false;
     }
   };

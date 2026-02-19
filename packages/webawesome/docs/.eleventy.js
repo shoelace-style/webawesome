@@ -16,6 +16,8 @@ import { SimulateWebAwesomeApp } from './_utils/simulate-webawesome-app.js';
 import { readFile } from 'fs/promises';
 import process from 'process';
 import * as url from 'url';
+import { generateAgentSkill } from '../scripts/agent-skill.js';
+import { getSiteDir } from '../scripts/utils.js';
 import { replaceTextPlugin } from './_plugins/replace-text.js';
 import { searchPlugin } from './_plugins/search.js';
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
@@ -310,6 +312,12 @@ export default async function (eleventyConfig) {
   //   // Run Prettier on each file (prod only because it can be slow)
   //   eleventyConfig.addPlugin(formatCodePlugin());
   // }
+  eleventyConfig.on('eleventy.after', async () => {
+    const siteDir = getSiteDir();
+    await generateAgentSkill({
+      siteDir,
+    });
+  });
 
   // This needs to happen in "eleventy.after" otherwise incremental builds never update.
   eleventyConfig.on('eleventy.after', function () {

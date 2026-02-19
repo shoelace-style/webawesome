@@ -19,9 +19,18 @@ rootPackageJSON.version = currentVersion;
 fs.writeFileSync(rootPackageJSONFile, JSON.stringify(rootPackageJSON, null, 2));
 
 const versionsFile = path.join(monorepoRoot, 'VERSIONS.txt');
-const versions = fs.readFileSync(versionsFile, { encoding: 'utf8' }).split(/\r?\n/);
 
-// TODO: Make this smart and understand semver and "insert" in the correct spot instead of appending.
+// TODO: Make this smart and understand semver and "insert" in the correct spot instead of locale comparing.
+const versions = fs
+  .readFileSync(versionsFile, { encoding: 'utf8' })
+  .split(/\r?\n/)
+  .filter(Boolean)
+  .sort((a, b) => {
+    return a.localeCompare(b);
+  });
+
 if (!versions.includes(currentVersion)) {
-  fs.appendFileSync(versionsFile, webawesomePackageJSON.version);
+  versions.push(currentVersion);
 }
+
+fs.writeFileSync(versionsFile, versions.join('\n'));

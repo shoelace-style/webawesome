@@ -1,23 +1,12 @@
 import { getKitCode } from '../../utilities/base-path.js';
 import type { IconLibrary } from './library.js';
 
-const FA_VERSION = '7.1.0';
+const FA_VERSION = '7.2.0';
 
 function getIconUrl(name: string, family: string, variant: string) {
   const kitCode = getKitCode();
   const isPro = kitCode.length > 0;
   let folder = 'solid';
-
-  // Notdog (Pro+)
-  // Correct usage: family="notdog" or family="notdog-duo", variant="solid"
-  if (family === 'notdog') {
-    // NOTE: variant="duo-solid" is deprecated, use family="notdog-duo" variant="solid" instead
-    if (variant === 'solid') folder = 'notdog-solid';
-    if (variant === 'duo-solid') folder = 'notdog-duo-solid';
-  }
-  if (family === 'notdog-duo') {
-    folder = 'notdog-duo-solid';
-  }
 
   // Chisel (Pro+)
   if (family === 'chisel') {
@@ -27,6 +16,11 @@ function getIconUrl(name: string, family: string, variant: string) {
   // Etch (Pro+)
   if (family === 'etch') {
     folder = 'etch-solid';
+  }
+
+  // Graphite (Pro+)
+  if (family === 'graphite') {
+    folder = 'graphite-thin';
   }
 
   // Jelly (Pro+)
@@ -45,6 +39,17 @@ function getIconUrl(name: string, family: string, variant: string) {
     folder = 'jelly-fill-regular';
   }
 
+  // Notdog (Pro+)
+  // Correct usage: family="notdog" or family="notdog-duo", variant="solid"
+  if (family === 'notdog') {
+    // NOTE: variant="duo-solid" is deprecated, use family="notdog-duo" variant="solid" instead
+    if (variant === 'solid') folder = 'notdog-solid';
+    if (variant === 'duo-solid') folder = 'notdog-duo-solid';
+  }
+  if (family === 'notdog-duo') {
+    folder = 'notdog-duo-solid';
+  }
+
   // Slab (Pro+)
   // Correct usage: family="slab" or family="slab-press", variant="regular"
   if (family === 'slab') {
@@ -61,11 +66,6 @@ function getIconUrl(name: string, family: string, variant: string) {
     folder = 'thumbprint-light';
   }
 
-  // Whiteboard (Pro+)
-  if (family === 'whiteboard') {
-    folder = 'whiteboard-semibold';
-  }
-
   // Utility (Pro+)
   // Correct usage: family="utility", family="utility-duo", or family="utility-fill", variant="semibold"
   if (family === 'utility') {
@@ -78,6 +78,11 @@ function getIconUrl(name: string, family: string, variant: string) {
     folder = 'utility-fill-semibold';
   }
 
+  // Whiteboard (Pro+)
+  if (family === 'whiteboard') {
+    folder = 'whiteboard-semibold';
+  }
+
   // Classic
   if (family === 'classic') {
     if (variant === 'thin') folder = 'thin';
@@ -86,20 +91,20 @@ function getIconUrl(name: string, family: string, variant: string) {
     if (variant === 'solid') folder = 'solid';
   }
 
-  // Sharp
-  if (family === 'sharp') {
-    if (variant === 'thin') folder = 'sharp-thin';
-    if (variant === 'light') folder = 'sharp-light';
-    if (variant === 'regular') folder = 'sharp-regular';
-    if (variant === 'solid') folder = 'sharp-solid';
-  }
-
   // Duotone
   if (family === 'duotone') {
     if (variant === 'thin') folder = 'duotone-thin';
     if (variant === 'light') folder = 'duotone-light';
     if (variant === 'regular') folder = 'duotone-regular';
     if (variant === 'solid') folder = 'duotone';
+  }
+
+  // Sharp
+  if (family === 'sharp') {
+    if (variant === 'thin') folder = 'sharp-thin';
+    if (variant === 'light') folder = 'sharp-light';
+    if (variant === 'regular') folder = 'sharp-regular';
+    if (variant === 'solid') folder = 'sharp-solid';
   }
 
   // Sharp Duotone

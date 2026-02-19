@@ -372,11 +372,52 @@
       color: var(--wa-color-neutral-on-loud);
     }
 
-    wa-button::part(label),
+    wa-button {
+      &::part(label) {
+        font-size: var(--wa-font-size-s);
+      }
+
+      &[size='small']::part(label),
+      &.wa-size-s::part(label) {
+        font-size: var(--wa-font-size-xs);
+      }
+
+      &[size='large']::part(label),
+      &.wa-size-l::part(label) {
+        font-size: var(--wa-font-size-m);
+      }
+    }
+
     wa-radio[appearance='button'],
     button,
-    input:where([type='button'], [type='reset'], [type='submit']) {
-      font-size: var(--wa-font-size-smaller);
+    input[type='button'],
+    input[type='reset'],
+    input[type='submit'],
+    a.wa-button {
+      --_size: var(--wa-font-size-m);
+      font-size: var(--wa-font-size-s);
+
+      &[size='small'],
+      &.wa-size-s {
+        --_size: var(--wa-font-size-s);
+        font-size: var(--wa-font-size-xs);
+      }
+
+      &[size='large'],
+      &.wa-size-l {
+        --_size: var(--wa-font-size-l);
+        font-size: var(--wa-font-size-m);
+      }
+
+      /* Override em-based layout properties to use the intended size so that
+         height and padding match inputs at the same size, even though the
+         button's font-size is one step smaller for the Shoelace theme. */
+      --wa-form-control-padding-block: calc(0.75 * var(--_size));
+      --wa-form-control-padding-inline: var(--_size);
+      --wa-form-control-height: round(
+        calc(2 * var(--wa-form-control-padding-block) + var(--_size) * var(--wa-form-control-value-line-height)),
+        1px
+      );
     }
 
     wa-radio[appearance='button'] {

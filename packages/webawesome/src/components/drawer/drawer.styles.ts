@@ -24,6 +24,7 @@ export default css`
     max-width: 100%;
     max-height: 100%;
     overflow: hidden;
+    color: inherit;
     background-color: var(--wa-color-surface-raised);
     border: none;
     box-shadow: var(--wa-shadow-l);

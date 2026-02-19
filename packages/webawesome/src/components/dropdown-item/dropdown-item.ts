@@ -176,7 +176,7 @@ export default class WaDropdownItem extends WebAwesomeElement {
       const items = this.getSubmenuItems();
       if (items.length > 0) {
         items.forEach((item, index) => (item.active = index === 0));
-        items[0].focus();
+        items[0].focus({ preventScroll: true });
       }
     }, 0);
   }
