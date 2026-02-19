@@ -1,4 +1,3 @@
-// cspell:dictionaries lorem-ipsum
 import { expect, waitUntil } from '@open-wc/testing';
 import { html } from 'lit';
 import sinon from 'sinon';
@@ -34,9 +33,8 @@ describe('<wa-details>', () => {
       it('should be visible with the open attribute', async () => {
         const el = await fixture<WaDetails>(html`
           <wa-details open>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-            ea commodo consequat.
+            This is some content inside the details component for testing purposes. It contains enough text to verify
+            that the expand and collapse behavior works correctly.
           </wa-details>
         `);
         const body = el.shadowRoot!.querySelector<HTMLElement>('.body')!;
@@ -47,9 +45,8 @@ describe('<wa-details>', () => {
       it('should not be visible without the open attribute', async () => {
         const el = await fixture<WaDetails>(html`
           <wa-details summary="click me">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-            ea commodo consequat.
+            This is some content inside the details component for testing purposes. It contains enough text to verify
+            that the expand and collapse behavior works correctly.
           </wa-details>
         `);
         const body = el.shadowRoot!.querySelector<HTMLElement>('.body')!;
@@ -59,9 +56,8 @@ describe('<wa-details>', () => {
       it('should emit wa-show and wa-after-show when calling show()', async () => {
         const el = await fixture<WaDetails>(html`
           <wa-details>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-            ea commodo consequat.
+            This is some content inside the details component for testing purposes. It contains enough text to verify
+            that the expand and collapse behavior works correctly.
           </wa-details>
         `);
         const showHandler = sinon.spy();
@@ -81,9 +77,8 @@ describe('<wa-details>', () => {
       it('should emit wa-hide and wa-after-hide when calling hide()', async () => {
         const el = await fixture<WaDetails>(html`
           <wa-details open>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-            ea commodo consequat.
+            This is some content inside the details component for testing purposes. It contains enough text to verify
+            that the expand and collapse behavior works correctly.
           </wa-details>
         `);
         const hideHandler = sinon.spy();
@@ -103,9 +98,8 @@ describe('<wa-details>', () => {
       it('should emit wa-show and wa-after-show when setting open = true', async () => {
         const el = await fixture<WaDetails>(html`
           <wa-details>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-            ea commodo consequat.
+            This is some content inside the details component for testing purposes. It contains enough text to verify
+            that the expand and collapse behavior works correctly.
           </wa-details>
         `);
         const body = el.shadowRoot!.querySelector<HTMLElement>('.body')!;
@@ -127,9 +121,8 @@ describe('<wa-details>', () => {
       it('should emit wa-hide and wa-after-hide when setting open = false', async () => {
         const el = await fixture<WaDetails>(html`
           <wa-details open>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-            ea commodo consequat.
+            This is some content inside the details component for testing purposes. It contains enough text to verify
+            that the expand and collapse behavior works correctly.
           </wa-details>
         `);
         const hideHandler = sinon.spy();
@@ -149,9 +142,8 @@ describe('<wa-details>', () => {
       it('should not open when preventing wa-show', async () => {
         const el = await fixture<WaDetails>(html`
           <wa-details>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-            ea commodo consequat.
+            This is some content inside the details component for testing purposes. It contains enough text to verify
+            that the expand and collapse behavior works correctly.
           </wa-details>
         `);
         const showHandler = sinon.spy((event: WaShowEvent) => event.preventDefault());
@@ -168,9 +160,8 @@ describe('<wa-details>', () => {
       it('should not close when preventing wa-hide', async () => {
         const el = await fixture<WaDetails>(html`
           <wa-details open>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-            ea commodo consequat.
+            This is some content inside the details component for testing purposes. It contains enough text to verify
+            that the expand and collapse behavior works correctly.
           </wa-details>
         `);
         const hideHandler = sinon.spy((event: WaHideEvent) => event.preventDefault());
