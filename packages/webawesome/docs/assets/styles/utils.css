@@ -115,6 +115,9 @@
 
         &.product-active {
           background-color: var(--wa-color-surface-default);
+
+          /* nudge the active product so that logo aligns with button labels in lower nav */
+          margin-inline-start: calc(var(--wa-form-control-padding-inline) * -1);
         }
 
         /* nudge the non-first/second products to account for extra inline-start padding */
