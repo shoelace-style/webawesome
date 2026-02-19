@@ -64,18 +64,18 @@ You can additionally include any pre-made [theme](/docs/themes/) or [color palet
 Native styles set default space between many block-level HTML elements using the `--wa-content-spacing` token from your theme. This helps ensure that your content is readable.
 
 ```html {.example}
-<h3>Curabitur odio ligula</h3>
+<h3>Content flows naturally</h3>
 <p>
-  Fusce mollis quam lorem, et gravida arcu laoreet ut. Pellentesque et malesuada mi. Morbi faucibus nisl nec nulla
-  porta, ac scelerisque elit finibus.
+  Native styles set consistent spacing between block-level elements using your theme's design tokens. This means
+  headings, paragraphs, lists, and other elements look great together without extra effort.
 </p>
 <blockquote>
   The Road goes ever on and on<br />
   Out from the door where it began.
 </blockquote>
 <p>
-  Donec varius, ipsum sit amet lobortis tristique, quam arcu pellentesque turpis, non porta lacus arcu non arcu. Morbi
-  luctus at nisl sit amet faucibus.
+  Spacing is controlled by the <code>--wa-content-spacing</code> token, so you can easily adjust it to match your
+  design. Set it to zero if you prefer to handle spacing yourself.
 </p>
 <hr />
 <ul>
@@ -110,14 +110,13 @@ Create paragraphs with `<p>`. Paragraphs inherit the default text styles set on 
 
 ```html {.example}
 <p>
-  Vel risus commodo viverra maecenas accumsan lacus vel facilisis volutpat. Amet mauris commodo quis imperdiet. Bibendum
-  ut tristique et egestas quis ipsum suspendisse. Sit amet nulla facilisi morbi tempus iaculis urna id volutpat.
+  Paragraphs inherit the default text styles set on the body element, including font family, size, weight, and line
+  height. They also use <code>text-wrap: pretty</code> to prevent orphaned lines in supported browsers.
 </p>
 
 <p>
-  Cras pulvinar mattis nunc sed blandit libero. Facilisis magna etiam tempor orci. Scelerisque eleifend donec pretium
-  vulputate sapien nec. Donec et odio pellentesque diam volutpat commodo sed egestas egestas. Mauris rhoncus aenean vel
-  elit scelerisque mauris pellentesque.
+  You can have as many paragraphs as you need and they'll maintain consistent spacing between them. Native styles
+  ensure everything stays readable and well-proportioned, no matter how much content you throw at it.
 </p>
 ```
 
@@ -169,20 +168,20 @@ Use `<dl>` to create lists of terms (`<dt>`) and definitions (`<dd>`).
 
 ```html {.example}
 <dl>
-  <dt>First term</dt>
+  <dt>Web Components</dt>
   <dd>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-    aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    A set of web platform APIs that let you create custom, reusable HTML elements. They work across frameworks and
+    browsers, making them ideal for building design systems and component libraries.
   </dd>
-  <dt>Second term</dt>
+  <dt>Shadow DOM</dt>
   <dd>
-    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
-    sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    A browser feature that lets you attach a hidden DOM tree to an element. This keeps your component's styles and
+    markup encapsulated, so they won't accidentally interfere with the rest of the page.
   </dd>
-  <dt>Final term</dt>
+  <dt>Custom Elements</dt>
   <dd>
-    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam,
-    eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+    A JavaScript API that lets you define new HTML tags with their own behavior. Once registered, you can use them
+    anywhere in your markup just like built-in elements.
   </dd>
 </dl>
 ```
@@ -337,8 +336,8 @@ Create disclosure widgets with `<details>` and `<summary>`. Details closely matc
 <details>
   <summary>Summary</summary>
   <p>
-    Ut lectus arcu bibendum at varius. Convallis a cras semper auctor neque vitae. Odio pellentesque diam volutpat
-    commodo sed egestas. Amet dictum sit amet justo donec enim diam vulputate ut.
+    Click the summary to expand and reveal this content. Native details elements are styled to closely match the
+    appearance of the <code>&lt;wa-details&gt;</code> component, so they fit right in with the rest of your UI.
   </p>
 </details>
 ```
@@ -349,7 +348,7 @@ Create modal and non-modal dialog boxes with `<dialog>`. Dialogs closely match t
 
 ```html {.example}
 <dialog id="dialog-example">
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+  <p>This is a native dialog element styled to match Web Awesome components.</p>
   <button type="button">Close</button>
 </dialog>
 

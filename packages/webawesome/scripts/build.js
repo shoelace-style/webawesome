@@ -10,6 +10,7 @@ import { globby } from 'globby';
 import { dirname, extname, join, posix, relative } from 'node:path';
 import process from 'node:process';
 import { fileURLToPath } from 'node:url';
+import open from 'open';
 import ora from 'ora';
 import copy from 'recursive-copy';
 import { SimulateWebAwesomeApp } from '../docs/_utils/simulate-webawesome-app.js';
@@ -360,6 +361,7 @@ export async function build(options = {}) {
     // Launch browser sync
     bs.init(
       {
+        open: false,
         startPath: '/',
         port,
         logLevel: 'silent',
@@ -439,6 +441,7 @@ export async function build(options = {}) {
       () => {
         spinner.succeed();
         console.log(`\nThe dev server is running at ${chalk.cyan(url)}\n`);
+        open(url);
       },
     );
 
