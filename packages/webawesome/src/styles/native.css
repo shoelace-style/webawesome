@@ -328,7 +328,11 @@
   video {
     max-width: 100%;
     height: auto;
+  }
 
+  img,
+  picture,
+  video {
     border-radius: var(--wa-border-radius-m);
   }
 

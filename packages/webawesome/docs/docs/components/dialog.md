@@ -5,11 +5,9 @@ layout: component
 category: Organization
 ---
 
-<!-- cspell:dictionaries lorem-ipsum -->
-
 ```html {.example}
 <wa-dialog label="Dialog" id="dialog-overview">
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  This is a standard dialog. You can put any content you want in here!
   <wa-button slot="footer" variant="brand" data-dialog="close">Close</wa-button>
 </wa-dialog>
 
@@ -31,7 +29,7 @@ Headers are enabled by default. To render a dialog without a header, add the `wi
 
 ```html {.example}
 <wa-dialog label="Dialog" without-header class="dialog-without-header">
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  Look ma, no header! Sometimes you just need a clean, simple dialog.
   <wa-button slot="footer" variant="brand" data-dialog="close">Close</wa-button>
 </wa-dialog>
 
@@ -51,7 +49,7 @@ Footers can be used to display titles and more. Use the `footer` slot to add a f
 
 ```html {.example}
 <wa-dialog label="Dialog" class="dialog-footer">
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  Check out the footer below — it's a great place for actions and buttons.
   <wa-button slot="footer" variant="brand" data-dialog="close">Close</wa-button>
 </wa-dialog>
 
@@ -71,7 +69,7 @@ You can open and close dialogs with JavaScript by toggling the `open` attribute,
 
 ```html {.example}
 <wa-dialog label="Dialog" id="dialog-opening">
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  This dialog was opened declaratively — no JavaScript required!
   <wa-button slot="footer" variant="brand" data-dialog="close">Close</wa-button>
 </wa-dialog>
 
@@ -82,7 +80,7 @@ Similarly, you can add `data-dialog="close"` to a button _inside_ of a dialog to
 
 ```html {.example}
 <wa-dialog label="Dialog" id="dialog-dismiss">
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  Click the button in the footer to close this dialog declaratively.
   <wa-button slot="footer" variant="brand" data-dialog="close">Close</wa-button>
 </wa-dialog>
 
@@ -95,7 +93,7 @@ Just use the `--width` custom property to set the dialog's width.
 
 ```html {.example}
 <wa-dialog label="Dialog" class="dialog-width" style="--width: 50vw;">
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  This dialog is wider than the default — handy when you need more room for content.
   <wa-button slot="footer" variant="brand" data-dialog="close">Close</wa-button>
 </wa-dialog>
 
@@ -140,7 +138,7 @@ The header shows a functional close button by default. You can use the `header-a
   <wa-button class="new-window" slot="header-actions" appearance="plain">
     <wa-icon name="arrow-up-right-from-square" variant="solid" label="Open in new window"></wa-icon>
   </wa-button>
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  You can add custom actions to the header, like the icon button up there!
   <wa-button slot="footer" variant="brand" data-dialog="close">Close</wa-button>
 </wa-dialog>
 
