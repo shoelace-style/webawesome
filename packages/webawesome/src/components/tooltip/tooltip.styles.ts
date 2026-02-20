@@ -54,7 +54,7 @@ export default css`
   }
 
   .tooltip {
-    --arrow-border-width: var(--wa-tooltip-border-width);
+    --popup-border-width: var(--wa-tooltip-border-width);
 
     &::part(arrow) {
       border-bottom: var(--wa-tooltip-border-width) var(--wa-tooltip-border-style) var(--wa-tooltip-border-color);

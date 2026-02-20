@@ -4,7 +4,7 @@ export default css`
   :host {
     --arrow-color: black;
     --arrow-size: var(--wa-tooltip-arrow-size);
-    --arrow-border-width: 0px;
+    --popup-border-width: 0px;
     --show-duration: 100ms;
     --hide-duration: 100ms;
 
@@ -17,8 +17,8 @@ export default css`
      * to keep it central.
      */
 
-    --arrow-base-offset: calc(var(--arrow-border-width) + 0.5px);
-    --arrow-size-diagonal: calc((var(--arrow-size) + var(--arrow-border-width)) * 0.7071);
+    --arrow-base-offset: calc(var(--popup-border-width) + 0.5px);
+    --arrow-size-diagonal: calc((var(--arrow-size) + var(--popup-border-width)) * 0.7071);
     --arrow-padding-offset: calc(var(--arrow-size-diagonal) - var(--arrow-size));
 
     display: contents;
