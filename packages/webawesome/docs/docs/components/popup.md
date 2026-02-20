@@ -426,6 +426,90 @@ By default, the arrow will be aligned as close to the center of the _anchor_ as 
 </div>
 ```
 
+### Adding a border
+
+Borders can also be added to the popup element by targetting the contents of the `wa-popup` element. This styling can also be extended to the arrow itself by targetting `.arrow` class in the popup.
+
+When adding borders to the popup element which has an arrow, make sure to set the `--popup-border-width` custom property to match the width of the border of the popup. Setting this will allow the arrow to overlap the border of the popup so that they visually appear connected.
+
+```html {.example}
+<div class="popup-border">
+  <wa-popup placement="top" arrow arrow-placement="anchor" distance="8" active>
+    <span slot="anchor"></span>
+    <div class="box"></div>
+  </wa-popup>
+
+  <div class="popup-border-options">
+    <wa-combobox label="Placement" name="placement" placeholder="Select placement..." class="popup-overview-select"></wa-combobox>
+  </div>
+
+  <style>
+    
+    .popup-border span[slot='anchor'] {
+      display: inline-block;
+      width: 150px;
+      height: 150px;
+      border: dashed 2px var(--wa-color-neutral-fill-loud);
+      margin: 50px;
+    }
+
+    .popup-border .box {
+      width: 100px;
+      height: 50px;
+      background: var(--wa-color-brand-on-loud);
+      border-radius: var(--wa-border-radius-m);
+      border: var(--wa-panel-border-width) solid var(--wa-color-brand-border-loud);
+      border-style: var(--wa-panel-border-style);
+      box-shadow: var(--wa-shadow-l);
+    }
+    
+    .popup-border wa-popup {
+      --arrow-color: var(--wa-color-brand-on-loud);
+      --popup-border-width: var(--wa-panel-border-width);
+
+      &::part(arrow) {
+        border-bottom: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-brand-border-loud);
+        border-right: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-brand-border-loud);
+      }
+    }
+
+    .popup-border-options {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: end;
+      gap: 1rem;
+    }
+
+    .popup-border-options wa-combobox {
+      width: 160px;
+    }
+  </style>
+  
+  <script type="module">
+    await customElements.whenDefined('wa-combobox');
+
+    const container = document.querySelector('.popup-border');
+    const popup = container.querySelector('wa-popup');
+    const placement = container.querySelector('wa-combobox[name="placement"]');
+
+    const placements = ['top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'right', 'right-start', 'right-end', 'left', 'left-start', 'left-end'];
+
+    placements.forEach(value => {
+      const option = document.createElement('wa-option');
+      option.value = value;
+      option.textContent = value;
+      placement.append(option);
+    });
+
+    await placement.updateComplete;
+
+    placement.value = 'top';
+
+    placement.addEventListener('change', () => (popup.placement = placement.value));
+  </script>
+</div>
+```
+
 {# TODO: this example totally destroys browsers. Needs investigation.
 
 ### Syncing with the Anchor's Dimensions
