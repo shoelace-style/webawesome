@@ -3,178 +3,170 @@
 {% if hasBanner == undefined %}{% set hasBanner = true %}{% endif %}
 {% if hasSiteDialog == undefined %}{% set hasSiteDialog = true %}{% endif %}
 {% if hasGeneratedTitle == undefined %}{% set hasGeneratedTitle = true %}{% endif %}
-<html lang="en" data-fa-kit-code="38c11e3f20" data-version="{{ package.version }}" class="wa-cloak"{% if hasAnchors == false %} data-no-anchor{% endif %}>
-  <head>
-    {% include 'head.njk' %}
-    <meta name="theme-color" content="#f36944">
+<html lang="en" data-fa-kit-code="38c11e3f20" data-version="{{ package.version }}" class="wa-cloak" {% if
+  hasAnchors == false %} data-no-anchor{% endif %}>
+<head>
+  {% include 'head.njk' %}
+  <meta name="theme-color" content="#f36944">
 
-    <script type="module" src="/assets/scripts/code-examples.js"></script>
-    <script type="module" src="/assets/scripts/scroll.js"></script>
-    <script type="module" src="/assets/scripts/turbo.js"></script>
-    <script type="module" src="/assets/scripts/search.js"></script>
-    <script type="module" src="/assets/scripts/search-list.js"></script>
-    <script type="module" src="/assets/scripts/outline.js"></script>
-    <script type="module" src="/assets/scripts/color-scheme.js"></script>
-    <script type="module" src="/assets/scripts/theme.js"></script>
-    {% if hasSidebar %}<script type="module" src="/assets/scripts/sidebar.js"></script>{% endif %}
+  <script type="module" src="/assets/scripts/code-examples.js"></script>
+  <script type="module" src="/assets/scripts/scroll.js"></script>
+  <script type="module" src="/assets/scripts/turbo.js"></script>
+  <script type="module" src="/assets/scripts/search.js"></script>
+  <script type="module" src="/assets/scripts/search-list.js"></script>
+  <script type="module" src="/assets/scripts/outline.js"></script>
+  <script type="module" src="/assets/scripts/color-scheme.js"></script>
+  <script type="module" src="/assets/scripts/theme.js"></script>
+  {% if hasSidebar %}
+  <script type="module" src="/assets/scripts/sidebar.js"></script>{% endif %}
 
-    {% block head %}
-      <link rel="stylesheet" href="/assets/styles/docs.css" />
+  {% block head %}
+  <link rel="stylesheet" href="/assets/styles/docs.css" />
+  {% endblock %}
+
+  <script type="module">
+    // Set the initial color scheme before the page renders to prevent flashing
+    const value = localStorage.getItem('color-scheme') || 'auto';
+    const isDark = value === 'dark' || (value === 'auto' && matchMedia('(prefers-color-scheme: dark)').matches);
+    document.documentElement.classList.toggle('wa-dark', isDark);
+  </script>
+</head>
+<body
+  class="layout-{{ layout | stripExtension }} page-{{ pageClass or page.fileSlug or 'home' }}{{ ' page-wide' if wide }}">
+
+  {% set defaultWaPageAttributes = defaultWaPageAttributes or { view: 'desktop', 'disable-navigation-toggle': true,
+  'mobile-breakpoint': 1180, 'disable-sticky': 'banner' } %}
+  {% set waPageAttributes = waPageAttributes or {} %}
+  {% set mergedWaPageAttributes = defaultWaPageAttributes | merge(waPageAttributes) %}
+  <wa-page {% for key, value in mergedWaPageAttributes %} {% if value != null and value != false %} {{ key
+    }}="{{ value }}" {% endif %} {% endfor %}>
+    {# wa-page-based Skip to Content #}
+    {% block pageSkipToContent %}{% endblock %}
+
+    {# wa-page-based Banner #}
+    {% block pageBanner %}
+    {% if hasBanner %}
+    {#- WA Launch Banner -#}
+    {% include "_banner-wa-launch.njk" ignore missing %}
+    {% endif %}
     {% endblock %}
 
-    <script type="module">
-      // Set the initial color scheme before the page renders to prevent flashing
-      const value = localStorage.getItem('color-scheme') || 'auto';
-      const isDark = value === 'dark' || (value === 'auto' && matchMedia('(prefers-color-scheme: dark)').matches);
-      document.documentElement.classList.toggle('wa-dark', isDark);
-    </script>
-  </head>
-  <body class="layout-{{ layout | stripExtension }} page-{{ pageClass or page.fileSlug or 'home' }}{{ ' page-wide' if wide }}">
+    {# wa-page-based Header #}
+    {% block pageHeader %}
+    <header slot="header">
+      {% include 'nav-products.njk' %}
 
-    {% set defaultWaPageAttributes = defaultWaPageAttributes or { view: 'desktop', 'disable-navigation-toggle': true, 'mobile-breakpoint': 1180, 'disable-sticky': 'banner' } %}
-    {% set waPageAttributes = waPageAttributes or {} %}
-    {% set mergedWaPageAttributes = defaultWaPageAttributes | merge(waPageAttributes) %}
-    <wa-page
-      {% for key, value in mergedWaPageAttributes %}
-        {% if value != null and value != false %}
-          {{ key }}="{{ value }}"
-        {% endif %}
-      {% endfor %}
-    >
-      {# wa-page-based Skip to Content #}
-      {% block pageSkipToContent %}{% endblock %}
+      <div id="docs-header" class="wa-split">
+        {% include "nav-docs.njk" %}
 
-      {# wa-page-based Banner #}
-      {% block pageBanner %}
-        {% if hasBanner %}
-          {#- WA Launch Banner -#}
-          {% include "_banner-wa-launch.njk" ignore missing %}
-        {% endif %}
-      {% endblock %}
+        {# Nav toggle #}
+        {% include "nav-toggle.njk" %}
 
-      {# wa-page-based Subheader #}
-      {% block pageSubheader %}{% endblock %}
+        {# Logo - Mobile #}
+        {% include "header-logo-simple.njk" %}
 
-      {# wa-page-based Header #}
-      {% block pageHeader %}
-        <header slot="header" class="wa-split">
-          {# Nav toggle #}
-          <wa-button appearance="plain" size="small" data-toggle-nav>
-            <wa-icon name="bars" label="Toggle navigation" class="icon-default icon-embiggen"></wa-icon>
-            <wa-icon name="burger" aria-hidden="true" class="icon-hover icon-embiggen"></wa-icon>
-          </wa-button>
-
-          {# Logo - Desktop #}
-          <a href="/" class="brand-logo wa-desktop-only" aria-label="Web Awesome">{% include "logo.njk" %}</a>
-
-          {# Logo - Mobile #}
-          <a href="/" class="brand-logo wa-mobile-only" aria-label="Web Awesome">{% include "logo-simple.njk" %}</a>
-
-          <div id="docs-toolbar" class="wa-cluster gap-s">
-            <div class="wa-desktop-only wa-cluster wa-gap-2xs">
-              {% include "theme-selector.njk" %}
-              {% include "color-scheme-selector.njk" %}
-              {% include "github-icon-buttons.njk" %}
-            </div>
-
-            {#- Login -#}
-            {% include "login-or-avatar.njk" ignore missing %}
+        <div id="docs-toolbar" class="wa-cluster gap-s">
+          <div class="header-toolbar wa-cluster wa-gap-2xs">
+            {% include "theme-selector.njk" %}
+            {% include "color-scheme-selector.njk" %}
+            {% include "github-icon-buttons.njk" %}
           </div>
-        </header>
-      {% endblock %}
 
-      {# wa-page-based Navigation Header #}
-      {% block pageNavigationHeader %}
-        {# Sidebar - Mobile Selectors #}
-        {% if hasSidebar %}
-          <div class="wa-mobile-only" slot="navigation-header">
-            <div class="wa-cluster wa-gap-s">
-              <a class="brand-logo" href="/" aria-label="Web Awesome">{% include "logo-simple.njk" %}</a>
-              <div class="wa-cluster wa-gap-2xs" style="flex-wrap: nowrap;">
-                {% include "theme-selector.njk" %}
-                {% include "color-scheme-selector.njk" %}
-                {% include "github-icon-buttons.njk" %}
-              </div>
-            </div>
-          </div>
-        {% endif %}
-      {% endblock %}
+          {#- Login -#}
+          {% include "login-or-avatar.njk" ignore missing %}
+        </div>
+      </div>
+    </header>
+    {% endblock %}
 
-      {# wa-page-based Navigation #}
-      {% block pageNavigation %}
-        {# Sidebar - Navigation #}
-        {% if hasSidebar %}
-          <div slot="navigation" id="sidebar" class="docs-aside" data-remember-scroll>
-            {% include "sidebar.njk" %}
-          </div>
-        {% endif %}
-      {% endblock %}
+    {# wa-page-based Subheader #}
+    {% block pageSubheader %}{% endblock %}
 
-      {# wa-page-based Navigation Footer #}
-      {% block pageNavigationFooter %}{% endblock %}
+    {# wa-page-based Navigation Header #}
+    {% block pageNavigationHeader %}
+    {# Sidebar - Mobile Selectors #}
+    {% if hasSidebar %}
+    <div class="wa-mobile-only" slot="navigation-header">
+      {% include "nav-products-drawer.njk" %}
+    </div>
+    {% endif %}
+    {% endblock %}
 
-      {# wa-page-based Main Header #}
-      {% block pageMainHeader %}{% endblock %}
+    {# wa-page-based Navigation #}
+    {% block pageNavigation %}
+    {# Sidebar - Navigation #}
+    {% if hasSidebar %}
+      <div slot="navigation" id="sidebar" class="docs-aside" data-remember-scroll>
+        {% include "sidebar.njk" %}
+      </div>
+    {% endif %}
+    {% endblock %}
 
-      {# wa-page-based Main Content (default) #}
-      <main id="content">
-        {# Expandable outline #}
-        {% if hasOutline %}
-        <nav id="outline-expandable">
-          <details class="outline-links">
-            <summary>On this page</summary>
-          </details>
-        </nav>
-        {% endif %}
+    {# wa-page-based Navigation Footer #}
+    {% block pageNavigationFooter %}{% endblock %}
 
-        {# Flashes #}
-        {% block flashes %}
-          <div id="flashes">{% server "flashes" %}</div>
-        {% endblock %}
+    {# wa-page-based Main Header #}
+    {% block pageMainHeader %}{% endblock %}
 
-        {% block header %}
-          {% if hasGeneratedTitle %}
-            <h1 class="title">{{ title }}</h1>
-          {% endif %}
-        {% endblock %}
-
-        {% block beforeContent %}{% endblock %}
-
-        {% block content %}
-          {{ content | safe }}
-        {% endblock %}
-
-        {% block afterContent %}{% endblock %}
-      </main>
-
-      {# wa-page-based Main Footer #}
-      {% block pageMainFooter %}{% endblock %}
-
-      {# wa-page-based Aside #}
-      {% block pageAside %}
-        {# Outline #}
-        {% if hasOutline %}
-          <aside slot="aside" id="outline" class="docs-aside">
-            <nav id="outline-standard" class="outline-links">
-              <h2><a href="#content">{{ title }}</a></h2>
-            </nav>
-          </aside>
-        {% endif %}
-      {% endblock %}
-
-      {# wa-page-based Footer #}
-      {% block pageFooter %}{% endblock %}
-
-      {% include 'search.njk' %}
-
-      {#- Site-Wide Dialog -#}
-      {% if hasSiteDialog %}
-        {% include "_dialog-wa-launch.njk" ignore missing %}
+    {# wa-page-based Main Content (default) #}
+    <main id="content">
+      {# Expandable outline #}
+      {% if hasOutline %}
+      <nav id="outline-expandable">
+        <details class="outline-links">
+          <summary>On this page</summary>
+        </details>
+      </nav>
       {% endif %}
 
-      {#- Cookie Consent Dialog -#}
-      {% include "cookie-consent.njk" ignore missing %}
-    </wa-page>
+      {# Flashes #}
+      {% block flashes %}
+      <div id="flashes">{% server "flashes" %}</div>
+      {% endblock %}
 
-  </body>
+      {% block header %}
+      {% if hasGeneratedTitle %}
+      <h1 class="title">{{ title }}</h1>
+      {% endif %}
+      {% endblock %}
+
+      {% block beforeContent %}{% endblock %}
+
+      {% block content %}
+      {{ content | safe }}
+      {% endblock %}
+
+      {% block afterContent %}{% endblock %}
+    </main>
+
+    {# wa-page-based Main Footer #}
+    {% block pageMainFooter %}{% endblock %}
+
+    {# wa-page-based Aside #}
+    {% block pageAside %}
+    {# Outline #}
+    {% if hasOutline %}
+    <aside slot="aside" id="outline" class="docs-aside">
+      <nav id="outline-standard" class="outline-links">
+        <h2><a href="#content">{{ title }}</a></h2>
+      </nav>
+    </aside>
+    {% endif %}
+    {% endblock %}
+
+    {# wa-page-based Footer #}
+    {% block pageFooter %}{% endblock %}
+
+    {% include 'search.njk' %}
+
+    {#- Site-Wide Dialog -#}
+    {% if hasSiteDialog %}
+    {% include "_dialog-wa-launch.njk" ignore missing %}
+    {% endif %}
+
+    {#- Cookie Consent Dialog -#}
+    {% include "cookie-consent.njk" ignore missing %}
+  </wa-page>
+
+</body>
 </html>
