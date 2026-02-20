@@ -87,15 +87,7 @@
     {# Sidebar - Mobile Selectors #}
     {% if hasSidebar %}
     <div class="wa-mobile-only" slot="navigation-header">
-      <div class="wa-split">
-        {% include "nav-products-drawer.njk" %}
-
-        <div class="wa-cluster wa-gap-0 wa-flex-nowrap">
-          {% include "theme-selector.njk" %}
-          {% include "color-scheme-selector.njk" %}
-          {% include "github-icon-buttons.njk" %}
-        </div>
-      </div>
+      {% include "nav-products-drawer.njk" %}
     </div>
     {% endif %}
     {% endblock %}
@@ -104,9 +96,9 @@
     {% block pageNavigation %}
     {# Sidebar - Navigation #}
     {% if hasSidebar %}
-    <div slot="navigation" id="sidebar" class="docs-aside" data-remember-scroll>
-      {% include "sidebar.njk" %}
-    </div>
+      <div slot="navigation" id="sidebar" class="docs-aside" data-remember-scroll>
+        {% include "sidebar.njk" %}
+      </div>
     {% endif %}
     {% endblock %}
 

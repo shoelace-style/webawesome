@@ -92,54 +92,75 @@
   }
 
   /*  products nav */
+  .nav-products .product {
+    border-radius: var(--wa-border-radius-s) var(--wa-border-radius-s) 0 0;
+    line-height: 1;
+
+    &.product-active {
+      background-color: var(--wa-color-surface-default);
+      /* nudge the non-first/second products to account for extra inline-start padding */
+      margin-inline-start: var(--nudge-inline-start, calc(var(--wa-form-control-padding-inline) * -1));
+    }
+  }
+
+  /* full sized */
+  .wrapper-nav-products {
+    background-color: var(--wa-color-surface-lowered);
+    padding-block-start: var(--wa-space-xs);
+    padding-inline: var(--content-padding-inline);
+    inline-size: 100%;
+  }
+
+  .nav-products-full {
+    .product {
+      padding-block: var(--wa-space-m);
+      padding-inline: var(--wa-space-xl);
+
+      /* nudge the non-first/second products to account for extra inline-start padding */
+      &:nth-child(n + 3) {
+        margin-inline-start: calc(-1 * var(--wa-space-xl));
+      }
+    }
+
+    .logo-icon {
+      font-size: 1.5rem; /* ~ 24px to match .logo-svg height */
+    }
+
+    .logo-svg {
+      width: auto;
+      height: var(--awesome-logo-height, 1.5rem);
+    }
+  }
+
+  .nav-products-secondary .pseudo-product wa-icon {
+    font-size: var(--wa-font-size-l);
+  }
+
+  /* drawer-based */
+  .nav-products-drawer {
+    .product {
+      /* match dimensions of drawer's close-button */
+      padding-inline: var(--wa-form-control-padding-inline);
+      height: var(--wa-form-control-height);
+
+      &.product-active {
+        --nudge-inline-start: calc(var(--wa-form-control-padding-inline) * -1.5);
+      }
+
+      /* nudge the non-first/second products to account for extra inline-start padding */
+      &:nth-child(n + 4) {
+        margin-inline-start: calc(-1 * var(--wa-form-control-padding-inline));
+      }
+    }
+  }
+
+  /* header */
   wa-page > [slot='header'] {
     /* reset default page component-based header styles */
     padding: 0;
     gap: 0;
-
     container-type: inline-size;
     container-name: header;
-
-    .wrapper-nav-products {
-      background-color: var(--wa-color-surface-lowered);
-      padding-block-start: var(--wa-space-xs);
-      padding-inline: var(--content-padding-inline);
-      inline-size: 100%;
-    }
-
-    .nav-products {
-      .product {
-        padding-block: var(--wa-space-m);
-        padding-inline: var(--wa-space-xl);
-        border-radius: var(--wa-border-radius-s) var(--wa-border-radius-s) 0 0;
-        line-height: 1;
-
-        &.product-active {
-          background-color: var(--wa-color-surface-default);
-
-          /* nudge the active product so that logo aligns with button labels in lower nav */
-          margin-inline-start: calc(var(--wa-form-control-padding-inline) * -1);
-        }
-
-        /* nudge the non-first/second products to account for extra inline-start padding */
-        &:nth-child(n + 3) {
-          margin-inline-start: calc(-1 * var(--wa-space-xl));
-        }
-      }
-
-      .logo-icon {
-        font-size: 1.5rem; /* ~ 24px to match .logo-svg height */
-      }
-
-      .logo-svg {
-        width: auto;
-        height: var(--awesome-logo-height, 1.5rem);
-      }
-    }
-
-    .nav-products-secondary .pseudo-product wa-icon {
-      font-size: var(--wa-font-size-l);
-    }
 
     @container header (inline-size <= 80ch) {
       .header-nav,
@@ -170,6 +191,20 @@
 
   wa-page::part(drawer) {
     --size: auto;
+  }
+
+  /* drawer-based products nav */
+  wa-page::part(drawer__header) {
+    background-color: var(--wa-color-surface-lowered);
+    padding-block-start: 0;
+  }
+
+  wa-page::part(drawer__header-actions) {
+    align-self: center;
+  }
+
+  wa-page > [slot='navigation-header'] {
+    background-color: transparent;
   }
 
   /* pro badge */
