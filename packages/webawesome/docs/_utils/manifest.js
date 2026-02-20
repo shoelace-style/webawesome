@@ -20,7 +20,8 @@ export function getComponents() {
 
         // Remove private members and those that lack a description
         const slots = declaration.slots?.sort(sortByName);
-        const events = declaration.events?.sort(sortByName);
+        // Some events don't have a name, make sure they're filtered out.
+        const events = declaration.events?.filter((e) => Boolean(e.name))?.sort(sortByName);
         const cssProperties = declaration.cssProperties?.sort(sortByName);
         const cssParts = declaration.cssParts?.sort(sortByName);
         const cssStates = declaration.cssStates?.sort(sortByName);

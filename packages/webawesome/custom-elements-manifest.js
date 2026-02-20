@@ -197,6 +197,7 @@ export default {
     // Generate JSX types (see https://wc-toolkit.com/integrations/jsx/)
     jsxTypesPlugin({
       fileName: 'custom-elements-jsx.d.ts',
+      includeDefaultDOMEvents: true,
       outdir,
       defaultExport: true,
       componentTypePath: (_name, _tag, modulePath) => {
