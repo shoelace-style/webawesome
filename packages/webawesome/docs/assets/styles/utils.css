@@ -181,12 +181,6 @@
         display: none;
       }
     }
-
-    @container header (inline-size <= 100ch) {
-      .nav-products-secondary {
-        display: none;
-      }
-    }
   }
 
   wa-page::part(drawer) {
