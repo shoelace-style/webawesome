@@ -57,10 +57,12 @@
       {% include 'nav-products.njk' %}
 
       <div id="docs-header" class="wa-split">
-        {% include "nav-docs.njk" %}
+        <div class="wa-cluster wa-gap-2xs">
+          {# Nav toggle #}
+          {% include "nav-toggle.njk" %}
 
-        {# Nav toggle #}
-        {% include "nav-toggle.njk" %}
+          {% include "nav-docs.njk" %}
+        </div>
 
         {# Logo - Mobile #}
         {% include "header-logo-simple.njk" %}

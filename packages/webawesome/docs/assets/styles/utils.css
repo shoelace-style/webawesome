@@ -162,25 +162,32 @@
     container-type: inline-size;
     container-name: header;
 
+    /* Narrow (≤ 80ch): compact header with logo */
     @container header (inline-size <= 80ch) {
       .header-nav,
       .header-toolbar,
       .wrapper-nav-products {
         display: none;
       }
-
-      .header-logo-simple,
-      .header-toggle-nav {
+      .header-logo-simple {
         display: block;
       }
     }
 
+    /* > 80ch: hide compact logo */
     @container header (inline-size > 80ch) {
-      .header-logo-simple,
-      .header-toggle-nav {
+      .header-logo-simple {
         display: none;
       }
     }
+  }
+
+  /* Nav toggle: show when sidebar is hidden (wa-page mobile view), hide when sidebar is shown */
+  wa-page[view='mobile'] > [slot='header'] .header-toggle-nav {
+    display: block;
+  }
+  wa-page[view='desktop'] > [slot='header'] .header-toggle-nav {
+    display: none;
   }
 
   wa-page::part(drawer) {
