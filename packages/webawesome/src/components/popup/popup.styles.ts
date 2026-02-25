@@ -9,17 +9,17 @@ export default css`
     --hide-duration: 100ms;
 
     /*
-     * These properties are computed to account for the arrow's dimensions after being rotated 45º. The constant
-     * 0.7071 is derived from sin(45), which is the diagonal size of the arrow's container after rotating.
+     * These properties are computed to account for the arrow's dimensions after being rotated 45º.
      *
-     * The diamond will be translated inward by the border thickness to ensure crop point is on the inner edge of
-     * the border. This also means we need to increase the size of the diamond by sin(45) times the border width
-     * to keep it central.
+     * The clipping mask will be extended inward by a little over the border thickness to ensure crop point is
+     * beyond the inner edge of the border. We add a little bit extra overlap to combat issues with sub-pixel
+     * rounding leaving faint traces of the popup border.
      */
 
-    --arrow-base-offset: calc(var(--popup-border-width) + 0.5px);
-    --arrow-size-diagonal: calc((var(--arrow-size) + var(--popup-border-width)) * 0.7071);
+    --arrow-size-diagonal: calc(var(--arrow-size) * sin(45));
     --arrow-padding-offset: calc(var(--arrow-size-diagonal) - var(--arrow-size));
+    --arrow-size-div: calc(var(--arrow-size-diagonal) * 2);
+    --arrow-clipping-offset: calc(var(--popup-border-width) + 2px);
 
     display: contents;
   }
@@ -54,11 +54,11 @@ export default css`
 
   .arrow {
     position: absolute;
-    width: calc(var(--arrow-size-diagonal) * 2);
-    height: calc(var(--arrow-size-diagonal) * 2);
+    width: var(--arrow-size-div);
+    height: var(--arrow-size-div);
     background: var(--arrow-color);
     z-index: 3;
-    clip-path: polygon(0px 100%, 100% 0px, 100% 100%);
+    clip-path: polygon(0 100%, 0 calc(100% - var(--arrow-clipping-offset)), calc(100% - var(--arrow-clipping-offset)) 0, 100% 0, 100% 100%);
     rotate: 45deg;
   }
 
