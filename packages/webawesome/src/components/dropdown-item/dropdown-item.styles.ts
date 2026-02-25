@@ -28,9 +28,11 @@ export default css`
     background-color: var(--wa-color-neutral-fill-normal);
   }
 
-  :host(:state(disabled)) {
+  :host(:state(disabled)),
+  :host([disabled]) {
     opacity: 0.5;
     cursor: not-allowed;
+    pointer-events: none;
   }
 
   /* Danger variant */

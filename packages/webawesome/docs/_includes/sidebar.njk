@@ -5,7 +5,7 @@
 
 {# Getting started #}
 <h2 class="wa-cluster wa-gap-xs">
-  <wa-icon name="rocket-launch" variant="regular" aria-hidden="true"></wa-icon>
+  <wa-icon name="wand-magic-sparkles" variant="regular" aria-hidden="true"></wa-icon>
   Getting Started
 </h2>
 <ul>
@@ -138,8 +138,6 @@
         </li>
       </ul>
     </li>
-    <li><span class="is-planned wa-split">Charts <span><a
-            href="https://github.com/shoelace-style/webawesome/issues/1073" target="_blank">{{ plannedBadge("A Web Awesome Kickstarter stretch goal!") }}</a>{{ proBadge({ description: "This will require access to Web Awesome Pro" }) }}</span></span></li>
     <li><a href="/docs/components/checkbox/">Checkbox</a></li>
     <li><a href="/docs/components/color-picker/">Color Picker</a></li>
     <li>
@@ -246,8 +244,7 @@
         <li><a href="/docs/components/tree-item/">Tree Item</a></li>
       </ul>
     </li>
-    <li><span class="is-planned wa-split">Video <span><a href="https://github.com/shoelace-style/webawesome/issues/985"
-            target="_blank">{{ plannedBadge("A Web Awesome Kickstarter stretch goal!") }}</a>{{ proBadge({ description: "This will require access to Web Awesome Pro" }) }}</span></span></li>
+    <li><span class="is-planned wa-split">Video <span><a href="https://github.com/shoelace-style/webawesome/issues/985" target="_blank">{{ plannedBadge("A Web Awesome Kickstarter stretch goal!") }}</a>{{ proBadge( { description: "This will require access to Web Awesome Pro" }) }}</span></span></li>
     <li><a href="/docs/components/zoomable-frame">Zoomable Frame</a></li>
     {# PLOP_NEW_COMPONENT_PLACEHOLDER #}
   </ul>
@@ -258,17 +255,20 @@
   <h2 slot="summary">
     <wa-icon name="chart-area" variant="regular" aria-hidden="true"></wa-icon>
     Data Visualization
+    {{ proBadge() }}
+    <wa-icon name="flask" aria-hidden="true" class="icon-shrink de-emphasize"></wa-icon>
   </h2>
   <ul>
-    <li>
-      <span class="wa-split">
-        <span>
-          <a href="/docs/components/sparkline">Sparkline</a>
-          <wa-icon name="flask" aria-hidden="true" class="icon-shrink de-emphasize"></wa-icon>
-        </span>
-        {{ proBadge() }}
-      </span>
-    </li>
+    <li><a href="/docs/components/bar-chart">Bar Chart</a></li>
+    <li><a href="/docs/components/line-chart">Line Chart</a></li>
+    <li><a href="/docs/components/bubble-chart">Bubble Chart</a></li>
+    <li><a href="/docs/components/doughnut-chart">Doughnut Chart</a></li>
+    <li><a href="/docs/components/pie-chart">Pie Chart</a></li>
+    <li><a href="/docs/components/polar-area-chart">Polar Area Chart</a></li>
+    <li><a href="/docs/components/radar-chart">Radar Chart</a></li>
+    <li><a href="/docs/components/scatter-chart">Scatter Chart</a></li>
+    <li><a href="/docs/components/sparkline">Sparkline</a></li>
+    <li><a href="/docs/components/chart">Advanced Usage</a></li>
   </ul>
 </wa-details>
 
@@ -542,36 +542,4 @@
 
 <wa-divider style="--spacing: var(--wa-space-xl);"></wa-divider>
 
-<div class="wa-stack wa-gap-xl" id="colophon">
-  <div class="wa-stack wa-gap-xs">
-    {% include "logo-simple.njk" %}
-    <h2 class="wa-heading-s">Web Awesome</h2>
-    <p class="wa-caption-xs wa-cluster wa-gap-xs">
-      Version {{ package.version }}
-      <wa-icon id="version-icon-info" family="duotone" variant="regular" name="party-horn"></wa-icon>
-      <wa-tooltip for="version-icon-info" distance="2" class="wa-font-size-xs">Here be freshly launched Awesome and no wa-dragons</wa-tooltip>
-    </p>
-    <p class="wa-caption-xs">&copy; Fonticons, Inc.</p>
-  </div>
-
-  <div class="wa-cluster wa-gap-0 wa-caption-xs the-socials">
-    <h2 class="wa-visually-hidden">Web Awesome Elsewhere</h2>
-    <a href="https://github.com/shoelace-style/webawesome" rel="noopener noreferrer" target="_blank"
-      class="appearance-plain">
-      <wa-icon family="brands" name="github" label="GitHub"></wa-icon>
-    </a>
-    <a href="https://bsky.app/profile/webawesome.com" rel="noopener noreferrer" target="_blank"
-      class="appearance-plain">
-      <wa-icon family="brands" name="bluesky" label="Bluesky"></wa-icon>
-    </a>
-    <a href="https://mastodon.social/@webawesome" rel="noopener noreferrer" target="_blank" class="appearance-plain">
-      <wa-icon family="brands" name="mastodon" label="Mastodon"></wa-icon>
-    </a>
-    <a href="https://x.com/webawesomer" rel="noopener noreferrer" target="_blank" class="appearance-plain">
-      <wa-icon family="brands" name="x-twitter" label="Twitter (X)"></wa-icon>
-    </a>
-    <a href="https://www.threads.com/@web.awesome" rel="noopener noreferrer" target="_blank" class="appearance-plain">
-      <wa-icon family="brands" name="threads" label="Threads"></wa-icon>
-    </a>
-  </div>
-</div>
+{% include "sidebar-colophon.njk" %}

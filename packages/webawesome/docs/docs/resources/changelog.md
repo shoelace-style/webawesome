@@ -13,13 +13,18 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 <small>TBD</small>
 
 - Added `wa-button` class for styling `<a>` elements as buttons [pr:2040]
+- Added `<wa-chart>` and other chart types as experimental pro components
+- Added `--popup-border-width` parameter to `<wa-popup>`. This must be set to match the width of any border added to the popup element [pr:2070]
+- Fixed a bug in `<wa-dropdown-item>` where a click event would fire on `disabled`. [pr:2023]
+- Fixed a bug in the custom elements manifest where events may not have a name. [pr:2026]
+- Fixed a bug in `<wa-select>` where options with `selected` set via framework property binding (e.g., Vue's `:selected`) were not respected when `with-clear` was present [pr:1985] 
 - Fixed a bug `<wa-color-picker>` that prevented it from flipping horizontally when position to the right of the viewport. [pr:2024]
 - Fixed a bug by adding `color: inherit` to the `<wa-dialog>` and `<wa-drawer>` styles so they inherit the text color from the document context rather than the browser default. [pr:2064]
 - Fixed a bug that caused 0ms animations to not fire correctly in the internal `animateWithClass()` function [pr#2068]
 - Fixed a bug that caused `<wa-dropdown>` elements to scroll the document in Chrome 145
+- Fixed a bug in native styles so `border-radius` does not apply to `svg` elements by default [pr:2078]
 - Updated `<wa-icon>` to use [Font Awesome 7.2.0](https://fontawesome.com/changelog#v7-2-0) [pr:2059]
 - Updated `<wa-popup>` arrow styling to prevent larger sized arrow from overlapping the contents of the popup [pr:2070]
-- Added `--popup-border-width` parameter to `<wa-popup>`. This must be set to match the width of any border added to the popup element [pr:2070]
 - Modified native styles so that `border-radius` does not apply to `svg` elements by default [pr:2078]
 
 ## 3.2.1
@@ -32,6 +37,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 <small>February 4, 2026</small>
 
+- Fixed a bug in `<wa-select>` where the `selected` attribute on `<wa-option>` was ignored when `with-clear` was present [#1922]
 - Added `<wa-file-input>` as an experimental pro component [issue:1240]
 - Added `<wa-sparkline>` as an experimental pro component
 - Added `<wa-number-input>` as an experimental component for numeric input with stepper buttons [issue:1688]
