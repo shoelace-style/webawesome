@@ -428,7 +428,7 @@ By default, the arrow will be aligned as close to the center of the _anchor_ as 
 
 ### Adding a border
 
-Borders can also be added to the popup element by targetting the contents of the `wa-popup` element. This styling can also be extended to the arrow itself by targetting `.arrow` class in the popup.
+Borders can also be added to the popup element by targeting the contents of the `wa-popup` element. This styling can also be extended to the arrow itself by targeting `.arrow` class in the popup.
 
 When adding borders to the popup element which has an arrow, make sure to set the `--popup-border-width` custom property to match the width of the border of the popup. Setting this will allow the arrow to overlap the border of the popup so that they visually appear connected.
 
