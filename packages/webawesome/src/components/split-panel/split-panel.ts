@@ -225,14 +225,28 @@ export default class WaSplitPanel extends WebAwesomeElement {
 
     // Resize when a primary panel is set
     if (this.primary) {
-      this.position = this.pixelsToPercentage(this.cachedPositionInPixels);
+      const newPosition = this.pixelsToPercentage(this.cachedPositionInPixels);
+      if (this.position !== newPosition) {
+        this.position = newPosition;
+      }
     }
   }
 
   @watch('position')
   handlePositionChange() {
     this.cachedPositionInPixels = this.percentageToPixels(this.position);
-    this.positionInPixels = this.percentageToPixels(this.position);
+
+    //
+    // Only update positionInPixels if it actually changed to avoid a circular watch loop that causes the
+    // "ResizeObserver loop completed with undelivered notifications" warnings in Chrome
+    //
+    // See https://github.com/shoelace-style/webawesome/issues/2018
+    //
+    const newPositionInPixels = this.percentageToPixels(this.position);
+    if (this.positionInPixels !== newPositionInPixels) {
+      this.positionInPixels = newPositionInPixels;
+    }
+
     this.isCollapsed = false;
     this.positionBeforeCollapsing = 0;
     this.dispatchEvent(new WaRepositionEvent());
@@ -240,7 +254,11 @@ export default class WaSplitPanel extends WebAwesomeElement {
 
   @watch('positionInPixels')
   handlePositionInPixelsChange() {
-    this.position = this.pixelsToPercentage(this.positionInPixels);
+    // Only update position if it actually changed to avoid a circular watch loop
+    const newPosition = this.pixelsToPercentage(this.positionInPixels);
+    if (this.position !== newPosition) {
+      this.position = newPosition;
+    }
   }
 
   @watch('vertical')
