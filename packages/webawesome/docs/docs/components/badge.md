@@ -116,6 +116,26 @@ Use the `attention` attribute to draw attention to the badge with a subtle anima
 </style>
 ```
 
+### Start & End Decorations
+
+Use the `start` and `end` slots to add presentational elements like `<wa-icon>` alongside the badge's label.
+
+```html {.example}
+<wa-badge>
+  <wa-icon slot="start" name="acorn"></wa-icon>
+  Start
+</wa-badge>
+<wa-badge>
+  <wa-icon slot="end" name="tree-deciduous"></wa-icon>
+  End
+</wa-badge>
+<wa-badge>
+  <wa-icon slot="start" name="cow"></wa-icon>
+  <wa-icon slot="end" name="ufo-beam"></wa-icon>
+  Both
+</wa-badge>
+```
+
 ### With Buttons
 
 One of the most common use cases for badges is attaching them to buttons. To make this easier, badges will be automatically positioned at the top-right when they're a child of a button.
