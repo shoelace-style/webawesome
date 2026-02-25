@@ -196,8 +196,8 @@ Try resizing the example below with each option and notice how the panels respon
     </div>
   </wa-split-panel>
 
-  <wa-select label="Primary Panel" value="" style="max-width: 200px; margin-top: 1rem;">
-    <wa-option value="">None</wa-option>
+  <wa-select label="Primary Panel" style="max-width: 200px; margin-top: 1rem;">
+    <wa-option value="" selected>None</wa-option>
     <wa-option value="start">Start</wa-option>
     <wa-option value="end">End</wa-option>
   </wa-select>
