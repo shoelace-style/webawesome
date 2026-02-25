@@ -85,6 +85,7 @@ export default class WaDropdownItem extends WebAwesomeElement {
   connectedCallback() {
     super.connectedCallback();
     this.addEventListener('mouseenter', this.handleMouseEnter.bind(this));
+    this.shadowRoot!.addEventListener('click', this.handleClick, { capture: true });
     this.shadowRoot!.addEventListener('slotchange', this.handleSlotChange);
   }
 
@@ -92,6 +93,7 @@ export default class WaDropdownItem extends WebAwesomeElement {
     super.disconnectedCallback();
     this.closeSubmenu();
     this.removeEventListener('mouseenter', this.handleMouseEnter);
+    this.shadowRoot!.removeEventListener('click', this.handleClick, { capture: true });
     this.shadowRoot!.removeEventListener('slotchange', this.handleSlotChange);
   }
 
@@ -115,6 +117,7 @@ export default class WaDropdownItem extends WebAwesomeElement {
     if (changedProperties.has('disabled')) {
       this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
       this.customStates.set('disabled', this.disabled);
+      this.style.pointerEvents = this.disabled ? 'none' : '';
     }
 
     if (changedProperties.has('type')) {
@@ -235,6 +238,14 @@ export default class WaDropdownItem extends WebAwesomeElement {
         el.localName === 'wa-dropdown-item' && el.getAttribute('slot') === 'submenu' && !el.hasAttribute('disabled'),
     ) as WaDropdownItem[];
   }
+
+  /** Prevents click events from firing when the item is disabled. */
+  private handleClick = (event: MouseEvent) => {
+    if (this.disabled) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    }
+  };
 
   /** Handles mouse enter to open the submenu */
   private handleMouseEnter() {
