@@ -62,10 +62,11 @@ export default css`
       var(--arrow-clipping-corner) 100%,
       var(--arrow-base-offset) calc(100% - var(--arrow-base-offset)),
       calc(var(--arrow-base-offset) - 2px) calc(100% - var(--arrow-base-offset)),
-      calc(100% - var(--arrow-base-offset)) calc(var(--arrow-base-offset) - 2px), 
-      calc(100% - var(--arrow-base-offset)) var(--arrow-base-offset), 
+      calc(100% - var(--arrow-base-offset)) calc(var(--arrow-base-offset) - 2px),
+      calc(100% - var(--arrow-base-offset)) var(--arrow-base-offset),
       100% var(--arrow-clipping-corner),
-      100% 100%);
+      100% 100%
+    );
     rotate: 45deg;
   }
 
