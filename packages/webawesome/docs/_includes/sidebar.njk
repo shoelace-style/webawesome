@@ -138,8 +138,6 @@
         </li>
       </ul>
     </li>
-    <li><span class="is-planned wa-split">Charts <span><a
-            href="https://github.com/shoelace-style/webawesome/issues/1073" target="_blank">{{ plannedBadge("A Web Awesome Kickstarter stretch goal!") }}</a>{{ proBadge({ description: "This will require access to Web Awesome Pro" }) }}</span></span></li>
     <li><a href="/docs/components/checkbox/">Checkbox</a></li>
     <li><a href="/docs/components/color-picker/">Color Picker</a></li>
     <li>
@@ -246,8 +244,7 @@
         <li><a href="/docs/components/tree-item/">Tree Item</a></li>
       </ul>
     </li>
-    <li><span class="is-planned wa-split">Video <span><a href="https://github.com/shoelace-style/webawesome/issues/985"
-            target="_blank">{{ plannedBadge("A Web Awesome Kickstarter stretch goal!") }}</a>{{ proBadge({ description: "This will require access to Web Awesome Pro" }) }}</span></span></li>
+    <li><span class="is-planned wa-split">Video <span><a href="https://github.com/shoelace-style/webawesome/issues/985" target="_blank">{{ plannedBadge("A Web Awesome Kickstarter stretch goal!") }}</a>{{ proBadge( { description: "This will require access to Web Awesome Pro" }) }}</span></span></li>
     <li><a href="/docs/components/zoomable-frame">Zoomable Frame</a></li>
     {# PLOP_NEW_COMPONENT_PLACEHOLDER #}
   </ul>
@@ -258,17 +255,20 @@
   <h2 slot="summary">
     <wa-icon name="chart-area" variant="regular" aria-hidden="true"></wa-icon>
     Data Visualization
+    {{ proBadge() }}
+    <wa-icon name="flask" aria-hidden="true" class="icon-shrink de-emphasize"></wa-icon>
   </h2>
   <ul>
-    <li>
-      <span class="wa-split">
-        <span>
-          <a href="/docs/components/sparkline">Sparkline</a>
-          <wa-icon name="flask" aria-hidden="true" class="icon-shrink de-emphasize"></wa-icon>
-        </span>
-        {{ proBadge() }}
-      </span>
-    </li>
+    <li><a href="/docs/components/bar-chart">Bar Chart</a></li>
+    <li><a href="/docs/components/line-chart">Line Chart</a></li>
+    <li><a href="/docs/components/bubble-chart">Bubble Chart</a></li>
+    <li><a href="/docs/components/doughnut-chart">Doughnut Chart</a></li>
+    <li><a href="/docs/components/pie-chart">Pie Chart</a></li>
+    <li><a href="/docs/components/polar-area-chart">Polar Area Chart</a></li>
+    <li><a href="/docs/components/radar-chart">Radar Chart</a></li>
+    <li><a href="/docs/components/scatter-chart">Scatter Chart</a></li>
+    <li><a href="/docs/components/sparkline">Sparkline</a></li>
+    <li><a href="/docs/components/chart">Advanced Usage</a></li>
   </ul>
 </wa-details>
 

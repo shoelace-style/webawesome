@@ -114,7 +114,10 @@ export function codeExamplesTransformer(options = {}) {
       // Run preview scripts as modules to prevent collisions
       const root = parse(preview, { blockTextElements: { script: true } });
       root.querySelectorAll('script').forEach(script => {
-        if (!script.type?.trim()) {
+        // Can't use script.type as its always undefined?
+        const scriptType = script.getAttribute("type")?.trim()
+
+        if (!scriptType) {
           script.setAttribute('type', 'module');
         }
       });
