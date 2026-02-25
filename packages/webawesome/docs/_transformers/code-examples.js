@@ -115,7 +115,7 @@ export function codeExamplesTransformer(options = {}) {
       const root = parse(preview, { blockTextElements: { script: true } });
       root.querySelectorAll('script').forEach(script => {
         // Can't use script.type as its always undefined?
-        const scriptType = script.getAttribute("type")?.trim()
+        const scriptType = script.getAttribute('type')?.trim();
 
         if (!scriptType) {
           script.setAttribute('type', 'module');
