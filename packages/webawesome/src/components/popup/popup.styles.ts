@@ -15,11 +15,11 @@ export default css`
      * beyond the inner edge of the border. We add a little bit extra overlap to combat issues with sub-pixel
      * rounding leaving faint traces of the popup border.
      */
-
-    --arrow-size-diagonal: calc(var(--arrow-size) * sin(45));
+    --arrow-base-offset: var(--popup-border-width);
+    --arrow-size-diagonal: calc((var(--arrow-size) + var(--arrow-base-offset)) * sin(45));
     --arrow-padding-offset: calc(var(--arrow-size-diagonal) - var(--arrow-size));
     --arrow-size-div: calc(var(--arrow-size-diagonal) * 2);
-    --arrow-clipping-offset: calc(var(--popup-border-width) + 2px);
+    --arrow-clipping-corner: calc(var(--popup-border-width) * (1 + tan(22.5)));
 
     display: contents;
   }
@@ -58,7 +58,14 @@ export default css`
     height: var(--arrow-size-div);
     background: var(--arrow-color);
     z-index: 3;
-    clip-path: polygon(0 100%, 0 calc(100% - var(--arrow-clipping-offset)), calc(100% - var(--arrow-clipping-offset)) 0, 100% 0, 100% 100%);
+    clip-path: polygon(
+      var(--arrow-clipping-corner) 100%,
+      var(--arrow-base-offset) calc(100% - var(--arrow-base-offset)),
+      calc(var(--arrow-base-offset) - 2px) calc(100% - var(--arrow-base-offset)),
+      calc(100% - var(--arrow-base-offset)) calc(var(--arrow-base-offset) - 2px), 
+      calc(100% - var(--arrow-base-offset)) var(--arrow-base-offset), 
+      100% var(--arrow-clipping-corner),
+      100% 100%);
     rotate: 45deg;
   }
 
