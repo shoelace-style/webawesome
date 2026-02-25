@@ -64,11 +64,9 @@ layout: page
     & .emphasis::after {
       background-color: var(--wa-brand-grey);
     }
-    & .wa-crown svg {
-      width: 4rem;
-      & path {
-        fill: white;
-      }
+
+    .logo-app {
+      color: var(--wa-color-brand-on-loud);
     }
   }
   .hero-cta {
@@ -162,6 +160,7 @@ layout: page
     flex-direction: column;
     gap: 1rem;
     font-size: 0.875rem;
+
     & .wa-crown svg {
       width: 2rem;
     }
@@ -229,9 +228,7 @@ layout: page
 
 <div class="hero-background">
   <div class="hero-content">
-    <div class="wa-crown">
-      {% include "logo-simple.njk" %}
-    </div>
+    <wa-icon name="web-awesome" family="brands" class="logo-app wa-heading-4xl"></wa-icon>
     <h1 class="brand-font">Make something <span class="emphasis">awesome</span> with open-source web components</h1>
     <div class="hero-cta">
       {%- raw -%}
@@ -397,9 +394,7 @@ layout: page
 <wa-divider></wa-divider>
 
   <footer>
-    <div class="wa-crown">
-      {% include "logo-simple.njk" %}
-    </div>
+    <wa-icon name="web-awesome" family="brands" class="logo-app wa-body-l"></wa-icon>
     <div class="split-block">
       <div>
         <strong class="brand-font tagline">Let's Make Something Awesome</strong>

@@ -102,7 +102,6 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   private selectionOrder: Map<string, number> = new Map();
   private typeToSelectString = '';
   private typeToSelectTimeout: number;
-
   @query('.select') popup: WaPopup;
   @query('.combobox') combobox: HTMLSlotElement;
   @query('.display-input') displayInput: HTMLInputElement;

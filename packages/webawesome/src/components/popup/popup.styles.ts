@@ -54,15 +54,15 @@ export default css`
     z-index: 3;
   }
 
-  :host([data-current-placement~='left']) .arrow {
+  :host([data-current-placement|='left']) .arrow {
     rotate: -45deg;
   }
 
-  :host([data-current-placement~='right']) .arrow {
+  :host([data-current-placement|='right']) .arrow {
     rotate: 135deg;
   }
 
-  :host([data-current-placement~='bottom']) .arrow {
+  :host([data-current-placement|='bottom']) .arrow {
     rotate: 225deg;
   }
 
