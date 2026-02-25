@@ -15,6 +15,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Added `wa-button` class for styling `<a>` elements as buttons [pr:2040]
 - Added `<wa-chart>` and other chart types as experimental pro components
 - Added `--popup-border-width` parameter to `<wa-popup>`. This must be set to match the width of any border added to the popup element [pr:2070]
+- Added `start` and `end` slots to `<wa-badge>` [pr:2082]
 - Fixed a bug in `<wa-dropdown-item>` where a click event would fire on `disabled`. [pr:2023]
 - Fixed a bug in the custom elements manifest where events may not have a name. [pr:2026]
 - Fixed a bug in `<wa-select>` where options with `selected` set via framework property binding (e.g., Vue's `:selected`) were not respected when `with-clear` was present [pr:1985] 
