@@ -1,8 +1,8 @@
 import { aTimeout, expect, fixture, html, waitUntil } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import sinon from 'sinon';
-import type WaDropdown from './dropdown.js';
 import type WaPopover from '../popover/popover.js';
+import type WaDropdown from './dropdown.js';
 
 describe('<wa-dropdown>', () => {
   it('should render a component', async () => {
