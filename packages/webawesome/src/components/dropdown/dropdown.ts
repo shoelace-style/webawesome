@@ -103,6 +103,9 @@ export default class WaDropdown extends WebAwesomeElement {
     this.submenuCleanups.clear();
 
     document.removeEventListener('mousemove', this.handleGlobalMouseMove);
+    document.removeEventListener('keydown', this.handleDocumentKeyDown);
+    document.removeEventListener('pointerdown', this.handleDocumentPointerDown);
+    unregisterOverlay(this);
   }
 
   firstUpdated() {
