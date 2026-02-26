@@ -10,6 +10,7 @@ import { animateWithClass } from '../../internal/animate.js';
 import { drag } from '../../internal/drag.js';
 import { waitForEvent } from '../../internal/event.js';
 import { clamp } from '../../internal/math.js';
+import { isTopOverlay, registerOverlay, unregisterOverlay } from '../../internal/overlay-stack.js';
 import { HasSlotController } from '../../internal/slot.js';
 import { RequiredValidator } from '../../internal/validators/required-validator.js';
 import { watch } from '../../internal/watch.js';
@@ -899,7 +900,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
   private handleDocumentKeyDown = (event: KeyboardEvent) => {
     // Close when escape or tab is pressed
-    if (event.key === 'Escape' && this.open) {
+    if (event.key === 'Escape' && this.open && isTopOverlay(this)) {
       event.stopPropagation();
       this.focus();
       this.hide();
@@ -998,6 +999,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
     this.base.addEventListener('keydown', this.handleKeyDown);
     document.addEventListener('keydown', this.handleDocumentKeyDown);
     document.addEventListener('mousedown', this.handleDocumentMouseDown);
+    registerOverlay(this);
   }
 
   removeOpenListeners() {
@@ -1006,6 +1008,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
     }
     document.removeEventListener('keydown', this.handleDocumentKeyDown);
     document.removeEventListener('mousedown', this.handleDocumentMouseDown);
+    unregisterOverlay(this);
   }
 
   @watch('open', { waitUntilFirstUpdate: true })

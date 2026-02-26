@@ -9,6 +9,7 @@ import { WaShowEvent } from '../../events/show.js';
 import { animateWithClass } from '../../internal/animate.js';
 import { waitForEvent } from '../../internal/event.js';
 import { uniqueId } from '../../internal/math.js';
+import { isTopOverlay, registerOverlay, unregisterOverlay } from '../../internal/overlay-stack.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import WaPopup from '../popup/popup.js';
@@ -115,6 +116,7 @@ export default class WaPopover extends WebAwesomeElement {
 
     // Cleanup events in case the popover is removed while open
     document.removeEventListener('keydown', this.handleDocumentKeyDown);
+    unregisterOverlay(this);
     this.eventController.abort();
   }
 
@@ -151,7 +153,7 @@ export default class WaPopover extends WebAwesomeElement {
 
   private handleDocumentKeyDown = (event: KeyboardEvent) => {
     // Hide the popover when escape is pressed
-    if (event.key === 'Escape') {
+    if (event.key === 'Escape' && isTopOverlay(this)) {
       event.preventDefault();
       this.open = false;
       if (this.anchor && typeof (this.anchor as any).focus === 'function') {
@@ -193,6 +195,7 @@ export default class WaPopover extends WebAwesomeElement {
       this.dialog.show();
       this.popup.active = true;
       openPopovers.add(this);
+      registerOverlay(this);
 
       // Autofocus the first element with the autofocus attribute
       requestAnimationFrame(() => {
@@ -222,6 +225,7 @@ export default class WaPopover extends WebAwesomeElement {
       document.removeEventListener('click', this.handleDocumentClick);
 
       openPopovers.delete(this);
+      unregisterOverlay(this);
 
       await animateWithClass(this.popup.popup, 'hide-with-scale');
       this.popup.active = false;

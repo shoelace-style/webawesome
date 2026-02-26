@@ -8,6 +8,14 @@ category: Organization
 ```html {.example}
 <wa-dialog label="Dialog" id="dialog-overview">
   This is a standard dialog. You can put any content you want in here!
+    <wa-select>
+  <wa-option value="">Option 1</wa-option>
+  <wa-option value="option-2">Option 2</wa-option>
+  <wa-option value="option-3">Option 3</wa-option>
+  <wa-option value="option-4">Option 4</wa-option>
+  <wa-option value="option-5">Option 5</wa-option>
+  <wa-option value="option-6">Option 6</wa-option>
+</wa-select>
   <wa-button slot="footer" variant="brand" data-dialog="close">Close</wa-button>
 </wa-dialog>
 

@@ -6,6 +6,7 @@ import { WaAfterShowEvent } from '../../events/after-show.js';
 import { WaHideEvent } from '../../events/hide.js';
 import { WaShowEvent } from '../../events/show.js';
 import { animateWithClass } from '../../internal/animate.js';
+import { isTopOverlay, registerOverlay, unregisterOverlay } from '../../internal/overlay-stack.js';
 import { parseSpaceDelimitedTokens } from '../../internal/parse.js';
 import { lockBodyScrolling, unlockBodyScrolling } from '../../internal/scroll.js';
 import { HasSlotController } from '../../internal/slot.js';
@@ -132,10 +133,12 @@ export default class WaDrawer extends WebAwesomeElement {
 
   private addOpenListeners() {
     document.addEventListener('keydown', this.handleDocumentKeyDown);
+    registerOverlay(this);
   }
 
   private removeOpenListeners() {
     document.removeEventListener('keydown', this.handleDocumentKeyDown);
+    unregisterOverlay(this);
   }
 
   private handleDialogCancel(event: Event) {
@@ -169,7 +172,7 @@ export default class WaDrawer extends WebAwesomeElement {
   }
 
   private handleDocumentKeyDown = (event: KeyboardEvent) => {
-    if (event.key === 'Escape' && this.open) {
+    if (event.key === 'Escape' && this.open && isTopOverlay(this)) {
       event.preventDefault();
       event.stopPropagation();
       this.requestClose(this.drawer);
