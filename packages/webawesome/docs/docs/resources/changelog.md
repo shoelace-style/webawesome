@@ -15,7 +15,6 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Added `wa-button` class for styling `<a>` elements as buttons [pr:2040]
 - Added `<wa-chart>` and other chart types as experimental pro components
 - Added `start` and `end` slots to `<wa-badge>` [pr:2082]
-- - Fixed a bug that caused a conflict in "Escape" key events. [pr:2096]
 - Fixed a bug in `<wa-page>` where the hamburger navigation would show up if there was no slot content. [issue:1601]
 - Fixed a bug in `<wa-dropdown-item>` where a click event would fire on `disabled`. [pr:2023]
 - Fixed a bug in the custom elements manifest where events may not have a name. [pr:2026]
@@ -27,6 +26,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed a bug in native styles so `border-radius` does not apply to `svg` elements by default [pr:2078]
 - Fixed a bug in `<wa-popup>` that caused arrows to point the wrong direction for `-start` and `-end` placements
 - Fixed a bug in `<wa-split-panel>` that caused a ResizeObserver error in Chromium-based browser when resizing the primary panel [issue:2018]
+- Fixed a bug that caused the `Escape` key to close more than just the active dismissible component when nested inside other dismissible elements [pr:2096]
 - Updated `<wa-icon>` to use [Font Awesome 7.2.0](https://fontawesome.com/changelog#v7-2-0) [pr:2059]
 
 ## 3.2.1
