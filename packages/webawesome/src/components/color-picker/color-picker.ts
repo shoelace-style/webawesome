@@ -891,7 +891,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
   private handleKeyDown = (event: KeyboardEvent) => {
     // Close when escape is pressed inside an open popup. We need to listen on the panel itself and stop propagation
     // in case any ancestors are also listening for this key.
-    if (this.open && event.key === 'Escape') {
+    if (this.open && event.key === 'Escape' && isTopOverlay(this)) {
       event.stopPropagation();
       this.hide();
       this.focus();
