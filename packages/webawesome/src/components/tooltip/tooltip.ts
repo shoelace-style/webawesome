@@ -179,7 +179,8 @@ export default class WaTooltip extends WebAwesomeElement {
 
   private handleDocumentKeyDown = (event: KeyboardEvent) => {
     // Pressing escape when a tooltip is open should dismiss it
-    if (event.key === 'Escape' && isTopOverlay(this)) {
+    if (event.key === 'Escape' && this.open && isTopOverlay(this)) {
+      event.preventDefault();
       event.stopPropagation();
       this.hide();
     }
