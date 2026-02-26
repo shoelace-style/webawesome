@@ -296,6 +296,11 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     this.open = false;
   }
 
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    this.removeOpenListeners();
+  }
+
   private updateDefaultValue() {
     const allOptions = this.getAllOptions();
     const defaultSelectedOptions = allOptions.filter(el => el.hasAttribute('selected') || el.defaultSelected);
