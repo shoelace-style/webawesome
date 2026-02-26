@@ -53,8 +53,12 @@ export default css`
     -webkit-user-select: none;
   }
 
-  .tooltip::part(arrow) {
-    border-bottom: var(--wa-tooltip-border-width) var(--wa-tooltip-border-style) var(--wa-tooltip-border-color);
-    border-right: var(--wa-tooltip-border-width) var(--wa-tooltip-border-style) var(--wa-tooltip-border-color);
+  .tooltip {
+    --popup-border-width: var(--wa-tooltip-border-width);
+
+    &::part(arrow) {
+      border-bottom: var(--wa-tooltip-border-width) var(--wa-tooltip-border-style) var(--wa-tooltip-border-color);
+      border-right: var(--wa-tooltip-border-width) var(--wa-tooltip-border-style) var(--wa-tooltip-border-color);
+    }
   }
 `;
