@@ -179,6 +179,10 @@
       .header-logo-simple {
         display: none;
       }
+
+      .header-toggle-nav {
+        margin-inline-start: var(--wa-space-s); /* visually align with product nav's .product-active */
+      }
     }
   }
 
