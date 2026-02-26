@@ -302,7 +302,7 @@ export default class WaDropdown extends WebAwesomeElement {
   private handleDocumentKeyDown = async (event: KeyboardEvent) => {
     const isRtl = this.localize.dir() === 'rtl';
 
-    if (event.key === 'Escape' && isTopOverlay(this)) {
+    if (event.key === 'Escape' && this.open && isTopOverlay(this)) {
       const trigger = this.getTrigger();
 
       event.preventDefault();
