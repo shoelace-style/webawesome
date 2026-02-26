@@ -1,7 +1,9 @@
-import { expect, waitUntil } from '@open-wc/testing';
+import { aTimeout, expect, waitUntil } from '@open-wc/testing';
+import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import sinon from 'sinon';
 import { fixtures } from '../../internal/test/fixture.js';
+import type WaPopover from '../popover/popover.js';
 import type WaTooltip from './tooltip.js';
 
 describe('<wa-tooltip>', () => {
@@ -186,4 +188,38 @@ describe('<wa-tooltip>', () => {
       });
     });
   }
+
+  describe('dismissible stack', () => {
+    it('should only close the tooltip when pressing Escape with a popover open underneath', async () => {
+      const fixture = fixtures[0];
+      const el = await fixture<HTMLDivElement>(html`
+        <div>
+          <wa-button id="popover-anchor">Open Popover</wa-button>
+          <wa-popover id="test-popover" for="popover-anchor">
+            <div style="padding: 1rem;">
+              <wa-button id="tooltip-anchor">Hover me</wa-button>
+              <wa-tooltip id="test-tooltip" for="tooltip-anchor" trigger="click">Tooltip content</wa-tooltip>
+            </div>
+          </wa-popover>
+        </div>
+      `);
+
+      const popover = el.querySelector<WaPopover>('#test-popover')!;
+      const tooltip = el.querySelector<WaTooltip>('#test-tooltip')!;
+
+      popover.open = true;
+      await waitUntil(() => popover.open);
+      await aTimeout(200);
+
+      tooltip.open = true;
+      await waitUntil(() => tooltip.open);
+      await aTimeout(200);
+
+      await sendKeys({ press: 'Escape' });
+      await aTimeout(200);
+
+      expect(tooltip.open).to.be.false;
+      expect(popover.open).to.be.true;
+    });
+  });
 });

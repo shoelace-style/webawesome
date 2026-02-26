@@ -1,6 +1,8 @@
 import { aTimeout, expect, fixture, html, waitUntil } from '@open-wc/testing';
+import { sendKeys } from '@web/test-runner-commands';
 import sinon from 'sinon';
 import type WaDropdown from './dropdown.js';
+import type WaPopover from '../popover/popover.js';
 
 describe('<wa-dropdown>', () => {
   it('should render a component', async () => {
@@ -115,5 +117,44 @@ describe('<wa-dropdown>', () => {
     expect(afterHideSpy.callCount).to.equal(0);
 
     expect(el.open).to.be.true;
+  });
+
+  describe('dismissible stack', () => {
+    it('should only close the dropdown when pressing Escape on a dropdown with a popover inside', async () => {
+      const el = await fixture<HTMLDivElement>(html`
+        <div>
+          <wa-dropdown id="test-dropdown">
+            <wa-button slot="trigger">Dropdown</wa-button>
+            <wa-dropdown-item>Item 1</wa-dropdown-item>
+            <wa-dropdown-item id="popover-trigger">Item 2</wa-dropdown-item>
+          </wa-dropdown>
+          <wa-popover id="test-popover" for="popover-trigger">
+            <div style="padding: 1rem;">Popover inside dropdown</div>
+          </wa-popover>
+        </div>
+      `);
+
+      const dropdown = el.querySelector<WaDropdown>('#test-dropdown')!;
+      const popover = el.querySelector<WaPopover>('#test-popover')!;
+
+      dropdown.open = true;
+      await waitUntil(() => dropdown.open);
+      await aTimeout(200);
+
+      popover.open = true;
+      await waitUntil(() => popover.open);
+      await aTimeout(200);
+
+      await sendKeys({ press: 'Escape' });
+      await aTimeout(200);
+
+      expect(popover.open).to.be.false;
+      expect(dropdown.open).to.be.true;
+
+      await sendKeys({ press: 'Escape' });
+      await aTimeout(200);
+
+      expect(dropdown.open).to.be.false;
+    });
   });
 });
