@@ -153,8 +153,9 @@ export default class WaPopover extends WebAwesomeElement {
 
   private handleDocumentKeyDown = (event: KeyboardEvent) => {
     // Hide the popover when escape is pressed
-    if (event.key === 'Escape' && isTopOverlay(this)) {
+    if (event.key === 'Escape' && this.open && isTopOverlay(this)) {
       event.preventDefault();
+      event.stopPropagation();
       this.open = false;
       if (this.anchor && typeof (this.anchor as any).focus === 'function') {
         (this.anchor as any).focus();
