@@ -99,6 +99,7 @@ export function codeExamplesTransformer(options = {}) {
     // Look for external links
     container.querySelectorAll('code.example').forEach(code => {
       let pre = code.closest('pre');
+      const hasPreview = !code.classList.contains('no-preview');
       const hasButtons = !code.classList.contains('no-buttons');
       const isOpen = code.classList.contains('open') || !hasButtons;
       const noEdit = code.classList.contains('no-edit');
@@ -137,14 +138,20 @@ export function codeExamplesTransformer(options = {}) {
 
       const codeExample = parse(`
           <div class="code-example ${isOpen ? 'open' : ''}">
-            <div class="code-example-preview">
-              <div>
-                ${preview}
+            ${
+              hasPreview
+              ? `
+              <div class="code-example-preview">
+                <div>
+                  ${preview}
+                </div>
+                <div class="code-example-resizer" aria-hidden="true">
+                  <wa-icon name="grip-lines-vertical"></wa-icon>
+                </div>
               </div>
-              <div class="code-example-resizer" aria-hidden="true">
-                <wa-icon name="grip-lines-vertical"></wa-icon>
-              </div>
-            </div>
+              `
+              : ''
+            }
             <div class="code-example-source" id="${id}">
               ${framePre?.outerHTML ?? pre.outerHTML}
             </div>
