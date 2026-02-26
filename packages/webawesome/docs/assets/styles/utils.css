@@ -133,6 +133,7 @@
   }
 
   .nav-products-secondary .pseudo-product wa-icon {
+    color: var(--wa-color-text-normal);
     font-size: var(--wa-font-size-l);
   }
 
@@ -169,6 +170,7 @@
       .wrapper-nav-products {
         display: none;
       }
+
       .header-logo-simple {
         display: block;
       }
@@ -190,6 +192,7 @@
   wa-page[view='mobile'] > [slot='header'] .header-toggle-nav {
     display: block;
   }
+
   wa-page[view='desktop'] > [slot='header'] .header-toggle-nav {
     display: none;
   }
