@@ -656,7 +656,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
       this.currentOption = option;
       option.current = true;
       option.tabIndex = 0;
-      option.focus();
+      option.focus({ preventScroll: true });
     }
   }
 
