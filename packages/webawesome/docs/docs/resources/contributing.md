@@ -366,11 +366,11 @@ Form controls should support submission and validation through the following con
 
 Overlay components (dialog, drawer, select, dropdown, tooltip, popover, color-picker, etc.) each attach their own document `keydown` listener. Without coordination, all open overlays respond to the Escape key simultaneously — causing nested overlays to all close at once.
 
-To solve this, a shared overlay stack is maintained in `src/internal/overlay-stack.ts`. Components that can be dismissed with the Escape key must use it to coordinate which overlay responds. The stack tracks open overlays in order, so only the topmost overlay handles the key event.
+To solve this, a shared dismissible stack is maintained in `src/internal/dismissible-stack.ts`. Components that can be dismissed with the Escape key must use it to coordinate which overlay responds. The stack tracks open dismissibles in order, so only the topmost one handles the key event.
 
-- Call `registerOverlay(this)` when the overlay becomes visible
-- Call `unregisterOverlay(this)` when the overlay closes or is removed from the DOM
-- Before handling Escape, call `isTopOverlay(this)` to confirm your component is the topmost overlay — if it returns `false`, ignore the key event
+- Call `registerDismissible(this)` when the overlay becomes visible
+- Call `unregisterDismissible(this)` when the overlay closes or is removed from the DOM
+- Before handling Escape, call `isTopDismissible(this)` to confirm your component is the topmost dismissible — if it returns `false`, ignore the key event
 
 This pattern is modeled after the `scroll.ts` lock pattern. Refer to existing overlay components such as `<wa-dialog>` or `<wa-drawer>` for examples.
 

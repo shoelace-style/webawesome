@@ -11,7 +11,7 @@ import { WaShowEvent } from '../../events/show.js';
 import { activeElements } from '../../internal/active-elements.js';
 import { animateWithClass } from '../../internal/animate.js';
 import { uniqueId } from '../../internal/math.js';
-import { isTopOverlay, registerOverlay, unregisterOverlay } from '../../internal/overlay-stack.js';
+import { isTopDismissible, registerDismissible, unregisterDismissible } from '../../internal/dismissible-stack.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import sizeStyles from '../../styles/component/size.styles.js';
 import { LocalizeController } from '../../utilities/localize.js';
@@ -105,7 +105,7 @@ export default class WaDropdown extends WebAwesomeElement {
     document.removeEventListener('mousemove', this.handleGlobalMouseMove);
     document.removeEventListener('keydown', this.handleDocumentKeyDown);
     document.removeEventListener('pointerdown', this.handleDocumentPointerDown);
-    unregisterOverlay(this);
+    unregisterDismissible(this);
   }
 
   firstUpdated() {
@@ -255,7 +255,7 @@ export default class WaDropdown extends WebAwesomeElement {
     this.popup.active = true; // Use wa-popup's active property instead of showPopover
     this.open = true;
     openDropdowns.add(this);
-    registerOverlay(this);
+    registerDismissible(this);
     this.syncAriaAttributes();
     document.addEventListener('keydown', this.handleDocumentKeyDown);
     document.addEventListener('pointerdown', this.handleDocumentPointerDown);
@@ -287,7 +287,7 @@ export default class WaDropdown extends WebAwesomeElement {
 
     this.open = false;
     openDropdowns.delete(this);
-    unregisterOverlay(this);
+    unregisterDismissible(this);
     this.syncAriaAttributes();
     document.removeEventListener('keydown', this.handleDocumentKeyDown);
     document.removeEventListener('pointerdown', this.handleDocumentPointerDown);
@@ -305,7 +305,7 @@ export default class WaDropdown extends WebAwesomeElement {
   private handleDocumentKeyDown = async (event: KeyboardEvent) => {
     const isRtl = this.localize.dir() === 'rtl';
 
-    if (event.key === 'Escape' && this.open && isTopOverlay(this)) {
+    if (event.key === 'Escape' && this.open && isTopDismissible(this)) {
       const trigger = this.getTrigger();
 
       event.preventDefault();

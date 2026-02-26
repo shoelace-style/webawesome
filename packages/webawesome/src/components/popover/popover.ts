@@ -9,7 +9,7 @@ import { WaShowEvent } from '../../events/show.js';
 import { animateWithClass } from '../../internal/animate.js';
 import { waitForEvent } from '../../internal/event.js';
 import { uniqueId } from '../../internal/math.js';
-import { isTopOverlay, registerOverlay, unregisterOverlay } from '../../internal/overlay-stack.js';
+import { isTopDismissible, registerDismissible, unregisterDismissible } from '../../internal/dismissible-stack.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import WaPopup from '../popup/popup.js';
@@ -116,7 +116,7 @@ export default class WaPopover extends WebAwesomeElement {
 
     // Cleanup events in case the popover is removed while open
     document.removeEventListener('keydown', this.handleDocumentKeyDown);
-    unregisterOverlay(this);
+    unregisterDismissible(this);
     this.eventController.abort();
   }
 
@@ -153,7 +153,7 @@ export default class WaPopover extends WebAwesomeElement {
 
   private handleDocumentKeyDown = (event: KeyboardEvent) => {
     // Hide the popover when escape is pressed
-    if (event.key === 'Escape' && this.open && isTopOverlay(this)) {
+    if (event.key === 'Escape' && this.open && isTopDismissible(this)) {
       event.preventDefault();
       event.stopPropagation();
       this.open = false;
@@ -196,7 +196,7 @@ export default class WaPopover extends WebAwesomeElement {
       this.dialog.show();
       this.popup.active = true;
       openPopovers.add(this);
-      registerOverlay(this);
+      registerDismissible(this);
 
       // Autofocus the first element with the autofocus attribute
       requestAnimationFrame(() => {
@@ -226,7 +226,7 @@ export default class WaPopover extends WebAwesomeElement {
       document.removeEventListener('click', this.handleDocumentClick);
 
       openPopovers.delete(this);
-      unregisterOverlay(this);
+      unregisterDismissible(this);
 
       await animateWithClass(this.popup.popup, 'hide-with-scale');
       this.popup.active = false;

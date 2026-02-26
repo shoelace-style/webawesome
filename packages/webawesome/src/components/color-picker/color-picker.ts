@@ -10,7 +10,7 @@ import { animateWithClass } from '../../internal/animate.js';
 import { drag } from '../../internal/drag.js';
 import { waitForEvent } from '../../internal/event.js';
 import { clamp } from '../../internal/math.js';
-import { isTopOverlay, registerOverlay, unregisterOverlay } from '../../internal/overlay-stack.js';
+import { isTopDismissible, registerDismissible, unregisterDismissible } from '../../internal/dismissible-stack.js';
 import { HasSlotController } from '../../internal/slot.js';
 import { RequiredValidator } from '../../internal/validators/required-validator.js';
 import { watch } from '../../internal/watch.js';
@@ -891,7 +891,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
   private handleKeyDown = (event: KeyboardEvent) => {
     // Close when escape is pressed inside an open popup. We need to listen on the panel itself and stop propagation
     // in case any ancestors are also listening for this key.
-    if (this.open && event.key === 'Escape' && isTopOverlay(this)) {
+    if (this.open && event.key === 'Escape' && isTopDismissible(this)) {
       event.stopPropagation();
       this.hide();
       this.focus();
@@ -900,7 +900,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
   private handleDocumentKeyDown = (event: KeyboardEvent) => {
     // Close when escape or tab is pressed
-    if (event.key === 'Escape' && this.open && isTopOverlay(this)) {
+    if (event.key === 'Escape' && this.open && isTopDismissible(this)) {
       event.stopPropagation();
       this.focus();
       this.hide();
@@ -999,7 +999,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
     this.base.addEventListener('keydown', this.handleKeyDown);
     document.addEventListener('keydown', this.handleDocumentKeyDown);
     document.addEventListener('mousedown', this.handleDocumentMouseDown);
-    registerOverlay(this);
+    registerDismissible(this);
   }
 
   removeOpenListeners() {
@@ -1008,7 +1008,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
     }
     document.removeEventListener('keydown', this.handleDocumentKeyDown);
     document.removeEventListener('mousedown', this.handleDocumentMouseDown);
-    unregisterOverlay(this);
+    unregisterDismissible(this);
   }
 
   @watch('open', { waitUntilFirstUpdate: true })
