@@ -144,7 +144,7 @@ export default class WaDrawer extends WebAwesomeElement {
   private handleDialogCancel(event: Event) {
     event.preventDefault();
 
-    if (!this.drawer.classList.contains('hide') && event.target === this.drawer) {
+    if (!this.drawer.classList.contains('hide') && event.target === this.drawer && isTopOverlay(this)) {
       this.requestClose(this.drawer);
     }
   }

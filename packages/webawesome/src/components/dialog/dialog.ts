@@ -132,7 +132,7 @@ export default class WaDialog extends WebAwesomeElement {
   private handleDialogCancel(event: Event) {
     event.preventDefault();
 
-    if (!this.dialog.classList.contains('hide') && event.target === this.dialog) {
+    if (!this.dialog.classList.contains('hide') && event.target === this.dialog && isTopOverlay(this)) {
       this.requestClose(this.dialog);
     }
   }
