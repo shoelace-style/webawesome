@@ -123,17 +123,16 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
     });
   }
 
-  connectedCallback () {
-    super.connectedCallback()
-    this.handleDefaultCheckedChange()
+  connectedCallback() {
+    super.connectedCallback();
+    this.handleDefaultCheckedChange();
   }
-
 
   @watch(['checked', 'defaultChecked'])
   handleDefaultCheckedChange() {
     if (!this.hasInteracted) {
       if (this.checked != null) {
-        this.defaultChecked = this.checked
+        this.defaultChecked = this.checked;
       }
       this.handleValueOrCheckedChange();
     }

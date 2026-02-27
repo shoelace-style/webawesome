@@ -101,8 +101,8 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
     }
 
     if (!this.valueHasChanged && this._value !== this.defaultValue) {
-      this._value = val
-      return
+      this._value = val;
+      return;
     }
 
     this.valueHasChanged = true;
@@ -333,7 +333,7 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
 
     if (this.input) {
       // @ts-expect-error
-      this.input.value = this.value
+      this.input.value = this.value;
     }
 
     super.formResetCallback();
