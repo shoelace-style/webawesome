@@ -11,6 +11,11 @@ export class HasSlotController implements ReactiveController {
   }
 
   private hasDefaultSlot() {
+    // `Element#childNodes` is unavailable in Lit's SSR context
+    if (!this.host.childNodes) {
+      return false
+    }
+
     return [...this.host.childNodes].some(node => {
       if (node.nodeType === Node.TEXT_NODE && node.textContent!.trim() !== '') {
         return true;
@@ -36,7 +41,7 @@ export class HasSlotController implements ReactiveController {
   }
 
   private hasNamedSlot(name: string) {
-    return this.host.querySelector(`:scope > [slot="${name}"]`) !== null;
+    return this.host.querySelector?.(`:scope > [slot="${name}"]`) !== null;
   }
 
   test(slotName: string) {
@@ -44,11 +49,11 @@ export class HasSlotController implements ReactiveController {
   }
 
   hostConnected() {
-    this.host.shadowRoot!.addEventListener('slotchange', this.handleSlotChange);
+    this.host.shadowRoot?.addEventListener?.('slotchange', this.handleSlotChange);
   }
 
   hostDisconnected() {
-    this.host.shadowRoot!.removeEventListener('slotchange', this.handleSlotChange);
+    this.host.shadowRoot?.removeEventListener?.('slotchange', this.handleSlotChange);
   }
 
   private handleSlotChange = (event: Event) => {
