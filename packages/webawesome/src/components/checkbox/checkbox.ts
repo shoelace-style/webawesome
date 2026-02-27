@@ -74,7 +74,7 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
   @property() title = ''; // make reactive to pass through
 
   /** The name of the checkbox, submitted as a name/value pair with form data. */
-  @property({ reflect: true }) name = '';
+  @property({ reflect: true }) name = null;
 
   private _value: string | null = this.getAttribute('value') ?? null;
 
@@ -123,10 +123,18 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
     });
   }
 
-  @watch('defaultChecked')
+  connectedCallback () {
+    super.connectedCallback()
+    this.handleDefaultCheckedChange()
+  }
+
+
+  @watch(['checked', 'defaultChecked'])
   handleDefaultCheckedChange() {
-    if (!this.hasInteracted && this.checked !== this.defaultChecked) {
-      this.checked = this.defaultChecked;
+    if (!this.hasInteracted) {
+      if (this.checked != null) {
+        this.defaultChecked = this.checked
+      }
       this.handleValueOrCheckedChange();
     }
   }
@@ -210,7 +218,7 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
             class="input"
             type="checkbox"
             title=${this.title /* An empty title prevents browser validation tooltips from appearing on hover */}
-            name=${this.name}
+            name=${ifDefined(this.name)}
             value=${ifDefined(this._value)}
             .indeterminate=${live(this.indeterminate)}
             .checked=${live(this.checked)}

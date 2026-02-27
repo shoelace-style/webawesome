@@ -159,7 +159,7 @@ async function handleClose() {
   queryTrackTimeout = null;
   dialog.removeEventListener('wa-hide', handleClose);
   if (!resultSelected) {
-    const query = input.value.trim();
+    const query = (input.value || "").trim();
     if (query.length > 0 && query !== lastTrackedQuery) {
       trackQuerySubmit(query, false);
       lastTrackedQuery = query;
