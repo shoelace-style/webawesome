@@ -22,7 +22,7 @@
 
     --brand-web-awesome-orange: var(--wa-brand-orange);
     --brand-font-awesome-blue: #418fde;
-    --brand-eleventy-green: #00a776;
+    --brand-build-awesome-green: #00a776;
   }
 
   /* #region layout utilities */
@@ -72,8 +72,8 @@
   .logo-font-awesome {
     color: var(--brand-font-awesome-blue);
   }
-  .logo-eleventy {
-    color: var(--brand-eleventy-green);
+  .logo-build-awesome {
+    color: var(--brand-build-awesome-green);
   }
 
   .logo-svg.awesome-logo {
