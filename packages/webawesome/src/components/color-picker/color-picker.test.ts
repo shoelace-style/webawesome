@@ -1,4 +1,4 @@
-import { aTimeout, expect, oneEvent } from '@open-wc/testing';
+import { aTimeout, expect, oneEvent, waitUntil } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import sinon from 'sinon';
@@ -6,6 +6,7 @@ import { fixtures } from '../../internal/test/fixture.js';
 import { clickOnElement, dragElement } from '../../internal/test/pointer-utilities.js';
 // import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
 import { serialize } from '../../utilities/form.js';
+import type WaPopover from '../popover/popover.js';
 import type WaColorPicker from './color-picker.js';
 
 describe('<wa-color-picker>', () => {
@@ -536,4 +537,39 @@ describe('<wa-color-picker>', () => {
       });
     });
   }
+
+  describe('dismissible stack', () => {
+    it('should only close the popover when pressing Escape with an open color-picker underneath', async () => {
+      const fixture = fixtures[0];
+      const el = await fixture<HTMLDivElement>(html`
+        <div>
+          <wa-color-picker id="test-color-picker"></wa-color-picker>
+          <wa-button id="popover-anchor">Open Popover</wa-button>
+          <wa-popover id="test-popover" for="popover-anchor">
+            <div style="padding: 1rem;">Popover content</div>
+          </wa-popover>
+        </div>
+      `);
+
+      const colorPicker = el.querySelector<WaColorPicker>('#test-color-picker')!;
+      const popover = el.querySelector<WaPopover>('#test-popover')!;
+
+      // Open color picker
+      const trigger = colorPicker.shadowRoot!.querySelector<HTMLButtonElement>('[part~="trigger"]')!;
+      await clickOnElement(trigger);
+      await aTimeout(200);
+      await waitUntil(() => colorPicker.open);
+
+      // Open popover on top
+      popover.open = true;
+      await waitUntil(() => popover.open);
+      await aTimeout(200);
+
+      await sendKeys({ press: 'Escape' });
+      await aTimeout(200);
+
+      expect(popover.open).to.be.false;
+      expect(colorPicker.open).to.be.true;
+    });
+  });
 });

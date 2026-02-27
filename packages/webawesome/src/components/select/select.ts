@@ -10,6 +10,7 @@ import { WaHideEvent } from '../../events/hide.js';
 import { WaRemoveEvent } from '../../events/remove.js';
 import { WaShowEvent } from '../../events/show.js';
 import { animateWithClass } from '../../internal/animate.js';
+import { isTopDismissible, registerDismissible, unregisterDismissible } from '../../internal/dismissible-stack.js';
 import { waitForEvent } from '../../internal/event.js';
 import { scrollIntoView } from '../../internal/scroll.js';
 import { HasSlotController } from '../../internal/slot.js';
@@ -295,6 +296,11 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     this.open = false;
   }
 
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    this.removeOpenListeners();
+  }
+
   private updateDefaultValue() {
     const allOptions = this.getAllOptions();
     const defaultSelectedOptions = allOptions.filter(el => el.hasAttribute('selected') || el.defaultSelected);
@@ -316,6 +322,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     document.addEventListener('focusin', this.handleDocumentFocusIn);
     document.addEventListener('keydown', this.handleDocumentKeyDown);
     document.addEventListener('mousedown', this.handleDocumentMouseDown);
+    registerDismissible(this);
 
     // If the component is rendered in a shadow root, we need to attach the focusin listener there too
     if (this.getRootNode() !== document) {
@@ -327,6 +334,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     document.removeEventListener('focusin', this.handleDocumentFocusIn);
     document.removeEventListener('keydown', this.handleDocumentKeyDown);
     document.removeEventListener('mousedown', this.handleDocumentMouseDown);
+    unregisterDismissible(this);
 
     if (this.getRootNode() !== document) {
       this.getRootNode().removeEventListener('focusin', this.handleDocumentFocusIn);
@@ -356,7 +364,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     }
 
     // Close when pressing escape
-    if (event.key === 'Escape' && this.open) {
+    if (event.key === 'Escape' && this.open && isTopDismissible(this)) {
       event.preventDefault();
       event.stopPropagation();
       this.hide();
@@ -656,7 +664,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
       this.currentOption = option;
       option.current = true;
       option.tabIndex = 0;
-      option.focus();
+      option.focus({ preventScroll: true });
     }
   }
 
