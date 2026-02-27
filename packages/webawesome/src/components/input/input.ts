@@ -332,6 +332,7 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
     this.value = this.defaultValue;
 
     if (this.input) {
+      // Fixes https://github.com/shoelace-style/webawesome/issues/1640 where resetting an input would leave the "live" vlaue in place on the input in the shadow dom. This fixed that by manually forcing the value.
       // @ts-expect-error
       this.input.value = this.value;
     }
