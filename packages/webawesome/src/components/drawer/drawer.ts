@@ -281,29 +281,29 @@ export default class WaDrawer extends WebAwesomeElement {
   }
 }
 
-//
-// Watch for data-drawer="open *" clicks
-//
-document.addEventListener('click', (event: MouseEvent) => {
-  const drawerAttrEl = (event.target as Element).closest('[data-drawer]');
+if (!isServer) {
+  //
+  // Watch for data-drawer="open *" clicks
+  //
+  document.addEventListener('click', (event: MouseEvent) => {
+    const drawerAttrEl = (event.target as Element).closest('[data-drawer]');
 
-  if (drawerAttrEl instanceof Element) {
-    const [command, id] = parseSpaceDelimitedTokens(drawerAttrEl.getAttribute('data-drawer') || '');
+    if (drawerAttrEl instanceof Element) {
+      const [command, id] = parseSpaceDelimitedTokens(drawerAttrEl.getAttribute('data-drawer') || '');
 
-    if (command === 'open' && id?.length) {
-      const doc = drawerAttrEl.getRootNode() as Document | ShadowRoot;
-      const drawer = doc.getElementById(id) as WaDrawer;
+      if (command === 'open' && id?.length) {
+        const doc = drawerAttrEl.getRootNode() as Document | ShadowRoot;
+        const drawer = doc.getElementById(id) as WaDrawer;
 
-      if (drawer?.localName === 'wa-drawer') {
-        drawer.open = true;
-      } else {
-        console.warn(`A drawer with an ID of "${id}" could not be found in this document.`);
+        if (drawer?.localName === 'wa-drawer') {
+          drawer.open = true;
+        } else {
+          console.warn(`A drawer with an ID of "${id}" could not be found in this document.`);
+        }
       }
     }
-  }
-});
+  });
 
-if (!isServer) {
   // Ugly, but it fixes light dismiss in Safari: https://bugs.webkit.org/show_bug.cgi?id=267688
   document.body.addEventListener('pointerdown', () => {
     /* empty */
