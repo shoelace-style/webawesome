@@ -109,14 +109,6 @@ wa-page > [slot='header'] {
 
   wa-button[data-toggle-nav] {
     --text-color: currentColor;
-    font-size: 1rem;
-    margin-inline-start: -0.875rem;
-    margin-inline-end: 0;
-
-    &::part(base) {
-      padding: 0;
-      padding-inline: 0.875rem;
-    }
   }
 }
 
