@@ -46,8 +46,8 @@
     {# wa-page-based Banner #}
     {% block pageBanner %}
     {% if hasBanner %}
-    {#- WA Launch Banner -#}
-    {% include "_banner-wa-launch.njk" ignore missing %}
+    {#- BA Kickstarter Banner -#}
+    {% include "banner-ba-kickstarter.njk" ignore missing %}
     {% endif %}
     {% endblock %}
 
@@ -163,7 +163,8 @@
 
     {#- Site-Wide Dialog -#}
     {% if hasSiteDialog %}
-    {% include "_dialog-wa-launch.njk" ignore missing %}
+    {#- BA Kickstarter Dialog -#}
+    {% include "dialog-ba-kickstarter.njk" ignore missing %}
     {% endif %}
 
     {#- Cookie Consent Dialog -#}

@@ -132,10 +132,58 @@
   }
 
   /* banner for Build Awesome Kickstarter */
+  /* custom version of shake icon animation for slower and more casual repetitive timing */
+  @keyframes ba-banner-shake {
+    0% {
+      transform: rotate(-15deg);
+    }
+    1.67% {
+      transform: rotate(15deg);
+    }
+    3.33% {
+      transform: rotate(-18deg);
+    }
+    5% {
+      transform: rotate(18deg);
+    }
+    6.67% {
+      transform: rotate(-18deg);
+    }
+    8.33% {
+      transform: rotate(22deg);
+    }
+    10% {
+      transform: rotate(-22deg);
+    }
+    11.67% {
+      transform: rotate(18deg);
+    }
+    13.33% {
+      transform: rotate(-12deg);
+    }
+    15% {
+      transform: rotate(12deg);
+    }
+    16.67%,
+    100% {
+      transform: rotate(0deg);
+    }
+  }
+
   .banner-ba-kickstarter {
     .banner-icon {
+      --primary-color: var(--wa-color-brand-on-loud);
+      --secondary-color: var(--wa-color-brand-on-normal);
+      --secondary-opacity: 1;
       font-size: var(--wa-font-size-2xl);
-      color: var(--brand-build-awesome-green);
+      animation: ba-banner-shake 12s linear 10s infinite;
+    }
+  }
+
+  /* disable animation for users who have reduced motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    .banner-ba-kickstarter .banner-icon {
+      animation: none;
     }
   }
 
@@ -345,6 +393,33 @@
     border-block-start: var(--wa-border-width-s) solid var(--wa-color-surface-border);
     flex-grow: 1; /* make footer contents span entire width of dialog */
     padding-block-start: var(--wa-space-l);
+  }
+
+  /* Build Awesome Kickstarter dialog */
+  .dialog-ba-kickstarter .ba-kickstarter-video {
+    position: relative;
+    margin-inline: calc(var(--spacing) * -1);
+    margin-block-start: calc(var(--spacing) * -1);
+    margin-block-end: var(--spacing);
+  }
+
+  /* Static fallback placeholder behind video */
+  .dialog-ba-kickstarter .ba-kickstarter-video-poster {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .dialog-ba-kickstarter .ba-kickstarter-video-poster img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .dialog-ba-kickstarter .ba-kickstarter-video-embed {
+    position: relative;
+    z-index: 1;
   }
 
   /* anchor headings  */
