@@ -485,6 +485,7 @@ wa-page > main:has(> .search-list) {
         align-items: center;
         justify-content: center;
         min-block-size: calc(6rem + var(--spacing));
+        padding: var(--spacing);
       }
 
       &:hover {
