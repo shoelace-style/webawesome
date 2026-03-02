@@ -29,7 +29,7 @@ export function codeExamplesTransformer(options = {}) {
     let src = element.getAttribute('src');
     let source = element.getAttribute('srcdoc');
     const isInclude = element.tagName?.toLowerCase() === 'wa-include';
-    
+
     if (!source && src) {
       // For wa-include, read the source file directly
       // For frames, normalize src for file path resolution:
