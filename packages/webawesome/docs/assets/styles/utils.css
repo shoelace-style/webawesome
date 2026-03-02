@@ -65,6 +65,46 @@
   }
   /* #endregion */
 
+  /* #region custom brands */
+  .brand-build-awesome {
+    /* custom brand colors for Build Awesome */
+    --wa-color-brand-05: #001909;
+    --wa-color-brand-10: #002512;
+    --wa-color-brand-20: #003e23;
+    --wa-color-brand-30: #005332;
+    --wa-color-brand-40: #006542;
+    --wa-color-brand-50: var(--brand-build-awesome-green);
+    --wa-color-brand-60: #43a57d;
+    --wa-color-brand-70: #5fbf96;
+    --wa-color-brand-80: #79d9af;
+    --wa-color-brand-90: #99f9cd;
+    --wa-color-brand-95: #a6ffda;
+    --wa-color-brand: var(--wa-color-brand-60);
+    --wa-color-brand-on: var(--wa-color-brand-10);
+    --wa-color-brand-fill-quiet: var(--wa-color-brand-95);
+    --wa-color-brand-fill-normal: var(--wa-color-brand-90);
+    --wa-color-brand-fill-loud: var(--wa-color-brand-50);
+    --wa-color-brand-border-quiet: var(--wa-color-brand-90);
+    --wa-color-brand-border-normal: var(--wa-color-brand-80);
+    --wa-color-brand-border-loud: var(--wa-color-brand-60);
+    --wa-color-brand-on-quiet: var(--wa-color-brand-40);
+    --wa-color-brand-on-normal: var(--wa-color-brand-30);
+    --wa-color-brand-on-loud: white;
+  }
+
+  .wa-dark .brand-build-awesome {
+    --wa-color-brand-fill-quiet: var(--wa-color-brand-10);
+    --wa-color-brand-fill-normal: var(--wa-color-brand-20);
+    --wa-color-brand-fill-loud: var(--wa-color-brand-50);
+    --wa-color-brand-border-quiet: var(--wa-color-brand-20);
+    --wa-color-brand-border-normal: var(--wa-color-brand-30);
+    --wa-color-brand-border-loud: var(--wa-color-brand-40);
+    --wa-color-brand-on-quiet: var(--wa-color-brand-60);
+    --wa-color-brand-on-normal: var(--wa-color-brand-70);
+    --wa-color-brand-on-loud: white;
+  }
+  /* #endregion */
+
   /* #region shared UI */
   .logo-web-awesome {
     color: var(--wa-brand-orange);
@@ -88,6 +128,14 @@
 
     .banner {
       inline-size: 100%;
+    }
+  }
+
+  /* banner for Build Awesome Kickstarter */
+  .banner-ba-kickstarter {
+    .banner-icon {
+      font-size: var(--wa-font-size-2xl);
+      color: var(--brand-build-awesome-green);
     }
   }
 
