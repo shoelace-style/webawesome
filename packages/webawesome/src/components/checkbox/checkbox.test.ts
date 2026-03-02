@@ -20,7 +20,7 @@ describe('<wa-checkbox>', () => {
       it('default properties', async () => {
         const el = await fixture<WaCheckbox>(html` <wa-checkbox></wa-checkbox> `);
 
-        expect(el.name).to.equal('');
+        expect(el.name).to.equal(null);
         expect(el.value).to.equal(null);
         expect(el.title).to.equal('');
         expect(el.disabled).to.be.false;
@@ -263,12 +263,17 @@ describe('<wa-checkbox>', () => {
           `);
           const button = form.querySelector('wa-button')!;
           const checkbox = form.querySelector('wa-checkbox')!;
+
           checkbox.checked = false;
 
           await checkbox.updateComplete;
-          setTimeout(() => button.click());
+          expect(checkbox.defaultChecked).to.equal(true)
 
-          await oneEvent(form, 'reset');
+          await new Promise((resolve) => {
+            form.addEventListener("reset", resolve, { once: true })
+            button.click()
+          })
+
           await checkbox.updateComplete;
 
           expect(checkbox.checked).to.be.true;

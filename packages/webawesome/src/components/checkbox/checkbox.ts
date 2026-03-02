@@ -130,12 +130,7 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
 
   @watch(['checked', 'defaultChecked'])
   handleDefaultCheckedChange() {
-    if (!this.hasInteracted) {
-      if (this.checked != null) {
-        this.defaultChecked = this.checked;
-      }
-      this.handleValueOrCheckedChange();
-    }
+    this.handleValueOrCheckedChange();
   }
 
   handleValueOrCheckedChange() {
