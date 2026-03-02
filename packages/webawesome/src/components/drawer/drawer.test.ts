@@ -4,6 +4,7 @@ import { html } from 'lit';
 import sinon from 'sinon';
 import { fixtures } from '../../internal/test/fixture.js';
 import { clickOnElement } from '../../internal/test/pointer-utilities.js';
+import type WaPopover from '../popover/popover.js';
 import type WaDrawer from './drawer.js';
 
 describe('<wa-drawer>', () => {
@@ -136,4 +137,36 @@ describe('<wa-drawer>', () => {
       });
     });
   }
+
+  describe('dismissible stack', () => {
+    // showModal() can cause WTR timeouts in some browsers
+    it.skip('should only close the popover when pressing Escape with a drawer open underneath', async () => {
+      const fixture = fixtures[0];
+      const el = await fixture<HTMLDivElement>(html`
+        <div>
+          <wa-drawer id="test-drawer" label="Test Drawer" open>
+            <wa-button id="popover-anchor">Open Popover</wa-button>
+            <wa-popover id="test-popover" for="popover-anchor">
+              <div style="padding: 1rem;">Popover content</div>
+            </wa-popover>
+          </wa-drawer>
+        </div>
+      `);
+
+      const drawer = el.querySelector<WaDrawer>('#test-drawer')!;
+      const popover = el.querySelector<WaPopover>('#test-popover')!;
+
+      await aTimeout(200);
+
+      popover.open = true;
+      await waitUntil(() => popover.open);
+      await aTimeout(200);
+
+      await sendKeys({ press: 'Escape' });
+      await aTimeout(200);
+
+      expect(popover.open).to.be.false;
+      expect(drawer.open).to.be.true;
+    });
+  });
 });

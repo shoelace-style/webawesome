@@ -14,6 +14,9 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 - Added `wa-button` class for styling `<a>` elements as buttons [pr:2040]
 - Added `<wa-chart>` and other chart types as experimental pro components
+- Added `--popup-border-width` parameter to `<wa-popup>`. This must be set to match the width of any border added to the popup element [pr:2070]
+- Added `start` and `end` slots to `<wa-badge>` [pr:2082]
+- Fixed a bug in `<wa-page>` where the hamburger navigation would show up if there was no slot content. [issue:1601]
 - Fixed a bug in `<wa-dropdown-item>` where a click event would fire on `disabled`. [pr:2023]
 - Fixed a bug in the custom elements manifest where events may not have a name. [pr:2026]
 - Fixed a bug in `<wa-select>` where options with `selected` set via framework property binding (e.g., Vue's `:selected`) were not respected when `with-clear` was present [pr:1985] 
@@ -22,8 +25,12 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed a bug that caused 0ms animations to not fire correctly in the internal `animateWithClass()` function [pr#2068]
 - Fixed a bug that caused `<wa-dropdown>` elements to scroll the document in Chrome 145
 - Fixed a bug in native styles so `border-radius` does not apply to `svg` elements by default [pr:2078]
+- Fixed a bug in `<wa-popup>` that caused arrows to point the wrong direction for `-start` and `-end` placements
 - Fixed a bug in `<wa-split-panel>` that caused a ResizeObserver error in Chromium-based browser when resizing the primary panel [issue:2018]
+- Fixed a bug that caused the `Escape` key to close more than just the active dismissible component when nested inside other dismissible elements [pr:2096]
 - Updated `<wa-icon>` to use [Font Awesome 7.2.0](https://fontawesome.com/changelog#v7-2-0) [pr:2059]
+- Updated `<wa-popup>` arrow styling to prevent larger sized arrow from overlapping the contents of the popup [pr:2070]
+- Modified native styles so that `border-radius` does not apply to `svg` elements by default [pr:2078]
 
 ## 3.2.1
 

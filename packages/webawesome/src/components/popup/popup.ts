@@ -56,6 +56,8 @@ const SUPPORTS_POPOVER = globalThis?.HTMLElement?.prototype.hasOwnProperty('popo
  *
  * @cssproperty [--arrow-size=6px] - The size of the arrow. Note that an arrow won't be shown unless the `arrow`
  *  attribute is used.
+ * @cssproperty [--popup-border-width] - The width of any custom border applied to the popup. This is used to reposition
+ *  the arrow to overlap to the inside edge of the popup border.
  * @cssproperty [--arrow-color=black] - The color of the arrow.
  * @cssproperty [--auto-size-available-width] - A read-only custom property that determines the amount of width the
  *  popup can be before overflowing. Useful for positioning child elements that need to overflow. This property is only
@@ -486,7 +488,7 @@ export default class WaPopup extends WebAwesomeElement {
           right,
           bottom,
           left,
-          [staticSide]: 'calc(var(--arrow-size-diagonal) * -1)',
+          [staticSide]: 'calc(var(--arrow-base-offset) - var(--arrow-size-diagonal))',
         });
       }
     });

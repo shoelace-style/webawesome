@@ -7,6 +7,7 @@ import { ifDefined } from 'lit/directives/if-defined.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { WaInvalidEvent } from '../../events/invalid.js';
 import { animateWithClass } from '../../internal/animate.js';
+import { isTopDismissible, registerDismissible, unregisterDismissible } from '../../internal/dismissible-stack.js';
 import { drag } from '../../internal/drag.js';
 import { waitForEvent } from '../../internal/event.js';
 import { clamp } from '../../internal/math.js';
@@ -890,7 +891,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
   private handleKeyDown = (event: KeyboardEvent) => {
     // Close when escape is pressed inside an open popup. We need to listen on the panel itself and stop propagation
     // in case any ancestors are also listening for this key.
-    if (this.open && event.key === 'Escape') {
+    if (this.open && event.key === 'Escape' && isTopDismissible(this)) {
       event.stopPropagation();
       this.hide();
       this.focus();
@@ -899,7 +900,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
   private handleDocumentKeyDown = (event: KeyboardEvent) => {
     // Close when escape or tab is pressed
-    if (event.key === 'Escape' && this.open) {
+    if (event.key === 'Escape' && this.open && isTopDismissible(this)) {
       event.stopPropagation();
       this.focus();
       this.hide();
@@ -998,6 +999,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
     this.base.addEventListener('keydown', this.handleKeyDown);
     document.addEventListener('keydown', this.handleDocumentKeyDown);
     document.addEventListener('mousedown', this.handleDocumentMouseDown);
+    registerDismissible(this);
   }
 
   removeOpenListeners() {
@@ -1006,6 +1008,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
     }
     document.removeEventListener('keydown', this.handleDocumentKeyDown);
     document.removeEventListener('mousedown', this.handleDocumentMouseDown);
+    unregisterDismissible(this);
   }
 
   @watch('open', { waitUntilFirstUpdate: true })
