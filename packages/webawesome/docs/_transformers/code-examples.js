@@ -23,6 +23,7 @@ export function codeExamplesTransformer(options = {}) {
    */
   const getFrameSource = frame => {
     const selectSrc = frame?.hasAttribute('data-select-src');
+    const expandIncludes = frame?.hasAttribute('data-expand-includes');
     if (!selectSrc) return;
     let src = frame.getAttribute('src');
     let source = frame.getAttribute('srcdoc');
@@ -37,7 +38,9 @@ export function codeExamplesTransformer(options = {}) {
     const selectors = frame?.getAttribute('data-select-src');
     if (selectors) {
       const sourceNode = parse(source, { comment: true, voidTag: { closingSlash: true } });
-      sourceNode.querySelectorAll('wa-include').forEach(e => replaceIncludeWithSource(e));
+      if (expandIncludes) {
+        sourceNode.querySelectorAll('wa-include').forEach(e => replaceIncludeWithSource(e));
+      }
       sourceNode.querySelectorAll(selectors).forEach((fragment, i) => {
         // Normalize formatting:
         // - Fix bad parse() formatting of wrapped first attributes
