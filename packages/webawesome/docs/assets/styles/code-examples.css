@@ -2,7 +2,7 @@
   --code-example-border-color: var(--wa-color-neutral-border-quiet);
   --code-example-border-radius: var(--wa-border-radius-l);
   --code-example-border-width: var(--wa-panel-border-width);
-  
+
   background: var(--wa-color-surface-lowered);
   border: var(--wa-border-style) var(--code-example-border-width) var(--code-example-border-color);
   border-radius: var(--code-example-border-radius);

@@ -143,7 +143,7 @@ export function codeExamplesTransformer(options = {}) {
           <div class="code-example ${isOpen ? 'open' : ''}">
             ${
               hasPreview
-              ? `
+                ? `
               <div class="code-example-preview">
                 <div>
                   ${preview}
@@ -153,7 +153,7 @@ export function codeExamplesTransformer(options = {}) {
                 </div>
               </div>
               `
-              : ''
+                : ''
             }
             <div class="code-example-source" id="${id}">
               ${framePre?.outerHTML ?? pre.outerHTML}

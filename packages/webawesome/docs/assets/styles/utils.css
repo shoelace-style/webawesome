@@ -348,7 +348,7 @@
         &::part(label) {
           font-size: var(--wa-font-size-s);
         }
-      
+
         &:state(selected)::part(item) {
           background-color: var(--wa-color-neutral-fill-normal);
         }
