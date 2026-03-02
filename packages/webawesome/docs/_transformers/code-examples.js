@@ -189,11 +189,10 @@ export function codeExamplesTransformer(options = {}) {
                         </button>
                       `
                   }
-
+                  </div>
                 `
                 : ''
             }
-            </div>
           </div>
         `);
 
