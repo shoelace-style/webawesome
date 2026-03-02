@@ -435,6 +435,7 @@ wa-page > main:has(> .search-list) {
 }
 
 .search-list {
+  container-type: inline-size;
   .search-list-input {
     margin-block-end: var(--wa-space-3xl);
   }
@@ -445,16 +446,24 @@ wa-page > main:has(> .search-list) {
     gap: var(--wa-space-2xl);
     margin-block-end: var(--wa-space-3xl);
 
-    @media screen and (max-width: 1470px) {
+    @container (width < 768px) {
       grid-template-columns: repeat(3, 1fr);
     }
 
-    @media screen and (max-width: 960px) {
+    @container (width < 576px) {
       grid-template-columns: repeat(2, 1fr);
     }
 
-    @media screen and (max-width: 500px) {
+    @container (width < 384px) {
       grid-template-columns: repeat(1, 1fr);
+    }
+
+    &.large {
+      grid-template-columns: repeat(2, 1fr);
+
+      @container (width < 640px) {
+        grid-template-columns: repeat(1, 1fr);
+      }
     }
 
     a {
@@ -470,7 +479,7 @@ wa-page > main:has(> .search-list) {
         display: flex;
       }
 
-      &::part(header) {
+      &[with-header]::part(header) {
         background-color: var(--header-background, var(--wa-color-neutral-fill-quiet));
         display: flex;
         align-items: center;
