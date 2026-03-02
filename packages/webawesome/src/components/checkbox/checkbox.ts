@@ -101,8 +101,22 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
    */
   @property({ type: Boolean, reflect: true }) indeterminate = false;
 
+  _checked: boolean | null = null;
+
+  get checked () {
+    if (this.valueHasChanged) {
+      return Boolean(this._checked)
+    }
+
+    return this._checked ?? this.defaultChecked
+  }
+
   /** Draws the checkbox in a checked state. */
-  @property({ type: Boolean, attribute: false }) checked: boolean = this.hasAttribute('checked');
+  @property({ type: Boolean, attribute: false })
+  set checked (val: boolean) {
+    this._checked = Boolean(val)
+    this.valueHasChanged = true
+  }
 
   /** The default value of the form control. Primarily used for resetting the form control. */
   @property({ type: Boolean, reflect: true, attribute: 'checked' }) defaultChecked: boolean =
@@ -159,20 +173,14 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
   protected willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
-    if (changedProperties.has('defaultChecked')) {
-      if (!this.hasInteracted) {
-        this.checked = this.defaultChecked;
-      }
-    }
-
-    if (changedProperties.has('value') || changedProperties.has('checked')) {
+    if (changedProperties.has('value') || changedProperties.has('checked') || changedProperties.has("defaultChecked")) {
       this.handleValueOrCheckedChange();
     }
   }
 
   formResetCallback() {
     // Evaluate checked before the super call because of our watcher on value.
-    this.checked = this.defaultChecked;
+    this._checked = null;
     super.formResetCallback();
     this.handleValueOrCheckedChange();
   }
