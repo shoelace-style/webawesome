@@ -370,18 +370,16 @@
 
 <!-- Patterns -->
 <wa-details appearance="outlined">
-  <h2 slot="summary">
-    <a class="wa-cluster wa-gap-xs" href="/docs/patterns/" title="Overview">
+  <h2 slot="summary" class="wa-split">
+    <span class="wa-cluster wa-gap-xs">
       <wa-icon name="block-brick" variant="regular" aria-hidden="true"></wa-icon>
       Patterns
-    </a>
+    </span>
+    {{ proBadge({ description: "Patterns require access to Web Awesome Pro" }) }}
   </h2>
   <ul>
     <li>
-      <span class="wa-split">
-        <a href="/docs/patterns/app/">App</a>
-        {{ proBadge() }}
-      </span>
+      <a href="/docs/patterns/app/">App</a>
       <ul>
         <li>
           <a href="/docs/patterns/app/action-panel/">Action Panel</a>
@@ -425,10 +423,7 @@
       </ul>
     </li>
     <li>
-      <span class="wa-split">
-        <a href="/docs/patterns/blog-news/">Blog &amp; News</a>
-        {{ proBadge() }}
-      </span>
+      <a href="/docs/patterns/blog-news/">Blog &amp; News</a>
       <ul>
         <li>
           <a href="/docs/patterns/blog-news/banners/">Banners</a>
@@ -487,10 +482,7 @@
       </ul>
     </li>
     <li>
-      <span class="wa-split">
-        <a href="/docs/patterns/ecommerce/">Ecommerce</a>
-        {{ proBadge() }}
-      </span>
+      <a href="/docs/patterns/ecommerce/">Ecommerce</a>
       <ul>
         <li>
           <a href="/docs/patterns/ecommerce/category-filter/">Category Filter</a>
@@ -528,10 +520,7 @@
       </ul>
     </li>
     <li>
-      <span class="wa-split">
-        <a href="/docs/patterns/layouts/">Layouts</a>
-        {{ proBadge() }}
-      </span>
+      <a href="/docs/patterns/layouts/">Layouts</a>
       <ul>
         <li>
           <a href="/docs/patterns/layouts/ecommerce/">Ecommerce</a>
