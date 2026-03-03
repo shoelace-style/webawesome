@@ -444,6 +444,65 @@
       content: ' (' attr(href) ')';
     }
   }
+
+  /* patterns file explorer */
+  wa-zoomable-frame:has(+ .file-explorer) {
+    min-block-size: 400px;
+    margin-block-end: var(--wa-content-spacing);
+    border: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
+    border-radius: var(--wa-border-radius-l);
+
+    &::part(controls) {
+      border-radius: var(--wa-border-radius-m);
+    }
+  }
+
+  .file-explorer {
+    display: grid;
+    grid-template-columns: 30ch 1fr;
+    block-size: 60vh;
+    max-inline-size: 100%;
+    border: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
+    border-radius: var(--wa-border-radius-l);
+    overflow: hidden;
+    position: relative;
+
+    wa-tree {
+      position: sticky;
+      inset-block-start: 0;
+      overflow-y: auto;
+      block-size: 100%;
+      padding-block: var(--wa-space-m);
+      background-color: var(--wa-color-surface-lowered);
+      border-inline-end: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
+      border-start-start-radius: inherit;
+      border-end-start-radius: inherit;
+
+      wa-tree-item {
+        &::part(label) {
+          font-size: var(--wa-font-size-s);
+        }
+
+        &:state(selected)::part(item) {
+          background-color: var(--wa-color-neutral-fill-normal);
+        }
+      }
+    }
+
+    .code-canvas {
+      overflow-x: auto;
+
+      &,
+      .file-code,
+      .code-example,
+      .code-example-source,
+      pre,
+      code.example {
+        block-size: 100%;
+      }
+    }
+  }
+
   /* #endregion */
 
   /* #region funsies + cosmetics */

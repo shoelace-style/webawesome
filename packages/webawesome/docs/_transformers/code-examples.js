@@ -16,28 +16,37 @@ export function codeExamplesTransformer(options = {}) {
   const baseDir = process.env.BASE_DIR;
 
   /**
-   * Return the expanded source code referenced by a `<wa-zoomable-frame>`.
-   * Instances of `<wa-include>` are replaced with the referenced source code.
-   * @param {HTMLElement} frame
+   * Return the expanded source code referenced by a `<wa-zoomable-frame>` or `<wa-include>`.
+   * Nested instances of `<wa-include>` can be replaced with the referenced source code
+   * with the `data-expand-includes` attribute.
+   * @param {HTMLElement} element
    * @returns {string}
    */
-  const getFrameSource = frame => {
-    const selectSrc = frame?.hasAttribute('data-select-src');
+  const getElementSource = element => {
+    const selectSrc = element?.hasAttribute('data-select-src');
+    const expandIncludes = element?.hasAttribute('data-expand-includes');
     if (!selectSrc) return;
-    let src = frame.getAttribute('src');
-    let source = frame.getAttribute('srcdoc');
+    let src = element.getAttribute('src');
+    let source = element.getAttribute('srcdoc');
+    const isInclude = element.tagName?.toLowerCase() === 'wa-include';
+
     if (!source && src) {
-      // Normalize src for file path resolution:
+      // For wa-include, read the source file directly
+      // For frames, normalize src for file path resolution:
       // - Add index.html if src is a directory
       // - Remove query string and url fragment
-      src += src.match(/\.html/) ? '' : `${src.endsWith('/') ? '' : '/'}index.html`;
-      src = src.split('?')[0].split('#')[0];
+      if (!isInclude) {
+        src += src.match(/\.html/) ? '' : `${src.endsWith('/') ? '' : '/'}index.html`;
+        src = src.split('?')[0].split('#')[0];
+      }
       source = readFileSync(path.join(baseDir, src), 'utf8');
     }
-    const selectors = frame?.getAttribute('data-select-src');
+    const selectors = element?.getAttribute('data-select-src');
     if (selectors) {
       const sourceNode = parse(source, { comment: true, voidTag: { closingSlash: true } });
-      sourceNode.querySelectorAll('wa-include').forEach(e => replaceIncludeWithSource(e));
+      if (expandIncludes) {
+        sourceNode.querySelectorAll('wa-include').forEach(e => replaceIncludeWithSource(e));
+      }
       sourceNode.querySelectorAll(selectors).forEach((fragment, i) => {
         // Normalize formatting:
         // - Fix bad parse() formatting of wrapped first attributes
@@ -99,6 +108,7 @@ export function codeExamplesTransformer(options = {}) {
     // Look for external links
     container.querySelectorAll('code.example').forEach(code => {
       let pre = code.closest('pre');
+      const hasPreview = !code.classList.contains('no-preview');
       const hasButtons = !code.classList.contains('no-buttons');
       const isOpen = code.classList.contains('open') || !hasButtons;
       const noEdit = code.classList.contains('no-edit');
@@ -123,30 +133,37 @@ export function codeExamplesTransformer(options = {}) {
       });
       preview = root.toString();
 
-      // Substitute the expanded source code for any `<wa-zoomable-frame data-select-src="...">` in the preview
-      let framePre, frameCode;
-      const frameSource = getFrameSource(root.querySelector('wa-zoomable-frame'));
-      if (frameSource) {
-        const highlightedSource = highlightCode(frameSource, 'html');
-        frameCode = parse(`<code class="example">${highlightedSource}</code>`).firstChild;
-        framePre = parse(`<pre id="code-block-${uuid}"></pre>`).firstChild;
-        framePre.appendChild(frameCode);
+      // Substitute the expanded source code for any `<wa-zoomable-frame data-select-src="...">` or `<wa-include data-select-src="...">` in the preview
+      let elementPre, elementCode;
+      const targetElement = root.querySelector('wa-zoomable-frame[data-select-src], wa-include[data-select-src]');
+      const elementSource = getElementSource(targetElement);
+      if (elementSource) {
+        const highlightedSource = highlightCode(elementSource, lang);
+        elementCode = parse(`<code class="example">${highlightedSource}</code>`).firstChild;
+        elementPre = parse(`<pre id="code-block-${uuid}"></pre>`).firstChild;
+        elementPre.appendChild(elementCode);
       }
 
-      copyCode(frameCode ?? code);
+      copyCode(elementCode ?? code);
 
       const codeExample = parse(`
           <div class="code-example ${isOpen ? 'open' : ''}">
-            <div class="code-example-preview">
-              <div>
-                ${preview}
+            ${
+              hasPreview
+                ? `
+              <div class="code-example-preview">
+                <div>
+                  ${preview}
+                </div>
+                <div class="code-example-resizer" aria-hidden="true">
+                  <wa-icon name="grip-lines-vertical"></wa-icon>
+                </div>
               </div>
-              <div class="code-example-resizer" aria-hidden="true">
-                <wa-icon name="grip-lines-vertical"></wa-icon>
-              </div>
-            </div>
+              `
+                : ''
+            }
             <div class="code-example-source" id="${id}">
-              ${framePre?.outerHTML ?? pre.outerHTML}
+              ${elementPre?.outerHTML ?? pre.outerHTML}
             </div>
             ${
               hasButtons
@@ -172,11 +189,10 @@ export function codeExamplesTransformer(options = {}) {
                         </button>
                       `
                   }
-
+                  </div>
                 `
                 : ''
             }
-            </div>
           </div>
         `);
 
