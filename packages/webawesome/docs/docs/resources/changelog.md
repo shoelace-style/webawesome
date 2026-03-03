@@ -8,9 +8,9 @@ Web Awesome follows [Semantic Versioning](https://semver.org/). Breaking changes
 
 Components with the <wa-badge variant="warning">Experimental</wa-badge> badge should not be used in production. They are made available as release candidates for development and testing purposes. As such, changes to experimental components will not be subject to semantic versioning.
 
-## Unreleased
+## 3.3.0
 
-<small>TBD</small>
+<small>March 3rd, 2026</small>
 
 - Added `wa-button` class for styling `<a>` elements as buttons [pr:2040]
 - Added `<wa-chart>` and other chart types as experimental pro components
