@@ -154,7 +154,7 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
   }
 
   formResetCallback(...args: Parameters<WebAwesomeFormAssociatedElement['formResetCallback']>) {
-    this.value = null;
+    this._value = null;
 
     super.formResetCallback(...args);
 
