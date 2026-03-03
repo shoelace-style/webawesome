@@ -88,25 +88,25 @@ describe('<wa-slider>', () => {
         });
 
         // https://github.com/shoelace-style/webawesome/issues/1273
-        it("Should respond to attribute changes if the value has not changed", async () => {
+        it('Should respond to attribute changes if the value has not changed', async () => {
           const el = await fixture<WaSlider>(html` <wa-slider step="2" value="2"></wa-slider> `);
-          expect(el.value).to.equal(2)
-          el.setAttribute("value", "4")
-          await el.updateComplete
-          expect(el.value).to.equal(4)
-        })
+          expect(el.value).to.equal(2);
+          el.setAttribute('value', '4');
+          await el.updateComplete;
+          expect(el.value).to.equal(4);
+        });
 
         // https://github.com/shoelace-style/webawesome/issues/1273
-        it("Should not respond to attribute changes if the value has changed", async () => {
+        it('Should not respond to attribute changes if the value has changed', async () => {
           const el = await fixture<WaSlider>(html` <wa-slider step="2" value="2"></wa-slider> `);
-          expect(el.value).to.equal(2)
-          el.value = 6
-          await el.updateComplete
-          el.setAttribute("value", "4")
-          await el.updateComplete
-          expect(el.value).to.equal(6)
-          expect(el.defaultValue).to.equal(4)
-        })
+          expect(el.value).to.equal(2);
+          el.value = 6;
+          await el.updateComplete;
+          el.setAttribute('value', '4');
+          await el.updateComplete;
+          expect(el.value).to.equal(6);
+          expect(el.defaultValue).to.equal(4);
+        });
       });
 
       describe('step', () => {

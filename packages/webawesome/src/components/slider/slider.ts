@@ -131,7 +131,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
       return clamp(val, this.min, this.max);
     }
 
-    const val = this._value ?? this.defaultValue
+    const val = this._value ?? this.defaultValue;
     return clamp(val, this.min, this.max);
   }
 
@@ -422,10 +422,10 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
       this.minValue = parseFloat(this.getAttribute('min-value') ?? String(this.min));
       this.maxValue = parseFloat(this.getAttribute('max-value') ?? String(this.max));
     } else {
-      this._value = null
+      this._value = null;
       this.defaultValue = this.defaultValue ?? parseFloat(this.getAttribute('value') ?? String(this.min));
     }
-    this.valueHasChanged = false
+    this.valueHasChanged = false;
     this.hasInteracted = false;
     super.formResetCallback();
   }

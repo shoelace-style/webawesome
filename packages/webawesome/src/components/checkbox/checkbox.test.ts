@@ -267,12 +267,12 @@ describe('<wa-checkbox>', () => {
           checkbox.checked = false;
 
           await checkbox.updateComplete;
-          expect(checkbox.defaultChecked).to.equal(true)
+          expect(checkbox.defaultChecked).to.equal(true);
 
-          await new Promise((resolve) => {
-            form.addEventListener("reset", resolve, { once: true })
-            button.click()
-          })
+          await new Promise(resolve => {
+            form.addEventListener('reset', resolve, { once: true });
+            button.click();
+          });
 
           await checkbox.updateComplete;
 

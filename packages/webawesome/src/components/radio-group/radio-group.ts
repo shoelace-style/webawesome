@@ -143,7 +143,12 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
   }
 
   updated(changedProperties: PropertyValues<this>) {
-    if (changedProperties.has('disabled') || changedProperties.has('size') || changedProperties.has('value') || changedProperties.has("defaultValue")) {
+    if (
+      changedProperties.has('disabled') ||
+      changedProperties.has('size') ||
+      changedProperties.has('value') ||
+      changedProperties.has('defaultValue')
+    ) {
       this.syncRadioElements();
     }
   }

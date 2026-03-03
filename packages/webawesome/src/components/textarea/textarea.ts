@@ -322,7 +322,7 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
     this._value = null;
 
     if (this.input) {
-      this.input.value = this.value || ""
+      this.input.value = this.value || '';
     }
 
     super.formResetCallback();

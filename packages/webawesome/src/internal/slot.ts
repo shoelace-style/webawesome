@@ -13,7 +13,7 @@ export class HasSlotController implements ReactiveController {
   private hasDefaultSlot() {
     // `Element#childNodes` is unavailable in Lit's SSR context
     if (!this.host.childNodes) {
-      return false
+      return false;
     }
 
     return [...this.host.childNodes].some(node => {
