@@ -138,7 +138,7 @@ export function codeExamplesTransformer(options = {}) {
       const targetElement = root.querySelector('wa-zoomable-frame[data-select-src], wa-include[data-select-src]');
       const elementSource = getElementSource(targetElement);
       if (elementSource) {
-        const highlightedSource = highlightCode(elementSource, 'html');
+        const highlightedSource = highlightCode(elementSource, lang);
         elementCode = parse(`<code class="example">${highlightedSource}</code>`).firstChild;
         elementPre = parse(`<pre id="code-block-${uuid}"></pre>`).firstChild;
         elementPre.appendChild(elementCode);
