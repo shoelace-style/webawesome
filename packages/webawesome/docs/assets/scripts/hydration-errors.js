@@ -8,8 +8,9 @@
   }
 
   const { diffLines } = await import('https://cdn.jsdelivr.net/npm/diff@5.2.0/+esm');
-  const { getDiffableHTML } =
-    await import('https://cdn.jsdelivr.net/npm/@open-wc/semantic-dom-diff@0.20.1/get-diffable-html.js/+esm');
+  const { getDiffableHTML } = await import(
+    'https://cdn.jsdelivr.net/npm/@open-wc/semantic-dom-diff@0.20.1/get-diffable-html.js/+esm'
+  );
 
   function wrap(el, wrapper) {
     el.parentNode.insertBefore(wrapper, el);

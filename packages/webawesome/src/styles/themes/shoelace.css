@@ -449,26 +449,26 @@
     }
 
     :is(
-      wa-input,
-      wa-select,
-      wa-textarea,
-      input:where(
-        :not(
-          [type='button'],
-          [type='checkbox'],
-          [type='color'],
-          [type='file'],
-          [type='hidden'],
-          [type='image'],
-          [type='radio'],
-          [type='range'],
-          [type='reset'],
-          [type='submit']
-        )
-      ),
-      select,
-      textarea
-    ):not([appearance='filled'], .wa-filled) {
+        wa-input,
+        wa-select,
+        wa-textarea,
+        input:where(
+            :not(
+              [type='button'],
+              [type='checkbox'],
+              [type='color'],
+              [type='file'],
+              [type='hidden'],
+              [type='image'],
+              [type='radio'],
+              [type='range'],
+              [type='reset'],
+              [type='submit']
+            )
+          ),
+        select,
+        textarea
+      ):not([appearance='filled'], .wa-filled) {
       --wa-focus-ring: var(--wa-focus-ring-style) var(--wa-focus-ring-width)
         color-mix(in oklab, var(--wa-color-focus), transparent 50%);
       --wa-focus-ring-offset: 0;
