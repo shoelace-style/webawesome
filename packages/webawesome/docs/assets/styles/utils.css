@@ -328,6 +328,10 @@
     margin-block-end: var(--wa-content-spacing);
     border: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
     border-radius: var(--wa-border-radius-l);
+
+    &::part(controls) {
+      border-radius: var(--wa-border-radius-m);
+    }
   }
 
   .file-explorer {
