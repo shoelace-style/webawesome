@@ -1,4 +1,4 @@
-import { LitElement, isServer, type PropertyValues } from 'lit';
+import { LitElement, isServer } from 'lit';
 import { property } from 'lit/decorators.js';
 import { WaInvalidEvent } from '../events/invalid.js';
 import { CustomErrorValidator } from './validators/custom-error-validator.js';
