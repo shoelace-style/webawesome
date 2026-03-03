@@ -1,4 +1,4 @@
-import { LitElement, isServer } from 'lit';
+import { LitElement, isServer, type PropertyValues } from 'lit';
 import { property } from 'lit/decorators.js';
 import { WaInvalidEvent } from '../events/invalid.js';
 import { CustomErrorValidator } from './validators/custom-error-validator.js';
@@ -154,7 +154,7 @@ export class WebAwesomeFormAssociatedElement
       this.setCustomValidity(this.customError || '');
     }
 
-    if (changedProperties.has('value') || changedProperties.has('disabled')) {
+    if (changedProperties.has('value') || changedProperties.has('disabled') || changedProperties.has("defaultValue")) {
       // @ts-expect-error Some components will use an accessors, other use a property, so we don't want to limit them.
       const value = this.value as unknown;
 
@@ -180,8 +180,8 @@ export class WebAwesomeFormAssociatedElement
       }
     }
 
-    this.updateValidity();
     super.willUpdate(changedProperties);
+    this.updateValidity()
   }
 
   private handleInteraction = (event: Event) => {
