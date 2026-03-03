@@ -57,6 +57,7 @@ const iconByPrefix = [
   ['/docs/components/sparkline', 'chart-area'],
   ['/docs/components', 'trowel-bricks'],
   ['/docs/patterns', 'block-brick'],
+  ['/docs/patterns/layouts', 'table-layout'],
   ['/docs/frameworks', 'puzzle'],
   ['/docs/tokens', 'coin-front'],
   ['/docs/resources/agent-skills', 'sparkles'],

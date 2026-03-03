@@ -105,7 +105,8 @@
     <li>
       <span class="wa-split">
         <a class="wa-cluster wa-gap-xs" href="/docs/components/page/">
-          Page <wa-icon name="flask" aria-hidden="true" class="icon-shrink de-emphasize"></wa-icon>
+          Page
+          <wa-icon name="flask" aria-hidden="true" class="icon-shrink de-emphasize"></wa-icon>
         </a>
         {{ proBadge() }}
       </span>
@@ -252,22 +253,68 @@
 
 <!-- Data Visualization -->
 <wa-details appearance="outlined">
-  <h2 slot="summary">
-    <wa-icon name="chart-area" variant="regular" aria-hidden="true"></wa-icon>
-    Data Visualization
-    {{ proBadge() }}
-    <wa-icon name="flask" aria-hidden="true" class="icon-shrink de-emphasize"></wa-icon>
+  <h2 slot="summary" class="wa-split">
+    <span class="wa-cluster wa-gap-xs">
+      <wa-icon name="chart-area" variant="regular" aria-hidden="true"></wa-icon>
+      Data Visualization
+    </span>
+    {{ proBadge({ description: "Data Visualization components require access to Web Awesome Pro" }) }}
   </h2>
   <ul>
-    <li><a href="/docs/components/bar-chart">Bar Chart</a></li>
-    <li><a href="/docs/components/line-chart">Line Chart</a></li>
-    <li><a href="/docs/components/bubble-chart">Bubble Chart</a></li>
-    <li><a href="/docs/components/doughnut-chart">Doughnut Chart</a></li>
-    <li><a href="/docs/components/pie-chart">Pie Chart</a></li>
-    <li><a href="/docs/components/polar-area-chart">Polar Area Chart</a></li>
-    <li><a href="/docs/components/radar-chart">Radar Chart</a></li>
-    <li><a href="/docs/components/scatter-chart">Scatter Chart</a></li>
-    <li><a href="/docs/components/sparkline">Sparkline</a></li>
+    <li>
+      <a class="wa-cluster wa-gap-xs" href="/docs/components/bar-chart">
+        Bar Chart
+        <wa-icon name="flask" aria-hidden="true" class="icon-shrink de-emphasize"></wa-icon>
+      </a>
+    </li>
+    <li>
+      <a class="wa-cluster wa-gap-xs" href="/docs/components/line-chart">
+        Line Chart
+        <wa-icon name="flask" aria-hidden="true" class="icon-shrink de-emphasize"></wa-icon>
+      </a>
+    </li>
+    <li>
+      <a class="wa-cluster wa-gap-xs" href="/docs/components/bubble-chart">
+        Bubble Chart
+        <wa-icon name="flask" aria-hidden="true" class="icon-shrink de-emphasize"></wa-icon>
+      </a>
+    </li>
+    <li>
+      <a class="wa-cluster wa-gap-xs" href="/docs/components/doughnut-chart">
+        Doughnut Chart
+        <wa-icon name="flask" aria-hidden="true" class="icon-shrink de-emphasize"></wa-icon>
+      </a>
+    </li>
+    <li>
+      <a class="wa-cluster wa-gap-xs" href="/docs/components/pie-chart">
+        Pie Chart
+        <wa-icon name="flask" aria-hidden="true" class="icon-shrink de-emphasize"></wa-icon>
+      </a>
+    </li>
+    <li>
+      <a class="wa-cluster wa-gap-xs" href="/docs/components/polar-area-chart">
+        Polar Area Chart
+        <wa-icon name="flask" aria-hidden="true" class="icon-shrink de-emphasize"></wa-icon>
+      </a>
+    </li>
+    <li>
+      <a class="wa-cluster wa-gap-xs" href="/docs/components/radar-chart">
+        Radar Chart
+        <wa-icon name="flask" aria-hidden="true" class="icon-shrink de-emphasize"></wa-icon>
+      </a>
+    </li>
+    <li>
+      <a class="wa-cluster wa-gap-xs" href="/docs/components/scatter-chart">
+        Scatter Chart
+        <wa-icon name="flask" aria-hidden="true" class="icon-shrink de-emphasize"></wa-icon>
+      </a>
+    </li>
+    <li>
+      <a class="wa-cluster wa-gap-xs" href="/docs/components/sparkline">
+        Sparkline
+        <wa-icon name="flask" aria-hidden="true" class="icon-shrink de-emphasize"></wa-icon>
+      </a>
+    </li>
     <li><a href="/docs/components/chart">Advanced Usage</a></li>
   </ul>
 </wa-details>
@@ -295,7 +342,7 @@
   <h2 slot="summary">
     <a class="wa-cluster wa-gap-xs" href="/docs/layout/" title="Overview">
       <wa-icon name="ruler-combined" variant="regular" aria-hidden="true"></wa-icon>
-      Layout
+      Layout Utilities
     </a>
   </h2>
   <ul>
@@ -312,7 +359,8 @@
     <li>
       <span class="wa-split">
         <a class="wa-cluster wa-gap-xs" href="/docs/components/page/">
-          Page <wa-icon name="flask" aria-hidden="true" class="icon-shrink de-emphasize"></wa-icon>
+          Page
+          <wa-icon name="flask" aria-hidden="true" class="icon-shrink de-emphasize"></wa-icon>
         </a>
         {{ proBadge() }}
       </span>
@@ -322,18 +370,16 @@
 
 <!-- Patterns -->
 <wa-details appearance="outlined">
-  <h2 slot="summary">
+  <h2 slot="summary" class="wa-split">
     <a class="wa-cluster wa-gap-xs" href="/docs/patterns/" title="Overview">
       <wa-icon name="block-brick" variant="regular" aria-hidden="true"></wa-icon>
       Patterns
     </a>
+    {{ proBadge({ description: "Patterns require access to Web Awesome Pro" }) }}
   </h2>
   <ul>
     <li>
-      <span class="wa-split">
-        <a href="/docs/patterns/app/">App</a>
-        {{ proBadge() }}
-      </span>
+      <a href="/docs/patterns/app/">App</a>
       <ul>
         <li>
           <a href="/docs/patterns/app/action-panel/">Action Panel</a>
@@ -377,10 +423,7 @@
       </ul>
     </li>
     <li>
-      <span class="wa-split">
-        <a href="/docs/patterns/blog-news/">Blog &amp; News</a>
-        {{ proBadge() }}
-      </span>
+      <a href="/docs/patterns/blog-news/">Blog &amp; News</a>
       <ul>
         <li>
           <a href="/docs/patterns/blog-news/banners/">Banners</a>
@@ -439,10 +482,7 @@
       </ul>
     </li>
     <li>
-      <span class="wa-split">
-        <a href="/docs/patterns/ecommerce/">Ecommerce</a>
-        {{ proBadge() }}
-      </span>
+      <a href="/docs/patterns/ecommerce/">Ecommerce</a>
       <ul>
         <li>
           <a href="/docs/patterns/ecommerce/category-filter/">Category Filter</a>
@@ -480,10 +520,7 @@
       </ul>
     </li>
     <li>
-      <span class="wa-split">
-        <a href="/docs/patterns/layouts/">Layouts</a>
-        {{ proBadge() }}
-      </span>
+      <a href="/docs/patterns/layouts/">Layouts</a>
       <ul>
         <li>
           <a href="/docs/patterns/layouts/ecommerce/">Ecommerce</a>
