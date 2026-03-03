@@ -28,6 +28,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed a bug in `<wa-popup>` that caused arrows to point the wrong direction for `-start` and `-end` placements
 - Fixed a bug in `<wa-split-panel>` that caused a ResizeObserver error in Chromium-based browser when resizing the primary panel [issue:2018]
 - Fixed a bug that caused the `Escape` key to close more than just the active dismissible component when nested inside other dismissible elements [pr:2096]
+- Fixed a bug that forced a box-sizing opinion on host elements
 - Updated `<wa-icon>` to use [Font Awesome 7.2.0](https://fontawesome.com/changelog#v7-2-0) [pr:2059]
 - Updated `<wa-popup>` arrow styling to prevent larger sized arrow from overlapping the contents of the popup [pr:2070]
 - Modified native styles so that `border-radius` does not apply to `svg` elements by default [pr:2078]
