@@ -112,11 +112,11 @@ describe('<wa-input>', () => {
 
         it('should be valid when required and value property is set manually', async () => {
           const el = await fixture<WaInput>(html` <wa-input required></wa-input>`);
-          expect(el.customStates.has("invalid")).to.be.true
-          el.value = "foo"
-          await el.updateComplete
-          expect(el.customStates.has("invalid")).to.be.false
-        })
+          expect(el.customStates.has('invalid')).to.be.true;
+          el.value = 'foo';
+          await el.updateComplete;
+          expect(el.customStates.has('invalid')).to.be.false;
+        });
 
         it('should not add a value to the form if disabled', async () => {
           const form = await fixture<HTMLFormElement>(

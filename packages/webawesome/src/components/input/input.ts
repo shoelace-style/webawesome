@@ -246,9 +246,9 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
   updated(changedProperties: PropertyValues<this>) {
     super.updated(changedProperties);
 
-    if (changedProperties.has('value') || changedProperties.has("defaultValue")) {
+    if (changedProperties.has('value') || changedProperties.has('defaultValue')) {
       this.customStates.set('blank', !this.value);
-      this.updateValidity()
+      this.updateValidity();
     }
   }
 

@@ -154,7 +154,7 @@ export class WebAwesomeFormAssociatedElement
       this.setCustomValidity(this.customError || '');
     }
 
-    if (changedProperties.has('value') || changedProperties.has('disabled') || changedProperties.has("defaultValue")) {
+    if (changedProperties.has('value') || changedProperties.has('disabled') || changedProperties.has('defaultValue')) {
       // @ts-expect-error Some components will use an accessors, other use a property, so we don't want to limit them.
       const value = this.value as unknown;
 
@@ -181,7 +181,7 @@ export class WebAwesomeFormAssociatedElement
     }
 
     super.willUpdate(changedProperties);
-    this.updateValidity()
+    this.updateValidity();
   }
 
   private handleInteraction = (event: Event) => {
