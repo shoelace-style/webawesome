@@ -12,8 +12,9 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 <small>March 3rd, 2026</small>
 
+- Added `<wa-chart>` and other chart types as experimental Pro components [pr:1073]
+- Added `<wa-toast>` and `<wa-toast-item>` as experimental Pro components [pr:105]
 - Added `wa-button` class for styling `<a>` elements as buttons [pr:2040]
-- Added `<wa-chart>` and other chart types as experimental pro components
 - Added `--popup-border-width` parameter to `<wa-popup>`. This must be set to match the width of any border added to the popup element [pr:2070]
 - Added `start` and `end` slots to `<wa-badge>` [pr:2082]
 - Fixed a bug in `<wa-switch>` and `<wa-checkbox>` not rendering properly on first load [pr:2105]
@@ -29,7 +30,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed a bug in `<wa-input>` where it stays invalid when updating value property. [pr:2105]
 - Fixed a bug `<wa-color-picker>` that prevented it from flipping horizontally when position to the right of the viewport. [pr:2024]
 - Fixed a bug by adding `color: inherit` to the `<wa-dialog>` and `<wa-drawer>` styles so they inherit the text color from the document context rather than the browser default. [pr:2064]
-- Fixed a bug that caused 0ms animations to not fire correctly in the internal `animateWithClass()` function [pr#2068]
+- Fixed a bug that caused 0ms animations to not fire correctly in the internal `animateWithClass()` function [pr:2068]
 - Fixed a bug that caused `<wa-dropdown>` elements to scroll the document in Chrome 145
 - Fixed a bug in native styles so `border-radius` does not apply to `svg` elements by default [pr:2078]
 - Fixed a bug in `<wa-popup>` that caused arrows to point the wrong direction for `-start` and `-end` placements
