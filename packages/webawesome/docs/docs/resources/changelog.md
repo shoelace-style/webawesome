@@ -8,6 +8,12 @@ Web Awesome follows [Semantic Versioning](https://semver.org/). Breaking changes
 
 Components with the <wa-badge variant="warning">Experimental</wa-badge> badge should not be used in production. They are made available as release candidates for development and testing purposes. As such, changes to experimental components will not be subject to semantic versioning.
 
+## 3.3.1
+
+<small>March 4th, 2026</small>
+
+- Removed a `preinstall` script in `webawesome-pro` that was causing issues in some package managers.
+
 ## 3.3.0
 
 <small>March 3rd, 2026</small>
