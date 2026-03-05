@@ -41,7 +41,7 @@ describe('<wa-button-group>', () => {
           `);
 
           const allButtons = group.querySelectorAll('wa-button');
-          Array.from(allButtons).every(button => expect(button).to.have.style('--_button-horizontal-indent', '1px'));
+          Array.from(allButtons).every(button => expect(button).to.have.style('--_button-horizontal-indent', 'var(--wa-form-control-border-width)'));
 
           expect(allButtons[0]).to.not.have.style('--_button-start-start-radius', '0');
           expect(allButtons[0]).to.have.style('--_button-start-end-radius', '0');
