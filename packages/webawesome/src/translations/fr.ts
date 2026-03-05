@@ -7,6 +7,7 @@ const translation: Translation = {
   $dir: 'ltr',
 
   carousel: 'Carrousel',
+  captions: 'Sous-titres',
   clearEntry: `Effacer l'entrée`,
   close: 'Fermer',
   copied: 'Copié',
@@ -16,19 +17,29 @@ const translation: Translation = {
   dropFileHere: 'Drop file here or click to browse',
   dropFilesHere: 'Drop files here or click to browse',
   error: 'Erreur',
+  enterFullscreen: 'Passer en plein écran',
+  exitFullscreen: 'Quitter le plein écran',
   goToSlide: (slide, count) => `Aller à la diapositive ${slide} de ${count}`,
   hidePassword: 'Masquer le mot de passe',
   increment: 'Augmenter',
   loading: 'Chargement',
+  mute: 'Couper le son',
   nextSlide: 'Diapositive suivante',
+  nextVideo: 'Vidéo suivante',
   numOptionsSelected: num => {
     if (num === 0) return 'Aucune option sélectionnée';
     if (num === 1) return '1 option sélectionnée';
     return `${num} options sélectionnées`;
   },
+  pause: 'Pause',
   pauseAnimation: "Suspendre l'animation",
+  pictureInPicture: `Image dans l'image`,
+  play: 'Lecture',
+  playbackSpeed: 'Vitesse de lecture',
+  playlist: 'Liste de lecture',
   playAnimation: "Lire l'animation",
   previousSlide: 'Diapositive précédente',
+  previousVideo: 'Vidéo précédente',
   progress: 'Progrès',
   remove: 'Retirer',
   resize: 'Redimensionner',
@@ -39,6 +50,9 @@ const translation: Translation = {
   showPassword: 'Montrer le mot de passe',
   slideNum: slide => `Diapositive ${slide}`,
   toggleColorFormat: 'Changer le format de couleur',
+  unmute: 'Rétablir le son',
+  videoPlayer: 'Lecteur vidéo',
+  volume: 'Volume',
   zoomIn: 'Zoomer',
   zoomOut: 'Dézoomer',
 };

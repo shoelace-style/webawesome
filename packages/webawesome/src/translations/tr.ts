@@ -7,6 +7,7 @@ const translation: Translation = {
   $dir: 'ltr',
 
   carousel: 'Atlıkarınca',
+  captions: 'Altyazılar',
   clearEntry: 'Girişi sil',
   close: 'Kapat',
   copied: 'Kopyalandı',
@@ -16,19 +17,29 @@ const translation: Translation = {
   dropFileHere: 'Drop file here or click to browse',
   dropFilesHere: 'Drop files here or click to browse',
   error: 'Hata',
+  enterFullscreen: 'Tam ekrana gir',
+  exitFullscreen: 'Tam ekrandan çık',
   goToSlide: (slide, count) => `${count} slayttan ${slide} slayta gidin`,
   hidePassword: 'Şifreyi sakla',
   increment: 'Artır',
   loading: 'Yükleme',
+  mute: 'Sesi kapat',
   nextSlide: 'Sonraki slayt',
+  nextVideo: 'Sonraki video',
   numOptionsSelected: num => {
     if (num === 0) return 'Hiçbir seçenek seçilmedi';
     if (num === 1) return '1 seçenek seçildi';
     return `${num} seçenek seçildi`;
   },
+  pause: 'Duraklat',
   pauseAnimation: 'Animasyonu duraklat',
+  pictureInPicture: 'Görüntü içinde görüntü',
+  play: 'Oynat',
+  playbackSpeed: 'Oynatma hızı',
+  playlist: 'Oynatma listesi',
   playAnimation: 'Animasyonu oynat',
   previousSlide: 'Bir onceki slayt',
+  previousVideo: 'Önceki video',
   progress: 'İlerleme',
   remove: 'Kaldır',
   resize: 'Yeniden boyutlandır',
@@ -39,6 +50,9 @@ const translation: Translation = {
   showPassword: 'Şifreyi göster',
   slideNum: slide => `Slayt ${slide}`,
   toggleColorFormat: 'Renk biçimini değiştir',
+  unmute: 'Sesi aç',
+  videoPlayer: 'Video oynatıcı',
+  volume: 'Ses seviyesi',
   zoomIn: 'Yakınlaştır',
   zoomOut: 'Uzaklaştır',
 };

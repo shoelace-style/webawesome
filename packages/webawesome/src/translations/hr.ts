@@ -7,6 +7,7 @@ const translation: Translation = {
   $dir: 'ltr',
 
   carousel: 'Vrtuljak',
+  captions: 'Titlovi',
   clearEntry: 'Očisti unos',
   close: 'Zatvori',
   copied: 'Kopirano',
@@ -16,19 +17,29 @@ const translation: Translation = {
   dropFileHere: 'Drop file here or click to browse',
   dropFilesHere: 'Drop files here or click to browse',
   error: 'Greška',
+  enterFullscreen: 'Uđi u cijeli zaslon',
+  exitFullscreen: 'Izađi iz cijelog zaslona',
   goToSlide: (slide, count) => `Idi na slajd ${slide} od ${count}`,
   hidePassword: 'Sakrij lozinku',
   increment: 'Povećaj',
   loading: 'Učitavanje',
+  mute: 'Utišaj',
   nextSlide: 'Sljedeći slajd',
+  nextVideo: 'Sljedeći video',
   numOptionsSelected: num => {
     if (num === 0) return 'Nije odabrana nijedna opcija';
     if (num === 1) return '1 opcija je odabrana';
     return `${num} odabranih opcija`;
   },
+  pause: 'Pauziraj',
   pauseAnimation: 'Pauziraj animaciju',
+  pictureInPicture: 'Slika u slici',
+  play: 'Reproduciraj',
+  playbackSpeed: 'Brzina reprodukcije',
+  playlist: 'Popis za reprodukciju',
   playAnimation: 'Reproduciraj animaciju',
   previousSlide: 'Prethodni slajd',
+  previousVideo: 'Prethodni video',
   progress: 'Napredak',
   remove: 'Makni',
   resize: 'Promijeni veličinu',
@@ -39,6 +50,9 @@ const translation: Translation = {
   showPassword: 'Pokaži lozinku',
   slideNum: slide => `Slajd ${slide}`,
   toggleColorFormat: 'Zamijeni format boje',
+  unmute: 'Uključi zvuk',
+  videoPlayer: 'Video player',
+  volume: 'Glasnoća',
   zoomIn: 'Povećaj',
   zoomOut: 'Smanji',
 };

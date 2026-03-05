@@ -7,6 +7,7 @@ const translation: Translation = {
   $dir: 'ltr',
 
   carousel: 'Karusell',
+  captions: 'Teksting',
   clearEntry: 'Tøm felt',
   close: 'Lukk',
   copied: 'Kopiert',
@@ -16,19 +17,29 @@ const translation: Translation = {
   dropFileHere: 'Drop file here or click to browse',
   dropFilesHere: 'Drop files here or click to browse',
   error: 'Feil',
+  enterFullscreen: 'Gå til fullskjerm',
+  exitFullscreen: 'Avslutt fullskjerm',
   goToSlide: (slide, count) => `Gå til visning ${slide} av ${count}`,
   hidePassword: 'Skjul passord',
   increment: 'Øk',
   loading: 'Laster',
+  mute: 'Demp lyd',
   nextSlide: 'Neste visning',
+  nextVideo: 'Neste video',
   numOptionsSelected: num => {
     if (num === 0) return 'Ingen alternativer valgt';
     if (num === 1) return 'Ett alternativ valgt';
     return `${num} alternativer valgt`;
   },
+  pause: 'Pause',
   pauseAnimation: 'Sett animasjon på pause',
+  pictureInPicture: 'Bilde i bilde',
+  play: 'Spill av',
+  playbackSpeed: 'Avspillingshastighet',
+  playlist: 'Spilleliste',
   playAnimation: 'Spill av animasjon',
   previousSlide: 'Forrige visning',
+  previousVideo: 'Forrige video',
   progress: 'Fremdrift',
   remove: 'Fjern',
   resize: 'Endre størrelse',
@@ -39,6 +50,9 @@ const translation: Translation = {
   showPassword: 'Vis passord',
   slideNum: slide => `Visning ${slide}`,
   toggleColorFormat: 'Bytt fargeformat',
+  unmute: 'Skru på lyd',
+  videoPlayer: 'Videospiller',
+  volume: 'Volum',
   zoomIn: 'Zoom inn',
   zoomOut: 'Zoom ut',
 };

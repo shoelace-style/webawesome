@@ -7,6 +7,7 @@ const translation: Translation = {
   $dir: 'ltr',
 
   carousel: 'Karousel',
+  captions: 'Teks',
   clearEntry: 'Hapus entri',
   close: 'Tutup',
   copied: 'Disalin',
@@ -16,19 +17,29 @@ const translation: Translation = {
   dropFileHere: 'Drop file here or click to browse',
   dropFilesHere: 'Drop files here or click to browse',
   error: 'Kesalahan',
+  enterFullscreen: 'Masuk layar penuh',
+  exitFullscreen: 'Keluar layar penuh',
   goToSlide: (slide, count) => `Pergi ke slide ${slide} dari ${count}`,
   hidePassword: 'Sembunyikan sandi',
   increment: 'Tambah',
   loading: 'Memuat',
+  mute: 'Bisukan',
   nextSlide: 'Slide berikutnya',
+  nextVideo: 'Video berikutnya',
   numOptionsSelected: num => {
     if (num === 0) return 'Tidak ada opsi yang dipilih';
     if (num === 1) return '1 opsi yang dipilih';
     return `${num} opsi yang dipilih`;
   },
+  pause: 'Jeda',
   pauseAnimation: 'Jeda animasi',
+  pictureInPicture: 'Gambar dalam gambar',
+  play: 'Putar',
+  playbackSpeed: 'Kecepatan putar',
+  playlist: 'Daftar putar',
   playAnimation: 'Putar animasi',
   previousSlide: 'Slide sebelumnya',
+  previousVideo: 'Video sebelumnya',
   progress: 'Kemajuan',
   remove: 'Hapus',
   resize: 'Ubah ukuran',
@@ -39,6 +50,9 @@ const translation: Translation = {
   showPassword: 'Tampilkan sandi',
   slideNum: slide => `Slide ${slide}`,
   toggleColorFormat: 'Beralih format warna',
+  unmute: 'Aktifkan suara',
+  videoPlayer: 'Pemutar video',
+  volume: 'Volume',
   zoomIn: 'Perbesar',
   zoomOut: 'Perkecil',
 };

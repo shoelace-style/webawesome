@@ -7,6 +7,7 @@ const translation: Translation = {
   $dir: 'ltr',
 
   carousel: 'Carousel',
+  captions: 'Captions',
   clearEntry: 'Clear entry',
   close: 'Close',
   copied: 'Copied',
@@ -16,19 +17,29 @@ const translation: Translation = {
   decrement: 'Decrement',
   dropFilesHere: 'Drop files here or click to browse',
   error: 'Error',
+  enterFullscreen: 'Enter fullscreen',
+  exitFullscreen: 'Exit fullscreen',
   goToSlide: (slide, count) => `Go to slide ${slide} of ${count}`,
   hidePassword: 'Hide password',
   increment: 'Increment',
   loading: 'Loading',
+  mute: 'Mute',
   nextSlide: 'Next slide',
+  nextVideo: 'Next video',
   numOptionsSelected: num => {
     if (num === 0) return 'No options selected';
     if (num === 1) return '1 option selected';
     return `${num} options selected`;
   },
+  pause: 'Pause',
   pauseAnimation: 'Pause animation',
+  pictureInPicture: 'Picture in picture',
+  play: 'Play',
+  playbackSpeed: 'Playback speed',
+  playlist: 'Playlist',
   playAnimation: 'Play animation',
   previousSlide: 'Previous slide',
+  previousVideo: 'Previous video',
   progress: 'Progress',
   remove: 'Remove',
   resize: 'Resize',
@@ -39,6 +50,9 @@ const translation: Translation = {
   showPassword: 'Show password',
   slideNum: slide => `Slide ${slide}`,
   toggleColorFormat: 'Toggle color format',
+  unmute: 'Unmute',
+  videoPlayer: 'Video player',
+  volume: 'Volume',
   zoomIn: 'Zoom in',
   zoomOut: 'Zoom out',
 };
