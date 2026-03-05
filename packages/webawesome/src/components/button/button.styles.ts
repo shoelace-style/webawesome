@@ -44,10 +44,10 @@ export default css`
     background-color: var(--wa-color-fill-loud, var(--wa-color-neutral-fill-loud));
     border-color: transparent;
     color: var(--wa-color-on-loud, var(--wa-color-neutral-on-loud));
-    border-start-start-radius: var(--_wa-button-start-start-radius, var(--wa-form-control-border-radius));
-    border-start-end-radius: var(--_wa-button-start-end-radius, var(--wa-form-control-border-radius));
-    border-end-start-radius: var(--_wa-button-end-start-radius, var(--wa-form-control-border-radius));
-    border-end-end-radius: var(--_wa-button-end-end-radius, var(--wa-form-control-border-radius));
+    border-start-start-radius: var(--_button-start-start-radius, var(--wa-form-control-border-radius));
+    border-start-end-radius: var(--_button-start-end-radius, var(--wa-form-control-border-radius));
+    border-end-start-radius: var(--_button-end-start-radius, var(--wa-form-control-border-radius));
+    border-end-end-radius: var(--_button-end-end-radius, var(--wa-form-control-border-radius));
     border-style: var(--wa-border-style);
     border-width: var(--wa-border-width-s);
   }
@@ -55,8 +55,8 @@ export default css`
   /* Appearance modifiers */
   :host([appearance='plain']) {
     /* Indentation overrides for grouping */
-    margin-inline-start: var(--_wa-button-horizontal-indent);
-    margin-block-start: var(--_wa-button-vertical-indent);
+    margin-inline-start: var(--_button-horizontal-indent);
+    margin-block-start: var(--_button-vertical-indent);
 
     .button {
       color: var(--wa-color-on-quiet, var(--wa-color-neutral-on-quiet));
@@ -81,8 +81,8 @@ export default css`
 
   :host([appearance='outlined']) {
     /* Indentation overrides for grouping outlined */
-    margin-inline-start: var(--_wa-button-horizontal-indent-outlined);
-    margin-block-start: var(--_wa-button-vertical-indent-outlined);
+    margin-inline-start: var(--_button-horizontal-indent-outlined);
+    margin-block-start: var(--_button-vertical-indent-outlined);
 
     .button {
       color: var(--wa-color-on-quiet, var(--wa-color-neutral-on-quiet));
@@ -107,8 +107,8 @@ export default css`
 
   :host([appearance='filled']) {
     /* Indentation overrides for grouping */
-    margin-inline-start: var(--_wa-button-horizontal-indent);
-    margin-block-start: var(--_wa-button-vertical-indent);
+    margin-inline-start: var(--_button-horizontal-indent);
+    margin-block-start: var(--_button-vertical-indent);
 
     .button {
       color: var(--wa-color-on-normal, var(--wa-color-neutral-on-normal));
@@ -137,8 +137,8 @@ export default css`
 
   :host([appearance='filled-outlined']) {
     /* Indentation overrides for grouping outlined */
-    margin-inline-start: var(--_wa-button-horizontal-indent-outlined);
-    margin-block-start: var(--_wa-button-vertical-indent-outlined);
+    margin-inline-start: var(--_button-horizontal-indent-outlined);
+    margin-block-start: var(--_button-vertical-indent-outlined);
 
     .button {
       color: var(--wa-color-on-normal, var(--wa-color-neutral-on-normal));
@@ -167,8 +167,8 @@ export default css`
 
   :host([appearance='accent']) {
     /* Indentation overrides for grouping */
-    margin-inline-start: var(--_wa-button-horizontal-indent);
-    margin-block-start: var(--_wa-button-vertical-indent);
+    margin-inline-start: var(--_button-horizontal-indent);
+    margin-block-start: var(--_button-vertical-indent);
 
     .button {
       color: var(--wa-color-on-loud, var(--wa-color-neutral-on-loud));
@@ -232,10 +232,10 @@ export default css`
 
   /* Pill modifier */
   :host([pill]) .button {
-    border-start-start-radius: var(--_wa-button-start-start-radius, var(--wa-border-radius-pill));
-    border-start-end-radius: var(--_wa-button-start-end-radius, var(--wa-border-radius-pill));
-    border-end-start-radius: var(--_wa-button-end-start-radius, var(--wa-border-radius-pill));
-    border-end-end-radius: var(--_wa-button-end-end-radius, var(--wa-border-radius-pill));
+    border-start-start-radius: var(--_button-start-start-radius, var(--wa-border-radius-pill));
+    border-start-end-radius: var(--_button-start-end-radius, var(--wa-border-radius-pill));
+    border-end-start-radius: var(--_button-end-start-radius, var(--wa-border-radius-pill));
+    border-end-end-radius: var(--_button-end-end-radius, var(--wa-border-radius-pill));
   }
 
   /*
