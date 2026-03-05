@@ -37,7 +37,7 @@ export default css`
     font-family: inherit;
     font-size: inherit;
     font-weight: var(--wa-font-weight-action);
-    line-height: calc(var(--wa-form-control-height) - var(--border-width) * 2);
+    line-height: calc(var(--wa-form-control-height) - var(--wa-form-control-border-width) * 2);
     height: var(--wa-form-control-height);
     width: 100%;
 
@@ -48,8 +48,8 @@ export default css`
     border-start-end-radius: var(--_button-start-end-radius, var(--wa-form-control-border-radius));
     border-end-start-radius: var(--_button-end-start-radius, var(--wa-form-control-border-radius));
     border-end-end-radius: var(--_button-end-end-radius, var(--wa-form-control-border-radius));
-    border-style: var(--wa-border-style);
-    border-width: var(--wa-border-width-s);
+    border-style: var(--wa-form-control-border-style);
+    border-width: var(--wa-form-control-border-width);
   }
 
   /* Appearance modifiers */

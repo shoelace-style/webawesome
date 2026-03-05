@@ -39,13 +39,13 @@ export default css`
 
   /* Set custom properties to be inherited by slotted buttons */
   :host([orientation='horizontal']) {
-    --_button-horizontal-indent: 1px;
-    --_button-horizontal-indent-outlined: calc(var(--wa-border-width-s) * -1);
+    --_button-horizontal-indent: var(--wa-form-control-border-width);
+    --_button-horizontal-indent-outlined: calc(var(--wa-form-control-border-width) * -1);
   }
 
   :host([orientation='vertical']) {
-    --_button-vertical-indent: 1px;
-    --_button-vertical-indent-outlined: calc(var(--wa-border-width-s) * -1);
+    --_button-vertical-indent: var(--wa-form-control-border-width);
+    --_button-vertical-indent-outlined: calc(var(--wa-form-control-border-width) * -1);
   }
 
   /* All buttons that are not in front or at the end get their border radius removed */
