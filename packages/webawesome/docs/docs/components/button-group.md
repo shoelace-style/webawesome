@@ -5,22 +5,69 @@ layout: component
 category: Actions
 ---
 
+## Special cases not tracked by examples (remove after refactor)
+
+Slotted buttons might be nested in other elements, such as divs. The button group should still be able to detect these buttons properly.
+
 ```html {.example}
 <wa-button-group label="Alignment">
-  <wa-button>Left</wa-button>
+  <div>
+    <wa-button>Left nested</wa-button>
+  </div>
   <wa-button>Center</wa-button>
-  <wa-button>Right</wa-button>
+  <div>
+    <wa-button>Right nested</wa-button>
+  </div>
 </wa-button-group>
 ```
 
-## Examples
-
-### Vertical Button Groups
-
-Set the `orientation` attribute to `vertical` to make a vertical button group.
+A negative example where multiple buttons are nested within the same div. That didn't work before and should produce the same result after the refactor (no grouping).
 
 ```html {.example}
-<wa-button-group orientation="vertical" label="Options">
+<wa-button-group label="Alignment">
+  <div>
+    <wa-button>Left nested</wa-button>
+    <wa-button>Inbetween nested</wa-button>
+  </div>
+  <wa-button>Center</wa-button>
+  <div>
+    <wa-button>Right nested</wa-button>
+  </div>
+</wa-button-group>
+```
+
+Outlined or `filled-outlined` buttons should collapse after refactor.
+
+```html {.example}
+<wa-button-group label="Alignment">
+  <div>
+    <wa-button appearance="outlined">Left outlined</wa-button>
+  </div>
+  <wa-button appearance="outlined">Center outlined</wa-button>
+  <div>
+    <wa-button appearance="outlined">Right outlined</wa-button>
+  </div>
+</wa-button-group>
+
+<p></p>
+
+<wa-button-group label="Alignment">
+  <div>
+    <wa-button appearance="filled-outlined">Left outlined</wa-button>
+  </div>
+  <wa-button appearance="filled-outlined">Center outlined</wa-button>
+  <div>
+    <wa-button appearance="filled-outlined">Right outlined</wa-button>
+  </div>
+</wa-button-group>
+```
+
+Some strange behavior applies to vertical button groups with an explicit height: The button containers are forced to stretch and align its contents (the actual buttons) to the start.
+
+Maybe the idea was to either stretch the buttons to fill the whole height or it relates to a specific use case.
+
+```html {.example}
+<wa-button-group orientation="vertical" label="Options" style="width: 300px; height: 300px">
   <wa-button>
     <wa-icon slot="start" name="plus"></wa-icon>
     New
@@ -37,6 +84,45 @@ Set the `orientation` attribute to `vertical` to make a vertical button group.
     <wa-icon slot="start" name="print"></wa-icon>
     Print
   </wa-button>
+</wa-button-group>
+```
+
+For completeness, an example of mixed button usage
+
+```html {.example}
+<wa-button-group label="Alignment">
+  <wa-button appearance="filled">Left</wa-button>
+  <wa-button appearance="outlined">Center</wa-button>
+  <wa-button appearance="filled-outlined">Right</wa-button>
+</wa-button-group>
+```
+
+---
+
+```html {.example}
+<wa-button-group label="Alignment">
+  <wa-button>Left</wa-button>
+  <wa-button>Center</wa-button>
+  <wa-button>Right</wa-button>
+</wa-button-group>
+```
+
+## Examples
+
+### Vertical Button Groups
+
+Set the `orientation` attribute to `vertical` to make a vertical button group.
+
+```html {.example}
+<wa-button-group orientation="vertical" label="Options">
+  <wa-button>Button</wa-button>
+  <wa-dropdown>
+    <wa-button slot="trigger" with-caret>Dropdown</wa-button>
+    <wa-dropdown-item>Item 1</wa-dropdown-item>
+    <wa-dropdown-item>Item 2</wa-dropdown-item>
+    <wa-dropdown-item>Item 3</wa-dropdown-item>
+  </wa-dropdown>
+  <wa-button>Button</wa-button>
 </wa-button-group>
 ```
 
