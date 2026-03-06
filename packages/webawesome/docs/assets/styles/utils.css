@@ -389,7 +389,7 @@
   }
 
   /* dialogs */
-  wa-dialog:has([slot='footer']) [slot='footer'] {
+  wa-dialog.app-dialog [slot='footer'] {
     border-block-start: var(--wa-border-width-s) solid var(--wa-color-surface-border);
     flex-grow: 1; /* make footer contents span entire width of dialog */
     padding-block-start: var(--wa-space-l);
