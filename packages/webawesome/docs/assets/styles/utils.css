@@ -25,15 +25,15 @@
     --brand-build-awesome-green: #00a776;
 
     /* Product nav/drawer fill-quiet (light); .wa-dark overrides for dark */
-    --nav-products-fill-quiet-web: #ffebe1;
-    --nav-products-fill-quiet-font: #def4ff;
-    --nav-products-fill-quiet-build: #e5f7ee;
+    --nav-products-fill-quiet-web: color-mix(in oklab, var(--brand-web-awesome-orange), white 85%);
+    --nav-products-fill-quiet-font: color-mix(in oklab, var(--brand-font-awesome-blue), white 85%);
+    --nav-products-fill-quiet-build: color-mix(in oklab, var(--brand-build-awesome-green), white 85%);
   }
 
   .wa-dark {
-    --nav-products-fill-quiet-web: #470000;
-    --nav-products-fill-quiet-font: #001b4e;
-    --nav-products-fill-quiet-build: #002512;
+    --nav-products-fill-quiet-web: color-mix(in oklab, var(--brand-web-awesome-orange), black 65%);
+    --nav-products-fill-quiet-font: color-mix(in oklab, var(--brand-font-awesome-blue), black 65%);
+    --nav-products-fill-quiet-build: color-mix(in oklab, var(--brand-build-awesome-green), black 65%);
   }
 
   /* #region layout utilities */
@@ -220,18 +220,19 @@
     transition: background-color var(--wa-transition-slow) var(--wa-transition-easing);
   }
 
-  wa-page:has(.wrapper-nav-products .product-web-awesome:hover) {
-    --nav-products-bg: var(--nav-products-fill-quiet-web);
-  }
-  wa-page:has(.wrapper-nav-products .product-font-awesome:hover) {
-    --nav-products-bg: var(--nav-products-fill-quiet-font);
-  }
-  wa-page:has(.wrapper-nav-products .product-build-awesome:hover) {
-    --nav-products-bg: var(--nav-products-fill-quiet-build);
-  }
-  wa-page:has(.wrapper-nav-products .product-podcast-awesome:hover),
-  wa-page:has(.wrapper-nav-products .product-blog-awesome:hover) {
-    --nav-products-bg: var(--wa-color-neutral-fill-quiet);
+  wa-page:has(.wrapper-nav-products, .nav-products-drawer) {
+    &:has(.product-web-awesome:hover) {
+      --nav-products-bg: var(--nav-products-fill-quiet-web);
+    }
+    &:has(.product-font-awesome:hover) {
+      --nav-products-bg: var(--nav-products-fill-quiet-font);
+    }
+    &:has(.product-build-awesome:hover) {
+      --nav-products-bg: var(--nav-products-fill-quiet-build);
+    }
+    &:has(.product-podcast-awesome:hover, .product-blog-awesome:hover) {
+      --nav-products-bg: var(--wa-color-neutral-fill-quiet);
+    }
   }
 
   .nav-products-full {
