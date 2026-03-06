@@ -335,7 +335,7 @@
     --wa-form-control-required-content-color: inherit;
     --wa-form-control-required-content-offset: 0.1em;
 
-    --wa-form-control-padding-block: 1em;
+    --wa-form-control-padding-block: 1.25em;
     --wa-form-control-padding-inline: 1.25em;
     --wa-form-control-height: round(
       calc(2 * var(--wa-form-control-padding-block) + 1em * var(--wa-form-control-value-line-height)),
@@ -369,9 +369,7 @@
   .wa-theme-awesome {
     wa-button,
     button,
-    input[type='button'],
-    input[type='reset'],
-    input[type='submit'],
+    input:is([type='button'], [type='reset'], [type='submit']),
     a.wa-button {
       --wa-color-shadow: var(--wa-color-border-normal);
       --wa-transition-slow: 0;
@@ -386,11 +384,9 @@
 
     wa-button,
     button,
-    input[type='button'],
-    input[type='reset'],
-    input[type='submit'],
+    input:is([type='button'], [type='reset'], [type='submit']),
     a.wa-button {
-      &:not([appearance~='plain']):not(.wa-plain) {
+      &:not([appearance='plain'], .wa-plain) {
         &:where(:not(wa-button)),
         &::part(base) {
           height: calc(var(--wa-form-control-height) - var(--wa-shadow-offset-y-s));
@@ -398,7 +394,7 @@
           margin-right: var(--wa-shadow-offset-x-s);
           box-shadow: var(--wa-shadow-offset-x-s) var(--wa-shadow-offset-y-s) 0 0 var(--wa-color-shadow);
         }
-        &:not([disabled]):not(:disabled):active {
+        &:not([disabled], :disabled):active {
           &:where(:not(wa-button)),
           &::part(base) {
             color: var(--wa-color-fill-quiet);
@@ -410,9 +406,9 @@
         }
       }
       .wa-dark & {
-        &[appearance~='accent'],
+        &[appearance='accent'],
         &.wa-accent {
-          &:not([disabled]):not(:disabled):active {
+          &:not([disabled], :disabled):active {
             &:where(:not(wa-button)),
             &::part(base) {
               color: var(--wa-color-on-quiet);
@@ -428,44 +424,46 @@
         border-color: var(--wa-form-control-activated-color);
         color: var(--wa-color-surface-default);
       }
-    }
-    wa-radio-group[orientation='horizontal'] wa-radio[appearance='button'] {
-      box-shadow: var(--wa-shadow-offset-x-s) max(var(--wa-shadow-offset-y-s), var(--border-width)) 0 0
-        var(--wa-form-control-border-color);
-      margin-bottom: var(--wa-shadow-offset-y-s);
-      margin-right: var(--wa-shadow-offset-x-s);
 
-      &:state(checked) {
-        box-shadow: initial;
-        transform: translate(var(--wa-shadow-offset-x-s), var(--wa-shadow-offset-y-s));
+      wa-radio-group[orientation='horizontal'] & {
+        box-shadow: var(--wa-shadow-offset-x-s) max(var(--wa-shadow-offset-y-s), var(--wa-form-control-border-width)) 0 0
+        var(--wa-form-control-border-color);
+        margin-bottom: var(--wa-shadow-offset-y-s);
+        margin-right: var(--wa-shadow-offset-x-s);
+
+        &:state(checked) {
+          box-shadow: initial;
+          transform: translate(var(--wa-shadow-offset-x-s), var(--wa-shadow-offset-y-s));
+        }
       }
     }
 
     :is(
-        input:where(
-            :not(
-              [type='button'],
-              [type='checkbox'],
-              [type='color'],
-              [type='file'],
-              [type='hidden'],
-              [type='image'],
-              [type='radio'],
-              [type='range'],
-              [type='reset'],
-              [type='submit']
-            )
+        input
+          :not(
+            [type='button'],
+            [type='checkbox'],
+            [type='color'],
+            [type='file'],
+            [type='hidden'],
+            [type='image'],
+            [type='radio'],
+            [type='range'],
+            [type='reset'],
+            [type='submit']
           ),
         select,
         textarea,
         wa-input,
+        wa-textarea,
         wa-select,
-        wa-textarea
-      ):not(:focus):not([appearance='filled']) {
-      &:where(:not(wa-input):not(wa-select):not(wa-textarea)),
+        wa-combobox
+      ):not(:focus, [appearance='filled']) {
+      &:where(:not(wa-input, wa-textarea, wa-select, wa-combobox)),
       &:where(wa-input)::part(base),
+      &:where(wa-textarea)::part(base),
       &:where(wa-select)::part(combobox),
-      &:where(wa-textarea)::part(base) {
+      &:where(wa-combobox)::part(combobox) {
         box-shadow: inset var(--wa-shadow-offset-x-s)
           max(var(--wa-shadow-offset-y-s), var(--wa-form-control-border-width)) 0 0 var(--wa-color-shadow);
       }
@@ -477,10 +475,9 @@
   .wa-theme-awesome {
     wa-button,
     button,
-    input[type='button'],
-    input[type='reset'],
-    input[type='submit'],
+    input:is([type='button'], [type='reset'], [type='submit']),
     a.wa-button {
+      &:where(:not([appearance], .wa-filled, .wa-outlined, .wa-plain)),
       &[appearance='accent'],
       &.wa-accent {
         &:where(:not(wa-button)),
@@ -488,14 +485,10 @@
           --wa-color-shadow: var(--wa-color-on-loud);
           border-color: var(--wa-color-shadow);
         }
-      }
-
-      .wa-dark & {
-        &[appearance='accent'],
-        &.wa-accent {
+        .wa-dark & {
           &:where(:not(wa-button)),
           &::part(base) {
-            --wa-color-shadow: var(--wa-color-border-quiet);
+              --wa-color-shadow: var(--wa-color-border-quiet);
           }
         }
       }
@@ -511,6 +504,17 @@
       wa-button[appearance='accent'] {
         margin-block-start: var(--_button-vertical-indent-outlined);
       }
+      wa-button:not([appearance='plain'], .wa-plain) {
+        &:not([disabled], :disabled):active {
+          &::part(base) {
+            height: var(--wa-form-control-height);
+            margin-bottom: 0;
+            margin-right: 0;
+            box-shadow: none;
+            transform: none;
+          }
+        }
+      }
     }
 
     wa-badge {
@@ -520,14 +524,11 @@
     }
 
     wa-callout {
-      &:is([appearance~='outlined']) {
+      &:is(:not([appearance]), [appearance='outlined'], [appearance='filled-outlined']) {
         border-color: var(--wa-color-border-normal);
       }
     }
 
-    wa-card {
-      background-color: var(--wa-color-surface-raised);
-    }
     wa-card::part(header) {
       border-bottom-style: dotted;
     }
@@ -537,7 +538,7 @@
 
     input[type='checkbox'],
     wa-checkbox,
-    wa-tree-item::part(checkbox__control) {
+    wa-tree-item::part(checkbox) {
       --checked-icon-color: var(--wa-color-surface-default);
     }
 
