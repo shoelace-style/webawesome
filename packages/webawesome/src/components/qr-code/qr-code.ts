@@ -1,10 +1,10 @@
 import type { PropertyValues } from 'lit';
 import { html } from 'lit';
-import { customElement, property, query, state } from 'lit/decorators.js';
-import { watch } from '../../internal/watch.js';
+import { customElement, property, query } from 'lit/decorators.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import styles from './qr-code.styles.js';
 import {QrCreator} from "@konnorr/qr-creator"
+import type {LinearGradient, RadialGradient} from "@konnorr/qr-creator"
 
 
 /**
@@ -19,7 +19,7 @@ import {QrCreator} from "@konnorr/qr-creator"
 export default class WaQrCode extends WebAwesomeElement {
   static css = styles;
 
-  @query('canvas') canvas: HTMLElement;
+  @query('canvas') canvas: HTMLCanvasElement;
 
   /** The QR code's value. */
   @property() value = '';
@@ -48,31 +48,30 @@ export default class WaQrCode extends WebAwesomeElement {
   /** The level of error correction to use. [Learn more](https://www.qrcode.com/en/about/error_correction.html) */
   @property({ attribute: 'error-correction' }) errorCorrection: 'L' | 'M' | 'Q' | 'H' = 'H';
 
-  /**
-   * Whether or not the qr-code generated.
-   */
-  // @ts-expect-error Don't know why it marks it as unused.
-  @state() private generated = false;
+  @property() image: string | null = null
+  @property({ attribute: "image-background" }) imageBackground: string | null = null
+  @property({ attribute: "image-ec-cover", type: Number }) imageEcCover: number | null = null
+  @property({ attribute: "image-padding", type: Number }) imagePadding: number | null = null
+  @property({ attribute: "corner-color" }) cornerColor: string | RadialGradient | LinearGradient | null = null
 
-  firstUpdated(changedProperties: PropertyValues<this>) {
-    super.firstUpdated(changedProperties);
+  private computedStyle: ReturnType<typeof getComputedStyle> | null = null
 
-    if (this.hasUpdated) {
-      this.generate();
-    }
+  updated (changedProperties: PropertyValues<this>) {
+    super.updated(changedProperties)
+    this.generate();
   }
 
-  @watch(['background', 'errorCorrection', 'fill', 'radius', 'size', 'value'], { waitUntilFirstUpdate: true })
   generate() {
     if (!this.hasUpdated) {
       return;
     }
 
-
     this.canvas.style.maxWidth = `${this.size}px`;
     this.canvas.style.maxHeight = `${this.size}px`;
 
-    const computedStyle = getComputedStyle(this);
+
+    this.computedStyle ||= getComputedStyle(this)
+    const computedStyle = this.computedStyle
 
     QrCreator.render(
       {
@@ -85,6 +84,11 @@ export default class WaQrCode extends WebAwesomeElement {
         background: this.background || null,
         // We draw the canvas larger and scale its container down to avoid blurring on high-density displays
         size: this.size * 2,
+        image: this.image,
+        imageEcCover: this.imageEcCover,
+        imagePadding: this.imagePadding,
+        imageBackground: this.imageBackground || this.background,
+        cornerFill: this.cornerColor
       },
       this.canvas,
     );
