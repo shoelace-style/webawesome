@@ -27,7 +27,7 @@
     /* Product nav/drawer fill-quiet (light); .wa-dark overrides for dark */
     --nav-products-fill-quiet-web: #ffebe1;
     --nav-products-fill-quiet-font: #def4ff;
-    --nav-products-fill-quiet-build: #99f9cd;
+    --nav-products-fill-quiet-build: #e5f7ee;
   }
 
   .wa-dark {
