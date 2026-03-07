@@ -32,6 +32,7 @@ export default class WaZoomableFrame extends WebAwesomeElement {
 
   private readonly localize = new LocalizeController(this);
   private availableZoomLevels: number[] = [];
+  private themeObserver: MutationObserver | null = null;
 
   @query('#iframe') iframe: HTMLIFrameElement;
 
@@ -185,7 +186,31 @@ export default class WaZoomableFrame extends WebAwesomeElement {
     }
   }
 
+  connectedCallback() {
+    super.connectedCallback();
+    this.themeObserver = new MutationObserver(() => this.syncTheme());
+    this.themeObserver.observe(document.documentElement, { attributeFilter: ['class'] });
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    this.themeObserver?.disconnect();
+    this.themeObserver = null;
+  }
+
+  private syncTheme() {
+    try {
+      const iframeRoot = this.contentDocument?.documentElement;
+      if (!iframeRoot) return;
+      iframeRoot.classList.toggle('wa-dark', document.documentElement.classList.contains('wa-dark'));
+      iframeRoot.classList.toggle('wa-light', document.documentElement.classList.contains('wa-light'));
+    } catch {
+      // Cross-origin iframe — silently ignore
+    }
+  }
+
   private handleLoad() {
+    this.syncTheme();
     this.dispatchEvent(new Event('load', { bubbles: false, cancelable: false, composed: true }));
   }
 

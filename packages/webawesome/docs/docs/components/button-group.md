@@ -21,22 +21,14 @@ Set the `orientation` attribute to `vertical` to make a vertical button group.
 
 ```html {.example}
 <wa-button-group orientation="vertical" label="Options">
-  <wa-button>
-    <wa-icon slot="start" name="plus"></wa-icon>
-    New
-  </wa-button>
-  <wa-button>
-    <wa-icon slot="start" name="folder-open"></wa-icon>
-    Open
-  </wa-button>
-  <wa-button>
-    <wa-icon slot="start" name="save"></wa-icon>
-    Save
-  </wa-button>
-  <wa-button>
-    <wa-icon slot="start" name="print"></wa-icon>
-    Print
-  </wa-button>
+  <wa-button>Button</wa-button>
+  <wa-dropdown>
+    <wa-button slot="trigger" with-caret>Dropdown</wa-button>
+    <wa-dropdown-item>Item 1</wa-dropdown-item>
+    <wa-dropdown-item>Item 2</wa-dropdown-item>
+    <wa-dropdown-item>Item 3</wa-dropdown-item>
+  </wa-dropdown>
+  <wa-button>Button</wa-button>
 </wa-button-group>
 ```
 
