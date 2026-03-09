@@ -8,6 +8,10 @@ Web Awesome follows [Semantic Versioning](https://semver.org/). Breaking changes
 
 Components with the <wa-badge variant="warning">Experimental</wa-badge> badge should not be used in production. They are made available as release candidates for development and testing purposes. As such, changes to experimental components will not be subject to semantic versioning.
 
+## Next
+
+- Added the ability to set an image for `<wa-qr-code>` in the middle, and have separate corner colors. [pr:2139]
+
 ## 3.3.1
 
 <small>March 4th, 2026</small>
