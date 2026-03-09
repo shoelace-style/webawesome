@@ -202,8 +202,22 @@ export default class WaZoomableFrame extends WebAwesomeElement {
     try {
       const iframeRoot = this.contentDocument?.documentElement;
       if (!iframeRoot) return;
+
+      // Sync color scheme classes
       iframeRoot.classList.toggle('wa-dark', document.documentElement.classList.contains('wa-dark'));
       iframeRoot.classList.toggle('wa-light', document.documentElement.classList.contains('wa-light'));
+
+      // Sync theme selector classes (wa-theme-*, wa-brand-*, wa-palette-*)
+      const themeClassPrefixes = ['wa-theme-', 'wa-brand-', 'wa-palette-'];
+      const classesToRemove = Array.from(iframeRoot.classList).filter(cls =>
+        themeClassPrefixes.some(prefix => cls.startsWith(prefix)),
+      );
+      iframeRoot.classList.remove(...classesToRemove);
+
+      const themeClassesToAdd = Array.from(document.documentElement.classList).filter(cls =>
+        themeClassPrefixes.some(prefix => cls.startsWith(prefix)),
+      );
+      iframeRoot.classList.add(...themeClassesToAdd);
     } catch {
       // Cross-origin iframe — silently ignore
     }
