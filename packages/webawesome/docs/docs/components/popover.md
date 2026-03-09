@@ -11,11 +11,11 @@ Popovers display interactive content when their anchor element is clicked. Unlik
 <wa-popover for="popover__overview">
   <div style="display: flex; flex-direction: column; gap: 1rem;">
     <p>This popover contains interactive content that users can engage with directly.</p>
-    <wa-button variant="primary" size="small">Take Action</wa-button>
+    <wa-button appearance="filled" variant="primary" size="small">Take Action</wa-button>
   </div>
 </wa-popover>
 
-<wa-button id="popover__overview">Show popover</wa-button>
+<wa-button appearance="filled" id="popover__overview">Show popover</wa-button>
 ```
 
 ## Examples
@@ -25,7 +25,7 @@ Popovers display interactive content when their anchor element is clicked. Unlik
 Use `<wa-button>` or `<button>` elements as popover anchors. Connect the popover to its anchor by setting the `for` attribute to match the anchor's `id`.
 
 ```html {.example}
-<wa-button id="popover__anchor-button">Show Popover</wa-button>
+<wa-button appearance="filled" id="popover__anchor-button">Show Popover</wa-button>
 
 <wa-popover for="popover__anchor-button"> I'm anchored to a Web Awesome button. </wa-popover>
 
@@ -49,10 +49,10 @@ Use `data-popover="close"` on any button inside a popover to close it automatica
 ```html {.example}
 <wa-popover for="popover__opening">
   <p>The button below has <code>data-popover="close"</code> so clicking it will close the popover.</p>
-  <wa-button data-popover="close" variant="primary">Dismiss</wa-button>
+  <wa-button appearance="filled" data-popover="close" variant="primary">Dismiss</wa-button>
 </wa-popover>
 
-<wa-button id="popover__opening">Show popover</wa-button>
+<wa-button appearance="filled" id="popover__opening">Show popover</wa-button>
 ```
 
 ### Placement
@@ -61,16 +61,16 @@ Use the `placement` attribute to set where the popover appears relative to its a
 
 ```html {.example}
 <div style="display: flex; gap: 1rem; align-items: center;">
-  <wa-button id="popover__top">Top</wa-button>
+  <wa-button appearance="filled" id="popover__top">Top</wa-button>
   <wa-popover for="popover__top" placement="top">I'm on the top</wa-popover>
 
-  <wa-button id="popover__bottom">Bottom</wa-button>
+  <wa-button appearance="filled" id="popover__bottom">Bottom</wa-button>
   <wa-popover for="popover__bottom" placement="bottom">I'm on the bottom</wa-popover>
 
-  <wa-button id="popover__left">Left</wa-button>
+  <wa-button appearance="filled" id="popover__left">Left</wa-button>
   <wa-popover for="popover__left" placement="left">I'm on the left</wa-popover>
 
-  <wa-button id="popover__right">Right</wa-button>
+  <wa-button appearance="filled" id="popover__right">Right</wa-button>
   <wa-popover for="popover__right" placement="right">I'm on the right</wa-popover>
 </div>
 ```
@@ -81,10 +81,10 @@ Use the `distance` attribute to control how far the popover appears from its anc
 
 ```html {.example}
 <div style="display: flex; gap: 1rem; align-items: center;">
-  <wa-button id="popover__distance-near">Near</wa-button>
+  <wa-button appearance="filled" id="popover__distance-near">Near</wa-button>
   <wa-popover for="popover__distance-near" distance="0">I'm very close</wa-popover>
 
-  <wa-button id="popover__distance-far">Far</wa-button>
+  <wa-button appearance="filled" id="popover__distance-far">Far</wa-button>
   <wa-popover for="popover__distance-far" distance="30">I'm farther away</wa-popover>
 </div>
 ```
@@ -95,10 +95,10 @@ Use the `--arrow-size` custom property to change the size of the popover's arrow
 
 ```html {.example}
 <div style="display: flex; gap: 1rem; align-items: center;">
-  <wa-button id="popover__big-arrow">Big arrow</wa-button>
+  <wa-button appearance="filled" id="popover__big-arrow">Big arrow</wa-button>
   <wa-popover for="popover__big-arrow" style="--arrow-size: 8px;">I have a big arrow</wa-popover>
 
-  <wa-button id="popover__no-arrow">No arrow</wa-button>
+  <wa-button appearance="filled" id="popover__no-arrow">No arrow</wa-button>
   <wa-popover for="popover__no-arrow" without-arrow>I don't have an arrow</wa-popover>
 </div>
 ```
@@ -108,7 +108,7 @@ Use the `--arrow-size` custom property to change the size of the popover's arrow
 Use the `--max-width` custom property to control the maximum width of the popover.
 
 ```html {.example}
-<wa-button id="popover__max-width">Toggle me</wa-button>
+<wa-button appearance="filled" id="popover__max-width">Toggle me</wa-button>
 <wa-popover for="popover__max-width" style="--max-width: 160px;">
   Popovers will usually grow to be much wider, but this one has a custom max width that forces text to wrap.
 </wa-popover>
@@ -122,11 +122,11 @@ Use the [`autofocus`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_a
 <wa-popover for="popover__autofocus">
   <div style="display: flex; flex-direction: column; gap: 1rem;">
     <wa-textarea autofocus placeholder="What's on your mind?" size="small" resize="none" rows="3"></wa-textarea>
-    <wa-button variant="primary" size="small" data-popover="close"> Submit </wa-button>
+    <wa-button appearance="filled" variant="primary" size="small" data-popover="close"> Submit </wa-button>
   </div>
 </wa-popover>
 
-<wa-button id="popover__autofocus">
+<wa-button appearance="filled" id="popover__autofocus">
   <wa-icon name="comment" slot="start"></wa-icon>
   Feedback
 </wa-button>

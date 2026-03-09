@@ -76,7 +76,7 @@ Here is an example:
 <wa-drawer label="Drawer" placement="start" class="drawer-placement-start" bind:open={drawerIsOpen}>
   This drawer slides in from the start.
   <div slot="footer">
-    <wa-button variant="primary" onclick={() => (drawerIsOpen = false)}>
+    <wa-button appearance="filled" variant="primary" onclick={() => (drawerIsOpen = false)}>
       Close
     </wa-button>
   </div>

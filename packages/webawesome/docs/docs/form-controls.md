@@ -39,7 +39,7 @@ To make a field required, use the `required` attribute. Required fields will aut
   <br />
   <wa-checkbox required>Check me before submitting</wa-checkbox>
   <br /><br />
-  <wa-button type="submit" variant="brand">Submit</wa-button>
+  <wa-button appearance="filled" type="submit" variant="brand">Submit</wa-button>
 </form>
 
 <script type="module">
@@ -70,8 +70,8 @@ To restrict a value to a specific [pattern](https://developer.mozilla.org/en-US/
 <form class="input-validation-pattern">
   <wa-input name="letters" required label="Letters" pattern="[A-Za-z]+"></wa-input>
   <br />
-  <wa-button type="submit" variant="brand">Submit</wa-button>
-  <wa-button type="reset" variant="neutral">Reset</wa-button>
+  <wa-button appearance="filled" type="submit" variant="brand">Submit</wa-button>
+  <wa-button appearance="filled" type="reset" variant="neutral">Reset</wa-button>
 </form>
 
 <script type="module">
@@ -97,8 +97,8 @@ Some input types will automatically trigger constraints, such as `email` and `ur
   <br />
   <wa-input type="url" label="URL" placeholder="https://example.com/" required></wa-input>
   <br />
-  <wa-button type="submit" variant="brand">Submit</wa-button>
-  <wa-button type="reset" variant="neutral">Reset</wa-button>
+  <wa-button appearance="filled" type="submit" variant="brand">Submit</wa-button>
+  <wa-button appearance="filled" type="reset" variant="neutral">Reset</wa-button>
 </form>
 
 <script type="module">
@@ -122,8 +122,8 @@ To create a custom validation error, pass a non-empty string to the `setCustomVa
 <form class="input-validation-custom">
   <wa-input label="Type webawesome" required></wa-input>
   <br />
-  <wa-button type="submit" variant="brand">Submit</wa-button>
-  <wa-button type="reset" variant="neutral">Reset</wa-button>
+  <wa-button appearance="filled" type="submit" variant="brand">Submit</wa-button>
+  <wa-button appearance="filled" type="reset" variant="neutral">Reset</wa-button>
 </form>
 
 <script type="module">

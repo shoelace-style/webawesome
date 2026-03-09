@@ -63,7 +63,7 @@ Use dividers in [dropdowns](/docs/components/dropdown) to visually group dropdow
 
 ```html {.example}
 <wa-dropdown style="max-width: 200px;">
-  <wa-button slot="trigger" with-caret>Menu</wa-button>
+  <wa-button appearance="filled" slot="trigger" with-caret>Menu</wa-button>
   <wa-dropdown-item value="1">Option 1</wa-dropdown-item>
   <wa-dropdown-item value="2">Option 2</wa-dropdown-item>
   <wa-dropdown-item value="3">Option 3</wa-dropdown-item>

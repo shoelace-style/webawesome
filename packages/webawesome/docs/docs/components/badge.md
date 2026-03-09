@@ -141,17 +141,17 @@ Use the `start` and `end` slots to add presentational elements like `<wa-icon>` 
 One of the most common use cases for badges is attaching them to buttons. To make this easier, badges will be automatically positioned at the top-right when they're a child of a button.
 
 ```html {.example}
-<wa-button>
+<wa-button appearance="filled">
   Requests
   <wa-badge pill>30</wa-badge>
 </wa-button>
 
-<wa-button style="margin-inline-start: 1rem;">
+<wa-button appearance="filled" style="margin-inline-start: 1rem;">
   Warnings
   <wa-badge variant="warning" pill>8</wa-badge>
 </wa-button>
 
-<wa-button style="margin-inline-start: 1rem;">
+<wa-button appearance="filled" style="margin-inline-start: 1rem;">
   Errors
   <wa-badge variant="danger" pill>6</wa-badge>
 </wa-button>

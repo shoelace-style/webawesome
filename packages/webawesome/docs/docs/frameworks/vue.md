@@ -104,7 +104,7 @@ Here is an example:
 <wa-drawer label="Drawer" placement="start" class="drawer-placement-start" :open="drawerIsOpen">
   This drawer slides in from the start.
   <div slot="footer">
-    <wa-button variant="primary" @click="drawerIsOpen = false">Close</wa-button>
+    <wa-button appearance="filled" variant="primary" @click="drawerIsOpen = false">Close</wa-button>
   </div>
 </wa-drawer>
 ```

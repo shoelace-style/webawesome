@@ -22,7 +22,7 @@ import '@awesome.me/webawesome/dist/styles/webawesome.css';
 import '@awesome.me/webawesome/dist/components/button/button.js';
 
 export default function App () {
-  return <wa-button>I'm a button!</wa-button>
+  return <wa-button appearance="filled">I'm a button!</wa-button>
 }
 ```
 

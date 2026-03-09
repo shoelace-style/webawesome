@@ -282,8 +282,8 @@ The content of the carousel can be changed by adding or removing carousel items.
 </wa-carousel>
 
 <div class="carousel-options">
-  <wa-button id="dynamic-add">Add slide</wa-button>
-  <wa-button id="dynamic-remove">Remove slide</wa-button>
+  <wa-button appearance="filled" id="dynamic-add">Add slide</wa-button>
+  <wa-button appearance="filled" id="dynamic-remove">Remove slide</wa-button>
 </div>
 
 <style>
