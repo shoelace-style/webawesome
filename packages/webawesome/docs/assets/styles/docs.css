@@ -642,7 +642,7 @@ wa-scroller:has(.component-table) {
     overflow: auto;
     max-height: 100%;
     min-width: 300px;
-    padding: var(--wa-space-xl);
+    padding: var(--wa-space-m) var(--content-padding-inline);
     max-width: 300px;
   }
 

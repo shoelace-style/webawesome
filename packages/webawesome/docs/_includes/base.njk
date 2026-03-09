@@ -60,19 +60,19 @@
         <div class="wa-cluster wa-gap-2xs">
           {# Nav toggle #}
           {% include "nav-toggle.njk" %}
-
           {% include "nav-docs.njk" %}
         </div>
 
         {# Logo - Mobile #}
         {% include "header-logo-simple.njk" %}
 
-        <div id="docs-toolbar" class="wa-cluster wa-gap-2xs">
+        <div class="header-toolbar wa-cluster wa-gap-2xs">
           <div class="header-toolbar wa-cluster wa-gap-2xs">
             {% include "theme-selector.njk" %}
             {% include "color-scheme-selector.njk" %}
-            {% include "github-icon-buttons.njk" %}
           </div>
+          <wa-button appearance="plain" id="header-search-button" data-search data-track-event="navigation:header_link_click" data-track-destination="docs_search"><wa-icon label="Search" name="magnifying-glass"></wa-icon></wa-button>
+          <wa-tooltip for="header-search-button">Search for something&hellip;</wa-tooltip>
 
           {#- Login -#}
           {% include "login-or-avatar.njk" ignore missing %}
