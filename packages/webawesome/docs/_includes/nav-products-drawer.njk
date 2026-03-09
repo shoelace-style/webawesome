@@ -15,7 +15,14 @@
   </div>
 
   <div class="wa-cluster wa-gap-0 wa-flex-nowrap">
-    {% include "theme-selector.njk" %}
+    <wa-button appearance="plain" pill id="drawer-search-button" data-search data-track-event="navigation:header_link_click" data-track-destination="docs_search"><wa-icon label="Search" name="magnifying-glass"></wa-icon></wa-button>
+    <wa-tooltip for="drawer-search-button">
+      Search this website
+      <kbd>/</kbd>
+    </wa-tooltip>
     {% include "color-scheme-selector.njk" %}
+    {% if hasThemeSelector %}
+      {% include "theme-selector.njk" %}
+    {% endif %}
   </div>
 </div>
