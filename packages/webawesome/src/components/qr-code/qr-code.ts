@@ -1,11 +1,10 @@
+import type { LinearGradient, RadialGradient } from '@konnorr/qr-creator';
+import { QrCreator } from '@konnorr/qr-creator';
 import type { PropertyValues } from 'lit';
 import { html } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import styles from './qr-code.styles.js';
-import {QrCreator} from "@konnorr/qr-creator"
-import type {LinearGradient, RadialGradient} from "@konnorr/qr-creator"
-
 
 /**
  * @summary Generates a [QR code](https://www.qrcode.com/) and renders it using the [Canvas API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API).
@@ -48,16 +47,16 @@ export default class WaQrCode extends WebAwesomeElement {
   /** The level of error correction to use. [Learn more](https://www.qrcode.com/en/about/error_correction.html) */
   @property({ attribute: 'error-correction' }) errorCorrection: 'L' | 'M' | 'Q' | 'H' = 'H';
 
-  @property() image: string | null = null
-  @property({ attribute: "image-background" }) imageBackground: string | null = null
-  @property({ attribute: "image-ec-cover", type: Number }) imageEcCover: number | null = null
-  @property({ attribute: "image-padding", type: Number }) imagePadding: number | null = null
-  @property({ attribute: "corner-color" }) cornerColor: string | RadialGradient | LinearGradient | null = null
+  @property() image: string | null = null;
+  @property({ attribute: 'image-background' }) imageBackground: string | null = null;
+  @property({ attribute: 'image-ec-cover', type: Number }) imageEcCover: number | null = null;
+  @property({ attribute: 'image-padding', type: Number }) imagePadding: number | null = null;
+  @property({ attribute: 'corner-color' }) cornerColor: string | RadialGradient | LinearGradient | null = null;
 
-  private computedStyle: ReturnType<typeof getComputedStyle> | null = null
+  private computedStyle: ReturnType<typeof getComputedStyle> | null = null;
 
-  updated (changedProperties: PropertyValues<this>) {
-    super.updated(changedProperties)
+  updated(changedProperties: PropertyValues<this>) {
+    super.updated(changedProperties);
     this.generate();
   }
 
@@ -69,9 +68,8 @@ export default class WaQrCode extends WebAwesomeElement {
     this.canvas.style.maxWidth = `${this.size}px`;
     this.canvas.style.maxHeight = `${this.size}px`;
 
-
-    this.computedStyle ||= getComputedStyle(this)
-    const computedStyle = this.computedStyle
+    this.computedStyle ||= getComputedStyle(this);
+    const computedStyle = this.computedStyle;
 
     QrCreator.render(
       {
@@ -88,7 +86,7 @@ export default class WaQrCode extends WebAwesomeElement {
         imageEcCover: this.imageEcCover,
         imagePadding: this.imagePadding,
         imageBackground: this.imageBackground || this.background,
-        cornerFill: this.cornerColor
+        cornerFill: this.cornerColor,
       },
       this.canvas,
     );
