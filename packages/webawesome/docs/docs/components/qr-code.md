@@ -22,7 +22,7 @@ QR codes are useful for providing small pieces of information to users who can q
     <div class="wa-split">
       <wa-color-picker name="background" label="Background"></wa-color-picker>
       <wa-color-picker name="color" label="Color"></wa-color-picker>
-      <wa-color-picker name="cornerColor" label="Corner Fill"></wa-color-picker>
+      <wa-color-picker name="cornerColor" label="Corner Color"></wa-color-picker>
     </div>
     <wa-input maxlength="255" with-clear name="value" label="Value">
       <wa-icon slot="start" name="link"></wa-icon>
