@@ -1,18 +1,16 @@
-<wa-dropdown class="theme-selector" title="Select Theme">
-  <wa-button slot="trigger" id="theme-selector-trigger" appearance="plain">
-    <wa-icon name="paintbrush" variant="regular" class="icon-embiggen"></wa-icon>
-  </wa-button>
+<wa-select appearance="filled" size="small" value="default" pill class="theme-selector">
+  <wa-icon slot="start" name="paintbrush" variant="regular" class="icon-embiggen"></wa-icon>
 
   {# Free themes #}
   {% for theme in themer.themes %}
     {% if not theme.isPro %}
-      <wa-dropdown-item
+      <wa-option
         value="{{ theme.filename | stripExtension }}"
         data-brand="{{ theme.colorBrand.color }}"
         data-palette="{{ theme.palette.filename | stripExtension }}"
       >
         {{ theme.name }}
-      </wa-dropdown-item>
+      </wa-option>
     {% endif %}
   {% endfor %}
 
@@ -20,27 +18,24 @@
   {% for theme in themer.themes %}
     {% if loop.first %}<wa-divider></wa-divider>{% endif %}
     {% if theme.isPro %}
-      <wa-dropdown-item
+      <wa-option
         value="{{ theme.filename | stripExtension }}"
         data-brand="{{ theme.colorBrand.color }}"
         data-palette="{{ theme.palette.filename | stripExtension }}"
       >
         {{ theme.name }}
-      </wa-dropdown-item>
+      </wa-option>
     {% endif %}
   {% endfor %}
-</wa-dropdown>
-<wa-tooltip for="theme-selector-trigger" id="theme-tooltip">Select Theme</wa-tooltip>
+</wa-select>
 
 <script>
-  // Handle dropdown selection and trigger input event for theme.js
-  document.querySelectorAll('wa-dropdown.theme-selector').forEach(el => {
-    el.addEventListener('wa-select', (event) => {
-      const selectedValue = event.detail.item.value;
-
-      // Trigger input event for theme.js
-      el.value = selectedValue;
-      el.dispatchEvent(new Event('input', { bubbles: true }));
-    });
+  // Immediately set the correct values from storage
+  document.querySelectorAll('wa-select.theme-selector').forEach(el => {
+    el.setAttribute('value', localStorage.getItem('theme') || 'default');
   });
+
+  // Apply saved brand and palette classes
+  document.documentElement.classList.add(`wa-brand-${localStorage.getItem('brand') || 'blue'}`);
+  document.documentElement.classList.add(`wa-palette-${localStorage.getItem('palette') || 'default'}`);
 </script>

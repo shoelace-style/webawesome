@@ -63,6 +63,10 @@ wa-page > [slot='header'] {
   wa-button[data-toggle-nav] {
     --text-color: currentColor;
   }
+
+  .header-toolbar .theme-selector {
+    max-inline-size: 20ch;
+  }
 }
 
 #sidebar,
@@ -248,6 +252,11 @@ wa-page > [slot='navigation-header'] {
 
   .brand-logo svg {
     height: 1.25rem;
+  }
+
+  .color-scheme-selector,
+  .theme-selector {
+    max-inline-size: 20ch;
   }
 
   /* resetting font-weight of dropdown items in .title */

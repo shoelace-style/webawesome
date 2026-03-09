@@ -321,10 +321,6 @@
     display: none;
   }
 
-  wa-page::part(drawer) {
-    --size: auto;
-  }
-
   /* drawer-based products nav */
   wa-page::part(drawer__header) {
     background-color: var(--drawer-header-bg, var(--wa-color-surface-lowered));

@@ -99,6 +99,10 @@
     {# Sidebar - Navigation #}
     {% if hasSidebar %}
       <div slot="navigation" id="sidebar" class="docs-aside" data-remember-scroll>
+        <div class="wa-mobile-only wa-cluster wa-flex-nowrap">
+          {% include "theme-selector.njk" %}
+          {% include "color-scheme-selector.njk" %}
+        </div>
         {% include "sidebar.njk" %}
       </div>
     {% endif %}
