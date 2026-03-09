@@ -23,6 +23,17 @@
     --brand-web-awesome-orange: var(--wa-brand-orange);
     --brand-font-awesome-blue: #418fde;
     --brand-build-awesome-green: #00a776;
+
+    /* Product nav/drawer fill-quiet (light); .wa-dark overrides for dark */
+    --nav-products-fill-quiet-web: color-mix(in oklab, var(--brand-web-awesome-orange), white 85%);
+    --nav-products-fill-quiet-font: color-mix(in oklab, var(--brand-font-awesome-blue), white 85%);
+    --nav-products-fill-quiet-build: color-mix(in oklab, var(--brand-build-awesome-green), white 85%);
+  }
+
+  .wa-dark {
+    --nav-products-fill-quiet-web: color-mix(in oklab, var(--brand-web-awesome-orange), black 65%);
+    --nav-products-fill-quiet-font: color-mix(in oklab, var(--brand-font-awesome-blue), black 65%);
+    --nav-products-fill-quiet-build: color-mix(in oklab, var(--brand-build-awesome-green), black 65%);
   }
 
   /* #region layout utilities */
@@ -123,8 +134,9 @@
   /* banner */
   wa-page > [slot='banner'] {
     /* match nav-products background color */
-    background-color: var(--wa-color-surface-lowered);
+    background-color: var(--nav-products-bg, var(--wa-color-surface-lowered));
     padding: var(--wa-space-l) var(--content-padding-inline);
+    transition: background-color var(--wa-transition-slow) var(--wa-transition-easing);
 
     .banner {
       inline-size: 100%;
@@ -201,10 +213,26 @@
 
   /* full sized */
   .wrapper-nav-products {
-    background-color: var(--wa-color-surface-lowered);
+    background-color: var(--nav-products-bg, var(--wa-color-surface-lowered));
     padding-block-start: var(--wa-space-xs);
     padding-inline: var(--content-padding-inline);
     inline-size: 100%;
+    transition: background-color var(--wa-transition-slow) var(--wa-transition-easing);
+  }
+
+  wa-page:has(.wrapper-nav-products, .nav-products-drawer) {
+    &:has(.product-web-awesome:hover) {
+      --nav-products-bg: var(--nav-products-fill-quiet-web);
+    }
+    &:has(.product-font-awesome:hover) {
+      --nav-products-bg: var(--nav-products-fill-quiet-font);
+    }
+    &:has(.product-build-awesome:hover) {
+      --nav-products-bg: var(--nav-products-fill-quiet-build);
+    }
+    &:has(.product-podcast-awesome:hover, .product-blog-awesome:hover) {
+      --nav-products-bg: var(--wa-color-neutral-fill-quiet);
+    }
   }
 
   .nav-products-full {
@@ -299,8 +327,19 @@
 
   /* drawer-based products nav */
   wa-page::part(drawer__header) {
-    background-color: var(--wa-color-surface-lowered);
+    background-color: var(--drawer-header-bg, var(--wa-color-surface-lowered));
     padding-block-start: 0;
+    transition: background-color var(--wa-transition-slow) var(--wa-transition-easing);
+  }
+
+  wa-page:has(.nav-products-drawer .product-web-awesome:hover) {
+    --drawer-header-bg: var(--nav-products-fill-quiet-web);
+  }
+  wa-page:has(.nav-products-drawer .product-font-awesome:hover) {
+    --drawer-header-bg: var(--nav-products-fill-quiet-font);
+  }
+  wa-page:has(.nav-products-drawer .product-build-awesome:hover) {
+    --drawer-header-bg: var(--nav-products-fill-quiet-build);
   }
 
   wa-page::part(drawer__header-actions) {
