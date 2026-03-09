@@ -16,7 +16,7 @@ QR codes are useful for providing small pieces of information to users who can q
   >
   </wa-qr-code>
   <br><br>
-  <output><pre><code class="language-html"></code></pre></output>
+  <output><pre><code id="qr-configuration-code" class="language-html"></code><wa-copy-button style="top: -20%;" from="qr-configuration-code" class="copy-button wa-dark"></wa-copy-button></pre></output>
 
   <form class="wa-stack">
     <div class="wa-split">
@@ -40,6 +40,7 @@ QR codes are useful for providing small pieces of information to users who can q
       color-scheme: dark;
       color: white;
       background-color: var(--code-background, var(--wa-color-neutral-20));
+      position: relative;
     }
     & code {
       display: block;
@@ -110,8 +111,6 @@ QR codes are useful for providing small pieces of information to users who can q
       container.querySelector("code").textContent = qrCodeHTML
     }
 
-    updateCode()
-
     function updateValue (e) {
       const target = e.target
       const name = target?.name
@@ -124,12 +123,15 @@ QR codes are useful for providing small pieces of information to users who can q
 
       updateCode()
     }
+
     form.addEventListener("input", updateValue)
     form.addEventListener("change", updateValue)
 
     form.querySelectorAll("[name]").forEach((el) => {
       el.value = qrCode[el.getAttribute("name")]
     })
+
+    updateCode()
   });
 </script>
 ```
