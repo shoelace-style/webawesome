@@ -69,13 +69,13 @@ since the autoloader will not load elements until they are present in the DOM, t
 Many components have properties that can be set using attributes. For example, buttons accept a `size` attribute that maps to the `size` property which dictates the button's size.
 
 ```html
-<wa-button appearance="filled" size="small">Click me</wa-button>
+<wa-button size="small">Click me</wa-button>
 ```
 
 Some properties are boolean, so they only have true/false values. To activate a boolean property, add the corresponding attribute without a value.
 
 ```html
-<wa-button appearance="filled" disabled>Click me</wa-button>
+<wa-button disabled>Click me</wa-button>
 ```
 
 ## Events
@@ -106,13 +106,13 @@ Many components use slots to accept content inside of them. The most common slot
 For example, a button's default slot is used to populate its label.
 
 ```html
-<wa-button appearance="filled">Click me</wa-button>
+<wa-button>Click me</wa-button>
 ```
 
 Some components also have _named_ slots. A named slot can be populated by adding a child element with the appropriate `slot` attribute. Notice how the icon below has the `slot="start"` attribute? This tells the component to place the icon into its `start` slot.
 
 ```html
-<wa-button appearance="filled">
+<wa-button>
   <wa-icon slot="start" name="gear" variant="solid"></wa-icon>
   Settings
 </wa-button>
