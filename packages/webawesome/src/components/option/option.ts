@@ -147,9 +147,13 @@ export default class WaOption extends WebAwesomeElement {
     if (changedProperties.has('defaultSelected')) {
       // We cast to <wa-select> because it shares the same API as combobox
       if (!this.closest<WaSelect>('wa-combobox, wa-select')?.hasInteracted) {
-        const oldVal = this.selected;
-        this.selected = this.defaultSelected;
-        this.requestUpdate('selected', oldVal);
+        // Only sync if defaultSelected is becoming true
+        // This prevents overwriting `selected` when it was set directly by frameworks like Vue
+        if (this.defaultSelected) {
+          const oldVal = this.selected;
+          this.selected = this.defaultSelected;
+          this.requestUpdate('selected', oldVal);
+        }
       }
     }
     super.willUpdate(changedProperties);
@@ -180,6 +184,21 @@ export default class WaOption extends WebAwesomeElement {
 
     if (changedProperties.has('current')) {
       this.customStates.set('current', this.current);
+    }
+  }
+
+  protected firstUpdated(changedProperties: PropertyValues<this>) {
+    super.firstUpdated(changedProperties);
+
+    // If the `selected` property was set directly (e.g., by Vue's :selected binding),
+    // notify the parent select to update its selection. This is needed because
+    // Vue binds to the `selected` property instead of the `defaultSelected` property
+    // when using `:selected="true"` syntax.
+    if (this.selected && !this.defaultSelected) {
+      const parent = this.closest<WaSelect>('wa-select, wa-combobox');
+      if (parent && !parent.hasInteracted) {
+        parent.selectionChanged?.();
+      }
     }
   }
 

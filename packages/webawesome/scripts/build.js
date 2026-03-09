@@ -121,7 +121,6 @@ export async function build(options = {}) {
     }
 
     spinner.succeed();
-
     return Promise.resolve();
   }
 

@@ -362,6 +362,18 @@ Form controls should support submission and validation through the following con
 - Form controls that **DO** have an editable value such as an input or textarea should have: `@property({ attribute: false }) value` and `@property({ attribute: "value", reflect: true }) defaultValue`. We do this to align with how native form controls work.
 - Form controls which have an editable property such as `checked` or `selected` should also have a `defaultSelected` and `defaultChecked` property respectively for use when the form is "reset".
 
+### Dismissible Overlays
+
+Overlay components (dialog, drawer, select, dropdown, tooltip, popover, color-picker, etc.) each attach their own document `keydown` listener. Without coordination, all open overlays respond to the Escape key simultaneously — causing nested overlays to all close at once.
+
+To solve this, a shared dismissible stack is maintained in `src/internal/dismissible-stack.ts`. Components that can be dismissed with the Escape key must use it to coordinate which overlay responds. The stack tracks open dismissibles in order, so only the topmost one handles the key event.
+
+- Call `registerDismissible(this)` when the overlay becomes visible
+- Call `unregisterDismissible(this)` when the overlay closes or is removed from the DOM
+- Before handling Escape, call `isTopDismissible(this)` to confirm your component is the topmost dismissible — if it returns `false`, ignore the key event
+
+This pattern is modeled after the `scroll.ts` lock pattern. Refer to existing overlay components such as `<wa-dialog>` or `<wa-drawer>` for examples.
+
 ### System Icons
 
 Avoid inlining SVG icons inside of templates. If a component requires an icon, make sure `<wa-icon>` is a dependency of the component and use the [system library](/docs/components/icon#customizing-the-system-library):

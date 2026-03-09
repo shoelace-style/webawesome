@@ -50,6 +50,10 @@ export default {
           context.url = '/dist/styles/color/palettes/base.css';
         }
 
+        if (context.url.startsWith('/layers.css')) {
+          context.url = '/dist/styles/layers.css';
+        }
+
         if (context.url.startsWith('/variants')) {
           context.url = '/dist/styles/color' + context.url;
         }

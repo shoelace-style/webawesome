@@ -45,8 +45,19 @@ const iconByPrefix = [
   ['/docs/customizing', 'rocket-launch'],
   ['/docs/form-controls', 'rocket-launch'],
   ['/docs/localization', 'rocket-launch'],
+  ['/docs/components/chart', 'chart-area'],
+  ['/docs/components/bar-chart', 'chart-area'],
+  ['/docs/components/line-chart', 'chart-area'],
+  ['/docs/components/bubble-chart', 'chart-area'],
+  ['/docs/components/doughnut-chart', 'chart-area'],
+  ['/docs/components/pie-chart', 'chart-area'],
+  ['/docs/components/polar-area-chart', 'chart-area'],
+  ['/docs/components/radar-chart', 'chart-area'],
+  ['/docs/components/scatter-chart', 'chart-area'],
+  ['/docs/components/sparkline', 'chart-area'],
   ['/docs/components', 'trowel-bricks'],
   ['/docs/patterns', 'block-brick'],
+  ['/docs/patterns/layouts', 'table-layout'],
   ['/docs/frameworks', 'puzzle'],
   ['/docs/tokens', 'coin-front'],
   ['/docs/resources/agent-skills', 'sparkles'],
@@ -149,7 +160,7 @@ async function handleClose() {
   queryTrackTimeout = null;
   dialog.removeEventListener('wa-hide', handleClose);
   if (!resultSelected) {
-    const query = input.value.trim();
+    const query = (input.value || '').trim();
     if (query.length > 0 && query !== lastTrackedQuery) {
       trackQuerySubmit(query, false);
       lastTrackedQuery = query;

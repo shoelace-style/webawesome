@@ -8,16 +8,43 @@ Web Awesome follows [Semantic Versioning](https://semver.org/). Breaking changes
 
 Components with the <wa-badge variant="warning">Experimental</wa-badge> badge should not be used in production. They are made available as release candidates for development and testing purposes. As such, changes to experimental components will not be subject to semantic versioning.
 
-## Unreleased
+## 3.3.1
 
-<small>TBD</small>
+<small>March 4th, 2026</small>
 
+- Removed a `preinstall` script in `webawesome-pro` that was causing issues in some package managers.
+
+## 3.3.0
+
+<small>March 3rd, 2026</small>
+
+- Added `<wa-chart>` and other chart types as experimental Pro components [pr:1073]
+- Added `<wa-toast>` and `<wa-toast-item>` as experimental Pro components [pr:105]
 - Added `wa-button` class for styling `<a>` elements as buttons [pr:2040]
+- Added `--popup-border-width` parameter to `<wa-popup>`. This must be set to match the width of any border added to the popup element [pr:2070]
+- Added `start` and `end` slots to `<wa-badge>` [pr:2082]
+- Fixed a bug in `<wa-switch>` and `<wa-checkbox>` not rendering properly on first load [pr:2105]
+- Fixed a bug in `<wa-drawer>` and `<wa-dialog>` where it was attempting to register global event listeners in server environments. [pr:2105]
+- Fixed a bug in `<wa-textarea>` and `<wa-input>` where the internally rendered form controls were not resetting their value properly. [pr:2105]
+- Fixed a bug in HasSlotController where it would attempt to call APIs not available on the server. [pr:2105]
+- Fixed a bug in `<wa-page>` where it was attempting to insert styles during SSR with unsupported APIs. [issue:1862]
+- Fixed a bug in `<wa-page>` where the hamburger navigation would show up if there was no slot content. [issue:1601]
+- Fixed a bug in `<wa-dropdown-item>` where a click event would fire on `disabled`. [pr:2023]
+- Fixed a bug in the custom elements manifest where events may not have a name. [pr:2026]
+- Fixed a bug in `<wa-select>` where options with `selected` set via framework property binding (e.g., Vue's `:selected`) were not respected when `with-clear` was present [pr:1985]
+- Fixed a bug in `<wa-radio-group>`, `<wa-slider>`, `<wa-checkbox>`, and `<wa-switch>` to align with how browsers differentiate attributes vs properties. [pr:2105]
+- Fixed a bug in `<wa-input>` where it stays invalid when updating value property. [pr:2105]
 - Fixed a bug `<wa-color-picker>` that prevented it from flipping horizontally when position to the right of the viewport. [pr:2024]
 - Fixed a bug by adding `color: inherit` to the `<wa-dialog>` and `<wa-drawer>` styles so they inherit the text color from the document context rather than the browser default. [pr:2064]
-- Fixed a bug that caused 0ms animations to not fire correctly in the internal `animateWithClass()` function [pr#2068]
+- Fixed a bug that caused 0ms animations to not fire correctly in the internal `animateWithClass()` function [pr:2068]
 - Fixed a bug that caused `<wa-dropdown>` elements to scroll the document in Chrome 145
+- Fixed a bug in native styles so `border-radius` does not apply to `svg` elements by default [pr:2078]
+- Fixed a bug in `<wa-popup>` that caused arrows to point the wrong direction for `-start` and `-end` placements
+- Fixed a bug in `<wa-split-panel>` that caused a ResizeObserver error in Chromium-based browser when resizing the primary panel [issue:2018]
+- Fixed a bug that caused the `Escape` key to close more than just the active dismissible component when nested inside other dismissible elements [pr:2096]
+- Fixed a bug that forced a box-sizing opinion on host elements
 - Updated `<wa-icon>` to use [Font Awesome 7.2.0](https://fontawesome.com/changelog#v7-2-0) [pr:2059]
+- Updated `<wa-popup>` arrow styling to prevent larger sized arrow from overlapping the contents of the popup [pr:2070]
 - Modified native styles so that `border-radius` does not apply to `svg` elements by default [pr:2078]
 
 ## 3.2.1
@@ -30,6 +57,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 <small>February 4, 2026</small>
 
+- Fixed a bug in `<wa-select>` where the `selected` attribute on `<wa-option>` was ignored when `with-clear` was present [#1922]
 - Added `<wa-file-input>` as an experimental pro component [issue:1240]
 - Added `<wa-sparkline>` as an experimental pro component
 - Added `<wa-number-input>` as an experimental component for numeric input with stepper buttons [issue:1688]

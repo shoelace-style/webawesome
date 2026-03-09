@@ -6,6 +6,7 @@ import { WaAfterShowEvent } from '../../events/after-show.js';
 import { WaHideEvent } from '../../events/hide.js';
 import { WaShowEvent } from '../../events/show.js';
 import { animateWithClass } from '../../internal/animate.js';
+import { isTopDismissible, registerDismissible, unregisterDismissible } from '../../internal/dismissible-stack.js';
 import { parseSpaceDelimitedTokens } from '../../internal/parse.js';
 import { lockBodyScrolling, unlockBodyScrolling } from '../../internal/scroll.js';
 import { HasSlotController } from '../../internal/slot.js';
@@ -132,16 +133,18 @@ export default class WaDrawer extends WebAwesomeElement {
 
   private addOpenListeners() {
     document.addEventListener('keydown', this.handleDocumentKeyDown);
+    registerDismissible(this);
   }
 
   private removeOpenListeners() {
     document.removeEventListener('keydown', this.handleDocumentKeyDown);
+    unregisterDismissible(this);
   }
 
   private handleDialogCancel(event: Event) {
     event.preventDefault();
 
-    if (!this.drawer.classList.contains('hide') && event.target === this.drawer) {
+    if (!this.drawer.classList.contains('hide') && event.target === this.drawer && isTopDismissible(this)) {
       this.requestClose(this.drawer);
     }
   }
@@ -169,7 +172,7 @@ export default class WaDrawer extends WebAwesomeElement {
   }
 
   private handleDocumentKeyDown = (event: KeyboardEvent) => {
-    if (event.key === 'Escape' && this.open) {
+    if (event.key === 'Escape' && this.open && isTopDismissible(this)) {
       event.preventDefault();
       event.stopPropagation();
       this.requestClose(this.drawer);
@@ -281,29 +284,29 @@ export default class WaDrawer extends WebAwesomeElement {
   }
 }
 
-//
-// Watch for data-drawer="open *" clicks
-//
-document.addEventListener('click', (event: MouseEvent) => {
-  const drawerAttrEl = (event.target as Element).closest('[data-drawer]');
+if (!isServer) {
+  //
+  // Watch for data-drawer="open *" clicks
+  //
+  document.addEventListener('click', (event: MouseEvent) => {
+    const drawerAttrEl = (event.target as Element).closest('[data-drawer]');
 
-  if (drawerAttrEl instanceof Element) {
-    const [command, id] = parseSpaceDelimitedTokens(drawerAttrEl.getAttribute('data-drawer') || '');
+    if (drawerAttrEl instanceof Element) {
+      const [command, id] = parseSpaceDelimitedTokens(drawerAttrEl.getAttribute('data-drawer') || '');
 
-    if (command === 'open' && id?.length) {
-      const doc = drawerAttrEl.getRootNode() as Document | ShadowRoot;
-      const drawer = doc.getElementById(id) as WaDrawer;
+      if (command === 'open' && id?.length) {
+        const doc = drawerAttrEl.getRootNode() as Document | ShadowRoot;
+        const drawer = doc.getElementById(id) as WaDrawer;
 
-      if (drawer?.localName === 'wa-drawer') {
-        drawer.open = true;
-      } else {
-        console.warn(`A drawer with an ID of "${id}" could not be found in this document.`);
+        if (drawer?.localName === 'wa-drawer') {
+          drawer.open = true;
+        } else {
+          console.warn(`A drawer with an ID of "${id}" could not be found in this document.`);
+        }
       }
     }
-  }
-});
+  });
 
-if (!isServer) {
   // Ugly, but it fixes light dismiss in Safari: https://bugs.webkit.org/show_bug.cgi?id=267688
   document.body.addEventListener('pointerdown', () => {
     /* empty */

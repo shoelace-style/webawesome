@@ -122,15 +122,17 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
   @property({ attribute: 'value', reflect: true, type: Number }) defaultValue: number =
     this.getAttribute('value') == null ? this.minValue : Number(this.getAttribute('value'));
 
-  private _value: number = this.defaultValue;
+  private _value: number | null = null;
 
   /** The current value of the slider, submitted as a name/value pair with form data. */
   get value(): number {
     if (this.valueHasChanged) {
-      return this._value;
+      const val = this._value ?? this.minValue ?? 0;
+      return clamp(val, this.min, this.max);
     }
 
-    return this._value ?? this.defaultValue;
+    const val = this._value ?? this.defaultValue;
+    return clamp(val, this.min, this.max);
   }
 
   @state()
@@ -375,7 +377,6 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
     } else {
       // Handle value for single thumb mode
       if (changedProperties.has('value')) {
-        this.value = clamp(this.value, this.min, this.max);
         this.setValue(String(this.value));
       }
     }
@@ -385,8 +386,6 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
       if (this.isRange) {
         this.minValue = clamp(this.minValue, this.min, this.max);
         this.maxValue = clamp(this.maxValue, this.min, this.max);
-      } else {
-        this.value = clamp(this.value, this.min, this.max);
       }
     }
 
@@ -423,8 +422,10 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
       this.minValue = parseFloat(this.getAttribute('min-value') ?? String(this.min));
       this.maxValue = parseFloat(this.getAttribute('max-value') ?? String(this.max));
     } else {
-      this.value = parseFloat(this.getAttribute('value') ?? String(this.min));
+      this._value = null;
+      this.defaultValue = this.defaultValue ?? parseFloat(this.getAttribute('value') ?? String(this.min));
     }
+    this.valueHasChanged = false;
     this.hasInteracted = false;
     super.formResetCallback();
   }

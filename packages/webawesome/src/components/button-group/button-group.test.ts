@@ -29,8 +29,9 @@ describe('<wa-button-group>', () => {
           await expect(group).to.be.accessible();
         });
       });
-      describe('slotted button classes', () => {
-        it('slotted buttons have the right classes applied based on their order', async () => {
+
+      describe('slotted button custom properties', () => {
+        it('slotted buttons inherit the right custom properties based on their order', async () => {
           const group = await fixture<WaButtonGroup>(html`
             <wa-button-group>
               <wa-button>Button 1 Label</wa-button>
@@ -40,14 +41,25 @@ describe('<wa-button-group>', () => {
           `);
 
           const allButtons = group.querySelectorAll('wa-button');
-          const hasGroupClass = Array.from(allButtons).every(button =>
-            button.classList.contains('wa-button-group__button'),
-          );
-          expect(hasGroupClass).to.be.true;
+          Array.from(allButtons).every(button => {
+            const themedIndent = getComputedStyle(button).getPropertyValue('--wa-form-control-border-width').trim();
+            expect(button).to.have.style('--_button-horizontal-indent', themedIndent);
+          });
 
-          expect(allButtons[0]).to.have.class('wa-button-group__button-first');
-          expect(allButtons[1]).to.have.class('wa-button-group__button-inner');
-          expect(allButtons[2]).to.have.class('wa-button-group__button-last');
+          expect(allButtons[0]).to.not.have.style('--_button-start-start-radius', '0');
+          expect(allButtons[0]).to.have.style('--_button-start-end-radius', '0');
+          expect(allButtons[0]).to.not.have.style('--_button-end-start-radius', '0');
+          expect(allButtons[0]).to.have.style('--_button-end-end-radius', '0');
+
+          expect(allButtons[1]).to.have.style('--_button-start-start-radius', '0');
+          expect(allButtons[1]).to.have.style('--_button-start-end-radius', '0');
+          expect(allButtons[1]).to.have.style('--_button-end-start-radius', '0');
+          expect(allButtons[1]).to.have.style('--_button-end-end-radius', '0');
+
+          expect(allButtons[2]).to.have.style('--_button-start-start-radius', '0');
+          expect(allButtons[2]).to.not.have.style('--_button-start-end-radius', '0');
+          expect(allButtons[2]).to.have.style('--_button-end-start-radius', '0');
+          expect(allButtons[2]).to.not.have.style('--_button-end-end-radius', '0');
         });
       });
 

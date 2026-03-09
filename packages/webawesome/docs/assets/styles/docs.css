@@ -35,67 +35,7 @@ body.theme-transitioning {
   transition: opacity 200ms ease-out;
 }
 
-/* banner */
-wa-page > [slot='banner'] {
-  padding: var(--wa-space-0);
-
-  .banner-content {
-    /* match docs header padding-inline by default */
-    padding-inline: var(--wa-space-xl);
-    padding-block: var(--wa-space-m);
-  }
-
-  &.banner-wa-launch {
-    /* custom brand colors carried over from theme-site for the banner */
-    --wa-color-brand-95: #fef0ec;
-    --wa-color-brand-90: #fce0d8;
-    --wa-color-brand-80: #f8bcac;
-    --wa-color-brand-70: #fa9378;
-    --wa-color-brand-60: #f46a45;
-    --wa-color-brand-50: #cb4b27;
-    --wa-color-brand-40: #9d371a;
-    --wa-color-brand-30: #7c2a13;
-    --wa-color-brand-20: #5d1d0b;
-    --wa-color-brand-10: #3b0f05;
-    --wa-color-brand-05: #270802;
-    --wa-color-brand: var(--wa-color-brand-60);
-    --wa-color-brand-on: var(--wa-color-brand-10);
-
-    .banner-icon {
-      color: var(--wa-color-brand-fill-loud);
-      font-size: var(--wa-font-size-xl);
-    }
-
-    .appearance-underlined.variant-drawn {
-      --underline-color: var(--wa-color-brand);
-    }
-  }
-}
-
-/* Site-Wide Dialog */
-#dialog-site {
-  /* custom brand colors carrried over from theme-site for the banner */
-  --wa-color-brand-95: #fef0ec;
-  --wa-color-brand-90: #fce0d8;
-  --wa-color-brand-80: #f8bcac;
-  --wa-color-brand-70: #fa9378;
-  --wa-color-brand-60: #f46a45;
-  --wa-color-brand-50: #cb4b27;
-  --wa-color-brand-40: #9d371a;
-  --wa-color-brand-30: #7c2a13;
-  --wa-color-brand-20: #5d1d0b;
-  --wa-color-brand-10: #3b0f05;
-  --wa-color-brand-05: #270802;
-  --wa-color-brand: var(--wa-color-brand-60);
-  --wa-color-brand-on: var(--wa-color-brand-10);
-}
-
 /* Header */
-wa-page::part(header) {
-  background-color: var(--wa-color-surface-default);
-  border-bottom: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-surface-border);
-}
-
 wa-page::part(body) {
   padding-top: 0px;
 }
@@ -104,34 +44,24 @@ wa-page::part(header-actions) {
   align-self: center;
 }
 
-wa-page > header {
-  padding-inline: var(--wa-space-xl);
-
-  a[href='/'] {
-    color: var(--wa-color-text-normal);
-    line-height: 1;
+wa-page > [slot='header'] {
+  .wrapper-nav-products {
+    padding-inline: var(--content-padding-inline);
   }
 
-  .brand-logo {
-    color: var(--wa-color-text-normal);
-    line-height: 1;
+  #docs-header {
+    background-color: var(--wa-color-surface-default);
+    border-bottom: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-surface-border);
+    padding: var(--wa-space-s) var(--content-padding-inline);
   }
 
-  .brand-logo svg {
-    width: auto;
-    height: 1.75rem;
+  /* icon-based logo */
+  .logo-web-awesome {
+    font-size: var(--wa-font-size-xl);
   }
 
   wa-button[data-toggle-nav] {
     --text-color: currentColor;
-    font-size: 1rem;
-    margin-inline-start: -0.875rem;
-    margin-inline-end: 0;
-
-    &::part(base) {
-      padding: 0;
-      padding-inline: 0.875rem;
-    }
   }
 }
 
@@ -450,6 +380,7 @@ wa-page > main:has(> .search-list) {
 }
 
 .search-list {
+  container-type: inline-size;
   .search-list-input {
     margin-block-end: var(--wa-space-3xl);
   }
@@ -460,16 +391,24 @@ wa-page > main:has(> .search-list) {
     gap: var(--wa-space-2xl);
     margin-block-end: var(--wa-space-3xl);
 
-    @media screen and (max-width: 1470px) {
+    @container (width < 768px) {
       grid-template-columns: repeat(3, 1fr);
     }
 
-    @media screen and (max-width: 960px) {
+    @container (width < 576px) {
       grid-template-columns: repeat(2, 1fr);
     }
 
-    @media screen and (max-width: 500px) {
+    @container (width < 384px) {
       grid-template-columns: repeat(1, 1fr);
+    }
+
+    &.large {
+      grid-template-columns: repeat(2, 1fr);
+
+      @container (width < 640px) {
+        grid-template-columns: repeat(1, 1fr);
+      }
     }
 
     a {
@@ -485,12 +424,13 @@ wa-page > main:has(> .search-list) {
         display: flex;
       }
 
-      &::part(header) {
+      &[with-header]::part(header) {
         background-color: var(--header-background, var(--wa-color-neutral-fill-quiet));
         display: flex;
         align-items: center;
         justify-content: center;
         min-block-size: calc(6rem + var(--spacing));
+        padding: var(--spacing);
       }
 
       &:hover {

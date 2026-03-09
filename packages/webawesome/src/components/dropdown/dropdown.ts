@@ -10,6 +10,7 @@ import { WaSelectEvent } from '../../events/select.js';
 import { WaShowEvent } from '../../events/show.js';
 import { activeElements } from '../../internal/active-elements.js';
 import { animateWithClass } from '../../internal/animate.js';
+import { isTopDismissible, registerDismissible, unregisterDismissible } from '../../internal/dismissible-stack.js';
 import { uniqueId } from '../../internal/math.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import sizeStyles from '../../styles/component/size.styles.js';
@@ -102,6 +103,9 @@ export default class WaDropdown extends WebAwesomeElement {
     this.submenuCleanups.clear();
 
     document.removeEventListener('mousemove', this.handleGlobalMouseMove);
+    document.removeEventListener('keydown', this.handleDocumentKeyDown);
+    document.removeEventListener('pointerdown', this.handleDocumentPointerDown);
+    unregisterDismissible(this);
   }
 
   firstUpdated() {
@@ -251,6 +255,7 @@ export default class WaDropdown extends WebAwesomeElement {
     this.popup.active = true; // Use wa-popup's active property instead of showPopover
     this.open = true;
     openDropdowns.add(this);
+    registerDismissible(this);
     this.syncAriaAttributes();
     document.addEventListener('keydown', this.handleDocumentKeyDown);
     document.addEventListener('pointerdown', this.handleDocumentPointerDown);
@@ -282,6 +287,7 @@ export default class WaDropdown extends WebAwesomeElement {
 
     this.open = false;
     openDropdowns.delete(this);
+    unregisterDismissible(this);
     this.syncAriaAttributes();
     document.removeEventListener('keydown', this.handleDocumentKeyDown);
     document.removeEventListener('pointerdown', this.handleDocumentPointerDown);
@@ -299,7 +305,7 @@ export default class WaDropdown extends WebAwesomeElement {
   private handleDocumentKeyDown = async (event: KeyboardEvent) => {
     const isRtl = this.localize.dir() === 'rtl';
 
-    if (event.key === 'Escape') {
+    if (event.key === 'Escape' && this.open && isTopDismissible(this)) {
       const trigger = this.getTrigger();
 
       event.preventDefault();

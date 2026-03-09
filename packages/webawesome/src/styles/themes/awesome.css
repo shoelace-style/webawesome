@@ -501,6 +501,18 @@
       }
     }
 
+    /* Treat accent buttons as outlined in button groups */
+    wa-button-group[orientation='horizontal'] {
+      wa-button[appearance='accent'] {
+        margin-inline-start: var(--_button-horizontal-indent-outlined);
+      }
+    }
+    wa-button-group[orientation='vertical'] {
+      wa-button[appearance='accent'] {
+        margin-block-start: var(--_button-vertical-indent-outlined);
+      }
+    }
+
     wa-badge {
       border-radius: var(--wa-border-radius-m);
       font-weight: var(--wa-font-weight-bold);

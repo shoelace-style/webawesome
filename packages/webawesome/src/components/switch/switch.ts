@@ -73,8 +73,22 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
   /** Disables the switch. */
   @property({ type: Boolean }) disabled = false;
 
-  /** Draws the switch in a checked state. */
-  @property({ type: Boolean, attribute: false }) checked: boolean = this.hasAttribute('checked');
+  _checked: boolean | null = null;
+
+  get checked() {
+    if (this.valueHasChanged) {
+      return Boolean(this._checked);
+    }
+
+    return this._checked ?? this.defaultChecked;
+  }
+
+  /** Draws the checkbox in a checked state. */
+  @property({ type: Boolean, attribute: false })
+  set checked(val: boolean) {
+    this._checked = Boolean(val);
+    this.valueHasChanged = true;
+  }
 
   /** The default value of the form control. Primarily used for resetting the form control. */
   @property({ type: Boolean, attribute: 'checked', reflect: true }) defaultChecked: boolean =
@@ -129,13 +143,7 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
   protected willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
-    if (changedProperties.has('defaultChecked')) {
-      if (!this.hasInteracted) {
-        this.checked = this.defaultChecked;
-      }
-    }
-
-    if (changedProperties.has('value') || changedProperties.has('checked')) {
+    if (changedProperties.has('value') || changedProperties.has('checked') || changedProperties.has('defaultChecked')) {
       this.handleValueOrCheckedChange();
     }
   }
@@ -146,15 +154,7 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
     this.updateValidity();
   }
 
-  @watch('defaultChecked')
-  handleDefaultCheckedChange() {
-    if (!this.hasInteracted && this.checked !== this.defaultChecked) {
-      this.checked = this.defaultChecked;
-      this.handleValueOrCheckedChange();
-    }
-  }
-
-  @watch(['checked'])
+  @watch(['checked', 'defaultChecked'])
   handleStateChange() {
     if (this.hasUpdated) {
       this.input.checked = this.checked; // force a sync update
@@ -195,7 +195,7 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
   }
 
   formResetCallback(): void {
-    this.checked = this.defaultChecked;
+    this._checked = null;
     super.formResetCallback();
     this.handleValueOrCheckedChange();
   }
@@ -216,7 +216,7 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
           class="input"
           type="checkbox"
           title=${this.title /* An empty title prevents browser validation tooltips from appearing on hover */}
-          name=${this.name}
+          name=${ifDefined(this.name)}
           value=${ifDefined(this.value)}
           .checked=${live(this.checked)}
           .disabled=${this.disabled}

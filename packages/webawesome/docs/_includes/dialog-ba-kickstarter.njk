@@ -1,0 +1,95 @@
+{% raw %}
+{% if isBuildAwesomePromoActive %}
+  <wa-dialog id="dialog-site" class="dialog-ba-kickstarter brand-build-awesome app-dialog" light-dismiss without-header>
+    <div class="ba-kickstarter-video">
+      <div class="ba-kickstarter-video-poster" aria-hidden="true">
+        <img src="/assets/images/placeholder-ba-video.png" alt="" />
+      </div>
+      <div class="ba-kickstarter-video-embed" style="padding: 56.25% 0 0 0; position: relative;">
+        <iframe
+          id="ba-kickstarter-vimeo"
+          loading="lazy"
+          data-vimeo-src="https://player.vimeo.com/video/1168551192?h=6ba669b3ff&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+          frameborder="0"
+          allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+          allowfullscreen
+          referrerpolicy="strict-origin-when-cross-origin"
+          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+          title="Now on Kickstarter: Build Awesome — Collaborate on Web Sites That Last"></iframe>
+      </div>
+    </div>
+
+    <div class="wa-stack wa-gap-2xl">
+      <div class="wa-stack wa-gap-s">
+        <h2 class="wa-heading-xl brand-font">Eleventy is becoming <a href="https://www.kickstarter.com/projects/fontawesome/build-awesome?ref=404xir" class="wa-link-plain" style="color: var(--wa-color-brand-fill-loud);">Build Awesome</a>!</h2>
+        <p>Build Awesome is a new way to build fast, beautiful websites. Open-source at its core, but now with endless Pro 'possum-bilities.</p>
+      </div>
+
+      <div class="wa-flank">
+        <wa-button type="button" appearance="plain" data-dialog="close" class="brand-font wa-desktop-only">Got It</wa-button>
+        <wa-button
+          variant="brand"
+          appearance="accent"
+          href="https://www.kickstarter.com/projects/fontawesome/build-awesome?ref=404xir"
+          class="brand-font">
+          <wa-icon slot="start" src="/assets/images/logo-build-awesome-icon.svg" style="--logo-icon-fill: currentColor;"></wa-icon>
+          Check out the Kickstarter!
+        </wa-button>
+      </div>
+    </div>
+  </wa-dialog>
+
+  <script type="module">
+    (function() {
+      const SITE_DIALOG_DISMISSED_KEY = 'dialog-build-awesome-kickstarter-dismissed';
+
+      try {
+        if (localStorage.getItem(SITE_DIALOG_DISMISSED_KEY) === 'true') {
+          return;
+        }
+      } catch (e) {
+        return;
+      }
+
+      const dialog = document.getElementById('dialog-site');
+      if (!dialog) {
+        return;
+      }
+
+      let initCalled = false;
+      const initDialog = () => {
+        if (initCalled) {
+          return;
+        }
+        initCalled = true;
+
+        const iframe = document.getElementById('ba-kickstarter-vimeo');
+
+        if (iframe && iframe.dataset.vimeoSrc && !iframe.dataset.vimeoLoaded) {
+          iframe.src = iframe.dataset.vimeoSrc;
+          iframe.dataset.vimeoLoaded = 'true';
+        }
+
+        dialog.addEventListener('wa-hide', () => {
+          if (iframe?.dataset.vimeoLoaded) {
+            iframe.src = '';
+          }
+          try {
+            localStorage.setItem(SITE_DIALOG_DISMISSED_KEY, 'true');
+          } catch (e) {
+            // localStorage may be disabled or unavailable
+          }
+        }, { once: true });
+
+        setTimeout(() => {
+          dialog.open = true;
+        }, 500);
+      };
+
+      customElements.whenDefined('wa-dialog').then(() => {
+        initDialog();
+      });
+    })();
+  </script>
+{% endif %}
+{% endraw %}

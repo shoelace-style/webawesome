@@ -74,7 +74,7 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
   @property() title = ''; // make reactive to pass through
 
   /** The name of the checkbox, submitted as a name/value pair with form data. */
-  @property({ reflect: true }) name = '';
+  @property({ reflect: true }) name = null;
 
   private _value: string | null = this.getAttribute('value') ?? null;
 
@@ -101,8 +101,22 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
    */
   @property({ type: Boolean, reflect: true }) indeterminate = false;
 
+  _checked: boolean | null = null;
+
+  get checked() {
+    if (this.valueHasChanged) {
+      return Boolean(this._checked);
+    }
+
+    return this._checked ?? this.defaultChecked;
+  }
+
   /** Draws the checkbox in a checked state. */
-  @property({ type: Boolean, attribute: false }) checked: boolean = this.hasAttribute('checked');
+  @property({ type: Boolean, attribute: false })
+  set checked(val: boolean) {
+    this._checked = Boolean(val);
+    this.valueHasChanged = true;
+  }
 
   /** The default value of the form control. Primarily used for resetting the form control. */
   @property({ type: Boolean, reflect: true, attribute: 'checked' }) defaultChecked: boolean =
@@ -123,12 +137,14 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
     });
   }
 
-  @watch('defaultChecked')
+  connectedCallback() {
+    super.connectedCallback();
+    this.handleDefaultCheckedChange();
+  }
+
+  @watch(['checked', 'defaultChecked'])
   handleDefaultCheckedChange() {
-    if (!this.hasInteracted && this.checked !== this.defaultChecked) {
-      this.checked = this.defaultChecked;
-      this.handleValueOrCheckedChange();
-    }
+    this.handleValueOrCheckedChange();
   }
 
   handleValueOrCheckedChange() {
@@ -157,20 +173,14 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
   protected willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
-    if (changedProperties.has('defaultChecked')) {
-      if (!this.hasInteracted) {
-        this.checked = this.defaultChecked;
-      }
-    }
-
-    if (changedProperties.has('value') || changedProperties.has('checked')) {
+    if (changedProperties.has('value') || changedProperties.has('checked') || changedProperties.has('defaultChecked')) {
       this.handleValueOrCheckedChange();
     }
   }
 
   formResetCallback() {
     // Evaluate checked before the super call because of our watcher on value.
-    this.checked = this.defaultChecked;
+    this._checked = null;
     super.formResetCallback();
     this.handleValueOrCheckedChange();
   }
@@ -210,7 +220,7 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
             class="input"
             type="checkbox"
             title=${this.title /* An empty title prevents browser validation tooltips from appearing on hover */}
-            name=${this.name}
+            name=${ifDefined(this.name)}
             value=${ifDefined(this._value)}
             .indeterminate=${live(this.indeterminate)}
             .checked=${live(this.checked)}

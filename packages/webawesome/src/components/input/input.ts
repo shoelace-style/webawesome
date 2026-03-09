@@ -246,8 +246,9 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
   updated(changedProperties: PropertyValues<this>) {
     super.updated(changedProperties);
 
-    if (changedProperties.has('value')) {
+    if (changedProperties.has('value') || changedProperties.has('defaultValue')) {
       this.customStates.set('blank', !this.value);
+      this.updateValidity();
     }
   }
 
@@ -324,7 +325,13 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
   }
 
   formResetCallback() {
-    this.value = this.defaultValue;
+    this.value = null;
+
+    if (this.input) {
+      // Fixes https://github.com/shoelace-style/webawesome/issues/1640 where resetting an input would leave the "live" vlaue in place on the input in the shadow dom. This fixed that by manually forcing the value.
+      // @ts-expect-error
+      this.input.value = this.value;
+    }
 
     super.formResetCallback();
   }

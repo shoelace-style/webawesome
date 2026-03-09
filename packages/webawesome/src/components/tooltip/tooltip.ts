@@ -6,6 +6,7 @@ import { WaAfterShowEvent } from '../../events/after-show.js';
 import { WaHideEvent } from '../../events/hide.js';
 import { WaShowEvent } from '../../events/show.js';
 import { animateWithClass } from '../../internal/animate.js';
+import { isTopDismissible, registerDismissible, unregisterDismissible } from '../../internal/dismissible-stack.js';
 import { waitForEvent } from '../../internal/event.js';
 import { uniqueId } from '../../internal/math.js';
 import { watch } from '../../internal/watch.js';
@@ -136,6 +137,7 @@ export default class WaTooltip extends WebAwesomeElement {
 
     // Cleanup this event in case the tooltip is removed while open
     document.removeEventListener('keydown', this.handleDocumentKeyDown);
+    unregisterDismissible(this);
     this.eventController.abort();
 
     if (this.anchor) {
@@ -177,7 +179,8 @@ export default class WaTooltip extends WebAwesomeElement {
 
   private handleDocumentKeyDown = (event: KeyboardEvent) => {
     // Pressing escape when a tooltip is open should dismiss it
-    if (event.key === 'Escape') {
+    if (event.key === 'Escape' && this.open && isTopDismissible(this)) {
+      event.preventDefault();
       event.stopPropagation();
       this.hide();
     }
@@ -259,6 +262,7 @@ export default class WaTooltip extends WebAwesomeElement {
       }
 
       document.addEventListener('keydown', this.handleDocumentKeyDown, { signal: this.eventController.signal });
+      registerDismissible(this);
 
       this.body.hidden = false;
       this.popup.active = true;
@@ -276,6 +280,7 @@ export default class WaTooltip extends WebAwesomeElement {
       }
 
       document.removeEventListener('keydown', this.handleDocumentKeyDown);
+      unregisterDismissible(this);
 
       await animateWithClass(this.popup.popup, 'hide-with-scale');
       this.popup.active = false;
