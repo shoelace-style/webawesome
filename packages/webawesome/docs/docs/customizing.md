@@ -95,7 +95,7 @@ CSS parts offer further flexibility to customize individual components. The "par
 Parts allow you to style _any_ standard CSS property, not just those exposed through custom properties. Here's an example that modifies buttons with the `gradient-button` class.
 
 ```html {.example}
-<wa-button appearance="filled" class="gradient-button"> Gradient Button </wa-button>
+<wa-button class="gradient-button"> Gradient Button </wa-button>
 
 <style>
   .gradient-button::part(base) {

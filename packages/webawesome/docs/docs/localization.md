@@ -71,8 +71,8 @@ You can use a different locale for an individual component by setting its `lang`
   ...
 
   <body>
-    <wa-button appearance="filled"><!-- Spanish --></wa-button>
-    <wa-button appearance="filled" lang="ru"><!-- Russian --></wa-button>
+    <wa-button><!-- Spanish --></wa-button>
+    <wa-button lang="ru"><!-- Russian --></wa-button>
   </body>
 </html>
 ```
@@ -85,7 +85,7 @@ For performance reasons, the `lang` and `dir` attributes must be on the componen
 
   <body>
     <div lang="ru">
-      <wa-button appearance="filled"><!-- still in Spanish --></wa-button>
+      <wa-button><!-- still in Spanish --></wa-button>
     </div>
   </body>
 </html>

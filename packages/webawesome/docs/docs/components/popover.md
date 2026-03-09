@@ -31,7 +31,7 @@ Use `<wa-button>` or `<button>` elements as popover anchors. Connect the popover
 
 <br /><br />
 
-<button id="popover__anchor-native-button">Show Popover</button>
+<button class="wa-filled" id="popover__anchor-native-button">Show Popover</button>
 
 <wa-popover for="popover__anchor-native-button"> I'm anchored to a native button. </wa-popover>
 ```
