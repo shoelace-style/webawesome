@@ -265,8 +265,7 @@
     /* #region Focus ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
     --wa-focus-ring-style: solid;
     --wa-focus-ring-width: 0.1875rem; /* 3px */
-    --wa-focus-ring: var(--wa-focus-ring-style) var(--wa-focus-ring-width)
-      color-mix(in oklab, var(--wa-color-focus) 60%, transparent);
+    --wa-focus-ring: var(--wa-focus-ring-style) var(--wa-focus-ring-width) var(--wa-color-focus);
     --wa-focus-ring-offset: 0.0625rem; /* 1px */
     /* #endregion */
 
@@ -372,7 +371,8 @@
       color: var(--wa-color-neutral-on-loud);
     }
 
-    wa-button {
+    wa-button,
+    wa-radio[appearance='button'] {
       &::part(label) {
         font-size: var(--wa-font-size-s);
       }
@@ -388,7 +388,6 @@
       }
     }
 
-    wa-radio[appearance='button'],
     button,
     input[type='button'],
     input[type='reset'],
@@ -420,6 +419,18 @@
       );
     }
 
+    wa-radio-group {
+      &:is([size='small'], .wa-size-s) wa-radio[appearance='button']::part(label) {
+        font-size: var(--wa-font-size-xs);
+      }
+      &:is([size='medium'], .wa-size-m) wa-radio[appearance='button']::part(label) {
+        font-size: var(--wa-font-size-s);
+      }
+      &:is([size='large'], .wa-size-l) wa-radio[appearance='button']::part(label) {
+        font-size: var(--wa-font-size-m);
+      }
+    }
+
     wa-radio[appearance='button'] {
       font-weight: var(--wa-font-weight-action);
 
@@ -435,43 +446,62 @@
 
     wa-callout {
       padding: var(--wa-space-m);
-      font-size: var(--wa-font-size-smaller);
+      font-size: var(--wa-font-size-s);
 
-      &:is([appearance~='outlined']) {
-        border-top-width: var(--wa-border-width-l);
+      &[size='small'],
+      &.wa-size-s {
+        padding: var(--wa-space-s);
+      font-size: var(--wa-font-size-xs);
+      }
+
+      &[size='large'],
+      &.wa-size-l {
+        padding: var(--wa-space-l);
+        font-size: var(--wa-font-size-m);
+      }
+
+      &[appearance='outlined'] {
         border-color: var(--wa-color-surface-border);
-        border-top-color: var(--border-color, var(--wa-color-border-loud));
+        border-top-color: var(--wa-color-border-loud);
+        border-top-width: var(--wa-border-width-l);
       }
     }
 
-    wa-card {
-      background-color: var(--wa-color-surface-raised);
-    }
-
     :is(
-        wa-input,
-        wa-select,
-        wa-textarea,
-        input:where(
-            :not(
-              [type='button'],
-              [type='checkbox'],
-              [type='color'],
-              [type='file'],
-              [type='hidden'],
-              [type='image'],
-              [type='radio'],
-              [type='range'],
-              [type='reset'],
-              [type='submit']
-            )
-          ),
-        select,
-        textarea
-      ):not([appearance='filled'], .wa-filled) {
+      input:where(
+        :not(
+          [type='button'],
+          [type='checkbox'],
+          [type='color'],
+          [type='file'],
+          [type='hidden'],
+          [type='image'],
+          [type='radio'],
+          [type='range'],
+          [type='reset'],
+          [type='submit']
+        )
+      ),
+      select,
+      textarea,
+      wa-input,
+      wa-textarea,
+      wa-select,
+      wa-combobox
+    ):not([appearance='filled'], .wa-filled) {
       --wa-focus-ring: var(--wa-focus-ring-style) var(--wa-focus-ring-width)
         color-mix(in oklab, var(--wa-color-focus), transparent 50%);
       --wa-focus-ring-offset: 0;
+
+      &:focus-within {
+        &:where(:not(wa-input, wa-textarea, wa-select, wa-combobox)),
+        &:where(wa-input)::part(base),
+        &:where(wa-textarea)::part(base),
+        &:where(wa-select)::part(combobox),
+        &:where(wa-combobox)::part(combobox) {
+          border-color: var(--wa-color-brand-border-loud);
+        }
+      }
     }
 
     wa-radio,
@@ -495,8 +525,8 @@
       --width: calc(var(--height) * 2);
 
       &::part(control) {
-        background-color: var(--wa-color-gray-50);
-        border-color: var(--wa-color-gray-50);
+        background-color: var(--wa-color-gray-60);
+        border-color: var(--wa-color-gray-60);
       }
 
       &:state(checked)::part(control) {
@@ -506,7 +536,7 @@
 
       &::part(thumb) {
         background-color: var(--wa-color-surface-default);
-        border: var(--wa-border-width-s) var(--wa-border-style) var(--wa-color-gray-50);
+        border: var(--wa-border-width-s) var(--wa-border-style) var(--wa-color-gray-60);
       }
       &:state(checked)::part(thumb) {
         border-color: var(--wa-form-control-activated-color);
@@ -514,7 +544,7 @@
     }
 
     wa-tab {
-      font-size: var(--wa-font-size-smaller);
+      font-size: var(--wa-font-size-s);
     }
   }
 }
