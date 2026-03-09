@@ -10,7 +10,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 ## Next
 
-- Fixed a bug in `<wa-select>` which caused it to not be clearable with initial values set [pr:]
+- Fixed a bug in `<wa-select>` which caused it to not be clearable with initial values set [pr:2141]
 
 ## 3.3.1
 
