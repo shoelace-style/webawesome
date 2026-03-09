@@ -522,8 +522,8 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   private handleClearClick(event: MouseEvent) {
     event.stopPropagation();
 
-    this.hasInteracted = true
-    this.valueHasChanged = true
+    this.hasInteracted = true;
+    this.valueHasChanged = true;
 
     if (this.value !== null) {
       this.selectionOrder.clear();
