@@ -451,7 +451,7 @@
       &[size='small'],
       &.wa-size-s {
         padding: var(--wa-space-s);
-      font-size: var(--wa-font-size-xs);
+        font-size: var(--wa-font-size-xs);
       }
 
       &[size='large'],
@@ -468,27 +468,27 @@
     }
 
     :is(
-      input:where(
-        :not(
-          [type='button'],
-          [type='checkbox'],
-          [type='color'],
-          [type='file'],
-          [type='hidden'],
-          [type='image'],
-          [type='radio'],
-          [type='range'],
-          [type='reset'],
-          [type='submit']
-        )
-      ),
-      select,
-      textarea,
-      wa-input,
-      wa-textarea,
-      wa-select,
-      wa-combobox
-    ):not([appearance='filled'], .wa-filled) {
+        input:where(
+            :not(
+              [type='button'],
+              [type='checkbox'],
+              [type='color'],
+              [type='file'],
+              [type='hidden'],
+              [type='image'],
+              [type='radio'],
+              [type='range'],
+              [type='reset'],
+              [type='submit']
+            )
+          ),
+        select,
+        textarea,
+        wa-input,
+        wa-textarea,
+        wa-select,
+        wa-combobox
+      ):not([appearance='filled'], .wa-filled) {
       --wa-focus-ring: var(--wa-focus-ring-style) var(--wa-focus-ring-width)
         color-mix(in oklab, var(--wa-color-focus), transparent 50%);
       --wa-focus-ring-offset: 0;

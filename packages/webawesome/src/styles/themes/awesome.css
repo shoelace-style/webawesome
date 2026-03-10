@@ -426,8 +426,8 @@
       }
 
       wa-radio-group[orientation='horizontal'] & {
-        box-shadow: var(--wa-shadow-offset-x-s) max(var(--wa-shadow-offset-y-s), var(--wa-form-control-border-width)) 0 0
-        var(--wa-form-control-border-color);
+        box-shadow: var(--wa-shadow-offset-x-s) max(var(--wa-shadow-offset-y-s), var(--wa-form-control-border-width)) 0
+          0 var(--wa-form-control-border-color);
         margin-bottom: var(--wa-shadow-offset-y-s);
         margin-right: var(--wa-shadow-offset-x-s);
 
@@ -488,7 +488,7 @@
         .wa-dark & {
           &:where(:not(wa-button)),
           &::part(base) {
-              --wa-color-shadow: var(--wa-color-border-quiet);
+            --wa-color-shadow: var(--wa-color-border-quiet);
           }
         }
       }
