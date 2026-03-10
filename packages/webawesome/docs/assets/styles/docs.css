@@ -48,12 +48,12 @@ wa-page > [slot='header'] {
   .wrapper-nav-products {
     padding-inline: var(--content-padding-inline);
   }
+}
 
-  #docs-header {
-    background-color: var(--wa-color-surface-default);
-    border-bottom: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-surface-border);
-    padding: var(--wa-space-s) var(--content-padding-inline);
-  }
+wa-page > [slot='subheader'] {
+  background-color: var(--wa-color-surface-default);
+  border-bottom: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-surface-border);
+  padding: var(--wa-space-s) var(--content-padding-inline);
 
   /* icon-based logo */
   .logo-web-awesome {
@@ -64,7 +64,7 @@ wa-page > [slot='header'] {
     --text-color: currentColor;
   }
 
-  .header-toolbar .theme-selector {
+  .theme-selector {
     max-inline-size: 20ch;
   }
 }

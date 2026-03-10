@@ -55,52 +55,54 @@
     {% block pageHeader %}
     <header slot="header">
       {% include 'nav-products.njk' %}
-
-      <div id="docs-header" class="wa-split">
-        <div class="wa-cluster wa-gap-2xs">
-          {# Nav toggle #}
-          {% include "nav-toggle.njk" %}
-
-          <div class="header-nav wa-cluster wa-gap-2xs">
-            <wa-button appearance="plain" href="/docs/components" data-track-event="navigation:header_link_click" data-track-destination="components">
-              <wa-icon slot="start" name="trowel-bricks" variant="regular" label="Components"></wa-icon>
-              Components
-            </wa-button>
-            <wa-button appearance="plain" href="/docs/patterns" data-track-event="navigation:header_link_click" data-track-destination="patterns">
-              <wa-icon slot="start" name="block-brick" variant="regular" label="Patterns"></wa-icon>
-              Patterns
-            </wa-button>
-              <wa-button appearance="plain" href="/docs/patterns/layouts/" data-track-event="navigation:header_link_click" data-track-destination="layouts">
-              <wa-icon slot="start" name="table-layout" variant="regular" label="Layouts"></wa-icon>
-              Layouts
-            </wa-button>
-            <wa-button appearance="plain" href="/docs/themes" data-track-event="navigation:header_link_click" data-track-destination="themes">
-              <wa-icon slot="start" name="palette" variant="regular" label="Themes"></wa-icon>
-              Themes
-            </wa-button>
-          </div>
-        </div>
-
-        {# Logo - Mobile #}
-        {% include "header-logo-simple.njk" %}
-
-        <div class="header-toolbar wa-cluster wa-gap-2xs">
-          <div class="header-toolbar wa-cluster wa-gap-2xs">
-            {% include "theme-selector.njk" %}
-            {% include "color-scheme-selector.njk" %}
-          </div>
-          <wa-button appearance="plain" id="header-search-button" data-search data-track-event="navigation:header_link_click" data-track-destination="docs_search"><wa-icon label="Search" name="magnifying-glass"></wa-icon></wa-button>
-          <wa-tooltip for="header-search-button">Search for something&hellip;</wa-tooltip>
-
-          {#- Login -#}
-          {% include "login-or-avatar.njk" ignore missing %}
-        </div>
-      </div>
     </header>
     {% endblock %}
 
     {# wa-page-based Subheader #}
-    {% block pageSubheader %}{% endblock %}
+    {% block pageSubheader %}
+    <div slot="subheader" class="wa-split">
+      <div class="wa-cluster wa-gap-2xs">
+        {# Nav toggle #}
+        {% include "nav-toggle.njk" %}
+
+        <div class="subheader-nav wa-cluster wa-gap-2xs">
+          <wa-button appearance="plain" href="/docs/components" data-track-event="navigation:header_link_click" data-track-destination="components">
+            <wa-icon slot="start" name="trowel-bricks" variant="regular" label="Components"></wa-icon>
+            Components
+          </wa-button>
+          <wa-button appearance="plain" href="/docs/patterns" data-track-event="navigation:header_link_click" data-track-destination="patterns">
+            <wa-icon slot="start" name="block-brick" variant="regular" label="Patterns"></wa-icon>
+            Patterns
+          </wa-button>
+            <wa-button appearance="plain" href="/docs/patterns/layouts/" data-track-event="navigation:header_link_click" data-track-destination="layouts">
+            <wa-icon slot="start" name="table-layout" variant="regular" label="Layouts"></wa-icon>
+            Layouts
+          </wa-button>
+          <wa-button appearance="plain" href="/docs/themes" data-track-event="navigation:header_link_click" data-track-destination="themes">
+            <wa-icon slot="start" name="palette" variant="regular" label="Themes"></wa-icon>
+            Themes
+          </wa-button>
+        </div>
+      </div>
+
+      {# Logo - Mobile #}
+      <div class="subheader-logo-simple">
+        {% include "header-logo-simple.njk" %}
+      </div>
+
+      <div class="subheader-toolbar wa-cluster wa-gap-2xs">
+        <div class="wa-cluster wa-gap-2xs">
+          {% include "theme-selector.njk" %}
+          {% include "color-scheme-selector.njk" %}
+        </div>
+        <wa-button appearance="plain" id="header-search-button" data-search data-track-event="navigation:header_link_click" data-track-destination="docs_search"><wa-icon label="Search" name="magnifying-glass"></wa-icon></wa-button>
+        <wa-tooltip for="header-search-button">Search for something&hellip;</wa-tooltip>
+
+        {#- Login -#}
+        {% include "login-or-avatar.njk" ignore missing %}
+      </div>
+    </div>
+    {% endblock %}
 
     {# wa-page-based Navigation Header #}
     {% block pageNavigationHeader %}
