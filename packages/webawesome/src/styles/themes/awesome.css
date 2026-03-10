@@ -439,8 +439,7 @@
     }
 
     :is(
-        input
-          :not(
+        input:not(
             [type='button'],
             [type='checkbox'],
             [type='color'],

@@ -468,19 +468,17 @@
     }
 
     :is(
-        input:where(
-            :not(
-              [type='button'],
-              [type='checkbox'],
-              [type='color'],
-              [type='file'],
-              [type='hidden'],
-              [type='image'],
-              [type='radio'],
-              [type='range'],
-              [type='reset'],
-              [type='submit']
-            )
+        input:not(
+            [type='button'],
+            [type='checkbox'],
+            [type='color'],
+            [type='file'],
+            [type='hidden'],
+            [type='image'],
+            [type='radio'],
+            [type='range'],
+            [type='reset'],
+            [type='submit']
           ),
         select,
         textarea,
