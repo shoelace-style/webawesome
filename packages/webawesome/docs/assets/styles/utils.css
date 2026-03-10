@@ -289,24 +289,36 @@
 
     /* Narrow (≤ 80ch): compact header with logo */
     @container header (inline-size <= 80ch) {
-      .header-nav,
-      .header-toolbar,
       .wrapper-nav-products {
         display: none;
       }
+    }
+  }
 
-      .header-logo-simple {
+  /* subheader */
+  wa-page > [slot='subheader'] {
+    container-type: inline-size;
+    container-name: subheader;
+
+    /* Narrow (≤ 80ch): compact header with logo */
+    @container subheader (inline-size <= 80ch) {
+      .subheader-nav,
+      .subheader-toolbar {
+        display: none;
+      }
+
+      .subheader-logo-simple {
         display: block;
       }
     }
 
     /* > 80ch: hide compact logo */
-    @container header (inline-size > 80ch) {
-      .header-logo-simple {
+    @container subheader (inline-size > 80ch) {
+      .subheader-logo-simple {
         display: none;
       }
 
-      .header-toggle-nav {
+      .subheader-toggle-nav {
         margin-inline-start: var(--wa-space-s); /* visually align with product nav's .product-active */
       }
     }
