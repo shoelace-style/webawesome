@@ -1,11 +1,10 @@
-import { getKitCode } from '../../utilities/base-path.js';
+import { getFontAwesomeVersion, getKitCode } from '../../utilities/base-path.js';
 import type WaIcon from './icon.js';
 import type { IconLibrary } from './library.js';
 
-const FA_VERSION = '7.2.0';
-
 function getIconUrl(name: string, family: string, variant: string, _autoWidth: boolean, iconElement: null | WaIcon) {
   const kitCode = getKitCode();
+  const fontAwesomeVersion = getFontAwesomeVersion()
   const isPro = kitCode.length > 0;
 
   // Support custom icons
@@ -127,19 +126,10 @@ function getIconUrl(name: string, family: string, variant: string, _autoWidth: b
     folder = 'brands';
   }
 
-  let version = FA_VERSION
-
-  if (iconElement) {
-    const el = iconElement.closest<HTMLElement>("[data-fa-version]")
-    if (el && el.dataset.faVersion) {
-      version = el.dataset.faVersion
-    }
-  }
-
   // Use the default CDN
   return isPro
-    ? `https://ka-p.fontawesome.com/releases/v${FA_VERSION}/svgs/${folder}/${name}.svg?token=${encodeURIComponent(kitCode)}`
-    : `https://ka-f.fontawesome.com/releases/v${FA_VERSION}/svgs/${folder}/${name}.svg`;
+    ? `https://ka-p.fontawesome.com/releases/v${fontAwesomeVersion}/svgs/${folder}/${name}.svg?token=${encodeURIComponent(kitCode)}`
+    : `https://ka-f.fontawesome.com/releases/v${fontAwesomeVersion}/svgs/${folder}/${name}.svg`;
 }
 
 const library: IconLibrary = {
