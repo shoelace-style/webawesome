@@ -61,7 +61,7 @@ As SSR becomes more stable, we'll work to add more instructions for various fram
 All Web Awesome components that get rendered for SSR will receive the `did-ssr` attribute.
 
 ```html
-<wa-button did-ssr></wa-button>
+<wa-button appearance="filled" did-ssr></wa-button>
 ```
 
 This can help if you need some styling prior to the element connecting.

@@ -43,7 +43,7 @@ Stacks are well suited for forms, text, and ensuring consistent spacing between 
     <wa-icon slot="start" name="lock" variant="regular"></wa-icon>
   </wa-input>
   <wa-checkbox>Remember me on this device</wa-checkbox>
-  <wa-button>Log In</wa-button>
+  <wa-button appearance="filled">Log In</wa-button>
 </div>
 ```
 
