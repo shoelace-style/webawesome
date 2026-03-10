@@ -60,7 +60,25 @@
         <div class="wa-cluster wa-gap-2xs">
           {# Nav toggle #}
           {% include "nav-toggle.njk" %}
-          {% include "nav-docs.njk" %}
+
+          <div class="header-nav wa-cluster wa-gap-2xs">
+            <wa-button appearance="plain" href="/docs/components" data-track-event="navigation:header_link_click" data-track-destination="components">
+              <wa-icon slot="start" name="trowel-bricks" variant="regular" label="Components" class="icon-embiggen"></wa-icon>
+              Components
+            </wa-button>
+            <wa-button appearance="plain" href="/docs/patterns" data-track-event="navigation:header_link_click" data-track-destination="patterns">
+              <wa-icon slot="start" name="block-brick" variant="regular" label="Patterns" class="icon-embiggen"></wa-icon>
+              Patterns
+            </wa-button>
+              <wa-button appearance="plain" href="/docs/patterns/layouts/" data-track-event="navigation:header_link_click" data-track-destination="layouts">
+              <wa-icon slot="start" name="table-layout" variant="regular" label="Layouts" class="icon-embiggen"></wa-icon>
+              Layouts
+            </wa-button>
+            <wa-button appearance="plain" href="/docs/themes" data-track-event="navigation:header_link_click" data-track-destination="themes">
+              <wa-icon slot="start" name="palette" variant="regular" label="Themes" class="icon-embiggen"></wa-icon>
+              Themes
+            </wa-button>
+          </div>
         </div>
 
         {# Logo - Mobile #}
