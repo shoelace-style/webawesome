@@ -51,7 +51,6 @@ export default class WaQrCode extends WebAwesomeElement {
   @property({ attribute: 'image-background' }) imageBackground: string | null = null;
   @property({ attribute: 'image-ec-cover', type: Number }) imageEcCover: number | null = null;
   @property({ attribute: 'image-padding', type: Number }) imagePadding: number | null = null;
-  @property({ attribute: 'corner-color' }) cornerColor: string | RadialGradient | LinearGradient | null = null;
 
   private computedStyle: ReturnType<typeof getComputedStyle> | null = null;
 
@@ -65,11 +64,19 @@ export default class WaQrCode extends WebAwesomeElement {
       return;
     }
 
+    console.log("Generating...")
     this.canvas.style.maxWidth = `${this.size}px`;
     this.canvas.style.maxHeight = `${this.size}px`;
 
     this.computedStyle ||= getComputedStyle(this);
     const computedStyle = this.computedStyle;
+
+    const span = this.shadowRoot?.querySelector("span")
+
+    if (span) {
+      // @ts-expect-error
+      this.spanComputedStyle ||= getComputedStyle(span)
+    }
 
     QrCreator.render(
       {
@@ -86,7 +93,8 @@ export default class WaQrCode extends WebAwesomeElement {
         imageEcCover: this.imageEcCover,
         imagePadding: this.imagePadding,
         imageBackground: this.imageBackground || this.background,
-        cornerFill: this.cornerColor,
+        // @ts-expect-error
+        cornerFill: this.spanComputedStyle?.color,
       },
       this.canvas,
     );
@@ -104,7 +112,12 @@ export default class WaQrCode extends WebAwesomeElement {
             this.generate();
           }
         }}
-      ></canvas>
+      >
+        <span
+          style="color: var(--corner-color);"
+        ></span>
+      </canvas>
+
     `;
   }
 }

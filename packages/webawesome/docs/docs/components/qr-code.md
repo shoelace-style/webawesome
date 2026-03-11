@@ -16,13 +16,13 @@ QR codes are useful for providing small pieces of information to users who can q
   >
   </wa-qr-code>
   <br><br>
-  <output><pre><code id="qr-configuration-code" class="language-html"></code><wa-copy-button style="top: -20%;" from="qr-configuration-code" class="copy-button wa-dark"></wa-copy-button></pre></output>
+  <output><pre><code id="qr-configuration-code" class="language-html"></code><wa-copy-button style="top: -2.5rem;" from="qr-configuration-code" class="copy-button wa-dark"></wa-copy-button></pre></output>
 
   <form class="wa-stack">
     <div class="wa-split">
       <wa-color-picker name="background" label="Background"></wa-color-picker>
       <wa-color-picker name="color" label="Color"></wa-color-picker>
-      <wa-color-picker name="cornerColor" label="Corner Color"></wa-color-picker>
+      <wa-color-picker name="--corner-color" label="Corner Color"></wa-color-picker>
     </div>
     <wa-input maxlength="255" with-clear name="value" label="Value">
       <wa-icon slot="start" name="link"></wa-icon>
@@ -95,19 +95,36 @@ QR codes are useful for providing small pieces of information to users who can q
       })
 
       const styleVal = qrCode.getAttribute('style');
-      const styleLine = styleVal ? `style="${styleVal}"` : null;
+      const styleLine = styleVal ? `  style="\n    ${styleVal.split(";").map((str, index, ary) => {
+        if (index === ary.length - 2) {
+          return str + ";\n"
+        }
 
-      if (styleLine) {
-        attributes.push(styleLine)
-      }
+        if (index < ary.length - 1) {
+          return str + ";\n   "
+        }
+
+        return "  " + str
+      }).join("")}"` + "\n" : "";
 
       let attrString = ""
 
-      if (attributes.length > 0) {
-        attrString = "\n  " + attributes.join("\n  ") + "\n"
+      function prettifyAttrs (attrs, spacer = "  ", newLine = "\n") {
+        let attrString = ""
+        if (attrs.length <= 0) {
+          return attrString
+        }
+        attrString = newLine + spacer + attrs.map((attr, index) => {
+          if (index < attrs.length - 1) {
+            return attr + newLine + spacer
+          }
+
+          return attr + newLine
+        }).join("")
+        return attrString
       }
-      const qrCodeHTML = htmlStart + attrString + htmlEnd
-      console.log({qrCodeHTML})
+
+      const qrCodeHTML = htmlStart + prettifyAttrs(attributes) + styleLine + htmlEnd
       container.querySelector("code").textContent = qrCodeHTML
     }
 
@@ -115,8 +132,12 @@ QR codes are useful for providing small pieces of information to users who can q
       const target = e.target
       const name = target?.name
 
-      if (name === "background" || name === "color") {
+      const properties = ["background", "color"]
+      const customProperties = ["--corner-color"]
+      if (properties.includes(name)) {
         qrCode.style[name] = target.value
+      } else if (customProperties.includes(name)) {
+        qrCode.style.setProperty("--corner-color", target.value)
       } else if (name) {
         qrCode[name] = target.value
       }
@@ -211,7 +232,7 @@ You can change the color of the corners to be different from the main element.
 ```html {.example}
 <wa-qr-code
   value="https://webawesome.com/"
-  corner-color="orange"
+  style="--corner-color: var(--wa-color-brand)"
 ></wa-qr-code>
 ```
 
