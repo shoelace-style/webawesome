@@ -8,10 +8,13 @@ Web Awesome follows [Semantic Versioning](https://semver.org/). Breaking changes
 
 Components with the <wa-badge variant="warning">Experimental</wa-badge> badge should not be used in production. They are made available as release candidates for development and testing purposes. As such, changes to experimental components will not be subject to semantic versioning.
 
-## 3.3.2
+## Unreleased
+
+<small>TBD</small>
 
 - Fixed the off-centered position of indent guides in `<wa-tree>`
 - Improved `<wa-tree>` and `<wa-tree-item>` so all internal dimensions (labels, checkboxes, expand buttons, etc.) scale proportionally with `font-size`, making it easy to resize the tree [discuss:2147]
+- Fixed slider styling when using the `label` slot so that it matches attribute use. [issue:2124]
 
 ## 3.3.1
 
