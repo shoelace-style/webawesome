@@ -8,6 +8,12 @@ Web Awesome follows [Semantic Versioning](https://semver.org/). Breaking changes
 
 Components with the <wa-badge variant="warning">Experimental</wa-badge> badge should not be used in production. They are made available as release candidates for development and testing purposes. As such, changes to experimental components will not be subject to semantic versioning.
 
+## Unreleased
+
+<small>TBD</small>
+
+- Fixed form control label styling when using the `label` slot so it matches the attribute. [issue:2124]
+
 ## 3.3.1
 
 <small>March 4th, 2026</small>
