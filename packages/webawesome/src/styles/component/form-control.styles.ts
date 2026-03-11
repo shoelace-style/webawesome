@@ -21,6 +21,13 @@ export default css`
     margin-block-end: 0.5em;
   }
 
+  /* Slotted label content: same appearance as attribute label */
+  :is([part~='form-control-label'], [part~='label']).has-label::slotted(*) {
+    color: var(--wa-form-control-label-color);
+    font-weight: var(--wa-form-control-label-font-weight);
+    line-height: var(--wa-form-control-label-line-height);
+  }
+
   :host([required]) :is([part~='form-control-label'], [part~='label'])::after {
     content: var(--wa-form-control-required-content);
     margin-inline-start: var(--wa-form-control-required-content-offset);
