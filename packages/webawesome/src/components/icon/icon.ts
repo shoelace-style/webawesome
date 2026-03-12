@@ -150,10 +150,13 @@ export default class WaIcon extends WebAwesomeElement {
     const family = this.family || getDefaultIconFamily();
 
     if (this.name && library) {
-      return {
-        url: await library.resolver(this.name, family, this.variant, this.autoWidth),
-        fromLibrary: true,
-      };
+      let url: string | undefined;
+      try {
+        url = await library.resolver(this.name, family, this.variant, this.autoWidth);
+      } catch {
+        url = undefined;
+      }
+      return { url, fromLibrary: true };
     }
 
     return {
