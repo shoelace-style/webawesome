@@ -10,7 +10,7 @@ export default css`
     --indent-guide-offset: 0;
     --indent-guide-style: solid;
     --indent-guide-width: 0;
-    --indent-size: var(--wa-space-l);
+    --indent-size: 2em;
 
     display: block;
   }

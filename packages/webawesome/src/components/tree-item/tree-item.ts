@@ -153,7 +153,7 @@ export default class WaTreeItem extends WebAwesomeElement {
       }
       node = node.parentElement;
     }
-    this.style.setProperty('--indent', `calc(${depth} * var(--indent-size, var(--wa-space-m)))`);
+    this.style.setProperty('--indent', `calc(${depth} * var(--indent-size, 2em))`);
   }
 
   private handleChildrenSlotChange() {
