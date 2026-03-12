@@ -145,13 +145,13 @@ export default class WaIcon extends WebAwesomeElement {
     unwatchIcon(this);
   }
 
-  private getIconSource(): IconSource {
+  private async getIconSource(): Promise<IconSource> {
     const library = getIconLibrary(this.library);
     const family = this.family || getDefaultIconFamily();
 
     if (this.name && library) {
       return {
-        url: library.resolver(this.name, family, this.variant, this.autoWidth),
+        url: await library.resolver(this.name, family, this.variant, this.autoWidth),
         fromLibrary: true,
       };
     }
@@ -234,7 +234,7 @@ export default class WaIcon extends WebAwesomeElement {
 
   @watch(['family', 'name', 'library', 'variant', 'src', 'autoWidth', 'swapOpacity'], { waitUntilFirstUpdate: true })
   async setIcon() {
-    const { url, fromLibrary } = this.getIconSource();
+    const { url, fromLibrary } = await this.getIconSource();
     const library = fromLibrary ? getIconLibrary(this.library) : undefined;
 
     if (!url) {
@@ -254,7 +254,8 @@ export default class WaIcon extends WebAwesomeElement {
       iconCache.delete(url);
     }
 
-    if (url !== this.getIconSource().url) {
+    const sourceAfterFetch = await this.getIconSource();
+    if (url !== sourceAfterFetch.url) {
       // If the url has changed while fetching the icon, ignore this request
       return;
     }
