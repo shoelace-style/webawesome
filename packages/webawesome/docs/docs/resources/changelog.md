@@ -8,6 +8,17 @@ Web Awesome follows [Semantic Versioning](https://semver.org/). Breaking changes
 
 Components with the <wa-badge variant="warning">Experimental</wa-badge> badge should not be used in production. They are made available as release candidates for development and testing purposes. As such, changes to experimental components will not be subject to semantic versioning.
 
+## Unreleased
+
+<small>TBD</small>
+
+- Updated the Awesome and Shoelace themes [pr:2135]:
+  - Fixed a bug in the Awesome theme where `<wa-radio>` with `appearance="button"` were missing shadows [issue:1766]
+  - Fixed a bug in the Shoelace theme where `size` had no effect on `<wa-callout>`
+  - Fixed a bug in both themes where `appearance` had no effect on `<wa-card>` 
+  - Updated Awesome theme `--wa-form-control-block-padding` to better match its source material (Font Awesome)
+  - Updated Shoelace theme `--wa-color-focus` and focus styles to better match its source material (Shoelace)
+
 ## 3.3.1
 
 <small>March 4th, 2026</small>
