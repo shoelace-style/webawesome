@@ -1,4 +1,4 @@
-import { aTimeout, elementUpdated, expect, oneEvent } from '@open-wc/testing';
+import { aTimeout, elementUpdated, expect, nextFrame, oneEvent } from '@open-wc/testing';
 import { html } from 'lit';
 import { fixtures } from '../../internal/test/fixture.js';
 
@@ -155,6 +155,26 @@ describe('<wa-icon>', () => {
 
           expect(el.shadowRoot?.querySelector('svg')).to.be.null;
           expect(ev).to.exist;
+        });
+      });
+
+      describe('async resolvers', () => {
+        it('renders icons from an async resolver', async () => {
+          registerIconLibrary('async-library', {
+            resolver: async name => {
+              await nextFrame();
+              return `data:image/svg+xml,${encodeURIComponent(testLibraryIcons[name as keyof typeof testLibraryIcons])}`;
+            },
+          });
+          const el = await fixture<WaIcon>(html`<wa-icon library="async-library"></wa-icon>`);
+          const listener = oneEvent(el, 'wa-load') as Promise<WaLoadEvent>;
+
+          el.name = 'test-icon1';
+          const ev = await listener;
+          await elementUpdated(el);
+
+          expect(el.shadowRoot?.querySelector('svg')).to.exist;
+          expect(ev.isTrusted).to.exist;
         });
       });
 
