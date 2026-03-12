@@ -394,6 +394,7 @@
           margin-right: var(--wa-shadow-offset-x-s);
           box-shadow: var(--wa-shadow-offset-x-s) var(--wa-shadow-offset-y-s) 0 0 var(--wa-color-shadow);
         }
+        /* Give active buttons a "punch in" effect */
         &:not([disabled], :disabled):active {
           &:where(:not(wa-button)),
           &::part(base) {
@@ -418,22 +419,47 @@
       }
     }
 
+    /* Give active buttons in vertical button groups a "punch in" effect
+     * without leaving a visible gap between buttons */
+    wa-button-group[orientation='vertical'] {
+      wa-button:not([appearance='plain'], .wa-plain) {
+        &:not([disabled], :disabled):active {
+          &::part(base) {
+            height: var(--wa-form-control-height);
+            margin-bottom: 0;
+            margin-right: 0;
+            box-shadow: none;
+            transform: none;
+          }
+        }
+      }
+    }
+
     wa-radio[appearance='button'] {
+      box-shadow: var(--wa-shadow-offset-x-s) max(var(--wa-shadow-offset-y-s), var(--wa-form-control-border-width)) 0 0
+        var(--wa-form-control-border-color);
+      margin-bottom: var(--wa-shadow-offset-y-s);
+      margin-right: var(--wa-shadow-offset-x-s);
+
+      /* Give checked radio buttons a "punch in" effect */
       &:state(checked) {
         background-color: var(--wa-form-control-activated-color);
         border-color: var(--wa-form-control-activated-color);
         color: var(--wa-color-surface-default);
-      }
+        box-shadow: initial;
 
-      wa-radio-group[orientation='horizontal'] & {
-        box-shadow: var(--wa-shadow-offset-x-s) max(var(--wa-shadow-offset-y-s), var(--wa-form-control-border-width)) 0
-          0 var(--wa-form-control-border-color);
-        margin-bottom: var(--wa-shadow-offset-y-s);
-        margin-right: var(--wa-shadow-offset-x-s);
-
-        &:state(checked) {
-          box-shadow: initial;
+        wa-radio-group[orientation='horizontal'] & {
           transform: translate(var(--wa-shadow-offset-x-s), var(--wa-shadow-offset-y-s));
+        }
+
+        /* Give checked radio buttons in vertical radio groups a "punch in" effect
+         * without leaving a visible gap between buttons */
+        wa-radio-group[orientation='vertical'] & {
+          height: var(--wa-form-control-height);
+          margin-bottom: 0;
+          margin-right: 0;
+          box-shadow: none;
+          transform: none;
         }
       }
     }
@@ -502,17 +528,6 @@
     wa-button-group[orientation='vertical'] {
       wa-button[appearance='accent'] {
         margin-block-start: var(--_button-vertical-indent-outlined);
-      }
-      wa-button:not([appearance='plain'], .wa-plain) {
-        &:not([disabled], :disabled):active {
-          &::part(base) {
-            height: var(--wa-form-control-height);
-            margin-bottom: 0;
-            margin-right: 0;
-            box-shadow: none;
-            transform: none;
-          }
-        }
       }
     }
 
