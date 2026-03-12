@@ -105,12 +105,6 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
    */
   @property({ attribute: 'with-hint', type: Boolean }) withHint = false;
 
-  firstUpdated(changedProperties: PropertyValues<typeof this>) {
-    super.firstUpdated(changedProperties);
-
-    this.handleValueOrCheckedChange();
-  }
-
   private handleClick() {
     this.hasInteracted = true;
     this.checked = !this.checked;
@@ -248,6 +242,12 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
     `;
   }
 }
+
+// The change-in-update warning is required for this component because the form-associated base class calls
+// updateValidity() in firstUpdated(), which triggers requestUpdate('validity') to sync the validation state after the
+// first render when the validation target is available. Additionally, HasSlotController triggers requestUpdate() on
+// initial slotchange events. See https://lit.dev/docs/tools/development/#development-build-runtime-warnings
+WaSwitch.disableWarning?.('change-in-update');
 
 declare global {
   interface HTMLElementTagNameMap {

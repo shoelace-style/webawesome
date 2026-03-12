@@ -57,7 +57,7 @@ export default class WaCard extends WebAwesomeElement {
   @property({ reflect: true })
   orientation: 'horizontal' | 'vertical' = 'vertical';
 
-  updated() {
+  willUpdate() {
     // Enable the respective slots when detected
     if (!this.withHeader && this.hasSlotController.test('header')) this.withHeader = true;
     if (!this.withMedia && this.hasSlotController.test('media')) this.withMedia = true;
@@ -99,6 +99,10 @@ export default class WaCard extends WebAwesomeElement {
     `;
   }
 }
+
+// The change-in-update warning is required for this component because HasSlotController triggers requestUpdate() on
+// initial slotchange events to detect slot content. See https://lit.dev/docs/tools/development/#development-build-runtime-warnings
+WaCard.disableWarning?.('change-in-update');
 
 declare global {
   interface HTMLElementTagNameMap {

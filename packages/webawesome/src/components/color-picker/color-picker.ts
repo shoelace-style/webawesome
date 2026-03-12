@@ -1342,3 +1342,16 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
     `;
   }
 }
+
+// The change-in-update warning is required for this component because:
+//
+// - The base class (WebAwesomeFormAssociatedElement) firstUpdated() calls updateValidity() which triggers
+//    requestUpdate('validity').
+// - HasSlotController calls host.requestUpdate() on slotchange events.
+// - @watch('value') handler sets multiple @state properties (isEmpty, hue, saturation, brightness, alpha, inputValue)
+//    and calls syncValues() and requestUpdate() during the update cycle to keep color state in sync.
+// - @watch('opacity') and @watch('format') handlers set @state properties during update to synchronize color values.
+// - firstUpdated() sets the @state property hasEyeDropper based on browser capability detection.
+//
+// See https://lit.dev/docs/tools/development/#development-build-runtime-warnings
+WaColorPicker.disableWarning?.('change-in-update');

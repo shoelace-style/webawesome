@@ -100,9 +100,11 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
 
   private readonly hasSlotController = new HasSlotController(this, 'hint', 'label');
   private readonly localize = new LocalizeController(this);
+  private optionValues: Set<string | null> | undefined;
   private selectionOrder: Map<string, number> = new Map();
   private typeToSelectString = '';
   private typeToSelectTimeout: number;
+
   @query('.select') popup: WaPopup;
   @query('.combobox') combobox: HTMLSlotElement;
   @query('.display-input') displayInput: HTMLInputElement;
@@ -117,7 +119,6 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   @state() displayLabel = '';
   @state() currentOption: WaOption;
   @state() selectedOptions: WaOption[] = [];
-  @state() optionValues: Set<string | null> | undefined;
 
   /** The name of the select, submitted as a name/value pair with form data. */
   @property({ reflect: true }) name = '';
@@ -1079,6 +1080,13 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     `;
   }
 }
+
+// The change-in-update warning is required for this component because the form-associated base class calls
+// updateValidity() in firstUpdated(), which triggers requestUpdate('validity') to sync the validation state after the
+// first render when the validation target is available. Additionally, HasSlotController triggers requestUpdate() on
+// initial slotchange events, and selectionChanged() sets @state properties (displayLabel, selectedOptions) in response
+// to slot content changes. See https://lit.dev/docs/tools/development/#development-build-runtime-warnings
+WaSelect.disableWarning?.('change-in-update');
 
 declare global {
   interface HTMLElementTagNameMap {

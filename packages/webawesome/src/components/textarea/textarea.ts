@@ -212,9 +212,9 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
     }
 
     if (this.resize === 'auto') {
-      // This prevents layout shifts. We use `clientHeight` instead of `scrollHeight` to account for if the `<textarea>` has a max-height set on it.
-      // In my tests, this has worked fine. Im not aware of any edge cases. [Konnor]
-      // Let’s switch to `field-sizing: content` once it has better support: https://caniuse.com/mdn-css_properties_field-sizing [Lea]
+      // This prevents layout shifts. We use `clientHeight` instead of `scrollHeight` to account for if the `<textarea>`
+      // has a max-height set on it. In my tests, this has worked fine. Im not aware of any edge cases. [Konnor]
+      // Let's switch to `field-sizing: content` once it has better support: https://caniuse.com/mdn-css_properties_field-sizing [Lea]
       this.sizeAdjuster.style.height = `${this.input.clientHeight}px`;
       this.input.style.height = 'auto';
       this.input.style.height = `${this.input.scrollHeight}px`;
@@ -391,6 +391,12 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
     `;
   }
 }
+
+// The change-in-update warning is required for this component because the base class (WebAwesomeFormAssociatedElement)
+// calls updateValidity() in firstUpdated(), which triggers requestUpdate('validity') to sync validation state after
+// the DOM is available. This second update cycle cannot be avoided since validation requires the rendered DOM for
+// anchoring. See https://lit.dev/docs/tools/development/#development-build-runtime-warnings
+WaTextarea.disableWarning?.('change-in-update');
 
 declare global {
   interface HTMLElementTagNameMap {
