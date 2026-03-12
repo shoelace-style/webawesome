@@ -107,6 +107,8 @@ export default class WaTreeItem extends WebAwesomeElement {
     if (this.isNestedItem()) {
       this.slot = 'children';
     }
+
+    this.updateIndentation();
   }
 
   firstUpdated() {
@@ -139,6 +141,19 @@ export default class WaTreeItem extends WebAwesomeElement {
   private isNestedItem(): boolean {
     const parent = this.parentElement;
     return !!parent && WaTreeItem.isTreeItem(parent);
+  }
+
+  /** Counts the nesting depth and sets the private --indent property on the host for indentation. */
+  private updateIndentation() {
+    let depth = 0;
+    let node = this.parentElement;
+    while (node) {
+      if (WaTreeItem.isTreeItem(node)) {
+        depth++;
+      }
+      node = node.parentElement;
+    }
+    this.style.setProperty('--indent', `calc(${depth} * var(--indent-size, var(--wa-space-m)))`);
   }
 
   private handleChildrenSlotChange() {
