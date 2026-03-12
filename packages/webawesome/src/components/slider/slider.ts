@@ -359,39 +359,29 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
     }
   }
 
-  updated(changedProperties: PropertyValues<this>) {
-    // Handle range mode changes
-    if (changedProperties.has('range')) {
-      this.requestUpdate();
-    }
-
+  protected willUpdate(changedProperties: PropertyValues<this>) {
     if (this.isRange) {
-      // Handle min/max values for range mode
-      if (changedProperties.has('minValue') || changedProperties.has('maxValue')) {
-        // Ensure min doesn't exceed max
+      // Clamp min/max values when they change or when bounds change
+      if (
+        changedProperties.has('minValue') ||
+        changedProperties.has('maxValue') ||
+        changedProperties.has('min') ||
+        changedProperties.has('max')
+      ) {
         this.minValue = clamp(this.minValue, this.min, this.maxValue);
         this.maxValue = clamp(this.maxValue, this.minValue, this.max);
-        // Update form value
+      }
+    }
+
+    super.willUpdate(changedProperties);
+  }
+
+  updated(changedProperties: PropertyValues<this>) {
+    if (this.isRange) {
+      // Update form value when range values change
+      if (changedProperties.has('minValue') || changedProperties.has('maxValue')) {
         this.updateFormValue();
       }
-    } else {
-      // Handle value for single thumb mode
-      if (changedProperties.has('value')) {
-        this.setValue(String(this.value));
-      }
-    }
-
-    // Handle min/max
-    if (changedProperties.has('min') || changedProperties.has('max')) {
-      if (this.isRange) {
-        this.minValue = clamp(this.minValue, this.min, this.max);
-        this.maxValue = clamp(this.maxValue, this.min, this.max);
-      }
-    }
-
-    // Handle disabled
-    if (changedProperties.has('disabled')) {
-      this.customStates.set('disabled', this.disabled);
     }
 
     // Disable dragging when disabled or readonly
