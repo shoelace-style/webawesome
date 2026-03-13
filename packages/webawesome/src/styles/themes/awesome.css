@@ -335,8 +335,8 @@
     --wa-form-control-required-content-color: inherit;
     --wa-form-control-required-content-offset: 0.1em;
 
-    --wa-form-control-padding-block: 1.25em;
-    --wa-form-control-padding-inline: 1.25em;
+    --wa-form-control-padding-block: 1.375em;
+    --wa-form-control-padding-inline: 1.5em;
     --wa-form-control-height: round(
       calc(2 * var(--wa-form-control-padding-block) + 1em * var(--wa-form-control-value-line-height)),
       1px
