@@ -38,7 +38,7 @@ Flanks work especially well for asides, inputs with adjacent buttons, and rich d
   <wa-input>
     <wa-icon slot="start" name="magnifying-glass"></wa-icon>
   </wa-input>
-  <wa-button>Search</wa-button>
+  <wa-button appearance="filled">Search</wa-button>
 </div>
 ```
 

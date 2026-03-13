@@ -209,8 +209,8 @@ Use the `required` attribute to make the field required. Combine with `min` and 
     style="max-width: 260px;"
   ></wa-number-input>
   <br />
-  <wa-button type="submit" variant="brand">Submit</wa-button>
-  <wa-button type="reset" variant="neutral">Reset</wa-button>
+  <wa-button appearance="filled" type="submit" variant="brand">Submit</wa-button>
+  <wa-button appearance="filled" type="reset" variant="neutral">Reset</wa-button>
 </form>
 
 <script type="module">
