@@ -371,8 +371,9 @@
       color: var(--wa-color-neutral-on-loud);
     }
 
-    wa-button,
-    wa-radio[appearance='button'] {
+    /* Give button labels a font-size one step smaller
+     * than their size class or attribute */
+    wa-button {
       &::part(label) {
         font-size: var(--wa-font-size-s);
       }
@@ -388,10 +389,11 @@
       }
     }
 
+    /* Because we can't set the font-size of just the label text
+     * and button padding and height are em-based,
+     * store the intended size in a private property for use in calculations */
     button,
-    input[type='button'],
-    input[type='reset'],
-    input[type='submit'],
+    input:is([type='button'], [type='reset'], [type='submit']),
     a.wa-button {
       --_size: var(--wa-font-size-m);
       font-size: var(--wa-font-size-s);
@@ -408,9 +410,9 @@
         font-size: var(--wa-font-size-m);
       }
 
-      /* Override em-based layout properties to use the intended size so that
-         height and padding match inputs at the same size, even though the
-         button's font-size is one step smaller for the Shoelace theme. */
+      /* Override em-based properties to use the intended size
+       * so that height and padding match inputs at the same size,
+       * even though the button's font-size is one step smaller */
       --wa-form-control-padding-block: calc(0.75 * var(--_size));
       --wa-form-control-padding-inline: var(--_size);
       --wa-form-control-height: round(
@@ -419,6 +421,30 @@
       );
     }
 
+    wa-radio[appearance='button'] {
+      font-weight: var(--wa-font-weight-action);
+
+      &::part(label) {
+        font-size: var(--wa-font-size-s);
+      }
+
+      &[size='small']::part(label),
+      &.wa-size-s::part(label) {
+        font-size: var(--wa-font-size-xs);
+      }
+
+      &[size='large']::part(label),
+      &.wa-size-l::part(label) {
+        font-size: var(--wa-font-size-m);
+      }
+
+      &:state(checked) {
+        background-color: var(--wa-form-control-activated-color);
+        color: var(--wa-color-brand-on-loud);
+      }
+    }
+
+    /* Propagate the font-size of wa-radio-group to its children */
     wa-radio-group {
       &:is([size='small'], .wa-size-s) wa-radio[appearance='button']::part(label) {
         font-size: var(--wa-font-size-xs);
@@ -428,15 +454,6 @@
       }
       &:is([size='large'], .wa-size-l) wa-radio[appearance='button']::part(label) {
         font-size: var(--wa-font-size-m);
-      }
-    }
-
-    wa-radio[appearance='button'] {
-      font-weight: var(--wa-font-weight-action);
-
-      &:state(checked) {
-        background-color: var(--wa-form-control-activated-color);
-        color: var(--wa-color-brand-on-loud);
       }
     }
 
@@ -460,6 +477,7 @@
         font-size: var(--wa-font-size-m);
       }
 
+      /* Give outlined callouts a top accent border */
       &[appearance='outlined'] {
         border-color: var(--wa-color-surface-border);
         border-top-color: var(--wa-color-border-loud);
@@ -467,7 +485,12 @@
       }
     }
 
+    /* Use unique focus styles for text-based inputs */
     :is(
+        wa-input,
+        wa-textarea,
+        wa-select,
+        wa-combobox,
         input:not(
             [type='button'],
             [type='checkbox'],
@@ -480,12 +503,8 @@
             [type='reset'],
             [type='submit']
           ),
-        select,
         textarea,
-        wa-input,
-        wa-textarea,
-        wa-select,
-        wa-combobox
+        select
       ):not([appearance='filled'], .wa-filled) {
       --wa-focus-ring: var(--wa-focus-ring-style) var(--wa-focus-ring-width)
         color-mix(in oklab, var(--wa-color-focus), transparent 50%);
@@ -507,14 +526,27 @@
       --checked-icon-color: var(--wa-color-surface-default);
       --checked-icon-scale: 0.4;
 
-      &:checked,
-      &:state(checked)::part(control) {
+      &:state(checked)::part(control), /* for wa-radio */
+      &:checked /* for input[type='radio'] */ {
         background-color: var(--wa-form-control-activated-color);
       }
     }
 
     wa-slider::part(thumb) {
       border: none;
+    }
+
+    /* Separate range thumb selectors into their own rules
+     * so that Safari can process the ::-webkit- selector
+     * before exiting on the ::-moz- selector */
+    input[type='range'] {
+      &::-webkit-slider-thumb {
+        border: none;
+      }
+
+      &::-moz-range-thumb {
+        border: none;
+      }
     }
 
     wa-switch {
@@ -527,17 +559,20 @@
         border-color: var(--wa-color-gray-60);
       }
 
-      &:state(checked)::part(control) {
-        background-color: var(--wa-form-control-activated-color);
-        border-color: var(--wa-form-control-activated-color);
-      }
-
       &::part(thumb) {
         background-color: var(--wa-color-surface-default);
         border: var(--wa-border-width-s) var(--wa-border-style) var(--wa-color-gray-60);
       }
-      &:state(checked)::part(thumb) {
-        border-color: var(--wa-form-control-activated-color);
+
+      &:state(checked) {
+        &::part(control) {
+          background-color: var(--wa-form-control-activated-color);
+          border-color: var(--wa-form-control-activated-color);
+        }
+
+        &::part(thumb) {
+          border-color: var(--wa-form-control-activated-color);
+        }
       }
     }
 

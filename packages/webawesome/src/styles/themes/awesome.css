@@ -371,28 +371,32 @@
     button,
     input:is([type='button'], [type='reset'], [type='submit']),
     a.wa-button {
+      /* Match the shadow color to the button's variant */
       --wa-color-shadow: var(--wa-color-border-normal);
-      --wa-transition-slow: 0;
-      --wa-transition-normal: 0;
-      --wa-transition-fast: 0;
 
       &[appearance='outlined'],
       &.wa-outlined:not(.wa-filled) {
         --wa-color-shadow: var(--wa-color-border-loud);
       }
-    }
 
-    wa-button,
-    button,
-    input:is([type='button'], [type='reset'], [type='submit']),
-    a.wa-button {
+      /* Disable transitions for a snappy, tactile feel */
+      --wa-transition-slow: 0;
+      --wa-transition-normal: 0;
+      --wa-transition-fast: 0;
+
       &:not([appearance='plain'], .wa-plain) {
+        /* Give buttons a raised effect via solid box-shadow
+         * and adjust height to visually match other inputs */
         &:where(:not(wa-button)),
         &::part(base) {
           height: calc(var(--wa-form-control-height) - var(--wa-shadow-offset-y-s));
+          box-shadow: var(--wa-shadow-offset-x-s) var(--wa-shadow-offset-y-s) 0 0 var(--wa-color-shadow);
+
+          /* Because shadow offsets don't change with writing mode,
+           * style physical margin properties to accommodate shadows
+           * instead of their logical equivalents */
           margin-bottom: var(--wa-shadow-offset-y-s);
           margin-right: var(--wa-shadow-offset-x-s);
-          box-shadow: var(--wa-shadow-offset-x-s) var(--wa-shadow-offset-y-s) 0 0 var(--wa-color-shadow);
         }
         /* Give active buttons a "punch in" effect */
         &:not([disabled], :disabled):active {
@@ -403,17 +407,6 @@
             border-color: var(--wa-color-shadow);
             box-shadow: none;
             transform: translate(var(--wa-shadow-offset-x-s), var(--wa-shadow-offset-y-s));
-          }
-        }
-      }
-      .wa-dark & {
-        &[appearance='accent'],
-        &.wa-accent {
-          &:not([disabled], :disabled):active {
-            &:where(:not(wa-button)),
-            &::part(base) {
-              color: var(--wa-color-on-quiet);
-            }
           }
         }
       }
@@ -443,7 +436,12 @@
       }
     }
 
+    /* Add inset shadow to text-based form controls */
     :is(
+        wa-input,
+        wa-textarea,
+        wa-select,
+        wa-combobox,
         input:not(
             [type='button'],
             [type='checkbox'],
@@ -456,12 +454,8 @@
             [type='reset'],
             [type='submit']
           ),
-        select,
         textarea,
-        wa-input,
-        wa-textarea,
-        wa-select,
-        wa-combobox
+        select
       ):not(:focus, [appearance='filled']) {
       &:where(:not(wa-input, wa-textarea, wa-select, wa-combobox)),
       &:where(wa-input)::part(base),
@@ -473,10 +467,15 @@
       }
     }
   }
-}
 
-@layer wa-theme-overrides {
-  .wa-theme-awesome {
+  /* Dark mode only */
+  .wa-theme-awesome.wa-dark,
+  .wa-theme-awesome .wa-dark,
+  .wa-theme-awesome.wa-invert,
+  .wa-theme-awesome .wa-invert,
+  .wa-dark .wa-theme-awesome,
+  .wa-light .wa-theme-awesome.wa-invert,
+  .wa-light .wa-theme-awesome .wa-invert {
     wa-button,
     button,
     input:is([type='button'], [type='reset'], [type='submit']),
@@ -484,28 +483,45 @@
       &:where(:not([appearance], .wa-filled, .wa-outlined, .wa-plain)),
       &[appearance='accent'],
       &.wa-accent {
-        &:where(:not(wa-button)),
-        &::part(base) {
-          --wa-color-shadow: var(--wa-color-on-loud);
-          border-color: var(--wa-color-shadow);
-        }
-        .wa-dark & {
+        --wa-color-shadow: var(--wa-color-border-quiet);
+
+        &:not([disabled], :disabled):active {
           &:where(:not(wa-button)),
           &::part(base) {
-            --wa-color-shadow: var(--wa-color-border-quiet);
+            color: var(--wa-color-on-quiet);
           }
+        }
+      }
+    }
+  }
+}
+
+@layer wa-theme-overrides {
+  .wa-theme-awesome {
+    /* Give opinionated borders to accent buttons */
+    wa-button,
+    button,
+    input:is([type='button'], [type='reset'], [type='submit']),
+    a.wa-button {
+      &:where(:not([appearance], .wa-filled, .wa-outlined, .wa-plain)),
+      &[appearance='accent'],
+      &.wa-accent {
+        --wa-color-shadow: var(--wa-color-on-loud);
+
+        &:where(:not(wa-button)),
+        &::part(base) {
+          border-color: var(--wa-color-shadow);
         }
       }
     }
 
     /* Treat accent buttons as outlined in button groups */
-    wa-button-group[orientation='horizontal'] {
-      wa-button[appearance='accent'] {
+    wa-button-group {
+      &[orientation='horizontal'] wa-button[appearance='accent'] {
         margin-inline-start: var(--_button-horizontal-indent-outlined);
       }
-    }
-    wa-button-group[orientation='vertical'] {
-      wa-button[appearance='accent'] {
+
+      &[orientation='vertical'] wa-button[appearance='accent'] {
         margin-block-start: var(--_button-vertical-indent-outlined);
       }
     }
@@ -522,16 +538,19 @@
       }
     }
 
-    wa-card::part(header) {
-      border-bottom-style: dotted;
-    }
-    wa-card::part(footer) {
-      border-top-style: dotted;
+    wa-card {
+      &::part(header) {
+        border-bottom-style: dotted;
+      }
+
+      &::part(footer) {
+        border-top-style: dotted;
+      }
     }
 
-    input[type='checkbox'],
     wa-checkbox,
-    wa-tree-item::part(checkbox) {
+    wa-tree-item::part(checkbox),
+    input[type='checkbox'] {
       --checked-icon-color: var(--wa-color-surface-default);
     }
 
@@ -541,6 +560,28 @@
 
     wa-tag {
       font-weight: var(--wa-font-weight-bold);
+    }
+  }
+
+  /* Dark mode only */
+  .wa-theme-awesome.wa-dark,
+  .wa-theme-awesome .wa-dark,
+  .wa-theme-awesome.wa-invert,
+  .wa-theme-awesome .wa-invert,
+  .wa-dark .wa-theme-awesome,
+  .wa-light .wa-theme-awesome.wa-invert,
+  .wa-light .wa-theme-awesome .wa-invert {
+    wa-button,
+    button,
+    input:is([type='button'], [type='reset'], [type='submit']),
+    a.wa-button {
+      /* Accent button shadows only match the text color in light mode
+       * Revert to the wa-theme-dimension layer for shadow color in dark mode */
+      &:where(:not([appearance], .wa-filled, .wa-outlined, .wa-plain)),
+      &[appearance='accent'],
+      &.wa-accent {
+        --wa-color-shadow: revert-layer;
+      }
     }
   }
 }
