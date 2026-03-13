@@ -22,6 +22,8 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed a bug in `<wa-scroller>` that caused horizontal page overflow in Chrome when containing wide content such as tables
 - Improved `<wa-tree>` and `<wa-tree-item>` so all internal dimensions (labels, checkboxes, expand buttons, etc.) scale proportionally with `font-size`, making it easy to resize the tree [discuss:2147]
 - Updated the Awesome and Shoelace themes [pr:2135]:
+  - Adds missing `<input type="range">` overrides to Shoelace theme to match `<wa-slider>`
+  - Adds `<wa-combobox>` overrides to both themes to match other text-based inputs
   - Fixed a bug in the Awesome theme to remove an erroneous `transform` property from `<wa-radio>`s with `appearance="button"` [issue:1766]
   - Fixed a bug in the Shoelace theme where `size` had no effect on `<wa-callout>`
   - Fixed a bug in both themes where `appearance` had no effect on `<wa-card>` 
