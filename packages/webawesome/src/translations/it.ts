@@ -8,6 +8,7 @@ const translation: Translation = {
 
   carousel: 'Carosello',
   clearEntry: 'Cancella inserimento',
+  createOption: value => `Crea "${value}"`,
   close: 'Chiudi',
   copied: 'Copiato',
   copy: 'Copia',
