@@ -19,7 +19,8 @@ describe('<wa-zoomable-frame>', () => {
       const el = await fixture<WaZoomableFrame>(html`
         <wa-zoomable-frame srcdoc="<html><body>test</body></html>"></wa-zoomable-frame>
       `);
-      await waitUntil(() => el.contentDocument?.readyState === 'complete');
+      // Wait for handleLoad → syncTheme to run, not just readyState
+      await waitUntil(() => el.contentDocument?.documentElement.classList.contains('wa-dark'));
       expect(el.contentDocument!.documentElement.classList.contains('wa-dark')).to.be.true;
     });
 
@@ -29,6 +30,7 @@ describe('<wa-zoomable-frame>', () => {
         <wa-zoomable-frame without-theme-sync srcdoc="<html><body>test</body></html>"></wa-zoomable-frame>
       `);
       await waitUntil(() => el.contentDocument?.readyState === 'complete');
+      await aTimeout(50); // ensure any load handlers have had a chance to fire
       expect(el.contentDocument!.documentElement.classList.contains('wa-dark')).to.be.false;
     });
 
