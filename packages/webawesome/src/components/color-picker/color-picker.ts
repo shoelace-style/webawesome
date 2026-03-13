@@ -28,6 +28,11 @@ import '../popup/popup.js';
 import type WaPopup from '../popup/popup.js';
 import styles from './color-picker.styles.js';
 
+export interface WaColorPickerSwatch {
+  color: string;
+  label: string;
+}
+
 interface EyeDropperConstructor {
   new (): EyeDropperInterface;
 }
@@ -217,9 +222,11 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
   /**
    * One or more predefined color swatches to display as presets in the color picker. Can include any format the color
    * picker can parse, including HEX(A), RGB(A), HSL(A), HSV(A), and CSS color names. Each color must be separated by a
-   * semicolon (`;`). Alternatively, you can pass an array of color values to this property using JavaScript.
+   * semicolon (`;`). Alternatively, you can pass an array of color values or an array of `{ color, label }` objects to
+   * this property using JavaScript. When using objects with labels, the label will be used for the swatch's accessible
+   * name instead of the raw color value.
    */
-  @property() swatches: string | string[] = '';
+  @property() swatches: string | string[] | WaColorPickerSwatch[] = '';
 
   /** Makes the color picker a required field. */
   @property({ type: Boolean, reflect: true }) required = false;
@@ -1050,9 +1057,12 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
     const gridHandleX = this.saturation;
     const gridHandleY = 100 - this.brightness;
-    const swatches = Array.isArray(this.swatches)
-      ? this.swatches // allow arrays for legacy purposes
-      : this.swatches.split(';').filter(color => color.trim() !== '');
+    const normalizedSwatches: WaColorPickerSwatch[] = Array.isArray(this.swatches)
+      ? this.swatches.map(s => (typeof s === 'string' ? { color: s, label: s } : s))
+      : this.swatches
+          .split(';')
+          .filter(color => color.trim() !== '')
+          .map(color => ({ color: color.trim(), label: color.trim() }));
 
     const colorPicker = html`
       <div
@@ -1238,11 +1248,11 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
           </wa-button-group>
         </div>
 
-        ${swatches.length > 0
+        ${normalizedSwatches.length > 0
           ? html`
               <div part="swatches" class="swatches">
-                ${swatches.map(swatch => {
-                  const parsedColor = this.parseColor(swatch);
+                ${normalizedSwatches.map(swatch => {
+                  const parsedColor = this.parseColor(swatch.color);
 
                   // If we can't parse it, skip it
                   if (!parsedColor) {
@@ -1255,8 +1265,8 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
                       class="swatch transparent-bg"
                       tabindex=${ifDefined(this.disabled ? undefined : '0')}
                       role="button"
-                      aria-label=${swatch}
-                      @click=${() => this.selectSwatch(swatch)}
+                      aria-label=${swatch.label}
+                      @click=${() => this.selectSwatch(swatch.color)}
                       @keydown=${(event: KeyboardEvent) =>
                         !this.disabled && event.key === 'Enter' && this.setColor(parsedColor.hexa)}
                     >

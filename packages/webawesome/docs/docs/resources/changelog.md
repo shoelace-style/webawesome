@@ -16,6 +16,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Added `wa-gap-5xl` utility class  [issue:1606]
 - Added `wa-gap-4xl` to the gap utility `:where()` selector
 - Added `--wa-font-size-3xs` and `--wa-font-size-5xl` design tokens [issue:1606]
+- Added support for labeled swatches in `<wa-color-picker>` by accepting an array of `{ color, label }` objects via the `swatches` property, improving screen reader accessibility
 - Added `*-3xs` and `*-5xl` to `wa-font-size`, `wa-body`, `wa-heading`, `wa-caption`, and `wa-longform` utility classes [issue:1606]
 - Fixed the off-centered position of indent guides in `<wa-tree>`
 - Fixed slider styling when using the `label` slot so that it matches attribute use. [issue:2124]
