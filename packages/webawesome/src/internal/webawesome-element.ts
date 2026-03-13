@@ -54,6 +54,16 @@ export default class WebAwesomeElement extends LitElement {
     }
   }
 
+  connectedCallback() {
+    super.connectedCallback();
+    // Helpful comment node inside the shadow root that links to the docs
+    this.shadowRoot?.prepend(
+      document.createComment(
+        ` Web Awesome: https://webawesome.com/docs/components/${this.localName.replace('wa-', '')} `,
+      ),
+    );
+  }
+
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     if (!this.#hasRecordedInitialProperties) {
       (this.constructor as typeof WebAwesomeElement).elementProperties.forEach(
