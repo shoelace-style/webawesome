@@ -10,7 +10,16 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 ## Unreleased
 
+<small>TBD</small>
+
+- Added `--wa-space-5xl` design token to all themes  [issue:1606]
+- Added `wa-gap-5xl` utility class  [issue:1606]
+- Added `wa-gap-4xl` to the gap utility `:where()` selector
+- Fixed the off-centered position of indent guides in `<wa-tree>`
+- Fixed slider styling when using the `label` slot so that it matches attribute use. [issue:2124]
 - Fixed a bug in `<wa-scroller>` that caused horizontal page overflow in Chrome when containing wide content such as tables
+- Improved `<wa-tree>` and `<wa-tree-item>` so all internal dimensions (labels, checkboxes, expand buttons, etc.) scale proportionally with `font-size`, making it easy to resize the tree [discuss:2147]
+- [Docs]: Updated space, gap, stack, and cluster documentation for the new tokens and utilities [issue:1606]
 
 ## 3.3.1
 
