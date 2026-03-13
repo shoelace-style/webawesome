@@ -13,10 +13,10 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 <small>TBD</small>
 
 - Updated the Awesome and Shoelace themes [pr:2135]:
-  - Fixed a bug in the Awesome theme where `<wa-radio>` with `appearance="button"` were missing shadows [issue:1766]
+  - Fixed a bug in the Awesome theme to remove an erroneous `transform` property from `<wa-radio>`s with `appearance="button"` [issue:1766]
   - Fixed a bug in the Shoelace theme where `size` had no effect on `<wa-callout>`
   - Fixed a bug in both themes where `appearance` had no effect on `<wa-card>` 
-  - Updated Awesome theme `--wa-form-control-block-padding` to better match its source material (Font Awesome)
+  - Updated Awesome theme `--wa-form-control-padding-block` and `--wa-form-control-padding-inline` to better match its source material (Font Awesome)
   - Updated Shoelace theme `--wa-color-focus` and focus styles to better match its source material (Shoelace)
 
 ## 3.3.1
