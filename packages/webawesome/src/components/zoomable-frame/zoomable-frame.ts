@@ -68,6 +68,9 @@ export default class WaZoomableFrame extends WebAwesomeElement {
   /** Disables interaction when present. */
   @property({ type: Boolean, attribute: 'without-interaction', reflect: true }) withoutInteraction = false;
 
+  /** Disables automatic theme syncing (light/dark mode and theme selector classes) from the host document to the iframe. */
+  @property({ type: Boolean, attribute: 'without-theme-sync', reflect: true }) withoutThemeSync = false;
+
   /** Returns the internal iframe's `window` object. (Readonly property) */
   public get contentWindow(): Window | null {
     return this.iframe?.contentWindow || null;
@@ -156,6 +159,17 @@ export default class WaZoomableFrame extends WebAwesomeElement {
         }
       }
     }
+
+    if (changedProperties.has('withoutThemeSync')) {
+      if (this.withoutThemeSync) {
+        this.themeObserver?.disconnect();
+        this.themeObserver = null;
+      } else {
+        this.themeObserver?.disconnect();
+        this.themeObserver = new MutationObserver(() => this.syncTheme());
+        this.themeObserver.observe(document.documentElement, { attributeFilter: ['class'] });
+      }
+    }
   }
 
   /** Zooms in to the next available zoom level. */
@@ -188,8 +202,11 @@ export default class WaZoomableFrame extends WebAwesomeElement {
 
   connectedCallback() {
     super.connectedCallback();
-    this.themeObserver = new MutationObserver(() => this.syncTheme());
-    this.themeObserver.observe(document.documentElement, { attributeFilter: ['class'] });
+    if (!this.withoutThemeSync) {
+      this.themeObserver?.disconnect();
+      this.themeObserver = new MutationObserver(() => this.syncTheme());
+      this.themeObserver.observe(document.documentElement, { attributeFilter: ['class'] });
+    }
   }
 
   disconnectedCallback() {
@@ -224,7 +241,7 @@ export default class WaZoomableFrame extends WebAwesomeElement {
   }
 
   private handleLoad() {
-    this.syncTheme();
+    if (!this.withoutThemeSync) this.syncTheme();
     this.dispatchEvent(new Event('load', { bubbles: false, cancelable: false, composed: true }));
   }
 
