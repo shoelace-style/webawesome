@@ -123,33 +123,18 @@ export default class WaMarkdown extends WebAwesomeElement {
     return dedentedLines.join('\n');
   }
 
-  /**
-   * Serializes a template's content by walking its DOM tree. Text nodes use textContent (which decodes HTML entities
-   * like &gt; back to >) but re-escapes < and & so they pass through the markdown parser correctly. Element nodes use
-   * outerHTML to preserve inline HTML.
-   */
-  private serializeTemplate(template: HTMLTemplateElement): string {
-    const parts: string[] = [];
-
-    for (const node of template.content.childNodes) {
-      if (node.nodeType === Node.TEXT_NODE) {
-        const text = node.textContent ?? '';
-        parts.push(text.replace(/&/g, '&amp;').replace(/</g, '&lt;'));
-      } else if (node.nodeType === Node.ELEMENT_NODE) {
-        parts.push((node as Element).outerHTML);
-      }
-    }
-
-    return parts.join('');
+  /** Finds the `<script type="text/markdown">` source element inside this component. */
+  private getSourceScript(): HTMLScriptElement | null {
+    return this.querySelector('script[type="text/markdown"]');
   }
 
-  /** Reads the template content, normalizes whitespace, parses markdown, and injects the result. */
+  /** Reads the script content, normalizes whitespace, parses markdown, and injects the result. */
   public renderMarkdown() {
-    const template = this.querySelector('template');
-    if (!template) return;
+    const script = this.getSourceScript();
+    if (!script) return;
 
     const generation = ++this.renderGeneration;
-    const raw = this.serializeTemplate(template);
+    const raw = script.textContent ?? '';
     const dedented = this.dedent(raw);
     const result = sharedMarked.parse(dedented);
 
@@ -159,9 +144,9 @@ export default class WaMarkdown extends WebAwesomeElement {
 
       this.suppressSlotChange = true;
 
-      // Remove previously rendered content but preserve the template
+      // Remove previously rendered content but preserve the source script
       for (const child of [...this.childNodes]) {
-        if (child !== template) {
+        if (child !== script) {
           child.remove();
         }
       }
