@@ -12,6 +12,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 <small>TBD</small>
 
+- Added a new free component: `<wa-markdown>` (#6 of 14 per stretch goals)
 - Added `--wa-space-5xl` design token to all themes  [issue:1606]
 - Added `wa-gap-5xl` utility class  [issue:1606]
 - Added `wa-gap-4xl` to the gap utility `:where()` selector
