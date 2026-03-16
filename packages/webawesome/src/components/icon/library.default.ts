@@ -1,11 +1,17 @@
-import { getKitCode } from '../../utilities/base-path.js';
+import { getFontAwesomeVersion, getKitCode } from '../../utilities/base-path.js';
+import type WaIcon from './icon.js';
 import type { IconLibrary } from './library.js';
 
-const FA_VERSION = '7.2.0';
-
-function getIconUrl(name: string, family: string, variant: string) {
+function getIconUrl(name: string, family: string, variant: string, _autoWidth: boolean, iconElement: null | WaIcon) {
   const kitCode = getKitCode();
+  const fontAwesomeVersion = getFontAwesomeVersion()
   const isPro = kitCode.length > 0;
+
+  // Support custom icons
+  if (family ===  "kit" || family === "kit-duotone") {
+    return `https://kit.fontawesome.com/${kitCode}/icons/${family}/custom/${name}.svg`;
+  }
+
   let folder = 'solid';
 
   // Chisel (Pro+)
@@ -122,14 +128,14 @@ function getIconUrl(name: string, family: string, variant: string) {
 
   // Use the default CDN
   return isPro
-    ? `https://ka-p.fontawesome.com/releases/v${FA_VERSION}/svgs/${folder}/${name}.svg?token=${encodeURIComponent(kitCode)}`
-    : `https://ka-f.fontawesome.com/releases/v${FA_VERSION}/svgs/${folder}/${name}.svg`;
+    ? `https://ka-p.fontawesome.com/releases/v${fontAwesomeVersion}/svgs/${folder}/${name}.svg?token=${encodeURIComponent(kitCode)}`
+    : `https://ka-f.fontawesome.com/releases/v${fontAwesomeVersion}/svgs/${folder}/${name}.svg`;
 }
 
 const library: IconLibrary = {
   name: 'default',
-  resolver: (name: string, family = 'classic', variant = 'solid') => {
-    return getIconUrl(name, family, variant);
+  resolver: (name: string, family = 'classic', variant = 'solid', autoWidth = false, element = null) => {
+    return getIconUrl(name, family, variant, autoWidth, element);
   },
   mutator: (svg, hostEl) => {
     // Duotone families

@@ -1,6 +1,10 @@
 let basePath = '';
 let kitCode = '';
 
+const FA_VERSION = '7.2.0';
+
+let fontAwesomeVersion = FA_VERSION
+
 /** Sets the library's base path to the specified directory or URL. */
 export function setBasePath(path: string) {
   basePath = path;
@@ -55,6 +59,10 @@ export function setKitCode(code: string) {
   kitCode = code;
 }
 
+export function setFontAwesomeVersion (version: string) {
+  fontAwesomeVersion = version
+}
+
 /**
  * Gets the library's Web Awesome kit code.
  *
@@ -73,6 +81,18 @@ export function getKitCode() {
 
     if (el) {
       setKitCode(el.getAttribute('data-fa-kit-code') || '');
+    }
+  }
+
+  return kitCode;
+}
+
+export function getFontAwesomeVersion() {
+  if (!kitCode) {
+    const el = document.querySelector('[data-fa-version]');
+
+    if (el) {
+      setFontAwesomeVersion(el.getAttribute('data-fa-version') || '');
     }
   }
 
