@@ -139,7 +139,7 @@ export default css`
   }
 
   /* Visually hide the display input when multiple is enabled */
-  :host([multiple]) .select:not(.placeholder-visible) .display-input {
+  :host([multiple]) .combobox:has(.tags wa-tag) .display-input {
     position: absolute;
     z-index: -1;
     top: 0;
