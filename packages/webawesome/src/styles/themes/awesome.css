@@ -396,7 +396,7 @@
           box-shadow: var(--wa-shadow-offset-x-s) var(--wa-shadow-offset-y-s) 0 0 var(--wa-color-shadow);
 
           /* Because shadow offsets don't change with writing mode,
-           * style physical margin properties to accommodate shadows
+           * use physical margin properties to accommodate shadows
            * instead of their logical equivalents */
           margin-bottom: var(--wa-shadow-offset-y-s);
           margin-right: var(--wa-shadow-offset-x-s);
@@ -418,14 +418,31 @@
     /* Give active buttons in vertical button groups a "punch in" effect
      * without leaving a visible gap between buttons */
     wa-button-group[orientation='vertical'] {
-      wa-button:not([appearance='plain'], .wa-plain) {
-        &:not([disabled], :disabled):active {
+      & > *:not(:last-child) {
+        &:is(wa-button:not([appearance='plain'], .wa-plain)),
+        & wa-button:not([appearance='plain'], .wa-plain) {
           &::part(base) {
             height: var(--wa-form-control-height);
             margin-bottom: 0;
             margin-right: 0;
             box-shadow: none;
-            transform: none;
+          }
+          &:not([disabled], :disabled):active {
+            &::part(base) {
+              height: calc(var(--wa-form-control-height) - var(--wa-shadow-offset-y-s));
+              margin-top: var(--wa-shadow-offset-y-s);
+              transform: none;
+            }
+          }
+        }
+      }
+      & > *:not(:first-child) {
+        &:is(wa-button:not([appearance='plain'], .wa-plain)),
+        & wa-button:not([appearance='plain'], .wa-plain) {
+          &:not([disabled], :disabled):active {
+            &::part(base) {
+              box-shadow: var(--wa-shadow-offset-x-s) calc(var(--wa-shadow-offset-y-s) * -1) 0 0 var(--wa-color-shadow);
+            }
           }
         }
       }
