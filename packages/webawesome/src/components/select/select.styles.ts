@@ -196,7 +196,7 @@ export default css`
     margin-inline-end: var(--wa-form-control-padding-inline);
   }
 
-  :host([multiple]) .start::slotted(*) {
+  :host([multiple]) .combobox:has(.tags wa-tag) .start::slotted(*) {
     margin-inline-start: calc(var(--wa-form-control-padding-inline) - var(--_padding-with-tags));
   }
 
