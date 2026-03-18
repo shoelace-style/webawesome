@@ -23,7 +23,7 @@ Indentation is handled automatically. You can nest your markdown at any depth to
 </wa-markdown>
 ```
 
-Note the use of `<script type="text/markdown">` instead of `<template>` — see [why we use script](#why-script-instead-of-template) below.
+Note the use of `<script type="text/markdown">` instead of `<template>` — see [why we use script](#why-use-script-instead-of-template) below.
 
 :::warning
 Since content is rendered client-side, it won't be visible to search engine crawlers or available before JavaScript loads. This makes it a poor fit for SEO-critical content like landing pages and blog posts. It's best suited for prototyping, dashboards, admin panels, and other contexts where search indexing isn't a concern.
