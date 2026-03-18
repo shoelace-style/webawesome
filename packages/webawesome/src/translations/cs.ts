@@ -23,6 +23,7 @@ const translation: Translation = {
   hidePassword: 'Skrýt heslo',
   increment: 'Zvýšit',
   loading: 'Nahrává se',
+  moreOptions: 'Další možnosti',
   mute: 'Ztlumit',
   nextSlide: 'Další slide',
   nextVideo: 'Další video',

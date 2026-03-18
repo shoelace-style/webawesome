@@ -23,6 +23,7 @@ const translation: Translation = {
   hidePassword: 'پنهان کردن رمز',
   increment: 'افزایش',
   loading: 'بارگزاری',
+  moreOptions: 'گزینه‌های بیشتر',
   mute: 'بی‌صدا',
   nextSlide: 'اسلاید بعدی',
   nextVideo: 'ویدیوی بعدی',

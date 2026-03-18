@@ -23,6 +23,7 @@ const translation: Translation = {
   hidePassword: 'Құпиясөзді жасыру',
   increment: 'Арттыру',
   loading: 'Жүктелуде',
+  moreOptions: 'Қосымша опциялар',
   mute: 'Дыбысты өшіру',
   nextSlide: 'Келесі слайд',
   nextVideo: 'Келесі бейне',

@@ -23,6 +23,7 @@ const translation: Translation = {
   hidePassword: 'Piilota salasana',
   increment: 'Lisää',
   loading: 'Ladataan',
+  moreOptions: 'Lisää vaihtoehtoja',
   mute: 'Mykistä',
   nextSlide: 'Seuraava dia',
   nextVideo: 'Seuraava video',

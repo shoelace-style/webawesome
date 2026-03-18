@@ -22,6 +22,7 @@ const translation: Translation = {
   hidePassword: 'पासवर्ड छुपाएं',
   increment: 'बढ़ाएं',
   loading: 'लोड हो रहा है',
+  moreOptions: 'अधिक विकल्प',
   mute: 'म्यूट',
   nextSlide: 'अगली स्लाइड',
   nextVideo: 'अगला वीडियो',

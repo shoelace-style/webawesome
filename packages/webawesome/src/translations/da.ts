@@ -23,6 +23,7 @@ const translation: Translation = {
   hidePassword: 'Skjul adgangskode',
   increment: 'Forøg',
   loading: 'Indlæser',
+  moreOptions: 'Flere muligheder',
   mute: 'Slå lyd fra',
   nextSlide: 'Næste slide',
   nextVideo: 'Næste video',

@@ -23,6 +23,7 @@ const translation: Translation = {
   hidePassword: '隐藏密码',
   increment: '增加',
   loading: '加载中',
+  moreOptions: '更多选项',
   mute: '静音',
   nextSlide: '下一张幻灯片',
   nextVideo: '下一个视频',

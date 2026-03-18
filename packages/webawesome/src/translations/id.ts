@@ -23,6 +23,7 @@ const translation: Translation = {
   hidePassword: 'Sembunyikan sandi',
   increment: 'Tambah',
   loading: 'Memuat',
+  moreOptions: 'Lebih banyak opsi',
   mute: 'Bisukan',
   nextSlide: 'Slide berikutnya',
   nextVideo: 'Video berikutnya',

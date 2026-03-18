@@ -23,6 +23,7 @@ const translation: Translation = {
   hidePassword: 'הסתר סיסמא',
   increment: 'הגדל',
   loading: 'טוען',
+  moreOptions: 'אפשרויות נוספות',
   mute: 'השתקה',
   nextSlide: 'השקף הבא',
   nextVideo: 'הסרטון הבא',

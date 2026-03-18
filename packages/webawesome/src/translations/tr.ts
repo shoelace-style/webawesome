@@ -23,6 +23,7 @@ const translation: Translation = {
   hidePassword: 'Şifreyi sakla',
   increment: 'Artır',
   loading: 'Yükleme',
+  moreOptions: 'Daha fazla seçenek',
   mute: 'Sesi kapat',
   nextSlide: 'Sonraki slayt',
   nextVideo: 'Sonraki video',

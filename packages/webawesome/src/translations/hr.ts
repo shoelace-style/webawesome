@@ -23,6 +23,7 @@ const translation: Translation = {
   hidePassword: 'Sakrij lozinku',
   increment: 'Povećaj',
   loading: 'Učitavanje',
+  moreOptions: 'Više opcija',
   mute: 'Utišaj',
   nextSlide: 'Sljedeći slajd',
   nextVideo: 'Sljedeći video',

@@ -23,6 +23,7 @@ const translation: Translation = {
   hidePassword: 'Jelszó elrejtése',
   increment: 'Növelés',
   loading: 'Betöltés',
+  moreOptions: 'További lehetőségek',
   mute: 'Elnémítás',
   nextSlide: 'Következő dia',
   nextVideo: 'Következő videó',

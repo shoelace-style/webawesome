@@ -23,6 +23,7 @@ const translation: Translation = {
   hidePassword: 'Nascondi password',
   increment: 'Aumenta',
   loading: 'In caricamento',
+  moreOptions: 'Altre opzioni',
   mute: 'Disattiva audio',
   nextSlide: 'Prossima diapositiva',
   nextVideo: 'Video successivo',
