@@ -41,17 +41,13 @@ describe('<wa-dropdown-item>', () => {
   });
 
   it('should have aria-checked="true" when type is checkbox and checked', async () => {
-    const el = await fixture<WaDropdownItem>(
-      html` <wa-dropdown-item type="checkbox" checked>Item</wa-dropdown-item> `
-    );
+    const el = await fixture<WaDropdownItem>(html` <wa-dropdown-item type="checkbox" checked>Item</wa-dropdown-item> `);
     await el.updateComplete;
     expect(el.getAttribute('aria-checked')).to.equal('true');
   });
 
   it('should remove aria-checked when type changes from checkbox to normal', async () => {
-    const el = await fixture<WaDropdownItem>(
-      html` <wa-dropdown-item type="checkbox" checked>Item</wa-dropdown-item> `
-    );
+    const el = await fixture<WaDropdownItem>(html` <wa-dropdown-item type="checkbox" checked>Item</wa-dropdown-item> `);
     await el.updateComplete;
     expect(el.getAttribute('aria-checked')).to.equal('true');
 
