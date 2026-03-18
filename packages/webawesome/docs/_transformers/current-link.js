@@ -1,5 +1,3 @@
-import { parse } from 'node-html-parser';
-
 function normalize(pathname) {
   pathname = pathname.trim();
 
