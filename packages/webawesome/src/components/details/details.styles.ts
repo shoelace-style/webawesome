@@ -10,7 +10,6 @@ export default css`
   }
 
   details {
-    /* box-sizing: border-box; */
     display: block;
     overflow-anchor: none;
     border: var(--wa-panel-border-width) var(--wa-color-surface-border) var(--wa-panel-border-style);
