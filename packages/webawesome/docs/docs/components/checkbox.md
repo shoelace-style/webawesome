@@ -67,7 +67,7 @@ Use the `setCustomValidity()` method to set a custom validation message. This wi
 <form class="custom-validity">
   <wa-checkbox>Check me</wa-checkbox>
   <br />
-  <wa-button type="submit" variant="brand" style="margin-top: 1rem;">Submit</wa-button>
+  <wa-button appearance="filled" type="submit" variant="brand" style="margin-top: 1rem;">Submit</wa-button>
 </form>
 <script>
   const form = document.querySelector('.custom-validity');
