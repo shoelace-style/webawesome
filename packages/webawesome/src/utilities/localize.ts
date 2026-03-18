@@ -38,6 +38,7 @@ export interface Translation extends DefaultTranslation {
   hidePassword: string;
   increment: string;
   loading: string;
+  moreOptions: string;
   mute: string;
   nextSlide: string;
   nextVideo: string;
@@ -61,6 +62,9 @@ export interface Translation extends DefaultTranslation {
   showPassword: string;
   slideNum: (slide: number) => string;
   toggleColorFormat: string;
+  seek: string;
+  seekProgress: (current: string, duration: string) => string;
+  currentlyPlaying: string;
   unmute: string;
   videoPlayer: string;
   volume: string;
