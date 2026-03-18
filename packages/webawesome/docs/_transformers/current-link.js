@@ -21,8 +21,19 @@ function normalize(pathname) {
   return pathname;
 }
 
+function markCurrent(el, pageUrl, className) {
+  const href = el.getAttribute('href');
+  if (href == null || href === '' || href.startsWith('#')) {
+    return;
+  }
+  if (normalize(href) === normalize(pageUrl)) {
+    el.classList.add(className);
+  }
+}
+
 /**
  * Eleventy plugin to decorate current links with a custom class.
+ * Matches `<a href>` and `<wa-button href>` (e.g. subheader nav).
  */
 export function currentLinkTransformer(options = {}) {
   options = {
@@ -38,11 +49,14 @@ export function currentLinkTransformer(options = {}) {
       return;
     }
 
-    // Compare the href attribute to 11ty's page URL
+    const pageUrl = this.page.url;
+
     container.querySelectorAll('a[href]').forEach(a => {
-      if (normalize(a.getAttribute('href')) === normalize(this.page.url)) {
-        a.classList.add(options.className);
-      }
+      markCurrent(a, pageUrl, options.className);
+    });
+
+    container.querySelectorAll('wa-button[href]').forEach(btn => {
+      markCurrent(btn, pageUrl, options.className);
     });
   };
 }
