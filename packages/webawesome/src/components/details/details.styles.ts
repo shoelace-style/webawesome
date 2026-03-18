@@ -10,6 +10,7 @@ export default css`
   }
 
   details {
+    /* box-sizing: border-box; */
     display: block;
     overflow-anchor: none;
     border: var(--wa-panel-border-width) var(--wa-color-surface-border) var(--wa-panel-border-style);
@@ -119,6 +120,7 @@ export default css`
 
   .content {
     display: block;
+    box-sizing: border-box; /* Ensure contents don't overflow */
     padding-block-start: var(--spacing);
     padding-inline: var(--spacing); /* Add horizontal padding */
     padding-block-end: var(--spacing); /* Add bottom padding */
