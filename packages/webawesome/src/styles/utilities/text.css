@@ -26,6 +26,14 @@
     line-height: var(--wa-line-height-normal);
   }
 
+  .wa-font-size-3xs,
+  .wa-body-3xs,
+  .wa-heading-3xs,
+  .wa-caption-3xs,
+  .wa-longform-3xs {
+    font-size: var(--wa-font-size-3xs);
+  }
+
   .wa-font-size-2xs,
   .wa-body-2xs,
   .wa-heading-2xs,
@@ -96,6 +104,14 @@
   .wa-caption-4xl,
   .wa-longform-4xl {
     font-size: var(--wa-font-size-4xl);
+  }
+
+  .wa-font-size-5xl,
+  .wa-body-5xl,
+  .wa-heading-5xl,
+  .wa-caption-5xl,
+  .wa-longform-5xl {
+    font-size: var(--wa-font-size-5xl);
   }
 
   .wa-font-weight-light {

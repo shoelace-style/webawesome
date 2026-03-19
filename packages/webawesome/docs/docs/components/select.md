@@ -324,7 +324,7 @@ Here's a comprehensive example showing different lazy loading scenarios:
       <wa-option value="baz">Baz</wa-option>
     </wa-select>
     <br />
-    <wa-button type="button">Add "foo" option</wa-button>
+    <wa-button appearance="filled" type="button">Add "foo" option</wa-button>
   </div>
 
   <br />
@@ -332,7 +332,7 @@ Here's a comprehensive example showing different lazy loading scenarios:
   <div>
     <wa-select name="select-2" value="foo" label="Single select (with no existing options)"> </wa-select>
     <br />
-    <wa-button type="button">Add "foo" option</wa-button>
+    <wa-button appearance="filled" type="button">Add "foo" option</wa-button>
   </div>
 
   <br />
@@ -343,7 +343,7 @@ Here's a comprehensive example showing different lazy loading scenarios:
       <wa-option value="baz" selected>Baz</wa-option>
     </wa-select>
     <br />
-    <wa-button type="button">Add "foo" option (selected)</wa-button>
+    <wa-button appearance="filled" type="button">Add "foo" option (selected)</wa-button>
   </div>
 
   <br />
@@ -351,14 +351,14 @@ Here's a comprehensive example showing different lazy loading scenarios:
   <div>
     <wa-select name="select-4" value="foo" multiple label="Multiple Select (with no existing options)"> </wa-select>
     <br />
-    <wa-button type="button">Add "foo" option</wa-button>
+    <wa-button appearance="filled" type="button">Add "foo" option</wa-button>
   </div>
 
   <br /><br />
 
   <div style="display: flex; gap: 16px;">
-    <wa-button type="reset">Reset</wa-button>
-    <wa-button type="submit" variant="brand">Show FormData</wa-button>
+    <wa-button appearance="filled" type="reset">Reset</wa-button>
+    <wa-button appearance="filled" type="submit" variant="brand">Show FormData</wa-button>
   </div>
 
   <br />

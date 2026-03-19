@@ -12,6 +12,7 @@ export default css`
     display: block;
     position: relative;
     max-width: 100%;
+    overflow: hidden;
     isolation: isolate;
   }
 

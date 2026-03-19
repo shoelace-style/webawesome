@@ -932,7 +932,6 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     const hasHint = this.hint ? true : !!hasHintSlot;
     const hasClearIcon =
       (this.hasUpdated || isServer) && this.withClear && !this.disabled && this.value && this.value.length > 0;
-    const isPlaceholderVisible = Boolean(this.placeholder && (!this.value || this.value.length === 0));
 
     return html`
       <div
@@ -963,7 +962,6 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
               disabled: this.disabled,
               enabled: !this.disabled,
               multiple: this.multiple,
-              'placeholder-visible': isPlaceholderVisible,
             })}
             placement=${this.placement}
             flip

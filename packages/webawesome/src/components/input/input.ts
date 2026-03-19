@@ -138,7 +138,7 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
   @property({ attribute: 'password-visible', type: Boolean }) passwordVisible = false;
 
   /** Hides the browser's built-in increment/decrement spin buttons for number inputs. */
-  @property({ attribute: 'without-spin-buttons', type: Boolean }) withoutSpinButtons = false;
+  @property({ attribute: 'without-spin-buttons', type: Boolean, reflect: true }) withoutSpinButtons = false;
 
   /** Makes the input a required field. */
   @property({ type: Boolean, reflect: true }) required = false;
