@@ -46,7 +46,9 @@ export async function build(options = {}) {
   const packageData = JSON.parse(await readFile(join(getRootDir(), 'package.json'), 'utf-8'));
   const version = packageData.version;
   console.log(`${chalk.hex('#ef6741')('🦊 Web Awesome')} v${version}\n`);
-  if (isDeveloping) { spinner.info('Development mode') };
+  if (isDeveloping) {
+    spinner.info('Development mode');
+  }
 
   if (!options.watchedSrcDirectories) {
     options.watchedSrcDirectories = ['src'];
@@ -551,6 +553,5 @@ function isRunAsMain() {
 }
 
 if (isRunAsMain()) {
-
   await build();
 }
