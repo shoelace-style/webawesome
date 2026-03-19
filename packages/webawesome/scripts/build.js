@@ -21,17 +21,19 @@ import { getCdnDir, getDistDir, getDocsDir, getRootDir, getSiteDir } from './uti
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const currentYear = new Date().getFullYear();
-const spinner = ora({ text: 'Web Awesome', color: 'cyan' }).start();
-const getPackageData = async () => JSON.parse(await readFile(join(getRootDir(), 'package.json'), 'utf-8'));
-const getVersion = async () => JSON.stringify((await getPackageData()).version.toString());
+const spinner = ora();
+const packageData = JSON.parse(await readFile(join(getRootDir(), 'package.json'), 'utf-8'));
+const version = packageData.version;
 let buildContexts = {
   bundledContext: {},
   unbundledContext: {},
 };
 
 const debugPerf = process.env.DEBUG_PERFORMANCE === '1';
-
 const isDeveloping = process.argv.includes('--develop');
+
+console.log(`${chalk.hex('#ef6741')('🦊 Web Awesome')} v${version}\n`);
+if (isDeveloping) spinner.info('Development mode');
 
 /**
  * @typedef {Object} BuildOptions
@@ -240,7 +242,7 @@ export async function build(options = {}) {
       banner: {
         js: `/*! Copyright ${currentYear} Fonticons, Inc. - https://webawesome.com/license */`,
       },
-      plugins: [replace({ __WEBAWESOME_VERSION__: await getVersion() })],
+      plugins: [replace({ __WEBAWESOME_VERSION__: version })],
     };
 
     const unbundledConfig = {

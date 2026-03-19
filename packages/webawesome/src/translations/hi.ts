@@ -8,6 +8,7 @@ const translation: Translation = {
   carousel: 'कैरोसेल',
   captions: 'कैप्शन',
   clearEntry: 'प्रविष्टि साफ़ करें',
+  createOption: value => `"${value}" बनाएँ`,
   close: 'बंद करें',
   copied: 'कॉपी किया गया',
   copy: 'कॉपी करें',

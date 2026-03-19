@@ -8,7 +8,7 @@ category: Feedback & Status
 A tooltip's target is based on the `for` attribute which points to an element id.
 
 ```html {.example}
-<wa-tooltip for="my-button">This is a tooltip</wa-tooltip> <wa-button id="my-button">Hover Me</wa-button>
+<wa-tooltip for="my-button">This is a tooltip</wa-tooltip> <wa-button appearance="filled" id="my-button">Hover Me</wa-button>
 ```
 
 ## Examples
@@ -20,30 +20,30 @@ Use the `placement` attribute to set the preferred placement of the tooltip.
 ```html {.example}
 <div class="tooltip-placement-example">
   <div class="tooltip-placement-example-row">
-    <wa-button id="tooltip-top-start"></wa-button>
-    <wa-button id="tooltip-top"></wa-button>
-    <wa-button id="tooltip-top-end"></wa-button>
+    <wa-button appearance="filled" id="tooltip-top-start"></wa-button>
+    <wa-button appearance="filled" id="tooltip-top"></wa-button>
+    <wa-button appearance="filled" id="tooltip-top-end"></wa-button>
   </div>
 
   <div class="tooltip-placement-example-row">
-    <wa-button id="tooltip-left-start"></wa-button>
-    <wa-button id="tooltip-right-start"></wa-button>
+    <wa-button appearance="filled" id="tooltip-left-start"></wa-button>
+    <wa-button appearance="filled" id="tooltip-right-start"></wa-button>
   </div>
 
   <div class="tooltip-placement-example-row">
-    <wa-button id="tooltip-left"></wa-button>
-    <wa-button id="tooltip-right"></wa-button>
+    <wa-button appearance="filled" id="tooltip-left"></wa-button>
+    <wa-button appearance="filled" id="tooltip-right"></wa-button>
   </div>
 
   <div class="tooltip-placement-example-row">
-    <wa-button id="tooltip-left-end"></wa-button>
-    <wa-button id="tooltip-right-end"></wa-button>
+    <wa-button appearance="filled" id="tooltip-left-end"></wa-button>
+    <wa-button appearance="filled" id="tooltip-right-end"></wa-button>
   </div>
 
   <div class="tooltip-placement-example-row">
-    <wa-button id="tooltip-bottom-start"></wa-button>
-    <wa-button id="tooltip-bottom"></wa-button>
-    <wa-button id="tooltip-bottom-end"></wa-button>
+    <wa-button appearance="filled" id="tooltip-bottom-start"></wa-button>
+    <wa-button appearance="filled" id="tooltip-bottom"></wa-button>
+    <wa-button appearance="filled" id="tooltip-bottom-end"></wa-button>
   </div>
 </div>
 
@@ -89,7 +89,7 @@ Use the `placement` attribute to set the preferred placement of the tooltip.
 Set the `trigger` attribute to `click` to toggle the tooltip on click instead of hover.
 
 ```html {.example}
-<wa-button id="toggle-button">Click to Toggle</wa-button>
+<wa-button appearance="filled" id="toggle-button">Click to Toggle</wa-button>
 <wa-tooltip for="toggle-button" trigger="click">Click again to dismiss</wa-tooltip>
 ```
 
@@ -98,7 +98,7 @@ Set the `trigger` attribute to `click` to toggle the tooltip on click instead of
 Tooltips can be controller programmatically by setting the `trigger` attribute to `manual`. Use the `open` attribute to control when the tooltip is shown.
 
 ```html {.example}
-<wa-button style="margin-right: 4rem;">Toggle Manually</wa-button>
+<wa-button appearance="filled" style="margin-right: 4rem;">Toggle Manually</wa-button>
 
 <wa-tooltip for="manual-trigger-tooltip" trigger="manual" class="manual-tooltip">This is an avatar!</wa-tooltip>
 <wa-avatar id="manual-trigger-tooltip" label="User"></wa-avatar>
@@ -116,7 +116,7 @@ Tooltips can be controller programmatically by setting the `trigger` attribute t
 You can control the size of tooltip arrows by overriding the `--wa-tooltip-arrow-size` design token. To remove the arrow, use the `without-arrow` attribute.
 
 ```html {.example}
-<wa-button id="no-arrow">No Arrow</wa-button>
+<wa-button appearance="filled" id="no-arrow">No Arrow</wa-button>
 <wa-tooltip for="no-arrow" without-arrow>This is a tooltip with no arrow</wa-tooltip>
 ```
 
@@ -133,7 +133,7 @@ To override it globally, set it in a root block in your stylesheet after the Web
 Use the default slot to create tooltips with HTML content. Tooltips are designed only for text and presentational elements. Avoid placing interactive content, such as buttons, links, and form controls, in a tooltip.
 
 ```html {.example}
-<wa-button id="rich-tooltip">Hover me</wa-button>
+<wa-button appearance="filled" id="rich-tooltip">Hover me</wa-button>
 <wa-tooltip for="rich-tooltip">
   <div>I'm not <strong>just</strong> a tooltip, I'm a <em>tooltip</em> with HTML!</div>
 </wa-tooltip>
@@ -147,5 +147,5 @@ Use the `--max-width` custom property to change the width the tooltip can grow t
 <wa-tooltip for="wrapping-tooltip" style="--max-width: 80px;">
   This tooltip will wrap after only 80 pixels.
 </wa-tooltip>
-<wa-button id="wrapping-tooltip">Hover me</wa-button>
+<wa-button appearance="filled" id="wrapping-tooltip">Hover me</wa-button>
 ```

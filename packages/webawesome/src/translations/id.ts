@@ -9,6 +9,7 @@ const translation: Translation = {
   carousel: 'Karousel',
   captions: 'Teks',
   clearEntry: 'Hapus entri',
+  createOption: value => `Buat "${value}"`,
   close: 'Tutup',
   copied: 'Disalin',
   copy: 'Salin',

@@ -68,8 +68,8 @@ export default class WaZoomableFrame extends WebAwesomeElement {
   /** Disables interaction when present. */
   @property({ type: Boolean, attribute: 'without-interaction', reflect: true }) withoutInteraction = false;
 
-  /** Disables automatic theme syncing (light/dark mode and theme selector classes) from the host document to the iframe. */
-  @property({ type: Boolean, attribute: 'without-theme-sync', reflect: true }) withoutThemeSync = false;
+  /** Enables automatic theme syncing (light/dark mode and theme selector classes) from the host document to the iframe. */
+  @property({ type: Boolean, attribute: 'with-theme-sync', reflect: true }) withThemeSync = false;
 
   /** Returns the internal iframe's `window` object. (Readonly property) */
   public get contentWindow(): Window | null {
@@ -160,14 +160,14 @@ export default class WaZoomableFrame extends WebAwesomeElement {
       }
     }
 
-    if (changedProperties.has('withoutThemeSync')) {
-      if (this.withoutThemeSync) {
-        this.themeObserver?.disconnect();
-        this.themeObserver = null;
-      } else {
+    if (changedProperties.has('withThemeSync')) {
+      if (this.withThemeSync) {
         this.themeObserver?.disconnect();
         this.themeObserver = new MutationObserver(() => this.syncTheme());
         this.themeObserver.observe(document.documentElement, { attributeFilter: ['class'] });
+      } else {
+        this.themeObserver?.disconnect();
+        this.themeObserver = null;
       }
     }
   }
@@ -202,7 +202,7 @@ export default class WaZoomableFrame extends WebAwesomeElement {
 
   connectedCallback() {
     super.connectedCallback();
-    if (!this.withoutThemeSync) {
+    if (this.withThemeSync) {
       this.themeObserver?.disconnect();
       this.themeObserver = new MutationObserver(() => this.syncTheme());
       this.themeObserver.observe(document.documentElement, { attributeFilter: ['class'] });
@@ -241,7 +241,7 @@ export default class WaZoomableFrame extends WebAwesomeElement {
   }
 
   private handleLoad() {
-    if (!this.withoutThemeSync) this.syncTheme();
+    if (this.withThemeSync) this.syncTheme();
     this.dispatchEvent(new Event('load', { bubbles: false, cancelable: false, composed: true }));
   }
 

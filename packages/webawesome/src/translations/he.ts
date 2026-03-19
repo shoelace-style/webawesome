@@ -9,6 +9,7 @@ const translation: Translation = {
   carousel: 'קרוסלה',
   captions: 'כתוביות',
   clearEntry: 'נקה קלט',
+  createOption: value => `יצירת "${value}"`,
   close: 'סגור',
   copied: 'מוּעֲתָק',
   copy: 'העתק',

@@ -9,6 +9,7 @@ const translation: Translation = {
   carousel: 'Carrousel',
   captions: 'Ondertiteling',
   clearEntry: 'Invoer wissen',
+  createOption: value => `"${value}" aanmaken`,
   close: 'Sluiten',
   copied: 'Gekopieerd',
   copy: 'Kopiëren',

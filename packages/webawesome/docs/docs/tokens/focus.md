@@ -21,7 +21,7 @@ See your theme's focus ring in action by navigating this form example with your 
     <span slot="hint">Press <kbd>Tab</kbd> to move focus to other interactive elements.</span>
   </wa-input>
   <wa-checkbox>Checkbox</wa-checkbox>
-  <wa-button>Button</wa-button>
+  <wa-button appearance="filled">Button</wa-button>
 </form>
 
 <style>

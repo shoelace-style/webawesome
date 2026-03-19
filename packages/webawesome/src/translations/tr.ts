@@ -9,6 +9,7 @@ const translation: Translation = {
   carousel: 'Atlıkarınca',
   captions: 'Altyazılar',
   clearEntry: 'Girişi sil',
+  createOption: value => `"${value}" oluştur`,
   close: 'Kapat',
   copied: 'Kopyalandı',
   copy: 'Kopya',

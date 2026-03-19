@@ -9,6 +9,7 @@ const translation: Translation = {
   carousel: 'Карусель',
   captions: 'Субтитри',
   clearEntry: 'Очистити поле',
+  createOption: value => `Створити «${value}»`,
   close: 'Закрити',
   copied: 'Скопійовано',
   copy: 'Скопіювати',

@@ -9,6 +9,7 @@ const translation: Translation = {
   carousel: 'Karuselli',
   captions: 'Tekstitys',
   clearEntry: 'Poista merkintä',
+  createOption: value => `Luo "${value}"`,
   close: 'Sulje',
   copied: 'Kopioitu',
   copy: 'Kopioi',

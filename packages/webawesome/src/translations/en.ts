@@ -10,6 +10,7 @@ const translation: Translation = {
   captions: 'Captions',
   clearEntry: 'Clear entry',
   close: 'Close',
+  createOption: value => `Create "${value}"`,
   copied: 'Copied',
   copy: 'Copy',
   currentValue: 'Current value',

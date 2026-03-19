@@ -9,6 +9,7 @@ const translation: Translation = {
   carousel: '幻燈片',
   captions: '字幕',
   clearEntry: '清空',
+  createOption: value => `建立「${value}」`,
   close: '關閉',
   copied: '已複製',
   copy: '複製',

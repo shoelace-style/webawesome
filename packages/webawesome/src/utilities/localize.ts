@@ -25,6 +25,7 @@ export interface Translation extends DefaultTranslation {
   captions: string;
   clearEntry: string;
   close: string;
+  createOption: (value: string) => string;
   copied: string;
   copy: string;
   currentValue: string;

@@ -9,6 +9,7 @@ const translation: Translation = {
   carousel: 'Körhinta',
   captions: 'Feliratok',
   clearEntry: 'Bejegyzés törlése',
+  createOption: value => `„${value}" létrehozása`,
   close: 'Bezárás',
   copied: 'Másolva',
   copy: 'Másolás',

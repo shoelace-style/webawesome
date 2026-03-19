@@ -62,10 +62,10 @@ Apply the `without-interaction` attribute to make the frame non-interactive. Not
 <wa-zoomable-frame src="/examples/themes/showcase" zoom="0.5" without-interaction> </wa-zoomable-frame>
 ```
 
-### Disabling theme sync
+### Enabling theme sync
 
-By default, the frame automatically mirrors the host page's light/dark mode and theme selector classes (such as `wa-theme-*`, `wa-brand-*`, and `wa-palette-*`) into the iframe document. Add the `without-theme-sync` attribute to opt out of this behavior, for example when the iframe content manages its own theme independently.
+By default, the frame does not sync theme classes into the iframe. Add the `with-theme-sync` attribute to mirror the host page's light/dark mode and theme selector classes (such as `wa-theme-*`, `wa-brand-*`, and `wa-palette-*`) into the iframe document. This is useful when the iframe renders Web Awesome styles that should match the host page's theme.
 
 ```html {.example}
-<wa-zoomable-frame src="/examples/themes/showcase" zoom="0.5" without-theme-sync> </wa-zoomable-frame>
+<wa-zoomable-frame src="/examples/themes/showcase" zoom="0.5" with-theme-sync> </wa-zoomable-frame>
 ```
