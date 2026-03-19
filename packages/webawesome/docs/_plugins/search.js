@@ -10,6 +10,16 @@ function collapseWhitespace(string) {
   return string.replace(/\s+/g, ' ');
 }
 
+/** Strip .njk/.html and /index.njk or /index.html so search results show real URLs, not source filenames. */
+function normalizeDisplayUrl(url) {
+  if (!url || url === '/') return '/';
+  // Strip /index.njk or /index.html so path ends at parent directory (e.g. /docs/button/index.html → /docs/button)
+  let s = url.replace(/\/index\.(njk|html)$/i, '');
+  // Strip .njk or .html from last path segment (e.g. /account/login.njk → /account/login)
+  s = s.replace(/\.(njk|html)$/i, '');
+  return s || '/';
+}
+
 /**
  * Eleventy plugin to build a Lunr search index.
  */
@@ -60,12 +70,13 @@ export function searchPlugin(options = {}) {
         doc.querySelectorAll(selector).forEach(el => el.remove());
       });
 
+      const rawUrl = this.page.url === '/' ? '/' : this.page.url.replace(/\/$/, '');
       pagesToIndex.set(this.page.inputPath, {
         title: collapseWhitespace(options.getTitle(doc)),
         description: collapseWhitespace(options.getDescription(doc)),
         headings: options.getHeadings(doc).map(collapseWhitespace),
         content: collapseWhitespace(options.getContent(doc)),
-        url: this.page.url === '/' ? '/' : this.page.url.replace(/\/$/, ''),
+        url: normalizeDisplayUrl(rawUrl),
       });
 
       return content;

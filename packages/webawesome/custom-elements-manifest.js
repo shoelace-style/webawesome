@@ -11,7 +11,6 @@ import fs from 'fs';
 import * as path from 'node:path';
 import { pascalCase } from 'pascal-case';
 import * as url from 'url';
-import { llmsTxtPlugin } from './scripts/llms.js';
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 const packageData = JSON.parse(fs.readFileSync(path.join(__dirname, 'package.json'), 'utf8'));
@@ -195,21 +194,30 @@ export default {
       },
     }),
 
+    // Filter out events without names (these come from code analysis detecting
+    // dispatchEvent() calls, but lack the event name that comes from @event JSDoc tags)
+    {
+      name: 'wa-filter-unnamed-events',
+      packageLinkPhase({ customElementsManifest }) {
+        customElementsManifest?.modules?.forEach(mod => {
+          mod.declarations?.forEach(dec => {
+            if (dec.kind === 'class' && dec.events) {
+              dec.events = dec.events.filter(event => event.name);
+            }
+          });
+        });
+      },
+    },
+
     // Generate JSX types (see https://wc-toolkit.com/integrations/jsx/)
     jsxTypesPlugin({
       fileName: 'custom-elements-jsx.d.ts',
       outdir,
       defaultExport: true,
+      includeDefaultDOMEvents: true,
       componentTypePath: (_name, _tag, modulePath) => {
         return `./${modulePath}`;
       },
-    }),
-
-    // Generate llms.txt
-    llmsTxtPlugin({
-      outdir,
-      docsDir: path.join(__dirname, 'docs'),
-      baseUrl: 'https://webawesome.com',
     }),
 
     //

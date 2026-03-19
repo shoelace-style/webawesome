@@ -8,15 +8,18 @@ const translation: Translation = {
 
   carousel: 'Karussell',
   clearEntry: 'Eingabe löschen',
+  createOption: value => `„${value}" erstellen`,
   close: 'Schließen',
   copied: 'Kopiert',
   copy: 'Kopieren',
   currentValue: 'Aktueller Wert',
+  decrement: 'Verringern',
   dropFileHere: 'Datei hier ablegen oder zum Durchsuchen klicken',
   dropFilesHere: 'Dateien hier ablegen oder zum Durchsuchen klicken',
   error: 'Fehler',
   goToSlide: (slide, count) => `Zu Folie ${slide} von ${count} gehen`,
   hidePassword: 'Passwort verbergen',
+  increment: 'Erhöhen',
   loading: 'Wird geladen',
   nextSlide: 'Nächste Folie',
   numOptionsSelected: num => {

@@ -8,15 +8,18 @@ const translation: Translation = {
 
   carousel: 'カルーセル',
   clearEntry: 'クリア',
+  createOption: value => `「${value}」を作成`,
   close: '閉じる',
   copied: 'コピーしました',
   copy: 'コピー',
   currentValue: '現在の値',
+  decrement: '減らす',
   dropFileHere: 'Drop file here or click to browse',
   dropFilesHere: 'Drop files here or click to browse',
   error: 'エラー',
   goToSlide: (slide, count) => `${count} 枚中 ${slide} 枚のスライドに移動`,
   hidePassword: 'パスワードを隠す',
+  increment: '増やす',
   loading: '読み込み中',
   nextSlide: '次のスライド',
   numOptionsSelected: num => {

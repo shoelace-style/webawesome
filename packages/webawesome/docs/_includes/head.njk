@@ -1,12 +1,12 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="{{ description }}">
-{% if noindex or unlisted %}<meta name="robots" content="noindex">{% endif %}
+{% if noindex %}<meta name="robots" content="noindex">{% endif %}
 
 <title>{{ pageTitle }}</title>
 
-{# Skip OG tags for unlisted/noindex pages to prevent social sharing #}
-{% if not (noindex or unlisted) %}
+{# Skip OG tags for noindex pages to prevent social sharing #}
+{% if not noindex %}
   <meta property="og:type" content="{{ ogType }}" />
   <meta property="og:url" content="{{ ogUrl }}" />
   <meta property="og:title" content="{{ ogTitle }}" />
@@ -40,12 +40,23 @@
 <script type="module">
   document.addEventListener('wa-discovery-complete', loadLayout)
   function loadLayout () {
-    if (!customElements.get('wa-page')) {
-      import('https://early.webawesome.com/webawesome@3.0.0-beta.6/dist/components/page/page.js')
-        .catch((e) => {
-          // known errors with dual registration. This is only a thing in the free repo.
-        })
-    }
+    const proComponents = [
+      "combobox",
+      "page"
+    ]
+
+    const kitCode = "f4ea8aaaeb9d4f12"
+
+    // This is really hacky and only for running the free repo locally. Its not perfect, but its better than nothing.
+    // This will break singletons, and cause things to load twice
+    proComponents.forEach((tagName) => {
+      if (!customElements.get("wa-" + tagName)) {
+        import(`https://ka-p.webawesome.com/kit/${kitCode}/webawesome@{{ package.version }}/components/${tagName}/${tagName}.js`)
+          .catch((e) => {
+            // known errors with dual registration. This is only a thing in the free repo.
+          })
+      }
+    })
   }
 </script>
 

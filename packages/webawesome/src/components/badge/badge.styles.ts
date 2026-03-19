@@ -9,9 +9,10 @@ export default css`
     justify-content: center;
     padding: 0.375em 0.625em;
     color: var(--wa-color-on-loud, var(--wa-color-brand-on-loud));
-    font-size: max(var(--wa-font-size-2xs), 0.75em);
+    font-size: max(var(--wa-font-size-3xs), 0.75em);
     font-weight: var(--wa-font-weight-semibold);
     line-height: 1;
+    vertical-align: middle;
     white-space: nowrap;
     background-color: var(--wa-color-fill-loud, var(--wa-color-brand-fill-loud));
     border-color: transparent;
@@ -99,10 +100,12 @@ export default css`
     }
   }
 
-  ::slotted(wa-icon) {
-    margin-inline-end: var(--wa-space-2xs, 0.25em);
-    opacity: 90%;
-    line-height: 1;
-    height: 0.85em;
+  /* Slots */
+  slot[name='start']::slotted(*) {
+    margin-inline-end: 0.375em;
+  }
+
+  slot[name='end']::slotted(*) {
+    margin-inline-start: 0.375em;
   }
 `;

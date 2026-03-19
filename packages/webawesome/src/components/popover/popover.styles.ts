@@ -7,9 +7,6 @@ export default css`
     --show-duration: 100ms;
     --hide-duration: 100ms;
 
-    /* Internal calculated properties */
-    --arrow-diagonal-size: calc((var(--arrow-size) * sin(45deg)));
-
     display: contents;
 
     /** Defaults for inherited CSS properties */
@@ -45,6 +42,7 @@ export default css`
   /* The <wa-popup> element */
   .popover {
     --arrow-size: inherit;
+    --popup-border-width: var(--wa-panel-border-width);
     --show-duration: inherit;
     --hide-duration: inherit;
 

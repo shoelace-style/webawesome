@@ -4,8 +4,6 @@ description: Tips for using Web Awesome in your React app.
 layout: page-outline
 ---
 
-# React
-
 Web Awesome offers a React version of every component to provide an idiomatic experience for React users. You can easily toggle between HTML and React examples throughout the documentation.
 
 ## Installation
@@ -128,7 +126,7 @@ Testing with web components can be challenging if your test environment runs in 
 
 Here are some tips that will help smooth things over if you're having trouble with Jest + Web Awesome.
 
-:::tip
+:::info
 If you're looking for a fast, modern testing alternative, consider [Web Test Runner](https://modern-web.dev/docs/test-runner/overview/).
 :::
 
@@ -188,6 +186,6 @@ These instructions are for apps created via Create React App. If you're using Je
 
 For more details, refer to Jest's [`transformIgnorePatterns` customization](https://jestjs.io/docs/tutorial-react-native#transformignorepatterns-customization) documentation.
 
-:::tip
-Are you using Web Awesome with React? [Help us improve this page!](https://github.com/shoelace-style/webawesome/blob/next/docs/frameworks/react.md)
+:::info
+Are you using Web Awesome with React? [Help us improve this page!](https://github.com/shoelace-style/webawesome/blob/next/packages/webawesome/docs/docs/frameworks/react.md)
 :::

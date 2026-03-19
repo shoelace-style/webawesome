@@ -8,15 +8,18 @@ const translation: Translation = {
 
   carousel: 'كاروسيل',
   clearEntry: 'حذف الخيارات',
+  createOption: value => `إنشاء "${value}"`,
   close: 'اغلاق',
   copied: 'تم النسخ',
   copy: 'نسخ',
   currentValue: 'القيمة الحالية',
+  decrement: 'إنقاص',
   dropFileHere: 'أسقط الملف هنا أو انقر للتصفح',
   dropFilesHere: 'أسقط الملفات هنا أو انقر للتصفح',
   error: 'خطأ',
   goToSlide: (slide, count) => `عرض شريحة رقم ${slide} من ${count}`,
   hidePassword: 'اخفاء كلمة المرور',
+  increment: 'زيادة',
   loading: 'جاري التحميل',
   nextSlide: 'الشريحة التالية',
   numOptionsSelected: num => {

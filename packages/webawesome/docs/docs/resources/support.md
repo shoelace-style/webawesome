@@ -4,14 +4,20 @@ description: Web Awesome has a growing community of designers and developers tha
 layout: page
 ---
 
-  <p>We know people have their own way of reaching out, so our team makes sure you can find us wherever you need — whether it’s filing an issue on GitHub, chatting with the community on Discord, or getting private help via email. If you’re just getting started, don’t miss our <a href="/docs/">Instillation Guide</a>.</p>
+<style>
+  h2.anchor-heading wa-icon {
+    margin-inline-end: var(--wa-space-xs);
+  }
+</style>
+
+<p>We know people have their own way of reaching out, so our team makes sure you can find us wherever you need — whether it’s filing an issue on GitHub, chatting with the community on Discord, or getting private help via email. If you’re just getting started, don’t miss our <a href="/docs/">Instillation Guide</a>.</p>
 
 <wa-divider></wa-divider>
 
 <div class="wa-stack wa-gap-xl">
 <div class="wa-stack wa-align-items-start">
   <div class="wa-stack wa-gap-s">
-    <h2 class="anchor-heading wa-cluster wa-gap-xs" data-no-anchor><wa-icon name="github" family="brands" style="font-size: 2ch;"></wa-icon>GitHub</h2>
+    <h2 class="anchor-heading"><wa-icon name="github" family="brands"></wa-icon>GitHub</h2>
     <span class="wa-heading-m">Feature requests & bugs</span>
     <p class="wa-caption-l">Notice a bug or have an idea? Open an issue on GitHub so we can triage, track, and ship fixes.</p>
   </div>
@@ -21,10 +27,12 @@ layout: page
     <li>Vote on issues others have filed to help us prioritize.</li>
   </ul>
   <div class="wa-cluster wa-gap-s">
-    <wa-button href="https://github.com/shoelace-style/webawesome/discussions/categories/ideas-suggestions" appearance="filled">
+    <wa-button appearance="filled" href="https://github.com/shoelace-style/webawesome/discussions/categories/ideas-suggestions">
+      <wa-icon slot="start" variant="regular" name="lightbulb-on"></wa-icon>
       Request a Feature
     </wa-button>
     <wa-button href="https://github.com/shoelace-style/webawesome/issues" appearance="outlined">
+      <wa-icon slot="start" variant="regular" name="bug"></wa-icon>
       Report a Bug
     </wa-button>
   </div>  
@@ -32,7 +40,7 @@ layout: page
 <wa-divider></wa-divider>
 <div class="wa-stack wa-align-items-start">
   <div class="wa-stack wa-gap-s">
-    <h2 class="anchor-heading wa-cluster wa-gap-xs" data-no-anchor><wa-icon name="discord" family="brands" style="font-size: 2ch;"></wa-icon>Discord</h2>
+    <h2 class="anchor-heading"><wa-icon name="discord" family="brands"></wa-icon>Discord</h2>
     <span class="wa-heading-m">Community & Discussion</span>
     <p class="wa-caption-l">Ask questions, share tips, and connect with other developers in real time.</p>
   </div>
@@ -42,14 +50,15 @@ layout: page
     <li>Show the community what you're working on</li>
     <li>Chat live with other designers, developers, and Web Awesome supporters.</li>
   </ul>
-  <wa-button href="https://discord.com/invite/mg8f26C" appearance="filled">
+  <wa-button appearance="filled" href="https://discord.com/invite/mg8f26C">
+    <wa-icon slot="start" name="discord" family="brands"></wa-icon>
     Join Discord
   </wa-button>
 </div>
 <wa-divider></wa-divider>
 <div class="wa-stack wa-align-items-start">
   <div class="wa-stack wa-gap-s">
-    <h2 class="anchor-heading wa-cluster wa-gap-xs" data-no-anchor><wa-icon name="envelope" style="font-size: 2ch;"></wa-icon>Email</h2>
+    <h2 class="anchor-heading"><wa-icon name="envelope" variant="regular"></wa-icon>Email</h2>
     <span class="wa-heading-m">Anything Else</span>
     <p class="wa-caption-l">Billing questions, account access, or sensitive issues—reach our support team directly.</p>
   </div>
@@ -58,7 +67,8 @@ layout: page
     <li>Billing or subscription questions.</li>
     <li>Private matters you don’t want to post publicly.</li>
   </ul>
-  <wa-button href="mailto:help@webawesome.com" appearance="filled">
+  <wa-button appearance="filled" href="mailto:help@webawesome.com">
+    <wa-icon slot="start" name="envelope" variant="regular"></wa-icon>
     Get Help via Email
   </wa-button>
 </div>
@@ -66,7 +76,7 @@ layout: page
 </div>
 <div class="wa-stack" style="margin-block-start: var(--wa-space-xl);">
   <div class="wa-stack wa-gap-s">
-    <h2 data-no-anchor>Socials</h2>
+    <h2>Socials</h2>
     <p>We’re everywhere you are — follow us on your favorite social media platforms for the latest news and updates.</p>
   </div>
 <div class="wa-cluster wa-caption-2xl">

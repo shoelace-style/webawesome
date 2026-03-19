@@ -1,6 +1,7 @@
 import type { PropertyValues } from 'lit';
 import { html } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
+import { styleMap } from 'lit/directives/style-map.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import { LocalizeController } from '../../utilities/localize.js';
 import styles from './progress-ring.styles.js';
@@ -69,11 +70,15 @@ export default class WaProgressRing extends WebAwesomeElement {
         aria-valuemin="0"
         aria-valuemax="100"
         aria-valuenow="${this.value}"
-        style="--percentage: ${this.value / 100}"
+        style=${styleMap({ '--percentage': this.value / 100 })}
       >
         <svg class="image">
           <circle part="track" class="track"></circle>
-          <circle part="indicator" class="indicator" style="stroke-dashoffset: ${this.indicatorOffset}"></circle>
+          <circle
+            part="indicator"
+            class="indicator"
+            style=${styleMap({ 'stroke-dashoffset': this.indicatorOffset })}
+          ></circle>
         </svg>
 
         <slot id="label" part="label" class="label"></slot>

@@ -20,6 +20,51 @@ let resultSelected = false;
 const trackModule = res[2];
 const trackEvent = trackModule?.trackEvent || window.trackEvent || (() => {});
 
+const iconByPrefix = [
+  ['/license', 'file-contract'],
+  ['/tos', 'file-contract'],
+  ['/privacy', 'file-contract'],
+  ['/refunds', 'file-contract'],
+  ['/dpa', 'file-contract'],
+  ['/docs/color-palettes', 'palette'],
+  ['/docs/themes', 'palette'],
+  ['/docs/layout', 'ruler-combined'],
+  ['/docs/utilities/align-items', 'ruler-combined'],
+  ['/docs/utilities/justify-content', 'ruler-combined'],
+  ['/docs/utilities/flex-wrap', 'ruler-combined'],
+  ['/docs/utilities/gap', 'ruler-combined'],
+  ['/docs/utilities/cluster', 'ruler-combined'],
+  ['/docs/utilities/flank', 'ruler-combined'],
+  ['/docs/utilities/frame', 'ruler-combined'],
+  ['/docs/utilities/grid', 'ruler-combined'],
+  ['/docs/utilities/split', 'ruler-combined'],
+  ['/docs/utilities/stack', 'ruler-combined'],
+  ['/docs/utilities/native', 'code'],
+  ['/docs/utilities', 'brush'],
+  ['/docs/usage', 'rocket-launch'],
+  ['/docs/customizing', 'rocket-launch'],
+  ['/docs/form-controls', 'rocket-launch'],
+  ['/docs/localization', 'rocket-launch'],
+  ['/docs/components/chart', 'chart-area'],
+  ['/docs/components/bar-chart', 'chart-area'],
+  ['/docs/components/line-chart', 'chart-area'],
+  ['/docs/components/bubble-chart', 'chart-area'],
+  ['/docs/components/doughnut-chart', 'chart-area'],
+  ['/docs/components/pie-chart', 'chart-area'],
+  ['/docs/components/polar-area-chart', 'chart-area'],
+  ['/docs/components/radar-chart', 'chart-area'],
+  ['/docs/components/scatter-chart', 'chart-area'],
+  ['/docs/components/sparkline', 'chart-area'],
+  ['/docs/components', 'trowel-bricks'],
+  ['/docs/patterns', 'block-brick'],
+  ['/docs/patterns/layouts', 'table-layout'],
+  ['/docs/frameworks', 'puzzle'],
+  ['/docs/tokens', 'coin-front'],
+  ['/docs/resources/agent-skills', 'sparkles'],
+  ['/docs/resources/llms', 'sparkles'],
+  ['/docs/resources', 'book-spine'],
+].sort((a, b) => b[0].length - a[0].length);
+
 // We're using Turbo, so references to these elements aren't guaranteed to remain intact
 function getElements() {
   return {
@@ -115,7 +160,7 @@ async function handleClose() {
   queryTrackTimeout = null;
   dialog.removeEventListener('wa-hide', handleClose);
   if (!resultSelected) {
-    const query = input.value.trim();
+    const query = (input.value || '').trim();
     if (query.length > 0 && query !== lastTrackedQuery) {
       trackQuerySubmit(query, false);
       lastTrackedQuery = query;
@@ -325,13 +370,19 @@ async function updateResults(query = '') {
       li.setAttribute('id', `search-result-item-${match.ref}`);
       li.setAttribute('data-selected', index === 0 ? 'true' : 'false');
       if (page.url === '/') icon = 'home';
-      if (page.url.startsWith('/docs/utilities/native')) icon = 'code';
-      if (page.url.startsWith('/docs/components')) icon = 'puzzle-piece';
-      if (page.url.startsWith('/docs/theme') || page.url.startsWith('/docs/restyle')) icon = 'palette';
+      else if (page.url === '/docs') icon = 'rocket-launch';
+      else {
+        for (const [prefix, name] of iconByPrefix) {
+          if (page.url.startsWith(prefix)) {
+            icon = name;
+            break;
+          }
+        }
+      }
       a.href = page.url;
       a.innerHTML = `
         <div class="site-search-result-icon" aria-hidden="true">
-          <wa-icon name="${icon}"></wa-icon>
+          <wa-icon name="${icon}" variant="regular"></wa-icon>
         </div>
         <div class="site-search-result-details">
           <div class="site-search-result-title"></div>

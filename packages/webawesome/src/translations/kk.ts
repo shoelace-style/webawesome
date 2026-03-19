@@ -8,15 +8,18 @@ const translation: Translation = {
 
   carousel: 'Карусель',
   clearEntry: 'Жазбаны жою',
+  createOption: value => `"${value}" жасау`,
   close: 'Жабу',
   copied: 'Көшірілді',
   copy: 'Көшіру',
   currentValue: 'Қазіргі мән',
+  decrement: 'Азайту',
   dropFileHere: 'Drop file here or click to browse',
   dropFilesHere: 'Drop files here or click to browse',
   error: 'Қате',
   goToSlide: (slide, count) => `${slide}/${count} слайдқа өту`,
   hidePassword: 'Құпиясөзді жасыру',
+  increment: 'Арттыру',
   loading: 'Жүктелуде',
   nextSlide: 'Келесі слайд',
   numOptionsSelected: num => {

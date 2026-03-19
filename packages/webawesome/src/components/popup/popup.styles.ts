@@ -4,15 +4,28 @@ export default css`
   :host {
     --arrow-color: black;
     --arrow-size: var(--wa-tooltip-arrow-size);
+    --popup-border-width: 0px;
     --show-duration: 100ms;
     --hide-duration: 100ms;
 
     /*
      * These properties are computed to account for the arrow's dimensions after being rotated 45º. The constant
-     * 0.7071 is derived from sin(45), which is the diagonal size of the arrow's container after rotating.
+     * 0.7071 is derived from sin(45) to calculate the length of the arrow after rotation.
+     *
+     * The diamond will be translated inward by --arrow-base-offset, the border thickness, to centralise it on
+     * the inner edge of the popup border. This also means we need to increase the size of the arrow by the
+     * same amount to compensate.
+     *
+     * A diamond shaped clipping mask is used to avoid overlap of popup content. This extends slightly inward so
+     * the popup border is covered with no sub-pixel rounding artifacts. The diamond corners are mitred at 22.5º
+     * to properly merge any arrow border with the popup border. The constant 1.4142 is derived from 1 + tan(22.5).
+     *
      */
-    --arrow-size-diagonal: calc(var(--arrow-size) * 0.7071);
+    --arrow-base-offset: var(--popup-border-width);
+    --arrow-size-diagonal: calc((var(--arrow-size) + var(--arrow-base-offset)) * 0.7071);
     --arrow-padding-offset: calc(var(--arrow-size-diagonal) - var(--arrow-size));
+    --arrow-size-div: calc(var(--arrow-size-diagonal) * 2);
+    --arrow-clipping-corner: calc(var(--arrow-base-offset) * 1.4142);
 
     display: contents;
   }
@@ -47,22 +60,31 @@ export default css`
 
   .arrow {
     position: absolute;
-    width: calc(var(--arrow-size-diagonal) * 2);
-    height: calc(var(--arrow-size-diagonal) * 2);
-    rotate: 45deg;
+    width: var(--arrow-size-div);
+    height: var(--arrow-size-div);
     background: var(--arrow-color);
     z-index: 3;
+    clip-path: polygon(
+      var(--arrow-clipping-corner) 100%,
+      var(--arrow-base-offset) calc(100% - var(--arrow-base-offset)),
+      calc(var(--arrow-base-offset) - 2px) calc(100% - var(--arrow-base-offset)),
+      calc(100% - var(--arrow-base-offset)) calc(var(--arrow-base-offset) - 2px),
+      calc(100% - var(--arrow-base-offset)) var(--arrow-base-offset),
+      100% var(--arrow-clipping-corner),
+      100% 100%
+    );
+    rotate: 45deg;
   }
 
-  :host([data-current-placement~='left']) .arrow {
+  :host([data-current-placement|='left']) .arrow {
     rotate: -45deg;
   }
 
-  :host([data-current-placement~='right']) .arrow {
+  :host([data-current-placement|='right']) .arrow {
     rotate: 135deg;
   }
 
-  :host([data-current-placement~='bottom']) .arrow {
+  :host([data-current-placement|='bottom']) .arrow {
     rotate: 225deg;
   }
 

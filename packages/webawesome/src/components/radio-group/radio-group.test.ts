@@ -465,6 +465,46 @@ describe('<wa-radio-group>', () => {
         //
         // expect(radioGroup.querySelector("wa-radio")?.getAttribute("aria-checked")).to.equal("true")
       });
+
+      // https://github.com/shoelace-style/webawesome/issues/1273
+      it('Should respond to attribute changes if the value has not changed', async () => {
+        const el = await fixture<WaRadioGroup>(html`
+          <wa-radio-group value="2">
+            <wa-radio value="0">0</wa-radio>
+            <wa-radio value="1">1</wa-radio>
+            <wa-radio value="2">2</wa-radio>
+            <wa-radio value="3">3</wa-radio>
+            <wa-radio value="4">4</wa-radio>
+          </wa-radio-group>
+        `);
+
+        expect(el.querySelectorAll('wa-radio')[2].checked).to.equal(true);
+        el.setAttribute('value', '4');
+        await el.updateComplete;
+        expect(el.value).to.equal('4');
+        expect(el.querySelectorAll('wa-radio')[4].checked).to.equal(true);
+      });
+
+      // https://github.com/shoelace-style/webawesome/issues/1273
+      it('Should not respond to attribute changes if the value has changed', async () => {
+        const el = await fixture<WaRadioGroup>(html`
+          <wa-radio-group value="2">
+            <wa-radio value="0">0</wa-radio>
+            <wa-radio value="1">1</wa-radio>
+            <wa-radio value="2">2</wa-radio>
+            <wa-radio value="3">3</wa-radio>
+            <wa-radio value="4">4</wa-radio>
+          </wa-radio-group>
+        `);
+        expect(el.querySelectorAll('wa-radio')[2].checked).to.equal(true);
+        el.value = 4;
+        await el.updateComplete;
+        el.setAttribute('value', '3');
+        await el.updateComplete;
+        expect(el.value).to.equal('4');
+        expect(el.defaultValue).to.equal('3');
+        expect(el.querySelectorAll('wa-radio')[4].checked).to.equal(true);
+      });
     });
   }
 });

@@ -8,15 +8,18 @@ const translation: Translation = {
 
   carousel: 'קרוסלה',
   clearEntry: 'נקה קלט',
+  createOption: value => `יצירת "${value}"`,
   close: 'סגור',
   copied: 'מוּעֲתָק',
   copy: 'העתק',
   currentValue: 'ערך נוכחי',
+  decrement: 'הקטן',
   dropFileHere: 'Drop file here or click to browse',
   dropFilesHere: 'Drop files here or click to browse',
   error: 'שְׁגִיאָה',
   goToSlide: (slide, count) => `עבור לשקופית ${slide} של ${count}`,
   hidePassword: 'הסתר סיסמא',
+  increment: 'הגדל',
   loading: 'טוען',
   nextSlide: 'השקף הבא',
   numOptionsSelected: num => {

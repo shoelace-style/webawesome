@@ -195,6 +195,7 @@
      * For larger font sizes, each size is twice 1.125x larger to maximize impact.
      * Each value uses `rem` units and is rounded to the nearest whole pixel when rendered. */
     --wa-font-size-scale: 1;
+    --wa-font-size-3xs: round(calc(var(--wa-font-size-2xs) / 1.125), 1px); /* 10px */
     --wa-font-size-2xs: round(calc(var(--wa-font-size-xs) / 1.125), 1px); /* 11px */
     --wa-font-size-xs: round(calc(var(--wa-font-size-s) / 1.125), 1px); /* 12px */
     --wa-font-size-s: round(calc(var(--wa-font-size-m) / 1.125), 1px); /* 14px */
@@ -204,6 +205,7 @@
     --wa-font-size-2xl: round(calc(var(--wa-font-size-xl) * 1.125 * 1.125), 1px); /* 32px */
     --wa-font-size-3xl: round(calc(var(--wa-font-size-2xl) * 1.125 * 1.125), 1px); /* 41px */
     --wa-font-size-4xl: round(calc(var(--wa-font-size-3xl) * 1.125 * 1.125), 1px); /* 52px */
+    --wa-font-size-5xl: round(calc(var(--wa-font-size-4xl) * 1.125 * 1.125), 1px); /* 66px */
 
     --wa-font-size-smaller: round(calc(1em / 1.125), 1px);
     --wa-font-size-larger: round(calc(1em * 1.125 * 1.125), 1px);
@@ -239,6 +241,7 @@
     --wa-space-2xl: calc(var(--wa-space-scale) * 2.5rem); /* 40px */
     --wa-space-3xl: calc(var(--wa-space-scale) * 3rem); /* 48px */
     --wa-space-4xl: calc(var(--wa-space-scale) * 4rem); /* 64px */
+    --wa-space-5xl: calc(var(--wa-space-scale) * 5rem); /* 80px */
 
     --wa-content-spacing: var(--wa-space-l);
     /* #endregion */
@@ -371,7 +374,8 @@
     button,
     input[type='button'],
     input[type='reset'],
-    input[type='submit'] {
+    input[type='submit'],
+    a.wa-button {
       --wa-color-shadow: var(--wa-color-border-normal);
       --wa-transition-slow: 0;
       --wa-transition-normal: 0;
@@ -387,7 +391,8 @@
     button,
     input[type='button'],
     input[type='reset'],
-    input[type='submit'] {
+    input[type='submit'],
+    a.wa-button {
       &:not([appearance~='plain']):not(.wa-plain) {
         &:where(:not(wa-button)),
         &::part(base) {
@@ -477,7 +482,8 @@
     button,
     input[type='button'],
     input[type='reset'],
-    input[type='submit'] {
+    input[type='submit'],
+    a.wa-button {
       &[appearance='accent'],
       &.wa-accent {
         &:where(:not(wa-button)),
@@ -495,6 +501,18 @@
             --wa-color-shadow: var(--wa-color-border-quiet);
           }
         }
+      }
+    }
+
+    /* Treat accent buttons as outlined in button groups */
+    wa-button-group[orientation='horizontal'] {
+      wa-button[appearance='accent'] {
+        margin-inline-start: var(--_button-horizontal-indent-outlined);
+      }
+    }
+    wa-button-group[orientation='vertical'] {
+      wa-button[appearance='accent'] {
+        margin-block-start: var(--_button-vertical-indent-outlined);
       }
     }
 

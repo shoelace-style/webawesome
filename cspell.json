@@ -2,6 +2,7 @@
   "version": "0.2",
   "words": [
     "activedescendant",
+    "agentskills",
     "allowfullscreen",
     "animationend",
     "Animista",
@@ -49,6 +50,7 @@
     "datetime",
     "describedby",
     "dictsort",
+    "dismissibles",
     "Docsify",
     "dogfood",
     "dropdowns",
@@ -192,6 +194,8 @@
     "slotchange",
     "smartquotes",
     "spacebar",
+    "sparkline",
+    "sparklines",
     "srcdoc",
     "stylesheet",
     "svgs",
@@ -221,6 +225,7 @@
     "unbundling",
     "Uncategorized",
     "unicons",
+    "unregisters",
     "unsanitized",
     "unsupportive",
     "valpha",
@@ -244,6 +249,8 @@
     "src/translations/!(en).ts",
     "**/*.min.js"
   ],
-  "ignoreRegExpList": ["(^|[^a-z])sl[a-z]*(^|[^a-z])"],
+  "ignoreRegExpList": [
+    "(^|[^a-z])sl[a-z]*(^|[^a-z])"
+  ],
   "useGitignore": true
 }

@@ -8,15 +8,18 @@ const translation: Translation = {
 
   carousel: 'Karusel',
   clearEntry: 'Smazat položku',
+  createOption: value => `Vytvořit "${value}"`,
   close: 'Zavřít',
   copied: 'Zkopírováno',
   copy: 'Kopírovat',
   currentValue: 'Současná hodnota',
+  decrement: 'Snížit',
   dropFileHere: 'Drop file here or click to browse',
   dropFilesHere: 'Drop files here or click to browse',
   error: 'Chyba',
   goToSlide: (slide, count) => `Přejít na slide ${slide} z ${count}`,
   hidePassword: 'Skrýt heslo',
+  increment: 'Zvýšit',
   loading: 'Nahrává se',
   nextSlide: 'Další slide',
   numOptionsSelected: num => {

@@ -8,15 +8,18 @@ const translation: Translation = {
 
   carousel: 'Vrtiljak',
   clearEntry: 'Počisti vnos',
+  createOption: value => `Ustvari "${value}"`,
   close: 'Zapri',
   copied: 'Kopirano',
   copy: 'Kopiraj',
   currentValue: 'Trenutna vrednost',
+  decrement: 'Zmanjšaj',
   dropFileHere: 'Drop file here or click to browse',
   dropFilesHere: 'Drop files here or click to browse',
   error: 'Napaka',
   goToSlide: (slide, count) => `Pojdi na diapozitiv ${slide} od ${count}`,
   hidePassword: 'Skrij geslo',
+  increment: 'Povečaj',
   loading: 'Nalaganje',
   nextSlide: 'Naslednji diapozitiv',
   numOptionsSelected: num => {

@@ -2,6 +2,7 @@ import type { PropertyValues } from 'lit';
 import { html } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
+import { styleMap } from 'lit/directives/style-map.js';
 import { DraggableElement } from '../../internal/drag.js';
 import { clamp } from '../../internal/math.js';
 import { HasSlotController } from '../../internal/slot.js';
@@ -121,15 +122,17 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
   @property({ attribute: 'value', reflect: true, type: Number }) defaultValue: number =
     this.getAttribute('value') == null ? this.minValue : Number(this.getAttribute('value'));
 
-  private _value: number = this.defaultValue;
+  private _value: number | null = null;
 
   /** The current value of the slider, submitted as a name/value pair with form data. */
   get value(): number {
     if (this.valueHasChanged) {
-      return this._value;
+      const val = this._value ?? this.minValue ?? 0;
+      return clamp(val, this.min, this.max);
     }
 
-    return this._value ?? this.defaultValue;
+    const val = this._value ?? this.defaultValue;
+    return clamp(val, this.min, this.max);
   }
 
   @state()
@@ -374,7 +377,6 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
     } else {
       // Handle value for single thumb mode
       if (changedProperties.has('value')) {
-        this.value = clamp(this.value, this.min, this.max);
         this.setValue(String(this.value));
       }
     }
@@ -384,8 +386,6 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
       if (this.isRange) {
         this.minValue = clamp(this.minValue, this.min, this.max);
         this.maxValue = clamp(this.maxValue, this.min, this.max);
-      } else {
-        this.value = clamp(this.value, this.min, this.max);
       }
     }
 
@@ -422,8 +422,10 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
       this.minValue = parseFloat(this.getAttribute('min-value') ?? String(this.min));
       this.maxValue = parseFloat(this.getAttribute('max-value') ?? String(this.max));
     } else {
-      this.value = parseFloat(this.getAttribute('value') ?? String(this.min));
+      this._value = null;
+      this.defaultValue = this.defaultValue ?? parseFloat(this.getAttribute('value') ?? String(this.min));
     }
+    this.valueHasChanged = false;
     this.hasInteracted = false;
     super.formResetCallback();
   }
@@ -829,7 +831,10 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
     const markersTemplate = this.withMarkers
       ? html`
           <div id="markers" part="markers">
-            ${markers.map(marker => html`<span part="marker" class="marker" style="--position: ${marker}%"></span>`)}
+            ${markers.map(
+              marker =>
+                html`<span part="marker" class="marker" style=${styleMap({ '--position': `${marker}%` })}></span>`,
+            )}
           </div>
         `
       : '';
@@ -882,10 +887,10 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
             <div
               id="indicator"
               part="indicator"
-              style="--start: ${Math.min(minThumbPosition, maxThumbPosition)}%; --end: ${Math.max(
-                minThumbPosition,
-                maxThumbPosition,
-              )}%"
+              style=${styleMap({
+                '--start': `${Math.min(minThumbPosition, maxThumbPosition)}%`,
+                '--end': `${Math.max(minThumbPosition, maxThumbPosition)}%`,
+              })}
             ></div>
 
             ${markersTemplate}
@@ -893,7 +898,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
             <span
               id="thumb-min"
               part="thumb thumb-min"
-              style="--position: ${minThumbPosition}%"
+              style=${styleMap({ '--position': `${minThumbPosition}%` })}
               role="slider"
               aria-valuemin=${this.min}
               aria-valuenow=${this.minValue}
@@ -914,7 +919,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
             <span
               id="thumb-max"
               part="thumb thumb-max"
-              style="--position: ${maxThumbPosition}%"
+              style=${styleMap({ '--position': `${maxThumbPosition}%` })}
               role="slider"
               aria-valuemin=${this.min}
               aria-valuenow=${this.maxValue}
@@ -975,11 +980,11 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
             <div
               id="indicator"
               part="indicator"
-              style="--start: ${indicatorOffsetPosition}%; --end: ${thumbPosition}%"
+              style=${styleMap({ '--start': `${indicatorOffsetPosition}%`, '--end': `${thumbPosition}%` })}
             ></div>
 
             ${markersTemplate}
-            <span id="thumb" part="thumb" style="--position: ${thumbPosition}%"></span>
+            <span id="thumb" part="thumb" style=${styleMap({ '--position': `${thumbPosition}%` })}></span>
           </div>
 
           ${referencesTemplate} ${hint}

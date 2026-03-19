@@ -13,6 +13,91 @@ export function codeExamplesTransformer(options = {}) {
     ...options,
   };
 
+  const baseDir = process.env.BASE_DIR;
+
+  /**
+   * Return the expanded source code referenced by a `<wa-zoomable-frame>` or `<wa-include>`.
+   * Nested instances of `<wa-include>` can be replaced with the referenced source code
+   * with the `data-expand-includes` attribute.
+   * @param {HTMLElement} element
+   * @returns {string}
+   */
+  const getElementSource = element => {
+    const selectSrc = element?.hasAttribute('data-select-src');
+    const expandIncludes = element?.hasAttribute('data-expand-includes');
+    if (!selectSrc) return;
+    let src = element.getAttribute('src');
+    let source = element.getAttribute('srcdoc');
+    const isInclude = element.tagName?.toLowerCase() === 'wa-include';
+
+    if (!source && src) {
+      // For wa-include, read the source file directly
+      // For frames, normalize src for file path resolution:
+      // - Add index.html if src is a directory
+      // - Remove query string and url fragment
+      if (!isInclude) {
+        src += src.match(/\.html/) ? '' : `${src.endsWith('/') ? '' : '/'}index.html`;
+        src = src.split('?')[0].split('#')[0];
+      }
+      source = readFileSync(path.join(baseDir, src), 'utf8');
+    }
+    const selectors = element?.getAttribute('data-select-src');
+    if (selectors) {
+      const sourceNode = parse(source, { comment: true, voidTag: { closingSlash: true } });
+      if (expandIncludes) {
+        sourceNode.querySelectorAll('wa-include').forEach(e => replaceIncludeWithSource(e));
+      }
+      sourceNode.querySelectorAll(selectors).forEach((fragment, i) => {
+        // Normalize formatting:
+        // - Fix bad parse() formatting of wrapped first attributes
+        // - Reduce indentation to top-level
+        // - Collapse multiple blank lines
+        // - Trim trailing whitespace (i.e. newlines)
+        const html = fragment.outerHTML
+          .replace(/<([^\s>]+)(\s{2,})(?=[^\s>])/g, (_, tag, spaces) => `<${tag}\n${spaces.slice(1)}`)
+          .split('\n');
+        const lastLine = html[html.length - 1] || '';
+        const indent = new RegExp(`^${lastLine.match(/^\s*/)?.[0] ?? ''}`);
+        source = `${i ? source : ''}${html
+          .map(line => line.replace(indent, ''))
+          .join('\n')
+          .replace(/(\n\s*){2,}\n/g, '\n\n')}\n\n`;
+      });
+    }
+    return source.trim();
+  };
+
+  /**
+   * Recursively replace instances of `<wa-include>` with the referenced source code.
+   * @param {HTMLElement} include - The `<wa-include>` element to replace.
+   */
+  const replaceIncludeWithSource = include => {
+    const src = include.getAttribute('src');
+    if (!src) return;
+    const tab = '  ';
+    const parent = include.parentNode;
+    const parentHtml = parent.outerHTML.split('\n');
+    const parentLastLine = parentHtml[parentHtml.length - 1] || '';
+    const parentIndent = parentLastLine.match(/^\s*/)?.[0] ?? '';
+    const source = readFileSync(path.join(baseDir, src), 'utf8');
+    // Normalize formatting:
+    // - Trim trailing whitespace (i.e. newlines)
+    // - Indent to match the parent plus one additional tab
+    const sourceNode = parse(
+      source
+        .trimEnd()
+        .split('\n')
+        .map((line, i) => `${i ? `${parentIndent}${tab}` : ''}${line}`)
+        .join('\n'),
+      {
+        comment: true,
+        voidTag: { closingSlash: true },
+      },
+    );
+    include.replaceWith(sourceNode);
+    sourceNode.querySelectorAll('wa-include').forEach(e => replaceIncludeWithSource(e));
+  };
+
   return function (doc) {
     const container = doc.querySelector(options.container);
 
@@ -23,6 +108,7 @@ export function codeExamplesTransformer(options = {}) {
     // Look for external links
     container.querySelectorAll('code.example').forEach(code => {
       let pre = code.closest('pre');
+      const hasPreview = !code.classList.contains('no-preview');
       const hasButtons = !code.classList.contains('no-buttons');
       const isOpen = code.classList.contains('open') || !hasButtons;
       const noEdit = code.classList.contains('no-edit');
@@ -38,57 +124,46 @@ export function codeExamplesTransformer(options = {}) {
       // Run preview scripts as modules to prevent collisions
       const root = parse(preview, { blockTextElements: { script: true } });
       root.querySelectorAll('script').forEach(script => {
-        if (!script.type?.trim()) {
+        // Can't use script.type as its always undefined?
+        const scriptType = script.getAttribute('type')?.trim();
+
+        if (!scriptType) {
           script.setAttribute('type', 'module');
         }
       });
       preview = root.toString();
 
-      // Show the relevant code for <wa-zoomable-frame data-select-src>
-      let framePre, frameCode;
-      const frame = root.querySelector('wa-zoomable-frame');
-      if (frame?.hasAttribute('data-select-src')) {
-        let src = frame.getAttribute('src');
-        let source = frame.getAttribute('srcdoc');
-        if (!source && src) {
-          src += src.match(/\.html$/) ? '' : `${src.endsWith('/') ? '' : '/'}index.html`;
-          const baseDir = process.env.BASE_DIR;
-          source = readFileSync(`${path.join(baseDir, src)}`, 'utf8');
-        }
-        const selectors = frame?.getAttribute('data-select-src');
-        if (selectors) {
-          const sourceNode = parse(source, { comment: true, voidTag: { closingSlash: true } });
-          sourceNode.querySelectorAll(selectors).forEach((fragment, i) => {
-            // Fix parse() formatting of wrapped first attributes and reduce
-            // indentation to match the least-indented line for each fragment
-            const html = fragment.outerHTML
-              .replace(/<([^\s>]+)(\s{2,})(?=[^\s>])/g, (_, tag, spaces) => `<${tag}\n${spaces.slice(1)}`)
-              .split('\n');
-            const lastLine = html[html.length - 1] || '';
-            const indent = new RegExp(`^${lastLine.match(/^\s*/)?.[0] ?? ''}`);
-            source = `${i ? source : ''}${html.map(line => line.replace(indent, '')).join('\n')}\n\n`;
-          });
-        }
-        const highlightedCode = highlightCode(source?.trim(), 'html');
-        framePre = parse(`<pre id="code-block-${uuid}"></pre>`).firstChild;
-        frameCode = parse(`<code class="example">${highlightedCode}</code>`).firstChild;
-        framePre.appendChild(frameCode);
+      // Substitute the expanded source code for any `<wa-zoomable-frame data-select-src="...">` or `<wa-include data-select-src="...">` in the preview
+      let elementPre, elementCode;
+      const targetElement = root.querySelector('wa-zoomable-frame[data-select-src], wa-include[data-select-src]');
+      const elementSource = getElementSource(targetElement);
+      if (elementSource) {
+        const highlightedSource = highlightCode(elementSource, lang);
+        elementCode = parse(`<code class="example">${highlightedSource}</code>`).firstChild;
+        elementPre = parse(`<pre id="code-block-${uuid}"></pre>`).firstChild;
+        elementPre.appendChild(elementCode);
       }
 
-      copyCode(frameCode ?? code);
+      copyCode(elementCode ?? code);
 
       const codeExample = parse(`
           <div class="code-example ${isOpen ? 'open' : ''}">
-            <div class="code-example-preview">
-              <div>
-                ${preview}
+            ${
+              hasPreview
+                ? `
+              <div class="code-example-preview">
+                <div>
+                  ${preview}
+                </div>
+                <div class="code-example-resizer" aria-hidden="true">
+                  <wa-icon name="grip-lines-vertical"></wa-icon>
+                </div>
               </div>
-              <div class="code-example-resizer" aria-hidden="true">
-                <wa-icon name="grip-lines-vertical"></wa-icon>
-              </div>
-            </div>
+              `
+                : ''
+            }
             <div class="code-example-source" id="${id}">
-              ${framePre?.outerHTML ?? pre.outerHTML}
+              ${elementPre?.outerHTML ?? pre.outerHTML}
             </div>
             ${
               hasButtons
@@ -114,11 +189,10 @@ export function codeExamplesTransformer(options = {}) {
                         </button>
                       `
                   }
-
+                  </div>
                 `
                 : ''
             }
-            </div>
           </div>
         `);
 

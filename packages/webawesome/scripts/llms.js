@@ -3,6 +3,7 @@ import matter from 'gray-matter';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { getAllComponents } from './shared.js';
+import { getCdnDir, getDistDir, getDocsDir } from './utils.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -235,34 +236,46 @@ icon names.
 }
 
 /**
- * A CEM plugin that generates an llms.txt file following the llmstxt.org specification.
+ * Generates the llms.txt file following the llmstxt.org specification.
+ * This should be called after the CEM has been generated.
  */
-export function llmsTxtPlugin(options = {}) {
+export async function generateLlmsTxtFile(options = {}) {
   const {
-    outdir = 'dist-cdn',
-    docsDir = path.resolve(__dirname, '../docs'),
+    outdir = getCdnDir(),
+    copyTo = [getDistDir()],
+    docsDir = getDocsDir(),
+    cemPath = path.join(getCdnDir(), 'custom-elements.json'),
     baseUrl = 'https://webawesome.com',
   } = options;
 
-  return {
-    name: 'wa-llms-txt',
-    packageLinkPhase({ customElementsManifest }) {
-      const components = getAllComponents(customElementsManifest);
-      const packageData = customElementsManifest.package || {};
-      const frontMatterCache = loadAllFrontMatter(components, docsDir);
+  // Load CEM
+  if (!fs.existsSync(cemPath)) {
+    console.warn(`Warning: Custom Elements Manifest not found at ${cemPath}`);
+    return;
+  }
 
-      const llmsTxt = generateLlmsTxt({
-        components,
-        packageData,
-        frontMatterCache,
-        baseUrl,
-      });
+  const customElementsManifest = JSON.parse(fs.readFileSync(cemPath, 'utf-8'));
+  const components = getAllComponents(customElementsManifest);
+  const packageData = customElementsManifest.package || {};
+  const frontMatterCache = loadAllFrontMatter(components, docsDir);
 
-      // Write to the output directory
-      const outputPath = path.join(outdir, 'llms.txt');
-      fs.writeFileSync(outputPath, llmsTxt, 'utf-8');
-    },
-  };
+  const llmsTxt = generateLlmsTxt({
+    components,
+    packageData,
+    frontMatterCache,
+    baseUrl,
+  });
+
+  // Ensure output directory exists
+  fs.mkdirSync(outdir, { recursive: true });
+
+  // Write to the output directory
+  const outputPath = path.join(outdir, 'llms.txt');
+  fs.writeFileSync(outputPath, llmsTxt, 'utf-8');
+
+  // Copy to additional directories
+  for (const dest of copyTo) {
+    fs.mkdirSync(dest, { recursive: true });
+    fs.copyFileSync(outputPath, path.join(dest, 'llms.txt'));
+  }
 }
-
-export default llmsTxtPlugin;

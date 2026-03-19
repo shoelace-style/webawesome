@@ -1,35 +1,29 @@
-// cspell:dictionaries lorem-ipsum
 import { aTimeout, expect, waitUntil } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import sinon from 'sinon';
 import { fixtures } from '../../internal/test/fixture.js';
 import { clickOnElement } from '../../internal/test/pointer-utilities.js';
+import type WaPopover from '../popover/popover.js';
 import type WaDialog from './dialog.js';
 
 describe('<wa-dialog>', () => {
   for (const fixture of fixtures) {
     describe(`with "${fixture.type}" rendering`, () => {
       it('should be visible with the open attribute', async () => {
-        const el = await fixture<WaDialog>(html`
-          <wa-dialog open>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</wa-dialog>
-        `);
+        const el = await fixture<WaDialog>(html` <wa-dialog open>This is a dialog for testing purposes.</wa-dialog> `);
 
         expect(getComputedStyle(el).display).to.not.equal('none');
       });
 
       it('should not be visible without the open attribute', async () => {
-        const el = await fixture<WaDialog>(html`
-          <wa-dialog>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</wa-dialog>
-        `);
+        const el = await fixture<WaDialog>(html` <wa-dialog>This is a dialog for testing purposes.</wa-dialog> `);
 
         expect(getComputedStyle(el).display).to.equal('none');
       });
 
       it('should emit wa-show and wa-after-show when calling show()', async () => {
-        const el = await fixture<WaDialog>(html`
-          <wa-dialog>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</wa-dialog>
-        `);
+        const el = await fixture<WaDialog>(html` <wa-dialog>This is a dialog for testing purposes.</wa-dialog> `);
         const showHandler = sinon.spy();
         const afterShowHandler = sinon.spy();
 
@@ -46,9 +40,7 @@ describe('<wa-dialog>', () => {
       });
 
       it('should emit wa-hide and wa-after-hide when calling hide()', async () => {
-        const el = await fixture<WaDialog>(html`
-          <wa-dialog open>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</wa-dialog>
-        `);
+        const el = await fixture<WaDialog>(html` <wa-dialog open>This is a dialog for testing purposes.</wa-dialog> `);
         const hideHandler = sinon.spy();
         const afterHideHandler = sinon.spy();
 
@@ -65,9 +57,7 @@ describe('<wa-dialog>', () => {
       });
 
       it('should emit wa-show and wa-after-show when setting open = true', async () => {
-        const el = await fixture<WaDialog>(html`
-          <wa-dialog>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</wa-dialog>
-        `);
+        const el = await fixture<WaDialog>(html` <wa-dialog>This is a dialog for testing purposes.</wa-dialog> `);
         const showHandler = sinon.spy();
         const afterShowHandler = sinon.spy();
 
@@ -84,9 +74,7 @@ describe('<wa-dialog>', () => {
       });
 
       it('should emit wa-hide and wa-after-hide when setting open = false', async () => {
-        const el = await fixture<WaDialog>(html`
-          <wa-dialog open>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</wa-dialog>
-        `);
+        const el = await fixture<WaDialog>(html` <wa-dialog open>This is a dialog for testing purposes.</wa-dialog> `);
         const hideHandler = sinon.spy();
         const afterHideHandler = sinon.spy();
 
@@ -103,9 +91,7 @@ describe('<wa-dialog>', () => {
       });
 
       it('should not close when wa-hide is prevented', async () => {
-        const el = await fixture<WaDialog>(html`
-          <wa-dialog open>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</wa-dialog>
-        `);
+        const el = await fixture<WaDialog>(html` <wa-dialog open>This is a dialog for testing purposes.</wa-dialog> `);
 
         const spy = sinon.spy();
         el.addEventListener('wa-hide', event => {
@@ -155,4 +141,36 @@ describe('<wa-dialog>', () => {
       });
     });
   }
+
+  describe('dismissible stack', () => {
+    // showModal() can cause WTR timeouts in some browsers
+    it.skip('should only close the popover when pressing Escape with a dialog open underneath', async () => {
+      const fixture = fixtures[0];
+      const el = await fixture<HTMLDivElement>(html`
+        <div>
+          <wa-dialog id="test-dialog" label="Test Dialog" open>
+            <wa-button id="popover-anchor">Open Popover</wa-button>
+            <wa-popover id="test-popover" for="popover-anchor">
+              <div style="padding: 1rem;">Popover content</div>
+            </wa-popover>
+          </wa-dialog>
+        </div>
+      `);
+
+      const dialog = el.querySelector<WaDialog>('#test-dialog')!;
+      const popover = el.querySelector<WaPopover>('#test-popover')!;
+
+      await aTimeout(200);
+
+      popover.open = true;
+      await waitUntil(() => popover.open);
+      await aTimeout(200);
+
+      await sendKeys({ press: 'Escape' });
+      await aTimeout(200);
+
+      expect(popover.open).to.be.false;
+      expect(dialog.open).to.be.true;
+    });
+  });
 });

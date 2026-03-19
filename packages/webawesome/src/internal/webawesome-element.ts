@@ -54,6 +54,16 @@ export default class WebAwesomeElement extends LitElement {
     }
   }
 
+  connectedCallback() {
+    super.connectedCallback();
+    // Helpful comment node inside the shadow root that links to the docs
+    this.shadowRoot?.prepend(
+      document.createComment(
+        ` Web Awesome: https://webawesome.com/docs/components/${this.localName.replace('wa-', '')} `,
+      ),
+    );
+  }
+
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     if (!this.#hasRecordedInitialProperties) {
       (this.constructor as typeof WebAwesomeElement).elementProperties.forEach(
@@ -114,7 +124,7 @@ export default class WebAwesomeElement extends LitElement {
   }
 
   /**
-   * Methods for setting and checking custom states.
+   * @internal Methods for setting and checking custom states.
    */
   public customStates = {
     /** Adds or removes the specified custom state. */
@@ -148,7 +158,7 @@ export default class WebAwesomeElement extends LitElement {
   };
 
   /**
-   * Given a native event, this function cancels it and dispatches it again from the host element using the desired
+   * @internal Given a native event, this function cancels it and dispatches it again from the host element using the desired
    * event options.
    */
   relayNativeEvent(event: Event, eventOptions?: EventInit) {

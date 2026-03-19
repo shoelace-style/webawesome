@@ -8,15 +8,18 @@ const translation: Translation = {
 
   carousel: 'Carosello',
   clearEntry: 'Cancella inserimento',
+  createOption: value => `Crea "${value}"`,
   close: 'Chiudi',
   copied: 'Copiato',
   copy: 'Copia',
   currentValue: 'Valore attuale',
+  decrement: 'Diminuisci',
   dropFileHere: 'Drop file here or click to browse',
   dropFilesHere: 'Drop files here or click to browse',
   error: 'Errore',
   goToSlide: (slide, count) => `Vai alla diapositiva ${slide} di ${count}`,
   hidePassword: 'Nascondi password',
+  increment: 'Aumenta',
   loading: 'In caricamento',
   nextSlide: 'Prossima diapositiva',
   numOptionsSelected: num => {

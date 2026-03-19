@@ -7,6 +7,7 @@ import { runFormControlBaseTests } from '../../internal/test/form-control-base-t
 import { clickOnElement } from '../../internal/test/pointer-utilities.js';
 import { serialize } from '../../utilities/form.js';
 import type WaOption from '../option/option.js';
+import type WaTooltip from '../tooltip/tooltip.js';
 import type WaSelect from './select.js';
 
 describe('<wa-select>', () => {
@@ -857,6 +858,47 @@ describe('<wa-select>', () => {
           const values = formData.getAll('test');
           expect(values).to.have.members(['option with spaces', 'another option']);
         });
+
+        it('should select options using the selected attribute with with-clear', async () => {
+          // Issue #1922: selected attribute was ignored when with-clear was present
+          const el = await fixture<WaSelect>(html`
+            <wa-select with-clear>
+              <wa-option value="option-1">Option 1</wa-option>
+              <wa-option value="option-2" selected>Option 2</wa-option>
+              <wa-option value="option-3">Option 3</wa-option>
+            </wa-select>
+          `);
+
+          expect(el.value).to.equal('option-2');
+          expect(el.displayInput.value).to.equal('Option 2');
+        });
+
+        it('should select options with selected attribute, with-clear, and placeholder', async () => {
+          // This is the exact combination reported in bug #1922
+          const el = await fixture<WaSelect>(html`
+            <wa-select placeholder="Placeholder" with-clear>
+              <wa-option value="option-1" selected>Option 1</wa-option>
+              <wa-option value="option-2">Option 2</wa-option>
+              <wa-option value="option-3">Option 3</wa-option>
+            </wa-select>
+          `);
+
+          expect(el.value).to.equal('option-1');
+          expect(el.displayInput.value).to.equal('Option 1');
+        });
+
+        it('should select multiple options with selected attribute and with-clear', async () => {
+          const el = await fixture<WaSelect>(html`
+            <wa-select multiple with-clear>
+              <wa-option value="option-1" selected>Option 1</wa-option>
+              <wa-option value="option-2" selected>Option 2</wa-option>
+              <wa-option value="option-3">Option 3</wa-option>
+            </wa-select>
+          `);
+
+          expect(el.value).to.have.members(['option-1', 'option-2']);
+          expect(el.value).to.have.length(2);
+        });
       });
 
       it('should allow interaction after being disabled and re-enabled', async () => {
@@ -927,4 +969,39 @@ describe('<wa-select>', () => {
       });
     });
   }
+
+  describe('dismissible stack', () => {
+    it('should only close the tooltip when pressing Escape with a select open underneath', async () => {
+      const fixture = fixtures[0];
+      const el = await fixture<HTMLDivElement>(html`
+        <div>
+          <wa-select id="test-select">
+            <wa-option value="1">Option 1</wa-option>
+            <wa-option value="2">Option 2</wa-option>
+          </wa-select>
+          <wa-tooltip id="test-tooltip" for="test-select" trigger="manual">Tooltip content</wa-tooltip>
+        </div>
+      `);
+
+      const select = el.querySelector<WaSelect>('#test-select')!;
+      const tooltip = el.querySelector<WaTooltip>('#test-tooltip')!;
+
+      // Open the select by focusing and pressing space
+      select.focus();
+      await sendKeys({ press: ' ' });
+      await waitUntil(() => select.open);
+      await aTimeout(200);
+
+      // Open tooltip programmatically (manual trigger won't steal focus)
+      tooltip.open = true;
+      await waitUntil(() => tooltip.open);
+      await aTimeout(200);
+
+      await sendKeys({ press: 'Escape' });
+      await aTimeout(200);
+
+      expect(tooltip.open).to.be.false;
+      expect(select.open).to.be.true;
+    });
+  });
 });

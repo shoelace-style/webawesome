@@ -8,15 +8,18 @@ const translation: Translation = {
 
   carousel: 'Karousel',
   clearEntry: 'Hapus entri',
+  createOption: value => `Buat "${value}"`,
   close: 'Tutup',
   copied: 'Disalin',
   copy: 'Salin',
   currentValue: 'Nilai saat ini',
+  decrement: 'Kurangi',
   dropFileHere: 'Drop file here or click to browse',
   dropFilesHere: 'Drop files here or click to browse',
   error: 'Kesalahan',
   goToSlide: (slide, count) => `Pergi ke slide ${slide} dari ${count}`,
   hidePassword: 'Sembunyikan sandi',
+  increment: 'Tambah',
   loading: 'Memuat',
   nextSlide: 'Slide berikutnya',
   numOptionsSelected: num => {

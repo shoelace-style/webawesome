@@ -37,20 +37,27 @@ export default css`
     font-family: inherit;
     font-size: inherit;
     font-weight: var(--wa-font-weight-action);
-    line-height: calc(var(--wa-form-control-height) - var(--border-width) * 2);
+    line-height: calc(var(--wa-form-control-height) - var(--wa-form-control-border-width) * 2);
     height: var(--wa-form-control-height);
     width: 100%;
 
     background-color: var(--wa-color-fill-loud, var(--wa-color-neutral-fill-loud));
     border-color: transparent;
     color: var(--wa-color-on-loud, var(--wa-color-neutral-on-loud));
-    border-radius: var(--wa-form-control-border-radius);
-    border-style: var(--wa-border-style);
-    border-width: var(--wa-border-width-s);
+    border-start-start-radius: var(--_button-start-start-radius, var(--wa-form-control-border-radius));
+    border-start-end-radius: var(--_button-start-end-radius, var(--wa-form-control-border-radius));
+    border-end-start-radius: var(--_button-end-start-radius, var(--wa-form-control-border-radius));
+    border-end-end-radius: var(--_button-end-end-radius, var(--wa-form-control-border-radius));
+    border-style: var(--wa-form-control-border-style);
+    border-width: var(--wa-form-control-border-width);
   }
 
   /* Appearance modifiers */
   :host([appearance='plain']) {
+    /* Indentation overrides for grouping */
+    margin-inline-start: var(--_button-horizontal-indent);
+    margin-block-start: var(--_button-vertical-indent);
+
     .button {
       color: var(--wa-color-on-quiet, var(--wa-color-neutral-on-quiet));
       background-color: transparent;
@@ -73,6 +80,10 @@ export default css`
   }
 
   :host([appearance='outlined']) {
+    /* Indentation overrides for grouping outlined */
+    margin-inline-start: var(--_button-horizontal-indent-outlined);
+    margin-block-start: var(--_button-vertical-indent-outlined);
+
     .button {
       color: var(--wa-color-on-quiet, var(--wa-color-neutral-on-quiet));
       background-color: transparent;
@@ -95,6 +106,10 @@ export default css`
   }
 
   :host([appearance='filled']) {
+    /* Indentation overrides for grouping */
+    margin-inline-start: var(--_button-horizontal-indent);
+    margin-block-start: var(--_button-vertical-indent);
+
     .button {
       color: var(--wa-color-on-normal, var(--wa-color-neutral-on-normal));
       background-color: var(--wa-color-fill-normal, var(--wa-color-neutral-fill-normal));
@@ -121,6 +136,10 @@ export default css`
   }
 
   :host([appearance='filled-outlined']) {
+    /* Indentation overrides for grouping outlined */
+    margin-inline-start: var(--_button-horizontal-indent-outlined);
+    margin-block-start: var(--_button-vertical-indent-outlined);
+
     .button {
       color: var(--wa-color-on-normal, var(--wa-color-neutral-on-normal));
       background-color: var(--wa-color-fill-normal, var(--wa-color-neutral-fill-normal));
@@ -147,6 +166,10 @@ export default css`
   }
 
   :host([appearance='accent']) {
+    /* Indentation overrides for grouping */
+    margin-inline-start: var(--_button-horizontal-indent);
+    margin-block-start: var(--_button-vertical-indent);
+
     .button {
       color: var(--wa-color-on-loud, var(--wa-color-neutral-on-loud));
       background-color: var(--wa-color-fill-loud, var(--wa-color-neutral-fill-loud));
@@ -181,14 +204,14 @@ export default css`
   }
 
   /* Disabled state */
-  .button.disabled {
+  :host([disabled]) {
     opacity: 0.5;
     cursor: not-allowed;
-  }
 
-  /* When disabled, prevent mouse events from bubbling up from children */
-  .button.disabled * {
-    pointer-events: none;
+    /* When disabled, prevent mouse events from bubbling up from children */
+    .button {
+      pointer-events: none;
+    }
   }
 
   /* Keep it last so Safari doesn't stop parsing this block */
@@ -209,7 +232,10 @@ export default css`
 
   /* Pill modifier */
   :host([pill]) .button {
-    border-radius: var(--wa-border-radius-pill);
+    border-start-start-radius: var(--_button-start-start-radius, var(--wa-border-radius-pill));
+    border-start-end-radius: var(--_button-start-end-radius, var(--wa-border-radius-pill));
+    border-end-start-radius: var(--_button-end-start-radius, var(--wa-border-radius-pill));
+    border-end-end-radius: var(--_button-end-end-radius, var(--wa-border-radius-pill));
   }
 
   /*
@@ -311,66 +337,5 @@ export default css`
   slot[name='end']::slotted(*),
   .button:not(.visually-hidden-label) [part='caret'] {
     margin-inline-start: 0.75em;
-  }
-
-  /*
-   * Button group border radius modifications
-   */
-
-  /* Remove border radius from all grouped buttons by default */
-  :host(.wa-button-group__button) .button {
-    border-radius: 0;
-  }
-
-  /* Horizontal orientation */
-  :host(.wa-button-group__horizontal.wa-button-group__button-first) .button {
-    border-start-start-radius: var(--wa-form-control-border-radius);
-    border-end-start-radius: var(--wa-form-control-border-radius);
-  }
-
-  :host(.wa-button-group__horizontal.wa-button-group__button-last) .button {
-    border-start-end-radius: var(--wa-form-control-border-radius);
-    border-end-end-radius: var(--wa-form-control-border-radius);
-  }
-
-  /* Vertical orientation */
-  :host(.wa-button-group__vertical) {
-    flex: 1 1 auto;
-  }
-
-  :host(.wa-button-group__vertical) .button {
-    width: 100%;
-    justify-content: start;
-  }
-
-  :host(.wa-button-group__vertical.wa-button-group__button-first) .button {
-    border-start-start-radius: var(--wa-form-control-border-radius);
-    border-start-end-radius: var(--wa-form-control-border-radius);
-  }
-
-  :host(.wa-button-group__vertical.wa-button-group__button-last) .button {
-    border-end-start-radius: var(--wa-form-control-border-radius);
-    border-end-end-radius: var(--wa-form-control-border-radius);
-  }
-
-  /* Handle pill modifier for button groups */
-  :host([pill].wa-button-group__horizontal.wa-button-group__button-first) .button {
-    border-start-start-radius: var(--wa-border-radius-pill);
-    border-end-start-radius: var(--wa-border-radius-pill);
-  }
-
-  :host([pill].wa-button-group__horizontal.wa-button-group__button-last) .button {
-    border-start-end-radius: var(--wa-border-radius-pill);
-    border-end-end-radius: var(--wa-border-radius-pill);
-  }
-
-  :host([pill].wa-button-group__vertical.wa-button-group__button-first) .button {
-    border-start-start-radius: var(--wa-border-radius-pill);
-    border-start-end-radius: var(--wa-border-radius-pill);
-  }
-
-  :host([pill].wa-button-group__vertical.wa-button-group__button-last) .button {
-    border-end-start-radius: var(--wa-border-radius-pill);
-    border-end-end-radius: var(--wa-border-radius-pill);
   }
 `;

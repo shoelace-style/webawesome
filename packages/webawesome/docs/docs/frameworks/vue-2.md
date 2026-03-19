@@ -4,11 +4,9 @@ description: Tips for using Web Awesome in your Vue 2 app.
 layout: page-outline
 ---
 
-# Vue (version 2)
-
 Vue [plays nice](https://custom-elements-everywhere.com/#vue) with custom elements, so you can use Web Awesome in your Vue apps with ease.
 
-:::tip
+:::info
 These instructions are for Vue 2. If you're using Vue 3 or above, please see the [Vue 3 instructions](/frameworks/vue).
 :::
 
@@ -68,35 +66,6 @@ One caveat is there's currently [no support for v-model on custom elements](http
 <wa-input :value="name" @input="name = $event.target.value"></wa-input>
 ```
 
-If that's too verbose for your liking, you can use a custom directive instead. [This utility](https://www.npmjs.com/package/@shoelace-style/vue-sl-model) adds a custom directive that will work just like `v-model` but for Web Awesome components. To install it, use this command.
-
-```bash
-npm install @shoelace-style/vue-sl-model@1
-```
-
-Next, import the directive and enable it like this.
-
-```js
-import Vue from 'vue';
-import Web AwesomeModelDirective from '@shoelace-style/vue-sl-model';
-import App from './App.vue';
-
-Vue.use(Web AwesomeModelDirective);
-Vue.config.ignoredElements = [/wa-/];
-
-const app = new Vue({
-  render: h => h(App)
-});
-
-app.$mount('#app');
-```
-
-Now you can use the `v-sl-model` directive to keep your data in sync!
-
-```html
-<wa-input v-sl-model="name"></wa-input>
-```
-
-:::tip
-Are you using Web Awesome with Vue 2? [Help us improve this page!](https://github.com/shoelace-style/shoelace/blob/next/docs/frameworks/vue-2.md)
+:::info
+Are you using Web Awesome with Vue 2? [Help us improve this page!](https://github.com/shoelace-style/webawesome/blob/next/packages/webawesome/docs/docs/frameworks/vue-2.md)
 :::

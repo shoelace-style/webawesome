@@ -1,6 +1,6 @@
 ---
 title: Dropdown Item
-description: Description of component.
+description: Provides items to select in a dropdown.
 layout: component
 category: Actions
 ---

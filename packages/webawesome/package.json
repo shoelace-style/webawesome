@@ -4,7 +4,7 @@
     "access": "public"
   },
   "description": "A forward-thinking library of web components.",
-  "version": "3.1.0",
+  "version": "3.3.1",
   "homepage": "https://webawesome.com/",
   "author": "Web Awesome",
   "license": "MIT",
@@ -57,7 +57,7 @@
     "url": "https://github.com/shoelace-style/webawesome/issues"
   },
   "scripts": {
-    "start": "node scripts/build.js --develop",
+    "start": "node scripts/build.js --develop --no-incremental",
     "start:alpha": "echo 'This command has been deprecated. Use: \"npm start\"\n'",
     "build": "node scripts/build.js",
     "build:serve": "npm run build && npx http-server _site -p 4000",
@@ -101,6 +101,8 @@
     "eleventy-plugin-git-commit-date": "^0.1.3",
     "esbuild": "^0.25.11",
     "gray-matter": "^4.0.3",
-    "npm-check-updates": "^19.1.2"
+    "npm-check-updates": "^19.1.2",
+    "open": "^11.0.0",
+    "turndown": "^7.2.2"
   }
 }

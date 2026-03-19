@@ -8,15 +8,18 @@ const translation: Translation = {
 
   carousel: 'Karusell',
   clearEntry: 'Tøm felt',
+  createOption: value => `Opprett "${value}"`,
   close: 'Lukk',
   copied: 'Kopiert',
   copy: 'Kopier',
   currentValue: 'Nåverande verdi',
+  decrement: 'Reduser',
   dropFileHere: 'Drop file here or click to browse',
   dropFilesHere: 'Drop files here or click to browse',
   error: 'Feil',
   goToSlide: (slide, count) => `Gå til visning ${slide} av ${count}`,
   hidePassword: 'Gøym passord',
+  increment: 'Auk',
   loading: 'Lastar',
   nextSlide: 'Neste visning',
   numOptionsSelected: num => {

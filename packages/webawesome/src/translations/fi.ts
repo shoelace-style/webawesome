@@ -8,15 +8,18 @@ const translation: Translation = {
 
   carousel: 'Karuselli',
   clearEntry: 'Poista merkintä',
+  createOption: value => `Luo "${value}"`,
   close: 'Sulje',
   copied: 'Kopioitu',
   copy: 'Kopioi',
   currentValue: 'Nykyinen arvo',
+  decrement: 'Vähennä',
   dropFileHere: 'Drop file here or click to browse',
   dropFilesHere: 'Drop files here or click to browse',
   error: 'Virhe',
   goToSlide: (slide, count) => `Siirry diaan ${slide} / ${count}`,
   hidePassword: 'Piilota salasana',
+  increment: 'Lisää',
   loading: 'Ladataan',
   nextSlide: 'Seuraava dia',
   numOptionsSelected: num => {

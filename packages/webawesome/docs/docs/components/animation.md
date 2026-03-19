@@ -45,7 +45,7 @@ This example demonstrates all of the baked-in animations and easings. Animations
   <div class="controls">
     <wa-select label="Animation" value="bounce"></wa-select>
     <wa-select label="Easing" value="linear"></wa-select>
-    <wa-input label="Playback Rate" type="number" min="0" max="2" step=".25" value="1"> </wa-input>
+    <wa-input label="Playback Rate" type="number" min="0" max="2" step=".25" value="1"></wa-input>
   </div>
 </div>
 
@@ -94,6 +94,75 @@ This example demonstrates all of the baked-in animations and easings. Animations
   }
 
   .animation-sandbox .controls wa-select {
+    margin-bottom: 1rem;
+  }
+</style>
+```
+
+```html {.example}
+<div class="animation-sandbox-combobox">
+  <wa-animation name="bounce" easing="ease-in-out" duration="2000" play>
+    <div class="box"></div>
+  </wa-animation>
+
+  <div class="controls">
+    <wa-combobox label="Animation" placeholder="Select animation..."></wa-combobox>
+    <wa-combobox label="Easing" placeholder="Select easing..."></wa-combobox>
+    <wa-input label="Playback Rate" type="number" min="0" max="2" step=".25" value="1"></wa-input>
+  </div>
+</div>
+
+<script type="module">
+  import { getAnimationNames, getEasingNames } from '/dist/webawesome.js';
+
+  await customElements.whenDefined('wa-combobox');
+  await customElements.whenDefined('wa-option');
+
+  const container = document.querySelector('.animation-sandbox-combobox');
+  const animation = container.querySelector('wa-animation');
+  const animationName = container.querySelector('.controls wa-combobox:nth-child(1)');
+  const easingName = container.querySelector('.controls wa-combobox:nth-child(2)');
+  const playbackRate = container.querySelector('wa-input[type="number"]');
+  const animations = getAnimationNames();
+  const easings = getEasingNames();
+
+  animations.forEach(name => {
+    const option = document.createElement('wa-option');
+    option.value = name;
+    option.textContent = name;
+    animationName.append(option);
+  });
+
+  easings.forEach(name => {
+    const option = document.createElement('wa-option');
+    option.value = name;
+    option.textContent = name;
+    easingName.append(option);
+  });
+
+  await Promise.all([animationName.updateComplete, easingName.updateComplete]);
+
+  animationName.value = 'bounce';
+  easingName.value = 'ease-in-out';
+
+  animationName.addEventListener('change', () => (animation.name = animationName.value));
+  easingName.addEventListener('change', () => (animation.easing = easingName.value));
+  playbackRate.addEventListener('input', () => (animation.playbackRate = playbackRate.value));
+</script>
+
+<style>
+  .animation-sandbox-combobox .box {
+    width: 100px;
+    height: 100px;
+    background-color: var(--wa-color-brand-fill-loud);
+  }
+
+  .animation-sandbox-combobox .controls {
+    max-width: 300px;
+    margin-top: 2rem;
+  }
+
+  .animation-sandbox-combobox .controls wa-combobox {
     margin-bottom: 1rem;
   }
 </style>
@@ -183,7 +252,7 @@ Animations won't play until you apply the `play` attribute. You can omit it init
 ```html {.example}
 <div class="animation-form">
   <wa-animation name="rubberBand" duration="1000" iterations="1">
-    <wa-button variant="brand">Click me</wa-button>
+    <wa-button appearance="filled" variant="brand">Click me</wa-button>
   </wa-animation>
 </div>
 
