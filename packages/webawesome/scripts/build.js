@@ -22,8 +22,6 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const currentYear = new Date().getFullYear();
 const spinner = ora();
-const packageData = JSON.parse(await readFile(join(getRootDir(), 'package.json'), 'utf-8'));
-const version = packageData.version;
 let buildContexts = {
   bundledContext: {},
   unbundledContext: {},
@@ -31,9 +29,6 @@ let buildContexts = {
 
 const debugPerf = process.env.DEBUG_PERFORMANCE === '1';
 const isDeveloping = process.argv.includes('--develop');
-
-console.log(`${chalk.hex('#ef6741')('🦊 Web Awesome')} v${version}\n`);
-if (isDeveloping) spinner.info('Development mode');
 
 /**
  * @typedef {Object} BuildOptions
@@ -47,6 +42,12 @@ if (isDeveloping) spinner.info('Development mode');
  * @param {BuildOptions} [options={}]
  */
 export async function build(options = {}) {
+  // packageData and version  need to be set within the `build()` function because this file gets imported by the app, which may not have generated its bundled directory yet, so this needs to be "lazily" evaluated.
+  const packageData = JSON.parse(await readFile(join(getRootDir(), 'package.json'), 'utf-8'));
+  const version = packageData.version;
+  console.log(`${chalk.hex('#ef6741')('🦊 Web Awesome')} v${version}\n`);
+  if (isDeveloping) { spinner.info('Development mode') };
+
   if (!options.watchedSrcDirectories) {
     options.watchedSrcDirectories = ['src'];
   }
@@ -550,5 +551,6 @@ function isRunAsMain() {
 }
 
 if (isRunAsMain()) {
+
   await build();
 }
