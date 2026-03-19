@@ -452,7 +452,7 @@
     }
 
     &::details-content {
-      box-sizing: border-box;  /* Ensure contents don't overflow */
+      box-sizing: border-box; /* Ensure contents don't overflow */
     }
 
     /* Print styles */
