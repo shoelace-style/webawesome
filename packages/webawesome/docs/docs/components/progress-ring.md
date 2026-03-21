@@ -51,8 +51,8 @@ Use the default slot to show a label inside the progress ring.
 
 <br />
 
-<wa-button circle><wa-icon name="minus" variant="solid" label="Decrease"></wa-icon></wa-button>
-<wa-button circle><wa-icon name="plus" variant="solid" label="Increase"></wa-icon></wa-button>
+<wa-button appearance="filled" circle><wa-icon name="minus" variant="solid" label="Decrease"></wa-icon></wa-button>
+<wa-button appearance="filled" circle><wa-icon name="plus" variant="solid" label="Increase"></wa-icon></wa-button>
 
 <script>
   const progressRing = document.querySelector('.progress-ring-values');

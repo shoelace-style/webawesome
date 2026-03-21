@@ -14,34 +14,28 @@ To add Web Awesome to your Svelte app, install the package from npm.
 npm install @awesome.me/webawesome
 ```
 
+## Usage
+
 Next, import the Web Awesome stylesheet, import the components you need, and then start using Web Awesome!
 
 ```jsx
-// main.js or main.ts
-import '@awesome.me/webawesome/dist/styles/webawesome.css';
-import '@awesome.me/webawesome/dist/components/button/button.js';
-```
-
-## Usage
-
-### QR code generator example
-
-```jsx
-<h1>Live editing</h1>
-
-<wa-input label="Message" value={message} oninput={event => message = event.target.value}></wa-input>
-
-<wa-alert open>
-  <wa-icon slot="icon" name="info-circle"></wa-icon>
-  {message}
-</wa-alert>
-
+<!-- app.html -->
 <script>
-  import '@awesome.me/webawesome/dist/components/alert/alert.js'
+  import '@awesome.me/webawesome/dist/styles/webawesome.css';
+  import '@awesome.me/webawesome/dist/components/callout/callout.js'
   import '@awesome.me/webawesome/dist/components/input/input.js';
 
   let message = $state('')
 </script>
+
+<h1>Live editing</h1>
+
+<wa-input label="Message" value={message} oninput={event => message = event.target.value}></wa-input>
+
+<wa-callout>
+  <wa-icon slot="icon" name="info-circle"></wa-icon>
+  {message}
+</wa-callout>
 ```
 
 ### Two-way Binding

@@ -119,6 +119,7 @@ export default css`
 
   .content {
     display: block;
+    box-sizing: border-box; /* Ensure contents don't overflow */
     padding-block-start: var(--spacing);
     padding-inline: var(--spacing); /* Add horizontal padding */
     padding-block-end: var(--spacing); /* Add bottom padding */

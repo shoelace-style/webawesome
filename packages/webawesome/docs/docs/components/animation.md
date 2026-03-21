@@ -252,7 +252,7 @@ Animations won't play until you apply the `play` attribute. You can omit it init
 ```html {.example}
 <div class="animation-form">
   <wa-animation name="rubberBand" duration="1000" iterations="1">
-    <wa-button variant="brand">Click me</wa-button>
+    <wa-button appearance="filled" variant="brand">Click me</wa-button>
   </wa-animation>
 </div>
 

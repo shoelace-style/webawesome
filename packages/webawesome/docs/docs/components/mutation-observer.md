@@ -10,7 +10,7 @@ The mutation observer will report changes to the content it wraps through the `w
 ```html {.example}
 <div class="mutation-overview">
   <wa-mutation-observer attr="variant">
-    <wa-button variant="brand">Click to mutate</wa-button>
+    <wa-button appearance="filled" variant="brand">Click to mutate</wa-button>
   </wa-mutation-observer>
 
   <br />
@@ -57,7 +57,7 @@ Use the `child-list` attribute to watch for new child elements that are added or
 <div class="mutation-child-list">
   <wa-mutation-observer child-list>
     <div class="buttons">
-      <wa-button variant="brand">Add button</wa-button>
+      <wa-button appearance="filled" variant="brand">Add button</wa-button>
     </div>
   </wa-mutation-observer>
 

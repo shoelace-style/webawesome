@@ -8,9 +8,29 @@ Web Awesome follows [Semantic Versioning](https://semver.org/). Breaking changes
 
 Components with the <wa-badge variant="warning">Experimental</wa-badge> badge should not be used in production. They are made available as release candidates for development and testing purposes. As such, changes to experimental components will not be subject to semantic versioning.
 
-## Next
+## Unreleased
 
-- Updated `<zoomable-frame>` with an opt out attribute for theme syncing [pr:2165] 
+<small>TBD</small>
+
+- Added `--wa-space-5xl` design token to all themes  [issue:1606]
+- Added `wa-gap-5xl` utility class  [issue:1606]
+- Added `wa-gap-4xl` to the gap utility `:where()` selector
+- Added `--wa-font-size-3xs` and `--wa-font-size-5xl` design tokens [issue:1606]
+- Added `*-3xs` and `*-5xl` to `wa-font-size`, `wa-body`, `wa-heading`, `wa-caption`, and `wa-longform` utility classes [issue:1606]
+- Fixed a bug in `<wa-dropdown-item>` where `aria-checked` was incorrectly set on items when `type` was not `checkbox` [pr:2180]
+- Fixed `<wa-badge>` font size to use `--wa-font-size-3xs` now that the token is available [pr:2162]
+- Fixed the off-centered position of indent guides in `<wa-tree>`
+- Fixed slider styling when using the `label` slot so that it matches attribute use. [issue:2124]
+- Fixed a bug in `<wa-scroller>` that caused horizontal page overflow in Chrome when containing wide content such as tables
+- Fixed a bug in `<wa-details>` and native `<details>` that caused full-width elements to overflow the details content [issue:2137]
+- Improved `<wa-tree>` and `<wa-tree-item>` so all internal dimensions (labels, checkboxes, expand buttons, etc.) scale proportionally with `font-size`, making it easy to resize the tree [discuss:2147]
+- Improved combobox
+  - Added `allow-create` attribute to `<wa-combobox>` that lets users create new options on the fly. When typing text that doesn't match any existing option, a "Create [value]" option appears. Selecting it adds a real `<wa-option>` to the DOM. Fires a cancelable `wa-create` event for custom handling.
+  - Added `input` event dispatching to `<wa-combobox>` when the user types, matching the behavior of `<wa-input>` and native form controls
+  - Fixed a bug in `<wa-combobox>` where custom values were not committed on blur when `allow-custom-value` was set
+  - Fixed a bug in `<wa-combobox>` where clearing the input and blurring would restore the previous selection instead of clearing the value
+- [Docs]: Updated space, gap, stack, and cluster documentation for the new tokens and utilities [issue:1606]
+- [Docs]: Updated typography and text documentation for the new tokens and utilities [issue:1606]
 
 ## 3.3.1
 

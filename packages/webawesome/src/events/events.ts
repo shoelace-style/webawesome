@@ -6,6 +6,7 @@ export type { WaCancelEvent } from './cancel.js';
 export type { WaClearEvent } from './clear.js';
 export type { WaCollapseEvent } from './collapse.js';
 export type { WaCopyEvent } from './copy.js';
+export type { WaCreateEvent } from './create.js';
 export type { WaErrorEvent } from './error.js';
 export type { WaExpandEvent } from './expand.js';
 export type { WaFinishEvent } from './finish.js';

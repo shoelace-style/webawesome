@@ -2,6 +2,8 @@ import { css } from 'lit';
 
 export default css`
   :host {
+    /* Private - set by the component to control indentation depth */
+    --indent: 0px;
     --show-duration: 200ms;
     --hide-duration: 200ms;
 
@@ -16,7 +18,7 @@ export default css`
   }
 
   slot:not([name])::slotted(wa-icon) {
-    margin-inline-end: var(--wa-space-xs);
+    margin-inline-end: 0.5em;
   }
 
   .tree-item {
@@ -38,7 +40,7 @@ export default css`
   .checkbox,
   .label {
     font-family: inherit;
-    font-size: var(--wa-font-size-m);
+    font-size: inherit;
     font-weight: inherit;
   }
 
@@ -49,7 +51,7 @@ export default css`
 
   .indentation {
     display: block;
-    width: 1em;
+    width: var(--indent);
     flex-shrink: 0;
   }
 
@@ -100,7 +102,7 @@ export default css`
   .item {
     display: flex;
     align-items: center;
-    border-inline-start: solid 3px transparent;
+    border-inline-start: solid 0.1875em transparent;
   }
 
   :host([disabled]) .item {
@@ -132,7 +134,6 @@ export default css`
 
   .children {
     display: block;
-    font-size: calc(1em + var(--indent-size, var(--wa-space-m)));
   }
 
   /* Indentation lines */
@@ -145,7 +146,7 @@ export default css`
     position: absolute;
     top: var(--indent-guide-offset);
     bottom: var(--indent-guide-offset);
-    inset-inline-start: calc(1em - (var(--indent-guide-width) / 2) - 1px);
+    inset-inline-start: calc(0.1875em + var(--indent) + 1em - (var(--indent-guide-width) / 2));
     border-inline-end: var(--indent-guide-width) var(--indent-guide-style) var(--indent-guide-color);
     z-index: 1;
   }
