@@ -23,15 +23,16 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed the off-centered position of indent guides in `<wa-tree>`
 - Fixed slider styling when using the `label` slot so that it matches attribute use. [issue:2124]
 - Fixed a bug in `<wa-scroller>` that caused horizontal page overflow in Chrome when containing wide content such as tables
+- Fixed a bug in `<wa-details>` and native `<details>` that caused full-width elements to overflow the details content [issue:2137]
 - Improved `<wa-tree>` and `<wa-tree-item>` so all internal dimensions (labels, checkboxes, expand buttons, etc.) scale proportionally with `font-size`, making it easy to resize the tree [discuss:2147]
 - Improved combobox
   - Added `allow-create` attribute to `<wa-combobox>` that lets users create new options on the fly. When typing text that doesn't match any existing option, a "Create [value]" option appears. Selecting it adds a real `<wa-option>` to the DOM. Fires a cancelable `wa-create` event for custom handling.
+  - Updated `<zoomable-frame>` with an opt out attribute for theme syncing [pr:2165]
   - Added `input` event dispatching to `<wa-combobox>` when the user types, matching the behavior of `<wa-input>` and native form controls
   - Fixed a bug in `<wa-combobox>` where custom values were not committed on blur when `allow-custom-value` was set
   - Fixed a bug in `<wa-combobox>` where clearing the input and blurring would restore the previous selection instead of clearing the value
 - [Docs]: Updated space, gap, stack, and cluster documentation for the new tokens and utilities [issue:1606]
 - [Docs]: Updated typography and text documentation for the new tokens and utilities [issue:1606]
-- Updated `<zoomable-frame>` with an opt out attribute for theme syncing [pr:2165] 
 
 ## 3.3.1
 

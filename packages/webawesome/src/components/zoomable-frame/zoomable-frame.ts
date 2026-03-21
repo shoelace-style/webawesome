@@ -2,6 +2,7 @@ import type { PropertyValues } from 'lit';
 import { html } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { ColorSchemeController } from '../../internal/color-scheme-controller.js';
 import { parseSpaceDelimitedTokens } from '../../internal/parse.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import { LocalizeController } from '../../utilities/localize.js';
@@ -32,7 +33,11 @@ export default class WaZoomableFrame extends WebAwesomeElement {
 
   private readonly localize = new LocalizeController(this);
   private availableZoomLevels: number[] = [];
-  private themeObserver: MutationObserver | null = null;
+
+  constructor() {
+    super();
+    new ColorSchemeController(this, () => this.syncTheme());
+  }
 
   @query('#iframe') iframe: HTMLIFrameElement;
 
@@ -160,15 +165,8 @@ export default class WaZoomableFrame extends WebAwesomeElement {
       }
     }
 
-    if (changedProperties.has('withThemeSync')) {
-      if (this.withThemeSync) {
-        this.themeObserver?.disconnect();
-        this.themeObserver = new MutationObserver(() => this.syncTheme());
-        this.themeObserver.observe(document.documentElement, { attributeFilter: ['class'] });
-      } else {
-        this.themeObserver?.disconnect();
-        this.themeObserver = null;
-      }
+    if (changedProperties.has('withThemeSync') && this.withThemeSync) {
+      this.syncTheme(); // Apply immediately when toggled on
     }
   }
 
@@ -200,41 +198,43 @@ export default class WaZoomableFrame extends WebAwesomeElement {
     }
   }
 
-  connectedCallback() {
-    super.connectedCallback();
-    if (this.withThemeSync) {
-      this.themeObserver?.disconnect();
-      this.themeObserver = new MutationObserver(() => this.syncTheme());
-      this.themeObserver.observe(document.documentElement, { attributeFilter: ['class'] });
-    }
-  }
-
-  disconnectedCallback() {
-    super.disconnectedCallback();
-    this.themeObserver?.disconnect();
-    this.themeObserver = null;
-  }
-
   private syncTheme() {
+    if (!this.withThemeSync) return;
     try {
       const iframeRoot = this.contentDocument?.documentElement;
       if (!iframeRoot) return;
 
-      // Sync color scheme classes
-      iframeRoot.classList.toggle('wa-dark', document.documentElement.classList.contains('wa-dark'));
-      iframeRoot.classList.toggle('wa-light', document.documentElement.classList.contains('wa-light'));
+      // Walk up from host to find nearest WA theme classes
+      const prefixes = ['wa-theme-', 'wa-brand-', 'wa-palette-'];
+      const schemeCls = new Set<string>(); // wa-dark or wa-light
+      const themeCls = new Set<string>(); // wa-theme-*, etc.
+      let el: Element | null = this;
+      let schemeFound = false;
 
-      // Sync theme selector classes (wa-theme-*, wa-brand-*, wa-palette-*)
-      const themeClassPrefixes = ['wa-theme-', 'wa-brand-', 'wa-palette-'];
-      const classesToRemove = Array.from(iframeRoot.classList).filter(cls =>
-        themeClassPrefixes.some(prefix => cls.startsWith(prefix)),
-      );
-      iframeRoot.classList.remove(...classesToRemove);
+      while (el) {
+        if (!schemeFound) {
+          if (el.classList.contains('wa-dark')) {
+            schemeCls.add('wa-dark');
+            schemeFound = true;
+          } else if (el.classList.contains('wa-light')) {
+            schemeCls.add('wa-light');
+            schemeFound = true;
+          }
+        }
+        for (const cls of el.classList) {
+          if (prefixes.some(p => cls.startsWith(p))) themeCls.add(cls);
+        }
+        el = el.parentElement;
+      }
 
-      const themeClassesToAdd = Array.from(document.documentElement.classList).filter(cls =>
-        themeClassPrefixes.some(prefix => cls.startsWith(prefix)),
-      );
-      iframeRoot.classList.add(...themeClassesToAdd);
+      // Sync light/dark
+      iframeRoot.classList.toggle('wa-dark', schemeCls.has('wa-dark'));
+      iframeRoot.classList.toggle('wa-light', schemeCls.has('wa-light'));
+
+      // Sync theme/brand/palette classes
+      const toRemove = Array.from(iframeRoot.classList).filter(c => prefixes.some(p => c.startsWith(p)));
+      iframeRoot.classList.remove(...toRemove);
+      iframeRoot.classList.add(...themeCls);
     } catch {
       // Cross-origin iframe — silently ignore
     }
