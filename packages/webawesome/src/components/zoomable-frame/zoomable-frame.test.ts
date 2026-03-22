@@ -2,6 +2,13 @@ import { aTimeout, expect, fixture, waitUntil } from '@open-wc/testing';
 import { html } from 'lit';
 import type WaZoomableFrame from './zoomable-frame.js';
 
+// Waits for the iframe's srcdoc to fully load.
+// The iframe initially has an about:blank document before srcdoc is applied, so
+// we check for url === 'about:srcdoc' to ensure the srcdoc has actually loaded.
+function waitForIframe(el: WaZoomableFrame) {
+  return waitUntil(() => el.contentDocument?.URL === 'about:srcdoc' && el.contentDocument.readyState === 'complete');
+}
+
 describe('<wa-zoomable-frame>', () => {
   it('should render a component', async () => {
     const el = await fixture(html` <wa-zoomable-frame></wa-zoomable-frame> `);
@@ -19,7 +26,7 @@ describe('<wa-zoomable-frame>', () => {
       const el = await fixture<WaZoomableFrame>(html`
         <wa-zoomable-frame srcdoc="<html><body>test</body></html>"></wa-zoomable-frame>
       `);
-      await waitUntil(() => el.contentDocument?.readyState === 'complete');
+      await waitForIframe(el);
       await aTimeout(50);
       expect(el.contentDocument!.documentElement.classList.contains('wa-dark')).to.be.false;
     });
@@ -29,7 +36,11 @@ describe('<wa-zoomable-frame>', () => {
       const el = await fixture<WaZoomableFrame>(html`
         <wa-zoomable-frame with-theme-sync srcdoc="<html><body>test</body></html>"></wa-zoomable-frame>
       `);
-      await waitUntil(() => el.contentDocument?.documentElement.classList.contains('wa-dark'));
+      await waitUntil(
+        () =>
+          el.contentDocument?.URL === 'about:srcdoc' &&
+          el.contentDocument.documentElement.classList.contains('wa-dark'),
+      );
       expect(el.contentDocument!.documentElement.classList.contains('wa-dark')).to.be.true;
     });
 
@@ -37,7 +48,7 @@ describe('<wa-zoomable-frame>', () => {
       const el = await fixture<WaZoomableFrame>(html`
         <wa-zoomable-frame srcdoc="<html><body>test</body></html>"></wa-zoomable-frame>
       `);
-      await waitUntil(() => el.contentDocument?.readyState === 'complete');
+      await waitForIframe(el);
 
       document.documentElement.classList.add('wa-dark');
       await aTimeout(0);
@@ -49,7 +60,7 @@ describe('<wa-zoomable-frame>', () => {
       const el = await fixture<WaZoomableFrame>(html`
         <wa-zoomable-frame with-theme-sync srcdoc="<html><body>test</body></html>"></wa-zoomable-frame>
       `);
-      await waitUntil(() => el.contentDocument?.readyState === 'complete');
+      await waitForIframe(el);
 
       document.documentElement.classList.add('wa-dark');
       await aTimeout(0);
@@ -62,7 +73,11 @@ describe('<wa-zoomable-frame>', () => {
       const el = await fixture<WaZoomableFrame>(html`
         <wa-zoomable-frame with-theme-sync srcdoc="<html><body>test</body></html>"></wa-zoomable-frame>
       `);
-      await waitUntil(() => el.contentDocument?.documentElement.classList.contains('wa-dark'));
+      await waitUntil(
+        () =>
+          el.contentDocument?.URL === 'about:srcdoc' &&
+          el.contentDocument.documentElement.classList.contains('wa-dark'),
+      );
 
       el.withThemeSync = false;
       await el.updateComplete;
@@ -79,13 +94,13 @@ describe('<wa-zoomable-frame>', () => {
       const el = await fixture<WaZoomableFrame>(html`
         <wa-zoomable-frame srcdoc="<html><body>test</body></html>"></wa-zoomable-frame>
       `);
-      await waitUntil(() => el.contentDocument?.readyState === 'complete');
+      await waitForIframe(el);
       expect(el.contentDocument!.documentElement.classList.contains('wa-dark')).to.be.false;
 
       el.withThemeSync = true;
       await el.updateComplete;
 
-      document.documentElement.classList.add('wa-light');
+      document.documentElement.classList.replace('wa-dark', 'wa-light');
       await aTimeout(0);
 
       expect(el.contentDocument!.documentElement.classList.contains('wa-light')).to.be.true;
