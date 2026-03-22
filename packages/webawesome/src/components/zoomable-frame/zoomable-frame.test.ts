@@ -36,7 +36,11 @@ describe('<wa-zoomable-frame>', () => {
       const el = await fixture<WaZoomableFrame>(html`
         <wa-zoomable-frame with-theme-sync srcdoc="<html><body>test</body></html>"></wa-zoomable-frame>
       `);
-      await waitUntil(() => el.contentDocument?.URL === 'about:srcdoc' && el.contentDocument.documentElement.classList.contains('wa-dark'));
+      await waitUntil(
+        () =>
+          el.contentDocument?.URL === 'about:srcdoc' &&
+          el.contentDocument.documentElement.classList.contains('wa-dark'),
+      );
       expect(el.contentDocument!.documentElement.classList.contains('wa-dark')).to.be.true;
     });
 
@@ -69,7 +73,11 @@ describe('<wa-zoomable-frame>', () => {
       const el = await fixture<WaZoomableFrame>(html`
         <wa-zoomable-frame with-theme-sync srcdoc="<html><body>test</body></html>"></wa-zoomable-frame>
       `);
-      await waitUntil(() => el.contentDocument?.URL === 'about:srcdoc' && el.contentDocument.documentElement.classList.contains('wa-dark'));
+      await waitUntil(
+        () =>
+          el.contentDocument?.URL === 'about:srcdoc' &&
+          el.contentDocument.documentElement.classList.contains('wa-dark'),
+      );
 
       el.withThemeSync = false;
       await el.updateComplete;
