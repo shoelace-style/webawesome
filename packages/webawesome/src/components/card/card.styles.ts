@@ -137,7 +137,7 @@ export default css`
     margin: 0;
   }
 
-  :host([orientation='horizontal']) ::slotted([slot='actions']) {
+  :host([orientation='horizontal']) slot[name='actions']::slotted(*) {
     display: flex;
     align-items: center;
     padding: var(--spacing);
