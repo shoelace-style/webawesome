@@ -8,6 +8,7 @@ const translation: Translation = {
 
   carousel: '跑马灯',
   clearEntry: '清空',
+  createOption: value => `创建"${value}"`,
   close: '关闭',
   copied: '已复制',
   copy: '复制',

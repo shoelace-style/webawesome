@@ -451,6 +451,10 @@
       }
     }
 
+    &::details-content {
+      box-sizing: border-box; /* Ensure contents don't overflow */
+    }
+
     /* Print styles */
     @media print {
       background: none;
