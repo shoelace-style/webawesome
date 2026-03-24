@@ -32,6 +32,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
   - Fixed a bug in `<wa-combobox>` where custom values were not committed on blur when `allow-custom-value` was set
   - Fixed a bug in `<wa-combobox>` where clearing the input and blurring would restore the previous selection instead of clearing the value
   - Removed the `autocomplete` property from `<wa-combobox>` since it conflicted with the native HTML attribute
+- Fixed a bug in `<wa-number-input>` where pressing stepper buttons on a touch device would show the virtual keyboard and shift the page
 - [Docs]: Updated space, gap, stack, and cluster documentation for the new tokens and utilities [issue:1606]
 - [Docs]: Updated typography and text documentation for the new tokens and utilities [issue:1606]
 
