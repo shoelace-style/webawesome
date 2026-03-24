@@ -363,6 +363,16 @@
     --size: auto;
   }
 
+  /* set mobile-specific drawer size to ~80% of viewport width */
+  wa-page[view='mobile'] {
+    &::part(drawer) {
+      --size: var(
+        --mobile-drawer-inline-size,
+        min(100vw - var(--wa-space-xl), calc(20 * var(--wa-space-scale) * 1rem))
+      );
+    }
+  }
+
   /* drawer-based products nav */
   wa-page::part(drawer__header) {
     background-color: var(--drawer-header-bg, var(--wa-color-surface-lowered));
@@ -724,6 +734,10 @@
       --secondary-opacity: 1;
       --secondary-color: var(--wa-brand-orange);
       padding-inline: var(--wa-space-xs);
+    }
+
+    wa-button#search-trigger::part(base) {
+      justify-content: flex-start; /* align search trigger button content to start */
     }
   }
 
