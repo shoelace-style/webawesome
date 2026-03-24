@@ -131,7 +131,7 @@ export default css`
     }
   }
 
-  :host([orientation='horizontal']) ::slotted([slot='body']) {
+  :host([orientation='horizontal']) .body slot::slotted(*) {
     display: block;
     height: 100%;
     margin: 0;

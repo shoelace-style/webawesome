@@ -69,7 +69,7 @@ export default class WaCard extends WebAwesomeElement {
     if (this.orientation === 'horizontal') {
       return html`
         <slot name="media" part="media" class="media"></slot>
-        <slot part="body" class="body"></slot>
+        <div part="body" class="body"><slot></slot></div>
         <slot name="actions" part="actions" class="actions"></slot>
       `;
     }
@@ -87,7 +87,7 @@ export default class WaCard extends WebAwesomeElement {
             <slot name="header"></slot>
           </header>`}
 
-      <slot part="body" class="body"></slot>
+      <div part="body" class="body"><slot></slot></div>
       ${this.hasSlotController.test('footer-actions')
         ? html` <footer part="footer" class="footer has-actions">
             <slot name="footer"></slot>
