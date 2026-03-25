@@ -131,13 +131,13 @@ export default css`
     }
   }
 
-  :host([orientation='horizontal']) ::slotted([slot='body']) {
+  :host([orientation='horizontal']) .body slot::slotted(*) {
     display: block;
     height: 100%;
     margin: 0;
   }
 
-  :host([orientation='horizontal']) ::slotted([slot='actions']) {
+  :host([orientation='horizontal']) slot[name='actions']::slotted(*) {
     display: flex;
     align-items: center;
     padding: var(--spacing);

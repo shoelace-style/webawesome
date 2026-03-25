@@ -27,4 +27,32 @@ describe('<wa-dropdown-item>', () => {
     await clickOnElement(el);
     expect(clickHandler).to.have.been.calledOnce;
   });
+
+  it('should not have aria-checked when type is normal', async () => {
+    const el = await fixture<WaDropdownItem>(html` <wa-dropdown-item>Item</wa-dropdown-item> `);
+    await el.updateComplete;
+    expect(el.hasAttribute('aria-checked')).to.be.false;
+  });
+
+  it('should have aria-checked when type is checkbox', async () => {
+    const el = await fixture<WaDropdownItem>(html` <wa-dropdown-item type="checkbox">Item</wa-dropdown-item> `);
+    await el.updateComplete;
+    expect(el.getAttribute('aria-checked')).to.equal('false');
+  });
+
+  it('should have aria-checked="true" when type is checkbox and checked', async () => {
+    const el = await fixture<WaDropdownItem>(html` <wa-dropdown-item type="checkbox" checked>Item</wa-dropdown-item> `);
+    await el.updateComplete;
+    expect(el.getAttribute('aria-checked')).to.equal('true');
+  });
+
+  it('should remove aria-checked when type changes from checkbox to normal', async () => {
+    const el = await fixture<WaDropdownItem>(html` <wa-dropdown-item type="checkbox" checked>Item</wa-dropdown-item> `);
+    await el.updateComplete;
+    expect(el.getAttribute('aria-checked')).to.equal('true');
+
+    el.type = 'normal';
+    await el.updateComplete;
+    expect(el.hasAttribute('aria-checked')).to.be.false;
+  });
 });

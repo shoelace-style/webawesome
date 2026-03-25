@@ -1,7 +1,7 @@
 /* eslint-disable no-invalid-this */
 import { readFileSync } from 'fs';
 import { mkdir, writeFile } from 'fs/promises';
-import lunr from 'lunr';
+import MiniSearch from 'minisearch';
 import { parse } from 'node-html-parser';
 import * as path from 'path';
 import { dirname, join } from 'path';
@@ -10,8 +10,18 @@ function collapseWhitespace(string) {
   return string.replace(/\s+/g, ' ');
 }
 
+/** Strip .njk/.html and /index.njk or /index.html so search results show real URLs, not source filenames. */
+function normalizeDisplayUrl(url) {
+  if (!url || url === '/') return '/';
+  // Strip /index.njk or /index.html so path ends at parent directory (e.g. /docs/button/index.html → /docs/button)
+  let s = url.replace(/\/index\.(njk|html)$/i, '');
+  // Strip .njk or .html from last path segment (e.g. /account/login.njk → /account/login)
+  s = s.replace(/\.(njk|html)$/i, '');
+  return s || '/';
+}
+
 /**
- * Eleventy plugin to build a Lunr search index.
+ * Eleventy plugin to build a MiniSearch search index.
  */
 export function searchPlugin(options = {}) {
   options = {
@@ -60,12 +70,13 @@ export function searchPlugin(options = {}) {
         doc.querySelectorAll(selector).forEach(el => el.remove());
       });
 
+      const rawUrl = this.page.url === '/' ? '/' : this.page.url.replace(/\/$/, '');
       pagesToIndex.set(this.page.inputPath, {
         title: collapseWhitespace(options.getTitle(doc)),
         description: collapseWhitespace(options.getDescription(doc)),
         headings: options.getHeadings(doc).map(collapseWhitespace),
         content: collapseWhitespace(options.getContent(doc)),
-        url: this.page.url === '/' ? '/' : this.page.url.replace(/\/$/, ''),
+        url: normalizeDisplayUrl(rawUrl),
       });
 
       return content;
@@ -94,23 +105,21 @@ export function searchPlugin(options = {}) {
       const map = [];
 
       getCachedPages();
-      const searchIndex = lunr(function () {
-        let index = 0;
 
-        this.ref('id');
-        this.field('t', { boost: 20 });
-        this.field('h', { boost: 10 });
-        this.field('c');
-
-        for (const [_inputPath, page] of pagesToIndex) {
-          this.add({ id: index, t: page.title, h: page.headings, c: page.content });
-          map[index] = { title: page.title, description: page.description, url: page.url };
-          index++;
-        }
+      const searchIndex = new MiniSearch({
+        fields: ['t', 'h', 'c'],
+        storeFields: [],
       });
 
+      let index = 0;
+      for (const [_inputPath, page] of pagesToIndex) {
+        searchIndex.add({ id: index, t: page.title, h: page.headings, c: page.content });
+        map[index] = { title: page.title, description: page.description, url: page.url };
+        index++;
+      }
+
       await mkdir(dirname(outputFilename), { recursive: true });
-      await writeFile(outputFilename, JSON.stringify({ searchIndex, map }), 'utf-8');
+      await writeFile(outputFilename, JSON.stringify({ searchIndex: searchIndex.toJSON(), map }), 'utf-8');
       await writeFile(cachedPages, JSON.stringify({ pages: [...pagesToIndex.entries()] }, null, 2));
     });
   };

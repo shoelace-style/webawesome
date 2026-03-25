@@ -83,11 +83,6 @@ export default css`
       outline var(--wa-transition-fast);
     transition-timing-function: var(--wa-transition-easing);
 
-    :host([multiple]) .select:not(.placeholder-visible) & {
-      padding-inline-start: 0;
-      padding-block: calc(var(--wa-form-control-height) * 0.1 - var(--wa-form-control-border-width));
-    }
-
     /* Pills */
     :host([pill]) & {
       border-radius: var(--wa-border-radius-pill);
@@ -133,8 +128,18 @@ export default css`
     }
   }
 
+  /* Manage spacing when tags are present */
+  :host([multiple]) {
+    --_padding-with-tags: calc(var(--wa-form-control-height) * 0.1 - var(--wa-form-control-border-width));
+
+    & .combobox:has(.tags wa-tag) {
+      padding-block: var(--_padding-with-tags);
+      padding-inline-start: var(--_padding-with-tags);
+    }
+  }
+
   /* Visually hide the display input when multiple is enabled */
-  :host([multiple]) .select:not(.placeholder-visible) .display-input {
+  :host([multiple]) .combobox:has(.tags wa-tag) .display-input {
     position: absolute;
     z-index: -1;
     top: 0;
@@ -161,7 +166,6 @@ export default css`
     flex: 1;
     align-items: center;
     flex-wrap: wrap;
-    margin-inline-start: 0.25em;
     gap: 0.25em;
 
     &::slotted(wa-tag) {
@@ -192,8 +196,8 @@ export default css`
     margin-inline-end: var(--wa-form-control-padding-inline);
   }
 
-  :host([multiple]) .start::slotted(*) {
-    margin-inline: var(--wa-form-control-padding-inline);
+  :host([multiple]) .combobox:has(.tags wa-tag) .start::slotted(*) {
+    margin-inline-start: calc(var(--wa-form-control-padding-inline) - var(--_padding-with-tags));
   }
 
   /* Clear button */
