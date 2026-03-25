@@ -167,8 +167,18 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
   /** Controls whether and how text input is automatically capitalized as it is entered by the user. */
   @property() autocapitalize: 'off' | 'none' | 'on' | 'sentences' | 'words' | 'characters';
 
-  /** Indicates whether the browser's autocorrect feature is on or off. */
-  @property() autocorrect: 'off' | 'on';
+  /**
+   * Indicates whether the browser's autocorrect feature is on or off. When set as an attribute, use `"off"` or `"on"`.
+   * When set as a property, use `true` or `false`.
+   */
+  @property({
+    type: Boolean,
+    converter: {
+      fromAttribute: value => (!value || value === 'off' ? false : true),
+      toAttribute: value => (value ? 'on' : 'off'),
+    },
+  })
+  declare autocorrect: boolean;
 
   /**
    * Specifies what permission the browser has to provide assistance in filling out form field values. Refer to
@@ -383,7 +393,7 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
           .value=${live(this.value ?? '')}
           autocapitalize=${ifDefined(this.autocapitalize)}
           autocomplete=${ifDefined(this.autocomplete)}
-          autocorrect=${ifDefined(this.autocorrect)}
+          autocorrect=${this.autocorrect ? 'on' : 'off'}
           ?autofocus=${this.autofocus}
           spellcheck=${this.spellcheck}
           pattern=${ifDefined(this.pattern)}

@@ -98,11 +98,14 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
 
   assumeInteractionOn = ['blur', 'input'];
 
+  private cachedOptions: WaOption[] | null = null;
   private readonly hasSlotController = new HasSlotController(this, 'hint', 'label');
   private readonly localize = new LocalizeController(this);
   private selectionOrder: Map<string, number> = new Map();
   private typeToSelectString = '';
   private typeToSelectTimeout: number;
+  private slotChangePending = false;
+
   @query('.select') popup: WaPopup;
   @query('.combobox') combobox: HTMLSlotElement;
   @query('.display-input') displayInput: HTMLInputElement;
@@ -181,14 +184,17 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
       value = Array.isArray(value) ? value : [value];
     }
 
-    if (value == null) {
-      this.optionValues = new Set(null);
-    } else {
-      this.optionValues = new Set(
-        this.getAllOptions()
-          .filter(option => !option.disabled)
-          .map(option => option.value),
-      );
+    // Rebuild optionValues only when the cache has been invalidated
+    if (this.optionValues === undefined) {
+      if (value == null) {
+        this.optionValues = new Set(null);
+      } else {
+        this.optionValues = new Set(
+          this.getAllOptions()
+            .filter(option => !option.disabled)
+            .map(option => option.value),
+        );
+      }
     }
 
     // Drop values not in the DOM
@@ -290,7 +296,9 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   connectedCallback() {
     super.connectedCallback();
 
-    this.handleDefaultSlotChange();
+    // Call processSlotChange directly so initial setup is synchronous.
+    // Subsequent option additions will be batched via handleDefaultSlotChange.
+    this.processSlotChange();
 
     // Because this is a form control, it shouldn't be opened initially
     this.open = false;
@@ -299,6 +307,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   disconnectedCallback() {
     super.disconnectedCallback();
     this.removeOpenListeners();
+    this.cachedOptions = null;
   }
 
   private updateDefaultValue() {
@@ -576,12 +585,24 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
 
   /* @internal - used by options to update labels */
   public handleDefaultSlotChange() {
+    if (this.slotChangePending) return;
+    this.slotChangePending = true;
+    queueMicrotask(() => {
+      this.slotChangePending = false;
+      this.processSlotChange();
+    });
+  }
+
+  private processSlotChange() {
     if (!customElements.get('wa-option')) {
       customElements.whenDefined('wa-option').then(() => this.handleDefaultSlotChange());
     }
 
-    const allOptions = this.getAllOptions();
+    // Invalidate the options cache since slots have changed
+    this.cachedOptions = null;
     this.optionValues = undefined; // dirty the value so it gets recalculated
+
+    const allOptions = this.getAllOptions();
 
     // Update defaultValue if it hasn't been explicitly set and we have selected options
     this.updateDefaultValue();
@@ -637,10 +658,12 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
 
   // Gets an array of all `<wa-option>` elements
   private getAllOptions() {
+    if (this.cachedOptions) return this.cachedOptions;
     if (!this?.querySelectorAll) {
       return [];
     }
-    return [...this.querySelectorAll<WaOption>('wa-option')];
+    this.cachedOptions = [...this.querySelectorAll<WaOption>('wa-option')];
+    return this.cachedOptions;
   }
 
   // Gets the first `<wa-option>` element
