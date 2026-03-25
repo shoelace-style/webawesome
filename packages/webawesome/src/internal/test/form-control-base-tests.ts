@@ -403,9 +403,9 @@ function createFormControl<T extends WebAwesomeFormControl = WebAwesomeFormContr
     // https://github.com/lit/lit/issues/2246#issuecomment-1400035813
     const tag = unsafeStatic(`${tagName}`);
     const control = await fixtureFn(staticHTML`<${tag}></${tag}>`);
-    await customElements.whenDefined(tagName)
-    await control.updateComplete
-    return control
+    await customElements.whenDefined(tagName);
+    await control.updateComplete;
+    return control;
   };
 }
 
