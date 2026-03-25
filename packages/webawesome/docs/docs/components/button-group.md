@@ -7,9 +7,9 @@ category: Actions
 
 ```html {.example}
 <wa-button-group label="Alignment">
-  <wa-button>Left</wa-button>
-  <wa-button>Center</wa-button>
-  <wa-button>Right</wa-button>
+  <wa-button appearance="filled">Left</wa-button>
+  <wa-button appearance="filled">Center</wa-button>
+  <wa-button appearance="filled">Right</wa-button>
 </wa-button-group>
 ```
 
@@ -21,14 +21,14 @@ Set the `orientation` attribute to `vertical` to make a vertical button group.
 
 ```html {.example}
 <wa-button-group orientation="vertical" label="Options">
-  <wa-button>Button</wa-button>
+  <wa-button appearance="filled">Button</wa-button>
   <wa-dropdown>
-    <wa-button slot="trigger" with-caret>Dropdown</wa-button>
+    <wa-button appearance="filled" slot="trigger" with-caret>Dropdown</wa-button>
     <wa-dropdown-item>Item 1</wa-dropdown-item>
     <wa-dropdown-item>Item 2</wa-dropdown-item>
     <wa-dropdown-item>Item 3</wa-dropdown-item>
   </wa-dropdown>
-  <wa-button>Button</wa-button>
+  <wa-button appearance="filled">Button</wa-button>
 </wa-button-group>
 ```
 
@@ -38,25 +38,25 @@ Pill buttons are supported through the button's `pill` attribute.
 
 ```html {.example}
 <wa-button-group label="Alignment">
-  <wa-button size="small" pill>Left</wa-button>
-  <wa-button size="small" pill>Center</wa-button>
-  <wa-button size="small" pill>Right</wa-button>
+  <wa-button appearance="filled" size="small" pill>Left</wa-button>
+  <wa-button appearance="filled" size="small" pill>Center</wa-button>
+  <wa-button appearance="filled" size="small" pill>Right</wa-button>
 </wa-button-group>
 
 <br /><br />
 
 <wa-button-group label="Alignment">
-  <wa-button size="medium" pill>Left</wa-button>
-  <wa-button size="medium" pill>Center</wa-button>
-  <wa-button size="medium" pill>Right</wa-button>
+  <wa-button appearance="filled" size="medium" pill>Left</wa-button>
+  <wa-button appearance="filled" size="medium" pill>Center</wa-button>
+  <wa-button appearance="filled" size="medium" pill>Right</wa-button>
 </wa-button-group>
 
 <br /><br />
 
 <wa-button-group label="Alignment">
-  <wa-button size="large" pill>Left</wa-button>
-  <wa-button size="large" pill>Center</wa-button>
-  <wa-button size="large" pill>Right</wa-button>
+  <wa-button appearance="filled" size="large" pill>Left</wa-button>
+  <wa-button appearance="filled" size="large" pill>Center</wa-button>
+  <wa-button appearance="filled" size="large" pill>Right</wa-button>
 </wa-button-group>
 ```
 
@@ -66,14 +66,14 @@ Dropdowns can be placed into button groups.
 
 ```html {.example}
 <wa-button-group label="Example Button Group">
-  <wa-button>Button</wa-button>
+  <wa-button appearance="filled">Button</wa-button>
   <wa-dropdown>
-    <wa-button slot="trigger" with-caret>Dropdown</wa-button>
+    <wa-button appearance="filled" slot="trigger" with-caret>Dropdown</wa-button>
     <wa-dropdown-item>Item 1</wa-dropdown-item>
     <wa-dropdown-item>Item 2</wa-dropdown-item>
     <wa-dropdown-item>Item 3</wa-dropdown-item>
   </wa-dropdown>
-  <wa-button>Button</wa-button>
+  <wa-button appearance="filled">Button</wa-button>
 </wa-button-group>
 ```
 
@@ -83,9 +83,9 @@ Create a split button using a button and a dropdown. Use a [visually hidden](/do
 
 ```html {.example}
 <wa-button-group label="Example Button Group">
-  <wa-button variant="brand">Save</wa-button>
+  <wa-button appearance="filled" variant="brand">Save</wa-button>
   <wa-dropdown placement="bottom-end">
-    <wa-button slot="trigger" variant="brand">
+    <wa-button appearance="filled" slot="trigger" variant="brand">
       <wa-icon name="chevron-down" label="More options"></wa-icon>
     </wa-button>
     <wa-dropdown-item>Save</wa-dropdown-item>
@@ -101,9 +101,9 @@ Buttons can be wrapped in tooltips to provide more detail when the user interact
 
 ```html {.example}
 <wa-button-group label="Alignment">
-  <wa-button id="button-left">Left</wa-button>
-  <wa-button id="button-center">Center</wa-button>
-  <wa-button id="button-right">Right</wa-button>
+  <wa-button appearance="filled" id="button-left">Left</wa-button>
+  <wa-button appearance="filled" id="button-center">Center</wa-button>
+  <wa-button appearance="filled" id="button-right">Right</wa-button>
 </wa-button-group>
 
 <wa-tooltip for="button-left">I'm on the left</wa-tooltip>
@@ -118,24 +118,24 @@ Create interactive toolbars with button groups.
 ```html {.example}
 <div class="button-group-toolbar">
   <wa-button-group label="History">
-    <wa-button id="undo-button"><wa-icon name="undo" variant="solid" label="Undo"></wa-icon></wa-button>
-    <wa-button id="redo-button"><wa-icon name="redo" variant="solid" label="Redo"></wa-icon></wa-button>
+    <wa-button appearance="filled" id="undo-button"><wa-icon name="undo" variant="solid" label="Undo"></wa-icon></wa-button>
+    <wa-button appearance="filled" id="redo-button"><wa-icon name="redo" variant="solid" label="Redo"></wa-icon></wa-button>
   </wa-button-group>
 
   <wa-button-group label="Formatting">
-    <wa-button id="button-bold"><wa-icon name="bold" variant="solid" label="Bold"></wa-icon></wa-button>
-    <wa-button id="button-italic"><wa-icon name="italic" variant="solid" label="Italic"></wa-icon></wa-button>
-    <wa-button id="button-underline"><wa-icon name="underline" variant="solid" label="Underline"></wa-icon></wa-button>
+    <wa-button appearance="filled" id="button-bold"><wa-icon name="bold" variant="solid" label="Bold"></wa-icon></wa-button>
+    <wa-button appearance="filled" id="button-italic"><wa-icon name="italic" variant="solid" label="Italic"></wa-icon></wa-button>
+    <wa-button appearance="filled" id="button-underline"><wa-icon name="underline" variant="solid" label="Underline"></wa-icon></wa-button>
   </wa-button-group>
 
   <wa-button-group label="Alignment">
-    <wa-button id="button-align-left">
+    <wa-button appearance="filled" id="button-align-left">
       <wa-icon name="align-left" variant="solid" label="Align Left"></wa-icon>
     </wa-button>
-    <wa-button id="button-align-center">
+    <wa-button appearance="filled" id="button-align-center">
       <wa-icon name="align-center" variant="solid" label="Align Center"></wa-icon>
     </wa-button>
-    <wa-button id="button-align-right">
+    <wa-button appearance="filled" id="button-align-right">
       <wa-icon name="align-right" variant="solid" label="Align Right"></wa-icon>
     </wa-button>
   </wa-button-group>

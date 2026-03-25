@@ -110,7 +110,11 @@ export default class WaDropdownItem extends WebAwesomeElement {
     }
 
     if (changedProperties.has('checked')) {
-      this.setAttribute('aria-checked', this.checked ? 'true' : 'false');
+      if (this.type === 'checkbox') {
+        this.setAttribute('aria-checked', this.checked ? 'true' : 'false');
+      } else {
+        this.removeAttribute('aria-checked');
+      }
       this.customStates.set('checked', this.checked);
     }
 
@@ -123,8 +127,10 @@ export default class WaDropdownItem extends WebAwesomeElement {
     if (changedProperties.has('type')) {
       if (this.type === 'checkbox') {
         this.setAttribute('role', 'menuitemcheckbox');
+        this.setAttribute('aria-checked', this.checked ? 'true' : 'false');
       } else {
         this.setAttribute('role', 'menuitem');
+        this.removeAttribute('aria-checked');
       }
     }
 

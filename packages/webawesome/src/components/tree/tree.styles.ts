@@ -10,14 +10,8 @@ export default css`
     --indent-guide-offset: 0;
     --indent-guide-style: solid;
     --indent-guide-width: 0;
-    --indent-size: var(--wa-space-l);
+    --indent-size: 2em;
 
     display: block;
-
-    /*
-     * Tree item indentation uses the "em" unit to increment its width on each level, so setting the font size to zero
-     * here removes the indentation for all the nodes on the first level.
-     */
-    font-size: 0;
   }
 `;

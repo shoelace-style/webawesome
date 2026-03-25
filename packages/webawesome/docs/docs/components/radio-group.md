@@ -146,7 +146,7 @@ Setting the `required` attribute to make selecting an option mandatory. If a val
     <wa-radio value="3">Option 3</wa-radio>
   </wa-radio-group>
   <br />
-  <wa-button type="submit" variant="brand">Submit</wa-button>
+  <wa-button appearance="filled" type="submit" variant="brand">Submit</wa-button>
 </form>
 
 <script>
@@ -172,7 +172,7 @@ Use the `setCustomValidity()` method to set a custom validation message. This wi
     <wa-radio value="3">Choose me</wa-radio>
   </wa-radio-group>
   <br />
-  <wa-button type="submit" variant="brand">Submit</wa-button>
+  <wa-button appearance="filled" type="submit" variant="brand">Submit</wa-button>
 </form>
 
 <script>
