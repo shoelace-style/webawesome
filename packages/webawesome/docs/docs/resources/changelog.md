@@ -25,6 +25,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed a bug in `<wa-slider>` that introduced a `required` attribute which isn't valid on range elements [issue:1471]
 <small>TBD</small>
 - Fixed the `autocorrect` property type in `<wa-input>` and `<wa-combobox>` to use `boolean` instead of a string union
+- Fixed a bug in `<wa-select>` which caused it to not be clearable with initial values set [pr:2141]
 - Improved `<wa-tree>` and `<wa-tree-item>` so all internal dimensions (labels, checkboxes, expand buttons, etc.) scale proportionally with `font-size`, making it easy to resize the tree [discuss:2147]
 - Improved `<wa-combobox>`
   - Added `autocapitalize`, `autocorrect`, `enterkeyhint`, `inputmode`, and `spellcheck` properties to `<wa-combobox>` to support virtual keyboard customization
