@@ -8,6 +8,35 @@ Web Awesome follows [Semantic Versioning](https://semver.org/). Breaking changes
 
 Components with the <wa-badge variant="warning">Experimental</wa-badge> badge should not be used in production. They are made available as release candidates for development and testing purposes. As such, changes to experimental components will not be subject to semantic versioning.
 
+<wa-card class="changelog-email-signup">
+  <h1>Get Notified</h1>
+  <p>
+    We'll send you an email when new versions of Web Awesome drop. No spam.
+    No marketing nonsense. Unsubscribe any time.
+  </p>
+  <form
+    class="js-cm-form"
+    id="subForm"
+    action="https://www.createsend.com/t/subscribeerror?description="
+    method="post"
+    data-id="191722FC90141D02184CB1B62AB3DC2630DE139369AE5777A9AF397A41389E52F158F82598068910193B7DDB0516E83D9CC991AC03030DF79FF82195F2F0B7C1"
+  >
+    <label for="fieldEmail">Email </label>
+    <input
+      autocomplete="Email"
+      class="js-cm-email-input qa-input-email"
+      id="fieldEmail"
+      maxlength="200"
+      name="cm-tidujkj-tidujkj"
+      required=""
+      type="email"
+      style="margin-block-end: 1rem;"
+    >
+    <button type="submit">Notify me when new versions are released</button>
+  </form>
+</wa-card>
+<script type="text/javascript" src="https://js.createsend1.com/javascript/copypastesubscribeformlogic.js"></script>
+
 ## Unreleased
 
 <small>TBD</small>
