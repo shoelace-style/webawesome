@@ -195,7 +195,7 @@ export default class WaNumberInput extends WebAwesomeFormAssociatedElement {
     }
   }
 
-  private handleStepperClick(direction: 'up' | 'down') {
+  private handleStepperPointerUp(direction: 'up' | 'down', event: PointerEvent) {
     if (this.disabled || this.readonly) return;
 
     if (direction === 'up') {
@@ -211,10 +211,16 @@ export default class WaNumberInput extends WebAwesomeFormAssociatedElement {
     this.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
     this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
 
-    this.input.focus();
+    // Avoid focusing the input on touch to prevent the virtual keyboard from showing
+    if (event.pointerType !== 'touch') {
+      this.input.focus();
+    }
   }
 
-  private maintainFocusOnPointerDown(event: PointerEvent) {
+  private handleStepperPointerDown(event: PointerEvent) {
+    // Avoid focusing the input on touch to prevent the virtual keyboard from showing
+    if (event.pointerType === 'touch') return;
+
     event.preventDefault();
     this.input.focus();
   }
@@ -301,8 +307,8 @@ export default class WaNumberInput extends WebAwesomeFormAssociatedElement {
                 tabindex="-1"
                 aria-label=${this.localize.term('decrement')}
                 ?disabled=${this.disabled || this.readonly || this.isAtMin}
-                @pointerdown=${this.maintainFocusOnPointerDown}
-                @click=${() => this.handleStepperClick('down')}
+                @pointerdown=${this.handleStepperPointerDown}
+                @pointerup=${(event: PointerEvent) => this.handleStepperPointerUp('down', event)}
               >
                 <slot name="decrement-icon">
                   <wa-icon name="minus" library="system"></wa-icon>
@@ -349,8 +355,8 @@ export default class WaNumberInput extends WebAwesomeFormAssociatedElement {
                 tabindex="-1"
                 aria-label=${this.localize.term('increment')}
                 ?disabled=${this.disabled || this.readonly || this.isAtMax}
-                @pointerdown=${this.maintainFocusOnPointerDown}
-                @click=${() => this.handleStepperClick('up')}
+                @pointerdown=${this.handleStepperPointerDown}
+                @pointerup=${(event: PointerEvent) => this.handleStepperPointerUp('up', event)}
               >
                 <slot name="increment-icon">
                   <wa-icon name="plus" library="system"></wa-icon>

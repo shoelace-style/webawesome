@@ -2,17 +2,11 @@ import type WaSlider from '../../components/slider/slider.js';
 import type { Validator } from '../webawesome-form-associated-element.js';
 
 /**
- * Comprehensive validator for sliders that handles required, range, and step validation
+ * Comprehensive validator for sliders that handles range and step validation
  */
 export const SliderValidator = (): Validator<WaSlider> => {
-  // Create a native range input to get localized validation messages
-  const nativeRequiredRange = Object.assign(document.createElement('input'), {
-    type: 'range',
-    required: true,
-  });
-
   return {
-    observedAttributes: ['required', 'min', 'max', 'step'],
+    observedAttributes: ['min', 'max', 'step'],
     checkValidity(element) {
       const validity: ReturnType<Validator['checkValidity']> = {
         message: '',
@@ -33,14 +27,6 @@ export const SliderValidator = (): Validator<WaSlider> => {
         input.checkValidity();
         return input.validationMessage;
       };
-
-      // Check required validation first
-      if (element.required && !element.hasInteracted) {
-        validity.isValid = false;
-        validity.invalidKeys.push('valueMissing');
-        validity.message = nativeRequiredRange.validationMessage || 'Please fill out this field.';
-        return validity;
-      }
 
       // For range sliders, validate both values
       if (element.isRange) {
