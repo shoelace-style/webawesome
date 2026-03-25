@@ -8,32 +8,31 @@ Web Awesome follows [Semantic Versioning](https://semver.org/). Breaking changes
 
 Components with the <wa-badge variant="warning">Experimental</wa-badge> badge should not be used in production. They are made available as release candidates for development and testing purposes. As such, changes to experimental components will not be subject to semantic versioning.
 
-<wa-card class="changelog-email-signup">
-  <h1>Get Notified</h1>
-  <p>
-    We'll send you an email when new versions of Web Awesome drop. No spam.
-    No marketing nonsense. Unsubscribe any time.
-  </p>
-  <form
-    class="js-cm-form"
-    id="subForm"
-    action="https://www.createsend.com/t/subscribeerror?description="
-    method="post"
-    data-id="191722FC90141D02184CB1B62AB3DC2630DE139369AE5777A9AF397A41389E52F158F82598068910193B7DDB0516E83D9CC991AC03030DF79FF82195F2F0B7C1"
-  >
-    <label for="fieldEmail">Email </label>
-    <input
-      autocomplete="Email"
-      class="js-cm-email-input qa-input-email"
-      id="fieldEmail"
-      maxlength="200"
-      name="cm-tidujkj-tidujkj"
-      required=""
-      type="email"
-      style="margin-block-end: 1rem;"
+<wa-card appearance="filled" class="changelog-email-signup">
+  <div class="wa-stack">
+    <div class="wa-stack wa-gap-2xs">
+      <h2 class="wa-heading-m" data-no-anchor>Stay in the know about new Awesome!</h2>
+      <p>We'll send you an email when new versions of Web Awesome drop.</p>
+    </div>
+    <form
+      class="js-cm-form"
+      id="subForm"
+      action="https://www.createsend.com/t/subscribeerror?description="
+      method="post"
+      data-id="191722FC90141D02184CB1B62AB3DC2630DE139369AE5777A9AF397A41389E52F158F82598068910193B7DDB0516E83D9CC991AC03030DF79FF82195F2F0B7C1"
     >
-    <button type="submit">Notify me when new versions are released</button>
-  </form>
+      <div class="wa-flank:end">
+        <wa-input type="email" name="cm-tidujkj-tidujkj" class="js-cm-email-input qa-input-email wa-visually-hidden-label"  id="fieldEmail" label="Email Address" placeholder="lois.lane@dailyplanet.news" required>
+          <wa-icon name="envelope" variant="regular" slot="start"></wa-icon>
+        </wa-input>
+        <wa-button type="submit" variant="brand">
+          Email Me About Releases
+          <wa-icon name="arrow-right" variant="regular" slot="end"></wa-icon>
+        </wa-button>
+      </div>
+    </form>
+    <p class="wa-caption-s">No spam. No marketing nonsense. Unsubscribe any time.</p>
+  </div>
 </wa-card>
 <script type="text/javascript" src="https://js.createsend1.com/javascript/copypastesubscribeformlogic.js"></script>
 
