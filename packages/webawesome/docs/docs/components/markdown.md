@@ -5,9 +5,7 @@ layout: component
 category: Utilities
 ---
 
-The markdown component turns raw markdown into rendered HTML using the [Marked](https://marked.js.org/) library. Wrap your content in a `<script type="text/markdown">` element to keep the browser from interpreting it as HTML. Characters like `<`, `>`, and `&` are preserved exactly as written, so markdown features like `<https://example.com>` autolinks work correctly.
-
-Indentation is handled automatically. You can nest your markdown at any depth to match the surrounding HTML structure and the common leading whitespace will be stripped before parsing.
+The markdown component turns raw markdown into rendered HTML using the [Marked](https://marked.js.org/) library. Indentation is handled automatically. You can nest your markdown at any depth to match the surrounding HTML structure and the common leading whitespace will be stripped before parsing.
 
 ```html {.example}
 <wa-markdown>
@@ -23,17 +21,20 @@ Indentation is handled automatically. You can nest your markdown at any depth to
 </wa-markdown>
 ```
 
-Note the use of `<script type="text/markdown">` instead of `<template>` — see [why we use script](#why-use-script-instead-of-template) below.
+
+:::info
+Since content is rendered client-side, it won't be visible to search engine crawlers or available before JavaScript loads. This makes it a poor fit for SEO-critical content like landing pages and blog posts. It's best suited for prototyping, dashboards, admin panels, and other contexts where search indexing isn't a concern.
+:::
 
 :::warning
-Since content is rendered client-side, it won't be visible to search engine crawlers or available before JavaScript loads. This makes it a poor fit for SEO-critical content like landing pages and blog posts. It's best suited for prototyping, dashboards, admin panels, and other contexts where search indexing isn't a concern.
+**Do not use this component with unsanitized user input.** Markdown is parsed as-is without sanitization, so rendering untrusted content can lead to XSS vulnerabilities.
 :::
 
 ## Examples
 
 ### Providing content
 
-Markdown goes inside a `<script type="text/markdown">` element as a direct child of `<wa-markdown>`. The script element's type tells the browser not to execute or parse the contents, so your markdown passes through to the component untouched. The rendered output is placed in the light DOM where it inherits your page's styles.
+Markdown must go inside a `<script type="text/markdown">` element, which must be a direct child of the markdown component. (The script is required to prevent the browser from parsing the content.) The rendered output is placed in the light DOM where it inherits your page's styles.
 
 ```html
 <wa-markdown>
@@ -43,11 +44,7 @@ Markdown goes inside a `<script type="text/markdown">` element as a direct child
 </wa-markdown>
 ```
 
-#### Why use script instead of template?
-
-You might expect a `<template>` element to work here, but `<template>` still parses its content as HTML. That means markdown like `<https://example.com>` gets interpreted as an HTML tag and silently mangled before the component ever sees it.
-
-A `<script type="text/markdown">` element is truly inert. The browser treats the content as raw text, so every character reaches the markdown parser exactly as written.
+The [Marked](https://marked.js.org/) library is used under the hood to render markdown. Marked supports [GitHub Flavored Markdown](https://github.github.com/gfm/) (GFM) and the [CommonMark](https://commonmark.org/) specification. This includes headings, bold, italic, links, images, lists, blockquotes, code blocks, tables, task lists, strike-through, and auto-links. For a full breakdown of supported syntax, see the [Marked documentation](https://marked.js.org/#specifications).
 
 ### Whitespace normalization
 
