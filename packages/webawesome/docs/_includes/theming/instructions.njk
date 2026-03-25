@@ -190,12 +190,12 @@
 
     // Build stylesheet links
     const links = [`<link rel="stylesheet" href="/dist/styles/themes/${theme}.css" />`];
-    const imports = [`import '@awesome.me/webawesome/dist/styles/themes/${theme}.css';`];
+    const imports = [`import '@web.awesome.me/webawesome/dist/styles/themes/${theme}.css';`];
     
     // Only include palette link if it differs from theme's default
     if (palette !== themeDefaultPalette) {
       links.push(`<link rel="stylesheet" href="/dist/styles/color/palettes/${palette}.css" />`);
-      imports.push(`import '@awesome.me/webawesome/dist/styles/color/palettes/${palette}.css';`);
+      imports.push(`import '@web.awesome.me/webawesome/dist/styles/color/palettes/${palette}.css';`);
     }
     
     stylesheetLinks.textContent = links.join('\n');
@@ -271,7 +271,7 @@
     });
   }
 
-  // Set palette and brand based on theme selection
+  // Update palette, brand, and instructions when theme picker changes
   themePicker.addEventListener('input', function() {
     const selectedOption = themePicker.querySelector(`wa-option[value="${themePicker.value}"]`);
     const palette = selectedOption.getAttribute('data-palette');
@@ -283,7 +283,7 @@
     updateInstructions();
   });
 
-  // Update instructions when any picker changes
+  // Update instructions when any other picker changes
   [palettePicker, brandPicker, neutralPicker, successPicker, warningPicker, dangerPicker].forEach(picker => {
     picker.addEventListener('input', updateInstructions);
   });

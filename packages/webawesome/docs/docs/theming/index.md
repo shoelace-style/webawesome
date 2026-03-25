@@ -21,7 +21,7 @@ Both Web Awesome Free and Pro offer multiple handcrafted color palettes. [Check 
 
 {% include 'theming/color-palette-viewer.njk' %}
 
-Your color palette is determined by `class="wa-palette-{name}"` on the `<html>` element. If no class is specified, the default color palette for your chosen theme is used.
+Your color palette is determined by `class="wa-palette-{name}"` on the `<html>` element. If no class is specified, the default color palette is used.
 
 ### Variants
 `.wa-{variant}-{hue}`
@@ -140,16 +140,39 @@ Follow these best practices for supporting both light and dark mode:
 - Allow the user to override this setting in your app
 - Remember the user's preference and restore it on subsequent visits
 
-Let's assume you store the user's color scheme preference for your app in a variable called `colorScheme` (values: `auto` | `light` | `dark`). You can use the following JS snippet to apply `class="wa-dark"` to the `<html>` element accordingly:
+Let's assume you have a simple button with `id="color-scheme-button"` that toggles between light and dark mode. You can use the following JS snippet to apply `class="wa-dark"` to the `<html>` element accordingly:
 
 ```js
-const systemDark = window.matchMedia('(prefers-color-scheme: dark)');
-const applyDark = function (event = systemDark) {
-  const isDark = colorScheme === 'auto' ? event.matches : colorScheme === 'dark';
-  document.documentElement.classList.toggle('wa-dark', isDark);
-};
-systemDark.addEventListener('change', applyDark);
-applyDark();
+// Function to apply color scheme
+function applyScheme(dark) {
+  document.documentElement.classList.toggle('wa-dark', dark);
+}
+
+// Function to get the user's preferred color scheme from local storage or system preferences
+function getPreferredScheme() {
+  const savedMode = localStorage.getItem('wa-color-scheme');
+  if (savedMode !== null) return savedMode === 'dark';
+  return window.matchMedia('(prefers-color-scheme: dark)').matches;
+}
+
+// Apply the preferred color scheme on load
+applyScheme(getPreferredScheme());
+
+// Listen for changes in system preference
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (event) => {
+  // If nothing in local storage, update accordingly
+  const savedMode = localStorage.getItem('wa-color-scheme');
+  if (!savedMode) {
+    applyScheme(event.matches);
+  }
+});
+
+// Listen for clicks on the color scheme button
+document.getElementById('color-scheme-button').addEventListener('click', () => {
+  const isDark = !document.documentElement.classList.contains('wa-dark');
+  applyScheme(isDark);
+  localStorage.setItem('wa-color-scheme', isDark ? 'dark' : 'light');
+});
 ```
 
 ## Using Themes
@@ -162,4 +185,7 @@ Select your favorite options and follow the instructions for your preferred meth
 
 ## Creating Your Own
 
-TODO
+In Web Awesome Pro, you can use the Theme Builder to customize color, fonts, roundness, spacing, and the default icon library without touching a line of CSS.
+
+For tighter control, create your own stylesheet that overrides some or all design tokens.
+
