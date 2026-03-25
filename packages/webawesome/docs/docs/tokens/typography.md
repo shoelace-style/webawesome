@@ -17,7 +17,7 @@ Font families are assigned specific roles &mdash; like heading or code &mdash; t
 
 ## Font Size
 
-Font sizes use a ratio of 1.125 to scale sizes proportionally. Starting with the medium (`m`) font size, smaller sizes (`s` through `2xs`) are 1.125x smaller as the sizes decrease, and larger sizes (`l` through `4xl`) are _twice_ 1.125x larger as sizes increase — here, the ratio is doubled to maximize impact between sizes.
+Font sizes use a ratio of 1.125 to scale sizes proportionally. Starting with the medium (`m`) font size, smaller sizes (`s` through `3xs`) are 1.125x smaller as the sizes decrease, and larger sizes (`l` through `5xl`) are _twice_ 1.125x larger as sizes increase — here, the ratio is doubled to maximize impact between sizes.
 
 Each value uses `rem` units and is rounded to the nearest whole pixel when rendered with [`round()`](https://developer.mozilla.org/en-US/docs/Web/CSS/round).
 
@@ -27,6 +27,7 @@ The calculations for each size and the resulting pixel value (assuming a 16px ro
 
 | Custom Property      | Default Value                     | Preview                                                    |
 | -------------------- | --------------------------------- | ---------------------------------------------------------- |
+| `--wa-font-size-3xs` | `round(calc(var(--wa-font-size-2xs) / 1.125), 1px)` <small>(10px)</small> | <div style="font-size: var(--wa-font-size-3xs)">AaBb</div> |
 | `--wa-font-size-2xs` | `round(calc(var(--wa-font-size-xs) / 1.125), 1px)` <small>(11px)</small> | <div style="font-size: var(--wa-font-size-2xs)">AaBb</div> |
 | `--wa-font-size-xs`  | `round(calc(var(--wa-font-size-s) / 1.125), 1px)` <small>(12px)</small>   | <div style="font-size: var(--wa-font-size-xs)">AaBb</div>  |
 | `--wa-font-size-s`   | `round(calc(var(--wa-font-size-m) / 1.125), 1px)` <small>(14px)</small>  | <div style="font-size: var(--wa-font-size-s)">AaBb</div>   |
@@ -35,7 +36,12 @@ The calculations for each size and the resulting pixel value (assuming a 16px ro
 | `--wa-font-size-xl`  | `round(calc(var(--wa-font-size-l) * 1.125 * 1.125), 1px)` <small>(25px)</small>  | <div style="font-size: var(--wa-font-size-xl)">AaBb</div>  |
 | `--wa-font-size-2xl` | `round(calc(var(--wa-font-size-xl) * 1.125 * 1.125), 1px)` <small>(32px)</small>      | <div style="font-size: var(--wa-font-size-2xl)">AaBb</div> |
 | `--wa-font-size-3xl` | `round(calc(var(--wa-font-size-2xl) * 1.125 * 1.125), 1px)` <small>(41px)</small> | <div style="font-size: var(--wa-font-size-3xl)">AaBb</div> |
-| `--wa-font-size-4xl` | `round(calc(var(--wa-font-size-3xl) * 1.125 * 1.125)` <small>(52px)</small>   | <div style="font-size: var(--wa-font-size-4xl)">AaBb</div> |
+| `--wa-font-size-4xl` | `round(calc(var(--wa-font-size-3xl) * 1.125 * 1.125), 1px)` <small>(52px)</small>   | <div style="font-size: var(--wa-font-size-4xl)">AaBb</div> |
+| `--wa-font-size-5xl` | `round(calc(var(--wa-font-size-4xl) * 1.125 * 1.125), 1px)` <small>(66px)</small>   | <div style="font-size: var(--wa-font-size-5xl)">AaBb</div> |
+
+:::info
+`3xs` and `2xs` fall below typical legibility. It's best to keep their use to non-essential UI only (e.g. labels, metadata) to maintain accessibility.
+:::
 
 You can also use these two custom properties make any font size proportionally smaller or larger to its parent.
 

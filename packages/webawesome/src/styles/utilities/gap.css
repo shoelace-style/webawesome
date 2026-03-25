@@ -10,7 +10,9 @@
     .wa-gap-l,
     .wa-gap-xl,
     .wa-gap-2xl,
-    .wa-gap-3xl
+    .wa-gap-3xl,
+    .wa-gap-4xl,
+    .wa-gap-5xl
   ) {
     display: flex;
   }
@@ -47,5 +49,8 @@
   }
   .wa-gap-4xl {
     gap: var(--wa-space-4xl);
+  }
+  .wa-gap-5xl {
+    gap: var(--wa-space-5xl);
   }
 }

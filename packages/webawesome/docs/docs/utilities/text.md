@@ -17,10 +17,15 @@ tags: styleUtilities
 
 Use `wa-body-*` classes to style the main content of your pages. Each class specifies a `font-size` that corresponds to a [font size token](/docs/tokens/typography/#font-size) from your theme.
 
+:::info
+`3xs` and `2xs` fall below typical legibility. It's best to keep their use to non-essential UI only (e.g. labels, metadata) to maintain accessibility.
+:::
+
 Alternatively, use `wa-body` to apply the same styling without an explicit font size.
 
 | Class Name    | Preview                                            |
 | ------------- | -------------------------------------------------- |
+| `wa-body-3xs` | <div class="wa-body-3xs">Five boxing wizards</div> |
 | `wa-body-2xs` | <div class="wa-body-2xs">Five boxing wizards</div> |
 | `wa-body-xs`  | <div class="wa-body-xs">Five boxing wizards</div>  |
 | `wa-body-s`   | <div class="wa-body-s">Five boxing wizards</div>   |
@@ -30,6 +35,7 @@ Alternatively, use `wa-body` to apply the same styling without an explicit font 
 | `wa-body-2xl` | <div class="wa-body-2xl">Five boxing wizards</div> |
 | `wa-body-3xl` | <div class="wa-body-3xl">Five boxing wizards</div> |
 | `wa-body-4xl` | <div class="wa-body-4xl">Five boxing wizards</div> |
+| `wa-body-5xl` | <div class="wa-body-5xl">Five boxing wizards</div> |
 
 ## Headings
 
@@ -39,6 +45,7 @@ Alternatively, use `wa-heading` to apply the same styling without an explicit fo
 
 | Class Name       | Preview                                               |
 | ---------------- | ----------------------------------------------------- |
+| `wa-heading-3xs` | <div class="wa-heading-3xs">Five boxing wizards</div> |
 | `wa-heading-2xs` | <div class="wa-heading-2xs">Five boxing wizards</div> |
 | `wa-heading-xs`  | <div class="wa-heading-xs">Five boxing wizards</div>  |
 | `wa-heading-s`   | <div class="wa-heading-s">Five boxing wizards</div>   |
@@ -48,6 +55,7 @@ Alternatively, use `wa-heading` to apply the same styling without an explicit fo
 | `wa-heading-2xl` | <div class="wa-heading-2xl">Five boxing wizards</div> |
 | `wa-heading-3xl` | <div class="wa-heading-3xl">Five boxing wizards</div> |
 | `wa-heading-4xl` | <div class="wa-heading-4xl">Five boxing wizards</div> |
+| `wa-heading-5xl` | <div class="wa-heading-5xl">Five boxing wizards</div> |
 
 ## Captions
 
@@ -57,6 +65,7 @@ Alternatively, use `wa-caption` to apply the same styling without an explicit fo
 
 | Class Name       | Preview                                               |
 | ---------------- | ----------------------------------------------------- |
+| `wa-caption-3xs` | <div class="wa-caption-3xs">Five boxing wizards</div> |
 | `wa-caption-2xs` | <div class="wa-caption-2xs">Five boxing wizards</div> |
 | `wa-caption-xs`  | <div class="wa-caption-xs">Five boxing wizards</div>  |
 | `wa-caption-s`   | <div class="wa-caption-s">Five boxing wizards</div>   |
@@ -66,6 +75,7 @@ Alternatively, use `wa-caption` to apply the same styling without an explicit fo
 | `wa-caption-2xl` | <div class="wa-caption-2xl">Five boxing wizards</div> |
 | `wa-caption-3xl` | <div class="wa-caption-3xl">Five boxing wizards</div> |
 | `wa-caption-4xl` | <div class="wa-caption-4xl">Five boxing wizards</div> |
+| `wa-caption-5xl` | <div class="wa-caption-5xl">Five boxing wizards</div> |
 
 ## Longform
 
@@ -75,6 +85,7 @@ Alternatively, use `wa-longform` to apply the same styling without an explicit f
 
 | Class Name        | Preview                                                |
 | ----------------- | ------------------------------------------------------ |
+| `wa-longform-3xs` | <div class="wa-longform-3xs">Five boxing wizards</div> |
 | `wa-longform-2xs` | <div class="wa-longform-2xs">Five boxing wizards</div> |
 | `wa-longform-xs`  | <div class="wa-longform-xs">Five boxing wizards</div>  |
 | `wa-longform-s`   | <div class="wa-longform-s">Five boxing wizards</div>   |
@@ -84,6 +95,7 @@ Alternatively, use `wa-longform` to apply the same styling without an explicit f
 | `wa-longform-2xl` | <div class="wa-longform-2xl">Five boxing wizards</div> |
 | `wa-longform-3xl` | <div class="wa-longform-3xl">Five boxing wizards</div> |
 | `wa-longform-4xl` | <div class="wa-longform-4xl">Five boxing wizards</div> |
+| `wa-longform-5xl` | <div class="wa-longform-5xl">Five boxing wizards</div> |
 
 ## Links
 
@@ -119,6 +131,7 @@ Use single-purpose `wa-font-size-*` classes to apply a given [font size](/docs/t
 
 | Class Name         | Preview                                                 |
 | ------------------ | ------------------------------------------------------- |
+| `wa-font-size-3xs` | <div class="wa-font-size-3xs">Five boxing wizards</div> |
 | `wa-font-size-2xs` | <div class="wa-font-size-2xs">Five boxing wizards</div> |
 | `wa-font-size-xs`  | <div class="wa-font-size-xs">Five boxing wizards</div>  |
 | `wa-font-size-s`   | <div class="wa-font-size-s">Five boxing wizards</div>   |
@@ -128,6 +141,7 @@ Use single-purpose `wa-font-size-*` classes to apply a given [font size](/docs/t
 | `wa-font-size-2xl` | <div class="wa-font-size-2xl">Five boxing wizards</div> |
 | `wa-font-size-3xl` | <div class="wa-font-size-3xl">Five boxing wizards</div> |
 | `wa-font-size-4xl` | <div class="wa-font-size-4xl">Five boxing wizards</div> |
+| `wa-font-size-5xl` | <div class="wa-font-size-5xl">Five boxing wizards</div> |
 
 ## Font Weight
 

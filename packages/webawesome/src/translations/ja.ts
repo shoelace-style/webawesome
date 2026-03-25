@@ -8,6 +8,7 @@ const translation: Translation = {
 
   carousel: 'カルーセル',
   clearEntry: 'クリア',
+  createOption: value => `「${value}」を作成`,
   close: '閉じる',
   copied: 'コピーしました',
   copy: 'コピー',

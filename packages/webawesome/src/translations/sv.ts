@@ -8,6 +8,7 @@ const translation: Translation = {
 
   carousel: 'Karusell',
   clearEntry: 'Återställ val',
+  createOption: value => `Skapa "${value}"`,
   close: 'Stäng',
   copied: 'Kopierade',
   copy: 'Kopiera',
