@@ -19,6 +19,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Added support for labeled swatches in `<wa-color-picker>` by accepting an array of `{ color, label }` objects via the `swatches` property, improving screen reader accessibility
 - Added `*-3xs` and `*-5xl` to `wa-font-size`, `wa-body`, `wa-heading`, `wa-caption`, and `wa-longform` utility classes [issue:1606]
 - Added the ability to return promises from icon resolvers [discuss:2144]
+- Added the `disabled`, `icon-button`, `link`, and `loading` custom states to `<wa-button>` [discuss:2185]
 - Fixed a bug in `<wa-dropdown-item>` where `aria-checked` was incorrectly set on items when `type` was not `checkbox` [pr:2180]
 - Fixed `<wa-badge>` font size to use `--wa-font-size-3xs` now that the token is available [pr:2162]
 - Fixed the off-centered position of indent guides in `<wa-tree>`
