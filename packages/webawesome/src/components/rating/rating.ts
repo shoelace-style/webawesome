@@ -6,7 +6,8 @@ import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { WaHoverEvent } from '../../events/hover.js';
 import { clamp } from '../../internal/math.js';
 import { watch } from '../../internal/watch.js';
-import WebAwesomeElement from '../../internal/webawesome-element.js';
+import { RequiredValidator } from '../../internal/validators/required-validator.js';
+import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
 import sizeStyles from '../../styles/component/size.styles.js';
 import { LocalizeController } from '../../utilities/localize.js';
 import '../icon/icon.js';
@@ -24,6 +25,7 @@ import styles from './rating.styles.js';
  * @event {{ phase: 'start' | 'move' | 'end', value: number }} wa-hover - Emitted when the user hovers over a value. The
  *  `phase` property indicates when hovering starts, moves to a new value, or ends. The `value` property tells what the
  *  rating's value would be if the user were to commit to the hovered value.
+ * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
  * @csspart base - The component's base wrapper.
  *
@@ -32,21 +34,38 @@ import styles from './rating.styles.js';
  * @cssproperty --symbol-spacing - The spacing to use around symbols.
  */
 @customElement('wa-rating')
-export default class WaRating extends WebAwesomeElement {
+export default class WaRating extends WebAwesomeFormAssociatedElement {
   static css = [sizeStyles, styles];
+
+  static get validators() {
+    return [...super.validators, RequiredValidator()];
+  }
+
+  assumeInteractionOn = ['change'];
 
   private readonly localize = new LocalizeController(this);
 
   @query('.rating') rating: HTMLElement;
 
+  /** Override validation target to the focusable slider element. */
+  get validationTarget() {
+    return this.rating;
+  }
+
   @state() private hoverValue = 0;
   @state() private isHovering = false;
+
+  /** The name of the rating, submitted as a name/value pair with form data. */
+  @property() name: string | null = null;
 
   /** A label that describes the rating to assistive devices. */
   @property() label = '';
 
   /** The current rating. */
   @property({ type: Number }) value = 0;
+
+  /** The default value of the form control. Used to reset the rating to its initial value. */
+  @property({ type: Number, attribute: 'default-value' }) defaultValue = 0;
 
   /** The highest rating to show. */
   @property({ type: Number }) max = 5;
@@ -62,6 +81,9 @@ export default class WaRating extends WebAwesomeElement {
 
   /** Disables the rating. */
   @property({ type: Boolean, reflect: true }) disabled = false;
+
+  /** Makes the rating a required field. */
+  @property({ type: Boolean, reflect: true }) required = false;
 
   /**
    * A function that customizes the symbol to be rendered. The first and only argument is the rating's current value.
@@ -100,13 +122,13 @@ export default class WaRating extends WebAwesomeElement {
       return;
     }
 
-    this.setValue(this.getValueFromMousePosition(event));
+    this.setRatingValue(this.getValueFromMousePosition(event));
     this.updateComplete.then(() => {
       this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
     });
   }
 
-  private setValue(newValue: number) {
+  private setRatingValue(newValue: number) {
     if (this.disabled || this.readonly) {
       return;
     }
@@ -181,7 +203,7 @@ export default class WaRating extends WebAwesomeElement {
 
   private handleTouchEnd(event: TouchEvent) {
     this.isHovering = false;
-    this.setValue(this.hoverValue);
+    this.setRatingValue(this.hoverValue);
     this.updateComplete.then(() => {
       this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
     });
@@ -213,6 +235,11 @@ export default class WaRating extends WebAwesomeElement {
         value: this.hoverValue,
       }),
     );
+  }
+
+  formResetCallback() {
+    this.value = this.defaultValue;
+    super.formResetCallback();
   }
 
   /** Sets focus on the rating. */
