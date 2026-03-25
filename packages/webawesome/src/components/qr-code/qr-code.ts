@@ -64,7 +64,6 @@ export default class WaQrCode extends WebAwesomeElement {
       return;
     }
 
-    console.log("Generating...")
     this.canvas.style.maxWidth = `${this.size}px`;
     this.canvas.style.maxHeight = `${this.size}px`;
 
