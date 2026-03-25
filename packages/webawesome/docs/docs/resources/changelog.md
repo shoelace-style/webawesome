@@ -27,6 +27,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed horizontal layout styles in `<wa-card>` that used invalid or non-matching `::slotted()` selectors for the body and actions regions [pr:2198]
 <small>TBD</small>
 - Fixed the `autocorrect` property type in `<wa-input>` and `<wa-combobox>` to use `boolean` instead of a string union
+- Fixed a bug in `<wa-number-input>` where pressing stepper buttons on a touch device would show the virtual keyboard and shift the page
 - Fixed a bug in `<wa-select>` which caused it to not be clearable with initial values set [pr:2141]
 - Improved `<wa-tree>` and `<wa-tree-item>` so all internal dimensions (labels, checkboxes, expand buttons, etc.) scale proportionally with `font-size`, making it easy to resize the tree [discuss:2147]
 - Improved `<wa-combobox>`
