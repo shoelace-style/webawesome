@@ -131,12 +131,27 @@ export default class WaMarkdown extends WebAwesomeElement {
   /** Reads the script content, normalizes whitespace, parses markdown, and injects the result. */
   public renderMarkdown() {
     const script = this.getSourceScript();
-    if (!script) return;
+
+    if (!script) {
+      console.warn(
+        'No <script type="text/markdown"> found. Provide markdown content inside a <script type="text/markdown"> element.',
+        this,
+      );
+      return;
+    }
 
     const generation = ++this.renderGeneration;
     const raw = script.textContent ?? '';
     const dedented = this.dedent(raw);
-    const result = sharedMarked.parse(dedented);
+
+    let result: string | Promise<string>;
+
+    try {
+      result = sharedMarked.parse(dedented);
+    } catch (error) {
+      console.error('Failed to parse markdown content.', error, this);
+      return;
+    }
 
     const inject = (renderedHtml: string) => {
       // Discard stale results from a previous render that was superseded
@@ -163,7 +178,9 @@ export default class WaMarkdown extends WebAwesomeElement {
     if (typeof result === 'string') {
       inject(result);
     } else {
-      result.then(inject);
+      result.then(inject).catch(error => {
+        console.error('Failed to parse markdown content.', error, this);
+      });
     }
   }
 
