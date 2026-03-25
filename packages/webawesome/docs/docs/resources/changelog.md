@@ -10,12 +10,9 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 ## Unreleased
 
-<<<<<<< HEAD
 <small>TBD</small>
 
 - Added `<wa-video>` as an experimental Pro component [discuss:189]
-=======
->>>>>>> next
 - Added `--wa-space-5xl` design token to all themes  [issue:1606]
 - Added `wa-gap-5xl` utility class  [issue:1606]
 - Added `wa-gap-4xl` to the gap utility `:where()` selector
