@@ -23,6 +23,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed a bug in `<wa-scroller>` that caused horizontal page overflow in Chrome when containing wide content such as tables
 - Fixed a bug in `<wa-details>` and native `<details>` that caused full-width elements to overflow the details content [issue:2137]
 - Fixed a bug in `<wa-slider>` that introduced a `required` attribute which isn't valid on range elements [issue:1471]
+- Fixed horizontal layout styles in `<wa-card>` that used invalid or non-matching `::slotted()` selectors for the body and actions regions [pr:2198]
 <small>TBD</small>
 - Fixed the `autocorrect` property type in `<wa-input>` and `<wa-combobox>` to use `boolean` instead of a string union
 - Fixed a bug in `<wa-select>` which caused it to not be clearable with initial values set [pr:2141]
@@ -36,6 +37,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
   - Fixed a bug in `<wa-combobox>` where clearing the input and blurring would restore the previous selection instead of clearing the value
   - Removed the `autocomplete` property from `<wa-combobox>` since it conflicted with the native HTML attribute
 - Improved `<wa-select>`, `<wa-combobox>`, and `<wa-option>` performance with large numbers of options by batching slot changes, caching options, and lazily rendering check icons
+- Improved `<wa-card>`: the `body` part wraps the default slot in a container instead of on the slot, preserving normal slot display and accessibility [pr:2198]
 - [Docs]: Updated space, gap, stack, and cluster documentation for the new tokens and utilities [issue:1606]
 - [Docs]: Updated typography and text documentation for the new tokens and utilities [issue:1606]
 
