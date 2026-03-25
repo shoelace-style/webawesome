@@ -179,9 +179,6 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
   /** The granularity the value must adhere to when incrementing and decrementing. */
   @property({ type: Number }) step: number = 1;
 
-  /** Makes the slider a required field. */
-  @property({ type: Boolean, reflect: true }) required = false;
-
   /** Tells the browser to focus the slider when the page loads or a dialog is shown. */
   @property({ type: Boolean }) autofocus: boolean;
 

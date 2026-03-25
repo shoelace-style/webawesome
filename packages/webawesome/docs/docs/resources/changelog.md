@@ -10,8 +10,6 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 ## Unreleased
 
-<small>TBD</small>
-
 - Added `--wa-space-5xl` design token to all themes  [issue:1606]
 - Added `wa-gap-5xl` utility class  [issue:1606]
 - Added `wa-gap-4xl` to the gap utility `:where()` selector
@@ -24,6 +22,8 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed slider styling when using the `label` slot so that it matches attribute use. [issue:2124]
 - Fixed a bug in `<wa-scroller>` that caused horizontal page overflow in Chrome when containing wide content such as tables
 - Fixed a bug in `<wa-details>` and native `<details>` that caused full-width elements to overflow the details content [issue:2137]
+- Fixed a bug in `<wa-slider>` that introduced a `required` attribute which isn't valid on range elements [issue:1471]
+<small>TBD</small>
 - Fixed the `autocorrect` property type in `<wa-input>` and `<wa-combobox>` to use `boolean` instead of a string union
 - Improved `<wa-tree>` and `<wa-tree-item>` so all internal dimensions (labels, checkboxes, expand buttons, etc.) scale proportionally with `font-size`, making it easy to resize the tree [discuss:2147]
 - Improved `<wa-combobox>`
