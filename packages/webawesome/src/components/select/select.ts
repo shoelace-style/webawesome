@@ -535,6 +535,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     this.valueHasChanged = true;
 
     if (this.value !== null) {
+      this.displayLabel = '';
       this.selectionOrder.clear();
       this.setSelectedOptions([]);
       this.displayInput.focus({ preventScroll: true });
@@ -834,8 +835,8 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   updated(changedProperties: PropertyValues<this>) {
     super.updated(changedProperties);
 
-    if (changedProperties.has('value')) {
-      this.customStates.set('blank', !this.value);
+    if (changedProperties.has('value') || changedProperties.has('displayLabel')) {
+      this.customStates.set('blank', !this.value && !this.displayLabel);
     }
   }
 
@@ -957,7 +958,10 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     const hasLabel = this.label ? true : !!hasLabelSlot;
     const hasHint = this.hint ? true : !!hasHintSlot;
     const hasClearIcon =
-      (this.hasUpdated || isServer) && this.withClear && !this.disabled && this.value && this.value.length > 0;
+      (this.hasUpdated || isServer) &&
+      this.withClear &&
+      !this.disabled &&
+      (this.displayLabel || (this.value && this.value.length > 0));
 
     return html`
       <div
