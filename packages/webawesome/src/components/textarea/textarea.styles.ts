@@ -129,6 +129,7 @@ export default css`
   .footer {
     display: flex;
     align-items: baseline;
+    gap: 1em;
   }
 
   .footer.has-count [part='hint'] {
@@ -143,6 +144,6 @@ export default css`
     line-height: var(--wa-form-control-hint-line-height);
     margin-block-start: 0.5em;
     font-size: var(--wa-font-size-smaller);
-    margin-inline-start: 1em;
+    margin-inline-start: auto;
   }
 `;
