@@ -10,6 +10,8 @@ import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
 import formControlStyles from '../../styles/component/form-control.styles.js';
 import sizeStyles from '../../styles/component/size.styles.js';
+import visuallyHidden from '../../styles/component/visually-hidden.styles.js';
+import { LocalizeController } from '../../utilities/localize.js';
 import styles from './textarea.styles.js';
 
 /**
@@ -32,12 +34,13 @@ import styles from './textarea.styles.js';
  * @csspart hint - The hint's wrapper.
  * @csspart textarea - The internal `<textarea>` control.
  * @csspart base - The wrapper around the `<textarea>` control.
+ * @csspart count - The character count element, rendered when the `with-count` attribute is present.
  *
  * @cssstate blank - The textarea is empty.
  */
 @customElement('wa-textarea')
 export default class WaTextarea extends WebAwesomeFormAssociatedElement {
-  static css = [styles, formControlStyles, sizeStyles];
+  static css = [styles, formControlStyles, sizeStyles, visuallyHidden];
 
   static get validators() {
     return [...super.validators, MirrorValidator()];
@@ -45,7 +48,11 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
 
   assumeInteractionOn = ['blur', 'input'];
   private readonly hasSlotController = new HasSlotController(this, 'hint', 'label');
+  private readonly localize = new LocalizeController(this);
   private resizeObserver: ResizeObserver;
+  private countAnnounceTimeout: ReturnType<typeof setTimeout>;
+
+  @state() private announcedCountText = '';
 
   @query('.control') input: HTMLTextAreaElement;
   @query('[part~="base"]') base: HTMLDivElement;
@@ -119,8 +126,18 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
   /** Controls whether and how text input is automatically capitalized as it is entered by the user. */
   @property() autocapitalize: 'off' | 'none' | 'on' | 'sentences' | 'words' | 'characters';
 
-  /** Indicates whether the browser's autocorrect feature is on or off. */
-  @property() autocorrect: string;
+  /**
+   * Indicates whether the browser's autocorrect feature is on or off. When set as an attribute, use `"off"` or `"on"`.
+   * When set as a property, use `true` or `false`.
+   */
+  @property({
+    type: Boolean,
+    converter: {
+      fromAttribute: value => (!value || value === 'off' ? false : true),
+      toAttribute: value => (value ? 'on' : 'off'),
+    },
+  })
+  declare autocorrect: boolean;
 
   /**
    * Specifies what permission the browser has to provide assistance in filling out form field values. Refer to
@@ -161,6 +178,9 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
    */
   @property({ attribute: 'with-hint', type: Boolean }) withHint = false;
 
+  /** Shows a character count below the textarea. When `maxlength` is set, shows remaining characters instead. */
+  @property({ attribute: 'with-count', type: Boolean, reflect: true }) withCount = false;
+
   connectedCallback() {
     super.connectedCallback();
 
@@ -180,6 +200,7 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
 
   disconnectedCallback() {
     super.disconnectedCallback();
+    clearTimeout(this.countAnnounceTimeout);
     if (this.input) {
       this.resizeObserver?.unobserve(this.input);
     }
@@ -201,6 +222,18 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
     this.valueHasChanged = true;
     this.value = this.input.value;
     this.relayNativeEvent(event, { bubbles: true, composed: true });
+    this.scheduleCountAnnouncement();
+  }
+
+  private scheduleCountAnnouncement() {
+    clearTimeout(this.countAnnounceTimeout);
+    this.countAnnounceTimeout = setTimeout(() => {
+      const currentLength = (this.value ?? '').length;
+      this.announcedCountText =
+        this.maxlength != null
+          ? this.localize.term('numCharactersRemaining', this.maxlength - currentLength)
+          : this.localize.term('numCharacters', currentLength);
+    }, 1000);
   }
 
   private setTextareaDimensions() {
@@ -334,6 +367,14 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
     const hasLabel = this.label ? true : !!hasLabelSlot;
     const hasHint = this.hint ? true : !!hasHintSlot;
 
+    // We use .length intentionally here instead of Intl.Segmenter so the count stays consistent with the browser's
+    // native maxlength enforcement, which also counts UTF-16 code units.
+    const currentLength = (this.value ?? '').length;
+    const countText =
+      this.maxlength != null
+        ? this.localize.term('numCharactersRemaining', this.maxlength - currentLength)
+        : this.localize.term('numCharacters', currentLength);
+
     return html`
       <label
         part="form-control-label label"
@@ -378,16 +419,30 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
         <div part="textarea-adjuster" class="size-adjuster" ?hidden=${this.resize !== 'auto'}></div>
       </div>
 
-      <slot
-        id="hint"
-        name="hint"
-        part="hint"
-        aria-hidden=${hasHint ? 'false' : 'true'}
+      <div
         class=${classMap({
-          'has-slotted': hasHint,
+          footer: true,
+          'has-count': this.withCount,
         })}
-        >${this.hint}</slot
       >
+        <slot
+          id="hint"
+          name="hint"
+          part="hint"
+          aria-hidden=${hasHint ? 'false' : 'true'}
+          class=${classMap({
+            'has-slotted': hasHint,
+          })}
+          >${this.hint}</slot
+        >
+
+        ${this.withCount
+          ? html`
+              <div part="count" class="count" aria-hidden="true">${countText}</div>
+              <div class="wa-visually-hidden-force" aria-live="polite">${this.announcedCountText}</div>
+            `
+          : ''}
+      </div>
     `;
   }
 }

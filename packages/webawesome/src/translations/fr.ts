@@ -22,6 +22,14 @@ const translation: Translation = {
   increment: 'Augmenter',
   loading: 'Chargement',
   nextSlide: 'Diapositive suivante',
+  numCharacters: num => {
+    if (num === 1) return '1 caractère';
+    return `${num} caractères`;
+  },
+  numCharactersRemaining: num => {
+    if (num === 1) return '1 caractère restant';
+    return `${num} caractères restants`;
+  },
   numOptionsSelected: num => {
     if (num === 0) return 'Aucune option sélectionnée';
     if (num === 1) return '1 option sélectionnée';

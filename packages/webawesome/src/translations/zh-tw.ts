@@ -22,6 +22,8 @@ const translation: Translation = {
   increment: '增加',
   loading: '載入中',
   nextSlide: '下一張幻燈片',
+  numCharacters: num => `${num}個字元`,
+  numCharactersRemaining: num => `剩餘${num}個字元`,
   numOptionsSelected: num => {
     if (num === 0) return '未選擇任何項目';
     if (num === 1) return '已選擇 1 個項目';

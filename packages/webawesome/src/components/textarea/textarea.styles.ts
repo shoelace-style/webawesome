@@ -121,4 +121,28 @@ export default css`
     resize: none;
     overflow-y: hidden;
   }
+
+  /*
+   * Footer (hint + character count)
+   */
+
+  .footer {
+    display: flex;
+    align-items: baseline;
+  }
+
+  .footer.has-count [part='hint'] {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .count {
+    flex: 0 0 auto;
+    color: var(--wa-form-control-hint-color);
+    font-weight: var(--wa-form-control-hint-font-weight);
+    line-height: var(--wa-form-control-hint-line-height);
+    margin-block-start: 0.5em;
+    font-size: var(--wa-font-size-smaller);
+    margin-inline-start: 1em;
+  }
 `;
