@@ -80,6 +80,19 @@ You can also pass an array of objects with `color` and `label` properties using 
 </script>
 ```
 
+### Placement
+
+The preferred placement of the dropdown can be set with the `placement` attribute. Note that the actual position may vary to ensure the panel remains in the viewport.
+
+```html {.example}
+<div class="wa-gap-m wa-align-items-baseline">
+  <wa-color-picker placement="top-start" label="Select a color"></wa-color-picker>
+  <wa-color-picker placement="bottom-end" label="Select a color"></wa-color-picker>
+  <wa-color-picker placement="right" label="Select a color"></wa-color-picker>
+  <wa-color-picker placement="left" label="Select a color"></wa-color-picker>
+</div>
+```
+
 ### Sizes
 
 Use the `size` attribute to change the color picker's trigger size.
