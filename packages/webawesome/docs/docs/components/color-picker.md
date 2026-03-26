@@ -60,6 +60,26 @@ Use the `swatches` attribute to add convenient presets to the color picker. Any 
 ></wa-color-picker>
 ```
 
+You can also pass an array of objects with `color` and `label` properties using JavaScript. When labels are provided, they will be used as the accessible name for each swatch instead of the raw color value.
+
+```html {.example}
+<wa-color-picker id="labeled-swatches" label="Select a color"></wa-color-picker>
+
+<script>
+  const colorPicker = document.getElementById('labeled-swatches');
+  colorPicker.swatches = [
+    { color: '#d0021b', label: 'Red' },
+    { color: '#f5a623', label: 'Orange' },
+    { color: '#f8e71c', label: 'Yellow' },
+    { color: '#7ed321', label: 'Green' },
+    { color: '#4a90e2', label: 'Blue' },
+    { color: '#bd10e0', label: 'Purple' },
+    { color: '#000', label: 'Black' },
+    { color: '#fff', label: 'White' }
+  ];
+</script>
+```
+
 ### Sizes
 
 Use the `size` attribute to change the color picker's trigger size.

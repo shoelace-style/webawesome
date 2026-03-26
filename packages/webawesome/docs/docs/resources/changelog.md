@@ -8,22 +8,33 @@ Web Awesome follows [Semantic Versioning](https://semver.org/). Breaking changes
 
 Components with the <wa-badge variant="warning">Experimental</wa-badge> badge should not be used in production. They are made available as release candidates for development and testing purposes. As such, changes to experimental components will not be subject to semantic versioning.
 
-## Unreleased
+## 3.4.0
 
-<small>TBD</small>
+<small>March 25th, 2026</small>
 
+- Added a new free component: `<wa-markdown>` (#6 of 14 per stretch goals)
 - Added `--wa-space-5xl` design token to all themes  [issue:1606]
 - Added `wa-gap-5xl` utility class  [issue:1606]
 - Added `wa-gap-4xl` to the gap utility `:where()` selector
 - Added `--wa-font-size-3xs` and `--wa-font-size-5xl` design tokens [issue:1606]
 - Added `*-3xs` and `*-5xl` to `wa-font-size`, `wa-body`, `wa-heading`, `wa-caption`, and `wa-longform` utility classes [issue:1606]
+- Added support for labeled swatches in `<wa-color-picker>` by accepting an array of `{ color, label }` objects via the `swatches` property, improving screen reader accessibility
+- Added the ability to return promises from icon resolvers [discuss:2144]
+- Added a default slot to `<wa-copy-button>` so users can provide custom buttons [issue:#1327]
+- Added `:state(success)` and `:state(error)` CSS custom states to `<wa-copy-button>` for styling feedback on custom triggers
 - Fixed a bug in `<wa-dropdown-item>` where `aria-checked` was incorrectly set on items when `type` was not `checkbox` [pr:2180]
 - Fixed `<wa-badge>` font size to use `--wa-font-size-3xs` now that the token is available [pr:2162]
 - Fixed the off-centered position of indent guides in `<wa-tree>`
 - Fixed slider styling when using the `label` slot so that it matches attribute use. [issue:2124]
 - Fixed a bug in `<wa-scroller>` that caused horizontal page overflow in Chrome when containing wide content such as tables
 - Fixed a bug in `<wa-details>` and native `<details>` that caused full-width elements to overflow the details content [issue:2137]
+- Fixed a bug in `<wa-slider>` that introduced a `required` attribute which isn't valid on range elements [issue:1471]
+- Fixed horizontal layout styles in `<wa-card>` that used invalid or non-matching `::slotted()` selectors for the body and actions regions [pr:2198]
 - Fixed the `autocorrect` property type in `<wa-input>` and `<wa-combobox>` to use `boolean` instead of a string union
+- Fixed a bug in `<wa-dropdown-item>` that caused descenders to get clipped at certain line heights [issue:2207]
+- Fixed a bug in `<wa-number-input>` where pressing stepper buttons on a touch device would show the virtual keyboard and shift the page
+- Fixed a bug in `<wa-select>` which caused it to not be clearable with initial values set [pr:2141]
+- Fixed a bug in `<wa-badge>` where `role` was incorrectly set on a `<slot>` element, which is not allowed per spec [#2163]
 - Improved `<wa-tree>` and `<wa-tree-item>` so all internal dimensions (labels, checkboxes, expand buttons, etc.) scale proportionally with `font-size`, making it easy to resize the tree [discuss:2147]
 - Improved `<wa-combobox>`
   - Added `autocapitalize`, `autocorrect`, `enterkeyhint`, `inputmode`, and `spellcheck` properties to `<wa-combobox>` to support virtual keyboard customization
@@ -33,6 +44,9 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
   - Fixed a bug in `<wa-combobox>` where clearing the input and blurring would restore the previous selection instead of clearing the value
   - Removed the `autocomplete` property from `<wa-combobox>` since it conflicted with the native HTML attribute
 - Improved `<wa-select>`, `<wa-combobox>`, and `<wa-option>` performance with large numbers of options by batching slot changes, caching options, and lazily rendering check icons
+- Improved `<wa-card>`: the `body` part wraps the default slot in a container instead of on the slot, preserving normal slot display and accessibility [pr:2198]
+- Improved `<wa-tab-group>`: the `body` part wraps the default slot in a container instead of on the slot, consistent with `<wa-dialog>` and `<wa-card>`
+- Updated `<wa-zoomable-frame>` with an opt-in attribute for theme syncing [pr:2165]
 - [Docs]: Updated space, gap, stack, and cluster documentation for the new tokens and utilities [issue:1606]
 - [Docs]: Updated typography and text documentation for the new tokens and utilities [issue:1606]
 

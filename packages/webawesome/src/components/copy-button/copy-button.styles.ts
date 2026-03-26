@@ -6,6 +6,10 @@ export default css`
     color: var(--wa-color-neutral-on-quiet);
   }
 
+  .copy-button__trigger {
+    display: inline-flex;
+  }
+
   .button {
     flex: 0 0 auto;
     display: flex;

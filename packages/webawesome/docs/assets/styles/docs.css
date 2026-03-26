@@ -81,6 +81,11 @@ h1.title {
   }
 }
 
+.component-summary {
+  font-weight: var(--wa-font-weight-semibold);
+  font-size: var(--wa-font-size-l);
+}
+
 /* Callouts */
 .callout {
   display: flex;

@@ -4,7 +4,7 @@
     "access": "public"
   },
   "description": "A forward-thinking library of web components.",
-  "version": "3.3.1",
+  "version": "3.4.0",
   "homepage": "https://webawesome.com/",
   "author": "Web Awesome",
   "license": "MIT",
@@ -87,6 +87,7 @@
     "@shoelace-style/localize": "^3.2.1",
     "composed-offset-position": "^0.0.6",
     "lit": "^3.2.1",
+    "marked": "^11.2.0",
     "nanoid": "^5.1.5",
     "qr-creator": "^1.0.0"
   },

@@ -86,6 +86,20 @@ describe('<wa-tab-group>', () => {
         expect(tabGroup).to.be.visible;
       });
 
+      it('exposes the default slot inside a [part="body"] wrapper', async () => {
+        const tabGroup = await fixture<WaTabGroup>(html`
+          <wa-tab-group>
+            <wa-tab panel="general">General</wa-tab>
+            <wa-tab-panel name="general">This is the general tab panel.</wa-tab-panel>
+          </wa-tab-group>
+        `);
+        const bodyPart = tabGroup.shadowRoot!.querySelector('[part="body"]');
+        expect(bodyPart?.localName).to.eq('div');
+        expect(bodyPart?.classList.contains('body')).to.be.true;
+        const defaultSlot = bodyPart?.querySelector('slot:not([name])');
+        expect(defaultSlot).to.be.instanceOf(HTMLSlotElement);
+      });
+
       it('should not throw error when unmounted too fast', async () => {
         const el = await fixture(html` <div></div> `);
 
