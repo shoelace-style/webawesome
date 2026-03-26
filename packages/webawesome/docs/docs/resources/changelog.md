@@ -23,6 +23,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Added `:state(success)` and `:state(error)` CSS custom states to `<wa-copy-button>` for styling feedback on custom triggers
 - Added the `disabled`, `icon-button`, `link`, and `loading` custom states to `<wa-button>` [discuss:2185]
 - Added the `disabled` custom state to `<wa-option>` so the disabled style applies when using the property [issue:1997]
+- Added the `with-count` attribute to `<wa-textarea>` to show a character count below the textarea
 - Fixed a bug in `<wa-badge>` where `role` was incorrectly set on a `<slot>` element, which is not allowed per spec [issue:2163]
 - Fixed a bug in `<wa-toast-item>` where the progress ring's continuously updating value was announced by screen readers [issue:2126]
 - Fixed a bug in `<wa-select>` where the `:state(blank)` custom state was incorrectly applied when the selected option had an empty string value [issue:1920]
