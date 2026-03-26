@@ -22,6 +22,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Added the ability to return promises from icon resolvers [discuss:2144]
 - Added a default slot to `<wa-copy-button>` so users can provide custom buttons [issue:#1327]
 - Added `:state(success)` and `:state(error)` CSS custom states to `<wa-copy-button>` for styling feedback on custom triggers
+- Added the `disabled`, `icon-button`, `link`, and `loading` custom states to `<wa-button>` [discuss:2185]
 - Fixed a bug in `<wa-dropdown-item>` where `aria-checked` was incorrectly set on items when `type` was not `checkbox` [pr:2180]
 - Fixed `<wa-badge>` font size to use `--wa-font-size-3xs` now that the token is available [pr:2162]
 - Fixed the off-centered position of indent guides in `<wa-tree>`
