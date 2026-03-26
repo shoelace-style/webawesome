@@ -4,7 +4,10 @@ import { classMap } from 'lit/directives/class-map.js';
 import { WaCopyEvent } from '../../events/copy.js';
 import { WaErrorEvent } from '../../events/error.js';
 import { animateWithClass } from '../../internal/animate.js';
+import { HasSlotController } from '../../internal/slot.js';
+import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
+import hostStyles from '../../styles/component/host.styles.js';
 import visuallyHidden from '../../styles/component/visually-hidden.styles.js';
 import { LocalizeController } from '../../utilities/localize.js';
 import '../icon/icon.js';
@@ -24,9 +27,14 @@ import styles from './copy-button.styles.js';
  * @event wa-copy - Emitted when the data has been copied.
  * @event wa-error - Emitted when the data could not be copied.
  *
+ * @slot - The trigger element. By default, a copy icon button is rendered so this is optional. If desired, you can slot
+ *  in a custom element such as `<wa-button>` or `<button>`.
  * @slot copy-icon - The icon to show in the default copy state. Works best with `<wa-icon>`.
  * @slot success-icon - The icon to show when the content is copied. Works best with `<wa-icon>`.
  * @slot error-icon - The icon to show when a copy error occurs. Works best with `<wa-icon>`.
+ *
+ * @cssstate success - Applied when the copy operation succeeds.
+ * @cssstate error - Applied when the copy operation fails.
  *
  * @csspart button - The internal `<button>` element.
  * @csspart copy-icon - The container that holds the copy icon.
@@ -39,8 +47,9 @@ import styles from './copy-button.styles.js';
  */
 @customElement('wa-copy-button')
 export default class WaCopyButton extends WebAwesomeElement {
-  static css = [visuallyHidden, styles];
+  static css = [hostStyles, visuallyHidden, styles];
 
+  private readonly hasSlotController = new HasSlotController(this, '[default]');
   private readonly localize = new LocalizeController(this);
 
   @query('slot[name="copy-icon"]') copyIcon: HTMLSlotElement;
@@ -91,6 +100,12 @@ export default class WaCopyButton extends WebAwesomeElement {
 
   /** The preferred placement of the tooltip. */
   @property({ attribute: 'tooltip-placement' }) tooltipPlacement: 'top' | 'right' | 'bottom' | 'left' = 'top';
+
+  @watch('status')
+  handleStatusChange() {
+    this.customStates.set('success', this.status === 'success');
+    this.customStates.set('error', this.status === 'error');
+  }
 
   private async handleCopy() {
     if (this.disabled || this.isCopying) {
@@ -157,66 +172,78 @@ export default class WaCopyButton extends WebAwesomeElement {
   }
 
   private async showStatus(status: 'success' | 'error') {
-    const iconToShow = status === 'success' ? this.successIcon : this.errorIcon;
-
-    // Show the feedback icon
-    await animateWithClass(this.copyIcon, 'hide');
-    this.copyIcon.hidden = true;
     this.status = status;
-    iconToShow.hidden = false;
-    await animateWithClass(iconToShow, 'show');
+
+    // Icon animation only applies when using the default trigger (fallback content)
+    if (this.copyIcon) {
+      const iconToShow = status === 'success' ? this.successIcon : this.errorIcon;
+
+      // Show the feedback icon
+      await animateWithClass(this.copyIcon, 'hide');
+      this.copyIcon.hidden = true;
+      iconToShow.hidden = false;
+      await animateWithClass(iconToShow, 'show');
+    }
 
     // After a brief delay, restore the original state
     setTimeout(async () => {
-      await animateWithClass(iconToShow, 'hide');
-      iconToShow.hidden = true;
-      this.status = 'rest';
-      this.copyIcon.hidden = false;
-      await animateWithClass(this.copyIcon, 'show');
+      if (this.copyIcon) {
+        const iconToShow = status === 'success' ? this.successIcon : this.errorIcon;
+        await animateWithClass(iconToShow, 'hide');
+        iconToShow.hidden = true;
+        this.copyIcon.hidden = false;
+        await animateWithClass(this.copyIcon, 'show');
+      }
 
+      this.status = 'rest';
       this.isCopying = false;
     }, this.feedbackDuration);
   }
 
   render() {
+    const hasCustomTrigger = this.hasSlotController.test('[default]');
+
     return html`
-      <button
-        class="button"
-        part="button"
-        type="button"
-        id="copy-button"
-        ?disabled=${this.disabled}
-        @click=${this.handleCopy}
-      >
-        <!-- Render a visually hidden label to appease the accessibility checking gods -->
-        <span class="wa-visually-hidden">${this.currentLabel}</span>
-        <slot part="copy-icon" name="copy-icon">
-          <wa-icon library="system" name="copy" variant="regular"></wa-icon>
-        </slot>
-        <slot part="success-icon" name="success-icon" variant="solid" hidden>
-          <wa-icon library="system" name="check"></wa-icon>
-        </slot>
-        <slot part="error-icon" name="error-icon" variant="solid" hidden>
-          <wa-icon library="system" name="xmark"></wa-icon>
-        </slot>
-        <wa-tooltip
-          class=${classMap({
-            'copy-button': true,
-            'copy-button-success': this.status === 'success',
-            'copy-button-error': this.status === 'error',
-          })}
-          for="copy-button"
-          placement=${this.tooltipPlacement}
+      <div class="copy-button__trigger" @click=${this.handleCopy}>
+        <slot></slot>
+        <button
+          class="button"
+          part="button"
+          type="button"
+          id="copy-button"
           ?disabled=${this.disabled}
-          exportparts="
-            base:tooltip__base,
-            base__popup:tooltip__base__popup,
-            base__arrow:tooltip__base__arrow,
-            body:tooltip__body
-          "
-          >${this.currentLabel}</wa-tooltip
+          ?hidden=${hasCustomTrigger}
         >
-      </button>
+          <!-- Render a visually hidden label to appease the accessibility checking gods -->
+          <span class="wa-visually-hidden">${this.currentLabel}</span>
+          <slot part="copy-icon" name="copy-icon">
+            <wa-icon library="system" name="copy" variant="regular"></wa-icon>
+          </slot>
+          <slot part="success-icon" name="success-icon" variant="solid" hidden>
+            <wa-icon library="system" name="check"></wa-icon>
+          </slot>
+          <slot part="error-icon" name="error-icon" variant="solid" hidden>
+            <wa-icon library="system" name="xmark"></wa-icon>
+          </slot>
+          <wa-tooltip
+            class=${classMap({
+              'copy-button': true,
+              'copy-button-success': this.status === 'success',
+              'copy-button-error': this.status === 'error',
+            })}
+            for="copy-button"
+            placement=${this.tooltipPlacement}
+            ?disabled=${this.disabled}
+            exportparts="
+              base:tooltip__base,
+              base__popup:tooltip__base__popup,
+              base__arrow:tooltip__base__arrow,
+              body:tooltip__body
+            "
+            >${this.currentLabel}</wa-tooltip
+          >
+        </button>
+      </div>
     `;
   }
 }
