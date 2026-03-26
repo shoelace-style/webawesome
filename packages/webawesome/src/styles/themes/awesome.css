@@ -440,7 +440,6 @@
 
       &:state(checked) {
         box-shadow: initial;
-        transform: translate(var(--wa-shadow-offset-x-s), var(--wa-shadow-offset-y-s));
       }
     }
 

@@ -24,6 +24,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Added the `disabled`, `icon-button`, `link`, and `loading` custom states to `<wa-button>` [discuss:2185]
 - Fixed a bug in `<wa-badge>` where `role` was incorrectly set on a `<slot>` element, which is not allowed per spec [#2163]
 - Fixed a bug in `<wa-toast-item>` where the progress ring's continuously updating value was announced by screen readers [issue:2126]
+- Fixed a bug in `<wa-radio>` where selected buttons in a horizontal radio group could appear slightly displaced when using a custom theme with CSS transforms
 - Improved the accessibility of `<wa-rating>` by moving role and ARIA attributes to the host element [issue:#2205]
 
 ## 3.4.0
