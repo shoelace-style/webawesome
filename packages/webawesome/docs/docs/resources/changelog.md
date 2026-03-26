@@ -8,12 +8,9 @@ Web Awesome follows [Semantic Versioning](https://semver.org/). Breaking changes
 
 Components with the <wa-badge variant="warning">Experimental</wa-badge> badge should not be used in production. They are made available as release candidates for development and testing purposes. As such, changes to experimental components will not be subject to semantic versioning.
 
-<wa-card appearance="filled" class="changelog-email-signup">
+<wa-card appearance="filled" class="changelog-email-signup" style="margin-block-end: var(--wa-space-3xl);">
   <div class="wa-stack">
-    <div class="wa-stack wa-gap-2xs">
-      <h2 class="wa-heading-m" data-no-anchor>Stay in the know about new Awesome!</h2>
-      <p>We'll send you an email when new versions of Web Awesome drop.</p>
-    </div>
+    <h2 class="wa-heading-m" data-no-anchor>Get notified when new versions drop!</h2>
     <form
       class="js-cm-form"
       id="subForm"
@@ -22,11 +19,11 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
       data-id="191722FC90141D02184CB1B62AB3DC2630DE139369AE5777A9AF397A41389E52F158F82598068910193B7DDB0516E83D9CC991AC03030DF79FF82195F2F0B7C1"
     >
       <div class="wa-flank:end">
-        <wa-input type="email" name="cm-tidujkj-tidujkj" class="js-cm-email-input qa-input-email wa-visually-hidden-label"  id="fieldEmail" label="Email Address" placeholder="lois.lane@dailyplanet.news" required>
+        <wa-input type="email" name="cm-tidujkj-tidujkj" class="js-cm-email-input qa-input-email wa-visually-hidden-label"  id="fieldEmail" label="Email Address" placeholder="dennis.t.nedry@jurrasicpark.com" required>
           <wa-icon name="envelope" variant="regular" slot="start"></wa-icon>
         </wa-input>
-        <wa-button type="submit" variant="brand">
-          Email Me About Releases
+        <wa-button type="submit">
+          Yes, Please
           <wa-icon name="arrow-right" variant="regular" slot="end"></wa-icon>
         </wa-button>
       </div>

@@ -673,17 +673,3 @@ wa-scroller:has(.component-table) {
     max-height: 21lh;
   }
 }
-
-/* changelog */
-.changelog-email-signup {
-  background-color: var(--wa-color-brand-fill-quiet);
-  margin-block-end: var(--wa-space-3xl);
-
-  wa-input[type='email'] {
-    --wa-form-control-border-color: var(--wa-color-brand-border-loud);
-
-    wa-icon[slot='start'] {
-      color: var(--wa-color-brand-on-quiet);
-    }
-  }
-}
