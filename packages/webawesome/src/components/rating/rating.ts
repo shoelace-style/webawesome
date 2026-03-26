@@ -1,12 +1,13 @@
-import { html } from 'lit';
-import { customElement, eventOptions, property, query, state } from 'lit/decorators.js';
+import { html, type PropertyValues } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { WaHoverEvent } from '../../events/hover.js';
 import { clamp } from '../../internal/math.js';
+import { RequiredValidator } from '../../internal/validators/required-validator.js';
 import { watch } from '../../internal/watch.js';
-import WebAwesomeElement from '../../internal/webawesome-element.js';
+import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
 import sizeStyles from '../../styles/component/size.styles.js';
 import { LocalizeController } from '../../utilities/localize.js';
 import '../icon/icon.js';
@@ -24,6 +25,7 @@ import styles from './rating.styles.js';
  * @event {{ phase: 'start' | 'move' | 'end', value: number }} wa-hover - Emitted when the user hovers over a value. The
  *  `phase` property indicates when hovering starts, moves to a new value, or ends. The `value` property tells what the
  *  rating's value would be if the user were to commit to the hovered value.
+ * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
  * @csspart base - The component's base wrapper.
  *
@@ -32,21 +34,100 @@ import styles from './rating.styles.js';
  * @cssproperty --symbol-spacing - The spacing to use around symbols.
  */
 @customElement('wa-rating')
-export default class WaRating extends WebAwesomeElement {
+export default class WaRating extends WebAwesomeFormAssociatedElement {
   static css = [sizeStyles, styles];
+
+  static get validators() {
+    return [...super.validators, RequiredValidator()];
+  }
+
+  assumeInteractionOn = ['change'];
 
   private readonly localize = new LocalizeController(this);
 
-  @query('.rating') rating: HTMLElement;
+  connectedCallback() {
+    super.connectedCallback();
+    this.setAttribute('role', 'slider');
+    this.setAttribute('aria-valuenow', String(this.value));
+    this.setAttribute('aria-valuemin', '0');
+    this.setAttribute('aria-valuemax', String(this.max));
+    this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
+    this.setAttribute('aria-readonly', this.readonly ? 'true' : 'false');
+
+    if (this.label) {
+      this.setAttribute('aria-label', this.label);
+    }
+
+    if (!this.disabled && !this.readonly) {
+      this.tabIndex = 0;
+    } else {
+      this.tabIndex = -1;
+    }
+
+    this.addEventListener('click', this.handleClick);
+    this.addEventListener('keydown', this.handleKeyDown);
+    this.addEventListener('pointerenter', this.handlePointerEnter);
+    this.addEventListener('pointermove', this.handlePointerMove);
+    this.addEventListener('pointerleave', this.handlePointerLeave);
+    this.addEventListener('pointerdown', this.handlePointerDown);
+    this.addEventListener('pointerup', this.handlePointerUp);
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    this.removeEventListener('click', this.handleClick);
+    this.removeEventListener('keydown', this.handleKeyDown);
+    this.removeEventListener('pointerenter', this.handlePointerEnter);
+    this.removeEventListener('pointermove', this.handlePointerMove);
+    this.removeEventListener('pointerleave', this.handlePointerLeave);
+    this.removeEventListener('pointerdown', this.handlePointerDown);
+    this.removeEventListener('pointerup', this.handlePointerUp);
+  }
+
+  updated(changedProperties: PropertyValues<this>) {
+    super.updated(changedProperties);
+
+    if (changedProperties.has('value')) {
+      this.setAttribute('aria-valuenow', String(this.value));
+    }
+
+    if (changedProperties.has('max')) {
+      this.setAttribute('aria-valuemax', String(this.max));
+    }
+
+    if (changedProperties.has('disabled')) {
+      this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
+      this.tabIndex = this.disabled || this.readonly ? -1 : 0;
+    }
+
+    if (changedProperties.has('readonly')) {
+      this.setAttribute('aria-readonly', this.readonly ? 'true' : 'false');
+      this.tabIndex = this.disabled || this.readonly ? -1 : 0;
+    }
+
+    if (changedProperties.has('label')) {
+      if (this.label) {
+        this.setAttribute('aria-label', this.label);
+      } else {
+        this.removeAttribute('aria-label');
+      }
+    }
+  }
 
   @state() private hoverValue = 0;
   @state() private isHovering = false;
+
+  /** The name of the rating, submitted as a name/value pair with form data. */
+  @property() name: string | null = null;
 
   /** A label that describes the rating to assistive devices. */
   @property() label = '';
 
   /** The current rating. */
   @property({ type: Number }) value = 0;
+
+  /** The default value of the form control. Used to reset the rating to its initial value. */
+  @property({ type: Number, attribute: 'default-value' }) defaultValue = 0;
 
   /** The highest rating to show. */
   @property({ type: Number }) max = 5;
@@ -63,6 +144,9 @@ export default class WaRating extends WebAwesomeElement {
   /** Disables the rating. */
   @property({ type: Boolean, reflect: true }) disabled = false;
 
+  /** Makes the rating a required field. */
+  @property({ type: Boolean, reflect: true }) required = false;
+
   /**
    * A function that customizes the symbol to be rendered. The first and only argument is the rating's current value.
    * The function should return a string containing trusted HTML of the symbol to render at the specified value. Works
@@ -77,17 +161,13 @@ export default class WaRating extends WebAwesomeElement {
   /** The component's size. */
   @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
 
-  private getValueFromMousePosition(event: MouseEvent) {
+  private getValueFromPointerPosition(event: PointerEvent) {
     return this.getValueFromXCoordinate(event.clientX);
-  }
-
-  private getValueFromTouchPosition(event: TouchEvent) {
-    return this.getValueFromXCoordinate(event.touches[0].clientX);
   }
 
   private getValueFromXCoordinate(coordinate: number) {
     const isRtl = this.localize.dir() === 'rtl';
-    const { left, right, width } = this.rating.getBoundingClientRect();
+    const { left, right, width } = this.getBoundingClientRect();
     const value = isRtl
       ? this.roundToPrecision(((right - coordinate) / width) * this.max, this.precision)
       : this.roundToPrecision(((coordinate - left) / width) * this.max, this.precision);
@@ -95,18 +175,18 @@ export default class WaRating extends WebAwesomeElement {
     return clamp(value, 0, this.max);
   }
 
-  private handleClick(event: MouseEvent) {
+  private handleClick = (event: MouseEvent) => {
     if (this.disabled) {
       return;
     }
 
-    this.setValue(this.getValueFromMousePosition(event));
+    this.setRatingValue(this.getValueFromXCoordinate(event.clientX));
     this.updateComplete.then(() => {
       this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
     });
-  }
+  };
 
-  private setValue(newValue: number) {
+  private setRatingValue(newValue: number) {
     if (this.disabled || this.readonly) {
       return;
     }
@@ -115,7 +195,7 @@ export default class WaRating extends WebAwesomeElement {
     this.isHovering = false;
   }
 
-  private handleKeyDown(event: KeyboardEvent) {
+  private handleKeyDown = (event: KeyboardEvent) => {
     const isLtr = this.matches(':dir(ltr)');
     const isRtl = this.localize.dir() === 'rtl';
     const oldValue = this.value;
@@ -151,44 +231,40 @@ export default class WaRating extends WebAwesomeElement {
         this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
       });
     }
-  }
+  };
 
-  private handleMouseEnter(event: MouseEvent) {
+  private handlePointerEnter = (event: PointerEvent) => {
     this.isHovering = true;
-    this.hoverValue = this.getValueFromMousePosition(event);
-  }
+    this.hoverValue = this.getValueFromPointerPosition(event);
+  };
 
-  private handleMouseMove(event: MouseEvent) {
-    this.hoverValue = this.getValueFromMousePosition(event);
-  }
+  private handlePointerMove = (event: PointerEvent) => {
+    this.hoverValue = this.getValueFromPointerPosition(event);
+  };
 
-  private handleMouseLeave() {
+  private handlePointerLeave = () => {
     this.isHovering = false;
-  }
+  };
 
-  private handleTouchStart(event: TouchEvent) {
+  private handlePointerDown = (event: PointerEvent) => {
+    if (event.button !== 0) {
+      return;
+    }
+
     this.isHovering = true;
-    this.hoverValue = this.getValueFromTouchPosition(event);
+    this.hoverValue = this.getValueFromPointerPosition(event);
 
-    // Prevent scrolling when touch is initiated
+    // Capture the pointer so pointermove/pointerup fire even outside the element (e.g. touch drag)
+    this.setPointerCapture(event.pointerId);
+
+    // Prevent scrolling on touch
     event.preventDefault();
-  }
+  };
 
-  @eventOptions({ passive: true })
-  private handleTouchMove(event: TouchEvent) {
-    this.hoverValue = this.getValueFromTouchPosition(event);
-  }
-
-  private handleTouchEnd(event: TouchEvent) {
+  private handlePointerUp = (event: PointerEvent) => {
+    this.releasePointerCapture(event.pointerId);
     this.isHovering = false;
-    this.setValue(this.hoverValue);
-    this.updateComplete.then(() => {
-      this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
-    });
-
-    // Prevent click on mobile devices
-    event.preventDefault();
-  }
+  };
 
   private roundToPrecision(numberToRound: number, precision = 0.5) {
     const multiplier = 1 / precision;
@@ -215,14 +291,9 @@ export default class WaRating extends WebAwesomeElement {
     );
   }
 
-  /** Sets focus on the rating. */
-  focus(options?: FocusOptions) {
-    this.rating.focus(options);
-  }
-
-  /** Removes focus from the rating. */
-  blur() {
-    this.rating.blur();
+  formResetCallback() {
+    this.value = this.defaultValue;
+    super.formResetCallback();
   }
 
   render() {
@@ -244,22 +315,6 @@ export default class WaRating extends WebAwesomeElement {
           'rating-readonly': this.readonly,
           'rating-disabled': this.disabled,
         })}
-        role="slider"
-        aria-label=${this.label}
-        aria-disabled=${this.disabled ? 'true' : 'false'}
-        aria-readonly=${this.readonly ? 'true' : 'false'}
-        aria-valuenow=${this.value}
-        aria-valuemin=${0}
-        aria-valuemax=${this.max}
-        tabindex=${this.disabled || this.readonly ? '-1' : '0'}
-        @click=${this.handleClick}
-        @keydown=${this.handleKeyDown}
-        @mouseenter=${this.handleMouseEnter}
-        @touchstart=${this.handleTouchStart}
-        @mouseleave=${this.handleMouseLeave}
-        @touchend=${this.handleTouchEnd}
-        @mousemove=${this.handleMouseMove}
-        @touchmove=${this.handleTouchMove}
       >
         <span class="symbols">
           ${counter.map(index => {

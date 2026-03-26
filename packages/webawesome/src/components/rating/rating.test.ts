@@ -13,45 +13,37 @@ describe('<wa-rating>', () => {
         const el = await fixture<WaRating>(html` <wa-rating label="Test"></wa-rating> `);
         await expect(el).to.be.accessible();
 
-        const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
-
-        expect(base.getAttribute('role')).to.equal('slider');
-        expect(base.getAttribute('aria-disabled')).to.equal('false');
-        expect(base.getAttribute('aria-readonly')).to.equal('false');
-        expect(base.getAttribute('aria-valuenow')).to.equal('0');
-        expect(base.getAttribute('aria-valuemin')).to.equal('0');
-        expect(base.getAttribute('aria-valuemax')).to.equal('5');
-        expect(base.getAttribute('tabindex')).to.equal('0');
-        expect(base.getAttribute('class')).to.equal(' rating ');
+        expect(el.getAttribute('role')).to.equal('slider');
+        expect(el.getAttribute('aria-disabled')).to.equal('false');
+        expect(el.getAttribute('aria-readonly')).to.equal('false');
+        expect(el.getAttribute('aria-valuenow')).to.equal('0');
+        expect(el.getAttribute('aria-valuemin')).to.equal('0');
+        expect(el.getAttribute('aria-valuemax')).to.equal('5');
+        expect(el.tabIndex).to.equal(0);
       });
 
       it('should be readonly with the readonly attribute', async () => {
         const el = await fixture<WaRating>(html` <wa-rating label="Test" readonly></wa-rating> `);
-        const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
 
-        expect(base.getAttribute('aria-readonly')).to.equal('true');
-        expect(base.getAttribute('class')).to.equal(' rating rating-readonly ');
+        expect(el.getAttribute('aria-readonly')).to.equal('true');
       });
 
       it('should be disabled with the disabled attribute', async () => {
         const el = await fixture<WaRating>(html` <wa-rating label="Test" disabled></wa-rating> `);
-        const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
 
-        expect(base.getAttribute('aria-disabled')).to.equal('true');
+        expect(el.getAttribute('aria-disabled')).to.equal('true');
       });
 
       it('should set max value by attribute', async () => {
         const el = await fixture<WaRating>(html` <wa-rating label="Test" max="12"></wa-rating> `);
-        const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
 
-        expect(base.getAttribute('aria-valuemax')).to.equal('12');
+        expect(el.getAttribute('aria-valuemax')).to.equal('12');
       });
 
       it('should set selected value by attribute', async () => {
         const el = await fixture<WaRating>(html` <wa-rating label="Test" value="3"></wa-rating> `);
-        const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
 
-        expect(base.getAttribute('aria-valuenow')).to.equal('3');
+        expect(el.getAttribute('aria-valuenow')).to.equal('3');
       });
 
       it('should emit change when clicked', async () => {
@@ -104,20 +96,18 @@ describe('<wa-rating>', () => {
       });
 
       describe('focus', () => {
-        it('should focus inner div', async () => {
+        it('should focus the host element', async () => {
           const el = await fixture<WaRating>(html` <wa-rating label="Test"></wa-rating> `);
-
-          const base = el.shadowRoot!.querySelector<HTMLElement>('[part~="base"]')!;
 
           el.focus();
           await el.updateComplete;
 
-          expect(el.shadowRoot!.activeElement).to.equal(base);
+          expect(document.activeElement).to.equal(el);
         });
       });
 
       describe('blur', () => {
-        it('should blur inner div', async () => {
+        it('should blur the host element', async () => {
           const el = await fixture<WaRating>(html` <wa-rating label="Test"></wa-rating> `);
 
           el.focus();
@@ -126,7 +116,7 @@ describe('<wa-rating>', () => {
           el.blur();
           await el.updateComplete;
 
-          expect(el.shadowRoot!.activeElement).to.equal(null);
+          expect(document.activeElement).to.not.equal(el);
         });
       });
     });

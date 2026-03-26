@@ -1084,15 +1084,22 @@
     position: relative;
 
     min-width: 0;
-    overflow: hidden;
-
     background-image: var(--icon-caret), var(--icon-caret);
     background-repeat: no-repeat;
     background-position: center right var(--wa-form-control-padding-inline);
     background-blend-mode: hue, difference;
     background-size: 1rem 1rem;
+    text-overflow: ellipsis;
+    padding-inline-end: calc(var(--wa-form-control-padding-inline) + 1rem + var(--wa-space-xs));
+    overflow: hidden;
 
     cursor: pointer;
+
+    &[multiple] {
+      height: auto;
+      background-image: none;
+      padding-inline: var(--wa-form-control-padding-inline);
+    }
   }
   /* #endregion */
 
