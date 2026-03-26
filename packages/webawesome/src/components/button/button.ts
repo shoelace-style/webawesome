@@ -38,6 +38,11 @@ import styles from './button.styles.js';
  * @csspart end - The container that wraps the `end` slot.
  * @csspart caret - The button's caret icon, a `<wa-icon>` element.
  * @csspart spinner - The spinner that shows when the button is in the loading state.
+ *
+ * @cssstate disabled - Applied when the button is disabled.
+ * @cssstate icon-button - Applied when the button contains only a `<wa-icon>` with no other content.
+ * @cssstate link - Applied when the button is rendered as a link (i.e. `href` is set).
+ * @cssstate loading - Applied when the button is in the loading state.
  */
 @customElement('wa-button')
 export default class WaButton extends WebAwesomeFormAssociatedElement {
@@ -217,6 +222,7 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
 
     // It's only an icon button if there's an icon and nothing else
     this.isIconButton = hasIcon && !hasText && !hasOtherElements;
+    this.customStates.set('icon-button', this.isIconButton);
 
     if (this.isIconButton && !hasIconLabel) {
       console.warn(
@@ -236,7 +242,18 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
 
   @watch('disabled', { waitUntilFirstUpdate: true })
   handleDisabledChange() {
+    this.customStates.set('disabled', this.disabled);
     this.updateValidity();
+  }
+
+  @watch('href')
+  handleHrefChange() {
+    this.customStates.set('link', this.isLink());
+  }
+
+  @watch('loading', { waitUntilFirstUpdate: true })
+  handleLoadingChange() {
+    this.customStates.set('loading', this.loading);
   }
 
   // eslint-disable-next-line
