@@ -172,7 +172,6 @@ export default class WaOption extends WebAwesomeElement {
     if (changedProperties.has('selected')) {
       this.setAttribute('aria-selected', this.selected ? 'true' : 'false');
       this.customStates.set('selected', this.selected);
-      this.handleDefaultSlotChange();
     }
 
     if (changedProperties.has('value')) {
