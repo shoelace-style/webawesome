@@ -27,6 +27,7 @@ import styles from './option.styles.js';
  *
  * @cssstate current - The user has keyed into the option, but hasn't selected it yet (shows a highlight)
  * @cssstate selected - The option is selected and has aria-selected="true"
+ * @cssstate disabled - Applied when the option is disabled
  * @cssstate hover - Like `:hover` but works while dragging in Safari
  */
 @customElement('wa-option')
@@ -165,6 +166,7 @@ export default class WaOption extends WebAwesomeElement {
 
     if (changedProperties.has('disabled')) {
       this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
+      this.customStates.set('disabled', this.disabled);
     }
 
     if (changedProperties.has('selected')) {

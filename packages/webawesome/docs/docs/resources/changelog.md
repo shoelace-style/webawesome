@@ -8,17 +8,28 @@ Web Awesome follows [Semantic Versioning](https://semver.org/). Breaking changes
 
 Components with the <wa-badge variant="warning">Experimental</wa-badge> badge should not be used in production. They are made available as release candidates for development and testing purposes. As such, changes to experimental components will not be subject to semantic versioning.
 
+{% include "changelog-email-signup.njk" %}
+
 ## Unreleased
 
+<small>TBD</small>
+
+- Added a new free component: `<wa-markdown>` (#6 of 14 per stretch goals)
+- Fixed a bug in the native styles utility where `<select>` text could overlap the caret icon when the selected option had a long name
+- Fixed a bug in the native styles utility where `<select multiple>` did not expand to show multiple options
 - Added a new free component: `<wa-markdown>` (#6 of 14 per stretch goals)
 - Added form association to `<wa-rating>`
-- Added a default slot to `<wa-copy-button>` so users can provide custom buttons [issue:#1327]
+- Added a default slot to `<wa-copy-button>` so users can provide custom buttons [issue:1327]
 - Added `:state(success)` and `:state(error)` CSS custom states to `<wa-copy-button>` for styling feedback on custom triggers
 - Added the `disabled`, `icon-button`, `link`, and `loading` custom states to `<wa-button>` [discuss:2185]
-- Fixed a bug in `<wa-badge>` where `role` was incorrectly set on a `<slot>` element, which is not allowed per spec [#2163]
+- Added the `disabled` custom state to `<wa-option>` so the disabled style applies when using the property [issue:1997]
+- Fixed a bug in `<wa-badge>` where `role` was incorrectly set on a `<slot>` element, which is not allowed per spec [issue:2163]
 - Fixed a bug in `<wa-toast-item>` where the progress ring's continuously updating value was announced by screen readers [issue:2126]
 - Fixed a bug in `<wa-dropdown>` where heading colors in the menu used `!important`, preventing users from overriding them with light DOM styles [issue:2102]
+- Fixed a bug in `<wa-select>` where the `:state(blank)` custom state was incorrectly applied when the selected option had an empty string value [issue:1920]
+- Fixed a bug in `<wa-dropdown-item>` where the `click` event could still fire when the item was disabled [issue:#1817]
 - Improved the accessibility of `<wa-rating>` by moving role and ARIA attributes to the host element [issue:#2205]
+- Improved the accessibility of `<wa-rating>` by moving role and ARIA attributes to the host element [issue:2205]
 
 ## 3.4.0
 
