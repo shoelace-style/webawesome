@@ -70,11 +70,11 @@ export default class WaQrCode extends WebAwesomeElement {
     this.computedStyle ||= getComputedStyle(this);
     const computedStyle = this.computedStyle;
 
-    const span = this.shadowRoot?.querySelector("span")
+    const span = this.shadowRoot?.querySelector('span');
 
     if (span) {
       // @ts-expect-error
-      this.spanComputedStyle ||= getComputedStyle(span)
+      this.spanComputedStyle ||= getComputedStyle(span);
     }
 
     QrCreator.render(
@@ -112,11 +112,8 @@ export default class WaQrCode extends WebAwesomeElement {
           }
         }}
       >
-        <span
-          style="color: var(--corner-color);"
-        ></span>
+        <span style="color: var(--corner-color);"></span>
       </canvas>
-
     `;
   }
 }
