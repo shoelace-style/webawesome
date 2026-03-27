@@ -1,4 +1,4 @@
-import { html } from 'lit';
+import { html, isServer } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { WaTabHideEvent } from '../../events/tab-hide.js';
@@ -80,6 +80,11 @@ export default class WaTabGroup extends WebAwesomeElement {
 
   connectedCallback() {
     super.connectedCallback();
+
+    // SSR guard: browser observers and DOM APIs are not available during server-side rendering
+    if (isServer) {
+      return;
+    }
 
     this.resizeObserver = new ResizeObserver(() => {
       this.updateScrollControls();

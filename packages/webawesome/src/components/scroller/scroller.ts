@@ -1,4 +1,4 @@
-import { html } from 'lit';
+import { html, isServer } from 'lit';
 import { customElement, eventOptions, property, query, state } from 'lit/decorators.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import { LocalizeController } from '../../utilities/localize.js';
@@ -23,7 +23,7 @@ export default class WaScroller extends WebAwesomeElement {
   static css = [styles];
 
   private readonly localize = new LocalizeController(this);
-  private resizeObserver = new ResizeObserver(() => this.updateScroll());
+  private resizeObserver: ResizeObserver | null = null;
 
   @query('#content') content: HTMLElement;
 
@@ -40,12 +40,17 @@ export default class WaScroller extends WebAwesomeElement {
 
   connectedCallback() {
     super.connectedCallback();
-    this.resizeObserver.observe(this);
+
+    // SSR guard: ResizeObserver is not available during server-side rendering
+    if (!isServer) {
+      this.resizeObserver = new ResizeObserver(() => this.updateScroll());
+      this.resizeObserver.observe(this);
+    }
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    this.resizeObserver.disconnect();
+    this.resizeObserver?.disconnect();
   }
 
   private handleKeyDown(event: KeyboardEvent) {

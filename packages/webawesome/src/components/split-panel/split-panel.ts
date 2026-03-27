@@ -1,4 +1,4 @@
-import { html } from 'lit';
+import { html, isServer } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { WaRepositionEvent } from '../../events/reposition.js';
@@ -78,11 +78,15 @@ export default class WaSplitPanel extends WebAwesomeElement {
 
   connectedCallback() {
     super.connectedCallback();
-    this.resizeObserver = new ResizeObserver(entries => this.handleResize(entries));
-    this.updateComplete.then(() => this.resizeObserver.observe(this));
 
-    this.detectSize();
-    this.cachedPositionInPixels = this.percentageToPixels(this.position);
+    // SSR guard: ResizeObserver is not available during server-side rendering
+    if (!isServer) {
+      this.resizeObserver = new ResizeObserver(entries => this.handleResize(entries));
+      this.updateComplete.then(() => this.resizeObserver.observe(this));
+
+      this.detectSize();
+      this.cachedPositionInPixels = this.percentageToPixels(this.position);
+    }
   }
 
   disconnectedCallback() {
