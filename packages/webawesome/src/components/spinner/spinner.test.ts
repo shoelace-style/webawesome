@@ -28,9 +28,9 @@ describe('<wa-spinner>', () => {
 
       describe('when --track-width is set', () => {
         it('should apply --track-width to the SVG circles', async () => {
-          const spinner = await fixture<WaSpinner>(
-            html` <wa-spinner style="font-size: 50px; --track-width: 4px;"></wa-spinner> `
-          );
+          const spinner = await fixture<WaSpinner>(html`
+            <wa-spinner style="font-size: 50px; --track-width: 4px;"></wa-spinner>
+          `);
           const track = spinner.shadowRoot!.querySelector('.track')!;
           const indicator = spinner.shadowRoot!.querySelector('.indicator')!;
           expect(getComputedStyle(track).strokeWidth).to.equal('4px');
