@@ -4,8 +4,9 @@ export {
   setDefaultIconFamily,
   unregisterIconLibrary,
 } from './components/icon/library.js';
+export { getIconFolder } from './components/icon/library.default.js';
 export { discover, preventTurboFouce, startLoader, stopLoader } from './utilities/autoloader.js';
-export { getBasePath, getKitCode, setBasePath, setKitCode } from './utilities/base-path.js';
+export { getBasePath, getIconPath, getKitCode, setBasePath, setIconPath, setKitCode } from './utilities/base-path.js';
 export { allDefined } from './utilities/defined.js';
 export { registerTranslation } from './utilities/localize.js';
 
