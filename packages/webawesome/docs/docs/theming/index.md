@@ -140,7 +140,7 @@ Follow these best practices for supporting both light and dark mode:
 - Allow the user to override this setting in your app
 - Remember the user's preference and restore it on subsequent visits
 
-Let's assume you have a simple button with `id="color-scheme-button"` that toggles between light and dark mode. You can use the following JS snippet to apply `class="wa-dark"` to the `<html>` element accordingly:
+Let's assume you have a button with `id="color-scheme-button"` that simply toggles between light and dark mode. You can use the following JS snippet to apply `class="wa-dark"` to the `<html>` element accordingly:
 
 ```js
 // Function to apply color scheme
@@ -148,7 +148,8 @@ function applyScheme(dark) {
   document.documentElement.classList.toggle('wa-dark', dark);
 }
 
-// Function to get the user's preferred color scheme from local storage or system preferences
+// Function to get the user's preferred color scheme
+// Grabs from local storage if available or falls back to system preference
 function getPreferredScheme() {
   const savedMode = localStorage.getItem('wa-color-scheme');
   if (savedMode !== null) return savedMode === 'dark';
@@ -169,9 +170,9 @@ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (ev
 
 // Listen for clicks on the color scheme button
 document.getElementById('color-scheme-button').addEventListener('click', () => {
-  const isDark = !document.documentElement.classList.contains('wa-dark');
-  applyScheme(isDark);
-  localStorage.setItem('wa-color-scheme', isDark ? 'dark' : 'light');
+  const toDark = !document.documentElement.classList.contains('wa-dark');
+  applyScheme(toDark);
+  localStorage.setItem('wa-color-scheme', toDark ? 'dark' : 'light');
 });
 ```
 
