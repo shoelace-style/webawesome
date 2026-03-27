@@ -291,6 +291,11 @@ if (!isServer) {
     }
   });
 
+  //
+  // Ugly, but it fixes light dismiss in Safari: https://bugs.webkit.org/show_bug.cgi?id=267688
+  //
+  // [Mar 27, 2026] - This bug was fixed in Safari 18.3 beta so this can be removed in a year or so.
+  //
   document.addEventListener('pointerdown', () => {
     /* empty */
   });

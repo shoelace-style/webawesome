@@ -198,6 +198,24 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
   /** Determines the size of the color picker's trigger */
   @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
 
+  /**
+   * The preferred placement of the color picker's popup. Note that the actual placement will vary as configured to
+   * keep the panel inside of the viewport.
+   */
+  @property({ reflect: true }) placement:
+    | 'top'
+    | 'top-start'
+    | 'top-end'
+    | 'bottom'
+    | 'bottom-start'
+    | 'bottom-end'
+    | 'right'
+    | 'right-start'
+    | 'right-end'
+    | 'left'
+    | 'left-start'
+    | 'left-end' = 'bottom-start';
+
   /** Removes the button that lets users toggle between format.   */
   @property({ attribute: 'without-format-toggle', type: Boolean }) withoutFormatToggle = false;
 
@@ -1336,7 +1354,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
       <wa-popup
         class="color-popup"
         anchor="trigger"
-        placement="bottom-start"
+        placement=${this.placement}
         distance="0"
         skidding="0"
         flip
