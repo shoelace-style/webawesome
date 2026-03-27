@@ -77,6 +77,12 @@ export default class WaDialog extends WebAwesomeElement {
   /** When enabled, the dialog will be closed when the user clicks outside of it. */
   @property({ attribute: 'light-dismiss', type: Boolean }) lightDismiss = false;
 
+  /**
+   * Only required for SSR. Set to `true` if you're slotting in a `footer` element so the server-rendered markup
+   * includes the footer before the component hydrates on the client.
+   */
+  @property({ attribute: 'with-footer', type: Boolean }) withFooter = false;
+
   firstUpdated() {
     if (this.open) {
       this.addOpenListeners();
@@ -212,7 +218,7 @@ export default class WaDialog extends WebAwesomeElement {
 
   render() {
     const hasHeader = !this.withoutHeader;
-    const hasFooter = this.hasSlotController.test('footer');
+    const hasFooter = this.hasUpdated ? this.hasSlotController.test('footer') : this.withFooter;
 
     return html`
       <dialog
@@ -291,6 +297,11 @@ if (!isServer) {
     }
   });
 
+  //
+  // Ugly, but it fixes light dismiss in Safari: https://bugs.webkit.org/show_bug.cgi?id=267688
+  //
+  // [Mar 27, 2026] - This bug was fixed in Safari 18.3 beta so this can be removed in a year or so.
+  //
   document.addEventListener('pointerdown', () => {
     /* empty */
   });

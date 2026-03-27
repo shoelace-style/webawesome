@@ -44,13 +44,22 @@ export default class WaCard extends WebAwesomeElement {
   @property({ reflect: true })
   appearance: 'accent' | 'filled' | 'outlined' | 'filled-outlined' | 'plain' = 'outlined';
 
-  /** Renders the card with a header. Only needed for SSR, otherwise is automatically added. */
+  /**
+   * Only required for SSR. Set to `true` if you're slotting in a `header` element so the server-rendered markup
+   * includes the header before the component hydrates on the client.
+   */
   @property({ attribute: 'with-header', type: Boolean, reflect: true }) withHeader = false;
 
-  /** Renders the card with an image. Only needed for SSR, otherwise is automatically added. */
+  /**
+   * Only required for SSR. Set to `true` if you're slotting in a `media` element so the server-rendered markup
+   * includes the media before the component hydrates on the client.
+   */
   @property({ attribute: 'with-media', type: Boolean, reflect: true }) withMedia = false;
 
-  /** Renders the card with a footer. Only needed for SSR, otherwise is automatically added. */
+  /**
+   * Only required for SSR. Set to `true` if you're slotting in a `footer` element so the server-rendered markup
+   * includes the footer before the component hydrates on the client.
+   */
   @property({ attribute: 'with-footer', type: Boolean, reflect: true }) withFooter = false;
 
   /** Renders the card's orientation **/

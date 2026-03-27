@@ -41,7 +41,7 @@ export default css`
       display: block !important;
       margin: 0.25em 0 !important;
       padding: 0.25em 0.75em !important;
-      color: var(--wa-color-text-quiet) !important;
+      color: var(--wa-color-text-quiet);
       font-family: var(--wa-font-family-body) !important;
       font-weight: var(--wa-font-weight-semibold) !important;
       font-size: var(--wa-font-size-smaller) !important;
