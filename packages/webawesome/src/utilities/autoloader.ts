@@ -41,9 +41,15 @@ export async function discover(root: Document | Element | ShadowRoot) {
 
   // Collect tags from data-wa-preload attributes
   const preloadSelectors = root.querySelectorAll('[data-wa-preload]');
-  const preloadRoots = root instanceof Element && root.hasAttribute('data-wa-preload') ? [root, ...preloadSelectors] : preloadSelectors;
+  const preloadRoots =
+    root instanceof Element && root.hasAttribute('data-wa-preload') ? [root, ...preloadSelectors] : preloadSelectors;
   for (const el of preloadRoots) {
-    tags.push(...(el as Element).getAttribute('data-wa-preload')!.split(/\s+/).filter(tag => tag.startsWith('wa-')));
+    tags.push(
+      ...(el as Element)
+        .getAttribute('data-wa-preload')!
+        .split(/\s+/)
+        .filter(tag => tag.startsWith('wa-')),
+    );
   }
 
   // Make the list unique
