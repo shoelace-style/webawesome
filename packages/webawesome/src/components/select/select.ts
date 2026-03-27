@@ -186,15 +186,11 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
 
     // Rebuild optionValues only when the cache has been invalidated
     if (this.optionValues === undefined) {
-      if (value == null) {
-        this.optionValues = new Set(null);
-      } else {
-        this.optionValues = new Set(
-          this.getAllOptions()
-            .filter(option => !option.disabled)
-            .map(option => option.value),
-        );
-      }
+      this.optionValues = new Set(
+        this.getAllOptions()
+          .filter(option => !option.disabled)
+          .map(option => option.value),
+      );
     }
 
     // Drop values not in the DOM
