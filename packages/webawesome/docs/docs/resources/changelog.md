@@ -15,6 +15,8 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 <small>TBD</small>
 
 - Added a new free component: `<wa-markdown>` (#6 of 14 per stretch goals)
+- Added the `data-wa-preload` attribute for preloading components that aren't on the page yet when using the autoloader [issue:1501]
+- Added `placement` attribute to `<wa-color-picker>` [issue:2099]
 - Fixed a bug in the native styles utility where `<select>` text could overlap the caret icon when the selected option had a long name
 - Fixed a bug in the native styles utility where `<select multiple>` did not expand to show multiple options
 - Added a new free component: `<wa-markdown>` (#6 of 14 per stretch goals)
@@ -26,10 +28,15 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Added the `with-count` attribute to `<wa-textarea>` to show a character count below the textarea
 - Fixed a bug in `<wa-badge>` where `role` was incorrectly set on a `<slot>` element, which is not allowed per spec [issue:2163]
 - Fixed a bug in `<wa-toast-item>` where the progress ring's continuously updating value was announced by screen readers [issue:2126]
+- Fixed a bug in `<wa-dropdown>` where heading colors in the menu used `!important`, preventing users from overriding them with light DOM styles [issue:2102]
 - Fixed a bug in `<wa-select>` where the `:state(blank)` custom state was incorrectly applied when the selected option had an empty string value [issue:1920]
 - Fixed a bug in `<wa-dropdown-item>` where the `click` event could still fire when the item was disabled [issue:#1817]
+- Fixed a bug in `<wa-select>`, `<wa-combobox>`, and `<wa-option>` where the `change` and `input` events could dispatch with incorrect timing
+- Fixed a bug in `<wa-drawer>` that threw an error when including Web Awesome in the `<head>` [discuss:2241]
 - Improved the accessibility of `<wa-rating>` by moving role and ARIA attributes to the host element [issue:#2205]
 - Improved the accessibility of `<wa-rating>` by moving role and ARIA attributes to the host element [issue:2205]
+- Improved performance of `<wa-textarea>` by only creating a resize observer when necessary
+- Improved SSR compatibility by adding server-side rendering guards to components that use browser-only APIs
 
 ## 3.4.0
 

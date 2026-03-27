@@ -186,15 +186,11 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
 
     // Rebuild optionValues only when the cache has been invalidated
     if (this.optionValues === undefined) {
-      if (value == null) {
-        this.optionValues = new Set(null);
-      } else {
-        this.optionValues = new Set(
-          this.getAllOptions()
-            .filter(option => !option.disabled)
-            .map(option => option.value),
-        );
-      }
+      this.optionValues = new Set(
+        this.getAllOptions()
+          .filter(option => !option.disabled)
+          .map(option => option.value),
+      );
     }
 
     // Drop values not in the DOM
@@ -254,12 +250,14 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   @property({ attribute: 'hint' }) hint = '';
 
   /**
-   * Used for SSR purposes when a label is slotted in. Will show the label on first render.
+   * Only required for SSR. Set to `true` if you're slotting in a `label` element so the server-rendered markup
+   * includes the label before the component hydrates on the client.
    */
   @property({ attribute: 'with-label', type: Boolean }) withLabel = false;
 
   /**
-   * Used for SSR purposes when hint is slotted in. Will show the hint on first render.
+   * Only required for SSR. Set to `true` if you're slotting in a `hint` element so the server-rendered markup
+   * includes the hint before the component hydrates on the client.
    */
   @property({ attribute: 'with-hint', type: Boolean }) withHint = false;
 

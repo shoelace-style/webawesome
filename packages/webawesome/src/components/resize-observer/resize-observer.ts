@@ -1,4 +1,4 @@
-import { html } from 'lit';
+import { html, isServer } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { WaResizeEvent } from '../../events/resize.js';
 import { watch } from '../../internal/watch.js';
@@ -27,14 +27,18 @@ export default class WaResizeObserver extends WebAwesomeElement {
 
   connectedCallback() {
     super.connectedCallback();
-    this.resizeObserver = new ResizeObserver((entries: ResizeObserverEntry[]) => {
-      this.dispatchEvent(new WaResizeEvent({ entries }));
-    });
 
-    if (!this.disabled) {
-      this.updateComplete.then(() => {
-        this.startObserver();
+    // SSR guard: ResizeObserver is not available during server-side rendering
+    if (!isServer) {
+      this.resizeObserver = new ResizeObserver((entries: ResizeObserverEntry[]) => {
+        this.dispatchEvent(new WaResizeEvent({ entries }));
       });
+
+      if (!this.disabled) {
+        this.updateComplete.then(() => {
+          this.startObserver();
+        });
+      }
     }
   }
 
