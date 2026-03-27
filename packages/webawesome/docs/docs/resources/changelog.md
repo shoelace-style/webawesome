@@ -15,6 +15,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 <small>TBD</small>
 
 - Added a new free component: `<wa-markdown>` (#6 of 14 per stretch goals)
+- Added the `data-wa-preload` attribute for preloading components that aren't on the page yet when using the autoloader [issue:1501]
 - Added `placement` attribute to `<wa-color-picker>` [issue:2099]
 - Fixed a bug in the native styles utility where `<select>` text could overlap the caret icon when the selected option had a long name
 - Fixed a bug in the native styles utility where `<select multiple>` did not expand to show multiple options
@@ -30,6 +31,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed a bug in `<wa-select>` where the `:state(blank)` custom state was incorrectly applied when the selected option had an empty string value [issue:1920]
 - Fixed a bug in `<wa-dropdown-item>` where the `click` event could still fire when the item was disabled [issue:#1817]
 - Fixed a bug in `<wa-select>`, `<wa-combobox>`, and `<wa-option>` where the `change` and `input` events could dispatch with incorrect timing
+- Fixed a bug in `<wa-drawer>` that threw an error when including Web Awesome in the `<head>` [discuss:2241]
 - Improved the accessibility of `<wa-rating>` by moving role and ARIA attributes to the host element [issue:#2205]
 - Improved the accessibility of `<wa-rating>` by moving role and ARIA attributes to the host element [issue:2205]
 
