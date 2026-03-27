@@ -1,5 +1,5 @@
 import type { PropertyValues } from 'lit';
-import { html } from 'lit';
+import { html, isServer } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { ColorSchemeController } from '../../internal/color-scheme-controller.js';
@@ -33,9 +33,8 @@ export default class WaZoomableFrame extends WebAwesomeElement {
 
   private readonly localize = new LocalizeController(this);
   private availableZoomLevels: number[] = [];
-  // Watches document.documentElement class changes (e.g. theme-selector, color-scheme-selector).
-  // Only active while withThemeSync is true.
-  private readonly themeObserver = new MutationObserver(() => this.syncTheme());
+  // SSR guard: MutationObserver is not available during server-side rendering
+  private themeObserver: MutationObserver | null = !isServer ? new MutationObserver(() => this.syncTheme()) : null;
 
   constructor() {
     super();
@@ -170,10 +169,10 @@ export default class WaZoomableFrame extends WebAwesomeElement {
 
     if (changedProperties.has('withThemeSync')) {
       if (this.withThemeSync) {
-        this.themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+        this.themeObserver?.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
         this.syncTheme(); // Apply immediately when toggled on
       } else {
-        this.themeObserver.disconnect();
+        this.themeObserver?.disconnect();
       }
     }
   }
@@ -208,7 +207,7 @@ export default class WaZoomableFrame extends WebAwesomeElement {
 
   override disconnectedCallback() {
     super.disconnectedCallback();
-    this.themeObserver.disconnect();
+    this.themeObserver?.disconnect();
   }
 
   private syncTheme() {

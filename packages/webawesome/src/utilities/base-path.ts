@@ -1,4 +1,5 @@
 let basePath = '';
+let iconPath = '';
 let kitCode = '';
 
 /** Sets the library's base path to the specified directory or URL. */
@@ -48,6 +49,25 @@ export function getBasePath(subpath = '') {
 
   // Return the base path without a trailing slash. If one exists, append the subpath separated by a slash.
   return basePath.replace(/\/$/, '') + (subpath ? `/${subpath.replace(/^\//, '')}` : ``);
+}
+
+/**
+ * Sets the path where the default icon library resolves SVG icons from. When set, the default icon library will load
+ * icons from this path instead of the Font Awesome CDN. The expected directory structure mirrors the Font Awesome SVG
+ * download, e.g. `{path}/solid/house.svg` or `{path}/brands/github.svg`.
+ *
+ * This should be called before Web Awesome components are loaded.
+ */
+export function setIconPath(path: string) {
+  iconPath = path;
+}
+
+/**
+ * Gets the path where the default icon library resolves SVG icons from. When set, the default icon library will load
+ * icons from this path instead of the Font Awesome CDN.
+ */
+export function getIconPath() {
+  return iconPath.replace(/\/$/, '');
 }
 
 /** Sets the library's Web Awesome kit code. */
