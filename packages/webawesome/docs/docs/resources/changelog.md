@@ -30,6 +30,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Improved the accessibility of `<wa-rating>` by moving role and ARIA attributes to the host element [issue:#2205]
 - Improved the accessibility of `<wa-rating>` by moving role and ARIA attributes to the host element [issue:2205]
 - Improved performance of `<wa-textarea>` by only creating a resize observer when necessary
+- Improved SSR compatibility by adding server-side rendering guards to components that use browser-only APIs
 
 ## 3.4.0
 
