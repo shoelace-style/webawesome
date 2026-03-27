@@ -396,6 +396,28 @@ connectedCallback() {
 }
 ```
 
+#### Slot Detection and `with-*` Attributes
+
+Some components use `HasSlotController` to conditionally render parts of their template (e.g. a footer that only appears when a `footer` slot is present). During SSR, slot detection doesn't work because the DOM isn't available, so these parts would be missing from the initial server-rendered markup.
+
+To solve this, components that rely on slot detection in their `render()` method must provide `with-*` attributes as SSR fallbacks. Use the `hasUpdated` ternary pattern:
+
+```ts
+/**
+ * Only required for SSR. Set to `true` if you're slotting in a `label` element so the server-rendered markup
+ * includes the label before the component hydrates on the client.
+ */
+@property({ attribute: 'with-label', type: Boolean }) withLabel = false;
+
+render() {
+  const hasLabelSlot = this.hasUpdated
+    ? this.hasSlotController.test('label')
+    : this.withLabel;
+}
+```
+
+Before the component has hydrated (`hasUpdated` is `false`), the `with-*` property is used. After hydration, `HasSlotController` takes over with real slot detection. All `with-*` SSR properties must include a JSDoc comment that clearly states the property is only required for SSR.
+
 ### System Icons
 
 Avoid inlining SVG icons inside of templates. If a component requires an icon, make sure `<wa-icon>` is a dependency of the component and use the [system library](/docs/components/icon#customizing-the-system-library):
