@@ -22,20 +22,20 @@ export default css`
   }
 
   @media (hover: hover) {
-    :host(:not([disabled], :state(current)):is(:state(hover), :hover)) {
+    :host(:not(:state(disabled), :state(current)):is(:state(hover), :hover)) {
       background-color: var(--wa-color-neutral-fill-normal);
       color: var(--wa-color-neutral-on-normal);
     }
   }
 
   :host(:state(current)),
-  :host([disabled]:state(current)) {
+  :host(:state(disabled):state(current)) {
     background-color: var(--wa-color-brand-fill-loud);
     color: var(--wa-color-brand-on-loud);
     opacity: 1;
   }
 
-  :host([disabled]) {
+  :host(:state(disabled)) {
     outline: none;
     opacity: 0.5;
     cursor: not-allowed;

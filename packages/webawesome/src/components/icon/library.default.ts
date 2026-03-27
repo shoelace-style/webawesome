@@ -1,11 +1,10 @@
-import { getKitCode } from '../../utilities/base-path.js';
+import { getIconPath, getKitCode } from '../../utilities/base-path.js';
 import type { IconLibrary } from './library.js';
 
 const FA_VERSION = '7.2.0';
 
-function getIconUrl(name: string, family: string, variant: string) {
-  const kitCode = getKitCode();
-  const isPro = kitCode.length > 0;
+/** Returns the folder name used by Font Awesome for a given icon family and variant combination. */
+export function getIconFolder(_name: string, family: string, variant: string) {
   let folder = 'solid';
 
   // Chisel (Pro+)
@@ -120,7 +119,20 @@ function getIconUrl(name: string, family: string, variant: string) {
     folder = 'brands';
   }
 
-  // Use the default CDN
+  return folder;
+}
+
+function getIconUrl(name: string, family: string, variant: string) {
+  const folder = getIconFolder(name, family, variant);
+  const iconBase = getIconPath();
+
+  if (iconBase) {
+    return `${iconBase}/${folder}/${name}.svg`;
+  }
+
+  const kitCode = getKitCode();
+  const isPro = kitCode.length > 0;
+
   return isPro
     ? `https://ka-p.fontawesome.com/releases/v${FA_VERSION}/svgs/${folder}/${name}.svg?token=${encodeURIComponent(kitCode)}`
     : `https://ka-f.fontawesome.com/releases/v${FA_VERSION}/svgs/${folder}/${name}.svg`;
