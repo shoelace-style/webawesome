@@ -45,7 +45,7 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
 
   assumeInteractionOn = ['blur', 'input'];
   private readonly hasSlotController = new HasSlotController(this, 'hint', 'label');
-  private resizeObserver: ResizeObserver;
+  private resizeObserver?: ResizeObserver;
 
   @query('.control') input: HTMLTextAreaElement;
   @query('[part~="base"]') base: HTMLDivElement;
@@ -164,11 +164,9 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
   connectedCallback() {
     super.connectedCallback();
 
-    this.resizeObserver = new ResizeObserver(() => this.setTextareaDimensions());
-
     this.updateComplete.then(() => {
       this.setTextareaDimensions();
-      this.resizeObserver.observe(this.input);
+      this.updateResizeObserver();
 
       if (this.didSSR && this.input && this.value !== this.input.value) {
         const value = this.input.value;
@@ -180,8 +178,22 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    if (this.input) {
-      this.resizeObserver?.unobserve(this.input);
+    this.resizeObserver?.disconnect();
+    this.resizeObserver = undefined;
+  }
+
+  /** Creates or destroys the resize observer based on the current resize mode. */
+  private updateResizeObserver() {
+    // The resize observer is only needed for manual resize modes (vertical, horizontal, both)
+    // to sync the base wrapper dimensions with the textarea.
+    const needsObserver = this.resize !== 'none' && this.resize !== 'auto';
+
+    if (needsObserver && !this.resizeObserver && this.input) {
+      this.resizeObserver = new ResizeObserver(() => this.setTextareaDimensions());
+      this.resizeObserver.observe(this.input);
+    } else if (!needsObserver && this.resizeObserver) {
+      this.resizeObserver.disconnect();
+      this.resizeObserver = undefined;
     }
   }
 
@@ -253,6 +265,7 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
   updated(changedProperties: PropertyValues<this>) {
     if (changedProperties.has('resize')) {
       this.setTextareaDimensions();
+      this.updateResizeObserver();
     }
 
     super.updated(changedProperties);
