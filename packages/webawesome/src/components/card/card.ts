@@ -44,13 +44,22 @@ export default class WaCard extends WebAwesomeElement {
   @property({ reflect: true })
   appearance: 'accent' | 'filled' | 'outlined' | 'filled-outlined' | 'plain' = 'outlined';
 
-  /** Renders the card with a header. Only needed for SSR, otherwise is automatically added. */
+  /**
+   * Only required for SSR. Set to `true` if you're slotting in a `header` element so the server-rendered markup
+   * includes the header before the component hydrates on the client.
+   */
   @property({ attribute: 'with-header', type: Boolean, reflect: true }) withHeader = false;
 
-  /** Renders the card with an image. Only needed for SSR, otherwise is automatically added. */
+  /**
+   * Only required for SSR. Set to `true` if you're slotting in a `media` element so the server-rendered markup
+   * includes the media before the component hydrates on the client.
+   */
   @property({ attribute: 'with-media', type: Boolean, reflect: true }) withMedia = false;
 
-  /** Renders the card with a footer. Only needed for SSR, otherwise is automatically added. */
+  /**
+   * Only required for SSR. Set to `true` if you're slotting in a `footer` element so the server-rendered markup
+   * includes the footer before the component hydrates on the client.
+   */
   @property({ attribute: 'with-footer', type: Boolean, reflect: true }) withFooter = false;
 
   /** Renders the card's orientation **/
@@ -69,7 +78,7 @@ export default class WaCard extends WebAwesomeElement {
     if (this.orientation === 'horizontal') {
       return html`
         <slot name="media" part="media" class="media"></slot>
-        <slot part="body" class="body"></slot>
+        <div part="body" class="body"><slot></slot></div>
         <slot name="actions" part="actions" class="actions"></slot>
       `;
     }
@@ -87,7 +96,7 @@ export default class WaCard extends WebAwesomeElement {
             <slot name="header"></slot>
           </header>`}
 
-      <slot part="body" class="body"></slot>
+      <div part="body" class="body"><slot></slot></div>
       ${this.hasSlotController.test('footer-actions')
         ? html` <footer part="footer" class="footer has-actions">
             <slot name="footer"></slot>

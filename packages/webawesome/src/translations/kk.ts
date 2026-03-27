@@ -8,6 +8,7 @@ const translation: Translation = {
 
   carousel: 'Карусель',
   clearEntry: 'Жазбаны жою',
+  createOption: value => `"${value}" жасау`,
   close: 'Жабу',
   copied: 'Көшірілді',
   copy: 'Көшіру',

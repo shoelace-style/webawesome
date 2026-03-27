@@ -281,14 +281,3 @@ Use the `disabled` attribute to disable a slider.
 <wa-slider label="Disabled" value="50" disabled></wa-slider>
 ```
 
-### Required
-
-Mark a slider as required using the `required` attribute. Users must interact with required sliders before the form can be submitted.
-
-```html {.example}
-<form action="about:blank" target="_blank" method="get">
-  <wa-slider name="slide" label="Required slider" min="0" max="10" required></wa-slider>
-  <br />
-  <button type="submit">Submit</button>
-</form>
-```

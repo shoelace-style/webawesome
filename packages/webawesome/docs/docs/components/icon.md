@@ -498,9 +498,9 @@ Swapped duotone<br />
 </div>
 ```
 
-### Font Awesome Pro+
+### Font Awesome Pro+ Icons
 
-If you're a [Font Awesome Pro+ customer](https://fontawesome.com/), you have access to even more premium icons! Just set the appropriate `family`, `variant`, and `name` on the icon.
+If you're a [Font Awesome Pro+ customer](https://fontawesome.com/), you have access to even more icons! Just set the appropriate `family`, `variant`, and `name` on the icon.
 
 ```html {.example}
 <div class="wa-stack wa-gap-xl">
@@ -607,443 +607,41 @@ Custom icons can be loaded individually with the `src` attribute. Only SVGs on a
 <wa-icon src="https://shoelace.style/assets/images/shoe.svg" style="font-size: 4rem;"></wa-icon>
 ```
 
-## Icon Libraries
+### Self-hosting the Default Library
 
-You can register additional icons to use with the `<wa-icon>` component through icon libraries. Icon files can exist locally or on a CORS-enabled endpoint (e.g. a CDN). There is no limit to how many icon libraries you can register and there is no cost associated with registering them, as individual icons are only requested when they're used.
+By default, icons are loaded from the Font Awesome CDN. If you'd prefer to [download the icons](https://fontawesome.com/download) and serve them from your own server, you can use the `setIconPath()` function to point the default icon library at your self-hosted directory.
 
-Web Awesome ships with two built-in icon libraries, `default` and `system`. The [default icon library](#customizing-the-default-library) is provided courtesy of [Font Awesome](https://fontawesome.com/). The [system icon library](#customizing-the-system-library) contains only a small subset of icons that are used internally by Web Awesome components.
-
-To register an additional icon library, use the `registerIconLibrary()` function that's exported from `dist/webawesome.js`. At a minimum, you must provide a name and a resolver function. The resolver function translates an icon name to a URL where the corresponding SVG file exists. Refer to the examples below to better understand how it works.
-
-If necessary, a mutator function can be used to mutate the SVG element before rendering. This is necessary for some libraries due to the many possible ways SVGs are crafted. For example, icons should ideally inherit the current text color via `currentColor`, so you may need to apply `fill="currentColor` or `stroke="currentColor"` to the SVG element using this function.
-
-Here's an example that registers an icon library located in the `/assets/icons` directory.
+When you download Font Awesome, the archive will contain an `svgs` directory with subfolders such as `solid/`, `regular/`, `brands/`, etc. Copy the `svgs` directory (or its contents) into your project and set the icon path to point to it.
 
 ```html
 <script type="module">
-  import { registerIconLibrary } from '/dist/webawesome.js';
+  import { setIconPath } from '/dist/webawesome.js';
 
-  registerIconLibrary('my-icons', {
-    resolver: (name, family, variant) => `/assets/icons/${name}.svg`,
-    mutator: svg => svg.setAttribute('fill', 'currentColor'),
-  });
+  // Point to the `svgs` directory from your Font Awesome download
+  setIconPath('/assets/fontawesome/svgs');
 </script>
 ```
 
-To display an icon, set the `library` and `name` attributes of an `<wa-icon>` element.
+After calling `setIconPath()`, icons will resolve to your self-hosted directory instead of the CDN. For example, `<wa-icon name="house">` will load from `/assets/fontawesome/svgs/solid/house.svg`.
+
+For more control over how icon URLs are constructed, you can use the `getIconFolder()` helper along with `registerIconLibrary()` to build a custom resolver. The `getIconFolder()` function maps a family and variant to the correct folder name, so you don't have to replicate that logic yourself.
 
 ```html
-<!-- This will show the icon located at /assets/icons/smile.svg -->
-<wa-icon library="my-icons" name="smile"></wa-icon>
-```
-
-If an icon is used before registration occurs, it will be empty initially but shown when registered.
-
-The following examples demonstrate how to register a number of popular, open source icon libraries via CDN. Feel free to adapt the code as you see fit to use your own origin or naming conventions.
-
-### Bootstrap Icons
-
-This will register the [Bootstrap Icons](https://icons.getbootstrap.com/) library using the jsDelivr CDN. This library has two families: `regular` and `filled`.
-
-Icons in this library are licensed under the [MIT License](https://github.com/twbs/icons/blob/main/LICENSE).
-
-```html {.example}
 <script type="module">
-  import { registerIconLibrary } from '/dist/webawesome.js';
+  import { getIconFolder, registerIconLibrary } from '/dist/webawesome.js';
 
-  registerIconLibrary('bootstrap', {
-    resolver: (name, family) => {
-      const suffix = family === 'filled' ? '-fill' : '';
-      return `https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/${name}${suffix}.svg`;
+  registerIconLibrary('default', {
+    resolver: (name, family, variant) => {
+      const folder = getIconFolder(name, family, variant);
+      return `/assets/fontawesome/svgs/${folder}/${name}.svg?v=2`;
     },
   });
 </script>
-
-<div style="font-size: 24px;">
-  <wa-icon library="bootstrap" name="backpack"></wa-icon>
-  <wa-icon library="bootstrap" name="cup-hot"></wa-icon>
-  <wa-icon library="bootstrap" name="envelope-heart"></wa-icon>
-  <wa-icon library="bootstrap" name="inboxes"></wa-icon>
-  <wa-icon library="bootstrap" name="lamp"></wa-icon>
-  <wa-icon library="bootstrap" name="piggy-bank"></wa-icon>
-  <br />
-  <wa-icon library="bootstrap" family="filled" name="backpack"></wa-icon>
-  <wa-icon library="bootstrap" family="filled" name="cup-hot"></wa-icon>
-  <wa-icon library="bootstrap" family="filled" name="envelope-heart"></wa-icon>
-  <wa-icon library="bootstrap" family="filled" name="inboxes"></wa-icon>
-  <wa-icon library="bootstrap" family="filled" name="lamp"></wa-icon>
-  <wa-icon library="bootstrap" family="filled" name="piggy-bank"></wa-icon>
-</div>
 ```
 
-### Boxicons
-
-This will register the [Boxicons](https://boxicons.com/) library using the jsDelivr CDN. This library has three variations: regular (`bx-*`), solid (`bxs-*`), and logos (`bxl-*`). A mutator function is required to set the SVG's `fill` to `currentColor`.
-
-Icons in this library are licensed under the [Creative Commons 4.0 License](https://github.com/atisawd/boxicons#license).
-
-```html {.example}
-<script type="module">
-  import { registerIconLibrary } from '/dist/webawesome.js';
-
-  registerIconLibrary('boxicons', {
-    resolver: name => {
-      let folder = 'regular';
-      if (name.substring(0, 4) === 'bxs-') folder = 'solid';
-      if (name.substring(0, 4) === 'bxl-') folder = 'logos';
-      return `https://cdn.jsdelivr.net/npm/boxicons@2.0.5/svg/${folder}/${name}.svg`;
-    },
-    mutator: svg => svg.setAttribute('fill', 'currentColor'),
-  });
-</script>
-
-<div style="font-size: 24px;">
-  <wa-icon library="boxicons" name="bx-bot"></wa-icon>
-  <wa-icon library="boxicons" name="bx-cookie"></wa-icon>
-  <wa-icon library="boxicons" name="bx-joystick"></wa-icon>
-  <wa-icon library="boxicons" name="bx-save"></wa-icon>
-  <wa-icon library="boxicons" name="bx-server"></wa-icon>
-  <wa-icon library="boxicons" name="bx-wine"></wa-icon>
-  <br />
-  <wa-icon library="boxicons" name="bxs-bot"></wa-icon>
-  <wa-icon library="boxicons" name="bxs-cookie"></wa-icon>
-  <wa-icon library="boxicons" name="bxs-joystick"></wa-icon>
-  <wa-icon library="boxicons" name="bxs-save"></wa-icon>
-  <wa-icon library="boxicons" name="bxs-server"></wa-icon>
-  <wa-icon library="boxicons" name="bxs-wine"></wa-icon>
-  <br />
-  <wa-icon library="boxicons" name="bxl-apple"></wa-icon>
-  <wa-icon library="boxicons" name="bxl-chrome"></wa-icon>
-  <wa-icon library="boxicons" name="bxl-edge"></wa-icon>
-  <wa-icon library="boxicons" name="bxl-firefox"></wa-icon>
-  <wa-icon library="boxicons" name="bxl-opera"></wa-icon>
-  <wa-icon library="boxicons" name="bxl-microsoft"></wa-icon>
-</div>
-```
-
-### Lucide
-
-This will register the [Lucide](https://lucide.dev/) icon library using the jsDelivr CDN. This project is a community-maintained fork of the popular [Feather](https://feathericons.com/) icon library.
-
-Icons in this library are licensed under the [MIT License](https://github.com/lucide-icons/lucide/blob/master/LICENSE).
-
-```html {.example}
-<script type="module">
-  import { registerIconLibrary } from '/dist/webawesome.js';
-
-  registerIconLibrary('lucide', {
-    resolver: name => `https://cdn.jsdelivr.net/npm/lucide-static@0.16.29/icons/${name}.svg`,
-    mutator: svg =>
-      svg.querySelectorAll('path').forEach(path => {
-        path.setAttribute('fill', 'none');
-        path.setAttribute('stroke', 'currentColor');
-      }),
-  });
-</script>
-
-<div style="font-size: 24px;">
-  <wa-icon library="lucide" name="feather"></wa-icon>
-  <wa-icon library="lucide" name="pie-chart"></wa-icon>
-  <wa-icon library="lucide" name="settings"></wa-icon>
-  <wa-icon library="lucide" name="map-pin"></wa-icon>
-  <wa-icon library="lucide" name="printer"></wa-icon>
-  <wa-icon library="lucide" name="shopping-cart"></wa-icon>
-</div>
-```
-
-### Heroicons
-
-This will register the [Heroicons](https://heroicons.com/) library using the jsDelivr CDN.
-
-Icons in this library are licensed under the [MIT License](https://github.com/tailwindlabs/heroicons/blob/master/LICENSE).
-
-```html {.example}
-<script type="module">
-  import { registerIconLibrary } from '/dist/webawesome.js';
-
-  registerIconLibrary('heroicons', {
-    resolver: name => `https://cdn.jsdelivr.net/npm/heroicons@2.0.1/24/outline/${name}.svg`,
-    mutator: svg =>
-      svg.querySelectorAll('path').forEach(path => {
-        path.setAttribute('fill', 'none');
-        path.setAttribute('stroke', 'currentColor');
-      }),
-  });
-</script>
-
-<div style="font-size: 24px;">
-  <wa-icon library="heroicons" name="chat-bubble-left"></wa-icon>
-  <wa-icon library="heroicons" name="cloud"></wa-icon>
-  <wa-icon library="heroicons" name="cog"></wa-icon>
-  <wa-icon library="heroicons" name="document-text"></wa-icon>
-  <wa-icon library="heroicons" name="gift"></wa-icon>
-  <wa-icon library="heroicons" name="speaker-wave"></wa-icon>
-</div>
-```
-
-### Iconoir
-
-This will register the [Iconoir](https://iconoir.com/) library using the jsDelivr CDN.
-
-Icons in this library are licensed under the [MIT License](https://github.com/lucaburgio/iconoir/blob/master/LICENSE).
-
-```html {.example}
-<script type="module">
-  import { registerIconLibrary } from '/dist/webawesome.js';
-
-  registerIconLibrary('iconoir', {
-    resolver: (name, family) => {
-      return `https://cdn.jsdelivr.net/npm/iconoir@7.11.0/icons/regular/${name}.svg`;
-    },
-    mutator: svg =>
-      svg.querySelectorAll('path').forEach(path => {
-        path.setAttribute('fill', 'none');
-        path.setAttribute('stroke', 'currentColor');
-      }),
-  });
-</script>
-
-<div style="font-size: 24px;">
-  <wa-icon library="iconoir" name="check-circle"></wa-icon>
-  <wa-icon library="iconoir" name="drawer"></wa-icon>
-  <wa-icon library="iconoir" name="keyframes"></wa-icon>
-  <wa-icon library="iconoir" name="headset-help"></wa-icon>
-  <wa-icon library="iconoir" name="color-picker"></wa-icon>
-  <wa-icon library="iconoir" name="wifi"></wa-icon>
-</div>
-```
-
-### Ionicons
-
-This will register the [Ionicons](https://ionicons.com/) library using the jsDelivr CDN. This library has three variations: outline (default), filled (`*-filled`), and sharp (`*-sharp`). A mutator function is required to polyfill a handful of styles we're not including.
-
-Icons in this library are licensed under the [MIT License](https://github.com/ionic-team/ionicons/blob/master/LICENSE).
-
-```html {.example}
-<script type="module">
-  import { registerIconLibrary } from '/dist/webawesome.js';
-
-  registerIconLibrary('ionicons', {
-    resolver: name => `https://cdn.jsdelivr.net/npm/ionicons@5.1.2/dist/ionicons/svg/${name}.svg`,
-    mutator: svg => {
-      svg.setAttribute('fill', 'currentColor');
-      svg.setAttribute('stroke', 'currentColor');
-      [...svg.querySelectorAll('.ionicon-fill-none')].map(el => el.setAttribute('fill', 'none'));
-      [...svg.querySelectorAll('.ionicon-stroke-width')].map(el => el.setAttribute('stroke-width', '32px'));
-    },
-  });
-</script>
-
-<div style="font-size: 24px;">
-  <wa-icon library="ionicons" name="alarm"></wa-icon>
-  <wa-icon library="ionicons" name="american-football"></wa-icon>
-  <wa-icon library="ionicons" name="bug"></wa-icon>
-  <wa-icon library="ionicons" name="chatbubble"></wa-icon>
-  <wa-icon library="ionicons" name="settings"></wa-icon>
-  <wa-icon library="ionicons" name="warning"></wa-icon>
-  <br />
-  <wa-icon library="ionicons" name="alarm-outline"></wa-icon>
-  <wa-icon library="ionicons" name="american-football-outline"></wa-icon>
-  <wa-icon library="ionicons" name="bug-outline"></wa-icon>
-  <wa-icon library="ionicons" name="chatbubble-outline"></wa-icon>
-  <wa-icon library="ionicons" name="settings-outline"></wa-icon>
-  <wa-icon library="ionicons" name="warning-outline"></wa-icon>
-  <br />
-  <wa-icon library="ionicons" name="alarm-sharp"></wa-icon>
-  <wa-icon library="ionicons" name="american-football-sharp"></wa-icon>
-  <wa-icon library="ionicons" name="bug-sharp"></wa-icon>
-  <wa-icon library="ionicons" name="chatbubble-sharp"></wa-icon>
-  <wa-icon library="ionicons" name="settings-sharp"></wa-icon>
-  <wa-icon library="ionicons" name="warning-sharp"></wa-icon>
-</div>
-```
-
-### Jam Icons
-
-This will register the [Jam Icons](https://jam-icons.com/) library using the jsDelivr CDN. This library has two variations: regular (default) and filled (`*-f`). A mutator function is required to set the SVG's `fill` to `currentColor`.
-
-Icons in this library are licensed under the [MIT License](https://github.com/michaelampr/jam/blob/master/LICENSE).
-
-```html {.example}
-<script type="module">
-  import { registerIconLibrary } from '/dist/webawesome.js';
-
-  registerIconLibrary('jam', {
-    resolver: name => `https://cdn.jsdelivr.net/npm/jam-icons@2.0.0/svg/${name}.svg`,
-    mutator: svg => svg.setAttribute('fill', 'currentColor'),
-  });
-</script>
-
-<div style="font-size: 24px;">
-  <wa-icon library="jam" name="calendar"></wa-icon>
-  <wa-icon library="jam" name="camera"></wa-icon>
-  <wa-icon library="jam" name="filter"></wa-icon>
-  <wa-icon library="jam" name="leaf"></wa-icon>
-  <wa-icon library="jam" name="picture"></wa-icon>
-  <wa-icon library="jam" name="set-square"></wa-icon>
-  <br />
-  <wa-icon library="jam" name="calendar-f"></wa-icon>
-  <wa-icon library="jam" name="camera-f"></wa-icon>
-  <wa-icon library="jam" name="filter-f"></wa-icon>
-  <wa-icon library="jam" name="leaf-f"></wa-icon>
-  <wa-icon library="jam" name="picture-f"></wa-icon>
-  <wa-icon library="jam" name="set-square-f"></wa-icon>
-</div>
-```
-
-### Material Icons
-
-This will register the [Material Icons](https://material.io/resources/icons/?style=baseline) library using the jsDelivr CDN. This library has three variations: outline (default), round (`*_round`), and sharp (`*_sharp`). A mutator function is required to set the SVG's `fill` to `currentColor`.
-
-Icons in this library are licensed under the [Apache 2.0 License](https://github.com/google/material-design-icons/blob/master/LICENSE).
-
-```html {.example}
-<script type="module">
-  import { registerIconLibrary } from '/dist/webawesome.js';
-
-  registerIconLibrary('material', {
-    resolver: name => {
-      const match = name.match(/^(.*?)(_(round|sharp))?$/);
-      return `https://cdn.jsdelivr.net/npm/@material-icons/svg@1.0.5/svg/${match[1]}/${match[3] || 'outline'}.svg`;
-    },
-    mutator: svg => svg.setAttribute('fill', 'currentColor'),
-  });
-</script>
-
-<div style="font-size: 24px;">
-  <wa-icon library="material" name="notifications"></wa-icon>
-  <wa-icon library="material" name="email"></wa-icon>
-  <wa-icon library="material" name="delete"></wa-icon>
-  <wa-icon library="material" name="volume_up"></wa-icon>
-  <wa-icon library="material" name="settings"></wa-icon>
-  <wa-icon library="material" name="shopping_basket"></wa-icon>
-  <br />
-  <wa-icon library="material" name="notifications_round"></wa-icon>
-  <wa-icon library="material" name="email_round"></wa-icon>
-  <wa-icon library="material" name="delete_round"></wa-icon>
-  <wa-icon library="material" name="volume_up_round"></wa-icon>
-  <wa-icon library="material" name="settings_round"></wa-icon>
-  <wa-icon library="material" name="shopping_basket_round"></wa-icon>
-  <br />
-  <wa-icon library="material" name="notifications_sharp"></wa-icon>
-  <wa-icon library="material" name="email_sharp"></wa-icon>
-  <wa-icon library="material" name="delete_sharp"></wa-icon>
-  <wa-icon library="material" name="volume_up_sharp"></wa-icon>
-  <wa-icon library="material" name="settings_sharp"></wa-icon>
-  <wa-icon library="material" name="shopping_basket_sharp"></wa-icon>
-</div>
-```
-
-### Remix Icon
-
-This will register the [Remix Icon](https://remixicon.com/) library using the jsDelivr CDN. This library groups icons by categories, so the name must include the category and icon separated by a slash, as well as the `-line` or `-fill` suffix as needed. A mutator function is required to set the SVG's `fill` to `currentColor`.
-
-Icons in this library are licensed under the [Apache 2.0 License](https://github.com/Remix-Design/RemixIcon/blob/master/License).
-
-```html {.example}
-<script type="module">
-  import { registerIconLibrary } from '/dist/webawesome.js';
-
-  registerIconLibrary('remixicon', {
-    resolver: name => {
-      const match = name.match(/^(.*?)\/(.*?)?$/);
-      match[1] = match[1].charAt(0).toUpperCase() + match[1].slice(1);
-      return `https://cdn.jsdelivr.net/npm/remixicon@2.5.0/icons/${match[1]}/${match[2]}.svg`;
-    },
-    mutator: svg => svg.setAttribute('fill', 'currentColor'),
-  });
-</script>
-
-<div style="font-size: 24px;">
-  <wa-icon library="remixicon" name="business/cloud-line"></wa-icon>
-  <wa-icon library="remixicon" name="design/brush-line"></wa-icon>
-  <wa-icon library="remixicon" name="business/pie-chart-line"></wa-icon>
-  <wa-icon library="remixicon" name="development/bug-line"></wa-icon>
-  <wa-icon library="remixicon" name="media/image-line"></wa-icon>
-  <wa-icon library="remixicon" name="system/alert-line"></wa-icon>
-  <br />
-  <wa-icon library="remixicon" name="business/cloud-fill"></wa-icon>
-  <wa-icon library="remixicon" name="design/brush-fill"></wa-icon>
-  <wa-icon library="remixicon" name="business/pie-chart-fill"></wa-icon>
-  <wa-icon library="remixicon" name="development/bug-fill"></wa-icon>
-  <wa-icon library="remixicon" name="media/image-fill"></wa-icon>
-  <wa-icon library="remixicon" name="system/alert-fill"></wa-icon>
-</div>
-```
-
-### Tabler Icons
-
-This will register the [Tabler Icons](https://tabler-icons.io/) library using the jsDelivr CDN. This library features over 1,950 open source icons.
-
-Icons in this library are licensed under the [MIT License](https://github.com/tabler/tabler-icons/blob/master/LICENSE).
-
-```html {.example}
-<script type="module">
-  import { registerIconLibrary } from '/dist/webawesome.js';
-
-  registerIconLibrary('tabler', {
-    resolver: name => `https://cdn.jsdelivr.net/npm/@tabler/icons@1.68.0/icons/${name}.svg`,
-    mutator: svg => {
-      svg.style.fill = 'none';
-      svg.setAttribute('stroke', 'currentColor');
-    },
-  });
-</script>
-
-<div style="font-size: 24px;">
-  <wa-icon library="tabler" name="alert-triangle"></wa-icon>
-  <wa-icon library="tabler" name="arrow-back"></wa-icon>
-  <wa-icon library="tabler" name="at"></wa-icon>
-  <wa-icon library="tabler" name="ball-baseball"></wa-icon>
-  <wa-icon library="tabler" name="cake"></wa-icon>
-  <wa-icon library="tabler" name="files"></wa-icon>
-  <br />
-  <wa-icon library="tabler" name="keyboard"></wa-icon>
-  <wa-icon library="tabler" name="moon"></wa-icon>
-  <wa-icon library="tabler" name="pig"></wa-icon>
-  <wa-icon library="tabler" name="printer"></wa-icon>
-  <wa-icon library="tabler" name="ship"></wa-icon>
-  <wa-icon library="tabler" name="toilet-paper"></wa-icon>
-</div>
-```
-
-### Unicons
-
-This will register the [Unicons](https://iconscout.com/unicons) library using the jsDelivr CDN. This library has two variations: line (default) and solid (`*-s`). A mutator function is required to set the SVG's `fill` to `currentColor`.
-
-Icons in this library are licensed under the [Apache 2.0 License](https://github.com/Iconscout/unicons/blob/master/LICENSE). Some of the icons that appear on the Unicons website, particularly many of the solid variations, require a license and are therefore not available in the CDN.
-
-```html {.example}
-<script type="module">
-  import { registerIconLibrary } from '/dist/webawesome.js';
-
-  registerIconLibrary('unicons', {
-    resolver: name => {
-      const match = name.match(/^(.*?)(-s)?$/);
-      return `https://cdn.jsdelivr.net/npm/@iconscout/unicons@3.0.3/svg/${match[2] === '-s' ? 'solid' : 'line'}/${
-        match[1]
-      }.svg`;
-    },
-    mutator: svg => svg.setAttribute('fill', 'currentColor'),
-  });
-</script>
-
-<div style="font-size: 24px;">
-  <wa-icon library="unicons" name="clock"></wa-icon>
-  <wa-icon library="unicons" name="graph-bar"></wa-icon>
-  <wa-icon library="unicons" name="padlock"></wa-icon>
-  <wa-icon library="unicons" name="polygon"></wa-icon>
-  <wa-icon library="unicons" name="rocket"></wa-icon>
-  <wa-icon library="unicons" name="star"></wa-icon>
-  <br />
-  <wa-icon library="unicons" name="clock-s"></wa-icon>
-  <wa-icon library="unicons" name="graph-bar-s"></wa-icon>
-  <wa-icon library="unicons" name="padlock-s"></wa-icon>
-  <wa-icon library="unicons" name="polygon-s"></wa-icon>
-  <wa-icon library="unicons" name="rocket-s"></wa-icon>
-  <wa-icon library="unicons" name="star-s"></wa-icon>
-</div>
-```
+:::warning
+`setIconPath()` must be called before Web Awesome components are loaded, similar to `setBasePath()` and `setKitCode()`.
+:::
 
 ### Customizing the Default Library
 
@@ -1102,4 +700,442 @@ If you want to change the icons Web Awesome uses internally, you can register an
     resolver: name => `/path/to/custom/icons/${name}.svg`,
   });
 </script>
+```
+
+### Third-party Icon Libraries
+
+You can register additional icons to use with the `<wa-icon>` component through icon libraries. Icon files can exist locally or on a CORS-enabled endpoint (e.g. a CDN). There is no limit to how many icon libraries you can register and there is no cost associated with registering them, as individual icons are only requested when they're used.
+
+Web Awesome ships with two built-in icon libraries, `default` and `system`. The [default icon library](#customizing-the-default-library) is provided courtesy of [Font Awesome](https://fontawesome.com/). The [system icon library](#customizing-the-system-library) contains only a small subset of icons that are used internally by Web Awesome components.
+
+To register an additional icon library, use the `registerIconLibrary()` function that's exported from `dist/webawesome.js`. At a minimum, you must provide a name and a resolver function. The resolver function translates an icon name to a URL where the corresponding SVG file exists. Refer to the examples below to better understand how it works.
+
+If necessary, a mutator function can be used to mutate the SVG element before rendering. This is necessary for some libraries due to the many possible ways SVGs are crafted. For example, icons should ideally inherit the current text color via `currentColor`, so you may need to apply `fill="currentColor` or `stroke="currentColor"` to the SVG element using this function.
+
+Here's an example that registers an icon library located in the `/assets/icons` directory.
+
+```html
+<script type="module">
+  import { registerIconLibrary } from '/dist/webawesome.js';
+
+  registerIconLibrary('my-icons', {
+    resolver: (name, family, variant) => `/assets/icons/${name}.svg`,
+    mutator: svg => svg.setAttribute('fill', 'currentColor'),
+  });
+</script>
+```
+
+To display an icon, set the `library` and `name` attributes of an `<wa-icon>` element.
+
+```html
+<!-- This will show the icon located at /assets/icons/smile.svg -->
+<wa-icon library="my-icons" name="smile"></wa-icon>
+```
+
+If an icon is used before registration occurs, it will be empty initially but shown when registered.
+
+The following examples demonstrate how to register a number of popular, open source icon libraries via CDN. Feel free to adapt the code as you see fit to use your own origin or naming conventions.
+
+#### Bootstrap Icons
+
+This will register the [Bootstrap Icons](https://icons.getbootstrap.com/) library using the jsDelivr CDN. This library has two families: `regular` and `filled`.
+
+Icons in this library are licensed under the [MIT License](https://github.com/twbs/icons/blob/main/LICENSE).
+
+```html {.example}
+<script type="module">
+  import { registerIconLibrary } from '/dist/webawesome.js';
+
+  registerIconLibrary('bootstrap', {
+    resolver: (name, family) => {
+      const suffix = family === 'filled' ? '-fill' : '';
+      return `https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/icons/${name}${suffix}.svg`;
+    },
+  });
+</script>
+
+<div style="font-size: 24px;">
+  <wa-icon library="bootstrap" name="backpack"></wa-icon>
+  <wa-icon library="bootstrap" name="cup-hot"></wa-icon>
+  <wa-icon library="bootstrap" name="envelope-heart"></wa-icon>
+  <wa-icon library="bootstrap" name="inboxes"></wa-icon>
+  <wa-icon library="bootstrap" name="lamp"></wa-icon>
+  <wa-icon library="bootstrap" name="piggy-bank"></wa-icon>
+  <br />
+  <wa-icon library="bootstrap" family="filled" name="backpack"></wa-icon>
+  <wa-icon library="bootstrap" family="filled" name="cup-hot"></wa-icon>
+  <wa-icon library="bootstrap" family="filled" name="envelope-heart"></wa-icon>
+  <wa-icon library="bootstrap" family="filled" name="inboxes"></wa-icon>
+  <wa-icon library="bootstrap" family="filled" name="lamp"></wa-icon>
+  <wa-icon library="bootstrap" family="filled" name="piggy-bank"></wa-icon>
+</div>
+```
+
+#### Boxicons
+
+This will register the [Boxicons](https://boxicons.com/) library using the jsDelivr CDN. This library has three variations: regular (`bx-*`), solid (`bxs-*`), and logos (`bxl-*`). A mutator function is required to set the SVG's `fill` to `currentColor`.
+
+Icons in this library are licensed under the [Creative Commons 4.0 License](https://github.com/atisawd/boxicons#license).
+
+```html {.example}
+<script type="module">
+  import { registerIconLibrary } from '/dist/webawesome.js';
+
+  registerIconLibrary('boxicons', {
+    resolver: name => {
+      let folder = 'regular';
+      if (name.substring(0, 4) === 'bxs-') folder = 'solid';
+      if (name.substring(0, 4) === 'bxl-') folder = 'logos';
+      return `https://cdn.jsdelivr.net/npm/boxicons@2.0.5/svg/${folder}/${name}.svg`;
+    },
+    mutator: svg => svg.setAttribute('fill', 'currentColor'),
+  });
+</script>
+
+<div style="font-size: 24px;">
+  <wa-icon library="boxicons" name="bx-bot"></wa-icon>
+  <wa-icon library="boxicons" name="bx-cookie"></wa-icon>
+  <wa-icon library="boxicons" name="bx-joystick"></wa-icon>
+  <wa-icon library="boxicons" name="bx-save"></wa-icon>
+  <wa-icon library="boxicons" name="bx-server"></wa-icon>
+  <wa-icon library="boxicons" name="bx-wine"></wa-icon>
+  <br />
+  <wa-icon library="boxicons" name="bxs-bot"></wa-icon>
+  <wa-icon library="boxicons" name="bxs-cookie"></wa-icon>
+  <wa-icon library="boxicons" name="bxs-joystick"></wa-icon>
+  <wa-icon library="boxicons" name="bxs-save"></wa-icon>
+  <wa-icon library="boxicons" name="bxs-server"></wa-icon>
+  <wa-icon library="boxicons" name="bxs-wine"></wa-icon>
+  <br />
+  <wa-icon library="boxicons" name="bxl-apple"></wa-icon>
+  <wa-icon library="boxicons" name="bxl-chrome"></wa-icon>
+  <wa-icon library="boxicons" name="bxl-edge"></wa-icon>
+  <wa-icon library="boxicons" name="bxl-firefox"></wa-icon>
+  <wa-icon library="boxicons" name="bxl-opera"></wa-icon>
+  <wa-icon library="boxicons" name="bxl-microsoft"></wa-icon>
+</div>
+```
+
+#### Lucide
+
+This will register the [Lucide](https://lucide.dev/) icon library using the jsDelivr CDN. This project is a community-maintained fork of the popular [Feather](https://feathericons.com/) icon library.
+
+Icons in this library are licensed under the [MIT License](https://github.com/lucide-icons/lucide/blob/master/LICENSE).
+
+```html {.example}
+<script type="module">
+  import { registerIconLibrary } from '/dist/webawesome.js';
+
+  registerIconLibrary('lucide', {
+    resolver: name => `https://cdn.jsdelivr.net/npm/lucide-static@0.16.29/icons/${name}.svg`,
+    mutator: svg =>
+      svg.querySelectorAll('path').forEach(path => {
+        path.setAttribute('fill', 'none');
+        path.setAttribute('stroke', 'currentColor');
+      }),
+  });
+</script>
+
+<div style="font-size: 24px;">
+  <wa-icon library="lucide" name="feather"></wa-icon>
+  <wa-icon library="lucide" name="pie-chart"></wa-icon>
+  <wa-icon library="lucide" name="settings"></wa-icon>
+  <wa-icon library="lucide" name="map-pin"></wa-icon>
+  <wa-icon library="lucide" name="printer"></wa-icon>
+  <wa-icon library="lucide" name="shopping-cart"></wa-icon>
+</div>
+```
+
+#### Heroicons
+
+This will register the [Heroicons](https://heroicons.com/) library using the jsDelivr CDN.
+
+Icons in this library are licensed under the [MIT License](https://github.com/tailwindlabs/heroicons/blob/master/LICENSE).
+
+```html {.example}
+<script type="module">
+  import { registerIconLibrary } from '/dist/webawesome.js';
+
+  registerIconLibrary('heroicons', {
+    resolver: name => `https://cdn.jsdelivr.net/npm/heroicons@2.0.1/24/outline/${name}.svg`,
+    mutator: svg =>
+      svg.querySelectorAll('path').forEach(path => {
+        path.setAttribute('fill', 'none');
+        path.setAttribute('stroke', 'currentColor');
+      }),
+  });
+</script>
+
+<div style="font-size: 24px;">
+  <wa-icon library="heroicons" name="chat-bubble-left"></wa-icon>
+  <wa-icon library="heroicons" name="cloud"></wa-icon>
+  <wa-icon library="heroicons" name="cog"></wa-icon>
+  <wa-icon library="heroicons" name="document-text"></wa-icon>
+  <wa-icon library="heroicons" name="gift"></wa-icon>
+  <wa-icon library="heroicons" name="speaker-wave"></wa-icon>
+</div>
+```
+
+#### Iconoir
+
+This will register the [Iconoir](https://iconoir.com/) library using the jsDelivr CDN.
+
+Icons in this library are licensed under the [MIT License](https://github.com/lucaburgio/iconoir/blob/master/LICENSE).
+
+```html {.example}
+<script type="module">
+  import { registerIconLibrary } from '/dist/webawesome.js';
+
+  registerIconLibrary('iconoir', {
+    resolver: (name, family) => {
+      return `https://cdn.jsdelivr.net/npm/iconoir@7.11.0/icons/regular/${name}.svg`;
+    },
+    mutator: svg =>
+      svg.querySelectorAll('path').forEach(path => {
+        path.setAttribute('fill', 'none');
+        path.setAttribute('stroke', 'currentColor');
+      }),
+  });
+</script>
+
+<div style="font-size: 24px;">
+  <wa-icon library="iconoir" name="check-circle"></wa-icon>
+  <wa-icon library="iconoir" name="drawer"></wa-icon>
+  <wa-icon library="iconoir" name="keyframes"></wa-icon>
+  <wa-icon library="iconoir" name="headset-help"></wa-icon>
+  <wa-icon library="iconoir" name="color-picker"></wa-icon>
+  <wa-icon library="iconoir" name="wifi"></wa-icon>
+</div>
+```
+
+#### Ionicons
+
+This will register the [Ionicons](https://ionicons.com/) library using the jsDelivr CDN. This library has three variations: outline (default), filled (`*-filled`), and sharp (`*-sharp`). A mutator function is required to polyfill a handful of styles we're not including.
+
+Icons in this library are licensed under the [MIT License](https://github.com/ionic-team/ionicons/blob/master/LICENSE).
+
+```html {.example}
+<script type="module">
+  import { registerIconLibrary } from '/dist/webawesome.js';
+
+  registerIconLibrary('ionicons', {
+    resolver: name => `https://cdn.jsdelivr.net/npm/ionicons@5.1.2/dist/ionicons/svg/${name}.svg`,
+    mutator: svg => {
+      svg.setAttribute('fill', 'currentColor');
+      svg.setAttribute('stroke', 'currentColor');
+      [...svg.querySelectorAll('.ionicon-fill-none')].map(el => el.setAttribute('fill', 'none'));
+      [...svg.querySelectorAll('.ionicon-stroke-width')].map(el => el.setAttribute('stroke-width', '32px'));
+    },
+  });
+</script>
+
+<div style="font-size: 24px;">
+  <wa-icon library="ionicons" name="alarm"></wa-icon>
+  <wa-icon library="ionicons" name="american-football"></wa-icon>
+  <wa-icon library="ionicons" name="bug"></wa-icon>
+  <wa-icon library="ionicons" name="chatbubble"></wa-icon>
+  <wa-icon library="ionicons" name="settings"></wa-icon>
+  <wa-icon library="ionicons" name="warning"></wa-icon>
+  <br />
+  <wa-icon library="ionicons" name="alarm-outline"></wa-icon>
+  <wa-icon library="ionicons" name="american-football-outline"></wa-icon>
+  <wa-icon library="ionicons" name="bug-outline"></wa-icon>
+  <wa-icon library="ionicons" name="chatbubble-outline"></wa-icon>
+  <wa-icon library="ionicons" name="settings-outline"></wa-icon>
+  <wa-icon library="ionicons" name="warning-outline"></wa-icon>
+  <br />
+  <wa-icon library="ionicons" name="alarm-sharp"></wa-icon>
+  <wa-icon library="ionicons" name="american-football-sharp"></wa-icon>
+  <wa-icon library="ionicons" name="bug-sharp"></wa-icon>
+  <wa-icon library="ionicons" name="chatbubble-sharp"></wa-icon>
+  <wa-icon library="ionicons" name="settings-sharp"></wa-icon>
+  <wa-icon library="ionicons" name="warning-sharp"></wa-icon>
+</div>
+```
+
+#### Jam Icons
+
+This will register the [Jam Icons](https://jam-icons.com/) library using the jsDelivr CDN. This library has two variations: regular (default) and filled (`*-f`). A mutator function is required to set the SVG's `fill` to `currentColor`.
+
+Icons in this library are licensed under the [MIT License](https://github.com/michaelampr/jam/blob/master/LICENSE).
+
+```html {.example}
+<script type="module">
+  import { registerIconLibrary } from '/dist/webawesome.js';
+
+  registerIconLibrary('jam', {
+    resolver: name => `https://cdn.jsdelivr.net/npm/jam-icons@2.0.0/svg/${name}.svg`,
+    mutator: svg => svg.setAttribute('fill', 'currentColor'),
+  });
+</script>
+
+<div style="font-size: 24px;">
+  <wa-icon library="jam" name="calendar"></wa-icon>
+  <wa-icon library="jam" name="camera"></wa-icon>
+  <wa-icon library="jam" name="filter"></wa-icon>
+  <wa-icon library="jam" name="leaf"></wa-icon>
+  <wa-icon library="jam" name="picture"></wa-icon>
+  <wa-icon library="jam" name="set-square"></wa-icon>
+  <br />
+  <wa-icon library="jam" name="calendar-f"></wa-icon>
+  <wa-icon library="jam" name="camera-f"></wa-icon>
+  <wa-icon library="jam" name="filter-f"></wa-icon>
+  <wa-icon library="jam" name="leaf-f"></wa-icon>
+  <wa-icon library="jam" name="picture-f"></wa-icon>
+  <wa-icon library="jam" name="set-square-f"></wa-icon>
+</div>
+```
+
+#### Material Icons
+
+This will register the [Material Icons](https://material.io/resources/icons/?style=baseline) library using the jsDelivr CDN. This library has three variations: outline (default), round (`*_round`), and sharp (`*_sharp`). A mutator function is required to set the SVG's `fill` to `currentColor`.
+
+Icons in this library are licensed under the [Apache 2.0 License](https://github.com/google/material-design-icons/blob/master/LICENSE).
+
+```html {.example}
+<script type="module">
+  import { registerIconLibrary } from '/dist/webawesome.js';
+
+  registerIconLibrary('material', {
+    resolver: name => {
+      const match = name.match(/^(.*?)(_(round|sharp))?$/);
+      return `https://cdn.jsdelivr.net/npm/@material-icons/svg@1.0.5/svg/${match[1]}/${match[3] || 'outline'}.svg`;
+    },
+    mutator: svg => svg.setAttribute('fill', 'currentColor'),
+  });
+</script>
+
+<div style="font-size: 24px;">
+  <wa-icon library="material" name="notifications"></wa-icon>
+  <wa-icon library="material" name="email"></wa-icon>
+  <wa-icon library="material" name="delete"></wa-icon>
+  <wa-icon library="material" name="volume_up"></wa-icon>
+  <wa-icon library="material" name="settings"></wa-icon>
+  <wa-icon library="material" name="shopping_basket"></wa-icon>
+  <br />
+  <wa-icon library="material" name="notifications_round"></wa-icon>
+  <wa-icon library="material" name="email_round"></wa-icon>
+  <wa-icon library="material" name="delete_round"></wa-icon>
+  <wa-icon library="material" name="volume_up_round"></wa-icon>
+  <wa-icon library="material" name="settings_round"></wa-icon>
+  <wa-icon library="material" name="shopping_basket_round"></wa-icon>
+  <br />
+  <wa-icon library="material" name="notifications_sharp"></wa-icon>
+  <wa-icon library="material" name="email_sharp"></wa-icon>
+  <wa-icon library="material" name="delete_sharp"></wa-icon>
+  <wa-icon library="material" name="volume_up_sharp"></wa-icon>
+  <wa-icon library="material" name="settings_sharp"></wa-icon>
+  <wa-icon library="material" name="shopping_basket_sharp"></wa-icon>
+</div>
+```
+
+#### Remix Icon
+
+This will register the [Remix Icon](https://remixicon.com/) library using the jsDelivr CDN. This library groups icons by categories, so the name must include the category and icon separated by a slash, as well as the `-line` or `-fill` suffix as needed. A mutator function is required to set the SVG's `fill` to `currentColor`.
+
+Icons in this library are licensed under the [Apache 2.0 License](https://github.com/Remix-Design/RemixIcon/blob/master/License).
+
+```html {.example}
+<script type="module">
+  import { registerIconLibrary } from '/dist/webawesome.js';
+
+  registerIconLibrary('remixicon', {
+    resolver: name => {
+      const match = name.match(/^(.*?)\/(.*?)?$/);
+      match[1] = match[1].charAt(0).toUpperCase() + match[1].slice(1);
+      return `https://cdn.jsdelivr.net/npm/remixicon@2.5.0/icons/${match[1]}/${match[2]}.svg`;
+    },
+    mutator: svg => svg.setAttribute('fill', 'currentColor'),
+  });
+</script>
+
+<div style="font-size: 24px;">
+  <wa-icon library="remixicon" name="business/cloud-line"></wa-icon>
+  <wa-icon library="remixicon" name="design/brush-line"></wa-icon>
+  <wa-icon library="remixicon" name="business/pie-chart-line"></wa-icon>
+  <wa-icon library="remixicon" name="development/bug-line"></wa-icon>
+  <wa-icon library="remixicon" name="media/image-line"></wa-icon>
+  <wa-icon library="remixicon" name="system/alert-line"></wa-icon>
+  <br />
+  <wa-icon library="remixicon" name="business/cloud-fill"></wa-icon>
+  <wa-icon library="remixicon" name="design/brush-fill"></wa-icon>
+  <wa-icon library="remixicon" name="business/pie-chart-fill"></wa-icon>
+  <wa-icon library="remixicon" name="development/bug-fill"></wa-icon>
+  <wa-icon library="remixicon" name="media/image-fill"></wa-icon>
+  <wa-icon library="remixicon" name="system/alert-fill"></wa-icon>
+</div>
+```
+
+#### Tabler Icons
+
+This will register the [Tabler Icons](https://tabler-icons.io/) library using the jsDelivr CDN. This library features over 1,950 open source icons.
+
+Icons in this library are licensed under the [MIT License](https://github.com/tabler/tabler-icons/blob/master/LICENSE).
+
+```html {.example}
+<script type="module">
+  import { registerIconLibrary } from '/dist/webawesome.js';
+
+  registerIconLibrary('tabler', {
+    resolver: name => `https://cdn.jsdelivr.net/npm/@tabler/icons@1.68.0/icons/${name}.svg`,
+    mutator: svg => {
+      svg.style.fill = 'none';
+      svg.setAttribute('stroke', 'currentColor');
+    },
+  });
+</script>
+
+<div style="font-size: 24px;">
+  <wa-icon library="tabler" name="alert-triangle"></wa-icon>
+  <wa-icon library="tabler" name="arrow-back"></wa-icon>
+  <wa-icon library="tabler" name="at"></wa-icon>
+  <wa-icon library="tabler" name="ball-baseball"></wa-icon>
+  <wa-icon library="tabler" name="cake"></wa-icon>
+  <wa-icon library="tabler" name="files"></wa-icon>
+  <br />
+  <wa-icon library="tabler" name="keyboard"></wa-icon>
+  <wa-icon library="tabler" name="moon"></wa-icon>
+  <wa-icon library="tabler" name="pig"></wa-icon>
+  <wa-icon library="tabler" name="printer"></wa-icon>
+  <wa-icon library="tabler" name="ship"></wa-icon>
+  <wa-icon library="tabler" name="toilet-paper"></wa-icon>
+</div>
+```
+
+#### Unicons
+
+This will register the [Unicons](https://iconscout.com/unicons) library using the jsDelivr CDN. This library has two variations: line (default) and solid (`*-s`). A mutator function is required to set the SVG's `fill` to `currentColor`.
+
+Icons in this library are licensed under the [Apache 2.0 License](https://github.com/Iconscout/unicons/blob/master/LICENSE). Some of the icons that appear on the Unicons website, particularly many of the solid variations, require a license and are therefore not available in the CDN.
+
+```html {.example}
+<script type="module">
+  import { registerIconLibrary } from '/dist/webawesome.js';
+
+  registerIconLibrary('unicons', {
+    resolver: name => {
+      const match = name.match(/^(.*?)(-s)?$/);
+      return `https://cdn.jsdelivr.net/npm/@iconscout/unicons@3.0.3/svg/${match[2] === '-s' ? 'solid' : 'line'}/${
+        match[1]
+      }.svg`;
+    },
+    mutator: svg => svg.setAttribute('fill', 'currentColor'),
+  });
+</script>
+
+<div style="font-size: 24px;">
+  <wa-icon library="unicons" name="clock"></wa-icon>
+  <wa-icon library="unicons" name="graph-bar"></wa-icon>
+  <wa-icon library="unicons" name="padlock"></wa-icon>
+  <wa-icon library="unicons" name="polygon"></wa-icon>
+  <wa-icon library="unicons" name="rocket"></wa-icon>
+  <wa-icon library="unicons" name="star"></wa-icon>
+  <br />
+  <wa-icon library="unicons" name="clock-s"></wa-icon>
+  <wa-icon library="unicons" name="graph-bar-s"></wa-icon>
+  <wa-icon library="unicons" name="padlock-s"></wa-icon>
+  <wa-icon library="unicons" name="polygon-s"></wa-icon>
+  <wa-icon library="unicons" name="rocket-s"></wa-icon>
+  <wa-icon library="unicons" name="star-s"></wa-icon>
+</div>
 ```

@@ -106,6 +106,8 @@ By default, the gap between stack items uses `--wa-space-m` from your theme. You
 - `wa-gap-xl`
 - `wa-gap-2xl`
 - `wa-gap-3xl`
+- `wa-gap-4xl`
+- `wa-gap-5xl`
 
 ```html {.example}
 <div class="wa-grid">
