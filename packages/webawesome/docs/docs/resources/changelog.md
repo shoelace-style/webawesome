@@ -28,6 +28,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed a bug in the native styles utility where `<select multiple>` did not expand to show multiple options
 - Fixed a bug in `<wa-badge>` where `role` was incorrectly set on a `<slot>` element, which is not allowed per spec [issue:2163]
 - Fixed a bug in `<wa-toast-item>` where the progress ring's continuously updating value was announced by screen readers [issue:2126]
+- Fixed a bug in `<wa-spinner>` where the `--track-width` custom property was not being applied to the track and indicator properly [issue:1317]
 - Fixed a bug in form controls where the focus ring would flash white in dark mode in Firefox due to the browser transitioning from the system outline color [issue:2074]
 - Fixed a bug in the native styles utility where `<select>` text could overlap the caret icon when the selected option had a long name
 - Fixed a bug in the native styles utility where `<select multiple>` did not expand to show multiple options
