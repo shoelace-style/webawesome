@@ -374,6 +374,28 @@ To solve this, a shared dismissible stack is maintained in `src/internal/dismiss
 
 This pattern is modeled after the `scroll.ts` lock pattern. Refer to existing overlay components such as `<wa-dialog>` or `<wa-drawer>` for examples.
 
+### Server-Side Rendering (SSR)
+
+Web Awesome supports server-side rendering via [Lit SSR](https://lit.dev/docs/ssr/overview/). During SSR, Lit calls `constructor()` and `connectedCallback()` but does **not** call `firstUpdated()`, `updated()`, or event handlers. This means browser-only APIs such as `document.*`, `window.*`, `ResizeObserver`, `MutationObserver`, etc. need to be guarded in constructors, class field initializers, `connectedCallback()`, and module-level code. Guards are _not_ needed in `firstUpdated()`, `updated()`, event handlers, or `@watch` handlers.
+
+To guard browser-only code, import `isServer` from `lit` and short circuit early or wrap the relevant code. Do not shim browser APIs on `globalThis` as a workaround — use `isServer` guards directly.
+
+```ts
+import { isServer } from 'lit';
+
+connectedCallback() {
+  super.connectedCallback();
+
+  // SSR guard: ResizeObserver is not available during server-side rendering
+  if (isServer) {
+    return;
+  }
+
+  this.resizeObserver = new ResizeObserver(() => this.handleResize());
+  this.resizeObserver.observe(this);
+}
+```
+
 ### System Icons
 
 Avoid inlining SVG icons inside of templates. If a component requires an icon, make sure `<wa-icon>` is a dependency of the component and use the [system library](/docs/components/icon#customizing-the-system-library):
