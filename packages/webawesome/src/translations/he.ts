@@ -22,6 +22,14 @@ const translation: Translation = {
   increment: 'הגדל',
   loading: 'טוען',
   nextSlide: 'השקף הבא',
+  numCharacters: num => {
+    if (num === 1) return '1 תו';
+    return `${num} תווים`;
+  },
+  numCharactersRemaining: num => {
+    if (num === 1) return '1 תו נותר';
+    return `${num} תווים נותרים`;
+  },
   numOptionsSelected: num => {
     if (num === 0) return 'לא נבחרו אפשרויות';
     if (num === 1) return 'נבחרה אפשרות אחת';

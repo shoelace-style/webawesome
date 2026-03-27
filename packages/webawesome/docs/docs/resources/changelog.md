@@ -17,16 +17,20 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Added a new free component: `<wa-markdown>` (#6 of 14 per stretch goals)
 - Added the `data-wa-preload` attribute for preloading components that aren't on the page yet when using the autoloader [issue:1501]
 - Added `placement` attribute to `<wa-color-picker>` [issue:2099]
-- Fixed a bug in the native styles utility where `<select>` text could overlap the caret icon when the selected option had a long name
-- Fixed a bug in the native styles utility where `<select multiple>` did not expand to show multiple options
 - Added a new free component: `<wa-markdown>` (#6 of 14 per stretch goals)
 - Added form association to `<wa-rating>`
 - Added a default slot to `<wa-copy-button>` so users can provide custom buttons [issue:1327]
 - Added `:state(success)` and `:state(error)` CSS custom states to `<wa-copy-button>` for styling feedback on custom triggers
 - Added the `disabled`, `icon-button`, `link`, and `loading` custom states to `<wa-button>` [discuss:2185]
 - Added the `disabled` custom state to `<wa-option>` so the disabled style applies when using the property [issue:1997]
+- Added the `with-count` attribute to `<wa-textarea>` to show a character count below the textarea
+- Fixed a bug in the native styles utility where `<select>` text could overlap the caret icon when the selected option had a long name
+- Fixed a bug in the native styles utility where `<select multiple>` did not expand to show multiple options
 - Fixed a bug in `<wa-badge>` where `role` was incorrectly set on a `<slot>` element, which is not allowed per spec [issue:2163]
 - Fixed a bug in `<wa-toast-item>` where the progress ring's continuously updating value was announced by screen readers [issue:2126]
+- Fixed a bug in form controls where the focus ring would flash white in dark mode in Firefox due to the browser transitioning from the system outline color [issue:2074]
+- Fixed a bug in the native styles utility where `<select>` text could overlap the caret icon when the selected option had a long name
+- Fixed a bug in the native styles utility where `<select multiple>` did not expand to show multiple options
 - Fixed a bug in `<wa-dropdown>` where heading colors in the menu used `!important`, preventing users from overriding them with light DOM styles [issue:2102]
 - Fixed a bug in `<wa-select>` where the `:state(blank)` custom state was incorrectly applied when the selected option had an empty string value [issue:1920]
 - Fixed a bug in `<wa-dropdown-item>` where the `click` event could still fire when the item was disabled [issue:#1817]
