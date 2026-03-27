@@ -19,10 +19,11 @@ export default css`
     border-style: var(--wa-form-control-border-style);
     border-width: var(--wa-form-control-border-width);
     -webkit-appearance: none;
+    outline: var(--wa-focus-ring-style) var(--wa-focus-ring-width) transparent;
+    outline-offset: var(--wa-focus-ring-offset);
 
     &:focus-within {
-      outline: var(--wa-focus-ring);
-      outline-offset: var(--wa-focus-ring-offset);
+      outline-color: var(--wa-color-focus);
     }
   }
 
