@@ -152,12 +152,14 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
   @property() inputmode: 'none' | 'text' | 'decimal' | 'numeric' | 'tel' | 'search' | 'email' | 'url';
 
   /**
-   * Used for SSR. If you're slotting in a `label` element, make sure to set this to `true`.
+   * Only required for SSR. Set to `true` if you're slotting in a `label` element so the server-rendered markup
+   * includes the label before the component hydrates on the client.
    */
   @property({ attribute: 'with-label', type: Boolean }) withLabel = false;
 
   /**
-   * Used for SSR. If you're slotting in a `hint` element, make sure to set this to `true`.
+   * Only required for SSR. Set to `true` if you're slotting in a `hint` element so the server-rendered markup
+   * includes the hint before the component hydrates on the client.
    */
   @property({ attribute: 'with-hint', type: Boolean }) withHint = false;
 

@@ -86,6 +86,12 @@ export default class WaDrawer extends WebAwesomeElement {
   /** When enabled, the drawer will be closed when the user clicks outside of it. */
   @property({ attribute: 'light-dismiss', type: Boolean }) lightDismiss = true;
 
+  /**
+   * Only required for SSR. Set to `true` if you're slotting in a `footer` element so the server-rendered markup
+   * includes the footer before the component hydrates on the client.
+   */
+  @property({ attribute: 'with-footer', type: Boolean }) withFooter = false;
+
   firstUpdated() {
     if (isServer) {
       return;
@@ -225,7 +231,7 @@ export default class WaDrawer extends WebAwesomeElement {
 
   render() {
     const hasHeader = !this.withoutHeader;
-    const hasFooter = this.hasSlotController.test('footer');
+    const hasFooter = this.hasUpdated ? this.hasSlotController.test('footer') : this.withFooter;
 
     return html`
       <dialog
