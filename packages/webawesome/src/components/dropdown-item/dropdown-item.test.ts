@@ -20,6 +20,16 @@ describe('<wa-dropdown-item>', () => {
     expect(clickHandler).not.to.have.been.called;
   });
 
+  it('should not fire click event when disabled and .click() is called programmatically', async () => {
+    const el = await fixture<WaDropdownItem>(html` <wa-dropdown-item disabled>Item</wa-dropdown-item> `);
+    await el.updateComplete;
+
+    const clickHandler = sinon.spy();
+    el.addEventListener('click', clickHandler);
+    el.click();
+    expect(clickHandler).not.to.have.been.called;
+  });
+
   it('should fire click event when not disabled', async () => {
     const el = await fixture<WaDropdownItem>(html` <wa-dropdown-item>Item</wa-dropdown-item> `);
     const clickHandler = sinon.spy();

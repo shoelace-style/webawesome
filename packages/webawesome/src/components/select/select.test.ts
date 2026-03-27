@@ -218,6 +218,92 @@ describe('<wa-select>', () => {
           expect(handler).to.be.calledTwice;
           expect(el.value).to.equal(option2.value);
         });
+
+        it('should have the correct event.target.value at the time the change event fires', async () => {
+          const el = await fixture<WaSelect>(html`
+            <wa-select value="option-1">
+              <wa-option value="option-1">Option 1</wa-option>
+              <wa-option value="option-2">Option 2</wa-option>
+              <wa-option value="option-3">Option 3</wa-option>
+            </wa-select>
+          `);
+          const secondOption = el.querySelectorAll<WaOption>('wa-option')[1];
+          let valueAtChangeTime: string | string[] | null = null;
+          let valueAtInputTime: string | string[] | null = null;
+
+          el.addEventListener('change', (event: Event) => {
+            valueAtChangeTime = (event.target as WaSelect).value;
+          });
+          el.addEventListener('input', (event: Event) => {
+            valueAtInputTime = (event.target as WaSelect).value;
+          });
+
+          await el.show();
+          await clickOnElement(secondOption);
+          await el.updateComplete;
+
+          expect(valueAtChangeTime).to.equal('option-2');
+          expect(valueAtInputTime).to.equal('option-2');
+        });
+
+        it('should have the correct event.target.value when selecting from no initial value', async () => {
+          const el = await fixture<WaSelect>(html`
+            <wa-select>
+              <wa-option value="option-1">Option 1</wa-option>
+              <wa-option value="option-2">Option 2</wa-option>
+              <wa-option value="option-3">Option 3</wa-option>
+            </wa-select>
+          `);
+          const secondOption = el.querySelectorAll<WaOption>('wa-option')[1];
+          let valueAtChangeTime: string | string[] | null = null;
+
+          el.addEventListener('change', (event: Event) => {
+            valueAtChangeTime = (event.target as WaSelect).value;
+          });
+
+          await el.show();
+          await clickOnElement(secondOption);
+          await el.updateComplete;
+
+          expect(el.value).to.equal('option-2');
+          expect(valueAtChangeTime).to.equal('option-2');
+        });
+
+        it('should emit exactly one change and one input event per click interaction', async () => {
+          const el = await fixture<WaSelect>(html`
+            <wa-select value="option-1">
+              <wa-option value="option-1">Option 1</wa-option>
+              <wa-option value="option-2">Option 2</wa-option>
+              <wa-option value="option-3">Option 3</wa-option>
+            </wa-select>
+          `);
+          const changeHandler = sinon.spy();
+          const inputHandler = sinon.spy();
+
+          el.addEventListener('change', changeHandler);
+          el.addEventListener('input', inputHandler);
+
+          // First selection
+          await el.show();
+          await clickOnElement(el.querySelectorAll<WaOption>('wa-option')[1]);
+          await el.updateComplete;
+          await aTimeout(100);
+
+          expect(changeHandler).to.have.been.calledOnce;
+          expect(inputHandler).to.have.been.calledOnce;
+
+          // Second selection — wait for the dropdown to fully close then reopen
+          await aTimeout(500);
+          await el.show();
+          await aTimeout(500);
+          await clickOnElement(el.querySelectorAll<WaOption>('wa-option')[2]);
+          await el.updateComplete;
+          await aTimeout(100);
+
+          expect(changeHandler).to.have.been.calledTwice;
+          expect(inputHandler).to.have.been.calledTwice;
+          expect(el.value).to.equal('option-3');
+        });
       });
 
       // This can happen in on Microsoft Edge auto-filling an associated input element in the same form

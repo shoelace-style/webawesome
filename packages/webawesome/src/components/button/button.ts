@@ -77,6 +77,18 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
   /** Draws the button with a caret. Used to indicate that the button triggers a dropdown menu or similar behavior. */
   @property({ attribute: 'with-caret', type: Boolean, reflect: true }) withCaret = false;
 
+  /**
+   * Only required for SSR. Set to `true` if you're slotting in a `start` element so the server-rendered markup
+   * includes the start slot before the component hydrates on the client.
+   */
+  @property({ attribute: 'with-start', type: Boolean }) withStart = false;
+
+  /**
+   * Only required for SSR. Set to `true` if you're slotting in an `end` element so the server-rendered markup
+   * includes the end slot before the component hydrates on the client.
+   */
+  @property({ attribute: 'with-end', type: Boolean }) withEnd = false;
+
   /** Disables the button. */
   @property({ type: Boolean }) disabled = false;
 
@@ -293,8 +305,8 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
           loading: this.loading,
           rtl: this.localize.dir() === 'rtl',
           'has-label': this.hasSlotController.test('[default]'),
-          'has-start': this.hasSlotController.test('start'),
-          'has-end': this.hasSlotController.test('end'),
+          'has-start': this.hasUpdated ? this.hasSlotController.test('start') : this.withStart,
+          'has-end': this.hasUpdated ? this.hasSlotController.test('end') : this.withEnd,
           'is-icon-button': this.isIconButton,
         })}
         ?disabled=${ifDefined(isLink ? undefined : this.disabled)}
