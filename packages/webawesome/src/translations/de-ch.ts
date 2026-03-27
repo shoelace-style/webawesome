@@ -7,6 +7,7 @@ const translation: Translation = {
   $code: 'de-CH',
   $name: 'Deutsch (Schweiz)',
 
+  createOption: value => `„${value}" erstellen`,
   close: 'Schliessen',
   resize: 'Grösse ändern',
 };

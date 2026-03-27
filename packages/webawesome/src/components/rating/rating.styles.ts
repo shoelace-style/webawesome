@@ -7,22 +7,23 @@ export default css`
     --symbol-spacing: 0.125em;
 
     display: inline-flex;
+    border-radius: var(--wa-border-radius-m);
+    vertical-align: middle;
+    touch-action: none;
+  }
+
+  :host(:focus) {
+    outline: none;
+  }
+
+  :host(:focus-visible) {
+    outline: var(--wa-focus-ring);
+    outline-offset: var(--wa-focus-ring-offset);
   }
 
   .rating {
     position: relative;
     display: inline-flex;
-    border-radius: var(--wa-border-radius-m);
-    vertical-align: middle;
-  }
-
-  .rating:focus {
-    outline: none;
-  }
-
-  .rating:focus-visible {
-    outline: var(--wa-focus-ring);
-    outline-offset: var(--wa-focus-ring-offset);
   }
 
   .symbols {

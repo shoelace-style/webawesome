@@ -448,7 +448,7 @@ describe('<wa-number-input>', () => {
           el.addEventListener('input', inputHandler);
           el.addEventListener('change', changeHandler);
 
-          incrementButton.click();
+          incrementButton.dispatchEvent(new PointerEvent('pointerup', { bubbles: true }));
           await el.updateComplete;
 
           expect(el.value).to.equal('6');
@@ -465,7 +465,7 @@ describe('<wa-number-input>', () => {
           el.addEventListener('input', inputHandler);
           el.addEventListener('change', changeHandler);
 
-          decrementButton.click();
+          decrementButton.dispatchEvent(new PointerEvent('pointerup', { bubbles: true }));
           await el.updateComplete;
 
           expect(el.value).to.equal('4');
@@ -478,11 +478,11 @@ describe('<wa-number-input>', () => {
           const incrementButton = el.shadowRoot!.querySelector<HTMLButtonElement>('[part~="stepper-increment"]')!;
           const decrementButton = el.shadowRoot!.querySelector<HTMLButtonElement>('[part~="stepper-decrement"]')!;
 
-          incrementButton.click();
+          incrementButton.dispatchEvent(new PointerEvent('pointerup', { bubbles: true }));
           await el.updateComplete;
           expect(el.value).to.equal('5');
 
-          decrementButton.click();
+          decrementButton.dispatchEvent(new PointerEvent('pointerup', { bubbles: true }));
           await el.updateComplete;
           expect(el.value).to.equal('5');
         });
@@ -492,11 +492,11 @@ describe('<wa-number-input>', () => {
           const incrementButton = el.shadowRoot!.querySelector<HTMLButtonElement>('[part~="stepper-increment"]')!;
           const decrementButton = el.shadowRoot!.querySelector<HTMLButtonElement>('[part~="stepper-decrement"]')!;
 
-          incrementButton.click();
+          incrementButton.dispatchEvent(new PointerEvent('pointerup', { bubbles: true }));
           await el.updateComplete;
           expect(el.value).to.equal('5');
 
-          decrementButton.click();
+          decrementButton.dispatchEvent(new PointerEvent('pointerup', { bubbles: true }));
           await el.updateComplete;
           expect(el.value).to.equal('5');
         });

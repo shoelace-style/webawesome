@@ -106,13 +106,16 @@ export default class WaTree extends WebAwesomeElement {
   async connectedCallback() {
     super.connectedCallback();
 
-    this.setAttribute('role', 'tree');
-    this.setAttribute('tabindex', '0');
+    // SSR guard: MutationObserver is not available during server-side rendering
+    if (!isServer) {
+      this.setAttribute('role', 'tree');
+      this.setAttribute('tabindex', '0');
 
-    await this.updateComplete;
+      await this.updateComplete;
 
-    this.mutationObserver = new MutationObserver(this.handleTreeChanged);
-    this.mutationObserver.observe(this, { childList: true, subtree: true });
+      this.mutationObserver = new MutationObserver(this.handleTreeChanged);
+      this.mutationObserver.observe(this, { childList: true, subtree: true });
+    }
   }
 
   disconnectedCallback() {

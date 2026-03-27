@@ -1,7 +1,8 @@
 import type { PropertyValues } from 'lit';
-import { html } from 'lit';
+import { html, isServer } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { ColorSchemeController } from '../../internal/color-scheme-controller.js';
 import { parseSpaceDelimitedTokens } from '../../internal/parse.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import { LocalizeController } from '../../utilities/localize.js';
@@ -32,6 +33,13 @@ export default class WaZoomableFrame extends WebAwesomeElement {
 
   private readonly localize = new LocalizeController(this);
   private availableZoomLevels: number[] = [];
+  // SSR guard: MutationObserver is not available during server-side rendering
+  private themeObserver: MutationObserver | null = !isServer ? new MutationObserver(() => this.syncTheme()) : null;
+
+  constructor() {
+    super();
+    new ColorSchemeController(this, () => this.syncTheme());
+  }
 
   @query('#iframe') iframe: HTMLIFrameElement;
 
@@ -66,6 +74,9 @@ export default class WaZoomableFrame extends WebAwesomeElement {
 
   /** Disables interaction when present. */
   @property({ type: Boolean, attribute: 'without-interaction', reflect: true }) withoutInteraction = false;
+
+  /** Enables automatic theme syncing (light/dark mode and theme selector classes) from the host document to the iframe. */
+  @property({ type: Boolean, attribute: 'with-theme-sync', reflect: true }) withThemeSync = false;
 
   /** Returns the internal iframe's `window` object. (Readonly property) */
   public get contentWindow(): Window | null {
@@ -155,6 +166,15 @@ export default class WaZoomableFrame extends WebAwesomeElement {
         }
       }
     }
+
+    if (changedProperties.has('withThemeSync')) {
+      if (this.withThemeSync) {
+        this.themeObserver?.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+        this.syncTheme(); // Apply immediately when toggled on
+      } else {
+        this.themeObserver?.disconnect();
+      }
+    }
   }
 
   /** Zooms in to the next available zoom level. */
@@ -185,7 +205,55 @@ export default class WaZoomableFrame extends WebAwesomeElement {
     }
   }
 
+  override disconnectedCallback() {
+    super.disconnectedCallback();
+    this.themeObserver?.disconnect();
+  }
+
+  private syncTheme() {
+    if (!this.withThemeSync) return;
+    try {
+      const iframeRoot = this.contentDocument?.documentElement;
+      if (!iframeRoot) return;
+
+      // Walk up from host to find nearest WA theme classes
+      const prefixes = ['wa-theme-', 'wa-brand-', 'wa-palette-'];
+      const schemeCls = new Set<string>(); // wa-dark or wa-light
+      const themeCls = new Set<string>(); // wa-theme-*, etc.
+      let el: Element | null = this;
+      let schemeFound = false;
+
+      while (el) {
+        if (!schemeFound) {
+          if (el.classList.contains('wa-dark')) {
+            schemeCls.add('wa-dark');
+            schemeFound = true;
+          } else if (el.classList.contains('wa-light')) {
+            schemeCls.add('wa-light');
+            schemeFound = true;
+          }
+        }
+        for (const cls of el.classList) {
+          if (prefixes.some(p => cls.startsWith(p))) themeCls.add(cls);
+        }
+        el = el.parentElement;
+      }
+
+      // Sync light/dark
+      iframeRoot.classList.toggle('wa-dark', schemeCls.has('wa-dark'));
+      iframeRoot.classList.toggle('wa-light', schemeCls.has('wa-light'));
+
+      // Sync theme/brand/palette classes
+      const toRemove = Array.from(iframeRoot.classList).filter(c => prefixes.some(p => c.startsWith(p)));
+      iframeRoot.classList.remove(...toRemove);
+      iframeRoot.classList.add(...themeCls);
+    } catch {
+      // Cross-origin iframe — silently ignore
+    }
+  }
+
   private handleLoad() {
+    if (this.withThemeSync) this.syncTheme();
     this.dispatchEvent(new Event('load', { bubbles: false, cancelable: false, composed: true }));
   }
 

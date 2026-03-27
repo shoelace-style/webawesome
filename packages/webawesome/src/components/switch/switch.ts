@@ -101,7 +101,8 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
   @property({ attribute: 'hint' }) hint = '';
 
   /**
-   * Used for SSR. If you slot in hint, make sure to add `with-hint` to your component to get it to properly render with SSR.
+   * Only required for SSR. Set to `true` if you're slotting in a `hint` element so the server-rendered markup
+   * includes the hint before the component hydrates on the client.
    */
   @property({ attribute: 'with-hint', type: Boolean }) withHint = false;
 

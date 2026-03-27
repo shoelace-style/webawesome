@@ -51,3 +51,4 @@ The calculations for each size and the resulting pixel value (assuming a 16px ro
 | `--wa-space-2xl` | `calc(var(--wa-space-scale) * 2.5rem)` <small>(40px)</small>  | <div class="spacing-example" style="width: var(--wa-space-2xl)"></div> |
 | `--wa-space-3xl` | `calc(var(--wa-space-scale) * 3rem)` <small>(48px)</small>    | <div class="spacing-example" style="width: var(--wa-space-3xl)"></div> |
 | `--wa-space-4xl` | `calc(var(--wa-space-scale) * 4rem)` <small>(64px)</small>    | <div class="spacing-example" style="width: var(--wa-space-4xl)"></div> |
+| `--wa-space-5xl` | `calc(var(--wa-space-scale) * 5rem)` <small>(80px)</small>    | <div class="spacing-example" style="width: var(--wa-space-5xl)"></div> |

@@ -1,12 +1,12 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="{{ description }}">
-{% if noindex or unlisted %}<meta name="robots" content="noindex">{% endif %}
+{% if noindex %}<meta name="robots" content="noindex">{% endif %}
 
 <title>{{ pageTitle }}</title>
 
-{# Skip OG tags for unlisted/noindex pages to prevent social sharing #}
-{% if not (noindex or unlisted) %}
+{# Skip OG tags for noindex pages to prevent social sharing #}
+{% if not noindex %}
   <meta property="og:type" content="{{ ogType }}" />
   <meta property="og:url" content="{{ ogUrl }}" />
   <meta property="og:title" content="{{ ogTitle }}" />

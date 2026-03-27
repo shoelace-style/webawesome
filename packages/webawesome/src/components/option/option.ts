@@ -27,6 +27,7 @@ import styles from './option.styles.js';
  *
  * @cssstate current - The user has keyed into the option, but hasn't selected it yet (shows a highlight)
  * @cssstate selected - The option is selected and has aria-selected="true"
+ * @cssstate disabled - Applied when the option is disabled
  * @cssstate hover - Like `:hover` but works while dragging in Safari
  */
 @customElement('wa-option')
@@ -35,7 +36,9 @@ export default class WaOption extends WebAwesomeElement {
 
   // @ts-expect-error - Controller is currently unused
   private readonly localize = new LocalizeController(this);
+  private cachedDefaultLabel = '';
   private isInitialized = false;
+  private isDefaultLabelDirty = true;
 
   @query('.label') defaultSlot: HTMLSlotElement;
 
@@ -78,15 +81,16 @@ export default class WaOption extends WebAwesomeElement {
       return this._label;
     }
 
-    if (!this.defaultLabel) {
-      this.updateDefaultLabel();
-    }
-
     return this.defaultLabel;
   }
 
   /** The default label, generated from the element contents. Will be equal to `label` in most cases. */
-  @state() defaultLabel = '';
+  get defaultLabel(): string {
+    if (this.isDefaultLabelDirty || !this.cachedDefaultLabel) {
+      this.updateDefaultLabel();
+    }
+    return this.cachedDefaultLabel;
+  }
 
   connectedCallback() {
     super.connectedCallback();
@@ -95,7 +99,6 @@ export default class WaOption extends WebAwesomeElement {
 
     this.addEventListener('mouseenter', this.handleHover);
     this.addEventListener('mouseleave', this.handleHover);
-    this.updateDefaultLabel();
   }
 
   disconnectedCallback(): void {
@@ -106,16 +109,16 @@ export default class WaOption extends WebAwesomeElement {
   }
 
   private handleDefaultSlotChange() {
-    // Tell the controller to update the label
-    this.updateDefaultLabel();
+    // Mark the default label as needing recalculation
+    this.isDefaultLabelDirty = true;
 
     if (this.isInitialized) {
-      // When the label changes, tell the parent <wa-select> to update
+      // When the label changes, tell the parent <wa-select> to update. The parent's handleDefaultSlotChange already
+      // calls selectionChanged() internally, so we don't need to call it separately here.
       customElements.whenDefined('wa-select').then(() => {
         const controller = this.closest('wa-select');
         if (controller) {
           controller.handleDefaultSlotChange();
-          controller.selectionChanged?.();
         }
       });
 
@@ -125,7 +128,6 @@ export default class WaOption extends WebAwesomeElement {
         const controller = this.closest<WaSelect>('wa-combobox');
         if (controller) {
           controller.handleDefaultSlotChange();
-          controller.selectionChanged?.();
         }
       });
     } else {
@@ -164,12 +166,12 @@ export default class WaOption extends WebAwesomeElement {
 
     if (changedProperties.has('disabled')) {
       this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
+      this.customStates.set('disabled', this.disabled);
     }
 
     if (changedProperties.has('selected')) {
       this.setAttribute('aria-selected', this.selected ? 'true' : 'false');
       this.customStates.set('selected', this.selected);
-      this.handleDefaultSlotChange();
     }
 
     if (changedProperties.has('value')) {
@@ -203,9 +205,10 @@ export default class WaOption extends WebAwesomeElement {
   }
 
   private updateDefaultLabel() {
-    let oldValue = this.defaultLabel;
-    this.defaultLabel = getText(this).trim();
-    let changed = this.defaultLabel !== oldValue;
+    let oldValue = this.cachedDefaultLabel;
+    this.cachedDefaultLabel = getText(this).trim();
+    this.isDefaultLabelDirty = false;
+    let changed = this.cachedDefaultLabel !== oldValue;
 
     if (!this._label && changed) {
       // Uses default label, and it has changed
@@ -217,14 +220,16 @@ export default class WaOption extends WebAwesomeElement {
 
   render() {
     return html`
-      <wa-icon
-        part="checked-icon"
-        class="check"
-        name="check"
-        library="system"
-        variant="solid"
-        aria-hidden="true"
-      ></wa-icon>
+      ${this.selected
+        ? html`<wa-icon
+            part="checked-icon"
+            class="check"
+            name="check"
+            library="system"
+            variant="solid"
+            aria-hidden="true"
+          ></wa-icon>`
+        : html`<span part="checked-icon" class="check" aria-hidden="true"></span>`}
       <slot part="start" name="start" class="start"></slot>
       <slot part="label" class="label" @slotchange=${this.handleDefaultSlotChange}></slot>
       <slot part="end" name="end" class="end"></slot>
