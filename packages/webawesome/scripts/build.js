@@ -45,7 +45,7 @@ export async function build(options = {}) {
   // packageData and version  need to be set within the `build()` function because this file gets imported by the app, which may not have generated its bundled directory yet, so this needs to be "lazily" evaluated.
   const packageData = JSON.parse(await readFile(join(getRootDir(), 'package.json'), 'utf-8'));
   const version = packageData.version;
-  console.log(`${chalk.hex('#ef6741')('🦊 Web Awesome')} v${version}\n`);
+  console.log(`${chalk.hex('#ef6741')('🦊 Web Awesome')} ${chalk.cyan(`v${version}\n`)}`);
   if (isDeveloping) {
     spinner.info('Development mode');
   }
