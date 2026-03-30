@@ -12,73 +12,51 @@ Welcome to Web Awesome! [Learn more](https://webawesome.com/) about this project
 
 ---
 
-## 🚀 Using a Project
+## CDN
 
-A project gives you your own, personal CDN to use Web Awesome on your site. Each project uses a single line of code to install your preferred version, theme, Font Awesome kit...the works! And, when you update your project's settings, your project code pulls in all of the right stuff automatically — no need to update your own code or redeploy your site.
+The CDN is the fastest way to get started with Web Awesome. Just copy and paste the following into your HTML to get started!
 
-One line of code from us. The entire Web Awesome library for you.
-
-To use a project:
-
-{% raw %}
-<ol>
-  <li>
-    {% if not session.isLoggedIn %}
-      <a href="/signup">Sign up</a> or <a href="/login">log in</a> to create a project.
-    {% else %}
-      Head over to <a href="/workspaces">your favorite workspace</a> and open up the project you'd like to use.
-    {% endif %}
-  </li>
-  <li>Copy and paste your unique project code into the <code>&lt;head&gt;</code> of each page on your site.</li>
-  <li><a href="/docs/usage">Start using Web Awesome!</a></li>
-</ol>
-{% endraw %}
-
----
-
-{# This looks weird, but without it, markdownItAttrs flags the raw calls incorrectly. #}
-
-<div>
+<div class="include">
 {%- raw -%}
-  {% if currentUser.hasPro %}
-    <div>
-      {% include "server/pro-setup.njk" ignore missing %}
-    </div>
-  {% endif %}
+{% include "installation-cdn.njk" %}
 {% endraw %}
 </div>
 
-## 🛠️ Advanced Setup
+Once loaded, you can [start using Web Awesome components](/docs/usage) right away.
 
-Projects are our favorite way to use Web Awesome, but different environments (or your own preferences!) may require different installation methods. If you're self-hosting Web Awesome or using npm, refer to the instructions in this section.
-
-### Installing via npm
-
-```bash
-npm install @awesome.me/webawesome
+```html
+<wa-button variant="brand">Click me!</wa-button>
 ```
 
-And then in your JavaScript files, import the components you need.
+---
+
+## npm
+
+<div class="include">
+{%- raw -%}
+{% include "installation-npm.njk" %}
+{% endraw %}
+</div>
 
 :::warning
-Web Awesome does not a provide a single import with all Web Awesome components. Instead, you must "cherry pick" the components you want to use.
+Web Awesome does not provide a single import with all Web Awesome components. Instead, you must "cherry pick" the components you want to use.
 :::
-
-```js
-// Option 1: import all Web Awesome styles
-import '@awesome.me/webawesome/dist/styles/webawesome.css';
-
-// Option 2: import only the default theme
-import '@awesome.me/webawesome/dist/styles/themes/default.css';
-
-// <wa-button>
-import '@awesome.me/webawesome/dist/components/button/button.js';
-// <wa-input>
-import '@awesome.me/webawesome/dist/components/input/input.js';
-```
 
 Once they've been imported, you can use them in your HTML normally. Component imports are located in the "Importing" section of each component's documentation.
 
+---
+
+## Download
+
+<div class="include">
+{%- raw -%}
+{% include "installation-download.njk" %}
+{% endraw %}
+</div>
+
+---
+
+## Additional Setup
 
 ### The Difference Between `/dist` & `/dist-cdn`
 
@@ -120,7 +98,7 @@ If you choose to use a theme other than the default theme, be sure to add the co
 
 Some components rely on assets (icons, images, etc.) and Web Awesome needs to know where they're located. For convenience, Web Awesome will try to auto-detect the correct location based on the script you've loaded it from. This assumes assets are colocated with `webawesome.loader.js` and will "just work" for most users.
 
-==If you're using a Web Awesome project, you can skip this section.== However, if you're [cherry picking](#cherry-picking-from-cdn) or bundling Web Awesome, you'll need to set the base path. You can do this one of two ways.
+==If you're using the CDN, you can skip this section.== However, if you're [cherry picking](#cherry-picking-from-cdn) or bundling Web Awesome, you'll need to set the base path. You can do this one of two ways.
 
 ```html
 <!-- Option 1: the data-webawesome attribute -->
@@ -155,9 +133,7 @@ Most of the magic behind assets is handled internally by Web Awesome, but if you
 
 ### Using Font Awesome Pro and Pro+
 
-Font Awesome users can provide their kit code to unlock Pro and Pro+ icon packs. If you're using a project, simply add your Font Awesome Kit Code in your project's settings, and boom! Done.
-
-If you're using Web Awesome through other methods like npm, you can provide yours by adding the `data-fa-kit-code` attribute to any element on the page, or by calling the `setKitCode()` method.
+Font Awesome users can provide their kit code to unlock Pro and Pro+ icon packs. You can do so by adding the `data-fa-kit-code` attribute to any element on the page, or by calling the `setKitCode()` method.
 
 ```html
 <!-- Option 1: the data-fa-kit-code attribute -->

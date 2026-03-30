@@ -1,0 +1,66 @@
+{# npm: Pro #}
+{% if currentUser.hasPro %}
+  <div class="wa-stack wa-gap-l">
+    <p>Install Web Awesome Pro from the private npm registry.</p>
+
+    <div class="wa-stack">
+      <strong>1. Set up the private registry</strong>
+      <p>Run the following commands in your terminal to configure npm authentication for the Web Awesome Pro registry.</p>
+      <pre><code class="language-bash">npm config set "@web.awesome.me:registry" --location project https://npm.cloudsmith.io/fortawesome/webawesome-pro/
+npm config set "//npm.cloudsmith.io/fortawesome/webawesome-pro/:_authToken=${WEBAWESOME_NPM_TOKEN}" --location project</code></pre>
+
+      <p>This creates a <code>.npmrc</code> file at the root of your project that looks like this:</p>
+      <pre><code class="language-markup">@web.awesome.me:registry=https://npm.cloudsmith.io/fortawesome/webawesome-pro/
+//npm.cloudsmith.io/fortawesome/webawesome-pro/:_authToken=${WEBAWESOME_NPM_TOKEN}</code></pre>
+    </div>
+
+    <div class="wa-stack">
+      <strong>2. Install the package</strong>
+      <p>Replace <code>[token]</code> with your npm token from your <a href="/workspaces">workspace's token dashboard</a>.</p>
+      <pre><code class="language-bash">WEBAWESOME_NPM_TOKEN="[token]" npm install @web.awesome.me/webawesome-pro@{{ version }}</code></pre>
+    </div>
+
+    <div class="wa-stack">
+      <strong>3. Add styles</strong>
+      <pre><code class="language-js">// Import all Web Awesome styles, including the default theme
+import '@web.awesome.me/webawesome-pro/dist/styles/webawesome.css';
+
+// Optional: import your preferred theme
+import '@web.awesome.me/webawesome-pro/dist/styles/themes/awesome.css';</code></pre>
+    </div>
+
+    <div class="wa-stack">
+      <strong>4. Import components</strong>
+      <p>Cherry-pick the components you need in your JavaScript files.</p>
+      <pre><code class="language-js">// &lt;wa-button&gt;
+import '@web.awesome.me/webawesome-pro/dist/components/button/button.js';
+// &lt;wa-input&gt;
+import '@web.awesome.me/webawesome-pro/dist/components/input/input.js';</code></pre>
+    </div>
+  </div>
+
+{# npm: Free / logged out #}
+{% else %}
+  <div class="wa-stack wa-gap-l">
+    <pre><code class="language-bash">npm install @awesome.me/webawesome</code></pre>
+
+    <p>Then import styles and cherry-pick the components you need in your JavaScript files.</p>
+
+    <pre><code class="language-js">// Option 1: import all Web Awesome styles
+import '@awesome.me/webawesome/dist/styles/webawesome.css';
+
+// Option 2: import only the default theme
+import '@awesome.me/webawesome/dist/styles/themes/default.css';
+
+// &lt;wa-button&gt;
+import '@awesome.me/webawesome/dist/components/button/button.js';
+// &lt;wa-input&gt;
+import '@awesome.me/webawesome/dist/components/input/input.js';</code></pre>
+
+    {% if not session.isLoggedIn %}
+    <p>
+      <a href="/signup">Sign up</a> for a Pro account to access the private npm registry with additional components and themes.
+    </p>
+    {% endif %}
+  </div>
+{% endif %}

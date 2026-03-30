@@ -1,0 +1,45 @@
+{# Download: Pro #}
+{% if currentUser.hasPro %}
+  <p>Download Web Awesome Pro as a ZIP file for self-hosting.</p>
+
+  <wa-button-group id="pro-zip-download" label="Download Web Awesome Pro ZIP">
+    <wa-button data-track-event="pro_download_button_click" data-track-webawesome-version="{{ version }}" data-track-context="docs" download="webawesome.zip" href="https://early.webawesome.com/webawesome@{{version}}/webawesome.zip">
+      <wa-icon name="file-zipper" variant="regular" slot="start"></wa-icon>
+      Web Awesome Pro &ndash; v{{ version }}
+    </wa-button>
+    <wa-dropdown placement="bottom-end">
+      <wa-button slot="trigger">
+        <wa-icon name="chevron-down" label="More versions"></wa-icon>
+      </wa-button>
+      {% for v in App.webawesomeVersions %}
+      <wa-dropdown-item data-url="https://early.webawesome.com/webawesome@{{ v }}/webawesome.zip" data-track-event="pro_download_button_click" data-track-webawesome-version="{{ v }}" data-track-context="docs">v{{ v }}{% if v == version %} (latest){% endif %}</wa-dropdown-item>
+      {% endfor %}
+    </wa-dropdown>
+  </wa-button-group>
+
+  <script type="module">
+    const dropdown = document.querySelector('#pro-zip-download wa-dropdown');
+    if (dropdown) {
+      dropdown.addEventListener('wa-select', (event) => {
+        const item = event.detail.item;
+        if (item?.dataset.url) {
+          window.location.href = item.dataset.url;
+        }
+      });
+    }
+  </script>
+
+{# Download: Free / logged out #}
+{% else %}
+  <p>You can download Web Awesome from npm and self-host it.</p>
+
+  <pre><code class="language-bash">npm pack @awesome.me/webawesome@{{ version }}</code></pre>
+
+  <p>This will download a <code>.tgz</code> archive containing all Web Awesome files. Extract it and host the files on your own server.</p>
+
+  {% if not session.isLoggedIn %}
+  <p>
+    <a href="/signup">Sign up</a> for a Pro account to download the full Web Awesome Pro ZIP with all components and themes.
+  </p>
+  {% endif %}
+{% endif %}
