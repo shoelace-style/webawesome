@@ -28,6 +28,14 @@ const translation: Translation = {
   mute: 'Elnémítás',
   nextSlide: 'Következő dia',
   nextVideo: 'Következő videó',
+  numCharacters: num => {
+    if (num === 1) return '1 karakter';
+    return `${num} karakter`;
+  },
+  numCharactersRemaining: num => {
+    if (num === 1) return '1 karakter maradt';
+    return `${num} karakter maradt`;
+  },
   numOptionsSelected: num => {
     if (num === 0) return 'Nincsenek kiválasztva opciók';
     if (num === 1) return '1 lehetőség kiválasztva';

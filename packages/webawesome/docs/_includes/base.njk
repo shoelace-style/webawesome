@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 {% if hasAnchors == undefined %}{% set hasAnchors = true %}{% endif %}
 {% if hasBanner == undefined %}{% set hasBanner = true %}{% endif %}
+{% if hasThemeSelector == undefined %}{% set hasThemeSelector = true %}{% endif %}
 {% if hasSiteDialog == undefined %}{% set hasSiteDialog = true %}{% endif %}
 {% if hasGeneratedTitle == undefined %}{% set hasGeneratedTitle = true %}{% endif %}
 <html lang="en" data-fa-kit-code="38c11e3f20" data-version="{{ package.version }}" class="wa-cloak" {% if
@@ -47,7 +48,7 @@
     {% block pageBanner %}
     {% if hasBanner %}
     {#- BA Kickstarter Banner -#}
-    {% include "banner-ba-kickstarter.njk" ignore missing %}
+    {% include "slot-banner-ba-kickstarter.njk" ignore missing %}
     {% endif %}
     {% endblock %}
 
@@ -55,52 +56,25 @@
     {% block pageHeader %}
     <header slot="header">
       {% include 'nav-products.njk' %}
-
-      <div id="docs-header" class="wa-split">
-        <div class="wa-cluster wa-gap-2xs">
-          {# Nav toggle #}
-          {% include "nav-toggle.njk" %}
-
-          {% include "nav-docs.njk" %}
-        </div>
-
-        {# Logo - Mobile #}
-        {% include "header-logo-simple.njk" %}
-
-        <div id="docs-toolbar" class="wa-cluster wa-gap-2xs">
-          <div class="header-toolbar wa-cluster wa-gap-2xs">
-            {% include "theme-selector.njk" %}
-            {% include "color-scheme-selector.njk" %}
-            {% include "github-icon-buttons.njk" %}
-          </div>
-
-          {#- Login -#}
-          {% include "login-or-avatar.njk" ignore missing %}
-        </div>
-      </div>
     </header>
     {% endblock %}
 
     {# wa-page-based Subheader #}
-    {% block pageSubheader %}{% endblock %}
+    {% block pageSubheader %}
+    {% include "slot-subheader.njk" %}
+    {% endblock %}
 
     {# wa-page-based Navigation Header #}
     {% block pageNavigationHeader %}
-    {# Sidebar - Mobile Selectors #}
     {% if hasSidebar %}
-    <div class="wa-mobile-only" slot="navigation-header">
-      {% include "nav-products-drawer.njk" %}
-    </div>
+    {% include "slot-navigation-header.njk" %}
     {% endif %}
     {% endblock %}
 
     {# wa-page-based Navigation #}
     {% block pageNavigation %}
-    {# Sidebar - Navigation #}
     {% if hasSidebar %}
-      <div slot="navigation" id="sidebar" class="docs-aside" data-remember-scroll>
-        {% include "sidebar.njk" %}
-      </div>
+    {% include "slot-navigation.njk" %}
     {% endif %}
     {% endblock %}
 
@@ -148,11 +122,7 @@
     {% block pageAside %}
     {# Outline #}
     {% if hasOutline %}
-    <aside slot="aside" id="outline" class="docs-aside">
-      <nav id="outline-standard" class="outline-links">
-        <h2><a href="#content">{{ title }}</a></h2>
-      </nav>
-    </aside>
+    {% include "slot-aside-outline.njk" %}
     {% endif %}
     {% endblock %}
 

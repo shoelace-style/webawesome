@@ -28,6 +28,20 @@ const translation: Translation = {
   mute: 'Utišaj',
   nextSlide: 'Naslednji diapozitiv',
   nextVideo: 'Naslednji videoposnetek',
+  numCharacters: num => {
+    const mod100 = num % 100;
+    if (mod100 === 1) return `${num} znak`;
+    if (mod100 === 2) return `${num} znaka`;
+    if (mod100 === 3 || mod100 === 4) return `${num} znaki`;
+    return `${num} znakov`;
+  },
+  numCharactersRemaining: num => {
+    const mod100 = num % 100;
+    if (mod100 === 1) return `Preostane ${num} znak`;
+    if (mod100 === 2) return `Preostaneta ${num} znaka`;
+    if (mod100 === 3 || mod100 === 4) return `Preostanejo ${num} znaki`;
+    return `Preostane ${num} znakov`;
+  },
   numOptionsSelected: num => {
     if (num === 0) return 'Nobena možnost ni izbrana';
     if (num === 1) return '1 možnost izbrana';

@@ -28,6 +28,20 @@ const translation: Translation = {
   mute: 'Wycisz',
   nextSlide: 'Następny slajd',
   nextVideo: 'Następny film',
+  numCharacters: num => {
+    if (num === 1) return '1 znak';
+    const mod10 = num % 10;
+    const mod100 = num % 100;
+    if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `${num} znaki`;
+    return `${num} znaków`;
+  },
+  numCharactersRemaining: num => {
+    if (num === 1) return 'Pozostał 1 znak';
+    const mod10 = num % 10;
+    const mod100 = num % 100;
+    if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `Pozostały ${num} znaki`;
+    return `Pozostało ${num} znaków`;
+  },
   numOptionsSelected: num => {
     if (num === 0) return 'Nie wybrano opcji';
     if (num === 1) return 'Wybrano 1 opcję';

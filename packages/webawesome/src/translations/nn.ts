@@ -28,6 +28,14 @@ const translation: Translation = {
   mute: 'Demp lyd',
   nextSlide: 'Neste visning',
   nextVideo: 'Neste video',
+  numCharacters: num => {
+    if (num === 1) return '1 teikn';
+    return `${num} teikn`;
+  },
+  numCharactersRemaining: num => {
+    if (num === 1) return '1 teikn att';
+    return `${num} teikn att`;
+  },
   numOptionsSelected: num => {
     if (num === 0) return 'Ingen alternativ valt';
     if (num === 1) return 'Eitt alternativ valt';

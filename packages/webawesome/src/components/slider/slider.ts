@@ -196,6 +196,18 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
   @property({ attribute: 'with-tooltip', type: Boolean }) withTooltip = false;
 
   /**
+   * Only required for SSR. Set to `true` if you're slotting in a `label` element so the server-rendered markup
+   * includes the label before the component hydrates on the client.
+   */
+  @property({ attribute: 'with-label', type: Boolean }) withLabel = false;
+
+  /**
+   * Only required for SSR. Set to `true` if you're slotting in a `hint` element so the server-rendered markup
+   * includes the hint before the component hydrates on the client.
+   */
+  @property({ attribute: 'with-hint', type: Boolean }) withHint = false;
+
+  /**
    * A custom formatting function to apply to the value. This will be shown in the tooltip and announced by screen
    * readers. Must be set with JavaScript. Property only.
    */
@@ -777,8 +789,8 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
   }
 
   render() {
-    const hasLabelSlot = this.hasSlotController.test('label');
-    const hasHintSlot = this.hasSlotController.test('hint');
+    const hasLabelSlot = this.hasUpdated ? this.hasSlotController.test('label') : this.withLabel;
+    const hasHintSlot = this.hasUpdated ? this.hasSlotController.test('hint') : this.withHint;
     const hasLabel = this.label ? true : !!hasLabelSlot;
     const hasHint = this.hint ? true : !!hasHintSlot;
     const hasReference = this.hasSlotController.test('reference');

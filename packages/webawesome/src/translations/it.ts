@@ -28,6 +28,14 @@ const translation: Translation = {
   mute: 'Disattiva audio',
   nextSlide: 'Prossima diapositiva',
   nextVideo: 'Video successivo',
+  numCharacters: num => {
+    if (num === 1) return '1 carattere';
+    return `${num} caratteri`;
+  },
+  numCharactersRemaining: num => {
+    if (num === 1) return '1 carattere rimanente';
+    return `${num} caratteri rimanenti`;
+  },
   numOptionsSelected: num => {
     if (num === 0) return 'Nessuna opzione selezionata';
     if (num === 1) return '1 opzione selezionata';

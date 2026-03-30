@@ -28,6 +28,20 @@ const translation: Translation = {
   mute: 'Выключить звук',
   nextSlide: 'Следующий слайд',
   nextVideo: 'Следующее видео',
+  numCharacters: num => {
+    const mod10 = num % 10;
+    const mod100 = num % 100;
+    if (mod10 === 1 && mod100 !== 11) return `${num} символ`;
+    if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `${num} символа`;
+    return `${num} символов`;
+  },
+  numCharactersRemaining: num => {
+    const mod10 = num % 10;
+    const mod100 = num % 100;
+    if (mod10 === 1 && mod100 !== 11) return `Остался ${num} символ`;
+    if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `Осталось ${num} символа`;
+    return `Осталось ${num} символов`;
+  },
   numOptionsSelected: num => {
     if (num === 0) return 'выбрано 0 вариантов';
     if (num === 1) return 'Выбран 1 вариант';

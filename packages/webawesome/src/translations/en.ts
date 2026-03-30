@@ -27,7 +27,15 @@ const translation: Translation = {
   moreOptions: 'More Options',
   mute: 'Mute',
   nextSlide: 'Next slide',
-  nextVideo: 'Next video',
+  nextVideo: 'Next Video',
+  numCharacters: num => {
+    if (num === 1) return '1 character';
+    return `${num} characters`;
+  },
+  numCharactersRemaining: num => {
+    if (num === 1) return '1 character remaining';
+    return `${num} characters remaining`;
+  },
   numOptionsSelected: num => {
     if (num === 0) return 'No options selected';
     if (num === 1) return '1 option selected';

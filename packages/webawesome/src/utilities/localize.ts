@@ -43,6 +43,8 @@ export interface Translation extends DefaultTranslation {
   mute: string;
   nextSlide: string;
   nextVideo: string;
+  numCharacters: (num: number) => string;
+  numCharactersRemaining: (num: number) => string;
   numOptionsSelected: (num: number) => string;
   pause: string;
   pauseAnimation: string;

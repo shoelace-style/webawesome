@@ -28,6 +28,14 @@ const translation: Translation = {
   mute: 'Mykistä',
   nextSlide: 'Seuraava dia',
   nextVideo: 'Seuraava video',
+  numCharacters: num => {
+    if (num === 1) return '1 merkki';
+    return `${num} merkkiä`;
+  },
+  numCharactersRemaining: num => {
+    if (num === 1) return '1 merkki jäljellä';
+    return `${num} merkkiä jäljellä`;
+  },
   numOptionsSelected: num => {
     if (num === 0) return 'Ei valittuja vaihtoehtoja';
     if (num === 1) return 'Yksi vaihtoehto valittu';

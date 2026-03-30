@@ -1,7 +1,7 @@
 /* eslint-disable no-invalid-this */
 import { readFileSync } from 'fs';
 import { mkdir, writeFile } from 'fs/promises';
-import lunr from 'lunr';
+import MiniSearch from 'minisearch';
 import { parse } from 'node-html-parser';
 import * as path from 'path';
 import { dirname, join } from 'path';
@@ -21,7 +21,7 @@ function normalizeDisplayUrl(url) {
 }
 
 /**
- * Eleventy plugin to build a Lunr search index.
+ * Eleventy plugin to build a MiniSearch search index.
  */
 export function searchPlugin(options = {}) {
   options = {
@@ -105,23 +105,21 @@ export function searchPlugin(options = {}) {
       const map = [];
 
       getCachedPages();
-      const searchIndex = lunr(function () {
-        let index = 0;
 
-        this.ref('id');
-        this.field('t', { boost: 20 });
-        this.field('h', { boost: 10 });
-        this.field('c');
-
-        for (const [_inputPath, page] of pagesToIndex) {
-          this.add({ id: index, t: page.title, h: page.headings, c: page.content });
-          map[index] = { title: page.title, description: page.description, url: page.url };
-          index++;
-        }
+      const searchIndex = new MiniSearch({
+        fields: ['t', 'h', 'c'],
+        storeFields: [],
       });
 
+      let index = 0;
+      for (const [_inputPath, page] of pagesToIndex) {
+        searchIndex.add({ id: index, t: page.title, h: page.headings, c: page.content });
+        map[index] = { title: page.title, description: page.description, url: page.url };
+        index++;
+      }
+
       await mkdir(dirname(outputFilename), { recursive: true });
-      await writeFile(outputFilename, JSON.stringify({ searchIndex, map }), 'utf-8');
+      await writeFile(outputFilename, JSON.stringify({ searchIndex: searchIndex.toJSON(), map }), 'utf-8');
       await writeFile(cachedPages, JSON.stringify({ pages: [...pagesToIndex.entries()] }, null, 2));
     });
   };

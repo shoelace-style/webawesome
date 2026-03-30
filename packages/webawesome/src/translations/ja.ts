@@ -28,6 +28,8 @@ const translation: Translation = {
   mute: 'ミュート',
   nextSlide: '次のスライド',
   nextVideo: '次の動画',
+  numCharacters: num => `${num}文字`,
+  numCharactersRemaining: num => `残り${num}文字`,
   numOptionsSelected: num => {
     if (num === 0) return '項目が選択されていません';
     return `${num} 個の項目が選択されました`;

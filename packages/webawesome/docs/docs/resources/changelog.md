@@ -8,6 +8,8 @@ Web Awesome follows [Semantic Versioning](https://semver.org/). Breaking changes
 
 Components with the <wa-badge variant="warning">Experimental</wa-badge> badge should not be used in production. They are made available as release candidates for development and testing purposes. As such, changes to experimental components will not be subject to semantic versioning.
 
+{% include "changelog-email-signup.njk" %}
+
 ## Unreleased
 
 <small>TBD</small>
@@ -15,9 +17,44 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Added `<wa-video>` as an experimental Pro component [discuss:189]
 - Added `--wa-space-5xl` design token to all themes  [issue:1606]
 - Added `wa-gap-5xl` utility class  [issue:1606]
+- Added a new free component: `<wa-markdown>` (#6 of 14 per stretch goals)
+- Added the `data-wa-preload` attribute for preloading components that aren't on the page yet when using the autoloader [issue:1501]
+- Added `placement` attribute to `<wa-color-picker>` [issue:2099]
+- Added a new free component: `<wa-markdown>` (#6 of 14 per stretch goals)
+- Added form association to `<wa-rating>`
+- Added a default slot to `<wa-copy-button>` so users can provide custom buttons [issue:1327]
+- Added `:state(success)` and `:state(error)` CSS custom states to `<wa-copy-button>` for styling feedback on custom triggers
+- Added the `disabled`, `icon-button`, `link`, and `loading` custom states to `<wa-button>` [discuss:2185]
+- Added the `disabled` custom state to `<wa-option>` so the disabled style applies when using the property [issue:1997]
+- Added the `with-count` attribute to `<wa-textarea>` to show a character count below the textarea
+- Fixed a bug in the native styles utility where `<select>` text could overlap the caret icon when the selected option had a long name
+- Fixed a bug in the native styles utility where `<select multiple>` did not expand to show multiple options
+- Fixed a bug in `<wa-badge>` where `role` was incorrectly set on a `<slot>` element, which is not allowed per spec [issue:2163]
+- Fixed a bug in `<wa-toast-item>` where the progress ring's continuously updating value was announced by screen readers [issue:2126]
+- Fixed a bug in `<wa-spinner>` where the `--track-width` custom property was not being applied to the track and indicator properly [issue:1317]
+- Fixed a bug in form controls where the focus ring would flash white in dark mode in Firefox due to the browser transitioning from the system outline color [issue:2074]
+- Fixed a bug in the native styles utility where `<select>` text could overlap the caret icon when the selected option had a long name
+- Fixed a bug in the native styles utility where `<select multiple>` did not expand to show multiple options
+- Fixed a bug in `<wa-dropdown>` where heading colors in the menu used `!important`, preventing users from overriding them with light DOM styles [issue:2102]
+- Fixed a bug in `<wa-select>` where the `:state(blank)` custom state was incorrectly applied when the selected option had an empty string value [issue:1920]
+- Fixed a bug in `<wa-dropdown-item>` where the `click` event could still fire when the item was disabled [issue:#1817]
+- Fixed a bug in `<wa-select>`, `<wa-combobox>`, and `<wa-option>` where the `change` and `input` events could dispatch with incorrect timing
+- Fixed a bug in `<wa-drawer>` that threw an error when including Web Awesome in the `<head>` [discuss:2241]
+- Improved the accessibility of `<wa-rating>` by moving role and ARIA attributes to the host element [issue:#2205]
+- Improved the accessibility of `<wa-rating>` by moving role and ARIA attributes to the host element [issue:2205]
+- Improved performance of `<wa-textarea>` by only creating a resize observer when necessary
+- Improved SSR compatibility by adding server-side rendering guards to components that use browser-only APIs
+
+## 3.4.0
+
+<small>March 25th, 2026</small>
+
+- Added `--wa-space-5xl` design token to all themes [issue:1606]
+- Added `wa-gap-5xl` utility class [issue:1606]
 - Added `wa-gap-4xl` to the gap utility `:where()` selector
 - Added `--wa-font-size-3xs` and `--wa-font-size-5xl` design tokens [issue:1606]
 - Added `*-3xs` and `*-5xl` to `wa-font-size`, `wa-body`, `wa-heading`, `wa-caption`, and `wa-longform` utility classes [issue:1606]
+- Added support for labeled swatches in `<wa-color-picker>` by accepting an array of `{ color, label }` objects via the `swatches` property, improving screen reader accessibility
 - Added the ability to return promises from icon resolvers [discuss:2144]
 - Fixed a bug in `<wa-dropdown-item>` where `aria-checked` was incorrectly set on items when `type` was not `checkbox` [pr:2180]
 - Fixed `<wa-badge>` font size to use `--wa-font-size-3xs` now that the token is available [pr:2162]
@@ -26,18 +63,24 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed a bug in `<wa-scroller>` that caused horizontal page overflow in Chrome when containing wide content such as tables
 - Fixed a bug in `<wa-details>` and native `<details>` that caused full-width elements to overflow the details content [issue:2137]
 - Fixed a bug in `<wa-slider>` that introduced a `required` attribute which isn't valid on range elements [issue:1471]
-<small>TBD</small>
+- Fixed horizontal layout styles in `<wa-card>` that used invalid or non-matching `::slotted()` selectors for the body and actions regions [pr:2198]
 - Fixed the `autocorrect` property type in `<wa-input>` and `<wa-combobox>` to use `boolean` instead of a string union
+- Fixed a bug in `<wa-dropdown-item>` that caused descenders to get clipped at certain line heights [issue:2207]
+- Fixed a bug in `<wa-number-input>` where pressing stepper buttons on a touch device would show the virtual keyboard and shift the page
+- Fixed a bug in `<wa-select>` which caused it to not be clearable with initial values set [pr:2141]
 - Improved `<wa-tree>` and `<wa-tree-item>` so all internal dimensions (labels, checkboxes, expand buttons, etc.) scale proportionally with `font-size`, making it easy to resize the tree [discuss:2147]
 - Improved `<wa-combobox>`
   - Added `autocapitalize`, `autocorrect`, `enterkeyhint`, `inputmode`, and `spellcheck` properties to `<wa-combobox>` to support virtual keyboard customization
   - Added `allow-create` attribute to `<wa-combobox>` that lets users create new options on the fly. When typing text that doesn't match any existing option, a "Create [value]" option appears. Selecting it adds a real `<wa-option>` to the DOM. Fires a cancelable `wa-create` event for custom handling.
-  - Updated `<zoomable-frame>` with an opt in attribute for theme syncing [pr:2165]
   - Added `input` event dispatching to `<wa-combobox>` when the user types, matching the behavior of `<wa-input>` and native form controls
   - Fixed a bug in `<wa-combobox>` where custom values were not committed on blur when `allow-custom-value` was set
   - Fixed a bug in `<wa-combobox>` where clearing the input and blurring would restore the previous selection instead of clearing the value
   - Removed the `autocomplete` property from `<wa-combobox>` since it conflicted with the native HTML attribute
 - Improved `<wa-select>`, `<wa-combobox>`, and `<wa-option>` performance with large numbers of options by batching slot changes, caching options, and lazily rendering check icons
+- Improved `<wa-card>`: the `body` part wraps the default slot in a container instead of on the slot, preserving normal slot display and accessibility [pr:2198]
+- Improved `<wa-tab-group>`: the `body` part wraps the default slot in a container instead of on the slot, consistent with `<wa-dialog>` and `<wa-card>.`
+- Improved `<wa-tab-group>`: the `body` part wraps the default slot in a container instead of on the slot, consistent with `<wa-dialog>` and `<wa-card>`
+- Updated `<wa-zoomable-frame>` with an opt-in attribute for theme syncing [pr:2165]
 - [Docs]: Updated space, gap, stack, and cluster documentation for the new tokens and utilities [issue:1606]
 - [Docs]: Updated typography and text documentation for the new tokens and utilities [issue:1606]
 

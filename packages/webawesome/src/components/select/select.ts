@@ -186,15 +186,11 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
 
     // Rebuild optionValues only when the cache has been invalidated
     if (this.optionValues === undefined) {
-      if (value == null) {
-        this.optionValues = new Set(null);
-      } else {
-        this.optionValues = new Set(
-          this.getAllOptions()
-            .filter(option => !option.disabled)
-            .map(option => option.value),
-        );
-      }
+      this.optionValues = new Set(
+        this.getAllOptions()
+          .filter(option => !option.disabled)
+          .map(option => option.value),
+      );
     }
 
     // Drop values not in the DOM
@@ -254,12 +250,14 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   @property({ attribute: 'hint' }) hint = '';
 
   /**
-   * Used for SSR purposes when a label is slotted in. Will show the label on first render.
+   * Only required for SSR. Set to `true` if you're slotting in a `label` element so the server-rendered markup
+   * includes the label before the component hydrates on the client.
    */
   @property({ attribute: 'with-label', type: Boolean }) withLabel = false;
 
   /**
-   * Used for SSR purposes when hint is slotted in. Will show the hint on first render.
+   * Only required for SSR. Set to `true` if you're slotting in a `hint` element so the server-rendered markup
+   * includes the hint before the component hydrates on the client.
    */
   @property({ attribute: 'with-hint', type: Boolean }) withHint = false;
 
@@ -531,7 +529,11 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   private handleClearClick(event: MouseEvent) {
     event.stopPropagation();
 
+    this.hasInteracted = true;
+    this.valueHasChanged = true;
+
     if (this.value !== null) {
+      this.displayLabel = '';
       this.selectionOrder.clear();
       this.setSelectedOptions([]);
       this.displayInput.focus({ preventScroll: true });
@@ -831,8 +833,8 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   updated(changedProperties: PropertyValues<this>) {
     super.updated(changedProperties);
 
-    if (changedProperties.has('value')) {
-      this.customStates.set('blank', !this.value);
+    if (changedProperties.has('value') || changedProperties.has('displayLabel')) {
+      this.customStates.set('blank', !this.value && !this.displayLabel);
     }
   }
 
@@ -954,7 +956,10 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     const hasLabel = this.label ? true : !!hasLabelSlot;
     const hasHint = this.hint ? true : !!hasHintSlot;
     const hasClearIcon =
-      (this.hasUpdated || isServer) && this.withClear && !this.disabled && this.value && this.value.length > 0;
+      (this.hasUpdated || isServer) &&
+      this.withClear &&
+      !this.disabled &&
+      (this.displayLabel || (this.value && this.value.length > 0));
 
     return html`
       <div

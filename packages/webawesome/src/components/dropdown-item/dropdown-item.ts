@@ -84,6 +84,7 @@ export default class WaDropdownItem extends WebAwesomeElement {
 
   connectedCallback() {
     super.connectedCallback();
+    this.addEventListener('click', this.handleHostClick);
     this.addEventListener('mouseenter', this.handleMouseEnter.bind(this));
     this.shadowRoot!.addEventListener('click', this.handleClick, { capture: true });
     this.shadowRoot!.addEventListener('slotchange', this.handleSlotChange);
@@ -92,6 +93,7 @@ export default class WaDropdownItem extends WebAwesomeElement {
   disconnectedCallback() {
     super.disconnectedCallback();
     this.closeSubmenu();
+    this.removeEventListener('click', this.handleHostClick);
     this.removeEventListener('mouseenter', this.handleMouseEnter);
     this.shadowRoot!.removeEventListener('click', this.handleClick, { capture: true });
     this.shadowRoot!.removeEventListener('slotchange', this.handleSlotChange);
@@ -244,6 +246,14 @@ export default class WaDropdownItem extends WebAwesomeElement {
         el.localName === 'wa-dropdown-item' && el.getAttribute('slot') === 'submenu' && !el.hasAttribute('disabled'),
     ) as WaDropdownItem[];
   }
+
+  /** Prevents click events from firing on the host when the item is disabled (e.g. programmatic .click() calls). */
+  private handleHostClick = (event: MouseEvent) => {
+    if (this.disabled) {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    }
+  };
 
   /** Prevents click events from firing when the item is disabled. */
   private handleClick = (event: MouseEvent) => {

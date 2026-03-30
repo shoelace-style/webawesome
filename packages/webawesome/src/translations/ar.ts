@@ -28,6 +28,20 @@ const translation: Translation = {
   mute: 'كتم الصوت',
   nextSlide: 'الشريحة التالية',
   nextVideo: 'الفيديو التالي',
+  numCharacters: num => {
+    if (num === 0) return '0 أحرف';
+    if (num === 1) return '1 حرف';
+    if (num === 2) return '2 حرفان';
+    if (num > 2 && num < 11) return `${num} أحرف`;
+    return `${num} حرفًا`;
+  },
+  numCharactersRemaining: num => {
+    if (num === 0) return '0 أحرف متبقية';
+    if (num === 1) return '1 حرف متبقٍ';
+    if (num === 2) return '2 حرفان متبقيان';
+    if (num > 2 && num < 11) return `${num} أحرف متبقية`;
+    return `${num} حرفًا متبقيًا`;
+  },
   numOptionsSelected: num => {
     if (num === 0) return 'لم يتم تحديد أي خيارات';
     if (num === 1) return 'تم تحديد خيار واحد';

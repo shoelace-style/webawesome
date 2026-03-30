@@ -28,6 +28,14 @@ const translation: Translation = {
   mute: 'بی‌صدا',
   nextSlide: 'اسلاید بعدی',
   nextVideo: 'ویدیوی بعدی',
+  numCharacters: num => {
+    if (num === 1) return '1 نویسه';
+    return `${num} نویسه`;
+  },
+  numCharactersRemaining: num => {
+    if (num === 1) return '1 نویسه باقیمانده';
+    return `${num} نویسه باقیمانده`;
+  },
   numOptionsSelected: num => {
     if (num === 0) return 'هیچ گزینه‌ای انتخاب نشده است';
     return `${num} گزینه انتخاب شده است`;
