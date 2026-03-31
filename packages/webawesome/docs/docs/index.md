@@ -6,23 +6,28 @@ layout: page-outline
 
 Welcome to Web Awesome! [Learn more](https://webawesome.com/) about this project and [how to contribute to it](https://webawesome.com/docs/resources/contributing).
 
-- [Report a bug](https://github.com/shoelace-style/webawesome/issues)
-- [Get help / ask a question](https://github.com/shoelace-style/webawesome/discussions)
-- [See what's new since the last version](/docs/resources/changelog)
+You can load Web Awesome via CDN or by installing it locally. If you’re using a framework, make sure to check out the pages for [React](/docs/frameworks/react), [Vue](/docs/frameworks/vue), [Angular](/docs/frameworks/angular), and [Svelte](/docs/frameworks/svelte) for additional information.
 
 ---
 
-## CDN
+## CDN (Easiest)
 
-The CDN is the fastest way to get started with Web Awesome. Just copy and paste the following into your HTML to get started!
+The CDN is the fastest way to get started with Web Awesome. Just copy and paste the following into the `<head>` of your HTML to get started!
 
-<div class="include">
-{%- raw -%}
-{% include "installation-cdn.njk" %}
-{% endraw %}
+<div class="installation-instructions">
+
+```html
+<link rel="stylesheet" href="{% cdnUrl 'styles/webawesome.css' %}">
+<script type="module" src="{% cdnUrl 'webawesome.loader.js' %}"></script>
+```
+
+<small>
+  <strong>Pro users:</strong> get Web Awesome Pro installation instructions directly from 
+  <a href="/workspaces">your workspaces</a>.
+</small>
 </div>
 
-Once loaded, you can [start using Web Awesome components](/docs/usage) right away.
+Now you can [start using Web Awesome components](/docs/usage)! Here's a quick button you can use to test things out:
 
 ```html
 <wa-button variant="brand">Click me!</wa-button>
@@ -30,29 +35,46 @@ Once loaded, you can [start using Web Awesome components](/docs/usage) right awa
 
 ---
 
-## npm
+## Installing with npm
 
-<div class="include">
-{%- raw -%}
-{% include "installation-npm.njk" %}
-{% endraw %}
+Start by installing the Web Awesome package:
+
+<div class="installation-instructions">
+
+```bash
+npm install @awesome.me/webawesome
+```
+
+<small>
+  <strong>Pro users:</strong> install <code>@awesome.me/webawesome-pro</code> instead. 
+  See <a href="/workspaces">your workspaces</a> for details.
+</small>
 </div>
 
-:::warning
-Web Awesome does not provide a single import with all Web Awesome components. Instead, you must "cherry pick" the components you want to use.
-:::
+Then, in your JavaScript files, import the default theme and any components you want to use.
 
-Once they've been imported, you can use them in your HTML normally. Component imports are located in the "Importing" section of each component's documentation.
+```js
+// Web Awesome styles
+import '@awesome.me/webawesome/dist/styles/webawesome.css';
+
+// Import the components you want to use
+import '@awesome.me/webawesome/dist/components/button/button.js';
+import '@awesome.me/webawesome/dist/components/input/input.js';
+```
+
+Once a component has been imported, you can use it in your HTML normally. Components are cherry picked to ensure you're getting the smallest possible bundle. You can find each component import in the "Importing" section of its documentation.
 
 ---
 
-## Download
+## Get the Download (Advanced)
 
-<div class="include">
-{%- raw -%}
-{% include "installation-download.njk" %}
-{% endraw %}
-</div>
+You can download Web Awesome from npm and self-host it.
+
+```bash
+npm pack @awesome.me/webawesome
+```
+
+This will download a `.tgz` archive containing all Web Awesome files. Extract it and host the files on your own server.
 
 ---
 
@@ -98,7 +120,7 @@ If you choose to use a theme other than the default theme, be sure to add the co
 
 Some components rely on assets (icons, images, etc.) and Web Awesome needs to know where they're located. For convenience, Web Awesome will try to auto-detect the correct location based on the script you've loaded it from. This assumes assets are colocated with `webawesome.loader.js` and will "just work" for most users.
 
-==If you're using the CDN, you can skip this section.== However, if you're [cherry picking](#cherry-picking-from-cdn) or bundling Web Awesome, you'll need to set the base path. You can do this one of two ways.
+==If you're using the CDN, you can skip this section.== However, if you're using npm or a downloaded version, you'll need to set the base path. You can do this one of two ways.
 
 ```html
 <!-- Option 1: the data-webawesome attribute -->
@@ -146,54 +168,4 @@ Font Awesome users can provide their kit code to unlock Pro and Pro+ icon packs.
 </script>
 ```
 
-:::info
-Not a Font Awesome user yet? [Learn more about Font Awesome icon packs](https://fontawesome.com/) and sign up for an account to unlock them!
-:::
-
-## React Users
-
-React 19+ [supports custom elements](https://react.dev/blog/2024/04/25/react-19#support-for-custom-elements), so you can import them and use them as you'd expect. Just make sure you've included your Web Awesome theme into your app first.
-
-```jsx
-import '@awesome.me/webawesome/dist/components/button/button.js';
-
-function App() {
-  return <wa-button variant="brand">Button</wa-button>;
-}
-
-export default App;
-```
-
-If you're using TypeScript, you can add type safety using the types file located at:
-
-```
-node_modules/@awesome.me/webawesome/dist/custom-elements-jsx.d.ts
-```
-
-This gives you inline documentation, autocomplete, and type-safe validation for every component. You can add the types to your project by updating your `tsconfig.json` file as shown below.
-
-```json
-{
-  "compilerOptions": {
-    "types": ["node_modules/@awesome.me/webawesome/dist/custom-elements-jsx.d.ts"]
-  }
-}
-```
-
-Another way is to create a declaration file and extend JSX's `IntrinsicElements`:
-
-```ts
-import type { CustomElements, CustomCssProperties } from '@awesome.me/webawesome/dist/custom-elements-jsx.d.ts';
-
-declare module 'react' {
-  namespace JSX {
-    interface IntrinsicElements extends CustomElements {}
-  }
-  interface CSSProperties extends CustomCssProperties {}
-}
-```
-
-:::details React 18 and below
-React 18 and below have [poor support](https://custom-elements-everywhere.com/#react) for custom elements. For legacy versions of React, we provide React wrappers for every component. You can find the import instructions by selecting the _React_ tab from the _Importing_ section of each
-component's documentation.
-:::
+Now you can use Font Awesome icons through the [`<wa-icon>`](/docs/components/icon) component!
