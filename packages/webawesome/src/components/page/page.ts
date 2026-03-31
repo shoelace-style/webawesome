@@ -1,14 +1,14 @@
-import '../button/button.js';
-import '../drawer/drawer.js';
-import type WaDrawer from '../drawer/drawer.js';
-import '../icon/icon.js';
-import WebAwesomeElement from '../../internal/webawesome-element.js';
-import visuallyHidden from '../../styles/component/visually-hidden.styles.js';
 import type { PropertyValues } from 'lit';
 import { html, isServer } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
 import { live } from 'lit/directives/live.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
+import WebAwesomeElement from '../../internal/webawesome-element.js';
+import visuallyHidden from '../../styles/component/visually-hidden.styles.js';
+import '../button/button.js';
+import '../drawer/drawer.js';
+import type WaDrawer from '../drawer/drawer.js';
+import '../icon/icon.js';
 import mobileStyles from './page.mobile.styles.js';
 import styles from './page.styles.js';
 

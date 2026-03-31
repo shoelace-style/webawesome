@@ -1,6 +1,6 @@
-import { fixtures } from '../../internal/test/fixture.js';
 import { expect } from '@open-wc/testing';
 import { html } from 'lit';
+import { fixtures } from '../../internal/test/fixture.js';
 
 describe('<wa-page>', () => {
   for (const fixture of fixtures) {
