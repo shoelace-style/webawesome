@@ -37,6 +37,14 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed a bug in `<wa-dropdown-item>` where the `click` event could still fire when the item was disabled [issue:#1817]
 - Fixed a bug in `<wa-select>`, `<wa-combobox>`, and `<wa-option>` where the `change` and `input` events could dispatch with incorrect timing
 - Fixed a bug in `<wa-drawer>` that threw an error when including Web Awesome in the `<head>` [discuss:2241]
+- Updated the Awesome and Shoelace themes [pr:2135]:
+  - Adds missing `<input type="range">` overrides to Shoelace theme to match `<wa-slider>`
+  - Adds `<wa-combobox>` overrides to both themes to match other text-based inputs
+  - Fixed a bug in the Awesome theme to remove an erroneous `transform` property from `<wa-radio>`s with `appearance="button"` [issue:1766]
+  - Fixed a bug in the Shoelace theme where `size` had no effect on `<wa-callout>`
+  - Fixed a bug in both themes where `appearance` had no effect on `<wa-card>` 
+  - Updated Awesome theme `--wa-form-control-padding-block` and `--wa-form-control-padding-inline` to better match its source material (Font Awesome)
+  - Updated Shoelace theme `--wa-color-focus` and focus styles to better match its source material (Shoelace)
 - Improved the accessibility of `<wa-rating>` by moving role and ARIA attributes to the host element [issue:#2205]
 - Improved the accessibility of `<wa-rating>` by moving role and ARIA attributes to the host element [issue:2205]
 - Improved performance of `<wa-textarea>` by only creating a resize observer when necessary
