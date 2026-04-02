@@ -19,10 +19,11 @@ export default css`
     border-style: var(--wa-form-control-border-style);
     border-width: var(--wa-form-control-border-width);
     -webkit-appearance: none;
+    outline: var(--wa-focus-ring-style) var(--wa-focus-ring-width) transparent;
+    outline-offset: var(--wa-focus-ring-offset);
 
     &:focus-within {
-      outline: var(--wa-focus-ring);
-      outline-offset: var(--wa-focus-ring-offset);
+      outline-color: var(--wa-color-focus);
     }
   }
 
@@ -120,5 +121,30 @@ export default css`
     height: auto;
     resize: none;
     overflow-y: hidden;
+  }
+
+  /*
+   * Footer (hint + character count)
+   */
+
+  .footer {
+    display: flex;
+    align-items: baseline;
+    gap: 1em;
+  }
+
+  .footer.has-count [part='hint'] {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .count {
+    flex: 0 0 auto;
+    color: var(--wa-form-control-hint-color);
+    font-weight: var(--wa-form-control-hint-font-weight);
+    line-height: var(--wa-form-control-hint-line-height);
+    margin-block-start: 0.5em;
+    font-size: var(--wa-font-size-smaller);
+    margin-inline-start: auto;
   }
 `;

@@ -1,5 +1,14 @@
-{# Search #}
-{% include "search-trigger-button.njk" %}
+<div class="wa-stack wa-mobile-only">
+  <div class="wa-flank:end">
+    {% include "search-trigger-button.njk" %}
+    <div class="wa-cluster wa-gap-0 wa-flex-nowrap">
+      {% include "color-scheme-selector.njk" %}
+      {% if hasThemeSelector %}
+        {% include "theme-selector.njk" %}
+      {% endif %}
+    </div>
+  </div>
+</div>
 {% from "pro-badge.njk" import proBadge %}
 {% from "planned-badge.njk" import plannedBadge %}
 
@@ -187,6 +196,12 @@
     <li><a href="/docs/components/include/">Include</a></li>
     <li><a href="/docs/components/input/">Input</a></li>
     <li><a href="/docs/components/intersection-observer">Intersection Observer</a></li>
+    <li>
+      <a class="wa-cluster wa-gap-xs" href="/docs/components/markdown">
+        Markdown
+        <wa-icon name="flask" aria-hidden="true" class="icon-shrink de-emphasize"></wa-icon>
+      </a>
+    </li>
     <li><a href="/docs/components/mutation-observer/">Mutation Observer</a></li>
     <li><a href="/docs/components/number-input">Number Input</a></li>
     <li><a href="/docs/components/popover/">Popover</a></li>

@@ -26,7 +26,7 @@ To use a project:
     {% if not session.isLoggedIn %}
       <a href="/signup">Sign up</a> or <a href="/login">log in</a> to create a project.
     {% else %}
-      Head over to <a href="/teams">your favorite team</a> and open up the project you'd like to use.
+      Head over to <a href="/workspaces">your favorite workspace</a> and open up the project you'd like to use.
     {% endif %}
   </li>
   <li>Copy and paste your unique project code into the <code>&lt;head&gt;</code> of each page on your site.</li>

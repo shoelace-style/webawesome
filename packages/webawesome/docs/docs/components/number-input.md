@@ -159,7 +159,7 @@ Use [CSS parts](#css-parts) to customize the way form controls are drawn. This e
 <style>
   .label-on-left {
     display: grid;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: auto minmax(0, 1fr);
     gap: var(--wa-space-l);
     align-items: center;
 

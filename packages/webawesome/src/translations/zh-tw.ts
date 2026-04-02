@@ -8,6 +8,7 @@ const translation: Translation = {
 
   carousel: '幻燈片',
   clearEntry: '清空',
+  createOption: value => `建立「${value}」`,
   close: '關閉',
   copied: '已複製',
   copy: '複製',
@@ -21,6 +22,8 @@ const translation: Translation = {
   increment: '增加',
   loading: '載入中',
   nextSlide: '下一張幻燈片',
+  numCharacters: num => `${num}個字元`,
+  numCharactersRemaining: num => `剩餘${num}個字元`,
   numOptionsSelected: num => {
     if (num === 0) return '未選擇任何項目';
     if (num === 1) return '已選擇 1 個項目';

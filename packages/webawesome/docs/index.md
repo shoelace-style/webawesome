@@ -408,7 +408,7 @@ layout: page
           <wa-button appearance="filled" pill href="https://github.com/open-wc/custom-elements-manifest">Custom Elements Manifest</wa-button>
           <wa-button appearance="filled" pill href="https://floating-ui.com/">Floating UI</wa-button>
           <wa-button appearance="filled" pill href="https://animate.style/">animate.css</wa-button>
-          <wa-button appearance="filled" pill href="https://lunrjs.com/">Lunr</wa-button>
+          <wa-button appearance="filled" pill href="https://lucaong.github.io/minisearch/">MiniSearch</wa-button>
         </div>
       </div>
     </div>

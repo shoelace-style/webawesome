@@ -179,9 +179,6 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
   /** The granularity the value must adhere to when incrementing and decrementing. */
   @property({ type: Number }) step: number = 1;
 
-  /** Makes the slider a required field. */
-  @property({ type: Boolean, reflect: true }) required = false;
-
   /** Tells the browser to focus the slider when the page loads or a dialog is shown. */
   @property({ type: Boolean }) autofocus: boolean;
 
@@ -197,6 +194,18 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
 
   /** Draws a tooltip above the thumb when the control has focus or is dragged. */
   @property({ attribute: 'with-tooltip', type: Boolean }) withTooltip = false;
+
+  /**
+   * Only required for SSR. Set to `true` if you're slotting in a `label` element so the server-rendered markup
+   * includes the label before the component hydrates on the client.
+   */
+  @property({ attribute: 'with-label', type: Boolean }) withLabel = false;
+
+  /**
+   * Only required for SSR. Set to `true` if you're slotting in a `hint` element so the server-rendered markup
+   * includes the hint before the component hydrates on the client.
+   */
+  @property({ attribute: 'with-hint', type: Boolean }) withHint = false;
 
   /**
    * A custom formatting function to apply to the value. This will be shown in the tooltip and announced by screen
@@ -780,8 +789,8 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
   }
 
   render() {
-    const hasLabelSlot = this.hasSlotController.test('label');
-    const hasHintSlot = this.hasSlotController.test('hint');
+    const hasLabelSlot = this.hasUpdated ? this.hasSlotController.test('label') : this.withLabel;
+    const hasHintSlot = this.hasUpdated ? this.hasSlotController.test('hint') : this.withHint;
     const hasLabel = this.label ? true : !!hasLabelSlot;
     const hasHint = this.hint ? true : !!hasHintSlot;
     const hasReference = this.hasSlotController.test('reference');
