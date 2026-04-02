@@ -37,6 +37,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed a bug in `<wa-dropdown-item>` where the `click` event could still fire when the item was disabled [issue:#1817]
 - Fixed a bug in `<wa-select>`, `<wa-combobox>`, and `<wa-option>` where the `change` and `input` events could dispatch with incorrect timing
 - Fixed a bug in `<wa-drawer>` that threw an error when including Web Awesome in the `<head>` [discuss:2241]
+- Fixed a bug in Native Styles where text would incorrectly overflow in `<pre>` elements
 - Updated the Awesome and Shoelace themes [pr:2135]:
   - Adds missing `<input type="range">` overrides to Shoelace theme to match `<wa-slider>`
   - Adds `<wa-combobox>` overrides to both themes to match other text-based inputs
