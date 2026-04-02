@@ -860,12 +860,10 @@
     }
 
     &::after {
-      --background-pattern-image: url('/assets/images/bg-wa-pattern.svg');
-
       position: absolute;
       inset: 0;
       background-color: var(--background-pattern-color, transparent);
-      background-image: var(--background-pattern-image);
+      background-image: var(--background-pattern-image, url('/assets/images/bg-wa-pattern.svg'));
       background-repeat: repeat;
       content: '';
       opacity: var(--background-pattern-opacity, 0.3);
