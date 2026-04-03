@@ -21,6 +21,14 @@ const translation: Translation = {
   increment: 'बढ़ाएं',
   loading: 'लोड हो रहा है',
   nextSlide: 'अगली स्लाइड',
+  numCharacters: num => {
+    if (num === 1) return '1 अक्षर';
+    return `${num} अक्षर`;
+  },
+  numCharactersRemaining: num => {
+    if (num === 1) return '1 अक्षर शेष';
+    return `${num} अक्षर शेष`;
+  },
   numOptionsSelected: num => {
     if (num === 0) return 'कोई विकल्प चयनित नहीं';
     if (num === 1) return '1 विकल्प चयनित';

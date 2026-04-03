@@ -6,6 +6,7 @@ export default css`
     --track-color: var(--wa-color-neutral-fill-normal);
     --indicator-color: var(--wa-color-brand-fill-loud);
     --speed: 2s;
+    --size: 1em;
 
     /*
       Resizing a spinner element using anything but font-size will break the animation because the animation uses em
@@ -15,8 +16,8 @@ export default css`
     */
     flex: none;
     display: inline-flex;
-    width: 1em;
-    height: 1em;
+    width: var(--size);
+    height: var(--size);
   }
 
   svg {
@@ -26,16 +27,28 @@ export default css`
     animation: spin var(--speed) linear infinite;
   }
 
+  .track,
+  .indicator {
+    --radius: calc(var(--size) / 2 - var(--track-width) / 2);
+    --circumference: calc(var(--radius) * 2 * 3.141592654);
+
+    cx: calc(var(--size) / 2);
+    cy: calc(var(--size) / 2);
+    r: var(--radius);
+    fill: none;
+    stroke-width: var(--track-width);
+  }
+
   .track {
     stroke: var(--track-color);
   }
 
   .indicator {
     stroke: var(--indicator-color);
-    stroke-dasharray: 75, 100;
-    stroke-dashoffset: -5;
-    animation: dash 1.5s ease-in-out infinite;
     stroke-linecap: round;
+    stroke-dasharray: calc(0.597 * var(--circumference)), calc(0.796 * var(--circumference));
+    stroke-dashoffset: calc(-0.04 * var(--circumference));
+    animation: dash 1.5s ease-in-out infinite;
   }
 
   @keyframes spin {
@@ -49,16 +62,16 @@ export default css`
 
   @keyframes dash {
     0% {
-      stroke-dasharray: 1, 150;
+      stroke-dasharray: calc(0.008 * var(--circumference)), calc(1.194 * var(--circumference));
       stroke-dashoffset: 0;
     }
     50% {
-      stroke-dasharray: 90, 150;
-      stroke-dashoffset: -35;
+      stroke-dasharray: calc(0.716 * var(--circumference)), calc(1.194 * var(--circumference));
+      stroke-dashoffset: calc(-0.278 * var(--circumference));
     }
     100% {
-      stroke-dasharray: 90, 150;
-      stroke-dashoffset: -124;
+      stroke-dasharray: calc(0.716 * var(--circumference)), calc(1.194 * var(--circumference));
+      stroke-dashoffset: calc(-0.987 * var(--circumference));
     }
   }
 `;

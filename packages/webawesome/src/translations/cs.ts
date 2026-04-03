@@ -22,6 +22,16 @@ const translation: Translation = {
   increment: 'Zvýšit',
   loading: 'Nahrává se',
   nextSlide: 'Další slide',
+  numCharacters: num => {
+    if (num === 1) return '1 znak';
+    if (num >= 2 && num <= 4) return `${num} znaky`;
+    return `${num} znaků`;
+  },
+  numCharactersRemaining: num => {
+    if (num === 1) return '1 zbývající znak';
+    if (num >= 2 && num <= 4) return `${num} zbývající znaky`;
+    return `${num} zbývajících znaků`;
+  },
   numOptionsSelected: num => {
     if (num === 0) return 'Nejsou vybrány žádné možnosti';
     if (num === 1) return 'Je vybrána jedna možnost';

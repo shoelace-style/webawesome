@@ -23,8 +23,7 @@ export default css`
   }
 
   :host .enabled:is(.open, :focus-within) [part~='combobox'] {
-    outline: var(--wa-focus-ring);
-    outline-offset: var(--wa-focus-ring-offset);
+    outline-color: var(--wa-color-focus);
   }
 
   /** The popup */
@@ -79,9 +78,11 @@ export default css`
     vertical-align: middle;
     transition:
       background-color var(--wa-transition-normal),
-      border var(--wa-transition-normal),
-      outline var(--wa-transition-fast);
+      border-color var(--wa-transition-normal),
+      outline-color var(--wa-transition-fast);
     transition-timing-function: var(--wa-transition-easing);
+    outline: var(--wa-focus-ring-style) var(--wa-focus-ring-width) transparent;
+    outline-offset: var(--wa-focus-ring-offset);
 
     /* Pills */
     :host([pill]) & {

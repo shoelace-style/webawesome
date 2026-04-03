@@ -5,6 +5,10 @@ export default css`
     border-width: 0;
   }
 
+  :host(:focus) {
+    outline: none;
+  }
+
   .text-field {
     display: flex;
     align-items: stretch;
@@ -26,16 +30,17 @@ export default css`
     width: 100%;
     transition:
       background-color var(--wa-transition-normal),
-      border var(--wa-transition-normal),
-      outline var(--wa-transition-fast);
+      border-color var(--wa-transition-normal),
+      outline-color var(--wa-transition-fast);
     transition-timing-function: var(--wa-transition-easing);
     background-color: var(--wa-form-control-background-color);
     box-shadow: var(--box-shadow);
     padding: 0 var(--wa-form-control-padding-inline);
+    outline: var(--wa-focus-ring-style) var(--wa-focus-ring-width) transparent;
+    outline-offset: var(--wa-focus-ring-offset);
 
     &:focus-within {
-      outline: var(--wa-focus-ring);
-      outline-offset: var(--wa-focus-ring-offset);
+      outline-color: var(--wa-color-focus);
     }
 
     /* Style disabled inputs */

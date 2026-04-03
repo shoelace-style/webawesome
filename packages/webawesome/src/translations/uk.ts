@@ -22,6 +22,20 @@ const translation: Translation = {
   increment: 'Збільшити',
   loading: 'Завантаження',
   nextSlide: 'Наступний слайд',
+  numCharacters: num => {
+    const mod10 = num % 10;
+    const mod100 = num % 100;
+    if (mod10 === 1 && mod100 !== 11) return `${num} символ`;
+    if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `${num} символи`;
+    return `${num} символів`;
+  },
+  numCharactersRemaining: num => {
+    const mod10 = num % 10;
+    const mod100 = num % 100;
+    if (mod10 === 1 && mod100 !== 11) return `Залишився ${num} символ`;
+    if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `Залишилося ${num} символи`;
+    return `Залишилося ${num} символів`;
+  },
   numOptionsSelected: num => {
     const n = num % 10;
     if (n === 0) return 'не вибрано варіантів';

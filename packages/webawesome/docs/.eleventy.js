@@ -240,7 +240,7 @@ export default async function (eleventyConfig) {
 
   // Add anchors to headings
   eleventyConfig.addTransform('doc-transforms', function (content) {
-    let doc = HTMLParse(content, { blockTextElements: { code: true } });
+    let doc = HTMLParse(content, { blockTextElements: { code: true }, comment: true });
 
     const transformers = [
       anchorHeadingsTransformer({ container: '#content' }),

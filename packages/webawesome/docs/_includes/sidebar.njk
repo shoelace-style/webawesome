@@ -1,5 +1,14 @@
-{# Search #}
-{% include "search-trigger-button.njk" %}
+<div class="wa-stack wa-mobile-only">
+  <div class="wa-flank:end">
+    {% include "search-trigger-button.njk" %}
+    <div class="wa-cluster wa-gap-0 wa-flex-nowrap">
+      {% include "color-scheme-selector.njk" %}
+      {% if hasThemeSelector %}
+        {% include "theme-selector.njk" %}
+      {% endif %}
+    </div>
+  </div>
+</div>
 {% from "pro-badge.njk" import proBadge %}
 {% from "planned-badge.njk" import plannedBadge %}
 
