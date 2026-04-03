@@ -1,4 +1,3 @@
-import type { LinearGradient, RadialGradient } from '@konnorr/qr-creator';
 import { QrCreator } from '@konnorr/qr-creator';
 import type { PropertyValues } from 'lit';
 import { html } from 'lit';
