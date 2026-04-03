@@ -458,25 +458,25 @@
 
     /* Add inset shadow to text-based form controls */
     :is(
-      wa-input,
-      wa-textarea,
-      wa-select,
-      wa-combobox,
-      input:not(
-        [type='button'],
-        [type='checkbox'],
-        [type='color'],
-        [type='file'],
-        [type='hidden'],
-        [type='image'],
-        [type='radio'],
-        [type='range'],
-        [type='reset'],
-        [type='submit']
-      ),
-      textarea,
-      select
-    ):not(:focus, [appearance='filled']) {
+        wa-input,
+        wa-textarea,
+        wa-select,
+        wa-combobox,
+        input:not(
+            [type='button'],
+            [type='checkbox'],
+            [type='color'],
+            [type='file'],
+            [type='hidden'],
+            [type='image'],
+            [type='radio'],
+            [type='range'],
+            [type='reset'],
+            [type='submit']
+          ),
+        textarea,
+        select
+      ):not(:focus, [appearance='filled']) {
       &:where(:not(wa-input, wa-textarea, wa-select, wa-combobox)),
       &:where(wa-input)::part(base),
       &:where(wa-textarea)::part(base),

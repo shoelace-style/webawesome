@@ -1,9 +1,9 @@
 wa-card:has(
-  > .theme-icon-host,
-  > [slot='header'] > .theme-icon-host,
-  > .fonts-icon-host,
-  > [slot='header'] > .fonts-icon-host
-) {
+    > .theme-icon-host,
+    > [slot='header'] > .theme-icon-host,
+    > .fonts-icon-host,
+    > [slot='header'] > .fonts-icon-host
+  ) {
   &::part(header) {
     /* We want to add a background color, so any spacing needs to go on .theme-icon */
     flex: 1;
