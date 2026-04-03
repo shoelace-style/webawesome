@@ -10,7 +10,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 {% include "changelog-email-signup.njk" %}
 
-## Unreleased
+## 3.5.0
 
 <small>April 3rd, 2026</small>
 
