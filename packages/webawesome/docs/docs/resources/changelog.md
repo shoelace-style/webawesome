@@ -34,11 +34,12 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed a bug in `<wa-dropdown>` where heading colors in the menu used `!important`, preventing users from overriding them with light DOM styles [issue:2102]
 - Fixed a bug in `<wa-select>` where the `:state(blank)` custom state was incorrectly applied when the selected option had an empty string value [issue:1920]
 - Fixed a bug in `<wa-dropdown-item>` where the `click` event could still fire when the item was disabled [issue:#1817]
-- Fixed a bug in `<wa-select>`, `<wa-combobox>`, and `<wa-option>` where the `change` and `input` events could dispatch with incorrect timing
+- Fixed a bug in `<wa-select>`, `<wa-combobox>`, and `<wa-option>` where the `change` and `input` events could dispatch with incorrect timing [pr:2243]
 - Fixed a bug in `<wa-drawer>` that threw an error when including Web Awesome in the `<head>` [discuss:2241]
 - Fixed a bug in Native Styles where text would incorrectly overflow in `<pre>` elements
 - Fixed a bug in `<wa-details>` where rapid toggling of the open state could cause the content visibility to get out of sync with the open attribute
 - Fixed a bug in `<wa-tree-item>` where rapid clicking on the expand button could cause the expand/collapse indicator to get out of sync with the children visibility
+- Fixed a bug in `<wa-select>` and `<wa-combobox>` where the selected value was not displayed when the value property was set before options were added to the DOM [#2253]
 - Updated the Awesome and Shoelace themes [pr:2135]:
   - Adds missing `<input type="range">` overrides to Shoelace theme to match `<wa-slider>`
   - Adds `<wa-combobox>` overrides to both themes to match other text-based inputs
