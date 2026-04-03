@@ -28,7 +28,7 @@ Use the `value` attribute on the radio group to set the checked radio.
 ```
 
 :::info
-To target checked radios with CSS, use the [`:state(checked)`](https://developer.mozilla.org/en-US/docs/Web/CSS/:state) selector on the `<wa-radio>` element, e.g. `wa-radio:state(checked)`.
+To target checked radios with CSS, use the `:state(checked)` selector.
 :::
 
 ### Hint

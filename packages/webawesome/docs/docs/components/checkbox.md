@@ -24,7 +24,7 @@ Use the `checked` attribute to activate the checkbox.
 ```
 
 :::info
-The `checked` attribute is the initial value and does not reflect changes, consistent with native checkboxes. To toggle the checked state with JavaScript, use the `checked` property instead, e.g. `checkbox.checked = true`. To target checked checkboxes with CSS, use the [`:state(checked)`](https://developer.mozilla.org/en-US/docs/Web/CSS/:state) selector as shown below.
+The `checked` attribute is the initial value and does not reflect changes, consistent with native checkboxes. To toggle the checked state with JavaScript, use the `checked` property instead. To target checked checkboxes with CSS, use the `:state(checked)` selector.
 :::
 
 ### Indeterminate
