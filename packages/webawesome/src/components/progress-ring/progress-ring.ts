@@ -87,6 +87,11 @@ export default class WaProgressRing extends WebAwesomeElement {
   }
 }
 
+// The change-in-update warning is expected because the Safari workaround in updated() must read getComputedStyle() from
+// the rendered DOM to compute the indicator's stroke-dashoffset in pixels, then set the indicatorOffset @state()
+// property. This cannot move to willUpdate() since the DOM is not yet available at that point. See https://lit.dev/docs/tools/development/#development-build-runtime-warnings
+WaProgressRing.disableWarning?.('change-in-update');
+
 declare global {
   interface HTMLElementTagNameMap {
     'wa-progress-ring': WaProgressRing;

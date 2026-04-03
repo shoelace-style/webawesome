@@ -347,6 +347,12 @@ export default class WaTreeItem extends WebAwesomeElement {
   }
 }
 
+// The change-in-update warning is required for this component because `isLeaf` and `loading` are @state() properties
+// that must be derived from DOM/slot content (via getChildrenItems() and slotchange handlers), which is only available
+// after rendering. These properties cannot be computed before render in willUpdate() since they depend on assigned slot
+// elements. See https://lit.dev/docs/tools/development/#development-build-runtime-warnings
+WaTreeItem.disableWarning?.('change-in-update');
+
 declare global {
   interface HTMLElementTagNameMap {
     'wa-tree-item': WaTreeItem;
