@@ -11,6 +11,7 @@ import type WaDrawer from '../drawer/drawer.js';
 import '../icon/icon.js';
 import mobileStyles from './page.mobile.styles.js';
 import styles from './page.styles.js';
+import { when } from 'lit/directives/when.js';
 
 //
 // TODO - the toPx and toLength functions aren't used anywhere else, and they're not named or documented well enough to
@@ -381,13 +382,22 @@ export default class WaPage extends WebAwesomeElement {
               <nav name="navigation" class="navigation" part="navigation navigation-desktop">
                 <!-- Add fallback divs so that CSS grid works properly. -->
                 <slot name="desktop-navigation-header">
-                  <slot name=${this.view === 'desktop' ? 'navigation-header' : '___'}><div></div></slot>
+                  ${when(this.view === "desktop",
+                    () => html`<div></div>`,
+                    () => html`<slot name="navigation-header"><div></div></slot>`
+                  )}
                 </slot>
                 <slot name="desktop-navigation">
-                  <slot name=${this.view === 'desktop' ? 'navigation' : '____'}><div></div></slot>
+                  ${when(this.view === "desktop",
+                    () => html`<div></div>`,
+                    () => html`<slot name="navigation"><div></div></slot>`
+                  )}
                 </slot>
                 <slot name="desktop-navigation-footer">
-                  <slot name=${this.view === 'desktop' ? 'navigation-footer' : '___'}><div></div></slot>
+                  ${when(this.view === "desktop",
+                    () => html`<div></div>`,
+                    () => html`<slot name="navigation-footer"><div></div></slot>`
+                  )}
                 </slot>
               </nav>
             </slot>
@@ -434,14 +444,23 @@ export default class WaPage extends WebAwesomeElement {
         class="navigation-drawer"
       >
         <slot slot="label" part="navigation-header" name="mobile-navigation-header">
-          <slot name=${this.view === 'mobile' ? 'navigation-header' : '___'}></slot>
+          ${when(this.view !== "desktop",
+            () => html`<slot name="navigation-header"><div></div></slot>`,
+            () => html`<div></div>`,
+          )}
         </slot>
         <slot name="mobile-navigation">
-          <slot name=${this.view === 'mobile' ? 'navigation' : '____'}></slot>
+          ${when(this.view !== "desktop",
+            () => html`<slot name="navigation"><div></div></slot>`,
+            () => html`<div></div>`,
+          )}
         </slot>
 
         <slot slot="footer" name="mobile-navigation-footer">
-          <slot part="navigation-footer" name=${this.view === 'mobile' ? 'navigation-footer' : '___'}></slot>
+          ${when(this.view !== "desktop",
+            () => html`<slot name="navigation-footer"><div></div></slot>`,
+            () => html`<div></div>`,
+          )}
         </slot>
       </wa-drawer>
     `;
