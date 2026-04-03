@@ -12,14 +12,12 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 ## Unreleased
 
-<small>TBD</small>
+<small>April 3rd, 2026</small>
 
 - Moved `<wa-page>` from Web Awesome Pro to Web Awesome core
-- Added a new free component: `<wa-markdown>` (#6 of 14 per stretch goals)
-- Added a new experimental component: `<wa-markdown>` (#6 of 14 per stretch goals)
+- Added a new free experimental component: `<wa-markdown>` (#6 of 14 per stretch goals)
 - Added the `data-wa-preload` attribute for preloading components that aren't on the page yet when using the autoloader [issue:1501]
 - Added `placement` attribute to `<wa-color-picker>` [issue:2099]
-- Added a new free component: `<wa-markdown>` (#6 of 14 per stretch goals)
 - Added form association to `<wa-rating>`
 - Added a default slot to `<wa-copy-button>` so users can provide custom buttons [issue:1327]
 - Added `:state(success)` and `:state(error)` CSS custom states to `<wa-copy-button>` for styling feedback on custom triggers
