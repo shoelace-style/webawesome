@@ -58,6 +58,8 @@ export default class WaDetails extends WebAwesomeElement {
   @query('.body') body: HTMLElement;
   @query('.expand-icon-slot') expandIconSlot: HTMLSlotElement;
 
+  private animationGeneration = 0;
+
   @state() isAnimating = false;
 
   /**
@@ -188,6 +190,9 @@ export default class WaDetails extends WebAwesomeElement {
 
   @watch('open', { waitUntilFirstUpdate: true })
   async handleOpenChange() {
+    this.animationGeneration++;
+    const generation = this.animationGeneration;
+
     if (this.open) {
       this.details.open = true;
       // Show
@@ -216,6 +221,12 @@ export default class WaDetails extends WebAwesomeElement {
           easing: 'linear',
         },
       );
+
+      // If a newer animation has started, handle the final state
+      if (this.animationGeneration !== generation) {
+        return;
+      }
+
       this.body.style.height = 'auto';
       this.isAnimating = false;
 
@@ -241,7 +252,13 @@ export default class WaDetails extends WebAwesomeElement {
         ],
         { duration, easing: 'linear' },
       );
-      this.body.style.height = 'auto';
+
+      // If a newer animation has started, handle the final state
+      if (this.animationGeneration !== generation) {
+        return;
+      }
+
+      this.body.style.height = '0';
       this.isAnimating = false;
       this.details.open = false;
       this.dispatchEvent(new WaAfterHideEvent());
