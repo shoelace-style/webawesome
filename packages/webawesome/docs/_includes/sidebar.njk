@@ -4,7 +4,7 @@
     <div class="wa-cluster wa-gap-0 wa-flex-nowrap">
       {% include "color-scheme-selector.njk" %}
       {% if hasThemeSelector %}
-        {% include "theme-selector.njk" %}
+      {% include "theme-selector.njk" %}
       {% endif %}
     </div>
   </div>
@@ -104,11 +104,9 @@
 
 <!-- Components -->
 <wa-details appearance="outlined">
-  <h2 slot="summary">
-    <a class="wa-cluster wa-gap-xs" href="/docs/components/" title="Overview">
-      <wa-icon name="trowel-bricks" variant="regular" aria-hidden="true"></wa-icon>
-      Components
-    </a>
+  <h2 slot="summary" class="wa-cluster wa-gap-xs">
+    <wa-icon name="trowel-bricks" variant="regular" aria-hidden="true"></wa-icon>
+    Components
   </h2>
   <ul>
     <li><a href="/docs/components/animated-image/">Animated Image</a></li>
@@ -158,9 +156,13 @@
       </a>
     </li>
     <li><span class="is-planned wa-split">Data Grid <span><a
-            href="https://github.com/shoelace-style/webawesome/issues/1072" target="_blank">{{ plannedBadge("A Web Awesome Kickstarter stretch goal!") }}</a>{{ proBadge({ description: "This will require access to Web Awesome Pro" }) }}</span></span></li>
+            href="https://github.com/shoelace-style/webawesome/issues/1072" target="_blank">{{ plannedBadge("A Web
+            Awesome Kickstarter stretch goal!") }}</a>{{ proBadge({ description: "This will require access to Web
+          Awesome Pro" }) }}</span></span></li>
     <li><span class="is-planned wa-split">Date Picker <span><a
-            href="https://github.com/shoelace-style/webawesome/issues/1075" target="_blank">{{ plannedBadge("A Web Awesome Kickstarter stretch goal!") }}</a>{{ proBadge({ description: "This will require access to Web Awesome Pro" }) }}</span></span></li>
+            href="https://github.com/shoelace-style/webawesome/issues/1075" target="_blank">{{ plannedBadge("A Web
+            Awesome Kickstarter stretch goal!") }}</a>{{ proBadge({ description: "This will require access to Web
+          Awesome Pro" }) }}</span></span></li>
     <li><a href="/docs/components/details/">Details</a></li>
     <li><a href="/docs/components/dialog/">Dialog</a></li>
     <li><a href="/docs/components/divider/">Divider</a></li>
@@ -252,7 +254,9 @@
         <li><a href="/docs/components/tree-item/">Tree Item</a></li>
       </ul>
     </li>
-    <li><span class="is-planned wa-split">Video <span><a href="https://github.com/shoelace-style/webawesome/issues/985" target="_blank">{{ plannedBadge("A Web Awesome Kickstarter stretch goal!") }}</a>{{ proBadge( { description: "This will require access to Web Awesome Pro" }) }}</span></span></li>
+    <li><span class="is-planned wa-split">Video <span><a href="https://github.com/shoelace-style/webawesome/issues/985"
+            target="_blank">{{ plannedBadge("A Web Awesome Kickstarter stretch goal!") }}</a>{{ proBadge( { description:
+          "This will require access to Web Awesome Pro" }) }}</span></span></li>
     <li><a href="/docs/components/zoomable-frame">Zoomable Frame</a></li>
     {# PLOP_NEW_COMPONENT_PLACEHOLDER #}
   </ul>
