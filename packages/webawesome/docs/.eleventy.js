@@ -198,7 +198,7 @@ export default async function (eleventyConfig) {
   eleventyConfig.addShortcode('cdnUrl', location => {
     // We use WA (free) via the public CDN for CodePen examples
     return (
-      `https://cdn.jsdelivr.net/npm/@awesome.me/webawesome@${packageData.version}/dist-cdn/` +
+      `https://ka-f.webawesome.com/webawesome@${packageData.version}/` +
       (location || '').replace(/^\//, '')
     );
   });
