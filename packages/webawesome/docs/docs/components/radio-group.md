@@ -15,6 +15,22 @@ category: Form Controls
 
 ## Examples
 
+### Checked
+
+Use the `value` attribute on the radio group to set the checked radio.
+
+```html {.example}
+<wa-radio-group label="Select an option" name="a" value="2">
+  <wa-radio value="1">Option 1</wa-radio>
+  <wa-radio value="2">Option 2</wa-radio>
+  <wa-radio value="3">Option 3</wa-radio>
+</wa-radio-group>
+```
+
+:::info
+To target checked radios with CSS, use the [`:state(checked)`](https://developer.mozilla.org/en-US/docs/Web/CSS/:state) selector on the `<wa-radio>` element, e.g. `wa-radio:state(checked)`.
+:::
+
 ### Hint
 
 Add descriptive hint to a radio group with the `hint` attribute. For hints that contain HTML, use the `hint` slot instead.
