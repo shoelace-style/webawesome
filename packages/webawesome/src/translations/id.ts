@@ -8,6 +8,7 @@ const translation: Translation = {
 
   carousel: 'Karousel',
   clearEntry: 'Hapus entri',
+  createOption: value => `Buat "${value}"`,
   close: 'Tutup',
   copied: 'Disalin',
   copy: 'Salin',
@@ -21,6 +22,14 @@ const translation: Translation = {
   increment: 'Tambah',
   loading: 'Memuat',
   nextSlide: 'Slide berikutnya',
+  numCharacters: num => {
+    if (num === 1) return '1 karakter';
+    return `${num} karakter`;
+  },
+  numCharactersRemaining: num => {
+    if (num === 1) return '1 karakter tersisa';
+    return `${num} karakter tersisa`;
+  },
   numOptionsSelected: num => {
     if (num === 0) return 'Tidak ada opsi yang dipilih';
     if (num === 1) return '1 opsi yang dipilih';

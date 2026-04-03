@@ -8,6 +8,7 @@ const translation: Translation = {
 
   carousel: 'Carrossel',
   clearEntry: 'Limpar entrada',
+  createOption: value => `Criar "${value}"`,
   close: 'Fechar',
   copied: 'Copiado',
   copy: 'Copiar',
@@ -21,6 +22,14 @@ const translation: Translation = {
   increment: 'Aumentar',
   loading: 'Carregando',
   nextSlide: 'Próximo slide',
+  numCharacters: num => {
+    if (num === 1) return '1 caractere';
+    return `${num} caracteres`;
+  },
+  numCharactersRemaining: num => {
+    if (num === 1) return '1 caractere restante';
+    return `${num} caracteres restantes`;
+  },
   numOptionsSelected: num => {
     if (num === 0) return 'Nenhuma opção selecionada';
     if (num === 1) return '1 opção selecionada';

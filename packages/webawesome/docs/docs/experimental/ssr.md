@@ -61,7 +61,7 @@ As SSR becomes more stable, we'll work to add more instructions for various fram
 All Web Awesome components that get rendered for SSR will receive the `did-ssr` attribute.
 
 ```html
-<wa-button did-ssr></wa-button>
+<wa-button appearance="filled" did-ssr></wa-button>
 ```
 
 This can help if you need some styling prior to the element connecting.
@@ -108,6 +108,38 @@ function fixDeclarativeShadowDOM(e) {
 ['turbo:before-render', 'turbo:before-stream-render', 'turbo:before-frame-render'].forEach(eventName => {
   document.addEventListener(eventName, fixDeclarativeShadowDOM);
 });
+```
+
+### The `with-*` Attributes
+
+Some components use slot detection to conditionally render parts of their template. For example, `<wa-dialog>` only renders its footer when a `footer` slot is present. During SSR, slot detection doesn't work because the DOM isn't available, so these parts would be missing from the initial server-rendered markup.
+
+To solve this, components that rely on slot detection provide `with-*` attributes. These tell the component to render the relevant section during SSR, before hydration kicks in and slot detection takes over.
+
+```html
+<!-- Without with-footer, the footer won't appear in the server-rendered HTML -->
+<wa-dialog with-footer>
+  <p>Dialog content</p>
+  <div slot="footer">
+    <wa-button>Close</wa-button>
+  </div>
+</wa-dialog>
+```
+
+These attributes are only needed for SSR._ After the component hydrates on the client, slot detection works normally and the attributes have no effect.
+
+#### For Contributors
+
+When adding slot detection to a component's render method using `HasSlotController`, always include an SSR fallback using the `hasUpdated` ternary pattern:
+
+```ts
+// Add a with-* property
+@property({ attribute: 'with-label', type: Boolean }) withLabel = false;
+
+// In render(), fall back to the with-* property before the component has hydrated
+const hasLabelSlot = this.hasUpdated
+  ? this.hasSlotController.test('label')
+  : this.withLabel;
 ```
 
 ## Known Issues

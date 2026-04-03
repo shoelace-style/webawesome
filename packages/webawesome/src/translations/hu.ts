@@ -8,6 +8,7 @@ const translation: Translation = {
 
   carousel: 'Körhinta',
   clearEntry: 'Bejegyzés törlése',
+  createOption: value => `„${value}" létrehozása`,
   close: 'Bezárás',
   copied: 'Másolva',
   copy: 'Másolás',
@@ -21,6 +22,14 @@ const translation: Translation = {
   increment: 'Növelés',
   loading: 'Betöltés',
   nextSlide: 'Következő dia',
+  numCharacters: num => {
+    if (num === 1) return '1 karakter';
+    return `${num} karakter`;
+  },
+  numCharactersRemaining: num => {
+    if (num === 1) return '1 karakter maradt';
+    return `${num} karakter maradt`;
+  },
   numOptionsSelected: num => {
     if (num === 0) return 'Nincsenek kiválasztva opciók';
     if (num === 1) return '1 lehetőség kiválasztva';

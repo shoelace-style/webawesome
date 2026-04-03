@@ -8,9 +8,93 @@ Web Awesome follows [Semantic Versioning](https://semver.org/). Breaking changes
 
 Components with the <wa-badge variant="warning">Experimental</wa-badge> badge should not be used in production. They are made available as release candidates for development and testing purposes. As such, changes to experimental components will not be subject to semantic versioning.
 
-## Next
+{% include "changelog-email-signup.njk" %}
 
+## Unreleased
+
+<small>TBD</small>
+
+- Moved `<wa-page>` from Web Awesome Pro to Web Awesome core
+- Added a new free component: `<wa-markdown>` (#6 of 14 per stretch goals)
+- Added a new experimental component: `<wa-markdown>` (#6 of 14 per stretch goals)
+- Added the `data-wa-preload` attribute for preloading components that aren't on the page yet when using the autoloader [issue:1501]
+- Added `placement` attribute to `<wa-color-picker>` [issue:2099]
+- Added a new free component: `<wa-markdown>` (#6 of 14 per stretch goals)
+- Added form association to `<wa-rating>`
+- Added a default slot to `<wa-copy-button>` so users can provide custom buttons [issue:1327]
+- Added `:state(success)` and `:state(error)` CSS custom states to `<wa-copy-button>` for styling feedback on custom triggers
+- Added the `disabled`, `icon-button`, `link`, and `loading` custom states to `<wa-button>` [discuss:2185]
+- Added the `disabled` custom state to `<wa-option>` so the disabled style applies when using the property [issue:1997]
+- Added the `with-count` attribute to `<wa-textarea>` to show a character count below the textarea
+- Fixed a bug in the native styles utility where `<select>` text could overlap the caret icon when the selected option had a long name
+- Fixed a bug in the native styles utility where `<select multiple>` did not expand to show multiple options
+- Fixed a bug in `<wa-badge>` where `role` was incorrectly set on a `<slot>` element, which is not allowed per spec [issue:2163]
+- Fixed a bug in `<wa-toast-item>` where the progress ring's continuously updating value was announced by screen readers [issue:2126]
+- Fixed a bug in `<wa-spinner>` where the `--track-width` custom property was not being applied to the track and indicator properly [issue:1317]
+- Fixed a bug in form controls where the focus ring would flash white in dark mode in Firefox due to the browser transitioning from the system outline color [issue:2074]
+- Fixed a bug in the native styles utility where `<select>` text could overlap the caret icon when the selected option had a long name
+- Fixed a bug in the native styles utility where `<select multiple>` did not expand to show multiple options
+- Fixed a bug in `<wa-dropdown>` where heading colors in the menu used `!important`, preventing users from overriding them with light DOM styles [issue:2102]
+- Fixed a bug in `<wa-select>` where the `:state(blank)` custom state was incorrectly applied when the selected option had an empty string value [issue:1920]
+- Fixed a bug in `<wa-dropdown-item>` where the `click` event could still fire when the item was disabled [issue:1817]
+- Fixed a bug in `<wa-select>`, `<wa-combobox>`, and `<wa-option>` where the `change` and `input` events could dispatch with incorrect timing [pr:2243]
+- Fixed a bug in `<wa-drawer>` that threw an error when including Web Awesome in the `<head>` [discuss:2241]
+- Fixed Lit dev mode "change-in-update" warnings across multiple components [issue:1269]
+- Fixed a bug in Native Styles where text would incorrectly overflow in `<pre>` elements
+- Fixed a bug in `<wa-details>` where rapid toggling of the open state could cause the content visibility to get out of sync with the open attribute
+- Fixed a bug in `<wa-tree-item>` where rapid clicking on the expand button could cause the expand/collapse indicator to get out of sync with the children visibility
+- Fixed a bug in `<wa-select>` and `<wa-combobox>` where the selected value was not displayed when the value property was set before options were added to the DOM [pr:2253]
 - Fixed a bug in `<wa-carousel>` where slide contents were not interactive when the carousel was initially rendered inside a hidden container (e.g., an inactive tab panel). [pr:2133]
+- Updated the Awesome and Shoelace themes [pr:2135]:
+  - Adds missing `<input type="range">` overrides to Shoelace theme to match `<wa-slider>`
+  - Adds `<wa-combobox>` overrides to both themes to match other text-based inputs
+  - Fixed a bug in the Awesome theme to remove an erroneous `transform` property from `<wa-radio>`s with `appearance="button"` [issue:1766]
+  - Fixed a bug in the Shoelace theme where `size` had no effect on `<wa-callout>`
+  - Fixed a bug in both themes where `appearance` had no effect on `<wa-card>`
+  - Updated Awesome theme `--wa-form-control-padding-block` and `--wa-form-control-padding-inline` to better match its source material (Font Awesome)
+  - Updated Shoelace theme `--wa-color-focus` and focus styles to better match its source material (Shoelace)
+- Improved the accessibility of `<wa-rating>` by moving role and ARIA attributes to the host element [issue:2205]
+- Improved performance of `<wa-textarea>` by only creating a resize observer when necessary
+- Improved SSR compatibility by adding server-side rendering guards to components that use browser-only APIs
+
+## 3.4.0
+
+<small>March 25th, 2026</small>
+
+- Added `--wa-space-5xl` design token to all themes [issue:1606]
+- Added `wa-gap-5xl` utility class [issue:1606]
+- Added `wa-gap-4xl` to the gap utility `:where()` selector
+- Added `--wa-font-size-3xs` and `--wa-font-size-5xl` design tokens [issue:1606]
+- Added `*-3xs` and `*-5xl` to `wa-font-size`, `wa-body`, `wa-heading`, `wa-caption`, and `wa-longform` utility classes [issue:1606]
+- Added support for labeled swatches in `<wa-color-picker>` by accepting an array of `{ color, label }` objects via the `swatches` property, improving screen reader accessibility
+- Added the ability to return promises from icon resolvers [discuss:2144]
+- Fixed a bug in `<wa-dropdown-item>` where `aria-checked` was incorrectly set on items when `type` was not `checkbox` [pr:2180]
+- Fixed `<wa-badge>` font size to use `--wa-font-size-3xs` now that the token is available [pr:2162]
+- Fixed the off-centered position of indent guides in `<wa-tree>`
+- Fixed slider styling when using the `label` slot so that it matches attribute use. [issue:2124]
+- Fixed a bug in `<wa-scroller>` that caused horizontal page overflow in Chrome when containing wide content such as tables
+- Fixed a bug in `<wa-details>` and native `<details>` that caused full-width elements to overflow the details content [issue:2137]
+- Fixed a bug in `<wa-slider>` that introduced a `required` attribute which isn't valid on range elements [issue:1471]
+- Fixed horizontal layout styles in `<wa-card>` that used invalid or non-matching `::slotted()` selectors for the body and actions regions [pr:2198]
+- Fixed the `autocorrect` property type in `<wa-input>` and `<wa-combobox>` to use `boolean` instead of a string union
+- Fixed a bug in `<wa-dropdown-item>` that caused descenders to get clipped at certain line heights [issue:2207]
+- Fixed a bug in `<wa-number-input>` where pressing stepper buttons on a touch device would show the virtual keyboard and shift the page
+- Fixed a bug in `<wa-select>` which caused it to not be clearable with initial values set [pr:2141]
+- Improved `<wa-tree>` and `<wa-tree-item>` so all internal dimensions (labels, checkboxes, expand buttons, etc.) scale proportionally with `font-size`, making it easy to resize the tree [discuss:2147]
+- Improved `<wa-combobox>`
+  - Added `autocapitalize`, `autocorrect`, `enterkeyhint`, `inputmode`, and `spellcheck` properties to `<wa-combobox>` to support virtual keyboard customization
+  - Added `allow-create` attribute to `<wa-combobox>` that lets users create new options on the fly. When typing text that doesn't match any existing option, a "Create [value]" option appears. Selecting it adds a real `<wa-option>` to the DOM. Fires a cancelable `wa-create` event for custom handling.
+  - Added `input` event dispatching to `<wa-combobox>` when the user types, matching the behavior of `<wa-input>` and native form controls
+  - Fixed a bug in `<wa-combobox>` where custom values were not committed on blur when `allow-custom-value` was set
+  - Fixed a bug in `<wa-combobox>` where clearing the input and blurring would restore the previous selection instead of clearing the value
+  - Removed the `autocomplete` property from `<wa-combobox>` since it conflicted with the native HTML attribute
+- Improved `<wa-select>`, `<wa-combobox>`, and `<wa-option>` performance with large numbers of options by batching slot changes, caching options, and lazily rendering check icons
+- Improved `<wa-card>`: the `body` part wraps the default slot in a container instead of on the slot, preserving normal slot display and accessibility [pr:2198]
+- Improved `<wa-tab-group>`: the `body` part wraps the default slot in a container instead of on the slot, consistent with `<wa-dialog>` and `<wa-card>.`
+- Improved `<wa-tab-group>`: the `body` part wraps the default slot in a container instead of on the slot, consistent with `<wa-dialog>` and `<wa-card>`
+- Updated `<wa-zoomable-frame>` with an opt-in attribute for theme syncing [pr:2165]
+- [Docs]: Updated space, gap, stack, and cluster documentation for the new tokens and utilities [issue:1606]
+- [Docs]: Updated typography and text documentation for the new tokens and utilities [issue:1606]
 
 ## 3.3.1
 
@@ -331,8 +415,8 @@ Many of these changes and improvements were the direct result of feedback from u
 
 ### New Features {data-no-outline}
 
-- Added a new free component: `<wa-popover>` (#2 of 14 per stretch goals)
-- Added a new free component: `<wa-zoomable-frame>` (#3 of 14 per stretch goals)
+- Added a new component: `<wa-popover>` (#2 of 14 per stretch goals)
+- Added a new component: `<wa-zoomable-frame>` (#3 of 14 per stretch goals)
 - Added a `min-block-size` to `<wa-divider orientation="vertical">` to ensure the divider is visible regardless of container height
 - Added support for `name` in `<wa-details>` for exclusively opening one in a group
 - Added `--wa-content-spacing` to themes to set default spacing between HTML elements in Native Styles
@@ -370,7 +454,7 @@ Many of these changes and improvements were the direct result of feedback from u
 - 🚨 BREAKING: Renamed the `image` slot to `media` for a more appropriate naming convention
 - Added Theme Builder to create your own themes
 - Added a new Blog & News pattern category
-- Added a new free component: `<wa-scroller>` (#1 of 14 per stretch goals)
+- Added a new component: `<wa-scroller>` (#1 of 14 per stretch goals)
 - Added support for Duotone Thin, Light, and Regular styles and the Sharp Duotone family of styles to `<wa-icon>`
 - Added a default `gap` to `<wa-tag>` for better default spacing when used with icons
 - Fixed a bug that caused `<wa-radio-group>` to have an undesired margin below it

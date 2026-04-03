@@ -26,7 +26,7 @@ export default css`
   }
 
   /* Add extra space between slider and label, when present */
-  #label:has(*:not(:empty)) ~ #slider {
+  #label.has-label ~ #slider {
     &.horizontal {
       margin-block-start: 0.5em;
     }

@@ -159,7 +159,7 @@ Use [CSS parts](#css-parts) to customize the way form controls are drawn. This e
 <style>
   .label-on-left {
     display: grid;
-    grid-template-columns: auto 1fr;
+    grid-template-columns: auto minmax(0, 1fr);
     gap: var(--wa-space-l);
     align-items: center;
 
@@ -209,8 +209,8 @@ Use the `required` attribute to make the field required. Combine with `min` and 
     style="max-width: 260px;"
   ></wa-number-input>
   <br />
-  <wa-button type="submit" variant="brand">Submit</wa-button>
-  <wa-button type="reset" variant="neutral">Reset</wa-button>
+  <wa-button appearance="filled" type="submit" variant="brand">Submit</wa-button>
+  <wa-button appearance="filled" type="reset" variant="neutral">Reset</wa-button>
 </form>
 
 <script type="module">

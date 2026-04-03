@@ -8,6 +8,7 @@ const translation: Translation = {
 
   carousel: 'چرخ‌فلک',
   clearEntry: 'پاک کردن ورودی',
+  createOption: value => `ایجاد "${value}"`,
   close: 'بستن',
   copied: 'کپی شد',
   copy: 'کپی',
@@ -21,6 +22,14 @@ const translation: Translation = {
   increment: 'افزایش',
   loading: 'بارگزاری',
   nextSlide: 'اسلاید بعدی',
+  numCharacters: num => {
+    if (num === 1) return '1 نویسه';
+    return `${num} نویسه`;
+  },
+  numCharactersRemaining: num => {
+    if (num === 1) return '1 نویسه باقیمانده';
+    return `${num} نویسه باقیمانده`;
+  },
   numOptionsSelected: num => {
     if (num === 0) return 'هیچ گزینه‌ای انتخاب نشده است';
     return `${num} گزینه انتخاب شده است`;

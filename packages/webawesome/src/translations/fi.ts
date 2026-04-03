@@ -8,6 +8,7 @@ const translation: Translation = {
 
   carousel: 'Karuselli',
   clearEntry: 'Poista merkintä',
+  createOption: value => `Luo "${value}"`,
   close: 'Sulje',
   copied: 'Kopioitu',
   copy: 'Kopioi',
@@ -21,6 +22,14 @@ const translation: Translation = {
   increment: 'Lisää',
   loading: 'Ladataan',
   nextSlide: 'Seuraava dia',
+  numCharacters: num => {
+    if (num === 1) return '1 merkki';
+    return `${num} merkkiä`;
+  },
+  numCharactersRemaining: num => {
+    if (num === 1) return '1 merkki jäljellä';
+    return `${num} merkkiä jäljellä`;
+  },
   numOptionsSelected: num => {
     if (num === 0) return 'Ei valittuja vaihtoehtoja';
     if (num === 1) return 'Yksi vaihtoehto valittu';

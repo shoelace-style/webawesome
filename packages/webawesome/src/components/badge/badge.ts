@@ -39,11 +39,17 @@ export default class WaBadge extends WebAwesomeElement {
 
   render() {
     return html`
-      <slot name="start" part="start"></slot>
+      <span part="start">
+        <slot name="start"></slot>
+      </span>
 
-      <slot part="base" role="status"></slot>
+      <span part="base" role="status">
+        <slot></slot>
+      </span>
 
-      <slot name="end" part="end"></slot>
+      <span part="end">
+        <slot name="end"></slot>
+      </span>
     `;
   }
 }

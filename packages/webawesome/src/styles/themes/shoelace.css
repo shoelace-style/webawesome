@@ -194,6 +194,7 @@
      * For larger font sizes, each size is twice 1.125x larger to maximize impact.
      * Each value uses `rem` units and is rounded to the nearest whole pixel when rendered. */
     --wa-font-size-scale: 1;
+    --wa-font-size-3xs: round(calc(var(--wa-font-size-2xs) / 1.125), 1px); /* 10px */
     --wa-font-size-2xs: round(calc(var(--wa-font-size-xs) / 1.125), 1px); /* 11px */
     --wa-font-size-xs: round(calc(var(--wa-font-size-s) / 1.125), 1px); /* 12px */
     --wa-font-size-s: round(calc(var(--wa-font-size-m) / 1.125), 1px); /* 14px */
@@ -203,6 +204,7 @@
     --wa-font-size-2xl: round(calc(var(--wa-font-size-xl) * 1.125 * 1.125), 1px); /* 32px */
     --wa-font-size-3xl: round(calc(var(--wa-font-size-2xl) * 1.125 * 1.125), 1px); /* 41px */
     --wa-font-size-4xl: round(calc(var(--wa-font-size-3xl) * 1.125 * 1.125), 1px); /* 52px */
+    --wa-font-size-5xl: round(calc(var(--wa-font-size-4xl) * 1.125 * 1.125), 1px); /* 66px */
 
     --wa-font-size-smaller: round(calc(1em / 1.125), 1px);
     --wa-font-size-larger: round(calc(1em * 1.125 * 1.125), 1px);
@@ -238,6 +240,7 @@
     --wa-space-2xl: calc(var(--wa-space-scale) * 2.5rem); /* 40px */
     --wa-space-3xl: calc(var(--wa-space-scale) * 3rem); /* 48px */
     --wa-space-4xl: calc(var(--wa-space-scale) * 4rem); /* 64px */
+    --wa-space-5xl: calc(var(--wa-space-scale) * 5rem); /* 80px */
 
     --wa-content-spacing: var(--wa-space-l);
     /* #endregion */
@@ -265,8 +268,7 @@
     /* #region Focus ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
     --wa-focus-ring-style: solid;
     --wa-focus-ring-width: 0.1875rem; /* 3px */
-    --wa-focus-ring: var(--wa-focus-ring-style) var(--wa-focus-ring-width)
-      color-mix(in oklab, var(--wa-color-focus) 60%, transparent);
+    --wa-focus-ring: var(--wa-focus-ring-style) var(--wa-focus-ring-width) var(--wa-color-focus);
     --wa-focus-ring-offset: 0.0625rem; /* 1px */
     /* #endregion */
 
@@ -372,6 +374,8 @@
       color: var(--wa-color-neutral-on-loud);
     }
 
+    /* Give button labels a font-size one step smaller
+     * than their size class or attribute */
     wa-button {
       &::part(label) {
         font-size: var(--wa-font-size-s);
@@ -388,11 +392,11 @@
       }
     }
 
-    wa-radio[appearance='button'],
+    /* Because we can't set the font-size of just the label text
+     * and button padding and height are em-based,
+     * store the intended size in a private property for use in calculations */
     button,
-    input[type='button'],
-    input[type='reset'],
-    input[type='submit'],
+    input:is([type='button'], [type='reset'], [type='submit']),
     a.wa-button {
       --_size: var(--wa-font-size-m);
       font-size: var(--wa-font-size-s);
@@ -409,9 +413,9 @@
         font-size: var(--wa-font-size-m);
       }
 
-      /* Override em-based layout properties to use the intended size so that
-         height and padding match inputs at the same size, even though the
-         button's font-size is one step smaller for the Shoelace theme. */
+      /* Override em-based properties to use the intended size
+       * so that height and padding match inputs at the same size,
+       * even though the button's font-size is one step smaller */
       --wa-form-control-padding-block: calc(0.75 * var(--_size));
       --wa-form-control-padding-inline: var(--_size);
       --wa-form-control-height: round(
@@ -423,9 +427,36 @@
     wa-radio[appearance='button'] {
       font-weight: var(--wa-font-weight-action);
 
+      &::part(label) {
+        font-size: var(--wa-font-size-s);
+      }
+
+      &[size='small']::part(label),
+      &.wa-size-s::part(label) {
+        font-size: var(--wa-font-size-xs);
+      }
+
+      &[size='large']::part(label),
+      &.wa-size-l::part(label) {
+        font-size: var(--wa-font-size-m);
+      }
+
       &:state(checked) {
         background-color: var(--wa-form-control-activated-color);
         color: var(--wa-color-brand-on-loud);
+      }
+    }
+
+    /* Propagate the font-size of wa-radio-group to its children */
+    wa-radio-group {
+      &:is([size='small'], .wa-size-s) wa-radio[appearance='button']::part(label) {
+        font-size: var(--wa-font-size-xs);
+      }
+      &:is([size='medium'], .wa-size-m) wa-radio[appearance='button']::part(label) {
+        font-size: var(--wa-font-size-s);
+      }
+      &:is([size='large'], .wa-size-l) wa-radio[appearance='button']::part(label) {
+        font-size: var(--wa-font-size-m);
       }
     }
 
@@ -435,43 +466,62 @@
 
     wa-callout {
       padding: var(--wa-space-m);
-      font-size: var(--wa-font-size-smaller);
+      font-size: var(--wa-font-size-s);
 
-      &:is([appearance~='outlined']) {
-        border-top-width: var(--wa-border-width-l);
+      &[size='small'],
+      &.wa-size-s {
+        padding: var(--wa-space-s);
+        font-size: var(--wa-font-size-xs);
+      }
+
+      &[size='large'],
+      &.wa-size-l {
+        padding: var(--wa-space-l);
+        font-size: var(--wa-font-size-m);
+      }
+
+      /* Give outlined callouts a top accent border */
+      &[appearance='outlined'] {
         border-color: var(--wa-color-surface-border);
-        border-top-color: var(--border-color, var(--wa-color-border-loud));
+        border-top-color: var(--wa-color-border-loud);
+        border-top-width: var(--wa-border-width-l);
       }
     }
 
-    wa-card {
-      background-color: var(--wa-color-surface-raised);
-    }
-
+    /* Use unique focus styles for text-based inputs */
     :is(
         wa-input,
-        wa-select,
         wa-textarea,
-        input:where(
-            :not(
-              [type='button'],
-              [type='checkbox'],
-              [type='color'],
-              [type='file'],
-              [type='hidden'],
-              [type='image'],
-              [type='radio'],
-              [type='range'],
-              [type='reset'],
-              [type='submit']
-            )
+        wa-select,
+        wa-combobox,
+        input:not(
+            [type='button'],
+            [type='checkbox'],
+            [type='color'],
+            [type='file'],
+            [type='hidden'],
+            [type='image'],
+            [type='radio'],
+            [type='range'],
+            [type='reset'],
+            [type='submit']
           ),
-        select,
-        textarea
+        textarea,
+        select
       ):not([appearance='filled'], .wa-filled) {
       --wa-focus-ring: var(--wa-focus-ring-style) var(--wa-focus-ring-width)
         color-mix(in oklab, var(--wa-color-focus), transparent 50%);
       --wa-focus-ring-offset: 0;
+
+      &:focus-within {
+        &:where(:not(wa-input, wa-textarea, wa-select, wa-combobox)),
+        &:where(wa-input)::part(base),
+        &:where(wa-textarea)::part(base),
+        &:where(wa-select)::part(combobox),
+        &:where(wa-combobox)::part(combobox) {
+          border-color: var(--wa-color-brand-border-loud);
+        }
+      }
     }
 
     wa-radio,
@@ -479,8 +529,8 @@
       --checked-icon-color: var(--wa-color-surface-default);
       --checked-icon-scale: 0.4;
 
-      &:checked,
-      &:state(checked)::part(control) {
+      &:state(checked)::part(control), /* for wa-radio */
+      &:checked /* for input[type='radio'] */ {
         background-color: var(--wa-form-control-activated-color);
       }
     }
@@ -489,32 +539,48 @@
       border: none;
     }
 
+    /* Separate range thumb selectors into their own rules
+     * so that Safari can process the ::-webkit- selector
+     * before exiting on the ::-moz- selector */
+    input[type='range'] {
+      &::-webkit-slider-thumb {
+        border: none;
+      }
+
+      &::-moz-range-thumb {
+        border: none;
+      }
+    }
+
     wa-switch {
       --height: calc(1em * var(--wa-form-control-value-line-height) - var(--wa-form-control-border-width) * 2);
       --thumb-size: calc(var(--height) + 0.25em);
       --width: calc(var(--height) * 2);
 
       &::part(control) {
-        background-color: var(--wa-color-gray-50);
-        border-color: var(--wa-color-gray-50);
-      }
-
-      &:state(checked)::part(control) {
-        background-color: var(--wa-form-control-activated-color);
-        border-color: var(--wa-form-control-activated-color);
+        background-color: var(--wa-color-gray-60);
+        border-color: var(--wa-color-gray-60);
       }
 
       &::part(thumb) {
         background-color: var(--wa-color-surface-default);
-        border: var(--wa-border-width-s) var(--wa-border-style) var(--wa-color-gray-50);
+        border: var(--wa-border-width-s) var(--wa-border-style) var(--wa-color-gray-60);
       }
-      &:state(checked)::part(thumb) {
-        border-color: var(--wa-form-control-activated-color);
+
+      &:state(checked) {
+        &::part(control) {
+          background-color: var(--wa-form-control-activated-color);
+          border-color: var(--wa-form-control-activated-color);
+        }
+
+        &::part(thumb) {
+          border-color: var(--wa-form-control-activated-color);
+        }
       }
     }
 
     wa-tab {
-      font-size: var(--wa-font-size-smaller);
+      font-size: var(--wa-font-size-s);
     }
   }
 }

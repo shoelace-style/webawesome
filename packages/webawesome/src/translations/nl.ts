@@ -8,6 +8,7 @@ const translation: Translation = {
 
   carousel: 'Carrousel',
   clearEntry: 'Invoer wissen',
+  createOption: value => `"${value}" aanmaken`,
   close: 'Sluiten',
   copied: 'Gekopieerd',
   copy: 'Kopiëren',
@@ -21,6 +22,14 @@ const translation: Translation = {
   increment: 'Verhogen',
   loading: 'Bezig met laden',
   nextSlide: 'Volgende dia',
+  numCharacters: num => {
+    if (num === 1) return '1 teken';
+    return `${num} tekens`;
+  },
+  numCharactersRemaining: num => {
+    if (num === 1) return '1 teken resterend';
+    return `${num} tekens resterend`;
+  },
   numOptionsSelected: num => {
     if (num === 0) return 'Geen optie geselecteerd';
     if (num === 1) return '1 optie geselecteerd';

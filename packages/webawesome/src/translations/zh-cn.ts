@@ -8,6 +8,7 @@ const translation: Translation = {
 
   carousel: '跑马灯',
   clearEntry: '清空',
+  createOption: value => `创建"${value}"`,
   close: '关闭',
   copied: '已复制',
   copy: '复制',
@@ -21,6 +22,8 @@ const translation: Translation = {
   increment: '增加',
   loading: '加载中',
   nextSlide: '下一张幻灯片',
+  numCharacters: num => `${num}个字符`,
+  numCharactersRemaining: num => `剩余${num}个字符`,
   numOptionsSelected: num => {
     if (num === 0) return '未选择任何项目';
     if (num === 1) return '已选择 1 个项目';

@@ -105,12 +105,14 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
   @property({ type: Boolean, reflect: true }) required = false;
 
   /**
-   * Used for SSR. if true, will show slotted label on initial render.
+   * Only required for SSR. Set to `true` if you're slotting in a `label` element so the server-rendered markup
+   * includes the label before the component hydrates on the client.
    */
   @property({ type: Boolean, attribute: 'with-label' }) withLabel = false;
 
   /**
-   * Used for SSR. if true, will show slotted hint on initial render.
+   * Only required for SSR. Set to `true` if you're slotting in a `hint` element so the server-rendered markup
+   * includes the hint before the component hydrates on the client.
    */
   @property({ type: Boolean, attribute: 'with-hint' }) withHint = false;
 
@@ -383,6 +385,12 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
     `;
   }
 }
+
+// The change-in-update warning is required for this component because HasSlotController calls requestUpdate() in
+// response to slotchange events after first render, and the form validation system calls requestUpdate('validity')
+// during firstUpdated() to initialize constraint validation state. Both are essential for correct behavior.
+// See https://lit.dev/docs/tools/development/#development-build-runtime-warnings
+WaRadioGroup.disableWarning?.('change-in-update');
 
 declare global {
   interface HTMLElementTagNameMap {

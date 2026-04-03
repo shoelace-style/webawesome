@@ -11,7 +11,7 @@ category: Organization
   <wa-button slot="footer" variant="brand" data-drawer="close">Close</wa-button>
 </wa-drawer>
 
-<wa-button>Open Drawer</wa-button>
+<wa-button appearance="filled">Open Drawer</wa-button>
 
 <script>
   const drawer = document.querySelector('#drawer-overview');
@@ -33,7 +33,7 @@ Headers are enabled by default. To render a drawer without a header, add the `wi
   <wa-button slot="footer" variant="brand" data-drawer="close">Close</wa-button>
 </wa-drawer>
 
-<wa-button>Open Drawer</wa-button>
+<wa-button appearance="filled">Open Drawer</wa-button>
 
 <script>
   const drawer = document.querySelector('.drawer-without-header');
@@ -53,7 +53,7 @@ Footers can be used to display titles and more. Use the `footer` slot to add a f
   <wa-button slot="footer" variant="brand" data-drawer="close">Close</wa-button>
 </wa-drawer>
 
-<wa-button>Open Drawer</wa-button>
+<wa-button appearance="filled">Open Drawer</wa-button>
 
 <script>
   const drawer = document.querySelector('.drawer-footer');
@@ -73,7 +73,7 @@ You can open and close drawers with JavaScript by toggling the `open` attribute,
   <wa-button slot="footer" variant="brand" data-drawer="close">Close</wa-button>
 </wa-drawer>
 
-<wa-button data-drawer="open drawer-opening">Open Drawer</wa-button>
+<wa-button appearance="filled" data-drawer="open drawer-opening">Open Drawer</wa-button>
 ```
 
 Similarly, you can add `data-drawer="close"` to a button _inside_ of a drawer to tell it to close.
@@ -84,7 +84,7 @@ Similarly, you can add `data-drawer="close"` to a button _inside_ of a drawer to
   <wa-button slot="footer" variant="brand" data-drawer="close">Close</wa-button>
 </wa-drawer>
 
-<wa-button data-drawer="open drawer-dismiss">Open Drawer</wa-button>
+<wa-button appearance="filled" data-drawer="open drawer-dismiss">Open Drawer</wa-button>
 ```
 
 ### Slide in From Start
@@ -97,7 +97,7 @@ By default, drawers slide in from the end. To make the drawer slide in from the 
   <wa-button slot="footer" variant="brand" data-drawer="close">Close</wa-button>
 </wa-drawer>
 
-<wa-button>Open Drawer</wa-button>
+<wa-button appearance="filled">Open Drawer</wa-button>
 
 <script>
   const drawer = document.querySelector('.drawer-placement-start');
@@ -117,7 +117,7 @@ To make the drawer slide in from the top, set the `placement` attribute to `top`
   <wa-button slot="footer" variant="brand" data-drawer="close">Close</wa-button>
 </wa-drawer>
 
-<wa-button>Open Drawer</wa-button>
+<wa-button appearance="filled">Open Drawer</wa-button>
 
 <script>
   const drawer = document.querySelector('.drawer-placement-top');
@@ -137,7 +137,7 @@ To make the drawer slide in from the bottom, set the `placement` attribute to `b
   <wa-button slot="footer" variant="brand" data-drawer="close">Close</wa-button>
 </wa-drawer>
 
-<wa-button>Open Drawer</wa-button>
+<wa-button appearance="filled">Open Drawer</wa-button>
 
 <script>
   const drawer = document.querySelector('.drawer-placement-bottom');
@@ -157,7 +157,7 @@ Use the `--size` custom property to set the drawer's size. This will be applied 
   <wa-button slot="footer" variant="brand" data-drawer="close">Close</wa-button>
 </wa-drawer>
 
-<wa-button>Open Drawer</wa-button>
+<wa-button appearance="filled">Open Drawer</wa-button>
 
 <script>
   const drawer = document.querySelector('.drawer-custom-size');
@@ -179,7 +179,7 @@ By design, a drawer's height will never exceed 100% of its container. As such, d
   <wa-button slot="footer" variant="brand" data-drawer="close">Close</wa-button>
 </wa-drawer>
 
-<wa-button>Open Drawer</wa-button>
+<wa-button appearance="filled">Open Drawer</wa-button>
 
 <script>
   const drawer = document.querySelector('.drawer-scrolling');
@@ -202,7 +202,7 @@ The header shows a functional close button by default. You can use the `header-a
   <wa-button slot="footer" variant="brand" data-drawer="close">Close</wa-button>
 </wa-drawer>
 
-<wa-button>Open Drawer</wa-button>
+<wa-button appearance="filled">Open Drawer</wa-button>
 
 <script>
   const drawer = document.querySelector('.drawer-header-actions');
@@ -224,7 +224,7 @@ If you want the drawer to close when the user clicks on the overlay, add the `li
   <wa-button slot="footer" variant="brand" data-drawer="close">Close</wa-button>
 </wa-drawer>
 
-<wa-button>Open Drawer</wa-button>
+<wa-button appearance="filled">Open Drawer</wa-button>
 
 <script>
   const drawer = document.querySelector('.drawer-light-dismiss');
@@ -248,7 +248,7 @@ You can use `event.detail.source` to determine what triggered the request to clo
   <wa-button slot="footer" variant="brand" data-drawer="close">Close</wa-button>
 </wa-drawer>
 
-<wa-button>Open Drawer</wa-button>
+<wa-button appearance="filled">Open Drawer</wa-button>
 
 <script>
   const drawer = document.querySelector('.drawer-deny-close');
@@ -276,7 +276,7 @@ To give focus to a specific element when the drawer opens, use the `autofocus` a
   <wa-button slot="footer" variant="brand" data-drawer="close">Close</wa-button>
 </wa-drawer>
 
-<wa-button>Open Drawer</wa-button>
+<wa-button appearance="filled">Open Drawer</wa-button>
 
 <script>
   const drawer = document.querySelector('.drawer-focus');

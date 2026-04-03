@@ -40,6 +40,28 @@ Use the `copy-icon`, `success-icon`, and `error-icon` slots to customize the ico
 </wa-copy-button>
 ```
 
+### Custom Trigger
+
+By default, the copy button renders an icon-only button. You can slot in any element to use as a custom trigger instead. This works with Web Awesome buttons, native buttons, or any clickable element.
+
+```html {.example}
+<wa-copy-button value="You can copy anything with a custom trigger!">
+  <wa-button appearance="filled">Copy to Clipboard</wa-button>
+</wa-copy-button>
+```
+
+You can also use a native button as the trigger.
+
+```html {.example}
+<wa-copy-button value="Native buttons work too!">
+  <button type="button" class="wa-filled">Copy to Clipboard</button>
+</wa-copy-button>
+```
+
+:::info
+When using a custom trigger, the default tooltip and icon feedback won't be shown. Use the `wa-copy` and `wa-error` events or the `:state(success)` and `:state(error)` CSS custom states to provide feedback to the user.
+:::
+
 ### Copying Values From Other Elements
 
 Normally, the data that gets copied will come from the component's `value` attribute, but you can copy data from any element within the same document by providing its `id` to the `from` attribute.

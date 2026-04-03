@@ -104,8 +104,12 @@ export default class WaCarousel extends WebAwesomeElement {
 
   connectedCallback(): void {
     super.connectedCallback();
-    this.setAttribute('role', 'region');
-    this.setAttribute('aria-label', this.localize.term('carousel'));
+
+    // SSR guard: setAttribute is not available during server-side rendering
+    if (!isServer) {
+      this.setAttribute('role', 'region');
+      this.setAttribute('aria-label', this.localize.term('carousel'));
+    }
   }
 
   disconnectedCallback(): void {

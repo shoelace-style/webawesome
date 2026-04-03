@@ -21,16 +21,13 @@ import { getCdnDir, getDistDir, getDocsDir, getRootDir, getSiteDir } from './uti
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const currentYear = new Date().getFullYear();
-const spinner = ora({ text: 'Web Awesome', color: 'cyan' }).start();
-const getPackageData = async () => JSON.parse(await readFile(join(getRootDir(), 'package.json'), 'utf-8'));
-const getVersion = async () => JSON.stringify((await getPackageData()).version.toString());
+const spinner = ora();
 let buildContexts = {
   bundledContext: {},
   unbundledContext: {},
 };
 
 const debugPerf = process.env.DEBUG_PERFORMANCE === '1';
-
 const isDeveloping = process.argv.includes('--develop');
 
 /**
@@ -45,6 +42,14 @@ const isDeveloping = process.argv.includes('--develop');
  * @param {BuildOptions} [options={}]
  */
 export async function build(options = {}) {
+  // packageData and version  need to be set within the `build()` function because this file gets imported by the app, which may not have generated its bundled directory yet, so this needs to be "lazily" evaluated.
+  const packageData = JSON.parse(await readFile(join(getRootDir(), 'package.json'), 'utf-8'));
+  const version = packageData.version;
+  console.log(`${chalk.hex('#ef6741')('🦊 Web Awesome')} ${chalk.cyan(`v${version}\n`)}`);
+  if (isDeveloping) {
+    spinner.info('Development mode');
+  }
+
   if (!options.watchedSrcDirectories) {
     options.watchedSrcDirectories = ['src'];
   }
@@ -206,6 +211,7 @@ export async function build(options = {}) {
     const rootDir = process.env.ROOT_DIR || '.';
     // Bundled config
     const config = {
+      conditions: isDeveloping ? ['development'] : [],
       format: 'esm',
       target: 'es2020',
       entryPoints: [
@@ -240,7 +246,7 @@ export async function build(options = {}) {
       banner: {
         js: `/*! Copyright ${currentYear} Fonticons, Inc. - https://webawesome.com/license */`,
       },
-      plugins: [replace({ __WEBAWESOME_VERSION__: await getVersion() })],
+      plugins: [replace({ __WEBAWESOME_VERSION__: version })],
     };
 
     const unbundledConfig = {

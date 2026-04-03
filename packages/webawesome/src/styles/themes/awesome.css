@@ -195,6 +195,7 @@
      * For larger font sizes, each size is twice 1.125x larger to maximize impact.
      * Each value uses `rem` units and is rounded to the nearest whole pixel when rendered. */
     --wa-font-size-scale: 1;
+    --wa-font-size-3xs: round(calc(var(--wa-font-size-2xs) / 1.125), 1px); /* 10px */
     --wa-font-size-2xs: round(calc(var(--wa-font-size-xs) / 1.125), 1px); /* 11px */
     --wa-font-size-xs: round(calc(var(--wa-font-size-s) / 1.125), 1px); /* 12px */
     --wa-font-size-s: round(calc(var(--wa-font-size-m) / 1.125), 1px); /* 14px */
@@ -204,6 +205,7 @@
     --wa-font-size-2xl: round(calc(var(--wa-font-size-xl) * 1.125 * 1.125), 1px); /* 32px */
     --wa-font-size-3xl: round(calc(var(--wa-font-size-2xl) * 1.125 * 1.125), 1px); /* 41px */
     --wa-font-size-4xl: round(calc(var(--wa-font-size-3xl) * 1.125 * 1.125), 1px); /* 52px */
+    --wa-font-size-5xl: round(calc(var(--wa-font-size-4xl) * 1.125 * 1.125), 1px); /* 66px */
 
     --wa-font-size-smaller: round(calc(1em / 1.125), 1px);
     --wa-font-size-larger: round(calc(1em * 1.125 * 1.125), 1px);
@@ -239,6 +241,7 @@
     --wa-space-2xl: calc(var(--wa-space-scale) * 2.5rem); /* 40px */
     --wa-space-3xl: calc(var(--wa-space-scale) * 3rem); /* 48px */
     --wa-space-4xl: calc(var(--wa-space-scale) * 4rem); /* 64px */
+    --wa-space-5xl: calc(var(--wa-space-scale) * 5rem); /* 80px */
 
     --wa-content-spacing: var(--wa-space-l);
     /* #endregion */
@@ -335,8 +338,8 @@
     --wa-form-control-required-content-color: inherit;
     --wa-form-control-required-content-offset: 0.1em;
 
-    --wa-form-control-padding-block: 1em;
-    --wa-form-control-padding-inline: 1.25em;
+    --wa-form-control-padding-block: 1.375em;
+    --wa-form-control-padding-inline: 1.5em;
     --wa-form-control-height: round(
       calc(2 * var(--wa-form-control-padding-block) + 1em * var(--wa-form-control-value-line-height)),
       1px
@@ -369,36 +372,37 @@
   .wa-theme-awesome {
     wa-button,
     button,
-    input[type='button'],
-    input[type='reset'],
-    input[type='submit'],
+    input:is([type='button'], [type='reset'], [type='submit']),
     a.wa-button {
+      /* Match the shadow color to the button's variant */
       --wa-color-shadow: var(--wa-color-border-normal);
-      --wa-transition-slow: 0;
-      --wa-transition-normal: 0;
-      --wa-transition-fast: 0;
 
       &[appearance='outlined'],
       &.wa-outlined:not(.wa-filled) {
         --wa-color-shadow: var(--wa-color-border-loud);
       }
-    }
 
-    wa-button,
-    button,
-    input[type='button'],
-    input[type='reset'],
-    input[type='submit'],
-    a.wa-button {
-      &:not([appearance~='plain']):not(.wa-plain) {
+      /* Disable transitions for a snappy, tactile feel */
+      --wa-transition-slow: 0;
+      --wa-transition-normal: 0;
+      --wa-transition-fast: 0;
+
+      &:not([appearance='plain'], .wa-plain) {
+        /* Give buttons a raised effect via solid box-shadow
+         * and adjust height to visually match other inputs */
         &:where(:not(wa-button)),
         &::part(base) {
           height: calc(var(--wa-form-control-height) - var(--wa-shadow-offset-y-s));
+          box-shadow: var(--wa-shadow-offset-x-s) var(--wa-shadow-offset-y-s) 0 0 var(--wa-color-shadow);
+
+          /* Because shadow offsets don't change with writing mode,
+           * use physical margin properties to accommodate shadows
+           * instead of their logical equivalents */
           margin-bottom: var(--wa-shadow-offset-y-s);
           margin-right: var(--wa-shadow-offset-x-s);
-          box-shadow: var(--wa-shadow-offset-x-s) var(--wa-shadow-offset-y-s) 0 0 var(--wa-color-shadow);
         }
-        &:not([disabled]):not(:disabled):active {
+        /* Give active buttons a "punch in" effect */
+        &:not([disabled], :disabled):active {
           &:where(:not(wa-button)),
           &::part(base) {
             color: var(--wa-color-fill-quiet);
@@ -409,13 +413,35 @@
           }
         }
       }
-      .wa-dark & {
-        &[appearance~='accent'],
-        &.wa-accent {
-          &:not([disabled]):not(:disabled):active {
-            &:where(:not(wa-button)),
+    }
+
+    /* Give active buttons in vertical button groups a "punch in" effect
+     * without leaving a visible gap between buttons */
+    wa-button-group[orientation='vertical'] {
+      & > *:not(:last-child) {
+        &:is(wa-button:not([appearance='plain'], .wa-plain)),
+        & wa-button:not([appearance='plain'], .wa-plain) {
+          &::part(base) {
+            height: var(--wa-form-control-height);
+            margin-bottom: 0;
+            margin-right: 0;
+            box-shadow: none;
+          }
+          &:not([disabled], :disabled):active {
             &::part(base) {
-              color: var(--wa-color-on-quiet);
+              height: calc(var(--wa-form-control-height) - var(--wa-shadow-offset-y-s));
+              margin-top: var(--wa-shadow-offset-y-s);
+              transform: none;
+            }
+          }
+        }
+      }
+      & > *:not(:first-child) {
+        &:is(wa-button:not([appearance='plain'], .wa-plain)),
+        & wa-button:not([appearance='plain'], .wa-plain) {
+          &:not([disabled], :disabled):active {
+            &::part(base) {
+              box-shadow: var(--wa-shadow-offset-x-s) calc(var(--wa-shadow-offset-y-s) * -1) 0 0 var(--wa-color-shadow);
             }
           }
         }
@@ -429,45 +455,62 @@
         color: var(--wa-color-surface-default);
       }
     }
-    wa-radio-group[orientation='horizontal'] wa-radio[appearance='button'] {
-      box-shadow: var(--wa-shadow-offset-x-s) max(var(--wa-shadow-offset-y-s), var(--border-width)) 0 0
-        var(--wa-form-control-border-color);
-      margin-bottom: var(--wa-shadow-offset-y-s);
-      margin-right: var(--wa-shadow-offset-x-s);
 
-      &:state(checked) {
-        box-shadow: initial;
-        transform: translate(var(--wa-shadow-offset-x-s), var(--wa-shadow-offset-y-s));
-      }
-    }
-
+    /* Add inset shadow to text-based form controls */
     :is(
-        input:where(
-            :not(
-              [type='button'],
-              [type='checkbox'],
-              [type='color'],
-              [type='file'],
-              [type='hidden'],
-              [type='image'],
-              [type='radio'],
-              [type='range'],
-              [type='reset'],
-              [type='submit']
-            )
-          ),
-        select,
-        textarea,
         wa-input,
+        wa-textarea,
         wa-select,
-        wa-textarea
-      ):not(:focus):not([appearance='filled']) {
-      &:where(:not(wa-input):not(wa-select):not(wa-textarea)),
+        wa-combobox,
+        input:not(
+            [type='button'],
+            [type='checkbox'],
+            [type='color'],
+            [type='file'],
+            [type='hidden'],
+            [type='image'],
+            [type='radio'],
+            [type='range'],
+            [type='reset'],
+            [type='submit']
+          ),
+        textarea,
+        select
+      ):not(:focus, [appearance='filled']) {
+      &:where(:not(wa-input, wa-textarea, wa-select, wa-combobox)),
       &:where(wa-input)::part(base),
+      &:where(wa-textarea)::part(base),
       &:where(wa-select)::part(combobox),
-      &:where(wa-textarea)::part(base) {
+      &:where(wa-combobox)::part(combobox) {
         box-shadow: inset var(--wa-shadow-offset-x-s)
           max(var(--wa-shadow-offset-y-s), var(--wa-form-control-border-width)) 0 0 var(--wa-color-shadow);
+      }
+    }
+  }
+
+  /* Dark mode only */
+  .wa-theme-awesome.wa-dark,
+  .wa-theme-awesome .wa-dark,
+  .wa-theme-awesome.wa-invert,
+  .wa-theme-awesome .wa-invert,
+  .wa-dark .wa-theme-awesome,
+  .wa-light .wa-theme-awesome.wa-invert,
+  .wa-light .wa-theme-awesome .wa-invert {
+    wa-button,
+    button,
+    input:is([type='button'], [type='reset'], [type='submit']),
+    a.wa-button {
+      &:where(:not([appearance], .wa-filled, .wa-outlined, .wa-plain)),
+      &[appearance='accent'],
+      &.wa-accent {
+        --wa-color-shadow: var(--wa-color-border-quiet);
+
+        &:not([disabled], :disabled):active {
+          &:where(:not(wa-button)),
+          &::part(base) {
+            color: var(--wa-color-on-quiet);
+          }
+        }
       }
     }
   }
@@ -475,40 +518,30 @@
 
 @layer wa-theme-overrides {
   .wa-theme-awesome {
+    /* Give opinionated borders to accent buttons */
     wa-button,
     button,
-    input[type='button'],
-    input[type='reset'],
-    input[type='submit'],
+    input:is([type='button'], [type='reset'], [type='submit']),
     a.wa-button {
+      &:where(:not([appearance], .wa-filled, .wa-outlined, .wa-plain)),
       &[appearance='accent'],
       &.wa-accent {
+        --wa-color-shadow: var(--wa-color-on-loud);
+
         &:where(:not(wa-button)),
         &::part(base) {
-          --wa-color-shadow: var(--wa-color-on-loud);
           border-color: var(--wa-color-shadow);
-        }
-      }
-
-      .wa-dark & {
-        &[appearance='accent'],
-        &.wa-accent {
-          &:where(:not(wa-button)),
-          &::part(base) {
-            --wa-color-shadow: var(--wa-color-border-quiet);
-          }
         }
       }
     }
 
     /* Treat accent buttons as outlined in button groups */
-    wa-button-group[orientation='horizontal'] {
-      wa-button[appearance='accent'] {
+    wa-button-group {
+      &[orientation='horizontal'] wa-button[appearance='accent'] {
         margin-inline-start: var(--_button-horizontal-indent-outlined);
       }
-    }
-    wa-button-group[orientation='vertical'] {
-      wa-button[appearance='accent'] {
+
+      &[orientation='vertical'] wa-button[appearance='accent'] {
         margin-block-start: var(--_button-vertical-indent-outlined);
       }
     }
@@ -520,24 +553,24 @@
     }
 
     wa-callout {
-      &:is([appearance~='outlined']) {
+      &:is(:not([appearance]), [appearance='outlined'], [appearance='filled-outlined']) {
         border-color: var(--wa-color-border-normal);
       }
     }
 
     wa-card {
-      background-color: var(--wa-color-surface-raised);
-    }
-    wa-card::part(header) {
-      border-bottom-style: dotted;
-    }
-    wa-card::part(footer) {
-      border-top-style: dotted;
+      &::part(header) {
+        border-bottom-style: dotted;
+      }
+
+      &::part(footer) {
+        border-top-style: dotted;
+      }
     }
 
-    input[type='checkbox'],
     wa-checkbox,
-    wa-tree-item::part(checkbox__control) {
+    wa-tree-item::part(checkbox),
+    input[type='checkbox'] {
       --checked-icon-color: var(--wa-color-surface-default);
     }
 
@@ -547,6 +580,28 @@
 
     wa-tag {
       font-weight: var(--wa-font-weight-bold);
+    }
+  }
+
+  /* Dark mode only */
+  .wa-theme-awesome.wa-dark,
+  .wa-theme-awesome .wa-dark,
+  .wa-theme-awesome.wa-invert,
+  .wa-theme-awesome .wa-invert,
+  .wa-dark .wa-theme-awesome,
+  .wa-light .wa-theme-awesome.wa-invert,
+  .wa-light .wa-theme-awesome .wa-invert {
+    wa-button,
+    button,
+    input:is([type='button'], [type='reset'], [type='submit']),
+    a.wa-button {
+      /* Accent button shadows only match the text color in light mode
+       * Revert to the wa-theme-dimension layer for shadow color in dark mode */
+      &:where(:not([appearance], .wa-filled, .wa-outlined, .wa-plain)),
+      &[appearance='accent'],
+      &.wa-accent {
+        --wa-color-shadow: revert-layer;
+      }
     }
   }
 }

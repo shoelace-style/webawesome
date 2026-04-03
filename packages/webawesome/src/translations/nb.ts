@@ -8,6 +8,7 @@ const translation: Translation = {
 
   carousel: 'Karusell',
   clearEntry: 'Tøm felt',
+  createOption: value => `Opprett "${value}"`,
   close: 'Lukk',
   copied: 'Kopiert',
   copy: 'Kopier',
@@ -21,6 +22,14 @@ const translation: Translation = {
   increment: 'Øk',
   loading: 'Laster',
   nextSlide: 'Neste visning',
+  numCharacters: num => {
+    if (num === 1) return '1 tegn';
+    return `${num} tegn`;
+  },
+  numCharactersRemaining: num => {
+    if (num === 1) return '1 tegn gjenstår';
+    return `${num} tegn gjenstår`;
+  },
   numOptionsSelected: num => {
     if (num === 0) return 'Ingen alternativer valgt';
     if (num === 1) return 'Ett alternativ valgt';

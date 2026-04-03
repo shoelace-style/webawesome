@@ -218,6 +218,92 @@ describe('<wa-select>', () => {
           expect(handler).to.be.calledTwice;
           expect(el.value).to.equal(option2.value);
         });
+
+        it('should have the correct event.target.value at the time the change event fires', async () => {
+          const el = await fixture<WaSelect>(html`
+            <wa-select value="option-1">
+              <wa-option value="option-1">Option 1</wa-option>
+              <wa-option value="option-2">Option 2</wa-option>
+              <wa-option value="option-3">Option 3</wa-option>
+            </wa-select>
+          `);
+          const secondOption = el.querySelectorAll<WaOption>('wa-option')[1];
+          let valueAtChangeTime: string | string[] | null = null;
+          let valueAtInputTime: string | string[] | null = null;
+
+          el.addEventListener('change', (event: Event) => {
+            valueAtChangeTime = (event.target as WaSelect).value;
+          });
+          el.addEventListener('input', (event: Event) => {
+            valueAtInputTime = (event.target as WaSelect).value;
+          });
+
+          await el.show();
+          await clickOnElement(secondOption);
+          await el.updateComplete;
+
+          expect(valueAtChangeTime).to.equal('option-2');
+          expect(valueAtInputTime).to.equal('option-2');
+        });
+
+        it('should have the correct event.target.value when selecting from no initial value', async () => {
+          const el = await fixture<WaSelect>(html`
+            <wa-select>
+              <wa-option value="option-1">Option 1</wa-option>
+              <wa-option value="option-2">Option 2</wa-option>
+              <wa-option value="option-3">Option 3</wa-option>
+            </wa-select>
+          `);
+          const secondOption = el.querySelectorAll<WaOption>('wa-option')[1];
+          let valueAtChangeTime: string | string[] | null = null;
+
+          el.addEventListener('change', (event: Event) => {
+            valueAtChangeTime = (event.target as WaSelect).value;
+          });
+
+          await el.show();
+          await clickOnElement(secondOption);
+          await el.updateComplete;
+
+          expect(el.value).to.equal('option-2');
+          expect(valueAtChangeTime).to.equal('option-2');
+        });
+
+        it('should emit exactly one change and one input event per click interaction', async () => {
+          const el = await fixture<WaSelect>(html`
+            <wa-select value="option-1">
+              <wa-option value="option-1">Option 1</wa-option>
+              <wa-option value="option-2">Option 2</wa-option>
+              <wa-option value="option-3">Option 3</wa-option>
+            </wa-select>
+          `);
+          const changeHandler = sinon.spy();
+          const inputHandler = sinon.spy();
+
+          el.addEventListener('change', changeHandler);
+          el.addEventListener('input', inputHandler);
+
+          // First selection
+          await el.show();
+          await clickOnElement(el.querySelectorAll<WaOption>('wa-option')[1]);
+          await el.updateComplete;
+          await aTimeout(100);
+
+          expect(changeHandler).to.have.been.calledOnce;
+          expect(inputHandler).to.have.been.calledOnce;
+
+          // Second selection — wait for the dropdown to fully close then reopen
+          await aTimeout(500);
+          await el.show();
+          await aTimeout(500);
+          await clickOnElement(el.querySelectorAll<WaOption>('wa-option')[2]);
+          await el.updateComplete;
+          await aTimeout(100);
+
+          expect(changeHandler).to.have.been.calledTwice;
+          expect(inputHandler).to.have.been.calledTwice;
+          expect(el.value).to.equal('option-3');
+        });
       });
 
       // This can happen in on Microsoft Edge auto-filling an associated input element in the same form
@@ -1002,6 +1088,77 @@ describe('<wa-select>', () => {
 
       expect(tooltip.open).to.be.false;
       expect(select.open).to.be.true;
+    });
+  });
+
+  describe('value set via property before options exist', () => {
+    it('should display the selected value for single select when value property is set before options are added', async () => {
+      const fixture = fixtures[0];
+      const el = await fixture<WaSelect>(html`<wa-select label="Test"></wa-select>`);
+
+      // Set value via property before options exist
+      el.value = 'option-2';
+
+      // Now add options after the value has been set
+      const option1 = document.createElement('wa-option');
+      option1.value = 'option-1';
+      option1.textContent = 'Option 1';
+      const option2 = document.createElement('wa-option');
+      option2.value = 'option-2';
+      option2.textContent = 'Option 2';
+      const option3 = document.createElement('wa-option');
+      option3.value = 'option-3';
+      option3.textContent = 'Option 3';
+      el.append(option1, option2, option3);
+
+      await aTimeout(10);
+      await el.updateComplete;
+
+      expect(el.value).to.equal('option-2');
+      expect(el.displayInput.value).to.equal('Option 2');
+    });
+
+    it('should display the selected values for multiple select when value property is set before options are added', async () => {
+      const fixture = fixtures[0];
+      const el = await fixture<WaSelect>(html`<wa-select label="Test" multiple></wa-select>`);
+
+      // Set value via property as an array before options exist
+      el.value = ['option-1', 'option-2'];
+
+      // Now add options after the value has been set
+      const option1 = document.createElement('wa-option');
+      option1.value = 'option-1';
+      option1.textContent = 'Option 1';
+      const option2 = document.createElement('wa-option');
+      option2.value = 'option-2';
+      option2.textContent = 'Option 2';
+      const option3 = document.createElement('wa-option');
+      option3.value = 'option-3';
+      option3.textContent = 'Option 3';
+      el.append(option1, option2, option3);
+
+      await aTimeout(10);
+      await el.updateComplete;
+
+      expect(el.value).to.be.an('array');
+      expect(el.value).to.have.members(['option-1', 'option-2']);
+      expect(el.selectedOptions.length).to.equal(2);
+    });
+
+    it('should display the selected value when value attribute is set with options present', async () => {
+      const fixture = fixtures[0];
+      const el = await fixture<WaSelect>(html`
+        <wa-select value="option-2">
+          <wa-option value="option-1">Option 1</wa-option>
+          <wa-option value="option-2">Option 2</wa-option>
+          <wa-option value="option-3">Option 3</wa-option>
+        </wa-select>
+      `);
+
+      await el.updateComplete;
+
+      expect(el.value).to.equal('option-2');
+      expect(el.displayInput.value).to.equal('Option 2');
     });
   });
 });

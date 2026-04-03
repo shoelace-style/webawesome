@@ -1,20 +1,20 @@
 <wa-dropdown class="color-scheme-selector" title="Press \ to toggle">
-  <wa-button slot="trigger" id="color-scheme-selector-trigger" appearance="plain">
-    <wa-icon name="sun-bright" variant="regular" class="icon-embiggen only-light"></wa-icon>
-    <wa-icon name="moon-stars" variant="regular" class="icon-embiggen only-dark"></wa-icon>
+  <wa-button slot="trigger" id="color-scheme-selector-trigger" appearance="plain" pill>
+    <wa-icon name="sun-bright" variant="regular" class="only-light"></wa-icon>
+    <wa-icon name="moon-stars" variant="regular" class="only-dark"></wa-icon>
   </wa-button>
   <wa-dropdown-item value="light">
-    <wa-icon slot="icon" name="sun-bright" variant="regular" class="icon-embiggen"></wa-icon>
+    <wa-icon slot="icon" name="sun-bright" variant="regular"></wa-icon>
     Light
   </wa-dropdown-item>
   <wa-dropdown-item value="dark">
-    <wa-icon slot="icon" name="moon-stars" variant="regular" class="icon-embiggen"></wa-icon>
+    <wa-icon slot="icon" name="moon-stars" variant="regular"></wa-icon>
     Dark
   </wa-dropdown-item>
   <wa-divider></wa-divider>
   <wa-dropdown-item value="auto">
-    <wa-icon  slot="icon" name="sun-bright" variant="regular" class="only-light icon-embiggen"></wa-icon>
-    <wa-icon slot="icon" name="moon-stars" variant="regular" class="only-dark icon-embiggen"></wa-icon>
+    <wa-icon  slot="icon" name="sun-bright" variant="regular" class="only-light"></wa-icon>
+    <wa-icon slot="icon" name="moon-stars" variant="regular" class="only-dark"></wa-icon>
     System
   </wa-dropdown-item>
 </wa-dropdown>
