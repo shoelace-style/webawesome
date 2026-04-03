@@ -197,10 +197,7 @@ export default async function (eleventyConfig) {
   // Shortcodes - {% shortCode arg1, arg2 %}
   eleventyConfig.addShortcode('cdnUrl', location => {
     // We use WA (free) via the public CDN for CodePen examples
-    return (
-      `https://ka-f.webawesome.com/webawesome@${packageData.version}/` +
-      (location || '').replace(/^\//, '')
-    );
+    return `https://ka-f.webawesome.com/webawesome@${packageData.version}/` + (location || '').replace(/^\//, '');
   });
 
   // Turns `{% server "foo" %} into `{{ server.foo | safe }}` when the WEBAWESOME_SERVER variable is set to "true"
