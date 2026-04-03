@@ -22,6 +22,8 @@ const translation: Translation = {
   increment: '増やす',
   loading: '読み込み中',
   nextSlide: '次のスライド',
+  numCharacters: num => `${num}文字`,
+  numCharactersRemaining: num => `残り${num}文字`,
   numOptionsSelected: num => {
     if (num === 0) return '項目が選択されていません';
     return `${num} 個の項目が選択されました`;

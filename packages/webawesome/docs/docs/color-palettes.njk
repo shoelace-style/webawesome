@@ -80,17 +80,17 @@ layout: page
 {% if palette.isPro %}
 <wa-callout variant="neutral" size="small">
   <wa-icon name="info-circle" variant="regular"></wa-icon>
-  This palette can only be used on teams with a Pro subscription.
+  This palette can only be used on workspaces with a Pro subscription.
 </wa-callout>
 <br />
 {% else %}
-**For projects on Free teams:**
+**For projects on Free workspaces:**
 1. Head over to your project's <wa-icon name="gear" variant="regular"></wa-icon> **Settings**.
 2. Find **Color Palette**. Select <wa-icon name="swatchbook" variant="regular"></wa-icon> **{{ palette.name | capitalize }}**.
 3. Save your theme to immediately update anywhere you're using your project.
 {% endif %}
 
-**For projects on Pro teams:**
+**For projects on Pro workspaces:**
 1. Head over to your project's <wa-icon name="gear" variant="regular"></wa-icon> **Settings**.
 2. Press <wa-icon name="paintbrush" variant="regular"></wa-icon> **Edit Your Theme** to open the Theme Builder.
 3. Open **Colors** and select **{{ palette.name | capitalize }}**.

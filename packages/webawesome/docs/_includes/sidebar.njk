@@ -1,5 +1,14 @@
-{# Search #}
-{% include "search-trigger-button.njk" %}
+<div class="wa-stack wa-mobile-only">
+  <div class="wa-flank:end">
+    {% include "search-trigger-button.njk" %}
+    <div class="wa-cluster wa-gap-0 wa-flex-nowrap">
+      {% include "color-scheme-selector.njk" %}
+      {% if hasThemeSelector %}
+        {% include "theme-selector.njk" %}
+      {% endif %}
+    </div>
+  </div>
+</div>
 {% from "pro-badge.njk" import proBadge %}
 {% from "planned-badge.njk" import plannedBadge %}
 
@@ -102,15 +111,6 @@
     </a>
   </h2>
   <ul>
-    <li>
-      <span class="wa-split">
-        <a class="wa-cluster wa-gap-xs" href="/docs/components/page/">
-          Page
-          <wa-icon name="flask" aria-hidden="true" class="icon-shrink de-emphasize"></wa-icon>
-        </a>
-        {{ proBadge() }}
-      </span>
-    </li>
     <li><a href="/docs/components/animated-image/">Animated Image</a></li>
     <li><a href="/docs/components/animation/">Animation</a></li>
     <li><a href="/docs/components/avatar/">Avatar</a></li>
@@ -195,6 +195,7 @@
     </li>
     <li><a href="/docs/components/mutation-observer/">Mutation Observer</a></li>
     <li><a href="/docs/components/number-input">Number Input</a></li>
+    <li><a href="/docs/components/page/">Page</a></li>
     <li><a href="/docs/components/popover/">Popover</a></li>
     <li><a href="/docs/components/popup/">Popup</a></li>
     <li><a href="/docs/components/progress-bar/">Progress Bar</a></li>
@@ -362,15 +363,6 @@
     <li><a href="/docs/utilities/grid/">Grid</a></li>
     <li><a href="/docs/utilities/split/">Split</a></li>
     <li><a href="/docs/utilities/stack/">Stack</a></li>
-    <li>
-      <span class="wa-split">
-        <a class="wa-cluster wa-gap-xs" href="/docs/components/page/">
-          Page
-          <wa-icon name="flask" aria-hidden="true" class="icon-shrink de-emphasize"></wa-icon>
-        </a>
-        {{ proBadge() }}
-      </span>
-    </li>
   </ul>
 </wa-details>
 

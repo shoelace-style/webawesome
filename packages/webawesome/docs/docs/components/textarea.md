@@ -116,3 +116,13 @@ Textareas can be made to resize both vertically and horizontally when `resize` i
 ```html {.example}
 <wa-textarea resize="both"></wa-textarea>
 ```
+
+### Character Count
+
+Add the `with-count` attribute to show a character count below the textarea. When combined with `maxlength`, the count shows remaining characters instead. The count is exposed to assistive technologies using a live region so screen readers can announce updates as the user types.
+
+```html {.example}
+<wa-textarea label="Comments" hint="Share your thoughts with us" with-count></wa-textarea>
+<br />
+<wa-textarea label="Bio" hint="Tell us a little about yourself" with-count maxlength="100"></wa-textarea>
+```

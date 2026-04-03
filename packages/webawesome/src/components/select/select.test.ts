@@ -1090,4 +1090,75 @@ describe('<wa-select>', () => {
       expect(select.open).to.be.true;
     });
   });
+
+  describe('value set via property before options exist', () => {
+    it('should display the selected value for single select when value property is set before options are added', async () => {
+      const fixture = fixtures[0];
+      const el = await fixture<WaSelect>(html`<wa-select label="Test"></wa-select>`);
+
+      // Set value via property before options exist
+      el.value = 'option-2';
+
+      // Now add options after the value has been set
+      const option1 = document.createElement('wa-option');
+      option1.value = 'option-1';
+      option1.textContent = 'Option 1';
+      const option2 = document.createElement('wa-option');
+      option2.value = 'option-2';
+      option2.textContent = 'Option 2';
+      const option3 = document.createElement('wa-option');
+      option3.value = 'option-3';
+      option3.textContent = 'Option 3';
+      el.append(option1, option2, option3);
+
+      await aTimeout(10);
+      await el.updateComplete;
+
+      expect(el.value).to.equal('option-2');
+      expect(el.displayInput.value).to.equal('Option 2');
+    });
+
+    it('should display the selected values for multiple select when value property is set before options are added', async () => {
+      const fixture = fixtures[0];
+      const el = await fixture<WaSelect>(html`<wa-select label="Test" multiple></wa-select>`);
+
+      // Set value via property as an array before options exist
+      el.value = ['option-1', 'option-2'];
+
+      // Now add options after the value has been set
+      const option1 = document.createElement('wa-option');
+      option1.value = 'option-1';
+      option1.textContent = 'Option 1';
+      const option2 = document.createElement('wa-option');
+      option2.value = 'option-2';
+      option2.textContent = 'Option 2';
+      const option3 = document.createElement('wa-option');
+      option3.value = 'option-3';
+      option3.textContent = 'Option 3';
+      el.append(option1, option2, option3);
+
+      await aTimeout(10);
+      await el.updateComplete;
+
+      expect(el.value).to.be.an('array');
+      expect(el.value).to.have.members(['option-1', 'option-2']);
+      expect(el.selectedOptions.length).to.equal(2);
+    });
+
+    it('should display the selected value when value attribute is set with options present', async () => {
+      const fixture = fixtures[0];
+      const el = await fixture<WaSelect>(html`
+        <wa-select value="option-2">
+          <wa-option value="option-1">Option 1</wa-option>
+          <wa-option value="option-2">Option 2</wa-option>
+          <wa-option value="option-3">Option 3</wa-option>
+        </wa-select>
+      `);
+
+      await el.updateComplete;
+
+      expect(el.value).to.equal('option-2');
+      expect(el.displayInput.value).to.equal('Option 2');
+    });
+  });
 });

@@ -386,6 +386,12 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
   }
 }
 
+// The change-in-update warning is required for this component because HasSlotController calls requestUpdate() in
+// response to slotchange events after first render, and the form validation system calls requestUpdate('validity')
+// during firstUpdated() to initialize constraint validation state. Both are essential for correct behavior.
+// See https://lit.dev/docs/tools/development/#development-build-runtime-warnings
+WaRadioGroup.disableWarning?.('change-in-update');
+
 declare global {
   interface HTMLElementTagNameMap {
     'wa-radio-group': WaRadioGroup;

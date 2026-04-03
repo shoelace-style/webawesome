@@ -120,7 +120,8 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   @state() displayLabel = '';
   @state() currentOption: WaOption;
   @state() selectedOptions: WaOption[] = [];
-  @state() optionValues: Set<string | null> | undefined;
+  /** @internal */
+  optionValues: Set<string | null> | undefined;
 
   /** The name of the select, submitted as a name/value pair with form data. */
   @property({ reflect: true }) name = '';
@@ -136,6 +137,13 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
 
   get defaultValue() {
     return this.convertDefaultValue(this._defaultValue);
+  }
+
+  private rawValuesEqual(a: string[] | null | undefined, b: string[] | null | undefined): boolean {
+    if (a == null && b == null) return true;
+    if (a == null || b == null) return false;
+    if (a.length !== b.length) return false;
+    return a.every((v, i) => v === b[i]);
   }
 
   /**
@@ -168,10 +176,13 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
       val = [val];
     }
 
+    const oldRawValue = this._value;
     this._value = val ?? null;
-    let newValue = this.value;
 
-    if (newValue !== oldValue) {
+    // Compare raw internal values to detect actual changes. We can't rely on the getter because it filters through
+    // optionValues, which may be empty when options aren't in the DOM yet (common with frameworks that set properties
+    // before appending children).
+    if (!this.rawValuesEqual(oldRawValue, this._value)) {
       this.valueHasChanged = true;
       this.requestUpdate('value', oldValue);
     }
@@ -184,14 +195,14 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
       value = Array.isArray(value) ? value : [value];
     }
 
-    // Rebuild optionValues only when the cache has been invalidated
-    if (this.optionValues === undefined) {
-      this.optionValues = new Set(
-        this.getAllOptions()
-          .filter(option => !option.disabled)
-          .map(option => option.value),
-      );
-    }
+    // Build optionValues from the cached options list. This is rebuilt each time the getter is called rather than
+    // cached, because caching created stale-state bugs when the value was set before options existed in the DOM. The
+    // underlying getAllOptions() is already cached via cachedOptions, so this is cheap.
+    this.optionValues = new Set(
+      this.getAllOptions()
+        .filter(option => !option.disabled)
+        .map(option => option.value),
+    );
 
     // Drop values not in the DOM
     let ret: null | string | string[] = value;
@@ -602,7 +613,6 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
 
     // Invalidate the options cache since slots have changed
     this.cachedOptions = null;
-    this.optionValues = undefined; // dirty the value so it gets recalculated
 
     const allOptions = this.getAllOptions();
 
@@ -1105,6 +1115,13 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     `;
   }
 }
+
+// The change-in-update warning is required for this component because the form-associated base class calls
+// updateValidity() in firstUpdated(), which triggers requestUpdate('validity') to sync the validation state after the
+// first render when the validation target is available. Additionally, HasSlotController triggers requestUpdate() on
+// initial slotchange events, and selectionChanged() sets @state properties (displayLabel, selectedOptions) in response
+// to slot content changes. See https://lit.dev/docs/tools/development/#development-build-runtime-warnings
+WaSelect.disableWarning?.('change-in-update');
 
 declare global {
   interface HTMLElementTagNameMap {

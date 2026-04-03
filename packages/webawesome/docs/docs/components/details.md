@@ -14,6 +14,17 @@ category: Organization
 
 ## Examples
 
+### Expanded Initially
+
+Use the `open` attribute to expand the details initially.
+
+```html {.example}
+<wa-details summary="Toggle Me" open>
+  This details component is expanded by default. Users can click the summary to collapse it if they want to hide the
+  content.
+</wa-details>
+```
+
 ### Disabled
 
 Use the `disabled` attribute to prevent the details from expanding.

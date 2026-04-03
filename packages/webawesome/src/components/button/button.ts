@@ -339,6 +339,14 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
     `;
   }
 }
+
+// The change-in-update warning is required for this component because the form-associated base class calls
+// updateValidity() in firstUpdated(), which triggers requestUpdate('validity') to sync the validation state after the
+// first render when the validation target is available. Additionally, HasSlotController triggers requestUpdate() on
+// initial slotchange events, and the label slot's slotchange handler sets the isIconButton state property to detect
+// icon-only buttons after slot content is available. See https://lit.dev/docs/tools/development/#development-build-runtime-warnings
+WaButton.disableWarning?.('change-in-update');
+
 declare global {
   interface HTMLElementTagNameMap {
     'wa-button': WaButton;
