@@ -100,7 +100,7 @@ export default css`
     margin-block-end: calc(-1 * var(--safe-track-width));
   }
 
-  .tab-group-top ::slotted(wa-tab-panel) {
+  .tab-group-top .body slot::slotted(wa-tab-panel) {
     --padding: var(--wa-space-xl) 0;
   }
 
@@ -151,7 +151,7 @@ export default css`
     margin-block-start: calc(-1 * var(--safe-track-width));
   }
 
-  .tab-group-bottom ::slotted(wa-tab-panel) {
+  .tab-group-bottom .body slot::slotted(wa-tab-panel) {
     --padding: var(--wa-space-xl) 0;
   }
 
@@ -188,7 +188,7 @@ export default css`
     margin-inline-end: calc(-1 * var(--safe-track-width));
   }
 
-  .tab-group-start ::slotted(wa-tab-panel) {
+  .tab-group-start .body slot::slotted(wa-tab-panel) {
     --padding: 0 var(--wa-space-xl);
   }
 
@@ -225,7 +225,7 @@ export default css`
     margin-inline-start: calc(-1 * var(--safe-track-width));
   }
 
-  .tab-group-end ::slotted(wa-tab-panel) {
+  .tab-group-end .body slot::slotted(wa-tab-panel) {
     --padding: 0 var(--wa-space-xl);
   }
 `;

@@ -22,6 +22,14 @@ const translation: Translation = {
   increment: 'Арттыру',
   loading: 'Жүктелуде',
   nextSlide: 'Келесі слайд',
+  numCharacters: num => {
+    if (num === 1) return '1 таңба';
+    return `${num} таңба`;
+  },
+  numCharactersRemaining: num => {
+    if (num === 1) return '1 таңба қалды';
+    return `${num} таңба қалды`;
+  },
   numOptionsSelected: num => {
     if (num === 0) return 'Ештеңе таңдалмады';
     if (num < 6 || num === 7) return `${num}-еу таңдалды`;

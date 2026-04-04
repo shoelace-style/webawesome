@@ -1,4 +1,4 @@
-import { html } from 'lit';
+import { html, isServer } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { WaTabHideEvent } from '../../events/tab-hide.js';
@@ -57,7 +57,8 @@ export default class WaTabGroup extends WebAwesomeElement {
   private readonly localize = new LocalizeController(this);
 
   @query('.tab-group') tabGroup: HTMLElement;
-  @query('.body') body: HTMLSlotElement;
+  /** Default slot for `<wa-tab-panel>` children (inside the `body` part container). */
+  @query('.body slot') defaultSlot: HTMLSlotElement;
   @query('.nav') nav: HTMLElement;
 
   @state() private hasScrollControls = false;
@@ -79,6 +80,11 @@ export default class WaTabGroup extends WebAwesomeElement {
 
   connectedCallback() {
     super.connectedCallback();
+
+    // SSR guard: browser observers and DOM APIs are not available during server-side rendering
+    if (isServer) {
+      return;
+    }
 
     this.resizeObserver = new ResizeObserver(() => {
       this.updateScrollControls();
@@ -157,7 +163,9 @@ export default class WaTabGroup extends WebAwesomeElement {
   }
 
   private getAllPanels() {
-    return [...this.body.assignedElements()].filter(el => el.tagName.toLowerCase() === 'wa-tab-panel') as [WaTabPanel];
+    return [...this.defaultSlot.assignedElements()].filter(el => el.tagName.toLowerCase() === 'wa-tab-panel') as [
+      WaTabPanel,
+    ];
   }
 
   private getActiveTab() {
@@ -444,7 +452,7 @@ export default class WaTabGroup extends WebAwesomeElement {
             : ''}
         </div>
 
-        <slot part="body" class="body" @slotchange=${this.syncTabsAndPanels}></slot>
+        <div part="body" class="body"><slot @slotchange=${this.syncTabsAndPanels}></slot></div>
       </div>
     `;
   }

@@ -817,6 +817,40 @@ describe('<wa-carousel>', () => {
           });
         });
       });
+
+      describe('when inside a hidden container', () => {
+        it('should not leave slides inert when the container becomes visible', async () => {
+          // Arrange: create a hidden wrapper to simulate an inactive tab panel
+          const container = document.createElement('div');
+          container.style.display = 'none';
+          document.body.appendChild(container);
+
+          container.innerHTML = `
+            <wa-carousel>
+              <wa-carousel-item>Node 1</wa-carousel-item>
+              <wa-carousel-item>Node 2</wa-carousel-item>
+              <wa-carousel-item>Node 3</wa-carousel-item>
+            </wa-carousel>
+          `;
+
+          const el = container.querySelector<WaCarousel>('wa-carousel')!;
+          await el.updateComplete;
+
+          // Act: simulate the tab panel becoming visible
+          container.style.display = 'block';
+
+          // Allow ResizeObserver callback and IntersectionObserver to settle
+          await aTimeout(50);
+          await intersectionObserverCallbacks();
+          await el.updateComplete;
+
+          // Assert: the first (active) slide must not be inert
+          const slides = [...el.querySelectorAll('wa-carousel-item')];
+          expect(slides[0]).to.not.have.attribute('inert');
+
+          document.body.removeChild(container);
+        });
+      });
     });
   }
 });

@@ -22,6 +22,14 @@ const translation: Translation = {
   increment: 'Artır',
   loading: 'Yükleme',
   nextSlide: 'Sonraki slayt',
+  numCharacters: num => {
+    if (num === 1) return '1 karakter';
+    return `${num} karakter`;
+  },
+  numCharactersRemaining: num => {
+    if (num === 1) return '1 karakter kaldı';
+    return `${num} karakter kaldı`;
+  },
   numOptionsSelected: num => {
     if (num === 0) return 'Hiçbir seçenek seçilmedi';
     if (num === 1) return '1 seçenek seçildi';

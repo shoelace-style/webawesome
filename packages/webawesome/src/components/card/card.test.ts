@@ -22,6 +22,18 @@ describe('<wa-card>', () => {
           `);
           await expect(el).to.be.accessible();
         });
+
+        it('exposes the default slot inside a [part="body"] wrapper (matches dialog-style markup)', async () => {
+          const el = await fixture<WaCard>(html`<wa-card>Main content</wa-card>`);
+          const bodyPart = el.shadowRoot!.querySelector('[part="body"]');
+          expect(bodyPart?.localName).to.eq('div');
+          expect(bodyPart?.classList.contains('body')).to.be.true;
+          const defaultSlot = bodyPart?.querySelector('slot:not([name])');
+          expect(defaultSlot).to.be.instanceOf(HTMLSlotElement);
+          const assigned = (defaultSlot as HTMLSlotElement).assignedNodes({ flatten: true });
+          const text = assigned.map(n => n.textContent ?? '').join('');
+          expect(text).to.contain('Main content');
+        });
       });
 
       describe('when provided an element in the slot "header" to render a header', () => {

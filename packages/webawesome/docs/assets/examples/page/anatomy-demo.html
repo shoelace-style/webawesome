@@ -1,0 +1,133 @@
+<!doctype html>
+
+<link rel="stylesheet" href="/dist/styles/themes/default.css" render="blocking" fetchpriority="high" />
+<link rel="stylesheet" href="/dist/styles/webawesome.css" />
+<script src="/dist/webawesome.loader.js" type="module"></script>
+
+<wa-page>
+  <div class="slot-content">
+    <strong>main <em>(default)</em></strong>
+    <p>The page's main content.</p>
+  </div>
+  <div class="slot-content" slot="banner">
+    <strong>banner</strong>
+    <p>The banner that gets display above the header. The banner will not be shown if no content is provided.</p>
+  </div>
+  <header class="slot-content" slot="header">
+    <strong>header</strong>
+    <p>
+      The header to display at the top of the page. If a banner is present, the header will appear below the banner. The
+      header will not be shown if there is no content.
+    </p>
+  </header>
+  <header class="slot-content" slot="subheader">
+    <strong>subheader</strong>
+    <p>A subheader to display below the <code>header</code>. This is a good place to put things like breadcrumbs.</p>
+  </header>
+  <header class="slot-content" slot="navigation-header">
+    <strong>navigation-header</strong>
+    <p>The header for a navigation area. On mobile this will be the header for <code>&lt;wa-drawer&gt;</code>.</p>
+  </header>
+  <div class="slot-content" slot="navigation">
+    <strong>navigation</strong>
+    <p>
+      The main content to display in the navigation area. This is displayed on the left side of the page, if
+      <code>menu</code> is not used. This section "sticks" to the top as the page scrolls.
+    </p>
+  </div>
+  <footer class="slot-content" slot="navigation-footer">
+    <strong>navigation-footer</strong>
+    <p>The footer for a navigation area. On mobile this will be the footer for <code>&lt;wa-drawer&gt;</code>.</p>
+  </footer>
+  <header class="slot-content" slot="main-header">
+    <strong>main-header</strong>
+    <p>Header to display inline above the main content.</p>
+  </header>
+  <footer class="slot-content" slot="main-footer">
+    <strong>main-footer</strong>
+    <p>Footer to display inline below the main content.</p>
+  </footer>
+  <div class="slot-content" slot="aside">
+    <strong>aside</strong>
+    <p>
+      Content to be shown on the right side of the page. Typically contains a table of contents, ads, etc. This section
+      "sticks" to the top as the page scrolls.
+    </p>
+  </div>
+  <footer class="slot-content" slot="footer">
+    <strong>footer</strong>
+    <p>
+      The content to display in the footer. This is always displayed underneath the viewport so will always make the
+      page "scrollable".
+    </p>
+  </footer>
+</wa-page>
+
+<style>
+  body {
+    padding: 0;
+    margin: 0;
+  }
+
+  wa-page {
+    margin: var(--wa-space-xs);
+    margin-inline-start: 0;
+    &::part(base),
+    &::part(main),
+    &::part(navigation),
+    &::part(body) {
+      gap: var(--wa-space-xs);
+    }
+  }
+
+  :is([slot='banner'], [slot='header'], [slot='subheader'], [slot='footer'], [slot*='navigation'], [slot='menu']) {
+    margin-inline-start: var(--wa-space-xs);
+  }
+
+  .slot-content[slot='banner'],
+  .slot-content[slot='header'],
+  .slot-content[slot='subheader'] {
+    outline: 2px solid var(--wa-color-surface-default);
+  }
+
+  .slot-content {
+    padding: var(--wa-space-m);
+    border-radius: var(--wa-border-radius-m);
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+    height: 100%;
+    box-sizing: border-box;
+    background: var(--wa-color-blue-80);
+    color: var(--wa-color-blue-20);
+
+    &[slot='banner'] {
+      background: var(--wa-color-blue-50);
+      color: white;
+    }
+
+    &[slot='header'] {
+      background: var(--wa-color-blue-60);
+      color: var(--wa-color-blue-10);
+    }
+
+    &[slot^='main'],
+    &[slot=''] {
+      background: var(--wa-color-gray-80);
+      color: var(--wa-color-gray-20);
+    }
+
+    &[slot^='navigation'] {
+      background: var(--wa-color-purple-80);
+      color: var(--wa-color-purple-20);
+    }
+
+    strong {
+      display: block;
+    }
+
+    &:not([slot='']) p {
+      display: none;
+    }
+  }
+</style>

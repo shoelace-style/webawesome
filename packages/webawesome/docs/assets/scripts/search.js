@@ -1,13 +1,15 @@
 // Search data
 const version = document.documentElement.getAttribute('data-version') || '';
 const res = await Promise.all([
-  import('https://cdn.jsdelivr.net/npm/lunr/+esm'),
+  import('https://cdn.jsdelivr.net/npm/minisearch@7/+esm'),
   fetch(`/search.json?v=${version}`),
   import('/assets/scripts/track.js').catch(() => null),
 ]);
-const lunr = res[0].default;
+const MiniSearch = res[0].default;
 const searchData = await res[1].json();
-const searchIndex = lunr.Index.load(searchData.searchIndex);
+const searchIndex = MiniSearch.loadJSON(JSON.stringify(searchData.searchIndex), {
+  fields: ['t', 'h', 'c'],
+});
 const map = searchData.map;
 const searchDebounce = 200;
 const queryTrackDelay = 1000;
@@ -318,33 +320,33 @@ async function updateResults(query = '') {
     let matches = [];
 
     if (hasQuery) {
-      // Track seen refs to avoid duplicates
-      const seenRefs = new Set();
-
-      // Start with a standard search to get the best "exact match" result
-      searchIndex.search(`${trimmedQuery}`).forEach(match => {
-        matches.push(match);
-        seenRefs.add(match.ref);
+      matches = searchIndex.search(trimmedQuery, {
+        prefix: true,
+        fuzzy: 0.2,
+        boost: { t: 20, h: 10 },
       });
 
-      // Add wildcard matches if not already included
-      searchIndex.search(`${trimmedQuery}*`).forEach(match => {
-        if (!seenRefs.has(match.ref)) {
-          matches.push(match);
-          seenRefs.add(match.ref);
-        }
-      });
+      // Re-rank results to prioritize title matches. Searches don't account for where in a title a match occurs, so
+      // "change" can rank "pagination" above "changelog". This applies a bonus to results whose title contains the
+      // query as a word boundary match.
+      const queryLower = trimmedQuery.toLowerCase();
+      matches.sort((a, b) => {
+        const titleA = (map[a.id]?.title ?? '').toLowerCase();
+        const titleB = (map[b.id]?.title ?? '').toLowerCase();
 
-      // Add fuzzy search matches last
-      const fuzzyTokens = trimmedQuery
-        .split(' ')
-        .map(term => `${term}~1`)
-        .join(' ');
-      searchIndex.search(fuzzyTokens).forEach(match => {
-        if (!seenRefs.has(match.ref)) {
-          matches.push(match);
-          seenRefs.add(match.ref);
-        }
+        const rankTitle = title => {
+          if (title === queryLower) return 3;
+          if (title.startsWith(queryLower)) return 2;
+          // Match query at a word boundary (e.g. "change" matches "price change")
+          if (new RegExp(`\\b${queryLower.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`).test(title)) return 1;
+          return 0;
+        };
+
+        const rankDiff = rankTitle(titleB) - rankTitle(titleA);
+        if (rankDiff !== 0) return rankDiff;
+
+        // Preserve MiniSearch's original score ordering within the same rank
+        return b.score - a.score;
       });
     }
 
@@ -355,7 +357,7 @@ async function updateResults(query = '') {
     input.setAttribute('aria-activedescendant', '');
     results.innerHTML = '';
     matches.forEach((match, index) => {
-      const page = map[match.ref];
+      const page = map[match.id];
       if (!page || !page.url) return;
 
       const li = document.createElement('li');
@@ -367,7 +369,7 @@ async function updateResults(query = '') {
 
       li.classList.add('site-search-result');
       li.setAttribute('role', 'option');
-      li.setAttribute('id', `search-result-item-${match.ref}`);
+      li.setAttribute('id', `search-result-item-${match.id}`);
       li.setAttribute('data-selected', index === 0 ? 'true' : 'false');
       if (page.url === '/') icon = 'home';
       else if (page.url === '/docs') icon = 'rocket-launch';

@@ -175,6 +175,74 @@ describe('<wa-details>', () => {
         expect(el.open).to.be.true;
       });
 
+      describe('when open is toggled rapidly', () => {
+        it('should keep body in sync when hiding is interrupted by showing', async () => {
+          const el = await fixture<WaDetails>(html`
+            <wa-details open summary="Test">
+              This is some content inside the details component for testing purposes.
+            </wa-details>
+          `);
+          const body = el.shadowRoot!.querySelector<HTMLElement>('.body')!;
+
+          // Close, then re-open during the close animation
+          el.open = false;
+          await new Promise(resolve => setTimeout(resolve, 20));
+          el.open = true;
+
+          // Wait for animations to settle
+          await new Promise(resolve => setTimeout(resolve, 300));
+
+          // Should be open with body visible
+          expect(el.open).to.be.true;
+          expect(body.style.height).to.equal('auto');
+        });
+
+        it('should keep body in sync when showing is interrupted by hiding', async () => {
+          const el = await fixture<WaDetails>(html`
+            <wa-details summary="Test">
+              This is some content inside the details component for testing purposes.
+            </wa-details>
+          `);
+          const body = el.shadowRoot!.querySelector<HTMLElement>('.body')!;
+
+          // Open, then close during the open animation
+          el.open = true;
+          await new Promise(resolve => setTimeout(resolve, 20));
+          el.open = false;
+
+          // Wait for animations to settle
+          await new Promise(resolve => setTimeout(resolve, 300));
+
+          // Should be closed
+          expect(el.open).to.be.false;
+          expect(parseInt(getComputedStyle(body).height)).to.equal(0);
+        });
+
+        it('should only fire the final wa-after-show event when hide is interrupted by show', async () => {
+          const el = await fixture<WaDetails>(html`
+            <wa-details open summary="Test">
+              This is some content inside the details component for testing purposes.
+            </wa-details>
+          `);
+          const afterShowSpy = sinon.spy();
+          const afterHideSpy = sinon.spy();
+          el.addEventListener('wa-after-show', afterShowSpy);
+          el.addEventListener('wa-after-hide', afterHideSpy);
+
+          // Close, then re-open during the close animation
+          el.open = false;
+          await new Promise(resolve => setTimeout(resolve, 20));
+          el.open = true;
+
+          // Wait for animations to settle
+          await new Promise(resolve => setTimeout(resolve, 300));
+
+          // Only the final show's after-event should fire
+          expect(afterShowSpy.callCount).to.equal(1);
+          expect(afterHideSpy.callCount).to.equal(0);
+        });
+      });
+
       it('should be the correct size after opening more than one instance', async () => {
         const el = await fixture<WaDetails>(html`
           <div>

@@ -22,6 +22,14 @@ const translation: Translation = {
   increment: 'Öka',
   loading: 'Läser in',
   nextSlide: 'Nästa bild',
+  numCharacters: num => {
+    if (num === 1) return '1 tecken';
+    return `${num} tecken`;
+  },
+  numCharactersRemaining: num => {
+    if (num === 1) return '1 tecken kvar';
+    return `${num} tecken kvar`;
+  },
   numOptionsSelected: num => {
     if (num === 0) return 'Inga alternativ har valts';
     if (num === 1) return '1 alternativ valt';
