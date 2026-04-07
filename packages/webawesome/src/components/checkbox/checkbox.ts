@@ -80,8 +80,7 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
 
   /** The value of the checkbox, submitted as a name/value pair with form data. */
   get value(): string | null {
-    const val = this._value || 'on';
-    return this.checked ? val : null;
+    return this._value ?? 'on';
   }
 
   @property({ reflect: true })
