@@ -10,6 +10,12 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 {% include "changelog-email-signup.njk" %}
 
+## Unreleased
+
+<small>TBD</small>
+
+- Fixed a bug in `<wa-checkbox>` where the `value` property returned `null` instead of `'on'` when unchecked
+
 ## 3.5.0
 
 <small>April 3rd, 2026</small>
