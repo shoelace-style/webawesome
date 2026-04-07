@@ -142,7 +142,7 @@ export default class WaRating extends WebAwesomeFormAssociatedElement {
   @property({ type: Boolean, reflect: true }) readonly = false;
 
   /** Disables the rating. */
-  @property({ type: Boolean, reflect: true }) disabled = false;
+  @property({ type: Boolean }) declare disabled: boolean;
 
   /** Makes the rating a required field. */
   @property({ type: Boolean, reflect: true }) required = false;
