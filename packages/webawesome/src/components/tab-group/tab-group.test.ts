@@ -70,21 +70,20 @@ describe('<wa-tab-group>', () => {
             </wa-tab-group>
           `);
 
-          await aTimeout(0);
-
           const tabs = tabGroup.querySelectorAll('wa-tab');
           const panels = tabGroup.querySelectorAll('wa-tab-panel');
 
+          // Wait for syncTabsAndPanels to assign ARIA attributes
+          await waitUntil(() => tabs[0].getAttribute('aria-controls') !== null);
+
           // Each tab should have aria-controls pointing to its panel
           tabs.forEach(tab => {
-            const ariaControls = tab.getAttribute('aria-controls');
-            expect(ariaControls).to.not.be.null;
+            expect(tab.getAttribute('aria-controls')).to.not.be.null;
           });
 
           // Each panel should have aria-labelledby pointing to its tab
           panels.forEach(panel => {
-            const ariaLabelledby = panel.getAttribute('aria-labelledby');
-            expect(ariaLabelledby).to.not.be.null;
+            expect(panel.getAttribute('aria-labelledby')).to.not.be.null;
           });
         });
       });
