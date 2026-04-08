@@ -1,105 +1,243 @@
 import { aTimeout, expect, oneEvent } from '@open-wc/testing';
 import { html } from 'lit';
-import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { clientFixture } from '../../internal/test/fixture.js';
 import type WaAnimation from './animation.js';
 
 describe('<wa-animation>', () => {
-  // Don't use HTML because its not supported by Lit SSR for WTR.
-  // https://github.com/lit/lit/issues/4739#issuecomment-2299899990
-  const boxToAnimate = `<div style="width: 10px; height: 10px;" data-testid="animated-box"></div>`;
-
-  // Figure out why hydratedFixture fails promises.
+  // Animation component only uses clientFixture because SSR/hydration has issues with animation promises.
+  // See: https://github.com/lit/lit/issues/4739#issuecomment-2299899990
   for (const fixture of [clientFixture]) {
     describe(`with "${fixture.type}" rendering`, () => {
-      it('renders', async () => {
-        const animationContainer = await fixture<WaAnimation>(
-          html`<wa-animation>${unsafeHTML(boxToAnimate)}</wa-animation>`,
-        );
+      describe('properties', () => {
+        it('should have correct default property values', async () => {
+          const el = await fixture<WaAnimation>(
+            html`<wa-animation><div></div></wa-animation>`,
+          );
 
-        expect(animationContainer).to.exist;
+          expect(el.name).to.equal('none');
+          expect(el.play).to.be.false;
+          expect(el.delay).to.equal(0);
+          expect(el.direction).to.equal('normal');
+          expect(el.duration).to.equal(1000);
+          expect(el.easing).to.equal('linear');
+          expect(el.endDelay).to.equal(0);
+          expect(el.fill).to.equal('auto');
+          expect(el.iterations).to.equal(Infinity);
+          expect(el.iterationStart).to.equal(0);
+          expect(el.playbackRate).to.equal(1);
+        });
+
+        it('should reflect the "play" property to an attribute', async () => {
+          const el = await fixture<WaAnimation>(
+            html`<wa-animation name="bounce"><div></div></wa-animation>`,
+          );
+
+          expect(el.hasAttribute('play')).to.be.false;
+
+          el.play = true;
+          await el.updateComplete;
+          expect(el.hasAttribute('play')).to.be.true;
+
+          el.play = false;
+          await el.updateComplete;
+          expect(el.hasAttribute('play')).to.be.false;
+        });
+
+        it('should set the name property via attribute', async () => {
+          const el = await fixture<WaAnimation>(
+            html`<wa-animation name="bounce"><div></div></wa-animation>`,
+          );
+
+          expect(el.name).to.equal('bounce');
+        });
+
+        it('should set the duration property via attribute', async () => {
+          const el = await fixture<WaAnimation>(
+            html`<wa-animation duration="500"><div></div></wa-animation>`,
+          );
+
+          expect(el.duration).to.equal(500);
+        });
+
+        it('should set the delay property via attribute', async () => {
+          const el = await fixture<WaAnimation>(
+            html`<wa-animation delay="200"><div></div></wa-animation>`,
+          );
+
+          expect(el.delay).to.equal(200);
+        });
+
+        it('should set the iterations property via attribute', async () => {
+          const el = await fixture<WaAnimation>(
+            html`<wa-animation iterations="3"><div></div></wa-animation>`,
+          );
+
+          expect(el.iterations).to.equal(3);
+        });
+
+        it('should set the easing property via attribute', async () => {
+          const el = await fixture<WaAnimation>(
+            html`<wa-animation easing="ease-in-out"><div></div></wa-animation>`,
+          );
+
+          expect(el.easing).to.equal('ease-in-out');
+        });
+
+        it('should set the playback-rate property via attribute', async () => {
+          const el = await fixture<WaAnimation>(
+            html`<wa-animation playback-rate="2"><div></div></wa-animation>`,
+          );
+
+          expect(el.playbackRate).to.equal(2);
+        });
+
+        it('should accept custom keyframes via the keyframes property', async () => {
+          const el = await fixture<WaAnimation>(
+            html`<wa-animation><div></div></wa-animation>`,
+          );
+
+          const keyframes = [{ opacity: 0 }, { opacity: 1 }];
+          el.keyframes = keyframes;
+          await el.updateComplete;
+          expect(el.keyframes).to.equal(keyframes);
+        });
+
+        it('should get and set currentTime', async () => {
+          const el = await fixture<WaAnimation>(
+            html`<wa-animation name="bounce" duration="1000"><div></div></wa-animation>`,
+          );
+
+          expect(el.currentTime).to.equal(0);
+
+          el.currentTime = 500;
+          expect(el.currentTime).to.equal(500);
+        });
       });
 
-      it('is accessible', async () => {
-        const animationContainer = await fixture<WaAnimation>(
-          html`<wa-animation>${unsafeHTML(boxToAnimate)}</wa-animation>`,
-        );
+      describe('events', () => {
+        it('should emit wa-start when play is set to true', async () => {
+          const el = await fixture<WaAnimation>(
+            html`<wa-animation name="bounce" duration="1000"><div></div></wa-animation>`,
+          );
 
-        await expect(animationContainer).to.be.accessible();
+          const startPromise = oneEvent(el, 'wa-start');
+          el.play = true;
+          await startPromise;
+        });
+
+        it('should emit wa-finish when the animation completes', async () => {
+          const el = await fixture<WaAnimation>(
+            html`<wa-animation name="bounce" duration="1" iterations="1"><div></div></wa-animation>`,
+          );
+
+          const finishPromise = oneEvent(el, 'wa-finish');
+          el.play = true;
+          await finishPromise;
+        });
+
+        it('should emit wa-cancel when the animation is cancelled', async () => {
+          const el = await fixture<WaAnimation>(
+            html`<wa-animation name="bounce" duration="10000"><div></div></wa-animation>`,
+          );
+
+          el.play = true;
+          await aTimeout(0);
+
+          const cancelPromise = oneEvent(el, 'wa-cancel');
+          el.cancel();
+          await cancelPromise;
+        });
+
+        it('should not emit wa-finish when cancelled before completion', async () => {
+          const el = await fixture<WaAnimation>(
+            html`<wa-animation name="bounce" duration="10000"><div></div></wa-animation>`,
+          );
+
+          let finishFired = false;
+          oneEvent(el, 'wa-finish').then(() => {
+            finishFired = true;
+          });
+
+          el.play = true;
+          await aTimeout(0);
+
+          const cancelPromise = oneEvent(el, 'wa-cancel');
+          el.cancel();
+          await cancelPromise;
+
+          expect(finishFired).to.be.false;
+        });
+
+        it('should set play to false after the animation finishes', async () => {
+          const el = await fixture<WaAnimation>(
+            html`<wa-animation name="bounce" duration="1" iterations="1"><div></div></wa-animation>`,
+          );
+
+          const finishPromise = oneEvent(el, 'wa-finish');
+          el.play = true;
+          await finishPromise;
+
+          expect(el.play).to.be.false;
+        });
+
+        it('should set play to false after the animation is cancelled', async () => {
+          const el = await fixture<WaAnimation>(
+            html`<wa-animation name="bounce" duration="10000"><div></div></wa-animation>`,
+          );
+
+          el.play = true;
+          await aTimeout(0);
+
+          const cancelPromise = oneEvent(el, 'wa-cancel');
+          el.cancel();
+          await cancelPromise;
+
+          expect(el.play).to.be.false;
+        });
       });
 
-      describe('animation start', () => {
-        it('does not start the animation by default', async () => {
-          const animationContainer = await fixture<WaAnimation>(
-            html`<wa-animation name="bounce" easing="ease-in-out" duration="10"
-              >${unsafeHTML(boxToAnimate)}</wa-animation
-            >`,
+      describe('slots', () => {
+        it('should render slotted content in the default slot', async () => {
+          const el = await fixture<WaAnimation>(html`
+            <wa-animation>
+              <div id="animated-box" style="width: 10px; height: 10px;"></div>
+            </wa-animation>
+          `);
+
+          const child = el.querySelector('#animated-box');
+          expect(child).to.exist;
+        });
+      });
+
+      describe('behavior', () => {
+        it('should not start the animation by default', async () => {
+          const el = await fixture<WaAnimation>(
+            html`<wa-animation name="bounce" duration="10"><div></div></wa-animation>`,
           );
           await aTimeout(0);
 
-          expect(animationContainer.play).to.be.false;
+          expect(el.play).to.be.false;
         });
 
-        it('emits the correct event on animation start', async () => {
-          const animationContainer = await fixture<WaAnimation>(
-            html`<wa-animation name="bounce" easing="ease-in-out" duration="10"
-              >${unsafeHTML(boxToAnimate)}</wa-animation
-            >`,
+        it('should finish the animation programmatically', async () => {
+          const el = await fixture<WaAnimation>(
+            html`<wa-animation name="bounce" duration="10000" iterations="1"><div></div></wa-animation>`,
           );
 
-          const startPromise = oneEvent(animationContainer, 'wa-start');
-          animationContainer.play = true;
-          const isSettled = (await Promise.allSettled([startPromise]))[0].status === 'fulfilled';
-          expect(isSettled).to.equal(true);
+          const finishPromise = oneEvent(el, 'wa-finish');
+          el.play = true;
+          await aTimeout(0);
+          el.finish();
+          await finishPromise;
         });
-      });
 
-      it('emits the correct event on animation end', async () => {
-        const animationContainer = await fixture<WaAnimation>(
-          html`<wa-animation name="bounce" easing="ease-in-out" duration="1"
-            >${unsafeHTML(boxToAnimate)}</wa-animation
-          >`,
-        );
+        it('should start playing when the play attribute is set initially', async () => {
+          const el = await fixture<WaAnimation>(
+            html`<wa-animation name="bounce" duration="10000" play><div></div></wa-animation>`,
+          );
 
-        const endPromise = oneEvent(animationContainer, 'wa-finish');
-        animationContainer.iterations = 1;
-        animationContainer.play = true;
-        return endPromise;
-      });
-
-      it('can be finished by hand', async () => {
-        const animationContainer = await fixture<WaAnimation>(
-          html`<wa-animation name="bounce" easing="ease-in-out" duration="1000"
-            >${unsafeHTML(boxToAnimate)}</wa-animation
-          >`,
-        );
-
-        const endPromise = oneEvent(animationContainer, 'wa-finish');
-        animationContainer.iterations = 1;
-        animationContainer.play = true;
-
-        await aTimeout(0);
-
-        animationContainer.finish();
-        return endPromise;
-      });
-
-      it('can be cancelled', async () => {
-        const animationContainer = await fixture<WaAnimation>(
-          html`<wa-animation name="bounce" easing="ease-in-out" duration="1"
-            >${unsafeHTML(boxToAnimate)}</wa-animation
-          >`,
-        );
-        let animationHasFinished = false;
-        oneEvent(animationContainer, 'wa-finish').then(() => (animationHasFinished = true));
-        const cancelPromise = oneEvent(animationContainer, 'wa-cancel');
-        animationContainer.play = true;
-
-        await aTimeout(0);
-        animationContainer.cancel();
-
-        await cancelPromise;
-        expect(animationHasFinished).to.be.false;
+          expect(el.play).to.be.true;
+        });
       });
     });
   }

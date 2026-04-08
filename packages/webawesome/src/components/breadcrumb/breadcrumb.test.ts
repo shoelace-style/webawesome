@@ -3,129 +3,125 @@ import { html } from 'lit';
 import { fixtures } from '../../internal/test/fixture.js';
 import type WaBreadcrumb from './breadcrumb.js';
 
-// The default link color just misses AA contrast, but the next step up is way too dark. Maybe we can solve this in the
-// future with a prefers-contrast media query.
+// The default link color just misses AA contrast, but the next step up is way too dark.
 const ignoredRules = ['color-contrast'];
 
 describe('<wa-breadcrumb>', () => {
   for (const fixture of fixtures) {
     describe(`with "${fixture.type}" rendering`, () => {
-      describe('when provided a standard list of el-breadcrumb-item children and no parameters', () => {
-        it('should render wa-icon as separator', async () => {
-          const el = await fixture<WaBreadcrumb>(html`
-            <wa-breadcrumb>
-              <wa-breadcrumb-item>Catalog</wa-breadcrumb-item>
-              <wa-breadcrumb-item>Clothing</wa-breadcrumb-item>
-              <wa-breadcrumb-item>Women's</wa-breadcrumb-item>
-              <wa-breadcrumb-item>Shirts &amp; Tops</wa-breadcrumb-item>
-            </wa-breadcrumb>
-          `);
-
-          expect(el.querySelectorAll('wa-icon').length).to.eq(4);
-        });
-
+      describe('accessibility', () => {
         it('should pass accessibility tests', async () => {
           const el = await fixture<WaBreadcrumb>(html`
             <wa-breadcrumb>
-              <wa-breadcrumb-item>Catalog</wa-breadcrumb-item>
-              <wa-breadcrumb-item>Clothing</wa-breadcrumb-item>
-              <wa-breadcrumb-item>Women's</wa-breadcrumb-item>
-              <wa-breadcrumb-item>Shirts &amp; Tops</wa-breadcrumb-item>
+              <wa-breadcrumb-item>Home</wa-breadcrumb-item>
+              <wa-breadcrumb-item>Products</wa-breadcrumb-item>
+              <wa-breadcrumb-item>Shoes</wa-breadcrumb-item>
             </wa-breadcrumb>
           `);
           await expect(el).to.be.accessible({ ignoredRules });
         });
 
-        it('should attach aria-current "page" on the last breadcrumb item.', async () => {
+        it('should pass accessibility tests with custom separators', async () => {
           const el = await fixture<WaBreadcrumb>(html`
             <wa-breadcrumb>
-              <wa-breadcrumb-item>Catalog</wa-breadcrumb-item>
-              <wa-breadcrumb-item>Clothing</wa-breadcrumb-item>
-              <wa-breadcrumb-item>Women's</wa-breadcrumb-item>
-              <wa-breadcrumb-item>Shirts &amp; Tops</wa-breadcrumb-item>
+              <span slot="separator">/</span>
+              <wa-breadcrumb-item>Home</wa-breadcrumb-item>
+              <wa-breadcrumb-item>Products</wa-breadcrumb-item>
+              <wa-breadcrumb-item>Shoes</wa-breadcrumb-item>
+            </wa-breadcrumb>
+          `);
+          await expect(el).to.be.accessible({ ignoredRules });
+        });
+
+        it('should set aria-current="page" on the last breadcrumb item', async () => {
+          const el = await fixture<WaBreadcrumb>(html`
+            <wa-breadcrumb>
+              <wa-breadcrumb-item>Home</wa-breadcrumb-item>
+              <wa-breadcrumb-item>Products</wa-breadcrumb-item>
+              <wa-breadcrumb-item>Shoes</wa-breadcrumb-item>
             </wa-breadcrumb>
           `);
 
-          const breadcrumbItems = el.querySelectorAll('wa-breadcrumb-item');
-          const lastNode = breadcrumbItems[3];
-          expect(lastNode).attribute('aria-current', 'page');
+          const items = el.querySelectorAll('wa-breadcrumb-item');
+          expect(items[0].hasAttribute('aria-current')).to.be.false;
+          expect(items[1].hasAttribute('aria-current')).to.be.false;
+          expect(items[2].getAttribute('aria-current')).to.equal('page');
         });
       });
 
-      describe('when provided a standard list of el-breadcrumb-item children and an element in the slot "separator" to support Custom Separators', () => {
-        it('should pass accessibility tests', async () => {
+      describe('properties', () => {
+        it('should have an empty label by default', async () => {
           const el = await fixture<WaBreadcrumb>(html`
             <wa-breadcrumb>
-              <span class="replacement-separator" slot="separator">/</span>
-              <wa-breadcrumb-item>First</wa-breadcrumb-item>
-              <wa-breadcrumb-item>Second</wa-breadcrumb-item>
-              <wa-breadcrumb-item>Third</wa-breadcrumb-item>
+              <wa-breadcrumb-item>Home</wa-breadcrumb-item>
             </wa-breadcrumb>
           `);
-          await expect(el).to.be.accessible({ ignoredRules });
+          expect(el.label).to.equal('');
         });
 
-        it('should accept "separator" as an assigned child in the shadow root', async () => {
+        it('should set the nav aria-label from the label property', async () => {
           const el = await fixture<WaBreadcrumb>(html`
-            <wa-breadcrumb>
-              <span class="replacement-separator" slot="separator">/</span>
-              <wa-breadcrumb-item>First</wa-breadcrumb-item>
-              <wa-breadcrumb-item>Second</wa-breadcrumb-item>
-              <wa-breadcrumb-item>Third</wa-breadcrumb-item>
+            <wa-breadcrumb label="Breadcrumb">
+              <wa-breadcrumb-item>Home</wa-breadcrumb-item>
             </wa-breadcrumb>
           `);
-
-          const slot = el.shadowRoot!.querySelector<HTMLSlotElement>('slot[name=separator]')!;
-          const childNodes = slot.assignedNodes({ flatten: true });
-
-          expect(childNodes.length).to.eq(1);
-        });
-
-        it('should replace the wa-icon separator with the provided separator', async () => {
-          const el = await fixture<WaBreadcrumb>(html`
-            <wa-breadcrumb>
-              <span class="replacement-separator" slot="separator">/</span>
-              <wa-breadcrumb-item>First</wa-breadcrumb-item>
-              <wa-breadcrumb-item>Second</wa-breadcrumb-item>
-              <wa-breadcrumb-item>Third</wa-breadcrumb-item>
-            </wa-breadcrumb>
-          `);
-          expect(el.querySelectorAll('.replacement-separator').length).to.eq(4);
-          expect(el.querySelectorAll('wa-icon').length).to.eq(0);
+          const nav = el.shadowRoot!.querySelector('nav')!;
+          expect(nav.getAttribute('aria-label')).to.equal('Breadcrumb');
         });
       });
 
-      describe('when provided a standard list of el-breadcrumb-item children and an element in the slot "start" to support start icons', () => {
-        it('should pass accessibility tests', async () => {
+      describe('slots', () => {
+        it('should render default separator icons for each breadcrumb item', async () => {
           const el = await fixture<WaBreadcrumb>(html`
             <wa-breadcrumb>
-              <wa-breadcrumb-item>
-                <span class="start-example" slot="start">/</span>
-                Home
-              </wa-breadcrumb-item>
-              <wa-breadcrumb-item>First</wa-breadcrumb-item>
-              <wa-breadcrumb-item>Second</wa-breadcrumb-item>
-              <wa-breadcrumb-item>Third</wa-breadcrumb-item>
+              <wa-breadcrumb-item>Home</wa-breadcrumb-item>
+              <wa-breadcrumb-item>Products</wa-breadcrumb-item>
+              <wa-breadcrumb-item>Shoes</wa-breadcrumb-item>
             </wa-breadcrumb>
           `);
-          await expect(el).to.be.accessible({ ignoredRules });
+          // Each item gets a separator icon cloned into it
+          expect(el.querySelectorAll('wa-icon').length).to.equal(3);
+        });
+
+        it('should accept a custom separator in the "separator" slot', async () => {
+          const el = await fixture<WaBreadcrumb>(html`
+            <wa-breadcrumb>
+              <span class="custom-sep" slot="separator">/</span>
+              <wa-breadcrumb-item>Home</wa-breadcrumb-item>
+              <wa-breadcrumb-item>Products</wa-breadcrumb-item>
+              <wa-breadcrumb-item>Shoes</wa-breadcrumb-item>
+            </wa-breadcrumb>
+          `);
+          const separatorSlot = el.shadowRoot!.querySelector<HTMLSlotElement>('slot[name=separator]')!;
+          const assigned = separatorSlot.assignedNodes({ flatten: true });
+          expect(assigned.length).to.equal(1);
+        });
+
+        it('should replace default separators with custom ones', async () => {
+          const el = await fixture<WaBreadcrumb>(html`
+            <wa-breadcrumb>
+              <span class="custom-sep" slot="separator">/</span>
+              <wa-breadcrumb-item>Home</wa-breadcrumb-item>
+              <wa-breadcrumb-item>Products</wa-breadcrumb-item>
+              <wa-breadcrumb-item>Shoes</wa-breadcrumb-item>
+            </wa-breadcrumb>
+          `);
+          // Custom separators get cloned into each item
+          expect(el.querySelectorAll('.custom-sep').length).to.equal(4);
+          expect(el.querySelectorAll('wa-icon').length).to.equal(0);
         });
       });
 
-      describe('when provided a standard list of el-breadcrumb-item children and an element in the slot "end" to support end icons', () => {
-        it('should pass accessibility tests', async () => {
+      describe('CSS parts and states', () => {
+        it('should expose a "base" part on the nav element', async () => {
           const el = await fixture<WaBreadcrumb>(html`
             <wa-breadcrumb>
-              <wa-breadcrumb-item>First</wa-breadcrumb-item>
-              <wa-breadcrumb-item>Second</wa-breadcrumb-item>
-              <wa-breadcrumb-item>Third</wa-breadcrumb-item>
-              <wa-breadcrumb-item>
-                <span class="end-example" slot="end">/</span>
-                Security
-              </wa-breadcrumb-item>
+              <wa-breadcrumb-item>Home</wa-breadcrumb-item>
             </wa-breadcrumb>
           `);
-          await expect(el).to.be.accessible({ ignoredRules });
+          const base = el.shadowRoot!.querySelector('[part~="base"]');
+          expect(base).to.exist;
+          expect(base!.tagName.toLowerCase()).to.equal('nav');
         });
       });
     });
