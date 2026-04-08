@@ -31,9 +31,7 @@ describe('<wa-avatar>', () => {
         });
 
         it('should pass accessibility tests with a custom icon slot', async () => {
-          const el = await fixture<WaAvatar>(html`
-            <wa-avatar label="Avatar"><span slot="icon">X</span></wa-avatar>
-          `);
+          const el = await fixture<WaAvatar>(html` <wa-avatar label="Avatar"><span slot="icon">X</span></wa-avatar> `);
           await expect(el).to.be.accessible({ ignoredRules });
         });
       });

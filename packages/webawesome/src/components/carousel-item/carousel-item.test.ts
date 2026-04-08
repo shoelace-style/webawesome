@@ -27,9 +27,7 @@ describe('<wa-carousel-item>', () => {
 
       describe('slots', () => {
         it('should render default slot content', async () => {
-          const el = await fixture<WaCarouselItem>(html`
-            <wa-carousel-item><p>Slide content</p></wa-carousel-item>
-          `);
+          const el = await fixture<WaCarouselItem>(html` <wa-carousel-item><p>Slide content</p></wa-carousel-item> `);
           const slot = el.shadowRoot!.querySelector<HTMLSlotElement>('slot:not([name])');
           expect(slot).to.not.be.null;
           const assignedNodes = slot!.assignedNodes({ flatten: true });

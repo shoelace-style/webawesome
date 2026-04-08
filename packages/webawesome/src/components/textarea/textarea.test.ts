@@ -386,7 +386,9 @@ describe('<wa-textarea>', () => {
         });
 
         it('should show remaining characters when maxlength is set', async () => {
-          const el = await fixture<WaTextarea>(html`<wa-textarea with-count maxlength="10" value="hello"></wa-textarea>`);
+          const el = await fixture<WaTextarea>(
+            html`<wa-textarea with-count maxlength="10" value="hello"></wa-textarea>`,
+          );
           await el.updateComplete;
           const count = el.shadowRoot!.querySelector('[part~="count"]')!;
           // The count should reflect remaining characters

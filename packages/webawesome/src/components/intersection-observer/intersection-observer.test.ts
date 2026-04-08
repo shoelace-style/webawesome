@@ -9,9 +9,7 @@ describe('<wa-intersection-observer>', () => {
     describe(`with "${fixture.type}" rendering`, () => {
       describe('properties', () => {
         it('should have default property values', async () => {
-          const el = await fixture<WaIntersectionObserver>(
-            html`<wa-intersection-observer></wa-intersection-observer>`,
-          );
+          const el = await fixture<WaIntersectionObserver>(html`<wa-intersection-observer></wa-intersection-observer>`);
 
           expect(el.root).to.be.null;
           expect(el.rootMargin).to.equal('0px');

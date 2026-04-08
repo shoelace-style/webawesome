@@ -51,7 +51,7 @@ describe('<wa-relative-time>', () => {
           it(`should show "${expected}" for past date`, async () => {
             const date = new Date(currentTime.getTime() + offset);
             const el = await fixture<WaRelativeTime>(
-              html`<wa-relative-time lang="en-US" .date="${date}"></wa-relative-time>`
+              html`<wa-relative-time lang="en-US" .date="${date}"></wa-relative-time>`,
             );
             await el.updateComplete;
             const timeEl = el.shadowRoot?.querySelector('time');
@@ -70,7 +70,7 @@ describe('<wa-relative-time>', () => {
           it(`should show "${expected}" for future date`, async () => {
             const date = new Date(currentTime.getTime() + offset);
             const el = await fixture<WaRelativeTime>(
-              html`<wa-relative-time lang="en-US" .date="${date}"></wa-relative-time>`
+              html`<wa-relative-time lang="en-US" .date="${date}"></wa-relative-time>`,
             );
             await el.updateComplete;
             const timeEl = el.shadowRoot?.querySelector('time');
@@ -93,7 +93,7 @@ describe('<wa-relative-time>', () => {
         it('should accept ISO string dates', async () => {
           const date = new Date(currentTime.getTime() - dayMs).toISOString();
           const el = await fixture<WaRelativeTime>(
-            html`<wa-relative-time lang="en-US" date="${date}"></wa-relative-time>`
+            html`<wa-relative-time lang="en-US" date="${date}"></wa-relative-time>`,
           );
           await el.updateComplete;
           const timeEl = el.shadowRoot?.querySelector('time');
@@ -115,7 +115,7 @@ describe('<wa-relative-time>', () => {
         it('should show human-readable form with numeric="auto"', async () => {
           const yesterday = new Date(currentTime.getTime() - dayMs);
           const el = await fixture<WaRelativeTime>(
-            html`<wa-relative-time lang="en-US" numeric="auto" .date="${yesterday}"></wa-relative-time>`
+            html`<wa-relative-time lang="en-US" numeric="auto" .date="${yesterday}"></wa-relative-time>`,
           );
           await el.updateComplete;
           const timeEl = el.shadowRoot?.querySelector('time');
@@ -125,7 +125,7 @@ describe('<wa-relative-time>', () => {
         it('should always show numeric form with numeric="always"', async () => {
           const yesterday = new Date(currentTime.getTime() - dayMs);
           const el = await fixture<WaRelativeTime>(
-            html`<wa-relative-time lang="en-US" numeric="always" .date="${yesterday}"></wa-relative-time>`
+            html`<wa-relative-time lang="en-US" numeric="always" .date="${yesterday}"></wa-relative-time>`,
           );
           await el.updateComplete;
           const timeEl = el.shadowRoot?.querySelector('time');
@@ -147,7 +147,7 @@ describe('<wa-relative-time>', () => {
         it('should use long format by default', async () => {
           const twoYearsAgo = new Date(currentTime.getTime() - 2 * yearMs);
           const el = await fixture<WaRelativeTime>(
-            html`<wa-relative-time lang="en-US" numeric="always" .date="${twoYearsAgo}"></wa-relative-time>`
+            html`<wa-relative-time lang="en-US" numeric="always" .date="${twoYearsAgo}"></wa-relative-time>`,
           );
           await el.updateComplete;
           const timeEl = el.shadowRoot?.querySelector('time');
@@ -157,7 +157,12 @@ describe('<wa-relative-time>', () => {
         it('should use short format', async () => {
           const twoYearsAgo = new Date(currentTime.getTime() - 2 * yearMs);
           const el = await fixture<WaRelativeTime>(
-            html`<wa-relative-time lang="en-US" numeric="always" format="short" .date="${twoYearsAgo}"></wa-relative-time>`
+            html`<wa-relative-time
+              lang="en-US"
+              numeric="always"
+              format="short"
+              .date="${twoYearsAgo}"
+            ></wa-relative-time>`,
           );
           await el.updateComplete;
           const timeEl = el.shadowRoot?.querySelector('time');
@@ -179,7 +184,7 @@ describe('<wa-relative-time>', () => {
         it('should format according to the specified locale', async () => {
           const yesterday = new Date(currentTime.getTime() - dayMs);
           const el = await fixture<WaRelativeTime>(
-            html`<wa-relative-time lang="de-DE" numeric="auto" .date="${yesterday}"></wa-relative-time>`
+            html`<wa-relative-time lang="de-DE" numeric="auto" .date="${yesterday}"></wa-relative-time>`,
           );
           await el.updateComplete;
           const timeEl = el.shadowRoot?.querySelector('time');
@@ -201,7 +206,7 @@ describe('<wa-relative-time>', () => {
         it('should set datetime attribute on the time element', async () => {
           const yesterday = new Date(currentTime.getTime() - dayMs);
           const el = await fixture<WaRelativeTime>(
-            html`<wa-relative-time lang="en-US" .date="${yesterday}"></wa-relative-time>`
+            html`<wa-relative-time lang="en-US" .date="${yesterday}"></wa-relative-time>`,
           );
           await el.updateComplete;
           const timeEl = el.shadowRoot?.querySelector('time');
@@ -223,7 +228,7 @@ describe('<wa-relative-time>', () => {
         it('should update the displayed value as time passes when sync is true', async () => {
           const yesterday = new Date(currentTime.getTime() - dayMs);
           const el = await fixture<WaRelativeTime>(
-            html`<wa-relative-time lang="en-US" sync .date="${yesterday}"></wa-relative-time>`
+            html`<wa-relative-time lang="en-US" sync .date="${yesterday}"></wa-relative-time>`,
           );
           await el.updateComplete;
           const timeEl = el.shadowRoot?.querySelector('time');
@@ -240,7 +245,7 @@ describe('<wa-relative-time>', () => {
       describe('edge cases', () => {
         it('should render nothing for an invalid date', async () => {
           const el = await fixture<WaRelativeTime>(
-            html`<wa-relative-time lang="en-US" date="not-a-date"></wa-relative-time>`
+            html`<wa-relative-time lang="en-US" date="not-a-date"></wa-relative-time>`,
           );
           await el.updateComplete;
           const timeEl = el.shadowRoot?.querySelector('time');

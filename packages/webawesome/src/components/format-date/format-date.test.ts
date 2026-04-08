@@ -45,7 +45,7 @@ describe('<wa-format-date>', () => {
         langs.forEach(lang => {
           it(`should format correctly for locale: ${lang}`, async () => {
             const el = await fixture<WaFormatDate>(
-              html`<wa-format-date .date="${testDate}" lang="${lang}"></wa-format-date>`
+              html`<wa-format-date .date="${testDate}" lang="${lang}"></wa-format-date>`,
             );
             const expected = new Intl.DateTimeFormat(lang).format(testDate);
             expect(el.shadowRoot?.textContent?.trim()).to.equal(expected);
@@ -57,7 +57,7 @@ describe('<wa-format-date>', () => {
         (['narrow', 'short', 'long'] as const).forEach(format => {
           it(`should format weekday as: ${format}`, async () => {
             const el = await fixture<WaFormatDate>(
-              html`<wa-format-date .date="${testDate}" weekday="${format}"></wa-format-date>`
+              html`<wa-format-date .date="${testDate}" weekday="${format}"></wa-format-date>`,
             );
             const expected = new Intl.DateTimeFormat('en-US', { weekday: format }).format(testDate);
             expect(el.shadowRoot?.textContent?.trim()).to.equal(expected);
@@ -69,7 +69,7 @@ describe('<wa-format-date>', () => {
         (['narrow', 'short', 'long'] as const).forEach(format => {
           it(`should format era as: ${format}`, async () => {
             const el = await fixture<WaFormatDate>(
-              html`<wa-format-date .date="${testDate}" era="${format}"></wa-format-date>`
+              html`<wa-format-date .date="${testDate}" era="${format}"></wa-format-date>`,
             );
             const expected = new Intl.DateTimeFormat('en-US', { era: format }).format(testDate);
             expect(el.shadowRoot?.textContent?.trim()).to.equal(expected);
@@ -81,7 +81,7 @@ describe('<wa-format-date>', () => {
         (['numeric', '2-digit'] as const).forEach(format => {
           it(`should format year as: ${format}`, async () => {
             const el = await fixture<WaFormatDate>(
-              html`<wa-format-date .date="${testDate}" year="${format}"></wa-format-date>`
+              html`<wa-format-date .date="${testDate}" year="${format}"></wa-format-date>`,
             );
             const expected = new Intl.DateTimeFormat('en-US', { year: format }).format(testDate);
             expect(el.shadowRoot?.textContent?.trim()).to.equal(expected);
@@ -93,7 +93,7 @@ describe('<wa-format-date>', () => {
         (['numeric', '2-digit', 'narrow', 'short', 'long'] as const).forEach(format => {
           it(`should format month as: ${format}`, async () => {
             const el = await fixture<WaFormatDate>(
-              html`<wa-format-date .date="${testDate}" month="${format}"></wa-format-date>`
+              html`<wa-format-date .date="${testDate}" month="${format}"></wa-format-date>`,
             );
             const expected = new Intl.DateTimeFormat('en-US', { month: format }).format(testDate);
             expect(el.shadowRoot?.textContent?.trim()).to.equal(expected);
@@ -105,7 +105,7 @@ describe('<wa-format-date>', () => {
         (['numeric', '2-digit'] as const).forEach(format => {
           it(`should format day as: ${format}`, async () => {
             const el = await fixture<WaFormatDate>(
-              html`<wa-format-date .date="${testDate}" day="${format}"></wa-format-date>`
+              html`<wa-format-date .date="${testDate}" day="${format}"></wa-format-date>`,
             );
             const expected = new Intl.DateTimeFormat('en-US', { day: format }).format(testDate);
             expect(el.shadowRoot?.textContent?.trim()).to.equal(expected);
@@ -117,7 +117,7 @@ describe('<wa-format-date>', () => {
         (['numeric', '2-digit'] as const).forEach(format => {
           it(`should format hour as: ${format}`, async () => {
             const el = await fixture<WaFormatDate>(
-              html`<wa-format-date .date="${testDate}" hour="${format}"></wa-format-date>`
+              html`<wa-format-date .date="${testDate}" hour="${format}"></wa-format-date>`,
             );
             const expected = new Intl.DateTimeFormat('en-US', { hour: format }).format(testDate);
             expect(el.shadowRoot?.textContent?.trim()).to.equal(expected);
@@ -129,7 +129,7 @@ describe('<wa-format-date>', () => {
         (['numeric', '2-digit'] as const).forEach(format => {
           it(`should format minute as: ${format}`, async () => {
             const el = await fixture<WaFormatDate>(
-              html`<wa-format-date .date="${testDate}" minute="${format}"></wa-format-date>`
+              html`<wa-format-date .date="${testDate}" minute="${format}"></wa-format-date>`,
             );
             const expected = new Intl.DateTimeFormat('en-US', { minute: format }).format(testDate);
             expect(el.shadowRoot?.textContent?.trim()).to.equal(expected);
@@ -141,7 +141,7 @@ describe('<wa-format-date>', () => {
         (['numeric', '2-digit'] as const).forEach(format => {
           it(`should format second as: ${format}`, async () => {
             const el = await fixture<WaFormatDate>(
-              html`<wa-format-date .date="${testDate}" second="${format}"></wa-format-date>`
+              html`<wa-format-date .date="${testDate}" second="${format}"></wa-format-date>`,
             );
             const expected = new Intl.DateTimeFormat('en-US', { second: format }).format(testDate);
             expect(el.shadowRoot?.textContent?.trim()).to.equal(expected);
@@ -153,7 +153,7 @@ describe('<wa-format-date>', () => {
         (['short', 'long'] as const).forEach(format => {
           it(`should display time zone name as: ${format}`, async () => {
             const el = await fixture<WaFormatDate>(
-              html`<wa-format-date .date="${testDate}" time-zone-name="${format}"></wa-format-date>`
+              html`<wa-format-date .date="${testDate}" time-zone-name="${format}"></wa-format-date>`,
             );
             const expected = new Intl.DateTimeFormat('en-US', { timeZoneName: format }).format(testDate);
             expect(el.shadowRoot?.textContent?.trim()).to.equal(expected);
@@ -163,7 +163,7 @@ describe('<wa-format-date>', () => {
         ['America/New_York', 'America/Los_Angeles', 'Europe/Zurich'].forEach(tz => {
           it(`should format in time zone: ${tz}`, async () => {
             const el = await fixture<WaFormatDate>(
-              html`<wa-format-date .date="${testDate}" time-zone="${tz}"></wa-format-date>`
+              html`<wa-format-date .date="${testDate}" time-zone="${tz}"></wa-format-date>`,
             );
             const expected = new Intl.DateTimeFormat('en-US', { timeZone: tz }).format(testDate);
             expect(el.shadowRoot?.textContent?.trim()).to.equal(expected);
@@ -174,7 +174,7 @@ describe('<wa-format-date>', () => {
       describe('hour format property', () => {
         it('should use auto hour format by default', async () => {
           const el = await fixture<WaFormatDate>(
-            html`<wa-format-date .date="${testDate}" hour="numeric"></wa-format-date>`
+            html`<wa-format-date .date="${testDate}" hour="numeric"></wa-format-date>`,
           );
           const expected = new Intl.DateTimeFormat('en-US', { hour: 'numeric' }).format(testDate);
           expect(el.shadowRoot?.textContent?.trim()).to.equal(expected);
@@ -182,7 +182,7 @@ describe('<wa-format-date>', () => {
 
         it('should use 12-hour format', async () => {
           const el = await fixture<WaFormatDate>(
-            html`<wa-format-date .date="${testDate}" hour="numeric" hour-format="12"></wa-format-date>`
+            html`<wa-format-date .date="${testDate}" hour="numeric" hour-format="12"></wa-format-date>`,
           );
           const expected = new Intl.DateTimeFormat('en-US', { hour: 'numeric', hour12: true }).format(testDate);
           expect(el.shadowRoot?.textContent?.trim()).to.equal(expected);
@@ -190,7 +190,7 @@ describe('<wa-format-date>', () => {
 
         it('should use 24-hour format', async () => {
           const el = await fixture<WaFormatDate>(
-            html`<wa-format-date .date="${testDate}" hour="numeric" hour-format="24"></wa-format-date>`
+            html`<wa-format-date .date="${testDate}" hour="numeric" hour-format="24"></wa-format-date>`,
           );
           const expected = new Intl.DateTimeFormat('en-US', { hour: 'numeric', hour12: false }).format(testDate);
           expect(el.shadowRoot?.textContent?.trim()).to.equal(expected);
@@ -209,17 +209,13 @@ describe('<wa-format-date>', () => {
       describe('edge cases', () => {
         it('should handle string date input', async () => {
           const isoString = testDate.toISOString();
-          const el = await fixture<WaFormatDate>(
-            html`<wa-format-date date="${isoString}"></wa-format-date>`
-          );
+          const el = await fixture<WaFormatDate>(html`<wa-format-date date="${isoString}"></wa-format-date>`);
           const expected = new Intl.DateTimeFormat('en-US').format(new Date(isoString));
           expect(el.shadowRoot?.textContent?.trim()).to.equal(expected);
         });
 
         it('should render nothing for invalid date', async () => {
-          const el = await fixture<WaFormatDate>(
-            html`<wa-format-date date="not-a-date"></wa-format-date>`
-          );
+          const el = await fixture<WaFormatDate>(html`<wa-format-date date="not-a-date"></wa-format-date>`);
           // Invalid date renders undefined, so no <time> element
           const timeEl = el.shadowRoot?.querySelector('time');
           expect(timeEl).to.be.null;
@@ -233,7 +229,7 @@ describe('<wa-format-date>', () => {
               year="numeric"
               month="long"
               day="numeric"
-            ></wa-format-date>`
+            ></wa-format-date>`,
           );
           const expected = new Intl.DateTimeFormat('en-US', {
             weekday: 'long',

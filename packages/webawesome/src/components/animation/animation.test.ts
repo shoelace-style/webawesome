@@ -10,9 +10,7 @@ describe('<wa-animation>', () => {
     describe(`with "${fixture.type}" rendering`, () => {
       describe('properties', () => {
         it('should have correct default property values', async () => {
-          const el = await fixture<WaAnimation>(
-            html`<wa-animation><div></div></wa-animation>`,
-          );
+          const el = await fixture<WaAnimation>(html`<wa-animation><div></div></wa-animation>`);
 
           expect(el.name).to.equal('none');
           expect(el.play).to.be.false;
@@ -28,9 +26,7 @@ describe('<wa-animation>', () => {
         });
 
         it('should reflect the "play" property to an attribute', async () => {
-          const el = await fixture<WaAnimation>(
-            html`<wa-animation name="bounce"><div></div></wa-animation>`,
-          );
+          const el = await fixture<WaAnimation>(html`<wa-animation name="bounce"><div></div></wa-animation>`);
 
           expect(el.hasAttribute('play')).to.be.false;
 
@@ -44,57 +40,43 @@ describe('<wa-animation>', () => {
         });
 
         it('should set the name property via attribute', async () => {
-          const el = await fixture<WaAnimation>(
-            html`<wa-animation name="bounce"><div></div></wa-animation>`,
-          );
+          const el = await fixture<WaAnimation>(html`<wa-animation name="bounce"><div></div></wa-animation>`);
 
           expect(el.name).to.equal('bounce');
         });
 
         it('should set the duration property via attribute', async () => {
-          const el = await fixture<WaAnimation>(
-            html`<wa-animation duration="500"><div></div></wa-animation>`,
-          );
+          const el = await fixture<WaAnimation>(html`<wa-animation duration="500"><div></div></wa-animation>`);
 
           expect(el.duration).to.equal(500);
         });
 
         it('should set the delay property via attribute', async () => {
-          const el = await fixture<WaAnimation>(
-            html`<wa-animation delay="200"><div></div></wa-animation>`,
-          );
+          const el = await fixture<WaAnimation>(html`<wa-animation delay="200"><div></div></wa-animation>`);
 
           expect(el.delay).to.equal(200);
         });
 
         it('should set the iterations property via attribute', async () => {
-          const el = await fixture<WaAnimation>(
-            html`<wa-animation iterations="3"><div></div></wa-animation>`,
-          );
+          const el = await fixture<WaAnimation>(html`<wa-animation iterations="3"><div></div></wa-animation>`);
 
           expect(el.iterations).to.equal(3);
         });
 
         it('should set the easing property via attribute', async () => {
-          const el = await fixture<WaAnimation>(
-            html`<wa-animation easing="ease-in-out"><div></div></wa-animation>`,
-          );
+          const el = await fixture<WaAnimation>(html`<wa-animation easing="ease-in-out"><div></div></wa-animation>`);
 
           expect(el.easing).to.equal('ease-in-out');
         });
 
         it('should set the playback-rate property via attribute', async () => {
-          const el = await fixture<WaAnimation>(
-            html`<wa-animation playback-rate="2"><div></div></wa-animation>`,
-          );
+          const el = await fixture<WaAnimation>(html`<wa-animation playback-rate="2"><div></div></wa-animation>`);
 
           expect(el.playbackRate).to.equal(2);
         });
 
         it('should accept custom keyframes via the keyframes property', async () => {
-          const el = await fixture<WaAnimation>(
-            html`<wa-animation><div></div></wa-animation>`,
-          );
+          const el = await fixture<WaAnimation>(html`<wa-animation><div></div></wa-animation>`);
 
           const keyframes = [{ opacity: 0 }, { opacity: 1 }];
           el.keyframes = keyframes;

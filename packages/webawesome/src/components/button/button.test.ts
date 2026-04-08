@@ -1,10 +1,10 @@
 import { aTimeout, expect, waitUntil } from '@open-wc/testing';
 import { html } from 'lit';
 import sinon from 'sinon';
-import { fixtures } from '../../internal/test/fixture.js';
 import { expectEvent } from '../../internal/test/expect-event.js';
-import { clickOnElement } from '../../internal/test/pointer-utilities.js';
+import { fixtures } from '../../internal/test/fixture.js';
 import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
+import { clickOnElement } from '../../internal/test/pointer-utilities.js';
 import type WaButton from './button.js';
 
 const variants = ['brand', 'success', 'neutral', 'warning', 'danger'];

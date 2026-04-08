@@ -35,14 +35,14 @@ describe('<wa-format-bytes>', () => {
 
           it(`should format ${value} bytes correctly in long display`, async () => {
             const el = await fixture<WaFormatBytes>(
-              html`<wa-format-bytes value="${value}" display="long"></wa-format-bytes>`
+              html`<wa-format-bytes value="${value}" display="long"></wa-format-bytes>`,
             );
             expect(el.shadowRoot?.textContent).to.equal(long);
           });
 
           it(`should format ${value} bytes correctly in narrow display`, async () => {
             const el = await fixture<WaFormatBytes>(
-              html`<wa-format-bytes value="${value}" display="narrow"></wa-format-bytes>`
+              html`<wa-format-bytes value="${value}" display="narrow"></wa-format-bytes>`,
             );
             expect(el.shadowRoot?.textContent).to.equal(narrow);
           });
@@ -61,21 +61,21 @@ describe('<wa-format-bytes>', () => {
         bitCases.forEach(({ value, short, long, narrow }) => {
           it(`should format ${value} bits correctly in short display`, async () => {
             const el = await fixture<WaFormatBytes>(
-              html`<wa-format-bytes value="${value}" unit="bit"></wa-format-bytes>`
+              html`<wa-format-bytes value="${value}" unit="bit"></wa-format-bytes>`,
             );
             expect(el.shadowRoot?.textContent).to.equal(short);
           });
 
           it(`should format ${value} bits correctly in long display`, async () => {
             const el = await fixture<WaFormatBytes>(
-              html`<wa-format-bytes value="${value}" unit="bit" display="long"></wa-format-bytes>`
+              html`<wa-format-bytes value="${value}" unit="bit" display="long"></wa-format-bytes>`,
             );
             expect(el.shadowRoot?.textContent).to.equal(long);
           });
 
           it(`should format ${value} bits correctly in narrow display`, async () => {
             const el = await fixture<WaFormatBytes>(
-              html`<wa-format-bytes value="${value}" unit="bit" display="narrow"></wa-format-bytes>`
+              html`<wa-format-bytes value="${value}" unit="bit" display="narrow"></wa-format-bytes>`,
             );
             expect(el.shadowRoot?.textContent).to.equal(narrow);
           });

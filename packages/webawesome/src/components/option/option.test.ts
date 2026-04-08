@@ -1,8 +1,8 @@
 import { aTimeout, expect } from '@open-wc/testing';
 import { html } from 'lit';
 import { fixtures } from '../../internal/test/fixture.js';
-import type WaOption from './option.js';
 import type WaSelect from '../select/select.js';
+import type WaOption from './option.js';
 
 describe('<wa-option>', () => {
   for (const fixture of fixtures) {

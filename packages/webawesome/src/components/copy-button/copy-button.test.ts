@@ -224,14 +224,17 @@ describe('<wa-copy-button>', () => {
         });
 
         it('should emit wa-error when referenced element is not found', async () => {
-          const el = await fixture<WaCopyButton>(
-            html`<wa-copy-button from="nonexistent-element"></wa-copy-button>`,
-          );
+          const el = await fixture<WaCopyButton>(html`<wa-copy-button from="nonexistent-element"></wa-copy-button>`);
 
           // Fires twice: once for missing target, once for empty value
-          await expectEvent(el, 'wa-error', async () => {
-            await clickOnElement(el);
-          }, { count: 2 });
+          await expectEvent(
+            el,
+            'wa-error',
+            async () => {
+              await clickOnElement(el);
+            },
+            { count: 2 },
+          );
         });
       });
 

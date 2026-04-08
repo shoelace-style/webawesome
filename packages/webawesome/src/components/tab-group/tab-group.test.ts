@@ -1,13 +1,13 @@
 import { aTimeout, expect, waitUntil } from '@open-wc/testing';
-import { html } from 'lit';
-import type { HTMLTemplateResult } from 'lit';
-import sinon from 'sinon';
 import { sendKeys } from '@web/test-runner-commands';
-import { clientFixture, fixtures } from '../../internal/test/fixture.js';
+import type { HTMLTemplateResult } from 'lit';
+import { html } from 'lit';
+import sinon from 'sinon';
 import { expectEvent } from '../../internal/test/expect-event.js';
+import { clientFixture, fixtures } from '../../internal/test/fixture.js';
 import { clickOnElement } from '../../internal/test/pointer-utilities.js';
-import type WaTab from '../tab/tab.js';
 import type WaTabPanel from '../tab-panel/tab-panel.js';
+import type WaTab from '../tab/tab.js';
 import type WaTabGroup from './tab-group.js';
 
 const getActiveTab = (tabGroup: WaTabGroup): WaTab | undefined => {
@@ -29,8 +29,7 @@ const generateTabs = (n: number): HTMLTemplateResult[] => {
   const result: HTMLTemplateResult[] = [];
   for (let i = 0; i < n; i++) {
     result.push(
-      html`<wa-tab panel="tab-${i}">Tab ${i}</wa-tab>
-        <wa-tab-panel name="tab-${i}">Content of tab ${i}</wa-tab-panel>`,
+      html`<wa-tab panel="tab-${i}">Tab ${i}</wa-tab> <wa-tab-panel name="tab-${i}">Content of tab ${i}</wa-tab-panel>`,
     );
   }
   return result;
@@ -186,9 +185,7 @@ describe('<wa-tab-group>', () => {
           await waitUntil(() => getActiveTab(tabGroup));
           const customTab = tabGroup.querySelectorAll('wa-tab')[1];
 
-          const events = await expectEvent(tabGroup, ['wa-tab-hide', 'wa-tab-show'], () =>
-            clickOnElement(customTab),
-          );
+          const events = await expectEvent(tabGroup, ['wa-tab-hide', 'wa-tab-show'], () => clickOnElement(customTab));
 
           const hideEvent = events[0] as CustomEvent;
           const showEvent = events[1] as CustomEvent;
@@ -595,8 +592,7 @@ describe('<wa-tab-group>', () => {
 
           await waitUntil(() => getActiveTab(tabGroup));
 
-          const activePanels = () =>
-            Array.from(tabGroup.querySelectorAll('wa-tab-panel')).filter(p => p.active);
+          const activePanels = () => Array.from(tabGroup.querySelectorAll('wa-tab-panel')).filter(p => p.active);
 
           expect(activePanels()).to.have.length(1);
 

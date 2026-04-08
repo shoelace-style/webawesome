@@ -1,9 +1,9 @@
 import { expect, waitUntil } from '@open-wc/testing';
+import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import sinon from 'sinon';
-import { sendKeys } from '@web/test-runner-commands';
-import { fixtures } from '../../internal/test/fixture.js';
 import { expectEvent } from '../../internal/test/expect-event.js';
+import { fixtures } from '../../internal/test/fixture.js';
 import { clickOnElement } from '../../internal/test/pointer-utilities.js';
 import type WaDetails from './details.js';
 
@@ -104,9 +104,7 @@ describe('<wa-details>', () => {
 
         it('should be visible with the open attribute', async () => {
           const el = await fixture<WaDetails>(html`
-            <wa-details open>
-              This is some content inside the details component for testing purposes.
-            </wa-details>
+            <wa-details open> This is some content inside the details component for testing purposes. </wa-details>
           `);
           const body = el.shadowRoot!.querySelector<HTMLElement>('.body')!;
           expect(parseInt(getComputedStyle(body).height)).to.be.greaterThan(0);
@@ -123,9 +121,7 @@ describe('<wa-details>', () => {
         });
 
         it('should not toggle when disabled', async () => {
-          const el = await fixture<WaDetails>(html`
-            <wa-details summary="Test" disabled>Content</wa-details>
-          `);
+          const el = await fixture<WaDetails>(html` <wa-details summary="Test" disabled>Content</wa-details> `);
           await el.show();
           expect(el.open).to.be.false;
         });
@@ -187,7 +183,9 @@ describe('<wa-details>', () => {
 
       describe('slots', () => {
         it('should render the default slot content', async () => {
-          const el = await fixture<WaDetails>(html`<wa-details open summary="Test"><span id="content">Hello</span></wa-details>`);
+          const el = await fixture<WaDetails>(
+            html`<wa-details open summary="Test"><span id="content">Hello</span></wa-details>`,
+          );
           const content = el.querySelector('#content');
           expect(content).to.exist;
           expect(content!.textContent).to.equal('Hello');

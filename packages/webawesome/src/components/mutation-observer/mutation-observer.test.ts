@@ -9,9 +9,7 @@ describe('<wa-mutation-observer>', () => {
     describe(`with "${fixture.type}" rendering`, () => {
       describe('properties', () => {
         it('should have default property values', async () => {
-          const el = await fixture<WaMutationObserver>(
-            html`<wa-mutation-observer></wa-mutation-observer>`,
-          );
+          const el = await fixture<WaMutationObserver>(html`<wa-mutation-observer></wa-mutation-observer>`);
 
           expect(el.attr).to.be.undefined;
           expect(el.attrOldValue).to.be.false;
@@ -22,9 +20,7 @@ describe('<wa-mutation-observer>', () => {
         });
 
         it('should reflect the "disabled" property to an attribute', async () => {
-          const el = await fixture<WaMutationObserver>(
-            html`<wa-mutation-observer disabled></wa-mutation-observer>`,
-          );
+          const el = await fixture<WaMutationObserver>(html`<wa-mutation-observer disabled></wa-mutation-observer>`);
 
           expect(el.disabled).to.be.true;
           expect(el.hasAttribute('disabled')).to.be.true;
@@ -53,9 +49,7 @@ describe('<wa-mutation-observer>', () => {
         });
 
         it('should reflect the "char-data" property to an attribute', async () => {
-          const el = await fixture<WaMutationObserver>(
-            html`<wa-mutation-observer char-data></wa-mutation-observer>`,
-          );
+          const el = await fixture<WaMutationObserver>(html`<wa-mutation-observer char-data></wa-mutation-observer>`);
 
           expect(el.charData).to.be.true;
           expect(el.hasAttribute('char-data')).to.be.true;
@@ -71,9 +65,7 @@ describe('<wa-mutation-observer>', () => {
         });
 
         it('should reflect the "child-list" property to an attribute', async () => {
-          const el = await fixture<WaMutationObserver>(
-            html`<wa-mutation-observer child-list></wa-mutation-observer>`,
-          );
+          const el = await fixture<WaMutationObserver>(html`<wa-mutation-observer child-list></wa-mutation-observer>`);
 
           expect(el.childList).to.be.true;
           expect(el.hasAttribute('child-list')).to.be.true;

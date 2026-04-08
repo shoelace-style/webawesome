@@ -9,17 +9,13 @@ describe('<wa-resize-observer>', () => {
     describe(`with "${fixture.type}" rendering`, () => {
       describe('properties', () => {
         it('should have default property values', async () => {
-          const el = await fixture<WaResizeObserver>(
-            html`<wa-resize-observer></wa-resize-observer>`,
-          );
+          const el = await fixture<WaResizeObserver>(html`<wa-resize-observer></wa-resize-observer>`);
 
           expect(el.disabled).to.be.false;
         });
 
         it('should reflect the "disabled" property to an attribute', async () => {
-          const el = await fixture<WaResizeObserver>(
-            html`<wa-resize-observer disabled></wa-resize-observer>`,
-          );
+          const el = await fixture<WaResizeObserver>(html`<wa-resize-observer disabled></wa-resize-observer>`);
 
           expect(el.disabled).to.be.true;
           expect(el.hasAttribute('disabled')).to.be.true;

@@ -78,9 +78,7 @@ describe('<wa-split-panel>', () => {
         });
 
         it('should reflect orientation to attribute', async () => {
-          const el = await fixture<WaSplitPanel>(
-            html`<wa-split-panel orientation="vertical"></wa-split-panel>`,
-          );
+          const el = await fixture<WaSplitPanel>(html`<wa-split-panel orientation="vertical"></wa-split-panel>`);
           expect(el.getAttribute('orientation')).to.equal('vertical');
         });
 

@@ -15,9 +15,7 @@ describe('<wa-dropdown-item>', () => {
         });
 
         it('should have role="menuitemcheckbox" when type is checkbox', async () => {
-          const el = await fixture<WaDropdownItem>(
-            html`<wa-dropdown-item type="checkbox">Item</wa-dropdown-item>`
-          );
+          const el = await fixture<WaDropdownItem>(html`<wa-dropdown-item type="checkbox">Item</wa-dropdown-item>`);
           expect(el.getAttribute('role')).to.equal('menuitemcheckbox');
         });
 
@@ -27,22 +25,20 @@ describe('<wa-dropdown-item>', () => {
         });
 
         it('should have aria-checked="false" when type is checkbox and not checked', async () => {
-          const el = await fixture<WaDropdownItem>(
-            html`<wa-dropdown-item type="checkbox">Item</wa-dropdown-item>`
-          );
+          const el = await fixture<WaDropdownItem>(html`<wa-dropdown-item type="checkbox">Item</wa-dropdown-item>`);
           expect(el.getAttribute('aria-checked')).to.equal('false');
         });
 
         it('should have aria-checked="true" when type is checkbox and checked', async () => {
           const el = await fixture<WaDropdownItem>(
-            html`<wa-dropdown-item type="checkbox" checked>Item</wa-dropdown-item>`
+            html`<wa-dropdown-item type="checkbox" checked>Item</wa-dropdown-item>`,
           );
           expect(el.getAttribute('aria-checked')).to.equal('true');
         });
 
         it('should remove aria-checked when type changes from checkbox to normal', async () => {
           const el = await fixture<WaDropdownItem>(
-            html`<wa-dropdown-item type="checkbox" checked>Item</wa-dropdown-item>`
+            html`<wa-dropdown-item type="checkbox" checked>Item</wa-dropdown-item>`,
           );
           expect(el.getAttribute('aria-checked')).to.equal('true');
 
@@ -92,9 +88,7 @@ describe('<wa-dropdown-item>', () => {
         });
 
         it('should reflect the type property to an attribute', async () => {
-          const el = await fixture<WaDropdownItem>(
-            html`<wa-dropdown-item type="checkbox">Item</wa-dropdown-item>`
-          );
+          const el = await fixture<WaDropdownItem>(html`<wa-dropdown-item type="checkbox">Item</wa-dropdown-item>`);
           expect(el.getAttribute('type')).to.equal('checkbox');
         });
 
@@ -104,9 +98,7 @@ describe('<wa-dropdown-item>', () => {
         });
 
         it('should render a checkmark when type is checkbox', async () => {
-          const el = await fixture<WaDropdownItem>(
-            html`<wa-dropdown-item type="checkbox">Item</wa-dropdown-item>`
-          );
+          const el = await fixture<WaDropdownItem>(html`<wa-dropdown-item type="checkbox">Item</wa-dropdown-item>`);
           const checkmark = el.shadowRoot!.querySelector('[part~="checkmark"]');
           expect(checkmark).to.exist;
         });
@@ -195,9 +187,7 @@ describe('<wa-dropdown-item>', () => {
         });
 
         it('should have a checkmark part when type is checkbox', async () => {
-          const el = await fixture<WaDropdownItem>(
-            html`<wa-dropdown-item type="checkbox">Item</wa-dropdown-item>`
-          );
+          const el = await fixture<WaDropdownItem>(html`<wa-dropdown-item type="checkbox">Item</wa-dropdown-item>`);
           expect(el.shadowRoot!.querySelector('[part~="checkmark"]')).to.exist;
         });
 
@@ -211,9 +201,7 @@ describe('<wa-dropdown-item>', () => {
         });
 
         it('should expose the checked custom state', async () => {
-          const el = await fixture<WaDropdownItem>(
-            html`<wa-dropdown-item type="checkbox">Item</wa-dropdown-item>`
-          );
+          const el = await fixture<WaDropdownItem>(html`<wa-dropdown-item type="checkbox">Item</wa-dropdown-item>`);
           expect(el.matches(':state(checked)')).to.be.false;
 
           el.checked = true;

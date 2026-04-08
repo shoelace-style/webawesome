@@ -31,9 +31,7 @@ describe('<wa-zoomable-frame>', () => {
         });
 
         it('should accept src property', async () => {
-          const el = await fixture<WaZoomableFrame>(
-            html`<wa-zoomable-frame src="about:blank"></wa-zoomable-frame>`,
-          );
+          const el = await fixture<WaZoomableFrame>(html`<wa-zoomable-frame src="about:blank"></wa-zoomable-frame>`);
           expect(el.src).to.equal('about:blank');
         });
 
@@ -108,9 +106,7 @@ describe('<wa-zoomable-frame>', () => {
         });
 
         it('should hide controls when without-controls is set', async () => {
-          const el = await fixture<WaZoomableFrame>(
-            html`<wa-zoomable-frame without-controls></wa-zoomable-frame>`,
-          );
+          const el = await fixture<WaZoomableFrame>(html`<wa-zoomable-frame without-controls></wa-zoomable-frame>`);
           const controls = el.shadowRoot!.querySelector('[part="controls"]');
           expect(controls).to.not.exist;
         });

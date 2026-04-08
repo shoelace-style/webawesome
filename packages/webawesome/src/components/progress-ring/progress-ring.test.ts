@@ -14,7 +14,7 @@ describe('<wa-progress-ring>', () => {
 
         it('should be accessible with a custom label', async () => {
           const el = await fixture<WaProgressRing>(
-            html`<wa-progress-ring value="50" label="Loading"></wa-progress-ring>`
+            html`<wa-progress-ring value="50" label="Loading"></wa-progress-ring>`,
           );
           await expect(el).to.be.accessible();
         });
@@ -48,7 +48,7 @@ describe('<wa-progress-ring>', () => {
 
         it('should use custom label for aria-label when provided', async () => {
           const el = await fixture<WaProgressRing>(
-            html`<wa-progress-ring value="50" label="Uploading"></wa-progress-ring>`
+            html`<wa-progress-ring value="50" label="Uploading"></wa-progress-ring>`,
           );
           const base = el.shadowRoot!.querySelector('[part~="base"]')!;
           expect(base.getAttribute('aria-label')).to.equal('Uploading');

@@ -46,7 +46,10 @@ export async function expectEvent(
     // Assert each event fired the expected number of times
     for (const name of eventNames) {
       const received = collected.get(name)!;
-      expect(received.length).to.equal(count, `Expected event "${name}" to fire ${count} time(s), but it fired ${received.length} time(s)`);
+      expect(received.length).to.equal(
+        count,
+        `Expected event "${name}" to fire ${count} time(s), but it fired ${received.length} time(s)`,
+      );
     }
 
     // Return all captured events in order for further assertions

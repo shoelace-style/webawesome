@@ -19,7 +19,7 @@ describe('<wa-progress-bar>', () => {
 
         it('should be accessible with a custom label', async () => {
           const el = await fixture<WaProgressBar>(
-            html`<wa-progress-bar value="50" label="Loading files"></wa-progress-bar>`
+            html`<wa-progress-bar value="50" label="Loading files"></wa-progress-bar>`,
           );
           await expect(el).to.be.accessible();
         });
@@ -72,16 +72,14 @@ describe('<wa-progress-bar>', () => {
 
         it('should use custom label for aria-label when provided', async () => {
           const el = await fixture<WaProgressBar>(
-            html`<wa-progress-bar value="50" label="Uploading"></wa-progress-bar>`
+            html`<wa-progress-bar value="50" label="Uploading"></wa-progress-bar>`,
           );
           const base = el.shadowRoot!.querySelector('[part~="base"]')!;
           expect(base.getAttribute('aria-label')).to.equal('Uploading');
         });
 
         it('should hide the label slot when indeterminate', async () => {
-          const el = await fixture<WaProgressBar>(
-            html`<wa-progress-bar indeterminate>50%</wa-progress-bar>`
-          );
+          const el = await fixture<WaProgressBar>(html`<wa-progress-bar indeterminate>50%</wa-progress-bar>`);
           const label = el.shadowRoot!.querySelector('[part~="label"]');
           expect(label).to.be.null;
         });

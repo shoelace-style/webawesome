@@ -32,7 +32,7 @@ describe('<wa-format-number>', () => {
 
         it('should format as currency', async () => {
           const el = await fixture<WaFormatNumber>(
-            html`<wa-format-number value="1000" type="currency"></wa-format-number>`
+            html`<wa-format-number value="1000" type="currency"></wa-format-number>`,
           );
           const expected = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(1000);
           expect(el.shadowRoot?.textContent).to.equal(expected);
@@ -40,7 +40,7 @@ describe('<wa-format-number>', () => {
 
         it('should format as percent', async () => {
           const el = await fixture<WaFormatNumber>(
-            html`<wa-format-number value="0.5" type="percent"></wa-format-number>`
+            html`<wa-format-number value="0.5" type="percent"></wa-format-number>`,
           );
           const expected = new Intl.NumberFormat('en-US', { style: 'percent' }).format(0.5);
           expect(el.shadowRoot?.textContent).to.equal(expected);
@@ -51,7 +51,7 @@ describe('<wa-format-number>', () => {
         ['de', 'fr', 'ja', 'ru'].forEach(lang => {
           it(`should format correctly for locale: ${lang}`, async () => {
             const el = await fixture<WaFormatNumber>(
-              html`<wa-format-number value="1000" lang="${lang}"></wa-format-number>`
+              html`<wa-format-number value="1000" lang="${lang}"></wa-format-number>`,
             );
             const expected = new Intl.NumberFormat(lang, { style: 'decimal', useGrouping: true }).format(1000);
             expect(el.shadowRoot?.textContent).to.equal(expected);
@@ -68,7 +68,7 @@ describe('<wa-format-number>', () => {
 
         it('should omit grouping separators when without-grouping is set', async () => {
           const el = await fixture<WaFormatNumber>(
-            html`<wa-format-number value="1000" without-grouping></wa-format-number>`
+            html`<wa-format-number value="1000" without-grouping></wa-format-number>`,
           );
           const expected = new Intl.NumberFormat('en-US', { useGrouping: false }).format(1000);
           expect(el.shadowRoot?.textContent).to.equal(expected);
@@ -79,7 +79,7 @@ describe('<wa-format-number>', () => {
         ['USD', 'CAD', 'EUR', 'GBP'].forEach(currency => {
           it(`should format with currency: ${currency}`, async () => {
             const el = await fixture<WaFormatNumber>(
-              html`<wa-format-number value="1000" type="currency" currency="${currency}"></wa-format-number>`
+              html`<wa-format-number value="1000" type="currency" currency="${currency}"></wa-format-number>`,
             );
             const expected = new Intl.NumberFormat('en-US', { style: 'currency', currency }).format(1000);
             expect(el.shadowRoot?.textContent).to.equal(expected);
@@ -89,11 +89,7 @@ describe('<wa-format-number>', () => {
         (['symbol', 'narrowSymbol', 'code', 'name'] as const).forEach(display => {
           it(`should format with currency display: ${display}`, async () => {
             const el = await fixture<WaFormatNumber>(
-              html`<wa-format-number
-                value="1000"
-                type="currency"
-                currency-display="${display}"
-              ></wa-format-number>`
+              html`<wa-format-number value="1000" type="currency" currency-display="${display}"></wa-format-number>`,
             );
             const expected = new Intl.NumberFormat('en-US', {
               style: 'currency',
@@ -108,7 +104,7 @@ describe('<wa-format-number>', () => {
       describe('digit options', () => {
         it('should respect minimum-integer-digits', async () => {
           const el = await fixture<WaFormatNumber>(
-            html`<wa-format-number value="5" minimum-integer-digits="4"></wa-format-number>`
+            html`<wa-format-number value="5" minimum-integer-digits="4"></wa-format-number>`,
           );
           const expected = new Intl.NumberFormat('en-US', { minimumIntegerDigits: 4 }).format(5);
           expect(el.shadowRoot?.textContent).to.equal(expected);
@@ -116,7 +112,7 @@ describe('<wa-format-number>', () => {
 
         it('should respect minimum-fraction-digits', async () => {
           const el = await fixture<WaFormatNumber>(
-            html`<wa-format-number value="1.5" minimum-fraction-digits="3"></wa-format-number>`
+            html`<wa-format-number value="1.5" minimum-fraction-digits="3"></wa-format-number>`,
           );
           const expected = new Intl.NumberFormat('en-US', { minimumFractionDigits: 3 }).format(1.5);
           expect(el.shadowRoot?.textContent).to.equal(expected);
@@ -124,7 +120,7 @@ describe('<wa-format-number>', () => {
 
         it('should respect maximum-fraction-digits', async () => {
           const el = await fixture<WaFormatNumber>(
-            html`<wa-format-number value="1.23456" maximum-fraction-digits="2"></wa-format-number>`
+            html`<wa-format-number value="1.23456" maximum-fraction-digits="2"></wa-format-number>`,
           );
           const expected = new Intl.NumberFormat('en-US', { maximumFractionDigits: 2 }).format(1.23456);
           expect(el.shadowRoot?.textContent).to.equal(expected);
@@ -132,7 +128,7 @@ describe('<wa-format-number>', () => {
 
         it('should respect minimum-significant-digits', async () => {
           const el = await fixture<WaFormatNumber>(
-            html`<wa-format-number value="1000" minimum-significant-digits="5"></wa-format-number>`
+            html`<wa-format-number value="1000" minimum-significant-digits="5"></wa-format-number>`,
           );
           const expected = new Intl.NumberFormat('en-US', { minimumSignificantDigits: 5 }).format(1000);
           expect(el.shadowRoot?.textContent).to.equal(expected);
@@ -140,7 +136,7 @@ describe('<wa-format-number>', () => {
 
         it('should respect maximum-significant-digits', async () => {
           const el = await fixture<WaFormatNumber>(
-            html`<wa-format-number value="123456" maximum-significant-digits="3"></wa-format-number>`
+            html`<wa-format-number value="123456" maximum-significant-digits="3"></wa-format-number>`,
           );
           const expected = new Intl.NumberFormat('en-US', { maximumSignificantDigits: 3 }).format(123456);
           expect(el.shadowRoot?.textContent).to.equal(expected);
