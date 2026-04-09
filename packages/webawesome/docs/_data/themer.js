@@ -62,6 +62,66 @@ export const themes = [
   },
   // #endregion
 
+  {
+    //
+    // #region N2
+    //
+    name: 'N2',
+    description: 'N2 theme',
+    filename: 'n2.css',
+    isPro: false,
+    fonts: {
+      body: {
+        name: 'Open Sans (sans-serif)',
+        css: '"Open Sans", system-ui, sans-serif',
+        href: null,
+      },
+      heading: {
+        name: 'Open Sans (sans-serif)',
+        css: '"Open Sans", system-ui, sans-serif',
+        href: null,
+      },
+      code: {
+        name: 'OS Default (monospace)',
+        css: 'ui-monospace, monospace',
+        href: null,
+      },
+      longform: {
+        name: 'OS Default (serif)',
+        css: 'ui-serif, serif',
+        href: null,
+      },
+    },
+    icons: {
+      family: 'classic',
+      weight: 1,
+    },
+    palette: {
+      name: 'N2',
+      filename: 'n2.css',
+    },
+    colorBrand: {
+      color: 'green',
+    },
+    tokens: {
+      // Fonts
+      '--wa-font-family-body': '"Open Sans", system-ui, sans-serif',
+      '--wa-font-family-heading': 'var(--wa-font-family-body)',
+      '--wa-font-family-code': 'ui-monospace, monospace',
+      '--wa-font-family-longform': 'ui-serif, serif',
+      '--wa-font-weight-body': 400,
+      '--wa-font-weight-heading': 600,
+      '--wa-font-weight-code': 400,
+      '--wa-font-weight-longform': 400,
+
+      // Elements
+      '--wa-border-radius-scale': 1,
+      '--wa-space-scale': 1,
+      '--wa-border-width-scale': 1,
+    },
+  },
+  // #endregion
+
   //
   // #region Awesome
   //

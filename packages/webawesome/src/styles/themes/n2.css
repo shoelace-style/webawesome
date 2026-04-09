@@ -1,0 +1,35 @@
+/**
+ * Do not edit directly, this file was auto-generated.
+ */
+
+:root {
+  --wa-color-brand-40: #5a6329;
+  --wa-color-brand-50: #6e7a35;
+  --wa-color-brand-60: #828f3f;
+  --wa-color-brand-70: #acbe52;
+  --wa-color-brand-80: #f1f6d4;
+  --wa-color-gray-40: #222222;
+  --wa-color-gray-50: #333333;
+  --wa-color-gray-60: #666666;
+  --wa-color-gray-70: #999999;
+  --wa-color-gray-80: #cccccc;
+  --wa-color-gray-90: #eeeeee;
+  --wa-color-gray-95: #f6f6f6;
+  --wa-color-danger-10: #581f20;
+  --wa-color-danger-20: #802c2d;
+  --wa-color-danger-30: #aa3132;
+  --wa-color-danger-40: #d52f31;
+  --wa-color-danger-50: #ff4f44;
+  --wa-color-danger-60: #ff8171;
+  --wa-color-danger-70: #ffaa9c;
+  --wa-color-danger-80: #ffd3c8;
+  --wa-color-danger-90: #fff6f0;
+  --wa-color-danger-95: #fffbf8;
+  --wa-color-danger-05: #431819;
+  --wa-font-sans: 'Open Sans', sans-serif;
+  --wa-font-family-body: 'Open Sans', sans-serif;
+  --wa-border-radius-s: 3.75px;
+  --wa-border-radius-m: 3.75px;
+  --wa-border-radius-l: 3.75px;
+  --wa-button-height-medium: 40px;
+}
