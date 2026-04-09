@@ -290,12 +290,17 @@ Then apply the following class to the `<html>` element:
     cursor: pointer;
     background-color: var(--color);
     border-radius: var(--wa-border-radius-m);
-    transition: transform 0.1s ease, box-shadow 0.1s ease;
+    transition: transform 0.1s ease, translate 0.1s ease, box-shadow 0.1s ease;
 
     &:hover {
       transform: scale(1.075);
       box-shadow: var(--wa-shadow-s);
       z-index: 1;
+    }
+
+    &:active {
+      translate: 0 1px;
+      box-shadow: none;
     }
   }
 
