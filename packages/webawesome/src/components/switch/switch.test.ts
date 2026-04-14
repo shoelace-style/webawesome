@@ -136,6 +136,24 @@ describe('<wa-switch>', () => {
         expect(inputPosition).to.equal('absolute');
       });
 
+      it('should default value to "on" when no value attribute is set', async () => {
+        const el = await fixture<WaSwitch>(html` <wa-switch></wa-switch> `);
+        expect(el.value).to.equal('on');
+      });
+
+      it('should return the value regardless of checked state', async () => {
+        const el = await fixture<WaSwitch>(html` <wa-switch value="myvalue" checked></wa-switch> `);
+
+        expect(el.checked).to.be.true;
+        expect(el.value).to.equal('myvalue');
+
+        el.checked = false;
+        await el.updateComplete;
+
+        expect(el.checked).to.be.false;
+        expect(el.value).to.equal('myvalue');
+      });
+
       describe('when submitting a form', () => {
         it('should submit the correct value when a value is provided', async () => {
           const form = await fixture<HTMLFormElement>(html`

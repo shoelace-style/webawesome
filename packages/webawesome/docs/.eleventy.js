@@ -197,10 +197,7 @@ export default async function (eleventyConfig) {
   // Shortcodes - {% shortCode arg1, arg2 %}
   eleventyConfig.addShortcode('cdnUrl', location => {
     // We use WA (free) via the public CDN for CodePen examples
-    return (
-      `https://cdn.jsdelivr.net/npm/@awesome.me/webawesome@${packageData.version}/dist-cdn/` +
-      (location || '').replace(/^\//, '')
-    );
+    return `https://ka-f.webawesome.com/webawesome@${packageData.version}/` + (location || '').replace(/^\//, '');
   });
 
   // Turns `{% server "foo" %} into `{{ server.foo | safe }}` when the WEBAWESOME_SERVER variable is set to "true"
@@ -240,7 +237,7 @@ export default async function (eleventyConfig) {
 
   // Add anchors to headings
   eleventyConfig.addTransform('doc-transforms', function (content) {
-    let doc = HTMLParse(content, { blockTextElements: { code: true } });
+    let doc = HTMLParse(content, { blockTextElements: { code: true }, comment: true });
 
     const transformers = [
       anchorHeadingsTransformer({ container: '#content' }),
@@ -313,6 +310,10 @@ export default async function (eleventyConfig) {
   //   eleventyConfig.addPlugin(formatCodePlugin());
   // }
   eleventyConfig.on('eleventy.after', async () => {
+    if (process.env.SKIP_SLOW_STEPS === 'true') {
+      return;
+    }
+
     const siteDir = getSiteDir();
     await generateAgentSkill({
       siteDir,

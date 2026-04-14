@@ -21,7 +21,7 @@ describe('<wa-checkbox>', () => {
         const el = await fixture<WaCheckbox>(html` <wa-checkbox></wa-checkbox> `);
 
         expect(el.name).to.equal(null);
-        expect(el.value).to.equal(null);
+        expect(el.value).to.equal('on');
         expect(el.title).to.equal('');
         expect(el.disabled).to.be.false;
         expect(el.required).to.be.false;
@@ -120,6 +120,24 @@ describe('<wa-checkbox>', () => {
         expect(inputPosition).to.equal('absolute');
       });
 
+      it('should default value to "on" when no value attribute is set', async () => {
+        const el = await fixture<WaCheckbox>(html` <wa-checkbox></wa-checkbox> `);
+        expect(el.value).to.equal('on');
+      });
+
+      it('should return the value regardless of checked state', async () => {
+        const el = await fixture<WaCheckbox>(html` <wa-checkbox value="myvalue" checked></wa-checkbox> `);
+
+        expect(el.checked).to.be.true;
+        expect(el.value).to.equal('myvalue');
+
+        el.checked = false;
+        await el.updateComplete;
+
+        expect(el.checked).to.be.false;
+        expect(el.value).to.equal('myvalue');
+      });
+
       it('Should keep its form value when going from checked -> unchecked -> checked', async () => {
         const form = await fixture<HTMLFormElement>(
           html`<form><wa-checkbox name="test" value="myvalue" checked>Checked</wa-checkbox></form>`,
@@ -134,7 +152,7 @@ describe('<wa-checkbox>', () => {
         await checkbox.updateComplete;
 
         expect(checkbox.checked).to.equal(false);
-        expect(checkbox.value).to.equal(null);
+        expect(checkbox.value).to.equal('myvalue');
         expect(new FormData(form).get('test')).to.equal(null);
 
         checkbox.checked = true;

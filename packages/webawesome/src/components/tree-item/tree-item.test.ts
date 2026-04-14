@@ -154,6 +154,68 @@ describe('<wa-tree-item>', () => {
         });
       });
 
+      describe('when expanded is toggled rapidly', () => {
+        it('should keep children hidden in sync when collapsing is interrupted by expanding', async () => {
+          // Arrange — start expanded
+          parentItem.expanded = true;
+          await oneEvent(parentItem, 'wa-after-expand');
+          const childrenContainer = parentItem.shadowRoot!.querySelector<HTMLElement>('.children')!;
+
+          // Act — collapse, then re-expand during the collapse animation
+          parentItem.expanded = false;
+          await new Promise(resolve => setTimeout(resolve, 20));
+          parentItem.expanded = true;
+
+          // Wait for animations to settle
+          await new Promise(resolve => setTimeout(resolve, 300));
+
+          // Assert — should be expanded with children visible
+          expect(parentItem.expanded).to.be.true;
+          expect(childrenContainer.hidden).to.be.false;
+          expect(childrenContainer.style.height).to.equal('auto');
+        });
+
+        it('should keep children hidden in sync when expanding is interrupted by collapsing', async () => {
+          // Arrange
+          const childrenContainer = parentItem.shadowRoot!.querySelector<HTMLElement>('.children')!;
+
+          // Act — expand, then collapse during the expand animation
+          parentItem.expanded = true;
+          await new Promise(resolve => setTimeout(resolve, 20));
+          parentItem.expanded = false;
+
+          // Wait for animations to settle
+          await new Promise(resolve => setTimeout(resolve, 300));
+
+          // Assert — should be collapsed with children hidden
+          expect(parentItem.expanded).to.be.false;
+          expect(childrenContainer.hidden).to.be.true;
+        });
+
+        it('should only fire the final wa-after-expand event when collapse is interrupted by expand', async () => {
+          // Arrange — start expanded
+          parentItem.expanded = true;
+          await oneEvent(parentItem, 'wa-after-expand');
+
+          const afterExpandSpy = sinon.spy();
+          const afterCollapseSpy = sinon.spy();
+          parentItem.addEventListener('wa-after-expand', afterExpandSpy);
+          parentItem.addEventListener('wa-after-collapse', afterCollapseSpy);
+
+          // Act — collapse, then re-expand during animation
+          parentItem.expanded = false;
+          await new Promise(resolve => setTimeout(resolve, 20));
+          parentItem.expanded = true;
+
+          // Wait for animations to settle
+          await new Promise(resolve => setTimeout(resolve, 300));
+
+          // Assert — only the final expand's after-event should fire
+          expect(afterExpandSpy.callCount).to.equal(1);
+          expect(afterCollapseSpy.callCount).to.equal(0);
+        });
+      });
+
       describe('when the item is lazy', () => {
         it('should emit wa-lazy-change when the lazy attribute is added and removed', async () => {
           // Arrange

@@ -1,0 +1,12 @@
+#page-anatomy-demo {
+  display: flex;
+  flex-flow: column;
+  gap: 1em;
+  margin-bottom: var(--wa-space-xl);
+
+  fieldset {
+    wa-checkbox {
+      white-space: nowrap;
+    }
+  }
+}

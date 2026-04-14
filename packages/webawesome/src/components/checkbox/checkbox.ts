@@ -80,8 +80,7 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
 
   /** The value of the checkbox, submitted as a name/value pair with form data. */
   get value(): string | null {
-    const val = this._value || 'on';
-    return this.checked ? val : null;
+    return this._value ?? 'on';
   }
 
   @property({ reflect: true })
@@ -249,6 +248,12 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
     `;
   }
 }
+
+// The change-in-update warning is required for this component because the form-associated base class calls
+// updateValidity() in firstUpdated(), which triggers requestUpdate('validity') to sync the validation state after the
+// first render when the validation target is available. Additionally, HasSlotController triggers requestUpdate() on
+// initial slotchange events. See https://lit.dev/docs/tools/development/#development-build-runtime-warnings
+WaCheckbox.disableWarning?.('change-in-update');
 
 declare global {
   interface HTMLElementTagNameMap {
