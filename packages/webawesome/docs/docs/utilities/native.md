@@ -59,6 +59,37 @@ Or, if you only want styles for native elements, include a theme and native styl
 
 You can additionally include any pre-made [theme](/docs/themes/) or [color palette](/docs/color-palettes/) to change the look of native elements.
 
+## Opting out of native styles
+
+If you want to keep Web Awesome's components, tokens, and utilities but let a native element fall back to browser defaults, reset that element in your own stylesheet.
+
+```html {.example}
+<div class="wa-cluster wa-align-items-center">
+  <button type="button">Styled by native.css</button>
+  <button type="button" class="native-reset">Browser default button</button>
+</div>
+
+<style>
+  .native-reset {
+    all: revert;
+    font: inherit;
+  }
+</style>
+```
+
+Use `all: revert` on the exact element you want to opt out of native styles. Re-apply any properties you still want to inherit from your app, such as `font`.
+
+To opt out for an entire section, apply the same reset within a wrapper and target only the native elements in that area.
+
+```css
+.native-reset-zone :where(button, input, select, textarea, table, details, dialog, progress) {
+  all: revert;
+  font: inherit;
+}
+```
+
+If your app has separate page-level entry points, the simplest page-level opt-out is to not load `native.css` on pages that should keep browser defaults. You can still load your theme, components, and any [utilities](/docs/utilities/) you want on those pages.
+
 ## Content flow
 
 Native styles set default space between many block-level HTML elements using the `--wa-content-spacing` token from your theme. This helps ensure that your content is readable.
