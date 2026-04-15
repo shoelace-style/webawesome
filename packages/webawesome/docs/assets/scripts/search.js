@@ -8,7 +8,7 @@ const res = await Promise.all([
 const MiniSearch = res[0].default;
 const searchData = await res[1].json();
 const searchIndex = MiniSearch.loadJSON(JSON.stringify(searchData.searchIndex), {
-  fields: ['t', 'h', 'c'],
+  fields: ['t', 'h', 's', 'u', 'c'],
 });
 const map = searchData.map;
 const searchDebounce = 200;
@@ -323,7 +323,7 @@ async function updateResults(query = '') {
       matches = searchIndex.search(trimmedQuery, {
         prefix: true,
         fuzzy: 0.2,
-        boost: { t: 20, h: 10 },
+        boost: { t: 20, s: 14, h: 10, u: 6, c: 1 },
       });
 
       // Re-rank results to prioritize title matches. Searches don't account for where in a title a match occurs, so
