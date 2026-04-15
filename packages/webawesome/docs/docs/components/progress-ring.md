@@ -3,8 +3,14 @@ title: Progress Ring
 description: Progress rings are used to show the progress of a determinate operation in a circular fashion.
 layout: component
 category: Feedback & Status
-synonyms: ["circular progress", "donut chart", "radial progress"]
-use-cases: ["loading spinner", "circular loader", "completion ring"]
+synonyms:
+  - circular progress
+  - donut chart
+  - radial progress
+use-cases:
+  - loading spinner
+  - circular loader
+  - completion ring
 ---
 
 ```html {.example}

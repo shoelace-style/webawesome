@@ -3,8 +3,14 @@ title: Breadcrumb
 description: Breadcrumbs provide a group of links so users can easily navigate a website's hierarchy.
 layout: component
 category: Navigation
-synonyms: ["breadcrumbs", "navigation trail", "path"]
-use-cases: ["wayfinding", "site navigation", "hierarchy navigation"]
+synonyms:
+  - breadcrumbs
+  - navigation trail
+  - path
+use-cases:
+  - wayfinding
+  - site navigation
+  - hierarchy navigation
 ---
 
 Breadcrumbs are usually placed before a page's main content with the current page shown last to indicate the user's position in the navigation.

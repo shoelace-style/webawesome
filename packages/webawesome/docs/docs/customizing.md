@@ -2,8 +2,16 @@
 title: Customizing
 description: Learn how to customize Web Awesome through themes, parts, and custom properties.
 layout: page-outline
-synonyms: ["theming", "styling", "custom styles", "override"]
-use-cases: ["css custom properties", "css variables", "design tokens", "brand"]
+synonyms:
+  - theming
+  - styling
+  - custom styles
+  - override
+use-cases:
+  - css custom properties
+  - css variables
+  - design tokens
+  - brand
 ---
 
 You can customize the look and feel of Web Awesome at a high level with themes. For more advanced customizations, you can make use of CSS parts and custom properties to target individual components.

@@ -3,8 +3,16 @@ title: Divider
 description: Dividers are used to visually separate or group elements.
 layout: component
 category: Organization
-synonyms: ["separator", "rule", "line", "hr", "horizontal rule"]
-use-cases: ["section divider", "content separator", "visual break"]
+synonyms:
+  - separator
+  - rule
+  - line
+  - hr
+  - horizontal rule
+use-cases:
+  - section divider
+  - content separator
+  - visual break
 ---
 
 ```html {.example}

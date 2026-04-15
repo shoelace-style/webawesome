@@ -2,8 +2,14 @@
 title: Form Controls
 description: Using Web Awesome form controls.
 layout: page-outline
-synonyms: ["forms", "form elements", "validation"]
-use-cases: ["form handling", "form data", "constraint validation"]
+synonyms:
+  - forms
+  - form elements
+  - validation
+use-cases:
+  - form handling
+  - form data
+  - constraint validation
 ---
 
 Web Awesome form controls are form-associated custom elements, meaning they will submit with forms just like native `<form>` controls. They also support constraint validation, which is the platform's version of client-side form validation.

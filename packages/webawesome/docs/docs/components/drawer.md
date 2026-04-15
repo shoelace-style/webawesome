@@ -3,8 +3,18 @@ title: Drawer
 description: Drawers slide in from a container to expose additional options and information.
 layout: component
 category: Organization
-synonyms: ["sidebar", "side panel", "offcanvas", "slide-out", "tray", "sheet"]
-use-cases: ["navigation drawer", "filter panel", "mobile menu", "bottom sheet"]
+synonyms:
+  - sidebar
+  - side panel
+  - offcanvas
+  - slide-out
+  - tray
+  - sheet
+use-cases:
+  - navigation drawer
+  - filter panel
+  - mobile menu
+  - bottom sheet
 ---
 
 ```html {.example}

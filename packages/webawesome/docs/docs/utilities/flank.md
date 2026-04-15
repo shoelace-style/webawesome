@@ -3,8 +3,14 @@ title: Flank
 description: 'Use the `wa-flank` class to position two items side-by-side, with one item positioned alongside, or _flanking_, content that stretches to fill the available space.'
 layout: docs
 tags: layoutUtilities
-synonyms: ["media object", "side by side", "horizontal layout"]
-use-cases: ["icon and text", "image and content", "avatar with text"]
+synonyms:
+  - media object
+  - side by side
+  - horizontal layout
+use-cases:
+  - icon and text
+  - image and content
+  - avatar with text
 ---
 
 <style>

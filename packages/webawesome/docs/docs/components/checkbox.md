@@ -3,8 +3,15 @@ title: Checkbox
 description: Checkboxes allow the user to toggle an option on or off.
 layout: component
 category: Form Controls
-synonyms: ["check", "tick", "checkmark"]
-use-cases: ["boolean toggle", "multi-select option", "terms agreement", "todo item"]
+synonyms:
+  - check
+  - tick
+  - checkmark
+use-cases:
+  - boolean toggle
+  - multi-select option
+  - terms agreement
+  - todo item
 ---
 
 ```html {.example}

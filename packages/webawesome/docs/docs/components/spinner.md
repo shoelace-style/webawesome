@@ -3,8 +3,15 @@ title: Spinner
 description: Spinners are used to show the progress of an indeterminate operation.
 layout: component
 category: Feedback & Status
-synonyms: ["loading", "loader", "busy indicator", "throbber"]
-use-cases: ["loading animation", "indeterminate progress", "ajax loader"]
+synonyms:
+  - loading
+  - loader
+  - busy indicator
+  - throbber
+use-cases:
+  - loading animation
+  - indeterminate progress
+  - ajax loader
 ---
 
 ```html {.example}

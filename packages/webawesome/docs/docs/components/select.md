@@ -3,8 +3,17 @@ title: Select
 description: Selects allow you to choose items from a menu of predefined options.
 layout: component
 category: Form Controls
-synonyms: ["dropdown select", "combobox", "picker", "chooser", "pulldown"]
-use-cases: ["form select", "option picker", "single select", "multi select"]
+synonyms:
+  - dropdown select
+  - combobox
+  - picker
+  - chooser
+  - pulldown
+use-cases:
+  - form select
+  - option picker
+  - single select
+  - multi select
 ---
 
 ```html {.example}

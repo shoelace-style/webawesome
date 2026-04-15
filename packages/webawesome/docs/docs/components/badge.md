@@ -3,8 +3,17 @@ title: Badge
 description: Badges are used to draw attention and display statuses or counts.
 layout: component
 category: Feedback & Status
-synonyms: ["chip", "label", "count", "indicator", "pill"]
-use-cases: ["notification count", "status indicator", "unread count", "new indicator"]
+synonyms:
+  - chip
+  - label
+  - count
+  - indicator
+  - pill
+use-cases:
+  - notification count
+  - status indicator
+  - unread count
+  - new indicator
 ---
 
 ```html {.example}

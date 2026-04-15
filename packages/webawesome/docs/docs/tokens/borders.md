@@ -1,8 +1,14 @@
 ---
 title: Borders
 description: Change the edges and corners of your components with Web Awesome's border properties.
-synonyms: ["border", "outline", "stroke"]
-use-cases: ["border width", "border style", "border color"]
+synonyms:
+  - border
+  - outline
+  - stroke
+use-cases:
+  - border width
+  - border style
+  - border color
 ---
 
 ## Style

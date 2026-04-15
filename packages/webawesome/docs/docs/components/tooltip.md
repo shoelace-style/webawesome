@@ -3,8 +3,15 @@ title: Tooltip
 description: Tooltips display additional information based on a specific action.
 layout: component
 category: Feedback & Status
-synonyms: ["hint", "hover text", "info bubble", "title attribute"]
-use-cases: ["help text", "contextual help", "hover info"]
+synonyms:
+  - hint
+  - hover text
+  - info bubble
+  - title attribute
+use-cases:
+  - help text
+  - contextual help
+  - hover info
 ---
 
 A tooltip's target is based on the `for` attribute which points to an element id.

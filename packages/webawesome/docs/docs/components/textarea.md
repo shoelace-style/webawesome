@@ -3,8 +3,15 @@ title: Textarea
 description: Textareas collect data from the user and allow multiple lines of text.
 layout: component
 category: Form Controls
-synonyms: ["text area", "multiline input", "text box"]
-use-cases: ["comment box", "message input", "description field", "code input"]
+synonyms:
+  - text area
+  - multiline input
+  - text box
+use-cases:
+  - comment box
+  - message input
+  - description field
+  - code input
 ---
 
 ```html {.example}

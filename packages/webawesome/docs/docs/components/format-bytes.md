@@ -3,8 +3,14 @@ title: Format Bytes
 description: Formats a number as a human readable bytes value.
 layout: component
 category: Utilities
-synonyms: ["file size", "byte formatter", "size formatter"]
-use-cases: ["human readable bytes", "storage size", "download size"]
+synonyms:
+  - file size
+  - byte formatter
+  - size formatter
+use-cases:
+  - human readable bytes
+  - storage size
+  - download size
 ---
 
 ```html {.example}

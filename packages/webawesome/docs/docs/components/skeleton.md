@@ -3,8 +3,15 @@ title: Skeleton
 description: Skeletons are used to provide a visual representation of where content will eventually be drawn.
 layout: component
 category: Feedback & Status
-synonyms: ["placeholder", "shimmer", "loading placeholder", "ghost"]
-use-cases: ["content loader", "skeleton screen", "loading state"]
+synonyms:
+  - placeholder
+  - shimmer
+  - loading placeholder
+  - ghost
+use-cases:
+  - content loader
+  - skeleton screen
+  - loading state
 ---
 
 These are simple containers for scaffolding layouts that mimic what users will see when content has finished loading. This prevents large areas of empty space during asynchronous operations.

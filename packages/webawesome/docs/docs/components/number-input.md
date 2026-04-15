@@ -3,8 +3,15 @@ title: Number Input
 description: Number inputs allow users to enter and edit numeric values with optional stepper buttons.
 layout: component
 category: Form Controls
-synonyms: ["numeric input", "stepper", "spin button", "counter"]
-use-cases: ["quantity selector", "increment decrement", "numeric field"]
+synonyms:
+  - numeric input
+  - stepper
+  - spin button
+  - counter
+use-cases:
+  - quantity selector
+  - increment decrement
+  - numeric field
 ---
 
 ```html {.example}

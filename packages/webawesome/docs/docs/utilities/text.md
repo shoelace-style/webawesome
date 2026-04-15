@@ -3,8 +3,15 @@ title: Text
 description: Text utility classes use custom properties from your Web Awesome theme and other standard CSS properties to style text elements on the fly.
 layout: docs
 tags: styleUtilities
-synonyms: ["typography", "font", "text style"]
-use-cases: ["text size", "text align", "text weight", "truncate"]
+synonyms:
+  - typography
+  - font
+  - text style
+use-cases:
+  - text size
+  - text align
+  - text weight
+  - truncate
 ---
 
 <style>

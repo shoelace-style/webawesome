@@ -2,8 +2,14 @@
 title: Color
 description: Ensure consistent use of color and readable contrast with Web Awesome's color properties.
 hasOutline: true
-synonyms: ["palette", "color system", "color tokens"]
-use-cases: ["theme colors", "brand palette", "semantic colors"]
+synonyms:
+  - palette
+  - color system
+  - color tokens
+use-cases:
+  - theme colors
+  - brand palette
+  - semantic colors
 ---
 
 <style>

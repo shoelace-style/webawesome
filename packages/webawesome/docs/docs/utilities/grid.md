@@ -3,8 +3,15 @@ title: Grid
 description: 'Use the `wa-grid` class to arrange elements into rows and columns that automatically adapt to the available space.'
 layout: docs
 tags: layoutUtilities
-synonyms: ["columns", "layout grid", "css grid"]
-use-cases: ["responsive grid", "card grid", "auto grid", "masonry"]
+synonyms:
+  - columns
+  - layout grid
+  - css grid
+use-cases:
+  - responsive grid
+  - card grid
+  - auto grid
+  - masonry
 ---
 
 <style>

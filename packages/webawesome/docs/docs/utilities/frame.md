@@ -3,8 +3,14 @@ title: Frame
 description: 'Use the `wa-frame` class to create a responsive container with consistent proportions to enclose content.'
 layout: docs
 tags: layoutUtilities
-synonyms: ["aspect ratio", "media frame", "ratio box"]
-use-cases: ["video frame", "image container", "responsive embed"]
+synonyms:
+  - aspect ratio
+  - media frame
+  - ratio box
+use-cases:
+  - video frame
+  - image container
+  - responsive embed
 ---
 
 <style>

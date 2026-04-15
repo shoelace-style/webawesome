@@ -3,8 +3,14 @@ title: Comparison
 description: Compare visual differences between similar content with a sliding panel.
 layout: component
 category: Imagery
-synonyms: ["before after", "image compare", "diff slider"]
-use-cases: ["image diff", "visual comparison", "slider comparison"]
+synonyms:
+  - before after
+  - image compare
+  - diff slider
+use-cases:
+  - image diff
+  - visual comparison
+  - slider comparison
 ---
 
 This is especially useful for comparing images, but can be used for comparing any type of content (for an example of using it to compare entire UIs, check out our [theme page](/docs/themes)).

@@ -3,8 +3,14 @@ title: Intersection Observer
 description: Tracks immediate child elements and fires events as they move in and out of view.
 layout: component
 category: Utilities
-synonyms: ["scroll spy", "lazy load trigger", "viewport observer"]
-use-cases: ["infinite scroll", "scroll tracking", "element visibility"]
+synonyms:
+  - scroll spy
+  - lazy load trigger
+  - viewport observer
+use-cases:
+  - infinite scroll
+  - scroll tracking
+  - element visibility
 ---
 
 This component leverages the [IntersectionObserver API](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver) to track when its direct children enter or leave a designated root element. The `wa-intersect` event fires whenever elements cross the visibility threshold.

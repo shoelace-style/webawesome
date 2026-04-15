@@ -3,8 +3,15 @@ title: Native Styles
 description: Native styles apply your theme to native HTML elements so they match the look and feel of Web Awesome components.
 layout: page-outline
 tags: styleUtilities
-synonyms: ['browser default', 'native styles', 'global styles']
-use-cases: ['native HTML', 'style native elements', 'reset', 'default styles']
+synonyms:
+  - browser default
+  - native styles
+  - global styles
+use-cases:
+  - native HTML
+  - style native elements
+  - reset
+  - default styles
 ---
 
 Native styles use design tokens to spruce up native HTML elements so that they match the look and feel of your theme. While these native styles are completely optional, they're a great starting point for a cohesive design and a huge help when using a combination of native elements and Web Awesome components in your project.

@@ -3,8 +3,15 @@ title: Flex Wrap
 description: Flex wrap utilities specify how items within flex containers wrap.
 layout: docs
 tags: layoutUtilities
-synonyms: ['wrapping', 'flow', 'line wrap']
-use-cases: ['responsive wrap', 'multi-line flex', 'flex wrap reverse', 'nowrap']
+synonyms:
+  - wrapping
+  - flow
+  - line wrap
+use-cases:
+  - responsive wrap
+  - multi-line flex
+  - flex wrap reverse
+  - nowrap
 ---
 
 <style>
