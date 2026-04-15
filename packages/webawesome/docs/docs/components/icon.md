@@ -168,6 +168,10 @@ Web Awesome supports [Font Awesome's rotation and flip utilities](https://docs.f
 
 Web Awesome supports [Font Awesome's animation utilities](https://docs.fontawesome.com/web/style/animate/) for adding visual interest to icons. To select different types of animations, use the `animation` attribute when you reference an icon.
 
+:::info
+All [icon animations respect](https://docs.fontawesome.com/web/style/animate/#accessibility) `prefers-reduced-motion` and are automatically disabled when set to `reduce`.
+:::
+
 #### Beat
 
 Use the `beat` animation to scale an icon up or down. This is useful for grabbing attention or for use with health/heart-centric icons.
@@ -309,10 +313,6 @@ Use the `spin` animation to get any icon to rotate, and use `spin-pulse` to have
   style="font-size: 2em; --animation-direction: reverse"
 ></wa-icon>
 ```
-
-:::info
-All [icon animations respect](https://docs.fontawesome.com/web/style/animate/#accessibility) `prefers-reduced-motion` and are automatically disabled when set to `reduce`.
-:::
 
 ### Duotone
 
