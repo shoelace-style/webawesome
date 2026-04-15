@@ -1,12 +1,12 @@
-import { aTimeout, elementUpdated, expect, nextFrame, oneEvent } from '@open-wc/testing';
+import { aTimeout, elementUpdated, expect, oneEvent } from '@open-wc/testing';
 import { html } from 'lit';
+import { expectEvent } from '../../internal/test/expect-event.js';
 import { fixtures } from '../../internal/test/fixture.js';
 
 // Make sure this is `dist-cdn/` otherwise you will get an error.
 import { registerIconLibrary } from '../../../dist-cdn/webawesome.js';
-import type { WaErrorEvent } from '../../events/error.js';
-import type { WaLoadEvent } from '../../events/load.js';
-import WaIcon, { type IconAnimation } from './icon.js';
+import type WaIcon from './icon.js';
+import type { IconAnimation } from './icon.js';
 
 const testLibraryIcons = {
   'test-icon1': `
@@ -16,7 +16,7 @@ const testLibraryIcons = {
   `,
   'test-icon2': `
     <svg id="test-icon2">
-    <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"></path>
+      <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"></path>
     </svg>
   `,
   'bad-icon': `<div></div>`,
@@ -42,172 +42,139 @@ describe('<wa-icon>', () => {
 
   for (const fixture of fixtures) {
     describe(`with "${fixture.type}" rendering`, () => {
-      describe('defaults ', () => {
-        it('default properties', async () => {
-          const el = await fixture<WaIcon>(html` <wa-icon></wa-icon> `);
+      describe('accessibility', () => {
+        it('should be accessible', async () => {
+          const el = await fixture<WaIcon>(html`<wa-icon library="system" name="check"></wa-icon>`);
+          await expect(el).to.be.accessible();
+        });
 
+        it('should set aria-hidden when no label is provided', async () => {
+          const el = await fixture<WaIcon>(html`<wa-icon library="system" name="check"></wa-icon>`);
+          expect(el.getAttribute('role')).to.be.null;
+          expect(el.getAttribute('aria-label')).to.be.null;
+          expect(el.getAttribute('aria-hidden')).to.equal('true');
+        });
+
+        it('should set role and aria-label when a label is provided', async () => {
+          const el = await fixture<WaIcon>(html`<wa-icon label="Checkmark" library="system" name="check"></wa-icon>`);
+          expect(el.getAttribute('role')).to.equal('img');
+          expect(el.getAttribute('aria-label')).to.equal('Checkmark');
+          expect(el.getAttribute('aria-hidden')).to.be.null;
+        });
+      });
+
+      describe('properties', () => {
+        it('should have correct default property values', async () => {
+          const el = await fixture<WaIcon>(html`<wa-icon></wa-icon>`);
           expect(el.name).to.be.undefined;
           expect(el.src).to.be.undefined;
           expect(el.label).to.equal('');
           expect(el.library).to.equal('default');
         });
 
-        it('renders pre-loaded system icons and emits wa-load event', async () => {
-          const el = await fixture<WaIcon>(html` <wa-icon library="system"></wa-icon> `);
-          const listener = oneEvent(el, 'wa-load') as Promise<WaLoadEvent>;
-
-          el.name = 'check';
-          const ev = await listener;
-          await elementUpdated(el);
-
-          expect(el.shadowRoot?.querySelector('svg')).to.exist;
-          expect(ev).to.exist;
-        });
-
-        it('the icon is accessible', async () => {
-          const el = await fixture<WaIcon>(html` <wa-icon library="system" name="check"></wa-icon> `);
-          await expect(el).to.be.accessible();
-        });
-
-        it('the icon has the correct default aria attributes', async () => {
-          const el = await fixture<WaIcon>(html` <wa-icon library="system" name="check"></wa-icon> `);
-
-          expect(el.getAttribute('role')).to.be.null;
-          expect(el.getAttribute('aria-label')).to.be.null;
-          expect(el.getAttribute('aria-hidden')).to.equal('true');
-        });
-      });
-
-      describe('when a label is provided', () => {
-        it('the icon has the correct default aria attributes', async () => {
-          const fakeLabel = 'a label';
-          const el = await fixture<WaIcon>(html`
-            <wa-icon label="${fakeLabel}" library="system" name="check"></wa-icon>
-          `);
-
-          expect(el.getAttribute('role')).to.equal('img');
-          expect(el.getAttribute('aria-label')).to.equal(fakeLabel);
-          expect(el.getAttribute('aria-hidden')).to.be.null;
-        });
-      });
-
-      describe('when a valid src is provided', () => {
-        it('the svg is rendered', async () => {
-          const fakeId = 'test-src';
-          const el = await fixture<WaIcon>(html` <wa-icon></wa-icon> `);
-
+        it('should render an SVG for a system icon', async () => {
+          const el = await fixture<WaIcon>(html`<wa-icon library="system"></wa-icon>`);
           const listener = oneEvent(el, 'wa-load');
-          el.src = `data:image/svg+xml,${encodeURIComponent(`<svg id="${fakeId}"></svg>`)}`;
-
+          el.name = 'check';
           await listener;
           await elementUpdated(el);
+          expect(el.shadowRoot?.querySelector('svg')).to.exist;
+        });
+      });
 
+      describe('events', () => {
+        it('should emit wa-load when a valid icon loads', async () => {
+          const el = await fixture<WaIcon>(html`<wa-icon library="test-library"></wa-icon>`);
+          await expectEvent(el, 'wa-load', async () => {
+            el.name = 'test-icon1';
+          });
+          await elementUpdated(el);
+          expect(el.shadowRoot?.querySelector('svg')).to.exist;
+        });
+
+        it('should emit wa-error when the icon file cannot be retrieved', async () => {
+          const el = await fixture<WaIcon>(html`<wa-icon library="test-library"></wa-icon>`);
+          await expectEvent(el, 'wa-error', async () => {
+            el.name = 'bad-request';
+          });
+          await elementUpdated(el);
+          expect(el.shadowRoot?.querySelector('svg')).to.be.null;
+        });
+
+        it('should emit wa-error when the response is not a valid SVG', async () => {
+          const el = await fixture<WaIcon>(html`<wa-icon library="test-library"></wa-icon>`);
+          await expectEvent(el, 'wa-error', async () => {
+            el.name = 'bad-icon';
+          });
+          await elementUpdated(el);
+          expect(el.shadowRoot?.querySelector('svg')).to.be.null;
+        });
+      });
+
+      describe('libraries', () => {
+        it('should render icons from a custom library', async () => {
+          const el = await fixture<WaIcon>(html`<wa-icon library="test-library"></wa-icon>`);
+          const listener = oneEvent(el, 'wa-load');
+          el.name = 'test-icon1';
+          await listener;
+          await elementUpdated(el);
+          expect(el.shadowRoot?.querySelector('svg')).to.exist;
+        });
+
+        it('should apply the mutator from a custom library', async () => {
+          const el = await fixture<WaIcon>(html`<wa-icon library="test-library" name="test-icon1"></wa-icon>`);
+          await elementUpdated(el);
+          await elementUpdated(el);
+          await aTimeout(1);
+          const svg = el.shadowRoot?.querySelector('svg');
+          expect(svg?.getAttribute('fill')).to.equal('currentColor');
+        });
+
+        it('should render icons from an async resolver', async () => {
+          registerIconLibrary('async-library', {
+            resolver: async name => {
+              await new Promise(resolve => requestAnimationFrame(resolve));
+              return `data:image/svg+xml,${encodeURIComponent(testLibraryIcons[name as keyof typeof testLibraryIcons])}`;
+            },
+          });
+
+          const el = await fixture<WaIcon>(html`<wa-icon library="async-library"></wa-icon>`);
+          const listener = oneEvent(el, 'wa-load');
+          el.name = 'test-icon1';
+          await listener;
+          await elementUpdated(el);
+          expect(el.shadowRoot?.querySelector('svg')).to.exist;
+        });
+      });
+
+      describe('src', () => {
+        it('should render an SVG when a valid src is provided', async () => {
+          const fakeId = 'test-src';
+          const el = await fixture<WaIcon>(html`<wa-icon></wa-icon>`);
+          const listener = oneEvent(el, 'wa-load');
+          el.src = `data:image/svg+xml,${encodeURIComponent(`<svg id="${fakeId}"></svg>`)}`;
+          await listener;
+          await elementUpdated(el);
           expect(el.shadowRoot?.querySelector('svg')).to.exist;
           expect(el.shadowRoot?.querySelector('svg')?.part.contains('svg')).to.be.true;
           expect(el.shadowRoot?.querySelector('svg')?.getAttribute('id')).to.equal(fakeId);
         });
       });
 
-      describe('new library', () => {
-        it('renders icons from the new library and emits wa-load event', async () => {
-          const el = await fixture<WaIcon>(html` <wa-icon library="test-library"></wa-icon> `);
-          const listener = oneEvent(el, 'wa-load') as Promise<WaLoadEvent>;
-
-          el.name = 'test-icon1';
-          const ev = await listener;
-          await elementUpdated(el);
-
-          expect(el.shadowRoot?.querySelector('svg')).to.exist;
-          expect(ev.isTrusted).to.exist;
-        });
-
-        it('runs mutator from new library', async () => {
-          const el = await fixture<WaIcon>(html` <wa-icon library="test-library" name="test-icon1"></wa-icon> `);
-          await elementUpdated(el);
-          await elementUpdated(el);
-          await aTimeout(1);
-
-          const svg = el.shadowRoot?.querySelector('svg');
-          expect(svg?.getAttribute('fill')).to.equal('currentColor');
-        });
-      });
-
-      describe('negative cases', () => {
-        it('emits wa-error when the file cant be retrieved', async () => {
-          const el = await fixture<WaIcon>(html` <wa-icon library="test-library"></wa-icon> `);
-          const listener = oneEvent(el, 'wa-error') as Promise<WaErrorEvent>;
-
-          el.name = 'bad-request';
-          const ev = await listener;
-          await elementUpdated(el);
-
-          expect(el.shadowRoot?.querySelector('svg')).to.be.null;
-          expect(ev).to.exist;
-        });
-
-        it("emits wa-error when there isn't an svg element in the registered icon", async () => {
-          const el = await fixture<WaIcon>(html` <wa-icon library="test-library"></wa-icon> `);
-          const listener = oneEvent(el, 'wa-error') as Promise<WaErrorEvent>;
-
-          el.name = 'bad-icon';
-          const ev = await listener;
-          await elementUpdated(el);
-
-          expect(el.shadowRoot?.querySelector('svg')).to.be.null;
-          expect(ev).to.exist;
-        });
-      });
-
-      describe('async resolvers', () => {
-        it('renders icons from an async resolver', async () => {
-          registerIconLibrary('async-library', {
-            resolver: async name => {
-              await nextFrame();
-              return `data:image/svg+xml,${encodeURIComponent(testLibraryIcons[name as keyof typeof testLibraryIcons])}`;
-            },
-          });
-          const el = await fixture<WaIcon>(html`<wa-icon library="async-library"></wa-icon>`);
-          const listener = oneEvent(el, 'wa-load') as Promise<WaLoadEvent>;
-
-          el.name = 'test-icon1';
-          const ev = await listener;
-          await elementUpdated(el);
-
-          expect(el.shadowRoot?.querySelector('svg')).to.exist;
-          expect(ev.isTrusted).to.exist;
-        });
-      });
-
-      describe('svg sprite sheets', () => {
-        // TODO: this test is skipped because Bootstrap sprite.svg doesn't seem to be available in CI. Will fix in a future PR. [Konnor]
-        it.skip('Should properly grab an SVG and render it from bootstrap icons', async () => {
+      describe('sprite sheets', () => {
+        it('should produce a <use> element with the correct href', async () => {
           registerIconLibrary('sprite', {
             resolver: name => `/docs/assets/images/sprite.svg#${name}`,
             mutator: svg => svg.setAttribute('fill', 'currentColor'),
             spriteSheet: true,
           });
 
-          const el = await fixture<WaIcon>(html`<wa-icon name="arrow-left" library="sprite"></wa-icon>`);
-
-          await elementUpdated(el);
-
-          const svg = el.shadowRoot?.querySelector("svg[part='svg']");
-          const use = svg?.querySelector(`use[href='/docs/assets/images/sprite.svg#arrow-left']`);
-
-          expect(svg).to.be.instanceof(SVGElement);
-          expect(use).to.be.instanceof(SVGUseElement);
-
-          // This is kind of hacky...but with no way to check "load", we just use a timeout
-          await aTimeout(1000);
-
-          // Theres no way to really test that the icon rendered properly. We just gotta trust the browser to do it's thing :)
-          // However, we can check the <use> size. It should be greater than 0x0 if loaded properly.
-          const rect = use?.getBoundingClientRect();
-          expect(rect?.width).to.be.greaterThan(0);
-          expect(rect?.width).to.be.greaterThan(0);
+          const el = await fixture<WaIcon>(html`<wa-icon name="bad-icon" library="sprite"></wa-icon>`);
+          const href = el.shadowRoot!.querySelector('use')?.getAttribute('href');
+          expect(href).to.equal('/docs/assets/images/sprite.svg#bad-icon');
         });
 
-        it('Should render nothing if the sprite hash is wrong', async () => {
+        it('should apply the mutator when using sprite sheets', async () => {
           registerIconLibrary('sprite', {
             resolver: name => `/docs/assets/images/sprite.svg#${name}`,
             mutator: svg => svg.setAttribute('fill', 'currentColor'),
@@ -215,124 +182,66 @@ describe('<wa-icon>', () => {
           });
 
           const el = await fixture<WaIcon>(html`<wa-icon name="non-existent" library="sprite"></wa-icon>`);
-
           await elementUpdated(el);
-
           const svg = el.shadowRoot?.querySelector("svg[part='svg']");
-          const use = svg?.querySelector('use');
-
-          // TODO: Theres no way to really test that the icon rendered properly. We just gotta trust the browser to do it's thing :)
-          // However, we can check the <use> size. If it never loaded, it should be 0x0. Ideally, we could have error tracking...
-          const rect = use?.getBoundingClientRect();
-          expect(rect?.width).to.equal(0);
-          expect(rect?.width).to.equal(0);
-
-          // Make sure the mutator is applied.
-          // https://github.com/shoelace-style/shoelace/issues/1925
           expect(svg?.getAttribute('fill')).to.equal('currentColor');
-        });
-
-        it('Should properly produce a `<use>` element', async function () {
-          registerIconLibrary('sprite', {
-            resolver(name) {
-              return `/docs/assets/images/sprite.svg#${name}`;
-            },
-            mutator(svg) {
-              return svg.setAttribute('fill', 'currentColor');
-            },
-            spriteSheet: true,
-          });
-
-          const el = await fixture<WaIcon>(html`<wa-icon name="bad-icon" library="sprite"></wa-icon>`);
-
-          const href = el.shadowRoot!.querySelector('use')?.getAttribute('href');
-          expect(href).to.equal('/docs/assets/images/sprite.svg#bad-icon');
-        });
-
-        // TODO: <use> svg icons don't emit a "load" or "error" event...if we can figure out how to get the event to emit errors.
-        // Once we figure out how to emit errors / loading perhaps we can actually test this?
-        it.skip("Should produce an error if the icon doesn't exist.", async () => {
-          registerIconLibrary('sprite', {
-            resolver(name) {
-              return `/docs/assets/images/sprite.svg#${name}`;
-            },
-            mutator(svg) {
-              return svg.setAttribute('fill', 'currentColor');
-            },
-            spriteSheet: true,
-          });
-
-          const el = await fixture<WaIcon>(html`<wa-icon name="bad-icon" library="sprite"></wa-icon>`);
-          const listener = oneEvent(el, 'wa-error') as Promise<WaErrorEvent>;
-
-          el.name = 'bad-icon';
-          const ev = await listener;
-          await elementUpdated(el);
-          expect(ev).to.exist;
         });
       });
 
       describe('transformations', () => {
-        it('rotates the icon 0 degrees when the "rotate" attribute is "0"', async () => {
-          const el = await fixture<WaIcon>(html` <wa-icon library="system" name="check" rotate="0"></wa-icon> `);
+        it('should rotate 0 degrees when rotate is 0', async () => {
+          const el = await fixture<WaIcon>(html`<wa-icon library="system" name="check" rotate="0"></wa-icon>`);
           await elementUpdated(el);
           await el.updateComplete;
           const computedStyle = getComputedStyle(el);
-          // rotate(0deg) may be optimized to 'none' by the browser, so check for either
           expect(['matrix(1, 0, 0, 1, 0, 0)', 'none']).to.include(computedStyle.transform);
         });
 
-        it('rotates the icon 90 degrees when the "rotate" attribute is "90"', async () => {
-          const el = await fixture<WaIcon>(html` <wa-icon library="system" name="check" rotate="90"></wa-icon> `);
+        it('should rotate 90 degrees when rotate is 90', async () => {
+          const el = await fixture<WaIcon>(html`<wa-icon library="system" name="check" rotate="90"></wa-icon>`);
           await elementUpdated(el);
           await el.updateComplete;
-          const computedStyle = getComputedStyle(el);
-          expect(computedStyle.transform).to.equal('matrix(0, 1, -1, 0, 0, 0)');
+          expect(getComputedStyle(el).transform).to.equal('matrix(0, 1, -1, 0, 0, 0)');
         });
 
-        it('rotates the icon 180 degrees when the "rotate" attribute is "180"', async () => {
-          const el = await fixture<WaIcon>(html` <wa-icon library="system" name="check" rotate="180"></wa-icon> `);
+        it('should rotate 180 degrees when rotate is 180', async () => {
+          const el = await fixture<WaIcon>(html`<wa-icon library="system" name="check" rotate="180"></wa-icon>`);
           await elementUpdated(el);
           await el.updateComplete;
-          const computedStyle = getComputedStyle(el);
-          expect(computedStyle.transform).to.equal('matrix(-1, 0, 0, -1, 0, 0)');
+          expect(getComputedStyle(el).transform).to.equal('matrix(-1, 0, 0, -1, 0, 0)');
         });
 
-        it('rotates the icon 270 degrees when the "rotate" attribute is "270"', async () => {
-          const el = await fixture<WaIcon>(html` <wa-icon library="system" name="check" rotate="270"></wa-icon> `);
+        it('should rotate 270 degrees when rotate is 270', async () => {
+          const el = await fixture<WaIcon>(html`<wa-icon library="system" name="check" rotate="270"></wa-icon>`);
           await elementUpdated(el);
           await el.updateComplete;
-          const computedStyle = getComputedStyle(el);
-          expect(computedStyle.transform).to.equal('matrix(0, -1, 1, 0, 0, 0)');
+          expect(getComputedStyle(el).transform).to.equal('matrix(0, -1, 1, 0, 0, 0)');
         });
 
-        it('flips the icon horizontally when the "flip" attribute is "x"', async () => {
-          const el = await fixture<WaIcon>(html` <wa-icon library="system" name="check" flip="x"></wa-icon> `);
+        it('should flip horizontally when flip is "x"', async () => {
+          const el = await fixture<WaIcon>(html`<wa-icon library="system" name="check" flip="x"></wa-icon>`);
           await elementUpdated(el);
           await el.updateComplete;
-          const computedStyle = getComputedStyle(el);
-          expect(computedStyle.transform).to.equal('matrix(-1, 0, 0, 1, 0, 0)');
+          expect(getComputedStyle(el).transform).to.equal('matrix(-1, 0, 0, 1, 0, 0)');
         });
 
-        it('flips the icon vertically when the "flip" attribute is "y"', async () => {
-          const el = await fixture<WaIcon>(html` <wa-icon library="system" name="check" flip="y"></wa-icon> `);
+        it('should flip vertically when flip is "y"', async () => {
+          const el = await fixture<WaIcon>(html`<wa-icon library="system" name="check" flip="y"></wa-icon>`);
           await elementUpdated(el);
           await el.updateComplete;
-          const computedStyle = getComputedStyle(el);
-          expect(computedStyle.transform).to.equal('matrix(1, 0, 0, -1, 0, 0)');
+          expect(getComputedStyle(el).transform).to.equal('matrix(1, 0, 0, -1, 0, 0)');
         });
 
-        it('flips the icon on both axes when the "flip" attribute is "both"', async () => {
-          const el = await fixture<WaIcon>(html` <wa-icon library="system" name="check" flip="both"></wa-icon> `);
+        it('should flip on both axes when flip is "both"', async () => {
+          const el = await fixture<WaIcon>(html`<wa-icon library="system" name="check" flip="both"></wa-icon>`);
           await elementUpdated(el);
           await el.updateComplete;
-          const computedStyle = getComputedStyle(el);
-          expect(computedStyle.transform).to.equal('matrix(-1, 0, 0, -1, 0, 0)');
+          expect(getComputedStyle(el).transform).to.equal('matrix(-1, 0, 0, -1, 0, 0)');
         });
       });
 
       describe('animations', () => {
-        const animations: Array<IconAnimation> = [
+        const animations: IconAnimation[] = [
           'beat',
           'beat-fade',
           'bounce',
@@ -344,18 +253,17 @@ describe('<wa-icon>', () => {
         ];
 
         animations.forEach(animation => {
-          it(`applies the "${animation}" animation when the "animation" attribute is "${animation}"`, async () => {
+          it(`should apply the "${animation}" animation`, async () => {
             const el = await fixture<WaIcon>(html`
               <wa-icon library="system" name="check" animation=${animation}></wa-icon>
             `);
             await elementUpdated(el);
             await el.updateComplete;
-            const computedStyle = getComputedStyle(el);
-            expect(computedStyle.animationName).to.equal(animation);
+            expect(getComputedStyle(el).animationName).to.equal(animation);
           });
         });
 
-        it('applies the "spin-reverse" animation with reverse direction', async () => {
+        it('should apply spin-reverse with reverse direction', async () => {
           const el = await fixture<WaIcon>(html`
             <wa-icon library="system" name="check" animation="spin-reverse"></wa-icon>
           `);
@@ -367,7 +275,17 @@ describe('<wa-icon>', () => {
         });
       });
 
-      /* eslint-enable */
+      describe('CSS parts and states', () => {
+        it('should expose the svg CSS part', async () => {
+          const el = await fixture<WaIcon>(html`<wa-icon library="test-library"></wa-icon>`);
+          const listener = oneEvent(el, 'wa-load');
+          el.name = 'test-icon1';
+          await listener;
+          await elementUpdated(el);
+          const svg = el.shadowRoot?.querySelector('svg');
+          expect(svg?.part.contains('svg')).to.be.true;
+        });
+      });
     });
   }
 });

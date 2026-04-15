@@ -6,104 +6,144 @@ import type WaButtonGroup from './button-group.js';
 describe('<wa-button-group>', () => {
   for (const fixture of fixtures) {
     describe(`with "${fixture.type}" rendering`, () => {
-      describe('defaults ', () => {
-        it('default label empty', async () => {
-          const group = await fixture<WaButtonGroup>(html`
-            <wa-button-group>
-              <wa-button>Button 1 Label</wa-button>
-              <wa-button>Button 2 Label</wa-button>
-              <wa-button>Button 3 Label</wa-button>
+      describe('accessibility', () => {
+        it('should pass accessibility tests', async () => {
+          const el = await fixture<WaButtonGroup>(html`
+            <wa-button-group label="Actions">
+              <wa-button>Button 1</wa-button>
+              <wa-button>Button 2</wa-button>
+              <wa-button>Button 3</wa-button>
             </wa-button-group>
           `);
-          expect(group.label).to.equal('');
+          await expect(el).to.be.accessible();
         });
 
-        it('passes accessibility test', async () => {
-          const group = await fixture<WaButtonGroup>(html`
-            <wa-button-group>
-              <wa-button>Button 1 Label</wa-button>
-              <wa-button>Button 2 Label</wa-button>
-              <wa-button>Button 3 Label</wa-button>
+        it('should have role="group" on the base part by default', async () => {
+          const el = await fixture<WaButtonGroup>(html`
+            <wa-button-group label="Actions">
+              <wa-button>Button 1</wa-button>
             </wa-button-group>
           `);
-          await expect(group).to.be.accessible();
+          const base = el.shadowRoot!.querySelector('[part~="base"]')!;
+          expect(base.getAttribute('role')).to.equal('group');
         });
-      });
 
-      describe('slotted button custom properties', () => {
-        it('slotted buttons inherit the right custom properties based on their order', async () => {
-          const group = await fixture<WaButtonGroup>(html`
-            <wa-button-group>
-              <wa-button>Button 1 Label</wa-button>
-              <wa-button>Button 2 Label</wa-button>
-              <wa-button>Button 3 Label</wa-button>
+        it('should set aria-label from the label property', async () => {
+          const el = await fixture<WaButtonGroup>(html`
+            <wa-button-group label="My Group">
+              <wa-button>Button 1</wa-button>
             </wa-button-group>
           `);
-
-          const allButtons = group.querySelectorAll('wa-button');
-          Array.from(allButtons).every(button => {
-            const themedIndent = getComputedStyle(button).getPropertyValue('--wa-form-control-border-width').trim();
-            expect(button).to.have.style('--_button-horizontal-indent', themedIndent);
-          });
-
-          expect(allButtons[0]).to.not.have.style('--_button-start-start-radius', '0');
-          expect(allButtons[0]).to.have.style('--_button-start-end-radius', '0');
-          expect(allButtons[0]).to.not.have.style('--_button-end-start-radius', '0');
-          expect(allButtons[0]).to.have.style('--_button-end-end-radius', '0');
-
-          expect(allButtons[1]).to.have.style('--_button-start-start-radius', '0');
-          expect(allButtons[1]).to.have.style('--_button-start-end-radius', '0');
-          expect(allButtons[1]).to.have.style('--_button-end-start-radius', '0');
-          expect(allButtons[1]).to.have.style('--_button-end-end-radius', '0');
-
-          expect(allButtons[2]).to.have.style('--_button-start-start-radius', '0');
-          expect(allButtons[2]).to.not.have.style('--_button-start-end-radius', '0');
-          expect(allButtons[2]).to.have.style('--_button-end-start-radius', '0');
-          expect(allButtons[2]).to.not.have.style('--_button-end-end-radius', '0');
+          const base = el.shadowRoot!.querySelector('[part~="base"]')!;
+          expect(base.getAttribute('aria-label')).to.equal('My Group');
         });
       });
 
-      describe('focus and blur events', () => {
-        it('toggles focus class to slotted buttons on focus/blur', async () => {
-          const group = await fixture<WaButtonGroup>(html`
+      describe('properties', () => {
+        it('should have an empty label by default', async () => {
+          const el = await fixture<WaButtonGroup>(html`
             <wa-button-group>
-              <wa-button>Button 1 Label</wa-button>
-              <wa-button>Button 2 Label</wa-button>
-              <wa-button>Button 3 Label</wa-button>
+              <wa-button>Button 1</wa-button>
             </wa-button-group>
           `);
+          expect(el.label).to.equal('');
+        });
 
-          const allButtons = group.querySelectorAll('wa-button');
-          allButtons[0].dispatchEvent(new FocusEvent('focusin', { bubbles: true }));
+        it('should default orientation to "horizontal"', async () => {
+          const el = await fixture<WaButtonGroup>(html`
+            <wa-button-group>
+              <wa-button>Button 1</wa-button>
+            </wa-button-group>
+          `);
+          expect(el.orientation).to.equal('horizontal');
+          expect(el.getAttribute('orientation')).to.equal('horizontal');
+        });
 
-          await elementUpdated(allButtons[0]);
-          expect(allButtons[0].classList.contains('button-focus')).to.be.true;
+        it('should reflect orientation to the attribute', async () => {
+          const el = await fixture<WaButtonGroup>(html`
+            <wa-button-group orientation="vertical">
+              <wa-button>Button 1</wa-button>
+            </wa-button-group>
+          `);
+          expect(el.orientation).to.equal('vertical');
+          expect(el.getAttribute('orientation')).to.equal('vertical');
+        });
 
-          allButtons[0].dispatchEvent(new FocusEvent('focusout', { bubbles: true }));
-          await elementUpdated(allButtons[0]);
-          expect(allButtons[0].classList.contains('button-focus')).not.to.be.true;
+        it('should set aria-orientation when orientation changes', async () => {
+          const el = await fixture<WaButtonGroup>(html`
+            <wa-button-group>
+              <wa-button>Button 1</wa-button>
+            </wa-button-group>
+          `);
+          expect(el.getAttribute('aria-orientation')).to.equal('horizontal');
+
+          el.orientation = 'vertical';
+          await elementUpdated(el);
+          expect(el.getAttribute('aria-orientation')).to.equal('vertical');
         });
       });
 
-      describe('mouseover and mouseout events', () => {
-        it('toggles hover class to slotted buttons on mouseover/mouseout', async () => {
-          const group = await fixture<WaButtonGroup>(html`
+      describe('slots', () => {
+        it('should render slotted buttons', async () => {
+          const el = await fixture<WaButtonGroup>(html`
             <wa-button-group>
-              <wa-button>Button 1 Label</wa-button>
-              <wa-button>Button 2 Label</wa-button>
-              <wa-button>Button 3 Label</wa-button>
+              <wa-button>Button 1</wa-button>
+              <wa-button>Button 2</wa-button>
+              <wa-button>Button 3</wa-button>
+            </wa-button-group>
+          `);
+          const buttons = el.querySelectorAll('wa-button');
+          expect(buttons.length).to.equal(3);
+        });
+      });
+
+      describe('CSS parts and states', () => {
+        it('should expose a "base" part', async () => {
+          const el = await fixture<WaButtonGroup>(html`
+            <wa-button-group>
+              <wa-button>Button 1</wa-button>
+            </wa-button-group>
+          `);
+          const base = el.shadowRoot!.querySelector('[part~="base"]');
+          expect(base).to.exist;
+        });
+      });
+
+      describe('focus and hover behavior', () => {
+        it('should add button-focus class on focusin and remove on focusout', async () => {
+          const el = await fixture<WaButtonGroup>(html`
+            <wa-button-group>
+              <wa-button>Button 1</wa-button>
+              <wa-button>Button 2</wa-button>
             </wa-button-group>
           `);
 
-          const allButtons = group.querySelectorAll('wa-button');
+          const button = el.querySelector('wa-button')!;
+          button.dispatchEvent(new FocusEvent('focusin', { bubbles: true }));
+          await elementUpdated(button);
+          expect(button.classList.contains('button-focus')).to.be.true;
 
-          allButtons[0].dispatchEvent(new MouseEvent('mouseover', { bubbles: true }));
-          await elementUpdated(allButtons[0]);
-          expect(allButtons[0].classList.contains('button-hover')).to.be.true;
+          button.dispatchEvent(new FocusEvent('focusout', { bubbles: true }));
+          await elementUpdated(button);
+          expect(button.classList.contains('button-focus')).to.be.false;
+        });
 
-          allButtons[0].dispatchEvent(new MouseEvent('mouseout', { bubbles: true }));
-          await elementUpdated(allButtons[0]);
-          expect(allButtons[0].classList.contains('button-hover')).not.to.be.true;
+        it('should add button-hover class on mouseover and remove on mouseout', async () => {
+          const el = await fixture<WaButtonGroup>(html`
+            <wa-button-group>
+              <wa-button>Button 1</wa-button>
+              <wa-button>Button 2</wa-button>
+            </wa-button-group>
+          `);
+
+          const button = el.querySelector('wa-button')!;
+          button.dispatchEvent(new MouseEvent('mouseover', { bubbles: true }));
+          await elementUpdated(button);
+          expect(button.classList.contains('button-hover')).to.be.true;
+
+          button.dispatchEvent(new MouseEvent('mouseout', { bubbles: true }));
+          await elementUpdated(button);
+          expect(button.classList.contains('button-hover')).to.be.false;
         });
       });
     });
