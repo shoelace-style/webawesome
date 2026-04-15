@@ -150,6 +150,10 @@ eleventyExcludeFromCollections: true
 ---
 ```
 
+### Icons in Examples
+
+Documentation examples should use [Font Awesome Free](https://fontawesome.com/search?o=r&m=free) icons by default so users can copy and paste them without needing a Pro kit code. Pro icons are fine in sections that specifically demonstrate Pro features (e.g. Duotone, Sharp, Pro+ icon packs).
+
 ## Best Practices
 
 The following is a non-exhaustive list of conventions, patterns, and best practices we try to follow. As a contributor, we ask that you make a good faith effort to follow them as well. This ensures consistency and maintainability throughout the project.
