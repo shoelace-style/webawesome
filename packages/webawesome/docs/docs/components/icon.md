@@ -26,6 +26,44 @@ Not sure which icon to use? [Find the perfect icon over at Font Awesome!](https:
 
 ## Examples
 
+### Sizing
+
+Icons are sized relative to the current font size. To change their size, set the `font-size` property on the icon itself or on a parent element as shown below.
+
+```html {.example}
+<div class="wa-cluster" style="font-size: 44px;">
+  <wa-icon name="bell"></wa-icon>
+  <wa-icon name="heart"></wa-icon>
+  <wa-icon name="image"></wa-icon>
+  <wa-icon name="microphone"></wa-icon>
+  <wa-icon name="search"></wa-icon>
+  <wa-icon name="star"></wa-icon>
+</div>
+```
+
+### Colors
+
+Icons inherit their color from the current text color. Thus, you can set the `color` property on the `<wa-icon>` element or an ancestor to change the color.
+
+```html {.example}
+<div class="wa-cluster" style="font-size: 1.5em;">
+  <wa-icon name="heart" style="color: salmon;"></wa-icon>
+  <wa-icon name="fire" style="color: coral;"></wa-icon>
+  <wa-icon name="sun" style="color: gold;"></wa-icon>
+  <wa-icon name="leaf" style="color: mediumseagreen;"></wa-icon>
+  <wa-icon name="cloud-showers-heavy" style="color: steelblue;"></wa-icon>
+  <wa-icon name="hat-wizard" style="color: mediumpurple;"></wa-icon>
+</div>
+```
+
+### Labels
+
+For non-decorative icons, use the `label` attribute to announce it to assistive devices.
+
+```html {.example}
+<wa-icon name="star" label="Favorite" style="font-size: 1.5em;"></wa-icon>
+```
+
 ### Families & Variants
 
 The default icon library is Font Awesome Free, which comes with two icon families: `classic` and `brands`. Use the `family` attribute to set the icon family.
@@ -81,29 +119,6 @@ For supportive icon families, use the `variant` attribute to set the variant.
       <wa-icon family="brands" name="discord"></wa-icon>
     </div>
   </div>
-</div>
-```
-
-### Labels
-
-For non-decorative icons, use the `label` attribute to announce it to assistive devices.
-
-```html {.example}
-<wa-icon name="star" label="Favorite" style="font-size: 1.5em;"></wa-icon>
-```
-
-### Sizing
-
-Icons are sized relative to the current font size. To change their size, set the `font-size` property on the icon itself or on a parent element as shown below.
-
-```html {.example}
-<div class="wa-cluster" style="font-size: 44px;">
-  <wa-icon name="bell"></wa-icon>
-  <wa-icon name="heart"></wa-icon>
-  <wa-icon name="image"></wa-icon>
-  <wa-icon name="microphone"></wa-icon>
-  <wa-icon name="search"></wa-icon>
-  <wa-icon name="star"></wa-icon>
 </div>
 ```
 
@@ -298,21 +313,6 @@ Use the `spin` animation to get any icon to rotate, and use `spin-pulse` to have
 :::info
 All [icon animations respect](https://docs.fontawesome.com/web/style/animate/#accessibility) `prefers-reduced-motion` and are automatically disabled when set to `reduce`.
 :::
-
-### Colors
-
-Icons inherit their color from the current text color. Thus, you can set the `color` property on the `<wa-icon>` element or an ancestor to change the color.
-
-```html {.example}
-<div class="wa-cluster" style="font-size: 1.5em;">
-  <wa-icon name="heart" style="color: salmon;"></wa-icon>
-  <wa-icon name="fire" style="color: coral;"></wa-icon>
-  <wa-icon name="sun" style="color: gold;"></wa-icon>
-  <wa-icon name="leaf" style="color: mediumseagreen;"></wa-icon>
-  <wa-icon name="cloud-showers-heavy" style="color: steelblue;"></wa-icon>
-  <wa-icon name="hat-wizard" style="color: mediumpurple;"></wa-icon>
-</div>
-```
 
 ### Duotone
 
