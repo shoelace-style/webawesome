@@ -39,7 +39,7 @@ Set the `variant` attribute to change the callout's variant.
 <br />
 
 <wa-callout variant="success">
-  <wa-icon slot="icon" name="circle-check" variant="regular"></wa-icon>
+  <wa-icon slot="icon" name="circle-check"></wa-icon>
   <strong>Your changes have been saved</strong><br />
   You can safely exit the app now.
 </wa-callout>

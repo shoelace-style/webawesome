@@ -251,7 +251,7 @@ Use the `flip` animation to rotate an icon in 3D space. By default, flip rotates
 ```html {.example}
 <wa-icon name="compact-disc" animation="flip" label="Flipping Compact Disc" style="font-size: 2em;"></wa-icon>
 <wa-icon name="camera-rotate" animation="flip" label="Flipping Camera Rotate" style="font-size: 2em;"></wa-icon>
-<wa-icon name="sun" animation="flip" label="Flipping Sun" style="font-size: 2em;"></wa-icon>
+<wa-icon name="compact-disc" animation="flip" label="Flipping Disc" style="font-size: 2em;"></wa-icon>
 <wa-icon
   name="scroll"
   animation="flip"
