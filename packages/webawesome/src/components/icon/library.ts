@@ -10,11 +10,17 @@ export type IconLibraryResolver = (
   autoWidth: boolean,
 ) => string | Promise<string>;
 export type IconLibraryMutator = (svg: SVGElement, hostElement?: IconLibraryHostElement) => void;
+export type IconLibraryFetchErrorHandler = (
+  url: string,
+  status: number,
+  hostElement: IconLibraryHostElement,
+) => void;
 export interface IconLibrary {
   name: string;
   resolver: IconLibraryResolver;
   mutator?: IconLibraryMutator;
   spriteSheet?: boolean;
+  onFetchError?: IconLibraryFetchErrorHandler;
 }
 
 let defaultIconFamily = 'classic';
@@ -44,6 +50,7 @@ export function registerIconLibrary(name: string, options: Omit<IconLibrary, 'na
     resolver: options.resolver,
     mutator: options.mutator,
     spriteSheet: options.spriteSheet,
+    onFetchError: options.onFetchError,
   });
 
   // Redraw watched icons

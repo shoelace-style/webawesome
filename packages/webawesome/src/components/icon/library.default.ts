@@ -2,6 +2,10 @@ import { getIconPath, getKitCode } from '../../utilities/base-path.js';
 import type { IconLibrary } from './library.js';
 
 const FA_VERSION = '7.2.0';
+const FREE_CDN_HOST = 'ka-f.fontawesome.com';
+const PRO_CDN_HOST = 'ka-p.fontawesome.com';
+
+let hasWarnedAboutProKitCode = false;
 
 /** Returns the folder name used by Font Awesome for a given icon family and variant combination. */
 export function getIconFolder(_name: string, family: string, variant: string) {
@@ -134,14 +138,31 @@ function getIconUrl(name: string, family: string, variant: string) {
   const isPro = kitCode.length > 0;
 
   return isPro
-    ? `https://ka-p.fontawesome.com/releases/v${FA_VERSION}/svgs/${folder}/${name}.svg?token=${encodeURIComponent(kitCode)}`
-    : `https://ka-f.fontawesome.com/releases/v${FA_VERSION}/svgs/${folder}/${name}.svg`;
+    ? `https://${PRO_CDN_HOST}/releases/v${FA_VERSION}/svgs/${folder}/${name}.svg?token=${encodeURIComponent(kitCode)}`
+    : `https://${FREE_CDN_HOST}/releases/v${FA_VERSION}/svgs/${folder}/${name}.svg`;
 }
 
 const library: IconLibrary = {
   name: 'default',
   resolver: (name: string, family = 'classic', variant = 'solid') => {
     return getIconUrl(name, family, variant);
+  },
+  onFetchError: (url, status, hostEl) => {
+    // A 403 from the free Font Awesome CDN indicates a Pro icon was requested without a kit code. Requests made with a
+    // kit code go to the Pro CDN, and self-hosted setups use a custom icon base, so this check skips those cases.
+    if (hasWarnedAboutProKitCode) return;
+    if (status !== 403) return;
+    if (!url.includes(FREE_CDN_HOST)) return;
+
+    hasWarnedAboutProKitCode = true;
+    setTimeout(() => {
+      console.warn(
+        `A Font Awesome Pro icon was requested without a kit code (other icons may be affected). ` +
+          `Add your kit code to load Pro icons via CDN. ` +
+          `See https://webawesome.com/docs/#using-font-awesome-pro-and-pro for details.`,
+        hostEl,
+      );
+    }, 500); // this helps the warning show BELOW the 403 errors so it's not buried when multiple icons are requested
   },
   mutator: (svg, hostEl) => {
     // Duotone families

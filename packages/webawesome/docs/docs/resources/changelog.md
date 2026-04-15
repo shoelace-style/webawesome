@@ -14,6 +14,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 <small>TBD</small>
 
+- Added a console warning in `<wa-icon>` when a Font Awesome Pro icon is requested via the free CDN without a kit code
 - Fixed a bug in `<wa-checkbox>` where the `value` property returned `null` instead of `'on'` when unchecked
 - Fixed a bug in `<wa-rating>` where disabling via a `<fieldset>` did not properly restore the enabled state when the fieldset was re-enabled
 - Fixed a bug in `<wa-zoomable-frame>` where zoom control buttons did not properly update their disabled state after zoom levels were parsed

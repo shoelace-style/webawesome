@@ -195,7 +195,10 @@ export default class WaIcon extends WebAwesomeElement {
 
     try {
       fileData = await fetch(url, { mode: 'cors' });
-      if (!fileData.ok) return fileData.status === 410 ? CACHEABLE_ERROR : RETRYABLE_ERROR;
+      if (!fileData.ok) {
+        library?.onFetchError?.(url, fileData.status, this);
+        return fileData.status === 410 ? CACHEABLE_ERROR : RETRYABLE_ERROR;
+      }
     } catch {
       return RETRYABLE_ERROR;
     }
