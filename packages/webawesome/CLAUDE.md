@@ -9,7 +9,7 @@ npm start                  # Dev server with watch mode
 npm run build              # Production build (esbuild)
 npm test                   # Run all component tests (web-test-runner)
 npm run test:component -- --watch --group button  # Watch single component tests
-npm run create wa-name     # Create new component (Plop generator)
+npm run create             # Create new component (interactive Plop prompt)
 npm run verify             # prettier + build + test (full check)
 npm run check-types        # TypeScript type checking
 npm run prettier:fix       # Format code
@@ -30,7 +30,7 @@ Create new components with `npm run create` (Plop templates in `scripts/plop/`).
 **Never extend `LitElement` directly.** Use these base classes from `src/internal/`:
 
 - **`WebAwesomeElement`** (`webawesome-element.ts`) — Base for all components. Use `static css` (not Lit's `static styles`) — host styles are auto-prepended. Supports SSR, ElementInternals, custom states.
-- **`WebAwesomeFormAssociatedElement`** (`webawesome-form-associated-element.ts`) — For form controls. Adds form association, constraint validation, `ElementInternals`. Define `static validators` array for validation rules.
+- **`WebAwesomeFormAssociatedElement`** (`webawesome-form-associated-element.ts`) — For form controls. Adds form association, constraint validation, `ElementInternals`. Override `static get validators()` to return an array of validation rules.
 
 ## Decorators & Reactivity
 
@@ -101,7 +101,6 @@ Custom esbuild-based build (`scripts/build.js`). Generates:
 - `src/styles/` — Shared styles, themes, color palettes, CSS utilities
 - `src/events/` — Custom event class definitions
 - `src/translations/` — i18n message files (30+ locales)
-- `src/react/` — Auto-generated React wrappers
 - `docs/` — Component documentation (11ty/Nunjucks)
 
 ## Common Tasks
@@ -110,10 +109,7 @@ Custom esbuild-based build (`scripts/build.js`). Generates:
 - **Add a property**: `@property({ reflect: true }) propName: Type = default;` — use `reflect: true` if it should be settable via HTML attribute.
 - **Add a slot**: Add `<slot name="name"></slot>` in `render()`, add `@slot name` JSDoc tag, optionally track with `HasSlotController`.
 - **Add a CSS part**: Add `part="name"` to element in `render()`, add `@csspart name` JSDoc tag.
-- **Add a custom event**: Create event class in `src/events/`, dispatch with `this.emit('wa-event-name')`, add `@event wa-event-name` JSDoc tag.
+- **Add a custom event**: Create event class in `src/events/`, dispatch with `this.dispatchEvent(new WaEventClass())`, add `@event wa-event-name` JSDoc tag.
 - **Add a test**: Import `{ fixtures }` from `src/internal/test/fixture.js`, loop `for (const fixture of fixtures)`, use `await fixture<Type>(html`...`)`.
 - **Doc page**: Create `docs/docs/components/name.md` with front matter (`title`, `description`, `layout: component`, `category`). Use `` ```html {.example} `` for live code blocks.
-
-## Changelog
-
-When updating the changelog, the file is `docs/docs/resources/changelog.md`. Add entries to the "Unreleased" section, not an existing version. If the "Unreleased" section doesn't exist, create it.
+- **Update the changelog**: Add entries to the "Unreleased" section in `docs/docs/resources/changelog.md`. Create the section if it doesn't exist.
