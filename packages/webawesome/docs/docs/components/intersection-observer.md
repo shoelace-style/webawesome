@@ -18,7 +18,7 @@ This component leverages the [IntersectionObserver API](https://developer.mozill
 ```html {.example}
 <div id="intersection__overview">
   <wa-intersection-observer threshold="1" intersect-class="visible">
-    <div class="box"><wa-icon name="bulb"></wa-icon></div>
+    <div class="box"><wa-icon name="lightbulb"></wa-icon></div>
   </wa-intersection-observer>
 </div>
 

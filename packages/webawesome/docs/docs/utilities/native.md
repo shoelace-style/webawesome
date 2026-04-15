@@ -614,7 +614,7 @@ Wrap form controls in a flex container to arrange them horizontally or verticall
   </label>
   <label><input type="checkbox" checked /> Add whipped butter</label>
   <button>
-    <wa-icon name="pancakes"></wa-icon>
+    <wa-icon name="layer-group"></wa-icon>
     Stack 'em up
   </button>
 </form>

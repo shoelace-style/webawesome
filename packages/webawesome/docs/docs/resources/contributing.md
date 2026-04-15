@@ -1,7 +1,7 @@
 ---
 title: Contributing
 description: Web Awesome is an open source project, meaning everyone can use it and contribute to its development.
-layout: page
+layout: page-outline
 ---
 
 Many Web Awesome components are open source, meaning everyone can use them and contribute to their development. When you join our community, you'll find a friendly group of enthusiasts at all experience levels who are willing to chat about anything and everything related to Web Awesome.
@@ -149,6 +149,10 @@ unlisted: true
 eleventyExcludeFromCollections: true
 ---
 ```
+
+### Icons in Examples
+
+Documentation examples should use [Font Awesome Free](https://fontawesome.com/search?o=r&m=free) icons by default so users can copy and paste them without needing a Pro kit code. Pro icons are fine in sections that specifically demonstrate Pro features (e.g. Duotone, Sharp, Pro+ icon packs).
 
 ## Best Practices
 

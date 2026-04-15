@@ -56,7 +56,7 @@ Use the `start` and `end` slots to add presentational elements like `<wa-icon>` 
   </wa-breadcrumb-item>
   <wa-breadcrumb-item>Articles</wa-breadcrumb-item>
   <wa-breadcrumb-item>
-    <wa-icon slot="end" name="tree-palm"></wa-icon>
+    <wa-icon slot="end" name="umbrella-beach"></wa-icon>
     Traveling
   </wa-breadcrumb-item>
 </wa-breadcrumb>
