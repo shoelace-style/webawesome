@@ -34,7 +34,7 @@ In this example, the link will open a new window. Screen readers will announce "
 ```html {.example}
 <a href="https://example.com/" target="_blank">
   Visit External Page
-  <wa-icon name="arrow-up-right-from-square" variant="regular"></wa-icon>
+  <wa-icon name="arrow-up-right-from-square"></wa-icon>
   <span class="wa-visually-hidden">opens in a new window</span>
 </a>
 ```
@@ -65,7 +65,7 @@ Instead, you can hide them visually while keeping them available to screen reade
   class="wa-visually-hidden-label"
   style="margin-block-end: 1rem;"
 >
-  <wa-icon slot="start" name="magnifying-glass" variant="regular"></wa-icon>
+  <wa-icon slot="start" name="magnifying-glass"></wa-icon>
 </wa-input>
 
 <wa-input
@@ -76,7 +76,7 @@ Instead, you can hide them visually while keeping them available to screen reade
   class="wa-visually-hidden-hint"
   style="margin-block-end: 1rem;"
 >
-  <wa-icon slot="start" name="phone" variant="regular"></wa-icon>
+  <wa-icon slot="start" name="phone"></wa-icon>
 </wa-input>
 
 <wa-select
@@ -94,7 +94,7 @@ Instead, you can hide them visually while keeping them available to screen reade
   <wa-option value="wakanda">Wakanda</wa-option>
   <wa-option value="genovia">Genovia</wa-option>
   <wa-option value="elbonia">Elbonia</wa-option>
-  <wa-icon slot="start" name="globe" variant="regular"></wa-icon>
+  <wa-icon slot="start" name="globe"></wa-icon>
 </wa-select>
 
 <wa-input
