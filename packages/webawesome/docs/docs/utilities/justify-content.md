@@ -3,6 +3,8 @@ title: Justify Content
 description: Justify content utilities determine how space is distributed between items in flex and grid containers.
 layout: docs
 tags: layoutUtilities
+synonyms: ["horizontal align", "main axis", "distribute"]
+use-cases: ["flex justify", "space between", "center horizontally"]
 ---
 
 <style>

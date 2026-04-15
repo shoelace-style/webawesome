@@ -3,6 +3,8 @@ title: Switch
 description: Switches allow the user to toggle an option on or off.
 layout: component
 category: Form Controls
+synonyms: ["toggle", "toggle switch", "on off"]
+use-cases: ["boolean toggle", "setting toggle", "dark mode toggle"]
 ---
 
 ```html {.example}

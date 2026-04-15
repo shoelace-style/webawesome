@@ -3,6 +3,8 @@ title: Rating
 description: Ratings give users a way to quickly view and provide feedback.
 layout: component
 category: Form Controls
+synonyms: ["stars", "star rating", "review"]
+use-cases: ["feedback", "score", "5 stars", "thumbs up"]
 ---
 
 ```html {.example}

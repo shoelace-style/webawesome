@@ -3,6 +3,8 @@ title: Stack
 description: 'Use `wa-stack` to arrange elements in the block direction with even spacing.'
 layout: docs
 tags: layoutUtilities
+synonyms: ['vertical stack', 'vstack', 'column layout']
+use-cases: ['vertical spacing', 'stacked layout', 'card stack', 'vertical rhythm']
 ---
 
 <style>

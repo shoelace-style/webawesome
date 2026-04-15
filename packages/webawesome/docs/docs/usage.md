@@ -2,6 +2,8 @@
 title: Usage
 description: Learn more about using custom elements.
 layout: page-outline
+synonyms: ["getting started", "install", "setup", "quickstart"]
+use-cases: ["cdn", "npm install", "import", "autoloader"]
 ---
 
 Web Awesome components are just regular HTML elements, or [custom elements](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements) to be precise. You can use them like any other element. Each component has detailed documentation that describes its full API, including properties, events, methods, and more.

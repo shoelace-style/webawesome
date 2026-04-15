@@ -3,6 +3,8 @@ title: Include
 description: Includes give you the power to embed external HTML files into the page.
 layout: component
 category: Utilities
+synonyms: ["html include", "embed", "html import"]
+use-cases: ["external content", "partial", "server-side include"]
 ---
 
 Included files are asynchronously requested using `window.fetch()`. Requests are cached, so the same file can be included multiple times, but only one request will be made.

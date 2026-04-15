@@ -3,6 +3,8 @@ title: Button
 description: Buttons represent actions that are available to the user.
 layout: component
 category: Actions
+synonyms: ["btn", "action", "CTA", "submit"]
+use-cases: ["form submit", "link button", "icon button", "loading button"]
 ---
 
 ```html {.example}

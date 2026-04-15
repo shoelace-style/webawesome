@@ -3,6 +3,8 @@ title: Cluster
 description: 'Use the `wa-cluster` class to arrange elements inline with even spacing, allowing items to wrap when space is limited.'
 layout: docs
 tags: layoutUtilities
+synonyms: ['inline group', 'horizontal group', 'tag group', 'flow layout']
+use-cases: ['button row', 'tag list', 'chip group', 'inline list', 'pill group']
 ---
 
 <style>

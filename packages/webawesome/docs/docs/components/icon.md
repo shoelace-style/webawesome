@@ -3,6 +3,8 @@ title: Icon
 description: Icons are symbols that can be used to represent various options within an application.
 layout: component
 category: Imagery
+synonyms: ["symbol", "glyph", "pictogram", "fa icon"]
+use-cases: ["icon button", "status icon", "navigation icon"]
 ---
 
 Web Awesome comes bundled with over 2,000 free icons courtesy of [Font Awesome](https://fontawesome.com/). These icons are part of the `default` icon library. Font Awesome Pro users can unlock additional icon families. Or, if you prefer, you can register your own [custom icon library](#icon-library).

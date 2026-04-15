@@ -3,6 +3,8 @@ title: Page
 description: Pages offer an easy way to scaffold entire page layouts using minimal markup.
 layout: component
 category: Organization
+synonyms: ["layout", "page layout", "scaffold", "shell"]
+use-cases: ["app layout", "page structure", "content layout", "sidebar layout"]
 ---
 
 The page component is designed to power full webpages. It is flexible enough to handle most modern designs and includes a simple mechanism for handling desktop and mobile navigation.

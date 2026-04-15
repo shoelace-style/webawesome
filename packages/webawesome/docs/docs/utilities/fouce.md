@@ -3,6 +3,8 @@ title: Reducing FOUCE
 description: Utility to improve the loading experience by hiding non-prerendered custom elements until they are registered.
 layout: docs
 tags: styleUtilities
+synonyms: ['flash of unstyled content', 'custom element flash', 'FOUC', 'CLS']
+use-cases: ['component loading flash', 'undefined element', 'hydration flash', 'layout shift']
 ---
 
 Often, components are shown before their logic and styles have had a chance to load, also known as a [Flash of Undefined Custom Elements](https://www.abeautifulsite.net/posts/flash-of-undefined-custom-elements/).

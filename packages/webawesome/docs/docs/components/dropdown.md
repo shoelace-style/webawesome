@@ -3,6 +3,8 @@ title: Dropdown
 description: 'Dropdowns expose additional content that "drops down" in a panel.'
 layout: component
 category: Actions
+synonyms: ["menu", "context menu", "action menu", "popout"]
+use-cases: ["dropdown menu", "action list", "command menu", "right-click menu"]
 ---
 
 Dropdowns consist of a trigger and a panel. By default, activating the trigger will expose the panel and interacting outside of the panel will close it.

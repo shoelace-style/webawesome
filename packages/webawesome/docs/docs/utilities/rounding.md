@@ -3,6 +3,8 @@ title: Rounding Utilities
 description: Border radius utilities set an element's border radius property.
 layout: docs
 tags: styleUtilities
+synonyms: ["border radius", "rounded corners", "pill shape"]
+use-cases: ["rounded", "circle", "pill button"]
 ---
 
 <style>

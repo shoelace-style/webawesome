@@ -3,6 +3,8 @@ title: Color Picker
 description: Color pickers allow the user to select a color.
 layout: component
 category: Form Controls
+synonyms: ["color chooser", "color selector", "colour picker", "eyedropper"]
+use-cases: ["color input", "hex picker", "rgb picker", "hsl picker"]
 ---
 
 ```html {.example}

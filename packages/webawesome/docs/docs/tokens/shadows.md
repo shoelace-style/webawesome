@@ -1,6 +1,8 @@
 ---
 title: Shadows
 description: Elevate your components with Web Awesome's shadow properties.
+synonyms: ["box shadow", "elevation", "depth"]
+use-cases: ["drop shadow", "card shadow", "overlay shadow"]
 ---
 
 Shadows indicate elevation and, often, interactivity. Web Awesome offers highly modular shadow properties to easily create custom shadow effects or transform elements based on specific shadow qualities. Together with [`--wa-color-shadow`](/docs/tokens/color/#shadow), these tokens create realistic shadows for Web Awesome components.

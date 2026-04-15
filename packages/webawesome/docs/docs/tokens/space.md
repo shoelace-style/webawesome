@@ -1,6 +1,8 @@
 ---
 title: Space
 description: Lock down consistent spacing Web Awesome's space properties.
+synonyms: ["spacing", "spacing scale", "whitespace"]
+use-cases: ["padding", "margin", "gap", "spacing tokens"]
 ---
 
 <style>

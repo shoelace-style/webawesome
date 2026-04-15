@@ -2,6 +2,8 @@
 title: Typography
 description: Get consistent font styles and vertical rhythm with Web Awesome's typography properties.
 layout: page-outline
+synonyms: ["fonts", "type scale", "font size"]
+use-cases: ["font family", "line height", "font weight", "text tokens"]
 ---
 
 ## Font Family

@@ -3,6 +3,8 @@ title: Native Styles
 description: Native styles apply your theme to native HTML elements so they match the look and feel of Web Awesome components.
 layout: page-outline
 tags: styleUtilities
+synonyms: ['browser default', 'native styles', 'global styles']
+use-cases: ['native HTML', 'style native elements', 'reset', 'default styles']
 ---
 
 Native styles use design tokens to spruce up native HTML elements so that they match the look and feel of your theme. While these native styles are completely optional, they're a great starting point for a cohesive design and a huge help when using a combination of native elements and Web Awesome components in your project.
@@ -36,8 +38,9 @@ Or, if you only want styles for native elements, import a theme and native style
 import '@awesome.me/webawesome/dist/styles/themes/default.css';
 import '@awesome.me/webawesome/dist/styles/native.css';
 ```
+
 {% endmarkdown %}
-  </wa-tab-panel>
+</wa-tab-panel>
 
   <wa-tab-panel name="self-hosted">
 {% markdown %}
@@ -53,8 +56,9 @@ Or, if you only want styles for native elements, include a theme and native styl
 <link rel="stylesheet" href="/dist/styles/themes/default.css" />
 <link rel="stylesheet" href="/dist/styles/native.css" />
 ```
+
 {% endmarkdown %}
-  </wa-tab-panel>
+</wa-tab-panel>
 </wa-tab-group>
 
 You can additionally include any pre-made [theme](/docs/themes/) or [color palette](/docs/color-palettes/) to change the look of native elements.
@@ -146,8 +150,8 @@ Create paragraphs with `<p>`. Paragraphs inherit the default text styles set on 
 </p>
 
 <p>
-  You can have as many paragraphs as you need and they'll maintain consistent spacing between them. Native styles
-  ensure everything stays readable and well-proportioned, no matter how much content you throw at it.
+  You can have as many paragraphs as you need and they'll maintain consistent spacing between them. Native styles ensure
+  everything stays readable and well-proportioned, no matter how much content you throw at it.
 </p>
 ```
 

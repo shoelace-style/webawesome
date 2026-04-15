@@ -3,6 +3,8 @@ title: Callout
 description: Callouts are used to display important messages inline.
 layout: component
 category: Feedback & Status
+synonyms: ["alert", "admonition", "notice", "banner", "infobox"]
+use-cases: ["warning message", "info message", "tip", "important note"]
 ---
 
 ```html {.example}
