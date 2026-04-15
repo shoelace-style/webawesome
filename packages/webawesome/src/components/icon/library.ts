@@ -10,11 +10,7 @@ export type IconLibraryResolver = (
   autoWidth: boolean,
 ) => string | Promise<string>;
 export type IconLibraryMutator = (svg: SVGElement, hostElement?: IconLibraryHostElement) => void;
-export type IconLibraryFetchErrorHandler = (
-  url: string,
-  status: number,
-  hostElement: IconLibraryHostElement,
-) => void;
+export type IconLibraryFetchErrorHandler = (url: string, status: number, hostElement: IconLibraryHostElement) => void;
 export interface IconLibrary {
   name: string;
   resolver: IconLibraryResolver;
