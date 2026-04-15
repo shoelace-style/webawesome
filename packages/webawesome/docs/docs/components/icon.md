@@ -70,7 +70,7 @@ The default icon library is Font Awesome Free, which comes with two icon familie
 
 Many Font Awesome Pro icon families have variants such as `thin`, `light`, `regular`, and `solid`. Font Awesome Pro users can [provide their kit code](/docs/#using-font-awesome-kit-codes) to unlock additional premium icon families, including `sharp`, `duotone`, `sharp-duotone`, and additional Pro+ icon packs.
 
-For supportive icon families, use the `variant` attribute to set the variant.
+For families that support multiple weights, use the `variant` attribute to set the variant.
 
 ```html {.example}
 <div class="wa-stack wa-gap-xl">
