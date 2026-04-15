@@ -17,7 +17,7 @@ use-cases:
 Web Awesome comes bundled with over 2,000 free icons courtesy of [Font Awesome](https://fontawesome.com/). These icons are part of the `default` icon library. Font Awesome Pro users can unlock additional icon families. Or, if you prefer, you can register your own [custom icon library](#icon-library).
 
 ```html {.example}
-<wa-icon name="face-awesome" variant="light" label="Awesome" style="font-size: 2em;"></wa-icon>
+<wa-icon name="star" label="Star" style="font-size: 2em;"></wa-icon>
 ```
 
 :::info
@@ -116,10 +116,10 @@ Without auto-width<br />
 <div style="font-size: 1.5em; color: #193154;">
   <wa-icon family="solid" name="exclamation" style="background: lightsalmon;"></wa-icon>
   <wa-icon family="solid" name="circle-check" style="background: lightsalmon;"></wa-icon>
-  <wa-icon family="solid" name="input-numeric" style="background: lightsalmon;"></wa-icon>
+  <wa-icon family="solid" name="magnifying-glass" style="background: lightsalmon;"></wa-icon>
   <wa-icon family="solid" name="ruler-vertical" style="background: lightsalmon;"></wa-icon>
   <wa-icon family="solid" name="ruler-horizontal" style="background: lightsalmon;"></wa-icon>
-  <wa-icon family="solid" name="airplay" style="background: lightsalmon;"></wa-icon>
+  <wa-icon family="solid" name="envelope" style="background: lightsalmon;"></wa-icon>
 </div>
 
 <br />
@@ -128,10 +128,10 @@ With auto-width<br />
 <div style="font-size: 1.5em; color: #193154;">
   <wa-icon auto-width family="solid" name="exclamation" style="background: lightsalmon;"></wa-icon>
   <wa-icon auto-width family="solid" name="circle-check" style="background: lightsalmon;"></wa-icon>
-  <wa-icon auto-width family="solid" name="input-numeric" style="background: lightsalmon;"></wa-icon>
+  <wa-icon auto-width family="solid" name="magnifying-glass" style="background: lightsalmon;"></wa-icon>
   <wa-icon auto-width family="solid" name="ruler-vertical" style="background: lightsalmon;"></wa-icon>
   <wa-icon auto-width family="solid" name="ruler-horizontal" style="background: lightsalmon;"></wa-icon>
-  <wa-icon auto-width family="solid" name="airplay" style="background: lightsalmon;"></wa-icon>
+  <wa-icon auto-width family="solid" name="envelope" style="background: lightsalmon;"></wa-icon>
 </div>
 ```
 
@@ -182,7 +182,7 @@ Use the `fade` animation to fade an icon in and out visually to grab attention i
 ```html {.example}
 <wa-icon name="triangle-exclamation" animation="fade" label="Fading Warning" style="font-size: 2em;"></wa-icon>
 <wa-icon name="skull-crossbones" animation="fade" label="Fading Danger" style="font-size: 2em;"></wa-icon>
-<wa-icon name="desktop-arrow-down" animation="fade" label="Fading Download" style="font-size: 2em;"></wa-icon>
+<wa-icon name="cloud-arrow-down" animation="fade" label="Fading Download" style="font-size: 2em;"></wa-icon>
 <wa-icon
   name="i-cursor"
   animation="fade"
@@ -196,13 +196,8 @@ Use the `fade` animation to fade an icon in and out visually to grab attention i
 Use the `beat-fade` animation to grab attention by visually scaling and pulsing an icon in and out.
 
 ```html {.example}
-<wa-icon
-  name="triangle-person-digging"
-  animation="beat-fade"
-  label="Beat-Fading Construction"
-  style="font-size: 2em;"
-></wa-icon>
-<wa-icon name="square-exclamation" animation="beat-fade" label="Beat-Fading Alert" style="font-size: 2em;"></wa-icon>
+<wa-icon name="person-digging" animation="beat-fade" label="Beat-Fading Construction" style="font-size: 2em;"></wa-icon>
+<wa-icon name="circle-exclamation" animation="beat-fade" label="Beat-Fading Alert" style="font-size: 2em;"></wa-icon>
 <wa-icon
   name="poo-bolt"
   animation="beat-fade"
@@ -256,7 +251,7 @@ Use the `flip` animation to rotate an icon in 3D space. By default, flip rotates
 ```html {.example}
 <wa-icon name="compact-disc" animation="flip" label="Flipping Compact Disc" style="font-size: 2em;"></wa-icon>
 <wa-icon name="camera-rotate" animation="flip" label="Flipping Camera Rotate" style="font-size: 2em;"></wa-icon>
-<wa-icon name="cassette-tape" animation="flip" label="Flipping Cassette Tape" style="font-size: 2em;"></wa-icon>
+<wa-icon name="sun" animation="flip" label="Flipping Sun" style="font-size: 2em;"></wa-icon>
 <wa-icon
   name="scroll"
   animation="flip"
@@ -310,12 +305,12 @@ Icons inherit their color from the current text color. Thus, you can set the `co
 
 ```html {.example}
 <div class="wa-cluster" style="font-size: 1.5em;">
-  <wa-icon name="strawberry" style="color: salmon;"></wa-icon>
-  <wa-icon name="crab" style="color: coral;"></wa-icon>
+  <wa-icon name="heart" style="color: salmon;"></wa-icon>
+  <wa-icon name="fire" style="color: coral;"></wa-icon>
   <wa-icon name="sun" style="color: gold;"></wa-icon>
   <wa-icon name="leaf" style="color: mediumseagreen;"></wa-icon>
   <wa-icon name="cloud-showers-heavy" style="color: steelblue;"></wa-icon>
-  <wa-icon name="cat-space" style="color: mediumpurple;"></wa-icon>
+  <wa-icon name="hat-wizard" style="color: mediumpurple;"></wa-icon>
 </div>
 ```
 
