@@ -795,8 +795,42 @@
     background-size: var(--dot-spacing) var(--dot-spacing);
   }
 
+  /* Bottom fade mask; --wa-fade-mask-base on self/ancestor. With background-wa-pattern, masks ::after. */
+  .wa-mask-fade-below:not(.background-wa-pattern),
+  .background-wa-pattern.wa-mask-fade-below::after {
+    --wa-fade-mask-show: var(--wa-fade-mask-base, var(--wa-color-surface-default));
+    --wa-fade-mask-hide: transparent;
+    --wa-fade-mask-fade-start: 60%;
+    --wa-fade-mask-fade-length: 35%;
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      var(--wa-fade-mask-show) 0%,
+      var(--wa-fade-mask-show) var(--wa-fade-mask-fade-start),
+      var(--wa-fade-mask-hide) calc(var(--wa-fade-mask-fade-start) + var(--wa-fade-mask-fade-length))
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      var(--wa-fade-mask-show) 0%,
+      var(--wa-fade-mask-show) var(--wa-fade-mask-fade-start),
+      var(--wa-fade-mask-hide) calc(var(--wa-fade-mask-fade-start) + var(--wa-fade-mask-fade-length))
+    );
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+  }
+
+  @supports (color: rgb(from red r g b)) {
+    .wa-mask-fade-below:not(.background-wa-pattern),
+    .background-wa-pattern.wa-mask-fade-below::after {
+      --wa-fade-mask-show: rgb(from var(--wa-fade-mask-base, var(--wa-color-surface-default)) r g b / 1);
+      --wa-fade-mask-hide: rgb(from var(--wa-fade-mask-base, var(--wa-color-surface-default)) r g b / 0);
+    }
+  }
+
   /* wa illustration background pattern */
   .background-wa-pattern {
+    --background-pattern-size: auto;
     position: relative;
 
     & > * {
@@ -810,6 +844,7 @@
       background-color: var(--background-pattern-color, transparent);
       background-image: var(--background-pattern-image, url('/assets/images/bg-wa-pattern.svg'));
       background-repeat: repeat;
+      background-size: var(--background-pattern-size);
       content: '';
       opacity: var(--background-pattern-opacity, 0.3);
       z-index: 0;
