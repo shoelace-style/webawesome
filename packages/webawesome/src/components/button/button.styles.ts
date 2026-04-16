@@ -226,8 +226,11 @@ export default css`
     aspect-ratio: 1;
   }
 
-  .button.is-icon-button:has(wa-icon) {
+  /* Icon buttons with a caret need to grow to fit both the icon and the caret */
+  .button.is-icon-button.caret {
     width: auto;
+    aspect-ratio: auto;
+    min-width: var(--wa-form-control-height);
   }
 
   /* Pill modifier */
