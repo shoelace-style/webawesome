@@ -1,21 +1,22 @@
-import { aTimeout, elementUpdated, expect, oneEvent, waitUntil } from '@open-wc/testing';
+import { aTimeout, expect, waitUntil } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import type { HTMLTemplateResult } from 'lit';
 import { html } from 'lit';
-import type { WaTabShowEvent } from '../../events/tab-show.js';
-import { queryByTestId } from '../../internal/test/data-testid-helpers.js';
-import { isElementVisibleFromOverflow } from '../../internal/test/element-visible-overflow.js';
+import sinon from 'sinon';
+import { expectEvent } from '../../internal/test/expect-event.js';
 import { clientFixture, fixtures } from '../../internal/test/fixture.js';
 import { clickOnElement } from '../../internal/test/pointer-utilities.js';
-import { waitForScrollingToEnd } from '../../internal/test/wait-for-scrolling.js';
 import type WaTabPanel from '../tab-panel/tab-panel.js';
 import type WaTab from '../tab/tab.js';
 import type WaTabGroup from './tab-group.js';
 
-interface ClientRectangles {
-  body?: DOMRect;
-  navigation?: DOMRect;
-}
+const getActiveTab = (tabGroup: WaTabGroup): WaTab | undefined => {
+  return Array.from(tabGroup.querySelectorAll('wa-tab')).find(tab => tab.active);
+};
+
+const getActivePanel = (tabGroup: WaTabGroup): WaTabPanel | undefined => {
+  return Array.from(tabGroup.querySelectorAll('wa-tab-panel')).find(panel => panel.active);
+};
 
 const waitForScrollButtonsToBeRendered = async (tabGroup: WaTabGroup): Promise<void> => {
   await waitUntil(() => {
@@ -24,204 +25,643 @@ const waitForScrollButtonsToBeRendered = async (tabGroup: WaTabGroup): Promise<v
   });
 };
 
-const getClientRectangles = (tabGroup: WaTabGroup): ClientRectangles => {
-  const shadowRoot = tabGroup.shadowRoot;
-  if (shadowRoot) {
-    const nav = shadowRoot.querySelector<HTMLElement>('[part=nav]');
-    const body = shadowRoot.querySelector<HTMLElement>('[part=body]');
-    return {
-      body: body?.getBoundingClientRect(),
-      navigation: nav?.getBoundingClientRect(),
-    };
+const generateTabs = (n: number): HTMLTemplateResult[] => {
+  const result: HTMLTemplateResult[] = [];
+  for (let i = 0; i < n; i++) {
+    result.push(
+      html`<wa-tab panel="tab-${i}">Tab ${i}</wa-tab> <wa-tab-panel name="tab-${i}">Content of tab ${i}</wa-tab-panel>`,
+    );
   }
-  return {};
-};
-
-const expectHeaderToBeVisible = (container: HTMLElement, dataTestId: string): void => {
-  const generalHeader = queryByTestId<WaTab>(container, dataTestId);
-  expect(generalHeader).not.to.be.null;
-  expect(generalHeader).to.be.visible;
-};
-
-const expectOnlyOneTabPanelToBeActive = async (container: HTMLElement, dataTestIdOfActiveTab: string) => {
-  await waitUntil(() => {
-    const tabPanels = Array.from(container.getElementsByTagName('wa-tab-panel'));
-    const activeTabPanels = tabPanels.filter((element: WaTabPanel) => element.hasAttribute('active'));
-    return activeTabPanels.length === 1;
-  });
-  const tabPanels = Array.from(container.getElementsByTagName('wa-tab-panel'));
-  const activeTabPanels = tabPanels.filter((element: WaTabPanel) => element.hasAttribute('active'));
-  expect(activeTabPanels).to.have.lengthOf(1);
-  expect(activeTabPanels[0]).to.have.attribute('data-testid', dataTestIdOfActiveTab);
-};
-
-const expectPromiseToHaveName = async (showEventPromise: Promise<WaTabShowEvent>, expectedName: string) => {
-  const showEvent = await showEventPromise;
-  expect(showEvent.detail.name).to.equal(expectedName);
-};
-
-const waitForHeaderToBeActive = async (container: HTMLElement, headerTestId: string): Promise<WaTab> => {
-  const generalHeader = queryByTestId<WaTab>(container, headerTestId);
-  await waitUntil(() => {
-    return generalHeader?.hasAttribute('active');
-  });
-  if (generalHeader) {
-    return generalHeader;
-  } else {
-    throw new Error(`did not find error with testid=${headerTestId}`);
-  }
+  return result;
 };
 
 describe('<wa-tab-group>', () => {
   for (const fixture of fixtures) {
     describe(`with "${fixture.type}" rendering`, () => {
-      it('renders', async () => {
-        const tabGroup = await fixture<WaTabGroup>(html`
-          <wa-tab-group>
-            <wa-tab panel="general">General</wa-tab>
-            <wa-tab-panel name="general">This is the general tab panel.</wa-tab-panel>
-          </wa-tab-group>
-        `);
-
-        expect(tabGroup).to.be.visible;
-      });
-
-      it('exposes the default slot inside a [part="body"] wrapper', async () => {
-        const tabGroup = await fixture<WaTabGroup>(html`
-          <wa-tab-group>
-            <wa-tab panel="general">General</wa-tab>
-            <wa-tab-panel name="general">This is the general tab panel.</wa-tab-panel>
-          </wa-tab-group>
-        `);
-        const bodyPart = tabGroup.shadowRoot!.querySelector('[part="body"]');
-        expect(bodyPart?.localName).to.eq('div');
-        expect(bodyPart?.classList.contains('body')).to.be.true;
-        const defaultSlot = bodyPart?.querySelector('slot:not([name])');
-        expect(defaultSlot).to.be.instanceOf(HTMLSlotElement);
-      });
-
-      it('should not throw error when unmounted too fast', async () => {
-        const el = await fixture(html` <div></div> `);
-
-        el.innerHTML = '<sl-tab-group></sl-tab-group>';
-        el.innerHTML = '';
-      });
-
-      it('is accessible', async () => {
-        const tabGroup = await fixture<WaTabGroup>(html`
-          <wa-tab-group>
-            <wa-tab panel="general">General</wa-tab>
-            <wa-tab-panel name="general">This is the general tab panel.</wa-tab-panel>
-          </wa-tab-group>
-        `);
-
-        await expect(tabGroup).to.be.accessible();
-      });
-
-      it('displays all tabs', async () => {
-        const tabGroup = await fixture<WaTabGroup>(html`
-          <wa-tab-group>
-            <wa-tab panel="general" data-testid="general-tab-header">General</wa-tab>
-            <wa-tab panel="disabled" disabled data-testid="disabled-tab-header">Disabled</wa-tab>
-            <wa-tab-panel name="general">This is the general tab panel.</wa-tab-panel>
-            <wa-tab-panel name="disabled">This is a disabled tab panel.</wa-tab-panel>
-          </wa-tab-group>
-        `);
-
-        expectHeaderToBeVisible(tabGroup, 'general-tab-header');
-        expectHeaderToBeVisible(tabGroup, 'disabled-tab-header');
-      });
-
-      it('shows the first tab to be active by default', async () => {
-        const tabGroup = await fixture<WaTabGroup>(html`
-          <wa-tab-group>
-            <wa-tab panel="general">General</wa-tab>
-            <wa-tab panel="custom">Custom</wa-tab>
-            <wa-tab-panel name="general" data-testid="general-tab-content">This is the general tab panel.</wa-tab-panel>
-            <wa-tab-panel name="custom">This is the custom tab panel.</wa-tab-panel>
-          </wa-tab-group>
-        `);
-
-        await expectOnlyOneTabPanelToBeActive(tabGroup, 'general-tab-content');
-      });
-
-      describe('proper positioning', () => {
-        it('shows the header above the tabs by default', async () => {
+      describe('accessibility', () => {
+        it('should be accessible', async () => {
           const tabGroup = await fixture<WaTabGroup>(html`
             <wa-tab-group>
               <wa-tab panel="general">General</wa-tab>
               <wa-tab-panel name="general">This is the general tab panel.</wa-tab-panel>
             </wa-tab-group>
           `);
-
-          await aTimeout(0);
-
-          const clientRectangles = getClientRectangles(tabGroup);
-          expect(clientRectangles.body?.top).to.be.greaterThanOrEqual(clientRectangles.navigation?.bottom || -Infinity);
+          await expect(tabGroup).to.be.accessible();
         });
 
-        it('shows the header below the tabs by setting placement to bottom', async () => {
+        it('should have role="tablist" on the tabs container', async () => {
           const tabGroup = await fixture<WaTabGroup>(html`
             <wa-tab-group>
               <wa-tab panel="general">General</wa-tab>
               <wa-tab-panel name="general">This is the general tab panel.</wa-tab-panel>
             </wa-tab-group>
           `);
-          tabGroup.placement = 'bottom';
-
-          await aTimeout(0);
-
-          const clientRectangles = getClientRectangles(tabGroup);
-          expect(clientRectangles.body?.bottom).to.be.lessThanOrEqual(clientRectangles.navigation?.top || +Infinity);
+          const tablist = tabGroup.shadowRoot!.querySelector('[role="tablist"]');
+          expect(tablist).to.exist;
         });
 
-        it('shows the header left of the tabs by setting placement to start', async () => {
+        it('should set aria-controls on tabs and aria-labelledby on panels', async () => {
           const tabGroup = await fixture<WaTabGroup>(html`
             <wa-tab-group>
               <wa-tab panel="general">General</wa-tab>
-              <wa-tab-panel name="general">This is the general tab panel.</wa-tab-panel>
+              <wa-tab panel="custom">Custom</wa-tab>
+              <wa-tab-panel name="general">General content</wa-tab-panel>
+              <wa-tab-panel name="custom">Custom content</wa-tab-panel>
             </wa-tab-group>
           `);
-          tabGroup.placement = 'start';
 
-          await aTimeout(0);
+          const tabs = tabGroup.querySelectorAll('wa-tab');
+          const panels = tabGroup.querySelectorAll('wa-tab-panel');
 
-          const clientRectangles = getClientRectangles(tabGroup);
-          expect(clientRectangles.body?.left).to.be.greaterThanOrEqual(clientRectangles.navigation?.right || -Infinity);
+          // Wait for syncTabsAndPanels to assign ARIA attributes
+          await waitUntil(() => tabs[0].getAttribute('aria-controls') !== null);
+
+          // Each tab should have aria-controls pointing to its panel
+          tabs.forEach(tab => {
+            expect(tab.getAttribute('aria-controls')).to.not.be.null;
+          });
+
+          // Each panel should have aria-labelledby pointing to its tab
+          panels.forEach(panel => {
+            expect(panel.getAttribute('aria-labelledby')).to.not.be.null;
+          });
+        });
+      });
+
+      describe('properties', () => {
+        it('should default placement to top', async () => {
+          const tabGroup = await fixture<WaTabGroup>(html`
+            <wa-tab-group>
+              <wa-tab panel="general">General</wa-tab>
+              <wa-tab-panel name="general">Content</wa-tab-panel>
+            </wa-tab-group>
+          `);
+          expect(tabGroup.placement).to.equal('top');
         });
 
-        it('shows the header right of the tabs by setting placement to end', async () => {
+        it('should default activation to auto', async () => {
           const tabGroup = await fixture<WaTabGroup>(html`
             <wa-tab-group>
               <wa-tab panel="general">General</wa-tab>
-              <wa-tab-panel name="general">This is the general tab panel.</wa-tab-panel>
+              <wa-tab-panel name="general">Content</wa-tab-panel>
             </wa-tab-group>
           `);
-          tabGroup.placement = 'end';
+          expect(tabGroup.activation).to.equal('auto');
+        });
 
+        it('should default withoutScrollControls to false', async () => {
+          const tabGroup = await fixture<WaTabGroup>(html`
+            <wa-tab-group>
+              <wa-tab panel="general">General</wa-tab>
+              <wa-tab-panel name="general">Content</wa-tab-panel>
+            </wa-tab-group>
+          `);
+          expect(tabGroup.withoutScrollControls).to.be.false;
+        });
+
+        it('should reflect the active property', async () => {
+          const tabGroup = await fixture<WaTabGroup>(html`
+            <wa-tab-group>
+              <wa-tab panel="general">General</wa-tab>
+              <wa-tab panel="custom">Custom</wa-tab>
+              <wa-tab-panel name="general">General content</wa-tab-panel>
+              <wa-tab-panel name="custom">Custom content</wa-tab-panel>
+            </wa-tab-group>
+          `);
+
+          await waitUntil(() => getActiveTab(tabGroup));
+          tabGroup.active = 'custom';
+          await tabGroup.updateComplete;
+          expect(tabGroup.getAttribute('active')).to.equal('custom');
+        });
+
+        it('should show the first tab as active by default', async () => {
+          const tabGroup = await fixture<WaTabGroup>(html`
+            <wa-tab-group>
+              <wa-tab panel="general">General</wa-tab>
+              <wa-tab panel="custom">Custom</wa-tab>
+              <wa-tab-panel name="general">General content</wa-tab-panel>
+              <wa-tab-panel name="custom">Custom content</wa-tab-panel>
+            </wa-tab-group>
+          `);
+
+          await waitUntil(() => getActiveTab(tabGroup));
+          const activeTab = getActiveTab(tabGroup);
+          expect(activeTab).to.exist;
+          expect(activeTab!.panel).to.equal('general');
+        });
+
+        it('should show the specified tab when active is set initially', async () => {
+          const tabGroup = await fixture<WaTabGroup>(html`
+            <wa-tab-group active="custom">
+              <wa-tab panel="general">General</wa-tab>
+              <wa-tab panel="custom">Custom</wa-tab>
+              <wa-tab-panel name="general">General content</wa-tab-panel>
+              <wa-tab-panel name="custom">Custom content</wa-tab-panel>
+            </wa-tab-group>
+          `);
+
+          await waitUntil(() => {
+            const active = getActiveTab(tabGroup);
+            return active?.panel === 'custom';
+          });
+          const activeTab = getActiveTab(tabGroup);
+          expect(activeTab!.panel).to.equal('custom');
+        });
+      });
+
+      describe('events', () => {
+        it('should emit wa-tab-show and wa-tab-hide when clicking a tab', async () => {
+          const tabGroup = await fixture<WaTabGroup>(html`
+            <wa-tab-group>
+              <wa-tab panel="general">General</wa-tab>
+              <wa-tab panel="custom">Custom</wa-tab>
+              <wa-tab-panel name="general">General content</wa-tab-panel>
+              <wa-tab-panel name="custom">Custom content</wa-tab-panel>
+            </wa-tab-group>
+          `);
+
+          await waitUntil(() => getActiveTab(tabGroup));
+          const customTab = tabGroup.querySelectorAll('wa-tab')[1];
+
+          const events = await expectEvent(tabGroup, ['wa-tab-hide', 'wa-tab-show'], () => clickOnElement(customTab));
+
+          const hideEvent = events[0] as CustomEvent;
+          const showEvent = events[1] as CustomEvent;
+          expect(hideEvent.detail.name).to.equal('general');
+          expect(showEvent.detail.name).to.equal('custom');
+        });
+
+        it('should emit wa-tab-show when setting active programmatically', async () => {
+          const tabGroup = await fixture<WaTabGroup>(html`
+            <wa-tab-group>
+              <wa-tab panel="general">General</wa-tab>
+              <wa-tab panel="custom">Custom</wa-tab>
+              <wa-tab-panel name="general">General content</wa-tab-panel>
+              <wa-tab-panel name="custom">Custom content</wa-tab-panel>
+            </wa-tab-group>
+          `);
+
+          await waitUntil(() => getActiveTab(tabGroup));
+
+          const events = await expectEvent(tabGroup, 'wa-tab-show', () => {
+            tabGroup.active = 'custom';
+          });
+          const showEvent = events[0] as CustomEvent;
+          expect(showEvent.detail.name).to.equal('custom');
+        });
+
+        it('should not emit events when clicking the already-active tab', async () => {
+          const tabGroup = await fixture<WaTabGroup>(html`
+            <wa-tab-group>
+              <wa-tab panel="general">General</wa-tab>
+              <wa-tab panel="custom">Custom</wa-tab>
+              <wa-tab-panel name="general">General content</wa-tab-panel>
+              <wa-tab-panel name="custom">Custom content</wa-tab-panel>
+            </wa-tab-group>
+          `);
+
+          await waitUntil(() => getActiveTab(tabGroup));
+
+          const showSpy = sinon.spy();
+          const hideSpy = sinon.spy();
+          tabGroup.addEventListener('wa-tab-show', showSpy);
+          tabGroup.addEventListener('wa-tab-hide', hideSpy);
+
+          const generalTab = tabGroup.querySelectorAll('wa-tab')[0];
+          await clickOnElement(generalTab);
           await aTimeout(0);
 
-          const clientRectangles = getClientRectangles(tabGroup);
-          expect(clientRectangles.body?.right).to.be.lessThanOrEqual(clientRectangles.navigation?.left || -Infinity);
+          expect(showSpy).not.to.have.been.called;
+          expect(hideSpy).not.to.have.been.called;
+        });
+
+        it('should not emit events when clicking a disabled tab', async () => {
+          const tabGroup = await fixture<WaTabGroup>(html`
+            <wa-tab-group>
+              <wa-tab panel="general">General</wa-tab>
+              <wa-tab panel="disabled" disabled>Disabled</wa-tab>
+              <wa-tab-panel name="general">General content</wa-tab-panel>
+              <wa-tab-panel name="disabled">Disabled content</wa-tab-panel>
+            </wa-tab-group>
+          `);
+
+          await waitUntil(() => getActiveTab(tabGroup));
+
+          const showSpy = sinon.spy();
+          const hideSpy = sinon.spy();
+          tabGroup.addEventListener('wa-tab-show', showSpy);
+          tabGroup.addEventListener('wa-tab-hide', hideSpy);
+
+          const disabledTab = tabGroup.querySelectorAll('wa-tab')[1];
+          await clickOnElement(disabledTab);
+          await aTimeout(0);
+
+          expect(showSpy).not.to.have.been.called;
+          expect(hideSpy).not.to.have.been.called;
+        });
+
+        it('should emit wa-tab-show via the active property on a tab', async () => {
+          const tabGroup = await fixture<WaTabGroup>(html`
+            <wa-tab-group>
+              <wa-tab slot="nav" panel="general">General</wa-tab>
+              <wa-tab slot="nav" panel="custom">Custom</wa-tab>
+              <wa-tab-panel name="general">General content</wa-tab-panel>
+              <wa-tab-panel name="custom">Custom content</wa-tab-panel>
+            </wa-tab-group>
+          `);
+
+          await waitUntil(() => getActiveTab(tabGroup));
+
+          const customTab = tabGroup.querySelectorAll('wa-tab')[1];
+
+          const events = await expectEvent(tabGroup, 'wa-tab-show', () => {
+            customTab.active = true;
+          });
+          const showEvent = events[0] as CustomEvent;
+          expect(showEvent.detail.name).to.equal('custom');
+        });
+      });
+
+      describe('slots', () => {
+        it('should render tabs in the nav slot', async () => {
+          const tabGroup = await fixture<WaTabGroup>(html`
+            <wa-tab-group>
+              <wa-tab panel="general">General</wa-tab>
+              <wa-tab panel="custom">Custom</wa-tab>
+              <wa-tab-panel name="general">General content</wa-tab-panel>
+              <wa-tab-panel name="custom">Custom content</wa-tab-panel>
+            </wa-tab-group>
+          `);
+
+          const tabs = tabGroup.querySelectorAll('wa-tab');
+          expect(tabs).to.have.length(2);
+          tabs.forEach(tab => expect(tab).to.be.visible);
+        });
+
+        it('should render tab panels in the default slot', async () => {
+          const tabGroup = await fixture<WaTabGroup>(html`
+            <wa-tab-group>
+              <wa-tab panel="general">General</wa-tab>
+              <wa-tab-panel name="general">General content</wa-tab-panel>
+            </wa-tab-group>
+          `);
+
+          const bodyPart = tabGroup.shadowRoot!.querySelector('[part="body"]');
+          expect(bodyPart).to.exist;
+          const defaultSlot = bodyPart?.querySelector('slot:not([name])');
+          expect(defaultSlot).to.be.instanceOf(HTMLSlotElement);
+        });
+      });
+
+      describe('keyboard navigation', () => {
+        it('should select the next tab with ArrowRight', async () => {
+          const tabGroup = await fixture<WaTabGroup>(html`
+            <wa-tab-group>
+              <wa-tab panel="general">General</wa-tab>
+              <wa-tab panel="custom">Custom</wa-tab>
+              <wa-tab-panel name="general">General content</wa-tab-panel>
+              <wa-tab-panel name="custom">Custom content</wa-tab-panel>
+            </wa-tab-group>
+          `);
+
+          await waitUntil(() => getActiveTab(tabGroup));
+          const generalTab = tabGroup.querySelectorAll('wa-tab')[0];
+          generalTab.focus();
+
+          const events = await expectEvent(tabGroup, 'wa-tab-show', () => sendKeys({ press: 'ArrowRight' }));
+          const showEvent = events[0] as CustomEvent;
+          expect(showEvent.detail.name).to.equal('custom');
+        });
+
+        it('should select the previous tab with ArrowLeft', async () => {
+          const tabGroup = await fixture<WaTabGroup>(html`
+            <wa-tab-group>
+              <wa-tab panel="general">General</wa-tab>
+              <wa-tab panel="custom">Custom</wa-tab>
+              <wa-tab-panel name="general">General content</wa-tab-panel>
+              <wa-tab-panel name="custom">Custom content</wa-tab-panel>
+            </wa-tab-group>
+          `);
+
+          await waitUntil(() => getActiveTab(tabGroup));
+
+          // Activate custom tab first
+          tabGroup.active = 'custom';
+          await waitUntil(() => getActiveTab(tabGroup)?.panel === 'custom');
+          const customTab = tabGroup.querySelectorAll('wa-tab')[1];
+          customTab.focus();
+
+          const events = await expectEvent(tabGroup, 'wa-tab-show', () => sendKeys({ press: 'ArrowLeft' }));
+          const showEvent = events[0] as CustomEvent;
+          expect(showEvent.detail.name).to.equal('general');
+        });
+
+        it('should wrap around when pressing ArrowRight on the last tab', async () => {
+          const tabGroup = await fixture<WaTabGroup>(html`
+            <wa-tab-group>
+              <wa-tab panel="general">General</wa-tab>
+              <wa-tab panel="custom">Custom</wa-tab>
+              <wa-tab-panel name="general">General content</wa-tab-panel>
+              <wa-tab-panel name="custom">Custom content</wa-tab-panel>
+            </wa-tab-group>
+          `);
+
+          await waitUntil(() => getActiveTab(tabGroup));
+
+          // Activate the last tab
+          tabGroup.active = 'custom';
+          await waitUntil(() => getActiveTab(tabGroup)?.panel === 'custom');
+          const customTab = tabGroup.querySelectorAll('wa-tab')[1];
+          customTab.focus();
+
+          const events = await expectEvent(tabGroup, 'wa-tab-show', () => sendKeys({ press: 'ArrowRight' }));
+          const showEvent = events[0] as CustomEvent;
+          expect(showEvent.detail.name).to.equal('general');
+        });
+
+        it('should select the first tab with Home', async () => {
+          const tabGroup = await fixture<WaTabGroup>(html`
+            <wa-tab-group>
+              <wa-tab panel="general">General</wa-tab>
+              <wa-tab panel="custom">Custom</wa-tab>
+              <wa-tab panel="advanced">Advanced</wa-tab>
+              <wa-tab-panel name="general">General content</wa-tab-panel>
+              <wa-tab-panel name="custom">Custom content</wa-tab-panel>
+              <wa-tab-panel name="advanced">Advanced content</wa-tab-panel>
+            </wa-tab-group>
+          `);
+
+          await waitUntil(() => getActiveTab(tabGroup));
+
+          // Activate the last tab
+          tabGroup.active = 'advanced';
+          await waitUntil(() => getActiveTab(tabGroup)?.panel === 'advanced');
+          const advancedTab = tabGroup.querySelectorAll('wa-tab')[2];
+          advancedTab.focus();
+
+          const events = await expectEvent(tabGroup, 'wa-tab-show', () => sendKeys({ press: 'Home' }));
+          const showEvent = events[0] as CustomEvent;
+          expect(showEvent.detail.name).to.equal('general');
+        });
+
+        it('should select the last tab with End', async () => {
+          const tabGroup = await fixture<WaTabGroup>(html`
+            <wa-tab-group>
+              <wa-tab panel="general">General</wa-tab>
+              <wa-tab panel="custom">Custom</wa-tab>
+              <wa-tab panel="advanced">Advanced</wa-tab>
+              <wa-tab-panel name="general">General content</wa-tab-panel>
+              <wa-tab-panel name="custom">Custom content</wa-tab-panel>
+              <wa-tab-panel name="advanced">Advanced content</wa-tab-panel>
+            </wa-tab-group>
+          `);
+
+          await waitUntil(() => getActiveTab(tabGroup));
+          const generalTab = tabGroup.querySelectorAll('wa-tab')[0];
+          generalTab.focus();
+
+          const events = await expectEvent(tabGroup, 'wa-tab-show', () => sendKeys({ press: 'End' }));
+          const showEvent = events[0] as CustomEvent;
+          expect(showEvent.detail.name).to.equal('advanced');
+        });
+
+        it('should skip disabled tabs with arrow keys', async () => {
+          const tabGroup = await fixture<WaTabGroup>(html`
+            <wa-tab-group>
+              <wa-tab panel="general">General</wa-tab>
+              <wa-tab panel="disabled" disabled>Disabled</wa-tab>
+              <wa-tab panel="custom">Custom</wa-tab>
+              <wa-tab-panel name="general">General content</wa-tab-panel>
+              <wa-tab-panel name="disabled">Disabled content</wa-tab-panel>
+              <wa-tab-panel name="custom">Custom content</wa-tab-panel>
+            </wa-tab-group>
+          `);
+
+          await waitUntil(() => getActiveTab(tabGroup));
+          const generalTab = tabGroup.querySelectorAll('wa-tab')[0];
+          generalTab.focus();
+
+          const events = await expectEvent(tabGroup, 'wa-tab-show', () => sendKeys({ press: 'ArrowRight' }));
+          const showEvent = events[0] as CustomEvent;
+          expect(showEvent.detail.name).to.equal('custom');
+        });
+
+        it('should only focus but not activate tabs with arrow keys in manual activation mode', async () => {
+          const tabGroup = await fixture<WaTabGroup>(html`
+            <wa-tab-group activation="manual">
+              <wa-tab panel="general">General</wa-tab>
+              <wa-tab panel="custom">Custom</wa-tab>
+              <wa-tab-panel name="general">General content</wa-tab-panel>
+              <wa-tab-panel name="custom">Custom content</wa-tab-panel>
+            </wa-tab-group>
+          `);
+
+          await waitUntil(() => getActiveTab(tabGroup));
+          const generalTab = tabGroup.querySelectorAll('wa-tab')[0];
+          generalTab.focus();
+
+          // Arrow should move focus but not activate
+          const showSpy = sinon.spy();
+          tabGroup.addEventListener('wa-tab-show', showSpy);
+          await sendKeys({ press: 'ArrowRight' });
+          await aTimeout(0);
+
+          // The general tab should still be active
+          expect(getActiveTab(tabGroup)!.panel).to.equal('general');
+          expect(showSpy).not.to.have.been.called;
+
+          // Now press Enter to activate the focused tab
+          const events = await expectEvent(tabGroup, 'wa-tab-show', () => sendKeys({ press: 'Enter' }));
+          const showEvent = events[0] as CustomEvent;
+          expect(showEvent.detail.name).to.equal('custom');
+        });
+
+        it('should activate a tab with Space in manual mode', async () => {
+          const tabGroup = await fixture<WaTabGroup>(html`
+            <wa-tab-group activation="manual">
+              <wa-tab panel="general">General</wa-tab>
+              <wa-tab panel="custom">Custom</wa-tab>
+              <wa-tab-panel name="general">General content</wa-tab-panel>
+              <wa-tab-panel name="custom">Custom content</wa-tab-panel>
+            </wa-tab-group>
+          `);
+
+          await waitUntil(() => getActiveTab(tabGroup));
+          const generalTab = tabGroup.querySelectorAll('wa-tab')[0];
+          generalTab.focus();
+
+          // Move focus without activating
+          await sendKeys({ press: 'ArrowRight' });
+          await aTimeout(0);
+
+          // Now activate with Space
+          const events = await expectEvent(tabGroup, 'wa-tab-show', () => sendKeys({ press: ' ' }));
+          const showEvent = events[0] as CustomEvent;
+          expect(showEvent.detail.name).to.equal('custom');
+        });
+
+        it('should use ArrowUp/ArrowDown for start/end placement', async () => {
+          const tabGroup = await fixture<WaTabGroup>(html`
+            <wa-tab-group placement="start">
+              <wa-tab panel="general">General</wa-tab>
+              <wa-tab panel="custom">Custom</wa-tab>
+              <wa-tab-panel name="general">General content</wa-tab-panel>
+              <wa-tab-panel name="custom">Custom content</wa-tab-panel>
+            </wa-tab-group>
+          `);
+
+          await waitUntil(() => getActiveTab(tabGroup));
+          const generalTab = tabGroup.querySelectorAll('wa-tab')[0];
+          generalTab.focus();
+
+          const events = await expectEvent(tabGroup, 'wa-tab-show', () => sendKeys({ press: 'ArrowDown' }));
+          const showEvent = events[0] as CustomEvent;
+          expect(showEvent.detail.name).to.equal('custom');
+        });
+      });
+
+      describe('tab selection', () => {
+        it('should select a tab by clicking on it', async () => {
+          const tabGroup = await fixture<WaTabGroup>(html`
+            <wa-tab-group>
+              <wa-tab panel="general">General</wa-tab>
+              <wa-tab panel="custom">Custom</wa-tab>
+              <wa-tab-panel name="general">General content</wa-tab-panel>
+              <wa-tab-panel name="custom">Custom content</wa-tab-panel>
+            </wa-tab-group>
+          `);
+
+          await waitUntil(() => getActiveTab(tabGroup));
+          const customTab = tabGroup.querySelectorAll('wa-tab')[1];
+          await clickOnElement(customTab);
+
+          await waitUntil(() => getActiveTab(tabGroup)?.panel === 'custom');
+          expect(getActiveTab(tabGroup)!.panel).to.equal('custom');
+          expect(getActivePanel(tabGroup)!.name).to.equal('custom');
+        });
+
+        it('should select a tab by setting the active property', async () => {
+          const tabGroup = await fixture<WaTabGroup>(html`
+            <wa-tab-group>
+              <wa-tab panel="general">General</wa-tab>
+              <wa-tab panel="custom">Custom</wa-tab>
+              <wa-tab-panel name="general">General content</wa-tab-panel>
+              <wa-tab-panel name="custom">Custom content</wa-tab-panel>
+            </wa-tab-group>
+          `);
+
+          await waitUntil(() => getActiveTab(tabGroup));
+
+          tabGroup.active = 'custom';
+          await waitUntil(() => getActiveTab(tabGroup)?.panel === 'custom');
+          expect(getActiveTab(tabGroup)!.panel).to.equal('custom');
+        });
+
+        it('should not change if a disabled tab is clicked', async () => {
+          const tabGroup = await fixture<WaTabGroup>(html`
+            <wa-tab-group>
+              <wa-tab panel="general">General</wa-tab>
+              <wa-tab panel="disabled" disabled>Disabled</wa-tab>
+              <wa-tab-panel name="general">General content</wa-tab-panel>
+              <wa-tab-panel name="disabled">Disabled content</wa-tab-panel>
+            </wa-tab-group>
+          `);
+
+          await waitUntil(() => getActiveTab(tabGroup));
+
+          const disabledTab = tabGroup.querySelectorAll('wa-tab')[1];
+          await clickOnElement(disabledTab);
+          await aTimeout(0);
+
+          expect(getActiveTab(tabGroup)!.panel).to.equal('general');
+        });
+
+        it('should only show one active panel at a time', async () => {
+          const tabGroup = await fixture<WaTabGroup>(html`
+            <wa-tab-group>
+              <wa-tab panel="general">General</wa-tab>
+              <wa-tab panel="custom">Custom</wa-tab>
+              <wa-tab panel="advanced">Advanced</wa-tab>
+              <wa-tab-panel name="general">General content</wa-tab-panel>
+              <wa-tab-panel name="custom">Custom content</wa-tab-panel>
+              <wa-tab-panel name="advanced">Advanced content</wa-tab-panel>
+            </wa-tab-group>
+          `);
+
+          await waitUntil(() => getActiveTab(tabGroup));
+
+          const activePanels = () => Array.from(tabGroup.querySelectorAll('wa-tab-panel')).filter(p => p.active);
+
+          expect(activePanels()).to.have.length(1);
+
+          tabGroup.active = 'custom';
+          await waitUntil(() => getActiveTab(tabGroup)?.panel === 'custom');
+          expect(activePanels()).to.have.length(1);
+          expect(activePanels()[0].name).to.equal('custom');
+        });
+      });
+
+      describe('placement', () => {
+        it('should show the nav above the body by default (top)', async () => {
+          const tabGroup = await fixture<WaTabGroup>(html`
+            <wa-tab-group>
+              <wa-tab panel="general">General</wa-tab>
+              <wa-tab-panel name="general">Content</wa-tab-panel>
+            </wa-tab-group>
+          `);
+
+          await aTimeout(0);
+          const nav = tabGroup.shadowRoot!.querySelector<HTMLElement>('[part=nav]')!;
+          const body = tabGroup.shadowRoot!.querySelector<HTMLElement>('[part=body]')!;
+          expect(body.getBoundingClientRect().top).to.be.greaterThanOrEqual(nav.getBoundingClientRect().bottom);
+        });
+
+        it('should show the nav below the body when placement is bottom', async () => {
+          const tabGroup = await fixture<WaTabGroup>(html`
+            <wa-tab-group placement="bottom">
+              <wa-tab panel="general">General</wa-tab>
+              <wa-tab-panel name="general">Content</wa-tab-panel>
+            </wa-tab-group>
+          `);
+
+          await aTimeout(0);
+          const nav = tabGroup.shadowRoot!.querySelector<HTMLElement>('[part=nav]')!;
+          const body = tabGroup.shadowRoot!.querySelector<HTMLElement>('[part=body]')!;
+          expect(body.getBoundingClientRect().bottom).to.be.lessThanOrEqual(nav.getBoundingClientRect().top);
+        });
+
+        it('should show the nav to the left of the body when placement is start', async () => {
+          const tabGroup = await fixture<WaTabGroup>(html`
+            <wa-tab-group placement="start">
+              <wa-tab panel="general">General</wa-tab>
+              <wa-tab-panel name="general">Content</wa-tab-panel>
+            </wa-tab-group>
+          `);
+
+          await aTimeout(0);
+          const nav = tabGroup.shadowRoot!.querySelector<HTMLElement>('[part=nav]')!;
+          const body = tabGroup.shadowRoot!.querySelector<HTMLElement>('[part=body]')!;
+          expect(body.getBoundingClientRect().left).to.be.greaterThanOrEqual(nav.getBoundingClientRect().right);
+        });
+
+        it('should show the nav to the right of the body when placement is end', async () => {
+          const tabGroup = await fixture<WaTabGroup>(html`
+            <wa-tab-group placement="end">
+              <wa-tab panel="general">General</wa-tab>
+              <wa-tab-panel name="general">Content</wa-tab-panel>
+            </wa-tab-group>
+          `);
+
+          await aTimeout(0);
+          const nav = tabGroup.shadowRoot!.querySelector<HTMLElement>('[part=nav]')!;
+          const body = tabGroup.shadowRoot!.querySelector<HTMLElement>('[part=body]')!;
+          expect(body.getBoundingClientRect().right).to.be.lessThanOrEqual(nav.getBoundingClientRect().left);
         });
       });
 
       describe('scrolling behavior', () => {
-        const generateTabs = (n: number): HTMLTemplateResult[] => {
-          const result: HTMLTemplateResult[] = [];
-          for (let i = 0; i < n; i++) {
-            result.push(
-              html`<wa-tab panel="tab-${i}">Tab ${i}</wa-tab>
-                <wa-tab-panel name="tab-${i}">Content of tab ${i}0</wa-tab-panel> `,
-            );
-          }
-          return result;
-        };
-
         before(() => {
-          // disabling failing on resize observer ... unfortunately on webkit this is not really specific
-          // https://github.com/WICG/resize-observer/issues/38#issuecomment-422126006
-          // https://stackoverflow.com/a/64197640
           const errorHandler = window.onerror;
           window.onerror = (
             event: string | Event,
@@ -241,276 +681,79 @@ describe('<wa-tab-group>', () => {
           };
         });
 
-        it('shows scroll buttons on too many tabs', async () => {
-          // @TODO: Investigate why this fails with hydratedFixture (generateTabs()) [Konnor]
-          // https://github.com/lit/lit/issues/4739
-          const tabGroup = await clientFixture<WaTabGroup>(html`<wa-tab-group> ${generateTabs(30)} </wa-tab-group>`);
-
+        it('should show scroll buttons when tabs overflow', async () => {
+          const tabGroup = await clientFixture<WaTabGroup>(html`<wa-tab-group>${generateTabs(30)}</wa-tab-group>`);
           await waitForScrollButtonsToBeRendered(tabGroup);
 
           const scrollButtons = tabGroup.shadowRoot?.querySelectorAll('wa-button');
-          expect(scrollButtons, 'Both scroll buttons should be shown').to.have.length(2);
-
+          expect(scrollButtons).to.have.length(2);
           tabGroup.disconnectedCallback();
         });
 
-        it('does not show scroll buttons on too many tabs if deactivated', async () => {
-          // @TODO: Investigate why this fails with hydratedFixture (generateTabs()) [Konnor]
-          // https://github.com/lit/lit/issues/4739
-          const tabGroup = await clientFixture<WaTabGroup>(html`<wa-tab-group> ${generateTabs(30)} </wa-tab-group>`);
+        it('should not show scroll buttons when withoutScrollControls is true', async () => {
+          const tabGroup = await clientFixture<WaTabGroup>(html`<wa-tab-group>${generateTabs(30)}</wa-tab-group>`);
           tabGroup.withoutScrollControls = true;
-
           await aTimeout(0);
 
           const scrollButtons = tabGroup.shadowRoot?.querySelectorAll('wa-button');
           expect(scrollButtons).to.have.length(0);
         });
 
-        it('does not show scroll buttons if all tabs fit on the screen', async () => {
-          // @TODO: Investigate why this fails with hydratedFixture (generateTabs()) [Konnor]
-          // https://github.com/lit/lit/issues/4739
-          const tabGroup = await clientFixture<WaTabGroup>(html`<wa-tab-group> ${generateTabs(2)} </wa-tab-group>`);
-
+        it('should not show scroll buttons when all tabs fit', async () => {
+          const tabGroup = await clientFixture<WaTabGroup>(html`<wa-tab-group>${generateTabs(2)}</wa-tab-group>`);
           await aTimeout(0);
 
           const scrollButtons = tabGroup.shadowRoot?.querySelectorAll('wa-button');
           expect(scrollButtons).to.have.length(0);
-        });
-
-        // TODO - this fails sporadically, likely due to a timing issue. It tests fine manually.
-        it.skip('does not show scroll buttons if placement is start', async () => {
-          const tabGroup = await fixture<WaTabGroup>(html`<wa-tab-group> ${generateTabs(50)} </wa-tab-group>`);
-          tabGroup.placement = 'start';
-
-          await aTimeout(0);
-
-          const scrollButtons = tabGroup.shadowRoot?.querySelectorAll('wa-button');
-          expect(scrollButtons).to.have.length(0);
-        });
-
-        // TODO - this fails sporadically, likely due to a timing issue. It tests fine manually.
-        it.skip('does not show scroll buttons if placement is end', async () => {
-          const tabGroup = await fixture<WaTabGroup>(html`<wa-tab-group> ${generateTabs(50)} </wa-tab-group>`);
-          tabGroup.placement = 'end';
-
-          await aTimeout(0);
-
-          const scrollButtons = tabGroup.shadowRoot?.querySelectorAll('wa-button');
-          expect(scrollButtons).to.have.length(0);
-        });
-
-        // TODO - this fails sporadically, likely due to a timing issue. It tests fine manually.
-        it.skip('does scroll on scroll button click', async () => {
-          const numberOfElements = 15;
-          const tabGroup = await fixture<WaTabGroup>(
-            html`<wa-tab-group> ${generateTabs(numberOfElements)} </wa-tab-group>`,
-          );
-
-          await waitForScrollButtonsToBeRendered(tabGroup);
-          const scrollButtons = tabGroup.shadowRoot?.querySelectorAll('wa-button');
-          expect(scrollButtons).to.have.length(2);
-
-          const firstTab = tabGroup.querySelector('[panel="tab-0"]');
-          expect(firstTab).not.to.be.null;
-          const lastTab = tabGroup.querySelector(`[panel="tab-${numberOfElements - 1}"]`);
-          expect(lastTab).not.to.be.null;
-          expect(isElementVisibleFromOverflow(tabGroup, firstTab!)).to.be.true;
-          expect(isElementVisibleFromOverflow(tabGroup, lastTab!)).to.be.false;
-
-          const scrollToRightButton = tabGroup.shadowRoot?.querySelector('wa-button[part*="scroll-button-end"]');
-          expect(scrollToRightButton).not.to.be.null;
-          await clickOnElement(scrollToRightButton!);
-
-          await elementUpdated(tabGroup);
-          await waitForScrollingToEnd(firstTab!);
-          await waitForScrollingToEnd(lastTab!);
-
-          expect(isElementVisibleFromOverflow(tabGroup, firstTab!)).to.be.false;
-          expect(isElementVisibleFromOverflow(tabGroup, lastTab!)).to.be.true;
         });
       });
 
-      describe('tab selection', () => {
-        const expectCustomTabToBeActiveAfter = async (
-          tabGroup: WaTabGroup,
-          action: () => Promise<void>,
-        ): Promise<void> => {
-          const generalHeader = await waitForHeaderToBeActive(tabGroup, 'general-header');
-          generalHeader.focus();
-
-          const customHeader = queryByTestId<WaTab>(tabGroup, 'custom-header');
-          expect(customHeader).not.to.have.attribute('active');
-
-          const showEventPromise = oneEvent(tabGroup, 'wa-tab-show') as Promise<WaTabShowEvent>;
-          await action();
-
-          expect(customHeader).to.have.attribute('active');
-          await expectPromiseToHaveName(showEventPromise, 'custom');
-          return expectOnlyOneTabPanelToBeActive(tabGroup, 'custom-tab-content');
-        };
-
-        const expectGeneralTabToBeStillActiveAfter = async (
-          tabGroup: WaTabGroup,
-          action: () => Promise<void>,
-        ): Promise<void> => {
-          const generalHeader = await waitForHeaderToBeActive(tabGroup, 'general-header');
-          generalHeader.focus();
-
-          let showEventFired = false;
-          let hideEventFired = false;
-          oneEvent(tabGroup, 'wa-tab-show').then(() => (showEventFired = true));
-          oneEvent(tabGroup, 'wa-tab-hide').then(() => (hideEventFired = true));
-          await action();
-
-          expect(generalHeader).to.have.attribute('active');
-          expect(showEventFired).to.be.false;
-          expect(hideEventFired).to.be.false;
-          return expectOnlyOneTabPanelToBeActive(tabGroup, 'general-tab-content');
-        };
-
-        it('selects a tab by clicking on it', async () => {
+      describe('CSS parts and states', () => {
+        it('should expose the base part', async () => {
           const tabGroup = await fixture<WaTabGroup>(html`
             <wa-tab-group>
-              <wa-tab panel="general" data-testid="general-header">General</wa-tab>
-              <wa-tab panel="custom" data-testid="custom-header">Custom</wa-tab>
-              <wa-tab-panel name="general">This is the general tab panel.</wa-tab-panel>
-              <wa-tab-panel name="custom" data-testid="custom-tab-content">This is the custom tab panel.</wa-tab-panel>
+              <wa-tab panel="general">General</wa-tab>
+              <wa-tab-panel name="general">Content</wa-tab-panel>
             </wa-tab-group>
           `);
-
-          const customHeader = queryByTestId<WaTab>(tabGroup, 'custom-header');
-          return expectCustomTabToBeActiveAfter(tabGroup, () => clickOnElement(customHeader!));
+          expect(tabGroup.shadowRoot!.querySelector('[part~="base"]')).to.exist;
         });
 
-        it('selects a tab by changing it via active property', async () => {
+        it('should expose the nav part', async () => {
           const tabGroup = await fixture<WaTabGroup>(html`
             <wa-tab-group>
-              <wa-tab slot="nav" panel="general" data-testid="general-header">General</wa-tab>
-              <wa-tab slot="nav" panel="custom" data-testid="custom-header">Custom</wa-tab>
-              <wa-tab-panel name="general">This is the general tab panel.</wa-tab-panel>
-              <wa-tab-panel name="custom" data-testid="custom-tab-content">This is the custom tab panel.</wa-tab-panel>
+              <wa-tab panel="general">General</wa-tab>
+              <wa-tab-panel name="general">Content</wa-tab-panel>
             </wa-tab-group>
           `);
-
-          const customHeader = queryByTestId<WaTab>(tabGroup, 'custom-header')!;
-          const generalHeader = await waitForHeaderToBeActive(tabGroup, 'general-header');
-          generalHeader.focus();
-
-          expect(customHeader).not.to.have.attribute('active');
-
-          const showEventPromise = oneEvent(tabGroup, 'wa-tab-show') as Promise<WaTabShowEvent>;
-          customHeader.active = true;
-
-          await tabGroup.updateComplete;
-          expect(customHeader).to.have.attribute('active');
-          await expectPromiseToHaveName(showEventPromise, 'custom');
-          return expectOnlyOneTabPanelToBeActive(tabGroup, 'custom-tab-content');
+          expect(tabGroup.shadowRoot!.querySelector('[part~="nav"]')).to.exist;
         });
 
-        it('does not change if the active tab is reselected', async () => {
+        it('should expose the tabs part', async () => {
           const tabGroup = await fixture<WaTabGroup>(html`
             <wa-tab-group>
-              <wa-tab panel="general" data-testid="general-header">General</wa-tab>
-              <wa-tab panel="custom">Custom</wa-tab>
-              <wa-tab-panel name="general" data-testid="general-tab-content"
-                >This is the general tab panel.</wa-tab-panel
-              >
-              <wa-tab-panel name="custom">This is the custom tab panel.</wa-tab-panel>
+              <wa-tab panel="general">General</wa-tab>
+              <wa-tab-panel name="general">Content</wa-tab-panel>
             </wa-tab-group>
           `);
-
-          const generalHeader = queryByTestId(tabGroup, 'general-header');
-          return expectGeneralTabToBeStillActiveAfter(tabGroup, () => clickOnElement(generalHeader!));
+          expect(tabGroup.shadowRoot!.querySelector('[part~="tabs"]')).to.exist;
         });
 
-        it('does not change if a disabled tab is clicked', async () => {
+        it('should expose the body part', async () => {
           const tabGroup = await fixture<WaTabGroup>(html`
             <wa-tab-group>
-              <wa-tab panel="general" data-testid="general-header">General</wa-tab>
-              <wa-tab panel="disabled" data-testid="disabled-header" disabled>disabled</wa-tab>
-              <wa-tab-panel name="general" data-testid="general-tab-content"
-                >This is the general tab panel.</wa-tab-panel
-              >
-              <wa-tab-panel name="disabled">This is the disabled tab panel.</wa-tab-panel>
+              <wa-tab panel="general">General</wa-tab>
+              <wa-tab-panel name="general">Content</wa-tab-panel>
             </wa-tab-group>
           `);
-
-          const disabledHeader = queryByTestId(tabGroup, 'disabled-header');
-          return expectGeneralTabToBeStillActiveAfter(tabGroup, () => clickOnElement(disabledHeader!));
+          expect(tabGroup.shadowRoot!.querySelector('[part~="body"]')).to.exist;
         });
+      });
 
-        it('selects a tab by using the arrow keys', async () => {
-          const tabGroup = await fixture<WaTabGroup>(html`
-            <wa-tab-group>
-              <wa-tab panel="general" data-testid="general-header">General</wa-tab>
-              <wa-tab panel="custom" data-testid="custom-header">Custom</wa-tab>
-              <wa-tab-panel name="general">This is the general tab panel.</wa-tab-panel>
-              <wa-tab-panel name="custom" data-testid="custom-tab-content">This is the custom tab panel.</wa-tab-panel>
-            </wa-tab-group>
-          `);
-
-          return expectCustomTabToBeActiveAfter(tabGroup, () => sendKeys({ press: 'ArrowRight' }));
-        });
-
-        it('selects a tab by using the arrow keys and enter if activation is set to manual', async () => {
-          const tabGroup = await fixture<WaTabGroup>(html`
-            <wa-tab-group>
-              <wa-tab panel="general" data-testid="general-header">General</wa-tab>
-              <wa-tab panel="custom" data-testid="custom-header">Custom</wa-tab>
-              <wa-tab-panel name="general">This is the general tab panel.</wa-tab-panel>
-              <wa-tab-panel name="custom" data-testid="custom-tab-content">This is the custom tab panel.</wa-tab-panel>
-            </wa-tab-group>
-          `);
-          tabGroup.activation = 'manual';
-
-          const generalHeader = await waitForHeaderToBeActive(tabGroup, 'general-header');
-          generalHeader.focus();
-
-          const customHeader = queryByTestId<WaTab>(tabGroup, 'custom-header');
-          expect(customHeader).not.to.have.attribute('active');
-
-          const showEventPromise = oneEvent(tabGroup, 'wa-tab-show') as Promise<WaTabShowEvent>;
-          await sendKeys({ press: 'ArrowRight' });
-          await aTimeout(0);
-          expect(generalHeader).to.have.attribute('active');
-
-          await sendKeys({ press: 'Enter' });
-
-          expect(customHeader).to.have.attribute('active');
-          await expectPromiseToHaveName(showEventPromise, 'custom');
-          return expectOnlyOneTabPanelToBeActive(tabGroup, 'custom-tab-content');
-        });
-
-        it('does not allow selection of disabled tabs with arrow keys', async () => {
-          const tabGroup = await fixture<WaTabGroup>(html`
-            <wa-tab-group>
-              <wa-tab panel="general" data-testid="general-header">General</wa-tab>
-              <wa-tab panel="disabled" disabled>Disabled</wa-tab>
-              <wa-tab-panel name="general" data-testid="general-tab-content"
-                >This is the general tab panel.</wa-tab-panel
-              >
-              <wa-tab-panel name="disabled">This is the custom tab panel.</wa-tab-panel>
-            </wa-tab-group>
-          `);
-
-          return expectGeneralTabToBeStillActiveAfter(tabGroup, () => sendKeys({ press: 'ArrowRight' }));
-        });
-
-        it('selects a tab by using the show function', async () => {
-          const tabGroup = await fixture<WaTabGroup>(html`
-            <wa-tab-group>
-              <wa-tab panel="general" data-testid="general-header">General</wa-tab>
-              <wa-tab panel="custom" data-testid="custom-header">Custom</wa-tab>
-              <wa-tab-panel name="general">This is the general tab panel.</wa-tab-panel>
-              <wa-tab-panel name="custom" data-testid="custom-tab-content">This is the custom tab panel.</wa-tab-panel>
-            </wa-tab-group>
-          `);
-
-          return expectCustomTabToBeActiveAfter(tabGroup, () => {
-            tabGroup.active = 'custom';
-            return aTimeout(0);
-          });
-        });
+      it('should not throw error when unmounted too fast', async () => {
+        const el = await fixture(html`<div></div>`);
+        el.innerHTML = '<wa-tab-group></wa-tab-group>';
+        el.innerHTML = '';
       });
     });
   }

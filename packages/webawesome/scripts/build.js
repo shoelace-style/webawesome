@@ -211,6 +211,7 @@ export async function build(options = {}) {
     const rootDir = process.env.ROOT_DIR || '.';
     // Bundled config
     const config = {
+      conditions: isDeveloping ? ['development'] : [],
       format: 'esm',
       target: 'es2020',
       entryPoints: [

@@ -2,6 +2,7 @@ import { expect, oneEvent } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import sinon from 'sinon';
+import { expectEvent } from '../../internal/test/expect-event.js';
 import { fixtures } from '../../internal/test/fixture.js';
 import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
 import { clickOnElement } from '../../internal/test/pointer-utilities.js';
@@ -13,64 +14,71 @@ describe('<wa-slider>', () => {
 
   for (const fixture of fixtures) {
     describe(`with "${fixture.type}" rendering`, () => {
-      it('should pass accessibility tests', async () => {
-        const el = await fixture<WaSlider>(html`<wa-slider label="Name"></wa-slider>`);
-        await expect(el).to.be.accessible();
+      describe('accessibility', () => {
+        it('should pass accessibility tests', async () => {
+          const el = await fixture<WaSlider>(html`<wa-slider label="Volume"></wa-slider>`);
+          await expect(el).to.be.accessible();
+        });
+
+        it('should have correct aria attributes when disabled', async () => {
+          const el = await fixture<WaSlider>(html`<wa-slider disabled></wa-slider>`);
+          const input = el.shadowRoot!.querySelector<HTMLElement>("[role='slider']")!;
+          expect(el.matches(':disabled')).to.be.true;
+          expect(input.getAttribute('aria-disabled')).to.equal('true');
+        });
       });
 
-      it('default properties', async () => {
-        const el = await fixture<WaSlider>(html` <wa-slider></wa-slider> `);
+      describe('properties', () => {
+        it('should have correct default property values', async () => {
+          const el = await fixture<WaSlider>(html`<wa-slider></wa-slider>`);
+          expect(el.name).to.not.be.ok;
+          expect(el.value).to.equal(0);
+          expect(el.label).to.equal('');
+          expect(el.hint).to.equal('');
+          expect(el.disabled).to.be.false;
+          expect(el.checkValidity()).to.be.true;
+          expect(el.min).to.equal(0);
+          expect(el.max).to.equal(100);
+          expect(el.step).to.equal(1);
+          expect(el.tooltipPlacement).to.equal('top');
+          expect(el.defaultValue).to.equal(0);
+        });
 
-        expect(el.name).to.equal(null);
-        expect(el.value).to.equal(0);
-        expect(el.label).to.equal('');
-        expect(el.hint).to.equal('');
-        expect(el.disabled).to.be.false;
-        expect(el.checkValidity()).to.be.true;
-        expect(el.min).to.equal(0);
-        expect(el.max).to.equal(100);
-        expect(el.step).to.equal(1);
-        expect(el.tooltipPlacement).to.equal('top');
-        expect(el.defaultValue).to.equal(0);
+        it('should set value by attribute', async () => {
+          const el = await fixture<WaSlider>(html`<wa-slider value="50"></wa-slider>`);
+          expect(el.value).to.equal(50);
+        });
+
+        it('should clamp value to min/max range', async () => {
+          const el = await fixture<WaSlider>(html`<wa-slider min="10" max="90" value="200"></wa-slider>`);
+          expect(el.value).to.equal(90);
+        });
       });
 
-      it('should be disabled with the disabled attribute', async () => {
-        const el = await fixture<WaSlider>(html` <wa-slider disabled></wa-slider> `);
-        const input = el.shadowRoot!.querySelector<HTMLElement>("[role='slider']")!;
+      describe('events', () => {
+        it('should emit change and input when pressing ArrowRight', async () => {
+          const el = await fixture<WaSlider>(html`<wa-slider value="50"></wa-slider>`);
 
-        expect(el.matches(':disabled')).to.be.true;
-        expect(input.getAttribute('aria-disabled')).to.equal('true');
-      });
-
-      describe('when the value changes', () => {
-        it('should emit change and input and decrease the value when pressing right arrow', async () => {
-          const el = await fixture<WaSlider>(html` <wa-slider value="50"></wa-slider> `);
-          const changeHandler = sinon.spy();
-          const inputHandler = sinon.spy();
-
-          el.addEventListener('change', changeHandler);
-          el.addEventListener('input', inputHandler);
-          el.focus();
-          await sendKeys({ press: 'ArrowRight' });
-          await el.updateComplete;
+          await expectEvent(el, ['change', 'input'], async () => {
+            el.focus();
+            await sendKeys({ press: 'ArrowRight' });
+            await el.updateComplete;
+          });
 
           expect(el.value).to.equal(51);
-          expect(changeHandler).to.have.been.calledOnce;
-          expect(inputHandler).to.have.been.calledOnce;
         });
 
         it('should not emit change or input when changing the value programmatically', async () => {
-          const el = await fixture<WaSlider>(html` <wa-slider value="0"></wa-slider> `);
+          const el = await fixture<WaSlider>(html`<wa-slider value="0"></wa-slider>`);
 
           el.addEventListener('change', () => expect.fail('change should not be emitted'));
           el.addEventListener('input', () => expect.fail('input should not be emitted'));
           el.value = 50;
-
           await el.updateComplete;
         });
 
         it('should not emit change or input when stepUp() is called programmatically', async () => {
-          const el = await fixture<WaSlider>(html` <wa-slider step="2" value="2"></wa-slider> `);
+          const el = await fixture<WaSlider>(html`<wa-slider step="2" value="2"></wa-slider>`);
 
           el.addEventListener('change', () => expect.fail('change should not be emitted'));
           el.addEventListener('input', () => expect.fail('input should not be emitted'));
@@ -79,69 +87,96 @@ describe('<wa-slider>', () => {
         });
 
         it('should not emit change or input when stepDown() is called programmatically', async () => {
-          const el = await fixture<WaSlider>(html` <wa-slider step="2" value="2"></wa-slider> `);
+          const el = await fixture<WaSlider>(html`<wa-slider step="2" value="2"></wa-slider>`);
 
           el.addEventListener('change', () => expect.fail('change should not be emitted'));
           el.addEventListener('input', () => expect.fail('input should not be emitted'));
           el.stepDown();
           await el.updateComplete;
         });
+      });
 
-        // https://github.com/shoelace-style/webawesome/issues/1273
-        it('Should respond to attribute changes if the value has not changed', async () => {
-          const el = await fixture<WaSlider>(html` <wa-slider step="2" value="2"></wa-slider> `);
-          expect(el.value).to.equal(2);
-          el.setAttribute('value', '4');
+      describe('keyboard navigation', () => {
+        it('should increase value with ArrowRight', async () => {
+          const el = await fixture<WaSlider>(html`<wa-slider value="50"></wa-slider>`);
+          el.focus();
+          await sendKeys({ press: 'ArrowRight' });
           await el.updateComplete;
-          expect(el.value).to.equal(4);
+          expect(el.value).to.equal(51);
         });
 
-        // https://github.com/shoelace-style/webawesome/issues/1273
-        it('Should not respond to attribute changes if the value has changed', async () => {
-          const el = await fixture<WaSlider>(html` <wa-slider step="2" value="2"></wa-slider> `);
-          expect(el.value).to.equal(2);
-          el.value = 6;
+        it('should decrease value with ArrowLeft', async () => {
+          const el = await fixture<WaSlider>(html`<wa-slider value="50"></wa-slider>`);
+          el.focus();
+          await sendKeys({ press: 'ArrowLeft' });
           await el.updateComplete;
-          el.setAttribute('value', '4');
+          expect(el.value).to.equal(49);
+        });
+
+        it('should increase value with ArrowUp', async () => {
+          const el = await fixture<WaSlider>(html`<wa-slider value="50"></wa-slider>`);
+          el.focus();
+          await sendKeys({ press: 'ArrowUp' });
           await el.updateComplete;
-          expect(el.value).to.equal(6);
-          expect(el.defaultValue).to.equal(4);
+          expect(el.value).to.equal(51);
+        });
+
+        it('should decrease value with ArrowDown', async () => {
+          const el = await fixture<WaSlider>(html`<wa-slider value="50"></wa-slider>`);
+          el.focus();
+          await sendKeys({ press: 'ArrowDown' });
+          await el.updateComplete;
+          expect(el.value).to.equal(49);
+        });
+
+        it('should set value to min with Home', async () => {
+          const el = await fixture<WaSlider>(html`<wa-slider value="50"></wa-slider>`);
+          el.focus();
+          await sendKeys({ press: 'Home' });
+          await el.updateComplete;
+          expect(el.value).to.equal(0);
+        });
+
+        it('should set value to max with End', async () => {
+          const el = await fixture<WaSlider>(html`<wa-slider value="50"></wa-slider>`);
+          el.focus();
+          await sendKeys({ press: 'End' });
+          await el.updateComplete;
+          expect(el.value).to.equal(100);
         });
       });
 
       describe('step', () => {
         it('should increment by step when stepUp() is called', async () => {
-          const el = await fixture<WaSlider>(html` <wa-slider step="2" value="2"></wa-slider> `);
-
+          const el = await fixture<WaSlider>(html`<wa-slider step="2" value="2"></wa-slider>`);
           el.stepUp();
           await el.updateComplete;
           expect(el.value).to.equal(4);
         });
 
         it('should decrement by step when stepDown() is called', async () => {
-          const el = await fixture<WaSlider>(html` <wa-slider step="2" value="2"></wa-slider> `);
-
+          const el = await fixture<WaSlider>(html`<wa-slider step="2" value="2"></wa-slider>`);
           el.stepDown();
           await el.updateComplete;
           expect(el.value).to.equal(0);
         });
       });
 
-      describe('when submitting a form', () => {
+      describe('form integration', () => {
         it('should serialize its name and value with FormData', async () => {
-          const form = await fixture<HTMLFormElement>(html` <form><wa-slider name="a" value="1"></wa-slider></form> `);
+          const form = await fixture<HTMLFormElement>(html`<form><wa-slider name="a" value="1"></wa-slider></form>`);
           const formData = new FormData(form);
           expect(formData.get('a')).to.equal('1');
         });
 
         it('should serialize its name and value with JSON', async () => {
-          const form = await fixture<HTMLFormElement>(html` <form><wa-slider name="a" value="1"></wa-slider></form> `);
+          const form = await fixture<HTMLFormElement>(html`<form><wa-slider name="a" value="1"></wa-slider></form>`);
           const json = serialize(form);
           expect(json.a).to.equal('1');
         });
 
         it('should be invalid when setCustomValidity() is called with a non-empty value', async () => {
-          const slider = await fixture<HTMLFormElement>(html` <wa-slider></wa-slider> `);
+          const slider = await fixture<WaSlider>(html`<wa-slider></wa-slider>`);
 
           slider.setCustomValidity('Invalid selection');
           await slider.updateComplete;
@@ -162,7 +197,7 @@ describe('<wa-slider>', () => {
         });
 
         it('should receive validation attributes ("states") even when novalidate is used on the parent form', async () => {
-          const el = await fixture<HTMLFormElement>(html` <form novalidate><wa-slider></wa-slider></form> `);
+          const el = await fixture<HTMLFormElement>(html`<form novalidate><wa-slider></wa-slider></form>`);
           const slider = el.querySelector<WaSlider>('wa-slider')!;
 
           slider.setCustomValidity('Invalid value');
@@ -188,9 +223,7 @@ describe('<wa-slider>', () => {
 
           expect(formData.get('a')).to.equal('50');
         });
-      });
 
-      describe('when resetting a form', () => {
         it('should reset the element to its initial value', async () => {
           const form = await fixture<HTMLFormElement>(html`
             <form>
@@ -217,6 +250,29 @@ describe('<wa-slider>', () => {
           await input.updateComplete;
 
           expect(input.value).to.equal(0);
+        });
+      });
+
+      describe('regression tests', () => {
+        // https://github.com/shoelace-style/webawesome/issues/1273
+        it('should respond to attribute changes if the value has not changed', async () => {
+          const el = await fixture<WaSlider>(html`<wa-slider step="2" value="2"></wa-slider>`);
+          expect(el.value).to.equal(2);
+          el.setAttribute('value', '4');
+          await el.updateComplete;
+          expect(el.value).to.equal(4);
+        });
+
+        // https://github.com/shoelace-style/webawesome/issues/1273
+        it('should not respond to attribute changes if the value has changed', async () => {
+          const el = await fixture<WaSlider>(html`<wa-slider step="2" value="2"></wa-slider>`);
+          expect(el.value).to.equal(2);
+          el.value = 6;
+          await el.updateComplete;
+          el.setAttribute('value', '4');
+          await el.updateComplete;
+          expect(el.value).to.equal(6);
+          expect(el.defaultValue).to.equal(4);
         });
       });
     });

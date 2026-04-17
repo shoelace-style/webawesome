@@ -3,6 +3,14 @@ title: Mutation Observer
 description: The Mutation Observer component offers a thin, declarative interface to the MutationObserver API.
 layout: component
 category: Utilities
+synonyms:
+  - dom watcher
+  - dom observer
+  - change detector
+use-cases:
+  - dom changes
+  - attribute watcher
+  - child list observer
 ---
 
 The mutation observer will report changes to the content it wraps through the `wa-mutation` event. When emitted, a collection of [MutationRecord](https://developer.mozilla.org/en-US/docs/Web/API/MutationRecord) objects will be attached to `event.detail` that contains information about how it changed.

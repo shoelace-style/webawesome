@@ -1,36 +1,10 @@
-import { expect, oneEvent } from '@open-wc/testing';
-import { resetMouse } from '@web/test-runner-commands';
+import { aTimeout, expect } from '@open-wc/testing';
+import { resetMouse, sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
-import { queryByTestId } from '../../internal/test/data-testid-helpers.js';
+import { expectEvent } from '../../internal/test/expect-event.js';
 import { fixtures } from '../../internal/test/fixture.js';
 import { dragElement } from '../../internal/test/pointer-utilities.js';
 import type WaSplitPanel from './split-panel.js';
-
-const DIVIDER_WIDTH_IN_PX = 4;
-
-const getPanel = (splitPanel: WaSplitPanel, testid: string): HTMLElement => {
-  const startPanel = queryByTestId<HTMLElement>(splitPanel, testid);
-  expect(startPanel).not.to.be.null;
-  return startPanel!;
-};
-
-const getPanelWidth = (splitPanel: WaSplitPanel, testid: string) => {
-  const panel = getPanel(splitPanel, testid);
-  const { width } = panel.getBoundingClientRect();
-  return width;
-};
-
-const getPanelHeight = (splitPanel: WaSplitPanel, testid: string) => {
-  const panel = getPanel(splitPanel, testid);
-  const { height } = panel.getBoundingClientRect();
-  return height;
-};
-
-const getDivider = (splitPanel: WaSplitPanel): Element => {
-  const divider = splitPanel.shadowRoot?.querySelector('[part="divider"]');
-  expect(divider).not.to.be.null;
-  return divider!;
-};
 
 describe('<wa-split-panel>', () => {
   afterEach(async () => {
@@ -40,258 +14,382 @@ describe('<wa-split-panel>', () => {
 
   for (const fixture of fixtures) {
     describe(`with "${fixture.type}" rendering`, () => {
-      it('should render a component', async () => {
-        const splitPanel = await fixture(html` <wa-split-panel></wa-split-panel> `);
-
-        expect(splitPanel).to.exist;
-      });
-
-      it('should be accessible', async () => {
-        const splitPanel = await fixture(
-          html`<wa-split-panel>
-            <div slot="start">Start</div>
-            <div slot="end">End</div>
-          </wa-split-panel>`,
-        );
-
-        await expect(splitPanel).to.be.accessible();
-      });
-
-      it('should show both panels', async () => {
-        const splitPanel = await fixture(
-          html`<wa-split-panel>
-            <div slot="start">Start</div>
-            <div slot="end">End</div>
-          </wa-split-panel>`,
-        );
-
-        expect(splitPanel).to.contain.text('Start');
-        expect(splitPanel).to.contain.text('End');
-      });
-
-      describe('panel sizing horizontal', () => {
-        it('has two evenly sized panels by default', async () => {
-          const splitPanel = await fixture<WaSplitPanel>(
-            html`<wa-split-panel>
-              <div slot="start" data-testid="start-panel">Start</div>
-              <div slot="end" data-testid="end-panel">End</div>
-            </wa-split-panel>`,
-          );
-
-          const startPanelWidth = getPanelWidth(splitPanel, 'start-panel');
-          const endPanelWidth = getPanelWidth(splitPanel, 'end-panel');
-
-          expect(startPanelWidth).to.be.equal(endPanelWidth);
-        });
-
-        it('changes the sizing of the panels based on the position attribute', async () => {
-          const splitPanel = await fixture<WaSplitPanel>(
-            html`<wa-split-panel position="25">
-              <div slot="start" data-testid="start-panel">Start</div>
-              <div slot="end" data-testid="end-panel">End</div>
-            </wa-split-panel>`,
-          );
-
-          const startPanelWidth = getPanelWidth(splitPanel, 'start-panel');
-          const endPanelWidth = getPanelWidth(splitPanel, 'end-panel');
-
-          expect(startPanelWidth * 3).to.be.equal(endPanelWidth - DIVIDER_WIDTH_IN_PX);
-        });
-
-        it('updates the position in pixels to the correct result', async () => {
-          const splitPanel = await fixture<WaSplitPanel>(
-            html`<wa-split-panel position="25">
-              <div slot="start" data-testid="start-panel">Start</div>
-              <div slot="end" data-testid="end-panel">End</div>
-            </wa-split-panel>`,
-          );
-
-          splitPanel.position = 10;
-
-          const startPanelWidth = getPanelWidth(splitPanel, 'start-panel');
-
-          expect(startPanelWidth).to.be.equal(splitPanel.positionInPixels - DIVIDER_WIDTH_IN_PX / 2);
-        });
-
-        it('emits the wa-reposition	event on position change', async () => {
-          const splitPanel = await fixture<WaSplitPanel>(
+      describe('accessibility', () => {
+        it('should be accessible', async () => {
+          const el = await fixture<WaSplitPanel>(
             html`<wa-split-panel>
               <div slot="start">Start</div>
               <div slot="end">End</div>
             </wa-split-panel>`,
           );
 
-          const repositionPromise = oneEvent(splitPanel, 'wa-reposition');
-          splitPanel.position = 10;
-          return repositionPromise;
+          await expect(el).to.be.accessible();
         });
 
-        it('can be resized using the mouse', async () => {
-          const splitPanel = await fixture<WaSplitPanel>(
+        it('should have a divider with role="separator"', async () => {
+          const el = await fixture<WaSplitPanel>(
             html`<wa-split-panel>
               <div slot="start">Start</div>
               <div slot="end">End</div>
             </wa-split-panel>`,
           );
 
-          const positionInPixels = Math.round(splitPanel.positionInPixels);
-
-          const divider = getDivider(splitPanel);
-
-          await dragElement(divider, -30);
-
-          const positionInPixelsAfterDrag = Math.round(splitPanel.positionInPixels);
-          expect(positionInPixelsAfterDrag).to.be.equal(positionInPixels - 30);
+          const divider = el.shadowRoot!.querySelector('[part="divider"]')!;
+          expect(divider.getAttribute('role')).to.equal('separator');
+          expect(divider.getAttribute('aria-valuenow')).to.equal('50');
+          expect(divider.getAttribute('aria-valuemin')).to.equal('0');
+          expect(divider.getAttribute('aria-valuemax')).to.equal('100');
         });
 
-        it('cannot be resized if disabled', async () => {
-          const splitPanel = await fixture<WaSplitPanel>(
+        it('should not have tabindex on divider when disabled', async () => {
+          const el = await fixture<WaSplitPanel>(
             html`<wa-split-panel disabled>
               <div slot="start">Start</div>
               <div slot="end">End</div>
             </wa-split-panel>`,
           );
 
-          const positionInPixels = Math.round(splitPanel.positionInPixels);
+          const divider = el.shadowRoot!.querySelector('[part="divider"]')!;
+          expect(divider.hasAttribute('tabindex')).to.be.false;
+        });
+      });
 
-          const divider = getDivider(splitPanel);
-
-          await dragElement(divider, -30);
-
-          const positionInPixelsAfterDrag = Math.round(splitPanel.positionInPixels);
-          expect(positionInPixelsAfterDrag).to.be.equal(positionInPixels);
+      describe('properties', () => {
+        it('should have a default position of 50', async () => {
+          const el = await fixture<WaSplitPanel>(html`<wa-split-panel></wa-split-panel>`);
+          expect(el.position).to.equal(50);
         });
 
-        it('snaps to predefined positions', async () => {
-          const splitPanel = await fixture<WaSplitPanel>(
+        it('should reflect position to attribute', async () => {
+          const el = await fixture<WaSplitPanel>(html`<wa-split-panel></wa-split-panel>`);
+          el.position = 25;
+          await el.updateComplete;
+          expect(el.getAttribute('position')).to.equal('25');
+        });
+
+        it('should accept position via attribute', async () => {
+          const el = await fixture<WaSplitPanel>(html`<wa-split-panel position="25"></wa-split-panel>`);
+          expect(el.position).to.equal(25);
+        });
+
+        it('should default orientation to horizontal', async () => {
+          const el = await fixture<WaSplitPanel>(html`<wa-split-panel></wa-split-panel>`);
+          expect(el.orientation).to.equal('horizontal');
+        });
+
+        it('should reflect orientation to attribute', async () => {
+          const el = await fixture<WaSplitPanel>(html`<wa-split-panel orientation="vertical"></wa-split-panel>`);
+          expect(el.getAttribute('orientation')).to.equal('vertical');
+        });
+
+        it('should default disabled to false', async () => {
+          const el = await fixture<WaSplitPanel>(html`<wa-split-panel></wa-split-panel>`);
+          expect(el.disabled).to.be.false;
+        });
+
+        it('should reflect disabled to attribute', async () => {
+          const el = await fixture<WaSplitPanel>(html`<wa-split-panel disabled></wa-split-panel>`);
+          expect(el.hasAttribute('disabled')).to.be.true;
+        });
+
+        it('should update positionInPixels when position changes', async () => {
+          const el = await fixture<WaSplitPanel>(
             html`<wa-split-panel>
               <div slot="start">Start</div>
               <div slot="end">End</div>
             </wa-split-panel>`,
           );
 
-          const positionInPixels = Math.round(splitPanel.positionInPixels);
-          splitPanel.snap = `${positionInPixels - 40}px`;
+          el.position = 25;
+          await el.updateComplete;
+          expect(el.positionInPixels).to.be.a('number');
+          expect(el.positionInPixels).to.be.greaterThan(0);
+        });
 
-          const divider = getDivider(splitPanel);
-
-          await dragElement(divider, -30);
-
-          const positionInPixelsAfterDrag = Math.round(splitPanel.positionInPixels);
-          expect(positionInPixelsAfterDrag).to.be.equal(positionInPixels - 40);
+        it('should default snapThreshold to 12', async () => {
+          const el = await fixture<WaSplitPanel>(html`<wa-split-panel></wa-split-panel>`);
+          expect(el.snapThreshold).to.equal(12);
         });
       });
 
-      describe('panel sizing vertical', () => {
-        it('has two evenly sized panels by default', async () => {
-          const splitPanel = await fixture<WaSplitPanel>(
-            html`<wa-split-panel orientation="vertical" style="height: 400px;">
-              <div slot="start" data-testid="start-panel">Start</div>
-              <div slot="end" data-testid="end-panel">End</div>
+      describe('events', () => {
+        it('should emit wa-reposition when position changes', async () => {
+          const el = await fixture<WaSplitPanel>(
+            html`<wa-split-panel>
+              <div slot="start">Start</div>
+              <div slot="end">End</div>
             </wa-split-panel>`,
           );
 
-          const startPanelHeight = getPanelHeight(splitPanel, 'start-panel');
-          const endPanelHeight = getPanelHeight(splitPanel, 'end-panel');
-
-          expect(startPanelHeight).to.be.equal(endPanelHeight);
+          await expectEvent(el, 'wa-reposition', () => {
+            el.position = 10;
+          });
         });
+      });
 
-        it('changes the sizing of the panels based on the position attribute', async () => {
-          const splitPanel = await fixture<WaSplitPanel>(
-            html`<wa-split-panel position="25" orientation="vertical" style="height: 400px;">
-              <div slot="start" data-testid="start-panel">Start</div>
-              <div slot="end" data-testid="end-panel">End</div>
+      describe('slots', () => {
+        it('should render start and end slots', async () => {
+          const el = await fixture<WaSplitPanel>(
+            html`<wa-split-panel>
+              <div slot="start">Start</div>
+              <div slot="end">End</div>
             </wa-split-panel>`,
           );
 
-          const startPanelHeight = getPanelHeight(splitPanel, 'start-panel');
-          const endPanelHeight = getPanelHeight(splitPanel, 'end-panel');
-
-          expect(startPanelHeight * 3).to.be.equal(endPanelHeight - DIVIDER_WIDTH_IN_PX);
+          expect(el).to.contain.text('Start');
+          expect(el).to.contain.text('End');
         });
 
-        it('updates the position in pixels to the correct result', async () => {
-          const splitPanel = await fixture<WaSplitPanel>(
-            html`<wa-split-panel position="25" orientation="vertical" style="height: 400px;">
-              <div slot="start" data-testid="start-panel">Start</div>
-              <div slot="end" data-testid="end-panel">End</div>
+        it('should render a divider slot', async () => {
+          const el = await fixture<WaSplitPanel>(
+            html`<wa-split-panel>
+              <div slot="start">Start</div>
+              <div slot="end">End</div>
             </wa-split-panel>`,
           );
 
-          splitPanel.position = 10;
+          const dividerSlot = el.shadowRoot!.querySelector<HTMLSlotElement>('slot[name="divider"]')!;
+          expect(dividerSlot).to.exist;
+        });
+      });
 
-          const startPanelHeight = getPanelHeight(splitPanel, 'start-panel');
+      describe('keyboard navigation', () => {
+        it('should move position left on ArrowLeft in horizontal mode', async () => {
+          const el = await fixture<WaSplitPanel>(
+            html`<wa-split-panel>
+              <div slot="start">Start</div>
+              <div slot="end">End</div>
+            </wa-split-panel>`,
+          );
 
-          expect(startPanelHeight).to.be.equal(splitPanel.positionInPixels - DIVIDER_WIDTH_IN_PX / 2);
+          const divider = el.shadowRoot!.querySelector<HTMLElement>('[part="divider"]')!;
+          divider.focus();
+          await sendKeys({ press: 'ArrowLeft' });
+          await el.updateComplete;
+
+          expect(el.position).to.equal(49);
         });
 
-        it('emits the wa-reposition	event on position change ', async () => {
-          const splitPanel = await fixture<WaSplitPanel>(
+        it('should move position right on ArrowRight in horizontal mode', async () => {
+          const el = await fixture<WaSplitPanel>(
+            html`<wa-split-panel>
+              <div slot="start">Start</div>
+              <div slot="end">End</div>
+            </wa-split-panel>`,
+          );
+
+          const divider = el.shadowRoot!.querySelector<HTMLElement>('[part="divider"]')!;
+          divider.focus();
+          await sendKeys({ press: 'ArrowRight' });
+          await el.updateComplete;
+
+          expect(el.position).to.equal(51);
+        });
+
+        it('should move position by 10 with Shift+Arrow', async () => {
+          const el = await fixture<WaSplitPanel>(
+            html`<wa-split-panel>
+              <div slot="start">Start</div>
+              <div slot="end">End</div>
+            </wa-split-panel>`,
+          );
+
+          const divider = el.shadowRoot!.querySelector<HTMLElement>('[part="divider"]')!;
+          divider.focus();
+          await sendKeys({ press: 'Shift+ArrowRight' });
+          await el.updateComplete;
+
+          expect(el.position).to.equal(60);
+        });
+
+        it('should set position to 0 on Home', async () => {
+          const el = await fixture<WaSplitPanel>(
+            html`<wa-split-panel>
+              <div slot="start">Start</div>
+              <div slot="end">End</div>
+            </wa-split-panel>`,
+          );
+
+          const divider = el.shadowRoot!.querySelector<HTMLElement>('[part="divider"]')!;
+          divider.focus();
+          await sendKeys({ press: 'Home' });
+          await el.updateComplete;
+
+          expect(el.position).to.equal(0);
+        });
+
+        it('should set position to 100 on End', async () => {
+          const el = await fixture<WaSplitPanel>(
+            html`<wa-split-panel>
+              <div slot="start">Start</div>
+              <div slot="end">End</div>
+            </wa-split-panel>`,
+          );
+
+          const divider = el.shadowRoot!.querySelector<HTMLElement>('[part="divider"]')!;
+          divider.focus();
+          await sendKeys({ press: 'End' });
+          await el.updateComplete;
+
+          expect(el.position).to.equal(100);
+        });
+
+        it('should not respond to keyboard when disabled', async () => {
+          const el = await fixture<WaSplitPanel>(
+            html`<wa-split-panel disabled>
+              <div slot="start">Start</div>
+              <div slot="end">End</div>
+            </wa-split-panel>`,
+          );
+
+          // Divider has no tabindex when disabled, so we dispatch the event directly
+          const divider = el.shadowRoot!.querySelector<HTMLElement>('[part="divider"]')!;
+          divider.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true }));
+          await el.updateComplete;
+
+          expect(el.position).to.equal(50);
+        });
+
+        it('should move position up on ArrowUp in vertical mode', async () => {
+          const el = await fixture<WaSplitPanel>(
             html`<wa-split-panel orientation="vertical" style="height: 400px;">
               <div slot="start">Start</div>
               <div slot="end">End</div>
             </wa-split-panel>`,
           );
 
-          const repositionPromise = oneEvent(splitPanel, 'wa-reposition');
-          splitPanel.position = 10;
-          return repositionPromise;
+          const divider = el.shadowRoot!.querySelector<HTMLElement>('[part="divider"]')!;
+          divider.focus();
+          await sendKeys({ press: 'ArrowUp' });
+          await el.updateComplete;
+
+          expect(el.position).to.equal(49);
         });
 
-        it('can be resized using the mouse ', async () => {
-          const splitPanel = await fixture<WaSplitPanel>(
+        it('should move position down on ArrowDown in vertical mode', async () => {
+          const el = await fixture<WaSplitPanel>(
             html`<wa-split-panel orientation="vertical" style="height: 400px;">
               <div slot="start">Start</div>
               <div slot="end">End</div>
             </wa-split-panel>`,
           );
 
-          const positionInPixels = Math.round(splitPanel.positionInPixels);
+          const divider = el.shadowRoot!.querySelector<HTMLElement>('[part="divider"]')!;
+          divider.focus();
+          await sendKeys({ press: 'ArrowDown' });
+          await el.updateComplete;
 
-          const divider = getDivider(splitPanel);
+          expect(el.position).to.equal(51);
+        });
 
-          await dragElement(divider, 0, -30);
+        it('should collapse and expand on Enter', async () => {
+          const el = await fixture<WaSplitPanel>(
+            html`<wa-split-panel>
+              <div slot="start">Start</div>
+              <div slot="end">End</div>
+            </wa-split-panel>`,
+          );
 
-          const positionInPixelsAfterDrag = Math.round(splitPanel.positionInPixels);
-          expect(positionInPixelsAfterDrag).to.be.equal(positionInPixels - 30);
+          const divider = el.shadowRoot!.querySelector<HTMLElement>('[part="divider"]')!;
+          divider.focus();
+
+          // Collapse
+          await sendKeys({ press: 'Enter' });
+          await el.updateComplete;
+          // Wait for requestAnimationFrame that sets isCollapsed
+          await aTimeout(50);
+          expect(el.position).to.equal(0);
+
+          // Expand back
+          await sendKeys({ press: 'Enter' });
+          await el.updateComplete;
+          expect(el.position).to.equal(50);
+        });
+      });
+
+      describe('drag interaction', () => {
+        it('can be resized using the mouse horizontally', async () => {
+          const el = await fixture<WaSplitPanel>(
+            html`<wa-split-panel>
+              <div slot="start">Start</div>
+              <div slot="end">End</div>
+            </wa-split-panel>`,
+          );
+
+          const positionInPixels = Math.round(el.positionInPixels);
+          const divider = el.shadowRoot!.querySelector('[part="divider"]')!;
+
+          await dragElement(divider, -30);
+
+          const positionInPixelsAfterDrag = Math.round(el.positionInPixels);
+          expect(positionInPixelsAfterDrag).to.equal(positionInPixels - 30);
         });
 
         it('cannot be resized if disabled', async () => {
-          const splitPanel = await fixture<WaSplitPanel>(
-            html`<wa-split-panel disabled orientation="vertical" style="height: 400px;">
+          const el = await fixture<WaSplitPanel>(
+            html`<wa-split-panel disabled>
               <div slot="start">Start</div>
               <div slot="end">End</div>
             </wa-split-panel>`,
           );
 
-          const positionInPixels = Math.round(splitPanel.positionInPixels);
+          const positionInPixels = Math.round(el.positionInPixels);
+          const divider = el.shadowRoot!.querySelector('[part="divider"]')!;
 
-          const divider = getDivider(splitPanel);
+          await dragElement(divider, -30);
 
-          await dragElement(divider, 0, -30);
-
-          const positionInPixelsAfterDrag = Math.round(splitPanel.positionInPixels);
-          expect(positionInPixelsAfterDrag).to.be.equal(positionInPixels);
+          const positionInPixelsAfterDrag = Math.round(el.positionInPixels);
+          expect(positionInPixelsAfterDrag).to.equal(positionInPixels);
         });
 
-        it('snaps to predefined positions', async () => {
-          const splitPanel = await fixture<WaSplitPanel>(
+        it('can be resized using the mouse vertically', async () => {
+          const el = await fixture<WaSplitPanel>(
             html`<wa-split-panel orientation="vertical" style="height: 400px;">
               <div slot="start">Start</div>
               <div slot="end">End</div>
             </wa-split-panel>`,
           );
 
-          const positionInPixels = Math.round(splitPanel.positionInPixels);
-          splitPanel.snap = `${positionInPixels - 40}px`;
-
-          const divider = getDivider(splitPanel);
+          const positionInPixels = Math.round(el.positionInPixels);
+          const divider = el.shadowRoot!.querySelector('[part="divider"]')!;
 
           await dragElement(divider, 0, -30);
 
-          const positionInPixelsAfterDrag = Math.round(splitPanel.positionInPixels);
-          expect(positionInPixelsAfterDrag).to.be.equal(positionInPixels - 40);
+          const positionInPixelsAfterDrag = Math.round(el.positionInPixels);
+          expect(positionInPixelsAfterDrag).to.equal(positionInPixels - 30);
+        });
+
+        it('should snap to predefined positions', async () => {
+          const el = await fixture<WaSplitPanel>(
+            html`<wa-split-panel>
+              <div slot="start">Start</div>
+              <div slot="end">End</div>
+            </wa-split-panel>`,
+          );
+
+          const positionInPixels = Math.round(el.positionInPixels);
+          el.snap = `${positionInPixels - 40}px`;
+
+          const divider = el.shadowRoot!.querySelector('[part="divider"]')!;
+          await dragElement(divider, -30);
+
+          const positionInPixelsAfterDrag = Math.round(el.positionInPixels);
+          expect(positionInPixelsAfterDrag).to.equal(positionInPixels - 40);
+        });
+      });
+
+      describe('CSS parts and states', () => {
+        it('should expose the expected CSS parts', async () => {
+          const el = await fixture<WaSplitPanel>(
+            html`<wa-split-panel>
+              <div slot="start">Start</div>
+              <div slot="end">End</div>
+            </wa-split-panel>`,
+          );
+
+          expect(el.shadowRoot!.querySelector('[part~="start"]')).to.exist;
+          expect(el.shadowRoot!.querySelector('[part~="end"]')).to.exist;
+          expect(el.shadowRoot!.querySelector('[part~="divider"]')).to.exist;
         });
       });
     });

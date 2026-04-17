@@ -1,6 +1,13 @@
 ---
 title: Transitions
 description: Customize your theme's built-in transitions with Web Awesome's transition properties.
+synonyms:
+  - animation timing
+  - easing
+  - duration
+use-cases:
+  - transition speed
+  - motion tokens
 ---
 
 <style>

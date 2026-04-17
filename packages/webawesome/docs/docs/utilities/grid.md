@@ -3,6 +3,15 @@ title: Grid
 description: 'Use the `wa-grid` class to arrange elements into rows and columns that automatically adapt to the available space.'
 layout: docs
 tags: layoutUtilities
+synonyms:
+  - columns
+  - layout grid
+  - css grid
+use-cases:
+  - responsive grid
+  - card grid
+  - auto grid
+  - masonry
 ---
 
 <style>
@@ -96,7 +105,7 @@ Grids work especially well for card lists and content designed for browsing.
   <wa-card>
     <div class="wa-flank">
       <wa-avatar shape="rounded">
-        <wa-icon slot="icon" name="brain-circuit"></wa-icon>
+        <wa-icon slot="icon" name="microchip"></wa-icon>
       </wa-avatar>
       <div class="wa-stack wa-gap-3xs">
         <span class="wa-caption-xs">Minds Freed</span>
@@ -116,7 +125,7 @@ Grids work especially well for card lists and content designed for browsing.
         <span class="wa-caption-xs">Agents Discovered</span>
         <span class="wa-cluster wa-gap-xs">
           <span class="wa-heading-2xl">3</span>
-          <wa-badge variant="neutral">±0%&nbsp;<wa-icon name="wave-triangle"></wa-icon></wa-badge>
+          <wa-badge variant="neutral">±0%&nbsp;<wa-icon name="minus"></wa-icon></wa-badge>
         </span>
       </div>
     </div>

@@ -28,6 +28,9 @@
   <p class="component-summary">
     {{ component.summary | inlineMarkdown | safe }}
   </p>
+  {% if isProComponent %}
+    {% include "pro-component-notice.njk" ignore missing %}
+  {% endif %}
 {% endblock %}
 
 {# Component API #}

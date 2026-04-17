@@ -3,6 +3,13 @@ title: Radio Group
 description: Radio groups are used to group multiple radios so they function as a single form control.
 layout: component
 category: Form Controls
+synonyms:
+  - radio buttons
+  - option group
+  - button group
+use-cases:
+  - single select group
+  - exclusive options
 ---
 
 ```html {.example}
@@ -14,6 +21,22 @@ category: Form Controls
 ```
 
 ## Examples
+
+### Checked
+
+Use the `value` attribute on the radio group to set the checked radio.
+
+```html {.example}
+<wa-radio-group label="Select an option" name="a" value="2">
+  <wa-radio value="1">Option 1</wa-radio>
+  <wa-radio value="2">Option 2</wa-radio>
+  <wa-radio value="3">Option 3</wa-radio>
+</wa-radio-group>
+```
+
+:::info
+To target checked radios with CSS, use the `:state(checked)` selector.
+:::
 
 ### Hint
 

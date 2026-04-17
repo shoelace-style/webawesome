@@ -3,6 +3,17 @@ title: Details
 description: Details show a brief summary and expand to show additional content.
 layout: component
 category: Organization
+synonyms:
+  - accordion
+  - collapsible
+  - expandable
+  - disclosure
+  - expander
+use-cases:
+  - FAQ
+  - show more
+  - expandable section
+  - toggle content
 ---
 
 ```html {.example}
@@ -13,6 +24,17 @@ category: Organization
 ```
 
 ## Examples
+
+### Expanded Initially
+
+Use the `open` attribute to expand the details initially.
+
+```html {.example}
+<wa-details summary="Toggle Me" open>
+  This details component is expanded by default. Users can click the summary to collapse it if they want to hide the
+  content.
+</wa-details>
+```
 
 ### Disabled
 

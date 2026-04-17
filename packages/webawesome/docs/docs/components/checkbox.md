@@ -3,6 +3,15 @@ title: Checkbox
 description: Checkboxes allow the user to toggle an option on or off.
 layout: component
 category: Form Controls
+synonyms:
+  - check
+  - tick
+  - checkmark
+use-cases:
+  - boolean toggle
+  - multi-select option
+  - terms agreement
+  - todo item
 ---
 
 ```html {.example}
@@ -22,6 +31,10 @@ Use the `checked` attribute to activate the checkbox.
 ```html {.example}
 <wa-checkbox checked>Checked</wa-checkbox>
 ```
+
+:::info
+The `checked` attribute is the initial value and does not reflect changes, consistent with native checkboxes. To toggle the checked state with JavaScript, use the `checked` property instead. To target checked checkboxes with CSS, use the `:state(checked)` selector.
+:::
 
 ### Indeterminate
 

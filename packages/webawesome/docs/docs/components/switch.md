@@ -3,6 +3,14 @@ title: Switch
 description: Switches allow the user to toggle an option on or off.
 layout: component
 category: Form Controls
+synonyms:
+  - toggle
+  - toggle switch
+  - on off
+use-cases:
+  - boolean toggle
+  - setting toggle
+  - dark mode toggle
 ---
 
 ```html {.example}
@@ -22,6 +30,10 @@ Use the `checked` attribute to activate the switch.
 ```html {.example}
 <wa-switch checked>Checked</wa-switch>
 ```
+
+:::info
+The `checked` attribute is the initial value and does not reflect changes, consistent with native checkboxes. To toggle the checked state with JavaScript, use the `checked` property instead. To target checked switches with CSS, use the `:state(checked)` selector.
+:::
 
 ### Disabled
 

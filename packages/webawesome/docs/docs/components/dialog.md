@@ -3,6 +3,18 @@ title: Dialog
 description: 'Dialogs, sometimes called "modals", appear above the page and require the user''s immediate attention.'
 layout: component
 category: Organization
+synonyms:
+  - modal
+  - popup
+  - lightbox
+  - overlay
+  - modal dialog
+use-cases:
+  - confirmation dialog
+  - alert dialog
+  - prompt
+  - login modal
+  - cookie consent
 ---
 
 ```html {.example}

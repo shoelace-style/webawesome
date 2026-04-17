@@ -92,6 +92,8 @@ export default class WaTreeItem extends WebAwesomeElement {
   /** Enables lazy loading behavior. */
   @property({ type: Boolean, reflect: true }) lazy = false;
 
+  private animationGeneration = 0;
+
   @query('slot:not([name])') defaultSlot: HTMLSlotElement;
   @query('slot[name=children]') childrenSlot: HTMLSlotElement;
   @query('.item') itemElement: HTMLDivElement;
@@ -119,7 +121,7 @@ export default class WaTreeItem extends WebAwesomeElement {
     this.handleExpandedChange();
   }
 
-  private async animateCollapse() {
+  private async animateCollapse(generation: number) {
     this.dispatchEvent(new WaCollapseEvent());
 
     const duration = parseDuration(getComputedStyle(this.childrenContainer).getPropertyValue('--hide-duration'));
@@ -132,6 +134,12 @@ export default class WaTreeItem extends WebAwesomeElement {
       ],
       { duration, easing: 'cubic-bezier(0.4, 0.0, 0.2, 1)' },
     );
+
+    // If a newer animation has started, handle the final state
+    if (this.animationGeneration !== generation) {
+      return;
+    }
+
     this.childrenContainer.hidden = true;
 
     this.dispatchEvent(new WaAfterCollapseEvent());
@@ -167,7 +175,7 @@ export default class WaTreeItem extends WebAwesomeElement {
     }
   }
 
-  private async animateExpand() {
+  private async animateExpand(generation: number) {
     this.dispatchEvent(new WaExpandEvent());
 
     this.childrenContainer.hidden = false;
@@ -184,6 +192,12 @@ export default class WaTreeItem extends WebAwesomeElement {
         easing: 'cubic-bezier(0.4, 0.0, 0.2, 1)',
       },
     );
+
+    // If a newer animation has started, handle the final state
+    if (this.animationGeneration !== generation) {
+      return;
+    }
+
     this.childrenContainer.style.height = 'auto';
 
     this.dispatchEvent(new WaAfterExpandEvent());
@@ -194,7 +208,7 @@ export default class WaTreeItem extends WebAwesomeElement {
     this.setAttribute('aria-busy', this.loading ? 'true' : 'false');
 
     if (!this.loading) {
-      this.animateExpand();
+      this.animateExpand(this.animationGeneration);
     }
   }
 
@@ -231,15 +245,18 @@ export default class WaTreeItem extends WebAwesomeElement {
 
   @watch('expanded', { waitUntilFirstUpdate: true })
   handleExpandAnimation() {
+    this.animationGeneration++;
+    const generation = this.animationGeneration;
+
     if (this.expanded) {
       if (this.lazy) {
         this.loading = true;
         this.dispatchEvent(new WaLazyLoadEvent());
       } else {
-        this.animateExpand();
+        this.animateExpand(generation);
       }
     } else {
-      this.animateCollapse();
+      this.animateCollapse(generation);
     }
   }
 
@@ -329,6 +346,12 @@ export default class WaTreeItem extends WebAwesomeElement {
     `;
   }
 }
+
+// The change-in-update warning is required for this component because `isLeaf` and `loading` are @state() properties
+// that must be derived from DOM/slot content (via getChildrenItems() and slotchange handlers), which is only available
+// after rendering. These properties cannot be computed before render in willUpdate() since they depend on assigned slot
+// elements. See https://lit.dev/docs/tools/development/#development-build-runtime-warnings
+WaTreeItem.disableWarning?.('change-in-update');
 
 declare global {
   interface HTMLElementTagNameMap {

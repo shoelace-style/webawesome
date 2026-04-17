@@ -40,10 +40,14 @@ export function searchPlugin(options = {}) {
 
     eleventyConfig.addPreprocessor('exclude-unlisted-from-search', '*', function (data, content) {
       if (data.unlisted) {
-        // no-op
         pagesToIndex.delete(data.page.inputPath);
       } else {
-        pagesToIndex.set(data.page.inputPath, true);
+        // Cache front matter keywords here (preprocessor has data access, transform does not)
+        pagesToIndex.set(data.page.inputPath, {
+          pending: true,
+          synonyms: data.synonyms || [],
+          useCases: data['use-cases'] || [],
+        });
       }
 
       return content;
@@ -51,7 +55,8 @@ export function searchPlugin(options = {}) {
 
     // With incremental builds we need this to be last in case stuff was added from metadata. _BUT_ in incremental builds, not every page is added to the "transform".
     eleventyConfig.addTransform('search', function (content) {
-      if (!pagesToIndex.has(this.page.inputPath)) {
+      const existing = pagesToIndex.get(this.page.inputPath);
+      if (!existing) {
         return content;
       }
 
@@ -77,6 +82,8 @@ export function searchPlugin(options = {}) {
         headings: options.getHeadings(doc).map(collapseWhitespace),
         content: collapseWhitespace(options.getContent(doc)),
         url: normalizeDisplayUrl(rawUrl),
+        synonyms: existing.synonyms || [],
+        useCases: existing.useCases || [],
       });
 
       return content;
@@ -95,9 +102,11 @@ export function searchPlugin(options = {}) {
 
         const cachedPagesMap = new Map(content.pages);
         for (const [key, value] of cachedPagesMap.entries()) {
-          // A page uses a cached value if `true` and it didnt get its value set in the "transform" hook. This is to get around the limitation of incremental builds not going over every file in transform.
-          if (pagesToIndex.get(key) === true) {
-            pagesToIndex.set(key, value);
+          // A page uses a cached value if it's still pending (not yet processed by the transform hook).
+          // This works around the limitation of incremental builds not running transform on every file.
+          const current = pagesToIndex.get(key);
+          if (current?.pending) {
+            pagesToIndex.set(key, { ...value, synonyms: current.synonyms, useCases: current.useCases });
           }
         }
       }
@@ -107,13 +116,20 @@ export function searchPlugin(options = {}) {
       getCachedPages();
 
       const searchIndex = new MiniSearch({
-        fields: ['t', 'h', 'c'],
+        fields: ['t', 'h', 's', 'u', 'c'],
         storeFields: [],
       });
 
       let index = 0;
       for (const [_inputPath, page] of pagesToIndex) {
-        searchIndex.add({ id: index, t: page.title, h: page.headings, c: page.content });
+        searchIndex.add({
+          id: index,
+          t: page.title,
+          h: page.headings,
+          s: (page.synonyms || []).join(' '),
+          u: (page.useCases || []).join(' '),
+          c: page.content,
+        });
         map[index] = { title: page.title, description: page.description, url: page.url };
         index++;
       }

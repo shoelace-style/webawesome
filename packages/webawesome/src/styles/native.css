@@ -301,6 +301,7 @@
 
     background-color: var(--wa-color-overlay-inline);
     border-radius: var(--wa-border-radius-m);
+    overflow-x: auto;
 
     /* Remove overlapping styles for child code elements */
     & code,

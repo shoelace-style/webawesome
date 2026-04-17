@@ -3,6 +3,17 @@ title: Badge
 description: Badges are used to draw attention and display statuses or counts.
 layout: component
 category: Feedback & Status
+synonyms:
+  - chip
+  - label
+  - count
+  - indicator
+  - pill
+use-cases:
+  - notification count
+  - status indicator
+  - unread count
+  - new indicator
 ---
 
 ```html {.example}
@@ -122,16 +133,16 @@ Use the `start` and `end` slots to add presentational elements like `<wa-icon>` 
 
 ```html {.example}
 <wa-badge>
-  <wa-icon slot="start" name="acorn"></wa-icon>
+  <wa-icon slot="start" name="seedling"></wa-icon>
   Start
 </wa-badge>
 <wa-badge>
-  <wa-icon slot="end" name="tree-deciduous"></wa-icon>
+  <wa-icon slot="end" name="tree"></wa-icon>
   End
 </wa-badge>
 <wa-badge>
   <wa-icon slot="start" name="cow"></wa-icon>
-  <wa-icon slot="end" name="ufo-beam"></wa-icon>
+  <wa-icon slot="end" name="meteor"></wa-icon>
   Both
 </wa-badge>
 ```
