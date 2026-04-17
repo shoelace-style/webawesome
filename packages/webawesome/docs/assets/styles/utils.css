@@ -873,15 +873,18 @@
 
   /* icon swap on hover/focus: plain buttons + dropdown items (pair .icon-default / .icon-hover in icon slot) */
   wa-button .icon-hover,
-  wa-dropdown-item .icon-hover[slot='icon'] {
+  wa-dropdown-item .icon-hover[slot='icon'],
+  .wa-hover-icon-swap .icon-hover {
     display: none;
   }
   wa-button:hover .icon-default,
-  wa-dropdown-item:is(:hover, :focus-visible) .icon-default[slot='icon'] {
+  wa-dropdown-item:is(:hover, :focus-visible) .icon-default[slot='icon'],
+  .wa-hover-icon-swap:is(:hover, :focus-visible) .icon-default {
     display: none;
   }
   wa-button:hover .icon-hover,
-  wa-dropdown-item:is(:hover, :focus-visible) .icon-hover[slot='icon'] {
+  wa-dropdown-item:is(:hover, :focus-visible) .icon-hover[slot='icon'],
+  .wa-hover-icon-swap:is(:hover, :focus-visible) .icon-hover {
     display: inline-flex;
   }
 
