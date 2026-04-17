@@ -19,6 +19,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed a bug in `<wa-zoomable-frame>` where zoom control buttons did not properly update their disabled state after zoom levels were parsed
 - Fixed a bug in `<wa-button>` where icon-only buttons with `with-caret` were sized as a square, causing the caret to overflow
 - Refactored component tests across core and pro packages to follow a consistent structure with improved coverage
+- Added `<wa-video>` as an experimental Pro component [discuss:189]
 
 ## 3.5.0
 
