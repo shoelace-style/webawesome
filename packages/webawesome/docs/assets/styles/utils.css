@@ -831,6 +831,7 @@
   /* wa illustration background pattern */
   .background-wa-pattern {
     --background-pattern-size: auto;
+    --background-pattern-position: 0 0;
     position: relative;
 
     & > * {
@@ -845,6 +846,7 @@
       background-image: var(--background-pattern-image, url('/assets/images/bg-wa-pattern.svg'));
       background-repeat: repeat;
       background-size: var(--background-pattern-size);
+      background-position: var(--background-pattern-position);
       content: '';
       opacity: var(--background-pattern-opacity, 0.3);
       z-index: 0;
