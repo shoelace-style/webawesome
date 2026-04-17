@@ -814,10 +814,6 @@
       var(--wa-fade-mask-show) var(--wa-fade-mask-fade-start),
       var(--wa-fade-mask-hide) calc(var(--wa-fade-mask-fade-start) + var(--wa-fade-mask-fade-length))
     );
-    -webkit-mask-size: 100% 100%;
-    mask-size: 100% 100%;
-    -webkit-mask-repeat: no-repeat;
-    mask-repeat: no-repeat;
   }
 
   @supports (color: rgb(from red r g b)) {
