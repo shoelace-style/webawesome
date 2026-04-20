@@ -8,191 +8,10 @@ category: Actions
 QR codes are useful for providing small pieces of information to users who can quickly scan them with a smartphone. Most smartphones have built-in QR code scanners, so simply pointing the camera at a QR code will decode it and allow the user to visit a website, dial a phone number, read a message, etc.
 
 ```html {.example}
-<div class="qr-configuration">
-  <wa-qr-code
-    value="https://webawesome.com/"
-    label="Scan this code to visit Web Awesome on the web!"
-    image="/assets/images/logos/wa-avatar4x.png"
-  >
-  </wa-qr-code>
-  <br><br>
-  <output><pre><code id="qr-configuration-code" class="language-html"></code><wa-copy-button style="top: -2.5rem;" from="qr-configuration-code" class="copy-button wa-dark"></wa-copy-button></pre></output>
-
-  <form class="wa-stack">
-    <div class="wa-split">
-      <wa-color-picker name="background" label="Background"></wa-color-picker>
-      <wa-color-picker name="color" label="Color"></wa-color-picker>
-      <wa-color-picker name="--corner-color" label="Corner Color"></wa-color-picker>
-    </div>
-    <wa-input maxlength="255" with-clear name="value" label="Value">
-      <wa-icon slot="start" name="link"></wa-icon>
-    </wa-input>
-    <wa-input maxlength="255" with-clear name="image" label="Image URL">
-      <wa-icon slot="start" name="camera"></wa-icon>
-    </wa-input>
-  </form>
-</div>
-
-<style>
-
-  .qr-configuration {
-    & pre {
-      color-scheme: dark;
-      color: white;
-      background-color: var(--code-background, var(--wa-color-neutral-20));
-      position: relative;
-    }
-    & code {
-      display: block;
-      font-size: 1em;
-      background-color: transparent;
-      padding: var(--wa-space-m);
-      white-space: pre;
-      overflow-x: auto;
-    }
-  }
-</style>
-
-<script>
-  const container = document.querySelector('.qr-configuration');
-  const qrCode = container.querySelector('wa-qr-code');
-  const form = container.querySelector("form")
-
-  customElements.whenDefined('wa-qr-code').then(() => {
-    const properties = qrCode.constructor.elementProperties
-
-    function updateCode () {
-      const ignoredKeys = [
-        "didSSR",
-        "dir",
-        "lang"
-      ]
-
-      const htmlStart = `<wa-qr-code`
-      let attributes = []
-      const htmlEnd = `></wa-qr-code>`
-
-      ;[...properties.keys()].forEach((key) => {
-        if (ignoredKeys.includes(key)) {
-          return
-        }
-
-        const property = key
-        let attr = null
-
-        const definition = properties.get(key)
-        if (definition) {
-          if (definition.attribute === true) {
-            attr = property
-          } else {
-            attr = definition.attribute
-          }
-        }
-
-        if (attr && qrCode[property]) {
-          attributes.push(`${attr}="${qrCode[property]}"`)
-        }
-      })
-
-      const styleVal = qrCode.getAttribute('style');
-      const styleLine = styleVal ? `  style="\n    ${styleVal.split(";").map((str, index, ary) => {
-        if (index === ary.length - 2) {
-          return str + ";\n"
-        }
-
-        if (index < ary.length - 1) {
-          return str + ";\n   "
-        }
-
-        return "  " + str
-      }).join("")}"` + "\n" : "";
-
-      let attrString = ""
-
-      function prettifyAttrs (attrs, spacer = "  ", newLine = "\n") {
-        let attrString = ""
-        if (attrs.length <= 0) {
-          return attrString
-        }
-        attrString = newLine + spacer + attrs.map((attr, index) => {
-          if (index < attrs.length - 1) {
-            return attr + newLine + spacer
-          }
-
-          return attr + newLine
-        }).join("")
-        return attrString
-      }
-
-      const qrCodeHTML = htmlStart + prettifyAttrs(attributes) + styleLine + htmlEnd
-      container.querySelector("code").textContent = qrCodeHTML
-    }
-
-    function updateValue (e) {
-      const target = e.target
-      const name = target?.name
-
-      const properties = ["background", "color"]
-      const customProperties = ["--corner-color"]
-      if (properties.includes(name)) {
-        qrCode.style[name] = target.value
-      } else if (customProperties.includes(name)) {
-        qrCode.style.setProperty("--corner-color", target.value)
-      } else if (name) {
-        qrCode[name] = target.value
-      }
-
-      updateCode()
-    }
-
-    form.addEventListener("input", updateValue)
-    form.addEventListener("change", updateValue)
-
-    form.querySelectorAll("[name]").forEach((el) => {
-      el.value = qrCode[el.getAttribute("name")]
-    })
-
-    updateCode()
-  });
-</script>
-```
-
-<br>
-
-```html {.example}
-<div class="qr-overview">
-  <wa-qr-code
-    value="https://webawesome.com/"
-    label="Scan this code to visit Web Awesome on the web!"
-  ></wa-qr-code>
-
-  <br />
-
-  <wa-input maxlength="255" with-clear label="Value">
-    <wa-icon slot="start" name="link"></wa-icon>
-  </wa-input>
-</div>
-
-<script>
-  const container = document.querySelector('.qr-overview');
-  const qrCode = container.querySelector('wa-qr-code');
-  const input = container.querySelector('wa-input');
-
-  customElements.whenDefined('wa-qr-code').then(() => {
-    input.value = qrCode.value;
-    input.addEventListener('input', () => (qrCode.value = input.value));
-  });
-</script>
-
-<style>
-  .qr-overview {
-    max-width: 256px;
-  }
-
-  .qr-overview wa-input {
-    margin-top: 1rem;
-  }
-</style>
+<wa-qr-code
+  value="https://webawesome.com/"
+  label="Scan this code to visit Web Awesome on the web!"
+></wa-qr-code>
 ```
 
 ## Examples
@@ -227,7 +46,7 @@ A _quiet zone_ is the blank space around a QR code that helps scanners detect it
 
 #### Corner Color
 
-You can change the color of the corners to be different from the main element.
+You can change the color of the corners to be different from the main element with the `--corner-color` custom property.
 
 ```html {.example}
 <wa-qr-code
@@ -263,6 +82,17 @@ QR codes can be rendered with various levels of [error correction](https://www.q
     gap: 1rem;
   }
 </style>
+```
+
+### Images
+
+Use the `image` attribute to add a logo or image to the center of the QR code. When using an image, the error correction level will automatically be set to `H` to ensure the code remains scannable.
+
+```html {.example}
+<wa-qr-code
+  value="https://webawesome.com/"
+  image="/assets/images/logos/wa-avatar4x.png"
+></wa-qr-code>
 ```
 
 ### Image Error Correction Cover
