@@ -7,32 +7,113 @@ override:tags: []
 ---
 
 <style>
-  td { vertical-align: middle; }
+  .swatch {
+    min-inline-size: 6rem;
+  }
+
+  wa-tab-panel:not([name='borders']) {
+    border-color: transparent;
+  }
+
+  td {
+    vertical-align: middle;
+  }
 
   .token-name { white-space: nowrap; }
 
-  /* Color swatches */
-  .color-name {
-    font-weight: var(--wa-font-weight-semibold);
-    margin-block-end: var(--wa-space-2xs);
+  /* Palette swatches */
+  .palette {
+    display: grid;
+    grid-template-columns: 20ch 1fr;
+    align-items: center;
+    gap: var(--wa-space-m);
+    margin-bottom: var(--wa-space-s);
+    width: 100%;
+    padding-top: var(--wa-space-l);
   }
-  ul.color-group {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  .palette-label {
+    font-size: var(--wa-font-size-s);
   }
-  .color-group {
-    align-items: start;
-    display: flex;
-    flex-wrap: nowrap;
+  .palette-swatches {
+    display: grid;
+    grid-template-columns: repeat(11, 1fr);
     gap: var(--wa-space-3xs);
   }
-  .color-group small {
-    font-size: var(--wa-font-size-xs);
-    color: var(--wa-color-text-quiet);
+  .palette-swatch {
+    display: block;
+    position: relative;
+    aspect-ratio: 1.5 / 1;
+
+    &::before {
+      content: var(--tint);
+      position: absolute;
+      top: calc(-1 * var(--wa-space-l));
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: var(--wa-font-size-xs);
+      color: var(--wa-color-text-quiet);
+      font-weight: var(--wa-font-weight-action);
+      text-align: center;
+      z-index: 2;
+    }
   }
-  .color-preview {
-    flex: 1 1 auto;
+  .swatch-button {
+    all: revert;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    background-color: var(--color);
+    border-radius: var(--wa-border-radius-m);
+    transition: transform 0.1s ease, translate 0.1s ease, box-shadow 0.1s ease;
+
+    &:hover {
+      transform: scale(1.075);
+      box-shadow: var(--wa-shadow-s);
+      z-index: 1;
+    }
+
+    &:active {
+      translate: 0 1px;
+      box-shadow: none;
+    }
+  }
+  @media (max-width: 768px) {
+    .palette {
+      grid-template-columns: 3.75rem 1fr;
+      gap: var(--wa-space-s);
+      margin-bottom: var(--wa-space-m);
+      padding-top: var(--wa-space-xl);
+    }
+    .palette-label {
+      font-size: var(--wa-font-size-xs);
+    }
+    .palette-swatches {
+      grid-template-columns: repeat(6, 1fr);
+      gap: var(--wa-space-2xs);
+      row-gap: var(--wa-space-l);
+    }
+    .palette-swatch {
+      aspect-ratio: 1 / 1;
+
+      &::before {
+        font-size: var(--wa-font-size-2xs);
+        top: calc(-1 * var(--wa-space-m));
+      }
+    }
+  }
+
+  .on-color-swatch {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--wa-space-s) var(--wa-space-s);
+    border-radius: var(--wa-border-radius-m);
+    font-weight: var(--wa-font-weight-semibold);
+    font-size: var(--wa-font-size-m);
   }
 
   /* Spacing preview */
@@ -80,7 +161,8 @@ override:tags: []
     height: 100%;
     transition: inherit;
   }
-  .transition-swatch:hover::after {
+  .transition-swatch:hover::after,
+  .transition-swatch:focus::after {
     width: 100%;
   }
 
@@ -99,104 +181,27 @@ override:tags: []
     text-align: center;
   }
 
-  /* Key color row */
-  .key-color-group .color-preview small {
-    display: block;
-    font-size: var(--wa-font-size-xs);
-    color: var(--wa-color-text-quiet);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  /* On-color swatches */
-  .on-color-group {
-    flex-wrap: wrap;
-    gap: var(--wa-space-xs);
-  }
-  .on-color-preview {
-    flex: 1 1 8rem;
-    min-width: 7rem;
-  }
-  .on-color-swatch {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: var(--wa-space-s) var(--wa-space-s);
-    border-radius: var(--wa-border-radius-m);
-    font-weight: var(--wa-font-weight-semibold);
-    font-size: var(--wa-font-size-m);
-  }
-  .on-color-preview small {
-    display: block;
-    margin-block-start: var(--wa-space-3xs);
-    font-size: var(--wa-font-size-xs);
-    color: var(--wa-color-text-quiet);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  /* Token tables */
-  .token-table { width: 100%; }
-  .token-table th, .token-table td { padding: var(--wa-space-xs) var(--wa-space-s); }
-  .token-table th { text-align: start; font-weight: var(--wa-font-weight-semibold); }
-
   /* Tab panel spacing */
   p { max-width: var(--content-width-s); }
   wa-tab-panel > * + * {
     margin-block-start: var(--wa-content-spacing);
   }
 
-  /* ── Search bar ──────────────────────────────────────────────── */
-  .token-search-bar {
-    display: flex;
-    align-items: center;
-    gap: var(--wa-space-s);
-    margin-block: var(--wa-space-l);
-    position: sticky;
-    top: calc(var(--header-height) + var(--subheader-height));
-    padding-block: var(--wa-space-xs);
-    background-color: var(--wa-color-surface-default);
-    z-index: 10;
+  /* Sticky tabs */
+  wa-tab-group#token-tabs {
+    &::part(base) {
+      position: relative;
+    }
+    &::part(nav) {
+      position: sticky;
+      top: calc(var(--banner-height) + var(--header-height) + var(--subheader-height));
+      background-color: var(--wa-color-surface-default);
+    }
   }
-  .token-search-bar wa-input { flex: 1; }
-  .token-search-count { font-size: var(--wa-font-size-s); color: var(--wa-color-text-quiet); white-space: nowrap; }
-
-  /* ── Search results ──────────────────────────────────────────── */
-  .result-row { cursor: pointer; }
-  .result-row:hover td { background: var(--wa-color-surface-lowered); }
-
-  /* ── Category badges ─────────────────────────────────────────── */
-  .cat-badge {
-    display: inline-block;
-    padding: 0.15em 0.55em;
-    border-radius: var(--wa-border-radius-pill);
-    font-size: var(--wa-font-size-xs);
-    font-weight: var(--wa-font-weight-semibold);
-    white-space: nowrap;
-    background: var(--wa-color-neutral-fill-normal);
-    color: var(--wa-color-neutral-on-normal);
-  }
-  .cat-badge-color      { background: var(--wa-color-brand-fill-quiet);    color: var(--wa-color-brand-on-quiet); }
-  .cat-badge-typography { background: var(--wa-color-success-fill-quiet);   color: var(--wa-color-success-on-quiet); }
-  .cat-badge-space      { background: var(--wa-color-warning-fill-quiet);   color: var(--wa-color-warning-on-quiet); }
-  .cat-badge-borders    { background: var(--wa-color-danger-fill-quiet);    color: var(--wa-color-danger-on-quiet); }
-  .cat-badge-shadows    { background: var(--wa-color-neutral-fill-normal);  color: var(--wa-color-neutral-on-normal); }
-  .cat-badge-focus      { background: var(--wa-color-brand-fill-normal);    color: var(--wa-color-brand-on-normal); }
-  .cat-badge-transitions{ background: var(--wa-color-success-fill-normal);  color: var(--wa-color-success-on-normal); }
-  .cat-badge-components { background: var(--wa-color-warning-fill-normal);  color: var(--wa-color-warning-on-normal); }
-
-  /* ── Row highlight after search-navigate ─────────────────────── */
-  @keyframes token-highlight {
-    0%   { background-color: var(--wa-color-brand-fill-quiet); }
-    100% { background-color: transparent; }
-  }
-  .token-row-highlight { animation: token-highlight 1.8s ease-out forwards; }
 </style>
 
 {% markdown %}
-Design tokens are CSS custom properties that thread through Web Awesome's components to give your theme a consistent look and feel. By overriding these properties, you can customize the entire component library without touching individual component styles.
+Design tokens are CSS custom properties that thread through Web Awesome's components to give your theme a consistent look and feel. By overriding these properties, you can customize the library without touching individual component styles.
 
 To customize a token, set its value in your stylesheet:
 
@@ -204,31 +209,24 @@ To customize a token, set its value in your stylesheet:
 :root {
   --wa-font-family-body: 'Inter', sans-serif;
   --wa-border-width-scale: 1.5;
-  --wa-space-scale: 1.25;
+}
+```
+
+To customize a token that adapts to light and dark mode, scope the token value to classes:
+
+```css
+.wa-light,
+.wa-dark .wa-invert {
+  --wa-color-surface-default: var(--wa-color-neutral-95);
+}
+
+.wa-dark,
+.wa-invert {
+  --wa-color-surface-default: var(--wa-color-neutral-05);
 }
 ```
 {% endmarkdown %}
 
-<div class="token-search-bar">
-  <wa-input id="token-search" type="search" placeholder="Search design tokens..." clearable>
-    <wa-icon name="magnifying-glass" slot="start"></wa-icon>
-  </wa-input>
-  <span class="token-search-count" id="token-search-count" hidden></span>
-</div>
-
-<div id="token-search-results" hidden>
-  <table class="token-table">
-    <thead>
-      <tr>
-        <th>Category</th>
-        <th>Custom Property</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody id="token-results-body"></tbody>
-  </table>
-  <p id="token-no-results" hidden style="padding-block: var(--wa-space-2xl); text-align: center; color: var(--wa-color-text-quiet);">No tokens match your search.</p>
-</div>
 
 <wa-tab-group id="token-tabs">
   <wa-tab panel="color">Color</wa-tab>
@@ -297,114 +295,3 @@ To customize a token, set its value in your stylesheet:
 </wa-tab-panel>
 </wa-tab-group>
 
-<script type="module">
-  // ─── Search ───────────────────────────────────────────────────────────────
-  const searchInput = document.getElementById('token-search');
-  const searchResults = document.getElementById('token-search-results');
-  const resultsBody = document.getElementById('token-results-body');
-  const noResults = document.getElementById('token-no-results');
-
-  // Build index by reading directly from table cell content
-  function buildIndex() {
-    return Array.from(document.querySelectorAll('.token-table tbody tr[id]')).map(row => ({
-      name: row.querySelector('td:first-child code')?.textContent.trim() ?? '',
-      desc: row.querySelector('td:nth-child(2)')?.textContent.trim() ?? '',
-      category: row.closest('wa-tab-panel')?.getAttribute('name') ?? '',
-      id: row.id,
-    }));
-  }
-
-  const categoryLabels = {
-    color: 'Color',
-    typography: 'Typography',
-    space: 'Space',
-    borders: 'Borders',
-    shadows: 'Shadows',
-    focus: 'Focus',
-    transitions: 'Transitions',
-    components: 'Components',
-  };
-
-  function navigateToToken(tokenId, category) {
-    // Clear search
-    searchInput.value = '';
-    searchResults.hidden = true;
-    resultsBody.innerHTML = '';
-
-    // Show the right tab
-    const tabMap = {
-      color: 'color',
-      typography: 'typography',
-      space: 'space',
-      borders: 'borders',
-      shadows: 'shadows',
-      focus: 'focus',
-      transitions: 'transitions',
-      components: 'components',
-    };
-    const tab = tabMap[category] || category;
-    tokenTabs.show(tab);
-
-    requestAnimationFrame(() => requestAnimationFrame(() => {
-      const row = document.getElementById(tokenId);
-      if (!row) return;
-      row.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      row.classList.remove('token-row-highlight');
-      // Force reflow to restart animation
-      void row.offsetWidth;
-      row.classList.add('token-row-highlight');
-      row.addEventListener('animationend', () => row.classList.remove('token-row-highlight'), { once: true });
-    }));
-  }
-
-  function renderResults(query) {
-    const q = query.trim().toLowerCase();
-    if (!q) {
-      searchResults.hidden = true;
-      resultsBody.innerHTML = '';
-      return;
-    }
-
-    const index = buildIndex();
-    const matches = index.filter(t =>
-      t.name.toLowerCase().includes(q) ||
-      t.desc.toLowerCase().includes(q) ||
-      t.category.toLowerCase().includes(q)
-    );
-
-    resultsBody.innerHTML = '';
-    if (matches.length === 0) {
-      noResults.hidden = false;
-      searchResults.hidden = false;
-      return;
-    }
-
-    noResults.hidden = true;
-    matches.forEach(token => {
-      const tr = document.createElement('tr');
-      tr.style.cursor = 'pointer';
-      tr.title = 'Jump to token';
-      tr.innerHTML = `
-        <td><span class="cat-badge cat-badge-${token.category}">${categoryLabels[token.category] || token.category}</span></td>
-        <td class="token-name"><code>${token.name}</code></td>
-        <td>${token.desc}</td>
-      `;
-      tr.addEventListener('click', () => navigateToToken(token.id, token.category));
-      resultsBody.appendChild(tr);
-    });
-
-    searchResults.hidden = false;
-  }
-
-  searchInput.addEventListener('input', e => renderResults(e.target.value));
-
-  // "/" shortcut to focus search
-  document.addEventListener('keydown', e => {
-    if (e.key === '/' && document.activeElement !== searchInput && !['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName)) {
-      e.preventDefault();
-      searchInput.focus();
-      searchInput.select();
-    }
-  });
-
-</script>

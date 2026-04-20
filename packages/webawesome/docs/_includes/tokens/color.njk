@@ -1,8 +1,8 @@
 {% markdown %}
-Web Awesome's color system is made up of three layers: a **color palette** that gives you a full spectrum of hues, **variant colors** that power the `variant=""` attribute across components, and **theme colors** that style components with the tints assign from your chosen variant colors. All three layers are CSS custom properties so every layer is fully overridable.
+Web Awesome's color system is made up of three layers: a **color palette** that gives you a full spectrum of hues, **variant colors** that define semantic color variations (like success and danger), and **theme colors** that assign tints from your palette and variant colors to tokens that style components.
 
 ## Color Palette
-[Color palettes](/docs/color-palettes) give you a full spectrum of colors to use in your project and are the lowest-level color tokens. Each token is identified as one of 10 different hues with a numeric tint that correlates to lightness — `95` is near white, `05` is near black.
+[Color palettes](/docs/color-palettes) give you a full spectrum of colors to use in your project and are the lowest-level color tokens. Each color palette includes 10 different hues, each with 11 numeric tints that make up a color scale from light to dark — `95` is near white, `05` is near black.
 
 These numeric tints help ensure accessible color contrast per [WCAG 2.1 success criteria](https://www.w3.org/TR/WCAG21/#contrast-minimum):
 
@@ -12,53 +12,53 @@ These numeric tints help ensure accessible color contrast per [WCAG 2.1 success 
 {% endmarkdown %}
 
 {% for hue in ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'indigo', 'purple', 'pink', 'gray'] %}
-<div class="color-name"><code>--wa-color-{{ hue }}-{tint}</code></div>
-<ul class="color-group">
-  {% for tint in ['95', '90', '80', '70', '60', '50', '40', '30', '20', '10', '05'] %}
-    <li class="color-preview">
-      <div class="color swatch" style="background-color: var(--wa-color-{{ hue }}-{{ tint }})">
-        <wa-copy-button value="--wa-color-{{ hue }}-{{ tint }}" copy-label="--wa-color-{{ hue }}-{{ tint }}"></wa-copy-button>
-      </div>
-      <small>{{ tint }}</small>
-    </li>
-  {% endfor %}
-</ul>
+<div class="palette">
+  <div class="palette-label"><code>--wa-color-{{ hue }}-*</code></div>
+  <div class="palette-swatches">
+    {% for tint in ['95', '90', '80', '70', '60', '50', '40', '30', '20', '10', '05'] %}
+    <wa-copy-button
+      class="palette-swatch"
+      value="--wa-color-{{ hue }}-{{ tint }}"
+      copy-label="--wa-color-{{ hue }}-{{ tint }}"
+      style="--color: var(--wa-color-{{ hue }}-{{ tint }}); --tint: '{{ tint }}'"
+    >
+      <button class="swatch-button" aria-label="{{ hue }} {{ tint }} (click to copy)"></button>
+    </wa-copy-button>
+    {% endfor %}
+  </div>
+</div>
 {% endfor %}
 
 {% markdown %}
-### Key Colors
+### Core Colors
 
-In addition to numeric tints, each hue has a *key color* — the most colorful, vibrant tint in the scale. The exact tint varies by palette (for example, yellow's key is tint 80 in the default palette, while red's is 50). Use `--wa-color-{hue}` when you want a representative color for a hue without specifying a tint.
+In addition to numeric tints, each hue has a *core color* — the most colorful, vibrant tint in the scale. The exact tint varies by palette. Use `--wa-color-{hue}` when you want a representative color for a hue without specifying a tint.
 
-Each key color has a paired *on color* guaranteed to meet WCAG 2.1 AA contrast when placed on top of it. If the key tint is light (≥ 60), the on color is a dark shade of that hue; otherwise it is white. Use `--wa-color-{hue}-on` any time you render text or icons on a key color background.
-{% endmarkdown %}
+The tint for each core color is stored as an integer in `--wa-color-{hue}-key`. These tokens are used internally to determine a compatible text color when using the core color as a background and are not used directly by components.
 
-<ul class="color-group on-color-group">
-  {% for hue in ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'indigo', 'purple', 'pink', 'gray'] %}
-    <li class="on-color-preview">
-      <div class="on-color-swatch" style="background-color: var(--wa-color-{{ hue }}); color: var(--wa-color-{{ hue }}-on)">
-        Aa
-        <wa-copy-button value="--wa-color-{{ hue }}-on" copy-label="--wa-color-{{ hue }}-on"></wa-copy-button>
-      </div>
-      <small><code>--wa-color-{{ hue }}</code></small>
-      <small><code>--wa-color-{{ hue }}-on</code></small>
-    </li>
-  {% endfor %}
-</ul>
-
-{% markdown %}
-The tint index for each key color is stored as an integer in `--wa-color-{hue}-key`. These tokens are used internally by the palette system and are not intended for direct use in component or application styling.
+Using this key, the color system derives a paired *on color* guaranteed to meet WCAG 2.1 AA contrast when placed on top of the corresponding core color. If the core tint is light (≥ 60), the on color is a dark shade of that hue; otherwise it is white. Use `--wa-color-{hue}-on` any time you render text or icons on a core color background.
 {% endmarkdown %}
 
 <table class="token-table wa-hover-rows">
   <thead>
-    <tr><th>Custom Property</th><th>Description</th></tr>
+    <tr>
+      <th>Core Color</th>
+      <th>Key</th>
+      <th>On Color</th>
+      <th>Preview</th>
+    </tr>
   </thead>
   <tbody>
-    {% for hue, key in [['red', '50'], ['orange', '60'], ['yellow', '80'], ['green', '60'], ['cyan', '70'], ['blue', '50'], ['indigo', '50'], ['purple', '50'], ['pink', '50'], ['gray', '40']] %}
+    {% for hue in ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'indigo', 'purple', 'pink', 'gray'] %}
     <tr>
+      <td class="token-name"><code>--wa-color-{{ hue }}</code></td>
       <td class="token-name"><code>--wa-color-{{ hue }}-key</code></td>
-      <td>Tint index of the key color for the <code>{{ hue }}</code> scale</td>
+      <td class="token-name"><code>--wa-color-{{ hue }}-on</code></td>
+      <td>
+        <div class="on-color-swatch" style="background-color: var(--wa-color-{{ hue }}); color: var(--wa-color-{{ hue }}-on)">
+          Aa
+        </div>
+      </td>
     </tr>
     {% endfor %}
   </tbody>
@@ -67,7 +67,7 @@ The tint index for each key color is stored as an integer in `--wa-color-{hue}-k
 {% markdown %}
 ## Variant Colors
 
-Any hue from your color palette can be mapped to any of five different variants. These variants are familiar, meaningful colors that reinforce a specific message or intended use:
+Variant colors are aliases for specific hues in your color palette to give them an extra layer of semantic meaning. These variants are familiar, meaningful hues that reinforce a specific message or intended use:
 - **Brand** for product recognition
 - **Neutral** for generic and ordinary content
 - **Success** for validity or confirmation
@@ -77,45 +77,70 @@ Any hue from your color palette can be mapped to any of five different variants.
 Each variant scale is an alias for a palette color and follows the same tint format: `--wa-color-{variant}-{tint}`.
 {% endmarkdown %}
 
-{% for group in ['brand', 'success', 'neutral', 'warning', 'danger'] %}
-<div class="color-name"><code>--wa-color-{{ group }}-{tint}</code></div>
-<ul class="color-group">
-  {% for tint in ['95', '90', '80', '70', '60', '50', '40', '30', '20', '10', '05'] %}
-    <li class="color-preview">
-      <div class="color swatch" style="background-color: var(--wa-color-{{ group }}-{{ tint }})">
-        <wa-copy-button value="--wa-color-{{ group }}-{{ tint }}" copy-label="--wa-color-{{ group }}-{{ tint }}"></wa-copy-button>
-      </div>
-      <small>{{ tint }}</small>
-    </li>
-  {% endfor %}
-</ul>
+{% for variant in ['brand', 'neutral', 'success', 'warning', 'danger'] %}
+<div class="palette">
+  <div class="palette-label"><code>--wa-color-{{ variant }}-*</code></div>
+  <div class="palette-swatches">
+    {% for tint in ['95', '90', '80', '70', '60', '50', '40', '30', '20', '10', '05'] %}
+    <wa-copy-button
+      class="palette-swatch"
+      value="--wa-color-{{ variant }}-{{ tint }}"
+      copy-label="--wa-color-{{ variant }}-{{ tint }}"
+      style="--color: var(--wa-color-{{ variant }}-{{ tint }}); --tint: '{{ tint }}'"
+    >
+      <button class="swatch-button" aria-label="{{ variant }} {{ tint }} (click to copy)"></button>
+    </wa-copy-button>
+    {% endfor %}
+  </div>
+</div>
 {% endfor %}
 
 {% markdown %}
-### Key Colors
+### Core Colors
 
-Just like the hues in your color palette, each variant has a *key color* — an alias for the most colorful, vibrant tint in the color scale selected for your variant. Use `--wa-color-{variant}` when you want a representative color for a variant without specifying a tint.
+Just like the hues in your color palette, each variant has a *core color* — an alias for the most colorful, vibrant tint in the color scale selected for your variant. Use `--wa-color-{variant}` when you want a representative color for a variant without specifying a tint.
 
-Each key color has a paired *on color* (`--wa-color-{variant}-on`) guaranteed to meet WCAG 2.1 AA contrast when placed on top of it. Use on-color tokens any time you render text or icons on a key color background.
+Each core color also has a paired *on color* (`--wa-color-{variant}-on`) guaranteed to meet WCAG 2.1 AA contrast when placed on top of it. Use on color tokens any time you render text or icons on a core color background.
 {% endmarkdown %}
 
-<ul class="color-group on-color-group">
-  {% for variant in ['brand', 'success', 'neutral', 'warning', 'danger'] %}
-    <li class="on-color-preview">
-      <div class="on-color-swatch" style="background-color: var(--wa-color-{{ variant }}); color: var(--wa-color-{{ variant }}-on)">
-        Aa
-        <wa-copy-button value="--wa-color-{{ variant }}-on" copy-label="--wa-color-{{ variant }}-on"></wa-copy-button>
-      </div>
-      <small><code>--wa-color-{{ variant }}</code></small>
-      <small><code>--wa-color-{{ variant }}-on</code></small>
-    </li>
-  {% endfor %}
-</ul>
+<table class="token-table wa-hover-rows">
+  <thead>
+    <tr>
+      <th>Core Color</th>
+      <th>On Color</th>
+      <th>Preview</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for variant in ['brand', 'neutral', 'success', 'warning', 'danger'] %}
+    <tr>
+      <td class="token-name"><code>--wa-color-{{ variant }}</code></td>
+      <td class="token-name"><code>--wa-color-{{ variant }}-on</code></td>
+      <td>
+        <div class="on-color-swatch" style="background-color: var(--wa-color-{{ variant }}); color: var(--wa-color-{{ variant }}-on)">
+          Aa
+        </div>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
 
 {% markdown %}
+### Changing Variant Colors
+
+Any hue from your color palette can be assigned to any variant without redefining the tokens in your own stylesheet. To use a different hue, simply apply the class `"wa-{variant}-{hue}` to the `<html>` element.
+
+```html
+<html class="wa-brand-purple wa-success-cyan">
+```
+
+All ten palette hues — `red`, `orange`, `yellow`, `green`, `cyan`, `blue`, `indigo`, `purple`, `pink`, and `gray` — are available for every variant.
+
+
 ## Theme Colors
 
-Theme colors assign specific tints from your chosen variant colors to design tokens that style elements and components. Unlike color scale tokens, these are named for their role rather than their appearance, making them straightforward to override for light and dark modes.
+Theme colors assign specific tints from your color palette and variant colors to design tokens that style elements and components. These tokens are named for their role rather than their appearance and are designed to adapt to light and dark modes.
 
 ### Surfaces
 
@@ -132,22 +157,22 @@ Surfaces are background layers that content rests on. They convey elevation hier
     </tr>
   </thead>
   <tbody>
-    <tr id="tok-wa-color-surface-raised">
+    <tr id="token-wa-color-surface-raised">
       <td class="token-name"><code>--wa-color-surface-raised</code></td>
       <td>Background for elevated surfaces like dialogs and dropdown menus</td>
       <td><div class="swatch" style="background-color: var(--wa-color-surface-raised); box-shadow: var(--wa-shadow-s)"></div></td>
     </tr>
-    <tr id="tok-wa-color-surface-default">
+    <tr id="token-wa-color-surface-default">
       <td class="token-name"><code>--wa-color-surface-default</code></td>
       <td>Default page or container background</td>
       <td><div class="swatch" style="background-color: var(--wa-color-surface-default)"></div></td>
     </tr>
-    <tr id="tok-wa-color-surface-lowered">
+    <tr id="token-wa-color-surface-lowered">
       <td class="token-name"><code>--wa-color-surface-lowered</code></td>
       <td>Background for recessed surfaces like wells and code blocks</td>
       <td><div class="swatch" style="background-color: var(--wa-color-surface-lowered); box-shadow: inset var(--wa-shadow-s)"></div></td>
     </tr>
-    <tr id="tok-wa-color-surface-border">
+    <tr id="token-wa-color-surface-border">
       <td class="token-name"><code>--wa-color-surface-border</code></td>
       <td>Border color used to delineate surface areas</td>
       <td><div class="swatch" style="border-color: var(--wa-color-surface-border)"></div></td>
@@ -158,7 +183,7 @@ Surfaces are background layers that content rests on. They convey elevation hier
 {% markdown %}
 ### Text
 
-Text colors are used for readable content. A minimum 4.5:1 contrast ratio against surface colors is recommended.
+Text colors are used for readable content. We recommend a minimum 4.5:1 contrast ratio against surface colors for text colors.
 {% endmarkdown %}
 
 <table class="token-table wa-hover-rows">
@@ -171,17 +196,17 @@ Text colors are used for readable content. A minimum 4.5:1 contrast ratio agains
     </tr>
   </thead>
   <tbody>
-    <tr id="tok-wa-color-text-normal">
+    <tr id="token-wa-color-text-normal">
       <td class="token-name"><code>--wa-color-text-normal</code></td>
       <td>Primary text color for most content</td>
       <td><div class="swatch" style="color: var(--wa-color-text-normal); display: inline-block;">AaBb</div></td>
     </tr>
-    <tr id="tok-wa-color-text-quiet">
+    <tr id="token-wa-color-text-quiet">
       <td class="token-name"><code>--wa-color-text-quiet</code></td>
-      <td>Subdued text for hints, captions, and secondary labels</td>
+      <td>Subdued text for hints, captions, and other secondary content</td>
       <td><div class="swatch" style="color: var(--wa-color-text-quiet); display: inline-block;">AaBb</div></td>
     </tr>
-    <tr id="tok-wa-color-text-link">
+    <tr id="token-wa-color-text-link">
       <td class="token-name"><code>--wa-color-text-link</code></td>
       <td>Color for hyperlinks</td>
       <td><div class="swatch" style="color: var(--wa-color-text-link); display: inline-block;">AaBb</div></td>
@@ -205,12 +230,12 @@ Overlays provide a backdrop that isolates content, often with some transparency 
     </tr>
   </thead>
   <tbody>
-    <tr id="tok-wa-color-overlay-modal">
+    <tr id="token-wa-color-overlay-modal">
       <td class="token-name"><code>--wa-color-overlay-modal</code></td>
       <td>Semi-transparent backdrop behind modal dialogs</td>
       <td><div class="swatch" style="background-color: var(--wa-color-overlay-modal)"></div></td>
     </tr>
-    <tr id="tok-wa-color-overlay-inline">
+    <tr id="token-wa-color-overlay-inline">
       <td class="token-name"><code>--wa-color-overlay-inline</code></td>
       <td>Subtle overlay for inline highlights or dimmed regions</td>
       <td><div class="swatch" style="background-color: var(--wa-color-overlay-inline)"></div></td>
@@ -221,7 +246,7 @@ Overlays provide a backdrop that isolates content, often with some transparency 
 {% markdown %}
 ### Shadow
 
-A single color is used for all drop shadows. Use it alongside the [shadow tokens](#shadows) to construct realistic shadows.
+A single color is used for all drop shadows. Use it alongside the [shadow tokens](?active_tab=shadows) to construct realistic shadows.
 {% endmarkdown %}
 
 <table class="token-table wa-hover-rows">
@@ -234,10 +259,10 @@ A single color is used for all drop shadows. Use it alongside the [shadow tokens
     </tr>
   </thead>
   <tbody>
-    <tr id="tok-wa-color-shadow">
+    <tr id="token-wa-color-shadow">
       <td class="token-name"><code>--wa-color-shadow</code></td>
       <td>Color used for all component drop shadows</td>
-      <td><div class="swatch" style="background-color: var(--wa-color-shadow)"></div></td>
+      <td><div class="swatch" style="background-color: var(--wa-color-surface-raised); box-shadow: var(--wa-shadow-l)"></div></td>
     </tr>
   </tbody>
 </table>
@@ -258,28 +283,28 @@ These tokens power consistent hover, active, and focus states across all interac
     </tr>
   </thead>
   <tbody>
-    <tr id="tok-wa-color-focus">
+    <tr id="token-wa-color-focus">
       <td class="token-name"><code>--wa-color-focus</code></td>
-      <td>Outline color for keyboard focus rings. Used alongside <a href="#focus">focus tokens</a>.</td>
-      <td><div class="swatch" style="outline: var(--wa-focus-ring-style) var(--wa-focus-ring-width) var(--wa-color-focus)"></div></td>
+      <td>Outline color for keyboard focus rings. Used alongside <a href="?active_tab=focus">focus tokens</a>.</td>
+      <td><div class="swatch" style="outline: var(--wa-focus-ring)"></div></td>
     </tr>
-    <tr id="tok-wa-color-mix-hover">
+    <tr id="token-wa-color-mix-hover">
       <td class="token-name"><code>--wa-color-mix-hover</code></td>
-      <td>Color mixed into a component's background on hover via <code>color-mix()</code></td>
+      <td>A color and an optional percentage mixed into a component's color on hover via <code>color-mix()</code></td>
       <td><div class="swatch color-mix-example" style="--mix-color: var(--wa-color-mix-hover)"><small>mixed</small></div></td>
     </tr>
-    <tr id="tok-wa-color-mix-active">
+    <tr id="token-wa-color-mix-active">
       <td class="token-name"><code>--wa-color-mix-active</code></td>
-      <td>Color mixed into a component's background on press/active via <code>color-mix()</code></td>
+      <td>A color and an optional percentage mixed into a component's color on press/active via <code>color-mix()</code></td>
       <td><div class="swatch color-mix-example" style="--mix-color: var(--wa-color-mix-active)"><small>mixed</small></div></td>
     </tr>
   </tbody>
 </table>
 
 {% markdown %}
-### Variants
+### Semantic Variants
 
-Color variants map to the `variant=""` attribute shared by buttons, badges, callouts, and many other components. Each variant is a complete, self-contained color system built from five groups — `brand`, `success`, `neutral`, `warning`, and `danger` — each defining fills, borders, and on colors at three attention levels.
+Semantic variants use the `--wa-color-{variant}-{tint}` tokens from your [variant colors](#variant-colors) to power the `variant=""` attribute shared by buttons, badges, callouts, and many other components. Each variant is a complete, self-contained color system built from five groups — `brand`, `success`, `neutral`, `warning`, and `danger` — each defining fills, borders, and on colors at three attention levels.
 
 Tokens follow the format `--wa-color-{variant}-{role}-{attention}`. The three **roles** are:
 
@@ -290,7 +315,7 @@ Tokens follow the format `--wa-color-{variant}-{role}-{attention}`. The three **
 The three **attention** levels are `quiet`, `normal`, and `loud` — from least to most visually prominent.
 {% endmarkdown %}
 
-{% set variants = ['brand', 'success', 'neutral', 'warning', 'danger'] %}
+{% set variants = ['brand', 'neutral', 'success', 'warning', 'danger'] %}
 <table class="token-table wa-hover-rows">
   <thead>
     <tr>
@@ -303,7 +328,7 @@ The three **attention** levels are `quiet`, `normal`, and `loud` — from least 
   <tbody>
     {% for type in ['fill', 'border', 'on'] %}
       {% for attention in ['quiet', 'normal', 'loud'] %}
-        <tr id="tok-color-{{ type }}-{{ attention }}">
+        <tr id="token-color-{{ type }}-{{ attention }}">
           <td class="token-name"><code>--wa-color-*-{{ type }}-{{ attention }}</code></td>
           {% for variant in variants %}
             <td>
