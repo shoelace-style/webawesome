@@ -80,7 +80,7 @@ describe('<wa-qr-code>', () => {
       describe('image', () => {
         it('should accept an image attribute', async () => {
           const el = await fixture<WaQrCode>(
-            html`<wa-qr-code value="test" image="https://example.com/logo.png"></wa-qr-code>`
+            html`<wa-qr-code value="test" image="https://example.com/logo.png"></wa-qr-code>`,
           );
           expect(el.image).to.equal('https://example.com/logo.png');
         });
@@ -95,21 +95,21 @@ describe('<wa-qr-code>', () => {
 
         it('should accept image-coverage attribute', async () => {
           const el = await fixture<WaQrCode>(
-            html`<wa-qr-code value="test" image="https://example.com/logo.png" image-coverage="0.3"></wa-qr-code>`
+            html`<wa-qr-code value="test" image="https://example.com/logo.png" image-coverage="0.3"></wa-qr-code>`,
           );
           expect(el.imageCoverage).to.equal(0.3);
         });
 
         it('should accept image-padding attribute', async () => {
           const el = await fixture<WaQrCode>(
-            html`<wa-qr-code value="test" image="https://example.com/logo.png" image-padding="5"></wa-qr-code>`
+            html`<wa-qr-code value="test" image="https://example.com/logo.png" image-padding="5"></wa-qr-code>`,
           );
           expect(el.imagePadding).to.equal(5);
         });
 
         it('should accept image-background attribute', async () => {
           const el = await fixture<WaQrCode>(
-            html`<wa-qr-code value="test" image="https://example.com/logo.png" image-background="#fff"></wa-qr-code>`
+            html`<wa-qr-code value="test" image="https://example.com/logo.png" image-background="#fff"></wa-qr-code>`,
           );
           expect(el.imageBackground).to.equal('#fff');
         });
