@@ -20,6 +20,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed a bug in `<wa-button>` where icon-only buttons with `with-caret` were sized as a square, causing the caret to overflow
 - Fixed a bug in `<wa-checkbox>` where the `aria-checked` attribute was not set to `mixed` when the checkbox was indeterminate
 - Fixed a bug in `<wa-file-input>` that incorrectly exposed a `file-icon` slot that never worked as described [issue:2294]
+- Fixed React imports to point directly to each component's `index.js` file [issue:2293]
 - Refactored component tests across core and pro packages to follow a consistent structure with improved coverage
 
 ## 3.5.0
