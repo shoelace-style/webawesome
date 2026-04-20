@@ -102,17 +102,17 @@ Use the `image` attribute to add a logo or image to the center of the QR code. W
 ></wa-qr-code>
 ```
 
-### Image Error Correction Cover
+### Image Coverage
 
-You can also set how much of the error correction images should cover via the `image-ec-cover` attribute, the number should be between `0` to `1`. The default is `0.5`.
+Use the `image-coverage` attribute to control how much of the QR code the image is allowed to cover, from `0` to `1`. The default is `0.5`.
 
-The higher the `image-ec-cover` value is, the harder it will be for QR readers to read. For example, `1.0` usually makes the QR not possible to be read.
+The higher the `image-coverage` value, the harder it will be for QR readers to scan. For example, `1.0` usually makes the QR code unreadable.
 
 ```html {.example}
 <div class="qr-ec-cover">
-  <wa-qr-code value="https://fontawesome.com/" image="/assets/images/logos/fa-avatar4x.png" image-ec-cover="0.3"></wa-qr-code>
-  <wa-qr-code value="https://webawesome.com/" image="/assets/images/logos/wa-avatar4x.png" image-ec-cover="0.6"></wa-qr-code>
-  <wa-qr-code value="https://build.awesome.me/" image="/assets/images/logos/ba-avatar4x.png" image-ec-cover="0.9"></wa-qr-code>
+  <wa-qr-code value="https://fontawesome.com/" image="/assets/images/logos/fa-avatar4x.png" image-coverage="0.3"></wa-qr-code>
+  <wa-qr-code value="https://webawesome.com/" image="/assets/images/logos/wa-avatar4x.png" image-coverage="0.6"></wa-qr-code>
+  <wa-qr-code value="https://build.awesome.me/" image="/assets/images/logos/ba-avatar4x.png" image-coverage="0.9"></wa-qr-code>
 </div>
 
 <style>
