@@ -23,6 +23,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed a bug in `<wa-file-input>` that incorrectly exposed a `file-icon` slot that never worked as described [issue:2294]
 - Fixed React imports to point directly to each component's `index.js` file [issue:2293]
 - Fixed a bug in `<wa-dropdown-item>` where disabled items in a submenu showed a pointer cursor instead of the default cursor [issue:2276]
+- Fixed a bug in `<wa-dropdown-item>` where items with an open submenu did not show a selection state
 - Refactored component tests across core and pro packages to follow a consistent structure with improved coverage
 
 ## 3.5.0
