@@ -225,7 +225,7 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
             .checked=${live(this.checked)}
             .disabled=${this.disabled}
             .required=${this.required}
-            aria-checked=${this.checked ? 'true' : 'false'}
+            aria-checked=${this.indeterminate ? 'mixed' : this.checked ? 'true' : 'false'}
             aria-describedby="hint"
             @click=${this.handleClick}
           />
