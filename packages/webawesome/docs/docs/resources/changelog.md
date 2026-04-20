@@ -24,6 +24,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed React imports to point directly to each component's `index.js` file [issue:2293]
 - Fixed a bug in `<wa-dropdown-item>` where disabled items in a submenu showed a pointer cursor instead of the default cursor [issue:2276]
 - Refactored component tests across core and pro packages to follow a consistent structure with improved coverage
+- Updated TypeScript to 5.9.3
 
 ## 3.5.0
 
