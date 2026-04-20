@@ -10,7 +10,7 @@ export type SizeWithDeprecated = Size | DeprecatedSize;
 const DEPRECATION_MAP: Record<DeprecatedSize, Size> = {
   small: 's',
   medium: 'm',
-  large: 'l'
+  large: 'l',
 };
 
 /** Normalizes a size value, mapping deprecated long forms to short forms. Returns the value unchanged if already canonical. */
@@ -26,7 +26,7 @@ export function warnDeprecatedSize(tagName: string, value: string): void {
     warned.add(`${tagName}:${value}`);
     console.warn(
       `[${tagName}] size="${value}" is deprecated. Use size="${DEPRECATION_MAP[value as DeprecatedSize]}" instead. ` +
-        `The long-form value will be removed in the next major version.`
+        `The long-form value will be removed in the next major version.`,
     );
   }
 }
