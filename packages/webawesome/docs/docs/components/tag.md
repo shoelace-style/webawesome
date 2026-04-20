@@ -3,6 +3,17 @@ title: Tag
 description: Tags are used as labels to organize things or to indicate a selection.
 layout: component
 category: Feedback & Status
+synonyms:
+  - chip
+  - label
+  - pill
+  - token
+  - badge
+use-cases:
+  - filter tag
+  - removable tag
+  - category label
+  - keyword
 ---
 
 ```html {.example}

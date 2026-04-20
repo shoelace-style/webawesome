@@ -1,52 +1,109 @@
 import { expect } from '@open-wc/testing';
 import { html } from 'lit';
-import sinon from 'sinon';
+import { expectEvent } from '../../internal/test/expect-event.js';
 import { fixtures } from '../../internal/test/fixture.js';
 import type WaTag from './tag.js';
 
 describe('<wa-tag>', () => {
   for (const fixture of fixtures) {
     describe(`with "${fixture.type}" rendering`, () => {
-      it('should render default tag', async () => {
-        const el = await fixture<WaTag>(html` <wa-tag>Test</wa-tag> `);
-        expect(el.getAttribute('size')).to.equal('medium');
-        expect(el.getAttribute('variant')).to.equal('neutral');
-        expect(el.variant).to.equal('neutral');
+      describe('accessibility', () => {
+        it('should be accessible with default properties', async () => {
+          const el = await fixture<WaTag>(html`<wa-tag>Test</wa-tag>`);
+          await expect(el).to.be.accessible();
+        });
+
+        it('should be accessible with a remove button', async () => {
+          const el = await fixture<WaTag>(html`<wa-tag with-remove>Test</wa-tag>`);
+          await expect(el).to.be.accessible();
+        });
       });
 
-      it('should set variant by attribute', async () => {
-        const el = await fixture<WaTag>(html` <wa-tag variant="danger">Test</wa-tag> `);
-        expect(el.getAttribute('variant')).to.equal('danger');
-      });
+      describe('properties', () => {
+        it('should have default property values', async () => {
+          const el = await fixture<WaTag>(html`<wa-tag>Test</wa-tag>`);
 
-      it('should set size by attribute', async () => {
-        const el = await fixture<WaTag>(html` <wa-tag size="large">Test</wa-tag> `);
-        expect(el.getAttribute('size')).to.equal('large');
-      });
+          expect(el.variant).to.equal('neutral');
+          expect(el.appearance).to.equal('filled-outlined');
+          expect(el.size).to.equal('medium');
+          expect(el.pill).to.equal(false);
+          expect(el.withRemove).to.equal(false);
+        });
 
-      it('should set pill attribute', async () => {
-        const el = await fixture<WaTag>(html` <wa-tag pill>Test</wa-tag> `);
-        expect(el.hasAttribute('pill')).to.be.true;
-      });
+        it('should reflect the variant attribute', async () => {
+          const el = await fixture<WaTag>(html`<wa-tag variant="danger">Test</wa-tag>`);
+          expect(el.getAttribute('variant')).to.equal('danger');
+          expect(el.variant).to.equal('danger');
+        });
 
-      it('should set removable by attribute', async () => {
-        const el = await fixture<WaTag>(html` <wa-tag with-remove>Test</wa-tag> `);
-        const removeButton = el.shadowRoot!.querySelector('wa-button');
+        it('should reflect the appearance attribute', async () => {
+          const el = await fixture<WaTag>(html`<wa-tag appearance="filled">Test</wa-tag>`);
+          expect(el.getAttribute('appearance')).to.equal('filled');
+          expect(el.appearance).to.equal('filled');
+        });
 
-        expect(el.withRemove).to.be.true;
-        expect(removeButton).to.exist;
-      });
+        it('should reflect the size attribute', async () => {
+          const el = await fixture<WaTag>(html`<wa-tag size="large">Test</wa-tag>`);
+          expect(el.getAttribute('size')).to.equal('large');
+          expect(el.size).to.equal('large');
+        });
 
-      describe('removable', () => {
-        it('should emit remove event when remove button clicked', async () => {
-          const el = await fixture<WaTag>(html` <wa-tag with-remove>Test</wa-tag> `);
+        it('should reflect the pill attribute', async () => {
+          const el = await fixture<WaTag>(html`<wa-tag pill>Test</wa-tag>`);
+          expect(el.pill).to.equal(true);
+          expect(el.hasAttribute('pill')).to.be.true;
+        });
+
+        it('should accept all valid variants', async () => {
+          const el = await fixture<WaTag>(html`<wa-tag>Test</wa-tag>`);
+
+          for (const variant of ['brand', 'neutral', 'success', 'warning', 'danger'] as const) {
+            el.variant = variant;
+            await el.updateComplete;
+            expect(el.variant).to.equal(variant);
+            expect(el.getAttribute('variant')).to.equal(variant);
+          }
+        });
+
+        it('should show the remove button when with-remove is set', async () => {
+          const el = await fixture<WaTag>(html`<wa-tag with-remove>Test</wa-tag>`);
           const removeButton = el.shadowRoot!.querySelector('wa-button');
-          const spy = sinon.spy();
+          expect(removeButton).to.exist;
+        });
 
-          el.addEventListener('wa-remove', spy, { once: true });
-          removeButton?.click();
+        it('should not show the remove button by default', async () => {
+          const el = await fixture<WaTag>(html`<wa-tag>Test</wa-tag>`);
+          const removeButton = el.shadowRoot!.querySelector('wa-button');
+          expect(removeButton).to.be.null;
+        });
+      });
 
-          expect(spy.called).to.be.true;
+      describe('events', () => {
+        it('should emit wa-remove when the remove button is clicked', async () => {
+          const el = await fixture<WaTag>(html`<wa-tag with-remove>Test</wa-tag>`);
+          const removeButton = el.shadowRoot!.querySelector<HTMLElement>('wa-button')!;
+
+          await expectEvent(el, 'wa-remove', () => removeButton.click());
+        });
+      });
+
+      describe('slots', () => {
+        it('should render the default slot content', async () => {
+          const el = await fixture<WaTag>(html`<wa-tag>Hello</wa-tag>`);
+          const slot = el.shadowRoot!.querySelector('slot:not([name])');
+          expect(slot).to.exist;
+        });
+      });
+
+      describe('CSS parts', () => {
+        it('should have a content part', async () => {
+          const el = await fixture<WaTag>(html`<wa-tag>Test</wa-tag>`);
+          expect(el.shadowRoot!.querySelector('[part~="content"]')).to.exist;
+        });
+
+        it('should have a remove-button part when removable', async () => {
+          const el = await fixture<WaTag>(html`<wa-tag with-remove>Test</wa-tag>`);
+          expect(el.shadowRoot!.querySelector('[part~="remove-button"]')).to.exist;
         });
       });
     });

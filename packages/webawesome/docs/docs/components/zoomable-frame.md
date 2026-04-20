@@ -3,6 +3,14 @@ title: Zoomable Frame
 description: Zoomable frames render iframe content with zoom and interaction controls.
 layout: component
 category: Imagery
+synonyms:
+  - iframe zoom
+  - preview frame
+  - minimap
+use-cases:
+  - component preview
+  - responsive preview
+  - scaled iframe
 ---
 
 ```html {.example}

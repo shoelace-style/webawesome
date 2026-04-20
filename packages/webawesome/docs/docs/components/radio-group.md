@@ -3,6 +3,13 @@ title: Radio Group
 description: Radio groups are used to group multiple radios so they function as a single form control.
 layout: component
 category: Form Controls
+synonyms:
+  - radio buttons
+  - option group
+  - button group
+use-cases:
+  - single select group
+  - exclusive options
 ---
 
 ```html {.example}

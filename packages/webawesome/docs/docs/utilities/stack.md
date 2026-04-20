@@ -3,6 +3,15 @@ title: Stack
 description: 'Use `wa-stack` to arrange elements in the block direction with even spacing.'
 layout: docs
 tags: layoutUtilities
+synonyms:
+  - vertical stack
+  - vstack
+  - column layout
+use-cases:
+  - vertical spacing
+  - stacked layout
+  - card stack
+  - vertical rhythm
 ---
 
 <style>
@@ -40,7 +49,7 @@ Stacks are well suited for forms, text, and ensuring consistent spacing between 
     <wa-icon slot="start" name="envelope" variant="regular"></wa-icon>
   </wa-input>
   <wa-input label="Password" type="password">
-    <wa-icon slot="start" name="lock" variant="regular"></wa-icon>
+    <wa-icon slot="start" name="lock"></wa-icon>
   </wa-input>
   <wa-checkbox>Remember me on this device</wa-checkbox>
   <wa-button appearance="filled">Log In</wa-button>

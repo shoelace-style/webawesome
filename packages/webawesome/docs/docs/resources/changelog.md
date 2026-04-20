@@ -14,13 +14,25 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 <small>TBD</small>
 
+- Added the ability to set a centered image for `<wa-qr-code>` and have different corner colors [pr:2139]
+- Fixed a bug in `<wa-checkbox>` where the `value` property returned `null` instead of `'on'` when unchecked
+- Fixed a bug in `<wa-rating>` where disabling via a `<fieldset>` did not properly restore the enabled state when the fieldset was re-enabled
+- Fixed a bug in `<wa-zoomable-frame>` where zoom control buttons did not properly update their disabled state after zoom levels were parsed
+- Fixed a bug in `<wa-button>` where icon-only buttons with `with-caret` were sized as a square, causing the caret to overflow
+- Fixed a bug in `<wa-checkbox>` where the `aria-checked` attribute was not set to `mixed` when the checkbox was indeterminate
+- Fixed a bug in `<wa-file-input>` that incorrectly exposed a `file-icon` slot that never worked as described [issue:2294]
+- Fixed React imports to point directly to each component's `index.js` file [issue:2293]
+- Fixed a bug in `<wa-dropdown-item>` where disabled items in a submenu showed a pointer cursor instead of the default cursor [issue:2276]
+- Refactored component tests across core and pro packages to follow a consistent structure with improved coverage
+
+## 3.5.0
+
+<small>April 3rd, 2026</small>
+
 - Moved `<wa-page>` from Web Awesome Pro to Web Awesome core
-- Added the ability to set a centered image for `<wa-qr-code>`, and have different corner colors. [pr:2139]
-- Added a new free component: `<wa-markdown>` (#6 of 14 per stretch goals)
-- Added a new experimental component: `<wa-markdown>` (#6 of 14 per stretch goals)
+- Added a new free experimental component: `<wa-markdown>` (#6 of 14 per stretch goals)
 - Added the `data-wa-preload` attribute for preloading components that aren't on the page yet when using the autoloader [issue:1501]
 - Added `placement` attribute to `<wa-color-picker>` [issue:2099]
-- Added a new free component: `<wa-markdown>` (#6 of 14 per stretch goals)
 - Added form association to `<wa-rating>`
 - Added a default slot to `<wa-copy-button>` so users can provide custom buttons [issue:1327]
 - Added `:state(success)` and `:state(error)` CSS custom states to `<wa-copy-button>` for styling feedback on custom triggers
@@ -45,6 +57,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed a bug in `<wa-details>` where rapid toggling of the open state could cause the content visibility to get out of sync with the open attribute
 - Fixed a bug in `<wa-tree-item>` where rapid clicking on the expand button could cause the expand/collapse indicator to get out of sync with the children visibility
 - Fixed a bug in `<wa-select>` and `<wa-combobox>` where the selected value was not displayed when the value property was set before options were added to the DOM [pr:2253]
+- Fixed a bug in `<wa-carousel>` where slide contents were not interactive when the carousel was initially rendered inside a hidden container (e.g., an inactive tab panel). [pr:2133]
 - Updated the Awesome and Shoelace themes [pr:2135]:
   - Adds missing `<input type="range">` overrides to Shoelace theme to match `<wa-slider>`
   - Adds `<wa-combobox>` overrides to both themes to match other text-based inputs

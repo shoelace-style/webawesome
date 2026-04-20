@@ -3,6 +3,14 @@ title: Split
 description: 'Use the `wa-split` class to distribute two or more items evenly across available space, either in a row or a column.'
 layout: docs
 tags: layoutUtilities
+synonyms:
+  - holy grail
+  - sidebar layout
+  - main aside
+use-cases:
+  - two column
+  - content sidebar
+  - layout split
 ---
 
 <style>

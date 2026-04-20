@@ -2,229 +2,311 @@ import { expect } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import sinon from 'sinon';
+import { expectEvent } from '../../internal/test/expect-event.js';
 import { fixtures } from '../../internal/test/fixture.js';
 import type WaComparison from './comparison.js';
 
 describe('<wa-comparison>', () => {
   for (const fixture of fixtures) {
     describe(`with "${fixture.type}" rendering`, () => {
-      it('should render a basic before/after', async () => {
-        const el = await fixture<WaComparison>(html`
-          <wa-comparison>
-            <div slot="before"></div>
-            <div slot="after"></div>
-          </wa-comparison>
-        `);
+      describe('accessibility', () => {
+        it('should have a handle with role="scrollbar"', async () => {
+          const el = await fixture<WaComparison>(html`
+            <wa-comparison>
+              <div slot="before"></div>
+              <div slot="after"></div>
+            </wa-comparison>
+          `);
 
-        const afterPart = el.shadowRoot!.querySelector<HTMLElement>('[part~="after"]')!;
-        const iconContainer = el.shadowRoot!.querySelector<HTMLSlotElement>('slot[name="handle"]')!;
-        const handle = el.shadowRoot!.querySelector<HTMLElement>('[part~="handle"]')!;
+          const handle = el.shadowRoot!.querySelector<HTMLElement>('[part~="handle"]')!;
+          expect(handle.getAttribute('role')).to.equal('scrollbar');
+          expect(handle.getAttribute('aria-valuenow')).to.equal('50');
+          expect(handle.getAttribute('aria-valuemin')).to.equal('0');
+          expect(handle.getAttribute('aria-valuemax')).to.equal('100');
+          expect(handle.getAttribute('aria-controls')).to.equal('comparison');
+          expect(handle.getAttribute('tabindex')).to.equal('0');
+        });
 
-        expect(el.position).to.equal(50);
-        expect(afterPart.getAttribute('style')).to.equal('clip-path:inset(0 50% 0 0);');
-        expect(iconContainer.assignedElements().length).to.equal(0);
-        expect(handle.getAttribute('role')).to.equal('scrollbar');
-        expect(handle.getAttribute('aria-valuenow')).to.equal('50');
-        expect(handle.getAttribute('aria-valuemin')).to.equal('0');
-        expect(handle.getAttribute('aria-valuemax')).to.equal('100');
+        it('should update aria-valuenow when position changes', async () => {
+          const el = await fixture<WaComparison>(html`
+            <wa-comparison position="30">
+              <div slot="before"></div>
+              <div slot="after"></div>
+            </wa-comparison>
+          `);
+
+          const handle = el.shadowRoot!.querySelector<HTMLElement>('[part~="handle"]')!;
+          expect(handle.getAttribute('aria-valuenow')).to.equal('30');
+        });
       });
 
-      it('should emit change event when position changed manually', async () => {
-        const el = await fixture<WaComparison>(html`
-          <wa-comparison>
-            <div slot="before"></div>
-            <div slot="after"></div>
-          </wa-comparison>
-        `);
-        const handler = sinon.spy();
+      describe('properties', () => {
+        it('should have a default position of 50', async () => {
+          const el = await fixture<WaComparison>(html`
+            <wa-comparison>
+              <div slot="before"></div>
+              <div slot="after"></div>
+            </wa-comparison>
+          `);
 
-        el.addEventListener('change', handler, { once: true });
+          expect(el.position).to.equal(50);
+        });
 
-        el.position = 40;
-        await el.updateComplete;
+        it('should reflect position to attribute', async () => {
+          const el = await fixture<WaComparison>(html`
+            <wa-comparison>
+              <div slot="before"></div>
+              <div slot="after"></div>
+            </wa-comparison>
+          `);
 
-        expect(handler.called).to.equal(true);
+          el.position = 25;
+          await el.updateComplete;
+          expect(el.getAttribute('position')).to.equal('25');
+        });
+
+        it('should accept position via attribute', async () => {
+          const el = await fixture<WaComparison>(html`
+            <wa-comparison position="10">
+              <div slot="before"></div>
+              <div slot="after"></div>
+            </wa-comparison>
+          `);
+
+          expect(el.position).to.equal(10);
+        });
+
+        it('should apply clip-path to the after panel based on position', async () => {
+          const el = await fixture<WaComparison>(html`
+            <wa-comparison position="75">
+              <div slot="before"></div>
+              <div slot="after"></div>
+            </wa-comparison>
+          `);
+
+          const afterPart = el.shadowRoot!.querySelector<HTMLElement>('[part~="after"]')!;
+          expect(afterPart.getAttribute('style')).to.equal('clip-path:inset(0 25% 0 0);');
+        });
       });
 
-      it('should increment position on arrow right', async () => {
-        const el = await fixture<WaComparison>(html`
-          <wa-comparison>
-            <div slot="before"></div>
-            <div slot="after"></div>
-          </wa-comparison>
-        `);
+      describe('events', () => {
+        it('should emit change event when position is set programmatically', async () => {
+          const el = await fixture<WaComparison>(html`
+            <wa-comparison>
+              <div slot="before"></div>
+              <div slot="after"></div>
+            </wa-comparison>
+          `);
 
-        const handle = el.shadowRoot!.querySelector<HTMLElement>('[part~="handle"]')!;
-        handle.focus();
-        await sendKeys({ press: 'ArrowRight' });
-        await el.updateComplete;
+          await expectEvent(el, 'change', () => {
+            el.position = 40;
+          });
+        });
 
-        expect(el.position).to.equal(51);
+        it('should emit change event on keyboard interaction', async () => {
+          const el = await fixture<WaComparison>(html`
+            <wa-comparison>
+              <div slot="before"></div>
+              <div slot="after"></div>
+            </wa-comparison>
+          `);
+
+          const handle = el.shadowRoot!.querySelector<HTMLElement>('[part~="handle"]')!;
+          handle.focus();
+
+          await expectEvent(el, 'change', async () => {
+            await sendKeys({ press: 'ArrowRight' });
+          });
+        });
       });
 
-      it('should decrement position on arrow left', async () => {
-        const el = await fixture<WaComparison>(html`
-          <wa-comparison>
-            <div slot="before"></div>
-            <div slot="after"></div>
-          </wa-comparison>
-        `);
+      describe('slots', () => {
+        it('should render before and after slots', async () => {
+          const el = await fixture<WaComparison>(html`
+            <wa-comparison>
+              <div slot="before">Before</div>
+              <div slot="after">After</div>
+            </wa-comparison>
+          `);
 
-        const handle = el.shadowRoot!.querySelector<HTMLElement>('[part~="handle"]')!;
+          const beforeSlot = el.shadowRoot!.querySelector<HTMLSlotElement>('slot[name="before"]')!;
+          const afterSlot = el.shadowRoot!.querySelector<HTMLSlotElement>('slot[name="after"]')!;
+          expect(beforeSlot).to.exist;
+          expect(afterSlot).to.exist;
+        });
 
-        handle.focus();
-        await sendKeys({ press: 'ArrowLeft' });
-        await el.updateComplete;
+        it('should render a handle slot with default icon', async () => {
+          const el = await fixture<WaComparison>(html`
+            <wa-comparison>
+              <div slot="before"></div>
+              <div slot="after"></div>
+            </wa-comparison>
+          `);
 
-        expect(el.position).to.equal(49);
+          const handleSlot = el.shadowRoot!.querySelector<HTMLSlotElement>('slot[name="handle"]')!;
+          expect(handleSlot).to.exist;
+          expect(handleSlot.assignedElements().length).to.equal(0);
+        });
+
+        it('should accept custom handle content', async () => {
+          const el = await fixture<WaComparison>(html`
+            <wa-comparison>
+              <div slot="before"></div>
+              <div slot="after"></div>
+              <span slot="handle">Custom</span>
+            </wa-comparison>
+          `);
+
+          const handleSlot = el.shadowRoot!.querySelector<HTMLSlotElement>('slot[name="handle"]')!;
+          expect(handleSlot.assignedElements().length).to.equal(1);
+        });
       });
 
-      it('should set position to 0 on home key', async () => {
-        const el = await fixture<WaComparison>(html`
-          <wa-comparison>
-            <div slot="before"></div>
-            <div slot="after"></div>
-          </wa-comparison>
-        `);
+      describe('keyboard navigation', () => {
+        it('should increment position by 1 on ArrowRight', async () => {
+          const el = await fixture<WaComparison>(html`
+            <wa-comparison>
+              <div slot="before"></div>
+              <div slot="after"></div>
+            </wa-comparison>
+          `);
 
-        const handle = el.shadowRoot!.querySelector<HTMLElement>('[part~="handle"]')!;
+          const handle = el.shadowRoot!.querySelector<HTMLElement>('[part~="handle"]')!;
+          handle.focus();
+          await sendKeys({ press: 'ArrowRight' });
+          await el.updateComplete;
 
-        handle.focus();
-        await sendKeys({ press: 'Home' });
-        await el.updateComplete;
+          expect(el.position).to.equal(51);
+        });
 
-        expect(el.position).to.equal(0);
+        it('should decrement position by 1 on ArrowLeft', async () => {
+          const el = await fixture<WaComparison>(html`
+            <wa-comparison>
+              <div slot="before"></div>
+              <div slot="after"></div>
+            </wa-comparison>
+          `);
+
+          const handle = el.shadowRoot!.querySelector<HTMLElement>('[part~="handle"]')!;
+          handle.focus();
+          await sendKeys({ press: 'ArrowLeft' });
+          await el.updateComplete;
+
+          expect(el.position).to.equal(49);
+        });
+
+        it('should increment position by 10 on Shift+ArrowRight', async () => {
+          const el = await fixture<WaComparison>(html`
+            <wa-comparison>
+              <div slot="before"></div>
+              <div slot="after"></div>
+            </wa-comparison>
+          `);
+
+          const handle = el.shadowRoot!.querySelector<HTMLElement>('[part~="handle"]')!;
+          handle.focus();
+          await sendKeys({ press: 'Shift+ArrowRight' });
+          await el.updateComplete;
+
+          expect(el.position).to.equal(60);
+        });
+
+        it('should decrement position by 10 on Shift+ArrowLeft', async () => {
+          const el = await fixture<WaComparison>(html`
+            <wa-comparison>
+              <div slot="before"></div>
+              <div slot="after"></div>
+            </wa-comparison>
+          `);
+
+          const handle = el.shadowRoot!.querySelector<HTMLElement>('[part~="handle"]')!;
+          handle.focus();
+          await sendKeys({ press: 'Shift+ArrowLeft' });
+          await el.updateComplete;
+
+          expect(el.position).to.equal(40);
+        });
+
+        it('should set position to 0 on Home', async () => {
+          const el = await fixture<WaComparison>(html`
+            <wa-comparison>
+              <div slot="before"></div>
+              <div slot="after"></div>
+            </wa-comparison>
+          `);
+
+          const handle = el.shadowRoot!.querySelector<HTMLElement>('[part~="handle"]')!;
+          handle.focus();
+          await sendKeys({ press: 'Home' });
+          await el.updateComplete;
+
+          expect(el.position).to.equal(0);
+        });
+
+        it('should set position to 100 on End', async () => {
+          const el = await fixture<WaComparison>(html`
+            <wa-comparison>
+              <div slot="before"></div>
+              <div slot="after"></div>
+            </wa-comparison>
+          `);
+
+          const handle = el.shadowRoot!.querySelector<HTMLElement>('[part~="handle"]')!;
+          handle.focus();
+          await sendKeys({ press: 'End' });
+          await el.updateComplete;
+
+          expect(el.position).to.equal(100);
+        });
+
+        it('should clamp position at 0 when pressing ArrowLeft at minimum', async () => {
+          const el = await fixture<WaComparison>(html`
+            <wa-comparison position="0">
+              <div slot="before"></div>
+              <div slot="after"></div>
+            </wa-comparison>
+          `);
+
+          const handle = el.shadowRoot!.querySelector<HTMLElement>('[part~="handle"]')!;
+          handle.focus();
+          await sendKeys({ press: 'ArrowLeft' });
+          await el.updateComplete;
+
+          expect(el.position).to.equal(0);
+        });
+
+        it('should clamp position at 100 when pressing ArrowRight at maximum', async () => {
+          const el = await fixture<WaComparison>(html`
+            <wa-comparison position="100">
+              <div slot="before"></div>
+              <div slot="after"></div>
+            </wa-comparison>
+          `);
+
+          const handle = el.shadowRoot!.querySelector<HTMLElement>('[part~="handle"]')!;
+          handle.focus();
+          await sendKeys({ press: 'ArrowRight' });
+          await el.updateComplete;
+
+          expect(el.position).to.equal(100);
+        });
       });
 
-      it('should set position to 100 on end key', async () => {
-        const el = await fixture<WaComparison>(html`
-          <wa-comparison>
-            <div slot="before"></div>
-            <div slot="after"></div>
-          </wa-comparison>
-        `);
+      describe('CSS parts and states', () => {
+        it('should expose the expected CSS parts', async () => {
+          const el = await fixture<WaComparison>(html`
+            <wa-comparison>
+              <div slot="before"></div>
+              <div slot="after"></div>
+            </wa-comparison>
+          `);
 
-        const handle = el.shadowRoot!.querySelector<HTMLElement>('[part~="handle"]')!;
-
-        handle.focus();
-        await sendKeys({ press: 'End' });
-        await el.updateComplete;
-
-        expect(el.position).to.equal(100);
-      });
-
-      it('should clamp to 100 on arrow right', async () => {
-        const el = await fixture<WaComparison>(html`
-          <wa-comparison>
-            <div slot="before"></div>
-            <div slot="after"></div>
-          </wa-comparison>
-        `);
-
-        el.position = 0;
-        await el.updateComplete;
-
-        const handle = el.shadowRoot!.querySelector<HTMLElement>('[part~="handle"]')!;
-
-        handle.focus();
-        await sendKeys({ press: 'ArrowLeft' });
-        await el.updateComplete;
-
-        expect(el.position).to.equal(0);
-      });
-
-      it('should clamp to 0 on arrow left', async () => {
-        const el = await fixture<WaComparison>(html`
-          <wa-comparison>
-            <div slot="before"></div>
-            <div slot="after"></div>
-          </wa-comparison>
-        `);
-
-        el.position = 100;
-        await el.updateComplete;
-
-        const handle = el.shadowRoot!.querySelector<HTMLElement>('[part~="handle"]')!;
-
-        handle.focus();
-        await sendKeys({ press: 'ArrowRight' });
-        await el.updateComplete;
-
-        expect(el.position).to.equal(100);
-      });
-
-      it('should increment position by 10 on arrow right + shift', async () => {
-        const el = await fixture<WaComparison>(html`
-          <wa-comparison>
-            <div slot="before"></div>
-            <div slot="after"></div>
-          </wa-comparison>
-        `);
-
-        const handle = el.shadowRoot!.querySelector<HTMLElement>('[part~="handle"]')!;
-
-        handle.focus();
-        await sendKeys({ press: 'Shift+ArrowRight' });
-        await el.updateComplete;
-
-        expect(el.position).to.equal(60);
-      });
-
-      it('should decrement position by 10 on arrow left + shift', async () => {
-        const el = await fixture<WaComparison>(html`
-          <wa-comparison>
-            <div slot="before"></div>
-            <div slot="after"></div>
-          </wa-comparison>
-        `);
-
-        const handle = el.shadowRoot!.querySelector<HTMLElement>('[part~="handle"]')!;
-
-        handle.focus();
-        await sendKeys({ press: 'Shift+ArrowLeft' });
-        await el.updateComplete;
-
-        expect(el.position).to.equal(40);
-      });
-
-      it('should set position by attribute', async () => {
-        const el = await fixture<WaComparison>(html`
-          <wa-comparison position="10">
-            <div slot="before"></div>
-            <div slot="after"></div>
-          </wa-comparison>
-        `);
-
-        expect(el.position).to.equal(10);
-      });
-
-      // TODO - this works fine locally
-      it.skip('should move position on drag', async () => {
-        const el = await fixture<WaComparison>(html`
-          <wa-comparison>
-            <div slot="before" style="width: 50px"></div>
-            <div slot="after" style="width: 50px"></div>
-          </wa-comparison>
-        `);
-        const handle = el.shadowRoot!.querySelector<HTMLElement>('[part~="handle"]')!;
-        const rect = handle.getBoundingClientRect();
-        const offsetX = rect.left + window.pageXOffset;
-        const offsetY = rect.top + window.pageYOffset;
-
-        handle.dispatchEvent(new MouseEvent('mousedown', { bubbles: true }));
-
-        document.dispatchEvent(
-          new PointerEvent('pointermove', {
-            clientX: offsetX + 15,
-            clientY: offsetY,
-          }),
-        );
-
-        document.dispatchEvent(new PointerEvent('pointerup'));
-
-        await el.updateComplete;
-
-        expect(el.position).to.equal(40);
+          expect(el.shadowRoot!.querySelector('[part~="base"]')).to.exist;
+          expect(el.shadowRoot!.querySelector('[part~="before"]')).to.exist;
+          expect(el.shadowRoot!.querySelector('[part~="after"]')).to.exist;
+          expect(el.shadowRoot!.querySelector('[part~="divider"]')).to.exist;
+          expect(el.shadowRoot!.querySelector('[part~="handle"]')).to.exist;
+        });
       });
     });
   }

@@ -6,180 +6,218 @@ import type WaCard from './card.js';
 describe('<wa-card>', () => {
   for (const fixture of fixtures) {
     describe(`with "${fixture.type}" rendering`, () => {
-      describe('when provided no parameters', () => {
-        it('should render the child content provided.', async () => {
-          const el = await fixture<WaCard>(html`
-            <wa-card>This is just a basic card. No media, no header, and no footer. Just your content.</wa-card>
-          `);
-          expect(el.innerText).to.eq(
-            'This is just a basic card. No media, no header, and no footer. Just your content.',
-          );
+      describe('accessibility', () => {
+        it('should pass accessibility tests with default content', async () => {
+          const el = await fixture<WaCard>(html`<wa-card>Card content</wa-card>`);
+          await expect(el).to.be.accessible();
         });
 
-        it('should pass accessibility tests', async () => {
+        it('should pass accessibility tests with header', async () => {
           const el = await fixture<WaCard>(html`
-            <wa-card>This is just a basic card. No media, no header, and no footer. Just your content.</wa-card>
+            <wa-card>
+              <div slot="header">Header</div>
+              Card content
+            </wa-card>
           `);
           await expect(el).to.be.accessible();
         });
 
-        it('exposes the default slot inside a [part="body"] wrapper (matches dialog-style markup)', async () => {
+        it('should pass accessibility tests with footer', async () => {
+          const el = await fixture<WaCard>(html`
+            <wa-card>
+              Card content
+              <div slot="footer">Footer</div>
+            </wa-card>
+          `);
+          await expect(el).to.be.accessible();
+        });
+
+        it('should pass accessibility tests with media', async () => {
+          const el = await fixture<WaCard>(html`
+            <wa-card>
+              <img
+                slot="media"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                alt="A placeholder image"
+              />
+              Card content
+            </wa-card>
+          `);
+          await expect(el).to.be.accessible();
+        });
+      });
+
+      describe('properties', () => {
+        it('should default appearance to "outlined" and reflect it', async () => {
+          const el = await fixture<WaCard>(html`<wa-card>Content</wa-card>`);
+          expect(el.appearance).to.equal('outlined');
+          expect(el.getAttribute('appearance')).to.equal('outlined');
+        });
+
+        it('should reflect appearance attribute for all values', async () => {
+          for (const appearance of ['accent', 'filled', 'outlined', 'filled-outlined', 'plain'] as const) {
+            const el = await fixture<WaCard>(html`<wa-card appearance="${appearance}">Content</wa-card>`);
+            expect(el.getAttribute('appearance')).to.equal(appearance);
+          }
+        });
+
+        it('should default orientation to "vertical" and reflect it', async () => {
+          const el = await fixture<WaCard>(html`<wa-card>Content</wa-card>`);
+          expect(el.orientation).to.equal('vertical');
+          expect(el.getAttribute('orientation')).to.equal('vertical');
+        });
+
+        it('should support horizontal orientation', async () => {
+          const el = await fixture<WaCard>(html`<wa-card orientation="horizontal">Content</wa-card>`);
+          expect(el.orientation).to.equal('horizontal');
+          expect(el.getAttribute('orientation')).to.equal('horizontal');
+        });
+
+        it('should default withHeader to false', async () => {
+          const el = await fixture<WaCard>(html`<wa-card>Content</wa-card>`);
+          expect(el.withHeader).to.be.false;
+        });
+
+        it('should default withMedia to false', async () => {
+          const el = await fixture<WaCard>(html`<wa-card>Content</wa-card>`);
+          expect(el.withMedia).to.be.false;
+        });
+
+        it('should default withFooter to false', async () => {
+          const el = await fixture<WaCard>(html`<wa-card>Content</wa-card>`);
+          expect(el.withFooter).to.be.false;
+        });
+      });
+
+      describe('slots', () => {
+        it('should render default slot content inside the body part', async () => {
           const el = await fixture<WaCard>(html`<wa-card>Main content</wa-card>`);
-          const bodyPart = el.shadowRoot!.querySelector('[part="body"]');
-          expect(bodyPart?.localName).to.eq('div');
-          expect(bodyPart?.classList.contains('body')).to.be.true;
-          const defaultSlot = bodyPart?.querySelector('slot:not([name])');
-          expect(defaultSlot).to.be.instanceOf(HTMLSlotElement);
-          const assigned = (defaultSlot as HTMLSlotElement).assignedNodes({ flatten: true });
+          const bodyPart = el.shadowRoot!.querySelector('[part~="body"]')!;
+          expect(bodyPart).to.exist;
+          const defaultSlot = bodyPart.querySelector<HTMLSlotElement>('slot:not([name])')!;
+          expect(defaultSlot).to.exist;
+          const assigned = defaultSlot.assignedNodes({ flatten: true });
           const text = assigned.map(n => n.textContent ?? '').join('');
           expect(text).to.contain('Main content');
         });
-      });
 
-      describe('when provided an element in the slot "header" to render a header', () => {
-        it('should pass accessibility tests', async () => {
-          const el = await fixture<WaCard>(
-            html`<wa-card>
-              <div slot="header">Header Title</div>
-              This card has a header. You can put all sorts of things in it!
-            </wa-card>`,
-          );
-          await expect(el).to.be.accessible();
+        it('should render the child content', async () => {
+          const el = await fixture<WaCard>(html`<wa-card>Hello world</wa-card>`);
+          expect(el.innerText).to.contain('Hello world');
         });
 
-        it('should render the child content provided.', async () => {
-          const el = await fixture<WaCard>(
-            html`<wa-card>
+        it('should accept content in the "header" slot', async () => {
+          const el = await fixture<WaCard>(html`
+            <wa-card>
               <div slot="header">Header Title</div>
-              This card has a header. You can put all sorts of things in it!
-            </wa-card>`,
-          );
-          expect(el.innerText).to.contain('This card has a header. You can put all sorts of things in it!');
-        });
-
-        it('render the header content provided.', async () => {
-          const el = await fixture<WaCard>(
-            html`<wa-card>
-              <div slot="header">Header Title</div>
-              This card has a header. You can put all sorts of things in it!
-            </wa-card>`,
-          );
-          const header = el.querySelector<HTMLElement>('div[slot=header]')!;
-          expect(header.innerText).eq('Header Title');
-        });
-
-        it('accept "header" as an assigned child in the shadow root.', async () => {
-          const el = await fixture<WaCard>(
-            html`<wa-card>
-              <div slot="header">Header Title</div>
-              This card has a header. You can put all sorts of things in it!
-            </wa-card>`,
-          );
+              Content
+            </wa-card>
+          `);
           const slot = el.shadowRoot!.querySelector<HTMLSlotElement>('slot[name=header]')!;
-          const childNodes = slot.assignedNodes({ flatten: true });
-
-          expect(childNodes.length).to.eq(1);
-        });
-      });
-
-      describe('when provided an element in the slot "footer" to render a footer', () => {
-        it('should pass accessibility tests', async () => {
-          const el = await fixture<WaCard>(
-            html`<wa-card>
-              This card has a footer. You can put all sorts of things in it!
-
-              <div slot="footer">Footer Content</div>
-            </wa-card>`,
-          );
-          await expect(el).to.be.accessible();
+          const assigned = slot.assignedNodes({ flatten: true });
+          expect(assigned.length).to.equal(1);
         });
 
-        it('should render the child content provided.', async () => {
-          const el = await fixture<WaCard>(
-            html`<wa-card>
-              This card has a footer. You can put all sorts of things in it!
-
-              <div slot="footer">Footer Content</div>
-            </wa-card>`,
-          );
-          expect(el.innerText).to.contain('This card has a footer. You can put all sorts of things in it!');
+        it('should render header content text', async () => {
+          const el = await fixture<WaCard>(html`
+            <wa-card>
+              <div slot="header">Header Title</div>
+              Content
+            </wa-card>
+          `);
+          const header = el.querySelector<HTMLElement>('div[slot=header]')!;
+          expect(header.innerText).to.equal('Header Title');
         });
 
-        it('render the footer content provided.', async () => {
-          const el = await fixture<WaCard>(
-            html`<wa-card>
-              This card has a footer. You can put all sorts of things in it!
-
+        it('should accept content in the "footer" slot', async () => {
+          const el = await fixture<WaCard>(html`
+            <wa-card>
+              Content
               <div slot="footer">Footer Content</div>
-            </wa-card>`,
-          );
-          const footer = el.querySelector<HTMLElement>('div[slot=footer]')!;
-          expect(footer.innerText).eq('Footer Content');
-        });
-
-        it('accept "footer" as an assigned child in the shadow root.', async () => {
-          const el = await fixture<WaCard>(
-            html`<wa-card>
-              This card has a footer. You can put all sorts of things in it!
-
-              <div slot="footer">Footer Content</div>
-            </wa-card>`,
-          );
+            </wa-card>
+          `);
           const slot = el.shadowRoot!.querySelector<HTMLSlotElement>('slot[name=footer]')!;
-          const childNodes = slot.assignedNodes({ flatten: true });
+          const assigned = slot.assignedNodes({ flatten: true });
+          expect(assigned.length).to.equal(1);
+        });
 
-          expect(childNodes.length).to.eq(1);
+        it('should render footer content text', async () => {
+          const el = await fixture<WaCard>(html`
+            <wa-card>
+              Content
+              <div slot="footer">Footer Content</div>
+            </wa-card>
+          `);
+          const footer = el.querySelector<HTMLElement>('div[slot=footer]')!;
+          expect(footer.innerText).to.equal('Footer Content');
+        });
+
+        it('should accept content in the "media" slot', async () => {
+          const el = await fixture<WaCard>(html`
+            <wa-card>
+              <img
+                slot="media"
+                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                alt="Placeholder"
+              />
+              Content
+            </wa-card>
+          `);
+          const slot = el.shadowRoot!.querySelector<HTMLSlotElement>('slot[name=media]')!;
+          const assigned = slot.assignedNodes({ flatten: true });
+          expect(assigned.length).to.equal(1);
         });
       });
 
-      describe('when provided an element in the slot "media" to render a media element', () => {
-        it('should pass accessibility tests', async () => {
-          const el = await fixture<WaCard>(
-            html`<wa-card>
-              <img
-                slot="media"
-                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-                alt="A kitten walks towards camera on top of pallet."
-              />
-              This is a kitten, but not just any kitten. This kitten likes walking along pallets.
-            </wa-card>`,
-          );
-
-          await expect(el).to.be.accessible();
+      describe('CSS parts and states', () => {
+        it('should expose a "body" part', async () => {
+          const el = await fixture<WaCard>(html`<wa-card>Content</wa-card>`);
+          expect(el.shadowRoot!.querySelector('[part~="body"]')).to.exist;
         });
 
-        it('should render the child content provided.', async () => {
-          const el = await fixture<WaCard>(
-            html`<wa-card>
-              <img
-                slot="media"
-                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-                alt="A kitten walks towards camera on top of pallet."
-              />
-              This is a kitten, but not just any kitten. This kitten likes walking along pallets.
-            </wa-card>`,
-          );
-
-          expect(el.innerText).to.contain(
-            'This is a kitten, but not just any kitten. This kitten likes walking along pallets.',
-          );
+        it('should expose a "header" part in vertical orientation', async () => {
+          const el = await fixture<WaCard>(html`
+            <wa-card>
+              <div slot="header">Header</div>
+              Content
+            </wa-card>
+          `);
+          expect(el.shadowRoot!.querySelector('[part~="header"]')).to.exist;
         });
 
-        it('accept "media" as an assigned child in the shadow root.', async () => {
-          const el = await fixture<WaCard>(
-            html`<wa-card>
+        it('should expose a "footer" part in vertical orientation', async () => {
+          const el = await fixture<WaCard>(html`
+            <wa-card>
+              Content
+              <div slot="footer">Footer</div>
+            </wa-card>
+          `);
+          expect(el.shadowRoot!.querySelector('[part~="footer"]')).to.exist;
+        });
+
+        it('should expose a "media" part', async () => {
+          const el = await fixture<WaCard>(html`
+            <wa-card>
               <img
                 slot="media"
                 src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-                alt="A kitten walks towards camera on top of pallet."
+                alt="Placeholder"
               />
-              This is a kitten, but not just any kitten. This kitten likes walking along pallets.
-            </wa-card>`,
-          );
-          const slot = el.shadowRoot!.querySelector<HTMLSlotElement>('slot[name=media]')!;
-          const childNodes = slot.assignedNodes({ flatten: true });
+              Content
+            </wa-card>
+          `);
+          expect(el.shadowRoot!.querySelector('[part~="media"]')).to.exist;
+        });
 
-          expect(childNodes.length).to.eq(1);
+        it('should render horizontal layout with body and actions parts', async () => {
+          const el = await fixture<WaCard>(html`
+            <wa-card orientation="horizontal">
+              Content
+              <div slot="actions">Actions</div>
+            </wa-card>
+          `);
+          expect(el.shadowRoot!.querySelector('[part~="body"]')).to.exist;
+          expect(el.shadowRoot!.querySelector('[part~="actions"]')).to.exist;
         });
       });
     });

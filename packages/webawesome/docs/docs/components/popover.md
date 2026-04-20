@@ -3,6 +3,15 @@ title: Popover
 description: Popovers display interactive content when their anchor element is clicked.
 layout: component
 category: Utilities
+synonyms:
+  - popup content
+  - info popup
+  - interactive popup
+use-cases:
+  - rich tooltip
+  - hover card
+  - info popover
+  - click popup
 ---
 
 Popovers display interactive content when their anchor element is clicked. Unlike [tooltips](/docs/components/tooltip), popovers can contain links, buttons, and form controls. They appear without an overlay and will close when you click outside or press [[Escape]]. Only one popover can be open at a time.

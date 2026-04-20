@@ -1,6 +1,6 @@
 import type { PropertyValues } from 'lit';
 import { html, isServer } from 'lit';
-import { customElement, property, query } from 'lit/decorators.js';
+import { customElement, property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { ColorSchemeController } from '../../internal/color-scheme-controller.js';
 import { parseSpaceDelimitedTokens } from '../../internal/parse.js';
@@ -32,9 +32,10 @@ export default class WaZoomableFrame extends WebAwesomeElement {
   static css = styles;
 
   private readonly localize = new LocalizeController(this);
-  private availableZoomLevels: number[] = [];
   // SSR guard: MutationObserver is not available during server-side rendering
   private themeObserver: MutationObserver | null = !isServer ? new MutationObserver(() => this.syncTheme()) : null;
+
+  @state() private availableZoomLevels: number[] = [];
 
   constructor() {
     super();

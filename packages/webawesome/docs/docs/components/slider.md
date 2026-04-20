@@ -3,6 +3,16 @@ title: Slider
 description: Ranges allow the user to select a single value within a given range using a slider.
 layout: component
 category: Form Controls
+synonyms:
+  - range
+  - range slider
+  - range input
+  - scrubber
+use-cases:
+  - volume control
+  - price range
+  - filter range
+  - seek bar
 ---
 
 ```html {.example}

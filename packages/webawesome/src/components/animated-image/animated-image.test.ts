@@ -1,75 +1,137 @@
 import { expect, oneEvent } from '@open-wc/testing';
 import { html } from 'lit';
-import { clientFixture } from '../../internal/test/fixture.js';
+import { fixtures } from '../../internal/test/fixture.js';
 import { clickOnElement } from '../../internal/test/pointer-utilities.js';
 import type WaAnimatedImage from './animated-image.js';
 
+async function loadImage(el: WaAnimatedImage, file: string) {
+  const loadingPromise = oneEvent(el, 'wa-load');
+  el.src = file;
+  await loadingPromise;
+}
+
 describe('<wa-animated-image>', () => {
-  // @TODO: Figure out why hydrated tests are failing
-  for (const fixture of [clientFixture]) {
-    it('should render a component', async () => {
-      const animatedImage = await fixture(html` <wa-animated-image></wa-animated-image> `);
-
-      expect(animatedImage).to.exist;
-    });
-
-    it('should render be accessible', async () => {
-      const animatedImage = await fixture(html` <wa-animated-image></wa-animated-image> `);
-
-      await expect(animatedImage).to.be.accessible();
-    });
-
-    const files = ['docs/assets/images/walk.gif', 'docs/assets/images/tie.webp'];
-
-    files.forEach((file: string) => {
-      it(`should load a ${file} without errors`, async () => {
-        const animatedImage = await fixture<WaAnimatedImage>(html` <wa-animated-image></wa-animated-image> `);
-        let errorCount = 0;
-        oneEvent(animatedImage, 'wa-error').then(() => errorCount++);
-        await loadImage(animatedImage, file);
-
-        expect(errorCount).to.be.equal(0);
+  for (const fixture of fixtures) {
+    describe(`with "${fixture.type}" rendering`, () => {
+      describe('accessibility', () => {
+        it('should be accessible', async () => {
+          const el = await fixture<WaAnimatedImage>(html`<wa-animated-image></wa-animated-image>`);
+          await expect(el).to.be.accessible();
+        });
       });
 
-      it(`should play ${file} on click`, async () => {
-        const animatedImage = await fixture<WaAnimatedImage>(html` <wa-animated-image></wa-animated-image> `);
-        await loadImage(animatedImage, file);
+      describe('properties', () => {
+        it('should have default property values', async () => {
+          const el = await fixture<WaAnimatedImage>(html`<wa-animated-image></wa-animated-image>`);
 
-        expect(animatedImage.play).not.to.be.true;
+          expect(el.play).to.not.be.true;
+          expect(el.src).to.be.undefined;
+          expect(el.alt).to.be.undefined;
+        });
 
-        await clickOnElement(animatedImage);
+        it('should reflect the play attribute', async () => {
+          const el = await fixture<WaAnimatedImage>(html`<wa-animated-image></wa-animated-image>`);
+          await loadImage(el, 'docs/assets/images/walk.gif');
 
-        expect(animatedImage.play).to.be.true;
+          el.play = true;
+          await el.updateComplete;
+          expect(el.hasAttribute('play')).to.be.true;
+
+          el.play = false;
+          await el.updateComplete;
+          expect(el.hasAttribute('play')).to.be.false;
+        });
       });
 
-      it(`should pause and resume ${file} on click`, async () => {
-        const animatedImage = await fixture<WaAnimatedImage>(html` <wa-animated-image></wa-animated-image> `);
-        await loadImage(animatedImage, file);
+      describe('loading', () => {
+        const files = ['docs/assets/images/walk.gif', 'docs/assets/images/tie.webp'];
 
-        animatedImage.play = true;
+        for (const file of files) {
+          it(`should load ${file} without errors`, async () => {
+            const el = await fixture<WaAnimatedImage>(html`<wa-animated-image></wa-animated-image>`);
+            let errorCount = 0;
+            oneEvent(el, 'wa-error').then(() => errorCount++);
+            await loadImage(el, file);
 
-        await clickOnElement(animatedImage);
+            expect(errorCount).to.equal(0);
+          });
+        }
 
-        expect(animatedImage.play).to.be.false;
-
-        await clickOnElement(animatedImage);
-
-        expect(animatedImage.play).to.be.true;
+        it('should emit wa-error on an invalid URL', async () => {
+          const el = await fixture<WaAnimatedImage>(html`<wa-animated-image></wa-animated-image>`);
+          const errorPromise = oneEvent(el, 'wa-error');
+          el.src = 'completelyWrong';
+          await errorPromise;
+        });
       });
-    });
 
-    it('should emit an error event on invalid url', async () => {
-      const animatedImage = await fixture<WaAnimatedImage>(html` <wa-animated-image></wa-animated-image> `);
+      describe('play and pause', () => {
+        it('should play on click', async () => {
+          const el = await fixture<WaAnimatedImage>(html`<wa-animated-image></wa-animated-image>`);
+          await loadImage(el, 'docs/assets/images/walk.gif');
 
-      const errorPromise = oneEvent(animatedImage, 'wa-error');
-      animatedImage.src = 'completelyWrong';
+          expect(el.play).to.not.be.true;
+          await clickOnElement(el);
+          expect(el.play).to.be.true;
+        });
 
-      await errorPromise;
+        it('should pause and resume on click', async () => {
+          const el = await fixture<WaAnimatedImage>(html`<wa-animated-image></wa-animated-image>`);
+          await loadImage(el, 'docs/assets/images/walk.gif');
+
+          el.play = true;
+          await clickOnElement(el);
+          expect(el.play).to.be.false;
+
+          await clickOnElement(el);
+          expect(el.play).to.be.true;
+        });
+
+        it('should toggle play on Enter key', async () => {
+          const el = await fixture<WaAnimatedImage>(html`<wa-animated-image></wa-animated-image>`);
+          await loadImage(el, 'docs/assets/images/walk.gif');
+
+          const div = el.shadowRoot!.querySelector('.animated-image')!;
+          div.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
+          expect(el.play).to.be.true;
+
+          div.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
+          expect(el.play).to.be.false;
+        });
+
+        it('should toggle play on Space key', async () => {
+          const el = await fixture<WaAnimatedImage>(html`<wa-animated-image></wa-animated-image>`);
+          await loadImage(el, 'docs/assets/images/walk.gif');
+
+          const div = el.shadowRoot!.querySelector('.animated-image')!;
+          div.dispatchEvent(new KeyboardEvent('keydown', { key: ' ', bubbles: true }));
+          expect(el.play).to.be.true;
+        });
+      });
+
+      describe('slots', () => {
+        it('should have a play-icon slot', async () => {
+          const el = await fixture<WaAnimatedImage>(html`<wa-animated-image></wa-animated-image>`);
+          await loadImage(el, 'docs/assets/images/walk.gif');
+          const slot = el.shadowRoot!.querySelector('slot[name="play-icon"]');
+          expect(slot).to.exist;
+        });
+
+        it('should have a pause-icon slot', async () => {
+          const el = await fixture<WaAnimatedImage>(html`<wa-animated-image></wa-animated-image>`);
+          await loadImage(el, 'docs/assets/images/walk.gif');
+          const slot = el.shadowRoot!.querySelector('slot[name="pause-icon"]');
+          expect(slot).to.exist;
+        });
+      });
+
+      describe('CSS parts', () => {
+        it('should have a control-box part when loaded', async () => {
+          const el = await fixture<WaAnimatedImage>(html`<wa-animated-image></wa-animated-image>`);
+          await loadImage(el, 'docs/assets/images/walk.gif');
+          expect(el.shadowRoot!.querySelector('[part~="control-box"]')).to.exist;
+        });
+      });
     });
   }
 });
-async function loadImage(animatedImage: WaAnimatedImage, file: string) {
-  const loadingPromise = oneEvent(animatedImage, 'wa-load');
-  animatedImage.src = file;
-  await loadingPromise;
-}

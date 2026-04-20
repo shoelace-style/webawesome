@@ -3,6 +3,19 @@ title: Color Variants
 description: Color utilities allow you to apply the brand, neutral, success, warning, and danger colors from your theme to any element.
 layout: docs
 tags: styleUtilities
+synonyms:
+  - text color
+  - foreground color
+  - colour
+  - color utility
+  - semantic color
+use-cases:
+  - brand color
+  - status color
+  - theme color
+  - background color
+  - danger color
+  - success color
 ---
 
 Some Web Awesome components, like `<wa-button>`, allow you to change the color by using a `variant` attribute:

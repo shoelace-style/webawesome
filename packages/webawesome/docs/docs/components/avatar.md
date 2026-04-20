@@ -3,6 +3,16 @@ title: Avatar
 description: Avatars are used to represent a person or object.
 layout: component
 category: Imagery
+synonyms:
+  - profile picture
+  - user image
+  - profile photo
+  - user icon
+use-cases:
+  - user profile
+  - initials
+  - placeholder image
+  - gravatar
 ---
 
 By default, a generic icon will be shown. You can personalize avatars by adding custom icons, initials, and images. You should always provide a `label` for assistive devices.

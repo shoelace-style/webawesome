@@ -3,6 +3,15 @@ title: Button Group
 description: Button groups can be used to group related buttons into sections.
 layout: component
 category: Actions
+synonyms:
+  - button bar
+  - toolbar
+  - action group
+  - segmented control
+use-cases:
+  - toggle group
+  - split button
+  - grouped actions
 ---
 
 ```html {.example}

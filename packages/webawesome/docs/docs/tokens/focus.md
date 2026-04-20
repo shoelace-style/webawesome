@@ -1,6 +1,14 @@
 ---
 title: Focus
 description: Configure recognizable focus states with Web Awesome's focus properties.
+synonyms:
+  - focus ring
+  - focus outline
+  - focus visible
+use-cases:
+  - keyboard focus
+  - accessibility focus
+  - tab focus
 ---
 
 A consistent focus ring helps with predictable keyboard navigation. Together with [`--wa-color-focus`](/docs/tokens/color/#interactions), these tokens create a uniform focus state for Web Awesome components.
