@@ -681,6 +681,12 @@
       &:hover {
         text-decoration: underline;
       }
+
+	&:has(wa-badge.planned) {
+         &:hover {
+          text-decoration: none;
+         }
+  }
     }
 
     li wa-badge::part(base) {
@@ -743,6 +749,7 @@
 
   #sidebar .is-planned {
     color: var(--wa-color-text-quiet);
+    text-decoration: none;
   }
 
   #sidebar-close-button {
