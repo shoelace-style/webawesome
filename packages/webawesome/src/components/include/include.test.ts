@@ -20,7 +20,7 @@ const stubbedFetchResponse: Response = {
   bodyUsed: false,
   body: null,
   clone: sinon.fake() as unknown as () => Response,
-  bytes: sinon.fake() as unknown as () => Promise<Uint8Array>,
+  bytes: sinon.fake() as unknown as () => Promise<Uint8Array<ArrayBuffer>>,
 };
 
 async function delayResolve(resolveValue: string) {

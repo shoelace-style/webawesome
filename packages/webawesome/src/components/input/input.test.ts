@@ -5,7 +5,6 @@ import sinon from 'sinon';
 import { expectEvent } from '../../internal/test/expect-event.js';
 import { fixtures } from '../../internal/test/fixture.js';
 import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
-import { clickOnElement } from '../../internal/test/pointer-utilities.js';
 import { serialize } from '../../utilities/form.js';
 import type WaInput from './input.js';
 

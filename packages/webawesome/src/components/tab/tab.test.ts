@@ -1,4 +1,4 @@
-import { aTimeout, expect } from '@open-wc/testing';
+import { expect } from '@open-wc/testing';
 import { html } from 'lit';
 import { fixtures } from '../../internal/test/fixture.js';
 import type WaTab from './tab.js';
