@@ -84,8 +84,8 @@ eleventyExcludeFromCollections: true
       <a href="#">Get Involved</a>
     </div>
     <div class="wa-cluster wa-gap-xs">
-      <wa-button size="small" variant="brand" appearance="outlined">Find Your Local Audubon</wa-button>
-      <wa-button size="small" variant="brand">Donate</wa-button>
+      <wa-button size="s" variant="brand" appearance="outlined">Find Your Local Audubon</wa-button>
+      <wa-button size="s" variant="brand">Donate</wa-button>
     </div>
   </header>
   <nav slot="subheader">
@@ -97,7 +97,7 @@ eleventyExcludeFromCollections: true
         <wa-breadcrumb-item>Great Horned Owl</wa-breadcrumb-item>
       </wa-breadcrumb>
     </div>
-    <wa-input id="search" placeholder="Search" size="small" style="max-inline-size: 12rem;">
+    <wa-input id="search" placeholder="Search" size="s" style="max-inline-size: 12rem;">
       <wa-icon slot="start" name="magnifying-glass"></wa-icon>
     </wa-input>
   </nav>
@@ -132,9 +132,9 @@ eleventyExcludeFromCollections: true
         <h1>Great Horned Owl</h1>
         <wa-divider></wa-divider>
         <div class="wa-cluster wa-gap-xs">
-          <wa-tag size="small">Owls</wa-tag>
-          <wa-tag size="small">Birds of Prey</wa-tag>
-          <wa-tag size="small">Pleistocene Birds</wa-tag>
+          <wa-tag size="s">Owls</wa-tag>
+          <wa-tag size="s">Birds of Prey</wa-tag>
+          <wa-tag size="s">Pleistocene Birds</wa-tag>
         </div>
         <div class="wa-flank">
           <wa-icon name="ruler"></wa-icon>

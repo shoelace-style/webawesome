@@ -49,7 +49,7 @@ describe('<wa-switch>', () => {
           expect(el.checked).to.be.false;
           expect(el.defaultChecked).to.be.false;
           expect(el.hint).to.equal('');
-          expect(el.size).to.equal('medium');
+          expect(el.size).to.equal('m');
         });
 
         it('should reflect the checked attribute as defaultChecked', async () => {

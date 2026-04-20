@@ -5,7 +5,9 @@ import { classMap } from 'lit/directives/class-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { DraggableElement } from '../../internal/drag.js';
 import { clamp } from '../../internal/math.js';
+import { warnDeprecatedSize } from '../../internal/size.js';
 import { HasSlotController } from '../../internal/slot.js';
+import { watch } from '../../internal/watch.js';
 import { submitOnEnter } from '../../internal/submit-on-enter.js';
 import { SliderValidator } from '../../internal/validators/slider-validator.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
@@ -165,7 +167,12 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
   @property({ reflect: true }) orientation: 'horizontal' | 'vertical' = 'horizontal';
 
   /** The slider's size. */
-  @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
+  @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
+
+  @watch('size')
+  handleSizeChange() {
+    warnDeprecatedSize(this.localName, this.size);
+  }
 
   /** The starting value from which to draw the slider's fill, which is based on its current value. */
   @property({ attribute: 'indicator-offset', type: Number }) indicatorOffset: number;
@@ -786,9 +793,14 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
     const hasReference = this.hasSlotController.test('reference');
 
     const sliderClasses = classMap({
-      small: this.size === 'small',
-      medium: this.size === 'medium',
-      large: this.size === 'large',
+      xs: this.size === 'xs',
+      s: this.size === 's' || this.size === 'small',
+      m: this.size === 'm' || this.size === 'medium',
+      l: this.size === 'l' || this.size === 'large',
+      xl: this.size === 'xl',
+      small: this.size === 'small' || this.size === 's',
+      medium: this.size === 'medium' || this.size === 'm',
+      large: this.size === 'large' || this.size === 'l',
       horizontal: this.orientation === 'horizontal',
       vertical: this.orientation === 'vertical',
       disabled: this.disabled,

@@ -25,7 +25,7 @@ describe('<wa-tag>', () => {
 
           expect(el.variant).to.equal('neutral');
           expect(el.appearance).to.equal('filled-outlined');
-          expect(el.size).to.equal('medium');
+          expect(el.size).to.equal('m');
           expect(el.pill).to.equal(false);
           expect(el.withRemove).to.equal(false);
         });

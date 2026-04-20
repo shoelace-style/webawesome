@@ -113,23 +113,37 @@ Use the `appearance` attribute to change the callout's visual appearance (the de
 Use the `size` attribute to change a callout's size.
 
 ```html {.example}
-<wa-callout size="large">
+<wa-callout size="xl">
+  <wa-icon slot="icon" name="circle-info"></wa-icon>
+  Extra large callout for maximum emphasis.
+</wa-callout>
+
+<br />
+
+<wa-callout size="l">
   <wa-icon slot="icon" name="circle-info"></wa-icon>
   This is meant to be very emphasized.
 </wa-callout>
 
 <br />
 
-<wa-callout size="medium">
+<wa-callout size="m">
   <wa-icon slot="icon" name="circle-info"></wa-icon>
   Normal-sized callout.
 </wa-callout>
 
 <br />
 
-<wa-callout size="small">
+<wa-callout size="s">
   <wa-icon slot="icon" name="circle-info"></wa-icon>
   Just a small tip!
+</wa-callout>
+
+<br />
+
+<wa-callout size="xs">
+  <wa-icon slot="icon" name="circle-info"></wa-icon>
+  Extra small callout.
 </wa-callout>
 ```
 

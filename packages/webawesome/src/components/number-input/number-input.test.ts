@@ -23,7 +23,7 @@ describe('<wa-number-input>', () => {
         it('should have correct default property values', async () => {
           const el = await fixture<WaNumberInput>(html` <wa-number-input></wa-number-input> `);
 
-          expect(el.size).to.equal('medium');
+          expect(el.size).to.equal('m');
           expect(el.name).to.equal(null);
           expect(el.value).to.equal(null);
           expect(el.defaultValue).to.equal(null);

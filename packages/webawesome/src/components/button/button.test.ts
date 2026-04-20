@@ -67,7 +67,7 @@ describe('<wa-button>', () => {
 
         it('should have correct default size', async () => {
           const el = await fixture<WaButton>(html` <wa-button>Button</wa-button> `);
-          expect(el.size).to.equal('medium');
+          expect(el.size).to.equal('m');
         });
 
         it('should reflect the size attribute', async () => {

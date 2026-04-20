@@ -74,9 +74,11 @@ The default appearance is `filled-outlined`.
 Use the `size` attribute to change a tag's size.
 
 ```html {.example}
-<wa-tag size="small">Small</wa-tag>
-<wa-tag size="medium">Medium</wa-tag>
-<wa-tag size="large">Large</wa-tag>
+<wa-tag size="xs">Extra Small</wa-tag>
+<wa-tag size="s">Small</wa-tag>
+<wa-tag size="m">Medium</wa-tag>
+<wa-tag size="l">Large</wa-tag>
+<wa-tag size="xl">Extra Large</wa-tag>
 ```
 
 ### Pill
@@ -84,9 +86,11 @@ Use the `size` attribute to change a tag's size.
 Use the `pill` attribute to give tabs rounded edges.
 
 ```html {.example}
-<wa-tag size="small" pill>Small</wa-tag>
-<wa-tag size="medium" pill>Medium</wa-tag>
-<wa-tag size="large" pill>Large</wa-tag>
+<wa-tag size="xs" pill>Extra Small</wa-tag>
+<wa-tag size="s" pill>Small</wa-tag>
+<wa-tag size="m" pill>Medium</wa-tag>
+<wa-tag size="l" pill>Large</wa-tag>
+<wa-tag size="xl" pill>Extra Large</wa-tag>
 ```
 
 ### Removable
@@ -95,9 +99,11 @@ Use the `with-remove` attribute to add a remove button to the tag.
 
 ```html {.example}
 <div class="tags-removable">
-  <wa-tag size="small" with-remove>Small</wa-tag>
-  <wa-tag size="medium" with-remove>Medium</wa-tag>
-  <wa-tag size="large" with-remove>Large</wa-tag>
+  <wa-tag size="xs" with-remove>Extra Small</wa-tag>
+  <wa-tag size="s" with-remove>Small</wa-tag>
+  <wa-tag size="m" with-remove>Medium</wa-tag>
+  <wa-tag size="l" with-remove>Large</wa-tag>
+  <wa-tag size="xl" with-remove>Extra Large</wa-tag>
 </div>
 
 <script>
