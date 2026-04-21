@@ -8,11 +8,27 @@ override:tags: []
 
 <style>
   .swatch {
-    min-inline-size: 6rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border-color: var(--wa-color-neutral-border-normal);
+    border-style: var(--wa-border-style);
+    border-width: var(--wa-border-width-s);
+    border-radius: var(--wa-border-radius-m);
+    box-sizing: border-box;
+    min-block-size: 3rem;
+    min-inline-size: 8rem;
+    padding: var(--wa-space-xs);
+    font-weight: var(--wa-font-weight-semibold);
+    line-height: var(--wa-line-height-condensed);
   }
 
   wa-tab-panel:not([name='borders']) {
-    border-color: transparent;
+    .swatch {
+      border-color: transparent;
+    }
   }
 
   td {
@@ -97,23 +113,11 @@ override:tags: []
       row-gap: var(--wa-space-l);
     }
     .palette-swatch {
-      aspect-ratio: 1 / 1;
-
       &::before {
         font-size: var(--wa-font-size-2xs);
         top: calc(-1 * var(--wa-space-m));
       }
     }
-  }
-
-  .on-color-swatch {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: var(--wa-space-s) var(--wa-space-s);
-    border-radius: var(--wa-border-radius-m);
-    font-weight: var(--wa-font-weight-semibold);
-    font-size: var(--wa-font-size-m);
   }
 
   /* Spacing preview */
@@ -195,13 +199,14 @@ override:tags: []
     &::part(nav) {
       position: sticky;
       top: calc(var(--banner-height) + var(--header-height) + var(--subheader-height));
+      z-index: 11;
       background-color: var(--wa-color-surface-default);
     }
   }
 </style>
 
 {% markdown %}
-Design tokens are CSS custom properties that thread through Web Awesome's components to give your theme a consistent look and feel. By overriding these properties, you can customize the library without touching individual component styles.
+Design tokens are CSS custom properties that thread through Web Awesome's components to give your [theme](/docs/themes) a consistent look and feel. By overriding these properties, you can customize the library without touching individual component styles.
 
 To customize a token, set its value in your stylesheet:
 
@@ -215,6 +220,7 @@ To customize a token, set its value in your stylesheet:
 To customize a token that adapts to light and dark mode, scope the token value to classes:
 
 ```css
+:root,
 .wa-light,
 .wa-dark .wa-invert {
   --wa-color-surface-default: var(--wa-color-neutral-95);
@@ -238,60 +244,35 @@ To customize a token that adapts to light and dark mode, scope the token value t
   <wa-tab panel="transitions">Transitions</wa-tab>
   <wa-tab panel="components">Components</wa-tab>
 
-  {# ─────────────────────────────────────────────────────────── COLOR ──── #}
-<wa-tab-panel name="color">
-  
-{% include 'tokens/color.njk' %}
+  <wa-tab-panel name="color">
+    {% include 'tokens/color.njk' %}
+  </wa-tab-panel>
 
-</wa-tab-panel>
+  <wa-tab-panel name="typography">
+    {% include 'tokens/typography.njk' %}
+  </wa-tab-panel>
 
-  {# ──────────────────────────────────────────────────────── TYPOGRAPHY ──── #}
-<wa-tab-panel name="typography">
+  <wa-tab-panel name="space">
+    {% include 'tokens/space.njk' %}
+  </wa-tab-panel>
 
-{% include 'tokens/typography.njk' %}
+  <wa-tab-panel name="borders">
+    {% include 'tokens/borders.njk' %}
+  </wa-tab-panel>
 
-</wa-tab-panel>
+  <wa-tab-panel name="shadows">
+    {% include 'tokens/shadows.njk' %}
+  </wa-tab-panel>
 
-  {# ──────────────────────────────────────────────────────────── SPACE ──── #}
-<wa-tab-panel name="space">
+  <wa-tab-panel name="focus">
+    {% include 'tokens/focus.njk' %}
+  </wa-tab-panel>
 
-{% include 'tokens/space.njk' %}
+  <wa-tab-panel name="transitions">
+    {% include 'tokens/transitions.njk' %}
+  </wa-tab-panel>
 
-</wa-tab-panel>
-
-  {# ─────────────────────────────────────────────────────────── BORDERS ──── #}
-<wa-tab-panel name="borders">
-
-{% include 'tokens/borders.njk' %}
-
-</wa-tab-panel>
-
-  {# ─────────────────────────────────────────────────────────── SHADOWS ──── #}
-<wa-tab-panel name="shadows">
-
-{% include 'tokens/shadows.njk' %}
-
-</wa-tab-panel>
-
-  {# ───────────────────────────────────────────────────────────── FOCUS ──── #}
-<wa-tab-panel name="focus">
-
-{% include 'tokens/focus.njk' %}
-
-</wa-tab-panel>
-
-  {# ─────────────────────────────────────────────────────────── TRANSITIONS ──── #}
-<wa-tab-panel name="transitions">
-
-{% include 'tokens/transitions.njk' %}
-
-</wa-tab-panel>
-
-  {# ─────────────────────────────────────────────────────────── COMPONENTS ──── #}
-<wa-tab-panel name="components">
-
-{% include 'tokens/component-groups.njk' %}
-
-</wa-tab-panel>
+  <wa-tab-panel name="components">
+    {% include 'tokens/component-groups.njk' %}
+  </wa-tab-panel>
 </wa-tab-group>
-
