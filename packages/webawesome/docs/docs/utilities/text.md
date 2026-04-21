@@ -24,7 +24,7 @@ use-cases:
 
 ## Body
 
-Use `wa-body-*` classes to style the main content of your pages. Each class specifies a `font-size` that corresponds to a [font size token](/docs/tokens/typography/#font-size) from your theme.
+Use `wa-body-*` classes to style the main content of your pages. Each class specifies a `font-size` that corresponds to a [font size token](/docs/tokens?active_tab=typography) from your theme.
 
 :::info
 `3xs` and `2xs` fall below typical legibility. It's best to keep their use to non-essential UI only (e.g. labels, metadata) to maintain accessibility.
@@ -48,7 +48,7 @@ Alternatively, use `wa-body` to apply the same styling without an explicit font 
 
 ## Headings
 
-Use `wa-heading-*` classes to style section titles and headings in your content. Each class specifies a `font-size` that corresponds to a [font size token](/docs/tokens/typography/#font-size) from your theme.
+Use `wa-heading-*` classes to style section titles and headings in your content. Each class specifies a `font-size` that corresponds to a [font size token](/docs/tokens?active_tab=typography) from your theme.
 
 Alternatively, use `wa-heading` to apply the same styling without an explicit font size.
 
@@ -68,7 +68,7 @@ Alternatively, use `wa-heading` to apply the same styling without an explicit fo
 
 ## Captions
 
-Use `wa-caption-*` classes to style descriptions or auxiliary text in your content. Each class specifies a `font-size` that corresponds to a [font size token](/docs/tokens/typography/#font-size) from your theme.
+Use `wa-caption-*` classes to style descriptions or auxiliary text in your content. Each class specifies a `font-size` that corresponds to a [font size token](/docs/tokens?active_tab=typography) from your theme.
 
 Alternatively, use `wa-caption` to apply the same styling without an explicit font size.
 
@@ -88,7 +88,7 @@ Alternatively, use `wa-caption` to apply the same styling without an explicit fo
 
 ## Longform
 
-Use `wa-longform-*` classes to style lengthy content like essays or blog posts. Each class specifies a `font-size` that corresponds to a [font size token](/docs/tokens/typography/#font-size) from your theme.
+Use `wa-longform-*` classes to style lengthy content like essays or blog posts. Each class specifies a `font-size` that corresponds to a [font size token](/docs/tokens?active_tab=typography) from your theme.
 
 Alternatively, use `wa-longform` to apply the same styling without an explicit font size.
 
@@ -125,7 +125,7 @@ Ordered (`<ol>`) and unordered (`<ul>`) lists are given default styles by either
 
 ## Form Controls
 
-Use `wa-form-control-*` classes to style labels, values, placeholders, and hints outside of typical form control contexts with [form control tokens](/docs/tokens/component-groups/#form-controls) from your theme.
+Use `wa-form-control-*` classes to style labels, values, placeholders, and hints outside of typical form control contexts with [form control tokens](/docs/tokens?active_tab=components) from your theme.
 
 | Class Name                    | Preview                                                            |
 | ----------------------------- | ------------------------------------------------------------------ |
@@ -136,7 +136,7 @@ Use `wa-form-control-*` classes to style labels, values, placeholders, and hints
 
 ## Font Size
 
-Use single-purpose `wa-font-size-*` classes to apply a given [font size](/docs/tokens/typography/#font-size) from your theme to any element without additional styling.
+Use single-purpose `wa-font-size-*` classes to apply a given [font size](/docs/tokens?active_tab=typography) from your theme to any element without additional styling.
 
 | Class Name         | Preview                                                 |
 | ------------------ | ------------------------------------------------------- |
@@ -154,7 +154,7 @@ Use single-purpose `wa-font-size-*` classes to apply a given [font size](/docs/t
 
 ## Font Weight
 
-Use single-purpose `wa-font-weight-*` classes to apply a given [font weight](/docs/tokens/typography/#font-weight) from your theme to any element without additional styling.
+Use single-purpose `wa-font-weight-*` classes to apply a given [font weight](/docs/tokens?active_tab=typography) from your theme to any element without additional styling.
 
 | Class Name                | Preview                                                        |
 | ------------------------- | -------------------------------------------------------------- |
@@ -165,7 +165,7 @@ Use single-purpose `wa-font-weight-*` classes to apply a given [font weight](/do
 
 ## Text Color
 
-Use single-purpose `wa-color-text-*` classes to apply a given [text color](/docs/tokens/color/#text) from your theme to any element without additional styling.
+Use single-purpose `wa-color-text-*` classes to apply a given [text color](/docs/tokens?active_tab=color) from your theme to any element without additional styling.
 
 | Class Name             | Preview                                                     |
 | ---------------------- | ----------------------------------------------------------- |

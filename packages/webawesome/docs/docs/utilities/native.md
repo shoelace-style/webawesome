@@ -131,7 +131,7 @@ To remove this default spacing, you can set `--wa-content-spacing: 0` in your st
 
 ## Typography
 
-Native styles use [typography design tokens](/docs/tokens/typography/) to style text elements. A number of styles — such as `color`, `font-family`, `font-size`, `font-weight`, and `line-height` — are set on the `<body>` element to be inherited by child elements.
+Native styles use [typography design tokens](/docs/tokens?active_tab=typography) to style text elements. A number of styles — such as `color`, `font-family`, `font-size`, `font-weight`, and `line-height` — are set on the `<body>` element to be inherited by child elements.
 
 ### Headings
 
@@ -418,7 +418,7 @@ Create progress indicators with `<progress>`. Progress indicators closely match 
 
 ## Forms
 
-Native styles use [form control design tokens](/docs/tokens/component-groups/#form-controls) to style form elements like buttons and inputs. Form elements additionally inherit `font-family` from the `<body>` element.
+Native styles use [form control design tokens](/docs/tokens?active_tab=components) to style form elements like buttons and inputs. Form elements additionally inherit `font-family` from the `<body>` element.
 
 ### Buttons
 
