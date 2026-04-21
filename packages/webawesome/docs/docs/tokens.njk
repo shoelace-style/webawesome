@@ -207,8 +207,15 @@ override:tags: []
 
 {% markdown %}
 Design tokens are CSS custom properties that thread through Web Awesome's components to give your [theme](/docs/themes) a consistent look and feel. By overriding these properties, you can customize the library without touching individual component styles.
+{% endmarkdown %}
 
-To customize a token, set its value in your stylesheet:
+<wa-details style="margin-block-end: var(--wa-content-spacing)">
+  <div slot="summary" class="wa-cluster">
+    <wa-icon name="circle-question" variant="regular"></wa-icon>
+    <span class="wa-font-weight-semibold">How can I customize design tokens?</span>
+  </div>
+  {% markdown %}
+  To customize a token, set its value in your stylesheet:
 
 ```css
 :root {
@@ -217,7 +224,7 @@ To customize a token, set its value in your stylesheet:
 }
 ```
 
-To customize a token that adapts to light and dark mode, scope the token value to classes:
+  To customize a token that adapts to light and dark mode, scope the token to `.wa-light`, `.wa-dark`, and, optionally, `.wa-invert`:
 
 ```css
 :root,
@@ -231,10 +238,10 @@ To customize a token that adapts to light and dark mode, scope the token value t
   --wa-color-surface-default: var(--wa-color-neutral-05);
 }
 ```
-{% endmarkdown %}
+  {% endmarkdown %}
+</wa-details>
 
-
-<wa-tab-group id="token-tabs">
+<wa-tab-group id="token-tabs" {% raw %}active="{{ req.query.active_tab or 'color' }}{% endraw %}">
   <wa-tab panel="color">Color</wa-tab>
   <wa-tab panel="typography">Typography</wa-tab>
   <wa-tab panel="space">Space</wa-tab>
