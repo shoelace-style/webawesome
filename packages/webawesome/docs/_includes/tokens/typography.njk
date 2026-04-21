@@ -6,33 +6,35 @@ Typography tokens give your theme consistent, scalable text styles across every 
 Font family tokens are assigned to specific roles — body text, headings, code, and long-form prose. By default, they use system fonts for maximum performance.
 {% endmarkdown %}
 
-<table class="token-table wa-hover-rows">
-  <thead>
-    <tr><th>Custom Property</th><th>Description</th><th>Preview</th></tr>
-  </thead>
-  <tbody>
-    <tr id="token-wa-font-family-body">
-      <td class="token-name"><code>--wa-font-family-body</code></td>
-      <td>Default font for body text and UI components</td>
-      <td><div style="font-family: var(--wa-font-family-body)">Sphinx of black quartz, judge my vow.</div></td>
-    </tr>
-    <tr id="token-wa-font-family-heading">
-      <td class="token-name"><code>--wa-font-family-heading</code></td>
-      <td>Font for headings</td>
-      <td><div style="font-family: var(--wa-font-family-heading)">Sphinx of black quartz, judge my vow.</div></td>
-    </tr>
-    <tr id="token-wa-font-family-code">
-      <td class="token-name"><code>--wa-font-family-code</code></td>
-      <td>Font for code blocks and inline code</td>
-      <td><div style="font-family: var(--wa-font-family-code)">Sphinx of black quartz, judge my vow.</div></td>
-    </tr>
-    <tr id="token-wa-font-family-longform">
-      <td class="token-name"><code>--wa-font-family-longform</code></td>
-      <td>Font for long-form prose and reading-optimized content</td>
-      <td><div style="font-family: var(--wa-font-family-longform)">Sphinx of black quartz, judge my vow.</div></td>
-    </tr>
-  </tbody>
-</table>
+<wa-scroller>
+  <table class="token-table wa-hover-rows">
+    <thead>
+      <tr><th>Custom Property</th><th>Description</th><th>Preview</th></tr>
+    </thead>
+    <tbody>
+      <tr id="token-wa-font-family-body">
+        <td class="token-name"><code>--wa-font-family-body</code></td>
+        <td>Default font for body text and UI components</td>
+        <td><div style="font-family: var(--wa-font-family-body)">Sphinx of black quartz, judge my vow.</div></td>
+      </tr>
+      <tr id="token-wa-font-family-heading">
+        <td class="token-name"><code>--wa-font-family-heading</code></td>
+        <td>Font for headings</td>
+        <td><div style="font-family: var(--wa-font-family-heading)">Sphinx of black quartz, judge my vow.</div></td>
+      </tr>
+      <tr id="token-wa-font-family-code">
+        <td class="token-name"><code>--wa-font-family-code</code></td>
+        <td>Font for code blocks and inline code</td>
+        <td><div style="font-family: var(--wa-font-family-code)">Sphinx of black quartz, judge my vow.</div></td>
+      </tr>
+      <tr id="token-wa-font-family-longform">
+        <td class="token-name"><code>--wa-font-family-longform</code></td>
+        <td>Font for long-form prose and reading-optimized content</td>
+        <td><div style="font-family: var(--wa-font-family-longform)">Sphinx of black quartz, judge my vow.</div></td>
+      </tr>
+    </tbody>
+  </table>
+</wa-scroller>
 
 {% markdown %}
 ## Font Size
@@ -42,83 +44,85 @@ Font sizes use a ratio of 1.125 to scale proportionally. The medium size (`m`) i
 Use `--wa-font-size-scale` to proportionally increase or decrease all sizes at once.
 {% endmarkdown %}
 
-<table class="token-table wa-hover-rows">
-  <thead>
-    <tr><th>Custom Property</th><th>Description</th><th>Preview</th></tr>
-  </thead>
-  <tbody>
-    <tr id="token-wa-font-size-scale">
-      <td class="token-name"><code>--wa-font-size-scale</code></td>
-      <td>Global multiplier applied to all font size calculations</td>
-      <td>—</td>
-    </tr>
-    <tr id="token-wa-font-size-3xs">
-      <td class="token-name"><code>--wa-font-size-3xs</code></td>
-      <td>Smallest font size. Use sparingly and only for non-essential UI.</td>
-      <td><div style="font-size: var(--wa-font-size-3xs)">AaBb</div></td>
-    </tr>
-    <tr id="token-wa-font-size-2xs">
-      <td class="token-name"><code>--wa-font-size-2xs</code></td>
-      <td>Near-smallest font size. Use sparingly and only for non-essential UI.</td>
-      <td><div style="font-size: var(--wa-font-size-2xs)">AaBb</div></td>
-    </tr>
-    <tr id="token-wa-font-size-xs">
-      <td class="token-name"><code>--wa-font-size-xs</code></td>
-      <td>Extra-small font size, suitable for labels and metadata</td>
-      <td><div style="font-size: var(--wa-font-size-xs)">AaBb</div></td>
-    </tr>
-    <tr id="token-wa-font-size-s">
-      <td class="token-name"><code>--wa-font-size-s</code></td>
-      <td>Small font size, for secondary text and hints</td>
-      <td><div style="font-size: var(--wa-font-size-s)">AaBb</div></td>
-    </tr>
-    <tr id="token-wa-font-size-m">
-      <td class="token-name"><code>--wa-font-size-m</code></td>
-      <td>Base font size, used for most body text</td>
-      <td><div style="font-size: var(--wa-font-size-m)">AaBb</div></td>
-    </tr>
-    <tr id="token-wa-font-size-l">
-      <td class="token-name"><code>--wa-font-size-l</code></td>
-      <td>Large font size, for slightly emphasized text and small headings</td>
-      <td><div style="font-size: var(--wa-font-size-l)">AaBb</div></td>
-    </tr>
-    <tr id="token-wa-font-size-xl">
-      <td class="token-name"><code>--wa-font-size-xl</code></td>
-      <td>Extra-large font size, for subheadings</td>
-      <td><div style="font-size: var(--wa-font-size-xl)">AaBb</div></td>
-    </tr>
-    <tr id="token-wa-font-size-2xl">
-      <td class="token-name"><code>--wa-font-size-2xl</code></td>
-      <td>2× extra-large font size, for section headings</td>
-      <td><div style="font-size: var(--wa-font-size-2xl)">AaBb</div></td>
-    </tr>
-    <tr id="token-wa-font-size-3xl">
-      <td class="token-name"><code>--wa-font-size-3xl</code></td>
-      <td>3× extra-large font size, for page headings</td>
-      <td><div style="font-size: var(--wa-font-size-3xl)">AaBb</div></td>
-    </tr>
-    <tr id="token-wa-font-size-4xl">
-      <td class="token-name"><code>--wa-font-size-4xl</code></td>
-      <td>4× extra-large font size, for display headings</td>
-      <td><div style="font-size: var(--wa-font-size-4xl)">AaBb</div></td>
-    </tr>
-    <tr id="token-wa-font-size-5xl">
-      <td class="token-name"><code>--wa-font-size-5xl</code></td>
-      <td>5× extra-large font size, for hero headlines</td>
-      <td><div style="font-size: var(--wa-font-size-5xl)">AaBb</div></td>
-    </tr>
-    <tr id="token-wa-font-size-smaller">
-      <td class="token-name"><code>--wa-font-size-smaller</code></td>
-      <td>Makes text proportionally smaller relative to its parent's font size</td>
-      <td><div>Normal &#8594; <span style="font-size: var(--wa-font-size-smaller)">smaller</span></div></td>
-    </tr>
-    <tr id="token-wa-font-size-larger">
-      <td class="token-name"><code>--wa-font-size-larger</code></td>
-      <td>Makes text proportionally larger relative to its parent's font size</td>
-      <td><div>Normal &#8594; <span style="font-size: var(--wa-font-size-larger)">larger</span></div></td>
-    </tr>
-  </tbody>
-</table>
+<wa-scroller>
+  <table class="token-table wa-hover-rows">
+    <thead>
+      <tr><th>Custom Property</th><th>Description</th><th>Preview</th></tr>
+    </thead>
+    <tbody>
+      <tr id="token-wa-font-size-scale">
+        <td class="token-name"><code>--wa-font-size-scale</code></td>
+        <td>Global multiplier applied to all font size calculations</td>
+        <td>—</td>
+      </tr>
+      <tr id="token-wa-font-size-3xs">
+        <td class="token-name"><code>--wa-font-size-3xs</code></td>
+        <td>Smallest font size. Use sparingly and only for non-essential UI.</td>
+        <td><div style="font-size: var(--wa-font-size-3xs)">AaBb</div></td>
+      </tr>
+      <tr id="token-wa-font-size-2xs">
+        <td class="token-name"><code>--wa-font-size-2xs</code></td>
+        <td>Near-smallest font size. Use sparingly and only for non-essential UI.</td>
+        <td><div style="font-size: var(--wa-font-size-2xs)">AaBb</div></td>
+      </tr>
+      <tr id="token-wa-font-size-xs">
+        <td class="token-name"><code>--wa-font-size-xs</code></td>
+        <td>Extra-small font size, suitable for labels and metadata</td>
+        <td><div style="font-size: var(--wa-font-size-xs)">AaBb</div></td>
+      </tr>
+      <tr id="token-wa-font-size-s">
+        <td class="token-name"><code>--wa-font-size-s</code></td>
+        <td>Small font size, for secondary text and hints</td>
+        <td><div style="font-size: var(--wa-font-size-s)">AaBb</div></td>
+      </tr>
+      <tr id="token-wa-font-size-m">
+        <td class="token-name"><code>--wa-font-size-m</code></td>
+        <td>Base font size, used for most body text</td>
+        <td><div style="font-size: var(--wa-font-size-m)">AaBb</div></td>
+      </tr>
+      <tr id="token-wa-font-size-l">
+        <td class="token-name"><code>--wa-font-size-l</code></td>
+        <td>Large font size, for slightly emphasized text and small headings</td>
+        <td><div style="font-size: var(--wa-font-size-l)">AaBb</div></td>
+      </tr>
+      <tr id="token-wa-font-size-xl">
+        <td class="token-name"><code>--wa-font-size-xl</code></td>
+        <td>Extra-large font size, for subheadings</td>
+        <td><div style="font-size: var(--wa-font-size-xl)">AaBb</div></td>
+      </tr>
+      <tr id="token-wa-font-size-2xl">
+        <td class="token-name"><code>--wa-font-size-2xl</code></td>
+        <td>2× extra-large font size, for section headings</td>
+        <td><div style="font-size: var(--wa-font-size-2xl)">AaBb</div></td>
+      </tr>
+      <tr id="token-wa-font-size-3xl">
+        <td class="token-name"><code>--wa-font-size-3xl</code></td>
+        <td>3× extra-large font size, for page headings</td>
+        <td><div style="font-size: var(--wa-font-size-3xl)">AaBb</div></td>
+      </tr>
+      <tr id="token-wa-font-size-4xl">
+        <td class="token-name"><code>--wa-font-size-4xl</code></td>
+        <td>4× extra-large font size, for display headings</td>
+        <td><div style="font-size: var(--wa-font-size-4xl)">AaBb</div></td>
+      </tr>
+      <tr id="token-wa-font-size-5xl">
+        <td class="token-name"><code>--wa-font-size-5xl</code></td>
+        <td>5× extra-large font size, for hero headlines</td>
+        <td><div style="font-size: var(--wa-font-size-5xl)">AaBb</div></td>
+      </tr>
+      <tr id="token-wa-font-size-smaller">
+        <td class="token-name"><code>--wa-font-size-smaller</code></td>
+        <td>Makes text proportionally smaller relative to its parent's font size</td>
+        <td><div>Normal &#8594; <span style="font-size: var(--wa-font-size-smaller)">smaller</span></div></td>
+      </tr>
+      <tr id="token-wa-font-size-larger">
+        <td class="token-name"><code>--wa-font-size-larger</code></td>
+        <td>Makes text proportionally larger relative to its parent's font size</td>
+        <td><div>Normal &#8594; <span style="font-size: var(--wa-font-size-larger)">larger</span></div></td>
+      </tr>
+    </tbody>
+  </table>
+</wa-scroller>
 
 {% markdown %}
 ## Font Weight
@@ -126,58 +130,60 @@ Use `--wa-font-size-scale` to proportionally increase or decrease all sizes at o
 Font weight tokens come in two flavors: named weights that cover the full range, and role-based weights for specific text types. Role-based weights reference named weights by default.
 {% endmarkdown %}
 
-<table class="token-table wa-hover-rows">
-  <thead>
-    <tr><th>Custom Property</th><th>Description</th><th>Preview</th></tr>
-  </thead>
-  <tbody>
-    <tr id="token-wa-font-weight-light">
-      <td class="token-name"><code>--wa-font-weight-light</code></td>
-      <td>Light text weight</td>
-      <td><div style="font-weight: var(--wa-font-weight-light)">AaBb</div></td>
-    </tr>
-    <tr id="token-wa-font-weight-normal">
-      <td class="token-name"><code>--wa-font-weight-normal</code></td>
-      <td>Normal text weight</td>
-      <td><div style="font-weight: var(--wa-font-weight-normal)">AaBb</div></td>
-    </tr>
-    <tr id="token-wa-font-weight-semibold">
-      <td class="token-name"><code>--wa-font-weight-semibold</code></td>
-      <td>Medium/semibold text weight</td>
-      <td><div style="font-weight: var(--wa-font-weight-semibold)">AaBb</div></td>
-    </tr>
-    <tr id="token-wa-font-weight-bold">
-      <td class="token-name"><code>--wa-font-weight-bold</code></td>
-      <td>Bold text weight</td>
-      <td><div style="font-weight: var(--wa-font-weight-bold)">AaBb</div></td>
-    </tr>
-    <tr id="token-wa-font-weight-body">
-      <td class="token-name"><code>--wa-font-weight-body</code></td>
-      <td>Weight for body/paragraph text</td>
-      <td><div style="font-weight: var(--wa-font-weight-body)">AaBb</div></td>
-    </tr>
-    <tr id="token-wa-font-weight-heading">
-      <td class="token-name"><code>--wa-font-weight-heading</code></td>
-      <td>Weight for headings</td>
-      <td><div style="font-weight: var(--wa-font-weight-heading)">AaBb</div></td>
-    </tr>
-    <tr id="token-wa-font-weight-code">
-      <td class="token-name"><code>--wa-font-weight-code</code></td>
-      <td>Weight for code</td>
-      <td><div style="font-weight: var(--wa-font-weight-code); font-family: var(--wa-font-family-code)">AaBb</div></td>
-    </tr>
-    <tr id="token-wa-font-weight-longform">
-      <td class="token-name"><code>--wa-font-weight-longform</code></td>
-      <td>Weight for long-form prose</td>
-      <td><div style="font-weight: var(--wa-font-weight-longform)">AaBb</div></td>
-    </tr>
-    <tr id="token-wa-font-weight-action">
-      <td class="token-name"><code>--wa-font-weight-action</code></td>
-      <td>Weight for interactive text like button labels and tabs. Recommended for links that rely on color alone to signal interactivity.</td>
-      <td><div style="font-weight: var(--wa-font-weight-action)">AaBb</div></td>
-    </tr>
-  </tbody>
-</table>
+<wa-scroller>
+  <table class="token-table wa-hover-rows">
+    <thead>
+      <tr><th>Custom Property</th><th>Description</th><th>Preview</th></tr>
+    </thead>
+    <tbody>
+      <tr id="token-wa-font-weight-light">
+        <td class="token-name"><code>--wa-font-weight-light</code></td>
+        <td>Light text weight</td>
+        <td><div style="font-weight: var(--wa-font-weight-light)">AaBb</div></td>
+      </tr>
+      <tr id="token-wa-font-weight-normal">
+        <td class="token-name"><code>--wa-font-weight-normal</code></td>
+        <td>Normal text weight</td>
+        <td><div style="font-weight: var(--wa-font-weight-normal)">AaBb</div></td>
+      </tr>
+      <tr id="token-wa-font-weight-semibold">
+        <td class="token-name"><code>--wa-font-weight-semibold</code></td>
+        <td>Medium/semibold text weight</td>
+        <td><div style="font-weight: var(--wa-font-weight-semibold)">AaBb</div></td>
+      </tr>
+      <tr id="token-wa-font-weight-bold">
+        <td class="token-name"><code>--wa-font-weight-bold</code></td>
+        <td>Bold text weight</td>
+        <td><div style="font-weight: var(--wa-font-weight-bold)">AaBb</div></td>
+      </tr>
+      <tr id="token-wa-font-weight-body">
+        <td class="token-name"><code>--wa-font-weight-body</code></td>
+        <td>Weight for body/paragraph text</td>
+        <td><div style="font-weight: var(--wa-font-weight-body)">AaBb</div></td>
+      </tr>
+      <tr id="token-wa-font-weight-heading">
+        <td class="token-name"><code>--wa-font-weight-heading</code></td>
+        <td>Weight for headings</td>
+        <td><div style="font-weight: var(--wa-font-weight-heading)">AaBb</div></td>
+      </tr>
+      <tr id="token-wa-font-weight-code">
+        <td class="token-name"><code>--wa-font-weight-code</code></td>
+        <td>Weight for code</td>
+        <td><div style="font-weight: var(--wa-font-weight-code); font-family: var(--wa-font-family-code)">AaBb</div></td>
+      </tr>
+      <tr id="token-wa-font-weight-longform">
+        <td class="token-name"><code>--wa-font-weight-longform</code></td>
+        <td>Weight for long-form prose</td>
+        <td><div style="font-weight: var(--wa-font-weight-longform)">AaBb</div></td>
+      </tr>
+      <tr id="token-wa-font-weight-action">
+        <td class="token-name"><code>--wa-font-weight-action</code></td>
+        <td>Weight for interactive text like button labels and tabs. Also recommended for links that don't use text decorations.</td>
+        <td><div style="font-weight: var(--wa-font-weight-action)">AaBb</div></td>
+      </tr>
+    </tbody>
+  </table>
+</wa-scroller>
 
 {% markdown %}
 ## Line Height
@@ -185,28 +191,30 @@ Font weight tokens come in two flavors: named weights that cover the full range,
 Line heights are unitless to scale proportionately with text size. For readability, paragraph text should be at least `1.5`.
 {% endmarkdown %}
 
-<table class="token-table wa-hover-rows">
-  <thead>
-    <tr><th>Custom Property</th><th>Description</th><th>Preview</th></tr>
-  </thead>
-  <tbody>
-    <tr id="token-wa-line-height-condensed">
-      <td class="token-name"><code>--wa-line-height-condensed</code></td>
-      <td>Tight line height for headings and short UI text</td>
-      <td><div style="line-height: var(--wa-line-height-condensed); border-block-color: var(--wa-color-neutral-border-loud)">The quick brown fox<br>jumps over the lazy dog</div></td>
-    </tr>
-    <tr id="token-wa-line-height-normal">
-      <td class="token-name"><code>--wa-line-height-normal</code></td>
-      <td>Standard line height for body/paragraph text</td>
-      <td><div style="line-height: var(--wa-line-height-normal); border-block-color: var(--wa-color-neutral-border-loud)">The quick brown fox<br>jumps over the lazy dog</div></td>
-    </tr>
-    <tr id="token-wa-line-height-expanded">
-      <td class="token-name"><code>--wa-line-height-expanded</code></td>
-      <td>Open line height for reading-optimized or airy content</td>
-      <td><div style="line-height: var(--wa-line-height-expanded); border-block-color: var(--wa-color-neutral-border-loud)">The quick brown fox<br>jumps over the lazy dog</div></td>
-    </tr>
-  </tbody>
-</table>
+<wa-scroller>
+  <table class="token-table wa-hover-rows">
+    <thead>
+      <tr><th>Custom Property</th><th>Description</th><th>Preview</th></tr>
+    </thead>
+    <tbody>
+      <tr id="token-wa-line-height-condensed">
+        <td class="token-name"><code>--wa-line-height-condensed</code></td>
+        <td>Tight line height for headings and short UI text</td>
+        <td><div style="line-height: var(--wa-line-height-condensed); border-block-color: var(--wa-color-neutral-border-loud)">The quick brown fox<br>jumps over the lazy dog</div></td>
+      </tr>
+      <tr id="token-wa-line-height-normal">
+        <td class="token-name"><code>--wa-line-height-normal</code></td>
+        <td>Standard line height for body/paragraph text</td>
+        <td><div style="line-height: var(--wa-line-height-normal); border-block-color: var(--wa-color-neutral-border-loud)">The quick brown fox<br>jumps over the lazy dog</div></td>
+      </tr>
+      <tr id="token-wa-line-height-expanded">
+        <td class="token-name"><code>--wa-line-height-expanded</code></td>
+        <td>Open line height for reading-optimized or airy content</td>
+        <td><div style="line-height: var(--wa-line-height-expanded); border-block-color: var(--wa-color-neutral-border-loud)">The quick brown fox<br>jumps over the lazy dog</div></td>
+      </tr>
+    </tbody>
+  </table>
+</wa-scroller>
 
 {% markdown %}
 ## Link Decoration
@@ -214,20 +222,22 @@ Line heights are unitless to scale proportionately with text size. For readabili
 Together with [`--wa-color-text-link`](?active_tab=color), these tokens add text decoration to `<a>` elements to signal their role as hyperlinks.
 {% endmarkdown %}
 
-<table class="token-table wa-hover-rows">
-  <thead>
-    <tr><th>Custom Property</th><th>Description</th><th>Preview</th></tr>
-  </thead>
-  <tbody>
-    <tr id="token-wa-link-decoration-default">
-      <td class="token-name"><code>--wa-link-decoration-default</code></td>
-      <td>Text decoration applied to links in their default (non-hovered) state</td>
-      <td><a href="javascript:void(0)" style="text-decoration: var(--wa-link-decoration-default)">Link text</a></td>
-    </tr>
-    <tr id="token-wa-link-decoration-hover">
-      <td class="token-name"><code>--wa-link-decoration-hover</code></td>
-      <td>Text decoration applied to links on hover</td>
-      <td><a href="javascript:void(0)" style="text-decoration: var(--wa-link-decoration-hover)">Link text</a></td>
-    </tr>
-  </tbody>
-</table>
+<wa-scroller>
+  <table class="token-table wa-hover-rows">
+    <thead>
+      <tr><th>Custom Property</th><th>Description</th><th>Preview</th></tr>
+    </thead>
+    <tbody>
+      <tr id="token-wa-link-decoration-default">
+        <td class="token-name"><code>--wa-link-decoration-default</code></td>
+        <td>Text decoration applied to links in their default (non-hovered) state</td>
+        <td><a href="javascript:void(0)" style="text-decoration: var(--wa-link-decoration-default)">Link text</a></td>
+      </tr>
+      <tr id="token-wa-link-decoration-hover">
+        <td class="token-name"><code>--wa-link-decoration-hover</code></td>
+        <td>Text decoration applied to links on hover</td>
+        <td><a href="javascript:void(0)" style="text-decoration: var(--wa-link-decoration-hover)">Link text</a></td>
+      </tr>
+    </tbody>
+  </table>
+</wa-scroller>

@@ -10,28 +10,30 @@ Web Awesome uses different transition durations to make it easy to track a compo
 Properties that change between frequent, incidental states (like hover) typically use faster durations than properties that change between intentional states (like opening a menu or checking a box).
 {% endmarkdown %}
 
-<table class="token-table wa-hover-rows">
-  <thead>
-    <tr><th>Custom Property</th><th>Description</th><th>Preview</th></tr>
-  </thead>
-  <tbody>
-    <tr id="token-wa-transition-fast">
-      <td class="token-name"><code>--wa-transition-fast</code></td>
-      <td>Fast duration for frequent, incidental state changes like hover and focus</td>
-      <td><div tabindex="0" class="swatch transition-swatch" style="transition: width var(--wa-transition-fast) var(--wa-transition-easing)"></div></td>
-    </tr>
-    <tr id="token-wa-transition-normal">
-      <td class="token-name"><code>--wa-transition-normal</code></td>
-      <td>Standard duration for typical state changes</td>
-      <td><div tabindex="0" class="swatch transition-swatch" style="transition: width var(--wa-transition-normal) var(--wa-transition-easing)"></div></td>
-    </tr>
-    <tr id="token-wa-transition-slow">
-      <td class="token-name"><code>--wa-transition-slow</code></td>
-      <td>Slow duration for intentional, impactful state changes like opening a panel or checking a box</td>
-      <td><div tabindex="0" class="swatch transition-swatch" style="transition: width var(--wa-transition-slow) var(--wa-transition-easing)"></div></td>
-    </tr>
-  </tbody>
-</table>
+<wa-scroller>
+  <table class="token-table wa-hover-rows">
+    <thead>
+      <tr><th>Custom Property</th><th>Description</th><th>Preview</th></tr>
+    </thead>
+    <tbody>
+      <tr id="token-wa-transition-fast">
+        <td class="token-name"><code>--wa-transition-fast</code></td>
+        <td>Fast duration for frequent, incidental state changes like hover and focus</td>
+        <td><div tabindex="0" class="swatch transition-swatch" style="transition: width var(--wa-transition-fast) var(--wa-transition-easing)"></div></td>
+      </tr>
+      <tr id="token-wa-transition-normal">
+        <td class="token-name"><code>--wa-transition-normal</code></td>
+        <td>Standard duration for typical state changes</td>
+        <td><div tabindex="0" class="swatch transition-swatch" style="transition: width var(--wa-transition-normal) var(--wa-transition-easing)"></div></td>
+      </tr>
+      <tr id="token-wa-transition-slow">
+        <td class="token-name"><code>--wa-transition-slow</code></td>
+        <td>Slow duration for intentional, impactful state changes like opening a panel or checking a box</td>
+        <td><div tabindex="0" class="swatch transition-swatch" style="transition: width var(--wa-transition-slow) var(--wa-transition-easing)"></div></td>
+      </tr>
+    </tbody>
+  </table>
+</wa-scroller>
 
 {% markdown %}
 ## Easing
@@ -39,15 +41,17 @@ Properties that change between frequent, incidental states (like hover) typicall
 Easing controls the standard `transition-timing-function` used for transitions throughout Web Awesome.
 {% endmarkdown %}
 
-<table class="token-table wa-hover-rows">
-  <thead>
-    <tr><th>Custom Property</th><th>Description</th><th>Preview</th></tr>
-  </thead>
-  <tbody>
-    <tr id="token-wa-transition-easing">
-      <td class="token-name"><code>--wa-transition-easing</code></td>
-      <td>Timing function (<code>transition-timing-function</code>) used for all Web Awesome transitions</td>
-      <td><div tabindex="0" class="swatch transition-swatch" style="transition: width 600ms var(--wa-transition-easing)"></div></td>
-    </tr>
-  </tbody>
-</table>
+<wa-scroller>
+  <table class="token-table wa-hover-rows">
+    <thead>
+      <tr><th>Custom Property</th><th>Description</th><th>Preview</th></tr>
+    </thead>
+    <tbody>
+      <tr id="token-wa-transition-easing">
+        <td class="token-name"><code>--wa-transition-easing</code></td>
+        <td>Timing function (<code>transition-timing-function</code>) used for all Web Awesome transitions</td>
+        <td><div tabindex="0" class="swatch transition-swatch" style="transition: width 600ms var(--wa-transition-easing)"></div></td>
+      </tr>
+    </tbody>
+  </table>
+</wa-scroller>

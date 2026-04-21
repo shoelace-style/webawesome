@@ -39,30 +39,32 @@ The tint for each core color is stored as an integer in `--wa-color-{hue}-key`. 
 Using this key, the color system derives a paired *on color* guaranteed to meet WCAG 2.1 AA contrast when placed on top of the corresponding core color. If the core tint is light (≥ 60), the on color is a dark shade of that hue; otherwise it is white. Use `--wa-color-{hue}-on` any time you render text or icons on a core color background.
 {% endmarkdown %}
 
-<table class="token-table wa-hover-rows">
-  <thead>
-    <tr>
-      <th>Core Color</th>
-      <th>Key</th>
-      <th>On Color</th>
-      <th>Preview</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for hue in ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'indigo', 'purple', 'pink', 'gray'] %}
-    <tr>
-      <td class="token-name"><code>--wa-color-{{ hue }}</code></td>
-      <td class="token-name"><code>--wa-color-{{ hue }}-key</code></td>
-      <td class="token-name"><code>--wa-color-{{ hue }}-on</code></td>
-      <td>
-        <div class="on-color-swatch" style="background-color: var(--wa-color-{{ hue }}); color: var(--wa-color-{{ hue }}-on)">
-          Aa
-        </div>
-      </td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+<wa-scroller>
+  <table class="token-table wa-hover-rows">
+    <thead>
+      <tr>
+        <th>Core Color</th>
+        <th>Key</th>
+        <th>On Color</th>
+        <th>Preview</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for hue in ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'indigo', 'purple', 'pink', 'gray'] %}
+      <tr>
+        <td class="token-name"><code>--wa-color-{{ hue }}</code></td>
+        <td class="token-name"><code>--wa-color-{{ hue }}-key</code></td>
+        <td class="token-name"><code>--wa-color-{{ hue }}-on</code></td>
+        <td>
+          <div class="swatch" style="background-color: var(--wa-color-{{ hue }}); color: var(--wa-color-{{ hue }}-on)">
+            Aa
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</wa-scroller>
 
 {% markdown %}
 ## Variant Colors
@@ -74,7 +76,7 @@ Variant colors are aliases for specific hues in your color palette to give them 
 - **Warning** for caution or uncertainty
 - **Danger** for errors or risk
 
-Each variant scale is an alias for a palette color and follows the same tint format: `--wa-color-{variant}-{tint}`.
+Each variant color is an alias for a palette color and follows the same token format: `--wa-color-{variant}-{tint}`.
 {% endmarkdown %}
 
 {% for variant in ['brand', 'neutral', 'success', 'warning', 'danger'] %}
@@ -103,28 +105,30 @@ Just like the hues in your color palette, each variant has a *core color* — an
 Each core color also has a paired *on color* (`--wa-color-{variant}-on`) guaranteed to meet WCAG 2.1 AA contrast when placed on top of it. Use on color tokens any time you render text or icons on a core color background.
 {% endmarkdown %}
 
-<table class="token-table wa-hover-rows">
-  <thead>
-    <tr>
-      <th>Core Color</th>
-      <th>On Color</th>
-      <th>Preview</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for variant in ['brand', 'neutral', 'success', 'warning', 'danger'] %}
-    <tr>
-      <td class="token-name"><code>--wa-color-{{ variant }}</code></td>
-      <td class="token-name"><code>--wa-color-{{ variant }}-on</code></td>
-      <td>
-        <div class="on-color-swatch" style="background-color: var(--wa-color-{{ variant }}); color: var(--wa-color-{{ variant }}-on)">
-          Aa
-        </div>
-      </td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+<wa-scroller>
+  <table class="token-table wa-hover-rows">
+    <thead>
+      <tr>
+        <th>Core Color</th>
+        <th>On Color</th>
+        <th>Preview</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for variant in ['brand', 'neutral', 'success', 'warning', 'danger'] %}
+      <tr>
+        <td class="token-name"><code>--wa-color-{{ variant }}</code></td>
+        <td class="token-name"><code>--wa-color-{{ variant }}-on</code></td>
+        <td>
+          <div class="swatch" style="background-color: var(--wa-color-{{ variant }}); color: var(--wa-color-{{ variant }}-on)">
+            Aa
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</wa-scroller>
 
 {% markdown %}
 ### Changing Variant Colors
@@ -147,38 +151,40 @@ Theme colors assign specific tints from your color palette and variant colors to
 Surfaces are background layers that content rests on. They convey elevation hierarchy — `raised` is closest to the user (e.g., dialogs) and `lowered` is farthest away (e.g., wells).
 {% endmarkdown %}
 
-<table class="token-table wa-hover-rows">
-  <thead>
-    <tr>
-      <th>Custom Property</th>
-      <th>Description</th>
-      
-      <th>Preview</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr id="token-wa-color-surface-raised">
-      <td class="token-name"><code>--wa-color-surface-raised</code></td>
-      <td>Background for elevated surfaces like dialogs and dropdown menus</td>
-      <td><div class="swatch" style="background-color: var(--wa-color-surface-raised); box-shadow: var(--wa-shadow-s)"></div></td>
-    </tr>
-    <tr id="token-wa-color-surface-default">
-      <td class="token-name"><code>--wa-color-surface-default</code></td>
-      <td>Default page or container background</td>
-      <td><div class="swatch" style="background-color: var(--wa-color-surface-default)"></div></td>
-    </tr>
-    <tr id="token-wa-color-surface-lowered">
-      <td class="token-name"><code>--wa-color-surface-lowered</code></td>
-      <td>Background for recessed surfaces like wells and code blocks</td>
-      <td><div class="swatch" style="background-color: var(--wa-color-surface-lowered); box-shadow: inset var(--wa-shadow-s)"></div></td>
-    </tr>
-    <tr id="token-wa-color-surface-border">
-      <td class="token-name"><code>--wa-color-surface-border</code></td>
-      <td>Border color used to delineate surface areas</td>
-      <td><div class="swatch" style="border-color: var(--wa-color-surface-border)"></div></td>
-    </tr>
-  </tbody>
-</table>
+<wa-scroller>
+  <table class="token-table wa-hover-rows">
+    <thead>
+      <tr>
+        <th>Custom Property</th>
+        <th>Description</th>
+        
+        <th>Preview</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr id="token-wa-color-surface-raised">
+        <td class="token-name"><code>--wa-color-surface-raised</code></td>
+        <td>Background for elevated surfaces like dialogs and dropdown menus</td>
+        <td><div class="swatch" style="background-color: var(--wa-color-surface-raised); box-shadow: var(--wa-shadow-s)"></div></td>
+      </tr>
+      <tr id="token-wa-color-surface-default">
+        <td class="token-name"><code>--wa-color-surface-default</code></td>
+        <td>Default page or container background</td>
+        <td><div class="swatch" style="background-color: var(--wa-color-surface-default)"></div></td>
+      </tr>
+      <tr id="token-wa-color-surface-lowered">
+        <td class="token-name"><code>--wa-color-surface-lowered</code></td>
+        <td>Background for recessed surfaces like wells and code blocks</td>
+        <td><div class="swatch" style="background-color: var(--wa-color-surface-lowered); box-shadow: inset var(--wa-shadow-s)"></div></td>
+      </tr>
+      <tr id="token-wa-color-surface-border">
+        <td class="token-name"><code>--wa-color-surface-border</code></td>
+        <td>Border color used to delineate surface areas</td>
+        <td><div class="swatch" style="border-color: var(--wa-color-surface-border)"></div></td>
+      </tr>
+    </tbody>
+  </table>
+</wa-scroller>
 
 {% markdown %}
 ### Text
@@ -186,33 +192,35 @@ Surfaces are background layers that content rests on. They convey elevation hier
 Text colors are used for readable content. We recommend a minimum 4.5:1 contrast ratio against surface colors for text colors.
 {% endmarkdown %}
 
-<table class="token-table wa-hover-rows">
-  <thead>
-    <tr>
-      <th>Custom Property</th>
-      <th>Description</th>
-      
-      <th>Preview</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr id="token-wa-color-text-normal">
-      <td class="token-name"><code>--wa-color-text-normal</code></td>
-      <td>Primary text color for most content</td>
-      <td><div class="swatch" style="color: var(--wa-color-text-normal); display: inline-block;">AaBb</div></td>
-    </tr>
-    <tr id="token-wa-color-text-quiet">
-      <td class="token-name"><code>--wa-color-text-quiet</code></td>
-      <td>Subdued text for hints, captions, and other secondary content</td>
-      <td><div class="swatch" style="color: var(--wa-color-text-quiet); display: inline-block;">AaBb</div></td>
-    </tr>
-    <tr id="token-wa-color-text-link">
-      <td class="token-name"><code>--wa-color-text-link</code></td>
-      <td>Color for hyperlinks</td>
-      <td><div class="swatch" style="color: var(--wa-color-text-link); display: inline-block;">AaBb</div></td>
-    </tr>
-  </tbody>
-</table>
+<wa-scroller>
+  <table class="token-table wa-hover-rows">
+    <thead>
+      <tr>
+        <th>Custom Property</th>
+        <th>Description</th>
+        
+        <th>Preview</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr id="token-wa-color-text-normal">
+        <td class="token-name"><code>--wa-color-text-normal</code></td>
+        <td>Primary text color for most content</td>
+        <td><div style="color: var(--wa-color-text-normal); font-weight: var(--wa-font-weight-semibold)">AaBb</div></td>
+      </tr>
+      <tr id="token-wa-color-text-quiet">
+        <td class="token-name"><code>--wa-color-text-quiet</code></td>
+        <td>Subdued text for hints, captions, and other secondary content</td>
+        <td><div style="color: var(--wa-color-text-quiet); font-weight: var(--wa-font-weight-semibold)">AaBb</div></td>
+      </tr>
+      <tr id="token-wa-color-text-link">
+        <td class="token-name"><code>--wa-color-text-link</code></td>
+        <td>Color for hyperlinks</td>
+        <td><div style="color: var(--wa-color-text-link); font-weight: var(--wa-font-weight-semibold)">AaBb</div></td>
+      </tr>
+    </tbody>
+  </table>
+</wa-scroller>
 
 {% markdown %}
 ### Overlays
@@ -220,28 +228,30 @@ Text colors are used for readable content. We recommend a minimum 4.5:1 contrast
 Overlays provide a backdrop that isolates content, often with some transparency so background context shows through.
 {% endmarkdown %}
 
-<table class="token-table wa-hover-rows">
-  <thead>
-    <tr>
-      <th>Custom Property</th>
-      <th>Description</th>
-      
-      <th>Preview</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr id="token-wa-color-overlay-modal">
-      <td class="token-name"><code>--wa-color-overlay-modal</code></td>
-      <td>Semi-transparent backdrop behind modal dialogs</td>
-      <td><div class="swatch" style="background-color: var(--wa-color-overlay-modal)"></div></td>
-    </tr>
-    <tr id="token-wa-color-overlay-inline">
-      <td class="token-name"><code>--wa-color-overlay-inline</code></td>
-      <td>Subtle overlay for inline highlights or dimmed regions</td>
-      <td><div class="swatch" style="background-color: var(--wa-color-overlay-inline)"></div></td>
-    </tr>
-  </tbody>
-</table>
+<wa-scroller>
+  <table class="token-table wa-hover-rows">
+    <thead>
+      <tr>
+        <th>Custom Property</th>
+        <th>Description</th>
+        
+        <th>Preview</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr id="token-wa-color-overlay-modal">
+        <td class="token-name"><code>--wa-color-overlay-modal</code></td>
+        <td>Semi-transparent backdrop behind modal dialogs</td>
+        <td><div class="swatch" style="background-color: var(--wa-color-overlay-modal)"></div></td>
+      </tr>
+      <tr id="token-wa-color-overlay-inline">
+        <td class="token-name"><code>--wa-color-overlay-inline</code></td>
+        <td>Subtle overlay for inline highlights or dimmed regions</td>
+        <td><div class="swatch" style="background-color: var(--wa-color-overlay-inline)"></div></td>
+      </tr>
+    </tbody>
+  </table>
+</wa-scroller>
 
 {% markdown %}
 ### Shadow
@@ -249,23 +259,25 @@ Overlays provide a backdrop that isolates content, often with some transparency 
 A single color is used for all drop shadows. Use it alongside the [shadow tokens](?active_tab=shadows) to construct realistic shadows.
 {% endmarkdown %}
 
-<table class="token-table wa-hover-rows">
-  <thead>
-    <tr>
-      <th>Custom Property</th>
-      <th>Description</th>
-      
-      <th>Preview</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr id="token-wa-color-shadow">
-      <td class="token-name"><code>--wa-color-shadow</code></td>
-      <td>Color used for all component drop shadows</td>
-      <td><div class="swatch" style="background-color: var(--wa-color-surface-raised); box-shadow: var(--wa-shadow-l)"></div></td>
-    </tr>
-  </tbody>
-</table>
+<wa-scroller>
+  <table class="token-table wa-hover-rows">
+    <thead>
+      <tr>
+        <th>Custom Property</th>
+        <th>Description</th>
+        
+        <th>Preview</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr id="token-wa-color-shadow">
+        <td class="token-name"><code>--wa-color-shadow</code></td>
+        <td>Color used for all component drop shadows</td>
+        <td><div class="swatch" style="background-color: var(--wa-color-surface-raised); box-shadow: var(--wa-shadow-l)"></div></td>
+      </tr>
+    </tbody>
+  </table>
+</wa-scroller>
 
 {% markdown %}
 ### Interactions
@@ -273,33 +285,35 @@ A single color is used for all drop shadows. Use it alongside the [shadow tokens
 These tokens power consistent hover, active, and focus states across all interactive components.
 {% endmarkdown %}
 
-<table class="token-table wa-hover-rows">
-  <thead>
-    <tr>
-      <th>Custom Property</th>
-      <th>Description</th>
-      
-      <th>Preview</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr id="token-wa-color-focus">
-      <td class="token-name"><code>--wa-color-focus</code></td>
-      <td>Outline color for keyboard focus rings. Used alongside <a href="?active_tab=focus">focus tokens</a>.</td>
-      <td><div class="swatch" style="outline: var(--wa-focus-ring)"></div></td>
-    </tr>
-    <tr id="token-wa-color-mix-hover">
-      <td class="token-name"><code>--wa-color-mix-hover</code></td>
-      <td>A color and an optional percentage mixed into a component's color on hover via <code>color-mix()</code></td>
-      <td><div class="swatch color-mix-example" style="--mix-color: var(--wa-color-mix-hover)"><small>mixed</small></div></td>
-    </tr>
-    <tr id="token-wa-color-mix-active">
-      <td class="token-name"><code>--wa-color-mix-active</code></td>
-      <td>A color and an optional percentage mixed into a component's color on press/active via <code>color-mix()</code></td>
-      <td><div class="swatch color-mix-example" style="--mix-color: var(--wa-color-mix-active)"><small>mixed</small></div></td>
-    </tr>
-  </tbody>
-</table>
+<wa-scroller>
+  <table class="token-table wa-hover-rows">
+    <thead>
+      <tr>
+        <th>Custom Property</th>
+        <th>Description</th>
+        
+        <th>Preview</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr id="token-wa-color-focus">
+        <td class="token-name"><code>--wa-color-focus</code></td>
+        <td>Outline color for keyboard focus rings. Used alongside <a href="?active_tab=focus">focus tokens</a>.</td>
+        <td><div class="swatch" style="outline: var(--wa-focus-ring)"></div></td>
+      </tr>
+      <tr id="token-wa-color-mix-hover">
+        <td class="token-name"><code>--wa-color-mix-hover</code></td>
+        <td>A color and an optional percentage mixed into a component's color on hover via <code>color-mix()</code></td>
+        <td><div class="swatch color-mix-example" style="--mix-color: var(--wa-color-mix-hover)"><small>mixed</small></div></td>
+      </tr>
+      <tr id="token-wa-color-mix-active">
+        <td class="token-name"><code>--wa-color-mix-active</code></td>
+        <td>A color and an optional percentage mixed into a component's color on press/active via <code>color-mix()</code></td>
+        <td><div class="swatch color-mix-example" style="--mix-color: var(--wa-color-mix-active)"><small>mixed</small></div></td>
+      </tr>
+    </tbody>
+  </table>
+</wa-scroller>
 
 {% markdown %}
 ### Semantic Variants
@@ -316,31 +330,33 @@ The three **attention** levels are `quiet`, `normal`, and `loud` — from least 
 {% endmarkdown %}
 
 {% set variants = ['brand', 'neutral', 'success', 'warning', 'danger'] %}
-<table class="token-table wa-hover-rows">
-  <thead>
-    <tr>
-      <th>Custom Property</th>
-      {% for variant in variants %}
-        <th><code>{{ variant }}</code></th>
+<wa-scroller>
+  <table class="token-table wa-hover-rows">
+    <thead>
+      <tr>
+        <th>Custom Property</th>
+        {% for variant in variants %}
+          <th><code>{{ variant }}</code></th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for type in ['fill', 'border', 'on'] %}
+        {% for attention in ['quiet', 'normal', 'loud'] %}
+          <tr id="token-color-{{ type }}-{{ attention }}">
+            <td class="token-name"><code>--wa-color-*-{{ type }}-{{ attention }}</code></td>
+            {% for variant in variants %}
+              <td>
+                {%- if type == 'border' -%}
+                  <div class="swatch" style="border-color: var(--wa-color-{{ variant }}-{{ type }}-{{ attention }})"></div>
+                {%- else -%}
+                  <div class="swatch" style="background-color: var(--wa-color-{{ variant }}-fill-{{ attention }}); color: var(--wa-color-{{ variant }}-on-{{ attention }})">{{ 'Aa' if type == 'on' }}</div>
+                {%- endif %}
+              </td>
+            {% endfor %}
+          </tr>
+        {% endfor %}
       {% endfor %}
-    </tr>
-  </thead>
-  <tbody>
-    {% for type in ['fill', 'border', 'on'] %}
-      {% for attention in ['quiet', 'normal', 'loud'] %}
-        <tr id="token-color-{{ type }}-{{ attention }}">
-          <td class="token-name"><code>--wa-color-*-{{ type }}-{{ attention }}</code></td>
-          {% for variant in variants %}
-            <td>
-              {%- if type == 'border' -%}
-                <div class="swatch" style="border-color: var(--wa-color-{{ variant }}-{{ type }}-{{ attention }})"></div>
-              {%- else -%}
-                <div class="swatch" style="background-color: var(--wa-color-{{ variant }}-fill-{{ attention }}); color: var(--wa-color-{{ variant }}-on-{{ attention }})">{{ 'AaBb' if type == 'on' }}</div>
-              {%- endif %}
-            </td>
-          {% endfor %}
-        </tr>
-      {% endfor %}
-    {% endfor %}
-  </tbody>
-</table>
+    </tbody>
+  </table>
+</wa-scroller>
