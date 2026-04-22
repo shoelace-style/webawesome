@@ -264,7 +264,14 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
   updated(changedProperties: PropertyValues<this>) {
     super.updated(changedProperties);
 
-    if (changedProperties.has('value') || changedProperties.has('defaultValue')) {
+    if (changedProperties.has('value') || changedProperties.has('defaultValue') || changedProperties.has('type')) {
+      // Types where the browser sanitizes invalid input to an empty string. Mirror that behavior so `value` stays
+      // consistent with the native input (e.g. setting `"abc"` on `type="number"` resolves to `""`).
+      const sanitizingTypes = ['number', 'date', 'time', 'datetime-local'];
+      if (this.input && sanitizingTypes.includes(this.type) && this.value && this.input.value !== this.value) {
+        this._value = this.input.value;
+      }
+
       this.customStates.set('blank', !this.value);
       this.updateValidity();
     }

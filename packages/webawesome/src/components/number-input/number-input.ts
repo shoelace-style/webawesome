@@ -242,7 +242,13 @@ export default class WaNumberInput extends WebAwesomeFormAssociatedElement {
   updated(changedProperties: PropertyValues<this>) {
     super.updated(changedProperties);
 
-    if (changedProperties.has('value')) {
+    if (changedProperties.has('value') || changedProperties.has('defaultValue')) {
+      // The browser sanitizes invalid numeric input to an empty string. Mirror that behavior so `value` stays
+      // consistent with the native input (e.g. setting `"abc"` resolves to `""`).
+      if (this.input && this.value && this.input.value !== this.value) {
+        this._value = this.input.value;
+      }
+
       this.customStates.set('blank', !this.value);
     }
   }
