@@ -12,6 +12,34 @@ use-cases:
   - spacing tokens
 ---
 
+<style>
+  .spacing-example {
+    --dot-size: 0.5em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--wa-color-neutral-fill-normal);
+    height: 2em;
+    margin-inline: var(--dot-size);
+  }
+  .spacing-example::before {
+    content: '';
+    aspect-ratio: 1 / 1;
+    width: var(--dot-size);
+    background-color: var(--wa-color-neutral-fill-loud);
+    border-radius: 50%;
+    margin-inline-start: calc(var(--dot-size) * -1);
+  }
+  .spacing-example::after {
+    content: '';
+    aspect-ratio: 1 / 1;
+    width: var(--dot-size);
+    background-color: var(--wa-color-neutral-fill-loud);
+    border-radius: 50%;
+    margin-inline-end: calc(var(--dot-size) * -1);
+  }
+</style>
+
 {% markdown %}
 Space tokens create predictable rhythm and meaningful proximity. They use `rem` units so that spacing scales proportionately with the root font size.
 

@@ -10,6 +10,30 @@ use-cases:
   - motion tokens
 ---
 
+<style>
+  .transition-swatch {
+    background-color: var(--wa-color-neutral-fill-normal);
+    border: none;
+    position: relative;
+    overflow: hidden;
+  }
+  .transition-swatch::after {
+    content: '';
+    position: absolute;
+    background-color: var(--wa-color-brand-fill-loud);
+    border-radius: var(--wa-border-radius-m);
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    transition: inherit;
+  }
+  .transition-swatch:hover::after,
+  .transition-swatch:focus::after {
+    width: 100%;
+  }
+</style>
+
 {% markdown %}
 Transition tokens make interactions feel more lively and help users understand the relationship between their action and its outcome.
 

@@ -12,6 +12,86 @@ use-cases:
   - semantic colors
 ---
 
+<style>
+  /* Palette swatches */
+  .palette-swatches {
+    display: grid;
+    grid-template-columns: repeat(11, 1fr);
+    gap: var(--wa-space-3xs);
+    margin-block-start: var(--wa-space-l);
+    margin-block-end: var(--wa-space-m);
+  }
+  .palette-swatch {
+    display: block;
+    position: relative;
+    aspect-ratio: 1.5 / 1;
+
+    &::before {
+      content: var(--tint);
+      position: absolute;
+      top: calc(-1 * var(--wa-space-l));
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: var(--wa-font-size-xs);
+      color: var(--wa-color-text-quiet);
+      font-weight: var(--wa-font-weight-action);
+      text-align: center;
+      z-index: 2;
+    }
+  }
+  .swatch-button {
+    all: revert;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    background-color: var(--color);
+    border-radius: var(--wa-border-radius-m);
+    transition: transform 0.1s ease, translate 0.1s ease, box-shadow 0.1s ease;
+
+    &:hover {
+      transform: scale(1.075);
+      box-shadow: var(--wa-shadow-s);
+      z-index: 1;
+    }
+
+    &:active {
+      translate: 0 1px;
+      box-shadow: none;
+    }
+  }
+  @media (max-width: 576px) {
+    .palette-swatches {
+      grid-template-columns: repeat(6, 1fr);
+      gap: var(--wa-space-2xs);
+      row-gap: var(--wa-space-l);
+    }
+    .palette-swatch {
+      &::before {
+        font-size: var(--wa-font-size-2xs);
+        top: calc(-1 * var(--wa-space-m));
+      }
+    }
+  }
+
+  .color-mix-example {
+    background-image:
+      linear-gradient(
+        to right,
+        color-mix(in oklab, transparent, var(--mix-color)) 25%,
+        color-mix(in oklab, var(--wa-color-brand-fill-loud), var(--mix-color)) 25%,
+        color-mix(in oklab, var(--wa-color-brand-fill-loud), var(--mix-color)) 75%,
+        var(--wa-color-brand-fill-loud) 75%
+      );
+    border: none;
+    color: var(--wa-color-brand-on-loud);
+    text-align: center;
+  }
+</style>
+
 {% markdown %}
 Web Awesome's color system is made up of three layers: a **color palette** that gives you a full spectrum of hues, **variant colors** that define semantic color variations (like success and danger), and **theme colors** that assign tints from your palette and variant colors to tokens that style components.
 
