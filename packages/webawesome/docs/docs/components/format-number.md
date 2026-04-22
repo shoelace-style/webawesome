@@ -1,6 +1,5 @@
 ---
 title: Format Number
-description: Formats a number using the specified locale and options.
 layout: component
 category: Utilities
 synonyms:

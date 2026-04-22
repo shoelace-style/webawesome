@@ -16,7 +16,8 @@ import '../icon/icon.js';
 import styles from './details.styles.js';
 
 /**
- * @summary Details show a brief summary and expand to show additional content.
+ * @summary Details display a brief summary and expand to reveal additional content. Use them to progressively disclose
+ *  information, group related FAQs, or hide advanced options.
  * @documentation https://webawesome.com/docs/components/details
  * @status stable
  * @since 2.0

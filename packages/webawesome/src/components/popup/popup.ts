@@ -36,7 +36,8 @@ function isVirtualElement(e: unknown): e is VirtualElement {
 const SUPPORTS_POPOVER = globalThis?.HTMLElement?.prototype.hasOwnProperty('popover');
 
 /**
- * @summary Popup is a utility that lets you declaratively anchor "popup" containers to another element.
+ * @summary Popups declaratively anchor one element to another and keep them positioned together as the page scrolls or
+ *  resizes. Primarily a low-level building block for popovers, dropdowns, and tooltips.
  * @documentation https://webawesome.com/docs/components/popup
  * @status stable
  * @since 2.0

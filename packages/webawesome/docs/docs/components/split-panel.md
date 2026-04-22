@@ -1,6 +1,5 @@
 ---
 title: Split Panel
-description: Split panels display two adjacent panels, allowing the user to reposition them.
 layout: component
 category: Organization
 synonyms:

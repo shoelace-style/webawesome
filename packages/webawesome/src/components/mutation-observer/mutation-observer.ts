@@ -6,7 +6,8 @@ import WebAwesomeElement from '../../internal/webawesome-element.js';
 import styles from './mutation-observer.styles.js';
 
 /**
- * @summary The Mutation Observer component offers a thin, declarative interface to the [`MutationObserver API`](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver).
+ * @summary Mutation observers watch for changes to an element's DOM tree and emit an event when they occur. Provides a
+ *  thin, declarative interface to the browser's MutationObserver API.
  * @documentation https://webawesome.com/docs/components/mutation-observer
  * @status stable
  * @since 2.0

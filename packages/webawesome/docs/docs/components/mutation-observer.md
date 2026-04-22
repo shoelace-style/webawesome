@@ -1,6 +1,5 @@
 ---
 title: Mutation Observer
-description: The Mutation Observer component offers a thin, declarative interface to the MutationObserver API.
 layout: component
 category: Utilities
 synonyms:

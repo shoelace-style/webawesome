@@ -1,6 +1,5 @@
 ---
 title: Format Date
-description: Formats a date/time using the specified locale and options.
 layout: component
 category: Utilities
 synonyms:

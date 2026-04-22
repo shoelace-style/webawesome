@@ -1,6 +1,5 @@
 ---
 title: Avatar
-description: Avatars are used to represent a person or object.
 layout: component
 category: Imagery
 synonyms:

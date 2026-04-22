@@ -13,7 +13,8 @@ import sizeStyles from '../../styles/component/size.styles.js';
 import styles from './switch.styles.js';
 
 /**
- * @summary Switches allow the user to toggle an option on or off.
+ * @summary Switches toggle a single setting on or off and apply the change immediately, without requiring a form
+ *  submission.
  * @documentation https://webawesome.com/docs/components/switch
  * @status stable
  * @since 2.0

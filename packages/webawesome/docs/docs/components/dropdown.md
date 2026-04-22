@@ -1,6 +1,5 @@
 ---
 title: Dropdown
-description: 'Dropdowns expose additional content that "drops down" in a panel.'
 layout: component
 category: Actions
 synonyms:

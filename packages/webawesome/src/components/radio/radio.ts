@@ -8,7 +8,8 @@ import '../icon/icon.js';
 import styles from './radio.styles.js';
 
 /**
- * @summary Radios allow the user to select a single option from a group.
+ * @summary Radios represent a single option within a mutually exclusive set. Use them inside a radio group when users
+ *  must pick exactly one choice from a small list.
  * @documentation https://webawesome.com/docs/components/radio
  * @status stable
  * @since 2.0

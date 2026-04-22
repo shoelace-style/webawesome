@@ -15,7 +15,8 @@ import '../icon/icon.js';
 import styles from './number-input.styles.js';
 
 /**
- * @summary Number inputs let users enter and edit numeric values, with optional stepper buttons for incrementing and decrementing. Use them for quantities, measurements, and other numeric form fields.
+ * @summary Number inputs let users enter and edit numeric values, with optional stepper buttons for incrementing and
+ *  decrementing. Use them for quantities, measurements, and other numeric form fields.
  * @documentation https://webawesome.com/docs/components/number-input
  * @status stable
  * @since 3.2

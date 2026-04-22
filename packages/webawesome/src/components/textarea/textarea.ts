@@ -15,7 +15,7 @@ import { LocalizeController } from '../../utilities/localize.js';
 import styles from './textarea.styles.js';
 
 /**
- * @summary Textareas collect data from the user and allow multiple lines of text.
+ * @summary Textareas collect multi-line text input from the user, with optional resizing and character counting.
  * @documentation https://webawesome.com/docs/components/textarea
  * @status stable
  * @since 2.0

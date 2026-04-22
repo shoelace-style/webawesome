@@ -1,6 +1,5 @@
 ---
 title: Textarea
-description: Textareas collect data from the user and allow multiple lines of text.
 layout: component
 category: Form Controls
 synonyms:

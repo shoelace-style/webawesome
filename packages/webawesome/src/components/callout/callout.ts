@@ -6,7 +6,8 @@ import variantStyles from '../../styles/component/variants.styles.js';
 import styles from './callout.styles.js';
 
 /**
- * @summary Callouts are used to display important messages inline.
+ * @summary Callouts display important messages inline with surrounding content. Use them to highlight tips, warnings,
+ *  errors, or other information users should not miss.
  * @documentation https://webawesome.com/docs/components/callout
  * @status stable
  * @since 3.0

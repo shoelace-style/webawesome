@@ -6,7 +6,8 @@ import WebAwesomeElement from '../../internal/webawesome-element.js';
 import styles from './resize-observer.styles.js';
 
 /**
- * @summary The Resize Observer component offers a thin, declarative interface to the [`ResizeObserver API`](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver).
+ * @summary Resize observers watch their slotted elements for size changes and emit an event when they occur. Provides a
+ *  thin, declarative interface to the browser's ResizeObserver API.
  * @documentation https://webawesome.com/docs/components/resize-observer
  * @status stable
  * @since 2.0

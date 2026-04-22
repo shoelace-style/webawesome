@@ -1,6 +1,5 @@
 ---
 title: Page
-description: Pages offer an easy way to scaffold entire page layouts using minimal markup.
 layout: component
 category: Organization
 synonyms:

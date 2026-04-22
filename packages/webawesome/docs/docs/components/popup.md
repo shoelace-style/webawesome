@@ -1,6 +1,5 @@
 ---
 title: Popup
-description: 'Popup is a utility that lets you declaratively anchor "popup" containers to another element.'
 layout: component
 category: Utilities
 synonyms:

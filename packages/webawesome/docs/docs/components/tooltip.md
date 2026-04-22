@@ -1,6 +1,5 @@
 ---
 title: Tooltip
-description: Tooltips display additional information based on a specific action.
 layout: component
 category: Feedback & Status
 synonyms:

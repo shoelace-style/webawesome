@@ -1,6 +1,5 @@
 ---
 title: Comparison
-description: Compare visual differences between similar content with a sliding panel.
 layout: component
 category: Imagery
 synonyms:

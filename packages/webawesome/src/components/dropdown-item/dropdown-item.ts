@@ -8,7 +8,8 @@ import '../icon/icon.js';
 import styles from './dropdown-item.styles.js';
 
 /**
- * @summary Represents an individual item within a dropdown menu, supporting standard items, checkboxes, and submenus.
+ * @summary Dropdown items represent selectable entries within a dropdown menu, including standard actions, checkable
+ *  items, and submenu triggers.
  * @documentation https://webawesome.com/docs/components/dropdown-item
  * @status stable
  * @since 3.0

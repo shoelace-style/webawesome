@@ -1,6 +1,5 @@
 ---
 title: Progress Bar
-description: Progress bars are used to show the status of an ongoing operation.
 layout: component
 category: Feedback & Status
 synonyms:

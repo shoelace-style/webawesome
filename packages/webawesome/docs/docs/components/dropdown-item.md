@@ -1,6 +1,5 @@
 ---
 title: Dropdown Item
-description: Provides items to select in a dropdown.
 layout: component
 category: Actions
 synonyms:

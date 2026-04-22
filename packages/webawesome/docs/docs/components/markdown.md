@@ -1,6 +1,5 @@
 ---
 title: Markdown
-description: A declarative utility that renders markdown in plain ol' HTML pages.
 layout: component
 category: Utilities
 synonyms:

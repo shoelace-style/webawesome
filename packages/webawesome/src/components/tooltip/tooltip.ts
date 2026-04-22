@@ -15,7 +15,7 @@ import WaPopup from '../popup/popup.js';
 import styles from './tooltip.styles.js';
 
 /**
- * @summary Tooltips display additional information based on a specific action.
+ * @summary Tooltips display brief contextual information when the user hovers, focuses, or taps a target element.
  * @documentation https://webawesome.com/docs/components/tooltip
  * @status stable
  * @since 2.0

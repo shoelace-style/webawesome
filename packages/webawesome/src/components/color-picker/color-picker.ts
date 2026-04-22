@@ -44,7 +44,8 @@ interface EyeDropperInterface {
 declare const EyeDropper: EyeDropperConstructor;
 
 /**
- * @summary Color pickers allow the user to select a color.
+ * @summary Color pickers let users choose a color from a visual palette or by entering a value. They support HEX, RGB,
+ *  HSL, and HSV formats with optional alpha channel and swatch presets.
  * @documentation https://webawesome.com/docs/components/color-picker
  * @status stable
  * @since 2.0

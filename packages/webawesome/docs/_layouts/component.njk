@@ -1,6 +1,7 @@
 {% extends '../_layouts/docs.njk' %}
 {% from "pro-badge.njk" import proBadge %}
 {% set component = getComponent('wa-' + page.fileSlug) %}
+{% set description = component.summary %}
 
 {# Component header #}
 {% block beforeContent %}

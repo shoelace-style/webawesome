@@ -8,7 +8,8 @@ import { LocalizeController } from '../../utilities/localize.js';
 import styles from './progress-bar.styles.js';
 
 /**
- * @summary Progress bars are used to show the status of an ongoing operation.
+ * @summary Progress bars show how far along an ongoing operation is as a horizontal fill. Use them for file uploads,
+ *  multi-step flows, or any task with measurable progress.
  * @documentation https://webawesome.com/docs/components/progress-bar
  * @status stable
  * @since 2.0
