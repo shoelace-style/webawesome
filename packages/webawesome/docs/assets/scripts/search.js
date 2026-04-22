@@ -62,8 +62,9 @@ const iconByPrefix = [
   ['/docs/patterns/layouts', 'table-layout'],
   ['/docs/frameworks', 'puzzle'],
   ['/docs/tokens', 'coin-front'],
-  ['/docs/resources/agent-skills', 'sparkles'],
-  ['/docs/resources/llms', 'sparkles'],
+  ['/docs/ai', 'sparkles'],
+  ['/docs/ai/agent-skills', 'sparkles'],
+  ['/docs/ai/llms', 'sparkles'],
   ['/docs/resources', 'book-spine'],
 ].sort((a, b) => b[0].length - a[0].length);
 

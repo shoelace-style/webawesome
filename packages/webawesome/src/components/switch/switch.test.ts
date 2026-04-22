@@ -5,7 +5,6 @@ import sinon from 'sinon';
 import { expectEvent } from '../../internal/test/expect-event.js';
 import { fixtures } from '../../internal/test/fixture.js';
 import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
-import { clickOnElement } from '../../internal/test/pointer-utilities.js';
 import type WaSwitch from './switch.js';
 
 describe('<wa-switch>', () => {
@@ -50,7 +49,7 @@ describe('<wa-switch>', () => {
           expect(el.checked).to.be.false;
           expect(el.defaultChecked).to.be.false;
           expect(el.hint).to.equal('');
-          expect(el.size).to.equal('medium');
+          expect(el.size).to.equal('m');
         });
 
         it('should reflect the checked attribute as defaultChecked', async () => {

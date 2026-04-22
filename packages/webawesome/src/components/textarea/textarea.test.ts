@@ -1,8 +1,7 @@
-import { aTimeout, expect, oneEvent, waitUntil } from '@open-wc/testing';
+import { expect, oneEvent, waitUntil } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import sinon from 'sinon';
-import { expectEvent } from '../../internal/test/expect-event.js';
 import { fixtures } from '../../internal/test/fixture.js';
 import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
 import { serialize } from '../../utilities/form.js';
@@ -36,7 +35,7 @@ describe('<wa-textarea>', () => {
         it('should have correct default property values', async () => {
           const el = await fixture<WaTextarea>(html`<wa-textarea></wa-textarea>`);
 
-          expect(el.size).to.equal('medium');
+          expect(el.size).to.equal('m');
           expect(el.name).to.equal(null);
           expect(el.value).to.equal('');
           expect(el.defaultValue).to.equal('');

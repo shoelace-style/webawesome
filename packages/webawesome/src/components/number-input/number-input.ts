@@ -3,6 +3,7 @@ import { customElement, property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { live } from 'lit/directives/live.js';
+import { warnDeprecatedSize } from '../../internal/size.js';
 import { HasSlotController } from '../../internal/slot.js';
 import { submitOnEnter } from '../../internal/submit-on-enter.js';
 import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
@@ -33,6 +34,8 @@ import styles from './number-input.styles.js';
  * @event change - Emitted when an alteration to the control's value is committed by the user.
  * @event focus - Emitted when the control gains focus.
  * @event input - Emitted when the control receives input.
+ * @event beforeinput - Emitted before the value changes. Can be cancelled with `event.preventDefault()` to prevent the
+ *  value from changing.
  * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
  * @csspart label - The label element.
@@ -92,7 +95,12 @@ export default class WaNumberInput extends WebAwesomeFormAssociatedElement {
   @property({ attribute: 'value', reflect: true }) defaultValue: string | null = this.getAttribute('value') || null;
 
   /** The input's size. */
-  @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
+  @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
+
+  @watch('size')
+  handleSizeChange() {
+    warnDeprecatedSize(this.localName, this.size);
+  }
 
   /** The input's visual appearance. */
   @property({ reflect: true }) appearance: 'filled' | 'outlined' | 'filled-outlined' = 'outlined';
@@ -200,6 +208,10 @@ export default class WaNumberInput extends WebAwesomeFormAssociatedElement {
   private handleStepperPointerUp(direction: 'up' | 'down', event: PointerEvent) {
     if (this.disabled || this.readonly) return;
 
+    const beforeInputEvent = new InputEvent('beforeinput', { bubbles: true, cancelable: true, composed: true });
+    this.dispatchEvent(beforeInputEvent);
+    if (beforeInputEvent.defaultPrevented) return;
+
     if (direction === 'up') {
       this.input.stepUp();
     } else {
@@ -230,7 +242,13 @@ export default class WaNumberInput extends WebAwesomeFormAssociatedElement {
   updated(changedProperties: PropertyValues<this>) {
     super.updated(changedProperties);
 
-    if (changedProperties.has('value')) {
+    if (changedProperties.has('value') || changedProperties.has('defaultValue')) {
+      // The browser sanitizes invalid numeric input to an empty string. Mirror that behavior so `value` stays
+      // consistent with the native input (e.g. setting `"abc"` resolves to `""`).
+      if (this.input && this.value && this.input.value !== this.value) {
+        this._value = this.input.value;
+      }
+
       this.customStates.set('blank', !this.value);
     }
   }

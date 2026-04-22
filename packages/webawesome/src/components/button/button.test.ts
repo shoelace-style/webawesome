@@ -1,10 +1,8 @@
 import { aTimeout, expect, waitUntil } from '@open-wc/testing';
 import { html } from 'lit';
 import sinon from 'sinon';
-import { expectEvent } from '../../internal/test/expect-event.js';
 import { fixtures } from '../../internal/test/fixture.js';
 import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
-import { clickOnElement } from '../../internal/test/pointer-utilities.js';
 import type WaButton from './button.js';
 
 const variants = ['brand', 'success', 'neutral', 'warning', 'danger'];
@@ -69,12 +67,12 @@ describe('<wa-button>', () => {
 
         it('should have correct default size', async () => {
           const el = await fixture<WaButton>(html` <wa-button>Button</wa-button> `);
-          expect(el.size).to.equal('medium');
+          expect(el.size).to.equal('m');
         });
 
         it('should reflect the size attribute', async () => {
-          const el = await fixture<WaButton>(html` <wa-button size="small">Button</wa-button> `);
-          expect(el.size).to.equal('small');
+          const el = await fixture<WaButton>(html` <wa-button size="s">Button</wa-button> `);
+          expect(el.size).to.equal('s');
         });
 
         it('should have correct default variant', async () => {

@@ -47,25 +47,41 @@ Pill buttons are supported through the button's `pill` attribute.
 
 ```html {.example}
 <wa-button-group label="Alignment">
-  <wa-button appearance="filled" size="small" pill>Left</wa-button>
-  <wa-button appearance="filled" size="small" pill>Center</wa-button>
-  <wa-button appearance="filled" size="small" pill>Right</wa-button>
+  <wa-button appearance="filled" size="xs" pill>Left</wa-button>
+  <wa-button appearance="filled" size="xs" pill>Center</wa-button>
+  <wa-button appearance="filled" size="xs" pill>Right</wa-button>
 </wa-button-group>
 
 <br /><br />
 
 <wa-button-group label="Alignment">
-  <wa-button appearance="filled" size="medium" pill>Left</wa-button>
-  <wa-button appearance="filled" size="medium" pill>Center</wa-button>
-  <wa-button appearance="filled" size="medium" pill>Right</wa-button>
+  <wa-button appearance="filled" size="s" pill>Left</wa-button>
+  <wa-button appearance="filled" size="s" pill>Center</wa-button>
+  <wa-button appearance="filled" size="s" pill>Right</wa-button>
 </wa-button-group>
 
 <br /><br />
 
 <wa-button-group label="Alignment">
-  <wa-button appearance="filled" size="large" pill>Left</wa-button>
-  <wa-button appearance="filled" size="large" pill>Center</wa-button>
-  <wa-button appearance="filled" size="large" pill>Right</wa-button>
+  <wa-button appearance="filled" size="m" pill>Left</wa-button>
+  <wa-button appearance="filled" size="m" pill>Center</wa-button>
+  <wa-button appearance="filled" size="m" pill>Right</wa-button>
+</wa-button-group>
+
+<br /><br />
+
+<wa-button-group label="Alignment">
+  <wa-button appearance="filled" size="l" pill>Left</wa-button>
+  <wa-button appearance="filled" size="l" pill>Center</wa-button>
+  <wa-button appearance="filled" size="l" pill>Right</wa-button>
+</wa-button-group>
+
+<br /><br />
+
+<wa-button-group label="Alignment">
+  <wa-button appearance="filled" size="xl" pill>Left</wa-button>
+  <wa-button appearance="filled" size="xl" pill>Center</wa-button>
+  <wa-button appearance="filled" size="xl" pill>Right</wa-button>
 </wa-button-group>
 ```
 

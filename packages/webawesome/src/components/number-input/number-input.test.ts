@@ -23,7 +23,7 @@ describe('<wa-number-input>', () => {
         it('should have correct default property values', async () => {
           const el = await fixture<WaNumberInput>(html` <wa-number-input></wa-number-input> `);
 
-          expect(el.size).to.equal('medium');
+          expect(el.size).to.equal('m');
           expect(el.name).to.equal(null);
           expect(el.value).to.equal(null);
           expect(el.defaultValue).to.equal(null);
@@ -210,6 +210,24 @@ describe('<wa-number-input>', () => {
 
           await el.updateComplete;
         });
+
+        it('should return an empty string when the value is set to an invalid number', async () => {
+          const el = await fixture<WaNumberInput>(html` <wa-number-input></wa-number-input> `);
+
+          el.value = 'not-a-valid-number';
+          await el.updateComplete;
+
+          expect(el.value).to.equal('');
+        });
+
+        it('should return an empty string when an invalid value is provided via the value attribute', async () => {
+          const el = await fixture<WaNumberInput>(html`
+            <wa-number-input value="not-a-valid-number"></wa-number-input>
+          `);
+          await el.updateComplete;
+
+          expect(el.value).to.equal('');
+        });
       });
 
       describe('stepper buttons', () => {
@@ -305,6 +323,103 @@ describe('<wa-number-input>', () => {
           const decrementButton = el.shadowRoot!.querySelector<HTMLButtonElement>('[part~="stepper-decrement"]')!;
 
           expect(decrementButton.disabled).to.be.true;
+        });
+
+        it('should emit beforeinput when increment button is clicked', async () => {
+          const el = await fixture<WaNumberInput>(html` <wa-number-input value="5"></wa-number-input> `);
+          const incrementButton = el.shadowRoot!.querySelector<HTMLButtonElement>('[part~="stepper-increment"]')!;
+          const beforeInputHandler = sinon.spy();
+
+          el.addEventListener('beforeinput', beforeInputHandler);
+          incrementButton.dispatchEvent(new PointerEvent('pointerup', { bubbles: true }));
+          await el.updateComplete;
+
+          expect(beforeInputHandler).to.have.been.calledOnce;
+        });
+
+        it('should emit beforeinput when decrement button is clicked', async () => {
+          const el = await fixture<WaNumberInput>(html` <wa-number-input value="5"></wa-number-input> `);
+          const decrementButton = el.shadowRoot!.querySelector<HTMLButtonElement>('[part~="stepper-decrement"]')!;
+          const beforeInputHandler = sinon.spy();
+
+          el.addEventListener('beforeinput', beforeInputHandler);
+          decrementButton.dispatchEvent(new PointerEvent('pointerup', { bubbles: true }));
+          await el.updateComplete;
+
+          expect(beforeInputHandler).to.have.been.calledOnce;
+        });
+
+        it('should prevent value change when beforeinput is cancelled', async () => {
+          const el = await fixture<WaNumberInput>(html` <wa-number-input value="5"></wa-number-input> `);
+          const incrementButton = el.shadowRoot!.querySelector<HTMLButtonElement>('[part~="stepper-increment"]')!;
+
+          el.addEventListener('beforeinput', (event: Event) => event.preventDefault());
+          incrementButton.dispatchEvent(new PointerEvent('pointerup', { bubbles: true }));
+          await el.updateComplete;
+
+          expect(el.value).to.equal('5');
+        });
+
+        it('should not emit input or change when beforeinput is cancelled', async () => {
+          const el = await fixture<WaNumberInput>(html` <wa-number-input value="5"></wa-number-input> `);
+          const incrementButton = el.shadowRoot!.querySelector<HTMLButtonElement>('[part~="stepper-increment"]')!;
+          const inputHandler = sinon.spy();
+          const changeHandler = sinon.spy();
+
+          el.addEventListener('beforeinput', (event: Event) => event.preventDefault());
+          el.addEventListener('input', inputHandler);
+          el.addEventListener('change', changeHandler);
+          incrementButton.dispatchEvent(new PointerEvent('pointerup', { bubbles: true }));
+          await el.updateComplete;
+
+          expect(inputHandler).to.not.have.been.called;
+          expect(changeHandler).to.not.have.been.called;
+        });
+
+        it('should not emit beforeinput when disabled', async () => {
+          const el = await fixture<WaNumberInput>(html` <wa-number-input value="5" disabled></wa-number-input> `);
+          const incrementButton = el.shadowRoot!.querySelector<HTMLButtonElement>('[part~="stepper-increment"]')!;
+          const beforeInputHandler = sinon.spy();
+
+          el.addEventListener('beforeinput', beforeInputHandler);
+          incrementButton.dispatchEvent(new PointerEvent('pointerup', { bubbles: true }));
+          await el.updateComplete;
+
+          expect(beforeInputHandler).to.not.have.been.called;
+        });
+
+        it('should not emit beforeinput when readonly', async () => {
+          const el = await fixture<WaNumberInput>(html` <wa-number-input value="5" readonly></wa-number-input> `);
+          const incrementButton = el.shadowRoot!.querySelector<HTMLButtonElement>('[part~="stepper-increment"]')!;
+          const beforeInputHandler = sinon.spy();
+
+          el.addEventListener('beforeinput', beforeInputHandler);
+          incrementButton.dispatchEvent(new PointerEvent('pointerup', { bubbles: true }));
+          await el.updateComplete;
+
+          expect(beforeInputHandler).to.not.have.been.called;
+        });
+
+        it('should not emit beforeinput when stepUp() is called programmatically', async () => {
+          const el = await fixture<WaNumberInput>(html` <wa-number-input value="5"></wa-number-input> `);
+          const beforeInputHandler = sinon.spy();
+
+          el.addEventListener('beforeinput', beforeInputHandler);
+          el.stepUp();
+          await el.updateComplete;
+
+          expect(beforeInputHandler).to.not.have.been.called;
+        });
+
+        it('should not emit beforeinput when stepDown() is called programmatically', async () => {
+          const el = await fixture<WaNumberInput>(html` <wa-number-input value="5"></wa-number-input> `);
+          const beforeInputHandler = sinon.spy();
+
+          el.addEventListener('beforeinput', beforeInputHandler);
+          el.stepDown();
+          await el.updateComplete;
+
+          expect(beforeInputHandler).to.not.have.been.called;
         });
       });
 

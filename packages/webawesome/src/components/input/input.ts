@@ -4,6 +4,7 @@ import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { live } from 'lit/directives/live.js';
 import { WaClearEvent } from '../../events/clear.js';
+import { warnDeprecatedSize } from '../../internal/size.js';
 import { HasSlotController } from '../../internal/slot.js';
 import { submitOnEnter } from '../../internal/submit-on-enter.js';
 import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
@@ -108,7 +109,12 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
   @property({ attribute: 'value', reflect: true }) defaultValue: string | null = this.getAttribute('value') || null;
 
   /** The input's size. */
-  @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
+  @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
+
+  @watch('size')
+  handleSizeChange() {
+    warnDeprecatedSize(this.localName, this.size);
+  }
 
   /** The input's visual appearance. */
   @property({ reflect: true }) appearance: 'filled' | 'outlined' | 'filled-outlined' = 'outlined';
@@ -258,7 +264,14 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
   updated(changedProperties: PropertyValues<this>) {
     super.updated(changedProperties);
 
-    if (changedProperties.has('value') || changedProperties.has('defaultValue')) {
+    if (changedProperties.has('value') || changedProperties.has('defaultValue') || changedProperties.has('type')) {
+      // Types where the browser sanitizes invalid input to an empty string. Mirror that behavior so `value` stays
+      // consistent with the native input (e.g. setting `"abc"` on `type="number"` resolves to `""`).
+      const sanitizingTypes = ['number', 'date', 'time', 'datetime-local'];
+      if (this.input && sanitizingTypes.includes(this.type) && this.value && this.input.value !== this.value) {
+        this._value = this.input.value;
+      }
+
       this.customStates.set('blank', !this.value);
       this.updateValidity();
     }

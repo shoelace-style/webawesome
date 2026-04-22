@@ -4,7 +4,6 @@ import { html } from 'lit';
 import sinon from 'sinon';
 import { expectEvent } from '../../internal/test/expect-event.js';
 import { fixtures } from '../../internal/test/fixture.js';
-import { clickOnElement } from '../../internal/test/pointer-utilities.js';
 import type WaDropdown from './dropdown.js';
 
 describe('<wa-dropdown>', () => {
@@ -117,7 +116,7 @@ describe('<wa-dropdown>', () => {
               <wa-dropdown-item>One</wa-dropdown-item>
             </wa-dropdown>
           `);
-          expect(el.size).to.equal('medium');
+          expect(el.size).to.equal('m');
         });
 
         it('should accept distance property', async () => {

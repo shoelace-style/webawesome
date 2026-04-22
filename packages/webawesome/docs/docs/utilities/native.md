@@ -457,12 +457,14 @@ Add the `wa-accent`, `wa-filled`, `wa-outlined`, or `wa-plain` class to specify 
 <button class="wa-plain wa-neutral">Plain</button>
 ```
 
-Add the `wa-size-s`, `wa-size-m`, or `wa-size-l` class to specify the size of the button.
+Add a `wa-size-*` class to specify the size of the button. Available sizes are `wa-size-xs`, `wa-size-s`, `wa-size-m`, `wa-size-l`, and `wa-size-xl`.
 
 ```html {.example}
+<button class="wa-size-xs">Extra Small</button>
 <button class="wa-size-s">Small</button>
 <button class="wa-size-m">Medium</button>
 <button class="wa-size-l">Large</button>
+<button class="wa-size-xl">Extra Large</button>
 ```
 
 Add the `wa-pill` class to give buttons rounded edges.
@@ -523,10 +525,15 @@ Create a variety of form controls with `<input type="">`, `<select>`, and `<text
 </script>
 ```
 
-Add the `wa-size-s`, `wa-size-m`, or `wa-size-l` class to any form control or its parent `<label>` to specify its size.
+Add a `wa-size-*` class to any form control or its parent `<label>` to specify its size. Available sizes are `wa-size-xs`, `wa-size-s`, `wa-size-m`, `wa-size-l`, and `wa-size-xl`.
 
 ```html {.example}
 <div class="wa-stack">
+  <input type="text" placeholder="Extra small input" class="wa-size-xs" />
+  <div class="wa-cluster">
+    <label class="wa-size-xs"><input type="checkbox" checked /> Extra small checkbox</label>
+    <label class="wa-size-xs"><input type="radio" name="radio-xs" value="1" checked /> Extra small radio</label>
+  </div>
   <input type="text" placeholder="Small input" class="wa-size-s" />
   <div class="wa-cluster">
     <label class="wa-size-s"><input type="checkbox" checked /> Small checkbox</label>
@@ -541,6 +548,11 @@ Add the `wa-size-s`, `wa-size-m`, or `wa-size-l` class to any form control or it
   <div class="wa-cluster">
     <label class="wa-size-l"><input type="checkbox" checked /> Large checkbox</label>
     <label class="wa-size-l"><input type="radio" name="radio-large" value="1" checked /> Large radio</label>
+  </div>
+  <input type="text" placeholder="Extra large input" class="wa-size-xl" />
+  <div class="wa-cluster">
+    <label class="wa-size-xl"><input type="checkbox" checked /> Extra large checkbox</label>
+    <label class="wa-size-xl"><input type="radio" name="radio-xl" value="1" checked /> Extra large radio</label>
   </div>
 </div>
 ```
