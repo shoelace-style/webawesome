@@ -273,6 +273,89 @@ wa-card .page-name {
   font-weight: var(--wa-font-weight-action);
 }
 
+/* Restore full-size rendering of platform symbols (⌘, ⌥, ⇧, etc.) inside <kbd>,
+   which uses a code font that tends to render these glyphs undersized. */
+.kbd-symbol {
+  font-family: var(--wa-font-family-body);
+}
+
+/* Component list — card-based, name-first layout */
+.component-list {
+  .search-list-input {
+    display: block;
+    max-inline-size: 32rem;
+    margin-inline: auto;
+    margin-block: var(--wa-space-m) var(--wa-space-s);
+  }
+
+  .search-list-shortcut {
+    text-align: center;
+    color: var(--wa-color-text-quiet);
+    font-size: var(--wa-font-size-s);
+    margin-block: 0 var(--wa-space-2xl);
+  }
+
+  .search-list-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--wa-space-m);
+    margin-block-end: var(--wa-space-l);
+
+    @container (width < 900px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @container (width < 560px) {
+      grid-template-columns: 1fr;
+    }
+
+    a {
+      color: var(--wa-color-text-normal);
+      text-decoration: none;
+    }
+
+    wa-card {
+      --spacing: var(--wa-space-m);
+      block-size: 100%;
+      box-shadow: none;
+      transition:
+        border-color var(--wa-transition-normal),
+        box-shadow var(--wa-transition-normal);
+    }
+
+    wa-card::part(body) {
+      display: flex;
+      flex-direction: column;
+      block-size: 100%;
+    }
+
+    a:hover wa-card,
+    a:focus-visible wa-card {
+      border-color: var(--wa-color-brand-border-loud);
+      box-shadow: 0 0 0 0.0625rem var(--wa-color-brand-border-loud);
+    }
+
+    .page-name {
+      display: block;
+      font-size: var(--wa-font-size-l);
+      font-weight: var(--wa-font-weight-heading);
+      line-height: var(--wa-line-height-condensed);
+      margin-block-end: var(--wa-space-xs);
+    }
+
+    .component-list-summary {
+      color: var(--wa-color-text-quiet);
+      font-size: var(--wa-font-size-s);
+      line-height: var(--wa-line-height-normal);
+      margin: 0 0 var(--wa-space-m);
+    }
+
+    .component-list-badges {
+      font-size: var(--wa-font-size-s);
+      margin-block-start: auto;
+    }
+  }
+}
+
 /* Swatches */
 .swatch {
   position: relative;
