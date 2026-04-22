@@ -20,10 +20,16 @@
 <ul>
   <li><a href="/docs/">Installation</a></li>
   <li><a href="/docs/usage">Usage</a></li>
-  <li><a href="/docs/customizing">Customizing</a></li>
   <li><a href="/docs/form-controls">Form Controls</a></li>
   <li><a href="/docs/localization">Localization</a></li>
   <li><a href="/docs/frameworks/">Frameworks</a></li>
+  <li><a href="/docs/ai">Using with AI</a></li>
+  <li>
+    <span class="wa-split">
+      <a href="/docs/resources/figma">Figma Design Kit</a>
+      {{ proBadge() }}
+    </span>
+  </li>
 </ul>
 
 {# Resources #}
@@ -32,97 +38,36 @@
   Resources
 </h2>
 <ul>
-  <li><a href="/docs/resources/support">Help & Support</a></li>
-  <li><a href="https://github.com/shoelace-style/webawesome/">Source Code</a></li>
-  <li>
-    <span class="wa-split">
-      <a href="/docs/resources/figma">Figma Design Kit</a>
-      {{ proBadge() }}
-    </span>
-  </li>
-  <li><a href="/docs/ai">Using with AI</a></li>
   <li><a href="/docs/resources/accessibility">Accessibility</a></li>
   <li><a href="/docs/resources/browser-support">Browser Support</a></li>
   <li><a href="/docs/resources/contributing">Contributing</a></li>
-  <li><a href="/docs/resources/changelog">Changelog</a></li>
+  <li>
+    <span class="wa-split">
+      <a href="/docs/patterns/">Patterns</a>
+      {{ proBadge({ description: "Patterns require access to Web Awesome Pro" }) }}
+    </span>
+  </li>
   <li><a href="/docs/resources/visual-tests">Visual Tests</a></li>
+  <li><a href="/docs/resources/changelog">Changelog</a></li>
+  <li><a href="/docs/resources/support">Help & Support</a></li>
 </ul>
 
-<!-- Style utilities -->
-<h2 class="wa-cluster wa-gap-xs">
-  <a class="wa-cluster wa-gap-xs" href="/docs/utilities/" title="Overview">
-    <wa-icon name="brush" variant="regular" aria-hidden="true"></wa-icon>
-    Style Utilities
-  </a>
-</h2>
-<ul>
-  <li><a href="/docs/utilities/native/">Native Styles</a></li>
-  <li><a href="/docs/utilities/color/">Color</a></li>
-  <li><a href="/docs/utilities/fouce/">Reducing FOUCE</a></li>
-  <li><a href="/docs/utilities/rounding/">Rounding</a></li>
-  <li><a href="/docs/utilities/text/">Text</a></li>
-  <li><a href="/docs/utilities/visually-hidden/">Visually Hidden</a></li>
-</ul>
-
-<!-- Layout -->
-<h2 class="wa-cluster wa-gap-xs">
-  <a class="wa-cluster wa-gap-xs" href="/docs/layout/" title="Overview">
-    <wa-icon name="ruler-combined" variant="regular" aria-hidden="true"></wa-icon>
-    Layout Utilities
-  </a>
-</h2>
-<ul>
-  <li><a href="/docs/utilities/align-items/">Align Items</a></li>
-  <li><a href="/docs/utilities/justify-content/">Justify Content</a></li>
-  <li><a href="/docs/utilities/flex-wrap/">Flex Wrap</a></li>
-  <li><a href="/docs/utilities/gap/">Gap</a></li>
-  <li><a href="/docs/utilities/cluster/">Cluster</a></li>
-  <li><a href="/docs/utilities/flank/">Flank</a></li>
-  <li><a href="/docs/utilities/frame/">Frame</a></li>
-  <li><a href="/docs/utilities/grid/">Grid</a></li>
-  <li><a href="/docs/utilities/split/">Split</a></li>
-  <li><a href="/docs/utilities/stack/">Stack</a></li>
-</ul>
-
-<!-- Patterns -->
-<h2 class="wa-split">
-  <a class="wa-cluster wa-gap-xs" href="/docs/patterns/" title="Overview">
-    <wa-icon name="block-brick" variant="regular" aria-hidden="true"></wa-icon>
-    Patterns
-  </a>
-  {{ proBadge({ description: "Patterns require access to Web Awesome Pro" }) }}
-</h2>
-
-<!-- Theming -->
+<!-- Theming & CSS Utilities -->
 <h2 class="wa-cluster wa-gap-xs">
   <wa-icon name="palette" variant="regular" aria-hidden="true"></wa-icon>
-  Theming
+  Theming &amp; CSS Utilities
 </h2>
 <ul>
-  <li><a href="/docs/color-palettes">Color Palettes</a></li>
+  <li><a href="/docs/tokens/">Design Tokens</a></li>
+  <li><a href="/docs/utilities/">Style Utilities</a></li>
+  <li><a href="/docs/layout/">Layout Utilities</a></li>
   <li><a href="/docs/themes">Themes</a></li>
-</ul>
-
-<!-- Design tokens -->
-<h2 class="wa-cluster wa-gap-xs">
-  <a class="wa-cluster wa-gap-xs" href="/docs/tokens/" title="Overview">
-    <wa-icon name="coin-front" variant="regular" aria-hidden="true"></wa-icon>
-    Design Tokens
-  </a>
-</h2>
-<ul>
-  <li><a href="/docs/tokens/borders/">Borders</a></li>
-  <li><a href="/docs/tokens/color/">Color</a></li>
-  <li><a href="/docs/tokens/focus/">Focus</a></li>
-  <li><a href="/docs/tokens/shadows/">Shadows</a></li>
-  <li><a href="/docs/tokens/space/">Space</a></li>
-  <li><a href="/docs/tokens/transitions/">Transitions</a></li>
-  <li><a href="/docs/tokens/typography/">Typography</a></li>
-  <li><a href="/docs/tokens/component-groups/">Component Groups</a></li>
+  <li><a href="/docs/color-palettes">Color Palettes</a></li>
 </ul>
 
 <!-- Components -->
 <h2 class="wa-cluster wa-gap-xs">
+  <wa-icon name="block-brick" variant="regular" aria-hidden="true"></wa-icon>
   Components
 </h2>
 <ul>
@@ -215,6 +160,7 @@
 
 <!-- Form Controls -->
 <h2 class="wa-cluster wa-gap-xs">
+  <wa-icon name="input-pipe" variant="regular" aria-hidden="true"></wa-icon>
   Form Controls
 </h2>
 <ul>
@@ -258,30 +204,6 @@
     <li><a href="/docs/components/slider/">Slider</a></li>
     <li><a href="/docs/components/switch/">Switch</a></li>
     <li><a href="/docs/components/textarea/">Textarea</a></li>
-</ul>
-
-<!-- Utility Components -->
-<h2 class="wa-cluster wa-gap-xs">
-  Utility Components
-</h2>
-<ul>
-    <li><a href="/docs/components/animation/">Animation</a></li>
-    <li><a href="/docs/components/format-bytes/">Format Bytes</a></li>
-    <li><a href="/docs/components/format-date/">Format Date</a></li>
-    <li><a href="/docs/components/format-number/">Format Number</a></li>
-    <li><a href="/docs/components/include/">Include</a></li>
-    <li><a href="/docs/components/intersection-observer">Intersection Observer</a></li>
-    <li>
-      <a class="wa-cluster wa-gap-xs" href="/docs/components/markdown">
-        Markdown
-        <wa-icon name="flask" aria-hidden="true" class="icon-shrink de-emphasize"></wa-icon>
-      </a>
-    </li>
-    <li><a href="/docs/components/mutation-observer/">Mutation Observer</a></li>
-    <li><a href="/docs/components/popover/">Popover</a></li>
-    <li><a href="/docs/components/popup/">Popup</a></li>
-    <li><a href="/docs/components/relative-time/">Relative Time</a></li>
-    <li><a href="/docs/components/resize-observer/">Resize Observer</a></li>
 </ul>
 
 <!-- Data Visualization -->
@@ -350,10 +272,35 @@
     <li><a href="/docs/components/chart">Advanced Usage</a></li>
 </ul>
 
-{# Legal #}
+<!-- Utility Components -->
 <h2 class="wa-cluster wa-gap-xs">
-  <wa-icon name="file-contract" variant="regular" aria-hidden="true"></wa-icon>
-  Legal
+  <wa-icon name="utility-pole" variant="regular" aria-hidden="true"></wa-icon>
+  Utility Components
+</h2>
+<ul>
+    <li><a href="/docs/components/animation/">Animation</a></li>
+    <li><a href="/docs/components/format-bytes/">Format Bytes</a></li>
+    <li><a href="/docs/components/format-date/">Format Date</a></li>
+    <li><a href="/docs/components/format-number/">Format Number</a></li>
+    <li><a href="/docs/components/include/">Include</a></li>
+    <li><a href="/docs/components/intersection-observer">Intersection Observer</a></li>
+    <li>
+      <a class="wa-cluster wa-gap-xs" href="/docs/components/markdown">
+        Markdown
+        <wa-icon name="flask" aria-hidden="true" class="icon-shrink de-emphasize"></wa-icon>
+      </a>
+    </li>
+    <li><a href="/docs/components/mutation-observer/">Mutation Observer</a></li>
+    <li><a href="/docs/components/popover/">Popover</a></li>
+    <li><a href="/docs/components/popup/">Popup</a></li>
+    <li><a href="/docs/components/relative-time/">Relative Time</a></li>
+    <li><a href="/docs/components/resize-observer/">Resize Observer</a></li>
+</ul>
+
+{# Legal Stuff #}
+<h2 class="wa-cluster wa-gap-xs">
+  <wa-icon name="gavel" variant="regular" aria-hidden="true"></wa-icon>
+  Legal Stuff
 </h2>
 <ul>
   <li><a href="/license"><span class="wa-visually-hidden">Web Awesome </span>Free License</a></li>
