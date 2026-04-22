@@ -634,6 +634,55 @@ describe('<wa-input>', () => {
 
           await el.updateComplete;
         });
+
+        it('should return an empty string when the value is set to an invalid number', async () => {
+          const el = await fixture<WaInput>(html`<wa-input type="number"></wa-input>`);
+
+          el.value = 'not-a-valid-number';
+          await el.updateComplete;
+
+          expect(el.value).to.equal('');
+        });
+
+        it('should return an empty string when an invalid value is provided via the value attribute', async () => {
+          const el = await fixture<WaInput>(html`<wa-input type="number" value="not-a-valid-number"></wa-input>`);
+          await el.updateComplete;
+
+          expect(el.value).to.equal('');
+        });
+      });
+
+      describe('when type="date"', () => {
+        it('should return an empty string when the value is set to an invalid date', async () => {
+          const el = await fixture<WaInput>(html`<wa-input type="date"></wa-input>`);
+
+          el.value = 'not-a-valid-date';
+          await el.updateComplete;
+
+          expect(el.value).to.equal('');
+        });
+      });
+
+      describe('when type="time"', () => {
+        it('should return an empty string when the value is set to an invalid time', async () => {
+          const el = await fixture<WaInput>(html`<wa-input type="time"></wa-input>`);
+
+          el.value = 'not-a-valid-time';
+          await el.updateComplete;
+
+          expect(el.value).to.equal('');
+        });
+      });
+
+      describe('when type="datetime-local"', () => {
+        it('should return an empty string when the value is set to an invalid datetime', async () => {
+          const el = await fixture<WaInput>(html`<wa-input type="datetime-local"></wa-input>`);
+
+          el.value = 'not-a-valid-datetime';
+          await el.updateComplete;
+
+          expect(el.value).to.equal('');
+        });
       });
 
       describe('when using spellcheck', () => {

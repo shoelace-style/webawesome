@@ -210,6 +210,22 @@ describe('<wa-number-input>', () => {
 
           await el.updateComplete;
         });
+
+        it('should return an empty string when the value is set to an invalid number', async () => {
+          const el = await fixture<WaNumberInput>(html` <wa-number-input></wa-number-input> `);
+
+          el.value = 'not-a-valid-number';
+          await el.updateComplete;
+
+          expect(el.value).to.equal('');
+        });
+
+        it('should return an empty string when an invalid value is provided via the value attribute', async () => {
+          const el = await fixture<WaNumberInput>(html` <wa-number-input value="not-a-valid-number"></wa-number-input> `);
+          await el.updateComplete;
+
+          expect(el.value).to.equal('');
+        });
       });
 
       describe('stepper buttons', () => {
