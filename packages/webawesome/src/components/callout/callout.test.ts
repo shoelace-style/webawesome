@@ -39,9 +39,9 @@ describe('<wa-callout>', () => {
         });
 
         it('should reflect the size attribute', async () => {
-          const el = await fixture<WaCallout>(html`<wa-callout size="small">Test</wa-callout>`);
-          expect(el.getAttribute('size')).to.equal('small');
-          expect(el.size).to.equal('small');
+          const el = await fixture<WaCallout>(html`<wa-callout size="s">Test</wa-callout>`);
+          expect(el.getAttribute('size')).to.equal('s');
+          expect(el.size).to.equal('s');
         });
 
         it('should reflect the appearance attribute', async () => {

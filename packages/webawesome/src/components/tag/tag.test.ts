@@ -43,9 +43,9 @@ describe('<wa-tag>', () => {
         });
 
         it('should reflect the size attribute', async () => {
-          const el = await fixture<WaTag>(html`<wa-tag size="large">Test</wa-tag>`);
-          expect(el.getAttribute('size')).to.equal('large');
-          expect(el.size).to.equal('large');
+          const el = await fixture<WaTag>(html`<wa-tag size="l">Test</wa-tag>`);
+          expect(el.getAttribute('size')).to.equal('l');
+          expect(el.size).to.equal('l');
         });
 
         it('should reflect the pill attribute', async () => {
