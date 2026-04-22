@@ -94,38 +94,42 @@ to create a project with any one of these themes.
 <div id="import-code">
   {% for theme in themer.themes %}
     <div class="theme-instructions" data-theme="{{ theme.filename | stripExtension }}" {% if not loop.first %}hidden{% endif %}>
-      <wa-tab-group>
-        <wa-tab panel="cdn"><wa-icon name="rocket-launch" variant="regular"></wa-icon> CDN</wa-tab>
+      <wa-tab-group data-install-tabs>
+        <wa-tab panel="cdn"><wa-icon name="globe" variant="regular"></wa-icon> CDN</wa-tab>
         <wa-tab panel="npm"><wa-icon name="box-open" variant="regular"></wa-icon> npm</wa-tab>
         <wa-tab panel="self-hosted"><wa-icon name="arrow-down-to-line" variant="regular"></wa-icon> Self-Hosted</wa-tab>
+        <wa-tab panel="hosted"><wa-icon name="rocket-launch" variant="regular"></wa-icon> Hosted Projects</wa-tab>
 
         <wa-tab-panel name="cdn">
-{% markdown %}
 {% if theme.isPro %}
+{% markdown %}
 <wa-callout variant="neutral" size="small">
   <wa-icon name="info-circle" variant="regular"></wa-icon>
-  This theme can only be used on teams with a Pro subscription.
+  This theme can only be used on workspaces with a Pro subscription.
 </wa-callout>
-<br />
-{% else %}
-**For projects on Free teams:**
-1. Head over to your project's <wa-icon name="gear" variant="regular"></wa-icon> **Settings**.
-2. For your **Theme**, select <wa-icon name="paintbrush" variant="regular"></wa-icon> **{{ theme.filename | stripExtension | capitalize }}**.
-3. For your **Color Palette**, select <wa-icon name="swatchbook" variant="regular"></wa-icon> **{{ theme.palette.filename | stripExtension | capitalize }}**.
-4. Press **Save Changes** to immediately update anywhere you're using your project.
-{% endif %}
-
-**For projects on Pro teams:**
-1. Head over to your project's <wa-icon name="gear" variant="regular"></wa-icon> **Settings**.
-2. Press <wa-icon name="paintbrush" variant="regular"></wa-icon> **Edit Your Theme** to open the Theme Builder.
-3. Open **Theme** and select **{{ theme.filename | stripExtension | capitalize }}**.
-4. Press **Save Theme** to immediately update anywhere you're using your project.
 {% endmarkdown %}
+{% else %}
+{% set themeCdnUrl %}{% cdnUrl 'styles/themes/' %}{{ theme.filename }}{% endset %}
+{% markdown %}
+To use this theme, add the theme's stylesheet from the CDN:
+
+```html
+<link rel="stylesheet" href="{{ themeCdnUrl }}">
+```
+
+Then apply the following classes to the `<html>` element:
+
+```html
+<html class="wa-theme-{{ theme.filename | stripExtension }} wa-palette-{{ theme.palette.filename | stripExtension }} wa-brand-{{ theme.colorBrand.color}}">
+```
+{% endmarkdown %}
+{% endif %}
         </wa-tab-panel>
 
         <wa-tab-panel name="npm">
 {% markdown %}
-To use this theme, import the theme's stylesheet:
+After installing <code>@awesome.me/webawesome</code>, import the theme's stylesheet:
+
 ```js
 import '@awesome.me/webawesome/dist/styles/themes/{{ theme.filename }}';
 ```
@@ -140,9 +144,10 @@ Then apply the following classes to the `<html>` element:
 
         <wa-tab-panel name="self-hosted">
 {% markdown %}
-To use this theme, include the theme's stylesheet:
+If you're self-hosting Web Awesome, include the theme's stylesheet from your server:
+
 ```html
-<link rel="stylesheet" href="/dist/styles/themes/{{ theme.filename }}" />
+<link rel="stylesheet" href="/dist/styles/themes/{{ theme.filename }}">
 ```
 
 Then apply the following classes to the `<html>` element:
@@ -151,6 +156,32 @@ Then apply the following classes to the `<html>` element:
 <html class="wa-theme-{{ theme.filename | stripExtension }} wa-palette-{{ theme.palette.filename | stripExtension }} wa-brand-{{ theme.colorBrand.color}}">
 ```
 {% endmarkdown %}
+        </wa-tab-panel>
+
+        <wa-tab-panel name="hosted">
+{% if theme.isPro %}
+{% markdown %}
+**For projects on Pro workspaces:**
+1. Head over to your project's <wa-icon name="gear" variant="regular"></wa-icon> **Settings**.
+2. Press <wa-icon name="paintbrush" variant="regular"></wa-icon> **Edit Your Theme** to open the Theme Builder.
+3. Open **Theme** and select **{{ theme.filename | stripExtension | capitalize }}**.
+4. Press **Save Theme** to immediately update anywhere you're using your project.
+{% endmarkdown %}
+{% else %}
+{% markdown %}
+**For projects on Free workspaces:**
+1. Head over to your project's <wa-icon name="gear" variant="regular"></wa-icon> **Settings**.
+2. For your **Theme**, select <wa-icon name="paintbrush" variant="regular"></wa-icon> **{{ theme.filename | stripExtension | capitalize }}**.
+3. For your **Color Palette**, select <wa-icon name="swatchbook" variant="regular"></wa-icon> **{{ theme.palette.filename | stripExtension | capitalize }}**.
+4. Press **Save Changes** to immediately update anywhere you're using your project.
+
+**For projects on Pro workspaces:**
+1. Head over to your project's <wa-icon name="gear" variant="regular"></wa-icon> **Settings**.
+2. Press <wa-icon name="paintbrush" variant="regular"></wa-icon> **Edit Your Theme** to open the Theme Builder.
+3. Open **Theme** and select **{{ theme.filename | stripExtension | capitalize }}**.
+4. Press **Save Theme** to immediately update anywhere you're using your project.
+{% endmarkdown %}
+{% endif %}
         </wa-tab-panel>
       </wa-tab-group>
     </div>

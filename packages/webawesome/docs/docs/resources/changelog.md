@@ -16,7 +16,6 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 - Added `beforeinput` event to `<wa-number-input>` stepper buttons so value changes can be cancelled with `event.preventDefault()`
 - Added the `--backdrop-filter` CSS custom property to `<wa-dialog>` and `<wa-drawer>` for applying filters such as `blur()` to the backdrop
-- Updated the Style Utilities, Layout Utilities, Design Tokens, and Pro pattern category browse pages to use the modern, name-first card layout (matching the Components and Patterns pages) and removed the hand-illustrated SVG thumbnails
 - Fixed a bug in `<wa-checkbox>` where the `value` property returned `null` instead of `'on'` when unchecked
 - Fixed a bug in `<wa-rating>` where disabling via a `<fieldset>` did not properly restore the enabled state when the fieldset was re-enabled
 - Fixed a bug in `<wa-zoomable-frame>` where zoom control buttons did not properly update their disabled state after zoom levels were parsed

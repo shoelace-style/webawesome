@@ -14,6 +14,12 @@ use-cases:
   - masonry
 ---
 
+<wa-breadcrumb style="display: flex; width: 100%; background-color: var(--wa-color-surface-default); border: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border); box-shadow: var(--wa-shadow-s); border-radius: 9999px; padding: var(--wa-space-xs) var(--wa-space-m); margin-block-end: var(--wa-space-l);">
+  <wa-icon slot="separator" name="angle-right" variant="regular"></wa-icon>
+  <wa-breadcrumb-item href="/docs/utilities">CSS Utilities</wa-breadcrumb-item>
+  <wa-breadcrumb-item>{{ title }}</wa-breadcrumb-item>
+</wa-breadcrumb>
+
 <style>
   :is(.wa-flank, .wa-grid, .wa-stack) > [class*='wa-grid']:has(div:empty) {
     border: var(--layout-example-border);
@@ -29,7 +35,9 @@ use-cases:
   }
 </style>
 
-{{ description }}
+A grid places its children in evenly-sized columns that shrink, grow, and reflow as the container resizes, without any breakpoints to manage. Drop any number of items into `wa-grid` and the utility figures out how many fit on each row based on the container's width and the minimum column size you've asked for. It's the quickest way to build card galleries, product listings, dashboards, and any content that should adapt from one column on a phone to several on a desktop.
+
+Set `--min-column-size` to change the threshold at which items start to wrap, pair `wa-grid` with a [`wa-gap-*`](/docs/utilities/gap) class to adjust the spacing between cells, or add `wa-span-grid` to an individual item to make it span every column.
 
 ```html {.example}
 <div class="wa-grid">

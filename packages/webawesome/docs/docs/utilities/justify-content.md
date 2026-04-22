@@ -13,6 +13,12 @@ use-cases:
   - center horizontally
 ---
 
+<wa-breadcrumb style="display: flex; width: 100%; background-color: var(--wa-color-surface-default); border: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border); box-shadow: var(--wa-shadow-s); border-radius: 9999px; padding: var(--wa-space-xs) var(--wa-space-m); margin-block-end: var(--wa-space-l);">
+  <wa-icon slot="separator" name="angle-right" variant="regular"></wa-icon>
+  <wa-breadcrumb-item href="/docs/utilities">CSS Utilities</wa-breadcrumb-item>
+  <wa-breadcrumb-item>{{ title }}</wa-breadcrumb-item>
+</wa-breadcrumb>
+
 <style>
   .preview-wrapper {
     border: var(--layout-example-border);
@@ -30,7 +36,7 @@ use-cases:
   }
 </style>
 
-Web Awesome includes classes to set the `justify-content` property of flex and grid containers. Use them alongside other Web Awesome layout utilities, like [cluster](/docs/utilities/cluster) and [stack](/docs/utilities/stack), to distribute space between items along the container's [main axis](#whats-the-main-axis).
+These utility classes control how space is distributed between items along a flex or grid container's [main axis](#whats-the-main-axis), which is the axis its children flow along. Reach for them when you want to push items to one end of a [cluster](/docs/utilities/cluster) or [stack](/docs/utilities/stack), center a row of buttons, or spread a set of navigation links evenly across a header.
 
 | Class Name                         | `justify-content` Value | Preview                                                                                                                                                      |
 | ---------------------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |

@@ -14,13 +14,21 @@ use-cases:
   - truncate
 ---
 
+<wa-breadcrumb style="display: flex; width: 100%; background-color: var(--wa-color-surface-default); border: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border); box-shadow: var(--wa-shadow-s); border-radius: 9999px; padding: var(--wa-space-xs) var(--wa-space-m); margin-block-end: var(--wa-space-l);">
+  <wa-icon slot="separator" name="angle-right" variant="regular"></wa-icon>
+  <wa-breadcrumb-item href="/docs/utilities">CSS Utilities</wa-breadcrumb-item>
+  <wa-breadcrumb-item>{{ title }}</wa-breadcrumb-item>
+</wa-breadcrumb>
+
 <style>
   th {
     min-inline-size: 15ch;
   }
 </style>
 
-{{ description }} 
+{{ description }}
+
+The classes on this page cover the most common needs: picking a size and weight for body copy, styling headings, aligning paragraphs, truncating overflow, and changing font color. Every class is built on your theme's typography tokens, so switching themes or tweaking your type scale updates the whole site at once.
 
 ## Body
 

@@ -14,6 +14,12 @@ use-cases:
   - vertical rhythm
 ---
 
+<wa-breadcrumb style="display: flex; width: 100%; background-color: var(--wa-color-surface-default); border: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border); box-shadow: var(--wa-shadow-s); border-radius: 9999px; padding: var(--wa-space-xs) var(--wa-space-m); margin-block-end: var(--wa-space-l);">
+  <wa-icon slot="separator" name="angle-right" variant="regular"></wa-icon>
+  <wa-breadcrumb-item href="/docs/utilities">CSS Utilities</wa-breadcrumb-item>
+  <wa-breadcrumb-item>{{ title }}</wa-breadcrumb-item>
+</wa-breadcrumb>
+
 <style>
   :is(.wa-flank, .wa-grid, .wa-stack) > [class*='wa-stack']:has(div:empty) {
     border: var(--layout-example-border);
@@ -29,7 +35,9 @@ use-cases:
   }
 </style>
 
-{{ description }}
+A stack arranges its children in a vertical column with an equal gap between each item, so you don't have to add top or bottom margins to every element you put into it. It's the go-to layout for forms, paragraphs of text, card bodies, and anywhere you want consistent vertical rhythm.
+
+By default, items stretch to fill the stack's width. Pair `wa-stack` with a [`wa-gap-*`](/docs/utilities/gap) class to control the spacing and a [`wa-align-items-*`](/docs/utilities/align-items) class to change how children line up horizontally.
 
 ```html {.example}
 <div class="wa-stack">

@@ -14,6 +14,12 @@ use-cases:
   - nowrap
 ---
 
+<wa-breadcrumb style="display: flex; width: 100%; background-color: var(--wa-color-surface-default); border: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border); box-shadow: var(--wa-shadow-s); border-radius: 9999px; padding: var(--wa-space-xs) var(--wa-space-m); margin-block-end: var(--wa-space-l);">
+  <wa-icon slot="separator" name="angle-right" variant="regular"></wa-icon>
+  <wa-breadcrumb-item href="/docs/utilities">CSS Utilities</wa-breadcrumb-item>
+  <wa-breadcrumb-item>{{ title }}</wa-breadcrumb-item>
+</wa-breadcrumb>
+
 <style>
   .preview-wrapper {
     border: var(--layout-example-border);
@@ -43,7 +49,9 @@ use-cases:
   }
 </style>
 
-Web Awesome includes classes to set the `flex-wrap` property of flex containers. Use them alongside other Web Awesome layout utilities, like [cluster](/docs/utilities/cluster) or [split](/docs/utilities/split), to specify how items in the container wrap.
+These utility classes control whether the items inside a flex container wrap onto a new line when they run out of horizontal space, and in which direction. Use them to force a [cluster](/docs/utilities/cluster) or [split](/docs/utilities/split) to stay on a single line regardless of width, or to flip the wrap direction so new rows appear above the previous one instead of below.
+
+## Flex Wrap Classes
 
 | Class Name             | `flex-wrap` Value | Preview                                                                                                                                                                           |
 | ---------------------- | ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

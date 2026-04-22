@@ -13,6 +13,12 @@ use-cases:
   - avatar with text
 ---
 
+<wa-breadcrumb style="display: flex; width: 100%; background-color: var(--wa-color-surface-default); border: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border); box-shadow: var(--wa-shadow-s); border-radius: 9999px; padding: var(--wa-space-xs) var(--wa-space-m); margin-block-end: var(--wa-space-l);">
+  <wa-icon slot="separator" name="angle-right" variant="regular"></wa-icon>
+  <wa-breadcrumb-item href="/docs/utilities">CSS Utilities</wa-breadcrumb-item>
+  <wa-breadcrumb-item>{{ title }}</wa-breadcrumb-item>
+</wa-breadcrumb>
+
 <style>
   :is(.wa-flank, .wa-grid, .wa-stack) > [class*='wa-flank']:has(div:empty) {
     border: var(--layout-example-border);
@@ -28,7 +34,9 @@ use-cases:
   }
 </style>
 
-{{ description }} When space is limited, the items wrap.
+A flank pairs two items side by side, where one item (the "flank") sits at its natural size while the other stretches to fill the remaining space. It's the right fit for any "small thing next to a larger thing" pattern: an avatar next to a name and bio, an icon beside a paragraph of text, an input followed by a submit button, or a sidebar alongside page content.
+
+By default the first child is the flank, but you can pick either end with `wa-flank:start` or `wa-flank:end`. When the main content gets too narrow, the two items wrap onto separate lines automatically.
 
 ```html {.example}
 <div class="wa-flank">

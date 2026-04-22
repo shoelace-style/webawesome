@@ -14,6 +14,12 @@ use-cases:
   - element spacing
 ---
 
+<wa-breadcrumb style="display: flex; width: 100%; background-color: var(--wa-color-surface-default); border: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border); box-shadow: var(--wa-shadow-s); border-radius: 9999px; padding: var(--wa-space-xs) var(--wa-space-m); margin-block-end: var(--wa-space-l);">
+  <wa-icon slot="separator" name="angle-right" variant="regular"></wa-icon>
+  <wa-breadcrumb-item href="/docs/utilities">CSS Utilities</wa-breadcrumb-item>
+  <wa-breadcrumb-item>{{ title }}</wa-breadcrumb-item>
+</wa-breadcrumb>
+
 <style>
   .preview-wrapper {
     border: var(--layout-example-border);
@@ -31,9 +37,11 @@ use-cases:
   }
 </style>
 
-Web Awesome includes classes to set the `gap` property of flex and grid containers. Use them alone to create a flex container with a gap, or use them alongside other Web Awesome layout utilities, like [cluster](/docs/utilities/cluster) and [stack](/docs/utilities/stack), to change the space between items.
+These utility classes set the space between items inside a flex or grid container. Pair them with a layout utility like [cluster](/docs/utilities/cluster), [stack](/docs/utilities/stack), [grid](/docs/utilities/grid), or [split](/docs/utilities/split) to override that layout's default spacing, or apply `wa-gap-*` to any `display: flex` or `display: grid` element of your own to get the same tokens without writing custom CSS.
 
-Besides `wa-gap-0`, which sets `gap` to zero, each class corresponds to one of the [`--wa-space-*`](/docs/tokens/space) tokens in your theme.
+Every class besides `wa-gap-0` corresponds to one of the [`--wa-space-*`](/docs/tokens/space) tokens in your theme, so the spacing you pick stays in sync with the rest of your design system.
+
+## Gap Classes
 
 | Class Name   | `gap` Value      | Preview                                                                                                     |
 | ------------ | ---------------- | ----------------------------------------------------------------------------------------------------------- |

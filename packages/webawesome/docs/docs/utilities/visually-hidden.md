@@ -13,11 +13,18 @@ use-cases:
   - assistive text
 ---
 
+<wa-breadcrumb style="display: flex; width: 100%; background-color: var(--wa-color-surface-default); border: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border); box-shadow: var(--wa-shadow-s); border-radius: 9999px; padding: var(--wa-space-xs) var(--wa-space-m); margin-block-end: var(--wa-space-l);">
+  <wa-icon slot="separator" name="angle-right" variant="regular"></wa-icon>
+  <wa-breadcrumb-item href="/docs/utilities">CSS Utilities</wa-breadcrumb-item>
+  <wa-breadcrumb-item>{{ title }}</wa-breadcrumb-item>
+</wa-breadcrumb>
+
+Add the `wa-visually-hidden` class to any element to remove it from the page visually while keeping it available to screen readers and other assistive technologies. That's what you want for skip links, invisible labels on icon-only buttons, and any text that describes something a sighted user already understands from context.
+
 > "There are real world situations where visually hiding content may be appropriate, while the content should remain available to assistive technologies, such as screen readers. For instance, hiding a search field's label as a common magnifying glass icon is used in its stead."
 > — [The A11Y Project](https://www.a11yproject.com/posts/2013-01-11-how-to-hide-content/)
 
-Since visually hidden content can receive focus when tabbing, the element will become visible when something inside receives focus.
-This behavior is intentional, as otherwise sighted keyboard users wouldn't be able to determine where the focus indicator is.
+Since visually hidden content can receive focus when tabbing, the element becomes visible again as soon as something inside it receives focus. That behavior is intentional: sighted keyboard users need to see where the focus indicator is.
 
 ```html {.example}
 <div style="min-height: 1.875rem;">
@@ -123,7 +130,7 @@ For example when hiding a checkbox to render a custom one:
 
 <style>
   .checkbox {
-    display: inline-flex;
+    display: flex;
     vertical-align: middle;
     width: var(--wa-font-size-l);
     height: var(--wa-font-size-l);

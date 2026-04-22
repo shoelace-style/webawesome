@@ -13,6 +13,12 @@ use-cases:
   - layout split
 ---
 
+<wa-breadcrumb style="display: flex; width: 100%; background-color: var(--wa-color-surface-default); border: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border); box-shadow: var(--wa-shadow-s); border-radius: 9999px; padding: var(--wa-space-xs) var(--wa-space-m); margin-block-end: var(--wa-space-l);">
+  <wa-icon slot="separator" name="angle-right" variant="regular"></wa-icon>
+  <wa-breadcrumb-item href="/docs/utilities">CSS Utilities</wa-breadcrumb-item>
+  <wa-breadcrumb-item>{{ title }}</wa-breadcrumb-item>
+</wa-breadcrumb>
+
 <style>
   :is(.wa-flank, .wa-grid, .wa-stack) > [class*='wa-split']:has(div:empty) {
     border: var(--layout-example-border);
@@ -28,7 +34,9 @@ use-cases:
   }
 </style>
 
-{{ description }}
+A split pushes its children to opposite ends of the container, filling the space between them. It's what you want whenever you need a logo on one side and navigation on the other, a section heading paired with an action button, or a list item whose label and value sit at opposite ends of the row. Any number of children work: the first one hugs the start, the last one hugs the end, and anything in between is evenly distributed.
+
+By default a split runs horizontally; append `:column` to stack items vertically instead. When the container gets too narrow for everything to fit on one row, the items wrap automatically.
 
 ```html {.example}
 <div class="wa-split">

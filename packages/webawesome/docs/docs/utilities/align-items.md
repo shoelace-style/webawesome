@@ -13,6 +13,12 @@ use-cases:
   - center vertically
 ---
 
+<wa-breadcrumb style="display: flex; width: 100%; background-color: var(--wa-color-surface-default); border: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border); box-shadow: var(--wa-shadow-s); border-radius: 9999px; padding: var(--wa-space-xs) var(--wa-space-m); margin-block-end: var(--wa-space-l);">
+  <wa-icon slot="separator" name="angle-right" variant="regular"></wa-icon>
+  <wa-breadcrumb-item href="/docs/utilities">CSS Utilities</wa-breadcrumb-item>
+  <wa-breadcrumb-item>{{ title }}</wa-breadcrumb-item>
+</wa-breadcrumb>
+
 <style>
   .preview-wrapper {
     border: var(--layout-example-border);
@@ -30,7 +36,7 @@ use-cases:
   }
 </style>
 
-Web Awesome includes classes to set the `align-items` property of flex and grid containers. Use these `wa-align-items-*` classes alongside other Web Awesome layout utilities, like [cluster](/docs/utilities/cluster) and [stack](/docs/utilities/stack), to align items in a container on the container's [cross axis](#whats-the-cross-axis).
+These utility classes control how flex and grid items line up across the container's [cross axis](#whats-the-cross-axis), which is the axis perpendicular to the one its children flow along. Reach for them any time the default alignment of a [cluster](/docs/utilities/cluster), [stack](/docs/utilities/stack), [flank](/docs/utilities/flank), [split](/docs/utilities/split), or [grid](/docs/utilities/grid) doesn't match what you're after: centering icons next to text, making all cards in a row share the same height, or pinning form labels to the top of each row.
 
 | Class Name                | `align-items` Value | Preview                                                                                                                                             |
 | ------------------------- | ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
