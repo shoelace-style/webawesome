@@ -32,6 +32,29 @@
   margin-block-end: var(--wa-space-l);
 }
 
+/* "See all ___" / "Back to ___" link with an arrow that nudges on hover */
+.browse-all-link wa-icon,
+.back-link wa-icon {
+  vertical-align: -0.1em;
+  transition: transform var(--wa-transition-normal) var(--wa-transition-easing);
+}
+
+.browse-all-link wa-icon {
+  margin-inline-start: 0.25em;
+}
+
+.back-link wa-icon {
+  margin-inline-end: 0.25em;
+}
+
+.browse-all-link:hover wa-icon {
+  transform: translateX(0.25em);
+}
+
+.back-link:hover wa-icon {
+  transform: translateX(-0.25em);
+}
+
 .wa-dark .only-light,
 .only-dark:not(.wa-dark, .wa-dark *) {
   display: none;

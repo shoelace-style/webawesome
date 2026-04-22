@@ -10,7 +10,14 @@ use-cases:
   - margin
   - gap
   - spacing tokens
+hasOutline: true
 ---
+
+<wa-breadcrumb class="docs-subpage-crumbs">
+  <wa-icon slot="separator" name="angle-right" variant="regular"></wa-icon>
+  <wa-breadcrumb-item href="/docs/tokens">Design Tokens</wa-breadcrumb-item>
+  <wa-breadcrumb-item>{{ title }}</wa-breadcrumb-item>
+</wa-breadcrumb>
 
 <style>
   .spacing-example {
