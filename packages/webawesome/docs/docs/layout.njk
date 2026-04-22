@@ -1,6 +1,6 @@
 ---
 title: Layout Utilities
-description: Layout utility classes help you organize content that can adapt to any device or screen size. See the [installation instructions](#installation) to use Web Awesome's layout tools in your project.
+description: Layout utility classes help you organize content that can adapt to any device or screen size.
 layout: docs
 ---
 
@@ -10,43 +10,14 @@ layout: docs
 {% endmarkdown %}
 </p>
 
-<div class="search-list">
-  <wa-input class="search-list-input" type="search" placeholder="Search layout utilities" autofocus>
-    <wa-icon name="search" slot="start"></wa-icon>
-  </wa-input>
-
-  <section class="search-list-grid">
-    {% for page in collections.layoutUtilities | sort(false, false, 'data.title') %}
-      <a href="{{ page.url }}">
-        <wa-card with-header="" appearance="outlined">
-          <div slot="header">
-            {# Look for an icon based on the page name #}
-            {% set iconPath = "svgs/layout/" + page.fileSlug + ".njk" %}
-            {% set iconContent %}{% include iconPath ignore missing %}{% endset %}
-            {% if iconContent.trim() %}
-              {# An icon exists! Show it #}
-              {{ iconContent | safe }}
-            {% else %}
-              {# Fallback to the placeholder #}
-              {% include 'svgs/thumbnail-placeholder.njk' %}
-            {% endif %}
-          </div>
-          <span class="page-name">{{ page.data.title }}</span>
-        </wa-card>
-      </a>
-    {% endfor %}
-  </section>
-  <div class="search-list-empty" hidden>
-    No results found
-  </div>
-</div>
-
-<wa-divider style="--spacing: var(--wa-space-3xl);"></wa-divider>
-
 {% markdown %}
-## Using Layout Utilities
+Rather than wiring up bespoke flexbox or grid for every section of your app, drop in a named layout like [`wa-stack`](/docs/utilities/stack), [`wa-cluster`](/docs/utilities/cluster), [`wa-split`](/docs/utilities/split), [`wa-flank`](/docs/utilities/flank), [`wa-frame`](/docs/utilities/frame), or [`wa-grid`](/docs/utilities/grid) and let it do the heavy lifting. Each layout is responsive out of the box, adapts fluidly to its container (not the viewport), and composes cleanly with the others.
 
-Layout utility classes are bundled with Web Awesome's [style utilities](/docs/utilities). By including style utilities in your project, you'll have access to layout utilities like `.wa-grid` and `.wa-stack`.
+For finer control, the same set also includes property-level helpers for [gap](/docs/utilities/gap), [align-items](/docs/utilities/align-items), [justify-content](/docs/utilities/justify-content), and [flex-wrap](/docs/utilities/flex-wrap), so you can tweak individual layouts without resorting to custom CSS.
+
+## Adding to Your Project
+
+Layout utilities are bundled with Web Awesome's [style utilities](/docs/utilities) — if you've already installed style utilities, `wa-stack`, `wa-grid`, and the rest are ready to use. If you haven't yet, the tabs below will get you set up in under a minute.
 {% endmarkdown %}
 
 <wa-tab-group>
@@ -96,3 +67,28 @@ Or, if you only want CSS utility classes, include a theme and the utilities indi
 {% endmarkdown %}
   </wa-tab-panel>
 </wa-tab-group>
+
+<wa-divider></wa-divider>
+
+<h2 class="modern-card-list-heading">Browse Layout Utilities</h2>
+
+<div class="modern-card-list">
+  <section class="search-list-grid">
+    {% for page in collections.layoutUtilities | sort(false, false, 'data.title') %}
+      <a href="{{ page.url }}">
+        <wa-card>
+          <span class="page-name">{{ page.data.title }}</span>
+          {% if page.data.description %}
+            <p class="modern-card-summary">{{ page.data.description | inlineMarkdown | striptags | safe }}</p>
+          {% endif %}
+        </wa-card>
+      </a>
+    {% endfor %}
+  </section>
+</div>
+
+<style>
+  wa-tab-group + wa-divider {
+    margin-block: 1rem 3rem;
+  }
+</style>

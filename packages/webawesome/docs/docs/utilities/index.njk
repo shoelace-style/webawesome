@@ -2,7 +2,6 @@
 title: Style Utilities
 description:
   Style utilities are preset rules that let you efficiently customize styles for components and native elements alike.
-  See the [installation instructions](#installation) to use style utilities in your project.
 layout: docs
 ---
 
@@ -12,41 +11,10 @@ layout: docs
 {% endmarkdown %}
 </p>
 
-<div class="search-list">
-  <wa-input class="search-list-input" type="search" placeholder="Search style utilities" autofocus>
-    <wa-icon name="search" slot="start"></wa-icon>
-  </wa-input>
-
-  <section class="search-list-grid">
-    {% for page in collections.styleUtilities | sort(false, false, 'data.title') %}
-      <a href="{{ page.url }}">
-        <wa-card with-header="" appearance="outlined">
-          <div slot="header">
-            {# Look for an icon based on the page name #}
-            {% set iconPath = "svgs/tokens/" + page.fileSlug + ".njk" %}
-            {% set iconContent %}{% include iconPath ignore missing %}{% endset %}
-            {% if iconContent.trim() %}
-              {# An icon exists! Show it #}
-              {{ iconContent | safe }}
-            {% else %}
-              {# Fallback to the placeholder #}
-              {% include 'svgs/thumbnail-placeholder.njk' %}
-            {% endif %}
-          </div>
-          <span class="page-name">{{ page.data.title }}</span>
-        </wa-card>
-      </a>
-    {% endfor %}
-  </section>
-  <div class="search-list-empty" hidden>
-    No results found
-  </div>
-</div>
-
-<wa-divider style="--spacing: var(--wa-space-3xl);"></wa-divider>
-
 {% markdown %}
-## Using {{ title }}
+Instead of hand-writing the same CSS over and over, reach for a utility class and your theme takes care of the rest. Style utilities pull directly from your Web Awesome [theme](/docs/themes) and [design tokens](/docs/tokens), so colors, typography, and rounding stay consistent with every component on the page. They're framework-agnostic, work on any native HTML element, and can be combined freely.
+
+## Adding to Your Project
 {% endmarkdown %}
 
 <wa-tab-group>
@@ -96,3 +64,28 @@ Or, if you only want CSS utility classes, include a theme and the utilities indi
 {% endmarkdown %}
   </wa-tab-panel>
 </wa-tab-group>
+
+<wa-divider></wa-divider>
+
+<h2 class="modern-card-list-heading">Browse Style Utilities</h2>
+
+<div class="modern-card-list">
+  <section class="search-list-grid">
+    {% for page in collections.styleUtilities | sort(false, false, 'data.title') %}
+      <a href="{{ page.url }}">
+        <wa-card>
+          <span class="page-name">{{ page.data.title }}</span>
+          {% if page.data.description %}
+            <p class="modern-card-summary">{{ page.data.description | inlineMarkdown | striptags | safe }}</p>
+          {% endif %}
+        </wa-card>
+      </a>
+    {% endfor %}
+  </section>
+</div>
+
+<style>
+  wa-tab-group + wa-divider {
+    margin-block: 1rem 3rem;
+  }
+</style>

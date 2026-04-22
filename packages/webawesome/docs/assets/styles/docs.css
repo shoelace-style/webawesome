@@ -278,23 +278,13 @@ wa-card .page-name {
   font-family: var(--wa-font-family-body);
 }
 
-/* Component list — card-based, name-first layout */
-.component-list {
-  .search-list-input {
-    display: block;
-    max-inline-size: 32rem;
-    margin-inline: auto;
-    margin-block: var(--wa-space-m) var(--wa-space-s);
-  }
-
-  .search-list-shortcut {
-    text-align: center;
-    color: var(--wa-color-text-quiet);
-    font-size: var(--wa-font-size-s);
-    margin-block: 0 var(--wa-space-2xl);
-  }
+/* Card-based, name-first listing layout used by component/pattern/utility browse pages */
+.component-list,
+.modern-card-list {
+  container-type: inline-size;
 
   .search-list-grid {
+    display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: var(--wa-space-m);
     margin-block-end: var(--wa-space-l);
@@ -340,7 +330,8 @@ wa-card .page-name {
       margin-block-end: var(--wa-space-xs);
     }
 
-    .component-list-summary {
+    .component-list-summary,
+    .modern-card-summary {
       color: var(--wa-color-text-quiet);
       font-size: var(--wa-font-size-s);
       line-height: var(--wa-line-height-normal);
@@ -350,6 +341,45 @@ wa-card .page-name {
     .component-list-badges {
       font-size: var(--wa-font-size-s);
       margin-block-start: auto;
+    }
+  }
+}
+
+/* Component list: centered search input (anchors a hero-style browse page) */
+.component-list {
+  .search-list-input {
+    display: block;
+    max-inline-size: 32rem;
+    margin-inline: auto;
+    margin-block: var(--wa-space-m) var(--wa-space-s);
+  }
+
+  .search-list-shortcut {
+    text-align: center;
+    color: var(--wa-color-text-quiet);
+    font-size: var(--wa-font-size-s);
+    margin-block: 0 var(--wa-space-2xl);
+  }
+}
+
+/* Modern card list: left-aligned "Browse X" heading + search input (used by utilities, tokens, patterns) */
+.modern-card-list-heading {
+  margin-block: 0 var(--wa-space-xl);
+}
+
+.modern-card-list {
+  .search-list-input {
+    display: block;
+    max-inline-size: 32rem;
+    margin-block: 0 var(--wa-space-2xl);
+  }
+
+  .modern-card-list-category {
+    margin-block: var(--wa-space-2xl) var(--wa-space-m);
+    font-size: var(--wa-font-size-xl);
+
+    &:first-of-type {
+      margin-block-start: 0;
     }
   }
 }
