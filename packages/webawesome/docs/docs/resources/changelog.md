@@ -25,6 +25,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed a bug in `<wa-dropdown-item>` where disabled items in a submenu showed a pointer cursor instead of the default cursor [issue:2276]
 - Fixed a bug in `<wa-dropdown-item>` where items with an open submenu did not show a selection state
 - Fixed a bug in `<wa-input>` and `<wa-number-input>` where invalid values for `number`, `date`, `time`, and `datetime-local` types were preserved instead of being sanitized to an empty string like the native input
+- Fixed a bug where `<wa-dropdown-item>` was erroneously listed as experimental
 - Refactored component tests across core and pro packages to follow a consistent structure with improved coverage
 - Updated `@shoelace-style/localize` to 3.2.2 to prevent Chrome translations from throwing errors [issue:2322]
 - Updated TypeScript to 5.9.3
