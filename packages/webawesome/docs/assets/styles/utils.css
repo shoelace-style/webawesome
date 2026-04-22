@@ -451,6 +451,10 @@
   }
 
   /* colophon + sidebar: social link row */
+  #colophon {
+    margin-block-start: var(--wa-space-2xl);
+  }
+
   #colophon .the-socials,
   #sidebar .the-socials {
     margin-inline-start: calc(var(--wa-space-xs) * -1);
