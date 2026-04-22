@@ -32,7 +32,7 @@
   margin-block-end: var(--wa-space-l);
 }
 
-/* "See all ___" / "Back to ___" link with an arrow that nudges on hover */
+/* "Browse\ ___" / "Back to ___" link with an arrow that nudges on hover */
 .browse-all-link wa-icon,
 .back-link wa-icon {
   vertical-align: -0.1em;
