@@ -39,7 +39,7 @@ layout: docs
               <wa-badge variant="neutral" appearance="filled" pill>Since {{ component.since }}</wa-badge>
             {% endif %}
             {% if page.data.isProComponent %}
-              {{ proBadge({ description: (component.tagName | stripPrefix) | capitalize ~ " requires access to Web Awesome Pro" }) }}
+              {{ proBadge({ description: "Included with Web Awesome Pro" }) }}
             {% endif %}
           </div>
         </wa-card>
