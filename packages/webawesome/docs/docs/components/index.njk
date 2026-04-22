@@ -18,7 +18,7 @@ layout: docs
     {% for page in collections.componentPages | sort(false, false, 'data.title') %}
       {% set component = page.data.component %}
       <a href="{{ page.url }}">
-        <wa-card appearance="outlined">
+        <wa-card>
           <span class="page-name">{{ page.data.title }}</span>
           {% if component.summary %}
             <p class="component-list-summary">{{ component.summary | inlineMarkdown | striptags | safe }}</p>

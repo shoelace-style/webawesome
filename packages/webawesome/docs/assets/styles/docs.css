@@ -245,7 +245,6 @@ wa-page > main:has(> .search-list) {
 
     wa-card {
       --spacing: var(--wa-space-m);
-      box-shadow: none;
 
       [slot='header'] {
         display: flex;
@@ -316,7 +315,6 @@ wa-card .page-name {
     wa-card {
       --spacing: var(--wa-space-m);
       block-size: 100%;
-      box-shadow: none;
       transition:
         border-color var(--wa-transition-normal),
         box-shadow var(--wa-transition-normal);
