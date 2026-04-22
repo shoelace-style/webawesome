@@ -46,6 +46,7 @@
   <li><a href="/docs/resources/changelog">Changelog</a></li>
   <li><a href="/docs/resources/visual-tests">Visual Tests</a></li>
 </ul>
+
 <!-- Frameworks -->
 <wa-details appearance="outlined">
   <h2 slot="summary">
@@ -84,7 +85,7 @@
 </wa-details>
 
 <!-- Components -->
-<wa-details appearance="outlined">
+<wa-details appearance="outlined" open>
   <h2 slot="summary">
     <a class="wa-cluster wa-gap-xs" href="/docs/components/" title="Overview">
       <wa-icon name="trowel-bricks" variant="regular" aria-hidden="true"></wa-icon>
@@ -238,7 +239,7 @@
 </wa-details>
 
 <!-- Data Visualization -->
-<wa-details appearance="outlined">
+<wa-details appearance="outlined" open>
   <h2 slot="summary" class="wa-split">
     <span class="wa-cluster wa-gap-xs">
       <wa-icon name="chart-area" variant="regular" aria-hidden="true"></wa-icon>
@@ -514,14 +515,16 @@
 </wa-details>
 
 <!-- Theming -->
-<h2 class="wa-cluster wa-gap-xs">
-  <wa-icon name="palette" variant="regular" aria-hidden="true"></wa-icon>
-  Theming
-</h2>
-<ul>
-  <li><a href="/docs/color-palettes">Color Palettes</a></li>
-  <li><a href="/docs/themes">Themes</a></li>
-</ul>
+<wa-details appearance="outlined">
+  <h2 slot="summary" class="wa-cluster wa-gap-xs">
+    <wa-icon name="palette" variant="regular" aria-hidden="true"></wa-icon>
+    Theming
+  </h2>
+  <ul>
+    <li><a href="/docs/color-palettes">Color Palettes</a></li>
+    <li><a href="/docs/themes">Themes</a></li>
+  </ul>
+</wa-details>
 
 <!-- Design tokens -->
 <wa-details appearance="outlined">
@@ -540,6 +543,43 @@
     <li><a href="/docs/tokens/transitions/">Transitions</a></li>
     <li><a href="/docs/tokens/typography/">Typography</a></li>
     <li><a href="/docs/tokens/component-groups/">Component Groups</a></li>
+  </ul>
+</wa-details>
+
+<!-- Frameworks -->
+<wa-details appearance="outlined">
+  <h2 slot="summary">
+    <a class="wa-cluster wa-gap-xs" href="/docs/frameworks/">
+      <wa-icon name="puzzle" variant="regular" aria-hidden="true"></wa-icon>
+      Frameworks
+    </a>
+  </h2>
+  <ul>
+    <li>
+      <a href="/docs/frameworks/angular">
+        Angular
+      </a>
+    </li>
+    <li>
+      <a href="/docs/frameworks/react">
+        React
+      </a>
+    </li>
+    <li>
+      <a href="/docs/frameworks/svelte">
+        Svelte
+      </a>
+    </li>
+    <li>
+      <a href="/docs/frameworks/vue">
+        Vue 3
+      </a>
+    </li>
+    <li>
+      <a href="/docs/frameworks/vue-2">
+        Vue 2
+      </a>
+    </li>
   </ul>
 </wa-details>
 

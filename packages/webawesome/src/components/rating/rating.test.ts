@@ -64,7 +64,7 @@ describe('<wa-rating>', () => {
           expect(el.disabled).to.be.false;
           expect(el.required).to.be.false;
           expect(el.label).to.equal('');
-          expect(el.size).to.equal('medium');
+          expect(el.size).to.equal('m');
         });
 
         it('should set value by attribute', async () => {

@@ -35,7 +35,7 @@ describe('<wa-textarea>', () => {
         it('should have correct default property values', async () => {
           const el = await fixture<WaTextarea>(html`<wa-textarea></wa-textarea>`);
 
-          expect(el.size).to.equal('medium');
+          expect(el.size).to.equal('m');
           expect(el.name).to.equal(null);
           expect(el.value).to.equal('');
           expect(el.defaultValue).to.equal('');
