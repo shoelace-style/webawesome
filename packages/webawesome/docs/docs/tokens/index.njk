@@ -12,10 +12,6 @@ override:tags: []
 </p>
 
 <div class="search-list modern-card-list">
-  <wa-input class="search-list-input" type="search" placeholder="Search design tokens" pill autofocus with-clear>
-    <wa-icon name="search" slot="start"></wa-icon>
-  </wa-input>
-
   <section class="search-list-grid">
     {% for page in collections.tokens | sort(false, false, 'data.title') %}
       <a href="{{ page.url }}">
