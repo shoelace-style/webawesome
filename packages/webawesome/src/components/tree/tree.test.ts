@@ -1,4 +1,4 @@
-import { aTimeout, expect, triggerBlurFor, triggerFocusFor, waitUntil } from '@open-wc/testing';
+import { expect, triggerBlurFor, triggerFocusFor } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import sinon from 'sinon';

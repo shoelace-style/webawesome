@@ -39,31 +39,12 @@
       {{ proBadge() }}
     </span>
   </li>
+  <li><a href="/docs/ai">Using with AI</a></li>
   <li><a href="/docs/resources/accessibility">Accessibility</a></li>
   <li><a href="/docs/resources/browser-support">Browser Support</a></li>
   <li><a href="/docs/resources/contributing">Contributing</a></li>
   <li><a href="/docs/resources/changelog">Changelog</a></li>
   <li><a href="/docs/resources/visual-tests">Visual Tests</a></li>
-</ul>
-
-{# AI #}
-<h2 class="wa-cluster wa-gap-xs">
-  <wa-icon name="sparkles" variant="regular" aria-hidden="true"></wa-icon>
-  Using AI with Web Awesome
-</h2>
-<ul>
-  <li>
-    <a class="wa-cluster wa-gap-xs" href="/docs/resources/agent-skills">
-      Agent Skills
-      <wa-icon name="flask" aria-hidden="true" class="icon-shrink de-emphasize"></wa-icon>
-    </a>
-  </li>
-  <li>
-    <a class="wa-cluster wa-gap-xs" href="/docs/resources/llms">
-      LLMs
-      <wa-icon name="flask" aria-hidden="true" class="icon-shrink de-emphasize"></wa-icon>
-    </a>
-  </li>
 </ul>
 <!-- Frameworks -->
 <wa-details appearance="outlined">
@@ -157,10 +138,8 @@
         <wa-icon name="flask" aria-hidden="true" class="icon-shrink de-emphasize"></wa-icon>
       </a>
     </li>
-    <li><span class="is-planned wa-split">Data Grid <span><a
-            href="https://github.com/shoelace-style/webawesome/issues/1072" target="_blank">{{ plannedBadge("A Web Awesome Kickstarter stretch goal!") }}</a>{{ proBadge({ description: "This will require access to Web Awesome Pro" }) }}</span></span></li>
-    <li><span class="is-planned wa-split">Date Picker <span><a
-            href="https://github.com/shoelace-style/webawesome/issues/1075" target="_blank">{{ plannedBadge("A Web Awesome Kickstarter stretch goal!") }}</a>{{ proBadge({ description: "This will require access to Web Awesome Pro" }) }}</span></span></li>
+    <li><span class="is-planned wa-split">Data Grid <span>{{ plannedBadge("A Web Awesome Kickstarter stretch goal!") }}{{ proBadge({ description: "This will require access to Web Awesome Pro" }) }}</span></span></li>
+    <li><span class="is-planned wa-split">Date Picker <span>{{ plannedBadge("A Web Awesome Kickstarter stretch goal!") }}{{ proBadge({ description: "This will require access to Web Awesome Pro" }) }}</span></span></li>
     <li><a href="/docs/components/details/">Details</a></li>
     <li><a href="/docs/components/dialog/">Dialog</a></li>
     <li><a href="/docs/components/divider/">Divider</a></li>
@@ -261,7 +240,7 @@
      <li>
       <span class="wa-split">
         <a href="/docs/components/video-group">Video Group</a>
-        {{ proBadge() }}
+        {{ proBadge( { description: "This will require access to Web Awesome Pro" }) }}
       </span>
     </li>
     <li><a href="/docs/components/zoomable-frame">Zoomable Frame</a></li>

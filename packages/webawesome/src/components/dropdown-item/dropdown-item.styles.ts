@@ -22,6 +22,10 @@ export default css`
     }
   }
 
+  :host(:state(submenu-open)) {
+    background-color: var(--wa-color-neutral-fill-normal);
+  }
+
   :host(:focus-visible) {
     z-index: 1;
     outline: var(--wa-focus-ring);
@@ -32,7 +36,6 @@ export default css`
   :host([disabled]) {
     opacity: 0.5;
     cursor: not-allowed;
-    pointer-events: none;
   }
 
   /* Danger variant */
@@ -48,6 +51,7 @@ export default css`
     }
   }
 
+  :host([variant='danger']:state(submenu-open)),
   :host([variant='danger']:focus-visible) {
     background-color: var(--wa-color-danger-fill-normal);
     color: var(--wa-color-danger-on-normal);
