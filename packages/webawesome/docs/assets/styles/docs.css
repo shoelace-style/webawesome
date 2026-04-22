@@ -273,6 +273,203 @@ wa-card .page-name {
   font-weight: var(--wa-font-weight-action);
 }
 
+/* Design Tokens Swatches */
+.swatch {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border-color: var(--wa-color-neutral-border-normal);
+  border-style: var(--wa-border-style);
+  border-width: var(--wa-border-width-s);
+  border-radius: var(--wa-border-radius-m);
+  box-sizing: border-box;
+  min-block-size: 3rem;
+  padding: var(--wa-space-xs);
+  font-weight: var(--wa-font-weight-semibold);
+  line-height: var(--wa-line-height-condensed);
+}
+
+wa-tab-panel:not([name='borders']) {
+  .swatch {
+    border-color: transparent;
+  }
+}
+
+td {
+  vertical-align: middle;
+}
+
+.token-name { white-space: nowrap; }
+
+/* Palette swatches */
+.palette {
+  display: grid;
+  grid-template-columns: 20ch 1fr;
+  align-items: center;
+  gap: var(--wa-space-m);
+  margin-bottom: var(--wa-space-s);
+  width: 100%;
+  padding-top: var(--wa-space-l);
+}
+.palette-label {
+  font-size: var(--wa-font-size-s);
+}
+.palette-swatches {
+  display: grid;
+  grid-template-columns: repeat(11, 1fr);
+  gap: var(--wa-space-3xs);
+}
+.palette-swatch {
+  display: block;
+  position: relative;
+  aspect-ratio: 1.5 / 1;
+
+  &::before {
+    content: var(--tint);
+    position: absolute;
+    top: calc(-1 * var(--wa-space-l));
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: var(--wa-font-size-xs);
+    color: var(--wa-color-text-quiet);
+    font-weight: var(--wa-font-weight-action);
+    text-align: center;
+    z-index: 2;
+  }
+}
+.swatch-button {
+  all: revert;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  background-color: var(--color);
+  border-radius: var(--wa-border-radius-m);
+  transition: transform 0.1s ease, translate 0.1s ease, box-shadow 0.1s ease;
+
+  &:hover {
+    transform: scale(1.075);
+    box-shadow: var(--wa-shadow-s);
+    z-index: 1;
+  }
+
+  &:active {
+    translate: 0 1px;
+    box-shadow: none;
+  }
+}
+@media (max-width: 768px) {
+  .palette {
+    grid-template-columns: 3.75rem 1fr;
+    gap: var(--wa-space-s);
+    margin-bottom: var(--wa-space-m);
+    padding-top: var(--wa-space-xl);
+  }
+  .palette-label {
+    font-size: var(--wa-font-size-xs);
+  }
+  .palette-swatches {
+    grid-template-columns: repeat(6, 1fr);
+    gap: var(--wa-space-2xs);
+    row-gap: var(--wa-space-l);
+  }
+  .palette-swatch {
+    &::before {
+      font-size: var(--wa-font-size-2xs);
+      top: calc(-1 * var(--wa-space-m));
+    }
+  }
+}
+
+/* Spacing preview */
+.spacing-example {
+  --dot-size: 0.5em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--wa-color-neutral-fill-normal);
+  height: 2em;
+  margin-inline: var(--dot-size);
+}
+.spacing-example::before {
+  content: '';
+  aspect-ratio: 1 / 1;
+  width: var(--dot-size);
+  background-color: var(--wa-color-neutral-fill-loud);
+  border-radius: 50%;
+  margin-inline-start: calc(var(--dot-size) * -1);
+}
+.spacing-example::after {
+  content: '';
+  aspect-ratio: 1 / 1;
+  width: var(--dot-size);
+  background-color: var(--wa-color-neutral-fill-loud);
+  border-radius: 50%;
+  margin-inline-end: calc(var(--dot-size) * -1);
+}
+
+/* Transition preview */
+.transition-swatch {
+  background-color: var(--wa-color-neutral-fill-normal);
+  border: none;
+  position: relative;
+  overflow: hidden;
+}
+.transition-swatch::after {
+  content: '';
+  position: absolute;
+  background-color: var(--wa-color-brand-fill-loud);
+  border-radius: var(--wa-border-radius-m);
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  transition: inherit;
+}
+.transition-swatch:hover::after,
+.transition-swatch:focus::after {
+  width: 100%;
+}
+
+/* Color mix preview */
+.color-mix-example {
+  background-image:
+    linear-gradient(
+      to right,
+      color-mix(in oklab, transparent, var(--mix-color)) 25%,
+      color-mix(in oklab, var(--wa-color-brand-fill-loud), var(--mix-color)) 25%,
+      color-mix(in oklab, var(--wa-color-brand-fill-loud), var(--mix-color)) 75%,
+      var(--wa-color-brand-fill-loud) 75%
+    );
+  border: none;
+  color: var(--wa-color-brand-on-loud);
+  text-align: center;
+}
+
+/* Tab panel spacing */
+p { max-width: var(--content-width-s); }
+wa-tab-panel > * + * {
+  margin-block-start: var(--wa-content-spacing);
+}
+
+/* Sticky tabs */
+wa-tab-group#token-tabs {
+  &::part(base) {
+    position: relative;
+  }
+  &::part(nav) {
+    position: sticky;
+    top: calc(var(--banner-height) + var(--header-height) + var(--subheader-height));
+    z-index: 11;
+    background-color: var(--wa-color-surface-default);
+  }
+}
+
 /* Layout Examples */
 .layout-example-boundary {
   border: var(--wa-border-width-s) dashed var(--wa-color-neutral-border-normal);
