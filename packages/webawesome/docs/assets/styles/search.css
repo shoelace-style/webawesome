@@ -1,4 +1,5 @@
 #site-search {
+  --backdrop-filter: blur(6px);
   width: 38rem;
   position: absolute;
   top: 0;
