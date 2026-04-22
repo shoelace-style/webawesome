@@ -1,5 +1,7 @@
 import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import { warnDeprecatedSize } from '../../internal/size.js';
+import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import sizeStyles from '../../styles/component/size.styles.js';
 import variantStyles from '../../styles/component/variants.styles.js';
@@ -29,7 +31,12 @@ export default class WaCallout extends WebAwesomeElement {
   @property({ reflect: true }) appearance: 'accent' | 'filled' | 'outlined' | 'plain' | 'filled-outlined';
 
   /** The callout's size. */
-  @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
+  @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
+
+  @watch('size')
+  handleSizeChange() {
+    warnDeprecatedSize(this.localName, this.size);
+  }
 
   render() {
     return html`

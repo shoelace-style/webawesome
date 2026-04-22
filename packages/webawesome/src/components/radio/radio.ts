@@ -1,6 +1,8 @@
 import type { PropertyValues } from 'lit';
 import { html, isServer } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
+import { warnDeprecatedSize } from '../../internal/size.js';
+import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
 import formControlStyles from '../../styles/component/form-control.styles.js';
 import sizeStyles from '../../styles/component/size.styles.js';
@@ -50,7 +52,12 @@ export default class WaRadio extends WebAwesomeFormAssociatedElement {
    * The radio's size. When used inside a radio group, the size will be determined by the radio group's size, which will
    * override this attribute.
    */
-  @property({ reflect: true }) size: 'small' | 'medium' | 'large';
+  @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large';
+
+  @watch('size')
+  handleSizeChange() {
+    warnDeprecatedSize(this.localName, this.size);
+  }
 
   /** Disables the radio. */
   @property({ type: Boolean }) disabled = false;

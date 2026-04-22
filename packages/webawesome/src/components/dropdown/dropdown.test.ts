@@ -116,7 +116,7 @@ describe('<wa-dropdown>', () => {
               <wa-dropdown-item>One</wa-dropdown-item>
             </wa-dropdown>
           `);
-          expect(el.size).to.equal('medium');
+          expect(el.size).to.equal('m');
         });
 
         it('should accept distance property', async () => {

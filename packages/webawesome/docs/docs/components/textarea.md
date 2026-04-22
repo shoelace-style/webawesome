@@ -86,11 +86,15 @@ Use the `value` attribute to set an initial value.
 Use the `size` attribute to change a textarea's size.
 
 ```html {.example}
-<wa-textarea placeholder="Small" size="small"></wa-textarea>
+<wa-textarea placeholder="Extra Small" size="xs"></wa-textarea>
 <br />
-<wa-textarea placeholder="Medium" size="medium"></wa-textarea>
+<wa-textarea placeholder="Small" size="s"></wa-textarea>
 <br />
-<wa-textarea placeholder="Large" size="large"></wa-textarea>
+<wa-textarea placeholder="Medium" size="m"></wa-textarea>
+<br />
+<wa-textarea placeholder="Large" size="l"></wa-textarea>
+<br />
+<wa-textarea placeholder="Extra Large" size="xl"></wa-textarea>
 ```
 
 ### Prevent Resizing

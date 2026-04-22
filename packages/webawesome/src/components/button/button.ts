@@ -3,6 +3,7 @@ import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { html, literal } from 'lit/static-html.js';
 import { WaInvalidEvent } from '../../events/invalid.js';
+import { warnDeprecatedSize } from '../../internal/size.js';
 import { HasSlotController } from '../../internal/slot.js';
 import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
 import { watch } from '../../internal/watch.js';
@@ -73,7 +74,12 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
   @property({ reflect: true }) appearance: 'accent' | 'filled' | 'outlined' | 'filled-outlined' | 'plain' = 'accent';
 
   /** The button's size. */
-  @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
+  @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
+
+  @watch('size')
+  handleSizeChange() {
+    warnDeprecatedSize(this.localName, this.size);
+  }
 
   /** Draws the button with a caret. Used to indicate that the button triggers a dropdown menu or similar behavior. */
   @property({ attribute: 'with-caret', type: Boolean, reflect: true }) withCaret = false;

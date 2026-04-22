@@ -75,8 +75,8 @@ Frames are well-suited for images and image placeholders.
       <h3 class="wa-heading-m">White-socks</h3>
       <span class="wa-body-s">Kitten &bull; Male</span>
       <div class="wa-flank:end wa-gap-xs">
-        <wa-button size="small" appearance="filled" variant="brand">Adopt this pet</wa-button>
-        <wa-button id="fav-whitesocks" appearance="plain" size="small">
+        <wa-button size="s" appearance="filled" variant="brand">Adopt this pet</wa-button>
+        <wa-button id="fav-whitesocks" appearance="plain" size="s">
           <wa-icon name="heart" variant="regular" label="Favorite"></wa-icon>
         </wa-button>
         <wa-tooltip for="fav-whitesocks">Favorite</wa-tooltip>
@@ -94,8 +94,8 @@ Frames are well-suited for images and image placeholders.
       <h3 class="wa-heading-m">Bumpkin</h3>
       <span class="wa-body-s">Adult &bull; Male</span>
       <div class="wa-flank:end wa-gap-xs">
-        <wa-button size="small" appearance="filled" variant="brand">Adopt this pet</wa-button>
-        <wa-button id="fav-bumpkin" appearance="plain" size="small">
+        <wa-button size="s" appearance="filled" variant="brand">Adopt this pet</wa-button>
+        <wa-button id="fav-bumpkin" appearance="plain" size="s">
           <wa-icon name="heart" variant="regular" label="Favorite"></wa-icon>
         </wa-button>
         <wa-tooltip for="fav-bumpkin">Favorite</wa-tooltip>
@@ -110,8 +110,8 @@ Frames are well-suited for images and image placeholders.
       <h3 class="wa-heading-m">Swish-tail</h3>
       <span class="wa-body-s">Kitten &bull; Female</span>
       <div class="wa-flank:end wa-gap-xs">
-        <wa-button size="small" appearance="filled" variant="brand">Adopt this pet</wa-button>
-        <wa-button id="fav-swishtail" appearance="plain" size="small">
+        <wa-button size="s" appearance="filled" variant="brand">Adopt this pet</wa-button>
+        <wa-button id="fav-swishtail" appearance="plain" size="s">
           <wa-icon name="heart" variant="regular" label="Favorite"></wa-icon>
         </wa-button>
         <wa-tooltip for="fav-swishtail">Favorite</wa-tooltip>
@@ -126,8 +126,8 @@ Frames are well-suited for images and image placeholders.
       <h3 class="wa-heading-m">Sharp-ears</h3>
       <span class="wa-body-s">Adult &bull; Female</span>
       <div class="wa-flank:end wa-gap-xs">
-        <wa-button size="small" appearance="filled" variant="brand">Adopt this pet</wa-button>
-        <wa-button id="fav-sharpears" appearance="plain" size="small">
+        <wa-button size="s" appearance="filled" variant="brand">Adopt this pet</wa-button>
+        <wa-button id="fav-sharpears" appearance="plain" size="s">
           <wa-icon name="heart" variant="regular" label="Favorite"></wa-icon>
         </wa-button>
         <wa-tooltip for="fav-sharpears">Favorite</wa-tooltip>

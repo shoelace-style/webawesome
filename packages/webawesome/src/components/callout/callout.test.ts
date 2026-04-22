@@ -28,7 +28,7 @@ describe('<wa-callout>', () => {
           const el = await fixture<WaCallout>(html`<wa-callout>Test</wa-callout>`);
 
           expect(el.variant).to.equal('brand');
-          expect(el.size).to.equal('medium');
+          expect(el.size).to.equal('m');
           expect(el.appearance).to.be.undefined;
         });
 
@@ -39,9 +39,9 @@ describe('<wa-callout>', () => {
         });
 
         it('should reflect the size attribute', async () => {
-          const el = await fixture<WaCallout>(html`<wa-callout size="small">Test</wa-callout>`);
-          expect(el.getAttribute('size')).to.equal('small');
-          expect(el.size).to.equal('small');
+          const el = await fixture<WaCallout>(html`<wa-callout size="s">Test</wa-callout>`);
+          expect(el.getAttribute('size')).to.equal('s');
+          expect(el.size).to.equal('s');
         });
 
         it('should reflect the appearance attribute', async () => {
@@ -75,7 +75,7 @@ describe('<wa-callout>', () => {
         it('should accept all valid sizes', async () => {
           const el = await fixture<WaCallout>(html`<wa-callout>Test</wa-callout>`);
 
-          for (const size of ['small', 'medium', 'large'] as const) {
+          for (const size of ['xs', 's', 'm', 'l', 'xl'] as const) {
             el.size = size;
             await el.updateComplete;
             expect(el.size).to.equal(size);

@@ -13,6 +13,7 @@ import { animateWithClass } from '../../internal/animate.js';
 import { isTopDismissible, registerDismissible, unregisterDismissible } from '../../internal/dismissible-stack.js';
 import { waitForEvent } from '../../internal/event.js';
 import { scrollIntoView } from '../../internal/scroll.js';
+import { warnDeprecatedSize } from '../../internal/size.js';
 import { HasSlotController } from '../../internal/slot.js';
 import { RequiredValidator } from '../../internal/validators/required-validator.js';
 import { watch } from '../../internal/watch.js';
@@ -217,7 +218,12 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   }
 
   /** The select's size. */
-  @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
+  @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
+
+  @watch('size')
+  handleSizeChange() {
+    warnDeprecatedSize(this.localName, this.size);
+  }
 
   /** Placeholder text to show as a hint when the select is empty. */
   @property() placeholder = '';

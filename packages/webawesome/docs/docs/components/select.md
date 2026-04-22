@@ -198,7 +198,7 @@ Use `<wa-divider>` to group listbox items visually. You can also use `<small>` t
 Use the `size` attribute to change a select's size.
 
 ```html {.example}
-<wa-select placeholder="Small" size="small">
+<wa-select placeholder="Extra Small" size="xs">
   <wa-option value="option-1">Option 1</wa-option>
   <wa-option value="option-2">Option 2</wa-option>
   <wa-option value="option-3">Option 3</wa-option>
@@ -206,7 +206,7 @@ Use the `size` attribute to change a select's size.
 
 <br />
 
-<wa-select placeholder="Medium" size="medium">
+<wa-select placeholder="Small" size="s">
   <wa-option value="option-1">Option 1</wa-option>
   <wa-option value="option-2">Option 2</wa-option>
   <wa-option value="option-3">Option 3</wa-option>
@@ -214,7 +214,23 @@ Use the `size` attribute to change a select's size.
 
 <br />
 
-<wa-select placeholder="Large" size="large">
+<wa-select placeholder="Medium" size="m">
+  <wa-option value="option-1">Option 1</wa-option>
+  <wa-option value="option-2">Option 2</wa-option>
+  <wa-option value="option-3">Option 3</wa-option>
+</wa-select>
+
+<br />
+
+<wa-select placeholder="Large" size="l">
+  <wa-option value="option-1">Option 1</wa-option>
+  <wa-option value="option-2">Option 2</wa-option>
+  <wa-option value="option-3">Option 3</wa-option>
+</wa-select>
+
+<br />
+
+<wa-select placeholder="Extra Large" size="xl">
   <wa-option value="option-1">Option 1</wa-option>
   <wa-option value="option-2">Option 2</wa-option>
   <wa-option value="option-3">Option 3</wa-option>
@@ -238,7 +254,7 @@ The preferred placement of the select's listbox can be set with the `placement` 
 Use the `start` and `end` slots to add presentational elements like `<wa-icon>` within the combobox.
 
 ```html {.example}
-<wa-select placeholder="Small" size="small" with-clear>
+<wa-select placeholder="Extra Small" size="xs" with-clear>
   <wa-icon slot="start" name="house" variant="solid"></wa-icon>
   <wa-icon slot="end" name="flag-checkered"></wa-icon>
   <wa-option value="option-1">Option 1</wa-option>
@@ -246,7 +262,7 @@ Use the `start` and `end` slots to add presentational elements like `<wa-icon>` 
   <wa-option value="option-3">Option 3</wa-option>
 </wa-select>
 <br />
-<wa-select placeholder="Medium" size="medium" with-clear>
+<wa-select placeholder="Small" size="s" with-clear>
   <wa-icon slot="start" name="house" variant="solid"></wa-icon>
   <wa-icon slot="end" name="flag-checkered"></wa-icon>
   <wa-option value="option-1">Option 1</wa-option>
@@ -254,7 +270,23 @@ Use the `start` and `end` slots to add presentational elements like `<wa-icon>` 
   <wa-option value="option-3">Option 3</wa-option>
 </wa-select>
 <br />
-<wa-select placeholder="Large" size="large" with-clear>
+<wa-select placeholder="Medium" size="m" with-clear>
+  <wa-icon slot="start" name="house" variant="solid"></wa-icon>
+  <wa-icon slot="end" name="flag-checkered"></wa-icon>
+  <wa-option value="option-1">Option 1</wa-option>
+  <wa-option value="option-2">Option 2</wa-option>
+  <wa-option value="option-3">Option 3</wa-option>
+</wa-select>
+<br />
+<wa-select placeholder="Large" size="l" with-clear>
+  <wa-icon slot="start" name="house" variant="solid"></wa-icon>
+  <wa-icon slot="end" name="flag-checkered"></wa-icon>
+  <wa-option value="option-1">Option 1</wa-option>
+  <wa-option value="option-2">Option 2</wa-option>
+  <wa-option value="option-3">Option 3</wa-option>
+</wa-select>
+<br />
+<wa-select placeholder="Extra Large" size="xl" with-clear>
   <wa-icon slot="start" name="house" variant="solid"></wa-icon>
   <wa-icon slot="end" name="flag-checkered"></wa-icon>
   <wa-option value="option-1">Option 1</wa-option>
@@ -368,7 +400,7 @@ Here's a comprehensive example showing different lazy loading scenarios:
 
   <div style="display: flex; gap: 16px;">
     <wa-button appearance="filled" type="reset">Reset</wa-button>
-    <wa-button appearance="filled" type="submit" variant="brand">Show FormData</wa-button>
+    <wa-button appearance="filled" type="submit" variant="neutral">Show FormData</wa-button>
   </div>
 
   <br />

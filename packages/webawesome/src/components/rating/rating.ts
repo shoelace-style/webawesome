@@ -5,6 +5,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { WaHoverEvent } from '../../events/hover.js';
 import { clamp } from '../../internal/math.js';
+import { warnDeprecatedSize } from '../../internal/size.js';
 import { RequiredValidator } from '../../internal/validators/required-validator.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
@@ -160,7 +161,12 @@ export default class WaRating extends WebAwesomeFormAssociatedElement {
   };
 
   /** The component's size. */
-  @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
+  @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
+
+  @watch('size')
+  handleSizeChange() {
+    warnDeprecatedSize(this.localName, this.size);
+  }
 
   private getValueFromPointerPosition(event: PointerEvent) {
     return this.getValueFromXCoordinate(event.clientX);

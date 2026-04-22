@@ -19,7 +19,7 @@ Popovers display interactive content when their anchor element is clicked. Unlik
 <wa-popover for="popover__overview">
   <div style="display: flex; flex-direction: column; gap: 1rem;">
     <p>This popover contains interactive content that users can engage with directly.</p>
-    <wa-button appearance="filled" variant="primary" size="small">Take Action</wa-button>
+    <wa-button appearance="filled" variant="primary" size="s">Take Action</wa-button>
   </div>
 </wa-popover>
 
@@ -129,8 +129,8 @@ Use the [`autofocus`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_a
 ```html {.example}
 <wa-popover for="popover__autofocus">
   <div style="display: flex; flex-direction: column; gap: 1rem;">
-    <wa-textarea autofocus placeholder="What's on your mind?" size="small" resize="none" rows="3"></wa-textarea>
-    <wa-button appearance="filled" variant="primary" size="small" data-popover="close"> Submit </wa-button>
+    <wa-textarea autofocus placeholder="What's on your mind?" size="s" resize="none" rows="3"></wa-textarea>
+    <wa-button appearance="filled" variant="primary" size="s" data-popover="close"> Submit </wa-button>
   </div>
 </wa-popover>
 

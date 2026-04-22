@@ -14,6 +14,8 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 <small>TBD</small>
 
+- Added `xs` and `xl` sizes for all form controls and sized components
+  - Deprecated `small`, `medium`, and `large` in favor of `s`, `m`, and `l` (old values will continue to work in 3.x)
 - Added `beforeinput` event to `<wa-number-input>` stepper buttons so value changes can be cancelled with `event.preventDefault()`
 - Added the `--backdrop-filter` CSS custom property to `<wa-dialog>` and `<wa-drawer>` for applying filters such as `blur()` to the backdrop
 - Fixed a bug in `<wa-checkbox>` where the `value` property returned `null` instead of `'on'` when unchecked

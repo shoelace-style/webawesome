@@ -52,9 +52,11 @@ Use the `precision` attribute to let users select fractional ratings.
 Use the `size` attribute to adjust the size of the rating.
 
 ```html {.example}
-<wa-rating label="Rating" size="small"></wa-rating><br />
-<wa-rating label="Rating" size="medium"></wa-rating><br />
-<wa-rating label="Rating" size="large"></wa-rating>
+<wa-rating label="Rating" size="xs"></wa-rating><br />
+<wa-rating label="Rating" size="s"></wa-rating><br />
+<wa-rating label="Rating" size="m"></wa-rating><br />
+<wa-rating label="Rating" size="l"></wa-rating><br />
+<wa-rating label="Rating" size="xl"></wa-rating>
 ```
 
 For more granular sizing, you can use the `font-size` property.

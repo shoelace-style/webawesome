@@ -94,11 +94,11 @@ Clusters are great for inline lists and aligning items of varying sizes.
       <wa-icon name="dollar" style="color: var(--wa-color-green-60);"></wa-icon>
     </div>
     <span class="wa-caption-s">&bull;</span>
-    <wa-tag size="small">Comfort Food</wa-tag>
-    <wa-tag size="small">Gastropub</wa-tag>
-    <wa-tag size="small">Cocktail Bar</wa-tag>
-    <wa-tag size="small">Vegetarian</wa-tag>
-    <wa-tag size="small">Gluten Free</wa-tag>
+    <wa-tag size="s">Comfort Food</wa-tag>
+    <wa-tag size="s">Gastropub</wa-tag>
+    <wa-tag size="s">Cocktail Bar</wa-tag>
+    <wa-tag size="s">Vegetarian</wa-tag>
+    <wa-tag size="s">Gluten Free</wa-tag>
   </div>
 </div>
 ```

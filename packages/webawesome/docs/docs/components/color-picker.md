@@ -108,9 +108,11 @@ Use the `size` attribute to change the color picker's trigger size.
 
 ```html {.example}
 <div class="wa-gap-m wa-align-items-baseline">
-  <wa-color-picker size="small" label="Select a color"></wa-color-picker>
-  <wa-color-picker size="medium" label="Select a color"></wa-color-picker>
-  <wa-color-picker size="large" label="Select a color"></wa-color-picker>
+  <wa-color-picker size="xs" label="Select a color"></wa-color-picker>
+  <wa-color-picker size="s" label="Select a color"></wa-color-picker>
+  <wa-color-picker size="m" label="Select a color"></wa-color-picker>
+  <wa-color-picker size="l" label="Select a color"></wa-color-picker>
+  <wa-color-picker size="xl" label="Select a color"></wa-color-picker>
 </div>
 ```
 
