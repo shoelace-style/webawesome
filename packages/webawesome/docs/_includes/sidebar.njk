@@ -23,6 +23,7 @@
   <li><a href="/docs/customizing">Customizing</a></li>
   <li><a href="/docs/form-controls">Form Controls</a></li>
   <li><a href="/docs/localization">Localization</a></li>
+  <li><a href="/docs/frameworks/">Frameworks</a></li>
 </ul>
 
 {# Resources #}
@@ -46,52 +47,15 @@
   <li><a href="/docs/resources/changelog">Changelog</a></li>
   <li><a href="/docs/resources/visual-tests">Visual Tests</a></li>
 </ul>
-<!-- Frameworks -->
-<wa-details appearance="outlined">
-  <h2 slot="summary">
-    <a class="wa-cluster wa-gap-xs" href="/docs/frameworks/">
-      <wa-icon name="puzzle" variant="regular" aria-hidden="true"></wa-icon>
-      Frameworks
-    </a>
-  </h2>
-  <ul>
-    <li>
-      <a href="/docs/frameworks/angular">
-        Angular
-      </a>
-    </li>
-    <li>
-      <a href="/docs/frameworks/react">
-        React
-      </a>
-    </li>
-    <li>
-      <a href="/docs/frameworks/svelte">
-        Svelte
-      </a>
-    </li>
-    <li>
-      <a href="/docs/frameworks/vue">
-        Vue 3
-      </a>
-    </li>
-    <li>
-      <a href="/docs/frameworks/vue-2">
-        Vue 2
-      </a>
-    </li>
-  </ul>
-</wa-details>
 
 <!-- Components -->
-<wa-details appearance="outlined">
-  <h2 slot="summary">
-    <a class="wa-cluster wa-gap-xs" href="/docs/components/" title="Overview">
-      <wa-icon name="trowel-bricks" variant="regular" aria-hidden="true"></wa-icon>
-      Components
-    </a>
-  </h2>
-  <ul>
+<h2 class="wa-cluster wa-gap-xs">
+  <a class="wa-cluster wa-gap-xs" href="/docs/components/" title="Overview">
+    <wa-icon name="trowel-bricks" variant="regular" aria-hidden="true"></wa-icon>
+    Components
+  </a>
+</h2>
+<ul>
     <li><a href="/docs/components/animated-image/">Animated Image</a></li>
     <li><a href="/docs/components/animation/">Animation</a></li>
     <li><a href="/docs/components/avatar/">Avatar</a></li>
@@ -234,19 +198,17 @@
     <li><span class="is-planned wa-split">Video <span>{{ plannedBadge("A Web Awesome Kickstarter stretch goal!") }}{{ proBadge( { description: "This will require access to Web Awesome Pro" }) }}</span></span></li>
     <li><a href="/docs/components/zoomable-frame">Zoomable Frame</a></li>
     {# PLOP_NEW_COMPONENT_PLACEHOLDER #}
-  </ul>
-</wa-details>
+</ul>
 
 <!-- Data Visualization -->
-<wa-details appearance="outlined">
-  <h2 slot="summary" class="wa-split">
-    <span class="wa-cluster wa-gap-xs">
-      <wa-icon name="chart-area" variant="regular" aria-hidden="true"></wa-icon>
-      Data Visualization
-    </span>
-    {{ proBadge({ description: "Data Visualization components require access to Web Awesome Pro" }) }}
-  </h2>
-  <ul>
+<h2 class="wa-split">
+  <span class="wa-cluster wa-gap-xs">
+    <wa-icon name="chart-area" variant="regular" aria-hidden="true"></wa-icon>
+    Data Visualization
+  </span>
+  {{ proBadge({ description: "Data Visualization components require access to Web Awesome Pro" }) }}
+</h2>
+<ul>
     <li>
       <a class="wa-cluster wa-gap-xs" href="/docs/components/bar-chart">
         Bar Chart
@@ -302,216 +264,52 @@
       </a>
     </li>
     <li><a href="/docs/components/chart">Advanced Usage</a></li>
-  </ul>
-</wa-details>
+</ul>
 
 <!-- Style utilities -->
-<wa-details appearance="outlined">
-  <h2 slot="summary">
-    <a class="wa-cluster wa-gap-xs" href="/docs/utilities/" title="Overview">
-      <wa-icon name="brush" variant="regular" aria-hidden="true"></wa-icon>
-      Style Utilities
-    </a>
-  </h2>
-  <ul>
-    <li><a href="/docs/utilities/native/">Native Styles</a></li>
-    <li><a href="/docs/utilities/color/">Color</a></li>
-    <li><a href="/docs/utilities/fouce/">Reducing FOUCE</a></li>
-    <li><a href="/docs/utilities/rounding/">Rounding</a></li>
-    <li><a href="/docs/utilities/text/">Text</a></li>
-    <li><a href="/docs/utilities/visually-hidden/">Visually Hidden</a></li>
-  </ul>
-</wa-details>
+<h2 class="wa-cluster wa-gap-xs">
+  <a class="wa-cluster wa-gap-xs" href="/docs/utilities/" title="Overview">
+    <wa-icon name="brush" variant="regular" aria-hidden="true"></wa-icon>
+    Style Utilities
+  </a>
+</h2>
+<ul>
+  <li><a href="/docs/utilities/native/">Native Styles</a></li>
+  <li><a href="/docs/utilities/color/">Color</a></li>
+  <li><a href="/docs/utilities/fouce/">Reducing FOUCE</a></li>
+  <li><a href="/docs/utilities/rounding/">Rounding</a></li>
+  <li><a href="/docs/utilities/text/">Text</a></li>
+  <li><a href="/docs/utilities/visually-hidden/">Visually Hidden</a></li>
+</ul>
 
 <!-- Layout -->
-<wa-details appearance="outlined">
-  <h2 slot="summary">
-    <a class="wa-cluster wa-gap-xs" href="/docs/layout/" title="Overview">
-      <wa-icon name="ruler-combined" variant="regular" aria-hidden="true"></wa-icon>
-      Layout Utilities
-    </a>
-  </h2>
-  <ul>
-    <li><a href="/docs/utilities/align-items/">Align Items</a></li>
-    <li><a href="/docs/utilities/justify-content/">Justify Content</a></li>
-    <li><a href="/docs/utilities/flex-wrap/">Flex Wrap</a></li>
-    <li><a href="/docs/utilities/gap/">Gap</a></li>
-    <li><a href="/docs/utilities/cluster/">Cluster</a></li>
-    <li><a href="/docs/utilities/flank/">Flank</a></li>
-    <li><a href="/docs/utilities/frame/">Frame</a></li>
-    <li><a href="/docs/utilities/grid/">Grid</a></li>
-    <li><a href="/docs/utilities/split/">Split</a></li>
-    <li><a href="/docs/utilities/stack/">Stack</a></li>
-  </ul>
-</wa-details>
+<h2 class="wa-cluster wa-gap-xs">
+  <a class="wa-cluster wa-gap-xs" href="/docs/layout/" title="Overview">
+    <wa-icon name="ruler-combined" variant="regular" aria-hidden="true"></wa-icon>
+    Layout Utilities
+  </a>
+</h2>
+<ul>
+  <li><a href="/docs/utilities/align-items/">Align Items</a></li>
+  <li><a href="/docs/utilities/justify-content/">Justify Content</a></li>
+  <li><a href="/docs/utilities/flex-wrap/">Flex Wrap</a></li>
+  <li><a href="/docs/utilities/gap/">Gap</a></li>
+  <li><a href="/docs/utilities/cluster/">Cluster</a></li>
+  <li><a href="/docs/utilities/flank/">Flank</a></li>
+  <li><a href="/docs/utilities/frame/">Frame</a></li>
+  <li><a href="/docs/utilities/grid/">Grid</a></li>
+  <li><a href="/docs/utilities/split/">Split</a></li>
+  <li><a href="/docs/utilities/stack/">Stack</a></li>
+</ul>
 
 <!-- Patterns -->
-<wa-details appearance="outlined">
-  <h2 slot="summary" class="wa-split">
-    <a class="wa-cluster wa-gap-xs" href="/docs/patterns/" title="Overview">
-      <wa-icon name="block-brick" variant="regular" aria-hidden="true"></wa-icon>
-      Patterns
-    </a>
-    {{ proBadge({ description: "Patterns require access to Web Awesome Pro" }) }}
-  </h2>
-  <ul>
-    <li>
-      <a href="/docs/patterns/layouts/">Layouts</a>
-      <ul>
-        <li>
-          <a href="/docs/patterns/layouts#app">App</a>
-        </li>
-        <li>
-          <a href="/docs/patterns/layouts#blog">Blog</a>
-        </li>
-        <li>
-          <a href="/docs/patterns/layouts#ecommerce">Ecommerce</a>
-        </li>
-      </ul>
-    </li>
-    <li>
-      <a href="/docs/patterns/app/">App</a>
-      <ul>
-        <li>
-          <a href="/docs/patterns/app/action-panel/">Action Panel</a>
-        </li>
-        <li>
-          <a href="/docs/patterns/app/activity-log/">Activity Log</a>
-        </li>
-        <li>
-          <a href="/docs/patterns/app/comments/">Comments</a>
-        </li>
-        <li>
-          <a href="/docs/patterns/app/data-display/">Data Display</a>
-        </li>
-        <li>
-          <a href="/docs/patterns/app/description-list/">Description List</a>
-        </li>
-        <li>
-          <a href="/docs/patterns/app/empty-state/">Empty State</a>
-        </li>
-        <li>
-          <a href="/docs/patterns/app/faq/">FAQ</a>
-        </li>
-        <li>
-          <a href="/docs/patterns/app/grid-list/">Grid List</a>
-        </li>
-        <li>
-          <a href="/docs/patterns/app/leaderboard/">Leaderboard</a>
-        </li>
-        <li>
-          <a href="/docs/patterns/app/pagination/">Pagination</a>
-        </li>
-        <li>
-          <a href="/docs/patterns/app/password/">Password</a>
-        </li>
-        <li>
-          <a href="/docs/patterns/app/permissions/">Permissions</a>
-        </li>
-        <li>
-          <a href="/docs/patterns/app/pricing/">Pricing</a>
-        </li>
-      </ul>
-    </li>
-    <li>
-      <a href="/docs/patterns/blog-news/">Blog &amp; News</a>
-      <ul>
-        <li>
-          <a href="/docs/patterns/blog-news/banners/">Banners</a>
-        </li>
-        <li>
-          <a href="/docs/patterns/blog-news/call-to-action/">Call To Action</a>
-        </li>
-        <li>
-          <a href="/docs/patterns/blog-news/category-list/">Category List</a>
-        </li>
-        <li>
-          <a href="/docs/patterns/blog-news/contact/">Contact</a>
-        </li>
-        <li>
-          <a href="/docs/patterns/blog-news/featured-post/">Featured Post</a>
-        </li>
-        <li>
-          <a href="/docs/patterns/blog-news/footer/">Footer</a>
-        </li>
-        <li>
-          <a href="/docs/patterns/blog-news/grid-section/">Grid Section</a>
-        </li>
-        <li>
-          <a href="/docs/patterns/blog-news/header/">Header</a>
-        </li>
-        <li>
-          <a href="/docs/patterns/blog-news/newsletter/">Newsletter</a>
-        </li>
-        <li>
-          <a href="/docs/patterns/blog-news/paywall/">Paywall</a>
-        </li>
-        <li>
-          <a href="/docs/patterns/blog-news/post-footer/">Post Footer</a>
-        </li>
-        <li>
-          <a href="/docs/patterns/blog-news/post-header/">Post Header</a>
-        </li>
-        <li>
-          <a href="/docs/patterns/blog-news/post-list/">Post List</a>
-        </li>
-        <li>
-          <a href="/docs/patterns/blog-news/login/">Sign Up &amp; Login</a>
-        </li>
-        <li>
-          <a href="/docs/patterns/blog-news/numbers/">Numbers</a>
-        </li>
-        <li>
-          <a href="/docs/patterns/blog-news/social-share/">Social Share</a>
-        </li>
-        <li>
-          <a href="/docs/patterns/blog-news/teams/">Teams</a>
-        </li>
-        <li>
-          <a href="/docs/patterns/blog-news/testimonials/">Testimonials</a>
-        </li>
-      </ul>
-    </li>
-    <li>
-      <a href="/docs/patterns/ecommerce/">Ecommerce</a>
-      <ul>
-        <li>
-          <a href="/docs/patterns/ecommerce/category-filter/">Category Filter</a>
-        </li>
-        <li>
-          <a href="/docs/patterns/ecommerce/category-preview/">Category Preview</a>
-        </li>
-        <li>
-          <a href="/docs/patterns/ecommerce/checkout-form/">Checkout Form</a>
-        </li>
-        <li>
-          <a href="/docs/patterns/ecommerce/incentives/">Incentives</a>
-        </li>
-        <li>
-          <a href="/docs/patterns/ecommerce/order-history/">Order History</a>
-        </li>
-        <li>
-          <a href="/docs/patterns/ecommerce/order-summary/">Order Summary</a>
-        </li>
-        <li>
-          <a href="/docs/patterns/ecommerce/product-list/">Product Lists</a>
-        </li>
-        <li>
-          <a href="/docs/patterns/ecommerce/product-overview/">Product Overview</a>
-        </li>
-        <li>
-          <a href="/docs/patterns/ecommerce/product-preview/">Product Preview</a>
-        </li>
-        <li>
-          <a href="/docs/patterns/ecommerce/review/">Product Reviews</a>
-        </li>
-        <li>
-          <a href="/docs/patterns/ecommerce/shopping-cart/">Shopping Cart</a>
-        </li>
-      </ul>
-    </li>
-  </ul>
-</wa-details>
+<h2 class="wa-split">
+  <a class="wa-cluster wa-gap-xs" href="/docs/patterns/" title="Overview">
+    <wa-icon name="block-brick" variant="regular" aria-hidden="true"></wa-icon>
+    Patterns
+  </a>
+  {{ proBadge({ description: "Patterns require access to Web Awesome Pro" }) }}
+</h2>
 
 <!-- Theming -->
 <h2 class="wa-cluster wa-gap-xs">
@@ -524,24 +322,22 @@
 </ul>
 
 <!-- Design tokens -->
-<wa-details appearance="outlined">
-  <h2 slot="summary">
-    <a class="wa-cluster wa-gap-xs" href="/docs/tokens/" title="Overview">
-      <wa-icon name="coin-front" variant="regular" aria-hidden="true"></wa-icon>
-      Design Tokens
-    </a>
-  </h2>
-  <ul>
-    <li><a href="/docs/tokens/borders/">Borders</a></li>
-    <li><a href="/docs/tokens/color/">Color</a></li>
-    <li><a href="/docs/tokens/focus/">Focus</a></li>
-    <li><a href="/docs/tokens/shadows/">Shadows</a></li>
-    <li><a href="/docs/tokens/space/">Space</a></li>
-    <li><a href="/docs/tokens/transitions/">Transitions</a></li>
-    <li><a href="/docs/tokens/typography/">Typography</a></li>
-    <li><a href="/docs/tokens/component-groups/">Component Groups</a></li>
-  </ul>
-</wa-details>
+<h2 class="wa-cluster wa-gap-xs">
+  <a class="wa-cluster wa-gap-xs" href="/docs/tokens/" title="Overview">
+    <wa-icon name="coin-front" variant="regular" aria-hidden="true"></wa-icon>
+    Design Tokens
+  </a>
+</h2>
+<ul>
+  <li><a href="/docs/tokens/borders/">Borders</a></li>
+  <li><a href="/docs/tokens/color/">Color</a></li>
+  <li><a href="/docs/tokens/focus/">Focus</a></li>
+  <li><a href="/docs/tokens/shadows/">Shadows</a></li>
+  <li><a href="/docs/tokens/space/">Space</a></li>
+  <li><a href="/docs/tokens/transitions/">Transitions</a></li>
+  <li><a href="/docs/tokens/typography/">Typography</a></li>
+  <li><a href="/docs/tokens/component-groups/">Component Groups</a></li>
+</ul>
 
 {# Policies #}
 <h2 class="wa-cluster wa-gap-xs">
