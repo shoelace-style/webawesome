@@ -418,7 +418,7 @@ Create progress indicators with `<progress>`. Progress indicators closely match 
 
 ## Forms
 
-Native styles use [form control design tokens](/docs/tokens/components/#form-controls) to style form elements like buttons and inputs. Form elements additionally inherit `font-family` from the `<body>` element.
+Native styles use [form control design tokens](/docs/tokens/component-groups/#form-controls) to style form elements like buttons and inputs. Form elements additionally inherit `font-family` from the `<body>` element.
 
 ### Buttons
 
