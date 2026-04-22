@@ -50,6 +50,7 @@ import styles from './dialog.styles.js';
  *
  * @cssproperty --spacing - The amount of space around and between the dialog's content.
  * @cssproperty --width - The preferred width of the dialog. Note that the dialog will shrink to accommodate smaller screens.
+ * @cssproperty [--backdrop-filter=none] - A filter to apply to the backdrop behind the dialog.
  * @cssproperty [--show-duration=200ms] - The animation duration when showing the dialog.
  * @cssproperty [--hide-duration=200ms] - The animation duration when hiding the dialog.
  */
