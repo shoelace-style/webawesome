@@ -29,6 +29,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed a bug in `<wa-dropdown-item>` where items with an open submenu did not show a selection state
 - Fixed a bug in `<wa-input>` and `<wa-number-input>` where invalid values for `number`, `date`, `time`, and `datetime-local` types were preserved instead of being sanitized to an empty string like the native input
 - Fixed a bug where `<wa-dropdown-item>` was erroneously listed as experimental
+- Fixed `<pre>` border radius in Native Styles so it correctly uses the `--wa-panel-border-radius` token like similar elements
 - Refactored component tests across core and pro packages to follow a consistent structure with improved coverage
 - Upgraded the following components from _experimental_ to _stable_: `<wa-bar-chart>`, `<wa-bubble-chart>`, `<wa-chart>`, `<wa-combobox>`, `<wa-doughnut-chart>`, `<wa-file-input>`, `<wa-line-chart>`, `<wa-number-input>`, `<wa-pie-chart>`, `<wa-polar-area-chart>`, `<wa-radar-chart>`, `<wa-scatter-chart>`, `<wa-sparkline>`, `<wa-toast>`, and `<wa-toast-item>`
 - Updated `@shoelace-style/localize` to 3.2.2 to prevent Chrome translations from throwing errors [issue:2322]
