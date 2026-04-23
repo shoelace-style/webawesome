@@ -19,7 +19,7 @@ The CDN is the fastest way to get started with Web Awesome. Just copy and paste 
 <script type="module" src="{% cdnUrl 'webawesome.loader.js' %}"></script>
 ```
 
-Now you can [start using Web Awesome components](/docs/usage)! Here's a quick button you can use to test things out:
+Now you can [use any Web Awesome component](/docs/components)! Try putting a button on the page:
 
 ```html
 <wa-button variant="brand">Click me!</wa-button>
