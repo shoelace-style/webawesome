@@ -14,6 +14,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 <small>TBD</small>
 
+- Added a `:::pro` callout variant in the docs that renders with the same orange/white styling as the Pro badge
 - Added `xs` and `xl` sizes for all form controls and sized components
   - Deprecated `small`, `medium`, and `large` in favor of `s`, `m`, and `l` (old values will continue to work in 3.x)
 - Added `beforeinput` event to `<wa-number-input>` stepper buttons so value changes can be cancelled with `event.preventDefault()`

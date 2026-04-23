@@ -25,8 +25,8 @@ Now you can [use any Web Awesome component](/docs/components)! Try putting a but
 <wa-button variant="brand">Click me!</wa-button>
 ```
 
-:::info
-Web Awesome Pro users: get installation instructions from <a href="/workspaces">your&nbsp;workspaces</a> instead.
+:::pro
+Pro users: get installation instructions from <a href="/workspaces">your&nbsp;workspaces</a> instead.
 :::
 
 ## Installing with npm
@@ -50,8 +50,8 @@ import '@awesome.me/webawesome/dist/components/input/input.js';
 
 Once a component has been imported, you can use it in your HTML normally. Components are cherry picked to ensure you're getting the smallest possible bundle. You can find each component import in the "Importing" section of its documentation.
 
-:::info
-Web Awesome Pro users: get installation instructions from <a href="/workspaces">your&nbsp;workspaces</a> instead.
+:::pro
+Pro users: get installation instructions from <a href="/workspaces">your&nbsp;workspaces</a> instead.
 :::
 
 ## Get the Download (Advanced)

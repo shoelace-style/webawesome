@@ -431,6 +431,17 @@
     }
   }
 
+  /* pro callout */
+  wa-callout.pro {
+    background-color: color-mix(in oklab, var(--wa-brand-orange) 12%, var(--wa-color-surface-default));
+    border-color: color-mix(in oklab, var(--wa-brand-orange) 30%, var(--wa-color-surface-default));
+    color: var(--wa-color-text-normal);
+
+    &::part(icon) {
+      color: var(--wa-brand-orange);
+    }
+  }
+
   /* free badge */
   wa-badge.free {
     + wa-tooltip {

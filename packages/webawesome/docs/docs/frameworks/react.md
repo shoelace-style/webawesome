@@ -26,8 +26,8 @@ React 19+ [supports custom elements](https://react.dev/blog/2024/04/25/react-19#
 
 If you're using React 18 or below, skip to the [legacy React wrappers](#legacy-react-wrappers-react-18-and-below) section.
 
-:::info
-Web Awesome Pro users: get installation instructions from <a href="/workspaces">your&nbsp;workspaces</a> instead.
+:::pro
+Pro users: get installation instructions from <a href="/workspaces">your&nbsp;workspaces</a> instead.
 :::
 
 ## TypeScript

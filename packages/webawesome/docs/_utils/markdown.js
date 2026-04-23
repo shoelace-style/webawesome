@@ -37,6 +37,18 @@ markdown.use(markdownItMark);
   });
 });
 
+markdown.use(markdownItContainer, 'pro', {
+  render: function (tokens, idx) {
+    if (tokens[idx].nesting === 1) {
+      return `
+        <wa-callout class="pro">
+          <wa-icon slot="icon" name="star-circle"></wa-icon>
+      `;
+    }
+    return '</wa-callout>\n';
+  },
+});
+
 markdown.use(markdownItContainer, 'aside', {
   render: function (tokens, idx) {
     if (tokens[idx].nesting === 1) {
