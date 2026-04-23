@@ -255,6 +255,9 @@ wa-card .page-name {
     wa-card {
       --spacing: var(--wa-space-m);
       block-size: 100%;
+    }
+
+    wa-card:defined {
       transition:
         border-color var(--wa-transition-normal),
         box-shadow var(--wa-transition-normal);
