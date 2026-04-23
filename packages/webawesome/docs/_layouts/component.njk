@@ -7,11 +7,11 @@
 {% block beforeContent %}
   <div class="component-info">
     <code class="component-tag">&lt;{{ component.tagName }}&gt;</code>
-    <wa-badge variant="neutral">Since {{ component.since }}</wa-badge>
     {% if component.status %}
       <wa-badge
         {% if component.status == 'stable' %}variant="brand"{% endif %}
         {% if component.status == 'experimental' %}variant="warning" appearance="filled"{% endif %}
+        pill
       >
         {% if component.status == 'stable' %}
           <wa-icon name="check" slot="start"></wa-icon>
@@ -22,13 +22,16 @@
         {{ component.status | capitalize }}
       </wa-badge>
     {% endif %}
+    <wa-badge variant="neutral" appearance="filled" pill>Since {{ component.since }}</wa-badge>
     {% if isProComponent %}
-      {{ proBadge({ description: (component.tagName | stripPrefix) | capitalize ~ " requires access to Web Awesome Pro" }) }}
+      {{ proBadge({ description: "Included with Web Awesome Pro" }) }}
     {% endif %}
   </div>
+
   <p class="component-summary">
     {{ component.summary | inlineMarkdown | safe }}
   </p>
+
   {% if isProComponent %}
     {% include "pro-component-notice.njk" ignore missing %}
   {% endif %}
