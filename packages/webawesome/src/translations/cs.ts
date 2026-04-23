@@ -7,6 +7,7 @@ const translation: Translation = {
   $dir: 'ltr',
 
   carousel: 'Karusel',
+  captions: 'Titulky',
   clearEntry: 'Smazat položku',
   createOption: value => `Vytvořit "${value}"`,
   close: 'Zavřít',
@@ -17,11 +18,16 @@ const translation: Translation = {
   dropFileHere: 'Drop file here or click to browse',
   dropFilesHere: 'Drop files here or click to browse',
   error: 'Chyba',
+  enterFullscreen: 'Přejít na celou obrazovku',
+  exitFullscreen: 'Ukončit celou obrazovku',
   goToSlide: (slide, count) => `Přejít na slide ${slide} z ${count}`,
   hidePassword: 'Skrýt heslo',
   increment: 'Zvýšit',
   loading: 'Nahrává se',
+  moreOptions: 'Další možnosti',
+  mute: 'Ztlumit',
   nextSlide: 'Další slide',
+  nextVideo: 'Další video',
   numCharacters: num => {
     if (num === 1) return '1 znak';
     if (num >= 2 && num <= 4) return `${num} znaky`;
@@ -37,9 +43,15 @@ const translation: Translation = {
     if (num === 1) return 'Je vybrána jedna možnost';
     return `Počet vybraných možností: ${num}`;
   },
+  pause: 'Pozastavit',
   pauseAnimation: 'Pozastavit animaci',
+  pictureInPicture: 'Obraz v obraze',
+  play: 'Přehrát',
+  playbackSpeed: 'Rychlost přehrávání',
+  playlist: 'Playlist',
   playAnimation: 'Přehrát animaci',
   previousSlide: 'Předchozí slide',
+  previousVideo: 'Předchozí video',
   progress: 'Průběh',
   remove: 'Odstranit',
   resize: 'Změnit velikost',
@@ -50,6 +62,12 @@ const translation: Translation = {
   showPassword: 'Zobrazit heslo',
   slideNum: slide => `Slide ${slide}`,
   toggleColorFormat: 'Přepnout formát barvy',
+  seek: 'Přejít',
+  seekProgress: (current, duration) => `${current} z ${duration}`,
+  currentlyPlaying: 'právě se přehrává',
+  unmute: 'Zapnout zvuk',
+  videoPlayer: 'Přehrávač videa',
+  volume: 'Hlasitost',
   zoomIn: 'Přiblížit',
   zoomOut: 'Oddálit',
 };

@@ -7,6 +7,7 @@ const translation: Translation = {
   $dir: 'ltr',
 
   carousel: 'Carrousel',
+  captions: 'Ondertiteling',
   clearEntry: 'Invoer wissen',
   createOption: value => `"${value}" aanmaken`,
   close: 'Sluiten',
@@ -17,11 +18,16 @@ const translation: Translation = {
   dropFileHere: 'Drop file here or click to browse',
   dropFilesHere: 'Drop files here or click to browse',
   error: 'Fout',
+  enterFullscreen: 'Volledig scherm openen',
+  exitFullscreen: 'Volledig scherm sluiten',
   goToSlide: (slide, count) => `Ga naar slide ${slide} van ${count}`,
   hidePassword: 'Verberg wachtwoord',
   increment: 'Verhogen',
   loading: 'Bezig met laden',
+  moreOptions: 'Meer opties',
+  mute: 'Dempen',
   nextSlide: 'Volgende dia',
+  nextVideo: 'Volgende video',
   numCharacters: num => {
     if (num === 1) return '1 teken';
     return `${num} tekens`;
@@ -35,9 +41,15 @@ const translation: Translation = {
     if (num === 1) return '1 optie geselecteerd';
     return `${num} opties geselecteerd`;
   },
+  pause: 'Pauzeren',
   pauseAnimation: 'Animatie pauzeren',
+  pictureInPicture: 'Beeld in beeld',
+  play: 'Afspelen',
+  playbackSpeed: 'Afspeelsnelheid',
+  playlist: 'Afspeellijst',
   playAnimation: 'Animatie afspelen',
   previousSlide: 'Vorige dia',
+  previousVideo: 'Vorige video',
   progress: 'Voortgang',
   remove: 'Verwijderen',
   resize: 'Formaat wijzigen',
@@ -48,6 +60,12 @@ const translation: Translation = {
   showPassword: 'Laat wachtwoord zien',
   slideNum: slide => `Schuif ${slide}`,
   toggleColorFormat: 'Wissel kleurnotatie',
+  seek: 'Zoeken',
+  seekProgress: (current, duration) => `${current} van ${duration}`,
+  currentlyPlaying: 'wordt nu afgespeeld',
+  unmute: 'Dempen opheffen',
+  videoPlayer: 'Videospeler',
+  volume: 'Volume',
   zoomIn: 'Inzoomen',
   zoomOut: 'Uitzoomen',
 };
