@@ -11,6 +11,7 @@ import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
 import formControlStyles from '../../styles/component/form-control.styles.js';
 import sizeStyles from '../../styles/component/size.styles.js';
+import { LocalizeController } from '../../utilities/localize.js';
 import styles from './switch.styles.js';
 
 /**
@@ -48,6 +49,8 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
   }
 
   private readonly hasSlotController = new HasSlotController(this, 'hint');
+
+  private readonly localize = new LocalizeController(this);
 
   @query('input[type="checkbox"]') input: HTMLInputElement;
 
@@ -121,9 +124,10 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
   }
 
   private handleKeyDown(event: KeyboardEvent) {
+    const isRtl = this.localize.dir() === 'rtl';
     if (event.key === 'ArrowLeft') {
       event.preventDefault();
-      this.checked = false;
+      this.checked = isRtl;
       this.updateComplete.then(() => {
         this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
         this.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
@@ -132,7 +136,7 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
 
     if (event.key === 'ArrowRight') {
       event.preventDefault();
-      this.checked = true;
+      this.checked = !isRtl;
 
       this.updateComplete.then(() => {
         this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
