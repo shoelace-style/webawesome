@@ -8,18 +8,9 @@ layout: page-outline
 
 To add Web Awesome to your React app, install the package from npm.
 
-<div class="installation-instructions">
-
 ```bash
 npm install @awesome.me/webawesome
 ```
-
-<small>
-  <strong>Pro users:</strong> install <code>@awesome.me/webawesome-pro</code> instead. 
-  See <a href="/workspaces">your workspaces</a> for details.
-</small>
-</div>
-
 Next, include the Web Awesome theme in your app, import the components you need, and start using them!
 
 ```jsx
@@ -33,8 +24,10 @@ export default function App() {
 
 React 19+ [supports custom elements](https://react.dev/blog/2024/04/25/react-19#support-for-custom-elements) natively, so you can use Web Awesome components just like any other HTML element. No wrappers needed!
 
-:::info
 If you're using React 18 or below, skip to the [legacy React wrappers](#legacy-react-wrappers-react-18-and-below) section.
+
+:::info
+Web Awesome Pro users: get installation instructions from <a href="/workspaces">your&nbsp;workspaces</a> instead.
 :::
 
 ## TypeScript

@@ -14,18 +14,10 @@ You can load Web Awesome via CDN or by installing it locally. If you’re using 
 
 The CDN is the fastest way to get started with Web Awesome. Just copy and paste the following into the `<head>` of your HTML to get started!
 
-<div class="installation-instructions">
-
 ```html
 <link rel="stylesheet" href="{% cdnUrl 'styles/webawesome.css' %}">
 <script type="module" src="{% cdnUrl 'webawesome.loader.js' %}"></script>
 ```
-
-<small>
-  <strong>Pro users:</strong> get Web Awesome Pro installation instructions directly from 
-  <a href="/workspaces">your workspaces</a>.
-</small>
-</div>
 
 Now you can [start using Web Awesome components](/docs/usage)! Here's a quick button you can use to test things out:
 
@@ -33,23 +25,17 @@ Now you can [start using Web Awesome components](/docs/usage)! Here's a quick bu
 <wa-button variant="brand">Click me!</wa-button>
 ```
 
----
+:::info
+Web Awesome Pro users: get installation instructions from <a href="/workspaces">your&nbsp;workspaces</a> instead.
+:::
 
 ## Installing with npm
 
 Start by installing the Web Awesome package:
 
-<div class="installation-instructions">
-
 ```bash
 npm install @awesome.me/webawesome
 ```
-
-<small>
-  <strong>Pro users:</strong> install <code>@awesome.me/webawesome-pro</code> instead. 
-  See <a href="/workspaces">your workspaces</a> for details.
-</small>
-</div>
 
 Then, in your JavaScript files, import the default theme and any components you want to use.
 
@@ -64,7 +50,9 @@ import '@awesome.me/webawesome/dist/components/input/input.js';
 
 Once a component has been imported, you can use it in your HTML normally. Components are cherry picked to ensure you're getting the smallest possible bundle. You can find each component import in the "Importing" section of its documentation.
 
----
+:::info
+Web Awesome Pro users: get installation instructions from <a href="/workspaces">your&nbsp;workspaces</a> instead.
+:::
 
 ## Get the Download (Advanced)
 
