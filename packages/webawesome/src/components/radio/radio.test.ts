@@ -65,8 +65,8 @@ describe('<wa-radio>', () => {
         });
 
         it('should reflect size to attribute', async () => {
-          const el = await fixture<WaRadio>(html` <wa-radio value="1" size="large">Option</wa-radio> `);
-          expect(el.getAttribute('size')).to.equal('large');
+          const el = await fixture<WaRadio>(html` <wa-radio value="1" size="l">Option</wa-radio> `);
+          expect(el.getAttribute('size')).to.equal('l');
         });
 
         it('should not get checked when disabled', async () => {
