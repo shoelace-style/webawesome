@@ -11,9 +11,7 @@ use-cases:
   - tab focus
 ---
 
-{% markdown %}
 Focus tokens create a consistent, recognizable outline that lets keyboard users track where they are on the page. Together with [`--wa-color-focus`](?active_tab=color), these tokens assemble the focus ring applied to all interactive Web Awesome components.
-{% endmarkdown %}
 
 <wa-scroller>
   <table class="token-table wa-hover-rows">
@@ -41,7 +39,6 @@ Focus tokens create a consistent, recognizable outline that lets keyboard users 
   </table>
 </wa-scroller>
 
-{% markdown %}
 See your theme's focus ring by navigating this form with your keyboard:
 
 ```html {.example}
@@ -53,4 +50,3 @@ See your theme's focus ring by navigating this form with your keyboard:
   <wa-button variant="brand">Button</wa-button>
 </form>
 ```
-{% endmarkdown %}

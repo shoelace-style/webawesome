@@ -11,11 +11,9 @@ use-cases:
   - overlay shadow
 ---
 
-{% markdown %}
 Shadow tokens indicate elevation and, often, interactivity. Web Awesome provides three size-based shadow shorthands built from modular offset, blur, and spread tokens. Together with [`--wa-color-shadow`](?active_tab=color), these tokens create realistic drop shadows.
 
 Larger shadows have greater offset and blur values to suggest greater distance from the surface below. Any shadow can also be used as an inner shadow with the `inset` keyword, e.g. `box-shadow: inset var(--wa-shadow-s)`.
-{% endmarkdown %}
 
 <wa-scroller>
   <table class="token-table wa-hover-rows">
@@ -42,11 +40,9 @@ Larger shadows have greater offset and blur values to suggest greater distance f
   </table>
 </wa-scroller>
 
-{% markdown %}
 ## Horizontal Offset (X)
 
 Offset-x tokens control a shadow's horizontal position relative to the element. Use `--wa-shadow-offset-x-scale` to change all offset-x tokens at once.
-{% endmarkdown %}
 
 <wa-scroller>
   <table class="token-table wa-hover-rows">
@@ -74,11 +70,9 @@ Offset-x tokens control a shadow's horizontal position relative to the element. 
   </table>
 </wa-scroller>
 
-{% markdown %}
 ## Vertical Offset (Y)
 
 Offset-y tokens control a shadow's vertical position relative to the element. Use `--wa-shadow-offset-y-scale` to change all offset-y tokens at once.
-{% endmarkdown %}
 
 <wa-scroller>
   <table class="token-table wa-hover-rows">
@@ -106,11 +100,9 @@ Offset-y tokens control a shadow's vertical position relative to the element. Us
   </table>
 </wa-scroller>
 
-{% markdown %}
 ## Blur
 
 Blur tokens control how soft or sharp the shadow edge is. Use `--wa-shadow-blur-scale` to change all blur tokens at once.
-{% endmarkdown %}
 
 <wa-scroller>
   <table class="token-table wa-hover-rows">
@@ -138,11 +130,9 @@ Blur tokens control how soft or sharp the shadow edge is. Use `--wa-shadow-blur-
   </table>
 </wa-scroller>
 
-{% markdown %}
 ## Spread
 
 Spread tokens expand or contract the shadow shape. A negative spread (the default) contracts the shadow inward for a more natural look. Use `--wa-shadow-spread-scale` to change all spread tokens at once.
-{% endmarkdown %}
 
 <wa-scroller>
   <table class="token-table wa-hover-rows">

@@ -40,11 +40,9 @@ use-cases:
   }
 </style>
 
-{% markdown %}
 Space tokens create predictable rhythm and meaningful proximity. They use `rem` units so that spacing scales proportionately with the root font size.
 
 Use `--wa-space-scale` to increase or decrease all spacing at once.
-{% endmarkdown %}
 
 <wa-scroller>
   <table class="token-table wa-hover-rows">

@@ -34,7 +34,6 @@ use-cases:
   }
 </style>
 
-{% markdown %}
 Transition tokens make interactions feel more lively and help users understand the relationship between their action and its outcome.
 
 Mouse over or focus the preview swatches below to see each token in action.
@@ -44,7 +43,6 @@ Mouse over or focus the preview swatches below to see each token in action.
 Web Awesome uses different transition durations to make it easy to track a component's state while minimizing sluggish or distracting movement.
 
 Properties that change between frequent, incidental states (like hover) typically use faster durations than properties that change between intentional states (like opening a menu or checking a box).
-{% endmarkdown %}
 
 <wa-scroller>
   <table class="token-table wa-hover-rows">
@@ -71,11 +69,9 @@ Properties that change between frequent, incidental states (like hover) typicall
   </table>
 </wa-scroller>
 
-{% markdown %}
 ## Easing
 
 Easing controls the standard `transition-timing-function` used for transitions throughout Web Awesome.
-{% endmarkdown %}
 
 <wa-scroller>
   <table class="token-table wa-hover-rows">

@@ -11,7 +11,6 @@ use-cases:
   - token sets
 ---
 
-{% markdown %}
 Component tokens let you style groups of related components at once. Rather than overriding individual component styles, these tokens propagate the style across every component that shares a given visual quality.
 
 ## Form Controls
@@ -19,7 +18,6 @@ Component tokens let you style groups of related components at once. Rather than
 Components such as [input](/docs/components/input), [select](/docs/components/select), [textarea](/docs/components/textarea), [checkbox](/docs/components/checkbox), and others share styles defined with the `--wa-form-control-*` prefix.
 
 Not every form control uses all of these custom properties. For example, [radio](/docs/components/radio) defines its own height and border radius to achieve its familiar shape but shares many other styles with other components for a cohesive look and feel. Similarly, [button](/docs/components/button) defines many of its own styles but matches the height and border width of other form controls.
-{% endmarkdown %}
 
 <wa-scroller>
   <table class="token-table wa-hover-rows">
@@ -123,7 +121,6 @@ Not every form control uses all of these custom properties. For example, [radio]
   </table>
 </wa-scroller>
 
-{% markdown %}
 ```html {.example}
 <form class="wa-stack">
   <wa-input label="Input" placeholder="Placeholder"></wa-input>
@@ -148,7 +145,6 @@ Not every form control uses all of these custom properties. For example, [radio]
 ## Panels
 
 Panel tokens apply to components with larger, contained surface areas, like [callout](/docs/components/callout), [card](/docs/components/card), [details](/docs/components/details), and [dialog](/docs/components/dialog).
-{% endmarkdown %}
 
 <wa-scroller>
   <table class="token-table wa-hover-rows">
@@ -172,7 +168,6 @@ Panel tokens apply to components with larger, contained surface areas, like [cal
   </table>
 </wa-scroller>
 
-{% markdown %}
 ```html {.example}
 <div class="wa-stack">
   <wa-callout>
@@ -189,7 +184,6 @@ Panel tokens apply to components with larger, contained surface areas, like [cal
 ## Tooltips
 
 Tooltip tokens apply to the [tooltip](/docs/components/tooltip) component and built-in tooltips in other components like [slider](/docs/components/slider) and [copy button](/docs/components/copy-button).
-{% endmarkdown %}
 
 <wa-scroller>
   <table class="token-table wa-hover-rows">
@@ -237,11 +231,9 @@ Tooltip tokens apply to the [tooltip](/docs/components/tooltip) component and bu
   </table>
 </wa-scroller>
 
-{% markdown %}
 ```html {.example}
 <wa-button id="tooltip-demo" appearance="plain">
   <wa-icon label="Target" name="bullseye"></wa-icon>
 </wa-button>
 <wa-tooltip for="tooltip-demo" open trigger="manual">This is a tooltip</wa-tooltip>
 ```
-{% endmarkdown %}

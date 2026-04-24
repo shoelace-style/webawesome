@@ -11,13 +11,11 @@ use-cases:
   - border color
 ---
 
-{% markdown %}
 Border tokens define the edges and corners of Web Awesome components. They use `rem` units so they scale with root font size. You can adjust individual tokens or use scale multipliers to change all widths or radii at once.
 
 ## Border Style
 
 A single style token controls the line type used for all component borders throughout the library.
-{% endmarkdown %}
 
 <wa-scroller>
   <table class="token-table wa-hover-rows">
@@ -34,11 +32,9 @@ A single style token controls the line type used for all component borders throu
   </table>
 </wa-scroller>
 
-{% markdown %}
 ## Border Width
 
 Border width tokens use `rem` units and are scaled by `--wa-border-width-scale`. Values below `1` make all borders thinner; values above `1` make them thicker.
-{% endmarkdown %}
 
 <wa-scroller>
   <table class="token-table wa-hover-rows">
@@ -70,11 +66,9 @@ Border width tokens use `rem` units and are scaled by `--wa-border-width-scale`.
   </table>
 </wa-scroller>
 
-{% markdown %}
 ## Border Radius
 
 Border radius tokens control the corner rounding of components. Size-based tokens use `rem` units and scale with `--wa-border-radius-scale`. Values below `1` make corners sharper; values above `1` make them rounder. Shape tokens provide fixed shapes regardless of the scale.
-{% endmarkdown %}
 
 <wa-scroller>
   <table class="token-table wa-hover-rows">
