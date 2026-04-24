@@ -103,6 +103,18 @@
       {% endblock %}
 
       {% block header %}
+      {% if hasBreadcrumbs %}
+      {% set breadcrumbParentUrl = page.url | replace('/' + page.fileSlug + '/', '/') %}
+      {% set breadcrumbParentTitle = breadcrumbParentUrl %}
+      {% for item in collections.all %}
+        {% if item.url == breadcrumbParentUrl %}{% set breadcrumbParentTitle = item.data.title %}{% endif %}
+      {% endfor %}
+      <wa-breadcrumb class="docs-subpage-crumbs">
+        <wa-icon slot="separator" name="angle-right" variant="regular"></wa-icon>
+        <wa-breadcrumb-item href="{{ breadcrumbParentUrl }}">{{ breadcrumbParentTitle }}</wa-breadcrumb-item>
+        <wa-breadcrumb-item>{{ title }}</wa-breadcrumb-item>
+      </wa-breadcrumb>
+      {% endif %}
       {% if hasGeneratedTitle %}
       <h1 class="title">{{ title }}</h1>
       {% endif %}

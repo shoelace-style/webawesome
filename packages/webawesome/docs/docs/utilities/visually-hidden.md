@@ -13,12 +13,6 @@ use-cases:
   - assistive text
 ---
 
-<wa-breadcrumb class="docs-subpage-crumbs">
-  <wa-icon slot="separator" name="angle-right" variant="regular"></wa-icon>
-  <wa-breadcrumb-item href="/docs/utilities">CSS Utilities</wa-breadcrumb-item>
-  <wa-breadcrumb-item>{{ title }}</wa-breadcrumb-item>
-</wa-breadcrumb>
-
 Add the `wa-visually-hidden` class to any element to remove it from the page visually while keeping it available to screen readers and other assistive technologies. That's what you want for skip links, invisible labels on icon-only buttons, and any text that describes something a sighted user already understands from context.
 
 > "There are real world situations where visually hiding content may be appropriate, while the content should remain available to assistive technologies, such as screen readers. For instance, hiding a search field's label as a common magnifying glass icon is used in its stead."

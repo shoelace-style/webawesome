@@ -2,6 +2,8 @@
 title: Design Tokens
 description: These custom properties thread through all of Web Awesome's components, giving things a consistent look and feel.
 layout: docs
+hasBreadcrumbs: false
+hasOutline: false
 override:tags: []
 ---
 
@@ -11,7 +13,7 @@ override:tags: []
 {% endmarkdown %}
 </p>
 
-<div class="search-list modern-card-list">
+<div class="modern-card-list">
   <section class="search-list-grid">
     {% for page in collections.tokens | sort(false, false, 'data.title') %}
       <a href="{{ page.url }}">

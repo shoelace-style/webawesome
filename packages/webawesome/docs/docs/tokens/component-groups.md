@@ -11,12 +11,6 @@ use-cases:
   - token sets
 ---
 
-<wa-breadcrumb class="docs-subpage-crumbs">
-  <wa-icon slot="separator" name="angle-right" variant="regular"></wa-icon>
-  <wa-breadcrumb-item href="/docs/tokens">Design Tokens</wa-breadcrumb-item>
-  <wa-breadcrumb-item>{{ title }}</wa-breadcrumb-item>
-</wa-breadcrumb>
-
 For components that share similar qualities, Web Awesome includes custom properties to change the appearance of these related components all at once.
 
 ## Form Controls

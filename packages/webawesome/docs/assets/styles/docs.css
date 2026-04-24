@@ -97,6 +97,11 @@ wa-page > main {
   margin-inline: auto;
 }
 
+/* increase max-width for index pages */
+wa-page > main:has(.modern-card-list) {
+  max-width: var(--content-width-m);
+}
+
 h1.title {
   wa-badge {
     vertical-align: middle;

@@ -13,12 +13,6 @@ use-cases:
   - center vertically
 ---
 
-<wa-breadcrumb class="docs-subpage-crumbs">
-  <wa-icon slot="separator" name="angle-right" variant="regular"></wa-icon>
-  <wa-breadcrumb-item href="/docs/utilities">CSS Utilities</wa-breadcrumb-item>
-  <wa-breadcrumb-item>{{ title }}</wa-breadcrumb-item>
-</wa-breadcrumb>
-
 <style>
   .preview-wrapper {
     border: var(--layout-example-border);
@@ -57,7 +51,6 @@ When you need a flex or grid item to deviate from the `align-items` property of 
 | `wa-align-self-end`      | `flex-end`         | <div class="wa-cluster wa-gap-2xs preview-wrapper"><div class="preview-block de-emphasize"></div><div class="preview-block wa-align-self-end"></div><div class="preview-block de-emphasize"></div></div>      |
 | `wa-align-self-start`    | `flex-start`       | <div class="wa-cluster wa-gap-2xs preview-wrapper"><div class="preview-block de-emphasize"></div><div class="preview-block wa-align-self-start"></div><div class="preview-block de-emphasize"></div></div>    |
 | `wa-align-self-stretch`  | `stretch`          | <div class="wa-cluster wa-gap-2xs preview-wrapper"><div class="preview-block de-emphasize"></div><div class="preview-block wa-align-self-stretch"></div><div class="preview-block de-emphasize"></div></div>  |
-
 
 ## What's the Cross Axis?
 

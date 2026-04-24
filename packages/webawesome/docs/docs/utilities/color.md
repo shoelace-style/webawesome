@@ -18,12 +18,6 @@ use-cases:
   - success color
 ---
 
-<wa-breadcrumb class="docs-subpage-crumbs">
-  <wa-icon slot="separator" name="angle-right" variant="regular"></wa-icon>
-  <wa-breadcrumb-item href="/docs/utilities">CSS Utilities</wa-breadcrumb-item>
-  <wa-breadcrumb-item>{{ title }}</wa-breadcrumb-item>
-</wa-breadcrumb>
-
 Several Web Awesome components (like [`<wa-badge>`](/docs/components/badge), [`<wa-button>`](/docs/components/button), [`<wa-button-group>`](/docs/components/button-group), [`<wa-callout>`](/docs/components/callout), and [`<wa-tag>`](/docs/components/tag)) accept a `variant` attribute to switch between your theme's brand, neutral, success, warning, and danger colors. The color variant utility classes bring that same expressiveness to any element: toggle a brand-colored alert, a warning-styled panel, or a success-tinted badge on your own markup without writing variant-specific CSS for each one.
 
 ## Variant Classes

@@ -13,12 +13,6 @@ use-cases:
   - layout split
 ---
 
-<wa-breadcrumb class="docs-subpage-crumbs">
-  <wa-icon slot="separator" name="angle-right" variant="regular"></wa-icon>
-  <wa-breadcrumb-item href="/docs/utilities">CSS Utilities</wa-breadcrumb-item>
-  <wa-breadcrumb-item>{{ title }}</wa-breadcrumb-item>
-</wa-breadcrumb>
-
 <style>
   :is(.wa-flank, .wa-grid, .wa-stack) > [class*='wa-split']:has(div:empty) {
     border: var(--layout-example-border);

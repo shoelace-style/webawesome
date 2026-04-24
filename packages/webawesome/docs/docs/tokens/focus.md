@@ -12,14 +12,7 @@ use-cases:
 hasOutline: true
 ---
 
-<wa-breadcrumb class="docs-subpage-crumbs">
-  <wa-icon slot="separator" name="angle-right" variant="regular"></wa-icon>
-  <wa-breadcrumb-item href="/docs/tokens">Design Tokens</wa-breadcrumb-item>
-  <wa-breadcrumb-item>{{ title }}</wa-breadcrumb-item>
-</wa-breadcrumb>
-
 A consistent focus ring helps with predictable keyboard navigation. Together with [`--wa-color-focus`](/docs/tokens/color/#interactions), these tokens create a uniform focus state for Web Awesome components.
-
 
 | Custom Property          |  Default Value                                                                |
 | ------------------------ | ----------------------------------------------------------------------------- |

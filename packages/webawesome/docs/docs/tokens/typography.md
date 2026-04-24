@@ -13,12 +13,6 @@ use-cases:
   - text tokens
 ---
 
-<wa-breadcrumb class="docs-subpage-crumbs">
-  <wa-icon slot="separator" name="angle-right" variant="regular"></wa-icon>
-  <wa-breadcrumb-item href="/docs/tokens">Design Tokens</wa-breadcrumb-item>
-  <wa-breadcrumb-item>{{ title }}</wa-breadcrumb-item>
-</wa-breadcrumb>
-
 ## Font Family
 
 Font families are assigned specific roles &mdash; like heading or code &mdash; to help keep text styles consistent and easy to customize. By default, these properties use system fonts and generic fallbacks to maximize performance.
@@ -93,7 +87,6 @@ In Web Awesome, we use `--wa-font-weight-action` for interactive text, such as b
 ## Line Height
 
 Line heights control the distance between lines of text and are unitless to scale proportionately with text size. For readability, `--wa-line-height-normal`, recommended for paragraph text, should be 1.5 or greater.
-
 
 | Custom Property              | Default Value | Preview                                                                                                                      |
 | ---------------------------- | ------------- | ----------------------------------------------------------------------------------------------------------------------------- |
