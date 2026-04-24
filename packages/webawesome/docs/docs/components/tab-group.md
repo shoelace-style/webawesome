@@ -1,6 +1,5 @@
 ---
 title: Tab Group
-description: Tab groups organize content into a container that shows one section at a time.
 layout: component
 category: Navigation
 synonyms:

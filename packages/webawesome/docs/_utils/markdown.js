@@ -24,18 +24,29 @@ markdown.use(markdownItMark);
 ['info', 'warning'].forEach(type => {
   markdown.use(markdownItContainer, type, {
     render: function (tokens, idx) {
-      const variant = type === 'warning' ? 'warning' : 'info';
-      const icon = type === 'warning' ? 'triangle-exclamation' : 'circle-info';
+      const variant = type === 'warning' ? 'warning' : 'brand';
+      const icon = type === 'warning' ? 'triangle-exclamation' : 'lightbulb';
       if (tokens[idx].nesting === 1) {
         return `
-          <div class="callout callout-${variant}">
-            <wa-icon class="callout-icon" name="${icon}"></wa-icon>
-            <div class="callout-content">
+          <wa-callout variant="${variant}">
+            <wa-icon slot="icon" name="${icon}" variant="regular"></wa-icon>
         `;
       }
-      return '</div></div>\n';
+      return '</wa-callout>\n';
     },
   });
+});
+
+markdown.use(markdownItContainer, 'pro', {
+  render: function (tokens, idx) {
+    if (tokens[idx].nesting === 1) {
+      return `
+        <wa-callout class="pro">
+          <wa-icon slot="icon" name="star-circle"></wa-icon>
+      `;
+    }
+    return '</wa-callout>\n';
+  },
 });
 
 markdown.use(markdownItContainer, 'aside', {

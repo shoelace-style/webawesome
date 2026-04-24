@@ -1,6 +1,5 @@
 ---
 title: Popover
-description: Popovers display interactive content when their anchor element is clicked.
 layout: component
 category: Utilities
 synonyms:

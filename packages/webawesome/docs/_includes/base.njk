@@ -18,8 +18,7 @@
   <script type="module" src="/assets/scripts/outline.js"></script>
   <script type="module" src="/assets/scripts/color-scheme.js"></script>
   <script type="module" src="/assets/scripts/theme.js"></script>
-  {% if hasSidebar %}
-  <script type="module" src="/assets/scripts/sidebar.js"></script>{% endif %}
+  <script type="module" src="/assets/scripts/install-tabs.js"></script>
 
   {% block head %}
   <link rel="stylesheet" href="/assets/styles/docs.css" />
@@ -30,6 +29,9 @@
     const value = localStorage.getItem('color-scheme') || 'auto';
     const isDark = value === 'dark' || (value === 'auto' && matchMedia('(prefers-color-scheme: dark)').matches);
     document.documentElement.classList.toggle('wa-dark', isDark);
+
+    // Detect platform for keyboard shortcut hints
+    document.documentElement.classList.toggle('is-mac', /Mac|iPhone|iPad/.test(navigator.platform));
   </script>
 </head>
 <body
@@ -101,6 +103,18 @@
       {% endblock %}
 
       {% block header %}
+      {% if hasBreadcrumbs %}
+      {% set breadcrumbParentUrl = page.url | replace('/' + page.fileSlug + '/', '/') %}
+      {% set breadcrumbParentTitle = breadcrumbParentUrl %}
+      {% for item in collections.all %}
+        {% if item.url == breadcrumbParentUrl %}{% set breadcrumbParentTitle = item.data.title %}{% endif %}
+      {% endfor %}
+      <wa-breadcrumb class="docs-subpage-crumbs">
+        <wa-icon slot="separator" name="angle-right" variant="regular"></wa-icon>
+        <wa-breadcrumb-item href="{{ breadcrumbParentUrl }}">{{ breadcrumbParentTitle }}</wa-breadcrumb-item>
+        <wa-breadcrumb-item>{{ title }}</wa-breadcrumb-item>
+      </wa-breadcrumb>
+      {% endif %}
       {% if hasGeneratedTitle %}
       <h1 class="title">{{ title }}</h1>
       {% endif %}

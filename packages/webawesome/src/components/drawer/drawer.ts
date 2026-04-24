@@ -17,7 +17,8 @@ import '../button/button.js';
 import styles from './drawer.styles.js';
 
 /**
- * @summary Drawers slide in from a container to expose additional options and information.
+ * @summary Drawers slide in from the edge of a container to expose additional options and information without
+ *  navigating away. Useful for navigation menus, filters, and secondary content.
  * @documentation https://webawesome.com/docs/components/drawer
  * @status stable
  * @since 2.0
@@ -51,6 +52,7 @@ import styles from './drawer.styles.js';
  * @cssproperty --spacing - The amount of space around and between the drawer's content.
  * @cssproperty --size - The preferred size of the drawer. This will be applied to the drawer's width or height
  *   depending on its `placement`. Note that the drawer will shrink to accommodate smaller screens.
+ * @cssproperty [--backdrop-filter=none] - A filter to apply to the backdrop behind the drawer.
  * @cssproperty [--show-duration=200ms] - The animation duration when showing the drawer.
  * @cssproperty [--hide-duration=200ms] - The animation duration when hiding the drawer.
  *

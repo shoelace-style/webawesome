@@ -31,7 +31,9 @@ use-cases:
   }
 </style>
 
-{{ description }}
+A cluster arranges its children inline with even spacing and wraps them onto a new line whenever the container runs out of room. Reach for it whenever you have a horizontal group of items of varying widths, like tag lists, button rows, inline metadata, or breadcrumb-style trails, and want the layout to stay tidy on every screen size without writing any media queries.
+
+By default, cluster children are centered vertically. Pair `wa-cluster` with a [`wa-gap-*`](/docs/utilities/gap) class to change the spacing and a [`wa-align-items-*`](/docs/utilities/align-items) class to change how items align on the cross axis.
 
 ```html {.example}
 <div class="wa-cluster">

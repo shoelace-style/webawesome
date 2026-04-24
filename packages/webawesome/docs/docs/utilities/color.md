@@ -18,15 +18,11 @@ use-cases:
   - success color
 ---
 
-Some Web Awesome components, like `<wa-button>`, allow you to change the color by using a `variant` attribute:
+Several Web Awesome components (like [`<wa-badge>`](/docs/components/badge), [`<wa-button>`](/docs/components/button), [`<wa-button-group>`](/docs/components/button-group), [`<wa-callout>`](/docs/components/callout), and [`<wa-tag>`](/docs/components/tag)) accept a `variant` attribute to switch between your theme's brand, neutral, success, warning, and danger colors. The color variant utility classes bring that same expressiveness to any element: toggle a brand-colored alert, a warning-styled panel, or a success-tinted badge on your own markup without writing variant-specific CSS for each one.
 
-- [`<wa-badge>`](/docs/components/badge)
-- [`<wa-button>`](/docs/components/button)
-- [`<wa-button-group>`](/docs/components/button-group)
-- [`<wa-callout>`](/docs/components/callout)
-- [`<wa-tag>`](/docs/components/tag)
+## Variant Classes
 
-You can create the same effect on any element by using the color variant utility classes:
+Add one of these classes to any element to apply a semantic color:
 
 - `.wa-brand`
 - `.wa-neutral`
@@ -34,13 +30,15 @@ You can create the same effect on any element by using the color variant utility
 - `.wa-warning`
 - `.wa-danger`
 
-Using these classes is a two-way handshake:
-they do not directly apply styles, but define generic color tokens modeled after our [Variant Colors](/docs/tokens/color/#semantic-variants) but _without_ the group identifier (`neutral`, `brand`, `success`, `warning`, `danger`), defaulting to `neutral`.
-This means that styles can be written to respond to variants by using e.g. `--wa-color-fill-loud` instead of e.g. `--wa-color-brand-fill-loud`,
-and all of our [native styles](/docs/utilities/native/) do so (where it made sense).
+## How Variants Work
 
-For example, assume we wanted to make a custom `.callout` class with color variants.
-This is all we need to do:
+The variant classes don't apply styles directly. Instead, each one points a generic set of color tokens (like `--wa-color-fill-loud` and `--wa-color-on-loud`) at the matching [semantic color](/docs/tokens/color/#semantic-colors) group (`--wa-color-brand-fill-loud`, and so on). That means your own CSS can be written once, using the group-less tokens, and automatically pick up whatever variant is applied. When no variant class is set, the tokens fall back to `neutral`.
+
+Web Awesome's [native styles](/docs/utilities/native/) use this pattern wherever it made sense, which is how a native `<button>` can pick up a `.wa-success` class and just work.
+
+## Example: Custom Class with Variants
+
+Here's a tiny `.callout` class that responds to every color variant without any extra selectors:
 
 ```html { .example }
 <p class="callout">This is a callout.</p>

@@ -22,6 +22,7 @@ export interface Translation extends DefaultTranslation {
   $dir: 'ltr' | 'rtl';
 
   carousel: string;
+  captions: string;
   clearEntry: string;
   close: string;
   createOption: (value: string) => string;
@@ -31,18 +32,29 @@ export interface Translation extends DefaultTranslation {
   dropFileHere: string;
   decrement: string;
   dropFilesHere: string;
+  enterFullscreen: string;
   error: string;
+  exitFullscreen: string;
   goToSlide: (slide: number, count: number) => string;
   hidePassword: string;
   increment: string;
   loading: string;
+  moreOptions: string;
+  mute: string;
   nextSlide: string;
+  nextVideo: string;
   numCharacters: (num: number) => string;
   numCharactersRemaining: (num: number) => string;
   numOptionsSelected: (num: number) => string;
+  pause: string;
   pauseAnimation: string;
+  pictureInPicture: string;
+  play: string;
   playAnimation: string;
+  playbackSpeed: string;
+  playlist: string;
   previousSlide: string;
+  previousVideo: string;
   progress: string;
   remove: string;
   resize: string;
@@ -53,6 +65,12 @@ export interface Translation extends DefaultTranslation {
   showPassword: string;
   slideNum: (slide: number) => string;
   toggleColorFormat: string;
+  seek: string;
+  seekProgress: (current: string, duration: string) => string;
+  currentlyPlaying: string;
+  unmute: string;
+  videoPlayer: string;
+  volume: string;
   zoomIn: string;
   zoomOut: string;
 }

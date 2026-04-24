@@ -7,6 +7,7 @@ const translation: Translation = {
   $dir: 'ltr',
 
   carousel: 'Карусель',
+  captions: 'Субтитри',
   clearEntry: 'Очистити поле',
   createOption: value => `Створити «${value}»`,
   close: 'Закрити',
@@ -17,11 +18,16 @@ const translation: Translation = {
   dropFileHere: 'Drop file here or click to browse',
   dropFilesHere: 'Drop files here or click to browse',
   error: 'Збій',
+  enterFullscreen: 'Перейти в повноекранний режим',
+  exitFullscreen: 'Вийти з повноекранного режиму',
   goToSlide: (slide, count) => `Перейти до слайда №${slide} з ${count}`,
   hidePassword: 'Приховати пароль',
   increment: 'Збільшити',
   loading: 'Завантаження',
+  moreOptions: 'Більше параметрів',
+  mute: 'Вимкнути звук',
   nextSlide: 'Наступний слайд',
+  nextVideo: 'Наступне відео',
   numCharacters: num => {
     const mod10 = num % 10;
     const mod100 = num % 100;
@@ -43,9 +49,15 @@ const translation: Translation = {
     if (n === 2 || n === 3 || n === 4) return `вибрано ${num} варіанти`;
     return `вибрано ${num} варіантів`;
   },
+  pause: 'Пауза',
   pauseAnimation: 'Призупинити анімацію',
+  pictureInPicture: 'Картинка в картинці',
+  play: 'Відтворити',
+  playbackSpeed: 'Швидкість відтворення',
+  playlist: 'Плейлист',
   playAnimation: 'Відтворити анімацію',
   previousSlide: 'Попередній слайд',
+  previousVideo: 'Попереднє відео',
   progress: 'Поступ',
   remove: 'Видалити',
   resize: 'Змінити розмір',
@@ -56,6 +68,12 @@ const translation: Translation = {
   showPassword: 'Показати пароль',
   slideNum: slide => `Слайд ${slide}`,
   toggleColorFormat: 'Переключити кольорову модель',
+  seek: 'Пошук',
+  seekProgress: (current, duration) => `${current} з ${duration}`,
+  currentlyPlaying: 'зараз відтворюється',
+  unmute: 'Увімкнути звук',
+  videoPlayer: 'Відеоплеєр',
+  volume: 'Гучність',
   zoomIn: 'Збільшити',
   zoomOut: 'Зменшити',
 };

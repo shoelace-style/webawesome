@@ -1,6 +1,5 @@
 ---
 title: Checkbox
-description: Checkboxes allow the user to toggle an option on or off.
 layout: component
 category: Form Controls
 synonyms:

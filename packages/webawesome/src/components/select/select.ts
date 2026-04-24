@@ -30,7 +30,8 @@ import '../tag/tag.js';
 import styles from './select.styles.js';
 
 /**
- * @summary Selects allow you to choose items from a menu of predefined options.
+ * @summary Selects let users choose one or more values from a dropdown list of predefined options. Use them in forms
+ *  when a fixed set of choices needs to fit in limited space.
  * @documentation https://webawesome.com/docs/components/select
  * @status stable
  * @since 2.0

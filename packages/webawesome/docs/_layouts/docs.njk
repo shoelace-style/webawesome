@@ -1,5 +1,5 @@
 {% set hasSidebar = true %}
-{% set hasOutline = true %}
+{% if hasOutline == undefined %}{% set hasOutline = true %}{% endif %}
 {% set section = 'docs' %}
 
 {% extends "../_includes/base.njk" %}

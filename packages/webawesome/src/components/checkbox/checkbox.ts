@@ -15,7 +15,8 @@ import '../icon/icon.js';
 import styles from './checkbox.styles.js';
 
 /**
- * @summary Checkboxes allow the user to toggle an option on or off.
+ * @summary Checkboxes let users toggle an option on or off, or select multiple items from a list. They also support an
+ *  indeterminate state for partial selections in groups.
  * @documentation https://webawesome.com/docs/components/checkbox
  * @status stable
  * @since 2.0

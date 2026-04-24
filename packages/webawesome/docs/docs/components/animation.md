@@ -1,6 +1,5 @@
 ---
 title: Animation
-description: Animate elements declaratively with nearly 100 baked-in presets, or roll your own with custom keyframes.
 layout: component
 category: Utilities
 synonyms:

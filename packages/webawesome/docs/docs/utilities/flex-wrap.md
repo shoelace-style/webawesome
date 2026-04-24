@@ -43,7 +43,9 @@ use-cases:
   }
 </style>
 
-Web Awesome includes classes to set the `flex-wrap` property of flex containers. Use them alongside other Web Awesome layout utilities, like [cluster](/docs/utilities/cluster) or [split](/docs/utilities/split), to specify how items in the container wrap.
+These utility classes control whether the items inside a flex container wrap onto a new line when they run out of horizontal space, and in which direction. Use them to force a [cluster](/docs/utilities/cluster) or [split](/docs/utilities/split) to stay on a single line regardless of width, or to flip the wrap direction so new rows appear above the previous one instead of below.
+
+## Flex Wrap Classes
 
 | Class Name             | `flex-wrap` Value | Preview                                                                                                                                                                           |
 | ---------------------- | ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

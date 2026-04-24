@@ -14,9 +14,11 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 <small>TBD</small>
 
+- Added a `:::pro` callout variant in the docs that renders with the same orange/white styling as the Pro badge
 - Added `xs` and `xl` sizes for all form controls and sized components
   - Deprecated `small`, `medium`, and `large` in favor of `s`, `m`, and `l` (old values will continue to work in 3.x)
 - Added `beforeinput` event to `<wa-number-input>` stepper buttons so value changes can be cancelled with `event.preventDefault()`
+- Added the `--backdrop-filter` CSS custom property to `<wa-dialog>` and `<wa-drawer>` for applying filters such as `blur()` to the backdrop
 - Fixed a bug in `<wa-checkbox>` where the `value` property returned `null` instead of `'on'` when unchecked
 - Fixed a bug in `<wa-rating>` where disabling via a `<fieldset>` did not properly restore the enabled state when the fieldset was re-enabled
 - Fixed a bug in `<wa-zoomable-frame>` where zoom control buttons did not properly update their disabled state after zoom levels were parsed
@@ -27,7 +29,10 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed a bug in `<wa-dropdown-item>` where disabled items in a submenu showed a pointer cursor instead of the default cursor [issue:2276]
 - Fixed a bug in `<wa-dropdown-item>` where items with an open submenu did not show a selection state
 - Fixed a bug in `<wa-input>` and `<wa-number-input>` where invalid values for `number`, `date`, `time`, and `datetime-local` types were preserved instead of being sanitized to an empty string like the native input
+- Fixed a bug where `<wa-dropdown-item>` was erroneously listed as experimental
+- Fixed `<pre>` border radius in Native Styles so it correctly uses the `--wa-panel-border-radius` token like similar elements
 - Refactored component tests across core and pro packages to follow a consistent structure with improved coverage
+- Upgraded the following components from _experimental_ to _stable_: `<wa-bar-chart>`, `<wa-bubble-chart>`, `<wa-chart>`, `<wa-combobox>`, `<wa-doughnut-chart>`, `<wa-file-input>`, `<wa-line-chart>`, `<wa-number-input>`, `<wa-pie-chart>`, `<wa-polar-area-chart>`, `<wa-radar-chart>`, `<wa-scatter-chart>`, `<wa-sparkline>`, `<wa-toast>`, and `<wa-toast-item>`
 - Updated `@shoelace-style/localize` to 3.2.2 to prevent Chrome translations from throwing errors [issue:2322]
 - Updated TypeScript to 5.9.3
 

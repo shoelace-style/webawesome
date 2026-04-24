@@ -27,7 +27,9 @@ use-cases:
   }
 </style>
 
-{{ description }}
+A frame is a box that keeps a fixed shape no matter how big or small it gets. Wrap an image, video, map, or placeholder in `wa-frame` and it stays a square by default, or a landscape, portrait, or any custom aspect ratio you specify, even as the surrounding layout resizes. That means no more letterboxing, no more collapsed boxes waiting on a slow image to load, and no more cards that end up different heights.
+
+Pair `wa-frame` with one of the [`wa-border-radius-*`](/docs/utilities/rounding) classes to round the corners without cropping the content inside.
 
 ```html {.example}
 <div class="wa-frame" style="max-inline-size: 20rem;">

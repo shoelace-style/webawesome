@@ -4,6 +4,7 @@ export default css`
   :host {
     --size: 25rem;
     --spacing: var(--wa-space-l);
+    --backdrop-filter: none;
     --show-duration: 200ms;
     --hide-duration: 200ms;
 
@@ -209,6 +210,7 @@ export default css`
         remove the fallback values here.
       */
     background-color: var(--wa-color-overlay-modal, rgb(0 0 0 / 0.25));
+    backdrop-filter: var(--backdrop-filter);
   }
 
   @keyframes pulse {

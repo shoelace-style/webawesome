@@ -1,6 +1,5 @@
 ---
 title: Intersection Observer
-description: Tracks immediate child elements and fires events as they move in and out of view.
 layout: component
 category: Utilities
 synonyms:

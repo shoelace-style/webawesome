@@ -34,7 +34,8 @@ export type IconAnimation =
   | 'spin-reverse';
 
 /**
- * @summary Icons are symbols that can be used to represent various options within an application.
+ * @summary Icons are scalable vector symbols that represent actions, content, or status throughout your application.
+ *  They support Font Awesome and custom icon libraries with animation presets.
  * @documentation https://webawesome.com/docs/components/icon
  * @status stable
  * @since 2.0

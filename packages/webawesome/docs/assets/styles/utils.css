@@ -413,11 +413,6 @@
 
   wa-page[view='mobile'] :is([slot='navigation-header'], [slot='navigation']) {
     padding: 0;
-
-    & wa-details::part(icon) {
-      /* aligns details icons with drawer close icon */
-      padding-inline: var(--wa-space-xs);
-    }
   }
 
   wa-page::part(drawer__dialog),
@@ -433,6 +428,17 @@
     + wa-tooltip {
       font-size: var(--wa-font-size-xs);
       --max-width: unset;
+    }
+  }
+
+  /* pro callout */
+  wa-callout.pro {
+    background-color: color-mix(in oklab, var(--wa-brand-orange) 12%, var(--wa-color-surface-default));
+    border-color: color-mix(in oklab, var(--wa-brand-orange) 30%, var(--wa-color-surface-default));
+    color: var(--wa-color-text-normal);
+
+    &::part(icon) {
+      color: var(--wa-brand-orange);
     }
   }
 
@@ -456,6 +462,10 @@
   }
 
   /* colophon + sidebar: social link row */
+  #colophon {
+    margin-block-start: var(--wa-space-2xl);
+  }
+
   #colophon .the-socials,
   #sidebar .the-socials {
     margin-inline-start: calc(var(--wa-space-xs) * -1);
@@ -482,6 +492,11 @@
     font-size: var(--wa-font-size-2xs);
     line-height: var(--wa-form-control-value-line-height);
     padding-inline: var(--wa-space-2xs);
+  }
+
+  .is-mac .non-mac,
+  html:not(.is-mac) .mac-only {
+    display: none;
   }
 
   /* step icons for ordered instructions */
@@ -630,25 +645,6 @@
       inset-inline-start: calc(var(--wa-space-xs) * -1);
     }
 
-    wa-details {
-      --spacing: 0;
-
-      &::part(header) {
-        padding: 0;
-        padding-block-start: var(--wa-space-xs);
-      }
-
-      &::part(content) {
-        padding-block-start: var(--wa-space-m);
-      }
-
-      &::part(base) {
-        border: none;
-        background: none;
-        padding: 0;
-      }
-    }
-
     ul {
       border-inline-start: var(--wa-border-width-s) solid var(--wa-color-surface-border);
       font-size: var(--wa-font-size-s);
@@ -723,11 +719,6 @@
       /* 1 scale below --wa-font-size-2xs for badge proportions in sidebar nav */
       --font-size-3xs: round(calc(var(--wa-font-size-2xs) / 1.125), 1px);
       font-size: var(--font-size-3xs);
-    }
-
-    wa-details {
-      --show-duration: 0;
-      --hide-duration: 0;
     }
 
     #version-icon-info {

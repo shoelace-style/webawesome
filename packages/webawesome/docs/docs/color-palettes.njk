@@ -69,40 +69,44 @@ layout: page
 <div id="import-code">
   {% for palette in themer.palettes %}
     <div class="palette-instructions" data-palette="{{ palette.name | lower }}" {% if not loop.first %}hidden{% endif %}>
-      <wa-tab-group>
-        <wa-tab panel="cdn"><wa-icon name="rocket-launch" variant="regular"></wa-icon> CDN</wa-tab>
+      <wa-tab-group data-install-tabs>
+        <wa-tab panel="cdn"><wa-icon name="globe" variant="regular"></wa-icon> CDN</wa-tab>
         <wa-tab panel="npm"><wa-icon name="box-open" variant="regular"></wa-icon> npm</wa-tab>
         <wa-tab panel="self-hosted"><wa-icon name="arrow-down-to-line" variant="regular"></wa-icon> Self-Hosted</wa-tab>
+        <wa-tab panel="hosted"><wa-icon name="rocket-launch" variant="regular"></wa-icon> Hosted Projects</wa-tab>
 
         <wa-tab-panel name="cdn">
-{% markdown %}
 {% if palette.isPro %}
+{% markdown %}
 <wa-callout variant="neutral" size="s">
   <wa-icon name="info-circle" variant="regular"></wa-icon>
   This palette can only be used on workspaces with a Pro subscription.
 </wa-callout>
-<br />
-{% else %}
-**For projects on Free workspaces:**
-1. Head over to your project's <wa-icon name="gear" variant="regular"></wa-icon> **Settings**.
-2. Find **Color Palette**. Select <wa-icon name="swatchbook" variant="regular"></wa-icon> **{{ palette.name | capitalize }}**.
-3. Save your theme to immediately update anywhere you're using your project.
-{% endif %}
-
-**For projects on Pro workspaces:**
-1. Head over to your project's <wa-icon name="gear" variant="regular"></wa-icon> **Settings**.
-2. Press <wa-icon name="paintbrush" variant="regular"></wa-icon> **Edit Your Theme** to open the Theme Builder.
-3. Open **Colors** and select **{{ palette.name | capitalize }}**.
-4. Save your theme to immediately update anywhere you're using your project.
 {% endmarkdown %}
+{% else %}
+{% set paletteCdnUrl %}{% cdnUrl 'styles/color/palettes/' %}{{ palette.filename }}{% endset %}
+{% markdown %}
+To use this palette, add the palette's stylesheet from the CDN:
+
+```html
+<link rel="stylesheet" href="{{ paletteCdnUrl }}">
+```
+
+Then apply the following class to the `<html>` element:
+
+```html
+<html class="wa-palette-{{ palette.name | lower }}">
+```
+{% endmarkdown %}
+{% endif %}
         </wa-tab-panel>
 
         <wa-tab-panel name="npm">
 {% markdown %}
-To use this theme, import the theme's stylesheet:
+After installing <code>@awesome.me/webawesome</code>, import the palette's stylesheet:
 
 ```js
-import '@awesome.me/webawesome/dist/styles/themes/{{ palette.filename }}';
+import '@awesome.me/webawesome/dist/styles/color/palettes/{{ palette.filename }}';
 ```
 
 Then apply the following class to the `<html>` element:
@@ -115,10 +119,10 @@ Then apply the following class to the `<html>` element:
 
         <wa-tab-panel name="self-hosted">
 {% markdown %}
-To use this theme, include the theme's stylesheet:
+If you're self-hosting Web Awesome, include the palette's stylesheet from your server:
 
 ```html
-<link rel="stylesheet" href="/dist/styles/themes/{{ palette.filename }}" />
+<link rel="stylesheet" href="/dist/styles/color/palettes/{{ palette.filename }}">
 ```
 
 Then apply the following class to the `<html>` element:
@@ -127,6 +131,31 @@ Then apply the following class to the `<html>` element:
 <html class="wa-palette-{{ palette.name | lower }}">
 ```
 {% endmarkdown %}
+        </wa-tab-panel>
+
+        <wa-tab-panel name="hosted">
+{% if palette.isPro %}
+{% markdown %}
+**For projects on Pro workspaces:**
+1. Head over to your project's <wa-icon name="gear" variant="regular"></wa-icon> **Settings**.
+2. Press <wa-icon name="paintbrush" variant="regular"></wa-icon> **Edit Your Theme** to open the Theme Builder.
+3. Open **Colors** and select **{{ palette.name | capitalize }}**.
+4. Save your theme to immediately update anywhere you're using your project.
+{% endmarkdown %}
+{% else %}
+{% markdown %}
+**For projects on Free workspaces:**
+1. Head over to your project's <wa-icon name="gear" variant="regular"></wa-icon> **Settings**.
+2. Find **Color Palette**. Select <wa-icon name="swatchbook" variant="regular"></wa-icon> **{{ palette.name | capitalize }}**.
+3. Save your theme to immediately update anywhere you're using your project.
+
+**For projects on Pro workspaces:**
+1. Head over to your project's <wa-icon name="gear" variant="regular"></wa-icon> **Settings**.
+2. Press <wa-icon name="paintbrush" variant="regular"></wa-icon> **Edit Your Theme** to open the Theme Builder.
+3. Open **Colors** and select **{{ palette.name | capitalize }}**.
+4. Save your theme to immediately update anywhere you're using your project.
+{% endmarkdown %}
+{% endif %}
         </wa-tab-panel>
       </wa-tab-group>
     </div>

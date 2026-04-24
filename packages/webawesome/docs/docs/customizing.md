@@ -1,17 +1,23 @@
 ---
 title: Customizing
-description: Learn how to customize Web Awesome through themes, parts, and custom properties.
+description: Learn how to customize Web Awesome through themes, parts, custom properties, and custom states.
 layout: page-outline
 synonyms:
-  - theming
   - styling
   - custom styles
   - override
-use-cases:
+  - theming
+  - css parts
   - css custom properties
   - css variables
   - design tokens
+use-cases:
+  - theme
   - brand
+  - css parts
+  - custom properties
+  - custom states
+  - shadow dom
 ---
 
 You can customize the look and feel of Web Awesome at a high level with themes. For more advanced customizations, you can make use of CSS parts and custom properties to target individual components.
@@ -51,56 +57,11 @@ For even more customizations, you can off-road and override any theme just with 
 
 For a complete list of all custom properties used for theming, refer to `src/styles/themes/default.css` in the project's source code.
 
-## Components
+While themes offer a high-level way to customize the library, individual components offer different hooks as a low-level way to customize them one at a time. Web Awesome components use a [shadow DOM](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM) to encapsulate their styles and behaviors. As a result, you can't simply target their internals with the usual CSS selectors. Instead, components expose a set of CSS parts, custom properties, and custom states that can be targeted to customize their appearance.
 
-While themes offer a high-level way to customize the library, components offer different hooks as a low-level way to customize them individually.
+## CSS Parts
 
-Web Awesome components use a [shadow DOM](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM) to encapsulate their styles and behaviors. As a result, you can't simply target their internals with the usual CSS selectors. Instead, components expose a set of custom properties and CSS parts that can be targeted to customize their appearance.
-
-### Custom Properties
-
-Components expose custom properties that are scoped to the component, not global, so they do not have the same `--wa-` prefix as a theme's custom properties. These custom properties reflect common qualities of a component, such as `--background-color`, `--border-style`, `--size`, etc.
-
-You can set custom properties on a component in your stylesheet.
-
-```css
-wa-avatar {
-  --size: 6rem;
-}
-```
-
-This will also work if you need to target a subset of components with a specific class.
-
-```css
-wa-avatar.your-class {
-  --size: 6rem;
-}
-```
-
-Alternatively, you can set them inline directly on the element.
-
-```html
-<wa-avatar style="--size: 6rem;"></wa-avatar>
-```
-
-The custom properties exposed by each component can be found in the component's API documentation.
-
-### Custom States
-
-Components can expose custom states that allow you to style them based on their current condition using the `:state()` selector. Custom states provide a way to target specific component states that aren't covered by standard pseudo-classes like `:hover` or `:focus`.
-Here's an example that styles a checkbox that's checked.
-
-```css
-wa-checkbox:state(checked) {
-  outline: dotted 2px tomato;
-}
-```
-
-Custom states can be combined with CSS parts and custom properties to create sophisticated customizations. The custom states exposed by each component can be found in the component's API documentation under the "Custom States" section.
-
-### CSS Parts
-
-CSS parts offer further flexibility to customize individual components. The "parts" exposed by each component can be targeted with the [CSS part selector](https://developer.mozilla.org/en-US/docs/Web/CSS/::part), or `::part()`.
+CSS parts offer the most flexibility to customize individual components. The "parts" exposed by each component can be targeted with the [CSS part selector](https://developer.mozilla.org/en-US/docs/Web/CSS/::part), or `::part()`.
 
 Parts allow you to style _any_ standard CSS property, not just those exposed through custom properties. Here's an example that modifies buttons with the `gradient-button` class.
 
@@ -142,6 +103,47 @@ CSS parts have a few important advantages:
 - It encourages us to think more about how components are designed and how customizations should be allowed before users can take advantage of them. Once we opt a part into the component's API, it's guaranteed to be supported and can't be removed until a major version of the library is released.
 
 Most (but not all) components expose parts. You can find them in each component's API documentation under the "CSS Parts" section.
+
+## Custom Properties
+
+Components expose custom properties that are scoped to the component, not global, so they do not have the same `--wa-` prefix as a theme's custom properties. These custom properties reflect common qualities of a component, such as `--background-color`, `--border-style`, `--size`, etc.
+
+You can set custom properties on a component in your stylesheet.
+
+```css
+wa-avatar {
+  --size: 6rem;
+}
+```
+
+This will also work if you need to target a subset of components with a specific class.
+
+```css
+wa-avatar.your-class {
+  --size: 6rem;
+}
+```
+
+Alternatively, you can set them inline directly on the element.
+
+```html
+<wa-avatar style="--size: 6rem;"></wa-avatar>
+```
+
+The custom properties exposed by each component can be found in the component's API documentation.
+
+## Custom States
+
+Components can expose custom states that allow you to style them based on their current condition using the `:state()` selector. Custom states provide a way to target specific component states that aren't covered by standard pseudo-classes like `:hover` or `:focus`.
+Here's an example that styles a checkbox that's checked.
+
+```css
+wa-checkbox:state(checked) {
+  outline: dotted 2px tomato;
+}
+```
+
+Custom states can be combined with CSS parts and custom properties to create sophisticated customizations. The custom states exposed by each component can be found in the component's API documentation under the "Custom States" section.
 
 ## Native Elements
 

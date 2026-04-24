@@ -1,6 +1,5 @@
 ---
 title: Zoomable Frame
-description: Zoomable frames render iframe content with zoom and interaction controls.
 layout: component
 category: Imagery
 synonyms:

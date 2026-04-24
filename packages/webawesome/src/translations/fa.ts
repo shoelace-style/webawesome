@@ -7,6 +7,7 @@ const translation: Translation = {
   $dir: 'rtl',
 
   carousel: 'چرخ‌فلک',
+  captions: 'زیرنویس',
   clearEntry: 'پاک کردن ورودی',
   createOption: value => `ایجاد "${value}"`,
   close: 'بستن',
@@ -17,11 +18,16 @@ const translation: Translation = {
   dropFileHere: 'Drop file here or click to browse',
   dropFilesHere: 'Drop files here or click to browse',
   error: 'خطا',
+  enterFullscreen: 'ورود به حالت تمام‌صفحه',
+  exitFullscreen: 'خروج از حالت تمام‌صفحه',
   goToSlide: (slide, count) => `رفتن به اسلاید ${slide} از ${count}`,
   hidePassword: 'پنهان کردن رمز',
   increment: 'افزایش',
   loading: 'بارگزاری',
+  moreOptions: 'گزینه‌های بیشتر',
+  mute: 'بی‌صدا',
   nextSlide: 'اسلاید بعدی',
+  nextVideo: 'ویدیوی بعدی',
   numCharacters: num => {
     if (num === 1) return '1 نویسه';
     return `${num} نویسه`;
@@ -34,9 +40,15 @@ const translation: Translation = {
     if (num === 0) return 'هیچ گزینه‌ای انتخاب نشده است';
     return `${num} گزینه انتخاب شده است`;
   },
+  pause: 'مکث',
   pauseAnimation: 'توقف انیمیشن',
+  pictureInPicture: 'تصویر در تصویر',
+  play: 'پخش',
+  playbackSpeed: 'سرعت پخش',
+  playlist: 'لیست پخش',
   playAnimation: 'پخش انیمیشن',
   previousSlide: 'اسلاید قبلی',
+  previousVideo: 'ویدیوی قبلی',
   progress: 'پیشرفت',
   remove: 'حذف',
   resize: 'تغییر اندازه',
@@ -47,6 +59,12 @@ const translation: Translation = {
   showPassword: 'نمایش رمز',
   slideNum: slide => `اسلاید ${slide}`,
   toggleColorFormat: 'تغییر قالب رنگ',
+  seek: 'جستجو',
+  seekProgress: (current, duration) => `${current} از ${duration}`,
+  currentlyPlaying: 'در حال پخش',
+  unmute: 'لغو بی‌صدا',
+  videoPlayer: 'پخش‌کننده ویدیو',
+  volume: 'صدا',
   zoomIn: 'بزرگ‌نمایی',
   zoomOut: 'کوچک‌نمایی',
 };

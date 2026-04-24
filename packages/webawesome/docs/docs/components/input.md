@@ -1,6 +1,5 @@
 ---
 title: Input
-description: Inputs collect data from the user.
 layout: component
 category: Form Controls
 synonyms:

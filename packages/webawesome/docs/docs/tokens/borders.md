@@ -9,6 +9,7 @@ use-cases:
   - border width
   - border style
   - border color
+hasOutline: true
 ---
 
 Border tokens define the edges and corners of Web Awesome components. They use `rem` units so they scale with root font size. You can adjust individual tokens or use scale multipliers to change all widths or radii at once.

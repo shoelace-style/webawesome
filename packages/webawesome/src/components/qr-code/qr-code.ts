@@ -9,7 +9,8 @@ import styles from './qr-code.styles.js';
 let QrCreator: _QrCreator.default;
 
 /**
- * @summary Generates a [QR code](https://www.qrcode.com/) and renders it using the [Canvas API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API).
+ * @summary QR codes encode a URL or other short text into a scannable image, rendered client-side using the Canvas API.
+ *  Use them to share links, contact info, or Wi-Fi credentials that visitors can scan with a phone.
  * @documentation https://webawesome.com/docs/components/qr-code
  * @status stable
  * @since 2.0

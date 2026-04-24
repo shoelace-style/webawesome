@@ -16,7 +16,8 @@ import type WaTooltip from '../tooltip/tooltip.js';
 import styles from './copy-button.styles.js';
 
 /**
- * @summary Copies text data to the clipboard when the user clicks the trigger.
+ * @summary Copy buttons copy text to the clipboard when the user activates them. They provide built-in success and
+ *  error feedback so users know the copy worked.
  * @documentation https://webawesome.com/docs/components/copy
  * @status experimental
  * @since 2.7

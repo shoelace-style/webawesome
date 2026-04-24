@@ -1,6 +1,5 @@
 ---
 title: Card
-description: Cards can be used to group related subjects in a container.
 layout: component
 category: Organization
 synonyms:

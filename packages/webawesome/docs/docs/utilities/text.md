@@ -20,7 +20,9 @@ use-cases:
   }
 </style>
 
-{{ description }} 
+{{ description }}
+
+The classes on this page cover the most common needs: picking a size and weight for body copy, styling headings, aligning paragraphs, truncating overflow, and changing font color. Every class is built on your theme's typography tokens, so switching themes or tweaking your type scale updates the whole site at once.
 
 ## Body
 

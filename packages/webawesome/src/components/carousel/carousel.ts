@@ -20,7 +20,8 @@ import { AutoplayController } from './autoplay-controller.js';
 import styles from './carousel.styles.js';
 
 /**
- * @summary Carousels display an arbitrary number of content slides along a horizontal or vertical axis.
+ * @summary Carousels display a series of content slides along a horizontal or vertical axis, one or more at a time.
+ *  Users can navigate between slides with controls, pagination, or autoplay.
  *
  * @since 2.2
  * @status experimental

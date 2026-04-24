@@ -1,6 +1,5 @@
 ---
 title: Markdown
-description: A declarative utility that renders markdown in plain ol' HTML pages.
 layout: component
 category: Utilities
 synonyms:
@@ -132,8 +131,9 @@ All `<wa-markdown>` instances share a single [Marked](https://marked.js.org/usin
 
   // Customize the link renderer to open links in a new tab
   const renderer = {
-    link({ href, text }) {
-      return `<a href="${href}" target="_blank" rel="noopener">${text}</a>`;
+    link(href, title, text) {
+      const titleAttr = title ? ` title="${title}"` : '';
+      return `<a href="${href}"${titleAttr} target="_blank" rel="noopener">${text}</a>`;
     }
   };
 

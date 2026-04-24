@@ -1,6 +1,5 @@
 ---
 title: Badge
-description: Badges are used to draw attention and display statuses or counts.
 layout: component
 category: Feedback & Status
 synonyms:

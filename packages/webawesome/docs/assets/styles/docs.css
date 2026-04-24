@@ -20,6 +20,41 @@
   --layout-example-element-border-radius: var(--wa-border-radius-m);
 }
 
+/* Full-width pill-shaped breadcrumb used at the top of subpages */
+.docs-subpage-crumbs {
+  display: flex;
+  width: 100%;
+  background-color: var(--wa-color-surface-lowered);
+  border: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border);
+  border-radius: var(--wa-border-radius-pill);
+  font-size: var(--wa-font-size-s);
+  padding: var(--wa-space-xs) var(--wa-space-m);
+  margin-block-end: var(--wa-content-spacing);
+}
+
+/* "Browse\ ___" / "Back to ___" link with an arrow that nudges on hover */
+.browse-all-link wa-icon,
+.back-link wa-icon {
+  vertical-align: -0.1em;
+  transition: transform var(--wa-transition-normal) var(--wa-transition-easing);
+}
+
+.browse-all-link wa-icon {
+  margin-inline-start: 0.25em;
+}
+
+.back-link wa-icon {
+  margin-inline-end: 0.25em;
+}
+
+.browse-all-link:hover wa-icon {
+  transform: translateX(0.25em);
+}
+
+.back-link:hover wa-icon {
+  transform: translateX(-0.25em);
+}
+
 .wa-dark .only-light,
 .only-dark:not(.wa-dark, .wa-dark *) {
   display: none;
@@ -62,6 +97,11 @@ wa-page > main {
   margin-inline: auto;
 }
 
+/* increase max-width for index pages */
+wa-page > main:has(.modern-card-list) {
+  max-width: var(--content-width-m);
+}
+
 h1.title {
   wa-badge {
     vertical-align: middle;
@@ -79,6 +119,12 @@ h1.title {
   code {
     line-height: var(--wa-line-height-condensed);
   }
+
+  .component-tag {
+    background-color: transparent;
+    color: var(--wa-color-text-quiet);
+    font-size: var(--wa-font-size-l);
+  }
 }
 
 .component-summary {
@@ -86,56 +132,12 @@ h1.title {
   font-size: var(--wa-font-size-l);
 }
 
-/* Callouts */
-.callout {
-  display: flex;
-  gap: 1rem;
-  border: var(--wa-border-style) var(--wa-border-width-s);
-  border-radius: var(--wa-border-radius-l);
-  padding: 1rem;
+/* Callouts in content */
+#content > wa-callout {
   margin-block-end: var(--wa-content-spacing);
 
-  :first-child {
-    margin-block-start: 0;
-  }
-
-  :last-child {
-    margin-block-end: 0;
-  }
-}
-
-.callout-icon {
-  flex: 0 0 auto;
-  font-size: 1.5rem;
-}
-
-.callout-content {
-  flex: 1 1 auto;
-}
-
-.callout-info {
-  background-color: var(--wa-color-brand-fill-quiet);
-  border-color: var(--wa-color-brand-border-quiet);
-
-  .callout-icon {
-    color: var(--wa-color-brand-on-normal);
-  }
-
-  code {
-    background-color: var(--wa-color-brand-fill-normal);
-  }
-}
-
-.callout-warning {
-  background-color: var(--wa-color-warning-fill-quiet);
-  border-color: var(--wa-color-warning-border-quiet);
-
-  .callout-icon {
-    color: var(--wa-color-warning-on-normal);
-  }
-
-  code {
-    background-color: var(--wa-color-warning-fill-normal);
+  &[variant='brand'] code {
+    background-color: color-mix(in oklab, var(--wa-color-brand-fill-soft), black 2.5%);
   }
 }
 
@@ -156,47 +158,6 @@ figure.signpost {
     font-size: var(--wa-font-size-xs);
     line-height: var(--wa-line-height-condensed);
     text-align: center;
-  }
-}
-
-/* Installation instruction (designed to wrap code blocks to show things underneath but still "inside" the block) */
-.installation-instructions {
-  background-color: var(--code-background, var(--wa-color-neutral-20));
-  border-radius: var(--wa-border-radius-m);
-  margin-block-end: 1rem;
-
-  pre {
-    margin-block-end: 0;
-    border-end-start-radius: 0;
-    border-end-end-radius: 0;
-  }
-
-  small {
-    display: block;
-    color: var(--code-comment, var(--wa-color-gray-70));
-    padding: 0 1rem 1rem 1rem;
-  }
-
-  small a {
-    color: var(--code-value, var(--wa-color-blue-70));
-  }
-
-  small code {
-    color: white;
-    background-color: transparent;
-  }
-
-  small strong {
-    font-weight: var(--wa-font-weight-semibold);
-  }
-}
-
-/* Dark mode */
-.wa-dark .installation-instructions {
-  background: var(--code-background-dark, var(--wa-color-surface-lowered));
-
-  pre {
-    background-color: var(--code-background-dark, var(--wa-color-surface-lowered));
   }
 }
 
@@ -245,7 +206,6 @@ wa-page > main:has(> .search-list) {
 
     wa-card {
       --spacing: var(--wa-space-m);
-      box-shadow: none;
 
       [slot='header'] {
         display: flex;
@@ -271,6 +231,121 @@ wa-page > main:has(> .search-list) {
 wa-card .page-name {
   font-size: var(--wa-font-size-s);
   font-weight: var(--wa-font-weight-action);
+}
+
+/* Restore full-size rendering of platform symbols (⌘, ⌥, ⇧, etc.) inside <kbd>,
+   which uses a code font that tends to render these glyphs undersized. */
+.kbd-symbol {
+  font-family: var(--wa-font-family-body);
+}
+
+/* Card-based, name-first listing layout used by component/pattern/utility browse pages */
+.component-list,
+.modern-card-list {
+  container-type: inline-size;
+
+  .search-list-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--wa-space-m);
+    margin-block-end: var(--wa-space-l);
+
+    @container (width < 900px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @container (width < 560px) {
+      grid-template-columns: 1fr;
+    }
+
+    a {
+      color: var(--wa-color-text-normal);
+      text-decoration: none;
+    }
+
+    wa-card {
+      --spacing: var(--wa-space-m);
+      block-size: 100%;
+    }
+
+    wa-card:defined {
+      transition:
+        border-color var(--wa-transition-normal),
+        box-shadow var(--wa-transition-normal);
+    }
+
+    wa-card::part(body) {
+      display: flex;
+      flex-direction: column;
+      block-size: 100%;
+    }
+
+    a:hover wa-card,
+    a:focus-visible wa-card {
+      border-color: var(--wa-color-brand-border-loud);
+      box-shadow: 0 0 0 0.0625rem var(--wa-color-brand-border-loud);
+    }
+
+    .page-name {
+      display: block;
+      font-size: var(--wa-font-size-l);
+      font-weight: var(--wa-font-weight-heading);
+      line-height: var(--wa-line-height-condensed);
+      margin-block-end: var(--wa-space-xs);
+    }
+
+    .component-list-summary,
+    .modern-card-summary {
+      color: var(--wa-color-text-quiet);
+      font-size: var(--wa-font-size-s);
+      line-height: var(--wa-line-height-normal);
+      margin: 0 0 var(--wa-space-m);
+    }
+
+    .component-list-badges {
+      font-size: var(--wa-font-size-s);
+      margin-block-start: auto;
+    }
+  }
+}
+
+/* Component list: centered search input (anchors a hero-style browse page) */
+.component-list {
+  .search-list-input {
+    display: block;
+    max-inline-size: 32rem;
+    margin-inline: auto;
+    margin-block: var(--wa-space-m) var(--wa-space-s);
+  }
+
+  .search-list-shortcut {
+    text-align: center;
+    color: var(--wa-color-text-quiet);
+    font-size: var(--wa-font-size-s);
+    margin-block: 0 var(--wa-space-2xl);
+  }
+}
+
+/* Modern card list: left-aligned "Browse X" heading + search input (used by utilities, tokens, patterns) */
+.modern-card-list-heading {
+  margin-block: 0 var(--wa-space-xl);
+}
+
+.modern-card-list {
+  .search-list-input {
+    display: block;
+    max-inline-size: 32rem;
+    margin-block: 0 var(--wa-space-2xl);
+  }
+
+  .modern-card-list-category {
+    margin-block: var(--wa-space-2xl) var(--wa-space-m);
+    font-size: var(--wa-font-size-xl);
+
+    &:first-of-type {
+      margin-block-start: 0;
+    }
+  }
 }
 
 /* Design Tokens Swatches */

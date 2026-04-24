@@ -1,6 +1,5 @@
 ---
 title: Drawer
-description: Drawers slide in from a container to expose additional options and information.
 layout: component
 category: Organization
 synonyms:

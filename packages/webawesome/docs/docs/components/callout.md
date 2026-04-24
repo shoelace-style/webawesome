@@ -1,6 +1,5 @@
 ---
 title: Callout
-description: Callouts are used to display important messages inline.
 layout: component
 category: Feedback & Status
 synonyms:

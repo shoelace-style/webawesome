@@ -8,6 +8,7 @@ synonyms:
 use-cases:
   - transition speed
   - motion tokens
+hasOutline: true
 ---
 
 <style>

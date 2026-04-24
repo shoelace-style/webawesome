@@ -6,7 +6,8 @@ import sizeStyles from '../../styles/component/size.styles.js';
 import styles from './card.styles.js';
 
 /**
- * @summary Cards can be used to group related subjects in a container.
+ * @summary Cards group related content and actions inside a bordered container. Use them to present products, articles,
+ *  user profiles, or any self-contained unit of information.
  * @documentation https://webawesome.com/docs/components/card
  * @status stable
  * @since 2.0

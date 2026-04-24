@@ -19,6 +19,8 @@ Often, components are shown before their logic and styles have had a chance to l
 
 The FOUCE style utility takes care of hiding custom elements until **both they and their contents** have been registered, up to a maximum of two seconds.
 
+## Cloaking
+
 In many cases, this is not enough, and you may wish to hide a broader wrapper element or even the entire page until all WA elements within it have loaded.
 To do that, you can add the `wa-cloak` class to any element on the page or even apply it to the whole page by placing the class on the `<html>` element:
 
@@ -30,7 +32,7 @@ To do that, you can add the `wa-cloak` class to any element on the page or even 
 
 As soon as all elements are registered _or_ after two seconds have elapsed, the autoloader will show the page. The two-second timeout prevents blank screens from persisting on slow networks and pages that have errors.
 
-:::details Are you using Turbo in your app?
+## Turbo (Hotwire) Users
 
 If you're using [Turbo](https://turbo.hotwired.dev/) to serve a multi-page application (MPA) as a single page application (SPA), you might notice FOUCE when navigating from page to page. This is because Turbo renders the new page's content before the autoloader has a chance to register new components.
 
@@ -41,5 +43,3 @@ import { preventTurboFouce } from '/dist/webawesome.js';
 
 preventTurboFouce();
 ```
-
-:::

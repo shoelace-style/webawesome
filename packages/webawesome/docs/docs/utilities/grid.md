@@ -29,7 +29,9 @@ use-cases:
   }
 </style>
 
-{{ description }}
+A grid places its children in evenly-sized columns that shrink, grow, and reflow as the container resizes, without any breakpoints to manage. Drop any number of items into `wa-grid` and the utility figures out how many fit on each row based on the container's width and the minimum column size you've asked for. It's the quickest way to build card galleries, product listings, dashboards, and any content that should adapt from one column on a phone to several on a desktop.
+
+Set `--min-column-size` to change the threshold at which items start to wrap, pair `wa-grid` with a [`wa-gap-*`](/docs/utilities/gap) class to adjust the spacing between cells, or add `wa-span-grid` to an individual item to make it span every column.
 
 ```html {.example}
 <div class="wa-grid">

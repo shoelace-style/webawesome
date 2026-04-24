@@ -5,7 +5,8 @@ import { LocalizeController } from '../../utilities/localize.js';
 import styles from './spinner.styles.js';
 
 /**
- * @summary Spinners are used to show the progress of an indeterminate operation.
+ * @summary Spinners indicate that an operation is in progress when the duration is unknown. Use them for loading states
+ *  where a determinate progress bar isn't practical.
  * @documentation https://webawesome.com/docs/components/spinner
  * @status stable
  * @since 2.0

@@ -10,6 +10,7 @@ use-cases:
   - margin
   - gap
   - spacing tokens
+hasOutline: true
 ---
 
 <style>

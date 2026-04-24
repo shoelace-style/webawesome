@@ -9,6 +9,7 @@ use-cases:
   - drop shadow
   - card shadow
   - overlay shadow
+hasOutline: true
 ---
 
 Shadow tokens indicate elevation and, often, interactivity. Web Awesome provides three size-based shadow shorthands built from modular offset, blur, and spread tokens. Together with [`--wa-color-shadow`](?active_tab=color), these tokens create realistic drop shadows.

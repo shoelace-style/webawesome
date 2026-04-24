@@ -18,7 +18,8 @@ import styles from './popover.styles.js';
 const openPopovers = new Set<WaPopover>();
 
 /**
- * @summary Popovers display contextual content and interactive elements in a floating panel.
+ * @summary Popovers display contextual content and interactive elements in a floating panel anchored to a trigger. Use
+ *  them for rich tooltips, menus, or any content that appears on demand without navigating away.
  * @documentation https://webawesome.com/docs/components/popover
  * @status stable
  * @since 3.0

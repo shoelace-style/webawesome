@@ -9,6 +9,7 @@ use-cases:
   - keyboard focus
   - accessibility focus
   - tab focus
+hasOutline: true
 ---
 
 Focus tokens create a consistent, recognizable outline that lets keyboard users track where they are on the page. Together with [`--wa-color-focus`](?active_tab=color), these tokens assemble the focus ring applied to all interactive Web Awesome components.
