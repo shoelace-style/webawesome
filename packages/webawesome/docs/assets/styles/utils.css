@@ -795,8 +795,19 @@
     background-size: var(--dot-spacing) var(--dot-spacing);
   }
 
+  /* Bottom fade mask. Composes with .background-wa-pattern (masks the ::after decoration only); on any
+   * other element, masks the host (content fades too). Mask reads alpha, so color is irrelevant. */
+  .wa-mask-fade-below:not(.background-wa-pattern),
+  .background-wa-pattern.wa-mask-fade-below::after {
+    --wa-mask-fade-start: 60%;
+    --wa-mask-fade-end: 95%;
+    mask-image: linear-gradient(to bottom, #000 var(--wa-mask-fade-start), transparent var(--wa-mask-fade-end));
+  }
+
   /* wa illustration background pattern */
   .background-wa-pattern {
+    --background-pattern-size: auto;
+    --background-pattern-position: 0 0;
     position: relative;
 
     & > * {
@@ -810,6 +821,8 @@
       background-color: var(--background-pattern-color, transparent);
       background-image: var(--background-pattern-image, url('/assets/images/bg-wa-pattern.svg'));
       background-repeat: repeat;
+      background-size: var(--background-pattern-size);
+      background-position: var(--background-pattern-position);
       content: '';
       opacity: var(--background-pattern-opacity, 0.3);
       z-index: 0;
