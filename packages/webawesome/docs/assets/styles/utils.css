@@ -147,8 +147,8 @@
   /* banner for Build Awesome Kickstarter */
   .banner-ba-kickstarter {
     .banner-icon {
-      --primary-color: var(--wa-color-brand-on-loud);
-      --secondary-color: var(--wa-color-brand-on-normal);
+      --primary-color: var(--wa-color-neutral-fill-loud);
+      --secondary-color: var(--wa-color-brand-on-loud);
       --secondary-opacity: 1;
       font-size: var(--wa-font-size-2xl);
     }
