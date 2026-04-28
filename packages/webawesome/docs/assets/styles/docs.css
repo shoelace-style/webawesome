@@ -482,7 +482,9 @@ wa-card .page-name {
   line-height: var(--wa-line-height-condensed);
 }
 
-.token-name { white-space: nowrap; }
+.token-name {
+  white-space: nowrap;
+}
 
 /* Layout Examples */
 .layout-example-boundary {
