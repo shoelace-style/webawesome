@@ -145,58 +145,12 @@
   }
 
   /* banner for Build Awesome Kickstarter */
-  /* custom version of shake icon animation for slower and more casual repetitive timing */
-  @keyframes ba-banner-shake {
-    0% {
-      transform: rotate(-15deg);
-    }
-    1.67% {
-      transform: rotate(15deg);
-    }
-    3.33% {
-      transform: rotate(-18deg);
-    }
-    5% {
-      transform: rotate(18deg);
-    }
-    6.67% {
-      transform: rotate(-18deg);
-    }
-    8.33% {
-      transform: rotate(22deg);
-    }
-    10% {
-      transform: rotate(-22deg);
-    }
-    11.67% {
-      transform: rotate(18deg);
-    }
-    13.33% {
-      transform: rotate(-12deg);
-    }
-    15% {
-      transform: rotate(12deg);
-    }
-    16.67%,
-    100% {
-      transform: rotate(0deg);
-    }
-  }
-
   .banner-ba-kickstarter {
     .banner-icon {
       --primary-color: var(--wa-color-brand-on-loud);
       --secondary-color: var(--wa-color-brand-on-normal);
       --secondary-opacity: 1;
       font-size: var(--wa-font-size-2xl);
-      animation: ba-banner-shake 12s linear 10s infinite;
-    }
-  }
-
-  /* disable animation for users who have reduced motion preferences */
-  @media (prefers-reduced-motion: reduce) {
-    .banner-ba-kickstarter .banner-icon {
-      animation: none;
     }
   }
 
