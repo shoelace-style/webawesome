@@ -1,6 +1,6 @@
 ---
 title: Component Groups
-description: Style groups of components that share similar qualities with these Web Awesome custom properties.
+description: Style groups of components that share similar qualities with these Web Awesome tokens.
 order: 9999
 layout: page-outline
 synonyms:
@@ -11,39 +11,115 @@ use-cases:
   - token sets
 ---
 
-For components that share similar qualities, Web Awesome includes custom properties to change the appearance of these related components all at once.
+Component tokens let you style groups of related components at once. Rather than overriding individual component styles, these tokens propagate the style across every component that shares a given visual quality.
 
 ## Form Controls
 
-Components such as [input](/docs/components/input), [select](/docs/components/select), [textarea](/docs/components/textarea), [checkbox](/docs/components/checkbox), and others share a number of styles to give your forms a cohesive appearance. Web Awesome defines custom properties for these styles using the format `--wa-form-control-{style}`.
+Components such as [input](/docs/components/input), [select](/docs/components/select), [textarea](/docs/components/textarea), [checkbox](/docs/components/checkbox), and others share styles defined with the `--wa-form-control-*` prefix.
 
-Not every form control uses all of these custom properties. For example, `<wa-radio>` defines its own height and border radius to achieve its familiar shape but shares many other styles with other components for a cohesive look and feel. Similarly, `<wa-button>` defines many of its own styles but matches the height and border width of other form controls.
+Not every form control uses all of these custom properties. For example, [radio](/docs/components/radio) defines its own height and border radius to achieve its familiar shape but shares many other styles with other components for a cohesive look and feel. Similarly, [button](/docs/components/button) defines many of its own styles but matches the height and border width of other form controls.
 
-| Custom Property                             | Default Value                         |
-| ------------------------------------------- | ------------------------------------- |
-| `--wa-form-control-background-color`        | `var(--wa-color-surface-default)`     |
-| `--wa-form-control-border-color`            | `var(--wa-color-neutral-border-loud)` |
-| `--wa-form-control-border-style`            | `var(--wa-border-style)`              |
-| `--wa-form-control-border-width`            | `var(--wa-border-width-s)`            |
-| `--wa-form-control-border-radius`           | `var(--wa-border-radius-m)`           |
-| `--wa-form-control-activated-color`         | `var(--wa-color-brand-fill-loud)`     |
-| `--wa-form-control-label-color`             | `var(--wa-color-neutral-border-loud)` |
-| `--wa-form-control-label-font-weight`       | `var(--wa-font-weight-normal)`        |
-| `--wa-form-control-label-line-height`       | `var(--wa-line-height-normal)`        |
-| `--wa-form-control-value-color`             | `var(--wa-color-text-normal)`         |
-| `--wa-form-control-value-font-weight`       | `var(--wa-font-weight-body)`          |
-| `--wa-form-control-value-line-height`       | `var(--wa-line-height-condensed)`     |
-| `--wa-form-control-hint-color`              | `var(--wa-color-text-quiet)`          |
-| `--wa-form-control-hint-font-weight`        | `var(--wa-font-weight-body)`          |
-| `--wa-form-control-hint-line-height`        | `var(--wa-line-height-normal)`        |
-| `--wa-form-control-placeholder-color`       | `var(--wa-color-gray-60)`             |
-| `--wa-form-control-required-content`        | `'*'`                                 |
-| `--wa-form-control-required-content-color`  | `inherit`                             |
-| `--wa-form-control-required-content-offset` | `-0.1em`                              |
-| `--wa-form-control-padding-block`           | `0.75em`                              |
-| `--wa-form-control-padding-inline`          | `1em`                                 |
-| `--wa-form-control-height`                  | `round(calc(2 * var(--wa-form-control-padding-block) + 1em * var(--wa-form-control-value-line-height)), 1px)` |
-| `--wa-form-control-toggle-size`             | `round(1.25em, 1px)`                  |
+<wa-scroller>
+  <table class="token-table wa-hover-rows">
+    <thead>
+      <tr><th>Custom Property</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr id="token-wa-form-control-background-color">
+        <td class="token-name"><code>--wa-form-control-background-color</code></td>
+        <td>Background color of form control inputs</td>
+      </tr>
+      <tr id="token-wa-form-control-border-color">
+        <td class="token-name"><code>--wa-form-control-border-color</code></td>
+        <td>Border color of form control inputs</td>
+      </tr>
+      <tr id="token-wa-form-control-border-style">
+        <td class="token-name"><code>--wa-form-control-border-style</code></td>
+        <td>Border line style of form control inputs</td>
+      </tr>
+      <tr id="token-wa-form-control-border-width">
+        <td class="token-name"><code>--wa-form-control-border-width</code></td>
+        <td>Border thickness of form control inputs</td>
+      </tr>
+      <tr id="token-wa-form-control-border-radius">
+        <td class="token-name"><code>--wa-form-control-border-radius</code></td>
+        <td>Corner rounding of form control inputs</td>
+      </tr>
+      <tr id="token-wa-form-control-activated-color">
+        <td class="token-name"><code>--wa-form-control-activated-color</code></td>
+        <td>Accent color when a control is active, checked, or selected</td>
+      </tr>
+      <tr id="token-wa-form-control-label-color">
+        <td class="token-name"><code>--wa-form-control-label-color</code></td>
+        <td>Text color of form control labels</td>
+      </tr>
+      <tr id="token-wa-form-control-label-font-weight">
+        <td class="token-name"><code>--wa-form-control-label-font-weight</code></td>
+        <td>Font weight of form control labels</td>
+      </tr>
+      <tr id="token-wa-form-control-label-line-height">
+        <td class="token-name"><code>--wa-form-control-label-line-height</code></td>
+        <td>Line height of form control labels</td>
+      </tr>
+      <tr id="token-wa-form-control-value-color">
+        <td class="token-name"><code>--wa-form-control-value-color</code></td>
+        <td>Text color of the user-entered or selected value</td>
+      </tr>
+      <tr id="token-wa-form-control-value-font-weight">
+        <td class="token-name"><code>--wa-form-control-value-font-weight</code></td>
+        <td>Font weight of the user-entered or selected value</td>
+      </tr>
+      <tr id="token-wa-form-control-value-line-height">
+        <td class="token-name"><code>--wa-form-control-value-line-height</code></td>
+        <td>Line height of the user-entered or selected value</td>
+      </tr>
+      <tr id="token-wa-form-control-hint-color">
+        <td class="token-name"><code>--wa-form-control-hint-color</code></td>
+        <td>Text color of the hint text below a form control</td>
+      </tr>
+      <tr id="token-wa-form-control-hint-font-weight">
+        <td class="token-name"><code>--wa-form-control-hint-font-weight</code></td>
+        <td>Font weight of hint text</td>
+      </tr>
+      <tr id="token-wa-form-control-hint-line-height">
+        <td class="token-name"><code>--wa-form-control-hint-line-height</code></td>
+        <td>Line height of hint text</td>
+      </tr>
+      <tr id="token-wa-form-control-placeholder-color">
+        <td class="token-name"><code>--wa-form-control-placeholder-color</code></td>
+        <td>Text color of input placeholder text</td>
+      </tr>
+      <tr id="token-wa-form-control-required-content">
+        <td class="token-name"><code>--wa-form-control-required-content</code></td>
+        <td>Content appended to labels of required fields</td>
+      </tr>
+      <tr id="token-wa-form-control-required-content-color">
+        <td class="token-name"><code>--wa-form-control-required-content-color</code></td>
+        <td>Color of the required field indicator</td>
+      </tr>
+      <tr id="token-wa-form-control-required-content-offset">
+        <td class="token-name"><code>--wa-form-control-required-content-offset</code></td>
+        <td>Inline spacing between the label text and required indicator</td>
+      </tr>
+      <tr id="token-wa-form-control-padding-block">
+        <td class="token-name"><code>--wa-form-control-padding-block</code></td>
+        <td>Block (top/bottom) padding inside form control inputs</td>
+      </tr>
+      <tr id="token-wa-form-control-padding-inline">
+        <td class="token-name"><code>--wa-form-control-padding-inline</code></td>
+        <td>Inline (left/right) padding inside form control inputs</td>
+      </tr>
+      <tr id="token-wa-form-control-height">
+        <td class="token-name"><code>--wa-form-control-height</code></td>
+        <td>Computed height of single-line form controls; derived from padding and line height</td>
+      </tr>
+      <tr id="token-wa-form-control-toggle-size">
+        <td class="token-name"><code>--wa-form-control-toggle-size</code></td>
+        <td>Size of toggle controls (checkboxes, radios, switches)</td>
+      </tr>
+    </tbody>
+  </table>
+</wa-scroller>
 
 ```html {.example}
 <form class="wa-stack">
@@ -68,13 +144,29 @@ Not every form control uses all of these custom properties. For example, `<wa-ra
 
 ## Panels
 
-Panels consist of components with larger, contained surface areas like [callout](/docs/components/callout), [card](/docs/components/card), [details](/docs/components/details), and [dialog](/docs/components/dialog).
+Panel tokens apply to components with larger, contained surface areas, like [callout](/docs/components/callout), [card](/docs/components/card), [details](/docs/components/details), and [dialog](/docs/components/dialog).
 
-| Custom Property            | Default Value               |
-| -------------------------- | --------------------------- |
-| `--wa-panel-border-style`  | `var(--wa-border-style)`    |
-| `--wa-panel-border-width`  | `var(--wa-border-width-s)`  |
-| `--wa-panel-border-radius` | `var(--wa-border-radius-l)` |
+<wa-scroller>
+  <table class="token-table wa-hover-rows">
+    <thead>
+      <tr><th>Custom Property</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr id="token-wa-panel-border-style">
+        <td class="token-name"><code>--wa-panel-border-style</code></td>
+        <td>Border line style for panel components</td>
+      </tr>
+      <tr id="token-wa-panel-border-width">
+        <td class="token-name"><code>--wa-panel-border-width</code></td>
+        <td>Border thickness for panel components</td>
+      </tr>
+      <tr id="token-wa-panel-border-radius">
+        <td class="token-name"><code>--wa-panel-border-radius</code></td>
+        <td>Corner rounding for panel components</td>
+      </tr>
+    </tbody>
+  </table>
+</wa-scroller>
 
 ```html {.example}
 <div class="wa-stack">
@@ -91,23 +183,57 @@ Panels consist of components with larger, contained surface areas like [callout]
 
 ## Tooltips
 
-Tooltip styles are shared between the [tooltip](/docs/components/tooltip) component and the tooltips in [slider](/docs/components/slider) and [copy button](/docs/components/copy-button).
+Tooltip tokens apply to the [tooltip](/docs/components/tooltip) component and built-in tooltips in other components like [slider](/docs/components/slider) and [copy button](/docs/components/copy-button).
 
-| Custom Property                 | Default Value                        |
-| ------------------------------- | ------------------------------------ |
-| `--wa-tooltip-arrow-size`       | `0.375rem` <small>(6px)</small>      |
-| `--wa-tooltip-background-color` | `var(--wa-color-neutral-fill-loud)`  |
-| `--wa-tooltip-border-color`     | `var(--wa-tooltip-background-color)` |
-| `--wa-tooltip-border-style`     | `var(--wa-border-style)`             |
-| `--wa-tooltip-border-width`     | `var(--wa-border-width-s)`           |
-| `--wa-tooltip-border-radius`    | `var(--wa-border-radius-s)`          |
-| `--wa-tooltip-content-color`    | `var(--wa-color-neutral-on-loud)`    |
-| `--wa-tooltip-font-size`        | `var(--wa-font-size-s)`              |
-| `--wa-tooltip-line-height`      | `var(--wa-line-height-normal)`       |
+<wa-scroller>
+  <table class="token-table wa-hover-rows">
+    <thead>
+      <tr><th>Custom Property</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr id="token-wa-tooltip-arrow-size">
+        <td class="token-name"><code>--wa-tooltip-arrow-size</code></td>
+        <td>Size of the tooltip arrow/caret</td>
+      </tr>
+      <tr id="token-wa-tooltip-background-color">
+        <td class="token-name"><code>--wa-tooltip-background-color</code></td>
+        <td>Background color of the tooltip body</td>
+      </tr>
+      <tr id="token-wa-tooltip-border-color">
+        <td class="token-name"><code>--wa-tooltip-border-color</code></td>
+        <td>Border color of the tooltip</td>
+      </tr>
+      <tr id="token-wa-tooltip-border-style">
+        <td class="token-name"><code>--wa-tooltip-border-style</code></td>
+        <td>Border line style of the tooltip</td>
+      </tr>
+      <tr id="token-wa-tooltip-border-width">
+        <td class="token-name"><code>--wa-tooltip-border-width</code></td>
+        <td>Border thickness of the tooltip</td>
+      </tr>
+      <tr id="token-wa-tooltip-border-radius">
+        <td class="token-name"><code>--wa-tooltip-border-radius</code></td>
+        <td>Corner rounding of the tooltip</td>
+      </tr>
+      <tr id="token-wa-tooltip-content-color">
+        <td class="token-name"><code>--wa-tooltip-content-color</code></td>
+        <td>Text color of tooltip content</td>
+      </tr>
+      <tr id="token-wa-tooltip-font-size">
+        <td class="token-name"><code>--wa-tooltip-font-size</code></td>
+        <td>Font size of tooltip text</td>
+      </tr>
+      <tr id="token-wa-tooltip-line-height">
+        <td class="token-name"><code>--wa-tooltip-line-height</code></td>
+        <td>Line height of tooltip text</td>
+      </tr>
+    </tbody>
+  </table>
+</wa-scroller>
 
 ```html {.example}
-<wa-button id="bullseye-example" appearance="plain">
+<wa-button id="tooltip-demo" appearance="plain">
   <wa-icon label="Target" name="bullseye"></wa-icon>
 </wa-button>
-<wa-tooltip for="bullseye-example" open trigger="manual">This is a tooltip</wa-tooltip>
+<wa-tooltip for="tooltip-demo" open trigger="manual">This is a tooltip</wa-tooltip>
 ```
