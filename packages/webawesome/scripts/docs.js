@@ -91,13 +91,16 @@ export async function generateDocs(options = {}) {
   function stubConsole(key) {
     const originalFn = console[key];
     console[key] = function (...args) {
-      outputs[key].push(...args);
+      outputs[key].push(args);
     };
     return originalFn;
   }
 
   // Works around a bug in 11ty where it still prints warnings despite the logger being overriden and in quietMode.
   const originalWarn = stubConsole('warn');
+  const restoreConsole = () => {
+    console.warn = originalWarn;
+  };
 
   let output = '';
 
@@ -146,9 +149,21 @@ export async function generateDocs(options = {}) {
       console.log(`Writing the docs ${output}`);
     }
   } catch (error) {
-    console.warn = originalWarn;
+    if (outputs.warn.length > 0) {
+      console.error(chalk.yellow('\n11ty warnings captured during build:'));
+      for (const args of outputs.warn) {
+        console.error(chalk.yellow('  ' + args.map(a => a?.stack || a?.message || a).join(' ')));
+      }
+    }
 
-    console.error('\n\n' + chalk.red(error.cause) + '\n');
+    const inner = error?.cause || error?.originalError;
+    const innerStr = inner?.stack || inner?.message;
+    const outer = error?.message;
+    const out =
+      innerStr && outer && !innerStr.includes(outer)
+        ? `${outer}\n\n${innerStr}`
+        : innerStr || error?.stack || outer || String(error);
+    console.error('\n\n' + chalk.red(out) + '\n');
 
     if (spinner) {
       spinner.fail(chalk.red(`Error while writing the docs.`));
@@ -159,6 +174,8 @@ export async function generateDocs(options = {}) {
     if (!isDeveloping) {
       process.exit(1);
     }
+  } finally {
+    restoreConsole();
   }
 }
 
