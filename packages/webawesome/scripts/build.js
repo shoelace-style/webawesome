@@ -16,7 +16,7 @@ import copy from 'recursive-copy';
 import { SimulateWebAwesomeApp } from '../docs/_utils/simulate-webawesome-app.js';
 import { generateDocs } from './docs.js';
 import { generateLlmsTxtFile } from './llms.js';
-import { getCdnDir, getDistDir, getDocsDir, getRootDir, getSiteDir } from './utils.js';
+import { formatError, getCdnDir, getDistDir, getDocsDir, getRootDir, getSiteDir } from './utils.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -467,14 +467,7 @@ export async function build(options = {}) {
 
             reload();
           } catch (err) {
-            const inner = err?.cause || err?.originalError;
-            const innerStr = inner?.stack || inner?.message;
-            const outer = err?.message;
-            const out =
-              innerStr && outer && !innerStr.includes(outer)
-                ? `${outer}\n\n${innerStr}`
-                : innerStr || err?.stack || outer || String(err);
-            console.error(chalk.red(out));
+            console.error(chalk.red(formatError(err)));
 
             if (!isDeveloping) {
               process.exit(1);

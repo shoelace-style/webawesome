@@ -5,7 +5,7 @@ import copy from 'recursive-copy';
 import chalk from 'chalk';
 import { deleteAsync } from 'del';
 import { join } from 'path';
-import { getCdnDir, getDocsDir, getEleventyConfigPath, getSiteDir } from './utils.js';
+import { formatError, getCdnDir, getDocsDir, getEleventyConfigPath, getSiteDir } from './utils.js';
 
 let eleventyBuildResolver;
 let eleventyBuildPromise;
@@ -156,14 +156,7 @@ export async function generateDocs(options = {}) {
       }
     }
 
-    const inner = error?.cause || error?.originalError;
-    const innerStr = inner?.stack || inner?.message;
-    const outer = error?.message;
-    const out =
-      innerStr && outer && !innerStr.includes(outer)
-        ? `${outer}\n\n${innerStr}`
-        : innerStr || error?.stack || outer || String(error);
-    console.error('\n\n' + chalk.red(out) + '\n');
+    console.error('\n\n' + chalk.red(formatError(error)) + '\n');
 
     if (spinner) {
       spinner.fail(chalk.red(`Error while writing the docs.`));

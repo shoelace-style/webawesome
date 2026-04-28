@@ -14,6 +14,21 @@ export const getSiteDir = () => process.env.SITE_DIR || join(getRootDir(), '_sit
 export const getEleventyConfigPath = () => process.env.ELEVENTY_CONFIG_PATH || join(getDocsDir(), '.eleventy.js');
 
 /**
+ * Formats an error for display in dev terminals. Falls through
+ * `cause → originalError → message → stack`, since 11ty stores its
+ * useful detail (file path, line, column) on `originalError` —
+ * `cause` is almost always empty.
+ */
+export function formatError(err) {
+  const inner = err?.cause || err?.originalError;
+  const innerStr = inner?.stack || inner?.message;
+  const outer = err?.message;
+  return innerStr && outer && !innerStr.includes(outer)
+    ? `${outer}\n\n${innerStr}`
+    : innerStr || err?.stack || outer || String(err);
+}
+
+/**
  * Runs a script and returns a promise that resolves with the content of stdout when the script exits or rejects with
  * the content of stderr when the script exits with an error.
  */
