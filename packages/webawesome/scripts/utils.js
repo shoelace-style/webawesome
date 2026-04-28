@@ -14,14 +14,15 @@ export const getSiteDir = () => process.env.SITE_DIR || join(getRootDir(), '_sit
 export const getEleventyConfigPath = () => process.env.ELEVENTY_CONFIG_PATH || join(getDocsDir(), '.eleventy.js');
 
 /**
- * Formats an error for display in dev terminals. Falls through
- * `cause → originalError → message → stack`, since 11ty stores its
- * useful detail (file path, line, column) on `originalError` —
- * `cause` is almost always empty.
+ * Formats an error for display in dev terminals. 11ty wraps template
+ * failures in a TemplateContentRenderError whose `originalError` carries
+ * the actionable detail (file path, line, column). For the inner error
+ * we prefer `.message` over `.stack` because the message already has
+ * everything useful and the stack adds many lines of internal frames.
  */
 export function formatError(err) {
-  const inner = err?.cause || err?.originalError;
-  const innerStr = inner?.stack || inner?.message;
+  const inner = err?.originalError || err?.cause;
+  const innerStr = inner?.message || inner?.stack;
   const outer = err?.message;
   return innerStr && outer && !innerStr.includes(outer)
     ? `${outer}\n\n${innerStr}`

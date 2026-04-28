@@ -152,7 +152,7 @@ export async function generateDocs(options = {}) {
     if (outputs.warn.length > 0) {
       console.error(chalk.yellow('\n11ty warnings captured during build:'));
       for (const args of outputs.warn) {
-        console.error(chalk.yellow('  ' + args.map(a => a?.stack || a?.message || a).join(' ')));
+        console.error(chalk.yellow('  ' + args.map(a => a?.message || a?.stack || String(a)).join(' ')));
       }
     }
 
