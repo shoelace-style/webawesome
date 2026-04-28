@@ -467,7 +467,14 @@ export async function build(options = {}) {
 
             reload();
           } catch (err) {
-            console.error(chalk.red(err));
+            const inner = err?.cause || err?.originalError;
+            const innerStr = inner?.stack || inner?.message;
+            const outer = err?.message;
+            const out =
+              innerStr && outer && !innerStr.includes(outer)
+                ? `${outer}\n\n${innerStr}`
+                : innerStr || err?.stack || outer || String(err);
+            console.error(chalk.red(out));
 
             if (!isDeveloping) {
               process.exit(1);
