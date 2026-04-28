@@ -795,33 +795,13 @@
     background-size: var(--dot-spacing) var(--dot-spacing);
   }
 
-  /* Bottom fade mask; --wa-fade-mask-base on self/ancestor. With background-wa-pattern, masks ::after. */
+  /* Bottom fade mask. Composes with .background-wa-pattern (masks the ::after decoration only); on any
+   * other element, masks the host (content fades too). Mask reads alpha, so color is irrelevant. */
   .wa-mask-fade-below:not(.background-wa-pattern),
   .background-wa-pattern.wa-mask-fade-below::after {
-    --wa-fade-mask-show: var(--wa-fade-mask-base, var(--wa-color-surface-default));
-    --wa-fade-mask-hide: transparent;
-    --wa-fade-mask-fade-start: 60%;
-    --wa-fade-mask-fade-length: 35%;
-    -webkit-mask-image: linear-gradient(
-      to bottom,
-      var(--wa-fade-mask-show) 0%,
-      var(--wa-fade-mask-show) var(--wa-fade-mask-fade-start),
-      var(--wa-fade-mask-hide) calc(var(--wa-fade-mask-fade-start) + var(--wa-fade-mask-fade-length))
-    );
-    mask-image: linear-gradient(
-      to bottom,
-      var(--wa-fade-mask-show) 0%,
-      var(--wa-fade-mask-show) var(--wa-fade-mask-fade-start),
-      var(--wa-fade-mask-hide) calc(var(--wa-fade-mask-fade-start) + var(--wa-fade-mask-fade-length))
-    );
-  }
-
-  @supports (color: rgb(from red r g b)) {
-    .wa-mask-fade-below:not(.background-wa-pattern),
-    .background-wa-pattern.wa-mask-fade-below::after {
-      --wa-fade-mask-show: rgb(from var(--wa-fade-mask-base, var(--wa-color-surface-default)) r g b / 1);
-      --wa-fade-mask-hide: rgb(from var(--wa-fade-mask-base, var(--wa-color-surface-default)) r g b / 0);
-    }
+    --wa-mask-fade-start: 60%;
+    --wa-mask-fade-end: 95%;
+    mask-image: linear-gradient(to bottom, #000 var(--wa-mask-fade-start), transparent var(--wa-mask-fade-end));
   }
 
   /* wa illustration background pattern */
