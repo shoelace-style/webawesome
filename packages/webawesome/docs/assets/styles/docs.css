@@ -476,7 +476,7 @@ wa-card .page-name {
   border-radius: var(--wa-border-radius-m);
   box-sizing: border-box;
   min-block-size: 3rem;
-  min-inline-size: 6rem;
+  min-inline-size: 3rem;
   padding: var(--wa-space-xs);
   font-weight: var(--wa-font-weight-semibold);
   line-height: var(--wa-line-height-condensed);

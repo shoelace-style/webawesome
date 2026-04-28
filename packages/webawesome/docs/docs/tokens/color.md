@@ -393,12 +393,12 @@ These tokens power consistent hover, active, and focus states across all interac
       <tr id="token-wa-color-mix-hover">
         <td class="token-name"><code>--wa-color-mix-hover</code></td>
         <td>A color and an optional percentage mixed into a component's color on hover via <code>color-mix()</code></td>
-        <td><div class="swatch color-mix-example" style="--mix-color: var(--wa-color-mix-hover)"><small>mixed</small></div></td>
+        <td><div class="swatch color-mix-example" style="--mix-color: var(--wa-color-mix-hover)"><small>mix</small></div></td>
       </tr>
       <tr id="token-wa-color-mix-active">
         <td class="token-name"><code>--wa-color-mix-active</code></td>
         <td>A color and an optional percentage mixed into a component's color on press/active via <code>color-mix()</code></td>
-        <td><div class="swatch color-mix-example" style="--mix-color: var(--wa-color-mix-active)"><small>mixed</small></div></td>
+        <td><div class="swatch color-mix-example" style="--mix-color: var(--wa-color-mix-active)"><small>mix</small></div></td>
       </tr>
     </tbody>
   </table>
