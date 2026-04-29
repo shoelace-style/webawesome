@@ -1,5 +1,6 @@
 {% raw %}
 {% if isBuildAwesomePromoActive %}
+<div class="wrapper-ba-kickstarter-dialog">
   <wa-dialog id="dialog-site" class="dialog-ba-kickstarter brand-build-awesome app-dialog" light-dismiss without-header>
     <div class="ba-kickstarter-video">
       <div class="ba-kickstarter-video-poster" aria-hidden="true">
@@ -22,7 +23,10 @@
     <div class="wa-stack wa-gap-2xl">
       <div class="wa-stack wa-gap-s">
         <h2 class="wa-heading-xl brand-font">Introducing <a href="{{ buildAwesome.kickstarterUrl }}" class="wa-link-plain" style="color: var(--wa-color-brand-fill-loud);">Build Awesome</a>!</h2>
-        <p><strong>Build Awesome</strong> is a new way to build and edit fast, beautiful websites. Created by your friends at Font Awesome.</p>
+        <p>
+          Build Awesome is a new website platform from the Font and Web Awesome teams. Fast by default, super easy editing, built to last,
+          and free at the core.
+        </p>
       </div>
 
       <div class="wa-flank">
@@ -33,11 +37,12 @@
           href="{{ buildAwesome.kickstarterUrl }}"
           class="brand-font">
           <wa-icon slot="start" src="/assets/images/logo-build-awesome-icon.svg" style="--logo-icon-fill: currentColor;"></wa-icon>
-          Live Now on Kickstarter!
+          Back the Kickstarter!
         </wa-button>
       </div>
     </div>
   </wa-dialog>
+</div>
 
   <script type="module">
     (function() {

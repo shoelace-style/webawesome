@@ -475,6 +475,17 @@
   }
 
   /* Build Awesome Kickstarter dialog */
+  .wrapper-ba-kickstarter-dialog {
+    container-type: inline-size;
+    container-name: ba-kickstarter-dialog;
+  }
+
+  @container ba-kickstarter-dialog (min-width: 48rem) {
+    #dialog-site.dialog-ba-kickstarter {
+      --width: 41rem;
+    }
+  }
+
   .dialog-ba-kickstarter .ba-kickstarter-video {
     position: relative;
     margin-inline: calc(var(--spacing) * -1);
