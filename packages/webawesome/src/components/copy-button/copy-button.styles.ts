@@ -210,7 +210,7 @@ export default css`
     }
     to {
       opacity: 0;
-      transform: translateX(-50%) translateY(-0.25rem) scale(0.95);
+      transform: translateX(-50%) translateY(0.2rem) scale(0.9);
     }
   }
 
@@ -241,7 +241,7 @@ export default css`
     }
     to {
       opacity: 0;
-      transform: translateX(-50%) translateY(0.25rem) scale(0.95);
+      transform: translateX(-50%) translateY(-0.2rem) scale(0.9);
     }
   }
 
@@ -272,7 +272,7 @@ export default css`
     }
     to {
       opacity: 0;
-      transform: translateY(-50%) translateX(-0.25rem) scale(0.95);
+      transform: translateY(-50%) translateX(0.2rem) scale(0.9);
     }
   }
 
@@ -303,7 +303,7 @@ export default css`
     }
     to {
       opacity: 0;
-      transform: translateY(-50%) translateX(0.25rem) scale(0.95);
+      transform: translateY(-50%) translateX(-0.2rem) scale(0.9);
     }
   }
 
