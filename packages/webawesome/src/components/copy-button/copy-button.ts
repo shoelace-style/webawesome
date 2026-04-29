@@ -11,19 +11,16 @@ import hostStyles from '../../styles/component/host.styles.js';
 import visuallyHidden from '../../styles/component/visually-hidden.styles.js';
 import { LocalizeController } from '../../utilities/localize.js';
 import '../icon/icon.js';
-import '../tooltip/tooltip.js';
-import type WaTooltip from '../tooltip/tooltip.js';
 import styles from './copy-button.styles.js';
 
 /**
  * @summary Copy buttons copy text to the clipboard when the user activates them. They provide built-in success and
  *  error feedback so users know the copy worked.
  * @documentation https://webawesome.com/docs/components/copy
- * @status experimental
+ * @status stable
  * @since 2.7
  *
  * @dependency wa-icon
- * @dependency wa-tooltip
  *
  * @event wa-copy - Emitted when the data has been copied.
  * @event wa-error - Emitted when the data could not be copied.
@@ -41,10 +38,7 @@ import styles from './copy-button.styles.js';
  * @csspart copy-icon - The container that holds the copy icon.
  * @csspart success-icon - The container that holds the success icon.
  * @csspart error-icon - The container that holds the error icon.
- * @csspart tooltip__base - The tooltip's exported `base` part.
- * @csspart tooltip__base__popup - The tooltip's exported `popup` part.
- * @csspart tooltip__base__arrow - The tooltip's exported `arrow` part.
- * @csspart tooltip__body - The tooltip's exported `body` part.
+ * @csspart feedback - The popup that displays the success or error label after a copy attempt.
  */
 @customElement('wa-copy-button')
 export default class WaCopyButton extends WebAwesomeElement {
@@ -56,10 +50,11 @@ export default class WaCopyButton extends WebAwesomeElement {
   @query('slot[name="copy-icon"]') copyIcon: HTMLSlotElement;
   @query('slot[name="success-icon"]') successIcon: HTMLSlotElement;
   @query('slot[name="error-icon"]') errorIcon: HTMLSlotElement;
-  @query('wa-tooltip') tooltip: WaTooltip;
+  @query('.feedback') feedback: HTMLDivElement;
 
   @state() isCopying = false;
   @state() status: 'rest' | 'success' | 'error' = 'rest';
+  @state() showFeedback = false;
 
   private get currentLabel() {
     if (this.status === 'success') {
@@ -87,20 +82,21 @@ export default class WaCopyButton extends WebAwesomeElement {
   /** Disables the copy button. */
   @property({ type: Boolean, reflect: true }) disabled = false;
 
-  /** A custom label to show in the tooltip. */
+  /** A custom label to show in the accessible name and feedback popup. */
   @property({ attribute: 'copy-label' }) copyLabel = '';
 
-  /** A custom label to show in the tooltip after copying. */
+  /** A custom label to show in the feedback popup after copying. */
   @property({ attribute: 'success-label' }) successLabel = '';
 
-  /** A custom label to show in the tooltip when a copy error occurs. */
+  /** A custom label to show in the feedback popup when a copy error occurs. */
   @property({ attribute: 'error-label' }) errorLabel = '';
 
   /** The length of time to show feedback before restoring the default trigger. */
   @property({ attribute: 'feedback-duration', type: Number }) feedbackDuration = 1000;
 
-  /** The preferred placement of the tooltip. */
-  @property({ attribute: 'tooltip-placement' }) tooltipPlacement: 'top' | 'right' | 'bottom' | 'left' = 'top';
+  /** The preferred placement of the feedback popup. */
+  @property({ attribute: 'feedback-placement', reflect: true }) feedbackPlacement: 'top' | 'right' | 'bottom' | 'left' =
+    'top';
 
   @watch('status')
   handleStatusChange() {
@@ -175,19 +171,31 @@ export default class WaCopyButton extends WebAwesomeElement {
   private async showStatus(status: 'success' | 'error') {
     this.status = status;
 
-    // Icon animation only applies when using the default trigger (fallback content)
+    // Animate the icon swap when using the default trigger
     if (this.copyIcon) {
       const iconToShow = status === 'success' ? this.successIcon : this.errorIcon;
 
-      // Show the feedback icon
       await animateWithClass(this.copyIcon, 'hide');
       this.copyIcon.hidden = true;
       iconToShow.hidden = false;
       await animateWithClass(iconToShow, 'show');
     }
 
+    // Show the feedback popup
+    this.showFeedback = true;
+    await this.updateComplete;
+    if (this.feedback) {
+      await animateWithClass(this.feedback, 'show');
+    }
+
     // After a brief delay, restore the original state
     setTimeout(async () => {
+      // Hide the feedback popup
+      if (this.feedback) {
+        await animateWithClass(this.feedback, 'hide');
+      }
+      this.showFeedback = false;
+
       if (this.copyIcon) {
         const iconToShow = status === 'success' ? this.successIcon : this.errorIcon;
         await animateWithClass(iconToShow, 'hide');
@@ -212,11 +220,10 @@ export default class WaCopyButton extends WebAwesomeElement {
           part="button"
           type="button"
           id="copy-button"
+          aria-label=${this.currentLabel}
           ?disabled=${this.disabled}
           ?hidden=${hasCustomTrigger}
         >
-          <!-- Render a visually hidden label to appease the accessibility checking gods -->
-          <span class="wa-visually-hidden">${this.currentLabel}</span>
           <slot part="copy-icon" name="copy-icon">
             <wa-icon library="system" name="copy" variant="regular"></wa-icon>
           </slot>
@@ -226,24 +233,24 @@ export default class WaCopyButton extends WebAwesomeElement {
           <slot part="error-icon" name="error-icon" variant="solid" hidden>
             <wa-icon library="system" name="xmark"></wa-icon>
           </slot>
-          <wa-tooltip
-            class=${classMap({
-              'copy-button': true,
-              'copy-button-success': this.status === 'success',
-              'copy-button-error': this.status === 'error',
-            })}
-            for="copy-button"
-            placement=${this.tooltipPlacement}
-            ?disabled=${this.disabled}
-            exportparts="
-              base:tooltip__base,
-              base__popup:tooltip__base__popup,
-              base__arrow:tooltip__base__arrow,
-              body:tooltip__body
-            "
-            >${this.currentLabel}</wa-tooltip
-          >
         </button>
+
+        ${this.showFeedback
+          ? html`
+              <div
+                class=${classMap({
+                  feedback: true,
+                  'feedback-success': this.status === 'success',
+                  'feedback-error': this.status === 'error',
+                })}
+                part="feedback"
+                role="status"
+                aria-live="polite"
+              >
+                ${this.currentLabel}
+              </div>
+            `
+          : ''}
       </div>
     `;
   }

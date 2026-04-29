@@ -24,7 +24,7 @@ Copy buttons use the browser's [`clipboard.writeText()`](https://developer.mozil
 
 ### Custom Labels
 
-Copy Buttons display feedback in a tooltip. You can customize the labels using the `copy-label`, `success-label`, and `error-label` attributes.
+Copy Buttons display feedback in a popup after copying. You can customize the labels using the `copy-label`, `success-label`, and `error-label` attributes. The `copy-label` is used as the button's accessible name.
 
 ```html {.example}
 <wa-copy-button
@@ -66,7 +66,7 @@ You can also use a native button as the trigger.
 ```
 
 :::info
-When using a custom trigger, the default tooltip and icon feedback won't be shown. Use the `wa-copy` and `wa-error` events or the `:state(success)` and `:state(error)` CSS custom states to provide feedback to the user.
+When using a custom trigger, the icon swap won't be shown, but the feedback popup still appears after copying. You can also use the `wa-copy` and `wa-error` events or the `:state(success)` and `:state(error)` CSS custom states to provide additional feedback in your custom trigger.
 :::
 
 ### Copying Values From Other Elements
@@ -79,22 +79,26 @@ To copy data from an attribute, use `from="id[attr]"` where `id` is the id of th
 
 ```html {.example}
 <!-- Copies the span's textContent -->
-<span id="my-phone">+1 (234) 456-7890</span>
-<wa-copy-button from="my-phone"></wa-copy-button>
+<div class="wa-cluster wa-align-items-center wa-gap-2xs">
+  <span id="my-phone">+1 (234) 456-7890</span>
+  <wa-copy-button from="my-phone"></wa-copy-button>
+</div>
 
-<br /><br />
+<br />
 
 <!-- Copies the input's "value" property -->
-<span class="wa-align-items-center wa-gap-2xs">
-  <wa-input id="my-input" type="text" value="User input" style="display: inline-block; max-width: 300px;"></wa-input>
+<div class="wa-cluster wa-align-items-center wa-gap-2xs">
+  <wa-input id="my-input" type="text" value="User input" style="max-width: 300px;"></wa-input>
   <wa-copy-button from="my-input.value"></wa-copy-button>
-</span>
+</div>
 
 <br />
 
 <!-- Copies the link's "href" attribute -->
-<a id="my-link" href="https://shoelace.style/">Web Awesome Website</a>
-<wa-copy-button from="my-link[href]"></wa-copy-button>
+<div class="wa-cluster wa-align-items-center wa-gap-2xs">
+  <a id="my-link" href="https://shoelace.style/">Web Awesome Website</a>
+  <wa-copy-button from="my-link[href]"></wa-copy-button>
+</div>
 ```
 
 ### Handling Errors
@@ -122,6 +126,17 @@ A success indicator is briefly shown after copying. You can customize the length
 
 ```html {.example}
 <wa-copy-button value="Web Awesome rocks!" feedback-duration="250"></wa-copy-button>
+```
+
+### Changing Feedback Placement
+
+The feedback popup is shown above the trigger by default. Use the `feedback-placement` attribute to position it on the `top`, `right`, `bottom`, or `left`.
+
+```html {.example}
+<wa-copy-button value="Above" feedback-placement="top"></wa-copy-button>
+<wa-copy-button value="Right" feedback-placement="right"></wa-copy-button>
+<wa-copy-button value="Below" feedback-placement="bottom"></wa-copy-button>
+<wa-copy-button value="Left" feedback-placement="left"></wa-copy-button>
 ```
 
 ### Custom Styles

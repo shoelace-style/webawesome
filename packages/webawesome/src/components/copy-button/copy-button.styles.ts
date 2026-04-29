@@ -8,6 +8,7 @@ export default css`
 
   .copy-button__trigger {
     display: inline-flex;
+    position: relative;
   }
 
   .button {
@@ -62,15 +63,16 @@ export default css`
     display: inline-flex;
   }
 
+  /* Icon swap animation */
   .show {
-    animation: show 100ms ease;
+    animation: copy-button-icon-show 100ms ease;
   }
 
   .hide {
-    animation: show 100ms ease reverse;
+    animation: copy-button-icon-show 100ms ease reverse;
   }
 
-  @keyframes show {
+  @keyframes copy-button-icon-show {
     from {
       scale: 0.25;
       opacity: 0.25;
@@ -78,6 +80,239 @@ export default css`
     to {
       scale: 1;
       opacity: 1;
+    }
+  }
+
+  /* Feedback popup — styled to match wa-tooltip */
+  .feedback {
+    position: absolute;
+    padding: 0.25em 0.5em;
+    background-color: var(--wa-tooltip-background-color);
+    border: var(--wa-tooltip-border-width) var(--wa-tooltip-border-style) var(--wa-tooltip-border-color);
+    border-radius: var(--wa-tooltip-border-radius);
+    color: var(--wa-tooltip-content-color);
+    font-size: var(--wa-tooltip-font-size);
+    line-height: var(--wa-tooltip-line-height);
+    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-select: none;
+    z-index: 1000;
+  }
+
+  .feedback::after {
+    content: '';
+    position: absolute;
+    width: var(--wa-tooltip-arrow-size);
+    height: var(--wa-tooltip-arrow-size);
+    background-color: var(--wa-tooltip-background-color);
+    border-right: var(--wa-tooltip-border-width) var(--wa-tooltip-border-style) var(--wa-tooltip-border-color);
+    border-bottom: var(--wa-tooltip-border-width) var(--wa-tooltip-border-style) var(--wa-tooltip-border-color);
+  }
+
+  /* Top placement (default) */
+  :host(:not([feedback-placement])) .feedback,
+  :host([feedback-placement='top']) .feedback {
+    bottom: 100%;
+    left: 50%;
+    margin-bottom: var(--wa-tooltip-arrow-size);
+    transform: translateX(-50%);
+    transform-origin: bottom center;
+  }
+
+  :host(:not([feedback-placement])) .feedback::after,
+  :host([feedback-placement='top']) .feedback::after {
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+
+  /* Bottom placement */
+  :host([feedback-placement='bottom']) .feedback {
+    top: 100%;
+    left: 50%;
+    margin-top: var(--wa-tooltip-arrow-size);
+    transform: translateX(-50%);
+    transform-origin: top center;
+  }
+
+  :host([feedback-placement='bottom']) .feedback::after {
+    bottom: 100%;
+    left: 50%;
+    transform: translate(-50%, 50%) rotate(225deg);
+  }
+
+  /* Left placement */
+  :host([feedback-placement='left']) .feedback {
+    right: 100%;
+    top: 50%;
+    margin-right: var(--wa-tooltip-arrow-size);
+    transform: translateY(-50%);
+    transform-origin: center right;
+  }
+
+  :host([feedback-placement='left']) .feedback::after {
+    left: 100%;
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+  }
+
+  /* Right placement */
+  :host([feedback-placement='right']) .feedback {
+    left: 100%;
+    top: 50%;
+    margin-left: var(--wa-tooltip-arrow-size);
+    transform: translateY(-50%);
+    transform-origin: center left;
+  }
+
+  :host([feedback-placement='right']) .feedback::after {
+    right: 100%;
+    top: 50%;
+    transform: translate(50%, -50%) rotate(135deg);
+  }
+
+  /* Show / hide animations — directional based on placement */
+  .feedback.show {
+    animation: copy-button-feedback-show var(--wa-transition-normal) var(--wa-transition-easing) forwards;
+  }
+
+  .feedback.hide {
+    animation: copy-button-feedback-hide var(--wa-transition-normal) var(--wa-transition-easing) forwards;
+  }
+
+  /* Top */
+  :host(:not([feedback-placement])) .feedback.show,
+  :host([feedback-placement='top']) .feedback.show {
+    animation-name: copy-button-feedback-show-top;
+  }
+
+  :host(:not([feedback-placement])) .feedback.hide,
+  :host([feedback-placement='top']) .feedback.hide {
+    animation-name: copy-button-feedback-hide-top;
+  }
+
+  @keyframes copy-button-feedback-show-top {
+    from {
+      opacity: 0;
+      transform: translateX(-50%) translateY(0.5rem) scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0) scale(1);
+    }
+  }
+
+  @keyframes copy-button-feedback-hide-top {
+    from {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0) scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: translateX(-50%) translateY(-0.25rem) scale(0.95);
+    }
+  }
+
+  /* Bottom */
+  :host([feedback-placement='bottom']) .feedback.show {
+    animation-name: copy-button-feedback-show-bottom;
+  }
+
+  :host([feedback-placement='bottom']) .feedback.hide {
+    animation-name: copy-button-feedback-hide-bottom;
+  }
+
+  @keyframes copy-button-feedback-show-bottom {
+    from {
+      opacity: 0;
+      transform: translateX(-50%) translateY(-0.5rem) scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0) scale(1);
+    }
+  }
+
+  @keyframes copy-button-feedback-hide-bottom {
+    from {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0) scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: translateX(-50%) translateY(0.25rem) scale(0.95);
+    }
+  }
+
+  /* Left */
+  :host([feedback-placement='left']) .feedback.show {
+    animation-name: copy-button-feedback-show-left;
+  }
+
+  :host([feedback-placement='left']) .feedback.hide {
+    animation-name: copy-button-feedback-hide-left;
+  }
+
+  @keyframes copy-button-feedback-show-left {
+    from {
+      opacity: 0;
+      transform: translateY(-50%) translateX(0.5rem) scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(-50%) translateX(0) scale(1);
+    }
+  }
+
+  @keyframes copy-button-feedback-hide-left {
+    from {
+      opacity: 1;
+      transform: translateY(-50%) translateX(0) scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(-50%) translateX(-0.25rem) scale(0.95);
+    }
+  }
+
+  /* Right */
+  :host([feedback-placement='right']) .feedback.show {
+    animation-name: copy-button-feedback-show-right;
+  }
+
+  :host([feedback-placement='right']) .feedback.hide {
+    animation-name: copy-button-feedback-hide-right;
+  }
+
+  @keyframes copy-button-feedback-show-right {
+    from {
+      opacity: 0;
+      transform: translateY(-50%) translateX(-0.5rem) scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(-50%) translateX(0) scale(1);
+    }
+  }
+
+  @keyframes copy-button-feedback-hide-right {
+    from {
+      opacity: 1;
+      transform: translateY(-50%) translateX(0) scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: translateY(-50%) translateX(0.25rem) scale(0.95);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .show,
+    .hide,
+    .feedback.show,
+    .feedback.hide {
+      animation-duration: 1ms;
     }
   }
 `;

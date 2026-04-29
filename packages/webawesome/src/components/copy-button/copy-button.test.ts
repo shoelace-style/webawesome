@@ -6,8 +6,7 @@ import { fixtures } from '../../internal/test/fixture.js';
 import { clickOnElement } from '../../internal/test/pointer-utilities.js';
 import type WaCopyButton from './copy-button.js';
 
-// We use aria-live to announce labels via tooltips
-const ignoredRules = ['button-name'];
+const ignoredRules: string[] = [];
 
 describe('<wa-copy-button>', () => {
   afterEach(() => {
@@ -59,9 +58,9 @@ describe('<wa-copy-button>', () => {
           expect(el.feedbackDuration).to.equal(1000);
         });
 
-        it('should default tooltipPlacement to top', async () => {
+        it('should default feedbackPlacement to top', async () => {
           const el = await fixture<WaCopyButton>(html`<wa-copy-button></wa-copy-button>`);
-          expect(el.tooltipPlacement).to.equal('top');
+          expect(el.feedbackPlacement).to.equal('top');
         });
 
         it('should have a default status of rest', async () => {
