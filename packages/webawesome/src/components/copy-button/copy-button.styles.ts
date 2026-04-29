@@ -19,7 +19,7 @@ export default css`
     border-radius: var(--wa-form-control-border-radius);
     color: inherit;
     font-size: inherit;
-    height: var(--wa-form-control-height);
+    height: calc(var(--wa-form-control-height) * 0.8);
     aspect-ratio: 1;
     cursor: pointer;
     transition-property: background-color, color;
