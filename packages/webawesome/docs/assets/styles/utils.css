@@ -745,69 +745,10 @@
     }
   }
 
-  /* grid background */
-  .background-grid {
-    --grid-spacing: var(--wa-space-2xl);
-    --grid-line-color: color-mix(in oklab, var(--wa-color-text-normal), transparent 90%);
-    --grid-line-width: var(--wa-border-width-s);
-    --subgrid-spacing: calc(var(--grid-spacing) / 2);
-    --subgrid-line-color: color-mix(in oklab, var(--wa-color-text-normal), transparent 95%);
-    --subgrid-line-width: var(--wa-border-width-s);
-
-    background-image:
-      /* main grid - vertical lines */
-      linear-gradient(to right, var(--grid-line-color) var(--grid-line-width), transparent var(--grid-line-width)),
-      /* main grid - horizontal lines */
-        linear-gradient(to bottom, var(--grid-line-color) var(--grid-line-width), transparent var(--grid-line-width)),
-      /* sub-grid - vertical lines (offset by half the main grid spacing) */
-        linear-gradient(
-          to right,
-          var(--subgrid-line-color) var(--subgrid-line-width),
-          transparent var(--subgrid-line-width)
-        ),
-      /* sub-grid - horizontal lines (offset by half the main grid spacing) */
-        linear-gradient(
-          to bottom,
-          var(--subgrid-line-color) var(--subgrid-line-width),
-          transparent var(--subgrid-line-width)
-        );
-
-    background-size:
-      var(--grid-spacing) var(--grid-spacing),
-      var(--grid-spacing) var(--grid-spacing),
-      var(--subgrid-spacing) var(--subgrid-spacing),
-      var(--subgrid-spacing) var(--subgrid-spacing);
-
-    background-position:
-      0 0,
-      0 0,
-      calc(var(--grid-spacing) / 2) calc(var(--grid-spacing) / 2),
-      calc(var(--grid-spacing) / 2) calc(var(--grid-spacing) / 2);
-  }
-
-  /* dot grid background */
-  .background-dot-grid {
-    --dot-spacing: 1.5rem;
-    --dot-radius: 1.5px;
-    --dot-color: color-mix(in oklab, var(--wa-color-text-normal), transparent 85%);
-
-    background-image: radial-gradient(circle, var(--dot-color) var(--dot-radius), transparent var(--dot-radius));
-    background-size: var(--dot-spacing) var(--dot-spacing);
-  }
-
-  /* Bottom fade mask. Composes with .background-wa-pattern (masks the ::after decoration only); on any
-   * other element, masks the host (content fades too). Mask reads alpha, so color is irrelevant. */
-  .wa-mask-fade-below:not(.background-wa-pattern),
-  .background-wa-pattern.wa-mask-fade-below::after {
-    --wa-mask-fade-start: 60%;
-    --wa-mask-fade-end: 95%;
-    mask-image: linear-gradient(to bottom, #000 var(--wa-mask-fade-start), transparent var(--wa-mask-fade-end));
-  }
-
-  /* wa illustration background pattern */
+  /* Background utilities share an ::after decoration layer; content children are lifted above it. */
+  .background-grid,
+  .background-dot-grid,
   .background-wa-pattern {
-    --background-pattern-size: auto;
-    --background-pattern-position: 0 0;
     position: relative;
 
     & > * {
@@ -816,17 +757,105 @@
     }
 
     &::after {
+      content: '';
       position: absolute;
       inset: 0;
-      background-color: var(--background-pattern-color, transparent);
-      background-image: var(--background-pattern-image, url('/assets/images/bg-wa-pattern.svg'));
+      z-index: 0;
+      pointer-events: none;
+    }
+  }
+
+  /* grid background */
+  .background-grid {
+    --background-grid-spacing: var(--wa-space-2xl);
+    --background-grid-line-color: color-mix(in oklab, var(--wa-color-text-normal), transparent 90%);
+    --background-grid-line-width: var(--wa-border-width-s);
+    --background-subgrid-spacing: calc(var(--background-grid-spacing) / 2);
+    --background-subgrid-line-color: color-mix(in oklab, var(--wa-color-text-normal), transparent 95%);
+    --background-subgrid-line-width: var(--wa-border-width-s);
+
+    &::after {
+      background-image:
+        /* main grid - vertical lines */
+        linear-gradient(
+          to right,
+          var(--background-grid-line-color) var(--background-grid-line-width),
+          transparent var(--background-grid-line-width)
+        ),
+        /* main grid - horizontal lines */
+          linear-gradient(
+            to bottom,
+            var(--background-grid-line-color) var(--background-grid-line-width),
+            transparent var(--background-grid-line-width)
+          ),
+        /* sub-grid - vertical lines (offset by half the main grid spacing) */
+          linear-gradient(
+            to right,
+            var(--background-subgrid-line-color) var(--background-subgrid-line-width),
+            transparent var(--background-subgrid-line-width)
+          ),
+        /* sub-grid - horizontal lines (offset by half the main grid spacing) */
+          linear-gradient(
+            to bottom,
+            var(--background-subgrid-line-color) var(--background-subgrid-line-width),
+            transparent var(--background-subgrid-line-width)
+          );
+
+      background-size:
+        var(--background-grid-spacing) var(--background-grid-spacing),
+        var(--background-grid-spacing) var(--background-grid-spacing),
+        var(--background-subgrid-spacing) var(--background-subgrid-spacing),
+        var(--background-subgrid-spacing) var(--background-subgrid-spacing);
+
+      background-position:
+        0 0,
+        0 0,
+        calc(var(--background-grid-spacing) / 2) calc(var(--background-grid-spacing) / 2),
+        calc(var(--background-grid-spacing) / 2) calc(var(--background-grid-spacing) / 2);
+    }
+  }
+
+  /* dot grid background */
+  .background-dot-grid {
+    --background-dot-spacing: 1.5rem;
+    --background-dot-radius: 1.5px;
+    --background-dot-color: color-mix(in oklab, var(--wa-color-text-normal), transparent 85%);
+
+    &::after {
+      background-image: radial-gradient(
+        circle,
+        var(--background-dot-color) var(--background-dot-radius),
+        transparent var(--background-dot-radius)
+      );
+      background-size: var(--background-dot-spacing) var(--background-dot-spacing);
+    }
+  }
+
+  /* wa illustration background pattern */
+  .background-wa-pattern {
+    --background-pattern-color: transparent;
+    --background-pattern-image: url('/assets/images/bg-wa-pattern.svg');
+    --background-pattern-opacity: 0.3;
+    --background-pattern-size: auto;
+    --background-pattern-position: 0 0;
+
+    &::after {
+      background-color: var(--background-pattern-color);
+      background-image: var(--background-pattern-image);
       background-repeat: repeat;
       background-size: var(--background-pattern-size);
       background-position: var(--background-pattern-position);
-      content: '';
-      opacity: var(--background-pattern-opacity, 0.3);
-      z-index: 0;
+      opacity: var(--background-pattern-opacity);
     }
+  }
+
+  /* Bottom fade mask. With any .background-* utility, masks the ::after decoration only; on any other
+   * element, masks the host (content fades too). Mask reads alpha, color is irrelevant. */
+  .wa-mask-fade-below:not(:is(.background-grid, .background-dot-grid, .background-wa-pattern)),
+  :is(.background-grid, .background-dot-grid, .background-wa-pattern).wa-mask-fade-below::after {
+    --wa-mask-fade-start: 60%;
+    --wa-mask-fade-end: 95%;
+    mask-image: linear-gradient(to bottom, #000 var(--wa-mask-fade-start), transparent var(--wa-mask-fade-end));
   }
 
   /* icon swap on hover/focus: plain buttons + dropdown items (pair .icon-default / .icon-hover in icon slot) */
