@@ -1,0 +1,6 @@
+{% macro expiredBadge(params) %}
+  {% set description = params.description or "This workspace's Web Awesome Pro subscription has expired" %}
+  {% set badgeId = params.id or ("pro-badge-" + ("" | uniqueId(8))) %}
+  <wa-badge appearance="accent" pill class="expired" id="{{ badgeId }}" data-expired-badge>Expired</wa-badge>
+  <wa-tooltip for="{{ badgeId }}">{{ description }}</wa-tooltip>
+{% endmacro %}
