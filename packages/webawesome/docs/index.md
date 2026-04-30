@@ -28,7 +28,7 @@ layout: page
     }
   }
 
-  .brand-font {
+  .font-brand {
     font-family: cera-round-pro;
   }
   .emphasis {
@@ -229,7 +229,7 @@ layout: page
 <div class="hero-background">
   <div class="hero-content">
     <wa-icon name="web-awesome" family="brands" class="logo-app wa-heading-4xl"></wa-icon>
-    <h1 class="brand-font">Make something <span class="emphasis">awesome</span> with open-source web components</h1>
+    <h1 class="font-brand">Make something <span class="emphasis">awesome</span> with open-source web components</h1>
     <div class="hero-cta">
       {%- raw -%}
         {% if currentUser.hasPro %}
@@ -264,7 +264,7 @@ layout: page
   </wa-button>
   <wa-divider></wa-divider>
   <div class="summary">
-    <h2 class="brand-font">What's <span class="emphasis">Web</span> Awesome?</h2>
+    <h2 class="font-brand">What's <span class="emphasis">Web</span> Awesome?</h2>
     <p>Web Awesome is the biggest open-source library of meticulously designed, highly customizable, and framework-agnostic UI components.</p>
     <div class="grid">
       <div class="wa-stack">
@@ -300,7 +300,7 @@ layout: page
 
   <div class="split-block">
     <div>
-      <h2 class="brand-font"><span class="emphasis">You</span> put the awesome in Web Awesome</h2>
+      <h2 class="font-brand"><span class="emphasis">You</span> put the awesome in Web Awesome</h2>
       <p>Web Awesome started as an open-source project fueled by contributions from an engaged community of developers, and we want to keep it that way. The core of Web Awesome is — and always will be — free and open source.</p>
       <p>Whether you’re a developer, designer, or budding tech nerd, we want you a part of the conversation.</p>
     </div>
@@ -347,7 +347,7 @@ layout: page
 <wa-divider></wa-divider>
 
   <div class="wa-stack wa-gap-xl">
-    <h2 class="wa-cluster brand-font">
+    <h2 class="wa-cluster font-brand">
       <wa-icon name="hashtag" style="color: var(--wa-brand-orange);"></wa-icon>
       <span>Stay in the know</span>
     </h2>
@@ -397,7 +397,7 @@ layout: page
     <wa-icon name="web-awesome" family="brands" class="logo-app wa-body-l"></wa-icon>
     <div class="split-block">
       <div>
-        <strong class="brand-font tagline">Let's Make Something Awesome</strong>
+        <strong class="font-brand tagline">Let's Make Something Awesome</strong>
         <p>Web Awesome is the design system platform and open source library of web components from your fellow nerds at <a href="https://www.fontawesome.com/">Font Awesome</a>.</p>
       </div>
       <div class="attribution">
