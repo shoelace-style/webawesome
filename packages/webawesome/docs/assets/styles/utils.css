@@ -166,7 +166,9 @@
   wa-page > [slot='banner'] {
     /* match nav-products background color */
     background-color: var(--nav-products-bg, var(--wa-color-surface-lowered));
-    padding: var(--wa-space-l) var(--content-padding-inline);
+    /* inline padding handled by .content-container on inner .banner */
+    padding-block: var(--wa-space-l);
+    padding-inline: 0;
     transition: background-color var(--wa-transition-slow) var(--wa-transition-easing);
 
     .banner {
@@ -188,8 +190,9 @@
   /*  products nav */
   .wrapper-nav-products {
     background-color: var(--nav-products-bg, var(--wa-color-surface-lowered));
+    /* inline padding handled by .content-container on inner .nav-products-full */
     padding-block-start: var(--wa-space-xs);
-    padding-inline: var(--content-padding-inline);
+    padding-inline: 0;
     inline-size: 100%;
     transition: background-color var(--wa-transition-slow) var(--wa-transition-easing);
   }
@@ -291,7 +294,9 @@
   wa-page > [slot='subheader'] {
     background-color: var(--wa-color-surface-default);
     border-bottom: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-surface-border);
-    padding: var(--wa-space-xs) var(--content-padding-inline);
+    /* inline padding handled by .content-container on inner .page-subheader */
+    padding-block: var(--wa-space-xs);
+    padding-inline: 0;
     container-type: inline-size;
     container-name: subheader;
 
