@@ -696,6 +696,21 @@
     wa-button#search-trigger::part(base) {
       justify-content: flex-start; /* align search trigger button content to start */
     }
+
+    /* current page: accent line replacing the section's left rail */
+    li:has(> .current),
+    li:has(> .wa-split > .current) {
+      position: relative;
+
+      &::before {
+        content: '';
+        position: absolute;
+        inset-block: calc(-1 * var(--wa-space-2xs));
+        inset-inline-start: calc(-1 * var(--wa-space-m) - var(--wa-border-width-s));
+        width: var(--wa-border-width-s);
+        background: var(--wa-color-brand-on-quiet);
+      }
+    }
   }
 
   #sidebar .is-planned {
