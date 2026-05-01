@@ -748,7 +748,7 @@
     padding-bottom: 1rem;
   }
 
-  @media screen and (min-width: 1181px) {
+  @media screen and (min-width: 73.75rem) {
     wa-page::part(navigation) {
       border-right: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-surface-border);
     }

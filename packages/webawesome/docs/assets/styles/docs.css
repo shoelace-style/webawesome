@@ -69,7 +69,7 @@ body.theme-transitioning {
 
 /* Header */
 wa-page::part(body) {
-  padding-top: 0px;
+  padding-top: 0;
 }
 
 wa-page::part(header-actions) {
@@ -176,22 +176,22 @@ wa-page > main:has(> .search-list) {
     gap: var(--wa-space-2xl);
     margin-block-end: var(--wa-space-3xl);
 
-    @container (width < 768px) {
+    @container (width < 48rem) {
       grid-template-columns: repeat(3, 1fr);
     }
 
-    @container (width < 576px) {
+    @container (width < 36rem) {
       grid-template-columns: repeat(2, 1fr);
     }
 
-    @container (width < 384px) {
+    @container (width < 24rem) {
       grid-template-columns: repeat(1, 1fr);
     }
 
     &.large {
       grid-template-columns: repeat(2, 1fr);
 
-      @container (width < 640px) {
+      @container (width < 40rem) {
         grid-template-columns: repeat(1, 1fr);
       }
     }
@@ -247,11 +247,11 @@ wa-card .page-name {
     gap: var(--wa-space-m);
     margin-block-end: var(--wa-space-l);
 
-    @container (width < 900px) {
+    @container (width < 56.25rem) {
       grid-template-columns: repeat(2, 1fr);
     }
 
-    @container (width < 560px) {
+    @container (width < 35rem) {
       grid-template-columns: 1fr;
     }
 
@@ -412,7 +412,7 @@ wa-scroller:has(.component-table) {
 }
 
 /** desktop */
-@media screen and (min-width: 1181px) {
+@media screen and (min-width: 73.75rem) {
   wa-page > main {
     padding: var(--wa-space-3xl);
   }
