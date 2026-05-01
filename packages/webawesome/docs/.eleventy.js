@@ -12,7 +12,7 @@ import { getComponents } from './_utils/manifest.js';
 import { markdown } from './_utils/markdown.js';
 import { SimulateWebAwesomeApp } from './_utils/simulate-webawesome-app.js';
 // import { formatCodePlugin } from './_plugins/format-code.js';
-// import litPlugin from '@lit-labs/eleventy-plugin-lit';
+import litPlugin from '@lit-labs/eleventy-plugin-lit';
 import { readFile } from 'fs/promises';
 import process from 'process';
 import * as url from 'url';
@@ -77,6 +77,7 @@ export default async function (eleventyConfig) {
   //
   // Set all global template data here
   //
+  eleventyConfig.addGlobalData('isDev', isDev)
   eleventyConfig.addGlobalData('package', packageData);
   eleventyConfig.addGlobalData('layout', 'page.njk');
   eleventyConfig.addGlobalData('server', {
@@ -344,19 +345,24 @@ export default async function (eleventyConfig) {
   //   //  - resize-observer (why SSR this?)
   //   //  - tooltip (why SSR this?)
   //   //
-  //   const omittedModules = [];
-  //   const componentModules = componentList
-  //     .filter(component => !omittedModules.includes(component.tagName.split(/wa-/)[1]))
-  //     .map(component => {
-  //       const name = component.tagName.split(/wa-/)[1];
-  //       const componentDirectory = process.env.UNBUNDLED_DIST_DIRECTORY || path.join('.', 'dist');
-  //       return path.join(componentDirectory, 'components', name, `${name}.js`);
-  //     });
-  //
-  //   eleventyConfig.addPlugin(litPlugin, {
-  //     mode: 'worker',
-  //     componentModules,
-  //   });
+    const omittedModules = [];
+    const componentList = []
+    allComponents.forEach((c) => {
+      if (!c.tagName) { return }
+      componentList.push(c)
+    })
+    const componentModules = componentList
+      .filter(component => !omittedModules.includes(component.tagName.split(/wa-/)[1]))
+      .map(component => {
+        const name = component.tagName.split(/wa-/)[1];
+        const componentDirectory = process.env.UNBUNDLED_DIST_DIRECTORY || path.join('.', 'dist');
+        return path.join(componentDirectory, 'components', name, `${name}.js`);
+      });
+
+    eleventyConfig.addPlugin(litPlugin, {
+      mode: 'worker',
+      componentModules,
+    });
   // }
 
   // For a server build, we expect a server to run the second transform.

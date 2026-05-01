@@ -16,6 +16,11 @@ export class HasSlotController implements ReactiveController {
       return false;
     }
 
+    // @ts-expect-error
+    if (this.host.didSSR && !this.host.hasUpdated) {
+      return false
+    }
+
     return [...this.host.childNodes].some(node => {
       if (node.nodeType === Node.TEXT_NODE && node.textContent!.trim() !== '') {
         return true;
@@ -41,6 +46,11 @@ export class HasSlotController implements ReactiveController {
   }
 
   private hasNamedSlot(name: string) {
+    // @ts-expect-error
+    if (this.host.didSSR && !this.host.hasUpdated) {
+      return false
+    }
+
     return this.host.querySelector?.(`:scope > [slot="${name}"]`) !== null;
   }
 
@@ -49,11 +59,17 @@ export class HasSlotController implements ReactiveController {
   }
 
   hostConnected() {
-    this.host.shadowRoot?.addEventListener?.('slotchange', this.handleSlotChange);
+    const shadowRoot = this.host.shadowRoot
+    if (shadowRoot && "addEventListener" in shadowRoot) {
+      shadowRoot.addEventListener('slotchange', this.handleSlotChange);
+    }
   }
 
   hostDisconnected() {
-    this.host.shadowRoot?.removeEventListener?.('slotchange', this.handleSlotChange);
+    const shadowRoot = this.host.shadowRoot
+    if (shadowRoot && "removeEventListener" in shadowRoot) {
+      shadowRoot.removeEventListener('slotchange', this.handleSlotChange);
+    }
   }
 
   private handleSlotChange = (event: Event) => {

@@ -60,11 +60,11 @@ export default class WebAwesomeElement extends LitElement {
     // SSR guard: document is not available during server-side rendering
     if (!isServer) {
       // Helpful comment node inside the shadow root that links to the docs
-      this.shadowRoot?.prepend(
-        document.createComment(
-          ` Web Awesome: https://webawesome.com/docs/components/${this.localName.replace('wa-', '')} `,
-        ),
-      );
+      // this.shadowRoot?.prepend(
+      //   document.createComment(
+      //     ` Web Awesome: https://webawesome.com/docs/components/${this.localName.replace('wa-', '')} `,
+      //   ),
+      // );
     }
   }
 
@@ -122,6 +122,7 @@ export default class WebAwesomeElement extends LitElement {
         // @ts-expect-error leave me alone TS.
         event.error = e;
         this.dispatchEvent(event);
+        console.error(e)
       }
       throw e;
     }

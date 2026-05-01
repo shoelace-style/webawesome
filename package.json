@@ -23,7 +23,7 @@
   "devDependencies": {
     "@11ty/eleventy": "3.0.0",
     "@custom-elements-manifest/analyzer": "^0.11.0",
-    "@lit-labs/eleventy-plugin-lit": "^1.0.3",
+    "@lit-labs/eleventy-plugin-lit": "^1.0.6",
     "@lit-labs/testing": "^0.2.5",
     "@lit/react": "^1.0.8",
     "@open-wc/testing": "^3.2.0",
