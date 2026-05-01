@@ -94,7 +94,7 @@ wa-page > main {
   margin-inline: auto;
 }
 
-/* increase max-width for index pages */
+/* increase max-inline-size for index pages */
 wa-page > main:has(.modern-card-list) {
   max-inline-size: var(--content-width-m);
 }
@@ -247,7 +247,7 @@ wa-card .page-name {
     gap: var(--wa-space-m);
     margin-block-end: var(--wa-space-l);
 
-    @container (inline-size < 56.25rem) {
+    @container (inline-size < 56rem) {
       grid-template-columns: repeat(2, 1fr);
     }
 
