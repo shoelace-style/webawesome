@@ -48,12 +48,12 @@
    * redefinition). Scoped overrides like `.page-footer .content-container { ... }`
    * are fine — only base-class redefinition is forbidden.
    *
-   * Override per-instance width via the `--max-width` custom property:
-   *   main { --max-width: var(--content-width-xs); }
+   * Override per-instance width via the `--max-inline-size` custom property:
+   *   main { --max-inline-size: var(--content-width-xs); }
    */
   .content-container {
     margin-inline: auto;
-    max-inline-size: var(--max-width, var(--content-width-l));
+    max-inline-size: var(--max-inline-size, var(--content-width-l));
     padding-inline: var(--content-padding-inline);
   }
 
@@ -170,7 +170,7 @@
     padding-block: var(--wa-space-l);
     padding-inline: 0;
     /* default to full-width in webawesome docs; pro overrides to --content-width-l */
-    --max-width: 100%;
+    --max-inline-size: 100%;
     transition: background-color var(--wa-transition-slow) var(--wa-transition-easing);
 
     .banner {
@@ -197,7 +197,7 @@
     padding-inline: 0;
     inline-size: 100%;
     /* default to full-width in webawesome docs; pro overrides to --content-width-l */
-    --max-width: 100%;
+    --max-inline-size: 100%;
     transition: background-color var(--wa-transition-slow) var(--wa-transition-easing);
   }
 
@@ -302,7 +302,7 @@
     padding-block: var(--wa-space-xs);
     padding-inline: 0;
     /* default to full-width in webawesome docs; pro overrides to --content-width-l */
-    --max-width: 100%;
+    --max-inline-size: 100%;
     container-type: inline-size;
     container-name: subheader;
 
