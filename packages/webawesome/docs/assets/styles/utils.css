@@ -253,8 +253,8 @@
     }
 
     .logo-svg {
-      width: auto;
-      height: var(--awesome-logo-height, 1.5rem);
+      inline-size: auto;
+      block-size: var(--awesome-logo-height, 1.5rem);
     }
   }
 
@@ -263,7 +263,7 @@
     .product {
       /* match dimensions of drawer's close-button */
       padding-inline: var(--wa-form-control-padding-inline);
-      height: var(--wa-form-control-height);
+      block-size: var(--wa-form-control-height);
 
       &.product-active {
         --nudge-inline-start: calc(var(--wa-form-control-padding-inline) * -1.5);
@@ -295,12 +295,11 @@
   /* subheader */
   wa-page > [slot='subheader'] {
     background-color: var(--wa-color-surface-default);
-    border-bottom: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-surface-border);
-    /* inline padding handled by .content-container on inner .page-subheader */
-    padding-block: var(--wa-space-xs);
-    padding-inline: 0;
     /* default to full-width in webawesome docs; pro overrides to --content-width-l */
     --max-inline-size: 100%;
+    border-block-end: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-surface-border);
+    padding-block: var(--wa-space-xs);
+    padding-inline: 0;
     container-type: inline-size;
     container-name: subheader;
 
@@ -387,7 +386,7 @@
     padding: 0;
 
     .brand-logo svg {
-      height: 1.25rem;
+      block-size: 1.25rem;
     }
 
     wa-dropdown {
@@ -513,7 +512,7 @@
     container-name: ba-kickstarter-dialog;
   }
 
-  @container ba-kickstarter-dialog (min-width: 48rem) {
+  @container ba-kickstarter-dialog (min-inline-size: 48rem) {
     #dialog-site.dialog-ba-kickstarter {
       --width: 41rem;
     }
@@ -534,8 +533,8 @@
   }
 
   .dialog-ba-kickstarter .ba-kickstarter-video-poster img {
-    width: 100%;
-    height: 100%;
+    inline-size: 100%;
+    block-size: 100%;
     object-fit: cover;
     display: block;
   }
@@ -734,7 +733,7 @@
         position: absolute;
         inset-block: calc(-1 * var(--wa-space-2xs));
         inset-inline-start: calc(-1 * var(--wa-space-m) - var(--wa-border-width-s));
-        width: var(--wa-border-width-s);
+        inline-size: var(--wa-border-width-s);
         background: var(--wa-color-brand-on-quiet);
       }
     }
@@ -745,17 +744,17 @@
   }
 
   #sidebar nav {
-    padding-bottom: 1rem;
+    padding-block-end: 1rem;
   }
 
   @media screen and (min-width: 73.75rem) {
     wa-page::part(navigation) {
-      border-right: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-surface-border);
+      border-inline-end: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-surface-border);
     }
 
     wa-page > #sidebar {
       overflow: auto;
-      max-height: 100%;
+      max-block-size: 100%;
       padding: var(--wa-space-2xl) var(--content-padding-inline);
     }
   }
@@ -769,15 +768,15 @@
     --underline-color: currentColor;
     position: relative;
     text-decoration: none;
-    padding-bottom: 0.4em;
+    padding-block-end: 0.4em;
 
     &::after {
       content: '';
       position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-      height: 0.4em;
+      inset-inline-start: 0;
+      inset-block-end: 0;
+      inline-size: 100%;
+      block-size: 0.4em;
       mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 20'%3E%3Cpath d='M0,12 Q50,8 100,12' stroke='black' stroke-width='4' fill='none'/%3E%3C/svg%3E");
       mask-repeat: no-repeat;
       mask-size: 100% auto;

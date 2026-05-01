@@ -20,7 +20,7 @@
 /* Full-width pill-shaped breadcrumb used at the top of subpages */
 .docs-subpage-crumbs {
   display: flex;
-  width: 100%;
+  inline-size: 100%;
   background-color: var(--wa-color-surface-lowered);
   border: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border);
   border-radius: var(--wa-border-radius-pill);
@@ -69,7 +69,7 @@ body.theme-transitioning {
 
 /* Header */
 wa-page::part(body) {
-  padding-top: 0;
+  padding-block-start: 0;
 }
 
 wa-page::part(header-actions) {
@@ -89,14 +89,14 @@ wa-button.delete {
 
 /* Main content */
 wa-page > main {
-  max-width: var(--content-width-s);
+  max-inline-size: var(--content-width-s);
   padding: var(--wa-space-xl);
   margin-inline: auto;
 }
 
 /* increase max-width for index pages */
 wa-page > main:has(.modern-card-list) {
-  max-width: var(--content-width-m);
+  max-inline-size: var(--content-width-m);
 }
 
 h1.title {
@@ -160,7 +160,7 @@ figure.signpost {
 
 /* Search list pages */
 wa-page > main:has(> .search-list) {
-  max-width: var(--content-width-l);
+  max-inline-size: var(--content-width-l);
   margin-inline: auto;
 }
 
@@ -176,22 +176,22 @@ wa-page > main:has(> .search-list) {
     gap: var(--wa-space-2xl);
     margin-block-end: var(--wa-space-3xl);
 
-    @container (width < 48rem) {
+    @container (inline-size < 48rem) {
       grid-template-columns: repeat(3, 1fr);
     }
 
-    @container (width < 36rem) {
+    @container (inline-size < 36rem) {
       grid-template-columns: repeat(2, 1fr);
     }
 
-    @container (width < 24rem) {
+    @container (inline-size < 24rem) {
       grid-template-columns: repeat(1, 1fr);
     }
 
     &.large {
       grid-template-columns: repeat(2, 1fr);
 
-      @container (width < 40rem) {
+      @container (inline-size < 40rem) {
         grid-template-columns: repeat(1, 1fr);
       }
     }
@@ -247,11 +247,11 @@ wa-card .page-name {
     gap: var(--wa-space-m);
     margin-block-end: var(--wa-space-l);
 
-    @container (width < 56.25rem) {
+    @container (inline-size < 56.25rem) {
       grid-template-columns: repeat(2, 1fr);
     }
 
-    @container (width < 35rem) {
+    @container (inline-size < 35rem) {
       grid-template-columns: 1fr;
     }
 
@@ -380,7 +380,7 @@ wa-scroller:has(.component-table) {
 
   .table-arguments,
   .table-description {
-    min-width: var(--line-length-xs);
+    min-inline-size: var(--line-length-xs);
   }
 
   .table-selector .wa-cluster {
@@ -398,7 +398,7 @@ wa-scroller:has(.component-table) {
 
 .component-help {
   display: flex;
-  width: 100%;
+  inline-size: 100%;
   gap: var(--wa-space-m);
   flex-wrap: wrap;
   align-items: center;
@@ -420,10 +420,10 @@ wa-scroller:has(.component-table) {
 
 .page-wide {
   wa-page > main {
-    max-width: var(--content-width-l);
+    max-inline-size: var(--content-width-l);
 
     .max-line-length {
-      max-width: var(--line-length-l);
+      max-inline-size: var(--line-length-l);
     }
   }
 }
