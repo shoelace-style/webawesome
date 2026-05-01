@@ -87,7 +87,7 @@
     {% block pageMainHeader %}{% endblock %}
 
     {# wa-page-based Main Content (default) #}
-    <main id="content">
+    <main id="content"{% if not hasFlushMain %} class="content-container"{% endif %}>
       {# Expandable outline #}
       {% if hasOutline %}
       <nav id="outline-expandable">
