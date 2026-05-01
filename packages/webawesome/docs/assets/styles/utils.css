@@ -21,6 +21,9 @@
     --line-length-xl: 90ch;
     --line-length-none: none;
 
+    --wa-brand-orange: #f36944;
+    --wa-brand-grey: #30323b;
+
     --brand-web-awesome-orange: var(--wa-brand-orange);
     --brand-font-awesome-blue: #418fde;
     --brand-build-awesome-green: #00a776;

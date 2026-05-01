@@ -8,9 +8,6 @@
 @import 'utils.css';
 
 :root {
-  --wa-brand-orange: #f36944;
-  --wa-brand-grey: #30323b;
-
   /* layout-based example style aspects */
   --layout-example-border: var(--wa-border-width-s) dashed var(--wa-color-neutral-border-normal);
   --layout-example-border-radius: var(--wa-border-radius-l);
