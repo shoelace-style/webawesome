@@ -371,27 +371,6 @@ wa-card .page-name {
   white-space: nowrap;
 }
 
-/* Layout Examples */
-.layout-example-boundary {
-  border: var(--wa-border-width-s) dashed var(--wa-color-neutral-border-normal);
-  border-radius: var(--wa-border-radius-l);
-  padding: var(--wa-space-s);
-}
-
-.layout-example-block {
-  background-color: var(--wa-color-indigo-60);
-  border-radius: var(--wa-border-radius-m);
-  min-block-size: 4rem;
-  min-inline-size: 4rem;
-}
-
-.layout-example-mixed-sizing .layout-example-block:nth-child(3n) {
-  min-inline-size: 6rem;
-}
-.layout-example-mixed-sizing .layout-example-block:nth-child(3n + 2) {
-  min-inline-size: 8rem;
-}
-
 /* Component API tables */
 wa-scroller:has(.component-table) {
   margin-block-end: var(--wa-space-xl);
@@ -449,14 +428,5 @@ wa-scroller:has(.component-table) {
     .max-line-length {
       max-width: var(--line-length-l);
     }
-  }
-}
-
-.layout-theme {
-  iframe {
-    width: 100%;
-    min-height: 16lh;
-    height: 65vh;
-    max-height: 21lh;
   }
 }
