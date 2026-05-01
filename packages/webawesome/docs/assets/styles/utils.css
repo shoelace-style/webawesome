@@ -84,7 +84,7 @@
 
   /* line-length */
   .line-length {
-    max-width: var(--line-length, none);
+    max-inline-size: var(--line-length, none);
   }
 
   .line-length-xs {

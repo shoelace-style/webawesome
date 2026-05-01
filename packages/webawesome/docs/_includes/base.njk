@@ -86,7 +86,11 @@
     {# wa-page-based Main Header #}
     {% block pageMainHeader %}{% endblock %}
 
-    {# wa-page-based Main Content (default) #}
+    {# wa-page-based Main Content (default).
+     # Pages opt out of the default sizing/spacing by setting
+     # `hasFlushMain: true` in their front matter — <main> then
+     # renders without .content-container so the page can handle
+     # its own layout (used by full-bleed marketing pages, etc.). #}
     <main id="content"{% if not hasFlushMain %} class="content-container"{% endif %}>
       {# Expandable outline #}
       {% if hasOutline %}
