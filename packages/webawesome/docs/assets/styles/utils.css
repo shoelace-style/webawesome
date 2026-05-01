@@ -38,11 +38,41 @@
   }
 
   /* #region layout utilities */
+
+  /*
+   * .content-container — CANONICAL DEFINITION
+   *
+   * Default sizing/centering primitive for main content areas across the
+   * Web Awesome ecosystem (app, marketing, docs). DO NOT redefine this
+   * class anywhere else (no shadow rules in pro site.css base, no app.css
+   * redefinition). Scoped overrides like `.page-footer .content-container { ... }`
+   * are fine — only base-class redefinition is forbidden.
+   *
+   * Override per-instance width via the `--max-inline-size` custom property:
+   *   main { --max-inline-size: var(--content-width-xs); }
+   */
   .content-container {
     margin-inline: auto;
-    max-width: var(--max-width, var(--content-width-l));
+    max-inline-size: var(--max-inline-size, var(--content-width-l));
     padding-inline: var(--content-padding-inline);
   }
+
+  /* Default main content vertical spacing.
+   * Applies when <main> opts into the default sizing pattern via class.
+   * Pages opt out by setting front matter `hasFlushMain: true`, which causes
+   * the layout to omit the class entirely (no spacing, no container). */
+  wa-page > main.content-container {
+    padding-block: var(--wa-space-4xl);
+  }
+
+  /* Neutralize wa-page's shadow-DOM `::slotted(main) { padding: var(--wa-space-3xl) }`
+   * on flush pages. When a page sets `hasFlushMain: true`, <main> renders without
+   * the .content-container class — this rule ensures the page is fully flush,
+   * not inheriting the component's default padding. */
+  wa-page > main:not(.content-container) {
+    padding: 0;
+  }
+
   /* #endregion */
 
   /* #region Text utilities */
@@ -54,7 +84,7 @@
 
   /* line-length */
   .line-length {
-    max-width: var(--line-length, none);
+    max-inline-size: var(--line-length, none);
   }
 
   .line-length-xs {
@@ -136,7 +166,11 @@
   wa-page > [slot='banner'] {
     /* match nav-products background color */
     background-color: var(--nav-products-bg, var(--wa-color-surface-lowered));
-    padding: var(--wa-space-l) var(--content-padding-inline);
+    /* inline padding handled by .content-container on inner .banner */
+    padding-block: var(--wa-space-l);
+    padding-inline: 0;
+    /* default to full-width in webawesome docs; pro overrides to --content-width-l */
+    --max-inline-size: 100%;
     transition: background-color var(--wa-transition-slow) var(--wa-transition-easing);
 
     .banner {
@@ -158,9 +192,12 @@
   /*  products nav */
   .wrapper-nav-products {
     background-color: var(--nav-products-bg, var(--wa-color-surface-lowered));
+    /* inline padding handled by .content-container on inner .nav-products-full */
     padding-block-start: var(--wa-space-xs);
-    padding-inline: var(--content-padding-inline);
+    padding-inline: 0;
     inline-size: 100%;
+    /* default to full-width in webawesome docs; pro overrides to --content-width-l */
+    --max-inline-size: 100%;
     transition: background-color var(--wa-transition-slow) var(--wa-transition-easing);
   }
 
@@ -261,7 +298,11 @@
   wa-page > [slot='subheader'] {
     background-color: var(--wa-color-surface-default);
     border-bottom: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-surface-border);
-    padding: var(--wa-space-xs) var(--content-padding-inline);
+    /* inline padding handled by .content-container on inner .page-subheader */
+    padding-block: var(--wa-space-xs);
+    padding-inline: 0;
+    /* default to full-width in webawesome docs; pro overrides to --content-width-l */
+    --max-inline-size: 100%;
     container-type: inline-size;
     container-name: subheader;
 
