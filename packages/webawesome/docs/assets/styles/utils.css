@@ -255,11 +255,6 @@
     }
   }
 
-  .nav-products-secondary .pseudo-product wa-icon {
-    color: var(--wa-color-text-normal);
-    font-size: var(--wa-font-size-l);
-  }
-
   /* drawer-based */
   .nav-products-drawer {
     .product {
@@ -311,10 +306,6 @@
       font-size: var(--wa-font-size-xl);
     }
 
-    .subheader-account wa-avatar {
-      --size: var(--wa-font-size-xl);
-    }
-
     /* subheader doc nav: match sidebar “current” emphasis */
     .subheader-links wa-button.current::part(label) {
       font-weight: var(--wa-font-weight-bold);
@@ -323,9 +314,7 @@
 
     /* Narrow (≤ 80ch): compact header with logo */
     @container subheader (inline-size <= 80ch) {
-      .subheader-links,
-      .subheader-toolbar,
-      .subheader-project-selector {
+      .subheader-links {
         display: none;
       }
 
@@ -728,12 +717,6 @@
       font-size: var(--font-size-3xs);
     }
 
-    #version-icon-info {
-      --secondary-opacity: 1;
-      --secondary-color: var(--wa-brand-orange);
-      padding-inline: var(--wa-space-xs);
-    }
-
     wa-button#search-trigger::part(base) {
       justify-content: flex-start; /* align search trigger button content to start */
     }
@@ -756,19 +739,6 @@
 
   #sidebar .is-planned {
     color: var(--wa-color-text-quiet);
-  }
-
-  #sidebar-close-button {
-    display: none;
-  }
-
-  @media screen and (max-width: 768px) {
-    #sidebar-close-button {
-      display: inline-block;
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-    }
   }
 
   #sidebar nav {
@@ -928,18 +898,15 @@
 
   /* icon swap on hover/focus: plain buttons + dropdown items (pair .icon-default / .icon-hover in icon slot) */
   wa-button .icon-hover,
-  wa-dropdown-item .icon-hover[slot='icon'],
-  .wa-hover-icon-swap .icon-hover {
+  wa-dropdown-item .icon-hover[slot='icon'] {
     display: none;
   }
   wa-button:hover .icon-default,
-  wa-dropdown-item:is(:hover, :focus-visible) .icon-default[slot='icon'],
-  .wa-hover-icon-swap:is(:hover, :focus-visible) .icon-default {
+  wa-dropdown-item:is(:hover, :focus-visible) .icon-default[slot='icon'] {
     display: none;
   }
   wa-button:hover .icon-hover,
-  wa-dropdown-item:is(:hover, :focus-visible) .icon-hover[slot='icon'],
-  .wa-hover-icon-swap:is(:hover, :focus-visible) .icon-hover {
+  wa-dropdown-item:is(:hover, :focus-visible) .icon-hover[slot='icon'] {
     display: inline-flex;
   }
 
