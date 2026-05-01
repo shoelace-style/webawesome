@@ -169,6 +169,8 @@
     /* inline padding handled by .content-container on inner .banner */
     padding-block: var(--wa-space-l);
     padding-inline: 0;
+    /* default to full-width in webawesome docs; pro overrides to --content-width-l */
+    --max-width: 100%;
     transition: background-color var(--wa-transition-slow) var(--wa-transition-easing);
 
     .banner {
@@ -194,6 +196,8 @@
     padding-block-start: var(--wa-space-xs);
     padding-inline: 0;
     inline-size: 100%;
+    /* default to full-width in webawesome docs; pro overrides to --content-width-l */
+    --max-width: 100%;
     transition: background-color var(--wa-transition-slow) var(--wa-transition-easing);
   }
 
@@ -297,6 +301,8 @@
     /* inline padding handled by .content-container on inner .page-subheader */
     padding-block: var(--wa-space-xs);
     padding-inline: 0;
+    /* default to full-width in webawesome docs; pro overrides to --content-width-l */
+    --max-width: 100%;
     container-type: inline-size;
     container-name: subheader;
 
