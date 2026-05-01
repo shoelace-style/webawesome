@@ -415,7 +415,7 @@ wa-scroller:has(.component-table) {
 }
 
 /** desktop */
-@media screen and not (max-width: 1180px) {
+@media screen and (min-width: 1181px) {
   wa-page > main {
     padding: var(--wa-space-3xl);
   }
