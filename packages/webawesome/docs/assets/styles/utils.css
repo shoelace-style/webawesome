@@ -85,6 +85,18 @@
     white-space: nowrap;
   }
 
+  .text-wrap-balance {
+    text-wrap: balance;
+  }
+
+  .text-wrap-stable {
+    text-wrap: stable;
+  }
+
+  .text-wrap-wrap {
+    text-wrap: wrap;
+  }
+
   /* line-length */
   .line-length {
     max-inline-size: var(--line-length, none);
