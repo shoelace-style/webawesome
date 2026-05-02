@@ -12,6 +12,7 @@ use-cases:
   - text align
   - text weight
   - truncate
+  - text wrap
 ---
 
 <style>
@@ -175,10 +176,19 @@ Use single-purpose `wa-color-text-*` classes to apply a given [text color](/docs
 | `wa-color-text-normal` | <div class="wa-color-text-normal">Five boxing wizards</div> |
 | `wa-color-text-link`   | <div class="wa-color-text-link">Five boxing wizards</div>   |
 
+## Text wrap
+
+Use `wa-text-wrap-balance` for short, multi-line headings so lines feel evenly weighted. Use `wa-text-wrap-pretty` on body copy to reduce awkward widows and orphans where the browser supports it—the same idea as [native paragraph styles](/docs/utilities/native/#paragraphs).
+
+| Class Name             | Preview                                                                                                                                                      |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `wa-text-wrap-balance` | <div class="wa-heading-l wa-text-wrap-balance" style="max-width: 18ch;">Even line lengths for display headings</div>                                         |
+| `wa-text-wrap-pretty`  | <div class="wa-body-m wa-text-wrap-pretty" style="max-width: 28ch;">The five boxing wizards jump quickly. How vexing to find daft zebras in the fjord!</div> |
+
 ## Truncation
 
 Use the `wa-text-truncate` class to truncate text with an ellipsis instead of letting it overflow or wrap.
 
-| Class Name         | Preview                                                     |
-| ------------------ | ----------------------------------------------------------- |
-| `wa-text-truncate` | <div class="wa-text-truncate" style="max-width: 40ch;">The five boxing wizards jump quickly. How quickly daft jumping zebras vex!</div>  |
+| Class Name         | Preview                                                                                                                                 |
+| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `wa-text-truncate` | <div class="wa-text-truncate" style="max-width: 40ch;">The five boxing wizards jump quickly. How quickly daft jumping zebras vex!</div> |
