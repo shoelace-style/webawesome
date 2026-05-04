@@ -213,9 +213,10 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
 
   /** Creates or destroys the resize observer based on the current resize mode. */
   private updateResizeObserver() {
-    // The resize observer is only needed for manual resize modes (vertical, horizontal, both)
-    // to sync the base wrapper dimensions with the textarea.
-    const needsObserver = this.resize !== 'none' && this.resize !== 'auto';
+    // The observer is needed for manual resize modes (to sync the base wrapper dimensions with the textarea) and for
+    // `auto` (so the height recalculates when the textarea transitions from hidden to visible since `scrollHeight` is
+    // 0 in that case).
+    const needsObserver = this.resize !== 'none';
 
     if (needsObserver && !this.resizeObserver && this.input) {
       this.resizeObserver = new ResizeObserver(() => this.setTextareaDimensions());

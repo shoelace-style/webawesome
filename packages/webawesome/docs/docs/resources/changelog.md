@@ -10,6 +10,10 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 {% include "changelog-email-signup.njk" %}
 
+## Unreleased
+
+- Fixed a bug in `<wa-textarea>` with `resize="auto"` where the height stayed collapsed when the textarea was initially hidden [issue:2347]
+
 ## 3.6.0
 
 <small>April 30th, 2026</small>
