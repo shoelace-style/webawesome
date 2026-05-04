@@ -193,7 +193,7 @@
   }
 
   /*  products nav */
-  .wrapper-nav-products {
+  .page-nav-products {
     background-color: var(--nav-products-bg, var(--wa-color-surface-lowered));
     /* inline padding handled by .content-container on inner .nav-products-full */
     padding-block-start: var(--wa-space-xs);
@@ -221,7 +221,7 @@
     }
   }
 
-  wa-page:has(.wrapper-nav-products, .nav-products-drawer) {
+  wa-page:has(.page-nav-products, .nav-products-drawer) {
     &:has(.product-web-awesome:hover) {
       --nav-products-bg: var(--nav-products-fill-quiet-web);
     }
@@ -286,7 +286,7 @@
 
     /* Narrow (≤ 80ch): compact header with logo */
     @container header (inline-size <= 80ch) {
-      .wrapper-nav-products {
+      .page-nav-products {
         display: none;
       }
     }
