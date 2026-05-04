@@ -21,6 +21,8 @@ import { animations } from './animations.js';
  *
  * @slot - The element to animate. Avoid slotting in more than one element, as subsequent ones will be ignored. To
  *  animate multiple elements, either wrap them in a single container or use multiple `<wa-animation>` elements.
+ *
+ * @ssr - Because the animation uses the JS API to start / stop animations, this component will SSR properly and not cause layout shift, but it will not play its animation until the component loads.
  */
 @customElement('wa-animation')
 export default class WaAnimation extends WebAwesomeElement {

@@ -1,9 +1,10 @@
-import { html } from 'lit';
+import { html, type PropertyValues } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { HasSlotController } from '../../internal/slot.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import sizeStyles from '../../styles/component/size.styles.js';
 import styles from './card.styles.js';
+import { classMap } from 'lit/directives/class-map.js';
 
 /**
  * @summary Cards group related content and actions inside a bordered container. Use them to present products, articles,
@@ -67,11 +68,12 @@ export default class WaCard extends WebAwesomeElement {
   @property({ reflect: true })
   orientation: 'horizontal' | 'vertical' = 'vertical';
 
-  willUpdate() {
+  willUpdate(changedProperties: PropertyValues<this>) {
     // Enable the respective slots when detected
     if (!this.withHeader && this.hasSlotController.test('header')) this.withHeader = true;
     if (!this.withMedia && this.hasSlotController.test('media')) this.withMedia = true;
     if (!this.withFooter && this.hasSlotController.test('footer')) this.withFooter = true;
+    super.willUpdate(changedProperties)
   }
 
   render() {
@@ -85,27 +87,33 @@ export default class WaCard extends WebAwesomeElement {
     }
 
     // Vertical Orientation
+    const hasHeaderActions = this.hasSlotController.test("header-actions")
+    const hasFooterActions = this.hasSlotController.test("footer-actions")
     return html`
       <slot name="media" part="media" class="media"></slot>
 
-      ${this.hasSlotController.test('header-actions')
-        ? html` <header part="header" class="header has-actions">
-            <slot name="header"></slot>
-            <slot name="header-actions"></slot>
-          </header>`
-        : html` <header part="header" class="header">
-            <slot name="header"></slot>
-          </header>`}
+      <header
+        part="header"
+        class=${classMap({
+          "header": true,
+          "has-actions": hasHeaderActions
+        })}
+      >
+        <slot name="header"></slot>
+        <slot name="header-actions"></slot>
+      </header>
 
       <div part="body" class="body"><slot></slot></div>
-      ${this.hasSlotController.test('footer-actions')
-        ? html` <footer part="footer" class="footer has-actions">
-            <slot name="footer"></slot>
-            <slot name="footer-actions"></slot>
-          </footer>`
-        : html` <footer part="footer" class="footer">
-            <slot name="footer"></slot>
-          </footer>`}
+      <footer
+        part="footer"
+        class=${classMap({
+          footer: true,
+          "has-actions": hasFooterActions
+        })}
+      >
+        <slot name="footer"></slot>
+        <slot name="footer-actions"></slot>
+      </footer>
     `;
   }
 }

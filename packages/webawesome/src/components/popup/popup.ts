@@ -33,7 +33,7 @@ function isVirtualElement(e: unknown): e is VirtualElement {
   );
 }
 
-const SUPPORTS_POPOVER = globalThis?.HTMLElement?.prototype.hasOwnProperty('popover');
+const SUPPORTS_POPOVER = Boolean(globalThis?.HTMLElement?.prototype.hasOwnProperty('popover'))
 
 /**
  * @summary Popups declaratively anchor one element to another and keep them positioned together as the page scrolls or
@@ -80,6 +80,11 @@ export default class WaPopup extends WebAwesomeElement {
   /** A reference to the internal popup container. Useful for animating and styling the popup with JavaScript. */
   @query('.popup') popup: HTMLElement;
   @query('.arrow') private arrowEl: HTMLElement;
+
+  /**
+   * This is intentionally set to false. Check the connectedCallback for further notes.
+   */
+  @property({ attribute: false, type: Boolean }) private SUPPORTS_POPOVER: boolean = false
 
   /**
    * The element the popup will be anchored to. If the anchor lives outside of the popup, you can provide the anchor
@@ -227,6 +232,9 @@ export default class WaPopup extends WebAwesomeElement {
 
     // Start the positioner after the first update
     await this.updateComplete;
+
+   /** This looks very silly and weird that it always sets to false, waits for the update to complete, and then it sets SUPPORTS_POPOVER, but it has to do with SSR always reporting "false" for this, so we intentionally force the update to fire to force a re-render. */
+    this.SUPPORTS_POPOVER = SUPPORTS_POPOVER
     this.start();
   }
 
@@ -352,7 +360,7 @@ export default class WaPopup extends WebAwesomeElement {
 
     let defaultBoundary;
 
-    if (SUPPORTS_POPOVER && !isVirtualElement(this.anchor) && this.boundary === 'scroll') {
+    if (this.SUPPORTS_POPOVER && !isVirtualElement(this.anchor) && this.boundary === 'scroll') {
       // When using the Popover API, the floating element is no longer in the same DOM context
       // as the overflow ancestors so Floating-UI can't find them.
       // For flip, `elementContext: 'reference'` gets it to use the anchor element instead,
@@ -425,14 +433,14 @@ export default class WaPopup extends WebAwesomeElement {
     //
     // More info: https://github.com/shoelace-style/shoelace/issues/1135
     //
-    const getOffsetParent = SUPPORTS_POPOVER
+    const getOffsetParent = this.SUPPORTS_POPOVER
       ? (element: Element) => platform.getOffsetParent(element, offsetParent)
       : platform.getOffsetParent;
 
     computePosition(this.anchorEl, this.popup, {
       placement: this.placement,
       middleware,
-      strategy: SUPPORTS_POPOVER ? 'absolute' : 'fixed',
+      strategy: this.SUPPORTS_POPOVER ? 'absolute' : 'fixed',
       platform: {
         ...platform,
         getOffsetParent,
@@ -593,9 +601,11 @@ export default class WaPopup extends WebAwesomeElement {
         class=${classMap({
           popup: true,
           'popup-active': this.active,
-          'popup-fixed': !SUPPORTS_POPOVER,
+          'popup-fixed': !this.SUPPORTS_POPOVER,
           'popup-has-arrow': this.arrow,
         })}
+        supports-popover="${this.SUPPORTS_POPOVER.toString()}"
+        fixed=${!this.SUPPORTS_POPOVER}
       >
         <slot></slot>
         ${this.arrow ? html`<div part="arrow" class="arrow" role="presentation"></div>` : ''}
