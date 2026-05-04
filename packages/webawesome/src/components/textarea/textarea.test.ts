@@ -2,7 +2,7 @@ import { expect, oneEvent, waitUntil } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import sinon from 'sinon';
-import { fixtures } from '../../internal/test/fixture.js';
+import { clientFixture, fixtures } from '../../internal/test/fixture.js';
 import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
 import { serialize } from '../../utilities/form.js';
 import type WaTextarea from './textarea.js';
@@ -408,4 +408,31 @@ describe('<wa-textarea>', () => {
       });
     });
   }
+
+  describe('auto resize visibility (issue 2347)', () => {
+    it('should size to fit when revealed after being initially hidden', async () => {
+      const container = await clientFixture<HTMLDivElement>(html`
+        <div style="display: none">
+          <wa-textarea
+            resize="auto"
+            value="line one
+line two
+line three"
+          ></wa-textarea>
+        </div>
+      `);
+      const el = container.querySelector<WaTextarea>('wa-textarea')!;
+      await el.updateComplete;
+
+      // While hidden, scrollHeight is 0 so the internal textarea has no measurable height.
+      const textarea = el.shadowRoot!.querySelector<HTMLTextAreaElement>('[part~="textarea"]')!;
+
+      container.style.display = '';
+
+      // Wait for the ResizeObserver to fire and re-run setTextareaDimensions().
+      await waitUntil(() => textarea.clientHeight > 0, 'textarea did not resize after becoming visible');
+
+      expect(textarea.clientHeight).to.be.greaterThan(0);
+    });
+  });
 });

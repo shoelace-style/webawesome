@@ -211,16 +211,32 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
     this.resizeObserver = undefined;
   }
 
+  private lastObservedWidth = 0;
+
   /** Creates or destroys the resize observer based on the current resize mode. */
   private updateResizeObserver() {
     // The observer is needed for manual resize modes (to sync the base wrapper dimensions with the textarea) and for
-    // `auto` (so the height recalculates when the textarea transitions from hidden to visible since `scrollHeight` is
-    // 0 in that case).
+    // `auto` (so the height recalculates when the textarea goes from hidden to visible or the width changes and the
+    // text needs to re-wrap).
     const needsObserver = this.resize !== 'none';
 
     if (needsObserver && !this.resizeObserver && this.input) {
-      this.resizeObserver = new ResizeObserver(() => this.setTextareaDimensions());
-      this.resizeObserver.observe(this.input);
+      if (this.resize === 'auto') {
+        // Observe the host's width only. Height changes are skipped so our own height mutation in
+        // `setTextareaDimensions` doesn't recurse into the observer. The recompute is deferred to the next frame so it
+        // runs outside the observer callback (avoids "ResizeObserver loop completed" warnings).
+        this.resizeObserver = new ResizeObserver(entries => {
+          const width = entries[0]?.contentRect.width ?? 0;
+          if (width !== this.lastObservedWidth) {
+            this.lastObservedWidth = width;
+            requestAnimationFrame(() => this.setTextareaDimensions());
+          }
+        });
+        this.resizeObserver.observe(this);
+      } else {
+        this.resizeObserver = new ResizeObserver(() => this.setTextareaDimensions());
+        this.resizeObserver.observe(this.input);
+      }
     } else if (!needsObserver && this.resizeObserver) {
       this.resizeObserver.disconnect();
       this.resizeObserver = undefined;
