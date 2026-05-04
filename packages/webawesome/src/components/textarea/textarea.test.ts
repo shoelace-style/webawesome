@@ -435,4 +435,38 @@ line three"
       expect(textarea.clientHeight).to.be.greaterThan(0);
     });
   });
+
+  describe('auto resize shrinking', () => {
+    it('should shrink the visible wrapper back to its original size after expanded content is cleared', async () => {
+      const el = await clientFixture<WaTextarea>(html`<wa-textarea resize="auto"></wa-textarea>`);
+      await el.updateComplete;
+
+      // The user perceives the size of the visible wrapper, not the inner <textarea>. Measure the host's bounding box
+      // so we catch cases where the inner textarea shrinks but the wrapper stays expanded (e.g. because the size
+      // adjuster pinned it to the previous larger height).
+      const original = el.getBoundingClientRect().height;
+
+      el.focus();
+      for (let i = 0; i < 5; i++) {
+        await sendKeys({ press: 'Enter' });
+      }
+      await el.updateComplete;
+      await waitUntil(
+        () => el.getBoundingClientRect().height > original,
+        'wrapper did not expand after pressing Enter',
+      );
+      const expanded = el.getBoundingClientRect().height;
+      expect(expanded).to.be.greaterThan(original);
+
+      el.select();
+      await sendKeys({ press: 'Delete' });
+      await el.updateComplete;
+
+      await waitUntil(
+        () => Math.round(el.getBoundingClientRect().height) === Math.round(original),
+        `wrapper did not shrink back to original (original=${original}, expanded=${expanded})`,
+      );
+      expect(Math.round(el.getBoundingClientRect().height)).to.equal(Math.round(original));
+    });
+  });
 });

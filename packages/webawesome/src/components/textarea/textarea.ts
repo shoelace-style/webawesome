@@ -282,12 +282,17 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
     }
 
     if (this.resize === 'auto') {
-      // This prevents layout shifts. We use `clientHeight` instead of `scrollHeight` to account for if the `<textarea>`
-      // has a max-height set on it. In my tests, this has worked fine. Im not aware of any edge cases. [Konnor]
+      // The size adjuster shares a grid cell with the textarea and acts as a lower bound on the wrapper height. Pin it
+      // to the current `clientHeight` while we measure so the wrapper doesn't collapse during the `auto` reset, then
+      // sync it to the new measured height so the wrapper can shrink when content is removed. We use `clientHeight` and
+      // `scrollHeight` instead of CSS to account for `max-height` on the textarea.
+      //
       // Let's switch to `field-sizing: content` once it has better support: https://caniuse.com/mdn-css_properties_field-sizing [Lea]
       this.sizeAdjuster.style.height = `${this.input.clientHeight}px`;
       this.input.style.height = 'auto';
-      this.input.style.height = `${this.input.scrollHeight}px`;
+      const newHeight = this.input.scrollHeight;
+      this.input.style.height = `${newHeight}px`;
+      this.sizeAdjuster.style.height = `${newHeight}px`;
 
       this.base.style.width = ``;
       this.base.style.height = ``;
