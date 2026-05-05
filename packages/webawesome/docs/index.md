@@ -293,7 +293,7 @@ layout: page
           <wa-icon name="handshake-simple" class="brand-orange"></wa-icon>
           <h3>Proudly open source</h3>
         </div>
-        <p>Use {{ site.nameFree }} however you like. Always free, always open source.</p>
+        <p>Use {{ site.nameCore }} however you like. Always free, always open source.</p>
       </div>
     </div>
   </div>
