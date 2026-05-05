@@ -41,7 +41,7 @@ Mouse over or focus the preview swatches below to see each token in action.
 
 ## Duration
 
-Web Awesome uses different transition durations to make it easy to track a component's state while minimizing sluggish or distracting movement.
+{{ site.name }} uses different transition durations to make it easy to track a component's state while minimizing sluggish or distracting movement.
 
 Properties that change between frequent, incidental states (like hover) typically use faster durations than properties that change between intentional states (like opening a menu or checking a box).
 
@@ -72,7 +72,7 @@ Properties that change between frequent, incidental states (like hover) typicall
 
 ## Easing
 
-Easing controls the standard `transition-timing-function` used for transitions throughout Web Awesome.
+Easing controls the standard `transition-timing-function` used for transitions throughout {{ site.name }}.
 
 <wa-scroller>
   <table class="token-table wa-hover-rows">
@@ -82,7 +82,7 @@ Easing controls the standard `transition-timing-function` used for transitions t
     <tbody>
       <tr id="token-wa-transition-easing">
         <td class="token-name"><code>--wa-transition-easing</code></td>
-        <td>Timing function (<code>transition-timing-function</code>) used for all Web Awesome transitions</td>
+        <td>Timing function (<code>transition-timing-function</code>) used for all {{ site.name }} transitions</td>
         <td><div tabindex="0" class="swatch transition-swatch" style="transition: width 600ms var(--wa-transition-easing)"></div></td>
       </tr>
     </tbody>

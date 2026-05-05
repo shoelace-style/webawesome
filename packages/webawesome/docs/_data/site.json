@@ -1,0 +1,41 @@
+{
+  "name": "Web Awesome",
+  "nameFree": "Web Awesome Free",
+  "namePro": "Web Awesome Pro",
+  "tagline": "Go Make Something Awesome!",
+  "company": "Fonticons, Inc.",
+  "domain": "webawesome.com",
+
+  "siblings": {
+    "fontAwesome": { "name": "Font Awesome", "url": "https://fontawesome.com" },
+    "buildAwesome": { "name": "Build Awesome" }
+  },
+
+  "urls": {
+    "discord": "https://discord.gg/mg8f26C",
+    "x": "https://x.com/webawesomer",
+    "support": "/docs/resources/support"
+  },
+
+  "github": {
+    "repo": "https://github.com/shoelace-style/webawesome",
+    "issues": "https://github.com/shoelace-style/webawesome/issues",
+    "discussions": "https://github.com/shoelace-style/webawesome/discussions",
+    "ideas": "https://github.com/shoelace-style/webawesome/discussions/categories/ideas-suggestions",
+    "stargazers": "https://github.com/shoelace-style/webawesome/stargazers"
+  },
+
+  "emails": {
+    "hello": "hello@webawesome.com",
+    "help": "help@webawesome.com",
+    "privacy": "privacy@webawesome.com",
+    "dpo": "dpo@awesome.me"
+  },
+
+  "legal": {
+    "license": "/license/pro",
+    "privacy": "/privacy",
+    "tos": "/tos",
+    "refunds": "/refunds"
+  }
+}

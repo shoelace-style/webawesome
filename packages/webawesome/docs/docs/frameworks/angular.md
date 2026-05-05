@@ -10,13 +10,13 @@ layout: page-outline
   <wa-breadcrumb-item>{{ title }}</wa-breadcrumb-item>
 </wa-breadcrumb>
 
-Angular [plays nice](https://custom-elements-everywhere.com/#angular) with custom elements, so you can use Web Awesome in your Angular apps with ease.
+Angular [plays nice](https://custom-elements-everywhere.com/#angular) with custom elements, so you can use {{ site.name }} in your Angular apps with ease.
 
 ## Installation
 
 ### Download the npm package
 
-To add Web Awesome to your Angular app, install the package from npm.
+To add {{ site.name }} to your Angular app, install the package from npm.
 
 ```bash
 npm install @awesome.me/webawesome
@@ -64,7 +64,7 @@ import { AppComponent } from './app.component';
 export class AppModule {}
 ```
 
-## Reference Web Awesome components in your Angular component code
+## Reference {{ site.name }} components in your Angular component code
 
 ```js
 // need to have both or Angular will tree shake the component out.
@@ -98,8 +98,8 @@ export class DrawerExampleComponent implements OnInit {
 }
 ```
 
-Now you can start using Web Awesome components in your app!
+Now you can start using {{ site.name }} components in your app!
 
 :::info
-Are you using Web Awesome with Angular? [Help us improve this page!](https://github.com/shoelace-style/webawesome/blob/next/packages/webawesome/docs/docs/frameworks/angular.md)
+Are you using {{ site.name }} with Angular? [Help us improve this page!](https://github.com/shoelace-style/webawesome/blob/next/packages/webawesome/docs/docs/frameworks/angular.md)
 :::

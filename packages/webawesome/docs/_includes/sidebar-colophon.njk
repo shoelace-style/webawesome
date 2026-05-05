@@ -1,7 +1,7 @@
 <div class="wa-stack wa-gap-xl" id="colophon">
   <div class="wa-stack wa-gap-xs">
     <wa-icon name="web-awesome" family="brands" class="logo-web-awesome"></wa-icon>
-    <h2 class="wa-heading-s">Web Awesome</h2>
+    <h2 class="wa-heading-s">{{ site.name }}</h2>
     <span class="wa-caption-xs">
       v{{ package.version }}
     </span>
@@ -9,17 +9,17 @@
       Go make something awesome
     </span>
     <span class="wa-caption-xs">
-      &copy; Fonticons, Inc.
+      &copy; {{ site.company }}
     </span>
   </div>
 
   <div class="wa-cluster wa-gap-0 wa-caption-s the-socials">
-    <h2 class="wa-visually-hidden">Web Awesome Elsewhere</h2>
-    <a href="https://github.com/shoelace-style/webawesome" rel="noopener noreferrer" target="_blank"
+    <h2 class="wa-visually-hidden">{{ site.name }} Elsewhere</h2>
+    <a href="{{ site.github.repo }}" rel="noopener noreferrer" target="_blank"
       class="appearance-plain">
       <wa-icon family="brands" name="github" label="GitHub"></wa-icon>
     </a>
-    <a href="https://discord.gg/mg8f26C" rel="noopener noreferrer" target="_blank"
+    <a href="{{ site.urls.discord }}" rel="noopener noreferrer" target="_blank"
       class="appearance-plain">
       <wa-icon family="brands" name="discord" label="Discord"></wa-icon>
     </a>
@@ -30,7 +30,7 @@
     <a href="https://mastodon.social/@webawesome" rel="noopener noreferrer" target="_blank" class="appearance-plain">
       <wa-icon family="brands" name="mastodon" label="Mastodon"></wa-icon>
     </a>
-    <a href="https://x.com/webawesomer" rel="noopener noreferrer" target="_blank" class="appearance-plain">
+    <a href="{{ site.urls.x }}" rel="noopener noreferrer" target="_blank" class="appearance-plain">
       <wa-icon family="brands" name="x-twitter" label="Twitter (X)"></wa-icon>
     </a>
     <a href="https://www.threads.com/@web.awesome" rel="noopener noreferrer" target="_blank" class="appearance-plain">

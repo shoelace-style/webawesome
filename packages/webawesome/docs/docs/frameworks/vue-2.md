@@ -10,7 +10,7 @@ layout: page-outline
   <wa-breadcrumb-item>{{ title }}</wa-breadcrumb-item>
 </wa-breadcrumb>
 
-Vue [plays nice](https://custom-elements-everywhere.com/#vue) with custom elements, so you can use Web Awesome in your Vue apps with ease.
+Vue [plays nice](https://custom-elements-everywhere.com/#vue) with custom elements, so you can use {{ site.name }} in your Vue apps with ease.
 
 :::info
 These instructions are for Vue 2. If you're using Vue 3 or above, please see the [Vue 3 instructions](/frameworks/vue).
@@ -18,13 +18,13 @@ These instructions are for Vue 2. If you're using Vue 3 or above, please see the
 
 ## Installation
 
-To add Web Awesome to your Vue app, install the package from npm.
+To add {{ site.name }} to your Vue app, install the package from npm.
 
 ```bash
 npm install @awesome.me/webawesome
 ```
 
-Next, import the Web Awesome stylesheet, import the components you need, and then start using Web Awesome!
+Next, import the {{ site.name }} stylesheet, import the components you need, and then start using {{ site.name }}!
 
 ```jsx
 // main.js or main.ts
@@ -34,7 +34,7 @@ import '@awesome.me/webawesome/dist/components/button/button.js';
 
 ## Configuration
 
-You'll need to tell Vue to ignore Web Awesome components. This is pretty easy because they all start with `wa-`.
+You'll need to tell Vue to ignore {{ site.name }} components. This is pretty easy because they all start with `wa-`.
 
 ```js
 import Vue from 'vue';
@@ -49,7 +49,7 @@ const app = new Vue({
 app.$mount('#app');
 ```
 
-Now you can start using Web Awesome components in your app!
+Now you can start using {{ site.name }} components in your app!
 
 ## Usage
 
@@ -73,5 +73,5 @@ One caveat is there's currently [no support for v-model on custom elements](http
 ```
 
 :::info
-Are you using Web Awesome with Vue 2? [Help us improve this page!](https://github.com/shoelace-style/webawesome/blob/next/packages/webawesome/docs/docs/frameworks/vue-2.md)
+Are you using {{ site.name }} with Vue 2? [Help us improve this page!](https://github.com/shoelace-style/webawesome/blob/next/packages/webawesome/docs/docs/frameworks/vue-2.md)
 :::

@@ -4,7 +4,7 @@ description: Changes to each version of the project are documented here.
 layout: page-outline
 ---
 
-Web Awesome officially supports the latest two major versions of the most popular browsers, including Chrome, Safari, Edge, Firefox, and Opera.
+{{ site.name }} officially supports the latest two major versions of the most popular browsers, including Chrome, Safari, Edge, Firefox, and Opera.
 
 We regularly test and ensure our website works smoothly on these browser versions. If you're using an older version, we strongly recommend upgrading to enjoy the best experience.
 

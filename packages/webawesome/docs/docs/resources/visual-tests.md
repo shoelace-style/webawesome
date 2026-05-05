@@ -36,9 +36,9 @@ wide: true
   }
 </style>
 
-With so many ways to build with and use Web Awesome components, visual tests help ensure consistency and prevent broken styles from leaking into production.
+With so many ways to build with and use {{ site.name }} components, visual tests help ensure consistency and prevent broken styles from leaking into production.
 
-These tests can come in handy when creating or customizing your own theme. Look through each test case to make sure that custom styles in your theme cover all of the attributes, utilities, and built-in styles Web Awesome offers.
+These tests can come in handy when creating or customizing your own theme. Look through each test case to make sure that custom styles in your theme cover all of the attributes, utilities, and built-in styles {{ site.name }} offers.
 
 <wa-tab-group>
   <wa-tab panel="native">Native</wa-tab>
@@ -81,7 +81,7 @@ Harmony tests show how related components look together. These can help validate
 
 ## Native
 
-Native style tests ensure that supported native elements and utilities look the same as their Web Awesome component counterparts. Native elements may also support the same appearance, color, and size utilities as components.
+Native style tests ensure that supported native elements and utilities look the same as their {{ site.name }} component counterparts. Native elements may also support the same appearance, color, and size utilities as components.
 
 {% include 'visual-tests/native.njk' %}
 

@@ -12,12 +12,12 @@ layout: page-outline
 
 ## Installation
 
-To add Web Awesome to your React app, install the package from npm.
+To add {{ site.name }} to your React app, install the package from npm.
 
 ```bash
 npm install @awesome.me/webawesome
 ```
-Next, include the Web Awesome theme in your app, import the components you need, and start using them!
+Next, include the {{ site.name }} theme in your app, import the components you need, and start using them!
 
 ```jsx
 import '@awesome.me/webawesome/dist/styles/webawesome.css';
@@ -28,7 +28,7 @@ export default function App() {
 }
 ```
 
-React 19+ [supports custom elements](https://react.dev/blog/2024/04/25/react-19#support-for-custom-elements) natively, so you can use Web Awesome components just like any other HTML element. No wrappers needed!
+React 19+ [supports custom elements](https://react.dev/blog/2024/04/25/react-19#support-for-custom-elements) natively, so you can use {{ site.name }} components just like any other HTML element. No wrappers needed!
 
 If you're using React 18 or below, skip to the [legacy React wrappers](#legacy-react-wrappers-react-18-and-below) section.
 
@@ -38,7 +38,7 @@ Pro users: get installation instructions from <a href="/workspaces">your&nbsp;wo
 
 ## TypeScript
 
-If you're using TypeScript, you can add type safety using the types file included with Web Awesome.
+If you're using TypeScript, you can add type safety using the types file included with {{ site.name }}.
 
 ```
 node_modules/@awesome.me/webawesome/dist/custom-elements-jsx.d.ts
@@ -69,7 +69,7 @@ declare module 'react' {
 
 ## Event Handling
 
-Many Web Awesome components emit [native events](https://developer.mozilla.org/en-US/docs/Web/API/Event). For example, the [input component](/components/input) emits the `input` event when it receives input. In React, you can listen for the event using `onInput`.
+Many {{ site.name }} components emit [native events](https://developer.mozilla.org/en-US/docs/Web/API/Event). For example, the [input component](/components/input) emits the `input` event when it receives input. In React, you can listen for the event using `onInput`.
 
 Here's how you can bind the input's value to a state variable.
 
@@ -110,7 +110,7 @@ Preact users facing type errors using components may benefit from setting "paths
 
 Testing with web components can be challenging if your test environment runs in a Node environment (i.e. it doesn't run in a real browser). Fortunately, [Jest](https://jestjs.io/) has made a number of strides to support web components and provide additional browser APIs. However, it's still not a complete replication of a browser environment.
 
-Here are some tips that will help smooth things over if you're having trouble with Jest + Web Awesome.
+Here are some tips that will help smooth things over if you're having trouble with Jest + {{ site.name }}.
 
 :::info
 If you're looking for a fast, modern testing alternative, consider [Web Test Runner](https://modern-web.dev/docs/test-runner/overview/).
@@ -152,13 +152,13 @@ For more details, refer to Jest's [manual mocking](https://jestjs.io/docs/manual
 
 ### Transform ES Modules
 
-ES Modules are a [well-supported browser standard](https://hacks.mozilla.org/2018/03/es-modules-a-cartoon-deep-dive/). This is how Web Awesome is distributed, but most React apps expect CommonJS. As a result, you'll probably run into the following error.
+ES Modules are a [well-supported browser standard](https://hacks.mozilla.org/2018/03/es-modules-a-cartoon-deep-dive/). This is how {{ site.name }} is distributed, but most React apps expect CommonJS. As a result, you'll probably run into the following error.
 
 ```
 Error: Unable to import outside of a module
 ```
 
-To fix this, add the following to your `package.json` which tells the transpiler to process Web Awesome modules.
+To fix this, add the following to your `package.json` which tells the transpiler to process {{ site.name }} modules.
 
 ```js
 {
@@ -174,11 +174,11 @@ For more details, refer to Jest's [`transformIgnorePatterns` customization](http
 
 ## Legacy React Wrappers (React 18 and Below)
 
-React 18 and below have [poor support](https://custom-elements-everywhere.com/#react) for custom elements. For these versions, Web Awesome provides React wrappers for every component.
+React 18 and below have [poor support](https://custom-elements-everywhere.com/#react) for custom elements. For these versions, {{ site.name }} provides React wrappers for every component.
 
 ### Importing React Wrappers
 
-Every Web Awesome component is available to import as a React component. Note that you import the `<WaButton>` _React component_ instead of the `<wa-button>` _custom element_ in the example below.
+Every {{ site.name }} component is available to import as a React component. Note that you import the `<WaButton>` _React component_ instead of the `<wa-button>` _custom element_ in the example below.
 
 ```jsx
 import WaButton from '@awesome.me/webawesome/dist/react/button/index.js';
@@ -198,7 +198,7 @@ Previously, it was recommended to import from a single entrypoint like so:
 import { WaButton } from '@awesome.me/webawesome/dist/react';
 ```
 
-However, tree-shaking extra Web Awesome components proved to be a challenge. As a result, we now recommend cherry-picking components you want to use, rather than importing from a single entrypoint.
+However, tree-shaking extra {{ site.name }} components proved to be a challenge. As a result, we now recommend cherry-picking components you want to use, rather than importing from a single entrypoint.
 
 ```diff
 - import { WaButton } from '@awesome.me/webawesome/dist/react';
@@ -207,7 +207,7 @@ However, tree-shaking extra Web Awesome components proved to be a challenge. As 
 
 ### Event Handling with React Wrappers
 
-Many Web Awesome components emit [native events](https://developer.mozilla.org/en-US/docs/Web/API/Event). For example, the [input component](/components/input) emits the `input` event when it receives input. In React, you can listen for the event using `onInput`.
+Many {{ site.name }} components emit [native events](https://developer.mozilla.org/en-US/docs/Web/API/Event). For example, the [input component](/components/input) emits the `input` event when it receives input. In React, you can listen for the event using `onInput`.
 
 Here's how you can bind the input's value to a state variable.
 
@@ -263,5 +263,5 @@ export default MyComponent;
 ```
 
 :::info
-Are you using Web Awesome with React? [Help us improve this page!](https://github.com/shoelace-style/webawesome/blob/next/packages/webawesome/docs/docs/frameworks/react.md)
+Are you using {{ site.name }} with React? [Help us improve this page!](https://github.com/shoelace-style/webawesome/blob/next/packages/webawesome/docs/docs/frameworks/react.md)
 :::

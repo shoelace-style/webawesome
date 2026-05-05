@@ -9,7 +9,7 @@ layout: page
 
 <h1>{{ title }}</h1>
 
-<p>Themes are collections of <a href="/docs/tokens">design tokens</a> that give a cohesive look and feel to the entire Web Awesome library. Style and restyle your website at will by loading any pre-built theme.</p>
+<p>Themes are collections of <a href="/docs/tokens">design tokens</a> that give a cohesive look and feel to the entire {{ site.name }} library. Style and restyle your website at will by loading any pre-built theme.</p>
 
 {% raw %}
 <p>See one you like?&nbsp;
@@ -20,7 +20,7 @@ layout: page
 {%- endif -%}
 to create a project with any one of these themes.
 {%- if not currentUser.hasPro -%}
-  &nbsp;(Plus, there are even more themes to love with Web Awesome Pro. <wa-icon name="heart" style="color: var(--wa-color-red-70);"></wa-icon>)
+  &nbsp;(Plus, there are even more themes to love with {{ site.namePro }}. <wa-icon name="heart" style="color: var(--wa-color-red-70);"></wa-icon>)
 {%- endif -%}
 </p>
 {% endraw %}
@@ -67,8 +67,8 @@ to create a project with any one of these themes.
   <header class="wa-stack">
     <div class="wa-cluster">
       <h2 data-theme-name="name">Theme</h2>
-      {{ freeBadge({ id: "free-badge", description: "This theme is available in the free version of Web Awesome." }) }}
-      {{ proBadge({ id: "pro-badge", description: "This theme requires access to Web Awesome Pro." }) }}
+      {{ freeBadge({ id: "free-badge", description: "This theme is available in the free version of " ~ site.name ~ "." }) }}
+      {{ proBadge({ id: "pro-badge", description: "This theme requires access to " ~ site.namePro ~ "." }) }}
 
     </div>
     <p data-theme-description>Description</p>
@@ -144,7 +144,7 @@ Then apply the following classes to the `<html>` element:
 
         <wa-tab-panel name="self-hosted">
 {% markdown %}
-If you're self-hosting Web Awesome, include the theme's stylesheet from your server:
+If you're self-hosting {{ site.name }}, include the theme's stylesheet from your server:
 
 ```html
 <link rel="stylesheet" href="/dist/styles/themes/{{ theme.filename }}">

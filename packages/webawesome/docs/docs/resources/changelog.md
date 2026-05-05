@@ -4,7 +4,7 @@ description: Changes to each version of the project are documented here.
 layout: page-outline
 ---
 
-Web Awesome follows [Semantic Versioning](https://semver.org/). Breaking changes in components with the <wa-badge variant="brand">Stable</wa-badge> badge will not be accepted until the next major version. As such, all contributions must consider the project's roadmap and take this into consideration. Features that are deemed no longer necessary will be deprecated but not removed.
+{{ site.name }} follows [Semantic Versioning](https://semver.org/). Breaking changes in components with the <wa-badge variant="brand">Stable</wa-badge> badge will not be accepted until the next major version. As such, all contributions must consider the project's roadmap and take this into consideration. Features that are deemed no longer necessary will be deprecated but not removed.
 
 Components with the <wa-badge variant="warning">Experimental</wa-badge> badge should not be used in production. They are made available as release candidates for development and testing purposes. As such, changes to experimental components will not be subject to semantic versioning.
 
@@ -40,7 +40,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 <small>April 3rd, 2026</small>
 
-- Moved `<wa-page>` from Web Awesome Pro to Web Awesome core
+- Moved `<wa-page>` from {{ site.namePro }} to {{ site.name }} core
 - Added a new free experimental component: `<wa-markdown>` (#6 of 14 per stretch goals)
 - Added the `data-wa-preload` attribute for preloading components that aren't on the page yet when using the autoloader [issue:1501]
 - Added `placement` attribute to `<wa-color-picker>` [issue:2099]
@@ -62,7 +62,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed a bug in `<wa-select>` where the `:state(blank)` custom state was incorrectly applied when the selected option had an empty string value [issue:1920]
 - Fixed a bug in `<wa-dropdown-item>` where the `click` event could still fire when the item was disabled [issue:1817]
 - Fixed a bug in `<wa-select>`, `<wa-combobox>`, and `<wa-option>` where the `change` and `input` events could dispatch with incorrect timing [pr:2243]
-- Fixed a bug in `<wa-drawer>` that threw an error when including Web Awesome in the `<head>` [discuss:2241]
+- Fixed a bug in `<wa-drawer>` that threw an error when including {{ site.name }} in the `<head>` [discuss:2241]
 - Fixed Lit dev mode "change-in-update" warnings across multiple components [issue:1269]
 - Fixed a bug in Native Styles where text would incorrectly overflow in `<pre>` elements
 - Fixed a bug in `<wa-details>` where rapid toggling of the open state could cause the content visibility to get out of sync with the open attribute
@@ -75,7 +75,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
   - Fixed a bug in the Awesome theme to remove an erroneous `transform` property from `<wa-radio>`s with `appearance="button"` [issue:1766]
   - Fixed a bug in the Shoelace theme where `size` had no effect on `<wa-callout>`
   - Fixed a bug in both themes where `appearance` had no effect on `<wa-card>`
-  - Updated Awesome theme `--wa-form-control-padding-block` and `--wa-form-control-padding-inline` to better match its source material (Font Awesome)
+  - Updated Awesome theme `--wa-form-control-padding-block` and `--wa-form-control-padding-inline` to better match its source material ({{ site.siblings.fontAwesome.name }})
   - Updated Shoelace theme `--wa-color-focus` and focus styles to better match its source material (Shoelace)
 - Improved the accessibility of `<wa-rating>` by moving role and ARIA attributes to the host element [issue:2205]
 - Improved performance of `<wa-textarea>` by only creating a resize observer when necessary
@@ -155,7 +155,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed a bug in `<wa-split-panel>` that caused a ResizeObserver error in Chromium-based browser when resizing the primary panel [issue:2018]
 - Fixed a bug that caused the `Escape` key to close more than just the active dismissible component when nested inside other dismissible elements [pr:2096]
 - Fixed a bug that forced a box-sizing opinion on host elements
-- Updated `<wa-icon>` to use [Font Awesome 7.2.0](https://fontawesome.com/changelog#v7-2-0) [pr:2059]
+- Updated `<wa-icon>` to use [{{ site.siblings.fontAwesome.name }} 7.2.0](https://fontawesome.com/changelog#v7-2-0) [pr:2059]
 - Updated `<wa-popup>` arrow styling to prevent larger sized arrow from overlapping the contents of the popup [pr:2070]
 - Modified native styles so that `border-radius` does not apply to `svg` elements by default [pr:2078]
 
@@ -163,7 +163,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 <small>February 4, 2026</small>
 
-- Fixed a bug in the build script causing `llms.txt` and `dist/skills` to be omitted from Web Awesome Pro packages. [pr:2022]
+- Fixed a bug in the build script causing `llms.txt` and `dist/skills` to be omitted from {{ site.namePro }} packages. [pr:2022]
 
 ## 3.2.0
 
@@ -174,14 +174,14 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Added `<wa-sparkline>` as an experimental pro component
 - Added `<wa-number-input>` as an experimental component for numeric input with stepper buttons [issue:1688]
 - Added [Agent Skill](/docs/ai/agent-skills) for AI coding assistants following the [agentskills.io](https://agentskills.io/) specification
-- Added llms.txt to assist AI agents with using Web Awesome [discuss:1100]
+- Added llms.txt to assist AI agents with using {{ site.name }} [discuss:1100]
 - Added types for Vue and Svelte generated by CEM
 - Added `pointercancel` and `touchcancel` event handling to draggable elements to prevent drags from getting stuck
 - Added `wa-justify-content-*` utility classes [pr:1930]
 - Added `wa-flex-wrap` utility classes [pr:1994]
 - Added missing `wa-gap-4xl` utility class [pr:1931]
 - Added `track` and `indicator` CSS parts to `<wa-progress-ring>` [pr:1863]
-- Added rotation, flip, and animation support to `<wa-icon>` with `rotate`, `flip`, and `animation` attributes supporting Font Awesome's animation utilities [pr:1824]
+- Added rotation, flip, and animation support to `<wa-icon>` with `rotate`, `flip`, and `animation` attributes supporting {{ site.siblings.fontAwesome.name }}'s animation utilities [pr:1824]
 - Added the ability to disable link buttons in `<wa-button>` [pr:1848]
 - [Docs]: component APIs like slots, state, methods, etc, are now alphabetized [pr:1895]
 - [Docs]: component APIs now properly check their inheritance chain [pr:1895]
@@ -216,8 +216,8 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 <small>December 16, 2025</small>
 
 - Added `<wa-combobox>` as an experimental pro component [issue:1074]
-- Added version 2.0.0 of the [official Web Awesome Figma Design Kit](/docs/resources/figma)
-- Added npm support for Web Awesome Pro
+- Added version 2.0.0 of the [official {{ site.name }} Figma Design Kit](/docs/resources/figma)
+- Added npm support for {{ site.namePro }}
 - Added `layers.css` to define cascade layer order and updated palettes, themes, native styles, and utilities to import the new rule for more fail-safe modularity [pr:1793]
 - [PRO]: Fixed a few sizing bugs in `<wa-page>` and `slot="footer"` no longer will always "overflow" the container.
 - Fixed a bug in `<wa-slider>` that caused some touch devices to end up with the incorrect value [issue:1703]
@@ -230,7 +230,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed a bug in `<wa-dropdown-item>` that prevented the icon dependency from being imported [issue:1825]
 - Fixed a bug in `<wa-select>` that prevented clicks on the tag's remove button from removing options in multiple mode
 - Fixed a bug in `<wa-select>` that caused tags to appear in alphabetical order instead of selection order when using `multiple`
-- Fixed a bug in Web Awesome form controls that caused `<wa-input form="foo">` to set the form property to equal `"foo"` instead of returning an `HTMLFormElement` breaking platform expectations. [pr:1815]
+- Fixed a bug in {{ site.name }} form controls that caused `<wa-input form="foo">` to set the form property to equal `"foo"` instead of returning an `HTMLFormElement` breaking platform expectations. [pr:1815]
 - Fixed a bug in `<wa-button>` causing it to not copy over attributes for form submissions. [pr:1815]
 - Fixed a bug where the build script was not building `/dist/(utilities|events).js` [pr:1816]
 - Improved performance of `<wa-icon>` so initial rendering occurs faster, especially with multiple icons on the page [issue:1729]
@@ -257,7 +257,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Added back the missing `form-control-label` part to `<wa-textarea>` for consistency with other form controls [pr:1533]
 - Added focus delegation to `<wa-button>` to ensure tabbing works properly when using `tabindex` [issue:1622]
 - Added [text utilities](/docs/utilities/text/) for longform text, form control text, font sizes, font weights, text color, and truncation [pr:1602]
-- Added version 1.0.0 of the [official Web Awesome Figma Design Kit](/docs/resources/figma)
+- Added version 1.0.0 of the [official {{ site.name }} Figma Design Kit](/docs/resources/figma)
 - Fixed a bug in `<wa-button>` where slotted badges weren't properly positioned in buttons with an `href` [issue:1377]
 - Fixed focus outline styles in `<wa-details>` and native `<details>` [issue:1456]
 - Fixed focus outline styles in `<wa-scroller>`, `<wa-dialog>`, and `<wa-drawer>` [issue:1484]
@@ -293,7 +293,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 ### Bug Fixes and Improvements {data-no-outline}
 
-- 🚨 BREAKING: Updated `<wa-icon>` to use Font Awesome 7 [pr:1222]
+- 🚨 BREAKING: Updated `<wa-icon>` to use {{ site.siblings.fontAwesome.name }} 7 [pr:1222]
   - Added the `auto-width` attribute to automatically size icons, since FA7 is fixed-width by default now
   - Changed the default width of icons to `1.25em` to match FA7's fixed-width proportions
   - Improved support for duotone icons in `<wa-icon>`, including custom colors, custom opacity, and opacity swapping
@@ -379,11 +379,11 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 ## 3.0.0-beta.1
 
-We're excited to share the first beta release of Web Awesome, which includes some breaking changes that make the library significantly more intuitive and consistent!
+We're excited to share the first beta release of {{ site.name }}, which includes some breaking changes that make the library significantly more intuitive and consistent!
 
 The list looks extensive, but that's because we've tried to be thorough in documenting every change. We expect most users will only encounter a few of these during their upgrade. The majority are simple attribute renames (like clearable becoming with-clear) and component simplifications that actually reduce the amount of code you need to write.
 
-**If you're a Web Awesome alpha user, please read through these release notes carefully!**
+**If you're a {{ site.name }} alpha user, please read through these release notes carefully!**
 
 Many of these changes and improvements were the direct result of feedback from users like you! These changes represent our commitment to getting the fundamentals right as we move from alpha into a more stable beta release.
 
@@ -723,7 +723,7 @@ Many of these changes and improvements were the direct result of feedback from u
 
 </details>
 
-Did we miss something? [Let us know!](https://github.com/shoelace-style/webawesome/discussions)
+Did we miss something? [Let us know!]({{ site.github.discussions }})
 
 <style>
   /* This page only */

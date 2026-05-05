@@ -24,7 +24,7 @@
     {% endif %}
     <wa-badge variant="neutral" appearance="filled" pill>Since {{ component.since }}</wa-badge>
     {% if isProComponent %}
-      {{ proBadge({ description: "Included with Web Awesome Pro" }) }}
+      {{ proBadge({ description: "Included with " ~ site.namePro }) }}
     {% endif %}
   </div>
 
@@ -59,12 +59,12 @@
     </wa-tab-panel>
 
     <wa-tab-panel name="npm">
-      <p>After installing Web Awesome via npm, import this component:</p>
+      <p>After installing {{ site.name }} via npm, import this component:</p>
       <pre><code class="language-js">import '@awesome.me/webawesome/dist/{{ componentPath }}';</code></pre>
     </wa-tab-panel>
 
     <wa-tab-panel name="self-hosted">
-      <p>If you're self-hosting Web Awesome, import this component from your server:</p>
+      <p>If you're self-hosting {{ site.name }}, import this component from your server:</p>
       <pre><code class="language-js">import './webawesome/dist/{{ componentPath }}';</code></pre>
     </wa-tab-panel>
 
@@ -328,11 +328,11 @@
 
   <div class="component-help">
     <strong>Need a hand?</strong>
-    <wa-button size="s" appearance="filled" variant="neutral" href="https://github.com/shoelace-style/webawesome/issues" target="_blank">
+    <wa-button size="s" appearance="filled" variant="neutral" href="{{ site.github.issues }}" target="_blank">
       <wa-icon slot="start" variant="regular" name="bug"></wa-icon>
       Report a bug
     </wa-button>
-    <wa-button size="s" appearance="filled" variant="neutral" href="https://github.com/shoelace-style/webawesome/discussions" target="_blank">
+    <wa-button size="s" appearance="filled" variant="neutral" href="{{ site.github.discussions }}" target="_blank">
       <wa-icon slot="start" variant="regular" name="message-question"></wa-icon>
       Ask for help
     </wa-button>

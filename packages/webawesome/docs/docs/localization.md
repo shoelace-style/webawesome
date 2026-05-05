@@ -14,7 +14,7 @@ use-cases:
   - right to left
 ---
 
-Components can be localized by importing the appropriate translation file and setting the desired [`lang`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang) and/or [`dir`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir) attributes on the `<html>` element. Here's an example that renders Web Awesome components in Spanish.
+Components can be localized by importing the appropriate translation file and setting the desired [`lang`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang) and/or [`dir`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/dir) attributes on the `<html>` element. Here's an example that renders {{ site.name }} components in Spanish.
 
 ```html
 <html lang="es">
@@ -32,7 +32,7 @@ Through the magic of a mutation observer, changing the `lang` attribute will aut
 
 ## Available Translations
 
-Web Awesome ships with [a number of translations](https://github.com/shoelace-style/webawesome/tree/next/packages/webawesome/src/translations). The default is English (US), which also serves as the fallback locale. As such, you do not need to import the English translation.
+{{ site.name }} ships with [a number of translations](https://github.com/shoelace-style/webawesome/tree/next/packages/webawesome/src/translations). The default is English (US), which also serves as the fallback locale. As such, you do not need to import the English translation.
 
 You can import translations using the following syntax, where `<code>` is replaced with any language code shown above.
 
@@ -58,7 +58,7 @@ The locale set by `<html lang="...">` is the default locale for the document. If
 2. Look for `es`
 3. Fall back to `en`
 
-Web Awesome uses English as a fallback to provide a better experience than rendering nothing or throwing an error.
+{{ site.name }} uses English as a fallback to provide a better experience than rendering nothing or throwing an error.
 
 ### Submitting New Translations or Improvements
 
@@ -66,10 +66,10 @@ To contribute new translations or improvements to existing translations, please 
 
 Regional translations are welcome! For example, if a German translation (`de`) exists it's perfectly acceptable to submit a German (Switzerland) (`de-CH`) translation.
 
-If you have any questions, please start a [discussion](https://github.com/shoelace-style/webawesome/discussions) or ask in the [community chat](https://discord.gg/mg8f26C).
+If you have any questions, please start a [discussion]({{ site.github.discussions }}) or ask in the [community chat]({{ site.urls.discord }}).
 
 :::info
-Web Awesome provides a localization mechanism for component internals. This is not designed to be used as localization tool for your entire application. You should use a more appropriate tool such as [i18next](https://www.i18next.com/) if you need to localize content in your app.
+{{ site.name }} provides a localization mechanism for component internals. This is not designed to be used as localization tool for your entire application. You should use a more appropriate tool such as [i18next](https://www.i18next.com/) if you need to localize content in your app.
 :::
 
 ## Multiple Locales Per Page

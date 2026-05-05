@@ -49,7 +49,7 @@ Use the `copy-icon`, `success-icon`, and `error-icon` slots to customize the ico
 
 ### Custom Trigger
 
-By default, the copy button renders an icon-only button. You can slot in any element to use as a custom trigger instead. This works with Web Awesome buttons, native buttons, or any clickable element.
+By default, the copy button renders an icon-only button. You can slot in any element to use as a custom trigger instead. This works with {{ site.name }} buttons, native buttons, or any clickable element.
 
 ```html {.example}
 <wa-copy-button value="You can copy anything with a custom trigger!">

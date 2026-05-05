@@ -119,7 +119,7 @@ Use `wa-link` to give interactive text a link-like appearance. Alternatively, us
 
 ## Lists
 
-Ordered (`<ol>`) and unordered (`<ul>`) lists are given default styles by either Web Awesome's [native styles](/docs/utilities/native/) or your browser. Use `wa-list-plain` to clear any built-in list styles.
+Ordered (`<ol>`) and unordered (`<ul>`) lists are given default styles by either {{ site.name }}'s [native styles](/docs/utilities/native/) or your browser. Use `wa-list-plain` to clear any built-in list styles.
 
 | Class Name      | Preview                                                                                                  |
 | --------------- | -------------------------------------------------------------------------------------------------------- |

@@ -8,7 +8,7 @@ unlisted: true
 Server Side Rendering ("SSR") means your webpage is rendered on the server before being sent to the user's browser. This provides a fully formed HTML page right from the start, which is great for SEO and initial load times. Once the page is rendered, JavaScript kicks in to "hydrate" the components which makes them interactive. The Web platform supports this through a feature called [Declarative Shadow DOM](https://web.dev/articles/declarative-shadow-dom).
 
 :::warning
-SSR in Web Awesome is experimental! There are some known bugs and timing issues. Part of the experimental status comes from Lit's SSR package also being experimental.
+SSR in {{ site.name }} is experimental! There are some known bugs and timing issues. Part of the experimental status comes from Lit's SSR package also being experimental.
 :::
 
 ## Enable Hydration
@@ -58,7 +58,7 @@ As SSR becomes more stable, we'll work to add more instructions for various fram
 
 ### The `did-ssr` Attribute
 
-All Web Awesome components that get rendered for SSR will receive the `did-ssr` attribute.
+All {{ site.name }} components that get rendered for SSR will receive the `did-ssr` attribute.
 
 ```html
 <wa-button appearance="filled" did-ssr></wa-button>

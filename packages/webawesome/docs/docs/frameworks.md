@@ -14,7 +14,7 @@ use-cases:
   - next.js
 ---
 
-Web Awesome is designed to work in harmony with various frameworks. We have documented some of the most common ones including setup and limitations.
+{{ site.name }} is designed to work in harmony with various frameworks. We have documented some of the most common ones including setup and limitations.
 
 Select your framework below to get started.
 

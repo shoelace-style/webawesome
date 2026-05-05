@@ -27,11 +27,11 @@ layout: page
     <li>Vote on issues others have filed to help us prioritize.</li>
   </ul>
   <div class="wa-cluster wa-gap-s">
-    <wa-button appearance="filled" href="https://github.com/shoelace-style/webawesome/discussions/categories/ideas-suggestions">
+    <wa-button appearance="filled" href="{{ site.github.ideas }}">
       <wa-icon slot="start" variant="regular" name="lightbulb-on"></wa-icon>
       Request a Feature
     </wa-button>
-    <wa-button href="https://github.com/shoelace-style/webawesome/issues" appearance="outlined">
+    <wa-button href="{{ site.github.issues }}" appearance="outlined">
       <wa-icon slot="start" variant="regular" name="bug"></wa-icon>
       Report a Bug
     </wa-button>
@@ -48,9 +48,9 @@ layout: page
     <li>Ask for help</li>
     <li>Share ideas and get feedback</li>
     <li>Show the community what you're working on</li>
-    <li>Chat live with other designers, developers, and Web Awesome supporters.</li>
+    <li>Chat live with other designers, developers, and {{ site.name }} supporters.</li>
   </ul>
-  <wa-button appearance="filled" href="https://discord.com/invite/mg8f26C">
+  <wa-button appearance="filled" href="{{ site.urls.discord }}">
     <wa-icon slot="start" name="discord" family="brands"></wa-icon>
     Join Discord
   </wa-button>
@@ -67,7 +67,7 @@ layout: page
     <li>Billing or subscription questions.</li>
     <li>Private matters you don’t want to post publicly.</li>
   </ul>
-  <wa-button appearance="filled" href="mailto:help@webawesome.com">
+  <wa-button appearance="filled" href="mailto:{{ site.emails.help }}">
     <wa-icon slot="start" name="envelope" variant="regular"></wa-icon>
     Get Help via Email
   </wa-button>
@@ -80,8 +80,8 @@ layout: page
     <p>We’re everywhere you are — follow us on your favorite social media platforms for the latest news and updates.</p>
   </div>
 <div class="wa-cluster wa-caption-2xl">
-    <h2 class="wa-visually-hidden">Web Awesome Elsewhere</h2>
-    <a href="https://github.com/shoelace-style/webawesome" rel="noopener noreferrer" target="_blank" class="appearance-plain">
+    <h2 class="wa-visually-hidden">{{ site.name }} Elsewhere</h2>
+    <a href="{{ site.github.repo }}" rel="noopener noreferrer" target="_blank" class="appearance-plain">
       <wa-icon family="brands" name="github" label="GitHub" role="img" aria-label="GitHub" library="default"></wa-icon>
     </a>
     <a href="https://bsky.app/profile/webawesome.com" rel="noopener noreferrer" target="_blank" class="appearance-plain">
@@ -90,7 +90,7 @@ layout: page
     <a href="https://mastodon.social/@webawesome" rel="noopener noreferrer" target="_blank" class="appearance-plain">
       <wa-icon family="brands" name="mastodon" label="Mastodon" role="img" aria-label="Mastodon" library="default"></wa-icon>
     </a>
-    <a href="https://x.com/webawesomer" rel="noopener noreferrer" target="_blank" class="appearance-plain">
+    <a href="{{ site.urls.x }}" rel="noopener noreferrer" target="_blank" class="appearance-plain">
       <wa-icon family="brands" name="x-twitter" label="Twitter (X)" role="img" aria-label="Twitter (X)" library="default"></wa-icon>
     </a>
     <a href="https://www.threads.com/@web.awesome" rel="noopener noreferrer" target="_blank" class="appearance-plain">

@@ -10,7 +10,7 @@ layout: page-outline
   <wa-breadcrumb-item>{{ title }}</wa-breadcrumb-item>
 </wa-breadcrumb>
 
-Vue [plays nice](https://custom-elements-everywhere.com/#vue) with custom elements, so you can use Web Awesome in your Vue apps with ease.
+Vue [plays nice](https://custom-elements-everywhere.com/#vue) with custom elements, so you can use {{ site.name }} in your Vue apps with ease.
 
 :::info
 These instructions are for Vue 3 and above. If you're using Vue 2, please see the [Vue 2 instructions](/frameworks/vue-2).
@@ -18,13 +18,13 @@ These instructions are for Vue 3 and above. If you're using Vue 2, please see th
 
 ## Installation
 
-To add Web Awesome to your Vue app, install the package from npm.
+To add {{ site.name }} to your Vue app, install the package from npm.
 
 ```bash
 npm install @awesome.me/webawesome
 ```
 
-Next, import the Web Awesome stylesheet, import the components you need, and then start using Web Awesome!
+Next, import the {{ site.name }} stylesheet, import the components you need, and then start using {{ site.name }}!
 
 ```jsx
 // main.js or main.ts
@@ -36,7 +36,7 @@ import '@awesome.me/webawesome/dist/components/button/button.js';
 
 If you haven't configured your Vue.js project to work with custom elements/web components, follow [the instructions here](https://vuejs.org/guide/extras/web-components.html#using-custom-elements-in-vue) based on your project type to ensure your project will not throw an error when it encounters a custom element.
 
-Now you can start using Web Awesome components in your app!
+Now you can start using {{ site.name }} components in your app!
 
 ## Types
 
@@ -102,7 +102,7 @@ One caveat is there's currently [varying levels of support for v-model on custom
 
 ### Slots
 
-Slots in Web Awesome / web components are functionally the same as basic slots in Vue. Slots can be assigned to elements using the `slot` attribute followed by the name of the slot it is being assigned to.
+Slots in {{ site.name }} / web components are functionally the same as basic slots in Vue. Slots can be assigned to elements using the `slot` attribute followed by the name of the slot it is being assigned to.
 
 Here is an example:
 
@@ -118,5 +118,5 @@ Here is an example:
 For more on slots and limitations with Web Components, check out the Vue documentation here: <https://vuejs.org/guide/extras/web-components#slots>
 
 :::info
-Are you using Web Awesome with Vue? [Help us improve this page!](https://github.com/shoelace-style/webawesome/blob/next/packages/webawesome/docs/docs/frameworks/vue.md)
+Are you using {{ site.name }} with Vue? [Help us improve this page!](https://github.com/shoelace-style/webawesome/blob/next/packages/webawesome/docs/docs/frameworks/vue.md)
 :::

@@ -13,14 +13,14 @@ use-cases:
   - navigation icon
 ---
 
-Web Awesome comes bundled with over 2,000 free icons courtesy of [Font Awesome](https://fontawesome.com/). These icons are part of the `default` icon library. Font Awesome Pro users can unlock additional icon families. Or, if you prefer, you can register your own [custom icon library](#icon-library).
+{{ site.name }} comes bundled with over 2,000 free icons courtesy of [Font Awesome](https://fontawesome.com/). These icons are part of the `default` icon library. Font Awesome Pro users can unlock additional icon families. Or, if you prefer, you can register your own [custom icon library](#icon-library).
 
 ```html {.example}
 <wa-icon name="star" label="Star" style="font-size: 2em;"></wa-icon>
 ```
 
 :::info
-Not sure which icon to use? [Find the perfect icon over at Font Awesome!](https://fontawesome.com/search?o=r&m=free&f=brands%2Cclassic)
+Not sure which icon to use? [Find the perfect icon over at {{ site.siblings.fontAwesome.name }}!](https://fontawesome.com/search?o=r&m=free&f=brands%2Cclassic)
 :::
 
 ## Examples
@@ -151,7 +151,7 @@ With auto-width<br />
 
 ### Rotating & Flipping
 
-Web Awesome supports [Font Awesome's rotation and flip utilities](https://docs.fontawesome.com/web/style/rotate/) for adjusting icon orientation. To rotate or flip icons, use the `rotate` and `flip` attributes when you reference an icon.
+{{ site.name }} supports [{{ site.siblings.fontAwesome.name }}'s rotation and flip utilities](https://docs.fontawesome.com/web/style/rotate/) for adjusting icon orientation. To rotate or flip icons, use the `rotate` and `flip` attributes when you reference an icon.
 
 ```html {.example}
 <wa-icon name="snowboarding" label="Snowboarding" style="font-size: 2em;"></wa-icon>
@@ -165,7 +165,7 @@ Web Awesome supports [Font Awesome's rotation and flip utilities](https://docs.f
 
 ### Animating
 
-Web Awesome supports [Font Awesome's animation utilities](https://docs.fontawesome.com/web/style/animate/) for adding visual interest to icons. To select different types of animations, use the `animation` attribute when you reference an icon.
+{{ site.name }} supports [{{ site.siblings.fontAwesome.name }}'s animation utilities](https://docs.fontawesome.com/web/style/animate/) for adding visual interest to icons. To select different types of animations, use the `animation` attribute when you reference an icon.
 
 :::info
 All [icon animations respect](https://docs.fontawesome.com/web/style/animate/#accessibility) `prefers-reduced-motion` and are automatically disabled when set to `reduce`.
@@ -315,7 +315,7 @@ Use the `spin` animation to get any icon to rotate, and use `spin-pulse` to have
 
 ### Duotone
 
-Font Awesome's [Duotone icons](https://docs.fontawesome.com/web/style/duotone) change with the `color` property as well, but you can customize the primary and secondary colors independently using the `--primary-color` and `--secondary-color` custom properties. To change the opacity of either, use `--primary-opacity` and `--secondary-opacity`.
+{{ site.siblings.fontAwesome.name }}'s [Duotone icons](https://docs.fontawesome.com/web/style/duotone) change with the `color` property as well, but you can customize the primary and secondary colors independently using the `--primary-color` and `--secondary-color` custom properties. To change the opacity of either, use `--primary-opacity` and `--secondary-opacity`.
 
 Note that these custom properties will not inherit and _must be applied directly to the icon_.
 
@@ -474,7 +474,7 @@ Note that these custom properties will not inherit and _must be applied directly
 ```
 
 :::info
-Duotone icons can be unlocked by [providing a valid Font Awesome kit code](/docs/#using-font-awesome-kit-codes).
+Duotone icons can be unlocked by [providing a valid {{ site.siblings.fontAwesome.name }} kit code](/docs/#using-font-awesome-kit-codes).
 :::
 
 ### Swap Duotone Opacity
@@ -599,7 +599,7 @@ If you're a [Font Awesome Pro+ customer](https://fontawesome.com/), you have acc
 ```
 
 :::info
-Pro+ icons can be unlocked by [providing a valid Font Awesome kit code](/docs/#using-font-awesome-kit-codes).
+Pro+ icons can be unlocked by [providing a valid {{ site.siblings.fontAwesome.name }} kit code](/docs/#using-font-awesome-kit-codes).
 :::
 
 ### Custom Icons
@@ -612,9 +612,9 @@ Custom icons can be loaded individually with the `src` attribute. Only SVGs on a
 
 ### Self-hosting the Default Library
 
-By default, icons are loaded from the Font Awesome CDN. If you'd prefer to [download the icons](https://fontawesome.com/download) and serve them from your own server, you can use the `setIconPath()` function to point the default icon library at your self-hosted directory.
+By default, icons are loaded from the {{ site.siblings.fontAwesome.name }} CDN. If you'd prefer to [download the icons](https://fontawesome.com/download) and serve them from your own server, you can use the `setIconPath()` function to point the default icon library at your self-hosted directory.
 
-When you download Font Awesome, the archive will contain an `svgs` directory with subfolders such as `solid/`, `regular/`, `brands/`, etc. Copy the `svgs` directory (or its contents) into your project and set the icon path to point to it.
+When you download {{ site.siblings.fontAwesome.name }}, the archive will contain an `svgs` directory with subfolders such as `solid/`, `regular/`, `brands/`, etc. Copy the `svgs` directory (or its contents) into your project and set the icon path to point to it.
 
 ```html
 <script type="module">
@@ -643,12 +643,12 @@ For more control over how icon URLs are constructed, you can use the `getIconFol
 ```
 
 :::warning
-`setIconPath()` must be called before Web Awesome components are loaded, similar to `setBasePath()` and `setKitCode()`.
+`setIconPath()` must be called before {{ site.name }} components are loaded, similar to `setBasePath()` and `setKitCode()`.
 :::
 
 ### Customizing the Default Library
 
-The default icon library contains over 2,000 icons courtesy of [Font Awesome](https://fontawesome.com/). These are the icons that display when you use `<wa-icon>` without the `library` attribute. If you prefer to have these icons resolve elsewhere or to a different icon library, register an icon library using the `default` name and a custom resolver.
+The default icon library contains over 2,000 icons courtesy of [{{ site.siblings.fontAwesome.name }}]({{ site.siblings.fontAwesome.url }}). These are the icons that display when you use `<wa-icon>` without the `library` attribute. If you prefer to have these icons resolve elsewhere or to a different icon library, register an icon library using the `default` name and a custom resolver.
 
 For example, this will change the default icon library to use [Bootstrap Icons](https://icons.getbootstrap.com/) loaded from the jsDelivr CDN.
 
@@ -691,9 +691,9 @@ For security reasons, browsers may apply the same-origin policy on `<use>` eleme
 
 ### Customizing the System Library
 
-The system library contains only the icons used internally by Web Awesome components. Unlike the default icon library, the system library does not rely on physical assets. Instead, its icons are hard-coded as data URIs into the resolver to ensure their availability.
+The system library contains only the icons used internally by {{ site.name }} components. Unlike the default icon library, the system library does not rely on physical assets. Instead, its icons are hard-coded as data URIs into the resolver to ensure their availability.
 
-If you want to change the icons Web Awesome uses internally, you can register an icon library using the `system` name and a custom resolver. If you choose to do this, it's your responsibility to provide all of the icons that are required by components. You can reference `src/components/library.system.ts` for a complete list of system icons used by Web Awesome.
+If you want to change the icons {{ site.name }} uses internally, you can register an icon library using the `system` name and a custom resolver. If you choose to do this, it's your responsibility to provide all of the icons that are required by components. You can reference `src/components/library.system.ts` for a complete list of system icons used by {{ site.name }}.
 
 ```html
 <script type="module">
@@ -709,7 +709,7 @@ If you want to change the icons Web Awesome uses internally, you can register an
 
 You can register additional icons to use with the `<wa-icon>` component through icon libraries. Icon files can exist locally or on a CORS-enabled endpoint (e.g. a CDN). There is no limit to how many icon libraries you can register and there is no cost associated with registering them, as individual icons are only requested when they're used.
 
-Web Awesome ships with two built-in icon libraries, `default` and `system`. The [default icon library](#customizing-the-default-library) is provided courtesy of [Font Awesome](https://fontawesome.com/). The [system icon library](#customizing-the-system-library) contains only a small subset of icons that are used internally by Web Awesome components.
+{{ site.name }} ships with two built-in icon libraries, `default` and `system`. The [default icon library](#customizing-the-default-library) is provided courtesy of [{{ site.siblings.fontAwesome.name }}]({{ site.siblings.fontAwesome.url }}). The [system icon library](#customizing-the-system-library) contains only a small subset of icons that are used internally by {{ site.name }} components.
 
 To register an additional icon library, use the `registerIconLibrary()` function that's exported from `dist/webawesome.js`. At a minimum, you must provide a name and a resolver function. The resolver function translates an icon name to a URL where the corresponding SVG file exists. Refer to the examples below to better understand how it works.
 

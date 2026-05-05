@@ -22,7 +22,7 @@ use-cases:
   - brand
 ---
 
-Web Awesome components are just regular HTML elements, or [custom elements](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements) to be precise. You can use them like any other element. Each component has detailed documentation that describes its full API, including properties, events, methods, and more.
+{{ site.name }} components are just regular HTML elements, or [custom elements](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements) to be precise. You can use them like any other element. Each component has detailed documentation that describes its full API, including properties, events, methods, and more.
 
 If you're new to custom elements, often referred to as "web components," this section will familiarize you with how to use them.
 
@@ -71,13 +71,13 @@ Refer to a component's documentation for a complete list of available slots.
 
 You can listen for standard events such as `click`, `mouseover`, etc. as you normally would. In addition, some components have their own custom events. For example, you might listen to `wa-after-show` to determine when a dialog has been shown.
 
-Custom Web Awesome events are prefixed with `wa-` to prevent collisions with standard events and other libraries. Refer to a component's documentation for a complete list of its events.
+Custom {{ site.name }} events are prefixed with `wa-` to prevent collisions with standard events and other libraries. Refer to a component's documentation for a complete list of its events.
 
 If you're using React or another framework with synthetic events, see the [framework guides](/docs/frameworks) for caveats around binding to custom event names.
 
 ## Methods
 
-Some components have methods you can call to trigger various behaviors. For example, you can set focus on a Web Awesome input using the `focus()` method.
+Some components have methods you can call to trigger various behaviors. For example, you can set focus on a {{ site.name }} input using the `focus()` method.
 
 ```html
 <wa-input></wa-input>
@@ -92,9 +92,9 @@ Refer to a component's documentation for a complete list of its methods and thei
 
 ## Differences from Native Elements
 
-You might expect similarly named elements to share the same API as native HTML elements, but this is not always the case. Web Awesome components **are not** designed to be one-to-one replacements for their HTML counterparts. While they usually share the same API, there may be subtle differences.
+You might expect similarly named elements to share the same API as native HTML elements, but this is not always the case. {{ site.name }} components **are not** designed to be one-to-one replacements for their HTML counterparts. While they usually share the same API, there may be subtle differences.
 
-For example, `<button>` and `<wa-button>` both have a `type` attribute, but the native one defaults to `submit` while the Web Awesome one defaults to `button` since this is a better default for most users.
+For example, `<button>` and `<wa-button>` both have a `type` attribute, but the native one defaults to `submit` while the {{ site.name }} one defaults to `button` since this is a better default for most users.
 
 :::info
 **Don't make assumptions about a component's API!** To prevent unexpected behaviors, please take the time to review the documentation and make sure you understand what each attribute, property, method, and event is intended to do.
@@ -113,7 +113,7 @@ await customElements.whenDefined('wa-button');
 const button = document.querySelector('wa-button');
 ```
 
-When working with multiple components, checking each one individually can become tedious. For convenience, Web Awesome provides the `allDefined()` function which automatically detects and waits for all Web Awesome components in the DOM to be initialized before resolving.
+When working with multiple components, checking each one individually can become tedious. For convenience, {{ site.name }} provides the `allDefined()` function which automatically detects and waits for all {{ site.name }} components in the DOM to be initialized before resolving.
 
 ```ts
 import { allDefined } from '/dist/webawesome.js';
@@ -133,7 +133,7 @@ You can customize this behavior by passing in options:
 - `match` allows you to specify a custom function to determine which elements to wait for. This function should return `true` for elements you want to wait for and `false` for those you don't.
 - `additionalElements` allows you to wait for custom elements to be defined that may not be present in the DOM at the time `allDefined()` is called. This can be useful for elements that are loaded dynamically via JS.
 
-Here is an example of using `match` and `root` to await registration of Web Awesome components inside an element with an id of `sidebar`, plus a `<my-component>` element if present in the DOM, and `<wa-slider>` and `<other-slider>` elements whether present in the DOM or not:
+Here is an example of using `match` and `root` to await registration of {{ site.name }} components inside an element with an id of `sidebar`, plus a `<my-component>` element if present in the DOM, and `<wa-slider>` and `<other-slider>` elements whether present in the DOM or not:
 
 ```js
 import { allDefined } from '/dist/webawesome.js';
@@ -149,7 +149,7 @@ await allDefined({
 
 ## Component Rendering and Updating
 
-Web Awesome components are built with [Lit](https://lit.dev/), a tiny library that makes authoring custom elements easier, more maintainable, and a lot of fun! As a Web Awesome user, here is some helpful information about rendering and updating you should probably be aware of.
+{{ site.name }} components are built with [Lit](https://lit.dev/), a tiny library that makes authoring custom elements easier, more maintainable, and a lot of fun! As a {{ site.name }} user, here is some helpful information about rendering and updating you should probably be aware of.
 
 To optimize performance and reduce re-renders, Lit batches component updates. This means changing multiple attributes or properties at the same time will result in just a single re-render. In most cases, this isn't an issue, but there may be times you'll need to wait for the component to update before continuing.
 
@@ -187,9 +187,9 @@ await Promise.all(elements.map(el => el.updateComplete));
 
 ### VS Code
 
-Web Awesome ships with a file called `vscode.html-custom-data.json` that can be used to describe its custom elements to [Visual Studio Code](https://code.visualstudio.com/). This enables code completion for Web Awesome components (also known as “code hinting” or “IntelliSense”). To enable it, you need to tell VS Code where the file is.
+{{ site.name }} ships with a file called `vscode.html-custom-data.json` that can be used to describe its custom elements to [Visual Studio Code](https://code.visualstudio.com/). This enables code completion for {{ site.name }} components (also known as “code hinting” or “IntelliSense”). To enable it, you need to tell VS Code where the file is.
 
-1. [Install Web Awesome locally](/docs/#installing-via-npm)
+1. [Install {{ site.name }} locally](/docs/#installing-via-npm)
 2. If it doesn’t already exist, create a folder called `.vscode` at the root of your project
 3. If it doesn’t already exist, create a file inside that folder called `settings.json`
 4. Add the following to the file
@@ -204,7 +204,7 @@ If `settings.json` already exists, simply add the above line to the root of the 
 
 ### JetBrains IDEs
 
-If you are using a [JetBrains IDE](https://www.jetbrains.com/) and you are installing Web Awesome from NPM, the editor will automatically detect the `web-types.json` file from the package and you should immediately see component information in your editor.
+If you are using a [JetBrains IDE](https://www.jetbrains.com/) and you are installing {{ site.name }} from NPM, the editor will automatically detect the `web-types.json` file from the package and you should immediately see component information in your editor.
 
 Be sure to add a reference to the `web-types.json` file in your `package.json` in order for your editor to properly detect it.
 
@@ -236,7 +236,7 @@ Most popular editors support custom code completion with a bit of configuration.
 ## Where to Go Next
 
 - [Customizing](/docs/customizing) — themes, CSS parts, custom properties, and custom states.
-- [Form Controls](/docs/form-controls) — using Web Awesome inputs, validation, and form submission.
+- [Form Controls](/docs/form-controls) — using {{ site.name }} inputs, validation, and form submission.
 - [Frameworks](/docs/frameworks) — guides for React, Vue, Angular, and Svelte.
 - [Localization](/docs/localization) — translating component strings and configuring text direction.
 - [Preventing FOUCE](/docs/utilities/fouce) — avoid the flash of un-upgraded custom elements on first load.
