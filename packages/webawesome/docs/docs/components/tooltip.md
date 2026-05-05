@@ -128,7 +128,7 @@ You can control the size of tooltip arrows by overriding the `--wa-tooltip-arrow
 <wa-tooltip for="no-arrow" without-arrow>This is a tooltip with no arrow</wa-tooltip>
 ```
 
-To override it globally, set it in a root block in your stylesheet after the {{ site.name }} stylesheet is loaded.
+To override it globally, set it in a root block in your stylesheet after the Web Awesome stylesheet is loaded.
 
 ```css
 :root {

@@ -4,7 +4,7 @@ description: Web Awesome is an open source project, meaning everyone can use it 
 layout: page-outline
 ---
 
-Many {{ site.name }} components are open source, meaning everyone can use them and contribute to their development. When you join our community, you'll find a friendly group of enthusiasts at all experience levels who are willing to chat about anything and everything related to {{ site.name }}.
+Many Web Awesome components are open source, meaning everyone can use them and contribute to their development. When you join our community, you'll find a friendly group of enthusiasts at all experience levels who are willing to chat about anything and everything related to Web Awesome.
 
 The easiest way to get started contributing is to join the [community chat]({{ site.urls.discord }}). This is where we hang out, discuss new ideas, ask for feedback, and more!
 
@@ -75,9 +75,9 @@ The author reserves the right to reject any PR that's outside the scope of the p
 
 ## Documentation
 
-Maintaining good documentation can be a painstaking task, but poor documentation leads to frustration and makes the project less appealing to users. Fortunately, writing documentation for {{ site.name }} is fast and easy!
+Maintaining good documentation can be a painstaking task, but poor documentation leads to frustration and makes the project less appealing to users. Fortunately, writing documentation for Web Awesome is fast and easy!
 
-Most of {{ site.name }}'s technical documentation is generated with JSDoc comments and TypeScript metadata from the source code. Every property, method, event, etc. is documented this way. In-code comments encourage contributors to keep the documentation up to date as changes occur so the docs are less likely to become stale. Refer to an existing component to see how JSDoc comments are used in {{ site.name }}.
+Most of Web Awesome's technical documentation is generated with JSDoc comments and TypeScript metadata from the source code. Every property, method, event, etc. is documented this way. In-code comments encourage contributors to keep the documentation up to date as changes occur so the docs are less likely to become stale. Refer to an existing component to see how JSDoc comments are used in Web Awesome.
 
 Instructions, code examples, and interactive demos are hand-curated to give users the best possible experience. Typically, the most relevant information is shown first and less common examples are shown towards the bottom. Edge cases and gotchas should be called out in context with tips or warnings.
 
@@ -85,9 +85,9 @@ The docs are powered by [Eleventy](https://www.11ty.dev/). Check out `docs/compo
 
 If you need help with documentation, feel free to reach out on the [community chat]({{ site.urls.discord }}).
 
-### {{ site.name }}-flavoured Markdown
+### Web Awesome-flavoured Markdown
 
-The {{ site.name }} documentation uses an extended version of [markdown-it](https://github.com/markdown-it/markdown-it). Generally speaking, it follows the [Commonmark spec](https://spec.commonmark.org/) while sprinkling in some additional features.
+The Web Awesome documentation uses an extended version of [markdown-it](https://github.com/markdown-it/markdown-it). Generally speaking, it follows the [Commonmark spec](https://spec.commonmark.org/) while sprinkling in some additional features.
 
 #### Code Previews
 
@@ -131,7 +131,7 @@ To link to a GitHub issue, PR, or discussion, use the following syntax.
 
 ### Frontmatter
 
-There's a number of frontmatter properties for doing different things in the {{ site.name }} documentation.
+There's a number of frontmatter properties for doing different things in the Web Awesome documentation.
 
 For example, to only show a page in development, use the `unpublished: true` key / value pair.
 
@@ -166,7 +166,7 @@ This section can be a lot to digest in one sitting, so don't feel like you need 
 
 ### Accessibility
 
-{{ site.name }} is built with accessibility in mind. Creating generic components that are fully accessible to users with varying capabilities across a multitude of circumstances is a daunting challenge. Oftentimes, the solution to an a11y problem is not written in black and white and, therefore, we may not get it right the first time around. There are, however, guidelines we can follow in our effort to make {{ site.name }} an accessible foundation from which applications and websites can be built.
+Web Awesome is built with accessibility in mind. Creating generic components that are fully accessible to users with varying capabilities across a multitude of circumstances is a daunting challenge. Oftentimes, the solution to an a11y problem is not written in black and white and, therefore, we may not get it right the first time around. There are, however, guidelines we can follow in our effort to make Web Awesome an accessible foundation from which applications and websites can be built.
 
 We take this commitment seriously, so please ensure your contributions have this goal in mind. If you need help with anything a11y-related, please reach out on the [community chat]({{ site.urls.discord }}) for assistance. If you discover an accessibility concern within the library, please file a bug on the [issue tracker]({{ site.github.issues }}).
 
@@ -282,7 +282,7 @@ The `id` parameter must point to the ID of the target component. The ID may be o
 
 ### CSS Custom Properties
 
-Custom properties allow users to customize {{ site.name }} components by exposing specific styles across a component's shadow boundary. Use custom properties to expose key characteristics of a component for low-level theming. Avoid using custom properties for styles that may interfere with proper rendering.
+Custom properties allow users to customize Web Awesome components by exposing specific styles across a component's shadow boundary. Use custom properties to expose key characteristics of a component for low-level theming. Avoid using custom properties for styles that may interfere with proper rendering.
 
 To expose custom properties as part of a component's API, scope them to the `:host` block.
 
@@ -328,7 +328,7 @@ This convention can be relaxed when the developer experience is greatly improved
 
 ### Naming CSS Parts
 
-While CSS parts can be named [virtually anything](https://www.abeautifulsite.net/posts/valid-names-for-css-parts/), within {{ site.name }} they must use the kebab-case convention and lowercase letters. Additionally, [a BEM-inspired naming convention](https://www.abeautifulsite.net/posts/css-parts-inspired-by-bem/) is used to distinguish parts, subparts, and states.
+While CSS parts can be named [virtually anything](https://www.abeautifulsite.net/posts/valid-names-for-css-parts/), within Web Awesome they must use the kebab-case convention and lowercase letters. Additionally, [a BEM-inspired naming convention](https://www.abeautifulsite.net/posts/css-parts-inspired-by-bem/) is used to distinguish parts, subparts, and states.
 
 When composing elements, use `part` to export the host element and `exportparts` to export its parts.
 
@@ -348,7 +348,7 @@ This results in a consistent, easy to understand structure for parts. In this ex
 
 TL;DR – a component is a dependency if and only if it's rendered inside another component's shadow root.
 
-Many {{ site.name }} components use other {{ site.name }} components internally. For example, `<wa-button>` uses both `<wa-icon>` and `<wa-spinner>` for its caret icon and loading state, respectively. Since these components appear in the button's shadow root, they are considered dependencies of Button. Since dependencies are automatically loaded, users only need to import the button and everything will work as expected.
+Many Web Awesome components use other Web Awesome components internally. For example, `<wa-button>` uses both `<wa-icon>` and `<wa-spinner>` for its caret icon and loading state, respectively. Since these components appear in the button's shadow root, they are considered dependencies of Button. Since dependencies are automatically loaded, users only need to import the button and everything will work as expected.
 
 The rule of thumb for dependencies is: if a component is rendered _inside_ a host element's shadow root OR if the component is required to be slotted in by the user (e.g. `<wa-radio-group>` + `<wa-radio>`), it's a dependency.
 
@@ -380,7 +380,7 @@ This pattern is modeled after the `scroll.ts` lock pattern. Refer to existing ov
 
 ### Server-Side Rendering (SSR)
 
-{{ site.name }} supports server-side rendering via [Lit SSR](https://lit.dev/docs/ssr/overview/). During SSR, Lit calls `constructor()` and `connectedCallback()` but does **not** call `firstUpdated()`, `updated()`, or event handlers. This means browser-only APIs such as `document.*`, `window.*`, `ResizeObserver`, `MutationObserver`, etc. need to be guarded in constructors, class field initializers, `connectedCallback()`, and module-level code. Guards are _not_ needed in `firstUpdated()`, `updated()`, event handlers, or `@watch` handlers.
+Web Awesome supports server-side rendering via [Lit SSR](https://lit.dev/docs/ssr/overview/). During SSR, Lit calls `constructor()` and `connectedCallback()` but does **not** call `firstUpdated()`, `updated()`, or event handlers. This means browser-only APIs such as `document.*`, `window.*`, `ResizeObserver`, `MutationObserver`, etc. need to be guarded in constructors, class field initializers, `connectedCallback()`, and module-level code. Guards are _not_ needed in `firstUpdated()`, `updated()`, event handlers, or `@watch` handlers.
 
 To guard browser-only code, import `isServer` from `lit` and short circuit early or wrap the relevant code. Do not shim browser APIs on `globalThis` as a workaround — use `isServer` guards directly.
 

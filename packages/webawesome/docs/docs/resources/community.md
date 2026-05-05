@@ -4,9 +4,9 @@ description: Web Awesome has a growing community of designers and developers tha
 layout: page
 ---
 
-{{ site.name }} has a growing community of designers and developers that are building amazing things with web components. We'd love for you to become a part of it!
+Web Awesome has a growing community of designers and developers that are building amazing things with web components. We'd love for you to become a part of it!
 
-Please be respectful of other users and remember that {{ site.name }} is an open source project. We'll try to help when we can, but there's no guarantee we'll be able solve your problem. Please manage your expectations and don't forget to contribute back to the conversation when you can!
+Please be respectful of other users and remember that Web Awesome is an open source project. We'll try to help when we can, but there's no guarantee we'll be able solve your problem. Please manage your expectations and don't forget to contribute back to the conversation when you can!
 
 ## Discussion Forum
 
@@ -29,7 +29,7 @@ The [community chat]({{ site.urls.discord }}) is open to the public and powered 
 - Ask for help
 - Share ideas and get feedback
 - Show the community what you're working on
-- Chat live with other designers, developers, and {{ site.name }} fans
+- Chat live with other designers, developers, and Web Awesome fans
 
 <wa-button variant="brand" href="{{ site.urls.discord }}" target="_blank" style="margin-block-end: var(--wa-content-spacing);">
   <wa-icon name="discord" family="brands" slot="start"></wa-icon>
@@ -38,7 +38,7 @@ The [community chat]({{ site.urls.discord }}) is open to the public and powered 
 
 ## Social Networks
 
-Follow {{ site.name }} on [Bluesky]({{ site.urls.bluesky }}), [X (Twitter)]({{ site.urls.x }}), [Mastodon]({{ site.urls.mastodon }}), or [Threads]({{ site.urls.threads }}) for general updates and announcements. This is a great place to say "hi" or to share something you're working on.
+Follow Web Awesome on [Bluesky]({{ site.urls.bluesky }}), [X (Twitter)]({{ site.urls.x }}), [Mastodon]({{ site.urls.mastodon }}), or [Threads]({{ site.urls.threads }}) for general updates and announcements. This is a great place to say "hi" or to share something you're working on.
 
 **Please avoid using Social Networks for support questions.** The [discussion forum]({{ site.github.discussions }}) is a much better place to share code snippets, screenshots, and other troubleshooting info. You'll have much better luck there, as more users will have a chance to help you.
 

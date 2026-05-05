@@ -259,13 +259,13 @@ layout: page
         </div>
         <wa-icon name="arrow-right"></wa-icon>
       </div>
-      <p>Check out our installation guide to start building with {{ site.name }}.</p>
+      <p>Check out our installation guide to start building with Web Awesome.</p>
     </div>
   </wa-button>
   <wa-divider></wa-divider>
   <div class="summary">
     <h2 class="font-brand">What's <span class="emphasis">Web</span> Awesome?</h2>
-    <p>{{ site.name }} is the biggest open-source library of meticulously designed, highly customizable, and framework-agnostic UI components.</p>
+    <p>Web Awesome is the biggest open-source library of meticulously designed, highly customizable, and framework-agnostic UI components.</p>
     <div class="grid">
       <div class="wa-stack">
         <div class="wa-cluster icon-heading">
@@ -300,8 +300,8 @@ layout: page
 
   <div class="split-block">
     <div>
-      <h2 class="font-brand"><span class="emphasis">You</span> put the awesome in {{ site.name }}</h2>
-      <p>{{ site.name }} started as an open-source project fueled by contributions from an engaged community of developers, and we want to keep it that way. The core of {{ site.name }} is — and always will be — free and open source.</p>
+      <h2 class="font-brand"><span class="emphasis">You</span> put the awesome in Web Awesome</h2>
+      <p>Web Awesome started as an open-source project fueled by contributions from an engaged community of developers, and we want to keep it that way. The core of Web Awesome is — and always will be — free and open source.</p>
       <p>Whether you’re a developer, designer, or budding tech nerd, we want you a part of the conversation.</p>
     </div>
     <div>
@@ -326,7 +326,7 @@ layout: page
             </div>
             <wa-icon name="arrow-up-right"></wa-icon>
           </div>
-          <p>Share your work, ask questions, and explore ideas with other {{ site.name }} builders.</p>
+          <p>Share your work, ask questions, and explore ideas with other Web Awesome builders.</p>
         </div>
       </wa-button>
       <wa-button href="mailto:{{ site.emails.hello }}" appearance="filled" class="tile">
@@ -398,7 +398,7 @@ layout: page
     <div class="split-block">
       <div>
         <strong class="font-brand tagline">Let's Make Something Awesome</strong>
-        <p>{{ site.name }} is the design system platform and open source library of web components from your fellow nerds at <a href="{{ site.siblings.fontAwesome.url }}">{{ site.siblings.fontAwesome.name }}</a>.</p>
+        <p>Web Awesome is the design system platform and open source library of web components from your fellow nerds at <a href="{{ site.siblings.fontAwesome.url }}">{{ site.siblings.fontAwesome.name }}</a>.</p>
       </div>
       <div class="attribution">
         <span>Special thanks</span>

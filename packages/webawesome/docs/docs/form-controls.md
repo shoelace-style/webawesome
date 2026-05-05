@@ -12,11 +12,11 @@ use-cases:
   - constraint validation
 ---
 
-{{ site.name }} form controls are form-associated custom elements, meaning they will submit with forms just like native `<form>` controls. They also support constraint validation, which is the platform's version of client-side form validation.
+Web Awesome form controls are form-associated custom elements, meaning they will submit with forms just like native `<form>` controls. They also support constraint validation, which is the platform's version of client-side form validation.
 
 ## Constraint Validation
 
-Client-side validation can be enabled through the browser's [Constraint Validation API](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation) for {{ site.name }} form controls. You can activate it using attributes such as `required`, `pattern`, `minlength`, `maxlength`, etc. {{ site.name }} implements many of the same attributes as native form controls, but check the documentation for a list of supported properties for each component.
+Client-side validation can be enabled through the browser's [Constraint Validation API](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation) for Web Awesome form controls. You can activate it using attributes such as `required`, `pattern`, `minlength`, `maxlength`, etc. Web Awesome implements many of the same attributes as native form controls, but check the documentation for a list of supported properties for each component.
 
 If you don't want to use client-side validation, you can suppress this behavior by adding `novalidate` to the surrounding `<form>` element.
 
@@ -160,7 +160,7 @@ Custom validation can be applied to any form control that supports the `setCusto
 
 ## Custom Validation Styles
 
-Due to the many ways form controls are used, {{ site.name }} doesn't provide out of the box validation styles for form controls as part of its default theme.
+Due to the many ways form controls are used, Web Awesome doesn't provide out of the box validation styles for form controls as part of its default theme.
 
 Instead, the following [custom states](https://developer.mozilla.org/en-US/docs/Web/API/ElementInternals/states) will be applied to reflect a control's validity as users interact with it. You can use them to create custom styles for any of the validation states you're interested in.
 

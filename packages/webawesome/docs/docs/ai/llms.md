@@ -6,7 +6,7 @@ layout: page-outline
 
 The [llms.txt specification](https://llmstxt.org/) is a proposed standard for providing information to large language models (LLMs) in a format they can easily consume. It's like a robots.txt, but instead of telling search engines how to crawl your site, it helps AI assistants understand your project.
 
-{{ site.name }} publishes an `llms.txt` file that provides AI tools with structured information about our components, including their APIs, properties, events, methods, slots, and CSS custom properties.
+Web Awesome publishes an `llms.txt` file that provides AI tools with structured information about our components, including their APIs, properties, events, methods, slots, and CSS custom properties.
 
 :::warning
 This feature is experimental! The llms.txt format and its contents may change as we refine the output based on feedback and evolving AI capabilities.
@@ -14,18 +14,18 @@ This feature is experimental! The llms.txt format and its contents may change as
 
 ## Why Use It?
 
-When working with AI coding assistants like Claude, ChatGPT, Copilot, or Cursor, you can reference the llms.txt file to give the AI context about {{ site.name }} components. This can lead to more accurate code suggestions and fewer hallucinations when the AI generates {{ site.name }} code.
+When working with AI coding assistants like Claude, ChatGPT, Copilot, or Cursor, you can reference the llms.txt file to give the AI context about Web Awesome components. This can lead to more accurate code suggestions and fewer hallucinations when the AI generates Web Awesome code.
 
 ## Accessing the File
 
-The llms.txt file is available in every {{ site.name }} build at:
+The llms.txt file is available in every Web Awesome build at:
 
 ```
 /dist/llms.txt
 /dist-cdn/llms.txt
 ```
 
-You can also find it in your `node_modules` directory if you've installed {{ site.name }} via npm:
+You can also find it in your `node_modules` directory if you've installed Web Awesome via npm:
 
 ```
 node_modules/@awesome.me/webawesome/dist/llms.txt
@@ -37,7 +37,7 @@ How you reference the file depends on which AI tool you're using.
 
 ### Claude Projects
 
-If you're using [Claude Projects](https://www.anthropic.com/news/projects), you can add the llms.txt URL to your project knowledge. Claude will use this context when helping you write {{ site.name }} code.
+If you're using [Claude Projects](https://www.anthropic.com/news/projects), you can add the llms.txt URL to your project knowledge. Claude will use this context when helping you write Web Awesome code.
 
 ### Cursor
 
@@ -69,7 +69,7 @@ Most AI coding assistants allow you to provide context through URLs, file upload
 
 The llms.txt file contains:
 
-- An overview of {{ site.name }} and its capabilities
+- An overview of Web Awesome and its capabilities
 - Links to documentation sections
 - A complete list of all components with descriptions
 - Detailed API reference for each component including:
@@ -83,7 +83,7 @@ The llms.txt file contains:
 
 ## llms.txt vs Agent Skills
 
-{{ site.name }} provides both an [Agent Skill](https://agentskills.io/) and an [llms.txt file](/docs/ai/llms). Here's when to use each:
+Web Awesome provides both an [Agent Skill](https://agentskills.io/) and an [llms.txt file](/docs/ai/llms). Here's when to use each:
 
 | Feature | llms.txt | Agent Skill |
 |---------|----------|-------------|

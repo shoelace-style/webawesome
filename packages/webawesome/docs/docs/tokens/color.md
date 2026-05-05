@@ -93,7 +93,7 @@ use-cases:
 </style>
 
 
-{{ site.name }}'s color system is made up of three layers: a **color palette** that gives you a full spectrum of hues, **variant colors** that define semantic color variations (like success and danger), and **theme colors** that assign tints from your palette and variant colors to tokens that style components.
+Web Awesome's color system is made up of three layers: a **color palette** that gives you a full spectrum of hues, **variant colors** that define semantic color variations (like success and danger), and **theme colors** that assign tints from your palette and variant colors to tokens that style components.
 
 ## Color Palette
 [Color palettes](/docs/color-palettes) give you a full spectrum of colors to use in your project and are the lowest-level color tokens. Each color palette includes 10 different hues, each with 11 numeric tints that make up a color scale from light to dark — `95` is near white, `05` is near black.

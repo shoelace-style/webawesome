@@ -18,7 +18,7 @@ hasOutline: true
   }
 </style>
 
-Border tokens define the edges and corners of {{ site.name }} components. They use `rem` units so they scale with root font size. You can adjust individual tokens or use scale multipliers to change all widths or radii at once.
+Border tokens define the edges and corners of Web Awesome components. They use `rem` units so they scale with root font size. You can adjust individual tokens or use scale multipliers to change all widths or radii at once.
 
 ## Border Style
 

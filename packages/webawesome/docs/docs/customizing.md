@@ -20,11 +20,11 @@ use-cases:
   - shadow dom
 ---
 
-You can customize the look and feel of {{ site.name }} at a high level with themes. For more advanced customizations, you can make use of CSS parts and custom properties to target individual components.
+You can customize the look and feel of Web Awesome at a high level with themes. For more advanced customizations, you can make use of CSS parts and custom properties to target individual components.
 
 ## Themes
 
-{{ site.name }} uses [themes](/docs/themes) to apply a cohesive look and feel across the entire library. Themes are built with a collection of predefined CSS custom properties, which we call [design tokens](/docs/tokens), and there are many premade themes you can choose from.
+Web Awesome uses [themes](/docs/themes) to apply a cohesive look and feel across the entire library. Themes are built with a collection of predefined CSS custom properties, which we call [design tokens](/docs/tokens), and there are many premade themes you can choose from.
 
 {% raw %}
   <p>
@@ -57,7 +57,7 @@ For even more customizations, you can off-road and override any theme just with 
 
 For a complete list of all custom properties used for theming, refer to `src/styles/themes/default.css` in the project's source code.
 
-While themes offer a high-level way to customize the library, individual components offer different hooks as a low-level way to customize them one at a time. {{ site.name }} components use a [shadow DOM](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM) to encapsulate their styles and behaviors. As a result, you can't simply target their internals with the usual CSS selectors. Instead, components expose a set of CSS parts, custom properties, and custom states that can be targeted to customize their appearance.
+While themes offer a high-level way to customize the library, individual components offer different hooks as a low-level way to customize them one at a time. Web Awesome components use a [shadow DOM](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM) to encapsulate their styles and behaviors. As a result, you can't simply target their internals with the usual CSS selectors. Instead, components expose a set of CSS parts, custom properties, and custom states that can be targeted to customize their appearance.
 
 ## CSS Parts
 

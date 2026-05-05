@@ -10,11 +10,11 @@ layout: page-outline
   <wa-breadcrumb-item>{{ title }}</wa-breadcrumb-item>
 </wa-breadcrumb>
 
-Svelte [plays nice](https://custom-elements-everywhere.com/#svelte) with custom elements, so you can use {{ site.name }} in your Svelte apps with ease.
+Svelte [plays nice](https://custom-elements-everywhere.com/#svelte) with custom elements, so you can use Web Awesome in your Svelte apps with ease.
 
 ## Installation
 
-To add {{ site.name }} to your Svelte app, install the package from npm.
+To add Web Awesome to your Svelte app, install the package from npm.
 
 ```bash
 npm install @awesome.me/webawesome
@@ -22,7 +22,7 @@ npm install @awesome.me/webawesome
 
 ## Usage
 
-Next, import the {{ site.name }} stylesheet, import the components you need, and then start using {{ site.name }}!
+Next, import the Web Awesome stylesheet, import the components you need, and then start using Web Awesome!
 
 ```jsx
 <!-- app.html -->
@@ -68,7 +68,7 @@ One caveat is there's currently Svelte only supports `bind:value` directive in `
 
 ### Slots
 
-Slots in {{ site.name }}/web components are functionally the same as basic slots in Svelte. Slots can be assigned to elements using the `slot` attribute followed by the name of the slot it is being assigned to.
+Slots in Web Awesome/web components are functionally the same as basic slots in Svelte. Slots can be assigned to elements using the `slot` attribute followed by the name of the slot it is being assigned to.
 
 Here is an example:
 
@@ -84,5 +84,5 @@ Here is an example:
 ```
 
 :::info
-Are you using {{ site.name }} with Svelte? [Help us improve this page!](https://github.com/shoelace-style/webawesome/blob/next/packages/webawesome/docs/docs/frameworks/svelte.md)
+Are you using Web Awesome with Svelte? [Help us improve this page!](https://github.com/shoelace-style/webawesome/blob/next/packages/webawesome/docs/docs/frameworks/svelte.md)
 :::

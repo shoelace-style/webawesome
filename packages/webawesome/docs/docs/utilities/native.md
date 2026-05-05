@@ -14,7 +14,7 @@ use-cases:
   - default styles
 ---
 
-Native styles use design tokens to spruce up native HTML elements so that they match the look and feel of your theme. While these native styles are completely optional, they're a great starting point for a cohesive design and a huge help when using a combination of native elements and {{ site.name }} components in your project.
+Native styles use design tokens to spruce up native HTML elements so that they match the look and feel of your theme. While these native styles are completely optional, they're a great starting point for a cohesive design and a huge help when using a combination of native elements and Web Awesome components in your project.
 
 ## Using native styles
 
@@ -33,7 +33,7 @@ Native styles use design tokens to spruce up native HTML elements so that they m
 
   <wa-tab-panel name="npm">
 {% markdown %}
-To use all {{ site.name }} styles (including [utilities](/docs/utilities/)), import the following stylesheet in your project:
+To use all Web Awesome styles (including [utilities](/docs/utilities/)), import the following stylesheet in your project:
 
 ```js
 import '@awesome.me/webawesome/dist/styles/webawesome.css';
@@ -51,7 +51,7 @@ import '@awesome.me/webawesome/dist/styles/native.css';
 
   <wa-tab-panel name="self-hosted">
 {% markdown %}
-To use all {{ site.name }} styles (including [utilities](/docs/utilities/)), include the following stylesheet in your project:
+To use all Web Awesome styles (including [utilities](/docs/utilities/)), include the following stylesheet in your project:
 
 ```html
 <link rel="stylesheet" href="/dist/styles/webawesome.css" />
@@ -72,7 +72,7 @@ You can additionally include any pre-made [theme](/docs/themes/) or [color palet
 
 ## Opting out of native styles
 
-If you want to keep {{ site.name }}'s components, tokens, and utilities but let a native element fall back to browser defaults, reset that element in your own stylesheet.
+If you want to keep Web Awesome's components, tokens, and utilities but let a native element fall back to browser defaults, reset that element in your own stylesheet.
 
 ```html {.example}
 <div class="wa-cluster wa-align-items-center">
@@ -488,7 +488,7 @@ When using `<wa-icon>` within a button, wrap adjacent label text in `<span>` or 
 
 ### Form controls
 
-Create a variety of form controls with `<input type="">`, `<select>`, and `<textarea>`. Each control closely matches the appearance of the corresponding {{ site.name }} component.
+Create a variety of form controls with `<input type="">`, `<select>`, and `<textarea>`. Each control closely matches the appearance of the corresponding Web Awesome component.
 
 ```html {.example}
 <div class="wa-stack">

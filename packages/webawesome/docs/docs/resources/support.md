@@ -48,7 +48,7 @@ layout: page
     <li>Ask for help</li>
     <li>Share ideas and get feedback</li>
     <li>Show the community what you're working on</li>
-    <li>Chat live with other designers, developers, and {{ site.name }} supporters.</li>
+    <li>Chat live with other designers, developers, and Web Awesome supporters.</li>
   </ul>
   <wa-button appearance="filled" href="{{ site.urls.discord }}">
     <wa-icon slot="start" name="discord" family="brands"></wa-icon>
@@ -80,7 +80,7 @@ layout: page
     <p>We’re everywhere you are — follow us on your favorite social media platforms for the latest news and updates.</p>
   </div>
 <div class="wa-cluster wa-caption-2xl">
-    <h2 class="wa-visually-hidden">{{ site.name }} Elsewhere</h2>
+    <h2 class="wa-visually-hidden">Web Awesome Elsewhere</h2>
     <a href="{{ site.github.repo }}" rel="noopener noreferrer" target="_blank" class="appearance-plain">
       <wa-icon family="brands" name="github" label="GitHub" role="img" aria-label="GitHub" library="default"></wa-icon>
     </a>
