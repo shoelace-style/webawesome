@@ -963,6 +963,44 @@
   .de-emphasize {
     opacity: 0.6;
   }
+
+  /* #region hover utilities */
+
+  /* Hover scale; override --hover-grow-scale per instance */
+  .hover-grow,
+  .hover-grow-from-direct-child {
+    --hover-grow-scale: 1.025;
+    transform-origin: center;
+    transition: transform var(--wa-transition-slow) ease-in-out;
+  }
+
+  .hover-grow:is(:hover, :focus-visible) {
+    transform: scale(var(--hover-grow-scale));
+  }
+
+  /* Scale when a direct child link or button is hovered */
+  .hover-grow-from-direct-child:has(> :is(a, button):hover),
+  .hover-grow-from-direct-child:has(> :is(a, button):focus-visible) {
+    transform: scale(var(--hover-grow-scale));
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hover-grow,
+    .hover-grow-from-direct-child {
+      transition: none;
+    }
+
+    .hover-grow:is(:hover, :focus-visible) {
+      transform: none;
+    }
+
+    .hover-grow-from-direct-child:has(> :is(a, button):hover),
+    .hover-grow-from-direct-child:has(> :is(a, button):focus-visible) {
+      transform: none;
+    }
+  }
+
+  /* #endregion */
   /* #endregion */
 
   /* #region resets */
