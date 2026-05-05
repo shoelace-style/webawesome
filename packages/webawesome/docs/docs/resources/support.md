@@ -84,16 +84,16 @@ layout: page
     <a href="{{ site.github.repo }}" rel="noopener noreferrer" target="_blank" class="appearance-plain">
       <wa-icon family="brands" name="github" label="GitHub" role="img" aria-label="GitHub" library="default"></wa-icon>
     </a>
-    <a href="https://bsky.app/profile/webawesome.com" rel="noopener noreferrer" target="_blank" class="appearance-plain">
+    <a href="{{ site.urls.bluesky }}" rel="noopener noreferrer" target="_blank" class="appearance-plain">
       <wa-icon family="brands" name="bluesky" label="Bluesky" role="img" aria-label="Bluesky" library="default"></wa-icon>
     </a>
-    <a href="https://mastodon.social/@webawesome" rel="noopener noreferrer" target="_blank" class="appearance-plain">
+    <a href="{{ site.urls.mastodon }}" rel="noopener noreferrer" target="_blank" class="appearance-plain">
       <wa-icon family="brands" name="mastodon" label="Mastodon" role="img" aria-label="Mastodon" library="default"></wa-icon>
     </a>
     <a href="{{ site.urls.x }}" rel="noopener noreferrer" target="_blank" class="appearance-plain">
       <wa-icon family="brands" name="x-twitter" label="Twitter (X)" role="img" aria-label="Twitter (X)" library="default"></wa-icon>
     </a>
-    <a href="https://www.threads.com/@web.awesome" rel="noopener noreferrer" target="_blank" class="appearance-plain">
+    <a href="{{ site.urls.threads }}" rel="noopener noreferrer" target="_blank" class="appearance-plain">
       <wa-icon family="brands" name="threads" label="Threads" role="img" aria-label="Threads" library="default"></wa-icon>
     </a>
   </div>

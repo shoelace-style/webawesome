@@ -38,12 +38,12 @@ The [community chat]({{ site.urls.discord }}) is open to the public and powered 
 
 ## Social Networks
 
-Follow {{ site.name }} on [Bluesky](https://bsky.app/profile/webawesome.com), [X (Twitter)]({{ site.urls.x }}), [Mastodon](https://mastodon.social/@webawesome), or [Threads](https://www.threads.com/@web.awesome) for general updates and announcements. This is a great place to say "hi" or to share something you're working on.
+Follow {{ site.name }} on [Bluesky]({{ site.urls.bluesky }}), [X (Twitter)]({{ site.urls.x }}), [Mastodon]({{ site.urls.mastodon }}), or [Threads]({{ site.urls.threads }}) for general updates and announcements. This is a great place to say "hi" or to share something you're working on.
 
 **Please avoid using Social Networks for support questions.** The [discussion forum]({{ site.github.discussions }}) is a much better place to share code snippets, screenshots, and other troubleshooting info. You'll have much better luck there, as more users will have a chance to help you.
 
 <div class="wa-cluster wa-gap-l">
-  <wa-button variant="brand" href="https://bsky.app/profile/webawesome.com" rel="noopener noreferrer" target="_blank">
+  <wa-button variant="brand" href="{{ site.urls.bluesky }}" rel="noopener noreferrer" target="_blank">
     <wa-icon name="bluesky" family="brands" slot="start"></wa-icon>
     Bluesky
   </wa-button>
@@ -51,11 +51,11 @@ Follow {{ site.name }} on [Bluesky](https://bsky.app/profile/webawesome.com), [X
     <wa-icon name="x-twitter" family="brands" slot="start"></wa-icon>
     X (Twitter)
   </wa-button>
-  <wa-button variant="brand" href="https://mastodon.social/@webawesome" rel="noopener noreferrer" target="_blank">
+  <wa-button variant="brand" href="{{ site.urls.mastodon }}" rel="noopener noreferrer" target="_blank">
     <wa-icon name="mastodon" family="brands" slot="start"></wa-icon>
     Mastodon
   </wa-button>
-  <wa-button variant="brand" href="https://www.threads.com/@web.awesome" rel="noopener noreferrer" target="_blank">
+  <wa-button variant="brand" href="{{ site.urls.threads }}" rel="noopener noreferrer" target="_blank">
     <wa-icon name="threads" family="brands" slot="start"></wa-icon>
     Threads
   </wa-button>

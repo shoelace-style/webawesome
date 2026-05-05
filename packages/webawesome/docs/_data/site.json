@@ -14,6 +14,9 @@
   "urls": {
     "discord": "https://discord.gg/mg8f26C",
     "x": "https://x.com/webawesomer",
+    "bluesky": "https://bsky.app/profile/webawesome.com",
+    "mastodon": "https://mastodon.social/@webawesome",
+    "threads": "https://www.threads.com/@web.awesome",
     "support": "/docs/resources/support"
   },
 
@@ -22,6 +25,7 @@
     "issues": "https://github.com/shoelace-style/webawesome/issues",
     "discussions": "https://github.com/shoelace-style/webawesome/discussions",
     "ideas": "https://github.com/shoelace-style/webawesome/discussions/categories/ideas-suggestions",
+    "helpSupport": "https://github.com/shoelace-style/webawesome/discussions/categories/help-support",
     "stargazers": "https://github.com/shoelace-style/webawesome/stargazers"
   },
 

@@ -352,7 +352,7 @@ layout: page
       <span>Stay in the know</span>
     </h2>
     <div class="wa-grid" style="--min-column-size: 30ch;">
-      <wa-button href="https://bsky.app/profile/webawesome.com" rel="noopener noreferrer" target="_blank" appearance="filled" class="tile">
+      <wa-button href="{{ site.urls.bluesky }}" rel="noopener noreferrer" target="_blank" appearance="filled" class="tile">
         <div class="wa-split">
           <div class="wa-cluster icon-heading">
             <wa-icon family="brands" name="bluesky"></wa-icon>
@@ -361,7 +361,7 @@ layout: page
           <wa-icon name="arrow-up-right"></wa-icon>
         </div>
       </wa-button>
-      <wa-button href="https://mastodon.social/@webawesome" rel="noopener noreferrer" target="_blank" appearance="filled" class="tile">
+      <wa-button href="{{ site.urls.mastodon }}" rel="noopener noreferrer" target="_blank" appearance="filled" class="tile">
         <div class="wa-split">
           <div class="wa-cluster icon-heading">
             <wa-icon family="brands" name="mastodon"></wa-icon>
@@ -379,7 +379,7 @@ layout: page
           <wa-icon name="arrow-up-right"></wa-icon>
         </div>
       </wa-button>
-      <wa-button href="https://www.threads.com/@web.awesome" rel="noopener noreferrer" target="_blank" appearance="filled" class="tile">
+      <wa-button href="{{ site.urls.threads }}" rel="noopener noreferrer" target="_blank" appearance="filled" class="tile">
         <div class="wa-split">
           <div class="wa-cluster icon-heading">
             <wa-icon family="brands" name="threads"></wa-icon>

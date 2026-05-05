@@ -27,7 +27,7 @@ Please take a moment to review these guidelines to make the contribution process
 
 The [issue tracker]({{ site.github.issues }}) is for bug reports, feature requests, and pull requests.
 
-- Please **do not** use the issue tracker for personal support requests. Use [the discussion forum](https://github.com/shoelace-style/webawesome/discussions/categories/help-support) instead.
+- Please **do not** use the issue tracker for personal support requests. Use [the discussion forum]({{ site.github.helpSupport }}) instead.
 - Please **do not** use the issue tracker for feature requests. Use [the discussion forum]({{ site.github.ideas }}) instead.
 - Please **do not** derail, hijack, or troll issues. Keep the discussion on topic and be respectful of others.
 - Please **do not** post comments with "+1" or "👍". Use [reactions](https://github.blog/2016-03-10-add-reactions-to-pull-requests-issues-and-comments/) instead.
