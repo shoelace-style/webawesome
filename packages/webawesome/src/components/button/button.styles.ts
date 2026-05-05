@@ -29,9 +29,10 @@ export default css`
     -webkit-user-select: none;
     white-space: nowrap;
     vertical-align: middle;
-    transition-property: background, border, box-shadow, color, opacity;
-    transition-duration: var(--wa-transition-fast);
+    transition-property: background-color, border, box-shadow, color, opacity, transform;
+    transition-duration: var(--wa-transition-normal);
     transition-timing-function: var(--wa-transition-easing);
+    transform-origin: center;
     cursor: pointer;
     padding: 0 var(--wa-form-control-padding-inline);
     font-family: inherit;
@@ -50,6 +51,16 @@ export default css`
     border-end-end-radius: var(--_button-end-end-radius, var(--wa-form-control-border-radius));
     border-style: var(--wa-form-control-border-style);
     border-width: var(--wa-form-control-border-width);
+  }
+
+  @media (hover: hover) {
+    .button:not(.disabled):not(.loading):hover {
+      transform: var(--wa-button-transform-hover);
+    }
+  }
+
+  .button:not(.disabled):not(.loading):active {
+    transform: var(--wa-button-transform-active);
   }
 
   /* Appearance modifiers */
