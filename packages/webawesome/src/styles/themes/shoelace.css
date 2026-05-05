@@ -34,8 +34,8 @@
 
     --wa-color-focus: var(--wa-color-brand-60);
 
-    --wa-color-mix-hover: oklch(from currentColor calc(l + 0.1) c h) 15%;
-    --wa-color-mix-active: oklch(from currentColor calc(l - 0.1) c h) 5%;
+    --wa-color-mix-hover: oklch(from currentColor calc(l + 0.1) c h) 10%;
+    --wa-color-mix-active: oklch(from currentColor calc(l - 0.1) c h) 10%;
 
     --wa-color-brand-fill-quiet: var(--wa-color-brand-95);
     --wa-color-brand-fill-normal: var(--wa-color-brand-90);
@@ -120,8 +120,8 @@
 
     --wa-color-focus: var(--wa-color-brand-60);
 
-    --wa-color-mix-hover: black 8%;
-    --wa-color-mix-active: black 16%;
+    --wa-color-mix-hover: oklch(from currentColor calc(l - 0.1) c h) 15%;
+    --wa-color-mix-active: oklch(from currentColor calc(l + 0.1) c h) 15%;
 
     --wa-color-brand-fill-quiet: var(--wa-color-brand-20);
     --wa-color-brand-fill-normal: var(--wa-color-brand-30);
