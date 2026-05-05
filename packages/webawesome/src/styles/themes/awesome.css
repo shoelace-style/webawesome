@@ -434,6 +434,7 @@
             &::part(base) {
               height: calc(var(--wa-form-control-height) - var(--wa-shadow-offset-y-s));
               margin-top: var(--wa-shadow-offset-y-s);
+              transform: none;
             }
           }
         }
