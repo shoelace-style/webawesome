@@ -109,7 +109,7 @@
   }
 
   p {
-    text-wrap: pretty;
+    text-wrap: wrap;
   }
 
   blockquote {
