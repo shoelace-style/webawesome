@@ -37,7 +37,8 @@
   },
 
   "legal": {
-    "license": "/license/pro",
+    "licenseCore": "/license",
+    "licensePro": "/license/pro",
     "privacy": "/privacy",
     "tos": "/tos",
     "refunds": "/refunds"
