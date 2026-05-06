@@ -64,6 +64,16 @@ export default css`
     transform: var(--wa-button-transform-active);
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    .button:not(.disabled):not(.loading):hover {
+      transform: none;
+    }
+
+    .button:not(.disabled):not(.loading):active {
+      transform: none;
+    }
+  }
+
   /* Appearance modifiers */
   :host([appearance='plain']) {
     /* Indentation overrides for grouping */

@@ -645,6 +645,16 @@
           );
           transform: var(--wa-button-transform-active);
         }
+
+        @media (prefers-reduced-motion: reduce) {
+          &:hover {
+            transform: none;
+          }
+
+          &:active {
+            transform: none;
+          }
+        }
       }
     }
 
