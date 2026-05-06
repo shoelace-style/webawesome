@@ -10,6 +10,14 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 {% include "changelog-email-signup.njk" %}
 
+## Unreleased
+
+<small>TBD</small>
+
+- Added `--wa-button-transform-hover` and `--wa-button-transform-active` design tokens
+- Updated `--wa-color-mix-hover` and `--wa-color-mix-active` values for all themes for better hover and active feedback
+- Fixed a Playful theme bug where modifier classes (e.g. `wa-filled`) didn't apply to native button elements
+
 ## 3.6.0
 
 <small>April 30th, 2026</small>
