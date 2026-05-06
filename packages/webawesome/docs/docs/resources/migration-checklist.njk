@@ -1,260 +1,443 @@
 ---
 title: Migration Checklist
-description: Interactive checklist for migrating a project from Shoelace 2.x to Web Awesome. Your progress is saved in your browser.
+description: Interactive checklist for migrating a project from Shoelace 2.x to Web Awesome.
 layout: page
 ---
 
+<wa-breadcrumb class="docs-subpage-crumbs">
+  <wa-icon slot="separator" name="angle-right" variant="regular"></wa-icon>
+  <wa-breadcrumb-item href="/docs/">Documentation</wa-breadcrumb-item>
+  <wa-breadcrumb-item href="/docs/resources/migrating-from-shoelace">Migrating from Shoelace</wa-breadcrumb-item>
+  <wa-breadcrumb-item>{{ title }}</wa-breadcrumb-item>
+</wa-breadcrumb>
+
 <p>
-  Track your migration step by step. Your progress is saved automatically in your browser&apos;s local storage and stays there until you reset it. This checklist follows the same structure as the <a href="/docs/resources/migrating-from-shoelace">migration guide</a>. Open the guide in another tab if you need context for any item.
+  Track your migration step by step. Your progress is saved automatically in your browser&apos;s local storage and stays
+  there until you reset it. This checklist follows the same structure as the <a
+    href="/docs/resources/migrating-from-shoelace">migration guide</a>. Open the guide in another tab if you need
+  context for any item.
 </p>
 
 <p>
-  Prefer something you can drop into your repo? <a href="/assets/downloads/shoelace-migration-checklist.md" download="shoelace-migration-checklist.md">Download the markdown version</a>.
+  Prefer something you can drop into your repo? <a href="/assets/downloads/shoelace-migration-checklist.md"
+    download="shoelace-migration-checklist.md">Download the markdown version</a>.
 </p>
 
-<div id="checklist-toolbar" class="wa-stack wa-gap-s">
-  <div class="wa-cluster wa-gap-s" style="align-items: center;">
-    <strong id="checklist-progress-label">0 of 0 complete</strong>
-    <wa-progress-bar id="checklist-progress-bar" value="0" label="Migration progress" style="flex: 1; min-width: 12rem;"></wa-progress-bar>
+<wa-card id="checklist-toolbar" class="checklist-toolbar wa-stack" role="toolbar" aria-label="Migration checklist">
+  <div class="checklist-toolbar-progress wa-cluster wa-gap-s" role="group" aria-labelledby="checklist-progress-label">
+    <p id="checklist-progress-label" class="checklist-toolbar-count de-emphasize wa-font-weight-semibold">0 of 0
+      complete</p>
+    <wa-progress-bar id="checklist-progress-bar" value="0" label="Migration progress"
+      aria-labelledby="checklist-progress-label"></wa-progress-bar>
   </div>
-  <div class="wa-cluster wa-gap-s" style="justify-content: end;">
-    <wa-button id="checklist-reset" variant="neutral" appearance="outlined" size="s">
+  <div slot="footer" class="wa-grid">
+    <wa-button id="checklist-reset" variant="danger" appearance="outlined" size="s">
       <wa-icon slot="start" name="arrow-rotate-left"></wa-icon>
       Reset progress
     </wa-button>
-    <wa-button href="/assets/downloads/shoelace-migration-checklist.md" download="shoelace-migration-checklist.md" variant="neutral" appearance="outlined" size="s">
+    <wa-button href="/assets/downloads/shoelace-migration-checklist.md" download="shoelace-migration-checklist.md"
+      variant="neutral" appearance="outlined" size="s">
       <wa-icon slot="start" name="download"></wa-icon>
-      Download as Markdown
+      Export checklist (.md)
     </wa-button>
   </div>
-</div>
+</wa-card>
 
 <section data-checklist-section="install">
-  <h2>1. Install</h2>
+  <h2>1. Install Web Awesome</h2>
 
-  <wa-checkbox data-checklist-item="install-removed-shoelace">Removed <code>@shoelace-style/shoelace</code> from <code>package.json</code></wa-checkbox>
-  <wa-checkbox data-checklist-item="install-added-webawesome">Added <code>@awesome.me/webawesome</code> to <code>package.json</code></wa-checkbox>
-  <wa-checkbox data-checklist-item="install-css-import">Updated CSS import to <code>@awesome.me/webawesome/dist/styles/webawesome.css</code></wa-checkbox>
-  <wa-checkbox data-checklist-item="install-loader-import">Updated autoloader import to <code>@awesome.me/webawesome/dist/webawesome.loader.js</code></wa-checkbox>
-  <wa-checkbox data-checklist-item="install-cdn-urls">Updated CDN URLs (if used) to <code>early.webawesome.com/webawesome@3/...</code></wa-checkbox>
-  <wa-checkbox data-checklist-item="install-setbasepath">Updated <code>setBasePath</code> import to <code>@awesome.me/webawesome/dist/webawesome.js</code></wa-checkbox>
-  <wa-checkbox data-checklist-item="install-theme-picked">Picked a starting theme: <code>wa-theme-shoelace</code> for soft landing, or <code>default</code> / <code>awesome</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="install-removed-shoelace">Removed <code>@shoelace-style/shoelace</code> from
+    <code>package.json</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="install-added-webawesome">Added <code>@awesome.me/webawesome</code> to
+    <code>package.json</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="install-css-import">Updated CSS import to
+    <code>@awesome.me/webawesome/dist/styles/webawesome.css</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="install-loader-import">Updated autoloader import to
+    <code>@awesome.me/webawesome/dist/webawesome.loader.js</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="install-cdn-urls">Updated CDN URLs (if used) to
+    <code>early.webawesome.com/webawesome@3/...</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="install-setbasepath">Updated <code>setBasePath</code> import to
+    <code>@awesome.me/webawesome/dist/webawesome.js</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="install-theme-picked">Picked a starting theme: <code>wa-theme-shoelace</code> for
+    soft landing, or <code>default</code> / <code>awesome</code></wa-checkbox>
   <wa-checkbox data-checklist-item="install-build-passes">App builds successfully after the swap</wa-checkbox>
 </section>
 
 <section data-checklist-section="global-replace">
-  <h2>2. Global find-and-replace</h2>
+  <h2>2. Global Find-and-Replace</h2>
   <p>Run these in order. Commit between passes.</p>
 
-  <wa-checkbox data-checklist-item="replace-package">Replaced <code>@shoelace-style/shoelace</code> with <code>@awesome.me/webawesome</code> in imports</wa-checkbox>
-  <wa-checkbox data-checklist-item="replace-open-tag">Replaced <code>&lt;sl-</code> with <code>&lt;wa-</code> in templates and HTML</wa-checkbox>
-  <wa-checkbox data-checklist-item="replace-close-tag">Replaced <code>&lt;/sl-</code> with <code>&lt;/wa-</code> in templates and HTML</wa-checkbox>
-  <wa-checkbox data-checklist-item="replace-css-vars">Replaced <code>--sl-</code> with <code>--wa-</code> in CSS files, inline styles, CSS-in-JS</wa-checkbox>
-  <wa-checkbox data-checklist-item="replace-theme-class">Replaced <code>sl-theme-</code> with <code>wa-theme-</code> class names</wa-checkbox>
-  <wa-checkbox data-checklist-item="replace-event-single">Replaced <code>'sl-</code> with <code>'wa-</code> in event listener strings</wa-checkbox>
-  <wa-checkbox data-checklist-item="replace-event-double">Replaced <code>"sl-</code> with <code>"wa-</code> in event listener strings</wa-checkbox>
-  <wa-checkbox data-checklist-item="replace-ts-event-class">Replaced <code>Sl</code> with <code>Wa</code> in TypeScript event class imports (e.g. <code>SlChangeEvent</code> → <code>WaChangeEvent</code>)</wa-checkbox>
-  <wa-checkbox data-checklist-item="replace-variant-primary">Replaced <code>variant="primary"</code> with <code>variant="brand"</code> on all components</wa-checkbox>
-  <wa-checkbox data-checklist-item="replace-light-class">Replaced <code>class="sl-theme-light"</code> with <code>class="wa-light"</code></wa-checkbox>
-  <wa-checkbox data-checklist-item="replace-dark-class">Replaced <code>class="sl-theme-dark"</code> with <code>class="wa-dark"</code></wa-checkbox>
-  <wa-checkbox data-checklist-item="replace-prefix-slot">Replaced <code>slot="prefix"</code> with <code>slot="start"</code></wa-checkbox>
-  <wa-checkbox data-checklist-item="replace-suffix-slot">Replaced <code>slot="suffix"</code> with <code>slot="end"</code></wa-checkbox>
-  <wa-checkbox data-checklist-item="replace-helptext-attr">Replaced <code>help-text=</code> with <code>hint=</code> on form controls</wa-checkbox>
-  <wa-checkbox data-checklist-item="replace-helptext-slot">Replaced <code>slot="help-text"</code> with <code>slot="hint"</code> on form controls</wa-checkbox>
+  <wa-checkbox data-checklist-item="replace-package">Replaced <code>@shoelace-style/shoelace</code> with
+    <code>@awesome.me/webawesome</code> in imports</wa-checkbox>
+  <wa-checkbox data-checklist-item="replace-open-tag">Replaced <code>&lt;sl-</code> with <code>&lt;wa-</code> in
+    templates and HTML</wa-checkbox>
+  <wa-checkbox data-checklist-item="replace-close-tag">Replaced <code>&lt;/sl-</code> with <code>&lt;/wa-</code> in
+    templates and HTML</wa-checkbox>
+  <wa-checkbox data-checklist-item="replace-css-vars">Replaced <code>--sl-</code> with <code>--wa-</code> in CSS files,
+    inline styles, CSS-in-JS</wa-checkbox>
+  <wa-checkbox data-checklist-item="replace-theme-class">Replaced <code>sl-theme-</code> with <code>wa-theme-</code>
+    class names</wa-checkbox>
+  <wa-checkbox data-checklist-item="replace-event-single">Replaced <code>'sl-</code> with <code>'wa-</code> in event
+    listener strings</wa-checkbox>
+  <wa-checkbox data-checklist-item="replace-event-double">Replaced <code>"sl-</code> with <code>"wa-</code> in event
+    listener strings</wa-checkbox>
+  <wa-checkbox data-checklist-item="replace-ts-event-class">Replaced <code>Sl</code> with <code>Wa</code> in TypeScript
+    event class imports (e.g. <code>SlChangeEvent</code> → <code>WaChangeEvent</code>)</wa-checkbox>
+  <wa-checkbox data-checklist-item="replace-variant-primary">Replaced <code>variant="primary"</code> with
+    <code>variant="brand"</code> on all components</wa-checkbox>
+  <wa-checkbox data-checklist-item="replace-light-class">Replaced <code>class="sl-theme-light"</code> with
+    <code>class="wa-light"</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="replace-dark-class">Replaced <code>class="sl-theme-dark"</code> with
+    <code>class="wa-dark"</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="replace-prefix-slot">Replaced <code>slot="prefix"</code> with
+    <code>slot="start"</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="replace-suffix-slot">Replaced <code>slot="suffix"</code> with
+    <code>slot="end"</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="replace-helptext-attr">Replaced <code>help-text=</code> with <code>hint=</code> on
+    form controls</wa-checkbox>
+  <wa-checkbox data-checklist-item="replace-helptext-slot">Replaced <code>slot="help-text"</code> with
+    <code>slot="hint"</code> on form controls</wa-checkbox>
 
-  <h3>Final sweep to confirm zero results</h3>
+  <h3>Final Sweep: Confirm Zero Matches</h3>
 
-  <wa-checkbox data-checklist-item="sweep-sl-prefix"><code>grep -r 'sl-' src/</code> matches nothing meaningful</wa-checkbox>
+  <wa-checkbox data-checklist-item="sweep-sl-prefix"><code>grep -r 'sl-' src/</code> matches nothing
+    meaningful</wa-checkbox>
   <wa-checkbox data-checklist-item="sweep-sl-css-var"><code>grep -r '\-\-sl\-' src/</code> matches nothing</wa-checkbox>
-  <wa-checkbox data-checklist-item="sweep-shoelace-pkg"><code>grep -r '@shoelace-style/shoelace' .</code> matches nothing</wa-checkbox>
-  <wa-checkbox data-checklist-item="sweep-event-strings"><code>grep -rE "['\"]sl-[a-z]+['\"]" src/</code> matches nothing (catches event listener strings)</wa-checkbox>
+  <wa-checkbox data-checklist-item="sweep-shoelace-pkg"><code>grep -r '@shoelace-style/shoelace' .</code> matches
+    nothing</wa-checkbox>
+  <wa-checkbox data-checklist-item="sweep-event-strings"><code>grep -rE "['\"]sl-[a-z]+['\"]" src/</code> matches
+    nothing (catches event listener strings)</wa-checkbox>
 </section>
 
 <section data-checklist-section="components">
   <h2>3. Components</h2>
 
-  <h3>Renamed elements</h3>
+  <h3>Renamed Elements</h3>
 
-  <wa-checkbox data-checklist-item="rename-alert"><code>&lt;sl-alert&gt;</code> → <code>&lt;wa-callout&gt;</code> (inline use; toast UX is now Pro <code>&lt;wa-toast&gt;</code>)</wa-checkbox>
-  <wa-checkbox data-checklist-item="rename-image-comparer"><code>&lt;sl-image-comparer&gt;</code> → <code>&lt;wa-comparison&gt;</code></wa-checkbox>
-  <wa-checkbox data-checklist-item="rename-range"><code>&lt;sl-range&gt;</code> → <code>&lt;wa-slider&gt;</code></wa-checkbox>
-  <wa-checkbox data-checklist-item="rename-menu"><code>&lt;sl-menu&gt;</code> + <code>&lt;sl-menu-item&gt;</code> → <code>&lt;wa-dropdown&gt;</code> + <code>&lt;wa-dropdown-item&gt;</code></wa-checkbox>
-  <wa-checkbox data-checklist-item="rename-menu-label"><code>&lt;sl-menu-label&gt;</code> → <code>&lt;wa-divider&gt;</code> + heading, or restructure</wa-checkbox>
+  <wa-checkbox data-checklist-item="rename-alert"><code>&lt;sl-alert&gt;</code> → <code>&lt;wa-callout&gt;</code>
+    (inline use; toast UX is now Pro <code>&lt;wa-toast&gt;</code>)</wa-checkbox>
+  <wa-checkbox data-checklist-item="rename-image-comparer"><code>&lt;sl-image-comparer&gt;</code> →
+    <code>&lt;wa-comparison&gt;</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="rename-range"><code>&lt;sl-range&gt;</code> →
+    <code>&lt;wa-slider&gt;</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="rename-menu"><code>&lt;sl-menu&gt;</code> + <code>&lt;sl-menu-item&gt;</code> →
+    <code>&lt;wa-dropdown&gt;</code> + <code>&lt;wa-dropdown-item&gt;</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="rename-menu-label"><code>&lt;sl-menu-label&gt;</code> →
+    <code>&lt;wa-divider&gt;</code> + heading, or restructure</wa-checkbox>
 
-  <h3>Removed elements</h3>
+  <h3>Removed Elements</h3>
 
-  <wa-checkbox data-checklist-item="removed-icon-button"><code>&lt;sl-icon-button&gt;</code> → <code>&lt;wa-button&gt;</code> with single <code>&lt;wa-icon&gt;</code> child</wa-checkbox>
-  <wa-checkbox data-checklist-item="removed-radio-button"><code>&lt;sl-radio-button&gt;</code> → <code>&lt;wa-button-group&gt;</code> of <code>&lt;wa-radio&gt;</code> controls</wa-checkbox>
-  <wa-checkbox data-checklist-item="removed-visually-hidden"><code>&lt;sl-visually-hidden&gt;</code> → <code>class="wa-visually-hidden"</code> utility on any element</wa-checkbox>
+  <wa-checkbox data-checklist-item="removed-icon-button"><code>&lt;sl-icon-button&gt;</code> →
+    <code>&lt;wa-button&gt;</code> with single <code>&lt;wa-icon&gt;</code> child</wa-checkbox>
+  <wa-checkbox data-checklist-item="removed-radio-button"><code>&lt;sl-radio-button&gt;</code> →
+    <code>&lt;wa-button-group&gt;</code> of <code>&lt;wa-radio&gt;</code> controls</wa-checkbox>
+  <wa-checkbox data-checklist-item="removed-visually-hidden"><code>&lt;sl-visually-hidden&gt;</code> →
+    <code>class="wa-visually-hidden"</code> utility on any element</wa-checkbox>
 
   <h3>Buttons</h3>
 
-  <wa-checkbox data-checklist-item="button-outline">Replaced <code>outline</code> boolean with <code>appearance="outlined"</code></wa-checkbox>
-  <wa-checkbox data-checklist-item="button-circle">Replaced <code>circle</code> boolean (auto-detected when button has a single <code>&lt;wa-icon&gt;</code> child)</wa-checkbox>
-  <wa-checkbox data-checklist-item="button-text">Replaced <code>variant="text"</code> with <code>appearance="plain"</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="button-outline">Replaced <code>outline</code> boolean with
+    <code>appearance="outlined"</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="button-circle">Replaced <code>circle</code> boolean (auto-detected when button has a
+    single <code>&lt;wa-icon&gt;</code> child)</wa-checkbox>
+  <wa-checkbox data-checklist-item="button-text">Replaced <code>variant="text"</code> with
+    <code>appearance="plain"</code></wa-checkbox>
   <wa-checkbox data-checklist-item="button-caret">Replaced <code>caret</code> with <code>with-caret</code></wa-checkbox>
-  <wa-checkbox data-checklist-item="button-slot-rename">Updated <code>slot="prefix"</code>/<code>"suffix"</code> to <code>slot="start"</code>/<code>"end"</code></wa-checkbox>
-  <wa-checkbox data-checklist-item="button-events-native">Updated <code>sl-blur</code>/<code>sl-focus</code> listeners to native <code>blur</code>/<code>focus</code></wa-checkbox>
-  <wa-checkbox data-checklist-item="button-invalid-event">Updated <code>sl-invalid</code> to <code>wa-invalid</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="button-slot-rename">Updated <code>slot="prefix"</code>/<code>"suffix"</code> to
+    <code>slot="start"</code>/<code>"end"</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="button-events-native">Updated <code>sl-blur</code>/<code>sl-focus</code> listeners
+    to native <code>blur</code>/<code>focus</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="button-invalid-event">Updated <code>sl-invalid</code> to
+    <code>wa-invalid</code></wa-checkbox>
 
-  <h3>Form controls</h3>
+  <h3>Form Controls</h3>
 
-  <wa-checkbox data-checklist-item="form-helptext-attr">Renamed <code>help-text</code> attribute to <code>hint</code></wa-checkbox>
-  <wa-checkbox data-checklist-item="form-helptext-slot">Renamed <code>help-text</code> slot to <code>hint</code></wa-checkbox>
-  <wa-checkbox data-checklist-item="form-prefix-suffix-slots">Renamed <code>prefix</code>/<code>suffix</code> slots to <code>start</code>/<code>end</code></wa-checkbox>
-  <wa-checkbox data-checklist-item="form-clearable">Renamed <code>clearable</code> to <code>with-clear</code> (input, select)</wa-checkbox>
-  <wa-checkbox data-checklist-item="form-filled">Replaced <code>filled</code> boolean with <code>appearance="filled"</code></wa-checkbox>
-  <wa-checkbox data-checklist-item="form-events-native">Updated <code>sl-change</code>/<code>sl-input</code>/<code>sl-blur</code>/<code>sl-focus</code> to native events (no prefix)</wa-checkbox>
-  <wa-checkbox data-checklist-item="form-clear-event">Updated <code>sl-clear</code> listeners (event removed; listen for <code>input</code> after clear)</wa-checkbox>
-  <wa-checkbox data-checklist-item="form-invalid">Updated <code>sl-invalid</code> to <code>wa-invalid</code></wa-checkbox>
-  <wa-checkbox data-checklist-item="form-removed-formdata-shim">Removed <code>formdata</code>-event-based form serialization shims (form association is native)</wa-checkbox>
-  <wa-checkbox data-checklist-item="form-name-required">Confirmed every form control has a <code>name</code> attribute (required for native <code>FormData</code>)</wa-checkbox>
+  <wa-checkbox data-checklist-item="form-helptext-attr">Renamed <code>help-text</code> attribute to
+    <code>hint</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="form-helptext-slot">Renamed <code>help-text</code> slot to
+    <code>hint</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="form-prefix-suffix-slots">Renamed <code>prefix</code>/<code>suffix</code> slots to
+    <code>start</code>/<code>end</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="form-clearable">Renamed <code>clearable</code> to <code>with-clear</code> (input,
+    select)</wa-checkbox>
+  <wa-checkbox data-checklist-item="form-filled">Replaced <code>filled</code> boolean with
+    <code>appearance="filled"</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="form-events-native">Updated
+    <code>sl-change</code>/<code>sl-input</code>/<code>sl-blur</code>/<code>sl-focus</code> to native events (no
+    prefix)</wa-checkbox>
+  <wa-checkbox data-checklist-item="form-clear-event">Updated <code>sl-clear</code> listeners (event removed; listen for
+    <code>input</code> after clear)</wa-checkbox>
+  <wa-checkbox data-checklist-item="form-invalid">Updated <code>sl-invalid</code> to
+    <code>wa-invalid</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="form-removed-formdata-shim">Removed <code>formdata</code>-event-based form
+    serialization shims (form association is native)</wa-checkbox>
+  <wa-checkbox data-checklist-item="form-name-required">Confirmed every form control has a <code>name</code> attribute
+    (required for native <code>FormData</code>)</wa-checkbox>
 
-  <h3>Slider (was <code>&lt;sl-range&gt;</code>)</h3>
+  <h3>Slider (from <code>&lt;sl-range&gt;</code>)</h3>
 
   <wa-checkbox data-checklist-item="slider-renamed">Renamed element to <code>&lt;wa-slider&gt;</code></wa-checkbox>
-  <wa-checkbox data-checklist-item="slider-tooltip">Replaced <code>tooltip</code> attribute with <code>with-tooltip</code> + <code>tooltip-placement</code> + <code>tooltip-distance</code></wa-checkbox>
-  <wa-checkbox data-checklist-item="slider-range">Considered using new <code>range</code> attribute for two-thumb selection</wa-checkbox>
+  <wa-checkbox data-checklist-item="slider-tooltip">Replaced <code>tooltip</code> attribute with
+    <code>with-tooltip</code> + <code>tooltip-placement</code> + <code>tooltip-distance</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="slider-range">Considered using new <code>range</code> attribute for two-thumb
+    selection</wa-checkbox>
 
-  <h3>Callout (was <code>&lt;sl-alert&gt;</code> inline)</h3>
+  <h3>Inline Callout (from <code>&lt;sl-alert&gt;</code>)</h3>
 
-  <wa-checkbox data-checklist-item="callout-replace-static">Replaced <code>&lt;sl-alert&gt;</code> static usage with <code>&lt;wa-callout&gt;</code></wa-checkbox>
-  <wa-checkbox data-checklist-item="callout-removed-attrs">Removed <code>open</code>, <code>closable</code>, <code>duration</code> (callouts always render)</wa-checkbox>
-  <wa-checkbox data-checklist-item="callout-removed-methods">Removed <code>show()</code>/<code>hide()</code> calls (use conditional rendering)</wa-checkbox>
-  <wa-checkbox data-checklist-item="callout-toast-migration">Migrated <code>.toast()</code> calls to Web Awesome Pro <code>&lt;wa-toast&gt;</code> (or built your own)</wa-checkbox>
+  <wa-checkbox data-checklist-item="callout-replace-static">Replaced <code>&lt;sl-alert&gt;</code> static usage with
+    <code>&lt;wa-callout&gt;</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="callout-removed-attrs">Removed <code>open</code>, <code>closable</code>,
+    <code>duration</code> (callouts always render)</wa-checkbox>
+  <wa-checkbox data-checklist-item="callout-removed-methods">Removed <code>show()</code>/<code>hide()</code> calls (use
+    conditional rendering)</wa-checkbox>
+  <wa-checkbox data-checklist-item="callout-toast-migration">Migrated <code>.toast()</code> calls to Web Awesome Pro
+    <code>&lt;wa-toast&gt;</code> (or built your own)</wa-checkbox>
 
-  <h3>Dialog and drawer</h3>
+  <h3>Dialog and Drawer</h3>
 
-  <wa-checkbox data-checklist-item="dialog-show-hide-events">Updated <code>sl-show</code>/<code>sl-hide</code>/<code>sl-after-show</code>/<code>sl-after-hide</code> to <code>wa-</code> prefix</wa-checkbox>
-  <wa-checkbox data-checklist-item="dialog-initial-focus">Updated <code>sl-initial-focus</code> to <code>wa-initial-focus</code></wa-checkbox>
-  <wa-checkbox data-checklist-item="dialog-request-close">Migrated <code>sl-request-close</code> listeners to cancellable <code>wa-hide</code></wa-checkbox>
-  <wa-checkbox data-checklist-item="dialog-noheader">Renamed <code>noHeader</code> attribute to <code>without-header</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="dialog-show-hide-events">Updated
+    <code>sl-show</code>/<code>sl-hide</code>/<code>sl-after-show</code>/<code>sl-after-hide</code> to <code>wa-</code>
+    prefix</wa-checkbox>
+  <wa-checkbox data-checklist-item="dialog-initial-focus">Updated <code>sl-initial-focus</code> to
+    <code>wa-initial-focus</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="dialog-request-close">Migrated <code>sl-request-close</code> listeners to
+    cancellable <code>wa-hide</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="dialog-noheader">Renamed <code>noHeader</code> attribute to
+    <code>without-header</code></wa-checkbox>
 
-  <h3>Dropdown and menu</h3>
+  <h3>Dropdown and Menu</h3>
 
-  <wa-checkbox data-checklist-item="dropdown-combined">Combined <code>&lt;sl-dropdown&gt;</code> + <code>&lt;sl-menu&gt;</code> into <code>&lt;wa-dropdown&gt;</code> (menu is gone)</wa-checkbox>
-  <wa-checkbox data-checklist-item="dropdown-item-renamed">Renamed <code>&lt;sl-menu-item&gt;</code> to <code>&lt;wa-dropdown-item&gt;</code></wa-checkbox>
-  <wa-checkbox data-checklist-item="dropdown-caret">Renamed <code>caret</code> on trigger button to <code>with-caret</code></wa-checkbox>
-  <wa-checkbox data-checklist-item="dropdown-select-event">Updated <code>sl-select</code> to <code>wa-select</code></wa-checkbox>
-  <wa-checkbox data-checklist-item="dropdown-menu-label">Replaced <code>&lt;sl-menu-label&gt;</code> separators (use <code>&lt;wa-divider&gt;</code> + heading)</wa-checkbox>
+  <wa-checkbox data-checklist-item="dropdown-combined">Combined <code>&lt;sl-dropdown&gt;</code> +
+    <code>&lt;sl-menu&gt;</code> into <code>&lt;wa-dropdown&gt;</code> (menu is gone)</wa-checkbox>
+  <wa-checkbox data-checklist-item="dropdown-item-renamed">Renamed <code>&lt;sl-menu-item&gt;</code> to
+    <code>&lt;wa-dropdown-item&gt;</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="dropdown-caret">Renamed <code>caret</code> on trigger button to
+    <code>with-caret</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="dropdown-select-event">Updated <code>sl-select</code> to
+    <code>wa-select</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="dropdown-menu-label">Replaced <code>&lt;sl-menu-label&gt;</code> separators (use
+    <code>&lt;wa-divider&gt;</code> + heading)</wa-checkbox>
 
   <h3>Tabs</h3>
 
-  <wa-checkbox data-checklist-item="tabs-show-event">Updated <code>sl-tab-show</code> to <code>wa-tab-show</code></wa-checkbox>
-  <wa-checkbox data-checklist-item="tabs-hide-event">Updated <code>sl-tab-hide</code> to <code>wa-tab-hide</code></wa-checkbox>
-  <wa-checkbox data-checklist-item="tabs-close-event">Updated <code>sl-close</code> (closable tab) to <code>wa-close</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="tabs-show-event">Updated <code>sl-tab-show</code> to
+    <code>wa-tab-show</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="tabs-hide-event">Updated <code>sl-tab-hide</code> to
+    <code>wa-tab-hide</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="tabs-close-event">Updated <code>sl-close</code> (closable tab) to
+    <code>wa-close</code></wa-checkbox>
 
   <h3>Tree</h3>
 
-  <wa-checkbox data-checklist-item="tree-selection-change">Updated <code>sl-selection-change</code> to <code>wa-selection-change</code></wa-checkbox>
-  <wa-checkbox data-checklist-item="tree-expand-collapse">Updated <code>sl-expand</code>/<code>sl-collapse</code>/<code>sl-after-expand</code>/<code>sl-after-collapse</code> to <code>wa-</code> prefix</wa-checkbox>
-  <wa-checkbox data-checklist-item="tree-lazy-events">Updated <code>sl-lazy-load</code>/<code>sl-lazy-change</code> to <code>wa-lazy-load</code>/<code>wa-lazy-change</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="tree-selection-change">Updated <code>sl-selection-change</code> to
+    <code>wa-selection-change</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="tree-expand-collapse">Updated
+    <code>sl-expand</code>/<code>sl-collapse</code>/<code>sl-after-expand</code>/<code>sl-after-collapse</code> to
+    <code>wa-</code> prefix</wa-checkbox>
+  <wa-checkbox data-checklist-item="tree-lazy-events">Updated <code>sl-lazy-load</code>/<code>sl-lazy-change</code> to
+    <code>wa-lazy-load</code>/<code>wa-lazy-change</code></wa-checkbox>
 
   <h3>Tag</h3>
 
-  <wa-checkbox data-checklist-item="tag-removable">Renamed <code>removable</code> to <code>with-remove</code></wa-checkbox>
-  <wa-checkbox data-checklist-item="tag-remove-event">Updated <code>sl-remove</code> to <code>wa-remove</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="tag-removable">Renamed <code>removable</code> to
+    <code>with-remove</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="tag-remove-event">Updated <code>sl-remove</code> to
+    <code>wa-remove</code></wa-checkbox>
 
-  <h3>Tooltip, popup, animation, details, copy-button, rating, color-picker, comparison, carousel, format components</h3>
+  <h3>Other Components (Event Names Only)</h3>
 
-  <wa-checkbox data-checklist-item="other-events">Updated all <code>sl-*</code> events to <code>wa-*</code> (or native where applicable)</wa-checkbox>
-  <wa-checkbox data-checklist-item="other-confirmed-no-other-changes">No other API changes for these components beyond the prefix swap</wa-checkbox>
+  <wa-checkbox data-checklist-item="other-events">Updated all <code>sl-*</code> events to <code>wa-*</code> (or native
+    where applicable)</wa-checkbox>
+  <wa-checkbox data-checklist-item="other-confirmed-no-other-changes">No other API changes for these components beyond
+    the prefix swap</wa-checkbox>
 
   <h3>Icons</h3>
 
-  <wa-checkbox data-checklist-item="icons-decision">Decided: stay on Bootstrap Icons (register as a custom library) <strong>or</strong> switch to Font Awesome</wa-checkbox>
-  <wa-checkbox data-checklist-item="icons-renamed">If switching: updated icon names (e.g. <code>exclamation-triangle</code> → <code>triangle-exclamation</code>)</wa-checkbox>
-  <wa-checkbox data-checklist-item="icons-fa-pro">If using Font Awesome Pro: configured <code>setKitCode()</code> or <code>data-fa-kit-code</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="icons-decision">Decided: stay on Bootstrap Icons (register as a custom library)
+    <strong>or</strong> switch to Font Awesome</wa-checkbox>
+  <wa-checkbox data-checklist-item="icons-renamed">If switching: updated icon names (e.g.
+    <code>exclamation-triangle</code> → <code>triangle-exclamation</code>)</wa-checkbox>
+  <wa-checkbox data-checklist-item="icons-fa-pro">If using Font Awesome Pro: configured <code>setKitCode()</code> or
+    <code>data-fa-kit-code</code></wa-checkbox>
 </section>
 
 <section data-checklist-section="theme-tokens">
-  <h2>4. Theme tokens</h2>
+  <h2>4. Theme Tokens</h2>
 
-  <wa-checkbox data-checklist-item="token-primary">Replaced <code>--sl-color-primary-*</code> with <code>--wa-color-brand-*</code></wa-checkbox>
-  <wa-checkbox data-checklist-item="token-spacing">Replaced <code>--sl-spacing-*</code> with <code>--wa-space-{2xs,xs,s,m,l,xl,2xl,...}</code></wa-checkbox>
-  <wa-checkbox data-checklist-item="token-font-size">Replaced <code>--sl-font-size-{x-small,small,medium,large,x-large,...}</code> with <code>--wa-font-size-{xs,s,m,l,xl,...}</code></wa-checkbox>
-  <wa-checkbox data-checklist-item="token-font-mono">Replaced <code>--sl-font-mono</code> with <code>--wa-font-family-code</code></wa-checkbox>
-  <wa-checkbox data-checklist-item="token-font-sans">Replaced <code>--sl-font-sans</code> with <code>--wa-font-family-body</code> (or <code>--wa-font-family-heading</code>)</wa-checkbox>
-  <wa-checkbox data-checklist-item="token-font-serif">Replaced <code>--sl-font-serif</code> with <code>--wa-font-family-longform</code></wa-checkbox>
-  <wa-checkbox data-checklist-item="token-line-height-dense">Replaced <code>--sl-line-height-dense</code> with <code>--wa-line-height-condensed</code></wa-checkbox>
-  <wa-checkbox data-checklist-item="token-line-height-loose">Replaced <code>--sl-line-height-loose</code> with <code>--wa-line-height-expanded</code></wa-checkbox>
-  <wa-checkbox data-checklist-item="token-radius">Replaced <code>--sl-border-radius-{small,medium,large}</code> with <code>--wa-border-radius-{s,m,l}</code></wa-checkbox>
-  <wa-checkbox data-checklist-item="token-shadow-s">Consolidated <code>--sl-shadow-x-small</code>/<code>-small</code> → <code>--wa-shadow-s</code></wa-checkbox>
-  <wa-checkbox data-checklist-item="token-shadow-l">Consolidated <code>--sl-shadow-large</code>/<code>-x-large</code> → <code>--wa-shadow-l</code></wa-checkbox>
-  <wa-checkbox data-checklist-item="token-transition-fast">Consolidated <code>--sl-transition-x-fast</code>/<code>-fast</code> → <code>--wa-transition-fast</code></wa-checkbox>
-  <wa-checkbox data-checklist-item="token-transition-normal">Renamed <code>--sl-transition-medium</code> to <code>--wa-transition-normal</code></wa-checkbox>
-  <wa-checkbox data-checklist-item="token-input">Replaced <code>--sl-input-*</code> with <code>--wa-form-control-*</code></wa-checkbox>
-  <wa-checkbox data-checklist-item="token-surface-default">Replaced <code>--sl-color-neutral-0</code> with <code>--wa-color-surface-default</code></wa-checkbox>
-  <wa-checkbox data-checklist-item="token-text-normal">Replaced <code>--sl-color-neutral-1000</code> with <code>--wa-color-text-normal</code></wa-checkbox>
-  <wa-checkbox data-checklist-item="token-zindex-removed">Removed <code>--sl-z-index-*</code> references (use cascade layers and stacking contexts)</wa-checkbox>
-  <wa-checkbox data-checklist-item="token-color-scale">Adjusted color-scale references: Shoelace 50/100/.../950 → Web Awesome 95/90/.../05 (lightness, inverted)</wa-checkbox>
-  <wa-checkbox data-checklist-item="token-fallback-cleanup">Reviewed any <code>var(--sl-*, fallback)</code> calls so the fallback isn&apos;t silently masking missed migrations</wa-checkbox>
+  <wa-checkbox data-checklist-item="token-primary">Replaced <code>--sl-color-primary-*</code> with
+    <code>--wa-color-brand-*</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="token-spacing">Replaced <code>--sl-spacing-*</code> with
+    <code>--wa-space-{2xs,xs,s,m,l,xl,2xl,...}</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="token-font-size">Replaced
+    <code>--sl-font-size-{x-small,small,medium,large,x-large,...}</code> with
+    <code>--wa-font-size-{xs,s,m,l,xl,...}</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="token-font-mono">Replaced <code>--sl-font-mono</code> with
+    <code>--wa-font-family-code</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="token-font-sans">Replaced <code>--sl-font-sans</code> with
+    <code>--wa-font-family-body</code> (or <code>--wa-font-family-heading</code>)</wa-checkbox>
+  <wa-checkbox data-checklist-item="token-font-serif">Replaced <code>--sl-font-serif</code> with
+    <code>--wa-font-family-longform</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="token-line-height-dense">Replaced <code>--sl-line-height-dense</code> with
+    <code>--wa-line-height-condensed</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="token-line-height-loose">Replaced <code>--sl-line-height-loose</code> with
+    <code>--wa-line-height-expanded</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="token-radius">Replaced <code>--sl-border-radius-{small,medium,large}</code> with
+    <code>--wa-border-radius-{s,m,l}</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="token-shadow-s">Consolidated <code>--sl-shadow-x-small</code>/<code>-small</code> →
+    <code>--wa-shadow-s</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="token-shadow-l">Consolidated <code>--sl-shadow-large</code>/<code>-x-large</code> →
+    <code>--wa-shadow-l</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="token-transition-fast">Consolidated
+    <code>--sl-transition-x-fast</code>/<code>-fast</code> → <code>--wa-transition-fast</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="token-transition-normal">Renamed <code>--sl-transition-medium</code> to
+    <code>--wa-transition-normal</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="token-input">Replaced <code>--sl-input-*</code> with
+    <code>--wa-form-control-*</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="token-surface-default">Replaced <code>--sl-color-neutral-0</code> with
+    <code>--wa-color-surface-default</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="token-text-normal">Replaced <code>--sl-color-neutral-1000</code> with
+    <code>--wa-color-text-normal</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="token-zindex-removed">Removed <code>--sl-z-index-*</code> references (use cascade
+    layers and stacking contexts)</wa-checkbox>
+  <wa-checkbox data-checklist-item="token-color-scale">Adjusted color-scale references: Shoelace 50/100/.../950 → Web
+    Awesome 95/90/.../05 (lightness, inverted)</wa-checkbox>
+  <wa-checkbox data-checklist-item="token-fallback-cleanup">Reviewed any <code>var(--sl-*, fallback)</code> calls so the
+    fallback isn&apos;t silently masking missed migrations</wa-checkbox>
 </section>
 
 <section data-checklist-section="forms">
-  <h2>5. Forms and validation</h2>
+  <h2>5. Forms and Validation</h2>
 
-  <wa-checkbox data-checklist-item="forms-removed-formdata-listeners">Removed <code>formdata</code> event listeners that extracted Shoelace control values</wa-checkbox>
-  <wa-checkbox data-checklist-item="forms-formdata-correct">Confirmed <code>new FormData(form)</code> returns expected fields</wa-checkbox>
-  <wa-checkbox data-checklist-item="forms-checkvalidity">Confirmed <code>form.checkValidity()</code> and <code>form.reportValidity()</code> include all controls</wa-checkbox>
-  <wa-checkbox data-checklist-item="forms-reset">Confirmed <code>form.reset()</code> resets all <code>&lt;wa-*&gt;</code> controls</wa-checkbox>
-  <wa-checkbox data-checklist-item="forms-custom-validity">Migrated <code>setCustomValidity()</code> calls (still works) or moved to <code>customError</code> attribute</wa-checkbox>
-  <wa-checkbox data-checklist-item="forms-invalid-event">Updated <code>sl-invalid</code> listeners to <code>wa-invalid</code></wa-checkbox>
-  <wa-checkbox data-checklist-item="forms-pseudo-classes">Verified browser-native pseudo-classes (<code>:invalid</code>, <code>:valid</code>, <code>:required</code>) apply as expected</wa-checkbox>
+  <wa-checkbox data-checklist-item="forms-removed-formdata-listeners">Removed <code>formdata</code> event listeners that
+    extracted Shoelace control values</wa-checkbox>
+  <wa-checkbox data-checklist-item="forms-formdata-correct">Confirmed <code>new FormData(form)</code> returns expected
+    fields</wa-checkbox>
+  <wa-checkbox data-checklist-item="forms-checkvalidity">Confirmed <code>form.checkValidity()</code> and
+    <code>form.reportValidity()</code> include all controls</wa-checkbox>
+  <wa-checkbox data-checklist-item="forms-reset">Confirmed <code>form.reset()</code> resets all
+    <code>&lt;wa-*&gt;</code> controls</wa-checkbox>
+  <wa-checkbox data-checklist-item="forms-custom-validity">Migrated <code>setCustomValidity()</code> calls (still works)
+    or moved to <code>customError</code> attribute</wa-checkbox>
+  <wa-checkbox data-checklist-item="forms-invalid-event">Updated <code>sl-invalid</code> listeners to
+    <code>wa-invalid</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="forms-pseudo-classes">Verified browser-native pseudo-classes (<code>:invalid</code>,
+    <code>:valid</code>, <code>:required</code>) apply as expected</wa-checkbox>
 </section>
 
 <section data-checklist-section="silent-breakage">
-  <h2>6. Things to verify (silent breakage risk)</h2>
+  <h2>6. Silent Breakage Risks</h2>
 
-  <wa-checkbox data-checklist-item="silent-event-strings">Confirmed no <code>addEventListener('sl-...')</code> strings remain</wa-checkbox>
-  <wa-checkbox data-checklist-item="silent-prefix-suffix">Confirmed no <code>slot="prefix"</code> or <code>slot="suffix"</code> left</wa-checkbox>
+  <wa-checkbox data-checklist-item="silent-event-strings">Confirmed no <code>addEventListener('sl-...')</code> strings
+    remain</wa-checkbox>
+  <wa-checkbox data-checklist-item="silent-prefix-suffix">Confirmed no <code>slot="prefix"</code> or
+    <code>slot="suffix"</code> left</wa-checkbox>
   <wa-checkbox data-checklist-item="silent-helptext">Confirmed no <code>help-text=</code> attributes left</wa-checkbox>
-  <wa-checkbox data-checklist-item="silent-variant-primary">Confirmed no <code>variant="primary"</code> left</wa-checkbox>
-  <wa-checkbox data-checklist-item="silent-css-parts">Confirmed CSS <code>::part()</code> selectors still target valid parts after rename</wa-checkbox>
-  <wa-checkbox data-checklist-item="silent-dark-mode">Confirmed dark mode still works (<code>wa-dark</code> class, not <code>sl-theme-dark</code>)</wa-checkbox>
-  <wa-checkbox data-checklist-item="silent-icons">Confirmed icons render (Font Awesome catalog vs Bootstrap Icons names)</wa-checkbox>
+  <wa-checkbox data-checklist-item="silent-variant-primary">Confirmed no <code>variant="primary"</code>
+    left</wa-checkbox>
+  <wa-checkbox data-checklist-item="silent-css-parts">Confirmed CSS <code>::part()</code> selectors still target valid
+    parts after rename</wa-checkbox>
+  <wa-checkbox data-checklist-item="silent-dark-mode">Confirmed dark mode still works (<code>wa-dark</code> class, not
+    <code>sl-theme-dark</code>)</wa-checkbox>
+  <wa-checkbox data-checklist-item="silent-icons">Confirmed icons render (Font Awesome catalog vs Bootstrap Icons
+    names)</wa-checkbox>
 </section>
 
 <section data-checklist-section="test">
-  <h2>7. Test</h2>
+  <h2>7. Testing</h2>
 
   <wa-checkbox data-checklist-item="test-build">Production build succeeds</wa-checkbox>
-  <wa-checkbox data-checklist-item="test-typecheck">TypeScript type-check passes (catches event class import typos)</wa-checkbox>
+  <wa-checkbox data-checklist-item="test-typecheck">TypeScript type-check passes (catches event class import
+    typos)</wa-checkbox>
   <wa-checkbox data-checklist-item="test-lint">Linter passes</wa-checkbox>
-  <wa-checkbox data-checklist-item="test-forms">Walked through every form in the app; submit, reset, validation work</wa-checkbox>
-  <wa-checkbox data-checklist-item="test-dialog-drawer">Walked through every dialog and drawer; open, close, escape, overlay click work</wa-checkbox>
+  <wa-checkbox data-checklist-item="test-forms">Walked through every form in the app; submit, reset, validation
+    work</wa-checkbox>
+  <wa-checkbox data-checklist-item="test-dialog-drawer">Walked through every dialog and drawer; open, close, escape,
+    overlay click work</wa-checkbox>
   <wa-checkbox data-checklist-item="test-menus">Walked through every dropdown, menu, tabs, tree</wa-checkbox>
   <wa-checkbox data-checklist-item="test-light-dark">Visual check in light and dark mode</wa-checkbox>
-  <wa-checkbox data-checklist-item="test-a11y">Accessibility audit (focus order, screen reader names, keyboard nav) on critical pages</wa-checkbox>
+  <wa-checkbox data-checklist-item="test-a11y">Accessibility audit (focus order, screen reader names, keyboard nav) on
+    critical pages</wa-checkbox>
   <wa-checkbox data-checklist-item="test-no-console-errors">No console errors on page load</wa-checkbox>
-  <wa-checkbox data-checklist-item="test-no-icon-warnings">No console warnings about unregistered icon names</wa-checkbox>
+  <wa-checkbox data-checklist-item="test-no-icon-warnings">No console warnings about unregistered icon
+    names</wa-checkbox>
 </section>
 
 <section data-checklist-section="follow-ups">
-  <h2>8. Optional follow-ups</h2>
+  <h2>8. Optional Follow-Ups</h2>
 
-  <wa-checkbox data-checklist-item="followup-theme-switch">Adopted <code>wa-theme-shoelace</code> initially? Consider switching to <code>default</code> or <code>awesome</code></wa-checkbox>
-  <wa-checkbox data-checklist-item="followup-utilities">Tried the new utility classes (<code>wa-cluster</code>, <code>wa-stack</code>, <code>wa-grid</code>, etc.) to replace custom layout CSS</wa-checkbox>
+  <wa-checkbox data-checklist-item="followup-theme-switch">Adopted <code>wa-theme-shoelace</code> initially? Consider
+    switching to <code>default</code> or <code>awesome</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="followup-utilities">Tried the new utility classes (<code>wa-cluster</code>,
+    <code>wa-stack</code>, <code>wa-grid</code>, etc.) to replace custom layout CSS</wa-checkbox>
   <wa-checkbox data-checklist-item="followup-page">Tried <code>&lt;wa-page&gt;</code> for app shell layout</wa-checkbox>
-  <wa-checkbox data-checklist-item="followup-popover">Tried <code>&lt;wa-popover&gt;</code> where you previously used a tooltip with rich content</wa-checkbox>
-  <wa-checkbox data-checklist-item="followup-number-input">Tried <code>&lt;wa-number-input&gt;</code> instead of <code>&lt;wa-input type="number"&gt;</code></wa-checkbox>
-  <wa-checkbox data-checklist-item="followup-pro">Evaluated Web Awesome Pro for <code>&lt;wa-toast&gt;</code>, <code>&lt;wa-combobox&gt;</code>, <code>&lt;wa-file-input&gt;</code>, charts, sparklines, additional themes</wa-checkbox>
+  <wa-checkbox data-checklist-item="followup-popover">Tried <code>&lt;wa-popover&gt;</code> where you previously used a
+    tooltip with rich content</wa-checkbox>
+  <wa-checkbox data-checklist-item="followup-number-input">Tried <code>&lt;wa-number-input&gt;</code> instead of
+    <code>&lt;wa-input type="number"&gt;</code></wa-checkbox>
+  <wa-checkbox data-checklist-item="followup-pro">Evaluated Web Awesome Pro for <code>&lt;wa-toast&gt;</code>,
+    <code>&lt;wa-combobox&gt;</code>, <code>&lt;wa-file-input&gt;</code>, charts, sparklines, additional
+    themes</wa-checkbox>
 </section>
 
 <style>
-  #checklist-toolbar {
+  wa-card#checklist-toolbar {
+    --spacing: var(--wa-space-s);
+  }
+
+  #checklist-toolbar.checklist-toolbar {
     position: sticky;
     /* Clear the sticky wa-page header and subheader so the toolbar isn't covered. */
-    top: calc(var(--header-height, 0px) + var(--subheader-height, 0px) + .25rem);
+    inset-block-start: calc(var(--header-height, 0px) + var(--subheader-height, 0px) + .25rem);
     z-index: 1;
     /* Slight breakout so the toolbar feels like its own UI surface, not body text. */
     margin-inline: calc(-1 * var(--wa-space-m));
     margin-block: var(--wa-space-l);
-    padding: var(--wa-space-s) var(--wa-space-m);
+    padding-block: var(--wa-space-s);
+    padding-inline: var(--wa-space-m);
     background-color: var(--wa-color-surface-default);
     border: var(--wa-border-width-s) solid var(--wa-color-surface-border);
     border-radius: var(--wa-border-radius-m);
     box-shadow: var(--wa-shadow-s);
+  }
+
+  #checklist-toolbar .checklist-toolbar-count {
+    margin-block: 0;
+    margin-inline: 0;
+    flex: 0 0 auto;
+    max-inline-size: 100%;
+  }
+
+  /* Progress row: alignment + wrap come from wa-cluster; only progress-bar flex sizing is custom. */
+  #checklist-toolbar .checklist-toolbar-progress wa-progress-bar {
+    flex: 1 1 12rem;
+    min-inline-size: 12rem;
+  }
+
+  @media (max-inline-size: 36rem) {
+    #checklist-toolbar .checklist-toolbar-progress {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    #checklist-toolbar .checklist-toolbar-progress wa-progress-bar {
+      flex: 1 1 auto;
+      min-inline-size: 0;
+      inline-size: 100%;
+    }
+
+    #checklist-toolbar .checklist-toolbar-actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    #checklist-toolbar .checklist-toolbar-actions wa-button {
+      inline-size: 100%;
+    }
+
+    /* Toolbar footer uses slot="footer" + wa-grid when actions moved out of .checklist-toolbar-actions */
+    #checklist-toolbar [slot='footer'] wa-button {
+      inline-size: 100%;
+    }
   }
 
   #content section[data-checklist-section] {
@@ -265,19 +448,30 @@ layout: page
     margin-block-start: var(--wa-space-l);
   }
 
+  /* Full-width rows without overriding host display:inline-flex on wa-checkbox. */
   #content wa-checkbox[data-checklist-item] {
-    display: block;
-    margin-block: var(--wa-space-2xs);
+    box-sizing: border-box;
+    inline-size: 100%;
+    max-inline-size: 100%;
+    margin-block: var(--wa-space-xs);
   }
 
+  /* Long import paths: nowrap forced huge main min-content; wrap instead of one long line. */
   #content wa-checkbox[data-checklist-item] code {
-    white-space: nowrap;
+    overflow-wrap: anywhere;
+    word-break: break-word;
   }
 
   /* Dim completed items so users can see what's left at a glance. */
   #content wa-checkbox[data-checklist-item][checked] {
     opacity: 0.55;
     transition: opacity var(--wa-transition-normal);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #content wa-checkbox[data-checklist-item][checked] {
+      transition: none;
+    }
   }
 </style>
 
