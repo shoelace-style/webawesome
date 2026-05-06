@@ -10,6 +10,10 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 {% include "changelog-email-signup.njk" %}
 
+## Unreleased
+
+- Added the `wa-text-wrap-nowrap` text utility class for preventing text from wrapping
+
 ## 3.6.0
 
 <small>April 30th, 2026</small>

@@ -175,10 +175,18 @@ Use single-purpose `wa-color-text-*` classes to apply a given [text color](/docs
 | `wa-color-text-normal` | <div class="wa-color-text-normal">Five boxing wizards</div> |
 | `wa-color-text-link`   | <div class="wa-color-text-link">Five boxing wizards</div>   |
 
+## Wrapping
+
+Use `wa-text-wrap-*` classes to control how text wraps across lines. These utilities apply standard CSS [`text-wrap`](https://developer.mozilla.org/docs/Web/CSS/text-wrap) values.
+
+| Class Name            | Preview                                                                                                                                                                               |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `wa-text-wrap-nowrap` | <div class="wa-text-wrap-nowrap" style="max-width: 40ch; overflow: hidden; text-overflow: ellipsis;">The five boxing wizards jump quickly. How quickly daft jumping zebras vex!</div> |
+
 ## Truncation
 
 Use the `wa-text-truncate` class to truncate text with an ellipsis instead of letting it overflow or wrap.
 
-| Class Name         | Preview                                                     |
-| ------------------ | ----------------------------------------------------------- |
-| `wa-text-truncate` | <div class="wa-text-truncate" style="max-width: 40ch;">The five boxing wizards jump quickly. How quickly daft jumping zebras vex!</div>  |
+| Class Name         | Preview                                                                                                                                 |
+| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `wa-text-truncate` | <div class="wa-text-truncate" style="max-width: 40ch;">The five boxing wizards jump quickly. How quickly daft jumping zebras vex!</div> |

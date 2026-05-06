@@ -147,6 +147,10 @@
     text-overflow: ellipsis;
     white-space: nowrap;
   }
+
+  .wa-text-wrap-nowrap {
+    text-wrap: nowrap;
+  }
   /* #endregion */
 
   /* #region Links ~~~~~~~ */
