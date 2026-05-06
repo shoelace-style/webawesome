@@ -601,7 +601,6 @@
       font-family: inherit;
       font-size: var(--wa-form-control-value-font-size);
       font-weight: var(--wa-font-weight-action);
-      line-height: calc(var(--wa-form-control-height) - var(--border-width) * 2);
       text-decoration: none;
       vertical-align: middle;
       white-space: nowrap;
