@@ -53,6 +53,7 @@ export default css`
     border-width: var(--wa-form-control-border-width);
   }
 
+  /* Hover and active transforms */
   @media (hover: hover) {
     .button:not(.disabled):not(.loading):hover {
       transform: var(--wa-button-transform-hover);
