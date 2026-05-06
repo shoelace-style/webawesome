@@ -1,11 +1,11 @@
 {% raw %}
 {% if isBuildAwesomePromoActive %}
-<div slot="banner" class="wrapper-banner">
+<div slot="banner" class="page-banner">
   <div class="banner banner-ba-kickstarter brand-build-awesome content-container">
     <wa-callout appearance="accent" variant="brand" size="s">
       <wa-icon slot="icon" src="/assets/images/logo-build-awesome-icon.svg" class="banner-icon"style="--logo-icon-fill: var(--wa-color-neutral-fill-loud);"></wa-icon>
       <div class="wa-flank:end">
-        <p><strong class="font-brand" style="margin-inline-end: var(--wa-space-2xs)">Build Awesome is here!</strong> A new website platform from Font and Web Awesome. </p>
+        <p><strong class="font-brand" style="margin-inline-end: var(--wa-space-2xs)">{{ site.siblings.buildAwesome.name }} is here!</strong> A new website platform from Font and Web Awesome. </p>
         <wa-button appearance="accent" variant="neutral" size="s" href="{{ buildAwesome.kickstarterUrl }}" class="font-brand">
           Back the Kickstarter!
           <wa-icon slot="end" name="arrow-right" variant="regular"></wa-icon>

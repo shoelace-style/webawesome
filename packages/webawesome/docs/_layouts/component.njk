@@ -24,7 +24,7 @@
     {% endif %}
     <wa-badge variant="neutral" appearance="filled" pill>Since {{ component.since }}</wa-badge>
     {% if isProComponent %}
-      {{ proBadge({ description: "Included with Web Awesome Pro" }) }}
+      {{ proBadge({ description: "Included with " ~ site.namePro }) }}
     {% endif %}
   </div>
 
@@ -328,11 +328,11 @@
 
   <div class="component-help">
     <strong>Need a hand?</strong>
-    <wa-button size="s" appearance="filled" variant="neutral" href="https://github.com/shoelace-style/webawesome/issues" target="_blank">
+    <wa-button size="s" appearance="filled" variant="neutral" href="{{ site.github.issues }}" target="_blank">
       <wa-icon slot="start" variant="regular" name="bug"></wa-icon>
       Report a bug
     </wa-button>
-    <wa-button size="s" appearance="filled" variant="neutral" href="https://github.com/shoelace-style/webawesome/discussions" target="_blank">
+    <wa-button size="s" appearance="filled" variant="neutral" href="{{ site.github.discussions }}" target="_blank">
       <wa-icon slot="start" variant="regular" name="message-question"></wa-icon>
       Ask for help
     </wa-button>

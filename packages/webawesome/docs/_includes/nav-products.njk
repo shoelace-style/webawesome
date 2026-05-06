@@ -1,18 +1,18 @@
-<div class="wrapper-nav-products">
+<div class="page-nav-products">
   <nav class="nav-products nav-products-full content-container" aria-label="Awesomeverse Products + Links">
     <div class="nav-products-primary wa-split wa-align-items-stretch">
       <div class="wa-cluster wa-align-items-stretch wa-gap-0">
         <a href="/" class="product product-web-awesome product-active" aria-label="Web Awesome" data-track-event="navigation:product_link_click" data-track-destination="web-awesome" data-track-context="products_nav">
           {% include "logo-web-awesome.njk" %}
         </a>
-        <a href="https://fontawesome.com" class="product product-font-awesome" data-track-event="navigation:product_link_click" data-track-destination="font_awesome" data-track-context="products_nav" id="product-font-awesome">
+        <a href="{{ site.siblings.fontAwesome.url }}" class="product product-font-awesome" data-track-event="navigation:product_link_click" data-track-destination="font_awesome" data-track-context="products_nav" id="product-font-awesome">
           <wa-icon name="font-awesome" family="brands" class="logo-icon logo-font-awesome"></wa-icon>
         </a>
-        <wa-tooltip for="product-font-awesome">Font Awesome</wa-tooltip>
-        <a href="{{ buildAwesome.kickstarterUrl }}" class="product product-build-awesome" aria-label="Build Awesome" data-track-event="navigation:product_link_click" data-track-destination="build_awesome" data-track-context="products_nav" id="product-build-awesome">
+        <wa-tooltip for="product-font-awesome">{{ site.siblings.fontAwesome.name }}</wa-tooltip>
+        <a href="{{ buildAwesome.kickstarterUrl }}" class="product product-build-awesome" aria-label="{{ site.siblings.buildAwesome.name }}" data-track-event="navigation:product_link_click" data-track-destination="build_awesome" data-track-context="products_nav" id="product-build-awesome">
           <wa-icon src="/assets/images/logo-build-awesome-icon.svg" class="logo-icon logo-build-awesome"></wa-icon>
         </a>
-        <wa-tooltip for="product-build-awesome">Build Awesome</wa-tooltip>
+        <wa-tooltip for="product-build-awesome">{{ site.siblings.buildAwesome.name }}</wa-tooltip>
       </div>
 
       <div class="nav-products-secondary wa-cluster wa-gap-3xs">
