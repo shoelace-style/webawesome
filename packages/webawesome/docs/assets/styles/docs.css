@@ -99,6 +99,71 @@ wa-page > main:has(.modern-card-list) {
   max-inline-size: var(--content-width-m);
 }
 
+/* Prose rhythm — replaces the wa-native layer's uniform `--wa-content-spacing`
+   between block siblings with hierarchical, asymmetric margins. Unlayered so
+   it wins via cascade order; re-check if this file ever joins a layer. */
+#content {
+  /* Headings hug what they introduce: generous above, tight below. */
+
+  * + h2 {
+    margin-block-start: var(--wa-space-2xl);
+  }
+  h2:has(+ *) {
+    margin-block-end: var(--wa-space-s);
+  }
+
+  * + h3 {
+    margin-block-start: var(--wa-space-xl);
+  }
+  h3:has(+ *) {
+    margin-block-end: var(--wa-space-s);
+  }
+
+  :is(h4, h5, h6):has(+ *) {
+    margin-block-end: var(--wa-space-xs);
+  }
+
+  /* Prevents stacked top + bottom margins on back-to-back headings. */
+  h2 + :is(h3, h4),
+  h3 + h4 {
+    margin-block-start: var(--wa-space-m);
+  }
+
+  :is(ul, ol) > li:has(+ li) {
+    margin-block-end: var(--wa-space-2xs);
+  }
+
+  /* Slight optical tracking; only the larger sizes need it. */
+  :is(h1, h2) {
+    letter-spacing: -0.01em;
+  }
+
+  /* `<hr>` marks a topic shift. Its own margin defines the gap; the heading
+     or paragraph that follows shouldn't double-stack on top. */
+  hr {
+    margin-block: var(--wa-space-xl);
+  }
+  hr + :is(h1, h2, h3, h4, h5, h6) {
+    margin-block-start: 0;
+  }
+
+  /* Major non-text blocks get more breathing room than running prose, but
+     headings still hug — so the top-margin rule only applies after non-heading
+     siblings. */
+  :is(pre, figure, table, blockquote, wa-callout, .code-example):has(+ *) {
+    margin-block-end: var(--wa-space-xl);
+  }
+
+  :not(h1, h2, h3, h4, h5, h6) + :is(pre, figure, table, blockquote, wa-callout, .code-example) {
+    margin-block-start: var(--wa-space-xl);
+  }
+
+  /* Visually heavy blocks still deserve a minimum breath after a heading. */
+  :is(h1, h2, h3, h4, h5, h6) + :is(pre, figure, table, blockquote, wa-callout, .code-example) {
+    margin-block-start: var(--wa-space-m);
+  }
+}
+
 h1.title {
   wa-badge {
     vertical-align: middle;
@@ -131,8 +196,6 @@ h1.title {
 
 /* Callouts in content */
 #content > wa-callout {
-  margin-block-end: var(--wa-content-spacing);
-
   &[variant='brand'] code {
     background-color: color-mix(in oklab, var(--wa-color-brand-fill-soft), black 2.5%);
   }
@@ -374,6 +437,8 @@ wa-scroller:has(.component-table) {
 }
 
 .component-table {
+  font-variant-numeric: tabular-nums;
+
   .table-name {
     white-space: nowrap;
   }
