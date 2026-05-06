@@ -14,6 +14,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 - Added the `wa-text-wrap-nowrap` text utility class for preventing text from wrapping
 - Added the `wa-text-wrap-balance` text utility class for evenly distributing text across lines
+- Added the `wa-text-wrap-pretty` text utility class for avoiding orphaned words on the last line (not supported in Firefox)
 
 ## 3.6.0
 

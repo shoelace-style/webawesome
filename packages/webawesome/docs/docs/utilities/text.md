@@ -183,6 +183,11 @@ Use `wa-text-wrap-*` classes to control how text wraps across lines. These utili
 | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `wa-text-wrap-nowrap`  | <div class="wa-text-wrap-nowrap" style="max-width: 40ch; overflow: hidden; text-overflow: ellipsis;">The five boxing wizards jump quickly. How quickly daft jumping zebras vex!</div> |
 | `wa-text-wrap-balance` | <div class="wa-text-wrap-balance" style="max-width: 40ch;">The five boxing wizards jump quickly. How quickly daft jumping zebras vex!</div>                                           |
+| `wa-text-wrap-pretty`  | <div class="wa-text-wrap-pretty" style="max-width: 40ch;">The five boxing wizards jump quickly. How quickly daft jumping zebras vex!</div>                                            |
+
+:::info
+`wa-text-wrap-pretty` is wrapped in an `@supports` rule because Firefox does not yet support `text-wrap: pretty`. In unsupported browsers, the class has no effect and text wraps normally.
+:::
 
 ## Truncation
 

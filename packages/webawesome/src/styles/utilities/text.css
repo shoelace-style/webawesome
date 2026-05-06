@@ -155,6 +155,12 @@
   .wa-text-wrap-balance {
     text-wrap: balance;
   }
+
+  @supports (text-wrap: pretty) {
+    .wa-text-wrap-pretty {
+      text-wrap: pretty;
+    }
+  }
   /* #endregion */
 
   /* #region Links ~~~~~~~ */
