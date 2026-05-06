@@ -6,7 +6,7 @@ layout: page-outline
 
 Many Web Awesome components are open source, meaning everyone can use them and contribute to their development. When you join our community, you'll find a friendly group of enthusiasts at all experience levels who are willing to chat about anything and everything related to Web Awesome.
 
-The easiest way to get started contributing is to join the [community chat](https://discord.gg/mg8f26C). This is where we hang out, discuss new ideas, ask for feedback, and more!
+The easiest way to get started contributing is to join the [community chat]({{ site.urls.discord }}). This is where we hang out, discuss new ideas, ask for feedback, and more!
 
 A common misconception about contributing to an open source project is that you need to know how to code. This simply isn't true. In fact, there are _many_ ways to contribute, and some of the most important contributions come from those who never write a single line of code. Here's a list of ways you can make a meaningful contribution to the project:
 
@@ -25,10 +25,10 @@ Please take a moment to review these guidelines to make the contribution process
 
 ## Using the Issue Tracker
 
-The [issue tracker](https://github.com/shoelace-style/webawesome/issues) is for bug reports, feature requests, and pull requests.
+The [issue tracker]({{ site.github.issues }}) is for bug reports, feature requests, and pull requests.
 
-- Please **do not** use the issue tracker for personal support requests. Use [the discussion forum](https://github.com/shoelace-style/webawesome/discussions/categories/help-support) instead.
-- Please **do not** use the issue tracker for feature requests. Use [the discussion forum](https://github.com/shoelace-style/webawesome/discussions/categories/ideas) instead.
+- Please **do not** use the issue tracker for personal support requests. Use [the discussion forum]({{ site.github.helpSupport }}) instead.
+- Please **do not** use the issue tracker for feature requests. Use [the discussion forum]({{ site.github.ideas }}) instead.
 - Please **do not** derail, hijack, or troll issues. Keep the discussion on topic and be respectful of others.
 - Please **do not** post comments with "+1" or "👍". Use [reactions](https://github.blog/2016-03-10-add-reactions-to-pull-requests-issues-and-comments/) instead.
 - Please **do** use the issue tracker for bug reports and pull requests.
@@ -37,7 +37,7 @@ Issues that do not follow these guidelines are subject to closure. There simply 
 
 ### Feature Requests
 
-Feature requests can be added using [the discussion forum](https://github.com/shoelace-style/webawesome/discussions/categories/ideas).
+Feature requests can be added using [the discussion forum]({{ site.github.ideas }}).
 
 - Please **do** search for an existing request before suggesting a new feature.
 - Please **do** use the voting buttons to vote for a feature.
@@ -83,7 +83,7 @@ Instructions, code examples, and interactive demos are hand-curated to give user
 
 The docs are powered by [Eleventy](https://www.11ty.dev/). Check out `docs/components/*.md` to get an idea of how pages are structured and formatted. If you're creating a new component, it may help to use an existing component's markdown file as a template.
 
-If you need help with documentation, feel free to reach out on the [community chat](https://discord.gg/mg8f26C).
+If you need help with documentation, feel free to reach out on the [community chat]({{ site.urls.discord }}).
 
 ### Web Awesome-flavoured Markdown
 
@@ -158,7 +158,7 @@ Documentation examples should use [Font Awesome Free](https://fontawesome.com/se
 
 The following is a non-exhaustive list of conventions, patterns, and best practices we try to follow. As a contributor, we ask that you make a good faith effort to follow them as well. This ensures consistency and maintainability throughout the project.
 
-If in doubt, use your best judgment and the maintainers will be happy to guide you during the code review process. If you'd like clarification on something before submitting a PR, feel free to reach out on the [community chat](https://discord.gg/mg8f26C).
+If in doubt, use your best judgment and the maintainers will be happy to guide you during the code review process. If you'd like clarification on something before submitting a PR, feel free to reach out on the [community chat]({{ site.urls.discord }}).
 
 :::info
 This section can be a lot to digest in one sitting, so don't feel like you need to take it all in right now. Most contributors will be better off skimming this section and reviewing the relevant content as needed.
@@ -168,7 +168,7 @@ This section can be a lot to digest in one sitting, so don't feel like you need 
 
 Web Awesome is built with accessibility in mind. Creating generic components that are fully accessible to users with varying capabilities across a multitude of circumstances is a daunting challenge. Oftentimes, the solution to an a11y problem is not written in black and white and, therefore, we may not get it right the first time around. There are, however, guidelines we can follow in our effort to make Web Awesome an accessible foundation from which applications and websites can be built.
 
-We take this commitment seriously, so please ensure your contributions have this goal in mind. If you need help with anything a11y-related, please reach out on the [community chat](https://discord.gg/mg8f26C) for assistance. If you discover an accessibility concern within the library, please file a bug on the [issue tracker](https://github.com/shoelace-style/webawesome/issues).
+We take this commitment seriously, so please ensure your contributions have this goal in mind. If you need help with anything a11y-related, please reach out on the [community chat]({{ site.urls.discord }}) for assistance. If you discover an accessibility concern within the library, please file a bug on the [issue tracker]({{ site.github.issues }}).
 
 It's important to remember that, although accessibility starts with foundational components, it doesn't end with them. It everyone's responsibility to encourage best practices and ensure we're providing an optimal experience for all of our users.
 

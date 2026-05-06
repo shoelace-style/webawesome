@@ -44,12 +44,12 @@
   <li>
     <span class="wa-split">
       <a href="/docs/patterns/">Patterns</a>
-      {{ proBadge({ description: "Patterns require access to Web Awesome Pro" }) }}
+      {{ proBadge({ description: "Patterns require access to " ~ site.namePro }) }}
     </span>
   </li>
   <li><a href="/docs/resources/visual-tests">Visual Tests</a></li>
   <li><a href="/docs/resources/changelog">Changelog</a></li>
-  <li><a href="/docs/resources/support">Help & Support</a></li>
+  <li><a href="{{ site.urls.support }}">Help & Support</a></li>
 </ul>
 
 <!-- Theming & Utilities -->
@@ -164,7 +164,7 @@
     <wa-icon name="chart-area" variant="regular" aria-hidden="true"></wa-icon>
     Data Visualization
   </span>
-  {{ proBadge({ description: "Data Visualization components require access to Web Awesome Pro" }) }}
+  {{ proBadge({ description: "Data Visualization components require access to " ~ site.namePro }) }}
 </h2>
 <ul>
   <li><a href="/docs/components/bar-chart">Bar Chart</a></li>
@@ -253,11 +253,11 @@
   Legal Stuff
 </h2>
 <ul>
-  <li><a href="/license"><span class="wa-visually-hidden">Web Awesome </span>Free License</a></li>
-  <li><a href="/license/pro"><span class="wa-visually-hidden">Web Awesome </span>Pro License</a></li>
-  <li><a href="/tos">Terms of Service</a></li>
-  <li><a href="/privacy">Privacy Policy</a></li>
-  <li><a href="/refunds">Refund Policy</a></li>
+  <li><a href="{{ site.legal.licenseCore }}"><span class="wa-visually-hidden">Web Awesome </span>Core License</a></li>
+  <li><a href="{{ site.legal.licensePro }}"><span class="wa-visually-hidden">Web Awesome </span>Pro License</a></li>
+  <li><a href="{{ site.legal.tos }}">Terms of Service</a></li>
+  <li><a href="{{ site.legal.privacy }}">Privacy Policy</a></li>
+  <li><a href="{{ site.legal.refunds }}">Refund Policy</a></li>
   <li><a href="/dpa">Data Processing Agreement</a></li>
 </ul>
 
