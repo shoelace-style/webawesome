@@ -35,7 +35,7 @@
 
     --wa-color-focus: var(--wa-color-brand-60);
 
-    --wa-color-mix-hover: oklch(from currentColor calc(1 - l) c h) 10%;
+    --wa-color-mix-hover: oklch(from currentColor calc(1 - l) c h) 15%;
     --wa-color-mix-active: var(--wa-color-surface-default) 10%;
 
     --wa-color-brand-fill-quiet: var(--wa-color-brand-95);
@@ -121,7 +121,7 @@
 
     --wa-color-focus: var(--wa-color-brand-60);
 
-    --wa-color-mix-hover: oklch(from currentColor calc(1 - l) c h) 15%;
+    --wa-color-mix-hover: oklch(from currentColor calc(1 - l) c h) 20%;
     --wa-color-mix-active: var(--wa-color-surface-default) 20%;
 
     --wa-color-brand-fill-quiet: var(--wa-color-brand-10);
