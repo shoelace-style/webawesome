@@ -99,6 +99,54 @@ wa-page > main:has(.modern-card-list) {
   max-inline-size: var(--content-width-m);
 }
 
+/* Prose rhythm — asymmetric heading margins for clearer section hierarchy in
+   long-form docs copy. Overrides the uniform `--wa-content-spacing` applied
+   between siblings by the wa-native layer (see `native.css`). These selectors
+   are unlayered so they win on cascade order; if this file ever moves into a
+   layer, re-check that wa-native is still defeated. */
+#content {
+  /* Headings hug what they introduce: more space above (separates from prior
+     section), tighter space below (associates with following content). */
+
+  /* H2 — major section break */
+  * + h2 {
+    margin-block-start: var(--wa-space-2xl);
+  }
+  h2:has(+ *) {
+    margin-block-end: var(--wa-space-s);
+  }
+
+  /* H3 — subsection */
+  * + h3 {
+    margin-block-start: var(--wa-space-xl);
+  }
+  h3:has(+ *) {
+    margin-block-end: var(--wa-space-xs);
+  }
+
+  /* H4 — keep the default top margin, just tighten the bottom */
+  h4:has(+ *) {
+    margin-block-end: var(--wa-space-xs);
+  }
+
+  /* H5, H6 — same default top, slightly tighter bottom */
+  :is(h5, h6):has(+ *) {
+    margin-block-end: var(--wa-space-xs);
+  }
+
+  /* Consecutive headings shouldn't double-space (e.g. an h2 immediately
+     followed by an h3 with no body text between them). */
+  h2 + :is(h3, h4),
+  h3 + h4 {
+    margin-block-start: var(--wa-space-m);
+  }
+
+  /* Multi-line list items get a small breath between them */
+  :is(ul, ol) > li:has(+ li) {
+    margin-block-end: var(--wa-space-2xs);
+  }
+}
+
 h1.title {
   wa-badge {
     vertical-align: middle;
