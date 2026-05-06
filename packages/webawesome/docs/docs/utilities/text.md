@@ -179,9 +179,10 @@ Use single-purpose `wa-color-text-*` classes to apply a given [text color](/docs
 
 Use `wa-text-wrap-*` classes to control how text wraps across lines. These utilities apply standard CSS [`text-wrap`](https://developer.mozilla.org/docs/Web/CSS/text-wrap) values.
 
-| Class Name            | Preview                                                                                                                                                                               |
-| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `wa-text-wrap-nowrap` | <div class="wa-text-wrap-nowrap" style="max-width: 40ch; overflow: hidden; text-overflow: ellipsis;">The five boxing wizards jump quickly. How quickly daft jumping zebras vex!</div> |
+| Class Name             | Preview                                                                                                                                                                               |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `wa-text-wrap-nowrap`  | <div class="wa-text-wrap-nowrap" style="max-width: 40ch; overflow: hidden; text-overflow: ellipsis;">The five boxing wizards jump quickly. How quickly daft jumping zebras vex!</div> |
+| `wa-text-wrap-balance` | <div class="wa-text-wrap-balance" style="max-width: 40ch;">The five boxing wizards jump quickly. How quickly daft jumping zebras vex!</div>                                           |
 
 ## Truncation
 
