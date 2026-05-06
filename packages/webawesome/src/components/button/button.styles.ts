@@ -29,7 +29,7 @@ export default css`
     -webkit-user-select: none;
     white-space: nowrap;
     vertical-align: middle;
-    transition-property: background-color, border, box-shadow, color, opacity, transform;
+    transition-property: background, border, box-shadow, color, opacity, transform;
     transition-duration: var(--wa-transition-fast);
     transition-timing-function: var(--wa-transition-easing);
     transform-origin: center;
