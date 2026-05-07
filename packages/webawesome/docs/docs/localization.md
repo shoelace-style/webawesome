@@ -62,7 +62,7 @@ Web Awesome uses English as a fallback to provide a better experience than rende
 
 ### Submitting New Translations or Improvements
 
-To contribute new translations or improvements to existing translations, please submit a pull request on GitHub. Translations are located in [`src/translations`](https://github.com/shoelace-style/shoelace/blob/next/src/translations) and can be edited directly on GitHub if you don't want to clone the repo locally.
+To contribute new translations or improvements to existing translations, please submit a pull request on GitHub. Translations are located in [`src/translations`](https://github.com/shoelace-style/webawesome/tree/next/packages/webawesome/src/translations) and can be edited directly on GitHub if you don't want to clone the repo locally.
 
 Regional translations are welcome! For example, if a German translation (`de`) exists it's perfectly acceptable to submit a German (Switzerland) (`de-CH`) translation.
 
