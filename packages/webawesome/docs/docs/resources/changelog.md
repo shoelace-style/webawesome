@@ -16,6 +16,8 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Added the `wa-text-wrap-balance` text utility class for evenly distributing text across lines
 - Added the `wa-text-wrap-pretty` text utility class for avoiding orphaned words on the last line (not supported in Firefox)
 - Fixed a bug in `<wa-textarea>` with `resize="auto"` where the height stayed collapsed when the textarea was initially hidden [issue:2347]
+- Fixed a bug in `<wa-button-group>` that caused single buttons to not have the correct border radius [issue:2367]
+- Fixed a bug in `<wa-switch>` that showed the switch direction backwards in RTL [pr:2330]
 - Upgraded the `<wa-copy-button>` component from _experimental_ to _stable_
   - Added support for custom buttons
   - Added `tooltip` attribute to control when feedback is shown in the tooltip on hover and click
