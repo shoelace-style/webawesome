@@ -347,9 +347,7 @@ describe('<wa-copy-button>', () => {
         });
 
         it('should render a tooltip with manual trigger when tooltip="copy" on the default trigger', async () => {
-          const el = await fixture<WaCopyButton>(
-            html`<wa-copy-button value="test" tooltip="copy"></wa-copy-button>`,
-          );
+          const el = await fixture<WaCopyButton>(html`<wa-copy-button value="test" tooltip="copy"></wa-copy-button>`);
           await el.updateComplete;
           const tooltip = el.shadowRoot!.querySelector<WaTooltip>('wa-tooltip')!;
           expect(tooltip).to.exist;
