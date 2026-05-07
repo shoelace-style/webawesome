@@ -78,8 +78,8 @@ export default css`
   .body {
     display: flex;
     flex-direction: column;
-    width: auto;
-    max-width: min(var(--max-width), 100vw);
+    width: max-content;
+    max-width: var(--max-width);
     padding: var(--wa-space-l);
     background-color: var(--wa-color-surface-default);
     border: var(--wa-panel-border-width) solid var(--wa-color-surface-border);
