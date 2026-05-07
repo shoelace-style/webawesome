@@ -651,10 +651,7 @@
         }
 
         @media (prefers-reduced-motion: reduce) {
-          &:hover {
-            transform: none;
-          }
-
+          &:hover,
           &:active {
             transform: none;
           }

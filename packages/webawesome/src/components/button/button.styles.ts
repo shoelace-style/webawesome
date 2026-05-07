@@ -54,23 +54,21 @@ export default css`
   }
 
   /* Hover and active transforms */
-  @media (hover: hover) {
-    .button:not(.disabled):not(.loading):hover {
-      transform: var(--wa-button-transform-hover);
+  .button:not(.disabled):not(.loading) {
+    @media (hover: hover) {
+      &:hover {
+        transform: var(--wa-button-transform-hover);
+      }
     }
-  }
-
-  .button:not(.disabled):not(.loading):active {
-    transform: var(--wa-button-transform-active);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .button:not(.disabled):not(.loading):hover {
-      transform: none;
+    &:active {
+      transform: var(--wa-button-transform-active);
     }
 
-    .button:not(.disabled):not(.loading):active {
-      transform: none;
+    @media (prefers-reduced-motion: reduce) {
+      &:hover,
+      &:active {
+        transform: none;
+      }
     }
   }
 
