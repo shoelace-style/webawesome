@@ -79,7 +79,7 @@ export default css`
     display: flex;
     flex-direction: column;
     width: max-content;
-    max-width: min(var(--max-width), 100vw - var(--wa-space-l) * 2);
+    max-width: min(var(--max-width), 100vw);
     padding: var(--wa-space-l);
     background-color: var(--wa-color-surface-default);
     border: var(--wa-panel-border-width) solid var(--wa-color-surface-border);
