@@ -17,6 +17,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Added the `wa-text-wrap-pretty` text utility class for avoiding orphaned words on the last line (not supported in Firefox)
 - Fixed a bug in `<wa-textarea>` with `resize="auto"` where the height stayed collapsed when the textarea was initially hidden [issue:2347]
 - Fixed a bug in `<wa-button-group>` that caused single buttons to not have the correct border radius [issue:2367]
+- Fixed a bug in `<wa-switch>` that showed the switch direction backwards in RTL [pr:2330]
 
 ## 3.6.0
 
