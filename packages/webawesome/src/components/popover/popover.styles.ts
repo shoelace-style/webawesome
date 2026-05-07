@@ -78,7 +78,7 @@ export default css`
   .body {
     display: flex;
     flex-direction: column;
-    width: max-content;
+    width: auto;
     max-width: min(var(--max-width), 100vw);
     padding: var(--wa-space-l);
     background-color: var(--wa-color-surface-default);
