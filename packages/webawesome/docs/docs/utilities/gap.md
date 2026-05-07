@@ -37,8 +37,8 @@ Every class besides `wa-gap-0` corresponds to one of the [`--wa-space-*`](/docs/
 
 ## Gap Classes
 
-| Class Name   | `gap` Value      | Preview                                                                                                     |
-| ------------ | ---------------- | ----------------------------------------------------------------------------------------------------------- |
+| Class Name   | `gap` Value      | Preview                                                                                                                     |
+| ------------ | ---------------- | --------------------------------------------------------------------------------------------------------------------------- |
 | `wa-gap-0`   | `0`              | <div class="preview-wrapper wa-cluster wa-gap-0"><div class="preview-block"></div><div class="preview-block"></div></div>   |
 | `wa-gap-3xs` | `--wa-space-3xs` | <div class="preview-wrapper wa-cluster wa-gap-3xs"><div class="preview-block"></div><div class="preview-block"></div></div> |
 | `wa-gap-2xs` | `--wa-space-2xs` | <div class="preview-wrapper wa-cluster wa-gap-2xs"><div class="preview-block"></div><div class="preview-block"></div></div> |

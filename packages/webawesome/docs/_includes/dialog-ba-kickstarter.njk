@@ -22,20 +22,20 @@
 
     <div class="wa-stack wa-gap-2xl">
       <div class="wa-stack wa-gap-s">
-        <h2 class="wa-heading-xl brand-font">Introducing <a href="{{ buildAwesome.kickstarterUrl }}" class="wa-link-plain" style="color: var(--wa-color-brand-fill-loud);">Build Awesome</a>!</h2>
+        <h2 class="wa-heading-xl font-brand">Introducing <a href="{{ buildAwesome.kickstarterUrl }}" class="wa-link-plain" style="color: var(--wa-color-brand-fill-loud);">{{ site.siblings.buildAwesome.name }}</a>!</h2>
         <p>
-          Build Awesome is a new website platform from the Font and Web Awesome teams. Fast by default, super easy editing, built to last,
+          {{ site.siblings.buildAwesome.name }} is a new website platform from the Font and Web Awesome teams. Fast by default, super easy editing, built to last,
           and free at the core.
         </p>
       </div>
 
       <div class="wa-flank">
-        <wa-button type="button" appearance="plain" data-dialog="close" class="brand-font wa-desktop-only">Got It</wa-button>
+        <wa-button type="button" appearance="plain" data-dialog="close" class="font-brand wa-desktop-only">Got It</wa-button>
         <wa-button
           variant="brand"
           appearance="accent"
           href="{{ buildAwesome.kickstarterUrl }}"
-          class="brand-font">
+          class="font-brand">
           <wa-icon slot="start" src="/assets/images/logo-build-awesome-icon.svg" style="--logo-icon-fill: currentColor;"></wa-icon>
           Back the Kickstarter!
         </wa-button>

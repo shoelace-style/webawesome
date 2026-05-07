@@ -21,6 +21,9 @@
     --line-length-xl: 90ch;
     --line-length-none: none;
 
+    --wa-brand-orange: #f36944;
+    --wa-brand-grey: #30323b;
+
     --brand-web-awesome-orange: var(--wa-brand-orange);
     --brand-font-awesome-blue: #418fde;
     --brand-build-awesome-green: #00a776;
@@ -38,11 +41,41 @@
   }
 
   /* #region layout utilities */
+
+  /*
+   * .content-container — CANONICAL DEFINITION
+   *
+   * Default sizing/centering primitive for main content areas across the
+   * Web Awesome ecosystem (app, marketing, docs). DO NOT redefine this
+   * class anywhere else (no shadow rules in pro site.css base, no app.css
+   * redefinition). Scoped overrides like `.page-footer .content-container { ... }`
+   * are fine — only base-class redefinition is forbidden.
+   *
+   * Override per-instance width via the `--max-inline-size` custom property:
+   *   main { --max-inline-size: var(--content-width-xs); }
+   */
   .content-container {
     margin-inline: auto;
-    max-width: var(--max-width, var(--content-width-l));
+    max-inline-size: var(--max-inline-size, var(--content-width-l));
     padding-inline: var(--content-padding-inline);
   }
+
+  /* Default main content vertical spacing.
+   * Applies when <main> opts into the default sizing pattern via class.
+   * Pages opt out by setting front matter `hasFlushMain: true`, which causes
+   * the layout to omit the class entirely (no spacing, no container). */
+  wa-page > main.content-container {
+    padding-block: var(--wa-space-4xl);
+  }
+
+  /* Neutralize wa-page's shadow-DOM `::slotted(main) { padding: var(--wa-space-3xl) }`
+   * on flush pages. When a page sets `hasFlushMain: true`, <main> renders without
+   * the .content-container class — this rule ensures the page is fully flush,
+   * not inheriting the component's default padding. */
+  wa-page > main:not(.content-container) {
+    padding: 0;
+  }
+
   /* #endregion */
 
   /* #region Text utilities */
@@ -54,7 +87,7 @@
 
   /* line-length */
   .line-length {
-    max-width: var(--line-length, none);
+    max-inline-size: var(--line-length, none);
   }
 
   .line-length-xs {
@@ -136,7 +169,11 @@
   wa-page > [slot='banner'] {
     /* match nav-products background color */
     background-color: var(--nav-products-bg, var(--wa-color-surface-lowered));
-    padding: var(--wa-space-l) var(--content-padding-inline);
+    /* inline padding handled by .content-container on inner .banner */
+    padding-block: var(--wa-space-l);
+    padding-inline: 0;
+    /* default to full-width in webawesome docs; pro overrides to --content-width-l */
+    --max-inline-size: 100%;
     transition: background-color var(--wa-transition-slow) var(--wa-transition-easing);
 
     .banner {
@@ -156,11 +193,14 @@
   }
 
   /*  products nav */
-  .wrapper-nav-products {
+  .page-nav-products {
     background-color: var(--nav-products-bg, var(--wa-color-surface-lowered));
+    /* inline padding handled by .content-container on inner .nav-products-full */
     padding-block-start: var(--wa-space-xs);
-    padding-inline: var(--content-padding-inline);
+    padding-inline: 0;
     inline-size: 100%;
+    /* default to full-width in webawesome docs; pro overrides to --content-width-l */
+    --max-inline-size: 100%;
     transition: background-color var(--wa-transition-slow) var(--wa-transition-easing);
   }
 
@@ -181,7 +221,7 @@
     }
   }
 
-  wa-page:has(.wrapper-nav-products, .nav-products-drawer) {
+  wa-page:has(.page-nav-products, .nav-products-drawer) {
     &:has(.product-web-awesome:hover) {
       --nav-products-bg: var(--nav-products-fill-quiet-web);
     }
@@ -213,14 +253,9 @@
     }
 
     .logo-svg {
-      width: auto;
-      height: var(--awesome-logo-height, 1.5rem);
+      inline-size: auto;
+      block-size: var(--awesome-logo-height, 1.5rem);
     }
-  }
-
-  .nav-products-secondary .pseudo-product wa-icon {
-    color: var(--wa-color-text-normal);
-    font-size: var(--wa-font-size-l);
   }
 
   /* drawer-based */
@@ -228,7 +263,7 @@
     .product {
       /* match dimensions of drawer's close-button */
       padding-inline: var(--wa-form-control-padding-inline);
-      height: var(--wa-form-control-height);
+      block-size: var(--wa-form-control-height);
 
       &.product-active {
         --nudge-inline-start: calc(var(--wa-form-control-padding-inline) * -1.5);
@@ -251,7 +286,7 @@
 
     /* Narrow (≤ 80ch): compact header with logo */
     @container header (inline-size <= 80ch) {
-      .wrapper-nav-products {
+      .page-nav-products {
         display: none;
       }
     }
@@ -260,18 +295,17 @@
   /* subheader */
   wa-page > [slot='subheader'] {
     background-color: var(--wa-color-surface-default);
-    border-bottom: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-surface-border);
-    padding: var(--wa-space-xs) var(--content-padding-inline);
+    /* default to full-width in webawesome docs; pro overrides to --content-width-l */
+    --max-inline-size: 100%;
+    border-block-end: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-surface-border);
+    padding-block: var(--wa-space-xs);
+    padding-inline: 0;
     container-type: inline-size;
     container-name: subheader;
 
     /* icon-based logo */
     wa-icon.logo-web-awesome {
       font-size: var(--wa-font-size-xl);
-    }
-
-    .subheader-account wa-avatar {
-      --size: var(--wa-font-size-xl);
     }
 
     /* subheader doc nav: match sidebar “current” emphasis */
@@ -282,9 +316,7 @@
 
     /* Narrow (≤ 80ch): compact header with logo */
     @container subheader (inline-size <= 80ch) {
-      .subheader-links,
-      .subheader-toolbar,
-      .subheader-project-selector {
+      .subheader-links {
         display: none;
       }
 
@@ -354,7 +386,7 @@
     padding: 0;
 
     .brand-logo svg {
-      height: 1.25rem;
+      block-size: 1.25rem;
     }
 
     wa-dropdown {
@@ -480,7 +512,7 @@
     container-name: ba-kickstarter-dialog;
   }
 
-  @container ba-kickstarter-dialog (min-width: 48rem) {
+  @container ba-kickstarter-dialog (min-inline-size: 48rem) {
     #dialog-site.dialog-ba-kickstarter {
       --width: 41rem;
     }
@@ -501,8 +533,8 @@
   }
 
   .dialog-ba-kickstarter .ba-kickstarter-video-poster img {
-    width: 100%;
-    height: 100%;
+    inline-size: 100%;
+    block-size: 100%;
     object-fit: cover;
     display: block;
   }
@@ -687,14 +719,23 @@
       font-size: var(--font-size-3xs);
     }
 
-    #version-icon-info {
-      --secondary-opacity: 1;
-      --secondary-color: var(--wa-brand-orange);
-      padding-inline: var(--wa-space-xs);
-    }
-
     wa-button#search-trigger::part(base) {
       justify-content: flex-start; /* align search trigger button content to start */
+    }
+
+    /* current page: accent line replacing the section's left rail */
+    li:has(> .current),
+    li:has(> .wa-split > .current) {
+      position: relative;
+
+      &::before {
+        content: '';
+        position: absolute;
+        inset-block: calc(-1 * var(--wa-space-2xs));
+        inset-inline-start: calc(-1 * var(--wa-space-m) - var(--wa-border-width-s));
+        inline-size: var(--wa-border-width-s);
+        background: var(--wa-color-brand-on-quiet);
+      }
     }
   }
 
@@ -702,31 +743,18 @@
     color: var(--wa-color-text-quiet);
   }
 
-  #sidebar-close-button {
-    display: none;
-  }
-
-  @media screen and (max-width: 768px) {
-    #sidebar-close-button {
-      display: inline-block;
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-    }
-  }
-
   #sidebar nav {
-    padding-bottom: 1rem;
+    padding-block-end: 1rem;
   }
 
-  @media screen and not (max-width: 1180px) {
+  @media screen and (min-width: 73.75rem) {
     wa-page::part(navigation) {
-      border-right: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-surface-border);
+      border-inline-end: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-surface-border);
     }
 
     wa-page > #sidebar {
       overflow: auto;
-      max-height: 100%;
+      max-block-size: 100%;
       padding: var(--wa-space-2xl) var(--content-padding-inline);
     }
   }
@@ -740,15 +768,15 @@
     --underline-color: currentColor;
     position: relative;
     text-decoration: none;
-    padding-bottom: 0.4em;
+    padding-block-end: 0.4em;
 
     &::after {
       content: '';
       position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-      height: 0.4em;
+      inset-inline-start: 0;
+      inset-block-end: 0;
+      inline-size: 100%;
+      block-size: 0.4em;
       mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 20'%3E%3Cpath d='M0,12 Q50,8 100,12' stroke='black' stroke-width='4' fill='none'/%3E%3C/svg%3E");
       mask-repeat: no-repeat;
       mask-size: 100% auto;
@@ -872,18 +900,15 @@
 
   /* icon swap on hover/focus: plain buttons + dropdown items (pair .icon-default / .icon-hover in icon slot) */
   wa-button .icon-hover,
-  wa-dropdown-item .icon-hover[slot='icon'],
-  .wa-hover-icon-swap .icon-hover {
+  wa-dropdown-item .icon-hover[slot='icon'] {
     display: none;
   }
   wa-button:hover .icon-default,
-  wa-dropdown-item:is(:hover, :focus-visible) .icon-default[slot='icon'],
-  .wa-hover-icon-swap:is(:hover, :focus-visible) .icon-default {
+  wa-dropdown-item:is(:hover, :focus-visible) .icon-default[slot='icon'] {
     display: none;
   }
   wa-button:hover .icon-hover,
-  wa-dropdown-item:is(:hover, :focus-visible) .icon-hover[slot='icon'],
-  .wa-hover-icon-swap:is(:hover, :focus-visible) .icon-hover {
+  wa-dropdown-item:is(:hover, :focus-visible) .icon-hover[slot='icon'] {
     display: inline-flex;
   }
 

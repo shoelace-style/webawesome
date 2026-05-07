@@ -96,4 +96,4 @@ If your AI tool supports Agent Skills, we recommend using the skill for better c
 
 ## Feedback
 
-Since this is experimental, we'd love to hear how it works for you! If you find issues with the generated content or have suggestions for improvement, please [open an issue on GitHub](https://github.com/shoelace-style/webawesome/issues).
+Since this is experimental, we'd love to hear how it works for you! If you find issues with the generated content or have suggestions for improvement, please [open an issue on GitHub]({{ site.github.issues }}).
