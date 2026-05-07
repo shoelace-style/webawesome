@@ -20,7 +20,7 @@ layout: page
 {%- endif -%}
 to create a project with any one of these themes.
 {%- if not currentUser.hasPro -%}
-  &nbsp;(Plus, there are even more themes to love with Web Awesome Pro. <wa-icon name="heart" style="color: var(--wa-color-red-70);"></wa-icon>)
+  &nbsp;(Plus, there are even more themes to love with {{ site.namePro }}. <wa-icon name="heart" style="color: var(--wa-color-red-70);"></wa-icon>)
 {%- endif -%}
 </p>
 {% endraw %}
@@ -68,7 +68,7 @@ to create a project with any one of these themes.
     <div class="wa-cluster">
       <h2 data-theme-name="name">Theme</h2>
       {{ freeBadge({ id: "free-badge", description: "This theme is available in the free version of Web Awesome." }) }}
-      {{ proBadge({ id: "pro-badge", description: "This theme requires access to Web Awesome Pro." }) }}
+      {{ proBadge({ id: "pro-badge", description: "This theme requires access to " ~ site.namePro ~ "." }) }}
 
     </div>
     <p data-theme-description>Description</p>
