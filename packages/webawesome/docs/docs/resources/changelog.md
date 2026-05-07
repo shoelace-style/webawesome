@@ -18,6 +18,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed a bug in `<wa-textarea>` with `resize="auto"` where the height stayed collapsed when the textarea was initially hidden [issue:2347]
 - Fixed a bug in `<wa-button-group>` that caused single buttons to not have the correct border radius [issue:2367]
 - Fixed a bug in `<wa-switch>` that showed the switch direction backwards in RTL [pr:2330]
+- Fixed a bug in `<wa-popover>` where the popover would overflow the viewport on narrow screens [issue:2333]
 
 ## 3.6.0
 
