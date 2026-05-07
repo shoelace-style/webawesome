@@ -4,6 +4,7 @@ import { classMap } from 'lit/directives/class-map.js';
 import { WaCopyEvent } from '../../events/copy.js';
 import { WaErrorEvent } from '../../events/error.js';
 import { animateWithClass } from '../../internal/animate.js';
+import { uniqueId } from '../../internal/math.js';
 import { HasSlotController } from '../../internal/slot.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
@@ -11,7 +12,12 @@ import hostStyles from '../../styles/component/host.styles.js';
 import visuallyHidden from '../../styles/component/visually-hidden.styles.js';
 import { LocalizeController } from '../../utilities/localize.js';
 import '../icon/icon.js';
+import '../tooltip/tooltip.js';
+import type WaTooltip from '../tooltip/tooltip.js';
 import styles from './copy-button.styles.js';
+
+const INTERNAL_TOOLTIP_SLOT = 'wa-internal-tooltip';
+const ASSIGNED_ID_PROP = '__waCopyButtonAssignedId';
 
 /**
  * @summary Copy buttons copy text to the clipboard when the user activates them. They provide built-in success and
@@ -21,6 +27,7 @@ import styles from './copy-button.styles.js';
  * @since 2.7
  *
  * @dependency wa-icon
+ * @dependency wa-tooltip
  *
  * @event wa-copy - Emitted when the data has been copied.
  * @event wa-error - Emitted when the data could not be copied.
@@ -38,7 +45,7 @@ import styles from './copy-button.styles.js';
  * @csspart copy-icon - The container that holds the copy icon.
  * @csspart success-icon - The container that holds the success icon.
  * @csspart error-icon - The container that holds the error icon.
- * @csspart feedback - The popup that displays the success or error label after a copy attempt.
+ * @csspart tooltip - The internal `<wa-tooltip>` element.
  */
 @customElement('wa-copy-button')
 export default class WaCopyButton extends WebAwesomeElement {
@@ -50,11 +57,20 @@ export default class WaCopyButton extends WebAwesomeElement {
   @query('slot[name="copy-icon"]') copyIcon: HTMLSlotElement;
   @query('slot[name="success-icon"]') successIcon: HTMLSlotElement;
   @query('slot[name="error-icon"]') errorIcon: HTMLSlotElement;
-  @query('.feedback') feedback: HTMLDivElement;
+  @query('slot:not([name])') defaultSlot: HTMLSlotElement;
+  @query('wa-tooltip[part="tooltip"]') shadowTooltip: WaTooltip;
 
   @state() isCopying = false;
   @state() status: 'rest' | 'success' | 'error' = 'rest';
-  @state() showFeedback = false;
+  @state() hasCustomTrigger = false;
+
+  private customTriggerEl: HTMLElement | null = null;
+  private lightTooltip: WaTooltip | null = null;
+  private feedbackTimeout: number | null = null;
+
+  private get activeTooltip(): WaTooltip | null {
+    return this.lightTooltip ?? this.shadowTooltip ?? null;
+  }
 
   private get currentLabel() {
     if (this.status === 'success') {
@@ -82,26 +98,141 @@ export default class WaCopyButton extends WebAwesomeElement {
   /** Disables the copy button. */
   @property({ type: Boolean, reflect: true }) disabled = false;
 
-  /** A custom label to use as an accessible name and show in the feedback popup. */
+  /** A custom label to use as the accessible name and tooltip text in the default copy state. */
   @property({ attribute: 'copy-label' }) copyLabel = '';
 
-  /** A custom label to show in the feedback popup after copying. */
+  /** A custom label to show in the tooltip after copying. */
   @property({ attribute: 'success-label' }) successLabel = '';
 
-  /** A custom label to show in the feedback popup when a copy error occurs. */
+  /** A custom label to show in the tooltip when a copy error occurs. */
   @property({ attribute: 'error-label' }) errorLabel = '';
 
   /** The length of time to show feedback before restoring the default trigger. */
   @property({ attribute: 'feedback-duration', type: Number }) feedbackDuration = 1000;
 
-  /** The preferred placement of the feedback popup. */
-  @property({ attribute: 'feedback-placement', reflect: true }) feedbackPlacement: 'top' | 'right' | 'bottom' | 'left' =
+  /** The preferred placement of the tooltip. */
+  @property({ attribute: 'tooltip-placement', reflect: true }) tooltipPlacement: 'top' | 'right' | 'bottom' | 'left' =
     'top';
+
+  /**
+   * Controls the built-in tooltip. `feedback` (default) keeps the tooltip silent on hover/focus and only shows it
+   * briefly to confirm a successful or failed copy. `full` also shows the tooltip on hover and focus. `none` disables
+   * the tooltip entirely. Applies to both the default and custom triggers.
+   */
+  @property({ reflect: true }) tooltip: 'full' | 'feedback' | 'none' = 'feedback';
+
+  firstUpdated() {
+    this.handleDefaultSlotChange();
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    this.removeLightTooltip();
+  }
 
   @watch('status')
   handleStatusChange() {
     this.customStates.set('success', this.status === 'success');
     this.customStates.set('error', this.status === 'error');
+    this.syncTooltipText();
+  }
+
+  @watch(['copyLabel', 'successLabel', 'errorLabel'])
+  handleLabelChange() {
+    this.syncTooltipText();
+  }
+
+  @watch(['tooltipPlacement', 'disabled'], { waitUntilFirstUpdate: true })
+  handleTooltipOptionsChange() {
+    if (this.lightTooltip) {
+      this.lightTooltip.placement = this.tooltipPlacement;
+      this.lightTooltip.disabled = this.disabled;
+    }
+  }
+
+  @watch('tooltip', { waitUntilFirstUpdate: true })
+  handleTooltipModeChange(oldValue?: 'full' | 'feedback' | 'none') {
+    if (this.tooltip === 'none') {
+      this.removeLightTooltip();
+    } else if (oldValue === 'none') {
+      // Re-create the light tooltip if a custom trigger is present
+      this.handleDefaultSlotChange();
+    } else if (this.lightTooltip) {
+      // Switching between 'full' and 'feedback' — just update the trigger
+      this.lightTooltip.setAttribute('trigger', this.tooltip === 'feedback' ? 'manual' : 'hover focus');
+    }
+  }
+
+  private handleDefaultSlotChange = () => {
+    const assigned = this.defaultSlot?.assignedElements({ flatten: true }) ?? [];
+    const trigger = assigned.find((el): el is HTMLElement => el instanceof HTMLElement) ?? null;
+
+    // If the trigger changed, clean up any id we previously assigned to the old one
+    if (trigger !== this.customTriggerEl) {
+      this.releaseAssignedId(this.customTriggerEl);
+      this.customTriggerEl = trigger;
+    }
+
+    this.hasCustomTrigger = trigger !== null;
+
+    if (trigger && this.tooltip !== 'none') {
+      if (!trigger.id) {
+        trigger.id = uniqueId('wa-copy-button-trigger-');
+        (trigger as HTMLElement & { [ASSIGNED_ID_PROP]?: boolean })[ASSIGNED_ID_PROP] = true;
+      }
+      this.ensureLightTooltip();
+    } else {
+      this.removeLightTooltip();
+    }
+  };
+
+  private releaseAssignedId(el: HTMLElement | null) {
+    if (el && (el as HTMLElement & { [ASSIGNED_ID_PROP]?: boolean })[ASSIGNED_ID_PROP]) {
+      el.removeAttribute('id');
+      delete (el as HTMLElement & { [ASSIGNED_ID_PROP]?: boolean })[ASSIGNED_ID_PROP];
+    }
+  }
+
+  private ensureLightTooltip() {
+    if (!this.customTriggerEl) {
+      return;
+    }
+
+    const triggerValue = this.tooltip === 'feedback' ? 'manual' : 'hover focus';
+
+    if (!this.lightTooltip) {
+      const tooltip = document.createElement('wa-tooltip') as WaTooltip;
+      tooltip.setAttribute('slot', INTERNAL_TOOLTIP_SLOT);
+      tooltip.setAttribute('part', 'tooltip');
+      tooltip.setAttribute('trigger', triggerValue);
+      tooltip.dataset.copyButtonTooltip = '';
+      tooltip.setAttribute('for', this.customTriggerEl.id);
+      tooltip.placement = this.tooltipPlacement;
+      tooltip.disabled = this.disabled;
+      tooltip.textContent = this.currentLabel;
+      this.appendChild(tooltip);
+      this.lightTooltip = tooltip;
+    } else {
+      this.lightTooltip.setAttribute('for', this.customTriggerEl.id);
+      this.lightTooltip.setAttribute('trigger', triggerValue);
+      this.lightTooltip.placement = this.tooltipPlacement;
+      this.lightTooltip.disabled = this.disabled;
+      this.lightTooltip.textContent = this.currentLabel;
+    }
+  }
+
+  private removeLightTooltip() {
+    if (this.lightTooltip) {
+      this.releaseAssignedId(this.customTriggerEl);
+      this.lightTooltip.remove();
+      this.lightTooltip = null;
+    }
+  }
+
+  private syncTooltipText() {
+    if (this.lightTooltip) {
+      this.lightTooltip.textContent = this.currentLabel;
+    }
   }
 
   private async handleCopy() {
@@ -181,20 +312,43 @@ export default class WaCopyButton extends WebAwesomeElement {
       await animateWithClass(iconToShow, 'show');
     }
 
-    // Show the feedback popup
-    this.showFeedback = true;
+    // Show the tooltip with the new label (works whether or not it's already open via hover/focus).
+    // Skipped entirely when the tooltip is disabled.
     await this.updateComplete;
-    if (this.feedback) {
-      await animateWithClass(this.feedback, 'show');
+    const tooltip = this.tooltip === 'none' ? null : this.activeTooltip;
+    let earlyClose: Promise<void> | null = null;
+    if (tooltip) {
+      tooltip.show();
+
+      // If the user closes the tooltip themselves (e.g. by mousing away), cancel our pending hide
+      // so it can't fire on top of a future hover-driven show.
+      earlyClose = new Promise<void>(resolve => {
+        tooltip.addEventListener(
+          'wa-after-hide',
+          () => {
+            if (this.feedbackTimeout !== null) {
+              clearTimeout(this.feedbackTimeout);
+              this.feedbackTimeout = null;
+            }
+            resolve();
+          },
+          { once: true },
+        );
+      });
+
+      this.feedbackTimeout = window.setTimeout(async () => {
+        this.feedbackTimeout = null;
+        await tooltip.hide();
+      }, this.feedbackDuration);
     }
 
-    // After a brief delay, restore the original state
+    // Wait until the tooltip is fully hidden (or the cleanup duration elapses, whichever comes
+    // last) before flipping the status back. This prevents the label from changing to "Copy" while
+    // the tooltip's hide animation is still running.
     setTimeout(async () => {
-      // Hide the feedback popup
-      if (this.feedback) {
-        await animateWithClass(this.feedback, 'hide');
+      if (earlyClose) {
+        await earlyClose;
       }
-      this.showFeedback = false;
 
       if (this.copyIcon) {
         const iconToShow = status === 'success' ? this.successIcon : this.errorIcon;
@@ -211,10 +365,12 @@ export default class WaCopyButton extends WebAwesomeElement {
 
   render() {
     const hasCustomTrigger = this.hasSlotController.test('[default]');
+    const showTooltip = !hasCustomTrigger && this.tooltip !== 'none';
+    const triggerValue = this.tooltip === 'feedback' ? 'manual' : 'hover focus';
 
     return html`
       <div class="copy-button__trigger" @click=${this.handleCopy}>
-        <slot></slot>
+        <slot @slotchange=${this.handleDefaultSlotChange}></slot>
         <button
           class="button"
           part="button"
@@ -235,22 +391,24 @@ export default class WaCopyButton extends WebAwesomeElement {
           </slot>
         </button>
 
-        ${this.showFeedback
+        ${showTooltip
           ? html`
-              <div
+              <wa-tooltip
+                part="tooltip"
+                for="copy-button"
+                placement=${this.tooltipPlacement}
+                trigger=${triggerValue}
                 class=${classMap({
-                  feedback: true,
-                  'feedback-success': this.status === 'success',
-                  'feedback-error': this.status === 'error',
+                  'copy-button-tooltip': true,
+                  'copy-button-tooltip-success': this.status === 'success',
+                  'copy-button-tooltip-error': this.status === 'error',
                 })}
-                part="feedback"
-                role="status"
-                aria-live="polite"
+                ?disabled=${this.disabled}
+                >${this.currentLabel}</wa-tooltip
               >
-                ${this.currentLabel}
-              </div>
             `
           : ''}
+        <slot name="${INTERNAL_TOOLTIP_SLOT}"></slot>
       </div>
     `;
   }
