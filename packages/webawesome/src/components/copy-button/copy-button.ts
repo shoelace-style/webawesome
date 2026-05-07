@@ -24,7 +24,7 @@ const ASSIGNED_ID_PROP = '__waCopyButtonAssignedId';
  *  error feedback so users know the copy worked.
  * @documentation https://webawesome.com/docs/components/copy
  * @status stable
- * @since 2.7
+ * @since 3.6
  *
  * @dependency wa-icon
  * @dependency wa-tooltip
@@ -45,7 +45,7 @@ const ASSIGNED_ID_PROP = '__waCopyButtonAssignedId';
  * @csspart copy-icon - The container that holds the copy icon.
  * @csspart success-icon - The container that holds the success icon.
  * @csspart error-icon - The container that holds the error icon.
- * @csspart tooltip - The internal `<wa-tooltip>` element.
+ * @csspart feedback - The internal `<wa-tooltip>` element.
  */
 @customElement('wa-copy-button')
 export default class WaCopyButton extends WebAwesomeElement {
@@ -58,7 +58,7 @@ export default class WaCopyButton extends WebAwesomeElement {
   @query('slot[name="success-icon"]') successIcon: HTMLSlotElement;
   @query('slot[name="error-icon"]') errorIcon: HTMLSlotElement;
   @query('slot:not([name])') defaultSlot: HTMLSlotElement;
-  @query('wa-tooltip[part="tooltip"]') shadowTooltip: WaTooltip;
+  @query('wa-tooltip[part="feedback"]') shadowTooltip: WaTooltip;
 
   @state() isCopying = false;
   @state() status: 'rest' | 'success' | 'error' = 'rest';
@@ -116,11 +116,11 @@ export default class WaCopyButton extends WebAwesomeElement {
     'top';
 
   /**
-   * Controls the built-in tooltip. `feedback` (default) keeps the tooltip silent on hover/focus and only shows it
-   * briefly to confirm a successful or failed copy. `full` also shows the tooltip on hover and focus. `none` disables
-   * the tooltip entirely. Applies to both the default and custom triggers.
+   * Controls the built-in tooltip. `full` (default) shows the tooltip on hover and focus and during copy feedback.
+   * `copy` keeps the tooltip silent on hover/focus and only shows it briefly to confirm a successful or failed copy.
+   * `none` disables the tooltip entirely. Applies to both the default and custom triggers.
    */
-  @property({ reflect: true }) tooltip: 'full' | 'feedback' | 'none' = 'feedback';
+  @property({ reflect: true }) tooltip: 'full' | 'copy' | 'none' = 'full';
 
   firstUpdated() {
     this.handleDefaultSlotChange();
@@ -159,15 +159,15 @@ export default class WaCopyButton extends WebAwesomeElement {
   }
 
   @watch('tooltip', { waitUntilFirstUpdate: true })
-  handleTooltipModeChange(oldValue?: 'full' | 'feedback' | 'none') {
+  handleTooltipModeChange(oldValue?: 'full' | 'copy' | 'none') {
     if (this.tooltip === 'none') {
       this.removeLightTooltip();
     } else if (oldValue === 'none') {
       // Re-create the light tooltip if a custom trigger is present
       this.handleDefaultSlotChange();
     } else if (this.lightTooltip) {
-      // Switching between 'full' and 'feedback' — just update the trigger
-      this.lightTooltip.setAttribute('trigger', this.tooltip === 'feedback' ? 'manual' : 'hover focus');
+      // Switching between 'full' and 'copy' — just update the trigger
+      this.lightTooltip.setAttribute('trigger', this.tooltip === 'copy' ? 'manual' : 'hover focus');
     }
   }
 
@@ -206,12 +206,12 @@ export default class WaCopyButton extends WebAwesomeElement {
       return;
     }
 
-    const triggerValue = this.tooltip === 'feedback' ? 'manual' : 'hover focus';
+    const triggerValue = this.tooltip === 'copy' ? 'manual' : 'hover focus';
 
     if (!this.lightTooltip) {
       const tooltip = document.createElement('wa-tooltip') as WaTooltip;
       tooltip.setAttribute('slot', INTERNAL_TOOLTIP_SLOT);
-      tooltip.setAttribute('part', 'tooltip');
+      tooltip.setAttribute('part', 'feedback');
       tooltip.setAttribute('trigger', triggerValue);
       tooltip.dataset.copyButtonTooltip = '';
       tooltip.setAttribute('for', this.customTriggerEl.id);
@@ -374,7 +374,7 @@ export default class WaCopyButton extends WebAwesomeElement {
   render() {
     const hasCustomTrigger = this.hasSlotController.test('[default]');
     const showTooltip = !hasCustomTrigger && this.tooltip !== 'none';
-    const triggerValue = this.tooltip === 'feedback' ? 'manual' : 'hover focus';
+    const triggerValue = this.tooltip === 'copy' ? 'manual' : 'hover focus';
 
     return html`
       <div class="copy-button__trigger" @click=${this.handleCopy}>
@@ -402,7 +402,7 @@ export default class WaCopyButton extends WebAwesomeElement {
         ${showTooltip
           ? html`
               <wa-tooltip
-                part="tooltip"
+                part="feedback"
                 for="copy-button"
                 placement=${this.tooltipPlacement}
                 trigger=${triggerValue}

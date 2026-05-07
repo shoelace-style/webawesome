@@ -64,9 +64,9 @@ describe('<wa-copy-button>', () => {
           expect(el.tooltipPlacement).to.equal('top');
         });
 
-        it('should default tooltip to "feedback"', async () => {
+        it('should default tooltip to "full"', async () => {
           const el = await fixture<WaCopyButton>(html`<wa-copy-button></wa-copy-button>`);
-          expect(el.tooltip).to.equal('feedback');
+          expect(el.tooltip).to.equal('full');
         });
 
         it('should have a default status of rest', async () => {
@@ -346,9 +346,9 @@ describe('<wa-copy-button>', () => {
           expect(tooltip.getAttribute('trigger')).to.equal('hover focus');
         });
 
-        it('should render a tooltip with manual trigger when tooltip="feedback" on the default trigger', async () => {
+        it('should render a tooltip with manual trigger when tooltip="copy" on the default trigger', async () => {
           const el = await fixture<WaCopyButton>(
-            html`<wa-copy-button value="test" tooltip="feedback"></wa-copy-button>`,
+            html`<wa-copy-button value="test" tooltip="copy"></wa-copy-button>`,
           );
           await el.updateComplete;
           const tooltip = el.shadowRoot!.querySelector<WaTooltip>('wa-tooltip')!;
@@ -356,9 +356,9 @@ describe('<wa-copy-button>', () => {
           expect(tooltip.getAttribute('trigger')).to.equal('manual');
         });
 
-        it('should render a tooltip with manual trigger when tooltip="feedback" on a custom trigger', async () => {
+        it('should render a tooltip with manual trigger when tooltip="copy" on a custom trigger', async () => {
           const el = await fixture<WaCopyButton>(html`
-            <wa-copy-button value="test" tooltip="feedback">
+            <wa-copy-button value="test" tooltip="copy">
               <button>Custom Copy</button>
             </wa-copy-button>
           `);
@@ -370,7 +370,7 @@ describe('<wa-copy-button>', () => {
 
         it('should not open the feedback-mode tooltip on hover', async () => {
           const el = await fixture<WaCopyButton>(html`
-            <wa-copy-button value="test" tooltip="feedback">
+            <wa-copy-button value="test" tooltip="copy">
               <button>Custom Copy</button>
             </wa-copy-button>
           `);
@@ -389,7 +389,7 @@ describe('<wa-copy-button>', () => {
           sinon.stub(navigator.clipboard, 'writeText').resolves();
 
           const el = await fixture<WaCopyButton>(html`
-            <wa-copy-button value="test" tooltip="feedback" feedback-duration="2000">
+            <wa-copy-button value="test" tooltip="copy" feedback-duration="2000">
               <button>Custom Copy</button>
             </wa-copy-button>
           `);

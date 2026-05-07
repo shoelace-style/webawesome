@@ -132,13 +132,13 @@ After copying, the tooltip briefly displays a success or error label. Use the `f
 
 The `tooltip` attribute controls when the built-in tooltip appears. It applies to both the default trigger and [custom triggers](#custom-trigger).
 
-- `feedback` (default): the tooltip stays silent on hover and focus, and only appears briefly to confirm a successful or failed copy.
-- `full`: the tooltip shows on hover and focus, and is reused to display copy feedback.
+- `full` (default): the tooltip shows on hover and focus, and is reused to display copy feedback.
+- `copy`: the tooltip stays silent on hover and focus, and only appears briefly to confirm a successful or failed copy.
 - `none`: no tooltip is shown in any state.
 
 ```html {.example}
 <wa-copy-button value="Full" tooltip="full"></wa-copy-button>
-<wa-copy-button value="Feedback" tooltip="feedback"></wa-copy-button>
+<wa-copy-button value="Copy" tooltip="copy"></wa-copy-button>
 <wa-copy-button value="None" tooltip="none"></wa-copy-button>
 ```
 
@@ -146,8 +146,8 @@ The `tooltip` attribute controls when the built-in tooltip appears. It applies t
 <wa-copy-button value="Full" tooltip="full">
   <wa-button appearance="filled">Full</wa-button>
 </wa-copy-button>
-<wa-copy-button value="Feedback" tooltip="feedback">
-  <wa-button appearance="filled">Feedback</wa-button>
+<wa-copy-button value="Copy" tooltip="copy">
+  <wa-button appearance="filled">Copy</wa-button>
 </wa-copy-button>
 <wa-copy-button value="None" tooltip="none">
   <wa-button appearance="filled">None</wa-button>
