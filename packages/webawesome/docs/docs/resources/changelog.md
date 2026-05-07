@@ -15,8 +15,11 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 <small>TBD</small>
 
 - Added `--wa-button-transform-hover` and `--wa-button-transform-active` design tokens
-- Updated `--wa-color-mix-hover` and `--wa-color-mix-active` values for all themes for better hover and active feedback
+- Added the `wa-text-wrap-nowrap` text utility class for preventing text from wrapping
+- Added the `wa-text-wrap-balance` text utility class for evenly distributing text across lines
+- Added the `wa-text-wrap-pretty` text utility class for avoiding orphaned words on the last line (not supported in Firefox)
 - Fixed a Playful theme bug where modifier classes (e.g. `wa-filled`) didn't apply to native button elements
+- Updated `--wa-color-mix-hover` and `--wa-color-mix-active` values for all themes for better hover and active feedback
 
 ## 3.6.0
 

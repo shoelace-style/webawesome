@@ -109,9 +109,13 @@
   }
 
   p {
-    text-wrap: pretty;
+    text-wrap: wrap;
   }
-
+  @supports (text-wrap: pretty) {
+    p {
+      text-wrap: pretty;
+    }
+  }
   blockquote {
     padding: var(--wa-space-xl);
 
