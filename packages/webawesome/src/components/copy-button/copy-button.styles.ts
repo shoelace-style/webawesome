@@ -7,22 +7,24 @@ export default css`
   }
 
   .copy-button__trigger {
-    display: inline-flex;
     position: relative;
   }
 
   .button {
-    flex: 0 0 auto;
-    display: flex;
+    display: inline-flex;
     align-items: center;
+    justify-content: center;
     background-color: transparent;
     border: none;
     border-radius: var(--wa-form-control-border-radius);
     color: inherit;
     font-size: inherit;
-    padding: 0.5em;
+    height: calc(var(--wa-form-control-height) * 0.8);
+    aspect-ratio: 1;
     cursor: pointer;
-    transition: color var(--wa-transition-fast) var(--wa-transition-easing);
+    transition-property: background-color, color;
+    transition-duration: var(--wa-transition-fast);
+    transition-timing-function: var(--wa-transition-easing);
   }
 
   @media (hover: hover) {
@@ -210,7 +212,7 @@ export default css`
     }
     to {
       opacity: 0;
-      transform: translateX(-50%) translateY(-0.25rem) scale(0.95);
+      transform: translateX(-50%) translateY(0.2rem) scale(0.9);
     }
   }
 
@@ -241,7 +243,7 @@ export default css`
     }
     to {
       opacity: 0;
-      transform: translateX(-50%) translateY(0.25rem) scale(0.95);
+      transform: translateX(-50%) translateY(-0.2rem) scale(0.9);
     }
   }
 
@@ -272,7 +274,7 @@ export default css`
     }
     to {
       opacity: 0;
-      transform: translateY(-50%) translateX(-0.25rem) scale(0.95);
+      transform: translateY(-50%) translateX(0.2rem) scale(0.9);
     }
   }
 
@@ -303,7 +305,7 @@ export default css`
     }
     to {
       opacity: 0;
-      transform: translateY(-50%) translateX(0.25rem) scale(0.95);
+      transform: translateY(-50%) translateX(-0.2rem) scale(0.9);
     }
   }
 

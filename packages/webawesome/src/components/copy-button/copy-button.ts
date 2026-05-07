@@ -82,7 +82,7 @@ export default class WaCopyButton extends WebAwesomeElement {
   /** Disables the copy button. */
   @property({ type: Boolean, reflect: true }) disabled = false;
 
-  /** A custom label to show in the accessible name and feedback popup. */
+  /** A custom label to use as an accessible name and show in the feedback popup. */
   @property({ attribute: 'copy-label' }) copyLabel = '';
 
   /** A custom label to show in the feedback popup after copying. */
