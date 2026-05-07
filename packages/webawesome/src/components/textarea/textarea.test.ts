@@ -436,6 +436,52 @@ line three"
     });
   });
 
+  describe('resize mode changes', () => {
+    it('should re-bind the resize observer when switching from a manual mode to auto', async () => {
+      // Regression: previously the observer was created once on first updated() and never recreated when `resize`
+      // changed, so switching from a manual mode to `auto` left the observer pointed at the inner textarea instead of
+      // the host. The auto-mode height recompute on width change then never fired.
+      const container = await clientFixture<HTMLDivElement>(html`
+        <div style="display: none">
+          <wa-textarea
+            resize="vertical"
+            value="line one
+line two
+line three"
+          ></wa-textarea>
+        </div>
+      `);
+      const el = container.querySelector<WaTextarea>('wa-textarea')!;
+      await el.updateComplete;
+
+      el.resize = 'auto';
+      await el.updateComplete;
+
+      const textarea = el.shadowRoot!.querySelector<HTMLTextAreaElement>('[part~="textarea"]')!;
+      container.style.display = '';
+
+      await waitUntil(
+        () => textarea.clientHeight > 0,
+        'textarea did not auto-size after switching resize mode and becoming visible',
+      );
+
+      expect(textarea.clientHeight).to.be.greaterThan(0);
+    });
+
+    it('should disconnect the resize observer when switching to none', async () => {
+      const el = await clientFixture<WaTextarea>(html`<wa-textarea resize="auto"></wa-textarea>`);
+      await el.updateComplete;
+
+      // Access the private field for verification — there is no public surface for the observer.
+      expect((el as unknown as { resizeObserver?: ResizeObserver }).resizeObserver).to.exist;
+
+      el.resize = 'none';
+      await el.updateComplete;
+
+      expect((el as unknown as { resizeObserver?: ResizeObserver }).resizeObserver).to.be.undefined;
+    });
+  });
+
   describe('auto resize shrinking', () => {
     it('should shrink the visible wrapper back to its original size after expanded content is cleared', async () => {
       const el = await clientFixture<WaTextarea>(html`<wa-textarea resize="auto"></wa-textarea>`);

@@ -220,7 +220,14 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
     // text needs to re-wrap).
     const needsObserver = this.resize !== 'none';
 
-    if (needsObserver && !this.resizeObserver && this.input) {
+    // Always tear down first. The `auto` and manual modes observe different targets with different callbacks, so a
+    // stale observer from the previous mode would keep firing on the wrong element.
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect();
+      this.resizeObserver = undefined;
+    }
+
+    if (needsObserver && this.input) {
       if (this.resize === 'auto') {
         // Observe the host's width only. Height changes are skipped so our own height mutation in
         // `setTextareaDimensions` doesn't recurse into the observer. The recompute is deferred to the next frame so it
@@ -237,9 +244,6 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
         this.resizeObserver = new ResizeObserver(() => this.setTextareaDimensions());
         this.resizeObserver.observe(this.input);
       }
-    } else if (!needsObserver && this.resizeObserver) {
-      this.resizeObserver.disconnect();
-      this.resizeObserver = undefined;
     }
   }
 
