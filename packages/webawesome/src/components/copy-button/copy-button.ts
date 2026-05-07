@@ -63,6 +63,7 @@ export default class WaCopyButton extends WebAwesomeElement {
   @state() isCopying = false;
   @state() status: 'rest' | 'success' | 'error' = 'rest';
   @state() hasCustomTrigger = false;
+  @state() liveAnnouncement = '';
 
   private customTriggerEl: HTMLElement | null = null;
   private lightTooltip: WaTooltip | null = null;
@@ -135,6 +136,13 @@ export default class WaCopyButton extends WebAwesomeElement {
     this.customStates.set('success', this.status === 'success');
     this.customStates.set('error', this.status === 'error');
     this.syncTooltipText();
+
+    // Announce success/error to screen readers via live region
+    if (this.status === 'success' || this.status === 'error') {
+      this.liveAnnouncement = this.currentLabel;
+    } else {
+      this.liveAnnouncement = '';
+    }
   }
 
   @watch(['copyLabel', 'successLabel', 'errorLabel'])
@@ -409,6 +417,7 @@ export default class WaCopyButton extends WebAwesomeElement {
             `
           : ''}
         <slot name="${INTERNAL_TOOLTIP_SLOT}"></slot>
+        <div class="wa-visually-hidden" role="status" aria-live="polite">${this.liveAnnouncement}</div>
       </div>
     `;
   }
