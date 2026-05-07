@@ -68,7 +68,7 @@ Use `data-popover="close"` on any button inside a popover to close it automatica
 Use the `placement` attribute to set where the popover appears relative to its anchor. The popover will automatically reposition if there isn't enough space in the preferred location. The default placement is `top`.
 
 ```html {.example}
-<div style="display: flex; gap: 1rem; align-items: center;">
+<div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
   <wa-button appearance="filled" id="popover__top">Top</wa-button>
   <wa-popover for="popover__top" placement="top">I'm on the top</wa-popover>
 
@@ -129,7 +129,7 @@ Use the [`autofocus`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_a
 ```html {.example}
 <wa-popover for="popover__autofocus">
   <div style="display: flex; flex-direction: column; gap: 1rem;">
-    <wa-textarea autofocus placeholder="What's on your mind?" size="s" resize="none" rows="3"></wa-textarea>
+    <wa-textarea autofocus placeholder="What's on your mind?" size="s" resize="none" rows="2"></wa-textarea>
     <wa-button appearance="filled" variant="primary" size="s" data-popover="close"> Submit </wa-button>
   </div>
 </wa-popover>

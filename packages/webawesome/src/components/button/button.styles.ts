@@ -38,7 +38,6 @@ export default css`
     font-family: inherit;
     font-size: inherit;
     font-weight: var(--wa-font-weight-action);
-    line-height: calc(var(--wa-form-control-height) - var(--wa-form-control-border-width) * 2);
     height: var(--wa-form-control-height);
     width: 100%;
 

@@ -100,7 +100,12 @@ export default css`
     }
   }
 
-  /* Slots */
+  /* Prevents vertical space when icons with vertical-align are slotted in - https://github.com/shoelace-style/webawesome/issues/2280 */
+  [part='start'],
+  [part='end'] {
+    line-height: 0;
+  }
+
   slot[name='start']::slotted(*) {
     margin-inline-end: 0.375em;
   }
