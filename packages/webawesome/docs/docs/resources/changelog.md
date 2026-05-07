@@ -12,6 +12,9 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 ## Unreleased
 
+<small>TBD</small>
+
+- Added `--wa-button-transform-hover` and `--wa-button-transform-active` design tokens
 - Added the `wa-text-wrap-nowrap` text utility class for preventing text from wrapping
 - Added the `wa-text-wrap-balance` text utility class for evenly distributing text across lines
 - Added the `wa-text-wrap-pretty` text utility class for avoiding orphaned words on the last line (not supported in Firefox)
@@ -22,6 +25,8 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 - Fixed a bug in `<wa-radio-group>` where the label was vertically offset by a few pixels compared to other form control labels [issue:2334]
 - Fixed a bug in `<wa-badge>` that caused the height to differ slightly when icons were present in the `start` or `end` slot [issue:2280]
 - Fixed a bug in `<wa-toast>` that prevented notifications from being read properly in certain screen readers [issue:2282]
+- Fixed a Playful theme bug where modifier classes (e.g. `wa-filled`) didn't apply to native button elements
+- Updated `--wa-color-mix-hover` and `--wa-color-mix-active` values for all themes for better hover and active feedback [pr:2360]
 - Upgraded the `<wa-copy-button>` component from _experimental_ to _stable_
   - Added support for custom buttons
   - Added `tooltip` attribute to control when feedback is shown in the tooltip on hover and click

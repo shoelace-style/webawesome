@@ -629,12 +629,15 @@
       border-color: transparent;
 
       &:not(:disabled) {
-        &:hover {
-          background-color: color-mix(
-            in oklab,
-            var(--wa-color-fill-loud, var(--wa-color-neutral-fill-loud)),
-            var(--wa-color-mix-hover)
-          );
+        @media (hover: hover) {
+          &:hover {
+            background-color: color-mix(
+              in oklab,
+              var(--wa-color-fill-loud, var(--wa-color-neutral-fill-loud)),
+              var(--wa-color-mix-hover)
+            );
+            transform: var(--wa-button-transform-hover);
+          }
         }
 
         &:active {
@@ -643,6 +646,14 @@
             var(--wa-color-fill-loud, var(--wa-color-neutral-fill-loud)),
             var(--wa-color-mix-active)
           );
+          transform: var(--wa-button-transform-active);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          &:hover,
+          &:active {
+            transform: none;
+          }
         }
       }
     }
