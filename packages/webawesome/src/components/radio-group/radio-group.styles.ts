@@ -1,10 +1,6 @@
 import { css } from 'lit';
 
 export default css`
-  :host {
-    display: block;
-  }
-
   .form-control {
     position: relative;
     border: none;
