@@ -58,24 +58,24 @@ export default css`
 
   /* Remove leading and trailing buttons border radius individually */
   :host([orientation='horizontal']) {
-    ::slotted(:first-child) {
+    ::slotted(:first-child:not(:last-child)) {
       --_button-start-end-radius: 0;
       --_button-end-end-radius: 0;
     }
 
-    ::slotted(:last-child) {
+    ::slotted(:last-child:not(:first-child)) {
       --_button-start-start-radius: 0;
       --_button-end-start-radius: 0;
     }
   }
 
   :host([orientation='vertical']) {
-    ::slotted(:first-child) {
+    ::slotted(:first-child:not(:last-child)) {
       --_button-end-start-radius: 0;
       --_button-end-end-radius: 0;
     }
 
-    ::slotted(:last-child) {
+    ::slotted(:last-child:not(:first-child)) {
       --_button-start-start-radius: 0;
       --_button-start-end-radius: 0;
     }
