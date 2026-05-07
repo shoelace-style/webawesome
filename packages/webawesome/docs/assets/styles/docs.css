@@ -141,7 +141,7 @@ wa-page > main:has(.modern-card-list) {
   /* `<hr>` marks a topic shift. Its own margin defines the gap; the heading
      or paragraph that follows shouldn't double-stack on top. */
   hr {
-    margin-block: var(--wa-space-xl);
+    margin-block: var(--wa-space-3xl);
   }
   hr + :is(h1, h2, h3, h4, h5, h6) {
     margin-block-start: 0;
