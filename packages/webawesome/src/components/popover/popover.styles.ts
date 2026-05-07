@@ -90,4 +90,17 @@ export default css`
     user-select: none;
     -webkit-user-select: none;
   }
+
+  /* Reserve a small visual gap between the popover and the viewport edge on the axis where the popup can shift. */
+  .popover[data-current-placement^='top'] .body,
+  .popover[data-current-placement^='bottom'] .body {
+    max-width: min(var(--max-width), 100vw - (var(--wa-space-m) * 2));
+    margin-inline: var(--wa-space-m);
+  }
+
+  .popover[data-current-placement^='left'] .body,
+  .popover[data-current-placement^='right'] .body {
+    max-height: calc(100vh - (var(--wa-space-m) * 2));
+    margin-block: var(--wa-space-m);
+  }
 `;
