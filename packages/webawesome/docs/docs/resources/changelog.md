@@ -69,6 +69,7 @@ These are still finding their shape. APIs can change between minor versions, so 
 - Added the `wa-text-wrap-nowrap` text utility class for preventing text from wrapping
 - Added the `wa-text-wrap-balance` text utility class for evenly distributing text across lines
 - Added the `wa-text-wrap-pretty` text utility class for avoiding orphaned words on the last line (not supported in Firefox)
+- Added the `wa-prose` utility class for applying typographic rhythm to long-form content (docs, blog posts, marketing copy).
 
 :::
 

@@ -1,0 +1,177 @@
+@layer wa-utilities {
+  /* `wa-prose` applies hierarchical, asymmetric typographic rhythm to a block
+     of long-form content. It builds on `wa-native`'s base block styles rather
+     than duplicating them, and uses em-based spacing internally so it scales
+     when composed with `wa-font-size-*` utilities. Colors flow from theme
+     tokens — no prose-specific color variants required. */
+  .wa-prose {
+    /* #region Tokens ~~~~~~~~~~~~ */
+
+    /* Em-based spacing scale that mirrors `--wa-space-*` numerically. Each
+       token resolves at the use site, so heading and block margins scale with
+       the container's font-size. `--wa-prose-rhythm-scale` lets advanced users
+       tighten or loosen all rhythm at once. */
+    --wa-prose-rhythm-scale: 1;
+    --wa-prose-rhythm-2xs: calc(0.25em * var(--wa-space-scale) * var(--wa-prose-rhythm-scale));
+    --wa-prose-rhythm-xs: calc(0.5em * var(--wa-space-scale) * var(--wa-prose-rhythm-scale));
+    --wa-prose-rhythm-s: calc(0.75em * var(--wa-space-scale) * var(--wa-prose-rhythm-scale));
+    --wa-prose-rhythm-m: calc(1em * var(--wa-space-scale) * var(--wa-prose-rhythm-scale));
+    --wa-prose-rhythm-l: calc(1.5em * var(--wa-space-scale) * var(--wa-prose-rhythm-scale));
+    --wa-prose-rhythm-xl: calc(2em * var(--wa-space-scale) * var(--wa-prose-rhythm-scale));
+    --wa-prose-rhythm-2xl: calc(2.5em * var(--wa-space-scale) * var(--wa-prose-rhythm-scale));
+    --wa-prose-rhythm-3xl: calc(3em * var(--wa-space-scale) * var(--wa-prose-rhythm-scale));
+
+    /* Comfortable reading column. Override or set max-inline-size directly. */
+    --wa-prose-line-length: 65ch;
+
+    max-inline-size: var(--wa-prose-line-length);
+    /* #endregion */
+
+    /* #region Headings ~~~~~~~~~~~~ */
+
+    /* Em-based heading sizes match WA's modular scale at the default root, so
+       `wa-font-size-*` utilities can rescale the whole prose body. Authors
+       overriding these should also use em values to preserve composition. */
+    & h1 {
+      font-size: calc(2.5625em * var(--wa-font-size-scale));
+    }
+    & h2 {
+      font-size: calc(2em * var(--wa-font-size-scale));
+    }
+    & h3 {
+      font-size: calc(1.5625em * var(--wa-font-size-scale));
+    }
+    & h4 {
+      font-size: calc(1.25em * var(--wa-font-size-scale));
+    }
+    & h5 {
+      font-size: 1em;
+    }
+    & h6 {
+      font-size: calc(0.75em * var(--wa-font-size-scale));
+    }
+
+    /* Slight optical tracking; only the larger sizes need it. */
+    & :is(h1, h2) {
+      letter-spacing: -0.01em;
+    }
+
+    /* Headings hug what they introduce: generous above, tight below. */
+    & * + h2 {
+      margin-block-start: var(--wa-prose-rhythm-2xl);
+    }
+    & h2:has(+ *) {
+      margin-block-end: var(--wa-prose-rhythm-s);
+    }
+
+    & * + h3 {
+      margin-block-start: var(--wa-prose-rhythm-xl);
+    }
+    & h3:has(+ *) {
+      margin-block-end: var(--wa-prose-rhythm-s);
+    }
+
+    & :is(h4, h5, h6):has(+ *) {
+      margin-block-end: var(--wa-prose-rhythm-xs);
+    }
+
+    /* Prevents stacked top + bottom margins on back-to-back headings. */
+    & h2 + :is(h3, h4),
+    & h3 + h4 {
+      margin-block-start: var(--wa-prose-rhythm-m);
+    }
+    /* #endregion */
+
+    /* #region Body text & lists ~~~~~~~~~~~~ */
+
+    /* Override `wa-native`'s rem-based content spacing with the em-based prose
+       scale. Same visual size at default root, but scales with composition. */
+    & p:has(+ *),
+    & :is(ul, ol, dl):has(+ *) {
+      margin-block-end: var(--wa-prose-rhythm-l);
+    }
+
+    /* Multi-line list items get a small breath between them. */
+    & :is(ul, ol) > li:has(+ li) {
+      margin-block-end: var(--wa-prose-rhythm-2xs);
+    }
+
+    & dt {
+      font-weight: var(--wa-font-weight-bold);
+    }
+    & dd:has(+ *) {
+      margin-block-end: var(--wa-prose-rhythm-s);
+    }
+    /* #endregion */
+
+    /* #region Captions & block quotes ~~~~~~~~~~~~ */
+
+    & figcaption {
+      color: var(--wa-color-text-quiet);
+      font-size: var(--wa-font-size-smaller);
+      line-height: var(--wa-line-height-condensed);
+      margin-block-start: var(--wa-prose-rhythm-xs);
+    }
+
+    /* Quoted text reads as quieter than running prose. Hanging punctuation
+       pulls opening quote marks into the margin where supported (Safari today). */
+    & blockquote {
+      color: var(--wa-color-text-quiet);
+      hanging-punctuation: first last;
+    }
+    /* #endregion */
+
+    /* #region Tables ~~~~~~~~~~~~ */
+
+    /* Tabular numerals so numeric columns align cleanly. */
+    & table {
+      font-variant-numeric: tabular-nums;
+    }
+
+    & th {
+      border-block-end: var(--wa-border-style) var(--wa-border-width-s) var(--wa-color-border-normal);
+    }
+    /* #endregion */
+
+    /* #region Section breaks & major non-text blocks ~~~~~~~~~~~~ */
+
+    /* `<hr>` marks a topic shift. Its own margin defines the gap; the heading
+       or paragraph that follows shouldn't double-stack on top. */
+    & hr {
+      margin-block: var(--wa-prose-rhythm-3xl);
+    }
+    & hr + :is(h1, h2, h3, h4, h5, h6) {
+      margin-block-start: 0;
+    }
+
+    /* Major non-text blocks (code, figures, tables, quotes, callouts) get
+       more breathing room than running prose, but headings still hug — so the
+       top-margin rule only applies after non-heading siblings. */
+    & :is(pre, figure, table, blockquote, wa-callout):has(+ *) {
+      margin-block-end: var(--wa-prose-rhythm-xl);
+    }
+
+    & :not(h1, h2, h3, h4, h5, h6) + :is(pre, figure, table, blockquote, wa-callout) {
+      margin-block-start: var(--wa-prose-rhythm-xl);
+    }
+
+    /* Visually heavy blocks still deserve a minimum breath after a heading. */
+    & :is(h1, h2, h3, h4, h5, h6) + :is(pre, figure, table, blockquote, wa-callout) {
+      margin-block-start: var(--wa-prose-rhythm-m);
+    }
+    /* #endregion */
+  }
+
+  /* Reverts only the properties wa-prose touches, so layout and typography
+     utilities applied alongside (e.g., `wa-cluster`, `wa-font-size-l`) keep
+     working inside the opt-out subtree. */
+  .wa-not-prose,
+  .wa-not-prose * {
+    margin-block-start: revert-layer;
+    margin-block-end: revert-layer;
+    font-size: revert-layer;
+    letter-spacing: revert-layer;
+    font-variant-numeric: revert-layer;
+    hanging-punctuation: revert-layer;
+  }
+}
