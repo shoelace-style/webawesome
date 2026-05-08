@@ -723,7 +723,7 @@ Most of what follows is silent breakage: code that won't throw but will misbehav
 - **CSS part renames.** Most parts are stable, but a few have changed (e.g., dialog/drawer's close button is no longer an exported `sl-icon-button` part). If you styled `::part(close-button__base)`, check the new equivalent on the component's API page.
 - **CSS custom property fallbacks.** If you used `var(--sl-color-primary-500, blue)` and didn't update the variable, the fallback will silently take over. Search for `--sl-` to clean up.
 - **`open` on `<wa-callout>`.** Doesn't exist. If you had `<sl-alert open>` in a template that toggled visibility via the attribute, you need to conditionally render the callout instead.
-- **`<sl-alert>.toast()`.** Method removed. Use [`<wa-toast>`](#wa-toast-pro) <wa-badge appearance="accent" pill class="pro">Pro</wa-badge> for notification UX.
+- **`<sl-alert>.toast()`.** Method removed. Use `<wa-toast>` <wa-badge appearance="accent" pill class="pro">Pro</wa-badge> for notification UX.
 - **Bootstrap Icons names.** If you don't register the Bootstrap Icons library, your icon names will resolve against Font Awesome's catalog and many will silently render as a question mark.
 
 ### Step 7: Test
@@ -819,12 +819,12 @@ Every build emits an [Agent Skill bundle](/docs/ai/agent-skills) and an `llms.tx
 
 Web Awesome Pro is a separate, paid package (`@awesome.me/webawesome-pro`) that adds components for higher-stakes patterns. It's a strict superset of free, so you don't lose anything by upgrading. Pro includes:
 
-- `<wa-toast>` and `<wa-toast-item>`: toast notification stack
-- `<wa-combobox>`: combobox or autocomplete with multiselect
-- `<wa-file-input>`: drag-and-drop file input with previews
-- `<wa-chart>` and seven typed chart subclasses (built on Chart.js, themed via design tokens)
-- `<wa-sparkline>`: inline trend visualization
-- 8 additional themes (`active`, `brutalist`, `glossy`, `matter`, `mellow`, `playful`, `premium`, `tailspin`) with additional hand-crafted color palettes
+- [`<wa-toast>`](/docs/components/toast) and [`<wa-toast-item>`](/docs/components/toast-item): toast notification stack
+- [`<wa-combobox>`](/docs/components/combobox): combobox or autocomplete with multiselect
+- [`<wa-file-input>`](/docs/components/file-input): drag-and-drop file input with previews
+- [`<wa-chart>`](/docs/components/chart) and seven typed chart subclasses (built on Chart.js, themed via design tokens)
+- [`<wa-sparkline>`](/docs/components/sparkline): inline trend visualization
+- 8 additional [themes](/docs/themes) (`active`, `brutalist`, `glossy`, `matter`, `mellow`, `playful`, `premium`, `tailspin`) with additional hand-crafted [color palettes](/docs/color-palettes)
 - Pro Theme Builder, Pro Color Tools, Pattern Library, Figma Design Kit
 - Hosted projects and human support
 
