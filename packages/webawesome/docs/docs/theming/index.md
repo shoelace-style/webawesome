@@ -35,7 +35,8 @@ Variants convey a specific meaning through color. There are five variants:
 
 Brand and neutral are used by nearly every element, component, and pattern across the library. Success, warning, and danger are used selectively by components that could benefit from semantic reinforcement, such as buttons and callouts.
 
-{% include 'theming/variants.njk' %}
+{% set colorScales = ["brand", "neutral", "success", "warning", "danger"] %}
+{% include "theming/color-palette-viewer.njk" %}
 
 Any hue from a color palette can be assigned to a variant. Each variant is determined by `class="wa-{variant}-{hue}"` on the `<html>` element. If no class is specified:
 - **Brand** defaults to <wa-icon name="square" style="color: var(--wa-color-blue);"></wa-icon> **blue**
@@ -49,7 +50,121 @@ Any hue from a color palette can be assigned to a variant. Each variant is deter
 
 Theme styles assign specific tints from your chosen variant colors — along with qualities like fonts, borders, space, and shadows — to design tokens that style elements and components. Themes may also contain custom CSS overrides to change the default look of components.
 
-TODO: Add theme preview
+```html {.example}
+<div class="wa-stack">
+  <wa-card>
+    <div class="wa-grid">
+      <wa-button variant="danger">
+        <wa-icon slot="start" name="hand"></wa-icon>
+        Stop!
+      </wa-button>
+      <wa-button href="https://www.youtube.com/watch?v=otCpCn0l4Wo" target="_blank" rel="noopener noreferrer">
+        <wa-icon slot="start" name="hammer"></wa-icon>
+        Hammer Time!
+      </wa-button>
+      <wa-button variant="neutral" appearance="outlined" disabled>
+        <wa-icon slot="end" name="ban"></wa-icon>
+        Can't Touch This!
+      </wa-button>
+      <wa-button variant="brand" appearance="filled" pill href="https://www.youtube.com/watch?v=nhGShQ_g1kQ"
+        target="_blank" rel="noopener noreferrer">
+        <wa-icon slot="start" name="hand-peace"></wa-icon>
+        Quit
+      </wa-button>
+    </div>
+  </wa-card>
+  <wa-card>
+    <div class="wa-stack">
+      <wa-callout variant="success" appearance="filled" style="margin: 0">
+        <wa-icon slot="icon" family="duotone" variant="regular" name="user-bounty-hunter"
+          style="font-size: var(--wa-font-size-l);"></wa-icon>
+        <div class="wa-split">
+          <span>This is the way.</span>
+          <wa-button variant="success" size="s">
+            Follow the Creed
+          </wa-button>
+        </div>
+      </wa-callout>
+      <wa-callout variant="warning" appearance="filled" style="margin: 0">
+        <wa-icon slot="icon" family="duotone" variant="regular" name="space-station-moon"
+          style="font-size: var(--wa-font-size-l);"></wa-icon>
+        <div class="wa-split">
+          <span>That's no moon.</span>
+          <wa-button variant="warning" size="s">
+            Turn Around
+          </wa-button>
+        </div>
+      </wa-callout>
+    </div>
+  </wa-card>
+  <wa-card>
+    <div class="wa-split wa-gap-xl">
+      <div class="wa-cluster">
+        <wa-dropdown>
+          <wa-button appearance="filled" slot="trigger" with-caret>Export</wa-button>
+
+          <wa-dropdown-item>
+            Documents
+            <wa-dropdown-item slot="submenu" value="pdf">PDF</wa-dropdown-item>
+            <wa-dropdown-item slot="submenu" value="docx">Word Document</wa-dropdown-item>
+          </wa-dropdown-item>
+
+          <wa-dropdown-item>
+            Spreadsheets
+            <wa-dropdown-item slot="submenu">
+              Excel Formats
+              <wa-dropdown-item slot="submenu" value="xlsx">Excel (.xlsx)</wa-dropdown-item>
+              <wa-dropdown-item slot="submenu" value="xls">Excel 97-2003 (.xls)</wa-dropdown-item>
+              <wa-dropdown-item slot="submenu" value="csv">CSV (.csv)</wa-dropdown-item>
+            </wa-dropdown-item>
+
+            <wa-dropdown-item slot="submenu">
+              Other Formats
+              <wa-dropdown-item slot="submenu" value="ods">OpenDocument (.ods)</wa-dropdown-item>
+              <wa-dropdown-item slot="submenu" value="tsv">Tab-separated (.tsv)</wa-dropdown-item>
+              <wa-dropdown-item slot="submenu" value="json">JSON (.json)</wa-dropdown-item>
+            </wa-dropdown-item>
+
+            <wa-dropdown-item slot="submenu" value="numbers">Apple Numbers</wa-dropdown-item>
+          </wa-dropdown-item>
+
+          <wa-divider></wa-divider>
+
+          <wa-dropdown-item>
+            Options
+            <wa-dropdown-item slot="submenu" type="checkbox" value="compress">Compress files</wa-dropdown-item>
+            <wa-dropdown-item slot="submenu" type="checkbox" checked value="metadata">Include metadata</wa-dropdown-item>
+            <wa-dropdown-item slot="submenu" type="checkbox" value="password">Password protect</wa-dropdown-item>
+          </wa-dropdown-item>
+        </wa-dropdown>
+
+        <wa-button-group label="Example Save Button">
+          <wa-button appearance="filled" variant="brand">Save</wa-button>
+          <wa-dropdown placement="bottom-end">
+            <wa-button appearance="filled" slot="trigger" variant="brand">
+              <wa-icon name="chevron-down" label="More options"></wa-icon>
+            </wa-button>
+            <wa-dropdown-item>Save</wa-dropdown-item>
+            <wa-dropdown-item>Save as&hellip;</wa-dropdown-item>
+            <wa-dropdown-item>Save all</wa-dropdown-item>
+          </wa-dropdown>
+        </wa-button-group>
+      </div>
+
+      <div class="wa-cluster" style="flex: 1 1 auto;">
+        <div style="flex: 1 1 auto;">
+          <wa-slider label="Scale" name="scale" min="0" max="100" value="50" size="s" with-tooltip></wa-slider>
+        </div>
+
+        <wa-color-picker id="example-color-picker" size="s" value="f46a45" opacity>
+          <span slot="label" class="wa-visually-hidden">Set a Color Label</span>
+        </wa-color-picker>
+        <wa-tooltip for="example-color-picker">Set a Color Label</wa-tooltip>
+      </div>
+    </div>
+  </wa-card>
+</div>
+```
 
 Your theme is determined by `class="wa-theme-{name}"` on the `<html>` element. If no class is specified, the default theme is used.
 

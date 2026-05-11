@@ -1,6 +1,3 @@
-{% from "pro-badge.njk" import proBadge %}
-{% from "free-badge.njk" import freeBadge %}
-
 <div id="using-themes">
   <fieldset class="theme-options wa-stack" style="margin-block-end: var(--wa-content-spacing);">
     <legend style="align-self: start;">Theme Options</legend>
@@ -17,21 +14,19 @@
           </wa-option>
         {%- endif -%}
       {%- endfor -%}
-      {% raw %}{% if currentUser.hasPro %}{% endraw %}
-        {%- for theme in themer.themes -%}
-          {% if loop.first %}<wa-divider></wa-divider>{% endif %}
-          {%- if theme.isPro -%}
-            <wa-option 
-              value="{{ theme.name | lower }}"
-              data-palette="{{ theme.palette.filename | stripExtension}}"
-              data-brand="{{ theme.colorBrand.color }}"
-              {% if theme.isPro %}data-is-pro{% endif %}
-            >
-              {{ theme.name | capitalize }}
-            </wa-option>
-          {%- endif -%}
-        {%- endfor -%}
-      {% raw %}{% endif %}{% endraw %}
+      <wa-divider></wa-divider>
+      {%- for theme in themer.themes -%}
+        {%- if theme.isPro -%}
+          <wa-option 
+            value="{{ theme.name | lower }}"
+            data-palette="{{ theme.palette.filename | stripExtension}}"
+            data-brand="{{ theme.colorBrand.color }}"
+            {% if theme.isPro %}data-is-pro{% endif %}
+          >
+            {{ theme.name | capitalize }}
+          </wa-option>
+        {%- endif -%}
+      {%- endfor -%}
     </wa-select>
     <wa-select id="pick-palette" label="Color Palette" value="default" size="small">
       <wa-badge slot="end" appearance="accent" pill class="pro pro-only-value">Pro</wa-badge>
@@ -44,19 +39,18 @@
           </wa-option>
         {%- endif -%}
       {%- endfor -%}
-      {% raw %}{% if currentUser.hasPro %}{% endraw %}
-        {%- for palette in themer.palettes -%}
-          {% if loop.first %}<wa-divider></wa-divider>{% endif %}
-          {%- if palette.isPro -%}
-            <wa-option 
-              value="{{ palette.name | lower }}"
-              {% if palette.isPro %}data-is-pro{% endif %}
-            >
-              {{ palette.name | capitalize }}
-            </wa-option>
-          {%- endif -%}
-        {%- endfor -%}
-      {% raw %}{% endif %}{% endraw %}
+      <wa-divider></wa-divider>
+      {%- for palette in themer.palettes -%}
+        
+        {%- if palette.isPro -%}
+          <wa-option 
+            value="{{ palette.name | lower }}"
+            {% if palette.isPro %}data-is-pro{% endif %}
+          >
+            {{ palette.name | capitalize }}
+          </wa-option>
+        {%- endif -%}
+      {%- endfor -%}
     </wa-select>
     <div class="wa-grid">
       {%- set colorVariants = ['brand', 'neutral', 'success', 'warning', 'danger'] -%}
@@ -75,19 +69,43 @@
   </fieldset>
 </div>
 
-<wa-tab-group>
-  <wa-tab panel="cdn"><wa-icon name="rocket-launch" variant="regular"></wa-icon> CDN</wa-tab>
+<wa-tab-group data-install-tabs>
+  <wa-tab panel="cdn"><wa-icon name="globe" variant="regular"></wa-icon> CDN</wa-tab>
   <wa-tab panel="npm"><wa-icon name="box-open" variant="regular"></wa-icon> npm</wa-tab>
   <wa-tab panel="self-hosted"><wa-icon name="arrow-down-to-line" variant="regular"></wa-icon> Self-Hosted</wa-tab>
+  <wa-tab panel="hosted"><wa-icon name="rocket-launch" variant="regular"></wa-icon> Hosted Projects</wa-tab>
 
   <wa-tab-panel name="cdn">
-    <div class="wa-stack wa-gap-xl">
-      <wa-callout variant="neutral" size="small" id="pro-only-callout">
-        <wa-icon name="info-circle" variant="regular"></wa-icon>
-        This combination can only be used on teams with a Pro subscription.
-      </wa-callout>
-      <div id="free-instructions">
-        <strong>For projects on <wa-badge appearance="filled" variant="neutral" pill class="free">Free</wa-badge> teams:</strong>
+    <wa-callout variant="neutral" size="small" id="pro-only-callout">
+      <wa-icon name="info-circle" variant="regular"></wa-icon>
+      This combination can only be used with a Pro subscription.
+    </wa-callout>
+    <div class="free-instructions">
+      <p>To use these choices, add the following stylesheets from the CDN:</p>
+      <pre><code id="stylesheet-cdn-links" class="language-html"></code></pre>
+      <p>Then, apply the following classes to the <code>&lt;html&gt;</code> element:</p>
+      <pre><code class="html-classes" class="language-html"></code></pre>
+    </div>
+  </wa-tab-panel>
+
+  <wa-tab-panel name="npm">
+    <p>After installing <code>@awesome.me/webawesome</code>, import the following stylesheets:</p>
+    <pre><code id="stylesheet-imports" class="language-html"></code></pre>
+    <p>Then, apply the following classes to the <code>&lt;html&gt;</code> element:</p>
+    <pre><code class="html-classes" class="language-html"></code></pre>
+  </wa-tab-panel>
+
+  <wa-tab-panel name="self-hosted">
+    <p>If you're self-hosting Web Awesome, include the following stylesheets from your server:</p>
+    <pre><code id="stylesheet-dist-links" class="language-html"></code></pre>
+    <p>Then, apply the following classes to the <code>&lt;html&gt;</code> element:</p>
+    <pre><code class="html-classes" class="language-html"></code></pre>
+  </wa-tab-panel>
+
+  <wa-tab-panel name="hosted">
+    <div class="wa-stack">
+      <div class="free-instructions">
+        <strong>For projects in <wa-badge appearance="filled" variant="neutral" pill class="free">Free</wa-badge> workspaces:</strong>
         <ol>
           <li>Head over to your project's <wa-icon name="gear" variant="regular"></wa-icon> <strong>Settings</strong>.</li>
           <li>For <strong>Theme</strong>, select <wa-icon name="paintbrush" variant="regular"></wa-icon> <strong class="theme-name"></strong>.</li>
@@ -98,8 +116,8 @@
           </li>
         </ol>
       </div>
-      <div id="pro-instructions">
-        <strong>For projects on <wa-badge appearance="accent" pill class="pro">Pro</wa-badge> teams:</strong>
+      <div class="pro-instructions">
+        <strong>For projects in <wa-badge appearance="accent" pill class="pro">Pro</wa-badge> workspaces:</strong>
         <ol>
           <li>Head over to your project's <wa-icon name="gear" variant="regular"></wa-icon> <strong>Settings</strong>.</li>
           <li>Press <wa-icon name="paintbrush" variant="regular"></wa-icon> <strong>Edit Your Theme</strong> to open the Theme Builder.</li>
@@ -109,20 +127,6 @@
         </ol>
       </div>
     </div>
-  </wa-tab-panel>
-
-  <wa-tab-panel name="npm">
-    <p>To use this theme, include the following stylesheet(s):</p>
-    <pre><code id="stylesheet-imports" class="language-html"></code></pre>
-    <p>Then, apply the following classes to the <code>&lt;html&gt;</code> element:</p>
-    <pre><code class="html-classes" class="language-html"></code></pre>
-  </wa-tab-panel>
-
-  <wa-tab-panel name="self-hosted">
-    <p>To use this theme, include the following stylesheet(s):</p>
-    <pre><code id="stylesheet-links" class="language-html"></code></pre>
-    <p>Then, apply the following classes to the <code>&lt;html&gt;</code> element:</p>
-    <pre><code class="html-classes" class="language-html"></code></pre>
   </wa-tab-panel>
 </wa-tab-group>
 
@@ -135,7 +139,8 @@
   const warningPicker = document.getElementById('pick-warning');
   const dangerPicker = document.getElementById('pick-danger');
   
-  const stylesheetLinks = document.getElementById('stylesheet-links');
+  const stylesheetCdnLinks = document.getElementById('stylesheet-cdn-links');
+  const stylesheetDistLinks = document.getElementById('stylesheet-dist-links');
   const stylesheetImports = document.getElementById('stylesheet-imports');
   const htmlClassList = document.querySelectorAll('.html-classes');
   const variantClassList = document.querySelectorAll('.variant-classes');
@@ -169,13 +174,13 @@
 
     // Show/hide Pro-only callout
     const proOnlyCallout = document.getElementById('pro-only-callout');
-    const freeInstructions = document.getElementById('free-instructions');
+    const freeInstructions = document.querySelectorAll('.free-instructions');
     if (proOnlyTheme || proOnlyPalette) {
       proOnlyCallout.style.display = '';
-      freeInstructions.style.display = 'none';
+      freeInstructions.forEach(instruction => instruction.style.display = 'none');
     } else {
       proOnlyCallout.style.display = 'none';
-      freeInstructions.style.display = '';
+      freeInstructions.forEach(instruction => instruction.style.display = '');
     }
 
     // Show/hide Pro badge on selected Pro values
@@ -189,16 +194,19 @@
     });
 
     // Build stylesheet links
-    const links = [`<link rel="stylesheet" href="/dist/styles/themes/${theme}.css" />`];
+    const cdnLinks = [`<link rel="stylesheet" href="{% cdnUrl 'styles/themes/' %}${theme}.css" />`];
+    const distLinks = [`<link rel="stylesheet" href="/dist/styles/themes/${theme}.css" />`];
     const imports = [`import '@web.awesome.me/webawesome/dist/styles/themes/${theme}.css';`];
     
     // Only include palette link if it differs from theme's default
     if (palette !== themeDefaultPalette) {
-      links.push(`<link rel="stylesheet" href="/dist/styles/color/palettes/${palette}.css" />`);
+      cdnLinks.push(`<link rel="stylesheet" href="{% cdnUrl 'styles/color/palettes/' %}${palette}.css" />`);
+      distLinks.push(`<link rel="stylesheet" href="/dist/styles/color/palettes/${palette}.css" />`);
       imports.push(`import '@web.awesome.me/webawesome/dist/styles/color/palettes/${palette}.css';`);
     }
     
-    stylesheetLinks.textContent = links.join('\n');
+    stylesheetCdnLinks.textContent = cdnLinks.join('\n');
+    stylesheetDistLinks.textContent = distLinks.join('\n');
     stylesheetImports.textContent = imports.join('\n');
 
     // Build HTML classes

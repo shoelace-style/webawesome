@@ -8,9 +8,8 @@
   {%- endif -%}
 {%- endfor -%}
 
-<div id="color-palettes" class="wa-stack wa-gap-xl">
-  <wa-radio-group id="palette-picker" value="default" class="radio-cards">
-    <span slot="label" class="wa-visually-hidden">Color Palette</span>
+<div id="color-palettes">
+  <wa-radio-group label="Preview a Palette" id="palette-picker" value="default">
     <div class="wa-grid">
       {%- for palette in themer.palettes -%}
         {%- if not palette.isPro -%}
@@ -99,11 +98,27 @@
 </script>
 
 <style>
-  #color-palettes:has(+ *) {
-    margin-block-end: var(--wa-content-spacing);
+  #color-palettes {
+    display: grid;
+    grid-template-columns: 30ch 1fr;
+    gap: var(--wa-space-3xl);
+    align-items: start;
+
+    &:has(+ *) {
+      margin-block-end: var(--wa-content-spacing);
+    }
   }
 
-  wa-radio-group.radio-cards {
+  wa-radio-group#palette-picker {
+    position: sticky;
+    inset-block-start: calc(var(--header-height) + var(--subheader-height) + var(--wa-space-3xl));
+    padding: var(--wa-space-l);
+    border-radius: var(--wa-panel-border-radius);
+    background-color: var(--wa-color-surface-lowered);
+
+    &::part(form-control-label) {
+      margin-block-end: var(--wa-space-m);
+    }
     &::part(form-control-input) {
       display: grid;
     }

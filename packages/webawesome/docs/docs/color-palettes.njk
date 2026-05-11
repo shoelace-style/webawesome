@@ -2,80 +2,25 @@
 title: Color Palettes
 description: 'Color palettes give you a full spectrum of colors to add life to your project.'
 layout: page
+wide: true
 ---
 
-<p>Color palettes give you a full spectrum of colors to add life to your project.</p>
 
-<p>Each palette defines 10 color hues with a scale of 11 tints. While the tints have consistent lightness values across palettes, each palette has unique hue shifts and chroma to give it unique character so you can find just the right vibe to your project.</p>
-
-{% for palette in themer.palettes %}
-  <link rel="stylesheet" href="/dist/styles/color/palettes/{{palette.filename}}" />
-{% endfor %}
-
-<div id="color-palettes">
-  {% raw %}
-    {% if not currentUser.hasPro %}
-      <p>
-        Additional palettes are available to pro users. Please <a href="/login">login to view pro palettes</a>.
-      </p>
-    {% endif %}
-  {% endraw %}
-  <wa-radio-group id="palette-picker" label="Color Palette" value="default" orientation="horizontal">
-    {% for palette in themer.palettes %}
-      {% if not palette.isPro %}
-        <wa-radio
-          class="palette-card"
-          value="{{ palette.name | lower }}"
-        >
-          {{ palette.name }}
-        </wa-radio>
-      {% else %}
-        {% raw %}
-          {% if currentUser.hasPro %}
-        {% endraw %}
-            <wa-radio
-              class="palette-card"
-              value="{{ palette.name | lower }}"
-            >
-              {{ palette.name }}
-            </wa-radio>
-        {% raw %}
-          {% endif %}
-        {% endraw %}
-      {% endif %}
-    {% endfor %}
-  </wa-radio-group>
-
-  {% for color in themer.colors %}
-  <div class="palette">
-    <div class="palette-label">{{ color }}</div>
-    <div class="palette-swatches">
-      {% for tint in themer.tints %}
-      <wa-copy-button
-        class="palette-swatch"
-        value="var(--wa-color-{{ color }}-{{ tint }})"
-        style="--color: var(--wa-color-{{ color }}-{{ tint }}); --tint: '{{ tint }}'"
-      >
-        <button class="swatch-button" aria-label="{{ color }} {{ tint }} (click to copy)"></button>
-      </wa-copy-button>
-      {% endfor %}
-    </div>
-  </div>
-  {% endfor %}
-</div>
-
-<h2>Using This Palette</h2>
-{% markdown %}
+<p class="line-length line-length-xl">
 Color palettes give you a full spectrum of colors to use in your project.
+</p>
 
+<p class="line-length line-length-xl">
 A color palette defines 10 hues, each with a scale of 11 tints. Tints are assigned numbers that correlate to their lightness. While the tints have similar lightness values across palettes, each palette has unique hue shifts and chroma so you can find just the right vibe to your project.
+</p>
 
+<p class="line-length line-length-xl">
 There are 9 specially crafted color palettes; 3 are free to use with an additional 6 available in Web Awesome Pro.
+</p>
 
 {% include "theming/color-palette-picker.njk" %}
 
-## Using This Palette
-{% endmarkdown %}
+<h2>Using This Palette</h2>
 
 <div id="import-code">
   {% for palette in themer.palettes %}
@@ -91,7 +36,7 @@ There are 9 specially crafted color palettes; 3 are free to use with an addition
 {% markdown %}
 <wa-callout variant="neutral" size="s">
   <wa-icon name="info-circle" variant="regular"></wa-icon>
-  This palette can only be used on workspaces with a Pro subscription.
+  This palette can only be used in workspaces with a Pro subscription.
 </wa-callout>
 {% endmarkdown %}
 {% else %}
@@ -103,7 +48,7 @@ To use this palette, add the palette's stylesheet from the CDN:
 <link rel="stylesheet" href="{{ paletteCdnUrl }}">
 ```
 
-Then apply the following class to the `<html>` element:
+Then, apply the following class to the `<html>` element:
 
 ```html
 <html class="wa-palette-{{ palette.name | lower }}">
@@ -120,7 +65,7 @@ After installing <code>@awesome.me/webawesome</code>, import the palette's style
 import '@awesome.me/webawesome/dist/styles/color/palettes/{{ palette.filename }}';
 ```
 
-Then apply the following class to the `<html>` element:
+Then, apply the following class to the `<html>` element:
 
 ```html
 <html class="wa-palette-{{ palette.name | lower }}">
@@ -136,7 +81,7 @@ If you're self-hosting Web Awesome, include the palette's stylesheet from your s
 <link rel="stylesheet" href="/dist/styles/color/palettes/{{ palette.filename }}">
 ```
 
-Then apply the following class to the `<html>` element:
+Then, apply the following class to the `<html>` element:
 
 ```html
 <html class="wa-palette-{{ palette.name | lower }}">
@@ -147,7 +92,7 @@ Then apply the following class to the `<html>` element:
         <wa-tab-panel name="hosted">
 {% if palette.isPro %}
 {% markdown %}
-**For projects on Pro workspaces:**
+**For projects in <wa-badge appearance="accent" pill class="pro">Pro</wa-badge> workspaces:**
 1. Head over to your project's <wa-icon name="gear" variant="regular"></wa-icon> **Settings**.
 2. Press <wa-icon name="paintbrush" variant="regular"></wa-icon> **Edit Your Theme** to open the Theme Builder.
 3. Open **Colors** and select **{{ palette.name | capitalize }}**.
@@ -155,12 +100,12 @@ Then apply the following class to the `<html>` element:
 {% endmarkdown %}
 {% else %}
 {% markdown %}
-**For projects on Free workspaces:**
+**For projects in <wa-badge appearance="filled" variant="neutral" pill class="free">Free</wa-badge> workspaces:**
 1. Head over to your project's <wa-icon name="gear" variant="regular"></wa-icon> **Settings**.
 2. Find **Color Palette**. Select <wa-icon name="swatchbook" variant="regular"></wa-icon> **{{ palette.name | capitalize }}**.
 3. Save your theme to immediately update anywhere you're using your project.
 
-**For projects on Pro workspaces:**
+**For projects in Pro workspaces:**
 1. Head over to your project's <wa-icon name="gear" variant="regular"></wa-icon> **Settings**.
 2. Press <wa-icon name="paintbrush" variant="regular"></wa-icon> **Edit Your Theme** to open the Theme Builder.
 3. Open **Colors** and select **{{ palette.name | capitalize }}**.

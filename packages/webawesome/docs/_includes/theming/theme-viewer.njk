@@ -1,4 +1,4 @@
-<wa-comparison position="80">
+<wa-comparison id="theme-viewer" position="80">
   <wa-zoomable-frame
     src="/examples/themes/showcase?color-scheme=dark"
     slot="before"
@@ -14,6 +14,10 @@
 </wa-comparison>
 
 <style>
+  #theme-viewer:has(+ *) {
+    margin-block-end: var(--wa-content-spacing);
+  }
+
   wa-comparison {
     --handle-color: black;
     --divider-color: white;
