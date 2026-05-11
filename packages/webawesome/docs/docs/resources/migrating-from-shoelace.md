@@ -79,8 +79,6 @@ Apply `class="wa-theme-shoelace wa-palette-shoelace"` on `<html>` for a palette 
 An optional `dist/styles/native.css` themes plain `<button>`, `<input>`, `<table>`, `<details>`, `<dialog>`, headings, lists, and blockquotes using the same design tokens as your Web Awesome theme. Shoelace had no equivalent.<br><br>
 **A Real Utility Layer**<br>
 Layout primitives (`wa-cluster`, `wa-stack`, `wa-grid`, `wa-frame`, `wa-flank`, `wa-split`), spacing (`wa-gap-*`), typography (`wa-body`, `wa-heading`, `wa-caption`, `wa-longform`), and a11y helpers (`wa-visually-hidden`) ship as plain CSS classes. No JS, no components.<br><br>
-**Some Components Grew Into Siblings**<br>
-What was one component in Shoelace is sometimes two in Web Awesome. `<sl-input type="number">` still works as `<wa-input type="number">`, but `<wa-number-input>` is a dedicated, stepper-equipped numeric control. Tree, dropdown, and select have similar splits.
 
 ## Choose Your Migration Path
 
