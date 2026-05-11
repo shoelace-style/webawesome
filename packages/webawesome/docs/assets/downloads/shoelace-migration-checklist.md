@@ -117,7 +117,7 @@ Run these in order. Commit between passes.
 
 - [ ] Updated `sl-tab-show` to `wa-tab-show`
 - [ ] Updated `sl-tab-hide` to `wa-tab-hide`
-- [ ] Updated `sl-close` (closable tab) to `wa-close`
+- [ ] Removed `sl-close` (see [the docs](/docs/components/tab-group#closable-tabs) for the recommended way to close tabs)
 
 ### Tree
 

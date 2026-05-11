@@ -524,7 +524,7 @@ Tabs use the same structure but the activation event renames and panel hookup is
 | ---------------------------- | ------------- | ------- |
 | `sl-tab-show`                | `wa-tab-show` | Renamed |
 | `sl-tab-hide`                | `wa-tab-hide` | Renamed |
-| `sl-close` (on closable tab) | `wa-close`    | Renamed |
+| `sl-close` (on closable tab) | See the docs for updated example | Renamed |
 
 ##### wa-color-picker <span class="de-emphasize">(was sl-color-picker)</span>
 
