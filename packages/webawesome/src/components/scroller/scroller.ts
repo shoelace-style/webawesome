@@ -5,8 +5,8 @@ import { LocalizeController } from '../../utilities/localize.js';
 import styles from './scroller.styles.js';
 
 /**
- * @summary Scrollers create an accessible container while providing visual cues that help users identify and navigate
- *  through content that scrolls.
+ * @summary Scrollers wrap overflowing content in an accessible container with visual cues that help users recognize and
+ *  navigate scrollable regions.
  * @documentation https://webawesome.com/docs/components/scroller
  * @status stable
  * @since 3.0

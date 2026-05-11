@@ -2,7 +2,7 @@ import { expect, oneEvent, waitUntil } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import sinon from 'sinon';
-import { fixtures } from '../../internal/test/fixture.js';
+import { clientFixture, fixtures } from '../../internal/test/fixture.js';
 import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
 import { serialize } from '../../utilities/form.js';
 import type WaTextarea from './textarea.js';
@@ -12,68 +12,115 @@ describe('<wa-textarea>', () => {
 
   for (const fixture of fixtures) {
     describe(`with "${fixture.type}" rendering`, () => {
-      it('should pass accessibility tests', async () => {
-        const el = await fixture<WaTextarea>(html` <wa-textarea label="Name"></wa-textarea> `);
-        await expect(el).to.be.accessible();
+      describe('accessibility', () => {
+        it('should pass accessibility tests', async () => {
+          const el = await fixture<WaTextarea>(html`<wa-textarea label="Name"></wa-textarea>`);
+          await expect(el).to.be.accessible();
+        });
+
+        it('should focus the textarea when clicking on the label', async () => {
+          const el = await fixture<WaTextarea>(html`<wa-textarea label="Name"></wa-textarea>`);
+          const label = el.shadowRoot!.querySelector('[part~="label"]')!;
+          const focusHandler = sinon.spy();
+
+          el.addEventListener('focus', focusHandler);
+          (label as HTMLLabelElement).click();
+          await waitUntil(() => focusHandler.calledOnce);
+
+          expect(focusHandler).to.have.been.calledOnce;
+        });
       });
 
-      it('default properties', async () => {
-        const el = await fixture<WaTextarea>(html` <wa-textarea></wa-textarea> `);
+      describe('properties', () => {
+        it('should have correct default property values', async () => {
+          const el = await fixture<WaTextarea>(html`<wa-textarea></wa-textarea>`);
 
-        expect(el.size).to.equal('medium');
-        expect(el.name).to.equal(null);
-        expect(el.value).to.equal('');
-        expect(el.defaultValue).to.equal('');
-        expect(el.title).to.equal('');
-        expect(el.appearance).to.equal('outlined');
-        expect(el.label).to.equal('');
-        expect(el.hint).to.equal('');
-        expect(el.placeholder).to.equal('');
-        expect(el.rows).to.equal(4);
-        expect(el.resize).to.equal('vertical');
-        expect(el.disabled).to.be.false;
-        expect(el.readonly).to.be.false;
-        expect(el.minlength).to.be.undefined;
-        expect(el.maxlength).to.be.undefined;
-        expect(el.required).to.be.false;
-        expect(el.autocapitalize).to.be.undefined;
-        expect(el.autocorrect).to.be.undefined;
-        expect(el.autocomplete).to.be.undefined;
-        expect(el.autofocus).to.be.undefined;
-        expect(el.enterkeyhint).to.be.undefined;
-        expect(el.spellcheck).to.be.true;
-        expect(el.inputmode).to.be.undefined;
+          expect(el.size).to.equal('m');
+          expect(el.name).to.equal(null);
+          expect(el.value).to.equal('');
+          expect(el.defaultValue).to.equal('');
+          expect(el.title).to.equal('');
+          expect(el.appearance).to.equal('outlined');
+          expect(el.label).to.equal('');
+          expect(el.hint).to.equal('');
+          expect(el.placeholder).to.equal('');
+          expect(el.rows).to.equal(4);
+          expect(el.resize).to.equal('vertical');
+          expect(el.disabled).to.be.false;
+          expect(el.readonly).to.be.false;
+          expect(el.minlength).to.be.undefined;
+          expect(el.maxlength).to.be.undefined;
+          expect(el.required).to.be.false;
+          expect(el.autocapitalize).to.be.undefined;
+          expect(el.autocorrect).to.be.undefined;
+          expect(el.autocomplete).to.be.undefined;
+          expect(el.autofocus).to.be.undefined;
+          expect(el.enterkeyhint).to.be.undefined;
+          expect(el.spellcheck).to.be.true;
+          expect(el.inputmode).to.be.undefined;
+          expect(el.withCount).to.be.false;
+        });
+
+        it('should reflect the title attribute to the internal textarea', async () => {
+          const el = await fixture<WaTextarea>(html`<wa-textarea title="Test"></wa-textarea>`);
+          const textarea = el.shadowRoot!.querySelector('textarea')!;
+          expect(textarea.title).to.equal('Test');
+        });
+
+        it('should be disabled with the disabled attribute', async () => {
+          const el = await fixture<WaTextarea>(html`<wa-textarea disabled></wa-textarea>`);
+          const textarea = el.shadowRoot!.querySelector<HTMLTextAreaElement>('[part~="textarea"]')!;
+          expect(textarea.disabled).to.be.true;
+        });
+
+        it('should reflect the readonly attribute to the internal textarea', async () => {
+          const el = await fixture<WaTextarea>(html`<wa-textarea readonly></wa-textarea>`);
+          const textarea = el.shadowRoot!.querySelector<HTMLTextAreaElement>('[part~="textarea"]')!;
+          expect(textarea.readOnly).to.be.true;
+        });
+
+        it('should reflect the placeholder attribute', async () => {
+          const el = await fixture<WaTextarea>(html`<wa-textarea placeholder="Enter text"></wa-textarea>`);
+          const textarea = el.shadowRoot!.querySelector<HTMLTextAreaElement>('[part~="textarea"]')!;
+          expect(textarea.placeholder).to.equal('Enter text');
+        });
+
+        it('should set the rows attribute on the internal textarea', async () => {
+          const el = await fixture<WaTextarea>(html`<wa-textarea rows="8"></wa-textarea>`);
+          const textarea = el.shadowRoot!.querySelector<HTMLTextAreaElement>('[part~="textarea"]')!;
+          expect(textarea.rows).to.equal(8);
+        });
       });
 
-      it('should have title if title attribute is set', async () => {
-        const el = await fixture<WaTextarea>(html` <wa-textarea title="Test"></wa-textarea> `);
-        const textarea = el.shadowRoot!.querySelector('textarea')!;
+      describe('slots', () => {
+        it('should show "has-label" class when label slot is populated', async () => {
+          const el = await fixture<WaTextarea>(html`<wa-textarea><span slot="label">Name</span></wa-textarea>`);
+          const label = el.shadowRoot!.querySelector('[part~="label"]')!;
+          expect(label.classList.contains('has-label')).to.equal(true);
+        });
 
-        expect(textarea.title).to.equal('Test');
+        it('should show "has-label" class when label attribute is set', async () => {
+          const el = await fixture<WaTextarea>(html`<wa-textarea label="Name"></wa-textarea>`);
+          const label = el.shadowRoot!.querySelector('[part~="label"]')!;
+          expect(label.classList.contains('has-label')).to.equal(true);
+        });
+
+        it('should not show "has-label" class when no label is provided', async () => {
+          const el = await fixture<WaTextarea>(html`<wa-textarea></wa-textarea>`);
+          const label = el.shadowRoot!.querySelector('[part~="label"]')!;
+          expect(label.classList.contains('has-label')).to.equal(false);
+        });
+
+        it('should render the hint slot', async () => {
+          const el = await fixture<WaTextarea>(html`<wa-textarea hint="Some hint"></wa-textarea>`);
+          const hint = el.shadowRoot!.querySelector('[part~="hint"]')!;
+          expect(hint.textContent).to.contain('Some hint');
+        });
       });
 
-      it('should be disabled with the disabled attribute', async () => {
-        const el = await fixture<WaTextarea>(html` <wa-textarea disabled></wa-textarea> `);
-        const textarea = el.shadowRoot!.querySelector<HTMLTextAreaElement>('[part~="textarea"]')!;
-
-        expect(textarea.disabled).to.be.true;
-      });
-
-      it('should focus the textarea when clicking on the label', async () => {
-        const el = await fixture<WaTextarea>(html` <wa-textarea label="Name"></wa-textarea> `);
-        const label = el.shadowRoot!.querySelector('[part~="label"]')!;
-        const submitHandler = sinon.spy();
-
-        el.addEventListener('focus', submitHandler);
-        (label as HTMLLabelElement).click();
-        await waitUntil(() => submitHandler.calledOnce);
-
-        expect(submitHandler).to.have.been.calledOnce;
-      });
-
-      describe('when the value changes', () => {
-        it('should emit change and input when the user types in the textarea', async () => {
-          const el = await fixture<WaTextarea>(html` <wa-textarea></wa-textarea> `);
+      describe('events', () => {
+        it('should emit input and change when the user types and blurs', async () => {
+          const el = await fixture<WaTextarea>(html`<wa-textarea></wa-textarea>`);
           const inputHandler = sinon.spy();
           const changeHandler = sinon.spy();
 
@@ -89,7 +136,7 @@ describe('<wa-textarea>', () => {
         });
 
         it('should not emit change or input when the value is set programmatically', async () => {
-          const el = await fixture<WaTextarea>(html` <wa-textarea></wa-textarea> `);
+          const el = await fixture<WaTextarea>(html`<wa-textarea></wa-textarea>`);
 
           el.addEventListener('change', () => expect.fail('change should not be emitted'));
           el.addEventListener('input', () => expect.fail('input should not be emitted'));
@@ -99,7 +146,7 @@ describe('<wa-textarea>', () => {
         });
 
         it('should not emit change or input when calling setRangeText()', async () => {
-          const el = await fixture<WaTextarea>(html` <wa-textarea value="hi there"></wa-textarea> `);
+          const el = await fixture<WaTextarea>(html`<wa-textarea value="hi there"></wa-textarea>`);
 
           el.addEventListener('change', () => expect.fail('change should not be emitted'));
           el.addEventListener('input', () => expect.fail('input should not be emitted'));
@@ -111,94 +158,7 @@ describe('<wa-textarea>', () => {
         });
       });
 
-      describe('when using constraint validation', () => {
-        it('should be valid by default', async () => {
-          const el = await fixture<WaTextarea>(html` <wa-textarea></wa-textarea> `);
-
-          expect(el.checkValidity()).to.be.true;
-        });
-
-        it('should be invalid when required and empty', async () => {
-          const el = await fixture<WaTextarea>(html` <wa-textarea required></wa-textarea> `);
-
-          expect(el.checkValidity()).to.be.false;
-        });
-
-        it('should be invalid when required and after removing disabled ', async () => {
-          const el = await fixture<WaTextarea>(html` <wa-textarea disabled required></wa-textarea> `);
-
-          el.disabled = false;
-          await el.updateComplete;
-
-          expect(el.checkValidity()).to.be.false;
-        });
-
-        it('should be invalid when required and disabled is removed', async () => {
-          const el = await fixture<WaTextarea>(html` <wa-textarea disabled required></wa-textarea> `);
-          el.disabled = false;
-          await el.updateComplete;
-          expect(el.checkValidity()).to.be.false;
-        });
-
-        it('should receive the correct validation attributes ("states") when valid', async () => {
-          const el = await fixture<WaTextarea>(html` <wa-textarea required value="a"></wa-textarea> `);
-
-          expect(el.checkValidity()).to.be.true;
-          expect(el.customStates.has('required')).to.be.true;
-          expect(el.customStates.has('optional')).to.be.false;
-          expect(el.customStates.has('invalid')).to.be.false;
-          expect(el.customStates.has('valid')).to.be.true;
-          expect(el.customStates.has('user-invalid')).to.be.false;
-          expect(el.customStates.has('user-valid')).to.be.false;
-
-          el.focus();
-          await sendKeys({ press: 'b' });
-          await el.updateComplete;
-          el.blur();
-          await el.updateComplete;
-
-          expect(el.checkValidity()).to.be.true;
-          expect(el.customStates.has('user-invalid')).to.be.false;
-          expect(el.customStates.has('user-valid')).to.be.true;
-        });
-
-        it('should receive the correct validation attributes ("states") when invalid', async () => {
-          const el = await fixture<WaTextarea>(html` <wa-textarea required></wa-textarea> `);
-
-          expect(el.customStates.has('required')).to.be.true;
-          expect(el.customStates.has('optional')).to.be.false;
-          expect(el.customStates.has('invalid')).to.be.true;
-          expect(el.customStates.has('valid')).to.be.false;
-          expect(el.customStates.has('user-invalid')).to.be.false;
-          expect(el.customStates.has('user-valid')).to.be.false;
-
-          el.focus();
-          await sendKeys({ press: 'a' });
-          await sendKeys({ press: 'Backspace' });
-          await el.updateComplete;
-          el.blur();
-          await el.updateComplete;
-
-          expect(el.customStates.has('user-invalid')).to.be.true;
-          expect(el.customStates.has('user-valid')).to.be.false;
-        });
-
-        it('should receive validation attributes ("states") even when novalidate is used on the parent form', async () => {
-          const el = await fixture<HTMLFormElement>(html`
-            <form novalidate><wa-textarea required></wa-textarea></form>
-          `);
-          const textarea = el.querySelector<WaTextarea>('wa-textarea')!;
-
-          expect(textarea.customStates.has('required')).to.be.true;
-          expect(textarea.customStates.has('optional')).to.be.false;
-          expect(textarea.customStates.has('invalid')).to.be.true;
-          expect(textarea.customStates.has('valid')).to.be.false;
-          expect(textarea.customStates.has('user-invalid')).to.be.false;
-          expect(textarea.customStates.has('user-valid')).to.be.false;
-        });
-      });
-
-      describe('when submitting a form', () => {
+      describe('form integration', () => {
         it('should submit an empty value when initial value is set and then deleted', async () => {
           const form = await fixture<HTMLFormElement>(html`
             <form><wa-textarea name="a" value="1"></wa-textarea></form>
@@ -230,28 +190,6 @@ describe('<wa-textarea>', () => {
           expect(json.a).to.equal('1');
         });
 
-        it('should be invalid when setCustomValidity() is called with a non-empty value', async () => {
-          const textarea = await fixture<HTMLFormElement>(html`<wa-textarea></wa-textarea>`);
-
-          textarea.setCustomValidity('Invalid selection');
-          await textarea.updateComplete;
-
-          expect(textarea.checkValidity()).to.be.false;
-          expect(textarea.customStates.has('invalid')).to.be.true;
-          expect(textarea.customStates.has('valid')).to.be.false;
-          expect(textarea.customStates.has('user-invalid')).to.be.false;
-          expect(textarea.customStates.has('user-valid')).to.be.false;
-
-          textarea.focus();
-          await sendKeys({ type: 'test' });
-          await textarea.updateComplete;
-          textarea.blur();
-          await textarea.updateComplete;
-
-          expect(textarea.customStates.has('user-invalid')).to.be.true;
-          expect(textarea.customStates.has('user-valid')).to.be.false;
-        });
-
         it('should be present in form data when using the form attribute and located outside of a <form>', async () => {
           const el = await fixture<HTMLFormElement>(html`
             <div>
@@ -266,9 +204,7 @@ describe('<wa-textarea>', () => {
 
           expect(formData.get('a')).to.equal('1');
         });
-      });
 
-      describe('when resetting a form', () => {
         it('should reset the element to its initial value', async () => {
           const form = await fixture<HTMLFormElement>(html`
             <form>
@@ -298,32 +234,170 @@ describe('<wa-textarea>', () => {
         });
       });
 
+      describe('constraint validation', () => {
+        it('should be valid by default', async () => {
+          const el = await fixture<WaTextarea>(html`<wa-textarea></wa-textarea>`);
+          expect(el.checkValidity()).to.be.true;
+        });
+
+        it('should be invalid when required and empty', async () => {
+          const el = await fixture<WaTextarea>(html`<wa-textarea required></wa-textarea>`);
+          expect(el.checkValidity()).to.be.false;
+        });
+
+        it('should be invalid when required and disabled is removed', async () => {
+          const el = await fixture<WaTextarea>(html`<wa-textarea disabled required></wa-textarea>`);
+          el.disabled = false;
+          await el.updateComplete;
+          expect(el.checkValidity()).to.be.false;
+        });
+
+        it('should be invalid when setCustomValidity() is called with a non-empty value', async () => {
+          const el = await fixture<WaTextarea>(html`<wa-textarea></wa-textarea>`);
+
+          el.setCustomValidity('Invalid selection');
+          await el.updateComplete;
+
+          expect(el.checkValidity()).to.be.false;
+          expect(el.customStates.has('invalid')).to.be.true;
+          expect(el.customStates.has('valid')).to.be.false;
+          expect(el.customStates.has('user-invalid')).to.be.false;
+          expect(el.customStates.has('user-valid')).to.be.false;
+
+          el.focus();
+          await sendKeys({ type: 'test' });
+          await el.updateComplete;
+          el.blur();
+          await el.updateComplete;
+
+          expect(el.customStates.has('user-invalid')).to.be.true;
+          expect(el.customStates.has('user-valid')).to.be.false;
+        });
+      });
+
+      describe('CSS parts and states', () => {
+        it('should receive the correct validation states when valid', async () => {
+          const el = await fixture<WaTextarea>(html`<wa-textarea required value="a"></wa-textarea>`);
+
+          expect(el.checkValidity()).to.be.true;
+          expect(el.customStates.has('required')).to.be.true;
+          expect(el.customStates.has('optional')).to.be.false;
+          expect(el.customStates.has('invalid')).to.be.false;
+          expect(el.customStates.has('valid')).to.be.true;
+          expect(el.customStates.has('user-invalid')).to.be.false;
+          expect(el.customStates.has('user-valid')).to.be.false;
+
+          el.focus();
+          await sendKeys({ press: 'b' });
+          await el.updateComplete;
+          el.blur();
+          await el.updateComplete;
+
+          expect(el.checkValidity()).to.be.true;
+          expect(el.customStates.has('user-invalid')).to.be.false;
+          expect(el.customStates.has('user-valid')).to.be.true;
+        });
+
+        it('should receive the correct validation states when invalid', async () => {
+          const el = await fixture<WaTextarea>(html`<wa-textarea required></wa-textarea>`);
+
+          expect(el.customStates.has('required')).to.be.true;
+          expect(el.customStates.has('optional')).to.be.false;
+          expect(el.customStates.has('invalid')).to.be.true;
+          expect(el.customStates.has('valid')).to.be.false;
+          expect(el.customStates.has('user-invalid')).to.be.false;
+          expect(el.customStates.has('user-valid')).to.be.false;
+
+          el.focus();
+          await sendKeys({ press: 'a' });
+          await sendKeys({ press: 'Backspace' });
+          await el.updateComplete;
+          el.blur();
+          await el.updateComplete;
+
+          expect(el.customStates.has('user-invalid')).to.be.true;
+          expect(el.customStates.has('user-valid')).to.be.false;
+        });
+
+        it('should receive validation states even when novalidate is used on the parent form', async () => {
+          const el = await fixture<HTMLFormElement>(html`
+            <form novalidate><wa-textarea required></wa-textarea></form>
+          `);
+          const textarea = el.querySelector<WaTextarea>('wa-textarea')!;
+
+          expect(textarea.customStates.has('required')).to.be.true;
+          expect(textarea.customStates.has('optional')).to.be.false;
+          expect(textarea.customStates.has('invalid')).to.be.true;
+          expect(textarea.customStates.has('valid')).to.be.false;
+          expect(textarea.customStates.has('user-invalid')).to.be.false;
+          expect(textarea.customStates.has('user-valid')).to.be.false;
+        });
+
+        it('should have the blank state when the textarea is empty', async () => {
+          const el = await fixture<WaTextarea>(html`<wa-textarea></wa-textarea>`);
+          await el.updateComplete;
+          expect(el.customStates.has('blank')).to.be.true;
+        });
+
+        it('should not have the blank state when the textarea has a value', async () => {
+          const el = await fixture<WaTextarea>(html`<wa-textarea value="hello"></wa-textarea>`);
+          await el.updateComplete;
+          expect(el.customStates.has('blank')).to.be.false;
+        });
+      });
+
       describe('when using spellcheck', () => {
         it('should enable spellcheck when no attribute is present', async () => {
-          const el = await fixture<WaTextarea>(html` <wa-textarea></wa-textarea> `);
+          const el = await fixture<WaTextarea>(html`<wa-textarea></wa-textarea>`);
           const textarea = el.shadowRoot!.querySelector<HTMLTextAreaElement>('textarea')!;
           expect(textarea.getAttribute('spellcheck')).to.equal('true');
           expect(textarea.spellcheck).to.be.true;
         });
 
         it('should enable spellcheck when set to "true"', async () => {
-          const el = await fixture<WaTextarea>(html` <wa-textarea spellcheck="true"></wa-textarea> `);
+          const el = await fixture<WaTextarea>(html`<wa-textarea spellcheck="true"></wa-textarea>`);
           const textarea = el.shadowRoot!.querySelector<HTMLTextAreaElement>('textarea')!;
           expect(textarea.getAttribute('spellcheck')).to.equal('true');
           expect(textarea.spellcheck).to.be.true;
         });
 
         it('should disable spellcheck when set to "false"', async () => {
-          const el = await fixture<WaTextarea>(html` <wa-textarea spellcheck="false"></wa-textarea> `);
+          const el = await fixture<WaTextarea>(html`<wa-textarea spellcheck="false"></wa-textarea>`);
           const textarea = el.shadowRoot!.querySelector<HTMLTextAreaElement>('textarea')!;
           expect(textarea.getAttribute('spellcheck')).to.equal('false');
           expect(textarea.spellcheck).to.be.false;
         });
       });
 
-      describe('when using the setRangeText() function', () => {
-        it('should set replacement text in the correct location', async () => {
-          const el = await fixture<WaTextarea>(html` <wa-textarea value="test"></wa-textarea> `);
+      describe('character count', () => {
+        it('should show character count when with-count is set', async () => {
+          const el = await fixture<WaTextarea>(html`<wa-textarea with-count></wa-textarea>`);
+          await el.updateComplete;
+          const count = el.shadowRoot!.querySelector('[part~="count"]');
+          expect(count).to.not.be.null;
+        });
+
+        it('should not show character count by default', async () => {
+          const el = await fixture<WaTextarea>(html`<wa-textarea></wa-textarea>`);
+          await el.updateComplete;
+          const count = el.shadowRoot!.querySelector('[part~="count"]');
+          expect(count).to.be.null;
+        });
+
+        it('should show remaining characters when maxlength is set', async () => {
+          const el = await fixture<WaTextarea>(
+            html`<wa-textarea with-count maxlength="10" value="hello"></wa-textarea>`,
+          );
+          await el.updateComplete;
+          const count = el.shadowRoot!.querySelector('[part~="count"]')!;
+          // The count should reflect remaining characters
+          expect(count.textContent).to.not.be.empty;
+        });
+      });
+
+      describe('methods', () => {
+        it('should set replacement text in the correct location with setRangeText()', async () => {
+          const el = await fixture<WaTextarea>(html`<wa-textarea value="test"></wa-textarea>`);
 
           el.focus();
           el.setSelectionRange(1, 3);
@@ -334,4 +408,111 @@ describe('<wa-textarea>', () => {
       });
     });
   }
+
+  describe('auto resize visibility (issue 2347)', () => {
+    it('should size to fit when revealed after being initially hidden', async () => {
+      const container = await clientFixture<HTMLDivElement>(html`
+        <div style="display: none">
+          <wa-textarea
+            resize="auto"
+            value="line one
+line two
+line three"
+          ></wa-textarea>
+        </div>
+      `);
+      const el = container.querySelector<WaTextarea>('wa-textarea')!;
+      await el.updateComplete;
+
+      // While hidden, scrollHeight is 0 so the internal textarea has no measurable height.
+      const textarea = el.shadowRoot!.querySelector<HTMLTextAreaElement>('[part~="textarea"]')!;
+
+      container.style.display = '';
+
+      // Wait for the ResizeObserver to fire and re-run setTextareaDimensions().
+      await waitUntil(() => textarea.clientHeight > 0, 'textarea did not resize after becoming visible');
+
+      expect(textarea.clientHeight).to.be.greaterThan(0);
+    });
+  });
+
+  describe('resize mode changes', () => {
+    it('should re-bind the resize observer when switching from a manual mode to auto', async () => {
+      // Regression: previously the observer was created once on first updated() and never recreated when `resize`
+      // changed, so switching from a manual mode to `auto` left the observer pointed at the inner textarea instead of
+      // the host. The auto-mode height recompute on width change then never fired.
+      const container = await clientFixture<HTMLDivElement>(html`
+        <div style="display: none">
+          <wa-textarea
+            resize="vertical"
+            value="line one
+line two
+line three"
+          ></wa-textarea>
+        </div>
+      `);
+      const el = container.querySelector<WaTextarea>('wa-textarea')!;
+      await el.updateComplete;
+
+      el.resize = 'auto';
+      await el.updateComplete;
+
+      const textarea = el.shadowRoot!.querySelector<HTMLTextAreaElement>('[part~="textarea"]')!;
+      container.style.display = '';
+
+      await waitUntil(
+        () => textarea.clientHeight > 0,
+        'textarea did not auto-size after switching resize mode and becoming visible',
+      );
+
+      expect(textarea.clientHeight).to.be.greaterThan(0);
+    });
+
+    it('should disconnect the resize observer when switching to none', async () => {
+      const el = await clientFixture<WaTextarea>(html`<wa-textarea resize="auto"></wa-textarea>`);
+      await el.updateComplete;
+
+      // Access the private field for verification — there is no public surface for the observer.
+      expect((el as unknown as { resizeObserver?: ResizeObserver }).resizeObserver).to.exist;
+
+      el.resize = 'none';
+      await el.updateComplete;
+
+      expect((el as unknown as { resizeObserver?: ResizeObserver }).resizeObserver).to.be.undefined;
+    });
+  });
+
+  describe('auto resize shrinking', () => {
+    it('should shrink the visible wrapper back to its original size after expanded content is cleared', async () => {
+      const el = await clientFixture<WaTextarea>(html`<wa-textarea resize="auto"></wa-textarea>`);
+      await el.updateComplete;
+
+      // The user perceives the size of the visible wrapper, not the inner <textarea>. Measure the host's bounding box
+      // so we catch cases where the inner textarea shrinks but the wrapper stays expanded (e.g. because the size
+      // adjuster pinned it to the previous larger height).
+      const original = el.getBoundingClientRect().height;
+
+      el.focus();
+      for (let i = 0; i < 5; i++) {
+        await sendKeys({ press: 'Enter' });
+      }
+      await el.updateComplete;
+      await waitUntil(
+        () => el.getBoundingClientRect().height > original,
+        'wrapper did not expand after pressing Enter',
+      );
+      const expanded = el.getBoundingClientRect().height;
+      expect(expanded).to.be.greaterThan(original);
+
+      el.select();
+      await sendKeys({ press: 'Delete' });
+      await el.updateComplete;
+
+      await waitUntil(
+        () => Math.round(el.getBoundingClientRect().height) === Math.round(original),
+        `wrapper did not shrink back to original (original=${original}, expanded=${expanded})`,
+      );
+      expect(Math.round(el.getBoundingClientRect().height)).to.equal(Math.round(original));
+    });
+  });
 });

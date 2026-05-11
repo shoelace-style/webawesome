@@ -4,7 +4,8 @@ import WebAwesomeElement from '../../internal/webawesome-element.js';
 import styles from './skeleton.styles.js';
 
 /**
- * @summary Skeletons are used to provide a visual representation of where content will eventually be drawn.
+ * @summary Skeletons show placeholder shapes where content will appear once it finishes loading, reducing perceived
+ *  wait time and preventing layout shift.
  * @documentation https://webawesome.com/docs/components/skeleton
  * @status stable
  * @since 2.0

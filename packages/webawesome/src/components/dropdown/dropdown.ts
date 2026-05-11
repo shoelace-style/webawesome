@@ -12,6 +12,8 @@ import { activeElements } from '../../internal/active-elements.js';
 import { animateWithClass } from '../../internal/animate.js';
 import { isTopDismissible, registerDismissible, unregisterDismissible } from '../../internal/dismissible-stack.js';
 import { uniqueId } from '../../internal/math.js';
+import { warnDeprecatedSize } from '../../internal/size.js';
+import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import sizeStyles from '../../styles/component/size.styles.js';
 import { LocalizeController } from '../../utilities/localize.js';
@@ -25,8 +27,8 @@ import styles from './dropdown.styles.js';
 const openDropdowns = new Set<WaDropdown>();
 
 /**
- * @summary Dropdowns display a list of options that can be triggered by a button or other element. They support
- *  keyboard navigation, submenus, and various customization options.
+ * @summary Dropdowns display a list of options triggered by a button or other element. They support keyboard
+ *  navigation, submenus, and checkable items for building menus and context actions.
  * @documentation https://webawesome.com/docs/components/dropdown
  * @status stable
  * @since 2.0
@@ -67,7 +69,12 @@ export default class WaDropdown extends WebAwesomeElement {
   @property({ type: Boolean, reflect: true }) open = false;
 
   /** The dropdown's size. */
-  @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
+  @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
+
+  @watch('size')
+  handleSizeChange() {
+    warnDeprecatedSize(this.localName, this.size);
+  }
 
   /**
    * The placement of the dropdown menu in reference to the trigger. The menu will shift to a more optimal location if

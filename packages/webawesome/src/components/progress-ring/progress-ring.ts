@@ -7,7 +7,8 @@ import { LocalizeController } from '../../utilities/localize.js';
 import styles from './progress-ring.styles.js';
 
 /**
- * @summary Progress rings are used to show the progress of a determinate operation in a circular fashion.
+ * @summary Progress rings show how far along a determinate operation is using a circular indicator. Use them as a
+ *  compact alternative to progress bars when horizontal space is limited.
  * @documentation https://webawesome.com/docs/components/progress-ring
  * @status stable
  * @since 2.0

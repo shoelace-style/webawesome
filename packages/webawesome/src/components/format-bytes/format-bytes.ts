@@ -3,7 +3,8 @@ import WebAwesomeElement from '../../internal/webawesome-element.js';
 import { LocalizeController } from '../../utilities/localize.js';
 
 /**
- * @summary Formats a number as a human readable bytes value.
+ * @summary Formats a number of bytes as a human-readable string with the appropriate unit, such as kB, MB, or GB.
+ *  Supports both byte and bit units with configurable locale.
  * @documentation https://webawesome.com/docs/components/format-bytes
  * @status stable
  * @since 2.0

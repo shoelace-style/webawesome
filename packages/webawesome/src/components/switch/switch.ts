@@ -4,16 +4,19 @@ import { customElement, property, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { live } from 'lit/directives/live.js';
+import { warnDeprecatedSize } from '../../internal/size.js';
 import { HasSlotController } from '../../internal/slot.js';
 import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
 import formControlStyles from '../../styles/component/form-control.styles.js';
 import sizeStyles from '../../styles/component/size.styles.js';
+import { LocalizeController } from '../../utilities/localize.js';
 import styles from './switch.styles.js';
 
 /**
- * @summary Switches allow the user to toggle an option on or off.
+ * @summary Switches toggle a single setting on or off and apply the change immediately, without requiring a form
+ *  submission.
  * @documentation https://webawesome.com/docs/components/switch
  * @status stable
  * @since 2.0
@@ -48,6 +51,8 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
 
   private readonly hasSlotController = new HasSlotController(this, 'hint');
 
+  private readonly localize = new LocalizeController(this);
+
   @query('input[type="checkbox"]') input: HTMLInputElement;
 
   @property() title = ''; // make reactive to pass through
@@ -68,7 +73,12 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
   }
 
   /** The switch's size. */
-  @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
+  @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
+
+  @watch('size')
+  handleSizeChange() {
+    warnDeprecatedSize(this.localName, this.size);
+  }
 
   /** Disables the switch. */
   @property({ type: Boolean }) disabled = false;
@@ -115,9 +125,10 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
   }
 
   private handleKeyDown(event: KeyboardEvent) {
+    const isRtl = this.localize.dir() === 'rtl';
     if (event.key === 'ArrowLeft') {
       event.preventDefault();
-      this.checked = false;
+      this.checked = isRtl;
       this.updateComplete.then(() => {
         this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
         this.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
@@ -126,7 +137,7 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
 
     if (event.key === 'ArrowRight') {
       event.preventDefault();
-      this.checked = true;
+      this.checked = !isRtl;
 
       this.updateComplete.then(() => {
         this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));

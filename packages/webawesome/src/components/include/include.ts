@@ -8,7 +8,8 @@ import styles from './include.styles.js';
 import { requestInclude } from './request.js';
 
 /**
- * @summary Includes give you the power to embed external HTML files into the page.
+ * @summary Fetches an external HTML file and embeds its contents inline on the page. Useful for reusing shared markup
+ *  like headers, footers, and partials across multiple pages.
  * @documentation https://webawesome.com/docs/components/include
  * @status stable
  * @since 2.0

@@ -1,8 +1,5 @@
 {% set hasSidebar = true %}
-{% set hasOutline = true %}
+{% if hasOutline == undefined %}{% set hasOutline = false %}{% endif %}
 {% set section = 'docs' %}
 
-{% block beforeContent %}
-    <p>{{ description }}</p>
-{% endblock %}
 {% extends "../_includes/base.njk" %}

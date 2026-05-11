@@ -1,8 +1,18 @@
 ---
 title: Input
-description: Inputs collect data from the user.
 layout: component
 category: Form Controls
+synonyms:
+  - text field
+  - text box
+  - form field
+  - text input
+use-cases:
+  - form input
+  - search box
+  - email field
+  - password field
+  - url field
 ---
 
 ```html {.example}
@@ -78,11 +88,15 @@ Use the `disabled` attribute to disable an input.
 Use the `size` attribute to change an input's size.
 
 ```html {.example}
-<wa-input placeholder="Small" size="small"></wa-input>
+<wa-input placeholder="Extra Small" size="xs"></wa-input>
 <br />
-<wa-input placeholder="Medium" size="medium"></wa-input>
+<wa-input placeholder="Small" size="s"></wa-input>
 <br />
-<wa-input placeholder="Large" size="large"></wa-input>
+<wa-input placeholder="Medium" size="m"></wa-input>
+<br />
+<wa-input placeholder="Large" size="l"></wa-input>
+<br />
+<wa-input placeholder="Extra Large" size="xl"></wa-input>
 ```
 
 ### Pill
@@ -90,11 +104,15 @@ Use the `size` attribute to change an input's size.
 Use the `pill` attribute to give inputs rounded edges.
 
 ```html {.example}
-<wa-input placeholder="Small" size="small" pill></wa-input>
+<wa-input placeholder="Extra Small" size="xs" pill></wa-input>
 <br />
-<wa-input placeholder="Medium" size="medium" pill></wa-input>
+<wa-input placeholder="Small" size="s" pill></wa-input>
 <br />
-<wa-input placeholder="Large" size="large" pill></wa-input>
+<wa-input placeholder="Medium" size="m" pill></wa-input>
+<br />
+<wa-input placeholder="Large" size="l" pill></wa-input>
+<br />
+<wa-input placeholder="Extra Large" size="xl" pill></wa-input>
 ```
 
 ### Input Types
@@ -114,17 +132,17 @@ The `type` attribute controls the type of input the browser renders.
 Use the `start` and `end` slots to add presentational elements like `<wa-icon>` within the input.
 
 ```html {.example}
-<wa-input placeholder="Small" size="small">
+<wa-input placeholder="Small" size="s">
   <wa-icon name="house" slot="start"></wa-icon>
   <wa-icon name="comment" slot="end"></wa-icon>
 </wa-input>
 <br />
-<wa-input placeholder="Medium" size="medium">
+<wa-input placeholder="Medium" size="m">
   <wa-icon name="house" slot="start"></wa-icon>
   <wa-icon name="comment" slot="end"></wa-icon>
 </wa-input>
 <br />
-<wa-input placeholder="Large" size="large">
+<wa-input placeholder="Large" size="l">
   <wa-icon name="house" slot="start"></wa-icon>
   <wa-icon name="comment" slot="end"></wa-icon>
 </wa-input>

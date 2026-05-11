@@ -1,8 +1,18 @@
 ---
 title: Details
-description: Details show a brief summary and expand to show additional content.
 layout: component
 category: Organization
+synonyms:
+  - accordion
+  - collapsible
+  - expandable
+  - disclosure
+  - expander
+use-cases:
+  - FAQ
+  - show more
+  - expandable section
+  - toggle content
 ---
 
 ```html {.example}

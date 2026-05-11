@@ -1,8 +1,15 @@
 ---
 title: Markdown
-description: A declarative utility that renders markdown in plain ol' HTML pages.
 layout: component
 category: Utilities
+synonyms:
+  - md
+  - markdown renderer
+  - rich text
+use-cases:
+  - markdown display
+  - markdown preview
+  - content rendering
 ---
 
 The markdown component turns raw markdown into rendered HTML using the [Marked](https://marked.js.org/) library. Indentation is handled automatically. You can nest your markdown at any depth to match the surrounding HTML structure and the common leading whitespace will be stripped before parsing.
@@ -124,8 +131,9 @@ All `<wa-markdown>` instances share a single [Marked](https://marked.js.org/usin
 
   // Customize the link renderer to open links in a new tab
   const renderer = {
-    link({ href, text }) {
-      return `<a href="${href}" target="_blank" rel="noopener">${text}</a>`;
+    link(href, title, text) {
+      const titleAttr = title ? ` title="${title}"` : '';
+      return `<a href="${href}"${titleAttr} target="_blank" rel="noopener">${text}</a>`;
     }
   };
 

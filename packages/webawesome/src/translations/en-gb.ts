@@ -7,8 +7,25 @@ const translation: Translation = {
   $code: 'en-GB',
   $name: 'English (United Kingdom)',
 
+  captions: 'Captions',
+  enterFullscreen: 'Enter fullscreen',
+  exitFullscreen: 'Exit fullscreen',
+  mute: 'Mute',
+  nextVideo: 'Next video',
+  pause: 'Pause',
+  pictureInPicture: 'Picture in picture',
+  play: 'Play',
+  playbackSpeed: 'Playback speed',
+  playlist: 'Playlist',
+  previousVideo: 'Previous video',
   selectAColorFromTheScreen: 'Select a colour from the screen',
   toggleColorFormat: 'Toggle colour format',
+  seek: 'Seek',
+  seekProgress: (current, duration) => `${current} of ${duration}`,
+  currentlyPlaying: 'currently playing',
+  unmute: 'Unmute',
+  videoPlayer: 'Video player',
+  volume: 'Volume',
 };
 
 registerTranslation(translation);

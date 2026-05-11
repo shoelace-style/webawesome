@@ -4,7 +4,7 @@
     "access": "public"
   },
   "description": "A forward-thinking library of web components.",
-  "version": "3.5.0",
+  "version": "3.6.0",
   "homepage": "https://webawesome.com/",
   "author": "Web Awesome",
   "license": "MIT",
@@ -84,7 +84,7 @@
     "@floating-ui/dom": "^1.6.13",
     "@lit/react": "^1.0.8",
     "@shoelace-style/animations": "^1.2.0",
-    "@shoelace-style/localize": "^3.2.1",
+    "@shoelace-style/localize": "^3.2.2",
     "composed-offset-position": "^0.0.6",
     "lit": "^3.2.1",
     "marked": "^11.2.0",

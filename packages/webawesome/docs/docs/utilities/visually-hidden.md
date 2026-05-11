@@ -3,13 +3,22 @@ title: Visually Hidden
 description: The visually hidden utility makes content accessible to assistive devices without displaying it on the screen.
 layout: docs
 tags: styleUtilities
+synonyms:
+  - screen reader only
+  - sr-only
+  - accessible hide
+use-cases:
+  - a11y hide
+  - skip link
+  - assistive text
 ---
+
+Add the `wa-visually-hidden` class to any element to remove it from the page visually while keeping it available to screen readers and other assistive technologies. That's what you want for skip links, invisible labels on icon-only buttons, and any text that describes something a sighted user already understands from context.
 
 > "There are real world situations where visually hiding content may be appropriate, while the content should remain available to assistive technologies, such as screen readers. For instance, hiding a search field's label as a common magnifying glass icon is used in its stead."
 > — [The A11Y Project](https://www.a11yproject.com/posts/2013-01-11-how-to-hide-content/)
 
-Since visually hidden content can receive focus when tabbing, the element will become visible when something inside receives focus.
-This behavior is intentional, as otherwise sighted keyboard users wouldn't be able to determine where the focus indicator is.
+Since visually hidden content can receive focus when tabbing, the element becomes visible again as soon as something inside it receives focus. That behavior is intentional: sighted keyboard users need to see where the focus indicator is.
 
 ```html {.example}
 <div style="min-height: 1.875rem;">
@@ -26,7 +35,7 @@ In this example, the link will open a new window. Screen readers will announce "
 ```html {.example}
 <a href="https://example.com/" target="_blank">
   Visit External Page
-  <wa-icon name="arrow-up-right-from-square" variant="regular"></wa-icon>
+  <wa-icon name="arrow-up-right-from-square"></wa-icon>
   <span class="wa-visually-hidden">opens in a new window</span>
 </a>
 ```
@@ -57,7 +66,7 @@ Instead, you can hide them visually while keeping them available to screen reade
   class="wa-visually-hidden-label"
   style="margin-block-end: 1rem;"
 >
-  <wa-icon slot="start" name="magnifying-glass" variant="regular"></wa-icon>
+  <wa-icon slot="start" name="magnifying-glass"></wa-icon>
 </wa-input>
 
 <wa-input
@@ -68,7 +77,7 @@ Instead, you can hide them visually while keeping them available to screen reade
   class="wa-visually-hidden-hint"
   style="margin-block-end: 1rem;"
 >
-  <wa-icon slot="start" name="phone" variant="regular"></wa-icon>
+  <wa-icon slot="start" name="phone"></wa-icon>
 </wa-input>
 
 <wa-select
@@ -86,7 +95,7 @@ Instead, you can hide them visually while keeping them available to screen reade
   <wa-option value="wakanda">Wakanda</wa-option>
   <wa-option value="genovia">Genovia</wa-option>
   <wa-option value="elbonia">Elbonia</wa-option>
-  <wa-icon slot="start" name="globe" variant="regular"></wa-icon>
+  <wa-icon slot="start" name="globe"></wa-icon>
 </wa-select>
 
 <wa-input
@@ -115,7 +124,7 @@ For example when hiding a checkbox to render a custom one:
 
 <style>
   .checkbox {
-    display: inline-flex;
+    display: flex;
     vertical-align: middle;
     width: var(--wa-font-size-l);
     height: var(--wa-font-size-l);

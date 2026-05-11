@@ -8,7 +8,8 @@ const sharedMarked = new Marked();
 const connectedInstances = new Set<WaMarkdown>();
 
 /**
- * @summary Renders markdown content in plain ol' HTML.
+ * @summary Markdown elements render markdown content as HTML directly in the browser, making it easy to display
+ *  user-generated content or documentation without a server-side build step.
  * @documentation https://webawesome.com/docs/components/markdown
  * @status experimental
  * @since 3.4

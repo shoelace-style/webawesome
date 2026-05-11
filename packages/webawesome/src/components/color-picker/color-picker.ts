@@ -11,6 +11,7 @@ import { isTopDismissible, registerDismissible, unregisterDismissible } from '..
 import { drag } from '../../internal/drag.js';
 import { waitForEvent } from '../../internal/event.js';
 import { clamp } from '../../internal/math.js';
+import { warnDeprecatedSize } from '../../internal/size.js';
 import { HasSlotController } from '../../internal/slot.js';
 import { RequiredValidator } from '../../internal/validators/required-validator.js';
 import { watch } from '../../internal/watch.js';
@@ -44,7 +45,8 @@ interface EyeDropperInterface {
 declare const EyeDropper: EyeDropperConstructor;
 
 /**
- * @summary Color pickers allow the user to select a color.
+ * @summary Color pickers let users choose a color from a visual palette or by entering a value. They support HEX, RGB,
+ *  HSL, and HSV formats with optional alpha channel and swatch presets.
  * @documentation https://webawesome.com/docs/components/color-picker
  * @status stable
  * @since 2.0
@@ -205,7 +207,12 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
   @property() format: 'hex' | 'rgb' | 'hsl' | 'hsv' = 'hex';
 
   /** Determines the size of the color picker's trigger */
-  @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
+  @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
+
+  @watch('size')
+  handleSizeChange() {
+    warnDeprecatedSize(this.localName, this.size);
+  }
 
   /**
    * The preferred placement of the color picker's popup. Note that the actual placement will vary as configured to
@@ -1207,7 +1214,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
             part="input"
             type="text"
             name=${this.name}
-            size="small"
+            size="s"
             autocomplete="off"
             autocorrect="off"
             autocapitalize="off"
@@ -1228,7 +1235,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
               ? html`
                   <wa-button
                     part="format-button"
-                    size="small"
+                    size="s"
                     appearance="outlined"
                     aria-label=${this.localize.term('toggleColorFormat')}
                     exportparts="
@@ -1250,7 +1257,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
               ? html`
                   <wa-button
                     part="eyedropper-button"
-                    size="small"
+                    size="s"
                     appearance="outlined"
                     exportparts="
                       base:eyedropper-button__base,

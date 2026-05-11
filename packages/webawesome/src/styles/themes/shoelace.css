@@ -34,8 +34,8 @@
 
     --wa-color-focus: var(--wa-color-brand-60);
 
-    --wa-color-mix-hover: black 10%;
-    --wa-color-mix-active: black 20%;
+    --wa-color-mix-hover: oklch(from currentColor calc(l + 0.1) c h) 10%;
+    --wa-color-mix-active: oklch(from currentColor calc(l - 0.1) c h) 10%;
 
     --wa-color-brand-fill-quiet: var(--wa-color-brand-95);
     --wa-color-brand-fill-normal: var(--wa-color-brand-90);
@@ -120,8 +120,8 @@
 
     --wa-color-focus: var(--wa-color-brand-60);
 
-    --wa-color-mix-hover: black 8%;
-    --wa-color-mix-active: black 16%;
+    --wa-color-mix-hover: oklch(from currentColor calc(l - 0.1) c h) 15%;
+    --wa-color-mix-active: oklch(from currentColor calc(l + 0.1) c h) 15%;
 
     --wa-color-brand-fill-quiet: var(--wa-color-brand-20);
     --wa-color-brand-fill-normal: var(--wa-color-brand-30);
@@ -345,6 +345,10 @@
     );
     --wa-form-control-toggle-size: round(1.25em, 1px);
 
+    /* Buttons */
+    --wa-button-transform-hover: none;
+    --wa-button-transform-active: none;
+
     /* Panels */
     --wa-panel-border-style: var(--wa-border-style);
     --wa-panel-border-width: var(--wa-border-width-s);
@@ -381,14 +385,26 @@
         font-size: var(--wa-font-size-s);
       }
 
-      &[size='small']::part(label),
+      &[size='xs']::part(label),
+      &.wa-size-xs::part(label) {
+        font-size: var(--wa-font-size-2xs);
+      }
+
+      &[size='s']::part(label),
+      &[size='small']::part(label) /* deprecated */,
       &.wa-size-s::part(label) {
         font-size: var(--wa-font-size-xs);
       }
 
-      &[size='large']::part(label),
+      &[size='l']::part(label),
+      &[size='large']::part(label) /* deprecated */,
       &.wa-size-l::part(label) {
         font-size: var(--wa-font-size-m);
+      }
+
+      &[size='xl']::part(label),
+      &.wa-size-xl::part(label) {
+        font-size: var(--wa-font-size-l);
       }
     }
 
@@ -401,16 +417,30 @@
       --_size: var(--wa-font-size-m);
       font-size: var(--wa-font-size-s);
 
-      &[size='small'],
+      &[size='xs'],
+      &.wa-size-xs {
+        --_size: var(--wa-font-size-xs);
+        font-size: var(--wa-font-size-2xs);
+      }
+
+      &[size='s'],
+      &[size='small'] /* deprecated */,
       &.wa-size-s {
         --_size: var(--wa-font-size-s);
         font-size: var(--wa-font-size-xs);
       }
 
-      &[size='large'],
+      &[size='l'],
+      &[size='large'] /* deprecated */,
       &.wa-size-l {
         --_size: var(--wa-font-size-l);
         font-size: var(--wa-font-size-m);
+      }
+
+      &[size='xl'],
+      &.wa-size-xl {
+        --_size: var(--wa-font-size-xl);
+        font-size: var(--wa-font-size-l);
       }
 
       /* Override em-based properties to use the intended size
@@ -431,14 +461,26 @@
         font-size: var(--wa-font-size-s);
       }
 
-      &[size='small']::part(label),
+      &[size='xs']::part(label),
+      &.wa-size-xs::part(label) {
+        font-size: var(--wa-font-size-2xs);
+      }
+
+      &[size='s']::part(label),
+      &[size='small']::part(label) /* deprecated */,
       &.wa-size-s::part(label) {
         font-size: var(--wa-font-size-xs);
       }
 
-      &[size='large']::part(label),
+      &[size='l']::part(label),
+      &[size='large']::part(label) /* deprecated */,
       &.wa-size-l::part(label) {
         font-size: var(--wa-font-size-m);
+      }
+
+      &[size='xl']::part(label),
+      &.wa-size-xl::part(label) {
+        font-size: var(--wa-font-size-l);
       }
 
       &:state(checked) {
@@ -449,14 +491,20 @@
 
     /* Propagate the font-size of wa-radio-group to its children */
     wa-radio-group {
-      &:is([size='small'], .wa-size-s) wa-radio[appearance='button']::part(label) {
+      &:is([size='xs'], .wa-size-xs) wa-radio[appearance='button']::part(label) {
+        font-size: var(--wa-font-size-2xs);
+      }
+      &:is([size='s'], [size='small'] /* deprecated */, .wa-size-s) wa-radio[appearance='button']::part(label) {
         font-size: var(--wa-font-size-xs);
       }
-      &:is([size='medium'], .wa-size-m) wa-radio[appearance='button']::part(label) {
+      &:is([size='m'], [size='medium'] /* deprecated */, .wa-size-m) wa-radio[appearance='button']::part(label) {
         font-size: var(--wa-font-size-s);
       }
-      &:is([size='large'], .wa-size-l) wa-radio[appearance='button']::part(label) {
+      &:is([size='l'], [size='large'] /* deprecated */, .wa-size-l) wa-radio[appearance='button']::part(label) {
         font-size: var(--wa-font-size-m);
+      }
+      &:is([size='xl'], .wa-size-xl) wa-radio[appearance='button']::part(label) {
+        font-size: var(--wa-font-size-l);
       }
     }
 
@@ -468,16 +516,30 @@
       padding: var(--wa-space-m);
       font-size: var(--wa-font-size-s);
 
-      &[size='small'],
+      &[size='xs'],
+      &.wa-size-xs {
+        padding: var(--wa-space-xs);
+        font-size: var(--wa-font-size-2xs);
+      }
+
+      &[size='s'],
+      &[size='small'] /* deprecated */,
       &.wa-size-s {
         padding: var(--wa-space-s);
         font-size: var(--wa-font-size-xs);
       }
 
-      &[size='large'],
+      &[size='l'],
+      &[size='large'] /* deprecated */,
       &.wa-size-l {
         padding: var(--wa-space-l);
         font-size: var(--wa-font-size-m);
+      }
+
+      &[size='xl'],
+      &.wa-size-xl {
+        padding: var(--wa-space-xl);
+        font-size: var(--wa-font-size-l);
       }
 
       /* Give outlined callouts a top accent border */

@@ -3,6 +3,14 @@ title: Justify Content
 description: Justify content utilities determine how space is distributed between items in flex and grid containers.
 layout: docs
 tags: layoutUtilities
+synonyms:
+  - horizontal align
+  - main axis
+  - distribute
+use-cases:
+  - flex justify
+  - space between
+  - center horizontally
 ---
 
 <style>
@@ -22,7 +30,7 @@ tags: layoutUtilities
   }
 </style>
 
-Web Awesome includes classes to set the `justify-content` property of flex and grid containers. Use them alongside other Web Awesome layout utilities, like [cluster](/docs/utilities/cluster) and [stack](/docs/utilities/stack), to distribute space between items along the container's [main axis](#whats-the-main-axis).
+These utility classes control how space is distributed between items along a flex or grid container's [main axis](#whats-the-main-axis), which is the axis its children flow along. Reach for them when you want to push items to one end of a [cluster](/docs/utilities/cluster) or [stack](/docs/utilities/stack), center a row of buttons, or spread a set of navigation links evenly across a header.
 
 | Class Name                         | `justify-content` Value | Preview                                                                                                                                                      |
 | ---------------------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |

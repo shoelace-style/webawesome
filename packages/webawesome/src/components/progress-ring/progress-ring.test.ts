@@ -4,65 +4,100 @@ import { fixtures } from '../../internal/test/fixture.js';
 import type WaProgressRing from './progress-ring.js';
 
 describe('<wa-progress-ring>', () => {
-  let el: WaProgressRing;
-
   for (const fixture of fixtures) {
     describe(`with "${fixture.type}" rendering`, () => {
-      describe('when provided just a value parameter', () => {
-        beforeEach(async () => {
-          el = await fixture<WaProgressRing>(html`<wa-progress-ring value="25"></wa-progress-ring>`);
-        });
-
-        it('should pass accessibility tests', async () => {
+      describe('accessibility', () => {
+        it('should be accessible with default properties', async () => {
+          const el = await fixture<WaProgressRing>(html`<wa-progress-ring value="25"></wa-progress-ring>`);
           await expect(el).to.be.accessible();
         });
-      });
 
-      describe('when provided a title, and value parameter', () => {
-        let base: HTMLDivElement;
-
-        beforeEach(async () => {
-          el = await fixture<WaProgressRing>(
-            html`<wa-progress-ring title="Titled Progress Ring" value="25"></wa-progress-ring>`,
+        it('should be accessible with a custom label', async () => {
+          const el = await fixture<WaProgressRing>(
+            html`<wa-progress-ring value="50" label="Loading"></wa-progress-ring>`,
           );
-          base = el.shadowRoot!.querySelector('[part~="base"]')!;
-        });
-
-        it('should pass accessibility tests', async () => {
           await expect(el).to.be.accessible();
-        });
-
-        it('uses the value parameter on the base, as aria-valuenow', () => {
-          expect(base).attribute('aria-valuenow', '25');
-        });
-
-        it('translates the value parameter to a percentage, and uses translation on the base, as percentage css variable', () => {
-          expect(base).attribute('style', '--percentage:0.25;');
         });
       });
 
-      describe('when provided a ariaLabel, and value parameter', () => {
-        beforeEach(async () => {
-          el = await fixture<WaProgressRing>(
-            html`<wa-progress-ring ariaLabel="Labelled Progress Ring" value="25"></wa-progress-ring>`,
+      describe('properties', () => {
+        it('should have default property values', async () => {
+          const el = await fixture<WaProgressRing>(html`<wa-progress-ring></wa-progress-ring>`);
+
+          expect(el.value).to.equal(0);
+          expect(el.label).to.equal('');
+        });
+
+        it('should reflect the value attribute', async () => {
+          const el = await fixture<WaProgressRing>(html`<wa-progress-ring value="75"></wa-progress-ring>`);
+          expect(el.value).to.equal(75);
+          expect(el.getAttribute('value')).to.equal('75');
+        });
+
+        it('should set aria-valuenow from value', async () => {
+          const el = await fixture<WaProgressRing>(html`<wa-progress-ring value="25"></wa-progress-ring>`);
+          const base = el.shadowRoot!.querySelector('[part~="base"]')!;
+          expect(base.getAttribute('aria-valuenow')).to.equal('25');
+        });
+
+        it('should set the --percentage CSS variable based on value', async () => {
+          const el = await fixture<WaProgressRing>(html`<wa-progress-ring value="25"></wa-progress-ring>`);
+          const base = el.shadowRoot!.querySelector('[part~="base"]')!;
+          expect(base.getAttribute('style')).to.equal('--percentage:0.25;');
+        });
+
+        it('should use custom label for aria-label when provided', async () => {
+          const el = await fixture<WaProgressRing>(
+            html`<wa-progress-ring value="50" label="Uploading"></wa-progress-ring>`,
           );
+          const base = el.shadowRoot!.querySelector('[part~="base"]')!;
+          expect(base.getAttribute('aria-label')).to.equal('Uploading');
         });
 
-        it('should pass accessibility tests', async () => {
-          await expect(el).to.be.accessible();
+        it('should have proper ARIA progressbar role', async () => {
+          const el = await fixture<WaProgressRing>(html`<wa-progress-ring value="50"></wa-progress-ring>`);
+          const base = el.shadowRoot!.querySelector('[part~="base"]')!;
+          expect(base.getAttribute('role')).to.equal('progressbar');
+          expect(base.getAttribute('aria-valuemin')).to.equal('0');
+          expect(base.getAttribute('aria-valuemax')).to.equal('100');
+        });
+
+        it('should update aria-valuenow when value changes', async () => {
+          const el = await fixture<WaProgressRing>(html`<wa-progress-ring value="25"></wa-progress-ring>`);
+          el.value = 75;
+          await el.updateComplete;
+          const base = el.shadowRoot!.querySelector('[part~="base"]')!;
+          expect(base.getAttribute('aria-valuenow')).to.equal('75');
         });
       });
 
-      describe('when provided a ariaLabelledBy, and value parameter', () => {
-        beforeEach(async () => {
-          el = await fixture<WaProgressRing>(html`
-            <label id="labelledby">Progress Ring Label</label>
-            <wa-progress-ring ariaLabelledBy="labelledby" value="25"></wa-progress-ring>
-          `);
+      describe('slots', () => {
+        it('should render the default slot for the label', async () => {
+          const el = await fixture<WaProgressRing>(html`<wa-progress-ring value="50">50%</wa-progress-ring>`);
+          const slot = el.shadowRoot!.querySelector('slot');
+          expect(slot).to.exist;
+        });
+      });
+
+      describe('CSS parts', () => {
+        it('should have a base part', async () => {
+          const el = await fixture<WaProgressRing>(html`<wa-progress-ring value="50"></wa-progress-ring>`);
+          expect(el.shadowRoot!.querySelector('[part~="base"]')).to.exist;
         });
 
-        it('should pass accessibility tests', async () => {
-          await expect(el).to.be.accessible();
+        it('should have a track part', async () => {
+          const el = await fixture<WaProgressRing>(html`<wa-progress-ring value="50"></wa-progress-ring>`);
+          expect(el.shadowRoot!.querySelector('[part~="track"]')).to.exist;
+        });
+
+        it('should have an indicator part', async () => {
+          const el = await fixture<WaProgressRing>(html`<wa-progress-ring value="50"></wa-progress-ring>`);
+          expect(el.shadowRoot!.querySelector('[part~="indicator"]')).to.exist;
+        });
+
+        it('should have a label part', async () => {
+          const el = await fixture<WaProgressRing>(html`<wa-progress-ring value="50"></wa-progress-ring>`);
+          expect(el.shadowRoot!.querySelector('[part~="label"]')).to.exist;
         });
       });
     });

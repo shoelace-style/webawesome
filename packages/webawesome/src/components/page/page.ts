@@ -65,7 +65,8 @@ function toLength(px: number | string): string {
 }
 
 /**
- * @summary Pages offer an easy way to scaffold entire page layouts using minimal markup.
+ * @summary Pages scaffold an entire application layout with header, navigation, sidebar, main content, aside, and
+ *  footer regions. Use them to structure full pages with minimal markup and responsive behavior built in.
  * @documentation https://webawesome.com/docs/components/page
  * @status stable
  * @since 3.0
@@ -364,7 +365,7 @@ export default class WaPage extends WebAwesomeElement {
         </div>
         <div class="header" part="header">
           <slot name="navigation-toggle">
-            <wa-button part="navigation-toggle" size="small" appearance="plain" variant="neutral">
+            <wa-button part="navigation-toggle" size="s" appearance="plain" variant="neutral">
               <slot name="navigation-toggle-icon">
                 <wa-icon name="bars" part="navigation-toggle-icon" label="Toggle navigation drawer"></wa-icon>
               </slot>

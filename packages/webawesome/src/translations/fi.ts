@@ -7,6 +7,7 @@ const translation: Translation = {
   $dir: 'ltr',
 
   carousel: 'Karuselli',
+  captions: 'Tekstitys',
   clearEntry: 'Poista merkintä',
   createOption: value => `Luo "${value}"`,
   close: 'Sulje',
@@ -17,11 +18,16 @@ const translation: Translation = {
   dropFileHere: 'Drop file here or click to browse',
   dropFilesHere: 'Drop files here or click to browse',
   error: 'Virhe',
+  enterFullscreen: 'Siirry koko näytölle',
+  exitFullscreen: 'Poistu koko näytöltä',
   goToSlide: (slide, count) => `Siirry diaan ${slide} / ${count}`,
   hidePassword: 'Piilota salasana',
   increment: 'Lisää',
   loading: 'Ladataan',
+  moreOptions: 'Lisää vaihtoehtoja',
+  mute: 'Mykistä',
   nextSlide: 'Seuraava dia',
+  nextVideo: 'Seuraava video',
   numCharacters: num => {
     if (num === 1) return '1 merkki';
     return `${num} merkkiä`;
@@ -35,9 +41,15 @@ const translation: Translation = {
     if (num === 1) return 'Yksi vaihtoehto valittu';
     return `${num} vaihtoehtoa valittu`;
   },
+  pause: 'Keskeytä',
   pauseAnimation: 'Keskeytä animaatio',
+  pictureInPicture: 'Kuva kuvassa',
+  play: 'Toista',
+  playbackSpeed: 'Toistonopeus',
+  playlist: 'Soittolista',
   playAnimation: 'Toista animaatio',
   previousSlide: 'Edellinen dia',
+  previousVideo: 'Edellinen video',
   progress: 'Edistyminen',
   remove: 'Poista',
   resize: 'Muuta kokoa',
@@ -48,6 +60,12 @@ const translation: Translation = {
   showPassword: 'Näytä salasana',
   slideNum: slide => `Dia ${slide}`,
   toggleColorFormat: 'Vaihda väriformaattia',
+  seek: 'Siirry',
+  seekProgress: (current, duration) => `${current} / ${duration}`,
+  currentlyPlaying: 'toistetaan parhaillaan',
+  unmute: 'Poista mykistys',
+  videoPlayer: 'Videosoitin',
+  volume: 'Äänenvoimakkuus',
   zoomIn: 'Lähennä',
   zoomOut: 'Loitonna',
 };

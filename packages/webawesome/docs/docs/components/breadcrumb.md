@@ -1,8 +1,15 @@
 ---
 title: Breadcrumb
-description: Breadcrumbs provide a group of links so users can easily navigate a website's hierarchy.
 layout: component
 category: Navigation
+synonyms:
+  - breadcrumbs
+  - navigation trail
+  - path
+use-cases:
+  - wayfinding
+  - site navigation
+  - hierarchy navigation
 ---
 
 Breadcrumbs are usually placed before a page's main content with the current page shown last to indicate the user's position in the navigation.
@@ -48,7 +55,7 @@ Use the `start` and `end` slots to add presentational elements like `<wa-icon>` 
   </wa-breadcrumb-item>
   <wa-breadcrumb-item>Articles</wa-breadcrumb-item>
   <wa-breadcrumb-item>
-    <wa-icon slot="end" name="tree-palm"></wa-icon>
+    <wa-icon slot="end" name="umbrella-beach"></wa-icon>
     Traveling
   </wa-breadcrumb-item>
 </wa-breadcrumb>
@@ -124,7 +131,7 @@ Dropdown menus can be placed in the default slot to provide additional options.
   <wa-breadcrumb-item>Homepage</wa-breadcrumb-item>
   <wa-breadcrumb-item>
     <wa-dropdown>
-      <wa-button slot="trigger" size="small" appearance="filled" pill>
+      <wa-button slot="trigger" size="s" appearance="filled" pill>
         <wa-icon label="More options" name="ellipsis" variant="solid"></wa-icon>
       </wa-button>
       <wa-dropdown-item type="checkbox" checked>Web Design</wa-dropdown-item>
@@ -147,7 +154,7 @@ Alternatively, you can place dropdown menus in a `start` or `end` slot.
   <wa-breadcrumb-item>
     Web Design
     <wa-dropdown slot="end">
-      <wa-button slot="trigger" size="small" appearance="filled" pill>
+      <wa-button slot="trigger" size="s" appearance="filled" pill>
         <wa-icon label="More options" name="ellipsis" variant="solid"></wa-icon>
       </wa-button>
       <wa-dropdown-item type="checkbox" checked>Web Design</wa-dropdown-item>

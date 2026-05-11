@@ -109,9 +109,13 @@
   }
 
   p {
-    text-wrap: pretty;
+    text-wrap: wrap;
   }
-
+  @supports (text-wrap: pretty) {
+    p {
+      text-wrap: pretty;
+    }
+  }
   blockquote {
     padding: var(--wa-space-xl);
 
@@ -300,7 +304,7 @@
     white-space: pre;
 
     background-color: var(--wa-color-overlay-inline);
-    border-radius: var(--wa-border-radius-m);
+    border-radius: var(--wa-panel-border-radius);
     overflow-x: auto;
 
     /* Remove overlapping styles for child code elements */
@@ -601,7 +605,6 @@
       font-family: inherit;
       font-size: var(--wa-form-control-value-font-size);
       font-weight: var(--wa-font-weight-action);
-      line-height: calc(var(--wa-form-control-height) - var(--border-width) * 2);
       text-decoration: none;
       vertical-align: middle;
       white-space: nowrap;
@@ -626,12 +629,15 @@
       border-color: transparent;
 
       &:not(:disabled) {
-        &:hover {
-          background-color: color-mix(
-            in oklab,
-            var(--wa-color-fill-loud, var(--wa-color-neutral-fill-loud)),
-            var(--wa-color-mix-hover)
-          );
+        @media (hover: hover) {
+          &:hover {
+            background-color: color-mix(
+              in oklab,
+              var(--wa-color-fill-loud, var(--wa-color-neutral-fill-loud)),
+              var(--wa-color-mix-hover)
+            );
+            transform: var(--wa-button-transform-hover);
+          }
         }
 
         &:active {
@@ -640,6 +646,14 @@
             var(--wa-color-fill-loud, var(--wa-color-neutral-fill-loud)),
             var(--wa-color-mix-active)
           );
+          transform: var(--wa-button-transform-active);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          &:hover,
+          &:active {
+            transform: none;
+          }
         }
       }
     }

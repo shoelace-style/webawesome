@@ -1,8 +1,16 @@
 ---
 title: Checkbox
-description: Checkboxes allow the user to toggle an option on or off.
 layout: component
 category: Form Controls
+synonyms:
+  - check
+  - tick
+  - checkmark
+use-cases:
+  - boolean toggle
+  - multi-select option
+  - terms agreement
+  - todo item
 ---
 
 ```html {.example}
@@ -48,11 +56,15 @@ Use the `disabled` attribute to disable the checkbox.
 Use the `size` attribute to change a checkbox's size.
 
 ```html {.example}
-<wa-checkbox size="small">Small</wa-checkbox>
+<wa-checkbox size="xs">Extra Small</wa-checkbox>
 <br />
-<wa-checkbox size="medium">Medium</wa-checkbox>
+<wa-checkbox size="s">Small</wa-checkbox>
 <br />
-<wa-checkbox size="large">Large</wa-checkbox>
+<wa-checkbox size="m">Medium</wa-checkbox>
+<br />
+<wa-checkbox size="l">Large</wa-checkbox>
+<br />
+<wa-checkbox size="xl">Extra Large</wa-checkbox>
 ```
 
 ### Hint
@@ -71,7 +83,7 @@ Use the `setCustomValidity()` method to set a custom validation message. This wi
 <form class="custom-validity">
   <wa-checkbox>Check me</wa-checkbox>
   <br />
-  <wa-button appearance="filled" type="submit" variant="brand" style="margin-top: 1rem;">Submit</wa-button>
+  <wa-button appearance="filled" type="submit" variant="neutral" style="margin-top: 1rem;">Submit</wa-button>
 </form>
 <script>
   const form = document.querySelector('.custom-validity');

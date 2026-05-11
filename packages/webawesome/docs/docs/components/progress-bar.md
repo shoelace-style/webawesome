@@ -1,8 +1,15 @@
 ---
 title: Progress Bar
-description: Progress bars are used to show the status of an ongoing operation.
 layout: component
 category: Feedback & Status
+synonyms:
+  - loading bar
+  - progress indicator
+  - status bar
+use-cases:
+  - upload progress
+  - download progress
+  - step progress
 ---
 
 ```html {.example}

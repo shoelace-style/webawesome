@@ -310,6 +310,10 @@ export default async function (eleventyConfig) {
   //   eleventyConfig.addPlugin(formatCodePlugin());
   // }
   eleventyConfig.on('eleventy.after', async () => {
+    if (process.env.SKIP_SLOW_STEPS === 'true') {
+      return;
+    }
+
     const siteDir = getSiteDir();
     await generateAgentSkill({
       siteDir,

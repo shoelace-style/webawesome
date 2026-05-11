@@ -20,7 +20,8 @@ import '../spinner/spinner.js';
 import styles from './tree-item.styles.js';
 
 /**
- * @summary A tree item serves as a hierarchical node that lives inside a [tree](/docs/components/tree).
+ * @summary Tree items represent a single hierarchical node inside a tree, and can contain nested items that expand and
+ *  collapse.
  * @documentation https://webawesome.com/docs/components/tree-item
  * @status stable
  * @since 2.0

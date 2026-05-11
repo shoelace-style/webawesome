@@ -1,8 +1,16 @@
 ---
 title: Number Input
-description: Number inputs allow users to enter and edit numeric values with optional stepper buttons.
 layout: component
 category: Form Controls
+synonyms:
+  - numeric input
+  - stepper
+  - spin button
+  - counter
+use-cases:
+  - quantity selector
+  - increment decrement
+  - numeric field
 ---
 
 ```html {.example}
@@ -88,11 +96,15 @@ Use the `readonly` attribute to make the input readonly. The value can still be 
 Use the `size` attribute to change an input's size.
 
 ```html {.example}
-<wa-number-input label="Small" size="small" value="10" style="max-width: 260px;"></wa-number-input>
+<wa-number-input label="Extra Small" size="xs" value="5" style="max-width: 260px;"></wa-number-input>
 <br />
-<wa-number-input label="Medium" size="medium" value="20" style="max-width: 260px;"></wa-number-input>
+<wa-number-input label="Small" size="s" value="10" style="max-width: 260px;"></wa-number-input>
 <br />
-<wa-number-input label="Large" size="large" value="30" style="max-width: 260px;"></wa-number-input>
+<wa-number-input label="Medium" size="m" value="20" style="max-width: 260px;"></wa-number-input>
+<br />
+<wa-number-input label="Large" size="l" value="30" style="max-width: 260px;"></wa-number-input>
+<br />
+<wa-number-input label="Extra Large" size="xl" value="40" style="max-width: 260px;"></wa-number-input>
 ```
 
 ### Pill
@@ -100,11 +112,15 @@ Use the `size` attribute to change an input's size.
 Use the `pill` attribute to give inputs rounded edges.
 
 ```html {.example}
-<wa-number-input label="Small Pill" size="small" pill value="10" style="max-width: 260px;"></wa-number-input>
+<wa-number-input label="Extra Small Pill" size="xs" pill value="5" style="max-width: 260px;"></wa-number-input>
 <br />
-<wa-number-input label="Medium Pill" size="medium" pill value="20" style="max-width: 260px;"></wa-number-input>
+<wa-number-input label="Small Pill" size="s" pill value="10" style="max-width: 260px;"></wa-number-input>
 <br />
-<wa-number-input label="Large Pill" size="large" pill value="30" style="max-width: 260px;"></wa-number-input>
+<wa-number-input label="Medium Pill" size="m" pill value="20" style="max-width: 260px;"></wa-number-input>
+<br />
+<wa-number-input label="Large Pill" size="l" pill value="30" style="max-width: 260px;"></wa-number-input>
+<br />
+<wa-number-input label="Extra Large Pill" size="xl" pill value="40" style="max-width: 260px;"></wa-number-input>
 ```
 
 ### Without Steppers
@@ -209,7 +225,7 @@ Use the `required` attribute to make the field required. Combine with `min` and 
     style="max-width: 260px;"
   ></wa-number-input>
   <br />
-  <wa-button appearance="filled" type="submit" variant="brand">Submit</wa-button>
+  <wa-button appearance="filled" type="submit" variant="neutral">Submit</wa-button>
   <wa-button appearance="filled" type="reset" variant="neutral">Reset</wa-button>
 </form>
 

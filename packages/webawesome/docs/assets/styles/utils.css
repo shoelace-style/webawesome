@@ -21,6 +21,9 @@
     --line-length-xl: 90ch;
     --line-length-none: none;
 
+    --wa-brand-orange: #f36944;
+    --wa-brand-grey: #30323b;
+
     --brand-web-awesome-orange: var(--wa-brand-orange);
     --brand-font-awesome-blue: #418fde;
     --brand-build-awesome-green: #00a776;
@@ -38,11 +41,41 @@
   }
 
   /* #region layout utilities */
+
+  /*
+   * .content-container — CANONICAL DEFINITION
+   *
+   * Default sizing/centering primitive for main content areas across the
+   * Web Awesome ecosystem (app, marketing, docs). DO NOT redefine this
+   * class anywhere else (no shadow rules in pro site.css base, no app.css
+   * redefinition). Scoped overrides like `.page-footer .content-container { ... }`
+   * are fine — only base-class redefinition is forbidden.
+   *
+   * Override per-instance width via the `--max-inline-size` custom property:
+   *   main { --max-inline-size: var(--content-width-xs); }
+   */
   .content-container {
     margin-inline: auto;
-    max-width: var(--max-width, var(--content-width-l));
+    max-inline-size: var(--max-inline-size, var(--content-width-l));
     padding-inline: var(--content-padding-inline);
   }
+
+  /* Default main content vertical spacing.
+   * Applies when <main> opts into the default sizing pattern via class.
+   * Pages opt out by setting front matter `hasFlushMain: true`, which causes
+   * the layout to omit the class entirely (no spacing, no container). */
+  wa-page > main.content-container {
+    padding-block: var(--wa-space-4xl);
+  }
+
+  /* Neutralize wa-page's shadow-DOM `::slotted(main) { padding: var(--wa-space-3xl) }`
+   * on flush pages. When a page sets `hasFlushMain: true`, <main> renders without
+   * the .content-container class — this rule ensures the page is fully flush,
+   * not inheriting the component's default padding. */
+  wa-page > main:not(.content-container) {
+    padding: 0;
+  }
+
   /* #endregion */
 
   /* #region Text utilities */
@@ -54,7 +87,7 @@
 
   /* line-length */
   .line-length {
-    max-width: var(--line-length, none);
+    max-inline-size: var(--line-length, none);
   }
 
   .line-length-xs {
@@ -136,7 +169,11 @@
   wa-page > [slot='banner'] {
     /* match nav-products background color */
     background-color: var(--nav-products-bg, var(--wa-color-surface-lowered));
-    padding: var(--wa-space-l) var(--content-padding-inline);
+    /* inline padding handled by .content-container on inner .banner */
+    padding-block: var(--wa-space-l);
+    padding-inline: 0;
+    /* default to full-width in webawesome docs; pro overrides to --content-width-l */
+    --max-inline-size: 100%;
     transition: background-color var(--wa-transition-slow) var(--wa-transition-easing);
 
     .banner {
@@ -145,67 +182,25 @@
   }
 
   /* banner for Build Awesome Kickstarter */
-  /* custom version of shake icon animation for slower and more casual repetitive timing */
-  @keyframes ba-banner-shake {
-    0% {
-      transform: rotate(-15deg);
-    }
-    1.67% {
-      transform: rotate(15deg);
-    }
-    3.33% {
-      transform: rotate(-18deg);
-    }
-    5% {
-      transform: rotate(18deg);
-    }
-    6.67% {
-      transform: rotate(-18deg);
-    }
-    8.33% {
-      transform: rotate(22deg);
-    }
-    10% {
-      transform: rotate(-22deg);
-    }
-    11.67% {
-      transform: rotate(18deg);
-    }
-    13.33% {
-      transform: rotate(-12deg);
-    }
-    15% {
-      transform: rotate(12deg);
-    }
-    16.67%,
-    100% {
-      transform: rotate(0deg);
-    }
-  }
-
   .banner-ba-kickstarter {
-    .banner-icon {
-      --primary-color: var(--wa-color-brand-on-loud);
-      --secondary-color: var(--wa-color-brand-on-normal);
-      --secondary-opacity: 1;
-      font-size: var(--wa-font-size-2xl);
-      animation: ba-banner-shake 12s linear 10s infinite;
-    }
-  }
+    /* make the callout-based banner full width */
+    inline-size: 100%;
 
-  /* disable animation for users who have reduced motion preferences */
-  @media (prefers-reduced-motion: reduce) {
-    .banner-ba-kickstarter .banner-icon {
-      animation: none;
+    .banner-icon {
+      font-size: var(--wa-font-size-2xl);
+      margin-inline-end: var(--wa-space-m);
     }
   }
 
   /*  products nav */
-  .wrapper-nav-products {
+  .page-nav-products {
     background-color: var(--nav-products-bg, var(--wa-color-surface-lowered));
+    /* inline padding handled by .content-container on inner .nav-products-full */
     padding-block-start: var(--wa-space-xs);
-    padding-inline: var(--content-padding-inline);
+    padding-inline: 0;
     inline-size: 100%;
+    /* default to full-width in webawesome docs; pro overrides to --content-width-l */
+    --max-inline-size: 100%;
     transition: background-color var(--wa-transition-slow) var(--wa-transition-easing);
   }
 
@@ -226,7 +221,7 @@
     }
   }
 
-  wa-page:has(.wrapper-nav-products, .nav-products-drawer) {
+  wa-page:has(.page-nav-products, .nav-products-drawer) {
     &:has(.product-web-awesome:hover) {
       --nav-products-bg: var(--nav-products-fill-quiet-web);
     }
@@ -258,14 +253,9 @@
     }
 
     .logo-svg {
-      width: auto;
-      height: var(--awesome-logo-height, 1.5rem);
+      inline-size: auto;
+      block-size: var(--awesome-logo-height, 1.5rem);
     }
-  }
-
-  .nav-products-secondary .pseudo-product wa-icon {
-    color: var(--wa-color-text-normal);
-    font-size: var(--wa-font-size-l);
   }
 
   /* drawer-based */
@@ -273,7 +263,7 @@
     .product {
       /* match dimensions of drawer's close-button */
       padding-inline: var(--wa-form-control-padding-inline);
-      height: var(--wa-form-control-height);
+      block-size: var(--wa-form-control-height);
 
       &.product-active {
         --nudge-inline-start: calc(var(--wa-form-control-padding-inline) * -1.5);
@@ -296,7 +286,7 @@
 
     /* Narrow (≤ 80ch): compact header with logo */
     @container header (inline-size <= 80ch) {
-      .wrapper-nav-products {
+      .page-nav-products {
         display: none;
       }
     }
@@ -305,18 +295,17 @@
   /* subheader */
   wa-page > [slot='subheader'] {
     background-color: var(--wa-color-surface-default);
-    border-bottom: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-surface-border);
-    padding: var(--wa-space-xs) var(--content-padding-inline);
+    /* default to full-width in webawesome docs; pro overrides to --content-width-l */
+    --max-inline-size: 100%;
+    border-block-end: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-surface-border);
+    padding-block: var(--wa-space-xs);
+    padding-inline: 0;
     container-type: inline-size;
     container-name: subheader;
 
     /* icon-based logo */
     wa-icon.logo-web-awesome {
       font-size: var(--wa-font-size-xl);
-    }
-
-    .subheader-account wa-avatar {
-      --size: var(--wa-font-size-xl);
     }
 
     /* subheader doc nav: match sidebar “current” emphasis */
@@ -327,9 +316,7 @@
 
     /* Narrow (≤ 80ch): compact header with logo */
     @container subheader (inline-size <= 80ch) {
-      .subheader-links,
-      .subheader-toolbar,
-      .subheader-project-selector {
+      .subheader-links {
         display: none;
       }
 
@@ -399,7 +386,7 @@
     padding: 0;
 
     .brand-logo svg {
-      height: 1.25rem;
+      block-size: 1.25rem;
     }
 
     wa-dropdown {
@@ -413,11 +400,6 @@
 
   wa-page[view='mobile'] :is([slot='navigation-header'], [slot='navigation']) {
     padding: 0;
-
-    & wa-details::part(icon) {
-      /* aligns details icons with drawer close icon */
-      padding-inline: var(--wa-space-xs);
-    }
   }
 
   wa-page::part(drawer__dialog),
@@ -433,6 +415,17 @@
     + wa-tooltip {
       font-size: var(--wa-font-size-xs);
       --max-width: unset;
+    }
+  }
+
+  /* pro callout */
+  wa-callout.pro {
+    background-color: color-mix(in oklab, var(--wa-brand-orange) 12%, var(--wa-color-surface-default));
+    border-color: color-mix(in oklab, var(--wa-brand-orange) 30%, var(--wa-color-surface-default));
+    color: var(--wa-color-text-normal);
+
+    &::part(icon) {
+      color: var(--wa-brand-orange);
     }
   }
 
@@ -456,6 +449,10 @@
   }
 
   /* colophon + sidebar: social link row */
+  #colophon {
+    margin-block-start: var(--wa-space-2xl);
+  }
+
   #colophon .the-socials,
   #sidebar .the-socials {
     margin-inline-start: calc(var(--wa-space-xs) * -1);
@@ -484,6 +481,11 @@
     padding-inline: var(--wa-space-2xs);
   }
 
+  .is-mac .non-mac,
+  html:not(.is-mac) .mac-only {
+    display: none;
+  }
+
   /* step icons for ordered instructions */
   .step-icon {
     --primary-color: var(--wa-color-neutral-20);
@@ -505,6 +507,17 @@
   }
 
   /* Build Awesome Kickstarter dialog */
+  .wrapper-ba-kickstarter-dialog {
+    container-type: inline-size;
+    container-name: ba-kickstarter-dialog;
+  }
+
+  @container ba-kickstarter-dialog (min-inline-size: 48rem) {
+    #dialog-site.dialog-ba-kickstarter {
+      --width: 41rem;
+    }
+  }
+
   .dialog-ba-kickstarter .ba-kickstarter-video {
     position: relative;
     margin-inline: calc(var(--spacing) * -1);
@@ -520,8 +533,8 @@
   }
 
   .dialog-ba-kickstarter .ba-kickstarter-video-poster img {
-    width: 100%;
-    height: 100%;
+    inline-size: 100%;
+    block-size: 100%;
     object-fit: cover;
     display: block;
   }
@@ -630,25 +643,6 @@
       inset-inline-start: calc(var(--wa-space-xs) * -1);
     }
 
-    wa-details {
-      --spacing: 0;
-
-      &::part(header) {
-        padding: 0;
-        padding-block-start: var(--wa-space-xs);
-      }
-
-      &::part(content) {
-        padding-block-start: var(--wa-space-m);
-      }
-
-      &::part(base) {
-        border: none;
-        background: none;
-        padding: 0;
-      }
-    }
-
     ul {
       border-inline-start: var(--wa-border-width-s) solid var(--wa-color-surface-border);
       font-size: var(--wa-font-size-s);
@@ -725,19 +719,23 @@
       font-size: var(--font-size-3xs);
     }
 
-    wa-details {
-      --show-duration: 0;
-      --hide-duration: 0;
-    }
-
-    #version-icon-info {
-      --secondary-opacity: 1;
-      --secondary-color: var(--wa-brand-orange);
-      padding-inline: var(--wa-space-xs);
-    }
-
     wa-button#search-trigger::part(base) {
       justify-content: flex-start; /* align search trigger button content to start */
+    }
+
+    /* current page: accent line replacing the section's left rail */
+    li:has(> .current),
+    li:has(> .wa-split > .current) {
+      position: relative;
+
+      &::before {
+        content: '';
+        position: absolute;
+        inset-block: calc(-1 * var(--wa-space-2xs));
+        inset-inline-start: calc(-1 * var(--wa-space-m) - var(--wa-border-width-s));
+        inline-size: var(--wa-border-width-s);
+        background: var(--wa-color-brand-on-quiet);
+      }
     }
   }
 
@@ -745,31 +743,18 @@
     color: var(--wa-color-text-quiet);
   }
 
-  #sidebar-close-button {
-    display: none;
-  }
-
-  @media screen and (max-width: 768px) {
-    #sidebar-close-button {
-      display: inline-block;
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-    }
-  }
-
   #sidebar nav {
-    padding-bottom: 1rem;
+    padding-block-end: 1rem;
   }
 
-  @media screen and not (max-width: 1180px) {
+  @media screen and (min-width: 73.75rem) {
     wa-page::part(navigation) {
-      border-right: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-surface-border);
+      border-inline-end: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-surface-border);
     }
 
     wa-page > #sidebar {
       overflow: auto;
-      max-height: 100%;
+      max-block-size: 100%;
       padding: var(--wa-space-2xl) var(--content-padding-inline);
     }
   }
@@ -783,15 +768,15 @@
     --underline-color: currentColor;
     position: relative;
     text-decoration: none;
-    padding-bottom: 0.4em;
+    padding-block-end: 0.4em;
 
     &::after {
       content: '';
       position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-      height: 0.4em;
+      inset-inline-start: 0;
+      inset-block-end: 0;
+      inline-size: 100%;
+      block-size: 0.4em;
       mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 20'%3E%3Cpath d='M0,12 Q50,8 100,12' stroke='black' stroke-width='4' fill='none'/%3E%3C/svg%3E");
       mask-repeat: no-repeat;
       mask-size: 100% auto;
@@ -800,57 +785,9 @@
     }
   }
 
-  /* grid background */
-  .background-grid {
-    --grid-spacing: var(--wa-space-2xl);
-    --grid-line-color: color-mix(in oklab, var(--wa-color-text-normal), transparent 90%);
-    --grid-line-width: var(--wa-border-width-s);
-    --subgrid-spacing: calc(var(--grid-spacing) / 2);
-    --subgrid-line-color: color-mix(in oklab, var(--wa-color-text-normal), transparent 95%);
-    --subgrid-line-width: var(--wa-border-width-s);
-
-    background-image:
-      /* main grid - vertical lines */
-      linear-gradient(to right, var(--grid-line-color) var(--grid-line-width), transparent var(--grid-line-width)),
-      /* main grid - horizontal lines */
-        linear-gradient(to bottom, var(--grid-line-color) var(--grid-line-width), transparent var(--grid-line-width)),
-      /* sub-grid - vertical lines (offset by half the main grid spacing) */
-        linear-gradient(
-          to right,
-          var(--subgrid-line-color) var(--subgrid-line-width),
-          transparent var(--subgrid-line-width)
-        ),
-      /* sub-grid - horizontal lines (offset by half the main grid spacing) */
-        linear-gradient(
-          to bottom,
-          var(--subgrid-line-color) var(--subgrid-line-width),
-          transparent var(--subgrid-line-width)
-        );
-
-    background-size:
-      var(--grid-spacing) var(--grid-spacing),
-      var(--grid-spacing) var(--grid-spacing),
-      var(--subgrid-spacing) var(--subgrid-spacing),
-      var(--subgrid-spacing) var(--subgrid-spacing);
-
-    background-position:
-      0 0,
-      0 0,
-      calc(var(--grid-spacing) / 2) calc(var(--grid-spacing) / 2),
-      calc(var(--grid-spacing) / 2) calc(var(--grid-spacing) / 2);
-  }
-
-  /* dot grid background */
-  .background-dot-grid {
-    --dot-spacing: 1.5rem;
-    --dot-radius: 1.5px;
-    --dot-color: color-mix(in oklab, var(--wa-color-text-normal), transparent 85%);
-
-    background-image: radial-gradient(circle, var(--dot-color) var(--dot-radius), transparent var(--dot-radius));
-    background-size: var(--dot-spacing) var(--dot-spacing);
-  }
-
-  /* wa illustration background pattern */
+  /* Background utilities share an ::after decoration layer; content children are lifted above it. */
+  .background-grid,
+  .background-dot-grid,
   .background-wa-pattern {
     position: relative;
 
@@ -860,15 +797,105 @@
     }
 
     &::after {
+      content: '';
       position: absolute;
       inset: 0;
-      background-color: var(--background-pattern-color, transparent);
-      background-image: var(--background-pattern-image, url('/assets/images/bg-wa-pattern.svg'));
-      background-repeat: repeat;
-      content: '';
-      opacity: var(--background-pattern-opacity, 0.3);
       z-index: 0;
+      pointer-events: none;
     }
+  }
+
+  /* grid background */
+  .background-grid {
+    --background-grid-spacing: var(--wa-space-2xl);
+    --background-grid-line-color: color-mix(in oklab, var(--wa-color-text-normal), transparent 90%);
+    --background-grid-line-width: var(--wa-border-width-s);
+    --background-subgrid-spacing: calc(var(--background-grid-spacing) / 2);
+    --background-subgrid-line-color: color-mix(in oklab, var(--wa-color-text-normal), transparent 95%);
+    --background-subgrid-line-width: var(--wa-border-width-s);
+
+    &::after {
+      background-image:
+        /* main grid - vertical lines */
+        linear-gradient(
+          to right,
+          var(--background-grid-line-color) var(--background-grid-line-width),
+          transparent var(--background-grid-line-width)
+        ),
+        /* main grid - horizontal lines */
+          linear-gradient(
+            to bottom,
+            var(--background-grid-line-color) var(--background-grid-line-width),
+            transparent var(--background-grid-line-width)
+          ),
+        /* sub-grid - vertical lines (offset by half the main grid spacing) */
+          linear-gradient(
+            to right,
+            var(--background-subgrid-line-color) var(--background-subgrid-line-width),
+            transparent var(--background-subgrid-line-width)
+          ),
+        /* sub-grid - horizontal lines (offset by half the main grid spacing) */
+          linear-gradient(
+            to bottom,
+            var(--background-subgrid-line-color) var(--background-subgrid-line-width),
+            transparent var(--background-subgrid-line-width)
+          );
+
+      background-size:
+        var(--background-grid-spacing) var(--background-grid-spacing),
+        var(--background-grid-spacing) var(--background-grid-spacing),
+        var(--background-subgrid-spacing) var(--background-subgrid-spacing),
+        var(--background-subgrid-spacing) var(--background-subgrid-spacing);
+
+      background-position:
+        0 0,
+        0 0,
+        calc(var(--background-grid-spacing) / 2) calc(var(--background-grid-spacing) / 2),
+        calc(var(--background-grid-spacing) / 2) calc(var(--background-grid-spacing) / 2);
+    }
+  }
+
+  /* dot grid background */
+  .background-dot-grid {
+    --background-dot-spacing: 1.5rem;
+    --background-dot-radius: 1.5px;
+    --background-dot-color: color-mix(in oklab, var(--wa-color-text-normal), transparent 85%);
+
+    &::after {
+      background-image: radial-gradient(
+        circle,
+        var(--background-dot-color) var(--background-dot-radius),
+        transparent var(--background-dot-radius)
+      );
+      background-size: var(--background-dot-spacing) var(--background-dot-spacing);
+    }
+  }
+
+  /* wa illustration background pattern */
+  .background-wa-pattern {
+    --background-pattern-color: transparent;
+    --background-pattern-image: url('/assets/images/bg-wa-pattern.svg');
+    --background-pattern-opacity: 0.3;
+    --background-pattern-size: auto;
+    --background-pattern-position: 0 0;
+
+    &::after {
+      background-color: var(--background-pattern-color);
+      background-image: var(--background-pattern-image);
+      background-repeat: repeat;
+      background-size: var(--background-pattern-size);
+      background-position: var(--background-pattern-position);
+      opacity: var(--background-pattern-opacity);
+    }
+  }
+
+  /* Bottom fade mask. With any .background-* utility, masks the ::after decoration only; on any other
+   * element, masks the host (content fades too). Mask reads alpha, color is irrelevant. */
+  .wa-mask-fade-below:not(:is(.background-grid, .background-dot-grid, .background-wa-pattern)),
+  :is(.background-grid, .background-dot-grid, .background-wa-pattern).wa-mask-fade-below::after {
+    --wa-mask-fade-start: 60%;
+    --wa-mask-fade-end: 95%;
+    mask-image: linear-gradient(to bottom, #000 var(--wa-mask-fade-start), transparent var(--wa-mask-fade-end));
   }
 
   /* icon swap on hover/focus: plain buttons + dropdown items (pair .icon-default / .icon-hover in icon slot) */

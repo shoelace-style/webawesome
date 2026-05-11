@@ -4,6 +4,7 @@ import { customElement, property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { live } from 'lit/directives/live.js';
+import { warnDeprecatedSize } from '../../internal/size.js';
 import { HasSlotController } from '../../internal/slot.js';
 import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
 import { watch } from '../../internal/watch.js';
@@ -15,7 +16,7 @@ import { LocalizeController } from '../../utilities/localize.js';
 import styles from './textarea.styles.js';
 
 /**
- * @summary Textareas collect data from the user and allow multiple lines of text.
+ * @summary Textareas collect multi-line text input from the user, with optional resizing and character counting.
  * @documentation https://webawesome.com/docs/components/textarea
  * @status stable
  * @since 2.0
@@ -88,7 +89,12 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
   @property({ attribute: 'value', reflect: true }) defaultValue: string = this.getAttribute('value') ?? '';
 
   /** The textarea's size. */
-  @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
+  @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
+
+  @watch('size')
+  handleSizeChange() {
+    warnDeprecatedSize(this.localName, this.size);
+  }
 
   /** The textarea's visual appearance. */
   @property({ reflect: true }) appearance: 'filled' | 'outlined' | 'filled-outlined' = 'outlined';
@@ -205,18 +211,39 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
     this.resizeObserver = undefined;
   }
 
+  private lastObservedWidth = 0;
+
   /** Creates or destroys the resize observer based on the current resize mode. */
   private updateResizeObserver() {
-    // The resize observer is only needed for manual resize modes (vertical, horizontal, both)
-    // to sync the base wrapper dimensions with the textarea.
-    const needsObserver = this.resize !== 'none' && this.resize !== 'auto';
+    // The observer is needed for manual resize modes (to sync the base wrapper dimensions with the textarea) and for
+    // `auto` (so the height recalculates when the textarea goes from hidden to visible or the width changes and the
+    // text needs to re-wrap).
+    const needsObserver = this.resize !== 'none';
 
-    if (needsObserver && !this.resizeObserver && this.input) {
-      this.resizeObserver = new ResizeObserver(() => this.setTextareaDimensions());
-      this.resizeObserver.observe(this.input);
-    } else if (!needsObserver && this.resizeObserver) {
+    // Always tear down first. The `auto` and manual modes observe different targets with different callbacks, so a
+    // stale observer from the previous mode would keep firing on the wrong element.
+    if (this.resizeObserver) {
       this.resizeObserver.disconnect();
       this.resizeObserver = undefined;
+    }
+
+    if (needsObserver && this.input) {
+      if (this.resize === 'auto') {
+        // Observe the host's width only. Height changes are skipped so our own height mutation in
+        // `setTextareaDimensions` doesn't recurse into the observer. The recompute is deferred to the next frame so it
+        // runs outside the observer callback (avoids "ResizeObserver loop completed" warnings).
+        this.resizeObserver = new ResizeObserver(entries => {
+          const width = entries[0]?.contentRect.width ?? 0;
+          if (width !== this.lastObservedWidth) {
+            this.lastObservedWidth = width;
+            requestAnimationFrame(() => this.setTextareaDimensions());
+          }
+        });
+        this.resizeObserver.observe(this);
+      } else {
+        this.resizeObserver = new ResizeObserver(() => this.setTextareaDimensions());
+        this.resizeObserver.observe(this.input);
+      }
     }
   }
 
@@ -259,12 +286,17 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
     }
 
     if (this.resize === 'auto') {
-      // This prevents layout shifts. We use `clientHeight` instead of `scrollHeight` to account for if the `<textarea>`
-      // has a max-height set on it. In my tests, this has worked fine. Im not aware of any edge cases. [Konnor]
+      // The size adjuster shares a grid cell with the textarea and acts as a lower bound on the wrapper height. Pin it
+      // to the current `clientHeight` while we measure so the wrapper doesn't collapse during the `auto` reset, then
+      // sync it to the new measured height so the wrapper can shrink when content is removed. We use `clientHeight` and
+      // `scrollHeight` instead of CSS to account for `max-height` on the textarea.
+      //
       // Let's switch to `field-sizing: content` once it has better support: https://caniuse.com/mdn-css_properties_field-sizing [Lea]
       this.sizeAdjuster.style.height = `${this.input.clientHeight}px`;
       this.input.style.height = 'auto';
-      this.input.style.height = `${this.input.scrollHeight}px`;
+      const newHeight = this.input.scrollHeight;
+      this.input.style.height = `${newHeight}px`;
+      this.sizeAdjuster.style.height = `${newHeight}px`;
 
       this.base.style.width = ``;
       this.base.style.height = ``;

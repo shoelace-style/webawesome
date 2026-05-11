@@ -1,8 +1,15 @@
 ---
 title: Format Number
-description: Formats a number using the specified locale and options.
 layout: component
 category: Utilities
+synonyms:
+  - number formatter
+  - currency
+  - percent
+use-cases:
+  - localized number
+  - decimal format
+  - currency display
 ---
 
 Localization is handled by the browser's [`Intl.NumberFormat` API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat). No language packs are required.

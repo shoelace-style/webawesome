@@ -3,6 +3,15 @@ title: Native Styles
 description: Native styles apply your theme to native HTML elements so they match the look and feel of Web Awesome components.
 layout: page-outline
 tags: styleUtilities
+synonyms:
+  - browser default
+  - native styles
+  - global styles
+use-cases:
+  - native HTML
+  - style native elements
+  - reset
+  - default styles
 ---
 
 Native styles use design tokens to spruce up native HTML elements so that they match the look and feel of your theme. While these native styles are completely optional, they're a great starting point for a cohesive design and a huge help when using a combination of native elements and Web Awesome components in your project.
@@ -36,8 +45,9 @@ Or, if you only want styles for native elements, import a theme and native style
 import '@awesome.me/webawesome/dist/styles/themes/default.css';
 import '@awesome.me/webawesome/dist/styles/native.css';
 ```
+
 {% endmarkdown %}
-  </wa-tab-panel>
+</wa-tab-panel>
 
   <wa-tab-panel name="self-hosted">
 {% markdown %}
@@ -53,11 +63,43 @@ Or, if you only want styles for native elements, include a theme and native styl
 <link rel="stylesheet" href="/dist/styles/themes/default.css" />
 <link rel="stylesheet" href="/dist/styles/native.css" />
 ```
+
 {% endmarkdown %}
-  </wa-tab-panel>
+</wa-tab-panel>
 </wa-tab-group>
 
 You can additionally include any pre-made [theme](/docs/themes/) or [color palette](/docs/color-palettes/) to change the look of native elements.
+
+## Opting out of native styles
+
+If you want to keep Web Awesome's components, tokens, and utilities but let a native element fall back to browser defaults, reset that element in your own stylesheet.
+
+```html {.example}
+<div class="wa-cluster wa-align-items-center">
+  <button type="button">Styled by native.css</button>
+  <button type="button" class="native-reset">Browser default button</button>
+</div>
+
+<style>
+  .native-reset {
+    all: revert;
+    font: inherit;
+  }
+</style>
+```
+
+Use `all: revert` on the exact element you want to opt out of native styles. Re-apply any properties you still want to inherit from your app, such as `font`.
+
+To opt out for an entire section, apply the same reset within a wrapper and target only the native elements in that area.
+
+```css
+.native-reset-zone :where(button, input, select, textarea, table, details, dialog, progress) {
+  all: revert;
+  font: inherit;
+}
+```
+
+If your app has separate page-level entry points, the simplest page-level opt-out is to not load `native.css` on pages that should keep browser defaults. You can still load your theme, components, and any [utilities](/docs/utilities/) you want on those pages.
 
 ## Content flow
 
@@ -115,8 +157,8 @@ Create paragraphs with `<p>`. Paragraphs inherit the default text styles set on 
 </p>
 
 <p>
-  You can have as many paragraphs as you need and they'll maintain consistent spacing between them. Native styles
-  ensure everything stays readable and well-proportioned, no matter how much content you throw at it.
+  You can have as many paragraphs as you need and they'll maintain consistent spacing between them. Native styles ensure
+  everything stays readable and well-proportioned, no matter how much content you throw at it.
 </p>
 ```
 
@@ -415,12 +457,14 @@ Add the `wa-accent`, `wa-filled`, `wa-outlined`, or `wa-plain` class to specify 
 <button class="wa-plain wa-neutral">Plain</button>
 ```
 
-Add the `wa-size-s`, `wa-size-m`, or `wa-size-l` class to specify the size of the button.
+Add a `wa-size-*` class to specify the size of the button. Available sizes are `wa-size-xs`, `wa-size-s`, `wa-size-m`, `wa-size-l`, and `wa-size-xl`.
 
 ```html {.example}
+<button class="wa-size-xs">Extra Small</button>
 <button class="wa-size-s">Small</button>
 <button class="wa-size-m">Medium</button>
 <button class="wa-size-l">Large</button>
+<button class="wa-size-xl">Extra Large</button>
 ```
 
 Add the `wa-pill` class to give buttons rounded edges.
@@ -481,10 +525,15 @@ Create a variety of form controls with `<input type="">`, `<select>`, and `<text
 </script>
 ```
 
-Add the `wa-size-s`, `wa-size-m`, or `wa-size-l` class to any form control or its parent `<label>` to specify its size.
+Add a `wa-size-*` class to any form control or its parent `<label>` to specify its size. Available sizes are `wa-size-xs`, `wa-size-s`, `wa-size-m`, `wa-size-l`, and `wa-size-xl`.
 
 ```html {.example}
 <div class="wa-stack">
+  <input type="text" placeholder="Extra small input" class="wa-size-xs" />
+  <div class="wa-cluster">
+    <label class="wa-size-xs"><input type="checkbox" checked /> Extra small checkbox</label>
+    <label class="wa-size-xs"><input type="radio" name="radio-xs" value="1" checked /> Extra small radio</label>
+  </div>
   <input type="text" placeholder="Small input" class="wa-size-s" />
   <div class="wa-cluster">
     <label class="wa-size-s"><input type="checkbox" checked /> Small checkbox</label>
@@ -499,6 +548,11 @@ Add the `wa-size-s`, `wa-size-m`, or `wa-size-l` class to any form control or it
   <div class="wa-cluster">
     <label class="wa-size-l"><input type="checkbox" checked /> Large checkbox</label>
     <label class="wa-size-l"><input type="radio" name="radio-large" value="1" checked /> Large radio</label>
+  </div>
+  <input type="text" placeholder="Extra large input" class="wa-size-xl" />
+  <div class="wa-cluster">
+    <label class="wa-size-xl"><input type="checkbox" checked /> Extra large checkbox</label>
+    <label class="wa-size-xl"><input type="radio" name="radio-xl" value="1" checked /> Extra large radio</label>
   </div>
 </div>
 ```
@@ -572,7 +626,7 @@ Wrap form controls in a flex container to arrange them horizontally or verticall
   </label>
   <label><input type="checkbox" checked /> Add whipped butter</label>
   <button>
-    <wa-icon name="pancakes"></wa-icon>
+    <wa-icon name="layer-group"></wa-icon>
     Stack 'em up
   </button>
 </form>

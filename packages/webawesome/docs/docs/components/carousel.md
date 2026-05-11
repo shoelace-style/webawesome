@@ -1,8 +1,18 @@
 ---
 title: Carousel
-description: Carousels display an arbitrary number of content slides along a horizontal or vertical axis.
 layout: component
 category: Imagery
+synonyms:
+  - slider
+  - slideshow
+  - image gallery
+  - rotator
+  - swiper
+use-cases:
+  - image carousel
+  - testimonial slider
+  - hero slider
+  - product gallery
 ---
 
 ```html {.example}

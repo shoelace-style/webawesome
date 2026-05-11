@@ -10,7 +10,8 @@ import '../icon/icon.js';
 import styles from './animated-image.styles.js';
 
 /**
- * @summary A component for displaying animated GIFs and WEBPs that play and pause on interaction.
+ * @summary Animated images display GIFs and WEBPs with controls to play and pause them on demand. Use them when you
+ *  want motion but need to give users control over when it plays.
  * @documentation https://webawesome.com/docs/components/animated-image
  * @status stable
  * @since 2.0

@@ -7,7 +7,8 @@ import '../icon/icon.js';
 import styles from './breadcrumb.styles.js';
 
 /**
- * @summary Breadcrumbs provide a group of links so users can easily navigate a website's hierarchy.
+ * @summary Breadcrumbs display a trail of links that show users where they are in a site's hierarchy. They help users
+ *  understand the current location and navigate back to parent pages.
  * @documentation https://webawesome.com/docs/components/breadcrumb
  * @status stable
  * @since 2.0

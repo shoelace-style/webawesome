@@ -4,6 +4,7 @@ import { customElement, property, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { live } from 'lit/directives/live.js';
+import { warnDeprecatedSize } from '../../internal/size.js';
 import { HasSlotController } from '../../internal/slot.js';
 import { RequiredValidator } from '../../internal/validators/required-validator.js';
 import { watch } from '../../internal/watch.js';
@@ -14,7 +15,8 @@ import '../icon/icon.js';
 import styles from './checkbox.styles.js';
 
 /**
- * @summary Checkboxes allow the user to toggle an option on or off.
+ * @summary Checkboxes let users toggle an option on or off, or select multiple items from a list. They also support an
+ *  indeterminate state for partial selections in groups.
  * @documentation https://webawesome.com/docs/components/checkbox
  * @status stable
  * @since 2.0
@@ -80,8 +82,7 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
 
   /** The value of the checkbox, submitted as a name/value pair with form data. */
   get value(): string | null {
-    const val = this._value || 'on';
-    return this.checked ? val : null;
+    return this._value ?? 'on';
   }
 
   @property({ reflect: true })
@@ -90,7 +91,12 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
   }
 
   /** The checkbox's size. */
-  @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
+  @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
+
+  @watch('size')
+  handleSizeChange() {
+    warnDeprecatedSize(this.localName, this.size);
+  }
 
   /** Disables the checkbox. */
   @property({ type: Boolean }) disabled = false;
@@ -226,7 +232,7 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
             .checked=${live(this.checked)}
             .disabled=${this.disabled}
             .required=${this.required}
-            aria-checked=${this.checked ? 'true' : 'false'}
+            aria-checked=${this.indeterminate ? 'mixed' : this.checked ? 'true' : 'false'}
             aria-describedby="hint"
             @click=${this.handleClick}
           />

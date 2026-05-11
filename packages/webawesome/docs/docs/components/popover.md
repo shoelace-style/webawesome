@@ -1,8 +1,16 @@
 ---
 title: Popover
-description: Popovers display interactive content when their anchor element is clicked.
 layout: component
 category: Utilities
+synonyms:
+  - popup content
+  - info popup
+  - interactive popup
+use-cases:
+  - rich tooltip
+  - hover card
+  - info popover
+  - click popup
 ---
 
 Popovers display interactive content when their anchor element is clicked. Unlike [tooltips](/docs/components/tooltip), popovers can contain links, buttons, and form controls. They appear without an overlay and will close when you click outside or press [[Escape]]. Only one popover can be open at a time.
@@ -11,7 +19,7 @@ Popovers display interactive content when their anchor element is clicked. Unlik
 <wa-popover for="popover__overview">
   <div style="display: flex; flex-direction: column; gap: 1rem;">
     <p>This popover contains interactive content that users can engage with directly.</p>
-    <wa-button appearance="filled" variant="primary" size="small">Take Action</wa-button>
+    <wa-button appearance="filled" variant="primary" size="s">Take Action</wa-button>
   </div>
 </wa-popover>
 
@@ -60,7 +68,7 @@ Use `data-popover="close"` on any button inside a popover to close it automatica
 Use the `placement` attribute to set where the popover appears relative to its anchor. The popover will automatically reposition if there isn't enough space in the preferred location. The default placement is `top`.
 
 ```html {.example}
-<div style="display: flex; gap: 1rem; align-items: center;">
+<div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
   <wa-button appearance="filled" id="popover__top">Top</wa-button>
   <wa-popover for="popover__top" placement="top">I'm on the top</wa-popover>
 
@@ -121,8 +129,8 @@ Use the [`autofocus`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_a
 ```html {.example}
 <wa-popover for="popover__autofocus">
   <div style="display: flex; flex-direction: column; gap: 1rem;">
-    <wa-textarea autofocus placeholder="What's on your mind?" size="small" resize="none" rows="3"></wa-textarea>
-    <wa-button appearance="filled" variant="primary" size="small" data-popover="close"> Submit </wa-button>
+    <wa-textarea autofocus placeholder="What's on your mind?" size="s" resize="none" rows="2"></wa-textarea>
+    <wa-button appearance="filled" variant="primary" size="s" data-popover="close"> Submit </wa-button>
   </div>
 </wa-popover>
 

@@ -3,6 +3,15 @@ title: Gap
 description: Gap utilities set the gap property of flex and grid containers, like other Web Awesome layout utilities.
 layout: docs
 tags: layoutUtilities
+synonyms:
+  - spacing
+  - gutter
+  - margin
+  - space between
+use-cases:
+  - flex gap
+  - grid gap
+  - element spacing
 ---
 
 <style>
@@ -22,12 +31,14 @@ tags: layoutUtilities
   }
 </style>
 
-Web Awesome includes classes to set the `gap` property of flex and grid containers. Use them alone to create a flex container with a gap, or use them alongside other Web Awesome layout utilities, like [cluster](/docs/utilities/cluster) and [stack](/docs/utilities/stack), to change the space between items.
+These utility classes set the space between items inside a flex or grid container. Pair them with a layout utility like [cluster](/docs/utilities/cluster), [stack](/docs/utilities/stack), [grid](/docs/utilities/grid), or [split](/docs/utilities/split) to override that layout's default spacing, or apply `wa-gap-*` to any `display: flex` or `display: grid` element of your own to get the same tokens without writing custom CSS.
 
-Besides `wa-gap-0`, which sets `gap` to zero, each class corresponds to one of the [`--wa-space-*`](/docs/tokens/space) tokens in your theme.
+Every class besides `wa-gap-0` corresponds to one of the [`--wa-space-*`](/docs/tokens/space) tokens in your theme, so the spacing you pick stays in sync with the rest of your design system.
 
-| Class Name   | `gap` Value      | Preview                                                                                                     |
-| ------------ | ---------------- | ----------------------------------------------------------------------------------------------------------- |
+## Gap Classes
+
+| Class Name   | `gap` Value      | Preview                                                                                                                     |
+| ------------ | ---------------- | --------------------------------------------------------------------------------------------------------------------------- |
 | `wa-gap-0`   | `0`              | <div class="preview-wrapper wa-cluster wa-gap-0"><div class="preview-block"></div><div class="preview-block"></div></div>   |
 | `wa-gap-3xs` | `--wa-space-3xs` | <div class="preview-wrapper wa-cluster wa-gap-3xs"><div class="preview-block"></div><div class="preview-block"></div></div> |
 | `wa-gap-2xs` | `--wa-space-2xs` | <div class="preview-wrapper wa-cluster wa-gap-2xs"><div class="preview-block"></div><div class="preview-block"></div></div> |

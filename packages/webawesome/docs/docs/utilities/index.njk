@@ -1,9 +1,9 @@
 ---
-title: Style Utilities
-description:
-  Style utilities are preset rules that let you efficiently customize styles for components and native elements alike.
-  See the [installation instructions](#installation) to use style utilities in your project.
+title: CSS Utilities
+description: Preset CSS utility classes that let you efficiently customize styles and layouts for components and native elements alike.
 layout: docs
+hasBreadcrumbs: false
+hasOutline: false
 ---
 
 <p>
@@ -12,68 +12,35 @@ layout: docs
 {% endmarkdown %}
 </p>
 
-<div class="search-list">
-  <wa-input class="search-list-input" type="search" placeholder="Search style utilities" autofocus>
-    <wa-icon name="search" slot="start"></wa-icon>
-  </wa-input>
-
-  <section class="search-list-grid">
-    {% for page in collections.styleUtilities | sort(false, false, 'data.title') %}
-      <a href="{{ page.url }}">
-        <wa-card with-header="" appearance="outlined">
-          <div slot="header">
-            {# Look for an icon based on the page name #}
-            {% set iconPath = "svgs/tokens/" + page.fileSlug + ".njk" %}
-            {% set iconContent %}{% include iconPath ignore missing %}{% endset %}
-            {% if iconContent.trim() %}
-              {# An icon exists! Show it #}
-              {{ iconContent | safe }}
-            {% else %}
-              {# Fallback to the placeholder #}
-              {% include 'svgs/thumbnail-placeholder.njk' %}
-            {% endif %}
-          </div>
-          <span class="page-name">{{ page.data.title }}</span>
-        </wa-card>
-      </a>
-    {% endfor %}
-  </section>
-  <div class="search-list-empty" hidden>
-    No results found
-  </div>
-</div>
-
-<wa-divider style="--spacing: var(--wa-space-3xl);"></wa-divider>
-
 {% markdown %}
-## Using {{ title }}
+Instead of hand-writing the same CSS over and over, reach for a utility class and your theme takes care of the rest. CSS utilities pull directly from your Web Awesome [theme](/docs/themes) and [design tokens](/docs/tokens), so colors, typography, rounding, and spacing stay consistent with every component on the page. They're framework-agnostic, work on any native HTML element, and can be combined freely.
+
+## Using CSS Utilities
+
+CSS utilities ship as part of `webawesome.css`, so if you're already including that stylesheet you don't need to import anything else. Otherwise, follow these instructions to include the utilities stylesheet on its own.
 {% endmarkdown %}
 
-<wa-tab-group>
-  <wa-tab panel="cdn"><wa-icon name="rocket-launch" variant="regular"></wa-icon> CDN</wa-tab>
+<wa-tab-group data-install-tabs>
+  <wa-tab panel="cdn"><wa-icon name="globe" variant="regular"></wa-icon> CDN</wa-tab>
   <wa-tab panel="npm"><wa-icon name="box-open" variant="regular"></wa-icon> npm</wa-tab>
   <wa-tab panel="self-hosted"><wa-icon name="arrow-down-to-line" variant="regular"></wa-icon> Self-Hosted</wa-tab>
+  <wa-tab panel="hosted"><wa-icon name="rocket-launch" variant="regular"></wa-icon> Hosted Projects</wa-tab>
 
   <wa-tab-panel name="cdn">
 {% markdown %}
-1. Head over to your project's <wa-icon name="gear" variant="regular"></wa-icon> **Settings**.
-2. Next to **Features**, select the **CSS utilities** checkbox.
-3. **Save Changes** to immediately update anywhere you're using your project.
+Add the following stylesheet to the `<head>` section of your pages:
+
+```html
+<link rel="stylesheet" href="{% cdnUrl 'styles/utilities.css' %}">
+```
 {% endmarkdown %}
   </wa-tab-panel>
 
   <wa-tab-panel name="npm">
 {% markdown %}
-To use all Web Awesome styles (including [native styles](/docs/utilities/native/)), import the following stylesheet in your project:
+After installing `@awesome.me/webawesome`, import the following stylesheet into your app:
 
 ```js
-import '@awesome.me/webawesome/dist/styles/webawesome.css';
-```
-
-Or, if you only want CSS utility classes, import a theme and the utilities individually:
-
-```js
-import '@awesome.me/webawesome/dist/styles/themes/default.css';
 import '@awesome.me/webawesome/dist/styles/utilities.css';
 ```
 {% endmarkdown %}
@@ -81,18 +48,69 @@ import '@awesome.me/webawesome/dist/styles/utilities.css';
 
   <wa-tab-panel name="self-hosted">
 {% markdown %}
-To use all Web Awesome styles (including [native styles](/docs/utilities/native/)), include the following stylesheet in your project:
+Add the following stylesheet to the `<head>` section of your pages:
 
 ```html
-<link rel="stylesheet" href="/dist/styles/webawesome.css" />
-```
-
-Or, if you only want CSS utility classes, include a theme and the utilities individually:
-
-```html
-<link rel="stylesheet" href="/dist/styles/themes/default.css" />
-<link rel="stylesheet" href="/dist/styles/utilities.css" />
+<link rel="stylesheet" href="/dist/styles/utilities.css">
 ```
 {% endmarkdown %}
   </wa-tab-panel>
+
+  <wa-tab-panel name="hosted">
+{% markdown %}
+If you're using a [hosted project](/workspaces), CSS utilities can be toggled on from your project settings.
+
+1. Head over to your project's <wa-icon name="gear" variant="regular"></wa-icon> **Settings**.
+2. Next to **Features**, select the **CSS utilities** checkbox.
+3. **Save Changes** to immediately update anywhere you're using your project.
+{% endmarkdown %}
+  </wa-tab-panel>
 </wa-tab-group>
+
+<wa-divider></wa-divider>
+
+<h2 class="modern-card-list-heading">Style Utilities</h2>
+{% markdown %}
+Preset rules for customizing colors, typography, rounding, and more &mdash; framework-agnostic and composable on any element.
+{% endmarkdown %}
+
+<div class="modern-card-list">
+  <section class="search-list-grid">
+    {% for page in collections.styleUtilities | sort(false, false, 'data.title') %}
+      <a href="{{ page.url }}">
+        <wa-card>
+          <span class="page-name">{{ page.data.title }}</span>
+          {% if page.data.description %}
+            <p class="modern-card-summary">{{ page.data.description | inlineMarkdown | striptags | safe }}</p>
+          {% endif %}
+        </wa-card>
+      </a>
+    {% endfor %}
+  </section>
+</div>
+
+<h2 class="modern-card-list-heading">Layout Utilities</h2>
+{% markdown %}
+Named layouts like [`wa-stack`](/docs/utilities/stack), [`wa-cluster`](/docs/utilities/cluster), [`wa-split`](/docs/utilities/split), [`wa-flank`](/docs/utilities/flank), [`wa-frame`](/docs/utilities/frame), and [`wa-grid`](/docs/utilities/grid) &mdash; plus property-level helpers for gap, alignment, and wrap &mdash; that organize content responsively without custom CSS.
+{% endmarkdown %}
+
+<div class="modern-card-list">
+  <section class="search-list-grid">
+    {% for page in collections.layoutUtilities | sort(false, false, 'data.title') %}
+      <a href="{{ page.url }}">
+        <wa-card>
+          <span class="page-name">{{ page.data.title }}</span>
+          {% if page.data.description %}
+            <p class="modern-card-summary">{{ page.data.description | inlineMarkdown | striptags | safe }}</p>
+          {% endif %}
+        </wa-card>
+      </a>
+    {% endfor %}
+  </section>
+</div>
+
+<style>
+  wa-tab-group + wa-divider {
+    margin-block: 1rem 3rem;
+  }
+</style>

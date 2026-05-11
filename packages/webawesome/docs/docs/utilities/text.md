@@ -3,6 +3,15 @@ title: Text
 description: Text utility classes use custom properties from your Web Awesome theme and other standard CSS properties to style text elements on the fly.
 layout: docs
 tags: styleUtilities
+synonyms:
+  - typography
+  - font
+  - text style
+use-cases:
+  - text size
+  - text align
+  - text weight
+  - truncate
 ---
 
 <style>
@@ -11,7 +20,9 @@ tags: styleUtilities
   }
 </style>
 
-{{ description }} 
+{{ description }}
+
+The classes on this page cover the most common needs: picking a size and weight for body copy, styling headings, aligning paragraphs, truncating overflow, and changing font color. Every class is built on your theme's typography tokens, so switching themes or tweaking your type scale updates the whole site at once.
 
 ## Body
 
@@ -164,10 +175,24 @@ Use single-purpose `wa-color-text-*` classes to apply a given [text color](/docs
 | `wa-color-text-normal` | <div class="wa-color-text-normal">Five boxing wizards</div> |
 | `wa-color-text-link`   | <div class="wa-color-text-link">Five boxing wizards</div>   |
 
+## Wrapping
+
+Use `wa-text-wrap-*` classes to control how text wraps across lines. These utilities apply standard CSS [`text-wrap`](https://developer.mozilla.org/docs/Web/CSS/text-wrap) values.
+
+| Class Name             | Preview                                                                                                                                                                               |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `wa-text-wrap-nowrap`  | <div class="wa-text-wrap-nowrap" style="max-width: 40ch; overflow: hidden;">The five boxing wizards jump quickly. How quickly daft jumping zebras vex!</div> |
+| `wa-text-wrap-balance` | <div class="wa-text-wrap-balance" style="max-width: 40ch;">The five boxing wizards jump quickly. How quickly daft jumping zebras vex!</div>                                           |
+| `wa-text-wrap-pretty`  | <div class="wa-text-wrap-pretty" style="max-width: 40ch;">The five boxing wizards jump quickly. How quickly daft jumping zebras vex!</div>                                            |
+
+:::info
+`wa-text-wrap-pretty` is wrapped in an `@supports` rule because Firefox does not yet support `text-wrap: pretty`. In unsupported browsers, the class has no effect and text wraps normally.
+:::
+
 ## Truncation
 
 Use the `wa-text-truncate` class to truncate text with an ellipsis instead of letting it overflow or wrap.
 
-| Class Name         | Preview                                                     |
-| ------------------ | ----------------------------------------------------------- |
-| `wa-text-truncate` | <div class="wa-text-truncate" style="max-width: 40ch;">The five boxing wizards jump quickly. How quickly daft jumping zebras vex!</div>  |
+| Class Name         | Preview                                                                                                                                 |
+| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `wa-text-truncate` | <div class="wa-text-truncate" style="max-width: 40ch;">The five boxing wizards jump quickly. How quickly daft jumping zebras vex!</div> |

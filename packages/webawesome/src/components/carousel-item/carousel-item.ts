@@ -4,7 +4,7 @@ import WebAwesomeElement from '../../internal/webawesome-element.js';
 import styles from './carousel-item.styles.js';
 
 /**
- * @summary A carousel item represent a slide within a carousel.
+ * @summary Carousel items represent individual slides within a carousel.
  *
  * @since 2.0
  * @status experimental

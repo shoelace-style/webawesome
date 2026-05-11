@@ -3,6 +3,14 @@ title: Flank
 description: 'Use the `wa-flank` class to position two items side-by-side, with one item positioned alongside, or _flanking_, content that stretches to fill the available space.'
 layout: docs
 tags: layoutUtilities
+synonyms:
+  - media object
+  - side by side
+  - horizontal layout
+use-cases:
+  - icon and text
+  - image and content
+  - avatar with text
 ---
 
 <style>
@@ -20,7 +28,9 @@ tags: layoutUtilities
   }
 </style>
 
-{{ description }} When space is limited, the items wrap.
+A flank pairs two items side by side, where one item (the "flank") sits at its natural size while the other stretches to fill the remaining space. It's the right fit for any "small thing next to a larger thing" pattern: an avatar next to a name and bio, an icon beside a paragraph of text, an input followed by a submit button, or a sidebar alongside page content.
+
+By default the first child is the flank, but you can pick either end with `wa-flank:start` or `wa-flank:end`. When the main content gets too narrow, the two items wrap onto separate lines automatically.
 
 ```html {.example}
 <div class="wa-flank">

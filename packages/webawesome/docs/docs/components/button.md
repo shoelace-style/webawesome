@@ -1,8 +1,17 @@
 ---
 title: Button
-description: Buttons represent actions that are available to the user.
 layout: component
 category: Actions
+synonyms:
+  - btn
+  - action
+  - CTA
+  - submit
+use-cases:
+  - form submit
+  - link button
+  - icon button
+  - loading button
 ---
 
 ```html {.example}
@@ -75,9 +84,11 @@ Use the `size` attribute to change a button's size.
 
 ```html {.example}
 <div class="wa-cluster wa-gap-2xs">
-  <wa-button size="small">Small</wa-button>
-  <wa-button size="medium">Medium</wa-button>
-  <wa-button size="large">Large</wa-button>
+  <wa-button size="xs">Extra Small</wa-button>
+  <wa-button size="s">Small</wa-button>
+  <wa-button size="m">Medium</wa-button>
+  <wa-button size="l">Large</wa-button>
+  <wa-button size="xl">Extra Large</wa-button>
 </div>
 ```
 
@@ -87,9 +98,11 @@ Use the `pill` attribute to give buttons rounded edges.
 
 ```html {.example}
 <div class="wa-cluster wa-gap-2xs">
-  <wa-button size="small" pill>Small</wa-button>
-  <wa-button size="medium" pill>Medium</wa-button>
-  <wa-button size="large" pill>Large</wa-button>
+  <wa-button size="xs" pill>Extra Small</wa-button>
+  <wa-button size="s" pill>Small</wa-button>
+  <wa-button size="m" pill>Medium</wa-button>
+  <wa-button size="l" pill>Large</wa-button>
+  <wa-button size="xl" pill>Extra Large</wa-button>
 </div>
 ```
 
@@ -124,9 +137,11 @@ As expected, buttons can be given a custom width by setting the `width` CSS prop
 
 ```html {.example}
 <div class="wa-stack">
-  <wa-button size="small" style="width: 100%;">Small</wa-button>
-  <wa-button size="medium" style="width: 100%;">Medium</wa-button>
-  <wa-button size="large" style="width: 100%;">Large</wa-button>
+  <wa-button size="xs" style="width: 100%;">Extra Small</wa-button>
+  <wa-button size="s" style="width: 100%;">Small</wa-button>
+  <wa-button size="m" style="width: 100%;">Medium</wa-button>
+  <wa-button size="l" style="width: 100%;">Large</wa-button>
+  <wa-button size="xl" style="width: 100%;">Extra Large</wa-button>
 </div>
 ```
 
@@ -137,17 +152,17 @@ Use the `start` and `end` slots to add presentational elements like `<wa-icon>` 
 ```html {.example}
 <div class="wa-stack">
   <div class="wa-cluster wa-gap-2xs">
-    <wa-button size="small">
+    <wa-button size="s">
       <wa-icon slot="start" name="gear"></wa-icon>
       Settings
     </wa-button>
 
-    <wa-button size="small">
+    <wa-button size="s">
       <wa-icon slot="end" name="undo"></wa-icon>
       Refresh
     </wa-button>
 
-    <wa-button size="small">
+    <wa-button size="s">
       <wa-icon slot="start" name="link"></wa-icon>
       <wa-icon slot="end" name="arrow-up-right-from-square"></wa-icon>
       Open
@@ -173,17 +188,17 @@ Use the `start` and `end` slots to add presentational elements like `<wa-icon>` 
   </div>
 
   <div class="wa-cluster wa-gap-2xs">
-    <wa-button size="large">
+    <wa-button size="l">
       <wa-icon slot="start" name="gear"></wa-icon>
       Settings
     </wa-button>
 
-    <wa-button size="large">
+    <wa-button size="l">
       <wa-icon slot="end" name="undo"></wa-icon>
       Refresh
     </wa-button>
 
-    <wa-button size="large">
+    <wa-button size="l">
       <wa-icon slot="start" name="link"></wa-icon>
       <wa-icon slot="end" name="arrow-up-right-from-square"></wa-icon>
       Open
@@ -198,12 +213,11 @@ Use the `with-caret` attribute to add a dropdown indicator when a button will tr
 
 ```html {.example}
 <div class="wa-cluster wa-gap-2xs">
-  <wa-button size="small" with-caret>
-    <wa-icon name="gear" label="Settings"></wa-icon>
-  </wa-button>
-  <wa-button size="small" with-caret>Small</wa-button>
-  <wa-button size="medium" with-caret>Medium</wa-button>
-  <wa-button size="large" with-caret>Large</wa-button>
+  <wa-button size="xs" with-caret>Extra Small</wa-button>
+  <wa-button size="s" with-caret>Small</wa-button>
+  <wa-button size="m" with-caret>Medium</wa-button>
+  <wa-button size="l" with-caret>Large</wa-button>
+  <wa-button size="xl" with-caret>Extra Large</wa-button>
 </div>
 ```
 

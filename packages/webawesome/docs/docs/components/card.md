@@ -1,8 +1,17 @@
 ---
 title: Card
-description: Cards can be used to group related subjects in a container.
 layout: component
 category: Organization
+synonyms:
+  - tile
+  - panel
+  - content box
+  - surface
+use-cases:
+  - product card
+  - info card
+  - media card
+  - feature card
 ---
 
 ```html {.example}
