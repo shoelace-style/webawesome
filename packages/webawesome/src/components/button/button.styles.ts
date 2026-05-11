@@ -29,15 +29,15 @@ export default css`
     -webkit-user-select: none;
     white-space: nowrap;
     vertical-align: middle;
-    transition-property: background, border, box-shadow, color, opacity;
+    transition-property: background, border, box-shadow, color, opacity, transform;
     transition-duration: var(--wa-transition-fast);
     transition-timing-function: var(--wa-transition-easing);
+    transform-origin: center;
     cursor: pointer;
     padding: 0 var(--wa-form-control-padding-inline);
     font-family: inherit;
     font-size: inherit;
     font-weight: var(--wa-font-weight-action);
-    line-height: calc(var(--wa-form-control-height) - var(--wa-form-control-border-width) * 2);
     height: var(--wa-form-control-height);
     width: 100%;
 
@@ -50,6 +50,25 @@ export default css`
     border-end-end-radius: var(--_button-end-end-radius, var(--wa-form-control-border-radius));
     border-style: var(--wa-form-control-border-style);
     border-width: var(--wa-form-control-border-width);
+  }
+
+  /* Hover and active transforms */
+  .button:not(.disabled):not(.loading) {
+    @media (hover: hover) {
+      &:hover {
+        transform: var(--wa-button-transform-hover);
+      }
+    }
+    &:active {
+      transform: var(--wa-button-transform-active);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      &:hover,
+      &:active {
+        transform: none;
+      }
+    }
   }
 
   /* Appearance modifiers */

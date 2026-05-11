@@ -142,6 +142,30 @@ Not every form control uses all of these custom properties. For example, [radio]
 </form>
 ```
 
+## Buttons
+
+In addition to sharing styles with form controls, [buttons](/docs/components/button) have their own subset of unique tokens.
+
+<wa-scroller>
+  <table class="token-table wa-hover-rows">
+    <thead>
+      <tr><th>Custom Property</th><th>Description</th><th>Preview</th></tr>
+    </thead>
+    <tbody>
+      <tr id="token-wa-panel-border-style">
+        <td class="token-name"><code>--wa-button-transform-hover</code></td>
+        <td>A transform function to apply to buttons on mouseover/hover</td>
+        <td><wa-button variant="brand" appearance="filled">Mouse Over Me</wa-button></td>
+      </tr>
+      <tr id="token-wa-panel-border-style">
+        <td class="token-name"><code>--wa-button-transform-active</code></td>
+        <td>A transform function to apply to buttons when pressed/active</td>
+        <td><wa-button variant="brand" appearance="filled">Press Me</wa-button></td>
+      </tr>
+    </tbody>
+  </table>
+</wa-scroller>
+
 ## Panels
 
 Panel tokens apply to components with larger, contained surface areas, like [callout](/docs/components/callout), [card](/docs/components/card), [details](/docs/components/details), and [dialog](/docs/components/dialog).

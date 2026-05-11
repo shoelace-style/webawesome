@@ -2,7 +2,7 @@ import { expect, oneEvent, waitUntil } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import sinon from 'sinon';
-import { fixtures } from '../../internal/test/fixture.js';
+import { clientFixture, fixtures } from '../../internal/test/fixture.js';
 import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
 import { serialize } from '../../utilities/form.js';
 import type WaTextarea from './textarea.js';
@@ -408,4 +408,111 @@ describe('<wa-textarea>', () => {
       });
     });
   }
+
+  describe('auto resize visibility (issue 2347)', () => {
+    it('should size to fit when revealed after being initially hidden', async () => {
+      const container = await clientFixture<HTMLDivElement>(html`
+        <div style="display: none">
+          <wa-textarea
+            resize="auto"
+            value="line one
+line two
+line three"
+          ></wa-textarea>
+        </div>
+      `);
+      const el = container.querySelector<WaTextarea>('wa-textarea')!;
+      await el.updateComplete;
+
+      // While hidden, scrollHeight is 0 so the internal textarea has no measurable height.
+      const textarea = el.shadowRoot!.querySelector<HTMLTextAreaElement>('[part~="textarea"]')!;
+
+      container.style.display = '';
+
+      // Wait for the ResizeObserver to fire and re-run setTextareaDimensions().
+      await waitUntil(() => textarea.clientHeight > 0, 'textarea did not resize after becoming visible');
+
+      expect(textarea.clientHeight).to.be.greaterThan(0);
+    });
+  });
+
+  describe('resize mode changes', () => {
+    it('should re-bind the resize observer when switching from a manual mode to auto', async () => {
+      // Regression: previously the observer was created once on first updated() and never recreated when `resize`
+      // changed, so switching from a manual mode to `auto` left the observer pointed at the inner textarea instead of
+      // the host. The auto-mode height recompute on width change then never fired.
+      const container = await clientFixture<HTMLDivElement>(html`
+        <div style="display: none">
+          <wa-textarea
+            resize="vertical"
+            value="line one
+line two
+line three"
+          ></wa-textarea>
+        </div>
+      `);
+      const el = container.querySelector<WaTextarea>('wa-textarea')!;
+      await el.updateComplete;
+
+      el.resize = 'auto';
+      await el.updateComplete;
+
+      const textarea = el.shadowRoot!.querySelector<HTMLTextAreaElement>('[part~="textarea"]')!;
+      container.style.display = '';
+
+      await waitUntil(
+        () => textarea.clientHeight > 0,
+        'textarea did not auto-size after switching resize mode and becoming visible',
+      );
+
+      expect(textarea.clientHeight).to.be.greaterThan(0);
+    });
+
+    it('should disconnect the resize observer when switching to none', async () => {
+      const el = await clientFixture<WaTextarea>(html`<wa-textarea resize="auto"></wa-textarea>`);
+      await el.updateComplete;
+
+      // Access the private field for verification — there is no public surface for the observer.
+      expect((el as unknown as { resizeObserver?: ResizeObserver }).resizeObserver).to.exist;
+
+      el.resize = 'none';
+      await el.updateComplete;
+
+      expect((el as unknown as { resizeObserver?: ResizeObserver }).resizeObserver).to.be.undefined;
+    });
+  });
+
+  describe('auto resize shrinking', () => {
+    it('should shrink the visible wrapper back to its original size after expanded content is cleared', async () => {
+      const el = await clientFixture<WaTextarea>(html`<wa-textarea resize="auto"></wa-textarea>`);
+      await el.updateComplete;
+
+      // The user perceives the size of the visible wrapper, not the inner <textarea>. Measure the host's bounding box
+      // so we catch cases where the inner textarea shrinks but the wrapper stays expanded (e.g. because the size
+      // adjuster pinned it to the previous larger height).
+      const original = el.getBoundingClientRect().height;
+
+      el.focus();
+      for (let i = 0; i < 5; i++) {
+        await sendKeys({ press: 'Enter' });
+      }
+      await el.updateComplete;
+      await waitUntil(
+        () => el.getBoundingClientRect().height > original,
+        'wrapper did not expand after pressing Enter',
+      );
+      const expanded = el.getBoundingClientRect().height;
+      expect(expanded).to.be.greaterThan(original);
+
+      el.select();
+      await sendKeys({ press: 'Delete' });
+      await el.updateComplete;
+
+      await waitUntil(
+        () => Math.round(el.getBoundingClientRect().height) === Math.round(original),
+        `wrapper did not shrink back to original (original=${original}, expanded=${expanded})`,
+      );
+      expect(Math.round(el.getBoundingClientRect().height)).to.equal(Math.round(original));
+    });
+  });
 });
