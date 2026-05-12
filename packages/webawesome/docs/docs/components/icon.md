@@ -1,7 +1,7 @@
 ---
 title: Icon
 layout: component
-category: Imagery
+category: Media
 synonyms:
   - symbol
   - glyph

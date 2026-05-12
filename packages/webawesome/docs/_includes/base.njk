@@ -4,8 +4,10 @@
 {% if hasThemeSelector == undefined %}{% set hasThemeSelector = true %}{% endif %}
 {% if hasSiteDialog == undefined %}{% set hasSiteDialog = true %}{% endif %}
 {% if hasGeneratedTitle == undefined %}{% set hasGeneratedTitle = true %}{% endif %}
-<html lang="en" data-fa-kit-code="38c11e3f20" data-version="{{ package.version }}" class="wa-cloak" {% if
-  hasAnchors == false %} data-no-anchor{% endif %}>
+{% if hasLinkify == undefined %}{% set hasLinkify = true %}{% endif %}
+<html lang="en" data-fa-kit-code="38c11e3f20" data-version="{{ package.version }}" class="wa-cloak"
+  {% if hasAnchors == false %} data-no-anchor{% endif %}
+  {% if hasLinkify == false %} data-no-linkify{% endif %}>
 <head>
   {% include 'head.njk' %}
   <meta name="theme-color" content="#f36944">
@@ -113,7 +115,7 @@
       {% for item in collections.all %}
         {% if item.url == breadcrumbParentUrl %}{% set breadcrumbParentTitle = item.data.title %}{% endif %}
       {% endfor %}
-      <wa-breadcrumb class="docs-subpage-crumbs">
+      <wa-breadcrumb class="page-breadcrumbs">
         <wa-icon slot="separator" name="angle-right" variant="regular"></wa-icon>
         <wa-breadcrumb-item href="{{ breadcrumbParentUrl }}">{{ breadcrumbParentTitle }}</wa-breadcrumb-item>
         <wa-breadcrumb-item>{{ title }}</wa-breadcrumb-item>

@@ -1,7 +1,7 @@
 ---
 title: Divider
 layout: component
-category: Organization
+category: Layout
 synonyms:
   - separator
   - rule

@@ -1,7 +1,7 @@
 ---
 title: Slider
 layout: component
-category: Form Controls
+category: Forms
 synonyms:
   - range
   - range slider
@@ -291,4 +291,3 @@ Use the `disabled` attribute to disable a slider.
 ```html {.example}
 <wa-slider label="Disabled" value="50" disabled></wa-slider>
 ```
-

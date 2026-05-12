@@ -149,11 +149,11 @@ export default css`
     }
 
     &.show {
-      animation: submenu-show var(--show-duration, 50ms) ease;
+      animation: submenu-show var(--show-duration, var(--wa-transition-fast)) ease;
     }
 
     &.hide {
-      animation: submenu-show var(--show-duration, 50ms) ease reverse;
+      animation: submenu-show var(--show-duration, var(--wa-transition-fast)) ease reverse;
     }
 
     /* Submenu placement transform origins */

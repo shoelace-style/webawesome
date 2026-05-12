@@ -1,7 +1,7 @@
 ---
 title: Animated Image
 layout: component
-category: Imagery
+category: Media
 synonyms:
   - gif
   - webp

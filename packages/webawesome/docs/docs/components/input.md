@@ -1,7 +1,7 @@
 ---
 title: Input
 layout: component
-category: Form Controls
+category: Forms
 synonyms:
   - text field
   - text box

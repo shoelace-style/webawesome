@@ -1,7 +1,7 @@
 ---
 title: Checkbox
 layout: component
-category: Form Controls
+category: Forms
 synonyms:
   - check
   - tick
