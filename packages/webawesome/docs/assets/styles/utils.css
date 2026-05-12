@@ -276,6 +276,25 @@
     }
   }
 
+  /* breadcrumbs */
+  .page-breadcrumbs {
+    display: flex;
+    align-items: center;
+    inline-size: 100%;
+    /* translucent tint so the pill recedes on any surface */
+    background-color: color-mix(in oklab, var(--wa-color-text-normal) 4.5%, transparent);
+    border-radius: var(--wa-border-radius-pill);
+    font-size: var(--wa-font-size-s);
+    padding: var(--wa-space-xs) var(--wa-space-m);
+    margin-block-end: var(--wa-content-spacing);
+
+    /* fade past the component's text-quiet + optical-align nudge */
+    wa-icon[slot='separator'] {
+      color: color-mix(in oklab, var(--wa-color-text-quiet), transparent 50%);
+      translate: 0 0.075em;
+    }
+  }
+
   /* header */
   wa-page > [slot='header'] {
     /* reset default page component-based header styles */

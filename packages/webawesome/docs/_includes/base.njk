@@ -113,7 +113,7 @@
       {% for item in collections.all %}
         {% if item.url == breadcrumbParentUrl %}{% set breadcrumbParentTitle = item.data.title %}{% endif %}
       {% endfor %}
-      <wa-breadcrumb class="docs-subpage-crumbs">
+      <wa-breadcrumb class="page-breadcrumbs">
         <wa-icon slot="separator" name="angle-right" variant="regular"></wa-icon>
         <wa-breadcrumb-item href="{{ breadcrumbParentUrl }}">{{ breadcrumbParentTitle }}</wa-breadcrumb-item>
         <wa-breadcrumb-item>{{ title }}</wa-breadcrumb-item>

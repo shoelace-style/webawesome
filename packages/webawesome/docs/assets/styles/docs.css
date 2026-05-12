@@ -17,18 +17,6 @@
   --layout-example-element-border-radius: var(--wa-border-radius-m);
 }
 
-/* Full-width pill-shaped breadcrumb used at the top of subpages */
-.docs-subpage-crumbs {
-  display: flex;
-  inline-size: 100%;
-  background-color: var(--wa-color-surface-lowered);
-  border: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border);
-  border-radius: var(--wa-border-radius-pill);
-  font-size: var(--wa-font-size-s);
-  padding: var(--wa-space-xs) var(--wa-space-m);
-  margin-block-end: var(--wa-content-spacing);
-}
-
 /* "Browse\ ___" / "Back to ___" link with an arrow that nudges on hover */
 .browse-all-link wa-icon,
 .back-link wa-icon {
