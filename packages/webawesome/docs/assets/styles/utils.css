@@ -420,12 +420,28 @@
 
   /* pro callout */
   wa-callout.pro {
+    margin-block: calc(var(--wa-content-spacing) * 2);
+    padding: var(--wa-space-l);
     background-color: color-mix(in oklab, var(--wa-brand-orange) 12%, var(--wa-color-surface-default));
     border-color: color-mix(in oklab, var(--wa-brand-orange) 30%, var(--wa-color-surface-default));
     color: var(--wa-color-text-normal);
 
     &::part(icon) {
+      align-items: flex-start;
       color: var(--wa-brand-orange);
+    }
+
+    wa-icon[slot='icon'] {
+      font-size: var(--wa-font-size-xl);
+    }
+
+    strong {
+      display: block;
+      margin-block-end: var(--wa-space-2xs);
+    }
+
+    strong a {
+      color: inherit;
     }
   }
 
