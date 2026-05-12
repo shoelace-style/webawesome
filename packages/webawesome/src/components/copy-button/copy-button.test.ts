@@ -1,13 +1,14 @@
 import { aTimeout, expect, waitUntil } from '@open-wc/testing';
+import { resetMouse } from '@web/test-runner-commands';
 import { html } from 'lit';
 import sinon from 'sinon';
 import { expectEvent } from '../../internal/test/expect-event.js';
 import { fixtures } from '../../internal/test/fixture.js';
-import { clickOnElement } from '../../internal/test/pointer-utilities.js';
+import { clickOnElement, moveMouseOnElement } from '../../internal/test/pointer-utilities.js';
+import type WaTooltip from '../tooltip/tooltip.js';
 import type WaCopyButton from './copy-button.js';
 
-// We use aria-live to announce labels via tooltips
-const ignoredRules = ['button-name'];
+const ignoredRules: string[] = [];
 
 describe('<wa-copy-button>', () => {
   afterEach(() => {
@@ -62,6 +63,11 @@ describe('<wa-copy-button>', () => {
         it('should default tooltipPlacement to top', async () => {
           const el = await fixture<WaCopyButton>(html`<wa-copy-button></wa-copy-button>`);
           expect(el.tooltipPlacement).to.equal('top');
+        });
+
+        it('should default tooltip to "full"', async () => {
+          const el = await fixture<WaCopyButton>(html`<wa-copy-button></wa-copy-button>`);
+          expect(el.tooltip).to.equal('full');
         });
 
         it('should have a default status of rest', async () => {
@@ -247,6 +253,202 @@ describe('<wa-copy-button>', () => {
           `);
 
           expect(el).to.contain.text('Custom Copy');
+        });
+      });
+
+      describe('custom trigger tooltip', () => {
+        it('should auto-assign an id to a custom trigger that has none', async () => {
+          const el = await fixture<WaCopyButton>(html`
+            <wa-copy-button value="test">
+              <button>Custom Copy</button>
+            </wa-copy-button>
+          `);
+          await el.updateComplete;
+
+          const trigger = el.querySelector<HTMLButtonElement>('button')!;
+          expect(trigger.id).to.match(/^wa-copy-button-trigger-/);
+        });
+
+        it('should preserve a pre-existing id on a custom trigger', async () => {
+          const el = await fixture<WaCopyButton>(html`
+            <wa-copy-button value="test">
+              <button id="my-trigger">Custom Copy</button>
+            </wa-copy-button>
+          `);
+          await el.updateComplete;
+
+          const trigger = el.querySelector<HTMLButtonElement>('button')!;
+          expect(trigger.id).to.equal('my-trigger');
+        });
+
+        it('should append a light-DOM tooltip anchored to the custom trigger', async () => {
+          const el = await fixture<WaCopyButton>(html`
+            <wa-copy-button value="test">
+              <button>Custom Copy</button>
+            </wa-copy-button>
+          `);
+          await el.updateComplete;
+
+          const trigger = el.querySelector<HTMLButtonElement>('button')!;
+          const tooltip = el.querySelector<WaTooltip>('wa-tooltip[slot="wa-internal-tooltip"]')!;
+
+          expect(tooltip).to.exist;
+          expect(tooltip.getAttribute('for')).to.equal(trigger.id);
+          // The tooltip should resolve and store its anchor
+          await tooltip.updateComplete;
+          expect(tooltip.anchor).to.equal(trigger);
+        });
+
+        it('should activate tooltip on hover of custom trigger when tooltip="full"', async () => {
+          const el = await fixture<WaCopyButton>(html`
+            <wa-copy-button value="test" tooltip="full">
+              <button>Custom Copy</button>
+            </wa-copy-button>
+          `);
+
+          await el.updateComplete;
+
+          const trigger = el.querySelector<HTMLButtonElement>('button')!;
+          const tooltip = el.querySelector<WaTooltip>('wa-tooltip[slot="wa-internal-tooltip"]')!;
+
+          expect(tooltip).to.exist;
+          expect(tooltip.anchor).to.equal(trigger);
+          expect(tooltip.open).to.be.false;
+
+          await resetMouse();
+          await moveMouseOnElement(trigger, 'center');
+
+          // Wait for showDelay (150ms default) + buffer
+          await aTimeout(250);
+
+          expect(tooltip.open).to.be.true;
+          // The tooltip body must actually render — catches the case where the tooltip is in the
+          // light DOM but unprojected, so it has no rendered box even when `open` is true.
+          const body = tooltip.shadowRoot!.querySelector<HTMLElement>('.body')!;
+          expect(body.offsetHeight).to.be.greaterThan(0);
+        });
+
+        it('should render a tooltip with hover/focus trigger when tooltip="full" on the default trigger', async () => {
+          const el = await fixture<WaCopyButton>(html`<wa-copy-button value="test" tooltip="full"></wa-copy-button>`);
+          await el.updateComplete;
+          const tooltip = el.shadowRoot!.querySelector<WaTooltip>('wa-tooltip')!;
+          expect(tooltip).to.exist;
+          expect(tooltip.getAttribute('trigger')).to.equal('hover focus');
+        });
+
+        it('should render a tooltip with hover/focus trigger when tooltip="full" on a custom trigger', async () => {
+          const el = await fixture<WaCopyButton>(html`
+            <wa-copy-button value="test" tooltip="full">
+              <button>Custom Copy</button>
+            </wa-copy-button>
+          `);
+          await el.updateComplete;
+          const tooltip = el.querySelector<WaTooltip>('wa-tooltip[slot="wa-internal-tooltip"]')!;
+          expect(tooltip).to.exist;
+          expect(tooltip.getAttribute('trigger')).to.equal('hover focus');
+        });
+
+        it('should render a tooltip with manual trigger when tooltip="copy" on the default trigger', async () => {
+          const el = await fixture<WaCopyButton>(html`<wa-copy-button value="test" tooltip="copy"></wa-copy-button>`);
+          await el.updateComplete;
+          const tooltip = el.shadowRoot!.querySelector<WaTooltip>('wa-tooltip')!;
+          expect(tooltip).to.exist;
+          expect(tooltip.getAttribute('trigger')).to.equal('manual');
+        });
+
+        it('should render a tooltip with manual trigger when tooltip="copy" on a custom trigger', async () => {
+          const el = await fixture<WaCopyButton>(html`
+            <wa-copy-button value="test" tooltip="copy">
+              <button>Custom Copy</button>
+            </wa-copy-button>
+          `);
+          await el.updateComplete;
+          const tooltip = el.querySelector<WaTooltip>('wa-tooltip[slot="wa-internal-tooltip"]')!;
+          expect(tooltip).to.exist;
+          expect(tooltip.getAttribute('trigger')).to.equal('manual');
+        });
+
+        it('should not open the feedback-mode tooltip on hover', async () => {
+          const el = await fixture<WaCopyButton>(html`
+            <wa-copy-button value="test" tooltip="copy">
+              <button>Custom Copy</button>
+            </wa-copy-button>
+          `);
+          await el.updateComplete;
+
+          const trigger = el.querySelector<HTMLButtonElement>('button')!;
+          const tooltip = el.querySelector<WaTooltip>('wa-tooltip[slot="wa-internal-tooltip"]')!;
+
+          trigger.dispatchEvent(new MouseEvent('mouseover', { bubbles: true, composed: true }));
+          await aTimeout(250);
+
+          expect(tooltip.open).to.be.false;
+        });
+
+        it('should open the feedback-mode tooltip during copy', async () => {
+          sinon.stub(navigator.clipboard, 'writeText').resolves();
+
+          const el = await fixture<WaCopyButton>(html`
+            <wa-copy-button value="test" tooltip="copy" feedback-duration="2000">
+              <button>Custom Copy</button>
+            </wa-copy-button>
+          `);
+          await el.updateComplete;
+
+          const tooltip = el.querySelector<WaTooltip>('wa-tooltip[slot="wa-internal-tooltip"]')!;
+          await clickOnElement(el);
+          await waitUntil(() => tooltip.open === true, 'expected tooltip to open during copy', { timeout: 2000 });
+          expect(tooltip.open).to.be.true;
+        });
+
+        it('should not render any tooltip when tooltip="none" on a custom trigger', async () => {
+          const el = await fixture<WaCopyButton>(html`
+            <wa-copy-button value="test" tooltip="none">
+              <button>Custom Copy</button>
+            </wa-copy-button>
+          `);
+          await el.updateComplete;
+
+          expect(el.querySelector('wa-tooltip[slot="wa-internal-tooltip"]')).to.be.null;
+        });
+
+        it('should not render any tooltip when tooltip="none" on the default trigger', async () => {
+          const el = await fixture<WaCopyButton>(html`<wa-copy-button value="test" tooltip="none"></wa-copy-button>`);
+          expect(el.shadowRoot!.querySelector('wa-tooltip')).to.be.null;
+        });
+
+        it('should not render or open a tooltip during copy when tooltip="none"', async () => {
+          sinon.stub(navigator.clipboard, 'writeText').resolves();
+
+          const el = await fixture<WaCopyButton>(html`
+            <wa-copy-button value="test" tooltip="none" feedback-duration="200">
+              <button>Custom Copy</button>
+            </wa-copy-button>
+          `);
+          await el.updateComplete;
+
+          await clickOnElement(el);
+          await waitUntil(() => el.status === 'success');
+          expect(el.querySelector('wa-tooltip[slot="wa-internal-tooltip"]')).to.be.null;
+          expect(el.shadowRoot!.querySelector('wa-tooltip')).to.be.null;
+        });
+
+        it('should clean up the light-DOM tooltip on disconnect', async () => {
+          const container = await fixture<HTMLDivElement>(html`
+            <div>
+              <wa-copy-button value="test">
+                <button>Custom Copy</button>
+              </wa-copy-button>
+            </div>
+          `);
+          const el = container.querySelector<WaCopyButton>('wa-copy-button')!;
+          await el.updateComplete;
+
+          expect(container.querySelector('wa-tooltip[slot="wa-internal-tooltip"]')).to.exist;
+
+          el.remove();
+
+          expect(container.querySelector('wa-tooltip[slot="wa-internal-tooltip"]')).to.be.null;
         });
       });
 

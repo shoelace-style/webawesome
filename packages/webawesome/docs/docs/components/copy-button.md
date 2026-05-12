@@ -24,7 +24,7 @@ Copy buttons use the browser's [`clipboard.writeText()`](https://developer.mozil
 
 ### Custom Labels
 
-Copy Buttons display feedback in a tooltip. You can customize the labels using the `copy-label`, `success-label`, and `error-label` attributes.
+The default copy button shows a tooltip on hover and focus, and the tooltip text changes briefly to confirm a successful or failed copy. You can customize these labels using the `copy-label`, `success-label`, and `error-label` attributes. The `copy-label` is also used as the button's accessible name.
 
 ```html {.example}
 <wa-copy-button
@@ -66,7 +66,7 @@ You can also use a native button as the trigger.
 ```
 
 :::info
-When using a custom trigger, the default tooltip and icon feedback won't be shown. Use the `wa-copy` and `wa-error` events or the `:state(success)` and `:state(error)` CSS custom states to provide feedback to the user.
+Custom triggers automatically receive the same tooltip and copy feedback as the default trigger — no extra wiring required. The icon swap is the only piece that's specific to the default trigger. Use `without-tooltip` to opt out of the tooltip, and use the `wa-copy` and `wa-error` events or the `:state(success)` and `:state(error)` CSS custom states for additional feedback.
 :::
 
 ### Copying Values From Other Elements
@@ -79,22 +79,26 @@ To copy data from an attribute, use `from="id[attr]"` where `id` is the id of th
 
 ```html {.example}
 <!-- Copies the span's textContent -->
-<span id="my-phone">+1 (234) 456-7890</span>
-<wa-copy-button from="my-phone"></wa-copy-button>
+<div class="wa-cluster wa-align-items-center wa-gap-2xs">
+  <span id="my-phone">+1 (234) 456-7890</span>
+  <wa-copy-button from="my-phone"></wa-copy-button>
+</div>
 
-<br /><br />
+<br />
 
 <!-- Copies the input's "value" property -->
-<span class="wa-align-items-center wa-gap-2xs">
-  <wa-input id="my-input" type="text" value="User input" style="display: inline-block; max-width: 300px;"></wa-input>
+<div class="wa-cluster wa-align-items-center wa-gap-2xs">
+  <wa-input id="my-input" type="text" value="User input" style="max-width: 300px;"></wa-input>
   <wa-copy-button from="my-input.value"></wa-copy-button>
-</span>
+</div>
 
 <br />
 
 <!-- Copies the link's "href" attribute -->
-<a id="my-link" href="https://shoelace.style/">Web Awesome Website</a>
-<wa-copy-button from="my-link[href]"></wa-copy-button>
+<div class="wa-cluster wa-align-items-center wa-gap-2xs">
+  <a id="my-link" href="https://shoelace.style/">Web Awesome Website</a>
+  <wa-copy-button from="my-link[href]"></wa-copy-button>
+</div>
 ```
 
 ### Handling Errors
@@ -117,11 +121,65 @@ Copy buttons can be disabled by adding the `disabled` attribute.
 
 ### Changing Feedback Duration
 
-A success indicator is briefly shown after copying. You can customize the length of time the indicator is shown using the `feedback-duration` attribute.
+After copying, the tooltip briefly displays a success or error label. Use the `feedback-duration` attribute to control how long it stays visible.
 
 
 ```html {.example}
 <wa-copy-button value="Web Awesome rocks!" feedback-duration="250"></wa-copy-button>
+```
+
+### Tooltip Modes
+
+The `tooltip` attribute controls when the built-in tooltip appears. It applies to both the default trigger and [custom triggers](#custom-trigger).
+
+- `full` (default): the tooltip shows on hover and focus, and is reused to display copy feedback.
+- `copy`: the tooltip stays silent on hover and focus, and only appears briefly to confirm a successful or failed copy.
+- `none`: no tooltip is shown in any state.
+
+```html {.example}
+<wa-copy-button value="Full" tooltip="full"></wa-copy-button>
+<wa-copy-button value="Copy" tooltip="copy"></wa-copy-button>
+<wa-copy-button value="None" tooltip="none"></wa-copy-button>
+```
+
+```html {.example}
+<wa-copy-button value="Full" tooltip="full">
+  <wa-button appearance="filled">Full</wa-button>
+</wa-copy-button>
+<wa-copy-button value="Copy" tooltip="copy">
+  <wa-button appearance="filled">Copy</wa-button>
+</wa-copy-button>
+<wa-copy-button value="None" tooltip="none">
+  <wa-button appearance="filled">None</wa-button>
+</wa-copy-button>
+```
+
+### Changing Tooltip Placement
+
+The tooltip is shown above the trigger by default. Use the `tooltip-placement` attribute to position it on the `top`, `right`, `bottom`, or `left`.
+
+```html {.example}
+<wa-copy-button value="Above" tooltip-placement="top"></wa-copy-button>
+<wa-copy-button value="Right" tooltip-placement="right"></wa-copy-button>
+<wa-copy-button value="Below" tooltip-placement="bottom"></wa-copy-button>
+<wa-copy-button value="Left" tooltip-placement="left"></wa-copy-button>
+```
+
+The same attribute applies to custom triggers.
+
+```html {.example}
+<wa-copy-button value="Above" tooltip-placement="top">
+  <wa-button appearance="filled">Above</wa-button>
+</wa-copy-button>
+<wa-copy-button value="Right" tooltip-placement="right">
+  <wa-button appearance="filled">Right</wa-button>
+</wa-copy-button>
+<wa-copy-button value="Below" tooltip-placement="bottom">
+  <wa-button appearance="filled">Below</wa-button>
+</wa-copy-button>
+<wa-copy-button value="Left" tooltip-placement="left">
+  <wa-button appearance="filled">Left</wa-button>
+</wa-copy-button>
 ```
 
 ### Custom Styles

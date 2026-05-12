@@ -15,7 +15,7 @@ You can load Web Awesome via CDN or by installing it locally. If you’re using 
 The CDN is the fastest way to get started with Web Awesome. Just copy and paste the following into the `<head>` of your HTML to get started!
 
 ```html
-<link rel="stylesheet" href="{% cdnUrl 'styles/webawesome.css' %}">
+<link rel="stylesheet" href="{% cdnUrl 'styles/webawesome.css' %}" />
 <script type="module" src="{% cdnUrl 'webawesome.loader.js' %}"></script>
 ```
 
@@ -25,8 +25,8 @@ Now you can [use any Web Awesome component](/docs/components)! Try putting a but
 <wa-button variant="brand">Click me!</wa-button>
 ```
 
-:::pro
-Pro users: get installation instructions from <a href="/workspaces">your&nbsp;workspaces</a> instead.
+:::pro Using Web Awesome Pro?
+Get personalized installation instructions from <a href="/workspaces">your&nbsp;workspaces</a> instead.
 :::
 
 ## Installing with npm
@@ -50,8 +50,8 @@ import '@awesome.me/webawesome/dist/components/input/input.js';
 
 Once a component has been imported, you can use it in your HTML normally. Components are cherry picked to ensure you're getting the smallest possible bundle. You can find each component import in the "Importing" section of its documentation.
 
-:::pro
-Pro users: get installation instructions from <a href="/workspaces">your&nbsp;workspaces</a> instead.
+:::pro Using Web Awesome Pro?
+Get personalized installation instructions from <a href="/workspaces">your&nbsp;workspaces</a> instead.
 :::
 
 ## Get the Download (Advanced)
@@ -88,7 +88,6 @@ If you're self-hosting Web Awesome, you'll need to set up your pages to referenc
 ```html
 <!-- Option 1: use all Web Awesome styles -->
 <link rel="stylesheet" href="/dist/styles/webawesome.css" />
-
 
 <!-- Option 2: pick and choose styles -->
 
@@ -143,7 +142,7 @@ Most of the magic behind assets is handled internally by Web Awesome, but if you
 
 ### Using Font Awesome Pro and Pro+
 
-Font Awesome users can provide their kit code to unlock Pro and Pro+ icon packs. You can do so by adding the `data-fa-kit-code` attribute to any element on the page, or by calling the `setKitCode()` method.
+{{ site.siblings.fontAwesome.name }} users can provide their kit code to unlock Pro and Pro+ icon packs. You can do so by adding the `data-fa-kit-code` attribute to any element on the page, or by calling the `setKitCode()` method.
 
 ```html
 <!-- Option 1: the data-fa-kit-code attribute -->
@@ -156,4 +155,4 @@ Font Awesome users can provide their kit code to unlock Pro and Pro+ icon packs.
 </script>
 ```
 
-Now you can use Font Awesome icons through the [`<wa-icon>`](/docs/components/icon) component!
+Now you can use {{ site.siblings.fontAwesome.name }} icons through the [`<wa-icon>`](/docs/components/icon) component!

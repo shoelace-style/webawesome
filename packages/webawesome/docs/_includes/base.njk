@@ -86,8 +86,12 @@
     {# wa-page-based Main Header #}
     {% block pageMainHeader %}{% endblock %}
 
-    {# wa-page-based Main Content (default) #}
-    <main id="content">
+    {# wa-page-based Main Content (default).
+     # Pages opt out of the default sizing/spacing by setting
+     # `hasFlushMain: true` in their front matter — <main> then
+     # renders without .content-container so the page can handle
+     # its own layout (used by full-bleed marketing pages, etc.). #}
+    <main id="content"{% if not hasFlushMain %} class="content-container"{% endif %}>
       {# Expandable outline #}
       {% if hasOutline %}
       <nav id="outline-expandable">
@@ -109,7 +113,7 @@
       {% for item in collections.all %}
         {% if item.url == breadcrumbParentUrl %}{% set breadcrumbParentTitle = item.data.title %}{% endif %}
       {% endfor %}
-      <wa-breadcrumb class="docs-subpage-crumbs">
+      <wa-breadcrumb class="page-breadcrumbs">
         <wa-icon slot="separator" name="angle-right" variant="regular"></wa-icon>
         <wa-breadcrumb-item href="{{ breadcrumbParentUrl }}">{{ breadcrumbParentTitle }}</wa-breadcrumb-item>
         <wa-breadcrumb-item>{{ title }}</wa-breadcrumb-item>

@@ -8,9 +8,6 @@
 @import 'utils.css';
 
 :root {
-  --wa-brand-orange: #f36944;
-  --wa-brand-grey: #30323b;
-
   /* layout-based example style aspects */
   --layout-example-border: var(--wa-border-width-s) dashed var(--wa-color-neutral-border-normal);
   --layout-example-border-radius: var(--wa-border-radius-l);
@@ -18,18 +15,6 @@
   --layout-example-element-background: var(--wa-color-indigo-60);
   --layout-example-element-color: var(--wa-color-indigo-05);
   --layout-example-element-border-radius: var(--wa-border-radius-m);
-}
-
-/* Full-width pill-shaped breadcrumb used at the top of subpages */
-.docs-subpage-crumbs {
-  display: flex;
-  width: 100%;
-  background-color: var(--wa-color-surface-lowered);
-  border: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border);
-  border-radius: var(--wa-border-radius-pill);
-  font-size: var(--wa-font-size-s);
-  padding: var(--wa-space-xs) var(--wa-space-m);
-  margin-block-end: var(--wa-content-spacing);
 }
 
 /* "Browse\ ___" / "Back to ___" link with an arrow that nudges on hover */
@@ -72,7 +57,7 @@ body.theme-transitioning {
 
 /* Header */
 wa-page::part(body) {
-  padding-top: 0px;
+  padding-block-start: 0;
 }
 
 wa-page::part(header-actions) {
@@ -92,14 +77,79 @@ wa-button.delete {
 
 /* Main content */
 wa-page > main {
-  max-width: var(--content-width-s);
+  max-inline-size: var(--content-width-s);
   padding: var(--wa-space-xl);
   margin-inline: auto;
 }
 
-/* increase max-width for index pages */
+/* increase max-inline-size for index pages */
 wa-page > main:has(.modern-card-list) {
-  max-width: var(--content-width-m);
+  max-inline-size: var(--content-width-m);
+}
+
+/* Prose rhythm — replaces the wa-native layer's uniform `--wa-content-spacing`
+   between block siblings with hierarchical, asymmetric margins. Unlayered so
+   it wins via cascade order; re-check if this file ever joins a layer. */
+#content {
+  /* Headings hug what they introduce: generous above, tight below. */
+
+  * + h2 {
+    margin-block-start: var(--wa-space-2xl);
+  }
+  h2:has(+ *) {
+    margin-block-end: var(--wa-space-s);
+  }
+
+  * + h3 {
+    margin-block-start: var(--wa-space-xl);
+  }
+  h3:has(+ *) {
+    margin-block-end: var(--wa-space-s);
+  }
+
+  :is(h4, h5, h6):has(+ *) {
+    margin-block-end: var(--wa-space-xs);
+  }
+
+  /* Prevents stacked top + bottom margins on back-to-back headings. */
+  h2 + :is(h3, h4),
+  h3 + h4 {
+    margin-block-start: var(--wa-space-m);
+  }
+
+  :is(ul, ol) > li:has(+ li) {
+    margin-block-end: var(--wa-space-2xs);
+  }
+
+  /* Slight optical tracking; only the larger sizes need it. */
+  :is(h1, h2) {
+    letter-spacing: -0.01em;
+  }
+
+  /* `<hr>` marks a topic shift. Its own margin defines the gap; the heading
+     or paragraph that follows shouldn't double-stack on top. */
+  hr {
+    margin-block: var(--wa-space-3xl);
+  }
+  hr + :is(h1, h2, h3, h4, h5, h6) {
+    margin-block-start: 0;
+  }
+
+  /* Major non-text blocks get more breathing room than running prose, but
+     headings still hug — so the top-margin rule only applies after non-heading
+     siblings. */
+  :is(pre, figure, table, blockquote, wa-callout, .code-example):has(+ *) {
+    margin-block-end: var(--wa-space-xl);
+  }
+
+  :not(h1, h2, h3, h4, h5, h6) + :is(pre, figure, table, blockquote, wa-callout, .code-example) {
+    margin-block-start: var(--wa-space-xl);
+  }
+
+  /* Visually heavy blocks still deserve a minimum breath after a heading. */
+  :is(h1, h2, h3, h4, h5, h6) + :is(pre, figure, table, blockquote, wa-callout, .code-example) {
+    margin-block-start: var(--wa-space-m);
+  }
 }
 
 h1.title {
@@ -134,8 +184,6 @@ h1.title {
 
 /* Callouts in content */
 #content > wa-callout {
-  margin-block-end: var(--wa-content-spacing);
-
   &[variant='brand'] code {
     background-color: color-mix(in oklab, var(--wa-color-brand-fill-soft), black 2.5%);
   }
@@ -163,7 +211,7 @@ figure.signpost {
 
 /* Search list pages */
 wa-page > main:has(> .search-list) {
-  max-width: var(--content-width-l);
+  max-inline-size: var(--content-width-l);
   margin-inline: auto;
 }
 
@@ -179,22 +227,22 @@ wa-page > main:has(> .search-list) {
     gap: var(--wa-space-2xl);
     margin-block-end: var(--wa-space-3xl);
 
-    @container (width < 768px) {
+    @container (inline-size < 48rem) {
       grid-template-columns: repeat(3, 1fr);
     }
 
-    @container (width < 576px) {
+    @container (inline-size < 36rem) {
       grid-template-columns: repeat(2, 1fr);
     }
 
-    @container (width < 384px) {
+    @container (inline-size < 24rem) {
       grid-template-columns: repeat(1, 1fr);
     }
 
     &.large {
       grid-template-columns: repeat(2, 1fr);
 
-      @container (width < 640px) {
+      @container (inline-size < 40rem) {
         grid-template-columns: repeat(1, 1fr);
       }
     }
@@ -250,126 +298,11 @@ wa-card .page-name {
     gap: var(--wa-space-m);
     margin-block-end: var(--wa-space-l);
 
-    @container (width < 900px) {
+    @container (inline-size < 56rem) {
       grid-template-columns: repeat(2, 1fr);
     }
 
-    @container (width < 560px) {
-      grid-template-columns: 1fr;
-    }
-
-    a {
-      color: var(--wa-color-text-normal);
-      text-decoration: none;
-    }
-
-    wa-card {
-      --spacing: var(--wa-space-m);
-      block-size: 100%;
-    }
-
-    wa-card:defined {
-      transition:
-        border-color var(--wa-transition-normal),
-        box-shadow var(--wa-transition-normal);
-    }
-
-    wa-card::part(body) {
-      display: flex;
-      flex-direction: column;
-      block-size: 100%;
-    }
-
-    a:hover wa-card,
-    a:focus-visible wa-card {
-      border-color: var(--wa-color-brand-border-loud);
-      box-shadow: 0 0 0 0.0625rem var(--wa-color-brand-border-loud);
-    }
-
-    .page-name {
-      display: block;
-      font-size: var(--wa-font-size-l);
-      font-weight: var(--wa-font-weight-heading);
-      line-height: var(--wa-line-height-condensed);
-      margin-block-end: var(--wa-space-xs);
-    }
-
-    .component-list-summary,
-    .modern-card-summary {
-      color: var(--wa-color-text-quiet);
-      font-size: var(--wa-font-size-s);
-      line-height: var(--wa-line-height-normal);
-      margin: 0 0 var(--wa-space-m);
-    }
-
-    .component-list-badges {
-      font-size: var(--wa-font-size-s);
-      margin-block-start: auto;
-    }
-  }
-}
-
-/* Component list: centered search input (anchors a hero-style browse page) */
-.component-list {
-  .search-list-input {
-    display: block;
-    max-inline-size: 32rem;
-    margin-inline: auto;
-    margin-block: var(--wa-space-m) var(--wa-space-s);
-  }
-
-  .search-list-shortcut {
-    text-align: center;
-    color: var(--wa-color-text-quiet);
-    font-size: var(--wa-font-size-s);
-    margin-block: 0 var(--wa-space-2xl);
-  }
-}
-
-/* Modern card list: left-aligned "Browse X" heading + search input (used by utilities, tokens, patterns) */
-.modern-card-list-heading {
-  margin-block: 0 var(--wa-space-xl);
-}
-
-.modern-card-list {
-  .search-list-input {
-    display: block;
-    max-inline-size: 32rem;
-    margin-block: 0 var(--wa-space-2xl);
-  }
-
-  .modern-card-list-category {
-    margin-block: var(--wa-space-2xl) var(--wa-space-m);
-    font-size: var(--wa-font-size-xl);
-
-    &:first-of-type {
-      margin-block-start: 0;
-    }
-  }
-}
-
-/* Restore full-size rendering of platform symbols (⌘, ⌥, ⇧, etc.) inside <kbd>,
-   which uses a code font that tends to render these glyphs undersized. */
-.kbd-symbol {
-  font-family: var(--wa-font-family-body);
-}
-
-/* Card-based, name-first listing layout used by component/pattern/utility browse pages */
-.component-list,
-.modern-card-list {
-  container-type: inline-size;
-
-  .search-list-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--wa-space-m);
-    margin-block-end: var(--wa-space-l);
-
-    @container (width < 900px) {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    @container (width < 560px) {
+    @container (inline-size < 35rem) {
       grid-template-columns: 1fr;
     }
 
@@ -486,40 +419,21 @@ wa-card .page-name {
   white-space: nowrap;
 }
 
-/* Layout Examples */
-.layout-example-boundary {
-  border: var(--wa-border-width-s) dashed var(--wa-color-neutral-border-normal);
-  border-radius: var(--wa-border-radius-l);
-  padding: var(--wa-space-s);
-}
-
-.layout-example-block {
-  background-color: var(--wa-color-indigo-60);
-  border-radius: var(--wa-border-radius-m);
-  min-block-size: 4rem;
-  min-inline-size: 4rem;
-}
-
-.layout-example-mixed-sizing .layout-example-block:nth-child(3n) {
-  min-inline-size: 6rem;
-}
-.layout-example-mixed-sizing .layout-example-block:nth-child(3n + 2) {
-  min-inline-size: 8rem;
-}
-
 /* Component API tables */
 wa-scroller:has(.component-table) {
   margin-block-end: var(--wa-space-xl);
 }
 
 .component-table {
+  font-variant-numeric: tabular-nums;
+
   .table-name {
     white-space: nowrap;
   }
 
   .table-arguments,
   .table-description {
-    min-width: var(--line-length-xs);
+    min-inline-size: var(--line-length-xs);
   }
 
   .table-selector .wa-cluster {
@@ -537,7 +451,7 @@ wa-scroller:has(.component-table) {
 
 .component-help {
   display: flex;
-  width: 100%;
+  inline-size: 100%;
   gap: var(--wa-space-m);
   flex-wrap: wrap;
   align-items: center;
@@ -551,7 +465,7 @@ wa-scroller:has(.component-table) {
 }
 
 /** desktop */
-@media screen and not (max-width: 1180px) {
+@media screen and (min-width: 73.75rem) {
   wa-page > main {
     padding: var(--wa-space-3xl);
   }
@@ -559,10 +473,10 @@ wa-scroller:has(.component-table) {
 
 .page-wide {
   wa-page > main {
-    max-width: var(--content-width-l);
+    max-inline-size: var(--content-width-l);
 
     .max-line-length {
-      max-width: var(--line-length-l);
+      max-inline-size: var(--line-length-l);
     }
   }
 }
@@ -575,4 +489,3 @@ wa-scroller:has(.component-table) {
     max-height: 21lh;
   }
 }
-

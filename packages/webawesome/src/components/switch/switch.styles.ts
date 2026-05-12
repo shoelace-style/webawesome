@@ -47,6 +47,9 @@ export default css`
     translate: calc((var(--width) - var(--height)) / -2);
     transition: inherit;
   }
+  .switch .thumb:dir(rtl) {
+    translate: calc((var(--width) - var(--height)) / 2);
+  }
 
   .input {
     position: absolute;
@@ -71,6 +74,9 @@ export default css`
   .checked .switch .thumb {
     background-color: var(--wa-color-surface-default);
     translate: calc((var(--width) - var(--height)) / 2);
+  }
+  .checked .switch .thumb:dir(rtl) {
+    translate: calc((var(--width) - var(--height)) / -2);
   }
 
   /* Disabled */
