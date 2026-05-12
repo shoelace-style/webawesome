@@ -4,7 +4,7 @@ description: Tips for using Web Awesome in your React app.
 layout: page-outline
 ---
 
-<wa-breadcrumb class="docs-subpage-crumbs">
+<wa-breadcrumb class="page-breadcrumbs">
   <wa-icon slot="separator" name="angle-right" variant="regular"></wa-icon>
   <wa-breadcrumb-item href="/docs/frameworks">Frameworks</wa-breadcrumb-item>
   <wa-breadcrumb-item>{{ title }}</wa-breadcrumb-item>

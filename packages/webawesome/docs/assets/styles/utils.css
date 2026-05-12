@@ -276,6 +276,18 @@
     }
   }
 
+  /* Full-width pill-shaped breadcrumb used at the top of subpages */
+  .page-breadcrumbs {
+    display: flex;
+    inline-size: 100%;
+    background-color: var(--wa-color-surface-lowered);
+    border: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border);
+    border-radius: var(--wa-border-radius-pill);
+    font-size: var(--wa-font-size-s);
+    padding: var(--wa-space-xs) var(--wa-space-m);
+    margin-block-end: var(--wa-content-spacing);
+  }
+
   /* header */
   wa-page > [slot='header'] {
     /* reset default page component-based header styles */
