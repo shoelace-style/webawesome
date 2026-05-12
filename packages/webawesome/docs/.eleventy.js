@@ -22,6 +22,7 @@ import { replaceTextPlugin } from './_plugins/replace-text.js';
 import { searchPlugin } from './_plugins/search.js';
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 const isDev = process.argv.includes('--develop');
+
 const passThroughExtensions = ['js', 'css', 'png', 'svg', 'jpg', 'mp4'];
 
 async function getPackageData() {
@@ -77,7 +78,7 @@ export default async function (eleventyConfig) {
   //
   // Set all global template data here
   //
-  eleventyConfig.addGlobalData('isDev', isDev)
+  eleventyConfig.addGlobalData('isDev', isDev || process.env.NODE_ENV === "development")
   eleventyConfig.addGlobalData('package', packageData);
   eleventyConfig.addGlobalData('layout', 'page.njk');
   eleventyConfig.addGlobalData('server', {
@@ -345,6 +346,7 @@ export default async function (eleventyConfig) {
   //   //  - resize-observer (why SSR this?)
   //   //  - tooltip (why SSR this?)
   //   //
+  if (!serverBuild) {
     const omittedModules = [];
     const componentList = []
     allComponents.forEach((c) => {
@@ -363,7 +365,7 @@ export default async function (eleventyConfig) {
       mode: 'worker',
       componentModules,
     });
-  // }
+  }
 
   // For a server build, we expect a server to run the second transform.
   // For dev builds, we run the second transform in a middleware.

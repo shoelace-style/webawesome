@@ -363,14 +363,14 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
   }
 
   render() {
-    const hasLabelSlot = this.hasUpdated ? this.hasSlotController.test('label') : this.withLabel;
-    const hasHintSlot = this.hasUpdated ? this.hasSlotController.test('hint') : this.withHint;
+    const hasLabelSlot = (this.didSSR && !this.hasUpdated) ? this.withLabel : this.hasSlotController.test('label');
+    const hasHintSlot = (this.didSSR && !this.hasUpdated) ? this.withHint : this.hasSlotController.test('hint');
     const hasLabel = this.label ? true : !!hasLabelSlot;
     const hasHint = this.hint ? true : !!hasHintSlot;
     const hasClearIcon = this.withClear && !this.disabled && !this.readonly;
     const isClearIconVisible =
       // prevents hydration mismatch errors.
-      (isServer || this.hasUpdated) &&
+      (!this.didSSR || this.hasUpdated) &&
       hasClearIcon &&
       (typeof this.value === 'number' || (this.value && this.value.length > 0));
 

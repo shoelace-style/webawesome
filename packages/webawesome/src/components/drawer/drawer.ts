@@ -233,7 +233,7 @@ export default class WaDrawer extends WebAwesomeElement {
 
   render() {
     const hasHeader = !this.withoutHeader;
-    const hasFooter = this.hasUpdated ? this.hasSlotController.test('footer') : this.withFooter;
+    const hasFooter = this.hasSlotController.test('footer', "withFooter");
 
     return html`
       <dialog

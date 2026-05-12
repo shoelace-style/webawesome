@@ -14,6 +14,10 @@ declare module 'lit' {
   }
 }
 
+function camelToKebab(str: string) {
+  return str.replace(/[A-Z]/g, c => `-${c.toLowerCase()}`);
+}
+
 export default class WebAwesomeElement extends LitElement {
   /** One or more CSSResultGroup to include in the component's shadow root. Host styles are automatically prepended. */
   static css?: CSSResultGroup;
@@ -115,7 +119,8 @@ export default class WebAwesomeElement extends LitElement {
     try {
       super.update(changedProperties);
     } catch (e) {
-      if (this.didSSR && !this.hasUpdated) {
+      if (this.didSSR) {
+        console.log("ERROR!!!!")
         // Emit a hydration error so we can catch it and do cool things.
         // This may accidentally grab non-hydration related errors, but its the best I've found without directly reading error strings.
         const event = new Event('lit-hydration-error', { bubbles: true, composed: true, cancelable: false });
@@ -126,6 +131,44 @@ export default class WebAwesomeElement extends LitElement {
       }
       throw e;
     }
+  }
+
+  /**
+   * @internal
+   * Internal way to set styles across both client and server
+   */
+  protected setStyle<T extends keyof CSSStyleDeclaration & string> (property: T, value: CSSStyleDeclaration[T]) {
+    if (!this.style) {
+      if (value != null) {
+        let style = this.getAttribute("style") || ""
+        if (style) { style += " " }
+        this.setAttribute("style", `${style}${camelToKebab(property)}: ${value};`)
+      }
+
+      return
+    }
+
+    // Client side
+    this.style[property] = value
+  }
+
+  /**
+   * @internal
+   * Internal way to set a CSS custom property across both client and server.
+   */
+  protected setStyleProperty<T extends string> (property: T, value: string) {
+    if (!this.style) {
+      if (value != null) {
+        let style = this.getAttribute("style") || ""
+        if (style) { style += " " }
+        this.setAttribute("style", `${style}${property}: ${value};`)
+      }
+
+      return
+    }
+
+    // Client side
+    this.style.setProperty(property, value)
   }
 
   /**

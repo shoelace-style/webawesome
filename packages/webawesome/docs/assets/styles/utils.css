@@ -726,6 +726,8 @@
 
     wa-page > #sidebar {
       overflow: auto;
+      /* When SSRing <wa-page> for some reason 100% breaks here, it gets fixed once JS takes over, but 80vh seems to work pretty well. At some point, should re-evaluate what the sidebar is doing. */
+      /* max-height: calc(100vh - var(--banner-height) - var(--subheader-height) - var(--header-height)); */
       max-height: 100%;
       padding: var(--wa-space-2xl) var(--content-padding-inline);
     }

@@ -1,4 +1,4 @@
-import { html, type PropertyValues } from 'lit';
+import { html, nothing, type PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
@@ -47,9 +47,10 @@ export default class WaRating extends WebAwesomeFormAssociatedElement {
 
   private readonly localize = new LocalizeController(this);
 
+  @property({ reflect: true }) role = "slider"
+
   connectedCallback() {
     super.connectedCallback();
-    this.setAttribute('role', 'slider');
     this.setAttribute('aria-valuenow', String(this.value));
     this.setAttribute('aria-valuemin', '0');
     this.setAttribute('aria-valuemax', String(this.max));
@@ -304,7 +305,7 @@ export default class WaRating extends WebAwesomeFormAssociatedElement {
   }
 
   render() {
-    const isRtl = this.hasUpdated ? this.localize.dir() === 'rtl' : this.dir;
+    const isRtl = (this.didSSR && !this.hasUpdated) ? this.dir : this.localize.dir() === 'rtl';
     const counter = Array.from(Array(this.max).keys());
     let displayValue = 0;
 

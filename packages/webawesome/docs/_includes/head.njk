@@ -25,10 +25,9 @@
 	document.documentElement.classList.toggle('wa-dark', isDark);
 </script>
 
-{% if isDev %}
+{# TODO: Figure out how to only load in dev #}
   <script src="/assets/scripts/hydration-errors.js"></script>
   <link rel="stylesheet" href="/assets/styles/hydration-errors.css">
-{% endif %}
 
 <link rel="manifest" href="/manifest.json" />
 <link rel="icon" href="/assets/images/app-icons/favicon.ico" sizes="any">

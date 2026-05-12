@@ -220,7 +220,7 @@ export default class WaDialog extends WebAwesomeElement {
 
   render() {
     const hasHeader = !this.withoutHeader;
-    const hasFooter = this.hasUpdated ? this.hasSlotController.test('footer') : this.withFooter;
+    const hasFooter = (this.didSSR && !this.hasUpdated) ? this.withFooter : this.hasSlotController.test('footer');
 
     return html`
       <dialog

@@ -5,6 +5,7 @@ import type _QrCreator from 'qr-creator';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import styles from './qr-code.styles.js';
+import { styleMap } from 'lit/directives/style-map.js';
 
 let QrCreator: _QrCreator.default;
 
@@ -79,9 +80,6 @@ export default class WaQrCode extends WebAwesomeElement {
       return;
     }
 
-    this.canvas.style.maxWidth = `${this.size}px`;
-    this.canvas.style.maxHeight = `${this.size}px`;
-
     const computedStyle = getComputedStyle(this);
 
     (QrCreator as unknown as typeof _QrCreator.default).render(
@@ -109,6 +107,12 @@ export default class WaQrCode extends WebAwesomeElement {
         class="qr-code"
         role="img"
         aria-label=${this.label?.length > 0 ? this.label : this.value}
+        style=${styleMap({
+          maxWidth: `${this.size}px`,
+          maxHeight: `${this.size}px`,
+          minWidth: `${this.size}px`,
+          minHeight: `${this.size}px`,
+        })}
         @transitionend=${(event: TransitionEvent) => {
           if (event.propertyName === 'color') {
             this.generate();

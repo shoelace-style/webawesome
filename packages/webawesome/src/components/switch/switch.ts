@@ -221,8 +221,9 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
           name=${ifDefined(this.name)}
           value=${ifDefined(this.value)}
           .checked=${live(this.checked)}
-          .disabled=${this.disabled}
-          .required=${this.required}
+          ?checked=${this.defaultChecked}
+          ?disabled=${this.disabled}
+          ?required=${this.required}
           role="switch"
           aria-checked=${this.checked ? 'true' : 'false'}
           aria-describedby="hint"

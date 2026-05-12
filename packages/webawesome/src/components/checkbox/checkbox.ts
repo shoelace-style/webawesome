@@ -227,11 +227,11 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
             type="checkbox"
             title=${this.title /* An empty title prevents browser validation tooltips from appearing on hover */}
             name=${ifDefined(this.name)}
-            value=${ifDefined(this._value)}
+            value=${ifDefined(this.value)}
             .indeterminate=${live(this.indeterminate)}
-            .checked=${live(this.checked)}
-            .disabled=${this.disabled}
-            .required=${this.required}
+            ?checked=${this.defaultChecked}
+            ?disabled=${this.disabled}
+            ?required=${this.required}
             aria-checked=${this.indeterminate ? 'mixed' : this.checked ? 'true' : 'false'}
             aria-describedby="hint"
             @click=${this.handleClick}

@@ -226,8 +226,8 @@ export default css`
     position: sticky;
     top: calc(var(--banner-top) + var(--header-top) + var(--subheader-top));
     z-index: 4;
-    height: min(var(--main-height), calc(100dvh - var(--header-top) - var(--banner-top) - var(--subheader-top)));
-    max-height: min(var(--main-height), calc(100dvh - var(--header-top) - var(--banner-top) - var(--subheader-top)));
+    height: min(var(--main-height, 100dvh), calc(100dvh - var(--header-top) - var(--banner-top) - var(--subheader-top)));
+    max-height: min(var(--main-height, 100dvh), calc(100dvh - var(--header-top) - var(--banner-top) - var(--subheader-top)));
     overflow: auto;
   }
 

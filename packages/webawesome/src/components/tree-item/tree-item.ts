@@ -65,6 +65,8 @@ import styles from './tree-item.styles.js';
  * @cssstate expanded - Applied when the tree item is expanded.
  * @cssstate indeterminate - Applied when the selection is indeterminate.
  * @cssstate selected - Applied when the tree item is selected.
+ *
+ * @ssr - `<wa-tree-item>` relies on client side detection via `this.parentElement` to set its slot to `slot="children"`. In an SSR environment, you will either need to polyfill the `parentElement`, or manually set `slot="children"` on nested tree items.
  */
 @customElement('wa-tree-item')
 export default class WaTreeItem extends WebAwesomeElement {
@@ -101,11 +103,12 @@ export default class WaTreeItem extends WebAwesomeElement {
   @query('.children') childrenContainer: HTMLDivElement;
   @query('.expand-button slot') expandButtonSlot: HTMLSlotElement;
 
+  @property({ reflect: true, type: Number, attribute: "tabindex" }) tabIndex = -1
+  @property({ reflect: true }) role = "treeitem"
+
+
   connectedCallback() {
     super.connectedCallback();
-
-    this.setAttribute('role', 'treeitem');
-    this.setAttribute('tabindex', '-1');
 
     if (this.isNestedItem()) {
       this.slot = 'children';

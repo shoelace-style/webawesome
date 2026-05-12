@@ -13,6 +13,8 @@ const connectedInstances = new Set<WaMarkdown>();
  * @documentation https://webawesome.com/docs/components/markdown
  * @status experimental
  * @since 3.4
+ *
+ * @ssr - Because `<wa-markdown>` relies on the content of its children, it is not usable in an SSR context which does not have a DOM.
  */
 @customElement('wa-markdown')
 export default class WaMarkdown extends WebAwesomeElement {

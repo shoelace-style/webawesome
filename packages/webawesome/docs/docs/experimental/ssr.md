@@ -5,11 +5,23 @@ layout: page-outline
 unlisted: true
 ---
 
-Server Side Rendering ("SSR") means your webpage is rendered on the server before being sent to the user's browser. This provides a fully formed HTML page right from the start, which is great for SEO and initial load times. Once the page is rendered, JavaScript kicks in to "hydrate" the components which makes them interactive. The Web platform supports this through a feature called [Declarative Shadow DOM](https://web.dev/articles/declarative-shadow-dom).
+
+<wa-badge variant="warning" appearance="filled" pill>
+  Experimental
+  <wa-icon name="flask"></wa-icon>
+</wa-badge>
+<br><br>
+<p>Server Side Rendering ("SSR") means your webpage is rendered on the server before being sent to the user's browser. This provides a fully formed HTML page right from the start, which is great for SEO and initial load times. Once the page is rendered, JavaScript kicks in to "hydrate" the components which makes them interactive. The Web platform supports this through a feature called [Declarative Shadow DOM](https://web.dev/articles/declarative-shadow-dom).</p>
 
 :::warning
 SSR in Web Awesome is experimental! There are some known bugs and timing issues. Part of the experimental status comes from Lit's SSR package also being experimental.
 :::
+
+## Goals of SSR
+
+The goal of SSR in Web Awesome currently is reduce layout shifting and provide a rough approximation of the final component once the JavaScript for the component is ready, they are **NOT** meant to be components that fully work without JavaScript.
+
+Progressive enhancement is _not_ a goal of Web Awesome (currently). This is partially because for form controls in particular, there is no browser API to "hoist" form controls from the shadow root.
 
 ## Enable Hydration
 
@@ -20,7 +32,7 @@ If you're using the `webawesome.loader.js` file which automatically loads, make 
 + <script type="module" src="/dist/webawesome.ssr-loader.js"></script>
 ```
 
-If you're using a bundler, make sure it comes _before_ any components are imported.
+If you're using a bundler and **NOT** using the autoloader, make sure `@lit-labs/ssr-client/lit-element-hydrate-support.js` comes _before_ any components are imported.
 
 ```js
 // Make sure this import is first.
@@ -126,7 +138,7 @@ To solve this, components that rely on slot detection provide `with-*` attribute
 </wa-dialog>
 ```
 
-These attributes are only needed for SSR._ After the component hydrates on the client, slot detection works normally and the attributes have no effect.
+These attributes are only needed for SSR. After the component hydrates on the client, slot detection works normally and the attributes have no effect.
 
 #### For Contributors
 

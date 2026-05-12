@@ -1,5 +1,5 @@
 import type { PropertyValues } from 'lit';
-import { html } from 'lit';
+import { html, isServer } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { clamp } from '../../internal/math.js';
@@ -38,6 +38,16 @@ export default class WaProgressBar extends WebAwesomeElement {
   /** A custom label for assistive devices. */
   @property() label = '';
 
+  willUpdate(changedProperties: PropertyValues<this>) {
+    if (isServer) {
+      let style = this.getAttribute("style") || ""
+      if (style) { style += " " }
+      this.setAttribute("style", style + `--percentage: ${clamp(this.value, 0, 100)}%`);
+    }
+
+    super.willUpdate(changedProperties)
+  }
+
   updated(changedProperties: PropertyValues<this>) {
     if (changedProperties.has('value')) {
       // Wait a cycle before setting it so Safari animates it.
@@ -46,6 +56,8 @@ export default class WaProgressBar extends WebAwesomeElement {
         this.style.setProperty('--percentage', `${clamp(this.value, 0, 100)}%`);
       });
     }
+
+    super.updated(changedProperties)
   }
 
   render() {

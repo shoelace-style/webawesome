@@ -27,6 +27,8 @@ import { classMap } from 'lit/directives/class-map.js';
  * @csspart footer - The container that wraps the card's footer.
  *
  * @cssproperty [--spacing=var(--wa-space-l)] - The amount of space around and between sections of the card. Expects a single value.
+ *
+ * @ssr - `<wa-card>` requires `with-header` / `with-media` / `with-footer` attributes to be set if you use any of these slots. This is a limitation of the platform not currently providing a `:has-slotted` CSS directive to allow us to apply things like borders based on slotted content. Without these attributes, only the body of the card will be rendered via SSR.
  */
 @customElement('wa-card')
 export default class WaCard extends WebAwesomeElement {
@@ -64,15 +66,27 @@ export default class WaCard extends WebAwesomeElement {
    */
   @property({ attribute: 'with-footer', type: Boolean, reflect: true }) withFooter = false;
 
+  /**
+   * Only required for SSR. Set to `true` if you're slotting in a `header-actions` element so the server-rendered markup
+   * includes the media before the component hydrates on the client.
+   */
+  @property({ attribute: 'with-header-actions', type: Boolean, reflect: true }) withHeaderActions = false;
+
+  /**
+   * Only required for SSR. Set to `true` if you're slotting in a `footer-actions` element so the server-rendered markup
+   * includes the media before the component hydrates on the client.
+   */
+  @property({ attribute: 'with-footer-actions', type: Boolean, reflect: true }) withFooterActions = false;
+
   /** Renders the card's orientation **/
   @property({ reflect: true })
   orientation: 'horizontal' | 'vertical' = 'vertical';
 
   willUpdate(changedProperties: PropertyValues<this>) {
     // Enable the respective slots when detected
-    if (!this.withHeader && this.hasSlotController.test('header')) this.withHeader = true;
-    if (!this.withMedia && this.hasSlotController.test('media')) this.withMedia = true;
-    if (!this.withFooter && this.hasSlotController.test('footer')) this.withFooter = true;
+    this.withHeader = this.hasSlotController.test("header", "withHeader")
+    this.withMedia = this.hasSlotController.test("media", "withMedia")
+    this.withFooter = this.hasSlotController.test("footer", "withFooter")
     super.willUpdate(changedProperties)
   }
 
@@ -86,9 +100,10 @@ export default class WaCard extends WebAwesomeElement {
       `;
     }
 
+    const hasHeaderActions = this.hasSlotController.test("header-actions", "withHeaderActions")
+    const hasFooterActions = this.hasSlotController.test("footer-actions", "withFooterActions")
+
     // Vertical Orientation
-    const hasHeaderActions = this.hasSlotController.test("header-actions")
-    const hasFooterActions = this.hasSlotController.test("footer-actions")
     return html`
       <slot name="media" part="media" class="media"></slot>
 
@@ -104,6 +119,7 @@ export default class WaCard extends WebAwesomeElement {
       </header>
 
       <div part="body" class="body"><slot></slot></div>
+
       <footer
         part="footer"
         class=${classMap({

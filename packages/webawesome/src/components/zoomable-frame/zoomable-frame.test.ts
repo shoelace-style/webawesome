@@ -150,6 +150,7 @@ describe('<wa-zoomable-frame>', () => {
         it('should zoom out when clicking the zoom out button', async () => {
           const el = await fixture<WaZoomableFrame>(html`<wa-zoomable-frame zoom="1"></wa-zoomable-frame>`);
           const zoomOutButton = el.shadowRoot!.querySelector<HTMLElement>('[part="zoom-out-button"]')!;
+          await el.updateComplete;
           await clickOnElement(zoomOutButton);
           await el.updateComplete;
           expect(el.zoom).to.equal(0.75);

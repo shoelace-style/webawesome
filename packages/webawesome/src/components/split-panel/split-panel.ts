@@ -1,4 +1,4 @@
-import { html, isServer } from 'lit';
+import { html, isServer, type PropertyValues } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { WaRepositionEvent } from '../../events/reposition.js';
@@ -109,7 +109,7 @@ export default class WaSplitPanel extends WebAwesomeElement {
   }
 
   private handleDrag(event: PointerEvent) {
-    const isRtl = this.hasUpdated ? this.localize.dir() === 'rtl' : this.dir === 'rtl';
+    const isRtl = (this.didSSR && !this.hasUpdated) ? this.dir === 'rtl' : this.localize.dir() === 'rtl';
 
     if (this.disabled) {
       return;
@@ -271,7 +271,7 @@ export default class WaSplitPanel extends WebAwesomeElement {
     this.detectSize();
   }
 
-  render() {
+  private updateStyles () {
     const gridTemplate = this.orientation === 'vertical' ? 'gridTemplateRows' : 'gridTemplateColumns';
     const gridTemplateAlt = this.orientation === 'vertical' ? 'gridTemplateColumns' : 'gridTemplateRows';
     const isRtl = this.hasUpdated ? this.localize.dir() === 'rtl' : this.dir === 'rtl';
@@ -288,29 +288,41 @@ export default class WaSplitPanel extends WebAwesomeElement {
     `;
     const secondary = 'auto';
 
-    // @TODO: Create an actual fix for this. [Konnor]
-    if (!this.style) {
-      // @ts-expect-error `this.style` doesn't exist on the server.
-      this.style = {};
-    }
-
     if (this.primary === 'end') {
       if (isRtl && this.orientation === 'horizontal') {
-        this.style[gridTemplate] = `${primary} var(--divider-width) ${secondary}`;
+        this.setStyle(gridTemplate, `${primary} var(--divider-width) ${secondary}`);
       } else {
-        this.style[gridTemplate] = `${secondary} var(--divider-width) ${primary}`;
+        this.setStyle(gridTemplate, `${secondary} var(--divider-width) ${primary}`);
       }
     } else {
       if (isRtl && this.orientation === 'horizontal') {
-        this.style[gridTemplate] = `${secondary} var(--divider-width) ${primary}`;
+        this.setStyle(gridTemplate, `${secondary} var(--divider-width) ${primary}`);
       } else {
-        this.style[gridTemplate] = `${primary} var(--divider-width) ${secondary}`;
+        this.setStyle(gridTemplate, `${primary} var(--divider-width) ${secondary}`);
       }
     }
 
     // Unset the alt grid template property
-    this.style[gridTemplateAlt] = '';
+    this.setStyle(gridTemplateAlt, 'unset');
 
+  }
+
+  willUpdate (changedProperties: PropertyValues<this>) {
+    if (isServer) {
+      this.updateStyles()
+    }
+
+    super.willUpdate(changedProperties)
+  }
+
+  updated (changedProperties: PropertyValues<this>) {
+    super.updated(changedProperties)
+  }
+
+  render() {
+    if (!isServer) {
+      this.updateStyles()
+    }
     return html`
       <slot name="start" part="panel start" class="start"></slot>
 

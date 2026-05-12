@@ -95,6 +95,8 @@ export default class WaTree extends WebAwesomeElement {
   private clickTarget: WaTreeItem | null = null;
   private readonly localize = new LocalizeController(this);
 
+  // @property({ reflect: true, type: Number }) tabIndex = 0
+
   constructor() {
     super();
     if (!isServer) {
@@ -102,6 +104,9 @@ export default class WaTree extends WebAwesomeElement {
       this.addEventListener('focusout', this.handleFocusOut);
       this.addEventListener('wa-lazy-change', this.handleSlotChange);
     }
+
+    this.internals.role = 'tree'
+    this.tabIndex = 0
   }
 
   async connectedCallback() {
@@ -109,9 +114,6 @@ export default class WaTree extends WebAwesomeElement {
 
     // SSR guard: MutationObserver is not available during server-side rendering
     if (!isServer) {
-      this.setAttribute('role', 'tree');
-      this.setAttribute('tabindex', '0');
-
       await this.updateComplete;
 
       this.mutationObserver = new MutationObserver(this.handleTreeChanged);

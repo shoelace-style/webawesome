@@ -10,8 +10,6 @@
 }
 .diff-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  grid-template-rows: minmax(0, 1fr);
   max-height: 80vh;
   gap: 16px;
 }
@@ -19,9 +17,16 @@
   height: 100%;
 }
 .diff-dialog {
-  max-width: 90vw;
-  width: 90vw;
+  &::part(dialog) {
+    max-width: 90vw;
+    width: 90vw;
+    margin: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 }
+
 .diff-dialog ins {
   text-decoration: none;
 }
