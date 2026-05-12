@@ -1,7 +1,7 @@
 ---
 title: Card
 layout: component
-category: Organization
+category: Layout
 synonyms:
   - tile
   - panel
@@ -115,7 +115,7 @@ If using SSR, you need to also use the `with-media` attribute to add a media sec
         alt="A kitten walks towards camera on top of pallet."
       />
     </div>
-    This card has an image of a kitten walking along a pallet. 
+    This card has an image of a kitten walking along a pallet.
   </wa-card>
   <wa-card class="card-media">
     <video slot="media" controls>

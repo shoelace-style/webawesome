@@ -24,7 +24,7 @@ You can customize the look and feel of Web Awesome at a high level with themes. 
 
 ## Themes
 
-Web Awesome uses [themes](/docs/themes) to apply a cohesive look and feel across the entire library. Themes are built with a collection of predefined CSS custom properties, which we call [design tokens](/docs/tokens), and there are many premade themes you can choose from.
+Web Awesome uses [themes](/docs/themes) to apply a cohesive look and feel across the entire library. Themes are built with a collection of predefined CSS custom properties, which we call [design tokens](/docs/tokens), and there are many pre-built themes to choose from.
 
 {% raw %}
   <p>

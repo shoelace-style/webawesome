@@ -35,8 +35,8 @@ There are 9 specially crafted color palettes; 3 are free to use with an addition
 {% if palette.isPro %}
 {% markdown %}
 <wa-callout variant="neutral" size="s">
-  <wa-icon name="info-circle" variant="regular"></wa-icon>
-  This palette can only be used in workspaces with a Pro subscription.
+  <wa-icon slot="icon" name="info-circle" variant="regular"></wa-icon>
+  This palette can only be used with a Pro subscription. {% raw %}{% if session.isLoggedIn %}{% endraw %}For instructions unique to your Pro project, open a project from <a href="/workspaces">your workspace</a>.{% raw %}{% endif %}{% endraw %}
 </wa-callout>
 {% endmarkdown %}
 {% else %}
@@ -93,7 +93,7 @@ Then, apply the following class to the `<html>` element:
 {% if palette.isPro %}
 {% markdown %}
 **For projects in <wa-badge appearance="accent" pill class="pro">Pro</wa-badge> workspaces:**
-1. Head over to your project's <wa-icon name="gear" variant="regular"></wa-icon> **Settings**.
+1. Go to your project's <wa-icon name="gear" variant="regular"></wa-icon> **Settings**.
 2. Press <wa-icon name="paintbrush" variant="regular"></wa-icon> **Edit Your Theme** to open the Theme Builder.
 3. Open **Colors** and select **{{ palette.name | capitalize }}**.
 4. Save your theme to immediately update anywhere you're using your project.
@@ -101,12 +101,12 @@ Then, apply the following class to the `<html>` element:
 {% else %}
 {% markdown %}
 **For projects in <wa-badge appearance="filled" variant="neutral" pill class="free">Free</wa-badge> workspaces:**
-1. Head over to your project's <wa-icon name="gear" variant="regular"></wa-icon> **Settings**.
+1. Go to your project's <wa-icon name="gear" variant="regular"></wa-icon> **Settings**.
 2. Find **Color Palette**. Select <wa-icon name="swatchbook" variant="regular"></wa-icon> **{{ palette.name | capitalize }}**.
 3. Save your theme to immediately update anywhere you're using your project.
 
-**For projects in Pro workspaces:**
-1. Head over to your project's <wa-icon name="gear" variant="regular"></wa-icon> **Settings**.
+**For projects in <wa-badge appearance="accent" pill class="pro">Pro</wa-badge> workspaces:**
+1. Go to your project's <wa-icon name="gear" variant="regular"></wa-icon> **Settings**.
 2. Press <wa-icon name="paintbrush" variant="regular"></wa-icon> **Edit Your Theme** to open the Theme Builder.
 3. Open **Colors** and select **{{ palette.name | capitalize }}**.
 4. Save your theme to immediately update anywhere you're using your project.

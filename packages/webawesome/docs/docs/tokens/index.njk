@@ -15,7 +15,7 @@ Design tokens are the building blocks of your [theme](/docs/themes) and thread t
 <div class="modern-card-list">
   <section class="search-list-grid">
     {% for page in collections.tokens | sort(false, false, 'data.title') %}
-      <a href="{{ page.url }}">
+      <a class="hover-grow hover-emphasize-border" href="{{ page.url }}">
         <wa-card>
           <span class="page-name">{{ page.data.title }}</span>
           {% if page.data.description %}

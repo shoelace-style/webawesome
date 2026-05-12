@@ -1,9 +1,10 @@
 import { aTimeout, expect, waitUntil } from '@open-wc/testing';
+import { resetMouse } from '@web/test-runner-commands';
 import { html } from 'lit';
 import sinon from 'sinon';
 import { expectEvent } from '../../internal/test/expect-event.js';
 import { fixtures } from '../../internal/test/fixture.js';
-import { clickOnElement } from '../../internal/test/pointer-utilities.js';
+import { clickOnElement, moveMouseOnElement } from '../../internal/test/pointer-utilities.js';
 import type WaTooltip from '../tooltip/tooltip.js';
 import type WaCopyButton from './copy-button.js';
 
@@ -314,7 +315,8 @@ describe('<wa-copy-button>', () => {
           expect(tooltip.anchor).to.equal(trigger);
           expect(tooltip.open).to.be.false;
 
-          trigger.dispatchEvent(new MouseEvent('mouseover', { bubbles: true, composed: true }));
+          await resetMouse();
+          await moveMouseOnElement(trigger, 'center');
 
           // Wait for showDelay (150ms default) + buffer
           await aTimeout(250);

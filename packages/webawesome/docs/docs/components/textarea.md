@@ -1,7 +1,7 @@
 ---
 title: Textarea
 layout: component
-category: Form Controls
+category: Forms
 synonyms:
   - text area
   - multiline input

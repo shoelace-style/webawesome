@@ -1,7 +1,7 @@
 ---
 title: Scroller
 layout: component
-category: Organization
+category: Layout
 synonyms:
   - scrollable
   - scroll container

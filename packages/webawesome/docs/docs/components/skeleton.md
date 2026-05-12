@@ -1,7 +1,7 @@
 ---
 title: Skeleton
 layout: component
-category: Feedback & Status
+category: Feedback
 synonyms:
   - placeholder
   - shimmer

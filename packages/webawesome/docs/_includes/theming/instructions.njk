@@ -76,9 +76,9 @@
   <wa-tab panel="hosted"><wa-icon name="rocket-launch" variant="regular"></wa-icon> Hosted Projects</wa-tab>
 
   <wa-tab-panel name="cdn">
-    <wa-callout variant="neutral" size="small" id="pro-only-callout">
-      <wa-icon name="info-circle" variant="regular"></wa-icon>
-      This combination can only be used with a Pro subscription.
+    <wa-callout variant="neutral" id="pro-only-callout">
+      <wa-icon slot="icon" name="info-circle" variant="regular"></wa-icon>
+      These options can only be used with a Pro subscription. {% raw %}{% if session.isLoggedIn %}{% endraw %}For instructions unique to your Pro project, open a project from your <a href="/workspaces">workspace</a>.{% raw %}{% endif %}{% endraw %}
     </wa-callout>
     <div class="free-instructions">
       <p>To use these choices, add the following stylesheets from the CDN:</p>

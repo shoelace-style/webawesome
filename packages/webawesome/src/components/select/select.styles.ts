@@ -3,8 +3,8 @@ import { css } from 'lit';
 export default css`
   :host {
     --tag-max-size: 10ch;
-    --show-duration: 100ms;
-    --hide-duration: 100ms;
+    --show-duration: var(--wa-transition-fast);
+    --hide-duration: var(--wa-transition-fast);
   }
 
   /* Add ellipses to multi select options */
@@ -236,7 +236,7 @@ export default css`
     display: flex;
     align-items: center;
     color: var(--wa-color-neutral-on-quiet);
-    transition: rotate var(--wa-transition-slow) ease;
+    transition: rotate var(--wa-transition-slow) var(--wa-transition-easing);
     rotate: 0deg;
     margin-inline-start: var(--wa-form-control-padding-inline);
 
