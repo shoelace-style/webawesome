@@ -32,9 +32,11 @@ React 19+ [supports custom elements](https://react.dev/blog/2024/04/25/react-19#
 
 If you're using React 18 or below, skip to the [legacy React wrappers](#legacy-react-wrappers-react-18-and-below) section.
 
-:::pro
-Pro users: get installation instructions from <a href="/workspaces">your&nbsp;workspaces</a> instead.
-:::
+<wa-callout class="pro">
+  <wa-icon slot="icon" name="hand-wave" animation="shake" style="--animation-delay: 2s; --animation-duration: 4s;"></wa-icon>
+  <strong>Using Web Awesome Pro?</strong>
+  Get personalized installation instructions from <a href="/workspaces">your&nbsp;workspaces</a> instead.
+</wa-callout>
 
 ## TypeScript
 

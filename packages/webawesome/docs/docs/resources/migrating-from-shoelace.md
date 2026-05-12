@@ -4,28 +4,10 @@ description: A complete, component-by-component guide for moving from Shoelace 2
 layout: page-outline
 ---
 
-<link rel="stylesheet" href="/assets/styles/theme-site-embed.css" data-turbo-track="reload" />
-
 <style type="text/css">
   .migration-soft-landing-callout,
-  .migration-warning-callout,
-  .pro-component-notice {
+  .migration-warning-callout {
     margin-block: var(--wa-space-xl);
-  }
-
-  .pro-component-notice {
-    padding: var(--wa-space-l);
-  }
-
-  .pro-component-notice::part(icon) {
-    align-items: flex-start;
-    color: var(--wa-color-brand);
-  }
-
-  .pro-component-notice wa-icon[slot='icon'] {
-    --animation-delay: 2s;
-    --animation-duration: 4s;
-    font-size: var(--wa-font-size-xl);
   }
 
   .migration-checklist-actions {
@@ -40,9 +22,9 @@ This guide is for developers with a working Shoelace 2.x project who want to upg
 
 If you're brand new to Web Awesome, the [Getting Started](/docs/) guide is a better starting point.
 
-<wa-callout appearance="outlined-filled" variant="brand" class="pro-component-notice wa-brand-site wa-theme-site wa-align-items-start">
-  <wa-icon slot="icon" name="hand-wave" animation="shake"></wa-icon>
-  <strong>A Few Components Now Live In Web Awesome Pro</strong><br>
+<wa-callout class="pro">
+  <wa-icon slot="icon" name="hand-wave" animation="shake" style="--animation-delay: 2s; --animation-duration: 4s;"></wa-icon>
+  <strong>A Few Components Now Live In Web Awesome Pro</strong>
   Toast notifications, Comboboxes, File Inputs, and Charts moved to <a href="#whats-in-web-awesome-pro">Web&nbsp;Awesome&nbsp;Pro</a>. We mark them clearly with a
   <wa-badge appearance="accent" pill class="pro" data-pro-badge>Pro</wa-badge>
   badge so you'll see them coming.

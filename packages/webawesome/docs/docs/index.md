@@ -25,9 +25,11 @@ Now you can [use any Web Awesome component](/docs/components)! Try putting a but
 <wa-button variant="brand">Click me!</wa-button>
 ```
 
-:::pro
-Pro users: get installation instructions from <a href="/workspaces">your&nbsp;workspaces</a> instead.
-:::
+<wa-callout class="pro">
+  <wa-icon slot="icon" name="hand-wave" animation="shake" style="--animation-delay: 2s; --animation-duration: 4s;"></wa-icon>
+  <strong>Using Web Awesome Pro?</strong>
+  Get personalized installation instructions from <a href="/workspaces">your&nbsp;workspaces</a> instead.
+</wa-callout>
 
 ## Installing with npm
 
@@ -50,9 +52,11 @@ import '@awesome.me/webawesome/dist/components/input/input.js';
 
 Once a component has been imported, you can use it in your HTML normally. Components are cherry picked to ensure you're getting the smallest possible bundle. You can find each component import in the "Importing" section of its documentation.
 
-:::pro
-Pro users: get installation instructions from <a href="/workspaces">your&nbsp;workspaces</a> instead.
-:::
+<wa-callout class="pro">
+  <wa-icon slot="icon" name="hand-wave" animation="shake" style="--animation-delay: 2s; --animation-duration: 4s;"></wa-icon>
+  <strong>Using Web Awesome Pro?</strong>
+  Get personalized installation instructions from <a href="/workspaces">your&nbsp;workspaces</a> instead.
+</wa-callout>
 
 ## Get the Download (Advanced)
 
