@@ -118,7 +118,7 @@
     --wa-color-brand-20: #003e23;
     --wa-color-brand-30: #005332;
     --wa-color-brand-40: #006542;
-    --wa-color-brand-50: var(--brand-build-awesome-green);
+    --wa-color-brand-50: #198560;
     --wa-color-brand-60: #43a57d;
     --wa-color-brand-70: #5fbf96;
     --wa-color-brand-80: #79d9af;
@@ -186,9 +186,24 @@
     /* make the callout-based banner full width */
     inline-size: 100%;
 
+    wa-callout {
+      background-color: var(--wa-color-brand-80);
+      color: var(--wa-color-neutral-fill-loud);
+
+      .wa-dark & {
+        background-color: var(--wa-color-brand-30);
+      }
+    }
+
     .banner-icon {
       font-size: var(--wa-font-size-2xl);
       margin-inline-end: var(--wa-space-m);
+
+      /* easter egg */
+      --fa-animation-duration: 4s;
+      --fa-float-height: 4px;
+      --fa-float-tilt: 2deg;
+      --fa-float-drift: 1px;
     }
   }
 
@@ -273,6 +288,25 @@
       &:nth-child(n + 4) {
         margin-inline-start: calc(-1 * var(--wa-form-control-padding-inline));
       }
+    }
+  }
+
+  /* breadcrumbs */
+  .page-breadcrumbs {
+    display: flex;
+    align-items: center;
+    inline-size: 100%;
+    /* translucent tint so the pill recedes on any surface */
+    background-color: color-mix(in oklab, var(--wa-color-text-normal) 4.5%, transparent);
+    border-radius: var(--wa-border-radius-pill);
+    font-size: var(--wa-font-size-s);
+    padding: var(--wa-space-xs) var(--wa-space-m);
+    margin-block-end: var(--wa-content-spacing);
+
+    /* fade past the component's text-quiet + optical-align nudge */
+    wa-icon[slot='separator'] {
+      color: color-mix(in oklab, var(--wa-color-text-quiet), transparent 50%);
+      translate: 0 0.075em;
     }
   }
 
@@ -420,12 +454,28 @@
 
   /* pro callout */
   wa-callout.pro {
+    margin-block: calc(var(--wa-content-spacing) * 2);
+    padding: var(--wa-space-l);
     background-color: color-mix(in oklab, var(--wa-brand-orange) 12%, var(--wa-color-surface-default));
     border-color: color-mix(in oklab, var(--wa-brand-orange) 30%, var(--wa-color-surface-default));
     color: var(--wa-color-text-normal);
 
     &::part(icon) {
+      align-items: flex-start;
       color: var(--wa-brand-orange);
+    }
+
+    wa-icon[slot='icon'] {
+      font-size: var(--wa-font-size-xl);
+    }
+
+    strong {
+      display: block;
+      margin-block-end: var(--wa-space-2xs);
+    }
+
+    strong a {
+      color: inherit;
     }
   }
 
@@ -446,6 +496,11 @@
       font-size: var(--wa-font-size-xs);
       --max-width: unset;
     }
+  }
+
+  /* Subtler treatment for filled neutral badges (since, category, etc.) */
+  wa-badge[variant='neutral'][appearance='filled'] {
+    background-color: var(--wa-color-surface-lowered);
   }
 
   /* colophon + sidebar: social link row */
@@ -548,15 +603,26 @@
   .anchor-heading a {
     opacity: 0;
     visibility: hidden;
+    color: inherit;
     text-decoration: none;
     transition: opacity var(--wa-transition-normal) var(--wa-transition-easing);
   }
 
+  .anchor-heading a wa-icon {
+    font-size: 0.7em;
+    line-height: 1;
+    vertical-align: 0.05em;
+  }
+
   @media (hover: hover) {
     .anchor-heading:hover a {
-      opacity: 1;
+      opacity: 0.5;
       visibility: visible;
       padding: var(--wa-space-3xs);
+    }
+
+    .anchor-heading a:hover {
+      opacity: 1;
     }
   }
 
@@ -923,6 +989,63 @@
   .de-emphasize {
     opacity: 0.6;
   }
+
+  /* #region hover utilities */
+
+  /* Hover scale; override --hover-grow-scale per instance */
+  .hover-grow,
+  .hover-grow-from-direct-child {
+    --hover-grow-scale: 1.025;
+    transform-origin: center;
+    transition: transform var(--wa-transition-slow) var(--wa-transition-easing);
+  }
+
+  .hover-grow:is(:hover, :focus-visible) {
+    transform: scale(var(--hover-grow-scale));
+  }
+
+  /* Scale when a direct child link or button is hovered */
+  .hover-grow-from-direct-child:has(> :is(a, button):hover),
+  .hover-grow-from-direct-child:has(> :is(a, button):focus-visible) {
+    transform: scale(var(--hover-grow-scale));
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hover-grow,
+    .hover-grow-from-direct-child {
+      transition: none;
+    }
+
+    .hover-grow:is(:hover, :focus-visible) {
+      transform: none;
+    }
+
+    .hover-grow-from-direct-child:has(> :is(a, button):hover),
+    .hover-grow-from-direct-child:has(> :is(a, button):focus-visible) {
+      transform: none;
+    }
+  }
+
+  /* Hover border + outline ring; pair with .hover-grow for card grids */
+  .hover-emphasize-border > wa-card {
+    outline: var(--wa-border-width-s) solid transparent;
+    transition:
+      border-color var(--wa-transition-normal),
+      outline-color var(--wa-transition-normal);
+  }
+
+  .hover-emphasize-border:is(:hover, :focus-visible) > wa-card {
+    border-color: var(--wa-color-brand-border-loud);
+    outline-color: var(--wa-color-brand-border-loud);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hover-emphasize-border > wa-card {
+      transition: none;
+    }
+  }
+
+  /* #endregion */
   /* #endregion */
 
   /* #region resets */
@@ -960,6 +1083,65 @@
   /* decreasing visual size of icons in certain contexts (such as in sidebar nav) */
   wa-icon.icon-shrink {
     font-size: round(0.875em, 1px);
+  }
+  /* #endregion */
+
+  /* #region animations */
+
+  @keyframes fa-float {
+    0% {
+      transform: translateY(0) translateX(0) rotate(0deg)
+        scale(var(--fa-float-squash-x, 1.02), var(--fa-float-squash-y, 0.98));
+      animation-timing-function: cubic-bezier(0.33, 0, 0.66, 0.33);
+    }
+    15% {
+      transform: translateY(calc(-0.4 * var(--fa-float-height, 6px))) translateX(var(--fa-float-drift, 1px))
+        rotate(var(--fa-float-tilt, 1deg)) scale(1, 1);
+      animation-timing-function: cubic-bezier(0.33, 0.66, 0.66, 1);
+    }
+    35% {
+      transform: translateY(calc(-1 * var(--fa-float-height, 6px))) translateX(0) rotate(0deg)
+        scale(var(--fa-float-stretch-x, 0.98), var(--fa-float-stretch-y, 1.03));
+      animation-timing-function: cubic-bezier(0.5, 0, 0.5, 0);
+    }
+    50% {
+      transform: translateY(calc(-0.92 * var(--fa-float-height, 6px)))
+        translateX(calc(-0.5 * var(--fa-float-drift, 1px))) rotate(calc(-0.5 * var(--fa-float-tilt, 1deg)))
+        scale(0.995, 1.01);
+      animation-timing-function: cubic-bezier(0.33, 0, 0.66, 0.33);
+    }
+    70% {
+      transform: translateY(calc(-0.3 * var(--fa-float-height, 6px))) translateX(calc(-1 * var(--fa-float-drift, 1px)))
+        rotate(calc(-1 * var(--fa-float-tilt, 1deg))) scale(1, 1);
+      animation-timing-function: cubic-bezier(0.33, 0.66, 0.66, 1);
+    }
+    90% {
+      transform: translateY(calc(0.05 * var(--fa-float-height, 6px))) translateX(0) rotate(0deg)
+        scale(var(--fa-float-squash-x, 1.02), var(--fa-float-squash-y, 0.98));
+      animation-timing-function: cubic-bezier(0.33, 0, 0.66, 1);
+    }
+    100% {
+      transform: translateY(0) translateX(0) rotate(0deg)
+        scale(var(--fa-float-squash-x, 1.02), var(--fa-float-squash-y, 0.98));
+    }
+  }
+
+  .fa-float {
+    animation-name: fa-float;
+    animation-delay: var(--fa-animation-delay, 0s);
+    animation-direction: var(--fa-animation-direction, normal);
+    animation-duration: var(--fa-animation-duration, 3s);
+    animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+    animation-timing-function: var(--fa-animation-timing, ease-in-out);
+    will-change: transform;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fa-float {
+      animation-delay: -1ms;
+      animation-duration: 1ms;
+      animation-iteration-count: 1;
+    }
   }
   /* #endregion */
 }

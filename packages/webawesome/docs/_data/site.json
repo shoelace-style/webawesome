@@ -8,7 +8,10 @@
 
   "siblings": {
     "fontAwesome": { "name": "Font Awesome", "url": "https://fontawesome.com" },
-    "buildAwesome": { "name": "Build Awesome" }
+    "buildAwesome": {
+      "name": "Build Awesome",
+      "url": "https://www.kickstarter.com/projects/fontawesome/build-awesome-pro?ref=dq4ci8"
+    }
   },
 
   "urls": {

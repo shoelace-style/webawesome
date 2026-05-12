@@ -26,6 +26,13 @@ describe('<wa-breadcrumb-item>', () => {
           await expect(el).to.be.accessible();
         });
 
+        it('should pass accessibility tests with an empty href', async () => {
+          const el = await fixture<WaBreadcrumbItem>(
+            html`<wa-breadcrumb-item href="">Current page</wa-breadcrumb-item>`,
+          );
+          await expect(el).to.be.accessible();
+        });
+
         it('should hide the separator from screen readers', async () => {
           const el = await fixture<WaBreadcrumbItem>(html`<wa-breadcrumb-item>Home</wa-breadcrumb-item>`);
           const separator = el.shadowRoot!.querySelector('[part~="separator"]');
@@ -57,6 +64,16 @@ describe('<wa-breadcrumb-item>', () => {
           expect(link).to.exist;
           expect(link!.tagName.toLowerCase()).to.equal('a');
           expect(link).to.have.attribute('href', 'https://example.com/');
+        });
+
+        it('should render a link when href is an empty string', async () => {
+          const el = await fixture<WaBreadcrumbItem>(
+            html`<wa-breadcrumb-item href="">Current page</wa-breadcrumb-item>`,
+          );
+          const link = el.shadowRoot!.querySelector<HTMLAnchorElement>('[part~="label"]');
+          expect(link).to.exist;
+          expect(link!.tagName.toLowerCase()).to.equal('a');
+          expect(link).to.have.attribute('href', '');
         });
 
         it('should set the target attribute on the link', async () => {

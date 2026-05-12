@@ -1,7 +1,7 @@
 ---
 title: Avatar
 layout: component
-category: Imagery
+category: Media
 synonyms:
   - profile picture
   - user image

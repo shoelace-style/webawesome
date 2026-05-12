@@ -111,5 +111,5 @@ Custom esbuild-based build (`scripts/build.js`). Generates:
 - **Add a CSS part**: Add `part="name"` to element in `render()`, add `@csspart name` JSDoc tag.
 - **Add a custom event**: Create event class in `src/events/`, dispatch with `this.dispatchEvent(new WaEventClass())`, add `@event wa-event-name` JSDoc tag.
 - **Add a test**: Import `{ fixtures }` from `src/internal/test/fixture.js`, loop `for (const fixture of fixtures)`, use `await fixture<Type>(html`...`)`.
-- **Doc page**: Create `docs/docs/components/name.md` with front matter (`title`, `description`, `layout: component`, `category`). Use `` ```html {.example} `` for live code blocks.
-- **Update the changelog**: Add entries to the "Unreleased" section in `docs/docs/resources/changelog.md`. Create the section if it doesn't exist.
+- **Doc page**: Create `docs/docs/components/name.md` with front matter (`title`, `description`, `layout: component`, `category`). Use ` ```html {.example} ` for live code blocks.
+- **Update the changelog**: Add entries to the "Unreleased" section in `docs/docs/resources/changelog.md`. Create the section if it doesn't exist. Group entries under `:::added`, `:::fixed`, `:::changed`, `:::deprecated`, `:::removed`, `:::breaking` containers in that order; omit any category with no entries.

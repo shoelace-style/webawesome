@@ -41,8 +41,8 @@ const openPopovers = new Set<WaPopover>();
  *
  * @cssproperty [--arrow-size=0.375rem] - The size of the tiny arrow that points to the popover (set to zero to remove).
  * @cssproperty [--max-width=25rem] - The maximum width of the popover's body content.
- * @cssproperty [--show-duration=100ms] - The speed of the show animation.
- * @cssproperty [--hide-duration=100ms] - The speed of the hide animation.
+ * @cssproperty [--show-duration=var(--wa-transition-fast)] - The speed of the show animation.
+ * @cssproperty [--hide-duration=var(--wa-transition-fast)] - The speed of the hide animation.
  *
  * @cssstate open - Applied when the popover is open.
  */
@@ -318,6 +318,7 @@ export default class WaPopover extends WebAwesomeElement {
           skidding=${this.skidding}
           flip
           shift
+          shift-padding="8"
           ?arrow=${!this.withoutArrow}
           .anchor=${this.anchor}
         >

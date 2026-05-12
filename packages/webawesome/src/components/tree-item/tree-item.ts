@@ -58,8 +58,8 @@ import styles from './tree-item.styles.js';
  * @csspart checkbox__indeterminate-icon - The checkbox's exported `indeterminate-icon` part.
  * @csspart checkbox__label - The checkbox's exported `label` part.
  *
- * @cssproperty [--show-duration=200ms] - The animation duration when expanding tree items.
- * @cssproperty [--hide-duration=200ms] - The animation duration when collapsing tree items.
+ * @cssproperty [--show-duration=var(--wa-transition-normal)] - The animation duration when expanding tree items.
+ * @cssproperty [--hide-duration=var(--wa-transition-normal)] - The animation duration when collapsing tree items.
  *
  * @cssstate disabled - Applied when the tree item is disabled.
  * @cssstate expanded - Applied when the tree item is expanded.

@@ -104,25 +104,7 @@ These numeric tints help ensure accessible color contrast per [WCAG 2.1 success 
 - A difference of 50 provides a minimum 4.5:1 contrast ratio, suitable for normal text (AA) and large text (AAA)
 - A difference of 60 provides a minimum 7:1 contrast ratio, suitable for all text (AAA)
 
-
-{% for hue in ['red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'indigo', 'purple', 'pink', 'gray'] %}
-<div class="palette">
-  <div class="palette-label"><code>--wa-color-{{ hue }}-*</code></div>
-  <div class="palette-swatches">
-    {% for tint in ['95', '90', '80', '70', '60', '50', '40', '30', '20', '10', '05'] -%}
-    <wa-copy-button
-      class="palette-swatch"
-      value="--wa-color-{{ hue }}-{{ tint }}"
-      copy-label="--wa-color-{{ hue }}-{{ tint }}"
-      style="--color: var(--wa-color-{{ hue }}-{{ tint }}); --tint: '{{ tint }}'"
-    >
-      <button class="swatch-button" aria-label="{{ hue }} {{ tint }} (click to copy)"></button>
-    </wa-copy-button>
-    {%- endfor %}
-  </div>
-</div>
-{% endfor %}
-
+{% include 'theming/color-palette-viewer.njk' %}
 
 ### Core Colors
 
@@ -173,23 +155,8 @@ Variant colors are aliases for specific hues in your color palette to give them 
 Each variant color is an alias for a palette color and follows the same token format: `--wa-color-{variant}-{tint}`.
 
 
-{% for variant in ['brand', 'neutral', 'success', 'warning', 'danger'] %}
-<div class="palette">
-  <div class="palette-label"><code>--wa-color-{{ variant }}-*</code></div>
-  <div class="palette-swatches">
-    {% for tint in ['95', '90', '80', '70', '60', '50', '40', '30', '20', '10', '05'] -%}
-    <wa-copy-button
-      class="palette-swatch"
-      value="--wa-color-{{ variant }}-{{ tint }}"
-      copy-label="--wa-color-{{ variant }}-{{ tint }}"
-      style="--color: var(--wa-color-{{ variant }}-{{ tint }}); --tint: '{{ tint }}'"
-    >
-      <button class="swatch-button" aria-label="{{ variant }} {{ tint }} (click to copy)"></button>
-    </wa-copy-button>
-    {%- endfor %}
-  </div>
-</div>
-{% endfor %}
+{% set colorScales = ["brand", "neutral", "success", "warning", "danger"] %}
+{% include "theming/color-palette-viewer.njk" %}
 
 
 ### Core Colors
