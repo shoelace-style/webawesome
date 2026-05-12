@@ -4,9 +4,11 @@ description: Changes to each version of the project are documented here.
 layout: page-outline
 ---
 
-Web Awesome follows [Semantic Versioning](https://semver.org/). Breaking changes in components with the <wa-badge variant="brand">Stable</wa-badge> badge will not be accepted until the next major version. As such, all contributions must consider the project's roadmap and take this into consideration. Features that are deemed no longer necessary will be deprecated but not removed.
+{% from "macros/component-badges.njk" import statusBadge %}
 
-Components with the <wa-badge variant="warning">Experimental</wa-badge> badge should not be used in production. They are made available as release candidates for development and testing purposes. As such, changes to experimental components will not be subject to semantic versioning.
+Web Awesome follows [Semantic Versioning](https://semver.org/). Breaking changes in components with the {{ statusBadge('stable') }} badge will not be accepted until the next major version. As such, all contributions must consider the project's roadmap and take this into consideration. Features that are deemed no longer necessary will be deprecated but not removed.
+
+Components with the {{ statusBadge('experimental') }} badge should not be used in production. They are made available as release candidates for development and testing purposes. As such, changes to experimental components will not be subject to semantic versioning.
 
 {% include "changelog-email-signup.njk" %}
 
