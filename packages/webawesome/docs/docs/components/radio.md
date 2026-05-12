@@ -1,7 +1,7 @@
 ---
 title: Radio
 layout: component
-category: Form Controls
+category: Forms
 synonyms:
   - radio button
   - option button

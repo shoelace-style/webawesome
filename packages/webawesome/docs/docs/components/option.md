@@ -1,7 +1,7 @@
 ---
 title: Option
 layout: component
-category: Form Controls
+category: Forms
 synonyms:
   - select option
   - list option

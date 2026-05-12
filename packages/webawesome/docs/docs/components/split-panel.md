@@ -1,7 +1,7 @@
 ---
 title: Split Panel
 layout: component
-category: Organization
+category: Layout
 synonyms:
   - resizable panels
   - pane splitter

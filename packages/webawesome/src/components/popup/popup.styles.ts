@@ -5,8 +5,8 @@ export default css`
     --arrow-color: black;
     --arrow-size: var(--wa-tooltip-arrow-size);
     --popup-border-width: 0px;
-    --show-duration: 100ms;
-    --hide-duration: 100ms;
+    --show-duration: var(--wa-transition-fast);
+    --hide-duration: var(--wa-transition-fast);
 
     /*
      * These properties are computed to account for the arrow's dimensions after being rotated 45º. The constant

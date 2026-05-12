@@ -4,9 +4,11 @@ description: TODO
 layout: page-outline
 ---
 
-Web Awesome themes apply a cohesive look and feel across the entire library. A theme is a collection of predefined CSS custom properties that cover a range of styles from colors to transitions. We call these CSS custom properties design tokens.
+Web Awesome themes apply a cohesive look and feel across the entire library. A theme is a collection of predefined CSS custom properties that cover a range of styles from colors to transitions. We call these CSS custom properties [design tokens](/docs/tokens).
 
-There are 11 handcrafted themes to choose from; 3 are free to use with an additional 9 available in Web Awesome Pro. You can also build your own manually with CSS or with our Pro Theme Builder.
+There are 11 handcrafted themes to choose from; three are free to use with an additional eight available in Web Awesome Pro. [Check out the themes available to you <wa-icon name="arrow-right" variant="regular"></wa-icon>](/docs/themes)
+
+You can also build your own manually with CSS or with our Pro Theme Builder.
 
 ## Key Concepts
 
@@ -17,7 +19,7 @@ Themes are made up of several layers of increasing specificity, each represented
 
 Color palettes give you a full spectrum of colors to use in your project. A color palette defines 10 hues — red, orange, yellow, green, cyan, blue, indigo, purple, pink, and gray — each with 11 tints. Tints are assigned numbers that correlate to their lightness.
 
-Both Web Awesome Free and Pro offer multiple handcrafted color palettes. [Check out the palettes available to you <wa-icon name="arrow-right" variant="regular"></wa-icon>](/docs/color-palettes)
+Both Web Awesome Core and Pro offer multiple handcrafted color palettes. [Check out the palettes available to you <wa-icon name="arrow-right" variant="regular"></wa-icon>](/docs/color-palettes)
 
 {% include 'theming/color-palette-viewer.njk' %}
 
@@ -293,15 +295,94 @@ document.getElementById('color-scheme-button').addEventListener('click', () => {
 
 ## Using Themes
 
-Use and update themes instantly via CDN with [Web Awesome projects](/teams). Or, assemble the pieces together using npm or in your self-hosted app.
+To use a pre-built theme, add the stylesheets for you preferred theme and color palette to your site. Then, add classes for your theme, color palette, and variant colors to your markup.
 
-Select your favorite options and follow the instructions for your preferred method.
+For tailored guidance, select your favorite options and follow the instructions for your preferred method.
 
 {% include 'theming/instructions.njk' %}
 
-## Creating Your Own
+### Creating Your Own
 
-In Web Awesome Pro, you can use the Theme Builder to customize color, fonts, roundness, spacing, and the default icon library without touching a line of CSS.
+In Web Awesome Pro, you can use the Theme Builder to customize the color, fonts, roundness, spacing, and default icon library of any pre-built theme without touching a line of CSS. Go to your [workspace](/workspaces) and open a project to create something uniquely yours.
 
-For tighter control, create your own stylesheet that overrides some or all design tokens.
+For fine-grained control, create your own stylesheet that overrides some or all [design tokens](/docs/tokens) using CSS alone (no preprocessor required). All design tokens are prefixed with `--wa-` to avoid collisions with other libraries and your own custom properties.
 
+To create your own light mode styles, scope your styles to the following selectors:
+
+```css
+:where(:root),
+.wa-light,
+.wa-dark .wa-invert  {
+  /* your styles here */
+}
+```
+
+To create your own dark mode styles, scope your styles to these selectors:
+
+```css
+.wa-dark,
+.wa-invert {
+  /* your styles here */
+}
+```
+
+To create styles for both light and dark mode (like fonts or spacing), scope your styles to these selectors:
+
+```css
+:where(:root),
+.wa-light,
+.wa-dark,
+.wa-invert {
+  /* your styles here */
+}
+```
+
+### Using Multiple Themes
+
+You can use multiple themes on a single page as long as the styles for each theme are scoped to a specific class. All pre-built themes are scoped to their own classes. The Default theme is additionally scoped to `:where(:root)` so that the styles are applied automatically.
+
+Simply load the theme stylesheets, then add your preferred classes to each element.
+
+```html {.example}
+<!-- Load each theme's stylesheet -->
+<link rel="stylesheet" href="{% cdnUrl '/styles/themes/awesome.css' %}">
+<link rel="stylesheet" href="{% cdnUrl '/styles/themes/shoelace.css' %}">
+
+<div class="wa-stack">
+
+  <wa-callout class="wa-theme-awesome wa-brand-yellow">
+    <wa-icon slot="icon" name="face-awesome" variant="light"></wa-icon>
+    <div class="wa-stack wa-align-items-start wa-gap-xs">
+      <span>This callout uses <code>wa-theme-awesome</code> and <code>wa-brand-yellow</code>.</span>
+      <wa-button variant="brand" size="s">Yellow Button</wa-button>
+    </div>
+  </wa-callout>
+
+  <wa-callout class="wa-theme-shoelace wa-brand-cyan">
+    <wa-icon slot="icon" name="shoelace" family="brands"></wa-icon>
+    <div class="wa-stack wa-align-items-start wa-gap-xs">
+      <span>This callout uses <code>wa-theme-shoelace</code> and <code>wa-brand-cyan</code>.</span>
+      <wa-button variant="brand" size="s">Cyan Button</wa-button>
+    </div>
+  </wa-callout>
+
+</div>
+```
+
+You can also use multiple variant colors on the same page. Because of how browsers compute custom properties, **you must add `wa-theme-*` on the same element that you want to use a different variant color,** even if the theme doesn't change.
+
+```html {.example}
+<!-- Add class="wa-theme-default" to each element whose brand color changes -->
+<wa-callout>
+  <wa-icon slot="icon" name="palette"></wa-icon>
+  <div class="wa-stack wa-align-items-start wa-gap-xs">
+    <span>The buttons in this callout use multiple brand colors.</span>
+    <div class="wa-cluster">
+      <wa-button class="wa-theme-default wa-brand-cyan" variant="brand" size="s">Cyan</wa-button>
+      <wa-button class="wa-theme-default wa-brand-indigo" variant="brand" size="s">Indigo</wa-button>
+      <wa-button class="wa-theme-default wa-brand-purple" variant="brand" size="s">Purple</wa-button>
+      <wa-button class="wa-theme-default wa-brand-pink" variant="brand" size="s">Pink</wa-button>
+    </div>
+  </div>
+</wa-callout>
+```
