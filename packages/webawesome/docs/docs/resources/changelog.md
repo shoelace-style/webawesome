@@ -16,11 +16,18 @@ Components with the {{ statusBadge('experimental') }} badge should not be used i
 
 <small><time datetime="2026-05-12">May 12, 2026</time></small>
 
+:::added
+
 - Added two new experimental components: `<wa-video>` and `<wa-video-playlist>`
 - Added `--wa-button-transform-hover` and `--wa-button-transform-active` design tokens
 - Added the `wa-text-wrap-nowrap` text utility class for preventing text from wrapping
 - Added the `wa-text-wrap-balance` text utility class for evenly distributing text across lines
 - Added the `wa-text-wrap-pretty` text utility class for avoiding orphaned words on the last line (not supported in Firefox)
+
+:::
+
+:::fixed
+
 - Fixed a bug in `<wa-textarea>` with `resize="auto"` where the height stayed collapsed when the textarea was initially hidden [issue:2347]
 - Fixed a bug in `<wa-button-group>` that caused single buttons to not have the correct border radius [issue:2367]
 - Fixed a bug in `<wa-switch>` that showed the switch direction backwards in RTL [pr:2330]
@@ -29,20 +36,34 @@ Components with the {{ statusBadge('experimental') }} badge should not be used i
 - Fixed a bug in `<wa-badge>` that caused the height to differ slightly when icons were present in the `start` or `end` slot [issue:2280]
 - Fixed a bug in `<wa-toast>` that prevented notifications from being read properly in certain screen readers [issue:2282]
 - Fixed a Playful theme bug where modifier classes (e.g. `wa-filled`) didn't apply to native button elements
+
+:::
+
+:::changed
+
 - Updated `--wa-color-mix-hover` and `--wa-color-mix-active` values for all themes for better hover and active feedback [pr:2360]
 - Upgraded the `<wa-copy-button>` component from _experimental_ to _stable_
   - Added support for custom buttons
   - Added `tooltip` attribute to control when feedback is shown in the tooltip on hover and click
 
+:::
+
 ## 3.6.0
 
 <small><time datetime="2026-04-30">April 30, 2026</time></small>
+
+:::added
 
 - Added a `:::pro` callout variant in the docs that renders with the same orange/white styling as the Pro badge
 - Added `xs` and `xl` sizes for all form controls and sized components
   - Deprecated `small`, `medium`, and `large` in favor of `s`, `m`, and `l` (old values will continue to work in 3.x)
 - Added `beforeinput` event to `<wa-number-input>` stepper buttons so value changes can be cancelled with `event.preventDefault()`
 - Added the `--backdrop-filter` CSS custom property to `<wa-dialog>` and `<wa-drawer>` for applying filters such as `blur()` to the backdrop
+
+:::
+
+:::fixed
+
 - Fixed a bug in `<wa-checkbox>` where the `value` property returned `null` instead of `'on'` when unchecked
 - Fixed a bug in `<wa-rating>` where disabling via a `<fieldset>` did not properly restore the enabled state when the fieldset was re-enabled
 - Fixed a bug in `<wa-zoomable-frame>` where zoom control buttons did not properly update their disabled state after zoom levels were parsed
@@ -55,6 +76,11 @@ Components with the {{ statusBadge('experimental') }} badge should not be used i
 - Fixed a bug in `<wa-input>` and `<wa-number-input>` where invalid values for `number`, `date`, `time`, and `datetime-local` types were preserved instead of being sanitized to an empty string like the native input
 - Fixed a bug where `<wa-dropdown-item>` was erroneously listed as experimental
 - Fixed `<pre>` border radius in Native Styles so it correctly uses the `--wa-panel-border-radius` token like similar elements
+
+:::
+
+:::changed
+
 - Refactored component tests across core and pro packages to follow a consistent structure with improved coverage
 - Replaced the tooltip in the experimental `<wa-copy-button>` with a built-in feedback popup that works with default and custom triggers
   - Added the `feedback-placement` attribute to replace `tooltip-placement`
@@ -64,9 +90,13 @@ Components with the {{ statusBadge('experimental') }} badge should not be used i
 - Updated `@shoelace-style/localize` to 3.2.2 to prevent Chrome translations from throwing errors [issue:2322]
 - Updated TypeScript to 5.9.3
 
+:::
+
 ## 3.5.0
 
 <small><time datetime="2026-04-03">April 3, 2026</time></small>
+
+:::added
 
 - Moved `<wa-page>` from {{ site.namePro }} to Web Awesome core
 - Added a new free experimental component: `<wa-markdown>` (#6 of 14 per stretch goals)
@@ -78,6 +108,11 @@ Components with the {{ statusBadge('experimental') }} badge should not be used i
 - Added the `disabled`, `icon-button`, `link`, and `loading` custom states to `<wa-button>` [discuss:2185]
 - Added the `disabled` custom state to `<wa-option>` so the disabled style applies when using the property [issue:1997]
 - Added the `with-count` attribute to `<wa-textarea>` to show a character count below the textarea
+
+:::
+
+:::fixed
+
 - Fixed a bug in the native styles utility where `<select>` text could overlap the caret icon when the selected option had a long name
 - Fixed a bug in the native styles utility where `<select multiple>` did not expand to show multiple options
 - Fixed a bug in `<wa-badge>` where `role` was incorrectly set on a `<slot>` element, which is not allowed per spec [issue:2163]
@@ -97,6 +132,11 @@ Components with the {{ statusBadge('experimental') }} badge should not be used i
 - Fixed a bug in `<wa-tree-item>` where rapid clicking on the expand button could cause the expand/collapse indicator to get out of sync with the children visibility
 - Fixed a bug in `<wa-select>` and `<wa-combobox>` where the selected value was not displayed when the value property was set before options were added to the DOM [pr:2253]
 - Fixed a bug in `<wa-carousel>` where slide contents were not interactive when the carousel was initially rendered inside a hidden container (e.g., an inactive tab panel). [pr:2133]
+
+:::
+
+:::changed
+
 - Updated the Awesome and Shoelace themes [pr:2135]:
   - Adds missing `<input type="range">` overrides to Shoelace theme to match `<wa-slider>`
   - Adds `<wa-combobox>` overrides to both themes to match other text-based inputs
@@ -109,9 +149,13 @@ Components with the {{ statusBadge('experimental') }} badge should not be used i
 - Improved performance of `<wa-textarea>` by only creating a resize observer when necessary
 - Improved SSR compatibility by adding server-side rendering guards to components that use browser-only APIs
 
+:::
+
 ## 3.4.0
 
 <small><time datetime="2026-03-25">March 25, 2026</time></small>
+
+:::added
 
 - Added `--wa-space-5xl` design token to all themes [issue:1606]
 - Added `wa-gap-5xl` utility class [issue:1606]
@@ -120,6 +164,11 @@ Components with the {{ statusBadge('experimental') }} badge should not be used i
 - Added `*-3xs` and `*-5xl` to `wa-font-size`, `wa-body`, `wa-heading`, `wa-caption`, and `wa-longform` utility classes [issue:1606]
 - Added support for labeled swatches in `<wa-color-picker>` by accepting an array of `{ color, label }` objects via the `swatches` property, improving screen reader accessibility
 - Added the ability to return promises from icon resolvers [discuss:2144]
+
+:::
+
+:::fixed
+
 - Fixed a bug in `<wa-dropdown-item>` where `aria-checked` was incorrectly set on items when `type` was not `checkbox` [pr:2180]
 - Fixed `<wa-badge>` font size to use `--wa-font-size-3xs` now that the token is available [pr:2162]
 - Fixed the off-centered position of indent guides in `<wa-tree>`
@@ -132,6 +181,11 @@ Components with the {{ statusBadge('experimental') }} badge should not be used i
 - Fixed a bug in `<wa-dropdown-item>` that caused descenders to get clipped at certain line heights [issue:2207]
 - Fixed a bug in `<wa-number-input>` where pressing stepper buttons on a touch device would show the virtual keyboard and shift the page
 - Fixed a bug in `<wa-select>` which caused it to not be clearable with initial values set [pr:2141]
+
+:::
+
+:::changed
+
 - Improved `<wa-tree>` and `<wa-tree-item>` so all internal dimensions (labels, checkboxes, expand buttons, etc.) scale proportionally with `font-size`, making it easy to resize the tree [discuss:2147]
 - Improved `<wa-combobox>`
   - Added `autocapitalize`, `autocorrect`, `enterkeyhint`, `inputmode`, and `spellcheck` properties to `<wa-combobox>` to support virtual keyboard customization
@@ -148,21 +202,34 @@ Components with the {{ statusBadge('experimental') }} badge should not be used i
 - [Docs]: Updated space, gap, stack, and cluster documentation for the new tokens and utilities [issue:1606]
 - [Docs]: Updated typography and text documentation for the new tokens and utilities [issue:1606]
 
+:::
+
 ## 3.3.1
 
 <small><time datetime="2026-03-04">March 4, 2026</time></small>
 
+:::removed
+
 - Removed a `preinstall` script in `webawesome-pro` that was causing issues in some package managers.
+
+:::
 
 ## 3.3.0
 
 <small><time datetime="2026-03-03">March 3, 2026</time></small>
+
+:::added
 
 - Added `<wa-chart>` and other chart types as experimental Pro components [pr:1073]
 - Added `<wa-toast>` and `<wa-toast-item>` as experimental Pro components [pr:105]
 - Added `wa-button` class for styling `<a>` elements as buttons [pr:2040]
 - Added `--popup-border-width` parameter to `<wa-popup>`. This must be set to match the width of any border added to the popup element [pr:2070]
 - Added `start` and `end` slots to `<wa-badge>` [pr:2082]
+
+:::
+
+:::fixed
+
 - Fixed a bug in `<wa-switch>` and `<wa-checkbox>` not rendering properly on first load [pr:2105]
 - Fixed a bug in `<wa-drawer>` and `<wa-dialog>` where it was attempting to register global event listeners in server environments. [pr:2105]
 - Fixed a bug in `<wa-textarea>` and `<wa-input>` where the internally rendered form controls were not resetting their value properly. [pr:2105]
@@ -183,21 +250,33 @@ Components with the {{ statusBadge('experimental') }} badge should not be used i
 - Fixed a bug in `<wa-split-panel>` that caused a ResizeObserver error in Chromium-based browser when resizing the primary panel [issue:2018]
 - Fixed a bug that caused the `Escape` key to close more than just the active dismissible component when nested inside other dismissible elements [pr:2096]
 - Fixed a bug that forced a box-sizing opinion on host elements
+
+:::
+
+:::changed
+
 - Updated `<wa-icon>` to use [{{ site.siblings.fontAwesome.name }} 7.2.0](https://fontawesome.com/changelog#v7-2-0) [pr:2059]
 - Updated `<wa-popup>` arrow styling to prevent larger sized arrow from overlapping the contents of the popup [pr:2070]
 - Modified native styles so that `border-radius` does not apply to `svg` elements by default [pr:2078]
+
+:::
 
 ## 3.2.1
 
 <small><time datetime="2026-02-04">February 4, 2026</time></small>
 
+:::fixed
+
 - Fixed a bug in the build script causing `llms.txt` and `dist/skills` to be omitted from {{ site.namePro }} packages. [pr:2022]
+
+:::
 
 ## 3.2.0
 
 <small><time datetime="2026-02-04">February 4, 2026</time></small>
 
-- Fixed a bug in `<wa-select>` where the `selected` attribute on `<wa-option>` was ignored when `with-clear` was present [#1922]
+:::added
+
 - Added `<wa-file-input>` as an experimental pro component [issue:1240]
 - Added `<wa-sparkline>` as an experimental pro component
 - Added `<wa-number-input>` as an experimental component for numeric input with stepper buttons [issue:1688]
@@ -211,9 +290,13 @@ Components with the {{ statusBadge('experimental') }} badge should not be used i
 - Added `track` and `indicator` CSS parts to `<wa-progress-ring>` [pr:1863]
 - Added rotation, flip, and animation support to `<wa-icon>` with `rotate`, `flip`, and `animation` attributes supporting {{ site.siblings.fontAwesome.name }}'s animation utilities [pr:1824]
 - Added the ability to disable link buttons in `<wa-button>` [pr:1848]
-- [Docs]: component APIs like slots, state, methods, etc, are now alphabetized [pr:1895]
-- [Docs]: component APIs now properly check their inheritance chain [pr:1895]
 - [Docs]: Included framework specific documentation for Svelte, Vue, and Angular [pr:1895]
+
+:::
+
+:::fixed
+
+- Fixed a bug in `<wa-select>` where the `selected` attribute on `<wa-option>` was ignored when `with-clear` was present [#1922]
 - Fixed a bug in `<wa-popover>` where the popover closed unexpectedly when clicked inside while it is declared in a shadow DOM [pr:1969]
 - Fixed a bug in `<wa-tag>` where the icon color was mismatched with the tag's `appearance` [pr:1814]
 - Fixed a bug in `<wa-animated-image>`, `<wa-carousel>`, `<wa-progress-ring>`, `<wa-slider>` that violated the `style-src-attr` CSP directive when enabled [pr:1937]
@@ -232,6 +315,13 @@ Components with the {{ statusBadge('experimental') }} badge should not be used i
 - Fixed a bug in `<wa-radio-group>` that caused radio sizes to not work as documented [issue:2001]
 - Fixed a bug in `<wa-popover>` that caused event handlers to be lost when moving the host element around in the DOM [pr:1976]
 - Fixed a bug preventing the `wa-visually-hidden-label` class from hiding labels for radio groups and color pickers [pr:2012]
+
+:::
+
+:::changed
+
+- [Docs]: component APIs like slots, state, methods, etc, are now alphabetized [pr:1895]
+- [Docs]: component APIs now properly check their inheritance chain [pr:1895]
 - Improved the Persian translation [pr:1923]
 - Improved `<wa-qr-code>` to use CSS `color` for fill and `background-color` on the host for background [pr:1991]
   - Deprecated the `fill` and `background` attributes
@@ -239,14 +329,23 @@ Components with the {{ statusBadge('experimental') }} badge should not be used i
   - When using CSS, the QR code will now adapt to `color` and `background` color changes automatically
 - Modified `wa-align-items-*` utility classes to apply `display: flex` by default [pr:1943]
 
+:::
+
 ## 3.1.0
 
 <small><time datetime="2025-12-16">December 16, 2025</time></small>
+
+:::added
 
 - Added `<wa-combobox>` as an experimental pro component [issue:1074]
 - Added version 2.0.0 of the [official Web Awesome Figma Design Kit](/docs/resources/figma)
 - Added npm support for {{ site.namePro }}
 - Added `layers.css` to define cascade layer order and updated palettes, themes, native styles, and utilities to import the new rule for more fail-safe modularity [pr:1793]
+
+:::
+
+:::fixed
+
 - [PRO]: Fixed a few sizing bugs in `<wa-page>` and `slot="footer"` no longer will always "overflow" the container.
 - Fixed a bug in `<wa-slider>` that caused some touch devices to end up with the incorrect value [issue:1703]
 - Fixed a bug in `<wa-card>` that prevented some slots from being detected correctly [discuss:1450]
@@ -261,14 +360,23 @@ Components with the {{ statusBadge('experimental') }} badge should not be used i
 - Fixed a bug in Web Awesome form controls that caused `<wa-input form="foo">` to set the form property to equal `"foo"` instead of returning an `HTMLFormElement` breaking platform expectations. [pr:1815]
 - Fixed a bug in `<wa-button>` causing it to not copy over attributes for form submissions. [pr:1815]
 - Fixed a bug where the build script was not building `/dist/(utilities|events).js` [pr:1816]
+
+:::
+
+:::changed
+
 - Improved performance of `<wa-icon>` so initial rendering occurs faster, especially with multiple icons on the page [issue:1729]
 - Improved `<wa-slider>` to not throw an error when string values are passed to the `min`, `max`, and `step` properties [issue:1823]
 - Improved performance of all components by fixing how CSS is imported and reused [issue:1812]
 - Modified the default `transition` styles of `<wa-dropdown-item>` to use design tokens [pr:1693]
 
+:::
+
 ## 3.0.0
 
 <small><time datetime="2025-12-02">December 2, 2025</time></small>
+
+:::breaking
 
 - 🚨 BREAKING: Changed `appearance="filled outlined"` to `appearance="filled-outlined"` in the following elements [issue:1127]
   - `<wa-button>`
@@ -280,12 +388,22 @@ Components with the {{ statusBadge('experimental') }} badge should not be used i
   - `<wa-tag>`
   - `<wa-textarea>`
 - 🚨 BREAKING: Fixed a bug where `base` and `input` parts were swapped in `<wa-input>` [issue:1646]
+
+:::
+
+:::added
+
 - Added the Kazakh translation [pr:1496]
 - Added docs for code completion for VS Code and JetBrains [pr:1550]
 - Added back the missing `form-control-label` part to `<wa-textarea>` for consistency with other form controls [pr:1533]
 - Added focus delegation to `<wa-button>` to ensure tabbing works properly when using `tabindex` [issue:1622]
 - Added [text utilities](/docs/utilities/text/) for longform text, form control text, font sizes, font weights, text color, and truncation [pr:1602]
 - Added version 1.0.0 of the [official Web Awesome Figma Design Kit](/docs/resources/figma)
+
+:::
+
+:::fixed
+
 - Fixed a bug in `<wa-button>` where slotted badges weren't properly positioned in buttons with an `href` [issue:1377]
 - Fixed focus outline styles in `<wa-details>` and native `<details>` [issue:1456]
 - Fixed focus outline styles in `<wa-scroller>`, `<wa-dialog>`, and `<wa-drawer>` [issue:1484]
@@ -302,11 +420,18 @@ Components with the {{ statusBadge('experimental') }} badge should not be used i
 - [Pro] Fixed a bug in `<wa-page>` that caused menu and aside content to reserve space for slots with `disable-sticky`
 - Fixed incorrect docs for the `wa-include-error` event which is dispatched by `<wa-include>` [issue:1663]
 - Fixed a bug in `<wa-card>` where slotted header and footer content wasn't properly aligned [pr:1435]
+
+:::
+
+:::changed
+
 - Improved autofill styles in `<wa-input>` so they span the entire width of the visual input [issue:1439]
 - Improved [text utilities](/docs/utilities/text/) so that each size modifier always exactly matches the applied font size [pr:1602]
 - Improved Native Styles to use the `--wa-font-weight-code` design token
 - Modified `<wa-slider>` to only show the tooltip on the handle being dragged when in range mode [issue:1320]
 - Upgraded `<wa-page>` from _experimental_ to _stable_
+
+:::
 
 <details>
 

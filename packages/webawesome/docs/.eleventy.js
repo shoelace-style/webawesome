@@ -3,6 +3,7 @@ import { parse as HTMLParse } from 'node-html-parser';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { anchorHeadingsTransformer } from './_transformers/anchor-headings.js';
+import { changelogListIconsTransformer } from './_transformers/changelog-list-icons.js';
 import { codeExamplesTransformer } from './_transformers/code-examples.js';
 import { copyCodeTransformer } from './_transformers/copy-code.js';
 import { currentLinkTransformer } from './_transformers/current-link.js';
@@ -254,6 +255,7 @@ export default async function (eleventyConfig) {
       codeExamplesTransformer(),
       highlightCodeTransformer(),
       copyCodeTransformer(),
+      changelogListIconsTransformer(),
     ];
 
     for (const transformer of transformers) {

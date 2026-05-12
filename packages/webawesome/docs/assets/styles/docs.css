@@ -169,6 +169,74 @@ wa-page > main:has(.modern-card-list) {
   }
 }
 
+/* Inline GitHub references (#1234 issue/PR/discussion links). Rendered as
+   small quiet chips so they sit at the edge of attention without competing
+   with the changelog prose. Source markup is `[issue:N]` / `[pr:N]` /
+   `[discuss:N]` and is rewritten by replaceTextPlugin in .eleventy.js. */
+.ref-link {
+  display: inline-block;
+  padding-inline: 0.4em;
+  border-radius: var(--wa-border-radius-s);
+  background: var(--wa-color-neutral-fill-quiet);
+  color: var(--wa-color-text-quiet);
+  font-size: var(--wa-font-size-s);
+  text-decoration: none;
+  vertical-align: baseline;
+
+  &:hover {
+    background: var(--wa-color-neutral-fill-soft);
+    color: var(--wa-color-text-normal);
+  }
+}
+
+/* Changelog category groups. Icon bullets injected by _transformers/changelog-list-icons.js. */
+.changelog-group {
+  & + .changelog-group {
+    margin-block-start: var(--wa-space-l);
+    padding-block-start: var(--wa-space-l);
+    border-block-start: var(--wa-border-width-s) solid var(--wa-color-surface-border);
+  }
+
+  & > ul {
+    list-style: none;
+    padding-inline-start: 0;
+
+    /* Resets native.css `li { margin-inline-start: 1.125em }` so the icon
+       column sits flush with the prose left edge. */
+    & > li {
+      position: relative;
+      margin-inline-start: 0;
+      padding-inline-start: calc(1.25em + var(--wa-space-s));
+
+      & + li {
+        margin-block-start: var(--wa-space-s);
+      }
+
+      /* Bigger gap after entries with a nested list. */
+      &:has(:is(ul, ol)) + li {
+        margin-block-start: var(--wa-space-m);
+      }
+
+      & :is(ul, ol) {
+        margin-block: var(--wa-space-xs);
+
+        /* `::marker` ignores opacity; bake de-emphasis into the color. */
+        & > li::marker {
+          color: color-mix(in oklch, var(--wa-color-text-quiet) 60%, transparent);
+        }
+      }
+
+      & > .changelog-bullet {
+        position: absolute;
+        inset-inline-start: 0;
+        inset-block-start: 0.4em;
+        color: var(--wa-color-text-quiet);
+        font-size: var(--wa-font-size-s);
+      }
+    }
+  }
+}
+
 h1.title {
   wa-badge {
     vertical-align: middle;

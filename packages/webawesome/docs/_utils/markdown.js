@@ -75,6 +75,19 @@ markdown.use(markdownItContainer, 'details', {
   },
 });
 
+// Changelog category containers; bullets get an icon in changelog-list-icons.js.
+['added', 'fixed', 'changed', 'deprecated', 'removed', 'breaking'].forEach(category => {
+  markdown.use(markdownItContainer, category, {
+    render(tokens, idx) {
+      if (tokens[idx].nesting === 1) {
+        const label = category.charAt(0).toUpperCase() + category.slice(1);
+        return `<div class="changelog-group changelog-group-${category}">\n<p class="wa-visually-hidden">${label}</p>\n`;
+      }
+      return '</div>\n';
+    },
+  });
+});
+
 markdown.use(markdownItAttrs, {
   allowedAttributes: [],
 });
