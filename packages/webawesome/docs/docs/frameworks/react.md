@@ -17,6 +17,7 @@ To add Web Awesome to your React app, install the package from npm.
 ```bash
 npm install @awesome.me/webawesome
 ```
+
 Next, include the Web Awesome theme in your app, import the components you need, and start using them!
 
 ```jsx
@@ -32,11 +33,9 @@ React 19+ [supports custom elements](https://react.dev/blog/2024/04/25/react-19#
 
 If you're using React 18 or below, skip to the [legacy React wrappers](#legacy-react-wrappers-react-18-and-below) section.
 
-<wa-callout class="pro">
-  <wa-icon slot="icon" name="hand-wave" animation="shake" style="--animation-delay: 2s; --animation-duration: 4s;"></wa-icon>
-  <strong>Using Web Awesome Pro?</strong>
-  Get personalized installation instructions from <a href="/workspaces">your&nbsp;workspaces</a> instead.
-</wa-callout>
+:::pro Using Web Awesome Pro?
+Get personalized installation instructions from <a href="/workspaces">your&nbsp;workspaces</a> instead.
+:::
 
 ## TypeScript
 
@@ -145,8 +144,8 @@ Object.defineProperty(window, 'matchMedia', {
     removeListener: jest.fn(), // deprecated
     addEventListener: jest.fn(),
     removeEventListener: jest.fn(),
-    dispatchEvent: jest.fn()
-  }))
+    dispatchEvent: jest.fn(),
+  })),
 });
 ```
 
@@ -220,10 +219,12 @@ import WaInput from '@awesome.me/webawesome/dist/react/input/index.js';
 function MyComponent() {
   const [value, setValue] = useState('');
 
-  return <>
-    <WaInput value={value} onInput={event => setValue(event.target.value)} />;
-    <WaInput defaultValue={"Foo"} /> {/* This is an "uncontrolled input" */}
-  </>
+  return (
+    <>
+      <WaInput value={value} onInput={event => setValue(event.target.value)} />;
+      <WaInput defaultValue={'Foo'} /> {/* This is an "uncontrolled input" */}
+    </>
+  );
 }
 
 export default MyComponent;
