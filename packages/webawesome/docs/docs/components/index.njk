@@ -18,7 +18,7 @@ layout: docs
   <section class="search-list-grid">
     {% for page in collections.componentPages | sort(false, false, 'data.title') %}
       {% set component = page.data.component %}
-      <a href="{{ page.url }}">
+      <a class="hover-grow hover-emphasize-border" href="{{ page.url }}">
         <wa-card>
           <span class="page-name">{{ page.data.title }}</span>
           {% if component.summary %}

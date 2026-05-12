@@ -77,7 +77,7 @@ Preset rules for customizing colors, typography, rounding, and more &mdash; fram
 <div class="modern-card-list">
   <section class="search-list-grid">
     {% for page in collections.styleUtilities | sort(false, false, 'data.title') %}
-      <a href="{{ page.url }}">
+      <a class="hover-grow hover-emphasize-border" href="{{ page.url }}">
         <wa-card>
           <span class="page-name">{{ page.data.title }}</span>
           {% if page.data.description %}
@@ -97,7 +97,7 @@ Named layouts like [`wa-stack`](/docs/utilities/stack), [`wa-cluster`](/docs/uti
 <div class="modern-card-list">
   <section class="search-list-grid">
     {% for page in collections.layoutUtilities | sort(false, false, 'data.title') %}
-      <a href="{{ page.url }}">
+      <a class="hover-grow hover-emphasize-border" href="{{ page.url }}">
         <wa-card>
           <span class="page-name">{{ page.data.title }}</span>
           {% if page.data.description %}

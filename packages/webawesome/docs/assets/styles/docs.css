@@ -267,11 +267,6 @@ wa-page > main:has(> .search-list) {
         min-block-size: calc(6rem + var(--spacing));
         padding: var(--spacing);
       }
-
-      &:hover {
-        border-color: var(--wa-color-brand-border-loud);
-        box-shadow: 0 0 0 0.0625rem var(--wa-color-brand-border-loud);
-      }
     }
   }
 }
@@ -316,22 +311,10 @@ wa-card .page-name {
       block-size: 100%;
     }
 
-    wa-card:defined {
-      transition:
-        border-color var(--wa-transition-normal),
-        box-shadow var(--wa-transition-normal);
-    }
-
     wa-card::part(body) {
       display: flex;
       flex-direction: column;
       block-size: 100%;
-    }
-
-    a:hover wa-card,
-    a:focus-visible wa-card {
-      border-color: var(--wa-color-brand-border-loud);
-      box-shadow: 0 0 0 0.0625rem var(--wa-color-brand-border-loud);
     }
 
     .page-name {
