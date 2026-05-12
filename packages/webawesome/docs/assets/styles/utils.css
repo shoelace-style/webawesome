@@ -1000,6 +1000,25 @@
     }
   }
 
+  /* Hover border + outline ring; pair with .hover-grow for card grids */
+  .hover-emphasize-border wa-card {
+    outline: var(--wa-border-width-s) solid transparent;
+    transition:
+      border-color var(--wa-transition-normal),
+      outline-color var(--wa-transition-normal);
+  }
+
+  .hover-emphasize-border:is(:hover, :focus-visible) wa-card {
+    border-color: var(--wa-color-brand-border-loud);
+    outline-color: var(--wa-color-brand-border-loud);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hover-emphasize-border wa-card {
+      transition: none;
+    }
+  }
+
   /* #endregion */
   /* #endregion */
 
