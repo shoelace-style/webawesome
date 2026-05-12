@@ -150,6 +150,23 @@ wa-page > main:has(.modern-card-list) {
   :is(h1, h2, h3, h4, h5, h6) + :is(pre, figure, table, blockquote, wa-callout, .code-example) {
     margin-block-start: var(--wa-space-m);
   }
+
+  /* Treat h2 + `<small><time>` as one header unit. */
+  h2:has(+ p > small > time) {
+    margin-block-end: var(--wa-space-3xs);
+  }
+  h2 + p:has(> small > time) {
+    margin-block-start: 0;
+    margin-block-end: var(--wa-space-l);
+    color: var(--wa-color-text-quiet);
+  }
+
+  /* Subordinate the prerelease version headings inside `<details data-no-outline>`
+     so they read as historical, not peer to current releases. */
+  details[data-no-outline] h2 {
+    font-size: var(--wa-font-size-l);
+    margin-block-start: var(--wa-space-l);
+  }
 }
 
 h1.title {

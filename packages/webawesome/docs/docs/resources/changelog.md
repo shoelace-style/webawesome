@@ -14,7 +14,7 @@ Components with the {{ statusBadge('experimental') }} badge should not be used i
 
 ## 3.7.0
 
-<small>May 12th, 2026</small>
+<small><time datetime="2026-05-12">May 12, 2026</time></small>
 
 - Added two new experimental components: `<wa-video>` and `<wa-video-playlist>`
 - Added `--wa-button-transform-hover` and `--wa-button-transform-active` design tokens
@@ -36,7 +36,7 @@ Components with the {{ statusBadge('experimental') }} badge should not be used i
 
 ## 3.6.0
 
-<small>April 30th, 2026</small>
+<small><time datetime="2026-04-30">April 30, 2026</time></small>
 
 - Added a `:::pro` callout variant in the docs that renders with the same orange/white styling as the Pro badge
 - Added `xs` and `xl` sizes for all form controls and sized components
@@ -66,7 +66,7 @@ Components with the {{ statusBadge('experimental') }} badge should not be used i
 
 ## 3.5.0
 
-<small>April 3rd, 2026</small>
+<small><time datetime="2026-04-03">April 3, 2026</time></small>
 
 - Moved `<wa-page>` from {{ site.namePro }} to Web Awesome core
 - Added a new free experimental component: `<wa-markdown>` (#6 of 14 per stretch goals)
@@ -111,7 +111,7 @@ Components with the {{ statusBadge('experimental') }} badge should not be used i
 
 ## 3.4.0
 
-<small>March 25th, 2026</small>
+<small><time datetime="2026-03-25">March 25, 2026</time></small>
 
 - Added `--wa-space-5xl` design token to all themes [issue:1606]
 - Added `wa-gap-5xl` utility class [issue:1606]
@@ -150,13 +150,13 @@ Components with the {{ statusBadge('experimental') }} badge should not be used i
 
 ## 3.3.1
 
-<small>March 4th, 2026</small>
+<small><time datetime="2026-03-04">March 4, 2026</time></small>
 
 - Removed a `preinstall` script in `webawesome-pro` that was causing issues in some package managers.
 
 ## 3.3.0
 
-<small>March 3rd, 2026</small>
+<small><time datetime="2026-03-03">March 3, 2026</time></small>
 
 - Added `<wa-chart>` and other chart types as experimental Pro components [pr:1073]
 - Added `<wa-toast>` and `<wa-toast-item>` as experimental Pro components [pr:105]
@@ -189,13 +189,13 @@ Components with the {{ statusBadge('experimental') }} badge should not be used i
 
 ## 3.2.1
 
-<small>February 4, 2026</small>
+<small><time datetime="2026-02-04">February 4, 2026</time></small>
 
 - Fixed a bug in the build script causing `llms.txt` and `dist/skills` to be omitted from {{ site.namePro }} packages. [pr:2022]
 
 ## 3.2.0
 
-<small>February 4, 2026</small>
+<small><time datetime="2026-02-04">February 4, 2026</time></small>
 
 - Fixed a bug in `<wa-select>` where the `selected` attribute on `<wa-option>` was ignored when `with-clear` was present [#1922]
 - Added `<wa-file-input>` as an experimental pro component [issue:1240]
@@ -241,7 +241,7 @@ Components with the {{ statusBadge('experimental') }} badge should not be used i
 
 ## 3.1.0
 
-<small>December 16, 2025</small>
+<small><time datetime="2025-12-16">December 16, 2025</time></small>
 
 - Added `<wa-combobox>` as an experimental pro component [issue:1074]
 - Added version 2.0.0 of the [official Web Awesome Figma Design Kit](/docs/resources/figma)
@@ -268,7 +268,7 @@ Components with the {{ statusBadge('experimental') }} badge should not be used i
 
 ## 3.0.0
 
-<small>December 2, 2025</small>
+<small><time datetime="2025-12-02">December 2, 2025</time></small>
 
 - 🚨 BREAKING: Changed `appearance="filled outlined"` to `appearance="filled-outlined"` in the following elements [issue:1127]
   - `<wa-button>`
@@ -752,10 +752,3 @@ Many of these changes and improvements were the direct result of feedback from u
 </details>
 
 Did we miss something? [Let us know!]({{ site.github.discussions }})
-
-<style>
-  /* This page only */
-  h2 + p:has(> small) {
-    margin-block-start: -1.5rem;
-  }
-</style>
