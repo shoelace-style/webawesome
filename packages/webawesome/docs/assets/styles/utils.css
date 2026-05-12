@@ -483,6 +483,11 @@
     }
   }
 
+  /* "Since X.X" badge: subtler than the default filled neutral */
+  wa-badge.since {
+    background-color: var(--wa-color-surface-lowered);
+  }
+
   /* colophon + sidebar: social link row */
   #colophon {
     margin-block-start: var(--wa-space-2xl);

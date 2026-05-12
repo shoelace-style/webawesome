@@ -5,6 +5,7 @@ layout: docs
 ---
 
 {% from "pro-badge.njk" import proBadge %}
+{% from "macros/component-badges.njk" import componentStatusBadges %}
 
 <div class="search-list component-list">
   <wa-input class="search-list-input" type="search" placeholder="Search Components" pill autofocus with-clear>
@@ -24,20 +25,7 @@ layout: docs
             <p class="component-list-summary">{{ component.summary | inlineMarkdown | striptags | safe }}</p>
           {% endif %}
           <div class="wa-cluster wa-gap-2xs component-list-badges">
-            {% if component.status == 'stable' %}
-              <wa-badge variant="brand" pill>
-                <wa-icon name="check" slot="start"></wa-icon>
-                Stable
-              </wa-badge>
-            {% elif component.status == 'experimental' %}
-              <wa-badge variant="warning" appearance="filled" pill>
-                <wa-icon name="flask" slot="start"></wa-icon>
-                Experimental
-              </wa-badge>
-            {% endif %}
-            {% if component.since %}
-              <wa-badge variant="neutral" appearance="filled" pill>Since {{ component.since }}</wa-badge>
-            {% endif %}
+            {{ componentStatusBadges(component) }}
             {% if page.data.isProComponent %}
               {{ proBadge({ description: "Included with " ~ site.namePro }) }}
             {% endif %}
