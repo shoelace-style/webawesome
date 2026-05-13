@@ -588,15 +588,26 @@
   .anchor-heading a {
     opacity: 0;
     visibility: hidden;
+    color: inherit;
     text-decoration: none;
     transition: opacity var(--wa-transition-normal) var(--wa-transition-easing);
   }
 
+  .anchor-heading a wa-icon {
+    font-size: 0.7em;
+    line-height: 1;
+    vertical-align: 0.05em;
+  }
+
   @media (hover: hover) {
     .anchor-heading:hover a {
-      opacity: 1;
+      opacity: 0.5;
       visibility: visible;
       padding: var(--wa-space-3xs);
+    }
+
+    .anchor-heading a:hover {
+      opacity: 1;
     }
   }
 
