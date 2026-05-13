@@ -6,7 +6,7 @@ layout: page-outline
 
 {% from "macros/component-badges.njk" import statusBadge %}
 
-Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Semantic Versioning</a>, and each release on this page follows the <a href="https://keepachangelog.com/" class="appearance-plain">Keep a Changelog</a> convention. [Components](/docs/components) carries a status badge that tells you what to expect from its API.
+Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Semantic Versioning</a>, and each release on this page follows the <a href="https://keepachangelog.com/" class="appearance-plain">Keep a Changelog</a> convention. Each [component](/docs/components) carries a status badge that tells you what to expect from its API.
 
 <h2 class="wa-heading-m wa-cluster wa-gap-s" data-no-anchor data-no-outline>Stable Components {{ statusBadge('stable') }}</h2>
 These have a settled API. Breaking changes land only in major versions, and deprecated features stay through the next major release.
