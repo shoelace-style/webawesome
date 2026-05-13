@@ -1012,4 +1012,21 @@ Many of these changes and improvements were the direct result of feedback from u
 
 </details>
 
-Did we miss something? [Let us know!]({{ site.github.discussions }})
+<wa-callout>
+  <div class="wa-flank:end">
+    <div class="wa-stack wa-gap-2xs">
+      <strong>Something seem off or missing?</strong>
+      <span>If you spotted a typo, a missing change, or anything that doesn't look right, let us know.</span>
+    </div>
+    <div class="wa-cluster wa-gap-s">
+      <wa-button size="s" href="{{ site.github.issues }}" target="_blank">
+        <wa-icon slot="start" variant="regular" name="bug"></wa-icon>
+        Report a bug
+      </wa-button>
+      <wa-button size="s" href="{{ site.github.discussions }}" target="_blank">
+        <wa-icon slot="start" variant="regular" name="message-question"></wa-icon>
+        Ask for help
+      </wa-button>
+    </div>
+  </div>
+</wa-callout>
