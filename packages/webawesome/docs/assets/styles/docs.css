@@ -169,23 +169,14 @@ wa-page > main:has(.modern-card-list) {
   }
 }
 
-/* Inline GitHub references (#1234 issue/PR/discussion links). Rendered as
-   small quiet chips so they sit at the edge of attention without competing
-   with the changelog prose. Source markup is `[issue:N]` / `[pr:N]` /
-   `[discuss:N]` and is rewritten by replaceTextPlugin in .eleventy.js. */
+/* GitHub refs (`[issue:N]`/`[pr:N]`/`[discuss:N]`) rewritten by replaceTextPlugin. */
 .ref-link {
-  display: inline-block;
-  padding-inline: 0.4em;
-  border-radius: var(--wa-border-radius-s);
-  background: var(--wa-color-neutral-fill-quiet);
-  color: var(--wa-color-text-quiet);
-  font-size: var(--wa-font-size-s);
+  margin-inline-start: var(--wa-space-3xs);
   text-decoration: none;
-  vertical-align: baseline;
+  color: inherit;
 
-  &:hover {
-    background: var(--wa-color-neutral-fill-soft);
-    color: var(--wa-color-text-normal);
+  & wa-badge {
+    font-size: var(--wa-font-size-2xs);
   }
 }
 
