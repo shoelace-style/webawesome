@@ -119,8 +119,6 @@ Components with the {{ statusBadge('experimental') }} badge should not be used i
 - Fixed a bug in `<wa-toast-item>` where the progress ring's continuously updating value was announced by screen readers [issue:2126]
 - Fixed a bug in `<wa-spinner>` where the `--track-width` custom property was not being applied to the track and indicator properly [issue:1317]
 - Fixed a bug in form controls where the focus ring would flash white in dark mode in Firefox due to the browser transitioning from the system outline color [issue:2074]
-- Fixed a bug in the native styles utility where `<select>` text could overlap the caret icon when the selected option had a long name
-- Fixed a bug in the native styles utility where `<select multiple>` did not expand to show multiple options
 - Fixed a bug in `<wa-dropdown>` where heading colors in the menu used `!important`, preventing users from overriding them with light DOM styles [issue:2102]
 - Fixed a bug in `<wa-select>` where the `:state(blank)` custom state was incorrectly applied when the selected option had an empty string value [issue:1920]
 - Fixed a bug in `<wa-dropdown-item>` where the `click` event could still fire when the item was disabled [issue:1817]
@@ -196,7 +194,6 @@ Components with the {{ statusBadge('experimental') }} badge should not be used i
   - Removed the `autocomplete` property from `<wa-combobox>` since it conflicted with the native HTML attribute
 - Improved `<wa-select>`, `<wa-combobox>`, and `<wa-option>` performance with large numbers of options by batching slot changes, caching options, and lazily rendering check icons
 - Improved `<wa-card>`: the `body` part wraps the default slot in a container instead of on the slot, preserving normal slot display and accessibility [pr:2198]
-- Improved `<wa-tab-group>`: the `body` part wraps the default slot in a container instead of on the slot, consistent with `<wa-dialog>` and `<wa-card>.`
 - Improved `<wa-tab-group>`: the `body` part wraps the default slot in a container instead of on the slot, consistent with `<wa-dialog>` and `<wa-card>`
 - Updated `<wa-zoomable-frame>` with an opt-in attribute for theme syncing [pr:2165]
 - [Docs]: Updated space, gap, stack, and cluster documentation for the new tokens and utilities [issue:1606]
@@ -257,7 +254,6 @@ Components with the {{ statusBadge('experimental') }} badge should not be used i
 
 - Updated `<wa-icon>` to use [{{ site.siblings.fontAwesome.name }} 7.2.0](https://fontawesome.com/changelog#v7-2-0) [pr:2059]
 - Updated `<wa-popup>` arrow styling to prevent larger sized arrow from overlapping the contents of the popup [pr:2070]
-- Modified native styles so that `border-radius` does not apply to `svg` elements by default [pr:2078]
 
 :::
 
