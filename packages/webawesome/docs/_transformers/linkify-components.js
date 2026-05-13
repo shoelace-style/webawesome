@@ -10,7 +10,7 @@ export function linkifyComponentsTransformer(componentTagNames) {
     // View-level opt-out: skip the entire page when `<html data-no-linkify>` is set.
     if (doc.querySelector('html[data-no-linkify]')) return;
 
-    const currentPath = normalize(this?.page?.url ?? '');
+    const currentPath = normalize(this.page.url);
 
     doc.querySelectorAll('#content code').forEach(code => {
       // Skip code blocks, code inside interactive ancestors, and code inside an opt-out region.

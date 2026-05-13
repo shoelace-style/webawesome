@@ -23,22 +23,24 @@ Order matters — each transformer sees the output of the previous one.
 
 Most transformers that scan content support a `data-no-*` attribute so authors can skip processing for a specific page, region, or element. Each works at three scopes:
 
-- **Page** — set on `<html>` (typically via a layout or front matter).
+- **Page** — set on `<html>` via the base layout. `base.njk` opts in by default and reads page-level toggles from front matter (`hasAnchors`, `hasLinkify`) — set one to `false` to apply the matching `data-no-*` attribute for that page.
 - **Region** — set on any ancestor element. The transformer skips any descendants.
 - **Element** — set on the target element directly.
 
-| Attribute         | Skips                                       |
-| ----------------- | ------------------------------------------- |
-| `data-no-anchor`  | Permalink injection on headings.            |
-| `data-no-outline` | Inclusion of a heading in the page outline. |
-| `data-no-linkify` | Automatic component-tag linkification.      |
+| Attribute         | Front-matter toggle | Skips                                       |
+| ----------------- | ------------------- | ------------------------------------------- |
+| `data-no-anchor`  | `hasAnchors: false` | Permalink injection on headings.            |
+| `data-no-outline` | —                   | Inclusion of a heading in the page outline. |
+| `data-no-linkify` | `hasLinkify: false` | Automatic component-tag linkification.      |
 
 ### Examples
 
-Skip linkification on an entire page (set in the layout):
+Skip linkification on an entire page (front matter):
 
-```njk
-<html lang="en" data-no-linkify>
+```yaml
+---
+hasLinkify: false
+---
 ```
 
 Skip a single inline mention:
