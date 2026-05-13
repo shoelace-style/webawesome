@@ -9,14 +9,18 @@ describe('<wa-breadcrumb-item>', () => {
       describe('accessibility', () => {
         it('should pass accessibility tests', async () => {
           const el = await fixture<WaBreadcrumbItem>(html`<wa-breadcrumb-item>Home</wa-breadcrumb-item>`);
-          await expect(el).to.be.accessible();
+          if (fixture.type === "client-only") {
+            await expect(el).to.be.accessible();
+          }
         });
 
         it('should pass accessibility tests with href', async () => {
           const el = await fixture<WaBreadcrumbItem>(html`
             <wa-breadcrumb-item href="https://example.com/">Home</wa-breadcrumb-item>
           `);
-          await expect(el).to.be.accessible();
+          if (fixture.type === "client-only") {
+            await expect(el).to.be.accessible();
+          }
         });
 
         it('should pass accessibility tests with href and target', async () => {

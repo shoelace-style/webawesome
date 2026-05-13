@@ -55,13 +55,15 @@ function fixDSD(e) {
   // https://developer.chrome.com/docs/css-ui/declarative-shadow-dom#polyfill
   (function attachShadowRoots(root) {
     root.querySelectorAll('template[shadowrootmode]').forEach(template => {
-      const mode = template.getAttribute('shadowrootmode');
-      const shadowRoot = template.parentNode.attachShadow({ mode });
-      shadowRoot.appendChild(template.content);
+      // const mode = template.getAttribute('shadowrootmode');
+      // const shadowRoot = template.parentNode.attachShadow({ mode });
+      // shadowRoot.appendChild(template.content);
       template.remove();
-      attachShadowRoots(shadowRoot);
+      // attachShadowRoots(shadowRoot);
     });
   })(newElement);
+
+  e.detail.resume()
 }
 
 // Fixes an issue with DSD keeping the `<template>` elements hanging around in the lightdom.

@@ -172,8 +172,6 @@ export default class WaOption extends WebAwesomeElement {
 
 
   updated(changedProperties: PropertyValues<this>) {
-    super.updated(changedProperties);
-
     if (changedProperties.has('disabled')) {
       this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
       this.customStates.set('disabled', this.disabled);
@@ -197,12 +195,19 @@ export default class WaOption extends WebAwesomeElement {
     if (changedProperties.has('current')) {
       this.customStates.set('current', this.current);
     }
+
+    super.updated(changedProperties);
   }
 
-  protected firstUpdated(changedProperties: PropertyValues<this>) {
+  protected async firstUpdated(changedProperties: PropertyValues<this>) {
     super.firstUpdated(changedProperties);
 
-    this.syncDefaultSelected()
+    if (this.didSSR && !this.hasUpdated) {
+      await this.updateComplete
+      this.syncDefaultSelected()
+    } else {
+      this.syncDefaultSelected()
+    }
 
 
     // If the `selected` property was set directly (e.g., by Vue's :selected binding),
@@ -211,7 +216,10 @@ export default class WaOption extends WebAwesomeElement {
     // when using `:selected="true"` syntax.
     if (this.selected && !this.defaultSelected) {
       const parent = this.closest<WaSelect>('wa-select, wa-combobox');
+
       if (parent && !parent.hasInteracted) {
+        await customElements.whenDefined(parent?.localName)
+        await parent.updateComplete
         parent.selectionChanged?.();
       }
     }
@@ -232,8 +240,14 @@ export default class WaOption extends WebAwesomeElement {
   }
 
   render() {
+    let selected = this.selected
+
+    if (this.didSSR && !this.hasUpdated) {
+      selected = this.defaultSelected
+    }
+
     return html`
-      ${this.selected
+      ${selected
         ? html`<wa-icon
             part="checked-icon"
             class="check"

@@ -93,11 +93,14 @@ export default {
     <html lang="en-US">
       <head>
         <link rel="stylesheet" href="/dist/styles/themes/default.css">
-
         <script>
           window.process = {env: { NODE_ENV: "production" }}
-        </script>
-        <script>
+          const g = globalThis;
+          g.litIssuedWarnings ??= new Set();
+          g.litIssuedWarnings.add(
+            'Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.'
+          );
+
           window.serverComponents = [
             ${serverComponents.map(str => `"${str}"`).join(',\n')}
           ]
@@ -107,6 +110,7 @@ export default {
           ]
 
           window.CSR_ONLY = ${process.env['CSR_ONLY'] === 'true'}
+          window.SSR_ONLY = ${process.env['SSR_ONLY'] === 'true'}
         </script>
         <script type="module">
           ;(async () => {

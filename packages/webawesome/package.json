@@ -22,6 +22,7 @@
     "./dist/custom-elements-jsx.d.ts": "./dist/custom-elements-jsx.d.ts",
     "./dist/webawesome.js": "./dist/webawesome.js",
     "./dist/webawesome.loader.js": "./dist/webawesome.loader.js",
+    "./dist/webawesome.ssr-loader.js": "./dist/webawesome.ssr-loader.js",
     "./dist/styles": "./dist/styles",
     "./dist/styles/*": "./dist/styles/*",
     "./dist/components": "./dist/components",
@@ -82,6 +83,7 @@
   "dependencies": {
     "@ctrl/tinycolor": "4.1.0",
     "@floating-ui/dom": "^1.6.13",
+    "@lit-labs/ssr-client": "^1.1.8",
     "@lit/react": "^1.0.8",
     "@lit/task": "^1.0.3",
     "@shoelace-style/animations": "^1.2.0",

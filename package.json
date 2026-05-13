@@ -83,7 +83,8 @@
     "uuid": "^9.0.1"
   },
   "overrides": {
-    "playwright": "^1.49.1"
+    "playwright": "^1.49.1",
+    "axe-core": "^4.11.4"
   },
   "lint-staged": {
     "*.{ts,js}": [

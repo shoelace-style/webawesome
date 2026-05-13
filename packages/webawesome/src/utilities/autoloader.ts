@@ -95,21 +95,27 @@ function register(tagName: string): Promise<void> {
   });
 }
 
+
+let _timeout = 2000
+
 /**
  * Acts as a middleware for Turbo's `turbo:before-render` event to ensure components are auto-loaded before showing the
  * next page, eliminating page-to-page FOUCE in a Turbo environment.
  */
 export function preventTurboFouce(timeout = 2000) {
-  document.addEventListener('turbo:before-render', async (event: CustomEvent) => {
-    const newBody = event.detail.newBody;
-
-    event.preventDefault();
-
-    try {
-      // Wait until all elements are registered or two seconds, whichever comes first
-      await Promise.race([discover(newBody), new Promise(resolve => setTimeout(resolve, timeout))]);
-    } finally {
-      event.detail.resume();
-    }
-  });
+  _timeout = timeout
+  document.addEventListener('turbo:before-render', handleRender)
 }
+
+async function handleRender (event: CustomEvent) {
+  const newBody = event.detail.newBody;
+
+  event.preventDefault();
+
+  try {
+    // Wait until all elements are registered or two seconds, whichever comes first
+    await Promise.race([discover(newBody), new Promise(resolve => setTimeout(resolve, _timeout))]);
+  } finally {
+    event.detail.resume();
+  }
+};
