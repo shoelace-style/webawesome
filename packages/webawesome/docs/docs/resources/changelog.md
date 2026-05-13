@@ -14,6 +14,14 @@ These have a settled API. Breaking changes land only in major versions, and depr
 <h2 class="wa-heading-m wa-cluster wa-gap-s" data-no-anchor data-no-outline>Experimental Components {{ statusBadge('experimental') }}</h2>
 These are still finding their shape. APIs can change between minor versions, so use them in prototypes — not production code you can't easily update.
 
+## Unreleased
+
+:::fixed
+
+- Fixed a bug in `<wa-breadcrumb-item>` where `href=""` rendered as a button instead of a link, making it harder to follow the [WAI-ARIA breadcrumb pattern](https://www.w3.org/WAI/ARIA/apg/patterns/breadcrumb/) for the current-page item [issue:2387]
+
+:::
+
 ## 3.7.0
 
 <small><time datetime="2026-05-12">May 12, 2026</time></small>

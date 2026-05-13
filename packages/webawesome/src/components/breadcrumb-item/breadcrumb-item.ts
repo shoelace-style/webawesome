@@ -48,7 +48,7 @@ export default class WaBreadcrumbItem extends WebAwesomeElement {
       this.defaultSlot.assignedElements({ flatten: true }).filter(i => i.tagName.toLowerCase() === 'wa-dropdown')
         .length > 0;
 
-    if (this.href) {
+    if (this.href != null) {
       this.renderType = 'link';
       return;
     }

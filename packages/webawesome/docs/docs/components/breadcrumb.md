@@ -31,6 +31,8 @@ By default, breadcrumb items are rendered as buttons so you can use them to navi
 
 For websites, you'll probably want to use links instead. You can make any breadcrumb item a link by applying an `href` attribute to it. Now, when the user activates it, they'll be taken to the corresponding page — no event listeners required.
 
+The last item represents the current page. Use `href=""` so it points at itself — `<wa-breadcrumb>` will mark it with `aria-current="page"` and style it as non-interactive for you.
+
 ```html {.example}
 <wa-breadcrumb>
   <wa-breadcrumb-item href="https://example.com/home">Homepage</wa-breadcrumb-item>
@@ -39,7 +41,7 @@ For websites, you'll probably want to use links instead. You can make any breadc
 
   <wa-breadcrumb-item href="https://example.com/home/services/digital">Digital Media</wa-breadcrumb-item>
 
-  <wa-breadcrumb-item href="https://example.com/home/services/digital/web-design">Web Design</wa-breadcrumb-item>
+  <wa-breadcrumb-item href="">Web Design</wa-breadcrumb-item>
 </wa-breadcrumb>
 ```
 

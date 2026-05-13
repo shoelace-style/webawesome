@@ -59,6 +59,16 @@ describe('<wa-breadcrumb-item>', () => {
           expect(link).to.have.attribute('href', 'https://example.com/');
         });
 
+        it('should render a link when href is an empty string', async () => {
+          const el = await fixture<WaBreadcrumbItem>(
+            html`<wa-breadcrumb-item href="">Current page</wa-breadcrumb-item>`,
+          );
+          const link = el.shadowRoot!.querySelector<HTMLAnchorElement>('[part~="label"]');
+          expect(link).to.exist;
+          expect(link!.tagName.toLowerCase()).to.equal('a');
+          expect(link).to.have.attribute('href', '');
+        });
+
         it('should set the target attribute on the link', async () => {
           const el = await fixture<WaBreadcrumbItem>(html`
             <wa-breadcrumb-item href="https://example.com/" target="_blank">Home</wa-breadcrumb-item>
