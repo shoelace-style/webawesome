@@ -12,7 +12,12 @@
         <wa-input type="email" name="cm-tidujkj-tidujkj" class="js-cm-email-input qa-input-email wa-visually-hidden-label"  id="fieldEmail" label="Email Address" placeholder="dennis.t.nedry@jurrasicpark.com" required>
           <wa-icon name="envelope" variant="regular" slot="start"></wa-icon>
         </wa-input>
-        <wa-button type="submit">
+        <wa-button
+          type="submit"
+          data-track-event="changelog:link_click"
+          data-track-context="email_signup"
+          data-track-destination="newsletter_subscribe"
+        >
           Yes, please
           <wa-icon name="arrow-right" variant="regular" slot="end"></wa-icon>
         </wa-button>

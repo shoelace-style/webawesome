@@ -1019,11 +1019,25 @@ Many of these changes and improvements were the direct result of feedback from u
       <span>If you spotted a typo, a missing change, or anything that doesn't look right, let us know.</span>
     </div>
     <div class="wa-cluster wa-gap-s">
-      <wa-button size="s" href="{{ site.github.issues }}" target="_blank">
+      <wa-button
+        size="s"
+        href="{{ site.github.issues }}"
+        target="_blank"
+        data-track-event="changelog:link_click"
+        data-track-context="feedback_callout"
+        data-track-destination="report_bug"
+      >
         <wa-icon slot="start" variant="regular" name="bug"></wa-icon>
         Report a bug
       </wa-button>
-      <wa-button size="s" href="{{ site.github.discussions }}" target="_blank">
+      <wa-button
+        size="s"
+        href="{{ site.github.discussions }}"
+        target="_blank"
+        data-track-event="changelog:link_click"
+        data-track-context="feedback_callout"
+        data-track-destination="ask_for_help"
+      >
         <wa-icon slot="start" variant="regular" name="message-question"></wa-icon>
         Ask for help
       </wa-button>
