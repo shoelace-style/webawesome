@@ -26,6 +26,13 @@ describe('<wa-breadcrumb-item>', () => {
           await expect(el).to.be.accessible();
         });
 
+        it('should pass accessibility tests with an empty href', async () => {
+          const el = await fixture<WaBreadcrumbItem>(
+            html`<wa-breadcrumb-item href="">Current page</wa-breadcrumb-item>`,
+          );
+          await expect(el).to.be.accessible();
+        });
+
         it('should hide the separator from screen readers', async () => {
           const el = await fixture<WaBreadcrumbItem>(html`<wa-breadcrumb-item>Home</wa-breadcrumb-item>`);
           const separator = el.shadowRoot!.querySelector('[part~="separator"]');
