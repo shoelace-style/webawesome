@@ -138,16 +138,16 @@ wa-page > main:has(.modern-card-list) {
   /* Major non-text blocks get more breathing room than running prose, but
      headings still hug — so the top-margin rule only applies after non-heading
      siblings. */
-  :is(pre, figure, table, blockquote, wa-callout, .code-example):has(+ *) {
+  :is(pre, figure, table, blockquote, wa-callout, .code-example, details):has(+ *) {
     margin-block-end: var(--wa-space-xl);
   }
 
-  :not(h1, h2, h3, h4, h5, h6) + :is(pre, figure, table, blockquote, wa-callout, .code-example) {
+  :not(h1, h2, h3, h4, h5, h6) + :is(pre, figure, table, blockquote, wa-callout, .code-example, details) {
     margin-block-start: var(--wa-space-xl);
   }
 
   /* Visually heavy blocks still deserve a minimum breath after a heading. */
-  :is(h1, h2, h3, h4, h5, h6) + :is(pre, figure, table, blockquote, wa-callout, .code-example) {
+  :is(h1, h2, h3, h4, h5, h6) + :is(pre, figure, table, blockquote, wa-callout, .code-example, details) {
     margin-block-start: var(--wa-space-m);
   }
 
