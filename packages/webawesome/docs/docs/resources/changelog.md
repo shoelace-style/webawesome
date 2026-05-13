@@ -10,8 +10,6 @@ Web Awesome follows [Semantic Versioning](https://semver.org/). Breaking changes
 
 Components with the {{ statusBadge('experimental') }} badge should not be used in production. They are made available as release candidates for development and testing purposes. As such, changes to experimental components will not be subject to semantic versioning.
 
-{% include "changelog-email-signup.njk" %}
-
 ## 3.7.0
 
 <small><time datetime="2026-05-12">May 12, 2026</time></small>
@@ -47,6 +45,8 @@ Components with the {{ statusBadge('experimental') }} badge should not be used i
   - Added `tooltip` attribute to control when feedback is shown in the tooltip on hover and click
 
 :::
+
+{% include "changelog-email-signup.njk" %}
 
 ## 3.6.0
 
