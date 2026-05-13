@@ -6,9 +6,13 @@ layout: page-outline
 
 {% from "macros/component-badges.njk" import statusBadge %}
 
-Web Awesome follows [Semantic Versioning](https://semver.org/). Breaking changes in components with the {{ statusBadge('stable') }} badge will not be accepted until the next major version. As such, all contributions must consider the project's roadmap and take this into consideration. Features that are deemed no longer necessary will be deprecated but not removed.
+Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Semantic Versioning</a>, and each release on this page follows the <a href="https://keepachangelog.com/" class="appearance-plain">Keep a Changelog</a> convention. [Components](/docs/components) carries a status badge that tells you what to expect from its API.
 
-Components with the {{ statusBadge('experimental') }} badge should not be used in production. They are made available as release candidates for development and testing purposes. As such, changes to experimental components will not be subject to semantic versioning.
+<h2 class="wa-heading-m wa-cluster wa-gap-s" data-no-anchor data-no-outline>Stable Components {{ statusBadge('stable') }}</h2>
+These have a settled API. Breaking changes land only in major versions, and deprecated features stay through the next major release.
+
+<h2 class="wa-heading-m wa-cluster wa-gap-s" data-no-anchor data-no-outline>Experimental Components {{ statusBadge('experimental') }}</h2>
+These are still finding their shape. APIs can change between minor versions, so use them in prototypes — not production code you can't easily update.
 
 ## 3.7.0
 
