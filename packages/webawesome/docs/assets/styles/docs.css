@@ -169,6 +169,16 @@ wa-page > main:has(.modern-card-list) {
   }
 }
 
+.component-ref {
+  color: inherit;
+  text-decoration: none;
+
+  &:hover {
+    color: var(--wa-color-text-link);
+    text-decoration: var(--wa-link-decoration-hover);
+  }
+}
+
 /* GitHub refs (`[issue:N]`/`[pr:N]`/`[discuss:N]`) rewritten by replaceTextPlugin. */
 .ref-link {
   margin-inline-start: var(--wa-space-3xs);

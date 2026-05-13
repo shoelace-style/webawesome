@@ -8,6 +8,7 @@ import { codeExamplesTransformer } from './_transformers/code-examples.js';
 import { copyCodeTransformer } from './_transformers/copy-code.js';
 import { currentLinkTransformer } from './_transformers/current-link.js';
 import { highlightCodeTransformer } from './_transformers/highlight-code.js';
+import { linkifyComponentsTransformer } from './_transformers/linkify-components.js';
 import { outlineTransformer } from './_transformers/outline.js';
 import { getComponents } from './_utils/manifest.js';
 import { markdown } from './_utils/markdown.js';
@@ -256,6 +257,7 @@ export default async function (eleventyConfig) {
       highlightCodeTransformer(),
       copyCodeTransformer(),
       changelogListIconsTransformer(),
+      linkifyComponentsTransformer(allComponents.map(c => c.tagName).filter(Boolean)),
     ];
 
     for (const transformer of transformers) {
