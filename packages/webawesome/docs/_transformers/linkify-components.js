@@ -7,11 +7,14 @@ export function linkifyComponentsTransformer(componentTagNames) {
   const normalize = path => path.replace(/\/$/, '');
 
   return function (doc) {
+    // View-level opt-out: skip the entire page when `<html data-no-linkify>` is set.
+    if (doc.querySelector('html[data-no-linkify]')) return;
+
     const currentPath = normalize(this?.page?.url ?? '');
 
     doc.querySelectorAll('#content code').forEach(code => {
-      // Skip code blocks (`<pre>`) and code already inside an interactive ancestor.
-      if (code.closest('pre, a, button')) return;
+      // Skip code blocks, code inside interactive ancestors, and code inside an opt-out region.
+      if (code.closest('pre, a, button, [data-no-linkify]')) return;
 
       const match = code.innerHTML.match(tagPattern);
       if (!match) return;
