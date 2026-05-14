@@ -161,6 +161,22 @@
       text-wrap: pretty;
     }
   }
+
+  .wa-text-transform-uppercase {
+    text-transform: uppercase;
+  }
+
+  .wa-text-transform-lowercase {
+    text-transform: lowercase;
+  }
+
+  .wa-text-transform-capitalize {
+    text-transform: capitalize;
+  }
+
+  .wa-text-transform-none {
+    text-transform: none;
+  }
   /* #endregion */
 
   /* #region Links ~~~~~~~ */
