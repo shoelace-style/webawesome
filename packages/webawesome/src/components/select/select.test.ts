@@ -345,7 +345,7 @@ describe('<wa-select>', () => {
           await el.updateComplete;
         });
 
-        it.only('should emit change and input with the correct validation message when the value changes', async () => {
+        it('should emit change and input with the correct validation message when the value changes', async () => {
           const el = await fixture<WaSelect>(html`
             <wa-select required>
               <wa-option value="option-1">Option 1</wa-option>
@@ -361,15 +361,12 @@ describe('<wa-select>', () => {
 
           await aTimeout(1)
           await clickOnElement(el);
-          console.log(el)
           await aTimeout(500);
           await el.updateComplete;
           await aTimeout(100);
           await clickOnElement(option2);
           await el.updateComplete;
           await aTimeout(500);
-
-          await aTimeout(30_000)
 
           expect(handler).to.be.calledTwice;
           expect(el.value).to.equal(option2.value);
@@ -1082,8 +1079,8 @@ describe('<wa-select>', () => {
       await aTimeout(200);
 
       await sendKeys({ press: 'Escape' });
-      await aTimeout(200);
 
+      await waitUntil(() => tooltip.open === false);
       expect(tooltip.open).to.be.false;
       expect(select.open).to.be.true;
     });

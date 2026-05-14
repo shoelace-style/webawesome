@@ -31,9 +31,7 @@ export default {
   rootDir: '.',
   files: 'src/**/*.test.ts', // "default" group
   concurrentBrowsers: 3,
-  nodeResolve: {
-    exportConditions: ['production', 'default'],
-  },
+  nodeResolve: true,
   testFramework: {
     config: {
       timeout: 3000,
@@ -94,6 +92,7 @@ export default {
       <head>
         <link rel="stylesheet" href="/dist/styles/themes/default.css">
         <script>
+
           window.process = {env: { NODE_ENV: "production" }}
           const g = globalThis;
           g.litIssuedWarnings ??= new Set();
@@ -112,8 +111,10 @@ export default {
           window.CSR_ONLY = ${process.env['CSR_ONLY'] === 'true'}
           window.SSR_ONLY = ${process.env['SSR_ONLY'] === 'true'}
         </script>
+
         <script type="module">
           ;(async () => {
+            await import("/dist-cdn/internal/ssr-hydration.js")
             await Promise.allSettled(window.clientComponents.map(str => import(str)));
           })()
         </script>

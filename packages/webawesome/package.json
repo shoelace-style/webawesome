@@ -65,7 +65,7 @@
     "publish-alpha-cdn": "./publish-alpha-cdn.sh",
     "create": "plop --plopfile scripts/plop/plopfile.js",
     "test": "SSR_ONLY=\"true\" web-test-runner --group default",
-    "test:component": "SSR_ONLY=\"true\" web-test-runner -- --watch --group",
+    "test:component": "CSR_ONLY=\"true\" web-test-runner -- --watch --group",
     "test:watch": "web-test-runner --watch --group default",
     "prettier": "prettier --check --log-level=warn --ignore-path=\"../../.prettierignore\" .",
     "prettier:fix": "prettier --write --log-level=warn --ignore-path=\"../../.prettierignore\" .",
