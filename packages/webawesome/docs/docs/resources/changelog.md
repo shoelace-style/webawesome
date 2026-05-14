@@ -22,6 +22,10 @@ These are still finding their shape. APIs can change between minor versions, so 
 - Added the `wa-text-uppercase` text utility class for transforming text to uppercase
 - Added the `wa-text-lowercase` text utility class for transforming text to lowercase
 - Added the `wa-text-capitalize` text utility class for capitalizing the first letter of each word
+- Added the `wa-text-align-start` text utility class for logical (direction-aware) text alignment
+- Added the `wa-text-align-center` text utility class for centered text alignment
+- Added the `wa-text-align-end` text utility class for logical (direction-aware) text alignment
+- Added the `wa-text-align-justify` text utility class for justified text alignment
 
 :::
 

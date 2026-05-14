@@ -172,6 +172,20 @@
 
   .wa-text-capitalize {
     text-transform: capitalize;
+  .wa-text-align-start {
+    text-align: start;
+  }
+
+  .wa-text-align-center {
+    text-align: center;
+  }
+
+  .wa-text-align-end {
+    text-align: end;
+  }
+
+  .wa-text-align-justify {
+    text-align: justify;
   }
   /* #endregion */
 
