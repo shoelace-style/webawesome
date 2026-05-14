@@ -3,10 +3,12 @@ import { parse as HTMLParse } from 'node-html-parser';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { anchorHeadingsTransformer } from './_transformers/anchor-headings.js';
+import { changelogListIconsTransformer } from './_transformers/changelog-list-icons.js';
 import { codeExamplesTransformer } from './_transformers/code-examples.js';
 import { copyCodeTransformer } from './_transformers/copy-code.js';
 import { currentLinkTransformer } from './_transformers/current-link.js';
 import { highlightCodeTransformer } from './_transformers/highlight-code.js';
+import { linkifyComponentsTransformer } from './_transformers/linkify-components.js';
 import { outlineTransformer } from './_transformers/outline.js';
 import { getComponents } from './_utils/manifest.js';
 import { markdown } from './_utils/markdown.js';
@@ -256,6 +258,8 @@ export default async function (eleventyConfig) {
       codeExamplesTransformer(),
       highlightCodeTransformer(),
       copyCodeTransformer(),
+      changelogListIconsTransformer(),
+      linkifyComponentsTransformer(allComponents.map(c => c.tagName).filter(Boolean)),
     ];
 
     for (const transformer of transformers) {
@@ -271,20 +275,23 @@ export default async function (eleventyConfig) {
         replace: /\[version\]/gs,
         replaceWith: packageData.version,
       },
-      // Replace [issue:1234] with a link to the issue on GitHub
+      // Replace [pr:1234] with an outlined badge link to the pull request on GitHub
       {
         replace: /\[pr:([0-9]+)\]/gs,
-        replaceWith: '<a href="https://github.com/shoelace-style/webawesome/pull/$1" target="_blank">#$1</a>',
+        replaceWith:
+          '<a class="ref-link ref-pr" href="https://github.com/shoelace-style/webawesome/pull/$1" target="_blank"><wa-badge variant="neutral" appearance="outlined"><wa-icon slot="start" name="code-pull-request" variant="regular" aria-hidden="true"></wa-icon>#$1</wa-badge></a>',
       },
-      // Replace [pr:1234] with a link to the pull request on GitHub
+      // Replace [issue:1234] with an outlined badge link to the issue on GitHub
       {
         replace: /\[issue:([0-9]+)\]/gs,
-        replaceWith: '<a href="https://github.com/shoelace-style/webawesome/issues/$1" target="_blank">#$1</a>',
+        replaceWith:
+          '<a class="ref-link ref-issue" href="https://github.com/shoelace-style/webawesome/issues/$1" target="_blank"><wa-badge variant="neutral" appearance="outlined"><wa-icon slot="start" name="circle-dot" variant="regular" aria-hidden="true"></wa-icon>#$1</wa-badge></a>',
       },
-      // Replace [discuss:1234] with a link to the discussion on GitHub
+      // Replace [discuss:1234] with an outlined badge link to the discussion on GitHub
       {
         replace: /\[discuss:([0-9]+)\]/gs,
-        replaceWith: '<a href="https://github.com/shoelace-style/webawesome/discussions/$1" target="_blank">#$1</a>',
+        replaceWith:
+          '<a class="ref-link ref-discuss" href="https://github.com/shoelace-style/webawesome/discussions/$1" target="_blank"><wa-badge variant="neutral" appearance="outlined"><wa-icon slot="start" name="comments" variant="regular" aria-hidden="true"></wa-icon>#$1</wa-badge></a>',
       },
     ]),
   );

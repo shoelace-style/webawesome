@@ -23,7 +23,7 @@ export function anchorHeadingsTransformer(options = {}) {
   options = {
     container: 'body',
     headingSelector: 'h2, h3, h4, h5, h6',
-    anchorLabel: 'Jump to heading',
+    anchorLabel: 'Link to This Section',
     ...options,
   };
 
@@ -75,14 +75,13 @@ export function anchorHeadingsTransformer(options = {}) {
         }
       }
 
-      // Create the anchor
+      const anchorId = `${id}-permalink`;
       const anchor = parse(`
-        <a href="#${encodeURIComponent(id)}">
-          <span class="wa-visually-hidden"></span>
-          <wa-icon variant="regular" name="hashtag" class="icon-shrink"></wa-icon>
+        <a id="${anchorId}" href="#${encodeURIComponent(id)}">
+          <wa-icon name="hashtag" label="${options.anchorLabel}"></wa-icon>
         </a>
       `);
-      anchor.querySelector('.wa-visually-hidden').textContent = options.anchorLabel;
+      const tooltip = parse(`<wa-tooltip for="${anchorId}">${options.anchorLabel}</wa-tooltip>`);
 
       // Update the heading
       if (!existingId) {
@@ -90,6 +89,7 @@ export function anchorHeadingsTransformer(options = {}) {
       }
       heading.classList.add('anchor-heading');
       heading.appendChild(anchor);
+      heading.insertAdjacentHTML('afterend', tooltip.outerHTML);
     });
   };
 }
