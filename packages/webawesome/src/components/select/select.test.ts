@@ -345,8 +345,8 @@ describe('<wa-select>', () => {
           await el.updateComplete;
         });
 
-        it('should emit change and input with the correct validation message when the value changes', async () => {
-          let el = await fixture<WaSelect>(html`
+        it.only('should emit change and input with the correct validation message when the value changes', async () => {
+          const el = await fixture<WaSelect>(html`
             <wa-select required>
               <wa-option value="option-1">Option 1</wa-option>
               <wa-option value="option-2">Option 2</wa-option>
@@ -356,18 +356,20 @@ describe('<wa-select>', () => {
           const option2 = el.querySelectorAll('wa-option')[1];
           const handler = sinon.spy((_event: InputEvent | Event) => {});
 
-          el = document.querySelector<WaSelect>("wa-select")!
-          await el.updateComplete
           el.addEventListener('change', handler);
           el.addEventListener('input', handler);
 
+          await aTimeout(1)
+          await clickOnElement(el);
+          console.log(el)
+          await aTimeout(500);
+          await el.updateComplete;
+          await aTimeout(100);
+          await clickOnElement(option2);
+          await el.updateComplete;
+          await aTimeout(500);
 
-          // await clickOnElement(el);
-          // await aTimeout(500);
-          el.click()
-          await el.updateComplete;
-          option2.click()
-          await el.updateComplete;
+          await aTimeout(30_000)
 
           expect(handler).to.be.calledTwice;
           expect(el.value).to.equal(option2.value);

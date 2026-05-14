@@ -202,14 +202,6 @@ export default class WaOption extends WebAwesomeElement {
   protected async firstUpdated(changedProperties: PropertyValues<this>) {
     super.firstUpdated(changedProperties);
 
-    if (this.didSSR && !this.hasUpdated) {
-      await this.updateComplete
-      this.syncDefaultSelected()
-    } else {
-      this.syncDefaultSelected()
-    }
-
-
     // If the `selected` property was set directly (e.g., by Vue's :selected binding),
     // notify the parent select to update its selection. This is needed because
     // Vue binds to the `selected` property instead of the `defaultSelected` property
@@ -242,9 +234,12 @@ export default class WaOption extends WebAwesomeElement {
   render() {
     let selected = this.selected
 
-    if (this.didSSR && !this.hasUpdated) {
-      selected = this.defaultSelected
-    }
+    // if (this.didSSR && !this.hasUpdated) {
+    //   this.updateComplete.then(() => {
+    //     this.requestUpdate()
+    //   })
+    //   return nothing
+    // }
 
     return html`
       ${selected

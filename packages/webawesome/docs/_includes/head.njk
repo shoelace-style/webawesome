@@ -53,7 +53,9 @@
     // This is really hacky and only for running the free repo locally. Its not perfect, but its better than nothing.
     // This will break singletons, and cause things to load twice
     proComponents.forEach((tagName) => {
-      if (!customElements.get("wa-" + tagName)) {
+      // Make sure the pro component is actually being used on the page.
+      if (!customElements.get("wa-" + tagName) && document.querySelector("wa-" + tagName)) {
+
         import(`https://ka-p.webawesome.com/kit/${kitCode}/webawesome@{{ package.version }}/components/${tagName}/${tagName}.js`)
           .catch((e) => {
             // known errors with dual registration. This is only a thing in the free repo.

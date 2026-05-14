@@ -615,12 +615,12 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   }
 
   private processSlotChange() {
-    if (this.didSSR) {
-      // this.updateComplete.then(() => {
-      //   this.handleDefaultSlotChange()
-      // })
-      return
-    }
+    // if (this.didSSR && !this.hasUpdated) {
+    //   this.updateComplete.then(() => {
+    //     this.handleDefaultSlotChange()
+    //   })
+    //   return
+    // }
 
     if (!customElements.get('wa-option')) {
       customElements.whenDefined('wa-option').then(() => this.handleDefaultSlotChange());
@@ -756,17 +756,17 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   public selectionChanged() {
     const options = this.getAllOptions();
 
-    if (options.some((option) => {
-      option.didSSR && !option.hasUpdated
-    })) {
-      Promise.allSettled(options.map((opt) => {
-        return opt.updateComplete
-      })).then(() => {
-        this.processSlotChange()
-      })
+    // if (options.some((option) => {
+    //   option.didSSR && !option.hasUpdated
+    // })) {
+    //   Promise.allSettled(options.map((opt) => {
+    //     return opt.updateComplete
+    //   })).then(() => {
+    //     this.processSlotChange()
+    //   })
 
-      return
-    }
+    //   return
+    // }
 
     // Update selected options cache
     const newSelectedOptions = options.filter(el => {
