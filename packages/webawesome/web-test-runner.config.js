@@ -99,6 +99,10 @@ export default {
           g.litIssuedWarnings.add(
             'Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.'
           );
+          // This is related to SSR. I'm not sure how to fix this other than using the unbundled "/dist", but for some reason, that breaks singleton patterns when using esbuild plugin with Web Test Runner.
+          g.litIssuedWarnings.add(
+            'Multiple versions of Lit loaded. Loading multiple versions is not recommended. See https://lit.dev/msg/multiple-versions for more information.'
+          )
 
           window.serverComponents = [
             ${serverComponents.map(str => `"${str}"`).join(',\n')}
@@ -114,7 +118,7 @@ export default {
 
         <script type="module">
           ;(async () => {
-            await import("/dist-cdn/internal/ssr-hydration.js")
+            await import("/dist-cdn/utilities/ssr-hydration.js")
             await Promise.allSettled(window.clientComponents.map(str => import(str)));
           })()
         </script>

@@ -47,10 +47,7 @@ export default class WaTab extends WebAwesomeElement {
    */
   @property({ reflect: true }) slot = "nav"
 
-  constructor () {
-    super()
-    this.internals.role = "tab"
-  }
+  @property({ reflect: true }) role = "tab"
 
   @watch('active')
   handleActiveChange() {

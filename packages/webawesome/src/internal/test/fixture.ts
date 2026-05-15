@@ -49,7 +49,7 @@ export async function hydratedFixture<T extends HTMLElement = HTMLElement>(templ
   const hydratedElement = await LitSSRFixture<T>(template, {
     base: import.meta.url,
     modules: window.serverComponents,
-    hydrate: false,
+    hydrate: true,
   });
 
   // @ts-expect-error Assume its a lit element.

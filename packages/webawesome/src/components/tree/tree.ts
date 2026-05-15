@@ -95,7 +95,8 @@ export default class WaTree extends WebAwesomeElement {
   private clickTarget: WaTreeItem | null = null;
   private readonly localize = new LocalizeController(this);
 
-  // @property({ reflect: true, type: Number }) tabIndex = 0
+  @property({ attribute: "tabindex", reflect: true, type: Number }) tabIndex = 0
+  @property({ reflect: true }) role = "tree"
 
   constructor() {
     super();
@@ -104,9 +105,6 @@ export default class WaTree extends WebAwesomeElement {
       this.addEventListener('focusout', this.handleFocusOut);
       this.addEventListener('wa-lazy-change', this.handleSlotChange);
     }
-
-    this.internals.role = 'tree'
-    this.tabIndex = 0
   }
 
   async connectedCallback() {

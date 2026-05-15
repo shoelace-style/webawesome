@@ -29,6 +29,17 @@
 
 .diff-dialog ins {
   text-decoration: none;
+  background: green;
+  color: white;
+  position: relative;
+
+  &:before {
+    content: "+";
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(50%, -15%);
+  }
 }
 .diff-dialog pre {
   border: 1px solid transparent;
@@ -40,4 +51,15 @@
 }
 .diff-dialog del {
   text-decoration: none;
+  background: red;
+  color: white;
+  position: relative;
+
+  &:before {
+    content: "-";
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(50%, -15%);
+  }
 }

@@ -1,4 +1,4 @@
-import { html } from 'lit';
+import { html, isServer, nothing } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { WaCopyEvent } from '../../events/copy.js';
@@ -123,7 +123,13 @@ export default class WaCopyButton extends WebAwesomeElement {
   @property({ reflect: true }) tooltip: 'full' | 'copy' | 'none' = 'full';
 
   firstUpdated() {
-    this.handleDefaultSlotChange();
+    if (this.didSSR) {
+      this.updateComplete.then(() => {
+        this.handleDefaultSlotChange()
+      })
+    } else {
+      this.handleDefaultSlotChange();
+    }
   }
 
   disconnectedCallback() {
@@ -373,8 +379,12 @@ export default class WaCopyButton extends WebAwesomeElement {
 
   render() {
     const hasCustomTrigger = this.hasSlotController.test('[default]');
-    const showTooltip = !hasCustomTrigger && this.tooltip !== 'none';
+    let showTooltip = !hasCustomTrigger && this.tooltip !== 'none';
     const triggerValue = this.tooltip === 'copy' ? 'manual' : 'hover focus';
+
+    if (this.didSSR && !this.hasUpdated) {
+      showTooltip = false
+    }
 
     return html`
       <div class="copy-button__trigger" @click=${this.handleCopy}>
