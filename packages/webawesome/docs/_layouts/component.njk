@@ -1,5 +1,6 @@
 {% extends '../_layouts/docs.njk' %}
 {% from "pro-badge.njk" import proBadge %}
+{% from "macros/component-badges.njk" import componentStatusBadges %}
 {% set component = getComponent('wa-' + page.fileSlug) %}
 {% set description = component.summary %}
 
@@ -7,22 +8,7 @@
 {% block beforeContent %}
   <div class="component-info">
     <code class="component-tag">&lt;{{ component.tagName }}&gt;</code>
-    {% if component.status %}
-      <wa-badge
-        {% if component.status == 'stable' %}variant="brand"{% endif %}
-        {% if component.status == 'experimental' %}variant="warning" appearance="filled"{% endif %}
-        pill
-      >
-        {% if component.status == 'stable' %}
-          <wa-icon name="check" slot="start"></wa-icon>
-        {% endif %}
-        {% if component.status == 'experimental' %}
-          <wa-icon name="flask" slot="start"></wa-icon>
-        {% endif %}
-        {{ component.status | capitalize }}
-      </wa-badge>
-    {% endif %}
-    <wa-badge variant="neutral" appearance="filled" pill>Since {{ component.since }}</wa-badge>
+    {{ componentStatusBadges(component) }}
     {% if isProComponent %}
       {{ proBadge({ description: "Included with " ~ site.namePro }) }}
     {% endif %}

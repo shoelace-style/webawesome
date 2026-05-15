@@ -17,18 +17,6 @@
   --layout-example-element-border-radius: var(--wa-border-radius-m);
 }
 
-/* Full-width pill-shaped breadcrumb used at the top of subpages */
-.docs-subpage-crumbs {
-  display: flex;
-  inline-size: 100%;
-  background-color: var(--wa-color-surface-lowered);
-  border: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border);
-  border-radius: var(--wa-border-radius-pill);
-  font-size: var(--wa-font-size-s);
-  padding: var(--wa-space-xs) var(--wa-space-m);
-  margin-block-end: var(--wa-content-spacing);
-}
-
 /* "Browse\ ___" / "Back to ___" link with an arrow that nudges on hover */
 .browse-all-link wa-icon,
 .back-link wa-icon {
@@ -150,17 +138,103 @@ wa-page > main:has(.modern-card-list) {
   /* Major non-text blocks get more breathing room than running prose, but
      headings still hug — so the top-margin rule only applies after non-heading
      siblings. */
-  :is(pre, figure, table, blockquote, wa-callout, .code-example):has(+ *) {
+  :is(pre, figure, table, blockquote, wa-callout, .code-example, details):has(+ *) {
     margin-block-end: var(--wa-space-xl);
   }
 
-  :not(h1, h2, h3, h4, h5, h6) + :is(pre, figure, table, blockquote, wa-callout, .code-example) {
+  :not(h1, h2, h3, h4, h5, h6) + :is(pre, figure, table, blockquote, wa-callout, .code-example, details) {
     margin-block-start: var(--wa-space-xl);
   }
 
   /* Visually heavy blocks still deserve a minimum breath after a heading. */
-  :is(h1, h2, h3, h4, h5, h6) + :is(pre, figure, table, blockquote, wa-callout, .code-example) {
+  :is(h1, h2, h3, h4, h5, h6) + :is(pre, figure, table, blockquote, wa-callout, .code-example, details) {
     margin-block-start: var(--wa-space-m);
+  }
+
+  /* Treat h2 + `<small><time>` as one header unit. */
+  h2:has(+ p > small > time) {
+    margin-block-end: var(--wa-space-3xs);
+  }
+  h2 + p:has(> small > time) {
+    margin-block-start: 0;
+    margin-block-end: var(--wa-space-l);
+    color: var(--wa-color-text-quiet);
+  }
+
+  /* Subordinate the prerelease version headings inside `<details data-no-outline>`
+     so they read as historical, not peer to current releases. */
+  details[data-no-outline] h2 {
+    font-size: var(--wa-font-size-l);
+    margin-block-start: var(--wa-space-l);
+  }
+}
+
+.component-ref {
+  color: inherit;
+  text-decoration: none;
+
+  &:hover {
+    color: var(--wa-color-text-link);
+    text-decoration: var(--wa-link-decoration-hover);
+  }
+}
+
+/* GitHub refs (`[issue:N]`/`[pr:N]`/`[discuss:N]`) rewritten by replaceTextPlugin. */
+.ref-link {
+  margin-inline-start: var(--wa-space-3xs);
+  text-decoration: none;
+  color: inherit;
+
+  & wa-badge {
+    font-size: var(--wa-font-size-2xs);
+  }
+}
+
+/* Changelog category groups. Icon bullets injected by _transformers/changelog-list-icons.js. */
+.changelog-group {
+  & + .changelog-group {
+    margin-block-start: var(--wa-space-l);
+    padding-block-start: var(--wa-space-l);
+    border-block-start: var(--wa-border-width-s) solid var(--wa-color-surface-border);
+  }
+
+  & > ul {
+    list-style: none;
+    padding-inline-start: 0;
+
+    /* Resets native.css `li { margin-inline-start: 1.125em }` so the icon
+       column sits flush with the prose left edge. */
+    & > li {
+      position: relative;
+      margin-inline-start: 0;
+      padding-inline-start: calc(1.25em + var(--wa-space-s));
+
+      & + li {
+        margin-block-start: var(--wa-space-s);
+      }
+
+      /* Bigger gap after entries with a nested list. */
+      &:has(:is(ul, ol)) + li {
+        margin-block-start: var(--wa-space-m);
+      }
+
+      & :is(ul, ol) {
+        margin-block: var(--wa-space-xs);
+
+        /* `::marker` ignores opacity; bake de-emphasis into the color. */
+        & > li::marker {
+          color: color-mix(in oklch, var(--wa-color-text-quiet) 60%, transparent);
+        }
+      }
+
+      & > .changelog-bullet {
+        position: absolute;
+        inset-inline-start: 0;
+        inset-block-start: 0.4em;
+        color: var(--wa-color-text-quiet);
+        font-size: var(--wa-font-size-s);
+      }
+    }
   }
 }
 
@@ -279,11 +353,6 @@ wa-page > main:has(> .search-list) {
         min-block-size: calc(6rem + var(--spacing));
         padding: var(--spacing);
       }
-
-      &:hover {
-        border-color: var(--wa-color-brand-border-loud);
-        box-shadow: 0 0 0 0.0625rem var(--wa-color-brand-border-loud);
-      }
     }
   }
 }
@@ -328,22 +397,10 @@ wa-card .page-name {
       block-size: 100%;
     }
 
-    wa-card:defined {
-      transition:
-        border-color var(--wa-transition-normal),
-        box-shadow var(--wa-transition-normal);
-    }
-
     wa-card::part(body) {
       display: flex;
       flex-direction: column;
       block-size: 100%;
-    }
-
-    a:hover wa-card,
-    a:focus-visible wa-card {
-      border-color: var(--wa-color-brand-border-loud);
-      box-shadow: 0 0 0 0.0625rem var(--wa-color-brand-border-loud);
     }
 
     .page-name {

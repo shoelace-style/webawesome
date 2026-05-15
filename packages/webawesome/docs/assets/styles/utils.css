@@ -276,6 +276,25 @@
     }
   }
 
+  /* breadcrumbs */
+  .page-breadcrumbs {
+    display: flex;
+    align-items: center;
+    inline-size: 100%;
+    /* translucent tint so the pill recedes on any surface */
+    background-color: color-mix(in oklab, var(--wa-color-text-normal) 4.5%, transparent);
+    border-radius: var(--wa-border-radius-pill);
+    font-size: var(--wa-font-size-s);
+    padding: var(--wa-space-xs) var(--wa-space-m);
+    margin-block-end: var(--wa-content-spacing);
+
+    /* fade past the component's text-quiet + optical-align nudge */
+    wa-icon[slot='separator'] {
+      color: color-mix(in oklab, var(--wa-color-text-quiet), transparent 50%);
+      translate: 0 0.075em;
+    }
+  }
+
   /* header */
   wa-page > [slot='header'] {
     /* reset default page component-based header styles */
@@ -420,12 +439,28 @@
 
   /* pro callout */
   wa-callout.pro {
+    margin-block: calc(var(--wa-content-spacing) * 2);
+    padding: var(--wa-space-l);
     background-color: color-mix(in oklab, var(--wa-brand-orange) 12%, var(--wa-color-surface-default));
     border-color: color-mix(in oklab, var(--wa-brand-orange) 30%, var(--wa-color-surface-default));
     color: var(--wa-color-text-normal);
 
     &::part(icon) {
+      align-items: flex-start;
       color: var(--wa-brand-orange);
+    }
+
+    wa-icon[slot='icon'] {
+      font-size: var(--wa-font-size-xl);
+    }
+
+    strong {
+      display: block;
+      margin-block-end: var(--wa-space-2xs);
+    }
+
+    strong a {
+      color: inherit;
     }
   }
 
@@ -446,6 +481,11 @@
       font-size: var(--wa-font-size-xs);
       --max-width: unset;
     }
+  }
+
+  /* "Since X.X" badge: subtler than the default filled neutral */
+  wa-badge.since {
+    background-color: var(--wa-color-surface-lowered);
   }
 
   /* colophon + sidebar: social link row */
@@ -548,15 +588,26 @@
   .anchor-heading a {
     opacity: 0;
     visibility: hidden;
+    color: inherit;
     text-decoration: none;
     transition: opacity var(--wa-transition-normal) var(--wa-transition-easing);
   }
 
+  .anchor-heading a wa-icon {
+    font-size: 0.7em;
+    line-height: 1;
+    vertical-align: 0.05em;
+  }
+
   @media (hover: hover) {
     .anchor-heading:hover a {
-      opacity: 1;
+      opacity: 0.5;
       visibility: visible;
       padding: var(--wa-space-3xs);
+    }
+
+    .anchor-heading a:hover {
+      opacity: 1;
     }
   }
 
@@ -923,6 +974,63 @@
   .de-emphasize {
     opacity: 0.6;
   }
+
+  /* #region hover utilities */
+
+  /* Hover scale; override --hover-grow-scale per instance */
+  .hover-grow,
+  .hover-grow-from-direct-child {
+    --hover-grow-scale: 1.025;
+    transform-origin: center;
+    transition: transform var(--wa-transition-slow) var(--wa-transition-easing);
+  }
+
+  .hover-grow:is(:hover, :focus-visible) {
+    transform: scale(var(--hover-grow-scale));
+  }
+
+  /* Scale when a direct child link or button is hovered */
+  .hover-grow-from-direct-child:has(> :is(a, button):hover),
+  .hover-grow-from-direct-child:has(> :is(a, button):focus-visible) {
+    transform: scale(var(--hover-grow-scale));
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hover-grow,
+    .hover-grow-from-direct-child {
+      transition: none;
+    }
+
+    .hover-grow:is(:hover, :focus-visible) {
+      transform: none;
+    }
+
+    .hover-grow-from-direct-child:has(> :is(a, button):hover),
+    .hover-grow-from-direct-child:has(> :is(a, button):focus-visible) {
+      transform: none;
+    }
+  }
+
+  /* Hover border + outline ring; pair with .hover-grow for card grids */
+  .hover-emphasize-border > wa-card {
+    outline: var(--wa-border-width-s) solid transparent;
+    transition:
+      border-color var(--wa-transition-normal),
+      outline-color var(--wa-transition-normal);
+  }
+
+  .hover-emphasize-border:is(:hover, :focus-visible) > wa-card {
+    border-color: var(--wa-color-brand-border-loud);
+    outline-color: var(--wa-color-brand-border-loud);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hover-emphasize-border > wa-card {
+      transition: none;
+    }
+  }
+
+  /* #endregion */
   /* #endregion */
 
   /* #region resets */

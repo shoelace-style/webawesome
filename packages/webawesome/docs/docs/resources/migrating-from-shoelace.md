@@ -4,28 +4,12 @@ description: A complete, component-by-component guide for moving from Shoelace 2
 layout: page-outline
 ---
 
-<link rel="stylesheet" href="/assets/styles/theme-site-embed.css" data-turbo-track="reload" />
+{% from "macros/component-badges.njk" import statusBadge %}
 
 <style type="text/css">
   .migration-soft-landing-callout,
-  .migration-warning-callout,
-  .pro-component-notice {
+  .migration-warning-callout {
     margin-block: var(--wa-space-xl);
-  }
-
-  .pro-component-notice {
-    padding: var(--wa-space-l);
-  }
-
-  .pro-component-notice::part(icon) {
-    align-items: flex-start;
-    color: var(--wa-color-brand);
-  }
-
-  .pro-component-notice wa-icon[slot='icon'] {
-    --animation-delay: 2s;
-    --animation-duration: 4s;
-    font-size: var(--wa-font-size-xl);
   }
 
   .migration-checklist-actions {
@@ -40,9 +24,9 @@ This guide is for developers with a working Shoelace 2.x project who want to upg
 
 If you're brand new to Web Awesome, the [Getting Started](/docs/) guide is a better starting point.
 
-<wa-callout appearance="outlined-filled" variant="brand" class="pro-component-notice wa-brand-site wa-theme-site wa-align-items-start">
-  <wa-icon slot="icon" name="hand-wave" animation="shake"></wa-icon>
-  <strong>A Few Components Now Live In Web Awesome Pro</strong><br>
+<wa-callout class="pro">
+  <wa-icon slot="icon" name="hand-wave" animation="shake" style="--animation-delay: 2s; --animation-duration: 4s;"></wa-icon>
+  <strong>A Few Components Now Live In Web Awesome Pro</strong>
   Toast notifications, Comboboxes, File Inputs, and Charts moved to <a href="#whats-in-web-awesome-pro">Web&nbsp;Awesome&nbsp;Pro</a>. We mark them clearly with a
   <wa-badge appearance="accent" pill class="pro" data-pro-badge>Pro</wa-badge>
   badge so you'll see them coming.
@@ -374,7 +358,7 @@ Renamed and gained range (multi-thumb) support.
 
 ##### wa-callout <span class="de-emphasize">(replaces sl-alert for inline use)</span>
 
-`<sl-alert>` was both a static inline alert *and* a toast notification system. Web Awesome splits these:
+`<sl-alert>` was both a static inline alert _and_ a toast notification system. Web Awesome splits these:
 
 - **Static inline messages** → `<wa-callout>`
 - **Toasts** → `<wa-toast>` <wa-badge appearance="accent" pill class="pro">Pro</wa-badge>
@@ -518,10 +502,10 @@ The slot names (`before`, `after`, `handle`) and the `position` attribute are id
 
 Tabs use the same structure but the activation event renames and panel hookup is unchanged.
 
-| Shoelace                     | Web Awesome   | Change  |
-| ---------------------------- | ------------- | ------- |
-| `sl-tab-show`                | `wa-tab-show` | Renamed |
-| `sl-tab-hide`                | `wa-tab-hide` | Renamed |
+| Shoelace                     | Web Awesome                      | Change  |
+| ---------------------------- | -------------------------------- | ------- |
+| `sl-tab-show`                | `wa-tab-show`                    | Renamed |
+| `sl-tab-hide`                | `wa-tab-hide`                    | Renamed |
 | `sl-close` (on closable tab) | See the docs for updated example | Renamed |
 
 ##### wa-color-picker <span class="de-emphasize">(was sl-color-picker)</span>
@@ -547,7 +531,7 @@ The selection mode API (`single`/`multiple`/`leaf`) and item structure are other
 
 ##### wa-carousel and wa-carousel-item
 
-`<wa-carousel>` is currently <wa-badge variant="warning">Experimental</wa-badge>. Event renames mirror the rest of the library:
+`<wa-carousel>` is currently {{ statusBadge('experimental') }}. Event renames mirror the rest of the library:
 
 | Shoelace          | Web Awesome       | Change  |
 | ----------------- | ----------------- | ------- |
@@ -574,7 +558,7 @@ Web Animations API surface is unchanged. Event renames:
 
 ##### wa-copy-button <span class="de-emphasize">(was sl-copy-button)</span>
 
-Currently <wa-badge variant="warning">Experimental</wa-badge>. Otherwise drop-in.
+Currently {{ statusBadge('experimental') }}. Otherwise drop-in.
 
 | Shoelace   | Web Awesome | Change  |
 | ---------- | ----------- | ------- |
@@ -717,7 +701,7 @@ Most of what follows is silent breakage: code that won't throw but will misbehav
 - **Event listener strings.** Update all `addEventListener('sl-…', …)` calls. Listeners on the wrong event name fail silently.
 - **Slot names.** `prefix`/`suffix` → `start`/`end`. A `<sl-icon slot="prefix">` left behind will render in the default slot, not where you expect.
 - **`help-text` → `hint`.** Same risk: an unrecognized attribute won't error.
-- **`variant="primary"`.** Will render with the *default* (neutral) variant in WA, not your brand color, because `primary` isn't a valid value.
+- **`variant="primary"`.** Will render with the _default_ (neutral) variant in WA, not your brand color, because `primary` isn't a valid value.
 - **CSS part renames.** Most parts are stable, but a few have changed (e.g., dialog/drawer's close button is no longer an exported `sl-icon-button` part). If you styled `::part(close-button__base)`, check the new equivalent on the component's API page.
 - **CSS custom property fallbacks.** If you used `var(--sl-color-primary-500, blue)` and didn't update the variable, the fallback will silently take over. Search for `--sl-` to clean up.
 - **`open` on `<wa-callout>`.** Doesn't exist. If you had `<sl-alert open>` in a template that toggled visibility via the attribute, you need to conditionally render the callout instead.
@@ -844,7 +828,7 @@ Update the event name. `sl-show` → `wa-show`, `sl-change` → `change` (native
 
 <wa-details name="migration-gotcha" summary="My theme overrides don't work">
 
-Web Awesome wraps component styles in `@layer wa-component`. Your unlayered CSS now wins automatically, so you can probably remove `!important` declarations. Conversely, if your overrides were *inside* a layer, they may now lose to unlayered rules.
+Web Awesome wraps component styles in `@layer wa-component`. Your unlayered CSS now wins automatically, so you can probably remove `!important` declarations. Conversely, if your overrides were _inside_ a layer, they may now lose to unlayered rules.
 
 </wa-details>
 
