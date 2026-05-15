@@ -8,6 +8,9 @@ const translation: Translation = {
 
   carousel: 'Karousel',
   captions: 'Teks',
+  chooseDecade: 'Pilih dekade',
+  chooseMonth: 'Pilih bulan',
+  chooseYear: 'Pilih tahun',
   clearEntry: 'Hapus entri',
   createOption: value => `Buat "${value}"`,
   close: 'Tutup',
@@ -26,8 +29,11 @@ const translation: Translation = {
   loading: 'Memuat',
   moreOptions: 'Lebih banyak opsi',
   mute: 'Bisukan',
+  nextDecade: 'Dekade berikutnya',
+  nextMonth: 'Bulan berikutnya',
   nextSlide: 'Slide berikutnya',
   nextVideo: 'Video berikutnya',
+  nextYear: 'Tahun berikutnya',
   numCharacters: num => {
     if (num === 1) return '1 karakter';
     return `${num} karakter`;
@@ -48,8 +54,11 @@ const translation: Translation = {
   playbackSpeed: 'Kecepatan putar',
   playlist: 'Daftar putar',
   playAnimation: 'Putar animasi',
+  previousDecade: 'Dekade sebelumnya',
+  previousMonth: 'Bulan sebelumnya',
   previousSlide: 'Slide sebelumnya',
   previousVideo: 'Video sebelumnya',
+  previousYear: 'Tahun sebelumnya',
   progress: 'Kemajuan',
   remove: 'Hapus',
   resize: 'Ubah ukuran',

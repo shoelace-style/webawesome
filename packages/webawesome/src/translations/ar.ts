@@ -8,6 +8,9 @@ const translation: Translation = {
 
   carousel: 'كاروسيل',
   captions: 'تسميات توضيحية',
+  chooseDecade: 'اختر العقد',
+  chooseMonth: 'اختر الشهر',
+  chooseYear: 'اختر السنة',
   clearEntry: 'حذف الخيارات',
   createOption: value => `إنشاء "${value}"`,
   close: 'اغلاق',
@@ -26,8 +29,11 @@ const translation: Translation = {
   loading: 'جاري التحميل',
   moreOptions: 'مزيد من الخيارات',
   mute: 'كتم الصوت',
+  nextDecade: 'العقد التالي',
+  nextMonth: 'الشهر التالي',
   nextSlide: 'الشريحة التالية',
   nextVideo: 'الفيديو التالي',
+  nextYear: 'السنة التالية',
   numCharacters: num => {
     if (num === 0) return '0 أحرف';
     if (num === 1) return '1 حرف';
@@ -56,8 +62,11 @@ const translation: Translation = {
   playbackSpeed: 'سرعة التشغيل',
   playlist: 'قائمة التشغيل',
   playAnimation: 'تشغيل الرسوم المتحركة',
+  previousDecade: 'العقد السابق',
+  previousMonth: 'الشهر السابق',
   previousSlide: 'الشريحة السابقة',
   previousVideo: 'الفيديو السابق',
+  previousYear: 'السنة السابقة',
   progress: 'مقدار التقدم',
   remove: 'حذف',
   resize: 'تغيير الحجم',

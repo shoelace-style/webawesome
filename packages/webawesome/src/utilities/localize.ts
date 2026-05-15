@@ -23,6 +23,10 @@ export interface Translation extends DefaultTranslation {
 
   carousel: string;
   captions: string;
+  // Date picker (optional so existing locales don't need updates; falls back to English)
+  chooseMonth?: string;
+  chooseYear?: string;
+  chooseDecade?: string;
   clearEntry: string;
   close: string;
   createOption: (value: string) => string;
@@ -41,8 +45,11 @@ export interface Translation extends DefaultTranslation {
   loading: string;
   moreOptions: string;
   mute: string;
+  nextDecade?: string;
+  nextMonth?: string;
   nextSlide: string;
   nextVideo: string;
+  nextYear?: string;
   numCharacters: (num: number) => string;
   numCharactersRemaining: (num: number) => string;
   numOptionsSelected: (num: number) => string;
@@ -53,8 +60,11 @@ export interface Translation extends DefaultTranslation {
   playAnimation: string;
   playbackSpeed: string;
   playlist: string;
+  previousDecade?: string;
+  previousMonth?: string;
   previousSlide: string;
   previousVideo: string;
+  previousYear?: string;
   progress: string;
   remove: string;
   resize: string;
@@ -64,6 +74,7 @@ export interface Translation extends DefaultTranslation {
   selectAColorFromTheScreen: string;
   showPassword: string;
   slideNum: (slide: number) => string;
+  today?: string;
   toggleColorFormat: string;
   seek: string;
   seekProgress: (current: string, duration: string) => string;

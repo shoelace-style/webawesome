@@ -7,6 +7,9 @@ const translation: Translation = {
   $dir: 'ltr',
   carousel: 'कैरोसेल',
   captions: 'कैप्शन',
+  chooseDecade: 'दशक चुनें',
+  chooseMonth: 'महीना चुनें',
+  chooseYear: 'वर्ष चुनें',
   clearEntry: 'प्रविष्टि साफ़ करें',
   createOption: value => `"${value}" बनाएँ`,
   close: 'बंद करें',
@@ -25,8 +28,11 @@ const translation: Translation = {
   loading: 'लोड हो रहा है',
   moreOptions: 'अधिक विकल्प',
   mute: 'म्यूट',
+  nextDecade: 'अगला दशक',
+  nextMonth: 'अगला महीना',
   nextSlide: 'अगली स्लाइड',
   nextVideo: 'अगला वीडियो',
+  nextYear: 'अगला वर्ष',
   numCharacters: num => {
     if (num === 1) return '1 अक्षर';
     return `${num} अक्षर`;
@@ -47,8 +53,11 @@ const translation: Translation = {
   playbackSpeed: 'प्लेबैक गति',
   playlist: 'प्लेलिस्ट',
   playAnimation: 'एनिमेशन चलाएं',
+  previousDecade: 'पिछला दशक',
+  previousMonth: 'पिछला महीना',
   previousSlide: 'पिछली स्लाइड',
   previousVideo: 'पिछला वीडियो',
+  previousYear: 'पिछला वर्ष',
   progress: 'प्रगति',
   remove: 'हटाएं',
   resize: 'आकार बदलें',

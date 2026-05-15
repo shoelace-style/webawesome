@@ -8,6 +8,9 @@ const translation: Translation = {
 
   carousel: 'Atlıkarınca',
   captions: 'Altyazılar',
+  chooseDecade: 'On yıl seçin',
+  chooseMonth: 'Ay seçin',
+  chooseYear: 'Yıl seçin',
   clearEntry: 'Girişi sil',
   createOption: value => `"${value}" oluştur`,
   close: 'Kapat',
@@ -26,8 +29,11 @@ const translation: Translation = {
   loading: 'Yükleme',
   moreOptions: 'Daha fazla seçenek',
   mute: 'Sesi kapat',
+  nextDecade: 'Sonraki on yıl',
+  nextMonth: 'Sonraki ay',
   nextSlide: 'Sonraki slayt',
   nextVideo: 'Sonraki video',
+  nextYear: 'Sonraki yıl',
   numCharacters: num => {
     if (num === 1) return '1 karakter';
     return `${num} karakter`;
@@ -48,8 +54,11 @@ const translation: Translation = {
   playbackSpeed: 'Oynatma hızı',
   playlist: 'Oynatma listesi',
   playAnimation: 'Animasyonu oynat',
+  previousDecade: 'Önceki on yıl',
+  previousMonth: 'Önceki ay',
   previousSlide: 'Bir onceki slayt',
   previousVideo: 'Önceki video',
+  previousYear: 'Önceki yıl',
   progress: 'İlerleme',
   remove: 'Kaldır',
   resize: 'Yeniden boyutlandır',

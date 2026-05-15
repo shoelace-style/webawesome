@@ -8,6 +8,9 @@ const translation: Translation = {
 
   carousel: 'Karusel',
   captions: 'Titulky',
+  chooseDecade: 'Vyberte desetiletí',
+  chooseMonth: 'Vyberte měsíc',
+  chooseYear: 'Vyberte rok',
   clearEntry: 'Smazat položku',
   createOption: value => `Vytvořit "${value}"`,
   close: 'Zavřít',
@@ -26,8 +29,11 @@ const translation: Translation = {
   loading: 'Nahrává se',
   moreOptions: 'Další možnosti',
   mute: 'Ztlumit',
+  nextDecade: 'Další desetiletí',
+  nextMonth: 'Další měsíc',
   nextSlide: 'Další slide',
   nextVideo: 'Další video',
+  nextYear: 'Další rok',
   numCharacters: num => {
     if (num === 1) return '1 znak';
     if (num >= 2 && num <= 4) return `${num} znaky`;
@@ -50,8 +56,11 @@ const translation: Translation = {
   playbackSpeed: 'Rychlost přehrávání',
   playlist: 'Playlist',
   playAnimation: 'Přehrát animaci',
+  previousDecade: 'Předchozí desetiletí',
+  previousMonth: 'Předchozí měsíc',
   previousSlide: 'Předchozí slide',
   previousVideo: 'Předchozí video',
+  previousYear: 'Předchozí rok',
   progress: 'Průběh',
   remove: 'Odstranit',
   resize: 'Změnit velikost',

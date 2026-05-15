@@ -8,6 +8,9 @@ const translation: Translation = {
 
   carousel: 'Karuselli',
   captions: 'Tekstitys',
+  chooseDecade: 'Valitse vuosikymmen',
+  chooseMonth: 'Valitse kuukausi',
+  chooseYear: 'Valitse vuosi',
   clearEntry: 'Poista merkintä',
   createOption: value => `Luo "${value}"`,
   close: 'Sulje',
@@ -26,8 +29,11 @@ const translation: Translation = {
   loading: 'Ladataan',
   moreOptions: 'Lisää vaihtoehtoja',
   mute: 'Mykistä',
+  nextDecade: 'Seuraava vuosikymmen',
+  nextMonth: 'Seuraava kuukausi',
   nextSlide: 'Seuraava dia',
   nextVideo: 'Seuraava video',
+  nextYear: 'Seuraava vuosi',
   numCharacters: num => {
     if (num === 1) return '1 merkki';
     return `${num} merkkiä`;
@@ -48,8 +54,11 @@ const translation: Translation = {
   playbackSpeed: 'Toistonopeus',
   playlist: 'Soittolista',
   playAnimation: 'Toista animaatio',
+  previousDecade: 'Edellinen vuosikymmen',
+  previousMonth: 'Edellinen kuukausi',
   previousSlide: 'Edellinen dia',
   previousVideo: 'Edellinen video',
+  previousYear: 'Edellinen vuosi',
   progress: 'Edistyminen',
   remove: 'Poista',
   resize: 'Muuta kokoa',

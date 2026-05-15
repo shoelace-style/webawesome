@@ -8,6 +8,9 @@ const translation: Translation = {
 
   carousel: 'Carrousel',
   captions: 'Ondertiteling',
+  chooseDecade: 'Decennium kiezen',
+  chooseMonth: 'Maand kiezen',
+  chooseYear: 'Jaar kiezen',
   clearEntry: 'Invoer wissen',
   createOption: value => `"${value}" aanmaken`,
   close: 'Sluiten',
@@ -26,8 +29,11 @@ const translation: Translation = {
   loading: 'Bezig met laden',
   moreOptions: 'Meer opties',
   mute: 'Dempen',
+  nextDecade: 'Volgend decennium',
+  nextMonth: 'Volgende maand',
   nextSlide: 'Volgende dia',
   nextVideo: 'Volgende video',
+  nextYear: 'Volgend jaar',
   numCharacters: num => {
     if (num === 1) return '1 teken';
     return `${num} tekens`;
@@ -48,8 +54,11 @@ const translation: Translation = {
   playbackSpeed: 'Afspeelsnelheid',
   playlist: 'Afspeellijst',
   playAnimation: 'Animatie afspelen',
+  previousDecade: 'Vorig decennium',
+  previousMonth: 'Vorige maand',
   previousSlide: 'Vorige dia',
   previousVideo: 'Vorige video',
+  previousYear: 'Vorig jaar',
   progress: 'Voortgang',
   remove: 'Verwijderen',
   resize: 'Formaat wijzigen',

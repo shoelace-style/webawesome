@@ -8,6 +8,9 @@ const translation: Translation = {
 
   carousel: 'Карусель',
   captions: 'Субтитры',
+  chooseDecade: 'Выбрать десятилетие',
+  chooseMonth: 'Выбрать месяц',
+  chooseYear: 'Выбрать год',
   clearEntry: 'Очистить запись',
   createOption: value => `Создать «${value}»`,
   close: 'Закрыть',
@@ -26,8 +29,11 @@ const translation: Translation = {
   loading: 'Загрузка',
   moreOptions: 'Дополнительные параметры',
   mute: 'Выключить звук',
+  nextDecade: 'Следующее десятилетие',
+  nextMonth: 'Следующий месяц',
   nextSlide: 'Следующий слайд',
   nextVideo: 'Следующее видео',
+  nextYear: 'Следующий год',
   numCharacters: num => {
     const mod10 = num % 10;
     const mod100 = num % 100;
@@ -54,8 +60,11 @@ const translation: Translation = {
   playbackSpeed: 'Скорость воспроизведения',
   playlist: 'Плейлист',
   playAnimation: 'Воспроизвести анимацию',
+  previousDecade: 'Предыдущее десятилетие',
+  previousMonth: 'Предыдущий месяц',
   previousSlide: 'Предыдущий слайд',
   previousVideo: 'Предыдущее видео',
+  previousYear: 'Предыдущий год',
   progress: 'Прогресс',
   remove: 'Удалить',
   resize: 'Изменить размер',

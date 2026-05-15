@@ -8,6 +8,9 @@ const translation: Translation = {
 
   carousel: 'קרוסלה',
   captions: 'כתוביות',
+  chooseDecade: 'בחר עשור',
+  chooseMonth: 'בחר חודש',
+  chooseYear: 'בחר שנה',
   clearEntry: 'נקה קלט',
   createOption: value => `יצירת "${value}"`,
   close: 'סגור',
@@ -26,8 +29,11 @@ const translation: Translation = {
   loading: 'טוען',
   moreOptions: 'אפשרויות נוספות',
   mute: 'השתקה',
+  nextDecade: 'העשור הבא',
+  nextMonth: 'החודש הבא',
   nextSlide: 'השקף הבא',
   nextVideo: 'הסרטון הבא',
+  nextYear: 'השנה הבאה',
   numCharacters: num => {
     if (num === 1) return '1 תו';
     return `${num} תווים`;
@@ -48,8 +54,11 @@ const translation: Translation = {
   playbackSpeed: 'מהירות הפעלה',
   playlist: 'רשימת השמעה',
   playAnimation: 'נגן אנימציה',
+  previousDecade: 'העשור הקודם',
+  previousMonth: 'החודש הקודם',
   previousSlide: 'שקופית קודמת',
   previousVideo: 'הסרטון הקודם',
+  previousYear: 'השנה הקודמת',
   progress: 'התקדמות',
   remove: 'לְהַסִיר',
   resize: 'שנה גודל',

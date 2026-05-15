@@ -8,6 +8,9 @@ const translation: Translation = {
 
   carousel: 'Карусель',
   captions: 'Субтитрлер',
+  chooseDecade: 'Онжылдықты таңдау',
+  chooseMonth: 'Айды таңдау',
+  chooseYear: 'Жылды таңдау',
   clearEntry: 'Жазбаны жою',
   createOption: value => `"${value}" жасау`,
   close: 'Жабу',
@@ -26,8 +29,11 @@ const translation: Translation = {
   loading: 'Жүктелуде',
   moreOptions: 'Қосымша опциялар',
   mute: 'Дыбысты өшіру',
+  nextDecade: 'Келесі онжылдық',
+  nextMonth: 'Келесі ай',
   nextSlide: 'Келесі слайд',
   nextVideo: 'Келесі бейне',
+  nextYear: 'Келесі жыл',
   numCharacters: num => {
     if (num === 1) return '1 таңба';
     return `${num} таңба`;
@@ -49,8 +55,11 @@ const translation: Translation = {
   playbackSpeed: 'Ойнату жылдамдығы',
   playlist: 'Ойнату тізімі',
   playAnimation: 'Анимацияны ойнату',
+  previousDecade: 'Алдыңғы онжылдық',
+  previousMonth: 'Алдыңғы ай',
   previousSlide: 'Алдыңғы слайд',
   previousVideo: 'Алдыңғы бейне',
+  previousYear: 'Алдыңғы жыл',
   progress: 'Прогресс',
   remove: 'Жою',
   resize: 'Өлшемін өзгерту',

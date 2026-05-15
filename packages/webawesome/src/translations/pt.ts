@@ -8,6 +8,9 @@ const translation: Translation = {
 
   carousel: 'Carrossel',
   captions: 'Legendas',
+  chooseDecade: 'Escolher década',
+  chooseMonth: 'Escolher mês',
+  chooseYear: 'Escolher ano',
   clearEntry: 'Limpar entrada',
   createOption: value => `Criar "${value}"`,
   close: 'Fechar',
@@ -26,8 +29,11 @@ const translation: Translation = {
   loading: 'Carregando',
   moreOptions: 'Mais opções',
   mute: 'Sem som',
+  nextDecade: 'Próxima década',
+  nextMonth: 'Próximo mês',
   nextSlide: 'Próximo slide',
   nextVideo: 'Próximo vídeo',
+  nextYear: 'Próximo ano',
   numCharacters: num => {
     if (num === 1) return '1 caractere';
     return `${num} caracteres`;
@@ -48,8 +54,11 @@ const translation: Translation = {
   playbackSpeed: 'Velocidade de reprodução',
   playlist: 'Lista de reprodução',
   playAnimation: 'Reproduzir animação',
+  previousDecade: 'Década anterior',
+  previousMonth: 'Mês anterior',
   previousSlide: 'Slide anterior',
   previousVideo: 'Vídeo anterior',
+  previousYear: 'Ano anterior',
   progress: 'Progresso',
   remove: 'Remover',
   resize: 'Mudar o tamanho',

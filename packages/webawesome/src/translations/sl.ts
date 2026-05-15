@@ -8,6 +8,9 @@ const translation: Translation = {
 
   carousel: 'Vrtiljak',
   captions: 'Podnapisi',
+  chooseDecade: 'Izberite desetletje',
+  chooseMonth: 'Izberite mesec',
+  chooseYear: 'Izberite leto',
   clearEntry: 'Počisti vnos',
   createOption: value => `Ustvari "${value}"`,
   close: 'Zapri',
@@ -26,8 +29,11 @@ const translation: Translation = {
   loading: 'Nalaganje',
   moreOptions: 'Več možnosti',
   mute: 'Utišaj',
+  nextDecade: 'Naslednje desetletje',
+  nextMonth: 'Naslednji mesec',
   nextSlide: 'Naslednji diapozitiv',
   nextVideo: 'Naslednji videoposnetek',
+  nextYear: 'Naslednje leto',
   numCharacters: num => {
     const mod100 = num % 100;
     if (mod100 === 1) return `${num} znak`;
@@ -56,8 +62,11 @@ const translation: Translation = {
   playbackSpeed: 'Hitrost predvajanja',
   playlist: 'Seznam predvajanja',
   playAnimation: 'Predvajaj animacijo',
+  previousDecade: 'Prejšnje desetletje',
+  previousMonth: 'Prejšnji mesec',
   previousSlide: 'Prejšnji diapozitiv',
   previousVideo: 'Prejšnji videoposnetek',
+  previousYear: 'Prejšnje leto',
   progress: 'Napredek',
   remove: 'Odstrani',
   resize: 'Spremeni velikost',

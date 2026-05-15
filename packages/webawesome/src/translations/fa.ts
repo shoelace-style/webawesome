@@ -8,6 +8,9 @@ const translation: Translation = {
 
   carousel: 'چرخ‌فلک',
   captions: 'زیرنویس',
+  chooseDecade: 'انتخاب دهه',
+  chooseMonth: 'انتخاب ماه',
+  chooseYear: 'انتخاب سال',
   clearEntry: 'پاک کردن ورودی',
   createOption: value => `ایجاد "${value}"`,
   close: 'بستن',
@@ -26,8 +29,11 @@ const translation: Translation = {
   loading: 'بارگزاری',
   moreOptions: 'گزینه‌های بیشتر',
   mute: 'بی‌صدا',
+  nextDecade: 'دهه بعد',
+  nextMonth: 'ماه بعد',
   nextSlide: 'اسلاید بعدی',
   nextVideo: 'ویدیوی بعدی',
+  nextYear: 'سال بعد',
   numCharacters: num => {
     if (num === 1) return '1 نویسه';
     return `${num} نویسه`;
@@ -47,8 +53,11 @@ const translation: Translation = {
   playbackSpeed: 'سرعت پخش',
   playlist: 'لیست پخش',
   playAnimation: 'پخش انیمیشن',
+  previousDecade: 'دهه قبل',
+  previousMonth: 'ماه قبل',
   previousSlide: 'اسلاید قبلی',
   previousVideo: 'ویدیوی قبلی',
+  previousYear: 'سال قبل',
   progress: 'پیشرفت',
   remove: 'حذف',
   resize: 'تغییر اندازه',

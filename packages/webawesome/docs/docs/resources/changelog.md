@@ -14,6 +14,7 @@ Components with the <wa-badge variant="warning">Experimental</wa-badge> badge sh
 
 <small>TBD</small>
 
+- Added the experimental `<wa-calendar>` component
 - Added `--wa-button-transform-hover` and `--wa-button-transform-active` design tokens
 - Added the `wa-text-wrap-nowrap` text utility class for preventing text from wrapping
 - Added the `wa-text-wrap-balance` text utility class for evenly distributing text across lines

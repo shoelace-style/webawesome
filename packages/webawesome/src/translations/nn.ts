@@ -8,6 +8,9 @@ const translation: Translation = {
 
   carousel: 'Karusell',
   captions: 'Teksting',
+  chooseDecade: 'Vel tiår',
+  chooseMonth: 'Vel månad',
+  chooseYear: 'Vel år',
   clearEntry: 'Tøm felt',
   createOption: value => `Opprett "${value}"`,
   close: 'Lukk',
@@ -26,8 +29,11 @@ const translation: Translation = {
   loading: 'Lastar',
   moreOptions: 'Fleire alternativ',
   mute: 'Demp lyd',
+  nextDecade: 'Neste tiår',
+  nextMonth: 'Neste månad',
   nextSlide: 'Neste visning',
   nextVideo: 'Neste video',
+  nextYear: 'Neste år',
   numCharacters: num => {
     if (num === 1) return '1 teikn';
     return `${num} teikn`;
@@ -48,8 +54,11 @@ const translation: Translation = {
   playbackSpeed: 'Avspelingshastigheit',
   playlist: 'Speljeliste',
   playAnimation: 'Spel av animasjon',
+  previousDecade: 'Førre tiår',
+  previousMonth: 'Førre månad',
   previousSlide: 'Førre visning',
   previousVideo: 'Førre video',
+  previousYear: 'Førre år',
   progress: 'Framdrift',
   remove: 'Fjern',
   resize: 'Endre storleik',

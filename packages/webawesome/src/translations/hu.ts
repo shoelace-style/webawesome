@@ -8,6 +8,9 @@ const translation: Translation = {
 
   carousel: 'Körhinta',
   captions: 'Feliratok',
+  chooseDecade: 'Évtized kiválasztása',
+  chooseMonth: 'Hónap kiválasztása',
+  chooseYear: 'Év kiválasztása',
   clearEntry: 'Bejegyzés törlése',
   createOption: value => `„${value}" létrehozása`,
   close: 'Bezárás',
@@ -26,8 +29,11 @@ const translation: Translation = {
   loading: 'Betöltés',
   moreOptions: 'További lehetőségek',
   mute: 'Elnémítás',
+  nextDecade: 'Következő évtized',
+  nextMonth: 'Következő hónap',
   nextSlide: 'Következő dia',
   nextVideo: 'Következő videó',
+  nextYear: 'Következő év',
   numCharacters: num => {
     if (num === 1) return '1 karakter';
     return `${num} karakter`;
@@ -48,8 +54,11 @@ const translation: Translation = {
   playbackSpeed: 'Lejátszási sebesség',
   playlist: 'Lejátszási lista',
   playAnimation: 'Animáció lejátszása',
+  previousDecade: 'Előző évtized',
+  previousMonth: 'Előző hónap',
   previousSlide: 'Előző dia',
   previousVideo: 'Előző videó',
+  previousYear: 'Előző év',
   progress: 'Folyamat',
   remove: 'Eltávolítás',
   resize: 'Átméretezés',

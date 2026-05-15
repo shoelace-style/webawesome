@@ -8,6 +8,9 @@ const translation: Translation = {
 
   carousel: 'Carousel',
   captions: 'Captions',
+  chooseDecade: 'Choose decade',
+  chooseMonth: 'Choose month',
+  chooseYear: 'Choose year',
   clearEntry: 'Clear entry',
   close: 'Close',
   createOption: value => `Create "${value}"`,
@@ -26,8 +29,11 @@ const translation: Translation = {
   loading: 'Loading',
   moreOptions: 'More Options',
   mute: 'Mute',
+  nextDecade: 'Next decade',
+  nextMonth: 'Next month',
   nextSlide: 'Next slide',
   nextVideo: 'Next Video',
+  nextYear: 'Next year',
   numCharacters: num => {
     if (num === 1) return '1 character';
     return `${num} characters`;
@@ -48,8 +54,11 @@ const translation: Translation = {
   playbackSpeed: 'Playback speed',
   playlist: 'Playlist',
   playAnimation: 'Play animation',
+  previousDecade: 'Previous decade',
+  previousMonth: 'Previous month',
   previousSlide: 'Previous slide',
   previousVideo: 'Previous video',
+  previousYear: 'Previous year',
   progress: 'Progress',
   remove: 'Remove',
   resize: 'Resize',
@@ -59,6 +68,7 @@ const translation: Translation = {
   selectAColorFromTheScreen: 'Select a color from the screen',
   showPassword: 'Show password',
   slideNum: slide => `Slide ${slide}`,
+  today: 'Today',
   toggleColorFormat: 'Toggle color format',
   seek: 'Seek',
   seekProgress: (current, duration) => `${current} of ${duration}`,
