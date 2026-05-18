@@ -26,36 +26,257 @@ You can customize the look and feel of Web Awesome at a high level with themes. 
 
 Web Awesome uses [themes](/docs/themes) to apply a cohesive look and feel across the entire library. Themes are built with a collection of predefined CSS custom properties, which we call [design tokens](/docs/tokens), and there are many pre-built themes to choose from.
 
+### Use a Pre-Built Theme
+
 {% raw %}
+
   <p>
-    To use a pre-built theme {%- if currentUser.hasPro -%}&nbsp;or build your own{%- endif -%},&nbsp;
     {%- if not session.isLoggedIn -%}
-      <a href="/signup">sign up</a> or <a href="/login">log in</a> to create a project.&nbsp;
+      <a href="/signup">Sign up</a> or <a href="/login">log in</a> to create a project, then follow the steps below.
     {%- else -%}
-      head over to <a href="/teams">your teams</a> and open up the project you'd like to use.&nbsp;
-    {%- endif -%}
-    In your project's <wa-icon name="gear" variant="regular"></wa-icon> <strong>Settings</strong>,&nbsp;
-    {%- if not currentUser.hasPro -%}
-      select a <wa-icon name="paintbrush" variant="regular"></wa-icon> <strong>Theme</strong> and a <wa-icon name="swatchbook" variant="regular"></wa-icon> <strong>Color Palette</strong> to use, save your changes, and bask in the glory of your new theme.
-    {%- else -%}
-      <wa-icon name="paintbrush" variant="regular"></wa-icon> <strong>Edit Your Theme</strong> to open the Theme Builder and select a pre-built theme or customize your colors, fonts, icons, and more.
+      Head over to <a href="/teams">your teams</a> and open up the project you'd like to theme.
     {%- endif -%}
   </p>
 {% endraw %}
 
-For even more customizations, you can off-road and override any theme just with CSS — no preprocessor required. All design tokens are prefixed with `--wa-` to avoid collisions with other libraries and your own custom properties. Simply style any design token in your own stylesheet by scoping your styles to `:root` and the class for the relevant color scheme (if needed). Here's an example that uses tinted surface colors in light mode:
+<div class="hosted-project-instructions">
+  <div class="instruction-group wa-stack wa-gap-2xs">
+    <h4 class="wa-heading-m" data-no-anchor data-no-outline>
+      Free Workspace Projects
+    </h4>
+    <table class="wa-hover-rows">
+      <thead>
+        <tr>
+          <th scope="col">Step</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Go to your project's <wa-icon name="gear" variant="regular"></wa-icon> <strong>Settings</strong>.</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Find <strong>Theme</strong> and select <wa-icon name="paintbrush" variant="regular"></wa-icon> the theme you'd like to use.</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Find <strong>Color Palette</strong> and select <wa-icon name="swatchbook" variant="regular"></wa-icon> the palette you'd like to use.</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>Save your changes to immediately update anywhere you're using your project.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="instruction-group wa-stack wa-gap-2xs">
+    <h4 class="wa-heading-m" data-no-anchor data-no-outline>
+      Pro Workspace Projects
+    </h4>
+    <table class="wa-hover-rows">
+      <thead>
+        <tr>
+          <th scope="col">Step</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Go to your project's <wa-icon name="gear" variant="regular"></wa-icon> <strong>Settings</strong>.</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Press <wa-icon name="paintbrush" variant="regular"></wa-icon> <strong>Edit Your Theme</strong> to open the Theme Builder.</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Select a pre-built theme or customize colors, fonts, icons, and more.</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>Save your theme to immediately update anywhere you're using your project.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+### Light and Dark Mode
+
+Every theme is designed to adapt to light and dark mode. Light mode styles are applied by default, but you can apply a specific color scheme to an entire page or just a section with `class="wa-light"` or `class="wa-dark"`.
+
+```html {.example}
+{% include 'theming/light-dark-example.njk' %}
+```
+
+#### Inverting the Color Scheme
+
+You can force a section to behave like `.wa-dark` in light mode and like `.wa-light` in dark mode by using `class="wa-invert"`.
+
+```html {.example}
+<p>This card will always use the opposite of the color scheme applied to the docs.</p>
+
+<wa-card class="wa-invert">
+  <div slot="header" class="wa-split wa-color-text-quiet">
+    <h4 class="wa-heading-s">Invert</h4>
+    <wa-icon name="swap"></wa-icon>
+  </div>
+  <div class="wa-flank:end wa-align-items-end">
+    <wa-select label="Location" value="upside-down">
+      <wa-option value="lab">Hawkins Lab</wa-option>
+      <wa-option value="mall">Starcourt Mall</wa-option>
+      <wa-option value="upside-down">The Upside Down</wa-option>
+    </wa-select>
+    <wa-button id="go-button" appearance="filled" variant="brand">
+      <wa-icon label="Go" name="person-to-portal" family="duotone"></wa-icon>
+    </wa-button>
+    <wa-tooltip for="go-button"> Go! </wa-tooltip>
+  </div>
+</wa-card>
+```
+
+#### Detecting Color Scheme Preference
+
+While both light and dark mode styles are built-in to all themes, Web Awesome doesn't automatically detect the user's color scheme preference. We recommend doing this at the application level.
+
+Follow these best practices for supporting both light and dark mode:
+
+- Check for [`prefers-color-scheme`](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/At-rules/@media/prefers-color-scheme) and use its value by default
+- Allow the user to override this setting in your app
+- Remember the user's preference and restore it on subsequent visits
+
+Let's assume you have a button with `id="color-scheme-button"` that simply toggles between light and dark mode. You can use the following JS snippet to apply `class="wa-dark"` to the `<html>` element accordingly:
+
+```js
+// Function to apply color scheme
+function applyScheme(dark) {
+  document.documentElement.classList.toggle('wa-dark', dark);
+}
+
+// Function to get the user's preferred color scheme
+// Grabs from local storage if available or falls back to system preference
+function getPreferredScheme() {
+  const savedMode = localStorage.getItem('wa-color-scheme');
+  if (savedMode !== null) return savedMode === 'dark';
+  return window.matchMedia('(prefers-color-scheme: dark)').matches;
+}
+
+// Apply the preferred color scheme on load
+applyScheme(getPreferredScheme());
+
+// Listen for changes in system preference
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+  // If nothing in local storage, update accordingly
+  const savedMode = localStorage.getItem('wa-color-scheme');
+  if (!savedMode) {
+    applyScheme(event.matches);
+  }
+});
+
+// Listen for clicks on the color scheme button
+document.getElementById('color-scheme-button').addEventListener('click', () => {
+  const toDark = !document.documentElement.classList.contains('wa-dark');
+  applyScheme(toDark);
+  localStorage.setItem('wa-color-scheme', toDark ? 'dark' : 'light');
+});
+```
+
+### Customizing with CSS
+
+For even more customizations, you can off-road and override any theme just with CSS — no preprocessor required. All tokens use the `--wa-` prefix to prevent collisions with other libraries. Write a stylesheet that overrides Web Awesome's [design tokens](/docs/tokens) — no preprocessor needed.
+
+Here's a starter that tweaks fonts, spacing, and corner radius across both color schemes:
 
 ```css
-:root,
+/* Custom CSS — applies to both light and dark mode */
+:where(:root),
 .wa-light,
-.wa-dark .wa-invert {
-  --wa-color-surface-raised: var(--wa-color-neutral-95);
-  --wa-color-surface-default: var(--wa-color-neutral-90);
-  --wa-color-surface-lowered: var(--wa-color-neutral-80);
+.wa-dark,
+.wa-invert {
+  --wa-font-family-body: 'Inter', sans-serif;
+  --wa-font-family-heading: 'Crimson Pro', serif;
+  --wa-border-radius-scale: 1.5;
+  --wa-space-scale: 1.125;
 }
 ```
 
+To create your own light mode styles, scope your styles to the following selectors:
+
+```css
+:where(:root),
+.wa-light,
+.wa-dark .wa-invert {
+  /* your styles here */
+}
+```
+
+To create your own dark mode styles, scope your styles to these selectors:
+
+```css
+.wa-dark,
+.wa-invert {
+  /* your styles here */
+}
+```
+
+| Selector              | What It Targets                                                                |
+| --------------------- | ------------------------------------------------------------------------------ |
+| `:where(:root)`       | The default scope, with low specificity so other theme classes can override it |
+| `.wa-light`           | Explicit light sections                                                        |
+| `.wa-dark`            | Explicit dark sections                                                         |
+| `.wa-invert`          | Flips the current color scheme on this element                                 |
+| `.wa-dark .wa-invert` | An inverted descendant inside a dark section (becomes light)                   |
+
 For a complete list of all custom properties used for theming, refer to `src/styles/themes/default.css` in the project's source code.
+
+### Using Multiple Themes
+
+You can use multiple themes on a single page as long as the styles for each theme are scoped to a specific class. All pre-built themes are scoped to their own classes. The Default theme is additionally scoped to `:where(:root)` so that the styles are applied automatically.
+
+Simply load the theme stylesheets, then add your preferred classes to each element.
+
+```html {.example}
+<!-- Load each theme's stylesheet -->
+<link rel="stylesheet" href="{% cdnUrl '/styles/themes/awesome.css' %}" />
+<link rel="stylesheet" href="{% cdnUrl '/styles/themes/shoelace.css' %}" />
+
+<wa-callout class="wa-theme-awesome theme-showcase-balanced wa-brand-yellow" style="margin-block-start: 0;">
+  <wa-icon slot="icon" name="face-awesome"></wa-icon>
+  <div class="wa-flank:end">
+    <span>This callout uses <code>wa-theme-awesome</code> and <code>wa-brand-yellow</code>.</span>
+    <wa-button variant="brand" size="s">Yellow Button</wa-button>
+  </div>
+</wa-callout>
+
+<wa-callout class="wa-theme-shoelace wa-brand-cyan">
+  <wa-icon slot="icon" name="shoelace" family="brands"></wa-icon>
+  <div class="wa-flank:end">
+    <span>This callout uses <code>wa-theme-shoelace</code> and <code>wa-brand-cyan</code>.</span>
+    <wa-button variant="brand" size="s">Cyan Button</wa-button>
+  </div>
+</wa-callout>
+```
+
+You can also use multiple variant colors on the same page. **On each element where you change the variant color, also add `wa-theme-*` — even if the theme doesn't change.** Otherwise the theme keeps using its original variant colors.
+
+```html {.example}
+<!-- Add class="wa-theme-default" to each element whose brand color changes -->
+<wa-callout>
+  <div class="wa-stack wa-align-items-start wa-gap-xs">
+    <span>The buttons in this callout use multiple brand colors.</span>
+    <div class="wa-cluster">
+      <wa-button class="wa-theme-default wa-brand-cyan" variant="brand" size="s">Cyan</wa-button>
+      <wa-button class="wa-theme-default wa-brand-indigo" variant="brand" size="s">Indigo</wa-button>
+      <wa-button class="wa-theme-default wa-brand-purple" variant="brand" size="s">Purple</wa-button>
+      <wa-button class="wa-theme-default wa-brand-pink" variant="brand" size="s">Pink</wa-button>
+    </div>
+  </div>
+</wa-callout>
+```
 
 While themes offer a high-level way to customize the library, individual components offer different hooks as a low-level way to customize them one at a time. Web Awesome components use a [shadow DOM](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM) to encapsulate their styles and behaviors. As a result, you can't simply target their internals with the usual CSS selectors. Instead, components expose a set of CSS parts, custom properties, and custom states that can be targeted to customize their appearance.
 

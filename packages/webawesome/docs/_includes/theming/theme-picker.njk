@@ -1,37 +1,30 @@
+{% from "pro-badge.njk" import proBadge %}
+{% from "free-badge.njk" import freeBadge %}
+
 <div id="theme-viewer">
   <wa-radio-group id="theme-picker" label="Theme Selector" value="default" orientation="horizontal">
     {% for theme in themer.themes %}
-      {% if not theme.isPro %}
-        <wa-radio
-          class="theme-card"
-          value="{{ theme.filename | stripExtension }}"
-          data-description="{{ theme.description }}"
-          data-title="{{ theme.name }}"
-          data-palette="{{ theme.palette.filename | stripExtension}}"
-          data-brand="{{ theme.colorBrand.color }}"
-          {% if theme.isPro %}data-is-pro{% endif %}
-        >
-          {{ theme.name }}
-        </wa-radio>
-      {% else %}
-        {% raw %}
-          {% if currentUser.hasPro %}
-        {% endraw %}
-          <wa-radio
-            class="theme-card"
-            value="{{ theme.filename | stripExtension }}"
-            data-description="{{ theme.description }}"
-            data-title="{{ theme.name }}"
-            data-palette="{{ theme.palette.filename | stripExtension}}"
-            data-brand="{{ theme.colorBrand.color }}"
-            {% if theme.isPro %}data-is-pro{% endif %}
-          >
-            {{ theme.name }}
-          </wa-radio>
-        {% raw %}
-          {% endif %}
-        {% endraw %}
-      {% endif %}
+    {% if not theme.isPro %}
+    <wa-radio class="theme-card" value="{{ theme.filename | stripExtension }}"
+      data-description="{{ theme.description }}" data-title="{{ theme.name }}"
+      data-palette="{{ theme.palette.filename | stripExtension}}" data-brand="{{ theme.colorBrand.color }}" {% if
+      theme.isPro %}data-is-pro{% endif %}>
+      {{ theme.name }}
+    </wa-radio>
+    {% else %}
+    {% raw %}
+    {% if currentUser.hasPro %}
+    {% endraw %}
+    <wa-radio class="theme-card" value="{{ theme.filename | stripExtension }}"
+      data-description="{{ theme.description }}" data-title="{{ theme.name }}"
+      data-palette="{{ theme.palette.filename | stripExtension}}" data-brand="{{ theme.colorBrand.color }}" {% if
+      theme.isPro %}data-is-pro{% endif %}>
+      {{ theme.name }}
+    </wa-radio>
+    {% raw %}
+    {% endif %}
+    {% endraw %}
+    {% endif %}
     {% endfor %}
   </wa-radio-group>
 </div>
@@ -46,7 +39,7 @@
     </div>
     <p data-theme-description>Description</p>
   </header>
-  
+
   {% include "theming/theme-viewer.njk" %}
 </div>
 
@@ -118,7 +111,7 @@
   }
 
   // Listen for radio changes
-  themePicker.addEventListener('input', function(event) {
+  themePicker.addEventListener('input', function (event) {
     const selectedRadio = event.target.querySelector(':state(checked)');
     const title = selectedRadio.getAttribute('data-title');
     const description = selectedRadio.getAttribute('data-description');
@@ -153,7 +146,7 @@
     }
   }
 
-  wa-page > main {
+  wa-page>main {
     max-width: 140ch;
     margin-inline: auto;
   }

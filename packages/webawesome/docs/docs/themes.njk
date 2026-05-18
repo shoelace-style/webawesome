@@ -4,28 +4,39 @@ description: Style (and restyle) your website at will with any of Web Awesome's 
 layout: page
 ---
 
-{% from "pro-badge.njk" import proBadge %}
-{% from "free-badge.njk" import freeBadge %}
-
 <h1>{{ title }}</h1>
 
-<p>Themes are collections of <a href="/docs/tokens">design tokens</a> that give a cohesive look and feel to the entire Web Awesome library. Style and restyle your website at will by loading any pre-built theme.</p>
+<p>Themes give your project a cohesive look and feel across the entire Web Awesome library.</p>
 
-{% raw %}
-<p>See one you like?&nbsp;
-{%- if not session.isLoggedIn -%}
-  <a href="/login">Log in</a>&nbsp;
-{%- else -%}
-  Head over to <a href="/teams">your teams</a>&nbsp;
-{%- endif -%}
-to create a project with any one of these themes.
-{%- if not currentUser.hasPro -%}
-  &nbsp;(Plus, there are even more themes to love with {{ site.namePro }}. <wa-icon name="heart" style="color: var(--wa-color-red-70);"></wa-icon>)
-{%- endif -%}
-</p>
-{% endraw %}
+<p>A theme sets typography, spacing, borders, shadows, and how <a href="/docs/tokens/color#variant-colors">variants</a> show up on components — all as <a href="/docs/tokens">design tokens</a>. Two themes can share a <a href="/docs/color-palettes">color palette</a> and <a href="/docs/tokens/color#variant-colors">variant colors</a> and still feel completely different. Each pre-built theme ships with a default palette and may include custom overrides for individual components.</p>
 
 {% include "theming/theme-picker.njk" %}
+
+{% raw %}
+{% if not currentUser or not currentUser.hasPro %}
+{% endraw %}
+  <wa-callout class="pro">
+    <wa-icon slot="icon" name="hand-wave" animation="shake" style="--animation-delay: 2s; --animation-duration: 4s;"></wa-icon>
+    <strong>
+      <a href="/purchase?from=pro-docs&context=themes">Unlock every theme with {{ site.namePro }}!</a>
+    </strong>
+
+    <wa-details appearance="plain">
+      <span slot="summary">Subscribing to {{ site.namePro }} unlocks every theme, plus premium color palettes, the visual Theme Builder, and <u class="appearance-underlined variant-drawn">more</u>.</span>
+
+      <div class="wa-stack wa-gap-xl">
+        {% include "pro-perks.njk" %}
+
+        <wa-button href="/purchase?from=pro-docs&context=themes">
+          Get {{ site.namePro }}
+          <wa-icon slot="end" name="arrow-right"></wa-icon>
+        </wa-button>
+      </div>
+    </wa-details>
+  </wa-callout>
+{% raw %}
+{% endif %}
+{% endraw %}
 
 <h2>Using This Theme</h2>
 

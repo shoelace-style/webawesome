@@ -4,66 +4,55 @@
     <wa-select id="pick-theme" label="Theme" value="default" size="small">
       <wa-badge slot="end" appearance="accent" pill class="pro pro-only-value">Pro</wa-badge>
       {%- for theme in themer.themes -%}
-        {%- if not theme.isPro -%}
-          <wa-option 
-            value="{{ theme.name | lower }}"
-            data-palette="{{ theme.palette.filename | stripExtension}}"
-            data-brand="{{ theme.colorBrand.color }}"
-          >
-            {{ theme.name | capitalize }}
-          </wa-option>
-        {%- endif -%}
+      {%- if not theme.isPro -%}
+      <wa-option value="{{ theme.name | lower }}" data-palette="{{ theme.palette.filename | stripExtension}}"
+        data-brand="{{ theme.colorBrand.color }}">
+        {{ theme.name | capitalize }}
+      </wa-option>
+      {%- endif -%}
       {%- endfor -%}
       <wa-divider></wa-divider>
       {%- for theme in themer.themes -%}
-        {%- if theme.isPro -%}
-          <wa-option 
-            value="{{ theme.name | lower }}"
-            data-palette="{{ theme.palette.filename | stripExtension}}"
-            data-brand="{{ theme.colorBrand.color }}"
-            {% if theme.isPro %}data-is-pro{% endif %}
-          >
-            {{ theme.name | capitalize }}
-          </wa-option>
-        {%- endif -%}
+      {%- if theme.isPro -%}
+      <wa-option value="{{ theme.name | lower }}" data-palette="{{ theme.palette.filename | stripExtension}}"
+        data-brand="{{ theme.colorBrand.color }}" {% if theme.isPro %}data-is-pro{% endif %}>
+        {{ theme.name | capitalize }}
+      </wa-option>
+      {%- endif -%}
       {%- endfor -%}
     </wa-select>
     <wa-select id="pick-palette" label="Color Palette" value="default" size="small">
       <wa-badge slot="end" appearance="accent" pill class="pro pro-only-value">Pro</wa-badge>
       {%- for palette in themer.palettes -%}
-        {%- if not palette.isPro -%}
-          <wa-option 
-            value="{{ palette.name | lower }}"
-          >
-            {{ palette.name | capitalize }}
-          </wa-option>
-        {%- endif -%}
+      {%- if not palette.isPro -%}
+      <wa-option value="{{ palette.name | lower }}">
+        {{ palette.name | capitalize }}
+      </wa-option>
+      {%- endif -%}
       {%- endfor -%}
       <wa-divider></wa-divider>
       {%- for palette in themer.palettes -%}
-        
-        {%- if palette.isPro -%}
-          <wa-option 
-            value="{{ palette.name | lower }}"
-            {% if palette.isPro %}data-is-pro{% endif %}
-          >
-            {{ palette.name | capitalize }}
-          </wa-option>
-        {%- endif -%}
+
+      {%- if palette.isPro -%}
+      <wa-option value="{{ palette.name | lower }}" {% if palette.isPro %}data-is-pro{% endif %}>
+        {{ palette.name | capitalize }}
+      </wa-option>
+      {%- endif -%}
       {%- endfor -%}
     </wa-select>
     <div class="wa-grid">
       {%- set colorVariants = ['brand', 'neutral', 'success', 'warning', 'danger'] -%}
       {%- for colorVariant in colorVariants -%}
-        <wa-select id="pick-{{ colorVariant }}" label="{{ colorVariant | capitalize }}" size="small">
-          <wa-icon slot="start" name="square" class="selected-color"></wa-icon>
-          {%- for color in themer.colors -%}
-            <wa-option value="{{ color }}">
-              {{ color | capitalize }}
-              <wa-icon slot="start" name="square" style="--color: var(--wa-color-{{ color }}); color: var(--color);"></wa-icon>
-            </wa-option>
-          {%- endfor -%}
-        </wa-select>
+      <wa-select id="pick-{{ colorVariant }}" label="{{ colorVariant | capitalize }}" size="small">
+        <wa-icon slot="start" name="square" class="selected-color"></wa-icon>
+        {%- for color in themer.colors -%}
+        <wa-option value="{{ color }}">
+          {{ color | capitalize }}
+          <wa-icon slot="start" name="square"
+            style="--color: var(--wa-color-{{ color }}); color: var(--color);"></wa-icon>
+        </wa-option>
+        {%- endfor -%}
+      </wa-select>
       {%- endfor -%}
     </div>
   </fieldset>
@@ -78,7 +67,9 @@
   <wa-tab-panel name="cdn">
     <wa-callout variant="neutral" id="pro-only-callout">
       <wa-icon slot="icon" name="info-circle" variant="regular"></wa-icon>
-      These options can only be used with a Pro subscription. {% raw %}{% if session.isLoggedIn %}{% endraw %}For instructions unique to your Pro project, open a project from your <a href="/workspaces">workspace</a>.{% raw %}{% endif %}{% endraw %}
+      These options can only be used with a Pro subscription. {% raw %}{% if session.isLoggedIn %}{% endraw %}For
+      instructions unique to your Pro project, open a project from your <a href="/workspaces">workspace</a>.{% raw %}{%
+      endif %}{% endraw %}
     </wa-callout>
     <div class="free-instructions">
       <p>To use these choices, add the following stylesheets from the CDN:</p>
@@ -103,28 +94,84 @@
   </wa-tab-panel>
 
   <wa-tab-panel name="hosted">
-    <div class="wa-stack">
-      <div class="free-instructions">
-        <strong>For projects in <wa-badge appearance="filled" variant="neutral" pill class="free">Free</wa-badge> workspaces:</strong>
-        <ol>
-          <li>Head over to your project's <wa-icon name="gear" variant="regular"></wa-icon> <strong>Settings</strong>.</li>
-          <li>For <strong>Theme</strong>, select <wa-icon name="paintbrush" variant="regular"></wa-icon> <strong class="theme-name"></strong>.</li>
-          <li>For <strong>Color Palette</strong>, select <wa-icon name="swatchbook" variant="regular"></wa-icon> <strong class="palette-name"></strong>.</li>
-          <li>Press <strong>Save Changes</strong> to update anywhere you're using your project.</li>
-          <li class="custom-variants">In your own files, apply the following classes to the <code>&lt;html&gt;</code> element:<br />
-            <pre><code class="variant-classes" class="language-html"></code></pre>
-          </li>
-        </ol>
+    <div class="hosted-project-instructions">
+      <div class="free-instructions instruction-group wa-stack wa-gap-2xs">
+        <h3 class="wa-heading-m" data-no-anchor data-no-outline>
+          Free Workspace Projects
+        </h3>
+        <table class="wa-hover-rows">
+          <thead>
+            <tr>
+              <th scope="col">Step</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Go to your project's <wa-icon name="gear" variant="regular"></wa-icon> <strong>Settings</strong>.</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>For <strong>Theme</strong>, select <wa-icon name="paintbrush" variant="regular"></wa-icon> <strong
+                  class="theme-name"></strong>.</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>For <strong>Color Palette</strong>, select <wa-icon name="swatchbook" variant="regular"></wa-icon>
+                <strong class="palette-name"></strong>.
+              </td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Save your theme to immediately update anywhere you're using your project.</td>
+            </tr>
+            <tr class="custom-variants">
+              <td>5</td>
+              <td>In your own files, apply the following classes to the <code>&lt;html&gt;</code> element:<br />
+                <pre><code class="variant-classes" class="language-html"></code></pre>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <div class="pro-instructions">
-        <strong>For projects in <wa-badge appearance="accent" pill class="pro">Pro</wa-badge> workspaces:</strong>
-        <ol>
-          <li>Head over to your project's <wa-icon name="gear" variant="regular"></wa-icon> <strong>Settings</strong>.</li>
-          <li>Press <wa-icon name="paintbrush" variant="regular"></wa-icon> <strong>Edit Your Theme</strong> to open the Theme Builder.</li>
-          <li>Open <strong>Theme</strong> and select <strong class="theme-name"></strong>.</li>
-          <li>Open <strong>Colors</strong>. On the <strong>Basic</strong> tab, select <strong class="palette-name"></strong>. <span class="custom-variants">On the <strong>Advanced</strong> tab, select your preferred variant colors.</span></li>
-          <li>Press <strong>Save Changes</strong> to update anywhere you're using your project.</li>
-        </ol>
+      <div class="pro-instructions instruction-group wa-stack wa-gap-2xs">
+        <h3 class="wa-heading-m" data-no-anchor data-no-outline>
+          Pro Workspace Projects
+        </h3>
+        <table class="wa-hover-rows">
+          <thead>
+            <tr>
+              <th scope="col">Step</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Go to your project's <wa-icon name="gear" variant="regular"></wa-icon> <strong>Settings</strong>.</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Press <wa-icon name="paintbrush" variant="regular"></wa-icon> <strong>Edit Your Theme</strong> to open
+                the Theme Builder.</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Open <strong>Theme</strong> and select <strong class="theme-name"></strong>.</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Open <strong>Colors</strong>. On the <strong>Basic</strong> tab, select <strong
+                  class="palette-name"></strong>. <span class="custom-variants">On the <strong>Advanced</strong> tab,
+                  select your preferred variant colors.</span></td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>Save your theme to immediately update anywhere you're using your project.</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </wa-tab-panel>
@@ -138,7 +185,7 @@
   const successPicker = document.getElementById('pick-success');
   const warningPicker = document.getElementById('pick-warning');
   const dangerPicker = document.getElementById('pick-danger');
-  
+
   const stylesheetCdnLinks = document.getElementById('stylesheet-cdn-links');
   const stylesheetDistLinks = document.getElementById('stylesheet-dist-links');
   const stylesheetImports = document.getElementById('stylesheet-imports');
@@ -186,7 +233,7 @@
     // Show/hide Pro badge on selected Pro values
     document.querySelectorAll('.pro-only-value').forEach(badge => {
       if ((badge.parentElement.id === 'pick-theme' && proOnlyTheme) ||
-          (badge.parentElement.id === 'pick-palette' && proOnlyPalette)) {
+        (badge.parentElement.id === 'pick-palette' && proOnlyPalette)) {
         badge.style.display = '';
       } else {
         badge.style.display = 'none';
@@ -196,15 +243,15 @@
     // Build stylesheet links
     const cdnLinks = [`<link rel="stylesheet" href="{% cdnUrl 'styles/themes/' %}${theme}.css" />`];
     const distLinks = [`<link rel="stylesheet" href="/dist/styles/themes/${theme}.css" />`];
-    const imports = [`import '@web.awesome.me/webawesome/dist/styles/themes/${theme}.css';`];
-    
+    const imports = [`import '@awesome.me/webawesome/dist/styles/themes/${theme}.css';`];
+
     // Only include palette link if it differs from theme's default
     if (palette !== themeDefaultPalette) {
       cdnLinks.push(`<link rel="stylesheet" href="{% cdnUrl 'styles/color/palettes/' %}${palette}.css" />`);
       distLinks.push(`<link rel="stylesheet" href="/dist/styles/color/palettes/${palette}.css" />`);
-      imports.push(`import '@web.awesome.me/webawesome/dist/styles/color/palettes/${palette}.css';`);
+      imports.push(`import '@awesome.me/webawesome/dist/styles/color/palettes/${palette}.css';`);
     }
-    
+
     stylesheetCdnLinks.textContent = cdnLinks.join('\n');
     stylesheetDistLinks.textContent = distLinks.join('\n');
     stylesheetImports.textContent = imports.join('\n');
@@ -212,12 +259,12 @@
     // Build HTML classes
     const classes = [`wa-theme-${theme}`];
     const variantClasses = [];
-    
+
     // Only include palette class if it differs from theme's default
     if (palette !== themeDefaultPalette) {
       classes.push(`wa-palette-${palette}`);
     }
-    
+
     // Only include color classes if they differ from defaults
     if (brand !== defaultColors.brand) {
       [classes, variantClasses].forEach(classList => classList.push(`wa-brand-${brand}`));
@@ -280,14 +327,14 @@
   }
 
   // Update palette, brand, and instructions when theme picker changes
-  themePicker.addEventListener('input', function() {
+  themePicker.addEventListener('input', function () {
     const selectedOption = themePicker.querySelector(`wa-option[value="${themePicker.value}"]`);
     const palette = selectedOption.getAttribute('data-palette');
     const brand = selectedOption.getAttribute('data-brand');
 
     palettePicker.value = palette;
     brandPicker.value = brand;
-    
+
     updateInstructions();
   });
 

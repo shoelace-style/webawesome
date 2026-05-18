@@ -452,6 +452,15 @@
     }
   }
 
+  /*
+   * Pro badges embedded in running text (markdown prose, tables, etc.).
+   * Pull up from `vertical-align: middle` so the pill sits with cap height.
+   */
+  :is(p, li, td, th, figcaption, dd, blockquote) wa-badge.pro {
+    vertical-align: 0.5em;
+    margin-inline: 0.1em;
+  }
+
   /* pro callout */
   wa-callout.pro {
     margin-block: calc(var(--wa-content-spacing) * 2);
@@ -476,6 +485,22 @@
 
     strong a {
       color: inherit;
+    }
+
+    wa-details {
+      --spacing: 0;
+    }
+
+    wa-details::part(icon) {
+      display: none;
+    }
+
+    wa-details::part(content) {
+      padding-block-start: var(--wa-space-l);
+    }
+
+    wa-details [slot='summary'] u {
+      --underline-color: var(--wa-color-brand);
     }
   }
 
@@ -1047,6 +1072,7 @@
 
   /* #endregion */
   /* #endregion */
+
 
   /* #region resets */
   code.appearance-plain {

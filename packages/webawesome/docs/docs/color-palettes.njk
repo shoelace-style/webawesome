@@ -6,32 +6,53 @@ wide: true
 ---
 
 
-<p class="line-length line-length-xl">
-Color palettes give you a full spectrum of colors to use in your project.
-</p>
+<p>Color palettes give you a full spectrum of colors to use in your project.</p>
 
-<p class="line-length line-length-xl">
-A color palette defines 10 hues, each with a scale of 11 tints. Tints are assigned numbers that correlate to their lightness. While the tints have similar lightness values across palettes, each palette has unique hue shifts and chroma so you can find just the right vibe to your project.
-</p>
-
-<p class="line-length line-length-xl">
-There are 9 specially crafted color palettes; 3 are free to use with an additional 6 available in Web Awesome Pro.
-</p>
+<p>A color palette defines 10 hues — red, orange, yellow, green, cyan, blue, indigo, purple, pink, and gray — each with a scale of 11 tints from <code>05</code> (darkest) to <code>95</code>
+  (lightest) available as <a href="/docs/tokens/color">color design tokens</a>. While the tints have similar
+  lightness values across palettes, each palette has unique hue shifts and chroma so you can find just the right vibe to
+  your project.</p>
 
 {% include "theming/color-palette-picker.njk" %}
+
+{% raw %}
+{% if not currentUser or not currentUser.hasPro %}
+{% endraw %}
+  <wa-callout class="pro">
+    <wa-icon slot="icon" name="hand-wave" animation="shake" style="--animation-delay: 2s; --animation-duration: 4s;"></wa-icon>
+    <strong>
+      <a href="/purchase?from=pro-docs&context=color-palettes">Unlock every color palette with {{ site.namePro }}!</a>
+    </strong>
+
+    <wa-details appearance="plain">
+      <span slot="summary">Subscribing to {{ site.namePro }} unlocks every color palette, plus premium themes, the visual Theme Builder, and <u class="appearance-underlined variant-drawn">more</u>.</span>
+
+      <div class="wa-stack wa-gap-xl">
+        {% include "pro-perks.njk" %}
+
+        <wa-button href="/purchase?from=pro-docs&context=color-palettes">
+          Get {{ site.namePro }}
+          <wa-icon slot="end" name="arrow-right"></wa-icon>
+        </wa-button>
+      </div>
+    </wa-details>
+  </wa-callout>
+{% raw %}
+{% endif %}
+{% endraw %}
 
 <h2>Using This Palette</h2>
 
 <div id="import-code">
   {% for palette in themer.palettes %}
-    <div class="palette-instructions" data-palette="{{ palette.name | lower }}" {% if not loop.first %}hidden{% endif %}>
-      <wa-tab-group data-install-tabs>
-        <wa-tab panel="cdn"><wa-icon name="globe" variant="regular"></wa-icon> CDN</wa-tab>
-        <wa-tab panel="npm"><wa-icon name="box-open" variant="regular"></wa-icon> npm</wa-tab>
-        <wa-tab panel="self-hosted"><wa-icon name="arrow-down-to-line" variant="regular"></wa-icon> Self-Hosted</wa-tab>
-        <wa-tab panel="hosted"><wa-icon name="rocket-launch" variant="regular"></wa-icon> Hosted Projects</wa-tab>
+  <div class="palette-instructions" data-palette="{{ palette.name | lower }}" {% if not loop.first %}hidden{% endif %}>
+    <wa-tab-group data-install-tabs>
+      <wa-tab panel="cdn"><wa-icon name="globe" variant="regular"></wa-icon> CDN</wa-tab>
+      <wa-tab panel="npm"><wa-icon name="box-open" variant="regular"></wa-icon> npm</wa-tab>
+      <wa-tab panel="self-hosted"><wa-icon name="arrow-down-to-line" variant="regular"></wa-icon> Self-Hosted</wa-tab>
+      <wa-tab panel="hosted"><wa-icon name="rocket-launch" variant="regular"></wa-icon> Hosted Projects</wa-tab>
 
-        <wa-tab-panel name="cdn">
+      <wa-tab-panel name="cdn">
 {% if palette.isPro %}
 {% markdown %}
 <wa-callout variant="neutral" size="s">
@@ -55,9 +76,9 @@ Then, apply the following class to the `<html>` element:
 ```
 {% endmarkdown %}
 {% endif %}
-        </wa-tab-panel>
+      </wa-tab-panel>
 
-        <wa-tab-panel name="npm">
+      <wa-tab-panel name="npm">
 {% markdown %}
 After installing <code>@awesome.me/webawesome</code>, import the palette's stylesheet:
 
@@ -71,9 +92,9 @@ Then, apply the following class to the `<html>` element:
 <html class="wa-palette-{{ palette.name | lower }}">
 ```
 {% endmarkdown %}
-        </wa-tab-panel>
+      </wa-tab-panel>
 
-        <wa-tab-panel name="self-hosted">
+      <wa-tab-panel name="self-hosted">
 {% markdown %}
 If you're self-hosting Web Awesome, include the palette's stylesheet from your server:
 
@@ -87,33 +108,116 @@ Then, apply the following class to the `<html>` element:
 <html class="wa-palette-{{ palette.name | lower }}">
 ```
 {% endmarkdown %}
-        </wa-tab-panel>
+      </wa-tab-panel>
 
-        <wa-tab-panel name="hosted">
-{% if palette.isPro %}
-{% markdown %}
-**For projects in <wa-badge appearance="accent" pill class="pro">Pro</wa-badge> workspaces:**
-1. Go to your project's <wa-icon name="gear" variant="regular"></wa-icon> **Settings**.
-2. Press <wa-icon name="paintbrush" variant="regular"></wa-icon> **Edit Your Theme** to open the Theme Builder.
-3. Open **Colors** and select **{{ palette.name | capitalize }}**.
-4. Save your theme to immediately update anywhere you're using your project.
-{% endmarkdown %}
-{% else %}
-{% markdown %}
-**For projects in <wa-badge appearance="filled" variant="neutral" pill class="free">Free</wa-badge> workspaces:**
-1. Go to your project's <wa-icon name="gear" variant="regular"></wa-icon> **Settings**.
-2. Find **Color Palette**. Select <wa-icon name="swatchbook" variant="regular"></wa-icon> **{{ palette.name | capitalize }}**.
-3. Save your theme to immediately update anywhere you're using your project.
+      <wa-tab-panel name="hosted">
+        <div class="hosted-project-instructions">
+          {% if palette.isPro %}
+          <div class="instruction-group wa-stack wa-gap-2xs">
+            <h3 class="wa-heading-m">
+              Pro Workspace Projects
+            </h3>
+            <table class="wa-hover-rows">
+              <thead>
+                <tr>
+                  <th scope="col">Step</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Go to your project's <wa-icon name="gear" variant="regular"></wa-icon> <strong>Settings</strong>.
+                  </td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Press <wa-icon name="paintbrush" variant="regular"></wa-icon> <strong>Edit Your Theme</strong> to
+                    open
+                    the Theme Builder.</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>Open <strong>Colors</strong> and select <strong>{{ palette.name | capitalize }}</strong>.</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>Save your theme to immediately update anywhere you're using your project.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          {% else %}
+          <div class="instruction-group wa-stack wa-gap-2xs">
+            <h3 class="wa-heading-m" data-no-anchor data-no-outline>
+              Free Workspace Projects
+            </h3>
+            <table class="wa-hover-rows">
+              <thead>
+                <tr>
+                  <th scope="col">Step</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Go to your project's <wa-icon name="gear" variant="regular"></wa-icon> <strong>Settings</strong>.
+                  </td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Find <strong>Color Palette</strong>. Select <wa-icon name="swatchbook"
+                      variant="regular"></wa-icon>
+                    <strong>{{ palette.name | capitalize }}</strong>.
+                  </td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>Save your theme to immediately update anywhere you're using your project.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
-**For projects in <wa-badge appearance="accent" pill class="pro">Pro</wa-badge> workspaces:**
-1. Go to your project's <wa-icon name="gear" variant="regular"></wa-icon> **Settings**.
-2. Press <wa-icon name="paintbrush" variant="regular"></wa-icon> **Edit Your Theme** to open the Theme Builder.
-3. Open **Colors** and select **{{ palette.name | capitalize }}**.
-4. Save your theme to immediately update anywhere you're using your project.
-{% endmarkdown %}
-{% endif %}
-        </wa-tab-panel>
-      </wa-tab-group>
-    </div>
+          <div class="instruction-group wa-stack wa-gap-2xs">
+            <h3 class="wa-heading-m" data-no-anchor data-no-outline>
+              Pro Workspace Projects
+            </h3>
+            <table class="wa-hover-rows">
+              <thead>
+                <tr>
+                  <th scope="col">Step</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Go to your project's <wa-icon name="gear" variant="regular"></wa-icon> <strong>Settings</strong>.
+                  </td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Press <wa-icon name="paintbrush" variant="regular"></wa-icon> <strong>Edit Your Theme</strong> to
+                    open
+                    the Theme Builder.</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>Open <strong>Colors</strong> and select <strong>{{ palette.name | capitalize }}</strong>.</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>Save your theme to immediately update anywhere you're using your project.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          {% endif %}
+        </div>
+      </wa-tab-panel>
+    </wa-tab-group>
+  </div>
   {% endfor %}
 </div>
