@@ -16,6 +16,12 @@ These are still finding their shape. APIs can change between minor versions, so 
 
 ## Unreleased
 
+:::added
+
+- Added the `capture` attribute to `<wa-file-input>` for capturing media directly from a device's camera or microphone [discuss:2380]
+
+:::
+
 :::fixed
 
 - Fixed a bug in `<wa-video>` where  the `timeupdate` method was not emitting when seeking or scrubbing the timeline [issue:2393]
