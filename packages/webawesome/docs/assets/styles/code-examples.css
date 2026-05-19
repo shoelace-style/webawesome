@@ -1,12 +1,13 @@
 .code-example {
   --code-example-panel-radius: calc(var(--wa-panel-border-radius) - var(--wa-panel-border-width));
   --code-example-resizer-width: 1.75rem;
+  --code-example-border: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
   --code-example-preview-padding-block: var(--wa-space-xl);
   --code-example-preview-padding-inline-start: var(--wa-space-xl);
   --code-example-preview-padding-inline-end: calc(var(--wa-space-xl) + var(--code-example-resizer-width));
 
   background: var(--wa-color-surface-lowered);
-  border: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
+  border: var(--code-example-border);
   border-radius: var(--wa-panel-border-radius);
   color: var(--wa-color-text-normal);
   container-type: inline-size;
@@ -34,7 +35,7 @@
   background: var(--wa-color-surface-default);
   border-start-start-radius: var(--wa-panel-border-radius);
   border-start-end-radius: var(--wa-panel-border-radius);
-  border-block-end: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
+  border-block-end: var(--code-example-border);
   padding-block: var(--code-example-preview-padding-block);
   padding-inline: var(--code-example-preview-padding-inline-start) var(--code-example-preview-padding-inline-end);
   min-width: min(100%, 20rem);
@@ -65,18 +66,17 @@
   align-items: center;
   justify-content: center;
   position: absolute;
-  inset-block-start: 0;
+  inset-block: 0;
   inset-inline-end: 0;
-  inset-block-end: 0;
   width: var(--code-example-resizer-width);
   color: var(--wa-color-text-quiet);
   background-color: var(--wa-color-surface-default);
-  border-inline-start: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
+  border-inline-start: var(--code-example-border);
   border-start-end-radius: var(--code-example-panel-radius);
   cursor: ew-resize;
 
   wa-icon {
-    font-size: 1rem;
+    font-size: var(--wa-font-size-m);
   }
 }
 
@@ -90,7 +90,7 @@
 }
 
 .code-example-source {
-  border-block-end: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
+  border-block-end: var(--code-example-border);
   border-radius: 0;
 
   & pre {
@@ -135,11 +135,11 @@
     position: relative;
     all: unset;
     flex: 1 0 auto;
-    font-size: 0.875rem;
+    font-size: var(--wa-font-size-s);
     color: var(--wa-color-text-quiet);
-    border-inline-start: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
+    border-inline-start: var(--code-example-border);
     text-align: center;
-    padding: 0.5rem;
+    padding: var(--wa-space-xs);
     cursor: pointer;
 
     @container code-example (max-width: 600px) {
