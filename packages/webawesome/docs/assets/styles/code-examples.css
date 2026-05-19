@@ -1,4 +1,9 @@
 .code-example {
+  --code-example-panel-radius: calc(var(--wa-panel-border-radius) - var(--wa-panel-border-width));
+  --code-example-preview-padding-block: var(--wa-space-xl);
+  --code-example-preview-padding-inline-start: var(--wa-space-xl);
+  --code-example-preview-padding-inline-end: calc(var(--wa-space-xl) + 1.75rem);
+
   background: var(--wa-color-surface-lowered);
   border: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
   border-radius: var(--wa-panel-border-radius);
@@ -16,7 +21,8 @@
   border-start-start-radius: var(--wa-panel-border-radius);
   border-start-end-radius: var(--wa-panel-border-radius);
   border-block-end: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
-  padding: 2rem 3.25rem 2rem 2rem;
+  padding-block: var(--code-example-preview-padding-block);
+  padding-inline: var(--code-example-preview-padding-inline-start) var(--code-example-preview-padding-inline-end);
   min-width: 20rem;
   max-width: 100%;
 
@@ -33,10 +39,7 @@
 .code-example-preview--dragging:after {
   content: '';
   position: absolute;
-  inset-block-start: 0;
-  inset-inline-start: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   opacity: 0;
   cursor: ew-resize;
 }
@@ -53,7 +56,7 @@
   color: var(--wa-color-text-quiet);
   background-color: var(--wa-color-surface-default);
   border-inline-start: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
-  border-start-end-radius: calc(var(--wa-panel-border-radius) - var(--wa-panel-border-width));
+  border-start-end-radius: var(--code-example-panel-radius);
   cursor: ew-resize;
 
   wa-icon {
@@ -61,9 +64,16 @@
   }
 }
 
+/* Resizer hidden and compact preview padding below this width */
 @media screen and (max-width: 600px) {
+  .code-example {
+    --code-example-preview-padding-block: var(--wa-space-m);
+    --code-example-preview-padding-inline-start: var(--wa-space-m);
+    --code-example-preview-padding-inline-end: var(--wa-space-m);
+  }
+
   .code-example-preview {
-    padding-inline-end: 2rem;
+    min-width: 0;
   }
 
   .code-example-resizer {
@@ -94,13 +104,13 @@
 /* Adapt borders and rounding to which code example features are disabled */
 .code-example-source:has(.no-buttons) {
   border-block-end: none;
-  border-end-end-radius: calc(var(--wa-panel-border-radius) - var(--wa-panel-border-width));
-  border-end-start-radius: calc(var(--wa-panel-border-radius) - var(--wa-panel-border-width));
+  border-end-end-radius: var(--code-example-panel-radius);
+  border-end-start-radius: var(--code-example-panel-radius);
 }
 
 .code-example-source:has(.no-preview) {
-  border-start-end-radius: calc(var(--wa-panel-border-radius) - var(--wa-panel-border-width));
-  border-start-start-radius: calc(var(--wa-panel-border-radius) - var(--wa-panel-border-width));
+  border-start-end-radius: var(--code-example-panel-radius);
+  border-start-start-radius: var(--code-example-panel-radius);
 }
 
 .code-example-source:has(.no-preview) + .code-example-buttons {
