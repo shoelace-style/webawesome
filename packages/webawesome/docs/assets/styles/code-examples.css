@@ -3,6 +3,7 @@
   --code-example-compact-max-width: 37.5rem;
   --code-example-resizer-width: calc(var(--wa-space-l) + var(--wa-space-2xs));
   --code-example-preview-min-width: calc(4 * var(--wa-space-5xl));
+  --code-example-pen-inline-size: calc(6.25 * var(--wa-space-m));
   --code-example-border: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
   --code-example-preview-padding-block: var(--wa-space-xl);
   --code-example-preview-padding-inline-start: var(--wa-space-xl);
@@ -172,7 +173,7 @@
   }
 
   .code-example-pen {
-    flex: 0 0 100px;
+    flex: 0 0 var(--code-example-pen-inline-size);
     white-space: nowrap;
   }
 }
