@@ -90,7 +90,7 @@ Web Awesome uses [themes](/docs/themes) to apply a cohesive look and feel across
         </tr>
         <tr>
           <td>2</td>
-          <td>Press <wa-icon name="paintbrush" variant="regular"></wa-icon> <strong>Edit Your Theme</strong> to open the Theme Builder.</td>
+          <td>Press <wa-icon name="paintbrush" variant="regular"></wa-icon> <strong>Edit Your Theme</strong> to open the <a href="#theme-builder">Theme Builder</a>.</td>
         </tr>
         <tr>
           <td>3</td>
@@ -104,6 +104,12 @@ Web Awesome uses [themes](/docs/themes) to apply a cohesive look and feel across
     </table>
   </div>
 </div>
+
+### Theme Builder
+
+ The Theme Builder is a visual editor for **Pro workspace projects** that lets you customize your project's [theme](/docs/themes), [color palette](/docs/color-palettes), [variant colors](/docs/tokens/color#variant-colors), fonts, roundness, spacing, and icons — with a live preview as you go. Saves apply instantly anywhere you're using your project.
+
+You can launch the Theme Builder from your project's <wa-icon name="gear" variant="regular"></wa-icon> **Settings** by pressing <wa-icon name="paintbrush" variant="regular"></wa-icon> **Edit Your Theme**.
 
 ### Light and Dark Mode
 
@@ -187,7 +193,7 @@ document.getElementById('color-scheme-button').addEventListener('click', () => {
 
 ### Customizing with CSS
 
-For even more customizations, you can off-road and override any theme just with CSS — no preprocessor required. All tokens use the `--wa-` prefix to prevent collisions with other libraries. Write a stylesheet that overrides Web Awesome's [design tokens](/docs/tokens) — no preprocessor needed.
+For even more customizations, you can off-road and override any theme just with CSS — no preprocessor required. All tokens use the `--wa-` prefix to prevent collisions with other libraries. Write a stylesheet that overrides Web Awesome's [design tokens](/docs/tokens) and you're off to the races.
 
 Here's a starter that tweaks fonts, spacing, and corner radius across both color schemes:
 

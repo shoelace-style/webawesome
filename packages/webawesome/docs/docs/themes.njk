@@ -8,32 +8,38 @@ layout: page
 
 <p>Themes give your project a cohesive look and feel across the entire Web Awesome library.</p>
 
-<p>A theme sets typography, spacing, borders, shadows, and how <a href="/docs/tokens/color#variant-colors">variants</a> show up on components — all as <a href="/docs/tokens">design tokens</a>. Two themes can share a <a href="/docs/color-palettes">color palette</a> and <a href="/docs/tokens/color#variant-colors">variant colors</a> and still feel completely different. Each pre-built theme ships with a default palette and may include custom overrides for individual components.</p>
+<p>A theme sets typography, spacing, borders, shadows, and how <a href="/docs/tokens/color#variant-colors">variants</a>
+  show up on components — all as <a href="/docs/tokens">design tokens</a>. Two themes can share a <a
+    href="/docs/color-palettes">color palette</a> and <a href="/docs/tokens/color#variant-colors">variant colors</a> and
+  still feel completely different. Each pre-built theme ships with a default palette and may include custom overrides
+  for individual components.</p>
 
 {% include "theming/theme-picker.njk" %}
 
 {% raw %}
 {% if not currentUser or not currentUser.hasPro %}
 {% endraw %}
-  <wa-callout class="pro">
-    <wa-icon slot="icon" name="hand-wave" animation="shake" style="--animation-delay: 2s; --animation-duration: 4s;"></wa-icon>
-    <strong>
-      <a href="/purchase?from=pro-docs&context=themes">Unlock every theme with {{ site.namePro }}!</a>
-    </strong>
+<wa-callout class="pro">
+  <wa-icon slot="icon" name="hand-wave" animation="shake"
+    style="--animation-delay: 2s; --animation-duration: 4s;"></wa-icon>
+  <strong>
+    <a href="/purchase?from=pro-docs&context=themes">Unlock every theme with {{ site.namePro }}!</a>
+  </strong>
 
-    <wa-details appearance="plain">
-      <span slot="summary">Subscribing to {{ site.namePro }} unlocks every theme, plus premium color palettes, the visual Theme Builder, and <u class="appearance-underlined variant-drawn">more</u>.</span>
+  <wa-details appearance="plain">
+    <span slot="summary">Subscribing to {{ site.namePro }} unlocks every theme, plus premium color palettes, the visual
+      Theme Builder, and <u class="appearance-underlined variant-drawn">more</u>.</span>
 
-      <div class="wa-stack wa-gap-xl">
-        {% include "pro-perks.njk" %}
+    <div class="wa-stack wa-gap-xl">
+      {% include "pro-perks.njk" ignore missing %}
 
-        <wa-button href="/purchase?from=pro-docs&context=themes">
-          Get {{ site.namePro }}
-          <wa-icon slot="end" name="arrow-right"></wa-icon>
-        </wa-button>
-      </div>
-    </wa-details>
-  </wa-callout>
+      <wa-button href="/purchase?from=pro-docs&context=themes">
+        Get {{ site.namePro }}
+        <wa-icon slot="end" name="arrow-right"></wa-icon>
+      </wa-button>
+    </div>
+  </wa-details>
+</wa-callout>
 {% raw %}
 {% endif %}
 {% endraw %}
@@ -42,97 +48,103 @@ layout: page
 
 <div id="import-code">
   {% for theme in themer.themes %}
-    <div class="theme-instructions" data-theme="{{ theme.filename | stripExtension }}" {% if not loop.first %}hidden{% endif %}>
-      <wa-tab-group data-install-tabs>
-        <wa-tab panel="cdn"><wa-icon name="globe" variant="regular"></wa-icon> CDN</wa-tab>
-        <wa-tab panel="npm"><wa-icon name="box-open" variant="regular"></wa-icon> npm</wa-tab>
-        <wa-tab panel="self-hosted"><wa-icon name="arrow-down-to-line" variant="regular"></wa-icon> Self-Hosted</wa-tab>
-        <wa-tab panel="hosted"><wa-icon name="rocket-launch" variant="regular"></wa-icon> Hosted Projects</wa-tab>
+  <div class="theme-instructions" data-theme="{{ theme.filename | stripExtension }}" {% if not loop.first %}hidden{%
+    endif %}>
+    <wa-tab-group data-install-tabs>
+      <wa-tab panel="cdn"><wa-icon name="globe" variant="regular"></wa-icon> CDN</wa-tab>
+      <wa-tab panel="npm"><wa-icon name="box-open" variant="regular"></wa-icon> npm</wa-tab>
+      <wa-tab panel="self-hosted"><wa-icon name="arrow-down-to-line" variant="regular"></wa-icon> Self-Hosted</wa-tab>
+      <wa-tab panel="hosted"><wa-icon name="rocket-launch" variant="regular"></wa-icon> Hosted Projects</wa-tab>
 
-        <wa-tab-panel name="cdn">
-{% if theme.isPro %}
-{% markdown %}
-<wa-callout variant="neutral" size="s">
-  <wa-icon name="info-circle" variant="regular"></wa-icon>
-  This theme can only be used on workspaces with a Pro subscription.
-</wa-callout>
-{% endmarkdown %}
-{% else %}
-{% set themeCdnUrl %}{% cdnUrl 'styles/themes/' %}{{ theme.filename }}{% endset %}
-{% markdown %}
-To use this theme, add the theme's stylesheet from the CDN:
+      <wa-tab-panel name="cdn">
+        {% if theme.isPro %}
+        {% markdown %}
+        <wa-callout variant="neutral" size="s">
+          <wa-icon name="info-circle" variant="regular"></wa-icon>
+          This theme can only be used on workspaces with a Pro subscription.
+        </wa-callout>
+        {% endmarkdown %}
+        {% else %}
+        {% set themeCdnUrl %}{% cdnUrl 'styles/themes/' %}{{ theme.filename }}{% endset %}
+        {% markdown %}
+        To use this theme, add the theme's stylesheet from the CDN:
 
-```html
-<link rel="stylesheet" href="{{ themeCdnUrl }}">
-```
+        ```html
+        <link rel="stylesheet" href="{{ themeCdnUrl }}">
+        ```
 
-Then apply the following classes to the `<html>` element:
+        Then apply the following classes to the `<html>` element:
 
-```html
-<html class="wa-theme-{{ theme.filename | stripExtension }} wa-palette-{{ theme.palette.filename | stripExtension }} wa-brand-{{ theme.colorBrand.color}}">
-```
-{% endmarkdown %}
-{% endif %}
-        </wa-tab-panel>
+        ```html
+        <html
+          class="wa-theme-{{ theme.filename | stripExtension }} wa-palette-{{ theme.palette.filename | stripExtension }} wa-brand-{{ theme.colorBrand.color}}">
+        ```
+        {% endmarkdown %}
+        {% endif %}
+      </wa-tab-panel>
 
-        <wa-tab-panel name="npm">
-{% markdown %}
-After installing <code>@awesome.me/webawesome</code>, import the theme's stylesheet:
+      <wa-tab-panel name="npm">
+        {% markdown %}
+        After installing <code>@awesome.me/webawesome</code>, import the theme's stylesheet:
 
-```js
-import '@awesome.me/webawesome/dist/styles/themes/{{ theme.filename }}';
-```
+        ```js
+        import '@awesome.me/webawesome/dist/styles/themes/{{ theme.filename }}';
+        ```
 
-Then apply the following classes to the `<html>` element:
+        Then apply the following classes to the `<html>` element:
 
-```html
-<html class="wa-theme-{{ theme.filename | stripExtension }} wa-palette-{{ theme.palette.filename | stripExtension }} wa-brand-{{ theme.colorBrand.color}}">
-```
-{% endmarkdown %}
-        </wa-tab-panel>
+        ```html
+        <html
+          class="wa-theme-{{ theme.filename | stripExtension }} wa-palette-{{ theme.palette.filename | stripExtension }} wa-brand-{{ theme.colorBrand.color}}">
+        ```
+        {% endmarkdown %}
+      </wa-tab-panel>
 
-        <wa-tab-panel name="self-hosted">
-{% markdown %}
-If you're self-hosting Web Awesome, include the theme's stylesheet from your server:
+      <wa-tab-panel name="self-hosted">
+        {% markdown %}
+        If you're self-hosting Web Awesome, include the theme's stylesheet from your server:
 
-```html
-<link rel="stylesheet" href="/dist/styles/themes/{{ theme.filename }}">
-```
+        ```html
+        <link rel="stylesheet" href="/dist/styles/themes/{{ theme.filename }}">
+        ```
 
-Then apply the following classes to the `<html>` element:
+        Then apply the following classes to the `<html>` element:
 
-```html
-<html class="wa-theme-{{ theme.filename | stripExtension }} wa-palette-{{ theme.palette.filename | stripExtension }} wa-brand-{{ theme.colorBrand.color}}">
-```
-{% endmarkdown %}
-        </wa-tab-panel>
+        ```html
+        <html
+          class="wa-theme-{{ theme.filename | stripExtension }} wa-palette-{{ theme.palette.filename | stripExtension }} wa-brand-{{ theme.colorBrand.color}}">
+        ```
+        {% endmarkdown %}
+      </wa-tab-panel>
 
-        <wa-tab-panel name="hosted">
-{% if theme.isPro %}
-{% markdown %}
-**For projects on Pro workspaces:**
-1. Head over to your project's <wa-icon name="gear" variant="regular"></wa-icon> **Settings**.
-2. Press <wa-icon name="paintbrush" variant="regular"></wa-icon> **Edit Your Theme** to open the Theme Builder.
-3. Open **Theme** and select **{{ theme.filename | stripExtension | capitalize }}**.
-4. Press **Save Theme** to immediately update anywhere you're using your project.
-{% endmarkdown %}
-{% else %}
-{% markdown %}
-**For projects on Free workspaces:**
-1. Head over to your project's <wa-icon name="gear" variant="regular"></wa-icon> **Settings**.
-2. For your **Theme**, select <wa-icon name="paintbrush" variant="regular"></wa-icon> **{{ theme.filename | stripExtension | capitalize }}**.
-3. For your **Color Palette**, select <wa-icon name="swatchbook" variant="regular"></wa-icon> **{{ theme.palette.filename | stripExtension | capitalize }}**.
-4. Press **Save Changes** to immediately update anywhere you're using your project.
+      <wa-tab-panel name="hosted">
+        {% if theme.isPro %}
+        {% markdown %}
+        **For projects on Pro workspaces:**
+        1. Head over to your project's <wa-icon name="gear" variant="regular"></wa-icon> **Settings**.
+        2. Press <wa-icon name="paintbrush" variant="regular"></wa-icon> **Edit Your Theme** to open the Theme Builder.
+        3. Open **Theme** and select **{{ theme.filename | stripExtension | capitalize }}**.
+        4. Press **Save Theme** to immediately update anywhere you're using your project.
+        {% endmarkdown %}
+        {% else %}
+        {% markdown %}
+        **For projects on Free workspaces:**
+        1. Head over to your project's <wa-icon name="gear" variant="regular"></wa-icon> **Settings**.
+        2. For your **Theme**, select <wa-icon name="paintbrush" variant="regular"></wa-icon> **{{ theme.filename |
+        stripExtension | capitalize }}**.
+        3. For your **Color Palette**, select <wa-icon name="swatchbook" variant="regular"></wa-icon> **{{
+        theme.palette.filename | stripExtension | capitalize }}**.
+        4. Press **Save Changes** to immediately update anywhere you're using your project.
 
-**For projects on Pro workspaces:**
-1. Head over to your project's <wa-icon name="gear" variant="regular"></wa-icon> **Settings**.
-2. Press <wa-icon name="paintbrush" variant="regular"></wa-icon> **Edit Your Theme** to open the Theme Builder.
-3. Open **Theme** and select **{{ theme.filename | stripExtension | capitalize }}**.
-4. Press **Save Theme** to immediately update anywhere you're using your project.
-{% endmarkdown %}
-{% endif %}
-        </wa-tab-panel>
-      </wa-tab-group>
-    </div>
+        **For projects on Pro workspaces:**
+        1. Head over to your project's <wa-icon name="gear" variant="regular"></wa-icon> **Settings**.
+        2. Press <wa-icon name="paintbrush" variant="regular"></wa-icon> **Edit Your Theme** to open the Theme Builder.
+        3. Open **Theme** and select **{{ theme.filename | stripExtension | capitalize }}**.
+        4. Press **Save Theme** to immediately update anywhere you're using your project.
+        {% endmarkdown %}
+        {% endif %}
+      </wa-tab-panel>
+    </wa-tab-group>
+  </div>
   {% endfor %}
 </div>

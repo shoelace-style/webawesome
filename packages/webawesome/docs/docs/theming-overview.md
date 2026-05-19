@@ -15,7 +15,7 @@ Web Awesome themes apply a cohesive look and feel across the entire library, bui
 A theme is the overall look — fonts, borders, space, shadows, and how each [variant](/docs/tokens/color#variant-colors) gets used across components. Two themes can share a [palette](/docs/color-palettes) and [variants](/docs/tokens/color#variant-colors) and still feel completely different. Themes ship with a default palette and may include custom CSS overrides for individual components.
 
 ```html {.example}
-<!-- Default theme stylesheet is already loaded on this page -->
+<link rel="stylesheet" href="/dist/styles/themes/default.css" />
 <link rel="stylesheet" href="/dist/styles/themes/shoelace.css" />
 <link rel="stylesheet" href="/dist/styles/themes/awesome.css" />
 
@@ -138,7 +138,7 @@ For tailored guidance, select your theme, color palette, and variant colors belo
 
 ## Creating Your Own
 
-You can build a custom theme with the [Theme Builder](/docs/customizing#use-a-pre-built-theme) to customize colors, fonts, roundness, spacing, and icons visually, or with [custom CSS](/docs/customizing#customizing-with-css) by overriding [design tokens](/docs/tokens) in your own stylesheet.
+You can build a custom theme with the [Theme Builder](/docs/customizing#theme-builder) to customize colors, fonts, roundness, spacing, and icons visually, or with [custom CSS](/docs/customizing#customizing-with-css) by overriding [design tokens](/docs/tokens) in your own stylesheet.
 
 ## Common Tasks
 

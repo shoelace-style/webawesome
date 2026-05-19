@@ -8,35 +8,39 @@ wide: true
 
 <p>Color palettes give you a full spectrum of colors to use in your project.</p>
 
-<p>A color palette defines 10 hues — red, orange, yellow, green, cyan, blue, indigo, purple, pink, and gray — each with a scale of 11 tints from <code>05</code> (darkest) to <code>95</code>
+<p>A color palette defines 10 hues — red, orange, yellow, green, cyan, blue, indigo, purple, pink, and gray — each with
+  a scale of 11 tints from <code>05</code> (darkest) to <code>95</code>
   (lightest) available as <a href="/docs/tokens/color">color design tokens</a>. While the tints have similar
   lightness values across palettes, each palette has unique hue shifts and chroma so you can find just the right vibe to
-  your project. Combine a palette with a <a href="/docs/themes">theme</a> and <a href="/docs/tokens/color#variant-colors">variant colors</a> to style the whole library.</p>
+  your project. Combine a palette with a <a href="/docs/themes">theme</a> and <a
+    href="/docs/tokens/color#variant-colors">variant colors</a> to style the whole library.</p>
 
 {% include "theming/color-palette-picker.njk" %}
 
 {% raw %}
 {% if not currentUser or not currentUser.hasPro %}
 {% endraw %}
-  <wa-callout class="pro">
-    <wa-icon slot="icon" name="hand-wave" animation="shake" style="--animation-delay: 2s; --animation-duration: 4s;"></wa-icon>
-    <strong>
-      <a href="/purchase?from=pro-docs&context=color-palettes">Unlock every color palette with {{ site.namePro }}!</a>
-    </strong>
+<wa-callout class="pro">
+  <wa-icon slot="icon" name="hand-wave" animation="shake"
+    style="--animation-delay: 2s; --animation-duration: 4s;"></wa-icon>
+  <strong>
+    <a href="/purchase?from=pro-docs&context=color-palettes">Unlock every color palette with {{ site.namePro }}!</a>
+  </strong>
 
-    <wa-details appearance="plain">
-      <span slot="summary">Subscribing to {{ site.namePro }} unlocks every color palette, plus premium themes, the visual Theme Builder, and <u class="appearance-underlined variant-drawn">more</u>.</span>
+  <wa-details appearance="plain">
+    <span slot="summary">Subscribing to {{ site.namePro }} unlocks every color palette, plus premium themes, the visual
+      Theme Builder, and <u class="appearance-underlined variant-drawn">more</u>.</span>
 
-      <div class="wa-stack wa-gap-xl">
-        {% include "pro-perks.njk" %}
+    <div class="wa-stack wa-gap-xl">
+      {% include "pro-perks.njk" ignore missing %}
 
-        <wa-button href="/purchase?from=pro-docs&context=color-palettes">
-          Get {{ site.namePro }}
-          <wa-icon slot="end" name="arrow-right"></wa-icon>
-        </wa-button>
-      </div>
-    </wa-details>
-  </wa-callout>
+      <wa-button href="/purchase?from=pro-docs&context=color-palettes">
+        Get {{ site.namePro }}
+        <wa-icon slot="end" name="arrow-right"></wa-icon>
+      </wa-button>
+    </div>
+  </wa-details>
+</wa-callout>
 {% raw %}
 {% endif %}
 {% endraw %}
@@ -53,61 +57,63 @@ wide: true
       <wa-tab panel="hosted"><wa-icon name="rocket-launch" variant="regular"></wa-icon> Hosted Projects</wa-tab>
 
       <wa-tab-panel name="cdn">
-{% if palette.isPro %}
-{% markdown %}
-<wa-callout variant="neutral" size="s">
-  <wa-icon slot="icon" name="info-circle" variant="regular"></wa-icon>
-  This palette can only be used with a Pro subscription. {% raw %}{% if session.isLoggedIn %}{% endraw %}For instructions unique to your Pro project, open a project from <a href="/workspaces">your workspace</a>.{% raw %}{% endif %}{% endraw %}
-</wa-callout>
-{% endmarkdown %}
-{% else %}
-{% set paletteCdnUrl %}{% cdnUrl 'styles/color/palettes/' %}{{ palette.filename }}{% endset %}
-{% markdown %}
-To use this palette, add the palette's stylesheet from the CDN:
+        {% if palette.isPro %}
+        {% markdown %}
+        <wa-callout variant="neutral" size="s">
+          <wa-icon slot="icon" name="info-circle" variant="regular"></wa-icon>
+          This palette can only be used with a Pro subscription. {% raw %}{% if session.isLoggedIn %}{% endraw %}For
+          instructions unique to your Pro project, open a project from <a href="/workspaces">your workspace</a>.{% raw
+          %}{% endif %}{% endraw %}
+        </wa-callout>
+        {% endmarkdown %}
+        {% else %}
+        {% set paletteCdnUrl %}{% cdnUrl 'styles/color/palettes/' %}{{ palette.filename }}{% endset %}
+        {% markdown %}
+        To use this palette, add the palette's stylesheet from the CDN:
 
-```html
-<link rel="stylesheet" href="{{ paletteCdnUrl }}">
-```
+        ```html
+        <link rel="stylesheet" href="{{ paletteCdnUrl }}">
+        ```
 
-Then, apply the following class to the `<html>` element:
+        Then, apply the following class to the `<html>` element:
 
-```html
-<html class="wa-palette-{{ palette.name | lower }}">
-```
-{% endmarkdown %}
-{% endif %}
+        ```html
+        <html class="wa-palette-{{ palette.name | lower }}">
+        ```
+        {% endmarkdown %}
+        {% endif %}
       </wa-tab-panel>
 
       <wa-tab-panel name="npm">
-{% markdown %}
-After installing <code>@awesome.me/webawesome</code>, import the palette's stylesheet:
+        {% markdown %}
+        After installing <code>@awesome.me/webawesome</code>, import the palette's stylesheet:
 
-```js
-import '@awesome.me/webawesome/dist/styles/color/palettes/{{ palette.filename }}';
-```
+        ```js
+        import '@awesome.me/webawesome/dist/styles/color/palettes/{{ palette.filename }}';
+        ```
 
-Then, apply the following class to the `<html>` element:
+        Then, apply the following class to the `<html>` element:
 
-```html
-<html class="wa-palette-{{ palette.name | lower }}">
-```
-{% endmarkdown %}
+        ```html
+        <html class="wa-palette-{{ palette.name | lower }}">
+        ```
+        {% endmarkdown %}
       </wa-tab-panel>
 
       <wa-tab-panel name="self-hosted">
-{% markdown %}
-If you're self-hosting Web Awesome, include the palette's stylesheet from your server:
+        {% markdown %}
+        If you're self-hosting Web Awesome, include the palette's stylesheet from your server:
 
-```html
-<link rel="stylesheet" href="/dist/styles/color/palettes/{{ palette.filename }}">
-```
+        ```html
+        <link rel="stylesheet" href="/dist/styles/color/palettes/{{ palette.filename }}">
+        ```
 
-Then, apply the following class to the `<html>` element:
+        Then, apply the following class to the `<html>` element:
 
-```html
-<html class="wa-palette-{{ palette.name | lower }}">
-```
-{% endmarkdown %}
+        ```html
+        <html class="wa-palette-{{ palette.name | lower }}">
+        ```
+        {% endmarkdown %}
       </wa-tab-panel>
 
       <wa-tab-panel name="hosted">
