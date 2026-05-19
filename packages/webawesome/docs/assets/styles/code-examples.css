@@ -77,10 +77,28 @@
   border-inline-start: var(--code-example-border);
   border-start-end-radius: var(--code-example-panel-radius);
   cursor: ew-resize;
+  transition:
+    background-color var(--wa-transition-fast) var(--wa-transition-easing),
+    color var(--wa-transition-fast) var(--wa-transition-easing);
+
+  &:hover {
+    background-color: var(--wa-color-surface-lowered);
+    color: var(--wa-color-text-normal);
+  }
+
+  &:active {
+    background-color: var(--wa-color-neutral-fill-quiet);
+    color: var(--wa-color-text-normal);
+  }
 
   wa-icon {
     font-size: var(--wa-font-size-m);
   }
+}
+
+.code-example-preview--dragging .code-example-resizer {
+  background-color: var(--wa-color-neutral-fill-quiet);
+  color: var(--wa-color-text-normal);
 }
 
 .code-example:not(.open) .code-example-source {
@@ -151,6 +169,19 @@
     text-align: center;
     padding: var(--wa-space-xs);
     cursor: pointer;
+    transition:
+      background-color var(--wa-transition-fast) var(--wa-transition-easing),
+      color var(--wa-transition-fast) var(--wa-transition-easing);
+
+    &:hover {
+      background-color: var(--wa-color-surface-lowered);
+      color: var(--wa-color-text-normal);
+    }
+
+    &:active {
+      background-color: var(--wa-color-neutral-fill-quiet);
+      color: var(--wa-color-text-normal);
+    }
 
     @container code-example (max-width: var(--code-example-compact-max-width)) {
       min-block-size: var(--wa-form-control-height);
