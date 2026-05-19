@@ -28,6 +28,8 @@
   max-width: 100%;
 
   > :first-child:not(dialog) {
+    max-width: 100%;
+    overflow-x: auto;
     margin-block-start: 0;
   }
 
