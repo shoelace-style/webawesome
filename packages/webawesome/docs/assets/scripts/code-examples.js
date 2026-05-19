@@ -73,11 +73,11 @@ function resetCodeExampleElement(codeExample) {
 
   if (source) {
     cancelSourceAnimations(source);
-    source.classList.remove('code-example-source--animating');
+    source.classList.remove('is-animating');
   }
 
   if (preview) {
-    preview.classList.remove('code-example-preview--dragging');
+    preview.classList.remove('is-dragging');
     preview.style.removeProperty('width');
   }
 }
@@ -105,7 +105,7 @@ async function setCodeExampleOpen(codeExample, toggle, open) {
 
   const generation = bumpAnimationGeneration(codeExample);
   cancelSourceAnimations(source);
-  source.classList.remove('code-example-source--animating');
+  source.classList.remove('is-animating');
 
   if (prefersReducedMotion()) {
     toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
@@ -121,7 +121,7 @@ async function setCodeExampleOpen(codeExample, toggle, open) {
     toggle.setAttribute('aria-expanded', 'true');
     codeExample.classList.add('open');
     setCodeExampleSourceAccessibility(source, true);
-    source.classList.add('code-example-source--animating');
+    source.classList.add('is-animating');
     source.style.height = '0';
     source.style.opacity = '0';
 
@@ -142,20 +142,21 @@ async function setCodeExampleOpen(codeExample, toggle, open) {
 
     source.style.height = 'auto';
     source.style.opacity = '';
-    source.classList.remove('code-example-source--animating');
+    source.classList.remove('is-animating');
     return;
   }
 
   toggle.setAttribute('aria-expanded', 'false');
-  source.classList.add('code-example-source--animating');
+  source.classList.add('is-animating');
   // Setting an explicit pixel height flushes layout, so no rAF is needed here
   // (unlike the open path, which animates from height: 0 and must measure scrollHeight first).
-  source.style.height = `${source.scrollHeight}px`;
+  const startHeight = source.scrollHeight;
+  source.style.height = `${startHeight}px`;
 
   await animate(
     source,
     [
-      { height: `${source.scrollHeight}px`, opacity: '1' },
+      { height: `${startHeight}px`, opacity: '1' },
       { height: '0', opacity: '0' },
     ],
     { duration: hideDuration, easing: 'linear' },
@@ -166,7 +167,7 @@ async function setCodeExampleOpen(codeExample, toggle, open) {
   }
 
   setCodeExampleSourceCollapsed(source, true);
-  source.classList.remove('code-example-source--animating');
+  source.classList.remove('is-animating');
   codeExample.classList.remove('open');
   setCodeExampleSourceAccessibility(source, false);
 }
@@ -191,7 +192,7 @@ function handleResizerDrag(event) {
   let startWidth = parseInt(document.defaultView.getComputedStyle(preview).width, 10);
 
   event.preventDefault();
-  preview.classList.add('code-example-preview--dragging');
+  preview.classList.add('is-dragging');
   document.documentElement.addEventListener('mousemove', dragMove);
   document.documentElement.addEventListener('touchmove', dragMove);
   document.documentElement.addEventListener('mouseup', dragStop);
@@ -203,7 +204,7 @@ function handleResizerDrag(event) {
   }
 
   function dragStop() {
-    preview.classList.remove('code-example-preview--dragging');
+    preview.classList.remove('is-dragging');
     document.documentElement.removeEventListener('mousemove', dragMove);
     document.documentElement.removeEventListener('touchmove', dragMove);
     document.documentElement.removeEventListener('mouseup', dragStop);

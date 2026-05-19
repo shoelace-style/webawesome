@@ -58,7 +58,7 @@
 }
 
 /* Block the preview while dragging to prevent iframes from intercepting drag events */
-.code-example-preview--dragging:after {
+.code-example-preview.is-dragging:after {
   content: '';
   position: absolute;
   inset: 0;
@@ -102,7 +102,7 @@
   }
 }
 
-.code-example-preview--dragging .code-example-resizer {
+.code-example-preview.is-dragging .code-example-resizer {
   background-color: var(--wa-color-neutral-fill-quiet);
   color: var(--wa-color-text-normal);
 }
@@ -132,11 +132,11 @@
 }
 
 /* Only clip while the panel is animating or fully collapsed; otherwise let inner content control its own overflow. */
-.code-example-source--animating {
+.code-example-source.is-animating {
   overflow: hidden;
 }
 
-.code-example:not(.open) .code-example-source:not(.code-example-source--animating) {
+.code-example:not(.open) .code-example-source:not(.is-animating) {
   height: 0;
   opacity: 0;
   overflow: hidden;
