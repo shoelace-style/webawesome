@@ -120,7 +120,6 @@
 }
 
 .code-example-source {
-  overflow: hidden;
   border-block-end: var(--code-example-border);
   border-radius: 0;
 
@@ -132,9 +131,15 @@
   }
 }
 
+/* Only clip while the panel is animating or fully collapsed; otherwise let inner content control its own overflow. */
+.code-example-source--animating {
+  overflow: hidden;
+}
+
 .code-example:not(.open) .code-example-source:not(.code-example-source--animating) {
   height: 0;
   opacity: 0;
+  overflow: hidden;
   border-block-end: none;
   pointer-events: none;
 }

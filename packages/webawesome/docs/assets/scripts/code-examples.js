@@ -146,7 +146,10 @@ async function setCodeExampleOpen(codeExample, toggle, open) {
     return;
   }
 
+  toggle.setAttribute('aria-expanded', 'false');
   source.classList.add('code-example-source--animating');
+  // Setting an explicit pixel height flushes layout, so no rAF is needed here
+  // (unlike the open path, which animates from height: 0 and must measure scrollHeight first).
   source.style.height = `${source.scrollHeight}px`;
 
   await animate(
@@ -164,7 +167,6 @@ async function setCodeExampleOpen(codeExample, toggle, open) {
 
   setCodeExampleSourceCollapsed(source, true);
   source.classList.remove('code-example-source--animating');
-  toggle.setAttribute('aria-expanded', 'false');
   codeExample.classList.remove('open');
   setCodeExampleSourceAccessibility(source, false);
 }
