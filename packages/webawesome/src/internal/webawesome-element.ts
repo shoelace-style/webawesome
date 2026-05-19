@@ -120,7 +120,6 @@ export default class WebAwesomeElement extends LitElement {
       super.update(changedProperties);
     } catch (e) {
       if (this.didSSR) {
-        console.log("ERROR!!!!")
         // Emit a hydration error so we can catch it and do cool things.
         // This may accidentally grab non-hydration related errors, but its the best I've found without directly reading error strings.
         const event = new Event('lit-hydration-error', { bubbles: true, composed: true, cancelable: false });

@@ -1,4 +1,4 @@
-import { html } from 'lit';
+import { html, type PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import { LocalizeController } from '../../utilities/localize.js';
@@ -52,20 +52,26 @@ export default class WaRelativeTime extends WebAwesomeElement {
   /** Keep the displayed value up to date as time passes. */
   @property({ type: Boolean }) sync = false;
 
+  /**
+    * @internal
+    * this is used purely for testing as sinon fake timers seem to cause an issue with SSR hydration
+    */
+  @state() private referenceDate: null | Date = null
+
   disconnectedCallback() {
     super.disconnectedCallback();
     clearTimeout(this.updateTimeout);
   }
 
-  render() {
-    const now = new Date();
+  willUpdate (changedProperties: PropertyValues<this>) {
+    const now = this.referenceDate || new Date();
     const then = new Date(this.date);
 
     // Check for an invalid date
     if (isNaN(then.getMilliseconds())) {
       this.relativeTime = '';
       this.isoTime = '';
-      return '';
+      return super.willUpdate(changedProperties);
     }
 
     const diff = then.getTime() - now.getTime();
@@ -98,6 +104,13 @@ export default class WaRelativeTime extends WebAwesomeElement {
       }
 
       this.updateTimeout = setTimeout(() => this.requestUpdate(), nextInterval);
+    }
+
+  }
+
+  render() {
+    if (this.relativeTime === '' && this.isoTime === '') {
+      return ''
     }
 
     // No whitespace before or after
