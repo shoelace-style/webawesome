@@ -83,7 +83,6 @@
   }
 }
 
-
 .code-example:not(.open) .code-example-source {
   display: none;
 }
@@ -169,6 +168,18 @@
     &:focus-visible {
       z-index: 3;
       outline: var(--wa-focus-ring);
+    }
+  }
+
+  .code-example-toggle,
+  .code-example-pen {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--wa-space-2xs);
+
+    wa-icon {
+      font-size: var(--wa-font-size-s);
     }
   }
 
