@@ -162,7 +162,7 @@ export function codeExamplesTransformer(options = {}) {
               `
                 : ''
             }
-            <div class="code-example-source" id="${id}"${isOpen ? '' : ' aria-hidden="true"'}>
+            <div class="code-example-source" id="${id}" role="region" aria-label="Example source code"${isOpen ? '' : ' aria-hidden="true"'}>
               ${elementPre?.outerHTML ?? pre.outerHTML}
             </div>
             ${
