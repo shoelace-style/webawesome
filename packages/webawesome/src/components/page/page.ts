@@ -125,12 +125,14 @@ export default class WaPage extends WebAwesomeElement {
   private footerResizeObserver = !isServer ? this.slotResizeObserver('footer') : null;
   private slotResizeObserver(slot: string) {
     return new ResizeObserver(entries => {
-      for (const entry of entries) {
-        if (entry.contentBoxSize) {
-          const contentBoxSize = entry.borderBoxSize[0];
-          this.style.setProperty(`--${slot}-height`, `${contentBoxSize.blockSize}px`);
+      requestAnimationFrame(() => {
+        for (const entry of entries) {
+          if (entry.contentBoxSize) {
+            const contentBoxSize = entry.borderBoxSize[0];
+            this.style.setProperty(`--${slot}-height`, `${contentBoxSize.blockSize}px`);
+          }
         }
-      }
+      })
     });
   }
 
@@ -203,27 +205,29 @@ export default class WaPage extends WebAwesomeElement {
   @property({ attribute: 'disable-navigation-toggle', reflect: true, type: Boolean }) disableNavigationToggle: boolean =
     false;
 
-  pageResizeObserver = !isServer
+  pageResizeObserver = typeof ResizeObserver !== "undefined"
     ? new ResizeObserver(entries => {
-        for (const entry of entries) {
-          if (entry.contentBoxSize) {
-            const contentBoxSize = entry.borderBoxSize[0];
-            const pageWidth = contentBoxSize.inlineSize;
+        requestAnimationFrame(() => {
+          for (const entry of entries) {
+            if (entry.contentBoxSize) {
+              const contentBoxSize = entry.borderBoxSize[0];
+              const pageWidth = contentBoxSize.inlineSize;
 
-            const oldView = this.view;
+              const oldView = this.view;
 
-            if (pageWidth >= toPx(this.mobileBreakpoint)) {
-              this.view = 'desktop';
-            } else {
-              this.view = 'mobile';
+              if (pageWidth >= toPx(this.mobileBreakpoint)) {
+                this.view = 'desktop';
+              } else {
+                this.view = 'mobile';
+              }
+
+              this.requestUpdate('view', oldView);
             }
-
-            this.requestUpdate('view', oldView);
           }
-        }
-        if (entries.length > 0) {
-          this.updateAsideAndMenuHeights();
-        }
+          if (entries.length > 0) {
+            this.updateAsideAndMenuHeights();
+          }
+        })
       })
     : null;
 
@@ -286,7 +290,11 @@ export default class WaPage extends WebAwesomeElement {
     }
     const elementHeight = element.clientHeight;
     const windowHeight = window.innerHeight;
-    const { top, bottom } = element.getBoundingClientRect();
+    const rect = element.getBoundingClientRect?.()
+
+    if (!rect) { return null }
+
+    const { top, bottom } = rect
     return Math.max(0, top > 0 ? Math.min(elementHeight, windowHeight - top) : Math.min(bottom, windowHeight));
   }
 

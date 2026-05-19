@@ -21,7 +21,7 @@ SSR in Web Awesome is experimental! There are some known bugs and timing issues.
 
 The goal of SSR in Web Awesome currently is reduce layout shifting and provide a rough approximation of the final component once the JavaScript for the component is ready, they are **NOT** meant to be components that fully work without JavaScript.
 
-Progressive enhancement is _not_ a goal of Web Awesome (currently). This is partially because for form controls in particular, there is no browser API to "hoist" form controls from the shadow root.
+Progressive enhancement is _not_ a goal of Web Awesome (currently). This is partially because for form controls in particular, there is no browser API to "hoist" form controls from the shadow root. Other reasons is there are certain components like `<wa-chart>`, `<wa-qr-code>`, etc that depend on browser APIs like `<canvas>` being available.
 
 ## Enable Hydration
 
@@ -63,7 +63,7 @@ eleventyConfig.addPlugin(litPlugin, {
 ```
 
 :::info
-As SSR becomes more stable, we'll work to add more instructions for various frameworks and metaframeworks.
+As SSR becomes more stable, we'll work to add more instructions for various frameworks and meta frameworks.
 :::
 
 ## Helpful Tips
@@ -76,7 +76,12 @@ All Web Awesome components that get rendered for SSR will receive the `did-ssr` 
 <wa-button appearance="filled" did-ssr></wa-button>
 ```
 
-This can help if you need some styling prior to the element connecting.
+This can help if you need some styling prior to the element connecting. Such as:
+
+```css
+[did-ssr]:not(:defined) {
+}
+```
 
 ### Timing Issues
 
@@ -91,6 +96,8 @@ await rating.updateComplete;
 
 rating.getSymbol = () => '<wa-icon name="heart" variant="solid"></wa-icon>';
 ```
+
+This will help prevent hydration issues. (We will try our best to work around this as sometimes this isn't possible to do from your rendering framework, so if you encounter this, please let us know and file an issue.)
 
 ### Usage with Turbo
 
@@ -159,6 +166,7 @@ const hasLabelSlot = this.hasUpdated
 Here are some known issues and things we're still working on.
 
 - `@shoelace-style/localize` (our localization library) has no way to set a language currently so it always falls back to `en`.
-- `<wa-icon>` has no fallback if there's no JS besides a blank `<svg>`. There's perhaps some backend mechanisms we can use to fetch. But requires altering APIs. Should also have a way to set height / widths, but we don't want to increase pain for SSR users.
+- `<wa-icon>` has no fallback if there's no JS besides a blank `<svg>`. There's perhaps some backend mechanisms we can use to fetch. But requires altering APIs. Should also have a way to set explicit fallback height / widths, but we don't want to increase pain for SSR users.
 - `<wa-qr-code>` QR Code will not error on the backend and will render a blank canvas at the appropriate size, but will not render the canvas until the client component connects.
+- `<wa-chart>` Similar to qr-code, chart components require a canvas, so they will not work until they have connected to the browser and are able to create a proper `<canvas>` element.
 - `setBasePath` and `kit codes` may need reconfiguring to work with SSR.
