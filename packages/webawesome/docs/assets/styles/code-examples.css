@@ -85,6 +85,14 @@
   display: none;
 }
 
+.code-example-toggle wa-icon {
+  transition: rotate 150ms ease;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
+
 .code-example.open .code-example-toggle wa-icon {
   rotate: 180deg;
 }
