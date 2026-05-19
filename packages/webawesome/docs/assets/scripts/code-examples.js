@@ -36,8 +36,12 @@ function bumpAnimationGeneration(codeExample) {
   return generation;
 }
 
-function getCodeExampleDurations(codeExample) {
-  const style = getComputedStyle(codeExample);
+function cancelSourceAnimations(source) {
+  source.getAnimations().forEach(animation => animation.cancel());
+}
+
+function getCodeExampleDurations(source) {
+  const style = getComputedStyle(source);
   const showDuration = parseDuration(style.getPropertyValue('--show-duration').trim() || '200ms');
   const hideDuration = parseDuration(style.getPropertyValue('--hide-duration').trim() || '200ms');
 
@@ -45,7 +49,11 @@ function getCodeExampleDurations(codeExample) {
 }
 
 function setCodeExampleSourceAccessibility(source, open) {
-  source.setAttribute('aria-hidden', open ? 'false' : 'true');
+  if (open) {
+    source.removeAttribute('aria-hidden');
+  } else {
+    source.setAttribute('aria-hidden', 'true');
+  }
 }
 
 function setCodeExampleSourceCollapsed(source, collapsed) {
@@ -79,6 +87,8 @@ async function setCodeExampleOpen(codeExample, toggle, open) {
   }
 
   const generation = bumpAnimationGeneration(codeExample);
+  cancelSourceAnimations(source);
+  source.classList.remove('code-example-source--animating');
 
   if (prefersReducedMotion()) {
     toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
@@ -88,7 +98,7 @@ async function setCodeExampleOpen(codeExample, toggle, open) {
     return;
   }
 
-  const { showDuration, hideDuration } = getCodeExampleDurations(codeExample);
+  const { showDuration, hideDuration } = getCodeExampleDurations(source);
 
   if (open) {
     toggle.setAttribute('aria-expanded', 'true');
@@ -141,6 +151,7 @@ async function setCodeExampleOpen(codeExample, toggle, open) {
 }
 
 initCodeExamples();
+document.addEventListener('turbo:load', initCodeExamples);
 
 //
 // Resizing previews
