@@ -1,5 +1,147 @@
 const version = document.documentElement.getAttribute('data-version') || '';
 
+const codeExampleAnimations = new WeakMap();
+
+function parseDuration(duration) {
+  duration = String(duration).toLowerCase();
+
+  if (duration.includes('ms')) {
+    return parseFloat(duration) || 0;
+  }
+
+  if (duration.includes('s')) {
+    return (parseFloat(duration) || 0) * 1000;
+  }
+
+  return parseFloat(duration) || 0;
+}
+
+async function animate(el, keyframes, options) {
+  return el.animate(keyframes, options).finished.catch(() => {
+    /* suppress errors in Safari */
+  });
+}
+
+function prefersReducedMotion() {
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
+function getAnimationGeneration(codeExample) {
+  return codeExampleAnimations.get(codeExample) || 0;
+}
+
+function bumpAnimationGeneration(codeExample) {
+  const generation = getAnimationGeneration(codeExample) + 1;
+  codeExampleAnimations.set(codeExample, generation);
+  return generation;
+}
+
+function getCodeExampleDurations(codeExample) {
+  const style = getComputedStyle(codeExample);
+  const showDuration = parseDuration(style.getPropertyValue('--show-duration').trim() || '200ms');
+  const hideDuration = parseDuration(style.getPropertyValue('--hide-duration').trim() || '200ms');
+
+  return { showDuration, hideDuration };
+}
+
+function setCodeExampleSourceAccessibility(source, open) {
+  source.setAttribute('aria-hidden', open ? 'false' : 'true');
+}
+
+function setCodeExampleSourceCollapsed(source, collapsed) {
+  if (collapsed) {
+    source.style.height = '0';
+    source.style.opacity = '0';
+    return;
+  }
+
+  source.style.height = 'auto';
+  source.style.opacity = '';
+}
+
+function initCodeExamples() {
+  document.querySelectorAll('.code-example').forEach(codeExample => {
+    const source = codeExample.querySelector('.code-example-source');
+    if (!source) {
+      return;
+    }
+
+    const open = codeExample.classList.contains('open');
+    setCodeExampleSourceCollapsed(source, !open);
+    setCodeExampleSourceAccessibility(source, open);
+  });
+}
+
+async function setCodeExampleOpen(codeExample, toggle, open) {
+  const source = codeExample.querySelector('.code-example-source');
+  if (!source) {
+    return;
+  }
+
+  const generation = bumpAnimationGeneration(codeExample);
+
+  if (prefersReducedMotion()) {
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    codeExample.classList.toggle('open', open);
+    setCodeExampleSourceCollapsed(source, !open);
+    setCodeExampleSourceAccessibility(source, open);
+    return;
+  }
+
+  const { showDuration, hideDuration } = getCodeExampleDurations(codeExample);
+
+  if (open) {
+    toggle.setAttribute('aria-expanded', 'true');
+    codeExample.classList.add('open');
+    setCodeExampleSourceAccessibility(source, true);
+    source.classList.add('code-example-source--animating');
+    source.style.height = '0';
+    source.style.opacity = '0';
+
+    await animate(
+      source,
+      [
+        { height: '0', opacity: '0' },
+        { height: `${source.scrollHeight}px`, opacity: '1' },
+      ],
+      { duration: showDuration, easing: 'linear' },
+    );
+
+    if (getAnimationGeneration(codeExample) !== generation) {
+      return;
+    }
+
+    source.style.height = 'auto';
+    source.style.opacity = '';
+    source.classList.remove('code-example-source--animating');
+    return;
+  }
+
+  source.classList.add('code-example-source--animating');
+  source.style.height = `${source.scrollHeight}px`;
+
+  await animate(
+    source,
+    [
+      { height: `${source.scrollHeight}px`, opacity: '1' },
+      { height: '0', opacity: '0' },
+    ],
+    { duration: hideDuration, easing: 'linear' },
+  );
+
+  if (getAnimationGeneration(codeExample) !== generation) {
+    return;
+  }
+
+  setCodeExampleSourceCollapsed(source, true);
+  source.classList.remove('code-example-source--animating');
+  toggle.setAttribute('aria-expanded', 'false');
+  codeExample.classList.remove('open');
+  setCodeExampleSourceAccessibility(source, false);
+}
+
+initCodeExamples();
+
 //
 // Resizing previews
 //
@@ -46,10 +188,9 @@ document.addEventListener('click', event => {
   // Toggle source
   if (toggle) {
     const codeExample = toggle.closest('.code-example');
-    const isOpen = !codeExample.classList.contains('open');
+    const open = !codeExample.classList.contains('open');
 
-    toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-    codeExample.classList.toggle('open', isOpen);
+    void setCodeExampleOpen(codeExample, toggle, open);
   }
 
   // Edit in CodePen
