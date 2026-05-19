@@ -1,6 +1,8 @@
 .code-example {
   --code-example-panel-radius: calc(var(--wa-panel-border-radius) - var(--wa-panel-border-width));
-  --code-example-resizer-width: 1.75rem;
+  --code-example-compact-max-width: 37.5rem;
+  --code-example-resizer-width: calc(var(--wa-space-l) + var(--wa-space-2xs));
+  --code-example-preview-min-width: calc(4 * var(--wa-space-5xl));
   --code-example-border: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
   --code-example-preview-padding-block: var(--wa-space-xl);
   --code-example-preview-padding-inline-start: var(--wa-space-xl);
@@ -18,7 +20,7 @@
     margin-block-end: var(--wa-content-spacing);
   }
 
-  @container code-example (max-width: 600px) {
+  @container code-example (max-width: var(--code-example-compact-max-width)) {
     .code-example-preview {
       padding-block: var(--wa-space-m);
       padding-inline: var(--wa-space-m);
@@ -38,7 +40,7 @@
   border-block-end: var(--code-example-border);
   padding-block: var(--code-example-preview-padding-block);
   padding-inline: var(--code-example-preview-padding-inline-start) var(--code-example-preview-padding-inline-end);
-  min-width: min(100%, 20rem);
+  min-width: min(100%, var(--code-example-preview-min-width));
   max-width: 100%;
 
   > :first-child:not(dialog) {
@@ -86,7 +88,7 @@
 }
 
 .code-example-toggle wa-icon {
-  transition: rotate 150ms ease;
+  transition: rotate var(--wa-transition-normal) var(--wa-transition-easing);
 
   @media (prefers-reduced-motion: reduce) {
     transition: none;
@@ -150,8 +152,8 @@
     padding: var(--wa-space-xs);
     cursor: pointer;
 
-    @container code-example (max-width: 600px) {
-      min-block-size: 2.75rem;
+    @container code-example (max-width: var(--code-example-compact-max-width)) {
+      min-block-size: var(--wa-form-control-height);
     }
 
     &:first-of-type {
