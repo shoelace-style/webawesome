@@ -4,6 +4,8 @@
   --code-example-resizer-width: calc(var(--wa-space-l) + var(--wa-space-2xs));
   --code-example-preview-min-width: calc(4 * var(--wa-space-5xl));
   --code-example-pen-inline-size: calc(6.25 * var(--wa-space-m));
+  --show-duration: var(--wa-transition-normal);
+  --hide-duration: var(--wa-transition-normal);
   --code-example-border: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
   --code-example-preview-padding-block: var(--wa-space-xl);
   --code-example-preview-padding-inline-start: var(--wa-space-xl);
@@ -101,8 +103,15 @@
   color: var(--wa-color-text-normal);
 }
 
-.code-example:not(.open) .code-example-source {
-  display: none;
+.code-example:not(.open) .code-example-source:not(.code-example-source--animating) {
+  height: 0;
+  opacity: 0;
+  border-block-end: none;
+  pointer-events: none;
+}
+
+.code-example-source--animating {
+  overflow: hidden;
 }
 
 .code-example-toggle wa-icon {
@@ -118,6 +127,7 @@
 }
 
 .code-example-source {
+  overflow: hidden;
   border-block-end: var(--code-example-border);
   border-radius: 0;
 
