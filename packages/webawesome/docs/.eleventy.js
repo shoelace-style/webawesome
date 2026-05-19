@@ -69,7 +69,11 @@ export default async function (eleventyConfig) {
    * If you plan to add or remove any of these extensions, make sure to let either Konnor or Cory know as these
    * passthrough extensions will also need to be updated in the Web Awesome App.
    */
-  const passThrough = [...passThroughExtensions.map(ext => path.join(docsDir, '**/*.' + ext))];
+  const passThrough = [
+    path.join(docsDir, 'assets'),
+    path.join(docsDir, 'assets-pro'),
+    ...passThroughExtensions.map(ext => path.join(docsDir, '**/*.' + ext)),
+  ];
 
   /**
    * This is the guard we use for now to make sure our final built files don't need a 2nd pass by the server. This keeps
