@@ -40,6 +40,9 @@ export default async function (eleventyConfig) {
   const stylesheets = path.join(distDir, 'styles');
 
   eleventyConfig.addWatchTarget(customElementsManifest);
+  eleventyConfig.addPassthroughCopy("assets");
+  eleventyConfig.addWatchTarget("assets");
+  eleventyConfig.ignores.add("assets/**/*.md");
   eleventyConfig.setWatchThrottleWaitTime(10); // in milliseconds
 
   eleventyConfig.on('eleventy.beforeWatch', async function (changedFiles) {
