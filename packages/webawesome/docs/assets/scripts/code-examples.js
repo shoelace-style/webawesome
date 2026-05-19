@@ -42,8 +42,8 @@ function cancelSourceAnimations(source) {
 
 function getCodeExampleDurations(source) {
   const style = getComputedStyle(source);
-  const showDuration = parseDuration(style.getPropertyValue('--show-duration').trim() || '200ms');
-  const hideDuration = parseDuration(style.getPropertyValue('--hide-duration').trim() || '200ms');
+  const showDuration = parseDuration(style.getPropertyValue('--code-example-show-duration').trim() || '200ms');
+  const hideDuration = parseDuration(style.getPropertyValue('--code-example-hide-duration').trim() || '200ms');
 
   return { showDuration, hideDuration };
 }
@@ -67,12 +67,29 @@ function setCodeExampleSourceCollapsed(source, collapsed) {
   source.style.opacity = '';
 }
 
+function resetCodeExampleElement(codeExample) {
+  const source = codeExample.querySelector('.code-example-source');
+  const preview = codeExample.querySelector('.code-example-preview');
+
+  if (source) {
+    cancelSourceAnimations(source);
+    source.classList.remove('code-example-source--animating');
+  }
+
+  if (preview) {
+    preview.classList.remove('code-example-preview--dragging');
+    preview.style.removeProperty('width');
+  }
+}
+
 function initCodeExamples() {
   document.querySelectorAll('.code-example').forEach(codeExample => {
     const source = codeExample.querySelector('.code-example-source');
     if (!source) {
       return;
     }
+
+    resetCodeExampleElement(codeExample);
 
     const open = codeExample.classList.contains('open');
     setCodeExampleSourceCollapsed(source, !open);
@@ -107,6 +124,8 @@ async function setCodeExampleOpen(codeExample, toggle, open) {
     source.classList.add('code-example-source--animating');
     source.style.height = '0';
     source.style.opacity = '0';
+
+    await new Promise(resolve => requestAnimationFrame(resolve));
 
     await animate(
       source,
@@ -150,6 +169,7 @@ async function setCodeExampleOpen(codeExample, toggle, open) {
   setCodeExampleSourceAccessibility(source, false);
 }
 
+// Initial pass for first paint; turbo:load re-syncs after client-side navigation.
 initCodeExamples();
 document.addEventListener('turbo:load', initCodeExamples);
 
@@ -199,14 +219,21 @@ document.addEventListener('click', event => {
   // Toggle source
   if (toggle) {
     const codeExample = toggle.closest('.code-example');
-    const open = !codeExample.classList.contains('open');
+    if (!codeExample) {
+      return;
+    }
 
+    const open = !codeExample.classList.contains('open');
     void setCodeExampleOpen(codeExample, toggle, open);
   }
 
   // Edit in CodePen
   if (pen) {
     const codeExample = pen.closest('.code-example');
+    if (!codeExample) {
+      return;
+    }
+
     const code = codeExample.querySelector('code');
     const html =
       `<link rel="stylesheet" href="https://ka-p.webawesome.com/kit/b9bfcf2dca544e85/webawesome@${version}/styles/webawesome.css">\n` +
