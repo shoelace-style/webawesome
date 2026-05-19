@@ -141,6 +141,10 @@
     padding: 0.5rem;
     cursor: pointer;
 
+    @media screen and (max-width: 600px) {
+      min-block-size: 2.75rem;
+    }
+
     &:first-of-type {
       border-inline-start: none;
       border-end-start-radius: var(--wa-panel-border-radius);
