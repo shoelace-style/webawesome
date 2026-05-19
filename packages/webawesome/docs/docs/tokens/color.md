@@ -92,7 +92,7 @@ use-cases:
   }
 </style>
 
-Web Awesome's color system is made up of three layers: a **color palette** that gives you a full spectrum of hues, **variant colors** that define semantic color variations (like success and danger), and **theme colors** that assign tints from your palette and variant colors to tokens that style components.
+Web Awesome's color system is made up of three layers: a [color palette](/docs/color-palettes) that gives you a full spectrum of hues, [variant colors](#variant-colors) that define semantic color variations (like success and danger), and [theme colors](/docs/themes) that assign tints from your palette and variant colors to tokens that style components.
 
 For an overview of how theming works across the library, see [Theming <wa-icon name="arrow-right" variant="regular"></wa-icon>](/docs/theming-overview).
 

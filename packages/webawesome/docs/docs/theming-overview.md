@@ -4,7 +4,7 @@ description: Style your project with Web Awesome's theming system — color pale
 layout: page-outline
 ---
 
-Web Awesome themes apply a cohesive look and feel across the entire library, built from stackable layers — a theme, a color palette, variants, and a light or dark color scheme — that you mix and match with classes on the `<html>` element.
+Web Awesome themes apply a cohesive look and feel across the entire library, built from stackable layers — a [theme](/docs/themes), a [color palette](/docs/color-palettes), [variants](/docs/tokens/color#variant-colors), and a light or dark color scheme — that you mix and match with classes on the `<html>` element.
 
 ## Key Concepts
 
@@ -12,7 +12,7 @@ Web Awesome themes apply a cohesive look and feel across the entire library, bui
 
 `.wa-theme-{name}`
 
-A theme is the overall look — fonts, borders, space, shadows, and how each variant gets used across components. Two themes can share a palette and variants and still feel completely different. Themes ship with a default palette and may include custom CSS overrides for individual components.
+A theme is the overall look — fonts, borders, space, shadows, and how each [variant](/docs/tokens/color#variant-colors) gets used across components. Two themes can share a [palette](/docs/color-palettes) and [variants](/docs/tokens/color#variant-colors) and still feel completely different. Themes ship with a default palette and may include custom CSS overrides for individual components.
 
 ```html {.example}
 <!-- Default theme stylesheet is already loaded on this page -->
@@ -92,7 +92,7 @@ Your theme is determined by `class="wa-theme-{name}"` on the `<html>` element. I
 
 `.wa-palette-{name}`
 
-A color palette gives you a full spectrum of [color design tokens](/docs/tokens/color) — 10 hues, each with 11 tints from `05` (darkest) to `95` (lightest). Each palette has its own hue shifts and chroma, so swapping palettes changes the entire feel of your project. Your palette is determined by `class="wa-palette-{name}"` on the `<html>` element; if no class is specified, the default palette is used.
+A color palette gives you a full spectrum of [color design tokens](/docs/tokens/color) — 10 hues, each with 11 tints from `05` (darkest) to `95` (lightest). Each palette has its own hue shifts and chroma, so swapping palettes changes the entire feel of your project, especially alongside a [theme](/docs/themes) and [variant colors](/docs/tokens/color#variant-colors). Your palette is determined by `class="wa-palette-{name}"` on the `<html>` element; if no class is specified, the default palette is used.
 
 {% include 'theming/color-palette-viewer.njk' %}
 
@@ -138,7 +138,7 @@ For tailored guidance, select your theme, color palette, and variant colors belo
 
 ## Creating Your Own
 
-You can build a custom theme with the [Theme Builder](/docs/customizing#theme-builder) to customize colors, fonts, roundness, spacing, and icons visually, or with [custom CSS](/docs/customizing#customizing-with-css) by overriding [design tokens](/docs/tokens) in your own stylesheet.
+You can build a custom theme with the [Theme Builder](/docs/customizing#use-a-pre-built-theme) to customize colors, fonts, roundness, spacing, and icons visually, or with [custom CSS](/docs/customizing#customizing-with-css) by overriding [design tokens](/docs/tokens) in your own stylesheet.
 
 ## Common Tasks
 

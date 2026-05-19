@@ -20,7 +20,7 @@ use-cases:
   - shadow dom
 ---
 
-You can customize the look and feel of Web Awesome at a high level with themes. For more advanced customizations, you can make use of CSS parts and custom properties to target individual components.
+You can customize the look and feel of Web Awesome at a high level with themes. For an overview of how the theming system works — [themes](/docs/themes), [palettes](/docs/color-palettes), [variants](/docs/tokens/color#variant-colors), and dark mode — see [Theming](/docs/theming-overview). For more advanced customizations, you can make use of CSS parts and custom properties to target individual components.
 
 ## Themes
 
