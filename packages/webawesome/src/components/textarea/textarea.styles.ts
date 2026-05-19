@@ -25,6 +25,12 @@ export default css`
     &:focus-within {
       outline-color: var(--wa-color-focus);
     }
+
+    /* Style disabled textareas */
+    &:has(:disabled) {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
   }
 
   /* Appearance modifiers */
@@ -50,6 +56,7 @@ export default css`
     background: transparent;
     font: inherit;
     color: inherit;
+    cursor: inherit;
     padding: calc(var(--wa-form-control-padding-block) - ((1lh - 1em) / 2)) var(--wa-form-control-padding-inline); /* accounts for the larger line height of textarea content */
     min-height: calc(var(--wa-form-control-height) - var(--border-width) * 2);
     box-shadow: none;

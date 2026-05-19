@@ -24,9 +24,10 @@ These are still finding their shape. APIs can change between minor versions, so 
 
 :::fixed
 
-- Fixed a bug in `<wa-video>` where  the `timeupdate` method was not emitting when seeking or scrubbing the timeline [issue:2393]
+- Fixed a bug in `<wa-video>` where the `timeupdate` method was not emitting when seeking or scrubbing the timeline [issue:2393]
 - Fixed a bug in `<wa-breadcrumb-item>` where `href=""` rendered as a button instead of a link, making it harder to follow the [WAI-ARIA breadcrumb pattern](https://www.w3.org/WAI/ARIA/apg/patterns/breadcrumb/) for the current-page item [issue:2387]
 - Fixed a regression in `<wa-breadcrumb-item>` that caused items without an `href` to render as a link instead of a button
+- Fixed a bug in `<wa-textarea>` where the disabled state had no visual styling, unlike other form controls [issue:2416]
 
 :::
 
