@@ -1,6 +1,7 @@
 @font-face {
   font-family: cera-round-pro;
   font-display: swap;
+  unicode-range: U+0000-024F, U+2000-206F, U+20A0-20CF;
   src: url('/assets/fonts/cera-round-pro-400.woff2') format('woff2');
   font-weight: 400;
   font-style: normal;
@@ -9,6 +10,7 @@
 @font-face {
   font-family: cera-round-pro;
   font-display: swap;
+  unicode-range: U+0000-024F, U+2000-206F, U+20A0-20CF;
   src: url('/assets/fonts/cera-round-pro-500.woff2') format('woff2');
   font-weight: 500;
   font-style: normal;
@@ -17,6 +19,7 @@
 @font-face {
   font-family: cera-round-pro;
   font-display: swap;
+  unicode-range: U+0000-024F, U+2000-206F, U+20A0-20CF;
   src: url('/assets/fonts/cera-round-pro-700.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
@@ -25,6 +28,7 @@
 @font-face {
   font-family: cera-round-pro;
   font-display: swap;
+  unicode-range: U+0000-024F, U+2000-206F, U+20A0-20CF;
   src: url('/assets/fonts/cera-round-pro-900.woff2') format('woff2');
   font-weight: 900;
   font-style: normal;
