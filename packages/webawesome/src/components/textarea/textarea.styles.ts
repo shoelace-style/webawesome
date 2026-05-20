@@ -57,6 +57,7 @@ export default css`
     font: inherit;
     color: inherit;
     cursor: inherit;
+    scroll-padding-block: var(--wa-form-control-padding-block);
     padding: calc(var(--wa-form-control-padding-block) - ((1lh - 1em) / 2)) var(--wa-form-control-padding-inline); /* accounts for the larger line height of textarea content */
     min-height: calc(var(--wa-form-control-height) - var(--border-width) * 2);
     box-shadow: none;
