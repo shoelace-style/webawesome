@@ -189,6 +189,10 @@
     wa-callout {
       background-color: var(--wa-color-brand-80);
       color: var(--wa-color-neutral-fill-loud);
+
+      .wa-dark & {
+        background-color: var(--wa-color-brand-30);
+      }
     }
 
     .banner-icon {
