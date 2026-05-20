@@ -118,7 +118,7 @@
     --wa-color-brand-20: #003e23;
     --wa-color-brand-30: #005332;
     --wa-color-brand-40: #006542;
-    --wa-color-brand-50: var(--brand-build-awesome-green);
+    --wa-color-brand-50: #198560;
     --wa-color-brand-60: #43a57d;
     --wa-color-brand-70: #5fbf96;
     --wa-color-brand-80: #79d9af;
@@ -185,6 +185,11 @@
   .banner-ba-kickstarter {
     /* make the callout-based banner full width */
     inline-size: 100%;
+
+    wa-callout {
+      background-color: var(--wa-color-brand-80);
+      color: var(--wa-color-neutral-fill-loud);
+    }
 
     .banner-icon {
       font-size: var(--wa-font-size-2xl);
