@@ -4,7 +4,7 @@
   <wa-dialog id="dialog-site" class="dialog-ba-kickstarter brand-build-awesome app-dialog" light-dismiss without-header>
     <div class="ba-kickstarter-video">
       <div class="ba-kickstarter-video-poster" aria-hidden="true">
-        <img src="/assets/images/placeholder-ba-video.png" alt="" loading="lazy" />
+        <img data-src="/assets/images/placeholder-ba-video.png" alt="" />
       </div>
       <div class="ba-kickstarter-video-embed" style="padding: 56.25% 0 0 0; position: relative;">
         <iframe
@@ -69,10 +69,14 @@
         initCalled = true;
 
         const iframe = document.getElementById('ba-kickstarter-vimeo');
+        const poster = dialog.querySelector('.ba-kickstarter-video-poster img');
 
         if (iframe && iframe.dataset.vimeoSrc && !iframe.dataset.vimeoLoaded) {
           iframe.src = iframe.dataset.vimeoSrc;
           iframe.dataset.vimeoLoaded = 'true';
+        }
+        if (poster && poster.dataset.src && !poster.src) {
+          poster.src = poster.dataset.src;
         }
 
         dialog.addEventListener('wa-hide', () => {
