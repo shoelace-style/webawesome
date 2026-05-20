@@ -148,6 +148,9 @@ async function setCodeExampleOpen(codeExample, toggle, open) {
 
   toggle.setAttribute('aria-expanded', 'false');
   source.classList.add('is-animating');
+  // Remove .open before the animation so the chevron rotation and panel collapse run together,
+  // mirroring the open path where .open is added before the panel animates.
+  codeExample.classList.remove('open');
   // Setting an explicit pixel height flushes layout, so no rAF is needed here
   // (unlike the open path, which animates from height: 0 and must measure scrollHeight first).
   const startHeight = source.scrollHeight;
@@ -168,7 +171,6 @@ async function setCodeExampleOpen(codeExample, toggle, open) {
 
   setCodeExampleSourceCollapsed(source, true);
   source.classList.remove('is-animating');
-  codeExample.classList.remove('open');
   setCodeExampleSourceAccessibility(source, false);
 }
 

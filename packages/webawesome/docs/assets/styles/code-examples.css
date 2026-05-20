@@ -3,8 +3,8 @@
   --code-example-resizer-inline-size: calc(var(--wa-space-l) + var(--wa-space-2xs));
   --code-example-preview-min-inline-size: calc(4 * var(--wa-space-5xl));
   --code-example-pen-inline-size: calc(6.25 * var(--wa-space-m));
-  --code-example-show-duration: var(--wa-transition-normal);
-  --code-example-hide-duration: var(--wa-transition-normal);
+  --code-example-show-duration: 200ms; /* matches wa-details' 200ms timing; */
+  --code-example-hide-duration: 200ms;
   --code-example-border: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
   --code-example-preview-padding-block: var(--wa-space-xl);
   --code-example-preview-padding-inline-start: var(--wa-space-xl);
