@@ -318,6 +318,7 @@ export default class WaPopover extends WebAwesomeElement {
           skidding=${this.skidding}
           flip
           shift
+          shift-padding="8"
           ?arrow=${!this.withoutArrow}
           .anchor=${this.anchor}
         >
