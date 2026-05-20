@@ -3,8 +3,8 @@ import { css } from 'lit';
 export default css`
   :host {
     --tag-max-size: 10ch;
-    --show-duration: 100ms;
-    --hide-duration: 100ms;
+    --show-duration: var(--wa-transition-fast);
+    --hide-duration: var(--wa-transition-fast);
   }
 
   /* Add ellipses to multi select options */
