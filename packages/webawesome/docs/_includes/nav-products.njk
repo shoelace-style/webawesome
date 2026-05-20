@@ -5,7 +5,7 @@
         <a href="/" class="product product-web-awesome product-active" aria-label="Web Awesome" data-track-event="navigation:product_link_click" data-track-destination="web-awesome" data-track-context="products_nav">
           {% include "logo-web-awesome.njk" %}
         </a>
-        <a href="{{ site.siblings.fontAwesome.url }}" class="product product-font-awesome" data-track-event="navigation:product_link_click" data-track-destination="font_awesome" data-track-context="products_nav" id="product-font-awesome">
+        <a href="{{ site.siblings.fontAwesome.url }}" class="product product-font-awesome" aria-label="{{ site.siblings.fontAwesome.name }}" data-track-event="navigation:product_link_click" data-track-destination="font_awesome" data-track-context="products_nav" id="product-font-awesome">
           <wa-icon name="font-awesome" family="brands" class="logo-icon logo-font-awesome"></wa-icon>
         </a>
         <wa-tooltip for="product-font-awesome">{{ site.siblings.fontAwesome.name }}</wa-tooltip>
