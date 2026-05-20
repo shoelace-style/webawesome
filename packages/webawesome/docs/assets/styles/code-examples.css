@@ -22,7 +22,7 @@
     margin-block-end: var(--wa-content-spacing);
   }
 
-  @container code-example (max-width: var(--code-example-compact-max-width)) {
+  @container code-example (max-inline-size: 30rem) {
     .code-example-preview {
       padding-block: var(--wa-space-m);
       padding-inline: var(--wa-space-m);
@@ -197,7 +197,7 @@
       color: var(--wa-color-text-normal);
     }
 
-    @container code-example (max-width: var(--code-example-compact-max-width)) {
+    @container code-example (max-inline-size: 25rem) {
       min-block-size: var(--wa-form-control-height);
     }
 
