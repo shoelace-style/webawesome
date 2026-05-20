@@ -1,5 +1,5 @@
 {% raw %}
-{% if isBuildAwesomePromoActive %}
+{% if isBuildAwesomePromoActive and not isBuildAwesomePromoDismissed %}
 <div class="wrapper-ba-kickstarter-dialog">
   <wa-dialog id="dialog-site" class="dialog-ba-kickstarter brand-build-awesome app-dialog" light-dismiss without-header>
     <div class="ba-kickstarter-video">
@@ -88,6 +88,7 @@
         } catch (e) {
           // localStorage may be disabled or unavailable
         }
+        document.cookie = SITE_DIALOG_DISMISSED_KEY + '=true; path=/; max-age=' + (60 * 60 * 24 * 365) + '; samesite=lax';
       }, { once: true });
 
       setTimeout(() => {
