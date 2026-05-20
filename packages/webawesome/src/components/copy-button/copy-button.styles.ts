@@ -59,11 +59,11 @@ export default css`
 
   /* Icon swap animation */
   .show {
-    animation: copy-button-icon-show 100ms ease;
+    animation: copy-button-icon-show var(--wa-transition-fast) var(--wa-transition-easing);
   }
 
   .hide {
-    animation: copy-button-icon-show 100ms ease reverse;
+    animation: copy-button-icon-show var(--wa-transition-fast) var(--wa-transition-easing) reverse;
   }
 
   @keyframes copy-button-icon-show {

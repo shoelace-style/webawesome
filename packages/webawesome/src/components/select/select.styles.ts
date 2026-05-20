@@ -236,7 +236,7 @@ export default css`
     display: flex;
     align-items: center;
     color: var(--wa-color-neutral-on-quiet);
-    transition: rotate var(--wa-transition-slow) ease;
+    transition: rotate var(--wa-transition-slow) var(--wa-transition-easing);
     rotate: 0deg;
     margin-inline-start: var(--wa-form-control-padding-inline);
 
