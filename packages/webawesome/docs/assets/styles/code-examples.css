@@ -1,15 +1,14 @@
 .code-example {
   --code-example-panel-radius: calc(var(--wa-panel-border-radius) - var(--wa-panel-border-width));
-  --code-example-compact-max-width: 37.5rem;
-  --code-example-resizer-width: calc(var(--wa-space-l) + var(--wa-space-2xs));
-  --code-example-preview-min-width: calc(4 * var(--wa-space-5xl));
+  --code-example-resizer-inline-size: calc(var(--wa-space-l) + var(--wa-space-2xs));
+  --code-example-preview-min-inline-size: calc(4 * var(--wa-space-5xl));
   --code-example-pen-inline-size: calc(6.25 * var(--wa-space-m));
   --code-example-show-duration: var(--wa-transition-normal);
   --code-example-hide-duration: var(--wa-transition-normal);
   --code-example-border: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
   --code-example-preview-padding-block: var(--wa-space-xl);
   --code-example-preview-padding-inline-start: var(--wa-space-xl);
-  --code-example-preview-padding-inline-end: calc(var(--wa-space-xl) + var(--code-example-resizer-width));
+  --code-example-preview-padding-inline-end: calc(var(--wa-space-xl) + var(--code-example-resizer-inline-size));
 
   background: var(--wa-color-surface-lowered);
   border: var(--code-example-border);
@@ -43,12 +42,12 @@
   border-block-end: var(--code-example-border);
   padding-block: var(--code-example-preview-padding-block);
   padding-inline: var(--code-example-preview-padding-inline-start) var(--code-example-preview-padding-inline-end);
-  min-width: min(100%, var(--code-example-preview-min-width));
-  max-width: 100%;
+  min-inline-size: min(100%, var(--code-example-preview-min-inline-size));
+  max-inline-size: 100%;
 
   > :first-child:not(dialog) {
-    max-width: 100%;
-    overflow-x: auto;
+    max-inline-size: 100%;
+    overflow-inline: auto;
     margin-block-start: 0;
   }
 
@@ -73,7 +72,7 @@
   position: absolute;
   inset-block: 0;
   inset-inline-end: 0;
-  width: var(--code-example-resizer-width);
+  inline-size: var(--code-example-resizer-inline-size);
   color: var(--wa-color-text-quiet);
   background-color: var(--wa-color-surface-default);
   border-inline-start: var(--code-example-border);
@@ -137,7 +136,7 @@
 }
 
 .code-example:not(.open) .code-example-source:not(.is-animating) {
-  height: 0;
+  block-size: 0;
   opacity: 0;
   overflow: hidden;
   border-block-end: none;
