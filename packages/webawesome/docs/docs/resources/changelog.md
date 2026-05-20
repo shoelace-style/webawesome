@@ -32,6 +32,13 @@ These are still finding their shape. APIs can change between minor versions, so 
 
 :::
 
+:::changed
+
+- Standardized default `--show-duration` and `--hide-duration` values across `<wa-dropdown>`, `<wa-popup>`, `<wa-popover>`, `<wa-select>`, `<wa-details>`, `<wa-dialog>`, `<wa-drawer>`, and `<wa-tree-item>` to use `--wa-transition-fast` or `--wa-transition-normal` tokens. Popups now open/close at 75ms (previously 50–100ms) and panels at 150ms (previously 200ms). Override the custom properties per component to restore prior timing.
+- Standardized hardcoded transition values in `<wa-copy-button>` and `<wa-select>` to use `--wa-transition-*` tokens.
+
+:::
+
 ## 3.7.0
 
 <small><time datetime="2026-05-12">May 12, 2026</time></small>
