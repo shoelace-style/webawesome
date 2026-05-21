@@ -212,14 +212,14 @@ Large blocks of uppercase text are [harder for everyone to read](https://www.w3.
   }
 </style>
 
-Use `wa-text-align-*` classes to align text within its container. These utilities apply standard CSS [`text-align`](https://developer.mozilla.org/docs/Web/CSS/text-align) values using logical properties, so they adapt automatically to the document's writing direction.
+Use these classes to align text within its container. They apply standard CSS [`text-align`](https://developer.mozilla.org/docs/Web/CSS/text-align) values using logical properties, so they adapt automatically to the document's writing direction.
 
-| Class Name              | Preview                                                                                                                              |
-| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| `wa-text-align-start`   | <div class="wa-text-align-start preview-wrapper">Five boxing wizards</div>                                                           |
-| `wa-text-align-center`  | <div class="wa-text-align-center preview-wrapper">Five boxing wizards</div>                                                          |
-| `wa-text-align-end`     | <div class="wa-text-align-end preview-wrapper">Five boxing wizards</div>                                                             |
-| `wa-text-align-justify` | <div class="wa-text-align-justify preview-wrapper">The five boxing wizards jump quickly. How quickly daft jumping zebras vex!</div>  |
+| Class Name        | Preview                                                                                                                       |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `wa-text-start`   | <div class="wa-text-start preview-wrapper">Five boxing wizards</div>                                                          |
+| `wa-text-center`  | <div class="wa-text-center preview-wrapper">Five boxing wizards</div>                                                         |
+| `wa-text-end`     | <div class="wa-text-end preview-wrapper">Five boxing wizards</div>                                                            |
+| `wa-text-justify` | <div class="wa-text-justify preview-wrapper">The five boxing wizards jump quickly. How quickly daft jumping zebras vex!</div> |
 
 ::: info
 Justified text can create uneven word spacing that's [harder for everyone to read](https://www.w3.org/WAI/WCAG21/Understanding/visual-presentation.html) and especially difficult for folks with dyslexia. Reserve it for short, narrow text columns.
