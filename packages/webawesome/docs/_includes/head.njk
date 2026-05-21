@@ -26,8 +26,12 @@
 </script>
 
 {# TODO: Figure out how to only load in dev #}
-  <script src="/assets/scripts/hydration-errors.js"></script>
-  <link rel="stylesheet" href="/assets/styles/hydration-errors.css">
+{% raw %}
+  {% if isDev %}
+    <script src="/assets/scripts/hydration-errors.js"></script>
+    <link rel="stylesheet" href="/assets/styles/hydration-errors.css">
+  {% endif %}
+{% endraw %}
 
 <link rel="manifest" href="/manifest.json" />
 <link rel="icon" href="/assets/images/app-icons/favicon.ico" sizes="any">
@@ -36,6 +40,11 @@
 
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
 <script type="module" src="/dist/webawesome.ssr-loader.js"></script>
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/cera-round-pro-400.woff2" crossorigin>
+{% if pageClass == 'home' %}
+  <link rel="preload" as="image" type="image/svg+xml" href="/assets/images/bg-wa-pattern-light.svg" media="(prefers-color-scheme: light)">
+  <link rel="preload" as="image" type="image/svg+xml" href="/assets/images/bg-wa-pattern-dark.svg" media="(prefers-color-scheme: dark)">
+{% endif %}
 
 <link id="theme-stylesheet" rel="stylesheet" href="/dist/styles/themes/default.css" render="blocking" fetchpriority="high" />
 

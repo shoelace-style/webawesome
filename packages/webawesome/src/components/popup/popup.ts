@@ -66,8 +66,8 @@ const SUPPORTS_POPOVER = Boolean(globalThis?.HTMLElement?.prototype.hasOwnProper
  * @cssproperty [--auto-size-available-height] - A read-only custom property that determines the amount of height the
  *  popup can be before overflowing. Useful for positioning child elements that need to overflow. This property is only
  *  available when using `auto-size`.
- * @cssproperty [--show-duration=100ms] - The show duration to use when applying built-in animation classes.
- * @cssproperty [--hide-duration=100ms] - The hide duration to use when applying built-in animation classes.
+ * @cssproperty [--show-duration=var(--wa-transition-fast)] - The show duration to use when applying built-in animation classes.
+ * @cssproperty [--hide-duration=var(--wa-transition-fast)] - The hide duration to use when applying built-in animation classes.
  */
 @customElement('wa-popup')
 export default class WaPopup extends WebAwesomeElement {
