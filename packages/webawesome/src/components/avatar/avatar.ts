@@ -58,15 +58,15 @@ export default class WaAvatar extends WebAwesomeElement {
     this.dispatchEvent(new WaErrorEvent());
   }
 
-  connectedCallback () {
-    super.connectedCallback()
+  connectedCallback() {
+    super.connectedCallback();
     if (this.didSSR) {
-      const img = this.shadowRoot?.querySelector("img")
+      const img = this.shadowRoot?.querySelector('img');
       if (img && img.complete && img.naturalWidth <= 0) {
         // Assume the image errored
         this.updateComplete.then(() => {
-          this.handleImageLoadError()
-        })
+          this.handleImageLoadError();
+        });
       }
     }
   }

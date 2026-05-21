@@ -363,8 +363,8 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
   }
 
   render() {
-    const hasLabelSlot = this.didSSR && !this.hasUpdated ? this.withLabel : this.hasSlotController.test('label');
-    const hasHintSlot = this.didSSR && !this.hasUpdated ? this.withHint : this.hasSlotController.test('hint');
+    const hasLabelSlot = this.hasSlotController.test('label', 'withLabel');
+    const hasHintSlot = this.hasSlotController.test('hint', 'withHint');
     const hasLabel = this.label ? true : !!hasLabelSlot;
     const hasHint = this.hint ? true : !!hasHintSlot;
     const hasClearIcon = this.withClear && !this.disabled && !this.readonly;

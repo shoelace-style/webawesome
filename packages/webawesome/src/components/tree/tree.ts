@@ -100,7 +100,7 @@ export default class WaTree extends WebAwesomeElement {
 
   constructor() {
     super();
-    if ("addEventListener" in this) {
+    if ('addEventListener' in this) {
       this.addEventListener('focusin', this.handleFocusIn);
       this.addEventListener('focusout', this.handleFocusOut);
       this.addEventListener('wa-lazy-change', this.handleSlotChange);
@@ -111,7 +111,7 @@ export default class WaTree extends WebAwesomeElement {
     super.connectedCallback();
 
     // SSR guard: MutationObserver is not available during server-side rendering
-    if (typeof MutationObserver !== "undefined") {
+    if (typeof MutationObserver !== 'undefined') {
       await this.updateComplete;
 
       this.mutationObserver = new MutationObserver(this.handleTreeChanged);
@@ -119,7 +119,7 @@ export default class WaTree extends WebAwesomeElement {
     }
 
     this.setAttribute('tabindex', '0');
-    this.setAttribute("role", "tree")
+    this.setAttribute('role', 'tree');
   }
 
   disconnectedCallback() {

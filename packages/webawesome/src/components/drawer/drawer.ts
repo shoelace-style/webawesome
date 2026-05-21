@@ -280,13 +280,9 @@ export default class WaDrawer extends WebAwesomeElement {
 
         <div part="body" class="body"><slot></slot></div>
 
-        ${hasFooter
-          ? html`
-              <footer part="footer" class="footer">
-                <slot name="footer"></slot>
-              </footer>
-            `
-          : ''}
+        <footer part="footer" class="footer" ?hidden=${!hasFooter}>
+          <slot name="footer"></slot>
+        </footer>
       </dialog>
     `;
   }

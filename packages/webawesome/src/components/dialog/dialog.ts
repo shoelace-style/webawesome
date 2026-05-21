@@ -220,7 +220,7 @@ export default class WaDialog extends WebAwesomeElement {
 
   render() {
     const hasHeader = !this.withoutHeader;
-    const hasFooter = this.didSSR && !this.hasUpdated ? this.withFooter : this.hasSlotController.test('footer');
+    const hasFooter = this.hasSlotController.test('footer', "withFooter");
 
     return html`
       <dialog
@@ -263,13 +263,10 @@ export default class WaDialog extends WebAwesomeElement {
 
         <div part="body" class="body"><slot></slot></div>
 
-        ${hasFooter
-          ? html`
-              <footer part="footer" class="footer">
-                <slot name="footer"></slot>
-              </footer>
-            `
-          : ''}
+        <!-- Use a hidden element so we still get "slotchange" events. -->
+        <footer part="footer" class="footer" ?hidden=${!hasFooter}>
+          <slot name="footer"></slot>
+        </footer>
       </dialog>
     `;
   }

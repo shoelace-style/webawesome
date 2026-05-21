@@ -371,7 +371,7 @@ export async function build(options = {}) {
 
             const _end = res.end;
             res.end = function (...args) {
-              const ssr = process.env.SSR === 'true'
+              const ssr = process.env.SSR === 'true';
               const transformedStr = SimulateWebAwesomeApp(finalString.join(''), {
                 isDev: process.env.NODE_ENV === 'development',
                 ssr,

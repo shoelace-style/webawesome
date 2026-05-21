@@ -109,10 +109,10 @@ export default class WaTreeItem extends WebAwesomeElement {
   connectedCallback() {
     super.connectedCallback();
 
-    this.setAttribute("role", "treeitem")
+    this.setAttribute('role', 'treeitem');
 
     if (this.isNestedItem()) {
-      this.setAttribute("slot", "children")
+      this.setAttribute('slot', 'children');
     }
 
     this.updateIndentation();
