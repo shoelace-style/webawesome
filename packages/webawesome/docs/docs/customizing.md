@@ -107,7 +107,7 @@ Web Awesome uses [themes](/docs/themes) to apply a cohesive look and feel across
 
 ### Theme Builder
 
- The Theme Builder is a visual editor for **Pro workspace projects** that lets you customize your project's [theme](/docs/themes), [color palette](/docs/color-palettes), [variant colors](/docs/tokens/color#variant-colors), fonts, roundness, spacing, and icons — with a live preview as you go. Saves apply instantly anywhere you're using your project.
+The Theme Builder is a visual editor for **Pro workspace projects** that lets you customize your project's [theme](/docs/themes), [color palette](/docs/color-palettes), [variant colors](/docs/tokens/color#variant-colors), fonts, roundness, spacing, and icons — with a live preview as you go. Saves apply instantly anywhere you're using your project.
 
 You can launch the Theme Builder from your project's <wa-icon name="gear" variant="regular"></wa-icon> **Settings** by pressing <wa-icon name="paintbrush" variant="regular"></wa-icon> **Edit Your Theme**.
 
@@ -284,9 +284,11 @@ You can also use multiple variant colors on the same page. **On each element whe
 </wa-callout>
 ```
 
+## Customizing Components
+
 While themes offer a high-level way to customize the library, individual components offer different hooks as a low-level way to customize them one at a time. Web Awesome components use a [shadow DOM](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM) to encapsulate their styles and behaviors. As a result, you can't simply target their internals with the usual CSS selectors. Instead, components expose a set of CSS parts, custom properties, and custom states that can be targeted to customize their appearance.
 
-## CSS Parts
+### CSS Parts
 
 CSS parts offer the most flexibility to customize individual components. The "parts" exposed by each component can be targeted with the [CSS part selector](https://developer.mozilla.org/en-US/docs/Web/CSS/::part), or `::part()`.
 
@@ -331,7 +333,7 @@ CSS parts have a few important advantages:
 
 Most (but not all) components expose parts. You can find them in each component's API documentation under the "CSS Parts" section.
 
-## Custom Properties
+### Custom Properties
 
 Components expose custom properties that are scoped to the component, not global, so they do not have the same `--wa-` prefix as a theme's custom properties. These custom properties reflect common qualities of a component, such as `--background-color`, `--border-style`, `--size`, etc.
 
@@ -359,7 +361,7 @@ Alternatively, you can set them inline directly on the element.
 
 The custom properties exposed by each component can be found in the component's API documentation.
 
-## Custom States
+### Custom States
 
 Components can expose custom states that allow you to style them based on their current condition using the `:state()` selector. Custom states provide a way to target specific component states that aren't covered by standard pseudo-classes like `:hover` or `:focus`.
 Here's an example that styles a checkbox that's checked.
@@ -372,7 +374,7 @@ wa-checkbox:state(checked) {
 
 Custom states can be combined with CSS parts and custom properties to create sophisticated customizations. The custom states exposed by each component can be found in the component's API documentation under the "Custom States" section.
 
-## Native Elements
+### Native Elements
 
 If you're using [native styles](/docs/utilities/native), any custom styles added for a component should also target the corresponding native element. In general, the same styles you declare for components will work just the same to style their native counterparts.
 

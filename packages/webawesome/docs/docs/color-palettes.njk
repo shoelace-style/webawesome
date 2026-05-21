@@ -58,60 +58,62 @@ wide: true
 
       <wa-tab-panel name="cdn">
         {% if palette.isPro %}
-{% markdown %}
-<wa-callout variant="neutral" size="s">
-  <wa-icon slot="icon" name="info-circle" variant="regular"></wa-icon>
-  This palette can only be used with a Pro subscription. {% raw %}{% if session.isLoggedIn %}{% endraw %}For instructions unique to your Pro project, open a project from <a href="/workspaces">your workspace</a>.{% raw %}{% endif %}{% endraw %}
-</wa-callout>
-{% endmarkdown %}
+        {% markdown %}
+        <wa-callout variant="neutral" size="s">
+          <wa-icon slot="icon" name="info-circle" variant="regular"></wa-icon>
+          This palette can only be used with a Pro subscription. {% raw %}{% if session.isLoggedIn %}{% endraw %}For
+          instructions unique to your Pro project, open a project from <a href="/workspaces">your workspace</a>.{% raw
+          %}{% endif %}{% endraw %}
+        </wa-callout>
+        {% endmarkdown %}
         {% else %}
         {% set paletteCdnUrl %}{% cdnUrl 'styles/color/palettes/' %}{{ palette.filename }}{% endset %}
-{% markdown %}
-To use this palette, add the palette's stylesheet from the CDN:
+        {% markdown %}
+        To use this palette, add the palette's stylesheet from the CDN:
 
-```html
-<link rel="stylesheet" href="{{ paletteCdnUrl }}">
-```
+        ```html
+        <link rel="stylesheet" href="{{ paletteCdnUrl }}">
+        ```
 
-Then, apply the following class to the `<html>` element:
+        Then, apply the following class to the `<html>` element:
 
-```html
-<html class="wa-palette-{{ palette.name | lower }}">
-```
-{% endmarkdown %}
+        ```html
+        <html class="wa-palette-{{ palette.name | lower }}">
+        ```
+        {% endmarkdown %}
         {% endif %}
       </wa-tab-panel>
 
       <wa-tab-panel name="npm">
-{% markdown %}
-After installing <code>@awesome.me/webawesome</code>, import the palette's stylesheet:
+        {% markdown %}
+        After installing <code>@awesome.me/webawesome</code>, import the palette's stylesheet:
 
-```js
-import '@awesome.me/webawesome/dist/styles/color/palettes/{{ palette.filename }}';
-```
+        ```js
+        import '@awesome.me/webawesome/dist/styles/color/palettes/{{ palette.filename }}';
+        ```
 
-Then, apply the following class to the `<html>` element:
+        Then, apply the following class to the `<html>` element:
 
-```html
-<html class="wa-palette-{{ palette.name | lower }}">
-```
-{% endmarkdown %}
+        ```html
+        <html class="wa-palette-{{ palette.name | lower }}">
+        ```
+        {% endmarkdown %}
       </wa-tab-panel>
 
       <wa-tab-panel name="self-hosted">
-{% markdown %}
-If you're self-hosting Web Awesome, include the palette's stylesheet from your server:
+        {% markdown %}
+        If you're self-hosting Web Awesome, include the palette's stylesheet from your server:
 
-```html
-<link rel="stylesheet" href="/dist/styles/color/palettes/{{ palette.filename }}">
-```
+        ```html
+        <link rel="stylesheet" href="/dist/styles/color/palettes/{{ palette.filename }}">
+        ```
 
-Then, apply the following class to the `<html>` element:
+        Then, apply the following class to the `<html>` element:
 
-```html
-<html class="wa-palette-{{ palette.name | lower }}">
-```
-{% endmarkdown %}
+        ```html
+        <html class="wa-palette-{{ palette.name | lower }}">
+        ```
+        {% endmarkdown %}
       </wa-tab-panel>
 
       <wa-tab-panel name="hosted">
@@ -225,3 +227,20 @@ Then, apply the following class to the `<html>` element:
   </div>
   {% endfor %}
 </div>
+
+<h2>Styling with Palette Colors</h2>
+
+<p>Once a palette is loaded, you can reach for any of its hue and tint tokens in your own CSS. Pair a hue's <a
+    href="/docs/tokens/color#core-colors">core color</a> (<code>--wa-color-{hue}</code>) with its matching on color
+  (<code>--wa-color-{hue}-on</code>) to keep text and icons readable on top of it:</p>
+
+{% markdown %}
+```css
+.callout-custom {
+background: var(--wa-color-blue);
+color: var(--wa-color-blue-on);
+}
+```
+{% endmarkdown %}
+
+<p>For the full set of color tokens, head over to <a href="/docs/tokens/color">Color tokens</a>.</p>

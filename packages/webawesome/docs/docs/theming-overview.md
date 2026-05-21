@@ -6,6 +6,10 @@ layout: page-outline
 
 Web Awesome themes apply a cohesive look and feel across the entire library, built from stackable layers — a [theme](/docs/themes), a [color palette](/docs/color-palettes), [variants](/docs/tokens/color#variant-colors), and a light or dark color scheme — that you mix and match with classes on the `<html>` element.
 
+:::info
+**Try it live!** Use the <strong class="wa-cluster wa-gap-3xs wa-align-items-baseline" style="display: inline-flex; margin-inline: var(--wa-space-3xs)"><wa-icon name="palette" variant="regular"></wa-icon>Theme</strong>  and <strong class="wa-cluster wa-gap-3xs wa-align-items-baseline" style="display: inline-flex; margin-inline: var(--wa-space-3xs)"><wa-icon name="sun-bright" variant="regular"></wa-icon>Color Scheme</strong> selectors in this site's header to preview themes or switch light/dark modes.
+:::
+
 ## Key Concepts
 
 ### Themes
@@ -92,7 +96,9 @@ Your theme is determined by `class="wa-theme-{name}"` on the `<html>` element. I
 
 `.wa-palette-{name}`
 
-A color palette gives you a full spectrum of [color design tokens](/docs/tokens/color) — 10 hues, each with 11 tints from `05` (darkest) to `95` (lightest). Each palette has its own hue shifts and chroma, so swapping palettes changes the entire feel of your project, especially alongside a [theme](/docs/themes) and [variant colors](/docs/tokens/color#variant-colors). Your palette is determined by `class="wa-palette-{name}"` on the `<html>` element; if no class is specified, the default palette is used.
+A color palette is the full set of 10 hues — red, orange, yellow, green, cyan, blue, indigo, purple, pink, and gray — each with 11 tints from `05` (darkest) to `95` (lightest), all available as [color design tokens](/docs/tokens/color). 
+
+Each palette has its own hue shifts and chroma, so swapping palettes changes the entire feel of your project — especially alongside a [theme](/docs/themes) and [variant colors](/docs/tokens/color#variant-colors). Your palette is determined by `class="wa-palette-{name}"` on the `<html>` element; if no class is specified, the default palette is used.
 
 {% include 'theming/color-palette-viewer.njk' %}
 
@@ -105,7 +111,7 @@ A color palette gives you a full spectrum of [color design tokens](/docs/tokens/
 
 `.wa-{variant}-{hue}`
 
-Variants assign palette hues to five semantic roles — `brand`, `neutral`, `success`, `warning`, and `danger` — so components like buttons and callouts can convey meaning through color. Any hue from your palette can be assigned to any variant with `class="wa-{variant}-{hue}"` on the `<html>` element.
+Variants assign palette hues to five semantic roles — `brand`, `neutral`, `success`, `warning`, and `danger` — so components like buttons and callouts can convey meaning through color. Any hue from your palette can be assigned to any variant with `class="wa-{variant}-{hue}"`. Apply the class to the `<html>` element to set variants globally, to a wrapper to scope them to one section, or to a single component to override just that element. For deeper customization, [override the `--wa-color-{variant}-*` tokens](/docs/customizing#customizing-with-css) in your own CSS.
 
 {% set colorScales = ["brand", "neutral", "success", "warning", "danger"] %}
 {% include 'theming/color-palette-viewer.njk' %}
@@ -140,7 +146,7 @@ For tailored guidance, select your theme, color palette, and variant colors belo
 
 You can build a custom theme with the [Theme Builder](/docs/customizing#theme-builder) to customize colors, fonts, roundness, spacing, and icons visually, or with [custom CSS](/docs/customizing#customizing-with-css) by overriding [design tokens](/docs/tokens) in your own stylesheet.
 
-## Common Tasks
+## Quick Reference
 
 | Task                    | How To                                                                                           | Learn More                                                      |
 | ----------------------- | ------------------------------------------------------------------------------------------------ | --------------------------------------------------------------- |

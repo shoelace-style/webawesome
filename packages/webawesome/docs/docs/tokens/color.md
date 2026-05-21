@@ -92,7 +92,7 @@ use-cases:
   }
 </style>
 
-Web Awesome's color system is made up of three layers: a [color palette](/docs/color-palettes) that gives you a full spectrum of hues, [variant colors](#variant-colors) that define semantic color variations (like success and danger), and [theme colors](/docs/themes) that assign tints from your palette and variant colors to tokens that style components.
+Web Awesome's color system is made up of three layers: a [color palette](/docs/color-palettes) that gives you a full spectrum of hues, [variant colors](#variant-colors) that define semantic color variations (like success and danger), and [colors for themed elements](#color-for-themed-elements) that apply specific tints from your palette and variant colors to the elements that make up a theme.
 
 For an overview of how theming works across the library, see [Theming <wa-icon name="arrow-right" variant="regular"></wa-icon>](/docs/theming-overview).
 
@@ -203,9 +203,9 @@ Any hue from your color palette can be assigned to any variant without redefinin
 
 All ten palette hues — `red`, `orange`, `yellow`, `green`, `cyan`, `blue`, `indigo`, `purple`, `pink`, and `gray` — are available for every variant.
 
-## Theme Colors
+## Color for Themed Elements
 
-Theme colors assign specific tints from your color palette and variant colors to design tokens that style elements and components. These tokens are named for their role rather than their appearance and are designed to adapt to light and dark modes.
+These tokens apply specific tints from your color palette and variant colors to the elements and components that make up a theme. They're named for the role they play rather than their appearance, and adapt to light and dark modes.
 
 ### Surfaces
 
@@ -331,7 +331,7 @@ A single color is used for all drop shadows. Use it alongside the [shadow tokens
 
 ### Interactions
 
-These tokens power consistent hover, active, and focus states across all interactive components.
+These tokens power consistent hover, active, and focus states across all interactive components. `--wa-color-focus` is the outline color for keyboard focus rings. `--wa-color-mix-hover` and `--wa-color-mix-active` are blended into a component's fill via [`color-mix()`](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/color-mix) to subtly shift its color on hover or press.
 
 <wa-scroller>
   <table class="token-table wa-hover-rows">
@@ -350,12 +350,12 @@ These tokens power consistent hover, active, and focus states across all interac
       </tr>
       <tr id="token-wa-color-mix-hover">
         <td class="token-name"><code>--wa-color-mix-hover</code></td>
-        <td>A color and an optional percentage mixed into a component's color on hover via <code>color-mix()</code></td>
+        <td>Color blended into a component's fill on hover</td>
         <td><div class="swatch color-mix-example" style="--mix-color: var(--wa-color-mix-hover)"><small>mix</small></div></td>
       </tr>
       <tr id="token-wa-color-mix-active">
         <td class="token-name"><code>--wa-color-mix-active</code></td>
-        <td>A color and an optional percentage mixed into a component's color on press/active via <code>color-mix()</code></td>
+        <td>Color blended into a component's fill on press</td>
         <td><div class="swatch color-mix-example" style="--mix-color: var(--wa-color-mix-active)"><small>mix</small></div></td>
       </tr>
     </tbody>
