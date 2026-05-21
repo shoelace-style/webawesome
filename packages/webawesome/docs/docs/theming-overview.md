@@ -7,7 +7,7 @@ layout: page-outline
 Web Awesome themes apply a cohesive look and feel across the entire library, built from stackable layers — a [theme](/docs/themes), a [color palette](/docs/color-palettes), [variants](/docs/tokens/color#variant-colors), and a light or dark color scheme — that you mix and match with classes on the `<html>` element.
 
 :::info
-**Try it live!** Use the <strong class="wa-cluster wa-gap-3xs wa-align-items-baseline" style="display: inline-flex; margin-inline: var(--wa-space-3xs)"><wa-icon name="palette" variant="regular"></wa-icon>Theme</strong>  and <strong class="wa-cluster wa-gap-3xs wa-align-items-baseline" style="display: inline-flex; margin-inline: var(--wa-space-3xs)"><wa-icon name="sun-bright" variant="regular"></wa-icon>Color Scheme</strong> selectors in this site's header to preview themes or switch light/dark modes.
+**Try it live!** Use the <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="palette" variant="regular"></wa-icon></wa-tag> Theme  and <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="sun-bright" variant="regular"></wa-icon></wa-tag> Color Scheme selectors in this site's header to preview themes or switch light/dark modes.
 :::
 
 ## Key Concepts

@@ -121,24 +121,24 @@ Then apply the following classes to the `<html>` element:
         {% if theme.isPro %}
 {% markdown %}
 **For projects on Pro workspaces:**
-1. Head over to your project's <wa-icon name="gear" variant="regular"></wa-icon> **Settings**.
-2. Press <wa-icon name="paintbrush" variant="regular"></wa-icon> **Edit Your Theme** to open the Theme Builder.
-3. Open **Theme** and select **{{ theme.filename | stripExtension | capitalize }}**.
-4. Press **Save Theme** to immediately update anywhere you're using your project.
+1. Head over to your project's <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="gear" variant="regular"></wa-icon> Settings</wa-tag>.
+2. Press <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="paintbrush" variant="regular"></wa-icon> Edit Your Theme</wa-tag> to open the Theme Builder.
+3. Open <wa-tag class="tag-ui" appearance="outlined">Theme</wa-tag> and select <wa-tag class="tag-ui" appearance="outlined">{{ theme.filename | stripExtension | capitalize }}</wa-tag>.
+4. Press <wa-tag class="tag-ui" appearance="outlined">Save Theme</wa-tag> to immediately update anywhere you're using your project.
 {% endmarkdown %}
         {% else %}
 {% markdown %}
 **For projects on Free workspaces:**
-1. Head over to your project's <wa-icon name="gear" variant="regular"></wa-icon> **Settings**.
-2. For your **Theme**, select <wa-icon name="paintbrush" variant="regular"></wa-icon> **{{ theme.filename | stripExtension | capitalize }}**.
-3. For your **Color Palette**, select <wa-icon name="swatchbook" variant="regular"></wa-icon> **{{ theme.palette.filename | stripExtension | capitalize }}**.
-4. Press **Save Changes** to immediately update anywhere you're using your project.
+1. Head over to your project's <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="gear" variant="regular"></wa-icon> Settings</wa-tag>.
+2. For your <wa-tag class="tag-ui" appearance="outlined">Theme</wa-tag>, select <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="paintbrush" variant="regular"></wa-icon> {{ theme.filename | stripExtension | capitalize }}</wa-tag>.
+3. For your <wa-tag class="tag-ui" appearance="outlined">Color Palette</wa-tag>, select <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="swatchbook" variant="regular"></wa-icon> {{ theme.palette.filename | stripExtension | capitalize }}</wa-tag>.
+4. Press <wa-tag class="tag-ui" appearance="outlined">Save Changes</wa-tag> to immediately update anywhere you're using your project.
 
 **For projects on Pro workspaces:**
-1. Head over to your project's <wa-icon name="gear" variant="regular"></wa-icon> **Settings**.
-2. Press <wa-icon name="paintbrush" variant="regular"></wa-icon> **Edit Your Theme** to open the Theme Builder.
-3. Open **Theme** and select **{{ theme.filename | stripExtension | capitalize }}**.
-4. Press **Save Theme** to immediately update anywhere you're using your project.
+1. Head over to your project's <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="gear" variant="regular"></wa-icon> Settings</wa-tag>.
+2. Press <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="paintbrush" variant="regular"></wa-icon> Edit Your Theme</wa-tag> to open the Theme Builder.
+3. Open <wa-tag class="tag-ui" appearance="outlined">Theme</wa-tag> and select <wa-tag class="tag-ui" appearance="outlined">{{ theme.filename | stripExtension | capitalize }}</wa-tag>.
+4. Press <wa-tag class="tag-ui" appearance="outlined">Save Theme</wa-tag> to immediately update anywhere you're using your project.
 {% endmarkdown %}
         {% endif %}
       </wa-tab-panel>
