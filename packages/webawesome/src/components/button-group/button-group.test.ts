@@ -16,7 +16,7 @@ describe('<wa-button-group>', () => {
             </wa-button-group>
           `);
 
-          if (fixture.type === "client-only") {
+          if (fixture.type === 'client-only') {
             await expect(el).to.be.accessible();
           }
         });

@@ -109,7 +109,7 @@ export default class WaSplitPanel extends WebAwesomeElement {
   }
 
   private handleDrag(event: PointerEvent) {
-    const isRtl = (this.didSSR && !this.hasUpdated) ? this.dir === 'rtl' : this.localize.dir() === 'rtl';
+    const isRtl = this.didSSR && !this.hasUpdated ? this.dir === 'rtl' : this.localize.dir() === 'rtl';
 
     if (this.disabled) {
       return;
@@ -271,7 +271,7 @@ export default class WaSplitPanel extends WebAwesomeElement {
     this.detectSize();
   }
 
-  private updateStyles () {
+  private updateStyles() {
     const gridTemplate = this.orientation === 'vertical' ? 'gridTemplateRows' : 'gridTemplateColumns';
     const gridTemplateAlt = this.orientation === 'vertical' ? 'gridTemplateColumns' : 'gridTemplateRows';
     const isRtl = this.hasUpdated ? this.localize.dir() === 'rtl' : this.dir === 'rtl';
@@ -304,24 +304,23 @@ export default class WaSplitPanel extends WebAwesomeElement {
 
     // Unset the alt grid template property
     this.setStyle(gridTemplateAlt, 'unset');
-
   }
 
-  willUpdate (changedProperties: PropertyValues<this>) {
+  willUpdate(changedProperties: PropertyValues<this>) {
     if (isServer) {
-      this.updateStyles()
+      this.updateStyles();
     }
 
-    super.willUpdate(changedProperties)
+    super.willUpdate(changedProperties);
   }
 
-  updated (changedProperties: PropertyValues<this>) {
-    super.updated(changedProperties)
+  updated(changedProperties: PropertyValues<this>) {
+    super.updated(changedProperties);
   }
 
   render() {
     if (!isServer) {
-      this.updateStyles()
+      this.updateStyles();
     }
     return html`
       <slot name="start" part="panel start" class="start"></slot>

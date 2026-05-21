@@ -15,7 +15,7 @@ export const RequiredValidator = (options: RequiredValidatorOptions = {}): Valid
   let { validationElement, validationProperty } = options;
 
   if (!validationElement) {
-    if (typeof document !== "undefined" && "createElement" in document) {
+    if (typeof document !== 'undefined' && 'createElement' in document) {
       validationElement = Object.assign(document.createElement('input'), { required: true });
     }
   }

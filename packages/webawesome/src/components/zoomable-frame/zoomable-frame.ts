@@ -156,7 +156,7 @@ export default class WaZoomableFrame extends WebAwesomeElement {
       this.setStyleProperty('--zoom', `${this.zoom}`);
     }
 
-    super.willUpdate(changedProperties)
+    super.willUpdate(changedProperties);
   }
 
   updated(changedProperties: PropertyValues<this>) {
@@ -180,7 +180,7 @@ export default class WaZoomableFrame extends WebAwesomeElement {
         this.themeObserver?.disconnect();
       }
     }
-    super.updated(changedProperties)
+    super.updated(changedProperties);
   }
 
   /** Zooms in to the next available zoom level. */

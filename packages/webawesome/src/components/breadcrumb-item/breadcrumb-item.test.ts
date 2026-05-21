@@ -9,7 +9,7 @@ describe('<wa-breadcrumb-item>', () => {
       describe('accessibility', () => {
         it('should pass accessibility tests', async () => {
           const el = await fixture<WaBreadcrumbItem>(html`<wa-breadcrumb-item>Home</wa-breadcrumb-item>`);
-          if (fixture.type === "client-only") {
+          if (fixture.type === 'client-only') {
             await expect(el).to.be.accessible();
           }
         });
@@ -18,7 +18,7 @@ describe('<wa-breadcrumb-item>', () => {
           const el = await fixture<WaBreadcrumbItem>(html`
             <wa-breadcrumb-item href="https://example.com/">Home</wa-breadcrumb-item>
           `);
-          if (fixture.type === "client-only") {
+          if (fixture.type === 'client-only') {
             await expect(el).to.be.accessible();
           }
         });

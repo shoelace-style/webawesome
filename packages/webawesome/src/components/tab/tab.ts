@@ -45,9 +45,9 @@ export default class WaTab extends WebAwesomeElement {
    * @internal
    * Need to wrap in @property({reflect: true}) otherwise it will not SSR properly.
    */
-  @property({ reflect: true }) slot = "nav"
+  @property({ reflect: true }) slot = 'nav';
 
-  @property({ reflect: true }) role = "tab"
+  @property({ reflect: true }) role = 'tab';
 
   @watch('active')
   handleActiveChange() {

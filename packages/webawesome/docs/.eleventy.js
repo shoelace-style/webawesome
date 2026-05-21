@@ -84,7 +84,7 @@ export default async function (eleventyConfig) {
   //
   // Set all global template data here
   //
-  eleventyConfig.addGlobalData('isDev', isDev || process.env.NODE_ENV === "development")
+  eleventyConfig.addGlobalData('isDev', isDev || process.env.NODE_ENV === 'development');
   eleventyConfig.addGlobalData('package', packageData);
   eleventyConfig.addGlobalData('layout', 'page.njk');
   eleventyConfig.addGlobalData('server', {
@@ -359,13 +359,15 @@ export default async function (eleventyConfig) {
   //   //
 
   // We only want to run SSR if we're not running the app shell around 11ty. If we run the SSR plugin here with the app shell also doing SSR, it breaks.
-  if (!serverBuild && process.env.SSR === "true") {
+  if (!serverBuild && process.env.SSR === 'true') {
     const omittedModules = [];
-    const componentList = []
-    allComponents.forEach((c) => {
-      if (!c.tagName) { return }
-      componentList.push(c)
-    })
+    const componentList = [];
+    allComponents.forEach(c => {
+      if (!c.tagName) {
+        return;
+      }
+      componentList.push(c);
+    });
     const componentModules = componentList
       .filter(component => !omittedModules.includes(component.tagName.split(/wa-/)[1]))
       .map(component => {
@@ -390,7 +392,7 @@ export default async function (eleventyConfig) {
       }
 
       /** This largely mimics what an app would do and just stubs out what we don't care about. */
-      return SimulateWebAwesomeApp(content, { isDev: isDev, ssr: process.env.SSR === "true" });
+      return SimulateWebAwesomeApp(content, { isDev: isDev, ssr: process.env.SSR === 'true' });
     });
   }
 }

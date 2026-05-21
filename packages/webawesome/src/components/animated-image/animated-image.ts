@@ -62,20 +62,20 @@ export default class WaAnimatedImage extends WebAwesomeElement {
     }
   }
 
-  firstUpdated (changedProperties: PropertyValues<this>) {
-    super.firstUpdated
+  firstUpdated(changedProperties: PropertyValues<this>) {
+    super.firstUpdated;
     if (this.didSSR) {
-      const img = this.animatedImage
+      const img = this.animatedImage;
       if (img && img.complete) {
         // The image has loaded prior to this element connecting, so we need to simulate error / load events respectively.
         if (img.naturalWidth > 0) {
-          img.dispatchEvent(new Event("load"))
+          img.dispatchEvent(new Event('load'));
         } else {
-          img.dispatchEvent(new Event("error"))
+          img.dispatchEvent(new Event('error'));
         }
       }
     }
-    super.firstUpdated(changedProperties)
+    super.firstUpdated(changedProperties);
   }
 
   private handleLoad() {
@@ -115,9 +115,8 @@ export default class WaAnimatedImage extends WebAwesomeElement {
     const verb = this.localize.term(this.play ? 'pauseAnimation' : 'playAnimation');
     const label = `${verb} ${this.alt}`;
 
-
     // when SSR'ed and the component has not updated, render the frozen still image, but its invisible so it only prevents layout shifting.
-    const shouldShow = (this.didSSR && !this.hasUpdated) || this.play
+    const shouldShow = (this.didSSR && !this.hasUpdated) || this.play;
 
     return html`
       <div

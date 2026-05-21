@@ -2,7 +2,7 @@ import type { ReactiveController, ReactiveControllerHost } from 'lit';
 
 /** A reactive controller that determines when slots exist. */
 export class HasSlotController implements ReactiveController {
-  host: ReactiveControllerHost & HTMLElement
+  host: ReactiveControllerHost & HTMLElement;
   slotNames: string[] = [];
 
   constructor(host: typeof this.host, ...slotNames: string[]) {
@@ -52,22 +52,22 @@ export class HasSlotController implements ReactiveController {
     // @ts-expect-error
     if (propertyName && this.host.didSSR && !this.host.hasUpdated) {
       // @ts-expect-error
-      return Boolean(this.host[propertyName])
+      return Boolean(this.host[propertyName]);
     }
 
     return slotName === '[default]' ? this.hasDefaultSlot() : this.hasNamedSlot(slotName);
   }
 
   hostConnected() {
-    const shadowRoot = this.host.shadowRoot
-    if (shadowRoot && "addEventListener" in shadowRoot) {
+    const shadowRoot = this.host.shadowRoot;
+    if (shadowRoot && 'addEventListener' in shadowRoot) {
       shadowRoot.addEventListener('slotchange', this.handleSlotChange);
     }
   }
 
   hostDisconnected() {
-    const shadowRoot = this.host.shadowRoot
-    if (shadowRoot && "removeEventListener" in shadowRoot) {
+    const shadowRoot = this.host.shadowRoot;
+    if (shadowRoot && 'removeEventListener' in shadowRoot) {
       shadowRoot.removeEventListener('slotchange', this.handleSlotChange);
     }
   }

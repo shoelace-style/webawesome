@@ -318,7 +318,6 @@ export class WebAwesomeFormAssociatedElement
    * "restore", state is a string, File, or FormData object previously set as the second argument to setFormValue.
    */
   formStateRestoreCallback(state: string | File | FormData | null, reason: 'autocomplete' | 'restore') {
-
     if (this.didSSR && !this.hasUpdated) {
       this.updateComplete.then(() => {
         // @ts-expect-error We purposely do not have a value property. It makes things hard to extend.
@@ -329,8 +328,7 @@ export class WebAwesomeFormAssociatedElement
         }
 
         this.updateValidity();
-
-      })
+      });
     } else {
       // @ts-expect-error We purposely do not have a value property. It makes things hard to extend.
       this.value = state;

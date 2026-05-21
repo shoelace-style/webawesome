@@ -53,17 +53,17 @@ export default class WaRelativeTime extends WebAwesomeElement {
   @property({ type: Boolean }) sync = false;
 
   /**
-    * @internal
-    * this is used purely for testing as sinon fake timers seem to cause an issue with SSR hydration
-    */
-  @state() private referenceDate: null | Date = null
+   * @internal
+   * this is used purely for testing as sinon fake timers seem to cause an issue with SSR hydration
+   */
+  @state() private referenceDate: null | Date = null;
 
   disconnectedCallback() {
     super.disconnectedCallback();
     clearTimeout(this.updateTimeout);
   }
 
-  willUpdate (changedProperties: PropertyValues<this>) {
+  willUpdate(changedProperties: PropertyValues<this>) {
     const now = this.referenceDate || new Date();
     const then = new Date(this.date);
 
@@ -105,12 +105,11 @@ export default class WaRelativeTime extends WebAwesomeElement {
 
       this.updateTimeout = setTimeout(() => this.requestUpdate(), nextInterval);
     }
-
   }
 
   render() {
     if (this.relativeTime === '' && this.isoTime === '') {
-      return ''
+      return '';
     }
 
     // No whitespace before or after

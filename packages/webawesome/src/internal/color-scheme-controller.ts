@@ -10,7 +10,7 @@ export class ColorSchemeController implements ReactiveController {
     this.onThemeChange = onThemeChange;
 
     // Hidden element — inherits CSS from nearest themed ancestor
-    if (typeof document !== "undefined") {
+    if (typeof document !== 'undefined') {
       this.hiddenElement = document.createElement('div');
       this.hiddenElement.setAttribute('aria-hidden', 'true');
       Object.assign(this.hiddenElement.style, {

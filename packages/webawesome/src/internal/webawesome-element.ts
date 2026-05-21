@@ -126,7 +126,7 @@ export default class WebAwesomeElement extends LitElement {
         // @ts-expect-error leave me alone TS.
         event.error = e;
         this.dispatchEvent(event);
-        console.error(e)
+        console.error(e);
       }
       throw e;
     }
@@ -136,38 +136,42 @@ export default class WebAwesomeElement extends LitElement {
    * @internal
    * Internal way to set styles across both client and server
    */
-  protected setStyle<T extends keyof CSSStyleDeclaration & string> (property: T, value: CSSStyleDeclaration[T]) {
+  protected setStyle<T extends keyof CSSStyleDeclaration & string>(property: T, value: CSSStyleDeclaration[T]) {
     if (!this.style) {
       if (value != null) {
-        let style = this.getAttribute("style") || ""
-        if (style) { style += " " }
-        this.setAttribute("style", `${style}${camelToKebab(property)}: ${value};`)
+        let style = this.getAttribute('style') || '';
+        if (style) {
+          style += ' ';
+        }
+        this.setAttribute('style', `${style}${camelToKebab(property)}: ${value};`);
       }
 
-      return
+      return;
     }
 
     // Client side
-    this.style[property] = value
+    this.style[property] = value;
   }
 
   /**
    * @internal
    * Internal way to set a CSS custom property across both client and server.
    */
-  protected setStyleProperty<T extends string> (property: T, value: string) {
+  protected setStyleProperty<T extends string>(property: T, value: string) {
     if (!this.style) {
       if (value != null) {
-        let style = this.getAttribute("style") || ""
-        if (style) { style += " " }
-        this.setAttribute("style", `${style}${property}: ${value};`)
+        let style = this.getAttribute('style') || '';
+        if (style) {
+          style += ' ';
+        }
+        this.setAttribute('style', `${style}${property}: ${value};`);
       }
 
-      return
+      return;
     }
 
     // Client side
-    this.style.setProperty(property, value)
+    this.style.setProperty(property, value);
   }
 
   /**

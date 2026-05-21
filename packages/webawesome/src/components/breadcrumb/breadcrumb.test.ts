@@ -19,7 +19,7 @@ describe('<wa-breadcrumb>', () => {
             </wa-breadcrumb>
           `);
 
-          if (fixture.type === "client-only") {
+          if (fixture.type === 'client-only') {
             // For some reason ssr does not mix well with Axe checks.
             await expect(el).to.be.accessible({ ignoredRules });
           }
@@ -35,7 +35,7 @@ describe('<wa-breadcrumb>', () => {
           `);
 
           // For some reason ssr does not mix well with Axe checks.
-          if (fixture.type === "client-only") {
+          if (fixture.type === 'client-only') {
             await expect(el).to.be.accessible({ ignoredRules });
           }
         });

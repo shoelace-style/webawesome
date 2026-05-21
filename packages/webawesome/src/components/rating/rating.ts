@@ -47,7 +47,7 @@ export default class WaRating extends WebAwesomeFormAssociatedElement {
 
   private readonly localize = new LocalizeController(this);
 
-  @property({ reflect: true }) role = "slider"
+  @property({ reflect: true }) role = 'slider';
 
   connectedCallback() {
     super.connectedCallback();
@@ -305,7 +305,7 @@ export default class WaRating extends WebAwesomeFormAssociatedElement {
   }
 
   render() {
-    const isRtl = (this.didSSR && !this.hasUpdated) ? this.dir : this.localize.dir() === 'rtl';
+    const isRtl = this.didSSR && !this.hasUpdated ? this.dir : this.localize.dir() === 'rtl';
     const counter = Array.from(Array(this.max).keys());
     let displayValue = 0;
 

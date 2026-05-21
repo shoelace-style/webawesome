@@ -95,19 +95,18 @@ function register(tagName: string): Promise<void> {
   });
 }
 
-
-let _timeout = 2000
+let _timeout = 2000;
 
 /**
  * Acts as a middleware for Turbo's `turbo:before-render` event to ensure components are auto-loaded before showing the
  * next page, eliminating page-to-page FOUCE in a Turbo environment.
  */
 export function preventTurboFouce(timeout = 2000) {
-  _timeout = timeout
-  document.addEventListener('turbo:before-render', handleRender)
+  _timeout = timeout;
+  document.addEventListener('turbo:before-render', handleRender);
 }
 
-async function handleRender (event: CustomEvent) {
+async function handleRender(event: CustomEvent) {
   const newBody = event.detail.newBody;
 
   event.preventDefault();
@@ -118,4 +117,4 @@ async function handleRender (event: CustomEvent) {
   } finally {
     event.detail.resume();
   }
-};
+}

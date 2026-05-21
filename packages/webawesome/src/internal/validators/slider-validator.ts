@@ -16,8 +16,8 @@ export const SliderValidator = (): Validator<WaSlider> => {
 
       // Create native range input to get localized validation messages
       const createNativeRange = (value: number, min: number, max: number, step: number) => {
-        if (typeof document === "undefined") {
-          return ""
+        if (typeof document === 'undefined') {
+          return '';
         }
 
         const input = document.createElement('input');

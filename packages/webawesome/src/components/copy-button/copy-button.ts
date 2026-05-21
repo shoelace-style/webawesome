@@ -123,8 +123,8 @@ export default class WaCopyButton extends WebAwesomeElement {
   firstUpdated() {
     if (this.didSSR) {
       this.updateComplete.then(() => {
-        this.handleDefaultSlotChange()
-      })
+        this.handleDefaultSlotChange();
+      });
     } else {
       this.handleDefaultSlotChange();
     }
@@ -381,7 +381,7 @@ export default class WaCopyButton extends WebAwesomeElement {
     const triggerValue = this.tooltip === 'copy' ? 'manual' : 'hover focus';
 
     if (this.didSSR && !this.hasUpdated) {
-      showTooltip = false
+      showTooltip = false;
     }
 
     return html`

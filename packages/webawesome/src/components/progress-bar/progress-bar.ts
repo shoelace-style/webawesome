@@ -40,12 +40,14 @@ export default class WaProgressBar extends WebAwesomeElement {
 
   willUpdate(changedProperties: PropertyValues<this>) {
     if (isServer) {
-      let style = this.getAttribute("style") || ""
-      if (style) { style += " " }
-      this.setAttribute("style", style + `--percentage: ${clamp(this.value, 0, 100)}%`);
+      let style = this.getAttribute('style') || '';
+      if (style) {
+        style += ' ';
+      }
+      this.setAttribute('style', style + `--percentage: ${clamp(this.value, 0, 100)}%`);
     }
 
-    super.willUpdate(changedProperties)
+    super.willUpdate(changedProperties);
   }
 
   updated(changedProperties: PropertyValues<this>) {
@@ -57,7 +59,7 @@ export default class WaProgressBar extends WebAwesomeElement {
       });
     }
 
-    super.updated(changedProperties)
+    super.updated(changedProperties);
   }
 
   render() {

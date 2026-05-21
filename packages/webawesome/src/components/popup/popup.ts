@@ -33,7 +33,7 @@ function isVirtualElement(e: unknown): e is VirtualElement {
   );
 }
 
-const SUPPORTS_POPOVER = Boolean(globalThis?.HTMLElement?.prototype.hasOwnProperty('popover'))
+const SUPPORTS_POPOVER = Boolean(globalThis?.HTMLElement?.prototype.hasOwnProperty('popover'));
 
 /**
  * @summary Popups declaratively anchor one element to another and keep them positioned together as the page scrolls or
@@ -84,7 +84,7 @@ export default class WaPopup extends WebAwesomeElement {
   /**
    * This is intentionally set to false. Check the connectedCallback for further notes.
    */
-  @property({ attribute: false, type: Boolean }) private SUPPORTS_POPOVER: boolean = false
+  @property({ attribute: false, type: Boolean }) private SUPPORTS_POPOVER: boolean = false;
 
   /**
    * The element the popup will be anchored to. If the anchor lives outside of the popup, you can provide the anchor
@@ -233,8 +233,8 @@ export default class WaPopup extends WebAwesomeElement {
     // Start the positioner after the first update
     await this.updateComplete;
 
-   /** This looks very silly and weird that it always sets to false, waits for the update to complete, and then it sets SUPPORTS_POPOVER, but it has to do with SSR always reporting "false" for this, so we intentionally force the update to fire to force a re-render. */
-    this.SUPPORTS_POPOVER = SUPPORTS_POPOVER
+    /** This looks very silly and weird that it always sets to false, waits for the update to complete, and then it sets SUPPORTS_POPOVER, but it has to do with SSR always reporting "false" for this, so we intentionally force the update to fire to force a re-render. */
+    this.SUPPORTS_POPOVER = SUPPORTS_POPOVER;
     this.start();
   }
 

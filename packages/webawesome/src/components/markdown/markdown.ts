@@ -189,7 +189,9 @@ export default class WaMarkdown extends WebAwesomeElement {
 
   private handleSlotChange() {
     if (this.suppressSlotChange) return;
-    if (this.didSSR && !this.hasUpdated) { return }
+    if (this.didSSR && !this.hasUpdated) {
+      return;
+    }
     this.renderMarkdown();
   }
 

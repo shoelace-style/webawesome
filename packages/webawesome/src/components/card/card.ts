@@ -1,10 +1,10 @@
 import { html, type PropertyValues } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { HasSlotController } from '../../internal/slot.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import sizeStyles from '../../styles/component/size.styles.js';
 import styles from './card.styles.js';
-import { classMap } from 'lit/directives/class-map.js';
 
 /**
  * @summary Cards group related content and actions inside a bordered container. Use them to present products, articles,
@@ -84,10 +84,10 @@ export default class WaCard extends WebAwesomeElement {
 
   willUpdate(changedProperties: PropertyValues<this>) {
     // Enable the respective slots when detected
-    this.withHeader = this.hasSlotController.test("header", "withHeader")
-    this.withMedia = this.hasSlotController.test("media", "withMedia")
-    this.withFooter = this.hasSlotController.test("footer", "withFooter")
-    super.willUpdate(changedProperties)
+    this.withHeader = this.hasSlotController.test('header', 'withHeader');
+    this.withMedia = this.hasSlotController.test('media', 'withMedia');
+    this.withFooter = this.hasSlotController.test('footer', 'withFooter');
+    super.willUpdate(changedProperties);
   }
 
   render() {
@@ -100,8 +100,8 @@ export default class WaCard extends WebAwesomeElement {
       `;
     }
 
-    const hasHeaderActions = this.hasSlotController.test("header-actions", "withHeaderActions")
-    const hasFooterActions = this.hasSlotController.test("footer-actions", "withFooterActions")
+    const hasHeaderActions = this.hasSlotController.test('header-actions', 'withHeaderActions');
+    const hasFooterActions = this.hasSlotController.test('footer-actions', 'withFooterActions');
 
     // Vertical Orientation
     return html`
@@ -110,8 +110,8 @@ export default class WaCard extends WebAwesomeElement {
       <header
         part="header"
         class=${classMap({
-          "header": true,
-          "has-actions": hasHeaderActions
+          header: true,
+          'has-actions': hasHeaderActions,
         })}
       >
         <slot name="header"></slot>
@@ -124,7 +124,7 @@ export default class WaCard extends WebAwesomeElement {
         part="footer"
         class=${classMap({
           footer: true,
-          "has-actions": hasFooterActions
+          'has-actions': hasFooterActions,
         })}
       >
         <slot name="footer"></slot>

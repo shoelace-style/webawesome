@@ -103,9 +103,8 @@ export default class WaTreeItem extends WebAwesomeElement {
   @query('.children') childrenContainer: HTMLDivElement;
   @query('.expand-button slot') expandButtonSlot: HTMLSlotElement;
 
-  @property({ reflect: true, type: Number, attribute: "tabindex" }) tabIndex = -1
-  @property({ reflect: true }) role = "treeitem"
-
+  @property({ reflect: true, type: Number, attribute: 'tabindex' }) tabIndex = -1;
+  @property({ reflect: true }) role = 'treeitem';
 
   connectedCallback() {
     super.connectedCallback();

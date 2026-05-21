@@ -32,7 +32,7 @@ export default class WaTabPanel extends WebAwesomeElement {
   /** When true, the tab panel will be shown. */
   @property({ type: Boolean, reflect: true }) active = false;
 
-  @property({ reflect: true }) role = "tabpanel"
+  @property({ reflect: true }) role = 'tabpanel';
 
   connectedCallback() {
     super.connectedCallback();

@@ -1,11 +1,11 @@
 import type { PropertyValues } from 'lit';
 import { html } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
+import { styleMap } from 'lit/directives/style-map.js';
 import type _QrCreator from 'qr-creator';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import styles from './qr-code.styles.js';
-import { styleMap } from 'lit/directives/style-map.js';
 
 let QrCreator: _QrCreator.default;
 

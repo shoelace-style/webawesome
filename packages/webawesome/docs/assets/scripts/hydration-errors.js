@@ -73,21 +73,21 @@
       </wa-dialog>
     `;
 
-      console.log(element)
+      console.log(element);
       element.focus();
       wrap(element, diffDebugger);
 
       // const diffViewer = diffDebugger.querySelector('diff-view-element');
       // diffViewer.oldValue = serverHTML
       // diffViewer.newValue = clientHTML
-      const diffViewer = diffDebugger.querySelector(".diff-viewer")
+      const diffViewer = diffDebugger.querySelector('.diff-viewer');
 
       diffViewer.appendChild(
         createDiff(
           diffLines(serverHTML, clientHTML, {
             ignoreWhitespace: false,
             newLineIsToken: true,
-          })
+          }),
         ),
       );
 

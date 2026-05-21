@@ -45,9 +45,9 @@ describe('<wa-relative-time>', () => {
             );
 
             // @ts-expect-error private property for testing
-            el.referenceDate = currentTime
-            el.date = date
-            el.requestUpdate()
+            el.referenceDate = currentTime;
+            el.date = date;
+            el.requestUpdate();
             await el.updateComplete;
             const timeEl = el.shadowRoot?.querySelector('time');
             expect(timeEl?.textContent).to.equal(expected);
@@ -69,9 +69,9 @@ describe('<wa-relative-time>', () => {
             );
 
             // @ts-expect-error private property for testing
-            el.referenceDate = currentTime
-            el.date = date
-            el.requestUpdate()
+            el.referenceDate = currentTime;
+            el.date = date;
+            el.requestUpdate();
             await el.updateComplete;
             const timeEl = el.shadowRoot?.querySelector('time');
             expect(timeEl?.textContent).to.equal(expected);
@@ -87,9 +87,9 @@ describe('<wa-relative-time>', () => {
           );
 
           // @ts-expect-error private property for testing
-          el.referenceDate = currentTime
-          el.date = date
-          el.requestUpdate()
+          el.referenceDate = currentTime;
+          el.date = date;
+          el.requestUpdate();
           await el.updateComplete;
           const timeEl = el.shadowRoot?.querySelector('time');
           expect(timeEl?.textContent).to.equal('yesterday');
@@ -104,9 +104,9 @@ describe('<wa-relative-time>', () => {
           );
 
           // @ts-expect-error private property for testing
-          el.referenceDate = currentTime
-          el.date = yesterday
-          el.requestUpdate()
+          el.referenceDate = currentTime;
+          el.date = yesterday;
+          el.requestUpdate();
           await el.updateComplete;
           const timeEl = el.shadowRoot?.querySelector('time');
           expect(timeEl?.textContent).to.equal('yesterday');
@@ -119,9 +119,9 @@ describe('<wa-relative-time>', () => {
           );
 
           // @ts-expect-error private property for testing
-          el.referenceDate = currentTime
-          el.date = yesterday
-          el.requestUpdate()
+          el.referenceDate = currentTime;
+          el.date = yesterday;
+          el.requestUpdate();
           await el.updateComplete;
           const timeEl = el.shadowRoot?.querySelector('time');
           expect(timeEl?.textContent).to.equal('1 day ago');
@@ -136,9 +136,9 @@ describe('<wa-relative-time>', () => {
           );
 
           // @ts-expect-error private property for testing
-          el.referenceDate = currentTime
-          el.date = twoYearsAgo
-          el.requestUpdate()
+          el.referenceDate = currentTime;
+          el.date = twoYearsAgo;
+          el.requestUpdate();
           await el.updateComplete;
           const timeEl = el.shadowRoot?.querySelector('time');
           expect(timeEl?.textContent).to.equal('2 years ago');
@@ -156,8 +156,8 @@ describe('<wa-relative-time>', () => {
           );
 
           // @ts-expect-error private property for testing
-          el.referenceDate = currentTime
-          el.date = twoYearsAgo
+          el.referenceDate = currentTime;
+          el.date = twoYearsAgo;
           await el.updateComplete;
           const timeEl = el.shadowRoot?.querySelector('time');
           expect(timeEl?.textContent).to.equal('2 yr. ago');
@@ -172,9 +172,9 @@ describe('<wa-relative-time>', () => {
           );
 
           // @ts-expect-error private property for testing.
-          el.referenceDate = currentTime
-          el.date = yesterday
-          el.requestUpdate()
+          el.referenceDate = currentTime;
+          el.date = yesterday;
+          el.requestUpdate();
           await el.updateComplete;
           const timeEl = el.shadowRoot?.querySelector('time');
           expect(timeEl?.textContent).to.equal('gestern');
@@ -189,9 +189,9 @@ describe('<wa-relative-time>', () => {
           );
 
           // @ts-expect-error private property for testing.
-          el.referenceDate = currentTime
-          el.date = yesterday
-          el.requestUpdate()
+          el.referenceDate = currentTime;
+          el.date = yesterday;
+          el.requestUpdate();
           await el.updateComplete;
           const timeEl = el.shadowRoot?.querySelector('time');
           expect(timeEl?.getAttribute('datetime')).to.equal(yesterday.toISOString());
@@ -206,17 +206,17 @@ describe('<wa-relative-time>', () => {
           );
 
           // @ts-expect-error private property for testing.
-          el.referenceDate = currentTime
-          el.date = yesterday
-          el.requestUpdate()
+          el.referenceDate = currentTime;
+          el.date = yesterday;
+          el.requestUpdate();
           await el.updateComplete;
           const timeEl = el.shadowRoot?.querySelector('time');
           expect(timeEl?.textContent).to.equal('yesterday');
 
           // @ts-expect-error private property for testing.
-          el.referenceDate = new Date(currentTime.getTime() + dayMs)
-          el.date = yesterday
-          el.requestUpdate()
+          el.referenceDate = new Date(currentTime.getTime() + dayMs);
+          el.date = yesterday;
+          el.requestUpdate();
           await el.updateComplete;
 
           const updatedTimeEl = el.shadowRoot?.querySelector('time');

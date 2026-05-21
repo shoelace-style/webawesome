@@ -747,7 +747,7 @@ export default class WaDropdown extends WebAwesomeElement {
 
   render() {
     // On initial render, we want to use this.open, for everything else, we sync off of this.popup.active to get animations working.
-    let active = (this.didSSR && !this.hasUpdated) ? this.open : this.popup?.active;
+    let active = this.didSSR && !this.hasUpdated ? this.open : this.popup?.active;
 
     return html`
       <wa-popup

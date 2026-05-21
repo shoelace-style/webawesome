@@ -23,7 +23,7 @@ export async function doViewTransition(callback, { ignoreInitialLoad = true } = 
     if (!document.activeViewTransition) {
       await document.startViewTransition(callback).finished;
     } else {
-      callback()
+      callback();
     }
   } else {
     callback();

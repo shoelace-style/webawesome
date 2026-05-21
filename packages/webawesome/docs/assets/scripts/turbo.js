@@ -63,7 +63,7 @@ function fixDSD(e) {
     });
   })(newElement);
 
-  e.detail.resume()
+  e.detail.resume();
 }
 
 // Fixes an issue with DSD keeping the `<template>` elements hanging around in the lightdom.

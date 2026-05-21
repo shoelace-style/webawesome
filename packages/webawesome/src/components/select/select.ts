@@ -314,7 +314,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
 
     // Call processSlotChange directly so initial setup is synchronous.
     // Subsequent option additions will be batched via handleDefaultSlotChange.
-    this.processSlotChange()
+    this.processSlotChange();
 
     // Because this is a form control, it shouldn't be opened initially
     this.open = false;

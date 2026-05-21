@@ -149,15 +149,16 @@ export default class WaOption extends WebAwesomeElement {
   protected willUpdate(changedProperties: PropertyValues<this>): void {
     if (changedProperties.has('defaultSelected')) {
       if ((this.didSSR && this.hasUpdated) || !this.didSSR) {
-        this.syncDefaultSelected()
+        this.syncDefaultSelected();
       }
     }
     super.willUpdate(changedProperties);
   }
 
-  syncDefaultSelected () {
+  syncDefaultSelected() {
     // We cast to <wa-select> because it shares the same API as combobox
-    if ("closest" in this) { // SSR guard.
+    if ('closest' in this) {
+      // SSR guard.
       if (!this.closest<WaSelect>('wa-combobox, wa-select')?.hasInteracted) {
         // Only sync if defaultSelected is becoming true
         // This prevents overwriting `selected` when it was set directly by frameworks like Vue
@@ -169,7 +170,6 @@ export default class WaOption extends WebAwesomeElement {
       }
     }
   }
-
 
   updated(changedProperties: PropertyValues<this>) {
     if (changedProperties.has('disabled')) {
@@ -203,12 +203,11 @@ export default class WaOption extends WebAwesomeElement {
     super.firstUpdated(changedProperties);
 
     if (this.didSSR && !this.hasUpdated) {
-      await this.updateComplete
-      this.syncDefaultSelected()
+      await this.updateComplete;
+      this.syncDefaultSelected();
     } else {
-      this.syncDefaultSelected()
+      this.syncDefaultSelected();
     }
-
 
     // If the `selected` property was set directly (e.g., by Vue's :selected binding),
     // notify the parent select to update its selection. This is needed because
@@ -218,8 +217,8 @@ export default class WaOption extends WebAwesomeElement {
       const parent = this.closest<WaSelect>('wa-select, wa-combobox');
 
       if (parent && !parent.hasInteracted) {
-        await customElements.whenDefined(parent?.localName)
-        await parent.updateComplete
+        await customElements.whenDefined(parent?.localName);
+        await parent.updateComplete;
         parent.selectionChanged?.();
       }
     }
@@ -240,13 +239,13 @@ export default class WaOption extends WebAwesomeElement {
   }
 
   render() {
-    let selected = this.selected
+    let selected = this.selected;
 
     if (this.didSSR && !this.hasUpdated) {
       this.updateComplete.then(() => {
-        this.requestUpdate()
-      })
-      return nothing
+        this.requestUpdate();
+      });
+      return nothing;
     }
 
     return html`
