@@ -566,6 +566,26 @@
     display: none;
   }
 
+  /*
+   * UI reference in prose — kbd-like look for app controls (Settings, menu items, etc.)
+   * Usage: <wa-tag class="tag-ui tag-inline" appearance="filled-outlined"><wa-icon>...</wa-icon> Label</wa-tag>
+   */
+  wa-tag.tag-ui {
+    background-color: color-mix(in oklab, var(--wa-color-surface-default), transparent 50%);
+    border-radius: var(--wa-border-radius-l);
+    border-color: var(--wa-color-neutral-border-quiet);
+    box-shadow: var(--wa-shadow-s);
+    --wa-color-shadow: teal;
+    color: inherit;
+    padding: var(--wa-space-2xs) var(--wa-space-xs);
+    margin-inline: var(--wa-space-3xs);
+    gap: var(--wa-space-2xs);
+  }
+
+  wa-tag.tag-ui::part(content) {
+    font-weight: var(--wa-font-weight-bold);
+  }
+
   /* step icons for ordered instructions */
   .step-icon {
     --primary-color: var(--wa-color-neutral-20);
