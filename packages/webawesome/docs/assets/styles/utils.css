@@ -198,6 +198,12 @@
     .banner-icon {
       font-size: var(--wa-font-size-2xl);
       margin-inline-end: var(--wa-space-m);
+
+      /* easter egg */
+      --fa-animation-duration: 4s;
+      --fa-float-height: 4px;
+      --fa-float-tilt: 2deg;
+      --fa-float-drift: 1px;
     }
   }
 
@@ -1077,6 +1083,65 @@
   /* decreasing visual size of icons in certain contexts (such as in sidebar nav) */
   wa-icon.icon-shrink {
     font-size: round(0.875em, 1px);
+  }
+  /* #endregion */
+
+  /* #region animations */
+
+  @keyframes fa-float {
+    0% {
+      transform: translateY(0) translateX(0) rotate(0deg)
+        scale(var(--fa-float-squash-x, 1.02), var(--fa-float-squash-y, 0.98));
+      animation-timing-function: cubic-bezier(0.33, 0, 0.66, 0.33);
+    }
+    15% {
+      transform: translateY(calc(-0.4 * var(--fa-float-height, 6px))) translateX(var(--fa-float-drift, 1px))
+        rotate(var(--fa-float-tilt, 1deg)) scale(1, 1);
+      animation-timing-function: cubic-bezier(0.33, 0.66, 0.66, 1);
+    }
+    35% {
+      transform: translateY(calc(-1 * var(--fa-float-height, 6px))) translateX(0) rotate(0deg)
+        scale(var(--fa-float-stretch-x, 0.98), var(--fa-float-stretch-y, 1.03));
+      animation-timing-function: cubic-bezier(0.5, 0, 0.5, 0);
+    }
+    50% {
+      transform: translateY(calc(-0.92 * var(--fa-float-height, 6px)))
+        translateX(calc(-0.5 * var(--fa-float-drift, 1px))) rotate(calc(-0.5 * var(--fa-float-tilt, 1deg)))
+        scale(0.995, 1.01);
+      animation-timing-function: cubic-bezier(0.33, 0, 0.66, 0.33);
+    }
+    70% {
+      transform: translateY(calc(-0.3 * var(--fa-float-height, 6px))) translateX(calc(-1 * var(--fa-float-drift, 1px)))
+        rotate(calc(-1 * var(--fa-float-tilt, 1deg))) scale(1, 1);
+      animation-timing-function: cubic-bezier(0.33, 0.66, 0.66, 1);
+    }
+    90% {
+      transform: translateY(calc(0.05 * var(--fa-float-height, 6px))) translateX(0) rotate(0deg)
+        scale(var(--fa-float-squash-x, 1.02), var(--fa-float-squash-y, 0.98));
+      animation-timing-function: cubic-bezier(0.33, 0, 0.66, 1);
+    }
+    100% {
+      transform: translateY(0) translateX(0) rotate(0deg)
+        scale(var(--fa-float-squash-x, 1.02), var(--fa-float-squash-y, 0.98));
+    }
+  }
+
+  .fa-float {
+    animation-name: fa-float;
+    animation-delay: var(--fa-animation-delay, 0s);
+    animation-direction: var(--fa-animation-direction, normal);
+    animation-duration: var(--fa-animation-duration, 3s);
+    animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+    animation-timing-function: var(--fa-animation-timing, ease-in-out);
+    will-change: transform;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fa-float {
+      animation-delay: -1ms;
+      animation-duration: 1ms;
+      animation-iteration-count: 1;
+    }
   }
   /* #endregion */
 }
