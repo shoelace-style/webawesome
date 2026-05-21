@@ -23,6 +23,30 @@
 		isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 	}
 	document.documentElement.classList.toggle('wa-dark', isDark);
+
+  function setCookie(options) {
+    let {
+      name,
+      value,
+      maxAge,
+      sameSite,
+      path,
+    } = options
+
+    if (!sameSite) { sameSite = "Lax" }
+    if (maxAge == null) {
+      maxAge = 60 * 60 * 24 * 365; // 1 year
+    }
+    if (!path) { path = "/" }
+
+    document.cookie = `${encodeURIComponent(name)}=${encodeURIComponent(value)}; path=${path}; max-age=${maxAge}; SameSite=${sameSite}`;
+  }
+
+  function removeCookie(options) {
+    const {name, path} = options
+    if (!path) { path = "/" }
+    document.cookie = `${encodeURIComponent(name)}=; path=${path}; max-age=0`;
+  }
 </script>
 
 {# TODO: Figure out how to only load in dev #}

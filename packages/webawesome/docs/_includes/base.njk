@@ -15,7 +15,9 @@
         wa-cloak
       {% endif %}
     {% endraw %}
-    wa-brand-orange wa-palette-default wa-theme-site
+    {% raw %}
+      wa-brand-orange wa-palette-default wa-theme-site
+    {% endraw %}
   "
   {% if hasAnchors == false %} data-no-anchor{% endif %}
   {% if hasLinkify == false %} data-no-linkify{% endif %}>
@@ -46,22 +48,13 @@
     // Detect platform for keyboard shortcut hints
     document.documentElement.classList.toggle('is-mac', /Mac|iPhone|iPad/.test(navigator.platform));
 
-    function setSSRCookie() {
-      const maxAge = 60 * 60 * 24 * 365; // 1 year
-      document.cookie = `webawesome_ssr=true; path=/; max-age=${maxAge}; SameSite=Lax`;
-    }
-
-    function removeSSRCookie() {
-      document.cookie = "webawesome_ssr=; path=/; max-age=0; SameSite=Lax";
-    }
-
     function handleSSRChange (event) {
       const el = event.target
       if (!el) { return }
 
       if (el.id !== "ssr-switch") { return }
 
-      el.checked ? setSSRCookie() : removeSSRCookie()
+      el.checked ? setCookie({ name: "webawesome_ssr", value: "true" }) : removeCookie({ name: "webawesome_ssr" })
       window.location.reload()
     }
     document.addEventListener("change", handleSSRChange)
