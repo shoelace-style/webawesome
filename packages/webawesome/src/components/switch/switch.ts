@@ -207,7 +207,7 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
   }
 
   render() {
-    const hasHintSlot = this.hasSlotController.test('hint', "withHint");
+    const hasHintSlot = this.hasSlotController.test('hint', 'withHint');
     const hasHint = this.hint ? true : !!hasHintSlot;
 
     return html`

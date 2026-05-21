@@ -1089,8 +1089,8 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
       return nothing;
     }
 
-    const hasLabelSlot = this.hasSlotController.test('label', "withLabel");
-    const hasHintSlot = this.hasSlotController.test('hint', "withHint");
+    const hasLabelSlot = this.hasSlotController.test('label', 'withLabel');
+    const hasHintSlot = this.hasSlotController.test('hint', 'withHint');
     const hasLabel = this.label ? true : !!hasLabelSlot;
     const hasHint = this.hint ? true : !!hasHintSlot;
 
