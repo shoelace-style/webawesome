@@ -16,6 +16,7 @@ const nunjucksEnv = new nunjucks.Environment(new nunjucks.FileSystemLoader(views
 export function SimulateWebAwesomeApp(str, context = {}) {
   return nunjucksEnv.renderString(str, {
     ssr: Boolean(context.ssr),
+    req: context.req,
     // Stub the server EJS shortcodes.
     currentUser: {
       hasPro: false,

@@ -5,6 +5,7 @@
 {% if hasSiteDialog == undefined %}{% set hasSiteDialog = true %}{% endif %}
 {% if hasGeneratedTitle == undefined %}{% set hasGeneratedTitle = true %}{% endif %}
 {% if hasLinkify == undefined %}{% set hasLinkify = true %}{% endif %}
+{% set bareLayout = layout | stripExtension %}
 <html
   lang="en"
   data-fa-kit-code="38c11e3f20"
@@ -15,9 +16,15 @@
         wa-cloak
       {% endif %}
     {% endraw %}
-    {% raw %}
+    {% if bareLayout === 'site' %}
       wa-brand-orange wa-palette-default wa-theme-site
-    {% endraw %}
+    {% else %}
+      {% raw %}
+        wa-brand-{{ req.cookies.webawesome_brand }}
+        wa-palette-{{ req.cookies.webawesome_palette }}
+        wa-theme-{{ req.cookies.webawesome_theme }}
+      {% endraw %}
+    {% endif %}
   "
   {% if hasAnchors == false %} data-no-anchor{% endif %}
   {% if hasLinkify == false %} data-no-linkify{% endif %}>

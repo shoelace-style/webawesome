@@ -20,7 +20,11 @@ export async function doViewTransition(callback, { ignoreInitialLoad = true } = 
     document.startViewTransition && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   if (canUseViewTransitions) {
-    await document.startViewTransition(callback).finished;
+    if (!document.activeViewTransition) {
+      await document.startViewTransition(callback).finished;
+    } else {
+      callback()
+    }
   } else {
     callback();
   }

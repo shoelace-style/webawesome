@@ -43,7 +43,7 @@
   }
 
   function removeCookie(options) {
-    const {name, path} = options
+    let {name, path} = options
     if (!path) { path = "/" }
     document.cookie = `${encodeURIComponent(name)}=; path=${path}; max-age=0`;
   }
@@ -70,7 +70,14 @@
   <link rel="preload" as="image" type="image/svg+xml" href="/assets/images/bg-wa-pattern-dark.svg" media="(prefers-color-scheme: dark)">
 {% endif %}
 
-<link id="theme-stylesheet" rel="stylesheet" href="/dist/styles/themes/default.css" render="blocking" fetchpriority="high" />
+{# Load themes from cookies so that we can give a proper SSR feel. #}
+{% raw %}
+  {% if req.cookies.webawesome_theme %}
+    <link id="theme-stylesheet" rel="stylesheet" href="/dist/styles/themes/{{ req.cookies.webawesome_theme }}.css" render="blocking" fetchpriority="high" />
+  {% else %}
+    <link id="theme-stylesheet" rel="stylesheet" href="/dist/styles/themes/default.css" render="blocking" fetchpriority="high" />
+  {% endif %}
+{% endraw %}
 
 <link rel="stylesheet" href="/dist/styles/webawesome.css" />
 
