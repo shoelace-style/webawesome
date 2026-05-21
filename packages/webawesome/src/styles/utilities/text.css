@@ -162,20 +162,16 @@
     }
   }
 
-  .wa-text-transform-uppercase {
+  .wa-text-uppercase {
     text-transform: uppercase;
   }
 
-  .wa-text-transform-lowercase {
+  .wa-text-lowercase {
     text-transform: lowercase;
   }
 
-  .wa-text-transform-capitalize {
+  .wa-text-capitalize {
     text-transform: capitalize;
-  }
-
-  .wa-text-transform-none {
-    text-transform: none;
   }
   /* #endregion */
 

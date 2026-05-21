@@ -191,14 +191,13 @@ Use `wa-text-wrap-*` classes to control how text wraps across lines. These utili
 
 ## Transform
 
-Use `wa-text-transform-*` classes to change the case of text. These utilities apply standard CSS [`text-transform`](https://developer.mozilla.org/docs/Web/CSS/text-transform) values.
+Use these classes to change the case of text. They apply standard CSS [`text-transform`](https://developer.mozilla.org/docs/Web/CSS/text-transform) values.
 
-| Class Name                     | Preview                                                             |
-| ------------------------------ | ------------------------------------------------------------------- |
-| `wa-text-transform-uppercase`  | <div class="wa-text-transform-uppercase">Five boxing wizards</div>  |
-| `wa-text-transform-lowercase`  | <div class="wa-text-transform-lowercase">Five boxing wizards</div>  |
-| `wa-text-transform-capitalize` | <div class="wa-text-transform-capitalize">Five boxing wizards</div> |
-| `wa-text-transform-none`       | <div class="wa-text-transform-none">Five boxing wizards</div>       |
+| Class Name           | Preview                                                   |
+| -------------------- | --------------------------------------------------------- |
+| `wa-text-uppercase`  | <div class="wa-text-uppercase">Five boxing wizards</div>  |
+| `wa-text-lowercase`  | <div class="wa-text-lowercase">Five boxing wizards</div>  |
+| `wa-text-capitalize` | <div class="wa-text-capitalize">Five boxing wizards</div> |
 
 :::info
 Large blocks of uppercase text are [harder for everyone to read](https://www.w3.org/WAI/WCAG21/Understanding/visual-presentation.html) and especially difficult for folks with dyslexia. Reserve it for buttons, badges, or short headings.
