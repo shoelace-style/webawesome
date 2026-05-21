@@ -1,3 +1,12 @@
+{#
+  TODO: extract the install-instruction tab panels (CDN / npm / self-hosted / hosted)
+  into shared partials in this folder. The same shape is repeated across
+  `docs/themes.njk`, `docs/color-palettes.njk`, `docs/utilities/index.njk`,
+  `docs/utilities/native.md`, and this file's hosted tab. Consolidating would
+  dedupe the content AND avoid the prettier-vs-markdown-it indentation fight
+  inside `{% markdown %}` blocks (markdown-it treats 4+ leading spaces as a
+  code block; editor prettier plugins like to indent njk to match the parent).
+#}
 <div id="using-themes">
   <fieldset class="theme-options wa-stack" style="margin-block-end: var(--wa-content-spacing);">
     <legend style="align-self: start;">Theme Options</legend>
