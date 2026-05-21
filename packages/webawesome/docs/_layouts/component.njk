@@ -296,6 +296,17 @@
     </wa-scroller>
   {% endif %}
 
+  {% if component.ssr.length > 0 %}
+    <wa-callout variant="warning">
+      <wa-icon name="flask" slot="icon"></wa-icon>
+      <h2 style="margin: 0; margin-bottom: var(--wa-space-m);">SSR Notes</h2>
+
+      {% for obj in component.ssr %}
+        {{ obj.description | inlineMarkdown | safe }}
+      {% endfor %}
+    </wa-callout>
+  {% endif %}
+
   {# Dependencies #}
   {% if component.dependencies.length %}
     <h2>Dependencies</h2>
