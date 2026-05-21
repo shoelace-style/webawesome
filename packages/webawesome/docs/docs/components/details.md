@@ -19,6 +19,10 @@ use-cases:
 <wa-details summary="Toggle Me">
   Click the summary to expand and collapse the details component. You can put any content in here that you want to
   reveal on demand!
+  <wa-details summary="Toggle Me Too">
+  Click the summary to expand and collapse the details component. You can put any content in here that you want to
+  reveal on demand!
+</wa-details>
 </wa-details>
 ```
 

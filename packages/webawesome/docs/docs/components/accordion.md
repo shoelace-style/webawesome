@@ -10,5 +10,12 @@ use-cases:
 ---
 
 ```html {.example}
-<wa-accordion></wa-accordion>
+<wa-accordion>
+  <wa-accordion-item label="Details">
+    <p>Some content here.</p>
+  </wa-accordion-item>
+  <wa-accordion-item label="Personnel">
+    <p>Some content here.</p>
+  </wa-accordion-item>
+</wa-accordion>
 ```

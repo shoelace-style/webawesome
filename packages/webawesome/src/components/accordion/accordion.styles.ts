@@ -1,6 +1,25 @@
 import { css } from 'lit';
+
 export default css`
-  :host {
-    display: block;
+  @layer wa-component {
+    :host {
+      display: block;
+    }
+
+    [part~='base'] {
+      border: var(
+        --border,
+        var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border)
+      );
+      border-radius: var(--radius, var(--wa-panel-border-radius));
+      overflow: hidden;
+    }
+
+    ::slotted(wa-accordion-item + wa-accordion-item) {
+      border-top: var(
+        --border,
+        var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border)
+      );
+    }
   }
 `;
