@@ -390,7 +390,7 @@ export default async function (eleventyConfig) {
       }
 
       /** This largely mimics what an app would do and just stubs out what we don't care about. */
-      return SimulateWebAwesomeApp(content, { ssr: process.env.SSR === "true" });
+      return SimulateWebAwesomeApp(content, { isDev: isDev, ssr: process.env.SSR === "true" });
     });
   }
 }

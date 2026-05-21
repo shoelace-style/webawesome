@@ -371,7 +371,7 @@ export async function build(options = {}) {
 
             const _end = res.end;
             res.end = function (...args) {
-              const transformedStr = SimulateWebAwesomeApp(finalString.join(''));
+              const transformedStr = SimulateWebAwesomeApp(finalString.join(''), { isDev: process.env.NODE_ENV === "development", ssr: process.env.SSR === "true" });
               _write.call(res, transformedStr, encoding);
               _end.call(res, ...args);
             };
