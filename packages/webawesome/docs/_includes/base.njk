@@ -9,7 +9,14 @@
   lang="en"
   data-fa-kit-code="38c11e3f20"
   data-version="{{ package.version }}"
-  class="__wa-cloak"
+  class="
+    {% raw %}
+      {% if not ssr %}
+        wa-cloak
+      {% endif %}
+    {% endraw %}
+    wa-brand-orange wa-palette-default wa-theme-site
+  "
   {% if hasAnchors == false %} data-no-anchor{% endif %}
   {% if hasLinkify == false %} data-no-linkify{% endif %}>
 <head>
@@ -38,6 +45,26 @@
 
     // Detect platform for keyboard shortcut hints
     document.documentElement.classList.toggle('is-mac', /Mac|iPhone|iPad/.test(navigator.platform));
+
+    function setSSRCookie() {
+      const maxAge = 60 * 60 * 24 * 365; // 1 year
+      document.cookie = `webawesome_ssr=true; path=/; max-age=${maxAge}; SameSite=Lax`;
+    }
+
+    function removeSSRCookie() {
+      document.cookie = "webawesome_ssr=; path=/; max-age=0; SameSite=Lax";
+    }
+
+    function handleSSRChange (event) {
+      const el = event.target
+      if (!el) { return }
+
+      if (el.id !== "ssr-switch") { return }
+
+      el.checked ? setSSRCookie() : removeSSRCookie()
+      window.location.reload()
+    }
+    document.addEventListener("change", handleSSRChange)
   </script>
 </head>
 <body

@@ -1,8 +1,7 @@
 ---
-title: Server Side Rendering
+title: Server Side Rendering (SSR)
 description: A document on how to get started with SSR in Web Awesome.
 layout: page-outline
-unlisted: true
 ---
 
 

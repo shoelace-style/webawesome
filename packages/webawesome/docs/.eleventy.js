@@ -357,7 +357,9 @@ export default async function (eleventyConfig) {
   //   //  - resize-observer (why SSR this?)
   //   //  - tooltip (why SSR this?)
   //   //
-  if (!serverBuild) {
+
+  // We only want to run SSR if we're not running the app shell around 11ty. If we run the SSR plugin here with the app shell also doing SSR, it breaks.
+  if (!serverBuild && process.env.SSR === "true") {
     const omittedModules = [];
     const componentList = []
     allComponents.forEach((c) => {
@@ -388,7 +390,7 @@ export default async function (eleventyConfig) {
       }
 
       /** This largely mimics what an app would do and just stubs out what we don't care about. */
-      return SimulateWebAwesomeApp(content);
+      return SimulateWebAwesomeApp(content, { ssr: process.env.SSR === "true" });
     });
   }
 }
