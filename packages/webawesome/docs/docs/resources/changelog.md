@@ -29,13 +29,14 @@ These are still finding their shape. APIs can change between minor versions, so 
 - Fixed a regression in `<wa-breadcrumb-item>` that caused items without an `href` to render as a link instead of a button
 - Fixed a regression in `<wa-popover>` where the body's viewport-edge margin caused the popover and arrow to be misaligned for `top/bottom-start` and `top/bottom-end` placements
 - Fixed a bug in `<wa-textarea>` where the disabled state had no visual styling, unlike other form controls [issue:2416]
+- Fixed default show/hide animations in `<wa-dropdown>`, `<wa-popup>`, `<wa-popover>`, `<wa-select>`, `<wa-details>`, `<wa-dialog>`, `<wa-drawer>`, and `<wa-tree-item>` to honor `prefers-reduced-motion: reduce`
 
 :::
 
 :::changed
 
-- Standardized default `--show-duration` and `--hide-duration` values across `<wa-dropdown>`, `<wa-popup>`, `<wa-popover>`, `<wa-select>`, `<wa-details>`, `<wa-dialog>`, `<wa-drawer>`, and `<wa-tree-item>` to use `--wa-transition-fast` or `--wa-transition-normal` tokens. Popups now open/close at 75ms (previously 50–100ms) and panels at 150ms (previously 200ms). Override the custom properties per component to restore prior timing.
-- Standardized hardcoded transition values in `<wa-copy-button>` and `<wa-select>` to use `--wa-transition-*` tokens.
+- Synced default `--show-duration` and `--hide-duration` values in `<wa-dropdown>`, `<wa-popup>`, `<wa-popover>`, `<wa-select>`, `<wa-details>`, `<wa-dialog>`, `<wa-drawer>`, and `<wa-tree-item>` with `--wa-transition-fast` and `--wa-transition-normal` tokens
+- Synced hardcoded transitions in `<wa-copy-button>` and `<wa-select>` with `--wa-transition-*` tokens
 
 :::
 

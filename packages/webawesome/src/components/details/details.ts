@@ -42,8 +42,8 @@ import styles from './details.styles.js';
  * @csspart content - The details content.
  *
  * @cssproperty --spacing - The amount of space around and between the details' content. Expects a single value.
- * @cssproperty [--show-duration=200ms] - The show duration to use when applying built-in animation classes.
- * @cssproperty [--hide-duration=200ms] - The hide duration to use when applying built-in animation classes.
+ * @cssproperty [--show-duration=var(--wa-transition-normal)] - The show duration to use when applying built-in animation classes.
+ * @cssproperty [--hide-duration=var(--wa-transition-normal)] - The hide duration to use when applying built-in animation classes.
  *
  * @cssstate animating - Applied when the details is animating expand/collapse.
  */
