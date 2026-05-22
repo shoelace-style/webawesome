@@ -6,6 +6,7 @@
 {% if hasGeneratedTitle == undefined %}{% set hasGeneratedTitle = true %}{% endif %}
 {% if hasLinkify == undefined %}{% set hasLinkify = true %}{% endif %}
 {% set bareLayout = layout | stripExtension %}
+{% set pageType = pageClass or page.fileSlug or 'home' %}
 <html
   lang="en"
   data-fa-kit-code="38c11e3f20"
@@ -16,7 +17,7 @@
         wa-cloak
       {% endif %}
     {% endraw %}
-    {% if bareLayout === 'site' %}
+    {% if bareLayout === 'site' or pageType === 'home' %}
       wa-brand-orange wa-palette-default wa-theme-site
     {% else %}
       {% raw %}
@@ -68,7 +69,7 @@
   </script>
 </head>
 <body
-  class="layout-{{ layout | stripExtension }} page-{{ pageClass or page.fileSlug or 'home' }}{{ ' page-wide' if wide }}">
+  class="layout-{{ layout | stripExtension }} page-{{ pageType }}{{ ' page-wide' if wide }}">
 
   {% set defaultWaPageAttributes = defaultWaPageAttributes or { view: 'desktop', 'disable-navigation-toggle': true,
   'mobile-breakpoint': 1180, 'disable-sticky': 'banner' } %}

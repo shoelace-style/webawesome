@@ -62,13 +62,24 @@ export default class WebAwesomeElement extends LitElement {
     super.connectedCallback();
 
     // SSR guard: document is not available during server-side rendering
-    if (!isServer) {
+    if (!this.didSSR) {
       // Helpful comment node inside the shadow root that links to the docs
-      // this.shadowRoot?.prepend(
-      //   document.createComment(
-      //     ` Web Awesome: https://webawesome.com/docs/components/${this.localName.replace('wa-', '')} `,
-      //   ),
-      // );
+      this.shadowRoot?.prepend(
+        document.createComment(
+          ` Web Awesome: https://webawesome.com/docs/components/${this.localName.replace('wa-', '')} `,
+        ),
+      );
+    }
+
+    if (this.didSSR) {
+      this.updateComplete.then(() => {
+        // Helpful comment node inside the shadow root that links to the docs
+        this.shadowRoot?.prepend(
+          document.createComment(
+            ` Web Awesome: https://webawesome.com/docs/components/${this.localName.replace('wa-', '')} `,
+          ),
+        );
+      })
     }
   }
 
