@@ -1,7 +1,7 @@
 ---
 title: Select
 layout: component
-category: Form Controls
+category: Forms
 synonyms:
   - dropdown select
   - combobox

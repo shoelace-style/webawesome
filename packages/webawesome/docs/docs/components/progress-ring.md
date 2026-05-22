@@ -1,7 +1,7 @@
 ---
 title: Progress Ring
 layout: component
-category: Feedback & Status
+category: Feedback
 synonyms:
   - circular progress
   - donut chart

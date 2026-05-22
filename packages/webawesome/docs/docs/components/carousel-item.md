@@ -1,7 +1,7 @@
 ---
 title: Carousel Item
 layout: component
-category: Imagery
+category: Media
 synonyms:
   - slide
   - carousel slide

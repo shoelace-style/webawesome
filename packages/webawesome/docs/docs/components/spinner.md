@@ -1,7 +1,7 @@
 ---
 title: Spinner
 layout: component
-category: Feedback & Status
+category: Feedback
 synonyms:
   - loading
   - loader
