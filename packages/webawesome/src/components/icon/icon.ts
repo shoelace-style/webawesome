@@ -288,7 +288,7 @@ export default class WaIcon extends WebAwesomeElement {
       this.setStyleProperty('--rotate-angle', `${this.rotate}deg`);
     }
 
-    return super.willUpdate(changedProperties)
+    return super.willUpdate(changedProperties);
   }
 
   updated(changedProperties: PropertyValues<this>) {

@@ -171,11 +171,11 @@ describe('<wa-icon>', () => {
           });
 
           const el = await fixture<WaIcon>(html`<wa-icon name="bad-icon" library="sprite"></wa-icon>`);
-          let href = null
+          let href = null;
           await waitUntil(() => {
             href = el.shadowRoot!.querySelector('use')?.getAttribute('href');
-            return href
-          })
+            return href;
+          });
           expect(href).to.equal('/docs/assets/images/sprite.svg#bad-icon');
         });
 
