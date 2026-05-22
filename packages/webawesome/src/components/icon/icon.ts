@@ -282,6 +282,15 @@ export default class WaIcon extends WebAwesomeElement {
     }
   }
 
+  willUpdate(changedProperties: PropertyValues<this>) {
+    // This runs on the server
+    if (!this.style) {
+      this.setStyleProperty('--rotate-angle', `${this.rotate}deg`);
+    }
+
+    return super.willUpdate(changedProperties)
+  }
+
   updated(changedProperties: PropertyValues<this>) {
     super.updated(changedProperties);
     // Sometimes (like with SSR -> hydration) mutators don't get applied due to race conditions. This ensures mutators get re-applied.

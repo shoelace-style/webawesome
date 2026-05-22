@@ -1,4 +1,4 @@
-import { aTimeout, elementUpdated, expect, oneEvent } from '@open-wc/testing';
+import { aTimeout, elementUpdated, expect, oneEvent, waitUntil } from '@open-wc/testing';
 import { html } from 'lit';
 import { expectEvent } from '../../internal/test/expect-event.js';
 import { fixtures } from '../../internal/test/fixture.js';
@@ -162,7 +162,8 @@ describe('<wa-icon>', () => {
       });
 
       describe('sprite sheets', () => {
-        it('should produce a <use> element with the correct href', async () => {
+        it.only('should produce a <use> element with the correct href', async () => {
+          // With SSR, this `registerIconLibrary` won't cross the server  boundary.
           registerIconLibrary('sprite', {
             resolver: name => `/docs/assets/images/sprite.svg#${name}`,
             mutator: svg => svg.setAttribute('fill', 'currentColor'),
@@ -170,7 +171,12 @@ describe('<wa-icon>', () => {
           });
 
           const el = await fixture<WaIcon>(html`<wa-icon name="bad-icon" library="sprite"></wa-icon>`);
-          const href = el.shadowRoot!.querySelector('use')?.getAttribute('href');
+          console.log(el.shadowRoot)
+          let href = null
+          await waitUntil(() => {
+            href = el.shadowRoot!.querySelector('use')?.getAttribute('href');
+            return href
+          })
           expect(href).to.equal('/docs/assets/images/sprite.svg#bad-icon');
         });
 

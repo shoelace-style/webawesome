@@ -319,7 +319,7 @@ describe('<wa-copy-button>', () => {
           await moveMouseOnElement(trigger, 'center');
 
           // Wait for showDelay (150ms default) + buffer
-          await aTimeout(250);
+          await waitUntil(() => tooltip.open === true)
 
           expect(tooltip.open).to.be.true;
           // The tooltip body must actually render — catches the case where the tooltip is in the
