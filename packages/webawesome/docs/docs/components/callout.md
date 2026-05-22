@@ -1,7 +1,7 @@
 ---
 title: Callout
 layout: component
-category: Feedback & Status
+category: Feedback
 synonyms:
   - alert
   - admonition

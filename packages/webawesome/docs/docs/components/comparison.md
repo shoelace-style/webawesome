@@ -1,7 +1,7 @@
 ---
 title: Comparison
 layout: component
-category: Imagery
+category: Media
 synonyms:
   - before after
   - image compare

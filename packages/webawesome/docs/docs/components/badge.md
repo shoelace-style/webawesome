@@ -1,7 +1,7 @@
 ---
 title: Badge
 layout: component
-category: Feedback & Status
+category: Feedback
 synonyms:
   - chip
   - label

@@ -1,7 +1,7 @@
 ---
 title: Number Input
 layout: component
-category: Form Controls
+category: Forms
 synonyms:
   - numeric input
   - stepper
@@ -36,7 +36,11 @@ Use the `label` attribute to give the input an accessible label. For labels that
 Add descriptive hint to an input with the `hint` attribute. For hints that contain HTML, use the `hint` slot instead.
 
 ```html {.example}
-<wa-number-input label="Order quantity" hint="Enter the number of items you'd like to order" style="max-width: 260px;"></wa-number-input>
+<wa-number-input
+  label="Order quantity"
+  hint="Enter the number of items you'd like to order"
+  style="max-width: 260px;"
+></wa-number-input>
 ```
 
 ### Placeholders
@@ -72,7 +76,12 @@ Use the `appearance` attribute to change the input's visual appearance.
 <br />
 <wa-number-input label="Filled" appearance="filled" value="42" style="max-width: 260px;"></wa-number-input>
 <br />
-<wa-number-input label="Filled Outlined" appearance="filled-outlined" value="42" style="max-width: 260px;"></wa-number-input>
+<wa-number-input
+  label="Filled Outlined"
+  appearance="filled-outlined"
+  value="42"
+  style="max-width: 260px;"
+></wa-number-input>
 ```
 
 ### Disabled

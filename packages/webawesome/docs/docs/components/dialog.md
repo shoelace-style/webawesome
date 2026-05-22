@@ -1,7 +1,7 @@
 ---
 title: Dialog
 layout: component
-category: Organization
+category: Layout
 synonyms:
   - modal
   - popup

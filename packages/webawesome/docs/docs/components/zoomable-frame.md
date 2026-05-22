@@ -1,7 +1,7 @@
 ---
 title: Zoomable Frame
 layout: component
-category: Imagery
+category: Media
 synonyms:
   - iframe zoom
   - preview frame
