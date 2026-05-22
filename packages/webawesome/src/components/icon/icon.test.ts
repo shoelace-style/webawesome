@@ -171,7 +171,6 @@ describe('<wa-icon>', () => {
           });
 
           const el = await fixture<WaIcon>(html`<wa-icon name="bad-icon" library="sprite"></wa-icon>`);
-          console.log(el.shadowRoot)
           let href = null
           await waitUntil(() => {
             href = el.shadowRoot!.querySelector('use')?.getAttribute('href');
