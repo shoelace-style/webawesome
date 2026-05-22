@@ -79,7 +79,7 @@ export default class WebAwesomeElement extends LitElement {
             ` Web Awesome: https://webawesome.com/docs/components/${this.localName.replace('wa-', '')} `,
           ),
         );
-      })
+      });
     }
   }
 

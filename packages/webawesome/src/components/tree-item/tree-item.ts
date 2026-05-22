@@ -110,11 +110,11 @@ export default class WaTreeItem extends WebAwesomeElement {
     super.connectedCallback();
 
     this.setAttribute('role', 'treeitem');
-    this.setAttribute("tabIndex", this.tabIndex.toString())
+    this.setAttribute('tabIndex', this.tabIndex.toString());
 
     // TODO: Because the parent influences the child, we should be able to handle this in SSR with a custom renderer.
     if (this.isNestedItem()) {
-      this.slot = "children";
+      this.slot = 'children';
     }
 
     this.updateIndentation();

@@ -41,7 +41,7 @@ export default class WaProgressBar extends WebAwesomeElement {
   willUpdate(changedProperties: PropertyValues<this>) {
     // This is intended for the server.
     if (this.style == null) {
-      this.setStyleProperty("--percentage", `${clamp(this.value, 0, 100)}%`)
+      this.setStyleProperty('--percentage', `${clamp(this.value, 0, 100)}%`);
     }
 
     super.willUpdate(changedProperties);
