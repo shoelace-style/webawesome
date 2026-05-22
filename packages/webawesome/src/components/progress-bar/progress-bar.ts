@@ -39,7 +39,8 @@ export default class WaProgressBar extends WebAwesomeElement {
   @property() label = '';
 
   willUpdate(changedProperties: PropertyValues<this>) {
-    if (isServer) {
+    // This is intended for the server.
+    if (this.style == null) {
       let style = this.getAttribute('style') || '';
       if (style) {
         style += ' ';

@@ -604,8 +604,6 @@ export default class WaPopup extends WebAwesomeElement {
           'popup-fixed': !this.SUPPORTS_POPOVER,
           'popup-has-arrow': this.arrow,
         })}
-        supports-popover="${this.SUPPORTS_POPOVER.toString()}"
-        fixed=${!this.SUPPORTS_POPOVER}
       >
         <slot></slot>
         ${this.arrow ? html`<div part="arrow" class="arrow" role="presentation"></div>` : ''}

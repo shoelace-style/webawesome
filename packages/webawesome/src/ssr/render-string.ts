@@ -7,7 +7,7 @@ import { trimOuterMarkers } from './trim-outer-markers.js';
  */
 export function renderString(html: string): string {
   const iterator = litRender(unsafeHTML(html));
-  let result = '';
-  for (const chunk of iterator) result += chunk;
-  return trimOuterMarkers(result);
+  let result = [];
+  for (const chunk of iterator)  { result.push(chunk) }
+  return trimOuterMarkers(result.join(''));
 }

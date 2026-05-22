@@ -59,7 +59,7 @@ describe('<wa-page>', () => {
         });
       });
 
-      describe.only('slots', () => {
+      describe('slots', () => {
         it('should render default slot content', async () => {
           const el = await fixture<WaPage>(html`<wa-page><p>Main Content</p></wa-page>`);
           const defaultSlot = el.shadowRoot!.querySelector<HTMLSlotElement>('slot:not([name])')!;

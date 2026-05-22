@@ -165,7 +165,9 @@ const hasLabelSlot = this.hasUpdated
 Here are some known issues and things we're still working on.
 
 - `@shoelace-style/localize` (our localization library) has no way to set a language currently so it always falls back to `en`.
+- Components are unable to read "up" a tree to find the `dir`. This will be fixed in a future version, as it should be straightforward to track `dir` in SSR when building the tree and store it in the current context.
 - `<wa-icon>` has no fallback if there's no JS besides a blank `<svg>`. There's perhaps some backend mechanisms we can use to fetch. But requires altering APIs. Should also have a way to set explicit fallback height / widths, but we don't want to increase pain for SSR users.
 - `<wa-qr-code>` QR Code will not error on the backend and will render a blank canvas at the appropriate size, but will not render the canvas until the client component connects.
 - `<wa-chart>` Similar to qr-code, chart components require a canvas, so they will not work until they have connected to the browser and are able to create a proper `<canvas>` element.
 - `setBasePath` and `kit codes` may need reconfiguring to work with SSR.
+- `<wa-animated-image>` has no real suitable fallback without JS as it requires JS to function, and a `<video playsinline muted loop>` is not a great experience, and `<img>` autoplays the image, which may not be intended.

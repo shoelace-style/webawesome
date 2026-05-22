@@ -54,12 +54,9 @@ function fixDSD(e) {
 
   // https://developer.chrome.com/docs/css-ui/declarative-shadow-dom#polyfill
   (function attachShadowRoots(root) {
+    // Remove unnecessary extra shadow root templates.
     root.querySelectorAll('template[shadowrootmode]').forEach(template => {
-      // const mode = template.getAttribute('shadowrootmode');
-      // const shadowRoot = template.parentNode.attachShadow({ mode });
-      // shadowRoot.appendChild(template.content);
       template.remove();
-      // attachShadowRoots(shadowRoot);
     });
   })(newElement);
 

@@ -307,7 +307,7 @@ export default class WaSplitPanel extends WebAwesomeElement {
   }
 
   willUpdate(changedProperties: PropertyValues<this>) {
-    if (isServer) {
+    if (!this.style) {
       this.updateStyles();
     }
 
@@ -319,9 +319,11 @@ export default class WaSplitPanel extends WebAwesomeElement {
   }
 
   render() {
-    if (!isServer) {
+    // `this.style` is essentially `isServer`
+    if (this.style) {
       this.updateStyles();
     }
+
     return html`
       <slot name="start" part="panel start" class="start"></slot>
 
