@@ -1,7 +1,7 @@
 ---
 title: Radio Group
 layout: component
-category: Form Controls
+category: Forms
 synonyms:
   - radio buttons
   - option group
@@ -132,25 +132,25 @@ The size of radios will be determined by the Radio Group's `size` attribute.
   <wa-radio value="2">Option 2</wa-radio>
   <wa-radio value="3">Option 3</wa-radio>
 </wa-radio-group>
-<br>
+<br />
 <wa-radio-group label="Small options" size="s" value="1">
   <wa-radio value="1">Option 1</wa-radio>
   <wa-radio value="2">Option 2</wa-radio>
   <wa-radio value="3">Option 3</wa-radio>
 </wa-radio-group>
-<br>
+<br />
 <wa-radio-group label="Medium options" size="m" value="2">
   <wa-radio value="1">Option 1</wa-radio>
   <wa-radio value="2">Option 2</wa-radio>
   <wa-radio value="3">Option 3</wa-radio>
 </wa-radio-group>
-<br>
+<br />
 <wa-radio-group label="Large options" size="l" value="3">
   <wa-radio value="1">Option 1</wa-radio>
   <wa-radio value="2">Option 2</wa-radio>
   <wa-radio value="3">Option 3</wa-radio>
 </wa-radio-group>
-<br>
+<br />
 <wa-radio-group label="Extra large options" size="xl" value="3">
   <wa-radio value="1">Option 1</wa-radio>
   <wa-radio value="2">Option 2</wa-radio>

@@ -1,7 +1,7 @@
 ---
 title: Carousel
 layout: component
-category: Imagery
+category: Media
 synonyms:
   - slider
   - slideshow
