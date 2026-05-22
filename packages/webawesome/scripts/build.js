@@ -232,6 +232,7 @@ export async function build(options = {}) {
         // Events
         ...(await globby(posix.join(rootDir, 'src/events/**/*.ts'))),
         // TODO: Should `src/internal` be included?
+        ...(await globby(posix.join(rootDir, 'src/ssr/**/*.ts'))),
         // React wrappers
         ...(await globby(posix.join(rootDir, 'src/react/**/*.ts'))),
       ],
