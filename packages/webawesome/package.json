@@ -90,7 +90,6 @@
     "@floating-ui/dom": "^1.6.13",
     "@lit-labs/ssr-client": "^1.1.8",
     "@lit/react": "^1.0.8",
-    "@lit/task": "^1.0.3",
     "@shoelace-style/animations": "^1.2.0",
     "@shoelace-style/localize": "^3.2.2",
     "composed-offset-position": "^0.0.6",
