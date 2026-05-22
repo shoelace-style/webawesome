@@ -17,15 +17,13 @@
     const { getDiffableHTML } = await import(
       'https://cdn.jsdelivr.net/npm/@open-wc/semantic-dom-diff@0.20.1/get-diffable-html.js/+esm'
     );
-    // await import("https://cdn.jsdelivr.net/npm/diff-view-element/cdn/exports/components/diff-view-element/diff-view-element-register.js")
-    // await import('https://esm.sh/diff-view-element/exports/components/diff-view-element/diff-view-element-register.js')
 
     const element = e.target;
     const scratch = document.createElement('div');
     const node = element.cloneNode(true);
     scratch.append(node);
     document.body.append(scratch);
-    // customElements.upgrade(node);
+    customElements.upgrade(node);
     node.updateComplete.then(() => {
       // Render styles.
       const elementStyles = element.constructor.elementStyles;
