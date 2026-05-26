@@ -24,18 +24,25 @@ export interface Translation extends DefaultTranslation {
   carousel: string;
   captions: string;
   // Date picker (optional so existing locales don't need updates; falls back to English)
+  chooseDate?: string;
   chooseMonth?: string;
   chooseYear?: string;
   chooseDecade?: string;
   clearEntry: string;
   close: string;
+  closeCalendar?: string;
   createOption: (value: string) => string;
   copied: string;
   copy: string;
   currentValue: string;
+  date?: string;
+  datePickerKeyboardHelp?: string;
+  day?: string;
   dropFileHere: string;
   decrement: string;
   dropFilesHere: string;
+  empty?: string;
+  endDate?: string;
   enterFullscreen: string;
   error: string;
   exitFullscreen: string;
@@ -43,6 +50,7 @@ export interface Translation extends DefaultTranslation {
   hidePassword: string;
   increment: string;
   loading: string;
+  month?: string;
   moreOptions: string;
   mute: string;
   nextDecade?: string;
@@ -66,6 +74,8 @@ export interface Translation extends DefaultTranslation {
   previousVideo: string;
   previousYear?: string;
   progress: string;
+  rangeTooLong?: (max: number) => string;
+  rangeTooShort?: (min: number) => string;
   remove: string;
   resize: string;
   scrollableRegion: string;
@@ -74,6 +84,7 @@ export interface Translation extends DefaultTranslation {
   selectAColorFromTheScreen: string;
   showPassword: string;
   slideNum: (slide: number) => string;
+  startDate?: string;
   today?: string;
   toggleColorFormat: string;
   seek: string;
@@ -82,6 +93,19 @@ export interface Translation extends DefaultTranslation {
   unmute: string;
   videoPlayer: string;
   volume: string;
+  year?: string;
   zoomIn: string;
   zoomOut: string;
+  // Time picker (optional so existing locales don't need updates; falls back to English)
+  am?: string;
+  chooseTime?: string;
+  closeTimePicker?: string;
+  dayPeriod?: string;
+  hour?: string;
+  minute?: string;
+  now?: string;
+  pm?: string;
+  second?: string;
+  time?: string;
+  timePickerKeyboardHelp?: string;
 }

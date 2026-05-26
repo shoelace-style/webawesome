@@ -22,6 +22,12 @@ These are still finding their shape. APIs can change between minor versions, so 
 
 :::
 
+:::changed
+
+- Replaced the free-text `<input>` inside `<wa-date-picker>` with a segmented date input — discrete month, day, and year spinbutton segments rendered in the user's locale order (e.g., `MM/DD/YYYY` for `en-US`, `DD.MM.YYYY` for `de-DE`, `YYYY/MM/DD` for `ja-JP`). Typing fills segments with digit-aware auto-advance, Arrow Up/Down step the focused segment with wraparound (no carry), and Arrow Left/Right move between segments (visual direction under RTL). The component still submits a single ISO value (`YYYY-MM-DD` or `YYYY-MM-DD/YYYY-MM-DD` in range mode). The forgiving free-text parser is preserved for the paste path only.
+
+:::
+
 :::fixed
 
 - Added the experimental `<wa-calendar>` component
