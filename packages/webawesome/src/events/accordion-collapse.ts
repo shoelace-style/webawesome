@@ -8,4 +8,3 @@ export class WaAccordionCollapseEvent extends Event {
     this.detail = detail;
   }
 }
-

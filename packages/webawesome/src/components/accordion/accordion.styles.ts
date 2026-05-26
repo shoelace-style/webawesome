@@ -7,10 +7,7 @@ export default css`
     }
 
     [part~='base'] {
-      border: var(
-        --border,
-        var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border)
-      );
+      border: var(--border, var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border));
       border-radius: var(--radius, var(--wa-panel-border-radius));
       overflow: hidden;
     }
