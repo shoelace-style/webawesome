@@ -300,8 +300,8 @@ describe('<wa-accordion-item>', () => {
 
           let expandedCount = 0;
           let collapsedCount = 0;
-          el.addEventListener('_wa-accordion-item-expanded', () => expandedCount++);
-          el.addEventListener('_wa-accordion-item-collapsed', () => collapsedCount++);
+          el.addEventListener('wa-accordion-item-expanded', () => expandedCount++);
+          el.addEventListener('wa-accordion-item-collapsed', () => collapsedCount++);
 
           el.expanded = false;
           await new Promise(resolve => setTimeout(resolve, 20));
@@ -318,7 +318,7 @@ describe('<wa-accordion-item>', () => {
           const el = await fixture<WaAccordionItem>(html`<wa-accordion-item label="Test">Content</wa-accordion-item>`);
           const button = el.shadowRoot!.querySelector<HTMLButtonElement>('[part~="button"]')!;
 
-          await expectEvent(el, '_wa-accordion-item-trigger', () => button.click());
+          await expectEvent(el, 'wa-accordion-item-trigger', () => button.click());
         });
 
         it('should not dispatch the trigger event when disabled', async () => {
@@ -327,7 +327,7 @@ describe('<wa-accordion-item>', () => {
           );
           const button = el.shadowRoot!.querySelector<HTMLButtonElement>('[part~="button"]')!;
           let fired = false;
-          el.addEventListener('_wa-accordion-item-trigger', () => (fired = true));
+          el.addEventListener('wa-accordion-item-trigger', () => (fired = true));
           button.click();
           await el.updateComplete;
           expect(fired).to.be.false;

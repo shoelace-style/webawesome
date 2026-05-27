@@ -34,13 +34,13 @@ describe('<wa-accordion>', () => {
       });
 
       describe('properties', () => {
-        it('should default single to false', async () => {
+        it('should default exclusive to false', async () => {
           const el = await fixture<WaAccordion>(html`
             <wa-accordion>
               <wa-accordion-item label="One">Content</wa-accordion-item>
             </wa-accordion>
           `);
-          expect(el.single).to.be.false;
+          expect(el.exclusive).to.be.false;
         });
 
         it('should default iconPlacement to end', async () => {
@@ -52,15 +52,15 @@ describe('<wa-accordion>', () => {
           expect(el.iconPlacement).to.equal('end');
         });
 
-        it('should reflect the single property', async () => {
+        it('should reflect the exclusive property', async () => {
           const el = await fixture<WaAccordion>(html`
             <wa-accordion>
               <wa-accordion-item label="One">Content</wa-accordion-item>
             </wa-accordion>
           `);
-          el.single = true;
+          el.exclusive = true;
           await el.updateComplete;
-          expect(el.hasAttribute('single')).to.be.true;
+          expect(el.hasAttribute('exclusive')).to.be.true;
         });
 
         it('should reflect the icon-placement property', async () => {
@@ -213,10 +213,10 @@ describe('<wa-accordion>', () => {
         });
       });
 
-      describe('single mode', () => {
+      describe('exclusive mode', () => {
         it('should close the open item when another item is opened', async () => {
           const el = await fixture<WaAccordion>(html`
-            <wa-accordion single>
+            <wa-accordion exclusive>
               <wa-accordion-item label="One" expanded>Content one</wa-accordion-item>
               <wa-accordion-item label="Two">Content two</wa-accordion-item>
             </wa-accordion>
@@ -233,7 +233,7 @@ describe('<wa-accordion>', () => {
           expect(second.expanded).to.be.true;
         });
 
-        it('should allow multiple items to be open when single is not set', async () => {
+        it('should allow multiple items to be open when exclusive is not set', async () => {
           const el = await fixture<WaAccordion>(html`
             <wa-accordion>
               <wa-accordion-item label="One" expanded>Content one</wa-accordion-item>
@@ -284,9 +284,9 @@ describe('<wa-accordion>', () => {
           }
         });
 
-        it('expandAll() should be a no-op when single is set', async () => {
+        it('expandAll() should be a no-op when exclusive is set', async () => {
           const el = await fixture<WaAccordion>(html`
-            <wa-accordion single>
+            <wa-accordion exclusive>
               <wa-accordion-item label="One">Content</wa-accordion-item>
               <wa-accordion-item label="Two">Content</wa-accordion-item>
             </wa-accordion>

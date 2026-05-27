@@ -12,11 +12,5 @@ export default css`
       overflow: hidden;
     }
 
-    ::slotted(wa-accordion-item + wa-accordion-item) {
-      border-top: var(
-        --border,
-        var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border)
-      );
-    }
   }
 `;

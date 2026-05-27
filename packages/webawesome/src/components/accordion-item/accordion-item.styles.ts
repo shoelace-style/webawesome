@@ -3,22 +3,27 @@ import { css } from 'lit';
 export default css`
   @layer wa-component {
     :host {
-      --padding: var(--wa-space-m);
-      --duration: 200ms;
-      --easing: ease;
-
       display: block;
+    }
+
+    :host(:not(:first-child)) {
+      border-top: var(--border, var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border));
     }
 
     [part~='heading'] {
       margin: 0;
     }
 
+    :host([expanded]) [part~='heading'],
+    :host([expanded][heading-level='none']) [part~='button'] {
+      border-bottom: var(--border, var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border));
+    }
+
     [part~='button'] {
       display: flex;
       align-items: center;
-      gap: var(--padding);
-      padding: var(--padding);
+      gap: var(--padding, 1em);
+      padding: var(--padding, 1em);
       width: 100%;
       background: none;
       border: none;
@@ -58,20 +63,30 @@ export default css`
       pointer-events: none;
     }
 
+    :host(:first-child) [part~='button'] {
+      border-top-left-radius: var(--radius, var(--wa-panel-border-radius));
+      border-top-right-radius: var(--radius, var(--wa-panel-border-radius));
+    }
+
+    :host(:last-child:not([expanded])) [part~='button'] {
+      border-bottom-left-radius: var(--radius, var(--wa-panel-border-radius));
+      border-bottom-right-radius: var(--radius, var(--wa-panel-border-radius));
+    }
+
     [part~='icon'] {
       flex: 0 0 auto;
       display: flex;
       align-items: center;
       color: var(--wa-color-text-quiet);
-      transition: rotate var(--duration) var(--easing);
+      transition: rotate var(--duration, 200ms) var(--easing, ease);
+    }
+
+    :host(:dir(rtl)) [part~='icon'] {
+      rotate: 180deg;
     }
 
     :host([expanded]) [part~='icon'] {
       rotate: 90deg;
-    }
-
-    :host([expanded]:dir(rtl)) [part~='icon'] {
-      rotate: -90deg;
     }
 
     .body {
@@ -84,7 +99,7 @@ export default css`
 
     .content {
       display: block;
-      padding: var(--padding);
+      padding: var(--padding, 1em);
     }
   }
 `;
