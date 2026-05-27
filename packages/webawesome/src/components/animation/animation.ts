@@ -95,12 +95,16 @@ export default class WaAnimation extends WebAwesomeElement {
 
   connectedCallback() {
     super.connectedCallback();
-    this.createAnimation();
+    if ("animate" in this) {
+      this.createAnimation();
+    }
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    this.destroyAnimation();
+    if ("animate" in this) {
+      this.destroyAnimation();
+    }
   }
 
   private handleAnimationFinish = () => {
