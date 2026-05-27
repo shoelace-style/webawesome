@@ -161,7 +161,12 @@ export default class WaAccordion extends WebAwesomeElement {
 
   render() {
     return html`
-      <div part="base" @wa-accordion-item-trigger=${this.handleItemTrigger} @focusin=${this.handleFocusIn} @keydown=${this.handleKeyDown}>
+      <div
+        part="base"
+        @wa-accordion-item-trigger=${this.handleItemTrigger}
+        @focusin=${this.handleFocusIn}
+        @keydown=${this.handleKeyDown}
+      >
         <slot @slotchange=${this.handleSlotChange}></slot>
       </div>
     `;

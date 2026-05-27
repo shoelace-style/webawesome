@@ -11,6 +11,5 @@ export default css`
       border-radius: var(--radius, var(--wa-panel-border-radius));
       overflow: hidden;
     }
-
   }
 `;

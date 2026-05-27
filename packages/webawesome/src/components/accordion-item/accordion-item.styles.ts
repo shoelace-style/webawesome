@@ -7,7 +7,10 @@ export default css`
     }
 
     :host(:not(:first-child)) {
-      border-top: var(--border, var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border));
+      border-top: var(
+        --border,
+        var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border)
+      );
     }
 
     [part~='heading'] {
@@ -16,7 +19,10 @@ export default css`
 
     :host([expanded]) [part~='heading'],
     :host([expanded][heading-level='none']) [part~='button'] {
-      border-bottom: var(--border, var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border));
+      border-bottom: var(
+        --border,
+        var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border)
+      );
     }
 
     [part~='button'] {

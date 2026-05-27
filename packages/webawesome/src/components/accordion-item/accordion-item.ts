@@ -1,13 +1,13 @@
 import { html } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
+import { WaAccordionItemCollapsedEvent } from '../../events/accordion-item-collapsed.js';
+import { WaAccordionItemExpandedEvent } from '../../events/accordion-item-expanded.js';
+import { WaAccordionItemTriggerEvent } from '../../events/accordion-item-trigger.js';
 import { animate, parseDuration } from '../../internal/animate.js';
 import { waitForEvent } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import { WaAccordionItemCollapsedEvent } from '../../events/accordion-item-collapsed.js';
-import { WaAccordionItemExpandedEvent } from '../../events/accordion-item-expanded.js';
-import { WaAccordionItemTriggerEvent } from '../../events/accordion-item-trigger.js';
 import '../icon/icon.js';
 import styles from './accordion-item.styles.js';
 
@@ -153,12 +153,18 @@ export default class WaAccordionItem extends WebAwesomeElement {
   private renderHeadingWrapper(content: unknown) {
     const level = parseInt(this.headingLevel, 10);
     switch (level >= 1 && level <= 6 ? level : 3) {
-      case 1: return html`<h1 part="heading">${content}</h1>`;
-      case 2: return html`<h2 part="heading">${content}</h2>`;
-      case 4: return html`<h4 part="heading">${content}</h4>`;
-      case 5: return html`<h5 part="heading">${content}</h5>`;
-      case 6: return html`<h6 part="heading">${content}</h6>`;
-      default: return html`<h3 part="heading">${content}</h3>`;
+      case 1:
+        return html`<h1 part="heading">${content}</h1>`;
+      case 2:
+        return html`<h2 part="heading">${content}</h2>`;
+      case 4:
+        return html`<h4 part="heading">${content}</h4>`;
+      case 5:
+        return html`<h5 part="heading">${content}</h5>`;
+      case 6:
+        return html`<h6 part="heading">${content}</h6>`;
+      default:
+        return html`<h3 part="heading">${content}</h3>`;
     }
   }
 
