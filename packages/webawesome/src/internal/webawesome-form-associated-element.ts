@@ -115,7 +115,7 @@ export class WebAwesomeFormAssociatedElement
   constructor() {
     super();
 
-    if ("addEventListener" in this) {
+    if ('addEventListener' in this) {
       // eslint-disable-next-line
       this.addEventListener('invalid', this.emitInvalid);
     }
