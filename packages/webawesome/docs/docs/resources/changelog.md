@@ -18,20 +18,16 @@ These are still finding their shape. APIs can change between minor versions, so 
 
 :::added
 
+- Added the new `<wa-calendar>` pro component
+- Added the new `<wa-date-picker>` pro component
+- Added the new `<wa-known-date>` pro component
+- Added the new `<wa-time-picker>` pro component
 - Added the `capture` attribute to `<wa-file-input>` for capturing media directly from a device's camera or microphone [discuss:2380]
-
-:::
-
-:::changed
-
-- Replaced the free-text `<input>` inside `<wa-date-picker>` with a segmented date input — discrete month, day, and year spinbutton segments rendered in the user's locale order (e.g., `MM/DD/YYYY` for `en-US`, `DD.MM.YYYY` for `de-DE`, `YYYY/MM/DD` for `ja-JP`). Typing fills segments with digit-aware auto-advance, Arrow Up/Down step the focused segment with wraparound (no carry), and Arrow Left/Right move between segments (visual direction under RTL). The component still submits a single ISO value (`YYYY-MM-DD` or `YYYY-MM-DD/YYYY-MM-DD` in range mode). The forgiving free-text parser is preserved for the paste path only.
 
 :::
 
 :::fixed
 
-- Added the experimental `<wa-calendar>` component
-- Fixed a bug in `<wa-video>` where  the `timeupdate` method was not emitting when seeking or scrubbing the timeline [issue:2393]
 - Fixed a bug in `<wa-video>` where the `timeupdate` method was not emitting when seeking or scrubbing the timeline [issue:2393]
 - Fixed a bug in `<wa-breadcrumb-item>` where `href=""` rendered as a button instead of a link, making it harder to follow the [WAI-ARIA breadcrumb pattern](https://www.w3.org/WAI/ARIA/apg/patterns/breadcrumb/) for the current-page item [issue:2387]
 - Fixed a regression in `<wa-breadcrumb-item>` that caused items without an `href` to render as a link instead of a button
