@@ -18,10 +18,10 @@ These are still finding their shape. APIs can change between minor versions, so 
 
 :::added
 
-- Added the new `<wa-calendar>` pro component
-- Added the new `<wa-date-picker>` pro component
-- Added the new `<wa-known-date>` pro component
-- Added the new `<wa-time-picker>` pro component
+- Added the `<wa-date-picker>` experimental pro component
+- Added the `<wa-calendar>` experimental pro component
+- Added the `<wa-known-date>` experimental component
+- Added the `<wa-time-picker>` experimental component
 - Added the `capture` attribute to `<wa-file-input>` for capturing media directly from a device's camera or microphone [discuss:2380]
 
 :::
@@ -133,8 +133,8 @@ These are still finding their shape. APIs can change between minor versions, so 
 
 :::added
 
-- Moved `<wa-page>` from {{ site.namePro }} to Web Awesome core
-- Added a new free experimental component: `<wa-markdown>` (#6 of 14 per stretch goals)
+- Moved `<wa-page>` from pro to core
+- Added a new core experimental component: `<wa-markdown>` (#6 of 14 per stretch goals)
 - Added the `data-wa-preload` attribute for preloading components that aren't on the page yet when using the autoloader [issue:1501]
 - Added `placement` attribute to `<wa-color-picker>` [issue:2099]
 - Added form association to `<wa-rating>`
