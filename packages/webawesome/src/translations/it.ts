@@ -6,16 +6,19 @@ const translation: Translation = {
   $name: 'Italiano',
   $dir: 'ltr',
 
+  am: 'AM',
   carousel: 'Carosello',
   captions: 'Sottotitoli',
   chooseDate: 'Scegli data',
   chooseDecade: 'Scegli decennio',
   chooseMonth: 'Scegli mese',
+  chooseTime: 'Scegli ora',
   chooseYear: 'Scegli anno',
   clearEntry: 'Cancella inserimento',
   createOption: value => `Crea "${value}"`,
   close: 'Chiudi',
   closeCalendar: 'Chiudi calendario',
+  closeTimePicker: 'Chiudi selettore ora',
   copied: 'Copiato',
   copy: 'Copia',
   currentValue: 'Valore attuale',
@@ -23,6 +26,7 @@ const translation: Translation = {
   datePickerKeyboardHelp:
     'Usa i tasti freccia per modificare i valori; premi Alt+Freccia giù per aprire il calendario.',
   day: 'Giorno',
+  dayPeriod: 'AM/PM',
   decrement: 'Diminuisci',
   dropFileHere: 'Drop file here or click to browse',
   dropFilesHere: 'Drop files here or click to browse',
@@ -33,8 +37,11 @@ const translation: Translation = {
   exitFullscreen: 'Esci dalla modalità a schermo intero',
   goToSlide: (slide, count) => `Vai alla diapositiva ${slide} di ${count}`,
   hidePassword: 'Nascondi password',
+  hour: 'Ora',
+  incompleteDate: 'Inserisci una data completa.',
   increment: 'Aumenta',
   loading: 'In caricamento',
+  minute: 'Minuto',
   month: 'Mese',
   moreOptions: 'Altre opzioni',
   mute: 'Disattiva audio',
@@ -43,6 +50,7 @@ const translation: Translation = {
   nextSlide: 'Prossima diapositiva',
   nextVideo: 'Video successivo',
   nextYear: 'Anno successivo',
+  now: 'Adesso',
   numCharacters: num => {
     if (num === 1) return '1 carattere';
     return `${num} caratteri`;
@@ -63,21 +71,35 @@ const translation: Translation = {
   playbackSpeed: 'Velocità di riproduzione',
   playlist: 'Playlist',
   playAnimation: 'Riproduci animazione',
+  pm: 'PM',
   previousDecade: 'Decennio precedente',
   previousMonth: 'Mese precedente',
   previousSlide: 'Diapositiva precedente',
   previousVideo: 'Video precedente',
   previousYear: 'Anno precedente',
   progress: 'Avanzamento',
+  rangeTooLong: max => {
+    if (max === 1) return 'Seleziona un intervallo non superiore a 1 giorno';
+    return `Seleziona un intervallo non superiore a ${max} giorni`;
+  },
+  rangeTooShort: min => {
+    if (min === 1) return 'Seleziona un intervallo di almeno 1 giorno';
+    return `Seleziona un intervallo di almeno ${min} giorni`;
+  },
   remove: 'Rimuovi',
   resize: 'Ridimensiona',
   scrollableRegion: 'Area scorrevole',
   scrollToEnd: 'Scorri alla fine',
   scrollToStart: "Scorri all'inizio",
+  second: 'Secondo',
   selectAColorFromTheScreen: 'Seleziona un colore dalla schermo',
   showPassword: 'Mostra password',
   slideNum: slide => `Diapositiva ${slide}`,
   startDate: 'Data di inizio',
+  time: 'Ora',
+  timePickerKeyboardHelp:
+    'Usa i tasti freccia per modificare i valori; premi Alt+Freccia giù per aprire il selettore ora.',
+  today: 'Oggi',
   toggleColorFormat: 'Cambia formato colore',
   seek: 'Cerca',
   seekProgress: (current, duration) => `${current} di ${duration}`,

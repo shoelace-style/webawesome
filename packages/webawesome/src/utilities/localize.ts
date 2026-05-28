@@ -38,6 +38,8 @@ export interface Translation extends DefaultTranslation {
   date?: string;
   datePickerKeyboardHelp?: string;
   day?: string;
+  // Date input
+  incompleteDate?: string;
   dropFileHere: string;
   decrement: string;
   dropFilesHere: string;

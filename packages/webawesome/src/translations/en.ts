@@ -22,6 +22,7 @@ const translation: Translation = {
   date: 'Date',
   datePickerKeyboardHelp: 'Use arrow keys to change values; press Alt+Down Arrow to open the calendar.',
   day: 'Day',
+  incompleteDate: 'Enter a complete date.',
   dropFileHere: 'Drop file here or click to browse',
   decrement: 'Decrement',
   dropFilesHere: 'Drop files here or click to browse',

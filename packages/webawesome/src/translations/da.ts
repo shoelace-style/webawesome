@@ -6,9 +6,11 @@ const translation: Translation = {
   $name: 'Dansk',
   $dir: 'ltr',
 
+  am: 'AM',
   carousel: 'Karrusel',
   captions: 'Undertekster',
   chooseDate: 'Vælg dato',
+  chooseTime: 'Vælg klokkeslæt',
   chooseDecade: 'Vælg årti',
   chooseMonth: 'Vælg måned',
   chooseYear: 'Vælg år',
@@ -16,12 +18,14 @@ const translation: Translation = {
   createOption: value => `Opret "${value}"`,
   close: 'Luk',
   closeCalendar: 'Luk kalender',
+  closeTimePicker: 'Luk klokkeslætsvælger',
   copied: 'Kopieret',
   copy: 'Kopier',
   currentValue: 'Nuværende værdi',
   date: 'Dato',
   datePickerKeyboardHelp: 'Brug piletasterne til at ændre værdier; tryk Alt+Pil ned for at åbne kalenderen.',
   day: 'Dag',
+  dayPeriod: 'AM/PM',
   decrement: 'Formindsk',
   dropFileHere: 'Drop file here or click to browse',
   dropFilesHere: 'Drop files here or click to browse',
@@ -32,8 +36,11 @@ const translation: Translation = {
   exitFullscreen: 'Afslut fuldskærm',
   goToSlide: (slide, count) => `Gå til dias ${slide} af ${count}`,
   hidePassword: 'Skjul adgangskode',
+  hour: 'Time',
+  incompleteDate: 'Indtast en fuldstændig dato.',
   increment: 'Forøg',
   loading: 'Indlæser',
+  minute: 'Minut',
   month: 'Måned',
   moreOptions: 'Flere muligheder',
   mute: 'Slå lyd fra',
@@ -42,6 +49,7 @@ const translation: Translation = {
   nextSlide: 'Næste slide',
   nextVideo: 'Næste video',
   nextYear: 'Næste år',
+  now: 'Nu',
   numCharacters: num => {
     if (num === 1) return '1 tegn';
     return `${num} tegn`;
@@ -62,21 +70,35 @@ const translation: Translation = {
   playbackSpeed: 'Afspilningshastighed',
   playlist: 'Afspilningsliste',
   playAnimation: 'Afspil animation',
+  pm: 'PM',
   previousDecade: 'Forrige årti',
   previousMonth: 'Forrige måned',
   previousSlide: 'Forrige dias',
   previousVideo: 'Forrige video',
   previousYear: 'Forrige år',
   progress: 'Status',
+  rangeTooLong: max => {
+    if (max === 1) return 'Vælg et interval på højst 1 dag';
+    return `Vælg et interval på højst ${max} dage`;
+  },
+  rangeTooShort: min => {
+    if (min === 1) return 'Vælg et interval på mindst 1 dag';
+    return `Vælg et interval på mindst ${min} dage`;
+  },
   remove: 'Fjern',
   resize: 'Tilpas størrelse',
   scrollableRegion: 'Rullebar region',
   scrollToEnd: 'Scroll til slut',
   scrollToStart: 'Scroll til start',
+  second: 'Sekund',
   selectAColorFromTheScreen: 'Vælg en farve fra skærmen',
   showPassword: 'Vis adgangskode',
   slideNum: slide => `Slide ${slide}`,
   startDate: 'Startdato',
+  time: 'Klokkeslæt',
+  timePickerKeyboardHelp:
+    'Brug piletasterne til at ændre værdier; tryk Alt+Pil ned for at åbne klokkeslætsvælgeren.',
+  today: 'I dag',
   toggleColorFormat: 'Skift farveformat',
   seek: 'Søg',
   seekProgress: (current, duration) => `${current} af ${duration}`,

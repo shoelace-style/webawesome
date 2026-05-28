@@ -6,22 +6,26 @@ const translation: Translation = {
   $name: 'Polski',
   $dir: 'ltr',
 
+  am: 'AM',
   carousel: 'Karuzela',
   captions: 'Napisy',
   chooseDate: 'Wybierz datę',
   chooseDecade: 'Wybierz dekadę',
   chooseMonth: 'Wybierz miesiąc',
+  chooseTime: 'Wybierz godzinę',
   chooseYear: 'Wybierz rok',
   clearEntry: 'Wyczyść wpis',
   createOption: value => `Utwórz "${value}"`,
   close: 'Zamknij',
   closeCalendar: 'Zamknij kalendarz',
+  closeTimePicker: 'Zamknij selektor godziny',
   copied: 'Skopiowane',
   copy: 'Kopiuj',
   currentValue: 'Aktualna wartość',
   date: 'Data',
   datePickerKeyboardHelp: 'Użyj klawiszy strzałek, aby zmienić wartości; naciśnij Alt+Strzałka w dół, aby otworzyć kalendarz.',
   day: 'Dzień',
+  dayPeriod: 'AM/PM',
   decrement: 'Zmniejsz',
   dropFileHere: 'Drop file here or click to browse',
   dropFilesHere: 'Drop files here or click to browse',
@@ -32,8 +36,11 @@ const translation: Translation = {
   exitFullscreen: 'Wyłącz pełny ekran',
   goToSlide: (slide, count) => `Przejdź do slajdu ${slide} z ${count}`,
   hidePassword: 'Ukryj hasło',
+  hour: 'Godzina',
+  incompleteDate: 'Wprowadź pełną datę.',
   increment: 'Zwiększ',
   loading: 'Ładowanie',
+  minute: 'Minuta',
   moreOptions: 'Więcej opcji',
   month: 'Miesiąc',
   mute: 'Wycisz',
@@ -42,6 +49,7 @@ const translation: Translation = {
   nextSlide: 'Następny slajd',
   nextVideo: 'Następny film',
   nextYear: 'Następny rok',
+  now: 'Teraz',
   numCharacters: num => {
     if (num === 1) return '1 znak';
     const mod10 = num % 10;
@@ -64,6 +72,7 @@ const translation: Translation = {
   pause: 'Wstrzymaj',
   pauseAnimation: 'Wstrzymaj animację',
   pictureInPicture: 'Obraz w obrazie',
+  pm: 'PM',
   play: 'Odtwórz',
   playbackSpeed: 'Prędkość odtwarzania',
   playlist: 'Lista odtwarzania',
@@ -74,15 +83,34 @@ const translation: Translation = {
   previousVideo: 'Poprzedni film',
   previousYear: 'Poprzedni rok',
   progress: 'Postęp',
+  rangeTooLong: max => {
+    if (max === 1) return 'Wybierz zakres nie dłuższy niż 1 dzień';
+    const mod10 = max % 10;
+    const mod100 = max % 100;
+    if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `Wybierz zakres nie dłuższy niż ${max} dni`;
+    return `Wybierz zakres nie dłuższy niż ${max} dni`;
+  },
+  rangeTooShort: min => {
+    if (min === 1) return 'Wybierz zakres o długości co najmniej 1 dnia';
+    const mod10 = min % 10;
+    const mod100 = min % 100;
+    if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14))
+      return `Wybierz zakres o długości co najmniej ${min} dni`;
+    return `Wybierz zakres o długości co najmniej ${min} dni`;
+  },
   remove: 'Usunąć',
   resize: 'Zmień rozmiar',
   scrollableRegion: 'Obszar przewijalny',
   scrollToEnd: 'Przewiń do końca',
   scrollToStart: 'Przewiń do początku',
+  second: 'Sekunda',
   selectAColorFromTheScreen: 'Próbkuj z ekranu',
   showPassword: 'Pokaż hasło',
   slideNum: slide => `Slajd ${slide}`,
   startDate: 'Data początkowa',
+  time: 'Godzina',
+  timePickerKeyboardHelp: 'Użyj klawiszy strzałek, aby zmienić wartości; naciśnij Alt+Strzałka w dół, aby otworzyć selektor godziny.',
+  today: 'Dzisiaj',
   toggleColorFormat: 'Przełącz format',
   seek: 'Szukaj',
   seekProgress: (current, duration) => `${current} z ${duration}`,
