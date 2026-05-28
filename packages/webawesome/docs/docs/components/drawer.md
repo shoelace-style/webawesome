@@ -1,7 +1,7 @@
 ---
 title: Drawer
 layout: component
-category: Organization
+category: Layout
 synonyms:
   - sidebar
   - side panel

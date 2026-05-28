@@ -4,8 +4,8 @@ export default css`
   :host {
     --arrow-size: 0.375rem;
     --max-width: 25rem;
-    --show-duration: 100ms;
-    --hide-duration: 100ms;
+    --show-duration: var(--wa-transition-fast);
+    --hide-duration: var(--wa-transition-fast);
 
     display: contents;
 

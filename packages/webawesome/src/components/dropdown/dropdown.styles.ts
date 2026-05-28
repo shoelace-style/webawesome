@@ -2,8 +2,8 @@ import { css } from 'lit';
 
 export default css`
   :host {
-    --show-duration: 50ms;
-    --hide-duration: 50ms;
+    --show-duration: var(--wa-transition-fast);
+    --hide-duration: var(--wa-transition-fast);
     display: contents;
   }
 

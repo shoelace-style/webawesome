@@ -1,7 +1,7 @@
 ---
 title: Progress Bar
 layout: component
-category: Feedback & Status
+category: Feedback
 synonyms:
   - loading bar
   - progress indicator

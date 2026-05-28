@@ -1,7 +1,7 @@
 ---
 title: Page
 layout: component
-category: Organization
+category: Layout
 synonyms:
   - layout
   - page layout

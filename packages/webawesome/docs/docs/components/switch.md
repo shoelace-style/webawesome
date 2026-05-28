@@ -1,7 +1,7 @@
 ---
 title: Switch
 layout: component
-category: Form Controls
+category: Forms
 synonyms:
   - toggle
   - toggle switch
