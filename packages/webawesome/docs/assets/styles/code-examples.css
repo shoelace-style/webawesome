@@ -47,7 +47,6 @@
 
   > :first-child:not(dialog) {
     max-inline-size: 100%;
-    overflow-inline: auto;
     margin-block-start: 0;
   }
 
