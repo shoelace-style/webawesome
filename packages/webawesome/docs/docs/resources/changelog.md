@@ -18,6 +18,7 @@ These are still finding their shape. APIs can change between minor versions, so 
 
 :::added
 
+- Added two new experimental components: `<wa-accordion>` and `<wa-accordion-item>`
 - Added the `capture` attribute to `<wa-file-input>` for capturing media directly from a device's camera or microphone [discuss:2380]
 
 :::
