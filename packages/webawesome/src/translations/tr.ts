@@ -23,7 +23,8 @@ const translation: Translation = {
   copy: 'Kopya',
   currentValue: 'Mevcut değer',
   date: 'Tarih',
-  datePickerKeyboardHelp: 'Değerleri değiştirmek için ok tuşlarını kullanın; takvimi açmak için Alt+Aşağı Ok tuşuna basın.',
+  datePickerKeyboardHelp:
+    'Değerleri değiştirmek için ok tuşlarını kullanın; takvimi açmak için Alt+Aşağı Ok tuşuna basın.',
   day: 'Gün',
   dayPeriod: 'ÖÖ/ÖS',
   decrement: 'Azalt',
@@ -96,7 +97,8 @@ const translation: Translation = {
   slideNum: slide => `Slayt ${slide}`,
   startDate: 'Başlangıç tarihi',
   time: 'Saat',
-  timePickerKeyboardHelp: 'Değerleri değiştirmek için ok tuşlarını kullanın; saat seçiciyi açmak için Alt+Aşağı Ok tuşuna basın.',
+  timePickerKeyboardHelp:
+    'Değerleri değiştirmek için ok tuşlarını kullanın; saat seçiciyi açmak için Alt+Aşağı Ok tuşuna basın.',
   today: 'Bugün',
   toggleColorFormat: 'Renk biçimini değiştir',
   seek: 'Ara',

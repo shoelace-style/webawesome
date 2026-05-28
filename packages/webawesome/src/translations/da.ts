@@ -96,8 +96,7 @@ const translation: Translation = {
   slideNum: slide => `Slide ${slide}`,
   startDate: 'Startdato',
   time: 'Klokkeslæt',
-  timePickerKeyboardHelp:
-    'Brug piletasterne til at ændre værdier; tryk Alt+Pil ned for at åbne klokkeslætsvælgeren.',
+  timePickerKeyboardHelp: 'Brug piletasterne til at ændre værdier; tryk Alt+Pil ned for at åbne klokkeslætsvælgeren.',
   today: 'I dag',
   toggleColorFormat: 'Skift farveformat',
   seek: 'Søg',

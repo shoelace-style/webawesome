@@ -23,7 +23,8 @@ const translation: Translation = {
   copy: 'Скопировать',
   currentValue: 'Текущее значение',
   date: 'Дата',
-  datePickerKeyboardHelp: 'Используйте стрелки для изменения значений; нажмите Alt+Стрелка вниз, чтобы открыть календарь.',
+  datePickerKeyboardHelp:
+    'Используйте стрелки для изменения значений; нажмите Alt+Стрелка вниз, чтобы открыть календарь.',
   day: 'День',
   dayPeriod: 'AM/PM',
   decrement: 'Уменьшить',
@@ -94,7 +95,8 @@ const translation: Translation = {
     const mod10 = min % 10;
     const mod100 = min % 100;
     if (mod10 === 1 && mod100 !== 11) return `Выберите диапазон длиной не менее ${min} дня`;
-    if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `Выберите диапазон длиной не менее ${min} дней`;
+    if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14))
+      return `Выберите диапазон длиной не менее ${min} дней`;
     return `Выберите диапазон длиной не менее ${min} дней`;
   },
   remove: 'Удалить',
@@ -108,7 +110,8 @@ const translation: Translation = {
   slideNum: slide => `Слайд ${slide}`,
   startDate: 'Дата начала',
   time: 'Время',
-  timePickerKeyboardHelp: 'Используйте стрелки для изменения значений; нажмите Alt+Стрелка вниз, чтобы открыть выбор времени.',
+  timePickerKeyboardHelp:
+    'Используйте стрелки для изменения значений; нажмите Alt+Стрелка вниз, чтобы открыть выбор времени.',
   today: 'Сегодня',
   toggleColorFormat: 'Переключить цветовую модель',
   seek: 'Поиск',

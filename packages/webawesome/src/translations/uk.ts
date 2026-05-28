@@ -23,7 +23,8 @@ const translation: Translation = {
   copy: 'Скопіювати',
   currentValue: 'Поточне значення',
   date: 'Дата',
-  datePickerKeyboardHelp: 'Використовуйте стрілки для зміни значень; натисніть Alt+Стрілка вниз, щоб відкрити календар.',
+  datePickerKeyboardHelp:
+    'Використовуйте стрілки для зміни значень; натисніть Alt+Стрілка вниз, щоб відкрити календар.',
   day: 'День',
   dayPeriod: 'AM/PM',
   decrement: 'Зменшити',

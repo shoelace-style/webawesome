@@ -96,7 +96,8 @@ const translation: Translation = {
   slideNum: slide => `Slide ${slide}`,
   startDate: 'Tanggal mulai',
   time: 'Waktu',
-  timePickerKeyboardHelp: 'Gunakan tombol panah untuk mengubah nilai; tekan Alt+Panah Bawah untuk membuka pemilih waktu.',
+  timePickerKeyboardHelp:
+    'Gunakan tombol panah untuk mengubah nilai; tekan Alt+Panah Bawah untuk membuka pemilih waktu.',
   today: 'Hari ini',
   toggleColorFormat: 'Beralih format warna',
   seek: 'Cari',

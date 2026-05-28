@@ -24,7 +24,8 @@ const translation: Translation = {
   currentValue: 'Trenutna vrednost',
   date: 'Datum',
   dayPeriod: 'AM/PM',
-  datePickerKeyboardHelp: 'S puščičnimi tipkami spreminjajte vrednosti; pritisnite Alt+Puščica navzdol za odpiranje koledarja.',
+  datePickerKeyboardHelp:
+    'S puščičnimi tipkami spreminjajte vrednosti; pritisnite Alt+Puščica navzdol za odpiranje koledarja.',
   day: 'Dan',
   decrement: 'Zmanjšaj',
   dropFileHere: 'Drop file here or click to browse',
@@ -110,7 +111,8 @@ const translation: Translation = {
   slideNum: slide => `Diapozitiv ${slide}`,
   startDate: 'Začetni datum',
   time: 'Čas',
-  timePickerKeyboardHelp: 'S puščičnimi tipkami spreminjajte vrednosti; pritisnite Alt+Puščica navzdol za odpiranje izbirnika časa.',
+  timePickerKeyboardHelp:
+    'S puščičnimi tipkami spreminjajte vrednosti; pritisnite Alt+Puščica navzdol za odpiranje izbirnika časa.',
   today: 'Danes',
   toggleColorFormat: 'Preklopi format barve',
   seek: 'Išči',

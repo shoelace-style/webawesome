@@ -221,7 +221,9 @@ export default css`
     user-select: none;
     white-space: nowrap;
     border-radius: var(--wa-border-radius-s);
-    transition: background-color var(--wa-transition-fast), color var(--wa-transition-fast);
+    transition:
+      background-color var(--wa-transition-fast),
+      color var(--wa-transition-fast);
   }
 
   .segment.empty {

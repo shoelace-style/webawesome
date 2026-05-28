@@ -23,7 +23,8 @@ const translation: Translation = {
   copy: 'Kopiëren',
   currentValue: 'Huidige waarde',
   date: 'Datum',
-  datePickerKeyboardHelp: 'Gebruik de pijltjestoetsen om waarden te wijzigen; druk op Alt+Pijl omlaag om de kalender te openen.',
+  datePickerKeyboardHelp:
+    'Gebruik de pijltjestoetsen om waarden te wijzigen; druk op Alt+Pijl omlaag om de kalender te openen.',
   day: 'Dag',
   dayPeriod: 'AM/PM',
   decrement: 'Verlagen',
@@ -96,7 +97,8 @@ const translation: Translation = {
   slideNum: slide => `Schuif ${slide}`,
   startDate: 'Begindatum',
   time: 'Tijd',
-  timePickerKeyboardHelp: 'Gebruik de pijltjestoetsen om waarden te wijzigen; druk op Alt+Pijl omlaag om de tijdkiezer te openen.',
+  timePickerKeyboardHelp:
+    'Gebruik de pijltjestoetsen om waarden te wijzigen; druk op Alt+Pijl omlaag om de tijdkiezer te openen.',
   today: 'Vandaag',
   toggleColorFormat: 'Wissel kleurnotatie',
   seek: 'Zoeken',

@@ -23,7 +23,8 @@ const translation: Translation = {
   copy: 'Kopieren',
   currentValue: 'Aktueller Wert',
   date: 'Datum',
-  datePickerKeyboardHelp: 'Verwenden Sie die Pfeiltasten, um Werte zu ändern; drücken Sie Alt+Pfeil nach unten, um den Kalender zu öffnen.',
+  datePickerKeyboardHelp:
+    'Verwenden Sie die Pfeiltasten, um Werte zu ändern; drücken Sie Alt+Pfeil nach unten, um den Kalender zu öffnen.',
   day: 'Tag',
   dayPeriod: 'AM/PM',
   decrement: 'Verringern',
@@ -96,7 +97,8 @@ const translation: Translation = {
   slideNum: slide => `Folie ${slide}`,
   startDate: 'Startdatum',
   time: 'Uhrzeit',
-  timePickerKeyboardHelp: 'Verwenden Sie die Pfeiltasten, um Werte zu ändern; drücken Sie Alt+Pfeil nach unten, um die Uhrzeitauswahl zu öffnen.',
+  timePickerKeyboardHelp:
+    'Verwenden Sie die Pfeiltasten, um Werte zu ändern; drücken Sie Alt+Pfeil nach unten, um die Uhrzeitauswahl zu öffnen.',
   today: 'Heute',
   toggleColorFormat: 'Farbformat wechseln',
   seek: 'Suchen',

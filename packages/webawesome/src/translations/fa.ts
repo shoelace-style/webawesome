@@ -24,7 +24,8 @@ const translation: Translation = {
   currentValue: 'مقدار فعلی',
   date: 'تاریخ',
   dayPeriod: 'ق.ظ/ب.ظ',
-  datePickerKeyboardHelp: 'از کلیدهای جهت‌نما برای تغییر مقادیر استفاده کنید؛ برای باز کردن تقویم Alt+جهت‌نمای پایین را فشار دهید.',
+  datePickerKeyboardHelp:
+    'از کلیدهای جهت‌نما برای تغییر مقادیر استفاده کنید؛ برای باز کردن تقویم Alt+جهت‌نمای پایین را فشار دهید.',
   day: 'روز',
   decrement: 'کاهش',
   dropFileHere: 'Drop file here or click to browse',
@@ -95,7 +96,8 @@ const translation: Translation = {
   slideNum: slide => `اسلاید ${slide}`,
   startDate: 'تاریخ شروع',
   time: 'زمان',
-  timePickerKeyboardHelp: 'از کلیدهای جهت‌نما برای تغییر مقادیر استفاده کنید؛ برای باز کردن انتخابگر زمان Alt+جهت‌نمای پایین را فشار دهید.',
+  timePickerKeyboardHelp:
+    'از کلیدهای جهت‌نما برای تغییر مقادیر استفاده کنید؛ برای باز کردن انتخابگر زمان Alt+جهت‌نمای پایین را فشار دهید.',
   today: 'امروز',
   toggleColorFormat: 'تغییر قالب رنگ',
   seek: 'جستجو',

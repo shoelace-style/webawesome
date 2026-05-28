@@ -1,3 +1,8 @@
+import { html, isServer, nothing } from 'lit';
+import type { TemplateResult } from 'lit-html';
+import { customElement, property, query, state } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import '../../components/popup/popup.js';
 import type WaPopup from '../../components/popup/popup.js';
 import { WaAfterHideEvent } from '../../events/after-hide.js';
@@ -6,12 +11,9 @@ import { WaClearEvent } from '../../events/clear.js';
 import { WaHideEvent } from '../../events/hide.js';
 import { WaShowEvent } from '../../events/show.js';
 import { animateWithClass } from '../../internal/animate.js';
-import {
-  isTopDismissible,
-  registerDismissible,
-  unregisterDismissible,
-} from '../../internal/dismissible-stack.js';
+import { isTopDismissible, registerDismissible, unregisterDismissible } from '../../internal/dismissible-stack.js';
 import { waitForEvent } from '../../internal/event.js';
+import { SegmentedFieldController } from '../../internal/segmented-field/segmented-field-controller.js';
 import { warnDeprecatedSize } from '../../internal/size.js';
 import { HasSlotController } from '../../internal/slot.js';
 import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
@@ -21,12 +23,6 @@ import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-
 import formControlStyles from '../../styles/component/form-control.styles.js';
 import sizeStyles from '../../styles/component/size.styles.js';
 import { LocalizeController } from '../../utilities/localize.js';
-import { html, isServer, nothing } from 'lit';
-import type { TemplateResult } from 'lit-html';
-import { customElement, property, query, state } from 'lit/decorators.js';
-import { classMap } from 'lit/directives/class-map.js';
-import { ifDefined } from 'lit/directives/if-defined.js';
-import { SegmentedFieldController } from '../../internal/segmented-field/segmented-field-controller.js';
 import {
   buildTimeSegmentLayout,
   dayPeriodFromKey,

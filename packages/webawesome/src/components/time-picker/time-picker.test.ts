@@ -1,9 +1,9 @@
-import { fixtures } from '../../internal/test/fixture.js';
-import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
-import { serialize } from '../../utilities/form.js';
 import { expect, fixture, html, oneEvent } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import sinon from 'sinon';
+import { fixtures } from '../../internal/test/fixture.js';
+import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
+import { serialize } from '../../utilities/form.js';
 import type WaTimePicker from './time-picker.js';
 
 function waitForEvent(el: EventTarget, eventName: string): Promise<void> {

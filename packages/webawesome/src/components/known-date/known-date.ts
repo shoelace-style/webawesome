@@ -1,3 +1,8 @@
+import { html, isServer } from 'lit';
+import { customElement, property, query, state } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
+import { live } from 'lit/directives/live.js';
 import { uniqueId } from '../../internal/math.js';
 import { warnDeprecatedSize } from '../../internal/size.js';
 import { HasSlotController } from '../../internal/slot.js';
@@ -7,11 +12,6 @@ import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-
 import formControlStyles from '../../styles/component/form-control.styles.js';
 import sizeStyles from '../../styles/component/size.styles.js';
 import { LocalizeController } from '../../utilities/localize.js';
-import { html, isServer } from 'lit';
-import { customElement, property, query, state } from 'lit/decorators.js';
-import { classMap } from 'lit/directives/class-map.js';
-import { ifDefined } from 'lit/directives/if-defined.js';
-import { live } from 'lit/directives/live.js';
 import { localeFieldOrder, type SegmentField } from './internal/field-order.js';
 import { PartialDateValidator } from './internal/partial-date-validator.js';
 import { EMPTY_PARTS, isoToParts, partsToIso, type DateParts } from './internal/parts.js';

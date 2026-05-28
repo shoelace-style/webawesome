@@ -1,7 +1,7 @@
-import { fixtures } from '../../internal/test/fixture.js';
-import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
 import { expect, fixture, html, oneEvent } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
+import { fixtures } from '../../internal/test/fixture.js';
+import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
 import type WaKnownDate from './known-date.js';
 
 function getFields(el: WaKnownDate): HTMLInputElement[] {

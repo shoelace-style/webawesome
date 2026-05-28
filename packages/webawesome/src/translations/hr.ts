@@ -108,7 +108,8 @@ const translation: Translation = {
   slideNum: slide => `Slajd ${slide}`,
   startDate: 'Datum početka',
   time: 'Vrijeme',
-  timePickerKeyboardHelp: 'Strelicama mijenjajte vrijednosti; pritisnite Alt+Strelica dolje za otvaranje birača vremena.',
+  timePickerKeyboardHelp:
+    'Strelicama mijenjajte vrijednosti; pritisnite Alt+Strelica dolje za otvaranje birača vremena.',
   today: 'Danas',
   toggleColorFormat: 'Zamijeni format boje',
   seek: 'Traži',

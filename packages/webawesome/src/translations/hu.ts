@@ -100,7 +100,8 @@ const translation: Translation = {
   seekProgress: (current, duration) => `${current} / ${duration}`,
   currentlyPlaying: 'éppen játszik',
   time: 'Idő',
-  timePickerKeyboardHelp: 'A nyílbillentyűkkel módosíthatja az értékeket; az Alt+Lefelé nyíl megnyitja az időválasztót.',
+  timePickerKeyboardHelp:
+    'A nyílbillentyűkkel módosíthatja az értékeket; az Alt+Lefelé nyíl megnyitja az időválasztót.',
   today: 'Ma',
   unmute: 'Elnémítás feloldása',
   videoPlayer: 'Videólejátszó',

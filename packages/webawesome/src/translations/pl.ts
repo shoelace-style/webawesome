@@ -23,7 +23,8 @@ const translation: Translation = {
   copy: 'Kopiuj',
   currentValue: 'Aktualna wartość',
   date: 'Data',
-  datePickerKeyboardHelp: 'Użyj klawiszy strzałek, aby zmienić wartości; naciśnij Alt+Strzałka w dół, aby otworzyć kalendarz.',
+  datePickerKeyboardHelp:
+    'Użyj klawiszy strzałek, aby zmienić wartości; naciśnij Alt+Strzałka w dół, aby otworzyć kalendarz.',
   day: 'Dzień',
   dayPeriod: 'AM/PM',
   decrement: 'Zmniejsz',
@@ -109,7 +110,8 @@ const translation: Translation = {
   slideNum: slide => `Slajd ${slide}`,
   startDate: 'Data początkowa',
   time: 'Godzina',
-  timePickerKeyboardHelp: 'Użyj klawiszy strzałek, aby zmienić wartości; naciśnij Alt+Strzałka w dół, aby otworzyć selektor godziny.',
+  timePickerKeyboardHelp:
+    'Użyj klawiszy strzałek, aby zmienić wartości; naciśnij Alt+Strzałka w dół, aby otworzyć selektor godziny.',
   today: 'Dzisiaj',
   toggleColorFormat: 'Przełącz format',
   seek: 'Szukaj',

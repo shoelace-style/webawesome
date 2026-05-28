@@ -23,7 +23,8 @@ const translation: Translation = {
   copy: 'Көшіру',
   currentValue: 'Қазіргі мән',
   date: 'Күн',
-  datePickerKeyboardHelp: 'Мәндерді өзгерту үшін көрсеткі пернелерін пайдаланыңыз; күнтізбені ашу үшін Alt+Төмен көрсеткі пернесін басыңыз.',
+  datePickerKeyboardHelp:
+    'Мәндерді өзгерту үшін көрсеткі пернелерін пайдаланыңыз; күнтізбені ашу үшін Alt+Төмен көрсеткі пернесін басыңыз.',
   day: 'Күн',
   dayPeriod: 'AM/PM',
   decrement: 'Азайту',
@@ -97,7 +98,8 @@ const translation: Translation = {
   slideNum: slide => `${slide}-слайд`,
   startDate: 'Басталу күні',
   time: 'Уақыт',
-  timePickerKeyboardHelp: 'Мәндерді өзгерту үшін көрсеткі пернелерін пайдаланыңыз; уақыт таңдағышын ашу үшін Alt+Төмен көрсеткі пернесін басыңыз.',
+  timePickerKeyboardHelp:
+    'Мәндерді өзгерту үшін көрсеткі пернелерін пайдаланыңыз; уақыт таңдағышын ашу үшін Alt+Төмен көрсеткі пернесін басыңыз.',
   today: 'Бүгін',
   toggleColorFormat: 'Түс пішімін ауыстыру',
   seek: 'Іздеу',
