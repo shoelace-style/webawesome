@@ -1084,11 +1084,6 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
   }
 
   render() {
-    // Sometimes the "value" of the color picker differs from the server when using cached values in FF. This guard, makes sure that we just skip any hydration issues on initial render.
-    if (this.didSSR && !this.hasUpdated) {
-      return nothing;
-    }
-
     const hasLabelSlot = this.hasSlotController.test('label', 'withLabel');
     const hasHintSlot = this.hasSlotController.test('hint', 'withHint');
     const hasLabel = this.label ? true : !!hasLabelSlot;

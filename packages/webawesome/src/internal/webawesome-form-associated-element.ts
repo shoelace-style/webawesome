@@ -67,7 +67,7 @@ export class WebAwesomeFormAssociatedElement
    * for changes. Whenever these attributes change, we want to be notified and update the validator.
    */
   static get validators(): Validator[] {
-    return [CustomErrorValidator()];
+    return isServer ? [] : [CustomErrorValidator()];
   }
 
   // Append all Validator "observedAttributes" into the "observedAttributes" so they can run.
@@ -124,11 +124,17 @@ export class WebAwesomeFormAssociatedElement
 
   connectedCallback() {
     super.connectedCallback();
-    this.updateValidity();
+    if (this.didSSR && !this.hasUpdated) {
+      this.updateComplete.then(() => {
+        this.updateValidity();
+      })
+    } else {
+      this.updateValidity()
+    }
 
     // Lazily evaluate after the constructor to allow people to override the `assumeInteractionOn`
     this.assumeInteractionOn.forEach(event => {
-      this.addEventListener(event, this.handleInteraction);
+      this.addEventListener?.(event, this.handleInteraction);
     });
   }
 
@@ -181,7 +187,11 @@ export class WebAwesomeFormAssociatedElement
     }
 
     super.willUpdate(changedProperties);
-    this.updateValidity();
+    if (this.didSSR && !this.hasUpdated) {
+      this.updateComplete.then(() => this.updateValidity())
+    } else {
+      this.updateValidity();
+    }
   }
 
   private handleInteraction = (event: Event) => {

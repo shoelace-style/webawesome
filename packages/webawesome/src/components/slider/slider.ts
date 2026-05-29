@@ -1,5 +1,5 @@
 import type { PropertyValues } from 'lit';
-import { html } from 'lit';
+import { html, isServer } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
@@ -74,7 +74,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
   static css = [sizeStyles, formControlStyles, styles];
 
   static get validators() {
-    return [...super.validators, SliderValidator()];
+    return isServer ? [] : [...super.validators, SliderValidator()];
   }
 
   private draggableTrack: DraggableElement;

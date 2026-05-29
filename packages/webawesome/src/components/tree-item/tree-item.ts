@@ -18,6 +18,10 @@ import '../checkbox/checkbox.js';
 import '../icon/icon.js';
 import '../spinner/spinner.js';
 import styles from './tree-item.styles.js';
+import { consume, createContext, provide } from '@lit/context';
+
+export type TreeItemContext = { depth: number, expanded: boolean };
+export const treeItemContext = createContext<TreeItemContext>('wa-tree-item');
 
 /**
  * @summary Tree items represent a single hierarchical node inside a tree, and can contain nested items that expand and
@@ -73,7 +77,8 @@ export default class WaTreeItem extends WebAwesomeElement {
   static css = styles;
 
   static isTreeItem(node: Node) {
-    return node instanceof Element && node.getAttribute('role') === 'treeitem';
+    const el = node as Element
+    return el && (el.role === "treeitem" || el.getAttribute?.('role') === 'treeitem');
   }
 
   private readonly localize = new LocalizeController(this);
@@ -95,6 +100,12 @@ export default class WaTreeItem extends WebAwesomeElement {
   /** Enables lazy loading behavior. */
   @property({ type: Boolean, reflect: true }) lazy = false;
 
+  @provide({ context: treeItemContext })
+  _treeItemContext: TreeItemContext = { depth: 0, expanded: this.expanded };
+
+  @consume({ context: treeItemContext, subscribe: false })
+  _parentTreeContext: TreeItemContext | null = null;
+
   private animationGeneration = 0;
 
   @query('slot:not([name])') defaultSlot: HTMLSlotElement;
@@ -114,10 +125,18 @@ export default class WaTreeItem extends WebAwesomeElement {
 
     // TODO: Because the parent influences the child, we should be able to handle this in SSR with a custom renderer.
     if (this.isNestedItem()) {
-      this.slot = 'children';
+      this.setAttribute("slot", "children")
+      if (!this._parentTreeContext?.expanded) {
+        this.expanded = false;
+      }
+    }
+
+    if (this._parentTreeContext) {
+      this._treeItemContext = { depth: this._parentTreeContext.depth + 1, expanded: this.expanded };
     }
 
     this.updateIndentation();
+
   }
 
   firstUpdated() {
@@ -154,12 +173,21 @@ export default class WaTreeItem extends WebAwesomeElement {
 
   // Checks whether the item is nested into an item
   private isNestedItem(): boolean {
+    if (this._parentTreeContext !== null) {
+      return true
+    }
+
     const parent = this.parentElement;
     return !!parent && WaTreeItem.isTreeItem(parent);
   }
 
   /** Counts the nesting depth and sets the private --indent property on the host for indentation. */
   private updateIndentation() {
+    const depth = Math.max(this._treeItemContext?.depth || 0, this.getDepth())
+    this.setStyleProperty('--indent', `calc(${depth} * var(--indent-size, 2em))`);
+  }
+
+  private getDepth() {
     let depth = 0;
     let node = this.parentElement;
     while (node) {
@@ -168,7 +196,8 @@ export default class WaTreeItem extends WebAwesomeElement {
       }
       node = node.parentElement;
     }
-    this.style.setProperty('--indent', `calc(${depth} * var(--indent-size, 2em))`);
+
+    return depth
   }
 
   private handleChildrenSlotChange() {
@@ -180,6 +209,8 @@ export default class WaTreeItem extends WebAwesomeElement {
     if (changedProperties.has('selected') && !changedProperties.has('indeterminate')) {
       this.indeterminate = false;
     }
+
+    super.willUpdate(changedProperties)
   }
 
   private async animateExpand(generation: number) {
@@ -346,7 +377,7 @@ export default class WaTreeItem extends WebAwesomeElement {
           <slot class="label" part="label"></slot>
         </div>
 
-        <div class="children" part="children" role="group">
+        <div class="children" part="children" role="group" ?hidden=${!this.expanded && !this.isConnected}>
           <slot name="children" @slotchange="${this.handleChildrenSlotChange}"></slot>
         </div>
       </div>

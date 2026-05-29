@@ -1,4 +1,4 @@
-import { html, type PropertyValues } from 'lit';
+import { html, isServer, type PropertyValues } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -58,7 +58,7 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
   static shadowRootOptions = { ...WebAwesomeFormAssociatedElement.shadowRootOptions, delegatesFocus: true };
 
   static get validators() {
-    return [...super.validators, MirrorValidator()];
+    return isServer ? [] : [...super.validators, MirrorValidator()];
   }
 
   assumeInteractionOn = ['blur', 'input'];

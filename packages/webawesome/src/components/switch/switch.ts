@@ -1,5 +1,5 @@
 import type { PropertyValues } from 'lit';
-import { html } from 'lit';
+import { html, isServer } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -46,7 +46,7 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
   static css = [formControlStyles, sizeStyles, styles];
 
   static get validators() {
-    return [...super.validators, MirrorValidator()];
+    return isServer ? [] : [...super.validators, MirrorValidator()];
   }
 
   private readonly hasSlotController = new HasSlotController(this, 'hint');
@@ -155,6 +155,12 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
   }
 
   handleValueOrCheckedChange() {
+    if (this.didSSR && !this.hasUpdated) {
+      this.updateComplete.then(() => {
+        this.handleValueOrCheckedChange()
+      })
+      return
+    }
     // These @watch() commands seem to override the base element checks for changes, so we need to setValue for the form and and updateValidity()
     this.setValue(this.checked ? this.value : null, this._value);
     this.updateValidity();

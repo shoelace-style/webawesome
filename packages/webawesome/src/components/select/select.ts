@@ -615,15 +615,15 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   }
 
   private processSlotChange() {
-    // if (this.didSSR && !this.hasUpdated) {
-    //   this.updateComplete.then(() => {
-    //     this.handleDefaultSlotChange()
-    //   })
-    //   return
-    // }
-
     if (!customElements.get('wa-option')) {
       customElements.whenDefined('wa-option').then(() => this.handleDefaultSlotChange());
+    }
+
+    if (this.didSSR && !this.hasUpdated) {
+      this.updateComplete.then(() => {
+        this.handleDefaultSlotChange()
+      })
+      return
     }
 
     // Invalidate the options cache since slots have changed

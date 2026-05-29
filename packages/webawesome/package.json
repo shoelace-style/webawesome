@@ -89,6 +89,7 @@
     "@ctrl/tinycolor": "4.1.0",
     "@floating-ui/dom": "^1.6.13",
     "@lit-labs/ssr-client": "^1.1.8",
+    "@lit/context": "^1.1.6",
     "@lit/react": "^1.0.8",
     "@shoelace-style/animations": "^1.2.0",
     "@shoelace-style/localize": "^3.2.2",
