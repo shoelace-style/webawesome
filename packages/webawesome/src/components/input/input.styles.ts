@@ -36,10 +36,10 @@ export default css`
     background-color: var(--wa-form-control-background-color);
     box-shadow: var(--box-shadow);
     padding: 0 var(--wa-form-control-padding-inline);
-    outline: var(--wa-focus-ring-style) var(--wa-focus-ring-width) transparent;
     outline-offset: var(--wa-focus-ring-offset);
 
     &:focus-within {
+      outline: var(--wa-focus-ring-style) var(--wa-focus-ring-width) transparent;
       outline-color: var(--wa-color-focus);
     }
 

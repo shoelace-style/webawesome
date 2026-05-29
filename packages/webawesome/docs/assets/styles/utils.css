@@ -216,6 +216,10 @@
     inline-size: 100%;
     /* default to full-width in webawesome docs; pro overrides to --content-width-l */
     --max-inline-size: 100%;
+  }
+
+  /* looks jarring to have the transition with SSR. save it for cloaked pages with CSR. */
+  .wa-cloak .page-nav-products {
     transition: background-color var(--wa-transition-slow) var(--wa-transition-easing);
   }
 
