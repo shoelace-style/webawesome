@@ -1,6 +1,6 @@
 import { TinyColor } from '@ctrl/tinycolor';
 import type { PropertyValues } from 'lit';
-import { html, isServer, nothing } from 'lit';
+import { html, isServer } from 'lit';
 import { customElement, eventOptions, property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
