@@ -147,9 +147,9 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
     super.connectedCallback();
     if (this.didSSR && !this.hasUpdated) {
       this.updateComplete.then(() => {
-        this.handleDefaultCheckedChange()
-      })
-      return
+        this.handleDefaultCheckedChange();
+      });
+      return;
     }
     this.handleDefaultCheckedChange();
   }
@@ -162,9 +162,9 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
   handleValueOrCheckedChange() {
     if (this.didSSR && !this.hasUpdated) {
       this.updateComplete.then(() => {
-        this.handleValueOrCheckedChange()
-      })
-      return
+        this.handleValueOrCheckedChange();
+      });
+      return;
     }
 
     // These @watch() commands seem to override the base element checks for changes, so we need to setValue for the form and and updateValidity()

@@ -36,7 +36,7 @@ export default class WaTabPanel extends WebAwesomeElement {
 
   connectedCallback() {
     super.connectedCallback();
-    this.id = (this.id || "").length > 0 ? this.id : this.componentId;
+    this.id = (this.id || '').length > 0 ? this.id : this.componentId;
   }
 
   @watch('active')

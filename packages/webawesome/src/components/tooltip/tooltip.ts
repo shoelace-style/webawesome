@@ -102,7 +102,7 @@ export default class WaTooltip extends WebAwesomeElement {
   connectedCallback() {
     super.connectedCallback();
 
-    const isClient = typeof document !== "undefined"
+    const isClient = typeof document !== 'undefined';
 
     if (isClient) {
       // Recreate event controller if it was aborted

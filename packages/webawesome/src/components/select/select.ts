@@ -621,9 +621,9 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
 
     if (this.didSSR && !this.hasUpdated) {
       this.updateComplete.then(() => {
-        this.handleDefaultSlotChange()
-      })
-      return
+        this.handleDefaultSlotChange();
+      });
+      return;
     }
 
     // Invalidate the options cache since slots have changed

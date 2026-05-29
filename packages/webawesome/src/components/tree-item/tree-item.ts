@@ -1,3 +1,4 @@
+import { consume, createContext, provide } from '@lit/context';
 import type { PropertyValueMap } from 'lit';
 import { html } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
@@ -18,9 +19,8 @@ import '../checkbox/checkbox.js';
 import '../icon/icon.js';
 import '../spinner/spinner.js';
 import styles from './tree-item.styles.js';
-import { consume, createContext, provide } from '@lit/context';
 
-export type TreeItemContext = { depth: number, expanded: boolean };
+export type TreeItemContext = { depth: number; expanded: boolean };
 export const treeItemContext = createContext<TreeItemContext>('wa-tree-item');
 
 /**
@@ -77,8 +77,8 @@ export default class WaTreeItem extends WebAwesomeElement {
   static css = styles;
 
   static isTreeItem(node: Node) {
-    const el = node as Element
-    return el && (el.role === "treeitem" || el.getAttribute?.('role') === 'treeitem');
+    const el = node as Element;
+    return el && (el.role === 'treeitem' || el.getAttribute?.('role') === 'treeitem');
   }
 
   private readonly localize = new LocalizeController(this);
@@ -125,7 +125,7 @@ export default class WaTreeItem extends WebAwesomeElement {
 
     // TODO: Because the parent influences the child, we should be able to handle this in SSR with a custom renderer.
     if (this.isNestedItem()) {
-      this.setAttribute("slot", "children")
+      this.setAttribute('slot', 'children');
       if (!this._parentTreeContext?.expanded) {
         this.expanded = false;
       }
@@ -136,7 +136,6 @@ export default class WaTreeItem extends WebAwesomeElement {
     }
 
     this.updateIndentation();
-
   }
 
   firstUpdated() {
@@ -174,7 +173,7 @@ export default class WaTreeItem extends WebAwesomeElement {
   // Checks whether the item is nested into an item
   private isNestedItem(): boolean {
     if (this._parentTreeContext !== null) {
-      return true
+      return true;
     }
 
     const parent = this.parentElement;
@@ -183,7 +182,7 @@ export default class WaTreeItem extends WebAwesomeElement {
 
   /** Counts the nesting depth and sets the private --indent property on the host for indentation. */
   private updateIndentation() {
-    const depth = Math.max(this._treeItemContext?.depth || 0, this.getDepth())
+    const depth = Math.max(this._treeItemContext?.depth || 0, this.getDepth());
     this.setStyleProperty('--indent', `calc(${depth} * var(--indent-size, 2em))`);
   }
 
@@ -197,7 +196,7 @@ export default class WaTreeItem extends WebAwesomeElement {
       node = node.parentElement;
     }
 
-    return depth
+    return depth;
   }
 
   private handleChildrenSlotChange() {
@@ -210,7 +209,7 @@ export default class WaTreeItem extends WebAwesomeElement {
       this.indeterminate = false;
     }
 
-    super.willUpdate(changedProperties)
+    super.willUpdate(changedProperties);
   }
 
   private async animateExpand(generation: number) {

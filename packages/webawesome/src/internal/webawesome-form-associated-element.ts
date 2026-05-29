@@ -127,9 +127,9 @@ export class WebAwesomeFormAssociatedElement
     if (this.didSSR && !this.hasUpdated) {
       this.updateComplete.then(() => {
         this.updateValidity();
-      })
+      });
     } else {
-      this.updateValidity()
+      this.updateValidity();
     }
 
     // Lazily evaluate after the constructor to allow people to override the `assumeInteractionOn`
@@ -188,7 +188,7 @@ export class WebAwesomeFormAssociatedElement
 
     super.willUpdate(changedProperties);
     if (this.didSSR && !this.hasUpdated) {
-      this.updateComplete.then(() => this.updateValidity())
+      this.updateComplete.then(() => this.updateValidity());
     } else {
       this.updateValidity();
     }
