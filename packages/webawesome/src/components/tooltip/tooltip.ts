@@ -302,7 +302,7 @@ export default class WaTooltip extends WebAwesomeElement {
       return;
     }
 
-    const newAnchor = this.for ? rootNode.getElementById(this.for) : null;
+    const newAnchor = this.for ? rootNode.getElementById?.(this.for) : null;
     const oldAnchor = this.anchor;
 
     if (newAnchor === oldAnchor) {
