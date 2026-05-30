@@ -8,10 +8,20 @@
 {%- endif -%}
 {%- endmacro -%}
 
-{# Status + Since badges for a component. #}
-{% macro componentStatusBadges(component) %}
+{# Status, optional category link, and Since badges for a component. `category`
+   and `categories` are optional — card callers omit them and skip the link. #}
+{% macro componentMetaBadges(component, category, categories) %}
 {{ statusBadge(component.status) }}
+{% if category and categories %}
+{% for cat in categories %}{% if cat.label == category %}
+<a class="component-category-link" href="/docs/components/?category={{ cat.slug }}">
+  <wa-badge variant="neutral" appearance="filled" pill>
+    <wa-icon name="{{ cat.icon }}" slot="start"></wa-icon>{{ cat.label }}
+  </wa-badge>
+</a>
+{% endif %}{% endfor %}
+{% endif %}
 {% if component.since %}
-<wa-badge class="since" variant="neutral" appearance="filled" pill>Since {{ component.since }}</wa-badge>
+<wa-badge variant="neutral" appearance="filled" pill>Since {{ component.since }}</wa-badge>
 {% endif %}
 {% endmacro %}
