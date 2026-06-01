@@ -4,10 +4,12 @@ description: Style your project with Web Awesome's theming system — color pale
 layout: page-outline
 ---
 
+{% from "pro-badge.njk" import proBadge %}
+
 Web Awesome themes apply a cohesive look and feel across the entire library, built from stackable layers — a [theme](/docs/themes), a [color palette](/docs/color-palettes), [variants](/docs/tokens/color#variant-colors), and a light or dark color scheme — that you mix and match with classes on the `<html>` element.
 
 :::info
-**Try it live!** Use the <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="palette" variant="regular"></wa-icon></wa-tag> Theme  and <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="sun-bright" variant="regular"></wa-icon></wa-tag> Color Scheme selectors in this site's header to preview themes or switch light/dark modes.
+**Try it live!** Use the <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="palette" variant="regular"></wa-icon></wa-tag> Theme and <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="sun-bright" variant="regular"></wa-icon></wa-tag> Color Scheme selectors in this site's header to preview themes or switch light/dark modes.
 :::
 
 ## Key Concepts
@@ -18,72 +20,94 @@ Web Awesome themes apply a cohesive look and feel across the entire library, bui
 
 A theme is the overall look — fonts, borders, space, shadows, and how each [variant](/docs/tokens/color#variant-colors) gets used across components. Two themes can share a [palette](/docs/color-palettes) and [variants](/docs/tokens/color#variant-colors) and still feel completely different. Themes ship with a default palette and may include custom CSS overrides for individual components.
 
-```html {.example}
-<link rel="stylesheet" href="/dist/styles/themes/default.css" />
-<link rel="stylesheet" href="/dist/styles/themes/shoelace.css" />
-<link rel="stylesheet" href="/dist/styles/themes/awesome.css" />
-
-<wa-scroller>
-  <div class="wa-cluster wa-flex-nowrap wa-align-items-stretch">
-    <wa-card>
-      <span slot="header" class="wa-heading-s wa-color-text-quiet">Default Theme</span>
-      <div class="wa-theme-default wa-stack">
-        <wa-input label="# of Scoops" type="number" value="2"></wa-input>
-        <wa-select label="Flavor" value="chocolate">
-          <wa-option value="vanilla">Vanilla</wa-option>
-          <wa-option value="chocolate">Chocolate</wa-option>
-          <wa-option value="strawberry">Strawberry</wa-option>
-          <wa-option value="mint-chip">Mint Chip</wa-option>
-        </wa-select>
-        <wa-checkbox checked>Add Sprinkles</wa-checkbox>
-        <wa-divider></wa-divider>
-        <wa-button appearance="filled" variant="brand">
-          <wa-icon slot="start" name="ice-cream"></wa-icon>
-          Order Ice Cream
-        </wa-button>
+<wa-carousel class="theme-showcase" pagination loop mouse-dragging>
+  {% for theme in themer.themes %}
+  <wa-carousel-item>
+    <figure>
+      <div class="theme-frame">
+        <img class="theme-img-light" src="/assets/images/themes/{{ theme.filename | stripExtension }}-light.png" alt="{{ theme.name }} theme preview (light)" loading="lazy" />
+        <img class="theme-img-dark" src="/assets/images/themes/{{ theme.filename | stripExtension }}-dark.png" alt="{{ theme.name }} theme preview (dark)" loading="lazy" />
       </div>
-    </wa-card>
+      <figcaption class="wa-stack wa-gap-3xs">
+        <div class="wa-cluster wa-gap-xs wa-font-size-m">
+          <strong>{{ theme.name }}</strong>
+          {% if theme.isPro %}{{ proBadge({ description: "This theme requires access to " ~ site.namePro }) }}{% endif %}
+        </div>
+        <div class="wa-font-size-s">{{ theme.description }}</div>
+      </figcaption>
+    </figure>
+  </wa-carousel-item>
+  {% endfor %}
+</wa-carousel>
 
-    <wa-card>
-      <span slot="header" class="wa-heading-s wa-color-text-quiet">Awesome Theme</span>
-      <div class="wa-theme-awesome wa-palette-bright theme-showcase-balanced wa-stack">
-        <wa-input label="# of Scoops" type="number" value="2"></wa-input>
-        <wa-select label="Flavor" value="chocolate">
-          <wa-option value="vanilla">Vanilla</wa-option>
-          <wa-option value="chocolate">Chocolate</wa-option>
-          <wa-option value="strawberry">Strawberry</wa-option>
-          <wa-option value="mint-chip">Mint Chip</wa-option>
-        </wa-select>
-        <wa-checkbox checked>Add Sprinkles</wa-checkbox>
-        <wa-divider></wa-divider>
-        <wa-button appearance="filled" variant="brand">
-          <wa-icon slot="start" name="ice-cream"></wa-icon>
-          Order Ice Cream
-        </wa-button>
-      </div>
-    </wa-card>
+<style>
+  .theme-showcase {
+    --aspect-ratio: 16 / 9;
+    width: 100%;
+    /* Match the docs' major-block rhythm (#content rules in docs.css). */
+    margin-block: var(--wa-space-xl);
+  }
+  .theme-showcase::part(base) {
+    column-gap: 0;
+  }
+  
+  .theme-showcase figure {
+    margin: 0;
+    height: 100%;
+    position: relative;
+    /* Card-like wrapper: border, padding, background. Matches wa-card's surface and inner spacing. */
+    box-sizing: border-box;
+    border: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
+    border-radius: var(--wa-panel-border-radius);
+    background: var(--wa-color-surface-default);
+    padding: var(--wa-space-s);
+  }
 
-    <wa-card>
-      <span slot="header" class="wa-heading-s wa-color-text-quiet">Shoelace Theme</span>
-      <div class="wa-theme-shoelace wa-palette-shoelace wa-stack">
-        <wa-input label="# of Scoops" type="number" value="2"></wa-input>
-        <wa-select label="Flavor" value="chocolate">
-          <wa-option value="vanilla">Vanilla</wa-option>
-          <wa-option value="chocolate">Chocolate</wa-option>
-          <wa-option value="strawberry">Strawberry</wa-option>
-          <wa-option value="mint-chip">Mint Chip</wa-option>
-        </wa-select>
-        <wa-checkbox checked>Add Sprinkles</wa-checkbox>
-        <wa-divider></wa-divider>
-        <wa-button appearance="filled" variant="brand">
-          <wa-icon slot="start" name="ice-cream"></wa-icon>
-          Order Ice Cream
-        </wa-button>
-      </div>
-    </wa-card>
-  </div>
-</wa-scroller>
-```
+  .theme-showcase .theme-frame {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+    border-radius: var(--wa-border-radius-s);
+  }
+
+  .theme-showcase img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Anchor slightly off the top-left so the comparison scrubber on the screenshot's left edge gets cropped. */
+    object-position: -3% -1%;
+    background: var(--wa-color-surface-default);
+    /* Scale up to fill the carousel with the theme's UI content,
+       cropping the screenshot's outer gray padding. Source PNGs are
+       2928x1636 so 1.4x stays well below natural dimensions at any
+       reasonable viewport width. */
+    transform: scale(1.4);
+    transform-origin: top left;
+  }
+
+  /* Swap between light and dark screenshots based on the docs' explicit color scheme toggle. */
+  .theme-showcase .theme-img-dark {
+    display: none;
+  }
+  .wa-dark .theme-showcase .theme-img-light {
+    display: none;
+  }
+  .wa-dark .theme-showcase .theme-img-dark {
+    display: block;
+  }
+
+  .theme-showcase figcaption {
+    position: absolute;
+    /* Inset to match the figure's padding so the caption sits inside the card frame, not over the border. */
+    inset-inline: var(--wa-space-s);
+    inset-block-end: var(--wa-space-s);
+    padding: var(--wa-space-m);
+    color: var(--wa-color-neutral-on-loud);
+    /* Slightly transparent dark scrim — denser than --wa-color-overlay-modal so the title reads cleanly. */
+    background: color-mix(in oklab, var(--wa-color-neutral-fill-loud), transparent 10%);
+    border-radius: 0 0 var(--wa-border-radius-m) var(--wa-border-radius-m);
+  }
+</style>
 
 Your theme is determined by `class="wa-theme-{name}"` on the `<html>` element. If no class is specified, the default theme is used.
 
@@ -96,7 +120,7 @@ Your theme is determined by `class="wa-theme-{name}"` on the `<html>` element. I
 
 `.wa-palette-{name}`
 
-A color palette is the full set of 10 hues — red, orange, yellow, green, cyan, blue, indigo, purple, pink, and gray — each with 11 tints from `05` (darkest) to `95` (lightest), all available as [color design tokens](/docs/tokens/color). 
+A color palette is the full set of 10 hues — red, orange, yellow, green, cyan, blue, indigo, purple, pink, and gray — each with 11 tints from `05` (darkest) to `95` (lightest), all available as [color design tokens](/docs/tokens/color).
 
 Each palette has its own hue shifts and chroma, so swapping palettes changes the entire feel of your project — especially alongside a [theme](/docs/themes) and [variant colors](/docs/tokens/color#variant-colors). Your palette is determined by `class="wa-palette-{name}"` on the `<html>` element; if no class is specified, the default palette is used.
 
