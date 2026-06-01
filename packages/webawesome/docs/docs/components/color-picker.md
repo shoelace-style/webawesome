@@ -1,7 +1,7 @@
 ---
 title: Color Picker
 layout: component
-category: Form Controls
+category: Forms
 synonyms:
   - color chooser
   - color selector
@@ -84,7 +84,7 @@ You can also pass an array of objects with `color` and `label` properties using 
     { color: '#4a90e2', label: 'Blue' },
     { color: '#bd10e0', label: 'Purple' },
     { color: '#000', label: 'Black' },
-    { color: '#fff', label: 'White' }
+    { color: '#fff', label: 'White' },
   ];
 </script>
 ```

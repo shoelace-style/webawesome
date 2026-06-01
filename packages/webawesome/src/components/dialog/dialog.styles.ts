@@ -5,8 +5,8 @@ export default css`
     --width: 31rem;
     --spacing: var(--wa-space-l);
     --backdrop-filter: none;
-    --show-duration: 200ms;
-    --hide-duration: 200ms;
+    --show-duration: var(--wa-transition-normal);
+    --hide-duration: var(--wa-transition-normal);
 
     display: none;
   }

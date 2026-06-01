@@ -1,7 +1,7 @@
 ---
 title: Details
 layout: component
-category: Organization
+category: Layout
 synonyms:
   - accordion
   - collapsible
@@ -55,8 +55,8 @@ Use the `expand-icon` and `collapse-icon` slots to change the expand and collaps
   <wa-icon name="square-plus" slot="expand-icon" variant="regular"></wa-icon>
   <wa-icon name="square-minus" slot="collapse-icon" variant="regular"></wa-icon>
 
-  This example uses custom plus and minus icons for expanding and collapsing. You can use any icon you want to match
-  the look and feel of your app.
+  This example uses custom plus and minus icons for expanding and collapsing. You can use any icon you want to match the
+  look and feel of your app.
 </wa-details>
 
 <style>
@@ -78,8 +78,8 @@ The default position for the expand and collapse icons is at the end of the summ
     are used to tree views and file explorers.
   </wa-details>
   <wa-details summary="End" icon-placement="end">
-    The expand/collapse icon is at the end of the summary. This is the default placement and works great for most
-    use cases.
+    The expand/collapse icon is at the end of the summary. This is the default placement and works great for most use
+    cases.
   </wa-details>
 </div>
 ```

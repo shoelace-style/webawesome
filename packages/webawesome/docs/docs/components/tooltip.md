@@ -1,7 +1,7 @@
 ---
 title: Tooltip
 layout: component
-category: Feedback & Status
+category: Feedback
 synonyms:
   - hint
   - hover text
@@ -16,7 +16,8 @@ use-cases:
 A tooltip's target is based on the `for` attribute which points to an element id.
 
 ```html {.example}
-<wa-tooltip for="my-button">This is a tooltip</wa-tooltip> <wa-button appearance="filled" id="my-button">Hover Me</wa-button>
+<wa-tooltip for="my-button">This is a tooltip</wa-tooltip>
+<wa-button appearance="filled" id="my-button">Hover Me</wa-button>
 ```
 
 ## Examples
