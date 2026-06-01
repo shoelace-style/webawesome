@@ -184,6 +184,42 @@ describe('<wa-dialog>', () => {
         });
       });
 
+      describe('light dismiss', () => {
+        it('should not close when clicking the backdrop by default', async () => {
+          const el = await fixture<WaDialog>(html`<wa-dialog open>Content</wa-dialog>`);
+          const dialog = el.shadowRoot!.querySelector<HTMLDialogElement>('.dialog')!;
+
+          // Simulate a backdrop click by dispatching pointerdown with the dialog as the target
+          dialog.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, composed: true }));
+          await aTimeout(250);
+
+          expect(el.open).to.be.true;
+        });
+
+        it('should close when clicking the backdrop when light-dismiss is enabled', async () => {
+          const el = await fixture<WaDialog>(html`<wa-dialog open light-dismiss>Content</wa-dialog>`);
+          const dialog = el.shadowRoot!.querySelector<HTMLDialogElement>('.dialog')!;
+
+          await expectEvent(el, 'wa-after-hide', () => {
+            // Simulate a backdrop click by dispatching pointerdown with the dialog as the target
+            dialog.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, composed: true }));
+          });
+
+          expect(el.open).to.be.false;
+        });
+
+        it('should not close when clicking inside the dialog even when light-dismiss is enabled', async () => {
+          const el = await fixture<WaDialog>(html`<wa-dialog open light-dismiss>Content</wa-dialog>`);
+          const body = el.shadowRoot!.querySelector<HTMLElement>('[part="body"]')!;
+
+          // pointerdown originates from the body, not the backdrop, so it should not dismiss
+          body.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, composed: true }));
+          await aTimeout(250);
+
+          expect(el.open).to.be.true;
+        });
+      });
+
       describe('CSS parts and states', () => {
         it('should expose the dialog part', async () => {
           const el = await fixture<WaDialog>(html`<wa-dialog open>Content</wa-dialog>`);
