@@ -38,7 +38,8 @@ export default css`
 
       &:focus-visible {
         outline: var(--wa-focus-ring);
-        outline-offset: calc(0px - var(--wa-focus-ring-offset));
+        /* Inset by the full ring width + offset so the parent's overflow:hidden doesn't clip it */
+        outline-offset: calc(0px - var(--wa-focus-ring-width) - var(--wa-focus-ring-offset));
       }
     }
 
