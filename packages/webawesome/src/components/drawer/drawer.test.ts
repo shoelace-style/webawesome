@@ -87,9 +87,9 @@ describe('<wa-drawer>', () => {
           expect(el.placement).to.equal('end');
         });
 
-        it('should default lightDismiss to true', async () => {
+        it('should default lightDismiss to false', async () => {
           const el = await fixture<WaDrawer>(html`<wa-drawer>Content</wa-drawer>`);
-          expect(el.lightDismiss).to.be.true;
+          expect(el.lightDismiss).to.be.false;
         });
       });
 
