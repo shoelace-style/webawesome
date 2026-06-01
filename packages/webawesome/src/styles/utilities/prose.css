@@ -196,5 +196,7 @@
     letter-spacing: revert-layer;
     font-variant-numeric: revert-layer;
     hanging-punctuation: revert-layer;
+    color: revert-layer;
+    border-block-end: revert-layer;
   }
 }
