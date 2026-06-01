@@ -4,14 +4,36 @@
 {# `.preview` opts the brand-variant badge out of site theming (orange). #}
 <wa-badge class="preview" variant="brand" pill><wa-icon name="check" slot="start"></wa-icon>Stable</wa-badge>
 {%- elif status == 'experimental' -%}
-<wa-badge variant="warning" appearance="filled" pill><wa-icon name="flask" slot="start"></wa-icon>Experimental</wa-badge>
+<wa-badge variant="warning" appearance="filled" pill><wa-icon name="flask"
+    slot="start"></wa-icon>Experimental</wa-badge>
 {%- endif -%}
 {%- endmacro -%}
 
-{# Status + Since badges for a component. #}
-{% macro componentStatusBadges(component) %}
+{# Status, optional category link, and Since badges for a component. `category`
+and `categories` are optional — card callers omit them and skip the link. #}
+{% macro componentMetaBadges(component, category, categories) %}
 {{ statusBadge(component.status) }}
-{% if component.since %}
-<wa-badge class="since" variant="neutral" appearance="filled" pill>Since {{ component.since }}</wa-badge>
+{% if category and categories %}
+{% for cat in categories %}{% if cat.label == category %}
+<a class="component-category-link" href="/docs/components/?category={{ cat.slug }}">
+  <wa-badge variant="neutral" appearance="filled" pill>
+    <wa-icon variant="regular" name="{{ cat.icon }}" slot="start"></wa-icon>{{ cat.label }}
+  </wa-badge>
+</a>
+{% endif %}{% endfor %}
 {% endif %}
-{% endmacro %}
+{% if component.since %}
+{% if categories %}
+{# Pad 2-part versions (e.g. `3.6`) to match 3-part changelog headings (`## 3.6.0` → `#wa_360`).
+The anchor transform slugifies headings as `wa_<digits>`; if no match exists the link still lands on the changelog.
+  Card callers omit `categories` and skip the link to avoid nesting anchors inside the card's outer link. #}
+  {%- set sinceVersion = component.since -%}
+  {%- if sinceVersion.split('.').length == 2 -%}{%- set sinceVersion = sinceVersion + '.0' -%}{%- endif -%}
+  <a class="component-since-link" href="/docs/resources/changelog#wa_{{ sinceVersion | replace('.', '') }}">
+    <wa-badge variant="neutral" appearance="filled" pill>Since {{ component.since }}</wa-badge>
+  </a>
+  {% else %}
+  <wa-badge variant="neutral" appearance="filled" pill>Since {{ component.since }}</wa-badge>
+  {% endif %}
+  {% endif %}
+  {% endmacro %}
