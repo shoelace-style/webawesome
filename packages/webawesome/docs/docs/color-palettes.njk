@@ -6,14 +6,16 @@ wide: true
 ---
 
 
-<p>Color palettes give you a full spectrum of colors to use in your project.</p>
+<div class="line-length-m">
+  <p>Color palettes give you a full spectrum of colors to use in your project.</p>
 
-<p>A color palette defines 10 hues — red, orange, yellow, green, cyan, blue, indigo, purple, pink, and gray — each with
-  a scale of 11 tints from <code>05</code> (darkest) to <code>95</code>
-  (lightest) available as <a href="/docs/tokens/color">color design tokens</a>. While the tints have similar
-  lightness values across palettes, each palette has unique hue shifts and chroma so you can find just the right vibe to
-  your project. Combine a palette with a <a href="/docs/themes">theme</a> and <a
-    href="/docs/tokens/color#variant-colors">variant colors</a> to style the whole library.</p>
+  <p>A color palette defines 10 hues — red, orange, yellow, green, cyan, blue, indigo, purple, pink, and gray — each
+    with a scale of 11 tints from <code>05</code> (darkest) to <code>95</code> (lightest) available as <a
+      href="/docs/tokens/color">color design tokens</a>. While the tints have similar lightness values across palettes,
+    each palette has unique hue shifts and chroma so you can find just the right vibe to your project. Combine a palette
+    with a <a href="/docs/themes">theme</a> and <a href="/docs/tokens/color#variant-colors">variant colors</a> to style
+    the whole library.</p>
+</div>
 
 {% include "theming/color-palette-picker.njk" %}
 
@@ -229,17 +231,23 @@ Then, apply the following class to the `<html>` element:
 
 <h2>Styling with Palette Colors</h2>
 
-<p>Once a palette is loaded, you can reach for any of its hue and tint tokens in your own CSS. Pair a hue's <a
-    href="/docs/tokens/color#core-colors">core color</a> (<code>--wa-color-{hue}</code>) with its matching on color
-  (<code>--wa-color-{hue}-on</code>) to keep text and icons readable on top of it:</p>
+<div class="line-length-m">
+  <p>Once a palette is loaded, you can reach for any of its hue and tint tokens in your own CSS. Pair a hue's <a
+      href="/docs/tokens/color#core-colors">core color</a> (<code>--wa-color-{hue}</code>) with its matching on color
+    (<code>--wa-color-{hue}-on</code>) to keep text and icons readable on top of it:</p>
 
 {% markdown %}
 ```css
 .callout-custom {
-background: var(--wa-color-blue);
-color: var(--wa-color-blue-on);
+  background: var(--wa-color-blue);
+  color: var(--wa-color-blue-on);
 }
 ```
 {% endmarkdown %}
 
-<p>For the full set of color tokens, head over to <a href="/docs/tokens/color">Color tokens</a>.</p>
+{% markdown %}
+:::info
+**Building with other tints?** The [Color tokens](/docs/tokens/color) reference lists every tint and semantic variant — pair them across the scale and you'll hit WCAG contrast ratios without doing the math.
+:::
+{% endmarkdown %}
+</div>
