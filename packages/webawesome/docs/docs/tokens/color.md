@@ -331,7 +331,7 @@ A single color is used for all drop shadows. Use it alongside the [shadow tokens
 
 ### Interactions
 
-These tokens power consistent hover, active, and focus states across all interactive components. `--wa-color-focus` is the outline color for keyboard focus rings. `--wa-color-mix-hover` and `--wa-color-mix-active` are blended into a component's fill via [`color-mix()`](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/color-mix) to subtly shift its color on hover or press.
+These tokens power the consistent hover, active, and focus feedback you see across interactive components. The `--wa-color-focus` token sets the color of the keyboard focus ring. The `--wa-color-mix-hover` and `--wa-color-mix-active` tokens are overlays — they're mixed into a component's background via [`color-mix()`](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/color-mix) to subtly shift it on hover and press, so every interactive component reacts consistently without each one defining its own hover/active palette.
 
 <wa-scroller>
   <table class="token-table wa-hover-rows">
