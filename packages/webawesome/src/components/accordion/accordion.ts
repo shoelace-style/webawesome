@@ -24,11 +24,6 @@ import styles from './accordion.styles.js';
  * @event {{ item: WaAccordionItem }} wa-after-expand - Emitted after an item finishes expanding.
  * @event {{ item: WaAccordionItem }} wa-collapse - Emitted before an item collapses. Cancelable.
  * @event {{ item: WaAccordionItem }} wa-after-collapse - Emitted after an item finishes collapsing.
- *
- * @csspart base - The component's base wrapper.
- *
- * @cssproperty [--border] - The border applied to the accordion's outer frame and item dividers.
- * @cssproperty [--radius] - The border radius of the outer frame.
  */
 @customElement('wa-accordion')
 export default class WaAccordion extends WebAwesomeElement {
@@ -180,14 +175,12 @@ export default class WaAccordion extends WebAwesomeElement {
 
   render() {
     return html`
-      <div
-        part="base"
+      <slot
+        @slotchange=${this.handleSlotChange}
         @wa-accordion-item-trigger=${this.handleItemTrigger}
         @focusin=${this.handleFocusIn}
         @keydown=${this.handleKeyDown}
-      >
-        <slot @slotchange=${this.handleSlotChange}></slot>
-      </div>
+      ></slot>
     `;
   }
 }

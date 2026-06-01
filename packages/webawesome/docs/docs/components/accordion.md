@@ -99,12 +99,12 @@ The default heading level is `3`. Use `heading-level` on the accordion to match 
 
 ### Sizing
 
-The accordion scales with `font-size`. Padding and expand/collapse icon are both `em` based, setting `font-size` on a `<wa-accordion>` proportionally resizes the entire component; text, spacing, and icon together.
+The accordion's text and expand/collapse icon scale with `font-size`. Setting `font-size` on a `<wa-accordion>` proportionally resizes the type and icon together.
 
 ```html {.example}
 <wa-accordion style="font-size: 0.875rem;">
   <wa-accordion-item label="Small accordion">
-    Text, padding, and icon scales down together.
+    Text and icon scale down together.
   </wa-accordion-item>
   <wa-accordion-item label="Another item">Content here.</wa-accordion-item>
 </wa-accordion>
@@ -123,17 +123,6 @@ The accordion scales with `font-size`. Padding and expand/collapse icon are both
 <wa-accordion style="font-size: 1.25rem;">
   <wa-accordion-item label="Large accordion">
     Everything scales up together.
-  </wa-accordion-item>
-  <wa-accordion-item label="Another item">Content here.</wa-accordion-item>
-</wa-accordion>
-```
-
-You can also adjust spacing independently with the `--padding` custom property without affecting the font size.
-
-```html {.example}
-<wa-accordion style="--padding: 0.5rem;">
-  <wa-accordion-item label="Compact spacing">
-    Padding is reduced and font size stays the same.
   </wa-accordion-item>
   <wa-accordion-item label="Another item">Content here.</wa-accordion-item>
 </wa-accordion>
@@ -192,17 +181,43 @@ The expand/collapse icon appears at the end of each header by default. Set `icon
 
 Use the `icon` slot on an accordion item to replace the default expand/collapse icon with any icon you like.
 
+By default the icon rotates as the item expands. You can target the `icon` part with `::part(icon)` to customize the rotation, or set `rotate: none` to prevent the animation and swap the icon instead. Because `expanded` reflects an attribute, `[expanded]::part(icon)` lets you style each state.
+
 ```html {.example}
 <wa-accordion>
-  <wa-accordion-item label="With a custom icon">
+  <wa-accordion-item label="Rotate a custom icon" class="circle-plus">
     <wa-icon slot="icon" name="circle-plus" variant="regular"></wa-icon>
-    Replace the default chevron with any icon you like.
+    Replace the default chevron and customize how it rotates.
   </wa-accordion-item>
-  <wa-accordion-item label="Another custom icon">
-    <wa-icon slot="icon" name="square-plus" variant="regular"></wa-icon>
-    Each item can have its own icon.
+  <wa-accordion-item label="Swap the icon instead" class="plus-minus">
+    <wa-icon slot="icon" name="square-plus" variant="regular" data-when="collapsed"></wa-icon>
+    <wa-icon slot="icon" name="square-minus" variant="regular" data-when="expanded"></wa-icon>
+    Prevent the rotation and swap + for − when the item expands.
   </wa-accordion-item>
 </wa-accordion>
+
+<style>
+  /* Customize the rotation when expanded */
+  wa-accordion-item.circle-plus[expanded]::part(icon) {
+    rotate: 225deg;
+  }
+
+  /* Prevent the default rotation animation… */
+  wa-accordion-item.plus-minus::part(icon) {
+    rotate: none;
+  }
+
+  /* …and swap the icon based on the expanded state */
+  wa-accordion-item.plus-minus [data-when='expanded'] {
+    display: none;
+  }
+  wa-accordion-item.plus-minus[expanded] [data-when='collapsed'] {
+    display: none;
+  }
+  wa-accordion-item.plus-minus[expanded] [data-when='expanded'] {
+    display: inline-flex;
+  }
+</style>
 ```
 
 ### HTML in the Label
@@ -233,18 +248,18 @@ To place HTML in an accordion item's header, use the `label` slot instead of the
 Use the `expandAll()` and `collapseAll()` methods to programmatically control all items at once. Note that `expandAll()` is a no-op when `mode` is `single` or `single-collapsible`.
 
 ```html {.example}
-<div class="wa-cluster">
-  <wa-button appearance="filled" id="expand-all">Expand All</wa-button>
-  <wa-button id="collapse-all">Collapse All</wa-button>
-</div>
-
-<br />
-
 <wa-accordion id="accordion-methods">
   <wa-accordion-item label="Section one">Content for the first section.</wa-accordion-item>
   <wa-accordion-item label="Section two">Content for the second section.</wa-accordion-item>
   <wa-accordion-item label="Section three">Content for the third section.</wa-accordion-item>
 </wa-accordion>
+
+<br />
+
+<div class="wa-cluster">
+  <wa-button appearance="filled" id="expand-all">Expand All</wa-button>
+  <wa-button appearance="filled" id="collapse-all">Collapse All</wa-button>
+</div>
 
 <script>
   const accordion = document.querySelector('#accordion-methods');

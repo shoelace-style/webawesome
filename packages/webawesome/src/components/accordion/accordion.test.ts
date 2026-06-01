@@ -34,13 +34,13 @@ describe('<wa-accordion>', () => {
       });
 
       describe('properties', () => {
-        it('should default exclusive to false', async () => {
+        it('should default mode to multiple', async () => {
           const el = await fixture<WaAccordion>(html`
             <wa-accordion>
               <wa-accordion-item label="One">Content</wa-accordion-item>
             </wa-accordion>
           `);
-          expect(el.exclusive).to.be.false;
+          expect(el.mode).to.equal('multiple');
         });
 
         it('should default iconPlacement to end', async () => {
@@ -52,15 +52,15 @@ describe('<wa-accordion>', () => {
           expect(el.iconPlacement).to.equal('end');
         });
 
-        it('should reflect the exclusive property', async () => {
+        it('should reflect the mode property', async () => {
           const el = await fixture<WaAccordion>(html`
             <wa-accordion>
               <wa-accordion-item label="One">Content</wa-accordion-item>
             </wa-accordion>
           `);
-          el.exclusive = true;
+          el.mode = 'single';
           await el.updateComplete;
-          expect(el.hasAttribute('exclusive')).to.be.true;
+          expect(el.getAttribute('mode')).to.equal('single');
         });
 
         it('should reflect the icon-placement property', async () => {
@@ -213,10 +213,10 @@ describe('<wa-accordion>', () => {
         });
       });
 
-      describe('exclusive mode', () => {
+      describe('single mode', () => {
         it('should close the open item when another item is opened', async () => {
           const el = await fixture<WaAccordion>(html`
-            <wa-accordion exclusive>
+            <wa-accordion mode="single">
               <wa-accordion-item label="One" expanded>Content one</wa-accordion-item>
               <wa-accordion-item label="Two">Content two</wa-accordion-item>
             </wa-accordion>
@@ -233,7 +233,23 @@ describe('<wa-accordion>', () => {
           expect(second.expanded).to.be.true;
         });
 
-        it('should allow multiple items to be open when exclusive is not set', async () => {
+        it('should not collapse the open item when it is clicked again', async () => {
+          const el = await fixture<WaAccordion>(html`
+            <wa-accordion mode="single">
+              <wa-accordion-item label="One" expanded>Content one</wa-accordion-item>
+              <wa-accordion-item label="Two">Content two</wa-accordion-item>
+            </wa-accordion>
+          `);
+          const [first] = el.querySelectorAll<WaAccordionItem>('wa-accordion-item');
+          const firstButton = first.shadowRoot!.querySelector<HTMLButtonElement>('[part~="button"]')!;
+
+          await clickOnElement(firstButton);
+          await el.updateComplete;
+
+          expect(first.expanded).to.be.true;
+        });
+
+        it('should allow multiple items to be open when mode is multiple', async () => {
           const el = await fixture<WaAccordion>(html`
             <wa-accordion>
               <wa-accordion-item label="One" expanded>Content one</wa-accordion-item>
@@ -248,6 +264,41 @@ describe('<wa-accordion>', () => {
 
           expect(first.expanded).to.be.true;
           expect(second.expanded).to.be.true;
+        });
+      });
+
+      describe('single-collapsible mode', () => {
+        it('should close the open item when another item is opened', async () => {
+          const el = await fixture<WaAccordion>(html`
+            <wa-accordion mode="single-collapsible">
+              <wa-accordion-item label="One" expanded>Content one</wa-accordion-item>
+              <wa-accordion-item label="Two">Content two</wa-accordion-item>
+            </wa-accordion>
+          `);
+          const [first, second] = el.querySelectorAll<WaAccordionItem>('wa-accordion-item');
+          const secondButton = second.shadowRoot!.querySelector<HTMLButtonElement>('[part~="button"]')!;
+
+          await clickOnElement(secondButton);
+          await waitUntil(() => first.expanded === false);
+
+          expect(first.expanded).to.be.false;
+          expect(second.expanded).to.be.true;
+        });
+
+        it('should collapse the open item when it is clicked again', async () => {
+          const el = await fixture<WaAccordion>(html`
+            <wa-accordion mode="single-collapsible">
+              <wa-accordion-item label="One" expanded>Content one</wa-accordion-item>
+              <wa-accordion-item label="Two">Content two</wa-accordion-item>
+            </wa-accordion>
+          `);
+          const [first] = el.querySelectorAll<WaAccordionItem>('wa-accordion-item');
+          const firstButton = first.shadowRoot!.querySelector<HTMLButtonElement>('[part~="button"]')!;
+
+          await clickOnElement(firstButton);
+          await waitUntil(() => first.expanded === false);
+
+          expect(first.expanded).to.be.false;
         });
       });
 
@@ -284,9 +335,9 @@ describe('<wa-accordion>', () => {
           }
         });
 
-        it('expandAll() should be a no-op when exclusive is set', async () => {
+        it('expandAll() should be a no-op when mode is single', async () => {
           const el = await fixture<WaAccordion>(html`
-            <wa-accordion exclusive>
+            <wa-accordion mode="single">
               <wa-accordion-item label="One">Content</wa-accordion-item>
               <wa-accordion-item label="Two">Content</wa-accordion-item>
             </wa-accordion>
@@ -358,17 +409,6 @@ describe('<wa-accordion>', () => {
         });
       });
 
-      describe('CSS parts', () => {
-        it('should expose the base part', async () => {
-          const el = await fixture<WaAccordion>(html`
-            <wa-accordion>
-              <wa-accordion-item label="One">Content</wa-accordion-item>
-            </wa-accordion>
-          `);
-          expect(el.shadowRoot!.querySelector('[part~="base"]')).to.exist;
-        });
-      });
-
       describe('nested accordions', () => {
         it('should leave outer items unchanged when an inner item expands', async () => {
           const outer = await fixture<WaAccordion>(html`
@@ -395,9 +435,9 @@ describe('<wa-accordion>', () => {
           expect(outerB.expanded).to.be.false;
         });
 
-        it('should not collapse other outer items when an inner item toggles under outer exclusive', async () => {
+        it('should not collapse other outer items when an inner item toggles under outer single mode', async () => {
           const outer = await fixture<WaAccordion>(html`
-            <wa-accordion exclusive>
+            <wa-accordion mode="single">
               <wa-accordion-item id="outerA" label="Outer A" expanded>
                 <wa-accordion>
                   <wa-accordion-item id="inner1" label="Inner 1">Inner one</wa-accordion-item>

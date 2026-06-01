@@ -31,9 +31,10 @@ import styles from './accordion-item.styles.js';
  * @csspart panel - The panel that contains the item's content.
  * @csspart content - The content slot inside the panel.
  *
- * @cssproperty [--padding=1em] - The amount of padding inside the header and panel. Em-based so it scales with font size.
- * @cssproperty [--duration=200ms] - The animation duration for expand/collapse.
- * @cssproperty [--easing=ease] - The animation easing for expand/collapse.
+ * @cssproperty [--spacing=var(--wa-space-m)] - The amount of space around and between the item's header and content.
+ * @cssproperty [--show-duration=200ms] - The duration of the expand animation.
+ * @cssproperty [--hide-duration=200ms] - The duration of the collapse animation.
+ * @cssproperty [--easing=ease] - The easing of the expand/collapse animation.
  *
  * @cssstate animating - Applied while the panel is animating.
  */
@@ -93,7 +94,7 @@ export default class WaAccordionItem extends WebAwesomeElement {
 
     if (this.expanded) {
       this.isAnimating = true;
-      const duration = parseDuration(getComputedStyle(this.body).getPropertyValue('--duration') || '200ms');
+      const duration = parseDuration(getComputedStyle(this.body).getPropertyValue('--show-duration') || '200ms');
       const easing = getComputedStyle(this.body).getPropertyValue('--easing') || 'ease';
       await animate(
         this.body,
@@ -109,7 +110,7 @@ export default class WaAccordionItem extends WebAwesomeElement {
       this.dispatchEvent(new WaAccordionItemExpandedEvent());
     } else {
       this.isAnimating = true;
-      const duration = parseDuration(getComputedStyle(this.body).getPropertyValue('--duration') || '200ms');
+      const duration = parseDuration(getComputedStyle(this.body).getPropertyValue('--hide-duration') || '200ms');
       const easing = getComputedStyle(this.body).getPropertyValue('--easing') || 'ease';
       await animate(
         this.body,

@@ -3,14 +3,16 @@ import { css } from 'lit';
 export default css`
   @layer wa-component {
     :host {
+      --spacing: var(--wa-space-m);
+      --show-duration: 200ms;
+      --hide-duration: 200ms;
+      --easing: ease;
+
       display: block;
     }
 
     :host(:not(:first-child)) {
-      border-top: var(
-        --border,
-        var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border)
-      );
+      border-top: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border);
     }
 
     [part~='heading'] {
@@ -21,8 +23,8 @@ export default css`
     [part~='button'] {
       display: flex;
       align-items: center;
-      gap: var(--padding, 1em);
-      padding: var(--padding, 1em);
+      gap: var(--spacing);
+      padding: var(--spacing);
       width: 100%;
       background: none;
       border: none;
@@ -65,13 +67,13 @@ export default css`
     }
 
     :host(:first-child) [part~='button'] {
-      border-top-left-radius: var(--radius, var(--wa-panel-border-radius));
-      border-top-right-radius: var(--radius, var(--wa-panel-border-radius));
+      border-top-left-radius: var(--wa-panel-border-radius);
+      border-top-right-radius: var(--wa-panel-border-radius);
     }
 
     :host(:last-child:not([expanded])) [part~='button'] {
-      border-bottom-left-radius: var(--radius, var(--wa-panel-border-radius));
-      border-bottom-right-radius: var(--radius, var(--wa-panel-border-radius));
+      border-bottom-left-radius: var(--wa-panel-border-radius);
+      border-bottom-right-radius: var(--wa-panel-border-radius);
     }
 
     [part~='icon'] {
@@ -79,7 +81,7 @@ export default css`
       display: flex;
       align-items: center;
       color: var(--wa-color-text-quiet);
-      transition: rotate var(--duration, 200ms) var(--easing, ease);
+      transition: rotate var(--hide-duration) var(--easing);
     }
 
     :host(:dir(rtl)) [part~='icon'] {
@@ -88,6 +90,7 @@ export default css`
 
     :host([expanded]) [part~='icon'] {
       rotate: 90deg;
+      transition-duration: var(--show-duration);
     }
 
     .body {
@@ -101,7 +104,7 @@ export default css`
 
     .content {
       display: block;
-      padding: 0 var(--padding, 1em) var(--padding, 1em);
+      padding: 0 var(--spacing) var(--spacing);
     }
   }
 `;
