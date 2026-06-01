@@ -206,6 +206,31 @@ Create ordered and unordered lists with `<ol>` and `<ul>`, plus `<li>` for list 
 </div>
 ```
 
+Use `<menu>` as a semantic alternative to unordered lists. Native styles reset the browser's default list styles for `<menu>` to support more flexible styling.
+
+```html {.example}
+<menu class="wa-cluster">
+  <li>
+    <button class="wa-filled wa-size-s">
+      <wa-icon name="cut"></wa-icon>
+      <span>Cut</span>
+    </button>
+  </li>
+  <li>
+    <button class="wa-filled wa-size-s">
+      <wa-icon name="copy"></wa-icon>
+      <span>Copy</span>
+    </button>
+  </li>
+  <li>
+    <button class="wa-filled wa-size-s">
+      <wa-icon name="paste"></wa-icon>
+      <span>Paste</span>
+    </button>
+  </li>
+</menu>
+```
+
 Use `<dl>` to create lists of terms (`<dt>`) and definitions (`<dd>`).
 
 ```html {.example}
