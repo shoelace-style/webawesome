@@ -98,9 +98,15 @@
     grid-template-columns: 30ch 1fr;
     gap: var(--wa-space-3xl);
     align-items: start;
+    margin-block-start: var(--wa-content-spacing);
 
     &:has(+ *) {
       margin-block-end: var(--wa-content-spacing);
+    }
+
+    @media (max-width: 48rem) {
+      grid-template-columns: 1fr;
+      gap: var(--wa-space-xl);
     }
   }
 
@@ -110,6 +116,10 @@
     padding: var(--wa-space-l);
     border-radius: var(--wa-panel-border-radius);
     background-color: var(--wa-color-surface-lowered);
+
+    @media (max-width: 48rem) {
+      position: static;
+    }
 
     &::part(form-control-label) {
       margin-block-end: var(--wa-space-m);
