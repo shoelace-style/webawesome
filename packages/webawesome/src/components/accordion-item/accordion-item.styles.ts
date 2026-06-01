@@ -15,14 +15,7 @@ export default css`
 
     [part~='heading'] {
       margin: 0;
-    }
-
-    :host([expanded]) [part~='heading'],
-    :host([expanded][heading-level='none']) [part~='button'] {
-      border-bottom: var(
-        --border,
-        var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border)
-      );
+      font: inherit;
     }
 
     [part~='button'] {
@@ -37,6 +30,7 @@ export default css`
       text-align: start;
       color: var(--wa-color-text-normal);
       font: inherit;
+      font-weight: var(--wa-font-weight-semibold);
 
       &:focus {
         outline: none;
@@ -97,6 +91,7 @@ export default css`
 
     .body {
       overflow: hidden;
+      color: var(--wa-color-text-quiet);
     }
 
     :host([expanded]) .body:not(.animating) {
@@ -105,7 +100,7 @@ export default css`
 
     .content {
       display: block;
-      padding: var(--padding, 1em);
+      padding: 0 var(--padding, 1em) var(--padding, 1em);
     }
   }
 `;

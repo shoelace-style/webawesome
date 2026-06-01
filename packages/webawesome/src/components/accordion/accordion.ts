@@ -36,8 +36,13 @@ export default class WaAccordion extends WebAwesomeElement {
 
   @query('slot') private defaultSlot: HTMLSlotElement;
 
-  /** Restricts expansion to one panel at a time. */
-  @property({ type: Boolean, reflect: true }) exclusive = false;
+  /**
+   * Controls how items can be expanded. `multiple` (the default) allows any number of items to be open at
+   * once. `single` allows only one item to be open at a time; opening a new item collapses the previously
+   * open one, and clicking an open item does not collapse it. `single-collapsible` is the same as `single`
+   * except that clicking the open item collapses it, so zero open items is a valid state.
+   */
+  @property({ reflect: true }) mode: 'single' | 'single-collapsible' | 'multiple' = 'multiple';
 
   /** The location of the expand/collapse icon in child items. */
   @property({ attribute: 'icon-placement', reflect: true }) iconPlacement: 'start' | 'end' = 'end';
@@ -55,6 +60,10 @@ export default class WaAccordion extends WebAwesomeElement {
     return this.getAllItems().filter(item => !item.disabled);
   }
 
+  private ownsItem(item: WaAccordionItem): boolean {
+    return item.closest('wa-accordion') === this;
+  }
+
   private initRovingTabIndex() {
     this.getFocusableItems().forEach((item, index) => {
       item.isTabbable = index === 0;
@@ -70,7 +79,11 @@ export default class WaAccordion extends WebAwesomeElement {
   private handleFocusIn(event: FocusEvent) {
     const items = this.getFocusableItems();
     const path = event.composedPath();
-    const focusedItem = items.find(item => path.includes(item));
+    const closestItem = path.find(
+      (el): el is WaAccordionItem => el instanceof Element && el.tagName.toLowerCase() === 'wa-accordion-item',
+    );
+    if (!closestItem || !this.ownsItem(closestItem)) return;
+    const focusedItem = items.find(item => item === closestItem);
     if (!focusedItem) return;
     items.forEach(item => (item.isTabbable = item === focusedItem));
   }
@@ -80,7 +93,10 @@ export default class WaAccordion extends WebAwesomeElement {
     if (!items.length) return;
 
     const path = event.composedPath();
-    if (!items.some(item => path.includes(item))) return;
+    const closestItem = path.find(
+      (el): el is WaAccordionItem => el instanceof Element && el.tagName.toLowerCase() === 'wa-accordion-item',
+    );
+    if (!closestItem || !this.ownsItem(closestItem)) return;
 
     const currentIndex = items.findIndex(item => item.isTabbable);
     let nextIndex = currentIndex;
@@ -122,16 +138,19 @@ export default class WaAccordion extends WebAwesomeElement {
 
   private async handleItemTrigger(event: CustomEvent<{ item: WaAccordionItem }>) {
     const { item } = event.detail;
+    if (!this.ownsItem(item)) return;
+    event.stopPropagation();
     if (item.disabled) return;
 
     if (item.expanded) {
+      if (this.mode === 'single') return;
       const waCollapse = new WaAccordionCollapseEvent({ item });
       this.dispatchEvent(waCollapse);
       if (waCollapse.defaultPrevented) return;
       await item.collapse();
       this.dispatchEvent(new WaAccordionAfterCollapseEvent({ item }));
     } else {
-      if (this.exclusive) {
+      if (this.mode === 'single' || this.mode === 'single-collapsible') {
         this.getAllItems()
           .filter(i => i !== item && i.expanded)
           .forEach(i => i.collapse());
@@ -144,9 +163,9 @@ export default class WaAccordion extends WebAwesomeElement {
     }
   }
 
-  /** Expands all accordion items. No-op when `exclusive` is set. */
+  /** Expands all accordion items. No-op when `mode` is `single` or `single-collapsible`. */
   expandAll() {
-    if (this.exclusive) return;
+    if (this.mode === 'single' || this.mode === 'single-collapsible') return;
     this.getAllItems()
       .filter(item => !item.disabled && !item.expanded)
       .forEach(item => item.expand());

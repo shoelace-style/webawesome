@@ -368,6 +368,135 @@ describe('<wa-accordion>', () => {
           expect(el.shadowRoot!.querySelector('[part~="base"]')).to.exist;
         });
       });
+
+      describe('nested accordions', () => {
+        it('should leave outer items unchanged when an inner item expands', async () => {
+          const outer = await fixture<WaAccordion>(html`
+            <wa-accordion>
+              <wa-accordion-item id="outerA" label="Outer A" expanded>
+                <wa-accordion>
+                  <wa-accordion-item id="inner1" label="Inner 1">Inner one</wa-accordion-item>
+                  <wa-accordion-item id="inner2" label="Inner 2">Inner two</wa-accordion-item>
+                </wa-accordion>
+              </wa-accordion-item>
+              <wa-accordion-item id="outerB" label="Outer B">Outer two</wa-accordion-item>
+            </wa-accordion>
+          `);
+          const outerA = outer.querySelector<WaAccordionItem>('#outerA')!;
+          const outerB = outer.querySelector<WaAccordionItem>('#outerB')!;
+          const inner1 = outer.querySelector<WaAccordionItem>('#inner1')!;
+          const inner1Button = inner1.shadowRoot!.querySelector<HTMLButtonElement>('[part~="button"]')!;
+
+          await clickOnElement(inner1Button);
+          await waitUntil(() => inner1.expanded === true);
+
+          expect(inner1.expanded).to.be.true;
+          expect(outerA.expanded).to.be.true;
+          expect(outerB.expanded).to.be.false;
+        });
+
+        it('should not collapse other outer items when an inner item toggles under outer exclusive', async () => {
+          const outer = await fixture<WaAccordion>(html`
+            <wa-accordion exclusive>
+              <wa-accordion-item id="outerA" label="Outer A" expanded>
+                <wa-accordion>
+                  <wa-accordion-item id="inner1" label="Inner 1">Inner one</wa-accordion-item>
+                </wa-accordion>
+              </wa-accordion-item>
+              <wa-accordion-item id="outerB" label="Outer B">Outer two</wa-accordion-item>
+            </wa-accordion>
+          `);
+          const outerA = outer.querySelector<WaAccordionItem>('#outerA')!;
+          const outerB = outer.querySelector<WaAccordionItem>('#outerB')!;
+          const inner1 = outer.querySelector<WaAccordionItem>('#inner1')!;
+          const inner1Button = inner1.shadowRoot!.querySelector<HTMLButtonElement>('[part~="button"]')!;
+
+          await clickOnElement(inner1Button);
+          await waitUntil(() => inner1.expanded === true);
+
+          expect(inner1.expanded).to.be.true;
+          expect(outerA.expanded).to.be.true;
+          expect(outerB.expanded).to.be.false;
+        });
+
+        it('should fire wa-expand only on the inner accordion when an inner item is triggered', async () => {
+          const outer = await fixture<WaAccordion>(html`
+            <wa-accordion>
+              <wa-accordion-item label="Outer A" expanded>
+                <wa-accordion id="inner">
+                  <wa-accordion-item id="inner1" label="Inner 1">Inner one</wa-accordion-item>
+                </wa-accordion>
+              </wa-accordion-item>
+            </wa-accordion>
+          `);
+          const inner = outer.querySelector<WaAccordion>('#inner')!;
+          const inner1 = outer.querySelector<WaAccordionItem>('#inner1')!;
+          const inner1Button = inner1.shadowRoot!.querySelector<HTMLButtonElement>('[part~="button"]')!;
+
+          const outerSelfSpy = sinon.spy();
+          const innerSelfSpy = sinon.spy();
+          outer.addEventListener('wa-expand', event => {
+            if (event.target === outer) outerSelfSpy();
+          });
+          inner.addEventListener('wa-expand', event => {
+            if (event.target === inner) innerSelfSpy();
+          });
+
+          await clickOnElement(inner1Button);
+          await waitUntil(() => inner1.expanded === true);
+
+          expect(innerSelfSpy).to.have.been.calledOnce;
+          expect(outerSelfSpy).not.to.have.been.called;
+        });
+
+        it('should keep ArrowDown focus inside the inner accordion', async () => {
+          const outer = await fixture<WaAccordion>(html`
+            <wa-accordion>
+              <wa-accordion-item label="Outer A" expanded>
+                <wa-accordion>
+                  <wa-accordion-item id="inner1" label="Inner 1">Inner one</wa-accordion-item>
+                  <wa-accordion-item id="inner2" label="Inner 2">Inner two</wa-accordion-item>
+                </wa-accordion>
+              </wa-accordion-item>
+              <wa-accordion-item label="Outer B">Outer two</wa-accordion-item>
+            </wa-accordion>
+          `);
+          const inner1 = outer.querySelector<WaAccordionItem>('#inner1')!;
+          const inner2 = outer.querySelector<WaAccordionItem>('#inner2')!;
+          const inner1Button = inner1.shadowRoot!.querySelector<HTMLButtonElement>('[part~="button"]')!;
+
+          inner1Button.focus();
+          await sendKeys({ press: 'ArrowDown' });
+
+          expect(document.activeElement).to.equal(inner2);
+        });
+
+        it('expandAll() on the outer accordion should only expand its direct children', async () => {
+          const outer = await fixture<WaAccordion>(html`
+            <wa-accordion>
+              <wa-accordion-item id="outerA" label="Outer A">
+                <wa-accordion>
+                  <wa-accordion-item id="inner1" label="Inner 1">Inner one</wa-accordion-item>
+                  <wa-accordion-item id="inner2" label="Inner 2">Inner two</wa-accordion-item>
+                </wa-accordion>
+              </wa-accordion-item>
+              <wa-accordion-item id="outerB" label="Outer B">Outer two</wa-accordion-item>
+            </wa-accordion>
+          `);
+          const outerA = outer.querySelector<WaAccordionItem>('#outerA')!;
+          const outerB = outer.querySelector<WaAccordionItem>('#outerB')!;
+          const inner1 = outer.querySelector<WaAccordionItem>('#inner1')!;
+          const inner2 = outer.querySelector<WaAccordionItem>('#inner2')!;
+
+          outer.expandAll();
+          await outer.updateComplete;
+
+          expect(outerA.expanded).to.be.true;
+          expect(outerB.expanded).to.be.true;
+          expect(inner1.expanded).to.be.false;
+          expect(inner2.expanded).to.be.false;
+        });
+      });
     });
   }
 });

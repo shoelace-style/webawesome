@@ -84,7 +84,7 @@ But if an accordion lives outside the document outline, for example, inside a na
 
 ### Heading Level
 
-The default heading level is `3`. Use `heading-level` on the accordion to match the level to your page's hierarchy. Values outside 1–6 fall back to `3`.
+The default heading level is `3`. Use `heading-level` on the accordion to match the level to your page's hierarchy. Values outside 1–6 fall back to `3`. The heading level is a semantic choice only — the accordion inherits the surrounding font, so the visual appearance is identical at every level.
 
 ```html {.example}
 <wa-accordion heading-level="2">
@@ -139,12 +139,16 @@ You can also adjust spacing independently with the `--padding` custom property w
 </wa-accordion>
 ```
 
-### Exclusive
+### Mode
 
-Use the `exclusive` attribute to allow only one item to be open at a time. Opening a new item automatically collapses the previously open one.
+Use the `mode` attribute to control how items can be expanded:
+
+- `multiple` (default): any number of items can be open at once, and each item toggles independently.
+- `single`: only one item can be open at a time. Opening a new item collapses the previously open one, and clicking the open item is a no-op — once an item is open, it stays open until another is opened.
+- `single-collapsible`: at most one item can be open at a time. Same as `single`, except clicking the open item closes it, so zero open items is a valid state.
 
 ```html {.example}
-<wa-accordion exclusive>
+<wa-accordion mode="single">
   <wa-accordion-item label="Section one" expanded>
     Opening another section will automatically collapse this one. Only one section can be open at a time.
   </wa-accordion-item>
@@ -152,7 +156,23 @@ Use the `exclusive` attribute to allow only one item to be open at a time. Openi
     Try opening this section to see section one collapse automatically.
   </wa-accordion-item>
   <wa-accordion-item label="Section three">
-    Each section opens and closes independently of the others.
+    Clicking an already-open section won't close it — open another instead.
+  </wa-accordion-item>
+</wa-accordion>
+```
+
+Use `single-collapsible` when you want the same one-at-a-time constraint but still want users to be able to close every section.
+
+```html {.example}
+<wa-accordion mode="single-collapsible">
+  <wa-accordion-item label="Filters">
+    Opening another section will collapse this one, and clicking the open section closes it.
+  </wa-accordion-item>
+  <wa-accordion-item label="Sort">
+    Try opening and closing each section in turn.
+  </wa-accordion-item>
+  <wa-accordion-item label="Display">
+    Zero open sections is a valid state in this mode.
   </wa-accordion-item>
 </wa-accordion>
 ```
@@ -210,7 +230,7 @@ To place HTML in an accordion item's header, use the `label` slot instead of the
 
 ### Expand and Collapse All
 
-Use the `expandAll()` and `collapseAll()` methods to programmatically control all items at once. Note that `expandAll()` is a no-op when `exclusive` is set.
+Use the `expandAll()` and `collapseAll()` methods to programmatically control all items at once. Note that `expandAll()` is a no-op when `mode` is `single` or `single-collapsible`.
 
 ```html {.example}
 <div class="wa-cluster">
@@ -232,6 +252,28 @@ Use the `expandAll()` and `collapseAll()` methods to programmatically control al
   document.querySelector('#expand-all').addEventListener('click', () => accordion.expandAll());
   document.querySelector('#collapse-all').addEventListener('click', () => accordion.collapseAll());
 </script>
+```
+
+### Nested Accordions
+
+Place a `<wa-accordion>` inside an accordion item's default slot to nest one accordion inside another. Each accordion manages its own items independently, so toggling an inner item won't affect outer items, and properties like `mode` apply only to direct children.
+
+```html {.example}
+<wa-accordion>
+  <wa-accordion-item label="Fruits" expanded>
+    <wa-accordion mode="single">
+      <wa-accordion-item label="Apples">Crisp, sweet, and great for pies.</wa-accordion-item>
+      <wa-accordion-item label="Oranges">Juicy and packed with vitamin C.</wa-accordion-item>
+      <wa-accordion-item label="Bananas">Soft, sweet, and easy to peel.</wa-accordion-item>
+    </wa-accordion>
+  </wa-accordion-item>
+  <wa-accordion-item label="Vegetables">
+    <wa-accordion mode="single">
+      <wa-accordion-item label="Carrots">Crunchy and rich in beta carotene.</wa-accordion-item>
+      <wa-accordion-item label="Broccoli">A nutrient-dense cruciferous vegetable.</wa-accordion-item>
+    </wa-accordion>
+  </wa-accordion-item>
+</wa-accordion>
 ```
 
 ### Preventing Expand or Collapse
