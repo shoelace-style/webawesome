@@ -42,24 +42,23 @@ Each heading level gets generous space above and tight space below, so the eye r
 
 ```html {.example}
 <article class="wa-prose">
-  <h1>Customizing components</h1>
-  <h2>Three hooks to know</h2>
+  <h1>A short history of paper</h1>
+  <h2>From bark to broadsheet</h2>
   <p>
-    Web Awesome components are built to bend to your design system without your having to crack them open. Three
-    customization hooks do most of the work — CSS parts, custom properties, and custom states — each suited to a
-    different kind of override.
+    Long before pulp mills and printing presses, people wrote on whatever surface would hold a mark. Clay, papyrus, palm
+    leaves, bark, animal skins — each one pinned a culture's words to a place and a moment.
   </p>
 
-  <h3>CSS parts</h3>
+  <h3>The rag era</h3>
   <p>
-    Reach for <code>::part()</code> when you need to style an element a component exposes by name. Parts are stable
-    hooks that survive changes to a component's internal markup.
+    Early European paper was beaten from cotton and linen rags. Quality was measured in fiber: the longer the strand,
+    the stronger the sheet, the longer it survived in a binding.
   </p>
 
-  <h4>When to reach for them</h4>
+  <h4>Watermarks and laid lines</h4>
   <p>
-    Use parts when a custom property doesn't expose what you need, or when the change is specific to one element inside
-    the shadow DOM and you'd like it to survive a future version bump.
+    Hold a rag sheet up to the light and you can still see the maker's mark and the fine lines pressed in by the mould —
+    small signatures of the hand that pulled it.
   </p>
 </article>
 ```
@@ -71,27 +70,26 @@ Lists get a small breath between multi-line items and quiet `::marker` colors so
 ```html {.example}
 <article class="wa-prose">
   <ul>
-    <li>CSS parts let you style elements a component exposes by name.</li>
+    <li>Loose-leaf greens, kept cool and dry.</li>
     <li>
-      Custom properties expose specific values that components compose into their own styles — the preferred surface for
-      theme-level overrides.
+      Black tea pressed into wheels and aged for decades, sometimes longer than the people drinking it have been alive.
     </li>
-    <li>Custom states reflect a component's internal state for transitions and modes.</li>
+    <li>Fresh herbs, picked the morning of and steeped just past warm.</li>
   </ul>
 
   <ol>
-    <li>Try a custom property first.</li>
-    <li>If nothing fits, reach for a CSS part.</li>
-    <li>For state-driven changes, use the matching custom state.</li>
+    <li>Warm the pot with a splash of hot water; pour it out.</li>
+    <li>Measure one teaspoon of leaves per cup, plus one for the pot.</li>
+    <li>Pour, cover, and wait — three minutes for black, two for green.</li>
   </ol>
 
   <dl>
-    <dt>Em</dt>
-    <dd>A length relative to the current element's font-size.</dd>
-    <dt>Rem</dt>
-    <dd>A length relative to the root element's font-size.</dd>
-    <dt>Ch</dt>
-    <dd>The advance measure of the "0" character — useful for capping reading column width.</dd>
+    <dt>Steep</dt>
+    <dd>To soak leaves in hot water until the flavor is fully released.</dd>
+    <dt>Decant</dt>
+    <dd>To pour brewed tea off its leaves to halt further extraction.</dd>
+    <dt>Cupping</dt>
+    <dd>A side-by-side tasting used to evaluate tea or coffee.</dd>
   </dl>
 </article>
 ```
@@ -103,9 +101,9 @@ Inline elements you'd reach for in long-form writing — `<kbd>`, `<mark>`, `<su
 ```html {.example}
 <article class="wa-prose">
   <p>
-    Press <kbd>/</kbd> to <mark>jump to search</mark> the docs. Inline notation like H<sub>2</sub>O or E=mc<sup>2</sup>
-    renders correctly, and the <abbr title="Application Programming Interface">API</abbr> reference sits at the end of
-    every component page.
+    Press <kbd>⌘</kbd> + <kbd>K</kbd> to open the command palette and <mark>jump anywhere</mark> from the keyboard.
+    Inline notation reads cleanly too — H<sub>2</sub>O, E=mc<sup>2</sup> — and abbreviations like
+    <abbr title="As Soon As Possible">ASAP</abbr> hint their full meaning on hover.
   </p>
 </article>
 ```
@@ -116,47 +114,47 @@ Code samples, tables, callouts, and collapsible `<details>` get more breathing r
 
 ```html {.example}
 <article class="wa-prose">
-  <h2>Component sizes</h2>
-  <p>Most form controls and content components support a <code>size</code> attribute with three values.</p>
+  <h2>Reading a film canister</h2>
+  <p>Most rolls of film list the same three pieces of information on the side.</p>
 
-  <pre><code>&lt;wa-button size="small"&gt;Small&lt;/wa-button&gt;
-&lt;wa-button size="medium"&gt;Medium&lt;/wa-button&gt;
-&lt;wa-button size="large"&gt;Large&lt;/wa-button&gt;</code></pre>
+  <pre><code>ISO 400
+36 exposures
+develop in HC-110, dilution B</code></pre>
 
   <table>
     <thead>
       <tr>
-        <th>Value</th>
-        <th>Use for</th>
+        <th>ISO</th>
+        <th>Best for</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><code>small</code></td>
-        <td>Compact UI, sidebars, dense forms</td>
+        <td>100</td>
+        <td>Bright daylight, fine grain</td>
       </tr>
       <tr>
-        <td><code>medium</code></td>
-        <td>Default for most contexts</td>
+        <td>400</td>
+        <td>Mixed conditions, everyday use</td>
       </tr>
       <tr>
-        <td><code>large</code></td>
-        <td>Hero areas, emphasized actions</td>
+        <td>3200</td>
+        <td>Low light, available light</td>
       </tr>
     </tbody>
   </table>
 
   <details>
-    <summary>Why three sizes and not more?</summary>
+    <summary>What does "push processing" mean?</summary>
     <p>
-      Three covers the practical span — compact, default, prominent — without forcing authors to pick from a long list.
-      For finer control, reach for the <a href="/docs/utilities/text/">text utilities</a>.
+      Exposing film at a higher ISO than its rated speed, then developing it longer to compensate. You gain a stop or
+      two in low light, at the cost of more grain and deeper contrast.
     </p>
   </details>
 
   <wa-callout variant="brand">
     <wa-icon slot="icon" name="lightbulb" variant="regular"></wa-icon>
-    Pair sizes with the <a href="/docs/utilities/text/">text utilities</a> to keep type and component scale in lockstep.
+    Note the development time on the canister with a permanent marker — it saves a trip back to the binder later.
   </wa-callout>
 </article>
 ```
@@ -168,16 +166,16 @@ Code samples, tables, callouts, and collapsible `<details>` get more breathing r
 ```html {.example}
 <article class="wa-prose">
   <p>
-    Web Awesome components expose stable surfaces for customization, but every project eventually needs something the
-    component author didn't anticipate.
+    A morning routine, repeated long enough, stops needing motivation. The coffee gets made, the bed gets pulled flat,
+    the kettle clicks on while the blinds go up.
   </p>
 
   <hr />
 
-  <h3>Reaching past the API</h3>
+  <h3>When the routine breaks</h3>
   <p>
-    When that happens, you have two clean options — fork the component, or wrap it in your own. Both keep your styles
-    decoupled from the component's internals.
+    Travel, illness, a new schedule — the small steps drift apart. The trick is to rebuild around one anchor first, then
+    let the rest follow.
   </p>
 </article>
 ```
@@ -199,19 +197,19 @@ Apply any [`wa-font-size-*`](/docs/utilities/text/#font-size) utility to a `wa-p
 <div class="wa-cluster wa-align-items-flex-start" style="gap: var(--wa-space-l);">
   <article class="wa-prose" style="--wa-prose-line-length: 28ch;">
     <h3>Default size</h3>
-    <p>Headings, body text, and rhythm all use the theme's default scale.</p>
+    <p>A quiet morning is the rarest hour of the day — claim it before the world wakes up.</p>
     <ul>
-      <li>Set by the theme's font-size tokens.</li>
-      <li>Scales smoothly with composition.</li>
+      <li>One cup, one book, one window.</li>
+      <li>No notifications until the second pour.</li>
     </ul>
   </article>
 
   <article class="wa-prose wa-font-size-s" style="--wa-prose-line-length: 28ch;">
     <h3>With wa-font-size-s</h3>
-    <p>Same content, scaled down. Heading-to-paragraph rhythm stays proportional.</p>
+    <p>A quiet morning is the rarest hour of the day — claim it before the world wakes up.</p>
     <ul>
-      <li>Set by the theme's font-size tokens.</li>
-      <li>Scales smoothly with composition.</li>
+      <li>One cup, one book, one window.</li>
+      <li>No notifications until the second pour.</li>
     </ul>
   </article>
 </div>
@@ -225,14 +223,14 @@ Set `--wa-prose-rhythm-scale` on the prose container to multiply every margin in
 <div class="wa-cluster wa-align-items-flex-start" style="gap: var(--wa-space-l);">
   <article class="wa-prose" style="--wa-prose-line-length: 28ch;">
     <h3>Default rhythm</h3>
-    <p>Standard breathing room between blocks.</p>
-    <p>This second paragraph follows the default scale.</p>
+    <p>Two paragraphs of the same length, at the same size.</p>
+    <p>The space between them is what changes from one card to the next.</p>
   </article>
 
   <article class="wa-prose" style="--wa-prose-line-length: 28ch; --wa-prose-rhythm-scale: 0.6;">
     <h3>Tighter rhythm</h3>
-    <p>Every gap is 40% smaller — useful for sidebars or dense content.</p>
-    <p>Type stays the same size; only the spacing tightens.</p>
+    <p>Two paragraphs of the same length, at the same size.</p>
+    <p>The space between them is what changes from one card to the next.</p>
   </article>
 </div>
 ```
@@ -264,16 +262,16 @@ Apply `wa-not-prose` to any element inside a `wa-prose` container to disable pro
 
 ```html {.example}
 <article class="wa-prose">
-  <h3>Ready to build something?</h3>
+  <h3>Ready when you are</h3>
   <p>
-    The rhythm above follows wa-prose. The button row below opts out — it sits in a <code>wa-not-prose</code> wrapper so
-    margins and font sizes revert.
+    The paragraphs around this section follow prose rhythm. The button row below sits inside a
+    <code>wa-not-prose</code> wrapper, so its spacing reverts to the component defaults.
   </p>
 
   <div class="wa-not-prose">
     <div class="wa-cluster" style="gap: var(--wa-space-s);">
-      <wa-button variant="brand">Get started</wa-button>
-      <wa-button appearance="outlined">Learn more</wa-button>
+      <wa-button variant="brand">Primary action</wa-button>
+      <wa-button appearance="outlined">Secondary action</wa-button>
     </div>
   </div>
 
