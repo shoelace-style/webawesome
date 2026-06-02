@@ -45,6 +45,9 @@ export default class WaAccordion extends WebAwesomeElement {
   /** The heading level for child item triggers (1–6), or "none" to omit the heading wrapper. Defaults to 3. */
   @property({ attribute: 'heading-level', reflect: true }) headingLevel = '3';
 
+  /** The accordion's visual appearance. */
+  @property({ reflect: true }) appearance: 'filled' | 'outlined' | 'filled-outlined' | 'plain' = 'outlined';
+
   private getAllItems(): WaAccordionItem[] {
     return this.defaultSlot
       .assignedElements({ flatten: true })

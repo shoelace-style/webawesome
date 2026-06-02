@@ -128,6 +128,42 @@ The accordion's text and expand/collapse icon scale with `font-size`. Setting `f
 </wa-accordion>
 ```
 
+### Appearance
+
+Use the `appearance` attribute to change the accordion's visual appearance.
+
+```html {.example}
+<div class="wa-stack">
+  <wa-accordion>
+    <wa-accordion-item label="Outlined (default)">
+      This is the default outlined appearance. It has a subtle border that helps it stand out without being too flashy.
+    </wa-accordion-item>
+    <wa-accordion-item label="Another item">More content here.</wa-accordion-item>
+  </wa-accordion>
+
+  <wa-accordion appearance="filled-outlined">
+    <wa-accordion-item label="Filled-outlined">
+      The filled-outlined appearance combines a filled header with an outlined body. It gives the summary a bit more visual weight while keeping the content area clean.
+    </wa-accordion-item>
+    <wa-accordion-item label="Another item">More content here.</wa-accordion-item>
+  </wa-accordion>
+
+  <wa-accordion appearance="filled">
+    <wa-accordion-item label="Filled">
+      The filled appearance adds a background color to the entire component. Use this when you want the details to really pop on the page.
+    </wa-accordion-item>
+    <wa-accordion-item label="Another item">More content here.</wa-accordion-item>
+  </wa-accordion>
+
+  <wa-accordion appearance="plain">
+    <wa-accordion-item label="Plain">
+      No bells and whistles on this one. The plain appearance strips away borders and backgrounds for a minimalist look.
+    </wa-accordion-item>
+    <wa-accordion-item label="Another item">More content here.</wa-accordion-item>
+  </wa-accordion>
+</div>
+```
+
 ### Mode
 
 Use the `mode` attribute to control how items can be expanded:
