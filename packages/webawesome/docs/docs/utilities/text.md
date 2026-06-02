@@ -179,14 +179,28 @@ Use single-purpose `wa-color-text-*` classes to apply a given [text color](/docs
 
 Use `wa-text-wrap-*` classes to control how text wraps across lines. These utilities apply standard CSS [`text-wrap`](https://developer.mozilla.org/docs/Web/CSS/text-wrap) values.
 
-| Class Name             | Preview                                                                                                                                                                               |
-| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Class Name             | Preview                                                                                                                                                      |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `wa-text-wrap-nowrap`  | <div class="wa-text-wrap-nowrap" style="max-width: 40ch; overflow: hidden;">The five boxing wizards jump quickly. How quickly daft jumping zebras vex!</div> |
-| `wa-text-wrap-balance` | <div class="wa-text-wrap-balance" style="max-width: 40ch;">The five boxing wizards jump quickly. How quickly daft jumping zebras vex!</div>                                           |
-| `wa-text-wrap-pretty`  | <div class="wa-text-wrap-pretty" style="max-width: 40ch;">The five boxing wizards jump quickly. How quickly daft jumping zebras vex!</div>                                            |
+| `wa-text-wrap-balance` | <div class="wa-text-wrap-balance" style="max-width: 40ch;">The five boxing wizards jump quickly. How quickly daft jumping zebras vex!</div>                  |
+| `wa-text-wrap-pretty`  | <div class="wa-text-wrap-pretty" style="max-width: 40ch;">The five boxing wizards jump quickly. How quickly daft jumping zebras vex!</div>                   |
 
 :::info
 `wa-text-wrap-pretty` is wrapped in an `@supports` rule because Firefox does not yet support `text-wrap: pretty`. In unsupported browsers, the class has no effect and text wraps normally.
+:::
+
+## Transform
+
+Use these classes to change the case of text. They apply standard CSS [`text-transform`](https://developer.mozilla.org/docs/Web/CSS/text-transform) values.
+
+| Class Name           | Preview                                                   |
+| -------------------- | --------------------------------------------------------- |
+| `wa-text-uppercase`  | <div class="wa-text-uppercase">Five boxing wizards</div>  |
+| `wa-text-lowercase`  | <div class="wa-text-lowercase">Five boxing wizards</div>  |
+| `wa-text-capitalize` | <div class="wa-text-capitalize">Five boxing wizards</div> |
+
+:::info
+Large blocks of uppercase text are [harder for everyone to read](https://www.w3.org/WAI/WCAG21/Understanding/visual-presentation.html) and especially difficult for folks with dyslexia. Reserve it for buttons, badges, or short headings.
 :::
 
 ## Truncation

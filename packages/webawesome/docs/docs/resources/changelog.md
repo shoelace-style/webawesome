@@ -19,6 +19,9 @@ These are still finding their shape. APIs can change between minor versions, so 
 :::added
 
 - Added the `capture` attribute to `<wa-file-input>` for capturing media directly from a device's camera or microphone [discuss:2380]
+- Added the `wa-text-uppercase` text utility class for transforming text to uppercase
+- Added the `wa-text-lowercase` text utility class for transforming text to lowercase
+- Added the `wa-text-capitalize` text utility class for capitalizing the first letter of each word
 
 :::
 
