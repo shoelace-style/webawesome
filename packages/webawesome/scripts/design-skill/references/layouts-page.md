@@ -37,6 +37,8 @@ need. The default (unnamed) slot is your main content.
 On mobile (below `mobile-breakpoint`, default `768px`), the `navigation` region collapses into a
 `<wa-drawer>` toggled by a hamburger button.
 
+In most cases, you should zero out the padding on `<main>` for edge-to-edge background effects.
+
 ---
 
 ## Everything below is `<wa-page>`-only
