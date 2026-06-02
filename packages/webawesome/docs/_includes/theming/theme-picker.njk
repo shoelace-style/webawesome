@@ -1,42 +1,43 @@
 {% from "pro-badge.njk" import proBadge %}
-{% from "free-badge.njk" import freeBadge %}
 
-<div id="theme-viewer">
-  <wa-radio-group id="theme-picker" label="Theme Selector" value="default" orientation="horizontal">
-    {% for theme in themer.themes %}
-    {% if not theme.isPro %}
-    <wa-radio class="theme-card" value="{{ theme.filename | stripExtension }}"
-      data-description="{{ theme.description }}" data-title="{{ theme.name }}"
-      data-palette="{{ theme.palette.filename | stripExtension}}" data-brand="{{ theme.colorBrand.color }}" {% if
-      theme.isPro %}data-is-pro{% endif %}>
+<wa-tab-group id="theme-picker">
+  {%- for theme in themer.themes -%}
+  {%- if not theme.isPro -%}
+  <wa-tab panel="{{ theme.filename | stripExtension }}"
+    data-title="{{ theme.name }}"
+    data-description="{{ theme.description }}"
+    data-palette="{{ theme.palette.filename | stripExtension }}"
+    data-brand="{{ theme.colorBrand.color }}">
+    {{ theme.name }}
+  </wa-tab>
+  {%- else -%}
+  <wa-tab panel="{{ theme.filename | stripExtension }}"
+    data-title="{{ theme.name }}"
+    data-description="{{ theme.description }}"
+    data-palette="{{ theme.palette.filename | stripExtension }}"
+    data-brand="{{ theme.colorBrand.color }}"
+    {% raw %}{%- if not currentUser.hasPro -%}{% endraw %} disabled {% raw %}{%- endif -%}{% endraw %}>
+    <span class="wa-cluster wa-gap-xs wa-flex-nowrap">
       {{ theme.name }}
-    </wa-radio>
-    {% else %}
-    {% raw %}
-    {% if currentUser.hasPro %}
-    {% endraw %}
-    <wa-radio class="theme-card" value="{{ theme.filename | stripExtension }}"
-      data-description="{{ theme.description }}" data-title="{{ theme.name }}"
-      data-palette="{{ theme.palette.filename | stripExtension}}" data-brand="{{ theme.colorBrand.color }}" {% if
-      theme.isPro %}data-is-pro{% endif %}>
-      {{ theme.name }}
-    </wa-radio>
-    {% raw %}
-    {% endif %}
-    {% endraw %}
-    {% endif %}
-    {% endfor %}
-  </wa-radio-group>
-</div>
+      {% raw %}{%- if not currentUser.hasPro -%}{% endraw %}{{ proBadge({ description: "This theme requires access to " ~ site.namePro }) }}{% raw %}{%- endif -%}{% endraw %}
+    </span>
+  </wa-tab>
+  {%- endif -%}
+  {%- endfor -%}
+  {%- for theme in themer.themes -%}
+  {%- if not theme.isPro -%}
+  <wa-tab-panel name="{{ theme.filename | stripExtension }}"></wa-tab-panel>
+  {%- else -%}
+  {% raw %}{%- if currentUser.hasPro -%}{% endraw %}
+  <wa-tab-panel name="{{ theme.filename | stripExtension }}"></wa-tab-panel>
+  {% raw %}{%- endif -%}{% endraw %}
+  {%- endif -%}
+  {%- endfor -%}
+</wa-tab-group>
 
 <div id="theme-preview" class="wa-stack">
   <header class="wa-stack">
-    <div class="wa-cluster">
-      <h2 data-theme-name="name">Theme</h2>
-      {{ freeBadge({ id: "free-badge", description: "This theme is available in the free version of Web Awesome." }) }}
-      {{ proBadge({ id: "pro-badge", description: "This theme requires access to Web Awesome Pro." }) }}
-
-    </div>
+    <h2 data-theme-name>Theme</h2>
     <p data-theme-description>Description</p>
   </header>
 
@@ -51,76 +52,48 @@
   const beforeFrame = document.querySelector('wa-zoomable-frame[slot="before"]');
   const nameElement = document.querySelector('[data-theme-name]');
   const descriptionElement = document.querySelector('[data-theme-description]');
-  const freeBadge = document.getElementById('free-badge');
-  const proBadge = document.getElementById('pro-badge');
 
-  // Hide both badges initially
-  if (freeBadge) freeBadge.hidden = true;
-  if (proBadge) proBadge.hidden = true;
-
-  function updateFrames(selectedValue, title, description, isPro, palette, brand) {
-    // Update theme classes on both frames
+  function updateFrames(selectedValue, title, description, palette, brand) {
     [afterFrame, beforeFrame].forEach(frame => {
-      if (frame.contentDocument) {
-        const html = frame.contentDocument.documentElement;
-        if (!html) return;
-
-        // Remove all existing wa-theme-*, wa-palette-*, and wa-brand-* classes
-        [...html.classList].forEach(className => {
-          if (className.startsWith('wa-theme-') || className.startsWith('wa-palette-') || className.startsWith('wa-brand-')) {
-            html.classList.remove(className);
-          }
-        });
-
-        // Add new theme, palette, and brand classes
-        if (selectedValue !== 'default') {
-          html.classList.add(`wa-theme-${selectedValue}`);
-          html.classList.add(`wa-palette-${palette}`);
-          html.classList.add(`wa-brand-${brand}`);
+      if (!frame.contentDocument) return;
+      const html = frame.contentDocument.documentElement;
+      if (!html) return;
+      [...html.classList].forEach(className => {
+        if (className.startsWith('wa-theme-') || className.startsWith('wa-palette-') || className.startsWith('wa-brand-')) {
+          html.classList.remove(className);
         }
+      });
+      if (selectedValue !== 'default') {
+        html.classList.add(`wa-theme-${selectedValue}`);
+        html.classList.add(`wa-palette-${palette}`);
+        html.classList.add(`wa-brand-${brand}`);
       }
     });
 
-    // Update header elements directly
-    if (nameElement && title) {
-      nameElement.textContent = title;
-    }
-    if (descriptionElement && description) {
-      descriptionElement.textContent = description;
-    }
+    if (nameElement && title) nameElement.textContent = title;
+    if (descriptionElement && description) descriptionElement.textContent = description;
 
-    freeBadge.hidden = isPro;
-    proBadge.hidden = !isPro;
-
-    // Show/hide appropriate instructions
     document.querySelectorAll('.theme-instructions').forEach(instruction => {
       instruction.hidden = instruction.dataset.theme !== selectedValue;
     });
   }
 
-  // Set default radio as checked and initialize frames
-  const defaultRadio = themePicker.querySelector('wa-radio[value="default"]');
-  if (defaultRadio) {
-    defaultRadio.checked = true;
-    const title = defaultRadio.getAttribute('data-title');
-    const description = defaultRadio.getAttribute('data-description');
-    const palette = defaultRadio.getAttribute('data-palette');
-    const brand = defaultRadio.getAttribute('data-brand');
-    const isPro = defaultRadio.hasAttribute('data-is-pro');
-    updateFrames('default', title, description, isPro, palette, brand);
+  function applyTab(tab) {
+    if (!tab) return;
+    updateFrames(
+      tab.getAttribute('panel'),
+      tab.dataset.title,
+      tab.dataset.description,
+      tab.dataset.palette,
+      tab.dataset.brand
+    );
   }
 
-  // Listen for radio changes
-  themePicker.addEventListener('input', function (event) {
-    const selectedRadio = event.target.querySelector(':state(checked)');
-    const title = selectedRadio.getAttribute('data-title');
-    const description = selectedRadio.getAttribute('data-description');
-    const palette = selectedRadio.getAttribute('data-palette');
-    const brand = selectedRadio.getAttribute('data-brand');
-    const isPro = selectedRadio.hasAttribute('data-is-pro');
-    doViewTransition(() => {
-      updateFrames(selectedRadio.value, title, description, isPro, palette, brand);
-    });
+  applyTab(themePicker.querySelector('wa-tab[panel="default"]'));
+
+  themePicker.addEventListener('wa-tab-show', event => {
+    const tab = themePicker.querySelector(`wa-tab[panel="${event.detail.name}"]`);
+    doViewTransition(() => applyTab(tab));
   });
 </script>
 
@@ -129,110 +102,20 @@
     display: none !important;
   }
 
-  #theme-preview,
-  #using-this-theme {
-    margin-block-start: var(--wa-space-3xl);
-  }
-
   .title {
     display: none;
   }
 
+  /* Empty panels are just contract markers — strip their default padding. */
+  #theme-picker wa-tab-panel {
+    --padding: 0;
+  }
+
   #theme-preview {
-    header {
-      p {
-        font-size: var(--wa-font-size-s);
-      }
-    }
+    margin-block-start: var(--wa-space-l);
   }
 
-  wa-page>main {
-    max-width: 140ch;
-    margin-inline: auto;
-  }
-
-  #theme-viewer {
-    #theme-picker {
-
-      &::part(form-control-input) {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: var(--wa-space-m);
-      }
-
-      &::part(form-control-label) {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        clip: rect(0 0 0 0);
-        clip-path: inset(50%);
-        border: none;
-        overflow: hidden;
-        white-space: nowrap;
-        padding: 0;
-      }
-
-      wa-radio {
-        margin-inline: 0;
-      }
-    }
-
-    .theme-card {
-      --border-radius: var(--wa-border-radius-m);
-      --spacing: var(--wa-space-s) var(--wa-space-m);
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: var(--wa-space-3xl);
-      padding: var(--spacing);
-      border: 1px solid var(--wa-color-surface-border);
-      border-radius: var(--border-radius);
-      box-shadow: var(--wa-shadow-s);
-      transition: all 0.2s ease;
-      text-align: center;
-      font-weight: var(--wa-font-weight-action);
-      text-transform: capitalize;
-
-      &:not(:state(disabled)) {
-        cursor: pointer;
-      }
-
-      &:state(checked) {
-        border-color: var(--wa-color-brand-border-loud);
-        background-color: var(--wa-color-brand-fill-quiet);
-        color: var(--wa-color-brand-text-loud);
-      }
-
-      &::part(control) {
-        display: none;
-      }
-
-      &::part(label) {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        margin: 0;
-      }
-    }
-  }
-
-  /* Smaller screens */
-  @media (max-width: 768px) {
-    #theme-viewer {
-      padding: var(--wa-space-m);
-
-      #theme-picker::part(form-control-input) {
-        grid-template-columns: repeat(2, 1fr);
-        gap: var(--wa-space-xs);
-      }
-
-      .theme-card {
-        min-height: var(--wa-space-2xl);
-        font-size: var(--wa-font-size-s);
-      }
-    }
+  #theme-preview header p {
+    font-size: var(--wa-font-size-s);
   }
 </style>

@@ -48,6 +48,7 @@ layout: page
 
 <div id="import-code">
   {% for theme in themer.themes %}
+  {% if theme.isPro %}{% raw %}{% if currentUser.hasPro %}{% endraw %}{% endif %}
   <div class="theme-instructions" data-theme="{{ theme.filename | stripExtension }}" {% if not loop.first %}hidden{%
     endif %}>
     <wa-tab-group data-install-tabs>
@@ -144,5 +145,6 @@ Then apply the following classes to the `<html>` element:
       </wa-tab-panel>
     </wa-tab-group>
   </div>
+  {% if theme.isPro %}{% raw %}{% endif %}{% endraw %}{% endif %}
   {% endfor %}
 </div>
