@@ -1,0 +1,152 @@
+---
+name: webawesome-design
+description: >
+  Design and lay out user interfaces with Web Awesome. Use this when building or styling a PAGE,
+  LAYOUT, or SECTION; choosing or customizing a THEME; applying brand COLORS or design tokens; or
+  composing a polished, good-looking UI with Web Awesome components and utilities. Triggers on requests
+  like "build a landing page", "make an app layout", "set up <wa-page>", "add a sidebar", "apply a
+  theme", "match our brand color", "style this to look designed", "build a settings page", or "lay out
+  a dashboard". Teaches layout (when and how to use <wa-page>), theming (--wa-* tokens), and visual
+  composition. Pair with the `webawesome` skill, which documents individual component APIs.
+license: MIT / Commercial (for Web Awesome Pro)
+metadata:
+  author: Web Awesome
+  homepage: https://webawesome.com
+compatibility: Works in modern browsers. Requires no build tools when using the CDN. Works with bundlers like Webpack and Vite when installed via npm.
+---
+
+# Designing with Web Awesome
+
+This skill teaches you to **design well** with Web Awesome: how to lay out pages, theme them on-brand,
+and compose interfaces that look intentionally designed rather than merely functional. For the API of any
+single component (props, slots, events), use the companion `webawesome` skill or [llms.txt](https://webawesome.com/docs/ai/).
+
+Read this file first. It routes you to the right reference and states the rules that matter most.
+
+---
+
+## STEP 0 — Decide your layout strategy (do this first, every time)
+
+Before writing any markup, answer one question: **am I building a whole page, or a piece of one?**
+
+### → Building a full page, app shell, or site layout?
+
+If you own the entire viewport (header, navigation/sidebar, main content, footer), **use `<wa-page>`.**
+It is the recommended, supported way to scaffold a full page in Web Awesome, and it gives you sticky
+headers, a responsive navigation drawer, and a correct grid with almost no markup.
+
+**Read [references/layouts-page.md](references/layouts-page.md) and follow its rules exactly.**
+
+### → Building a section, widget, card, form, panel, or embedding into a page you don't fully control?
+
+**Do NOT use `<wa-page>`.** Reaching for it here causes broken layouts (it expects to own the viewport).
+Instead, compose with layout utilities: `wa-stack`, `wa-cluster`, `wa-grid`, `wa-flank`, `wa-split`,
+`wa-frame`. And because there's no `<wa-page>`, its features are **unavailable** here: no `slot="…"`,
+no `view='mobile'`, no `--menu-width`, no `data-toggle-nav`, and no `.wa-desktop-only` /
+`.wa-mobile-only` (those only work inside `<wa-page>`; use a CSS media query instead).
+
+**Read [references/layouts-inpage.md](references/layouts-inpage.md).**
+
+### The rule
+
+Never mix the two. Don't nest `<wa-page>` inside a section, and don't hand-roll a full-page grid when
+`<wa-page>` was the right tool. **If you're unsure which branch applies, ask the user: "Are you building
+a full page, or a piece of one?"** before generating markup.
+
+---
+
+## The rules that matter most
+
+These are the things that go wrong most often. Treat them as hard constraints.
+
+1. **Custom elements never self-close.** Always use a closing tag: `<wa-input></wa-input>`, never `<wa-input />`.
+2. **When using `<wa-page>`, reset `html` and `body`** with `html, body { min-height: 100%; padding: 0; margin: 0; }`, or you'll get unexpected gaps. (Web Awesome's Native styles handle this for you; see theming.)
+3. **`<wa-page>` adds no semantic elements.** Slot in your own `<header>`, `<main>`, `<footer>`, `<nav>`, `<aside>`.
+4. **Never hardcode colors, spacing, radii, or font sizes.** Use design tokens (`--wa-color-*`, `--wa-space-*`, `--wa-border-radius-*`, `--wa-font-size-*`) and utility classes (`wa-gap-*`). Raw `px` and hex values break theming and consistency.
+5. **Set a theme and palette on `<html>`.** A page with no theme class looks unstyled. See [references/theming.md](references/theming.md).
+6. **Use the layout utilities instead of ad-hoc flexbox/grid CSS.** `wa-stack` (vertical), `wa-cluster` (inline wrap), `wa-grid` (responsive columns). See [references/composition.md](references/composition.md).
+
+---
+
+## Recommended starting points
+
+Pick the skeleton that matches your STEP 0 answer. Both produce a complete, on-brand, responsive result
+out of the box. **Free users:** only use free themes (default, shoelace, or awesome). **Pro users:** swap in a Pro theme/palette if the user wants one (see theming).
+
+### Full page (`<wa-page>`)
+
+```html
+<!doctype html>
+<html lang="en" class="wa-theme-default wa-palette-default wa-light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Load Web Awesome here (see the webawesome skill for installation) -->
+    <style>
+      html,
+      body {
+        min-height: 100%;
+        padding: 0;
+        margin: 0;
+      }
+      wa-page {
+        --menu-width: 16rem;
+      }
+      wa-page[view='mobile'] {
+        --menu-width: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <wa-page>
+      <header slot="header" class="wa-split">
+        <strong>My App</strong>
+        <nav class="wa-cluster">
+          <a href="#">Docs</a>
+          <wa-button variant="brand">Sign up</wa-button>
+        </nav>
+      </header>
+
+      <nav slot="navigation" class="wa-stack wa-gap-2xs">
+        <a href="#">Dashboard</a>
+        <a href="#">Settings</a>
+      </nav>
+
+      <main class="wa-stack wa-gap-xl">
+        <h1>Welcome</h1>
+        <p>Your content goes here.</p>
+      </main>
+
+      <footer slot="footer">
+        <small>&copy; My App</small>
+      </footer>
+    </wa-page>
+  </body>
+</html>
+```
+
+### A section (utilities only, no `<wa-page>`)
+
+```html
+<section class="wa-stack wa-gap-l" style="max-width: 32rem;">
+  <h2>Contact us</h2>
+  <wa-input label="Name"></wa-input>
+  <wa-input label="Email" type="email"></wa-input>
+  <wa-textarea label="Message"></wa-textarea>
+  <div class="wa-cluster">
+    <wa-button variant="brand">Send</wa-button>
+    <wa-button appearance="plain">Cancel</wa-button>
+  </div>
+</section>
+```
+
+---
+
+## References
+
+- **[layouts-page.md](references/layouts-page.md):** Full-page layouts with `<wa-page>`. Read this for the full-page branch.
+- **[layouts-inpage.md](references/layouts-inpage.md):** Sections, widgets, and embeds with layout utilities. Read this for the in-page branch.
+- **[theming.md](references/theming.md):** Themes, palettes, light/dark, semantic colors, and customizing with `--wa-*` tokens.
+- **[composition.md](references/composition.md):** Spacing rhythm, the layout-utility decision guide, typography, and surfaces. Read this to make things look designed.
+- **[patterns.md](references/patterns.md):** Ready-made, best-practice recipes (app shell, login, settings, dashboard grid, hero).
+- **[getting-started.md](references/getting-started.md):** The opinionated default setup, explained.

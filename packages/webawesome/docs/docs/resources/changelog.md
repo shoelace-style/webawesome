@@ -18,6 +18,7 @@ These are still finding their shape. APIs can change between minor versions, so 
 
 :::added
 
+- Added a `webawesome-design` [Agent Skill](/docs/ai/agent-skills) that teaches AI tools how to design with Web Awesome: laying out pages with `<wa-page>`, theming with design tokens, and composing polished UIs
 - Added the `capture` attribute to `<wa-file-input>` for capturing media directly from a device's camera or microphone [discuss:2380]
 
 :::
