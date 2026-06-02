@@ -24,7 +24,12 @@ function markCurrent(el, pageUrl, className) {
   if (href == null || href === '' || href.startsWith('#')) {
     return;
   }
-  if (normalize(href) === normalize(pageUrl)) {
+  const normalizedHref = normalize(href);
+  const normalizedPageUrl = normalize(pageUrl);
+  const isSectionLink = href.endsWith('/') && href !== '/';
+  const isExactMatch = normalizedHref === normalizedPageUrl;
+  const isChildOfSection = isSectionLink && normalizedPageUrl.startsWith(normalizedHref + '/');
+  if (isExactMatch || isChildOfSection) {
     el.classList.add(className);
   }
 }
