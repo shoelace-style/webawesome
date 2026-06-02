@@ -6,6 +6,7 @@ import { ColorSchemeController } from '../../internal/color-scheme-controller.js
 import { parseSpaceDelimitedTokens } from '../../internal/parse.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import { LocalizeController } from '../../utilities/localize.js';
+import '../icon/icon.js';
 import styles from './zoomable-frame.styles.js';
 
 /**
