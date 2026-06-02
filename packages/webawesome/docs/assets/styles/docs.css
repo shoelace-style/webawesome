@@ -82,11 +82,6 @@ wa-page > main {
   margin-inline: auto;
 }
 
-/* increase max-inline-size for index pages */
-wa-page > main:has(.modern-card-list) {
-  max-inline-size: var(--content-width-m);
-}
-
 /* Prose rhythm — replaces the wa-native layer's uniform `--wa-content-spacing`
    between block siblings with hierarchical, asymmetric margins. Unlayered so
    it wins via cascade order; re-check if this file ever joins a layer. */
@@ -543,15 +538,5 @@ wa-scroller:has(.component-table) {
 @media screen and (min-width: 73.75rem) {
   wa-page > main {
     padding: var(--wa-space-3xl);
-  }
-}
-
-.page-wide {
-  wa-page > main {
-    max-inline-size: var(--content-width-l);
-
-    .max-line-length {
-      max-inline-size: var(--line-length-l);
-    }
   }
 }
