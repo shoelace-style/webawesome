@@ -246,11 +246,11 @@ export default class WaPage extends WebAwesomeElement {
     this.disableNavigationToggle = hasCustomToggle || !hasNavigationContent;
   };
 
-  protected update(changedProperties: PropertyValues<this>): void {
+  protected updated(changedProperties: PropertyValues<this>): void {
     if (changedProperties.has('view')) {
       this.hideNavigation();
     }
-    super.update(changedProperties);
+    super.updated(changedProperties);
   }
 
   constructor() {
@@ -266,18 +266,19 @@ export default class WaPage extends WebAwesomeElement {
 
     // SSR guard: browser APIs are not available during server-side rendering
     if (!isServer) {
-      this.pageResizeObserver?.observe(this);
-
-      document.addEventListener('scroll', this.updateAsideAndMenuHeights, { passive: true });
-      this.updateAsideAndMenuHeights();
-      setTimeout(this.updateAsideAndMenuHeights);
-
+      // setTimeout to wait for DOM to finish, then RAF to start observing.
       setTimeout(() => {
-        this.headerResizeObserver?.observe(this.header);
-        this.subheaderResizeObserver?.observe(this.subheader);
-        this.bannerResizeObserver?.observe(this.banner);
-        this.footerResizeObserver?.observe(this.footer);
-      });
+        document.addEventListener('scroll', this.updateAsideAndMenuHeights, { passive: true });
+        requestAnimationFrame(() => {
+          this.updateAsideAndMenuHeights();
+
+          this.pageResizeObserver?.observe(this);
+          this.headerResizeObserver?.observe(this.header);
+          this.subheaderResizeObserver?.observe(this.subheader);
+          this.bannerResizeObserver?.observe(this.banner);
+          this.footerResizeObserver?.observe(this.footer);
+        })
+      })
     }
   }
 
