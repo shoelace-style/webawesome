@@ -108,7 +108,7 @@
 
     /* `::marker` ignores opacity — bake de-emphasis into the color. */
     & :where(li)::marker {
-      color: var(--wa-color-text-quiet);
+      color: color-mix(in oklch, var(--wa-color-text-quiet) 75%, transparent);
     }
 
     & :where(dt) {
