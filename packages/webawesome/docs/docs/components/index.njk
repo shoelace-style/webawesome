@@ -5,7 +5,7 @@ layout: docs
 ---
 
 {% from "pro-badge.njk" import proBadge %}
-{% from "macros/component-badges.njk" import componentStatusBadges %}
+{% from "macros/component-badges.njk" import componentMetaBadges %}
 
 <div class="search-list component-list">
   <wa-input class="search-list-input" type="search" placeholder="Search Components" pill autofocus with-clear>
@@ -25,7 +25,7 @@ layout: docs
             <p class="component-list-summary">{{ component.summary | inlineMarkdown | striptags | safe }}</p>
           {% endif %}
           <div class="wa-cluster wa-gap-2xs component-list-badges">
-            {{ componentStatusBadges(component) }}
+            {{ componentMetaBadges(component) }}
             {% if page.data.isProComponent %}
               {{ proBadge({ description: "Included with " ~ site.namePro }) }}
             {% endif %}

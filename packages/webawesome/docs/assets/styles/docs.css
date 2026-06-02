@@ -246,10 +246,6 @@ h1.title {
 }
 
 .component-info {
-  display: flex;
-  gap: var(--wa-space-xs);
-  flex-wrap: wrap;
-  align-items: center;
   margin-block-end: var(--wa-content-spacing);
 
   code {
@@ -260,6 +256,16 @@ h1.title {
     background-color: transparent;
     color: var(--wa-color-text-quiet);
     font-size: var(--wa-font-size-l);
+  }
+
+  /* The category and since badges are wrapped in an <a> for the link, but the
+     wrapper was introducing a baseline offset against the bare wa-badge
+     siblings. Using display: contents removes the anchor's box from layout so
+     the badge becomes a direct flex child of the cluster (same as the others). */
+  .component-category-link,
+  .component-since-link {
+    display: contents;
+    text-decoration: none;
   }
 }
 

@@ -86,7 +86,7 @@ export default class WaDrawer extends WebAwesomeElement {
   @property({ attribute: 'without-header', type: Boolean, reflect: true }) withoutHeader = false;
 
   /** When enabled, the drawer will be closed when the user clicks outside of it. */
-  @property({ attribute: 'light-dismiss', type: Boolean }) lightDismiss = true;
+  @property({ attribute: 'light-dismiss', type: Boolean }) lightDismiss = false;
 
   /**
    * Only required for SSR. Set to `true` if you're slotting in a `footer` element so the server-rendered markup

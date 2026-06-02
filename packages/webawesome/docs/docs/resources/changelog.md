@@ -30,6 +30,9 @@ These are still finding their shape. APIs can change between minor versions, so 
 - Fixed a regression in `<wa-popover>` where the body's viewport-edge margin caused the popover and arrow to be misaligned for `top/bottom-start` and `top/bottom-end` placements
 - Fixed a bug in `<wa-textarea>` where the disabled state had no visual styling, unlike other form controls [issue:2416]
 - Fixed default show/hide animations in `<wa-dropdown>`, `<wa-popup>`, `<wa-popover>`, `<wa-select>`, `<wa-details>`, `<wa-dialog>`, `<wa-drawer>`, and `<wa-tree-item>` to honor `prefers-reduced-motion: reduce`
+- Fixed a bug in `<wa-drawer>` that caused the `light-dismiss` option not work as intended [pr:2437]
+- Fixed a bug in `<wa-dropdown>` that prevented items from being visible when the selected overflowed [pr:2430]
+- Fixed a bug in `<wa-carousel>` that prevented the carousel from smoothly snapping back into position when using with the mouse [issue:1103]
 
 :::
 
@@ -37,6 +40,7 @@ These are still finding their shape. APIs can change between minor versions, so 
 
 - Synced default `--show-duration` and `--hide-duration` values in `<wa-dropdown>`, `<wa-popup>`, `<wa-popover>`, `<wa-select>`, `<wa-combobox>`, `<wa-details>`, `<wa-dialog>`, `<wa-drawer>`, `<wa-tree-item>`, and `<wa-toast-item>` with `--wa-transition-fast` and `--wa-transition-normal` tokens
 - Synced hardcoded transitions in `<wa-copy-button>`, `<wa-select>`, `<wa-combobox>`, and `<wa-toast-item>` with `--wa-transition-*` tokens
+- Updated Native Styles to reset the `list-style`, `margin`, and `padding` of `menu` elements [discuss:2436]
 
 :::
 

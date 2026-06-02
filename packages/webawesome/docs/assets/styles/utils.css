@@ -502,8 +502,8 @@
     }
   }
 
-  /* "Since X.X" badge: subtler than the default filled neutral */
-  wa-badge.since {
+  /* Subtler treatment for filled neutral badges (since, category, etc.) */
+  wa-badge[variant='neutral'][appearance='filled'] {
     background-color: var(--wa-color-surface-lowered);
   }
 
