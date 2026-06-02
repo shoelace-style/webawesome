@@ -112,7 +112,7 @@ A theme is the overall look — fonts, borders, space, shadows, and how each [va
 Your theme is determined by `class="wa-theme-{name}"` on the `<html>` element. If no class is specified, the default theme is used.
 
 <wa-button appearance="outlined" size="s" href="/docs/themes">
-  Browse All Themes
+  Browse Built-in Themes
   <wa-icon slot="end" name="arrow-right"></wa-icon>
 </wa-button>
 
@@ -149,7 +149,7 @@ Variants assign palette hues to five semantic roles — `brand`, `neutral`, `suc
 
 <span class="wa-cluster">`.wa-light` `.wa-dark`</span>
 
-Every theme is designed to adapt to light and dark mode. Light mode applies by default; apply `class="wa-light"` or `class="wa-dark"` to set the color scheme on the page or any section. To invert sections, detect user preference, or apply dark mode automatically, head over to Customizing.
+Every theme is designed to adapt to light and dark mode. Light mode applies by default; apply `class="wa-light"` or `class="wa-dark"` to set the color scheme on the page or any section. To invert sections, detect user preference, or apply dark mode automatically, head over to [Customizing & Theming](/docs/customizing#light-and-dark-mode).
 
 ```html {.example}
 {% include 'theming/light-dark-example.njk' %}
@@ -176,6 +176,6 @@ You can build a custom theme with the [Theme Builder](/docs/customizing#theme-bu
 | ----------------------- | ------------------------------------------------------------------------------------------------ | --------------------------------------------------------------- |
 | Change my brand color   | Add `class="wa-brand-{hue}"` to `<html>`                                                         | [Changing Variants](/docs/tokens/color#changing-variant-colors) |
 | Switch color palettes   | Load the palette stylesheet, then add `class="wa-palette-{name}"` to `<html>`                    | [Browse Palettes](/docs/color-palettes)                         |
-| Use a different theme   | Load the theme stylesheet, then add `class="wa-theme-{name}"` to `<html>`                        | [Browse Themes](/docs/themes)                                   |
+| Use a different theme   | Load the theme stylesheet, then add `class="wa-theme-{name}"` to `<html>`                        | [Built-in Themes](/docs/themes)                                 |
 | Toggle dark mode        | Add `class="wa-dark"` to `<html>` (or any section)                                               | [Light and Dark Mode](/docs/customizing#light-and-dark-mode)    |
 | Override a single token | Define a `--wa-*` custom property associated with a [design token](/docs/tokens) in your own CSS | [Customizing With CSS](/docs/customizing#customizing-with-css)  |
