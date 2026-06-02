@@ -129,7 +129,7 @@ export default class WaPage extends WebAwesomeElement {
         for (const entry of entries) {
           if (entry.contentBoxSize) {
             const contentBoxSize = entry.borderBoxSize[0];
-            this.style.setProperty(`--${slot}-height`, `${contentBoxSize.blockSize}px`);
+            this.style.setProperty(`--${slot}-height`, `${Math.round(contentBoxSize.blockSize)}px`);
           }
         }
       });
@@ -308,8 +308,8 @@ export default class WaPage extends WebAwesomeElement {
       return;
     }
 
-    this.aside.style.setProperty('--main-height', `${visiblePixels}px`);
-    this.menu.style.setProperty('--main-height', `${visiblePixels}px`);
+    this.aside.style.setProperty('--main-height', `${Math.round(visiblePixels)}px`);
+    this.menu.style.setProperty('--main-height', `${Math.round(visiblePixels)}px`);
   };
 
   firstUpdated() {
@@ -464,36 +464,4 @@ declare global {
   interface HTMLElementTagNameMap {
     'wa-page': WaPage;
   }
-}
-
-if (typeof CSSStyleSheet !== 'undefined' && typeof document !== 'undefined' && 'adoptedStyleSheets' in document) {
-  //
-  // Append a supporting light DOM styles for <wa-page>
-  //
-  const stylesheet = new CSSStyleSheet();
-
-  stylesheet.replaceSync(`
-  :is(html, body):has(wa-page) {
-    min-height: 100%;
-    padding: 0;
-    margin: 0;
-  }
-
-    /**
-    Because headers are sticky, this is needed to make sure page fragment anchors scroll down past the headers / subheaders and are visible.
-    IE: \`<a href="#id-for-h2">\` anchors.
-    */
-    wa-page :is(*, *:after, *:before) {
-    scroll-margin-top: var(--scroll-margin-top);
-    }
-
-    wa-page[view='desktop'] [data-toggle-nav] {
-    display: none;
-    }
-
-    wa-page[view='mobile'] .wa-desktop-only, wa-page[view='desktop'] .wa-mobile-only {
-    display: none !important;
-    }
-  `);
-  document.adoptedStyleSheets = [...document.adoptedStyleSheets, stylesheet];
 }

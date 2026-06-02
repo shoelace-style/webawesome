@@ -120,6 +120,16 @@
     {# wa-page-based Main Header #}
     {% block pageMainHeader %}{% endblock %}
 
+    {# Even though the aside comes after "main" in the "flow", put it before because `<main>` is going to be large. #}
+    {# wa-page-based Aside #}
+    {% block pageAside %}
+    {# Outline #}
+    {% if hasOutline %}
+    {% include "slot-aside-outline.njk" %}
+    {% endif %}
+    {% endblock %}
+
+
     {# wa-page-based Main Content (default).
      # Pages opt out of the default sizing/spacing by setting
      # `hasFlushMain: true` in their front matter — <main> then
@@ -169,14 +179,6 @@
 
     {# wa-page-based Main Footer #}
     {% block pageMainFooter %}{% endblock %}
-
-    {# wa-page-based Aside #}
-    {% block pageAside %}
-    {# Outline #}
-    {% if hasOutline %}
-    {% include "slot-aside-outline.njk" %}
-    {% endif %}
-    {% endblock %}
 
     {# wa-page-based Footer #}
     {% block pageFooter %}{% endblock %}
