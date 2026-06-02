@@ -124,7 +124,7 @@ The following sections of a page are "sticky" by default, meaning they remain in
 
 - `banner`
 - `header`
-- `sub-header`
+- `subheader`
 - `menu` (`navigation` itself is not sticky, but its parent `menu` is)
 - `aside`
 
@@ -183,7 +183,7 @@ When you use the `navigation` slot, your slotted content automatically collapses
 <wa-page mobile-breakpoint="600"> ... </wa-page>
 ```
 
-By default, a "hamburger" button appears in the `header` slot to toggle the navigation menu on smaller screens. You can customize what this looks like by slotting your own button in the `toggle-navigation` slot or place the `data-toggle-nav` attribute on any button on your page. This _does not_ have to be a Web Awesome element.
+By default, a "hamburger" button appears at the start of the `header` to toggle the navigation menu on smaller screens. You can customize what this looks like by slotting your own button into the `navigation-toggle` slot, or place the `data-toggle-nav` attribute on any button on your page. This _does not_ have to be a Web Awesome element.
 
 The default button will not be shown when using either of these methods — if you want to use multiple navigation toggles on your page, simply add the `data-toggle-nav` attribute to multiple elements.
 
