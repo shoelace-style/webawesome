@@ -132,3 +132,7 @@ via `::part()`, and [customizing](https://webawesome.com/docs/customizing/) for 
 - Prefer `.wa-brand-{hue}` remapping over per-component color overrides.
 - Built-in palettes are tuned for WCAG-contrast `on-*` pairings, so use `*-on-*` for text on filled
   backgrounds and you stay accessible for free.
+- **Watch quiet/plain controls on colored bands.** A `appearance="plain"` or otherwise "quiet" button
+  inherits a muted text color tuned for the page surface; dropped onto a brand/colored section it can read
+  as low-contrast or disabled. On a colored band, give secondary actions a full-contrast on-color text
+  (the matching `*-on-*` token) or use a filled/outlined appearance — don't leave them muted.

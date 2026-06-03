@@ -35,7 +35,33 @@ You opt into regions by slotting content. **Empty slots render nothing**, so use
 need. The default (unnamed) slot is your main content.
 
 On mobile (below `mobile-breakpoint`, default `768px`), the `navigation` region collapses into a
-`<wa-drawer>` toggled by a hamburger button.
+`<wa-drawer>` toggled by a hamburger button. **On desktop (at or above the breakpoint) it is a
+persistent left sidebar column** — see the warning directly below before you use it.
+
+---
+
+## ⚠️ The `navigation` slot is a desktop sidebar, not a "mobile menu"
+
+This is the single most common `<wa-page>` mistake. The `navigation` slot is a **standing left sidebar
+on desktop** that *additionally* collapses into a drawer on mobile. It is **not** a mobile-only menu that
+hides on desktop. If you slot links into `navigation` thinking "this is my hamburger menu," you will get
+an unstyled column of links pinned down the left side of every desktop view — outside your hero, on the
+bare page surface.
+
+**Most marketing/landing pages do not want a sidebar at all.** Their nav lives in the `header` and wraps
+or hides on small screens. So:
+
+- **Landing page / marketing site (nav belongs in the header):** Put your primary nav in `slot="header"`.
+  For the small-screen menu, **do not use the `navigation` slot.** Either (a) let the header nav collapse
+  on its own, or (b) put the mobile menu in your **own** `<wa-drawer>` opened by a `data-toggle-nav`
+  button that is hidden on desktop (`.wa-desktop-only`/`.wa-mobile-only`, or a media query). Reserve the
+  `navigation` slot for when you genuinely want a persistent desktop sidebar.
+- **App shell / docs / dashboard (you genuinely want a left sidebar on desktop):** Use the `navigation`
+  slot as intended, and follow Hard rule 5 — set `--menu-width` and reset it to `auto` under
+  `wa-page[view='mobile']`, or the sidebar's reserved space leaks onto mobile too.
+
+Quick test: *"Do I want a column of navigation down the left edge on a wide screen?"* If **no**, the
+`navigation` slot is the wrong tool — keep nav in the header and hand-roll the mobile drawer.
 
 ---
 
@@ -252,12 +278,14 @@ navigation sidebar, main content, a sticky table-of-contents aside, and a footer
 | Forget the `html, body` reset → gaps appear        | Always add the reset (or use native styles)                            |
 | Expect `<wa-page>` to emit `<main>`/`<header>`     | Slot in your own semantic elements                                     |
 | Put nav in `menu` and wonder why it won't collapse | Use `navigation` (+ `navigation-header`/`-footer`) for mobile collapse |
+| Use the `navigation` slot as a "mobile menu" on a landing page → bare sidebar leaks down the left on desktop | Keep nav in the `header`; for the small-screen menu use your own `<wa-drawer>` + `data-toggle-nav`. Reserve `navigation` for real desktop sidebars |
 | Set `--menu-width: 16rem` and leave it on mobile   | Reset widths to `auto` under `wa-page[view='mobile']`                  |
 | Nav links that leave the drawer open after a tap   | Add `data-drawer="close"` to navigation links                          |
 | Expect `aside` to disappear on mobile on its own   | `aside` has no drawer; hide it (`.wa-desktop-only` or `display: none`) |
 | Try to set `view="mobile"` yourself                | `view` is read-only; the component sets it. Only read it in CSS        |
 | Hand-roll a `display: grid` page shell             | Use `<wa-page>`; it already is the grid                                |
 | Nest `<wa-page>` inside a section or another page  | One `<wa-page>` per page, at the top level                             |
+| Hand-roll a mobile nav and only translate it off-screen → it overlaps content at desktop | Use the `navigation` slot (auto drawer). If you must hand-roll, hide it with `display: none` at desktop, not just `transform` |
 | Hardcode header colors with hex                    | Use `--wa-color-surface-*` / semantic tokens                           |
 | `<wa-button />` (self-closing)                     | `<wa-button></wa-button>`                                              |
 

@@ -38,7 +38,11 @@ If you own the entire viewport (header, navigation/sidebar, main content, footer
 It is the recommended, supported way to scaffold a full page in Web Awesome, and it gives you sticky
 headers, a responsive navigation drawer, and a correct grid with almost no markup.
 
-**Read [references/layouts-page.md](references/layouts-page.md) and follow its rules exactly.**
+**Read [references/layouts-page.md](references/layouts-page.md) and follow its rules exactly.** In
+particular, note that `<wa-page>`'s `navigation` slot is a **persistent desktop left sidebar** (that also
+collapses to a drawer on mobile) — **not** a "mobile-only menu." On a landing/marketing page, keep nav in
+the `header` and build the small-screen menu with your own `<wa-drawer>`; only use the `navigation` slot
+when you actually want a sidebar on desktop. See the warning in layouts-page.md.
 
 ### → Building a section, widget, card, form, panel, or embedding into a page you don't fully control?
 
@@ -69,11 +73,20 @@ Before you write a custom class, a raw `flex`/`grid` rule, a hardcoded value, or
 **work down this ladder and stop at the first rung that does the job:**
 
 1. **A component.** Is there already a `<wa-*>` for this (button, card, dialog, dropdown, input, tabs, …)?
-   Use it instead of assembling the same thing from `<div>`s. Check the companion [`webawesome` skill](https://webawesome.com/docs/ai/) before building UI by hand.
+   Use it instead of assembling the same thing from `<div>`s. Check the companion [`webawesome` skill](https://webawesome.com/docs/ai/) before building UI by hand. **Watch for these commonly re-invented ones:**
+   a "featured/Most Popular" pricing tier is a `<wa-card>` with a `<wa-badge>` in its header slot (not an
+   absolutely-positioned hand-rolled ribbon); a section separator is `<wa-divider>` (not a styled `<hr>`);
+   a pill/label is `<wa-tag>` or `<wa-badge>`; a quote mark, check bullet, or star rating is `<wa-icon>` /
+   `<wa-rating>` (not CSS `::before` glyphs). If your markup is starting to *look like* a component, stop
+   and use the component.
 2. **A layout utility.** Need to arrange things? Use `wa-stack`, `wa-cluster`, `wa-grid`, `wa-flank`,
    `wa-split`, `wa-frame` (and `<wa-page>` for full pages) before reaching for hand-written flexbox/grid.
+   (Modifier classes like `wa-frame:landscape` and `wa-flank:end` are real, supported syntax — not typos.)
 3. **A token.** Need a color, space, radius, font size, shadow, or transition? Use the `--wa-*` token or
-   `wa-*` utility from the scale — never a raw `px`/hex/`rem` literal.
+   `wa-*` utility from the scale — never a raw `px`/hex/`rem` literal. Don't re-alias an existing token into
+   your own namespace (`--brand-dark: var(--wa-color-orange-30)`); reference the `--wa-*` token directly so
+   re-theming still works. (See [composition.md](references/composition.md) for token-based recipes for
+   fixed-size elements — icon badges, avatars, content widths — so you're never tempted back to raw `rem`.)
 4. **The component's styling API.** Need a component to look different? Use its **attributes**
    (`variant`, `appearance`, `size`, `pill`, …), then its **tokens**, then a **`::part()`** selector —
    in that order. Don't fight the shadow DOM with host CSS. (See rule 9 below and composition.md.)
@@ -101,7 +114,35 @@ These are the things that go wrong most often. Treat them as hard constraints.
 7. **Use the layout utilities instead of ad-hoc flexbox/grid CSS.** `wa-stack` (vertical), `wa-cluster` (inline wrap), `wa-grid` (responsive columns). See [references/composition.md](references/composition.md).
 8. **Avoid inline `style` attributes; put reusable styles in a `<style>` block.** Style with utility classes and your own semantic classes, defined once and reused, not `style="…"` scattered on elements. Inline styles can't be reused, overridden by theme, or kept consistent, and they bloat the markup. Reserve inline styles for genuinely one-off, per-instance values (e.g. a unique `--c1` on a single element).
 9. **Style components through their API, not host CSS.** Web Awesome components are custom elements with a shadow DOM, so page CSS and classes don't reach inside them. To restyle one, use its **tokens/attributes** first, then a **`::part()`** selector for internal surfaces (most expose a `base` part; the set is per-component). Look up the right token/part in the companion [`webawesome` skill](https://webawesome.com/docs/ai/) for **whatever** `<wa-*>` element you're styling. See [references/composition.md](references/composition.md).
-10. **Use `<wa-icon>` for icons; never emojis.** Don't put emojis in the UI unless the user explicitly asks for them. Reach for the [`<wa-icon>`](https://webawesome.com/docs/components/icon) component instead. The default icon library is Font Awesome Free; see [references/composition.md](references/composition.md) for usage and Font Awesome Pro setup.
+10. **Use `<wa-icon>` for icons; never emojis.** Don't put emojis in the UI unless the user explicitly asks for them — and that includes the places they sneak in: logos, image-`alt`/placeholder text, list bullets, decorative `::before` content, and JS-injected toast/success messages. Reach for the [`<wa-icon>`](https://webawesome.com/docs/components/icon) component instead. The default icon library is Font Awesome Free; if the user has **Font Awesome Pro or Web Awesome Pro**, wire up their kit code and use Pro icon families. See [references/composition.md](references/composition.md) for usage and Pro setup.
+11. **Keep markup valid and accessible.** Use real heading elements for hierarchy (`<h2>`/`<h3>`/`<h4>`) — don't fake a heading with a styled `<strong>`, which breaks the document outline. Give icon-only controls a `label` (or `aria-label`) and images meaningful `alt`. Never put two `style` attributes on one element — the second silently wins; merge them (or, per Rule 8, use a class).
+
+---
+
+## Final pass — re-read this skill before you finish (do this every time)
+
+Producing the markup is the first draft, not the finished design. **After you create or substantially edit
+any design, make a second pass: re-read the rules above and revise the output to match them.** Models
+reliably state these rules and then violate them while generating long files — the second pass is what
+actually catches it. Walk your own output and fix each before declaring it done:
+
+- [ ] **Raw values** — search for `#` (hex), `px`, and stray `rem`. The only allowed hex is the `:root`
+      brand-token override; everything else is a `--wa-*` token. (Sizing recipes: composition.md.)
+- [ ] **Repeated inline styles** — if the same `style="…"` appears more than once, promote it to a class.
+      Inline is only for genuinely one-off per-instance custom-property values.
+- [ ] **Hand-rolled `display:flex`/`grid`** — if it has `gap`/`align`/`justify`, replace it with
+      `wa-stack`/`wa-cluster`/`wa-grid`/`wa-flank`/`wa-split`.
+- [ ] **Re-invented components** — did you hand-build something that's already a `<wa-*>` (featured card,
+      divider, badge/tag, rating)? Swap in the component.
+- [ ] **Emojis** — none in the UI (incl. logos, `alt`/placeholder text, bullets, `::before`, JS toasts).
+      Use `<wa-icon>`. If the user has Pro, the kit code is wired up.
+- [ ] **Component styling** — overrides go through attributes → tokens → `::part()`, never guessed-at
+      internal selectors or custom-property names you didn't verify.
+- [ ] **Valid & accessible** — real headings (not styled `<strong>`), labels on icon-only controls, no
+      element with two `style` attributes.
+
+If you can, **render the page and look at it** (sticky regions not overlapping, secondary buttons readable
+on colored bands, no mobile nav bleeding into desktop, nothing clipped) and fix what you see.
 
 ---
 

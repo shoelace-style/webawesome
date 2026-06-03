@@ -34,6 +34,34 @@ Guidance:
 - Tighten lists/related controls (`wa-gap-2xs`/`wa-gap-xs`); loosen between unrelated groups.
 - Consistency reads as "designed." Three arbitrary gaps read as "thrown together."
 
+### Sizing fixed elements with tokens (don't fall back to raw `rem`/`px`)
+
+Rule 5 forbids raw `px`/`rem`, but the moment you build a fixed-size element — a round icon badge, an
+avatar, a content column's `max-width`, a hairline border — it's tempting to type `3.5rem` or `1px`.
+Don't. Use the scales instead:
+
+| You're sizing…                  | Use                                                                                  |
+| ------------------------------- | ------------------------------------------------------------------------------------ |
+| A round icon "chip"/badge       | `width`/`height` from `--wa-space-*` (e.g. `--wa-space-2xl`), `--wa-border-radius-circle`, center the glyph with `wa-cluster` |
+| An avatar                       | The `<wa-avatar>` component (sizes itself); set `--size` only if needed               |
+| A readable content column       | A reused class with `max-width` in `ch` for prose (`60ch`–`75ch`) or a `--wa-space-*` multiple — define it **once**, not inline per section |
+| A hairline border / rule        | `var(--wa-border-width-s)` + `var(--wa-color-surface-border)`, or just `<wa-divider>` |
+| A glyph's size                  | `font-size: var(--wa-font-size-*)` — icons inherit it (see Icons below)               |
+
+```css
+/* ✓ Token-based circular icon badge — no raw rem, themes correctly. */
+.icon-badge {
+  inline-size: var(--wa-space-2xl);
+  block-size: var(--wa-space-2xl);
+  border-radius: var(--wa-border-radius-circle);
+  background: var(--wa-color-brand-fill-quiet);
+  color: var(--wa-color-brand-on-quiet);
+}
+```
+
+If you globally rescale a token (`--wa-space-scale`, `--wa-border-radius-scale`), **everything must then
+flow through tokens** or the scale silently won't apply to your raw values.
+
 ---
 
 ## Layout-utility decision guide
@@ -121,9 +149,13 @@ text need none.
 **Icon library.** By default, `<wa-icon>` draws from **Font Awesome Free**. Most common UI needs
 (arrows, common actions, social, etc.) are covered. Use any [Font Awesome Free icon name](https://fontawesome.com/search?o=r&m=free).
 
-**Font Awesome Pro / Pro+.** Only if the user explicitly says they have Font Awesome Pro, you can
-unlock the Pro and Pro+ icon families (`thin`, `light`, `sharp`, `duotone`, etc.) by setting their
-kit code. Do **not** add a kit code otherwise.
+**Font Awesome Pro / Pro+.** If the user has a Font Awesome Pro kit, you can unlock the Pro and Pro+
+icon families (`thin`, `light`, `sharp`, `duotone`, etc.) by setting their kit code. **Act on this — don't
+just leave Free on the table:** if the user has told you they have Font Awesome Pro (or Web Awesome Pro,
+which includes it), wire up their kit code and feel free to use Pro families. If a project clearly wants a
+distinctive icon weight (thin/light/duotone) and you don't know whether they have a kit, **ask once**
+("Do you have a Font Awesome Pro kit code?") rather than silently shipping only Free `solid` icons. Do
+**not** invent or add a kit code otherwise — without one, stay on Font Awesome Free.
 
 ```html
 <!-- Option 1: the data-fa-kit-code attribute on the loader script -->
