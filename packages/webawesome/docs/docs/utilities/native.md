@@ -25,9 +25,9 @@ Native styles use design tokens to spruce up native HTML elements so that they m
 
   <wa-tab-panel name="cdn">
 {% markdown %}
-1. Head over to your project's <wa-icon name="gear" variant="regular"></wa-icon> **Settings**.
-2. Next to **Features**, select the **Native styles** checkbox.
-3. **Save Changes** to immediately update anywhere you're using your project.
+1. Head over to your project's <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="gear" variant="regular"></wa-icon> Settings</wa-tag>.
+2. Next to <wa-tag class="tag-ui" appearance="outlined">Features</wa-tag>, select the <wa-tag class="tag-ui" appearance="outlined">Native styles</wa-tag> checkbox.
+3. <wa-tag class="tag-ui" appearance="outlined">Save Changes</wa-tag> to immediately update anywhere you're using your project.
 {% endmarkdown %}
   </wa-tab-panel>
 

@@ -181,6 +181,7 @@ To wait for multiple components to update, await all of their `updateComplete` p
 ```js
 await Promise.all(elements.map(el => el.updateComplete));
 ```
+
 :::
 
 ## Code Completion
@@ -235,7 +236,7 @@ Most popular editors support custom code completion with a bit of configuration.
 
 ## Where to Go Next
 
-- [Customizing](/docs/customizing) — themes, CSS parts, custom properties, and custom states.
+- [Customizing & Theming](/docs/customizing) — themes, CSS parts, custom properties, and custom states.
 - [Form Controls](/docs/form-controls) — using Web Awesome inputs, validation, and form submission.
 - [Frameworks](/docs/frameworks) — guides for React, Vue, Angular, and Svelte.
 - [Localization](/docs/localization) — translating component strings and configuring text direction.

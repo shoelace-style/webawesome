@@ -1,0 +1,42 @@
+<wa-comparison id="theme-viewer" position="80">
+  <wa-zoomable-frame
+    src="/examples/themes/showcase?color-scheme=dark"
+    slot="before"
+    zoom="0.65"
+    without-controls
+    without-interaction
+  ></wa-zoomable-frame>
+  <wa-zoomable-frame
+    src="/examples/themes/showcase"
+    slot="after"
+    zoom="0.65"
+    without-controls
+    without-interaction
+  ></wa-zoomable-frame>
+</wa-comparison>
+
+<style>
+  #theme-viewer:has(+ *) {
+    margin-block-end: var(--wa-content-spacing);
+  }
+
+  wa-comparison {
+    --handle-color: black;
+    --divider-color: white;
+    --divider-width: 4px;
+
+    &::part(before) {
+      border-radius: var(--wa-border-radius-m);
+      background-color: white;
+    }
+
+    &::part(after) {
+      border-radius: var(--wa-border-radius-m);
+      background-color: var(--wa-color-surface-default);
+    }
+  }
+
+  wa-zoomable-frame {
+    aspect-ratio: 5 / 3;
+  }
+</style>

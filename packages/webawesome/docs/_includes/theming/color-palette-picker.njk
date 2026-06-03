@@ -1,0 +1,64 @@
+{% from "pro-badge.njk" import proBadge %}
+
+{%- for palette in themer.palettes -%}
+{%- if not palette.isPro -%}
+<link rel="stylesheet" href="/dist/styles/color/palettes/{{palette.filename}}" />
+{%- else -%}
+{% raw %}{%- if currentUser.hasPro -%}{% endraw %}
+<link rel="stylesheet" href="/dist/styles/color/palettes/{{palette.filename}}" />
+{% raw %}{%- endif -%}{% endraw %}
+{%- endif -%}
+{%- endfor -%}
+
+<wa-tab-group id="palette-picker">
+  {%- for palette in themer.palettes -%}
+  {%- if not palette.isPro -%}
+  <wa-tab panel="{{ palette.name | lower }}">{{ palette.name }}</wa-tab>
+  {%- else -%}
+  <wa-tab panel="{{ palette.name | lower }}" {% raw %}{%- if not currentUser.hasPro -%}{% endraw %} disabled {% raw %}{%- endif -%}{% endraw %}>
+    <span class="wa-cluster wa-gap-xs wa-flex-nowrap">
+      {{ palette.name }}
+      {% raw %}{%- if not currentUser.hasPro -%}{% endraw %}{{ proBadge({ description: "This palette requires access to " ~ site.namePro }) }}{% raw %}{%- endif -%}{% endraw %}
+    </span>
+  </wa-tab>
+  {%- endif -%}
+  {%- endfor -%}
+  {%- for palette in themer.palettes -%}
+  <wa-tab-panel name="{{ palette.name | lower }}"></wa-tab-panel>
+  {%- endfor -%}
+</wa-tab-group>
+
+<div id="color-palettes" class="wa-palette-default">
+  {% include "theming/color-palette-viewer.njk" %}
+</div>
+
+<script type="module">
+  const paletteContainer = document.getElementById('color-palettes');
+  const tabGroup = document.getElementById('palette-picker');
+
+  tabGroup.addEventListener('wa-tab-show', event => {
+    const selectedValue = event.detail.name;
+    const existing = [...paletteContainer.classList].filter(c => c.startsWith('wa-palette-'));
+    existing.forEach(c => paletteContainer.classList.remove(c));
+    paletteContainer.classList.add(`wa-palette-${selectedValue}`);
+
+    document.querySelectorAll('.palette-instructions').forEach(instruction => {
+      instruction.hidden = instruction.dataset.palette !== selectedValue;
+    });
+  });
+</script>
+
+<style>
+  /* Empty panels are just contract markers — strip their default padding. */
+  #palette-picker wa-tab-panel {
+    --padding: 0;
+  }
+
+  #color-palettes {
+    margin-block-start: var(--wa-space-l);
+
+    &:has(+ *) {
+      margin-block-end: var(--wa-content-spacing);
+    }
+  }
+</style>
