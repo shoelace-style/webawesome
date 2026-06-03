@@ -105,7 +105,7 @@
   }
 
   h6 {
-    font-size: var(--wa-font-size-s);
+    font-size: var(--wa-font-size-xs);
   }
 
   p {
@@ -119,8 +119,9 @@
   blockquote {
     padding: var(--wa-space-xl);
 
+    color: var(--wa-color-text-quiet);
     font-family: var(--wa-font-family-longform);
-    font-size: var(--wa-font-size-l);
+    font-size: var(--wa-font-size-larger);
 
     border-inline-start: var(--wa-border-style) var(--wa-border-width-l) var(--wa-color-neutral-border-quiet);
   }
@@ -130,6 +131,14 @@
 
     border: none;
     border-bottom: solid var(--wa-border-width-s) var(--wa-color-surface-border);
+  }
+
+  figcaption {
+    margin-block-start: var(--wa-space-xs);
+
+    color: var(--wa-color-text-quiet);
+    font-size: var(--wa-font-size-smaller);
+    line-height: var(--wa-line-height-condensed);
   }
   /* #endregion */
 
@@ -151,6 +160,17 @@
   li {
     margin-inline-start: 1.125em;
     padding: 0;
+  }
+
+  /* `ul` markers are graphical (3:1 contrast threshold); `ol` markers are text
+     (4.5:1). Numerals also wear transparency more than discs, so they keep more
+     contrast. `currentColor` lets markers ride along when text color changes. */
+  ul > li::marker {
+    color: color-mix(in oklch, currentColor 40%, transparent);
+  }
+
+  ol > li::marker {
+    color: color-mix(in oklch, currentColor 60%, transparent);
   }
 
   dt {
@@ -366,6 +386,8 @@
   table {
     width: 100%;
 
+    font-variant-numeric: tabular-nums;
+
     border: none;
     border-collapse: collapse;
   }
@@ -415,6 +437,8 @@
 
     font-size: var(--wa-font-size-smaller);
     font-weight: var(--wa-font-weight-bold);
+
+    border-block-end: var(--wa-border-style) var(--wa-border-width-s) var(--wa-color-border-normal);
   }
   /* #endregion */
 

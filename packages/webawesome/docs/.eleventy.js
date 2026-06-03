@@ -7,6 +7,7 @@ import { changelogListIconsTransformer } from './_transformers/changelog-list-ic
 import { codeExamplesTransformer } from './_transformers/code-examples.js';
 import { copyCodeTransformer } from './_transformers/copy-code.js';
 import { currentLinkTransformer } from './_transformers/current-link.js';
+import { dynamicSnippetsTransformer } from './_transformers/dynamic-snippets.js';
 import { highlightCodeTransformer } from './_transformers/highlight-code.js';
 import { linkifyComponentsTransformer } from './_transformers/linkify-components.js';
 import { outlineTransformer } from './_transformers/outline.js';
@@ -261,6 +262,7 @@ export default async function (eleventyConfig) {
       currentLinkTransformer(),
       codeExamplesTransformer(),
       highlightCodeTransformer(),
+      dynamicSnippetsTransformer(),
       copyCodeTransformer(),
       changelogListIconsTransformer(),
       linkifyComponentsTransformer(allComponents.map(c => c.tagName).filter(Boolean)),

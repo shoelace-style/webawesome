@@ -87,71 +87,37 @@ wa-page > main:has(.modern-card-list) {
   max-inline-size: var(--content-width-m);
 }
 
-/* Prose rhythm — replaces the wa-native layer's uniform `--wa-content-spacing`
-   between block siblings with hierarchical, asymmetric margins. Unlayered so
-   it wins via cascade order; re-check if this file ever joins a layer. */
+/* The docs main column is wider than `wa-prose`'s default 65ch. Anchor the
+   reading-column custom property to the docs token so existing layouts —
+   default, modern-card-list, and page-wide — keep their established widths. */
 #content {
-  /* Headings hug what they introduce: generous above, tight below. */
+  --wa-prose-line-length: var(--content-width-s);
 
-  * + h2 {
-    margin-block-start: var(--wa-space-2xl);
-  }
-  h2:has(+ *) {
-    margin-block-end: var(--wa-space-s);
-  }
+  /* Remap wa-prose's em-based rhythm to the docs' rem-based spacing scale.
+     wa-prose intentionally scales with element font-size, but the docs were
+     authored against the rem-based rhythm and depend on that visual cadence. */
+  --wa-prose-rhythm-2xs: var(--wa-space-2xs);
+  --wa-prose-rhythm-xs: var(--wa-space-xs);
+  --wa-prose-rhythm-s: var(--wa-space-s);
+  --wa-prose-rhythm-m: var(--wa-space-m);
+  --wa-prose-rhythm-l: var(--wa-space-l);
+  --wa-prose-rhythm-xl: var(--wa-space-xl);
+  --wa-prose-rhythm-2xl: var(--wa-space-2xl);
+  --wa-prose-rhythm-3xl: var(--wa-space-3xl);
 
-  * + h3 {
-    margin-block-start: var(--wa-space-xl);
+  /* Extend wa-prose's major-blocks treatment to `.code-example` live demos
+     (wa-prose covers `<details>` natively). */
+  .code-example:has(+ *) {
+    margin-block-end: var(--wa-prose-rhythm-xl);
   }
-  h3:has(+ *) {
-    margin-block-end: var(--wa-space-s);
+  :not(h1, h2, h3, h4, h5, h6) + .code-example {
+    margin-block-start: var(--wa-prose-rhythm-xl);
   }
-
-  :is(h4, h5, h6):has(+ *) {
-    margin-block-end: var(--wa-space-xs);
-  }
-
-  /* Prevents stacked top + bottom margins on back-to-back headings. */
-  h2 + :is(h3, h4),
-  h3 + h4 {
-    margin-block-start: var(--wa-space-m);
-  }
-
-  :is(ul, ol) > li:has(+ li) {
-    margin-block-end: var(--wa-space-2xs);
+  :is(h1, h2, h3, h4, h5, h6) + .code-example {
+    margin-block-start: var(--wa-prose-rhythm-m);
   }
 
-  /* Slight optical tracking; only the larger sizes need it. */
-  :is(h1, h2) {
-    letter-spacing: -0.01em;
-  }
-
-  /* `<hr>` marks a topic shift. Its own margin defines the gap; the heading
-     or paragraph that follows shouldn't double-stack on top. */
-  hr {
-    margin-block: var(--wa-space-3xl);
-  }
-  hr + :is(h1, h2, h3, h4, h5, h6) {
-    margin-block-start: 0;
-  }
-
-  /* Major non-text blocks get more breathing room than running prose, but
-     headings still hug — so the top-margin rule only applies after non-heading
-     siblings. */
-  :is(pre, figure, table, blockquote, wa-callout, .code-example, details):has(+ *) {
-    margin-block-end: var(--wa-space-xl);
-  }
-
-  :not(h1, h2, h3, h4, h5, h6) + :is(pre, figure, table, blockquote, wa-callout, .code-example, details) {
-    margin-block-start: var(--wa-space-xl);
-  }
-
-  /* Visually heavy blocks still deserve a minimum breath after a heading. */
-  :is(h1, h2, h3, h4, h5, h6) + :is(pre, figure, table, blockquote, wa-callout, .code-example, details) {
-    margin-block-start: var(--wa-space-m);
-  }
-
-  /* Treat h2 + `<small><time>` as one header unit. */
+  /* Treat h2 + `<small><time>` as one header unit (changelog releases). */
   h2:has(+ p > small > time) {
     margin-block-end: var(--wa-space-3xs);
   }
@@ -161,11 +127,17 @@ wa-page > main:has(.modern-card-list) {
     color: var(--wa-color-text-quiet);
   }
 
-  /* Subordinate the prerelease version headings inside `<details data-no-outline>`
+  /* Subordinate prerelease version headings inside `<details data-no-outline>`
      so they read as historical, not peer to current releases. */
   details[data-no-outline] h2 {
     font-size: var(--wa-font-size-l);
     margin-block-start: var(--wa-space-l);
+  }
+
+  /* The breadcrumb is navigation, not prose flow — drop wa-prose's
+     previous-sibling top margin on the page title that follows it. */
+  .page-breadcrumbs + h1 {
+    margin-block-start: 0;
   }
 }
 
@@ -556,11 +528,12 @@ wa-scroller:has(.component-table) {
   }
 }
 
-.layout-theme {
-  iframe {
-    width: 100%;
-    min-height: 16lh;
-    height: 65vh;
-    max-height: 21lh;
-  }
+/* Hosted project install instructions — tighter rhythm inside tab panels */
+#content .hosted-project-instructions .instruction-group + .instruction-group,
+#content .hosted-project-instructions .free-instructions + .pro-instructions {
+  margin-block-start: var(--wa-space-xl);
+}
+
+#content .hosted-project-instructions table {
+  margin-block: 0;
 }
