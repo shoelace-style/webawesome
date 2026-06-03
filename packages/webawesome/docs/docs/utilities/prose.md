@@ -184,9 +184,8 @@ develop in HC-110, dilution B</code></pre>
 
 A few quieter refinements come along with the rhythm:
 
-- **Oldstyle proportional figures** in running text; `tabular-nums` in tables so numeric columns line up.
+- **Oldstyle proportional figures** in running text so numerals sit alongside letters more naturally.
 - **Hanging punctuation** pulls opening quotes, em-dashes, and trailing stops into the margin (Safari today; progressive enhancement elsewhere).
-- **Quiet list markers** so bullets and numbers don't compete with the prose they label.
 - **Long-word breaks** on `<code>` and `<pre>` so URLs and identifiers can't overflow the column.
 
 ## Composing with font-size utilities
