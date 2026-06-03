@@ -97,6 +97,50 @@ Font sizes follow a 1.125 modular scale (`--wa-font-size-*`):
 
 ---
 
+## Icons
+
+Use the [`<wa-icon>`](https://webawesome.com/docs/components/icon) component for icons. **Never use
+emojis in the UI** unless the user explicitly asks for them — emojis render inconsistently across
+platforms and don't inherit color, size, or weight the way icons do.
+
+```html
+<wa-icon name="star"></wa-icon>
+
+<!-- In a button -->
+<wa-button variant="brand">
+  <wa-icon slot="start" name="plus"></wa-icon>
+  Add item
+</wa-button>
+```
+
+Icons inherit `color` and `font-size` from their surroundings, so they scale with the type scale and
+theme automatically — set `font-size` (e.g. `--wa-font-size-l`) rather than hardcoding pixel
+dimensions. Give standalone, meaningful icons a `label` for accessibility; decorative icons beside
+text need none.
+
+**Icon library.** By default, `<wa-icon>` draws from **Font Awesome Free**. Most common UI needs
+(arrows, common actions, social, etc.) are covered. Use any [Font Awesome Free icon name](https://fontawesome.com/search?o=r&m=free).
+
+**Font Awesome Pro / Pro+.** Only if the user explicitly says they have Font Awesome Pro, you can
+unlock the Pro and Pro+ icon families (`thin`, `light`, `sharp`, `duotone`, etc.) by setting their
+kit code. Do **not** add a kit code otherwise.
+
+```html
+<!-- Option 1: the data-fa-kit-code attribute on the loader script -->
+<script src="webawesome.loader.js" data-fa-kit-code="YOUR_KIT_CODE_HERE"></script>
+
+<!-- Option 2: the setKitCode() method -->
+<script type="module">
+  import { setKitCode } from 'webawesome.loader.js';
+  setKitCode('YOUR_KIT_CODE_HERE');
+</script>
+```
+
+Once a kit code is set, select a Pro family with the `variant` attribute, e.g.
+`<wa-icon variant="regular" name="grip-vertical"></wa-icon>`.
+
+---
+
 ## Surfaces & elevation
 
 Layer the UI with surface tokens and shadows instead of arbitrary grays.
@@ -145,4 +189,5 @@ Before calling a layout done:
 - [ ] Text on filled backgrounds uses `*-on-*` tokens (accessible contrast).
 - [ ] One consistent border-radius scale across cards, inputs, buttons.
 - [ ] Clear hierarchy: distinct heading/body/caption styles; generous whitespace between sections.
+- [ ] Icons use `<wa-icon>` (no emojis); meaningful icons have a `label`.
 - [ ] A single primary action per view (`variant="brand"`); secondaries are quieter (`appearance="plain"`).

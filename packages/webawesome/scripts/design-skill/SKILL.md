@@ -62,9 +62,11 @@ These are the things that go wrong most often. Treat them as hard constraints.
 1. **Custom elements never self-close.** Always use a closing tag: `<wa-input></wa-input>`, never `<wa-input />`.
 2. **When using `<wa-page>`, reset `html` and `body`** with `html, body { min-height: 100%; padding: 0; margin: 0; }`, or you'll get unexpected gaps. (Web Awesome's Native styles handle this for you; see theming.)
 3. **`<wa-page>` adds no semantic elements.** Slot in your own `<header>`, `<main>`, `<footer>`, `<nav>`, `<aside>`.
-4. **Never hardcode colors, spacing, radii, or font sizes.** Use design tokens (`--wa-color-*`, `--wa-space-*`, `--wa-border-radius-*`, `--wa-font-size-*`) and utility classes (`wa-gap-*`). Raw `px` and hex values break theming and consistency.
-5. **Set a theme and palette on `<html>`.** A page with no theme class looks unstyled. See [references/theming.md](references/theming.md).
-6. **Use the layout utilities instead of ad-hoc flexbox/grid CSS.** `wa-stack` (vertical), `wa-cluster` (inline wrap), `wa-grid` (responsive columns). See [references/composition.md](references/composition.md).
+4. **Zero `<main>` padding for full-bleed pages.** `<wa-page>` pads the main area, which insets hero and section backgrounds from the viewport edge. Set `main { padding: 0 }` and let each section own its gutter. Keep the default only for a single contained column. See [references/layouts-page.md](references/layouts-page.md).
+5. **Never hardcode colors, spacing, radii, or font sizes.** Use design tokens (`--wa-color-*`, `--wa-space-*`, `--wa-border-radius-*`, `--wa-font-size-*`) and utility classes (`wa-gap-*`). Raw `px` and hex values break theming and consistency.
+6. **Set a theme and palette on `<html>`.** A page with no theme class looks unstyled. See [references/theming.md](references/theming.md).
+7. **Use the layout utilities instead of ad-hoc flexbox/grid CSS.** `wa-stack` (vertical), `wa-cluster` (inline wrap), `wa-grid` (responsive columns). See [references/composition.md](references/composition.md).
+8. **Use `<wa-icon>` for icons; never emojis.** Don't put emojis in the UI unless the user explicitly asks for them. Reach for the [`<wa-icon>`](https://webawesome.com/docs/components/icon) component instead. The default icon library is Font Awesome Free; see [references/composition.md](references/composition.md) for usage and Font Awesome Pro setup.
 
 ---
 

@@ -37,8 +37,6 @@ need. The default (unnamed) slot is your main content.
 On mobile (below `mobile-breakpoint`, default `768px`), the `navigation` region collapses into a
 `<wa-drawer>` toggled by a hamburger button.
 
-In most cases, you should zero out the padding on `<main>` for edge-to-edge background effects.
-
 ---
 
 ## Everything below is `<wa-page>`-only
@@ -87,12 +85,29 @@ utilities instead (see [layouts-inpage.md](layouts-inpage.md)).
    <footer slot="footer">…</footer>
    ```
 
-3. **Use `navigation`, not `menu`, for the responsive sidebar.** The `navigation` slot (plus
+3. **Zero out the padding on `<main>` by default.** `<wa-page>` pads the main content area, which insets
+   full-bleed section backgrounds (heroes, color bands) so they can't reach the viewport edges. Set
+   `main { padding: 0 }` and give each `<section>` its own horizontal gutter instead — a
+   `padding-inline` or an inner max-width wrapper:
+
+   ```css
+   main {
+     padding: 0;
+   }
+   .section {
+     padding-inline: var(--wa-space-xl); /* or wrap content in a centered max-width container */
+   }
+   ```
+
+   Backgrounds then run edge-to-edge while content stays inset. Keep the default padding only when the
+   whole page is a single narrow, contained column (a docs article, a login form).
+
+4. **Use `navigation`, not `menu`, for the responsive sidebar.** The `navigation` slot (plus
    `navigation-header` / `navigation-footer`) auto-collapses into a drawer on mobile. The `menu` slot
    means "I'll take over the left column entirely and handle mobile myself"; only use it if you truly
    need that.
 
-4. **Set sidebar widths with custom properties, and reset them on mobile.** A fixed `--menu-width` /
+5. **Set sidebar widths with custom properties, and reset them on mobile.** A fixed `--menu-width` /
    `--aside-width` still reserves space below the breakpoint, so collapse it back to `auto` for
    `view='mobile'`. The `navigation` sidebar moves into the drawer automatically; the `aside` does not,
    so to hide it on mobile also set `display: none` on that slot:
@@ -111,14 +126,14 @@ utilities instead (see [layouts-inpage.md](layouts-inpage.md)).
    }
    ```
 
-5. **Toggle the drawer** with the default hamburger, or with your own button carrying `data-toggle-nav`
+6. **Toggle the drawer** with the default hamburger, or with your own button carrying `data-toggle-nav`
    anywhere inside the `<wa-page>` (e.g. in the `header` or `subheader`). Only `<wa-page>` listens for
    `data-toggle-nav`; it does nothing elsewhere. Adding any `data-toggle-nav` element automatically
    hides the default hamburger. To swap elements between viewports, use `.wa-desktop-only` /
    `.wa-mobile-only`, but note these only work _inside_ `<wa-page>` (they key off its `view`); outside
    one, reach for a CSS media query instead.
 
-6. **Close the drawer when a nav link is tapped.** The mobile navigation is a `<wa-drawer>`, so add
+7. **Close the drawer when a nav link is tapped.** The mobile navigation is a `<wa-drawer>`, so add
    `data-drawer="close"` to your navigation links, so tapping one then closes the drawer (otherwise it
    stays open over the page you just navigated to):
 
@@ -129,9 +144,9 @@ utilities instead (see [layouts-inpage.md](layouts-inpage.md)).
    </nav>
    ```
 
-7. **Custom elements never self-close.** `<wa-button></wa-button>`, not `<wa-button />`.
+8. **Custom elements never self-close.** `<wa-button></wa-button>`, not `<wa-button />`.
 
-8. **`view` is read-only; never set it.** The component sets `view='mobile'` / `view='desktop'` itself
+9. **`view` is read-only; never set it.** The component sets `view='mobile'` / `view='desktop'` itself
    (via a `ResizeObserver`, defaulting to `'desktop'` for SSR). You only ever _read_ it in CSS
    (`wa-page[view='mobile'] { … }`). Don't gate critical initial rendering on it.
 
@@ -174,6 +189,8 @@ navigation sidebar, main content, a sticky table-of-contents aside, and a footer
     <a href="#theming" data-drawer="close">Theming</a>
   </nav>
 
+  <!-- Contained docs column, so the default main padding is kept (see Hard rule 3).
+       For a landing page with full-bleed heroes/bands, zero it: main { padding: 0 }. -->
   <main class="wa-stack wa-gap-xl">
     <h1>Getting started</h1>
     <p>Your content goes here.</p>
