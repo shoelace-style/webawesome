@@ -23,7 +23,7 @@ export default css`
     -webkit-user-select: none;
     cursor: inherit;
 
-    min-width: 1.25em;   /* <-- this is what Safari respects for intrinsic */
+    min-width: 1.25em; /* <-- this is what Safari respects for intrinsic */
     min-height: 1em;
   }
 

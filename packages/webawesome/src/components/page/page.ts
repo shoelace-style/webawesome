@@ -277,8 +277,8 @@ export default class WaPage extends WebAwesomeElement {
           this.subheaderResizeObserver?.observe(this.subheader);
           this.bannerResizeObserver?.observe(this.banner);
           this.footerResizeObserver?.observe(this.footer);
-        })
-      })
+        });
+      });
     }
   }
 
