@@ -322,8 +322,8 @@
     container-type: inline-size;
     container-name: header;
 
-    /* Narrow (≤ 80ch): compact header with logo */
-    @container header (inline-size <= 80ch) {
+    /* Narrow (≤ 85ch): compact header with logo */
+    @container header (inline-size <= 85ch) {
       .page-nav-products {
         display: none;
       }
@@ -352,8 +352,8 @@
       color: var(--wa-color-text-normal);
     }
 
-    /* Narrow (≤ 80ch): compact header with logo */
-    @container subheader (inline-size <= 80ch) {
+    /* Narrow (≤ 85ch): compact header with logo */
+    @container subheader (inline-size <= 85ch) {
       .subheader-links {
         display: none;
       }
@@ -363,8 +363,8 @@
       }
     }
 
-    /* > 80ch: hide compact logo */
-    @container subheader (inline-size > 80ch) {
+    /* > 85ch: hide compact logo */
+    @container subheader (inline-size > 85ch) {
       .subheader-logo-simple {
         display: none;
       }
