@@ -1,302 +1,64 @@
+{% from "pro-badge.njk" import proBadge %}
+
 {%- for palette in themer.palettes -%}
-  {%- if not palette.isPro -%}
-    <link rel="stylesheet" href="/dist/styles/color/palettes/{{palette.filename}}" />
-  {%- else -%}
-    {% raw %}{%- if currentUser.hasPro -%}{% endraw %}
-      <link rel="stylesheet" href="/dist/styles/color/palettes/{{palette.filename}}" />
-    {% raw %}{%- endif -%}{% endraw %}
-  {%- endif -%}
+{%- if not palette.isPro -%}
+<link rel="stylesheet" href="/dist/styles/color/palettes/{{palette.filename}}" />
+{%- else -%}
+{% raw %}{%- if currentUser.hasPro -%}{% endraw %}
+<link rel="stylesheet" href="/dist/styles/color/palettes/{{palette.filename}}" />
+{% raw %}{%- endif -%}{% endraw %}
+{%- endif -%}
 {%- endfor -%}
 
-<div id="color-palettes">
-  <wa-radio-group label="Preview a Palette" id="palette-picker" value="default">
-    <div class="wa-grid">
-      {%- for palette in themer.palettes -%}
-        {%- if not palette.isPro -%}
-          <wa-radio value="{{ palette.name | lower }}">
-            <div class="wa-stack wa-gap-xs">
-              <span>{{ palette.name }}</span>
-              <div class="wa-palette-{{ palette.name | lower }} palette-preview wa-grid wa-gap-3xs">
-                <span class="preview-swatch"></span>
-                <span class="preview-swatch"></span>
-                <span class="preview-swatch"></span>
-                <span class="preview-swatch"></span>
-                <span class="preview-swatch"></span>
-                <span class="preview-swatch"></span>
-                <span class="preview-swatch"></span>
-                <span class="preview-swatch"></span>
-                <span class="preview-swatch"></span>
-                <span class="preview-swatch"></span>
-              </div>
-            </div>
-          </wa-radio>
-        {%- else -%}
-          <wa-radio 
-            value="{{ palette.name | lower }}"
-            id="{{ palette.name | lower }}"
-            {% raw %}{%- if not currentUser.hasPro -%}{% endraw %}
-              disabled
-            {% raw %}{%- endif -%}{% endraw %}
-          >
-            <div class="wa-stack wa-gap-xs">
-              <div class="wa-split">
-                <span>{{ palette.name }}</span>
-                {% raw %}{%- if not currentUser.hasPro -%}{% endraw %}
-                  <wa-icon name="lock" variant="regular"></wa-icon>
-                  <wa-tooltip for="{{ palette.name | lower }}">
-                    This palette requires access to Web Awesome Pro.
-                  </wa-tooltip>
-                {% raw %}{%- endif -%}{% endraw %}
-              </div>
-              <div class="wa-palette-{{ palette.name | lower }} palette-preview wa-grid wa-gap-3xs">
-                <span class="preview-swatch"></span>
-                <span class="preview-swatch"></span>
-                <span class="preview-swatch"></span>
-                <span class="preview-swatch"></span>
-                <span class="preview-swatch"></span>
-                <span class="preview-swatch"></span>
-                <span class="preview-swatch"></span>
-                <span class="preview-swatch"></span>
-                <span class="preview-swatch"></span>
-                <span class="preview-swatch"></span>
-              </div>
-            </div>
-          </wa-radio>
-        {%- endif -%}
-      {%- endfor -%}
-    </div>
-  </wa-radio-group>
+<wa-tab-group id="palette-picker">
+  {%- for palette in themer.palettes -%}
+  {%- if not palette.isPro -%}
+  <wa-tab panel="{{ palette.name | lower }}">{{ palette.name }}</wa-tab>
+  {%- else -%}
+  <wa-tab panel="{{ palette.name | lower }}" {% raw %}{%- if not currentUser.hasPro -%}{% endraw %} disabled {% raw %}{%- endif -%}{% endraw %}>
+    <span class="wa-cluster wa-gap-xs wa-flex-nowrap">
+      {{ palette.name }}
+      {% raw %}{%- if not currentUser.hasPro -%}{% endraw %}{{ proBadge({ description: "This palette requires access to " ~ site.namePro }) }}{% raw %}{%- endif -%}{% endraw %}
+    </span>
+  </wa-tab>
+  {%- endif -%}
+  {%- endfor -%}
+  {%- for palette in themer.palettes -%}
+  <wa-tab-panel name="{{ palette.name | lower }}"></wa-tab-panel>
+  {%- endfor -%}
+</wa-tab-group>
 
+<div id="color-palettes" class="wa-palette-default">
   {% include "theming/color-palette-viewer.njk" %}
 </div>
 
 <script type="module">
   const paletteContainer = document.getElementById('color-palettes');
-  const palettePreviewPicker = document.getElementById('palette-picker');
+  const tabGroup = document.getElementById('palette-picker');
 
-  // Set first radio as checked and add initial palette class
-  const firstPaletteRadio = palettePreviewPicker.querySelector('wa-radio');
-  if (firstPaletteRadio) {
-    firstPaletteRadio.checked = true;
-    paletteContainer.classList.add(`wa-palette-${firstPaletteRadio.value}`);
-  }
-
-  // Listen for radio changes
-  palettePreviewPicker.addEventListener('input', function(event) {
-    const selectedValue = event.target.value;
-
-    // Update palette container class
-    const existingThemeClasses = [...paletteContainer.classList].filter(className => className.startsWith('wa-palette-'));
-    existingThemeClasses.forEach(className => paletteContainer.classList.remove(className));
+  tabGroup.addEventListener('wa-tab-show', event => {
+    const selectedValue = event.detail.name;
+    const existing = [...paletteContainer.classList].filter(c => c.startsWith('wa-palette-'));
+    existing.forEach(c => paletteContainer.classList.remove(c));
     paletteContainer.classList.add(`wa-palette-${selectedValue}`);
 
-    // Show/hide appropriate instructions
-      document.querySelectorAll('.palette-instructions').forEach(instruction => {
-        instruction.hidden = instruction.dataset.palette !== selectedValue;
-      });
+    document.querySelectorAll('.palette-instructions').forEach(instruction => {
+      instruction.hidden = instruction.dataset.palette !== selectedValue;
+    });
   });
 </script>
 
 <style>
+  /* Empty panels are just contract markers — strip their default padding. */
+  #palette-picker wa-tab-panel {
+    --padding: 0;
+  }
+
   #color-palettes {
-    display: grid;
-    grid-template-columns: 30ch 1fr;
-    gap: var(--wa-space-3xl);
-    align-items: start;
+    margin-block-start: var(--wa-space-l);
 
     &:has(+ *) {
       margin-block-end: var(--wa-content-spacing);
     }
   }
-
-  wa-radio-group#palette-picker {
-    position: sticky;
-    inset-block-start: calc(var(--header-height) + var(--subheader-height) + var(--wa-space-3xl));
-    padding: var(--wa-space-l);
-    border-radius: var(--wa-panel-border-radius);
-    background-color: var(--wa-color-surface-lowered);
-
-    &::part(form-control-label) {
-      margin-block-end: var(--wa-space-m);
-    }
-    &::part(form-control-input) {
-      display: grid;
-    }
-
-    > .wa-grid {
-      --max-column-count: 3;
-      --min-column-size: 12ch;
-
-      --_max-gap-count: calc(var(--max-column-count) - 1);
-      --_gap-size-sum: calc(var(--_max-gap-count) * var(--wa-space-m));
-      --_max-column-size: calc((100% - var(--_gap-size-sum)) / var(--max-column-count));
-
-      grid-template-columns: repeat(auto-fill, minmax(max(var(--min-column-size), var(--_max-column-size)), 1fr));
-    }
-
-    wa-radio {
-      --border-color: var(--wa-color-neutral-border-quiet);
-      --color: var(--wa-color-text-quiet);
-      display: block;
-      background-color: var(--wa-form-control-background-color);
-      border: var(--wa-form-control-border-width) var(--wa-form-control-border-style) var(--border-color);
-      border-radius: var(--wa-border-radius-m);
-      padding: 0.75em;
-      font-size: var(--wa-font-size-s);
-      color: var(--color);
-
-      &::part(control) {
-        display: none;
-      }
-
-      &::part(label) {
-        font-weight: var(--wa-font-weight-bold);
-      }
-
-      @media (hover: hover) {
-        &:hover:not(:disabled):not(:state(checked)) {
-          --border-color: var(--wa-color-neutral-border-normal);
-        }
-      }
-
-      &:state(checked) {
-        --border-color: var(--wa-color-neutral-border-loud);
-        --color: var(--wa-color-text-normal);
-        box-shadow: 0 0 0 var(--wa-form-control-border-width) var(--border-color);
-      }
-
-      &:focus-visible {
-        outline: var(--wa-focus-ring);
-        outline-offset: var(--wa-focus-ring-offset);
-      }
-
-      &:disabled {
-        opacity: 1;
-        border-color: color-mix(in oklab, var(--border-color), transparent);
-        color: color-mix(in oklab, var(--color), transparent);
-      }
-
-      wa-tooltip {
-        font-size: var(--wa-font-size-smaller);
-        font-weight: var(--wa-font-weight-body);
-      }
-    }
-  }
-
-  .palette-preview {
-    --min-column-size: 0rem;
-  }
-
-  .preview-swatch {
-    aspect-ratio: 1 / 1;
-    height: 100%;
-    width: 100%;
-    border-radius: var(--wa-border-radius-s);
-
-      &:nth-child(1) {
-        background-color: var(--wa-color-red);
-      }
-      &:nth-child(2) {
-        background-color: var(--wa-color-orange);
-      }
-      &:nth-child(3) {
-        background-color: var(--wa-color-yellow);
-      }
-      &:nth-child(4) {
-        background-color: var(--wa-color-green);
-      }
-      &:nth-child(5) {
-        background-color: var(--wa-color-cyan);
-      }
-      &:nth-child(6) {
-        background-color: var(--wa-color-blue);
-      }
-      &:nth-child(7) {
-        background-color: var(--wa-color-indigo);
-      }
-      &:nth-child(8) {
-        background-color: var(--wa-color-purple);
-      }
-      &:nth-child(9) {
-        background-color: var(--wa-color-pink);
-      }
-      &:nth-child(10) {
-        background-color: var(--wa-color-gray);
-      }
-    }
-
-    /* For non-Pro viewers: When Pro palettes aren't loaded, 
-     * hard code the key colors for each palette preview */
-    :where(.wa-palette-rudimentary) {
-      --wa-color-red: #e32720;
-      --wa-color-orange: #f16e00;
-      --wa-color-yellow: #f4c403;
-      --wa-color-green: #55e557;
-      --wa-color-cyan: #11e0e1;
-      --wa-color-blue: #146bff;
-      --wa-color-indigo: #5823f7;
-      --wa-color-purple: #b334e8;
-      --wa-color-pink: #d31db1;
-      --wa-color-gray: #959595;
-    }
-    :where(.wa-palette-elegant) {
-      --wa-color-red: #ac1d3d;
-      --wa-color-orange: #b65d22;
-      --wa-color-yellow: #9b6d09;
-      --wa-color-green: #036645;
-      --wa-color-cyan: #078098;
-      --wa-color-blue: #0159a5;
-      --wa-color-indigo: #444bbe;
-      --wa-color-purple: #7039ba;
-      --wa-color-pink: #972592;
-      --wa-color-gray: #55586b;
-    }
-    :where(.wa-palette-mild) {
-      --wa-color-red: #b40c12;
-      --wa-color-orange: #e79f64;
-      --wa-color-yellow: #e3c868;
-      --wa-color-green: #a1d7a0;
-      --wa-color-cyan: #238094;
-      --wa-color-blue: #2e5b89;
-      --wa-color-indigo: #4c5491;
-      --wa-color-purple: #624c92;
-      --wa-color-pink: #cf7c98;
-      --wa-color-gray: #5b585d;
-    }
-    :where(.wa-palette-natural) {
-      --wa-color-red: #a86252;
-      --wa-color-orange: #a26839;
-      --wa-color-yellow: #8f703a;
-      --wa-color-green: #53805d;
-      --wa-color-cyan: #4a7d86;
-      --wa-color-blue: #5c76a0;
-      --wa-color-indigo: #7670a3;
-      --wa-color-purple: #866a99;
-      --wa-color-pink: #a0637d;
-      --wa-color-gray: #7a766a;
-    }
-    :where(.wa-palette-anodized) {
-      --wa-color-red: #f19695;
-      --wa-color-orange: #f3976f;
-      --wa-color-yellow: #eac673;
-      --wa-color-green: #96db86;
-      --wa-color-cyan: #3fdee7;
-      --wa-color-blue: #0152c1;
-      --wa-color-indigo: #4743d0;
-      --wa-color-purple: #a34bda;
-      --wa-color-pink: #c234bf;
-      --wa-color-gray: #595959;
-    }
-    :where(.wa-palette-vogue) {
-      --wa-color-red: #e3204a;
-      --wa-color-orange: #f56b11;
-      --wa-color-yellow: #f5c308;
-      --wa-color-green: #98de27;
-      --wa-color-cyan: #34e0d2;
-      --wa-color-blue: #009de5;
-      --wa-color-indigo: #493fd8;
-      --wa-color-purple: #6f25de;
-      --wa-color-pink: #c228d6;
-      --wa-color-gray: #505968;
-    }
 </style>

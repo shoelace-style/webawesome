@@ -1,4 +1,4 @@
-<div id="palette-viewer" class="wa-stack wa-gap-s">
+<div id="palette-viewer" class="wa-stack wa-gap-l">
   {%- if not colorScales -%}
     {% set colorScales = themer.colors %}
   {%- endif -%}
@@ -6,18 +6,21 @@
     <div class="color-scale wa-stack wa-gap-xs">
       <div class="wa-split">
         <div class="color-name">{{ color | capitalize }}</div>
-        <code class="color-token">--wa-color-{{ color }}-*</code>
+        <code class="color-token appearance-plain">--wa-color-{{ color }}-*</code>
       </div>
       <div class="color-swatches wa-grid wa-gap-2xs">
         {%- for tint in themer.tints -%}
-        <wa-copy-button
-          class="color-swatch"
-          copy-label="{{ color }} {{ tint }}"
-          value="var(--wa-color-{{ color }}-{{ tint }})"
-          style="--color: var(--wa-color-{{ color }}-{{ tint }}); --tint: '{{ tint }}'"
-        >
-          <button class="swatch-button" aria-label="Copy {{ color }} {{ tint }}"></button>
-        </wa-copy-button>
+        <div class="color-swatch-cell">
+          <wa-copy-button
+            class="color-swatch"
+            copy-label="{{ color }} {{ tint }}"
+            value="var(--wa-color-{{ color }}-{{ tint }})"
+            style="--color: var(--wa-color-{{ color }}-{{ tint }})"
+          >
+            <button class="swatch-button" aria-label="Copy {{ color }} {{ tint }}"></button>
+          </wa-copy-button>
+          <span class="tint-label">{{ tint }}</span>
+        </div>
         {%- endfor -%}
       </div>
     </div>
@@ -37,29 +40,25 @@
   .color-swatches {
     --min-column-size: 3rem;
     gap: var(--wa-space-3xs);
-    margin-block-end: var(--wa-space-l);
-
-    &:has(+ *) {
-      margin-block-end: var(--wa-space-m);
-    }
+    row-gap: var(--wa-space-s);
+  }
+  .color-swatch-cell {
+    display: flex;
+    flex-direction: column;
+    gap: var(--wa-space-3xs);
+    align-items: center;
   }
   .color-swatch {
     display: block;
     position: relative;
     aspect-ratio: 1;
-
-    &::before {
-      content: var(--tint);
-      position: absolute;
-      bottom: calc(-1 * var(--wa-space-l));
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: var(--wa-font-size-xs);
-      color: var(--wa-color-text-quiet);
-      font-weight: var(--wa-font-weight-action);
-      text-align: center;
-      z-index: 2;
-    }
+    width: 100%;
+  }
+  .tint-label {
+    font-size: var(--wa-font-size-xs);
+    color: var(--wa-color-text-quiet);
+    font-weight: var(--wa-font-weight-action);
+    text-align: center;
   }
   .swatch-button {
     all: revert;

@@ -555,6 +555,32 @@ wa-card .page-name {
   }
 }
 
+/* Theming overview: side-by-side theme cards — tame Awesome control height for comparison */
+.wa-theme-awesome.theme-showcase-balanced {
+  --wa-border-width-scale: 1;
+  --wa-border-width-s: calc(var(--wa-border-width-scale) * 0.0625rem);
+  --wa-border-width-m: calc(var(--wa-border-width-scale) * 0.125rem);
+  --wa-border-width-l: calc(var(--wa-border-width-scale) * 0.1875rem);
+
+  --wa-border-radius-scale: 1;
+  --wa-border-radius-s: calc(var(--wa-border-radius-scale) * 0.1875rem);
+  --wa-border-radius-m: calc(var(--wa-border-radius-scale) * 0.375rem);
+  --wa-border-radius-l: calc(var(--wa-border-radius-scale) * 0.75rem);
+
+  --wa-shadow-offset-y-scale: 1;
+  --wa-shadow-offset-y-s: calc(var(--wa-shadow-offset-y-scale) * 0.125rem);
+  --wa-shadow-offset-y-m: calc(var(--wa-shadow-offset-y-scale) * 0.25rem);
+  --wa-shadow-offset-y-l: calc(var(--wa-shadow-offset-y-scale) * 0.5rem);
+
+  --wa-form-control-padding-block: 0.75em;
+  --wa-form-control-padding-inline: 1em;
+  --wa-form-control-height: round(
+    calc(2 * var(--wa-form-control-padding-block) + 1em * var(--wa-form-control-value-line-height)),
+    1px
+  );
+  --wa-form-control-label-line-height: var(--wa-line-height-condensed);
+}
+
 /* Layout Examples */
 .layout-example-boundary {
   border: var(--wa-border-width-s) dashed var(--wa-color-neutral-border-normal);
@@ -637,3 +663,14 @@ wa-scroller:has(.component-table) {
     }
   }
 }
+
+/* Hosted project install instructions — tighter rhythm inside tab panels */
+#content .hosted-project-instructions .instruction-group + .instruction-group,
+#content .hosted-project-instructions .free-instructions + .pro-instructions {
+  margin-block-start: var(--wa-space-xl);
+}
+
+#content .hosted-project-instructions table {
+  margin-block: 0;
+}
+
