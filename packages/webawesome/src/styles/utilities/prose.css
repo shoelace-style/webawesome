@@ -106,46 +106,17 @@
       margin-block-end: var(--wa-prose-rhythm-2xs);
     }
 
-    /* `::marker` ignores opacity — bake de-emphasis into the color. */
-    & :where(li)::marker {
-      color: color-mix(in oklch, var(--wa-color-text-quiet) 75%, transparent);
-    }
-
-    & :where(dt) {
-      font-weight: var(--wa-font-weight-bold);
-    }
     & :where(dd):has(+ *) {
       margin-block-end: var(--wa-prose-rhythm-s);
     }
     /* #endregion */
 
-    /* #region Captions & block quotes ~~~~~~~~~~~~ */
+    /* #region Captions ~~~~~~~~~~~~ */
 
+    /* Em-based override keeps caption spacing in step with the prose
+       container; wa-native sets the visual style. */
     & :where(figcaption) {
-      color: var(--wa-color-text-quiet);
-      font-size: var(--wa-font-size-smaller);
-      line-height: var(--wa-line-height-condensed);
       margin-block-start: var(--wa-prose-rhythm-xs);
-    }
-
-    /* Em-based size keeps blockquote scaling with `wa-font-size-*`
-       (wa-native's rem-based --wa-font-size-l doesn't). */
-    & :where(blockquote) {
-      color: var(--wa-color-text-quiet);
-      font-size: 1.25em;
-    }
-    /* #endregion */
-
-    /* #region Tables ~~~~~~~~~~~~ */
-
-    /* Lining tabular figures so numeric columns align. Overrides the
-       container's oldstyle proportional figures. */
-    & :where(table) {
-      font-variant-numeric: tabular-nums;
-    }
-
-    & :where(th) {
-      border-block-end: var(--wa-border-style) var(--wa-border-width-s) var(--wa-color-border-normal);
     }
     /* #endregion */
 
@@ -196,7 +167,5 @@
     letter-spacing: revert-layer;
     font-variant-numeric: revert-layer;
     hanging-punctuation: revert-layer;
-    color: revert-layer;
-    border-block-end: revert-layer;
   }
 }
