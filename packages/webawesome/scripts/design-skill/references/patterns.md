@@ -7,6 +7,11 @@ established web-design convention it follows). Copy, then re-theme with tokens.
 All recipes assume a theme/palette is set on `<html>` (see [theming.md](theming.md)) and, for full-page
 recipes, the `html, body` reset from [layouts-page.md](layouts-page.md).
 
+These snippets keep a few one-off values inline (a `max-width`, a `--min-column-size`) so each is
+self-contained. In a real page, lift anything reused into a `<style>` block as a class, and **never style
+a component host inline** — restyle components through their tokens, attributes, or `::part()` (see
+[composition.md](composition.md)).
+
 ---
 
 ## App shell (full-page, `<wa-page>`)
@@ -129,8 +134,8 @@ better than competing actions; supporting detail follows below.
 action. Don't use `<wa-page>`; this is one element on a page.
 
 ```html
-<div class="wa-stack" style="min-height: 100vh; justify-content: center; align-items: center;">
-  <wa-card style="width: 100%; max-width: 24rem;">
+<div class="auth-screen wa-stack">
+  <wa-card class="auth-card">
     <div class="wa-stack wa-gap-l">
       <h1 class="wa-heading-l">Sign in</h1>
       <wa-input label="Email" type="email"></wa-input>
@@ -140,6 +145,19 @@ action. Don't use `<wa-page>`; this is one element on a page.
     </div>
   </wa-card>
 </div>
+
+<style>
+  .auth-screen {
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+  }
+  /* Size the card via a class, not an inline style on the component host. */
+  .auth-card {
+    width: 100%;
+    max-width: 24rem;
+  }
+</style>
 ```
 
 ---

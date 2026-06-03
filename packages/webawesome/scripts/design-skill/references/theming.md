@@ -119,8 +119,8 @@ Any `--wa-*` token can be overridden at any scope. Common knobs:
 ```
 
 Scope overrides to a subtree by putting them on a selector other than `:root`. See
-[composition.md](composition.md) for the spacing/typography scales and
-[customizing](https://webawesome.com/docs/customizing/) for `::part()` styling.
+[composition.md](composition.md) for the spacing/typography scales and for styling component internals
+via `::part()`, and [customizing](https://webawesome.com/docs/customizing/) for the full reference.
 
 ---
 

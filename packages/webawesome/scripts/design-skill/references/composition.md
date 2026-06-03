@@ -178,6 +178,67 @@ Motion via `--wa-transition-*`: `--wa-transition-fast` (75ms), `--wa-transition-
 
 ---
 
+## Styling components & CSS parts
+
+**This applies to every Web Awesome custom element** — any `<wa-*>` tag. They all have a **shadow DOM**:
+their internal markup is encapsulated, so your page styles and class names don't reach inside them. A
+rule like `.my-thing { border-radius: … }` won't touch the component's actual visual surface, because
+that surface lives on an internal element you can't select normally. This is the single most common
+reason "my CSS isn't working" on a component.
+
+So you never style a Web Awesome component by guessing — you style it **according to that component's
+API**. For whatever element you're touching, look up what it exposes and use it. Reach for these in
+order, stopping at the first that does the job:
+
+1. **A token or attribute.** Most restyling is exposed as a `--wa-*` custom property or a component
+   attribute (`variant`, `appearance`, `size`, `pill`, …). These pierce the shadow boundary by design
+   and survive theme changes. Prefer them. Custom properties inherit, so setting a value like
+   `--wa-color-brand-fill-loud` or a component's own `--*` property on a container flows inward.
+2. **A `::part()` selector.** When you need to style the component's _internal_ surface — its padding,
+   border, border-radius, background, width — target one of its exposed **parts**. Most components
+   expose a **`base`** part (the outer wrapper); many expose more (`content`, `label`, `caret`,
+   `remove-button`, `checkbox`, `thumb`, …) — the set is **per-component**, so check that element's API.
+   `::part()` is the correct, supported way through the shadow boundary.
+3. **Host-level layout only, on the element itself.** Properties that act on the element _as a box in
+   your layout_ — `margin`, and participation in a flex/grid parent — apply to the host normally. But
+   `padding`, `border`, and `background` set on the host often sit _outside_ or _behind_ the rendered
+   control and won't look right; those belong on `::part(base)`.
+
+```css
+/* ✗ Doesn't reach the component's visual surface (shadow DOM blocks it). */
+.cta {
+  border-radius: var(--wa-border-radius-pill);
+  padding-inline: var(--wa-space-2xl);
+}
+
+/* ✓ Target the part that actually renders the surface. */
+.cta::part(base) {
+  border-radius: var(--wa-border-radius-pill);
+  padding-inline: var(--wa-space-2xl);
+}
+
+/* ✓ Width is layout (host); the internal look is the part. */
+.full-width-control {
+  width: 100%;
+}
+.full-width-control::part(base) {
+  justify-content: space-between;
+}
+```
+
+**Look up each component's parts, custom properties, and attributes in the
+[`webawesome` skill](https://webawesome.com/docs/ai/)** (the companion component-API skill) or that
+component's docs page — every component lists its "CSS parts" and "CSS custom properties." Do this for
+**whatever** `<wa-*>` element you're styling, not just the common ones; the right hook differs by
+component. Don't guess internal class names — they aren't stable and aren't selectable. If a component
+exposes neither a token nor a part for what you need, that styling generally isn't intended — reconsider
+the approach rather than forcing it.
+
+Keep these overrides in your stylesheet as **reusable classes**, not inline `style` attributes — see
+the inline-styles rule in the main skill file.
+
+---
+
 ## Polish checklist
 
 Before calling a layout done:
@@ -191,3 +252,5 @@ Before calling a layout done:
 - [ ] Clear hierarchy: distinct heading/body/caption styles; generous whitespace between sections.
 - [ ] Icons use `<wa-icon>` (no emojis); meaningful icons have a `label`.
 - [ ] A single primary action per view (`variant="brand"`); secondaries are quieter (`appearance="plain"`).
+- [ ] No inline `style` attributes — reusable classes live in a `<style>` block.
+- [ ] Component overrides go through tokens, attributes, or `::part()` (per the component's API), not host CSS that the shadow DOM ignores.
