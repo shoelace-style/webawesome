@@ -20,6 +20,7 @@ These are still finding their shape. APIs can change between minor versions, so 
 
 :::added
 
+- Added experimental SSR support to all Web Awesome components in free and pro. [pr:2428]
 - Added the `capture` attribute to `<wa-file-input>` for capturing media directly from a device's camera or microphone [discuss:2380]
 - Added the `wa-text-uppercase` text utility class for transforming text to uppercase
 - Added the `wa-text-lowercase` text utility class for transforming text to lowercase
@@ -34,6 +35,7 @@ These are still finding their shape. APIs can change between minor versions, so 
 
 :::fixed
 
+- Fixed a bug in `<wa-dialog>` and `<wa-drawer>` where it would not correctly capture `slotchange` event for footers. [pr:2428]
 - Fixed a bug in `<wa-video>` where the `timeupdate` method was not emitting when seeking or scrubbing the timeline [issue:2393]
 - Fixed a bug in `<wa-breadcrumb-item>` where `href=""` rendered as a button instead of a link, making it harder to follow the [WAI-ARIA breadcrumb pattern](https://www.w3.org/WAI/ARIA/apg/patterns/breadcrumb/) for the current-page item [issue:2387]
 - Fixed a regression in `<wa-breadcrumb-item>` that caused items without an `href` to render as a link instead of a button
