@@ -71,6 +71,7 @@ export default class WaAccordion extends WebAwesomeElement {
   private handleSlotChange() {
     this.syncIconPlacement();
     this.syncHeadingLevel();
+    this.syncAppearance();
     this.initRovingTabIndex();
   }
 
@@ -132,6 +133,11 @@ export default class WaAccordion extends WebAwesomeElement {
   @watch('headingLevel', { waitUntilFirstUpdate: true })
   syncHeadingLevel() {
     this.getAllItems().forEach(item => (item.headingLevel = this.headingLevel));
+  }
+
+  @watch('appearance', { waitUntilFirstUpdate: true })
+  syncAppearance() {
+    this.getAllItems().forEach(item => (item.appearance = this.appearance));
   }
 
   private async handleItemTrigger(event: CustomEvent<{ item: WaAccordionItem }>) {

@@ -12,7 +12,16 @@ export default css`
     }
 
     :host(:not(:first-child)) {
-      border-top: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border);
+      border-top: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-accordion-divider-color, var(--wa-color-surface-border));
+    }
+
+    :host([appearance='filled']) {
+      background-color: var(--wa-color-neutral-fill-quiet);
+    }
+
+    :host([appearance='filled']:not(:first-child)) {
+      margin-block-start: var(--wa-panel-border-width);
+      border-top: none;
     }
 
     [part~='heading'] {

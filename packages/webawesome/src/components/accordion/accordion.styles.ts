@@ -16,7 +16,6 @@ export default css`
     }
 
     :host([appearance='filled']) {
-      background-color: var(--wa-color-neutral-fill-quiet);
       border-color: transparent;
     }
 
@@ -31,4 +30,5 @@ export default css`
       border-radius: 0;
     }
   }
+
 `;

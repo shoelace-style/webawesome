@@ -35,6 +35,7 @@ import styles from './accordion-item.styles.js';
  * @cssproperty [--show-duration=200ms] - The duration of the expand animation.
  * @cssproperty [--hide-duration=200ms] - The duration of the collapse animation.
  * @cssproperty [--easing=ease] - The easing of the expand/collapse animation.
+ * @cssproperty [--wa-accordion-divider-color=var(--wa-color-surface-border)] - The color of the divider between accordion items.
  *
  * @cssstate animating - Applied while the panel is animating.
  */
@@ -66,6 +67,9 @@ export default class WaAccordionItem extends WebAwesomeElement {
 
   /** @internal Set by the parent accordion to control icon placement. */
   @property({ attribute: 'icon-placement', reflect: true }) iconPlacement: 'start' | 'end' = 'end';
+
+  /** @internal Set by the parent accordion to control the visual appearance. */
+  @property({ reflect: true }) appearance: 'filled' | 'outlined' | 'filled-outlined' | 'plain' = 'outlined';
 
   firstUpdated() {
     this.body.style.height = this.expanded ? 'auto' : '0';
