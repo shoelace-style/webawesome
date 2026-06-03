@@ -38,6 +38,13 @@ On mobile (below `mobile-breakpoint`, default `768px`), the `navigation` region 
 `<wa-drawer>` toggled by a hamburger button. **On desktop (at or above the breakpoint) it is a
 persistent left sidebar column** — see the warning directly below before you use it.
 
+**First decision, before any markup: does this page have a left sidebar on desktop?**
+
+- **No** (landing page, marketing site, most content pages) → put nav in `header`, leave `menu` /
+  `navigation` / `navigation-header` / `navigation-footer` **empty**, and don't use `data-toggle-nav`.
+  Build any mobile menu as your own `<wa-drawer>`. The `body` row collapses to a single `main` column.
+- **Yes** (app shell, docs, dashboard) → use the `navigation` slot and follow Hard rule 5 + 6.
+
 ---
 
 ## ⚠️ The `navigation` slot is a desktop sidebar, not a "mobile menu"
@@ -152,12 +159,15 @@ utilities instead (see [layouts-inpage.md](layouts-inpage.md)).
    }
    ```
 
-6. **Toggle the drawer** with the default hamburger, or with your own button carrying `data-toggle-nav`
-   anywhere inside the `<wa-page>` (e.g. in the `header` or `subheader`). Only `<wa-page>` listens for
-   `data-toggle-nav`; it does nothing elsewhere. Adding any `data-toggle-nav` element automatically
-   hides the default hamburger. To swap elements between viewports, use `.wa-desktop-only` /
-   `.wa-mobile-only`, but note these only work _inside_ `<wa-page>` (they key off its `view`); outside
-   one, reach for a CSS media query instead.
+6. **`data-toggle-nav` toggles the `navigation` drawer — it is a sidebar-layout tool, not a generic
+   "mobile menu" button.** It only does something when you have content in the `navigation` slot. On a
+   landing page with no `navigation` slot, a `data-toggle-nav` button opens an **empty** drawer — a dead
+   button. So: if you're using the `navigation` sidebar, toggle its mobile drawer with the default
+   hamburger or your own `data-toggle-nav` button (anywhere inside `<wa-page>`; adding one auto-hides the
+   default hamburger). If you're **not** using the `navigation` sidebar (the landing-page case), do not
+   use `data-toggle-nav` at all — build your mobile menu as your own `<wa-drawer>` and open it with a
+   normal click handler. To swap elements between viewports inside `<wa-page>`, use `.wa-desktop-only` /
+   `.wa-mobile-only` (they key off `view`); outside `<wa-page>`, reach for a CSS media query instead.
 
 7. **Close the drawer when a nav link is tapped.** The mobile navigation is a `<wa-drawer>`, so add
    `data-drawer="close"` to your navigation links, so tapping one then closes the drawer (otherwise it
@@ -178,10 +188,95 @@ utilities instead (see [layouts-inpage.md](layouts-inpage.md)).
 
 ---
 
-## Canonical example
+## Canonical example — landing page (no sidebar)
+
+Use this for a hero-driven marketing/landing page. **All nav is in the `header`.** There is no
+`navigation` slot and no `data-toggle-nav`; the mobile menu is a separate `<wa-drawer>` you open
+yourself, shown only on mobile via a media query. This is the most common `<wa-page>` shape — start here
+unless you specifically want a desktop sidebar.
+
+```html
+<wa-page>
+  <header slot="header" class="wa-split section">
+    <strong>My Brand</strong>
+
+    <!-- Desktop nav — header only, never the navigation slot -->
+    <nav class="nav-desktop wa-cluster wa-gap-l">
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+      <wa-button variant="brand">Get started</wa-button>
+    </nav>
+
+    <!-- Mobile menu button — opens our own drawer, NOT data-toggle-nav -->
+    <wa-button class="nav-menu-button" appearance="plain" onclick="document.getElementById('menu').open = true">
+      <wa-icon name="bars" label="Open menu"></wa-icon>
+    </wa-button>
+  </header>
+
+  <main>
+    <section class="section wa-stack wa-gap-l">
+      <h1>Big headline</h1>
+      <p>Hero content.</p>
+      <wa-button variant="brand" size="large">Get started</wa-button>
+    </section>
+    <!-- more full-bleed <section class="section"> blocks … -->
+  </main>
+
+  <footer slot="footer" class="section">
+    <small>&copy; My Brand</small>
+  </footer>
+</wa-page>
+
+<!-- Our own mobile menu, independent of the page's navigation slot -->
+<wa-drawer id="menu" label="Menu">
+  <nav class="wa-stack wa-gap-m">
+    <a href="#features" onclick="document.getElementById('menu').open = false">Features</a>
+    <a href="#pricing" onclick="document.getElementById('menu').open = false">Pricing</a>
+    <a href="#faq" onclick="document.getElementById('menu').open = false">FAQ</a>
+  </nav>
+</wa-drawer>
+
+<style>
+  html,
+  body {
+    min-height: 100%;
+    padding: 0;
+    margin: 0;
+  }
+  main {
+    padding: 0;
+  }
+  .section {
+    padding-inline: var(--wa-space-xl);
+  }
+  .nav-desktop {
+    display: none;
+  }
+  .nav-menu-button {
+    display: inline-flex;
+  }
+  @media (min-width: 768px) {
+    .nav-desktop {
+      display: flex;
+    }
+    .nav-menu-button {
+      display: none;
+    }
+  }
+</style>
+```
+
+> Note this skeleton uses a plain CSS media query (not `.wa-desktop-only` / `wa-page[view=…]`) to swap
+> the desktop nav and the mobile button. That's deliberate: those `view`-based helpers are tied to the
+> `navigation`/sidebar machinery, and a media query is the simpler, self-contained choice when you're not
+> using the sidebar at all.
+
+## Canonical example — app/docs (with a desktop sidebar)
 
 A documentation-style layout using header, subheader (with a mobile nav toggle), a collapsing
-navigation sidebar, main content, a sticky table-of-contents aside, and a footer.
+navigation sidebar, main content, a sticky table-of-contents aside, and a footer. **Only use the
+`navigation` slot when you want this left sidebar on desktop.**
 
 ```html
 <wa-page mobile-breakpoint="920">
@@ -278,7 +373,8 @@ navigation sidebar, main content, a sticky table-of-contents aside, and a footer
 | Forget the `html, body` reset → gaps appear        | Always add the reset (or use native styles)                            |
 | Expect `<wa-page>` to emit `<main>`/`<header>`     | Slot in your own semantic elements                                     |
 | Put nav in `menu` and wonder why it won't collapse | Use `navigation` (+ `navigation-header`/`-footer`) for mobile collapse |
-| Use the `navigation` slot as a "mobile menu" on a landing page → bare sidebar leaks down the left on desktop | Keep nav in the `header`; for the small-screen menu use your own `<wa-drawer>` + `data-toggle-nav`. Reserve `navigation` for real desktop sidebars |
+| Put nav in `header` **and** copy it into `slot="navigation"` as "the mobile menu" → a redundant bare sidebar column appears down the left on desktop, duplicating the header nav | Landing page: nav in `header` only, **no** `navigation` slot, **no** `data-toggle-nav`; mobile menu is your own `<wa-drawer>`. Reserve `navigation` for a real desktop sidebar |
+| Pair `data-toggle-nav` with your own `<wa-drawer>` on a landing page (it toggles the empty `navigation` drawer, not yours → dead button) | Open your own drawer with a normal click handler; use `data-toggle-nav` only for the `navigation` sidebar drawer |
 | Set `--menu-width: 16rem` and leave it on mobile   | Reset widths to `auto` under `wa-page[view='mobile']`                  |
 | Nav links that leave the drawer open after a tap   | Add `data-drawer="close"` to navigation links                          |
 | Expect `aside` to disappear on mobile on its own   | `aside` has no drawer; hide it (`.wa-desktop-only` or `display: none`) |

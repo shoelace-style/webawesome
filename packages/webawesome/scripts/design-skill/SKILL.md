@@ -38,11 +38,23 @@ If you own the entire viewport (header, navigation/sidebar, main content, footer
 It is the recommended, supported way to scaffold a full page in Web Awesome, and it gives you sticky
 headers, a responsive navigation drawer, and a correct grid with almost no markup.
 
-**Read [references/layouts-page.md](references/layouts-page.md) and follow its rules exactly.** In
-particular, note that `<wa-page>`'s `navigation` slot is a **persistent desktop left sidebar** (that also
-collapses to a drawer on mobile) — **not** a "mobile-only menu." On a landing/marketing page, keep nav in
-the `header` and build the small-screen menu with your own `<wa-drawer>`; only use the `navigation` slot
-when you actually want a sidebar on desktop. See the warning in layouts-page.md.
+**Read [references/layouts-page.md](references/layouts-page.md) and follow its rules exactly.**
+
+⚠️ **Before you slot anything, decide: does this page have a left sidebar on desktop?** This one decision
+is where `<wa-page>` layouts most often go wrong. The `navigation` slot is a **persistent desktop left
+sidebar** that *additionally* collapses into a drawer on mobile — it is **NOT** "the mobile menu." Putting
+your nav links in `slot="navigation"` renders a bare column of links pinned down the left edge of *every
+desktop view*, duplicating the nav you already have in the header. (This is the #1 mistake: agents label
+it "mobile nav" and get a redundant desktop sidebar.)
+
+- **Landing page / marketing site (NO desktop sidebar — the common case):** Put **all** nav in
+  `slot="header"`. Do **not** use the `navigation` slot at all, and do **not** use `data-toggle-nav`
+  (it only toggles the `navigation` drawer you don't have). For the small-screen menu, use your **own**
+  `<wa-drawer>` opened by a button you wire up yourself, shown only on mobile via a CSS media query. Copy
+  the **"Landing page" skeleton** below.
+- **App shell / docs / dashboard (you DO want a desktop left sidebar):** Use the `navigation` slot as
+  intended, set `--menu-width`, reset it to `auto` on mobile, and use `data-toggle-nav` to open its
+  drawer. Copy the **canonical example in layouts-page.md.**
 
 ### → Building a section, widget, card, form, panel, or embedding into a page you don't fully control?
 
@@ -126,6 +138,12 @@ any design, make a second pass: re-read the rules above and revise the output to
 reliably state these rules and then violate them while generating long files — the second pass is what
 actually catches it. Walk your own output and fix each before declaring it done:
 
+- [ ] **Redundant `<wa-page>` sidebar (check this first on any full page).** If you used `slot="navigation"`,
+      confirm you actually want a **persistent left sidebar on desktop**. On a landing/marketing page you
+      almost never do — open it at desktop width and look: a bare column of links down the left, duplicating
+      your header nav, means you fell into the trap. Fix: delete the `navigation` slot (and any
+      `data-toggle-nav`), keep nav in the `header`, and make the mobile menu your own `<wa-drawer>`. See the
+      landing-page skeleton above.
 - [ ] **Raw values** — search for `#` (hex), `px`, and stray `rem`. The only allowed hex is the `:root`
       brand-token override; everything else is a `--wa-*` token. (Sizing recipes: composition.md.)
 - [ ] **Repeated inline styles** — if the same `style="…"` appears more than once, promote it to a class.
@@ -150,10 +168,14 @@ on colored bands, no mobile nav bleeding into desktop, nothing clipped) and fix 
 
 ## Recommended starting points
 
-Pick the skeleton that matches your STEP 0 answer. Both produce a complete, on-brand, responsive result
+Pick the skeleton that matches your STEP 0 answer. Each produces a complete, on-brand, responsive result
 out of the box. **Free users:** only use free themes (default, shoelace, or awesome). **Pro users:** swap in a Pro theme/palette if the user wants one (see theming).
 
-### Full page (`<wa-page>`)
+### Full page — landing / marketing (`<wa-page>`, NO desktop sidebar) — use this by default
+
+Nav lives entirely in the `header`. There is **no `navigation` slot** and **no `data-toggle-nav`** — the
+mobile menu is your own `<wa-drawer>`, shown only on mobile via a media query. This is the right skeleton
+for a hero-driven landing page, marketing site, or any page that should not have a left sidebar.
 
 ```html
 <!doctype html>
@@ -169,41 +191,81 @@ out of the box. **Free users:** only use free themes (default, shoelace, or awes
         padding: 0;
         margin: 0;
       }
-      wa-page {
-        --menu-width: 16rem;
+      main {
+        padding: 0; /* let hero/section backgrounds run edge-to-edge */
       }
-      wa-page[view='mobile'] {
-        --menu-width: auto;
+      .section {
+        padding-inline: var(--wa-space-xl);
+      }
+      /* Swap the desktop nav and the mobile menu button by viewport. */
+      .nav-desktop {
+        display: none;
+      }
+      .nav-menu-button {
+        display: inline-flex;
+      }
+      @media (min-width: 768px) {
+        .nav-desktop {
+          display: flex;
+        }
+        .nav-menu-button {
+          display: none;
+        }
       }
     </style>
   </head>
   <body>
     <wa-page>
-      <header slot="header" class="wa-split">
-        <strong>My App</strong>
-        <nav class="wa-cluster">
-          <a href="#">Docs</a>
-          <wa-button variant="brand">Sign up</wa-button>
+      <header slot="header" class="wa-split section">
+        <strong>My Brand</strong>
+
+        <!-- Desktop nav: lives in the header, never in the navigation slot -->
+        <nav class="nav-desktop wa-cluster wa-gap-l">
+          <a href="#features">Features</a>
+          <a href="#pricing">Pricing</a>
+          <a href="#faq">FAQ</a>
+          <wa-button variant="brand">Get started</wa-button>
         </nav>
+
+        <!-- Mobile menu button: opens our OWN drawer (not data-toggle-nav) -->
+        <wa-button class="nav-menu-button" appearance="plain" onclick="document.getElementById('menu').open = true">
+          <wa-icon name="bars" label="Open menu"></wa-icon>
+        </wa-button>
       </header>
 
-      <nav slot="navigation" class="wa-stack wa-gap-2xs">
-        <a href="#">Dashboard</a>
-        <a href="#">Settings</a>
-      </nav>
-
-      <main class="wa-stack wa-gap-xl">
-        <h1>Welcome</h1>
-        <p>Your content goes here.</p>
+      <main>
+        <section class="section wa-stack wa-gap-l">
+          <h1>Big headline</h1>
+          <p>Your hero content goes here.</p>
+          <wa-button variant="brand" size="large">Get started</wa-button>
+        </section>
+        <!-- more full-bleed <section class="section"> blocks … -->
       </main>
 
-      <footer slot="footer">
-        <small>&copy; My App</small>
+      <footer slot="footer" class="section">
+        <small>&copy; My Brand</small>
       </footer>
     </wa-page>
+
+    <!-- Our own mobile menu — independent of the page's navigation slot -->
+    <wa-drawer id="menu" label="Menu">
+      <nav class="wa-stack wa-gap-m">
+        <a href="#features" onclick="document.getElementById('menu').open = false">Features</a>
+        <a href="#pricing" onclick="document.getElementById('menu').open = false">Pricing</a>
+        <a href="#faq" onclick="document.getElementById('menu').open = false">FAQ</a>
+        <wa-button variant="brand">Get started</wa-button>
+      </nav>
+    </wa-drawer>
   </body>
 </html>
 ```
+
+### Full page — app shell / docs (`<wa-page>` WITH a desktop sidebar)
+
+Only when you genuinely want a persistent left sidebar on desktop. This is the one that uses the
+`navigation` slot, `--menu-width`, and `data-toggle-nav`. **See the canonical example in
+[references/layouts-page.md](references/layouts-page.md)** — don't graft its `navigation` slot onto a
+landing page.
 
 ### A section (utilities only, no `<wa-page>`)
 
