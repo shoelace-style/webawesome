@@ -136,6 +136,8 @@ actually catches it. Walk your own output and fix each before declaring it done:
       divider, badge/tag, rating)? Swap in the component.
 - [ ] **Emojis** — none in the UI (incl. logos, `alt`/placeholder text, bullets, `::before`, JS toasts).
       Use `<wa-icon>`. If the user has Pro, the kit code is wired up.
+- [ ] **Images** — real assets, else freely licensed Unsplash photos, else a token-based placeholder in
+      `wa-frame`. No broken `src`, no emoji stand-in; meaningful `alt`. (See composition.md.)
 - [ ] **Component styling** — overrides go through attributes → tokens → `::part()`, never guessed-at
       internal selectors or custom-property names you didn't verify.
 - [ ] **Valid & accessible** — real headings (not styled `<strong>`), labels on icon-only controls, no
@@ -225,6 +227,6 @@ out of the box. **Free users:** only use free themes (default, shoelace, or awes
 - **[layouts-page.md](references/layouts-page.md):** Full-page layouts with `<wa-page>`. Read this for the full-page branch.
 - **[layouts-inpage.md](references/layouts-inpage.md):** Sections, widgets, and embeds with layout utilities. Read this for the in-page branch.
 - **[theming.md](references/theming.md):** Themes, palettes, light/dark, semantic colors, and customizing with `--wa-*` tokens.
-- **[composition.md](references/composition.md):** Spacing rhythm, the layout-utility decision guide, typography, and surfaces. Read this to make things look designed.
+- **[composition.md](references/composition.md):** Spacing rhythm, the layout-utility decision guide, typography, surfaces, and images/placeholders. Read this to make things look designed.
 - **[patterns.md](references/patterns.md):** Ready-made, best-practice recipes (app shell, login, settings, dashboard grid, hero).
 - **[getting-started.md](references/getting-started.md):** The opinionated default setup, explained.
