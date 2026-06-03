@@ -250,7 +250,7 @@ Simply load the theme stylesheets, then add your preferred classes to each eleme
 <link rel="stylesheet" href="{% cdnUrl '/styles/themes/awesome.css' %}" />
 <link rel="stylesheet" href="{% cdnUrl '/styles/themes/shoelace.css' %}" />
 
-<wa-callout class="wa-theme-awesome theme-showcase-balanced wa-brand-yellow" style="margin-block-start: 0;">
+<wa-callout class="wa-theme-awesome wa-brand-yellow" style="margin-block-start: 0;">
   <wa-icon slot="icon" name="face-awesome"></wa-icon>
   <div class="wa-flank:end">
     <span>This callout uses <code>wa-theme-awesome</code> and <code>wa-brand-yellow</code>.</span>
