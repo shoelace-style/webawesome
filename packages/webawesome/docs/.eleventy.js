@@ -362,6 +362,9 @@ export default async function (eleventyConfig) {
 
   // We only want to run SSR if we're not running the app shell around 11ty. If we run the SSR plugin here with the app shell also doing SSR, it breaks.
   if (!serverBuild && process.env.SSR === 'true') {
+    // @ts-expect-error Run connectedCallback in SSR to make it compatible with lit context.
+    globalThis.litSsrCallConnectedCallback = true;
+
     const omittedModules = [];
     const componentList = [];
     allComponents.forEach(c => {
