@@ -69,8 +69,6 @@ export const treeItemContext = createContext<TreeItemContext>('wa-tree-item');
  * @cssstate expanded - Applied when the tree item is expanded.
  * @cssstate indeterminate - Applied when the selection is indeterminate.
  * @cssstate selected - Applied when the tree item is selected.
- *
- * @ssr - `<wa-tree-item>` relies on client side detection via `this.parentElement` to set its slot to `slot="children"`. In an SSR environment, you will either need to polyfill the `parentElement`, or manually set `slot="children"` on nested tree items.
  */
 @customElement('wa-tree-item')
 export default class WaTreeItem extends WebAwesomeElement {
