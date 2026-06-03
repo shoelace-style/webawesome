@@ -17,11 +17,9 @@ use-cases:
   - article
 ---
 
-Web Awesome's [native styles](/docs/utilities/native/) give every block-level element the same vertical breathing room. That works well for app UIs and dashboards where hierarchy comes from layout structure, but it can make long-form copy feel structurally flat — a major section break reads the same as the next sentence.
+Wrap a block of content in `wa-prose` to apply a hierarchical, asymmetric typographic rhythm: generous space above headings, tighter space below, more breathing room around major non-text blocks, and a true section divider for `<hr>`. Spacing is em-based and scales with `wa-font-size-*` utilities.
 
-Wrap a block of content in `wa-prose` to switch on a richer rhythm: generous space above headings, tighter space below, more breathing room around major non-text blocks, and a true section divider for `<hr>`. Spacing is em-based and scales with `wa-font-size-*` utilities.
-
-Element styling — color, font, borders — still comes from [native styles](/docs/utilities/native/). `wa-prose` only adjusts rhythm, type scale, and the reading column.
+Reach for it on documentation, blog posts, articles, or marketing copy. Element styling (color, font, borders) still comes from [native styles](/docs/utilities/native/); `wa-prose` only adjusts rhythm, type scale, and the reading column.
 
 ## Using prose
 
