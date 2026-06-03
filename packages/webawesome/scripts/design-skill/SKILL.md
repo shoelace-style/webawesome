@@ -18,8 +18,11 @@ compatibility: Works in modern browsers. Requires no build tools when using the 
 # Designing with Web Awesome
 
 This skill teaches you to **design well** with Web Awesome: how to lay out pages, theme them on-brand,
-and compose interfaces that look intentionally designed rather than merely functional. For the API of any
-single component (props, slots, events), use the companion `webawesome` skill or [llms.txt](https://webawesome.com/docs/ai/).
+and compose interfaces that look intentionally designed rather than merely functional. The single most
+important habit is to **lean into Web Awesome's design system first** — its components, layout utilities,
+tokens, and styling API — and reach for custom CSS only when the system genuinely doesn't cover the need
+(see "Use Web Awesome's design system first" below). For the API of any single component (props, slots,
+events), use the companion `webawesome` skill or [llms.txt](https://webawesome.com/docs/ai/).
 
 Read this file first. It routes you to the right reference and states the rules that matter most.
 
@@ -52,6 +55,36 @@ no `view='mobile'`, no `--menu-width`, no `data-toggle-nav`, and no `.wa-desktop
 Never mix the two. Don't nest `<wa-page>` inside a section, and don't hand-roll a full-page grid when
 `<wa-page>` was the right tool. **If you're unsure which branch applies, ask the user: "Are you building
 a full page, or a piece of one?"** before generating markup.
+
+---
+
+## Use Web Awesome's design system first (the core mindset)
+
+Web Awesome is a complete, opinionated design system — components, layout utilities, design tokens, themes,
+and a styling API — designed so you **rarely need to write custom CSS or build your own primitives**. Your
+default is to **understand what the system already provides and reach for it**, not to invent. Custom code
+is the exception you justify, not the starting point.
+
+Before you write a custom class, a raw `flex`/`grid` rule, a hardcoded value, or a hand-built component,
+**work down this ladder and stop at the first rung that does the job:**
+
+1. **A component.** Is there already a `<wa-*>` for this (button, card, dialog, dropdown, input, tabs, …)?
+   Use it instead of assembling the same thing from `<div>`s. Check the companion [`webawesome` skill](https://webawesome.com/docs/ai/) before building UI by hand.
+2. **A layout utility.** Need to arrange things? Use `wa-stack`, `wa-cluster`, `wa-grid`, `wa-flank`,
+   `wa-split`, `wa-frame` (and `<wa-page>` for full pages) before reaching for hand-written flexbox/grid.
+3. **A token.** Need a color, space, radius, font size, shadow, or transition? Use the `--wa-*` token or
+   `wa-*` utility from the scale — never a raw `px`/hex/`rem` literal.
+4. **The component's styling API.** Need a component to look different? Use its **attributes**
+   (`variant`, `appearance`, `size`, `pill`, …), then its **tokens**, then a **`::part()`** selector —
+   in that order. Don't fight the shadow DOM with host CSS. (See rule 9 below and composition.md.)
+5. **Only then, extend.** If — and only if — the system genuinely doesn't cover the need, you may write a
+   small amount of custom CSS **built on top of the tokens** (e.g. a one-off layout using `--wa-space-*`).
+   Extending the system a little is fine; **replacing or bypassing it is not.** Keep custom code minimal,
+   token-based, and consistent with how Web Awesome does things — never a parallel design language.
+
+If you catch yourself writing a hex color, a `px` value, a raw flexbox container, or re-implementing
+something that smells like an existing component, **stop and look it up first.** Most of the time the
+system already has it, and using it gives you theming, dark mode, accessibility, and consistency for free.
 
 ---
 
