@@ -208,6 +208,32 @@ tokens, so they cohere by default.
 Motion via `--wa-transition-*`: `--wa-transition-fast` (75ms), `--wa-transition-normal` (150ms),
 `--wa-transition-slow` (300ms). Keep transitions short and consistent.
 
+### Borders on colored backgrounds
+
+Bordered elements (`<wa-card>`, `<wa-callout>`, inputs, anything using `--wa-color-surface-border`)
+default to a neutral **gray** hairline tuned for the page surface. Dropped onto a colored band — a brand
+hero, a dark section, an inverted block — that gray border reads as a dingy stray outline that doesn't
+belong. **When you place a bordered element on a colored background, restyle its border to match, don't
+leave it gray.** Two fixes, easiest first:
+
+1. **Change the `appearance`.** A `<wa-card>` is `outlined` by default (gray border). On a colored band,
+   switch to `appearance="filled"`, `"accent"`, or `"plain"` to drop the border entirely, so the card
+   reads as a clean filled panel instead. Often this alone solves it.
+2. **Recolor the border** when you want to keep one. The card's border lives on the host, so set
+   `border-color` there to a band-appropriate token — the matching `*-on-*` color, or `transparent`:
+
+```css
+/* A card sitting on a brand-fill band: tint its border to the on-brand color
+   (or use appearance="filled"/"plain" to remove it). */
+.on-brand-band wa-card {
+  border-color: var(--wa-color-brand-on-loud);
+}
+```
+
+The same principle applies to any bordered surface on a colored field: align the border (and its text)
+to that field with the field's `*-on-*` tokens, rather than leaving the page-surface gray. (For *text* on
+colored bands, see the quiet/plain-control note in [theming.md](theming.md).)
+
 ---
 
 ## Styling components & CSS parts
@@ -280,6 +306,7 @@ Before calling a layout done:
 - [ ] Layout uses utilities (`wa-stack`/`wa-cluster`/`wa-grid`/…) with minimal hand-rolled flex/grid.
 - [ ] A theme + palette is set on `<html>`.
 - [ ] Text on filled backgrounds uses `*-on-*` tokens (accessible contrast).
+- [ ] Bordered elements (cards, callouts, inputs) on colored bands don't show the default gray border — change `appearance` or recolor `border-color` to match the band.
 - [ ] One consistent border-radius scale across cards, inputs, buttons.
 - [ ] Clear hierarchy: distinct heading/body/caption styles; generous whitespace between sections.
 - [ ] Icons use `<wa-icon>` (no emojis); meaningful icons have a `label`.
