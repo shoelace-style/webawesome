@@ -23,6 +23,13 @@ These are still finding their shape. APIs can change between minor versions, so 
 - Added the `<wa-known-date>` experimental component
 - Added the `<wa-time-picker>` experimental component
 - Added the `capture` attribute to `<wa-file-input>` for capturing media directly from a device's camera or microphone [discuss:2380]
+- Added the `wa-text-uppercase` text utility class for transforming text to uppercase
+- Added the `wa-text-lowercase` text utility class for transforming text to lowercase
+- Added the `wa-text-capitalize` text utility class for capitalizing the first letter of each word
+- Added the `wa-text-start` text utility class for logical (direction-aware) text alignment
+- Added the `wa-text-center` text utility class for centered text alignment
+- Added the `wa-text-end` text utility class for logical (direction-aware) text alignment
+- Added the `wa-text-justify` text utility class for justified text alignment
 
 :::
 
@@ -35,6 +42,9 @@ These are still finding their shape. APIs can change between minor versions, so 
 - Fixed a bug in `<wa-textarea>` where the disabled state had no visual styling, unlike other form controls [issue:2416]
 - Fixed a bug in `<wa-icon>` that caused some FA icons to not render based on `currentColor`
 - Fixed default show/hide animations in `<wa-dropdown>`, `<wa-popup>`, `<wa-popover>`, `<wa-select>`, `<wa-details>`, `<wa-dialog>`, `<wa-drawer>`, and `<wa-tree-item>` to honor `prefers-reduced-motion: reduce`
+- Fixed a bug in `<wa-drawer>` that caused the `light-dismiss` option not work as intended [pr:2437]
+- Fixed a bug in `<wa-dropdown>` that prevented items from being visible when the selected overflowed [pr:2430]
+- Fixed a bug in `<wa-carousel>` that prevented the carousel from smoothly snapping back into position when using with the mouse [issue:1103]
 
 :::
 
@@ -42,7 +52,15 @@ These are still finding their shape. APIs can change between minor versions, so 
 
 - Synced default `--show-duration` and `--hide-duration` values in `<wa-dropdown>`, `<wa-popup>`, `<wa-popover>`, `<wa-select>`, `<wa-combobox>`, `<wa-details>`, `<wa-dialog>`, `<wa-drawer>`, `<wa-tree-item>`, and `<wa-toast-item>` with `--wa-transition-fast` and `--wa-transition-normal` tokens
 - Synced hardcoded transitions in `<wa-copy-button>`, `<wa-select>`, `<wa-combobox>`, and `<wa-toast-item>` with `--wa-transition-*` tokens
+- Improved the vertical placement of content within `<wa-textarea>` and `textarea` when the content overflows the control [pr:2424]
+- Updated Native Styles to reset the `list-style`, `margin`, and `padding` of `menu` elements [discuss:2436]
+- Renamed `wa-text-wrap-nowrap`, `wa-text-wrap-balance`, and `wa-text-wrap-pretty` to `wa-text-nowrap`, `wa-text-balance`, and `wa-text-pretty` to align with the flat `wa-text-*` utility namespace. The original class names continue to work as aliases.
 
+:::
+
+:::deprecated
+
+- Deprecated `wa-text-wrap-nowrap`, `wa-text-wrap-balance`, and `wa-text-wrap-pretty` in favor of their shorter `wa-text-*` equivalents. The original names still work but will be removed in a future major version.
 :::
 
 ## 3.7.0

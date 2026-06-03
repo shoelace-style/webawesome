@@ -177,16 +177,57 @@ Use single-purpose `wa-color-text-*` classes to apply a given [text color](/docs
 
 ## Wrapping
 
-Use `wa-text-wrap-*` classes to control how text wraps across lines. These utilities apply standard CSS [`text-wrap`](https://developer.mozilla.org/docs/Web/CSS/text-wrap) values.
+Use these classes to control how text wraps across lines. They apply standard CSS [`text-wrap`](https://developer.mozilla.org/docs/Web/CSS/text-wrap) values.
 
-| Class Name             | Preview                                                                                                                                                                               |
-| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `wa-text-wrap-nowrap`  | <div class="wa-text-wrap-nowrap" style="max-width: 40ch; overflow: hidden;">The five boxing wizards jump quickly. How quickly daft jumping zebras vex!</div> |
-| `wa-text-wrap-balance` | <div class="wa-text-wrap-balance" style="max-width: 40ch;">The five boxing wizards jump quickly. How quickly daft jumping zebras vex!</div>                                           |
-| `wa-text-wrap-pretty`  | <div class="wa-text-wrap-pretty" style="max-width: 40ch;">The five boxing wizards jump quickly. How quickly daft jumping zebras vex!</div>                                            |
+| Class Name        | Preview                                                                                                                                                 |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `wa-text-nowrap`  | <div class="wa-text-nowrap" style="max-width: 40ch; overflow: hidden;">The five boxing wizards jump quickly. How quickly daft jumping zebras vex!</div> |
+| `wa-text-balance` | <div class="wa-text-balance" style="max-width: 40ch;">The five boxing wizards jump quickly. How quickly daft jumping zebras vex!</div>                  |
+| `wa-text-pretty`  | <div class="wa-text-pretty" style="max-width: 40ch;">The five boxing wizards jump quickly. How quickly daft jumping zebras vex!</div>                   |
 
 :::info
-`wa-text-wrap-pretty` is wrapped in an `@supports` rule because Firefox does not yet support `text-wrap: pretty`. In unsupported browsers, the class has no effect and text wraps normally.
+`wa-text-pretty` is wrapped in an `@supports` rule because Firefox does not yet support `text-wrap: pretty`. In unsupported browsers, the class has no effect and text wraps normally.
+:::
+
+:::info
+The original `wa-text-wrap-nowrap`, `wa-text-wrap-balance`, and `wa-text-wrap-pretty` class names continue to work as aliases for backwards compatibility. These older names are deprecated and will be removed in a future major version — we recommend updating to the shorter `wa-text-*` names above.
+:::
+
+## Transform
+
+Use these classes to change the case of text. They apply standard CSS [`text-transform`](https://developer.mozilla.org/docs/Web/CSS/text-transform) values.
+
+| Class Name           | Preview                                                   |
+| -------------------- | --------------------------------------------------------- |
+| `wa-text-uppercase`  | <div class="wa-text-uppercase">Five boxing wizards</div>  |
+| `wa-text-lowercase`  | <div class="wa-text-lowercase">Five boxing wizards</div>  |
+| `wa-text-capitalize` | <div class="wa-text-capitalize">Five boxing wizards</div> |
+
+:::info
+Large blocks of uppercase text are [harder for everyone to read](https://www.w3.org/WAI/WCAG21/Understanding/visual-presentation.html) and especially difficult for folks with dyslexia. Reserve it for buttons, badges, or short headings.
+:::
+
+## Alignment
+
+<style>
+  .preview-wrapper {
+    border: var(--layout-example-border);
+    border-radius: var(--wa-border-radius-m);
+    padding: var(--wa-space-xs);
+  }
+</style>
+
+Use these classes to align text within its container. They apply standard CSS [`text-align`](https://developer.mozilla.org/docs/Web/CSS/text-align) values using logical properties, so they adapt automatically to the document's writing direction.
+
+| Class Name        | Preview                                                                                                                       |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `wa-text-start`   | <div class="wa-text-start preview-wrapper">Five boxing wizards</div>                                                          |
+| `wa-text-center`  | <div class="wa-text-center preview-wrapper">Five boxing wizards</div>                                                         |
+| `wa-text-end`     | <div class="wa-text-end preview-wrapper">Five boxing wizards</div>                                                            |
+| `wa-text-justify` | <div class="wa-text-justify preview-wrapper">The five boxing wizards jump quickly. How quickly daft jumping zebras vex!</div> |
+
+::: info
+Justified text can create uneven word spacing that's [harder for everyone to read](https://www.w3.org/WAI/WCAG21/Understanding/visual-presentation.html) and especially difficult for folks with dyslexia. Reserve it for short, narrow text columns.
 :::
 
 ## Truncation

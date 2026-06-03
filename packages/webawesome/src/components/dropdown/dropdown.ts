@@ -452,6 +452,7 @@ export default class WaDropdown extends WebAwesomeElement {
       event.stopPropagation();
       items.forEach(item => (item.active = item === itemToSelect));
       itemToSelect.focus({ preventScroll: true });
+      itemToSelect.scrollIntoView({ block: 'nearest' });
       return;
     }
 
