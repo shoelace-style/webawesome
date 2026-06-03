@@ -49,6 +49,12 @@ These are still finding their shape. APIs can change between minor versions, so 
 - Synced hardcoded transitions in `<wa-copy-button>`, `<wa-select>`, `<wa-combobox>`, and `<wa-toast-item>` with `--wa-transition-*` tokens
 - Improved the vertical placement of content within `<wa-textarea>` and `textarea` when the content overflows the control [pr:2424]
 - Updated Native Styles to reset the `list-style`, `margin`, and `padding` of `menu` elements [discuss:2436]
+- Updated Native Styles for `<blockquote>` to use a quiet text color and a font-size based on `--wa-font-size-larger`
+- Updated Native Styles for `<h6>` to use `--wa-font-size-xs`, aligning its size with the smallest step of the theme font scale
+- Updated Native Styles for `<table>` to use `font-variant-numeric: tabular-nums` so numeric columns align
+- Updated Native Styles for `<th>` to render a subtle bottom border, distinguishing the header row from body cells
+- Added Native Styles for `<figcaption>` (previously unstyled): quiet text color, smaller font-size, condensed line-height, and a small top margin
+- Added Native Styles for `<ul>` and `<ol>` markers using `currentColor` with reduced opacity; `<ol>` markers retain more contrast since numerals are text rather than graphical elements
 - Renamed `wa-text-wrap-nowrap`, `wa-text-wrap-balance`, and `wa-text-wrap-pretty` to `wa-text-nowrap`, `wa-text-balance`, and `wa-text-pretty` to align with the flat `wa-text-*` utility namespace. The original class names continue to work as aliases.
 
 :::
@@ -56,6 +62,7 @@ These are still finding their shape. APIs can change between minor versions, so 
 :::deprecated
 
 - Deprecated `wa-text-wrap-nowrap`, `wa-text-wrap-balance`, and `wa-text-wrap-pretty` in favor of their shorter `wa-text-*` equivalents. The original names still work but will be removed in a future major version.
+
 :::
 
 ## 3.7.0
