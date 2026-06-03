@@ -28,6 +28,7 @@ These are still finding their shape. APIs can change between minor versions, so 
 - Added the `wa-text-center` text utility class for centered text alignment
 - Added the `wa-text-end` text utility class for logical (direction-aware) text alignment
 - Added the `wa-text-justify` text utility class for justified text alignment
+- Added the `wa-prose` utility class for applying typographic rhythm to long-form content (docs, blog posts, marketing copy)
 
 :::
 
