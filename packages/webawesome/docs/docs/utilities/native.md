@@ -164,7 +164,7 @@ Create paragraphs with `<p>`. Paragraphs inherit the default text styles set on 
 
 ### Blockquotes
 
-Emphasize longer quotations with `<blockquote>`. Block quotes use your theme's serif font family, a quiet text color, and a leading border. Their size is em-based, so they scale with their surrounding context.
+Emphasize longer quotations with `<blockquote>`. Block quotes use your theme's serif font family, a quiet color, and a leading border. Sizing is em-based so they scale with surrounding text.
 
 ```html {.example}
 <blockquote>
@@ -176,7 +176,7 @@ Emphasize longer quotations with `<blockquote>`. Block quotes use your theme's s
 
 ### Lists
 
-Create ordered and unordered lists with `<ol>` and `<ul>`, plus `<li>` for list items within. Markers use `currentColor` with reduced opacity so they sit quietly next to text; `<ol>` markers keep more contrast since numerals are text rather than graphical bullets.
+Create ordered and unordered lists with `<ol>` and `<ul>`, plus `<li>` for list items within. Markers use `currentColor` at reduced opacity so they sit quietly next to text; `<ol>` markers keep more contrast since numerals read as text.
 
 ```html {.example}
 <div class="wa-grid">
@@ -308,7 +308,7 @@ Add responsive media with `<img>`, `<svg>`, `<video>`, `<iframe>`, and others. M
 
 ### Figures
 
-Pair media with a caption using `<figure>` and `<figcaption>`. Captions are quiet and condensed so they read as a label rather than running text.
+Pair media with a caption using `<figure>` and `<figcaption>`. Captions use a quiet color and condensed line-height so they read as a label, not running text.
 
 ```html {.example}
 <figure>
@@ -322,7 +322,7 @@ Pair media with a caption using `<figure>` and `<figcaption>`. Captions are quie
 
 ### Tables
 
-Structure tabular data with `<table>` and related elements like `<caption>`, `<thead>`, `<tbody>`, `<th>`, `<tr>`, and `<td>`. Headers carry a subtle bottom border, and numeric columns align on `tabular-nums` so digits stack predictably.
+Structure tabular data with `<table>` and related elements like `<caption>`, `<thead>`, `<tbody>`, `<th>`, `<tr>`, and `<td>`. Headers carry a subtle bottom border, and numeric columns use `tabular-nums` so digits line up.
 
 ```html {.example}
 <table>
