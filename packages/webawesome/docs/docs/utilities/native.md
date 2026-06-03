@@ -164,7 +164,7 @@ Create paragraphs with `<p>`. Paragraphs inherit the default text styles set on 
 
 ### Blockquotes
 
-Emphasize longer quotations with `<blockquote>`. Block quotes use your theme's serif font family and a leading border to stand out.
+Emphasize longer quotations with `<blockquote>`. Block quotes use your theme's serif font family, a quiet text color, and a leading border. Their size is em-based, so they scale with their surrounding context.
 
 ```html {.example}
 <blockquote>
@@ -176,7 +176,7 @@ Emphasize longer quotations with `<blockquote>`. Block quotes use your theme's s
 
 ### Lists
 
-Create ordered and unordered lists with `<ol>` and `<ul>`, plus `<li>` for list items within.
+Create ordered and unordered lists with `<ol>` and `<ul>`, plus `<li>` for list items within. Markers use `currentColor` with reduced opacity so they sit quietly next to text; `<ol>` markers keep more contrast since numerals are text rather than graphical bullets.
 
 ```html {.example}
 <div class="wa-grid">
@@ -306,49 +306,55 @@ Add responsive media with `<img>`, `<svg>`, `<video>`, `<iframe>`, and others. M
 />
 ```
 
+### Figures
+
+Pair media with a caption using `<figure>` and `<figcaption>`. Captions are quiet and condensed so they read as a label rather than running text.
+
+```html {.example}
+<figure>
+  <img
+    src="https://images.unsplash.com/photo-1620196244888-d31ff5bbf163?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    alt="A gray kitten lays next to a toy"
+  />
+  <figcaption>A gray kitten taking a break next to a felt mouse, somewhere off-camera.</figcaption>
+</figure>
+```
+
 ### Tables
 
-Structure tabular data with `<table>` and related elements like `<caption>`, `<thead>`, `<tbody>`, `<th>`, `<tr>`, and `<td>`.
+Structure tabular data with `<table>` and related elements like `<caption>`, `<thead>`, `<tbody>`, `<th>`, `<tr>`, and `<td>`. Headers carry a subtle bottom border, and numeric columns align on `tabular-nums` so digits stack predictably.
 
 ```html {.example}
 <table>
   <caption>
-    This
-    <code>&lt;caption&gt;</code>
-    describes the table
+    Average rainfall, in millimeters
   </caption>
   <thead>
     <tr>
-      <th>First column</th>
-      <th>Second column</th>
-      <th>Third column</th>
-      <th>Final column</th>
+      <th>City</th>
+      <th>Spring</th>
+      <th>Summer</th>
+      <th>Autumn</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>Data</td>
-      <td>Data</td>
-      <td>Data</td>
-      <td>Data</td>
+      <td>Lisbon</td>
+      <td>119</td>
+      <td>14</td>
+      <td>97</td>
     </tr>
     <tr>
-      <td>Data</td>
-      <td>Data</td>
-      <td>Data</td>
-      <td>Data</td>
+      <td>Reykjavík</td>
+      <td>148</td>
+      <td>156</td>
+      <td>219</td>
     </tr>
     <tr>
-      <td>Data</td>
-      <td>Data</td>
-      <td>Data</td>
-      <td>Data</td>
-    </tr>
-    <tr>
-      <td>Data</td>
-      <td>Data</td>
-      <td>Data</td>
-      <td>Data</td>
+      <td>Kyoto</td>
+      <td>362</td>
+      <td>508</td>
+      <td>327</td>
     </tr>
   </tbody>
 </table>
