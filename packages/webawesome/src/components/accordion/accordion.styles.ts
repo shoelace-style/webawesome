@@ -30,5 +30,4 @@ export default css`
       border-radius: 0;
     }
   }
-
 `;
