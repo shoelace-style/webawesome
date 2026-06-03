@@ -8,6 +8,7 @@ import { animate, parseDuration } from '../../internal/animate.js';
 import { waitForEvent } from '../../internal/event.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
+import { LocalizeController } from '../../utilities/localize.js';
 import '../icon/icon.js';
 import styles from './accordion-item.styles.js';
 
@@ -47,6 +48,8 @@ export default class WaAccordionItem extends WebAwesomeElement {
 
   @query('.body') private body: HTMLElement;
   @query('[part~="button"]') private triggerButton: HTMLButtonElement;
+
+  private readonly localize = new LocalizeController(this);
 
   @state() private isAnimating = false;
 
@@ -174,6 +177,8 @@ export default class WaAccordionItem extends WebAwesomeElement {
   }
 
   render() {
+    const isRtl = !this.hasUpdated ? this.dir === 'rtl' : this.localize.dir() === 'rtl';
+
     const button = html`
       <button
         part="button"
@@ -189,7 +194,7 @@ export default class WaAccordionItem extends WebAwesomeElement {
         <slot name="label" part="label">${this.label}</slot>
         <span part="icon">
           <slot name="icon">
-            <wa-icon library="system" variant="solid" name="chevron-right"></wa-icon>
+            <wa-icon library="system" variant="solid" name=${isRtl ? 'chevron-left' : 'chevron-right'}></wa-icon>
           </slot>
         </span>
       </button>

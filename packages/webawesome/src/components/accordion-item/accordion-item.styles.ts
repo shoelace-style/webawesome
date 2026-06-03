@@ -94,13 +94,13 @@ export default css`
       transition: rotate var(--hide-duration) var(--easing);
     }
 
-    :host(:dir(rtl)) [part~='icon'] {
-      rotate: 180deg;
-    }
-
     :host([expanded]) [part~='icon'] {
       rotate: 90deg;
       transition-duration: var(--show-duration);
+    }
+
+    :host([expanded]:dir(rtl)) [part~='icon'] {
+      rotate: -90deg;
     }
 
     .body {
