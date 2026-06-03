@@ -21,6 +21,8 @@ Web Awesome's [native styles](/docs/utilities/native/) give every block-level el
 
 Wrap a block of content in `wa-prose` to switch on a richer rhythm: generous space above headings, tighter space below, more breathing room around major non-text blocks, and a true section divider for `<hr>`. Spacing is em-based and scales with `wa-font-size-*` utilities.
 
+`wa-prose` layers on top of [native styles](/docs/utilities/native/) — native sets how each element looks (color, font, borders, marker treatment); prose adjusts rhythm, type scale, and the reading column.
+
 ## Using prose
 
 Wrap your long-form content in any block element with the `wa-prose` class.
@@ -65,7 +67,7 @@ Each heading level gets generous space above and tight space below, so the eye r
 
 ### Lists
 
-Lists get a small breath between multi-line items and quiet `::marker` colors so bullets and numbers don't compete with the prose. Definition lists bold the term so each pair reads as a unit.
+Lists get a small breath between multi-line items so neighboring lines stay distinct. Quiet markers and bold `<dt>` terms come from [native styles](/docs/utilities/native/) — prose just adds the rhythm.
 
 ```html {.example}
 <article class="wa-prose">
@@ -184,9 +186,9 @@ develop in HC-110, dilution B</code></pre>
 
 A few quieter refinements come along with the rhythm:
 
-- **Oldstyle proportional figures** in running text; tables stay `tabular-nums` so numeric columns still align.
+- **Oldstyle proportional figures** in running text; tables keep their native `tabular-nums` so numeric columns still align.
 - **Hanging punctuation** pulls opening quotes, em-dashes, and trailing stops into the margin (Safari today; progressive enhancement elsewhere).
-- **Quiet list markers** so bullets and numbers don't compete with the prose they label.
+- **Quiet list markers** (inherited from native) keep bullets and numbers from competing with the prose they label.
 - **Long-word breaks** on `<code>` and `<pre>` so URLs and identifiers can't overflow the column.
 
 ## Composing with font-size utilities
