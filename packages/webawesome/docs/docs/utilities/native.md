@@ -164,7 +164,7 @@ Create paragraphs with `<p>`. Paragraphs inherit the default text styles set on 
 
 ### Blockquotes
 
-Emphasize longer quotations with `<blockquote>`. Block quotes use your theme's serif font family, a quiet color, and a leading border. Sizing is em-based so they scale with surrounding text.
+Emphasize longer quotations with `<blockquote>`. Block quotes use your theme's serif font family, a quiet color, a leading border, and a larger font size that scales with surrounding text.
 
 ```html {.example}
 <blockquote>
@@ -176,7 +176,7 @@ Emphasize longer quotations with `<blockquote>`. Block quotes use your theme's s
 
 ### Lists
 
-Create ordered and unordered lists with `<ol>` and `<ul>`, plus `<li>` for list items within. Markers use `currentColor` at reduced opacity so they sit quietly next to text; `<ol>` markers keep more contrast since numerals read as text.
+Create ordered and unordered lists with `<ol>` and `<ul>`, plus `<li>` for list items within. Markers use `currentColor` at reduced opacity so they sit quietly next to text.
 
 ```html {.example}
 <div class="wa-grid">
