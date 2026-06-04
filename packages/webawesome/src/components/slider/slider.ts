@@ -3,6 +3,7 @@ import { html } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
+import { activeElements } from '../../internal/active-elements.js';
 import { DraggableElement } from '../../internal/drag.js';
 import { clamp } from '../../internal/math.js';
 import { warnDeprecatedSize } from '../../internal/size.js';
@@ -17,7 +18,6 @@ import { LocalizeController } from '../../utilities/localize.js';
 import '../tooltip/tooltip.js';
 import type WaTooltip from '../tooltip/tooltip.js';
 import styles from './slider.styles.js';
-import { activeElements } from '../../internal/active-elements.js';
 
 /**
  * <wa-slider>
@@ -732,10 +732,10 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
       formData.append(this.name || '', String(this.minValue));
       formData.append(this.name || '', String(this.maxValue));
       this.setValue(formData, formData);
-      return
+      return;
     }
 
-    super.updateFormValue(value)
+    super.updateFormValue(value);
   }
 
   /** Sets focus to the slider. */
@@ -754,10 +754,10 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
       for (const activeElement of activeElements()) {
         if (activeElement === this.thumbMin) {
           this.thumbMin.blur();
-          break
+          break;
         } else if (activeElement === this.thumbMax) {
           this.thumbMax.blur();
-          break
+          break;
         }
       }
     } else {
