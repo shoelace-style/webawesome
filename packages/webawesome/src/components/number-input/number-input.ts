@@ -172,13 +172,13 @@ export default class WaNumberInput extends WebAwesomeFormAssociatedElement {
   /**
    * @internal
    */
-  protected updateFormValue (value: unknown) {
+  protected updateFormValue(value: unknown) {
     if (value == null) {
-      this.setValue("", null)
-      return
+      this.setValue('', null);
+      return;
     }
 
-    super.updateFormValue(value)
+    super.updateFormValue(value);
   }
 
   /** Returns true if the value is at or below the minimum. */

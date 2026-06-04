@@ -109,12 +109,12 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
   /**
    * @internal
    */
-  protected updateFormValue (value: string | FormData | File | null) {
+  protected updateFormValue(value: string | FormData | File | null) {
     if (value == null) {
       // null is the fallback value when loading from browser "memory" (also called "state").
       // we use an empty string to mimic browser behavior of `<input>`
-      this.setValue("", null)
-      return
+      this.setValue('', null);
+      return;
     }
 
     super.updateFormValue(value);

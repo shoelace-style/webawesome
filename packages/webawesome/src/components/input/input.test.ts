@@ -291,7 +291,7 @@ describe('<wa-input>', () => {
           const form = await fixture<HTMLFormElement>(html`<form><wa-input name="a"></wa-input></form>`);
           const formData = new FormData(form);
           expect(formData.get('a')).to.equal('');
-        })
+        });
 
         it('should serialize its name and value with JSON', async () => {
           const form = await fixture<HTMLFormElement>(html`<form><wa-input name="a" value="1"></wa-input></form>`);

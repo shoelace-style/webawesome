@@ -158,7 +158,7 @@ export class WebAwesomeFormAssociatedElement
       // @ts-expect-error Some components will use an accessors, other use a property, so we don't want to limit them.
       const value = this.value as unknown;
 
-      this.updateFormValue(value)
+      this.updateFormValue(value);
     }
 
     if (changedProperties.has('disabled')) {
@@ -173,11 +173,10 @@ export class WebAwesomeFormAssociatedElement
     this.updateValidity();
   }
 
-
   /**
    * @internal
    */
-  protected updateFormValue (value: unknown) {
+  protected updateFormValue(value: unknown) {
     // Accounts for the snowflake case on `<wa-select>`
     if (Array.isArray(value)) {
       if (this.name) {
