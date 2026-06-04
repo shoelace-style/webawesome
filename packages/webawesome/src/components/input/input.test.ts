@@ -287,6 +287,12 @@ describe('<wa-input>', () => {
           expect(formData.get('a')).to.equal('1');
         });
 
+        it('should store on formData as an empty string', async () => {
+          const form = await fixture<HTMLFormElement>(html`<form><wa-input name="a"></wa-input></form>`);
+          const formData = new FormData(form);
+          expect(formData.get('a')).to.equal('');
+        });
+
         it('should serialize its name and value with JSON', async () => {
           const form = await fixture<HTMLFormElement>(html`<form><wa-input name="a" value="1"></wa-input></form>`);
           const json = serialize(form) as { a: '1' };
