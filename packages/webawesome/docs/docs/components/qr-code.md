@@ -14,10 +14,37 @@ use-cases:
 QR codes are useful for providing small pieces of information to users who can quickly scan them with a smartphone. Most smartphones have built-in QR code scanners, so simply pointing the camera at a QR code will decode it and allow the user to visit a website, dial a phone number, read a message, etc.
 
 ```html {.example}
-<wa-qr-code
-  value="https://webawesome.com/"
-  label="Scan this code to visit Web Awesome on the web!"
-></wa-qr-code>
+<div class="qr-overview">
+  <wa-qr-code value="https://webawesome.com/" label="Scan this code to visit Web Awesome on the web!"></wa-qr-code>
+  <br />
+
+  <wa-input maxlength="255" with-clear label="Value">
+    <wa-icon slot="start" name="link"></wa-icon>
+  </wa-input>
+</div>
+
+<script>
+  const container = document.querySelector('.qr-overview');
+  const qrCode = container.querySelector('wa-qr-code');
+  const input = container.querySelector('wa-input');
+
+  customElements.whenDefined('wa-qr-code').then(() => {
+    qrCode.updateComplete.then(() => {
+      input.value = qrCode.value;
+      input.addEventListener('input', () => (qrCode.value = input.value));
+    })
+  });
+</script>
+
+<style>
+  .qr-overview {
+    max-width: 256px;
+  }
+
+  .qr-overview wa-input {
+    margin-top: 1rem;
+  }
+</style>
 ```
 
 ## Examples
