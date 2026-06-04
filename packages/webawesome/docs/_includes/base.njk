@@ -93,7 +93,7 @@
      # `hasFlushMain: true` in their front matter — <main> then
      # renders without .content-container so the page can handle
      # its own layout (used by full-bleed marketing pages, etc.). #}
-    <main id="content"{% if not hasFlushMain %} class="content-container"{% endif %}>
+    <main id="content"{% if not hasFlushMain %} class="content-container{% if proseContent %} wa-prose{% endif %}"{% endif %}>
       {# Expandable outline #}
       {% if hasOutline %}
       <nav id="outline-expandable">
