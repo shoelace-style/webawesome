@@ -274,6 +274,17 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
     }
   }
 
+  /**
+   * @internal
+   */
+  protected updateFormValue (value: unknown) {
+    if (value == null) {
+      this.setValue("", null)
+      return
+    }
+    super.updateFormValue(value)
+  }
+
   private handleCopy() {
     this.input.select();
     document.execCommand('copy');

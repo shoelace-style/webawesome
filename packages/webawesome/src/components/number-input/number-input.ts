@@ -169,6 +169,18 @@ export default class WaNumberInput extends WebAwesomeFormAssociatedElement {
    */
   @property({ attribute: 'with-hint', type: Boolean }) withHint = false;
 
+  /**
+   * @internal
+   */
+  protected updateFormValue (value: unknown) {
+    if (value == null) {
+      this.setValue("", null)
+      return
+    }
+
+    super.updateFormValue(value)
+  }
+
   /** Returns true if the value is at or below the minimum. */
   private get isAtMin(): boolean {
     if (this.min === undefined) return false;

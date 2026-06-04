@@ -106,6 +106,20 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
     this._value = val;
   }
 
+  /**
+   * @internal
+   */
+  protected updateFormValue (value: string | FormData | File | null) {
+    if (value == null) {
+      // null is the fallback value when loading from browser "memory" (also called "state").
+      // we use an empty string to mimic browser behavior of `<input>`
+      this.setValue("", null)
+      return
+    }
+
+    super.updateFormValue(value);
+  }
+
   /** The default value of the form control. Primarily used for resetting the form control. */
   @property({ attribute: 'value', reflect: true }) defaultValue: string | null = this.getAttribute('value') || null;
 

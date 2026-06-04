@@ -158,18 +158,7 @@ export class WebAwesomeFormAssociatedElement
       // @ts-expect-error Some components will use an accessors, other use a property, so we don't want to limit them.
       const value = this.value as unknown;
 
-      // Accounts for the snowflake case on `<wa-select>`
-      if (Array.isArray(value)) {
-        if (this.name) {
-          const formData = new FormData();
-          for (const val of value) {
-            formData.append(this.name, val as string);
-          }
-          this.setValue(formData, formData);
-        }
-      } else {
-        this.setValue(value as FormData | string | File | null, value as FormData | string | File | null);
-      }
+      this.updateFormValue(value)
     }
 
     if (changedProperties.has('disabled')) {
@@ -182,6 +171,25 @@ export class WebAwesomeFormAssociatedElement
 
     super.willUpdate(changedProperties);
     this.updateValidity();
+  }
+
+
+  /**
+   * @internal
+   */
+  protected updateFormValue (value: unknown) {
+    // Accounts for the snowflake case on `<wa-select>`
+    if (Array.isArray(value)) {
+      if (this.name) {
+        const formData = new FormData();
+        for (const val of value) {
+          formData.append(this.name, val as string);
+        }
+        this.setValue(formData, formData);
+      }
+    } else {
+      this.setValue(value as FormData | string | File | null, value as FormData | string | File | null);
+    }
   }
 
   private handleInteraction = (event: Event) => {
