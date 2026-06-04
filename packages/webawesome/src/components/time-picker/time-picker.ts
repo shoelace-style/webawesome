@@ -896,7 +896,9 @@ export default class WaTimePicker extends WebAwesomeFormAssociatedElement {
       event.preventDefault();
       const items = this.columnItemsFor(field);
       if (items.length === 0) return;
-      this.segments = { ...this.segments, [field]: items.at(-1)!.value } as TimeSegments;
+
+      const lastItem = items[items.length - 1]
+      this.segments = { ...this.segments, [field]: lastItem.value } as TimeSegments;
       this.recomputeValue();
       this.requestUpdate();
       return;
