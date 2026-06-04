@@ -18,7 +18,7 @@ const translation: Translation = {
   createOption: value => `Criar "${value}"`,
   close: 'Fechar',
   closeCalendar: 'Fechar calendário',
-  closeTimePicker: 'Fechar seletor de hora',
+  closeTimeInput: 'Fechar seletor de hora',
   copied: 'Copiado',
   copy: 'Copiar',
   currentValue: 'Valor atual',
@@ -102,7 +102,7 @@ const translation: Translation = {
   slideNum: slide => `Slide ${slide}`,
   startDate: 'Data de início',
   time: 'Hora',
-  timePickerKeyboardHelp:
+  timeInputKeyboardHelp:
     'Use as teclas de seta para alterar os valores; pressione Alt+Seta para baixo para abrir o seletor de hora.',
   today: 'Hoje',
   toggleColorFormat: 'Trocar o formato de cor',

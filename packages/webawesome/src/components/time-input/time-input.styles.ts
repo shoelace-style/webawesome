@@ -13,7 +13,7 @@ export default css`
   }
 
   /* Popup */
-  .time-picker-popup {
+  .time-input-popup {
     flex: 1 1 auto;
     display: inline-flex;
     width: 100%;
@@ -307,15 +307,15 @@ export default css`
   }
 
   /* Animations */
-  .time-picker-popup::part(popup).show {
-    animation: wa-time-picker-show var(--show-duration) ease;
+  .time-input-popup::part(popup).show {
+    animation: wa-time-input-show var(--show-duration) ease;
   }
 
-  .time-picker-popup::part(popup).hide {
-    animation: wa-time-picker-hide var(--hide-duration) ease;
+  .time-input-popup::part(popup).hide {
+    animation: wa-time-input-hide var(--hide-duration) ease;
   }
 
-  @keyframes wa-time-picker-show {
+  @keyframes wa-time-input-show {
     from {
       opacity: 0;
       transform: scale(0.97);
@@ -326,7 +326,7 @@ export default css`
     }
   }
 
-  @keyframes wa-time-picker-hide {
+  @keyframes wa-time-input-hide {
     from {
       opacity: 1;
       transform: scale(1);

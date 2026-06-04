@@ -1,6 +1,6 @@
 /**
  * `SegmentedFieldController` — a reactive controller that wires the **keystroke and focus mechanics** for a segmented
- * input. It is the generic skeleton used by `<wa-date-input>` and `<wa-time-picker>`, and is intentionally agnostic
+ * input. It is the generic skeleton used by `<wa-date-input>` and `<wa-time-input>`, and is intentionally agnostic
  * about what the segments represent.
  *
  * What it owns:

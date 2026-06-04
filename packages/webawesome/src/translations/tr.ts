@@ -18,7 +18,7 @@ const translation: Translation = {
   createOption: value => `"${value}" oluştur`,
   close: 'Kapat',
   closeCalendar: 'Takvimi kapat',
-  closeTimePicker: 'Saat seçiciyi kapat',
+  closeTimeInput: 'Saat seçiciyi kapat',
   copied: 'Kopyalandı',
   copy: 'Kopya',
   currentValue: 'Mevcut değer',
@@ -102,7 +102,7 @@ const translation: Translation = {
   slideNum: slide => `Slayt ${slide}`,
   startDate: 'Başlangıç tarihi',
   time: 'Saat',
-  timePickerKeyboardHelp:
+  timeInputKeyboardHelp:
     'Değerleri değiştirmek için ok tuşlarını kullanın; saat seçiciyi açmak için Alt+Aşağı Ok tuşuna basın.',
   today: 'Bugün',
   toggleColorFormat: 'Renk biçimini değiştir',

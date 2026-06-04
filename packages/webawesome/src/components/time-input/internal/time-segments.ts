@@ -1,9 +1,9 @@
 /**
- * Pure, DOM-free model for the **segmented** time input of `<wa-time-picker>`. Plays the same role for time-picker as
+ * Pure, DOM-free model for the **segmented** time input of `<wa-time-input>`. Plays the same role for time-input as
  * `date-input/internal/segments.ts` does for date-input — only this one is wired to the generic
  * `SegmentedFieldController` via the `timeSegmentRules()` factory below.
  *
- * A `<wa-time-picker>` renders hour, minute, optional seconds, and optional AM/PM as discrete spinbutton segments in
+ * A `<wa-time-input>` renders hour, minute, optional seconds, and optional AM/PM as discrete spinbutton segments in
  * the user's locale order, separated by inert literal text (`:`, NBSPs, locale-specific glyphs). Each segment is edited
  * independently: digits fill the focused segment with auto-advance, Arrow Up/Down step within bounds, and AM/PM toggles
  * via `a`/`p` keys or arrow stepping.
