@@ -18,7 +18,7 @@ const translation: Translation = {
   createOption: value => `Stvori "${value}"`,
   close: 'Zatvori',
   closeCalendar: 'Zatvori kalendar',
-  closeTimePicker: 'Zatvori birač vremena',
+  closeTimeInput: 'Zatvori birač vremena',
   copied: 'Kopirano',
   copy: 'Kopiraj',
   currentValue: 'Trenutna vrijednost',
@@ -113,7 +113,7 @@ const translation: Translation = {
   slideNum: slide => `Slajd ${slide}`,
   startDate: 'Datum početka',
   time: 'Vrijeme',
-  timePickerKeyboardHelp:
+  timeInputKeyboardHelp:
     'Strelicama mijenjajte vrijednosti; pritisnite Alt+Strelica dolje za otvaranje birača vremena.',
   today: 'Danas',
   toggleColorFormat: 'Zamijeni format boje',

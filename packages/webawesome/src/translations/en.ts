@@ -104,7 +104,7 @@ const translation: Translation = {
   zoomOut: 'Zoom out',
   am: 'AM',
   chooseTime: 'Choose time',
-  closeTimePicker: 'Close time picker',
+  closeTimeInput: 'Close time picker',
   dayPeriod: 'AM/PM',
   hour: 'Hour',
   minute: 'Minute',
@@ -112,7 +112,7 @@ const translation: Translation = {
   pm: 'PM',
   second: 'Second',
   time: 'Time',
-  timePickerKeyboardHelp: 'Use arrow keys to change values; press Alt+Down Arrow to open the time picker.',
+  timeInputKeyboardHelp: 'Use arrow keys to change values; press Alt+Down Arrow to open the time picker.',
 };
 
 registerTranslation(translation);

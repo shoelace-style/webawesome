@@ -23,7 +23,7 @@ These are still finding their shape. APIs can change between minor versions, so 
 - Added the `<wa-date-input>` experimental pro component
 - Added the `<wa-date-picker>` experimental pro component
 - Added the `<wa-known-date>` experimental component
-- Added the `<wa-time-picker>` experimental component
+- Added the `<wa-time-input>` experimental component
 - Added the `capture` attribute to `<wa-file-input>` for capturing media directly from a device's camera or microphone [discuss:2380]
 - Added the `wa-text-uppercase` text utility class for transforming text to uppercase
 - Added the `wa-text-lowercase` text utility class for transforming text to lowercase

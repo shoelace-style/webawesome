@@ -18,7 +18,7 @@ const translation: Translation = {
   createOption: value => `Buat "${value}"`,
   close: 'Tutup',
   closeCalendar: 'Tutup kalender',
-  closeTimePicker: 'Tutup pemilih waktu',
+  closeTimeInput: 'Tutup pemilih waktu',
   copied: 'Disalin',
   copy: 'Salin',
   currentValue: 'Nilai saat ini',
@@ -101,7 +101,7 @@ const translation: Translation = {
   slideNum: slide => `Slide ${slide}`,
   startDate: 'Tanggal mulai',
   time: 'Waktu',
-  timePickerKeyboardHelp:
+  timeInputKeyboardHelp:
     'Gunakan tombol panah untuk mengubah nilai; tekan Alt+Panah Bawah untuk membuka pemilih waktu.',
   today: 'Hari ini',
   toggleColorFormat: 'Beralih format warna',

@@ -368,7 +368,7 @@ Form controls should support submission and validation through the following con
 
 ### Pickers
 
-Pickers are form controls that pair a **segmented input** with a **popup** for visual selection — `<wa-date-input>` and `<wa-time-picker>` are the canonical examples. When building a new picker, follow these conventions so it composes cleanly with the rest of the library.
+Pickers are form controls that pair a **segmented input** with a **popup** for visual selection — `<wa-date-input>` and `<wa-time-input>` are the canonical examples. When building a new picker, follow these conventions so it composes cleanly with the rest of the library.
 
 - **Segmented input.** Each editable field is a `role="spinbutton"` rendered as inline text with `font-variant-numeric: tabular-nums`. Use the shared `SegmentedFieldController` (`src/internal/segmented-field/`) for buffer management, roving tabindex, arrow navigation, Home/End, Tab flush, Backspace/Delete, and separator advance. Pass field-specific rules (digit semantics, stepping, bounds) in via the controller's options — don't fork the keyboard handling.
 - **Popup.** The popup is rendered with `<wa-popup>` and follows the same `wa-show` / `wa-after-show` / `wa-hide` / `wa-after-hide` lifecycle as other overlays. It must register with the [dismissible stack](#dismissible-overlays) and open on pointerdown into the input wrapper (but not on Tab focus, which would interfere with tab order). `Alt+ArrowDown` opens the popup and moves focus into it; `Alt+ArrowUp` closes; `Escape` closes when topmost.
