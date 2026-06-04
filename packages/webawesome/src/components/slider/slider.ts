@@ -3,6 +3,7 @@ import { html, isServer } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
+import { activeElements } from '../../internal/active-elements.js';
 import { DraggableElement } from '../../internal/drag.js';
 import { clamp } from '../../internal/math.js';
 import { warnDeprecatedSize } from '../../internal/size.js';
@@ -721,14 +722,20 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
   }
 
   /** Updates the form value submission for range sliders */
-  private updateFormValue() {
+  /**
+   * @internal
+   */
+  protected updateFormValue(value?: unknown) {
     if (this.isRange) {
       // Submit both values using FormData for range sliders
       const formData = new FormData();
       formData.append(this.name || '', String(this.minValue));
       formData.append(this.name || '', String(this.maxValue));
-      this.setValue(formData);
+      this.setValue(formData, formData);
+      return;
     }
+
+    super.updateFormValue(value);
   }
 
   /** Sets focus to the slider. */
@@ -743,10 +750,15 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
   /** Removes focus from the slider. */
   public blur() {
     if (this.isRange) {
-      if (document.activeElement === this.thumbMin) {
-        this.thumbMin.blur();
-      } else if (document.activeElement === this.thumbMax) {
-        this.thumbMax.blur();
+      // Support range in shadow roots
+      for (const activeElement of activeElements()) {
+        if (activeElement === this.thumbMin) {
+          this.thumbMin.blur();
+          break;
+        } else if (activeElement === this.thumbMax) {
+          this.thumbMax.blur();
+          break;
+        }
       }
     } else {
       this.slider.blur();

@@ -19,7 +19,7 @@ function camelToKebab(str: string) {
 }
 
 export default class WebAwesomeElement extends LitElement {
-  /** One or more CSSResultGroup to include in the component's shadow root. Host styles are automatically prepended. */
+  // One or more CSSResultGroup to include in the component's shadow root. Host styles are automatically prepended.
   static css?: CSSResultGroup;
 
   /** Prepends host styles to the component's styles. */

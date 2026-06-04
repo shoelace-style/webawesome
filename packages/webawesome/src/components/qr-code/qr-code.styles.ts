@@ -14,4 +14,9 @@ export default css`
     /* We force a near-instant transition so we can listen for transitionend when the color changes */
     transition: color 1ms;
   }
+
+  span {
+    /* We force a near-instant transition so we can listen for transitionend when the color changes */
+    transition: color 1ms;
+  }
 `;

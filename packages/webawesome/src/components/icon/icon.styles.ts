@@ -30,6 +30,7 @@ export default css`
   }
 
   svg {
+    fill: currentColor;
     height: 1em;
     overflow: visible;
     width: auto;
