@@ -77,6 +77,7 @@ const translation: Translation = {
   previousVideo: 'ویدیوی قبلی',
   previousYear: 'سال قبل',
   progress: 'پیشرفت',
+  readonly: 'فقط‌خواندنی',
   rangeTooLong: max => {
     if (max === 1) return 'بازه‌ای بیشتر از 1 روز انتخاب نکنید';
     return `بازه‌ای بیشتر از ${max} روز انتخاب نکنید`;
@@ -92,6 +93,10 @@ const translation: Translation = {
   scrollToStart: 'اسکرول به ابتدا',
   second: 'ثانیه',
   selectAColorFromTheScreen: 'انتخاب یک رنگ از صفحه نمایش',
+  selected: 'انتخاب‌شده',
+  selectedDateLabel: date => `انتخاب‌شده: ${date}`,
+  selectedRangeLabel: range => `بازه انتخاب‌شده: ${range}`,
+  selectionCleared: 'انتخاب پاک شد',
   showPassword: 'نمایش رمز',
   slideNum: slide => `اسلاید ${slide}`,
   startDate: 'تاریخ شروع',

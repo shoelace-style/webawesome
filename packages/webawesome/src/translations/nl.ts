@@ -86,6 +86,7 @@ const translation: Translation = {
     if (min === 1) return 'Selecteer een bereik van minimaal 1 dag';
     return `Selecteer een bereik van minimaal ${min} dagen`;
   },
+  readonly: 'Alleen-lezen',
   remove: 'Verwijderen',
   resize: 'Formaat wijzigen',
   scrollableRegion: 'Scrollbaar gebied',
@@ -93,6 +94,10 @@ const translation: Translation = {
   scrollToEnd: 'Scroll naar einde',
   scrollToStart: 'Scroll naar begin',
   selectAColorFromTheScreen: 'Selecteer een kleur van het scherm',
+  selected: 'Geselecteerd',
+  selectedDateLabel: date => `Geselecteerd: ${date}`,
+  selectedRangeLabel: range => `Geselecteerd bereik: ${range}`,
+  selectionCleared: 'Selectie gewist',
   showPassword: 'Laat wachtwoord zien',
   slideNum: slide => `Schuif ${slide}`,
   startDate: 'Begindatum',

@@ -85,6 +85,7 @@ const translation: Translation = {
     if (min === 1) return 'Vel eit tidsrom på minst 1 dag';
     return `Vel eit tidsrom på minst ${min} dagar`;
   },
+  readonly: 'Skriveverna',
   remove: 'Fjern',
   resize: 'Endre storleik',
   scrollableRegion: 'Rullbar region',
@@ -92,6 +93,10 @@ const translation: Translation = {
   scrollToStart: 'Rull til starten',
   second: 'Sekund',
   selectAColorFromTheScreen: 'Vel ein farge frå skjermen',
+  selected: 'Vald',
+  selectedDateLabel: date => `Vald: ${date}`,
+  selectedRangeLabel: range => `Valt tidsrom: ${range}`,
+  selectionCleared: 'Val fjerna',
   showPassword: 'Vis passord',
   slideNum: slide => `Visning ${slide}`,
   startDate: 'Startdato',

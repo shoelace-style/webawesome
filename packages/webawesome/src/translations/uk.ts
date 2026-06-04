@@ -101,6 +101,7 @@ const translation: Translation = {
       return `Виберіть діапазон завдовжки щонайменше ${min} дні`;
     return `Виберіть діапазон завдовжки щонайменше ${min} днів`;
   },
+  readonly: 'Лише для читання',
   remove: 'Видалити',
   resize: 'Змінити розмір',
   scrollableRegion: 'Область з можливістю прокрутки',
@@ -108,6 +109,10 @@ const translation: Translation = {
   scrollToStart: 'Прокрутити на початок',
   second: 'Секунда',
   selectAColorFromTheScreen: 'Виберіть колір на екрані',
+  selected: 'Вибрано',
+  selectedDateLabel: date => `Вибрано: ${date}`,
+  selectedRangeLabel: range => `Вибраний діапазон: ${range}`,
+  selectionCleared: 'Вибір очищено',
   showPassword: 'Показати пароль',
   slideNum: slide => `Слайд ${slide}`,
   startDate: 'Дата початку',

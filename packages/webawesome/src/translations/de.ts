@@ -86,6 +86,7 @@ const translation: Translation = {
     if (min === 1) return 'Wählen Sie einen Zeitraum von mindestens 1 Tag';
     return `Wählen Sie einen Zeitraum von mindestens ${min} Tagen`;
   },
+  readonly: 'Schreibgeschützt',
   remove: 'Entfernen',
   resize: 'Größe ändern',
   scrollableRegion: 'Scrollbarer Bereich',
@@ -93,6 +94,10 @@ const translation: Translation = {
   scrollToStart: 'Zum Anfang scrollen',
   second: 'Sekunde',
   selectAColorFromTheScreen: 'Farbe vom Bildschirm auswählen',
+  selected: 'Ausgewählt',
+  selectedDateLabel: date => `Ausgewählt: ${date}`,
+  selectedRangeLabel: range => `Ausgewählter Zeitraum: ${range}`,
+  selectionCleared: 'Auswahl aufgehoben',
   showPassword: 'Passwort anzeigen',
   slideNum: slide => `Folie ${slide}`,
   startDate: 'Startdatum',

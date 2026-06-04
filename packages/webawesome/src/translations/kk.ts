@@ -87,6 +87,7 @@ const translation: Translation = {
     if (min === 1) return 'Кемінде 1 күн ұзақтықтағы аралықты таңдаңыз';
     return `Кемінде ${min} күн ұзақтықтағы аралықты таңдаңыз`;
   },
+  readonly: 'Тек оқуға арналған',
   remove: 'Жою',
   resize: 'Өлшемін өзгерту',
   scrollableRegion: 'Көтеру/түсіруге болатын аймақ (скролл)',
@@ -94,6 +95,10 @@ const translation: Translation = {
   scrollToStart: 'Басына көтеру',
   second: 'Секунд',
   selectAColorFromTheScreen: 'Экраннан түсті таңдаңыз',
+  selected: 'Таңдалды',
+  selectedDateLabel: date => `Таңдалды: ${date}`,
+  selectedRangeLabel: range => `Таңдалған аралық: ${range}`,
+  selectionCleared: 'Таңдау тазартылды',
   showPassword: 'Құпиясөзді көрсету',
   slideNum: slide => `${slide}-слайд`,
   startDate: 'Басталу күні',

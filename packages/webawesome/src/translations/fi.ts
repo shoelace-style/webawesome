@@ -85,6 +85,7 @@ const translation: Translation = {
     if (min === 1) return 'Valitse vähintään 1 päivän pituinen ajanjakso';
     return `Valitse vähintään ${min} päivän pituinen ajanjakso`;
   },
+  readonly: 'Vain luku',
   remove: 'Poista',
   resize: 'Muuta kokoa',
   scrollableRegion: 'Vieritettävä alue',
@@ -92,6 +93,10 @@ const translation: Translation = {
   scrollToStart: 'Vieritä alkuun',
   second: 'Sekunti',
   selectAColorFromTheScreen: 'Valitse väri näytöltä',
+  selected: 'Valittu',
+  selectedDateLabel: date => `Valittu: ${date}`,
+  selectedRangeLabel: range => `Valittu aikaväli: ${range}`,
+  selectionCleared: 'Valinta tyhjennetty',
   showPassword: 'Näytä salasana',
   slideNum: slide => `Dia ${slide}`,
   startDate: 'Alkamispäivä',

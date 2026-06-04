@@ -78,6 +78,7 @@ const translation: Translation = {
   previousVideo: 'Önceki video',
   previousYear: 'Önceki yıl',
   progress: 'İlerleme',
+  readonly: 'Salt okunur',
   rangeTooLong: max => {
     if (max === 1) return '1 günden uzun olmayan bir aralık seçin';
     return `${max} günden uzun olmayan bir aralık seçin`;
@@ -93,6 +94,10 @@ const translation: Translation = {
   scrollToStart: 'Başa kay',
   second: 'Saniye',
   selectAColorFromTheScreen: 'Ekrandan bir renk seçin',
+  selected: 'Seçildi',
+  selectedDateLabel: date => `Seçilen: ${date}`,
+  selectedRangeLabel: range => `Seçilen aralık: ${range}`,
+  selectionCleared: 'Seçim temizlendi',
   showPassword: 'Şifreyi göster',
   slideNum: slide => `Slayt ${slide}`,
   startDate: 'Başlangıç tarihi',

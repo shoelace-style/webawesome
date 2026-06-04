@@ -85,6 +85,7 @@ const translation: Translation = {
     if (min === 1) return 'Válasszon legalább 1 napos tartományt';
     return `Válasszon legalább ${min} napos tartományt`;
   },
+  readonly: 'Csak olvasható',
   remove: 'Eltávolítás',
   resize: 'Átméretezés',
   scrollableRegion: 'Görgethető terület',
@@ -92,6 +93,10 @@ const translation: Translation = {
   scrollToStart: 'Görgessen az elejére',
   second: 'Másodperc',
   selectAColorFromTheScreen: 'Szín választása a képernyőről',
+  selected: 'Kiválasztva',
+  selectedDateLabel: date => `Kiválasztva: ${date}`,
+  selectedRangeLabel: range => `Kiválasztott tartomány: ${range}`,
+  selectionCleared: 'Kijelölés törölve',
   showPassword: 'Jelszó megjelenítése',
   slideNum: slide => `${slide}. dia`,
   startDate: 'Kezdő dátum',

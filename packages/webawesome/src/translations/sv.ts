@@ -85,6 +85,7 @@ const translation: Translation = {
     if (min === 1) return 'Välj ett intervall som är minst 1 dag långt';
     return `Välj ett intervall som är minst ${min} dagar långt`;
   },
+  readonly: 'Skrivskyddad',
   remove: 'Ta bort',
   resize: 'Ändra storlek',
   scrollableRegion: 'Scrollbart område',
@@ -92,6 +93,10 @@ const translation: Translation = {
   scrollToStart: 'Skrolla till början',
   second: 'Sekund',
   selectAColorFromTheScreen: 'Välj en färg från skärmen',
+  selected: 'Vald',
+  selectedDateLabel: date => `Valt: ${date}`,
+  selectedRangeLabel: range => `Valt intervall: ${range}`,
+  selectionCleared: 'Valet rensat',
   showPassword: 'Visa lösenord',
   slideNum: slide => `Bild ${slide}`,
   startDate: 'Startdatum',

@@ -100,6 +100,7 @@ const translation: Translation = {
     if (mod100 === 3 || mod100 === 4) return `Izberite obdobje, dolgo vsaj ${min} dni`;
     return `Izberite obdobje, dolgo vsaj ${min} dni`;
   },
+  readonly: 'Samo za branje',
   remove: 'Odstrani',
   resize: 'Spremeni velikost',
   scrollableRegion: 'Področje za drsenje',
@@ -107,6 +108,10 @@ const translation: Translation = {
   scrollToStart: 'Pomakni se na začetek',
   second: 'Sekunda',
   selectAColorFromTheScreen: 'Izberite barvo z zaslona',
+  selected: 'Izbrano',
+  selectedDateLabel: date => `Izbrano: ${date}`,
+  selectedRangeLabel: range => `Izbrano obdobje: ${range}`,
+  selectionCleared: 'Izbira počiščena',
   showPassword: 'Prikaži geslo',
   slideNum: slide => `Diapozitiv ${slide}`,
   startDate: 'Začetni datum',

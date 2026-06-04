@@ -85,6 +85,7 @@ const translation: Translation = {
     if (min === 1) return 'Velg et område som er minst 1 dag langt';
     return `Velg et område som er minst ${min} dager langt`;
   },
+  readonly: 'Skrivebeskyttet',
   remove: 'Fjern',
   resize: 'Endre størrelse',
   scrollableRegion: 'Rullbar region',
@@ -92,6 +93,10 @@ const translation: Translation = {
   scrollToStart: 'Rull til starten',
   second: 'Sekund',
   selectAColorFromTheScreen: 'Velg en farge fra skjermen',
+  selected: 'Valgt',
+  selectedDateLabel: date => `Valgt: ${date}`,
+  selectedRangeLabel: range => `Valgt område: ${range}`,
+  selectionCleared: 'Valg fjernet',
   showPassword: 'Vis passord',
   slideNum: slide => `Visning ${slide}`,
   startDate: 'Startdato',

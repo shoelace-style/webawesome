@@ -76,6 +76,7 @@ const translation: Translation = {
   previousVideo: 'पिछला वीडियो',
   previousYear: 'पिछला वर्ष',
   progress: 'प्रगति',
+  readonly: 'केवल-पढ़ने योग्य',
   rangeTooLong: max => {
     if (max === 1) return '1 दिन से अधिक लंबी श्रेणी न चुनें';
     return `${max} दिन से अधिक लंबी श्रेणी न चुनें`;
@@ -91,6 +92,10 @@ const translation: Translation = {
   scrollToStart: 'आरंभ तक स्क्रॉल करें',
   second: 'सेकंड',
   selectAColorFromTheScreen: 'स्क्रीन से एक रंग चुनें',
+  selected: 'चयनित',
+  selectedDateLabel: date => `चयनित: ${date}`,
+  selectedRangeLabel: range => `चयनित श्रेणी: ${range}`,
+  selectionCleared: 'चयन साफ़ किया गया',
   showPassword: 'पासवर्ड दिखाएं',
   slideNum: slide => `स्लाइड ${slide}`,
   startDate: 'आरंभ तिथि',

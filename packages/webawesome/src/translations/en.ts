@@ -77,6 +77,11 @@ const translation: Translation = {
     if (min === 1) return 'Select a range at least 1 day long';
     return `Select a range at least ${min} days long`;
   },
+  readonly: 'Read-only',
+  selected: 'Selected',
+  selectedDateLabel: date => `Selected: ${date}`,
+  selectedRangeLabel: range => `Selected range: ${range}`,
+  selectionCleared: 'Selection cleared',
   remove: 'Remove',
   resize: 'Resize',
   scrollableRegion: 'Scrollable region',

@@ -99,6 +99,7 @@ const translation: Translation = {
       return `Wybierz zakres o długości co najmniej ${min} dni`;
     return `Wybierz zakres o długości co najmniej ${min} dni`;
   },
+  readonly: 'Tylko do odczytu',
   remove: 'Usunąć',
   resize: 'Zmień rozmiar',
   scrollableRegion: 'Obszar przewijalny',
@@ -106,6 +107,10 @@ const translation: Translation = {
   scrollToStart: 'Przewiń do początku',
   second: 'Sekunda',
   selectAColorFromTheScreen: 'Próbkuj z ekranu',
+  selected: 'Wybrano',
+  selectedDateLabel: date => `Wybrano: ${date}`,
+  selectedRangeLabel: range => `Wybrany zakres: ${range}`,
+  selectionCleared: 'Wyczyszczono wybór',
   showPassword: 'Pokaż hasło',
   slideNum: slide => `Slajd ${slide}`,
   startDate: 'Data początkowa',

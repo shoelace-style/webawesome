@@ -78,6 +78,11 @@ export interface Translation extends DefaultTranslation {
   progress: string;
   rangeTooLong?: (max: number) => string;
   rangeTooShort?: (min: number) => string;
+  readonly?: string;
+  selected?: string;
+  selectedDateLabel?: (date: string) => string;
+  selectedRangeLabel?: (range: string) => string;
+  selectionCleared?: string;
   remove: string;
   resize: string;
   scrollableRegion: string;

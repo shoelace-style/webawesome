@@ -85,6 +85,7 @@ const translation: Translation = {
   previousVideo: 'الفيديو السابق',
   previousYear: 'السنة السابقة',
   progress: 'مقدار التقدم',
+  readonly: 'للقراءة فقط',
   rangeTooLong: max => {
     if (max === 1) return 'اختر نطاقًا لا يتجاوز يومًا واحدًا';
     if (max === 2) return 'اختر نطاقًا لا يتجاوز يومين';
@@ -104,6 +105,10 @@ const translation: Translation = {
   scrollToStart: 'الانتقال الى البداية',
   second: 'الثانية',
   selectAColorFromTheScreen: 'اختر لون من الشاشة',
+  selected: 'محدد',
+  selectedDateLabel: date => `المحدد: ${date}`,
+  selectedRangeLabel: range => `النطاق المحدد: ${range}`,
+  selectionCleared: 'تم مسح التحديد',
   showPassword: 'عرض كلمة المرور',
   slideNum: slide => `شريحة ${slide}`,
   startDate: 'تاريخ البدء',

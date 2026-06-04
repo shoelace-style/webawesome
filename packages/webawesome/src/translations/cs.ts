@@ -89,6 +89,7 @@ const translation: Translation = {
     if (min >= 2 && min <= 4) return `Vyberte rozsah dlouhý alespoň ${min} dny`;
     return `Vyberte rozsah dlouhý alespoň ${min} dnů`;
   },
+  readonly: 'Jen pro čtení',
   remove: 'Odstranit',
   resize: 'Změnit velikost',
   scrollableRegion: 'Posunovatelná oblast',
@@ -96,6 +97,10 @@ const translation: Translation = {
   scrollToStart: 'Scrollovat na začátek',
   second: 'Sekunda',
   selectAColorFromTheScreen: 'Vybrat barvu z obrazovky',
+  selected: 'Vybráno',
+  selectedDateLabel: date => `Vybráno: ${date}`,
+  selectedRangeLabel: range => `Vybraný rozsah: ${range}`,
+  selectionCleared: 'Výběr zrušen',
   showPassword: 'Zobrazit heslo',
   slideNum: slide => `Slide ${slide}`,
   startDate: 'Datum zahájení',

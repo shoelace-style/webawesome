@@ -99,6 +99,7 @@ const translation: Translation = {
       return `Выберите диапазон длиной не менее ${min} дней`;
     return `Выберите диапазон длиной не менее ${min} дней`;
   },
+  readonly: 'Только для чтения',
   remove: 'Удалить',
   resize: 'Изменить размер',
   scrollableRegion: 'Прокручиваемая область',
@@ -106,6 +107,10 @@ const translation: Translation = {
   scrollToStart: 'Пролистать к началу',
   second: 'Секунда',
   selectAColorFromTheScreen: 'Выберите цвет на экране',
+  selected: 'Выбрано',
+  selectedDateLabel: date => `Выбрано: ${date}`,
+  selectedRangeLabel: range => `Выбранный диапазон: ${range}`,
+  selectionCleared: 'Выбор очищен',
   showPassword: 'Показать пароль',
   slideNum: slide => `Слайд ${slide}`,
   startDate: 'Дата начала',

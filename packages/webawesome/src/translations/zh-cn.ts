@@ -79,6 +79,7 @@ const translation: Translation = {
     if (min === 1) return '请选择至少 1 天的范围';
     return `请选择至少 ${min} 天的范围`;
   },
+  readonly: '只读',
   remove: '删除',
   resize: '调整大小',
   scrollableRegion: '可滚动区域',
@@ -86,6 +87,10 @@ const translation: Translation = {
   scrollToStart: '滚动至页首',
   second: '秒',
   selectAColorFromTheScreen: '从屏幕中选择一种颜色',
+  selected: '已选择',
+  selectedDateLabel: date => `已选择：${date}`,
+  selectedRangeLabel: range => `已选择范围：${range}`,
+  selectionCleared: '已清除选择',
   showPassword: '显示密码',
   slideNum: slide => `幻灯片 ${slide}`,
   startDate: '开始日期',

@@ -85,6 +85,7 @@ const translation: Translation = {
     if (min === 1) return 'Pilih rentang minimal 1 hari';
     return `Pilih rentang minimal ${min} hari`;
   },
+  readonly: 'Hanya-baca',
   remove: 'Hapus',
   resize: 'Ubah ukuran',
   scrollableRegion: 'Area yang dapat digulir',
@@ -92,6 +93,10 @@ const translation: Translation = {
   scrollToStart: 'Gulir ke awal',
   second: 'Detik',
   selectAColorFromTheScreen: 'Pilih warna dari layar',
+  selected: 'Dipilih',
+  selectedDateLabel: date => `Dipilih: ${date}`,
+  selectedRangeLabel: range => `Rentang yang dipilih: ${range}`,
+  selectionCleared: 'Pilihan dihapus',
   showPassword: 'Tampilkan sandi',
   slideNum: slide => `Slide ${slide}`,
   startDate: 'Tanggal mulai',

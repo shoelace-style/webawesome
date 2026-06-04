@@ -97,6 +97,7 @@ const translation: Translation = {
     if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `Odaberite raspon dug najmanje ${min} dana`;
     return `Odaberite raspon dug najmanje ${min} dana`;
   },
+  readonly: 'Samo za čitanje',
   remove: 'Makni',
   resize: 'Promijeni veličinu',
   scrollableRegion: 'Područje s mogućnošću pomicanja',
@@ -104,6 +105,10 @@ const translation: Translation = {
   scrollToStart: 'Skrolaj na početak',
   second: 'Sekunda',
   selectAColorFromTheScreen: 'Odaberi boju sa ekrana',
+  selected: 'Odabrano',
+  selectedDateLabel: date => `Odabrano: ${date}`,
+  selectedRangeLabel: range => `Odabrani raspon: ${range}`,
+  selectionCleared: 'Odabir poništen',
   showPassword: 'Pokaži lozinku',
   slideNum: slide => `Slajd ${slide}`,
   startDate: 'Datum početka',

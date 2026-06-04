@@ -78,6 +78,7 @@ const translation: Translation = {
     if (min === 1) return '1日以上の範囲を選択してください';
     return `${min}日以上の範囲を選択してください`;
   },
+  readonly: '読み取り専用',
   remove: '削除',
   resize: 'サイズ変更',
   scrollableRegion: 'スクロール可能領域',
@@ -85,6 +86,10 @@ const translation: Translation = {
   scrollToStart: '最初にスクロールする',
   second: '秒',
   selectAColorFromTheScreen: '画面から色を選択してください',
+  selected: '選択済み',
+  selectedDateLabel: date => `選択済み：${date}`,
+  selectedRangeLabel: range => `選択済みの範囲：${range}`,
+  selectionCleared: '選択を解除しました',
   showPassword: 'パスワードを表示',
   slideNum: slide => `スライド ${slide}`,
   startDate: '開始日',

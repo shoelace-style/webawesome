@@ -77,6 +77,7 @@ const translation: Translation = {
   previousVideo: 'הסרטון הקודם',
   previousYear: 'השנה הקודמת',
   progress: 'התקדמות',
+  readonly: 'לקריאה בלבד',
   rangeTooLong: max => {
     if (max === 1) return 'בחר טווח שאינו ארוך מיום אחד';
     return `בחר טווח שאינו ארוך מ-${max} ימים`;
@@ -92,6 +93,10 @@ const translation: Translation = {
   scrollToEnd: 'גלול עד הסוף',
   scrollToStart: 'גלול להתחלה',
   selectAColorFromTheScreen: 'בחור צבע מהמסך',
+  selected: 'נבחר',
+  selectedDateLabel: date => `נבחר: ${date}`,
+  selectedRangeLabel: range => `טווח נבחר: ${range}`,
+  selectionCleared: 'הבחירה נוקתה',
   showPassword: 'הראה סיסמה',
   slideNum: slide => `שקופית ${slide}`,
   startDate: 'תאריך התחלה',
