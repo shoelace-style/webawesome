@@ -547,9 +547,7 @@ describe('<wa-time-input>', () => {
     });
 
     it('valid when required and a complete value is set', async () => {
-      const el = await fixture<WaTimeInput>(
-        html`<wa-time-input lang="en-GB" required value="09:00"></wa-time-input>`,
-      );
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB" required value="09:00"></wa-time-input>`);
       await el.updateComplete;
       expect(el.validity.valueMissing).to.equal(false);
     });
