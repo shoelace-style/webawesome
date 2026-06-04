@@ -49,7 +49,7 @@ export default class WaQrCode extends WebAwesomeElement {
 
   @property() image: string | null = null;
   @property({ attribute: 'image-background' }) imageBackground: string | null = null;
-  @property({ attribute: 'image-ec-cover', type: Number }) imageEcCover: number | null = null;
+  @property({ attribute: 'image-coverage', type: Number }) imageCoverage: number | null = null;
   @property({ attribute: 'image-padding', type: Number }) imagePadding: number | null = null;
 
   private computedStyle: ReturnType<typeof getComputedStyle> | null = null;
@@ -89,7 +89,7 @@ export default class WaQrCode extends WebAwesomeElement {
         // We draw the canvas larger and scale its container down to avoid blurring on high-density displays
         size: this.size * 2,
         image: this.image,
-        imageEcCover: this.imageEcCover,
+        imageEcCover: this.imageCoverage,
         imagePadding: this.imagePadding,
         imageBackground: this.imageBackground || this.background,
         // @ts-expect-error
