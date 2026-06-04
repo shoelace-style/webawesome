@@ -483,6 +483,10 @@ wa-scroller:has(.component-table) {
     min-inline-size: var(--line-length-xs);
   }
 
+  .table-selector {
+    white-space: nowrap;
+  }
+
   .table-selector .wa-cluster {
     flex-wrap: nowrap;
   }
