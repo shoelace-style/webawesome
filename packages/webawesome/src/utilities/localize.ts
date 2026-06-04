@@ -11,6 +11,17 @@ export class LocalizeController extends DefaultLocalizationController<Translatio
   static {
     registerTranslation(en);
   }
+
+  lang () {
+    // @ts-expect-error
+    if (this.host.didSSR && !this.host.hasUpdated)  {
+      // On the server and on first hydration we can't rely on the document language (right now)
+      // TODO: We should write a custom renderer that can understand a lang tree.
+      return this.host.lang || "en"
+    }
+
+    return super.lang()
+  }
 }
 
 // Export functions from the localize lib so we have one central place to import them from
