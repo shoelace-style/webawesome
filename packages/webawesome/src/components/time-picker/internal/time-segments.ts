@@ -1,6 +1,6 @@
 /**
  * Pure, DOM-free model for the **segmented** time input of `<wa-time-picker>`. Plays the same role for time-picker as
- * `date-picker/internal/segments.ts` does for date-picker — only this one is wired to the generic
+ * `date-input/internal/segments.ts` does for date-input — only this one is wired to the generic
  * `SegmentedFieldController` via the `timeSegmentRules()` factory below.
  *
  * A `<wa-time-picker>` renders hour, minute, optional seconds, and optional AM/PM as discrete spinbutton segments in
@@ -207,7 +207,7 @@ export function stepTimeSegment(
  * - **Hour (24-hour, 0–23):** empty + `3..9` commits + advances; empty + `0..2` buffers; buffer `0`/`1` + any digit
  *   combines to `0d`/`1d` (advance); buffer `2` + `0..3` combines to `20..23` (advance); buffer `2` + `4..9` replaces.
  *   `00` stays buffered at `0`.
- * - **Hour (12-hour, 1–12):** same algorithm as the date-picker's month (1–12).
+ * - **Hour (12-hour, 1–12):** same algorithm as the date-input's month (1–12).
  * - **Minute / Second (0–59):** empty + `6..9` commits + advances; empty + `0..5` buffers; buffer + any digit combines
  *   to `0d..59` (advance); buffer + overflow digit replaces.
  *
@@ -226,7 +226,7 @@ export function typeTimeDigit(field: TimeField, buffer: string, digit: string, h
 }
 
 /**
- * Shared digit logic for any two-digit `[min, max]` segment. Same algorithm as the date-picker's month/day rule,
+ * Shared digit logic for any two-digit `[min, max]` segment. Same algorithm as the date-input's month/day rule,
  * generalized to arbitrary bounds.
  */
 function typeNumericSegment(buffer: string, digit: string, min: number, max: number): TypeDigitResult {

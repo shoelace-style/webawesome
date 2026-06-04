@@ -11,7 +11,7 @@ use-cases:
   - pick a time from a column-roulette popup
 ---
 
-Time Picker is the time-of-day counterpart to [Date Picker](/docs/components/date-picker). It renders a segmented input with hour, minute, optional seconds, and optional AM/PM spinbutton segments in the user's locale order, alongside a popup column picker modeled on Chrome's native time UI.
+Time Picker is the time-of-day counterpart to [Date Input](/docs/components/date-input). It renders a segmented input with hour, minute, optional seconds, and optional AM/PM spinbutton segments in the user's locale order, alongside a popup column picker modeled on Chrome's native time UI.
 
 Type digits to fill the focused segment (focus auto-advances when a segment can accept no further digit), use the arrow keys to step through values, and press `Alt+Down Arrow` to open the popup. The entire segmented input is one tab stop.
 

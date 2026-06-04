@@ -19,7 +19,7 @@ Known Date collects a date the user already knows — a birthday, a passport iss
 ```
 
 :::info
-For dates the user needs help finding (scheduling, ranges, browsing), use [`<wa-date-picker>`](/docs/components/date-picker) instead. Known Date is intentionally simple: no popup calendar, no auto-advance between fields, and no clever parsing.
+For dates the user needs help finding (scheduling, ranges, browsing), use [`<wa-date-input>`](/docs/components/date-input) instead. Known Date is intentionally simple: no popup calendar, no auto-advance between fields, and no clever parsing.
 :::
 
 ## Form Submission

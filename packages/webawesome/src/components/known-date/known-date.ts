@@ -27,7 +27,7 @@ const generateId = (): string => uniqueId('wa-known-date-');
  *  dates — through three separate day, month, and year fields shown in the locale's natural order.
  * @documentation https://webawesome.com/docs/components/known-date
  * @status experimental
- * @since 3.7
+ * @since 3.8
  *
  * @slot label - The known date's group label. Alternatively, use the `label` attribute.
  * @slot hint - Text that describes how to use the known date. Alternatively, use the `hint` attribute.
@@ -53,7 +53,7 @@ const generateId = (): string => uniqueId('wa-known-date-');
  * @csspart field-year - Added to the year field block.
  * @csspart field-label - The text label above each field's input.
  * @csspart field-input - The native `<input>` inside a field.
- * @csspart error - The inline error message region. This is an intentional difference from `<wa-date-picker>`
+ * @csspart error - The inline error message region. This is an intentional difference from `<wa-date-input>`
  *  and `<wa-time-picker>`, which rely on the browser's native validation popup. Because this control is composed
  *  of three separate fields, an inline `role="alert"` region gives a single, predictable place to surface the
  *  validation message rather than anchoring a native popup on one of the three fields.
@@ -76,7 +76,7 @@ export default class WaKnownDate extends WebAwesomeFormAssociatedElement {
   }
 
   // Moving focus between the three internal fields shouldn't count as "leaving the group," so we key
-  // interaction off `input` alone — matching `<wa-date-picker>` and `<wa-time-picker>`.
+  // interaction off `input` alone — matching `<wa-date-input>` and `<wa-time-picker>`.
   assumeInteractionOn = ['input'];
 
   readonly localize = new LocalizeController(this);
@@ -310,7 +310,7 @@ export default class WaKnownDate extends WebAwesomeFormAssociatedElement {
     if (this.valueInput) {
       this.valueInput.value = this._value;
     }
-    // setValue(null) when blank — matches <wa-date-picker> so FormData omits the entry instead of
+    // setValue(null) when blank — matches <wa-date-input> so FormData omits the entry instead of
     // submitting `name=`.
     this.setValue(this._value || null);
   }

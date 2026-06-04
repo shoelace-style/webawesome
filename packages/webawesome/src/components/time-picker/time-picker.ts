@@ -53,7 +53,7 @@ const SINGLE_GROUP = 'single';
  *  picker. They support 12- and 24-hour formats, optional seconds, and locale-aware segment order.
  * @documentation https://webawesome.com/docs/components/time-picker
  * @status experimental
- * @since 3.7
+ * @since 3.8
  *
  * @dependency wa-icon
  * @dependency wa-popup

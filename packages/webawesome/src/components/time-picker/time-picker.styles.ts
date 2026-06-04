@@ -195,7 +195,7 @@ export default css`
     border-color: transparent;
   }
 
-  /* Segmented input — same patterns as wa-date-picker. */
+  /* Segmented input — same patterns as wa-date-input. */
   .segments {
     flex: 1;
     min-width: 0;
