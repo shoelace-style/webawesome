@@ -45,6 +45,7 @@ export default css`
     box-shadow: var(--wa-shadow-m);
     color: var(--wa-color-text-normal);
     font-size: inherit;
+    padding: var(--wa-space-2xs);
   }
 
   .columns {
