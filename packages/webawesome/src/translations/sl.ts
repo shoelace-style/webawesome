@@ -18,7 +18,7 @@ const translation: Translation = {
   createOption: value => `Ustvari "${value}"`,
   close: 'Zapri',
   closeCalendar: 'Zapri koledar',
-  closeTimePicker: 'Zapri izbirnik časa',
+  closeTimeInput: 'Zapri izbirnik časa',
   copied: 'Kopirano',
   copy: 'Kopiraj',
   currentValue: 'Trenutna vrednost',
@@ -116,7 +116,7 @@ const translation: Translation = {
   slideNum: slide => `Diapozitiv ${slide}`,
   startDate: 'Začetni datum',
   time: 'Čas',
-  timePickerKeyboardHelp:
+  timeInputKeyboardHelp:
     'S puščičnimi tipkami spreminjajte vrednosti; pritisnite Alt+Puščica navzdol za odpiranje izbirnika časa.',
   today: 'Danes',
   toggleColorFormat: 'Preklopi format barve',

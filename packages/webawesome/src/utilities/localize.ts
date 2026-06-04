@@ -114,10 +114,10 @@ export interface Translation extends DefaultTranslation {
   year?: string;
   zoomIn: string;
   zoomOut: string;
-  // Time picker (optional so existing locales don't need updates; falls back to English)
+  // Time input (optional so existing locales don't need updates; falls back to English)
   am?: string;
   chooseTime?: string;
-  closeTimePicker?: string;
+  closeTimeInput?: string;
   dayPeriod?: string;
   hour?: string;
   minute?: string;
@@ -125,5 +125,5 @@ export interface Translation extends DefaultTranslation {
   pm?: string;
   second?: string;
   time?: string;
-  timePickerKeyboardHelp?: string;
+  timeInputKeyboardHelp?: string;
 }

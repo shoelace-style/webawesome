@@ -4,7 +4,7 @@ import sinon from 'sinon';
 import { fixtures } from '../../internal/test/fixture.js';
 import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
 import { serialize } from '../../utilities/form.js';
-import type WaTimePicker from './time-picker.js';
+import type WaTimeInput from './time-input.js';
 
 function waitForEvent(el: EventTarget, eventName: string): Promise<void> {
   return new Promise(resolve => {
@@ -12,11 +12,11 @@ function waitForEvent(el: EventTarget, eventName: string): Promise<void> {
   });
 }
 
-function getSegments(el: WaTimePicker): HTMLElement[] {
+function getSegments(el: WaTimeInput): HTMLElement[] {
   return Array.from(el.shadowRoot!.querySelectorAll<HTMLElement>('[data-segment]'));
 }
 
-function getSegment(el: WaTimePicker, field: 'hour' | 'minute' | 'second' | 'dayPeriod'): HTMLElement {
+function getSegment(el: WaTimeInput, field: 'hour' | 'minute' | 'second' | 'dayPeriod'): HTMLElement {
   return el.shadowRoot!.querySelector<HTMLElement>(`[data-segment="${field}"]`)!;
 }
 
@@ -24,13 +24,13 @@ function type(segment: HTMLElement, key: string, modifiers: { altKey?: boolean }
   segment.dispatchEvent(new KeyboardEvent('keydown', { key, bubbles: true, composed: true, ...modifiers }));
 }
 
-describe('<wa-time-picker>', () => {
-  runFormControlBaseTests('wa-time-picker');
+describe('<wa-time-input>', () => {
+  runFormControlBaseTests('wa-time-input');
 
   describe('accessibility', () => {
     it('is accessible with a label and value', async () => {
-      const el = await fixture<WaTimePicker>(
-        html`<wa-time-picker label="Start" value="09:30" lang="en-GB"></wa-time-picker>`,
+      const el = await fixture<WaTimeInput>(
+        html`<wa-time-input label="Start" value="09:30" lang="en-GB"></wa-time-input>`,
       );
       await el.updateComplete;
       await expect(el).to.be.accessible();
@@ -39,7 +39,7 @@ describe('<wa-time-picker>', () => {
 
   describe('basic rendering', () => {
     it('renders with default attributes', async () => {
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input></wa-time-input>`);
       expect(el).to.exist;
       expect(el.value).to.equal('');
       expect(el.open).to.equal(false);
@@ -47,14 +47,14 @@ describe('<wa-time-picker>', () => {
     });
 
     it('hydrates value from the attribute', async () => {
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker value="14:30" lang="en-GB"></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input value="14:30" lang="en-GB"></wa-time-input>`);
       await el.updateComplete;
       expect(el.value).to.equal('14:30');
       expect(el.defaultValue).to.equal('14:30');
     });
 
     it('exposes valueAsDate', async () => {
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker value="14:30" lang="en-GB"></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input value="14:30" lang="en-GB"></wa-time-input>`);
       await el.updateComplete;
       const d = el.valueAsDate!;
       expect(d.getHours()).to.equal(14);
@@ -62,13 +62,13 @@ describe('<wa-time-picker>', () => {
     });
 
     it('exposes valueAsNumber (ms since midnight)', async () => {
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker value="01:00" lang="en-GB"></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input value="01:00" lang="en-GB"></wa-time-input>`);
       await el.updateComplete;
       expect(el.valueAsNumber).to.equal(3_600_000);
     });
 
     it('reflects the initial value in valueAsDate before any interaction', async () => {
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker value="09:30" lang="en-GB"></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input value="09:30" lang="en-GB"></wa-time-input>`);
       await el.updateComplete;
       // Read through the public getter, which must honor the defaultValue fallback (valueHasChanged === false).
       const d = el.valueAsDate;
@@ -78,7 +78,7 @@ describe('<wa-time-picker>', () => {
     });
 
     it('returns null from valueAsDate after the value is cleared', async () => {
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker value="09:30" lang="en-GB"></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input value="09:30" lang="en-GB"></wa-time-input>`);
       await el.updateComplete;
       el.value = null;
       await el.updateComplete;
@@ -90,42 +90,42 @@ describe('<wa-time-picker>', () => {
 
   describe('segmented input structure', () => {
     it('renders 2 segments by default (hour, minute) in 24-hour locale', async () => {
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-GB"></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB"></wa-time-input>`);
       const segments = getSegments(el);
       const fields = segments.map(s => s.dataset.segment);
       expect(fields).to.deep.equal(['hour', 'minute']);
     });
 
     it('renders 3 segments in 12-hour locale (hour, minute, dayPeriod)', async () => {
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-US"></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-US"></wa-time-input>`);
       const segments = getSegments(el);
       const fields = segments.map(s => s.dataset.segment);
       expect(fields).to.include.members(['hour', 'minute', 'dayPeriod']);
     });
 
     it('adds a seconds segment when step is sub-minute', async () => {
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-GB" step="1"></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB" step="1"></wa-time-input>`);
       await el.updateComplete;
       const fields = getSegments(el).map(s => s.dataset.segment);
       expect(fields).to.include('second');
     });
 
     it('hides the seconds segment when step is a whole-minute multiple', async () => {
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-GB" step="300"></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB" step="300"></wa-time-input>`);
       await el.updateComplete;
       const fields = getSegments(el).map(s => s.dataset.segment);
       expect(fields).to.not.include('second');
     });
 
     it('forces 24-hour layout when hour-format=24', async () => {
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-US" hour-format="24"></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-US" hour-format="24"></wa-time-input>`);
       await el.updateComplete;
       const fields = getSegments(el).map(s => s.dataset.segment);
       expect(fields).to.not.include('dayPeriod');
     });
 
     it('forces 12-hour layout when hour-format=12', async () => {
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-GB" hour-format="12"></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB" hour-format="12"></wa-time-input>`);
       await el.updateComplete;
       const fields = getSegments(el).map(s => s.dataset.segment);
       expect(fields).to.include('dayPeriod');
@@ -134,7 +134,7 @@ describe('<wa-time-picker>', () => {
 
   describe('roving tabindex', () => {
     it('exactly one segment has tabIndex=0 after focusing', async () => {
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-GB"></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB"></wa-time-input>`);
       const minute = getSegment(el, 'minute');
       minute.focus();
       const segments = getSegments(el);
@@ -146,7 +146,7 @@ describe('<wa-time-picker>', () => {
 
   describe('keyboard typing', () => {
     it('types digits and commits a complete time', async () => {
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-GB"></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB"></wa-time-input>`);
       const hour = getSegment(el, 'hour');
       hour.focus();
       type(hour, '0');
@@ -158,7 +158,7 @@ describe('<wa-time-picker>', () => {
     });
 
     it('auto-advances after a hour digit that cannot start a 2-digit value (24-hour)', async () => {
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-GB"></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB"></wa-time-input>`);
       const hour = getSegment(el, 'hour');
       hour.focus();
       type(hour, '3');
@@ -168,7 +168,7 @@ describe('<wa-time-picker>', () => {
     });
 
     it('replaces buffer on overflow: hour 2 then 5 → 5', async () => {
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-GB"></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB"></wa-time-input>`);
       const hour = getSegment(el, 'hour');
       hour.focus();
       type(hour, '2');
@@ -185,7 +185,7 @@ describe('<wa-time-picker>', () => {
 
   describe('AM/PM segment', () => {
     it('toggles dayPeriod via "p" key', async () => {
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-US" value="09:00"></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-US" value="09:00"></wa-time-input>`);
       await el.updateComplete;
       const dp = getSegment(el, 'dayPeriod');
       dp.focus();
@@ -195,7 +195,7 @@ describe('<wa-time-picker>', () => {
     });
 
     it('toggles dayPeriod via "a" key', async () => {
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-US" value="21:00"></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-US" value="21:00"></wa-time-input>`);
       await el.updateComplete;
       const dp = getSegment(el, 'dayPeriod');
       dp.focus();
@@ -205,7 +205,7 @@ describe('<wa-time-picker>', () => {
     });
 
     it('toggles dayPeriod via ArrowUp / ArrowDown', async () => {
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-US" value="09:00"></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-US" value="09:00"></wa-time-input>`);
       await el.updateComplete;
       const dp = getSegment(el, 'dayPeriod');
       dp.focus();
@@ -217,7 +217,7 @@ describe('<wa-time-picker>', () => {
 
   describe('Arrow stepping', () => {
     it('hour wraps within bounds with no carry into minutes', async () => {
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-GB" value="23:30"></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB" value="23:30"></wa-time-input>`);
       await el.updateComplete;
       const hour = getSegment(el, 'hour');
       hour.focus();
@@ -227,7 +227,7 @@ describe('<wa-time-picker>', () => {
     });
 
     it('minute wraps without carrying into hour', async () => {
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-GB" value="10:59"></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB" value="10:59"></wa-time-input>`);
       await el.updateComplete;
       const minute = getSegment(el, 'minute');
       minute.focus();
@@ -237,7 +237,7 @@ describe('<wa-time-picker>', () => {
     });
 
     it('hour 12 → 1 in 12-hour mode without toggling AM/PM', async () => {
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-US" value="12:00"></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-US" value="12:00"></wa-time-input>`);
       await el.updateComplete;
       // 12:00 in en-US 12-hour mode → 12 PM
       const hour = getSegment(el, 'hour');
@@ -251,7 +251,7 @@ describe('<wa-time-picker>', () => {
 
   describe('separator keys', () => {
     it('colon advances to the next segment and flushes any buffered digit', async () => {
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-GB"></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB"></wa-time-input>`);
       const hour = getSegment(el, 'hour');
       hour.focus();
       type(hour, '1');
@@ -263,8 +263,8 @@ describe('<wa-time-picker>', () => {
 
   describe('clear button', () => {
     it('clears the value and refocuses the first segment', async () => {
-      const el = await fixture<WaTimePicker>(
-        html`<wa-time-picker lang="en-GB" value="10:00" with-clear></wa-time-picker>`,
+      const el = await fixture<WaTimeInput>(
+        html`<wa-time-input lang="en-GB" value="10:00" with-clear></wa-time-input>`,
       );
       await el.updateComplete;
       const clearButton = el.shadowRoot!.querySelector<HTMLButtonElement>('.clear-button')!;
@@ -276,7 +276,7 @@ describe('<wa-time-picker>', () => {
 
   describe('popup', () => {
     it('opens when the expand button is clicked', async () => {
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-GB"></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB"></wa-time-input>`);
       const expandButton = el.shadowRoot!.querySelector<HTMLButtonElement>('.expand-button')!;
       expandButton.click();
       await waitForEvent(el, 'wa-after-show');
@@ -284,7 +284,7 @@ describe('<wa-time-picker>', () => {
     });
 
     it('closes via Alt+ArrowUp', async () => {
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-GB"></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB"></wa-time-input>`);
       el.show();
       await waitForEvent(el, 'wa-after-show');
       const hour = getSegment(el, 'hour');
@@ -295,7 +295,7 @@ describe('<wa-time-picker>', () => {
     });
 
     it('opens via Alt+ArrowDown', async () => {
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-GB"></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB"></wa-time-input>`);
       const hour = getSegment(el, 'hour');
       hour.focus();
       // Focus on a segment already auto-opened the popup; close it first to test Alt+Down explicitly.
@@ -309,7 +309,7 @@ describe('<wa-time-picker>', () => {
     });
 
     it('renders one column per segment', async () => {
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-US"></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-US"></wa-time-input>`);
       el.show();
       await waitForEvent(el, 'wa-after-show');
       const columns = el.shadowRoot!.querySelectorAll<HTMLElement>('.column');
@@ -317,7 +317,7 @@ describe('<wa-time-picker>', () => {
     });
 
     it('clicking a column item commits its value', async () => {
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-GB"></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB"></wa-time-input>`);
       el.show();
       await waitForEvent(el, 'wa-after-show');
       const hourColumn = el.shadowRoot!.querySelector<HTMLElement>('[data-field="hour"]')!;
@@ -333,7 +333,7 @@ describe('<wa-time-picker>', () => {
     });
 
     it('minute column reflects the step attribute (step=300 → 5-minute strides)', async () => {
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-GB" step="300"></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB" step="300"></wa-time-input>`);
       await el.updateComplete;
       el.show();
       await waitForEvent(el, 'wa-after-show');
@@ -347,19 +347,19 @@ describe('<wa-time-picker>', () => {
 
   describe('Now button', () => {
     it('renders only when with-now is set', async () => {
-      const noNow = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-GB"></wa-time-picker>`);
+      const noNow = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB"></wa-time-input>`);
       noNow.show();
       await waitForEvent(noNow, 'wa-after-show');
       expect(noNow.shadowRoot!.querySelector('.now-button')).to.equal(null);
 
-      const withNow = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-GB" with-now></wa-time-picker>`);
+      const withNow = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB" with-now></wa-time-input>`);
       withNow.show();
       await waitForEvent(withNow, 'wa-after-show');
       expect(withNow.shadowRoot!.querySelector('.now-button')).to.not.equal(null);
     });
 
     it('clicking Now sets the value to the current time', async () => {
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-GB" with-now></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB" with-now></wa-time-input>`);
       el.show();
       await waitForEvent(el, 'wa-after-show');
       const button = el.shadowRoot!.querySelector<HTMLButtonElement>('.now-button')!;
@@ -372,7 +372,7 @@ describe('<wa-time-picker>', () => {
 
   describe('events', () => {
     it('emits input on every segment edit', async () => {
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-GB"></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB"></wa-time-input>`);
       let inputCount = 0;
       el.addEventListener('input', () => inputCount++);
       const hour = getSegment(el, 'hour');
@@ -387,7 +387,7 @@ describe('<wa-time-picker>', () => {
       // Like a native <input type="time">, the picker commits incrementally: each keystroke that produces a new
       // complete wire value fires `change`. Typing the hour alone leaves the value incomplete ('') so it does not
       // fire; once the minute digits arrive, each transition ('' → '09:03' → '09:30') fires a change.
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-GB"></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB"></wa-time-input>`);
       const changes: string[] = [];
       el.addEventListener('change', () => changes.push(el.value));
       const hour = getSegment(el, 'hour');
@@ -407,8 +407,8 @@ describe('<wa-time-picker>', () => {
     });
 
     it('emits wa-clear when the clear button is activated', async () => {
-      const el = await fixture<WaTimePicker>(
-        html`<wa-time-picker lang="en-GB" value="10:00" with-clear></wa-time-picker>`,
+      const el = await fixture<WaTimeInput>(
+        html`<wa-time-input lang="en-GB" value="10:00" with-clear></wa-time-input>`,
       );
       await el.updateComplete;
       let cleared = false;
@@ -422,10 +422,10 @@ describe('<wa-time-picker>', () => {
     it('submits the wire value via form data', async () => {
       const form = await fixture<HTMLFormElement>(
         html`<form>
-          <wa-time-picker name="t" value="14:30" lang="en-GB"></wa-time-picker>
+          <wa-time-input name="t" value="14:30" lang="en-GB"></wa-time-input>
         </form>`,
       );
-      await (form.querySelector('wa-time-picker') as WaTimePicker).updateComplete;
+      await (form.querySelector('wa-time-input') as WaTimeInput).updateComplete;
       const data = new FormData(form);
       expect(data.get('t')).to.equal('14:30');
     });
@@ -433,10 +433,10 @@ describe('<wa-time-picker>', () => {
     it('resets to the default value via form reset', async () => {
       const form = await fixture<HTMLFormElement>(
         html`<form>
-          <wa-time-picker name="t" value="14:30" lang="en-GB"></wa-time-picker>
+          <wa-time-input name="t" value="14:30" lang="en-GB"></wa-time-input>
         </form>`,
       );
-      const el = form.querySelector('wa-time-picker') as WaTimePicker;
+      const el = form.querySelector('wa-time-input') as WaTimeInput;
       await el.updateComplete;
       el.value = '09:00';
       await el.updateComplete;
@@ -447,9 +447,9 @@ describe('<wa-time-picker>', () => {
 
     it('serializes its name and value with JSON', async () => {
       const form = await fixture<HTMLFormElement>(
-        html`<form><wa-time-picker name="t" value="14:30" lang="en-GB"></wa-time-picker></form>`,
+        html`<form><wa-time-input name="t" value="14:30" lang="en-GB"></wa-time-input></form>`,
       );
-      const el = form.querySelector<WaTimePicker>('wa-time-picker')!;
+      const el = form.querySelector<WaTimeInput>('wa-time-input')!;
       await el.updateComplete;
       const json = serialize(form) as { t: string };
       expect(json.t).to.equal('14:30');
@@ -457,9 +457,9 @@ describe('<wa-time-picker>', () => {
 
     it('does not add a value to the form when disabled', async () => {
       const form = await fixture<HTMLFormElement>(
-        html`<form><wa-time-picker name="t" value="14:30" lang="en-GB" disabled></wa-time-picker></form>`,
+        html`<form><wa-time-input name="t" value="14:30" lang="en-GB" disabled></wa-time-input></form>`,
       );
-      const el = form.querySelector<WaTimePicker>('wa-time-picker')!;
+      const el = form.querySelector<WaTimeInput>('wa-time-input')!;
       await el.updateComplete;
       expect(new FormData(form).get('t')).to.equal(null);
 
@@ -472,11 +472,11 @@ describe('<wa-time-picker>', () => {
       const container = await fixture<HTMLDivElement>(html`
         <div>
           <form id="external"><wa-button type="submit">Submit</wa-button></form>
-          <wa-time-picker form="external" name="t" value="14:30" lang="en-GB"></wa-time-picker>
+          <wa-time-input form="external" name="t" value="14:30" lang="en-GB"></wa-time-input>
         </div>
       `);
       const form = container.querySelector('form')!;
-      const el = container.querySelector<WaTimePicker>('wa-time-picker')!;
+      const el = container.querySelector<WaTimeInput>('wa-time-input')!;
       await el.updateComplete;
       expect(new FormData(form).get('t')).to.equal('14:30');
     });
@@ -484,11 +484,11 @@ describe('<wa-time-picker>', () => {
     it('resets to the default value when a wa-button[type=reset] is clicked', async () => {
       const form = await fixture<HTMLFormElement>(html`
         <form>
-          <wa-time-picker name="t" value="14:30" lang="en-GB"></wa-time-picker>
+          <wa-time-input name="t" value="14:30" lang="en-GB"></wa-time-input>
           <wa-button type="reset">Reset</wa-button>
         </form>
       `);
-      const el = form.querySelector<WaTimePicker>('wa-time-picker')!;
+      const el = form.querySelector<WaTimeInput>('wa-time-input')!;
       const button = form.querySelector('wa-button')!;
       await el.updateComplete;
 
@@ -503,9 +503,9 @@ describe('<wa-time-picker>', () => {
 
     it('is invalid when required and empty and form.reportValidity() is called', async () => {
       const form = await fixture<HTMLFormElement>(
-        html`<form><wa-time-picker name="t" lang="en-GB" required></wa-time-picker></form>`,
+        html`<form><wa-time-input name="t" lang="en-GB" required></wa-time-input></form>`,
       );
-      const el = form.querySelector<WaTimePicker>('wa-time-picker')!;
+      const el = form.querySelector<WaTimeInput>('wa-time-input')!;
       await el.updateComplete;
       expect(form.reportValidity()).to.equal(false);
       expect(el.validity.valueMissing).to.equal(true);
@@ -513,9 +513,9 @@ describe('<wa-time-picker>', () => {
 
     it('keeps validation states when the parent form has novalidate', async () => {
       const form = await fixture<HTMLFormElement>(
-        html`<form novalidate><wa-time-picker lang="en-GB" required></wa-time-picker></form>`,
+        html`<form novalidate><wa-time-input lang="en-GB" required></wa-time-input></form>`,
       );
-      const el = form.querySelector<WaTimePicker>('wa-time-picker')!;
+      const el = form.querySelector<WaTimeInput>('wa-time-input')!;
       await el.updateComplete;
       expect(el.validity.valueMissing).to.equal(true);
       expect(el.customStates.has('invalid')).to.equal(true);
@@ -524,11 +524,11 @@ describe('<wa-time-picker>', () => {
     it('emits wa-invalid from form submission when invalid', async () => {
       const form = await fixture<HTMLFormElement>(html`
         <form>
-          <wa-time-picker name="t" lang="en-GB" required></wa-time-picker>
+          <wa-time-input name="t" lang="en-GB" required></wa-time-input>
           <wa-button type="submit">Submit</wa-button>
         </form>
       `);
-      const el = form.querySelector<WaTimePicker>('wa-time-picker')!;
+      const el = form.querySelector<WaTimeInput>('wa-time-input')!;
       const submit = form.querySelector('wa-button')!;
       await el.updateComplete;
 
@@ -541,15 +541,13 @@ describe('<wa-time-picker>', () => {
 
   describe('validation', () => {
     it('valueMissing when required and empty', async () => {
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-GB" required></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB" required></wa-time-input>`);
       await el.updateComplete;
       expect(el.validity.valueMissing).to.equal(true);
     });
 
     it('valid when required and a complete value is set', async () => {
-      const el = await fixture<WaTimePicker>(
-        html`<wa-time-picker lang="en-GB" required value="09:00"></wa-time-picker>`,
-      );
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB" required value="09:00"></wa-time-input>`);
       await el.updateComplete;
       expect(el.validity.valueMissing).to.equal(false);
     });
@@ -557,7 +555,7 @@ describe('<wa-time-picker>', () => {
 
   describe('accessibility', () => {
     it('segments have role=spinbutton with aria-valuemin/max/now/text', async () => {
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-GB" value="09:30"></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB" value="09:30"></wa-time-input>`);
       await el.updateComplete;
       const hour = getSegment(el, 'hour');
       expect(hour.getAttribute('role')).to.equal('spinbutton');
@@ -567,14 +565,14 @@ describe('<wa-time-picker>', () => {
     });
 
     it('the group has role=group with a label', async () => {
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-GB" label="Start"></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB" label="Start"></wa-time-input>`);
       await el.updateComplete;
       const group = el.shadowRoot!.querySelector<HTMLElement>('[part~="input"]')!;
       expect(group.getAttribute('role')).to.equal('group');
     });
 
     it('the expand button reports aria-expanded', async () => {
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-GB"></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB"></wa-time-input>`);
       const button = el.shadowRoot!.querySelector<HTMLElement>('.expand-button')!;
       expect(button.getAttribute('aria-expanded')).to.equal('false');
       el.show();
@@ -588,7 +586,7 @@ describe('<wa-time-picker>', () => {
   //
   describe('segment navigation and clearing keys', () => {
     it('ArrowRight moves focus to the next segment', async () => {
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-GB"></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB"></wa-time-input>`);
       await el.updateComplete;
       const hour = getSegment(el, 'hour');
       hour.focus();
@@ -597,7 +595,7 @@ describe('<wa-time-picker>', () => {
     });
 
     it('ArrowLeft moves focus to the previous segment', async () => {
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-GB"></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB"></wa-time-input>`);
       await el.updateComplete;
       const minute = getSegment(el, 'minute');
       minute.focus();
@@ -606,7 +604,7 @@ describe('<wa-time-picker>', () => {
     });
 
     it('Home jumps to the first segment, End jumps to the last segment', async () => {
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-US"></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-US"></wa-time-input>`);
       await el.updateComplete;
       const minute = getSegment(el, 'minute');
       minute.focus();
@@ -619,7 +617,7 @@ describe('<wa-time-picker>', () => {
     });
 
     it('Backspace clears the focused segment and reverts the wire value toward empty', async () => {
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-GB" value="09:30"></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB" value="09:30"></wa-time-input>`);
       await el.updateComplete;
       expect(el.value).to.equal('09:30');
       const minute = getSegment(el, 'minute');
@@ -632,7 +630,7 @@ describe('<wa-time-picker>', () => {
     });
 
     it('Delete clears the focused segment', async () => {
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-GB" value="09:30"></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB" value="09:30"></wa-time-input>`);
       await el.updateComplete;
       const hour = getSegment(el, 'hour');
       hour.focus();
@@ -648,7 +646,7 @@ describe('<wa-time-picker>', () => {
   //
   describe('setCustomValidity / checkValidity', () => {
     it('setCustomValidity() makes the control invalid with a customError', async () => {
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-GB" value="09:30"></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB" value="09:30"></wa-time-input>`);
       await el.updateComplete;
       el.setCustomValidity('Nope');
       await el.updateComplete;
@@ -659,7 +657,7 @@ describe('<wa-time-picker>', () => {
     });
 
     it('clearing the custom error restores validity', async () => {
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-GB" value="09:30"></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB" value="09:30"></wa-time-input>`);
       await el.updateComplete;
       el.setCustomValidity('Nope');
       await el.updateComplete;
@@ -674,7 +672,7 @@ describe('<wa-time-picker>', () => {
     });
 
     it('emits wa-invalid when checkValidity() fails on a custom error', async () => {
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-GB" value="09:30"></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB" value="09:30"></wa-time-input>`);
       await el.updateComplete;
       el.setCustomValidity('Nope');
       await el.updateComplete;
@@ -694,8 +692,8 @@ describe('<wa-time-picker>', () => {
   //
   describe('min / max / step constraint validation', () => {
     it('a value below min reports rangeUnderflow and is invalid', async () => {
-      const el = await fixture<WaTimePicker>(
-        html`<wa-time-picker lang="en-GB" min="09:00" value="08:00"></wa-time-picker>`,
+      const el = await fixture<WaTimeInput>(
+        html`<wa-time-input lang="en-GB" min="09:00" value="08:00"></wa-time-input>`,
       );
       await el.updateComplete;
       expect(el.valueInput.min).to.equal('09:00');
@@ -705,8 +703,8 @@ describe('<wa-time-picker>', () => {
     });
 
     it('a value above max reports rangeOverflow and is invalid', async () => {
-      const el = await fixture<WaTimePicker>(
-        html`<wa-time-picker lang="en-GB" max="17:00" value="18:00"></wa-time-picker>`,
+      const el = await fixture<WaTimeInput>(
+        html`<wa-time-input lang="en-GB" max="17:00" value="18:00"></wa-time-input>`,
       );
       await el.updateComplete;
       expect(el.valueInput.max).to.equal('17:00');
@@ -715,8 +713,8 @@ describe('<wa-time-picker>', () => {
     });
 
     it('a value within [min, max] is valid', async () => {
-      const el = await fixture<WaTimePicker>(
-        html`<wa-time-picker lang="en-GB" min="09:00" max="17:00" value="12:00"></wa-time-picker>`,
+      const el = await fixture<WaTimeInput>(
+        html`<wa-time-input lang="en-GB" min="09:00" max="17:00" value="12:00"></wa-time-input>`,
       );
       await el.updateComplete;
       expect(el.validity.valid).to.equal(true);
@@ -725,8 +723,8 @@ describe('<wa-time-picker>', () => {
     });
 
     it('an overnight (min > max) range invalidates a value in the excluded window', async () => {
-      const el = await fixture<WaTimePicker>(
-        html`<wa-time-picker lang="en-GB" min="22:00" max="06:00" value="12:00"></wa-time-picker>`,
+      const el = await fixture<WaTimeInput>(
+        html`<wa-time-input lang="en-GB" min="22:00" max="06:00" value="12:00"></wa-time-input>`,
       );
       await el.updateComplete;
       expect(el.valueInput.min).to.equal('22:00');
@@ -736,16 +734,16 @@ describe('<wa-time-picker>', () => {
     });
 
     it('an overnight (min > max) range accepts a value inside the wrapped window', async () => {
-      const el = await fixture<WaTimePicker>(
-        html`<wa-time-picker lang="en-GB" min="22:00" max="06:00" value="23:30"></wa-time-picker>`,
+      const el = await fixture<WaTimeInput>(
+        html`<wa-time-input lang="en-GB" min="22:00" max="06:00" value="23:30"></wa-time-input>`,
       );
       await el.updateComplete;
       expect(el.validity.valid).to.equal(true);
     });
 
     it('a step-misaligned value reports stepMismatch', async () => {
-      const el = await fixture<WaTimePicker>(
-        html`<wa-time-picker lang="en-GB" step="900" value="09:07"></wa-time-picker>`,
+      const el = await fixture<WaTimeInput>(
+        html`<wa-time-input lang="en-GB" step="900" value="09:07"></wa-time-input>`,
       );
       await el.updateComplete;
       expect(el.valueInput.step).to.equal('900');
@@ -754,8 +752,8 @@ describe('<wa-time-picker>', () => {
     });
 
     it('step="any" never reports stepMismatch', async () => {
-      const el = await fixture<WaTimePicker>(
-        html`<wa-time-picker lang="en-GB" step="any" value="09:07:13"></wa-time-picker>`,
+      const el = await fixture<WaTimeInput>(
+        html`<wa-time-input lang="en-GB" step="any" value="09:07:13"></wa-time-input>`,
       );
       await el.updateComplete;
       expect(el.valueInput.step).to.equal('any');
@@ -764,7 +762,7 @@ describe('<wa-time-picker>', () => {
     });
 
     it('revalidates when min changes reactively', async () => {
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-GB" value="08:00"></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB" value="08:00"></wa-time-input>`);
       await el.updateComplete;
       expect(el.checkValidity()).to.equal(true);
       el.min = '09:00';
@@ -781,8 +779,8 @@ describe('<wa-time-picker>', () => {
   // Gap #5: user-invalid / assumeInteractionOn.
   //
   describe('user-invalid state', () => {
-    it('a required empty time-picker is NOT user-invalid before interaction', async () => {
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-GB" required></wa-time-picker>`);
+    it('a required empty time-input is NOT user-invalid before interaction', async () => {
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB" required></wa-time-input>`);
       await el.updateComplete;
       expect(el.validity.valueMissing).to.equal(true);
       // Invalid, but the user hasn't interacted yet.
@@ -791,7 +789,7 @@ describe('<wa-time-picker>', () => {
     });
 
     it('becomes user-invalid after editing a segment (assumeInteractionOn=["input"])', async () => {
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-GB" required></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB" required></wa-time-input>`);
       await el.updateComplete;
       const hour = getSegment(el, 'hour');
       hour.focus();
@@ -810,7 +808,7 @@ describe('<wa-time-picker>', () => {
   //
   describe('seconds segment composition', () => {
     it('types and commits HH:MM:SS when seconds are shown (step=1)', async () => {
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-GB" step="1"></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB" step="1"></wa-time-input>`);
       await el.updateComplete;
       const hour = getSegment(el, 'hour');
       hour.focus();
@@ -825,15 +823,15 @@ describe('<wa-time-picker>', () => {
     });
 
     it('shows the seconds segment at the withSecondsForStep boundary (step=90, 90 % 60 !== 0)', async () => {
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-GB" step="90"></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB" step="90"></wa-time-input>`);
       await el.updateComplete;
       const fields = getSegments(el).map(s => s.dataset.segment);
       expect(fields).to.include('second');
     });
 
     it('valueAsDate includes the seconds component', async () => {
-      const el = await fixture<WaTimePicker>(
-        html`<wa-time-picker lang="en-GB" step="1" value="09:30:15"></wa-time-picker>`,
+      const el = await fixture<WaTimeInput>(
+        html`<wa-time-input lang="en-GB" step="1" value="09:30:15"></wa-time-input>`,
       );
       await el.updateComplete;
       const d = el.valueAsDate!;
@@ -848,7 +846,7 @@ describe('<wa-time-picker>', () => {
   //
   describe('value setter accepts Date and null', () => {
     it('accepts a Date and converts to the wire value (HH:mm)', async () => {
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-GB"></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB"></wa-time-input>`);
       await el.updateComplete;
       const date = new Date();
       date.setHours(7, 5, 0, 0);
@@ -860,7 +858,7 @@ describe('<wa-time-picker>', () => {
     });
 
     it('accepts a Date and includes seconds when the seconds segment is shown', async () => {
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-GB" step="1"></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB" step="1"></wa-time-input>`);
       await el.updateComplete;
       const date = new Date();
       date.setHours(7, 5, 42, 0);
@@ -870,7 +868,7 @@ describe('<wa-time-picker>', () => {
     });
 
     it('accepts null and clears the value', async () => {
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-GB" value="09:30"></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB" value="09:30"></wa-time-input>`);
       await el.updateComplete;
       el.value = null;
       await el.updateComplete;
@@ -888,7 +886,7 @@ describe('<wa-time-picker>', () => {
       // The segments form a single ARIA spinbutton group with roving tabindex: only the active segment is
       // tabbable, so Tab exits the group to the next focusable control. ArrowLeft/Right move between segments
       // (covered separately).
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-GB"></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB"></wa-time-input>`);
       await el.updateComplete;
       getSegment(el, 'hour').focus();
       expect(el.shadowRoot!.activeElement).to.equal(getSegment(el, 'hour'));
@@ -900,7 +898,7 @@ describe('<wa-time-picker>', () => {
     });
 
     it('typing digits with a real keyboard fills hour + minute and commits a value', async () => {
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-GB"></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB"></wa-time-input>`);
       await el.updateComplete;
       getSegment(el, 'hour').focus();
       await sendKeys({ type: '0930' });
@@ -909,7 +907,7 @@ describe('<wa-time-picker>', () => {
     });
 
     it('ArrowUp steps the focused segment with a real keyboard', async () => {
-      const el = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-GB" value="09:30"></wa-time-picker>`);
+      const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB" value="09:30"></wa-time-input>`);
       await el.updateComplete;
       getSegment(el, 'minute').focus();
       await sendKeys({ press: 'ArrowUp' });
@@ -924,21 +922,21 @@ describe('<wa-time-picker>', () => {
   for (const fixture of fixtures) {
     describe(`SSR + hydration (${fixture.type})`, () => {
       it('renders 2 segments (hour, minute) in a 24-hour locale', async () => {
-        const el = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-GB"></wa-time-picker>`);
+        const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB"></wa-time-input>`);
         await el.updateComplete;
         const fields = getSegments(el).map(s => s.dataset.segment);
         expect(fields).to.deep.equal(['hour', 'minute']);
       });
 
       it('renders the dayPeriod segment in a 12-hour locale', async () => {
-        const el = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-US"></wa-time-picker>`);
+        const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-US"></wa-time-input>`);
         await el.updateComplete;
         const fields = getSegments(el).map(s => s.dataset.segment);
         expect(fields).to.include.members(['hour', 'minute', 'dayPeriod']);
       });
 
       it('composes the value from a string attribute and survives hydration', async () => {
-        const el = await fixture<WaTimePicker>(html`<wa-time-picker lang="en-GB" value="14:30"></wa-time-picker>`);
+        const el = await fixture<WaTimeInput>(html`<wa-time-input lang="en-GB" value="14:30"></wa-time-input>`);
         await el.updateComplete;
         expect(el.value).to.equal('14:30');
         expect(getSegment(el, 'hour').getAttribute('aria-valuenow')).to.equal('14');
@@ -947,16 +945,16 @@ describe('<wa-time-picker>', () => {
 
       it('serializes its value via FormData', async () => {
         const form = await fixture<HTMLFormElement>(
-          html`<form><wa-time-picker name="t" value="14:30" lang="en-GB"></wa-time-picker></form>`,
+          html`<form><wa-time-input name="t" value="14:30" lang="en-GB"></wa-time-input></form>`,
         );
-        const el = form.querySelector<WaTimePicker>('wa-time-picker')!;
+        const el = form.querySelector<WaTimeInput>('wa-time-input')!;
         await el.updateComplete;
         expect(new FormData(form).get('t')).to.equal('14:30');
       });
 
       it('is accessible with a label and value', async () => {
-        const el = await fixture<WaTimePicker>(
-          html`<wa-time-picker label="Start" value="09:30" lang="en-GB"></wa-time-picker>`,
+        const el = await fixture<WaTimeInput>(
+          html`<wa-time-input label="Start" value="09:30" lang="en-GB"></wa-time-input>`,
         );
         await el.updateComplete;
         await expect(el).to.be.accessible();

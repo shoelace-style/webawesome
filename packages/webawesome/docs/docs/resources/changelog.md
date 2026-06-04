@@ -24,7 +24,7 @@ These are still finding their shape. APIs can change between minor versions, so 
 - Added the `<wa-date-input>` experimental pro component
 - Added the `<wa-date-picker>` experimental pro component
 - Added the `<wa-known-date>` experimental component
-- Added the `<wa-time-picker>` experimental component
+- Added the `<wa-time-input>` experimental component
 - Added the experimental `<wa-accordion>` and `<wa-accordion-item>` components
 - Added the ability to set a centered image for `<wa-qr-code>` and have different corner colors [pr:2139]
 - Added the `capture` attribute to `<wa-file-input>` for capturing media directly from a device's camera or microphone [discuss:2380]

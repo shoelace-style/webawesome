@@ -18,7 +18,7 @@ const translation: Translation = {
   createOption: value => `Utwórz "${value}"`,
   close: 'Zamknij',
   closeCalendar: 'Zamknij kalendarz',
-  closeTimePicker: 'Zamknij selektor godziny',
+  closeTimeInput: 'Zamknij selektor godziny',
   copied: 'Skopiowane',
   copy: 'Kopiuj',
   currentValue: 'Aktualna wartość',
@@ -115,7 +115,7 @@ const translation: Translation = {
   slideNum: slide => `Slajd ${slide}`,
   startDate: 'Data początkowa',
   time: 'Godzina',
-  timePickerKeyboardHelp:
+  timeInputKeyboardHelp:
     'Użyj klawiszy strzałek, aby zmienić wartości; naciśnij Alt+Strzałka w dół, aby otworzyć selektor godziny.',
   today: 'Dzisiaj',
   toggleColorFormat: 'Przełącz format',

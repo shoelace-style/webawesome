@@ -18,7 +18,7 @@ const translation: Translation = {
   createOption: value => `„${value}" létrehozása`,
   close: 'Bezárás',
   closeCalendar: 'Naptár bezárása',
-  closeTimePicker: 'Időválasztó bezárása',
+  closeTimeInput: 'Időválasztó bezárása',
   copied: 'Másolva',
   copy: 'Másolás',
   currentValue: 'Aktuális érték',
@@ -105,8 +105,7 @@ const translation: Translation = {
   seekProgress: (current, duration) => `${current} / ${duration}`,
   currentlyPlaying: 'éppen játszik',
   time: 'Idő',
-  timePickerKeyboardHelp:
-    'A nyílbillentyűkkel módosíthatja az értékeket; az Alt+Lefelé nyíl megnyitja az időválasztót.',
+  timeInputKeyboardHelp: 'A nyílbillentyűkkel módosíthatja az értékeket; az Alt+Lefelé nyíl megnyitja az időválasztót.',
   today: 'Ma',
   unmute: 'Elnémítás feloldása',
   videoPlayer: 'Videólejátszó',

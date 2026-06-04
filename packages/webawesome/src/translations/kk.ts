@@ -18,7 +18,7 @@ const translation: Translation = {
   createOption: value => `"${value}" жасау`,
   close: 'Жабу',
   closeCalendar: 'Күнтізбені жабу',
-  closeTimePicker: 'Уақыт таңдағышын жабу',
+  closeTimeInput: 'Уақыт таңдағышын жабу',
   copied: 'Көшірілді',
   copy: 'Көшіру',
   currentValue: 'Қазіргі мән',
@@ -103,7 +103,7 @@ const translation: Translation = {
   slideNum: slide => `${slide}-слайд`,
   startDate: 'Басталу күні',
   time: 'Уақыт',
-  timePickerKeyboardHelp:
+  timeInputKeyboardHelp:
     'Мәндерді өзгерту үшін көрсеткі пернелерін пайдаланыңыз; уақыт таңдағышын ашу үшін Alt+Төмен көрсеткі пернесін басыңыз.',
   today: 'Бүгін',
   toggleColorFormat: 'Түс пішімін ауыстыру',

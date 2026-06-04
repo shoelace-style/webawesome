@@ -18,7 +18,7 @@ const translation: Translation = {
   createOption: value => `„${value}" erstellen`,
   close: 'Schließen',
   closeCalendar: 'Kalender schließen',
-  closeTimePicker: 'Uhrzeitauswahl schließen',
+  closeTimeInput: 'Uhrzeitauswahl schließen',
   copied: 'Kopiert',
   copy: 'Kopieren',
   currentValue: 'Aktueller Wert',
@@ -102,7 +102,7 @@ const translation: Translation = {
   slideNum: slide => `Folie ${slide}`,
   startDate: 'Startdatum',
   time: 'Uhrzeit',
-  timePickerKeyboardHelp:
+  timeInputKeyboardHelp:
     'Verwenden Sie die Pfeiltasten, um Werte zu ändern; drücken Sie Alt+Pfeil nach unten, um die Uhrzeitauswahl zu öffnen.',
   today: 'Heute',
   toggleColorFormat: 'Farbformat wechseln',

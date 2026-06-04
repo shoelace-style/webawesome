@@ -37,21 +37,21 @@ import {
   type TimeField,
   type TimeSegments,
 } from './internal/time-segments.js';
-import styles from './time-picker.styles.js';
+import styles from './time-input.styles.js';
 
-export type WaTimePickerSize = 'xs' | 's' | 'm' | 'l' | 'xl';
-export type WaTimePickerPlacement = 'top' | 'top-start' | 'top-end' | 'bottom' | 'bottom-start' | 'bottom-end';
-export type WaTimePickerHourFormat = 'auto' | '12' | '24';
+export type WaTimeInputSize = 'xs' | 's' | 'm' | 'l' | 'xl';
+export type WaTimeInputPlacement = 'top' | 'top-start' | 'top-end' | 'bottom' | 'bottom-start' | 'bottom-end';
+export type WaTimeInputHourFormat = 'auto' | '12' | '24';
 
 let uniqueId = 0;
-const generateId = (): string => `wa-time-picker-${++uniqueId}`;
+const generateId = (): string => `wa-time-input-${++uniqueId}`;
 
 const SINGLE_GROUP = 'single';
 
 /**
  * @summary Time pickers let users enter a time through a segmented field or select one visually from a popup column
  *  picker. They support 12- and 24-hour formats, optional seconds, and locale-aware segment order.
- * @documentation https://webawesome.com/docs/components/time-picker
+ * @documentation https://webawesome.com/docs/components/time-input
  * @status experimental
  * @since 3.8
  *
@@ -107,8 +107,8 @@ const SINGLE_GROUP = 'single';
  * @cssstate open - The popup is open.
  * @cssstate disabled - The time picker is disabled.
  */
-@customElement('wa-time-picker')
-export default class WaTimePicker extends WebAwesomeFormAssociatedElement {
+@customElement('wa-time-input')
+export default class WaTimeInput extends WebAwesomeFormAssociatedElement {
   static css = [sizeStyles, formControlStyles, styles];
 
   static shadowRootOptions = {
@@ -144,7 +144,7 @@ export default class WaTimePicker extends WebAwesomeFormAssociatedElement {
   /** Debounces duplicate `change` events when the value hasn't transitioned. */
   private lastEmittedValue = '';
 
-  @query('.time-picker-popup') popup!: WaPopup;
+  @query('.time-input-popup') popup!: WaPopup;
   @query('.value-input') valueInput!: HTMLInputElement;
 
   /** The segments displayed in the input and popup. The wire value is derived from these. */
@@ -178,7 +178,7 @@ export default class WaTimePicker extends WebAwesomeFormAssociatedElement {
     key:
       | 'am'
       | 'chooseTime'
-      | 'closeTimePicker'
+      | 'closeTimeInput'
       | 'dayPeriod'
       | 'empty'
       | 'hour'
@@ -187,7 +187,7 @@ export default class WaTimePicker extends WebAwesomeFormAssociatedElement {
       | 'pm'
       | 'second'
       | 'time'
-      | 'timePickerKeyboardHelp',
+      | 'timeInputKeyboardHelp',
     fallback: string,
   ): string {
     return this.localize.term(key) || fallback;
@@ -242,7 +242,7 @@ export default class WaTimePicker extends WebAwesomeFormAssociatedElement {
   @property({ type: Boolean, reflect: true }) readonly = false;
 
   /** The time picker's size. */
-  @property({ reflect: true }) size: WaTimePickerSize | 'small' | 'medium' | 'large' = 'm';
+  @property({ reflect: true }) size: WaTimeInputSize | 'small' | 'medium' | 'large' = 'm';
 
   @watch('size')
   handleSizeChange() {
@@ -277,7 +277,7 @@ export default class WaTimePicker extends WebAwesomeFormAssociatedElement {
   @property({ attribute: 'with-hint', type: Boolean }) withHint = false;
 
   //
-  // Time-picker specific
+  // Time-input specific
   //
 
   /**
@@ -297,7 +297,7 @@ export default class WaTimePicker extends WebAwesomeFormAssociatedElement {
   step: number | 'any' = 60;
 
   /** Whether the UI uses a 12-hour or 24-hour clock. `auto` follows the resolved locale. */
-  @property({ attribute: 'hour-format', reflect: true }) hourFormat: WaTimePickerHourFormat = 'auto';
+  @property({ attribute: 'hour-format', reflect: true }) hourFormat: WaTimeInputHourFormat = 'auto';
 
   //
   // Popup
@@ -307,7 +307,7 @@ export default class WaTimePicker extends WebAwesomeFormAssociatedElement {
   @property({ type: Boolean, reflect: true }) open = false;
 
   /** Preferred popup placement. */
-  @property({ reflect: true }) placement: WaTimePickerPlacement = 'bottom-start';
+  @property({ reflect: true }) placement: WaTimeInputPlacement = 'bottom-start';
 
   /** Distance in pixels between the popup and the input. */
   @property({ type: Number, reflect: true }) distance = 0;
@@ -967,7 +967,7 @@ export default class WaTimePicker extends WebAwesomeFormAssociatedElement {
 
         <div part="form-control-input" class="form-control-input">
           <wa-popup
-            class=${classMap({ 'time-picker-popup': true, open: this.open })}
+            class=${classMap({ 'time-input-popup': true, open: this.open })}
             placement=${this.placement}
             distance=${this.distance}
             ?active=${this.open}
@@ -994,7 +994,7 @@ export default class WaTimePicker extends WebAwesomeFormAssociatedElement {
 
               <span id=${this.keyboardHelpId} class="visually-hidden">
                 ${this.term(
-                  'timePickerKeyboardHelp',
+                  'timeInputKeyboardHelp',
                   'Use arrow keys to change values; press Alt+Down Arrow to open the time picker.',
                 )}
               </span>
@@ -1036,7 +1036,7 @@ export default class WaTimePicker extends WebAwesomeFormAssociatedElement {
                 type="button"
                 class="expand-button"
                 aria-label=${this.open
-                  ? this.term('closeTimePicker', 'Close time picker')
+                  ? this.term('closeTimeInput', 'Close time picker')
                   : this.term('chooseTime', 'Choose time')}
                 aria-haspopup="dialog"
                 aria-expanded=${this.open ? 'true' : 'false'}
@@ -1181,7 +1181,7 @@ export default class WaTimePicker extends WebAwesomeFormAssociatedElement {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'wa-time-picker': WaTimePicker;
+    'wa-time-input': WaTimeInput;
   }
 }
 

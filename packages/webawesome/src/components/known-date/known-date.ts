@@ -54,7 +54,7 @@ const generateId = (): string => uniqueId('wa-known-date-');
  * @csspart field-label - The text label above each field's input.
  * @csspart field-input - The native `<input>` inside a field.
  * @csspart error - The inline error message region. This is an intentional difference from `<wa-date-input>`
- *  and `<wa-time-picker>`, which rely on the browser's native validation popup. Because this control is composed
+ *  and `<wa-time-input>`, which rely on the browser's native validation popup. Because this control is composed
  *  of three separate fields, an inline `role="alert"` region gives a single, predictable place to surface the
  *  validation message rather than anchoring a native popup on one of the three fields.
  *
@@ -76,7 +76,7 @@ export default class WaKnownDate extends WebAwesomeFormAssociatedElement {
   }
 
   // Moving focus between the three internal fields shouldn't count as "leaving the group," so we key
-  // interaction off `input` alone — matching `<wa-date-input>` and `<wa-time-picker>`.
+  // interaction off `input` alone — matching `<wa-date-input>` and `<wa-time-input>`.
   assumeInteractionOn = ['input'];
 
   readonly localize = new LocalizeController(this);

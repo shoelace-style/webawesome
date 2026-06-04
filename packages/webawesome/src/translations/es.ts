@@ -18,7 +18,7 @@ const translation: Translation = {
   createOption: value => `Crear "${value}"`,
   close: 'Cerrar',
   closeCalendar: 'Cerrar calendario',
-  closeTimePicker: 'Cerrar selector de hora',
+  closeTimeInput: 'Cerrar selector de hora',
   copied: 'Copiado',
   copy: 'Copiar',
   currentValue: 'Valor actual',
@@ -103,7 +103,7 @@ const translation: Translation = {
   startDate: 'Fecha de inicio',
   time: 'Hora',
   today: 'Hoy',
-  timePickerKeyboardHelp:
+  timeInputKeyboardHelp:
     'Use las teclas de flecha para cambiar los valores; presione Alt+Flecha abajo para abrir el selector de hora.',
   toggleColorFormat: 'Alternar formato de color',
   seek: 'Buscar',

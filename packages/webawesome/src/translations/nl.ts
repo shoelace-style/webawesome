@@ -18,7 +18,7 @@ const translation: Translation = {
   createOption: value => `"${value}" aanmaken`,
   close: 'Sluiten',
   closeCalendar: 'Kalender sluiten',
-  closeTimePicker: 'Tijdkiezer sluiten',
+  closeTimeInput: 'Tijdkiezer sluiten',
   copied: 'Gekopieerd',
   copy: 'Kopiëren',
   currentValue: 'Huidige waarde',
@@ -102,7 +102,7 @@ const translation: Translation = {
   slideNum: slide => `Schuif ${slide}`,
   startDate: 'Begindatum',
   time: 'Tijd',
-  timePickerKeyboardHelp:
+  timeInputKeyboardHelp:
     'Gebruik de pijltjestoetsen om waarden te wijzigen; druk op Alt+Pijl omlaag om de tijdkiezer te openen.',
   today: 'Vandaag',
   toggleColorFormat: 'Wissel kleurnotatie',

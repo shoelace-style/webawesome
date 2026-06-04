@@ -1,5 +1,5 @@
 ---
-title: Time Picker
+title: Time Input
 layout: component
 category: Form Controls
 synonyms:
@@ -11,12 +11,12 @@ use-cases:
   - pick a time from a column-roulette popup
 ---
 
-Time Picker is the time-of-day counterpart to [Date Input](/docs/components/date-input). It renders a segmented input with hour, minute, optional seconds, and optional AM/PM spinbutton segments in the user's locale order, alongside a popup column picker modeled on Chrome's native time UI.
+Time Input is the time-of-day counterpart to [Date Input](/docs/components/date-input). It renders a segmented input with hour, minute, optional seconds, and optional AM/PM spinbutton segments in the user's locale order, alongside a popup column picker modeled on Chrome's native time UI.
 
 Type digits to fill the focused segment (focus auto-advances when a segment can accept no further digit), use the arrow keys to step through values, and press `Alt+Down Arrow` to open the popup. The entire segmented input is one tab stop.
 
 ```html {.example}
-<wa-time-picker label="Pick a time"></wa-time-picker>
+<wa-time-input label="Pick a time"></wa-time-input>
 ```
 
 :::info
@@ -32,11 +32,11 @@ The hidden form value is canonical 24-hour time, regardless of the user's locale
 - **12-hour UI**: still submits 24-hour on the wire, i.e. `2:30 PM` becomes `14:30`.
 - **Partial input**: the form value is empty until every required segment is filled.
 
-The example below renders a working form. Submit it (or change the time) and watch the console. The time picker submits its value just like a native `<input type="time">`, regardless of how the user typed or what locale they used.
+The example below renders a working form. Submit it (or change the time) and watch the console. The time input submits its value just like a native `<input type="time">`, regardless of how the user typed or what locale they used.
 
 ```html {.example}
 <form id="tp-form-demo">
-  <wa-time-picker name="meeting_time" label="Meeting time" required value="14:30"></wa-time-picker>
+  <wa-time-input name="meeting_time" label="Meeting time" required value="14:30"></wa-time-input>
   <br />
   <wa-button type="submit" appearance="filled" variant="neutral">Submit</wa-button>
 </form>
@@ -78,23 +78,23 @@ The example below renders a working form. Submit it (or change the time) and wat
 Set the `value` attribute to a time string to pre-populate the input.
 
 ```html {.example}
-<wa-time-picker label="Meeting time" value="14:30"></wa-time-picker>
+<wa-time-input label="Meeting time" value="14:30"></wa-time-input>
 ```
 
 ### Labels
 
-Use the `label` attribute to give the time picker an accessible label. For labels that contain HTML, use the `label` slot instead.
+Use the `label` attribute to give the time input an accessible label. For labels that contain HTML, use the `label` slot instead.
 
 ```html {.example}
-<wa-time-picker label="What time works for you?"></wa-time-picker>
+<wa-time-input label="What time works for you?"></wa-time-input>
 ```
 
 ### Hint
 
-Add descriptive hint to a time picker with the `hint` attribute. For hints that contain HTML, use the `hint` slot instead.
+Add descriptive hint to a time input with the `hint` attribute. For hints that contain HTML, use the `hint` slot instead.
 
 ```html {.example}
-<wa-time-picker label="Wake up" hint="Set the time your alarm should go off."></wa-time-picker>
+<wa-time-input label="Wake up" hint="Set the time your alarm should go off."></wa-time-input>
 ```
 
 ### Start & End Decorations
@@ -102,13 +102,13 @@ Add descriptive hint to a time picker with the `hint` attribute. For hints that 
 Use the `start` and `end` slots to add presentational elements like `<wa-icon>` inside the input.
 
 ```html {.example}
-<wa-time-picker label="Start">
+<wa-time-input label="Start">
   <wa-icon name="hourglass-start" slot="start"></wa-icon>
-</wa-time-picker>
+</wa-time-input>
 <br />
-<wa-time-picker label="End">
+<wa-time-input label="End">
   <wa-icon name="hourglass-end" slot="end"></wa-icon>
-</wa-time-picker>
+</wa-time-input>
 ```
 
 ### Required + Clear Button
@@ -117,7 +117,7 @@ Combine `required` with `with-clear` to enforce a value while still letting user
 
 ```html {.example}
 <form>
-  <wa-time-picker name="alarm" label="Alarm" required with-clear></wa-time-picker>
+  <wa-time-input name="alarm" label="Alarm" required with-clear></wa-time-input>
   <br />
   <wa-button type="submit" appearance="filled" variant="neutral">Submit</wa-button>
 </form>
@@ -128,7 +128,7 @@ Combine `required` with `with-clear` to enforce a value while still letting user
 Constrain the selectable range. The picker delegates reversed-range (overnight) semantics to the native `<input type="time">`, so `min="22:00" max="06:00"` represents an overnight range.
 
 ```html {.example}
-<wa-time-picker label="Office hours" min="09:00" max="17:00"></wa-time-picker>
+<wa-time-input label="Office hours" min="09:00" max="17:00"></wa-time-input>
 ```
 
 ### Step
@@ -136,9 +136,9 @@ Constrain the selectable range. The picker delegates reversed-range (overnight) 
 The `step` attribute is in **seconds**, matching the HTML spec. The default is `60` (one minute). Set `step` below `60` to expose a seconds segment; set it to a multiple of `60` to populate the minute column at that stride.
 
 ```html {.example}
-<wa-time-picker label="Every 5 minutes" step="300"></wa-time-picker>
+<wa-time-input label="Every 5 minutes" step="300"></wa-time-input>
 <br />
-<wa-time-picker label="With seconds" step="1"></wa-time-picker>
+<wa-time-input label="With seconds" step="1"></wa-time-input>
 ```
 
 ### 12-Hour vs 24-Hour
@@ -146,9 +146,9 @@ The `step` attribute is in **seconds**, matching the HTML spec. The default is `
 By default, `hour-format="auto"` follows the resolved locale. Pass `hour-format="12"` or `hour-format="24"` to override.
 
 ```html {.example}
-<wa-time-picker label="12-hour" hour-format="12" value="09:00"></wa-time-picker>
+<wa-time-input label="12-hour" hour-format="12" value="09:00"></wa-time-input>
 <br />
-<wa-time-picker label="24-hour" hour-format="24" value="09:00"></wa-time-picker>
+<wa-time-input label="24-hour" hour-format="24" value="09:00"></wa-time-input>
 ```
 
 ### Localized
@@ -156,11 +156,11 @@ By default, `hour-format="auto"` follows the resolved locale. Pass `hour-format=
 The segment order, separators, and AM/PM strings all derive from the page's locale. Set the `lang` attribute on the host (or an ancestor) to change locales.
 
 ```html {.example}
-<wa-time-picker lang="en-US" label="English (US)" value="14:30"></wa-time-picker>
+<wa-time-input lang="en-US" label="English (US)" value="14:30"></wa-time-input>
 <br />
-<wa-time-picker lang="en-GB" label="English (UK)" value="14:30"></wa-time-picker>
+<wa-time-input lang="en-GB" label="English (UK)" value="14:30"></wa-time-input>
 <br />
-<wa-time-picker lang="de-DE" label="German" value="14:30"></wa-time-picker>
+<wa-time-input lang="de-DE" label="German" value="14:30"></wa-time-input>
 ```
 
 ### "Now" Button
@@ -168,23 +168,23 @@ The segment order, separators, and AM/PM strings all derive from the page's loca
 Add a quick-pick "Now" button in the popup footer with `with-now`.
 
 ```html {.example}
-<wa-time-picker label="When?" with-now></wa-time-picker>
+<wa-time-input label="When?" with-now></wa-time-input>
 ```
 
 ### Sizes
 
-Use the `size` attribute to match the time picker to surrounding form controls.
+Use the `size` attribute to match the time input to surrounding form controls.
 
 ```html {.example}
-<wa-time-picker size="xs" label="Extra small"></wa-time-picker>
+<wa-time-input size="xs" label="Extra small"></wa-time-input>
 <br />
-<wa-time-picker size="s" label="Small"></wa-time-picker>
+<wa-time-input size="s" label="Small"></wa-time-input>
 <br />
-<wa-time-picker size="m" label="Medium"></wa-time-picker>
+<wa-time-input size="m" label="Medium"></wa-time-input>
 <br />
-<wa-time-picker size="l" label="Large"></wa-time-picker>
+<wa-time-input size="l" label="Large"></wa-time-input>
 <br />
-<wa-time-picker size="xl" label="Extra large"></wa-time-picker>
+<wa-time-input size="xl" label="Extra large"></wa-time-input>
 ```
 
 ### Filled Appearance
@@ -192,9 +192,9 @@ Use the `size` attribute to match the time picker to surrounding form controls.
 Use the `appearance` attribute to switch between the default outlined input, a filled background, or a filled input with an outlined border.
 
 ```html {.example}
-<wa-time-picker appearance="filled" label="Filled"></wa-time-picker>
+<wa-time-input appearance="filled" label="Filled"></wa-time-input>
 <br />
-<wa-time-picker appearance="filled-outlined" label="Filled outlined"></wa-time-picker>
+<wa-time-input appearance="filled-outlined" label="Filled outlined"></wa-time-input>
 ```
 
 ### Pill
@@ -202,21 +202,21 @@ Use the `appearance` attribute to switch between the default outlined input, a f
 Use the `pill` attribute to give the input fully rounded edges.
 
 ```html {.example}
-<wa-time-picker pill label="Pill"></wa-time-picker>
+<wa-time-input pill label="Pill"></wa-time-input>
 ```
 
 ### Disabled
 
-Use the `disabled` attribute to disable the time picker entirely. Disabled time pickers don't accept input, are skipped during tabbing, and don't submit a value with the form.
+Use the `disabled` attribute to disable the time input entirely. Disabled time inputs don't accept input, are skipped during tabbing, and don't submit a value with the form.
 
 ```html {.example}
-<wa-time-picker label="Disabled" value="09:00" disabled></wa-time-picker>
+<wa-time-input label="Disabled" value="09:00" disabled></wa-time-input>
 ```
 
 ### Read-only
 
-Use the `readonly` attribute to make the time picker non-editable while still allowing it to be focused and to submit its value with the form. The popup still opens for browsing.
+Use the `readonly` attribute to make the time input non-editable while still allowing it to be focused and to submit its value with the form. The popup still opens for browsing.
 
 ```html {.example}
-<wa-time-picker label="Read-only" value="09:00" readonly></wa-time-picker>
+<wa-time-input label="Read-only" value="09:00" readonly></wa-time-input>
 ```

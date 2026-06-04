@@ -18,7 +18,7 @@ const translation: Translation = {
   createOption: value => `ایجاد "${value}"`,
   close: 'بستن',
   closeCalendar: 'بستن تقویم',
-  closeTimePicker: 'بستن انتخابگر زمان',
+  closeTimeInput: 'بستن انتخابگر زمان',
   copied: 'کپی شد',
   copy: 'کپی',
   currentValue: 'مقدار فعلی',
@@ -101,7 +101,7 @@ const translation: Translation = {
   slideNum: slide => `اسلاید ${slide}`,
   startDate: 'تاریخ شروع',
   time: 'زمان',
-  timePickerKeyboardHelp:
+  timeInputKeyboardHelp:
     'از کلیدهای جهت‌نما برای تغییر مقادیر استفاده کنید؛ برای باز کردن انتخابگر زمان Alt+جهت‌نمای پایین را فشار دهید.',
   today: 'امروز',
   toggleColorFormat: 'تغییر قالب رنگ',
