@@ -20,8 +20,12 @@ These are still finding their shape. APIs can change between minor versions, so 
 
 :::added
 
+- Added the `<wa-date-input>` experimental pro component
+- Added the `<wa-date-picker>` experimental pro component
+- Added the `<wa-known-date>` experimental component
+- Added the `<wa-time-picker>` experimental component
+- Added the experimental `<wa-accordion>` and `<wa-accordion-item>` components
 - Added the ability to set a centered image for `<wa-qr-code>` and have different corner colors [pr:2139]
-- Added two new experimental components: `<wa-accordion>` and `<wa-accordion-item>`
 - Added the `capture` attribute to `<wa-file-input>` for capturing media directly from a device's camera or microphone [discuss:2380]
 - Added the `wa-text-uppercase` text utility class for transforming text to uppercase
 - Added the `wa-text-lowercase` text utility class for transforming text to lowercase
@@ -42,6 +46,7 @@ These are still finding their shape. APIs can change between minor versions, so 
 - Fixed a regression in `<wa-breadcrumb-item>` that caused items without an `href` to render as a link instead of a button
 - Fixed a regression in `<wa-popover>` where the body's viewport-edge margin caused the popover and arrow to be misaligned for `top/bottom-start` and `top/bottom-end` placements
 - Fixed a bug in `<wa-textarea>` where the disabled state had no visual styling, unlike other form controls [issue:2416]
+- Fixed a bug in `<wa-icon>` that caused some FA icons to not render based on `currentColor`
 - Fixed default show/hide animations in `<wa-dropdown>`, `<wa-popup>`, `<wa-popover>`, `<wa-select>`, `<wa-details>`, `<wa-dialog>`, `<wa-drawer>`, and `<wa-tree-item>` to honor `prefers-reduced-motion: reduce`
 - Fixed a bug in `<wa-drawer>` that caused the `light-dismiss` option not work as intended [pr:2437]
 - Fixed a bug in `<wa-dropdown>` that prevented items from being visible when the selected overflowed [pr:2430]
@@ -159,8 +164,8 @@ These are still finding their shape. APIs can change between minor versions, so 
 
 :::added
 
-- Moved `<wa-page>` from {{ site.namePro }} to Web Awesome core
-- Added a new free experimental component: `<wa-markdown>` (#6 of 14 per stretch goals)
+- Moved `<wa-page>` from pro to core
+- Added a new core experimental component: `<wa-markdown>` (#6 of 14 per stretch goals)
 - Added the `data-wa-preload` attribute for preloading components that aren't on the page yet when using the autoloader [issue:1501]
 - Added `placement` attribute to `<wa-color-picker>` [issue:2099]
 - Added form association to `<wa-rating>`

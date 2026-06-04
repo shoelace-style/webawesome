@@ -121,11 +121,11 @@
           <div>{{ prop.description | inlineMarkdown | safe }}</div>
           {% if prop.type.text %}
           <div>
-            <small><strong>Type</strong>&nbsp;<code>{{ prop.type.text | trimPipes | inlineMarkdown | safe }}</code></small>
+            <small><strong>Type</strong>&nbsp;<code>{{ prop.type.text | trimPipes | escape }}</code></small>
           </div>
           {% endif %}
           {% if prop.default %}
-          <div><small><strong>Default</strong>&nbsp;<code>{{ prop.default | inlineMarkdown | safe }}</code></small>
+          <div><small><strong>Default</strong>&nbsp;<code>{{ prop.default | escape }}</code></small>
           </div>
           {% endif %}
         </td>
