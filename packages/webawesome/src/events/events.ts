@@ -1,3 +1,6 @@
+export type { WaAccordionItemCollapsedEvent } from './accordion-item-collapsed.js';
+export type { WaAccordionItemExpandedEvent } from './accordion-item-expanded.js';
+export type { WaAccordionItemTriggerEvent } from './accordion-item-trigger.js';
 export type { WaAfterCollapseEvent } from './after-collapse.js';
 export type { WaAfterExpandEvent } from './after-expand.js';
 export type { WaAfterHideEvent } from './after-hide.js';

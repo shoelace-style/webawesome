@@ -211,6 +211,20 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
     this.resizeObserver = undefined;
   }
 
+  /**
+   * @internal
+   */
+  protected updateFormValue(value: string | FormData | File | null) {
+    if (value == null) {
+      // null is the fallback value when loading from browser "memory" (also called "state").
+      // we use an empty string to mimic browser behavior of `<input>`
+      this.setValue('', null);
+      return;
+    }
+
+    super.updateFormValue(value);
+  }
+
   private lastObservedWidth = 0;
 
   /** Creates or destroys the resize observer based on the current resize mode. */

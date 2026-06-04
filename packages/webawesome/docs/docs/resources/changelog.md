@@ -24,6 +24,8 @@ These are still finding their shape. APIs can change between minor versions, so 
 - Added the `<wa-date-picker>` experimental pro component
 - Added the `<wa-known-date>` experimental component
 - Added the `<wa-time-input>` experimental component
+- Added the experimental `<wa-accordion>` and `<wa-accordion-item>` components
+- Added the ability to set a centered image for `<wa-qr-code>` and have different corner colors [pr:2139]
 - Added the `capture` attribute to `<wa-file-input>` for capturing media directly from a device's camera or microphone [discuss:2380]
 - Added the `wa-text-uppercase` text utility class for transforming text to uppercase
 - Added the `wa-text-lowercase` text utility class for transforming text to lowercase
@@ -38,6 +40,7 @@ These are still finding their shape. APIs can change between minor versions, so 
 
 :::fixed
 
+- Fixed a bug in `<wa-zoomable-frame>` where it was not importing `<wa-icon>` [pr:2457]
 - Fixed a bug in `<wa-video>` where the `timeupdate` method was not emitting when seeking or scrubbing the timeline [issue:2393]
 - Fixed a bug in `<wa-breadcrumb-item>` where `href=""` rendered as a button instead of a link, making it harder to follow the [WAI-ARIA breadcrumb pattern](https://www.w3.org/WAI/ARIA/apg/patterns/breadcrumb/) for the current-page item [issue:2387]
 - Fixed a regression in `<wa-breadcrumb-item>` that caused items without an `href` to render as a link instead of a button
@@ -53,6 +56,7 @@ These are still finding their shape. APIs can change between minor versions, so 
 
 :::changed
 
+- Updated from `qr-creator` to `@konnorr/qr-creator` NPM package to facilitate `<wa-qr-code>` improvements. [pr:2139]
 - Synced default `--show-duration` and `--hide-duration` values in `<wa-dropdown>`, `<wa-popup>`, `<wa-popover>`, `<wa-select>`, `<wa-combobox>`, `<wa-details>`, `<wa-dialog>`, `<wa-drawer>`, `<wa-tree-item>`, and `<wa-toast-item>` with `--wa-transition-fast` and `--wa-transition-normal` tokens
 - Synced hardcoded transitions in `<wa-copy-button>`, `<wa-select>`, `<wa-combobox>`, and `<wa-toast-item>` with `--wa-transition-*` tokens
 - Improved the vertical placement of content within `<wa-textarea>` and `textarea` when the content overflows the control [pr:2424]
