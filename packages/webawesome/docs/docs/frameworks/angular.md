@@ -4,6 +4,12 @@ description: Tips for using Web Awesome in your Angular app.
 layout: page-outline
 ---
 
+<wa-breadcrumb class="page-breadcrumbs">
+  <wa-icon slot="separator" name="angle-right" variant="regular"></wa-icon>
+  <wa-breadcrumb-item href="/docs/frameworks">Frameworks</wa-breadcrumb-item>
+  <wa-breadcrumb-item>{{ title }}</wa-breadcrumb-item>
+</wa-breadcrumb>
+
 Angular [plays nice](https://custom-elements-everywhere.com/#angular) with custom elements, so you can use Web Awesome in your Angular apps with ease.
 
 ## Installation
@@ -18,7 +24,7 @@ npm install @awesome.me/webawesome
 
 ### Update the Angular Configuration
 
-Next, [include a theme](/getting-started/themes). In this example, we'll import the light theme.
+Next, [include a theme](/docs/themes). In this example, we'll import the light theme.
 
 Its also important to load the components by using a `<script>` tag into the index.html file. However, the Angular way to do it is by adding a script configurations into your angular.json file as follows:
 

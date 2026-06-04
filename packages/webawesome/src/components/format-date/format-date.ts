@@ -4,7 +4,8 @@ import WebAwesomeElement from '../../internal/webawesome-element.js';
 import { LocalizeController } from '../../utilities/localize.js';
 
 /**
- * @summary Formats a date/time using the specified locale and options.
+ * @summary Formats a date or time for display using the specified locale and options. Powered by the
+ *  Intl.DateTimeFormat API for consistent, localized output.
  * @documentation https://webawesome.com/docs/components/format-date
  * @status stable
  * @since 2.0

@@ -1,8 +1,14 @@
 ---
 title: Radio Group
-description: Radio groups are used to group multiple radios so they function as a single form control.
 layout: component
-category: Form Controls
+category: Forms
+synonyms:
+  - radio buttons
+  - option group
+  - button group
+use-cases:
+  - single select group
+  - exclusive options
 ---
 
 ```html {.example}
@@ -121,19 +127,31 @@ The default orientation for radio items is `vertical`. Set the `orientation` to 
 The size of radios will be determined by the Radio Group's `size` attribute.
 
 ```html {.example}
-<wa-radio-group label="Small options" size="small" value="1">
+<wa-radio-group label="Extra small options" size="xs" value="1">
   <wa-radio value="1">Option 1</wa-radio>
   <wa-radio value="2">Option 2</wa-radio>
   <wa-radio value="3">Option 3</wa-radio>
 </wa-radio-group>
-<br>
-<wa-radio-group label="Medium options" size="medium" value="2">
+<br />
+<wa-radio-group label="Small options" size="s" value="1">
   <wa-radio value="1">Option 1</wa-radio>
   <wa-radio value="2">Option 2</wa-radio>
   <wa-radio value="3">Option 3</wa-radio>
 </wa-radio-group>
-<br>
-<wa-radio-group label="Large options" size="large" value="3">
+<br />
+<wa-radio-group label="Medium options" size="m" value="2">
+  <wa-radio value="1">Option 1</wa-radio>
+  <wa-radio value="2">Option 2</wa-radio>
+  <wa-radio value="3">Option 3</wa-radio>
+</wa-radio-group>
+<br />
+<wa-radio-group label="Large options" size="l" value="3">
+  <wa-radio value="1">Option 1</wa-radio>
+  <wa-radio value="2">Option 2</wa-radio>
+  <wa-radio value="3">Option 3</wa-radio>
+</wa-radio-group>
+<br />
+<wa-radio-group label="Extra large options" size="xl" value="3">
   <wa-radio value="1">Option 1</wa-radio>
   <wa-radio value="2">Option 2</wa-radio>
   <wa-radio value="3">Option 3</wa-radio>
@@ -144,9 +162,11 @@ If you need to have radios of varying sizes, place the `size` attribute on indiv
 
 ```html {.example}
 <wa-radio-group label="Mixed options" value="medium">
-  <wa-radio value="1" size="small">Small</wa-radio>
-  <wa-radio value="2" size="medium">Medium</wa-radio>
-  <wa-radio value="3" size="large">Large</wa-radio>
+  <wa-radio value="1" size="xs">Extra Small</wa-radio>
+  <wa-radio value="2" size="s">Small</wa-radio>
+  <wa-radio value="3" size="m">Medium</wa-radio>
+  <wa-radio value="4" size="l">Large</wa-radio>
+  <wa-radio value="5" size="xl">Extra Large</wa-radio>
 </wa-radio-group>
 ```
 
@@ -162,7 +182,7 @@ Setting the `required` attribute to make selecting an option mandatory. If a val
     <wa-radio value="3">Option 3</wa-radio>
   </wa-radio-group>
   <br />
-  <wa-button appearance="filled" type="submit" variant="brand">Submit</wa-button>
+  <wa-button appearance="filled" type="submit" variant="neutral">Submit</wa-button>
 </form>
 
 <script>
@@ -188,7 +208,7 @@ Use the `setCustomValidity()` method to set a custom validation message. This wi
     <wa-radio value="3">Choose me</wa-radio>
   </wa-radio-group>
   <br />
-  <wa-button appearance="filled" type="submit" variant="brand">Submit</wa-button>
+  <wa-button appearance="filled" type="submit" variant="neutral">Submit</wa-button>
 </form>
 
 <script>

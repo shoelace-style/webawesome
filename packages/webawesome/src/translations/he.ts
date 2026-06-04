@@ -7,6 +7,7 @@ const translation: Translation = {
   $dir: 'rtl',
 
   carousel: 'קרוסלה',
+  captions: 'כתוביות',
   clearEntry: 'נקה קלט',
   createOption: value => `יצירת "${value}"`,
   close: 'סגור',
@@ -17,11 +18,16 @@ const translation: Translation = {
   dropFileHere: 'Drop file here or click to browse',
   dropFilesHere: 'Drop files here or click to browse',
   error: 'שְׁגִיאָה',
+  enterFullscreen: 'כניסה למסך מלא',
+  exitFullscreen: 'יציאה ממסך מלא',
   goToSlide: (slide, count) => `עבור לשקופית ${slide} של ${count}`,
   hidePassword: 'הסתר סיסמא',
   increment: 'הגדל',
   loading: 'טוען',
+  moreOptions: 'אפשרויות נוספות',
+  mute: 'השתקה',
   nextSlide: 'השקף הבא',
+  nextVideo: 'הסרטון הבא',
   numCharacters: num => {
     if (num === 1) return '1 תו';
     return `${num} תווים`;
@@ -35,9 +41,15 @@ const translation: Translation = {
     if (num === 1) return 'נבחרה אפשרות אחת';
     return `נבחרו ${num} אפשרויות`;
   },
+  pause: 'השהייה',
   pauseAnimation: 'השהה אנימציה',
+  pictureInPicture: 'תמונה בתוך תמונה',
+  play: 'הפעלה',
+  playbackSpeed: 'מהירות הפעלה',
+  playlist: 'רשימת השמעה',
   playAnimation: 'נגן אנימציה',
   previousSlide: 'שקופית קודמת',
+  previousVideo: 'הסרטון הקודם',
   progress: 'התקדמות',
   remove: 'לְהַסִיר',
   resize: 'שנה גודל',
@@ -48,6 +60,12 @@ const translation: Translation = {
   showPassword: 'הראה סיסמה',
   slideNum: slide => `שקופית ${slide}`,
   toggleColorFormat: 'החלף פורמט צבע',
+  seek: 'חפש',
+  seekProgress: (current, duration) => `${current} מתוך ${duration}`,
+  currentlyPlaying: 'מתנגן כעת',
+  unmute: 'ביטול השתקה',
+  videoPlayer: 'נגן וידאו',
+  volume: 'עוצמת קול',
   zoomIn: 'התקרב',
   zoomOut: 'התרחק',
 };

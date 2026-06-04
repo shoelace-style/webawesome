@@ -1,8 +1,16 @@
 ---
 title: Rating
-description: Ratings give users a way to quickly view and provide feedback.
 layout: component
-category: Form Controls
+category: Forms
+synonyms:
+  - stars
+  - star rating
+  - review
+use-cases:
+  - feedback
+  - score
+  - 5 stars
+  - thumbs up
 ---
 
 ```html {.example}
@@ -44,9 +52,11 @@ Use the `precision` attribute to let users select fractional ratings.
 Use the `size` attribute to adjust the size of the rating.
 
 ```html {.example}
-<wa-rating label="Rating" size="small"></wa-rating><br />
-<wa-rating label="Rating" size="medium"></wa-rating><br />
-<wa-rating label="Rating" size="large"></wa-rating>
+<wa-rating label="Rating" size="xs"></wa-rating><br />
+<wa-rating label="Rating" size="s"></wa-rating><br />
+<wa-rating label="Rating" size="m"></wa-rating><br />
+<wa-rating label="Rating" size="l"></wa-rating><br />
+<wa-rating label="Rating" size="xl"></wa-rating>
 ```
 
 For more granular sizing, you can use the `font-size` property.
@@ -167,10 +177,7 @@ Use the `required` attribute to make the rating mandatory. The form will not sub
 <script type="module">
   const form = document.querySelector('.rating-required');
 
-  await Promise.all([
-    customElements.whenDefined('wa-button'),
-    customElements.whenDefined('wa-rating'),
-  ]).then(() => {
+  await Promise.all([customElements.whenDefined('wa-button'), customElements.whenDefined('wa-rating')]).then(() => {
     form.addEventListener('submit', event => {
       event.preventDefault();
       alert('All fields are valid!');
@@ -204,10 +211,7 @@ Use the `setCustomValidity()` method to set a custom validation message. This wi
     rating.setCustomValidity(rating.value >= 3 ? '' : errorMessage);
   });
 
-  await Promise.all([
-    customElements.whenDefined('wa-button'),
-    customElements.whenDefined('wa-rating'),
-  ]).then(() => {
+  await Promise.all([customElements.whenDefined('wa-button'), customElements.whenDefined('wa-rating')]).then(() => {
     form.addEventListener('submit', event => {
       event.preventDefault();
       alert('All fields are valid!');

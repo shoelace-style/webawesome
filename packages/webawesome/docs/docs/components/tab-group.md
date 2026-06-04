@@ -1,8 +1,17 @@
 ---
 title: Tab Group
-description: Tab groups organize content into a container that shows one section at a time.
 layout: component
 category: Navigation
+synonyms:
+  - tabs
+  - tabbed interface
+  - tab bar
+  - tab panel
+  - tab set
+use-cases:
+  - tabbed content
+  - tab navigation
+  - settings tabs
 ---
 
 Tab groups make use of [tabs](/docs/components/tab) and [tab panels](/docs/components/tab-panel). Each panel should have a name that's unique within the tab group, and tabs should have a `panel` attribute that points to the respective panel's name.
@@ -101,7 +110,7 @@ You can make a tab closable by adding a close button next to the tab and inside 
 <wa-tab-group class="tabs-closable">
   <wa-tab panel="general">General</wa-tab>
   <wa-tab panel="closable">Closable</wa-tab>
-  <wa-button slot="nav" tabindex="-1" appearance="plain" size="small">
+  <wa-button slot="nav" tabindex="-1" appearance="plain" size="s">
     <wa-icon name="xmark" label="Close the closable tab"></wa-icon>
   </wa-button>
   <wa-tab panel="closable-2">Advanced</wa-tab>

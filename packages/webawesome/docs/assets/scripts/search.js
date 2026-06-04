@@ -8,7 +8,7 @@ const res = await Promise.all([
 const MiniSearch = res[0].default;
 const searchData = await res[1].json();
 const searchIndex = MiniSearch.loadJSON(JSON.stringify(searchData.searchIndex), {
-  fields: ['t', 'h', 'c'],
+  fields: ['t', 'h', 's', 'u', 'c'],
 });
 const map = searchData.map;
 const searchDebounce = 200;
@@ -30,7 +30,6 @@ const iconByPrefix = [
   ['/dpa', 'file-contract'],
   ['/docs/color-palettes', 'palette'],
   ['/docs/themes', 'palette'],
-  ['/docs/layout', 'ruler-combined'],
   ['/docs/utilities/align-items', 'ruler-combined'],
   ['/docs/utilities/justify-content', 'ruler-combined'],
   ['/docs/utilities/flex-wrap', 'ruler-combined'],
@@ -57,13 +56,14 @@ const iconByPrefix = [
   ['/docs/components/radar-chart', 'chart-area'],
   ['/docs/components/scatter-chart', 'chart-area'],
   ['/docs/components/sparkline', 'chart-area'],
-  ['/docs/components', 'trowel-bricks'],
+  ['/docs/components', 'block'],
   ['/docs/patterns', 'block-brick'],
   ['/docs/patterns/layouts', 'table-layout'],
   ['/docs/frameworks', 'puzzle'],
   ['/docs/tokens', 'coin-front'],
-  ['/docs/resources/agent-skills', 'sparkles'],
-  ['/docs/resources/llms', 'sparkles'],
+  ['/docs/ai', 'sparkles'],
+  ['/docs/ai/agent-skills', 'sparkles'],
+  ['/docs/ai/llms', 'sparkles'],
   ['/docs/resources', 'book-spine'],
 ].sort((a, b) => b[0].length - a[0].length);
 
@@ -323,7 +323,7 @@ async function updateResults(query = '') {
       matches = searchIndex.search(trimmedQuery, {
         prefix: true,
         fuzzy: 0.2,
-        boost: { t: 20, h: 10 },
+        boost: { t: 20, s: 14, h: 10, u: 6, c: 1 },
       });
 
       // Re-rank results to prioritize title matches. Searches don't account for where in a title a match occurs, so

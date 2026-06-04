@@ -3,6 +3,15 @@ title: Stack
 description: 'Use `wa-stack` to arrange elements in the block direction with even spacing.'
 layout: docs
 tags: layoutUtilities
+synonyms:
+  - vertical stack
+  - vstack
+  - column layout
+use-cases:
+  - vertical spacing
+  - stacked layout
+  - card stack
+  - vertical rhythm
 ---
 
 <style>
@@ -20,7 +29,9 @@ tags: layoutUtilities
   }
 </style>
 
-{{ description }}
+A stack arranges its children in a vertical column with an equal gap between each item, so you don't have to add top or bottom margins to every element you put into it. It's the go-to layout for forms, paragraphs of text, card bodies, and anywhere you want consistent vertical rhythm.
+
+By default, items stretch to fill the stack's width. Pair `wa-stack` with a [`wa-gap-*`](/docs/utilities/gap) class to control the spacing and a [`wa-align-items-*`](/docs/utilities/align-items) class to change how children line up horizontally.
 
 ```html {.example}
 <div class="wa-stack">
@@ -40,7 +51,7 @@ Stacks are well suited for forms, text, and ensuring consistent spacing between 
     <wa-icon slot="start" name="envelope" variant="regular"></wa-icon>
   </wa-input>
   <wa-input label="Password" type="password">
-    <wa-icon slot="start" name="lock" variant="regular"></wa-icon>
+    <wa-icon slot="start" name="lock"></wa-icon>
   </wa-input>
   <wa-checkbox>Remember me on this device</wa-checkbox>
   <wa-button appearance="filled">Log In</wa-button>

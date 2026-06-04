@@ -1,8 +1,15 @@
 ---
 title: Switch
-description: Switches allow the user to toggle an option on or off.
 layout: component
-category: Form Controls
+category: Forms
+synonyms:
+  - toggle
+  - toggle switch
+  - on off
+use-cases:
+  - boolean toggle
+  - setting toggle
+  - dark mode toggle
 ---
 
 ```html {.example}
@@ -40,11 +47,15 @@ Use the `disabled` attribute to disable the switch.
 Use the `size` attribute to change a switch's size.
 
 ```html {.example}
-<wa-switch size="small">Small</wa-switch>
+<wa-switch size="xs">Extra Small</wa-switch>
 <br />
-<wa-switch size="medium">Medium</wa-switch>
+<wa-switch size="s">Small</wa-switch>
 <br />
-<wa-switch size="large">Large</wa-switch>
+<wa-switch size="m">Medium</wa-switch>
+<br />
+<wa-switch size="l">Large</wa-switch>
+<br />
+<wa-switch size="xl">Extra Large</wa-switch>
 ```
 
 ### Hint

@@ -1,8 +1,17 @@
 ---
 title: Color Picker
-description: Color pickers allow the user to select a color.
 layout: component
-category: Form Controls
+category: Forms
+synonyms:
+  - color chooser
+  - color selector
+  - colour picker
+  - eyedropper
+use-cases:
+  - color input
+  - hex picker
+  - rgb picker
+  - hsl picker
 ---
 
 ```html {.example}
@@ -75,7 +84,7 @@ You can also pass an array of objects with `color` and `label` properties using 
     { color: '#4a90e2', label: 'Blue' },
     { color: '#bd10e0', label: 'Purple' },
     { color: '#000', label: 'Black' },
-    { color: '#fff', label: 'White' }
+    { color: '#fff', label: 'White' },
   ];
 </script>
 ```
@@ -99,9 +108,11 @@ Use the `size` attribute to change the color picker's trigger size.
 
 ```html {.example}
 <div class="wa-gap-m wa-align-items-baseline">
-  <wa-color-picker size="small" label="Select a color"></wa-color-picker>
-  <wa-color-picker size="medium" label="Select a color"></wa-color-picker>
-  <wa-color-picker size="large" label="Select a color"></wa-color-picker>
+  <wa-color-picker size="xs" label="Select a color"></wa-color-picker>
+  <wa-color-picker size="s" label="Select a color"></wa-color-picker>
+  <wa-color-picker size="m" label="Select a color"></wa-color-picker>
+  <wa-color-picker size="l" label="Select a color"></wa-color-picker>
+  <wa-color-picker size="xl" label="Select a color"></wa-color-picker>
 </div>
 ```
 

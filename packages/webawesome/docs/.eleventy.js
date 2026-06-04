@@ -3,10 +3,13 @@ import { parse as HTMLParse } from 'node-html-parser';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { anchorHeadingsTransformer } from './_transformers/anchor-headings.js';
+import { changelogListIconsTransformer } from './_transformers/changelog-list-icons.js';
 import { codeExamplesTransformer } from './_transformers/code-examples.js';
 import { copyCodeTransformer } from './_transformers/copy-code.js';
 import { currentLinkTransformer } from './_transformers/current-link.js';
+import { dynamicSnippetsTransformer } from './_transformers/dynamic-snippets.js';
 import { highlightCodeTransformer } from './_transformers/highlight-code.js';
+import { linkifyComponentsTransformer } from './_transformers/linkify-components.js';
 import { outlineTransformer } from './_transformers/outline.js';
 import { getComponents } from './_utils/manifest.js';
 import { markdown } from './_utils/markdown.js';
@@ -66,7 +69,11 @@ export default async function (eleventyConfig) {
    * If you plan to add or remove any of these extensions, make sure to let either Konnor or Cory know as these
    * passthrough extensions will also need to be updated in the Web Awesome App.
    */
-  const passThrough = [...passThroughExtensions.map(ext => path.join(docsDir, '**/*.' + ext))];
+  const passThrough = [
+    path.join(docsDir, 'assets'),
+    path.join(docsDir, 'assets-pro'),
+    ...passThroughExtensions.map(ext => path.join(docsDir, '**/*.' + ext)),
+  ];
 
   /**
    * This is the guard we use for now to make sure our final built files don't need a 2nd pass by the server. This keeps
@@ -197,10 +204,7 @@ export default async function (eleventyConfig) {
   // Shortcodes - {% shortCode arg1, arg2 %}
   eleventyConfig.addShortcode('cdnUrl', location => {
     // We use WA (free) via the public CDN for CodePen examples
-    return (
-      `https://cdn.jsdelivr.net/npm/@awesome.me/webawesome@${packageData.version}/dist-cdn/` +
-      (location || '').replace(/^\//, '')
-    );
+    return `https://ka-f.webawesome.com/webawesome@${packageData.version}/` + (location || '').replace(/^\//, '');
   });
 
   // Turns `{% server "foo" %} into `{{ server.foo | safe }}` when the WEBAWESOME_SERVER variable is set to "true"
@@ -256,7 +260,10 @@ export default async function (eleventyConfig) {
       currentLinkTransformer(),
       codeExamplesTransformer(),
       highlightCodeTransformer(),
+      dynamicSnippetsTransformer(),
       copyCodeTransformer(),
+      changelogListIconsTransformer(),
+      linkifyComponentsTransformer(allComponents.map(c => c.tagName).filter(Boolean)),
     ];
 
     for (const transformer of transformers) {
@@ -272,20 +279,23 @@ export default async function (eleventyConfig) {
         replace: /\[version\]/gs,
         replaceWith: packageData.version,
       },
-      // Replace [issue:1234] with a link to the issue on GitHub
+      // Replace [pr:1234] with an outlined badge link to the pull request on GitHub
       {
         replace: /\[pr:([0-9]+)\]/gs,
-        replaceWith: '<a href="https://github.com/shoelace-style/webawesome/pull/$1" target="_blank">#$1</a>',
+        replaceWith:
+          '<a class="ref-link ref-pr" href="https://github.com/shoelace-style/webawesome/pull/$1" target="_blank"><wa-badge variant="neutral" appearance="outlined"><wa-icon slot="start" name="code-pull-request" variant="regular" aria-hidden="true"></wa-icon>#$1</wa-badge></a>',
       },
-      // Replace [pr:1234] with a link to the pull request on GitHub
+      // Replace [issue:1234] with an outlined badge link to the issue on GitHub
       {
         replace: /\[issue:([0-9]+)\]/gs,
-        replaceWith: '<a href="https://github.com/shoelace-style/webawesome/issues/$1" target="_blank">#$1</a>',
+        replaceWith:
+          '<a class="ref-link ref-issue" href="https://github.com/shoelace-style/webawesome/issues/$1" target="_blank"><wa-badge variant="neutral" appearance="outlined"><wa-icon slot="start" name="circle-dot" variant="regular" aria-hidden="true"></wa-icon>#$1</wa-badge></a>',
       },
-      // Replace [discuss:1234] with a link to the discussion on GitHub
+      // Replace [discuss:1234] with an outlined badge link to the discussion on GitHub
       {
         replace: /\[discuss:([0-9]+)\]/gs,
-        replaceWith: '<a href="https://github.com/shoelace-style/webawesome/discussions/$1" target="_blank">#$1</a>',
+        replaceWith:
+          '<a class="ref-link ref-discuss" href="https://github.com/shoelace-style/webawesome/discussions/$1" target="_blank"><wa-badge variant="neutral" appearance="outlined"><wa-icon slot="start" name="comments" variant="regular" aria-hidden="true"></wa-icon>#$1</wa-badge></a>',
       },
     ]),
   );
@@ -313,6 +323,10 @@ export default async function (eleventyConfig) {
   //   eleventyConfig.addPlugin(formatCodePlugin());
   // }
   eleventyConfig.on('eleventy.after', async () => {
+    if (process.env.SKIP_SLOW_STEPS === 'true') {
+      return;
+    }
+
     const siteDir = getSiteDir();
     await generateAgentSkill({
       siteDir,

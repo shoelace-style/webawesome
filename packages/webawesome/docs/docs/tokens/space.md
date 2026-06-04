@@ -1,6 +1,16 @@
 ---
 title: Space
-description: Lock down consistent spacing Web Awesome's space properties.
+description: Lock down consistent spacing Web Awesome's space tokens.
+synonyms:
+  - spacing
+  - spacing scale
+  - whitespace
+use-cases:
+  - padding
+  - margin
+  - gap
+  - spacing tokens
+hasOutline: true
 ---
 
 <style>
@@ -11,9 +21,8 @@ description: Lock down consistent spacing Web Awesome's space properties.
     align-items: center;
     background-color: var(--wa-color-neutral-fill-normal);
     height: 2em;
-    margin-inline:var(--dot-size);
+    margin-inline: var(--dot-size);
   }
-
   .spacing-example::before {
     content: '';
     aspect-ratio: 1 / 1;
@@ -22,7 +31,6 @@ description: Lock down consistent spacing Web Awesome's space properties.
     border-radius: 50%;
     margin-inline-start: calc(var(--dot-size) * -1);
   }
-
   .spacing-example::after {
     content: '';
     aspect-ratio: 1 / 1;
@@ -33,22 +41,81 @@ description: Lock down consistent spacing Web Awesome's space properties.
   }
 </style>
 
-Space properties are used intentionally throughout Web Awesome to create predictable rhythm and meaningful proximity. These properties use `rem` units in order to scale proportionately with the root font size.
+Space tokens create predictable rhythm and meaningful proximity. They use `rem` units so that spacing scales proportionately with the root font size.
 
-You can use `--wa-space-scale` to increase or decrease all spacing at once. By default, this multiplier is `1`.
+Use `--wa-space-scale` to increase or decrease all spacing at once.
 
-The calculations for each size and the resulting pixel value (assuming a 16px root font size) are listed below.
-
-| Custom Property  | Default Value                                                 | Preview                                                      -         |
-| ---------------- | ------------------------------------------------------------- | ---------------------------------------------------------------------- |
-| `--wa-space-3xs` | `calc(var(--wa-space-scale) * 0.125rem)` <small>(2px)</small> | <div class="spacing-example" style="width: var(--wa-space-3xs)"></div> |
-| `--wa-space-2xs` | `calc(var(--wa-space-scale) * 0.25rem)` <small>(4px)</small>  | <div class="spacing-example" style="width: var(--wa-space-2xs)"></div> |
-| `--wa-space-xs`  | `calc(var(--wa-space-scale) * 0.5rem)` <small>(8px)</small>   | <div class="spacing-example" style="width: var(--wa-space-xs)"></div>  |
-| `--wa-space-s`   | `calc(var(--wa-space-scale) * 0.75rem)` <small>(12px)</small> | <div class="spacing-example" style="width: var(--wa-space-s)"></div>   |
-| `--wa-space-m`   | `calc(var(--wa-space-scale) * 1rem)` <small>(16px)</small>    | <div class="spacing-example" style="width: var(--wa-space-m)"></div>   |
-| `--wa-space-l`   | `calc(var(--wa-space-scale) * 1.5rem)` <small>(24px)</small>  | <div class="spacing-example" style="width: var(--wa-space-l)"></div>   |
-| `--wa-space-xl`  | `calc(var(--wa-space-scale) * 2rem)` <small>(32px)</small>    | <div class="spacing-example" style="width: var(--wa-space-xl)"></div>  |
-| `--wa-space-2xl` | `calc(var(--wa-space-scale) * 2.5rem)` <small>(40px)</small>  | <div class="spacing-example" style="width: var(--wa-space-2xl)"></div> |
-| `--wa-space-3xl` | `calc(var(--wa-space-scale) * 3rem)` <small>(48px)</small>    | <div class="spacing-example" style="width: var(--wa-space-3xl)"></div> |
-| `--wa-space-4xl` | `calc(var(--wa-space-scale) * 4rem)` <small>(64px)</small>    | <div class="spacing-example" style="width: var(--wa-space-4xl)"></div> |
-| `--wa-space-5xl` | `calc(var(--wa-space-scale) * 5rem)` <small>(80px)</small>    | <div class="spacing-example" style="width: var(--wa-space-5xl)"></div> |
+<wa-scroller>
+  <table class="token-table wa-hover-rows">
+    <thead>
+      <tr><th>Custom Property</th><th>Description</th><th>Preview</th></tr>
+    </thead>
+    <tbody>
+      <tr id="token-wa-space-scale">
+        <td class="token-name"><code>--wa-space-scale</code></td>
+        <td>Global multiplier applied to all space tokens</td>
+        <td>—</td>
+      </tr>
+      <tr id="token-wa-space-3xs">
+        <td class="token-name"><code>--wa-space-3xs</code></td>
+        <td>Smallest space, for hairline gaps and nudges</td>
+        <td><div class="spacing-example" style="width: var(--wa-space-3xs)"></div></td>
+      </tr>
+      <tr id="token-wa-space-2xs">
+        <td class="token-name"><code>--wa-space-2xs</code></td>
+        <td>Near-smallest space, for text or icon gaps</td>
+        <td><div class="spacing-example" style="width: var(--wa-space-2xs)"></div></td>
+      </tr>
+      <tr id="token-wa-space-xs">
+        <td class="token-name"><code>--wa-space-xs</code></td>
+        <td>Extra-small space, for closely related elements</td>
+        <td><div class="spacing-example" style="width: var(--wa-space-xs)"></div></td>
+      </tr>
+      <tr id="token-wa-space-s">
+        <td class="token-name"><code>--wa-space-s</code></td>
+        <td>Small space, for inner padding in small components</td>
+        <td><div class="spacing-example" style="width: var(--wa-space-s)"></div></td>
+      </tr>
+      <tr id="token-wa-space-m">
+        <td class="token-name"><code>--wa-space-m</code></td>
+        <td>Base space, the most common padding and gap size</td>
+        <td><div class="spacing-example" style="width: var(--wa-space-m)"></div></td>
+      </tr>
+      <tr id="token-wa-space-l">
+        <td class="token-name"><code>--wa-space-l</code></td>
+        <td>Large space, for inner padding in larger components</td>
+        <td><div class="spacing-example" style="width: var(--wa-space-l)"></div></td>
+      </tr>
+      <tr id="token-wa-space-xl">
+        <td class="token-name"><code>--wa-space-xl</code></td>
+        <td>Extra-large space, for padding between or around groups</td>
+        <td><div class="spacing-example" style="width: var(--wa-space-xl)"></div></td>
+      </tr>
+      <tr id="token-wa-space-2xl">
+        <td class="token-name"><code>--wa-space-2xl</code></td>
+        <td>2× extra-large space</td>
+        <td><div class="spacing-example" style="width: var(--wa-space-2xl)"></div></td>
+      </tr>
+      <tr id="token-wa-space-3xl">
+        <td class="token-name"><code>--wa-space-3xl</code></td>
+        <td>3× extra-large space</td>
+        <td><div class="spacing-example" style="width: var(--wa-space-3xl)"></div></td>
+      </tr>
+      <tr id="token-wa-space-4xl">
+        <td class="token-name"><code>--wa-space-4xl</code></td>
+        <td>4× extra-large space</td>
+        <td><div class="spacing-example" style="width: var(--wa-space-4xl)"></div></td>
+      </tr>
+      <tr id="token-wa-space-5xl">
+        <td class="token-name"><code>--wa-space-5xl</code></td>
+        <td>Largest space, for ultra-breathable spacing</td>
+        <td><div class="spacing-example" style="width: var(--wa-space-5xl)"></div></td>
+      </tr>
+      <tr id="token-wa-content-spacing">
+        <td class="token-name"><code>--wa-content-spacing</code></td>
+        <td>Semantic alias for the default spacing between top-level blocks</td>
+        <td><div class="spacing-example" style="width: var(--wa-content-spacing)"></div></td>
+      </tr>
+    </tbody>
+  </table>
+</wa-scroller>

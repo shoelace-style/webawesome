@@ -1,56 +1,162 @@
 ---
 title: Shadows
-description: Elevate your components with Web Awesome's shadow properties.
+description: Elevate your components with Web Awesome's shadow tokens.
+synonyms:
+  - box shadow
+  - elevation
+  - depth
+use-cases:
+  - drop shadow
+  - card shadow
+  - overlay shadow
+hasOutline: true
 ---
 
-Shadows indicate elevation and, often, interactivity. Web Awesome offers highly modular shadow properties to easily create custom shadow effects or transform elements based on specific shadow qualities. Together with [`--wa-color-shadow`](/docs/tokens/color/#shadow), these tokens create realistic shadows for Web Awesome components.
+Shadow tokens indicate elevation and, often, interactivity. Web Awesome provides three size-based shadow shorthands built from modular offset, blur, and spread tokens. Together with [`--wa-color-shadow`](?active_tab=color), these tokens create realistic drop shadows.
 
-Shadows are constructed using corresponding offset-x, offset-y, blur, and spread properties, detailed in the sections below. In Web Awesome, shadows use a size-based scale where larger shadows have greater offset and blur values to indicate greater distance from the surface below.
+Larger shadows have greater offset and blur values to suggest greater distance from the surface below. Any shadow can also be used as an inner shadow with the `inset` keyword, e.g. `box-shadow: inset var(--wa-shadow-s)`.
 
-| Custom Property  |  Default Value                                                      |
-| ---------------- | ------------------------------------------------------------------- |
-| `--wa-shadow-s`  | <div class="swatch" style="box-shadow: var(--wa-shadow-s);"></div>  |
-| `--wa-shadow-m`  | <div class="swatch" style="box-shadow: var(--wa-shadow-m);"></div>  |
-| `--wa-shadow-l`  | <div class="swatch" style="box-shadow: var(--wa-shadow-l);"></div>  |
-
-Any shadow may be implemented as an inner box shadow using the `inset` keyword, e.g. `box-shadow: inset var(--wa-shadow-s);`.
+<wa-scroller>
+  <table class="token-table wa-hover-rows">
+    <thead>
+      <tr><th>Custom Property</th><th>Description</th><th>Preview</th></tr>
+    </thead>
+    <tbody>
+      <tr id="token-wa-shadow-s">
+        <td class="token-name"><code>--wa-shadow-s</code></td>
+        <td>Small shadow for subtle elevation (e.g., cards, inputs)</td>
+        <td><div class="swatch" style="box-shadow: var(--wa-shadow-s)"></div></td>
+      </tr>
+      <tr id="token-wa-shadow-m">
+        <td class="token-name"><code>--wa-shadow-m</code></td>
+        <td>Medium shadow for moderate elevation (e.g., dropdowns, popovers)</td>
+        <td><div class="swatch" style="box-shadow: var(--wa-shadow-m)"></div></td>
+      </tr>
+      <tr id="token-wa-shadow-l">
+        <td class="token-name"><code>--wa-shadow-l</code></td>
+        <td>Large shadow for high elevation (e.g., dialogs, drawers)</td>
+        <td><div class="swatch" style="box-shadow: var(--wa-shadow-l)"></div></td>
+      </tr>
+    </tbody>
+  </table>
+</wa-scroller>
 
 ## Horizontal Offset (X)
 
-Each offset-x property uses a `calc()` function with `--wa-shadow-offset-x-scale` to uniformly scale horizontal offset values. By default, this multiplier is `0`. The table below lists the result of the calculation.
+Offset-x tokens control a shadow's horizontal position relative to the element. Use `--wa-shadow-offset-x-scale` to change all offset-x tokens at once.
 
-| Custom Property           |  Default Value |
-| ------------------------- | -------------- |
-| `--wa-shadow-offset-x-s`  | `0rem`         |
-| `--wa-shadow-offset-x-m`  | `0rem`         |
-| `--wa-shadow-offset-x-l`  | `0rem`         |
+<wa-scroller>
+  <table class="token-table wa-hover-rows">
+    <thead>
+      <tr><th>Custom Property</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr id="token-wa-shadow-offset-x-scale">
+        <td class="token-name"><code>--wa-shadow-offset-x-scale</code></td>
+        <td>Global multiplier for horizontal shadow offset</td>
+      </tr>
+      <tr id="token-wa-shadow-offset-x-s">
+        <td class="token-name"><code>--wa-shadow-offset-x-s</code></td>
+        <td>Small horizontal shadow offset</td>
+      </tr>
+      <tr id="token-wa-shadow-offset-x-m">
+        <td class="token-name"><code>--wa-shadow-offset-x-m</code></td>
+        <td>Medium horizontal shadow offset</td>
+      </tr>
+      <tr id="token-wa-shadow-offset-x-l">
+        <td class="token-name"><code>--wa-shadow-offset-x-l</code></td>
+        <td>Large horizontal shadow offset</td>
+      </tr>
+    </tbody>
+  </table>
+</wa-scroller>
 
 ## Vertical Offset (Y)
 
-Each offset-y property uses a `calc()` function with `--wa-shadow-offset-y-scale` to uniformly scale vertical offset values. By default, this multiplier is `1`. The table below lists the result of the calculation.
+Offset-y tokens control a shadow's vertical position relative to the element. Use `--wa-shadow-offset-y-scale` to change all offset-y tokens at once.
 
-| Custom Property           |  Default Value                   |
-| ------------------------- | -------------------------------- |
-| `--wa-shadow-offset-y-s`  | `0.125rem` <small>(2px)</small>  |
-| `--wa-shadow-offset-y-m`  | `0.25rem` <small>(4px)</small>   |
-| `--wa-shadow-offset-y-l`  | `0.5rem` <small>(8px)</small>    |
+<wa-scroller>
+  <table class="token-table wa-hover-rows">
+    <thead>
+      <tr><th>Custom Property</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr id="token-wa-shadow-offset-y-scale">
+        <td class="token-name"><code>--wa-shadow-offset-y-scale</code></td>
+        <td>Global multiplier for vertical shadow offset</td>
+      </tr>
+      <tr id="token-wa-shadow-offset-y-s">
+        <td class="token-name"><code>--wa-shadow-offset-y-s</code></td>
+        <td>Small vertical shadow offset</td>
+      </tr>
+      <tr id="token-wa-shadow-offset-y-m">
+        <td class="token-name"><code>--wa-shadow-offset-y-m</code></td>
+        <td>Medium vertical shadow offset</td>
+      </tr>
+      <tr id="token-wa-shadow-offset-y-l">
+        <td class="token-name"><code>--wa-shadow-offset-y-l</code></td>
+        <td>Large vertical shadow offset</td>
+      </tr>
+    </tbody>
+  </table>
+</wa-scroller>
 
 ## Blur
 
-Each blur property uses a `calc()` function with `--wa-shadow-blur-scale` to uniformly scale blur values. By default, this multiplier is `1`. The table below lists the result of the calculation.
+Blur tokens control how soft or sharp the shadow edge is. Use `--wa-shadow-blur-scale` to change all blur tokens at once.
 
-| Custom Property       |  Default Value                   |
-| --------------------- | -------------------------------- |
-| `--wa-shadow-blur-s`  | `0.125rem` <small>(2px)</small>  |
-| `--wa-shadow-blur-m`  | `0.25rem` <small>(4px)</small>   |
-| `--wa-shadow-blur-l`  | `0.5rem` <small>(8px)</small>    |
+<wa-scroller>
+  <table class="token-table wa-hover-rows">
+    <thead>
+      <tr><th>Custom Property</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr id="token-wa-shadow-blur-scale">
+        <td class="token-name"><code>--wa-shadow-blur-scale</code></td>
+        <td>Global multiplier for shadow blur radius. Also affects <code>--wa-color-shadow</code> opacity.</td>
+      </tr>
+      <tr id="token-wa-shadow-blur-s">
+        <td class="token-name"><code>--wa-shadow-blur-s</code></td>
+        <td>Small shadow blur radius</td>
+      </tr>
+      <tr id="token-wa-shadow-blur-m">
+        <td class="token-name"><code>--wa-shadow-blur-m</code></td>
+        <td>Medium shadow blur radius</td>
+      </tr>
+      <tr id="token-wa-shadow-blur-l">
+        <td class="token-name"><code>--wa-shadow-blur-l</code></td>
+        <td>Large shadow blur radius</td>
+      </tr>
+    </tbody>
+  </table>
+</wa-scroller>
 
 ## Spread
 
-Each spread property uses a `calc()` function with `--wa-shadow-spread-scale` to uniformly scale spread values. By default, this multiplier is `-0.5`. The table below lists the result of the calculation.
+Spread tokens expand or contract the shadow shape. A negative spread (the default) contracts the shadow inward for a more natural look. Use `--wa-shadow-spread-scale` to change all spread tokens at once.
 
-| Custom Property         |  Default Value                       |
-| ----------------------- | ------------------------------------ |
-| `--wa-shadow-spread-s`  | `-0.0625rem` <small>(-1px)</small>    |
-| `--wa-shadow-spread-m`  | `-0.125rem` <small>(-2px)</small>     |
-| `--wa-shadow-spread-l`  | `-0.25rem` <small>(-4px)</small>      |
+<wa-scroller>
+  <table class="token-table wa-hover-rows">
+    <thead>
+      <tr><th>Custom Property</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr id="token-wa-shadow-spread-scale">
+        <td class="token-name"><code>--wa-shadow-spread-scale</code></td>
+        <td>Global multiplier for shadow spread. Negative values contract the shadow inward.</td>
+      </tr>
+      <tr id="token-wa-shadow-spread-s">
+        <td class="token-name"><code>--wa-shadow-spread-s</code></td>
+        <td>Small shadow spread</td>
+      </tr>
+      <tr id="token-wa-shadow-spread-m">
+        <td class="token-name"><code>--wa-shadow-spread-m</code></td>
+        <td>Medium shadow spread</td>
+      </tr>
+      <tr id="token-wa-shadow-spread-l">
+        <td class="token-name"><code>--wa-shadow-spread-l</code></td>
+        <td>Large shadow spread</td>
+      </tr>
+    </tbody>
+  </table>
+</wa-scroller>

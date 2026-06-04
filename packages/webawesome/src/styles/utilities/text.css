@@ -147,6 +147,51 @@
     text-overflow: ellipsis;
     white-space: nowrap;
   }
+
+  .wa-text-nowrap,
+  .wa-text-wrap-nowrap {
+    text-wrap: nowrap;
+  }
+
+  .wa-text-balance,
+  .wa-text-wrap-balance {
+    text-wrap: balance;
+  }
+
+  @supports (text-wrap: pretty) {
+    .wa-text-pretty,
+    .wa-text-wrap-pretty {
+      text-wrap: pretty;
+    }
+  }
+
+  .wa-text-uppercase {
+    text-transform: uppercase;
+  }
+
+  .wa-text-lowercase {
+    text-transform: lowercase;
+  }
+
+  .wa-text-capitalize {
+    text-transform: capitalize;
+  }
+
+  .wa-text-start {
+    text-align: start;
+  }
+
+  .wa-text-center {
+    text-align: center;
+  }
+
+  .wa-text-end {
+    text-align: end;
+  }
+
+  .wa-text-justify {
+    text-align: justify;
+  }
   /* #endregion */
 
   /* #region Links ~~~~~~~ */

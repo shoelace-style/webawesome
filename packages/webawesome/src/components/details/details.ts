@@ -16,7 +16,8 @@ import '../icon/icon.js';
 import styles from './details.styles.js';
 
 /**
- * @summary Details show a brief summary and expand to show additional content.
+ * @summary Details display a brief summary and expand to reveal additional content. Use them to progressively disclose
+ *  information, group related FAQs, or hide advanced options.
  * @documentation https://webawesome.com/docs/components/details
  * @status stable
  * @since 2.0
@@ -41,8 +42,8 @@ import styles from './details.styles.js';
  * @csspart content - The details content.
  *
  * @cssproperty --spacing - The amount of space around and between the details' content. Expects a single value.
- * @cssproperty [--show-duration=200ms] - The show duration to use when applying built-in animation classes.
- * @cssproperty [--hide-duration=200ms] - The hide duration to use when applying built-in animation classes.
+ * @cssproperty [--show-duration=var(--wa-transition-normal)] - The show duration to use when applying built-in animation classes.
+ * @cssproperty [--hide-duration=var(--wa-transition-normal)] - The hide duration to use when applying built-in animation classes.
  *
  * @cssstate animating - Applied when the details is animating expand/collapse.
  */

@@ -7,6 +7,7 @@ const translation: Translation = {
   $dir: 'ltr',
 
   carousel: 'Carrusel',
+  captions: 'Subtítulos',
   clearEntry: 'Borrar entrada',
   createOption: value => `Crear "${value}"`,
   close: 'Cerrar',
@@ -17,11 +18,16 @@ const translation: Translation = {
   dropFileHere: 'Drop file here or click to browse',
   dropFilesHere: 'Drop files here or click to browse',
   error: 'Error',
+  enterFullscreen: 'Entrar en pantalla completa',
+  exitFullscreen: 'Salir de pantalla completa',
   goToSlide: (slide, count) => `Ir a la diapositiva ${slide} de ${count}`,
   hidePassword: 'Ocultar contraseña',
   increment: 'Aumentar',
   loading: 'Cargando',
+  moreOptions: 'Más opciones',
+  mute: 'Silenciar',
   nextSlide: 'Siguiente diapositiva',
+  nextVideo: 'Siguiente vídeo',
   numCharacters: num => {
     if (num === 1) return '1 carácter';
     return `${num} caracteres`;
@@ -35,9 +41,15 @@ const translation: Translation = {
     if (num === 1) return '1 opción seleccionada';
     return `${num} opción seleccionada`;
   },
+  pause: 'Pausar',
   pauseAnimation: 'Pausar animación',
+  pictureInPicture: 'Imagen en imagen',
+  play: 'Reproducir',
+  playbackSpeed: 'Velocidad de reproducción',
+  playlist: 'Lista de reproducción',
   playAnimation: 'Reproducir animación',
   previousSlide: 'Diapositiva anterior',
+  previousVideo: 'Vídeo anterior',
   progress: 'Progreso',
   remove: 'Eliminar',
   resize: 'Cambiar el tamaño',
@@ -48,6 +60,12 @@ const translation: Translation = {
   showPassword: 'Mostrar contraseña',
   slideNum: slide => `Diapositiva ${slide}`,
   toggleColorFormat: 'Alternar formato de color',
+  seek: 'Buscar',
+  seekProgress: (current, duration) => `${current} de ${duration}`,
+  currentlyPlaying: 'reproduciendo actualmente',
+  unmute: 'Activar sonido',
+  videoPlayer: 'Reproductor de vídeo',
+  volume: 'Volumen',
   zoomIn: 'Acercar',
   zoomOut: 'Alejar',
 };

@@ -2,7 +2,7 @@
   "name": "@webawesome/monorepo",
   "private": true,
   "description": "A forward-thinking library of web components.",
-  "version": "3.4.0",
+  "version": "3.7.0",
   "homepage": "https://webawesome.com/",
   "author": "Web Awesome",
   "license": "MIT",
@@ -78,7 +78,7 @@
     "sinon": "^16.1.0",
     "source-map": "^0.7.4",
     "tslib": "^2.8.1",
-    "typescript": "^5.7.2",
+    "typescript": "^5.9.3",
     "user-agent-data-types": "^0.4.2",
     "uuid": "^9.0.1"
   },

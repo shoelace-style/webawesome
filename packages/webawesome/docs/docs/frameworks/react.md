@@ -4,21 +4,19 @@ description: Tips for using Web Awesome in your React app.
 layout: page-outline
 ---
 
+<wa-breadcrumb class="page-breadcrumbs">
+  <wa-icon slot="separator" name="angle-right" variant="regular"></wa-icon>
+  <wa-breadcrumb-item href="/docs/frameworks">Frameworks</wa-breadcrumb-item>
+  <wa-breadcrumb-item>{{ title }}</wa-breadcrumb-item>
+</wa-breadcrumb>
+
 ## Installation
 
 To add Web Awesome to your React app, install the package from npm.
 
-<div class="installation-instructions">
-
 ```bash
 npm install @awesome.me/webawesome
 ```
-
-<small>
-  <strong>Pro users:</strong> install <code>@awesome.me/webawesome-pro</code> instead. 
-  See <a href="/workspaces">your workspaces</a> for details.
-</small>
-</div>
 
 Next, include the Web Awesome theme in your app, import the components you need, and start using them!
 
@@ -33,8 +31,10 @@ export default function App() {
 
 React 19+ [supports custom elements](https://react.dev/blog/2024/04/25/react-19#support-for-custom-elements) natively, so you can use Web Awesome components just like any other HTML element. No wrappers needed!
 
-:::info
 If you're using React 18 or below, skip to the [legacy React wrappers](#legacy-react-wrappers-react-18-and-below) section.
+
+:::pro Using Web Awesome Pro?
+Get personalized installation instructions from <a href="/workspaces">your&nbsp;workspaces</a> instead.
 :::
 
 ## TypeScript
@@ -144,8 +144,8 @@ Object.defineProperty(window, 'matchMedia', {
     removeListener: jest.fn(), // deprecated
     addEventListener: jest.fn(),
     removeEventListener: jest.fn(),
-    dispatchEvent: jest.fn()
-  }))
+    dispatchEvent: jest.fn(),
+  })),
 });
 ```
 
@@ -219,10 +219,12 @@ import WaInput from '@awesome.me/webawesome/dist/react/input/index.js';
 function MyComponent() {
   const [value, setValue] = useState('');
 
-  return <>
-    <WaInput value={value} onInput={event => setValue(event.target.value)} />;
-    <WaInput defaultValue={"Foo"} /> {/* This is an "uncontrolled input" */}
-  </>
+  return (
+    <>
+      <WaInput value={value} onInput={event => setValue(event.target.value)} />;
+      <WaInput defaultValue={'Foo'} /> {/* This is an "uncontrolled input" */}
+    </>
+  );
 }
 
 export default MyComponent;

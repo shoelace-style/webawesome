@@ -3,6 +3,17 @@ title: Cluster
 description: 'Use the `wa-cluster` class to arrange elements inline with even spacing, allowing items to wrap when space is limited.'
 layout: docs
 tags: layoutUtilities
+synonyms:
+  - inline group
+  - horizontal group
+  - tag group
+  - flow layout
+use-cases:
+  - button row
+  - tag list
+  - chip group
+  - inline list
+  - pill group
 ---
 
 <style>
@@ -20,7 +31,9 @@ tags: layoutUtilities
   }
 </style>
 
-{{ description }}
+A cluster arranges its children inline with even spacing and wraps them onto a new line whenever the container runs out of room. Reach for it whenever you have a horizontal group of items of varying widths, like tag lists, button rows, inline metadata, or breadcrumb-style trails, and want the layout to stay tidy on every screen size without writing any media queries.
+
+By default, cluster children are centered vertically. Pair `wa-cluster` with a [`wa-gap-*`](/docs/utilities/gap) class to change the spacing and a [`wa-align-items-*`](/docs/utilities/align-items) class to change how items align on the cross axis.
 
 ```html {.example}
 <div class="wa-cluster">
@@ -75,11 +88,11 @@ Clusters are great for inline lists and aligning items of varying sizes.
       <wa-icon name="dollar" style="color: var(--wa-color-green-60);"></wa-icon>
     </div>
     <span class="wa-caption-s">&bull;</span>
-    <wa-tag size="small">Comfort Food</wa-tag>
-    <wa-tag size="small">Gastropub</wa-tag>
-    <wa-tag size="small">Cocktail Bar</wa-tag>
-    <wa-tag size="small">Vegetarian</wa-tag>
-    <wa-tag size="small">Gluten Free</wa-tag>
+    <wa-tag size="s">Comfort Food</wa-tag>
+    <wa-tag size="s">Gastropub</wa-tag>
+    <wa-tag size="s">Cocktail Bar</wa-tag>
+    <wa-tag size="s">Vegetarian</wa-tag>
+    <wa-tag size="s">Gluten Free</wa-tag>
   </div>
 </div>
 ```

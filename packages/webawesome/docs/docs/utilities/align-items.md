@@ -3,6 +3,14 @@ title: Align Items
 description: Control cross-axis alignment in flex and grid containers with align-items and align-self utility classes.
 layout: docs
 tags: layoutUtilities
+synonyms:
+  - vertical align
+  - cross axis
+  - align
+use-cases:
+  - flex align
+  - grid align
+  - center vertically
 ---
 
 <style>
@@ -22,7 +30,7 @@ tags: layoutUtilities
   }
 </style>
 
-Web Awesome includes classes to set the `align-items` property of flex and grid containers. Use these `wa-align-items-*` classes alongside other Web Awesome layout utilities, like [cluster](/docs/utilities/cluster) and [stack](/docs/utilities/stack), to align items in a container on the container's [cross axis](#whats-the-cross-axis).
+These utility classes control how flex and grid items line up across the container's [cross axis](#whats-the-cross-axis), which is the axis perpendicular to the one its children flow along. Reach for them any time the default alignment of a [cluster](/docs/utilities/cluster), [stack](/docs/utilities/stack), [flank](/docs/utilities/flank), [split](/docs/utilities/split), or [grid](/docs/utilities/grid) doesn't match what you're after: centering icons next to text, making all cards in a row share the same height, or pinning form labels to the top of each row.
 
 | Class Name                | `align-items` Value | Preview                                                                                                                                             |
 | ------------------------- | ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -43,7 +51,6 @@ When you need a flex or grid item to deviate from the `align-items` property of 
 | `wa-align-self-end`      | `flex-end`         | <div class="wa-cluster wa-gap-2xs preview-wrapper"><div class="preview-block de-emphasize"></div><div class="preview-block wa-align-self-end"></div><div class="preview-block de-emphasize"></div></div>      |
 | `wa-align-self-start`    | `flex-start`       | <div class="wa-cluster wa-gap-2xs preview-wrapper"><div class="preview-block de-emphasize"></div><div class="preview-block wa-align-self-start"></div><div class="preview-block de-emphasize"></div></div>    |
 | `wa-align-self-stretch`  | `stretch`          | <div class="wa-cluster wa-gap-2xs preview-wrapper"><div class="preview-block de-emphasize"></div><div class="preview-block wa-align-self-stretch"></div><div class="preview-block de-emphasize"></div></div>  |
-
 
 ## What's the Cross Axis?
 

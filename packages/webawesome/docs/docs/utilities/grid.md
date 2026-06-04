@@ -3,6 +3,15 @@ title: Grid
 description: 'Use the `wa-grid` class to arrange elements into rows and columns that automatically adapt to the available space.'
 layout: docs
 tags: layoutUtilities
+synonyms:
+  - columns
+  - layout grid
+  - css grid
+use-cases:
+  - responsive grid
+  - card grid
+  - auto grid
+  - masonry
 ---
 
 <style>
@@ -20,7 +29,9 @@ tags: layoutUtilities
   }
 </style>
 
-{{ description }}
+A grid places its children in evenly-sized columns that shrink, grow, and reflow as the container resizes, without any breakpoints to manage. Drop any number of items into `wa-grid` and the utility figures out how many fit on each row based on the container's width and the minimum column size you've asked for. It's the quickest way to build card galleries, product listings, dashboards, and any content that should adapt from one column on a phone to several on a desktop.
+
+Set `--min-column-size` to change the threshold at which items start to wrap, pair `wa-grid` with a [`wa-gap-*`](/docs/utilities/gap) class to adjust the spacing between cells, or add `wa-span-grid` to an individual item to make it span every column.
 
 ```html {.example}
 <div class="wa-grid">
@@ -96,7 +107,7 @@ Grids work especially well for card lists and content designed for browsing.
   <wa-card>
     <div class="wa-flank">
       <wa-avatar shape="rounded">
-        <wa-icon slot="icon" name="brain-circuit"></wa-icon>
+        <wa-icon slot="icon" name="microchip"></wa-icon>
       </wa-avatar>
       <div class="wa-stack wa-gap-3xs">
         <span class="wa-caption-xs">Minds Freed</span>
@@ -116,7 +127,7 @@ Grids work especially well for card lists and content designed for browsing.
         <span class="wa-caption-xs">Agents Discovered</span>
         <span class="wa-cluster wa-gap-xs">
           <span class="wa-heading-2xl">3</span>
-          <wa-badge variant="neutral">±0%&nbsp;<wa-icon name="wave-triangle"></wa-icon></wa-badge>
+          <wa-badge variant="neutral">±0%&nbsp;<wa-icon name="minus"></wa-icon></wa-badge>
         </span>
       </div>
     </div>

@@ -30,32 +30,33 @@ layout: false
       {% endif %}
     {% endfor %}
 
-    <!-- Set the initial theme and color scheme based on ?theme and ?color-scheme -->
+    <!-- Set the initial theme, palette, variants, and color scheme based on URL params -->
     <script type="module">
       const htmlElement = document.documentElement;
       const urlParams = new URLSearchParams(window.location.search);
-      const colorScheme = urlParams.get('color-scheme');
-      const theme = urlParams.get('theme');
+
+      function setClass(prefix, value) {
+        if (!value) return;
+        htmlElement.classList.forEach(className => {
+          if (className.startsWith(prefix)) htmlElement.classList.remove(className);
+        });
+        htmlElement.classList.add(`${prefix}${value}`);
+      }
 
       // Color scheme
+      const colorScheme = urlParams.get('color-scheme');
       if (colorScheme === 'dark') {
         htmlElement.classList.add('wa-dark');
       } else if (colorScheme === 'light') {
         htmlElement.classList.remove('wa-dark');
       }
 
-      // Theme
-      if (theme) {
-        // Remove existing wa-theme-* classes
-        htmlElement.classList.forEach(className => {
-          if (className.startsWith('wa-theme-')) {
-            htmlElement.classList.remove(className);
-          }
-        });
-
-        // Add new theme class
-        htmlElement.classList.add(`wa-theme-${theme}`);
-      }
+      // Theme, palette, and variant color assignments
+      setClass('wa-theme-', urlParams.get('theme'));
+      setClass('wa-palette-', urlParams.get('palette'));
+      ['brand', 'neutral', 'success', 'warning', 'danger'].forEach(variant => {
+        setClass(`wa-${variant}-`, urlParams.get(`color-${variant}`));
+      });
     </script>
 
     <script type="module">
@@ -92,7 +93,7 @@ layout: false
         <wa-card>
           <div slot="header" class="wa-split">
             <h3 class="wa-heading-l">Your Cart</h3>
-            <wa-button appearance="plain" size="small" tabindex="-1">
+            <wa-button appearance="plain" size="s" tabindex="-1">
               <wa-icon name="xmark" label="Close"></wa-icon>
             </wa-button>
           </div>
@@ -173,7 +174,7 @@ layout: false
           <div class="wa-stack">
             <div class="wa-split">
               <h3 class="wa-heading-l">To-Do</h3>
-              <wa-button appearance="plain" size="small" tabindex="-1">
+              <wa-button appearance="plain" size="s" tabindex="-1">
                 <wa-icon name="plus" label="Add task"></wa-icon>
               </wa-button>
             </div>
@@ -200,7 +201,7 @@ layout: false
                 </div>
                 <span class="wa-caption-s">Samwise G</span>
               </div>
-              <wa-button appearance="plain" size="small" tabindex="-1">
+              <wa-button appearance="plain" size="s" tabindex="-1">
                 <wa-icon name="ellipsis" label="Options"></wa-icon>
               </wa-button>
             </div>
@@ -215,7 +216,7 @@ layout: false
               <wa-button appearance="plain" tabindex="-1">
                 <wa-icon name="backward" label="Skip backward"></wa-icon>
               </wa-button>
-              <wa-button appearance="plain" size="large" tabindex="-1">
+              <wa-button appearance="plain" size="l" tabindex="-1">
                 <wa-icon name="pause" label="Pause"></wa-icon>
               </wa-button>
               <wa-button appearance="plain" tabindex="-1">
@@ -239,9 +240,9 @@ layout: false
                 <wa-icon name="dollar" style="color: var(--wa-color-green-60)"></wa-icon>
               </div>
               <span class="wa-caption-s">&bull;</span>
-              <wa-tag size="small">Cocktail Bar</wa-tag>
-              <wa-tag size="small">Gastropub</wa-tag>
-              <wa-tag size="small">Local Fare</wa-tag>
+              <wa-tag size="s">Cocktail Bar</wa-tag>
+              <wa-tag size="s">Gastropub</wa-tag>
+              <wa-tag size="s">Local Fare</wa-tag>
             </div>
             <div class="wa-flank wa-gap-xs">
               <wa-icon name="location-dot"></wa-icon>
@@ -255,7 +256,7 @@ layout: false
               <wa-icon slot="icon" name="user-bounty-hunter"></wa-icon>
               <div class="wa-split">
                 <span>This is the way.</span>
-                <wa-button variant="success" size="small">
+                <wa-button variant="success" size="s">
                   Follow the Creed
                 </wa-button>
               </div>
@@ -264,7 +265,7 @@ layout: false
               <wa-icon slot="icon" name="starfighter-twin-ion-engine"></wa-icon>
               <div class="wa-split">
                 <span>It's a trap!</span>
-                <wa-button variant="warning" size="small">
+                <wa-button variant="warning" size="s">
                   Take Evasive Action
                 </wa-button>
               </div>
@@ -273,7 +274,7 @@ layout: false
               <wa-icon slot="icon" name="space-station-moon"></wa-icon>
               <div class="wa-split">
                 <span>That's no moon.</span>
-                <wa-button variant="danger" size="small">
+                <wa-button variant="danger" size="s">
                   Turn Around
                 </wa-button>
               </div>
@@ -284,7 +285,7 @@ layout: false
           <div class="wa-stack">
             <div class="wa-flank:end">
               <h3 id="odds-label" class="wa-heading-l">Tell Me the Odds</h3>
-              <wa-switch size="large" aria-labelledby="odds-label" tabindex="-1"></wa-switch>
+              <wa-switch size="l" aria-labelledby="odds-label" tabindex="-1"></wa-switch>
             </div>
             <p class="wa-body-s">
               Allow protocol droids to inform you of probabilities, such as the success rate of navigating an asteroid
@@ -413,7 +414,7 @@ layout: false
               </div>
             </a>
             <wa-dropdown>
-              <wa-button id="more-actions-2" slot="trigger" appearance="plain" size="small" tabindex="-1">
+              <wa-button id="more-actions-2" slot="trigger" appearance="plain" size="s" tabindex="-1">
                 <wa-icon name="ellipsis-vertical" label="View menu"></wa-icon>
               </wa-button>
               <wa-dropdown-item>Copy link</wa-dropdown-item>

@@ -1,13 +1,23 @@
 ---
 title: Callout
-description: Callouts are used to display important messages inline.
 layout: component
-category: Feedback & Status
+category: Feedback
+synonyms:
+  - alert
+  - admonition
+  - notice
+  - banner
+  - infobox
+use-cases:
+  - warning message
+  - info message
+  - tip
+  - important note
 ---
 
 ```html {.example}
 <wa-callout>
-  <wa-icon slot="icon" name="circle-info" variant="regular"></wa-icon>
+  <wa-icon slot="icon" name="circle-info"></wa-icon>
   This is a standard callout. You can customize its content and even the icon.
 </wa-callout>
 ```
@@ -20,7 +30,7 @@ Set the `variant` attribute to change the callout's variant.
 
 ```html {.example}
 <wa-callout variant="brand">
-  <wa-icon slot="icon" name="circle-info" variant="regular"></wa-icon>
+  <wa-icon slot="icon" name="circle-info"></wa-icon>
   <strong>This is super informative</strong><br />
   You can tell by how pretty the callout is.
 </wa-callout>
@@ -28,7 +38,7 @@ Set the `variant` attribute to change the callout's variant.
 <br />
 
 <wa-callout variant="success">
-  <wa-icon slot="icon" name="circle-check" variant="regular"></wa-icon>
+  <wa-icon slot="icon" name="circle-check"></wa-icon>
   <strong>Your changes have been saved</strong><br />
   You can safely exit the app now.
 </wa-callout>
@@ -36,7 +46,7 @@ Set the `variant` attribute to change the callout's variant.
 <br />
 
 <wa-callout variant="neutral">
-  <wa-icon slot="icon" name="gear" variant="regular"></wa-icon>
+  <wa-icon slot="icon" name="gear"></wa-icon>
   <strong>Your settings have been updated</strong><br />
   Settings will take effect on next login.
 </wa-callout>
@@ -44,7 +54,7 @@ Set the `variant` attribute to change the callout's variant.
 <br />
 
 <wa-callout variant="warning">
-  <wa-icon slot="icon" name="triangle-exclamation" variant="regular"></wa-icon>
+  <wa-icon slot="icon" name="triangle-exclamation"></wa-icon>
   <strong>Your session has ended</strong><br />
   Please login again to continue.
 </wa-callout>
@@ -52,7 +62,7 @@ Set the `variant` attribute to change the callout's variant.
 <br />
 
 <wa-callout variant="danger">
-  <wa-icon slot="icon" name="circle-exclamation" variant="regular"></wa-icon>
+  <wa-icon slot="icon" name="circle-exclamation"></wa-icon>
   <strong>Your account has been deleted</strong><br />
   We're very sorry to see you go!
 </wa-callout>
@@ -71,28 +81,28 @@ Use the `appearance` attribute to change the callout's visual appearance (the de
 <br />
 
 <wa-callout variant="brand" appearance="filled-outlined">
-  <wa-icon slot="icon" name="fill-drip" variant="regular"></wa-icon>
+  <wa-icon slot="icon" name="fill-drip"></wa-icon>
   This callout is both <strong>filled</strong> and <strong>outlined</strong>
 </wa-callout>
 
 <br />
 
 <wa-callout variant="brand" appearance="filled">
-  <wa-icon slot="icon" name="fill" variant="regular"></wa-icon>
+  <wa-icon slot="icon" name="fill"></wa-icon>
   This callout is only <strong>filled</strong>
 </wa-callout>
 
 <br />
 
 <wa-callout variant="brand" appearance="outlined">
-  <wa-icon slot="icon" name="lines-leaning" variant="regular"></wa-icon>
+  <wa-icon slot="icon" name="lines-leaning"></wa-icon>
   Here's an <strong>outlined</strong> callout
 </wa-callout>
 
 <br />
 
 <wa-callout variant="brand" appearance="plain">
-  <wa-icon slot="icon" name="font" variant="regular"></wa-icon>
+  <wa-icon slot="icon" name="font"></wa-icon>
   No bells and whistles on this <strong>plain</strong> callout
 </wa-callout>
 ```
@@ -102,23 +112,37 @@ Use the `appearance` attribute to change the callout's visual appearance (the de
 Use the `size` attribute to change a callout's size.
 
 ```html {.example}
-<wa-callout size="large">
-  <wa-icon slot="icon" name="circle-info" variant="regular"></wa-icon>
-  This is meant to be very emphasized.
+<wa-callout size="xs">
+  <wa-icon slot="icon" name="circle-info"></wa-icon>
+  Extra-small callout for minimal emphasis.
 </wa-callout>
 
 <br />
 
-<wa-callout size="medium">
-  <wa-icon slot="icon" name="circle-info" variant="regular"></wa-icon>
-  Normal-sized callout.
+<wa-callout size="s">
+  <wa-icon slot="icon" name="circle-info"></wa-icon>
+  Small callout for a bit of emphasis.
 </wa-callout>
 
 <br />
 
-<wa-callout size="small">
-  <wa-icon slot="icon" name="circle-info" variant="regular"></wa-icon>
-  Just a small tip!
+<wa-callout size="m">
+  <wa-icon slot="icon" name="circle-info"></wa-icon>
+  Medium callout, the default size.
+</wa-callout>
+
+<br />
+
+<wa-callout size="l">
+  <wa-icon slot="icon" name="circle-info"></wa-icon>
+  Large callout for more emphasis.
+</wa-callout>
+
+<br />
+
+<wa-callout size="xl">
+  <wa-icon slot="icon" name="circle-info"></wa-icon>
+  Extra-large callout for maximum emphasis.
 </wa-callout>
 ```
 

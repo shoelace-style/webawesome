@@ -105,18 +105,23 @@
   }
 
   h6 {
-    font-size: var(--wa-font-size-s);
+    font-size: var(--wa-font-size-xs);
   }
 
   p {
-    text-wrap: pretty;
+    text-wrap: wrap;
   }
-
+  @supports (text-wrap: pretty) {
+    p {
+      text-wrap: pretty;
+    }
+  }
   blockquote {
     padding: var(--wa-space-xl);
 
+    color: var(--wa-color-text-quiet);
     font-family: var(--wa-font-family-longform);
-    font-size: var(--wa-font-size-l);
+    font-size: var(--wa-font-size-larger);
 
     border-inline-start: var(--wa-border-style) var(--wa-border-width-l) var(--wa-color-neutral-border-quiet);
   }
@@ -126,6 +131,14 @@
 
     border: none;
     border-bottom: solid var(--wa-border-width-s) var(--wa-color-surface-border);
+  }
+
+  figcaption {
+    margin-block-start: var(--wa-space-xs);
+
+    color: var(--wa-color-text-quiet);
+    font-size: var(--wa-font-size-smaller);
+    line-height: var(--wa-line-height-condensed);
   }
   /* #endregion */
 
@@ -149,8 +162,29 @@
     padding: 0;
   }
 
+  /* `ul` markers are graphical (3:1 contrast threshold); `ol` markers are text
+     (4.5:1). Numerals also wear transparency more than discs, so they keep more
+     contrast. `currentColor` lets markers ride along when text color changes. */
+  ul > li::marker {
+    color: color-mix(in oklch, currentColor 40%, transparent);
+  }
+
+  ol > li::marker {
+    color: color-mix(in oklch, currentColor 60%, transparent);
+  }
+
   dt {
     font-weight: var(--wa-font-weight-bold);
+  }
+
+  menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    & > li {
+      margin: 0;
+    }
   }
   /* #endregion */
 
@@ -300,7 +334,7 @@
     white-space: pre;
 
     background-color: var(--wa-color-overlay-inline);
-    border-radius: var(--wa-border-radius-m);
+    border-radius: var(--wa-panel-border-radius);
     overflow-x: auto;
 
     /* Remove overlapping styles for child code elements */
@@ -352,6 +386,8 @@
   table {
     width: 100%;
 
+    font-variant-numeric: tabular-nums;
+
     border: none;
     border-collapse: collapse;
   }
@@ -401,6 +437,8 @@
 
     font-size: var(--wa-font-size-smaller);
     font-weight: var(--wa-font-weight-bold);
+
+    border-block-end: var(--wa-border-style) var(--wa-border-width-s) var(--wa-color-border-normal);
   }
   /* #endregion */
 
@@ -601,7 +639,6 @@
       font-family: inherit;
       font-size: var(--wa-form-control-value-font-size);
       font-weight: var(--wa-font-weight-action);
-      line-height: calc(var(--wa-form-control-height) - var(--border-width) * 2);
       text-decoration: none;
       vertical-align: middle;
       white-space: nowrap;
@@ -626,12 +663,15 @@
       border-color: transparent;
 
       &:not(:disabled) {
-        &:hover {
-          background-color: color-mix(
-            in oklab,
-            var(--wa-color-fill-loud, var(--wa-color-neutral-fill-loud)),
-            var(--wa-color-mix-hover)
-          );
+        @media (hover: hover) {
+          &:hover {
+            background-color: color-mix(
+              in oklab,
+              var(--wa-color-fill-loud, var(--wa-color-neutral-fill-loud)),
+              var(--wa-color-mix-hover)
+            );
+            transform: var(--wa-button-transform-hover);
+          }
         }
 
         &:active {
@@ -640,6 +680,14 @@
             var(--wa-color-fill-loud, var(--wa-color-neutral-fill-loud)),
             var(--wa-color-mix-active)
           );
+          transform: var(--wa-button-transform-active);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          &:hover,
+          &:active {
+            transform: none;
+          }
         }
       }
     }
@@ -1066,6 +1114,7 @@
   textarea {
     height: auto;
     min-height: var(--wa-form-control-height);
+    scroll-padding-block: var(--wa-form-control-padding-block);
     padding: calc(var(--wa-form-control-padding-block) - ((1lh - 1em) / 2)) var(--wa-form-control-padding-inline); /* accounts for the larger line height of textarea content */
 
     line-height: var(--wa-line-height-normal);

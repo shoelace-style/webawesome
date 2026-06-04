@@ -3,8 +3,10 @@ import { html, isServer } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { uniqueId } from '../../internal/math.js';
+import { warnDeprecatedSize } from '../../internal/size.js';
 import { HasSlotController } from '../../internal/slot.js';
 import { RequiredValidator } from '../../internal/validators/required-validator.js';
+import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
 import formControlStyles from '../../styles/component/form-control.styles.js';
 import sizeStyles from '../../styles/component/size.styles.js';
@@ -13,7 +15,8 @@ import type WaRadio from '../radio/radio.js';
 import styles from './radio-group.styles.js';
 
 /**
- * @summary Radio groups are used to group multiple [radios](/docs/components/radio) so they function as a single form control.
+ * @summary Radio groups wrap a set of radios so they function as a single form control with one shared value. They
+ *  handle keyboard navigation, labeling, and validation for the group as a whole.
  * @documentation https://webawesome.com/docs/components/radio-group
  * @status stable
  * @since 2.0
@@ -99,7 +102,12 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
   @property({ attribute: 'value', reflect: true }) defaultValue: string | null = this.getAttribute('value') || null;
 
   /** The radio group's size. When present, this size will be applied to all `<wa-radio>` items inside. */
-  @property({ reflect: true }) size: 'small' | 'medium' | 'large';
+  @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large';
+
+  @watch('size')
+  handleSizeChange() {
+    warnDeprecatedSize(this.localName, this.size);
+  }
 
   /** Ensures a child radio is checked before allowing the containing form to submit. */
   @property({ type: Boolean, reflect: true }) required = false;

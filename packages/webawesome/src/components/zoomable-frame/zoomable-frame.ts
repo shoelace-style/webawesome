@@ -1,15 +1,16 @@
 import type { PropertyValues } from 'lit';
 import { html, isServer } from 'lit';
-import { customElement, property, query } from 'lit/decorators.js';
+import { customElement, property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { ColorSchemeController } from '../../internal/color-scheme-controller.js';
 import { parseSpaceDelimitedTokens } from '../../internal/parse.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import { LocalizeController } from '../../utilities/localize.js';
+import '../icon/icon.js';
 import styles from './zoomable-frame.styles.js';
 
 /**
- * @summary Zoomable frames render iframe content with zoom and interaction controls.
+ * @summary Zoomable frames embed iframe content with built-in controls for zooming, panning, and managing interaction.
  * @documentation https://webawesome.com/docs/components/zoomable-frame
  * @status stable
  * @since 3.0
@@ -32,9 +33,10 @@ export default class WaZoomableFrame extends WebAwesomeElement {
   static css = styles;
 
   private readonly localize = new LocalizeController(this);
-  private availableZoomLevels: number[] = [];
   // SSR guard: MutationObserver is not available during server-side rendering
   private themeObserver: MutationObserver | null = !isServer ? new MutationObserver(() => this.syncTheme()) : null;
+
+  @state() private availableZoomLevels: number[] = [];
 
   constructor() {
     super();

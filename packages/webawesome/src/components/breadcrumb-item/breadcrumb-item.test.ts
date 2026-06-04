@@ -6,170 +6,172 @@ import type WaBreadcrumbItem from './breadcrumb-item.js';
 describe('<wa-breadcrumb-item>', () => {
   for (const fixture of fixtures) {
     describe(`with "${fixture.type}" rendering`, () => {
-      describe('when not provided a href attribute', () => {
-        it('should hide the separator from screen readers', async () => {
-          const el = await fixture<WaBreadcrumbItem>(html` <wa-breadcrumb-item>Home</wa-breadcrumb-item> `);
-          const separator = el.shadowRoot!.querySelector<HTMLSpanElement>('[part~="separator"]');
-          expect(separator).attribute('aria-hidden', 'true');
-        });
-
+      describe('accessibility', () => {
         it('should pass accessibility tests', async () => {
-          const el = await fixture<WaBreadcrumbItem>(html` <wa-breadcrumb-item>Home</wa-breadcrumb-item> `);
-          await expect(el).to.be.accessible(el);
+          const el = await fixture<WaBreadcrumbItem>(html`<wa-breadcrumb-item>Home</wa-breadcrumb-item>`);
+          await expect(el).to.be.accessible();
+        });
+
+        it('should pass accessibility tests with href', async () => {
+          const el = await fixture<WaBreadcrumbItem>(html`
+            <wa-breadcrumb-item href="https://example.com/">Home</wa-breadcrumb-item>
+          `);
+          await expect(el).to.be.accessible();
+        });
+
+        it('should pass accessibility tests with href and target', async () => {
+          const el = await fixture<WaBreadcrumbItem>(html`
+            <wa-breadcrumb-item href="https://example.com/" target="_blank">Home</wa-breadcrumb-item>
+          `);
+          await expect(el).to.be.accessible();
+        });
+
+        it('should pass accessibility tests with an empty href', async () => {
+          const el = await fixture<WaBreadcrumbItem>(
+            html`<wa-breadcrumb-item href="">Current page</wa-breadcrumb-item>`,
+          );
+          await expect(el).to.be.accessible();
         });
 
         it('should hide the separator from screen readers', async () => {
-          const el = await fixture<WaBreadcrumbItem>(html` <wa-breadcrumb-item>Home</wa-breadcrumb-item> `);
-          const separator = el.shadowRoot!.querySelector<HTMLSpanElement>('[part~="separator"]');
-          expect(separator).attribute('aria-hidden', 'true');
+          const el = await fixture<WaBreadcrumbItem>(html`<wa-breadcrumb-item>Home</wa-breadcrumb-item>`);
+          const separator = el.shadowRoot!.querySelector('[part~="separator"]');
+          expect(separator).to.have.attribute('aria-hidden', 'true');
+        });
+      });
+
+      describe('properties', () => {
+        it('should have correct default property values', async () => {
+          const el = await fixture<WaBreadcrumbItem>(html`<wa-breadcrumb-item>Home</wa-breadcrumb-item>`);
+          expect(el.href).to.be.undefined;
+          expect(el.target).to.be.undefined;
+          expect(el.rel).to.equal('noreferrer noopener');
         });
 
-        it('should render a HTMLButtonElement as the part "label", with a set type "button"', async () => {
-          const el = await fixture<WaBreadcrumbItem>(html` <wa-breadcrumb-item>Home</wa-breadcrumb-item> `);
+        it('should render a button when no href is provided', async () => {
+          const el = await fixture<WaBreadcrumbItem>(html`<wa-breadcrumb-item>Home</wa-breadcrumb-item>`);
           const button = el.shadowRoot!.querySelector<HTMLButtonElement>('[part~="label"]');
           expect(button).to.exist;
-          expect(button).attribute('type', 'button');
+          expect(button!.tagName.toLowerCase()).to.equal('button');
+          expect(button).to.have.attribute('type', 'button');
+        });
+
+        it('should render a link when href is provided', async () => {
+          const el = await fixture<WaBreadcrumbItem>(html`
+            <wa-breadcrumb-item href="https://example.com/">Home</wa-breadcrumb-item>
+          `);
+          const link = el.shadowRoot!.querySelector<HTMLAnchorElement>('[part~="label"]');
+          expect(link).to.exist;
+          expect(link!.tagName.toLowerCase()).to.equal('a');
+          expect(link).to.have.attribute('href', 'https://example.com/');
+        });
+
+        it('should render a link when href is an empty string', async () => {
+          const el = await fixture<WaBreadcrumbItem>(
+            html`<wa-breadcrumb-item href="">Current page</wa-breadcrumb-item>`,
+          );
+          const link = el.shadowRoot!.querySelector<HTMLAnchorElement>('[part~="label"]');
+          expect(link).to.exist;
+          expect(link!.tagName.toLowerCase()).to.equal('a');
+          expect(link).to.have.attribute('href', '');
+        });
+
+        it('should set the target attribute on the link', async () => {
+          const el = await fixture<WaBreadcrumbItem>(html`
+            <wa-breadcrumb-item href="https://example.com/" target="_blank">Home</wa-breadcrumb-item>
+          `);
+          const link = el.shadowRoot!.querySelector<HTMLAnchorElement>('[part~="label"]');
+          expect(link).to.have.attribute('target', '_blank');
+        });
+
+        it('should default rel to "noreferrer noopener" when target is set', async () => {
+          const el = await fixture<WaBreadcrumbItem>(html`
+            <wa-breadcrumb-item href="https://example.com/" target="_blank">Home</wa-breadcrumb-item>
+          `);
+          const link = el.shadowRoot!.querySelector<HTMLAnchorElement>('[part~="label"]');
+          expect(link).to.have.attribute('rel', 'noreferrer noopener');
+        });
+
+        it('should use a custom rel value when provided', async () => {
+          const el = await fixture<WaBreadcrumbItem>(html`
+            <wa-breadcrumb-item href="https://example.com/" target="_blank" rel="alternate">Home</wa-breadcrumb-item>
+          `);
+          const link = el.shadowRoot!.querySelector<HTMLAnchorElement>('[part~="label"]');
+          expect(link).to.have.attribute('rel', 'alternate');
+        });
+
+        it('should not set rel or target on the link when no target is provided', async () => {
+          const el = await fixture<WaBreadcrumbItem>(html`
+            <wa-breadcrumb-item href="https://example.com/">Home</wa-breadcrumb-item>
+          `);
+          const link = el.shadowRoot!.querySelector<HTMLAnchorElement>('[part~="label"]');
+          expect(link).to.not.have.attribute('target');
+          expect(link).to.not.have.attribute('rel');
         });
       });
 
-      describe('when provided a href attribute', () => {
-        describe('and no target', () => {
-          it('should pass accessibility tests', async () => {
-            const el = await fixture<WaBreadcrumbItem>(html`
-              <wa-breadcrumb-item href="https://jsonplaceholder.typicode.com/">Home</wa-breadcrumb-item>
-            `);
-            await expect(el).to.be.accessible();
-          });
-
-          it('should render a HTMLAnchorElement as the part "label", with the supplied href value', async () => {
-            const el = await fixture<WaBreadcrumbItem>(html`
-              <wa-breadcrumb-item href="https://jsonplaceholder.typicode.com/">Home</wa-breadcrumb-item>
-            `);
-
-            const hyperlink = el.shadowRoot!.querySelector<HTMLAnchorElement>('[part~="label"]');
-            expect(hyperlink).attribute('href', 'https://jsonplaceholder.typicode.com/');
-          });
+      describe('slots', () => {
+        it('should render slotted content in the default slot', async () => {
+          const el = await fixture<WaBreadcrumbItem>(html`<wa-breadcrumb-item>Home</wa-breadcrumb-item>`);
+          expect(el.textContent!.trim()).to.equal('Home');
         });
 
-        describe('and target, without rel', () => {
-          it('should pass accessibility tests', async () => {
-            const el = await fixture<WaBreadcrumbItem>(html`
-              <wa-breadcrumb-item href="https://jsonplaceholder.typicode.com/" target="_blank">Help</wa-breadcrumb-item>
-            `);
-
-            await expect(el).to.be.accessible();
-          });
-
-          describe('should render a HTMLAnchorElement as the part "label"', () => {
-            it('should use the supplied href value, as the href attribute value', async () => {
-              const el = await fixture<WaBreadcrumbItem>(html`
-                <wa-breadcrumb-item href="https://jsonplaceholder.typicode.com/" target="_blank"
-                  >Help</wa-breadcrumb-item
-                >
-              `);
-              const hyperlink: HTMLAnchorElement | null =
-                el.shadowRoot!.querySelector<HTMLAnchorElement>('[part~="label"]');
-
-              expect(hyperlink).attribute('href', 'https://jsonplaceholder.typicode.com/');
-            });
-
-            it('should default rel attribute to "noreferrer noopener"', async () => {
-              const el = await fixture<WaBreadcrumbItem>(html`
-                <wa-breadcrumb-item href="https://jsonplaceholder.typicode.com/" target="_blank"
-                  >Help</wa-breadcrumb-item
-                >
-              `);
-              const hyperlink: HTMLAnchorElement | null =
-                el.shadowRoot!.querySelector<HTMLAnchorElement>('[part~="label"]');
-              expect(hyperlink).attribute('rel', 'noreferrer noopener');
-            });
-          });
-        });
-
-        describe('and target, with rel', () => {
-          it('should pass accessibility tests', async () => {
-            const el = await fixture<WaBreadcrumbItem>(html`
-              <wa-breadcrumb-item href="https://jsonplaceholder.typicode.com/" target="_blank" rel="alternate"
-                >Help</wa-breadcrumb-item
-              >
-            `);
-
-            await expect(el).to.be.accessible();
-          });
-
-          describe('should render a HTMLAnchorElement', () => {
-            it('should use the supplied href value, as the href attribute value', async () => {
-              const el = await fixture<WaBreadcrumbItem>(html`
-                <wa-breadcrumb-item href="https://jsonplaceholder.typicode.com/" target="_blank" rel="alternate"
-                  >Help</wa-breadcrumb-item
-                >
-              `);
-              const hyperlink: HTMLAnchorElement | null = el.shadowRoot!.querySelector<HTMLAnchorElement>('a');
-
-              expect(hyperlink).attribute('href', 'https://jsonplaceholder.typicode.com/');
-            });
-
-            it('should use the supplied rel value, as the rel attribute value', async () => {
-              const el = await fixture<WaBreadcrumbItem>(html`
-                <wa-breadcrumb-item href="https://jsonplaceholder.typicode.com/" target="_blank" rel="alternate"
-                  >Help</wa-breadcrumb-item
-                >
-              `);
-              const hyperlink: HTMLAnchorElement | null = el.shadowRoot!.querySelector<HTMLAnchorElement>('a');
-              expect(hyperlink).attribute('rel', 'alternate');
-            });
-          });
-        });
-      });
-
-      describe('when provided an element in the slot "start" to support start icons', () => {
-        it('should pass accessibility tests', async () => {
+        it('should accept content in the start slot', async () => {
           const el = await fixture<WaBreadcrumbItem>(html`
             <wa-breadcrumb-item>
-              <span class="start-example" slot="start">/</span>
+              <span slot="start">Icon</span>
               Home
             </wa-breadcrumb-item>
           `);
-          await expect(el).to.be.accessible();
+          const slot = el.shadowRoot!.querySelector<HTMLSlotElement>('slot[name="start"]')!;
+          const assignedNodes = slot.assignedNodes({ flatten: true });
+          expect(assignedNodes.length).to.equal(1);
         });
 
-        it('should accept as an assigned child in the shadow root', async () => {
+        it('should accept content in the end slot', async () => {
           const el = await fixture<WaBreadcrumbItem>(html`
             <wa-breadcrumb-item>
-              <span class="start-example" slot="start">/</span>
               Home
+              <span slot="end">Icon</span>
             </wa-breadcrumb-item>
           `);
-          const slot = el.shadowRoot!.querySelector<HTMLSlotElement>('slot[name=start]')!;
-          const childNodes = slot.assignedNodes({ flatten: true });
+          const slot = el.shadowRoot!.querySelector<HTMLSlotElement>('slot[name="end"]')!;
+          const assignedNodes = slot.assignedNodes({ flatten: true });
+          expect(assignedNodes.length).to.equal(1);
+        });
 
-          expect(childNodes.length).to.eq(1);
+        it('should accept content in the separator slot', async () => {
+          const el = await fixture<WaBreadcrumbItem>(html`
+            <wa-breadcrumb-item>
+              Home
+              <span slot="separator">/</span>
+            </wa-breadcrumb-item>
+          `);
+          const slot = el.shadowRoot!.querySelector<HTMLSlotElement>('slot[name="separator"]')!;
+          const assignedNodes = slot.assignedNodes({ flatten: true });
+          expect(assignedNodes.length).to.equal(1);
         });
       });
 
-      describe('when provided an element in the slot "end" to support end icons', () => {
-        it('should pass accessibility tests', async () => {
-          const el = await fixture<WaBreadcrumbItem>(html`
-            <wa-breadcrumb-item>
-              <span class="end-example" slot="end">/</span>
-              Security
-            </wa-breadcrumb-item>
-          `);
-          await expect(el).to.be.accessible();
-          // await aTimeout(1)
+      describe('CSS parts', () => {
+        it('should have a label part', async () => {
+          const el = await fixture<WaBreadcrumbItem>(html`<wa-breadcrumb-item>Home</wa-breadcrumb-item>`);
+          expect(el.shadowRoot!.querySelector('[part~="label"]')).to.exist;
         });
 
-        it('should accept as an assigned child in the shadow root', async () => {
-          const el = await fixture<WaBreadcrumbItem>(html`
-            <wa-breadcrumb-item>
-              <span class="end-example" slot="end">/</span>
-              Security
-            </wa-breadcrumb-item>
-          `);
-          const slot = el.shadowRoot!.querySelector<HTMLSlotElement>('slot[name=end]')!;
-          const childNodes = slot.assignedNodes({ flatten: true });
+        it('should have a start part', async () => {
+          const el = await fixture<WaBreadcrumbItem>(html`<wa-breadcrumb-item>Home</wa-breadcrumb-item>`);
+          expect(el.shadowRoot!.querySelector('[part~="start"]')).to.exist;
+        });
 
-          expect(childNodes.length).to.eq(1);
+        it('should have an end part', async () => {
+          const el = await fixture<WaBreadcrumbItem>(html`<wa-breadcrumb-item>Home</wa-breadcrumb-item>`);
+          expect(el.shadowRoot!.querySelector('[part~="end"]')).to.exist;
+        });
+
+        it('should have a separator part', async () => {
+          const el = await fixture<WaBreadcrumbItem>(html`<wa-breadcrumb-item>Home</wa-breadcrumb-item>`);
+          expect(el.shadowRoot!.querySelector('[part~="separator"]')).to.exist;
         });
       });
     });

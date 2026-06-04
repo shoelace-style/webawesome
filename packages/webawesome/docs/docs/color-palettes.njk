@@ -4,343 +4,244 @@ description: 'Color palettes give you a full spectrum of colors to add life to y
 layout: page
 ---
 
-<p>Color palettes give you a full spectrum of colors to add life to your project.</p>
+<p>Color palettes give you a full spectrum of colors to use in your project.</p>
 
-<p>Each palette defines 10 color hues with a scale of 11 tints. While the tints have consistent lightness values across palettes, each palette has unique hue shifts and chroma to give it unique character so you can find just the right vibe to your project.</p>
+<p>A color palette defines 10 hues — red, orange, yellow, green, cyan, blue, indigo, purple, pink, and gray — each with
+  a scale of 11 tints from <code>05</code> (darkest) to <code>95</code> (lightest) available as <a
+    href="/docs/tokens/color">color design tokens</a>. While the tints have similar lightness values across palettes,
+  each palette has unique hue shifts and chroma so you can find just the right vibe to your project. Combine a palette
+  with a <a href="/docs/themes">theme</a> and <a href="/docs/tokens/color#variant-colors">variant colors</a> to style
+  the whole library.</p>
 
-{% for palette in themer.palettes %}
-  <link rel="stylesheet" href="/dist/styles/color/palettes/{{palette.filename}}" />
-{% endfor %}
+{% include "theming/color-palette-picker.njk" %}
 
-<div id="color-palettes">
-  {% raw %}
-    {% if not currentUser.hasPro %}
-      <p>
-        Additional palettes are available to pro users. Please <a href="/login">login to view pro palettes</a>.
-      </p>
-    {% endif %}
-  {% endraw %}
-  <wa-radio-group id="palette-picker" label="Color Palette" value="default" orientation="horizontal">
-    {% for palette in themer.palettes %}
-      {% if not palette.isPro %}
-        <wa-radio
-          class="palette-card"
-          value="{{ palette.name | lower }}"
-        >
-          {{ palette.name }}
-        </wa-radio>
-      {% else %}
-        {% raw %}
-          {% if currentUser.hasPro %}
-        {% endraw %}
-            <wa-radio
-              class="palette-card"
-              value="{{ palette.name | lower }}"
-            >
-              {{ palette.name }}
-            </wa-radio>
-        {% raw %}
-          {% endif %}
-        {% endraw %}
-      {% endif %}
-    {% endfor %}
-  </wa-radio-group>
+{% raw %}
+{% if not currentUser or not currentUser.hasPro %}
+{% endraw %}
+<wa-callout class="pro">
+  <wa-icon slot="icon" name="hand-wave" animation="shake"
+    style="--animation-delay: 2s; --animation-duration: 4s;"></wa-icon>
+  <strong>
+    <a href="/purchase?from=pro-docs&context=color-palettes">Unlock every color palette with {{ site.namePro }}!</a>
+  </strong>
 
-  {% for color in themer.colors %}
-  <div class="palette">
-    <div class="palette-label">{{ color }}</div>
-    <div class="palette-swatches">
-      {% for tint in themer.tints %}
-      <wa-copy-button
-        class="palette-swatch"
-        copy-label="{{ color }} {{ tint }}"
-        value="var(--wa-color-{{ color }}-{{ tint }})"
-        style="--color: var(--wa-color-{{ color }}-{{ tint }}); --tint: '{{ tint }}'"
-      >
-        <span class="sr-only">--wa-color-{{ color }}-{{ tint }}</span>
-      </wa-copy-button>
-      {% endfor %}
+  <wa-details appearance="plain">
+    <span slot="summary">Subscribing to {{ site.namePro }} unlocks every color palette, plus premium themes, the visual
+      Theme Builder, and <u class="appearance-underlined variant-drawn">more</u>.</span>
+
+    <div class="wa-stack wa-gap-xl">
+      {% include "pro-perks.njk" ignore missing %}
+
+      <wa-button href="/purchase?from=pro-docs&context=color-palettes">
+        Get {{ site.namePro }}
+        <wa-icon slot="end" name="arrow-right"></wa-icon>
+      </wa-button>
     </div>
-  </div>
-  {% endfor %}
-</div>
+  </wa-details>
+</wa-callout>
+{% raw %}
+{% endif %}
+{% endraw %}
 
 <h2>Using This Palette</h2>
 
 <div id="import-code">
   {% for palette in themer.palettes %}
-    <div class="palette-instructions" data-palette="{{ palette.name | lower }}" {% if not loop.first %}hidden{% endif %}>
-      <wa-tab-group>
-        <wa-tab panel="cdn"><wa-icon name="rocket-launch" variant="regular"></wa-icon> CDN</wa-tab>
-        <wa-tab panel="npm"><wa-icon name="box-open" variant="regular"></wa-icon> npm</wa-tab>
-        <wa-tab panel="self-hosted"><wa-icon name="arrow-down-to-line" variant="regular"></wa-icon> Self-Hosted</wa-tab>
+  <div class="palette-instructions" data-palette="{{ palette.name | lower }}" {% if not loop.first %}hidden{% endif %}>
+    <wa-tab-group data-install-tabs>
+      <wa-tab panel="cdn"><wa-icon name="globe" variant="regular"></wa-icon> CDN</wa-tab>
+      <wa-tab panel="npm"><wa-icon name="box-open" variant="regular"></wa-icon> npm</wa-tab>
+      <wa-tab panel="self-hosted"><wa-icon name="arrow-down-to-line" variant="regular"></wa-icon> Self-Hosted</wa-tab>
+      <wa-tab panel="hosted"><wa-icon name="rocket-launch" variant="regular"></wa-icon> Hosted Projects</wa-tab>
 
-        <wa-tab-panel name="cdn">
+      <wa-tab-panel name="cdn">
+        {% if palette.isPro %}
 {% markdown %}
-{% if palette.isPro %}
-<wa-callout variant="neutral" size="small">
-  <wa-icon name="info-circle" variant="regular"></wa-icon>
-  This palette can only be used on workspaces with a Pro subscription.
+<wa-callout variant="neutral" size="s">
+  <wa-icon slot="icon" name="info-circle" variant="regular"></wa-icon>
+  This palette can only be used with a Pro subscription. {% raw %}{% if session.isLoggedIn %}{% endraw %}For instructions unique to your Pro project, open a project from <a href="/workspaces">your workspace</a>.{% raw %}{% endif %}{% endraw %}
 </wa-callout>
-<br />
-{% else %}
-**For projects on Free workspaces:**
-1. Head over to your project's <wa-icon name="gear" variant="regular"></wa-icon> **Settings**.
-2. Find **Color Palette**. Select <wa-icon name="swatchbook" variant="regular"></wa-icon> **{{ palette.name | capitalize }}**.
-3. Save your theme to immediately update anywhere you're using your project.
-{% endif %}
-
-**For projects on Pro workspaces:**
-1. Head over to your project's <wa-icon name="gear" variant="regular"></wa-icon> **Settings**.
-2. Press <wa-icon name="paintbrush" variant="regular"></wa-icon> **Edit Your Theme** to open the Theme Builder.
-3. Open **Colors** and select **{{ palette.name | capitalize }}**.
-4. Save your theme to immediately update anywhere you're using your project.
 {% endmarkdown %}
-        </wa-tab-panel>
-
-        <wa-tab-panel name="npm">
+        {% else %}
+        {% set paletteCdnUrl %}{% cdnUrl 'styles/color/palettes/' %}{{ palette.filename }}{% endset %}
 {% markdown %}
-To use this theme, import the theme's stylesheet:
+To use this palette, add the palette's stylesheet from the CDN:
+
+```html
+<link rel="stylesheet" href="{{ paletteCdnUrl }}">
+```
+
+Then, apply the following class to the `<html>` element:
+
+```html
+<html class="wa-palette-{{ palette.name | lower }}">
+```
+{% endmarkdown %}
+        {% endif %}
+      </wa-tab-panel>
+
+      <wa-tab-panel name="npm">
+{% markdown %}
+After installing <code>@awesome.me/webawesome</code>, import the palette's stylesheet:
 
 ```js
-import '@awesome.me/webawesome/dist/styles/themes/{{ palette.filename }}';
+import '@awesome.me/webawesome/dist/styles/color/palettes/{{ palette.filename }}';
 ```
 
-Then apply the following class to the `<html>` element:
+Then, apply the following class to the `<html>` element:
 
 ```html
 <html class="wa-palette-{{ palette.name | lower }}">
 ```
 {% endmarkdown %}
-        </wa-tab-panel>
+      </wa-tab-panel>
 
-        <wa-tab-panel name="self-hosted">
+      <wa-tab-panel name="self-hosted">
 {% markdown %}
-To use this theme, include the theme's stylesheet:
+If you're self-hosting Web Awesome, include the palette's stylesheet from your server:
 
 ```html
-<link rel="stylesheet" href="/dist/styles/themes/{{ palette.filename }}" />
+<link rel="stylesheet" href="/dist/styles/color/palettes/{{ palette.filename }}">
 ```
 
-Then apply the following class to the `<html>` element:
+Then, apply the following class to the `<html>` element:
 
 ```html
 <html class="wa-palette-{{ palette.name | lower }}">
 ```
 {% endmarkdown %}
-        </wa-tab-panel>
-      </wa-tab-group>
-    </div>
+      </wa-tab-panel>
+
+      <wa-tab-panel name="hosted">
+        <div class="hosted-project-instructions">
+          {% if palette.isPro %}
+          <div class="instruction-group wa-stack wa-gap-2xs">
+            <h3 class="wa-heading-m" data-no-anchor data-no-outline>
+              Pro Workspace Projects
+            </h3>
+            <table class="wa-hover-rows">
+              <thead>
+                <tr>
+                  <th scope="col">Step</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Go to your project's <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="gear" variant="regular"></wa-icon> Settings</wa-tag>.
+                  </td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Press <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="paintbrush" variant="regular"></wa-icon> Edit Your Theme</wa-tag> to
+                    open
+                    the Theme Builder.</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>Open <wa-tag class="tag-ui" appearance="outlined">Colors</wa-tag> and select <wa-tag class="tag-ui" appearance="outlined">{{ palette.name | capitalize }}</wa-tag>.</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>Save your theme to immediately update anywhere you're using your project.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          {% else %}
+          <div class="instruction-group wa-stack wa-gap-2xs">
+            <h3 class="wa-heading-m" data-no-anchor data-no-outline>
+              Free Workspace Projects
+            </h3>
+            <table class="wa-hover-rows">
+              <thead>
+                <tr>
+                  <th scope="col">Step</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Go to your project's <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="gear" variant="regular"></wa-icon> Settings</wa-tag>.
+                  </td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Find <wa-tag class="tag-ui" appearance="outlined">Color Palette</wa-tag>. Select <wa-tag
+                      class="tag-ui" appearance="outlined"><wa-icon name="swatchbook"
+                        variant="regular"></wa-icon>
+                      {{ palette.name | capitalize }}</wa-tag>.
+                  </td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>Save your theme to immediately update anywhere you're using your project.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="instruction-group wa-stack wa-gap-2xs">
+            <h3 class="wa-heading-m" data-no-anchor data-no-outline>
+              Pro Workspace Projects
+            </h3>
+            <table class="wa-hover-rows">
+              <thead>
+                <tr>
+                  <th scope="col">Step</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Go to your project's <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="gear" variant="regular"></wa-icon> Settings</wa-tag>.
+                  </td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Press <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="paintbrush" variant="regular"></wa-icon> Edit Your Theme</wa-tag> to
+                    open
+                    the Theme Builder.</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>Open <wa-tag class="tag-ui" appearance="outlined">Colors</wa-tag> and select <wa-tag class="tag-ui" appearance="outlined">{{ palette.name | capitalize }}</wa-tag>.</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>Save your theme to immediately update anywhere you're using your project.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          {% endif %}
+        </div>
+      </wa-tab-panel>
+    </wa-tab-group>
+  </div>
   {% endfor %}
 </div>
 
-<script type="module">
-  const paletteContainer = document.getElementById('color-palettes');
-  const palettePicker = document.getElementById('palette-picker');
+<h2>Styling with Palette Colors</h2>
 
-  // Set first radio as checked and add initial palette class
-  const firstRadio = palettePicker.querySelector('wa-radio');
-  if (firstRadio) {
-    firstRadio.checked = true;
-    paletteContainer.classList.add(`wa-palette-${firstRadio.value}`);
-  }
+<p>Once a palette is loaded, you can reach for any of its hue and tint tokens in your own CSS. Pair a hue's <a
+    href="/docs/tokens/color#core-colors">core color</a> (<code>--wa-color-{hue}</code>) with its matching on color
+  (<code>--wa-color-{hue}-on</code>) to keep text and icons readable on top of it:</p>
 
-  // Listen for radio changes
-  palettePicker.addEventListener('input', function(event) {
-    const selectedValue = event.target.value;
+{% markdown %}
+```css
+.callout-custom {
+  background: var(--wa-color-blue);
+  color: var(--wa-color-blue-on);
+}
+```
+{% endmarkdown %}
 
-    // Update palette container class
-    const existingThemeClasses = [...paletteContainer.classList].filter(className => className.startsWith('wa-palette-'));
-    existingThemeClasses.forEach(className => paletteContainer.classList.remove(className));
-    paletteContainer.classList.add(`wa-palette-${selectedValue}`);
-
-    // Show/hide appropriate instructions
-    document.querySelectorAll('.palette-instructions').forEach(instruction => {
-      instruction.hidden = instruction.dataset.palette !== selectedValue;
-    });
-  });
-</script>
-
-<style>
-  wa-page > main {
-    max-width: 120ch;
-    margin-inline: auto;
-  }
-
-  #color-palettes {
-    margin-block-end: var(--wa-space-xl);
-  }
-
-  #palette-picker {
-    margin-bottom: var(--wa-space-l);
-
-    &::part(form-control-input) {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      gap: var(--wa-space-m);
-    }
-
-    &::part(form-control-label) {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      clip: rect(0 0 0 0);
-      clip-path: inset(50%);
-      border: none;
-      overflow: hidden;
-      white-space: nowrap;
-      padding: 0;
-    }
-
-    wa-radio {
-      margin-inline: 0;
-    }
-  }
-
-  .palette-card {
-    --border-radius: var(--wa-border-radius-m);
-    --spacing: var(--wa-space-s) var(--wa-space-m);
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: var(--wa-space-3xl);
-    padding: var(--spacing);
-    background-color: var(--wa-color-surface-default);
-    border: 1px solid var(--wa-color-surface-border);
-    border-radius: var(--border-radius);
-    box-shadow: var(--wa-shadow-s);
-    transition: all 0.2s ease;
-    text-align: center;
-    font-weight: var(--wa-font-weight-action);
-    text-transform: capitalize;
-  }
-
-  .palette-card:not(:state(disabled)) {
-    cursor: pointer;
-  }
-
-  .palette-card:state(checked) {
-    border-color: var(--wa-color-brand-border-loud);
-    background-color: var(--wa-color-brand-fill-quiet);
-    color: var(--wa-color-brand-text-loud);
-  }
-
-  .palette-card::part(control) {
-    display: none;
-  }
-
-  .palette-card::part(label) {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    margin: 0;
-  }
-
-  .palette {
-    display: grid;
-    grid-template-columns: 5rem 1fr;
-    align-items: center;
-    gap: var(--wa-space-m);
-    margin-bottom: var(--wa-space-s);
-    width: 100%;
-    padding-top: var(--wa-space-l);
-  }
-
-  .palette-label {
-    font-weight: var(--wa-font-weight-bold);
-    text-transform: capitalize;
-    font-size: var(--wa-font-size-s);
-    color: var(--wa-color-text-normal);
-  }
-
-  .palette-swatches {
-    display: grid;
-    grid-template-columns: repeat(11, 1fr);
-    gap: var(--wa-space-3xs);
-  }
-
-  .palette-swatch {
-    padding: 0;
-    aspect-ratio: 1.75 / 1; /* Wider than tall on desktop */
-    position: relative;
-
-    &::before {
-      content: var(--tint);
-      position: absolute;
-      top: calc(-1 * var(--wa-space-l));
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: var(--wa-font-size-xs);
-      color: var(--wa-color-text-quiet);
-      font-weight: var(--wa-font-weight-action);
-      text-align: center;
-      z-index: 2;
-    }
-
-    &::part(button) {
-      width: 100%;
-      height: 100%;
-      cursor: pointer;
-      background-color: var(--color);
-      border-radius: var(--wa-border-radius-m);
-      transition: transform 0.1s ease, box-shadow 0.1s ease;
-    }
-
-    &:hover::part(button) {
-      transform: scale(1.075);
-      box-shadow: var(--wa-shadow-s);
-      z-index: 1;
-      position: relative;
-    }
-
-    &::part(copy-icon),
-    &::part(success-icon),
-    &::part(error-icon) {
-      visibility: hidden;
-    }
-  }
-
-  /* Smaller screens */
-  @media (max-width: 768px) {
-    .palette {
-      grid-template-columns: 3.75rem 1fr;
-      gap: var(--wa-space-s);
-      margin-bottom: var(--wa-space-m);
-      padding-top: var(--wa-space-xl);
-    }
-
-    .palette-label {
-      font-size: var(--wa-font-size-xs);
-    }
-
-    .palette-swatches {
-      grid-template-columns: repeat(6, 1fr); /* Two rows on mobile */
-      gap: var(--wa-space-2xs);
-      row-gap: var(--wa-space-l);
-    }
-
-    .palette-swatch {
-      aspect-ratio: 1 / 1; /* Square on mobile */
-
-      &::before {
-        font-size: var(--wa-font-size-2xs);
-        top: calc(-1 * var(--wa-space-m));
-      }
-    }
-  }
-
-  .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
-  }
-</style>
+{% markdown %}
+:::info
+**Building with other tints?** The [Color tokens](/docs/tokens/color) reference lists every tint and semantic variant — pair them across the scale and you'll hit WCAG contrast ratios without doing the math.
+:::
+{% endmarkdown %}

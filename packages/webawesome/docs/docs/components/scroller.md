@@ -1,8 +1,15 @@
 ---
 title: Scroller
-description: Scrollers create an accessible container while providing visual cues that help users identify and navigate through content that scrolls.
 layout: component
-category: Organization
+category: Layout
+synonyms:
+  - scrollable
+  - scroll container
+  - overflow
+use-cases:
+  - horizontal scroll
+  - scroll area
+  - scrollable list
 ---
 
 ```html {.example}

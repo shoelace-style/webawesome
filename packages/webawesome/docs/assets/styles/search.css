@@ -1,4 +1,5 @@
 #site-search {
+  --backdrop-filter: blur(6px);
   width: 38rem;
   position: absolute;
   top: 0;
@@ -57,39 +58,21 @@
 #site-search-input-wrapper {
   display: flex;
   align-items: center;
-  margin-block-end: 0.5rem;
 }
 
 #site-search-input {
   flex: 1 1 auto;
   min-width: 0;
-  border: none;
-  font: inherit;
-  font-size: 1.5rem;
-  background: transparent;
-  padding: 1rem 1rem 0.5rem 1rem;
+  font-size: 1.25rem;
+  padding-block: 0.5rem;
   margin: 0;
 
-  &::placeholder {
-    color: var(--wa-color-text-quiet);
-  }
-
-  &:focus,
-  &:focus-visible {
+  &::part(base) {
+    border: none;
+    background: transparent;
+    box-shadow: none;
     outline: none;
   }
-}
-
-#site-search-input::-webkit-search-decoration,
-#site-search-input::-webkit-search-cancel-button,
-#site-search-input::-webkit-search-results-button,
-#site-search-input::-webkit-search-results-decoration {
-  display: none;
-}
-
-#site-search-input:focus,
-#site-search-input:focus-visible {
-  --wa-focus-ring: 0;
 }
 
 #site-search-body {
@@ -213,6 +196,7 @@
     display: block;
     width: 2rem;
     height: 2rem;
+    font-size: 1.5rem;
     margin-inline: auto;
     margin-block-end: 0.5rem;
   }

@@ -1,34 +1,34 @@
 <wa-dropdown class="theme-selector" title="Select Theme">
   <wa-button slot="trigger" id="theme-selector-trigger" appearance="plain" pill>
-    <wa-icon name="brush" variant="regular"></wa-icon>
+    <wa-icon name="palette" variant="regular" label="Select Theme"></wa-icon>
   </wa-button>
 
   {# Free themes #}
   {% for theme in themer.themes %}
-    {% if not theme.isPro %}
-      <wa-dropdown-item
-        value="{{ theme.filename | stripExtension }}"
-        data-brand="{{ theme.colorBrand.color }}"
-        data-palette="{{ theme.palette.filename | stripExtension }}"
-      >
-        {{ theme.name }}
-      </wa-dropdown-item>
-    {% endif %}
+  {% if not theme.isPro %}
+  <wa-dropdown-item value="{{ theme.filename | stripExtension }}" data-brand="{{ theme.colorBrand.color }}"
+    data-palette="{{ theme.palette.filename | stripExtension }}">
+    {{ theme.name }}
+  </wa-dropdown-item>
+  {% endif %}
   {% endfor %}
 
   {# Pro themes #}
   {% for theme in themer.themes %}
-    {% if loop.first %}<wa-divider></wa-divider>{% endif %}
-    {% if theme.isPro %}
-      <wa-dropdown-item
-        value="{{ theme.filename | stripExtension }}"
-        data-brand="{{ theme.colorBrand.color }}"
-        data-palette="{{ theme.palette.filename | stripExtension }}"
-      >
-        {{ theme.name }}
-      </wa-dropdown-item>
-    {% endif %}
+  {% if loop.first %}<wa-divider></wa-divider>{% endif %}
+  {% if theme.isPro %}
+  <wa-dropdown-item value="{{ theme.filename | stripExtension }}" data-brand="{{ theme.colorBrand.color }}"
+    data-palette="{{ theme.palette.filename | stripExtension }}">
+    {{ theme.name }}
+  </wa-dropdown-item>
+  {% endif %}
   {% endfor %}
+
+  <wa-divider></wa-divider>
+  <wa-dropdown-item value="/docs/theming-overview">
+    <wa-icon slot="icon" name="book-open" variant="regular"></wa-icon>
+    Docs
+  </wa-dropdown-item>
 </wa-dropdown>
 <wa-tooltip for="theme-selector-trigger" id="theme-tooltip">Select Theme</wa-tooltip>
 
@@ -37,6 +37,12 @@
   document.querySelectorAll('wa-dropdown.theme-selector').forEach(el => {
     el.addEventListener('wa-select', (event) => {
       const selectedValue = event.detail.item.value;
+
+      // Navigate if the value is a URL
+      if (selectedValue.startsWith('/')) {
+        window.location.href = selectedValue;
+        return;
+      }
 
       // Trigger input event for theme.js
       el.value = selectedValue;

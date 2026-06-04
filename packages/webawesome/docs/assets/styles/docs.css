@@ -8,9 +8,6 @@
 @import 'utils.css';
 
 :root {
-  --wa-brand-orange: #f36944;
-  --wa-brand-grey: #30323b;
-
   /* layout-based example style aspects */
   --layout-example-border: var(--wa-border-width-s) dashed var(--wa-color-neutral-border-normal);
   --layout-example-border-radius: var(--wa-border-radius-l);
@@ -18,6 +15,29 @@
   --layout-example-element-background: var(--wa-color-indigo-60);
   --layout-example-element-color: var(--wa-color-indigo-05);
   --layout-example-element-border-radius: var(--wa-border-radius-m);
+}
+
+/* "Browse\ ___" / "Back to ___" link with an arrow that nudges on hover */
+.browse-all-link wa-icon,
+.back-link wa-icon {
+  vertical-align: -0.1em;
+  transition: transform var(--wa-transition-normal) var(--wa-transition-easing);
+}
+
+.browse-all-link wa-icon {
+  margin-inline-start: 0.25em;
+}
+
+.back-link wa-icon {
+  margin-inline-end: 0.25em;
+}
+
+.browse-all-link:hover wa-icon {
+  transform: translateX(0.25em);
+}
+
+.back-link:hover wa-icon {
+  transform: translateX(-0.25em);
 }
 
 .wa-dark .only-light,
@@ -37,7 +57,7 @@ body.theme-transitioning {
 
 /* Header */
 wa-page::part(body) {
-  padding-top: 0px;
+  padding-block-start: 0;
 }
 
 wa-page::part(header-actions) {
@@ -57,9 +77,137 @@ wa-button.delete {
 
 /* Main content */
 wa-page > main {
-  max-width: var(--content-width-s);
+  max-inline-size: var(--content-width-s);
   padding: var(--wa-space-xl);
   margin-inline: auto;
+}
+
+/* increase max-inline-size for index pages */
+wa-page > main:has(.modern-card-list) {
+  max-inline-size: var(--content-width-m);
+}
+
+/* The docs main column is wider than `wa-prose`'s default 65ch. Anchor the
+   reading-column custom property to the docs token so existing layouts —
+   default, modern-card-list, and page-wide — keep their established widths. */
+#content {
+  --wa-prose-line-length: var(--content-width-s);
+
+  /* Remap wa-prose's em-based rhythm to the docs' rem-based spacing scale.
+     wa-prose intentionally scales with element font-size, but the docs were
+     authored against the rem-based rhythm and depend on that visual cadence. */
+  --wa-prose-rhythm-2xs: var(--wa-space-2xs);
+  --wa-prose-rhythm-xs: var(--wa-space-xs);
+  --wa-prose-rhythm-s: var(--wa-space-s);
+  --wa-prose-rhythm-m: var(--wa-space-m);
+  --wa-prose-rhythm-l: var(--wa-space-l);
+  --wa-prose-rhythm-xl: var(--wa-space-xl);
+  --wa-prose-rhythm-2xl: var(--wa-space-2xl);
+  --wa-prose-rhythm-3xl: var(--wa-space-3xl);
+
+  /* Extend wa-prose's major-blocks treatment to `.code-example` live demos
+     (wa-prose covers `<details>` natively). */
+  .code-example:has(+ *) {
+    margin-block-end: var(--wa-prose-rhythm-xl);
+  }
+  :not(h1, h2, h3, h4, h5, h6) + .code-example {
+    margin-block-start: var(--wa-prose-rhythm-xl);
+  }
+  :is(h1, h2, h3, h4, h5, h6) + .code-example {
+    margin-block-start: var(--wa-prose-rhythm-m);
+  }
+
+  /* Treat h2 + `<small><time>` as one header unit (changelog releases). */
+  h2:has(+ p > small > time) {
+    margin-block-end: var(--wa-space-3xs);
+  }
+  h2 + p:has(> small > time) {
+    margin-block-start: 0;
+    margin-block-end: var(--wa-space-l);
+    color: var(--wa-color-text-quiet);
+  }
+
+  /* Subordinate prerelease version headings inside `<details data-no-outline>`
+     so they read as historical, not peer to current releases. */
+  details[data-no-outline] h2 {
+    font-size: var(--wa-font-size-l);
+    margin-block-start: var(--wa-space-l);
+  }
+
+  /* The breadcrumb is navigation, not prose flow — drop wa-prose's
+     previous-sibling top margin on the page title that follows it. */
+  .page-breadcrumbs + h1 {
+    margin-block-start: 0;
+  }
+}
+
+.component-ref {
+  color: inherit;
+  text-decoration: none;
+
+  &:hover {
+    color: var(--wa-color-text-link);
+    text-decoration: var(--wa-link-decoration-hover);
+  }
+}
+
+/* GitHub refs (`[issue:N]`/`[pr:N]`/`[discuss:N]`) rewritten by replaceTextPlugin. */
+.ref-link {
+  margin-inline-start: var(--wa-space-3xs);
+  text-decoration: none;
+  color: inherit;
+
+  & wa-badge {
+    font-size: var(--wa-font-size-2xs);
+  }
+}
+
+/* Changelog category groups. Icon bullets injected by _transformers/changelog-list-icons.js. */
+.changelog-group {
+  & + .changelog-group {
+    margin-block-start: var(--wa-space-l);
+    padding-block-start: var(--wa-space-l);
+    border-block-start: var(--wa-border-width-s) solid var(--wa-color-surface-border);
+  }
+
+  & > ul {
+    list-style: none;
+    padding-inline-start: 0;
+
+    /* Resets native.css `li { margin-inline-start: 1.125em }` so the icon
+       column sits flush with the prose left edge. */
+    & > li {
+      position: relative;
+      margin-inline-start: 0;
+      padding-inline-start: calc(1.25em + var(--wa-space-s));
+
+      & + li {
+        margin-block-start: var(--wa-space-s);
+      }
+
+      /* Bigger gap after entries with a nested list. */
+      &:has(:is(ul, ol)) + li {
+        margin-block-start: var(--wa-space-m);
+      }
+
+      & :is(ul, ol) {
+        margin-block: var(--wa-space-xs);
+
+        /* `::marker` ignores opacity; bake de-emphasis into the color. */
+        & > li::marker {
+          color: color-mix(in oklch, var(--wa-color-text-quiet) 60%, transparent);
+        }
+      }
+
+      & > .changelog-bullet {
+        position: absolute;
+        inset-inline-start: 0;
+        inset-block-start: 0.4em;
+        color: var(--wa-color-text-quiet);
+        font-size: var(--wa-font-size-s);
+      }
+    }
+  }
 }
 
 h1.title {
@@ -70,14 +218,26 @@ h1.title {
 }
 
 .component-info {
-  display: flex;
-  gap: var(--wa-space-xs);
-  flex-wrap: wrap;
-  align-items: center;
   margin-block-end: var(--wa-content-spacing);
 
   code {
     line-height: var(--wa-line-height-condensed);
+  }
+
+  .component-tag {
+    background-color: transparent;
+    color: var(--wa-color-text-quiet);
+    font-size: var(--wa-font-size-l);
+  }
+
+  /* The category and since badges are wrapped in an <a> for the link, but the
+     wrapper was introducing a baseline offset against the bare wa-badge
+     siblings. Using display: contents removes the anchor's box from layout so
+     the badge becomes a direct flex child of the cluster (same as the others). */
+  .component-category-link,
+  .component-since-link {
+    display: contents;
+    text-decoration: none;
   }
 }
 
@@ -86,56 +246,10 @@ h1.title {
   font-size: var(--wa-font-size-l);
 }
 
-/* Callouts */
-.callout {
-  display: flex;
-  gap: 1rem;
-  border: var(--wa-border-style) var(--wa-border-width-s);
-  border-radius: var(--wa-border-radius-l);
-  padding: 1rem;
-  margin-block-end: var(--wa-content-spacing);
-
-  :first-child {
-    margin-block-start: 0;
-  }
-
-  :last-child {
-    margin-block-end: 0;
-  }
-}
-
-.callout-icon {
-  flex: 0 0 auto;
-  font-size: 1.5rem;
-}
-
-.callout-content {
-  flex: 1 1 auto;
-}
-
-.callout-info {
-  background-color: var(--wa-color-brand-fill-quiet);
-  border-color: var(--wa-color-brand-border-quiet);
-
-  .callout-icon {
-    color: var(--wa-color-brand-on-normal);
-  }
-
-  code {
-    background-color: var(--wa-color-brand-fill-normal);
-  }
-}
-
-.callout-warning {
-  background-color: var(--wa-color-warning-fill-quiet);
-  border-color: var(--wa-color-warning-border-quiet);
-
-  .callout-icon {
-    color: var(--wa-color-warning-on-normal);
-  }
-
-  code {
-    background-color: var(--wa-color-warning-fill-normal);
+/* Callouts in content */
+#content > wa-callout {
+  &[variant='brand'] code {
+    background-color: color-mix(in oklab, var(--wa-color-brand-fill-soft), black 2.5%);
   }
 }
 
@@ -159,50 +273,9 @@ figure.signpost {
   }
 }
 
-/* Installation instruction (designed to wrap code blocks to show things underneath but still "inside" the block) */
-.installation-instructions {
-  background-color: var(--code-background, var(--wa-color-neutral-20));
-  border-radius: var(--wa-border-radius-m);
-  margin-block-end: 1rem;
-
-  pre {
-    margin-block-end: 0;
-    border-end-start-radius: 0;
-    border-end-end-radius: 0;
-  }
-
-  small {
-    display: block;
-    color: var(--code-comment, var(--wa-color-gray-70));
-    padding: 0 1rem 1rem 1rem;
-  }
-
-  small a {
-    color: var(--code-value, var(--wa-color-blue-70));
-  }
-
-  small code {
-    color: white;
-    background-color: transparent;
-  }
-
-  small strong {
-    font-weight: var(--wa-font-weight-semibold);
-  }
-}
-
-/* Dark mode */
-.wa-dark .installation-instructions {
-  background: var(--code-background-dark, var(--wa-color-surface-lowered));
-
-  pre {
-    background-color: var(--code-background-dark, var(--wa-color-surface-lowered));
-  }
-}
-
 /* Search list pages */
 wa-page > main:has(> .search-list) {
-  max-width: var(--content-width-l);
+  max-inline-size: var(--content-width-l);
   margin-inline: auto;
 }
 
@@ -218,22 +291,22 @@ wa-page > main:has(> .search-list) {
     gap: var(--wa-space-2xl);
     margin-block-end: var(--wa-space-3xl);
 
-    @container (width < 768px) {
+    @container (inline-size < 48rem) {
       grid-template-columns: repeat(3, 1fr);
     }
 
-    @container (width < 576px) {
+    @container (inline-size < 36rem) {
       grid-template-columns: repeat(2, 1fr);
     }
 
-    @container (width < 384px) {
+    @container (inline-size < 24rem) {
       grid-template-columns: repeat(1, 1fr);
     }
 
     &.large {
       grid-template-columns: repeat(2, 1fr);
 
-      @container (width < 640px) {
+      @container (inline-size < 40rem) {
         grid-template-columns: repeat(1, 1fr);
       }
     }
@@ -245,7 +318,6 @@ wa-page > main:has(> .search-list) {
 
     wa-card {
       --spacing: var(--wa-space-m);
-      box-shadow: none;
 
       [slot='header'] {
         display: flex;
@@ -259,11 +331,6 @@ wa-page > main:has(> .search-list) {
         min-block-size: calc(6rem + var(--spacing));
         padding: var(--spacing);
       }
-
-      &:hover {
-        border-color: var(--wa-color-brand-border-loud);
-        box-shadow: 0 0 0 0.0625rem var(--wa-color-brand-border-loud);
-      }
     }
   }
 }
@@ -273,146 +340,130 @@ wa-card .page-name {
   font-weight: var(--wa-font-weight-action);
 }
 
-/* Swatches */
+/* Restore full-size rendering of platform symbols (⌘, ⌥, ⇧, etc.) inside <kbd>,
+   which uses a code font that tends to render these glyphs undersized. */
+.kbd-symbol {
+  font-family: var(--wa-font-family-body);
+}
+
+/* Card-based, name-first listing layout used by component/pattern/utility browse pages */
+.component-list,
+.modern-card-list {
+  container-type: inline-size;
+
+  .search-list-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--wa-space-m);
+    margin-block-end: var(--wa-space-l);
+
+    @container (inline-size < 56rem) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @container (inline-size < 35rem) {
+      grid-template-columns: 1fr;
+    }
+
+    a {
+      color: var(--wa-color-text-normal);
+      text-decoration: none;
+    }
+
+    wa-card {
+      --spacing: var(--wa-space-m);
+      block-size: 100%;
+    }
+
+    wa-card::part(body) {
+      display: flex;
+      flex-direction: column;
+      block-size: 100%;
+    }
+
+    .page-name {
+      display: block;
+      font-size: var(--wa-font-size-l);
+      font-weight: var(--wa-font-weight-heading);
+      line-height: var(--wa-line-height-condensed);
+      margin-block-end: var(--wa-space-xs);
+    }
+
+    .component-list-summary,
+    .modern-card-summary {
+      color: var(--wa-color-text-quiet);
+      font-size: var(--wa-font-size-s);
+      line-height: var(--wa-line-height-normal);
+      margin: 0 0 var(--wa-space-m);
+    }
+
+    .component-list-badges {
+      font-size: var(--wa-font-size-s);
+      margin-block-start: auto;
+    }
+  }
+}
+
+/* Component list: centered search input (anchors a hero-style browse page) */
+.component-list {
+  .search-list-input {
+    display: block;
+    max-inline-size: 32rem;
+    margin-inline: auto;
+    margin-block: var(--wa-space-m) var(--wa-space-s);
+  }
+
+  .search-list-shortcut {
+    text-align: center;
+    color: var(--wa-color-text-quiet);
+    font-size: var(--wa-font-size-s);
+    margin-block: 0 var(--wa-space-2xl);
+  }
+}
+
+/* Modern card list: left-aligned "Browse X" heading + search input (used by utilities, tokens, patterns) */
+.modern-card-list-heading {
+  margin-block: 0 var(--wa-space-xl);
+}
+
+.modern-card-list {
+  .search-list-input {
+    display: block;
+    max-inline-size: 32rem;
+    margin-block: 0 var(--wa-space-2xl);
+  }
+
+  .modern-card-list-category {
+    margin-block: var(--wa-space-2xl) var(--wa-space-m);
+    font-size: var(--wa-font-size-xl);
+
+    &:first-of-type {
+      margin-block-start: 0;
+    }
+  }
+}
+
+/* Design Tokens Swatches */
 .swatch {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: transparent;
-  border-color: var(--wa-color-neutral-border-normal);
+  border-color: transparent;
   border-style: var(--wa-border-style);
   border-width: var(--wa-border-width-s);
   border-radius: var(--wa-border-radius-m);
   box-sizing: border-box;
-  min-height: 2.5em;
+  min-block-size: 3rem;
+  min-inline-size: 3rem;
   padding: var(--wa-space-xs);
   font-weight: var(--wa-font-weight-semibold);
   line-height: var(--wa-line-height-condensed);
-
-  &.color {
-    border-color: transparent;
-    transition: background var(--wa-transition-slow);
-    background: linear-gradient(var(--color-2, transparent) 0% 100%) no-repeat border-box var(--color,);
-    background-position: var(--color-2-position, bottom);
-    background-size: var(--color-2-width, 100%) var(--color-2-height, 50%);
-
-    &.contrast-fail {
-      outline: 1px dashed var(--wa-color-red);
-      outline-offset: calc(-1 * var(--wa-space-2xs));
-    }
-  }
-
-  > wa-copy-button {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: block;
-    font-family: var(--wa-font-family-code);
-
-    &::part(button) {
-      display: block;
-      height: 100%;
-      width: 100%;
-    }
-
-    &::part(button):hover {
-      background-color: transparent;
-      cursor: copy;
-    }
-
-    &::part(copy-icon),
-    &::part(success-icon),
-    &::part(error-icon) {
-      opacity: 0 !important;
-    }
-  }
 }
 
-table.colors {
-  thead {
-    th {
-      text-align: center;
-      padding-block: 0;
-    }
-  }
-
-  tbody {
-    tr {
-      border: none;
-      @media (hover: hover) {
-        &:hover {
-          background: transparent;
-        }
-      }
-    }
-
-    th {
-      width: 0;
-      vertical-align: middle;
-      text-align: right;
-    }
-
-    td {
-      padding-inline: var(--wa-space-3xs);
-      padding-block: var(--wa-space-s);
-    }
-  }
-
-  .core-column {
-    padding-inline-end: var(--wa-space-xl);
-  }
-}
-
-.value-up,
-.value-down {
-  position: relative;
-
-  &::after {
-    content: ' ' var(--icon);
-    position: absolute;
-    margin-inline-start: 3em;
-    scale: 1 0.6;
-    color: color-mix(in oklch, oklch(from var(--icon-color) none c h) 0%, oklch(from currentColor l none none));
-    font-size: 90%;
-  }
-}
-
-.value-down {
-  --icon: '▼';
-  --icon-color: var(--wa-color-danger-fill-quiet);
-
-  &::after {
-    margin-block-end: -0.2em;
-  }
-}
-
-.value-up {
-  --icon: '▲';
-  --icon-color: var(--wa-color-success-fill-quiet);
-}
-
-/* Layout Examples */
-.layout-example-boundary {
-  border: var(--wa-border-width-s) dashed var(--wa-color-neutral-border-normal);
-  border-radius: var(--wa-border-radius-l);
-  padding: var(--wa-space-s);
-}
-
-.layout-example-block {
-  background-color: var(--wa-color-indigo-60);
-  border-radius: var(--wa-border-radius-m);
-  min-block-size: 4rem;
-  min-inline-size: 4rem;
-}
-
-.layout-example-mixed-sizing .layout-example-block:nth-child(3n) {
-  min-inline-size: 6rem;
-}
-.layout-example-mixed-sizing .layout-example-block:nth-child(3n + 2) {
-  min-inline-size: 8rem;
+.token-name {
+  white-space: nowrap;
 }
 
 /* Component API tables */
@@ -421,13 +472,15 @@ wa-scroller:has(.component-table) {
 }
 
 .component-table {
+  font-variant-numeric: tabular-nums;
+
   .table-name {
     white-space: nowrap;
   }
 
   .table-arguments,
   .table-description {
-    min-width: var(--line-length-xs);
+    min-inline-size: var(--line-length-xs);
   }
 
   .table-selector .wa-cluster {
@@ -445,7 +498,7 @@ wa-scroller:has(.component-table) {
 
 .component-help {
   display: flex;
-  width: 100%;
+  inline-size: 100%;
   gap: var(--wa-space-m);
   flex-wrap: wrap;
   align-items: center;
@@ -459,7 +512,7 @@ wa-scroller:has(.component-table) {
 }
 
 /** desktop */
-@media screen and not (max-width: 1180px) {
+@media screen and (min-width: 73.75rem) {
   wa-page > main {
     padding: var(--wa-space-3xl);
   }
@@ -467,19 +520,20 @@ wa-scroller:has(.component-table) {
 
 .page-wide {
   wa-page > main {
-    max-width: var(--content-width-l);
+    max-inline-size: var(--content-width-l);
 
     .max-line-length {
-      max-width: var(--line-length-l);
+      max-inline-size: var(--line-length-l);
     }
   }
 }
 
-.layout-theme {
-  iframe {
-    width: 100%;
-    min-height: 16lh;
-    height: 65vh;
-    max-height: 21lh;
-  }
+/* Hosted project install instructions — tighter rhythm inside tab panels */
+#content .hosted-project-instructions .instruction-group + .instruction-group,
+#content .hosted-project-instructions .free-instructions + .pro-instructions {
+  margin-block-start: var(--wa-space-xl);
+}
+
+#content .hosted-project-instructions table {
+  margin-block: 0;
 }

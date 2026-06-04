@@ -7,21 +7,24 @@ export default css`
   }
 
   .copy-button__trigger {
-    display: inline-flex;
+    position: relative;
   }
 
   .button {
-    flex: 0 0 auto;
-    display: flex;
+    display: inline-flex;
     align-items: center;
+    justify-content: center;
     background-color: transparent;
     border: none;
     border-radius: var(--wa-form-control-border-radius);
     color: inherit;
     font-size: inherit;
-    padding: 0.5em;
+    height: calc(var(--wa-form-control-height) * 0.8);
+    aspect-ratio: 1;
     cursor: pointer;
-    transition: color var(--wa-transition-fast) var(--wa-transition-easing);
+    transition-property: background-color, color;
+    transition-duration: var(--wa-transition-fast);
+    transition-timing-function: var(--wa-transition-easing);
   }
 
   @media (hover: hover) {
@@ -40,14 +43,6 @@ export default css`
     color: color-mix(in oklab, currentColor, var(--wa-color-mix-active));
   }
 
-  slot[name='success-icon'] {
-    color: var(--wa-color-success-on-quiet);
-  }
-
-  slot[name='error-icon'] {
-    color: var(--wa-color-danger-on-quiet);
-  }
-
   .button:focus-visible {
     outline: var(--wa-focus-ring);
     outline-offset: var(--wa-focus-ring-offset);
@@ -62,15 +57,16 @@ export default css`
     display: inline-flex;
   }
 
+  /* Icon swap animation */
   .show {
-    animation: show 100ms ease;
+    animation: copy-button-icon-show var(--wa-transition-fast) var(--wa-transition-easing);
   }
 
   .hide {
-    animation: show 100ms ease reverse;
+    animation: copy-button-icon-show var(--wa-transition-fast) var(--wa-transition-easing) reverse;
   }
 
-  @keyframes show {
+  @keyframes copy-button-icon-show {
     from {
       scale: 0.25;
       opacity: 0.25;
@@ -78,6 +74,13 @@ export default css`
     to {
       scale: 1;
       opacity: 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .show,
+    .hide {
+      animation-duration: 1ms;
     }
   }
 `;

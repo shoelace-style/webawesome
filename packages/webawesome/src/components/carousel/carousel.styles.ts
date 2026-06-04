@@ -76,11 +76,6 @@ export default css`
     overflow-x: hidden;
   }
 
-  .slides-dragging,
-  .slides-dropping {
-    scroll-snap-type: unset;
-  }
-
   :host([vertical]) ::slotted(wa-carousel-item) {
     height: 100%;
   }

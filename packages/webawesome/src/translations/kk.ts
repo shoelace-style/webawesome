@@ -7,6 +7,7 @@ const translation: Translation = {
   $dir: 'ltr',
 
   carousel: 'Карусель',
+  captions: 'Субтитрлер',
   clearEntry: 'Жазбаны жою',
   createOption: value => `"${value}" жасау`,
   close: 'Жабу',
@@ -17,11 +18,16 @@ const translation: Translation = {
   dropFileHere: 'Drop file here or click to browse',
   dropFilesHere: 'Drop files here or click to browse',
   error: 'Қате',
+  enterFullscreen: 'Толық экранға өту',
+  exitFullscreen: 'Толық экраннан шығу',
   goToSlide: (slide, count) => `${slide}/${count} слайдқа өту`,
   hidePassword: 'Құпиясөзді жасыру',
   increment: 'Арттыру',
   loading: 'Жүктелуде',
+  moreOptions: 'Қосымша опциялар',
+  mute: 'Дыбысты өшіру',
   nextSlide: 'Келесі слайд',
+  nextVideo: 'Келесі бейне',
   numCharacters: num => {
     if (num === 1) return '1 таңба';
     return `${num} таңба`;
@@ -36,9 +42,15 @@ const translation: Translation = {
     if (num === 6) return `${num}-ау таңдалды`;
     return `${num} таңдалды`;
   },
+  pause: 'Тоқтату',
   pauseAnimation: 'Анимацияны тоқтату',
+  pictureInPicture: 'Суретте сурет',
+  play: 'Ойнату',
+  playbackSpeed: 'Ойнату жылдамдығы',
+  playlist: 'Ойнату тізімі',
   playAnimation: 'Анимацияны ойнату',
   previousSlide: 'Алдыңғы слайд',
+  previousVideo: 'Алдыңғы бейне',
   progress: 'Прогресс',
   remove: 'Жою',
   resize: 'Өлшемін өзгерту',
@@ -49,6 +61,12 @@ const translation: Translation = {
   showPassword: 'Құпиясөзді көрсету',
   slideNum: slide => `${slide}-слайд`,
   toggleColorFormat: 'Түс пішімін ауыстыру',
+  seek: 'Іздеу',
+  seekProgress: (current, duration) => `${current} / ${duration}`,
+  currentlyPlaying: 'қазір ойнатылуда',
+  unmute: 'Дыбысты қосу',
+  videoPlayer: 'Бейне ойнатқыш',
+  volume: 'Дыбыс деңгейі',
   zoomIn: 'Жақындату',
   zoomOut: 'Алыстату',
 };

@@ -20,7 +20,8 @@ import { AutoplayController } from './autoplay-controller.js';
 import styles from './carousel.styles.js';
 
 /**
- * @summary Carousels display an arbitrary number of content slides along a horizontal or vertical axis.
+ * @summary Carousels display a series of content slides along a horizontal or vertical axis, one or more at a time.
+ *  Users can navigate between slides with controls, pagination, or autoplay.
  *
  * @since 2.2
  * @status experimental
@@ -99,6 +100,7 @@ export default class WaCarousel extends WebAwesomeElement {
   private dragStartPosition: [number, number] = [-1, -1];
   private readonly localize = new LocalizeController(this);
   private mutationObserver: MutationObserver;
+  private resizeObserver?: ResizeObserver;
   private pendingSlideChange = false;
 
   connectedCallback(): void {
@@ -114,6 +116,7 @@ export default class WaCarousel extends WebAwesomeElement {
   disconnectedCallback(): void {
     super.disconnectedCallback();
     this.mutationObserver?.disconnect();
+    this.resizeObserver?.disconnect();
   }
 
   protected firstUpdated(): void {
@@ -123,6 +126,20 @@ export default class WaCarousel extends WebAwesomeElement {
       childList: true,
       subtree: true,
     });
+
+    // When the carousel is placed inside a hidden container (e.g. an inactive tab panel),
+    // initializeSlides() runs before the element has layout dimensions. The IntersectionObserver
+    // inside synchronizeSlides() then reports all slides as non-intersecting and marks them
+    // `inert`, making their contents unclickable until the user interacts with the carousel.
+    // Re-run synchronizeSlides() once the carousel gains visible dimensions to correct this.
+    this.resizeObserver = new ResizeObserver(() => {
+      if (this.scrollContainer?.clientWidth || this.scrollContainer?.clientHeight) {
+        this.synchronizeSlides();
+        this.resizeObserver?.disconnect();
+        this.resizeObserver = undefined;
+      }
+    });
+    this.resizeObserver.observe(this);
   }
 
   protected willUpdate(changedProperties: PropertyValueMap<WaCarousel> | Map<PropertyKey, unknown>): void {

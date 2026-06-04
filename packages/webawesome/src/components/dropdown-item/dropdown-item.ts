@@ -2,15 +2,18 @@ import type { PropertyValues } from 'lit';
 import { html } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { animateWithClass } from '../../internal/animate.js';
+import { warnDeprecatedSize } from '../../internal/size.js';
 import { HasSlotController } from '../../internal/slot.js';
+import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import '../icon/icon.js';
 import styles from './dropdown-item.styles.js';
 
 /**
- * @summary Represents an individual item within a dropdown menu, supporting standard items, checkboxes, and submenus.
+ * @summary Dropdown items represent selectable entries within a dropdown menu, including standard actions, checkable
+ *  items, and submenu triggers.
  * @documentation https://webawesome.com/docs/components/dropdown-item
- * @status experimental
+ * @status stable
  * @since 3.0
  *
  * @dependency wa-icon
@@ -47,7 +50,12 @@ export default class WaDropdownItem extends WebAwesomeElement {
   /**
    * @internal The dropdown item's size.
    */
-  @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
+  @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
+
+  @watch('size')
+  handleSizeChange() {
+    warnDeprecatedSize(this.localName, this.size);
+  }
 
   /**
    * @internal The controller will set this property to true when at least one checkbox exists in the dropdown. This
@@ -123,7 +131,6 @@ export default class WaDropdownItem extends WebAwesomeElement {
     if (changedProperties.has('disabled')) {
       this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
       this.customStates.set('disabled', this.disabled);
-      this.style.pointerEvents = this.disabled ? 'none' : '';
     }
 
     if (changedProperties.has('type')) {

@@ -4,8 +4,8 @@ export default css`
   :host {
     /* Private - set by the component to control indentation depth */
     --indent: 0px;
-    --show-duration: 200ms;
-    --hide-duration: 200ms;
+    --show-duration: var(--wa-transition-normal);
+    --hide-duration: var(--wa-transition-normal);
 
     display: block;
     color: var(--wa-color-text-normal);

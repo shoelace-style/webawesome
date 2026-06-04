@@ -24,18 +24,35 @@ markdown.use(markdownItMark);
 ['info', 'warning'].forEach(type => {
   markdown.use(markdownItContainer, type, {
     render: function (tokens, idx) {
-      const variant = type === 'warning' ? 'warning' : 'info';
-      const icon = type === 'warning' ? 'triangle-exclamation' : 'circle-info';
+      const variant = type === 'warning' ? 'warning' : 'brand';
+      const icon = type === 'warning' ? 'triangle-exclamation' : 'lightbulb';
       if (tokens[idx].nesting === 1) {
         return `
-          <div class="callout callout-${variant}">
-            <wa-icon class="callout-icon" name="${icon}"></wa-icon>
-            <div class="callout-content">
+          <wa-callout variant="${variant}">
+            <wa-icon slot="icon" name="${icon}" variant="regular"></wa-icon>
         `;
       }
-      return '</div></div>\n';
+      return '</wa-callout>\n';
     },
   });
+});
+
+markdown.use(markdownItContainer, 'pro', {
+  validate: params => /^pro(\s+.+)?$/.test(params.trim()),
+  render: function (tokens, idx) {
+    if (tokens[idx].nesting === 1) {
+      const info = tokens[idx].info.trim().replace(/^pro\s*/, '');
+      const iconMatch = info.match(/^\{([\w-]+)\}\s*(.*)$/);
+      const iconName = iconMatch ? iconMatch[1] : 'hand-wave';
+      const title = iconMatch ? iconMatch[2].trim() : info.trim();
+      return `
+        <wa-callout class="pro">
+          <wa-icon slot="icon" name="${markdown.utils.escapeHtml(iconName)}"></wa-icon>
+          ${title ? `<strong>${markdown.utils.escapeHtml(title)}</strong>` : ''}
+      `;
+    }
+    return '</wa-callout>\n';
+  },
 });
 
 markdown.use(markdownItContainer, 'aside', {
@@ -56,6 +73,19 @@ markdown.use(markdownItContainer, 'details', {
     }
     return '</details>\n';
   },
+});
+
+// Changelog category containers; bullets get an icon in changelog-list-icons.js.
+['added', 'fixed', 'changed', 'deprecated', 'removed', 'breaking'].forEach(category => {
+  markdown.use(markdownItContainer, category, {
+    render(tokens, idx) {
+      if (tokens[idx].nesting === 1) {
+        const label = category.charAt(0).toUpperCase() + category.slice(1);
+        return `<div class="changelog-group changelog-group-${category}">\n<p class="wa-visually-hidden">${label}</p>\n`;
+      }
+      return '</div>\n';
+    },
+  });
 });
 
 markdown.use(markdownItAttrs, {

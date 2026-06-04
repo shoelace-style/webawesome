@@ -1,7 +1,7 @@
 <wa-dropdown class="color-scheme-selector" title="Press \ to toggle">
   <wa-button slot="trigger" id="color-scheme-selector-trigger" appearance="plain" pill>
-    <wa-icon name="sun-bright" variant="regular" class="only-light"></wa-icon>
-    <wa-icon name="moon-stars" variant="regular" class="only-dark"></wa-icon>
+    <wa-icon name="sun-bright" variant="regular" class="only-light" label="Select Color Scheme"></wa-icon>
+    <wa-icon name="moon-stars" variant="regular" class="only-dark" label="Select Color Scheme"></wa-icon>
   </wa-button>
   <wa-dropdown-item value="light">
     <wa-icon slot="icon" name="sun-bright" variant="regular"></wa-icon>
@@ -17,6 +17,11 @@
     <wa-icon slot="icon" name="moon-stars" variant="regular" class="only-dark"></wa-icon>
     System
   </wa-dropdown-item>
+  <wa-divider></wa-divider>
+  <wa-dropdown-item value="/docs/customizing#light-and-dark-mode">
+    <wa-icon slot="icon" name="book-open" variant="regular"></wa-icon>
+    Docs
+  </wa-dropdown-item>
 </wa-dropdown>
 <wa-tooltip for="color-scheme-selector-trigger" id="color-scheme-tooltip">Select Color Scheme</wa-tooltip>
 
@@ -25,6 +30,12 @@
   document.querySelectorAll('wa-dropdown.color-scheme-selector').forEach(el => {
     el.addEventListener('wa-select', (event) => {
       const selectedValue = event.detail.item.value;
+
+      // Navigate if the value is a URL
+      if (selectedValue.startsWith('/')) {
+        window.location.href = selectedValue;
+        return;
+      }
 
       // Trigger input event for color-scheme.js
       el.value = selectedValue;

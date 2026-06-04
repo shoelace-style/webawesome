@@ -1,329 +1,333 @@
 {% extends '../_layouts/docs.njk' %}
 {% from "pro-badge.njk" import proBadge %}
+{% from "macros/component-badges.njk" import componentMetaBadges %}
 {% set component = getComponent('wa-' + page.fileSlug) %}
+{% set description = component.summary %}
 
 {# Component header #}
 {% block beforeContent %}
-  <div class="component-info">
-    <code class="component-tag">&lt;{{ component.tagName }}&gt;</code>
-    <wa-badge variant="neutral">Since {{ component.since }}</wa-badge>
-    {% if component.status %}
-      <wa-badge
-        {% if component.status == 'stable' %}variant="brand"{% endif %}
-        {% if component.status == 'experimental' %}variant="warning" appearance="filled"{% endif %}
-      >
-        {% if component.status == 'stable' %}
-          <wa-icon name="check" slot="start"></wa-icon>
-        {% endif %}
-        {% if component.status == 'experimental' %}
-          <wa-icon name="flask" slot="start"></wa-icon>
-        {% endif %}
-        {{ component.status | capitalize }}
-      </wa-badge>
-    {% endif %}
+<div class="component-info wa-cluster">
+  <code class="component-tag">&lt;{{ component.tagName }}&gt;</code>
+  <div class="wa-cluster wa-gap-xs">
     {% if isProComponent %}
-      {{ proBadge({ description: (component.tagName | stripPrefix) | capitalize ~ " requires access to Web Awesome Pro" }) }}
+    {{ proBadge({ description: "Included with " ~ site.namePro }) }}
     {% endif %}
+    {{ componentMetaBadges(component, category, componentCategories) }}
   </div>
-  <p class="component-summary">
-    {{ component.summary | inlineMarkdown | safe }}
-  </p>
+</div>
+
+<p class="component-summary">
+  {{ component.summary | inlineMarkdown | safe }}
+</p>
+
+{% if isProComponent %}
+{% include "pro-component-notice.njk" ignore missing %}
+{% endif %}
 {% endblock %}
 
 {# Component API #}
 {% block afterContent %}
-  {# Importing #}
-  <h2>Importing</h2>
-  <p>
-    Autoloading components via <a href="/docs/#using-a-project">projects</a> is the recommended way to import components. If you prefer to do it manually, use one of the following code snippets.
-  </p>
+{# Importing #}
+<h2>Importing</h2>
+<p>
+  If you're using the autoloader or a hosted project, components load on demand &mdash; no manual import needed. To
+  cherry-pick a component manually, use one of the following snippets.
+</p>
 
-  {% set componentName = component.tagName | stripPrefix %}
-  {% set componentPath = ["components/", componentName, "/", componentName, ".js"] | join("") %}
-  <wa-tab-group label="How would you like to import this component?">
-    <wa-tab panel="cdn">CDN</wa-tab>
-    <wa-tab panel="npm">npm</wa-tab>
-    <wa-tab panel="react">React</wa-tab>
-    <wa-tab-panel name="cdn">
-      <p>
-        Let your project code do the work! <a href="/signup">Sign up for free</a> to use a project with your very own CDN &mdash; it's the fastest and easiest way to use Web Awesome.
-      </p>
-    </wa-tab-panel>
-    <wa-tab-panel name="npm">
-      <p>
-        To manually import this component from NPM, use the following code.
-      </p>
-      <pre><code class="language-js">import '@awesome.me/webawesome/dist/{{ componentPath }}';</code></pre>
-    </wa-tab-panel>
-    <wa-tab-panel name="react">
-      <p>
-        To manually import this component from React, use the following code.
-      </p>
-      <pre><code class="language-js">import {{ component.name }} from '@awesome.me/webawesome/dist/react/{{ componentName }}';</code></pre>
-    </wa-tab-panel>
-  </wa-tab-group>
+{% set componentName = component.tagName | stripPrefix %}
+{% set componentPath = ["components/", componentName, "/", componentName, ".js"] | join("") %}
+<wa-tab-group label="How would you like to import this component?" data-install-tabs>
+  <wa-tab panel="cdn"><wa-icon name="globe" variant="regular"></wa-icon> CDN</wa-tab>
+  <wa-tab panel="npm"><wa-icon name="box-open" variant="regular"></wa-icon> npm</wa-tab>
+  <wa-tab panel="self-hosted"><wa-icon name="arrow-down-to-line" variant="regular"></wa-icon> Self-Hosted</wa-tab>
+  <wa-tab panel="react"><wa-icon name="react" family="brands"></wa-icon> React</wa-tab>
 
-  {# Slots #}
-  {% if component.slots.length %}
-    <h2>Slots</h2>
-    <p>Learn more about <a href="/docs/usage/#slots">using slots</a>.</p>
+  <wa-tab-panel name="cdn">
+    <p>Import this component directly from the CDN:</p>
+    <pre><code class="language-js">import '{% cdnUrl componentPath %}';</code></pre>
+  </wa-tab-panel>
 
-    <wa-scroller>
-      <table class="component-table wa-hover-rows">
-        <thead>
-          <tr>
-            <th class="table-name">Name</th>
-            <th class="table-description">Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for slot in component.slots %}
-            <tr>
-              <td class="table-name">
-                {% if slot.name %}
-                  <code>{{ slot.name }}</code>
-                {% else %}
-                  (default)
-                {% endif %}
-              </td>
-              <td class="table-description">{{ slot.description | inlineMarkdown | safe }}</td>
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </wa-scroller>
-  {% endif %}
+  <wa-tab-panel name="npm">
+    <p>After installing Web Awesome via npm, import this component:</p>
+    <pre><code class="language-js">import '@awesome.me/webawesome/dist/{{ componentPath }}';</code></pre>
+  </wa-tab-panel>
 
-  {# Properties #}
-  {% if component.properties.length %}
-    <h2>Attributes & Properties</h2>
-    <p>Learn more about <a href="/docs/usage/#attributes-and-properties">attributes and properties</a>.</p>
+  <wa-tab-panel name="self-hosted">
+    <p>If you're self-hosting Web Awesome, import this component from your server:</p>
+    <pre><code class="language-js">import './webawesome/dist/{{ componentPath }}';</code></pre>
+  </wa-tab-panel>
 
-    <wa-scroller>
-      <table class="component-table wa-hover-rows">
-        <thead>
-          <tr>
-            <th class="table-name">Name</th>
-            <th class="table-description">Description</th>
-            <th class="table-reflect">Reflects</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for prop in component.properties %}
-            <tr>
-              <td class="table-name">
-                <code title="JS property">{{ prop.name }}</code><br>
-                {% if prop.attribute %}
-                  <div><small><code title="HTML attribute">{{ prop.attribute }}</code></small></div>
-                {% endif %}
-              </td>
-              <td class="table-description">
-                <div>{{ prop.description | inlineMarkdown | safe }}</div>
-                {% if prop.type.text %}
-                  <div><small><strong>Type</strong>&nbsp;<code>{{ prop.type.text | trimPipes | inlineMarkdown | safe }}</code></small></div>
-                {% endif %}
-                {% if prop.default %}
-                  <div><small><strong>Default</strong>&nbsp;<code>{{ prop.default | inlineMarkdown | safe }}</code></small></div>
-                {% endif %}
-              </td>
-              <td class="table-reflect">
-                {% if prop.reflects %}
-                  <wa-icon name="check"></wa-icon>
-                {% endif %}
-              </td>
-              <td class="table-default">
+  <wa-tab-panel name="react">
+    <p>To import this component for React 18 or below, use the following code:</p>
+    <pre><code class="language-js">import {{ component.name }} from '@awesome.me/webawesome/dist/react/{{ componentName }}/index.js';</code></pre>
+  </wa-tab-panel>
+</wa-tab-group>
 
-              </td>
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </wa-scroller>
-  {% endif %}
+{# Slots #}
+{% if component.slots.length %}
+<h2>Slots</h2>
+<p>Learn more about <a href="/docs/usage/#slots">using slots</a>.</p>
 
-  {# Methods #}
-  {% if component.methods.length %}
-    <h2>Methods</h2>
-    <p>Learn more about <a href="/docs/usage/#methods">methods</a>.</p>
+<wa-scroller>
+  <table class="component-table wa-hover-rows">
+    <thead>
+      <tr>
+        <th class="table-name">Name</th>
+        <th class="table-description">Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for slot in component.slots %}
+      <tr>
+        <td class="table-name">
+          {% if slot.name %}
+          <code>{{ slot.name }}</code>
+          {% else %}
+          (default)
+          {% endif %}
+        </td>
+        <td class="table-description">{{ slot.description | inlineMarkdown | safe }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</wa-scroller>
+{% endif %}
 
-    <wa-scroller>
-      <table class="component-table wa-hover-rows">
-        <thead>
-          <tr>
-            <th class="table-name">Name</th>
-            <th class="table-description">Description</th>
-            <th class="table-arguments">Arguments</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for method in component.methods %}
-            <tr>
-              <td class="table-name"><code>{{ method.name }}()</code></td>
-              <td class="table-description">{{ method.description | inlineMarkdown | safe }}</td>
-              <td class="table-arguments">
-                {% if method.parameters.length %}
-                  <code>
+{# Properties #}
+{% if component.properties.length %}
+<h2>Attributes & Properties</h2>
+<p>Learn more about <a href="/docs/usage/#attributes-and-properties">attributes and properties</a>.</p>
+
+<wa-scroller>
+  <table class="component-table wa-hover-rows">
+    <thead>
+      <tr>
+        <th class="table-name">Name</th>
+        <th class="table-description">Description</th>
+        <th class="table-reflect">Reflects</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for prop in component.properties %}
+      <tr>
+        <td class="table-name">
+          <code title="JS property">{{ prop.name }}</code><br>
+          {% if prop.attribute %}
+          <div><small><code title="HTML attribute">{{ prop.attribute }}</code></small></div>
+          {% endif %}
+        </td>
+        <td class="table-description">
+          <div>{{ prop.description | inlineMarkdown | safe }}</div>
+          {% if prop.type.text %}
+          <div>
+            <small><strong>Type</strong>&nbsp;<code>{{ prop.type.text | trimPipes | inlineMarkdown | safe }}</code></small>
+          </div>
+          {% endif %}
+          {% if prop.default %}
+          <div><small><strong>Default</strong>&nbsp;<code>{{ prop.default | inlineMarkdown | safe }}</code></small>
+          </div>
+          {% endif %}
+        </td>
+        <td class="table-reflect">
+          {% if prop.reflects %}
+          <wa-icon name="check"></wa-icon>
+          {% endif %}
+        </td>
+        <td class="table-default">
+
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</wa-scroller>
+{% endif %}
+
+{# Methods #}
+{% if component.methods.length %}
+<h2>Methods</h2>
+<p>Learn more about <a href="/docs/usage/#methods">methods</a>.</p>
+
+<wa-scroller>
+  <table class="component-table wa-hover-rows">
+    <thead>
+      <tr>
+        <th class="table-name">Name</th>
+        <th class="table-description">Description</th>
+        <th class="table-arguments">Arguments</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for method in component.methods %}
+      <tr>
+        <td class="table-name"><code>{{ method.name }}()</code></td>
+        <td class="table-description">{{ method.description | inlineMarkdown | safe }}</td>
+        <td class="table-arguments">
+          {% if method.parameters.length %}
+          <code>
                     {% for param in method.parameters %}
                       {{ param.name }}: {{ param.type.text | trimPipes }}{% if not loop.last %},{% endif %}
                     {% endfor %}
                   </code>
-                {% endif %}
-              </td>
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </wa-scroller>
-  {% endif %}
-
-  {# Events #}
-  {% if component.events.length %}
-    <h2>Events</h2>
-    <p>Learn more about <a href="/docs/usage/#events">events</a>.</p>
-
-    <wa-scroller>
-      <table class="component-table wa-hover-rows">
-        <thead>
-          <tr>
-            <th class="table-name">Name</th>
-            <th class="table-description">Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for event in component.events %}
-            {% if event.name %}
-              <tr>
-                <td class="table-name"><code>{{ event.name }}</code></td>
-                <td class="table-description">{{ event.description | inlineMarkdown | safe }}</td>
-              </tr>
-            {% endif %}
-          {% endfor %}
-        </tbody>
-      </table>
-    </wa-scroller>
-  {% endif %}
-
-  {# Custom Properties #}
-  {% if component.cssProperties.length %}
-    <h2>CSS custom properties</h2>
-    <p>Learn more about <a href="/docs/customizing/#custom-properties">CSS custom properties</a>.</p>
-
-    <wa-scroller>
-      <table class="component-table wa-hover-rows">
-        <thead>
-          <tr>
-            <th class="table-name">Name</th>
-            <th class="table-description">Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for cssProperty in component.cssProperties %}
-            <tr>
-              <td class="table-name"><code>{{ cssProperty.name }}</code></td>
-              <td class="table-description">
-                <div>{{ cssProperty.description | inlineMarkdown | safe }}</div>
-                {% if cssProperty.default %}
-                  <div>
-                    <small><strong>Default</strong>&nbsp;<code>{{ cssProperty.default }}</code></small>
-                    </div>
-                {% endif %}
-              </td>
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </wa-scroller>
-  {% endif %}
-
-  {# Custom States #}
-  {% if component.cssStates.length %}
-    <h2>Custom States</h2>
-    <p>Learn more about <a href="/docs/customizing/#custom-states">custom states</a>.</p>
-
-    <wa-scroller>
-      <table class="component-table wa-hover-rows">
-        <thead>
-          <tr>
-            <th class="table-name">Name</th>
-            <th class="table-description">Description</th>
-            <th class="table-selector">CSS selector</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for state in component.cssStates %}
-            <tr>
-              <td class="table-name"><code>{{ state.name }}</code></td>
-              <td class="table-description">{{ state.description | inlineMarkdown | safe }}</td>
-              <td class="table-selector">
-                <span class="wa-cluster wa-gap-3xs">
-                  <code>:state({{ state.name }})</code>
-                  <wa-copy-button value=":state({{ state.name }})"></wa-copy-button>
-                </span>
-              </td>
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </wa-scroller>
-  {% endif %}
-
-  {# CSS Parts #}
-  {% if component.cssParts.length %}
-    <h2>CSS parts</h2>
-    <p>Learn more about <a href="/docs/customizing/#css-parts">CSS parts</a>.</p>
-
-    <wa-scroller>
-      <table class="component-table wa-hover-rows">
-        <thead>
-          <tr>
-            <th class="table-name">Name</th>
-            <th class="table-description">Description</th>
-            <th class="table-selector">CSS selector</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for cssPart in component.cssParts %}
-            <tr>
-              <td class="table-name"><code>{{ cssPart.name }}</code></td>
-              <td class="table-description">{{ cssPart.description | inlineMarkdown | safe }}</td>
-              <td class="table-selector">
-                <span class="wa-cluster wa-gap-3xs">
-                  <code>::part({{ cssPart.name }})</code>
-                  <wa-copy-button value="::part({{ cssPart.name }})"></wa-copy-button>
-                </span>
-              </td>
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </wa-scroller>
-  {% endif %}
-
-  {# Dependencies #}
-  {% if component.dependencies.length %}
-    <h2>Dependencies</h2>
-    <p>
-      This component automatically imports the following elements. Sub-dependencies, if any exist, will also be included in this list.
-    </p>
-
-    <ul class="dependency-list">
-      {% for dependency in component.dependencies %}
-        <li><a href="/docs/components/{{ dependency | stripPrefix }}"><code>&lt;{{ dependency }}&gt;</code></a></li>
+          {% endif %}
+        </td>
+      </tr>
       {% endfor %}
-    </ul>
-  {% endif %}
+    </tbody>
+  </table>
+</wa-scroller>
+{% endif %}
 
-  <wa-divider></wa-divider>
+{# Events #}
+{% if component.events.length %}
+<h2>Events</h2>
+<p>Learn more about <a href="/docs/usage/#events">events</a>.</p>
 
-  <div class="component-help">
-    <strong>Need a hand?</strong>
-    <wa-button size="small" appearance="filled" variant="neutral" href="https://github.com/shoelace-style/webawesome/issues" target="_blank">
-      <wa-icon slot="start" variant="regular" name="bug"></wa-icon>
-      Report a bug
-    </wa-button>
-    <wa-button size="small" appearance="filled" variant="neutral" href="https://github.com/shoelace-style/webawesome/discussions" target="_blank">
-      <wa-icon slot="start" variant="regular" name="message-question"></wa-icon>
-      Ask for help
-    </wa-button>
-  </div>
+<wa-scroller>
+  <table class="component-table wa-hover-rows">
+    <thead>
+      <tr>
+        <th class="table-name">Name</th>
+        <th class="table-description">Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for event in component.events %}
+      {% if event.name %}
+      <tr>
+        <td class="table-name"><code>{{ event.name }}</code></td>
+        <td class="table-description">{{ event.description | inlineMarkdown | safe }}</td>
+      </tr>
+      {% endif %}
+      {% endfor %}
+    </tbody>
+  </table>
+</wa-scroller>
+{% endif %}
+
+{# Custom Properties #}
+{% if component.cssProperties.length %}
+<h2>CSS custom properties</h2>
+<p>Learn more about <a href="/docs/usage/#custom-properties">CSS custom properties</a>.</p>
+
+<wa-scroller>
+  <table class="component-table wa-hover-rows">
+    <thead>
+      <tr>
+        <th class="table-name">Name</th>
+        <th class="table-description">Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for cssProperty in component.cssProperties %}
+      <tr>
+        <td class="table-name"><code>{{ cssProperty.name }}</code></td>
+        <td class="table-description">
+          <div>{{ cssProperty.description | inlineMarkdown | safe }}</div>
+          {% if cssProperty.default %}
+          <div>
+            <small><strong>Default</strong>&nbsp;<code>{{ cssProperty.default }}</code></small>
+          </div>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</wa-scroller>
+{% endif %}
+
+{# Custom States #}
+{% if component.cssStates.length %}
+<h2>Custom States</h2>
+<p>Learn more about <a href="/docs/usage/#custom-states">custom states</a>.</p>
+
+<wa-scroller>
+  <table class="component-table wa-hover-rows">
+    <thead>
+      <tr>
+        <th class="table-name">Name</th>
+        <th class="table-description">Description</th>
+        <th class="table-selector">CSS selector</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for state in component.cssStates %}
+      <tr>
+        <td class="table-name"><code>{{ state.name }}</code></td>
+        <td class="table-description">{{ state.description | inlineMarkdown | safe }}</td>
+        <td class="table-selector">
+          <span class="wa-cluster wa-gap-3xs">
+            <code>:state({{ state.name }})</code>
+            <wa-copy-button value=":state({{ state.name }})"></wa-copy-button>
+          </span>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</wa-scroller>
+{% endif %}
+
+{# CSS Parts #}
+{% if component.cssParts.length %}
+<h2>CSS parts</h2>
+<p>Learn more about <a href="/docs/usage/#css-parts">CSS parts</a>.</p>
+
+<wa-scroller>
+  <table class="component-table wa-hover-rows">
+    <thead>
+      <tr>
+        <th class="table-name">Name</th>
+        <th class="table-description">Description</th>
+        <th class="table-selector">CSS selector</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for cssPart in component.cssParts %}
+      <tr>
+        <td class="table-name"><code>{{ cssPart.name }}</code></td>
+        <td class="table-description">{{ cssPart.description | inlineMarkdown | safe }}</td>
+        <td class="table-selector">
+          <span class="wa-cluster wa-gap-3xs">
+            <code>::part({{ cssPart.name }})</code>
+            <wa-copy-button value="::part({{ cssPart.name }})"></wa-copy-button>
+          </span>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</wa-scroller>
+{% endif %}
+
+{# Dependencies #}
+{% if component.dependencies.length %}
+<h2>Dependencies</h2>
+<p>
+  This component automatically imports the following elements. Sub-dependencies, if any exist, will also be included in
+  this list.
+</p>
+
+<ul class="dependency-list">
+  {% for dependency in component.dependencies %}
+  <li><a href="/docs/components/{{ dependency | stripPrefix }}"><code>&lt;{{ dependency }}&gt;</code></a></li>
+  {% endfor %}
+</ul>
+{% endif %}
+
+<wa-divider></wa-divider>
+
+<div class="component-help">
+  <strong>Need a hand?</strong>
+  <wa-button size="s" appearance="filled" variant="neutral" href="{{ site.github.issues }}" target="_blank">
+    <wa-icon slot="start" variant="regular" name="bug"></wa-icon>
+    Report a bug
+  </wa-button>
+  <wa-button size="s" appearance="filled" variant="neutral" href="{{ site.github.discussions }}" target="_blank">
+    <wa-icon slot="start" variant="regular" name="message-question"></wa-icon>
+    Ask for help
+  </wa-button>
+</div>
 {% endblock %}

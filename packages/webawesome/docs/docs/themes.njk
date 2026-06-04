@@ -1,131 +1,93 @@
 ---
-title: Themes
+title: Built-in Themes
 description: Style (and restyle) your website at will with any of Web Awesome's pre-built themes.
 layout: page
 ---
 
-{% from "pro-badge.njk" import proBadge %}
-{% from "free-badge.njk" import freeBadge %}
-
 <h1>{{ title }}</h1>
 
-<p>Themes are collections of <a href="/docs/tokens">design tokens</a> that give a cohesive look and feel to the entire Web Awesome library. Style and restyle your website at will by loading any pre-built theme.</p>
+<p>Themes give your project a cohesive look and feel across the entire Web Awesome library.</p>
+
+<p>A theme sets typography, spacing, borders, shadows, and how <a href="/docs/tokens/color#variant-colors">variants</a>
+  show up on components — all as <a href="/docs/tokens">design tokens</a>. Two themes can share a <a
+    href="/docs/color-palettes">color palette</a> and <a href="/docs/tokens/color#variant-colors">variant colors</a> and
+  still feel completely different. Each pre-built theme ships with a default palette and may include custom overrides
+  for individual components.</p>
+
+{% include "theming/theme-picker.njk" %}
 
 {% raw %}
-<p>See one you like?&nbsp;
-{%- if not session.isLoggedIn -%}
-  <a href="/login">Log in</a>&nbsp;
-{%- else -%}
-  Head over to <a href="/teams">your teams</a>&nbsp;
-{%- endif -%}
-to create a project with any one of these themes.
-{%- if not currentUser.hasPro -%}
-  &nbsp;(Plus, there are even more themes to love with Web Awesome Pro. <wa-icon name="heart" style="color: var(--wa-color-red-70);"></wa-icon>)
-{%- endif -%}
-</p>
+{% if not currentUser or not currentUser.hasPro %}
 {% endraw %}
+<wa-callout class="pro">
+  <wa-icon slot="icon" name="hand-wave" animation="shake"
+    style="--animation-delay: 2s; --animation-duration: 4s;"></wa-icon>
+  <strong>
+    <a href="/purchase?from=pro-docs&context=themes">Unlock every theme with {{ site.namePro }}!</a>
+  </strong>
 
-<div id="theme-viewer">
-  <wa-radio-group id="theme-picker" label="Theme Selector" value="default" orientation="horizontal">
-    {% for theme in themer.themes %}
-      {% if not theme.isPro %}
-        <wa-radio
-          class="theme-card"
-          value="{{ theme.filename | stripExtension }}"
-          data-description="{{ theme.description }}"
-          data-title="{{ theme.name }}"
-          data-palette="{{ theme.palette.filename | stripExtension}}"
-          data-brand="{{ theme.colorBrand.color }}"
-          {% if theme.isPro %}data-is-pro{% endif %}
-        >
-          {{ theme.name }}
-        </wa-radio>
-      {% else %}
-        {% raw %}
-          {% if currentUser.hasPro %}
-        {% endraw %}
-          <wa-radio
-            class="theme-card"
-            value="{{ theme.filename | stripExtension }}"
-            data-description="{{ theme.description }}"
-            data-title="{{ theme.name }}"
-            data-palette="{{ theme.palette.filename | stripExtension}}"
-            data-brand="{{ theme.colorBrand.color }}"
-            {% if theme.isPro %}data-is-pro{% endif %}
-          >
-            {{ theme.name }}
-          </wa-radio>
-        {% raw %}
-          {% endif %}
-        {% endraw %}
-      {% endif %}
-    {% endfor %}
-  </wa-radio-group>
-</div>
+  <wa-details appearance="plain">
+    <span slot="summary">Subscribing to {{ site.namePro }} unlocks every theme, plus premium color palettes, the visual
+      Theme Builder, and <u class="appearance-underlined variant-drawn">more</u>.</span>
 
-<div id="theme-preview" class="wa-stack">
-  <header class="wa-stack">
-    <div class="wa-cluster">
-      <h2 data-theme-name="name">Theme</h2>
-      {{ freeBadge({ id: "free-badge", description: "This theme is available in the free version of Web Awesome." }) }}
-      {{ proBadge({ id: "pro-badge", description: "This theme requires access to Web Awesome Pro." }) }}
+    <div class="wa-stack wa-gap-xl">
+      {% include "pro-perks.njk" ignore missing %}
 
+      <wa-button href="/purchase?from=pro-docs&context=themes">
+        Get {{ site.namePro }}
+        <wa-icon slot="end" name="arrow-right"></wa-icon>
+      </wa-button>
     </div>
-    <p data-theme-description>Description</p>
-  </header>
-  <wa-comparison position="80">
-    <wa-zoomable-frame
-      src="/examples/themes/showcase?color-scheme=dark"
-      slot="before"
-      without-controls
-      without-interaction
-    ></wa-zoomable-frame>
-    <wa-zoomable-frame
-      src="/examples/themes/showcase"
-      slot="after"
-      without-controls
-      without-interaction
-    ></wa-zoomable-frame>
-  </wa-comparison>
-</div>
+  </wa-details>
+</wa-callout>
+{% raw %}
+{% endif %}
+{% endraw %}
 
 <h2>Using This Theme</h2>
 
 <div id="import-code">
   {% for theme in themer.themes %}
-    <div class="theme-instructions" data-theme="{{ theme.filename | stripExtension }}" {% if not loop.first %}hidden{% endif %}>
-      <wa-tab-group>
-        <wa-tab panel="cdn"><wa-icon name="rocket-launch" variant="regular"></wa-icon> CDN</wa-tab>
-        <wa-tab panel="npm"><wa-icon name="box-open" variant="regular"></wa-icon> npm</wa-tab>
-        <wa-tab panel="self-hosted"><wa-icon name="arrow-down-to-line" variant="regular"></wa-icon> Self-Hosted</wa-tab>
+  {% if theme.isPro %}{% raw %}{% if currentUser.hasPro %}{% endraw %}{% endif %}
+  <div class="theme-instructions" data-theme="{{ theme.filename | stripExtension }}" {% if not loop.first %}hidden{%
+    endif %}>
+    <wa-tab-group data-install-tabs>
+      <wa-tab panel="cdn"><wa-icon name="globe" variant="regular"></wa-icon> CDN</wa-tab>
+      <wa-tab panel="npm"><wa-icon name="box-open" variant="regular"></wa-icon> npm</wa-tab>
+      <wa-tab panel="self-hosted"><wa-icon name="arrow-down-to-line" variant="regular"></wa-icon> Self-Hosted</wa-tab>
+      <wa-tab panel="hosted"><wa-icon name="rocket-launch" variant="regular"></wa-icon> Hosted Projects</wa-tab>
 
-        <wa-tab-panel name="cdn">
+      <wa-tab-panel name="cdn">
+        {% if theme.isPro %}
 {% markdown %}
-{% if theme.isPro %}
-<wa-callout variant="neutral" size="small">
+<wa-callout variant="neutral" size="s">
   <wa-icon name="info-circle" variant="regular"></wa-icon>
-  This theme can only be used on teams with a Pro subscription.
+  This theme can only be used on workspaces with a Pro subscription.
 </wa-callout>
-<br />
-{% else %}
-**For projects on Free teams:**
-1. Head over to your project's <wa-icon name="gear" variant="regular"></wa-icon> **Settings**.
-2. For your **Theme**, select <wa-icon name="paintbrush" variant="regular"></wa-icon> **{{ theme.filename | stripExtension | capitalize }}**.
-3. For your **Color Palette**, select <wa-icon name="swatchbook" variant="regular"></wa-icon> **{{ theme.palette.filename | stripExtension | capitalize }}**.
-4. Press **Save Changes** to immediately update anywhere you're using your project.
-{% endif %}
-
-**For projects on Pro teams:**
-1. Head over to your project's <wa-icon name="gear" variant="regular"></wa-icon> **Settings**.
-2. Press <wa-icon name="paintbrush" variant="regular"></wa-icon> **Edit Your Theme** to open the Theme Builder.
-3. Open **Theme** and select **{{ theme.filename | stripExtension | capitalize }}**.
-4. Press **Save Theme** to immediately update anywhere you're using your project.
 {% endmarkdown %}
-        </wa-tab-panel>
-
-        <wa-tab-panel name="npm">
+        {% else %}
+        {% set themeCdnUrl %}{% cdnUrl 'styles/themes/' %}{{ theme.filename }}{% endset %}
 {% markdown %}
-To use this theme, import the theme's stylesheet:
+To use this theme, add the theme's stylesheet from the CDN:
+
+```html
+<link rel="stylesheet" href="{{ themeCdnUrl }}">
+```
+
+Then apply the following classes to the `<html>` element:
+
+```html
+<html
+  class="wa-theme-{{ theme.filename | stripExtension }} wa-palette-{{ theme.palette.filename | stripExtension }} wa-brand-{{ theme.colorBrand.color}}">
+```
+{% endmarkdown %}
+        {% endif %}
+      </wa-tab-panel>
+
+      <wa-tab-panel name="npm">
+{% markdown %}
+After installing <code>@awesome.me/webawesome</code>, import the theme's stylesheet:
+
 ```js
 import '@awesome.me/webawesome/dist/styles/themes/{{ theme.filename }}';
 ```
@@ -133,241 +95,56 @@ import '@awesome.me/webawesome/dist/styles/themes/{{ theme.filename }}';
 Then apply the following classes to the `<html>` element:
 
 ```html
-<html class="wa-theme-{{ theme.filename | stripExtension }} wa-palette-{{ theme.palette.filename | stripExtension }} wa-brand-{{ theme.colorBrand.color}}">
+<html
+  class="wa-theme-{{ theme.filename | stripExtension }} wa-palette-{{ theme.palette.filename | stripExtension }} wa-brand-{{ theme.colorBrand.color}}">
 ```
 {% endmarkdown %}
-        </wa-tab-panel>
+      </wa-tab-panel>
 
-        <wa-tab-panel name="self-hosted">
+      <wa-tab-panel name="self-hosted">
 {% markdown %}
-To use this theme, include the theme's stylesheet:
+If you're self-hosting Web Awesome, include the theme's stylesheet from your server:
+
 ```html
-<link rel="stylesheet" href="/dist/styles/themes/{{ theme.filename }}" />
+<link rel="stylesheet" href="/dist/styles/themes/{{ theme.filename }}">
 ```
 
 Then apply the following classes to the `<html>` element:
 
 ```html
-<html class="wa-theme-{{ theme.filename | stripExtension }} wa-palette-{{ theme.palette.filename | stripExtension }} wa-brand-{{ theme.colorBrand.color}}">
+<html
+  class="wa-theme-{{ theme.filename | stripExtension }} wa-palette-{{ theme.palette.filename | stripExtension }} wa-brand-{{ theme.colorBrand.color}}">
 ```
 {% endmarkdown %}
-        </wa-tab-panel>
-      </wa-tab-group>
-    </div>
+      </wa-tab-panel>
+
+      <wa-tab-panel name="hosted">
+        {% if theme.isPro %}
+{% markdown %}
+**For projects on Pro workspaces:**
+1. Head over to your project's <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="gear" variant="regular"></wa-icon> Settings</wa-tag>.
+2. Press <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="paintbrush" variant="regular"></wa-icon> Edit Your Theme</wa-tag> to open the Theme Builder.
+3. Open <wa-tag class="tag-ui" appearance="outlined">Theme</wa-tag> and select <wa-tag class="tag-ui" appearance="outlined">{{ theme.filename | stripExtension | capitalize }}</wa-tag>.
+4. Press <wa-tag class="tag-ui" appearance="outlined">Save Theme</wa-tag> to immediately update anywhere you're using your project.
+{% endmarkdown %}
+        {% else %}
+{% markdown %}
+**For projects on Free workspaces:**
+1. Head over to your project's <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="gear" variant="regular"></wa-icon> Settings</wa-tag>.
+2. For your <wa-tag class="tag-ui" appearance="outlined">Theme</wa-tag>, select <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="paintbrush" variant="regular"></wa-icon> {{ theme.filename | stripExtension | capitalize }}</wa-tag>.
+3. For your <wa-tag class="tag-ui" appearance="outlined">Color Palette</wa-tag>, select <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="swatchbook" variant="regular"></wa-icon> {{ theme.palette.filename | stripExtension | capitalize }}</wa-tag>.
+4. Press <wa-tag class="tag-ui" appearance="outlined">Save Changes</wa-tag> to immediately update anywhere you're using your project.
+
+**For projects on Pro workspaces:**
+1. Head over to your project's <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="gear" variant="regular"></wa-icon> Settings</wa-tag>.
+2. Press <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="paintbrush" variant="regular"></wa-icon> Edit Your Theme</wa-tag> to open the Theme Builder.
+3. Open <wa-tag class="tag-ui" appearance="outlined">Theme</wa-tag> and select <wa-tag class="tag-ui" appearance="outlined">{{ theme.filename | stripExtension | capitalize }}</wa-tag>.
+4. Press <wa-tag class="tag-ui" appearance="outlined">Save Theme</wa-tag> to immediately update anywhere you're using your project.
+{% endmarkdown %}
+        {% endif %}
+      </wa-tab-panel>
+    </wa-tab-group>
+  </div>
+  {% if theme.isPro %}{% raw %}{% endif %}{% endraw %}{% endif %}
   {% endfor %}
 </div>
-
-
-<script type="module">
-  import { doViewTransition } from '/assets/scripts/view-transitions.js';
-
-  const themePicker = document.getElementById('theme-picker');
-  const afterFrame = document.querySelector('wa-zoomable-frame[slot="after"]');
-  const beforeFrame = document.querySelector('wa-zoomable-frame[slot="before"]');
-  const nameElement = document.querySelector('[data-theme-name]');
-  const descriptionElement = document.querySelector('[data-theme-description]');
-  const freeBadge = document.getElementById('free-badge');
-  const proBadge = document.getElementById('pro-badge');
-
-  // Hide both badges initially
-  if (freeBadge) freeBadge.hidden = true;
-  if (proBadge) proBadge.hidden = true;
-
-  function updateFrames(selectedValue, title, description, isPro, palette, brand) {
-    // Update theme classes on both frames
-    [afterFrame, beforeFrame].forEach(frame => {
-      if (frame.contentDocument) {
-        const html = frame.contentDocument.documentElement;
-        if (!html) return;
-
-        // Remove all existing wa-theme-*, wa-palette-*, and wa-brand-* classes
-        [...html.classList].forEach(className => {
-          if (className.startsWith('wa-theme-') || className.startsWith('wa-palette-') || className.startsWith('wa-brand-')) {
-            html.classList.remove(className);
-          }
-        });
-
-        // Add new theme, palette, and brand classes
-        if (selectedValue !== 'default') {
-          html.classList.add(`wa-theme-${selectedValue}`);
-          html.classList.add(`wa-palette-${palette}`);
-          html.classList.add(`wa-brand-${brand}`);
-        }
-      }
-    });
-
-    // Update header elements directly
-    if (nameElement && title) {
-      nameElement.textContent = title;
-    }
-    if (descriptionElement && description) {
-      descriptionElement.textContent = description;
-    }
-
-    freeBadge.hidden = isPro;
-    proBadge.hidden = !isPro;
-
-    // Show/hide appropriate instructions
-    document.querySelectorAll('.theme-instructions').forEach(instruction => {
-      instruction.hidden = instruction.dataset.theme !== selectedValue;
-    });
-  }
-
-  // Set default radio as checked and initialize frames
-  const defaultRadio = themePicker.querySelector('wa-radio[value="default"]');
-  if (defaultRadio) {
-    defaultRadio.checked = true;
-    const title = defaultRadio.getAttribute('data-title');
-    const description = defaultRadio.getAttribute('data-description');
-    const palette = defaultRadio.getAttribute('data-palette');
-    const brand = defaultRadio.getAttribute('data-brand');
-    const isPro = defaultRadio.hasAttribute('data-is-pro');
-    updateFrames('default', title, description, isPro, palette, brand);
-  }
-
-  // Listen for radio changes
-  themePicker.addEventListener('input', function(event) {
-    const selectedRadio = event.target.querySelector(':state(checked)');
-    const title = selectedRadio.getAttribute('data-title');
-    const description = selectedRadio.getAttribute('data-description');
-    const palette = selectedRadio.getAttribute('data-palette');
-    const brand = selectedRadio.getAttribute('data-brand');
-    const isPro = selectedRadio.hasAttribute('data-is-pro');
-    doViewTransition(() => {
-      updateFrames(selectedRadio.value, title, description, isPro, palette, brand);
-    });
-  });
-</script>
-
-<style>
-  [hidden] {
-    display: none !important;
-  }
-
-  #theme-preview,
-  #using-this-theme {
-    margin-block-start: var(--wa-space-3xl);
-  }
-
-  .title {
-    display: none;
-  }
-
-  #theme-preview {
-    header {
-      p {
-        font-size: var(--wa-font-size-s);
-      }
-    }
-  }
-
-  wa-page > main {
-    max-width: 140ch;
-    margin-inline: auto;
-  }
-
-  wa-comparison {
-    --handle-color: black;
-    --divider-color: white;
-    --divider-width: 4px;
-
-    &::part(before) {
-      border-radius: var(--wa-border-radius-m);
-      background-color: white;
-    }
-
-    &::part(after) {
-      border-radius: var(--wa-border-radius-m);
-      background-color: var(--wa-color-surface-default);
-    }
-  }
-
-  wa-zoomable-frame {
-    aspect-ratio: 5 / 3;
-  }
-
-  #theme-viewer {
-    #theme-picker {
-
-      &::part(form-control-input) {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: var(--wa-space-m);
-      }
-
-      &::part(form-control-label) {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        clip: rect(0 0 0 0);
-        clip-path: inset(50%);
-        border: none;
-        overflow: hidden;
-        white-space: nowrap;
-        padding: 0;
-      }
-
-      wa-radio {
-        margin-inline: 0;
-      }
-    }
-
-    .theme-card {
-      --border-radius: var(--wa-border-radius-m);
-      --spacing: var(--wa-space-s) var(--wa-space-m);
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: var(--wa-space-3xl);
-      padding: var(--spacing);
-      border: 1px solid var(--wa-color-surface-border);
-      border-radius: var(--border-radius);
-      box-shadow: var(--wa-shadow-s);
-      transition: all 0.2s ease;
-      text-align: center;
-      font-weight: var(--wa-font-weight-action);
-      text-transform: capitalize;
-
-      &:not(:state(disabled)) {
-        cursor: pointer;
-      }
-
-      &:state(checked) {
-        border-color: var(--wa-color-brand-border-loud);
-        background-color: var(--wa-color-brand-fill-quiet);
-        color: var(--wa-color-brand-text-loud);
-      }
-
-      &::part(control) {
-        display: none;
-      }
-
-      &::part(label) {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        margin: 0;
-      }
-    }
-  }
-
-  /* Smaller screens */
-  @media (max-width: 768px) {
-    #theme-viewer {
-      padding: var(--wa-space-m);
-
-      #theme-picker::part(form-control-input) {
-        grid-template-columns: repeat(2, 1fr);
-        gap: var(--wa-space-xs);
-      }
-
-      .theme-card {
-        min-height: var(--wa-space-2xl);
-        font-size: var(--wa-font-size-s);
-      }
-    }
-  }
-</style>

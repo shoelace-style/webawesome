@@ -5,6 +5,7 @@ import { styleMap } from 'lit/directives/style-map.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { WaHoverEvent } from '../../events/hover.js';
 import { clamp } from '../../internal/math.js';
+import { warnDeprecatedSize } from '../../internal/size.js';
 import { RequiredValidator } from '../../internal/validators/required-validator.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
@@ -14,7 +15,8 @@ import '../icon/icon.js';
 import styles from './rating.styles.js';
 
 /**
- * @summary Ratings give users a way to quickly view and provide feedback.
+ * @summary Ratings display a numeric score as a row of selectable symbols, typically stars. Use them to capture quick
+ *  feedback or show an average rating for a product or piece of content.
  * @documentation https://webawesome.com/docs/components/rating
  * @status stable
  * @since 2.0
@@ -142,7 +144,7 @@ export default class WaRating extends WebAwesomeFormAssociatedElement {
   @property({ type: Boolean, reflect: true }) readonly = false;
 
   /** Disables the rating. */
-  @property({ type: Boolean, reflect: true }) disabled = false;
+  @property({ type: Boolean }) declare disabled: boolean;
 
   /** Makes the rating a required field. */
   @property({ type: Boolean, reflect: true }) required = false;
@@ -159,7 +161,12 @@ export default class WaRating extends WebAwesomeFormAssociatedElement {
   };
 
   /** The component's size. */
-  @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
+  @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
+
+  @watch('size')
+  handleSizeChange() {
+    warnDeprecatedSize(this.localName, this.size);
+  }
 
   private getValueFromPointerPosition(event: PointerEvent) {
     return this.getValueFromXCoordinate(event.clientX);

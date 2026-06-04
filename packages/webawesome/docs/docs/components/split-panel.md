@@ -1,8 +1,16 @@
 ---
 title: Split Panel
-description: Split panels display two adjacent panels, allowing the user to reposition them.
 layout: component
-category: Organization
+category: Layout
+synonyms:
+  - resizable panels
+  - pane splitter
+  - split view
+  - splitter
+use-cases:
+  - code editor layout
+  - side by side
+  - resizable columns
 ---
 
 ```html {.example}

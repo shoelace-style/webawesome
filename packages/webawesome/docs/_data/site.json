@@ -1,0 +1,49 @@
+{
+  "name": "Web Awesome",
+  "nameCore": "Web Awesome Core",
+  "namePro": "Web Awesome Pro",
+  "tagline": "Go Make Something Awesome!",
+  "company": "Fonticons, Inc.",
+  "domain": "webawesome.com",
+
+  "siblings": {
+    "fontAwesome": { "name": "Font Awesome", "url": "https://fontawesome.com" },
+    "buildAwesome": {
+      "name": "Build Awesome",
+      "url": "https://www.kickstarter.com/projects/fontawesome/build-awesome-pro?ref=dq4ci8"
+    }
+  },
+
+  "urls": {
+    "discord": "https://discord.gg/mg8f26C",
+    "x": "https://x.com/webawesomer",
+    "bluesky": "https://bsky.app/profile/webawesome.com",
+    "mastodon": "https://mastodon.social/@webawesome",
+    "threads": "https://www.threads.com/@web.awesome",
+    "support": "/docs/resources/support"
+  },
+
+  "github": {
+    "repo": "https://github.com/shoelace-style/webawesome",
+    "issues": "https://github.com/shoelace-style/webawesome/issues",
+    "discussions": "https://github.com/shoelace-style/webawesome/discussions",
+    "ideas": "https://github.com/shoelace-style/webawesome/discussions/categories/ideas-suggestions",
+    "helpSupport": "https://github.com/shoelace-style/webawesome/discussions/categories/help-support",
+    "stargazers": "https://github.com/shoelace-style/webawesome/stargazers"
+  },
+
+  "emails": {
+    "hello": "hello@webawesome.com",
+    "help": "help@webawesome.com",
+    "privacy": "privacy@webawesome.com",
+    "dpo": "dpo@awesome.me"
+  },
+
+  "legal": {
+    "licenseCore": "/license",
+    "licensePro": "/license/pro",
+    "privacy": "/privacy",
+    "tos": "/tos",
+    "refunds": "/refunds"
+  }
+}

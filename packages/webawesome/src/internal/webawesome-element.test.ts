@@ -5,9 +5,8 @@ import { readFile } from '@web/test-runner-commands';
 import WaButton from '../../dist-cdn/components/button/button.js';
 
 // We don't use WebAwesomeElement directly because it shouldn't exist in the final bundle.
-/* eslint-disable */
+// @ts-ignore intentionally unused — verifies prototype chain exists in the bundle
 const WebAwesomeElement = Object.getPrototypeOf(WaButton);
-/* eslint-enable */
 
 // @ts-expect-error Isn't written in TS.
 import { getAllComponents } from '../../scripts/shared.js';

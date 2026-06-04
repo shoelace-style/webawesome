@@ -17,7 +17,8 @@ import '../button/button.js';
 import styles from './drawer.styles.js';
 
 /**
- * @summary Drawers slide in from a container to expose additional options and information.
+ * @summary Drawers slide in from the edge of a container to expose additional options and information without
+ *  navigating away. Useful for navigation menus, filters, and secondary content.
  * @documentation https://webawesome.com/docs/components/drawer
  * @status stable
  * @since 2.0
@@ -51,8 +52,9 @@ import styles from './drawer.styles.js';
  * @cssproperty --spacing - The amount of space around and between the drawer's content.
  * @cssproperty --size - The preferred size of the drawer. This will be applied to the drawer's width or height
  *   depending on its `placement`. Note that the drawer will shrink to accommodate smaller screens.
- * @cssproperty [--show-duration=200ms] - The animation duration when showing the drawer.
- * @cssproperty [--hide-duration=200ms] - The animation duration when hiding the drawer.
+ * @cssproperty [--backdrop-filter=none] - A filter to apply to the backdrop behind the drawer.
+ * @cssproperty [--show-duration=var(--wa-transition-normal)] - The animation duration when showing the drawer.
+ * @cssproperty [--hide-duration=var(--wa-transition-normal)] - The animation duration when hiding the drawer.
  *
  * @property modal - Exposes the internal modal utility that controls focus trapping. To temporarily disable focus
  *   trapping and allow third-party modals spawned from an active Shoelace modal, call `modal.activateExternal()` when
@@ -84,7 +86,7 @@ export default class WaDrawer extends WebAwesomeElement {
   @property({ attribute: 'without-header', type: Boolean, reflect: true }) withoutHeader = false;
 
   /** When enabled, the drawer will be closed when the user clicks outside of it. */
-  @property({ attribute: 'light-dismiss', type: Boolean }) lightDismiss = true;
+  @property({ attribute: 'light-dismiss', type: Boolean }) lightDismiss = false;
 
   /**
    * Only required for SSR. Set to `true` if you're slotting in a `footer` element so the server-rendered markup
