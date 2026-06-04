@@ -1,12 +1,9 @@
+import { QrCreator } from '@konnorr/qr-creator';
 import type { PropertyValues } from 'lit';
 import { html } from 'lit';
-import { customElement, property, query, state } from 'lit/decorators.js';
-import type _QrCreator from 'qr-creator';
-import { watch } from '../../internal/watch.js';
+import { customElement, property, query } from 'lit/decorators.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import styles from './qr-code.styles.js';
-
-let QrCreator: _QrCreator.default;
 
 /**
  * @summary QR codes encode a URL or other short text into a scannable image, rendered client-side using the Canvas API.
@@ -21,7 +18,7 @@ let QrCreator: _QrCreator.default;
 export default class WaQrCode extends WebAwesomeElement {
   static css = styles;
 
-  @query('canvas') canvas: HTMLElement;
+  @query('canvas') canvas: HTMLCanvasElement;
 
   /** The QR code's value. */
   @property() value = '';
@@ -50,41 +47,37 @@ export default class WaQrCode extends WebAwesomeElement {
   /** The level of error correction to use. [Learn more](https://www.qrcode.com/en/about/error_correction.html) */
   @property({ attribute: 'error-correction' }) errorCorrection: 'L' | 'M' | 'Q' | 'H' = 'H';
 
-  /**
-   * Whether or not the qr-code generated.
-   */
-  // @ts-expect-error Don't know why it marks it as unused.
-  @state() private generated = false;
+  @property() image: string | null = null;
+  @property({ attribute: 'image-background' }) imageBackground: string | null = null;
+  @property({ attribute: 'image-coverage', type: Number }) imageCoverage: number | null = null;
+  @property({ attribute: 'image-padding', type: Number }) imagePadding: number | null = null;
 
-  firstUpdated(changedProperties: PropertyValues<this>) {
-    super.firstUpdated(changedProperties);
+  private computedStyle: ReturnType<typeof getComputedStyle> | null = null;
 
-    if (this.hasUpdated) {
-      this.generate();
-    }
+  updated(changedProperties: PropertyValues<this>) {
+    super.updated(changedProperties);
+    this.generate();
   }
 
-  @watch(['background', 'errorCorrection', 'fill', 'radius', 'size', 'value'], { waitUntilFirstUpdate: true })
   generate() {
     if (!this.hasUpdated) {
-      return;
-    }
-
-    // We lazy load because the QR generator will cause the server to crash, but we want to reduce layout shift.
-    if (!QrCreator) {
-      import('qr-creator').then(mod => {
-        QrCreator = mod.default;
-        this.generate();
-      });
       return;
     }
 
     this.canvas.style.maxWidth = `${this.size}px`;
     this.canvas.style.maxHeight = `${this.size}px`;
 
-    const computedStyle = getComputedStyle(this);
+    this.computedStyle ||= getComputedStyle(this);
+    const computedStyle = this.computedStyle;
 
-    (QrCreator as unknown as typeof _QrCreator.default).render(
+    const span = this.shadowRoot?.querySelector('span');
+
+    if (span) {
+      // @ts-expect-error
+      this.spanComputedStyle ||= getComputedStyle(span);
+    }
+
+    QrCreator.render(
       {
         text: this.value,
         radius: this.radius,
@@ -95,11 +88,15 @@ export default class WaQrCode extends WebAwesomeElement {
         background: this.background || null,
         // We draw the canvas larger and scale its container down to avoid blurring on high-density displays
         size: this.size * 2,
+        image: this.image,
+        imageEcCover: this.imageCoverage,
+        imagePadding: this.imagePadding,
+        imageBackground: this.imageBackground || this.background,
+        // @ts-expect-error
+        cornerFill: this.spanComputedStyle?.color,
       },
       this.canvas,
     );
-
-    this.generated = true;
   }
 
   render() {
@@ -114,7 +111,9 @@ export default class WaQrCode extends WebAwesomeElement {
             this.generate();
           }
         }}
-      ></canvas>
+      >
+        <span style="color: var(--corner-color);"></span>
+      </canvas>
     `;
   }
 }

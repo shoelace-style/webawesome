@@ -25,6 +25,7 @@ These are still finding their shape. APIs can change between minor versions, so 
 - Added the `<wa-known-date>` experimental component
 - Added the `<wa-time-picker>` experimental component
 - Added the experimental `<wa-accordion>` and `<wa-accordion-item>` components
+- Added the ability to set a centered image for `<wa-qr-code>` and have different corner colors [pr:2139]
 - Added the `capture` attribute to `<wa-file-input>` for capturing media directly from a device's camera or microphone [discuss:2380]
 - Added the `wa-text-uppercase` text utility class for transforming text to uppercase
 - Added the `wa-text-lowercase` text utility class for transforming text to lowercase
@@ -55,6 +56,7 @@ These are still finding their shape. APIs can change between minor versions, so 
 
 :::changed
 
+- Updated from `qr-creator` to `@konnorr/qr-creator` NPM package to facilitate `<wa-qr-code>` improvements. [pr:2139]
 - Synced default `--show-duration` and `--hide-duration` values in `<wa-dropdown>`, `<wa-popup>`, `<wa-popover>`, `<wa-select>`, `<wa-combobox>`, `<wa-details>`, `<wa-dialog>`, `<wa-drawer>`, `<wa-tree-item>`, and `<wa-toast-item>` with `--wa-transition-fast` and `--wa-transition-normal` tokens
 - Synced hardcoded transitions in `<wa-copy-button>`, `<wa-select>`, `<wa-combobox>`, and `<wa-toast-item>` with `--wa-transition-*` tokens
 - Improved the vertical placement of content within `<wa-textarea>` and `textarea` when the content overflows the control [pr:2424]
