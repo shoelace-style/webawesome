@@ -622,6 +622,59 @@ describe('<wa-select>', () => {
           await el.updateComplete;
           expect(displayInput.getAttribute('aria-expanded')).to.equal('false');
         });
+
+        it('should scroll a type-to-select match into view', async () => {
+          const el = await fixture<WaSelect>(html`
+            <wa-select>
+              <wa-option value="argentina">Argentina</wa-option>
+              <wa-option value="belgium">Belgium</wa-option>
+              <wa-option value="canada">Canada</wa-option>
+              <wa-option value="denmark">Denmark</wa-option>
+              <wa-option value="egypt">Egypt</wa-option>
+              <wa-option value="france">France</wa-option>
+              <wa-option value="ghana">Ghana</wa-option>
+            </wa-select>
+          `);
+          const listbox = el.shadowRoot!.querySelector<HTMLElement>('.listbox')!;
+          const ghana = el.querySelector<WaOption>('wa-option[value="ghana"]')!;
+          const scrollTo = sinon.stub(listbox, 'scrollTo');
+
+          sinon.stub(listbox, 'getBoundingClientRect').returns({
+            top: 0,
+            left: 0,
+            right: 200,
+            bottom: 100,
+            width: 200,
+            height: 100,
+            x: 0,
+            y: 0,
+            toJSON: () => {},
+          });
+          sinon.stub(ghana, 'getBoundingClientRect').returns({
+            top: 140,
+            left: 0,
+            right: 200,
+            bottom: 160,
+            width: 200,
+            height: 20,
+            x: 0,
+            y: 140,
+            toJSON: () => {},
+          });
+          Object.defineProperty(listbox, 'offsetHeight', { configurable: true, value: 100 });
+          Object.defineProperty(ghana, 'clientHeight', { configurable: true, value: 20 });
+
+          el.focus();
+          await sendKeys({ press: 'g' });
+          await sendKeys({ press: 'h' });
+          await sendKeys({ press: 'a' });
+          await sendKeys({ press: 'n' });
+          await sendKeys({ press: 'a' });
+          await el.updateComplete;
+
+          expect(el.currentOption).to.equal(ghana);
+          expect(scrollTo).to.have.been.calledWith({ top: 60, behavior: 'auto' });
+        });
       });
 
       describe('form integration', () => {
