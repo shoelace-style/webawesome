@@ -2,9 +2,9 @@ import { QrCreator } from '@konnorr/qr-creator';
 import type { PropertyValues } from 'lit';
 import { html } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
+import { styleMap } from 'lit/directives/style-map.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import styles from './qr-code.styles.js';
-import { styleMap } from 'lit/directives/style-map.js';
 
 /**
  * @summary QR codes encode a URL or other short text into a scannable image, rendered client-side using the Canvas API.

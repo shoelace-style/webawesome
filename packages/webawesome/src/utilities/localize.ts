@@ -12,15 +12,15 @@ export class LocalizeController extends DefaultLocalizationController<Translatio
     registerTranslation(en);
   }
 
-  lang () {
+  lang() {
     // @ts-expect-error
-    if (this.host.didSSR && !this.host.hasUpdated)  {
+    if (this.host.didSSR && !this.host.hasUpdated) {
       // On the server and on first hydration we can't rely on the document language (right now)
       // TODO: We should write a custom renderer that can understand a lang tree.
-      return this.host.lang || "en"
+      return this.host.lang || 'en';
     }
 
-    return super.lang()
+    return super.lang();
   }
 }
 

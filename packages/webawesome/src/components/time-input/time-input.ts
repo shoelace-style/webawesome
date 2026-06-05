@@ -897,7 +897,7 @@ export default class WaTimeInput extends WebAwesomeFormAssociatedElement {
       const items = this.columnItemsFor(field);
       if (items.length === 0) return;
 
-      const lastItem = items[items.length - 1]
+      const lastItem = items[items.length - 1];
       this.segments = { ...this.segments, [field]: lastItem.value } as TimeSegments;
       this.recomputeValue();
       this.requestUpdate();
