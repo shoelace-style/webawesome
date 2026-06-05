@@ -42,6 +42,7 @@ export default css`
     width: 100%;
 
     background-color: var(--wa-color-fill-loud, var(--wa-color-neutral-fill-loud));
+
     border-color: transparent;
     color: var(--wa-color-on-loud, var(--wa-color-neutral-on-loud));
     border-start-start-radius: var(--_button-start-start-radius, var(--wa-form-control-border-radius));

@@ -67,7 +67,7 @@ export class WebAwesomeFormAssociatedElement
    * for changes. Whenever these attributes change, we want to be notified and update the validator.
    */
   static get validators(): Validator[] {
-    return [CustomErrorValidator()];
+    return isServer ? [] : [CustomErrorValidator()];
   }
 
   // Append all Validator "observedAttributes" into the "observedAttributes" so they can run.
@@ -115,7 +115,7 @@ export class WebAwesomeFormAssociatedElement
   constructor() {
     super();
 
-    if (!isServer) {
+    if ('addEventListener' in this) {
       // eslint-disable-next-line
       this.addEventListener('invalid', this.emitInvalid);
     }
@@ -124,11 +124,17 @@ export class WebAwesomeFormAssociatedElement
 
   connectedCallback() {
     super.connectedCallback();
-    this.updateValidity();
+    if (this.didSSR && !this.hasUpdated) {
+      this.updateComplete.then(() => {
+        this.updateValidity();
+      });
+    } else {
+      this.updateValidity();
+    }
 
     // Lazily evaluate after the constructor to allow people to override the `assumeInteractionOn`
     this.assumeInteractionOn.forEach(event => {
-      this.addEventListener(event, this.handleInteraction);
+      this.addEventListener?.(event, this.handleInteraction);
     });
   }
 
@@ -170,7 +176,11 @@ export class WebAwesomeFormAssociatedElement
     }
 
     super.willUpdate(changedProperties);
-    this.updateValidity();
+    if (this.didSSR && !this.hasUpdated) {
+      this.updateComplete.then(() => this.updateValidity());
+    } else {
+      this.updateValidity();
+    }
   }
 
   /**
@@ -325,14 +335,27 @@ export class WebAwesomeFormAssociatedElement
    * "restore", state is a string, File, or FormData object previously set as the second argument to setFormValue.
    */
   formStateRestoreCallback(state: string | File | FormData | null, reason: 'autocomplete' | 'restore') {
-    // @ts-expect-error We purposely do not have a value property. It makes things hard to extend.
-    this.value = state;
+    if (this.didSSR && !this.hasUpdated) {
+      this.updateComplete.then(() => {
+        // @ts-expect-error We purposely do not have a value property. It makes things hard to extend.
+        this.value = state;
 
-    if (reason === 'restore') {
-      this.resetValidity();
+        if (reason === 'restore') {
+          this.resetValidity();
+        }
+
+        this.updateValidity();
+      });
+    } else {
+      // @ts-expect-error We purposely do not have a value property. It makes things hard to extend.
+      this.value = state;
+
+      if (reason === 'restore') {
+        this.resetValidity();
+      }
+
+      this.updateValidity();
     }
-
-    this.updateValidity();
   }
 
   setValue(...args: Parameters<typeof this.internals.setFormValue>) {

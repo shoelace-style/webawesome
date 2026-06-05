@@ -23,7 +23,7 @@ Tab groups make use of [tabs](/docs/components/tab) and [tab panels](/docs/compo
   <wa-tab panel="advanced">Advanced</wa-tab>
   <wa-tab panel="disabled" disabled>Disabled</wa-tab>
 
-  <wa-tab-panel name="general">This is the general tab panel.</wa-tab-panel>
+  <wa-tab-panel name="general" active>This is the general tab panel.</wa-tab-panel>
   <wa-tab-panel name="custom">This is the custom tab panel.</wa-tab-panel>
   <wa-tab-panel name="advanced">This is the advanced tab panel.</wa-tab-panel>
   <wa-tab-panel name="disabled">This is a disabled tab panel.</wa-tab-panel>

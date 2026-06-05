@@ -1,3 +1,4 @@
+import { html as serverHTML } from '@lit-labs/ssr';
 import { aTimeout, expect, oneEvent, waitUntil } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
@@ -481,10 +482,18 @@ describe('<wa-checkbox>', () => {
         it('should not jump the page when focusing a checkbox at the bottom of an overflow container', async () => {
           // https://github.com/shoelace-style/shoelace/issues/1169
           const el = await fixture<HTMLDivElement>(html`
-            <div style="display: flex; flex-direction: column; overflow: auto; max-height: 400px; gap: 8px;">
-              ${Array.from({ length: 33 }, () => html`<wa-checkbox>Checkbox</wa-checkbox>`)}
-            </div>
+            <div style="display: flex; flex-direction: column; overflow: auto; max-height: 400px; gap: 8px;"></div>
           `);
+
+          for (let i = 0; i < 33; i++) {
+            el.append(
+              Object.assign(document.createElement('wa-checkbox'), {
+                textContent: 'Checkbox',
+              }),
+            );
+          }
+
+          await aTimeout(1);
 
           const checkboxes = el.querySelectorAll<WaCheckbox>('wa-checkbox');
           const lastCheckbox = checkboxes[checkboxes.length - 1];

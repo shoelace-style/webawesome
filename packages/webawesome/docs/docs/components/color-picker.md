@@ -76,6 +76,8 @@ You can also pass an array of objects with `color` and `label` properties using 
 
 <script>
   const colorPicker = document.getElementById('labeled-swatches');
+  await customElements.whenDefined("wa-color-picker")
+  await colorPicker.updateComplete
   colorPicker.swatches = [
     { color: '#d0021b', label: 'Red' },
     { color: '#f5a623', label: 'Orange' },

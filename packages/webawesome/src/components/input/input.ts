@@ -58,7 +58,7 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
   static shadowRootOptions = { ...WebAwesomeFormAssociatedElement.shadowRootOptions, delegatesFocus: true };
 
   static get validators() {
-    return [...super.validators, MirrorValidator()];
+    return isServer ? [] : [...super.validators, MirrorValidator()];
   }
 
   assumeInteractionOn = ['blur', 'input'];
@@ -377,14 +377,14 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
   }
 
   render() {
-    const hasLabelSlot = this.hasUpdated ? this.hasSlotController.test('label') : this.withLabel;
-    const hasHintSlot = this.hasUpdated ? this.hasSlotController.test('hint') : this.withHint;
+    const hasLabelSlot = this.hasSlotController.test('label', 'withLabel');
+    const hasHintSlot = this.hasSlotController.test('hint', 'withHint');
     const hasLabel = this.label ? true : !!hasLabelSlot;
     const hasHint = this.hint ? true : !!hasHintSlot;
     const hasClearIcon = this.withClear && !this.disabled && !this.readonly;
     const isClearIconVisible =
       // prevents hydration mismatch errors.
-      (isServer || this.hasUpdated) &&
+      (!this.didSSR || this.hasUpdated) &&
       hasClearIcon &&
       (typeof this.value === 'number' || (this.value && this.value.length > 0));
 

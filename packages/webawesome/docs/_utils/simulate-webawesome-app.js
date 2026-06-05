@@ -13,8 +13,17 @@ const nunjucksEnv = new nunjucks.Environment(new nunjucks.FileSystemLoader(views
 /**
  * This function simulates what a server would do running "on top" of eleventy.
  */
-export function SimulateWebAwesomeApp(str) {
+export function SimulateWebAwesomeApp(str, context = {}) {
   return nunjucksEnv.renderString(str, {
+    ssr: Boolean(context.ssr),
+    req: context.req,
+    bool_attr: (attr, bool) => {
+      if (bool) {
+        return attr;
+      }
+
+      return '';
+    },
     // Stub the server EJS shortcodes.
     currentUser: {
       hasPro: false,

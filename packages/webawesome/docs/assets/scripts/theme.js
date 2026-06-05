@@ -47,6 +47,9 @@ async function updateTheme(value, isInitialLoad = false) {
     localStorage.setItem('brand', brand);
     localStorage.setItem('palette', palette);
     localStorage.setItem('theme', value);
+    setCookie({ name: 'webawesome_brand', value: brand });
+    setCookie({ name: 'webawesome_palette', value: palette });
+    setCookie({ name: 'webawesome_theme', value });
   }
 
   // Update theme classes

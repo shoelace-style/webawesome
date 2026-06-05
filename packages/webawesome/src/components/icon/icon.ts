@@ -282,6 +282,15 @@ export default class WaIcon extends WebAwesomeElement {
     }
   }
 
+  willUpdate(changedProperties: PropertyValues<this>) {
+    // This runs on the server
+    if (!this.style) {
+      this.setStyleProperty('--rotate-angle', `${this.rotate}deg`);
+    }
+
+    return super.willUpdate(changedProperties);
+  }
+
   updated(changedProperties: PropertyValues<this>) {
     super.updated(changedProperties);
     // Sometimes (like with SSR -> hydration) mutators don't get applied due to race conditions. This ensures mutators get re-applied.
@@ -300,7 +309,7 @@ export default class WaIcon extends WebAwesomeElement {
     if (this.hasUpdated) {
       return this.svg;
     }
-    return html`<svg part="svg" width="16" height="16"></svg>`;
+    return html`<svg part="svg" width="16" height="16" viewBox="0 0 16 16"></svg>`;
   }
 }
 

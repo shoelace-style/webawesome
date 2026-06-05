@@ -423,10 +423,20 @@ describe('<wa-switch>', () => {
         it('should not jump the page when focusing a switch at the bottom of an overflow container', async () => {
           // https://github.com/shoelace-style/shoelace/issues/1169
           const el = await fixture<HTMLDivElement>(html`
-            <div style="display: flex; flex-direction: column; overflow: auto; max-height: 400px;">
-              ${Array.from({ length: 41 }, () => html`<wa-switch>Switch</wa-switch>`)}
-            </div>
+            <div style="display: flex; flex-direction: column; overflow: auto; max-height: 400px;"></div>
           `);
+
+          const switchElements = Array.from({ length: 60 }, () =>
+            Object.assign(document.createElement('wa-switch'), {
+              textContent: 'Switch',
+            }),
+          );
+
+          switchElements.forEach(switchEl => {
+            el.append(switchEl);
+          });
+
+          await aTimeout(1);
 
           const switches = el.querySelectorAll<WaSwitch>('wa-switch');
           const lastSwitch = switches[switches.length - 1];

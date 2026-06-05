@@ -10,8 +10,6 @@
 }
 .diff-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  grid-template-rows: minmax(0, 1fr);
   max-height: 80vh;
   gap: 16px;
 }
@@ -19,11 +17,29 @@
   height: 100%;
 }
 .diff-dialog {
-  max-width: 90vw;
-  width: 90vw;
+  &::part(dialog) {
+    max-width: 90vw;
+    width: 90vw;
+    margin: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 }
+
 .diff-dialog ins {
   text-decoration: none;
+  background: green;
+  color: white;
+  position: relative;
+
+  &:before {
+    content: '+';
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(50%, -15%);
+  }
 }
 .diff-dialog pre {
   border: 1px solid transparent;
@@ -35,4 +51,15 @@
 }
 .diff-dialog del {
   text-decoration: none;
+  background: red;
+  color: white;
+  position: relative;
+
+  &:before {
+    content: '-';
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(50%, -15%);
+  }
 }

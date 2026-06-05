@@ -2,6 +2,7 @@ import { QrCreator } from '@konnorr/qr-creator';
 import type { PropertyValues } from 'lit';
 import { html } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
+import { styleMap } from 'lit/directives/style-map.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import styles from './qr-code.styles.js';
 
@@ -106,6 +107,12 @@ export default class WaQrCode extends WebAwesomeElement {
         class="qr-code"
         role="img"
         aria-label=${this.label?.length > 0 ? this.label : this.value}
+        style=${styleMap({
+          maxWidth: `${this.size}px`,
+          maxHeight: `${this.size}px`,
+          minWidth: `${this.size}px`,
+          minHeight: `${this.size}px`,
+        })}
         @transitionend=${(event: TransitionEvent) => {
           if (event.propertyName === 'color') {
             this.generate();

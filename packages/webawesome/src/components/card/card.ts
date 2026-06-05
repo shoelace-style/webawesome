@@ -1,5 +1,6 @@
-import { html } from 'lit';
+import { html, type PropertyValues } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { HasSlotController } from '../../internal/slot.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import sizeStyles from '../../styles/component/size.styles.js';
@@ -26,6 +27,8 @@ import styles from './card.styles.js';
  * @csspart footer - The container that wraps the card's footer.
  *
  * @cssproperty [--spacing=var(--wa-space-l)] - The amount of space around and between sections of the card. Expects a single value.
+ *
+ * @ssr - `<wa-card>` requires `with-header` / `with-media` / `with-footer` attributes to be set if you use any of these slots. This is a limitation of the platform not currently providing a `:has-slotted` CSS directive to allow us to apply things like borders based on slotted content. Without these attributes, only the body of the card will be rendered via SSR.
  */
 @customElement('wa-card')
 export default class WaCard extends WebAwesomeElement {
@@ -63,15 +66,28 @@ export default class WaCard extends WebAwesomeElement {
    */
   @property({ attribute: 'with-footer', type: Boolean, reflect: true }) withFooter = false;
 
+  /**
+   * Only required for SSR. Set to `true` if you're slotting in a `header-actions` element so the server-rendered markup
+   * includes the media before the component hydrates on the client.
+   */
+  @property({ attribute: 'with-header-actions', type: Boolean, reflect: true }) withHeaderActions = false;
+
+  /**
+   * Only required for SSR. Set to `true` if you're slotting in a `footer-actions` element so the server-rendered markup
+   * includes the media before the component hydrates on the client.
+   */
+  @property({ attribute: 'with-footer-actions', type: Boolean, reflect: true }) withFooterActions = false;
+
   /** Renders the card's orientation **/
   @property({ reflect: true })
   orientation: 'horizontal' | 'vertical' = 'vertical';
 
-  willUpdate() {
+  willUpdate(changedProperties: PropertyValues<this>) {
     // Enable the respective slots when detected
-    if (!this.withHeader && this.hasSlotController.test('header')) this.withHeader = true;
-    if (!this.withMedia && this.hasSlotController.test('media')) this.withMedia = true;
-    if (!this.withFooter && this.hasSlotController.test('footer')) this.withFooter = true;
+    this.withHeader = this.hasSlotController.test('header', 'withHeader');
+    this.withMedia = this.hasSlotController.test('media', 'withMedia');
+    this.withFooter = this.hasSlotController.test('footer', 'withFooter');
+    super.willUpdate(changedProperties);
   }
 
   render() {
@@ -84,28 +100,36 @@ export default class WaCard extends WebAwesomeElement {
       `;
     }
 
+    const hasHeaderActions = this.hasSlotController.test('header-actions', 'withHeaderActions');
+    const hasFooterActions = this.hasSlotController.test('footer-actions', 'withFooterActions');
+
     // Vertical Orientation
     return html`
       <slot name="media" part="media" class="media"></slot>
 
-      ${this.hasSlotController.test('header-actions')
-        ? html` <header part="header" class="header has-actions">
-            <slot name="header"></slot>
-            <slot name="header-actions"></slot>
-          </header>`
-        : html` <header part="header" class="header">
-            <slot name="header"></slot>
-          </header>`}
+      <header
+        part="header"
+        class=${classMap({
+          header: true,
+          'has-actions': hasHeaderActions,
+        })}
+      >
+        <slot name="header"></slot>
+        <slot name="header-actions"></slot>
+      </header>
 
       <div part="body" class="body"><slot></slot></div>
-      ${this.hasSlotController.test('footer-actions')
-        ? html` <footer part="footer" class="footer has-actions">
-            <slot name="footer"></slot>
-            <slot name="footer-actions"></slot>
-          </footer>`
-        : html` <footer part="footer" class="footer">
-            <slot name="footer"></slot>
-          </footer>`}
+
+      <footer
+        part="footer"
+        class=${classMap({
+          footer: true,
+          'has-actions': hasFooterActions,
+        })}
+      >
+        <slot name="footer"></slot>
+        <slot name="footer-actions"></slot>
+      </footer>
     `;
   }
 }

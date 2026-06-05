@@ -152,11 +152,15 @@ export default class WaZoomableFrame extends WebAwesomeElement {
     return currentIndex <= 0;
   }
 
-  updated(changedProperties: PropertyValues<this>) {
+  willUpdate(changedProperties: PropertyValues<this>) {
     if (changedProperties.has('zoom')) {
-      this.style.setProperty('--zoom', `${this.zoom}`);
+      this.setStyleProperty('--zoom', `${this.zoom}`);
     }
 
+    super.willUpdate(changedProperties);
+  }
+
+  updated(changedProperties: PropertyValues<this>) {
     if (changedProperties.has('zoomLevels')) {
       this.availableZoomLevels = this.parseZoomLevels(this.zoomLevels);
 
@@ -177,6 +181,7 @@ export default class WaZoomableFrame extends WebAwesomeElement {
         this.themeObserver?.disconnect();
       }
     }
+    super.updated(changedProperties);
   }
 
   /** Zooms in to the next available zoom level. */

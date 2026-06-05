@@ -145,6 +145,12 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
 
   connectedCallback() {
     super.connectedCallback();
+    if (this.didSSR && !this.hasUpdated) {
+      this.updateComplete.then(() => {
+        this.handleDefaultCheckedChange();
+      });
+      return;
+    }
     this.handleDefaultCheckedChange();
   }
 
@@ -154,6 +160,13 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
   }
 
   handleValueOrCheckedChange() {
+    if (this.didSSR && !this.hasUpdated) {
+      this.updateComplete.then(() => {
+        this.handleValueOrCheckedChange();
+      });
+      return;
+    }
+
     // These @watch() commands seem to override the base element checks for changes, so we need to setValue for the form and and updateValidity()
     this.setValue(this.checked ? this.value : null, this._value);
     this.updateValidity();
@@ -227,11 +240,11 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
             type="checkbox"
             title=${this.title /* An empty title prevents browser validation tooltips from appearing on hover */}
             name=${ifDefined(this.name)}
-            value=${ifDefined(this._value)}
+            value=${ifDefined(this.value)}
             .indeterminate=${live(this.indeterminate)}
-            .checked=${live(this.checked)}
-            .disabled=${this.disabled}
-            .required=${this.required}
+            ?checked=${this.defaultChecked}
+            ?disabled=${this.disabled}
+            ?required=${this.required}
             aria-checked=${this.indeterminate ? 'mixed' : this.checked ? 'true' : 'false'}
             aria-describedby="hint"
             @click=${this.handleClick}

@@ -15,18 +15,24 @@
         <wa-tooltip for="product-build-awesome">{{ site.siblings.buildAwesome.name }}</wa-tooltip>
       </div>
 
-      <div class="nav-products-secondary wa-cluster wa-gap-3xs">
-        <wa-button appearance="plain" pill id="header-search-button" data-search data-track-event="navigation:header_link_click" data-track-destination="docs_search"><wa-icon label="Search" name="magnifying-glass"></wa-icon></wa-button>
-        <wa-tooltip for="header-search-button">
-          Search this website
-          <kbd><span class="mac-only"><span class="kbd-symbol">⌘</span>K</span><span class="non-mac">Ctrl+K</span></kbd>
-        </wa-tooltip>
-        {% include "color-scheme-selector.njk" %}
-        {% if hasThemeSelector %}
-          {% include "theme-selector.njk" %}
-        {% endif %}
+      <div class="nav-products-secondary wa-cluster wa-gap-s">
+        {% include "ssr-switch.njk" %}
 
-        {% include "github-icon-buttons.njk" %}
+        <wa-divider orientation="vertical" class="wa-size-s" style="height: var(--wa-form-control-height);"></wa-divider>
+
+        <div class="wa-cluster wa-gap-3xs">
+          <wa-button appearance="plain" pill id="header-search-button" data-search data-track-event="navigation:header_link_click" data-track-destination="docs_search"><wa-icon label="Search" name="magnifying-glass"></wa-icon></wa-button>
+          <wa-tooltip for="header-search-button">
+            Search this website
+            <kbd><span class="mac-only"><span class="kbd-symbol">⌘</span>K</span><span class="non-mac">Ctrl+K</span></kbd>
+          </wa-tooltip>
+          {% include "color-scheme-selector.njk" %}
+          {% if hasThemeSelector %}
+            {% include "theme-selector.njk" %}
+          {% endif %}
+
+          {% include "github-icon-buttons.njk" %}
+        </div>
       </div>
     </div>
   </nav>

@@ -1,0 +1,13 @@
+<div class="wa-cluster wa-gap-3xs">
+  <wa-switch id="ssr-switch" {% raw %}{{ bool_attr("checked", req.cookies.webawesome_ssr === "true") }}{% endraw %} size="s">
+    Try SSR
+  </wa-switch>
+
+  <wa-button href="/docs/ssr" appearance="plain" pill id="ssr-info-button" size="xs">
+    <wa-icon label="About SSR" name="circle-info" variant="regular" class="wa-font-size-s"></wa-icon>
+  </wa-button>
+
+  <wa-tooltip for="ssr-info-button">
+    <strong>Server-side rendering (SSR)</strong> generates component HTML on the server before the page loads, improving SEO and initial load time. Use the switch to see Web Awesome components render with and without SSR.
+  </wa-tooltip>
+</div>

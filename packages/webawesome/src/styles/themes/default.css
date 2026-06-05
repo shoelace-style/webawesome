@@ -364,4 +364,10 @@
     --wa-tooltip-line-height: var(--wa-line-height-normal);
     /* #endregion */
   }
+
+  :is(html, body):has(wa-page) {
+    min-height: 100%;
+    padding: 0;
+    margin: 0;
+  }
 }

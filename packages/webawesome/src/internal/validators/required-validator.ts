@@ -15,7 +15,9 @@ export const RequiredValidator = (options: RequiredValidatorOptions = {}): Valid
   let { validationElement, validationProperty } = options;
 
   if (!validationElement) {
-    validationElement = Object.assign(document.createElement('input'), { required: true });
+    if (typeof document !== 'undefined' && 'createElement' in document) {
+      validationElement = Object.assign(document.createElement('input'), { required: true });
+    }
   }
 
   if (!validationProperty) {
@@ -24,7 +26,7 @@ export const RequiredValidator = (options: RequiredValidatorOptions = {}): Valid
 
   const obj: Validator = {
     observedAttributes: ['required'],
-    message: validationElement.validationMessage, // @TODO: Add a translation.
+    message: validationElement?.validationMessage, // @TODO: Add a translation.
     checkValidity(element) {
       const validity: ReturnType<Validator['checkValidity']> = {
         message: '',

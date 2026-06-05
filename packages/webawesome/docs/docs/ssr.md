@@ -1,15 +1,30 @@
 ---
-title: Server Side Rendering
+title: Server Side Rendering (SSR)
 description: A document on how to get started with SSR in Web Awesome.
 layout: page-outline
-unlisted: true
 ---
 
-Server Side Rendering ("SSR") means your webpage is rendered on the server before being sent to the user's browser. This provides a fully formed HTML page right from the start, which is great for SEO and initial load times. Once the page is rendered, JavaScript kicks in to "hydrate" the components which makes them interactive. The Web platform supports this through a feature called [Declarative Shadow DOM](https://web.dev/articles/declarative-shadow-dom).
+
+<wa-badge variant="warning" appearance="filled" pill>
+  Experimental
+  <wa-icon name="flask"></wa-icon>
+</wa-badge>
+<br><br>
+<p>Server Side Rendering ("SSR") means your webpage is rendered on the server before being sent to the user's browser. This provides a fully formed HTML page right from the start, which is great for SEO and initial load times. Once the page is rendered, JavaScript kicks in to "hydrate" the components which makes them interactive. The Web platform supports this through a feature called <a href="https://web.dev/articles/declarative-shadow-dom">Declarative Shadow DOM</a></p>
 
 :::warning
-SSR in Web Awesome is experimental! There are some known bugs and timing issues. Part of the experimental status comes from Lit's SSR package also being experimental.
+**SSR is experimental.**
+Be mindful of [known bugs and timing issues](#known-issues). This status is also partially due to Lit's SSR package being experimental.
+
+**Notice a bug that we didn't?**
+[Report the issue on GitHub](https://github.com/shoelace-style/webawesome/issues).
 :::
+
+## Goals of SSR
+
+The goal of SSR in Web Awesome currently is reduce layout shifting and provide a rough approximation of the final component once the JavaScript for the component is ready, they are **NOT** meant to be components that fully work without JavaScript.
+
+Progressive enhancement is _not_ a goal of Web Awesome (currently). This is partially because for form controls in particular, there is no browser API to "hoist" form controls from the shadow root. Other reasons is there are certain components like `<wa-chart>`, `<wa-qr-code>`, etc that depend on browser APIs like `<canvas>` being available.
 
 ## Enable Hydration
 
@@ -20,7 +35,7 @@ If you're using the `webawesome.loader.js` file which automatically loads, make 
 + <script type="module" src="/dist/webawesome.ssr-loader.js"></script>
 ```
 
-If you're using a bundler, make sure it comes _before_ any components are imported.
+If you're using a bundler and **NOT** using the autoloader, make sure `@lit-labs/ssr-client/lit-element-hydrate-support.js` comes _before_ any components are imported.
 
 ```js
 // Make sure this import is first.
@@ -51,7 +66,7 @@ eleventyConfig.addPlugin(litPlugin, {
 ```
 
 :::info
-As SSR becomes more stable, we'll work to add more instructions for various frameworks and metaframeworks.
+As SSR becomes more stable, we'll work to add more instructions for various frameworks and meta frameworks.
 :::
 
 ## Helpful Tips
@@ -64,7 +79,12 @@ All Web Awesome components that get rendered for SSR will receive the `did-ssr` 
 <wa-button appearance="filled" did-ssr></wa-button>
 ```
 
-This can help if you need some styling prior to the element connecting.
+This can help if you need some styling prior to the element connecting. Such as:
+
+```css
+[did-ssr]:not(:defined) {
+}
+```
 
 ### Timing Issues
 
@@ -79,6 +99,8 @@ await rating.updateComplete;
 
 rating.getSymbol = () => '<wa-icon name="heart" variant="solid"></wa-icon>';
 ```
+
+This will help prevent hydration issues. (We will try our best to work around this as sometimes this isn't possible to do from your rendering framework, so if you encounter this, please let us know and file an issue.)
 
 ### Usage with Turbo
 
@@ -126,7 +148,7 @@ To solve this, components that rely on slot detection provide `with-*` attribute
 </wa-dialog>
 ```
 
-These attributes are only needed for SSR._ After the component hydrates on the client, slot detection works normally and the attributes have no effect.
+These attributes are only needed for SSR. After the component hydrates on the client, slot detection works normally and the attributes have no effect.
 
 #### For Contributors
 
@@ -147,6 +169,9 @@ const hasLabelSlot = this.hasUpdated
 Here are some known issues and things we're still working on.
 
 - `@shoelace-style/localize` (our localization library) has no way to set a language currently so it always falls back to `en`.
-- `<wa-icon>` has no fallback if there's no JS besides a blank `<svg>`. There's perhaps some backend mechanisms we can use to fetch. But requires altering APIs. Should also have a way to set height / widths, but we don't want to increase pain for SSR users.
+- Components are unable to read "up" a tree to find the `dir`. This will be fixed in a future version, as it should be straightforward to track `dir` in SSR when building the tree and store it in the current context.
+- `<wa-icon>` has no fallback if there's no JS besides a blank `<svg>`. There's perhaps some backend mechanisms we can use to fetch. But requires altering APIs. Should also have a way to set explicit fallback height / widths, but we don't want to increase pain for SSR users.
 - `<wa-qr-code>` QR Code will not error on the backend and will render a blank canvas at the appropriate size, but will not render the canvas until the client component connects.
+- `<wa-chart>` Similar to qr-code, chart components require a canvas, so they will not work until they have connected to the browser and are able to create a proper `<canvas>` element.
 - `setBasePath` and `kit codes` may need reconfiguring to work with SSR.
+- `<wa-animated-image>` has no real suitable fallback without JS as it requires JS to function, and a `<video playsinline muted loop>` is not a great experience, and `<img>` autoplays the image, which may not be intended.

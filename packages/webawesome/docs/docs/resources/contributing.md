@@ -424,9 +424,7 @@ To solve this, components that rely on slot detection in their `render()` method
 @property({ attribute: 'with-label', type: Boolean }) withLabel = false;
 
 render() {
-  const hasLabelSlot = this.hasUpdated
-    ? this.hasSlotController.test('label')
-    : this.withLabel;
+  const hasLabelSlot = this.hasSlotController.test('label', 'withLabel')
 }
 ```
 

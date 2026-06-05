@@ -1,5 +1,5 @@
 import type { PropertyValues } from 'lit';
-import { html } from 'lit';
+import { html, isServer } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { styleMap } from 'lit/directives/style-map.js';
@@ -75,7 +75,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
   static css = [sizeStyles, formControlStyles, styles];
 
   static get validators() {
-    return [...super.validators, SliderValidator()];
+    return isServer ? [] : [...super.validators, SliderValidator()];
   }
 
   private draggableTrack: DraggableElement;
@@ -798,8 +798,8 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
   }
 
   render() {
-    const hasLabelSlot = this.hasUpdated ? this.hasSlotController.test('label') : this.withLabel;
-    const hasHintSlot = this.hasUpdated ? this.hasSlotController.test('hint') : this.withHint;
+    const hasLabelSlot = this.hasSlotController.test('label', 'withLabel');
+    const hasHintSlot = this.hasSlotController.test('hint', 'withHint');
     const hasLabel = this.label ? true : !!hasLabelSlot;
     const hasHint = this.hint ? true : !!hasHintSlot;
     const hasReference = this.hasSlotController.test('reference');

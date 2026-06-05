@@ -48,6 +48,8 @@ import styles from './carousel.styles.js';
  * @cssproperty --scroll-hint - The amount of padding to apply to the scroll area, allowing adjacent slides to become
  *  partially visible as a scroll hint.
  * @cssproperty [--slide-gap=var(--wa-space-m)] - The space between each slide.
+ *
+ * @ssr - Carousel relies on scroll behaviors to work properly. Carousel will display the first image properly, but will not be interactive.
  */
 @customElement('wa-carousel')
 export default class WaCarousel extends WebAwesomeElement {

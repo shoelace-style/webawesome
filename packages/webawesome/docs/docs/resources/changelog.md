@@ -20,6 +20,7 @@ These are still finding their shape. APIs can change between minor versions, so 
 
 :::added
 
+- Added experimental SSR support to all Web Awesome components in free and pro. [pr:2428]
 - Added the `<wa-date-input>` experimental pro component
 - Added the `<wa-date-picker>` experimental pro component
 - Added the `<wa-known-date>` experimental component
@@ -40,6 +41,7 @@ These are still finding their shape. APIs can change between minor versions, so 
 
 :::fixed
 
+- Fixed a bug in `<wa-dialog>` and `<wa-drawer>` where it would not correctly capture `slotchange` event for footers. [pr:2428]
 - Fixed a bug in `<wa-zoomable-frame>` where it was not importing `<wa-icon>` [pr:2457]
 - Fixed a bug in `<wa-video>` where the `timeupdate` method was not emitting when seeking or scrubbing the timeline [issue:2393]
 - Fixed a bug in `<wa-breadcrumb-item>` where `href=""` rendered as a button instead of a link, making it harder to follow the [WAI-ARIA breadcrumb pattern](https://www.w3.org/WAI/ARIA/apg/patterns/breadcrumb/) for the current-page item [issue:2387]

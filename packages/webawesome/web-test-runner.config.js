@@ -1,3 +1,4 @@
+import { litSsrPlugin } from '@lit-labs/testing/web-test-runner-ssr-plugin.js';
 import { esbuildPlugin } from '@web/dev-server-esbuild';
 import { playwrightLauncher } from '@web/test-runner-playwright';
 import { readFileSync } from 'fs';
@@ -30,9 +31,7 @@ export default {
   rootDir: '.',
   files: 'src/**/*.test.ts', // "default" group
   concurrentBrowsers: 3,
-  nodeResolve: {
-    exportConditions: ['production', 'default'],
-  },
+  nodeResolve: true,
   testFramework: {
     config: {
       timeout: 3000,
@@ -77,6 +76,7 @@ export default {
       ts: true,
       target: 'es2020',
     }),
+    litSsrPlugin(),
   ],
   browsers: [
     playwrightLauncher({ product: 'chromium', concurrency }),
@@ -88,11 +88,19 @@ export default {
     <html lang="en-US">
       <head>
         <link rel="stylesheet" href="/dist/styles/themes/default.css">
+        <script>
 
-        <script>
           window.process = {env: { NODE_ENV: "production" }}
-        </script>
-        <script>
+          const g = globalThis;
+          g.litIssuedWarnings ??= new Set();
+          g.litIssuedWarnings.add(
+            'Lit is in dev mode. Not recommended for production! See https://lit.dev/msg/dev-mode for more information.'
+          );
+          // This is related to SSR. I'm not sure how to fix this other than using the unbundled "/dist", but for some reason, that breaks singleton patterns when using esbuild plugin with Web Test Runner.
+          g.litIssuedWarnings.add(
+            'Multiple versions of Lit loaded. Loading multiple versions is not recommended. See https://lit.dev/msg/multiple-versions for more information.'
+          )
+
           window.serverComponents = [
             ${serverComponents.map(str => `"${str}"`).join(',\n')}
           ]
@@ -102,9 +110,12 @@ export default {
           ]
 
           window.CSR_ONLY = ${process.env['CSR_ONLY'] === 'true'}
+          window.SSR_ONLY = ${process.env['SSR_ONLY'] === 'true'}
         </script>
+
         <script type="module">
           ;(async () => {
+            await import("/dist-cdn/utilities/ssr-hydration.js")
             await Promise.allSettled(window.clientComponents.map(str => import(str)));
           })()
         </script>

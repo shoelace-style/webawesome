@@ -92,19 +92,19 @@ export default class WaDropdownItem extends WebAwesomeElement {
 
   connectedCallback() {
     super.connectedCallback();
-    this.addEventListener('click', this.handleHostClick);
-    this.addEventListener('mouseenter', this.handleMouseEnter.bind(this));
-    this.shadowRoot!.addEventListener('click', this.handleClick, { capture: true });
-    this.shadowRoot!.addEventListener('slotchange', this.handleSlotChange);
+    this.addEventListener?.('click', this.handleHostClick);
+    this.addEventListener?.('mouseenter', this.handleMouseEnter.bind(this));
+    this.shadowRoot?.addEventListener?.('click', this.handleClick, { capture: true });
+    this.shadowRoot?.addEventListener?.('slotchange', this.handleSlotChange);
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
     this.closeSubmenu();
-    this.removeEventListener('click', this.handleHostClick);
-    this.removeEventListener('mouseenter', this.handleMouseEnter);
-    this.shadowRoot!.removeEventListener('click', this.handleClick, { capture: true });
-    this.shadowRoot!.removeEventListener('slotchange', this.handleSlotChange);
+    this.removeEventListener?.('click', this.handleHostClick);
+    this.removeEventListener?.('mouseenter', this.handleMouseEnter);
+    this.shadowRoot?.removeEventListener?.('click', this.handleClick, { capture: true });
+    this.shadowRoot?.removeEventListener?.('slotchange', this.handleSlotChange);
   }
 
   firstUpdated() {

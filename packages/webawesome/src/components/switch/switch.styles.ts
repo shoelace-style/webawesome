@@ -38,6 +38,12 @@ export default css`
     transition-timing-function: var(--wa-transition-easing);
   }
 
+  :host([did-ssr]:not(:defined)) .switch {
+    transition-property: unset;
+    transition-duration: unset;
+    transition-timing-function: unset;
+  }
+
   .switch .thumb {
     aspect-ratio: 1 / 1;
     width: var(--thumb-size);

@@ -19,16 +19,16 @@ export interface IconLibrary {
 
 let defaultIconFamily = 'classic';
 let registry: IconLibrary[] = [defaultLibrary, systemLibrary];
-let watchedIcons: WaIcon[] = [];
+let watchedIcons: Set<WaIcon> = new Set();
 
 /** Adds an icon to the list of watched icons. */
 export function watchIcon(icon: WaIcon) {
-  watchedIcons.push(icon);
+  watchedIcons.add(icon);
 }
 
 /** Removes an icon from the list of watched icons. */
 export function unwatchIcon(icon: WaIcon) {
-  watchedIcons = watchedIcons.filter(el => el !== icon);
+  watchedIcons.delete(icon);
 }
 
 /** Returns a library from the registry. */

@@ -1,4 +1,4 @@
-import { html, isServer } from 'lit';
+import { html } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
 import { WaSelectionChangeEvent } from '../../events/selection-change.js';
 import { clamp } from '../../internal/math.js';
@@ -95,9 +95,12 @@ export default class WaTree extends WebAwesomeElement {
   private clickTarget: WaTreeItem | null = null;
   private readonly localize = new LocalizeController(this);
 
+  @property({ attribute: 'tabindex', reflect: true, type: Number }) tabIndex = 0;
+  @property({ reflect: true }) role = 'tree';
+
   constructor() {
     super();
-    if (!isServer) {
+    if ('addEventListener' in this) {
       this.addEventListener('focusin', this.handleFocusIn);
       this.addEventListener('focusout', this.handleFocusOut);
       this.addEventListener('wa-lazy-change', this.handleSlotChange);
@@ -108,15 +111,15 @@ export default class WaTree extends WebAwesomeElement {
     super.connectedCallback();
 
     // SSR guard: MutationObserver is not available during server-side rendering
-    if (!isServer) {
-      this.setAttribute('role', 'tree');
-      this.setAttribute('tabindex', '0');
-
+    if (typeof MutationObserver !== 'undefined') {
       await this.updateComplete;
 
       this.mutationObserver = new MutationObserver(this.handleTreeChanged);
       this.mutationObserver.observe(this, { childList: true, subtree: true });
     }
+
+    this.setAttribute('tabindex', '0');
+    this.setAttribute('role', 'tree');
   }
 
   disconnectedCallback() {

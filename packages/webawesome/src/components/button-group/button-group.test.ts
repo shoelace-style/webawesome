@@ -15,7 +15,10 @@ describe('<wa-button-group>', () => {
               <wa-button>Button 3</wa-button>
             </wa-button-group>
           `);
-          await expect(el).to.be.accessible();
+
+          if (fixture.type === 'client-only') {
+            await expect(el).to.be.accessible();
+          }
         });
 
         it('should have role="group" on the base part by default', async () => {

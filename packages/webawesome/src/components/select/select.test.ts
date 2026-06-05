@@ -359,6 +359,7 @@ describe('<wa-select>', () => {
           el.addEventListener('change', handler);
           el.addEventListener('input', handler);
 
+          await aTimeout(1);
           await clickOnElement(el);
           await aTimeout(500);
           await el.updateComplete;
@@ -1078,8 +1079,8 @@ describe('<wa-select>', () => {
       await aTimeout(200);
 
       await sendKeys({ press: 'Escape' });
-      await aTimeout(200);
 
+      await waitUntil(() => tooltip.open === false);
       expect(tooltip.open).to.be.false;
       expect(select.open).to.be.true;
     });
