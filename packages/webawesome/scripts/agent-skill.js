@@ -150,9 +150,113 @@ function createTurndownService(baseUrl) {
 }
 
 /**
- * Processes rendered HTML from Eleventy output and converts it to clean Markdown.
+ * Renders a component's API table (Slots, Attributes & Properties, Methods, Events, CSS custom
+ * properties, Custom States, CSS parts) directly from the Custom Elements Manifest.
+ *
+ * The docs site builds these tables from the CEM, so scraping the rendered HTML is a lossy
+ * round-trip: per-row type, default, and description collapse into a single cell and any inline
+ * `<code>` after the first is dropped. Reading the CEM (as scripts/llms.js already does) keeps
+ * them accurate. Returns a markdown table string, or null when the section has no CEM data.
+ *
+ * The result is restored after the Turndown pass via a placeholder (see processHtmlToMarkdown),
+ * so it can contain real backticks, brackets, and `<…>` text without being escaped or parsed.
  */
-function processHtmlToMarkdown(htmlContent, baseUrl) {
+function renderComponentApiTable(section, component) {
+  const bt = s => '`' + s + '`';
+  const esc = s =>
+    String(s ?? '')
+      .replace(/\r?\n/g, ' ')
+      .replace(/\|/g, '\\|')
+      .replace(/\s+/g, ' ')
+      .trim();
+  const codeOrDash = s => {
+    const t = esc(s);
+    return t ? bt(t) : '—';
+  };
+  const table = (headers, rows) =>
+    rows.length
+      ? ['| ' + headers.join(' | ') + ' |', '| ' + headers.map(() => '---').join(' | ') + ' |', ...rows].join('\n')
+      : null;
+
+  switch (section) {
+    case 'Slots':
+      return table(
+        ['Name', 'Description'],
+        (component.slots || []).map(
+          s => `| ${s.name ? bt(esc(s.name)) : '(default)'} | ${esc(s.description) || '—'} |`,
+        ),
+      );
+
+    case 'Attributes & Properties': {
+      const props = (component.members || []).filter(
+        m => m.kind === 'field' && m.privacy !== 'private' && m.description,
+      );
+      return table(
+        ['Property', 'Attribute', 'Description', 'Type', 'Default'],
+        props.map(p => {
+          const attr = (component.attributes || []).find(a => a.fieldName === p.name);
+          return `| ${bt(esc(p.name))} | ${attr ? bt(esc(attr.name)) : '—'} | ${esc(p.description) || '—'} | ${codeOrDash(p.type && p.type.text)} | ${codeOrDash(p.default)} |`;
+        }),
+      );
+    }
+
+    case 'Methods': {
+      const methods = (component.members || []).filter(
+        m => m.kind === 'method' && m.privacy !== 'private' && m.description,
+      );
+      return table(
+        ['Name', 'Description', 'Arguments'],
+        methods.map(m => {
+          const args = (m.parameters || [])
+            .map(p => `${p.name}: ${esc(p.type && p.type.text) || 'unknown'}`)
+            .join(', ');
+          return `| ${bt(esc(m.name) + '()')} | ${esc(m.description) || '—'} | ${args ? bt(esc(args)) : '—'} |`;
+        }),
+      );
+    }
+
+    case 'Events':
+      return table(
+        ['Name', 'Description'],
+        (component.events || []).filter(e => e.name).map(e => `| ${bt(esc(e.name))} | ${esc(e.description) || '—'} |`),
+      );
+
+    case 'CSS custom properties':
+      return table(
+        ['Name', 'Description', 'Default'],
+        (component.cssProperties || []).map(
+          p => `| ${bt(esc(p.name))} | ${esc(p.description) || '—'} | ${codeOrDash(p.default)} |`,
+        ),
+      );
+
+    case 'Custom States':
+      return table(
+        ['Name', 'Description', 'CSS selector'],
+        (component.cssStates || []).map(
+          s => `| ${bt(esc(s.name))} | ${esc(s.description) || '—'} | ${bt(':state(' + esc(s.name) + ')')} |`,
+        ),
+      );
+
+    case 'CSS parts':
+      return table(
+        ['Name', 'Description', 'CSS selector'],
+        (component.cssParts || []).map(
+          p => `| ${bt(esc(p.name))} | ${esc(p.description) || '—'} | ${bt('::part(' + esc(p.name) + ')')} |`,
+        ),
+      );
+
+    default:
+      return null;
+  }
+}
+
+/**
+ * Processes rendered HTML from Eleventy output and converts it to clean Markdown.
+ *
+ * When `component` (a Custom Elements Manifest declaration) is provided, that component's API
+ * tables are regenerated from the manifest instead of being scraped from the rendered HTML.
+ */
+function processHtmlToMarkdown(htmlContent, baseUrl, component = null) {
   const root = parse(htmlContent, {
     blockTextElements: {
       script: true,
@@ -185,7 +289,36 @@ function processHtmlToMarkdown(htmlContent, baseUrl) {
   // Process tables - convert to markdown tables, skipping visual-only columns
   // We use a special marker that we'll convert back to newlines after turndown
   const TABLE_NEWLINE = '{{TABLE_NEWLINE}}';
+
+  // Map each component API table to its section heading, in document order, so CEM-backed tables
+  // can be regenerated from the manifest instead of scraped (see renderComponentApiTable).
+  const sectionByTable = new Map();
+  if (component) {
+    let currentHeading = '';
+    main.querySelectorAll('h2, table').forEach(node => {
+      if (node.tagName === 'H2') {
+        currentHeading = node.textContent.trim();
+      } else if (node.classList?.contains('component-table')) {
+        sectionByTable.set(node, currentHeading);
+      }
+    });
+  }
+
+  // CEM-generated tables are swapped in via placeholders and restored after Turndown, so their
+  // backticks, brackets, pipes, and `<…>` text aren't escaped or parsed as HTML.
+  const cemTables = [];
+
   main.querySelectorAll('table').forEach(table => {
+    // Regenerate component API tables from the CEM (lossless) rather than scraping the HTML.
+    if (sectionByTable.has(table)) {
+      const cemTable = renderComponentApiTable(sectionByTable.get(table), component);
+      if (cemTable !== null) {
+        table.replaceWith(`{{CEMTABLE${cemTables.length}}}`);
+        cemTables.push(cemTable);
+        return;
+      }
+    }
+
     const headers = [];
     const headerCells = table.querySelectorAll('thead th');
     const columnsToSkip = new Set();
@@ -284,6 +417,8 @@ function processHtmlToMarkdown(htmlContent, baseUrl) {
 
   // Restore table newlines from markers (underscores may be escaped by turndown)
   markdown = markdown.replace(/\{\{TABLE[_\\]+NEWLINE\}\}/g, '\n');
+  // Restore CEM-generated tables (kept out of the Turndown pass so their markdown isn't escaped)
+  markdown = markdown.replace(/\{\{CEMTABLE(\d+)\}\}/g, (_, i) => cemTables[Number(i)]);
 
   // Remove server-side Nunjucks templates that aren't rendered in static build
   // These are templates meant for the production server (e.g., {% if session.isLoggedIn %})
@@ -800,7 +935,7 @@ function copyAndProcessDoc(siteDir, docsDir, destDir, htmlRelPath, destFileName,
 /**
  * Copies all component documentation files from rendered HTML.
  */
-function copyAllComponentDocs(siteDir, destDir, baseUrl, frontMatterCache) {
+function copyAllComponentDocs(siteDir, destDir, baseUrl, frontMatterCache, components = []) {
   const htmlDir = path.join(siteDir, 'docs/components');
   const componentsDestDir = path.join(destDir, 'components');
 
@@ -823,8 +958,9 @@ function copyAllComponentDocs(siteDir, destDir, baseUrl, frontMatterCache) {
     if (!fs.existsSync(htmlPath)) continue;
 
     const frontmatter = frontMatterCache.get(componentName) || {};
+    const component = components.find(c => c.tagName === `wa-${componentName}`) || null;
     const htmlContent = fs.readFileSync(htmlPath, 'utf-8');
-    const { content: processed } = processHtmlToMarkdown(htmlContent, baseUrl);
+    const { content: processed } = processHtmlToMarkdown(htmlContent, baseUrl, component);
 
     const title = frontmatter.title || componentName;
     const isProComponent = frontmatter.isProComponent === true;
@@ -945,7 +1081,7 @@ export async function generateAgentSkill(options = {}) {
   fs.writeFileSync(path.join(outdir, 'SKILL.md'), skillMd, 'utf-8');
 
   // Copy all component docs from rendered HTML
-  copyAllComponentDocs(siteDir, refsDir, baseUrl, frontMatterCache);
+  copyAllComponentDocs(siteDir, refsDir, baseUrl, frontMatterCache, components);
 
   // Generate themes reference (static content)
   const themesRef = generateThemesReference(baseUrl);
