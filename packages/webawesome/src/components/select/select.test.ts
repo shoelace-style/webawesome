@@ -622,6 +622,32 @@ describe('<wa-select>', () => {
           await el.updateComplete;
           expect(displayInput.getAttribute('aria-expanded')).to.equal('false');
         });
+
+        it('should scroll the matched option into view when typing', async () => {
+          const el = await fixture<WaSelect>(html`
+            <wa-select>
+              ${Array.from(
+                { length: 30 },
+                (_, index) => html`<wa-option value=${`option-${index}`}>Option ${index}</wa-option>`,
+              )}
+              <wa-option value="ghana">Ghana</wa-option>
+            </wa-select>
+          `);
+          const ghanaOption = el.querySelector<WaOption>('wa-option[value="ghana"]')!;
+
+          el.listbox.style.height = '120px';
+          await el.show();
+          await el.updateComplete;
+          el.listbox.scrollTop = 0;
+
+          el.focus();
+          await sendKeys({ press: 'g' });
+          await el.updateComplete;
+          await aTimeout(50);
+
+          expect(el.currentOption).to.equal(ghanaOption);
+          expect(el.listbox.scrollTop).to.be.greaterThan(0);
+        });
       });
 
       describe('form integration', () => {

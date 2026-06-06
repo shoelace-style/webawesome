@@ -715,6 +715,10 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
       option.current = true;
       option.tabIndex = 0;
       option.focus({ preventScroll: true });
+
+      if (this.open && this.listbox && !this.listbox.hidden) {
+        scrollIntoView(option, this.listbox, 'vertical', 'auto');
+      }
     }
   }
 
