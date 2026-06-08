@@ -16,6 +16,15 @@ These are still finding their shape. APIs can change between minor versions, so 
 
 {% include "changelog-email-signup.njk" %}
 
+## Unreleased
+
+<small>TBD</small>
+
+:::fixed
+
+- Fixed a bug in `<wa-button>` where the slotted icon was rendered off-center at `size="xs"` in Firefox [issue:2426]
+
+
 ## 3.8.0
 
 <small><time datetime="2026-06-05">June 5th, 2026</time></small>
@@ -55,7 +64,6 @@ These are still finding their shape. APIs can change between minor versions, so 
 - Fixed a bug in `<wa-drawer>` that caused the `light-dismiss` option not work as intended [pr:2437]
 - Fixed a bug in `<wa-dropdown>` that prevented items from being visible when the selected overflowed [pr:2430]
 - Fixed a bug in `<wa-carousel>` that prevented the carousel from smoothly snapping back into position when using with the mouse [issue:1103]
-- Fixed a bug in `<wa-button>` where the slotted icon was rendered off-centre at `size="xs"` in Firefox [issue:2426]
 
 :::
 
