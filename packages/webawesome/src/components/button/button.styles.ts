@@ -279,10 +279,6 @@ export default css`
 
   .is-icon-button .label {
     display: flex;
-    /* Center the slotted icon horizontally so the icon sits in the
-       middle of the square label regardless of the icon host's
-       intrinsic width. Without this, Firefox renders the icon off-
-       centre at small sizes (e.g. size="xs"). */
     justify-content: center;
   }
 
