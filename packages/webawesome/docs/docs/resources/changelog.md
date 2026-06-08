@@ -16,6 +16,15 @@ These are still finding their shape. APIs can change between minor versions, so 
 
 {% include "changelog-email-signup.njk" %}
 
+## Unreleased
+
+:::fixed
+
+- Fixed a bug in `<wa-checkbox>` and `<wa-switch>` where `.checked` property would not properly update the shadow dom checkbox.
+
+:::
+
+
 ## 3.8.0
 
 <small><time datetime="2026-06-05">June 5th, 2026</time></small>
