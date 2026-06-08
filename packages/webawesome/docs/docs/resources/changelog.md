@@ -22,9 +22,9 @@ These are still finding their shape. APIs can change between minor versions, so 
 
 - Fixed a bug in `<wa-checkbox>` and `<wa-switch>` where `.checked` property would not properly update the shadow dom checkbox.
 - Fixed a bug where `@lit-labs/ssr` was not included as a dependency.
+- Fixed a bug in `<wa-button>` where the slotted icon was rendered off-center at `size="xs"` in Firefox [issue:2426]
 
 :::
-
 
 ## 3.8.0
 
@@ -65,7 +65,6 @@ These are still finding their shape. APIs can change between minor versions, so 
 - Fixed a bug in `<wa-drawer>` that caused the `light-dismiss` option not work as intended [pr:2437]
 - Fixed a bug in `<wa-dropdown>` that prevented items from being visible when the selected overflowed [pr:2430]
 - Fixed a bug in `<wa-carousel>` that prevented the carousel from smoothly snapping back into position when using with the mouse [issue:1103]
-- Fixed a bug in `<wa-button>` where the slotted icon was rendered off-centre at `size="xs"` in Firefox [issue:2426]
 
 :::
 
