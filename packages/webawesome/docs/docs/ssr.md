@@ -13,18 +13,14 @@ layout: page-outline
 <p>Server Side Rendering ("SSR") means your webpage is rendered on the server before being sent to the user's browser. This provides a fully formed HTML page right from the start, which is great for SEO and initial load times. Once the page is rendered, JavaScript kicks in to "hydrate" the components which makes them interactive. The Web platform supports this through a feature called <a href="https://web.dev/articles/declarative-shadow-dom">Declarative Shadow DOM</a></p>
 
 :::warning
-**SSR is experimental.**
-Be mindful of [known bugs and timing issues](#known-issues). This status is also partially due to Lit's SSR package being experimental.
-
-**Notice a bug that we didn't?**
-[Report the issue on GitHub](https://github.com/shoelace-style/webawesome/issues).
+**SSR is experimental**, in part because Lit's SSR package is too. Watch for [known bugs and timing issues](#known-issues), and please [report anything new on GitHub](https://github.com/shoelace-style/webawesome/issues).
 :::
 
 ## Goals of SSR
 
-The goal of SSR in Web Awesome currently is reduce layout shifting and provide a rough approximation of the final component once the JavaScript for the component is ready, they are **NOT** meant to be components that fully work without JavaScript.
+The goal of SSR in Web Awesome currently is to reduce layout shifting and provide a rough approximation of the final component until its JavaScript is ready. SSR components are **NOT** meant to fully work without JavaScript.
 
-Progressive enhancement is _not_ a goal of Web Awesome (currently). This is partially because for form controls in particular, there is no browser API to "hoist" form controls from the shadow root. Other reasons is there are certain components like `<wa-chart>`, `<wa-qr-code>`, etc that depend on browser APIs like `<canvas>` being available.
+Progressive enhancement is _not_ a goal of Web Awesome (currently). This is partially because, for form controls in particular, there is no browser API to "hoist" form controls from the shadow root. Another reason is that certain components like `<wa-chart>` and `<wa-qr-code>` depend on browser APIs like `<canvas>` being available.
 
 ## Enable Hydration
 
@@ -79,10 +75,12 @@ All Web Awesome components that get rendered for SSR will receive the `did-ssr` 
 <wa-button appearance="filled" did-ssr></wa-button>
 ```
 
-This can help if you need some styling prior to the element connecting. Such as:
+This can help you style elements before they connect. For example, you can hide custom elements that _weren't_ server-rendered until they're defined, so SSR'd elements still show their pre-hydration markup:
 
 ```css
-[did-ssr]:not(:defined) {
+/* Avoid a flash of unstyled content for elements that weren't server-rendered. */
+:not([did-ssr]):not(:defined) {
+  visibility: hidden;
 }
 ```
 
@@ -132,11 +130,13 @@ function fixDeclarativeShadowDOM(e) {
 });
 ```
 
-### The `with-*` Attributes
+## The `with-*` Attributes
 
 Some components use slot detection to conditionally render parts of their template. For example, `<wa-dialog>` only renders its footer when a `footer` slot is present. During SSR, slot detection doesn't work because the DOM isn't available, so these parts would be missing from the initial server-rendered markup.
 
 To solve this, components that rely on slot detection provide `with-*` attributes. These tell the component to render the relevant section during SSR, before hydration kicks in and slot detection takes over.
+
+Not every component has `with-*` attributes—only those that conditionally render parts based on slot content. Check a component's documentation to see which `with-*` attributes it supports.
 
 ```html
 <!-- Without with-footer, the footer won't appear in the server-rendered HTML -->
@@ -150,19 +150,7 @@ To solve this, components that rely on slot detection provide `with-*` attribute
 
 These attributes are only needed for SSR. After the component hydrates on the client, slot detection works normally and the attributes have no effect.
 
-#### For Contributors
-
-When adding slot detection to a component's render method using `HasSlotController`, always include an SSR fallback using the `hasUpdated` ternary pattern:
-
-```ts
-// Add a with-* property
-@property({ attribute: 'with-label', type: Boolean }) withLabel = false;
-
-// In render(), fall back to the with-* property before the component has hydrated
-const hasLabelSlot = this.hasUpdated
-  ? this.hasSlotController.test('label')
-  : this.withLabel;
-```
+Contributing a component that needs a `with-*` fallback? See [Server-Side Rendering in the contributing guide](/docs/resources/contributing#server-side-rendering-ssr) for the implementation pattern.
 
 ## Known Issues
 
