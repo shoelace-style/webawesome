@@ -1,4 +1,4 @@
-import { expect } from '@open-wc/testing';
+import { aTimeout, expect } from '@open-wc/testing';
 import { html } from 'lit';
 import { fixtures } from '../../internal/test/fixture.js';
 import type WaCard from './card.js';
@@ -58,6 +58,7 @@ describe('<wa-card>', () => {
           for (const appearance of ['accent', 'filled', 'outlined', 'filled-outlined', 'plain'] as const) {
             const el = await fixture<WaCard>(html`<wa-card appearance="${appearance}">Content</wa-card>`);
             expect(el.getAttribute('appearance')).to.equal(appearance);
+            await aTimeout(1)
           }
         });
 

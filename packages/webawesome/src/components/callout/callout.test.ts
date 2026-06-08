@@ -1,4 +1,4 @@
-import { expect } from '@open-wc/testing';
+import { aTimeout, expect } from '@open-wc/testing';
 import { html } from 'lit';
 import { fixtures } from '../../internal/test/fixture.js';
 import type WaCallout from './callout.js';
@@ -19,6 +19,7 @@ describe('<wa-callout>', () => {
             const el = await fixture<WaCallout>(html`<wa-callout variant="${variant}">Callout</wa-callout>`);
             await el.updateComplete;
             await expect(el).to.be.accessible();
+            await aTimeout(1)
           }
         });
       });
