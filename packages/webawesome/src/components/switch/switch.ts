@@ -216,6 +216,11 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
     const hasHintSlot = this.hasSlotController.test('hint', 'withHint');
     const hasHint = this.hint ? true : !!hasHintSlot;
 
+    // We need to use the attribute for SSR, because for some reason Lit SSR always sets `.checked=${live(this.checked)}` as "true"
+    // TODO: Tell Konnor to submit a bug report + repo about this.
+    const checkedAttribute = (this.didSSR && !this.hasUpdated) ? this.checked : this.defaultChecked
+    const checkedProperty = (this.didSSR && !this.hasUpdated) ? null : live(this.checked)
+
     return html`
       <label
         part="base"
@@ -230,8 +235,8 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
           title=${this.title /* An empty title prevents browser validation tooltips from appearing on hover */}
           name=${ifDefined(this.name)}
           value=${ifDefined(this.value)}
-          .checked=${live(this.checked)}
-          ?checked=${this.defaultChecked}
+          .checked=${ifDefined(checkedProperty)}
+          ?checked=${checkedAttribute}
           ?disabled=${this.disabled}
           ?required=${this.required}
           role="switch"

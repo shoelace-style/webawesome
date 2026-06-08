@@ -227,11 +227,17 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
     const iconName = isIndeterminate ? 'indeterminate' : 'check';
     const iconState = isIndeterminate ? 'indeterminate' : 'check';
 
+    // We need to use the attribute for SSR, because for some reason Lit SSR always sets `.checked=${live(this.checked)}` as "true"
+    // TODO: Tell Konnor to submit a bug report + repo about this.
+    const checkedAttribute = (this.didSSR && !this.hasUpdated) ? this.checked : this.defaultChecked
+    const checkedProperty = (this.didSSR && !this.hasUpdated) ? null : live(this.checked)
+
     //
     // NOTE: we use a `<div>` around the label slot because of this Chrome bug.
     // Fixed in Chrome 119
     // https://bugs.chromium.org/p/chromium/issues/detail?id=1413733
     //
+
     return html`
       <label part="base">
         <span part="control">
@@ -242,7 +248,8 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
             name=${ifDefined(this.name)}
             value=${ifDefined(this.value)}
             .indeterminate=${live(this.indeterminate)}
-            ?checked=${this.defaultChecked}
+            .checked=${ifDefined(checkedProperty)}
+            ?checked=${checkedAttribute}
             ?disabled=${this.disabled}
             ?required=${this.required}
             aria-checked=${this.indeterminate ? 'mixed' : this.checked ? 'true' : 'false'}
