@@ -96,6 +96,78 @@ Modifiers combine: `class="wa-cluster wa-gap-xs wa-align-items-start"`. Make one
 
 ---
 
+## Companion utilities
+
+The layout primitives above are the headlines. A set of small companion utility classes covers the
+everyday refinements you'd otherwise reach for inline `style=""` to express — alignment, text
+treatment, sizing, color, accessibility. Use these alongside the layout primitives instead of inline
+styles (see Rule 8 in the main skill).
+
+### Alignment modifiers
+
+Combine with any layout utility to fine-tune cross-axis and main-axis placement.
+
+| You want…                           | Use                                                                                                    |
+| ----------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| Vertical (cross-axis) alignment     | `wa-align-items-start` / `-end` / `-center` / `-stretch` / `-baseline`                                 |
+| Horizontal (main-axis) distribution | `wa-justify-content-start` / `-end` / `-center` / `-space-between` / `-space-around` / `-space-evenly` |
+| Control wrap                        | `wa-flex-wrap` / `wa-flex-nowrap` / `wa-flex-wrap-reverse`                                             |
+
+`wa-split` and `wa-cluster` already center on the cross-axis by default (0-specificity); reach for
+`wa-align-items-*` when you need something different. Never write `style="align-items: center;"` on top
+of a utility class that already centers — it's redundant and breaks Rule 8.
+
+### Text utilities
+
+For text alignment, wrapping, and transformation, prefer `wa-text-*` over inline
+`text-align` / `text-wrap` / `text-transform`.
+
+| You want…                 | Use                                                                    |
+| ------------------------- | ---------------------------------------------------------------------- |
+| Text alignment            | `wa-text-start` / `wa-text-center` / `wa-text-end` / `wa-text-justify` |
+| Avoid awkward line breaks | `wa-text-balance` (headings) / `wa-text-pretty` (paragraphs)           |
+| Prevent wrapping          | `wa-text-nowrap`                                                       |
+| Letter casing             | `wa-text-uppercase` / `wa-text-lowercase` / `wa-text-capitalize`       |
+
+(Large blocks of uppercase text are harder to read for everyone, especially folks with dyslexia.
+Reserve `wa-text-uppercase` for buttons, badges, or short headings.)
+
+### Component sizing
+
+Most components accept a `size` attribute (`xs` / `s` / `m` / `l` / `xl`). The `wa-size-*` utility
+classes are the class-form equivalent — useful when sizing a non-component wrapper to match a
+component's scale (e.g. a custom badge sitting next to `<wa-button size="s">`).
+
+### Text color
+
+For body text color, use the utility class instead of an inline `color` declaration.
+
+| You want…          | Use                    |
+| ------------------ | ---------------------- |
+| Default text color | `wa-color-text-normal` |
+| De-emphasized text | `wa-color-text-quiet`  |
+| Link-styled color  | `wa-color-text-link`   |
+
+For text **on colored backgrounds**, use the `*-on-*` semantic token instead (see the Custom CSS
+playbook below) — those are WCAG-tuned for contrast.
+
+### Accessibility
+
+`wa-visually-hidden` hides content from sighted users while keeping it available to screen readers.
+Use it for labels on icon-only controls when there's no visible text:
+
+```html
+<wa-button>
+  <wa-icon name="settings"></wa-icon>
+  <span class="wa-visually-hidden">Settings</span>
+</wa-button>
+```
+
+(For `<wa-icon>` itself, the `label` attribute is simpler — use `wa-visually-hidden` when you need
+a span of extra text rather than a single icon label.)
+
+---
+
 ## Typography
 
 Font sizes follow a 1.125 modular scale (`--wa-font-size-*`):
