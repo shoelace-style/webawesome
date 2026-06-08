@@ -25,11 +25,11 @@ and `categories` are optional — card callers omit them and skip the link. #}
 {% if component.since %}
 {% if categories %}
 {# Pad 2-part versions (e.g. `3.6`) to match 3-part changelog headings (`## 3.6.0` → `#wa_360`).
-The anchor transform slugifies headings as `wa_<digits>`; if no match exists the link still lands on the changelog.
+The `headingId` filter mirrors the anchor transform's slug exactly; if no heading matches the link still lands on the changelog.
   Card callers omit `categories` and skip the link to avoid nesting anchors inside the card's outer link. #}
   {%- set sinceVersion = component.since -%}
   {%- if sinceVersion.split('.').length == 2 -%}{%- set sinceVersion = sinceVersion + '.0' -%}{%- endif -%}
-  <a class="component-since-link" href="/docs/resources/changelog#wa_{{ sinceVersion | replace('.', '') }}">
+  <a class="component-since-link" href="/docs/resources/changelog#{{ sinceVersion | headingId }}">
     <wa-badge variant="neutral" appearance="filled" pill>Since {{ component.since }}</wa-badge>
   </a>
   {% else %}
