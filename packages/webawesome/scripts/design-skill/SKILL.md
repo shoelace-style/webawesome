@@ -138,7 +138,11 @@ These are the things that go wrong most often. Treat them as hard constraints.
 Producing the markup is the first draft, not the finished design. **After you create or substantially edit
 any design, make a second pass: re-read the rules above and revise the output to match them.** Models
 reliably state these rules and then violate them while generating long files — the second pass is what
-actually catches it. Walk your own output and fix each before declaring it done:
+actually catches it. Walk your own output and fix each before declaring it done.
+
+**This is the structural pass** — markup, decisions, valid HTML, rule compliance. For visual quality
+(spacing rhythm, hierarchy, contrast, surface choices) walk the
+[Polish checklist](references/composition.md#polish-checklist) in composition.md too.
 
 - [ ] **Redundant `<wa-page>` sidebar (check this first on any full page).** If you used `slot="navigation"`,
       confirm you actually want a **persistent left sidebar on desktop**. On a landing/marketing page you

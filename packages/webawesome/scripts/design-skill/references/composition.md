@@ -419,19 +419,16 @@ the inline-styles rule in the main skill file.
 
 ## Polish checklist
 
-Before calling a layout done:
+After the **structural Final Pass** in SKILL.md (markup, slot decisions, rule compliance), walk this
+**visual-quality pass** before calling a layout done. These check the things that make the output look
+intentionally designed — spacing rhythm, hierarchy, contrast on surfaces, and brand presence.
 
-- [ ] Spacing comes from `wa-gap-*` / `--wa-space-*` (no raw `px`).
-- [ ] Colors are semantic tokens (`--wa-color-brand-*`, `-surface-*`, `-text-*`), not hex.
-- [ ] Layout uses utilities (`wa-stack`/`wa-cluster`/`wa-grid`/…) with minimal hand-rolled flex/grid.
+- [ ] **Spacing rhythm is consistent within a section** — at most 2 distinct `wa-gap-*` values per section (a base gap for the main flow, optionally a tighter step for closely-related inner clusters). If you see 3+ different `wa-gap-*` classes in one section, consolidate.
 - [ ] A theme + palette is set on `<html>`.
-- [ ] Text on filled backgrounds uses `*-on-*` tokens (accessible contrast).
+- [ ] Text on filled backgrounds uses `*-on-*` tokens (accessible contrast — WCAG-tuned pairings).
 - [ ] Bordered elements (cards, callouts, inputs) on colored bands don't show the default gray border — change `appearance` or recolor `border-color` to match the band.
+- [ ] Quiet/plain controls on colored bands have full-contrast on-color text, not the muted page-surface color (otherwise they read as low-contrast or disabled).
 - [ ] One consistent border-radius scale across cards, inputs, buttons.
 - [ ] Clear hierarchy: distinct heading/body/caption styles; generous whitespace between sections.
-- [ ] Icons use `<wa-icon>` (no emojis); meaningful icons have a `label`.
-- [ ] Images are real assets (ask the user if you don't have one) or token-based placeholders in `wa-frame` — never a broken `src` or emoji stand-in; meaningful `alt`.
 - [ ] A single primary action per view (`variant="brand"`); secondaries are quieter (`appearance="plain"`).
-- [ ] No inline `style` attributes — reusable classes live in a `<style>` block.
 - [ ] Any custom CSS uses **semantic** color tokens (`--wa-color-brand-*`, `-surface-*`, `-text-*`), not raw palette tints (`--wa-color-blue-50`) — so dark mode and re-theming work automatically.
-- [ ] Component overrides go through tokens, attributes, or `::part()` (per the component's API), not host CSS that the shadow DOM ignores.
