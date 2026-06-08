@@ -218,8 +218,8 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
 
     // We need to use the attribute for SSR, because for some reason Lit SSR always sets `.checked=${live(this.checked)}` as "true"
     // TODO: Tell Konnor to submit a bug report + repo about this.
-    const checkedAttribute = (this.didSSR && !this.hasUpdated) ? this.checked : this.defaultChecked
-    const checkedProperty = (this.didSSR && !this.hasUpdated) ? null : live(this.checked)
+    const checkedAttribute = this.didSSR && !this.hasUpdated ? this.checked : this.defaultChecked;
+    const checkedProperty = this.didSSR && !this.hasUpdated ? null : live(this.checked);
 
     return html`
       <label
