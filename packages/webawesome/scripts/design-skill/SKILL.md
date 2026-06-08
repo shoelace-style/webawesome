@@ -68,9 +68,17 @@ no `view='mobile'`, no `--menu-width`, no `data-toggle-nav`, and no `.wa-desktop
 
 ### The rule
 
-Never mix the two. Don't nest `<wa-page>` inside a section, and don't hand-roll a full-page grid when
-`<wa-page>` was the right tool. **If you're unsure which branch applies, ask the user: "Are you building
-a full page, or a piece of one?"** before generating markup.
+Never mix the two **at the same level**. Don't nest `<wa-page>` inside another `<wa-page>`, and don't
+hand-roll a full-page grid when `<wa-page>` was the right tool.
+
+**Layouts nest, though.** A full page _contains_ sections, and every section is itself a
+piece-of-a-page — same for `<wa-dialog>` bodies, `<wa-drawer>` bodies, card contents, and any embedded
+panel. Inside those inner containers, you're back in the in-page branch (utility classes, no
+`<wa-page>` slot semantics) regardless of what the outer page is. Answer STEP 0 for the outermost
+frame; then answer it again for each self-contained inner container.
+
+**If you're unsure which branch applies, ask the user: "Are you building a full page, or a piece of
+one?"** before generating markup.
 
 ---
 
