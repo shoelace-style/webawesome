@@ -50,7 +50,7 @@ persistent left sidebar column** — see the warning directly below before you u
 ## ⚠️ The `navigation` slot is a desktop sidebar, not a "mobile menu"
 
 This is the single most common `<wa-page>` mistake. The `navigation` slot is a **standing left sidebar
-on desktop** that *additionally* collapses into a drawer on mobile. It is **not** a mobile-only menu that
+on desktop** that _additionally_ collapses into a drawer on mobile. It is **not** a mobile-only menu that
 hides on desktop. If you slot links into `navigation` thinking "this is my hamburger menu," you will get
 an unstyled column of links pinned down the left side of every desktop view — outside your hero, on the
 bare page surface.
@@ -67,7 +67,7 @@ or hides on small screens. So:
   slot as intended, and follow Hard rule 5 — set `--menu-width` and reset it to `auto` under
   `wa-page[view='mobile']`, or the sidebar's reserved space leaks onto mobile too.
 
-Quick test: *"Do I want a column of navigation down the left edge on a wide screen?"* If **no**, the
+Quick test: _"Do I want a column of navigation down the left edge on a wide screen?"_ If **no**, the
 `navigation` slot is the wrong tool — keep nav in the header and hand-roll the mobile drawer.
 
 ---
@@ -368,22 +368,40 @@ navigation sidebar, main content, a sticky table-of-contents aside, and a footer
 
 ## Anti-patterns
 
-| ❌ Don't                                           | ✅ Do                                                                  |
-| -------------------------------------------------- | ---------------------------------------------------------------------- |
-| Forget the `html, body` reset → gaps appear        | Always add the reset (or use native styles)                            |
-| Expect `<wa-page>` to emit `<main>`/`<header>`     | Slot in your own semantic elements                                     |
-| Put nav in `menu` and wonder why it won't collapse | Use `navigation` (+ `navigation-header`/`-footer`) for mobile collapse |
+| ❌ Don't                                                                                                                                                                         | ✅ Do                                                                                                                                                                          |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Forget the `html, body` reset → gaps appear                                                                                                                                      | Always add the reset (or use native styles)                                                                                                                                    |
+| Expect `<wa-page>` to emit `<main>`/`<header>`                                                                                                                                   | Slot in your own semantic elements                                                                                                                                             |
+| Put nav in `menu` and wonder why it won't collapse                                                                                                                               | Use `navigation` (+ `navigation-header`/`-footer`) for mobile collapse                                                                                                         |
 | Put nav in `header` **and** copy it into `slot="navigation"` as "the mobile menu" → a redundant bare sidebar column appears down the left on desktop, duplicating the header nav | Landing page: nav in `header` only, **no** `navigation` slot, **no** `data-toggle-nav`; mobile menu is your own `<wa-drawer>`. Reserve `navigation` for a real desktop sidebar |
-| Pair `data-toggle-nav` with your own `<wa-drawer>` on a landing page (it toggles the empty `navigation` drawer, not yours → dead button) | Open your own drawer with a normal click handler; use `data-toggle-nav` only for the `navigation` sidebar drawer |
-| Set `--menu-width: 16rem` and leave it on mobile   | Reset widths to `auto` under `wa-page[view='mobile']`                  |
-| Nav links that leave the drawer open after a tap   | Add `data-drawer="close"` to navigation links                          |
-| Expect `aside` to disappear on mobile on its own   | `aside` has no drawer; hide it (`.wa-desktop-only` or `display: none`) |
-| Try to set `view="mobile"` yourself                | `view` is read-only; the component sets it. Only read it in CSS        |
-| Hand-roll a `display: grid` page shell             | Use `<wa-page>`; it already is the grid                                |
-| Nest `<wa-page>` inside a section or another page  | One `<wa-page>` per page, at the top level                             |
-| Hand-roll a mobile nav and only translate it off-screen → it overlaps content at desktop | Use the `navigation` slot (auto drawer). If you must hand-roll, hide it with `display: none` at desktop, not just `transform` |
-| Hardcode header colors with hex                    | Use `--wa-color-surface-*` / semantic tokens                           |
-| `<wa-button />` (self-closing)                     | `<wa-button></wa-button>`                                              |
+| Pair `data-toggle-nav` with your own `<wa-drawer>` on a landing page (it toggles the empty `navigation` drawer, not yours → dead button)                                         | Open your own drawer with a normal click handler; use `data-toggle-nav` only for the `navigation` sidebar drawer                                                               |
+| Set `--menu-width: 16rem` and leave it on mobile                                                                                                                                 | Reset widths to `auto` under `wa-page[view='mobile']`                                                                                                                          |
+| Nav links that leave the drawer open after a tap                                                                                                                                 | Add `data-drawer="close"` to navigation links                                                                                                                                  |
+| Expect `aside` to disappear on mobile on its own                                                                                                                                 | `aside` has no drawer; hide it (`.wa-desktop-only` or `display: none`)                                                                                                         |
+| Try to set `view="mobile"` yourself                                                                                                                                              | `view` is read-only; the component sets it. Only read it in CSS                                                                                                                |
+| Hand-roll a `display: grid` page shell                                                                                                                                           | Use `<wa-page>`; it already is the grid                                                                                                                                        |
+| Nest `<wa-page>` inside a section or another page                                                                                                                                | One `<wa-page>` per page, at the top level                                                                                                                                     |
+| Hand-roll a mobile nav and only translate it off-screen → it overlaps content at desktop                                                                                         | Use the `navigation` slot (auto drawer). If you must hand-roll, hide it with `display: none` at desktop, not just `transform`                                                  |
+| Hardcode header colors with hex                                                                                                                                                  | Use `--wa-color-surface-*` / semantic tokens                                                                                                                                   |
+| `<wa-button />` (self-closing)                                                                                                                                                   | `<wa-button></wa-button>`                                                                                                                                                      |
+
+---
+
+## `<wa-page>` checklist
+
+Before calling a `<wa-page>` layout done, walk this **`<wa-page>`-specific** structural pass. This sits
+alongside the general structural Final Pass in SKILL.md and the visual Polish Checklist in composition.md;
+each catches different things.
+
+- [ ] **Right sidebar decision.** Landing page: no `navigation` slot, no `data-toggle-nav`; the mobile menu is your own `<wa-drawer>`. App shell / docs: `navigation` slot used with `--menu-width` set, and reset to `auto` under `wa-page[view='mobile']`.
+- [ ] **`html, body` reset** is in place (or you're using native styles) — otherwise gaps appear around the page.
+- [ ] **Your own semantic elements are slotted** — `<header>`, `<main>`, `<footer>`, `<nav>`, `<aside>`. `<wa-page>` emits none.
+- [ ] **`main` padding is `0`** for full-bleed pages where sections own their gutter; keep the default only for a single contained column (docs article, login form).
+- [ ] **Sidebar widths reset on mobile.** `--menu-width` and `--aside-width` go to `auto` under `wa-page[view='mobile']` so they don't leak; the `aside` is hidden (`display: none`) on mobile since it has no auto-drawer.
+- [ ] **`data-drawer="close"`** is on every link in the mobile-collapsing nav, so tapping one closes the drawer instead of leaving it open over the next page.
+- [ ] **`data-toggle-nav` is only used when you have a real `navigation` slot.** On a landing page without one, it opens an empty drawer — a dead button. Wire your own mobile menu with a normal click handler instead.
+- [ ] **`view` is read-only.** Read it in CSS (`wa-page[view='mobile']`); never set it as an attribute.
+- [ ] **One `<wa-page>` per page**, at the top level — never nested inside a section or another `<wa-page>`.
 
 ---
 

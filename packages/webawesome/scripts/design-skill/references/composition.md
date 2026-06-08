@@ -40,13 +40,13 @@ Rule 5 forbids raw `px`/`rem`, but the moment you build a fixed-size element —
 avatar, a content column's `max-width`, a hairline border — it's tempting to type `3.5rem` or `1px`.
 Don't. Use the scales instead:
 
-| You're sizing…                  | Use                                                                                  |
-| ------------------------------- | ------------------------------------------------------------------------------------ |
-| A round icon "chip"/badge       | `width`/`height` from `--wa-space-*` (e.g. `--wa-space-2xl`), `--wa-border-radius-circle`, center the glyph with `wa-cluster` |
-| An avatar                       | The `<wa-avatar>` component (sizes itself); set `--size` only if needed               |
-| A readable content column       | A reused class with `max-width` in `ch` for prose (`60ch`–`75ch`) or a `--wa-space-*` multiple — define it **once**, not inline per section |
-| A hairline border / rule        | `var(--wa-border-width-s)` + `var(--wa-color-surface-border)`, or just `<wa-divider>` |
-| A glyph's size                  | `font-size: var(--wa-font-size-*)` — icons inherit it (see Icons below)               |
+| You're sizing…            | Use                                                                                                                                         |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| A round icon "chip"/badge | `width`/`height` from `--wa-space-*` (e.g. `--wa-space-2xl`), `--wa-border-radius-circle`, center the glyph with `wa-cluster`               |
+| An avatar                 | The `<wa-avatar>` component (sizes itself); set `--size` only if needed                                                                     |
+| A readable content column | A reused class with `max-width` in `ch` for prose (`60ch`–`75ch`) or a `--wa-space-*` multiple — define it **once**, not inline per section |
+| A hairline border / rule  | `var(--wa-border-width-s)` + `var(--wa-color-surface-border)`, or just `<wa-divider>`                                                       |
+| A glyph's size            | `font-size: var(--wa-font-size-*)` — icons inherit it (see Icons below)                                                                     |
 
 ```css
 /* ✓ Token-based circular icon badge — no raw rem, themes correctly. */
@@ -93,6 +93,78 @@ Modifiers combine: `class="wa-cluster wa-gap-xs wa-align-items-start"`. Make one
 <!-- Responsive tiles -->
 <div class="wa-grid wa-gap-l" style="--min-column-size: 14rem;">…</div>
 ```
+
+---
+
+## Companion utilities
+
+The layout primitives above are the headlines. A set of small companion utility classes covers the
+everyday refinements you'd otherwise reach for inline `style=""` to express — alignment, text
+treatment, sizing, color, accessibility. Use these alongside the layout primitives instead of inline
+styles (see Rule 8 in the main skill).
+
+### Alignment modifiers
+
+Combine with any layout utility to fine-tune cross-axis and main-axis placement.
+
+| You want…                           | Use                                                                                                    |
+| ----------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| Vertical (cross-axis) alignment     | `wa-align-items-start` / `-end` / `-center` / `-stretch` / `-baseline`                                 |
+| Horizontal (main-axis) distribution | `wa-justify-content-start` / `-end` / `-center` / `-space-between` / `-space-around` / `-space-evenly` |
+| Control wrap                        | `wa-flex-wrap` / `wa-flex-nowrap` / `wa-flex-wrap-reverse`                                             |
+
+`wa-split` and `wa-cluster` already center on the cross-axis by default (0-specificity); reach for
+`wa-align-items-*` when you need something different. Never write `style="align-items: center;"` on top
+of a utility class that already centers — it's redundant and breaks Rule 8.
+
+### Text utilities
+
+For text alignment, wrapping, and transformation, prefer `wa-text-*` over inline
+`text-align` / `text-wrap` / `text-transform`.
+
+| You want…                 | Use                                                                    |
+| ------------------------- | ---------------------------------------------------------------------- |
+| Text alignment            | `wa-text-start` / `wa-text-center` / `wa-text-end` / `wa-text-justify` |
+| Avoid awkward line breaks | `wa-text-balance` (headings) / `wa-text-pretty` (paragraphs)           |
+| Prevent wrapping          | `wa-text-nowrap`                                                       |
+| Letter casing             | `wa-text-uppercase` / `wa-text-lowercase` / `wa-text-capitalize`       |
+
+(Large blocks of uppercase text are harder to read for everyone, especially folks with dyslexia.
+Reserve `wa-text-uppercase` for buttons, badges, or short headings.)
+
+### Component sizing
+
+Most components accept a `size` attribute (`xs` / `s` / `m` / `l` / `xl`). The `wa-size-*` utility
+classes are the class-form equivalent — useful when sizing a non-component wrapper to match a
+component's scale (e.g. a custom badge sitting next to `<wa-button size="s">`).
+
+### Text color
+
+For body text color, use the utility class instead of an inline `color` declaration.
+
+| You want…          | Use                    |
+| ------------------ | ---------------------- |
+| Default text color | `wa-color-text-normal` |
+| De-emphasized text | `wa-color-text-quiet`  |
+| Link-styled color  | `wa-color-text-link`   |
+
+For text **on colored backgrounds**, use the `*-on-*` semantic token instead (see the Custom CSS
+playbook below) — those are WCAG-tuned for contrast.
+
+### Accessibility
+
+`wa-visually-hidden` hides content from sighted users while keeping it available to screen readers.
+Use it for labels on icon-only controls when there's no visible text:
+
+```html
+<wa-button>
+  <wa-icon name="settings"></wa-icon>
+  <span class="wa-visually-hidden">Settings</span>
+</wa-button>
+```
+
+(For `<wa-icon>` itself, the `label` attribute is simpler — use `wa-visually-hidden` when you need
+a span of extra text rather than a single icon label.)
 
 ---
 
@@ -149,23 +221,44 @@ text need none.
 **Icon library.** By default, `<wa-icon>` draws from **Font Awesome Free**. Most common UI needs
 (arrows, common actions, social, etc.) are covered. Use any [Font Awesome Free icon name](https://fontawesome.com/search?o=r&m=free).
 
+**Picking the right icon.** If your tool has access to Font Awesome's
+[official agent skills](https://github.com/FortAwesome/fontawesome-agent-tools) (`icons:suggest-icon`,
+`icons:add-icon` from the Font Awesome team), prefer those over guessing an icon name.
+`icons:suggest-icon` returns a recommendation for a concept, verb, or noun — pass the result to
+`<wa-icon name="…">`. That picks icons by intent rather than by keyword match, which is usually how
+guessing goes wrong. Both skills work with the Free library by default; with a Pro kit code (below),
+they also surface Pro icons.
+
 **Font Awesome Pro / Pro+.** If the user has a Font Awesome Pro kit, you can unlock the Pro and Pro+
 icon families (`thin`, `light`, `sharp`, `duotone`, etc.) by setting their kit code. **Act on this — don't
 just leave Free on the table:** if the user has told you they have Font Awesome Pro (or Web Awesome Pro,
 which includes it), wire up their kit code and feel free to use Pro families. If a project clearly wants a
 distinctive icon weight (thin/light/duotone) and you don't know whether they have a kit, **ask once**
 ("Do you have a Font Awesome Pro kit code?") rather than silently shipping only Free `solid` icons. Do
-**not** invent or add a kit code otherwise — without one, stay on Font Awesome Free.
+**not** invent or add a kit code otherwise — without one, stay on Font Awesome Free. Use any **one** of
+these:
+
+Option 1 — the `data-fa-kit-code` attribute on `<html>` (mirrors the theme/palette classes):
 
 ```html
-<!-- Option 1: the data-fa-kit-code attribute on the loader script -->
-<script src="webawesome.loader.js" data-fa-kit-code="YOUR_KIT_CODE_HERE"></script>
+<html class="wa-theme-default wa-palette-default wa-light" data-fa-kit-code="YOUR_KIT_CODE_HERE"></html>
+```
 
-<!-- Option 2: the setKitCode() method -->
-<script type="module">
-  import { setKitCode } from 'webawesome.loader.js';
-  setKitCode('YOUR_KIT_CODE_HERE');
-</script>
+Option 2 — the same attribute on the loader script (the canonical CDN URL is
+`https://ka-f.webawesome.com/webawesome@<version>/dist/webawesome.loader.js`; substitute your
+loader's actual URL or path):
+
+```html
+<script src="…/webawesome.loader.js" data-fa-kit-code="YOUR_KIT_CODE_HERE"></script>
+```
+
+Option 3 — the `setKitCode()` method. Import from the npm package, or from the CDN loader URL:
+
+```js
+// npm
+import { setKitCode } from '@awesome.me/webawesome';
+// or CDN: import { setKitCode } from 'https://ka-f.webawesome.com/webawesome@<version>/dist/webawesome.loader.js';
+setKitCode('YOUR_KIT_CODE_HERE');
 ```
 
 Once a kit code is set, select a Pro family with the `variant` attribute, e.g.
@@ -177,13 +270,9 @@ Once a kit code is set, select a Pro family with the `variant` attribute, e.g.
 
 Source images in this order — never an emoji or a broken `src`:
 
-1. **Real assets the user gave you** (logo, product shots, a path/URL) — always win.
-2. **Freely licensed [Unsplash](https://unsplash.com) photos** when you need a realistic photo (free for
-   commercial use, no attribution). Request the size you render, keep keywords topical, give meaningful `alt`:
-   ```html
-   <img src="https://source.unsplash.com/800x600/?mountains,landscape" alt="Mountain landscape" />
-   ```
-3. **A token-based placeholder** when no suitable image exists — a muted surface stating the intended size,
+1. **Real assets the user gave you** (logo, product shots, a path/URL) — always win. If a design needs
+   imagery and you don't have one, **ask the user** rather than picking a stock photo for them.
+2. **A token-based placeholder** when no suitable image exists — a muted surface stating the intended size,
    not a broken `<img>` or an external placeholder service:
    ```html
    <div class="wa-frame wa-frame:landscape image-placeholder">1200 × 675</div>
@@ -263,8 +352,79 @@ leave it gray.** Two fixes, easiest first:
 ```
 
 The same principle applies to any bordered surface on a colored field: align the border (and its text)
-to that field with the field's `*-on-*` tokens, rather than leaving the page-surface gray. (For *text* on
+to that field with the field's `*-on-*` tokens, rather than leaving the page-surface gray. (For _text_ on
 colored bands, see the quiet/plain-control note in [theming.md](theming.md).)
+
+---
+
+## Custom CSS
+
+Lean on the system. Custom CSS is for genuine gaps the system doesn't cover — a one-off section
+background, a specific accent, a layout the utilities can't express. When you need it, follow this
+playbook so your CSS stays themed, accessible, and dark-mode-aware automatically.
+
+### The playbook
+
+1. **Every value is a token.** Spacing → `--wa-space-*`. Color → `--wa-color-*`. Radius, shadow, font
+   size, transition — same. No raw `px`, hex, or stray `rem`. (Same rule as inline styles — see SKILL.md
+   rule 5.)
+2. **Use semantic color tokens, not palette tints.** Reference `--wa-color-brand-fill-loud`,
+   `--wa-color-surface-raised`, `--wa-color-text-normal` — not `--wa-color-blue-50` and friends.
+   **Semantic tokens flip automatically with `wa-light` / `wa-dark`; palette tints don't.** A custom rule
+   built on palette tints stays the same color in dark mode and breaks the theme.
+3. **Pair colors with their matching `*-on-*` for accessible contrast.** For text on a filled background,
+   use the corresponding `-on-*` token — `--wa-color-brand-on-loud` for text on `--wa-color-brand-fill-loud`.
+   The built-in palettes are WCAG-tuned for these pairings, so contrast is correct without manual checking.
+4. **Pick `loud` / `normal` / `quiet` as a contrast lever.** Each semantic variant (`brand`, `neutral`,
+   `success`, `warning`, `danger`) exposes three weight steps:
+
+   - **`loud`** — boldest fill, highest visual weight. Use for primary actions and hero callouts.
+   - **`normal`** — default mid-step. Use for secondary surfaces and standard emphasis.
+   - **`quiet`** — softest fill, lowest visual weight. Use for backgrounds, hover states, and
+     de-emphasized accents.
+
+   Pair within a step: `fill-loud` with `on-loud`, `fill-quiet` with `on-quiet`. Mixing across steps
+   breaks contrast (`on-loud` text on `fill-quiet` is too dark).
+
+5. **Reusable classes in a `<style>` block, not inline.** A class named for the role (`.brand-callout`),
+   defined once, reused wherever it applies. Inline styles can't be re-themed or reused (Rule 8 in the
+   main skill).
+6. **Don't re-alias tokens into your own namespace.** `--brand-dark: var(--wa-color-orange-30)` defeats
+   theme overrides — if the user re-themes, your alias keeps pointing at orange. Reference `--wa-*`
+   tokens directly so the cascade still works.
+7. **Style your own elements, not component internals.** Custom CSS belongs in your page's `<style>`
+   block, targeting **your own** elements (sections, classes you define, semantic HTML). It cannot
+   reach inside a `<wa-*>` component's shadow DOM — those have their own internal styles your selectors
+   can't see. If your rule isn't taking effect on a component, you're hitting the shadow boundary;
+   switch to the component's tokens, attributes, or `::part()` (see "Styling components & CSS parts"
+   below). **Avoid `!important`** — it's almost always a sign you should be using a part or token
+   instead.
+
+### A working example
+
+```html
+<section class="brand-callout">
+  <h3>Important update</h3>
+  <p>A custom-styled section that respects theme, dark mode, and contrast automatically.</p>
+</section>
+
+<style>
+  .brand-callout {
+    background-color: var(--wa-color-brand-fill-quiet);
+    color: var(--wa-color-brand-on-quiet);
+    padding: var(--wa-space-l);
+    border-radius: var(--wa-border-radius-l);
+    border: var(--wa-border-width-s) solid var(--wa-color-brand-border-normal);
+  }
+  .brand-callout h3 {
+    margin-block-end: var(--wa-space-xs);
+  }
+</style>
+```
+
+This callout uses the `quiet` step (low visual weight, sits comfortably alongside body content), pairs
+`fill-quiet` with `on-quiet` for tuned contrast, and uses semantic tokens throughout. Switch `<html>` to
+`wa-dark` and every value re-resolves — no separate dark-mode rule needed.
 
 ---
 
@@ -331,18 +491,16 @@ the inline-styles rule in the main skill file.
 
 ## Polish checklist
 
-Before calling a layout done:
+After the **structural Final Pass** in SKILL.md (markup, slot decisions, rule compliance), walk this
+**visual-quality pass** before calling a layout done. These check the things that make the output look
+intentionally designed — spacing rhythm, hierarchy, contrast on surfaces, and brand presence.
 
-- [ ] Spacing comes from `wa-gap-*` / `--wa-space-*` (no raw `px`).
-- [ ] Colors are semantic tokens (`--wa-color-brand-*`, `-surface-*`, `-text-*`), not hex.
-- [ ] Layout uses utilities (`wa-stack`/`wa-cluster`/`wa-grid`/…) with minimal hand-rolled flex/grid.
+- [ ] **Spacing rhythm is consistent within a section** — at most 2 distinct `wa-gap-*` values per section (a base gap for the main flow, optionally a tighter step for closely-related inner clusters). If you see 3+ different `wa-gap-*` classes in one section, consolidate.
 - [ ] A theme + palette is set on `<html>`.
-- [ ] Text on filled backgrounds uses `*-on-*` tokens (accessible contrast).
+- [ ] Text on filled backgrounds uses `*-on-*` tokens (accessible contrast — WCAG-tuned pairings).
 - [ ] Bordered elements (cards, callouts, inputs) on colored bands don't show the default gray border — change `appearance` or recolor `border-color` to match the band.
+- [ ] Quiet/plain controls on colored bands have full-contrast on-color text, not the muted page-surface color (otherwise they read as low-contrast or disabled).
 - [ ] One consistent border-radius scale across cards, inputs, buttons.
 - [ ] Clear hierarchy: distinct heading/body/caption styles; generous whitespace between sections.
-- [ ] Icons use `<wa-icon>` (no emojis); meaningful icons have a `label`.
-- [ ] Images are real assets, freely licensed Unsplash photos, or token-based placeholders in `wa-frame` — never a broken `src` or emoji stand-in; meaningful `alt`.
 - [ ] A single primary action per view (`variant="brand"`); secondaries are quieter (`appearance="plain"`).
-- [ ] No inline `style` attributes — reusable classes live in a `<style>` block.
-- [ ] Component overrides go through tokens, attributes, or `::part()` (per the component's API), not host CSS that the shadow DOM ignores.
+- [ ] Any custom CSS uses **semantic** color tokens (`--wa-color-brand-*`, `-surface-*`, `-text-*`), not raw palette tints (`--wa-color-blue-50`) — so dark mode and re-theming work automatically.

@@ -464,6 +464,8 @@ Web Awesome is an open source UI component library with a Pro offering that help
 
 **Pro components and features are available to paid users.** [Purchase Pro](${baseUrl}/purchase)
 
+> **Designing with Web Awesome?** For full-page layout (\`<wa-page>\`), theming, brand color, and visual composition guidance, install the companion **\`webawesome-design\`** skill. This skill is the component reference; that one teaches how to put components together into a polished UI. See [Agent Skills](${baseUrl}/docs/ai/agent-skills) for both.
+
 ## Quick Start
 
 ### npm Installation
@@ -509,6 +511,10 @@ Web Awesome components are custom HTML elements. They work like native elements 
 For complete usage details, see [Usage Guide](references/usage.md).
 
 ## Components
+
+> **Not sure which one to pick?** See [Choosing the right component](references/choosing-components.md)
+> — a decision tree organized by user intent. Most agent mistakes here are picking the wrong component
+> (e.g. \`<wa-dropdown>\` instead of \`<wa-select>\`), not API misuse.
 
 ${freeComponentsSection}
 ${proComponentsSection}
@@ -629,6 +635,7 @@ See [Support Reference](references/support.md) for more details.
 
 ## Reference Documentation
 
+- [Choosing the Right Component](references/choosing-components.md) — decision tree by user intent (start here if you're unsure which component fits)
 - [Installation Guide](references/installation.md)
 - [Usage Guide](references/usage.md)
 - [Form Controls](references/form-controls.md)
@@ -954,6 +961,14 @@ export async function generateAgentSkill(options = {}) {
   // Generate support reference (static content)
   const supportRef = generateSupportReference(baseUrl);
   fs.writeFileSync(path.join(refsDir, 'support.md'), supportRef, 'utf-8');
+
+  // Copy hand-authored "Choosing the right component" reference — a decision tree by user intent
+  // that helps agents pick the correct component instead of guessing from names. Source lives in
+  // scripts/agent-skill/ alongside this generator; copied verbatim into the skill's references/.
+  fs.copyFileSync(
+    path.join(__dirname, 'agent-skill', 'choosing-components.md'),
+    path.join(refsDir, 'choosing-components.md'),
+  );
 
   // Copy and process documentation files from rendered HTML
   copyAndProcessDoc(siteDir, docsDir, refsDir, 'docs/index.html', 'installation.md', baseUrl, {

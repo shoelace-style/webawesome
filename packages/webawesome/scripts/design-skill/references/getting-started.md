@@ -41,7 +41,7 @@ default. It's a complete, on-brand, responsive starting point. Change one thing 
   </head>
   <body>
     <wa-page>
-      <header slot="header" class="wa-split" style="align-items: center;">
+      <header slot="header" class="wa-split">
         <strong>My App</strong>
         <wa-button variant="brand">Sign up</wa-button>
       </header>

@@ -22,7 +22,7 @@ to stay put while content scrolls. `<wa-page>` gives sticky regions and a mobile
 
 ```html
 <wa-page>
-  <header slot="header" class="wa-split" style="align-items: center;">
+  <header slot="header" class="wa-split">
     <div class="wa-cluster">
       <wa-button data-toggle-nav appearance="plain" class="wa-mobile-only">
         <wa-icon name="bars" label="Menu"></wa-icon>
@@ -71,7 +71,7 @@ better than competing actions; supporting detail follows below.
 
 ```html
 <wa-page>
-  <header slot="header" class="wa-split" style="align-items: center;">
+  <header slot="header" class="wa-split">
     <strong>Acme</strong>
     <div class="wa-cluster">
       <a href="#features">Features</a>
@@ -172,7 +172,7 @@ description, for a scannable, conventional settings layout.
 <section class="wa-stack wa-gap-xl" style="max-width: 40rem;">
   <h2>Notifications</h2>
 
-  <div class="wa-split" style="align-items: center;">
+  <div class="wa-split">
     <div class="wa-stack wa-gap-3xs">
       <strong>Email digests</strong>
       <span class="wa-caption-m">A weekly summary of activity.</span>
@@ -180,7 +180,7 @@ description, for a scannable, conventional settings layout.
     <wa-switch></wa-switch>
   </div>
 
-  <div class="wa-split" style="align-items: center;">
+  <div class="wa-split">
     <div class="wa-stack wa-gap-3xs">
       <strong>Product updates</strong>
       <span class="wa-caption-m">News about features and releases.</span>

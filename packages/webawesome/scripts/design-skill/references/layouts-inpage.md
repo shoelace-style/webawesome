@@ -56,7 +56,7 @@ quiet secondary.
 `wa-split` pushes the title and the action button to opposite ends.
 
 ```html
-<div class="wa-split" style="align-items: center;">
+<div class="wa-split">
   <h2>Team members</h2>
   <wa-button variant="brand">
     <wa-icon slot="start" name="plus"></wa-icon>
