@@ -53,12 +53,20 @@ describe('<wa-checkbox>', () => {
 
           expect(el.checked).to.be.true;
           expect(el.value).to.equal('myvalue');
+          expect(el.shadowRoot?.querySelector('input')?.checked).to.equal(true);
 
           el.checked = false;
           await el.updateComplete;
 
           expect(el.checked).to.be.false;
           expect(el.value).to.equal('myvalue');
+          expect(el.shadowRoot?.querySelector('input')?.checked).to.equal(false);
+
+          // let's recheck setting `el.checked = true`
+          // https://github.com/shoelace-style/webawesome/issues/2478
+          el.checked = true;
+          await el.updateComplete;
+          expect(el.shadowRoot?.querySelector('input')?.checked).to.equal(true);
         });
 
         it('should have title on the internal input if title attribute is set', async () => {
