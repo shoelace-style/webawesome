@@ -464,6 +464,8 @@ Web Awesome is an open source UI component library with a Pro offering that help
 
 **Pro components and features are available to paid users.** [Purchase Pro](${baseUrl}/purchase)
 
+> **Designing with Web Awesome?** For full-page layout (\`<wa-page>\`), theming, brand color, and visual composition guidance, install the companion **\`webawesome-design\`** skill. This skill is the component reference; that one teaches how to put components together into a polished UI. See [Agent Skills](${baseUrl}/docs/ai/agent-skills) for both.
+
 ## Quick Start
 
 ### npm Installation

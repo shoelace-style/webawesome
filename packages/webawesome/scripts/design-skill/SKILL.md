@@ -42,9 +42,9 @@ headers, a responsive navigation drawer, and a correct grid with almost no marku
 
 ⚠️ **Before you slot anything, decide: does this page have a left sidebar on desktop?** This one decision
 is where `<wa-page>` layouts most often go wrong. The `navigation` slot is a **persistent desktop left
-sidebar** that *additionally* collapses into a drawer on mobile — it is **NOT** "the mobile menu." Putting
-your nav links in `slot="navigation"` renders a bare column of links pinned down the left edge of *every
-desktop view*, duplicating the nav you already have in the header. (This is the #1 mistake: agents label
+sidebar** that _additionally_ collapses into a drawer on mobile — it is **NOT** "the mobile menu." Putting
+your nav links in `slot="navigation"` renders a bare column of links pinned down the left edge of _every
+desktop view_, duplicating the nav you already have in the header. (This is the #1 mistake: agents label
 it "mobile nav" and get a redundant desktop sidebar.)
 
 - **Landing page / marketing site (NO desktop sidebar — the common case):** Put **all** nav in
@@ -89,7 +89,7 @@ Before you write a custom class, a raw `flex`/`grid` rule, a hardcoded value, or
    a "featured/Most Popular" pricing tier is a `<wa-card>` with a `<wa-badge>` in its header slot (not an
    absolutely-positioned hand-rolled ribbon); a section separator is `<wa-divider>` (not a styled `<hr>`);
    a pill/label is `<wa-tag>` or `<wa-badge>`; a quote mark, check bullet, or star rating is `<wa-icon>` /
-   `<wa-rating>` (not CSS `::before` glyphs). If your markup is starting to *look like* a component, stop
+   `<wa-rating>` (not CSS `::before` glyphs). If your markup is starting to _look like_ a component, stop
    and use the component.
 2. **A layout utility.** Need to arrange things? Use `wa-stack`, `wa-cluster`, `wa-grid`, `wa-flank`,
    `wa-split`, `wa-frame` (and `<wa-page>` for full pages) before reaching for hand-written flexbox/grid.
@@ -126,7 +126,7 @@ These are the things that go wrong most often. Treat them as hard constraints.
 7. **Use the layout utilities instead of ad-hoc flexbox/grid CSS.** `wa-stack` (vertical), `wa-cluster` (inline wrap), `wa-grid` (responsive columns). See [references/composition.md](references/composition.md).
 8. **Avoid inline `style` attributes; put reusable styles in a `<style>` block.** Style with utility classes and your own semantic classes, defined once and reused, not `style="…"` scattered on elements. Inline styles can't be reused, overridden by theme, or kept consistent, and they bloat the markup. Reserve inline styles for genuinely one-off, per-instance values (e.g. a unique `--c1` on a single element).
 9. **Style components through their API, not host CSS.** Web Awesome components are custom elements with a shadow DOM, so page CSS and classes don't reach inside them. To restyle one, use its **tokens/attributes** first, then a **`::part()`** selector for internal surfaces (most expose a `base` part; the set is per-component). Look up the right token/part in the companion [`webawesome` skill](https://webawesome.com/docs/ai/) for **whatever** `<wa-*>` element you're styling. See [references/composition.md](references/composition.md).
-10. **Use `<wa-icon>` for icons; never emojis.** Don't put emojis in the UI unless the user explicitly asks for them — and that includes the places they sneak in: logos, image-`alt`/placeholder text, list bullets, decorative `::before` content, and JS-injected toast/success messages. Reach for the [`<wa-icon>`](https://webawesome.com/docs/components/icon) component instead. The default icon library is Font Awesome Free; if the user has **Font Awesome Pro or Web Awesome Pro**, wire up their kit code and use Pro icon families. See [references/composition.md](references/composition.md) for usage and Pro setup.
+10. **Use `<wa-icon>` for icons; never emojis.** Don't put emojis in the UI unless the user explicitly asks for them — and that includes the places they sneak in: logos, image-`alt`/placeholder text, list bullets, decorative `::before` content, and JS-injected toast/success messages. Reach for the [`<wa-icon>`](https://webawesome.com/docs/components/icon) component instead. The default icon library is Font Awesome Free; if the user has **Font Awesome Pro or Web Awesome Pro**, wire up their kit code and use Pro icon families. If your tool has access to Font Awesome's [official agent skills](https://github.com/FortAwesome/fontawesome-agent-tools) (`icons:suggest-icon`, `icons:add-icon`), prefer those over guessing an icon name — they recommend icons by intent rather than keyword match. See [references/composition.md](references/composition.md) for usage and Pro setup.
 11. **Keep markup valid and accessible.** Use real heading elements for hierarchy (`<h2>`/`<h3>`/`<h4>`) — don't fake a heading with a styled `<strong>`, which breaks the document outline. Give icon-only controls a `label` (or `aria-label`) and images meaningful `alt`. Never put two `style` attributes on one element — the second silently wins; merge them (or, per Rule 8, use a class).
 
 ---

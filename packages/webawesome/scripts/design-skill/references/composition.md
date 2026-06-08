@@ -40,13 +40,13 @@ Rule 5 forbids raw `px`/`rem`, but the moment you build a fixed-size element —
 avatar, a content column's `max-width`, a hairline border — it's tempting to type `3.5rem` or `1px`.
 Don't. Use the scales instead:
 
-| You're sizing…                  | Use                                                                                  |
-| ------------------------------- | ------------------------------------------------------------------------------------ |
-| A round icon "chip"/badge       | `width`/`height` from `--wa-space-*` (e.g. `--wa-space-2xl`), `--wa-border-radius-circle`, center the glyph with `wa-cluster` |
-| An avatar                       | The `<wa-avatar>` component (sizes itself); set `--size` only if needed               |
-| A readable content column       | A reused class with `max-width` in `ch` for prose (`60ch`–`75ch`) or a `--wa-space-*` multiple — define it **once**, not inline per section |
-| A hairline border / rule        | `var(--wa-border-width-s)` + `var(--wa-color-surface-border)`, or just `<wa-divider>` |
-| A glyph's size                  | `font-size: var(--wa-font-size-*)` — icons inherit it (see Icons below)               |
+| You're sizing…            | Use                                                                                                                                         |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| A round icon "chip"/badge | `width`/`height` from `--wa-space-*` (e.g. `--wa-space-2xl`), `--wa-border-radius-circle`, center the glyph with `wa-cluster`               |
+| An avatar                 | The `<wa-avatar>` component (sizes itself); set `--size` only if needed                                                                     |
+| A readable content column | A reused class with `max-width` in `ch` for prose (`60ch`–`75ch`) or a `--wa-space-*` multiple — define it **once**, not inline per section |
+| A hairline border / rule  | `var(--wa-border-width-s)` + `var(--wa-color-surface-border)`, or just `<wa-divider>`                                                       |
+| A glyph's size            | `font-size: var(--wa-font-size-*)` — icons inherit it (see Icons below)                                                                     |
 
 ```css
 /* ✓ Token-based circular icon badge — no raw rem, themes correctly. */
@@ -149,23 +149,44 @@ text need none.
 **Icon library.** By default, `<wa-icon>` draws from **Font Awesome Free**. Most common UI needs
 (arrows, common actions, social, etc.) are covered. Use any [Font Awesome Free icon name](https://fontawesome.com/search?o=r&m=free).
 
+**Picking the right icon.** If your tool has access to Font Awesome's
+[official agent skills](https://github.com/FortAwesome/fontawesome-agent-tools) (`icons:suggest-icon`,
+`icons:add-icon` from the Font Awesome team), prefer those over guessing an icon name.
+`icons:suggest-icon` returns a recommendation for a concept, verb, or noun — pass the result to
+`<wa-icon name="…">`. That picks icons by intent rather than by keyword match, which is usually how
+guessing goes wrong. Both skills work with the Free library by default; with a Pro kit code (below),
+they also surface Pro icons.
+
 **Font Awesome Pro / Pro+.** If the user has a Font Awesome Pro kit, you can unlock the Pro and Pro+
 icon families (`thin`, `light`, `sharp`, `duotone`, etc.) by setting their kit code. **Act on this — don't
 just leave Free on the table:** if the user has told you they have Font Awesome Pro (or Web Awesome Pro,
 which includes it), wire up their kit code and feel free to use Pro families. If a project clearly wants a
 distinctive icon weight (thin/light/duotone) and you don't know whether they have a kit, **ask once**
 ("Do you have a Font Awesome Pro kit code?") rather than silently shipping only Free `solid` icons. Do
-**not** invent or add a kit code otherwise — without one, stay on Font Awesome Free.
+**not** invent or add a kit code otherwise — without one, stay on Font Awesome Free. Use any **one** of
+these:
+
+Option 1 — the `data-fa-kit-code` attribute on `<html>` (mirrors the theme/palette classes):
 
 ```html
-<!-- Option 1: the data-fa-kit-code attribute on the loader script -->
-<script src="webawesome.loader.js" data-fa-kit-code="YOUR_KIT_CODE_HERE"></script>
+<html class="wa-theme-default wa-palette-default wa-light" data-fa-kit-code="YOUR_KIT_CODE_HERE"></html>
+```
 
-<!-- Option 2: the setKitCode() method -->
-<script type="module">
-  import { setKitCode } from 'webawesome.loader.js';
-  setKitCode('YOUR_KIT_CODE_HERE');
-</script>
+Option 2 — the same attribute on the loader script (the canonical CDN URL is
+`https://ka-f.webawesome.com/webawesome@<version>/dist/webawesome.loader.js`; substitute your
+loader's actual URL or path):
+
+```html
+<script src="…/webawesome.loader.js" data-fa-kit-code="YOUR_KIT_CODE_HERE"></script>
+```
+
+Option 3 — the `setKitCode()` method. Import from the npm package, or from the CDN loader URL:
+
+```js
+// npm
+import { setKitCode } from '@awesome.me/webawesome';
+// or CDN: import { setKitCode } from 'https://ka-f.webawesome.com/webawesome@<version>/dist/webawesome.loader.js';
+setKitCode('YOUR_KIT_CODE_HERE');
 ```
 
 Once a kit code is set, select a Pro family with the `variant` attribute, e.g.
@@ -263,7 +284,7 @@ leave it gray.** Two fixes, easiest first:
 ```
 
 The same principle applies to any bordered surface on a colored field: align the border (and its text)
-to that field with the field's `*-on-*` tokens, rather than leaving the page-surface gray. (For *text* on
+to that field with the field's `*-on-*` tokens, rather than leaving the page-surface gray. (For _text_ on
 colored bands, see the quiet/plain-control note in [theming.md](theming.md).)
 
 ---
