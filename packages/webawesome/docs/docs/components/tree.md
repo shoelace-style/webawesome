@@ -67,6 +67,7 @@ The `selection` attribute lets you change the selection behavior of the tree.
   <wa-option value="single">Single</wa-option>
   <wa-option value="multiple">Multiple</wa-option>
   <wa-option value="leaf">Leaf</wa-option>
+  <wa-option value="leaf-multiple">Leaf Multiple</wa-option>
 </wa-select>
 
 <br />
