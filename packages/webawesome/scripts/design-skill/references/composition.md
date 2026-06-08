@@ -285,6 +285,77 @@ colored bands, see the quiet/plain-control note in [theming.md](theming.md).)
 
 ---
 
+## Custom CSS
+
+Lean on the system. Custom CSS is for genuine gaps the system doesn't cover — a one-off section
+background, a specific accent, a layout the utilities can't express. When you need it, follow this
+playbook so your CSS stays themed, accessible, and dark-mode-aware automatically.
+
+### The playbook
+
+1. **Every value is a token.** Spacing → `--wa-space-*`. Color → `--wa-color-*`. Radius, shadow, font
+   size, transition — same. No raw `px`, hex, or stray `rem`. (Same rule as inline styles — see SKILL.md
+   rule 5.)
+2. **Use semantic color tokens, not palette tints.** Reference `--wa-color-brand-fill-loud`,
+   `--wa-color-surface-raised`, `--wa-color-text-normal` — not `--wa-color-blue-50` and friends.
+   **Semantic tokens flip automatically with `wa-light` / `wa-dark`; palette tints don't.** A custom rule
+   built on palette tints stays the same color in dark mode and breaks the theme.
+3. **Pair colors with their matching `*-on-*` for accessible contrast.** For text on a filled background,
+   use the corresponding `-on-*` token — `--wa-color-brand-on-loud` for text on `--wa-color-brand-fill-loud`.
+   The built-in palettes are WCAG-tuned for these pairings, so contrast is correct without manual checking.
+4. **Pick `loud` / `normal` / `quiet` as a contrast lever.** Each semantic variant (`brand`, `neutral`,
+   `success`, `warning`, `danger`) exposes three weight steps:
+
+   - **`loud`** — boldest fill, highest visual weight. Use for primary actions and hero callouts.
+   - **`normal`** — default mid-step. Use for secondary surfaces and standard emphasis.
+   - **`quiet`** — softest fill, lowest visual weight. Use for backgrounds, hover states, and
+     de-emphasized accents.
+
+   Pair within a step: `fill-loud` with `on-loud`, `fill-quiet` with `on-quiet`. Mixing across steps
+   breaks contrast (`on-loud` text on `fill-quiet` is too dark).
+
+5. **Reusable classes in a `<style>` block, not inline.** A class named for the role (`.brand-callout`),
+   defined once, reused wherever it applies. Inline styles can't be re-themed or reused (Rule 8 in the
+   main skill).
+6. **Don't re-alias tokens into your own namespace.** `--brand-dark: var(--wa-color-orange-30)` defeats
+   theme overrides — if the user re-themes, your alias keeps pointing at orange. Reference `--wa-*`
+   tokens directly so the cascade still works.
+7. **Style your own elements, not component internals.** Custom CSS belongs in your page's `<style>`
+   block, targeting **your own** elements (sections, classes you define, semantic HTML). It cannot
+   reach inside a `<wa-*>` component's shadow DOM — those have their own internal styles your selectors
+   can't see. If your rule isn't taking effect on a component, you're hitting the shadow boundary;
+   switch to the component's tokens, attributes, or `::part()` (see "Styling components & CSS parts"
+   below). **Avoid `!important`** — it's almost always a sign you should be using a part or token
+   instead.
+
+### A working example
+
+```html
+<section class="brand-callout">
+  <h3>Important update</h3>
+  <p>A custom-styled section that respects theme, dark mode, and contrast automatically.</p>
+</section>
+
+<style>
+  .brand-callout {
+    background-color: var(--wa-color-brand-fill-quiet);
+    color: var(--wa-color-brand-on-quiet);
+    padding: var(--wa-space-l);
+    border-radius: var(--wa-border-radius-l);
+    border: var(--wa-border-width-s) solid var(--wa-color-brand-border-normal);
+  }
+  .brand-callout h3 {
+    margin-block-end: var(--wa-space-xs);
+  }
+</style>
+```
+
+This callout uses the `quiet` step (low visual weight, sits comfortably alongside body content), pairs
+`fill-quiet` with `on-quiet` for tuned contrast, and uses semantic tokens throughout. Switch `<html>` to
+`wa-dark` and every value re-resolves — no separate dark-mode rule needed.
+
+---
+
 ## Styling components & CSS parts
 
 **This applies to every Web Awesome custom element** — any `<wa-*>` tag. They all have a **shadow DOM**:
@@ -362,4 +433,5 @@ Before calling a layout done:
 - [ ] Images are real assets (ask the user if you don't have one) or token-based placeholders in `wa-frame` — never a broken `src` or emoji stand-in; meaningful `alt`.
 - [ ] A single primary action per view (`variant="brand"`); secondaries are quieter (`appearance="plain"`).
 - [ ] No inline `style` attributes — reusable classes live in a `<style>` block.
+- [ ] Any custom CSS uses **semantic** color tokens (`--wa-color-brand-*`, `-surface-*`, `-text-*`), not raw palette tints (`--wa-color-blue-50`) — so dark mode and re-theming work automatically.
 - [ ] Component overrides go through tokens, attributes, or `::part()` (per the component's API), not host CSS that the shadow DOM ignores.

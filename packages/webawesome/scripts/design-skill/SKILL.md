@@ -105,7 +105,9 @@ Before you write a custom class, a raw `flex`/`grid` rule, a hardcoded value, or
 5. **Only then, extend.** If — and only if — the system genuinely doesn't cover the need, you may write a
    small amount of custom CSS **built on top of the tokens** (e.g. a one-off layout using `--wa-space-*`).
    Extending the system a little is fine; **replacing or bypassing it is not.** Keep custom code minimal,
-   token-based, and consistent with how Web Awesome does things — never a parallel design language.
+   token-based, and consistent with how Web Awesome does things — never a parallel design language. When
+   you do, follow the [Custom CSS playbook](references/composition.md#custom-css) so your rules stay
+   themed, dark-mode-safe, and accessible.
 
 If you catch yourself writing a hex color, a `px` value, a raw flexbox container, or re-implementing
 something that smells like an existing component, **stop and look it up first.** Most of the time the
@@ -289,6 +291,6 @@ landing page.
 - **[layouts-page.md](references/layouts-page.md):** Full-page layouts with `<wa-page>`. Read this for the full-page branch.
 - **[layouts-inpage.md](references/layouts-inpage.md):** Sections, widgets, and embeds with layout utilities. Read this for the in-page branch.
 - **[theming.md](references/theming.md):** Themes, palettes, light/dark, semantic colors, and customizing with `--wa-*` tokens.
-- **[composition.md](references/composition.md):** Spacing rhythm, the layout-utility decision guide, typography, surfaces, and images/placeholders. Read this to make things look designed.
+- **[composition.md](references/composition.md):** Spacing rhythm, the layout-utility decision guide, typography, surfaces, images/placeholders, and the custom CSS playbook (dark-mode-safe, contrast-aware). Read this to make things look designed.
 - **[patterns.md](references/patterns.md):** Ready-made, best-practice recipes (app shell, login, settings, dashboard grid, hero).
 - **[getting-started.md](references/getting-started.md):** The opinionated default setup, explained.
