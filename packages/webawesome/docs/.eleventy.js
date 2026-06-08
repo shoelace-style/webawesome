@@ -2,7 +2,7 @@ import { nanoid } from 'nanoid';
 import { parse as HTMLParse } from 'node-html-parser';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { anchorHeadingsTransformer } from './_transformers/anchor-headings.js';
+import { anchorHeadingsTransformer, createId } from './_transformers/anchor-headings.js';
 import { changelogListIconsTransformer } from './_transformers/changelog-list-icons.js';
 import { codeExamplesTransformer } from './_transformers/code-examples.js';
 import { copyCodeTransformer } from './_transformers/copy-code.js';
@@ -135,6 +135,8 @@ export default async function (eleventyConfig) {
   eleventyConfig.addFilter('stripExtension', string => path.parse(string + '').name);
   eleventyConfig.addFilter('stripPrefix', content => content.replace(/^wa-/, ''));
   eleventyConfig.addFilter('uniqueId', (_value, length = 8) => nanoid(length));
+  // Generates the same heading anchor id used by anchorHeadingsTransformer, so links can target headings reliably
+  eleventyConfig.addFilter('headingId', content => createId(String(content ?? '')));
 
   eleventyConfig.addGlobalData('eleventyComputed', {
     // Page title with smart + default site name formatting
