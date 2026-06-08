@@ -18,6 +18,12 @@ These are still finding their shape. APIs can change between minor versions, so 
 
 ## Unreleased
 
+:::added
+
+- Added `leaf-multiple` as a new `selection` option for `<wa-tree>`, allowing multiple leaf nodes to be selected while parent nodes only expand and collapse.
+
+:::
+
 :::fixed
 
 - Fixed a bug in `<wa-checkbox>` and `<wa-switch>` where `.checked` property would not properly update the shadow dom checkbox.
