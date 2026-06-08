@@ -51,12 +51,12 @@ something, it's a switch.
 
 Multi-selection from a set.
 
-| You need…                                 | Use                                          |
-| ----------------------------------------- | -------------------------------------------- |
-| A small set of independent options        | Multiple `<wa-checkbox>` elements            |
-| Many options in a multi-select dropdown   | `<wa-select multiple>`                       |
-| Many options with typeahead, multi-select | `<wa-combobox multiple>` **(Pro)**           |
-| Removable chip / tag selections           | `<wa-tag removable>` (manage your own state) |
+| You need…                                 | Use                                            |
+| ----------------------------------------- | ---------------------------------------------- |
+| A small set of independent options        | Multiple `<wa-checkbox>` elements              |
+| Many options in a multi-select dropdown   | `<wa-select multiple>`                         |
+| Many options with typeahead, multi-select | `<wa-combobox multiple>` **(Pro)**             |
+| Removable chip / tag selections           | `<wa-tag with-remove>` (manage your own state) |
 
 ---
 
