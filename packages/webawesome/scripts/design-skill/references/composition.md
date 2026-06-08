@@ -198,13 +198,9 @@ Once a kit code is set, select a Pro family with the `variant` attribute, e.g.
 
 Source images in this order — never an emoji or a broken `src`:
 
-1. **Real assets the user gave you** (logo, product shots, a path/URL) — always win.
-2. **Freely licensed [Unsplash](https://unsplash.com) photos** when you need a realistic photo (free for
-   commercial use, no attribution). Request the size you render, keep keywords topical, give meaningful `alt`:
-   ```html
-   <img src="https://source.unsplash.com/800x600/?mountains,landscape" alt="Mountain landscape" />
-   ```
-3. **A token-based placeholder** when no suitable image exists — a muted surface stating the intended size,
+1. **Real assets the user gave you** (logo, product shots, a path/URL) — always win. If a design needs
+   imagery and you don't have one, **ask the user** rather than picking a stock photo for them.
+2. **A token-based placeholder** when no suitable image exists — a muted surface stating the intended size,
    not a broken `<img>` or an external placeholder service:
    ```html
    <div class="wa-frame wa-frame:landscape image-placeholder">1200 × 675</div>
@@ -363,7 +359,7 @@ Before calling a layout done:
 - [ ] One consistent border-radius scale across cards, inputs, buttons.
 - [ ] Clear hierarchy: distinct heading/body/caption styles; generous whitespace between sections.
 - [ ] Icons use `<wa-icon>` (no emojis); meaningful icons have a `label`.
-- [ ] Images are real assets, freely licensed Unsplash photos, or token-based placeholders in `wa-frame` — never a broken `src` or emoji stand-in; meaningful `alt`.
+- [ ] Images are real assets (ask the user if you don't have one) or token-based placeholders in `wa-frame` — never a broken `src` or emoji stand-in; meaningful `alt`.
 - [ ] A single primary action per view (`variant="brand"`); secondaries are quieter (`appearance="plain"`).
 - [ ] No inline `style` attributes — reusable classes live in a `<style>` block.
 - [ ] Component overrides go through tokens, attributes, or `::part()` (per the component's API), not host CSS that the shadow DOM ignores.

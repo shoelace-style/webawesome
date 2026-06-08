@@ -154,7 +154,7 @@ actually catches it. Walk your own output and fix each before declaring it done:
       divider, badge/tag, rating)? Swap in the component.
 - [ ] **Emojis** — none in the UI (incl. logos, `alt`/placeholder text, bullets, `::before`, JS toasts).
       Use `<wa-icon>`. If the user has Pro, the kit code is wired up.
-- [ ] **Images** — real assets, else freely licensed Unsplash photos, else a token-based placeholder in
+- [ ] **Images** — real assets (ask the user if you don't have one), else a token-based placeholder in
       `wa-frame`. No broken `src`, no emoji stand-in; meaningful `alt`. (See composition.md.)
 - [ ] **Component styling** — overrides go through attributes → tokens → `::part()`, never guessed-at
       internal selectors or custom-property names you didn't verify.
