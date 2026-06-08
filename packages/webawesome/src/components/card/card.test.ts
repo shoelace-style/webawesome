@@ -58,7 +58,7 @@ describe('<wa-card>', () => {
           for (const appearance of ['accent', 'filled', 'outlined', 'filled-outlined', 'plain'] as const) {
             const el = await fixture<WaCard>(html`<wa-card appearance="${appearance}">Content</wa-card>`);
             expect(el.getAttribute('appearance')).to.equal(appearance);
-            await aTimeout(1)
+            await aTimeout(1);
           }
         });
 

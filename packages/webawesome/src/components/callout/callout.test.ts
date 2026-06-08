@@ -19,7 +19,7 @@ describe('<wa-callout>', () => {
             const el = await fixture<WaCallout>(html`<wa-callout variant="${variant}">Callout</wa-callout>`);
             await el.updateComplete;
             await expect(el).to.be.accessible();
-            await aTimeout(1)
+            await aTimeout(1);
           }
         });
       });
