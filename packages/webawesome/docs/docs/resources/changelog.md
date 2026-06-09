@@ -26,6 +26,12 @@ These are still finding their shape. APIs can change between minor versions, so 
 
 :::
 
+:::changed
+
+- Synced default `--show-duration`, `--hide-duration`, and `--easing` values in `<wa-accordion-item>` and `<wa-time-input>` with `--wa-transition-*` tokens
+
+:::
+
 ## 3.8.0
 
 <small><time datetime="2026-06-05">June 5th, 2026</time></small>
