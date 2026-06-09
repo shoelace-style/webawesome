@@ -1,7 +1,7 @@
 ---
 title: Relative Time
 layout: component
-category: Utilities
+category: Helpers
 synonyms:
   - time ago
   - timeago

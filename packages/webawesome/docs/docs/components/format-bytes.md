@@ -1,7 +1,7 @@
 ---
 title: Format Bytes
 layout: component
-category: Utilities
+category: Helpers
 synonyms:
   - file size
   - byte formatter

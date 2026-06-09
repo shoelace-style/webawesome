@@ -1,7 +1,7 @@
 ---
 title: Include
 layout: component
-category: Utilities
+category: Helpers
 synonyms:
   - html include
   - embed

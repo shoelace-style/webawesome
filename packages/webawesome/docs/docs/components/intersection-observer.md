@@ -1,7 +1,7 @@
 ---
 title: Intersection Observer
 layout: component
-category: Utilities
+category: Helpers
 synonyms:
   - scroll spy
   - lazy load trigger
