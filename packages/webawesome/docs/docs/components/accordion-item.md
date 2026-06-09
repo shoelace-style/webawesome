@@ -6,7 +6,10 @@ synonyms:
   - collapsible section
   - expandable section
   - disclosure item
+  - panel
+  - expandable panel
 use-cases:
+  - FAQ entry
   - FAQ item
   - settings section
   - collapsible content

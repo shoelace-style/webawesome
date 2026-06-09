@@ -7,6 +7,8 @@ synonyms:
   - expandable
   - disclosure
   - FAQ
+  - panel group
+  - details list
 use-cases:
   - FAQ sections
   - settings panel

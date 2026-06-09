@@ -6,10 +6,15 @@ synonyms:
   - dmy input
   - birthday input
   - date fields
+  - split date input
+  - gov.uk date input
+  - manual date entry
 use-cases:
   - capture birthdays
   - capture passport and document dates
   - capture any date the user already knows
+  - issue date entry
+  - expiration date entry
 ---
 
 Known Date collects a date the user already knows — a birthday, a passport issue date, an expiration — through three separate fields for day, month, and year. It follows the [UK Government Design System date input pattern](https://design-system.service.gov.uk/components/date-input/): a labeled `<fieldset>` wraps three plain `<input>` elements, the user types each part themselves, and the host submits a single canonical ISO date.
