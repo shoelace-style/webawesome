@@ -4,10 +4,8 @@ description: A document on how to get started with SSR in Web Awesome.
 layout: page-outline
 ---
 
-
 <wa-badge variant="warning" appearance="filled" pill>
-  Experimental
-  <wa-icon name="flask"></wa-icon>
+  <wa-icon name="flask" slot="start"></wa-icon>Experimental
 </wa-badge>
 <br><br>
 <p>Server Side Rendering ("SSR") means your webpage is rendered on the server before being sent to the user's browser. This provides a fully formed HTML page right from the start, which is great for SEO and initial load times. Once the page is rendered, JavaScript kicks in to "hydrate" the components which makes them interactive. The Web platform supports this through a feature called <a href="https://web.dev/articles/declarative-shadow-dom">Declarative Shadow DOM</a></p>
