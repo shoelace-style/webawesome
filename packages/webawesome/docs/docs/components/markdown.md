@@ -6,10 +6,16 @@ synonyms:
   - md
   - markdown renderer
   - rich text
+  - gfm
+  - marked.js
+  - rendered markdown
 use-cases:
   - markdown display
   - markdown preview
   - content rendering
+  - documentation pages
+  - blog post rendering
+  - readme display
 ---
 
 The markdown component turns raw markdown into rendered HTML using the [Marked](https://marked.js.org/) library. Indentation is handled automatically. You can nest your markdown at any depth to match the surrounding HTML structure and the common leading whitespace will be stripped before parsing.
