@@ -236,7 +236,7 @@ Set `--wa-prose-rhythm-scale` on the prose container to multiply every margin in
 
 ## Composing with other utilities
 
-The `wa-prose` class and its element rules sit at `0,0,0` specificity, so any utility class you apply alongside — `wa-heading-m`, `wa-cluster`, `wa-text-align-center`, and so on — wins automatically. The same goes for plain element rules in your own stylesheet, no `!important` or specificity tricks required.
+The `wa-prose` class and its element rules sit at `0,0,0` specificity, so any utility class you apply alongside — `wa-heading-m`, `wa-cluster`, `wa-text-center`, and so on — wins automatically. The same goes for plain element rules in your own stylesheet, no `!important` or specificity tricks required.
 
 ```css
 /* Wins against wa-prose's `h2 { font-size: 2em }` */

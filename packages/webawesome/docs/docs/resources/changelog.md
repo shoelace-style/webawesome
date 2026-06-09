@@ -6,13 +6,26 @@ layout: page-outline
 
 {% from "macros/component-badges.njk" import statusBadge %}
 
-Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Semantic Versioning</a>, and each release on this page follows the <a href="https://keepachangelog.com/" class="appearance-plain">Keep a Changelog</a> convention. Each [component](/docs/components) carries a status badge that tells you what to expect from its API.
+Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Semantic Versioning</a>, and each release on this page follows the <a href="https://keepachangelog.com/" class="appearance-plain">Keep a Changelog</a> convention. Additionally, both [components](/docs/components) and features carry a status badge that tells you what to expect from their API.
 
-<h2 class="wa-heading-m wa-cluster wa-gap-s" data-no-anchor data-no-outline>Stable Components {{ statusBadge('stable') }}</h2>
-These have a settled API. Breaking changes land only in major versions, and deprecated features stay through the next major release.
-
-<h2 class="wa-heading-m wa-cluster wa-gap-s" data-no-anchor data-no-outline>Experimental Components {{ statusBadge('experimental') }}</h2>
-These are still finding their shape. APIs can change between minor versions, so use them in prototypes — not production code you can't easily update.
+<table>
+  <thead>
+    <tr>
+      <th>Status</th>
+      <th>What to Expect</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{ statusBadge('stable') }}</td>
+      <td>A settled API you can build on. Breaking changes land only in major releases, and anything deprecated stays available through the next major version. Safe for production.</td>
+    </tr>
+    <tr>
+      <td>{{ statusBadge('experimental') }}</td>
+      <td>Still taking shape. The API can change in any minor release, so it's ideal for prototyping — but risky for production code you can't easily update.</td>
+    </tr>
+  </tbody>
+</table>
 
 {% include "changelog-email-signup.njk" %}
 

@@ -2,7 +2,7 @@ import { parse } from 'node-html-parser';
 import slugify from 'slugify';
 import { v4 as uuid } from 'uuid';
 
-function createId(text) {
+export function createId(text) {
   let slug = slugify(String(text), {
     remove: /[^\w|\s]/g,
     lower: true,
