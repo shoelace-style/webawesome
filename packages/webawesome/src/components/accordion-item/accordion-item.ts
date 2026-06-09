@@ -33,9 +33,9 @@ import styles from './accordion-item.styles.js';
  * @csspart content - The content slot inside the panel.
  *
  * @cssproperty [--spacing=var(--wa-space-m)] - The amount of space around and between the item's header and content.
- * @cssproperty [--show-duration=200ms] - The duration of the expand animation.
- * @cssproperty [--hide-duration=200ms] - The duration of the collapse animation.
- * @cssproperty [--easing=ease] - The easing of the expand/collapse animation.
+ * @cssproperty [--show-duration=var(--wa-transition-normal)] - The duration of the expand animation.
+ * @cssproperty [--hide-duration=var(--wa-transition-normal)] - The duration of the collapse animation.
+ * @cssproperty [--easing=var(--wa-transition-easing)] - The easing of the expand/collapse animation.
  * @cssproperty [--wa-accordion-divider-color=var(--wa-color-surface-border)] - The color of the divider between accordion items.
  *
  * @cssstate animating - Applied while the panel is animating.

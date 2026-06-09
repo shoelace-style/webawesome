@@ -2,8 +2,8 @@ import { css } from 'lit';
 
 export default css`
   :host {
-    --show-duration: 100ms;
-    --hide-duration: 100ms;
+    --show-duration: var(--wa-transition-fast);
+    --hide-duration: var(--wa-transition-fast);
     --column-item-height: 2.25em;
     --column-width: 3em;
   }
@@ -308,11 +308,11 @@ export default css`
 
   /* Animations */
   .time-input-popup::part(popup).show {
-    animation: wa-time-input-show var(--show-duration) ease;
+    animation: wa-time-input-show var(--show-duration) var(--wa-transition-easing);
   }
 
   .time-input-popup::part(popup).hide {
-    animation: wa-time-input-hide var(--hide-duration) ease;
+    animation: wa-time-input-hide var(--hide-duration) var(--wa-transition-easing);
   }
 
   @keyframes wa-time-input-show {
