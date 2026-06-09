@@ -1,7 +1,7 @@
 ---
 title: Markdown
 layout: component
-category: Utilities
+category: Media
 synonyms:
   - md
   - markdown renderer
@@ -19,7 +19,7 @@ The markdown component turns raw markdown into rendered HTML using the [Marked](
   <script type="text/markdown">
     ## Getting Started
 
-    Here's a quick overview with **bold**, *italic*, and `inline code`.
+    Here's a quick overview with **bold**, _italic_, and `inline code`.
 
     - Install the package
     - Import the component
@@ -27,7 +27,6 @@ The markdown component turns raw markdown into rendered HTML using the [Marked](
   </script>
 </wa-markdown>
 ```
-
 
 :::info
 Since content is rendered client-side, it won't be visible to search engine crawlers or available before JavaScript loads. This makes it a poor fit for SEO-critical content like landing pages and blog posts. It's best suited for prototyping, dashboards, admin panels, and other contexts where search indexing isn't a concern.
@@ -67,13 +66,13 @@ This means you can write markdown at any indentation level and it will render co
 ```html {.example .no-edit}
 <wa-markdown>
   <script type="text/markdown">
-            ## Deeply Indented
+    ## Deeply Indented
 
-            Even though this content is heavily indented in the source,
-            the shared whitespace is stripped before parsing.
+    Even though this content is heavily indented in the source,
+    the shared whitespace is stripped before parsing.
 
-                Lines with extra indentation beyond the common
-                prefix are preserved, like this code block.
+        Lines with extra indentation beyond the common
+        prefix are preserved, like this code block.
   </script>
 </wa-markdown>
 ```
@@ -134,7 +133,7 @@ All `<wa-markdown>` instances share a single [Marked](https://marked.js.org/usin
     link(href, title, text) {
       const titleAttr = title ? ` title="${title}"` : '';
       return `<a href="${href}"${titleAttr} target="_blank" rel="noopener">${text}</a>`;
-    }
+    },
   };
 
   md.marked.use({ renderer });
@@ -162,24 +161,28 @@ Custom [Marked extensions](https://marked.js.org/using_advanced#extensions) can 
   const md = document.getElementById('markdown__plugin');
 
   const highlight = {
-    extensions: [{
-      name: 'highlight',
-      level: 'inline',
-      start(src) { return src.indexOf('=='); },
-      tokenizer(src) {
-        const match = src.match(/^==([^=]+)==/);
-        if (match) {
-          return {
-            type: 'highlight',
-            raw: match[0],
-            text: match[1]
-          };
-        }
+    extensions: [
+      {
+        name: 'highlight',
+        level: 'inline',
+        start(src) {
+          return src.indexOf('==');
+        },
+        tokenizer(src) {
+          const match = src.match(/^==([^=]+)==/);
+          if (match) {
+            return {
+              type: 'highlight',
+              raw: match[0],
+              text: match[1],
+            };
+          }
+        },
+        renderer(token) {
+          return `<mark>${token.text}</mark>`;
+        },
       },
-      renderer(token) {
-        return `<mark>${token.text}</mark>`;
-      }
-    }]
+    ],
   };
 
   md.marked.use(highlight);
@@ -198,7 +201,7 @@ The component parses and renders automatically when the script element is first 
       Click the button to swap this content out.
     </script>
   </wa-markdown>
-  <br>
+  <br />
   <wa-button>Update content</wa-button>
 </div>
 

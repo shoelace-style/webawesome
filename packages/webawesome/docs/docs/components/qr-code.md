@@ -1,7 +1,7 @@
 ---
 title: QR Code
 layout: component
-category: Actions
+category: Media
 synonyms:
   - barcode
   - quick response code
@@ -32,7 +32,7 @@ QR codes are useful for providing small pieces of information to users who can q
     qrCode.updateComplete.then(() => {
       input.value = qrCode.value;
       input.addEventListener('input', () => (qrCode.value = input.value));
-    })
+    });
   });
 </script>
 
@@ -82,10 +82,7 @@ A _quiet zone_ is the blank space around a QR code that helps scanners detect it
 You can change the color of the corners to be different from the main element with the `--corner-color` custom property.
 
 ```html {.example}
-<wa-qr-code
-  value="https://webawesome.com/"
-  style="--corner-color: var(--wa-color-brand)"
-></wa-qr-code>
+<wa-qr-code value="https://webawesome.com/" style="--corner-color: var(--wa-color-brand)"></wa-qr-code>
 ```
 
 ### Radius
@@ -122,10 +119,7 @@ QR codes can be rendered with various levels of [error correction](https://www.q
 Use the `image` attribute to add a logo or image to the center of the QR code. When using an image, the error correction level will automatically be set to `H` to ensure the code remains scannable.
 
 ```html {.example}
-<wa-qr-code
-  value="https://webawesome.com/"
-  image="/assets/images/logos/wa-avatar4x.png"
-></wa-qr-code>
+<wa-qr-code value="https://webawesome.com/" image="/assets/images/logos/wa-avatar4x.png"></wa-qr-code>
 ```
 
 ### Image Coverage
@@ -136,9 +130,21 @@ The higher the `image-coverage` value, the harder it will be for QR readers to s
 
 ```html {.example}
 <div class="qr-ec-cover">
-  <wa-qr-code value="https://fontawesome.com/" image="/assets/images/logos/fa-avatar4x.png" image-coverage="0.3"></wa-qr-code>
-  <wa-qr-code value="https://webawesome.com/" image="/assets/images/logos/wa-avatar4x.png" image-coverage="0.6"></wa-qr-code>
-  <wa-qr-code value="https://build.awesome.me/" image="/assets/images/logos/ba-avatar4x.png" image-coverage="0.9"></wa-qr-code>
+  <wa-qr-code
+    value="https://fontawesome.com/"
+    image="/assets/images/logos/fa-avatar4x.png"
+    image-coverage="0.3"
+  ></wa-qr-code>
+  <wa-qr-code
+    value="https://webawesome.com/"
+    image="/assets/images/logos/wa-avatar4x.png"
+    image-coverage="0.6"
+  ></wa-qr-code>
+  <wa-qr-code
+    value="https://build.awesome.me/"
+    image="/assets/images/logos/ba-avatar4x.png"
+    image-coverage="0.9"
+  ></wa-qr-code>
 </div>
 
 <style>
