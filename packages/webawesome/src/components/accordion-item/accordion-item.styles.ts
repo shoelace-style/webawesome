@@ -4,9 +4,9 @@ export default css`
   @layer wa-component {
     :host {
       --spacing: var(--wa-space-m);
-      --show-duration: 200ms;
-      --hide-duration: 200ms;
-      --easing: ease;
+      --show-duration: var(--wa-transition-normal);
+      --hide-duration: var(--wa-transition-normal);
+      --easing: var(--wa-transition-easing);
 
       display: block;
     }
