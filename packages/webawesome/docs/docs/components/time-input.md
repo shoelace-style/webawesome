@@ -1,7 +1,7 @@
 ---
 title: Time Input
 layout: component
-category: Form Controls
+category: Forms
 synonyms:
   - time input
   - clock input

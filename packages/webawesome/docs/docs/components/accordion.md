@@ -1,7 +1,7 @@
 ---
 title: Accordion
 layout: component
-category: Organization
+category: Layout
 synonyms:
   - collapsible
   - expandable
@@ -59,9 +59,7 @@ Use the `disabled` attribute on an accordion item to prevent it from being toggl
   <wa-accordion-item label="Active item" expanded>
     This item can be expanded and collapsed normally.
   </wa-accordion-item>
-  <wa-accordion-item label="Disabled item" disabled>
-    This item is disabled and cannot be toggled.
-  </wa-accordion-item>
+  <wa-accordion-item label="Disabled item" disabled> This item is disabled and cannot be toggled. </wa-accordion-item>
 </wa-accordion>
 ```
 
@@ -73,12 +71,8 @@ But if an accordion lives outside the document outline, for example, inside a na
 
 ```html {.example}
 <wa-accordion heading-level="none">
-  <wa-accordion-item label="Settings">
-    Adjust your preferences here.
-  </wa-accordion-item>
-  <wa-accordion-item label="Notifications">
-    Manage how and when you receive notifications.
-  </wa-accordion-item>
+  <wa-accordion-item label="Settings"> Adjust your preferences here. </wa-accordion-item>
+  <wa-accordion-item label="Notifications"> Manage how and when you receive notifications. </wa-accordion-item>
 </wa-accordion>
 ```
 
@@ -88,9 +82,7 @@ The default heading level is `3`. Use `heading-level` on the accordion to match 
 
 ```html {.example}
 <wa-accordion heading-level="2">
-  <wa-accordion-item label="Section one">
-    This trigger is wrapped in an <code>&lt;h2&gt;</code>.
-  </wa-accordion-item>
+  <wa-accordion-item label="Section one"> This trigger is wrapped in an <code>&lt;h2&gt;</code>. </wa-accordion-item>
   <wa-accordion-item label="Section two">
     Match the level to where this accordion sits in your document outline.
   </wa-accordion-item>
@@ -103,27 +95,21 @@ The accordion's text and expand/collapse icon scale with `font-size`. Setting `f
 
 ```html {.example}
 <wa-accordion style="font-size: 0.875rem;">
-  <wa-accordion-item label="Small accordion">
-    Text and icon scale down together.
-  </wa-accordion-item>
+  <wa-accordion-item label="Small accordion"> Text and icon scale down together. </wa-accordion-item>
   <wa-accordion-item label="Another item">Content here.</wa-accordion-item>
 </wa-accordion>
 
 <br />
 
 <wa-accordion>
-  <wa-accordion-item label="Default accordion">
-    The default size.
-  </wa-accordion-item>
+  <wa-accordion-item label="Default accordion"> The default size. </wa-accordion-item>
   <wa-accordion-item label="Another item">Content here.</wa-accordion-item>
 </wa-accordion>
 
 <br />
 
 <wa-accordion style="font-size: 1.25rem;">
-  <wa-accordion-item label="Large accordion">
-    Everything scales up together.
-  </wa-accordion-item>
+  <wa-accordion-item label="Large accordion"> Everything scales up together. </wa-accordion-item>
   <wa-accordion-item label="Another item">Content here.</wa-accordion-item>
 </wa-accordion>
 ```
@@ -143,14 +129,16 @@ Use the `appearance` attribute to change the accordion's visual appearance.
 
   <wa-accordion appearance="filled-outlined">
     <wa-accordion-item label="Filled-outlined">
-      The filled-outlined appearance combines a filled header with an outlined body. It gives the summary a bit more visual weight while keeping the content area clean.
+      The filled-outlined appearance combines a filled header with an outlined body. It gives the summary a bit more
+      visual weight while keeping the content area clean.
     </wa-accordion-item>
     <wa-accordion-item label="Another item">More content here.</wa-accordion-item>
   </wa-accordion>
 
   <wa-accordion appearance="filled">
     <wa-accordion-item label="Filled">
-      The filled appearance adds a background color to the entire component. Use this when you want the details to really pop on the page.
+      The filled appearance adds a background color to the entire component. Use this when you want the details to
+      really pop on the page.
     </wa-accordion-item>
     <wa-accordion-item label="Another item">More content here.</wa-accordion-item>
   </wa-accordion>
@@ -193,12 +181,8 @@ Use `single-collapsible` when you want the same one-at-a-time constraint but sti
   <wa-accordion-item label="Filters">
     Opening another section will collapse this one, and clicking the open section closes it.
   </wa-accordion-item>
-  <wa-accordion-item label="Sort">
-    Try opening and closing each section in turn.
-  </wa-accordion-item>
-  <wa-accordion-item label="Display">
-    Zero open sections is a valid state in this mode.
-  </wa-accordion-item>
+  <wa-accordion-item label="Sort"> Try opening and closing each section in turn. </wa-accordion-item>
+  <wa-accordion-item label="Display"> Zero open sections is a valid state in this mode. </wa-accordion-item>
 </wa-accordion>
 ```
 
@@ -336,9 +320,7 @@ Listen for the `wa-expand` or `wa-collapse` events and call `event.preventDefaul
   <wa-accordion-item label="Locked open" expanded>
     This item is locked open — the <code>wa-collapse</code> event is being intercepted and prevented.
   </wa-accordion-item>
-  <wa-accordion-item label="Works normally">
-    This item can be toggled normally.
-  </wa-accordion-item>
+  <wa-accordion-item label="Works normally"> This item can be toggled normally. </wa-accordion-item>
 </wa-accordion>
 
 <script>

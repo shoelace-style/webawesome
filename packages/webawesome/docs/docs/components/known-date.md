@@ -1,7 +1,7 @@
 ---
 title: Known Date
 layout: component
-category: Form Controls
+category: Forms
 synonyms:
   - dmy input
   - birthday input
