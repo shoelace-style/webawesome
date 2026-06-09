@@ -1,7 +1,7 @@
 ---
 title: Format Date
 layout: component
-category: Utilities
+category: Helpers
 synonyms:
   - date formatter
   - time formatter

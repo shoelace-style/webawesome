@@ -1,14 +1,20 @@
 ---
 title: Time Input
 layout: component
-category: Form Controls
+category: Forms
 synonyms:
   - time input
   - clock input
   - timepicker
+  - time field
+  - time of day input
+  - clock picker
 use-cases:
   - enter a time of day in a form
   - pick a time from a column-roulette popup
+  - meeting time selection
+  - appointment time entry
+  - scheduled event time
 ---
 
 Time Input is the time-of-day counterpart to [Date Input](/docs/components/date-input). It renders a segmented input with hour, minute, optional seconds, and optional AM/PM spinbutton segments in the user's locale order, alongside a popup column picker modeled on Chrome's native time UI.

@@ -1,7 +1,7 @@
 ---
 title: Format Number
 layout: component
-category: Utilities
+category: Helpers
 synonyms:
   - number formatter
   - currency
