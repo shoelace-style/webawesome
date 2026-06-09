@@ -28,7 +28,7 @@ These are still finding their shape. APIs can change between minor versions, so 
 
 :::changed
 
-- Synced default `--show-duration`, `--hide-duration`, and `--easing` values in `<wa-accordion-item>` and `<wa-time-input>` with `--wa-transition-*` tokens
+- Synced default `--show-duration`, `--hide-duration`, and `--easing` values in `<wa-accordion-item>`, `<wa-date-input>`, `<wa-time-input>`, `<wa-toast>`, and `<wa-video>` with `--wa-transition-*` tokens
 
 :::
 
