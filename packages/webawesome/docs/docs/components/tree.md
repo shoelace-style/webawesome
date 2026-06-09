@@ -61,13 +61,14 @@ The `selection` attribute lets you change the selection behavior of the tree.
 - Use `single` to allow the selection of a single item (default).
 - Use `multiple` to allow the selection of multiple items.
 - Use `leaf` to only allow leaf nodes to be selected.
+- Use `leaf-multiple` to allow the selection of multiple leaf nodes.
 
 ```html {.example}
 <wa-select id="selection-mode" value="single" label="Selection">
   <wa-option value="single">Single</wa-option>
   <wa-option value="multiple">Multiple</wa-option>
   <wa-option value="leaf">Leaf</wa-option>
-  <wa-option value="leaf-multiple">Leaf Multiple</wa-option>
+  <wa-option value="leaf-multiple">Leaf-multiple</wa-option>
 </wa-select>
 
 <br />
