@@ -1,10 +1,10 @@
 [
   { "label": "Actions", "slug": "actions", "icon": "hand-pointer" },
-  { "label": "Feedback", "slug": "feedback", "icon": "comments" },
+  { "label": "Feedback", "slug": "feedback", "icon": "bell" },
   { "label": "Forms", "slug": "forms", "icon": "pen-field" },
-  { "label": "Media", "slug": "media", "icon": "image" },
+  { "label": "Media", "slug": "media", "icon": "photo-film" },
   { "label": "Navigation", "slug": "navigation", "icon": "compass" },
   { "label": "Layout", "slug": "layout", "icon": "layer" },
-  { "label": "Utilities", "slug": "utilities", "icon": "wrench" },
+  { "label": "Helpers", "slug": "helpers", "icon": "wrench" },
   { "label": "Data Viz", "slug": "data-viz", "icon": "chart-line" }
 ]

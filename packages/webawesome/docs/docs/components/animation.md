@@ -1,7 +1,7 @@
 ---
 title: Animation
 layout: component
-category: Utilities
+category: Helpers
 synonyms:
   - motion
   - transition

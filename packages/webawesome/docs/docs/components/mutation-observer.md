@@ -1,7 +1,7 @@
 ---
 title: Mutation Observer
 layout: component
-category: Utilities
+category: Helpers
 synonyms:
   - dom watcher
   - dom observer

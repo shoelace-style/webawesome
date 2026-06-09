@@ -1,7 +1,7 @@
 ---
 title: Popover
 layout: component
-category: Utilities
+category: Helpers
 synonyms:
   - popup content
   - info popup
