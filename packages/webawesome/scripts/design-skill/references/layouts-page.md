@@ -466,6 +466,22 @@ navigation sidebar, main content, a sticky table-of-contents aside, and a footer
 | Hardcode header colors with hex                    | Use `--wa-color-surface-*` / semantic tokens                           |
 | `<wa-button />` (self-closing)                     | `<wa-button></wa-button>`                                              |
 
+## `<wa-page>` checklist
+
+Before calling a `<wa-page>` layout done, walk this **`<wa-page>`-specific** structural pass. This sits
+alongside the general structural Final Pass in SKILL.md and the visual Polish Checklist in composition.md;
+each catches different things.
+
+- [ ] **Right sidebar decision.** Landing page: nav in `slot="navigation"` **once** (auto sidebar on desktop, drawer on mobile) — or, if you want header-bar nav with no desktop sidebar, the header-on-desktop / drawer-on-mobile recipe above with `--menu-width` left at `auto`. App shell / docs: `navigation` slot with `--menu-width` set, reset to `auto` under `wa-page[view='mobile']`. Either way, don't hand-roll a `<wa-drawer>`.
+- [ ] **`html, body` reset** is in place (or you're using native styles) — otherwise gaps appear around the page.
+- [ ] **Your own semantic elements are slotted** — `<header>`, `<main>`, `<footer>`, `<nav>`, `<aside>`. `<wa-page>` emits none.
+- [ ] **`main` padding is `0`** for full-bleed pages where sections own their gutter; keep the default only for a single contained column (docs article, login form).
+- [ ] **Sidebar widths reset on mobile.** `--menu-width` and `--aside-width` go to `auto` under `wa-page[view='mobile']` so they don't leak; the `aside` is hidden (`display: none`) on mobile since it has no auto-drawer.
+- [ ] **`data-drawer="close"`** is on every link in the mobile-collapsing nav, so tapping one closes the drawer instead of leaving it open over the next page.
+- [ ] **`data-toggle-nav` only toggles the `navigation` drawer.** Use it to open the `navigation` slot's drawer (or supply it in the header for the header/drawer recipe); never wire it to a hand-rolled drawer.
+- [ ] **`view` is read-only.** Read it in CSS (`wa-page[view='mobile']`); never set it as an attribute.
+- [ ] **One `<wa-page>` per page**, at the top level — never nested inside a section or another `<wa-page>`.
+
 ---
 
 ## Sticky sections

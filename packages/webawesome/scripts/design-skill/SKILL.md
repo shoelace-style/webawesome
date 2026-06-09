@@ -70,9 +70,17 @@ no `view='mobile'`, no `--menu-width`, no `data-toggle-nav`, and no `.wa-desktop
 
 ### The rule
 
-Never mix the two. Don't nest `<wa-page>` inside a section, and don't hand-roll a full-page grid when
-`<wa-page>` was the right tool. **If you're unsure which branch applies, ask the user: "Are you building
-a full page, or a piece of one?"** before generating markup.
+Never mix the two **at the same level**. Don't nest `<wa-page>` inside another `<wa-page>`, and don't
+hand-roll a full-page grid when `<wa-page>` was the right tool.
+
+**Layouts nest, though.** A full page _contains_ sections, and every section is itself a
+piece-of-a-page — same for `<wa-dialog>` bodies, `<wa-drawer>` bodies, card contents, and any embedded
+panel. Inside those inner containers, you're back in the in-page branch (utility classes, no
+`<wa-page>` slot semantics) regardless of what the outer page is. Answer STEP 0 for the outermost
+frame; then answer it again for each self-contained inner container.
+
+**If you're unsure which branch applies, ask the user: "Are you building a full page, or a piece of
+one?"** before generating markup.
 
 ---
 
@@ -91,7 +99,7 @@ Before you write a custom class, a raw `flex`/`grid` rule, a hardcoded value, or
    a "featured/Most Popular" pricing tier is a `<wa-card>` with a `<wa-badge>` in its header slot (not an
    absolutely-positioned hand-rolled ribbon); a section separator is `<wa-divider>` (not a styled `<hr>`);
    a pill/label is `<wa-tag>` or `<wa-badge>`; a quote mark, check bullet, or star rating is `<wa-icon>` /
-   `<wa-rating>` (not CSS `::before` glyphs). If your markup is starting to *look like* a component, stop
+   `<wa-rating>` (not CSS `::before` glyphs). If your markup is starting to _look like_ a component, stop
    and use the component.
 2. **A layout utility.** Need to arrange things? Use `wa-stack`, `wa-cluster`, `wa-grid`, `wa-flank`,
    `wa-split`, `wa-frame` (and `<wa-page>` for full pages) before reaching for hand-written flexbox/grid.
@@ -111,7 +119,9 @@ Before you write a custom class, a raw `flex`/`grid` rule, a hardcoded value, or
 5. **Only then, extend.** If — and only if — the system genuinely doesn't cover the need, you may write a
    small amount of custom CSS **built on top of the tokens** (e.g. a one-off layout using `--wa-space-*`).
    Extending the system a little is fine; **replacing or bypassing it is not.** Keep custom code minimal,
-   token-based, and consistent with how Web Awesome does things — never a parallel design language.
+   token-based, and consistent with how Web Awesome does things — never a parallel design language. When
+   you do, follow the [Custom CSS playbook](references/composition.md#custom-css) so your rules stay
+   themed, dark-mode-safe, and accessible.
 
 If you catch yourself writing a hex color, a `px` value, a raw flexbox container, or re-implementing
 something that smells like an existing component, **stop and look it up first.** Most of the time the
@@ -129,7 +139,7 @@ These are the things that go wrong most often. Treat them as hard constraints.
 4. **Zero `<main>` padding for full-bleed pages.** `<wa-page>` pads the main area, which insets hero and section backgrounds from the viewport edge. Set `main { padding: 0 }` and let each section own its gutter. Keep the default only for a single contained column. See [references/layouts-page.md](references/layouts-page.md).
 5. **Never hardcode colors, spacing, radii, or font sizes.** Use design tokens (`--wa-color-*`, `--wa-space-*`, `--wa-border-radius-*`, `--wa-font-size-*`) and utility classes (`wa-gap-*`). Raw `px` and hex values break theming and consistency.
 6. **Set a theme and palette on `<html>`.** A page with no theme class looks unstyled. See [references/theming.md](references/theming.md).
-7. **Use the layout utilities instead of ad-hoc flexbox/grid CSS.** `wa-stack` (vertical), `wa-cluster` (inline wrap), `wa-grid` (responsive columns). See [references/composition.md](references/composition.md).
+7. **Use the layout utilities instead of ad-hoc flexbox/grid CSS.** `wa-stack` (vertical), `wa-cluster` (inline wrap), `wa-grid` (responsive columns). Pair them with **companion utilities** (`wa-align-items-*`, `wa-justify-content-*`, `wa-text-*`, `wa-size-*`, `wa-color-text-*`, `wa-visually-hidden`) for alignment, text, sizing, color, and accessibility — anywhere you'd otherwise reach for inline `style=""`. See [references/composition.md](references/composition.md).
 8. **Avoid inline `style` attributes; put reusable styles in a `<style>` block.** Style with utility classes and your own semantic classes, defined once and reused, not `style="…"` scattered on elements. Inline styles can't be reused, overridden by theme, or kept consistent, and they bloat the markup. Reserve inline styles for genuinely one-off, per-instance values (e.g. a unique `--c1` on a single element).
 9. **Look up a component's styling API before you style it — every time, for every `<wa-*>`.** This is a
    hard prerequisite, not a suggestion. Web Awesome components are custom elements with a shadow DOM, so your
@@ -175,7 +185,7 @@ These are the things that go wrong most often. Treat them as hard constraints.
    ```
 
    **Contrast on colored bands (a separate, equally common button bug).** Even with correct `::part(base)` usage, a button can vanish because its colors match the band it sits on. **Never place an `appearance="outlined"` or `appearance="plain"` button whose `variant` matches the band color** — e.g. `<wa-button variant="brand" appearance="outlined">` on a brand-colored hero or CTA. The outline and label are the same hue as the background, so the button is effectively invisible (this is exactly what happened on the brand-colored hero bands of multiple pages). On any colored band, a secondary button must use a **contrasting** treatment: a solid/filled neutral or on-color button, or an outline/text recolored via `::part(base)` to the band's on-color token (`--wa-color-*-on-loud`, or a surface token). After placing any button on a non-default background, verify its label **and** border are clearly visible against that band.
-10. **Use `<wa-icon>` for icons; never emojis.** Don't put emojis in the UI unless the user explicitly asks for them — and that includes the places they sneak in: logos, image-`alt`/placeholder text, list bullets, decorative `::before` content, and JS-injected toast/success messages. Reach for the [`<wa-icon>`](https://webawesome.com/docs/components/icon) component instead. The default icon library is Font Awesome Free; if the user has **Font Awesome Pro or Web Awesome Pro**, wire up their kit code and use Pro icon families. See [references/composition.md](references/composition.md) for usage and Pro setup.
+10. **Use `<wa-icon>` for icons; never emojis.** Don't put emojis in the UI unless the user explicitly asks for them — and that includes the places they sneak in: logos, image-`alt`/placeholder text, list bullets, decorative `::before` content, and JS-injected toast/success messages. Reach for the [`<wa-icon>`](https://webawesome.com/docs/components/icon) component instead. The default icon library is Font Awesome Free; if the user has **Font Awesome Pro or Web Awesome Pro**, wire up their kit code and use Pro icon families. If your tool has access to Font Awesome's [official agent skills](https://github.com/FortAwesome/fontawesome-agent-tools) (`icons:suggest-icon`, `icons:add-icon`), prefer those over guessing an icon name — they recommend icons by intent rather than keyword match. See [references/composition.md](references/composition.md) for usage and Pro setup.
 11. **Keep markup valid and accessible.** Use real heading elements for hierarchy (`<h2>`/`<h3>`/`<h4>`) — don't fake a heading with a styled `<strong>`, which breaks the document outline. Give icon-only controls a `label` (or `aria-label`) and images meaningful `alt`. Never put two `style` attributes on one element — the second silently wins; merge them (or, per Rule 8, use a class).
 
 ---
@@ -185,6 +195,10 @@ These are the things that go wrong most often. Treat them as hard constraints.
 Producing the markup is the first draft, not the finished design. **You must circle back and verify the
 output against this skill before declaring it done — every time.** Models reliably state these rules and
 then violate them while generating long files; an explicit verification pass is what actually catches it.
+
+**This is the structural pass** — markup, decisions, valid HTML, rule compliance. For visual quality
+(spacing rhythm, hierarchy, contrast, surface choices) walk the
+[Polish checklist](references/composition.md#polish-checklist) in composition.md too.
 
 This verification is **mandatory and has two parts:**
 
@@ -224,7 +238,7 @@ Walk this checklist (yourself, and via the subagents) and fix each before declar
       divider, badge/tag, rating)? Swap in the component.
 - [ ] **Emojis** — none in the UI (incl. logos, `alt`/placeholder text, bullets, `::before`, JS toasts).
       Use `<wa-icon>`. If the user has Pro, the kit code is wired up.
-- [ ] **Images** — real assets, else freely licensed Unsplash photos, else a token-based placeholder in
+- [ ] **Images** — real assets (ask the user if you don't have one), else a token-based placeholder in
       `wa-frame`. No broken `src`, no emoji stand-in; meaningful `alt`. (See composition.md.)
 - [ ] **Component styling — did you look up the API first? (do this for EVERY styled `<wa-*>`).** For each
       Web Awesome element you applied custom CSS to (callout, card, badge, input, details, divider, tabs,
@@ -360,6 +374,6 @@ This uses `navigation` + `navigation-header`/`navigation-footer`, `--menu-width`
 - **[layouts-page.md](references/layouts-page.md):** Full-page layouts with `<wa-page>`. Read this for the full-page branch.
 - **[layouts-inpage.md](references/layouts-inpage.md):** Sections, widgets, and embeds with layout utilities. Read this for the in-page branch.
 - **[theming.md](references/theming.md):** Themes, palettes, light/dark, semantic colors, and customizing with `--wa-*` tokens.
-- **[composition.md](references/composition.md):** Spacing rhythm, the layout-utility decision guide, typography, surfaces, and images/placeholders. Read this to make things look designed.
+- **[composition.md](references/composition.md):** Spacing rhythm, the layout-utility decision guide, typography, surfaces, images/placeholders, and the custom CSS playbook (dark-mode-safe, contrast-aware). Read this to make things look designed.
 - **[patterns.md](references/patterns.md):** Ready-made, best-practice recipes (app shell, login, settings, dashboard grid, hero).
 - **[getting-started.md](references/getting-started.md):** The opinionated default setup, explained.

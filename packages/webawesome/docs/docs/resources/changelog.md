@@ -18,7 +18,12 @@ These are still finding their shape. APIs can change between minor versions, so 
 
 :::added
 
-- Added a `webawesome-design` [Agent Skill](/docs/ai/agent-skills) that teaches AI tools how to design with Web Awesome: laying out pages with `<wa-page>`, theming with design tokens, and composing polished UIs
+- Added a `webawesome-design` [Agent Skill](/docs/ai/agent-skills) that teaches AI tools how to design with Web Awesome
+  - Custom CSS playbook (dark-mode-safe tokens, WCAG `*-on-*` pairings, contrast levers, cascade guidance)
+  - Companion utilities reference (alignment, text, sizing, color, accessibility) to replace inline styles
+  - `<wa-page>` structural checklist for self-verifying layouts
+- Added a `choosing-components` decision tree to the `webawesome` Agent Skill so AI tools pick the right component by intent instead of guessing from names
+- Added `npm run verify:skills` (also wired into `npm run verify`) that cross-checks Agent Skill content against the Custom Elements Manifest so silent drift can't ship
 - Added the `capture` attribute to `<wa-file-input>` for capturing media directly from a device's camera or microphone [discuss:2380]
 - Added the `wa-text-uppercase` text utility class for transforming text to uppercase
 - Added the `wa-text-lowercase` text utility class for transforming text to lowercase
@@ -58,6 +63,7 @@ These are still finding their shape. APIs can change between minor versions, so 
 :::deprecated
 
 - Deprecated `wa-text-wrap-nowrap`, `wa-text-wrap-balance`, and `wa-text-wrap-pretty` in favor of their shorter `wa-text-*` equivalents. The original names still work but will be removed in a future major version.
+
 :::
 
 ## 3.7.0
