@@ -40,21 +40,23 @@ headers, a responsive navigation drawer, and a correct grid with almost no marku
 
 **Read [references/layouts-page.md](references/layouts-page.md) and follow its rules exactly.**
 
-⚠️ **Before you slot anything, decide: does this page have a left sidebar on desktop?** This one decision
-is where `<wa-page>` layouts most often go wrong. The `navigation` slot is a **persistent desktop left
-sidebar** that *additionally* collapses into a drawer on mobile — it is **NOT** "the mobile menu." Putting
-your nav links in `slot="navigation"` renders a bare column of links pinned down the left edge of *every
-desktop view*, duplicating the nav you already have in the header. (This is the #1 mistake: agents label
-it "mobile nav" and get a redundant desktop sidebar.)
+⚠️ **`<wa-page>` owns the layout — including the navigation.** The `navigation` slot is **special**: you
+put your nav in `slot="navigation"` **once**, and the component renders it as a left sidebar on desktop
+and moves it into a mobile drawer (with a hamburger button it provides) below `mobile-breakpoint`. You do
+**not** wire up a drawer, a toggle, or media queries for any of this — it's automatic.
 
-- **Landing page / marketing site (NO desktop sidebar — the common case):** Put **all** nav in
-  `slot="header"`. Do **not** use the `navigation` slot at all, and do **not** use `data-toggle-nav`
-  (it only toggles the `navigation` drawer you don't have). For the small-screen menu, use your **own**
-  `<wa-drawer>` opened by a button you wire up yourself, shown only on mobile via a CSS media query. Copy
-  the **"Landing page" skeleton** below.
-- **App shell / docs / dashboard (you DO want a desktop left sidebar):** Use the `navigation` slot as
-  intended, set `--menu-width`, reset it to `auto` on mobile, and use `data-toggle-nav` to open its
-  drawer. Copy the **canonical example in layouts-page.md.**
+The #1 mistake is **duplicating** the nav: putting the same links in `header` *and* `navigation` (or
+copying them around) so they render **twice**. There is no "this copy is mobile, that copy is desktop" —
+`slot="navigation"` is already both. Write it once.
+
+- **App shell / docs / dashboard (you want a desktop left sidebar):** Put nav in `slot="navigation"`, set
+  `--menu-width`, reset it to `auto` on mobile. The default hamburger or a `data-toggle-nav` element opens
+  its drawer. Copy the **canonical example in layouts-page.md.**
+- **Landing page / marketing site:** Simplest is to put nav in `slot="navigation"` anyway (sidebar on
+  desktop, drawer on mobile — both free). If you specifically want nav in the **header bar** on desktop
+  with **no** sidebar, use the **"header on desktop, drawer on mobile" recipe** in layouts-page.md — the
+  one sanctioned, view-scoped way to duplicate nav. Either way, **don't hand-roll your own `<wa-drawer>`
+  or toggle.** Copy the **"Landing page" skeleton** below.
 
 ### → Building a section, widget, card, form, panel, or embedding into a page you don't fully control?
 
@@ -99,9 +101,13 @@ Before you write a custom class, a raw `flex`/`grid` rule, a hardcoded value, or
    your own namespace (`--brand-dark: var(--wa-color-orange-30)`); reference the `--wa-*` token directly so
    re-theming still works. (See [composition.md](references/composition.md) for token-based recipes for
    fixed-size elements — icon badges, avatars, content widths — so you're never tempted back to raw `rem`.)
-4. **The component's styling API.** Need a component to look different? Use its **attributes**
-   (`variant`, `appearance`, `size`, `pill`, …), then its **tokens**, then a **`::part()`** selector —
-   in that order. Don't fight the shadow DOM with host CSS. (See rule 9 below and composition.md.)
+4. **The component's styling API.** Need a component to look different? **First look up that specific
+   component's documented styling API** — its **attributes** (`variant`, `appearance`, `size`, `pill`, …),
+   its **CSS custom properties** (`--wa-*` it exposes), and its **CSS parts** (`::part(...)`) — in the
+   companion [`webawesome` skill](https://webawesome.com/docs/ai/) (or [llms.txt](https://webawesome.com/docs/ai/)).
+   Then style through that API in this order: **attributes → component tokens → `::part()`**. Never guess a
+   token name, a part name, or which token a `variant` resolves to, and never fight the shadow DOM with host
+   CSS. This lookup is **mandatory** — see rule 9 below. (Also composition.md.)
 5. **Only then, extend.** If — and only if — the system genuinely doesn't cover the need, you may write a
    small amount of custom CSS **built on top of the tokens** (e.g. a one-off layout using `--wa-space-*`).
    Extending the system a little is fine; **replacing or bypassing it is not.** Keep custom code minimal,
@@ -125,25 +131,89 @@ These are the things that go wrong most often. Treat them as hard constraints.
 6. **Set a theme and palette on `<html>`.** A page with no theme class looks unstyled. See [references/theming.md](references/theming.md).
 7. **Use the layout utilities instead of ad-hoc flexbox/grid CSS.** `wa-stack` (vertical), `wa-cluster` (inline wrap), `wa-grid` (responsive columns). See [references/composition.md](references/composition.md).
 8. **Avoid inline `style` attributes; put reusable styles in a `<style>` block.** Style with utility classes and your own semantic classes, defined once and reused, not `style="…"` scattered on elements. Inline styles can't be reused, overridden by theme, or kept consistent, and they bloat the markup. Reserve inline styles for genuinely one-off, per-instance values (e.g. a unique `--c1` on a single element).
-9. **Style components through their API, not host CSS.** Web Awesome components are custom elements with a shadow DOM, so page CSS and classes don't reach inside them. To restyle one, use its **tokens/attributes** first, then a **`::part()`** selector for internal surfaces (most expose a `base` part; the set is per-component). Look up the right token/part in the companion [`webawesome` skill](https://webawesome.com/docs/ai/) for **whatever** `<wa-*>` element you're styling. See [references/composition.md](references/composition.md).
+9. **Look up a component's styling API before you style it — every time, for every `<wa-*>`.** This is a
+   hard prerequisite, not a suggestion. Web Awesome components are custom elements with a shadow DOM, so your
+   page CSS, classes, and `color`/`background` declarations **do not reach inside them** and **`variant`
+   colors resolve through tokens you cannot guess**. Before you write **any** custom CSS that targets a
+   `<wa-*>` element — or that sets a `--wa-*` token expecting that element to consume it — **open that exact
+   component's reference** in the companion [`webawesome` skill](https://webawesome.com/docs/ai/)
+   (`references/components/<name>.md`) or [llms.txt](https://webawesome.com/docs/ai/) and read its
+   **CSS Parts**, **CSS Custom Properties**, **Attributes** (`variant`/`appearance`/`size`/…), and any
+   **Styling** notes. Then style **only** through what that doc lists, in this order: **attributes →
+   the component's own tokens → its documented `::part()`**. 
+
+   The **only** thing you may do to a `<wa-*>` element *without* looking it up is position it in the layout
+   (outer `margin`, and placing it inside a `wa-stack`/`wa-cluster`/`wa-grid`). **Everything visual —
+   `background`, `color`, `border`, `border-radius`, fill, text color, internal padding — requires the
+   lookup first.** The recurring, silent failure this prevents: you assume a `variant` (or a `*-quiet` /
+   `*-loud` token) maps the way you expect, set a background or token accordingly, and the component's text
+   or border resolves to a *different* token than you assumed — producing dark-on-dark text, an invisible
+   border, or a "styled" box whose visible surface never changed. (Real example: a `<wa-callout variant=
+   "brand">` on a theme that inverted `--wa-color-brand-fill-quiet`/`-on-quiet` rendered a dark panel with
+   near-black body text, because the callout's text color came from a token the author never checked. The
+   fix was to read [the callout reference](references/components/callout.md) — which documents that host
+   `background`/`color` are supported and exposes `message`/`icon` parts — and set the colors explicitly.)
+   If you cannot point to the doc line that says a token/part/attribute exists, you have not earned the right
+   to use it yet — go read the doc.
+
+   **Buttons especially — the most common and most visible offender.** When styling a `<wa-button>`, ALWAYS check its styling API first. Reach for `variant` / `appearance` / `size` / `pill` attributes; if you must go further, set its **tokens** or target its **`base` part** — never apply `background`, `color`, `border`, `border-radius`, padding, or box-shadow to the `<wa-button>` host (or a class on it). Those declarations style the host wrapper, not the actual button surface inside the shadow DOM, so the visible button keeps its default fill while your "styling" lands on an invisible box around it. The classic failure: a secondary/outline button on a colored CTA band whose label and border are barely visible because the contrast fix was applied to the host instead of `::part(base)`. Fix the look through the part:
+
+   ```css
+   /* WRONG — styles the host wrapper, not the button; label/border stay low-contrast */
+   .cta-band wa-button.secondary {
+     background: transparent;
+     border: var(--wa-border-width-s) solid var(--wa-color-surface-default);
+     color: var(--wa-color-surface-default);
+   }
+
+   /* RIGHT — reach the actual button surface via its base part */
+   .cta-band wa-button.secondary::part(base) {
+     background-color: transparent;
+     border-color: var(--wa-color-surface-default);
+     color: var(--wa-color-surface-default);
+   }
+   ```
+
+   **Contrast on colored bands (a separate, equally common button bug).** Even with correct `::part(base)` usage, a button can vanish because its colors match the band it sits on. **Never place an `appearance="outlined"` or `appearance="plain"` button whose `variant` matches the band color** — e.g. `<wa-button variant="brand" appearance="outlined">` on a brand-colored hero or CTA. The outline and label are the same hue as the background, so the button is effectively invisible (this is exactly what happened on the brand-colored hero bands of multiple pages). On any colored band, a secondary button must use a **contrasting** treatment: a solid/filled neutral or on-color button, or an outline/text recolored via `::part(base)` to the band's on-color token (`--wa-color-*-on-loud`, or a surface token). After placing any button on a non-default background, verify its label **and** border are clearly visible against that band.
 10. **Use `<wa-icon>` for icons; never emojis.** Don't put emojis in the UI unless the user explicitly asks for them — and that includes the places they sneak in: logos, image-`alt`/placeholder text, list bullets, decorative `::before` content, and JS-injected toast/success messages. Reach for the [`<wa-icon>`](https://webawesome.com/docs/components/icon) component instead. The default icon library is Font Awesome Free; if the user has **Font Awesome Pro or Web Awesome Pro**, wire up their kit code and use Pro icon families. See [references/composition.md](references/composition.md) for usage and Pro setup.
 11. **Keep markup valid and accessible.** Use real heading elements for hierarchy (`<h2>`/`<h3>`/`<h4>`) — don't fake a heading with a styled `<strong>`, which breaks the document outline. Give icon-only controls a `label` (or `aria-label`) and images meaningful `alt`. Never put two `style` attributes on one element — the second silently wins; merge them (or, per Rule 8, use a class).
 
 ---
 
-## Final pass — re-read this skill before you finish (do this every time)
+## Final pass — verify your work before you finish (do this every time)
 
-Producing the markup is the first draft, not the finished design. **After you create or substantially edit
-any design, make a second pass: re-read the rules above and revise the output to match them.** Models
-reliably state these rules and then violate them while generating long files — the second pass is what
-actually catches it. Walk your own output and fix each before declaring it done:
+Producing the markup is the first draft, not the finished design. **You must circle back and verify the
+output against this skill before declaring it done — every time.** Models reliably state these rules and
+then violate them while generating long files; an explicit verification pass is what actually catches it.
 
-- [ ] **Redundant `<wa-page>` sidebar (check this first on any full page).** If you used `slot="navigation"`,
-      confirm you actually want a **persistent left sidebar on desktop**. On a landing/marketing page you
-      almost never do — open it at desktop width and look: a bare column of links down the left, duplicating
-      your header nav, means you fell into the trap. Fix: delete the `navigation` slot (and any
-      `data-toggle-nav`), keep nav in the `header`, and make the mobile menu your own `<wa-drawer>`. See the
-      landing-page skeleton above.
+This verification is **mandatory and has two parts:**
+
+1. **Self re-read.** Re-read the rules above and walk your own output line by line, fixing each item in the
+   checklist below.
+2. **Independent subagent review (required).** After your self-pass, **dispatch one or more verification
+   subagents** to re-check the design independently — do not rely solely on your own review of work you
+   just wrote. Give each subagent the produced markup/CSS and this skill's rules, and ask it to find
+   violations and report or fix them. For a substantial page, split the work: e.g. one subagent audits the
+   `<wa-page>` layout and the navigation-duplication trap, another audits tokens/emojis/accessibility.
+   Apply whatever the subagents surface, then confirm the result is clean. Treat their findings as
+   authoritative over your own first draft.
+
+Walk this checklist (yourself, and via the subagents) and fix each before declaring it done:
+
+- [ ] **Duplicated `<wa-page>` nav (check this first on any full page).** Search your markup for the same
+      nav links appearing in more than one slot. `slot="navigation"` already renders in **both** views
+      (sidebar on desktop, drawer on mobile), so a second copy elsewhere shows **twice**. The *only* allowed
+      duplication is the deliberate "header on desktop, drawer on mobile" recipe, where each copy is hidden
+      in the opposite view via `wa-page[view='…']`. If you find an accidental copy, delete it and keep the
+      single `slot="navigation"`. Also confirm you did **not** hand-roll a `<wa-drawer>` or toggle — the
+      component provides both. See the landing-page skeleton above.
+- [ ] **Empty `<wa-page>` nav column band.** Only set a fixed `--menu-width` when you actually render a
+      desktop sidebar. If you hid the desktop sidebar with `wa-page[view='desktop']::part(navigation) {
+      display: none }` (the header/drawer recipe), confirm `--menu-width` is left at its `auto` default —
+      a fixed value (e.g. `14rem`) reserves an empty band down the left side, because hiding the sidebar
+      part does **not** collapse the `menu` grid track (only `--menu-width` does). The tell is "I added
+      `display: none` but the gap is still there." Search for a fixed `--menu-width` paired with a hidden
+      desktop sidebar and remove it.
 - [ ] **Raw values** — search for `#` (hex), `px`, and stray `rem`. The only allowed hex is the `:root`
       brand-token override; everything else is a `--wa-*` token. (Sizing recipes: composition.md.)
 - [ ] **Repeated inline styles** — if the same `style="…"` appears more than once, promote it to a class.
@@ -156,8 +226,31 @@ actually catches it. Walk your own output and fix each before declaring it done:
       Use `<wa-icon>`. If the user has Pro, the kit code is wired up.
 - [ ] **Images** — real assets, else freely licensed Unsplash photos, else a token-based placeholder in
       `wa-frame`. No broken `src`, no emoji stand-in; meaningful `alt`. (See composition.md.)
-- [ ] **Component styling** — overrides go through attributes → tokens → `::part()`, never guessed-at
-      internal selectors or custom-property names you didn't verify.
+- [ ] **Component styling — did you look up the API first? (do this for EVERY styled `<wa-*>`).** For each
+      Web Awesome element you applied custom CSS to (callout, card, badge, input, details, divider, tabs,
+      anything), confirm you actually opened its `references/components/<name>.md` and that every part name,
+      `--wa-*` custom property, and `variant`/`appearance` you used **appears in that doc**. Overrides go
+      through attributes → the component's own tokens → its documented `::part()` — never a guessed-at part,
+      token, or an assumed `variant`→token mapping. If you set a `background`/`color` on a component and
+      relied on its text/border picking up a matching token, **verify which token that text/border actually
+      uses** (read the doc) rather than assuming `*-quiet`/`*-loud` behave a certain way.
+- [ ] **Component text contrast (every `<wa-callout>` and any recolored component).** Anywhere you changed a
+      component's `background` or fill, confirm its **body text and any border are clearly readable** against
+      that new background — not just the bold lead-in. The classic miss is a callout whose panel you darkened
+      while its body text stayed dark (dark-on-dark). If in doubt, set the text color explicitly through the
+      documented part/property (e.g. the callout's `message` part) rather than hoping a token cascades.
+- [ ] **Button styling (check every `<wa-button>`), two checks.** (a) **Host vs part:** no `background`,
+      `color`, `border`, `border-radius`, or box-shadow set on the `<wa-button>` host or a class on it —
+      those go on `::part(base)` (or use `variant`/`appearance`/`pill`). Search for `wa-button` rules
+      that aren't `::part(...)` and move the visual properties to the part. (b) **Contrast on bands:** no
+      `appearance="outlined"`/`"plain"` button whose `variant` matches the band it sits on (e.g. brand
+      outlined on a brand-colored hero) — it goes invisible. Every secondary button on a colored band
+      must have a clearly visible label **and** border (recolor `::part(base)` to the band's on-color
+      token, or use a filled/neutral button).
+- [ ] **Nav toggle placement (header/drawer recipe).** If you hid the desktop sidebar and use a top
+      header bar, confirm there's an explicit `data-toggle-nav` button (mobile-only) **inside** your
+      `<header slot="header">`. If you relied on `<wa-page>`'s built-in hamburger, it renders before your
+      header content and wraps onto its own unstyled row outside the bar — add your own toggle.
 - [ ] **Valid & accessible** — real headings (not styled `<strong>`), labels on icon-only controls, no
       element with two `style` attributes.
 
@@ -171,11 +264,13 @@ on colored bands, no mobile nav bleeding into desktop, nothing clipped) and fix 
 Pick the skeleton that matches your STEP 0 answer. Each produces a complete, on-brand, responsive result
 out of the box. **Free users:** only use free themes (default, shoelace, or awesome). **Pro users:** swap in a Pro theme/palette if the user wants one (see theming).
 
-### Full page — landing / marketing (`<wa-page>`, NO desktop sidebar) — use this by default
+### Full page — landing / marketing (`<wa-page>`) — use this by default
 
-Nav lives entirely in the `header`. There is **no `navigation` slot** and **no `data-toggle-nav`** — the
-mobile menu is your own `<wa-drawer>`, shown only on mobile via a media query. This is the right skeleton
-for a hero-driven landing page, marketing site, or any page that should not have a left sidebar.
+Nav goes in `slot="navigation"` **once**. `<wa-page>` renders it as a sidebar on desktop and a drawer
+(with a hamburger) on mobile — **no hand-rolled `<wa-drawer>`, no toggle, no media queries** for the nav.
+This is the right skeleton for a hero-driven landing page, marketing site, or most content pages. (Want
+nav in the **header bar** on desktop with no sidebar? See the "header on desktop, drawer on mobile" recipe
+in layouts-page.md.)
 
 ```html
 <!doctype html>
@@ -197,41 +292,27 @@ for a hero-driven landing page, marketing site, or any page that should not have
       .section {
         padding-inline: var(--wa-space-xl);
       }
-      /* Swap the desktop nav and the mobile menu button by viewport. */
-      .nav-desktop {
-        display: none;
+      wa-page {
+        --menu-width: 14rem;
       }
-      .nav-menu-button {
-        display: inline-flex;
-      }
-      @media (min-width: 768px) {
-        .nav-desktop {
-          display: flex;
-        }
-        .nav-menu-button {
-          display: none;
-        }
+      wa-page[view='mobile'] {
+        --menu-width: auto; /* collapse the reserved sidebar space on mobile */
       }
     </style>
   </head>
   <body>
     <wa-page>
-      <header slot="header" class="wa-split section">
+      <header slot="header" class="section">
         <strong>My Brand</strong>
-
-        <!-- Desktop nav: lives in the header, never in the navigation slot -->
-        <nav class="nav-desktop wa-cluster wa-gap-l">
-          <a href="#features">Features</a>
-          <a href="#pricing">Pricing</a>
-          <a href="#faq">FAQ</a>
-          <wa-button variant="brand">Get started</wa-button>
-        </nav>
-
-        <!-- Mobile menu button: opens our OWN drawer (not data-toggle-nav) -->
-        <wa-button class="nav-menu-button" appearance="plain" onclick="document.getElementById('menu').open = true">
-          <wa-icon name="bars" label="Open menu"></wa-icon>
-        </wa-button>
       </header>
+
+      <!-- Write the nav ONCE. Desktop: sidebar. Mobile: drawer + hamburger, automatically. -->
+      <nav slot="navigation" class="wa-stack wa-gap-2xs">
+        <a href="#features" data-drawer="close">Features</a>
+        <a href="#pricing" data-drawer="close">Pricing</a>
+        <a href="#faq" data-drawer="close">FAQ</a>
+        <wa-button variant="brand">Get started</wa-button>
+      </nav>
 
       <main>
         <section class="section wa-stack wa-gap-l">
@@ -246,26 +327,16 @@ for a hero-driven landing page, marketing site, or any page that should not have
         <small>&copy; My Brand</small>
       </footer>
     </wa-page>
-
-    <!-- Our own mobile menu — independent of the page's navigation slot -->
-    <wa-drawer id="menu" label="Menu">
-      <nav class="wa-stack wa-gap-m">
-        <a href="#features" onclick="document.getElementById('menu').open = false">Features</a>
-        <a href="#pricing" onclick="document.getElementById('menu').open = false">Pricing</a>
-        <a href="#faq" onclick="document.getElementById('menu').open = false">FAQ</a>
-        <wa-button variant="brand">Get started</wa-button>
-      </nav>
-    </wa-drawer>
   </body>
 </html>
 ```
 
 ### Full page — app shell / docs (`<wa-page>` WITH a desktop sidebar)
 
-Only when you genuinely want a persistent left sidebar on desktop. This is the one that uses the
-`navigation` slot, `--menu-width`, and `data-toggle-nav`. **See the canonical example in
-[references/layouts-page.md](references/layouts-page.md)** — don't graft its `navigation` slot onto a
-landing page.
+When you want a richer left sidebar on desktop with a header, footer, and a subheader (e.g. breadcrumbs).
+This uses `navigation` + `navigation-header`/`navigation-footer`, `--menu-width`, and an optional
+`data-toggle-nav` in the subheader. **See the canonical example in
+[references/layouts-page.md](references/layouts-page.md).**
 
 ### A section (utilities only, no `<wa-page>`)
 

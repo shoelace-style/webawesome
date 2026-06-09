@@ -277,7 +277,21 @@ that surface lives on an internal element you can't select normally. This is the
 reason "my CSS isn't working" on a component.
 
 So you never style a Web Awesome component by guessing — you style it **according to that component's
-API**. For whatever element you're touching, look up what it exposes and use it. Reach for these in
+API**. **Reading that component's reference is a prerequisite to styling it**, not optional polish: before
+you write any visual CSS for a `<wa-*>`, open its `references/components/<name>.md` and confirm the part,
+custom property, `variant`, or `appearance` you're about to use is actually listed there. If you can't cite
+the doc, don't write the rule yet.
+
+A second, subtler trap: **don't assume how a `variant` resolves to colors.** Setting (or theming) a
+component and expecting its text/border to "just match" is where dark-on-dark and invisible-border bugs come
+from — especially when a theme has remapped `--wa-color-*-quiet`/`-loud`. If you change a component's
+background or fill, **verify which token its text and border actually use** (from the doc), or set them
+explicitly through the documented part. Example: a `<wa-callout variant="brand">` on a theme that inverted
+the brand `*-quiet` tokens rendered a dark panel with near-black body text. The callout reference documents
+that host `background`/`color` are supported and exposes `message` and `icon` parts — so the fix was to set
+the panel and text colors explicitly through those, not to hope a `variant` token cascaded correctly.
+
+For whatever element you're touching, look up what it exposes and use it. Reach for these in
 order, stopping at the first that does the job:
 
 1. **A token or attribute.** Most restyling is exposed as a `--wa-*` custom property or a component
@@ -345,4 +359,6 @@ Before calling a layout done:
 - [ ] Images are real assets, freely licensed Unsplash photos, or token-based placeholders in `wa-frame` — never a broken `src` or emoji stand-in; meaningful `alt`.
 - [ ] A single primary action per view (`variant="brand"`); secondaries are quieter (`appearance="plain"`).
 - [ ] No inline `style` attributes — reusable classes live in a `<style>` block.
+- [ ] Before styling any `<wa-*>`, you read its `references/components/<name>.md` and every part / `--wa-*` property / `variant` you used is actually documented there — no guessed parts, tokens, or assumed `variant`→token mappings.
 - [ ] Component overrides go through tokens, attributes, or `::part()` (per the component's API), not host CSS that the shadow DOM ignores.
+- [ ] Any component whose background/fill you changed has readable body text **and** border against the new background (no dark-on-dark callout/card) — set the text color explicitly via the documented part if unsure.

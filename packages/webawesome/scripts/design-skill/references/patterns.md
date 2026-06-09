@@ -69,16 +69,31 @@ to stay put while content scrolls. `<wa-page>` gives sticky regions and a mobile
 **Rationale:** a single clear value proposition with one primary call-to-action above the fold converts
 better than competing actions; supporting detail follows below.
 
+**Nav:** this uses the sanctioned "header on desktop, drawer on mobile" recipe — links live in the
+`header` for wide screens and are mirrored in `slot="navigation"` for the mobile drawer `<wa-page>`
+provides. Each copy is hidden in the opposite view via `wa-page[view='…']`. This is the *only* place nav
+is duplicated on purpose; never copy nav between slots otherwise. (For a simpler page, drop the header
+copy and the two hide-rules and keep just `slot="navigation"` — you'll get a small desktop sidebar plus
+the mobile drawer.)
+
 ```html
 <wa-page>
   <header slot="header" class="wa-split" style="align-items: center;">
     <strong>Acme</strong>
-    <div class="wa-cluster">
+    <!-- Desktop links — hidden on mobile via the style block below -->
+    <div class="header-nav wa-cluster">
       <a href="#features">Features</a>
       <a href="#pricing">Pricing</a>
       <wa-button variant="brand">Get started</wa-button>
     </div>
   </header>
+
+  <!-- Same links, mirrored for the mobile drawer (hamburger is automatic) -->
+  <nav slot="navigation" class="wa-stack wa-gap-2xs">
+    <a href="#features" data-drawer="close">Features</a>
+    <a href="#pricing" data-drawer="close">Pricing</a>
+    <wa-button variant="brand">Get started</wa-button>
+  </nav>
 
   <main class="wa-stack wa-gap-3xl">
     <section class="wa-stack wa-gap-l" style="max-width: 40rem; text-align: center; margin-inline: auto;">
@@ -121,6 +136,12 @@ better than competing actions; supporting detail follows below.
     min-height: 100%;
     padding: 0;
     margin: 0;
+  }
+  wa-page[view='mobile'] .header-nav {
+    display: none; /* hide desktop header links on mobile */
+  }
+  wa-page[view='desktop']::part(navigation) {
+    display: none; /* hide the desktop sidebar; mobile drawer is unaffected */
   }
 </style>
 ```

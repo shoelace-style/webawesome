@@ -4,6 +4,12 @@ You are here because STEP 0 determined you're building a **full page, app shell,
 this branch, `<wa-page>` is **required** and the rules below are absolute. Do not hand-roll a full-page
 grid; `<wa-page>` exists precisely so you don't have to.
 
+**`<wa-page>` fully owns the page layout.** It is the grid, the sticky regions, the responsive
+navigation, the mobile drawer, and the `html`/`body` reset — all of it. Your job is to slot content into
+named regions and let the component do the work. Do **not** rebuild any of this by hand: no full-page
+`display: grid`, no media queries for the nav/sidebar/toggle, no hand-rolled mobile drawer, no manual
+show/hide of a hamburger. Every time you reach for one of those, stop — `<wa-page>` already does it.
+
 Full docs: https://webawesome.com/docs/components/page
 
 ---
@@ -34,41 +40,125 @@ Full docs: https://webawesome.com/docs/components/page
 You opt into regions by slotting content. **Empty slots render nothing**, so use only the regions you
 need. The default (unnamed) slot is your main content.
 
-On mobile (below `mobile-breakpoint`, default `768px`), the `navigation` region collapses into a
-`<wa-drawer>` toggled by a hamburger button. **On desktop (at or above the breakpoint) it is a
-persistent left sidebar column** — see the warning directly below before you use it.
+---
+
+## ⚠️ The `navigation` slot is automatic — write your nav once, never duplicate it
+
+This is the single most important thing to understand about `<wa-page>`, and the most common source of
+mistakes. **The `navigation` slot is special: the component routes your nav to the right place for the
+current view, automatically.**
+
+- On **desktop** (at or above `mobile-breakpoint`, default `768px`), the content you put in
+  `slot="navigation"` renders as a **persistent left sidebar column**.
+- On **mobile** (below the breakpoint), that *same* content is moved into a `<wa-drawer>`, toggled by a
+  hamburger button the component shows for you.
+
+You write the nav **once**, in `slot="navigation"`, and `<wa-page>` handles both views. The same is true
+for `navigation-header` and `navigation-footer` (they become the drawer's header/footer on mobile).
+
+**Because the component does this for you:**
+
+- **Never duplicate your navigation into multiple slots.** If you put the same links in both `header`
+  and `navigation` (or copy them anywhere expecting only one copy to show), they will appear **twice** in
+  the output. There is no "this copy is for mobile, that copy is for desktop" — `slot="navigation"` is
+  already both.
+- **Don't toggle the nav yourself, and don't show/hide the hamburger.** The toggle button and its
+  desktop/mobile visibility are already styled and wired by the component.
+- **Don't write media queries for nav, the sidebar, or the toggle.** The desktop↔mobile switch is driven
+  by `<wa-page>`'s own `view` state, not by your CSS. Reserve media queries for genuinely page-specific
+  content adjustments, never for the nav machinery.
 
 **First decision, before any markup: does this page have a left sidebar on desktop?**
 
-- **No** (landing page, marketing site, most content pages) → put nav in `header`, leave `menu` /
-  `navigation` / `navigation-header` / `navigation-footer` **empty**, and don't use `data-toggle-nav`.
-  Build any mobile menu as your own `<wa-drawer>`. The `body` row collapses to a single `main` column.
-- **Yes** (app shell, docs, dashboard) → use the `navigation` slot and follow Hard rule 5 + 6.
+- **Yes** (app shell, docs, dashboard) → put your nav in `slot="navigation"` and follow Hard rule 5 (set
+  `--menu-width`, reset to `auto` on mobile). This is the intended path. Copy the app/docs example below.
+- **No** (landing page, marketing site, most content pages) → you have two clean options, both of which
+  still let `<wa-page>` do the work:
+  - **Simplest:** put your primary nav in `slot="navigation"` anyway. You'll get a small desktop sidebar
+    instead of header nav, which is fine for many content pages. The mobile drawer comes free.
+  - **Header nav + mobile drawer, no desktop sidebar** (the classic marketing/hero look): keep the nav in
+    the `header` for desktop, mirror it in `slot="navigation"` for the mobile drawer, and use the
+    **deliberate-exception recipe below** to hide each in the view where it shouldn't appear. This is the
+    *one* place duplication is correct — and it's controlled, view-scoped duplication, not an accident.
 
 ---
 
-## ⚠️ The `navigation` slot is a desktop sidebar, not a "mobile menu"
+## The one place duplicating nav is correct: header on desktop, drawer on mobile
 
-This is the single most common `<wa-page>` mistake. The `navigation` slot is a **standing left sidebar
-on desktop** that *additionally* collapses into a drawer on mobile. It is **not** a mobile-only menu that
-hides on desktop. If you slot links into `navigation` thinking "this is my hamburger menu," you will get
-an unstyled column of links pinned down the left side of every desktop view — outside your hero, on the
-bare page surface.
+Use this **only** for a marketing/hero page where you want nav links **in the header on desktop** but a
+**mobile drawer menu** — and explicitly **no** left sidebar on desktop. This is the single sanctioned
+exception to "never duplicate," because you're deliberately rendering the nav differently per view.
 
-**Most marketing/landing pages do not want a sidebar at all.** Their nav lives in the `header` and wraps
-or hides on small screens. So:
+Four steps:
 
-- **Landing page / marketing site (nav belongs in the header):** Put your primary nav in `slot="header"`.
-  For the small-screen menu, **do not use the `navigation` slot.** Either (a) let the header nav collapse
-  on its own, or (b) put the mobile menu in your **own** `<wa-drawer>` opened by a `data-toggle-nav`
-  button that is hidden on desktop (`.wa-desktop-only`/`.wa-mobile-only`, or a media query). Reserve the
-  `navigation` slot for when you genuinely want a persistent desktop sidebar.
-- **App shell / docs / dashboard (you genuinely want a left sidebar on desktop):** Use the `navigation`
-  slot as intended, and follow Hard rule 5 — set `--menu-width` and reset it to `auto` under
-  `wa-page[view='mobile']`, or the sidebar's reserved space leaks onto mobile too.
+1. Put the desktop links in the **`header`** slot.
+2. Mirror the same links in the **`navigation`** slot — these power the mobile drawer.
+3. Hide the header links on mobile: `wa-page[view='mobile'] .header-nav { display: none }`.
+4. Hide the desktop sidebar on desktop: `wa-page[view='desktop']::part(navigation) { display: none }`.
+   (`::part(navigation)` targets *only* the desktop sidebar wrapper; the mobile drawer is unaffected, so
+   the drawer still works.)
 
-Quick test: *"Do I want a column of navigation down the left edge on a wide screen?"* If **no**, the
-`navigation` slot is the wrong tool — keep nav in the header and hand-roll the mobile drawer.
+```html
+<wa-page>
+  <header slot="header" class="wa-split section">
+    <strong>My Brand</strong>
+    <!-- Desktop links — shown in the header, hidden on mobile via step 3 -->
+    <nav class="header-nav wa-cluster wa-gap-l">
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+      <wa-button variant="brand">Get started</wa-button>
+    </nav>
+    <!-- Your OWN toggle, last child so wa-split right-aligns it. Mobile-only; opens the drawer.
+         Supplying this suppresses <wa-page>'s built-in hamburger (see note below). -->
+    <wa-button data-toggle-nav appearance="plain" class="wa-mobile-only" aria-label="Open menu">
+      <wa-icon name="bars"></wa-icon>
+    </wa-button>
+  </header>
+
+  <!-- Same links, mirrored for the mobile drawer (opened by the header toggle above).
+       The desktop sidebar is hidden via step 4. -->
+  <nav slot="navigation" class="wa-stack wa-gap-2xs">
+    <a href="#features" data-drawer="close">Features</a>
+    <a href="#pricing" data-drawer="close">Pricing</a>
+    <a href="#faq" data-drawer="close">FAQ</a>
+    <wa-button variant="brand">Get started</wa-button>
+  </nav>
+
+  <main>…</main>
+  <footer slot="footer" class="section"><small>&copy; My Brand</small></footer>
+</wa-page>
+
+<style>
+  /* No --menu-width here: in this recipe the desktop sidebar is hidden, so leave --menu-width at its
+     `auto` default. Setting a fixed value (e.g. 14rem) reserves an empty left column — see note below. */
+  wa-page[view='mobile'] .header-nav {
+    display: none; /* hide desktop header links on mobile */
+  }
+  wa-page[view='desktop']::part(navigation) {
+    display: none; /* hide the desktop sidebar; mobile drawer is unaffected */
+  }
+</style>
+```
+
+You do **not** need your own `<wa-drawer>` or any media queries for this — the drawer comes from
+`<wa-page>`. **You should, however, supply your own `data-toggle-nav` button inside the `header`** (as
+shown above), so the hamburger is placed and styled *with* your header bar. Adding any
+`[data-toggle-nav]` element automatically suppresses `<wa-page>`'s built-in hamburger. If you omit your
+own toggle, the built-in one renders **before** your header content inside the component's flex header
+and **wraps onto its own unstyled row** (left-aligned, no background) — the #2 bug of this recipe. The
+`.wa-mobile-only` class shows your toggle only below `mobile-breakpoint`, so the desktop header stays
+clean. The only custom CSS is the two `view`-scoped hide rules above.
+
+⚠️ **In this recipe, do NOT set a fixed `--menu-width` — leave it at its `auto` default.** The left
+`menu` column's width is `minmax(0, var(--menu-width))`, and `--menu-width` defaults to `auto`. Hiding
+the desktop sidebar with `::part(navigation){display:none}` removes the sidebar *content*, but the grid
+track width is governed **only** by `--menu-width` — not by whether the content is visible. With `auto`,
+the now-empty column collapses to nothing; with a fixed value like `14rem` (often copied in from the
+sidebar/app-shell skeleton below), the track stays `14rem` and you get a **reserved empty band down the
+left side on desktop**. This is the classic "I added `display: none` and the gap is still there" bug:
+`display: none` never touched the width. If you see that empty band, search your CSS for a fixed
+`--menu-width` and remove it.
 
 ---
 
@@ -140,10 +230,21 @@ utilities instead (see [layouts-inpage.md](layouts-inpage.md)).
    means "I'll take over the left column entirely and handle mobile myself"; only use it if you truly
    need that.
 
-5. **Set sidebar widths with custom properties, and reset them on mobile.** A fixed `--menu-width` /
-   `--aside-width` still reserves space below the breakpoint, so collapse it back to `auto` for
-   `view='mobile'`. The `navigation` sidebar moves into the drawer automatically; the `aside` does not,
-   so to hide it on mobile also set `display: none` on that slot:
+5. **Only set a fixed `--menu-width` when you actually render a desktop sidebar; reset it on mobile.**
+   The `menu` column is `minmax(0, var(--menu-width))` and `--menu-width` defaults to `auto`, so its
+   width is controlled **only** by `--menu-width` — never by whether the sidebar content is visible.
+   Two cases:
+   - **Desktop sidebar layout** (the `navigation` slot is visible as a left column on desktop — app
+     shell, docs, dashboard): set a fixed `--menu-width` (e.g. `16rem`); it's holding real content. A
+     fixed width still reserves space below the breakpoint, so collapse it back to `auto` for
+     `view='mobile'`. The `navigation` sidebar moves into the drawer automatically; the `aside` does
+     not, so to hide it on mobile also set `display: none` on that slot.
+   - **No desktop sidebar** (the header/drawer recipe above — desktop sidebar hidden via
+     `::part(navigation){display:none}`): **leave `--menu-width` at `auto`. Do not set a fixed value.**
+     Hiding the sidebar collapses its content but not the grid track, so a fixed `--menu-width` reserves
+     an empty left column on desktop. (This is the recipe's #1 bug.)
+
+   For the desktop-sidebar case:
 
    ```css
    wa-page {
@@ -159,15 +260,18 @@ utilities instead (see [layouts-inpage.md](layouts-inpage.md)).
    }
    ```
 
-6. **`data-toggle-nav` toggles the `navigation` drawer — it is a sidebar-layout tool, not a generic
-   "mobile menu" button.** It only does something when you have content in the `navigation` slot. On a
-   landing page with no `navigation` slot, a `data-toggle-nav` button opens an **empty** drawer — a dead
-   button. So: if you're using the `navigation` sidebar, toggle its mobile drawer with the default
-   hamburger or your own `data-toggle-nav` button (anywhere inside `<wa-page>`; adding one auto-hides the
-   default hamburger). If you're **not** using the `navigation` sidebar (the landing-page case), do not
-   use `data-toggle-nav` at all — build your mobile menu as your own `<wa-drawer>` and open it with a
-   normal click handler. To swap elements between viewports inside `<wa-page>`, use `.wa-desktop-only` /
-   `.wa-mobile-only` (they key off `view`); outside `<wa-page>`, reach for a CSS media query instead.
+6. **Let `<wa-page>` own the nav — don't toggle it, don't media-query it, don't duplicate it.** Put nav
+   in `slot="navigation"` **once**; the component renders it as the desktop sidebar and moves it into the
+   mobile drawer for you. The hamburger button and its desktop/mobile visibility are already handled —
+   don't write CSS to show or hide it, and don't add media queries for the nav, sidebar, or toggle. The
+   only sanctioned duplication is the header-on-desktop / drawer-on-mobile recipe above, which is
+   view-scoped and intentional. The default hamburger opens the `navigation` drawer; if you want a custom
+   toggle, add `data-toggle-nav` to any element inside `<wa-page>` (this auto-hides the default
+   hamburger). `data-toggle-nav` only toggles the `navigation` drawer, so it does nothing without
+   `navigation` content — never pair it with a hand-rolled drawer. **When you want the toggle to live
+   inside your own styled header bar (the header/drawer recipe), put a `data-toggle-nav` button there
+   yourself** rather than relying on the built-in hamburger — the built-in one renders in the header
+   *before* your `header` slot content and wraps onto its own unstyled row, outside your bar.
 
 7. **Close the drawer when a nav link is tapped.** The mobile navigation is a `<wa-drawer>`, so add
    `data-drawer="close"` to your navigation links, so tapping one then closes the drawer (otherwise it
@@ -188,31 +292,29 @@ utilities instead (see [layouts-inpage.md](layouts-inpage.md)).
 
 ---
 
-## Canonical example — landing page (no sidebar)
+## Canonical example — landing page
 
-Use this for a hero-driven marketing/landing page. **All nav is in the `header`.** There is no
-`navigation` slot and no `data-toggle-nav`; the mobile menu is a separate `<wa-drawer>` you open
-yourself, shown only on mobile via a media query. This is the most common `<wa-page>` shape — start here
-unless you specifically want a desktop sidebar.
+A hero-driven marketing/landing page. Nav goes in `slot="navigation"` **once**; `<wa-page>` shows it as a
+sidebar on desktop and as a drawer (with a hamburger) on mobile. **No hand-rolled `<wa-drawer>`, no
+toggle wiring, no media queries** — the component handles all of it. This is the simplest correct shape.
+
+> Want nav in the **header bar** on desktop instead of a sidebar (the classic marketing look)? Use the
+> **"header on desktop, drawer on mobile" recipe** near the top of this file — it's the one sanctioned
+> way to duplicate nav, and it still lets `<wa-page>` provide the drawer and hamburger.
 
 ```html
 <wa-page>
-  <header slot="header" class="wa-split section">
+  <header slot="header" class="section">
     <strong>My Brand</strong>
-
-    <!-- Desktop nav — header only, never the navigation slot -->
-    <nav class="nav-desktop wa-cluster wa-gap-l">
-      <a href="#features">Features</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#faq">FAQ</a>
-      <wa-button variant="brand">Get started</wa-button>
-    </nav>
-
-    <!-- Mobile menu button — opens our own drawer, NOT data-toggle-nav -->
-    <wa-button class="nav-menu-button" appearance="plain" onclick="document.getElementById('menu').open = true">
-      <wa-icon name="bars" label="Open menu"></wa-icon>
-    </wa-button>
   </header>
+
+  <!-- Write the nav ONCE. Desktop: sidebar. Mobile: drawer + hamburger, automatically. -->
+  <nav slot="navigation" class="wa-stack wa-gap-2xs">
+    <a href="#features" data-drawer="close">Features</a>
+    <a href="#pricing" data-drawer="close">Pricing</a>
+    <a href="#faq" data-drawer="close">FAQ</a>
+    <wa-button variant="brand">Get started</wa-button>
+  </nav>
 
   <main>
     <section class="section wa-stack wa-gap-l">
@@ -228,15 +330,6 @@ unless you specifically want a desktop sidebar.
   </footer>
 </wa-page>
 
-<!-- Our own mobile menu, independent of the page's navigation slot -->
-<wa-drawer id="menu" label="Menu">
-  <nav class="wa-stack wa-gap-m">
-    <a href="#features" onclick="document.getElementById('menu').open = false">Features</a>
-    <a href="#pricing" onclick="document.getElementById('menu').open = false">Pricing</a>
-    <a href="#faq" onclick="document.getElementById('menu').open = false">FAQ</a>
-  </nav>
-</wa-drawer>
-
 <style>
   html,
   body {
@@ -250,27 +343,14 @@ unless you specifically want a desktop sidebar.
   .section {
     padding-inline: var(--wa-space-xl);
   }
-  .nav-desktop {
-    display: none;
+  wa-page {
+    --menu-width: 14rem;
   }
-  .nav-menu-button {
-    display: inline-flex;
-  }
-  @media (min-width: 768px) {
-    .nav-desktop {
-      display: flex;
-    }
-    .nav-menu-button {
-      display: none;
-    }
+  wa-page[view='mobile'] {
+    --menu-width: auto; /* collapse the reserved sidebar space on mobile (Hard rule 5) */
   }
 </style>
 ```
-
-> Note this skeleton uses a plain CSS media query (not `.wa-desktop-only` / `wa-page[view=…]`) to swap
-> the desktop nav and the mobile button. That's deliberate: those `view`-based helpers are tied to the
-> `navigation`/sidebar machinery, and a media query is the simpler, self-contained choice when you're not
-> using the sidebar at all.
 
 ## Canonical example — app/docs (with a desktop sidebar)
 
@@ -373,15 +453,16 @@ navigation sidebar, main content, a sticky table-of-contents aside, and a footer
 | Forget the `html, body` reset → gaps appear        | Always add the reset (or use native styles)                            |
 | Expect `<wa-page>` to emit `<main>`/`<header>`     | Slot in your own semantic elements                                     |
 | Put nav in `menu` and wonder why it won't collapse | Use `navigation` (+ `navigation-header`/`-footer`) for mobile collapse |
-| Put nav in `header` **and** copy it into `slot="navigation"` as "the mobile menu" → a redundant bare sidebar column appears down the left on desktop, duplicating the header nav | Landing page: nav in `header` only, **no** `navigation` slot, **no** `data-toggle-nav`; mobile menu is your own `<wa-drawer>`. Reserve `navigation` for a real desktop sidebar |
-| Pair `data-toggle-nav` with your own `<wa-drawer>` on a landing page (it toggles the empty `navigation` drawer, not yours → dead button) | Open your own drawer with a normal click handler; use `data-toggle-nav` only for the `navigation` sidebar drawer |
+| Duplicate nav into multiple slots expecting only one copy to show → it appears **twice** | Write nav **once** in `slot="navigation"`; the component renders it in the right place per view. The only sanctioned duplication is the header-on-desktop / drawer-on-mobile recipe |
+| Hand-roll your own `<wa-drawer>` + toggle button for the mobile menu | Put nav in `slot="navigation"`; `<wa-page>` provides the drawer and hamburger automatically |
+| Write media queries to show/hide the nav, sidebar, or hamburger | Don't — the component switches via its own `view` state. Media queries are for page content, not the nav machinery |
+| Pair `data-toggle-nav` with your own `<wa-drawer>` (it toggles the `navigation` drawer, not yours → dead button) | Use the `navigation` slot's built-in drawer; `data-toggle-nav` only ever controls that one |
 | Set `--menu-width: 16rem` and leave it on mobile   | Reset widths to `auto` under `wa-page[view='mobile']`                  |
 | Nav links that leave the drawer open after a tap   | Add `data-drawer="close"` to navigation links                          |
 | Expect `aside` to disappear on mobile on its own   | `aside` has no drawer; hide it (`.wa-desktop-only` or `display: none`) |
 | Try to set `view="mobile"` yourself                | `view` is read-only; the component sets it. Only read it in CSS        |
 | Hand-roll a `display: grid` page shell             | Use `<wa-page>`; it already is the grid                                |
 | Nest `<wa-page>` inside a section or another page  | One `<wa-page>` per page, at the top level                             |
-| Hand-roll a mobile nav and only translate it off-screen → it overlaps content at desktop | Use the `navigation` slot (auto drawer). If you must hand-roll, hide it with `display: none` at desktop, not just `transform` |
 | Hardcode header colors with hex                    | Use `--wa-color-surface-*` / semantic tokens                           |
 | `<wa-button />` (self-closing)                     | `<wa-button></wa-button>`                                              |
 
