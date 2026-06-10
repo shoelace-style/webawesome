@@ -335,7 +335,7 @@
 
     background-color: var(--wa-color-overlay-inline);
     border-radius: var(--wa-panel-border-radius);
-    overflow-x: auto;
+    overflow-inline: auto;
 
     /* Remove overlapping styles for child code elements */
     & code,
@@ -1144,6 +1144,11 @@
     overflow: hidden;
 
     cursor: pointer;
+
+    /* background-position has no logical keyword yet, so we flip in RTL manually */
+    &:dir(rtl) {
+      background-position: center left var(--wa-form-control-padding-inline);
+    }
 
     &[multiple] {
       height: auto;
