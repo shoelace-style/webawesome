@@ -75,15 +75,85 @@ function getElements() {
     results: document.getElementById('site-search-listbox'),
     emptyQuery: document.getElementById('site-search-empty-query'),
     defaultContainer: document.getElementById('site-search-default'),
+    recentContainer: document.getElementById('site-search-recent-list'),
+    recentListbox: document.getElementById('site-search-recent-listbox'),
+    recentDivider: document.querySelector('[data-recent-divider]'),
   };
 }
 
 // Returns the visible options container for keyboard nav: the results listbox
-// when there's an active query, otherwise the default-state container.
+// when there's an active query, otherwise the default-state container which
+// wraps both the Suggested and Recent sublists.
 function getActiveList() {
   const { dialog, results, defaultContainer } = getElements();
   if (!dialog) return null;
   return dialog.classList.contains('has-results') ? results : defaultContainer;
+}
+
+// Recent searches — persisted in localStorage, capped at 5
+const recentSearchesKey = 'wa-search-recent';
+const recentSearchesMax = 5;
+
+function loadRecentSearches() {
+  try {
+    const raw = localStorage.getItem(recentSearchesKey);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed.filter(q => typeof q === 'string') : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveRecentSearch(query) {
+  const trimmed = (query || '').trim();
+  if (!trimmed) return;
+  try {
+    const current = loadRecentSearches();
+    const next = [trimmed, ...current.filter(q => q !== trimmed)].slice(0, recentSearchesMax);
+    localStorage.setItem(recentSearchesKey, JSON.stringify(next));
+  } catch {
+    // localStorage unavailable or full — skip silently
+  }
+}
+
+function renderRecentSearches() {
+  const { recentContainer, recentListbox, recentDivider } = getElements();
+  if (!recentContainer || !recentListbox) return;
+
+  const queries = loadRecentSearches();
+  recentListbox.innerHTML = '';
+
+  const hasRecents = queries.length > 0;
+  recentContainer.hidden = !hasRecents;
+  if (recentDivider) recentDivider.hidden = !hasRecents;
+
+  if (!hasRecents) return;
+
+  queries.forEach((query, index) => {
+    const li = document.createElement('li');
+    li.className = 'site-search-result';
+    li.setAttribute('role', 'option');
+    li.id = `recent-item-${index + 1}`;
+    li.dataset.recentQuery = query;
+    li.setAttribute('data-selected', 'false');
+
+    const a = document.createElement('a');
+    a.href = '#';
+    a.className = 'wa-cluster wa-flex-nowrap wa-gap-m';
+    a.innerHTML = `
+      <wa-icon class="site-search-result-icon de-emphasize" name="clock-rotate-left" variant="regular" aria-hidden="true"></wa-icon>
+      <div class="site-search-result-details">
+        <div class="site-search-result-title wa-heading-m"></div>
+      </div>
+      <wa-icon class="site-search-result-caret" name="chevron-right" variant="regular" aria-hidden="true"></wa-icon>
+    `;
+    // textContent — never innerHTML — for the user-supplied query string
+    a.querySelector('.site-search-result-title').textContent = query;
+
+    li.appendChild(a);
+    recentListbox.appendChild(li);
+  });
 }
 
 function trackQuerySubmit(query, resultSelectedValue) {
@@ -146,6 +216,9 @@ function show() {
   if (defaultContainer) defaultContainer.addEventListener('click', handleDefaultListClick);
   dialog.addEventListener('keydown', handleKeyDown);
   dialog.addEventListener('wa-hide', handleClose);
+
+  // Refresh the recent searches list from localStorage every time the dialog opens
+  renderRecentSearches();
 
   // Default state: point combobox controls at the visible Suggested listbox
   input.setAttribute('aria-controls', 'site-search-suggested-list');
@@ -302,6 +375,10 @@ function selectResult(link, selectionMethod) {
   const resultUrl = link.dataset.searchResultUrl || link.getAttribute('href');
   if (!resultUrl) return;
   lastTrackedQuery = query;
+
+  // Persist the query in recent searches so it shows up in the default view next time
+  saveRecentSearch(query);
+
   trackQuerySubmit(query, true);
   trackEvent('navigation:search_result_click', {
     query,
@@ -325,13 +402,25 @@ function selectResult(link, selectionMethod) {
   }
 }
 
-// Click handler for the default-state list — close the dialog and navigate
-// to the suggested row's href.
+// Click handler for the default-state list. Suggested rows navigate to their
+// href; recent-search rows populate the input and re-run the search.
 function handleDefaultListClick(event) {
   const link = event.target.closest('a');
   if (!link) return;
   event.preventDefault();
 
+  const li = link.closest('li');
+  const recentQuery = li?.dataset.recentQuery;
+
+  if (recentQuery) {
+    const { input } = getElements();
+    if (!input) return;
+    input.value = recentQuery;
+    updateResults(recentQuery);
+    return;
+  }
+
+  // Suggested row — close the dialog and navigate to the link's href
   const url = link.getAttribute('href');
   if (!url) return;
 
