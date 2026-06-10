@@ -436,8 +436,10 @@
     font-size: var(--wa-font-size-smaller);
     font-weight: var(--wa-font-weight-bold);
 
-    /* Adds a stronger border below column headers but not row headers */
-    &:not(:has(+ td)):not([scope="row"]) {
+    /* Adds a stronger border below column headers only
+     * Row headers are avoided with [scope="row"]
+     * or when the next sibling is a non-header cell */
+    &:not([scope="row"]):not(:has(+ td)) {
       border-block-end: var(--wa-border-style) var(--wa-border-width-s) var(--wa-color-border-normal);
     }
   }
