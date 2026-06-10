@@ -127,10 +127,10 @@
   }
 
   hr {
-    margin: var(--wa-content-spacing) 0;
+    margin-block: var(--wa-content-spacing);
 
     border: none;
-    border-bottom: solid var(--wa-border-width-s) var(--wa-color-surface-border);
+    border-block-end: solid var(--wa-border-width-s) var(--wa-color-surface-border);
   }
 
   figcaption {
@@ -1228,7 +1228,7 @@
 
       width: var(--thumb-width);
       height: var(--thumb-height);
-      margin-top: calc(var(--thumb-height) / -2 + var(--track-size) / 2);
+      margin-block-start: calc(var(--thumb-height) / -2 + var(--track-size) / 2);
 
       background-color: var(--wa-form-control-activated-color);
       border: solid 0.125em var(--wa-color-surface-default);
@@ -1354,7 +1354,7 @@
 
   /* Indeterminate */
   progress:not([value]) {
-    padding-left: var(--inset-inline-start);
+    padding-inline-start: var(--inset-inline-start);
 
     animation: wa-progress-indeterminate 2.5s infinite cubic-bezier(0.37, 0, 0.63, 1);
 
