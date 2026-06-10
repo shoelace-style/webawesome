@@ -319,7 +319,7 @@ describe('<wa-copy-button>', () => {
           await moveMouseOnElement(trigger, 'center');
 
           // Wait for showDelay (150ms default) + buffer
-          await aTimeout(250);
+          await waitUntil(() => tooltip.open === true);
 
           expect(tooltip.open).to.be.true;
           // The tooltip body must actually render — catches the case where the tooltip is in the
@@ -330,7 +330,10 @@ describe('<wa-copy-button>', () => {
 
         it('should render a tooltip with hover/focus trigger when tooltip="full" on the default trigger', async () => {
           const el = await fixture<WaCopyButton>(html`<wa-copy-button value="test" tooltip="full"></wa-copy-button>`);
+          // With SSR for copy-button, we need to wait for the first update and the following update to complete.
+          el.requestUpdate();
           await el.updateComplete;
+
           const tooltip = el.shadowRoot!.querySelector<WaTooltip>('wa-tooltip')!;
           expect(tooltip).to.exist;
           expect(tooltip.getAttribute('trigger')).to.equal('hover focus');
@@ -350,8 +353,11 @@ describe('<wa-copy-button>', () => {
 
         it('should render a tooltip with manual trigger when tooltip="copy" on the default trigger', async () => {
           const el = await fixture<WaCopyButton>(html`<wa-copy-button value="test" tooltip="copy"></wa-copy-button>`);
+          // With SSR for copy-button, we need to wait for the first update and the following update to complete.
+          el.requestUpdate();
           await el.updateComplete;
           const tooltip = el.shadowRoot!.querySelector<WaTooltip>('wa-tooltip')!;
+
           expect(tooltip).to.exist;
           expect(tooltip.getAttribute('trigger')).to.equal('manual');
         });

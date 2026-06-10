@@ -7,17 +7,17 @@
     return;
   }
 
-  const { diffLines } = await import('https://cdn.jsdelivr.net/npm/diff@5.2.0/+esm');
-  const { getDiffableHTML } = await import(
-    'https://cdn.jsdelivr.net/npm/@open-wc/semantic-dom-diff@0.20.1/get-diffable-html.js/+esm'
-  );
-
   function wrap(el, wrapper) {
     el.parentNode.insertBefore(wrapper, el);
     wrapper.appendChild(el);
   }
 
-  function handleLitHydrationError(e) {
+  async function handleLitHydrationError(e) {
+    const { diffLines } = await import('https://cdn.jsdelivr.net/npm/diff@5.2.0/+esm');
+    const { getDiffableHTML } = await import(
+      'https://cdn.jsdelivr.net/npm/@open-wc/semantic-dom-diff@0.20.1/get-diffable-html.js/+esm'
+    );
+
     const element = e.target;
     const scratch = document.createElement('div');
     const node = element.cloneNode(true);
@@ -54,42 +54,47 @@
       <wa-dialog class="diff-dialog" light-dismiss>
         <div class="diff-grid">
           <div>
-            <div>Server</div>
-            <pre class="diff-server"><code></code></pre>
-          </div>
-          <div>
-            <div>Client</div>
-            <pre class="diff-client"><code></code></pre>
-          </div>
-          <div>
-            <div>Diff</div>
+            <div>Diff (Green is Client, Red is Server)</div>
             <pre class="diff-viewer"><code></code></pre>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px;">
+            <div>
+              <div>Server</div>
+              <pre class="diff diff-server"><code></code></pre>
+            </div>
+            <div>
+              <div>Client</div>
+              <pre class="diff diff-client"><code></code></pre>
+            </div>
           </div>
         </div>
       </wa-dialog>
     `;
 
+      console.log(element);
       element.focus();
       wrap(element, diffDebugger);
 
+      // const diffViewer = diffDebugger.querySelector('diff-view-element');
+      // diffViewer.oldValue = serverHTML
+      // diffViewer.newValue = clientHTML
+      const diffViewer = diffDebugger.querySelector('.diff-viewer');
+
+      diffViewer.appendChild(
+        createDiff(
+          diffLines(serverHTML, clientHTML, {
+            ignoreWhitespace: false,
+            newLineIsToken: true,
+          }),
+        ),
+      );
+
       diffDebugger.querySelector('.diff-server > code').textContent = serverHTML;
       diffDebugger.querySelector('.diff-client > code').textContent = clientHTML;
-      const diffViewer = diffDebugger.querySelector('.diff-viewer > code');
-      diffViewer.innerHTML = '';
-      diffViewer.appendChild(
-        createDiff({
-          serverHTML,
-          clientHTML,
-        }),
-      );
     });
   }
 
-  function createDiff({ serverHTML, clientHTML }) {
-    const diff = diffLines(serverHTML, clientHTML, {
-      ignoreWhitespace: false,
-      newLineIsToken: true,
-    });
+  function createDiff(diff) {
     const fragment = document.createDocumentFragment();
     for (var i = 0; i < diff.length; i++) {
       if (diff[i].added && diff[i + 1] && diff[i + 1].removed) {

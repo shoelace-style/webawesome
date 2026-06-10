@@ -169,6 +169,18 @@ export default class WaNumberInput extends WebAwesomeFormAssociatedElement {
    */
   @property({ attribute: 'with-hint', type: Boolean }) withHint = false;
 
+  /**
+   * @internal
+   */
+  protected updateFormValue(value: unknown) {
+    if (value == null) {
+      this.setValue('', null);
+      return;
+    }
+
+    super.updateFormValue(value);
+  }
+
   /** Returns true if the value is at or below the minimum. */
   private get isAtMin(): boolean {
     if (this.min === undefined) return false;
@@ -300,8 +312,8 @@ export default class WaNumberInput extends WebAwesomeFormAssociatedElement {
   }
 
   render() {
-    const hasLabelSlot = this.hasUpdated ? this.hasSlotController.test('label') : this.withLabel;
-    const hasHintSlot = this.hasUpdated ? this.hasSlotController.test('hint') : this.withHint;
+    const hasLabelSlot = this.hasSlotController.test('label', 'withLabel');
+    const hasHintSlot = this.hasSlotController.test('hint', 'withHint');
     const hasLabel = this.label ? true : !!hasLabelSlot;
     const hasHint = this.hint ? true : !!hasHintSlot;
 

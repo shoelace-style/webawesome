@@ -41,7 +41,7 @@ Use the `--color` custom property to change the color of the divider.
 Use the `--spacing` custom property to change the amount of space between the divider and it's neighboring elements.
 
 ```html {.example}
-<div style="text-align: center;">
+<div class="wa-text-center">
   Above
   <wa-divider style="--spacing: 2rem;"></wa-divider>
   Below

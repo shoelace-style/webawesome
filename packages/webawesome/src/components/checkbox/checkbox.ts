@@ -145,6 +145,12 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
 
   connectedCallback() {
     super.connectedCallback();
+    if (this.didSSR && !this.hasUpdated) {
+      this.updateComplete.then(() => {
+        this.handleDefaultCheckedChange();
+      });
+      return;
+    }
     this.handleDefaultCheckedChange();
   }
 
@@ -154,6 +160,13 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
   }
 
   handleValueOrCheckedChange() {
+    if (this.didSSR && !this.hasUpdated) {
+      this.updateComplete.then(() => {
+        this.handleValueOrCheckedChange();
+      });
+      return;
+    }
+
     // These @watch() commands seem to override the base element checks for changes, so we need to setValue for the form and and updateValidity()
     this.setValue(this.checked ? this.value : null, this._value);
     this.updateValidity();
@@ -214,11 +227,17 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
     const iconName = isIndeterminate ? 'indeterminate' : 'check';
     const iconState = isIndeterminate ? 'indeterminate' : 'check';
 
+    // We need to use the attribute for SSR, because for some reason Lit SSR always sets `.checked=${live(this.checked)}` as "true"
+    // TODO: Tell Konnor to submit a bug report + repo about this.
+    const checkedAttribute = this.didSSR && !this.hasUpdated ? this.checked : this.defaultChecked;
+    const checkedProperty = this.didSSR && !this.hasUpdated ? null : live(this.checked);
+
     //
     // NOTE: we use a `<div>` around the label slot because of this Chrome bug.
     // Fixed in Chrome 119
     // https://bugs.chromium.org/p/chromium/issues/detail?id=1413733
     //
+
     return html`
       <label part="base">
         <span part="control">
@@ -227,11 +246,12 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
             type="checkbox"
             title=${this.title /* An empty title prevents browser validation tooltips from appearing on hover */}
             name=${ifDefined(this.name)}
-            value=${ifDefined(this._value)}
+            value=${ifDefined(this.value)}
             .indeterminate=${live(this.indeterminate)}
-            .checked=${live(this.checked)}
-            .disabled=${this.disabled}
-            .required=${this.required}
+            .checked=${ifDefined(checkedProperty)}
+            ?checked=${checkedAttribute}
+            ?disabled=${this.disabled}
+            ?required=${this.required}
             aria-checked=${this.indeterminate ? 'mixed' : this.checked ? 'true' : 'false'}
             aria-describedby="hint"
             @click=${this.handleClick}

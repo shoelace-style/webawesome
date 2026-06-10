@@ -6,6 +6,7 @@ import { ColorSchemeController } from '../../internal/color-scheme-controller.js
 import { parseSpaceDelimitedTokens } from '../../internal/parse.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import { LocalizeController } from '../../utilities/localize.js';
+import '../icon/icon.js';
 import styles from './zoomable-frame.styles.js';
 
 /**
@@ -151,11 +152,15 @@ export default class WaZoomableFrame extends WebAwesomeElement {
     return currentIndex <= 0;
   }
 
-  updated(changedProperties: PropertyValues<this>) {
+  willUpdate(changedProperties: PropertyValues<this>) {
     if (changedProperties.has('zoom')) {
-      this.style.setProperty('--zoom', `${this.zoom}`);
+      this.setStyleProperty('--zoom', `${this.zoom}`);
     }
 
+    super.willUpdate(changedProperties);
+  }
+
+  updated(changedProperties: PropertyValues<this>) {
     if (changedProperties.has('zoomLevels')) {
       this.availableZoomLevels = this.parseZoomLevels(this.zoomLevels);
 
@@ -176,6 +181,7 @@ export default class WaZoomableFrame extends WebAwesomeElement {
         this.themeObserver?.disconnect();
       }
     }
+    super.updated(changedProperties);
   }
 
   /** Zooms in to the next available zoom level. */

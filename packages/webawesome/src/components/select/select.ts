@@ -606,6 +606,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   /* @internal - used by options to update labels */
   public handleDefaultSlotChange() {
     if (this.slotChangePending) return;
+
     this.slotChangePending = true;
     queueMicrotask(() => {
       this.slotChangePending = false;
@@ -616,6 +617,13 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   private processSlotChange() {
     if (!customElements.get('wa-option')) {
       customElements.whenDefined('wa-option').then(() => this.handleDefaultSlotChange());
+    }
+
+    if (this.didSSR && !this.hasUpdated) {
+      this.updateComplete.then(() => {
+        this.handleDefaultSlotChange();
+      });
+      return;
     }
 
     // Invalidate the options cache since slots have changed
@@ -747,6 +755,18 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   // current value, and the display value. The option component uses it internally to update labels as they change.
   public selectionChanged() {
     const options = this.getAllOptions();
+
+    // if (options.some((option) => {
+    //   option.didSSR && !option.hasUpdated
+    // })) {
+    //   Promise.allSettled(options.map((opt) => {
+    //     return opt.updateComplete
+    //   })).then(() => {
+    //     this.processSlotChange()
+    //   })
+
+    //   return
+    // }
 
     // Update selected options cache
     const newSelectedOptions = options.filter(el => {
@@ -968,8 +988,8 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   }
 
   render() {
-    const hasLabelSlot = this.hasUpdated ? this.hasSlotController.test('label') : this.withLabel;
-    const hasHintSlot = this.hasUpdated ? this.hasSlotController.test('hint') : this.withHint;
+    const hasLabelSlot = this.hasSlotController.test('label', 'withLabel');
+    const hasHintSlot = this.hasSlotController.test('hint', 'withHint');
     const hasLabel = this.label ? true : !!hasLabelSlot;
     const hasHint = this.hint ? true : !!hasHintSlot;
     const hasClearIcon =

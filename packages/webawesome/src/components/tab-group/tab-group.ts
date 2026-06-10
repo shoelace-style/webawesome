@@ -44,6 +44,8 @@ import styles from './tab-group.styles.js';
  * @cssproperty --indicator-color - The color of the active tab indicator.
  * @cssproperty --track-color - The color of the indicator's track (the line that separates tabs from panels).
  * @cssproperty --track-width - The width of the indicator's track (the line that separates tabs from panels).
+ *
+ * @ssr - In an SSR environment, there is no access to the children of a `<wa-tab-group>`, as such, it cannot set "active" on children and will not render any panels unless you manually set the "active" attribute on the appropriate `<wa-tab-panel>` + `<wa-tab>`.
  */
 @customElement('wa-tab-group')
 export default class WaTabGroup extends WebAwesomeElement {

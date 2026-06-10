@@ -1,4 +1,4 @@
-import { html } from 'lit';
+import { html, type PropertyValues } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { WaErrorEvent } from '../../events/error.js';
@@ -28,6 +28,8 @@ import styles from './animated-image.styles.js';
  *
  * @cssproperty --control-box-size - The size of the icon box.
  * @cssproperty --icon-size - The size of the play/pause icons.
+ *
+ * @ssr - Due to limitations of the browser, this component is not able to be SSR'ed. You can use a `<video>` tag, but the controls will not work, and it will always auto-play the gif or webp.
  */
 @customElement('wa-animated-image')
 export default class WaAnimatedImage extends WebAwesomeElement {
@@ -58,6 +60,22 @@ export default class WaAnimatedImage extends WebAwesomeElement {
       event.preventDefault();
       this.play = !this.play;
     }
+  }
+
+  firstUpdated(changedProperties: PropertyValues<this>) {
+    super.firstUpdated;
+    if (this.didSSR) {
+      const img = this.animatedImage;
+      if (img && img.complete) {
+        // The image has loaded prior to this element connecting, so we need to simulate error / load events respectively.
+        if (img.naturalWidth > 0) {
+          img.dispatchEvent(new Event('load'));
+        } else {
+          img.dispatchEvent(new Event('error'));
+        }
+      }
+    }
+    super.firstUpdated(changedProperties);
   }
 
   private handleLoad() {
@@ -97,6 +115,9 @@ export default class WaAnimatedImage extends WebAwesomeElement {
     const verb = this.localize.term(this.play ? 'pauseAnimation' : 'playAnimation');
     const label = `${verb} ${this.alt}`;
 
+    // when SSR'ed and the component has not updated, render the frozen still image, but its invisible so it only prevents layout shifting.
+    const shouldShow = (this.didSSR && !this.hasUpdated) || this.play;
+
     return html`
       <div
         class="animated-image"
@@ -112,7 +133,8 @@ export default class WaAnimatedImage extends WebAwesomeElement {
           src=${this.src}
           alt=${this.alt}
           crossorigin="anonymous"
-          aria-hidden=${this.play ? 'false' : 'true'}
+          aria-hidden=${shouldShow ? 'false' : 'true'}
+          style="visibility: hidden;"
           role="presentation"
           @load=${this.handleLoad}
           @error=${this.handleError}

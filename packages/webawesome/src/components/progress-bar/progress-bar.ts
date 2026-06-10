@@ -38,6 +38,15 @@ export default class WaProgressBar extends WebAwesomeElement {
   /** A custom label for assistive devices. */
   @property() label = '';
 
+  willUpdate(changedProperties: PropertyValues<this>) {
+    // This is intended for the server.
+    if (this.style == null) {
+      this.setStyleProperty('--percentage', `${clamp(this.value, 0, 100)}%`);
+    }
+
+    super.willUpdate(changedProperties);
+  }
+
   updated(changedProperties: PropertyValues<this>) {
     if (changedProperties.has('value')) {
       // Wait a cycle before setting it so Safari animates it.
@@ -46,6 +55,8 @@ export default class WaProgressBar extends WebAwesomeElement {
         this.style.setProperty('--percentage', `${clamp(this.value, 0, 100)}%`);
       });
     }
+
+    super.updated(changedProperties);
   }
 
   render() {

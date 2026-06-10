@@ -125,12 +125,14 @@ export default class WaPage extends WebAwesomeElement {
   private footerResizeObserver = !isServer ? this.slotResizeObserver('footer') : null;
   private slotResizeObserver(slot: string) {
     return new ResizeObserver(entries => {
-      for (const entry of entries) {
-        if (entry.contentBoxSize) {
-          const contentBoxSize = entry.borderBoxSize[0];
-          this.style.setProperty(`--${slot}-height`, `${contentBoxSize.blockSize}px`);
+      requestAnimationFrame(() => {
+        for (const entry of entries) {
+          if (entry.contentBoxSize) {
+            const contentBoxSize = entry.borderBoxSize[0];
+            this.style.setProperty(`--${slot}-height`, `${Math.round(contentBoxSize.blockSize)}px`);
+          }
         }
-      }
+      });
     });
   }
 
@@ -203,29 +205,32 @@ export default class WaPage extends WebAwesomeElement {
   @property({ attribute: 'disable-navigation-toggle', reflect: true, type: Boolean }) disableNavigationToggle: boolean =
     false;
 
-  pageResizeObserver = !isServer
-    ? new ResizeObserver(entries => {
-        for (const entry of entries) {
-          if (entry.contentBoxSize) {
-            const contentBoxSize = entry.borderBoxSize[0];
-            const pageWidth = contentBoxSize.inlineSize;
+  pageResizeObserver =
+    typeof ResizeObserver !== 'undefined'
+      ? new ResizeObserver(entries => {
+          requestAnimationFrame(() => {
+            for (const entry of entries) {
+              if (entry.contentBoxSize) {
+                const contentBoxSize = entry.borderBoxSize[0];
+                const pageWidth = contentBoxSize.inlineSize;
 
-            const oldView = this.view;
+                const oldView = this.view;
 
-            if (pageWidth >= toPx(this.mobileBreakpoint)) {
-              this.view = 'desktop';
-            } else {
-              this.view = 'mobile';
+                if (pageWidth >= toPx(this.mobileBreakpoint)) {
+                  this.view = 'desktop';
+                } else {
+                  this.view = 'mobile';
+                }
+
+                this.requestUpdate('view', oldView);
+              }
             }
-
-            this.requestUpdate('view', oldView);
-          }
-        }
-        if (entries.length > 0) {
-          this.updateAsideAndMenuHeights();
-        }
-      })
-    : null;
+            if (entries.length > 0) {
+              this.updateAsideAndMenuHeights();
+            }
+          });
+        })
+      : null;
 
   private updateNavigationToggleState = (e?: Event) => {
     if (e) {
@@ -241,11 +246,11 @@ export default class WaPage extends WebAwesomeElement {
     this.disableNavigationToggle = hasCustomToggle || !hasNavigationContent;
   };
 
-  protected update(changedProperties: PropertyValues<this>): void {
+  protected updated(changedProperties: PropertyValues<this>): void {
     if (changedProperties.has('view')) {
       this.hideNavigation();
     }
-    super.update(changedProperties);
+    super.updated(changedProperties);
   }
 
   constructor() {
@@ -261,17 +266,18 @@ export default class WaPage extends WebAwesomeElement {
 
     // SSR guard: browser APIs are not available during server-side rendering
     if (!isServer) {
-      this.pageResizeObserver?.observe(this);
-
-      document.addEventListener('scroll', this.updateAsideAndMenuHeights, { passive: true });
-      this.updateAsideAndMenuHeights();
-      setTimeout(this.updateAsideAndMenuHeights);
-
+      // setTimeout to wait for DOM to finish, then RAF to start observing.
       setTimeout(() => {
-        this.headerResizeObserver?.observe(this.header);
-        this.subheaderResizeObserver?.observe(this.subheader);
-        this.bannerResizeObserver?.observe(this.banner);
-        this.footerResizeObserver?.observe(this.footer);
+        document.addEventListener('scroll', this.updateAsideAndMenuHeights, { passive: true });
+        requestAnimationFrame(() => {
+          this.updateAsideAndMenuHeights();
+
+          this.pageResizeObserver?.observe(this);
+          this.headerResizeObserver?.observe(this.header);
+          this.subheaderResizeObserver?.observe(this.subheader);
+          this.bannerResizeObserver?.observe(this.banner);
+          this.footerResizeObserver?.observe(this.footer);
+        });
       });
     }
   }
@@ -286,7 +292,13 @@ export default class WaPage extends WebAwesomeElement {
     }
     const elementHeight = element.clientHeight;
     const windowHeight = window.innerHeight;
-    const { top, bottom } = element.getBoundingClientRect();
+    const rect = element.getBoundingClientRect?.();
+
+    if (!rect) {
+      return null;
+    }
+
+    const { top, bottom } = rect;
     return Math.max(0, top > 0 ? Math.min(elementHeight, windowHeight - top) : Math.min(bottom, windowHeight));
   }
 
@@ -297,8 +309,8 @@ export default class WaPage extends WebAwesomeElement {
       return;
     }
 
-    this.aside.style.setProperty('--main-height', `${visiblePixels}px`);
-    this.menu.style.setProperty('--main-height', `${visiblePixels}px`);
+    this.aside.style.setProperty('--main-height', `${Math.round(visiblePixels)}px`);
+    this.menu.style.setProperty('--main-height', `${Math.round(visiblePixels)}px`);
   };
 
   firstUpdated() {
@@ -453,36 +465,4 @@ declare global {
   interface HTMLElementTagNameMap {
     'wa-page': WaPage;
   }
-}
-
-if (typeof CSSStyleSheet !== 'undefined' && typeof document !== 'undefined' && 'adoptedStyleSheets' in document) {
-  //
-  // Append a supporting light DOM styles for <wa-page>
-  //
-  const stylesheet = new CSSStyleSheet();
-
-  stylesheet.replaceSync(`
-  :is(html, body):has(wa-page) {
-    min-height: 100%;
-    padding: 0;
-    margin: 0;
-  }
-
-    /**
-    Because headers are sticky, this is needed to make sure page fragment anchors scroll down past the headers / subheaders and are visible.
-    IE: \`<a href="#id-for-h2">\` anchors.
-    */
-    wa-page :is(*, *:after, *:before) {
-    scroll-margin-top: var(--scroll-margin-top);
-    }
-
-    wa-page[view='desktop'] [data-toggle-nav] {
-    display: none;
-    }
-
-    wa-page[view='mobile'] .wa-desktop-only, wa-page[view='desktop'] .wa-mobile-only {
-    display: none !important;
-    }
-  `);
-  document.adoptedStyleSheets = [...document.adoptedStyleSheets, stylesheet];
 }

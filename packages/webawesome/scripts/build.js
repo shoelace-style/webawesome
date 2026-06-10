@@ -232,6 +232,7 @@ export async function build(options = {}) {
         // Events
         ...(await globby(posix.join(rootDir, 'src/events/**/*.ts'))),
         // TODO: Should `src/internal` be included?
+        ...(await globby(posix.join(rootDir, 'src/ssr/**/*.ts'))),
         // React wrappers
         ...(await globby(posix.join(rootDir, 'src/react/**/*.ts'))),
       ],
@@ -371,7 +372,12 @@ export async function build(options = {}) {
 
             const _end = res.end;
             res.end = function (...args) {
-              const transformedStr = SimulateWebAwesomeApp(finalString.join(''));
+              const ssr = process.env.SSR === 'true';
+              const transformedStr = SimulateWebAwesomeApp(finalString.join(''), {
+                isDev: process.env.NODE_ENV === 'development',
+                ssr,
+                req,
+              });
               _write.call(res, transformedStr, encoding);
               _end.call(res, ...args);
             };

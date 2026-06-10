@@ -312,8 +312,8 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
           loading: this.loading,
           rtl: this.localize.dir() === 'rtl',
           'has-label': this.hasSlotController.test('[default]'),
-          'has-start': this.hasUpdated ? this.hasSlotController.test('start') : this.withStart,
-          'has-end': this.hasUpdated ? this.hasSlotController.test('end') : this.withEnd,
+          'has-start': this.hasSlotController.test('start', 'withStart'),
+          'has-end': this.hasSlotController.test('end', 'withEnd'),
           'is-icon-button': this.isIconButton,
         })}
         ?disabled=${ifDefined(isLink ? undefined : this.disabled)}

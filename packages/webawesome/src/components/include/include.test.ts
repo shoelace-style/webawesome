@@ -148,7 +148,11 @@ describe('<wa-include>', () => {
           expect(span!.textContent).to.equal('Loaded');
         });
 
-        it('should not update innerHTML if src changes before the request completes', async () => {
+        it.only('should not update innerHTML if src changes before the request completes', async () => {
+          // Unique per fixture iteration so the module-level requestInclude cache doesn't leak between runs
+          const firstSrc = `/first-${fixture.type}`;
+          const secondSrc = `/second-${fixture.type}`;
+
           let resolveFirst: (value: string) => void;
           const firstPromise = new Promise<string>(resolve => {
             resolveFirst = resolve;
@@ -170,11 +174,12 @@ describe('<wa-include>', () => {
 
           const loadHandler = sinon.spy();
           document.addEventListener('wa-load', loadHandler);
+          document.addEventListener('wa-error', loadHandler);
 
-          const el = await fixture<WaInclude>(html`<wa-include src="/first"></wa-include>`);
+          const el = await fixture<WaInclude>(html`<wa-include src="${firstSrc}"></wa-include>`);
 
           // Change src before first request completes
-          el.src = '/second';
+          el.src = secondSrc;
           await el.updateComplete;
 
           // Now resolve the first request

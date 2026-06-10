@@ -61,7 +61,7 @@ export default {
           case ts.SyntaxKind.ClassDeclaration: {
             const className = node.name.getText();
             const classDoc = moduleDoc?.declarations?.find(declaration => declaration.name === className);
-            const customTags = ['dependency', 'documentation', 'since', 'status', 'title'];
+            const customTags = ['dependency', 'documentation', 'since', 'status', 'title', 'ssr'];
             let customComments = '/**';
 
             node.jsDoc?.forEach(jsDoc => {

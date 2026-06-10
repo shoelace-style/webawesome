@@ -1,0 +1,89 @@
+<div id="palette-viewer" class="wa-stack wa-gap-l">
+  {%- if not colorScales -%}
+    {% set colorScales = themer.colors %}
+  {%- endif -%}
+  {%- for color in colorScales -%}
+    <div class="color-scale wa-stack wa-gap-xs">
+      <div class="wa-split">
+        <div class="color-name">{{ color | capitalize }}</div>
+        <code class="color-token appearance-plain">--wa-color-{{ color }}-*</code>
+      </div>
+      <div class="color-swatches wa-grid wa-gap-2xs">
+        {%- for tint in themer.tints -%}
+        <div class="color-swatch-cell">
+          <wa-copy-button
+            class="color-swatch"
+            copy-label="{{ color }} {{ tint }}"
+            value="var(--wa-color-{{ color }}-{{ tint }})"
+            style="--color: var(--wa-color-{{ color }}-{{ tint }})"
+          >
+            <button class="swatch-button" aria-label="Copy {{ color }} {{ tint }}"></button>
+          </wa-copy-button>
+          <span class="tint-label">{{ tint }}</span>
+        </div>
+        {%- endfor -%}
+      </div>
+    </div>
+  {%- endfor -%}
+</div>
+
+<style>
+  #palette-viewer:has(+ *) {
+    margin-block-end: var(--wa-content-spacing);
+  }
+  .color-name {
+    font-weight: var(--wa-font-weight-semibold);
+  }
+  .color-token {
+    font-size: var(--wa-font-size-xs);
+  }
+  .color-swatches {
+    --min-column-size: 3rem;
+    gap: var(--wa-space-3xs);
+    row-gap: var(--wa-space-s);
+  }
+  .color-swatch-cell {
+    display: flex;
+    flex-direction: column;
+    gap: var(--wa-space-3xs);
+    align-items: center;
+  }
+  .color-swatch {
+    display: block;
+    position: relative;
+    aspect-ratio: 1;
+    width: 100%;
+  }
+  .tint-label {
+    font-size: var(--wa-font-size-xs);
+    color: var(--wa-color-text-quiet);
+    font-weight: var(--wa-font-weight-action);
+    text-align: center;
+  }
+  .swatch-button {
+    all: revert;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    aspect-ratio: 1;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    background-color: var(--color);
+    border-radius: var(--wa-border-radius-s);
+    transition: transform 0.1s ease, translate 0.1s ease, box-shadow 0.1s ease;
+
+    @media (hover: hover) {
+      &:hover {
+        transform: scaleY(1.075);
+        box-shadow: var(--wa-shadow-s);
+        z-index: 1;
+      }
+    }
+
+    &:active {
+      translate: 0 1px;
+      box-shadow: none;
+    }
+  }
+</style>

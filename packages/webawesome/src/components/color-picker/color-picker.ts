@@ -274,6 +274,17 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
     }
   }
 
+  /**
+   * @internal
+   */
+  protected updateFormValue(value: unknown) {
+    if (value == null) {
+      this.setValue('', null);
+      return;
+    }
+    super.updateFormValue(value);
+  }
+
   private handleCopy() {
     this.input.select();
     document.execCommand('copy');
@@ -1084,8 +1095,8 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
   }
 
   render() {
-    const hasLabelSlot = !this.hasUpdated ? this.withLabel : this.withLabel || this.hasSlotController.test('label');
-    const hasHintSlot = !this.hasUpdated ? this.withHint : this.withHint || this.hasSlotController.test('hint');
+    const hasLabelSlot = this.hasSlotController.test('label', 'withLabel');
+    const hasHintSlot = this.hasSlotController.test('hint', 'withHint');
     const hasLabel = this.label ? true : !!hasLabelSlot;
     const hasHint = this.hint ? true : !!hasHintSlot;
 

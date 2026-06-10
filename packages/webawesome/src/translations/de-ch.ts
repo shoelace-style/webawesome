@@ -9,6 +9,7 @@ const translation: Translation = {
 
   createOption: value => `„${value}" erstellen`,
   close: 'Schliessen',
+  closeCalendar: 'Kalender schliessen',
   resize: 'Grösse ändern',
 };
 

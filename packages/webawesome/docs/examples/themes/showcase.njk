@@ -11,7 +11,8 @@ layout: false
 
     <!-- Web Awesome -->
     <link rel="stylesheet" href="/dist/styles/webawesome.css" />
-    <script type="module" src="/dist/webawesome.loader.js"></script>
+
+    <script type="module" src="/dist/webawesome.ssr-loader.js"></script>
 
     <!-- Available themes -->
     {% for theme in themer.themes %}
@@ -30,32 +31,33 @@ layout: false
       {% endif %}
     {% endfor %}
 
-    <!-- Set the initial theme and color scheme based on ?theme and ?color-scheme -->
+    <!-- Set the initial theme, palette, variants, and color scheme based on URL params -->
     <script type="module">
       const htmlElement = document.documentElement;
       const urlParams = new URLSearchParams(window.location.search);
-      const colorScheme = urlParams.get('color-scheme');
-      const theme = urlParams.get('theme');
+
+      function setClass(prefix, value) {
+        if (!value) return;
+        htmlElement.classList.forEach(className => {
+          if (className.startsWith(prefix)) htmlElement.classList.remove(className);
+        });
+        htmlElement.classList.add(`${prefix}${value}`);
+      }
 
       // Color scheme
+      const colorScheme = urlParams.get('color-scheme');
       if (colorScheme === 'dark') {
         htmlElement.classList.add('wa-dark');
       } else if (colorScheme === 'light') {
         htmlElement.classList.remove('wa-dark');
       }
 
-      // Theme
-      if (theme) {
-        // Remove existing wa-theme-* classes
-        htmlElement.classList.forEach(className => {
-          if (className.startsWith('wa-theme-')) {
-            htmlElement.classList.remove(className);
-          }
-        });
-
-        // Add new theme class
-        htmlElement.classList.add(`wa-theme-${theme}`);
-      }
+      // Theme, palette, and variant color assignments
+      setClass('wa-theme-', urlParams.get('theme'));
+      setClass('wa-palette-', urlParams.get('palette'));
+      ['brand', 'neutral', 'success', 'warning', 'danger'].forEach(variant => {
+        setClass(`wa-${variant}-`, urlParams.get(`color-${variant}`));
+      });
     </script>
 
     <script type="module">

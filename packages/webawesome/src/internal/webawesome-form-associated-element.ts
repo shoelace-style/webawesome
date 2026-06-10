@@ -67,7 +67,7 @@ export class WebAwesomeFormAssociatedElement
    * for changes. Whenever these attributes change, we want to be notified and update the validator.
    */
   static get validators(): Validator[] {
-    return [CustomErrorValidator()];
+    return isServer ? [] : [CustomErrorValidator()];
   }
 
   // Append all Validator "observedAttributes" into the "observedAttributes" so they can run.
@@ -115,7 +115,7 @@ export class WebAwesomeFormAssociatedElement
   constructor() {
     super();
 
-    if (!isServer) {
+    if ('addEventListener' in this) {
       // eslint-disable-next-line
       this.addEventListener('invalid', this.emitInvalid);
     }
@@ -124,11 +124,17 @@ export class WebAwesomeFormAssociatedElement
 
   connectedCallback() {
     super.connectedCallback();
-    this.updateValidity();
+    if (this.didSSR && !this.hasUpdated) {
+      this.updateComplete.then(() => {
+        this.updateValidity();
+      });
+    } else {
+      this.updateValidity();
+    }
 
     // Lazily evaluate after the constructor to allow people to override the `assumeInteractionOn`
     this.assumeInteractionOn.forEach(event => {
-      this.addEventListener(event, this.handleInteraction);
+      this.addEventListener?.(event, this.handleInteraction);
     });
   }
 
@@ -158,18 +164,7 @@ export class WebAwesomeFormAssociatedElement
       // @ts-expect-error Some components will use an accessors, other use a property, so we don't want to limit them.
       const value = this.value as unknown;
 
-      // Accounts for the snowflake case on `<wa-select>`
-      if (Array.isArray(value)) {
-        if (this.name) {
-          const formData = new FormData();
-          for (const val of value) {
-            formData.append(this.name, val as string);
-          }
-          this.setValue(formData, formData);
-        }
-      } else {
-        this.setValue(value as FormData | string | File | null, value as FormData | string | File | null);
-      }
+      this.updateFormValue(value);
     }
 
     if (changedProperties.has('disabled')) {
@@ -181,7 +176,29 @@ export class WebAwesomeFormAssociatedElement
     }
 
     super.willUpdate(changedProperties);
-    this.updateValidity();
+    if (this.didSSR && !this.hasUpdated) {
+      this.updateComplete.then(() => this.updateValidity());
+    } else {
+      this.updateValidity();
+    }
+  }
+
+  /**
+   * @internal
+   */
+  protected updateFormValue(value: unknown) {
+    // Accounts for the snowflake case on `<wa-select>`
+    if (Array.isArray(value)) {
+      if (this.name) {
+        const formData = new FormData();
+        for (const val of value) {
+          formData.append(this.name, val as string);
+        }
+        this.setValue(formData, formData);
+      }
+    } else {
+      this.setValue(value as FormData | string | File | null, value as FormData | string | File | null);
+    }
   }
 
   private handleInteraction = (event: Event) => {
@@ -318,14 +335,27 @@ export class WebAwesomeFormAssociatedElement
    * "restore", state is a string, File, or FormData object previously set as the second argument to setFormValue.
    */
   formStateRestoreCallback(state: string | File | FormData | null, reason: 'autocomplete' | 'restore') {
-    // @ts-expect-error We purposely do not have a value property. It makes things hard to extend.
-    this.value = state;
+    if (this.didSSR && !this.hasUpdated) {
+      this.updateComplete.then(() => {
+        // @ts-expect-error We purposely do not have a value property. It makes things hard to extend.
+        this.value = state;
 
-    if (reason === 'restore') {
-      this.resetValidity();
+        if (reason === 'restore') {
+          this.resetValidity();
+        }
+
+        this.updateValidity();
+      });
+    } else {
+      // @ts-expect-error We purposely do not have a value property. It makes things hard to extend.
+      this.value = state;
+
+      if (reason === 'restore') {
+        this.resetValidity();
+      }
+
+      this.updateValidity();
     }
-
-    this.updateValidity();
   }
 
   setValue(...args: Parameters<typeof this.internals.setFormValue>) {

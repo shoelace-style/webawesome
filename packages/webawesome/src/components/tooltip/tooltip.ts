@@ -102,33 +102,37 @@ export default class WaTooltip extends WebAwesomeElement {
   connectedCallback() {
     super.connectedCallback();
 
-    // Recreate event controller if it was aborted
-    if (this.eventController.signal.aborted) {
-      this.eventController = new AbortController();
-    }
+    const isClient = typeof document !== 'undefined';
 
-    this.addEventListener('mouseout', this.handleMouseOut);
+    if (isClient) {
+      // Recreate event controller if it was aborted
+      if (this.eventController.signal.aborted) {
+        this.eventController = new AbortController();
+      }
 
-    // TODO: This is a hack that I need to revisit [Konnor]
-    if (this.open) {
-      this.open = false;
-      this.updateComplete.then(() => {
-        this.open = true;
-      });
-    }
+      this.addEventListener('mouseout', this.handleMouseOut);
 
-    // If the user doesn't give us an id, generate one.
-    if (!this.id) {
-      this.id = uniqueId('wa-tooltip-');
-    }
+      // TODO: This is a hack that I need to revisit [Konnor]
+      if (this.open) {
+        this.open = false;
+        this.updateComplete.then(() => {
+          this.open = true;
+        });
+      }
 
-    // Re-establish anchor connection after being disconnected
-    if (this.for && this.anchor) {
-      this.anchor = null; // force reattach
-      this.handleForChange();
-    } else if (this.for) {
-      // Initial connection
-      this.handleForChange();
+      // If the user doesn't give us an id, generate one.
+      if (!this.id) {
+        this.id = uniqueId('wa-tooltip-');
+      }
+
+      // Re-establish anchor connection after being disconnected
+      if (this.for && this.anchor) {
+        this.anchor = null; // force reattach
+        this.handleForChange();
+      } else if (this.for) {
+        // Initial connection
+        this.handleForChange();
+      }
     }
   }
 
@@ -292,13 +296,13 @@ export default class WaTooltip extends WebAwesomeElement {
 
   @watch('for')
   handleForChange() {
-    const rootNode = this.getRootNode() as Document | ShadowRoot | null;
+    const rootNode = this.getRootNode?.() as Document | ShadowRoot | null;
 
     if (!rootNode) {
       return;
     }
 
-    const newAnchor = this.for ? rootNode.getElementById(this.for) : null;
+    const newAnchor = this.for ? rootNode.getElementById?.(this.for) : null;
     const oldAnchor = this.anchor;
 
     if (newAnchor === oldAnchor) {

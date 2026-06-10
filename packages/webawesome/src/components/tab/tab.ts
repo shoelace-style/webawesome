@@ -41,13 +41,13 @@ export default class WaTab extends WebAwesomeElement {
    */
   @property({ type: Number, reflect: true }) tabIndex = 0;
 
-  connectedCallback() {
-    // Auto-slot into nav slot
-    this.slot ||= 'nav';
+  /**
+   * @internal
+   * Need to wrap in @property({reflect: true}) otherwise it will not SSR properly.
+   */
+  @property({ reflect: true }) slot = 'nav';
 
-    super.connectedCallback();
-    this.setAttribute('role', 'tab');
-  }
+  @property({ reflect: true }) role = 'tab';
 
   @watch('active')
   handleActiveChange() {

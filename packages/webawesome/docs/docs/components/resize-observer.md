@@ -1,7 +1,7 @@
 ---
 title: Resize Observer
 layout: component
-category: Utilities
+category: Helpers
 synonyms:
   - size watcher
   - resize listener

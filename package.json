@@ -2,7 +2,7 @@
   "name": "@webawesome/monorepo",
   "private": true,
   "description": "A forward-thinking library of web components.",
-  "version": "3.7.0",
+  "version": "3.8.0",
   "homepage": "https://webawesome.com/",
   "author": "Web Awesome",
   "license": "MIT",
@@ -23,7 +23,7 @@
   "devDependencies": {
     "@11ty/eleventy": "3.0.0",
     "@custom-elements-manifest/analyzer": "^0.11.0",
-    "@lit-labs/eleventy-plugin-lit": "^1.0.3",
+    "@lit-labs/eleventy-plugin-lit": "^1.0.6",
     "@lit-labs/testing": "^0.2.5",
     "@lit/react": "^1.0.8",
     "@open-wc/testing": "^3.2.0",
@@ -83,7 +83,8 @@
     "uuid": "^9.0.1"
   },
   "overrides": {
-    "playwright": "^1.49.1"
+    "playwright": "^1.49.1",
+    "axe-core": "^4.11.4"
   },
   "lint-staged": {
     "*.{ts,js}": [

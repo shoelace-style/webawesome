@@ -19,6 +19,8 @@ export default css`
   :host(:not([auto-width])) {
     width: 1.25em;
     height: 1em;
+    min-width: 1.25em; /* <-- this is what Safari respects for intrinsic */
+    min-height: 1em;
   }
 
   /* Auto-width */
@@ -28,6 +30,7 @@ export default css`
   }
 
   svg {
+    fill: currentColor;
     height: 1em;
     overflow: visible;
     width: auto;

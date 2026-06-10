@@ -216,6 +216,10 @@
     inline-size: 100%;
     /* default to full-width in webawesome docs; pro overrides to --content-width-l */
     --max-inline-size: 100%;
+  }
+
+  /* looks jarring to have the transition with SSR. save it for cloaked pages with CSR. */
+  .wa-cloak .page-nav-products {
     transition: background-color var(--wa-transition-slow) var(--wa-transition-easing);
   }
 
@@ -318,8 +322,8 @@
     container-type: inline-size;
     container-name: header;
 
-    /* Narrow (≤ 80ch): compact header with logo */
-    @container header (inline-size <= 80ch) {
+    /* Narrow (≤ 85ch): compact header with logo */
+    @container header (inline-size <= 85ch) {
       .page-nav-products {
         display: none;
       }
@@ -348,8 +352,8 @@
       color: var(--wa-color-text-normal);
     }
 
-    /* Narrow (≤ 80ch): compact header with logo */
-    @container subheader (inline-size <= 80ch) {
+    /* Narrow (≤ 85ch): compact header with logo */
+    @container subheader (inline-size <= 85ch) {
       .subheader-links {
         display: none;
       }
@@ -359,8 +363,8 @@
       }
     }
 
-    /* > 80ch: hide compact logo */
-    @container subheader (inline-size > 80ch) {
+    /* > 85ch: hide compact logo */
+    @container subheader (inline-size > 85ch) {
       .subheader-logo-simple {
         display: none;
       }
@@ -452,6 +456,15 @@
     }
   }
 
+  /*
+   * Pro badges embedded in running text (markdown prose, tables, etc.).
+   * Pull up from `vertical-align: middle` so the pill sits with cap height.
+   */
+  :is(p, li, td, th, figcaption, dd, blockquote) wa-badge.pro {
+    vertical-align: 0.5em;
+    margin-inline: 0.1em;
+  }
+
   /* pro callout */
   wa-callout.pro {
     margin-block: calc(var(--wa-content-spacing) * 2);
@@ -476,6 +489,22 @@
 
     strong a {
       color: inherit;
+    }
+
+    wa-details {
+      --spacing: 0;
+    }
+
+    wa-details::part(icon) {
+      display: none;
+    }
+
+    wa-details::part(content) {
+      padding-block-start: var(--wa-space-l);
+    }
+
+    wa-details [slot='summary'] u {
+      --underline-color: var(--wa-color-brand);
     }
   }
 
@@ -539,6 +568,26 @@
   .is-mac .non-mac,
   html:not(.is-mac) .mac-only {
     display: none;
+  }
+
+  /*
+   * UI reference in prose — kbd-like look for app controls (Settings, menu items, etc.)
+   * Usage: <wa-tag class="tag-ui tag-inline" appearance="filled-outlined"><wa-icon>...</wa-icon> Label</wa-tag>
+   */
+  wa-tag.tag-ui {
+    background-color: color-mix(in oklab, var(--wa-color-surface-default), transparent 50%);
+    border-radius: var(--wa-border-radius-l);
+    border-color: var(--wa-color-neutral-border-quiet);
+    box-shadow: var(--wa-shadow-s);
+    --wa-color-shadow: teal;
+    color: inherit;
+    padding: var(--wa-space-2xs) var(--wa-space-xs);
+    margin-inline: var(--wa-space-3xs);
+    gap: var(--wa-space-2xs);
+  }
+
+  wa-tag.tag-ui::part(content) {
+    font-weight: var(--wa-font-weight-bold);
   }
 
   /* step icons for ordered instructions */

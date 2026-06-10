@@ -2,10 +2,10 @@ import type { ReactiveController, ReactiveControllerHost } from 'lit';
 
 /** A reactive controller that determines when slots exist. */
 export class HasSlotController implements ReactiveController {
-  host: ReactiveControllerHost & Element;
+  host: ReactiveControllerHost & HTMLElement;
   slotNames: string[] = [];
 
-  constructor(host: ReactiveControllerHost & Element, ...slotNames: string[]) {
+  constructor(host: typeof this.host, ...slotNames: string[]) {
     (this.host = host).addController(this);
     this.slotNames = slotNames;
   }
@@ -44,16 +44,32 @@ export class HasSlotController implements ReactiveController {
     return this.host.querySelector?.(`:scope > [slot="${name}"]`) !== null;
   }
 
-  test(slotName: string) {
+  /**
+   * @param slotName     - Name of the slot to look for
+   * @param propertyName - Generally we infer via `withHeader` property on the host, but in cases where its different, you can specify a manual property name.
+   */
+  test(slotName: string, propertyName?: null | string) {
+    // @ts-expect-error
+    if (propertyName && this.host.didSSR && !this.host.hasUpdated) {
+      // @ts-expect-error
+      return Boolean(this.host[propertyName]);
+    }
+
     return slotName === '[default]' ? this.hasDefaultSlot() : this.hasNamedSlot(slotName);
   }
 
   hostConnected() {
-    this.host.shadowRoot?.addEventListener?.('slotchange', this.handleSlotChange);
+    const shadowRoot = this.host.shadowRoot;
+    if (shadowRoot && 'addEventListener' in shadowRoot) {
+      shadowRoot.addEventListener('slotchange', this.handleSlotChange);
+    }
   }
 
   hostDisconnected() {
-    this.host.shadowRoot?.removeEventListener?.('slotchange', this.handleSlotChange);
+    const shadowRoot = this.host.shadowRoot;
+    if (shadowRoot && 'removeEventListener' in shadowRoot) {
+      shadowRoot.removeEventListener('slotchange', this.handleSlotChange);
+    }
   }
 
   private handleSlotChange = (event: Event) => {

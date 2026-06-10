@@ -27,16 +27,6 @@ describe('<wa-relative-time>', () => {
       });
 
       describe('relative time formatting', () => {
-        let clock: sinon.SinonFakeTimers;
-
-        beforeEach(() => {
-          clock = sinon.useFakeTimers(currentTime);
-        });
-
-        afterEach(() => {
-          clock.restore();
-        });
-
         const pastCases = [
           { offset: -minuteMs, expected: '1 minute ago' },
           { offset: -hourMs, expected: '1 hour ago' },
@@ -53,6 +43,11 @@ describe('<wa-relative-time>', () => {
             const el = await fixture<WaRelativeTime>(
               html`<wa-relative-time lang="en-US" .date="${date}"></wa-relative-time>`,
             );
+
+            // @ts-expect-error private property for testing
+            el.referenceDate = currentTime;
+            el.date = date;
+            el.requestUpdate();
             await el.updateComplete;
             const timeEl = el.shadowRoot?.querySelector('time');
             expect(timeEl?.textContent).to.equal(expected);
@@ -72,6 +67,11 @@ describe('<wa-relative-time>', () => {
             const el = await fixture<WaRelativeTime>(
               html`<wa-relative-time lang="en-US" .date="${date}"></wa-relative-time>`,
             );
+
+            // @ts-expect-error private property for testing
+            el.referenceDate = currentTime;
+            el.date = date;
+            el.requestUpdate();
             await el.updateComplete;
             const timeEl = el.shadowRoot?.querySelector('time');
             expect(timeEl?.textContent).to.equal(expected);
@@ -80,21 +80,16 @@ describe('<wa-relative-time>', () => {
       });
 
       describe('string date input', () => {
-        let clock: sinon.SinonFakeTimers;
-
-        beforeEach(() => {
-          clock = sinon.useFakeTimers(currentTime);
-        });
-
-        afterEach(() => {
-          clock.restore();
-        });
-
         it('should accept ISO string dates', async () => {
           const date = new Date(currentTime.getTime() - dayMs).toISOString();
           const el = await fixture<WaRelativeTime>(
             html`<wa-relative-time lang="en-US" date="${date}"></wa-relative-time>`,
           );
+
+          // @ts-expect-error private property for testing
+          el.referenceDate = currentTime;
+          el.date = date;
+          el.requestUpdate();
           await el.updateComplete;
           const timeEl = el.shadowRoot?.querySelector('time');
           expect(timeEl?.textContent).to.equal('yesterday');
@@ -102,21 +97,16 @@ describe('<wa-relative-time>', () => {
       });
 
       describe('numeric property', () => {
-        let clock: sinon.SinonFakeTimers;
-
-        beforeEach(() => {
-          clock = sinon.useFakeTimers(currentTime);
-        });
-
-        afterEach(() => {
-          clock.restore();
-        });
-
         it('should show human-readable form with numeric="auto"', async () => {
           const yesterday = new Date(currentTime.getTime() - dayMs);
           const el = await fixture<WaRelativeTime>(
             html`<wa-relative-time lang="en-US" numeric="auto" .date="${yesterday}"></wa-relative-time>`,
           );
+
+          // @ts-expect-error private property for testing
+          el.referenceDate = currentTime;
+          el.date = yesterday;
+          el.requestUpdate();
           await el.updateComplete;
           const timeEl = el.shadowRoot?.querySelector('time');
           expect(timeEl?.textContent).to.equal('yesterday');
@@ -127,6 +117,11 @@ describe('<wa-relative-time>', () => {
           const el = await fixture<WaRelativeTime>(
             html`<wa-relative-time lang="en-US" numeric="always" .date="${yesterday}"></wa-relative-time>`,
           );
+
+          // @ts-expect-error private property for testing
+          el.referenceDate = currentTime;
+          el.date = yesterday;
+          el.requestUpdate();
           await el.updateComplete;
           const timeEl = el.shadowRoot?.querySelector('time');
           expect(timeEl?.textContent).to.equal('1 day ago');
@@ -134,21 +129,16 @@ describe('<wa-relative-time>', () => {
       });
 
       describe('format property', () => {
-        let clock: sinon.SinonFakeTimers;
-
-        beforeEach(() => {
-          clock = sinon.useFakeTimers(currentTime);
-        });
-
-        afterEach(() => {
-          clock.restore();
-        });
-
         it('should use long format by default', async () => {
           const twoYearsAgo = new Date(currentTime.getTime() - 2 * yearMs);
           const el = await fixture<WaRelativeTime>(
             html`<wa-relative-time lang="en-US" numeric="always" .date="${twoYearsAgo}"></wa-relative-time>`,
           );
+
+          // @ts-expect-error private property for testing
+          el.referenceDate = currentTime;
+          el.date = twoYearsAgo;
+          el.requestUpdate();
           await el.updateComplete;
           const timeEl = el.shadowRoot?.querySelector('time');
           expect(timeEl?.textContent).to.equal('2 years ago');
@@ -164,6 +154,10 @@ describe('<wa-relative-time>', () => {
               .date="${twoYearsAgo}"
             ></wa-relative-time>`,
           );
+
+          // @ts-expect-error private property for testing
+          el.referenceDate = currentTime;
+          el.date = twoYearsAgo;
           await el.updateComplete;
           const timeEl = el.shadowRoot?.querySelector('time');
           expect(timeEl?.textContent).to.equal('2 yr. ago');
@@ -171,21 +165,16 @@ describe('<wa-relative-time>', () => {
       });
 
       describe('locale handling', () => {
-        let clock: sinon.SinonFakeTimers;
-
-        beforeEach(() => {
-          clock = sinon.useFakeTimers(currentTime);
-        });
-
-        afterEach(() => {
-          clock.restore();
-        });
-
         it('should format according to the specified locale', async () => {
           const yesterday = new Date(currentTime.getTime() - dayMs);
           const el = await fixture<WaRelativeTime>(
             html`<wa-relative-time lang="de-DE" numeric="auto" .date="${yesterday}"></wa-relative-time>`,
           );
+
+          // @ts-expect-error private property for testing.
+          el.referenceDate = currentTime;
+          el.date = yesterday;
+          el.requestUpdate();
           await el.updateComplete;
           const timeEl = el.shadowRoot?.querySelector('time');
           expect(timeEl?.textContent).to.equal('gestern');
@@ -193,21 +182,16 @@ describe('<wa-relative-time>', () => {
       });
 
       describe('time element attributes', () => {
-        let clock: sinon.SinonFakeTimers;
-
-        beforeEach(() => {
-          clock = sinon.useFakeTimers(currentTime);
-        });
-
-        afterEach(() => {
-          clock.restore();
-        });
-
         it('should set datetime attribute on the time element', async () => {
           const yesterday = new Date(currentTime.getTime() - dayMs);
           const el = await fixture<WaRelativeTime>(
             html`<wa-relative-time lang="en-US" .date="${yesterday}"></wa-relative-time>`,
           );
+
+          // @ts-expect-error private property for testing.
+          el.referenceDate = currentTime;
+          el.date = yesterday;
+          el.requestUpdate();
           await el.updateComplete;
           const timeEl = el.shadowRoot?.querySelector('time');
           expect(timeEl?.getAttribute('datetime')).to.equal(yesterday.toISOString());
@@ -215,26 +199,24 @@ describe('<wa-relative-time>', () => {
       });
 
       describe('sync property', () => {
-        let clock: sinon.SinonFakeTimers;
-
-        beforeEach(() => {
-          clock = sinon.useFakeTimers(currentTime);
-        });
-
-        afterEach(() => {
-          clock.restore();
-        });
-
         it('should update the displayed value as time passes when sync is true', async () => {
           const yesterday = new Date(currentTime.getTime() - dayMs);
           const el = await fixture<WaRelativeTime>(
             html`<wa-relative-time lang="en-US" sync .date="${yesterday}"></wa-relative-time>`,
           );
+
+          // @ts-expect-error private property for testing.
+          el.referenceDate = currentTime;
+          el.date = yesterday;
+          el.requestUpdate();
           await el.updateComplete;
           const timeEl = el.shadowRoot?.querySelector('time');
           expect(timeEl?.textContent).to.equal('yesterday');
 
-          clock.tick(dayMs);
+          // @ts-expect-error private property for testing.
+          el.referenceDate = new Date(currentTime.getTime() + dayMs);
+          el.date = yesterday;
+          el.requestUpdate();
           await el.updateComplete;
 
           const updatedTimeEl = el.shadowRoot?.querySelector('time');
@@ -247,6 +229,7 @@ describe('<wa-relative-time>', () => {
           const el = await fixture<WaRelativeTime>(
             html`<wa-relative-time lang="en-US" date="not-a-date"></wa-relative-time>`,
           );
+
           await el.updateComplete;
           const timeEl = el.shadowRoot?.querySelector('time');
           expect(timeEl).to.be.null;

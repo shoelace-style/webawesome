@@ -11,6 +11,17 @@ export class LocalizeController extends DefaultLocalizationController<Translatio
   static {
     registerTranslation(en);
   }
+
+  lang() {
+    // @ts-expect-error
+    if (this.host.didSSR && !this.host.hasUpdated) {
+      // On the server and on first hydration we can't rely on the document language (right now)
+      // TODO: We should write a custom renderer that can understand a lang tree.
+      return this.host.lang || 'en';
+    }
+
+    return super.lang();
+  }
 }
 
 // Export functions from the localize lib so we have one central place to import them from
@@ -23,15 +34,28 @@ export interface Translation extends DefaultTranslation {
 
   carousel: string;
   captions: string;
+  // Date picker (optional so existing locales don't need updates; falls back to English)
+  chooseDate?: string;
+  chooseMonth?: string;
+  chooseYear?: string;
+  chooseDecade?: string;
   clearEntry: string;
   close: string;
+  closeCalendar?: string;
   createOption: (value: string) => string;
   copied: string;
   copy: string;
   currentValue: string;
+  date?: string;
+  datePickerKeyboardHelp?: string;
+  day?: string;
+  // Date input
+  incompleteDate?: string;
   dropFileHere: string;
   decrement: string;
   dropFilesHere: string;
+  empty?: string;
+  endDate?: string;
   enterFullscreen: string;
   error: string;
   exitFullscreen: string;
@@ -39,10 +63,14 @@ export interface Translation extends DefaultTranslation {
   hidePassword: string;
   increment: string;
   loading: string;
+  month?: string;
   moreOptions: string;
   mute: string;
+  nextDecade?: string;
+  nextMonth?: string;
   nextSlide: string;
   nextVideo: string;
+  nextYear?: string;
   numCharacters: (num: number) => string;
   numCharactersRemaining: (num: number) => string;
   numOptionsSelected: (num: number) => string;
@@ -53,9 +81,19 @@ export interface Translation extends DefaultTranslation {
   playAnimation: string;
   playbackSpeed: string;
   playlist: string;
+  previousDecade?: string;
+  previousMonth?: string;
   previousSlide: string;
   previousVideo: string;
+  previousYear?: string;
   progress: string;
+  rangeTooLong?: (max: number) => string;
+  rangeTooShort?: (min: number) => string;
+  readonly?: string;
+  selected?: string;
+  selectedDateLabel?: (date: string) => string;
+  selectedRangeLabel?: (range: string) => string;
+  selectionCleared?: string;
   remove: string;
   resize: string;
   scrollableRegion: string;
@@ -64,6 +102,8 @@ export interface Translation extends DefaultTranslation {
   selectAColorFromTheScreen: string;
   showPassword: string;
   slideNum: (slide: number) => string;
+  startDate?: string;
+  today?: string;
   toggleColorFormat: string;
   seek: string;
   seekProgress: (current: string, duration: string) => string;
@@ -71,6 +111,19 @@ export interface Translation extends DefaultTranslation {
   unmute: string;
   videoPlayer: string;
   volume: string;
+  year?: string;
   zoomIn: string;
   zoomOut: string;
+  // Time input (optional so existing locales don't need updates; falls back to English)
+  am?: string;
+  chooseTime?: string;
+  closeTimeInput?: string;
+  dayPeriod?: string;
+  hour?: string;
+  minute?: string;
+  now?: string;
+  pm?: string;
+  second?: string;
+  time?: string;
+  timeInputKeyboardHelp?: string;
 }

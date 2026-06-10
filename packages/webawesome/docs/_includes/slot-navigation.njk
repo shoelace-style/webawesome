@@ -1,4 +1,5 @@
 {# wa-page slot="navigation" — sidebar tree (desktop column / mobile drawer body) #}
-<div slot="navigation" id="sidebar" class="docs-aside" data-remember-scroll>
+{# scrollbar-gutter: stable; for some reason needs to live at the style level, and can't be in the CSS file. This only affects scrollbars on in Safari. #}
+<div slot="navigation" id="sidebar" class="docs-aside" data-remember-scroll style="scrollbar-gutter: stable;">
   {% include "sidebar.njk" %}
 </div>

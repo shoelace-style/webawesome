@@ -67,6 +67,18 @@ describe('<wa-tree>', () => {
           }
         });
 
+        it('should set selectable on leaf items only when selection is "leaf-multiple"', async () => {
+          el.selection = 'leaf-multiple';
+          await el.updateComplete;
+
+          const items = el.querySelectorAll<WaTreeItem>('wa-tree-item');
+          await Promise.all([...items].map(item => item.updateComplete));
+
+          for (const item of items) {
+            expect(item.selectable).to.equal(item.isLeaf);
+          }
+        });
+
         it('should not focus collapsed child nodes', async () => {
           const parentNode = el.children[2] as WaTreeItem;
           const childNode = parentNode.children[1] as WaTreeItem;
@@ -341,6 +353,33 @@ describe('<wa-tree>', () => {
               expect(el.selectedItems.length).to.eq(6);
             });
           });
+
+          describe('and selection is "leaf-multiple"', () => {
+            it('should select multiple leaf items independently', async () => {
+              el.selection = 'leaf-multiple';
+              const node = el.children[0] as WaTreeItem;
+              node.focus();
+              await el.updateComplete;
+
+              await sendKeys({ press: 'Enter' });
+              await sendKeys({ press: 'ArrowRight' });
+              await sendKeys({ press: 'Enter' });
+
+              expect(el.selectedItems.length).to.eq(2);
+            });
+
+            it('should expand/collapse a parent node without selecting it', async () => {
+              el.selection = 'leaf-multiple';
+              const parentNode = el.children[2] as WaTreeItem;
+              parentNode.focus();
+              await el.updateComplete;
+
+              await sendKeys({ press: 'Enter' });
+
+              expect(el.selectedItems.length).to.eq(0);
+              expect(parentNode).to.have.attribute('expanded');
+            });
+          });
         });
 
         describe('when Space is pressed', () => {
@@ -401,6 +440,33 @@ describe('<wa-tree>', () => {
               expect(el.selectedItems.length).to.eq(2);
             });
           });
+
+          describe('and selection is "leaf-multiple"', () => {
+            it('should select multiple leaf items independently', async () => {
+              el.selection = 'leaf-multiple';
+              const node = el.children[0] as WaTreeItem;
+              node.focus();
+              await el.updateComplete;
+
+              await sendKeys({ press: ' ' });
+              await sendKeys({ press: 'ArrowRight' });
+              await sendKeys({ press: ' ' });
+
+              expect(el.selectedItems.length).to.eq(2);
+            });
+
+            it('should expand/collapse a parent node without selecting it', async () => {
+              el.selection = 'leaf-multiple';
+              const parentNode = el.children[2] as WaTreeItem;
+              parentNode.focus();
+              await el.updateComplete;
+
+              await sendKeys({ press: ' ' });
+
+              expect(el.selectedItems.length).to.eq(0);
+              expect(parentNode).to.have.attribute('expanded');
+            });
+          });
         });
       });
 
@@ -433,6 +499,36 @@ describe('<wa-tree>', () => {
             await Promise.all([node.updateComplete, el.updateComplete]);
 
             expect(selectedChangeSpy).to.not.have.been.called;
+          });
+        });
+
+        describe('when selection is "leaf-multiple"', () => {
+          it('should not emit wa-selection-change when clicking an expandable item', async () => {
+            el.selection = 'leaf-multiple';
+            await el.updateComplete;
+
+            const selectedChangeSpy = sinon.spy();
+            el.addEventListener('wa-selection-change', selectedChangeSpy);
+
+            const node = el.querySelector<WaTreeItem>('#expandable')!;
+
+            await clickOnElement(node);
+            await Promise.all([node.updateComplete, el.updateComplete]);
+
+            expect(selectedChangeSpy).to.not.have.been.called;
+          });
+
+          it('should emit wa-selection-change when clicking a leaf item', async () => {
+            el.selection = 'leaf-multiple';
+            await el.updateComplete;
+
+            const node = el.children[0] as WaTreeItem;
+            const events = await expectEvent(el, 'wa-selection-change', async () => {
+              await clickOnElement(node);
+            });
+
+            expect(events).to.have.lengthOf(1);
+            expect((events[0] as CustomEvent).detail.selection).to.deep.equal([node]);
           });
         });
       });

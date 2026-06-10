@@ -6,13 +6,28 @@ layout: page-outline
 
 {% from "macros/component-badges.njk" import statusBadge %}
 
-Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Semantic Versioning</a>, and each release on this page follows the <a href="https://keepachangelog.com/" class="appearance-plain">Keep a Changelog</a> convention. Each [component](/docs/components) carries a status badge that tells you what to expect from its API.
+Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Semantic Versioning</a>, and each release on this page follows the <a href="https://keepachangelog.com/" class="appearance-plain">Keep a Changelog</a> convention. Additionally, both [components](/docs/components) and features carry a status badge that tells you what to expect from their API.
 
-<h2 class="wa-heading-m wa-cluster wa-gap-s" data-no-anchor data-no-outline>Stable Components {{ statusBadge('stable') }}</h2>
-These have a settled API. Breaking changes land only in major versions, and deprecated features stay through the next major release.
+<table>
+  <thead>
+    <tr>
+      <th>Status</th>
+      <th>What to Expect</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{ statusBadge('stable') }}</td>
+      <td>A settled API you can build on. Breaking changes land only in major releases, and anything deprecated stays available through the next major version. Safe for production.</td>
+    </tr>
+    <tr>
+      <td>{{ statusBadge('experimental') }}</td>
+      <td>Still taking shape. The API can change in any minor release, so it's ideal for prototyping — but risky for production code you can't easily update.</td>
+    </tr>
+  </tbody>
+</table>
 
-<h2 class="wa-heading-m wa-cluster wa-gap-s" data-no-anchor data-no-outline>Experimental Components {{ statusBadge('experimental') }}</h2>
-These are still finding their shape. APIs can change between minor versions, so use them in prototypes — not production code you can't easily update.
+{% include "changelog-email-signup.njk" %}
 
 ## Unreleased
 
@@ -24,6 +39,37 @@ These are still finding their shape. APIs can change between minor versions, so 
   - `<wa-page>` structural checklist for self-verifying layouts
 - Added a `choosing-components` decision tree to the `webawesome` Agent Skill so AI tools pick the right component by intent instead of guessing from names
 - Added `npm run verify:skills` (also wired into `npm run verify`) that cross-checks Agent Skill content against the Custom Elements Manifest so silent drift can't ship
+- Added `leaf-multiple` as a new `selection` option for `<wa-tree>`, allowing multiple leaf nodes to be selected while parent nodes only expand and collapse.
+
+:::
+
+:::fixed
+
+- Fixed a bug in `<wa-checkbox>` and `<wa-switch>` where `.checked` property would not properly update the shadow dom checkbox.
+- Fixed a bug where `@lit-labs/ssr` was not included as a dependency.
+- Fixed a bug in `<wa-button>` where the slotted icon was rendered off-center at `size="xs"` in Firefox [issue:2426]
+
+:::
+
+:::changed
+
+- Synced default `--show-duration`, `--hide-duration`, and `--easing` values in `<wa-accordion-item>`, `<wa-date-input>`, `<wa-time-input>`, `<wa-toast>`, and `<wa-video>` with `--wa-transition-*` tokens
+
+:::
+
+## 3.8.0
+
+<small><time datetime="2026-06-05">June 5th, 2026</time></small>
+
+:::added
+
+- Added experimental SSR support to all Web Awesome components in free and pro. [pr:2428]
+- Added the `<wa-date-input>` experimental pro component
+- Added the `<wa-date-picker>` experimental pro component
+- Added the `<wa-known-date>` experimental component
+- Added the `<wa-time-input>` experimental component
+- Added the experimental `<wa-accordion>` and `<wa-accordion-item>` components
+- Added the ability to set a centered image for `<wa-qr-code>` and have different corner colors [pr:2139]
 - Added the `capture` attribute to `<wa-file-input>` for capturing media directly from a device's camera or microphone [discuss:2380]
 - Added the `wa-text-uppercase` text utility class for transforming text to uppercase
 - Added the `wa-text-lowercase` text utility class for transforming text to lowercase
@@ -32,16 +78,20 @@ These are still finding their shape. APIs can change between minor versions, so 
 - Added the `wa-text-center` text utility class for centered text alignment
 - Added the `wa-text-end` text utility class for logical (direction-aware) text alignment
 - Added the `wa-text-justify` text utility class for justified text alignment
+- Added the `wa-prose` utility class for applying typographic rhythm to long-form content (docs, blog posts, marketing copy)
 
 :::
 
 :::fixed
 
+- Fixed a bug in `<wa-dialog>` and `<wa-drawer>` where it would not correctly capture `slotchange` event for footers. [pr:2428]
+- Fixed a bug in `<wa-zoomable-frame>` where it was not importing `<wa-icon>` [pr:2457]
 - Fixed a bug in `<wa-video>` where the `timeupdate` method was not emitting when seeking or scrubbing the timeline [issue:2393]
 - Fixed a bug in `<wa-breadcrumb-item>` where `href=""` rendered as a button instead of a link, making it harder to follow the [WAI-ARIA breadcrumb pattern](https://www.w3.org/WAI/ARIA/apg/patterns/breadcrumb/) for the current-page item [issue:2387]
 - Fixed a regression in `<wa-breadcrumb-item>` that caused items without an `href` to render as a link instead of a button
 - Fixed a regression in `<wa-popover>` where the body's viewport-edge margin caused the popover and arrow to be misaligned for `top/bottom-start` and `top/bottom-end` placements
 - Fixed a bug in `<wa-textarea>` where the disabled state had no visual styling, unlike other form controls [issue:2416]
+- Fixed a bug in `<wa-icon>` that caused some FA icons to not render based on `currentColor`
 - Fixed default show/hide animations in `<wa-dropdown>`, `<wa-popup>`, `<wa-popover>`, `<wa-select>`, `<wa-details>`, `<wa-dialog>`, `<wa-drawer>`, and `<wa-tree-item>` to honor `prefers-reduced-motion: reduce`
 - Fixed a bug in `<wa-drawer>` that caused the `light-dismiss` option not work as intended [pr:2437]
 - Fixed a bug in `<wa-dropdown>` that prevented items from being visible when the selected overflowed [pr:2430]
@@ -52,10 +102,18 @@ These are still finding their shape. APIs can change between minor versions, so 
 
 :::changed
 
+- Updated from `qr-creator` to `@konnorr/qr-creator` NPM package to facilitate `<wa-qr-code>` improvements. [pr:2139]
 - Synced default `--show-duration` and `--hide-duration` values in `<wa-dropdown>`, `<wa-popup>`, `<wa-popover>`, `<wa-select>`, `<wa-combobox>`, `<wa-details>`, `<wa-dialog>`, `<wa-drawer>`, `<wa-tree-item>`, and `<wa-toast-item>` with `--wa-transition-fast` and `--wa-transition-normal` tokens
 - Synced hardcoded transitions in `<wa-copy-button>`, `<wa-select>`, `<wa-combobox>`, and `<wa-toast-item>` with `--wa-transition-*` tokens
 - Improved the vertical placement of content within `<wa-textarea>` and `textarea` when the content overflows the control [pr:2424]
-- Updated Native Styles to reset the `list-style`, `margin`, and `padding` of `menu` elements [discuss:2436]
+- Updated Native Styles for several text elements [pr:2459]:
+  - Updated `<blockquote>` to use a quiet text color and a font-size based on `--wa-font-size-larger`
+  - Updated `<h6>` to use `--wa-font-size-xs`, further distinguishing small headings from surrounding body text
+  - Updated `<table>` to use `font-variant-numeric: tabular-nums` so numeric columns align
+  - Updated `<th>` to render a visually stronger bottom border, distinguishing the header row from body cells
+  - Added `<figcaption>` (previously unstyled): quiet text color, smaller font-size, condensed line-height, and a small top margin
+  - Added `<ul>` and `<ol>` markers using `currentColor` with reduced opacity; `<ol>` markers retain more contrast since numerals are text rather than graphical elements
+- Added Native Styles for `<menu>` (previously unstyled) to reset `list-style`, `margin`, and `padding` [discuss:2436]
 - Renamed `wa-text-wrap-nowrap`, `wa-text-wrap-balance`, and `wa-text-wrap-pretty` to `wa-text-nowrap`, `wa-text-balance`, and `wa-text-pretty` to align with the flat `wa-text-*` utility namespace. The original class names continue to work as aliases.
 
 :::
@@ -101,8 +159,6 @@ These are still finding their shape. APIs can change between minor versions, so 
   - Added `tooltip` attribute to control when feedback is shown in the tooltip on hover and click
 
 :::
-
-{% include "changelog-email-signup.njk" %}
 
 ## 3.6.0
 
@@ -154,8 +210,8 @@ These are still finding their shape. APIs can change between minor versions, so 
 
 :::added
 
-- Moved `<wa-page>` from {{ site.namePro }} to Web Awesome core
-- Added a new free experimental component: `<wa-markdown>` (#6 of 14 per stretch goals)
+- Moved `<wa-page>` from pro to core
+- Added a new core experimental component: `<wa-markdown>` (#6 of 14 per stretch goals)
 - Added the `data-wa-preload` attribute for preloading components that aren't on the page yet when using the autoloader [issue:1501]
 - Added `placement` attribute to `<wa-color-picker>` [issue:2099]
 - Added form association to `<wa-rating>`

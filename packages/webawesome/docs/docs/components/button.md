@@ -22,7 +22,7 @@ use-cases:
 
 ### Variants
 
-Use the `variant` attribute to set the button's semantic variant.
+Use the `variant` attribute to set the button's [semantic variant](/docs/theming-overview#variants).
 
 ```html {.example}
 <div class="wa-cluster wa-gap-2xs">

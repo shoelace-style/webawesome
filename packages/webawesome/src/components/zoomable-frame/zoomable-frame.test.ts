@@ -1,7 +1,6 @@
 import { aTimeout, expect, waitUntil } from '@open-wc/testing';
 import { html } from 'lit';
 import { fixtures } from '../../internal/test/fixture.js';
-import { clickOnElement } from '../../internal/test/pointer-utilities.js';
 import type WaZoomableFrame from './zoomable-frame.js';
 
 // Waits for the iframe's srcdoc to fully load.
@@ -142,7 +141,7 @@ describe('<wa-zoomable-frame>', () => {
         it('should zoom in when clicking the zoom in button', async () => {
           const el = await fixture<WaZoomableFrame>(html`<wa-zoomable-frame zoom="1"></wa-zoomable-frame>`);
           const zoomInButton = el.shadowRoot!.querySelector<HTMLElement>('[part="zoom-in-button"]')!;
-          await clickOnElement(zoomInButton);
+          zoomInButton.click();
           await el.updateComplete;
           expect(el.zoom).to.equal(1.25);
         });
@@ -150,7 +149,7 @@ describe('<wa-zoomable-frame>', () => {
         it('should zoom out when clicking the zoom out button', async () => {
           const el = await fixture<WaZoomableFrame>(html`<wa-zoomable-frame zoom="1"></wa-zoomable-frame>`);
           const zoomOutButton = el.shadowRoot!.querySelector<HTMLElement>('[part="zoom-out-button"]')!;
-          await clickOnElement(zoomOutButton);
+          zoomOutButton.click();
           await el.updateComplete;
           expect(el.zoom).to.equal(0.75);
         });

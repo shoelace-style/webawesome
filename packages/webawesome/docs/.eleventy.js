@@ -2,11 +2,12 @@ import { nanoid } from 'nanoid';
 import { parse as HTMLParse } from 'node-html-parser';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { anchorHeadingsTransformer } from './_transformers/anchor-headings.js';
+import { anchorHeadingsTransformer, createId } from './_transformers/anchor-headings.js';
 import { changelogListIconsTransformer } from './_transformers/changelog-list-icons.js';
 import { codeExamplesTransformer } from './_transformers/code-examples.js';
 import { copyCodeTransformer } from './_transformers/copy-code.js';
 import { currentLinkTransformer } from './_transformers/current-link.js';
+import { dynamicSnippetsTransformer } from './_transformers/dynamic-snippets.js';
 import { highlightCodeTransformer } from './_transformers/highlight-code.js';
 import { linkifyComponentsTransformer } from './_transformers/linkify-components.js';
 import { outlineTransformer } from './_transformers/outline.js';
@@ -14,7 +15,7 @@ import { getComponents } from './_utils/manifest.js';
 import { markdown } from './_utils/markdown.js';
 import { SimulateWebAwesomeApp } from './_utils/simulate-webawesome-app.js';
 // import { formatCodePlugin } from './_plugins/format-code.js';
-// import litPlugin from '@lit-labs/eleventy-plugin-lit';
+import litPlugin from '@lit-labs/eleventy-plugin-lit';
 import { readFile } from 'fs/promises';
 import process from 'process';
 import * as url from 'url';
@@ -25,6 +26,7 @@ import { replaceTextPlugin } from './_plugins/replace-text.js';
 import { searchPlugin } from './_plugins/search.js';
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 const isDev = process.argv.includes('--develop');
+
 const passThroughExtensions = ['js', 'css', 'png', 'svg', 'jpg', 'mp4'];
 
 async function getPackageData() {
@@ -84,6 +86,7 @@ export default async function (eleventyConfig) {
   //
   // Set all global template data here
   //
+  eleventyConfig.addGlobalData('isDev', isDev || process.env.NODE_ENV === 'development');
   eleventyConfig.addGlobalData('package', packageData);
   eleventyConfig.addGlobalData('layout', 'page.njk');
   eleventyConfig.addGlobalData('server', {
@@ -133,6 +136,8 @@ export default async function (eleventyConfig) {
   eleventyConfig.addFilter('stripExtension', string => path.parse(string + '').name);
   eleventyConfig.addFilter('stripPrefix', content => content.replace(/^wa-/, ''));
   eleventyConfig.addFilter('uniqueId', (_value, length = 8) => nanoid(length));
+  // Generates the same heading anchor id used by anchorHeadingsTransformer, so links can target headings reliably
+  eleventyConfig.addFilter('headingId', content => createId(String(content ?? '')));
 
   eleventyConfig.addGlobalData('eleventyComputed', {
     // Page title with smart + default site name formatting
@@ -260,6 +265,7 @@ export default async function (eleventyConfig) {
       currentLinkTransformer(),
       codeExamplesTransformer(),
       highlightCodeTransformer(),
+      dynamicSnippetsTransformer(),
       copyCodeTransformer(),
       changelogListIconsTransformer(),
       linkifyComponentsTransformer(allComponents.map(c => c.tagName).filter(Boolean)),
@@ -357,20 +363,33 @@ export default async function (eleventyConfig) {
   //   //  - resize-observer (why SSR this?)
   //   //  - tooltip (why SSR this?)
   //   //
-  //   const omittedModules = [];
-  //   const componentModules = componentList
-  //     .filter(component => !omittedModules.includes(component.tagName.split(/wa-/)[1]))
-  //     .map(component => {
-  //       const name = component.tagName.split(/wa-/)[1];
-  //       const componentDirectory = process.env.UNBUNDLED_DIST_DIRECTORY || path.join('.', 'dist');
-  //       return path.join(componentDirectory, 'components', name, `${name}.js`);
-  //     });
-  //
-  //   eleventyConfig.addPlugin(litPlugin, {
-  //     mode: 'worker',
-  //     componentModules,
-  //   });
-  // }
+
+  // We only want to run SSR if we're not running the app shell around 11ty. If we run the SSR plugin here with the app shell also doing SSR, it breaks.
+  if (!serverBuild && process.env.SSR === 'true') {
+    // @ts-expect-error Run connectedCallback in SSR to make it compatible with lit context.
+    globalThis.litSsrCallConnectedCallback = true;
+
+    const omittedModules = [];
+    const componentList = [];
+    allComponents.forEach(c => {
+      if (!c.tagName) {
+        return;
+      }
+      componentList.push(c);
+    });
+    const componentModules = componentList
+      .filter(component => !omittedModules.includes(component.tagName.split(/wa-/)[1]))
+      .map(component => {
+        const name = component.tagName.split(/wa-/)[1];
+        const componentDirectory = process.env.UNBUNDLED_DIST_DIRECTORY || path.join('.', 'dist');
+        return path.join(componentDirectory, 'components', name, `${name}.js`);
+      });
+
+    eleventyConfig.addPlugin(litPlugin, {
+      mode: 'worker',
+      componentModules,
+    });
+  }
 
   // For a server build, we expect a server to run the second transform.
   // For dev builds, we run the second transform in a middleware.
@@ -382,7 +401,7 @@ export default async function (eleventyConfig) {
       }
 
       /** This largely mimics what an app would do and just stubs out what we don't care about. */
-      return SimulateWebAwesomeApp(content);
+      return SimulateWebAwesomeApp(content, { isDev: isDev, ssr: process.env.SSR === 'true' });
     });
   }
 }

@@ -1,5 +1,5 @@
 import type { PropertyValues } from 'lit';
-import { html } from 'lit';
+import { html, isServer } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -46,7 +46,7 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
   static css = [formControlStyles, sizeStyles, styles];
 
   static get validators() {
-    return [...super.validators, MirrorValidator()];
+    return isServer ? [] : [...super.validators, MirrorValidator()];
   }
 
   private readonly hasSlotController = new HasSlotController(this, 'hint');
@@ -155,6 +155,12 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
   }
 
   handleValueOrCheckedChange() {
+    if (this.didSSR && !this.hasUpdated) {
+      this.updateComplete.then(() => {
+        this.handleValueOrCheckedChange();
+      });
+      return;
+    }
     // These @watch() commands seem to override the base element checks for changes, so we need to setValue for the form and and updateValidity()
     this.setValue(this.checked ? this.value : null, this._value);
     this.updateValidity();
@@ -207,8 +213,13 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
   }
 
   render() {
-    const hasHintSlot = this.hasUpdated ? this.hasSlotController.test('hint') : this.withHint;
+    const hasHintSlot = this.hasSlotController.test('hint', 'withHint');
     const hasHint = this.hint ? true : !!hasHintSlot;
+
+    // We need to use the attribute for SSR, because for some reason Lit SSR always sets `.checked=${live(this.checked)}` as "true"
+    // TODO: Tell Konnor to submit a bug report + repo about this.
+    const checkedAttribute = this.didSSR && !this.hasUpdated ? this.checked : this.defaultChecked;
+    const checkedProperty = this.didSSR && !this.hasUpdated ? null : live(this.checked);
 
     return html`
       <label
@@ -224,9 +235,10 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
           title=${this.title /* An empty title prevents browser validation tooltips from appearing on hover */}
           name=${ifDefined(this.name)}
           value=${ifDefined(this.value)}
-          .checked=${live(this.checked)}
-          .disabled=${this.disabled}
-          .required=${this.required}
+          .checked=${ifDefined(checkedProperty)}
+          ?checked=${checkedAttribute}
+          ?disabled=${this.disabled}
+          ?required=${this.required}
           role="switch"
           aria-checked=${this.checked ? 'true' : 'false'}
           aria-describedby="hint"

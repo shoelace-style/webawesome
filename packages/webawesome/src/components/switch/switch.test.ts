@@ -74,6 +74,13 @@ describe('<wa-switch>', () => {
 
           expect(el.checked).to.be.false;
           expect(el.value).to.equal('myvalue');
+          expect(el.shadowRoot?.querySelector('input')?.checked).to.equal(false);
+
+          // let's recheck setting `el.checked = true`
+          // https://github.com/shoelace-style/webawesome/issues/2478
+          el.checked = true;
+          await el.updateComplete;
+          expect(el.shadowRoot?.querySelector('input')?.checked).to.equal(true);
         });
 
         it('should have title on the internal input if title attribute is set', async () => {
@@ -423,10 +430,20 @@ describe('<wa-switch>', () => {
         it('should not jump the page when focusing a switch at the bottom of an overflow container', async () => {
           // https://github.com/shoelace-style/shoelace/issues/1169
           const el = await fixture<HTMLDivElement>(html`
-            <div style="display: flex; flex-direction: column; overflow: auto; max-height: 400px;">
-              ${Array.from({ length: 41 }, () => html`<wa-switch>Switch</wa-switch>`)}
-            </div>
+            <div style="display: flex; flex-direction: column; overflow: auto; max-height: 400px;"></div>
           `);
+
+          const switchElements = Array.from({ length: 60 }, () =>
+            Object.assign(document.createElement('wa-switch'), {
+              textContent: 'Switch',
+            }),
+          );
+
+          switchElements.forEach(switchEl => {
+            el.append(switchEl);
+          });
+
+          await aTimeout(1);
 
           const switches = el.querySelectorAll<WaSwitch>('wa-switch');
           const lastSwitch = switches[switches.length - 1];

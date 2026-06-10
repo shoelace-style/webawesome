@@ -23,7 +23,39 @@
 		isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 	}
 	document.documentElement.classList.toggle('wa-dark', isDark);
+
+  function setCookie(options) {
+    let {
+      name,
+      value,
+      maxAge,
+      sameSite,
+      path,
+    } = options
+
+    if (!sameSite) { sameSite = "Lax" }
+    if (maxAge == null) {
+      maxAge = 60 * 60 * 24 * 365; // 1 year
+    }
+    if (!path) { path = "/" }
+
+    document.cookie = `${encodeURIComponent(name)}=${encodeURIComponent(value)}; path=${path}; max-age=${maxAge}; SameSite=${sameSite}`;
+  }
+
+  function removeCookie(options) {
+    let {name, path} = options
+    if (!path) { path = "/" }
+    document.cookie = `${encodeURIComponent(name)}=; path=${path}; max-age=0`;
+  }
 </script>
+
+{# TODO: Figure out how to only load in dev #}
+{% raw %}
+  {% if isDev %}
+    <script src="/assets/scripts/hydration-errors.js"></script>
+    <link rel="stylesheet" href="/assets/styles/hydration-errors.css">
+  {% endif %}
+{% endraw %}
 
 <link rel="manifest" href="/manifest.json" />
 <link rel="icon" href="/assets/images/app-icons/favicon.ico" sizes="any">
@@ -31,14 +63,21 @@
 <link rel="apple-touch-icon" href="/assets/images/app-icons/apple-touch-icon.png">
 
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
+<script type="module" src="/dist/webawesome.ssr-loader.js"></script>
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/cera-round-pro-400.woff2" crossorigin>
 {% if pageClass == 'home' %}
   <link rel="preload" as="image" type="image/svg+xml" href="/assets/images/bg-wa-pattern-light.svg" media="(prefers-color-scheme: light)">
   <link rel="preload" as="image" type="image/svg+xml" href="/assets/images/bg-wa-pattern-dark.svg" media="(prefers-color-scheme: dark)">
 {% endif %}
-<script type="module" src="/dist/webawesome.loader.js"></script>
 
-<link id="theme-stylesheet" rel="stylesheet" href="/dist/styles/themes/default.css" render="blocking" fetchpriority="high" />
+{# Load themes from cookies so that we can give a proper SSR feel. #}
+{% raw %}
+  {% if req.cookies.webawesome_theme %}
+    <link id="theme-stylesheet" rel="stylesheet" href="/dist/styles/themes/{{ req.cookies.webawesome_theme }}.css" render="blocking" fetchpriority="high" />
+  {% else %}
+    <link id="theme-stylesheet" rel="stylesheet" href="/dist/styles/themes/default.css" render="blocking" fetchpriority="high" />
+  {% endif %}
+{% endraw %}
 
 <link rel="stylesheet" href="/dist/styles/webawesome.css" />
 
@@ -54,7 +93,9 @@
     // This is really hacky and only for running the free repo locally. Its not perfect, but its better than nothing.
     // This will break singletons, and cause things to load twice
     proComponents.forEach((tagName) => {
-      if (!customElements.get("wa-" + tagName)) {
+      // Make sure the pro component is actually being used on the page.
+      if (!customElements.get("wa-" + tagName) && document.querySelector("wa-" + tagName)) {
+
         import(`https://ka-p.webawesome.com/kit/${kitCode}/webawesome@{{ package.version }}/components/${tagName}/${tagName}.js`)
           .catch((e) => {
             // known errors with dual registration. This is only a thing in the free repo.
