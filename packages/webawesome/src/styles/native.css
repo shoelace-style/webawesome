@@ -361,8 +361,8 @@
   svg,
   picture,
   video {
-    max-width: 100%;
-    height: auto;
+    max-inline-size: 100%;
+    block-size: auto;
   }
 
   img,
@@ -374,7 +374,7 @@
   embed,
   iframe,
   object {
-    max-width: 100%;
+    max-inline-size: 100%;
   }
 
   iframe {
@@ -384,7 +384,7 @@
 
   /* #region Tables ~~~~~~~~~~~~~~~~~~~~~~~~~~ */
   table {
-    width: 100%;
+    inline-size: 100%;
 
     font-variant-numeric: tabular-nums;
 
@@ -520,8 +520,8 @@
       background-color: var(--wa-color-text-quiet);
       mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc. --><path fill="currentColor" d="M311.1 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L243.2 256 73.9 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg>')
         center no-repeat;
-      width: 1rem;
-      height: 1rem;
+      inline-size: 1rem;
+      block-size: 1rem;
       rotate: 0deg;
     }
 
@@ -540,8 +540,8 @@
     flex-direction: column;
     align-items: start;
 
-    width: 32rem;
-    max-width: calc(100% - var(--wa-space-l));
+    inline-size: 32rem;
+    max-inline-size: calc(100% - var(--wa-space-l));
     padding: var(--wa-space-l);
 
     background-color: var(--wa-color-surface-raised);
@@ -593,7 +593,7 @@
         textarea,
         select
       ) {
-      width: 100%;
+      inline-size: 100%;
     }
 
     & + :is(input:not([type='checkbox'], [type='radio']), textarea, select),
@@ -636,7 +636,7 @@
       align-items: center;
       justify-content: center;
 
-      height: var(--wa-form-control-height);
+      block-size: var(--wa-form-control-height);
       padding: 0 var(--wa-form-control-padding-inline);
 
       font-family: inherit;
@@ -913,7 +913,7 @@
   label:has(input[type='radio']) {
     display: inline-flex;
 
-    width: fit-content;
+    inline-size: fit-content;
 
     color: var(--wa-form-control-value-color);
     font-family: inherit;
@@ -945,8 +945,8 @@
     align-items: center;
     justify-content: center;
 
-    width: var(--wa-form-control-toggle-size);
-    height: var(--wa-form-control-toggle-size);
+    inline-size: var(--wa-form-control-toggle-size);
+    block-size: var(--wa-form-control-toggle-size);
     margin: 0;
     margin-inline-end: 0.5em;
 
@@ -990,8 +990,8 @@
     &:indeterminate::after {
       content: '';
 
-      width: var(--wa-form-control-toggle-size);
-      height: var(--wa-form-control-toggle-size);
+      inline-size: var(--wa-form-control-toggle-size);
+      block-size: var(--wa-form-control-toggle-size);
       scale: var(--checked-icon-scale);
 
       background-color: currentColor;
@@ -1027,7 +1027,7 @@
       content: '';
 
       aspect-ratio: 1;
-      width: 100%;
+      inline-size: 100%;
       scale: var(--checked-icon-scale);
 
       background-color: currentColor;
@@ -1050,8 +1050,8 @@
     [type='reset'],
     [type='submit']
   ), textarea, select {
-    width: 100%;
-    height: var(--wa-form-control-height);
+    inline-size: 100%;
+    block-size: var(--wa-form-control-height);
     padding: 0 var(--wa-form-control-padding-inline);
 
     color: var(--wa-form-control-value-color);
@@ -1115,8 +1115,8 @@
 
   /* Textarea */
   textarea {
-    height: auto;
-    min-height: var(--wa-form-control-height);
+    block-size: auto;
+    min-block-size: var(--wa-form-control-height);
     scroll-padding-block: var(--wa-form-control-padding-block);
     padding: calc(var(--wa-form-control-padding-block) - ((1lh - 1em) / 2)) var(--wa-form-control-padding-inline); /* accounts for the larger line height of textarea content */
 
@@ -1133,7 +1133,7 @@
 
     position: relative;
 
-    min-width: 0;
+    min-inline-size: 0;
     background-image: var(--icon-caret), var(--icon-caret);
     background-repeat: no-repeat;
     background-position: center right var(--wa-form-control-padding-inline);
@@ -1151,7 +1151,7 @@
     }
 
     &[multiple] {
-      height: auto;
+      block-size: auto;
       background-image: none;
       padding-inline: var(--wa-form-control-padding-inline);
     }
@@ -1209,8 +1209,8 @@
     flex-direction: column;
     position: relative;
 
-    width: 100%;
-    height: var(--track-size);
+    inline-size: 100%;
+    block-size: var(--track-size);
     margin: 0;
 
     font-size: inherit;
@@ -1221,8 +1221,8 @@
     border-radius: calc(var(--track-size) / 2);
 
     &::-webkit-slider-runnable-track {
-      width: 100%;
-      height: var(--track-size);
+      inline-size: 100%;
+      block-size: var(--track-size);
 
       border: none;
       border-radius: 999px;
@@ -1231,8 +1231,8 @@
     &::-webkit-slider-thumb {
       -webkit-appearance: none;
 
-      width: var(--thumb-width);
-      height: var(--thumb-height);
+      inline-size: var(--thumb-width);
+      block-size: var(--thumb-height);
       margin-block-start: calc(var(--thumb-height) / -2 + var(--track-size) / 2);
 
       background-color: var(--wa-form-control-activated-color);
@@ -1264,15 +1264,15 @@
     }
 
     &::-moz-range-progress {
-      height: var(--track-size);
+      block-size: var(--track-size);
 
       background-color: var(--wa-color-neutral-fill-normal);
       border-radius: 3px;
     }
 
     &::-moz-range-track {
-      width: 100%;
-      height: var(--track-size);
+      inline-size: 100%;
+      block-size: var(--track-size);
 
       background-color: var(--wa-color-neutral-fill-normal);
       border: none;
@@ -1280,8 +1280,8 @@
     }
 
     &::-moz-range-thumb {
-      width: var(--thumb-width);
-      height: var(--thumb-height);
+      inline-size: var(--thumb-width);
+      block-size: var(--thumb-height);
 
       background-color: var(--wa-form-control-activated-color);
       border: solid 0.125em var(--wa-color-surface-default);
@@ -1335,8 +1335,8 @@
   progress {
     --indicator-color: var(--wa-color-brand-fill-loud);
 
-    width: 100%;
-    height: 1rem;
+    inline-size: 100%;
+    block-size: 1rem;
     overflow: hidden;
 
     color: var(--wa-color-brand-on-loud);
