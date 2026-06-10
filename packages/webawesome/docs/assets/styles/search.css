@@ -65,10 +65,30 @@
   overflow-y: auto;
 }
 
-/* Region visibility — toggled by .has-results / .no-results on #site-search */
-#site-search-listbox,
+.site-search-listing {
+  padding: var(--wa-space-s);
+}
+
+.site-search-listing ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Hide the results wrapper too, not just its inner UL — otherwise the
+   wrapper's padding shows through when there are no results. */
+.site-search-listing:has(#site-search-listbox),
 #site-search-empty {
   display: none;
+}
+
+#site-search.has-results #site-search-default,
+#site-search.no-results #site-search-default {
+  display: none;
+}
+
+#site-search.has-results .site-search-listing:has(#site-search-listbox) {
+  display: block;
 }
 
 #site-search.has-results #site-search-listbox {
@@ -79,9 +99,9 @@
   display: block;
 }
 
-#site-search-listbox {
-  list-style: none;
-  padding: var(--wa-space-s);
+.site-search-section-label {
+  padding-inline: var(--wa-space-s);
+  padding-block: var(--wa-space-xs);
   margin: 0;
 }
 

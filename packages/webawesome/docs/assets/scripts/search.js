@@ -74,7 +74,16 @@ function getElements() {
     input: document.getElementById('site-search-input'),
     results: document.getElementById('site-search-listbox'),
     emptyQuery: document.getElementById('site-search-empty-query'),
+    defaultContainer: document.getElementById('site-search-default'),
   };
+}
+
+// Returns the visible options container for keyboard nav: the results listbox
+// when there's an active query, otherwise the default-state container.
+function getActiveList() {
+  const { dialog, results, defaultContainer } = getElements();
+  if (!dialog) return null;
+  return dialog.classList.contains('has-results') ? results : defaultContainer;
 }
 
 function trackQuerySubmit(query, resultSelectedValue) {
@@ -119,7 +128,7 @@ document.addEventListener('click', event => {
 });
 
 function show() {
-  const { dialog, input, results } = getElements();
+  const { dialog, input, results, defaultContainer } = getElements();
   if (!dialog || !input || !results) return;
 
   const wasAlreadyOpen = dialog.open;
@@ -127,14 +136,20 @@ function show() {
   // Remove existing listeners before adding to prevent duplicates
   input.removeEventListener('input', handleInput);
   results.removeEventListener('click', handleSelection);
+  if (defaultContainer) defaultContainer.removeEventListener('click', handleDefaultListClick);
   dialog.removeEventListener('keydown', handleKeyDown);
   dialog.removeEventListener('wa-hide', handleClose);
   resultSelected = false;
   lastTrackedQuery = '';
   input.addEventListener('input', handleInput);
   results.addEventListener('click', handleSelection);
+  if (defaultContainer) defaultContainer.addEventListener('click', handleDefaultListClick);
   dialog.addEventListener('keydown', handleKeyDown);
   dialog.addEventListener('wa-hide', handleClose);
+
+  // Default state: point combobox controls at the visible Suggested listbox
+  input.setAttribute('aria-controls', 'site-search-suggested-list');
+
   dialog.open = true;
   if (!wasAlreadyOpen) {
     trackEvent('navigation:search_dialog_open');
@@ -142,12 +157,13 @@ function show() {
 }
 
 function cleanup() {
-  const { dialog, input, results } = getElements();
+  const { dialog, input, results, defaultContainer } = getElements();
   if (!dialog || !input || !results) return;
   clearTimeout(searchTimeout);
   clearTimeout(queryTrackTimeout);
   input.removeEventListener('input', handleInput);
   results.removeEventListener('click', handleSelection);
+  if (defaultContainer) defaultContainer.removeEventListener('click', handleDefaultListClick);
   dialog.removeEventListener('keydown', handleKeyDown);
   dialog.removeEventListener('wa-hide', handleClose);
 
@@ -210,15 +226,16 @@ function handleInput() {
 }
 
 function handleKeyDown(event) {
-  const { input, results } = getElements();
-  if (!input || !results) return;
+  const { input } = getElements();
+  const activeList = getActiveList();
+  if (!input || !activeList) return;
 
   // Handle keyboard selections
   if (['ArrowDown', 'ArrowUp', 'Home', 'End', 'Enter'].includes(event.key)) {
     event.preventDefault();
 
-    const currentEl = results.querySelector('[data-selected="true"]');
-    const items = [...results.querySelectorAll('li')];
+    const currentEl = activeList.querySelector('[data-selected="true"]');
+    const items = [...activeList.querySelectorAll('li')];
     const index = items.indexOf(currentEl);
     let nextEl;
 
@@ -243,7 +260,13 @@ function handleKeyDown(event) {
         if (currentEl) {
           const link = currentEl.querySelector('a');
           if (link) {
-            selectResult(link, 'keyboard_enter');
+            if (activeList.id === 'site-search-listbox') {
+              selectResult(link, 'keyboard_enter');
+            } else {
+              // Default state — delegate to the click handler so suggested vs
+              // recent rows pick the right action.
+              link.click();
+            }
           }
         }
         break;
@@ -302,6 +325,31 @@ function selectResult(link, selectionMethod) {
   }
 }
 
+// Click handler for the default-state list — close the dialog and navigate
+// to the suggested row's href.
+function handleDefaultListClick(event) {
+  const link = event.target.closest('a');
+  if (!link) return;
+  event.preventDefault();
+
+  const url = link.getAttribute('href');
+  if (!url) return;
+
+  const { dialog } = getElements();
+  if (dialog) {
+    dialog.removeEventListener('wa-hide', handleClose);
+    cleanup();
+    trackEvent('navigation:search_dialog_close');
+    dialog.open = false;
+  }
+
+  if (window.Turbo) {
+    Turbo.visit(url);
+  } else {
+    location.href = url;
+  }
+}
+
 function handleSelection(event) {
   const link = event.target.closest('a');
 
@@ -356,6 +404,17 @@ async function updateResults(query = '') {
     dialog.classList.toggle('has-results', hasQuery && hasResults);
     dialog.classList.toggle('no-results', hasQuery && !hasResults);
 
+    // Point aria-controls at whichever listbox the user is navigating now,
+    // and clear any stale data-selected on the default sub-lists when returning.
+    if (hasQuery) {
+      input.setAttribute('aria-controls', 'site-search-listbox');
+    } else {
+      input.setAttribute('aria-controls', 'site-search-suggested-list');
+      const { defaultContainer } = getElements();
+      if (defaultContainer) {
+        defaultContainer.querySelectorAll('li').forEach(item => item.setAttribute('data-selected', 'false'));
+      }
+    }
     input.setAttribute('aria-activedescendant', '');
 
     // Echo the user's query into the empty state when there are no results
