@@ -15,7 +15,9 @@ describe('<wa-callout>', () => {
         it('should be accessible with all variants', async () => {
           const variants = ['brand', 'neutral', 'success', 'warning', 'danger'] as const;
           // dumb reason these fail in CI.
-          if (fixture.type === "ssr-client-hydrated") { return }
+          if (fixture.type === 'ssr-client-hydrated') {
+            return;
+          }
 
           for (const variant of variants) {
             const el = await fixture<WaCallout>(html`<wa-callout variant="${variant}">Callout</wa-callout>`);
