@@ -13,7 +13,7 @@ export default css`
 
     :host(:not(:first-child)) {
       border-top: var(--wa-panel-border-width) var(--wa-panel-border-style)
-        var(--wa-accordion-divider-color, var(--wa-color-surface-border));
+        var(--wa-color-surface-border);
     }
 
     :host([appearance='filled']) {
