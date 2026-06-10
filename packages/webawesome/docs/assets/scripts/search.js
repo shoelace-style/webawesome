@@ -64,6 +64,7 @@ const iconByPrefix = [
   ['/docs/ai', 'sparkles'],
   ['/docs/ai/agent-skills', 'sparkles'],
   ['/docs/ai/llms', 'sparkles'],
+  ['/docs/resources/support', 'life-ring'],
   ['/docs/resources', 'book-spine'],
 ].sort((a, b) => b[0].length - a[0].length);
 
@@ -420,9 +421,12 @@ function handleDefaultListClick(event) {
     return;
   }
 
-  // Suggested row — close the dialog and navigate to the link's href
+  // Suggested row — close the dialog and navigate to the link's href.
+  // Respect target="_blank" so external links open in a new tab.
   const url = link.getAttribute('href');
   if (!url) return;
+
+  const opensInNewTab = link.target === '_blank';
 
   const { dialog } = getElements();
   if (dialog) {
@@ -432,7 +436,9 @@ function handleDefaultListClick(event) {
     dialog.open = false;
   }
 
-  if (window.Turbo) {
+  if (opensInNewTab) {
+    window.open(url, '_blank', 'noopener');
+  } else if (window.Turbo) {
     Turbo.visit(url);
   } else {
     location.href = url;

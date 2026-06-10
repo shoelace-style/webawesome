@@ -216,8 +216,8 @@
 #site-search footer {
   background: var(--wa-color-neutral-fill-quiet);
   border-block-start: var(--wa-panel-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
-  border-bottom-left-radius: var(--wa-border-radius-l);
-  border-bottom-right-radius: var(--wa-border-radius-l);
+  border-end-start-radius: var(--wa-border-radius-l);
+  border-end-end-radius: var(--wa-border-radius-l);
   padding: var(--wa-space-m);
   font-size: var(--wa-font-size-s);
 }
