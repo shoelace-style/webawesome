@@ -12,8 +12,7 @@ export default css`
     }
 
     :host(:not(:first-child)) {
-      border-top: var(--wa-panel-border-width) var(--wa-panel-border-style)
-        var(--wa-color-surface-border);
+      border-top: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-surface-border);
     }
 
     :host([appearance='filled']) {
