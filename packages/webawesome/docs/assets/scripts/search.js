@@ -73,6 +73,7 @@ function getElements() {
     dialog: document.getElementById('site-search'),
     input: document.getElementById('site-search-input'),
     results: document.getElementById('site-search-listbox'),
+    emptyQuery: document.getElementById('site-search-empty-query'),
   };
 }
 
@@ -354,7 +355,16 @@ async function updateResults(query = '') {
 
     dialog.classList.toggle('has-results', hasQuery && hasResults);
     dialog.classList.toggle('no-results', hasQuery && !hasResults);
+
     input.setAttribute('aria-activedescendant', '');
+
+    // Echo the user's query into the empty state when there are no results
+    // (safe: textContent, never innerHTML)
+    if (hasQuery && !hasResults) {
+      const { emptyQuery } = getElements();
+      if (emptyQuery) emptyQuery.textContent = trimmedQuery;
+    }
+
     results.innerHTML = '';
     matches.forEach((match, index) => {
       const page = map[match.id];
@@ -382,15 +392,15 @@ async function updateResults(query = '') {
         }
       }
       a.href = page.url;
+      a.className = 'wa-cluster wa-flex-nowrap';
       a.innerHTML = `
-        <div class="site-search-result-icon" aria-hidden="true">
-          <wa-icon name="${icon}" variant="regular"></wa-icon>
+        <wa-icon class="site-search-result-icon de-emphasize" name="${icon}" variant="regular" aria-hidden="true"></wa-icon>
+        <div class="site-search-result-details wa-stack wa-gap-3xs">
+          <div class="site-search-result-title wa-heading-m"></div>
+          <div class="site-search-result-description wa-font-size-s"></div>
+          <div class="site-search-result-url wa-font-size-xs"></div>
         </div>
-        <div class="site-search-result-details">
-          <div class="site-search-result-title"></div>
-          <div class="site-search-result-description"></div>
-          <div class="site-search-result-url"></div>
-        </div>
+        <wa-icon class="site-search-result-caret" name="chevron-right" variant="regular" aria-hidden="true"></wa-icon>
       `;
       a.querySelector('.site-search-result-title').textContent = displayTitle;
       a.querySelector('.site-search-result-description').textContent = displayDescription;
@@ -402,6 +412,12 @@ async function updateResults(query = '') {
       li.appendChild(a);
       results.appendChild(li);
     });
+
+    // After rendering, point aria-activedescendant at the first selected item
+    if (hasResults) {
+      const firstSelected = results.querySelector('[data-selected="true"]');
+      if (firstSelected) input.setAttribute('aria-activedescendant', firstSelected.id);
+    }
   } catch {
     // Ignore query errors as the user types
   }
