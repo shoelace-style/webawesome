@@ -205,23 +205,12 @@
 
 .site-search-empty-icon {
   --primary-color: var(--wa-color-text-normal);
-  --secondary-color: var(--wa-color-brand-80);
-  --secondary-opacity: 1;
-}
-
-.wa-dark .site-search-empty-icon {
-  --secondary-color: var(--wa-color-brand-60);
 }
 
 #site-search footer {
-  background: var(--wa-color-neutral-fill-quiet);
   border-block-start: var(--wa-panel-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
-  border-end-start-radius: var(--wa-border-radius-l);
-  border-end-end-radius: var(--wa-border-radius-l);
+  border-bottom-left-radius: var(--wa-border-radius-l);
+  border-bottom-right-radius: var(--wa-border-radius-l);
   padding: var(--wa-space-m);
   font-size: var(--wa-font-size-s);
-}
-
-.wa-dark #site-search footer {
-  background: var(--wa-color-neutral-fill-normal);
 }
