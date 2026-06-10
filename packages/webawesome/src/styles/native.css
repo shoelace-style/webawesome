@@ -403,7 +403,7 @@
 
   tbody {
     tr {
-      border-top: solid var(--wa-border-width-s) var(--wa-color-border-quiet);
+      border-block-start: var(--wa-border-style) var(--wa-border-width-s) var(--wa-color-border-quiet);
 
       :where(table.wa-zebra-rows) &:nth-child(odd) {
         background-color: color-mix(in oklab, var(--wa-color-fill-quiet) 60%, transparent);
@@ -416,7 +416,7 @@
 
             &,
             + tr {
-              border-top-color: var(--wa-color-border-normal);
+              border-block-start-color: var(--wa-color-border-normal);
             }
           }
         }
@@ -433,12 +433,13 @@
   }
 
   th {
-    padding-block: 0.75em;
-
     font-size: var(--wa-font-size-smaller);
     font-weight: var(--wa-font-weight-bold);
 
-    border-block-end: var(--wa-border-style) var(--wa-border-width-s) var(--wa-color-border-normal);
+    /* Adds a stronger border below column headers but not row headers */
+    &:not(:has(+ td)):not([scope="row"]) {
+      border-block-end: var(--wa-border-style) var(--wa-border-width-s) var(--wa-color-border-normal);
+    }
   }
   /* #endregion */
 
