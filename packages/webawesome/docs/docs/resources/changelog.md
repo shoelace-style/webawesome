@@ -51,6 +51,12 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::
 
+:::removed
+
+- Removed `--wa-accordion-divider-color` from `<wa-accordion-item>` due to improper scope and limited usage [pr:2491]
+
+:::
+
 ## 3.8.0
 
 <small><time datetime="2026-06-05">June 5th, 2026</time></small>

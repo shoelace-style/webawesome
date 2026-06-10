@@ -36,7 +36,6 @@ import styles from './accordion-item.styles.js';
  * @cssproperty [--show-duration=var(--wa-transition-normal)] - The duration of the expand animation.
  * @cssproperty [--hide-duration=var(--wa-transition-normal)] - The duration of the collapse animation.
  * @cssproperty [--easing=var(--wa-transition-easing)] - The easing of the expand/collapse animation.
- * @cssproperty [--wa-accordion-divider-color=var(--wa-color-surface-border)] - The color of the divider between accordion items.
  *
  * @cssstate animating - Applied while the panel is animating.
  */
