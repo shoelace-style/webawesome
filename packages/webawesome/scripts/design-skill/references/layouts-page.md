@@ -50,7 +50,7 @@ current view, automatically.**
 
 - On **desktop** (at or above `mobile-breakpoint`, default `768px`), the content you put in
   `slot="navigation"` renders as a **persistent left sidebar column**.
-- On **mobile** (below the breakpoint), that *same* content is moved into a `<wa-drawer>`, toggled by a
+- On **mobile** (below the breakpoint), that _same_ content is moved into a `<wa-drawer>`, toggled by a
   hamburger button the component shows for you.
 
 You write the nav **once**, in `slot="navigation"`, and `<wa-page>` handles both views. The same is true
@@ -79,7 +79,7 @@ for `navigation-header` and `navigation-footer` (they become the drawer's header
   - **Header nav + mobile drawer, no desktop sidebar** (the classic marketing/hero look): keep the nav in
     the `header` for desktop, mirror it in `slot="navigation"` for the mobile drawer, and use the
     **deliberate-exception recipe below** to hide each in the view where it shouldn't appear. This is the
-    *one* place duplication is correct — and it's controlled, view-scoped duplication, not an accident.
+    _one_ place duplication is correct — and it's controlled, view-scoped duplication, not an accident.
 
 ---
 
@@ -95,7 +95,7 @@ Four steps:
 2. Mirror the same links in the **`navigation`** slot — these power the mobile drawer.
 3. Hide the header links on mobile: `wa-page[view='mobile'] .header-nav { display: none }`.
 4. Hide the desktop sidebar on desktop: `wa-page[view='desktop']::part(navigation) { display: none }`.
-   (`::part(navigation)` targets *only* the desktop sidebar wrapper; the mobile drawer is unaffected, so
+   (`::part(navigation)` targets _only_ the desktop sidebar wrapper; the mobile drawer is unaffected, so
    the drawer still works.)
 
 ```html
@@ -143,7 +143,7 @@ Four steps:
 
 You do **not** need your own `<wa-drawer>` or any media queries for this — the drawer comes from
 `<wa-page>`. **You should, however, supply your own `data-toggle-nav` button inside the `header`** (as
-shown above), so the hamburger is placed and styled *with* your header bar. Adding any
+shown above), so the hamburger is placed and styled _with_ your header bar. Adding any
 `[data-toggle-nav]` element automatically suppresses `<wa-page>`'s built-in hamburger. If you omit your
 own toggle, the built-in one renders **before** your header content inside the component's flex header
 and **wraps onto its own unstyled row** (left-aligned, no background) — the #2 bug of this recipe. The
@@ -152,7 +152,7 @@ clean. The only custom CSS is the two `view`-scoped hide rules above.
 
 ⚠️ **In this recipe, do NOT set a fixed `--menu-width` — leave it at its `auto` default.** The left
 `menu` column's width is `minmax(0, var(--menu-width))`, and `--menu-width` defaults to `auto`. Hiding
-the desktop sidebar with `::part(navigation){display:none}` removes the sidebar *content*, but the grid
+the desktop sidebar with `::part(navigation){display:none}` removes the sidebar _content_, but the grid
 track width is governed **only** by `--menu-width` — not by whether the content is visible. With `auto`,
 the now-empty column collapses to nothing; with a fixed value like `14rem` (often copied in from the
 sidebar/app-shell skeleton below), the track stays `14rem` and you get a **reserved empty band down the
@@ -234,6 +234,7 @@ utilities instead (see [layouts-inpage.md](layouts-inpage.md)).
    The `menu` column is `minmax(0, var(--menu-width))` and `--menu-width` defaults to `auto`, so its
    width is controlled **only** by `--menu-width` — never by whether the sidebar content is visible.
    Two cases:
+
    - **Desktop sidebar layout** (the `navigation` slot is visible as a left column on desktop — app
      shell, docs, dashboard): set a fixed `--menu-width` (e.g. `16rem`); it's holding real content. A
      fixed width still reserves space below the breakpoint, so collapse it back to `auto` for
@@ -271,7 +272,7 @@ utilities instead (see [layouts-inpage.md](layouts-inpage.md)).
    `navigation` content — never pair it with a hand-rolled drawer. **When you want the toggle to live
    inside your own styled header bar (the header/drawer recipe), put a `data-toggle-nav` button there
    yourself** rather than relying on the built-in hamburger — the built-in one renders in the header
-   *before* your `header` slot content and wraps onto its own unstyled row, outside your bar.
+   _before_ your `header` slot content and wraps onto its own unstyled row, outside your bar.
 
 7. **Close the drawer when a nav link is tapped.** The mobile navigation is a `<wa-drawer>`, so add
    `data-drawer="close"` to your navigation links, so tapping one then closes the drawer (otherwise it
@@ -448,23 +449,23 @@ navigation sidebar, main content, a sticky table-of-contents aside, and a footer
 
 ## Anti-patterns
 
-| ❌ Don't                                           | ✅ Do                                                                  |
-| -------------------------------------------------- | ---------------------------------------------------------------------- |
-| Forget the `html, body` reset → gaps appear        | Always add the reset (or use native styles)                            |
-| Expect `<wa-page>` to emit `<main>`/`<header>`     | Slot in your own semantic elements                                     |
-| Put nav in `menu` and wonder why it won't collapse | Use `navigation` (+ `navigation-header`/`-footer`) for mobile collapse |
-| Duplicate nav into multiple slots expecting only one copy to show → it appears **twice** | Write nav **once** in `slot="navigation"`; the component renders it in the right place per view. The only sanctioned duplication is the header-on-desktop / drawer-on-mobile recipe |
-| Hand-roll your own `<wa-drawer>` + toggle button for the mobile menu | Put nav in `slot="navigation"`; `<wa-page>` provides the drawer and hamburger automatically |
-| Write media queries to show/hide the nav, sidebar, or hamburger | Don't — the component switches via its own `view` state. Media queries are for page content, not the nav machinery |
-| Pair `data-toggle-nav` with your own `<wa-drawer>` (it toggles the `navigation` drawer, not yours → dead button) | Use the `navigation` slot's built-in drawer; `data-toggle-nav` only ever controls that one |
-| Set `--menu-width: 16rem` and leave it on mobile   | Reset widths to `auto` under `wa-page[view='mobile']`                  |
-| Nav links that leave the drawer open after a tap   | Add `data-drawer="close"` to navigation links                          |
-| Expect `aside` to disappear on mobile on its own   | `aside` has no drawer; hide it (`.wa-desktop-only` or `display: none`) |
-| Try to set `view="mobile"` yourself                | `view` is read-only; the component sets it. Only read it in CSS        |
-| Hand-roll a `display: grid` page shell             | Use `<wa-page>`; it already is the grid                                |
-| Nest `<wa-page>` inside a section or another page  | One `<wa-page>` per page, at the top level                             |
-| Hardcode header colors with hex                    | Use `--wa-color-surface-*` / semantic tokens                           |
-| `<wa-button />` (self-closing)                     | `<wa-button></wa-button>`                                              |
+| ❌ Don't                                                                                                         | ✅ Do                                                                                                                                                                               |
+| ---------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Forget the `html, body` reset → gaps appear                                                                      | Always add the reset (or use native styles)                                                                                                                                         |
+| Expect `<wa-page>` to emit `<main>`/`<header>`                                                                   | Slot in your own semantic elements                                                                                                                                                  |
+| Put nav in `menu` and wonder why it won't collapse                                                               | Use `navigation` (+ `navigation-header`/`-footer`) for mobile collapse                                                                                                              |
+| Duplicate nav into multiple slots expecting only one copy to show → it appears **twice**                         | Write nav **once** in `slot="navigation"`; the component renders it in the right place per view. The only sanctioned duplication is the header-on-desktop / drawer-on-mobile recipe |
+| Hand-roll your own `<wa-drawer>` + toggle button for the mobile menu                                             | Put nav in `slot="navigation"`; `<wa-page>` provides the drawer and hamburger automatically                                                                                         |
+| Write media queries to show/hide the nav, sidebar, or hamburger                                                  | Don't — the component switches via its own `view` state. Media queries are for page content, not the nav machinery                                                                  |
+| Pair `data-toggle-nav` with your own `<wa-drawer>` (it toggles the `navigation` drawer, not yours → dead button) | Use the `navigation` slot's built-in drawer; `data-toggle-nav` only ever controls that one                                                                                          |
+| Set `--menu-width: 16rem` and leave it on mobile                                                                 | Reset widths to `auto` under `wa-page[view='mobile']`                                                                                                                               |
+| Nav links that leave the drawer open after a tap                                                                 | Add `data-drawer="close"` to navigation links                                                                                                                                       |
+| Expect `aside` to disappear on mobile on its own                                                                 | `aside` has no drawer; hide it (`.wa-desktop-only` or `display: none`)                                                                                                              |
+| Try to set `view="mobile"` yourself                                                                              | `view` is read-only; the component sets it. Only read it in CSS                                                                                                                     |
+| Hand-roll a `display: grid` page shell                                                                           | Use `<wa-page>`; it already is the grid                                                                                                                                             |
+| Nest `<wa-page>` inside a section or another page                                                                | One `<wa-page>` per page, at the top level                                                                                                                                          |
+| Hardcode header colors with hex                                                                                  | Use `--wa-color-surface-*` / semantic tokens                                                                                                                                        |
+| `<wa-button />` (self-closing)                                                                                   | `<wa-button></wa-button>`                                                                                                                                                           |
 
 ## `<wa-page>` checklist
 

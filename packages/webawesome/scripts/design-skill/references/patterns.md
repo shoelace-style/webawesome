@@ -71,7 +71,7 @@ better than competing actions; supporting detail follows below.
 
 **Nav:** this uses the sanctioned "header on desktop, drawer on mobile" recipe — links live in the
 `header` for wide screens and are mirrored in `slot="navigation"` for the mobile drawer `<wa-page>`
-provides. Each copy is hidden in the opposite view via `wa-page[view='…']`. This is the *only* place nav
+provides. Each copy is hidden in the opposite view via `wa-page[view='…']`. This is the _only_ place nav
 is duplicated on purpose; never copy nav between slots otherwise. (For a simpler page, drop the header
 copy and the two hide-rules and keep just `slot="navigation"` — you'll get a small desktop sidebar plus
 the mobile drawer.)
