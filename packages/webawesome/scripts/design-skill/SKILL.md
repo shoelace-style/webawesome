@@ -45,7 +45,7 @@ put your nav in `slot="navigation"` **once**, and the component renders it as a 
 and moves it into a mobile drawer (with a hamburger button it provides) below `mobile-breakpoint`. You do
 **not** wire up a drawer, a toggle, or media queries for any of this — it's automatic.
 
-The #1 mistake is **duplicating** the nav: putting the same links in `header` *and* `navigation` (or
+The #1 mistake is **duplicating** the nav: putting the same links in `header` _and_ `navigation` (or
 copying them around) so they render **twice**. There is no "this copy is mobile, that copy is desktop" —
 `slot="navigation"` is already both. Write it once.
 
@@ -150,16 +150,16 @@ These are the things that go wrong most often. Treat them as hard constraints.
    (`references/components/<name>.md`) or [llms.txt](https://webawesome.com/docs/ai/) and read its
    **CSS Parts**, **CSS Custom Properties**, **Attributes** (`variant`/`appearance`/`size`/…), and any
    **Styling** notes. Then style **only** through what that doc lists, in this order: **attributes →
-   the component's own tokens → its documented `::part()`**. 
+   the component's own tokens → its documented `::part()`**.
 
-   The **only** thing you may do to a `<wa-*>` element *without* looking it up is position it in the layout
+   The **only** thing you may do to a `<wa-*>` element _without_ looking it up is position it in the layout
    (outer `margin`, and placing it inside a `wa-stack`/`wa-cluster`/`wa-grid`). **Everything visual —
    `background`, `color`, `border`, `border-radius`, fill, text color, internal padding — requires the
    lookup first.** The recurring, silent failure this prevents: you assume a `variant` (or a `*-quiet` /
    `*-loud` token) maps the way you expect, set a background or token accordingly, and the component's text
-   or border resolves to a *different* token than you assumed — producing dark-on-dark text, an invisible
+   or border resolves to a _different_ token than you assumed — producing dark-on-dark text, an invisible
    border, or a "styled" box whose visible surface never changed. (Real example: a `<wa-callout variant=
-   "brand">` on a theme that inverted `--wa-color-brand-fill-quiet`/`-on-quiet` rendered a dark panel with
+"brand">` on a theme that inverted `--wa-color-brand-fill-quiet`/`-on-quiet` rendered a dark panel with
    near-black body text, because the callout's text color came from a token the author never checked. The
    fix was to read [the callout reference](references/components/callout.md) — which documents that host
    `background`/`color` are supported and exposes `message`/`icon` parts — and set the colors explicitly.)
@@ -185,6 +185,7 @@ These are the things that go wrong most often. Treat them as hard constraints.
    ```
 
    **Contrast on colored bands (a separate, equally common button bug).** Even with correct `::part(base)` usage, a button can vanish because its colors match the band it sits on. **Never place an `appearance="outlined"` or `appearance="plain"` button whose `variant` matches the band color** — e.g. `<wa-button variant="brand" appearance="outlined">` on a brand-colored hero or CTA. The outline and label are the same hue as the background, so the button is effectively invisible (this is exactly what happened on the brand-colored hero bands of multiple pages). On any colored band, a secondary button must use a **contrasting** treatment: a solid/filled neutral or on-color button, or an outline/text recolored via `::part(base)` to the band's on-color token (`--wa-color-*-on-loud`, or a surface token). After placing any button on a non-default background, verify its label **and** border are clearly visible against that band.
+
 10. **Use `<wa-icon>` for icons; never emojis.** Don't put emojis in the UI unless the user explicitly asks for them — and that includes the places they sneak in: logos, image-`alt`/placeholder text, list bullets, decorative `::before` content, and JS-injected toast/success messages. Reach for the [`<wa-icon>`](https://webawesome.com/docs/components/icon) component instead. The default icon library is Font Awesome Free; if the user has **Font Awesome Pro or Web Awesome Pro**, wire up their kit code and use Pro icon families. If your tool has access to Font Awesome's [official agent skills](https://github.com/FortAwesome/fontawesome-agent-tools) (`icons:suggest-icon`, `icons:add-icon`), prefer those over guessing an icon name — they recommend icons by intent rather than keyword match. See [references/composition.md](references/composition.md) for usage and Pro setup.
 11. **Keep markup valid and accessible.** Use real heading elements for hierarchy (`<h2>`/`<h3>`/`<h4>`) — don't fake a heading with a styled `<strong>`, which breaks the document outline. Give icon-only controls a `label` (or `aria-label`) and images meaningful `alt`. Never put two `style` attributes on one element — the second silently wins; merge them (or, per Rule 8, use a class).
 
@@ -216,14 +217,14 @@ Walk this checklist (yourself, and via the subagents) and fix each before declar
 
 - [ ] **Duplicated `<wa-page>` nav (check this first on any full page).** Search your markup for the same
       nav links appearing in more than one slot. `slot="navigation"` already renders in **both** views
-      (sidebar on desktop, drawer on mobile), so a second copy elsewhere shows **twice**. The *only* allowed
+      (sidebar on desktop, drawer on mobile), so a second copy elsewhere shows **twice**. The _only_ allowed
       duplication is the deliberate "header on desktop, drawer on mobile" recipe, where each copy is hidden
       in the opposite view via `wa-page[view='…']`. If you find an accidental copy, delete it and keep the
       single `slot="navigation"`. Also confirm you did **not** hand-roll a `<wa-drawer>` or toggle — the
       component provides both. See the landing-page skeleton above.
 - [ ] **Empty `<wa-page>` nav column band.** Only set a fixed `--menu-width` when you actually render a
       desktop sidebar. If you hid the desktop sidebar with `wa-page[view='desktop']::part(navigation) {
-      display: none }` (the header/drawer recipe), confirm `--menu-width` is left at its `auto` default —
+display: none }` (the header/drawer recipe), confirm `--menu-width` is left at its `auto` default —
       a fixed value (e.g. `14rem`) reserves an empty band down the left side, because hiding the sidebar
       part does **not** collapse the `menu` grid track (only `--menu-width` does). The tell is "I added
       `display: none` but the gap is still there." Search for a fixed `--menu-width` paired with a hidden
@@ -371,6 +372,7 @@ This uses `navigation` + `navigation-header`/`navigation-footer`, `--menu-width`
 
 ## References
 
+- **[principles.md](references/principles.md):** Design principles behind WA's tokens — hierarchy, spacing rhythm, typography, color discipline, depth, finishing moves, empty states. The _why_ that makes the other references click. Read this when output looks correct but unrefined.
 - **[layouts-page.md](references/layouts-page.md):** Full-page layouts with `<wa-page>`. Read this for the full-page branch.
 - **[layouts-inpage.md](references/layouts-inpage.md):** Sections, widgets, and embeds with layout utilities. Read this for the in-page branch.
 - **[theming.md](references/theming.md):** Themes, palettes, light/dark, semantic colors, and customizing with `--wa-*` tokens.
