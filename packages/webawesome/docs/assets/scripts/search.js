@@ -143,11 +143,11 @@ function renderRecentSearches() {
 
     const a = document.createElement('a');
     a.href = '#';
-    a.className = 'wa-cluster wa-flex-nowrap wa-gap-m';
+    a.className = 'wa-cluster wa-flex-nowrap wa-gap-s';
     a.innerHTML = `
-      <wa-icon class="site-search-result-icon de-emphasize" name="clock-rotate-left" variant="regular" aria-hidden="true"></wa-icon>
+      <wa-icon class="site-search-result-icon de-emphasize wa-font-size-m" name="clock-rotate-left" variant="regular" aria-hidden="true"></wa-icon>
       <div class="site-search-result-details">
-        <div class="site-search-result-title wa-heading-m"></div>
+        <div class="site-search-result-title wa-font-size-s"></div>
       </div>
       <wa-icon class="site-search-result-caret" name="chevron-right" variant="regular" aria-hidden="true"></wa-icon>
     `;
@@ -585,9 +585,9 @@ async function updateResults(query = '') {
       a.href = page.url;
       a.className = 'wa-cluster wa-flex-nowrap';
       a.innerHTML = `
-        <wa-icon class="site-search-result-icon de-emphasize" name="${icon}" variant="regular" aria-hidden="true"></wa-icon>
+        <wa-icon class="site-search-result-icon de-emphasize wa-font-size-m" name="${icon}" variant="regular" aria-hidden="true"></wa-icon>
         <div class="site-search-result-details wa-stack wa-gap-3xs">
-          <div class="site-search-result-title wa-heading-m"></div>
+          <div class="site-search-result-title wa-heading-s"></div>
           <div class="site-search-result-description wa-font-size-s"></div>
           <div class="site-search-result-url wa-font-size-xs"></div>
         </div>
