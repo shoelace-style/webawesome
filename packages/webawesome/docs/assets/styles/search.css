@@ -121,7 +121,6 @@
   }
 
   .site-search-result-icon {
-    font-size: var(--wa-font-size-l);
     color: var(--wa-color-on-quiet);
     transition: color var(--wa-transition-normal) var(--wa-transition-easing);
   }
