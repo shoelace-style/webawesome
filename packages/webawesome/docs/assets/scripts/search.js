@@ -16,6 +16,7 @@ const queryTrackDelay = 1000;
 let searchTimeout;
 let queryTrackTimeout;
 let lastTrackedQuery = '';
+let lastQuerySource = 'typed';
 let resultSelected = false;
 
 // Optional event tracking - works standalone if track.js isn't available
@@ -79,6 +80,7 @@ function getElements() {
     recentContainer: document.getElementById('site-search-recent-list'),
     recentListbox: document.getElementById('site-search-recent-listbox'),
     recentDivider: document.querySelector('[data-recent-divider]'),
+    emptyState: document.getElementById('site-search-empty'),
   };
 }
 
@@ -172,6 +174,7 @@ function trackQuerySubmit(query, resultSelectedValue) {
     result_count: matches,
     has_results: matches > 0,
     result_selected: resultSelectedValue,
+    source: lastQuerySource,
   });
 }
 
@@ -199,7 +202,7 @@ document.addEventListener('click', event => {
 });
 
 function show() {
-  const { dialog, input, results, defaultContainer } = getElements();
+  const { dialog, input, results, defaultContainer, emptyState } = getElements();
   if (!dialog || !input || !results) return;
 
   const wasAlreadyOpen = dialog.open;
@@ -208,13 +211,16 @@ function show() {
   input.removeEventListener('input', handleInput);
   results.removeEventListener('click', handleSelection);
   if (defaultContainer) defaultContainer.removeEventListener('click', handleDefaultListClick);
+  if (emptyState) emptyState.removeEventListener('click', handleEmptyStateClick);
   dialog.removeEventListener('keydown', handleKeyDown);
   dialog.removeEventListener('wa-hide', handleClose);
   resultSelected = false;
   lastTrackedQuery = '';
+  lastQuerySource = 'typed';
   input.addEventListener('input', handleInput);
   results.addEventListener('click', handleSelection);
   if (defaultContainer) defaultContainer.addEventListener('click', handleDefaultListClick);
+  if (emptyState) emptyState.addEventListener('click', handleEmptyStateClick);
   dialog.addEventListener('keydown', handleKeyDown);
   dialog.addEventListener('wa-hide', handleClose);
 
@@ -231,19 +237,21 @@ function show() {
 }
 
 function cleanup() {
-  const { dialog, input, results, defaultContainer } = getElements();
+  const { dialog, input, results, defaultContainer, emptyState } = getElements();
   if (!dialog || !input || !results) return;
   clearTimeout(searchTimeout);
   clearTimeout(queryTrackTimeout);
   input.removeEventListener('input', handleInput);
   results.removeEventListener('click', handleSelection);
   if (defaultContainer) defaultContainer.removeEventListener('click', handleDefaultListClick);
+  if (emptyState) emptyState.removeEventListener('click', handleEmptyStateClick);
   dialog.removeEventListener('keydown', handleKeyDown);
   dialog.removeEventListener('wa-hide', handleClose);
 
   // Reset state to prevent leakage between dialog sessions
   resultSelected = false;
   lastTrackedQuery = '';
+  lastQuerySource = 'typed';
 }
 
 async function handleClose() {
@@ -275,6 +283,7 @@ function handleInput() {
   if (!input) return;
   clearTimeout(searchTimeout);
   clearTimeout(queryTrackTimeout);
+  lastQuerySource = 'typed';
 
   const query = input.value.trim();
 
@@ -337,9 +346,7 @@ function handleKeyDown(event) {
             if (activeList.id === 'site-search-listbox') {
               selectResult(link, 'keyboard_enter');
             } else {
-              // Default state — delegate to the click handler so suggested vs
-              // recent rows pick the right action.
-              link.click();
+              handleDefaultSelection(link, 'keyboard_enter');
             }
           }
         }
@@ -403,13 +410,18 @@ function selectResult(link, selectionMethod) {
   }
 }
 
-// Click handler for the default-state list. Suggested rows navigate to their
-// href; recent-search rows populate the input and re-run the search.
+// Click handler for the default-state list. Defers to handleDefaultSelection
+// so keyboard Enter can share the same logic with a known selection_method.
 function handleDefaultListClick(event) {
   const link = event.target.closest('a');
   if (!link) return;
   event.preventDefault();
+  handleDefaultSelection(link, 'mouse_click');
+}
 
+// Shared selection path for the default state. Suggested rows close the
+// dialog and navigate; recent-search rows repopulate the input and re-run.
+async function handleDefaultSelection(link, selectionMethod) {
   const li = link.closest('li');
   const recentQuery = li?.dataset.recentQuery;
 
@@ -417,7 +429,12 @@ function handleDefaultListClick(event) {
     const { input } = getElements();
     if (!input) return;
     input.value = recentQuery;
-    updateResults(recentQuery);
+    lastQuerySource = 'recent';
+    await updateResults(recentQuery);
+    if (recentQuery !== lastTrackedQuery) {
+      trackQuerySubmit(recentQuery, false);
+      lastTrackedQuery = recentQuery;
+    }
     return;
   }
 
@@ -426,8 +443,16 @@ function handleDefaultListClick(event) {
   const url = link.getAttribute('href');
   if (!url) return;
 
-  const opensInNewTab = link.target === '_blank';
+  // Position parsed from the `suggested-item-N` id (1-based)
+  const match = li?.id?.match(/^suggested-item-(\d+)$/);
+  const suggestedIndex = match ? parseInt(match[1], 10) : null;
+  trackEvent('navigation:search_suggested_click', {
+    suggested_index: suggestedIndex,
+    suggested_url: url,
+    selection_method: selectionMethod,
+  });
 
+  const opensInNewTab = link.target === '_blank';
   const { dialog } = getElements();
   if (dialog) {
     dialog.removeEventListener('wa-hide', handleClose);
@@ -443,6 +468,18 @@ function handleDefaultListClick(event) {
   } else {
     location.href = url;
   }
+}
+
+// Click handler for the no-results CTAs. Buttons opt in via `data-cta`.
+function handleEmptyStateClick(event) {
+  const button = event.target.closest('[data-cta]');
+  if (!button) return;
+  const { input } = getElements();
+  const query = (input?.value || '').trim();
+  trackEvent('navigation:search_no_results_cta_click', {
+    destination: button.dataset.cta,
+    query,
+  });
 }
 
 function handleSelection(event) {
