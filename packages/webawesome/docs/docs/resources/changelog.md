@@ -39,6 +39,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::fixed
 
+- Fixed a race condition with `<wa-accordion>` and `<wa-accordion-item>` causing a hydration mismatch in SSR [pr:2501]
 - Fixed a bug in `<wa-checkbox>` and `<wa-switch>` where `.checked` property would not properly update the shadow dom checkbox.
 - Fixed a bug where `@lit-labs/ssr` was not included as a dependency.
 - Fixed a bug in `<wa-button>` where the slotted icon was rendered off-center at `size="xs"` in Firefox [issue:2426]
