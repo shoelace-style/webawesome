@@ -71,6 +71,7 @@
     "test:component": "web-test-runner -- --watch --group",
     "test:component:server": "SSR_ONLY=\"true\" npm run test:component",
     "test:component:client": "CSR_ONLY=\"true\" npm run test:component",
+    "test:hydration": "node scripts/check-hydration.js",
     "test:watch": "web-test-runner --watch --group default",
     "prettier": "prettier --check --log-level=warn --ignore-path=\"../../.prettierignore\" .",
     "prettier:fix": "prettier --write --log-level=warn --ignore-path=\"../../.prettierignore\" .",
