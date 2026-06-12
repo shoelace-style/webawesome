@@ -316,11 +316,10 @@ their readable size as the viewport grows.
 
 ### Don't fill the screen just because it's there
 
-Constrain readable columns with `max-inline-size: 60ch`–`75ch` even when the viewport is wider;
-`wa-prose` does it automatically (65ch) for multi-element long-form blocks. A 600px form on a
-1440px monitor doesn't need to stretch — spreading content wider makes it harder to read, not more
-"designed." Pages don't need to be full-bleed and sections don't need to span their parent. See §5
-below.
+Constrain readable columns with `max-inline-size: 60ch`–`75ch` even when the viewport is wider. A
+600px form on a 1440px monitor doesn't need to stretch — spreading content wider makes it harder to
+read, not more "designed." Pages don't need to be full-bleed and sections don't need to span their
+parent. For multi-element long-form blocks, see §5 below.
 
 ### Full-bleed band, contained content — the canonical `<wa-page>` rhythm
 

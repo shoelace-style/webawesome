@@ -6,7 +6,7 @@ spacing, or font sizes**; that breaks theming and consistency.
 
 For the _why_ behind WA's three-layer color system — why semantic tokens beat palette tints, why
 `*-on-*` pairings are non-negotiable, and how to avoid the "accessible but ugly" trap — see
-[principles.md § Color](principles.md#4-color-less-is-more-and-never-alone).
+[principles.md § Color](principles.md#1-color-less-is-more-and-never-alone).
 
 Full docs: https://webawesome.com/docs/themes
 

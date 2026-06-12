@@ -223,12 +223,12 @@ Walk this checklist (yourself, and via the subagents) and fix each before declar
       single `slot="navigation"`. Also confirm you did **not** hand-roll a `<wa-drawer>` or toggle — the
       component provides both. See the landing-page skeleton above.
 - [ ] **Empty `<wa-page>` nav column band.** Only set a fixed `--menu-width` when you actually render a
-      desktop sidebar. If you hid the desktop sidebar with `wa-page[view='desktop']::part(navigation) {
-display: none }` (the header/drawer recipe), confirm `--menu-width` is left at its `auto` default —
-      a fixed value (e.g. `14rem`) reserves an empty band down the left side, because hiding the sidebar
-      part does **not** collapse the `menu` grid track (only `--menu-width` does). The tell is "I added
-      `display: none` but the gap is still there." Search for a fixed `--menu-width` paired with a hidden
-      desktop sidebar and remove it.
+      desktop sidebar. If you hid the desktop sidebar via the header/drawer recipe
+      (`wa-page[view='desktop']::part(navigation) { display: none }`), confirm `--menu-width` is left at
+      its `auto` default — a fixed value (e.g. `14rem`) reserves an empty band down the left side,
+      because hiding the sidebar part does **not** collapse the `menu` grid track (only `--menu-width`
+      does). The tell is "I added `display: none` but the gap is still there." Search for a fixed
+      `--menu-width` paired with a hidden desktop sidebar and remove it.
 - [ ] **Raw values** — search for `#` (hex), `px`, and stray `rem`. The only allowed hex is the `:root`
       brand-token override; everything else is a `--wa-*` token. (Sizing recipes: composition.md.)
 - [ ] **Repeated inline styles** — if the same `style="…"` appears more than once, promote it to a class.
