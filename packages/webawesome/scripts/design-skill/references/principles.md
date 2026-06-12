@@ -36,7 +36,7 @@ See [theming.md](theming.md) for the layer breakdown and
 
 §1.1 calls palette tints an escape hatch; here's when reaching for that hatch is fair use. When you
 want a **purely visual** distinction between two elements — a sidebar a step darker than main, two
-adjacent panels on a tinted band, a hover background a half-step deeper than its container —
+adjacent cards on a tinted band, a hover background a half-step deeper than its container —
 reaching one or two steps along a palette scale is reasonable. The qualifiers:
 
 - **Stay on the scale.** `--wa-color-neutral-90` next to a default surface is fine; a raw hex or a
@@ -70,7 +70,7 @@ and these are how you encode hierarchy through color:
 - **`loud`** — boldest fill, highest visual weight. Primary actions, hero callouts, the most
   important band on a page.
 - **`normal`** — default mid-step. Standard surfaces, typical badges, secondary emphasis.
-- **`quiet`** — softest fill, lowest visual weight. Hover states, soft alerts, background tints,
+- **`quiet`** — softest fill, lowest visual weight. Hover states, soft callouts, background tints,
   de-emphasized accents.
 
 The lever applies to **fills**, **borders**, and the matching **on** (text) color of each step. So
@@ -106,7 +106,7 @@ hex or a palette tint for borders.
 ```
 
 (That's the working example from [composition.md § Custom CSS](composition.md#custom-css), and it's
-the canonical shape for a custom themed panel.)
+the canonical shape for a custom themed card.)
 
 ### Quiet controls don't quiet themselves across bands
 
@@ -124,7 +124,7 @@ the component-specific fix.
 
 ### Flip the contrast to keep brand color from going dark
 
-The `fill-quiet` + `on-quiet` token pair gives you a "soft brand panel" without needing white text.
+The `fill-quiet` + `on-quiet` token pair gives you a "soft brand card" without needing white text.
 Set `background: var(--wa-color-brand-fill-quiet); color: var(--wa-color-brand-on-quiet);` and you
 get a brand-tinted background with brand-colored text that hits WCAG 4.5:1 — accessible without
 darkening the brand color. The conventional alternative (white text on a brand-saturated background)
@@ -152,14 +152,13 @@ warning icon isn't.
 
 ## 2. Depth via tokens, not artistry
 
-### `<wa-page>` already encodes depth
+### `<wa-page>` layers with z-index, not shadow
 
-The page grid bakes elevation into its slot structure: sticky regions (banner, header, subheader,
-menu, aside) carry their own subtle shadow as content scrolls beneath them; the menu and aside
-columns share elevation with main (not raised); a `<wa-card>` _inside_ main is what's raised.
-Stacking more shadow on top of a sticky bar or a sidebar usually fights the layout rather than
-helping it — the page is already doing that work, so check whether the elevation you want is
-already there before adding `--wa-shadow-m` to the header slot.
+The page grid bakes layering into its slot structure: sticky regions (banner, header, subheader,
+menu, aside) sit at `z-index: 5` so content scrolls beneath them — but they carry no built-in
+shadow. The menu and aside columns share elevation with main; a `<wa-card>` _inside_ main is what
+the surface tokens raise. If you want a header to cast an elevation shadow as content scrolls under
+it, that's on you — add `--wa-shadow-s` or `--wa-shadow-m` to a header-slot background element.
 
 ### Picture an overhead light source
 
@@ -170,13 +169,14 @@ angle or intensity unless you're deliberately designing a custom elevation syste
 
 ### Match shadow size to z-axis position
 
-The shadow tokens form an elevation ladder: `--wa-shadow-s` for elements barely off the page
-(buttons), `--wa-shadow-m` for elements that hover above (popovers, dropdowns), `--wa-shadow-l` for
-elements that float in front of everything (dialogs, drawers). Pick the size by where the element
-belongs on the z-axis, not by what looks pleasing in isolation.
+The shadow tokens form an elevation ladder, and each WA component picks the rung that matches
+where it sits: `--wa-shadow-s` for elements barely off the page (`<wa-card>`), `--wa-shadow-m` for
+inline overlays (`<wa-dropdown>`), `--wa-shadow-l` for elements that float in front of everything
+(`<wa-popover>`, `<wa-dialog>`, `<wa-drawer>`). When you build custom surfaces, pick the size by
+where the element belongs on the z-axis, not by what looks pleasing in isolation.
 
-**Common miss:** the same `--wa-shadow-l` on a button and a modal — the shadow says "dialog," the
-element says "button," and they fight.
+**Common miss:** the same `--wa-shadow-l` on a card and a dialog — the card reads as floating into
+the user's face when it should sit just off the page.
 
 ### Surface color does depth without shadows
 
@@ -214,11 +214,13 @@ nothing.
 
 WA's text utilities (`wa-heading-*`, `wa-body-*`, `wa-caption-*`) ship a size, a weight, and a
 line-height tuned to work together; pairing them with `wa-color-text-normal` / `-quiet` / `-link`
-adds the color axis. Two weights × three text colors covers almost every UI situation, which is why
-the utilities only expose those — size on its own is a noisy hierarchy lever that exhausts fast.
+adds the color axis. Two weights × three text colors covers almost every UI situation — size on its
+own is a noisy hierarchy lever that exhausts fast.
 
-**Don't override the utilities' `font-weight`.** The discipline they bake in (regular + bold,
-nothing in between) is the whole point; manual overrides reintroduce the noise.
+**Stay on the body / heading weight tier the text utilities ship with.** WA does also expose
+`wa-font-weight-light`, `-normal`, `-semibold`, and `-bold` for explicit overrides — reach for
+those only when the heading-vs-body tier genuinely doesn't fit. Adding more weights into the mix
+usually adds noise, not hierarchy.
 
 **Common miss:** an 11px metadata line next to an oversized headline. Pair `wa-caption-m` with a
 smaller heading instead — the relationship reads at readable sizes.
@@ -281,12 +283,12 @@ labels are the loudest text on the page.
 
 ### Begin loose; tighten only with reason
 
-WA's spacing utilities (`wa-gap-l`, `wa-gap-m`, `wa-gap-xs`, `wa-gap-2xs`) cover four steps of an
-asymmetric rhythm — and reaching for the larger steps first is the right starting posture. Use
-`wa-gap-l` (24px) between blocks and `wa-gap-m` (16px) between related items; only tighten to
-`wa-gap-xs` or `wa-gap-2xs` for closely related controls. Building margin upward until things "look
-OK" produces cramped UIs; loosening from a generous default produces breathing room you can trim
-back.
+WA's spacing utilities span twelve steps (`wa-gap-3xs` through `wa-gap-5xl`), but four cover most
+of what a layout needs. Start with `wa-gap-l` (24px) between blocks and `wa-gap-m` (16px) between
+related items, then tighten with `wa-gap-xs` (8px) or `wa-gap-2xs` (4px) for closely related
+controls — the tighter steps shouldn't be the default rhythm. Building margin upward until things
+"look OK" produces cramped UIs; loosening from a generous default produces breathing room you can
+trim back.
 
 ### Web Awesome's spacing scale is non-linear on purpose
 
