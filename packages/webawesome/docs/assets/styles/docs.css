@@ -133,12 +133,6 @@ wa-page > main:has(.modern-card-list) {
     font-size: var(--wa-font-size-l);
     margin-block-start: var(--wa-space-l);
   }
-
-  /* The breadcrumb is navigation, not prose flow — drop wa-prose's
-     previous-sibling top margin on the page title that follows it. */
-  .page-breadcrumbs + h1 {
-    margin-block-start: 0;
-  }
 }
 
 .component-ref {
@@ -211,6 +205,9 @@ wa-page > main:has(.modern-card-list) {
 }
 
 h1.title {
+  /* Siblings above own their block-end spacing — skip wa-prose's `* + h1` top margin. */
+  margin-block-start: 0;
+
   wa-badge {
     vertical-align: middle;
     font-size: 1.5rem;
