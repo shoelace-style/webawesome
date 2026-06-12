@@ -601,7 +601,7 @@ ${renderComponentList(proByCategory[category], true)}`,
 
   return `---
 name: webawesome
-description: Web Awesome is a UI component library built with web components. Use when building buttons, inputs, selects, checkboxes, dialogs, modals, drawers, tabs, dropdowns, tooltips, carousels, forms, or using CSS utilities like wa-stack, wa-cluster, wa-grid. Supports React, Vue, Angular, Svelte, and vanilla JS.
+description: Web Awesome is a UI component library built with web components. Use when building buttons, inputs, selects, checkboxes, dialogs, modals, drawers, tabs, dropdowns, tooltips, carousels, forms, or using CSS utilities like wa-stack, wa-cluster, wa-grid, wa-prose. Supports React, Vue, Angular, Svelte, and vanilla JS.
 license: MIT / Commercial (for Web Awesome Pro)
 metadata:
   author: Web Awesome
@@ -851,11 +851,12 @@ Web Awesome provides CSS utilities for common styling tasks:
 - **Text**: Typography utilities
 - **Color**: Color variant utilities
 - **Rounding**: \`wa-border-radius-*\` utilities
+- **Prose**: \`wa-prose\` for long-form typographic rhythm (articles, docs, marketing copy)
 - **Accessibility**: \`wa-visually-hidden\` utilities
 - **FOUCE Prevention**: \`wa-cloak\` utility
 - **Native Styles**: Enhanced styling for native HTML elements
 
-See [Layout Utilities](references/utilities/layout.md), [Rounding](references/utilities/rounding.md), [Visually Hidden](references/utilities/visually-hidden.md), [FOUCE](references/utilities/fouce.md), and [Native Styles](references/utilities/native.md).
+See [Layout Utilities](references/utilities/layout.md), [Prose](references/utilities/prose.md), [Rounding](references/utilities/rounding.md), [Visually Hidden](references/utilities/visually-hidden.md), [FOUCE](references/utilities/fouce.md), and [Native Styles](references/utilities/native.md).
 
 ## Design Tokens
 
@@ -1156,7 +1157,18 @@ function copyAllComponentDocs(siteDir, destDir, baseUrl, frontMatterCache, compo
  * Generates combined layout utilities documentation from rendered HTML.
  */
 function generateLayoutUtilitiesDoc(siteDir, docsDir, destDir, baseUrl) {
-  const layoutNames = ['stack', 'cluster', 'grid', 'split', 'flank', 'frame', 'gap', 'align-items', 'justify-content'];
+  const layoutNames = [
+    'stack',
+    'cluster',
+    'grid',
+    'split',
+    'flank',
+    'frame',
+    'gap',
+    'align-items',
+    'justify-content',
+    'flex-wrap',
+  ];
 
   // Load frontmatter for titles
   const frontMatterCache = loadFrontMatterFromDir(path.join(docsDir, 'docs/utilities'));
@@ -1334,6 +1346,10 @@ export async function generateAgentSkill(options = {}) {
   copyAndProcessDoc(siteDir, docsDir, utilitiesDir, 'docs/utilities/rounding/index.html', 'rounding.md', baseUrl, {
     docPath: 'docs/utilities/rounding',
     mdPath: 'docs/utilities/rounding.md',
+  });
+  copyAndProcessDoc(siteDir, docsDir, utilitiesDir, 'docs/utilities/prose/index.html', 'prose.md', baseUrl, {
+    docPath: 'docs/utilities/prose',
+    mdPath: 'docs/utilities/prose.md',
   });
   copyAndProcessDoc(
     siteDir,
