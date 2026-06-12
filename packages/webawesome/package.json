@@ -108,6 +108,7 @@
   "devDependencies": {
     "@wc-toolkit/cem-validator": "^1.0.3",
     "@wc-toolkit/jsx-types": "^1.3.0",
+    "cookie-parser": "^1.4.7",
     "eleventy-plugin-git-commit-date": "^0.1.3",
     "esbuild": "^0.25.11",
     "gray-matter": "^4.0.3",

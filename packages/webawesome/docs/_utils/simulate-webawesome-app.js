@@ -17,6 +17,8 @@ export function SimulateWebAwesomeApp(str, context = {}) {
   return nunjucksEnv.renderString(str, {
     ssr: Boolean(context.ssr),
     req: context.req,
+    NODE_ENV: context.NODE_ENV,
+    isDev: context.isDev,
     bool_attr: (attr, bool) => {
       if (bool) {
         return attr;
