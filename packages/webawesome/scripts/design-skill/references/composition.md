@@ -4,6 +4,9 @@ This is how you make Web Awesome output look **designed** rather than merely fun
 spacing rhythm, the right layout utility for each job, a typographic scale, and deliberate use of
 surfaces and elevation. The throughline: **use the scales and tokens; never improvise raw values.**
 
+For the _why_ behind these scales — when to vary weight instead of size, why the spacing scale jumps
+non-linearly, how to keep depth meaningful — see [principles.md](principles.md).
+
 ---
 
 ## Spacing rhythm
@@ -399,6 +402,12 @@ playbook so your CSS stays themed, accessible, and dark-mode-aware automatically
    switch to the component's tokens, attributes, or `::part()` (see "Styling components & CSS parts"
    below). **Avoid `!important`** — it's almost always a sign you should be using a part or token
    instead.
+8. **Scope selectors to where you mean them.** A bare element selector (`blockquote`, `ul`, `a`)
+   restyles **every** instance of that element on the page. Sometimes that's the point — you're
+   restyling a default — but more often you want the treatment on specific markup, so scope to a
+   class (`.pull-quote`), a section wrapper, or a `:is()` group. See
+   [principles.md § Theme the browser defaults](principles.md#theme-the-browser-defaults) for a
+   worked example.
 
 ### A working example
 
