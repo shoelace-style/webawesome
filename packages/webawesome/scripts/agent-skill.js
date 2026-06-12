@@ -1156,7 +1156,18 @@ function copyAllComponentDocs(siteDir, destDir, baseUrl, frontMatterCache, compo
  * Generates combined layout utilities documentation from rendered HTML.
  */
 function generateLayoutUtilitiesDoc(siteDir, docsDir, destDir, baseUrl) {
-  const layoutNames = ['stack', 'cluster', 'grid', 'split', 'flank', 'frame', 'gap', 'align-items', 'justify-content'];
+  const layoutNames = [
+    'stack',
+    'cluster',
+    'grid',
+    'split',
+    'flank',
+    'frame',
+    'gap',
+    'align-items',
+    'justify-content',
+    'flex-wrap',
+  ];
 
   // Load frontmatter for titles
   const frontMatterCache = loadFrontMatterFromDir(path.join(docsDir, 'docs/utilities'));
