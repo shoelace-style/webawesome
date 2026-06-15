@@ -391,7 +391,7 @@ export default async function (eleventyConfig) {
   // For a server build, we expect a server to run the second transform.
   // For dev builds, we run the second transform in a middleware.
   if (!isDev && !serverBuild) {
-    const ssr = process.env.SSR === "true"
+    const ssr = process.env.SSR === 'true';
 
     if (ssr) {
       globalThis.litSsrCallConnectedCallback = true;

@@ -14,4 +14,8 @@ export default css`
   [hidden] {
     display: none !important;
   }
+
+  :host([hidden]) {
+    display: none !important;
+  }
 `;

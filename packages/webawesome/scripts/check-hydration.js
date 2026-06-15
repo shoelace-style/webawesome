@@ -55,11 +55,13 @@ async function waitForServer() {
 
 /** Build the list of component docs URLs from the markdown source files. */
 async function getComponentUrls(options = {}) {
-  let { rootDir } = options
-  console.log({ rootDir })
-  if (!rootDir)  { rootDir = root }
+  let { rootDir } = options;
+  console.log({ rootDir });
+  if (!rootDir) {
+    rootDir = root;
+  }
 
-  console.log({ rootDir })
+  console.log({ rootDir });
   const files = await globby('docs/docs/components/*.md', { cwd: rootDir, absolute: false });
   return files
     .map(file => basename(file, '.md'))
@@ -161,7 +163,7 @@ async function checkUrl(context, url) {
 }
 
 export async function check(options = {}) {
-  const { rootDir } = options
+  const { rootDir } = options;
   const urls = await getComponentUrls({ rootDir });
   console.log(`Waiting for dev server at ${BASE_URL} ...`);
   await waitForServer();
@@ -214,9 +216,7 @@ export async function check(options = {}) {
     }
   };
 
-  await Promise.all(
-    Array.from({ length: Math.min(CONCURRENCY, urls.length) }, worker)
-  );
+  await Promise.all(Array.from({ length: Math.min(CONCURRENCY, urls.length) }, worker));
 
   await browser.close();
 

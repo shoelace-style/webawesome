@@ -7,6 +7,8 @@ import { replace } from 'esbuild-plugin-replace';
 import { mkdir, readFile } from 'fs/promises';
 import getPort, { portNumbers } from 'get-port';
 import { globby } from 'globby';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
 import { dirname, extname, join, posix, relative } from 'node:path';
 import process from 'node:process';
 import { fileURLToPath } from 'node:url';
@@ -17,8 +19,6 @@ import { SimulateWebAwesomeApp } from '../docs/_utils/simulate-webawesome-app.js
 import { generateDocs } from './docs.js';
 import { generateLlmsTxtFile } from './llms.js';
 import { formatError, getCdnDir, getDistDir, getDocsDir, getRootDir, getSiteDir } from './utils.js';
-import * as path from "node:path"
-import * as fs from "node:fs"
 
 // @ts-expect-error used for SSR cookies
 import cookieParser from 'cookie-parser';
@@ -36,7 +36,7 @@ const debugPerf = process.env.DEBUG_PERFORMANCE === '1';
 const isDeveloping = process.argv.includes('--develop');
 
 if (!process.env.NODE_ENV) {
-  process.env.NODE_ENV = "development"
+  process.env.NODE_ENV = 'development';
 }
 
 /**
@@ -331,8 +331,8 @@ export async function build(options = {}) {
       spinner.succeed();
     };
 
-    const {renderString: litRenderString} = await import("../dist/ssr/render-string.js")
-    await initLitSsr()
+    const { renderString: litRenderString } = await import('../dist/ssr/render-string.js');
+    await initLitSsr();
 
     // Launch browser sync
     bs.init(
@@ -396,7 +396,7 @@ export async function build(options = {}) {
               });
 
               if (ssr) {
-                transformedStr = litRenderString(transformedStr)
+                transformedStr = litRenderString(transformedStr);
               }
 
               _write.call(res, transformedStr, encoding);
@@ -484,7 +484,7 @@ export async function build(options = {}) {
             // this may cause watcher events to break. if things are broken with file watching, comment this out.
             await copy(getCdnDir(), getDistDir(), { overwrite: true });
             await regenerateBundle();
-            await initLitSsr() // Reload components SSR definitions.
+            await initLitSsr(); // Reload components SSR definitions.
 
             // This needs to be outside of "isComponent" check because SSR needs to run on CSS files too.
             await generateDocs({ spinner });
@@ -590,7 +590,7 @@ async function loadComponents() {
       const modulePath = path.join(baseDir, component, component + '.js');
 
       return import(modulePath + `?cachebust=${new Date().getTime()}`);
-    })
+    }),
   );
 }
 
