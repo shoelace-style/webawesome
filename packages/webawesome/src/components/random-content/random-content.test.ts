@@ -84,6 +84,59 @@ describe('<wa-random-content>', () => {
         });
       });
 
+      describe('animation', () => {
+        it('plays a fade animation on shown elements when animation="fade"', async () => {
+          const el = await fixture<WaRandomContent>(html`
+            <wa-random-content animation="fade">
+              <span>A</span>
+              <span>B</span>
+              <span>C</span>
+            </wa-random-content>
+          `);
+          const shown = visibleChildren(el)[0] as HTMLElement;
+          expect(shown.getAnimations().length).to.be.greaterThan(0);
+        });
+
+        it('plays no animation by default', async () => {
+          const el = await fixture<WaRandomContent>(html`
+            <wa-random-content>
+              <span>A</span>
+              <span>B</span>
+              <span>C</span>
+            </wa-random-content>
+          `);
+          const shown = visibleChildren(el)[0] as HTMLElement;
+          expect(shown.getAnimations().length).to.equal(0);
+        });
+      });
+
+      describe('margin', () => {
+        it('removes margin-block-end from the last shown element', async () => {
+          const el = await fixture<WaRandomContent>(html`
+            <wa-random-content mode="sequence">
+              <p>A</p>
+              <p>B</p>
+              <p>C</p>
+            </wa-random-content>
+          `);
+          const shown = visibleChildren(el)[0] as HTMLElement;
+          expect(parseFloat(shown.style.marginBlockEnd)).to.equal(0);
+        });
+
+        it('preserves margin-block-end on non-last shown elements when items > 1', async () => {
+          const el = await fixture<WaRandomContent>(html`
+            <wa-random-content mode="sequence" items="2">
+              <p>A</p>
+              <p>B</p>
+              <p>C</p>
+            </wa-random-content>
+          `);
+          const shown = visibleChildren(el) as HTMLElement[];
+          expect(shown[0].style.marginBlockEnd).to.equal('');
+          expect(parseFloat(shown[1].style.marginBlockEnd)).to.equal(0);
+        });
+      });
+
       describe('randomize() method', () => {
         it('can be called imperatively to trigger a new selection', async () => {
           const el = await fixture<WaRandomContent>(html`

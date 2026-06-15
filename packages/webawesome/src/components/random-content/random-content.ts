@@ -11,6 +11,10 @@ import styles from './random-content.styles.js';
  * @since 3.7
  *
  * @slot - The pool of children to randomize from. Unselected children are hidden with `display: none`.
+ *
+ * @cssproperty --animation-duration - Duration of the entrance animation. Default is `300ms`.
+ * @cssproperty --animation-easing - Easing function for the entrance animation. Default is `ease`.
+ * @cssproperty --animation-translate - Vertical translation distance for `fade-up` and `fade-down`. Default is `0.5em`.
  */
 @customElement('wa-random-content')
 export default class WaRandomContent extends WebAwesomeElement {
@@ -24,6 +28,9 @@ export default class WaRandomContent extends WebAwesomeElement {
 
   /** Selection strategy: `random` (default), `unique`, or `sequence`. */
   @property({ reflect: true }) mode: 'random' | 'unique' | 'sequence' = 'random';
+
+  /** Entrance animation for newly shown children. */
+  @property({ reflect: true }) animation: 'none' | 'fade' | 'fade-up' | 'fade-down' = 'none';
 
   @watch('mode', { waitUntilFirstUpdate: true })
   handleModeChange() {
@@ -64,8 +71,27 @@ export default class WaRandomContent extends WebAwesomeElement {
     }
 
     children.forEach(el => {
-      (el as HTMLElement).style.display = selected.includes(el) ? '' : 'none';
+      const htmlEl = el as HTMLElement;
+      const isSelected = selected.includes(el);
+      htmlEl.style.display = isSelected ? '' : 'none';
+      // Strip bottom margin from the last shown element so hidden siblings don't
+      // leave a phantom gap (e.g. <p> elements that aren't the last DOM child).
+      htmlEl.style.marginBlockEnd = isSelected && selected[selected.length - 1] === el ? '0' : '';
     });
+
+    if (this.animation !== 'none') {
+      const styles = getComputedStyle(this);
+      const raw = styles.getPropertyValue('--animation-duration').trim();
+      const duration = raw.endsWith('s') && !raw.endsWith('ms') ? parseFloat(raw) * 1000 : parseFloat(raw) || 300;
+      const easing = styles.getPropertyValue('--animation-easing').trim() || 'ease';
+      const translate = styles.getPropertyValue('--animation-translate').trim() || '0.5em';
+      const from: Keyframe = { opacity: 0 };
+      if (this.animation === 'fade-up') from.transform = `translateY(${translate})`;
+      if (this.animation === 'fade-down') from.transform = `translateY(-${translate})`;
+      selected.forEach(el => {
+        el.animate([from, { opacity: 1, transform: 'translateY(0)' }], { duration, easing });
+      });
+    }
   }
 
   private assignedChildren(): Element[] {
