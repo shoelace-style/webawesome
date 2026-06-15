@@ -55,8 +55,6 @@
     <script src="/assets/scripts/hydration-errors.js"></script>
     <link rel="stylesheet" href="/assets/styles/hydration-errors.css">
   {% endif %}
-
-  <meta content="{{ isDev }}">
 {% endraw %}
 
 <link rel="manifest" href="/manifest.json" />
@@ -94,6 +92,7 @@
 
     const define = window.customElements.define
     window.customElements.define = function (tagName, ctor, options) {
+      // We may get duplicate registrations from pro components (popover, button, etc) loaded from CDN so ignore duplicate registrations.
       if (window.customElements.get(tagName)) {
         return
       }

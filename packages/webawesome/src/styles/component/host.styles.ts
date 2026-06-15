@@ -11,10 +11,7 @@ export default css`
     box-sizing: inherit;
   }
 
-  [hidden] {
-    display: none !important;
-  }
-
+  [hidden],
   :host([hidden]) {
     display: none !important;
   }
