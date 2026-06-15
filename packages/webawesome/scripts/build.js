@@ -396,9 +396,7 @@ export async function build(options = {}) {
               });
 
               if (ssr) {
-
                 transformedStr = litRenderString(transformedStr)
-
               }
 
               _write.call(res, transformedStr, encoding);

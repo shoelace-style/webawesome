@@ -65,17 +65,29 @@ async function getComponentUrls() {
 /** Wait until all custom elements on the page are defined and updated. */
 async function waitForComponentsLoaded(page) {
   await page.evaluate(async () => {
-    const undefinedEls = [];
-    const tagNames = [...document.querySelectorAll(':not(:defined)')].map(el => {
-      undefinedEls.push(el);
-      return el.localName;
-    });
-    const tagNamesSet = new Set(tagNames);
-    await Promise.allSettled([...tagNamesSet].map(t => window.customElements.whenDefined(t)));
-    await Promise.allSettled(undefinedEls.map(el => el.updateComplete));
-    await new Promise(resolve => setTimeout(resolve, 1));
+    const isCustom = el => el.localName.includes('-');
+    const allTags = () => new Set([...document.querySelectorAll('*')].filter(isCustom).map(el => el.localName));
+
+    // 1. Wait for *every* custom-element tag in the document to be defined —
+    //    not just the ones that happened to be :not(:defined) at one instant.
+    //    whenDefined resolves immediately for already-defined tags.
+    await Promise.allSettled([...allTags()].map(t => window.customElements.whenDefined(t)));
+
+    // 2. Drain updateComplete for ALL custom elements, repeatedly, until the
+    //    tree stops producing pending updates. The hydrating update() (where
+    //    WebAwesomeElement dispatches lit-hydration-error) must have run for
+    //    every SSR'd element before we read results — including fast-defined
+    //    elements the old one-time snapshot skipped. Hydration also mounts
+    //    nested components, so we loop until stable. updateComplete rejects on a
+    //    hydration throw; allSettled lets us keep waiting without bailing.
+    for (let i = 0; i < 10; i++) {
+      const els = [...document.querySelectorAll('*')].filter(el => isCustom(el) && el.updateComplete);
+      await Promise.allSettled(els.map(el => el.updateComplete));
+      await new Promise(r => requestAnimationFrame(() => r()));
+      if (!els.some(el => el.isUpdatePending)) break;
+    }
   });
-  // Give any trailing async rejection time to land in __hydrationErrors.
+  // Final settle for any trailing async rejection to reach the listeners.
   await page.waitForTimeout(HYDRATION_WAIT_MS);
 }
 
@@ -87,6 +99,21 @@ async function waitForComponentsLoaded(page) {
 async function checkUrl(context, url) {
   const label = url.replace(BASE_URL, '').replace('?ssr=true', '');
   const page = await context.newPage();
+
+  // Race-proof safety net: WebAwesomeElement re-throws after dispatching
+  // lit-hydration-error, so the same failure also surfaces as an uncaught
+  // exception / unhandled rejection. Playwright buffers these as they happen,
+  // so they're caught even if our window read is mistimed. These accumulate
+  // across the reload loop (any error on any load = failure).
+  const thrownErrors = [];
+  page.on('pageerror', err => {
+    thrownErrors.push({ tagName: '(pageerror)', message: err.message });
+  });
+  page.on('console', msg => {
+    if (msg.type() === 'error' && /hydrat|mismatch/i.test(msg.text())) {
+      thrownErrors.push({ tagName: '(console)', message: msg.text() });
+    }
+  });
 
   try {
     // Load (and re-load) while the page stays clean. Each goto resets
@@ -104,7 +131,11 @@ async function checkUrl(context, url) {
 
       await waitForComponentsLoaded(page);
 
-      const hydrationErrors = await page.evaluate(() => window.__hydrationErrors);
+      const eventErrors = await page.evaluate(() => window.__hydrationErrors);
+      // Dedupe the event channel against the thrown channel by message — the
+      // same failure usually shows up in both.
+      const seen = new Set(eventErrors.map(e => e.message));
+      const hydrationErrors = [...eventErrors, ...thrownErrors.filter(e => !seen.has(e.message))];
 
       if (hydrationErrors.length > 0) {
         const where = attempt > 1 ? ` (surfaced on load ${attempt})` : '';
@@ -140,12 +171,26 @@ async function main() {
   await context.addCookies([{ name: 'webawesome_ssr', value: 'true', url: BASE_URL }]);
   await context.addInitScript(() => {
     window.__hydrationErrors = [];
+
+    // Primary channel: the event WebAwesomeElement dispatches before re-throwing.
+    // Gives us the offending tag name.
     document.addEventListener('lit-hydration-error', event => {
       const target = event.target;
       window.__hydrationErrors.push({
         tagName: target && target.tagName ? target.tagName.toLowerCase() : '(unknown)',
         message: (event.error && (event.error.message || String(event.error))) || '(no message)',
       });
+    });
+
+    // Backup channel: the re-throw becomes an uncaught error / unhandled
+    // rejection. Catch it in-page so we don't depend on Playwright mapping
+    // microtask rejections to 'pageerror'.
+    const record = (message, tag) =>
+      window.__hydrationErrors.push({ tagName: tag, message: message || '(no message)' });
+    window.addEventListener('error', e => record(e.message, '(window.error)'));
+    window.addEventListener('unhandledrejection', e => {
+      const r = e.reason;
+      record((r && (r.message || String(r))) || String(r), '(unhandledrejection)');
     });
   });
 
