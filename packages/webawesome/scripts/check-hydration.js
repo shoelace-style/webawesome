@@ -20,7 +20,7 @@ import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const rootDir = dirname(__dirname);
+const root = dirname(__dirname);
 
 const BASE_URL = (process.env.BASE_URL || 'http://localhost:4000').replace(/\/$/, '');
 const HYDRATION_WAIT_MS = Number(process.env.HYDRATION_WAIT_MS || 300);
@@ -54,7 +54,12 @@ async function waitForServer() {
 }
 
 /** Build the list of component docs URLs from the markdown source files. */
-async function getComponentUrls() {
+async function getComponentUrls(options = {}) {
+  let { rootDir } = options
+  console.log({ rootDir })
+  if (!rootDir)  { rootDir = root }
+
+  console.log({ rootDir })
   const files = await globby('docs/docs/components/*.md', { cwd: rootDir, absolute: false });
   return files
     .map(file => basename(file, '.md'))
@@ -155,8 +160,9 @@ async function checkUrl(context, url) {
   }
 }
 
-async function main() {
-  const urls = await getComponentUrls();
+export async function check(options = {}) {
+  const { rootDir } = options
+  const urls = await getComponentUrls({ rootDir });
   console.log(`Waiting for dev server at ${BASE_URL} ...`);
   await waitForServer();
   console.log(`Checking ${urls.length} pages, ${CONCURRENCY} at a time, against ${BASE_URL}\n`);
@@ -223,7 +229,24 @@ async function main() {
   console.log(`PASSED: all ${urls.length} pages hydrated cleanly.`);
 }
 
-await main().catch(error => {
-  console.error(error);
-  process.exit(1);
-});
+// https://exploringjs.com/nodejs-shell-scripting/ch_nodejs-path.html#detecting-if-module-is-main
+// Detects if this was called via node scripts/build.js
+function isRunAsMain() {
+  if (import.meta.url.startsWith('file:')) {
+    // (A)
+    const modulePath = fileURLToPath(import.meta.url);
+    if (process.argv[1] === modulePath) {
+      // (B)
+      return true;
+    }
+  }
+
+  return false;
+}
+
+if (isRunAsMain()) {
+  await check().catch(error => {
+    console.error(error);
+    process.exit(1);
+  });
+}
