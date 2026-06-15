@@ -28,12 +28,12 @@ const cores = os.availableParallelism?.() ?? os.cpus.length;
 const concurrency = Math.max(Math.floor(cores / 3), 1);
 
 const browsers = [
-    playwrightLauncher({ product: 'chromium', concurrency }),
-    playwrightLauncher({ product: 'firefox', concurrency }),
-]
+  playwrightLauncher({ product: 'chromium', concurrency }),
+  playwrightLauncher({ product: 'firefox', concurrency }),
+];
 
-if (process.env.CI !== "true") {
-  browsers.push(playwrightLauncher({ product: 'webkit', concurrency }))
+if (process.env.CI !== 'true') {
+  browsers.push(playwrightLauncher({ product: 'webkit', concurrency }));
 }
 
 export default {
