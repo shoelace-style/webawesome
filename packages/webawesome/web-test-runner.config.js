@@ -27,6 +27,15 @@ getAllComponents(metadata).forEach(component => {
 const cores = os.availableParallelism?.() ?? os.cpus.length;
 const concurrency = Math.max(Math.floor(cores / 3), 1);
 
+const browsers = [
+    playwrightLauncher({ product: 'chromium', concurrency }),
+    playwrightLauncher({ product: 'firefox', concurrency }),
+]
+
+if (process.env.CI !== "true") {
+  browsers.push(playwrightLauncher({ product: 'webkit', concurrency }))
+}
+
 export default {
   rootDir: '.',
   files: 'src/**/*.test.ts', // "default" group
@@ -78,11 +87,7 @@ export default {
     }),
     litSsrPlugin(),
   ],
-  browsers: [
-    playwrightLauncher({ product: 'chromium', concurrency }),
-    playwrightLauncher({ product: 'firefox', concurrency }),
-    playwrightLauncher({ product: 'webkit', concurrency }),
-  ],
+  browsers,
   testRunnerHtml: testFramework => `
     <!DOCTYPE html>
     <html lang="en-US">
