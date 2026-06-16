@@ -804,6 +804,12 @@
       margin: 0;
     }
 
+    /* current section/outline: brand the left border on the list that
+     * contains the current page. */
+    ul:has(.current) {
+      border-inline-start-color: var(--wa-color-brand-border-quiet);
+    }
+
     ul ul {
       margin-block-start: var(--wa-space-m);
     }
@@ -889,6 +895,12 @@
         inline-size: var(--wa-border-width-s);
         background: var(--wa-color-brand-on-quiet);
       }
+    }
+
+    /* current section: tint the h2 icon to match the brighter per-item
+     * rail above. */
+    section:has(.current) h2 wa-icon {
+      color: var(--wa-color-brand-on-quiet);
     }
   }
 
