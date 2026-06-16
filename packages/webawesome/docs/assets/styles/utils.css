@@ -49,10 +49,12 @@
 
   /* DO NOT redefine this base class anywhere else (no shadow rules in
    * site.css / app.css). Scoped overrides like `.page-footer .content-container`
-   * are fine. Per-instance width via --max-inline-size. */
+   * are fine. Per-instance width via --max-inline-size. Default caps at the
+   * page envelope (--page-max-inline-size) so main, footer, and chrome bands
+   * all align; narrower reading-width content opts down via --max-inline-size. */
   .content-container {
     margin-inline: auto;
-    max-inline-size: var(--max-inline-size, var(--content-width-l));
+    max-inline-size: var(--max-inline-size, var(--page-max-inline-size));
     padding-inline: var(--content-padding-inline);
   }
 
@@ -220,9 +222,6 @@
     /* inline padding handled by .content-container on inner .banner */
     padding-block: var(--wa-space-l);
     padding-inline: 0;
-    /* slot wrapper is viewport-wide so the bg bleeds; inner .content-container
-     * caps its content at --page-max-inline-size */
-    --max-inline-size: var(--page-max-inline-size);
     transition: background-color var(--wa-transition-slow) var(--wa-transition-easing);
 
     .banner {
@@ -263,9 +262,6 @@
     padding-block-start: var(--wa-space-xs);
     padding-inline: 0;
     inline-size: 100%;
-    /* slot wrapper is viewport-wide so the bg bleeds; inner .content-container
-     * caps its content at --page-max-inline-size */
-    --max-inline-size: var(--page-max-inline-size);
   }
 
   /* looks jarring to have the transition with SSR. save it for cloaked pages with CSR. */
@@ -383,10 +379,6 @@
   /* subheader */
   wa-page > [slot='subheader'] {
     background-color: var(--wa-color-surface-default);
-    /* slot wrapper is viewport-wide so the bg and border-block-end bleed
-     * naturally; inner .content-container caps its content at
-     * --page-max-inline-size */
-    --max-inline-size: var(--page-max-inline-size);
     border-block-end: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-surface-border);
     padding-block: var(--wa-space-xs);
     padding-inline: 0;

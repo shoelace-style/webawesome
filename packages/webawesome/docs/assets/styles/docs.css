@@ -545,8 +545,6 @@ wa-scroller:has(.component-table) {
 
 .has-wide-main {
   wa-page > main {
-    --max-inline-size: 100%;
-
     .max-line-length {
       max-inline-size: var(--line-length-l);
     }
