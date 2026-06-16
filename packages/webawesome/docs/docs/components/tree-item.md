@@ -2,6 +2,7 @@
 title: Tree Item
 layout: component
 category: Navigation
+parent: tree
 synonyms:
   - tree node
   - tree leaf

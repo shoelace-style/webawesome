@@ -2,6 +2,7 @@
 title: Accordion Item
 layout: component
 category: Layout
+parent: accordion
 synonyms:
   - collapsible section
   - expandable section
