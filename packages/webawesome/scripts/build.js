@@ -7,6 +7,8 @@ import { replace } from 'esbuild-plugin-replace';
 import { mkdir, readFile } from 'fs/promises';
 import getPort, { portNumbers } from 'get-port';
 import { globby } from 'globby';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
 import { dirname, extname, join, posix, relative } from 'node:path';
 import process from 'node:process';
 import { fileURLToPath } from 'node:url';
@@ -17,6 +19,9 @@ import { SimulateWebAwesomeApp } from '../docs/_utils/simulate-webawesome-app.js
 import { generateDocs } from './docs.js';
 import { generateLlmsTxtFile } from './llms.js';
 import { formatError, getCdnDir, getDistDir, getDocsDir, getRootDir, getSiteDir } from './utils.js';
+
+// @ts-expect-error used for SSR cookies
+import cookieParser from 'cookie-parser';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -29,6 +34,10 @@ let buildContexts = {
 
 const debugPerf = process.env.DEBUG_PERFORMANCE === '1';
 const isDeveloping = process.argv.includes('--develop');
+
+if (!process.env.NODE_ENV) {
+  process.env.NODE_ENV = 'development';
+}
 
 /**
  * @typedef {Object} BuildOptions
@@ -322,6 +331,9 @@ export async function build(options = {}) {
       spinner.succeed();
     };
 
+    const { renderString: litRenderString } = await import('../dist/ssr/render-string.js');
+    await initLitSsr();
+
     // Launch browser sync
     bs.init(
       {
@@ -341,11 +353,9 @@ export async function build(options = {}) {
           },
         },
         middleware: [
+          cookieParser(),
           function simulateWebawesomeApp(req, res, next) {
             // Accumulator for strings so we can pass them through nunjucks a second time similar to how the webawesome-app
-            // will be running nunjucks twice.
-            const finalString = [];
-            const encoding = 'utf-8';
 
             if (!next) {
               return;
@@ -363,6 +373,10 @@ export async function build(options = {}) {
               return;
             }
 
+            // will be running nunjucks twice.
+            const finalString = [];
+            const encoding = 'utf-8';
+
             const _write = res.write;
 
             res.write = function (chunk, encoding) {
@@ -372,12 +386,19 @@ export async function build(options = {}) {
 
             const _end = res.end;
             res.end = function (...args) {
-              const ssr = process.env.SSR === 'true';
-              const transformedStr = SimulateWebAwesomeApp(finalString.join(''), {
+              const ssr = req?.query?.ssr || req?.cookies?.webawesome_ssr === 'true';
+
+              let transformedStr = SimulateWebAwesomeApp(finalString.join(''), {
                 isDev: process.env.NODE_ENV === 'development',
+                NODE_ENV: process.env.NODE_ENV,
                 ssr,
                 req,
               });
+
+              if (ssr) {
+                transformedStr = litRenderString(transformedStr);
+              }
+
               _write.call(res, transformedStr, encoding);
               _end.call(res, ...args);
             };
@@ -463,6 +484,7 @@ export async function build(options = {}) {
             // this may cause watcher events to break. if things are broken with file watching, comment this out.
             await copy(getCdnDir(), getDistDir(), { overwrite: true });
             await regenerateBundle();
+            await initLitSsr(); // Reload components SSR definitions.
 
             // This needs to be outside of "isComponent" check because SSR needs to run on CSS files too.
             await generateDocs({ spinner });
@@ -557,6 +579,23 @@ function isRunAsMain() {
   }
 
   return false;
+}
+
+async function loadComponents() {
+  const baseDir = path.join(getDistDir(), 'components');
+  await Promise.allSettled(
+    fs.readdirSync(baseDir, { recursive: false, encoding: 'utf8' }).map(dir => {
+      const component = path.basename(dir);
+
+      const modulePath = path.join(baseDir, component, component + '.js');
+
+      return import(modulePath + `?cachebust=${new Date().getTime()}`);
+    }),
+  );
+}
+
+export async function initLitSsr() {
+  await loadComponents();
 }
 
 if (isRunAsMain()) {

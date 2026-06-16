@@ -363,9 +363,8 @@ export default async function (eleventyConfig) {
   //   //
 
   // We only want to run SSR if we're not running the app shell around 11ty. If we run the SSR plugin here with the app shell also doing SSR, it breaks.
-  if (!serverBuild && process.env.SSR === 'true') {
+  if (!isDev && !serverBuild && process.env.SSR === 'true') {
     // @ts-expect-error Run connectedCallback in SSR to make it compatible with lit context.
-    globalThis.litSsrCallConnectedCallback = true;
 
     const omittedModules = [];
     const componentList = [];
@@ -392,6 +391,12 @@ export default async function (eleventyConfig) {
   // For a server build, we expect a server to run the second transform.
   // For dev builds, we run the second transform in a middleware.
   if (!isDev && !serverBuild) {
+    const ssr = process.env.SSR === 'true';
+
+    if (ssr) {
+      globalThis.litSsrCallConnectedCallback = true;
+    }
+
     eleventyConfig.addTransform('simulate-webawesome-app', function (content) {
       // Only run the transform on files nunjucks would transform.
       if (!this.page.inputPath.match(/.(md|html|njk)$/)) {
@@ -399,7 +404,7 @@ export default async function (eleventyConfig) {
       }
 
       /** This largely mimics what an app would do and just stubs out what we don't care about. */
-      return SimulateWebAwesomeApp(content, { isDev: isDev, ssr: process.env.SSR === 'true' });
+      return SimulateWebAwesomeApp(content, { isDev: isDev, ssr });
     });
   }
 }
