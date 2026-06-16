@@ -72,13 +72,6 @@
     margin-inline: auto;
   }
 
-  /* No aside = release the content-width-l cap so main fills the 1fr cell. */
-  :is(.layout-page, .layout-page-outline, .layout-docs, .layout-component, .layout-pattern)
-    wa-page:not(:has(> [slot='aside']))
-    > main.content-container {
-    --max-inline-size: 100%;
-  }
-
   /* Match chrome's inline padding so sidebar/aside content aligns with logo/nav. */
   wa-page > [slot='navigation'],
   wa-page > [slot='aside'] {

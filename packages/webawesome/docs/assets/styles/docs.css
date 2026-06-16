@@ -77,7 +77,6 @@ wa-button.delete {
 
 /* Main content */
 wa-page > main {
-  max-inline-size: var(--content-width-s);
   padding: var(--wa-space-xl);
   margin-inline: auto;
 }
@@ -93,11 +92,6 @@ wa-page > main {
 
 :is(.layout-docs, .layout-component, .layout-page, .layout-page-outline, .layout-pattern) .page-footer-content {
   font-size: var(--wa-font-size-xs);
-}
-
-/* increase max-inline-size for index pages */
-wa-page > main:has(.modern-card-list) {
-  max-inline-size: var(--content-width-m);
 }
 
 /* The docs main column is wider than `wa-prose`'s default 65ch. Anchor the
@@ -294,12 +288,6 @@ figure.signpost {
     line-height: var(--wa-line-height-condensed);
     text-align: center;
   }
-}
-
-/* Search list pages */
-wa-page > main:has(> .search-list) {
-  max-inline-size: var(--content-width-l);
-  margin-inline: auto;
 }
 
 .search-list {
@@ -557,7 +545,7 @@ wa-scroller:has(.component-table) {
 
 .has-wide-main {
   wa-page > main {
-    max-inline-size: var(--content-width-l);
+    --max-inline-size: 100%;
 
     .max-line-length {
       max-inline-size: var(--line-length-l);
