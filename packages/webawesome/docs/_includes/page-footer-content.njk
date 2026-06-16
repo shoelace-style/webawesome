@@ -1,36 +1,30 @@
 {% if isShowingFooterVersion == undefined %}{% set isShowingFooterVersion = true %}{% endif %}
+{% if hasMadeWith == undefined %}{% set hasMadeWith = true %}{% endif %}
 
-{# URLs reference site.* maps so site.json stays the single source of truth. #}
 {% set footerSocials = [
-  { url: site.github.repo,   name: 'github',    label: 'GitHub',      destination: 'github' },
-  { url: site.urls.discord,  name: 'discord',   label: 'Discord',     destination: 'discord' },
-  { url: site.urls.bluesky,  name: 'bluesky',   label: 'Bluesky',     destination: 'bluesky' },
-  { url: site.urls.mastodon, name: 'mastodon',  label: 'Mastodon',    destination: 'mastodon' },
-  { url: site.urls.x,        name: 'x-twitter', label: 'Twitter (X)', destination: 'twitter' },
-  { url: site.urls.threads,  name: 'threads',   label: 'Threads',     destination: 'threads' }
+{ url: site.github.repo, name: 'github', label: 'GitHub', destination: 'github' },
+{ url: site.urls.discord, name: 'discord', label: 'Discord', destination: 'discord' },
+{ url: site.urls.bluesky, name: 'bluesky', label: 'Bluesky', destination: 'bluesky' },
+{ url: site.urls.mastodon, name: 'mastodon', label: 'Mastodon', destination: 'mastodon' },
+{ url: site.urls.x, name: 'x-twitter', label: 'Twitter (X)', destination: 'twitter' },
+{ url: site.urls.threads, name: 'threads', label: 'Threads', destination: 'threads' }
 ] %}
 
 {% set footerLegalLinks = [
-  { url: site.legal.tos,         label: 'Terms',        destination: 'tos' },
-  { url: site.legal.privacy,     label: 'Privacy',      destination: 'privacy' },
-  { url: site.legal.refunds,     label: 'Refunds',      destination: 'refunds' },
-  { url: site.legal.licenseCore, label: 'Core License', destination: 'core_license' },
-  { url: site.legal.licensePro,  label: 'Pro License',  destination: 'pro_license' }
+{ url: site.legal.tos, label: 'Terms', destination: 'tos' },
+{ url: site.legal.privacy, label: 'Privacy', destination: 'privacy' },
+{ url: site.legal.refunds, label: 'Refunds', destination: 'refunds' },
+{ url: site.legal.licenseCore, label: 'Core License', destination: 'core_license' },
+{ url: site.legal.licensePro, label: 'Pro License', destination: 'pro_license' }
 ] %}
 
-<div class="wa-stack page-footer-content">
+<div class="wa-stack wa-gap-s page-footer-content">
   {% if not hasFocusedFooter %}
   <div class="wa-split">
     <div class="wa-cluster wa-gap-s wa-flex-nowrap">
       <wa-icon name="web-awesome" family="brands" class="logo-web-awesome wa-font-size-m"
         label="{{ site.tagline }}"></wa-icon>
-      <div class="wa-cluster wa-gap-3xs wa-flex-nowrap">
-        <strong class="font-brand">Go Make Something Awesome</strong>
-        {% if isShowingFooterVersion %}
-        <wa-icon name="dot" class="de-emphasize"></wa-icon>
-        <span>Version {{ package.version }}</span>
-        {% endif %}
-      </div>
+      <strong class="font-brand">Go Make Something Awesome</strong>
     </div>
 
     <nav aria-label="Web Awesome Elsewhere">
@@ -46,7 +40,23 @@
   {% endif %}
 
   <div class="wa-split">
-    <span>&copy; {{ site.company }}</span>
+    <div class="wa-cluster wa-gap-3xs">
+      {% if isShowingFooterVersion and not hasFocusedFooter %}
+      <span>Version {{ package.version }}</span>
+      <wa-icon name="dot"></wa-icon>
+      {% endif %}
+      {% if hasMadeWith and not hasFocusedFooter %}
+      {%- raw -%}
+      {% set madeWithElements = ['button', 'card', 'combobox', 'dialog', 'drawer', 'dropdown', 'page', 'popover',
+      'split-panel', 'sabi', 'ffles', 'tooltip', 'ter'] %}
+      {% set randomElement = madeWithElements | random %}
+      <span>Made with <wa-icon name="heart" variant="regular"></wa-icon> and <code
+          class="appearance-plain">&lt;wa-{{ randomElement }}&gt;</code></span>
+      {% endraw %}
+      <wa-icon name="dot"></wa-icon>
+      {% endif %}
+      <span>&copy; {{ site.company }}</span>
+    </div>
     <nav aria-label="Legal">
       <ul class="appearance-plain wa-cluster wa-gap-s">
         {% for link in footerLegalLinks %}

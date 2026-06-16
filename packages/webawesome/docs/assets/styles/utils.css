@@ -72,6 +72,13 @@
     margin-inline: auto;
   }
 
+  /* No aside = release the content-width-l cap so main fills the 1fr cell. */
+  :is(.layout-page, .layout-page-outline, .layout-docs, .layout-component, .layout-pattern)
+    wa-page:not(:has(> [slot='aside']))
+    > main.content-container {
+    --max-inline-size: 100%;
+  }
+
   /* Match chrome's inline padding so sidebar/aside content aligns with logo/nav. */
   wa-page > [slot='navigation'],
   wa-page > [slot='aside'] {
@@ -118,6 +125,10 @@
   .page-footer .page-footer-socials a {
     color: var(--wa-color-text-quiet);
     padding-inline: var(--wa-space-xs);
+  }
+
+  .page-footer wa-icon[name='dot'] {
+    opacity: 0.3;
   }
 
   /* #endregion */
@@ -804,8 +815,6 @@
       margin: 0;
     }
 
-    /* current section/outline: brand the left border on the list that
-     * contains the current page. */
     ul:has(.current) {
       border-inline-start-color: var(--wa-color-brand-border-quiet);
     }
@@ -897,8 +906,6 @@
       }
     }
 
-    /* current section: tint the h2 icon to match the brighter per-item
-     * rail above. */
     section:has(.current) h2 wa-icon {
       color: var(--wa-color-brand-on-quiet);
     }

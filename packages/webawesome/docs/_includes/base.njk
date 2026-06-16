@@ -179,6 +179,7 @@
 
     {# wa-page-based Main Footer #}
     {% block pageMainFooter %}
+    {% if hasMadeWith == undefined %}{% set hasMadeWith = false %}{% endif %}
     <footer slot="main-footer" class="page-footer">
       {% include "page-footer-content.njk" %}
     </footer>
