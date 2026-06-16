@@ -794,10 +794,16 @@
       margin-block-start: var(--wa-space-xs);
     }
 
-    /* visually align icon with child list's border-start */
+    /* visually align icon with child list's border-start without shifting the heading's end edge */
     h2:has(wa-icon) {
+      margin-inline-start: calc(var(--wa-space-xs) * -1);
+    }
+
+    /* mirror the icon's start-ward offset so a rolled-up section badge nudges
+     * end-ward by the same amount */
+    h2.wa-split > wa-badge {
       position: relative;
-      inset-inline-start: calc(var(--wa-space-xs) * -1);
+      inset-inline-end: calc(var(--wa-space-xs) * -1);
     }
 
     ul {

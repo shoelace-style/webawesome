@@ -13,10 +13,10 @@
 {% from "pro-badge.njk" import proBadge %}
 {% from "planned-badge.njk" import plannedBadge %}
 
-{%- macro sidebarComponent(page) -%}
+{%- macro sidebarComponent(page, suppressProBadge=false) -%}
   {%- set component = page.data.component -%}
   {%- set isExperimental = component and component.status == 'experimental' -%}
-  {%- set isPro = page.data.isProComponent -%}
+  {%- set isPro = page.data.isProComponent and not suppressProBadge -%}
   {%- if isPro %}<span class="wa-split">{% endif -%}
   <a{% if isExperimental %} class="wa-cluster wa-gap-xs"{% endif %} href="{{ page.url }}">{{ page.data.title }}{% if isExperimental %} <wa-icon name="flask" aria-hidden="true" class="icon-shrink de-emphasize"></wa-icon>{% endif %}</a>
   {%- if isPro %} {{ proBadge() }}</span>{% endif -%}
@@ -92,16 +92,28 @@
   {# Components — auto-organized by category. Categories defined in _data/componentCategories.json. #}
   {# Each component's `.md` front matter drives placement: `category` chooses the section, optional `parent` nests it under another component, optional `sidebarHidden` skips it. #}
   {% for cat in componentCategories %}
+  {%- set categoryPages = [] -%}
+  {%- for page in sortedComponentPages -%}
+    {%- if page.data.category == cat.label and not page.data.parent and not page.data.sidebarHidden -%}
+      {%- set _ = categoryPages.push(page) -%}
+    {%- endif -%}
+  {%- endfor -%}
+  {%- set categoryIsAllPro = categoryPages.length > 0 -%}
+  {%- for page in categoryPages -%}
+    {%- if not page.data.isProComponent -%}{%- set categoryIsAllPro = false -%}{%- endif -%}
+  {%- endfor -%}
   <section class="wa-stack">
-    <h2 class="wa-cluster wa-gap-xs">
-      <wa-icon name="{{ cat.icon }}" variant="regular" aria-hidden="true"></wa-icon>
-      {{ cat.label }}
+    <h2 class="wa-split">
+      <span class="wa-cluster wa-gap-xs">
+        <wa-icon name="{{ cat.icon }}" variant="regular" aria-hidden="true"></wa-icon>
+        {{ cat.label }}
+      </span>
+      {% if categoryIsAllPro %}{{ proBadge() }}{% endif %}
     </h2>
     <ul>
-    {%- for page in sortedComponentPages -%}
-      {%- if page.data.category == cat.label and not page.data.parent and not page.data.sidebarHidden %}
+    {%- for page in categoryPages %}
       <li>
-        {{ sidebarComponent(page) }}
+        {{ sidebarComponent(page, categoryIsAllPro) }}
         {%- set children = [] -%}
         {%- for child in sortedComponentPages -%}
           {%- if child.data.parent == page.fileSlug and not child.data.sidebarHidden -%}
@@ -111,12 +123,11 @@
         {%- if children.length %}
         <ul>
         {%- for child in children %}
-          <li>{{ sidebarComponent(child) }}</li>
+          <li>{{ sidebarComponent(child, categoryIsAllPro) }}</li>
         {%- endfor %}
         </ul>
         {%- endif %}
       </li>
-      {%- endif -%}
     {%- endfor %}
     {%- if cat.slug == 'forms' %}
       <li><span class="is-planned wa-split">Data Grid <span>{{ plannedBadge("A Web Awesome Kickstarter stretch goal!") }}</span></span></li>
