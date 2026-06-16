@@ -13,71 +13,6 @@
 {% from "pro-badge.njk" import proBadge %}
 {% from "planned-badge.njk" import plannedBadge %}
 
-{# Getting started #}
-<h2 class="wa-cluster wa-gap-xs">
-  <wa-icon name="wand-magic-sparkles" variant="regular" aria-hidden="true"></wa-icon>
-  Getting Started
-</h2>
-<ul>
-  <li><a href="/docs">Installation</a></li>
-  <li><a href="/docs/usage">Usage</a></li>
-  <li><a href="/docs/form-controls">Forms</a></li>
-  <li><a href="/docs/localization">Localization</a></li>
-  <li><a href="/docs/frameworks/">Frameworks</a></li>
-  <li><a href="/docs/ai">Using with AI</a></li>
-  <li>
-    <span class="wa-split">
-      <a href="/docs/resources/figma">Figma Design Kit</a>
-      {{ proBadge() }}
-    </span>
-  </li>
-  <li>
-    <a class="wa-cluster wa-gap-xs" href="/docs/ssr">
-      Server Rendering
-      <wa-icon name="flask" aria-hidden="true" class="icon-shrink de-emphasize"></wa-icon>
-    </a>
-  </li>
-</ul>
-
-{# Resources #}
-<h2 class="wa-cluster wa-gap-xs">
-  <wa-icon name="book-spine" variant="regular" aria-hidden="true"></wa-icon>
-  Resources
-</h2>
-<ul>
-  <li><a href="/docs/resources/accessibility">Accessibility</a></li>
-  <li><a href="/docs/resources/browser-support">Browser Support</a></li>
-  <li><a href="/docs/resources/contributing">Contributing</a></li>
-  <li>
-    <span class="wa-split">
-      <a href="/docs/patterns/">Patterns</a>
-      {{ proBadge({ description: "Patterns require access to " ~ site.namePro }) }}
-    </span>
-  </li>
-  <li><a href="/docs/resources/migrating-from-shoelace">Migrating from Shoelace</a></li>
-  <li><a href="/docs/resources/visual-tests">Visual Tests</a></li>
-  <li><a href="/docs/resources/changelog">Changelog</a></li>
-  <li><a href="{{ site.urls.support }}">Help & Support</a></li>
-</ul>
-
-<!-- Theming & Utilities -->
-<h2 class="wa-cluster wa-gap-xs">
-  <wa-icon name="palette" variant="regular" aria-hidden="true"></wa-icon>
-  Theming &amp; Utilities
-</h2>
-<ul>
-  <li><a href="/docs/theming-overview">Overview</a></li>
-  <li><a href="/docs/themes">Built-in Themes</a></li>
-  <li><a href="/docs/color-palettes">Color Palettes</a></li>
-  <li><a href="/docs/tokens/">Design Tokens</a></li>
-  <li><a href="/docs/customizing">Customizing &amp; Theming</a></li>
-  <li><a href="/docs/utilities/">CSS Utilities</a></li>
-</ul>
-
-{# Components — auto-organized by category. Categories defined in _data/componentCategories.json. #}
-{# Each component's `.md` front matter drives placement: `category` chooses the section, optional `parent` nests it under another component, optional `sidebarHidden` skips it. #}
-{%- set sortedComponentPages = collections.componentPages | sort(false, false, 'data.title') -%}
-
 {%- macro sidebarComponent(page) -%}
   {%- set component = page.data.component -%}
   {%- set isExperimental = component and component.status == 'experimental' -%}
@@ -87,37 +22,108 @@
   {%- if isPro %} {{ proBadge() }}</span>{% endif -%}
 {%- endmacro %}
 
-{% for cat in componentCategories %}
-<!-- {{ cat.label }} -->
-<h2 class="wa-cluster wa-gap-xs">
-  <wa-icon name="{{ cat.icon }}" variant="regular" aria-hidden="true"></wa-icon>
-  {{ cat.label }}
-</h2>
-<ul>
-{%- for page in sortedComponentPages -%}
-  {%- if page.data.category == cat.label and not page.data.parent and not page.data.sidebarHidden %}
-  <li>
-    {{ sidebarComponent(page) }}
-    {%- set children = [] -%}
-    {%- for child in sortedComponentPages -%}
-      {%- if child.data.parent == page.fileSlug and not child.data.sidebarHidden -%}
-        {%- set _ = children.push(child) -%}
-      {%- endif -%}
-    {%- endfor -%}
-    {%- if children.length %}
+{%- set sortedComponentPages = collections.componentPages | sort(false, false, 'data.title') -%}
+
+<div class="wa-stack wa-gap-xl">
+  <section class="wa-stack">
+    <h2 class="wa-cluster wa-gap-xs">
+      <wa-icon name="wand-magic-sparkles" variant="regular" aria-hidden="true"></wa-icon>
+      Getting Started
+    </h2>
     <ul>
-    {%- for child in children %}
-      <li>{{ sidebarComponent(child) }}</li>
-    {%- endfor %}
+      <li><a href="/docs">Installation</a></li>
+      <li><a href="/docs/usage">Usage</a></li>
+      <li><a href="/docs/form-controls">Forms</a></li>
+      <li><a href="/docs/localization">Localization</a></li>
+      <li><a href="/docs/frameworks/">Frameworks</a></li>
+      <li><a href="/docs/ai">Using with AI</a></li>
+      <li>
+        <span class="wa-split">
+          <a href="/docs/resources/figma">Figma Design Kit</a>
+          {{ proBadge() }}
+        </span>
+      </li>
+      <li>
+        <a class="wa-cluster wa-gap-xs" href="/docs/ssr">
+          Server Rendering
+          <wa-icon name="flask" aria-hidden="true" class="icon-shrink de-emphasize"></wa-icon>
+        </a>
+      </li>
     </ul>
+  </section>
+
+  <section class="wa-stack">
+    <h2 class="wa-cluster wa-gap-xs">
+      <wa-icon name="book-spine" variant="regular" aria-hidden="true"></wa-icon>
+      Resources
+    </h2>
+    <ul>
+      <li><a href="/docs/resources/accessibility">Accessibility</a></li>
+      <li><a href="/docs/resources/browser-support">Browser Support</a></li>
+      <li><a href="/docs/resources/contributing">Contributing</a></li>
+      <li>
+        <span class="wa-split">
+          <a href="/docs/patterns/">Patterns</a>
+          {{ proBadge({ description: "Patterns require access to " ~ site.namePro }) }}
+        </span>
+      </li>
+      <li><a href="/docs/resources/migrating-from-shoelace">Migrating from Shoelace</a></li>
+      <li><a href="/docs/resources/visual-tests">Visual Tests</a></li>
+      <li><a href="/docs/resources/changelog">Changelog</a></li>
+      <li><a href="{{ site.urls.support }}">Help & Support</a></li>
+    </ul>
+  </section>
+
+  <section class="wa-stack">
+    <h2 class="wa-cluster wa-gap-xs">
+      <wa-icon name="palette" variant="regular" aria-hidden="true"></wa-icon>
+      Theming &amp; Utilities
+    </h2>
+    <ul>
+      <li><a href="/docs/theming-overview">Overview</a></li>
+      <li><a href="/docs/themes">Built-in Themes</a></li>
+      <li><a href="/docs/color-palettes">Color Palettes</a></li>
+      <li><a href="/docs/tokens/">Design Tokens</a></li>
+      <li><a href="/docs/customizing">Customizing &amp; Theming</a></li>
+      <li><a href="/docs/utilities/">CSS Utilities</a></li>
+    </ul>
+  </section>
+
+  {# Components — auto-organized by category. Categories defined in _data/componentCategories.json. #}
+  {# Each component's `.md` front matter drives placement: `category` chooses the section, optional `parent` nests it under another component, optional `sidebarHidden` skips it. #}
+  {% for cat in componentCategories %}
+  <section class="wa-stack">
+    <h2 class="wa-cluster wa-gap-xs">
+      <wa-icon name="{{ cat.icon }}" variant="regular" aria-hidden="true"></wa-icon>
+      {{ cat.label }}
+    </h2>
+    <ul>
+    {%- for page in sortedComponentPages -%}
+      {%- if page.data.category == cat.label and not page.data.parent and not page.data.sidebarHidden %}
+      <li>
+        {{ sidebarComponent(page) }}
+        {%- set children = [] -%}
+        {%- for child in sortedComponentPages -%}
+          {%- if child.data.parent == page.fileSlug and not child.data.sidebarHidden -%}
+            {%- set _ = children.push(child) -%}
+          {%- endif -%}
+        {%- endfor -%}
+        {%- if children.length %}
+        <ul>
+        {%- for child in children %}
+          <li>{{ sidebarComponent(child) }}</li>
+        {%- endfor %}
+        </ul>
+        {%- endif %}
+      </li>
+      {%- endif -%}
+    {%- endfor %}
+    {%- if cat.slug == 'forms' %}
+      <li><span class="is-planned wa-split">Data Grid <span>{{ plannedBadge("A Web Awesome Kickstarter stretch goal!") }}</span></span></li>
+    {%- elif cat.slug == 'data-viz' %}
+      <li><a href="/docs/components/chart">Advanced Usage</a></li>
     {%- endif %}
-  </li>
-  {%- endif -%}
-{%- endfor %}
-{%- if cat.slug == 'forms' %}
-  <li><span class="is-planned wa-split">Data Grid <span>{{ plannedBadge("A Web Awesome Kickstarter stretch goal!") }}</span></span></li>
-{%- elif cat.slug == 'data-viz' %}
-  <li><a href="/docs/components/chart">Advanced Usage</a></li>
-{%- endif %}
-</ul>
-{% endfor %}
+    </ul>
+  </section>
+  {% endfor %}
+</div>
