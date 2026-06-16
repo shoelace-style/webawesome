@@ -24,6 +24,7 @@ import { formatError, getCdnDir, getDistDir, getDocsDir, getRootDir, getSiteDir 
 import cookieParser from 'cookie-parser';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+let litRenderString = (str) => str
 
 const currentYear = new Date().getFullYear();
 const spinner = ora();
@@ -100,6 +101,10 @@ export async function build(options = {}) {
 
       const time = (Date.now() - start) / 1000 + 's';
       spinner.succeed(`The build is complete ${chalk.gray(`(finished in ${time})`)}`);
+
+      // update the lit-render-string in case it changed
+      const mod = await import(`../dist/ssr/render-string.js?cachebust=${new Date().getTime()}`);
+      litRenderString = mod.renderString
     } catch (err) {
       spinner.fail();
       console.log(chalk.red(`\n${err}`));
@@ -331,7 +336,6 @@ export async function build(options = {}) {
       spinner.succeed();
     };
 
-    const { renderString: litRenderString } = await import('../dist/ssr/render-string.js');
     await initLitSsr();
 
     // Launch browser sync
