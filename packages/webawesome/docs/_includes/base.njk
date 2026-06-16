@@ -69,10 +69,10 @@
   </script>
 </head>
 <body
-  class="layout-{{ layout | stripExtension }} page-{{ pageType }}{{ ' page-wide' if wide }}">
+  class="layout-{{ layout | stripExtension }} page-{{ pageType }}{{ ' has-wide-main' if hasWideMain }}">
 
   {% set defaultWaPageAttributes = defaultWaPageAttributes or { view: 'desktop', 'disable-navigation-toggle': true,
-  'mobile-breakpoint': 1180, 'disable-sticky': 'banner' } %}
+  'mobile-breakpoint': 960, 'disable-sticky': 'banner' } %}
   {% set waPageAttributes = waPageAttributes or {} %}
   {% set mergedWaPageAttributes = defaultWaPageAttributes | merge(waPageAttributes) %}
   <wa-page {% for key, value in mergedWaPageAttributes %} {% if value != null and value != false %} {{ key
@@ -131,11 +131,11 @@
 
 
     {# wa-page-based Main Content (default).
-     # Pages opt out of the default sizing/spacing by setting
-     # `hasFlushMain: true` in their front matter — <main> then
-     # renders without .content-container so the page can handle
-     # its own layout (used by full-bleed marketing pages, etc.). #}
-    <main id="content"{% if not hasFlushMain %} class="content-container{% if proseContent %} wa-prose{% endif %}"{% endif %}>
+     # Pages opt out of the default frame by setting `hasFramedMain: false`
+     # in their front matter — <main> then renders without .content-container,
+     # letting the page own its own layout (full-bleed marketing pages,
+     # designer-tool views, etc.). #}
+    <main id="content"{% if hasFramedMain != false %} class="content-container{% if proseContent %} wa-prose{% endif %}"{% endif %}>
       {# Expandable outline #}
       {% if hasOutline %}
       <nav id="outline-expandable">
@@ -178,7 +178,11 @@
     </main>
 
     {# wa-page-based Main Footer #}
-    {% block pageMainFooter %}{% endblock %}
+    {% block pageMainFooter %}
+    <footer slot="main-footer" class="page-footer">
+      {% include "page-footer-content.njk" %}
+    </footer>
+    {% endblock %}
 
     {# wa-page-based Footer #}
     {% block pageFooter %}{% endblock %}
