@@ -20,6 +20,7 @@ function camelToKebab(str: string) {
   return str.replace(/[A-Z]/g, c => `-${c.toLowerCase()}`);
 }
 
+// if your server doesn't have a polyfill available for this.style, (assumed by it being undefined) we modify the attribute directly.
 function buildStyleAttribute(options: { property?: string | null; value?: unknown; element: HTMLElement }) {
   const { property, value, element } = options;
   if (value) {
