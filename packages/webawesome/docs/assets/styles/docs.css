@@ -81,6 +81,19 @@ wa-page > main {
   margin-inline: auto;
 }
 
+/* Reserve aside-column space on prose pages that don't render an outline,
+ * so main keeps the same width as outline-bearing prose pages. Only kicks
+ * in at viewports where the aside is actually visible — outline.css hides
+ * the aside below 1200px, so below that we let main span the full track.
+ * Pages that want main to span full width at any size can override
+ * --aside-width locally (e.g., auto or 0). The reserved track width
+ * matches the outline's natural width: 240px content + slot padding. */
+@media screen and (min-width: 75rem) {
+  .has-prose-content:not(.has-outline) wa-page {
+    --aside-width: calc(240px + 2 * var(--content-padding-inline));
+  }
+}
+
 /* Docs footer: transparent, top-bordered, narrow — aligned with the
  * prose column above. */
 :is(.layout-docs, .layout-component, .layout-page, .layout-page-outline, .layout-pattern) .page-footer {
@@ -540,14 +553,6 @@ wa-scroller:has(.component-table) {
 
   :is(.layout-docs, .layout-component, .layout-page, .layout-page-outline, .layout-pattern) .page-footer {
     padding-inline: var(--wa-space-3xl);
-  }
-}
-
-.has-wide-main {
-  wa-page > main {
-    .max-line-length {
-      max-inline-size: var(--line-length-l);
-    }
   }
 }
 

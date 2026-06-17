@@ -68,8 +68,11 @@
     document.addEventListener("change", handleSSRChange)
   </script>
 </head>
+{# Full-bleed pages (hasFramedMain: false) own their typography, so a stray
+   hasProseContent inherited from the directory tree doesn't take effect. #}
+{% set isProseWrapped = hasFramedMain != false and hasProseContent %}
 <body
-  class="layout-{{ layout | stripExtension }} page-{{ pageType }}{{ ' has-wide-main' if hasWideMain }}">
+  class="layout-{{ layout | stripExtension }} page-{{ pageType }}{{ ' has-prose-content' if isProseWrapped }}{{ ' has-outline' if hasOutline }}">
 
   {% set defaultWaPageAttributes = defaultWaPageAttributes or { view: 'desktop', 'disable-navigation-toggle': true,
   'mobile-breakpoint': 960, 'disable-sticky': 'banner' } %}
@@ -134,13 +137,10 @@
      # Pages opt out of the default frame by setting `hasFramedMain: false`
      # in their front matter — <main> then renders without .content-container,
      # letting the page own its own layout (full-bleed marketing pages,
-     # designer-tool views, etc.). Such pages should also set
-     # `proseContent: false` if they live under a tree where proseContent
-     # is inherited (e.g. /docs/), so they don't get the prose wrapper either.
-     # Prose typography (wa-prose) lives on an inner wrapper, not on <main>,
-     # so layout sizing and content typography stay decoupled. #}
+     # designer-tool views, etc.). Full-bleed pages also skip the wa-prose
+     # wrapper even if hasProseContent is inherited (see isProseWrapped above). #}
     <main id="content"{% if hasFramedMain != false %} class="content-container"{% endif %}>
-      {% if proseContent %}<div class="wa-prose">{% endif %}
+      {% if isProseWrapped %}<div class="wa-prose">{% endif %}
       {# Expandable outline #}
       {% if hasOutline %}
       <nav id="outline-expandable">
@@ -180,7 +180,7 @@
       {% endblock %}
 
       {% block afterContent %}{% endblock %}
-      {% if proseContent %}</div>{% endif %}
+      {% if isProseWrapped %}</div>{% endif %}
     </main>
 
     {# wa-page-based Main Footer #}
