@@ -44,6 +44,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug in `<wa-checkbox>` and `<wa-switch>` where `.checked` property would not properly update the shadow dom checkbox.
 - Fixed a bug where `@lit-labs/ssr` was not included as a dependency.
 - Fixed a bug in `<wa-button>` where the slotted icon was rendered off-center at `size="xs"` in Firefox [issue:2426]
+- Fixed a bug in `<wa-tooltip>` that caused the tooltip to hide when hovering over HTML content [pr:2512]
 
 :::
 
