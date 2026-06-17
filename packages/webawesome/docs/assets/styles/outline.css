@@ -1,6 +1,5 @@
 #outline {
-  order: 2;
-  margin-block: 2rem;
+  margin-block: var(--wa-space-xl);
 }
 
 #outline h2 > a {
@@ -10,10 +9,8 @@
 
 #outline > nav {
   position: sticky;
-  top: calc(var(--docs-header-height) + 3.5rem);
-  padding-inline-end: 2rem;
-  max-width: 240px;
-  min-width: 240px;
+  inset-block-start: calc(var(--docs-header-height) + 3.5rem);
+  inline-size: 15rem;
 }
 
 #outline-expandable {
@@ -22,21 +19,22 @@
 
 #outline-expandable ul {
   columns: 2;
-  column-gap: 2rem;
-  padding-inline: 1rem;
+  column-gap: var(--wa-space-xl);
+  padding-inline: var(--wa-space-m);
 }
 
 #outline [data-level='3'] {
-  margin-inline-start: 1rem;
+  margin-inline-start: var(--wa-space-m);
 }
 
 @media screen and (max-width: 1199px) {
   wa-page [slot='aside'] {
     display: none;
   }
+
   #outline {
-    padding-block: 0.25rem;
-    margin-block-end: -1rem;
+    padding-block: var(--wa-space-2xs);
+    margin-block-end: calc(var(--wa-space-m) * -1);
   }
 
   #outline-standard {

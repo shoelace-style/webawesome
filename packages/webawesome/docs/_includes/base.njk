@@ -140,8 +140,7 @@
      # designer-tool views, etc.). Full-bleed pages also skip the wa-prose
      # wrapper even if hasProseContent is inherited (see isProseWrapped above). #}
     <main id="content"{% if hasFramedMain != false %} class="content-container"{% endif %}>
-      {% if isProseWrapped %}<div class="wa-prose">{% endif %}
-      {# Expandable outline #}
+      {# Expandable outline — navigation chrome, stays outside the prose wrapper. #}
       {% if hasOutline %}
       <nav id="outline-expandable">
         <details class="outline-links">
@@ -150,6 +149,7 @@
       </nav>
       {% endif %}
 
+      {% if isProseWrapped %}<div class="wa-prose">{% endif %}
       {# Flashes #}
       {% block flashes %}
       <div id="flashes">{% server "flashes" %}</div>
