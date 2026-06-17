@@ -133,7 +133,7 @@ export default css`
     forced-color-adjust: none;
   }
 
-  .preview:before {
+  .preview:after {
     content: '';
     position: absolute;
     top: 0;
@@ -306,7 +306,7 @@ export default css`
     border-radius: var(--wa-form-control-border-radius);
   }
 
-  .trigger:before {
+  .trigger:after {
     content: '';
     position: absolute;
     top: 0;
@@ -320,7 +320,7 @@ export default css`
       inset 0 0 0 calc(var(--wa-form-control-border-width) * 3) var(--wa-color-surface-default);
   }
 
-  .trigger-empty:before {
+  .trigger-empty:after {
     background-color: transparent;
   }
 
