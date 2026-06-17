@@ -75,30 +75,35 @@ wa-button.delete {
   }
 }
 
-/* Main content */
+/* Main padding tiers as chrome unfolds: drawer → sidebar in column →
+ * sidebar plus outline aside. */
 wa-page > main {
   padding: var(--wa-space-xl);
   margin-inline: auto;
 }
 
-/* Reserve aside-column space on prose pages that don't render an outline,
- * so main keeps the same width as outline-bearing prose pages. Only kicks
- * in at viewports where the aside is actually visible — outline.css hides
- * the aside below 1200px, so below that we let main span the full track.
- * Pages that want main to span full width at any size can override
- * --aside-width locally (e.g., auto or 0). The reserved track width
- * matches the outline's natural width: 240px content + slot padding. */
+wa-page:not([view='mobile']) > main {
+  padding-inline: var(--wa-space-4xl);
+}
+
+@media screen and (min-width: 75rem) {
+  wa-page > main {
+    padding-block: var(--wa-space-3xl);
+  }
+}
+
+/* Reserve aside-column space on prose-no-outline pages so main keeps the
+ * same width as outline-bearing prose pages. Gated to viewports where the
+ * aside actually shows (outline.css hides it below 1200px). Pages can
+ * override --aside-width locally to span full width. */
 @media screen and (min-width: 75rem) {
   .has-prose-content:not(.has-outline) wa-page {
     --aside-width: calc(240px + 2 * var(--content-padding-inline));
   }
 }
 
-/* Docs footer: transparent, top-bordered, narrow — aligned with the
- * prose column above. */
 :is(.layout-docs, .layout-component, .layout-page, .layout-page-outline, .layout-pattern) .page-footer {
-  padding-block: var(--wa-space-l);
-  padding-inline: var(--wa-space-xl);
+  padding: var(--wa-space-xl);
   border-block-start: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-surface-border);
   margin-block-start: var(--wa-space-2xl);
 }
@@ -107,9 +112,14 @@ wa-page > main {
   font-size: var(--wa-font-size-xs);
 }
 
-/* The docs main column is wider than `wa-prose`'s default 65ch. Anchor the
-   reading-column custom property to the docs token so existing layouts —
-   default, modern-card-list, and has-wide-main — keep their established widths. */
+/* Center the prose wrapper inside main so the line-length cap reads as a
+ * centered reading column, not a flush-left one. */
+#content > .wa-prose {
+  margin-inline: auto;
+}
+
+/* Anchor wa-prose's line-length to the docs' reading-column token instead
+ * of its 65ch default. */
 #content {
   --wa-prose-line-length: var(--content-width-s);
 
@@ -542,17 +552,6 @@ wa-scroller:has(.component-table) {
       font-size: var(--wa-font-size-s);
       font-weight: var(--wa-font-weight-semibold);
     }
-  }
-}
-
-/** desktop */
-@media screen and (min-width: 73.75rem) {
-  wa-page > main {
-    padding: var(--wa-space-3xl);
-  }
-
-  :is(.layout-docs, .layout-component, .layout-page, .layout-page-outline, .layout-pattern) .page-footer {
-    padding-inline: var(--wa-space-3xl);
   }
 }
 

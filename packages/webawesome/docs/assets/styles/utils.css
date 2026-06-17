@@ -68,8 +68,11 @@
     padding: 0;
   }
 
-  /* Body cluster cap on docs/app layouts. Chrome rows stay viewport-wide. */
+  /* Body cluster cap on docs/app layouts. Chrome rows stay viewport-wide.
+   * inline-size: 100% gives wa-page's grid a definite size so --main-width:
+   * 1fr can fill the remaining track. */
   :is(.layout-page, .layout-page-outline, .layout-docs, .layout-component, .layout-pattern) wa-page::part(body) {
+    inline-size: 100%;
     max-inline-size: var(--page-max-inline-size);
     margin-inline: auto;
   }
@@ -910,9 +913,6 @@
     padding-block-end: 1rem;
   }
 
-  /* Sidebar scrolls independently whenever the desktop sidebar column is visible
-   * (≥ wa-page mobile-breakpoint). Block padding stays consistent across every
-   * column-mode width; the drawer-mode reset still strips it in mobile view. */
   wa-page > #sidebar {
     overflow: auto;
     max-block-size: 100%;
@@ -922,8 +922,6 @@
     padding-block: var(--wa-space-2xl);
   }
 
-  /* Column's trailing border — only when the sidebar is in the column,
-   * not when it's flattened into the drawer. */
   wa-page:not([view='mobile'])::part(navigation) {
     border-inline-end: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-surface-border);
   }
