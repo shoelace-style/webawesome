@@ -4,20 +4,25 @@ description: Preset CSS utility classes that let you efficiently customize style
 layout: docs
 hasBreadcrumbs: false
 hasOutline: false
+hasProseContent: false
 ---
 
 <p>
-{% markdown %}
+  {% markdown %}
   {{ description }}
-{% endmarkdown %}
+  {% endmarkdown %}
 </p>
 
 {% markdown %}
-Instead of hand-writing the same CSS over and over, reach for a utility class and your theme takes care of the rest. CSS utilities pull directly from your Web Awesome [theme](/docs/themes) and [design tokens](/docs/tokens), so colors, typography, rounding, and spacing stay consistent with every component on the page. They're framework-agnostic, work on any native HTML element, and can be combined freely.
+Instead of hand-writing the same CSS over and over, reach for a utility class and your theme takes care of the rest. CSS
+utilities pull directly from your Web Awesome [theme](/docs/themes) and [design tokens](/docs/tokens), so colors,
+typography, rounding, and spacing stay consistent with every component on the page. They're framework-agnostic, work on
+any native HTML element, and can be combined freely.
 
 ## Using CSS Utilities
 
-CSS utilities ship as part of `webawesome.css`, so if you're already including that stylesheet you don't need to import anything else. Otherwise, follow these instructions to include the utilities stylesheet on its own.
+CSS utilities ship as part of `webawesome.css`, so if you're already including that stylesheet you don't need to import
+anything else. Otherwise, follow these instructions to include the utilities stylesheet on its own.
 {% endmarkdown %}
 
 <wa-tab-group data-install-tabs>
@@ -27,43 +32,46 @@ CSS utilities ship as part of `webawesome.css`, so if you're already including t
   <wa-tab panel="hosted"><wa-icon name="rocket-launch" variant="regular"></wa-icon> Hosted Projects</wa-tab>
 
   <wa-tab-panel name="cdn">
-{% markdown %}
-Add the following stylesheet to the `<head>` section of your pages:
+    {% markdown %}
+    Add the following stylesheet to the `<head>` section of your pages:
 
-```html
-<link rel="stylesheet" href="{% cdnUrl 'styles/utilities.css' %}">
-```
-{% endmarkdown %}
+      ```html
+      <link rel="stylesheet" href="{% cdnUrl 'styles/utilities.css' %}">
+      ```
+      {% endmarkdown %}
   </wa-tab-panel>
 
   <wa-tab-panel name="npm">
-{% markdown %}
-After installing `@awesome.me/webawesome`, import the following stylesheet into your app:
+    {% markdown %}
+    After installing `@awesome.me/webawesome`, import the following stylesheet into your app:
 
-```js
-import '@awesome.me/webawesome/dist/styles/utilities.css';
-```
-{% endmarkdown %}
+    ```js
+    import '@awesome.me/webawesome/dist/styles/utilities.css';
+    ```
+    {% endmarkdown %}
   </wa-tab-panel>
 
   <wa-tab-panel name="self-hosted">
-{% markdown %}
-Add the following stylesheet to the `<head>` section of your pages:
+    {% markdown %}
+    Add the following stylesheet to the `<head>` section of your pages:
 
-```html
-<link rel="stylesheet" href="/dist/styles/utilities.css">
-```
-{% endmarkdown %}
+      ```html
+      <link rel="stylesheet" href="/dist/styles/utilities.css">
+      ```
+      {% endmarkdown %}
   </wa-tab-panel>
 
   <wa-tab-panel name="hosted">
-{% markdown %}
-If you're using a [hosted project](/workspaces), CSS utilities can be toggled on from your project settings.
+    {% markdown %}
+    If you're using a [hosted project](/workspaces), CSS utilities can be toggled on from your project settings.
 
-1. Head over to your project's <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="gear" variant="regular"></wa-icon> Settings</wa-tag>.
-2. Next to <wa-tag class="tag-ui" appearance="outlined">Features</wa-tag>, select the <wa-tag class="tag-ui" appearance="outlined">CSS utilities</wa-tag> checkbox.
-3. <wa-tag class="tag-ui" appearance="outlined">Save Changes</wa-tag> to immediately update anywhere you're using your project.
-{% endmarkdown %}
+    1. Head over to your project's <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="gear"
+        variant="regular"></wa-icon> Settings</wa-tag>.
+    2. Next to <wa-tag class="tag-ui" appearance="outlined">Features</wa-tag>, select the <wa-tag class="tag-ui"
+      appearance="outlined">CSS utilities</wa-tag> checkbox.
+    3. <wa-tag class="tag-ui" appearance="outlined">Save Changes</wa-tag> to immediately update anywhere you're using
+    your project.
+    {% endmarkdown %}
   </wa-tab-panel>
 </wa-tab-group>
 
@@ -71,46 +79,50 @@ If you're using a [hosted project](/workspaces), CSS utilities can be toggled on
 
 <h2 class="modern-card-list-heading">Style Utilities</h2>
 {% markdown %}
-Preset rules for customizing colors, typography, rounding, and more &mdash; framework-agnostic and composable on any element.
+Preset rules for customizing colors, typography, rounding, and more &mdash; framework-agnostic and composable on any
+element.
 {% endmarkdown %}
 
 <div class="modern-card-list">
   <section class="search-list-grid">
     {% for page in collections.styleUtilities | sort(false, false, 'data.title') %}
-      <a class="hover-grow hover-emphasize-border" href="{{ page.url }}">
-        <wa-card>
-          <span class="page-name">{{ page.data.title }}</span>
-          {% if page.data.description %}
-            <p class="modern-card-summary">{{ page.data.description | inlineMarkdown | striptags | safe }}</p>
-          {% endif %}
-        </wa-card>
-      </a>
+    <a class="hover-grow hover-emphasize-border" href="{{ page.url }}">
+      <wa-card>
+        <span class="page-name">{{ page.data.title }}</span>
+        {% if page.data.description %}
+        <p class="modern-card-summary">{{ page.data.description | inlineMarkdown | striptags | safe }}</p>
+        {% endif %}
+      </wa-card>
+    </a>
     {% endfor %}
   </section>
 </div>
 
 <h2 class="modern-card-list-heading">Layout Utilities</h2>
 {% markdown %}
-Named layouts like [`wa-stack`](/docs/utilities/stack), [`wa-cluster`](/docs/utilities/cluster), [`wa-split`](/docs/utilities/split), [`wa-flank`](/docs/utilities/flank), [`wa-frame`](/docs/utilities/frame), and [`wa-grid`](/docs/utilities/grid) &mdash; plus property-level helpers for gap, alignment, and wrap &mdash; that organize content responsively without custom CSS.
+Named layouts like [`wa-stack`](/docs/utilities/stack), [`wa-cluster`](/docs/utilities/cluster),
+[`wa-split`](/docs/utilities/split), [`wa-flank`](/docs/utilities/flank), [`wa-frame`](/docs/utilities/frame), and
+[`wa-grid`](/docs/utilities/grid) &mdash; plus property-level helpers for gap, alignment, and wrap &mdash; that organize
+content responsively without custom CSS.
 {% endmarkdown %}
 
 <div class="modern-card-list">
   <section class="search-list-grid">
     {% for page in collections.layoutUtilities | sort(false, false, 'data.title') %}
-      <a class="hover-grow hover-emphasize-border" href="{{ page.url }}">
-        <wa-card>
-          <span class="page-name">{{ page.data.title }}</span>
-          {% if page.data.description %}
-            <p class="modern-card-summary">{{ page.data.description | inlineMarkdown | striptags | safe }}</p>
-          {% endif %}
-        </wa-card>
-      </a>
+    <a class="hover-grow hover-emphasize-border" href="{{ page.url }}">
+      <wa-card>
+        <span class="page-name">{{ page.data.title }}</span>
+        {% if page.data.description %}
+        <p class="modern-card-summary">{{ page.data.description | inlineMarkdown | striptags | safe }}</p>
+        {% endif %}
+      </wa-card>
+    </a>
     {% endfor %}
   </section>
 </div>
 
 <style>
-  wa-tab-group + wa-divider {
+  wa-tab-group+wa-divider {
     margin-block: 1rem 3rem;
   }
 </style>
