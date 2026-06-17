@@ -14,13 +14,15 @@ export function outlineTransformer(options = {}) {
     container: 'body',
     target: '.outline',
     selector: 'h2,h3',
+    listClass: '',
     ifEmpty: () => null,
     ...options,
   };
 
   return function (doc) {
     const container = doc.querySelector(options.container);
-    const ul = parse('<ul></ul>');
+    const ulMarkup = options.listClass ? `<ul class="${options.listClass}"></ul>` : '<ul></ul>';
+    const ul = parse(ulMarkup);
     let numLinks = 0;
 
     if (!container) {

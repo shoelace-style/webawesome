@@ -18,9 +18,8 @@
 }
 
 #outline-expandable ul {
-  columns: 2;
-  column-gap: var(--wa-space-xl);
-  padding-inline: var(--wa-space-m);
+  --min-column-size: 25ch;
+  margin: 0;
 }
 
 #outline [data-level='3'] {
@@ -30,11 +29,6 @@
 @media screen and (max-width: 1199px) {
   wa-page [slot='aside'] {
     display: none;
-  }
-
-  #outline {
-    padding-block: var(--wa-space-2xs);
-    margin-block-end: calc(var(--wa-space-m) * -1);
   }
 
   #outline-standard {
