@@ -441,6 +441,30 @@ describe('<wa-tooltip>', () => {
       await waitUntil(() => tooltip.open);
       expect(tooltip.open).to.be.true;
     });
+
+    it('should remain open when the pointer moves onto a slotted child element of the tooltip', async () => {
+      const el = await fixtures[0]<HTMLDivElement>(html`
+        <div>
+          <wa-button id="hover-child-btn">Hover me</wa-button>
+          <wa-tooltip for="hover-child-btn" trigger="hover" show-delay="0" hide-delay="0">
+            <a href="#" id="tooltip-link">A link inside the tooltip</a>
+          </wa-tooltip>
+        </div>
+      `);
+      const tooltip = el.querySelector<WaTooltip>('wa-tooltip')!;
+      const childLink = el.querySelector<HTMLElement>('#tooltip-link')!;
+
+      tooltip.open = true;
+      await waitUntil(() => tooltip.open);
+      expect(tooltip.open).to.be.true;
+
+      // Simulate the pointer moving off of the tooltip host and onto a slotted child element.
+      // relatedTarget is the element the pointer is moving to, which is how browsers report this.
+      tooltip.dispatchEvent(new MouseEvent('mouseout', { relatedTarget: childLink, bubbles: true }));
+      await aTimeout(50);
+
+      expect(tooltip.open).to.be.true;
+    });
   });
 
   describe('keyboard navigation', () => {
