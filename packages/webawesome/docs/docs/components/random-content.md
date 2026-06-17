@@ -38,7 +38,7 @@ Use the `items` attribute to show more than one child at a time.
   <img src="https://picsum.photos/seed/c/400/200" alt="Slide 3" style="display:block;width:100%;border-radius:var(--wa-border-radius-m)" />
 </wa-random-content>
 
-<wa-button style="margin-top:var(--wa-space-m)" onclick="document.getElementById('slides').randomize()">Next</wa-button>
+<wa-button size="s" style="margin-top:var(--wa-space-m)" onclick="document.getElementById('slides').randomize()">Next</wa-button>
 ```
 
 ## Unique mode
@@ -53,7 +53,7 @@ Use the `items` attribute to show more than one child at a time.
   <p><strong>Tip:</strong> Hover over any icon to see its name.</p>
 </wa-random-content>
 
-<wa-button onclick="document.getElementById('tip').randomize()" style="margin-top:var(--wa-space-m);">Next tip</wa-button>
+<wa-button size="s" onclick="document.getElementById('tip').randomize()" style="margin-top:var(--wa-space-m);">Next tip</wa-button>
 ```
 
 ## Animations
@@ -69,7 +69,7 @@ Use the `animation` attribute to add an entrance transition when new content is 
   <p>What are you building today?</p>
 </wa-random-content>
 
-<wa-button onclick="document.getElementById('anim-fade').randomize()" style="margin-top:var(--wa-space-m)">Next</wa-button>
+<wa-button size="s" onclick="document.getElementById('anim-fade').randomize()" style="margin-top:var(--wa-space-m)">Next</wa-button>
 ```
 
 **Fade up**
@@ -81,7 +81,7 @@ Use the `animation` attribute to add an entrance transition when new content is 
   <p>What are you building today?</p>
 </wa-random-content>
 
-<wa-button onclick="document.getElementById('anim-up').randomize()" style="margin-top:var(--wa-space-m)">Next</wa-button>
+<wa-button size="s" onclick="document.getElementById('anim-up').randomize()" style="margin-top:var(--wa-space-m)">Next</wa-button>
 ```
 
 **Fade down**
@@ -93,7 +93,7 @@ Use the `animation` attribute to add an entrance transition when new content is 
   <p>What are you building today?</p>
 </wa-random-content>
 
-<wa-button onclick="document.getElementById('anim-down').randomize()" style="margin-top:var(--wa-space-m)">Next</wa-button>
+<wa-button size="s" onclick="document.getElementById('anim-down').randomize()" style="margin-top:var(--wa-space-m)">Next</wa-button>
 ```
 
 ## Auto-play
@@ -145,5 +145,5 @@ Call `randomize()` on the element at any time to trigger a new selection program
   <wa-badge variant="warning">Three</wa-badge>
 </wa-random-content>
 
-<wa-button onclick="document.getElementById('rc').randomize()" style="margin-left:var(--wa-space-s)">Randomize</wa-button>
+<wa-button size="s" onclick="document.getElementById('rc').randomize()" style="margin-left:var(--wa-space-s)">Randomize</wa-button>
 ```
