@@ -648,7 +648,12 @@
 
       border-style: var(--wa-border-style);
       border-width: max(1px, var(--wa-form-control-border-width));
-      border-radius: var(--wa-form-control-border-radius);
+
+      /* These read the button group's internal custom properties so native buttons can be grouped */
+      border-start-start-radius: var(--_button-start-start-radius, var(--wa-form-control-border-radius));
+      border-start-end-radius: var(--_button-start-end-radius, var(--wa-form-control-border-radius));
+      border-end-start-radius: var(--_button-end-start-radius, var(--wa-form-control-border-radius));
+      border-end-end-radius: var(--_button-end-end-radius, var(--wa-form-control-border-radius));
 
       transition-property: background, border, box-shadow, color;
       transition-duration: var(--wa-transition-fast);
@@ -657,6 +662,19 @@
       cursor: pointer;
       user-select: none;
       -webkit-user-select: none;
+
+      /* Collapse adjacent borders */
+      margin-inline-start: var(--_button-horizontal-indent);
+      margin-block-start: var(--_button-vertical-indent);
+    }
+
+    /* Outlined variants use a negative indent so adjacent borders overlap */
+    &.wa-outlined {
+      &:not(input[type='file']),
+      &::file-selector-button {
+        margin-inline-start: var(--_button-horizontal-indent-outlined);
+        margin-block-start: var(--_button-vertical-indent-outlined);
+      }
     }
 
     /* Default styles for standard buttons */
@@ -847,7 +865,10 @@
     &.wa-pill {
       &:not(input[type='file']),
       &::file-selector-button {
-        border-radius: var(--wa-border-radius-pill);
+        border-start-start-radius: var(--_button-start-start-radius, var(--wa-border-radius-pill));
+        border-start-end-radius: var(--_button-start-end-radius, var(--wa-border-radius-pill));
+        border-end-start-radius: var(--_button-end-start-radius, var(--wa-border-radius-pill));
+        border-end-end-radius: var(--_button-end-end-radius, var(--wa-border-radius-pill));
       }
     }
 
