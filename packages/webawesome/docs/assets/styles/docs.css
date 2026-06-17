@@ -119,10 +119,15 @@ wa-page:not([view='mobile']) > main {
 }
 
 /* Anchor wa-prose's line-length to the docs' reading-column token instead
- * of its 65ch default. */
-#content {
-  --wa-prose-line-length: var(--content-width-s);
+ * of its 65ch default. The override has to land on .wa-prose itself —
+ * upstream prose.css declares --wa-prose-line-length on :where(.wa-prose),
+ * and a value declared on the element wins over an inherited value even
+ * at 0 specificity. */
+#content > .wa-prose {
+  --wa-prose-line-length: var(--content-width-m);
+}
 
+#content {
   /* Remap wa-prose's em-based rhythm to the docs' rem-based spacing scale.
      wa-prose intentionally scales with element font-size, but the docs were
      authored against the rem-based rhythm and depend on that visual cadence. */
