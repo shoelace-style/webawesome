@@ -42,11 +42,11 @@ need. The default (unnamed) slot is your main content.
 
 ---
 
-## ⚠️ The `navigation` slot is automatic — write your nav once, never duplicate it
+## ⚠️ The `navigation` slot is automatic — one copy serves both views
 
 This is the single most important thing to understand about `<wa-page>`, and the most common source of
-mistakes. **The `navigation` slot is special: the component routes your nav to the right place for the
-current view, automatically.**
+mistakes. **The `navigation` slot is special: the component _moves_ your nav to the right place for the
+current view, automatically — it renders in exactly one place at a time, never both.**
 
 - On **desktop** (at or above `mobile-breakpoint`, default `768px`), the content you put in
   `slot="navigation"` renders as a **persistent left sidebar column**.
@@ -58,10 +58,19 @@ for `navigation-header` and `navigation-footer` (they become the drawer's header
 
 **Because the component does this for you:**
 
-- **Never duplicate your navigation into multiple slots.** If you put the same links in both `header`
-  and `navigation` (or copy them anywhere expecting only one copy to show), they will appear **twice** in
-  the output. There is no "this copy is for mobile, that copy is for desktop" — `slot="navigation"` is
-  already both.
+- **For a single nav, write it once in `slot="navigation"` — don't also copy it into `header`.** One
+  `slot="navigation"` is _moved_ between views (desktop sidebar ⇄ mobile drawer); it is never rendered in
+  two places at once, so a single copy already serves both views. If you _author_ a second copy in
+  `header` (or anywhere else) and don't hide it per view, **both copies show** on whatever view they're
+  both visible in — typically desktop, where you'd then see the same links in the header **and** in the
+  left sidebar. That double-nav-on-desktop is the most common `<wa-page>` mistake.
+- **Header nav on desktop is the _one_ case where duplicating is correct — but it's deliberate, not
+  free.** If you want links in the header bar on desktop (no left sidebar) plus a mobile drawer, you
+  **must** put the links in `header` _and_ mirror them in `slot="navigation"` (the drawer needs that
+  copy), then hide each in the view where it shouldn't appear. The `navigation` copy renders a **visible
+  left sidebar on desktop** unless you hide it — that's the trap. Use the
+  [header-on-desktop / drawer-on-mobile recipe below](#the-one-place-duplicating-nav-is-correct-header-on-desktop-drawer-on-mobile);
+  it is the only sanctioned, view-scoped duplication.
 - **Don't toggle the nav yourself, and don't show/hide the hamburger.** The toggle button and its
   desktop/mobile visibility are already styled and wired by the component.
 - **Don't write media queries for nav, the sidebar, or the toggle.** The desktop↔mobile switch is driven
@@ -75,7 +84,9 @@ for `navigation-header` and `navigation-footer` (they become the drawer's header
 - **No** (landing page, marketing site, most content pages) → you have two clean options, both of which
   still let `<wa-page>` do the work:
   - **Simplest:** put your primary nav in `slot="navigation"` anyway. You'll get a small desktop sidebar
-    instead of header nav, which is fine for many content pages. The mobile drawer comes free.
+    instead of header nav, which is fine for many content pages. The mobile drawer comes free. (Note: this
+    gives you a **sidebar**, not header links — if you specifically want nav in the header bar, that
+    doesn't happen automatically; use the recipe below.)
   - **Header nav + mobile drawer, no desktop sidebar** (the classic marketing/hero look): keep the nav in
     the `header` for desktop, mirror it in `slot="navigation"` for the mobile drawer, and use the
     **deliberate-exception recipe below** to hide each in the view where it shouldn't appear. This is the
@@ -89,14 +100,18 @@ Use this **only** for a marketing/hero page where you want nav links **in the he
 **mobile drawer menu** — and explicitly **no** left sidebar on desktop. This is the single sanctioned
 exception to "never duplicate," because you're deliberately rendering the nav differently per view.
 
-Four steps:
+All four steps are required — steps 3 and 4 are what stop the nav from showing twice on desktop:
 
 1. Put the desktop links in the **`header`** slot.
-2. Mirror the same links in the **`navigation`** slot — these power the mobile drawer.
+2. Mirror the same links in the **`navigation`** slot. On mobile this copy powers the drawer; on desktop
+   this **same copy also renders a visible left sidebar** — which you don't want here, so step 4 hides it.
+   (Skipping this mirror means no mobile drawer; including it without step 4 means the links show in both
+   the header and a desktop sidebar.)
 3. Hide the header links on mobile: `wa-page[view='mobile'] .header-nav { display: none }`.
 4. Hide the desktop sidebar on desktop: `wa-page[view='desktop']::part(navigation) { display: none }`.
    (`::part(navigation)` targets _only_ the desktop sidebar wrapper; the mobile drawer is unaffected, so
-   the drawer still works.)
+   the drawer still works. This is the step people forget — without it you get the same links in the
+   header **and** the left sidebar on desktop.)
 
 ```html
 <wa-page>
@@ -261,12 +276,13 @@ utilities instead (see [layouts-inpage.md](layouts-inpage.md)).
    }
    ```
 
-6. **Let `<wa-page>` own the nav — don't toggle it, don't media-query it, don't duplicate it.** Put nav
-   in `slot="navigation"` **once**; the component renders it as the desktop sidebar and moves it into the
-   mobile drawer for you. The hamburger button and its desktop/mobile visibility are already handled —
-   don't write CSS to show or hide it, and don't add media queries for the nav, sidebar, or toggle. The
-   only sanctioned duplication is the header-on-desktop / drawer-on-mobile recipe above, which is
-   view-scoped and intentional. The default hamburger opens the `navigation` drawer; if you want a custom
+6. **Let `<wa-page>` own the nav — don't toggle it, don't media-query it.** Put nav in
+   `slot="navigation"` **once**; the component renders it as the desktop sidebar and moves it into the
+   mobile drawer for you (one copy, never rendered in two places at once). The hamburger button and its
+   desktop/mobile visibility are already handled — don't write CSS to show or hide it, and don't add media
+   queries for the nav, sidebar, or toggle. The **one** time you intentionally author a second copy is the
+   header-on-desktop / drawer-on-mobile recipe above — and there you must hide each copy in the view where
+   it shouldn't appear (`view`-scoped CSS), or the links show in both the header and the desktop sidebar. The default hamburger opens the `navigation` drawer; if you want a custom
    toggle, add `data-toggle-nav` to any element inside `<wa-page>` (this auto-hides the default
    hamburger). `data-toggle-nav` only toggles the `navigation` drawer, so it does nothing without
    `navigation` content — never pair it with a hand-rolled drawer. **When you want the toggle to live
@@ -454,7 +470,7 @@ navigation sidebar, main content, a sticky table-of-contents aside, and a footer
 | Forget the `html, body` reset → gaps appear                                                                      | Always add the reset (or use native styles)                                                                                                                                         |
 | Expect `<wa-page>` to emit `<main>`/`<header>`                                                                   | Slot in your own semantic elements                                                                                                                                                  |
 | Put nav in `menu` and wonder why it won't collapse                                                               | Use `navigation` (+ `navigation-header`/`-footer`) for mobile collapse                                                                                                              |
-| Duplicate nav into multiple slots expecting only one copy to show → it appears **twice**                         | Write nav **once** in `slot="navigation"`; the component renders it in the right place per view. The only sanctioned duplication is the header-on-desktop / drawer-on-mobile recipe |
+| Author a second nav copy in `header` while also using `slot="navigation"`, without hiding one per view → links show in **both** the header and the desktop sidebar | Write nav **once** in `slot="navigation"` (it moves between views automatically). For header nav on desktop + a mobile drawer, use the header-on-desktop / drawer-on-mobile recipe and `view`-scope-hide each copy |
 | Hand-roll your own `<wa-drawer>` + toggle button for the mobile menu                                             | Put nav in `slot="navigation"`; `<wa-page>` provides the drawer and hamburger automatically                                                                                         |
 | Write media queries to show/hide the nav, sidebar, or hamburger                                                  | Don't — the component switches via its own `view` state. Media queries are for page content, not the nav machinery                                                                  |
 | Pair `data-toggle-nav` with your own `<wa-drawer>` (it toggles the `navigation` drawer, not yours → dead button) | Use the `navigation` slot's built-in drawer; `data-toggle-nav` only ever controls that one                                                                                          |
