@@ -141,7 +141,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
   @state() private isDraggingGridHandle = false;
   @state() private inputValue = '';
   @state() private hue = 0;
-  @state() private isEmpty = true
+  @state() private isEmpty = true;
   @state() private saturation = 100;
   @state() private brightness = 100;
   @state() private alpha = 100;
@@ -274,7 +274,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
     }
 
     // need to set initial values on the server. looks funky, but it works.
-    this.handleValueChange("", this.value || "")
+    this.handleValueChange('', this.value || '');
   }
 
   /**
@@ -813,16 +813,16 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
   willUpdate(changedProperties: PropertyValues<this>) {
     // this is for the server to be honest, but it needs to be here to get properly synced values. Without this, the server just sees nothing for a value
-    if (changedProperties.has("value") || changedProperties.has("defaultValue")) {
-      this.handleValueChange(changedProperties.get("value") || "", this.value || "")
+    if (changedProperties.has('value') || changedProperties.has('defaultValue')) {
+      this.handleValueChange(changedProperties.get('value') || '', this.value || '');
     }
 
-    super.willUpdate(changedProperties)
+    super.willUpdate(changedProperties);
   }
 
   @watch('value')
   handleValueChange(oldValue: string | undefined, newValue: string) {
-    this.isEmpty = !newValue
+    this.isEmpty = !newValue;
     if (!newValue) {
       this.hue = 0;
       this.saturation = 0;
@@ -1097,7 +1097,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
   }
 
   render() {
-    const isEmpty = this.isEmpty
+    const isEmpty = this.isEmpty;
     const hasLabelSlot = this.hasSlotController.test('label', 'withLabel');
     const hasHintSlot = this.hasSlotController.test('hint', 'withHint');
     const hasLabel = this.label ? true : !!hasLabelSlot;

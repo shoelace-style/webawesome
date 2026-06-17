@@ -14,18 +14,14 @@ declare module 'lit' {
   }
 }
 
-const HAS_ENDING_COLON = /;\s+$/
+const HAS_ENDING_COLON = /;\s+$/;
 
 function camelToKebab(str: string) {
   return str.replace(/[A-Z]/g, c => `-${c.toLowerCase()}`);
 }
 
-function buildStyleAttribute (options: {
-  property?: string | null
-  value?: unknown,
-  element: HTMLElement
-}) {
-  const { property, value, element } = options
+function buildStyleAttribute(options: { property?: string | null; value?: unknown; element: HTMLElement }) {
+  const { property, value, element } = options;
   if (value) {
     let style = element.getAttribute('style') || '';
     if (style) {
@@ -42,10 +38,10 @@ function buildStyleAttribute (options: {
       return;
     }
 
-    return `${style}${str};`
+    return `${style}${str};`;
   }
 
-  return null
+  return null;
 }
 
 export default class WebAwesomeElement extends LitElement {
@@ -184,10 +180,12 @@ export default class WebAwesomeElement extends LitElement {
         // because this is going to be serialized to an HTML style attribute, need to transform the casing.
         property: camelToKebab(property),
         value,
-        element: this
-      })
+        element: this,
+      });
 
-      if (str) { this.setAttribute("style", str) }
+      if (str) {
+        this.setAttribute('style', str);
+      }
 
       return;
     }
@@ -207,10 +205,12 @@ export default class WebAwesomeElement extends LitElement {
         // because this is going to be serialized to an HTML style attribute, need to transform the casing.
         property,
         value,
-        element: this
-      })
+        element: this,
+      });
 
-      if (str) { this.setAttribute("style", str) }
+      if (str) {
+        this.setAttribute('style', str);
+      }
 
       return;
     }
