@@ -198,22 +198,26 @@ export default class WaTooltip extends WebAwesomeElement {
     }
   };
 
-  private handleMouseOut = () => {
+  private handleMouseOut = (event: MouseEvent) => {
     if (this.hasTrigger('hover')) {
-      const anchorHovered = Boolean(this.anchor?.matches(':hover'));
-      const tooltipHovered = this.matches(':hover');
+      const relatedTarget = event.relatedTarget as Node | null;
 
-      if (anchorHovered || tooltipHovered) {
+      // Use the event's relatedTarget (the element the pointer moved to) to determine whether the
+      // pointer is still within the anchor or the tooltip itself. Relying on `:hover` matching here is
+      // unreliable in Chrome when the pointer moves onto a slotted child element of the tooltip, since
+      // the host's `:hover` state can briefly report false during that transition.
+      const movedIntoAnchor = Boolean(relatedTarget && this.anchor?.contains(relatedTarget));
+      const movedIntoTooltip = Boolean(relatedTarget && this.contains(relatedTarget));
+
+      if (movedIntoAnchor || movedIntoTooltip) {
         return;
       }
 
       clearTimeout(this.hoverTimeout);
 
-      if (!(anchorHovered || tooltipHovered)) {
-        this.hoverTimeout = window.setTimeout(() => {
-          this.hide();
-        }, this.hideDelay);
-      }
+      this.hoverTimeout = window.setTimeout(() => {
+        this.hide();
+      }, this.hideDelay);
     }
   };
 
