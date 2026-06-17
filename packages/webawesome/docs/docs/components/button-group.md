@@ -181,3 +181,15 @@ Create interactive toolbars with button groups.
   }
 </style>
 ```
+
+### Native Buttons
+
+Button groups also work with native `<button>` elements when [Native Styles](/docs/utilities/native) are included.
+
+```html {.example}
+<wa-button-group label="Alignment">
+  <button class="wa-filled">Left</button>
+  <button class="wa-filled">Center</button>
+  <button class="wa-filled">Right</button>
+</wa-button-group>
+```
