@@ -1,10 +1,15 @@
+import type { PropertyValues } from 'lit';
 import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
+import { warnDeprecatedSize } from '../../internal/size.js';
 import { HasSlotController } from '../../internal/slot.js';
+import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import formControlStyles from '../../styles/component/form-control.styles.js';
+import sizeStyles from '../../styles/component/size.styles.js';
 import '../checkbox/checkbox.js';
+import type WaCheckbox from '../checkbox/checkbox.js';
 import styles from './checkbox-group.styles.js';
 
 /**
@@ -30,7 +35,7 @@ import styles from './checkbox-group.styles.js';
  */
 @customElement('wa-checkbox-group')
 export default class WaCheckboxGroup extends WebAwesomeElement {
-  static css = [formControlStyles, styles];
+  static css = [sizeStyles, formControlStyles, styles];
 
   private readonly hasSlotController = new HasSlotController(this, 'hint', 'label');
 
@@ -45,6 +50,16 @@ export default class WaCheckboxGroup extends WebAwesomeElement {
 
   /** The orientation in which to show grouped checkboxes. */
   @property({ reflect: true }) orientation: 'horizontal' | 'vertical' = 'vertical';
+
+  /**
+   * The group's size. When present, this size will be applied to all `<wa-checkbox>` and `<wa-switch>` items inside.
+   */
+  @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large';
+
+  @watch('size')
+  handleSizeChange() {
+    warnDeprecatedSize(this.localName, this.size);
+  }
 
   /**
    * Indicates that at least one option should be selected. This only adds a visual indicator to the label. To enforce
@@ -64,6 +79,28 @@ export default class WaCheckboxGroup extends WebAwesomeElement {
    * the hint before the component hydrates on the client.
    */
   @property({ type: Boolean, attribute: 'with-hint' }) withHint = false;
+
+  updated(changedProperties: PropertyValues<this>) {
+    if (changedProperties.has('size')) {
+      this.syncCheckboxElements();
+    }
+  }
+
+  /** Returns all grouped checkbox and switch elements. */
+  private getAllCheckboxes() {
+    return [...this.querySelectorAll<WaCheckbox>(':is(wa-checkbox, wa-switch)')];
+  }
+
+  /**
+   * Applies the group's size to each grouped checkbox/switch
+   */
+  private syncCheckboxElements = () => {
+    if (!this.size) return;
+
+    for (const checkbox of this.getAllCheckboxes()) {
+      checkbox.setAttribute('size', this.size);
+    }
+  };
 
   render() {
     const hasLabelSlot = this.hasSlotController.test('label', 'withLabel');
@@ -93,7 +130,7 @@ export default class WaCheckboxGroup extends WebAwesomeElement {
         </label>
 
         <div part="form-control-input" role="group" aria-labelledby="label" aria-describedby="hint">
-          <slot></slot>
+          <slot @slotchange=${this.syncCheckboxElements}></slot>
         </div>
 
         <slot
