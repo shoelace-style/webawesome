@@ -152,9 +152,19 @@ export default class WebAwesomeElement extends LitElement {
       if (value != null) {
         let style = this.getAttribute('style') || '';
         if (style) {
+          if (!style.match(/;\s+$/)) {
+            style += ';'
+          }
           style += ' ';
         }
-        this.setAttribute('style', `${style}${camelToKebab(property)}: ${value};`);
+
+        const str = `${camelToKebab(property)}: ${value}`
+
+        if (style.includes(str)) {
+          return
+        }
+
+        this.setAttribute('style', `${style}${str};`);
       }
 
       return;
