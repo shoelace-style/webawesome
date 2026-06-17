@@ -1,7 +1,3 @@
-:root {
-  --outline-aside-width: 15rem;
-}
-
 #outline {
   margin-block: var(--wa-space-xl);
 }
@@ -69,7 +65,7 @@
   #outline-standard {
     position: sticky;
     inset-block-start: calc(var(--docs-header-height) + 3.5rem);
-    inline-size: var(--outline-aside-width);
+    inline-size: 15rem;
   }
 
   #outline-expandable {
