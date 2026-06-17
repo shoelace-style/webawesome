@@ -45,15 +45,25 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::fixed
 
+- Fixed a bug in `<wa-video>` where setting the `hidden` attribute would not hide it causing `<wa-video-playlist>` to show multiple videos at once. [pr:2501]
+- Fixed a race condition with `<wa-accordion>` and `<wa-accordion-item>` causing a hydration mismatch in SSR [pr:2501]
 - Fixed a bug in `<wa-checkbox>` and `<wa-switch>` where `.checked` property would not properly update the shadow dom checkbox.
 - Fixed a bug where `@lit-labs/ssr` was not included as a dependency.
 - Fixed a bug in `<wa-button>` where the slotted icon was rendered off-center at `size="xs"` in Firefox [issue:2426]
+- Fixed a bug in `<wa-tooltip>` that caused the tooltip to hide when hovering over HTML content [pr:2512]
 
 :::
 
 :::changed
 
 - Synced default `--show-duration`, `--hide-duration`, and `--easing` values in `<wa-accordion-item>`, `<wa-date-input>`, `<wa-time-input>`, `<wa-toast>`, and `<wa-video>` with `--wa-transition-*` tokens
+- Updated Native Styles so that `<th>` borders only apply to column headers [pr:2492]
+
+:::
+
+:::removed
+
+- Removed `--wa-accordion-divider-color` from `<wa-accordion-item>` due to improper scope and limited usage [pr:2491]
 
 :::
 

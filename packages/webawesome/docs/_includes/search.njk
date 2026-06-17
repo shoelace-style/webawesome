@@ -1,59 +1,147 @@
-<wa-dialog id="site-search" without-header light-dismiss>
+<wa-dialog id="site-search" without-header light-dismiss aria-label="Site Search">
   <div id="site-search-container">
     {# Header #}
     <header>
       <div id="site-search-input-wrapper">
-        <wa-input
-          id="site-search-input"
-          type="search"
-          with-clear
-          placeholder="Search for&hellip;"
-          autofocus
-          autocomplete="off"
-          autocorrect="off"
-          autocapitalize="off"
-          enterkeyhint="go"
-          spellcheck="false"
-          maxlength="100"
-          role="combobox"
-          aria-autocomplete="list"
-          aria-expanded="true"
-          aria-controls="site-search-listbox"
-          aria-haspopup="listbox"
-          aria-activedescendant
-        >
-          <wa-icon slot="start" name="search"></wa-icon>
+        <wa-input id="site-search-input" type="search" with-clear placeholder="Search for&hellip;" autofocus
+          autocomplete="off" autocorrect="off" autocapitalize="off" enterkeyhint="go" spellcheck="false" maxlength="100"
+          role="combobox" aria-autocomplete="list" aria-expanded="true" aria-controls="site-search-suggested-list"
+          aria-haspopup="listbox" aria-activedescendant>
+          <wa-icon slot="start" name="magnifying-glass" class="de-emphasize"></wa-icon>
+          <wa-icon slot="clear-icon" name="xmark" variant="regular"></wa-icon>
         </wa-input>
       </div>
     </header>
 
     {# Body #}
     <div id="site-search-body">
-      <ul
-        id="site-search-listbox"
-        role="listbox"
-        aria-label="Search results"
-      ></ul>
+      {# Default state — Suggested starts + Recent searches #}
+      <div id="site-search-default" class="wa-stack wa-gap-0">
+        <div id="site-search-suggested-list" class="site-search-listing" role="listbox" aria-label="Suggested">
+          <h3 class="site-search-section-label wa-caption-s">Quick Links</h3>
+          <ul id="site-search-suggested-listbox" class="wa-stack wa-gap-2xs" role="presentation">
+            <li class="site-search-result" role="option" id="suggested-item-1" data-selected="false">
+              <a href="/docs/components" class="wa-cluster wa-flex-nowrap wa-gap-s">
+                <wa-icon class="site-search-result-icon de-emphasize wa-font-size-m" name="block" variant="regular"
+                  aria-hidden="true"></wa-icon>
+                <div class="site-search-result-details">
+                  <div class="site-search-result-title wa-font-size-s">Components</div>
+                </div>
+                <wa-icon class="site-search-result-caret" name="chevron-right" variant="regular"
+                  aria-hidden="true"></wa-icon>
+              </a>
+            </li>
+            <li class="site-search-result" role="option" id="suggested-item-2" data-selected="false">
+              <a href="/docs/utilities" class="wa-cluster wa-flex-nowrap wa-gap-s">
+                <wa-icon class="site-search-result-icon de-emphasize wa-font-size-m" name="brush" variant="regular"
+                  aria-hidden="true"></wa-icon>
+                <div class="site-search-result-details">
+                  <div class="site-search-result-title wa-font-size-s">CSS Utilities</div>
+                </div>
+                <wa-icon class="site-search-result-caret" name="chevron-right" variant="regular"
+                  aria-hidden="true"></wa-icon>
+              </a>
+            </li>
+            <li class="site-search-result" role="option" id="suggested-item-3" data-selected="false">
+              <a href="/docs/theming-overview" class="wa-cluster wa-flex-nowrap wa-gap-s">
+                <wa-icon class="site-search-result-icon de-emphasize wa-font-size-m" name="file-text" variant="regular"
+                  aria-hidden="true"></wa-icon>
+                <div class="site-search-result-details">
+                  <div class="site-search-result-title wa-font-size-s">Theming</div>
+                </div>
+                <wa-icon class="site-search-result-caret" name="chevron-right" variant="regular"
+                  aria-hidden="true"></wa-icon>
+              </a>
+            </li>
+            <li class="site-search-result" role="option" id="suggested-item-4" data-selected="false">
+              <a href="/docs/ai" class="wa-cluster wa-flex-nowrap wa-gap-s">
+                <wa-icon class="site-search-result-icon de-emphasize wa-font-size-m" name="sparkles" variant="regular"
+                  aria-hidden="true"></wa-icon>
+                <div class="site-search-result-details">
+                  <div class="site-search-result-title wa-font-size-s">Using with AI</div>
+                </div>
+                <wa-icon class="site-search-result-caret" name="chevron-right" variant="regular"
+                  aria-hidden="true"></wa-icon>
+              </a>
+            </li>
+            <li class="site-search-result" role="option" id="suggested-item-5" data-selected="false">
+              <a href="/docs/resources/changelog" class="wa-cluster wa-flex-nowrap wa-gap-s">
+                <wa-icon class="site-search-result-icon de-emphasize wa-font-size-m" name="book-spine" variant="regular"
+                  aria-hidden="true"></wa-icon>
+                <div class="site-search-result-details">
+                  <div class="site-search-result-title wa-font-size-s">Changelog</div>
+                </div>
+                <wa-icon class="site-search-result-caret" name="chevron-right" variant="regular"
+                  aria-hidden="true"></wa-icon>
+              </a>
+            </li>
+            <li class="site-search-result" role="option" id="suggested-item-6" data-selected="false">
+              <a href="{{ site.urls.support }}" class="wa-cluster wa-flex-nowrap wa-gap-s">
+                <wa-icon class="site-search-result-icon de-emphasize wa-font-size-m" name="life-ring" variant="regular"
+                  aria-hidden="true"></wa-icon>
+                <div class="site-search-result-details">
+                  <div class="site-search-result-title wa-font-size-s">Help &amp; Support</div>
+                </div>
+                <wa-icon class="site-search-result-caret" name="chevron-right" variant="regular"
+                  aria-hidden="true"></wa-icon>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <wa-divider data-recent-divider hidden></wa-divider>
+
+        <div id="site-search-recent-list" class="site-search-listing" role="listbox" aria-label="Recent Searches"
+          hidden>
+          <h3 class="site-search-section-label wa-caption-s">Recent Searches</h3>
+          <ul id="site-search-recent-listbox" class="wa-stack wa-gap-2xs" role="presentation">
+          </ul>
+        </div>
+      </div>
+
+      {# Results state #}
+      <div class="site-search-listing">
+        <ul id="site-search-listbox" class="wa-stack wa-gap-2xs" role="listbox" aria-label="Search Results"></ul>
+      </div>
+
+      {# Empty state — no results found #}
       <div id="site-search-empty">
-        <wa-icon name="web-awesome" family="brands"></wa-icon>
-        No results
+        <div class="wa-stack wa-align-items-center">
+          <wa-icon name="face-monocle" family="duotone" variant="regular"
+            class="site-search-empty-icon wa-font-size-3xl" aria-hidden="true"></wa-icon>
+          <p>D'oh! No results for &ldquo;<span id="site-search-empty-query"></span>&rdquo;</p>
+          <wa-button-group>
+            <wa-button appearance="filled" size="s" href="{{ site.github.ideas }}" target="_blank" rel="noopener"
+              data-cta="github">
+              <wa-icon name="lightbulb-on" variant="regular" slot="start"></wa-icon>
+              Suggest on GitHub
+            </wa-button>
+            <wa-button appearance="filled" size="s" href="{{ site.urls.discord }}" target="_blank" rel="noopener"
+              data-cta="discord">
+              <wa-icon name="message-question" variant="regular" slot="start"></wa-icon>
+              Ask on Discord
+            </wa-button>
+          </wa-button-group>
+        </div>
       </div>
     </div>
 
-    {# Footer #}
-    <footer class="wa-gap-xl">
-      <small>
-        <kbd aria-label="Up"><wa-icon name="arrow-up" family="micro"></wa-icon></kbd>
-        <kbd aria-label="Down"><wa-icon name="arrow-down" family="micro"></wa-icon></kbd>
-        Navigate
-      </small>
-
-      <small>
-        <kbd>Enter</kbd>
-        Select
-      </small>
-
-      <small><kbd>Esc</kbd> Close</small>
+    <footer class="wa-flank:end wa-flex-nowrap wa-color-text-quiet">
+      <div class="wa-cluster wa-flex-nowrap">
+        <small class="wa-cluster wa-flex-nowrap wa-gap-xs">
+          <span class="wa-cluster wa-flex-nowrap wa-gap-2xs">
+            <kbd class="kbd-modern" aria-label="Up"><wa-icon name="arrow-up"></wa-icon></kbd>
+            <kbd class="kbd-modern" aria-label="Down"><wa-icon name="arrow-down"></wa-icon></kbd>
+          </span>
+          Navigate
+        </small>
+        <small class="wa-cluster wa-flex-nowrap wa-gap-xs">
+          <kbd class="kbd-modern" aria-label="Enter"><wa-icon name="arrow-turn-down-left"></wa-icon></kbd>
+          Select
+        </small>
+      </div>
+      <small class="site-search-footer-end wa-cluster wa-flex-nowrap wa-gap-xs">Close <kbd
+          class="kbd-modern">Esc</kbd></small>
     </footer>
   </div>
 </wa-dialog>

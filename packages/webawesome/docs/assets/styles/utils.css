@@ -590,6 +590,15 @@
     font-weight: var(--wa-font-weight-bold);
   }
 
+  .kbd-modern {
+    padding: var(--wa-space-2xs) var(--wa-space-xs);
+    line-height: 1;
+    background-color: color-mix(in oklab, var(--wa-color-surface-default), transparent 50%);
+    border: var(--wa-panel-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
+    border-radius: var(--wa-border-radius-s);
+    box-shadow: var(--wa-shadow-s);
+  }
+
   /* step icons for ordered instructions */
   .step-icon {
     --primary-color: var(--wa-color-neutral-20);

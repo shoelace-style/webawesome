@@ -126,7 +126,9 @@ describe('<wa-accordion>', () => {
           const item = el.querySelector('wa-accordion-item')!;
           const button = item.shadowRoot!.querySelector<HTMLButtonElement>('[part~="button"]')!;
 
-          await expectEvent(el, ['wa-collapse', 'wa-after-collapse'], () => clickOnElement(button));
+          await expectEvent(el, ['wa-collapse', 'wa-after-collapse'], async () => {
+            await clickOnElement(button);
+          });
         });
 
         it('should include the item in the event detail', async () => {

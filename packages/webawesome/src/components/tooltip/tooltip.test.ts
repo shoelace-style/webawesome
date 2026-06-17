@@ -4,7 +4,7 @@ import { html } from 'lit';
 import sinon from 'sinon';
 import { expectEvent } from '../../internal/test/expect-event.js';
 import { fixtures } from '../../internal/test/fixture.js';
-import { clickOnElement } from '../../internal/test/pointer-utilities.js';
+import { clickOnElement, moveMouseOnElement } from '../../internal/test/pointer-utilities.js';
 import type WaTooltip from './tooltip.js';
 
 describe('<wa-tooltip>', () => {
@@ -440,6 +440,39 @@ describe('<wa-tooltip>', () => {
       tooltip.open = true;
       await waitUntil(() => tooltip.open);
       expect(tooltip.open).to.be.true;
+    });
+
+    it('should remain open when the pointer moves onto a slotted child element of the tooltip', async () => {
+      const el = await fixtures[0]<HTMLDivElement>(html`
+        <div>
+          <wa-button id="hover-child-btn">Hover me</wa-button>
+          <wa-tooltip for="hover-child-btn" trigger="hover" show-delay="0" hide-delay="0">
+            <a href="#" id="tooltip-link" style="display: inline-block; padding: 1rem;">A link inside the tooltip</a>
+          </wa-tooltip>
+        </div>
+      `);
+      const tooltip = el.querySelector<WaTooltip>('wa-tooltip')!;
+      const anchor = el.querySelector<HTMLElement>('#hover-child-btn')!;
+      const childLink = el.querySelector<HTMLElement>('#tooltip-link')!;
+
+      // Open the tooltip by hovering its anchor, so a real pointer is positioned over the trigger.
+      await moveMouseOnElement(anchor);
+      await waitUntil(() => tooltip.open);
+      expect(tooltip.open).to.be.true;
+
+      // Move the pointer off the anchor and onto a slotted child element of the tooltip. This generates a real
+      // `mouseout` whose `relatedTarget` is the slotted child, which the tooltip should recognize as "still within me"
+      // and stay open. (Synthetic MouseEvents can't set relatedTarget, so a real pointer move is required to exercise
+      // the fix.)
+      await moveMouseOnElement(childLink);
+      await aTimeout(tooltip.hideDelay + 50);
+
+      expect(tooltip.open).to.be.true;
+
+      // Move the pointer fully away and confirm it now hides, proving the test isn't a false positive.
+      await moveMouseOnElement(document.body, 'top', 0, 0);
+      await waitUntil(() => !tooltip.open);
+      expect(tooltip.open).to.be.false;
     });
   });
 
