@@ -110,6 +110,9 @@ wa-page:not([view='mobile']) > main {
   margin-block-start: var(--wa-space-2xl);
 }
 
+/* Docs footer stays compact at every viewport. Site/app surfaces use the
+ * larger --wa-font-size-s default from site.css and only drop to xs in
+ * wa-page's mobile view (see site.css's @layer wa-site). */
 :is(.layout-docs, .layout-component, .layout-page, .layout-page-outline, .layout-pattern) .page-footer-content {
   font-size: var(--wa-font-size-xs);
 }
