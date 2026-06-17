@@ -76,9 +76,11 @@ wa-button.delete {
 }
 
 /* Main padding tiers as chrome unfolds: drawer → sidebar in column →
- * sidebar plus outline aside. */
+ * sidebar plus outline aside. Inline padding follows --content-padding-inline
+ * so main and the chrome bands tighten together on mobile. */
 wa-page > main {
-  padding: var(--wa-space-xl);
+  padding-block: var(--wa-space-xl);
+  padding-inline: var(--content-padding-inline);
   margin-inline: auto;
 }
 

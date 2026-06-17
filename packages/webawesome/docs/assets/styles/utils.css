@@ -83,6 +83,13 @@
     padding-inline: var(--content-padding-inline);
   }
 
+  /* Tighten the shared inline-padding token in wa-page's mobile view so chrome
+   * bands, main, and footer content all breathe in the same direction on small
+   * viewports. Cascades to every .content-container inside wa-page. */
+  wa-page[view='mobile'] {
+    --content-padding-inline: var(--wa-space-l);
+  }
+
   /* Footer base. Surface treatment lives per-surface (docs.css, site.css).
    * Font-size goes on .page-footer-content (not here) to stay out of any
    * nested .content-container's ch-based max-width. */
