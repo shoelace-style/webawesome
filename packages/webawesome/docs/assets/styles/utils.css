@@ -777,9 +777,10 @@
     }
   }
 
-  /* docs navigation: sidebar, outline, drawer nav chrome */
+  /* docs navigation: sidebar, outline (desktop aside + mobile expandable), drawer nav chrome */
   #sidebar,
-  #outline {
+  #outline,
+  #outline-expandable {
     h2 {
       font-size: var(--wa-font-size-s);
       margin: 0;

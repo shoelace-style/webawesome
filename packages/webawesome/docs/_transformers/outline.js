@@ -15,9 +15,13 @@ export function outlineTransformer(options = {}) {
     target: '.outline',
     selector: 'h2,h3',
     listClass: '',
+    linkIcon: '',
     ifEmpty: () => null,
     ...options,
   };
+
+  const escapeHtml = s =>
+    s.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 
   return function (doc) {
     const container = doc.querySelector(options.container);
@@ -43,10 +47,17 @@ export function outlineTransformer(options = {}) {
       clone.querySelectorAll('[data-no-outline]').forEach(el => el.remove());
 
       // Generate the link
-      const li = parse(`<li data-level="${level}"><a></a></li>`);
-      const a = li.querySelector('a');
-      a.setAttribute('href', `#${encodeURIComponent(id)}`);
-      a.textContent = clone.textContent.trim().replace(/#$/, '');
+      const text = clone.textContent.trim().replace(/#$/, '');
+      const escapedHref = `#${encodeURIComponent(id)}`;
+      const escapedText = escapeHtml(text);
+      let liMarkup;
+      if (options.linkIcon) {
+        const icon = `<wa-icon name="${options.linkIcon}" variant="light" aria-hidden="true"></wa-icon>`;
+        liMarkup = `<li data-level="${level}" class="wa-cluster wa-gap-xs wa-flex-nowrap">${icon}<a href="${escapedHref}">${escapedText}</a></li>`;
+      } else {
+        liMarkup = `<li data-level="${level}"><a href="${escapedHref}">${escapedText}</a></li>`;
+      }
+      const li = parse(liMarkup);
 
       // Add it to the list
       ul.firstChild.appendChild(li);

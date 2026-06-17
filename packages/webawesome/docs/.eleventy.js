@@ -266,6 +266,7 @@ export default async function (eleventyConfig) {
         target: '#outline-expandable wa-details',
         selector: 'h2, h3',
         listClass: 'wa-grid wa-gap-xs wa-list-plain',
+        linkIcon: 'hashtag',
       }),
       // Add current link classes
       currentLinkTransformer(),

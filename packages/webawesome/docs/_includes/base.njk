@@ -142,8 +142,11 @@
     <main id="content"{% if hasFramedMain != false %} class="content-container"{% endif %}>
       {# Expandable outline — navigation chrome, stays outside the prose wrapper. #}
       {% if hasOutline %}
-      <nav id="outline-expandable" aria-label="On This Page...">
-        <wa-details class="outline-links" summary="On This Page..."></wa-details>
+      {% set outlineLabel = "On This Page..." %}
+      <nav id="outline-expandable" aria-label="{{ outlineLabel }}">
+        <wa-details class="outline-links">
+          <span class="wa-body-s wa-cluster wa-gap-xs" slot="summary"><wa-icon name="book-open" variant="regular"></wa-icon> {{ outlineLabel }}</span>
+        </wa-details>
       </nav>
       {% endif %}
 
