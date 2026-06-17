@@ -153,15 +153,15 @@ export default class WebAwesomeElement extends LitElement {
         let style = this.getAttribute('style') || '';
         if (style) {
           if (!style.match(/;\s+$/)) {
-            style += ';'
+            style += ';';
           }
           style += ' ';
         }
 
-        const str = `${camelToKebab(property)}: ${value}`
+        const str = `${camelToKebab(property)}: ${value}`;
 
         if (style.includes(str)) {
-          return
+          return;
         }
 
         this.setAttribute('style', `${style}${str};`);
@@ -184,15 +184,15 @@ export default class WebAwesomeElement extends LitElement {
         let style = this.getAttribute('style') || '';
         if (style) {
           if (!style.match(/;\s+$/)) {
-            style += ';'
+            style += ';';
           }
           style += ' ';
         }
 
-        const str = `${property}: ${value}`
+        const str = `${property}: ${value}`;
 
         if (style.includes(str)) {
-          return
+          return;
         }
 
         this.setAttribute('style', `${style}${str};`);
