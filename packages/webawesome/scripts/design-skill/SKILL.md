@@ -198,19 +198,11 @@ then violate them while generating long files; an explicit verification pass is 
 (spacing rhythm, hierarchy, contrast, surface choices) walk the
 [Polish checklist](references/composition.md#polish-checklist) in composition.md too.
 
-This verification is **mandatory and has two parts:**
+This verification is **mandatory**: re-read the rules above and walk your own output line by line, fixing each item in the checklist below.
 
-1. **Self re-read.** Re-read the rules above and walk your own output line by line, fixing each item in the
-   checklist below.
-2. **Independent subagent review (required).** After your self-pass, **dispatch one or more verification
-   subagents** to re-check the design independently — do not rely solely on your own review of work you
-   just wrote. Give each subagent the produced markup/CSS and this skill's rules, and ask it to find
-   violations and report or fix them. For a substantial page, split the work: e.g. one subagent audits the
-   `<wa-page>` layout and the navigation-duplication trap, another audits tokens/emojis/accessibility.
-   Apply whatever the subagents surface, then confirm the result is clean. Treat their findings as
-   authoritative over your own first draft.
+> **On platforms with subagent dispatch (e.g. Claude Code):** for a substantial page, you may dispatch a verification subagent as a second pass — hand it the produced markup/CSS plus this skill's rules and ask it to find violations. Optional, not required; a careful self-review catches most issues.
 
-Walk this checklist (yourself, and via the subagents) and fix each before declaring it done:
+Walk this checklist and fix each before declaring it done:
 
 - [ ] **Duplicated `<wa-page>` nav (check this first on any full page).** Search your markup for the same
       nav links appearing in more than one slot. `slot="navigation"` already renders in **both** views
