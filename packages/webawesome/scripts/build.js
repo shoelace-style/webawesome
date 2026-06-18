@@ -75,7 +75,14 @@ export async function build(options = {}) {
     const start = Date.now();
 
     try {
-      const steps = [cleanup, generateManifest, generateReactWrappers, generateTypes, generateStyles];
+      const steps = [
+        cleanup,
+        generateManifest,
+        generateAllComponentFile,
+        generateReactWrappers,
+        generateTypes,
+        generateStyles
+      ];
 
       for (const step of steps) {
         if (debugPerf) {
@@ -95,9 +102,14 @@ export async function build(options = {}) {
       await generateDocs({ spinner });
 
       // Generate llms.txt (needs CEM, runs before docs)
-      spinner.start('Generating llms.txt');
-      await generateLlmsTxtFile();
-      spinner.succeed();
+
+      if (process.env.SKIP_SLOW_STEPS === "true") {
+        spinner.info('Skipping "llms.txt" generation');
+      } else {
+        spinner.start('Generating "llms.txt"');
+        await generateLlmsTxtFile();
+        spinner.succeed()
+      }
 
       const time = (Date.now() - start) / 1000 + 's';
       spinner.succeed(`The build is complete ${chalk.gray(`(finished in ${time})`)}`);
@@ -158,6 +170,29 @@ export async function build(options = {}) {
     try {
       // need to run  make-react from this directories.
       execSync(`node ${join(__dirname, 'make-react.js')} --outdir "${getCdnDir()}"`, { stdio: 'inherit' });
+    } catch (error) {
+      console.error(`\n\n${error.message}`);
+
+      if (!isDeveloping) {
+        process.exit(1);
+      }
+    }
+    spinner.succeed();
+
+    return Promise.resolve();
+  }
+
+  function generateAllComponentFile() {
+    if (process.env.SKIP_SLOW_STEPS === 'true') {
+      spinner.info('Skipping "ssr/all.js" file generation.');
+      return Promise.resolve();
+    }
+
+    spinner.start('Generating "ssr/all.js" file');
+
+    try {
+      // need to run make-all from this directory.
+      execSync(`node ${join(__dirname, 'make-all.js')} --outdir "${getCdnDir()}"`, { stdio: 'inherit' });
     } catch (error) {
       console.error(`\n\n${error.message}`);
 
