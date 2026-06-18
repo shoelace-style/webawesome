@@ -9,7 +9,7 @@ import styles from './random-content.styles.js';
  * @summary Random content selects one or more child elements at random and displays them.
  * @documentation https://webawesome.com/docs/components/random-content
  * @status experimental
- * @since 3.8
+ * @since 3.9
  *
  * @slot - The pool of children to randomize from. Unselected children are hidden with `display: none`.
  *
