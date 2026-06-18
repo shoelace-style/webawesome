@@ -126,8 +126,9 @@ Randomly selects and displays one or more of its slotted children. Transparent t
 
 <wa-button size="s" style="margin-top:var(--wa-space-m)" onclick="document.getElementById('initial').randomize()" appearance="filled">Randomize</wa-button>
 ```
+## Examples
 
-## Multiple items
+### Multiple items
 
 Use the `items` attribute to show more than one child at a time.
 
@@ -140,7 +141,7 @@ Use the `items` attribute to show more than one child at a time.
 </wa-random-content>
 ```
 
-## Sequence mode
+### Sequence mode
 
 `mode="sequence"` advances through children in DOM order. Each call to `randomize()` moves the cursor forward by `items` positions, wrapping at the end.
 
@@ -154,7 +155,7 @@ Use the `items` attribute to show more than one child at a time.
 <wa-button size="s" style="margin-top:var(--wa-space-m)" onclick="document.getElementById('slides').randomize()" appearance="filled">Next</wa-button>
 ```
 
-## Unique mode
+### Unique mode
 
 `mode="unique"` excludes the previously shown children from the candidate pool, so you never see the same item twice in a row. When the pool runs out, history resets and all children become eligible again.
 
@@ -169,7 +170,7 @@ Use the `items` attribute to show more than one child at a time.
 <wa-button size="s" onclick="document.getElementById('tip').randomize()" style="margin-top:var(--wa-space-m);" appearance="filled">Next tip</wa-button>
 ```
 
-## Animations
+### Animations
 
 Use the `animation` attribute to add an entrance transition when new content is shown.
 
@@ -213,7 +214,7 @@ The duration, easing, and translate distance are customizable with CSS custom pr
 <wa-button size="s" onclick="document.getElementById('anim-custom').randomize()" style="margin-top:var(--wa-space-m)" appearance="filled">Next</wa-button>
 ```
 
-## Auto-play
+### Auto-play
 
 Set `interval` to a duration in milliseconds to rotate content automatically. Combine it with any `animation` value for a smooth entrance transition. The animation duration defaults to `300ms` and can be overridden with `--animation-duration`.
 
@@ -231,7 +232,7 @@ Set `interval` to a duration in milliseconds to rotate content automatically. Co
 </p>
 ```
 
-## Inline usage
+### Inline usage
 
 Because the host renders `display: contents`, the component is transparent to layout and works naturally inside inline contexts.
 
@@ -249,7 +250,7 @@ Because the host renders `display: contents`, the component is transparent to la
 <wa-button size="s" onclick="document.getElementById('inline').randomize()" style="margin-top:var(--wa-space-m)" appearance="filled">Randomize</wa-button>
 ```
 
-## Imperative control
+### Imperative control
 
 Call `randomize()` on the element at any time to trigger a new selection programmatically.
 
