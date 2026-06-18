@@ -2,6 +2,7 @@
 title: Option
 layout: component
 category: Forms
+parent: select
 synonyms:
   - select option
   - list option

@@ -476,3 +476,13 @@ or for hydrated rendering only:
 ```bash
 SSR_ONLY="true" npm run test
 ```
+
+## Built On
+
+Web Awesome stands on the shoulders of some excellent open source projects. Special thanks to:
+
+- [Eleventy](https://www.11ty.dev/) — the static site generator powering the docs
+- [Lit](https://lit.dev/) — the web component library Web Awesome's components are authored in
+- [Custom Elements Manifest Analyzer](https://github.com/open-wc/custom-elements-manifest) — generates the component API metadata that drives the docs and editor tooling
+- [Floating UI](https://floating-ui.com/) — positioning for popovers, tooltips, and other anchored UI
+- [Animate.css](https://animate.style/) — the animation library behind the show/hide motion presets

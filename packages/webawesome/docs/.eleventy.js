@@ -255,11 +255,18 @@ export default async function (eleventyConfig) {
       anchorHeadingsTransformer({ container: '#content' }),
       outlineTransformer({
         container: '#content',
-        target: '.outline-links',
+        target: '#outline-standard',
         selector: 'h2, h3',
         ifEmpty: doc => {
           doc.querySelector('#outline')?.remove();
         },
+      }),
+      outlineTransformer({
+        container: '#content',
+        target: '#outline-expandable wa-details',
+        selector: 'h2, h3',
+        listClass: 'wa-grid wa-gap-xs wa-list-plain',
+        linkIcon: 'hashtag',
       }),
       // Add current link classes
       currentLinkTransformer(),

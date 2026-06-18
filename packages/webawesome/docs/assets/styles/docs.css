@@ -75,24 +75,64 @@ wa-button.delete {
   }
 }
 
-/* Main content */
+/* Main padding tiers as chrome unfolds: drawer → sidebar in column →
+ * sidebar plus outline aside. Inline padding follows --content-padding-inline
+ * so main and the chrome bands tighten together on mobile. */
 wa-page > main {
-  max-inline-size: var(--content-width-s);
-  padding: var(--wa-space-xl);
+  padding-block: var(--wa-space-xl);
+  padding-inline: var(--content-padding-inline);
   margin-inline: auto;
 }
 
-/* increase max-inline-size for index pages */
-wa-page > main:has(.modern-card-list) {
-  max-inline-size: var(--content-width-m);
+wa-page:not([view='mobile']) > main {
+  padding-inline: var(--wa-space-4xl);
 }
 
-/* The docs main column is wider than `wa-prose`'s default 65ch. Anchor the
-   reading-column custom property to the docs token so existing layouts —
-   default, modern-card-list, and page-wide — keep their established widths. */
-#content {
-  --wa-prose-line-length: var(--content-width-s);
+@media screen and (min-width: 75rem) {
+  wa-page > main {
+    padding-block: var(--wa-space-3xl);
+  }
+}
 
+/* Reserve aside-column space on prose-no-outline pages so main keeps the
+ * same width as outline-bearing prose pages. Gated to viewports where the
+ * aside actually shows (outline.css hides it below 1200px). Pages can
+ * override --aside-width locally to span full width. */
+@media screen and (min-width: 75rem) {
+  .has-prose-content:not(.has-outline) wa-page {
+    --aside-width: calc(240px + 2 * var(--content-padding-inline));
+  }
+}
+
+:is(.layout-docs, .layout-component, .layout-page, .layout-page-outline, .layout-pattern) .page-footer {
+  padding: var(--wa-space-xl);
+  border-block-start: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-surface-border);
+  margin-block-start: var(--wa-space-2xl);
+}
+
+/* Docs footer stays compact at every viewport. Site/app surfaces use the
+ * larger --wa-font-size-s default from site.css and only drop to xs in
+ * wa-page's mobile view (see site.css's @layer wa-site). */
+:is(.layout-docs, .layout-component, .layout-page, .layout-page-outline, .layout-pattern) .page-footer-content {
+  font-size: var(--wa-font-size-xs);
+}
+
+/* Center the prose wrapper inside main so the line-length cap reads as a
+ * centered reading column, not a flush-left one. */
+#content > .wa-prose {
+  margin-inline: auto;
+}
+
+/* Anchor wa-prose's line-length to the docs' reading-column token instead
+ * of its 65ch default. The override has to land on .wa-prose itself —
+ * upstream prose.css declares --wa-prose-line-length on :where(.wa-prose),
+ * and a value declared on the element wins over an inherited value even
+ * at 0 specificity. */
+#content > .wa-prose {
+  --wa-prose-line-length: var(--content-width-m);
+}
+
+#content {
   /* Remap wa-prose's em-based rhythm to the docs' rem-based spacing scale.
      wa-prose intentionally scales with element font-size, but the docs were
      authored against the rem-based rhythm and depend on that visual cadence. */
@@ -281,12 +321,6 @@ figure.signpost {
     line-height: var(--wa-line-height-condensed);
     text-align: center;
   }
-}
-
-/* Search list pages */
-wa-page > main:has(> .search-list) {
-  max-inline-size: var(--content-width-l);
-  margin-inline: auto;
 }
 
 .search-list {
@@ -527,23 +561,6 @@ wa-scroller:has(.component-table) {
     strong {
       font-size: var(--wa-font-size-s);
       font-weight: var(--wa-font-weight-semibold);
-    }
-  }
-}
-
-/** desktop */
-@media screen and (min-width: 73.75rem) {
-  wa-page > main {
-    padding: var(--wa-space-3xl);
-  }
-}
-
-.page-wide {
-  wa-page > main {
-    max-inline-size: var(--content-width-l);
-
-    .max-line-length {
-      max-inline-size: var(--line-length-l);
     }
   }
 }

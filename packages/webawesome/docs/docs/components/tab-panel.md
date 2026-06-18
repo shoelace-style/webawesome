@@ -2,6 +2,7 @@
 title: Tab Panel
 layout: component
 category: Navigation
+parent: tab-group
 synonyms:
   - tab content
   - tab pane

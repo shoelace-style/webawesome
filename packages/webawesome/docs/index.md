@@ -2,20 +2,20 @@
 title: Web Awesome
 description: Build better with Web Awesome, the open source library of web components from Font Awesome.
 layout: page
+hasGeneratedTitle: false
+hasFramedMain: false
 ---
 
 <style>
   .title,
   .anchor-heading a,
-  #outline-expandable {
+  #outline-expandable,
+  .page-footer {
     display: none;
   }
   wa-page > main {
-    --content-width: 56rem;
-    --content-padding-inline: 2rem;
+    --content-width: var(--content-width-l);
     --content-flow-spacing: 4rem;
-    max-width: 100%;
-    padding: 0 !important;
     & p, h1, h2, h3, h4, h5, h6 {
       margin: 0;
     }
@@ -45,29 +45,24 @@ layout: page
     }
   }
   .hero-background {
-    background-color: var(--wa-brand-orange);
-    background-image: linear-gradient(color-mix(in oklab, var(--wa-brand-orange), orangered 40%) 1px, transparent 1px), linear-gradient(90deg, color-mix(in oklab, var(--wa-brand-orange), orangered 40%) 1px, transparent 1px);
-    background-size: 2rem 2rem;
-    color: white;
-    padding: calc(var(--content-flow-spacing) * 1.875) 0 var(--content-flow-spacing) 0;
-  }
-  .hero-content {
-    max-width: var(--content-width);
+    --spacing: var(--wa-space-2xl);
+    --background-pattern-image: url('/assets/images/bg-wa-pattern.svg');
+    --background-pattern-opacity: 0.2;
+    background: linear-gradient(rgb(244, 106, 69), rgb(205, 73, 28));
+    color: var(--wa-color-brand-on-loud);
+    border-width: 0;
+    max-inline-size: var(--content-width);
     margin-inline: auto;
-    padding-inline: var(--content-padding-inline);
-    & > * + * {
-      margin-block-start: 2rem;
-    }
-    & h1 {
-      font-size: clamp(2.5625rem, 13vw, 3.25rem);
-    }
-    & .emphasis::after {
-      background-color: var(--wa-brand-grey);
-    }
-
-    .logo-app {
-      color: var(--wa-color-brand-on-loud);
-    }
+    margin-block-end: var(--content-flow-spacing);
+  }
+  .hero-background h1 {
+    font-size: clamp(2.5625rem, 13vw, 3.25rem);
+  }
+  .hero-background .emphasis::after {
+    background-color: var(--wa-brand-grey);
+  }
+  .hero-background .logo-app {
+    color: var(--wa-color-brand-on-loud);
   }
   .hero-cta {
     display: flex;
@@ -226,8 +221,8 @@ layout: page
   }
 </style>
 
-<div class="hero-background">
-  <div class="hero-content">
+<wa-card class="hero-background background-wa-pattern" appearance="plain">
+  <div class="wa-stack wa-gap-xl">
     <wa-icon name="web-awesome" family="brands" class="logo-app wa-heading-4xl"></wa-icon>
     <h1 class="font-brand">Make something <span class="emphasis">awesome</span> with open-source web components</h1>
     <div class="hero-cta">
@@ -247,7 +242,7 @@ layout: page
       {% endraw %}
     </div>
   </div>
-</div>
+</wa-card>
 
 <div class="home-wrapper">
   <wa-button href="/docs/" appearance="outlined" class="tile">

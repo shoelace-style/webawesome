@@ -23,7 +23,15 @@ function updateLinks() {
     const target = linkTargets.get(link);
 
     if (target && visibleTargets.has(target)) {
-      links.forEach(el => el.classList.toggle('current', el === link));
+      links.forEach(el => {
+        const isActive = el === link;
+        el.classList.toggle('current', isActive);
+        if (isActive) {
+          el.setAttribute('aria-current', 'location');
+        } else {
+          el.removeAttribute('aria-current');
+        }
+      });
       return true;
     }
 

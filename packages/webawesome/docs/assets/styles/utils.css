@@ -12,7 +12,12 @@
     --content-width-xs: round(up, 50ch, 1px);
     --content-width-full: 100%;
     --content-flow-spacing: 8ch;
-    --content-padding-inline: var(--wa-space-xl);
+    --content-padding-inline: var(--wa-space-2xl);
+
+    /* Outer cap for the wa-page body cluster (menu + main + aside).
+     * Chrome rows stay viewport-wide; their inner content caps to this
+     * value via .content-container. */
+    --page-max-inline-size: 90rem;
 
     --line-length-xs: 30ch;
     --line-length-s: 45ch;
@@ -42,38 +47,93 @@
 
   /* #region layout utilities */
 
-  /*
-   * .content-container — CANONICAL DEFINITION
-   *
-   * Default sizing/centering primitive for main content areas across the
-   * Web Awesome ecosystem (app, marketing, docs). DO NOT redefine this
-   * class anywhere else (no shadow rules in pro site.css base, no app.css
-   * redefinition). Scoped overrides like `.page-footer .content-container { ... }`
-   * are fine — only base-class redefinition is forbidden.
-   *
-   * Override per-instance width via the `--max-inline-size` custom property:
-   *   main { --max-inline-size: var(--content-width-xs); }
-   */
+  /* DO NOT redefine this base class anywhere else (no shadow rules in
+   * site.css / app.css). Scoped overrides like `.page-footer .content-container`
+   * are fine. Per-instance width via --max-inline-size. Default caps at the
+   * page envelope (--page-max-inline-size) so main, footer, and chrome bands
+   * all align; narrower reading-width content opts down via --max-inline-size. */
   .content-container {
     margin-inline: auto;
-    max-inline-size: var(--max-inline-size, var(--content-width-l));
+    max-inline-size: var(--max-inline-size, var(--page-max-inline-size));
     padding-inline: var(--content-padding-inline);
   }
 
-  /* Default main content vertical spacing.
-   * Applies when <main> opts into the default sizing pattern via class.
-   * Pages opt out by setting front matter `hasFlushMain: true`, which causes
-   * the layout to omit the class entirely (no spacing, no container). */
+  /* Pages opt out via hasFramedMain: false (omits the class). */
   wa-page > main.content-container {
     padding-block: var(--wa-space-4xl);
   }
 
-  /* Neutralize wa-page's shadow-DOM `::slotted(main) { padding: var(--wa-space-3xl) }`
-   * on flush pages. When a page sets `hasFlushMain: true`, <main> renders without
-   * the .content-container class — this rule ensures the page is fully flush,
-   * not inheriting the component's default padding. */
+  /* Neutralize wa-page's slotted-main padding on unframed pages. */
   wa-page > main:not(.content-container) {
     padding: 0;
+  }
+
+  /* Body cluster cap on docs/app layouts. Chrome rows stay viewport-wide.
+   * inline-size: 100% gives wa-page's grid a definite size so --main-width:
+   * 1fr can fill the remaining track. */
+  :is(.layout-page, .layout-page-outline, .layout-docs, .layout-component, .layout-pattern) wa-page::part(body) {
+    inline-size: 100%;
+    max-inline-size: var(--page-max-inline-size);
+    margin-inline: auto;
+  }
+
+  /* Match chrome's inline padding so sidebar/aside content aligns with logo/nav. */
+  wa-page > [slot='navigation'],
+  wa-page > [slot='aside'] {
+    padding-inline: var(--content-padding-inline);
+  }
+
+  /* Tighten the shared inline-padding token in wa-page's mobile view so chrome
+   * bands, main, and footer content all breathe in the same direction on small
+   * viewports. Cascades to every .content-container inside wa-page. */
+  wa-page[view='mobile'] {
+    --content-padding-inline: var(--wa-space-l);
+  }
+
+  /* Footer base. Surface treatment lives per-surface (docs.css, site.css).
+   * Font-size goes on .page-footer-content (not here) to stay out of any
+   * nested .content-container's ch-based max-width. */
+  .page-footer {
+    display: block;
+    inline-size: 100%;
+    padding: 0;
+    color: var(--wa-color-text-quiet);
+    line-height: var(--wa-line-height-condensed);
+  }
+
+  .page-footer a:hover,
+  .page-footer a:focus-visible {
+    color: var(--wa-color-text-normal);
+  }
+
+  /* Match the legal-row .appearance-plain links (text-normal at rest,
+   * underline on hover). */
+  .page-footer .page-footer-cookie-button {
+    appearance: none;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    font: inherit;
+    color: var(--wa-color-text-normal);
+    cursor: pointer;
+
+    &:hover,
+    &:focus-visible {
+      text-decoration: underline;
+    }
+  }
+
+  .page-footer .page-footer-socials {
+    margin-inline: calc(var(--wa-space-xs) * -1);
+  }
+
+  .page-footer .page-footer-socials a {
+    color: var(--wa-color-text-quiet);
+    padding-inline: var(--wa-space-xs);
+  }
+
+  .page-footer wa-icon[name='dot'] {
+    opacity: 0.3;
   }
 
   /* #endregion */
@@ -172,8 +232,6 @@
     /* inline padding handled by .content-container on inner .banner */
     padding-block: var(--wa-space-l);
     padding-inline: 0;
-    /* default to full-width in webawesome docs; pro overrides to --content-width-l */
-    --max-inline-size: 100%;
     transition: background-color var(--wa-transition-slow) var(--wa-transition-easing);
 
     .banner {
@@ -214,8 +272,6 @@
     padding-block-start: var(--wa-space-xs);
     padding-inline: 0;
     inline-size: 100%;
-    /* default to full-width in webawesome docs; pro overrides to --content-width-l */
-    --max-inline-size: 100%;
   }
 
   /* looks jarring to have the transition with SSR. save it for cloaked pages with CSR. */
@@ -333,8 +389,6 @@
   /* subheader */
   wa-page > [slot='subheader'] {
     background-color: var(--wa-color-surface-default);
-    /* default to full-width in webawesome docs; pro overrides to --content-width-l */
-    --max-inline-size: 100%;
     border-block-end: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-surface-border);
     padding-block: var(--wa-space-xs);
     padding-inline: 0;
@@ -530,25 +584,6 @@
   /* Subtler treatment for filled neutral badges (since, category, etc.) */
   wa-badge[variant='neutral'][appearance='filled'] {
     background-color: var(--wa-color-surface-lowered);
-  }
-
-  /* colophon + sidebar: social link row */
-  #colophon {
-    margin-block-start: var(--wa-space-2xl);
-  }
-
-  #colophon .the-socials,
-  #sidebar .the-socials {
-    margin-inline-start: calc(var(--wa-space-xs) * -1);
-
-    a[target='_blank'] {
-      color: var(--wa-color-text-quiet);
-      padding-inline: var(--wa-space-xs);
-
-      &:hover {
-        color: var(--wa-color-text-normal);
-      }
-    }
   }
 
   /* Tooltips that include a <kbd> shortcut: keep copy + key on one baseline-centered row */
@@ -749,9 +784,10 @@
     }
   }
 
-  /* docs navigation: sidebar, outline, drawer nav chrome */
+  /* docs navigation: sidebar, outline (desktop aside + mobile expandable), drawer nav chrome */
   #sidebar,
-  #outline {
+  #outline,
+  #outline-expandable {
     h2 {
       font-size: var(--wa-font-size-s);
       margin: 0;
@@ -761,10 +797,16 @@
       margin-block-start: var(--wa-space-xs);
     }
 
-    /* visually align icon with child list's border-start */
+    /* visually align icon with child list's border-start without shifting the heading's end edge */
     h2:has(wa-icon) {
+      margin-inline-start: calc(var(--wa-space-xs) * -1);
+    }
+
+    /* mirror the icon's start-ward offset so a rolled-up section badge nudges
+     * end-ward by the same amount */
+    h2.wa-split > wa-badge {
       position: relative;
-      inset-inline-start: calc(var(--wa-space-xs) * -1);
+      inset-inline-end: calc(var(--wa-space-xs) * -1);
     }
 
     ul {
@@ -816,6 +858,10 @@
     }
   }
 
+  #sidebar ul:has(.current) {
+    border-inline-start-color: var(--wa-color-brand-border-quiet);
+  }
+
   #outline-standard h2 {
     margin-block-end: var(--wa-space-m);
   }
@@ -861,6 +907,10 @@
         background: var(--wa-color-brand-on-quiet);
       }
     }
+
+    section:has(.current) h2 wa-icon {
+      color: var(--wa-color-brand-on-quiet);
+    }
   }
 
   #sidebar .is-planned {
@@ -871,16 +921,17 @@
     padding-block-end: 1rem;
   }
 
-  @media screen and (min-width: 73.75rem) {
-    wa-page::part(navigation) {
-      border-inline-end: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-surface-border);
-    }
+  wa-page > #sidebar {
+    overflow: auto;
+    max-block-size: 100%;
+  }
 
-    wa-page > #sidebar {
-      overflow: auto;
-      max-block-size: 100%;
-      padding: var(--wa-space-2xl) var(--content-padding-inline);
-    }
+  wa-page:not([view='mobile']) > #sidebar {
+    padding-block: var(--wa-space-2xl);
+  }
+
+  wa-page:not([view='mobile'])::part(navigation) {
+    border-inline-end: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-surface-border);
   }
 
   /* #endregion */

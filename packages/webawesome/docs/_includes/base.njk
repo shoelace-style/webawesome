@@ -68,11 +68,14 @@
     document.addEventListener("change", handleSSRChange)
   </script>
 </head>
+{# Full-bleed pages (hasFramedMain: false) own their typography, so a stray
+   hasProseContent inherited from the directory tree doesn't take effect. #}
+{% set isProseWrapped = hasFramedMain != false and hasProseContent %}
 <body
-  class="layout-{{ layout | stripExtension }} page-{{ pageType }}{{ ' page-wide' if wide }}">
+  class="layout-{{ layout | stripExtension }} page-{{ pageType }}{{ ' has-prose-content' if isProseWrapped }}{{ ' has-outline' if hasOutline }}">
 
   {% set defaultWaPageAttributes = defaultWaPageAttributes or { view: 'desktop', 'disable-navigation-toggle': true,
-  'mobile-breakpoint': 1180, 'disable-sticky': 'banner' } %}
+  'mobile-breakpoint': 960, 'disable-sticky': 'banner' } %}
   {% set waPageAttributes = waPageAttributes or {} %}
   {% set mergedWaPageAttributes = defaultWaPageAttributes | merge(waPageAttributes) %}
   <wa-page {% for key, value in mergedWaPageAttributes %} {% if value != null and value != false %} {{ key
@@ -131,20 +134,23 @@
 
 
     {# wa-page-based Main Content (default).
-     # Pages opt out of the default sizing/spacing by setting
-     # `hasFlushMain: true` in their front matter — <main> then
-     # renders without .content-container so the page can handle
-     # its own layout (used by full-bleed marketing pages, etc.). #}
-    <main id="content"{% if not hasFlushMain %} class="content-container{% if proseContent %} wa-prose{% endif %}"{% endif %}>
-      {# Expandable outline #}
+     # Pages opt out of the default frame by setting `hasFramedMain: false`
+     # in their front matter — <main> then renders without .content-container,
+     # letting the page own its own layout (full-bleed marketing pages,
+     # designer-tool views, etc.). Full-bleed pages also skip the wa-prose
+     # wrapper even if hasProseContent is inherited (see isProseWrapped above). #}
+    <main id="content"{% if hasFramedMain != false %} class="content-container"{% endif %}>
+      {# Expandable outline — navigation chrome, stays outside the prose wrapper. #}
       {% if hasOutline %}
-      <nav id="outline-expandable">
-        <details class="outline-links">
-          <summary>On this page</summary>
-        </details>
+      {% set outlineLabel = "On This Page..." %}
+      <nav id="outline-expandable" aria-label="{{ outlineLabel }}">
+        <wa-details class="outline-links">
+          <span class="wa-body-s wa-cluster wa-gap-xs" slot="summary"><wa-icon name="book-open" variant="regular"></wa-icon> {{ outlineLabel }}</span>
+        </wa-details>
       </nav>
       {% endif %}
 
+      {% if isProseWrapped %}<div class="wa-prose">{% endif %}
       {# Flashes #}
       {% block flashes %}
       <div id="flashes">{% server "flashes" %}</div>
@@ -175,10 +181,16 @@
       {% endblock %}
 
       {% block afterContent %}{% endblock %}
+      {% if isProseWrapped %}</div>{% endif %}
     </main>
 
     {# wa-page-based Main Footer #}
-    {% block pageMainFooter %}{% endblock %}
+    {% block pageMainFooter %}
+    {% if hasMadeWith == undefined %}{% set hasMadeWith = false %}{% endif %}
+    <footer slot="main-footer" class="page-footer">
+      {% include "page-footer-content.njk" %}
+    </footer>
+    {% endblock %}
 
     {# wa-page-based Footer #}
     {% block pageFooter %}{% endblock %}

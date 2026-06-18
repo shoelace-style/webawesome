@@ -1,0 +1,73 @@
+{% if isShowingFooterVersion == undefined %}{% set isShowingFooterVersion = true %}{% endif %}
+{% if hasMadeWith == undefined %}{% set hasMadeWith = true %}{% endif %}
+
+{% set footerSocials = [
+{ url: site.github.repo, name: 'github', label: 'GitHub', destination: 'github' },
+{ url: site.urls.discord, name: 'discord', label: 'Discord', destination: 'discord' },
+{ url: site.urls.bluesky, name: 'bluesky', label: 'Bluesky', destination: 'bluesky' },
+{ url: site.urls.mastodon, name: 'mastodon', label: 'Mastodon', destination: 'mastodon' },
+{ url: site.urls.x, name: 'x-twitter', label: 'Twitter (X)', destination: 'twitter' },
+{ url: site.urls.threads, name: 'threads', label: 'Threads', destination: 'threads' }
+] %}
+
+{% set footerLegalLinks = [
+{ url: site.legal.tos, label: 'Terms', destination: 'tos' },
+{ url: site.legal.privacy, label: 'Privacy', destination: 'privacy' },
+{ url: site.legal.refunds, label: 'Refunds', destination: 'refunds' },
+{ url: site.legal.licenseCore, label: 'Core License', destination: 'core_license' },
+{ url: site.legal.licensePro, label: 'Pro License', destination: 'pro_license' }
+] %}
+
+<div class="wa-stack wa-gap-s page-footer-content">
+  {% if not hasFocusedFooter %}
+  <div class="wa-split">
+    <div class="wa-cluster wa-gap-s wa-flex-nowrap">
+      <wa-icon name="web-awesome" family="brands" class="logo-web-awesome wa-font-size-m"
+        label="{{ site.tagline }}"></wa-icon>
+      <strong class="font-brand">Go Make Something Awesome</strong>
+    </div>
+
+    <nav aria-label="Web Awesome Elsewhere">
+      <ul class="appearance-plain wa-cluster wa-gap-0 page-footer-socials wa-caption-s">
+        {% for social in footerSocials %}
+        <li><a class="appearance-plain" href="{{ social.url }}" rel="noopener noreferrer" target="_blank"
+            data-track-event="footer:social_link_click" data-track-destination="{{ social.destination }}"><wa-icon
+              family="brands" name="{{ social.name }}" label="{{ social.label }}"></wa-icon></a></li>
+        {% endfor %}
+      </ul>
+    </nav>
+  </div>
+  {% endif %}
+
+  <div class="wa-split">
+    <div class="wa-cluster wa-gap-3xs">
+      {% if isShowingFooterVersion and not hasFocusedFooter %}
+      <span>Version {{ package.version }}</span>
+      <wa-icon name="dot"></wa-icon>
+      {% endif %}
+      {% if hasMadeWith and not hasFocusedFooter %}
+      {%- raw -%}
+      {% set madeWithElements = ['button', 'card', 'combobox', 'dialog', 'drawer', 'dropdown', 'page', 'popover',
+      'split-panel', 'sabi', 'ffles', 'tooltip', 'ter'] %}
+      {% set randomElement = madeWithElements | random %}
+      <span class="page-footer-made-with">Made with <wa-icon name="heart" variant="regular"></wa-icon> and <code
+          class="appearance-plain">&lt;wa-{{ randomElement }}&gt;</code></span>
+      {% endraw %}
+      <wa-icon name="dot"></wa-icon>
+      {% endif %}
+      <span>&copy; {{ site.company }}</span>
+    </div>
+    <nav aria-label="Legal">
+      <ul class="appearance-plain wa-cluster wa-gap-s">
+        {% for link in footerLegalLinks %}
+        <li><a class="appearance-plain" href="{{ link.url }}" data-track-event="navigation:footer_link_click"
+            data-track-destination="{{ link.destination }}">{{ link.label }}</a></li>
+        {% endfor %}
+        <li><button type="button" class="appearance-plain page-footer-cookie-button"
+            data-dialog="open cookie-consent-dialog" data-track-event="navigation:footer_link_click"
+            data-track-destination="cookie_preferences">Cookies</button></li>
+      </ul>
+    </nav>
+  </div>
+
+</div>

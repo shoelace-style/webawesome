@@ -2,6 +2,7 @@
 title: Tab
 layout: component
 category: Navigation
+parent: tab-group
 synonyms:
   - tab button
   - tab header

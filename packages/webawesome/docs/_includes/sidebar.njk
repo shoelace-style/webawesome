@@ -13,313 +13,128 @@
 {% from "pro-badge.njk" import proBadge %}
 {% from "planned-badge.njk" import plannedBadge %}
 
-{# Getting started #}
-<h2 class="wa-cluster wa-gap-xs">
-  <wa-icon name="wand-magic-sparkles" variant="regular" aria-hidden="true"></wa-icon>
-  Getting Started
-</h2>
-<ul>
-  <li><a href="/docs">Installation</a></li>
-  <li><a href="/docs/usage">Usage</a></li>
-  <li><a href="/docs/form-controls">Forms</a></li>
-  <li><a href="/docs/localization">Localization</a></li>
-  <li><a href="/docs/frameworks/">Frameworks</a></li>
-  <li><a href="/docs/ai">Using with AI</a></li>
-  <li>
-    <span class="wa-split">
-      <a href="/docs/resources/figma">Figma Design Kit</a>
-      {{ proBadge() }}
-    </span>
-  </li>
-  <li>
-    <a class="wa-cluster wa-gap-xs" href="/docs/ssr">
-      Server Rendering
-      <wa-icon name="flask" aria-hidden="true" class="icon-shrink de-emphasize"></wa-icon>
-    </a>
-  </li>
-</ul>
+{%- macro sidebarComponent(page, suppressProBadge=false) -%}
+  {%- set component = page.data.component -%}
+  {%- set isExperimental = component and component.status == 'experimental' -%}
+  {%- set isPro = page.data.isProComponent and not suppressProBadge -%}
+  {%- if isPro %}<span class="wa-split">{% endif -%}
+  <a{% if isExperimental %} class="wa-cluster wa-gap-xs"{% endif %} href="{{ page.url }}">{{ page.data.title }}{% if isExperimental %} <wa-icon name="flask" aria-hidden="true" class="icon-shrink de-emphasize"></wa-icon>{% endif %}</a>
+  {%- if isPro %} {{ proBadge() }}</span>{% endif -%}
+{%- endmacro %}
 
-{# Resources #}
-<h2 class="wa-cluster wa-gap-xs">
-  <wa-icon name="book-spine" variant="regular" aria-hidden="true"></wa-icon>
-  Resources
-</h2>
-<ul>
-  <li><a href="/docs/resources/accessibility">Accessibility</a></li>
-  <li><a href="/docs/resources/browser-support">Browser Support</a></li>
-  <li><a href="/docs/resources/contributing">Contributing</a></li>
-  <li>
-    <span class="wa-split">
-      <a href="/docs/patterns/">Patterns</a>
-      {{ proBadge({ description: "Patterns require access to " ~ site.namePro }) }}
-    </span>
-  </li>
-  <li><a href="/docs/resources/migrating-from-shoelace">Migrating from Shoelace</a></li>
-  <li><a href="/docs/resources/visual-tests">Visual Tests</a></li>
-  <li><a href="/docs/resources/changelog">Changelog</a></li>
-  <li><a href="{{ site.urls.support }}">Help & Support</a></li>
-</ul>
+{%- set sortedComponentPages = collections.componentPages | sort(false, false, 'data.title') -%}
 
-<!-- Theming & Utilities -->
-<h2 class="wa-cluster wa-gap-xs">
-  <wa-icon name="palette" variant="regular" aria-hidden="true"></wa-icon>
-  Theming &amp; Utilities
-</h2>
-<ul>
-  <li><a href="/docs/theming-overview">Overview</a></li>
-  <li><a href="/docs/themes">Built-in Themes</a></li>
-  <li><a href="/docs/color-palettes">Color Palettes</a></li>
-  <li><a href="/docs/tokens/">Design Tokens</a></li>
-  <li><a href="/docs/customizing">Customizing &amp; Theming</a></li>
-  <li><a href="/docs/utilities/">CSS Utilities</a></li>
-</ul>
-
-<!-- Components -->
-<h2 class="wa-cluster wa-gap-xs">
-  <wa-icon name="block" variant="regular" aria-hidden="true"></wa-icon>
-  Components
-</h2>
-<ul>
-    <li>
-      <a class="wa-cluster wa-gap-xs" href="/docs/components/accordion/">
-        Accordion
-        <wa-icon name="flask" aria-hidden="true" class="icon-shrink de-emphasize"></wa-icon>
-      </a>
-      <ul>
-        <li><a class="wa-cluster wa-gap-xs" href="/docs/components/accordion-item">
-          Accordion Item
-          <wa-icon name="flask" aria-hidden="true" class="icon-shrink de-emphasize"></wa-icon>
-        </a></li>
-      </ul>
-    </li>
-    <li><a href="/docs/components/animated-image/">Animated Image</a></li>
-    <li><a href="/docs/components/avatar/">Avatar</a></li>
-    <li><a href="/docs/components/badge/">Badge</a></li>
-    <li>
-      <a href="/docs/components/breadcrumb/">Breadcrumb</a>
-      <ul>
-        <li><a href="/docs/components/breadcrumb-item/">Breadcrumb Item</a></li>
-      </ul>
-    </li>
-    <li><a href="/docs/components/button/">Button</a></li>
-    <li><a href="/docs/components/button-group/">Button Group</a></li>
-    <li><a href="/docs/components/callout/">Callout</a></li>
-    <li><a href="/docs/components/card/">Card</a></li>
-    <li>
-      <a class="wa-cluster wa-gap-xs" href="/docs/components/carousel/">
-        Carousel
-        <wa-icon name="flask" aria-hidden="true" class="icon-shrink de-emphasize"></wa-icon>
-      </a>
-      <ul>
-        <li>
-          <a class="wa-cluster wa-gap-xs" href="/docs/components/carousel-item/">
-            Carousel Item
-            <wa-icon name="flask" aria-hidden="true" class="icon-shrink de-emphasize"></wa-icon>
-          </a>
-        </li>
-      </ul>
-    </li>
-    <li><a href="/docs/components/comparison/">Comparison</a></li>
-    <li>
-      <a class="wa-cluster wa-gap-xs" href="/docs/components/copy-button/">Copy Button</a>
-    </li>
-    <li>
-      <span class="wa-split">
-        <a class="wa-cluster wa-gap-xs" href="/docs/components/date-picker/">
-          Date Picker
+<div class="wa-stack wa-gap-xl">
+  <section class="wa-stack">
+    <h2 class="wa-cluster wa-gap-xs">
+      <wa-icon name="wand-magic-sparkles" variant="regular" aria-hidden="true"></wa-icon>
+      Getting Started
+    </h2>
+    <ul>
+      <li><a href="/docs">Installation</a></li>
+      <li><a href="/docs/usage">Usage</a></li>
+      <li><a href="/docs/form-controls">Forms</a></li>
+      <li><a href="/docs/localization">Localization</a></li>
+      <li><a href="/docs/frameworks/">Frameworks</a></li>
+      <li><a href="/docs/ai">Using with AI</a></li>
+      <li>
+        <span class="wa-split">
+          <a href="/docs/resources/figma">Figma Design Kit</a>
+          {{ proBadge() }}
+        </span>
+      </li>
+      <li>
+        <a class="wa-cluster wa-gap-xs" href="/docs/ssr">
+          Server Rendering
           <wa-icon name="flask" aria-hidden="true" class="icon-shrink de-emphasize"></wa-icon>
         </a>
-        {{ proBadge() }}
-      </span>
-    </li>
-    <li><a href="/docs/components/details/">Details</a></li>
-    <li><a href="/docs/components/dialog/">Dialog</a></li>
-    <li><a href="/docs/components/divider/">Divider</a></li>
-    <li><a href="/docs/components/drawer/">Drawer</a></li>
-    <li>
-      <a href="/docs/components/dropdown">Dropdown</a>
-      <ul>
-        <li><a href="/docs/components/dropdown-item">Dropdown Item</a></li>
-      </ul>
-    </li>
-    <li><a href="/docs/components/icon/">Icon</a></li>
-    <li><a href="/docs/components/page/">Page</a></li>
-    <li><a href="/docs/components/progress-bar/">Progress Bar</a></li>
-    <li><a href="/docs/components/progress-ring/">Progress Ring</a></li>
-    <li><a href="/docs/components/qr-code/">QR Code</a></li>
-    <li><a href="/docs/components/scroller/">Scroller</a></li>
-    <li><a href="/docs/components/skeleton/">Skeleton</a></li>
-    <li><a href="/docs/components/spinner/">Spinner</a></li>
-    <li><a href="/docs/components/split-panel/">Split Panel</a></li>
-    <li>
-      <a href="/docs/components/tab-group/">Tab Group</a>
-      <ul>
-        <li><a href="/docs/components/tab/">Tab</a></li>
-        <li><a href="/docs/components/tab-panel/">Tab Panel</a></li>
-      </ul>
-    </li>
-    <li><a href="/docs/components/tag/">Tag</a></li>
-    <li>
-      <span class="wa-split">
-        <a href="/docs/components/toast/">Toast</a>
-        {{ proBadge() }}
-      </span>
-      <ul>
-        <li>
-          <span class="wa-split">
-            <a href="/docs/components/toast-item/">Toast Item</a>
-            {{ proBadge() }}
-          </span>
-        </li>
-      </ul>
-    </li>
-    <li><a href="/docs/components/tooltip/">Tooltip</a></li>
-    <li>
-      <a href="/docs/components/tree/">Tree</a>
-      <ul>
-        <li><a href="/docs/components/tree-item/">Tree Item</a></li>
-      </ul>
-    </li>
-    <li>
-      <span class="wa-split">
-        <a class="wa-cluster wa-gap-xs" href="/docs/components/video/">
-          Video
-          <wa-icon name="flask" aria-hidden="true" class="icon-shrink de-emphasize"></wa-icon>
-        </a>
-        {{ proBadge()}}
-      </span>
-    </li>
-    <li>
-      <span class="wa-split">
-        <a class="wa-cluster wa-gap-xs" href="/docs/components/video-playlist/">
-          Video Playlist
-          <wa-icon name="flask" aria-hidden="true" class="icon-shrink de-emphasize"></wa-icon>
-        </a>
-        {{ proBadge() }}
-      </span>
-    </li>
-    <li><a href="/docs/components/zoomable-frame">Zoomable Frame</a></li>
-    {# PLOP_NEW_COMPONENT_PLACEHOLDER #}
-</ul>
+      </li>
+    </ul>
+  </section>
 
-<!-- Data Visualization -->
-<h2 class="wa-cluster wa-gap-xs wa-split">
-  <span class="wa-cluster wa-gap-xs">
-    <wa-icon name="chart-area" variant="regular" aria-hidden="true"></wa-icon>
-    Data Visualization
-  </span>
-  {{ proBadge({ description: "Data Visualization components require access to " ~ site.namePro }) }}
-</h2>
-<ul>
-  <li><a href="/docs/components/bar-chart">Bar Chart</a></li>
-  <li><a href="/docs/components/line-chart">Line Chart</a></li>
-  <li><a href="/docs/components/bubble-chart">Bubble Chart</a></li>
-  <li><a href="/docs/components/doughnut-chart">Doughnut Chart</a></li>
-  <li><a href="/docs/components/pie-chart">Pie Chart</a></li>
-  <li><a href="/docs/components/polar-area-chart">Polar Area Chart</a></li>
-  <li><a href="/docs/components/radar-chart">Radar Chart</a></li>
-  <li><a href="/docs/components/scatter-chart">Scatter Chart</a></li>
-  <li><a href="/docs/components/sparkline">Sparkline</a></li>
-  <li><a href="/docs/components/chart">Advanced Usage</a></li>
-</ul>
+  <section class="wa-stack">
+    <h2 class="wa-cluster wa-gap-xs">
+      <wa-icon name="book-spine" variant="regular" aria-hidden="true"></wa-icon>
+      Resources
+    </h2>
+    <ul>
+      <li><a href="/docs/resources/accessibility">Accessibility</a></li>
+      <li><a href="/docs/resources/browser-support">Browser Support</a></li>
+      <li><a href="/docs/resources/contributing">Contributing</a></li>
+      <li>
+        <span class="wa-split">
+          <a href="/docs/patterns/">Patterns</a>
+          {{ proBadge({ description: "Patterns require access to " ~ site.namePro }) }}
+        </span>
+      </li>
+      <li><a href="/docs/resources/migrating-from-shoelace">Migrating from Shoelace</a></li>
+      <li><a href="/docs/resources/visual-tests">Visual Tests</a></li>
+      <li><a href="/docs/resources/changelog">Changelog</a></li>
+      <li><a href="{{ site.urls.support }}">Help & Support</a></li>
+    </ul>
+  </section>
 
-<!-- Form Controls -->
-<h2 class="wa-cluster wa-gap-xs">
-  <wa-icon name="input-pipe" variant="regular" aria-hidden="true"></wa-icon>
-  Form Controls
-</h2>
-<ul>
-    <li><a href="/docs/components/checkbox/">Checkbox</a></li>
-    <li><a href="/docs/components/checkbox-group/">Checkbox Group</a></li>
-    <li><a href="/docs/components/color-picker/">Color Picker</a></li>
-    <li>
-      <span class="wa-split">
-        <a href="/docs/components/combobox">Combobox</a>
-        {{ proBadge() }}
+  <section class="wa-stack">
+    <h2 class="wa-cluster wa-gap-xs">
+      <wa-icon name="palette" variant="regular" aria-hidden="true"></wa-icon>
+      Theming &amp; Utilities
+    </h2>
+    <ul>
+      <li><a href="/docs/theming-overview">Overview</a></li>
+      <li><a href="/docs/themes">Built-in Themes</a></li>
+      <li><a href="/docs/color-palettes">Color Palettes</a></li>
+      <li><a href="/docs/tokens/">Design Tokens</a></li>
+      <li><a href="/docs/customizing">Customizing &amp; Theming</a></li>
+      <li><a href="/docs/utilities/">CSS Utilities</a></li>
+    </ul>
+  </section>
+
+  {# Components — auto-organized by category. Categories defined in _data/componentCategories.json. #}
+  {# Each component's `.md` front matter drives placement: `category` chooses the section, optional `parent` nests it under another component, optional `sidebarHidden` skips it. #}
+  {% for cat in componentCategories %}
+  {%- set categoryPages = [] -%}
+  {%- for page in sortedComponentPages -%}
+    {%- if page.data.category == cat.label and not page.data.parent and not page.data.sidebarHidden -%}
+      {%- set _ = categoryPages.push(page) -%}
+    {%- endif -%}
+  {%- endfor -%}
+  {%- set categoryIsAllPro = categoryPages.length > 0 -%}
+  {%- for page in categoryPages -%}
+    {%- if not page.data.isProComponent -%}{%- set categoryIsAllPro = false -%}{%- endif -%}
+  {%- endfor -%}
+  <section class="wa-stack">
+    <h2 class="wa-split">
+      <span class="wa-cluster wa-gap-xs">
+        <wa-icon name="{{ cat.icon }}" variant="regular" aria-hidden="true"></wa-icon>
+        {{ cat.label }}
       </span>
-    </li>
-    <li><span class="is-planned wa-split">Data Grid <span>{{ plannedBadge("A Web Awesome Kickstarter stretch goal!") }}</span></span></li>
-    <li>
-      <span class="wa-split">
-        <a class="wa-cluster wa-gap-xs" href="/docs/components/date-input">
-          Date Input
-          <wa-icon name="flask" aria-hidden="true" class="icon-shrink de-emphasize"></wa-icon>
-        </a>
-        {{ proBadge() }}
-      </span>
-    </li>
-    <li>
-      <span class="wa-split">
-        <a href="/docs/components/file-input">File Input</a>
-        {{ proBadge() }}
-      </span>
-    </li>
-    <li><a href="/docs/components/input/">Input</a></li>
-    <li><a class="wa-cluster wa-gap-xs" href="/docs/components/known-date/">
-      Known Date
-      <wa-icon name="flask" aria-hidden="true" class="icon-shrink de-emphasize"></wa-icon>
-    </a></li>
-    <li><a href="/docs/components/number-input">Number Input</a></li>
-    <li>
-      <a href="/docs/components/radio-group/">Radio Group</a>
-      <ul>
-        <li><a href="/docs/components/radio/">Radio</a></li>
-      </ul>
-    </li>
-    <li><a href="/docs/components/rating/">Rating</a></li>
-    <li>
-      <a href="/docs/components/select/">Select</a>
-      <ul>
-        <li><a href="/docs/components/option/">Option</a></li>
-      </ul>
-    </li>
-    <li><a href="/docs/components/slider/">Slider</a></li>
-    <li><a href="/docs/components/switch/">Switch</a></li>
-    <li><a href="/docs/components/textarea/">Textarea</a></li>
-    <li><a class="wa-cluster wa-gap-xs" href="/docs/components/time-input/">
-      Time Input
-      <wa-icon name="flask" aria-hidden="true" class="icon-shrink de-emphasize"></wa-icon>
-    </a></li>
-</ul>
-
-
-<!-- Utility Components -->
-<h2 class="wa-cluster wa-gap-xs">
-  <wa-icon name="utility-pole" variant="regular" aria-hidden="true"></wa-icon>
-  Utility Components
-</h2>
-<ul>
-    <li><a href="/docs/components/animation/">Animation</a></li>
-    <li><a href="/docs/components/format-bytes/">Format Bytes</a></li>
-    <li><a href="/docs/components/format-date/">Format Date</a></li>
-    <li><a href="/docs/components/format-number/">Format Number</a></li>
-    <li><a href="/docs/components/include/">Include</a></li>
-    <li><a href="/docs/components/intersection-observer">Intersection Observer</a></li>
-    <li>
-      <a class="wa-cluster wa-gap-xs" href="/docs/components/markdown">
-        Markdown
-        <wa-icon name="flask" aria-hidden="true" class="icon-shrink de-emphasize"></wa-icon>
-      </a>
-    </li>
-    <li><a href="/docs/components/mutation-observer/">Mutation Observer</a></li>
-    <li><a href="/docs/components/popover/">Popover</a></li>
-    <li><a href="/docs/components/popup/">Popup</a></li>
-    <li><a href="/docs/components/relative-time/">Relative Time</a></li>
-    <li><a href="/docs/components/resize-observer/">Resize Observer</a></li>
-</ul>
-
-{# Legal Stuff #}
-<h2 class="wa-cluster wa-gap-xs">
-  <wa-icon name="gavel" variant="regular" aria-hidden="true"></wa-icon>
-  Legal Stuff
-</h2>
-<ul>
-  <li><a href="{{ site.legal.licenseCore }}"><span class="wa-visually-hidden">Web Awesome </span>Core License</a></li>
-  <li><a href="{{ site.legal.licensePro }}"><span class="wa-visually-hidden">Web Awesome </span>Pro License</a></li>
-  <li><a href="{{ site.legal.tos }}">Terms of Service</a></li>
-  <li><a href="{{ site.legal.privacy }}">Privacy Policy</a></li>
-  <li><a href="{{ site.legal.refunds }}">Refund Policy</a></li>
-  <li><a href="/dpa">Data Processing Agreement</a></li>
-</ul>
-
-{% include "sidebar-colophon.njk" %}
+      {% if categoryIsAllPro %}{{ proBadge() }}{% endif %}
+    </h2>
+    <ul>
+    {%- for page in categoryPages %}
+      <li>
+        {{ sidebarComponent(page, categoryIsAllPro) }}
+        {%- set children = [] -%}
+        {%- for child in sortedComponentPages -%}
+          {%- if child.data.parent == page.fileSlug and not child.data.sidebarHidden -%}
+            {%- set _ = children.push(child) -%}
+          {%- endif -%}
+        {%- endfor -%}
+        {%- if children.length %}
+        <ul>
+        {%- for child in children %}
+          <li>{{ sidebarComponent(child, categoryIsAllPro) }}</li>
+        {%- endfor %}
+        </ul>
+        {%- endif %}
+      </li>
+    {%- endfor %}
+    {%- if cat.slug == 'forms' %}
+      <li><span class="is-planned wa-split">Data Grid <span>{{ plannedBadge("A Web Awesome Kickstarter stretch goal!") }}</span></span></li>
+    {%- elif cat.slug == 'data-viz' %}
+      <li><a href="/docs/components/chart">Advanced Usage</a></li>
+    {%- endif %}
+    </ul>
+  </section>
+  {% endfor %}
+</div>
