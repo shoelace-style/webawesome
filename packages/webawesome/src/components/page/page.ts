@@ -238,7 +238,7 @@ export default class WaPage extends WebAwesomeElement {
       if (!['navigation', 'navigation-header', 'navigation-footer'].includes(slotName)) return;
     }
 
-    const hasCustomToggle = Boolean(this.querySelector(":not([slot='toggle-navigation']) [data-toggle-nav]"));
+    const hasCustomToggle = Boolean(this.querySelector(":not([slot='navigation-toggle']) [data-toggle-nav]"));
     const hasNavigationContent =
       Boolean(this.querySelector('[slot="navigation"]')) ||
       Boolean(this.querySelector('[slot="navigation-header"]')) ||

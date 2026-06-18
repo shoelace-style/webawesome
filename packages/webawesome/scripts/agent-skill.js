@@ -380,6 +380,160 @@ function getComponentInfo(components, frontMatterCache) {
 }
 
 /**
+ * Builds a fast lookup of CEM declarations keyed by tag name (e.g. `wa-button`).
+ */
+function indexComponentsByTag(components) {
+  const map = new Map();
+  for (const component of components) {
+    if (component.tagName) map.set(component.tagName, component);
+  }
+  return map;
+}
+
+/**
+ * Collapses whitespace/newlines and escapes pipes so a value is safe inside a Markdown table cell.
+ * CEM descriptions frequently contain hard newlines, which would otherwise break the table.
+ */
+function cell(value) {
+  if (value === undefined || value === null || value === '') return '';
+  return String(value).replace(/\r?\n/g, ' ').replace(/\s+/g, ' ').replace(/\|/g, '\\|').trim();
+}
+
+/** Wraps a value in backticks for a Markdown table cell, escaping pipes. Empty stays empty. */
+function code(value) {
+  const c = cell(value);
+  return c ? `\`${c}\`` : '';
+}
+
+/** Renders a simple Markdown table from a header array and an array of row arrays. */
+function table(headers, rows) {
+  if (!rows.length) return '';
+  const head = `| ${headers.join(' | ')} |`;
+  const sep = `| ${headers.map(() => '---').join(' | ')} |`;
+  const body = rows.map(r => `| ${r.join(' | ')} |`).join('\n');
+  return `${head}\n${sep}\n${body}`;
+}
+
+/**
+ * Generates the authoritative API reference for a component directly from its CEM declaration.
+ *
+ * The rendered-HTML → Turndown path mangles multi-column tables (collapsing the slots,
+ * attributes, and CSS-parts tables into garbled single cells and dropping slot names), which in
+ * turn causes consuming LLMs to invent non-existent slots/attributes. The CEM is clean,
+ * structured source of truth, so we build the API tables from it instead of scraping.
+ *
+ * Returns a Markdown string of `## Slots`, `## Attributes & Properties`, etc., or '' if the
+ * component has no documented API.
+ */
+function generateCemReference(decl) {
+  if (!decl) return '';
+  const sections = [];
+
+  // Slots — also emitted as an explicit bullet list so valid slot names can never be lost to
+  // table formatting. The default slot is rendered as `(default)`.
+  if (decl.slots?.length) {
+    const lines = ['## Slots', ''];
+    lines.push('Valid slot names for this component (use exactly these — any other `slot` value');
+    lines.push('is silently ignored and the element falls back to the default slot):');
+    lines.push('');
+    for (const slot of decl.slots) {
+      const name = slot.name ? `\`${slot.name}\`` : '`(default)`';
+      lines.push(`- ${name} — ${cell(slot.description) || 'No description.'}`);
+    }
+    sections.push(lines.join('\n'));
+  }
+
+  // Attributes & properties
+  if (decl.attributes?.length) {
+    const rows = decl.attributes.map(attr => [
+      code(attr.name),
+      code(attr.fieldName && attr.fieldName !== attr.name ? attr.fieldName : ''),
+      code(attr.type?.text),
+      code(attr.default),
+      cell(attr.description),
+    ]);
+    sections.push(
+      ['## Attributes & Properties', '', table(['Attribute', 'Property', 'Type', 'Default', 'Description'], rows)].join(
+        '\n',
+      ),
+    );
+  }
+
+  // Methods — only those documented with a description (skips internal reactive handlers).
+  const methods = (decl.members || []).filter(
+    m => m.kind === 'method' && m.privacy !== 'private' && !m.name.startsWith('#') && m.description,
+  );
+  if (methods.length) {
+    const rows = methods.map(m => {
+      const args = (m.parameters || []).map(p => `${p.name}${p.type?.text ? `: ${p.type.text}` : ''}`).join(', ');
+      return [code(m.name), cell(m.description), code(args)];
+    });
+    sections.push(['## Methods', '', table(['Method', 'Description', 'Arguments'], rows)].join('\n'));
+  }
+
+  // Events
+  if (decl.events?.length) {
+    const rows = decl.events.map(e => [code(e.name), cell(e.description)]);
+    sections.push(['## Events', '', table(['Event', 'Description'], rows)].join('\n'));
+  }
+
+  // Custom states
+  if (decl.cssStates?.length) {
+    const rows = decl.cssStates.map(s => [code(s.name), cell(s.description)]);
+    sections.push(['## Custom States', '', table(['State', 'Description'], rows)].join('\n'));
+  }
+
+  // CSS parts
+  if (decl.cssParts?.length) {
+    const rows = decl.cssParts.map(p => [code(p.name), cell(p.description)]);
+    sections.push(['## CSS Parts', '', table(['Part', 'Description'], rows)].join('\n'));
+  }
+
+  // CSS custom properties
+  if (decl.cssProperties?.length) {
+    const rows = decl.cssProperties.map(p => [code(p.name), code(p.default), cell(p.description)]);
+    sections.push(['## CSS Custom Properties', '', table(['Property', 'Default', 'Description'], rows)].join('\n'));
+  }
+
+  return sections.join('\n\n');
+}
+
+/**
+ * Headings that begin the auto-generated API reference in the scraped Markdown. Everything from
+ * the first of these onward is replaced with clean CEM-derived tables, since the scraped versions
+ * are garbled. Prose and examples above these headings are kept as-is.
+ */
+const SCRAPED_API_HEADINGS = [
+  'Slots',
+  'Attributes & Properties',
+  'Attributes and Properties',
+  'Methods',
+  'Events',
+  'Custom States',
+  'CSS parts',
+  'CSS Parts',
+  'CSS custom properties',
+  'CSS Custom Properties',
+  'Dependencies',
+  'Importing',
+];
+
+/**
+ * Truncates scraped Markdown at the first auto-generated API section heading, returning only the
+ * prose/examples portion. The clean CEM reference (and Importing notes) are appended separately.
+ */
+function stripScrapedApiSections(markdown) {
+  const lines = markdown.split('\n');
+  for (let i = 0; i < lines.length; i++) {
+    const match = lines[i].match(/^#{2,3}\s+(.+?)\s*$/);
+    if (match && SCRAPED_API_HEADINGS.includes(match[1].trim())) {
+      return lines.slice(0, i).join('\n').trim();
+    }
+  }
+  return markdown.trim();
+}
+
+/**
  * Generates the main SKILL.md content.
  */
 function generateSkillMd({ componentList, packageData, baseUrl }) {
@@ -447,7 +601,7 @@ ${renderComponentList(proByCategory[category], true)}`,
 
   return `---
 name: webawesome
-description: Web Awesome is a UI component library built with web components. Use when building buttons, inputs, selects, checkboxes, dialogs, modals, drawers, tabs, dropdowns, tooltips, carousels, forms, or using CSS utilities like wa-stack, wa-cluster, wa-grid. Supports React, Vue, Angular, Svelte, and vanilla JS.
+description: Web Awesome is a UI component library built with web components. Use when building buttons, inputs, selects, checkboxes, dialogs, modals, drawers, tabs, dropdowns, tooltips, carousels, forms, or using CSS utilities like wa-stack, wa-cluster, wa-grid, wa-prose. Supports React, Vue, Angular, Svelte, and vanilla JS.
 license: MIT / Commercial (for Web Awesome Pro)
 metadata:
   author: Web Awesome
@@ -463,6 +617,8 @@ allowed-tools: Read
 Web Awesome is an open source UI component library with a Pro offering that helps sustain the project. It provides 50+ accessible, customizable web components that work with any framework.
 
 **Pro components and features are available to paid users.** [Purchase Pro](${baseUrl}/purchase)
+
+> **Designing with Web Awesome?** For full-page layout (\`<wa-page>\`), theming, brand color, and visual composition guidance, install the companion **\`webawesome-design\`** skill. This skill is the component reference; that one teaches how to put components together into a polished UI. See [Agent Skills](${baseUrl}/docs/ai/agent-skills) for both.
 
 ## Quick Start
 
@@ -510,8 +666,149 @@ For complete usage details, see [Usage Guide](references/usage.md).
 
 ## Components
 
+> **Not sure which one to pick?** See [Choosing the right component](references/choosing-components.md)
+> — a decision tree organized by user intent. Most agent mistakes here are picking the wrong component
+> (e.g. \`<wa-dropdown>\` instead of \`<wa-select>\`), not API misuse.
+
 ${freeComponentsSection}
 ${proComponentsSection}
+## Building Full Pages with \`<wa-page>\`
+
+\`<wa-page>\` scaffolds an entire page layout (banner, header, navigation, main content, aside,
+footer) with responsive behavior built in. Most layout bugs come from a few specific mistakes —
+read this before generating a page.
+
+### Main content goes in the DEFAULT slot — there is no \`main\` slot
+
+Put your primary content directly inside \`<wa-page>\` with **no \`slot\` attribute**. There is
+**no slot named \`main\`**. Writing \`<main slot="main">\` sends the element to a slot that does not
+exist, so it is dropped and **the entire page renders blank**. This failure is silent — no error,
+no warning.
+
+\`\`\`html
+<!-- Correct: <main> is unslotted, so it lands in the default slot -->
+<wa-page>
+  <main>...your sections...</main>
+</wa-page>
+
+<!-- WRONG: there is no "main" slot — the page body disappears -->
+<wa-page>
+  <main slot="main">...</main>
+</wa-page>
+\`\`\`
+
+### Valid slots (use these exact names)
+
+\`banner\`, \`header\`, \`subheader\`, \`navigation-header\`, \`navigation\`,
+\`navigation-footer\`, \`menu\`, \`main-header\`, \`main-footer\`, \`aside\`, \`footer\`,
+\`skip-to-content\`, \`navigation-toggle\`. **Anything else** (e.g. \`slot="main"\`, \`slot="nav"\`,
+\`slot="content"\`) is silently ignored. There is no \`nav\` slot — the navigation slot is
+\`navigation\`. (\`menu\` is an advanced escape hatch that *replaces* the entire left navigation
+region; don't use it for ordinary nav links — and for a landing page, skip the left region
+entirely, see below.)
+
+### Navigation: a landing page needs nav in the \`header\` ONLY — do NOT use the \`navigation\` slot
+
+This is the #1 \`<wa-page>\` bug, and it comes from a wrong mental model. **The \`navigation\` slot
+is a persistent left sidebar, not a top nav bar.** On desktop it renders as a vertical menu column
+down the **left side** of the page (the \`menu\` region), and on mobile it collapses into a slide-out
+drawer. It is for **app layouts** (docs sites, dashboards) — NOT for a marketing landing page.
+
+A landing page's nav belongs in the **\`header\`** slot (the sticky top bar). If you put your links
+in the \`header\` **and also** in a \`<… slot="navigation">\`, you get **both at once on desktop**: the
+top bar AND a duplicate vertical list down the left side. That is the duplicated nav you must avoid.
+
+**Rule for landing pages: put nav links inline in the \`header\` slot and do not add a \`navigation\`
+(or \`menu\`) slot at all.** You do not need it, and adding it is what creates the duplicate.
+
+Mobile toggle for a header-only nav: \`<wa-page>\` auto-hides any element with \`[data-toggle-nav]\`
+on desktop and shows it on mobile (and \`.wa-mobile-only\` / \`.wa-desktop-only\` are honored too), so
+put a toggle button in the header with \`data-toggle-nav\` and wire it to show/hide your own header
+links — no media query needed. (Note: the component's built-in hamburger only appears when a
+\`navigation\` slot has content and you haven't supplied your own toggle; with header-only nav it
+stays hidden, which is what you want.)
+
+**Only** use the \`navigation\` slot if you genuinely want a left sidebar layout. In that case put
+the links there **only**, leave the \`header\` free of nav links, and you get the responsive drawer
+for free. Never list the same links in both \`header\` and \`navigation\`.
+
+### Zero the page reset AND mind the slot padding
+
+1. Zero \`<html>\`/\`<body>\` padding & margin or you get gaps:
+   \`\`\`css
+   html, body { min-height: 100%; padding: 0; margin: 0; }
+   \`\`\`
+2. **Always zero the padding on the default (main) slot.** Every slot region already has its own
+   \`padding\` and \`gap\`, including the default (main) slot. That built-in main padding is the most
+   common layout bug: it insets your full-bleed bands and, combined with any padding you add to
+   \`<main>\` or section wrappers, **stacks** and overflows on mobile. So always start by zeroing it
+   and control spacing yourself per section:
+   \`\`\`css
+   /* Always do this — then add your own padding inside each section. */
+   wa-page::part(main-content) { padding: 0; }
+   \`\`\`
+   With the main slot zeroed, give each section the horizontal padding it needs (and let full-bleed
+   sections run edge to edge). Don't add padding to \`<main>\` itself — pad the sections inside it.
+
+### Minimal complete example
+
+This is a landing page, so nav lives in the \`header\` only — there is **no \`navigation\` slot**.
+
+\`\`\`html
+<html class="wa-theme-default">
+  <head>
+    <style>
+      html, body { min-height: 100%; padding: 0; margin: 0; }
+
+      /* Zero the built-in padding on the main slot AND on the slotted <main>,
+         then pad each section yourself. (::part alone doesn't remove the
+         padding wa-page puts on a slotted <main>/<section>.) */
+      wa-page::part(main-content) { padding: 0; }
+      wa-page > main { padding: 0; }
+
+      /* Header nav: visible on desktop, hidden on mobile until toggled open. */
+      .header-links { display: flex; gap: var(--wa-space-l); }
+      wa-page[view='mobile'] .header-links { display: none; }
+      wa-page[view='mobile'][nav-open] .header-links {
+        display: flex; flex-direction: column;
+        position: absolute; inset-block-start: 100%; inset-inline: 0;
+        padding: var(--wa-space-m); background: var(--wa-color-surface-default);
+      }
+    </style>
+  </head>
+  <body>
+    <wa-page mobile-breakpoint="768">
+      <div slot="banner">Free shipping this week!</div>
+
+      <header slot="header" class="wa-split" style="position: relative;">
+        <a href="#">Brand</a>
+        <nav class="header-links">
+          <a href="#features">Features</a>
+          <a href="#pricing">Pricing</a>
+        </nav>
+        <!-- Auto-hidden on desktop, shown on mobile. Toggles [nav-open] on the page. -->
+        <wa-button data-toggle-nav appearance="plain" class="wa-mobile-only">
+          <wa-icon name="bars" label="Menu"></wa-icon>
+        </wa-button>
+      </header>
+
+      <!-- Main content: unslotted (default slot). NEVER slot="main". -->
+      <main>
+        <section>...</section>
+      </main>
+
+      <footer slot="footer">© 2026 Brand</footer>
+    </wa-page>
+  </body>
+</html>
+\`\`\`
+
+(\`data-toggle-nav\` toggles the page's \`nav-open\` attribute, which the CSS above uses to reveal the
+header links on mobile. No JavaScript and no \`navigation\` slot required.)
+
+See the full reference at [\`<wa-page>\`](references/components/page.md) and
+${baseUrl}/docs/components/page.
+
 ## Themes
 
 Web Awesome includes pre-built themes. Apply a theme by adding its class to the \`<html>\` element.
@@ -554,11 +851,12 @@ Web Awesome provides CSS utilities for common styling tasks:
 - **Text**: Typography utilities
 - **Color**: Color variant utilities
 - **Rounding**: \`wa-border-radius-*\` utilities
+- **Prose**: \`wa-prose\` for long-form typographic rhythm (articles, docs, marketing copy)
 - **Accessibility**: \`wa-visually-hidden\` utilities
 - **FOUCE Prevention**: \`wa-cloak\` utility
 - **Native Styles**: Enhanced styling for native HTML elements
 
-See [Layout Utilities](references/utilities/layout.md), [Rounding](references/utilities/rounding.md), [Visually Hidden](references/utilities/visually-hidden.md), [FOUCE](references/utilities/fouce.md), and [Native Styles](references/utilities/native.md).
+See [Layout Utilities](references/utilities/layout.md), [Prose](references/utilities/prose.md), [Rounding](references/utilities/rounding.md), [Visually Hidden](references/utilities/visually-hidden.md), [FOUCE](references/utilities/fouce.md), and [Native Styles](references/utilities/native.md).
 
 ## Design Tokens
 
@@ -629,6 +927,7 @@ See [Support Reference](references/support.md) for more details.
 
 ## Reference Documentation
 
+- [Choosing the Right Component](references/choosing-components.md) — decision tree by user intent (start here if you're unsure which component fits)
 - [Installation Guide](references/installation.md)
 - [Usage Guide](references/usage.md)
 - [Form Controls](references/form-controls.md)
@@ -799,8 +1098,13 @@ function copyAndProcessDoc(siteDir, docsDir, destDir, htmlRelPath, destFileName,
 
 /**
  * Copies all component documentation files from rendered HTML.
+ *
+ * Prose and examples come from the scraped HTML, but the API reference (slots, attributes,
+ * methods, events, CSS parts/properties/states) is regenerated from the CEM via
+ * `generateCemReference`, because the scraped tables are garbled by the HTML → Markdown
+ * conversion. `componentsByTag` is the CEM index from `indexComponentsByTag`.
  */
-function copyAllComponentDocs(siteDir, destDir, baseUrl, frontMatterCache) {
+function copyAllComponentDocs(siteDir, destDir, baseUrl, frontMatterCache, componentsByTag) {
   const htmlDir = path.join(siteDir, 'docs/components');
   const componentsDestDir = path.join(destDir, 'components');
 
@@ -839,7 +1143,13 @@ function copyAllComponentDocs(siteDir, destDir, baseUrl, frontMatterCache) {
       '',
     ].join('\n');
 
-    fs.writeFileSync(path.join(componentsDestDir, `${componentName}.md`), header + processed, 'utf-8');
+    // Keep scraped prose/examples; replace the garbled scraped API tables with clean CEM tables.
+    const decl = componentsByTag.get(`wa-${componentName}`);
+    const cemReference = generateCemReference(decl);
+    const prose = cemReference ? stripScrapedApiSections(processed) : processed;
+    const body = cemReference ? `${prose}\n\n${cemReference}\n` : prose;
+
+    fs.writeFileSync(path.join(componentsDestDir, `${componentName}.md`), `${header}${body}`, 'utf-8');
   }
 }
 
@@ -847,7 +1157,18 @@ function copyAllComponentDocs(siteDir, destDir, baseUrl, frontMatterCache) {
  * Generates combined layout utilities documentation from rendered HTML.
  */
 function generateLayoutUtilitiesDoc(siteDir, docsDir, destDir, baseUrl) {
-  const layoutNames = ['stack', 'cluster', 'grid', 'split', 'flank', 'frame', 'gap', 'align-items', 'justify-content'];
+  const layoutNames = [
+    'stack',
+    'cluster',
+    'grid',
+    'split',
+    'flank',
+    'frame',
+    'gap',
+    'align-items',
+    'justify-content',
+    'flex-wrap',
+  ];
 
   // Load frontmatter for titles
   const frontMatterCache = loadFrontMatterFromDir(path.join(docsDir, 'docs/utilities'));
@@ -924,6 +1245,7 @@ export async function generateAgentSkill(options = {}) {
   }
 
   const components = getAllComponents(customElementsManifest);
+  const componentsByTag = indexComponentsByTag(components);
   const packageData = customElementsManifest.package || {};
   const frontMatterCache = loadAllFrontMatter(docsDir);
   const componentList = getComponentInfo(components, frontMatterCache);
@@ -945,7 +1267,7 @@ export async function generateAgentSkill(options = {}) {
   fs.writeFileSync(path.join(outdir, 'SKILL.md'), skillMd, 'utf-8');
 
   // Copy all component docs from rendered HTML
-  copyAllComponentDocs(siteDir, refsDir, baseUrl, frontMatterCache);
+  copyAllComponentDocs(siteDir, refsDir, baseUrl, frontMatterCache, componentsByTag);
 
   // Generate themes reference (static content)
   const themesRef = generateThemesReference(baseUrl);
@@ -954,6 +1276,14 @@ export async function generateAgentSkill(options = {}) {
   // Generate support reference (static content)
   const supportRef = generateSupportReference(baseUrl);
   fs.writeFileSync(path.join(refsDir, 'support.md'), supportRef, 'utf-8');
+
+  // Copy hand-authored "Choosing the right component" reference — a decision tree by user intent
+  // that helps agents pick the correct component instead of guessing from names. Source lives in
+  // scripts/agent-skill/ alongside this generator; copied verbatim into the skill's references/.
+  fs.copyFileSync(
+    path.join(__dirname, 'agent-skill', 'choosing-components.md'),
+    path.join(refsDir, 'choosing-components.md'),
+  );
 
   // Copy and process documentation files from rendered HTML
   copyAndProcessDoc(siteDir, docsDir, refsDir, 'docs/index.html', 'installation.md', baseUrl, {
@@ -1016,6 +1346,10 @@ export async function generateAgentSkill(options = {}) {
   copyAndProcessDoc(siteDir, docsDir, utilitiesDir, 'docs/utilities/rounding/index.html', 'rounding.md', baseUrl, {
     docPath: 'docs/utilities/rounding',
     mdPath: 'docs/utilities/rounding.md',
+  });
+  copyAndProcessDoc(siteDir, docsDir, utilitiesDir, 'docs/utilities/prose/index.html', 'prose.md', baseUrl, {
+    docPath: 'docs/utilities/prose',
+    mdPath: 'docs/utilities/prose.md',
   });
   copyAndProcessDoc(
     siteDir,

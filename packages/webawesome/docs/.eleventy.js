@@ -20,6 +20,7 @@ import { readFile } from 'fs/promises';
 import process from 'process';
 import * as url from 'url';
 import { generateAgentSkill } from '../scripts/agent-skill.js';
+import { generateDesignSkill } from '../scripts/design-skill.js';
 import { getSiteDir } from '../scripts/utils.js';
 import { replaceTextPlugin } from './_plugins/replace-text.js';
 import { searchPlugin } from './_plugins/search.js';
@@ -335,6 +336,7 @@ export default async function (eleventyConfig) {
     await generateAgentSkill({
       siteDir,
     });
+    await generateDesignSkill();
   });
 
   // This needs to happen in "eleventy.after" otherwise incremental builds never update.

@@ -133,6 +133,19 @@ wa-page > main:has(.modern-card-list) {
     font-size: var(--wa-font-size-l);
     margin-block-start: var(--wa-space-l);
   }
+
+  /* Improve repetitive code elements in tables by making them less distracting and not wrapping too soon */
+  table code,
+  .dependency-list code {
+    background-color: transparent;
+    white-space: nowrap;
+  }
+
+  /* The breadcrumb is navigation, not prose flow — drop wa-prose's
+     previous-sibling top margin on the page title that follows it. */
+  .page-breadcrumbs + h1 {
+    margin-block-start: 0;
+  }
 }
 
 .component-ref {
@@ -468,47 +481,53 @@ wa-scroller:has(.component-table) {
   margin-block-end: var(--wa-space-xl);
 }
 
-.component-table {
-  font-variant-numeric: tabular-nums;
+#content {
+  .component-table {
+    font-variant-numeric: tabular-nums;
 
-  .table-name {
-    white-space: nowrap;
+    .table-name {
+      white-space: nowrap;
+    }
+
+    .table-arguments,
+    .table-description {
+      min-inline-size: var(--line-length-s);
+
+      code {
+        white-space: normal;
+      }
+    }
+
+    .table-selector {
+      white-space: nowrap;
+    }
+
+    .table-selector .wa-cluster {
+      flex-wrap: nowrap;
+    }
+
+    .table-reflect {
+      text-align: center;
+    }
+
+    code {
+      white-space: inherit;
+    }
   }
 
-  .table-arguments,
-  .table-description {
-    min-inline-size: var(--line-length-xs);
-  }
+  .component-help {
+    display: flex;
+    inline-size: 100%;
+    gap: var(--wa-space-m);
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: start;
+    margin-block-start: var(--wa-space-xl);
 
-  .table-selector {
-    white-space: nowrap;
-  }
-
-  .table-selector .wa-cluster {
-    flex-wrap: nowrap;
-  }
-
-  .table-reflect {
-    text-align: center;
-  }
-
-  code {
-    white-space: inherit;
-  }
-}
-
-.component-help {
-  display: flex;
-  inline-size: 100%;
-  gap: var(--wa-space-m);
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: start;
-  margin-block-start: var(--wa-space-xl);
-
-  strong {
-    font-size: var(--wa-font-size-s);
-    font-weight: var(--wa-font-weight-semibold);
+    strong {
+      font-size: var(--wa-font-size-s);
+      font-weight: var(--wa-font-weight-semibold);
+    }
   }
 }
 
