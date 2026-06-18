@@ -52,4 +52,4 @@ This lets us ship better work more quickly, without giving up the human judgment
 
 **Human ideas. Human architecture. Human verification.** AI just helps us build what we were going to build anyway… only faster.
 
-<wa-icon name="heart" variant="regular" animation="beat" label="love" style="color: var(--wa-brand-orange);"></wa-icon> The Web Awesome Team
+<wa-icon name="heart" animation="beat" label="love" class="heart-affection"></wa-icon> The Web Awesome Team

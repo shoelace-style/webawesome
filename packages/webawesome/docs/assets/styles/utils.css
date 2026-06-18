@@ -1074,6 +1074,17 @@
     mask-image: linear-gradient(to bottom, #000 var(--wa-mask-fade-start), transparent var(--wa-mask-fade-end));
   }
 
+  /* Decorative heart that warms to brand orange and beats on hover. Pair with
+   * name="heart" animation="beat" — the animation is paused at rest. Use for
+   * affection / thank-you gestures (page footer, sign-offs, etc.). */
+  wa-icon.heart-affection {
+    --animation-iteration-count: 0;
+  }
+  wa-icon.heart-affection:hover {
+    --animation-iteration-count: infinite;
+    color: var(--wa-brand-orange);
+  }
+
   /* icon swap on hover/focus: plain buttons + dropdown items (pair .icon-default / .icon-hover in icon slot) */
   wa-button .icon-hover,
   wa-dropdown-item .icon-hover[slot='icon'] {
