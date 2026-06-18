@@ -7,6 +7,9 @@ import { getAllComponents } from './shared.js';
 
 const { outdir } = commandLineArgs({ name: 'outdir', type: String });
 
+import prettier from 'prettier';
+import { default as prettierConfig } from '../../../prettier.config.js';
+
 const allFile = path.join(process.env.ROOT_DIR || '.', 'src', 'ssr', 'all.ts');
 
 // Clear build directory
@@ -31,4 +34,12 @@ for (const component of components) {
 }
 
 const preamble = `// This file is auto-generated. Do not edit it directly.`;
-fs.writeFileSync(allFile, preamble + '\n' + index.join('\n'), 'utf8');
+let text = preamble + '\n' + index.join('\n');
+text = await prettier.format(
+  text,
+  Object.assign(prettierConfig, {
+    parser: 'babel-ts',
+  }),
+);
+
+fs.writeFileSync(allFile, text, 'utf8');
