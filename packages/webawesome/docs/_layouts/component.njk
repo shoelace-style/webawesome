@@ -176,20 +176,6 @@
 </wa-scroller>
 {% endif %}
 
-{# SSR #}
-{% if component.ssr.length > 0 %}
-  {# Purposefully hidden so that it populates TOC #}
-  <h2 style="visibility: collapse; margin: 0;">SSR</h2>
-  <wa-callout variant="neutral" size="s">
-    <wa-icon slot="icon" name="server" variant="regular"></wa-icon>
-    {% for obj in component.ssr %}
-      {{ obj.description | markdown | safe }}
-    {% endfor %}
-    <p><small>Learn more about <a href="/docs/ssr">Server-Side Rendering</a>.</small></p>
-  </wa-callout>
-{% endif %}
-
-
 {# Events #}
 {% if component.events.length %}
 <h2>Events</h2>
@@ -326,6 +312,16 @@
   <li><a href="/docs/components/{{ dependency | stripPrefix }}"><code>&lt;{{ dependency }}&gt;</code></a></li>
   {% endfor %}
 </ul>
+{% endif %}
+
+{# SSR #}
+{% if component.ssr.length > 0 %}
+<h2>SSR</h2>
+<p>Learn more about <a href="/docs/ssr">Server-Side Rendering (SSR)</a>.</p>
+
+{% for obj in component.ssr %}
+  {{ obj.description | markdown | safe }}
+{% endfor %}
 {% endif %}
 
 <wa-divider></wa-divider>
