@@ -57,6 +57,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 - Synced default `--show-duration`, `--hide-duration`, and `--easing` values in `<wa-accordion-item>`, `<wa-date-input>`, `<wa-time-input>`, `<wa-toast>`, and `<wa-video>` with `--wa-transition-*` tokens [pr:2485]
 - Updated Native Styles so that `<th>` borders only apply to column headers [pr:2492]
+- Removed `wa-prose`'s top margin on `h1` elements that follow a sibling
 
 :::
 
