@@ -33,6 +33,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::added
 
+- Added the `<wa-checkbox-group>` component
 - Added `leaf-multiple` as a new `selection` option for `<wa-tree>`, allowing multiple leaf nodes to be selected while parent nodes only expand and collapse.
 - Added support for grouping native `<button>` elements in `<wa-button-group>` when Native Styles are included [issue:2510]
 
