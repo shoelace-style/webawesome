@@ -34,12 +34,11 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 :::added
 
 - Added a `webawesome-design` [Agent Skill](/docs/ai/agent-skills) that teaches AI tools how to design with Web Awesome
-  - Custom CSS playbook (dark-mode-safe tokens, WCAG `*-on-*` pairings, contrast levers, cascade guidance)
-  - Companion utilities reference (alignment, text, sizing, color, accessibility) to replace inline styles
-  - `<wa-page>` structural checklist for self-verifying layouts
 - Added a `choosing-components` decision tree to the `webawesome` Agent Skill so AI tools pick the right component by intent instead of guessing from names
 - Added `npm run verify:skills` (also wired into `npm run verify`) that cross-checks Agent Skill content against the Custom Elements Manifest so silent drift can't ship
+- Added the `<wa-checkbox-group>` component
 - Added `leaf-multiple` as a new `selection` option for `<wa-tree>`, allowing multiple leaf nodes to be selected while parent nodes only expand and collapse.
+- Added support for grouping native `<button>` elements in `<wa-button-group>` when Native Styles are included [issue:2510]
 
 :::
 

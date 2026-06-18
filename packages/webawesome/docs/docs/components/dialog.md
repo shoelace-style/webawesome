@@ -19,7 +19,7 @@ use-cases:
 ```html {.example}
 <wa-dialog label="Dialog" id="dialog-overview">
   This is a standard dialog. You can put any content you want in here!
-  <wa-button appearance="filled" slot="footer" variant="brand" data-dialog="close">Close</wa-button>
+  <wa-button slot="footer" variant="brand" data-dialog="close">Close</wa-button>
 </wa-dialog>
 
 <wa-button appearance="filled">Open Dialog</wa-button>
@@ -105,7 +105,7 @@ Just use the `--width` custom property to set the dialog's width.
 ```html {.example}
 <wa-dialog label="Dialog" class="dialog-width" style="--width: 50vw;">
   This dialog is wider than the default — handy when you need more room for content.
-  <wa-button appearance="filled" slot="footer" variant="brand" data-dialog="close">Close</wa-button>
+  <wa-button slot="footer" variant="brand" data-dialog="close">Close</wa-button>
 </wa-dialog>
 
 <wa-button appearance="filled">Open Dialog</wa-button>

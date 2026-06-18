@@ -112,6 +112,39 @@ describe('<wa-button-group>', () => {
         });
       });
 
+      describe('native buttons', () => {
+        // The grouping styles are driven by custom properties that native.css consumes, so a button group should set
+        // the same radius overrides on slotted native `<button>` elements.
+        it('should apply radius custom properties to slotted native buttons', async () => {
+          const el = await fixture<WaButtonGroup>(html`
+            <wa-button-group label="Alignment">
+              <button class="wa-filled">Left</button>
+              <button class="wa-filled">Center</button>
+              <button class="wa-filled">Right</button>
+            </wa-button-group>
+          `);
+
+          const [first, middle, last] = [...el.querySelectorAll('button')];
+
+          // The middle button has all four corners squared off
+          const middleStyles = getComputedStyle(middle);
+          expect(middleStyles.getPropertyValue('--_button-start-start-radius').trim()).to.equal('0');
+          expect(middleStyles.getPropertyValue('--_button-start-end-radius').trim()).to.equal('0');
+          expect(middleStyles.getPropertyValue('--_button-end-start-radius').trim()).to.equal('0');
+          expect(middleStyles.getPropertyValue('--_button-end-end-radius').trim()).to.equal('0');
+
+          // The first button keeps its leading corners but squares off the trailing ones
+          const firstStyles = getComputedStyle(first);
+          expect(firstStyles.getPropertyValue('--_button-start-end-radius').trim()).to.equal('0');
+          expect(firstStyles.getPropertyValue('--_button-end-end-radius').trim()).to.equal('0');
+
+          // The last button keeps its trailing corners but squares off the leading ones
+          const lastStyles = getComputedStyle(last);
+          expect(lastStyles.getPropertyValue('--_button-start-start-radius').trim()).to.equal('0');
+          expect(lastStyles.getPropertyValue('--_button-end-start-radius').trim()).to.equal('0');
+        });
+      });
+
       describe('focus and hover behavior', () => {
         it('should add button-focus class on focusin and remove on focusout', async () => {
           const el = await fixture<WaButtonGroup>(html`
