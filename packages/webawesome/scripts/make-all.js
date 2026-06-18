@@ -1,7 +1,7 @@
 // Generates a /src/ssr/all.js endpoint for easily grabbing all components on a server for SSR
 import commandLineArgs from 'command-line-args';
 import { deleteSync } from 'del';
-import fs from 'fs';
+import fs, { mkdirSync } from 'fs';
 import path from 'path';
 import { getAllComponents } from './shared.js';
 
@@ -14,6 +14,7 @@ const allFile = path.join(process.env.ROOT_DIR || '.', 'src', 'ssr', 'all.ts');
 
 // Clear build directory
 deleteSync(allFile);
+mkdirSync(path.dirname(allFile), { recursive: true });
 
 // Fetch component metadata
 const metadata = JSON.parse(fs.readFileSync(path.join(outdir, 'custom-elements.json'), 'utf8'));
