@@ -14,7 +14,7 @@ const allFile = path.join(process.env.ROOT_DIR || '.', 'src', 'ssr', 'all.ts');
 
 // Clear build directory
 deleteSync(allFile);
-mkdirSync(path.dirname(allFile), { recursive: true })
+mkdirSync(path.dirname(allFile), { recursive: true });
 
 // Fetch component metadata
 const metadata = JSON.parse(fs.readFileSync(path.join(outdir, 'custom-elements.json'), 'utf8'));
