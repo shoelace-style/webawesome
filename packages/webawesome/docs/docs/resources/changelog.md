@@ -36,9 +36,9 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Added a `webawesome-design` [Agent Skill](/docs/ai/agent-skills) that teaches AI tools how to design with Web Awesome
 - Added a `choosing-components` decision tree to the `webawesome` Agent Skill so AI tools pick the right component by intent instead of guessing from names
 - Added `npm run verify:skills` (also wired into `npm run verify`) that cross-checks Agent Skill content against the Custom Elements Manifest so silent drift can't ship
-- Added the `<wa-checkbox-group>` component
-- Added `leaf-multiple` as a new `selection` option for `<wa-tree>`, allowing multiple leaf nodes to be selected while parent nodes only expand and collapse.
-- Added support for grouping native `<button>` elements in `<wa-button-group>` when Native Styles are included [issue:2510]
+- Added the `<wa-checkbox-group>` component [pr:2514]
+- Added `leaf-multiple` as a new `selection` option for `<wa-tree>`, allowing multiple leaf nodes to be selected while parent nodes only expand and collapse. [pr:2486]
+- Added support for grouping native `<button>` elements in `<wa-button-group>` when Native Styles are included [issue:2510] [pr:2515]
 
 :::
 
@@ -46,16 +46,16 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 - Fixed a bug in `<wa-video>` where setting the `hidden` attribute would not hide it causing `<wa-video-playlist>` to show multiple videos at once. [pr:2501]
 - Fixed a race condition with `<wa-accordion>` and `<wa-accordion-item>` causing a hydration mismatch in SSR [pr:2501]
-- Fixed a bug in `<wa-checkbox>` and `<wa-switch>` where `.checked` property would not properly update the shadow dom checkbox.
-- Fixed a bug where `@lit-labs/ssr` was not included as a dependency.
-- Fixed a bug in `<wa-button>` where the slotted icon was rendered off-center at `size="xs"` in Firefox [issue:2426]
+- Fixed a bug in `<wa-checkbox>` and `<wa-switch>` where `.checked` property would not properly update the shadow dom checkbox. [pr:2481]
+- Fixed a bug where `@lit-labs/ssr` was not included as a dependency. [pr:2501]
+- Fixed a bug in `<wa-button>` where the slotted icon was rendered off-center at `size="xs"` in Firefox [issue:2426] [pr:2467]
 - Fixed a bug in `<wa-tooltip>` that caused the tooltip to hide when hovering over HTML content [pr:2512]
 
 :::
 
 :::changed
 
-- Synced default `--show-duration`, `--hide-duration`, and `--easing` values in `<wa-accordion-item>`, `<wa-date-input>`, `<wa-time-input>`, `<wa-toast>`, and `<wa-video>` with `--wa-transition-*` tokens
+- Synced default `--show-duration`, `--hide-duration`, and `--easing` values in `<wa-accordion-item>`, `<wa-date-input>`, `<wa-time-input>`, `<wa-toast>`, and `<wa-video>` with `--wa-transition-*` tokens [pr:2485]
 - Updated Native Styles so that `<th>` borders only apply to column headers [pr:2492]
 
 :::
@@ -77,17 +77,17 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Added the `<wa-date-picker>` experimental pro component
 - Added the `<wa-known-date>` experimental component
 - Added the `<wa-time-input>` experimental component
-- Added the experimental `<wa-accordion>` and `<wa-accordion-item>` components
+- Added the experimental `<wa-accordion>` and `<wa-accordion-item>` components [pr:2434]
 - Added the ability to set a centered image for `<wa-qr-code>` and have different corner colors [pr:2139]
 - Added the `capture` attribute to `<wa-file-input>` for capturing media directly from a device's camera or microphone [discuss:2380]
-- Added the `wa-text-uppercase` text utility class for transforming text to uppercase
-- Added the `wa-text-lowercase` text utility class for transforming text to lowercase
-- Added the `wa-text-capitalize` text utility class for capitalizing the first letter of each word
-- Added the `wa-text-start` text utility class for logical (direction-aware) text alignment
-- Added the `wa-text-center` text utility class for centered text alignment
-- Added the `wa-text-end` text utility class for logical (direction-aware) text alignment
-- Added the `wa-text-justify` text utility class for justified text alignment
-- Added the `wa-prose` utility class for applying typographic rhythm to long-form content (docs, blog posts, marketing copy)
+- Added the `wa-text-uppercase` text utility class for transforming text to uppercase [pr:2404]
+- Added the `wa-text-lowercase` text utility class for transforming text to lowercase [pr:2404]
+- Added the `wa-text-capitalize` text utility class for capitalizing the first letter of each word [pr:2404]
+- Added the `wa-text-start` text utility class for logical (direction-aware) text alignment [pr:2403]
+- Added the `wa-text-center` text utility class for centered text alignment [pr:2403]
+- Added the `wa-text-end` text utility class for logical (direction-aware) text alignment [pr:2403]
+- Added the `wa-text-justify` text utility class for justified text alignment [pr:2403]
+- Added the `wa-prose` utility class for applying typographic rhythm to long-form content (docs, blog posts, marketing copy) [pr:2370]
 
 :::
 
@@ -97,14 +97,14 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug in `<wa-zoomable-frame>` where it was not importing `<wa-icon>` [pr:2457]
 - Fixed a bug in `<wa-video>` where the `timeupdate` method was not emitting when seeking or scrubbing the timeline [issue:2393]
 - Fixed a bug in `<wa-breadcrumb-item>` where `href=""` rendered as a button instead of a link, making it harder to follow the [WAI-ARIA breadcrumb pattern](https://www.w3.org/WAI/ARIA/apg/patterns/breadcrumb/) for the current-page item [issue:2387]
-- Fixed a regression in `<wa-breadcrumb-item>` that caused items without an `href` to render as a link instead of a button
+- Fixed a regression in `<wa-breadcrumb-item>` that caused items without an `href` to render as a link instead of a button [pr:2400]
 - Fixed a regression in `<wa-popover>` where the body's viewport-edge margin caused the popover and arrow to be misaligned for `top/bottom-start` and `top/bottom-end` placements
 - Fixed a bug in `<wa-textarea>` where the disabled state had no visual styling, unlike other form controls [issue:2416]
 - Fixed a bug in `<wa-icon>` that caused some FA icons to not render based on `currentColor`
 - Fixed default show/hide animations in `<wa-dropdown>`, `<wa-popup>`, `<wa-popover>`, `<wa-select>`, `<wa-details>`, `<wa-dialog>`, `<wa-drawer>`, and `<wa-tree-item>` to honor `prefers-reduced-motion: reduce`
 - Fixed a bug in `<wa-drawer>` that caused the `light-dismiss` option not work as intended [pr:2437]
 - Fixed a bug in `<wa-dropdown>` that prevented items from being visible when the selected overflowed [pr:2430]
-- Fixed a bug in `<wa-carousel>` that prevented the carousel from smoothly snapping back into position when using with the mouse [issue:1103]
+- Fixed a bug in `<wa-carousel>` that prevented the carousel from smoothly snapping back into position when using with the mouse [issue:1103] [pr:2394]
 - Fixed a bug in `<wa-page>` where a custom navigation toggle placed in the `navigation-toggle` slot was not detected, due to an internal selector referencing a non-existent slot name
 
 :::
@@ -112,8 +112,8 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 :::changed
 
 - Updated from `qr-creator` to `@konnorr/qr-creator` NPM package to facilitate `<wa-qr-code>` improvements. [pr:2139]
-- Synced default `--show-duration` and `--hide-duration` values in `<wa-dropdown>`, `<wa-popup>`, `<wa-popover>`, `<wa-select>`, `<wa-combobox>`, `<wa-details>`, `<wa-dialog>`, `<wa-drawer>`, `<wa-tree-item>`, and `<wa-toast-item>` with `--wa-transition-fast` and `--wa-transition-normal` tokens
-- Synced hardcoded transitions in `<wa-copy-button>`, `<wa-select>`, `<wa-combobox>`, and `<wa-toast-item>` with `--wa-transition-*` tokens
+- Synced default `--show-duration` and `--hide-duration` values in `<wa-dropdown>`, `<wa-popup>`, `<wa-popover>`, `<wa-select>`, `<wa-combobox>`, `<wa-details>`, `<wa-dialog>`, `<wa-drawer>`, `<wa-tree-item>`, and `<wa-toast-item>` with `--wa-transition-fast` and `--wa-transition-normal` tokens [pr:2423]
+- Synced hardcoded transitions in `<wa-copy-button>`, `<wa-select>`, `<wa-combobox>`, and `<wa-toast-item>` with `--wa-transition-*` tokens [pr:2427]
 - Improved the vertical placement of content within `<wa-textarea>` and `textarea` when the content overflows the control [pr:2424]
 - Updated Native Styles for several text elements [pr:2459]:
   - Updated `<blockquote>` to use a quiet text color and a font-size based on `--wa-font-size-larger`
@@ -122,8 +122,8 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
   - Updated `<th>` to render a visually stronger bottom border, distinguishing the header row from body cells
   - Added `<figcaption>` (previously unstyled): quiet text color, smaller font-size, condensed line-height, and a small top margin
   - Added `<ul>` and `<ol>` markers using `currentColor` with reduced opacity; `<ol>` markers retain more contrast since numerals are text rather than graphical elements
-- Added Native Styles for `<menu>` (previously unstyled) to reset `list-style`, `margin`, and `padding` [discuss:2436]
-- Renamed `wa-text-wrap-nowrap`, `wa-text-wrap-balance`, and `wa-text-wrap-pretty` to `wa-text-nowrap`, `wa-text-balance`, and `wa-text-pretty` to align with the flat `wa-text-*` utility namespace. The original class names continue to work as aliases.
+- Added Native Styles for `<menu>` (previously unstyled) to reset `list-style`, `margin`, and `padding` [discuss:2436] [pr:2450]
+- Renamed `wa-text-wrap-nowrap`, `wa-text-wrap-balance`, and `wa-text-wrap-pretty` to `wa-text-nowrap`, `wa-text-balance`, and `wa-text-pretty` to align with the flat `wa-text-*` utility namespace. The original class names continue to work as aliases. [pr:2403]
 
 :::
 
@@ -140,21 +140,21 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 :::added
 
 - Added two new experimental components: `<wa-video>` and `<wa-video-playlist>`
-- Added `--wa-button-transform-hover` and `--wa-button-transform-active` design tokens
-- Added the `wa-text-wrap-nowrap` text utility class for preventing text from wrapping
-- Added the `wa-text-wrap-balance` text utility class for evenly distributing text across lines
-- Added the `wa-text-wrap-pretty` text utility class for avoiding orphaned words on the last line (not supported in Firefox)
+- Added `--wa-button-transform-hover` and `--wa-button-transform-active` design tokens [pr:2360]
+- Added the `wa-text-wrap-nowrap` text utility class for preventing text from wrapping [pr:2365]
+- Added the `wa-text-wrap-balance` text utility class for evenly distributing text across lines [pr:2365]
+- Added the `wa-text-wrap-pretty` text utility class for avoiding orphaned words on the last line (not supported in Firefox) [pr:2365]
 
 :::
 
 :::fixed
 
-- Fixed a bug in `<wa-textarea>` with `resize="auto"` where the height stayed collapsed when the textarea was initially hidden [issue:2347]
-- Fixed a bug in `<wa-button-group>` that caused single buttons to not have the correct border radius [issue:2367]
+- Fixed a bug in `<wa-textarea>` with `resize="auto"` where the height stayed collapsed when the textarea was initially hidden [issue:2347] [pr:2356]
+- Fixed a bug in `<wa-button-group>` that caused single buttons to not have the correct border radius [issue:2367] [pr:2371]
 - Fixed a bug in `<wa-switch>` that showed the switch direction backwards in RTL [pr:2330]
-- Fixed a bug in `<wa-popover>` where the popover would overflow the viewport on narrow screens [issue:2333]
-- Fixed a bug in `<wa-radio-group>` where the label was vertically offset by a few pixels compared to other form control labels [issue:2334]
-- Fixed a bug in `<wa-badge>` that caused the height to differ slightly when icons were present in the `start` or `end` slot [issue:2280]
+- Fixed a bug in `<wa-popover>` where the popover would overflow the viewport on narrow screens [issue:2333] [pr:2375]
+- Fixed a bug in `<wa-radio-group>` where the label was vertically offset by a few pixels compared to other form control labels [issue:2334] [pr:2374]
+- Fixed a bug in `<wa-badge>` that caused the height to differ slightly when icons were present in the `start` or `end` slot [issue:2280] [pr:2377]
 - Fixed a bug in `<wa-toast>` that prevented notifications from being read properly in certain screen readers [issue:2282]
 - Fixed a Playful theme bug where modifier classes (e.g. `wa-filled`) didn't apply to native button elements
 
@@ -163,7 +163,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 :::changed
 
 - Updated `--wa-color-mix-hover` and `--wa-color-mix-active` values for all themes for better hover and active feedback [pr:2360]
-- Upgraded the `<wa-copy-button>` component from _experimental_ to _stable_
+- Upgraded the `<wa-copy-button>` component from _experimental_ to _stable_ [pr:2343]
   - Added support for custom buttons
   - Added `tooltip` attribute to control when feedback is shown in the tooltip on hover and click
 
@@ -175,10 +175,10 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::added
 
-- Added a `:::pro` callout variant in the docs that renders with the same orange/white styling as the Pro badge
-- Added `xs` and `xl` sizes for all form controls and sized components
+- Added a `:::pro` callout variant in the docs that renders with the same orange/white styling as the Pro badge [pr:2386]
+- Added `xs` and `xl` sizes for all form controls and sized components [pr:2319]
   - Deprecated `small`, `medium`, and `large` in favor of `s`, `m`, and `l` (old values will continue to work in 3.x)
-- Added `beforeinput` event to `<wa-number-input>` stepper buttons so value changes can be cancelled with `event.preventDefault()`
+- Added `beforeinput` event to `<wa-number-input>` stepper buttons so value changes can be cancelled with `event.preventDefault()` [issue:2296] [pr:2310]
 - Added the `--backdrop-filter` CSS custom property to `<wa-dialog>` and `<wa-drawer>` for applying filters such as `blur()` to the backdrop
 
 :::
@@ -219,16 +219,16 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::added
 
-- Moved `<wa-page>` from pro to core
-- Added a new core experimental component: `<wa-markdown>` (#6 of 14 per stretch goals)
-- Added the `data-wa-preload` attribute for preloading components that aren't on the page yet when using the autoloader [issue:1501]
+- Moved `<wa-page>` from pro to core [pr:2244]
+- Added a new core experimental component: `<wa-markdown>` (#6 of 14 per stretch goals) [pr:2170]
+- Added the `data-wa-preload` attribute for preloading components that aren't on the page yet when using the autoloader [issue:1501] [pr:2238]
 - Added `placement` attribute to `<wa-color-picker>` [issue:2099]
-- Added form association to `<wa-rating>`
+- Added form association to `<wa-rating>` [pr:2215]
 - Added a default slot to `<wa-copy-button>` so users can provide custom buttons [issue:1327]
 - Added `:state(success)` and `:state(error)` CSS custom states to `<wa-copy-button>` for styling feedback on custom triggers
-- Added the `disabled`, `icon-button`, `link`, and `loading` custom states to `<wa-button>` [discuss:2185]
+- Added the `disabled`, `icon-button`, `link`, and `loading` custom states to `<wa-button>` [discuss:2185] [pr:2214]
 - Added the `disabled` custom state to `<wa-option>` so the disabled style applies when using the property [issue:1997]
-- Added the `with-count` attribute to `<wa-textarea>` to show a character count below the textarea
+- Added the `with-count` attribute to `<wa-textarea>` to show a character count below the textarea [pr:2236]
 
 :::
 
@@ -245,7 +245,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug in `<wa-dropdown-item>` where the `click` event could still fire when the item was disabled [issue:1817]
 - Fixed a bug in `<wa-select>`, `<wa-combobox>`, and `<wa-option>` where the `change` and `input` events could dispatch with incorrect timing [pr:2243]
 - Fixed a bug in `<wa-drawer>` that threw an error when including Web Awesome in the `<head>` [discuss:2241]
-- Fixed Lit dev mode "change-in-update" warnings across multiple components [issue:1269]
+- Fixed Lit dev mode "change-in-update" warnings across multiple components [issue:1269] [pr:2161]
 - Fixed a bug in Native Styles where text would incorrectly overflow in `<pre>` elements
 - Fixed a bug in `<wa-details>` where rapid toggling of the open state could cause the content visibility to get out of sync with the open attribute
 - Fixed a bug in `<wa-tree-item>` where rapid clicking on the expand button could cause the expand/collapse indicator to get out of sync with the children visibility
@@ -266,7 +266,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
   - Updated Shoelace theme `--wa-color-focus` and focus styles to better match its source material (Shoelace)
 - Improved the accessibility of `<wa-rating>` by moving role and ARIA attributes to the host element [issue:2205]
 - Improved performance of `<wa-textarea>` by only creating a resize observer when necessary
-- Improved SSR compatibility by adding server-side rendering guards to components that use browser-only APIs
+- Improved SSR compatibility by adding server-side rendering guards to components that use browser-only APIs [pr:2237]
 
 :::
 
@@ -276,13 +276,13 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::added
 
-- Added `--wa-space-5xl` design token to all themes [issue:1606]
-- Added `wa-gap-5xl` utility class [issue:1606]
-- Added `wa-gap-4xl` to the gap utility `:where()` selector
-- Added `--wa-font-size-3xs` and `--wa-font-size-5xl` design tokens [issue:1606]
-- Added `*-3xs` and `*-5xl` to `wa-font-size`, `wa-body`, `wa-heading`, `wa-caption`, and `wa-longform` utility classes [issue:1606]
-- Added support for labeled swatches in `<wa-color-picker>` by accepting an array of `{ color, label }` objects via the `swatches` property, improving screen reader accessibility
-- Added the ability to return promises from icon resolvers [discuss:2144]
+- Added `--wa-space-5xl` design token to all themes [issue:1606] [pr:2153]
+- Added `wa-gap-5xl` utility class [issue:1606] [pr:2153]
+- Added `wa-gap-4xl` to the gap utility `:where()` selector [pr:2153]
+- Added `--wa-font-size-3xs` and `--wa-font-size-5xl` design tokens [issue:1606] [pr:2154]
+- Added `*-3xs` and `*-5xl` to `wa-font-size`, `wa-body`, `wa-heading`, `wa-caption`, and `wa-longform` utility classes [issue:1606] [pr:2154]
+- Added support for labeled swatches in `<wa-color-picker>` by accepting an array of `{ color, label }` objects via the `swatches` property, improving screen reader accessibility [pr:2164]
+- Added the ability to return promises from icon resolvers [discuss:2144] [pr:2152]
 
 :::
 
@@ -306,8 +306,8 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 :::changed
 
 - Improved `<wa-tree>` and `<wa-tree-item>` so all internal dimensions (labels, checkboxes, expand buttons, etc.) scale proportionally with `font-size`, making it easy to resize the tree [discuss:2147]
-- Improved `<wa-combobox>`
-  - Added `autocapitalize`, `autocorrect`, `enterkeyhint`, `inputmode`, and `spellcheck` properties to `<wa-combobox>` to support virtual keyboard customization
+- Improved `<wa-combobox>` [pr:2166]
+  - Added `autocapitalize`, `autocorrect`, `enterkeyhint`, `inputmode`, and `spellcheck` properties to `<wa-combobox>` to support virtual keyboard customization [pr:2200]
   - Added `allow-create` attribute to `<wa-combobox>` that lets users create new options on the fly. When typing text that doesn't match any existing option, a "Create [value]" option appears. Selecting it adds a real `<wa-option>` to the DOM. Fires a cancelable `wa-create` event for custom handling.
   - Added `input` event dispatching to `<wa-combobox>` when the user types, matching the behavior of `<wa-input>` and native form controls
   - Fixed a bug in `<wa-combobox>` where custom values were not committed on blur when `allow-custom-value` was set
@@ -315,7 +315,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
   - Removed the `autocomplete` property from `<wa-combobox>` since it conflicted with the native HTML attribute
 - Improved `<wa-select>`, `<wa-combobox>`, and `<wa-option>` performance with large numbers of options by batching slot changes, caching options, and lazily rendering check icons
 - Improved `<wa-card>`: the `body` part wraps the default slot in a container instead of on the slot, preserving normal slot display and accessibility [pr:2198]
-- Improved `<wa-tab-group>`: the `body` part wraps the default slot in a container instead of on the slot, consistent with `<wa-dialog>` and `<wa-card>`
+- Improved `<wa-tab-group>`: the `body` part wraps the default slot in a container instead of on the slot, consistent with `<wa-dialog>` and `<wa-card>` [pr:2212]
 - Updated `<wa-zoomable-frame>` with an opt-in attribute for theme syncing [pr:2165]
 - [Docs]: Updated space, gap, stack, and cluster documentation for the new tokens and utilities [issue:1606]
 - [Docs]: Updated typography and text documentation for the new tokens and utilities [issue:1606]
@@ -365,7 +365,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug that caused `<wa-dropdown>` elements to scroll the document in Chrome 145
 - Fixed a bug in native styles so `border-radius` does not apply to `svg` elements by default [pr:2078]
 - Fixed a bug in `<wa-popup>` that caused arrows to point the wrong direction for `-start` and `-end` placements
-- Fixed a bug in `<wa-split-panel>` that caused a ResizeObserver error in Chromium-based browser when resizing the primary panel [issue:2018]
+- Fixed a bug in `<wa-split-panel>` that caused a ResizeObserver error in Chromium-based browser when resizing the primary panel [issue:2018] [pr:2092]
 - Fixed a bug that caused the `Escape` key to close more than just the active dismissible component when nested inside other dismissible elements [pr:2096]
 - Fixed a bug that forced a box-sizing opinion on host elements
 
@@ -413,7 +413,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::fixed
 
-- Fixed a bug in `<wa-select>` where the `selected` attribute on `<wa-option>` was ignored when `with-clear` was present [#1922]
+- Fixed a bug in `<wa-select>` where the `selected` attribute on `<wa-option>` was ignored when `with-clear` was present [issue:1922]
 - Fixed a bug in `<wa-popover>` where the popover closed unexpectedly when clicked inside while it is declared in a shadow DOM [pr:1969]
 - Fixed a bug in `<wa-tag>` where the icon color was mismatched with the tag's `appearance` [pr:1814]
 - Fixed a bug in `<wa-animated-image>`, `<wa-carousel>`, `<wa-progress-ring>`, `<wa-slider>` that violated the `style-src-attr` CSP directive when enabled [pr:1937]
@@ -606,8 +606,8 @@ Betas, release candidates, and snapshots from before each major release.
 - Fixed a bug in `<wa-radio-group>` and `<wa-radio>` where changing appearances dynamically would render incorrectly [issue:1178]
 - Fixed a bug in `<wa-input>` that prevented the value from changing when assigning non-string values to `value` [issue:1323]
 - Fixed a bug in `<wa-color-picker>` that prevent the picker from staying in the viewport
-- Fixed a bug that in `<wa-icon>` that caused `library`, `family`, `variant` and `name` to not reflect [pr:#1395]
-- Fixed a bug in `<wa-format-date>` and `<wa-relative-time>` that caused spaces to appear before and after the output [#1417]
+- Fixed a bug that in `<wa-icon>` that caused `library`, `family`, `variant` and `name` to not reflect [pr:1395]
+- Fixed a bug in `<wa-format-date>` and `<wa-relative-time>` that caused spaces to appear before and after the output [pr:1418]
 
 :::
 
@@ -679,7 +679,7 @@ Betas, release candidates, and snapshots from before each major release.
 - Fixed the themes page so it shows the correct palette and imports [pr:1125]
 - Fixed `filled` and `outlined` appearance styles in various components [issue:1102]
 - Fixed active state styles in the Awesome theme [pr:1129]
-- Fixed native text styles when applied to certain backgrounds [pr:https://github.com/shoelace-style/webawesome/pull/1130]
+- Fixed native text styles when applied to certain backgrounds [pr:1130]
 
 :::
 
