@@ -47,16 +47,6 @@ const iconByPrefix = [
   ['/docs/customizing', 'rocket-launch'],
   ['/docs/form-controls', 'rocket-launch'],
   ['/docs/localization', 'rocket-launch'],
-  ['/docs/components/chart', 'chart-area'],
-  ['/docs/components/bar-chart', 'chart-area'],
-  ['/docs/components/line-chart', 'chart-area'],
-  ['/docs/components/bubble-chart', 'chart-area'],
-  ['/docs/components/doughnut-chart', 'chart-area'],
-  ['/docs/components/pie-chart', 'chart-area'],
-  ['/docs/components/polar-area-chart', 'chart-area'],
-  ['/docs/components/radar-chart', 'chart-area'],
-  ['/docs/components/scatter-chart', 'chart-area'],
-  ['/docs/components/sparkline', 'chart-area'],
   ['/docs/components', 'block'],
   ['/docs/patterns', 'block-brick'],
   ['/docs/patterns/layouts', 'table-layout'],
@@ -68,6 +58,20 @@ const iconByPrefix = [
   ['/docs/resources/support', 'life-ring'],
   ['/docs/resources', 'book-spine'],
 ].sort((a, b) => b[0].length - a[0].length);
+
+// Component category icons (mirrors _data/componentCategories.json). Component results
+// resolve their icon from this map via the page's `category` field; falls back to the
+// generic component icon if the category is missing or unrecognized.
+const iconByCategory = {
+  Actions: 'hand-pointer',
+  Forms: 'pen-field',
+  Layout: 'layer',
+  Navigation: 'compass',
+  Feedback: 'bell',
+  Media: 'photo-film',
+  'Data Viz': 'chart-line',
+  Helpers: 'wrench',
+};
 
 // We're using Turbo, so references to these elements aren't guaranteed to remain intact
 function getElements() {
@@ -574,7 +578,9 @@ async function updateResults(query = '') {
       li.setAttribute('data-selected', index === 0 ? 'true' : 'false');
       if (page.url === '/') icon = 'home';
       else if (page.url === '/docs') icon = 'rocket-launch';
-      else {
+      else if (page.url.startsWith('/docs/components/') && iconByCategory[page.category]) {
+        icon = iconByCategory[page.category];
+      } else {
         for (const [prefix, name] of iconByPrefix) {
           if (page.url.startsWith(prefix)) {
             icon = name;

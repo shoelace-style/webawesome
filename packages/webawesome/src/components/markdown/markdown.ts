@@ -14,7 +14,7 @@ const connectedInstances = new Set<WaMarkdown>();
  * @status experimental
  * @since 3.4
  *
- * @ssr - Because `<wa-markdown>` relies on the content of its children, it is not usable in an SSR context which does not have a DOM.
+ * @ssr - `<wa-markdown>` parses the content of its children at runtime, which requires a DOM. It can't render during SSR — use it on the client only.
  */
 @customElement('wa-markdown')
 export default class WaMarkdown extends WebAwesomeElement {

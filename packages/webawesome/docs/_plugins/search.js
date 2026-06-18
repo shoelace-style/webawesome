@@ -47,6 +47,7 @@ export function searchPlugin(options = {}) {
           pending: true,
           synonyms: data.synonyms || [],
           useCases: data['use-cases'] || [],
+          category: data.category || '',
         });
       }
 
@@ -84,6 +85,7 @@ export function searchPlugin(options = {}) {
         url: normalizeDisplayUrl(rawUrl),
         synonyms: existing.synonyms || [],
         useCases: existing.useCases || [],
+        category: existing.category || '',
       });
 
       return content;
@@ -106,7 +108,12 @@ export function searchPlugin(options = {}) {
           // This works around the limitation of incremental builds not running transform on every file.
           const current = pagesToIndex.get(key);
           if (current?.pending) {
-            pagesToIndex.set(key, { ...value, synonyms: current.synonyms, useCases: current.useCases });
+            pagesToIndex.set(key, {
+              ...value,
+              synonyms: current.synonyms,
+              useCases: current.useCases,
+              category: current.category,
+            });
           }
         }
       }
@@ -130,7 +137,7 @@ export function searchPlugin(options = {}) {
           u: (page.useCases || []).join(' '),
           c: page.content,
         });
-        map[index] = { title: page.title, description: page.description, url: page.url };
+        map[index] = { title: page.title, description: page.description, url: page.url, category: page.category };
         index++;
       }
 
