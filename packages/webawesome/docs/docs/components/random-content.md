@@ -7,7 +7,7 @@ category: Helpers
 Randomly selects and displays one or more of its slotted children. Transparent to layout by default (`display: contents`), so it composes naturally in both block and inline contexts.
 
 ```html {.example}
-<wa-random-content id="two-by-two" class="wa-grid" items="2" mode="unique" animation="fade-right" style="--animation-easing: ease-in-out; --animation-duration: 500ms">
+<wa-random-content id="initial" class="wa-grid" items="1" mode="unique" animation="fade-right" style="--animation-easing: ease-in-out; --animation-duration: 500ms">
   <article class="wa-stack">
     <div class="wa-frame wa-border-radius-l">
       <img
@@ -124,7 +124,7 @@ Randomly selects and displays one or more of its slotted children. Transparent t
   </article>
 </wa-random-content>
 
-<wa-button size="s" style="margin-top:var(--wa-space-m)" onclick="document.getElementById('two-by-two').randomize()" appearance="filled">Randomize</wa-button>
+<wa-button size="s" style="margin-top:var(--wa-space-m)" onclick="document.getElementById('initial').randomize()" appearance="filled">Randomize</wa-button>
 ```
 
 ## Multiple items
