@@ -81,7 +81,7 @@ export async function build(options = {}) {
         generateAllComponentFile,
         generateReactWrappers,
         generateTypes,
-        generateStyles
+        generateStyles,
       ];
 
       for (const step of steps) {
@@ -103,12 +103,12 @@ export async function build(options = {}) {
 
       // Generate llms.txt (needs CEM, runs before docs)
 
-      if (process.env.SKIP_SLOW_STEPS === "true") {
+      if (process.env.SKIP_SLOW_STEPS === 'true') {
         spinner.info('Skipping "llms.txt" generation');
       } else {
         spinner.start('Generating "llms.txt"');
         await generateLlmsTxtFile();
-        spinner.succeed()
+        spinner.succeed();
       }
 
       const time = (Date.now() - start) / 1000 + 's';

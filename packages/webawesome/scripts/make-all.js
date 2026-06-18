@@ -1,9 +1,8 @@
+// Generates a /src/ssr/all.js endpoint for easily grabbing all components on a server for SSR
 import commandLineArgs from 'command-line-args';
 import { deleteSync } from 'del';
 import fs from 'fs';
 import path from 'path';
-import prettier from 'prettier';
-import { default as prettierConfig } from '../../../prettier.config.js';
 import { getAllComponents } from './shared.js';
 
 const { outdir } = commandLineArgs({ name: 'outdir', type: String });
@@ -18,7 +17,7 @@ const metadata = JSON.parse(fs.readFileSync(path.join(outdir, 'custom-elements.j
 const components = getAllComponents(metadata);
 
 const index = [];
-components.sort((a, b) => a.tagName.localeCompare(b.tagName))
+components.sort((a, b) => a.tagName.localeCompare(b.tagName));
 
 for (const component of components) {
   if (!component.tagName) {
@@ -26,9 +25,10 @@ for (const component of components) {
   }
   const tagWithoutPrefix = component.tagName.replace(/^wa-/, '');
 
-  index.push(`export { default as ${component.name} } from '../components/${tagWithoutPrefix}/${tagWithoutPrefix}.js';`);
+  index.push(
+    `export { default as ${component.name} } from '../components/${tagWithoutPrefix}/${tagWithoutPrefix}.js';`,
+  );
 }
 
-
-const preamble = `// This file is auto-generated. Do not edit it directly.`
-fs.writeFileSync(allFile, preamble + "\n" + index.join("\n"), 'utf8');
+const preamble = `// This file is auto-generated. Do not edit it directly.`;
+fs.writeFileSync(allFile, preamble + '\n' + index.join('\n'), 'utf8');
