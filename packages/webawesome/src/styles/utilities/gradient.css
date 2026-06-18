@@ -1,0 +1,25 @@
+[class*='wa-gradient'] {
+  --gradient-direction: 140deg;
+}
+
+.wa-gradient-rainbow {
+  background-image: linear-gradient(var(--gradient-direction), var(--wa-color-pink-60), var(--wa-color-red-60), var(--wa-color-orange-70), var(--wa-color-yellow-80), var(--wa-color-green-80), var(--wa-color-cyan-80), var(--wa-color-blue-60), var(--wa-color-indigo-60), var(--wa-color-purple-60));
+}
+
+.wa-gradient-cool {
+  background-image: linear-gradient(var(--gradient-direction), var(--wa-color-cyan-70), var(--wa-color-blue-60), var(--wa-color-indigo-60));
+}
+
+.wa-gradient-warm {
+  background-image: linear-gradient(var(--gradient-direction), var(--wa-color-pink-60), var(--wa-color-red-60), var(--wa-color-orange-70));
+}
+
+.wa-gradient-brand {
+  background-image: linear-gradient(var(--gradient-direction), var(--wa-color-brand-60), var(--wa-color-brand-50), var(--wa-color-brand-40));
+}
+
+.wa-text-gradient {
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
