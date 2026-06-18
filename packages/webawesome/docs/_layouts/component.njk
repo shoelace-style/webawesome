@@ -180,20 +180,12 @@
 {% if component.ssr.length > 0 %}
   {# Purposefully hidden so that it populates TOC #}
   <h2 style="visibility: collapse; margin: 0;">SSR</h2>
-  <wa-callout variant="neutral">
+  <wa-callout variant="neutral" size="s">
     <wa-icon slot="icon" name="server" variant="regular"></wa-icon>
-
-    <div class="wa-stack wa-gap-s">
-      <p class="wa-heading-m">Using <code class="component-tag">&lt;{{ component.tagName }}&gt;</code> with <abbr title="Server-Side Rendering">SSR</abbr></p>
-
-      <div>
-        {% for obj in component.ssr %}
-          {{ obj.description | markdown | safe }}
-        {% endfor %}
-      </div>
-
-      <p>Learn more about <a href="/docs/ssr">Web Awesome and Server-Side Rendering</a>.</p>
-    </div>
+    {% for obj in component.ssr %}
+      {{ obj.description | markdown | safe }}
+    {% endfor %}
+    <p><small>Learn more about <a href="/docs/ssr">Server-Side Rendering</a>.</small></p>
   </wa-callout>
 {% endif %}
 
