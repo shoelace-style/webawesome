@@ -112,7 +112,7 @@ Before you write a custom class, a raw `flex`/`grid` rule, a hardcoded value, or
    companion [`webawesome` skill](https://webawesome.com/docs/ai/) (or [llms.txt](https://webawesome.com/docs/ai/)).
    Then style through that API in this order: **attributes → component tokens → `::part()`**. Never guess a
    token name, a part name, or which token a `variant` resolves to, and never fight the shadow DOM with host
-   CSS. This lookup is **mandatory** — see rule 9 below. (Also composition.md.)
+   CSS. This lookup is **mandatory** — see [Before styling any `<wa-*>`](#before-styling-any-wa-) below. (Also composition.md.)
 5. **Only then, extend.** If — and only if — the system genuinely doesn't cover the need, you may write a
    small amount of custom CSS **built on top of the tokens** (e.g. a one-off layout using `--wa-space-*`).
    Extending the system a little is fine; **replacing or bypassing it is not.** Keep custom code minimal,
@@ -123,6 +123,48 @@ Before you write a custom class, a raw `flex`/`grid` rule, a hardcoded value, or
 If you catch yourself writing a hex color, a `px` value, a raw flexbox container, or re-implementing
 something that smells like an existing component, **stop and look it up first.** Most of the time the
 system already has it, and using it gives you theming, dark mode, accessibility, and consistency for free.
+
+---
+
+## Before styling any `<wa-*>`
+
+**This is the rule that breaks the most Web Awesome output.** Read it before you write any custom CSS that targets a Web Awesome component. It applies to **every** `<wa-*>` element, every time — not just the common ones.
+
+Web Awesome components are custom elements with a **shadow DOM**: their internal markup is encapsulated, so your page CSS, your class names, and your `color`/`background` declarations **do not reach inside them**. A `variant` resolves to colors through tokens you cannot guess. Set a host `background` and the component's text or border can resolve to a token you never checked — producing dark-on-dark text, an invisible border, or a "styled" box whose visible surface never changed.
+
+**Before you write any custom CSS that targets a `<wa-*>` element** — or that sets a `--wa-*` token expecting the element to consume it — **open that exact component's reference** in the companion [`webawesome` skill](https://webawesome.com/docs/ai/) (`references/components/<name>.md`) or [llms.txt](https://webawesome.com/docs/ai/) and read its **CSS Parts**, **CSS Custom Properties**, **Attributes** (`variant`/`appearance`/`size`/…), and any **Styling** notes. Then style **only** through what that doc lists, in this order: **attributes → the component's own tokens → its documented `::part()`**.
+
+The **only** thing you may do to a `<wa-*>` element _without_ looking it up is position it in the layout (outer `margin`, and placing it inside a `wa-stack`/`wa-cluster`/`wa-grid`). **Everything visual** — `background`, `color`, `border`, `border-radius`, fill, text color, internal padding — **requires the lookup first**. If you cannot point to the doc line that says a token/part/attribute exists, you have not earned the right to use it yet — go read the doc.
+
+**Real example.** A `<wa-callout variant="brand">` on a theme that inverted `--wa-color-brand-fill-quiet`/`-on-quiet` rendered a dark panel with near-black body text, because the callout's text color came from a token the author never checked. The fix was to read [the callout reference](references/components/callout.md) — which documents that host `background`/`color` are supported and exposes `message`/`icon` parts — and set the colors explicitly through the documented parts.
+
+### Buttons especially — the most common offender
+
+When styling a `<wa-button>`, ALWAYS check its styling API first. Reach for `variant` / `appearance` / `size` / `pill` attributes; if you must go further, set its **tokens** or target its **`base` part** — never apply `background`, `color`, `border`, `border-radius`, padding, or box-shadow to the `<wa-button>` host (or a class on it). Those declarations style the host wrapper, not the actual button surface inside the shadow DOM, so the visible button keeps its default fill while your "styling" lands on an invisible box around it.
+
+The classic failure: a secondary/outline button on a colored CTA band whose label and border are barely visible because the contrast fix was applied to the host instead of `::part(base)`. Fix the look through the part:
+
+```css
+/* WRONG — styles the host wrapper, not the button; label/border stay low-contrast */
+.cta-band wa-button.secondary {
+  background: transparent;
+  border: var(--wa-border-width-s) solid var(--wa-color-surface-default);
+  color: var(--wa-color-surface-default);
+}
+
+/* RIGHT — reach the actual button surface via its base part */
+.cta-band wa-button.secondary::part(base) {
+  background-color: transparent;
+  border-color: var(--wa-color-surface-default);
+  color: var(--wa-color-surface-default);
+}
+```
+
+### Contrast on colored bands — a separate, equally common bug
+
+Even with correct `::part(base)` usage, a button can vanish because its colors match the band it sits on. **Never place an `appearance="outlined"` or `appearance="plain"` button whose `variant` matches the band color** — e.g. `<wa-button variant="brand" appearance="outlined">` on a brand-colored hero or CTA. The outline and label are the same hue as the background, so the button is effectively invisible.
+
+On any colored band, a secondary button must use a **contrasting** treatment: a solid/filled neutral or on-color button, or an outline/text recolored via `::part(base)` to the band's on-color token (`--wa-color-*-on-loud`, or a surface token). After placing any button on a non-default background, verify its label **and** border are clearly visible against that band.
 
 ---
 
@@ -138,51 +180,7 @@ These are the things that go wrong most often. Treat them as hard constraints.
 6. **Set a theme and palette on `<html>`.** A page with no theme class looks unstyled. See [references/theming.md](references/theming.md).
 7. **Use the layout utilities instead of ad-hoc flexbox/grid CSS.** `wa-stack` (vertical), `wa-cluster` (inline wrap), `wa-grid` (responsive columns). Pair them with **companion utilities** (`wa-align-items-*`, `wa-justify-content-*`, `wa-text-*`, `wa-size-*`, `wa-color-text-*`, `wa-visually-hidden`) for alignment, text, sizing, color, and accessibility — anywhere you'd otherwise reach for inline `style=""`. See [references/composition.md](references/composition.md).
 8. **Avoid inline `style` attributes; put reusable styles in a `<style>` block.** Style with utility classes and your own semantic classes, defined once and reused, not `style="…"` scattered on elements. Inline styles can't be reused, overridden by theme, or kept consistent, and they bloat the markup. Reserve inline styles for genuinely one-off, per-instance values (e.g. a unique `--c1` on a single element).
-9. **Look up a component's styling API before you style it — every time, for every `<wa-*>`.** This is a
-   hard prerequisite, not a suggestion. Web Awesome components are custom elements with a shadow DOM, so your
-   page CSS, classes, and `color`/`background` declarations **do not reach inside them** and **`variant`
-   colors resolve through tokens you cannot guess**. Before you write **any** custom CSS that targets a
-   `<wa-*>` element — or that sets a `--wa-*` token expecting that element to consume it — **open that exact
-   component's reference** in the companion [`webawesome` skill](https://webawesome.com/docs/ai/)
-   (`references/components/<name>.md`) or [llms.txt](https://webawesome.com/docs/ai/) and read its
-   **CSS Parts**, **CSS Custom Properties**, **Attributes** (`variant`/`appearance`/`size`/…), and any
-   **Styling** notes. Then style **only** through what that doc lists, in this order: **attributes →
-   the component's own tokens → its documented `::part()`**.
-
-   The **only** thing you may do to a `<wa-*>` element _without_ looking it up is position it in the layout
-   (outer `margin`, and placing it inside a `wa-stack`/`wa-cluster`/`wa-grid`). **Everything visual —
-   `background`, `color`, `border`, `border-radius`, fill, text color, internal padding — requires the
-   lookup first.** The recurring, silent failure this prevents: you assume a `variant` (or a `*-quiet` /
-   `*-loud` token) maps the way you expect, set a background or token accordingly, and the component's text
-   or border resolves to a _different_ token than you assumed — producing dark-on-dark text, an invisible
-   border, or a "styled" box whose visible surface never changed. (Real example: a `<wa-callout variant=
-"brand">` on a theme that inverted `--wa-color-brand-fill-quiet`/`-on-quiet` rendered a dark panel with
-   near-black body text, because the callout's text color came from a token the author never checked. The
-   fix was to read [the callout reference](references/components/callout.md) — which documents that host
-   `background`/`color` are supported and exposes `message`/`icon` parts — and set the colors explicitly.)
-   If you cannot point to the doc line that says a token/part/attribute exists, you have not earned the right
-   to use it yet — go read the doc.
-
-   **Buttons especially — the most common and most visible offender.** When styling a `<wa-button>`, ALWAYS check its styling API first. Reach for `variant` / `appearance` / `size` / `pill` attributes; if you must go further, set its **tokens** or target its **`base` part** — never apply `background`, `color`, `border`, `border-radius`, padding, or box-shadow to the `<wa-button>` host (or a class on it). Those declarations style the host wrapper, not the actual button surface inside the shadow DOM, so the visible button keeps its default fill while your "styling" lands on an invisible box around it. The classic failure: a secondary/outline button on a colored CTA band whose label and border are barely visible because the contrast fix was applied to the host instead of `::part(base)`. Fix the look through the part:
-
-   ```css
-   /* WRONG — styles the host wrapper, not the button; label/border stay low-contrast */
-   .cta-band wa-button.secondary {
-     background: transparent;
-     border: var(--wa-border-width-s) solid var(--wa-color-surface-default);
-     color: var(--wa-color-surface-default);
-   }
-
-   /* RIGHT — reach the actual button surface via its base part */
-   .cta-band wa-button.secondary::part(base) {
-     background-color: transparent;
-     border-color: var(--wa-color-surface-default);
-     color: var(--wa-color-surface-default);
-   }
-   ```
-
-   **Contrast on colored bands (a separate, equally common button bug).** Even with correct `::part(base)` usage, a button can vanish because its colors match the band it sits on. **Never place an `appearance="outlined"` or `appearance="plain"` button whose `variant` matches the band color** — e.g. `<wa-button variant="brand" appearance="outlined">` on a brand-colored hero or CTA. The outline and label are the same hue as the background, so the button is effectively invisible (this is exactly what happened on the brand-colored hero bands of multiple pages). On any colored band, a secondary button must use a **contrasting** treatment: a solid/filled neutral or on-color button, or an outline/text recolored via `::part(base)` to the band's on-color token (`--wa-color-*-on-loud`, or a surface token). After placing any button on a non-default background, verify its label **and** border are clearly visible against that band.
-
+9. **Before any custom CSS on a `<wa-*>`, read its API.** See [Before styling any `<wa-*>`](#before-styling-any-wa-) above — the most load-bearing rule in this skill. Style only through attributes, the component's tokens, or its documented `::part()`. Never set host `background`/`color`/`border` on a `<wa-button>` — use `::part(base)`. Never place an `appearance="outlined"` button whose `variant` matches the band it sits on.
 10. **Use `<wa-icon>` for icons; never emojis.** Don't put emojis in the UI unless the user explicitly asks for them — and that includes the places they sneak in: logos, image-`alt`/placeholder text, list bullets, decorative `::before` content, and JS-injected toast/success messages. Reach for the [`<wa-icon>`](https://webawesome.com/docs/components/icon) component instead. The default icon library is Font Awesome Free; if the user has **Font Awesome Pro or Web Awesome Pro**, wire up their kit code and use Pro icon families. If your tool has access to Font Awesome's [official agent skills](https://github.com/FortAwesome/fontawesome-agent-tools) (`icons:suggest-icon`, `icons:add-icon`), prefer those over guessing an icon name — they recommend icons by intent rather than keyword match. See [references/composition.md](references/composition.md) for usage and Pro setup.
 11. **Keep markup valid and accessible.** Use real heading elements for hierarchy (`<h2>`/`<h3>`/`<h4>`) — don't fake a heading with a styled `<strong>`, which breaks the document outline. Give icon-only controls a `label` (or `aria-label`) and images meaningful `alt`. Never put two `style` attributes on one element — the second silently wins; merge them (or, per Rule 8, use a class).
 
