@@ -108,9 +108,9 @@
       <div id="site-search-empty">
         <div class="wa-stack wa-align-items-center">
           <wa-icon name="face-monocle" family="duotone" variant="regular"
-            class="site-search-empty-icon wa-font-size-3xl" aria-hidden="true"></wa-icon>
+            class="site-search-empty-icon duotone-illustrated wa-font-size-3xl" aria-hidden="true"></wa-icon>
           <p>D'oh! No results for &ldquo;<span id="site-search-empty-query"></span>&rdquo;</p>
-          <wa-button-group>
+          <div class="wa-cluster wa-gap-s wa-justify-content-center">
             <wa-button appearance="filled" size="s" href="{{ site.github.ideas }}" target="_blank" rel="noopener"
               data-cta="github">
               <wa-icon name="lightbulb-on" variant="regular" slot="start"></wa-icon>
@@ -121,7 +121,7 @@
               <wa-icon name="message-question" variant="regular" slot="start"></wa-icon>
               Ask on Discord
             </wa-button>
-          </wa-button-group>
+          </div>
         </div>
       </div>
     </div>

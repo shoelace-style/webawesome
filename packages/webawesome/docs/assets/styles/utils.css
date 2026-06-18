@@ -1194,6 +1194,17 @@
   wa-icon.icon-shrink {
     font-size: round(0.875em, 1px);
   }
+
+  /* duotone icons styled as small illustrations: dark primary + brand secondary, fully opaque */
+  wa-icon.duotone-illustrated {
+    --primary-color: var(--wa-color-text-normal);
+    --secondary-color: var(--wa-color-brand-80);
+    --secondary-opacity: 1;
+
+    .wa-dark & {
+      --secondary-color: var(--wa-color-brand-60);
+    }
+  }
   /* #endregion */
 
   /* #region animations */
