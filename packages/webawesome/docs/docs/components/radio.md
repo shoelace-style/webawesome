@@ -2,6 +2,7 @@
 title: Radio
 layout: component
 category: Forms
+parent: radio-group
 synonyms:
   - radio button
   - option button

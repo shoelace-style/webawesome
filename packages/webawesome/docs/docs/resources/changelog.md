@@ -34,15 +34,23 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 :::added
 
 - Added the experimental `<wa-random-content>` component
+- Added a `webawesome-design` [Agent Skill](/docs/ai/agent-skills) that teaches AI tools how to design with Web Awesome
+- Added a `choosing-components` decision tree to the `webawesome` Agent Skill so AI tools pick the right component by intent instead of guessing from names
+- Added `npm run verify:skills` (also wired into `npm run verify`) that cross-checks Agent Skill content against the Custom Elements Manifest so silent drift can't ship
+- Added the `<wa-checkbox-group>` component
 - Added `leaf-multiple` as a new `selection` option for `<wa-tree>`, allowing multiple leaf nodes to be selected while parent nodes only expand and collapse.
+- Added support for grouping native `<button>` elements in `<wa-button-group>` when Native Styles are included [issue:2510]
 
 :::
 
 :::fixed
 
+- Fixed a bug in `<wa-video>` where setting the `hidden` attribute would not hide it causing `<wa-video-playlist>` to show multiple videos at once. [pr:2501]
+- Fixed a race condition with `<wa-accordion>` and `<wa-accordion-item>` causing a hydration mismatch in SSR [pr:2501]
 - Fixed a bug in `<wa-checkbox>` and `<wa-switch>` where `.checked` property would not properly update the shadow dom checkbox.
 - Fixed a bug where `@lit-labs/ssr` was not included as a dependency.
 - Fixed a bug in `<wa-button>` where the slotted icon was rendered off-center at `size="xs"` in Firefox [issue:2426]
+- Fixed a bug in `<wa-tooltip>` that caused the tooltip to hide when hovering over HTML content [pr:2512]
 
 :::
 
@@ -98,6 +106,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug in `<wa-drawer>` that caused the `light-dismiss` option not work as intended [pr:2437]
 - Fixed a bug in `<wa-dropdown>` that prevented items from being visible when the selected overflowed [pr:2430]
 - Fixed a bug in `<wa-carousel>` that prevented the carousel from smoothly snapping back into position when using with the mouse [issue:1103]
+- Fixed a bug in `<wa-page>` where a custom navigation toggle placed in the `navigation-toggle` slot was not detected, due to an internal selector referencing a non-existent slot name
 
 :::
 

@@ -2,6 +2,7 @@
 title: Dropdown Item
 layout: component
 category: Actions
+parent: dropdown
 synonyms:
   - menu item
   - action item

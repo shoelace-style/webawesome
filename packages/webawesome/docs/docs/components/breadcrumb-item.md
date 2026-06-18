@@ -2,6 +2,7 @@
 title: Breadcrumb Item
 layout: component
 category: Navigation
+parent: breadcrumb
 synonyms:
   - breadcrumb link
   - crumb

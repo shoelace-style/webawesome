@@ -69,6 +69,24 @@ export default class WaAccordion extends WebAwesomeElement {
   }
 
   private handleSlotChange() {
+    if (this.didSSR) {
+      const promises: Promise<boolean>[] = [];
+
+      this.getAllItems().forEach(item => {
+        if (item.didSSR && !item.hasUpdated) {
+          promises.push(item.updateComplete);
+        }
+      });
+
+      // need to watch for hydration of these children to finish before we write to them.
+      if (promises.length > 0) {
+        Promise.allSettled(promises).then(() => {
+          this.handleSlotChange();
+        });
+        return;
+      }
+    }
+
     this.syncIconPlacement();
     this.syncHeadingLevel();
     this.syncAppearance();

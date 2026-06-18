@@ -2,6 +2,7 @@
 title: Carousel Item
 layout: component
 category: Media
+parent: carousel
 synonyms:
   - slide
   - carousel slide

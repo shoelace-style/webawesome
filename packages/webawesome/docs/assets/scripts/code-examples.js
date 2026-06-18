@@ -51,8 +51,10 @@ function getCodeExampleDurations(source) {
 function setCodeExampleSourceAccessibility(source, open) {
   if (open) {
     source.removeAttribute('aria-hidden');
+    source.inert = false;
   } else {
     source.setAttribute('aria-hidden', 'true');
+    source.inert = true;
   }
 }
 
