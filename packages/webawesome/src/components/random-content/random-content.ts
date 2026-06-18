@@ -1,5 +1,6 @@
 import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import { parseDuration } from '../../internal/animate.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import styles from './random-content.styles.js';
@@ -14,7 +15,7 @@ import styles from './random-content.styles.js';
  *
  * @cssproperty --animation-duration - Duration of the entrance animation. Default is `300ms`.
  * @cssproperty --animation-easing - Easing function for the entrance animation. Default is `ease`.
- * @cssproperty --animation-translate - Vertical translation distance for `fade-up` and `fade-down`. Default is `0.5em`.
+ * @cssproperty --animation-translate - Translation distance for directional animations (`fade-up`, `fade-down`, `fade-left`, `fade-right`). Default is `0.5em`.
  */
 @customElement('wa-random-content')
 export default class WaRandomContent extends WebAwesomeElement {
@@ -22,20 +23,43 @@ export default class WaRandomContent extends WebAwesomeElement {
 
   private sequenceCursor = 0;
   private uniqueHistory = new Set<Element>();
+  private currentSelection = new Set<Element>();
+  private intervalId: ReturnType<typeof setInterval> | undefined;
 
   /** Number of children to show simultaneously. Clamped to [1, childCount]. */
   @property({ type: Number }) items = 1;
+
+  /** Auto-rotation interval in milliseconds. Set to `0` (default) to disable. */
+  @property({ type: Number }) interval = 0;
 
   /** Selection strategy: `random` (default), `unique`, or `sequence`. */
   @property({ reflect: true }) mode: 'random' | 'unique' | 'sequence' = 'random';
 
   /** Entrance animation for newly shown children. */
-  @property({ reflect: true }) animation: 'none' | 'fade' | 'fade-up' | 'fade-down' = 'none';
+  @property({ reflect: true }) animation: 'none' | 'fade' | 'fade-up' | 'fade-down' | 'fade-left' | 'fade-right' =
+    'none';
+
+  connectedCallback() {
+    super.connectedCallback();
+    this.startInterval();
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    this.stopInterval();
+  }
+
+  @watch('interval', { waitUntilFirstUpdate: true })
+  handleIntervalChange() {
+    this.stopInterval();
+    this.startInterval();
+  }
 
   @watch('mode', { waitUntilFirstUpdate: true })
   handleModeChange() {
     this.sequenceCursor = 0;
     this.uniqueHistory.clear();
+    this.currentSelection.clear();
     this.randomize();
   }
 
@@ -67,7 +91,9 @@ export default class WaRandomContent extends WebAwesomeElement {
       selected = this.sample(pool, count);
       selected.forEach(el => this.uniqueHistory.add(el));
     } else {
-      selected = this.sample(children, count);
+      const pool = children.length > count ? children.filter(c => !this.currentSelection.has(c)) : children;
+      selected = this.sample(pool, count);
+      this.currentSelection = new Set(selected);
     }
 
     children.forEach(el => {
@@ -80,18 +106,49 @@ export default class WaRandomContent extends WebAwesomeElement {
     });
 
     if (this.animation !== 'none') {
-      const styles = getComputedStyle(this);
-      const raw = styles.getPropertyValue('--animation-duration').trim();
-      const duration = raw.endsWith('s') && !raw.endsWith('ms') ? parseFloat(raw) * 1000 : parseFloat(raw) || 300;
-      const easing = styles.getPropertyValue('--animation-easing').trim() || 'ease';
-      const translate = styles.getPropertyValue('--animation-translate').trim() || '0.5em';
+      const cs = getComputedStyle(this);
+      const duration = parseDuration(cs.getPropertyValue('--animation-duration').trim()) || 300;
+      const easing = cs.getPropertyValue('--animation-easing').trim() || 'ease';
+      const translate = cs.getPropertyValue('--animation-translate').trim() || '0.5em';
       const from: Keyframe = { opacity: 0 };
-      if (this.animation === 'fade-up') from.transform = `translateY(${translate})`;
-      if (this.animation === 'fade-down') from.transform = `translateY(-${translate})`;
+      const to: Keyframe = { opacity: 1 };
+      const isDirectional = this.animation !== 'fade';
+      if (this.animation === 'fade-up') {
+        from.transform = `translateY(${translate})`;
+        to.transform = 'translateY(0)';
+      }
+      if (this.animation === 'fade-down') {
+        from.transform = `translateY(-${translate})`;
+        to.transform = 'translateY(0)';
+      }
+      if (this.animation === 'fade-left') {
+        from.transform = `translateX(${translate})`;
+        to.transform = 'translateX(0)';
+      }
+      if (this.animation === 'fade-right') {
+        from.transform = `translateX(-${translate})`;
+        to.transform = 'translateX(0)';
+      }
       selected.forEach(el => {
-        el.animate([from, { opacity: 1, transform: 'translateY(0)' }], { duration, easing });
+        // CSS transforms don't apply to display:inline elements. Upgrade to inline-block
+        // so directional animations work.
+        if (isDirectional && getComputedStyle(el).display === 'inline') {
+          (el as HTMLElement).style.display = 'inline-block';
+        }
+        el.animate([from, to], { duration, easing });
       });
     }
+  }
+
+  private startInterval() {
+    if (this.interval > 0) {
+      this.intervalId = setInterval(() => this.randomize(), this.interval);
+    }
+  }
+
+  private stopInterval() {
+    clearInterval(this.intervalId);
+    this.intervalId = undefined;
   }
 
   private assignedChildren(): Element[] {
