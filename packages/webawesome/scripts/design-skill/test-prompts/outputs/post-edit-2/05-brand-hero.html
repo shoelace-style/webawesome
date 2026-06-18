@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en" class="wa-theme-default wa-palette-default wa-light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Brand Hero</title>
+
+    <link rel="stylesheet" href="https://ka-f.webawesome.com/webawesome@3.8.0/styles/webawesome.css" />
+    <script type="module" src="https://ka-f.webawesome.com/webawesome@3.8.0/webawesome.loader.js"></script>
+
+    <style>
+      html,
+      body {
+        min-height: 100%;
+        padding: 0;
+        margin: 0;
+      }
+
+      /* The hero band: full-bleed, brand-fill background, on-loud text. */
+      .hero-band {
+        background-color: var(--wa-color-brand-fill-loud);
+        color: var(--wa-color-brand-on-loud);
+        padding-block: var(--wa-space-3xl);
+        padding-inline: var(--wa-space-xl);
+      }
+
+      /* Constrain the hero copy to a readable measure and center it. */
+      .hero-content {
+        max-width: 60ch;
+        margin-inline: auto;
+        text-align: center;
+      }
+
+      /* Primary CTA on a brand band: invert it so the button surface uses the
+         on-color and the label uses the brand fill. A default brand button
+         would resolve to brand-on-brand and disappear into the band. */
+      .hero-band wa-button.cta-primary::part(base) {
+        background-color: var(--wa-color-brand-on-loud);
+        border-color: var(--wa-color-brand-on-loud);
+        color: var(--wa-color-brand-fill-loud);
+      }
+
+      .hero-band wa-button.cta-primary::part(base):hover {
+        background-color: color-mix(in srgb, var(--wa-color-brand-on-loud) 88%, transparent);
+        border-color: color-mix(in srgb, var(--wa-color-brand-on-loud) 88%, transparent);
+      }
+
+      /* Secondary CTA on a brand band: recolor through the documented `base`
+         part so the label and border read against the brand fill. The outlined
+         brand button alone would resolve to brand-on-brand and disappear. */
+      .hero-band wa-button.cta-secondary::part(base) {
+        background-color: transparent;
+        border-color: var(--wa-color-brand-on-loud);
+        color: var(--wa-color-brand-on-loud);
+      }
+
+      .hero-band wa-button.cta-secondary::part(base):hover {
+        background-color: color-mix(in srgb, var(--wa-color-brand-on-loud) 12%, transparent);
+      }
+    </style>
+  </head>
+  <body>
+    <section class="hero-band">
+      <div class="hero-content wa-stack wa-gap-l wa-align-items-center">
+        <h1 class="wa-heading-3xl">Build interfaces worth shipping</h1>
+        <p class="wa-body-l">
+          Web Awesome gives your team a complete, themeable component library so every screen feels intentional out of
+          the box.
+        </p>
+        <div class="wa-cluster wa-gap-s">
+          <wa-button variant="brand" appearance="filled" size="l" class="cta-primary">
+            <wa-icon slot="start" name="rocket"></wa-icon>
+            Get started
+          </wa-button>
+          <wa-button appearance="outlined" size="l" class="cta-secondary">
+            <wa-icon slot="start" name="circle-play"></wa-icon>
+            Watch demo
+          </wa-button>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

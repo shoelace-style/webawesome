@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en" class="wa-theme-default wa-palette-default wa-light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Custom callout</title>
+    <link rel="stylesheet" href="https://ka-f.webawesome.com/webawesome@3.8.0/styles/webawesome.css" />
+    <script type="module" src="https://ka-f.webawesome.com/webawesome@3.8.0/webawesome.loader.js"></script>
+    <style>
+      html,
+      body {
+        min-height: 100%;
+        padding: 0;
+        margin: 0;
+      }
+
+      body {
+        background: var(--wa-color-surface-default);
+        color: var(--wa-color-text-normal);
+        font-family: var(--wa-font-family-body);
+        padding: var(--wa-space-xl);
+      }
+
+      .demo {
+        max-width: 70ch;
+        margin-inline: auto;
+      }
+
+      /* Callout: darker brand surface, readable on-loud text + icon */
+      .callout-loud {
+        background: var(--wa-color-brand-fill-loud);
+        border-color: var(--wa-color-brand-fill-loud);
+      }
+
+      .callout-loud::part(message),
+      .callout-loud::part(icon) {
+        color: var(--wa-color-brand-on-loud);
+      }
+    </style>
+  </head>
+  <body>
+    <section class="demo wa-stack wa-gap-l">
+      <wa-callout variant="brand" class="callout-loud">
+        <wa-icon slot="icon" name="bolt"></wa-icon>
+        <strong>New release is live.</strong><br />
+        Version 3.8 ships sharper tokens, smoother dark mode, and a redesigned theming pipeline. Update at your
+        convenience — existing pages keep rendering exactly as they do today.
+      </wa-callout>
+    </section>
+  </body>
+</html>
