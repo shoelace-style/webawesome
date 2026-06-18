@@ -139,9 +139,9 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
   @state() private hasFocus = false;
   @state() private isDraggingGridHandle = false;
-  @state() private isEmpty = true;
   @state() private inputValue = '';
   @state() private hue = 0;
+  @state() private isEmpty = true;
   @state() private saturation = 100;
   @state() private brightness = 100;
   @state() private alpha = 100;
@@ -272,6 +272,9 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
       this.addEventListener('focusin', this.handleFocusIn);
       this.addEventListener('focusout', this.handleFocusOut);
     }
+
+    // need to set initial values on the server. looks funky, but it works.
+    this.handleValueChange('', this.value || '');
   }
 
   /**
@@ -808,19 +811,18 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
     this.alpha = 100;
   }
 
-  protected willUpdate(changedProperties: PropertyValues<this>): void {
-    super.willUpdate(changedProperties);
-
-    // Its kind of bizarre, but this is required to get SSR to play nicely.
-    if (changedProperties.has('value')) {
+  willUpdate(changedProperties: PropertyValues<this>) {
+    // this is for the server to be honest, but it needs to be here to get properly synced values. Without this, the server just sees nothing for a value
+    if (changedProperties.has('value') || changedProperties.has('defaultValue')) {
       this.handleValueChange(changedProperties.get('value') || '', this.value || '');
     }
+
+    super.willUpdate(changedProperties);
   }
 
   @watch('value')
   handleValueChange(oldValue: string | undefined, newValue: string) {
     this.isEmpty = !newValue;
-
     if (!newValue) {
       this.hue = 0;
       this.saturation = 0;
@@ -1095,6 +1097,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
   }
 
   render() {
+    const isEmpty = this.isEmpty;
     const hasLabelSlot = this.hasSlotController.test('label', 'withLabel');
     const hasHintSlot = this.hasSlotController.test('hint', 'withHint');
     const hasLabel = this.label ? true : !!hasLabelSlot;
@@ -1230,7 +1233,8 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
             autocorrect="off"
             autocapitalize="off"
             spellcheck="false"
-            .value=${this.isEmpty ? '' : this.inputValue}
+            .value=${isEmpty ? '' : this.inputValue}
+            value=${isEmpty ? '' : this.inputValue}
             ?required=${this.required}
             ?disabled=${this.disabled}
             aria-label=${this.localize.term('currentValue')}
@@ -1351,7 +1355,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
           part="trigger form-control-input"
           class=${classMap({
             trigger: true,
-            'trigger-empty': this.isEmpty,
+            'trigger-empty': isEmpty,
             'transparent-bg': true,
             'form-control-input': true,
           })}
