@@ -33,6 +33,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::added
 
+- Added a `dist/ssr/all.js` endpoint for making SSR integration easier. Scoped under `/ssr` to make it clear this file is intended for _servers_ as importing everything on the client is heavy, and instead users should cherry-pick client imports. [pr:2520]
 - Added a `webawesome-design` [Agent Skill](/docs/ai/agent-skills) that teaches AI tools how to design with Web Awesome
 - Added a `choosing-components` decision tree to the `webawesome` Agent Skill so AI tools pick the right component by intent instead of guessing from names
 - Added `npm run verify:skills` (also wired into `npm run verify`) that cross-checks Agent Skill content against the Custom Elements Manifest so silent drift can't ship
