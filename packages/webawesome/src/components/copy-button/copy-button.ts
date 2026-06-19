@@ -110,7 +110,7 @@ export default class WaCopyButton extends WebAwesomeElement {
   @property({ attribute: 'feedback-duration', type: Number }) feedbackDuration = 1000;
 
   /** The preferred placement of the tooltip. */
-  @property({ attribute: 'tooltip-placement', reflect: true }) tooltipPlacement: 'top' | 'right' | 'bottom' | 'left' =
+  @property({ attribute: 'tooltip-placement', reflect: true, useDefault: true }) tooltipPlacement: 'top' | 'right' | 'bottom' | 'left' =
     'top';
 
   /**
@@ -118,7 +118,7 @@ export default class WaCopyButton extends WebAwesomeElement {
    * `copy` keeps the tooltip silent on hover/focus and only shows it briefly to confirm a successful or failed copy.
    * `none` disables the tooltip entirely. Applies to both the default and custom triggers.
    */
-  @property({ reflect: true }) tooltip: 'full' | 'copy' | 'none' = 'full';
+  @property({ reflect: true, useDefault: true }) tooltip: 'full' | 'copy' | 'none' = 'full';
 
   firstUpdated() {
     if (this.didSSR) {

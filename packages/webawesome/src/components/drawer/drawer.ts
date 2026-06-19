@@ -77,10 +77,10 @@ export default class WaDrawer extends WebAwesomeElement {
    * The drawer's label as displayed in the header. You should always include a relevant label, as it is required for
    * proper accessibility. If you need to display HTML, use the `label` slot instead.
    */
-  @property({ reflect: true }) label = '';
+  @property({ reflect: true, useDefault: true }) label = '';
 
   /** The direction from which the drawer will open. */
-  @property({ reflect: true }) placement: 'top' | 'end' | 'bottom' | 'start' = 'end';
+  @property({ reflect: true, useDefault: true }) placement: 'top' | 'end' | 'bottom' | 'start' = 'end';
 
   /** Disables the header. This will also remove the default close button. */
   @property({ attribute: 'without-header', type: Boolean, reflect: true }) withoutHeader = false;

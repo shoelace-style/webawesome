@@ -30,7 +30,7 @@ export default class WaScroller extends WebAwesomeElement {
   @state() canScroll = false;
 
   /** The scroller's orientation. */
-  @property({ reflect: true }) orientation: 'horizontal' | 'vertical' = 'horizontal';
+  @property({ reflect: true, useDefault: true }) orientation: 'horizontal' | 'vertical' = 'horizontal';
 
   /** Removes the visible scrollbar. */
   @property({ attribute: 'without-scrollbar', type: Boolean, reflect: true }) withoutScrollbar = false;

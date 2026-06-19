@@ -73,7 +73,7 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
    * The type of input. Works the same as a native `<input>` element, but only a subset of types are supported. Defaults
    * to `text`.
    */
-  @property({ reflect: true }) type:
+  @property({ reflect: true, useDefault: true }) type:
     | 'date'
     | 'datetime-local'
     | 'email'
@@ -121,10 +121,10 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
   }
 
   /** The default value of the form control. Primarily used for resetting the form control. */
-  @property({ attribute: 'value', reflect: true }) defaultValue: string | null = this.getAttribute('value') || null;
+  @property({ attribute: 'value', reflect: true, useDefault: true }) defaultValue: string | null = this.getAttribute('value') || null;
 
   /** The input's size. */
-  @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
+  @property({ reflect: true, useDefault: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
 
   @watch('size')
   handleSizeChange() {
@@ -132,7 +132,7 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
   }
 
   /** The input's visual appearance. */
-  @property({ reflect: true }) appearance: 'filled' | 'outlined' | 'filled-outlined' = 'outlined';
+  @property({ reflect: true, useDefault: true }) appearance: 'filled' | 'outlined' | 'filled-outlined' = 'outlined';
 
   /** Draws a pill-style input with rounded edges. */
   @property({ type: Boolean, reflect: true }) pill = false;

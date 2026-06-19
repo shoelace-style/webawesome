@@ -173,7 +173,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
   }
 
   /** The default value of the form control. Primarily used for resetting the form control. */
-  @property({ attribute: 'value', reflect: true }) defaultValue: string | null = this.getAttribute('value') || null;
+  @property({ attribute: 'value', reflect: true, useDefault: true }) defaultValue: string | null = this.getAttribute('value') || null;
 
   /**
    * Only required for SSR. Set to `true` if you're slotting in a `label` element so the server-rendered markup
@@ -207,7 +207,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
   @property() format: 'hex' | 'rgb' | 'hsl' | 'hsv' = 'hex';
 
   /** Determines the size of the color picker's trigger */
-  @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
+  @property({ reflect: true, useDefault: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
 
   @watch('size')
   handleSizeChange() {
@@ -218,7 +218,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
    * The preferred placement of the color picker's popup. Note that the actual placement will vary as configured to
    * keep the panel inside of the viewport.
    */
-  @property({ reflect: true }) placement:
+  @property({ reflect: true, useDefault: true }) placement:
     | 'top'
     | 'top-start'
     | 'top-end'
@@ -236,7 +236,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
   @property({ attribute: 'without-format-toggle', type: Boolean }) withoutFormatToggle = false;
 
   /** The name of the form control, submitted as a name/value pair with form data. */
-  @property({ reflect: true }) name: string | null = null;
+  @property({ reflect: true, useDefault: true }) name: string | null = null;
 
   /** Disables the color picker. */
   @property({ type: Boolean }) disabled = false;

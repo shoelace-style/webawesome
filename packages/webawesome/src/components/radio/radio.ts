@@ -43,16 +43,16 @@ export default class WaRadio extends WebAwesomeFormAssociatedElement {
   @state() forceDisabled = false;
 
   /** The radio's value. When selected, the radio group will receive this value. */
-  @property({ reflect: true }) value: string;
+  @property({ reflect: true, useDefault: true }) value: string;
 
   /** The radio's visual appearance. */
-  @property({ reflect: true }) appearance: 'default' | 'button' = 'default';
+  @property({ reflect: true, useDefault: true }) appearance: 'default' | 'button' = 'default';
 
   /**
    * The radio's size. When used inside a radio group, the size will be determined by the radio group's size, which will
    * override this attribute.
    */
-  @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large';
+  @property({ reflect: true, useDefault: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large';
 
   @watch('size')
   handleSizeChange() {

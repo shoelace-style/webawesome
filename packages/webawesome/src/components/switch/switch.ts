@@ -58,7 +58,7 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
   @property() title = ''; // make reactive to pass through
 
   /** The name of the switch, submitted as a name/value pair with form data. */
-  @property({ reflect: true }) name: string | null = null;
+  @property({ reflect: true, useDefault: true }) name: string | null = null;
 
   private _value: string | null = this.getAttribute('value') ?? null;
 
@@ -67,13 +67,13 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
     return this._value ?? 'on';
   }
 
-  @property({ reflect: true })
+  @property({ reflect: true, useDefault: true })
   set value(val: string | null) {
     this._value = val;
   }
 
   /** The switch's size. */
-  @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
+  @property({ reflect: true, useDefault: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
 
   @watch('size')
   handleSizeChange() {

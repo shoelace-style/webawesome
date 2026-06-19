@@ -100,7 +100,7 @@ export default class WaKnownDate extends WebAwesomeFormAssociatedElement {
   //
 
   /** The name submitted with form data. */
-  @property({ reflect: true }) name = '';
+  @property({ reflect: true, useDefault: true }) name = '';
 
   private _value = '';
 
@@ -128,7 +128,7 @@ export default class WaKnownDate extends WebAwesomeFormAssociatedElement {
   }
 
   /** The default value used for form reset. */
-  @property({ attribute: 'value', reflect: true }) defaultValue: string = this.getAttribute('value') ?? '';
+  @property({ attribute: 'value', reflect: true, useDefault: true }) defaultValue: string = this.getAttribute('value') ?? '';
 
   /** Disables the known date. */
   @property({ type: Boolean }) disabled = false;
@@ -140,7 +140,7 @@ export default class WaKnownDate extends WebAwesomeFormAssociatedElement {
   @property({ type: Boolean, reflect: true }) readonly = false;
 
   /** The known date's size. */
-  @property({ reflect: true }) size: WaKnownDateSize | 'small' | 'medium' | 'large' = 'm';
+  @property({ reflect: true, useDefault: true }) size: WaKnownDateSize | 'small' | 'medium' | 'large' = 'm';
 
   @watch('size')
   handleSizeChange() {
@@ -148,7 +148,7 @@ export default class WaKnownDate extends WebAwesomeFormAssociatedElement {
   }
 
   /** The known date's visual appearance. */
-  @property({ reflect: true }) appearance: WaKnownDateAppearance = 'outlined';
+  @property({ reflect: true, useDefault: true }) appearance: WaKnownDateAppearance = 'outlined';
 
   /** Draws pill-style fields with rounded edges. */
   @property({ type: Boolean, reflect: true }) pill = false;
@@ -167,13 +167,13 @@ export default class WaKnownDate extends WebAwesomeFormAssociatedElement {
   @property() autocomplete = '';
 
   /** Earliest selectable date as `YYYY-MM-DD`. */
-  @property({ reflect: true }) min = '';
+  @property({ reflect: true, useDefault: true }) min = '';
 
   /** Latest selectable date as `YYYY-MM-DD`. */
-  @property({ reflect: true }) max = '';
+  @property({ reflect: true, useDefault: true }) max = '';
 
   /** BCP-47 locale override. When empty, the inherited `lang` attribute is used. */
-  @property({ reflect: true }) locale = '';
+  @property({ reflect: true, useDefault: true }) locale = '';
 
   /** Only required for SSR. Set to `true` if you're slotting in a `label` element. */
   @property({ attribute: 'with-label', type: Boolean }) withLabel = false;

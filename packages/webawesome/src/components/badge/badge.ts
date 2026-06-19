@@ -27,16 +27,16 @@ export default class WaBadge extends WebAwesomeElement {
   static css = [variantStyles, styles];
 
   /** The badge's theme variant. Defaults to `brand` if not within another element with a variant. */
-  @property({ reflect: true }) variant: 'brand' | 'neutral' | 'success' | 'warning' | 'danger' = 'brand';
+  @property({ reflect: true, useDefault: true }) variant: 'brand' | 'neutral' | 'success' | 'warning' | 'danger' = 'brand';
 
   /** The badge's visual appearance. */
-  @property({ reflect: true }) appearance: 'accent' | 'filled' | 'outlined' | 'filled-outlined' = 'accent';
+  @property({ reflect: true, useDefault: true }) appearance: 'accent' | 'filled' | 'outlined' | 'filled-outlined' = 'accent';
 
   /** Draws a pill-style badge with rounded edges. */
   @property({ type: Boolean, reflect: true }) pill = false;
 
   /** Adds an animation to draw attention to the badge. */
-  @property({ reflect: true }) attention: 'none' | 'pulse' | 'bounce' = 'none';
+  @property({ reflect: true, useDefault: true }) attention: 'none' | 'pulse' | 'bounce' = 'none';
 
   render() {
     return html`

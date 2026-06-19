@@ -93,10 +93,10 @@ export default class WaNumberInput extends WebAwesomeFormAssociatedElement {
   }
 
   /** The default value of the form control. Primarily used for resetting the form control. */
-  @property({ attribute: 'value', reflect: true }) defaultValue: string | null = this.getAttribute('value') || null;
+  @property({ attribute: 'value', reflect: true, useDefault: true }) defaultValue: string | null = this.getAttribute('value') || null;
 
   /** The input's size. */
-  @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
+  @property({ reflect: true, useDefault: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
 
   @watch('size')
   handleSizeChange() {
@@ -104,7 +104,7 @@ export default class WaNumberInput extends WebAwesomeFormAssociatedElement {
   }
 
   /** The input's visual appearance. */
-  @property({ reflect: true }) appearance: 'filled' | 'outlined' | 'filled-outlined' = 'outlined';
+  @property({ reflect: true, useDefault: true }) appearance: 'filled' | 'outlined' | 'filled-outlined' = 'outlined';
 
   /** Draws a pill-style input with rounded edges. */
   @property({ type: Boolean, reflect: true }) pill = false;

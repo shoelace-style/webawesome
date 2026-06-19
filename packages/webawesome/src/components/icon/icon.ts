@@ -79,7 +79,7 @@ export default class WaIcon extends WebAwesomeElement {
   @state() private svg: SVGElement | HTMLTemplateResult | null = null;
 
   /** The name of the icon to draw. Available names depend on the icon library being used. */
-  @property({ reflect: true }) name?: string;
+  @property({ reflect: true, useDefault: true }) name?: string;
 
   /**
    * The family of icons to choose from. For Font Awesome Free, valid options include `classic` and `brands`. For
@@ -87,14 +87,14 @@ export default class WaIcon extends WebAwesomeElement {
    * A valid kit code must be present to show pro icons via CDN. You can set `<html data-fa-kit-code="...">` to provide
    * one.
    */
-  @property({ reflect: true }) family: string;
+  @property({ reflect: true, useDefault: true }) family: string;
 
   /**
    * The name of the icon's variant. For Font Awesome, valid options include `thin`, `light`, `regular`, and `solid` for
    * the `classic` and `sharp` families. Some variants require a Font Awesome Pro subscription. Custom icon libraries
    * may or may not use this property.
    */
-  @property({ reflect: true }) variant: string;
+  @property({ reflect: true, useDefault: true }) variant: string;
 
   /** Sets the width of the icon to match the cropped SVG viewBox. This operates like the Font `fa-width-auto` class. */
   @property({ attribute: 'auto-width', type: Boolean, reflect: true }) autoWidth = false;
@@ -115,16 +115,16 @@ export default class WaIcon extends WebAwesomeElement {
   @property() label = '';
 
   /** The name of a registered custom icon library. */
-  @property({ reflect: true }) library = 'default';
+  @property({ reflect: true, useDefault: true }) library = 'default';
 
   /** Sets the rotation degree of the icon */
   @property({ type: Number, reflect: true }) rotate = 0;
 
   /** Sets the flip direction of the icon along the 'x' (horizontal), 'y' (vertical), or 'both' axes. */
-  @property({ type: String, reflect: true }) flip?: 'x' | 'y' | 'both';
+  @property({ type: String, reflect: true, useDefault: true }) flip?: 'x' | 'y' | 'both';
 
   /** Sets the animation for the icon */
-  @property({ type: String, reflect: true }) animation?: IconAnimation;
+  @property({ type: String, reflect: true, useDefault: true }) animation?: IconAnimation;
 
   connectedCallback() {
     super.connectedCallback();

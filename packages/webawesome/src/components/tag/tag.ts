@@ -35,13 +35,13 @@ export default class WaTag extends WebAwesomeElement {
   private readonly localize = new LocalizeController(this);
 
   /** The tag's theme variant. Defaults to `neutral` if not within another element with a variant. */
-  @property({ reflect: true }) variant: 'brand' | 'neutral' | 'success' | 'warning' | 'danger' = 'neutral';
+  @property({ reflect: true, useDefault: true }) variant: 'brand' | 'neutral' | 'success' | 'warning' | 'danger' = 'neutral';
 
   /** The tag's visual appearance. */
-  @property({ reflect: true }) appearance: 'accent' | 'filled' | 'outlined' | 'filled-outlined' = 'filled-outlined';
+  @property({ reflect: true, useDefault: true }) appearance: 'accent' | 'filled' | 'outlined' | 'filled-outlined' = 'filled-outlined';
 
   /** The tag's size. */
-  @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
+  @property({ reflect: true, useDefault: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
 
   @watch('size')
   handleSizeChange() {

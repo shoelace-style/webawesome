@@ -72,13 +72,13 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
   @property({ attribute: 'hint' }) hint = '';
 
   /** The name of the radio group, submitted as a name/value pair with form data. */
-  @property({ reflect: true }) name: string | null = null;
+  @property({ reflect: true, useDefault: true }) name: string | null = null;
 
   /** Disables the radio group and all child radios. */
   @property({ type: Boolean, reflect: true }) disabled = false;
 
   /** The orientation in which to show radio items. */
-  @property({ reflect: true }) orientation: 'horizontal' | 'vertical' = 'vertical';
+  @property({ reflect: true, useDefault: true }) orientation: 'horizontal' | 'vertical' = 'vertical';
 
   private _value: string | null = null;
 
@@ -99,10 +99,10 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
   }
 
   /** The default value of the form control. Primarily used for resetting the form control. */
-  @property({ attribute: 'value', reflect: true }) defaultValue: string | null = this.getAttribute('value') || null;
+  @property({ attribute: 'value', reflect: true, useDefault: true }) defaultValue: string | null = this.getAttribute('value') || null;
 
   /** The radio group's size. When present, this size will be applied to all `<wa-radio>` items inside. */
-  @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large';
+  @property({ reflect: true, useDefault: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large';
 
   @watch('size')
   handleSizeChange() {

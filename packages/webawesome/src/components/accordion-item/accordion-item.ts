@@ -62,16 +62,16 @@ export default class WaAccordionItem extends WebAwesomeElement {
   @property({ type: Boolean, reflect: true }) disabled = false;
 
   /** @internal Set by the parent accordion to control the heading level of the trigger. */
-  @property({ attribute: 'heading-level', reflect: true }) headingLevel = '3';
+  @property({ attribute: 'heading-level', reflect: true, useDefault: true }) headingLevel = '3';
 
   /** @internal Set by the parent accordion to control the roving tab index. */
   @property({ type: Boolean, attribute: false }) isTabbable = true;
 
   /** @internal Set by the parent accordion to control icon placement. */
-  @property({ attribute: 'icon-placement', reflect: true }) iconPlacement: 'start' | 'end' = 'end';
+  @property({ attribute: 'icon-placement', reflect: true, useDefault: true }) iconPlacement: 'start' | 'end' = 'end';
 
   /** @internal Set by the parent accordion to control the visual appearance. */
-  @property({ reflect: true }) appearance: 'filled' | 'outlined' | 'filled-outlined' | 'plain' = 'outlined';
+  @property({ reflect: true, useDefault: true }) appearance: 'filled' | 'outlined' | 'filled-outlined' | 'plain' = 'outlined';
 
   firstUpdated() {
     this.body.style.height = this.expanded ? 'auto' : '0';

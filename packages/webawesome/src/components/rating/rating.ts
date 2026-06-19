@@ -47,7 +47,7 @@ export default class WaRating extends WebAwesomeFormAssociatedElement {
 
   private readonly localize = new LocalizeController(this);
 
-  @property({ reflect: true }) role = 'slider';
+  @property({ reflect: true, useDefault: true }) role = 'slider';
 
   connectedCallback() {
     super.connectedCallback();
@@ -162,7 +162,7 @@ export default class WaRating extends WebAwesomeFormAssociatedElement {
   };
 
   /** The component's size. */
-  @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
+  @property({ reflect: true, useDefault: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
 
   @watch('size')
   handleSizeChange() {

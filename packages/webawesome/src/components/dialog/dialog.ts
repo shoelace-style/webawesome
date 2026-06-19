@@ -71,7 +71,7 @@ export default class WaDialog extends WebAwesomeElement {
    * The dialog's label as displayed in the header. You should always include a relevant label, as it is required for
    * proper accessibility. If you need to display HTML, use the `label` slot instead.
    */
-  @property({ reflect: true }) label = '';
+  @property({ reflect: true, useDefault: true }) label = '';
 
   /** Disables the header. This will also remove the default close button. */
   @property({ attribute: 'without-header', type: Boolean, reflect: true }) withoutHeader = false;

@@ -178,7 +178,7 @@ export default class WaPage extends WebAwesomeElement {
    * navigation. You can use additional media queries to make other adjustments to content as necessary.
    * The default is "desktop" because the "mobile navigation drawer" isn't accessible via SSR due to drawer requiring JS.
    */
-  @property({ attribute: 'view', reflect: true }) view: 'mobile' | 'desktop' = 'desktop';
+  @property({ attribute: 'view', reflect: true, useDefault: true }) view: 'mobile' | 'desktop' = 'desktop';
 
   /**
    * Whether or not the navigation drawer is open. Note, the navigation drawer is only "open" on mobile views.
@@ -195,7 +195,7 @@ export default class WaPage extends WebAwesomeElement {
   /**
    * Where to place the navigation when in the mobile viewport.
    */
-  @property({ attribute: 'navigation-placement', reflect: true }) navigationPlacement: 'start' | 'end' = 'start';
+  @property({ attribute: 'navigation-placement', reflect: true, useDefault: true }) navigationPlacement: 'start' | 'end' = 'start';
 
   /**
    * Determines whether or not to hide the default hamburger button.

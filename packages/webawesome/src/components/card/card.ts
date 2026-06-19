@@ -45,7 +45,7 @@ export default class WaCard extends WebAwesomeElement {
   );
 
   /** The card's visual appearance. */
-  @property({ reflect: true })
+  @property({ reflect: true, useDefault: true })
   appearance: 'accent' | 'filled' | 'outlined' | 'filled-outlined' | 'plain' = 'outlined';
 
   /**
@@ -79,7 +79,7 @@ export default class WaCard extends WebAwesomeElement {
   @property({ attribute: 'with-footer-actions', type: Boolean, reflect: true }) withFooterActions = false;
 
   /** Renders the card's orientation **/
-  @property({ reflect: true })
+  @property({ reflect: true, useDefault: true })
   orientation: 'horizontal' | 'vertical' = 'vertical';
 
   willUpdate(changedProperties: PropertyValues<this>) {

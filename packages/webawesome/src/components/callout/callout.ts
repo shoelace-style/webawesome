@@ -25,13 +25,13 @@ export default class WaCallout extends WebAwesomeElement {
   static css = [styles, variantStyles, sizeStyles];
 
   /** The callout's theme variant. Defaults to `brand` if not within another element with a variant. */
-  @property({ reflect: true }) variant: 'brand' | 'neutral' | 'success' | 'warning' | 'danger' = 'brand';
+  @property({ reflect: true, useDefault: true }) variant: 'brand' | 'neutral' | 'success' | 'warning' | 'danger' = 'brand';
 
   /** The callout's visual appearance. */
-  @property({ reflect: true }) appearance: 'accent' | 'filled' | 'outlined' | 'plain' | 'filled-outlined';
+  @property({ reflect: true, useDefault: true }) appearance: 'accent' | 'filled' | 'outlined' | 'plain' | 'filled-outlined';
 
   /** The callout's size. */
-  @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
+  @property({ reflect: true, useDefault: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
 
   @watch('size')
   handleSizeChange() {

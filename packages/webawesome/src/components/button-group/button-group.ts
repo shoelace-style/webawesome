@@ -32,7 +32,7 @@ export default class WaButtonGroup extends WebAwesomeElement {
   @property() label = '';
 
   /** The button group's orientation. */
-  @property({ reflect: true }) orientation: 'horizontal' | 'vertical' = 'horizontal';
+  @property({ reflect: true, useDefault: true }) orientation: 'horizontal' | 'vertical' = 'horizontal';
 
   updated(changedProperties: PropertyValues<this>) {
     super.updated(changedProperties);

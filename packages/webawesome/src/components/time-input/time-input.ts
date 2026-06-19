@@ -202,7 +202,7 @@ export default class WaTimeInput extends WebAwesomeFormAssociatedElement {
   //
 
   /** The time picker's name, submitted as a name/value pair with form data. */
-  @property({ reflect: true }) name = '';
+  @property({ reflect: true, useDefault: true }) name = '';
 
   private _value = '';
 
@@ -230,7 +230,7 @@ export default class WaTimeInput extends WebAwesomeFormAssociatedElement {
   }
 
   /** The default value of the form control. Used for form reset. */
-  @property({ attribute: 'value', reflect: true }) defaultValue: string = this.getAttribute('value') ?? '';
+  @property({ attribute: 'value', reflect: true, useDefault: true }) defaultValue: string = this.getAttribute('value') ?? '';
 
   /** Disables the time picker. */
   @property({ type: Boolean }) disabled = false;
@@ -242,7 +242,7 @@ export default class WaTimeInput extends WebAwesomeFormAssociatedElement {
   @property({ type: Boolean, reflect: true }) readonly = false;
 
   /** The time picker's size. */
-  @property({ reflect: true }) size: WaTimeInputSize | 'small' | 'medium' | 'large' = 'm';
+  @property({ reflect: true, useDefault: true }) size: WaTimeInputSize | 'small' | 'medium' | 'large' = 'm';
 
   @watch('size')
   handleSizeChange() {
@@ -250,7 +250,7 @@ export default class WaTimeInput extends WebAwesomeFormAssociatedElement {
   }
 
   /** The time picker's visual appearance. */
-  @property({ reflect: true }) appearance: 'filled' | 'outlined' | 'filled-outlined' = 'outlined';
+  @property({ reflect: true, useDefault: true }) appearance: 'filled' | 'outlined' | 'filled-outlined' = 'outlined';
 
   /** Draws a pill-style time picker with rounded edges. */
   @property({ type: Boolean, reflect: true }) pill = false;
@@ -284,10 +284,10 @@ export default class WaTimeInput extends WebAwesomeFormAssociatedElement {
    * The earliest selectable time in wire format. May be later than `max` to represent an overnight range. The picker
    * delegates reversed-range semantics to the mirrored native `<input type="time">`.
    */
-  @property({ reflect: true }) min = '';
+  @property({ reflect: true, useDefault: true }) min = '';
 
   /** The latest selectable time in wire format. */
-  @property({ reflect: true }) max = '';
+  @property({ reflect: true, useDefault: true }) max = '';
 
   /**
    * The granularity, in seconds, matching HTML `<input type="time">`. Default `60` hides the seconds segment.
@@ -297,7 +297,7 @@ export default class WaTimeInput extends WebAwesomeFormAssociatedElement {
   step: number | 'any' = 60;
 
   /** Whether the UI uses a 12-hour or 24-hour clock. `auto` follows the resolved locale. */
-  @property({ attribute: 'hour-format', reflect: true }) hourFormat: WaTimeInputHourFormat = 'auto';
+  @property({ attribute: 'hour-format', reflect: true, useDefault: true }) hourFormat: WaTimeInputHourFormat = 'auto';
 
   //
   // Popup
@@ -307,7 +307,7 @@ export default class WaTimeInput extends WebAwesomeFormAssociatedElement {
   @property({ type: Boolean, reflect: true }) open = false;
 
   /** Preferred popup placement. */
-  @property({ reflect: true }) placement: WaTimeInputPlacement = 'bottom-start';
+  @property({ reflect: true, useDefault: true }) placement: WaTimeInputPlacement = 'bottom-start';
 
   /** Distance in pixels between the popup and the input. */
   @property({ type: Number, reflect: true }) distance = 0;

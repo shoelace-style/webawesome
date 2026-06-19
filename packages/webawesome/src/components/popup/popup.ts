@@ -103,7 +103,7 @@ export default class WaPopup extends WebAwesomeElement {
    * The preferred placement of the popup. Note that the actual placement will vary as configured to keep the
    * panel inside of the viewport.
    */
-  @property({ reflect: true }) placement:
+  @property({ reflect: true, useDefault: true }) placement:
     | 'top'
     | 'top-start'
     | 'top-end'

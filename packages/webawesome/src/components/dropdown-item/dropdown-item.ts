@@ -45,12 +45,12 @@ export default class WaDropdownItem extends WebAwesomeElement {
   @property({ type: Boolean }) active = false;
 
   /** The type of menu item to render. */
-  @property({ reflect: true }) variant: 'danger' | 'default' = 'default';
+  @property({ reflect: true, useDefault: true }) variant: 'danger' | 'default' = 'default';
 
   /**
    * @internal The dropdown item's size.
    */
-  @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
+  @property({ reflect: true, useDefault: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
 
   @watch('size')
   handleSizeChange() {
@@ -76,7 +76,7 @@ export default class WaDropdownItem extends WebAwesomeElement {
   @property() value: string;
 
   /** Set to `checkbox` to make the item a checkbox. */
-  @property({ reflect: true }) type: 'normal' | 'checkbox' = 'normal';
+  @property({ reflect: true, useDefault: true }) type: 'normal' | 'checkbox' = 'normal';
 
   /** Set to true to check the dropdown item. Only valid when `type` is `checkbox`. */
   @property({ type: Boolean }) checked = false;

@@ -56,7 +56,7 @@ export default class WaSplitPanel extends WebAwesomeElement {
   @property({ attribute: 'position-in-pixels', type: Number }) positionInPixels: number;
 
   /** Sets the split panel's orientation. */
-  @property({ reflect: true }) orientation: 'horizontal' | 'vertical' = 'horizontal';
+  @property({ reflect: true, useDefault: true }) orientation: 'horizontal' | 'vertical' = 'horizontal';
 
   /** Disables resizing. Note that the position may still change as a result of resizing the host element. */
   @property({ type: Boolean, reflect: true }) disabled = false;

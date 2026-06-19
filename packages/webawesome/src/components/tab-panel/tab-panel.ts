@@ -27,12 +27,12 @@ export default class WaTabPanel extends WebAwesomeElement {
   private readonly componentId = `wa-tab-panel-${this.attrId}`;
 
   /** The tab panel's name. */
-  @property({ reflect: true }) name = '';
+  @property({ reflect: true, useDefault: true }) name = '';
 
   /** When true, the tab panel will be shown. */
   @property({ type: Boolean, reflect: true }) active = false;
 
-  @property({ reflect: true }) role = 'tabpanel';
+  @property({ reflect: true, useDefault: true }) role = 'tabpanel';
 
   connectedCallback() {
     super.connectedCallback();

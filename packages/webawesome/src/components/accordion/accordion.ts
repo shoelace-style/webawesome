@@ -37,16 +37,16 @@ export default class WaAccordion extends WebAwesomeElement {
    * open one, and clicking an open item does not collapse it. `single-collapsible` is the same as `single`
    * except that clicking the open item collapses it, so zero open items is a valid state.
    */
-  @property({ reflect: true }) mode: 'single' | 'single-collapsible' | 'multiple' = 'multiple';
+  @property({ reflect: true, useDefault: true }) mode: 'single' | 'single-collapsible' | 'multiple' = 'multiple';
 
   /** The location of the expand/collapse icon in child items. */
-  @property({ attribute: 'icon-placement', reflect: true }) iconPlacement: 'start' | 'end' = 'end';
+  @property({ attribute: 'icon-placement', reflect: true, useDefault: true }) iconPlacement: 'start' | 'end' = 'end';
 
   /** The heading level for child item triggers (1–6), or "none" to omit the heading wrapper. Defaults to 3. */
-  @property({ attribute: 'heading-level', reflect: true }) headingLevel = '3';
+  @property({ attribute: 'heading-level', reflect: true, useDefault: true }) headingLevel = '3';
 
   /** The accordion's visual appearance. */
-  @property({ reflect: true }) appearance: 'filled' | 'outlined' | 'filled-outlined' | 'plain' = 'outlined';
+  @property({ reflect: true, useDefault: true }) appearance: 'filled' | 'outlined' | 'filled-outlined' | 'plain' = 'outlined';
 
   private getAllItems(): WaAccordionItem[] {
     return this.defaultSlot

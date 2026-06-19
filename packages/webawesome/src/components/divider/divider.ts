@@ -19,7 +19,7 @@ export default class WaDivider extends WebAwesomeElement {
   static css = styles;
 
   /** Sets the divider's orientation. */
-  @property({ reflect: true }) orientation: 'horizontal' | 'vertical' = 'horizontal';
+  @property({ reflect: true, useDefault: true }) orientation: 'horizontal' | 'vertical' = 'horizontal';
 
   connectedCallback() {
     super.connectedCallback();

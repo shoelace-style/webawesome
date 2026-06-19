@@ -27,7 +27,7 @@ export default class WaTab extends WebAwesomeElement {
   @query('.tab') tab: HTMLElement;
 
   /** The name of the tab panel this tab is associated with. The panel must be located in the same tab group. */
-  @property({ reflect: true }) panel = '';
+  @property({ reflect: true, useDefault: true }) panel = '';
 
   /** @internal Draws the tab in an active state. */
   @property({ type: Boolean, reflect: true }) active = false;
@@ -43,11 +43,11 @@ export default class WaTab extends WebAwesomeElement {
 
   /**
    * @internal
-   * Need to wrap in @property({reflect: true}) otherwise it will not SSR properly.
+   * Need to wrap in @property({reflect: true, useDefault: true}) otherwise it will not SSR properly.
    */
-  @property({ reflect: true }) slot = 'nav';
+  @property({ reflect: true, useDefault: true }) slot = 'nav';
 
-  @property({ reflect: true }) role = 'tab';
+  @property({ reflect: true, useDefault: true }) role = 'tab';
 
   @watch('active')
   handleActiveChange() {

@@ -113,7 +113,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
   @property({ attribute: 'hint' }) hint = '';
 
   /** The name of the slider. This will be submitted with the form as a name/value pair. */
-  @property({ reflect: true }) name: string;
+  @property({ reflect: true, useDefault: true }) name: string;
 
   /** The minimum value of a range selection. Used only when range attribute is set. */
   @property({ type: Number, attribute: 'min-value' }) minValue = 0;
@@ -165,10 +165,10 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
   @property({ type: Boolean, reflect: true }) readonly = false;
 
   /** The orientation of the slider. */
-  @property({ reflect: true }) orientation: 'horizontal' | 'vertical' = 'horizontal';
+  @property({ reflect: true, useDefault: true }) orientation: 'horizontal' | 'vertical' = 'horizontal';
 
   /** The slider's size. */
-  @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
+  @property({ reflect: true, useDefault: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
 
   @watch('size')
   handleSizeChange() {
@@ -194,7 +194,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
   @property({ attribute: 'tooltip-distance', type: Number }) tooltipDistance = 8;
 
   /** The placement of the tooltip in reference to the slider's thumb. */
-  @property({ attribute: 'tooltip-placement', reflect: true }) tooltipPlacement: 'top' | 'right' | 'bottom' | 'left' =
+  @property({ attribute: 'tooltip-placement', reflect: true, useDefault: true }) tooltipPlacement: 'top' | 'right' | 'bottom' | 'left' =
     'top';
 
   /** Draws markers at each step along the slider. */

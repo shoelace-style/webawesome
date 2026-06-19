@@ -62,7 +62,7 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
   @property() title = ''; // make reactive to pass through
 
   /** The name of the textarea, submitted as a name/value pair with form data. */
-  @property({ reflect: true }) name: string | null = null;
+  @property({ reflect: true, useDefault: true }) name: string | null = null;
 
   private _value: string | null = null;
 
@@ -86,10 +86,10 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
   }
 
   /** The default value of the form control. Primarily used for resetting the form control. */
-  @property({ attribute: 'value', reflect: true }) defaultValue: string = this.getAttribute('value') ?? '';
+  @property({ attribute: 'value', reflect: true, useDefault: true }) defaultValue: string = this.getAttribute('value') ?? '';
 
   /** The textarea's size. */
-  @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
+  @property({ reflect: true, useDefault: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
 
   @watch('size')
   handleSizeChange() {
@@ -97,7 +97,7 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
   }
 
   /** The textarea's visual appearance. */
-  @property({ reflect: true }) appearance: 'filled' | 'outlined' | 'filled-outlined' = 'outlined';
+  @property({ reflect: true, useDefault: true }) appearance: 'filled' | 'outlined' | 'filled-outlined' = 'outlined';
 
   /** The textarea's label. If you need to display HTML, use the `label` slot instead. */
   @property() label = '';
@@ -112,7 +112,7 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
   @property({ type: Number }) rows = 4;
 
   /** Controls how the textarea can be resized. */
-  @property({ reflect: true }) resize: 'none' | 'vertical' | 'horizontal' | 'both' | 'auto' = 'vertical';
+  @property({ reflect: true, useDefault: true }) resize: 'none' | 'vertical' | 'horizontal' | 'both' | 'auto' = 'vertical';
 
   /** Disables the textarea. */
   @property({ type: Boolean }) disabled = false;

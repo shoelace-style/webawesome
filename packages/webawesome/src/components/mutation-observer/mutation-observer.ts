@@ -26,7 +26,7 @@ export default class WaMutationObserver extends WebAwesomeElement {
    * Watches for changes to attributes. To watch only specific attributes, separate them by a space, e.g.
    * `attr="class id title"`. To watch all attributes, use `*`.
    */
-  @property({ reflect: true }) attr: string;
+  @property({ reflect: true, useDefault: true }) attr: string;
 
   /** Indicates whether or not the attribute's previous value should be recorded when monitoring changes. */
   @property({ attribute: 'attr-old-value', type: Boolean, reflect: true }) attrOldValue = false;

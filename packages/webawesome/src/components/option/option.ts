@@ -51,7 +51,7 @@ export default class WaOption extends WebAwesomeElement {
    * from other options in the same group. Values may not contain spaces, as spaces are used as delimiters when listing
    * multiple values.
    */
-  @property({ reflect: true }) value = '';
+  @property({ reflect: true, useDefault: true }) value = '';
 
   /** Draws the option in a disabled state, preventing selection. */
   @property({ type: Boolean }) disabled = false;

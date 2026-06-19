@@ -45,7 +45,7 @@ export default class WaAvatar extends WebAwesomeElement {
   @property() loading: 'eager' | 'lazy' = 'eager';
 
   /** The shape of the avatar. */
-  @property({ reflect: true }) shape: 'circle' | 'square' | 'rounded' = 'circle';
+  @property({ reflect: true, useDefault: true }) shape: 'circle' | 'square' | 'rounded' = 'circle';
 
   @watch('image')
   handleImageChange() {

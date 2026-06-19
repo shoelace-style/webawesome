@@ -126,7 +126,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   optionValues: Set<string | null> | undefined;
 
   /** The name of the select, submitted as a name/value pair with form data. */
-  @property({ reflect: true }) name = '';
+  @property({ reflect: true, useDefault: true }) name = '';
 
   private _defaultValue: null | string | string[] = null;
 
@@ -218,7 +218,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   }
 
   /** The select's size. */
-  @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
+  @property({ reflect: true, useDefault: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
 
   @watch('size')
   handleSizeChange() {
@@ -250,7 +250,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
   @property({ type: Boolean, reflect: true }) open = false;
 
   /** The select's visual appearance. */
-  @property({ reflect: true }) appearance: 'filled' | 'outlined' | 'filled-outlined' = 'outlined';
+  @property({ reflect: true, useDefault: true }) appearance: 'filled' | 'outlined' | 'filled-outlined' = 'outlined';
 
   /** Draws a pill-style select with rounded edges. */
   @property({ type: Boolean, reflect: true }) pill = false;
@@ -262,7 +262,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
    * The preferred placement of the select's menu. Note that the actual placement may vary as needed to keep the listbox
    * inside of the viewport.
    */
-  @property({ reflect: true }) placement: 'top' | 'bottom' = 'bottom';
+  @property({ reflect: true, useDefault: true }) placement: 'top' | 'bottom' = 'bottom';
 
   /** The select's hint. If you need to display HTML, use the `hint` slot instead. */
   @property({ attribute: 'hint' }) hint = '';

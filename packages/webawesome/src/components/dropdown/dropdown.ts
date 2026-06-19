@@ -69,7 +69,7 @@ export default class WaDropdown extends WebAwesomeElement {
   @property({ type: Boolean, reflect: true }) open = false;
 
   /** The dropdown's size. */
-  @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
+  @property({ reflect: true, useDefault: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
 
   @watch('size')
   handleSizeChange() {
@@ -80,7 +80,7 @@ export default class WaDropdown extends WebAwesomeElement {
    * The placement of the dropdown menu in reference to the trigger. The menu will shift to a more optimal location if
    * the preferred placement doesn't have enough room.
    */
-  @property({ reflect: true }) placement:
+  @property({ reflect: true, useDefault: true }) placement:
     | 'top'
     | 'top-start'
     | 'top-end'
