@@ -227,6 +227,7 @@ export default css`
     top: calc(var(--banner-top) + var(--header-top) + var(--subheader-top));
     z-index: 4;
     min-height: 0;
+    /** Allows the menu / aside to always be 100% of the height of the main content area */
     align-self: stretch;
     max-height: calc(100dvh - var(--header-top) - var(--banner-top) - var(--subheader-top));
     overflow: auto;
