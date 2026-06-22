@@ -29,6 +29,7 @@ export default css`
     flex-wrap: wrap;
     justify-content: center;
     gap: var(--wa-space-s);
+    padding-block: var(--wa-space-3xs);
   }
 
   .slides {
