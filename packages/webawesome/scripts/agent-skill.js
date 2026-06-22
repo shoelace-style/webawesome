@@ -1139,9 +1139,7 @@ function copyAllComponentDocs(siteDir, destDir, baseUrl, frontMatterCache, compo
     const header = [
       `# ${title}${proBadge}`,
       '',
-      `**Full documentation:** ${baseUrl}/docs/components/${componentName}`,
-      '',
-      isProComponent ? `> This component requires [Web Awesome Pro](${baseUrl}/purchase).` : '',
+      ...(isProComponent ? [`> This component requires [Web Awesome Pro](${baseUrl}/purchase).`, ''] : []),
       '',
     ].join('\n');
 
