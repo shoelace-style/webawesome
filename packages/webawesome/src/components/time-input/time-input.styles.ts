@@ -150,7 +150,6 @@ export default css`
     width: 100%;
     min-width: 0;
     align-items: center;
-    gap: 0.25em;
     min-height: var(--wa-form-control-height);
     background-color: var(--wa-form-control-background-color);
     border-color: var(--wa-form-control-border-color);
@@ -283,6 +282,8 @@ export default css`
     cursor: pointer;
     color: var(--wa-color-text-quiet);
     font: inherit;
+    /* Margin separates the button from the value so empty start/end slots don't add a phantom gap. */
+    margin-inline-start: 0.25em;
     padding: 0.25em;
     border-radius: var(--wa-border-radius-s);
     transition: color var(--wa-transition-fast);
