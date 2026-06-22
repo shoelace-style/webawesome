@@ -26,6 +26,27 @@ export default css`
     background-color: var(--wa-color-neutral-fill-normal);
   }
 
+  /*
+   * Safe triangle: an invisible region between this item and its open submenu that the cursor can travel through
+   * without the submenu closing. It's a pseudo-element of the *item* (not the submenu) on purpose — because it belongs
+   * to the item, the pointer resting on it still satisfies \`:host(:hover)\`, so the item keeps its hover state instead
+   * of flickering as the overlay intercepts pointer events. The controller sets the cursor/submenu coordinates as
+   * custom properties while a submenu is open.
+   */
+  :host(:state(submenu-open))::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 9;
+    background-color: transparent;
+    clip-path: polygon(
+      var(--safe-triangle-cursor-x, 0) var(--safe-triangle-cursor-y, 0),
+      var(--safe-triangle-submenu-start-x, 0) var(--safe-triangle-submenu-start-y, 0),
+      var(--safe-triangle-submenu-end-x, 0) var(--safe-triangle-submenu-end-y, 0)
+    );
+    pointer-events: auto;
+  }
+
   :host(:focus-visible) {
     z-index: 1;
     outline: var(--wa-focus-ring);
@@ -187,29 +208,6 @@ export default css`
 
     &[data-placement='right-end'] {
       transform-origin: left bottom;
-    }
-
-    /* Safe triangle styling */
-    &::before {
-      display: none;
-      z-index: 9;
-      position: fixed;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      background-color: transparent;
-      content: '';
-      clip-path: polygon(
-        var(--safe-triangle-cursor-x, 0) var(--safe-triangle-cursor-y, 0),
-        var(--safe-triangle-submenu-start-x, 0) var(--safe-triangle-submenu-start-y, 0),
-        var(--safe-triangle-submenu-end-x, 0) var(--safe-triangle-submenu-end-y, 0)
-      );
-      pointer-events: auto; /* Enable mouse events on the triangle */
-    }
-
-    &[data-visible]::before {
-      display: block;
     }
   }
 

@@ -637,28 +637,14 @@ export default class WaDropdown extends WebAwesomeElement {
   private updateSafeTriangleCoordinates(item: WaDropdownItem) {
     if (!item.submenuElement || !item.submenuOpen) return;
 
-    const isKeyboardNavigation = document.activeElement?.matches(':focus-visible');
-
-    if (isKeyboardNavigation) {
-      item.submenuElement.style.setProperty('--safe-triangle-visible', 'none');
-      return;
-    }
-
-    item.submenuElement.style.setProperty('--safe-triangle-visible', 'block');
-
     const submenuRect = item.submenuElement.getBoundingClientRect();
     const isRtl = this.localize.dir() === 'rtl';
 
-    item.submenuElement.style.setProperty(
-      '--safe-triangle-submenu-start-x',
-      `${isRtl ? submenuRect.right : submenuRect.left}px`,
-    );
-    item.submenuElement.style.setProperty('--safe-triangle-submenu-start-y', `${submenuRect.top}px`);
-    item.submenuElement.style.setProperty(
-      '--safe-triangle-submenu-end-x',
-      `${isRtl ? submenuRect.right : submenuRect.left}px`,
-    );
-    item.submenuElement.style.setProperty('--safe-triangle-submenu-end-y', `${submenuRect.bottom}px`);
+    // The safe triangle pseudo-element lives on the item host so its coordinates are set there
+    item.style.setProperty('--safe-triangle-submenu-start-x', `${isRtl ? submenuRect.right : submenuRect.left}px`);
+    item.style.setProperty('--safe-triangle-submenu-start-y', `${submenuRect.top}px`);
+    item.style.setProperty('--safe-triangle-submenu-end-x', `${isRtl ? submenuRect.right : submenuRect.left}px`);
+    item.style.setProperty('--safe-triangle-submenu-end-y', `${submenuRect.bottom}px`);
   }
 
   /** Handle global mouse movement for safe triangle logic */
@@ -673,8 +659,8 @@ export default class WaDropdown extends WebAwesomeElement {
     const constrainedX = isRtl ? Math.max(event.clientX, submenuEdgeX) : Math.min(event.clientX, submenuEdgeX);
     const constrainedY = Math.max(submenuRect.top, Math.min(event.clientY, submenuRect.bottom));
 
-    currentSubmenuItem.submenuElement.style.setProperty('--safe-triangle-cursor-x', `${constrainedX}px`);
-    currentSubmenuItem.submenuElement.style.setProperty('--safe-triangle-cursor-y', `${constrainedY}px`);
+    currentSubmenuItem.style.setProperty('--safe-triangle-cursor-x', `${constrainedX}px`);
+    currentSubmenuItem.style.setProperty('--safe-triangle-cursor-y', `${constrainedY}px`);
 
     // Calculate these up front since this event cant fire a lot.
     const composedPath = event.composedPath();

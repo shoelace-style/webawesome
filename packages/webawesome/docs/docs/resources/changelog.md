@@ -36,6 +36,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug in `<wa-select>` that prevented the dropdown menu from scrolling when using the keyboard [issue:2472]
 - Fixed a bug in `<wa-carousel>` that caused the pagination controls to clip vertically by adding block padding around them [issue:2495]
 - Fixed component API tables in the `webawesome` Agent Skill by generating them from the CEM instead of scraping the rendered HTML [issue:2475]
+- Fixed a bug in `<wa-dropdown-item>` where `:hover` styles failed to apply reliably due to the safe triangle's position interfering with the cursor [issue:2525]
 
 :::
 
