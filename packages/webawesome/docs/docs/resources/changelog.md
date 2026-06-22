@@ -29,6 +29,14 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 {% include "changelog-email-signup.njk" %}
 
+## Unreleased
+
+:::fixed
+
+- Fixed a bug in `<wa-select>` that prevented the dropdown menu from scrolling when using the keyboard [issue:2472]
+
+:::
+
 ## 3.9.0
 
 <small><time datetime="2026-06-18">June 18th, 2026</time></small>
