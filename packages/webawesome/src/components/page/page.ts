@@ -225,9 +225,6 @@ export default class WaPage extends WebAwesomeElement {
                 this.requestUpdate('view', oldView);
               }
             }
-            if (entries.length > 0) {
-              this.updateAsideAndMenuHeights();
-            }
           });
         })
       : null;
@@ -268,10 +265,7 @@ export default class WaPage extends WebAwesomeElement {
     if (!isServer) {
       // setTimeout to wait for DOM to finish, then RAF to start observing.
       setTimeout(() => {
-        document.addEventListener('scroll', this.updateAsideAndMenuHeights, { passive: true });
         requestAnimationFrame(() => {
-          this.updateAsideAndMenuHeights();
-
           this.pageResizeObserver?.observe(this);
           this.headerResizeObserver?.observe(this.header);
           this.subheaderResizeObserver?.observe(this.subheader);
@@ -302,16 +296,6 @@ export default class WaPage extends WebAwesomeElement {
     return Math.max(0, top > 0 ? Math.min(elementHeight, windowHeight - top) : Math.min(bottom, windowHeight));
   }
 
-  updateAsideAndMenuHeights = () => {
-    const visiblePixels = this.visiblePixelsInViewport(this.main);
-
-    if (visiblePixels == null) {
-      return;
-    }
-
-    this.aside.style.setProperty('--main-height', `${Math.round(visiblePixels)}px`);
-    this.menu.style.setProperty('--main-height', `${Math.round(visiblePixels)}px`);
-  };
 
   firstUpdated() {
     // If the user provides a #main-content id, it should be present in the default slot and the "skip to
@@ -334,7 +318,6 @@ export default class WaPage extends WebAwesomeElement {
     this.subheaderResizeObserver?.unobserve(this.subheader);
     this.footerResizeObserver?.unobserve(this.footer);
     this.bannerResizeObserver?.unobserve(this.banner);
-    document.removeEventListener('scroll', this.updateAsideAndMenuHeights);
   }
 
   /**
