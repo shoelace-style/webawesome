@@ -35,6 +35,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 - Fixed a bug in `<wa-select>` that prevented the dropdown menu from scrolling when using the keyboard [issue:2472]
 - Fixed a bug in `<wa-carousel>` that caused the pagination controls to clip vertically by adding block padding around them [issue:2495]
+- Fixed a bug in `<wa-carousel>` with `loop` enabled that displayed the wrong slide, briefly flashing it on load, when the carousel was initialized inside a hidden container such as an inactive tab panel [issue:1163]
 - Fixed component API tables in the `webawesome` Agent Skill by generating them from the CEM instead of scraping the rendered HTML [issue:2475]
 
 :::
