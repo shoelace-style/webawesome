@@ -281,6 +281,16 @@ function processHtmlToMarkdown(htmlContent, baseUrl, component = null) {
     return '';
   }
 
+  // Strip "Link to This Section" permalink anchors and their tooltips from headings
+  main.querySelectorAll('a[id$="-permalink"], wa-tooltip[for$="-permalink"]').forEach(node => node.remove());
+
+  // Strip the "Learn more about <topic>." helper paragraphs that follow API headings
+  main.querySelectorAll('p').forEach(p => {
+    if (/^Learn more about\b/.test(p.textContent.trim()) && p.querySelector('a[href*="/docs/usage/"]')) {
+      p.remove();
+    }
+  });
+
   // Process color groups before removing copy buttons - extract token names
   main.querySelectorAll('ul.color-group').forEach(ul => {
     const tokens = [];
