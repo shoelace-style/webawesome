@@ -12,8 +12,9 @@ export default css`
     align-items: center;
     font: inherit;
     padding: 0.5em 1em 0.5em 0.25em;
+    border-radius: var(--wa-border-radius-s);
     line-height: var(--wa-line-height-condensed);
-    transition: fill var(--wa-transition-normal) var(--wa-transition-easing);
+    transition: var(--wa-transition-fast) background-color var(--wa-transition-easing);
     cursor: pointer;
   }
 
@@ -30,7 +31,7 @@ export default css`
 
   :host(:state(current)),
   :host(:state(disabled):state(current)) {
-    background-color: var(--wa-color-brand-fill-loud);
+    background-color: var(--wa-form-control-activated-color);
     color: var(--wa-color-brand-on-loud);
     opacity: 1;
   }
