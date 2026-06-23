@@ -269,43 +269,9 @@ export default css`
     margin: 0;
   }
 
-  /* Buttons. font: inherit lifts the UA default button font-size so children that size with em
-     (e.g. the expand icon) resolve against the host size-driven font-size instead of ~13px. */
-  .clear-button,
-  .expand-button {
-    flex: 0 0 auto;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    color: var(--wa-color-text-quiet);
-    font: inherit;
-    /* Margin separates the button from the value so empty start/end slots don't add a phantom gap. */
-    margin-inline-start: 0.25em;
-    padding: 0.25em;
-    border-radius: var(--wa-border-radius-s);
-    transition: color var(--wa-transition-fast);
-  }
-
-  .clear-button:hover,
-  .expand-button:hover {
-    color: var(--wa-color-text-loud);
-  }
-
-  .expand-button:focus-visible {
-    outline: var(--wa-focus-ring-style) var(--wa-focus-ring-width) var(--wa-color-focus);
-    outline-offset: 2px;
-  }
-
-  /* Scale the clock icon with the host's font-size (which is set by the size attribute) so it grows
-     and shrinks with the rest of the form control. Applies to both the default and any user-slotted icon. */
-  .expand-icon {
-    display: inline-flex;
-    color: var(--wa-color-text-quiet);
-    font-size: 1.25em;
-  }
+  /* Trailing buttons (.clear-button, .expand-button), the .expand-icon box, and the start/end
+     decoration slots are shared with <wa-date-input> via segmentedFieldStyles so both pickers
+     stay on <wa-select>'s trailing optical axis. See segmented-field.styles.ts. */
 
   /* Animations */
   .time-input-popup::part(popup).show {
@@ -359,21 +325,5 @@ export default css`
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border: 0;
-  }
-
-  /* Start / end slots */
-  [part~='start'],
-  [part~='end'] {
-    display: inline-flex;
-    align-items: center;
-    color: var(--wa-color-text-quiet);
-  }
-
-  [part~='start']::slotted(*) {
-    margin-inline-end: 0.25em;
-  }
-
-  [part~='end']::slotted(*) {
-    margin-inline-start: 0.25em;
   }
 `;

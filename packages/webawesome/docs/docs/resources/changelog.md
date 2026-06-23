@@ -40,6 +40,9 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug in `<wa-carousel>` with `loop` enabled that displayed the wrong slide, briefly flashing it on load, when the carousel was initialized inside a hidden container such as an inactive tab panel [issue:1163]
 - Fixed component API tables in the `webawesome` Agent Skill by generating them from the CEM instead of scraping the rendered HTML [issue:2475]
 - Fixed a bug in `<wa-toast-item>` where the documented `--padding` custom property was unused in component styles
+- Aligned the `start` and `end` slot region in `<wa-date-input>` and `<wa-time-input>` with `<wa-input>` and `<wa-select>`
+  - The trailing calendar/clock and clear icons no longer sit a few pixels inward of where the other controls place them
+  - The `start` and `end` slots now use the same spacing as the other controls instead of a tighter gap
 
 :::
 
