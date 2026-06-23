@@ -33,6 +33,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::fixed
 
+- Fixed a bug in `<wa-chart>` and its variants that threw a `DataCloneError` when the Chart.js config contained functions, such as tooltip or scale callbacks
 - Fixed a bug in `<wa-date-input>` and `<wa-time-input>` where an empty `start`/`end` slot added a phantom gap causing it to be misaligned with other form controls [issue:2527]
 - Fixed a bug in `<wa-select>` that prevented the dropdown menu from scrolling when using the keyboard [issue:2472]
 - Fixed a bug in `<wa-carousel>` that caused the pagination controls to clip vertically by adding block padding around them [issue:2495]
