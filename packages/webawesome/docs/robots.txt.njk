@@ -6,4 +6,4 @@ eleventyExcludeFromCollections: true
 User-agent: *
 Allow: /
 
-Sitemap: {{ siteMetadata.url }}/sitemap.xml
+Sitemap: {{ "/sitemap.xml" | htmlBaseUrl(siteMetadata.url) }}
