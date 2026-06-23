@@ -48,6 +48,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
   - `<wa-option>` now uses rounded corners and sits inset within `<wa-select>`'s listbox, with spacing between options
   - The current (keyboard-highlighted) state now uses `--wa-form-control-activated-color` for its background and a new `--current-text-color` custom property for its text, so options track form control theming alongside `<wa-checkbox>`, `<wa-radio>`, `<wa-switch>`, and `<wa-slider>`
   - Hover and current state changes now animate, matching `<wa-dropdown-item>`
+- Reordered component reference pages in the `webawesome` Agent Skill to put the import instructions and API tables before the examples
 
 :::
 
