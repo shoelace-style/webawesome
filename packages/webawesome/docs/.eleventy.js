@@ -185,6 +185,9 @@ export default async function (eleventyConfig) {
     return collection
       .getAllSorted()
       .map(item => {
+        // Strip .njk for pages that set `permalink: /foo.njk` — those pages emit
+        // page.url as the raw template path. Pages without a permalink override use
+        // 11ty's computed url like /foo/ and won't contain .njk in the first place.
         const raw = String(item.data.ogUrl || item.url || '').replace(/\.njk$/, '');
         const urlPath = raw.replace(/^https?:\/\/[^/]+/, '');
         return { item, urlPath };
