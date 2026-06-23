@@ -5,6 +5,8 @@
 
 <title>{{ pageTitle }}</title>
 
+<link rel="canonical" href="{{ ogUrl }}" />
+
 {# Skip OG tags for noindex pages to prevent social sharing #}
 {% if not noindex %}
   <meta property="og:type" content="{{ ogType }}" />
