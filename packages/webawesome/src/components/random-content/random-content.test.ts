@@ -234,21 +234,37 @@ describe('<wa-random-content>', () => {
           expect(visibleChildren(el)[0]).not.to.equal(first);
         });
 
-        it('clears history and allows repeats when pool is exhausted', async () => {
+        it('never shows the same item immediately after pool exhaustion', async () => {
+          const el = await fixture<WaRandomContent>(html`
+            <wa-random-content mode="unique">
+              <span>A</span>
+              <span>B</span>
+              <span>C</span>
+            </wa-random-content>
+          `);
+          // Exhaust the pool: initial + 2 calls shows all 3 children
+          el.randomize();
+          el.randomize();
+          const lastShown = visibleChildren(el)[0];
+          // Pool is now exhausted — history resets, but the last-shown item must not repeat
+          el.randomize();
+          expect(visibleChildren(el)[0]).not.to.equal(lastShown);
+        });
+
+        it('resets the pool and continues showing items after exhaustion', async () => {
           const el = await fixture<WaRandomContent>(html`
             <wa-random-content mode="unique">
               <span>A</span>
               <span>B</span>
             </wa-random-content>
           `);
-          // Exhaust the pool (2 children, 2 calls)
+          // Exhaust the 2-child pool and verify a new pick works
           el.randomize();
-          // Third call should clear history and pick again without error
           el.randomize();
           expect(visibleChildren(el)).to.have.lengthOf(1);
         });
 
-        it('resets history when mode changes away and back', async () => {
+        it('resets the queue when mode changes away and back', async () => {
           const el = await fixture<WaRandomContent>(html`
             <wa-random-content mode="unique">
               <span>A</span>
@@ -260,8 +276,25 @@ describe('<wa-random-content>', () => {
           await el.updateComplete;
           el.mode = 'unique';
           await el.updateComplete;
-          // history cleared — should show exactly 1 child normally
           expect(visibleChildren(el)).to.have.lengthOf(1);
+        });
+
+        it('never shows the same child twice in a row across many cycles', async () => {
+          const el = await fixture<WaRandomContent>(html`
+            <wa-random-content mode="unique">
+              <span>A</span>
+              <span>B</span>
+              <span>C</span>
+              <span>D</span>
+            </wa-random-content>
+          `);
+          let prev = visibleChildren(el)[0];
+          for (let i = 0; i < 40; i++) {
+            el.randomize();
+            const curr = visibleChildren(el)[0];
+            expect(curr).not.to.equal(prev, `duplicate at iteration ${i}`);
+            prev = curr;
+          }
         });
       });
     });

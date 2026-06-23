@@ -1,9 +1,37 @@
 import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { parseDuration } from '../../internal/animate.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import styles from './random-content.styles.js';
+
+// Keyframes must live in the document scope, Chromium does not resolve shadow-root-scoped
+// @keyframes for slotted elements, even when applied via ::slotted() rules.
+if (typeof document !== 'undefined') {
+  const sheet = new CSSStyleSheet();
+  sheet.replaceSync(`
+    @keyframes wa-rc-fade {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes wa-rc-fade-up {
+      from { opacity: 0; transform: translateY(var(--animation-translate, 0.5em)); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes wa-rc-fade-down {
+      from { opacity: 0; transform: translateY(calc(-1 * var(--animation-translate, 0.5em))); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes wa-rc-fade-left {
+      from { opacity: 0; transform: translateX(var(--animation-translate, 0.5em)); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes wa-rc-fade-right {
+      from { opacity: 0; transform: translateX(calc(-1 * var(--animation-translate, 0.5em))); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+  `);
+  document.adoptedStyleSheets = [...document.adoptedStyleSheets, sheet];
+}
 
 /**
  * @summary Random content selects one or more child elements at random and displays them.
@@ -22,7 +50,7 @@ export default class WaRandomContent extends WebAwesomeElement {
   static css = styles;
 
   private sequenceCursor = 0;
-  private uniqueHistory = new Set<Element>();
+  private uniqueQueue: Element[] = [];
   private currentSelection = new Set<Element>();
   private intervalId: ReturnType<typeof setInterval> | undefined;
 
@@ -58,13 +86,14 @@ export default class WaRandomContent extends WebAwesomeElement {
   @watch('mode', { waitUntilFirstUpdate: true })
   handleModeChange() {
     this.sequenceCursor = 0;
-    this.uniqueHistory.clear();
+    this.uniqueQueue = [];
     this.currentSelection.clear();
     this.randomize();
   }
 
   @watch('items', { waitUntilFirstUpdate: true })
   handleItemsChange() {
+    this.uniqueQueue = [];
     this.randomize();
   }
 
@@ -83,19 +112,19 @@ export default class WaRandomContent extends WebAwesomeElement {
       });
       this.sequenceCursor = (this.sequenceCursor + count) % children.length;
     } else if (this.mode === 'unique') {
-      let pool = children.filter(c => !this.uniqueHistory.has(c));
-      if (pool.length < count) {
-        // Seed the fresh history with currently shown items so they can't immediately repeat.
-        this.uniqueHistory = new Set(this.currentSelection);
-        pool = children.filter(c => !this.uniqueHistory.has(c));
-        // Edge case: items >= children.length means everything is always shown; just reset fully.
-        if (pool.length < count) {
-          this.uniqueHistory.clear();
-          pool = [...children];
+      if (this.uniqueQueue.length < count) {
+        // Refill the queue with a full shuffle of all children. Items from the current
+        // selection go to the end so the next pick is never the same as the last shown.
+        const queued = new Set(this.uniqueQueue);
+        const rest = children.filter(c => !this.currentSelection.has(c) && !queued.has(c));
+        const current = children.filter(c => this.currentSelection.has(c) && !queued.has(c));
+        this.uniqueQueue.push(...this.sample(rest, rest.length), ...this.sample(current, current.length));
+        // Edge case: items >= children.length — just use all children.
+        if (this.uniqueQueue.length < count) {
+          this.uniqueQueue = this.sample([...children], children.length);
         }
       }
-      selected = this.sample(pool, count);
-      selected.forEach(el => this.uniqueHistory.add(el));
+      selected = this.uniqueQueue.splice(0, count);
       this.currentSelection = new Set(selected);
     } else {
       const pool = children.length > count ? children.filter(c => !this.currentSelection.has(c)) : children;
@@ -107,42 +136,26 @@ export default class WaRandomContent extends WebAwesomeElement {
       const htmlEl = el as HTMLElement;
       const isSelected = selected.includes(el);
       htmlEl.style.display = isSelected ? '' : 'none';
+      if (!isSelected) {
+        delete htmlEl.dataset['waAnimation'];
+      }
       // Strip bottom margin from the last shown element so hidden siblings don't
       // leave a phantom gap (e.g. <p> elements that aren't the last DOM child).
       htmlEl.style.marginBlockEnd = isSelected && selected[selected.length - 1] === el ? '0' : '';
     });
 
     if (this.animation !== 'none') {
-      const cs = getComputedStyle(this);
-      const duration = parseDuration(cs.getPropertyValue('--animation-duration').trim()) || 300;
-      const easing = cs.getPropertyValue('--animation-easing').trim() || 'ease';
-      const translate = cs.getPropertyValue('--animation-translate').trim() || '0.5em';
-      const from: Keyframe = { opacity: 0 };
-      const to: Keyframe = { opacity: 1 };
-      const isDirectional = this.animation !== 'fade';
-      if (this.animation === 'fade-up') {
-        from.transform = `translateY(${translate})`;
-        to.transform = 'translateY(0)';
-      }
-      if (this.animation === 'fade-down') {
-        from.transform = `translateY(-${translate})`;
-        to.transform = 'translateY(0)';
-      }
-      if (this.animation === 'fade-left') {
-        from.transform = `translateX(${translate})`;
-        to.transform = 'translateX(0)';
-      }
-      if (this.animation === 'fade-right') {
-        from.transform = `translateX(-${translate})`;
-        to.transform = 'translateX(0)';
-      }
       selected.forEach(el => {
+        const htmlEl = el as HTMLElement;
         // CSS transforms don't apply to display:inline elements. Upgrade to inline-block
         // so directional animations work.
-        if (isDirectional && getComputedStyle(el).display === 'inline') {
-          (el as HTMLElement).style.display = 'inline-block';
+        if (this.animation !== 'fade' && getComputedStyle(el).display === 'inline') {
+          htmlEl.style.display = 'inline-block';
         }
-        el.animate([from, to], { duration, easing });
+        // Cancel any in-progress animation so the CSS animation restarts cleanly.
+        el.getAnimations().forEach(a => a.cancel());
+        htmlEl.dataset['waAnimation'] = this.animation;
+        htmlEl.addEventListener('animationend', () => delete htmlEl.dataset['waAnimation'], { once: true });
       });
     }
   }
