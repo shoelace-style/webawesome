@@ -37,7 +37,7 @@ const translation: Translation = {
   goToSlide: (slide, count) => `Přejít na slide ${slide} z ${count}`,
   hidePassword: 'Skrýt heslo',
   hour: 'Hodina',
-  incompleteDate: 'Zadejte úplné datum.',
+  incompleteDate: 'Zadejte platné datum.',
   increment: 'Zvýšit',
   loading: 'Nahrává se',
   minute: 'Minuta',

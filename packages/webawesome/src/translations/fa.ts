@@ -38,7 +38,7 @@ const translation: Translation = {
   hour: 'ساعت',
   goToSlide: (slide, count) => `رفتن به اسلاید ${slide} از ${count}`,
   hidePassword: 'پنهان کردن رمز',
-  incompleteDate: 'یک تاریخ کامل وارد کنید.',
+  incompleteDate: 'یک تاریخ معتبر وارد کنید.',
   increment: 'افزایش',
   loading: 'بارگزاری',
   minute: 'دقیقه',
