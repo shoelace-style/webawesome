@@ -147,9 +147,14 @@ export default async function (eleventyConfig) {
     ogDescription: data => data.ogDescription || data.description,
     ogImage: data => data.ogImage || siteMetadata.image,
     ogUrl: data => {
-      if (data.ogUrl) return data.ogUrl;
-      const url = data.page?.url || '';
-      return url ? `${siteMetadata.url}${url}` : siteMetadata.url;
+      // Strip template extensions: a page setting `permalink: /foo.njk` leaks the template
+      // file path into page.url, which is never a valid public URL for og:url or canonical.
+      // Also always emit an absolute URL — front-matter overrides like `ogUrl: /signup` should
+      // resolve against siteMetadata.url so canonical/og:url consumers don't see relative hrefs.
+      const raw = (data.ogUrl || data.page?.url || '').replace(/\.njk$/, '');
+      if (!raw) return siteMetadata.url;
+      if (/^https?:\/\//.test(raw)) return raw;
+      return `${siteMetadata.url}${raw.startsWith('/') ? '' : '/'}${raw}`;
     },
     ogType: data => data.ogType || 'website',
   });
