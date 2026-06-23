@@ -29,6 +29,7 @@ export default css`
     flex-wrap: wrap;
     justify-content: center;
     gap: var(--wa-space-s);
+    padding-block: var(--wa-space-3xs);
   }
 
   .slides {
@@ -46,6 +47,22 @@ export default css`
     border-radius: var(--wa-border-radius-m);
 
     --slide-size: calc((100% - (var(--slides-per-page) - 1) * var(--slide-gap)) / var(--slides-per-page));
+  }
+
+  /*
+   * While a looping carousel that initialized inside a hidden container waits to scroll past its leading clones, hide
+   * the slides and pagination to avoid flashing the wrong slide and active dot, then fade them in once the carousel has
+   * positioned itself.
+   */
+  .slides,
+  .pagination {
+    transition: opacity var(--wa-transition-fast) ease;
+  }
+
+  .slides-awaiting-position,
+  .pagination-awaiting-position {
+    opacity: 0;
+    transition: none;
   }
 
   @media (prefers-reduced-motion) {
