@@ -34,9 +34,20 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 :::fixed
 
 - Fixed a bug in `<wa-chart>` and its variants that threw a `DataCloneError` when the Chart.js config contained functions, such as tooltip or scale callbacks
+- Fixed a bug in `<wa-date-input>` and `<wa-time-input>` where an empty `start`/`end` slot added a phantom gap causing it to be misaligned with other form controls [issue:2527]
 - Fixed a bug in `<wa-select>` that prevented the dropdown menu from scrolling when using the keyboard [issue:2472]
 - Fixed a bug in `<wa-carousel>` that caused the pagination controls to clip vertically by adding block padding around them [issue:2495]
+- Fixed a bug in `<wa-carousel>` with `loop` enabled that displayed the wrong slide, briefly flashing it on load, when the carousel was initialized inside a hidden container such as an inactive tab panel [issue:1163]
 - Fixed component API tables in the `webawesome` Agent Skill by generating them from the CEM instead of scraping the rendered HTML [issue:2475]
+
+:::
+
+:::changed
+
+- Synced `<wa-option>` visuals with `<wa-dropdown-item>` so options and menu items read as the same primitive [issue:2413]
+  - `<wa-option>` now uses rounded corners and sits inset within `<wa-select>`'s listbox, with spacing between options
+  - The current (keyboard-highlighted) state now uses `--wa-form-control-activated-color` for its background and a new `--current-text-color` custom property for its text, so options track form control theming alongside `<wa-checkbox>`, `<wa-radio>`, `<wa-switch>`, and `<wa-slider>`
+  - Hover and current state changes now animate, matching `<wa-dropdown-item>`
 
 :::
 
