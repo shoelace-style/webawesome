@@ -85,11 +85,18 @@ export default class WaRandomContent extends WebAwesomeElement {
     } else if (this.mode === 'unique') {
       let pool = children.filter(c => !this.uniqueHistory.has(c));
       if (pool.length < count) {
-        this.uniqueHistory.clear();
-        pool = [...children];
+        // Seed the fresh history with currently shown items so they can't immediately repeat.
+        this.uniqueHistory = new Set(this.currentSelection);
+        pool = children.filter(c => !this.uniqueHistory.has(c));
+        // Edge case: items >= children.length means everything is always shown; just reset fully.
+        if (pool.length < count) {
+          this.uniqueHistory.clear();
+          pool = [...children];
+        }
       }
       selected = this.sample(pool, count);
       selected.forEach(el => this.uniqueHistory.add(el));
+      this.currentSelection = new Set(selected);
     } else {
       const pool = children.length > count ? children.filter(c => !this.currentSelection.has(c)) : children;
       selected = this.sample(pool, count);
