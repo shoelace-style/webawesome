@@ -101,6 +101,8 @@ export default async function (eleventyConfig) {
     name: 'Web Awesome',
     description: 'Build better with Web Awesome, the open source library of web components from Font Awesome.',
     image: 'https://webawesome.com/assets/images/open-graph/default.png',
+    imageWidth: 2400,
+    imageHeight: 1260,
   };
 
   // Title composition/stripping config - single source of truth
@@ -146,6 +148,10 @@ export default async function (eleventyConfig) {
     ogTitle: data => composePageTitle(data.ogTitle || data.title),
     ogDescription: data => data.ogDescription || data.description,
     ogImage: data => data.ogImage || siteMetadata.image,
+    // Only emit dimensions when we know them: use the default if the page is using the
+    // default image, the explicit override if provided, otherwise null (suppresses emission).
+    ogImageWidth: data => data.ogImageWidth || (data.ogImage ? null : siteMetadata.imageWidth),
+    ogImageHeight: data => data.ogImageHeight || (data.ogImage ? null : siteMetadata.imageHeight),
     ogUrl: data => {
       // Strip template extensions: a page setting `permalink: /foo.njk` leaks the template
       // file path into page.url, which is never a valid public URL for og:url or canonical.
