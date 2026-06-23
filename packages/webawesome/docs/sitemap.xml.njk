@@ -4,7 +4,7 @@ layout: false
 eleventyExcludeFromCollections: true
 ---
 <?xml version="1.0" encoding="utf-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 {%- for entry in collections.sitemap %}
   <url>
     <loc>{{ entry.path | htmlBaseUrl(siteMetadata.url) }}</loc>
