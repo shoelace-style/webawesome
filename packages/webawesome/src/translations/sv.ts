@@ -37,7 +37,7 @@ const translation: Translation = {
   goToSlide: (slide, count) => `Gå till bild ${slide} av ${count}`,
   hidePassword: 'Dölj lösenord',
   hour: 'Timme',
-  incompleteDate: 'Ange ett fullständigt datum.',
+  incompleteDate: 'Ange ett giltigt datum.',
   increment: 'Öka',
   loading: 'Läser in',
   minute: 'Minut',

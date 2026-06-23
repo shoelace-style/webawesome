@@ -7,6 +7,7 @@ import { uniqueId } from '../../internal/math.js';
 import { warnDeprecatedSize } from '../../internal/size.js';
 import { HasSlotController } from '../../internal/slot.js';
 import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
+import { RequiredValidator } from '../../internal/validators/required-validator.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
 import formControlStyles from '../../styles/component/form-control.styles.js';
@@ -23,8 +24,8 @@ export type WaKnownDateAppearance = 'filled' | 'outlined' | 'filled-outlined';
 const generateId = (): string => uniqueId('wa-known-date-');
 
 /**
- * @summary Known dates let users enter dates they already know — birthdays, expirations, document
- *  dates — through three separate day, month, and year fields shown in the locale's natural order.
+ * @summary Known dates let users enter dates they already know - birthdays, expirations, document
+ *  dates - through three separate day, month, and year fields shown in the locale's natural order.
  * @documentation https://webawesome.com/docs/components/known-date
  * @status experimental
  * @since 3.8
@@ -53,10 +54,6 @@ const generateId = (): string => uniqueId('wa-known-date-');
  * @csspart field-year - Added to the year field block.
  * @csspart field-label - The text label above each field's input.
  * @csspart field-input - The native `<input>` inside a field.
- * @csspart error - The inline error message region. This is an intentional difference from `<wa-date-input>`
- *  and `<wa-time-input>`, which rely on the browser's native validation popup. Because this control is composed
- *  of three separate fields, an inline `role="alert"` region gives a single, predictable place to surface the
- *  validation message rather than anchoring a native popup on one of the three fields.
  *
  * @cssstate blank - The known date has no committed value.
  * @cssstate disabled - The known date is disabled.
@@ -71,19 +68,32 @@ export default class WaKnownDate extends WebAwesomeFormAssociatedElement {
   };
 
   static get validators() {
-    const validators = isServer ? [] : [MirrorValidator(), PartialDateValidator()];
+    const validators = isServer
+      ? []
+      : [
+          // Order matters: the first failing validator's message wins. `PartialDateValidator` comes first so a partial
+          // or out-of-range entry (day 32, Feb 30) reports "Enter a valid date" as `badInput`, rather than
+          // `RequiredValidator`'s "Please fill out this field" (the mirror is empty whenever the entry doesn't
+          // compose).
+          PartialDateValidator(),
+          RequiredValidator({
+            validationElement: Object.assign(document.createElement('input'), { required: true }),
+          }),
+          // Mirrors the hidden native `<input type="date">` so its min/max constraints surface as
+          // rangeUnderflow/rangeOverflow validity.
+          MirrorValidator(),
+        ];
     return [...super.validators, ...validators];
   }
 
   // Moving focus between the three internal fields shouldn't count as "leaving the group," so we key
-  // interaction off `input` alone — matching `<wa-date-input>` and `<wa-time-input>`.
+  // interaction off `input` alone - matching `<wa-date-input>` and `<wa-time-input>`.
   assumeInteractionOn = ['input'];
 
   readonly localize = new LocalizeController(this);
   private readonly hasSlotController = new HasSlotController(this, 'hint', 'label');
   private readonly groupId = generateId();
   private readonly hintId = `${this.groupId}-hint`;
-  private readonly errorId = `${this.groupId}-error`;
 
   /** Hidden mirror used for native constraint validation (min/max/required + valid-date roundtrip). */
   @query('.value-input') valueInput!: HTMLInputElement;
@@ -193,10 +203,9 @@ export default class WaKnownDate extends WebAwesomeFormAssociatedElement {
       this._value = this.defaultValue;
     }
     this.syncPartsFromCanonical();
-    // `MirrorValidator` reads `this.input` to mirror the hidden native `<input type="date">`'s constraint
-    // validity (min/max/required/valid-date). Unlike the picker siblings — which use `RequiredValidator` and
-    // therefore never set `this.input` — this control depends on this assignment. `validationTarget` is still
-    // overridden so the validation *popup* anchors on a visible field rather than the hidden mirror.
+    // `MirrorValidator` reads `this.input` to mirror the hidden native `<input type="date">`'s min/max constraint
+    // validity. `validationTarget` is overridden so the native validation *popup* anchors on a visible field rather
+    // than the hidden mirror - matching `<wa-time-input>`.
     this.input = this.valueInput;
     this.updateValidity();
     this.lastEmittedValue = this._value;
@@ -241,12 +250,12 @@ export default class WaKnownDate extends WebAwesomeFormAssociatedElement {
     if (!this.shadowRoot) return undefined;
     const inputs = Array.from(this.shadowRoot.querySelectorAll<HTMLInputElement>('input[part~="field-input"]'));
     if (inputs.length === 0) return undefined;
-    // Prefer the first empty field — that's the one the user needs to fix when partial.
-    for (const field of this.fieldOrder()) {
-      if (this.parts[field] === '') {
-        const el = inputs.find(i => i.dataset.field === field);
-        if (el) return el;
-      }
+    // Anchor on the specific field the user needs to fix: the first empty field when partial, or the first field whose
+    // value is out of range (month 13, day 32, …) when complete. Falls back to the first field.
+    const offending = this.firstInvalidField();
+    if (offending) {
+      const el = inputs.find(i => i.dataset.field === offending);
+      if (el) return el;
     }
     return inputs[0];
   }
@@ -310,7 +319,7 @@ export default class WaKnownDate extends WebAwesomeFormAssociatedElement {
     if (this.valueInput) {
       this.valueInput.value = this._value;
     }
-    // setValue(null) when blank — matches <wa-date-input> so FormData omits the entry instead of
+    // setValue(null) when blank - matches <wa-date-input> so FormData omits the entry instead of
     // submitting `name=`.
     this.setValue(this._value || null);
   }
@@ -344,6 +353,33 @@ export default class WaKnownDate extends WebAwesomeFormAssociatedElement {
       }
     }
     return inputs[0];
+  }
+
+  /**
+   * Returns the field to fix when the value doesn't compose, in locale order: the first empty field, else the first
+   * out-of-range field (year < 1, month not 1–12, day not 1–31), else the day (e.g. Feb 30). Null when the value
+   * composes cleanly.
+   */
+  private firstInvalidField(): SegmentField | null {
+    if (this._value) return null;
+
+    const order = this.fieldOrder();
+
+    // Partial entry - point at the first empty field.
+    const empty = order.find(field => this.parts[field] === '');
+    if (empty) return empty;
+
+    // Complete but non-composing - find the first single field that's out of range.
+    const inRange: Record<SegmentField, (n: number) => boolean> = {
+      year: n => Number.isInteger(n) && n >= 1 && n <= 9999,
+      month: n => Number.isInteger(n) && n >= 1 && n <= 12,
+      day: n => Number.isInteger(n) && n >= 1 && n <= 31,
+    };
+    const outOfRange = order.find(field => !inRange[field](Number(this.parts[field])));
+    if (outOfRange) return outOfRange;
+
+    // Every field is individually in range but the trio isn't a real date (e.g. Feb 30) - blame the day.
+    return 'day';
   }
 
   private autocompleteFor(field: SegmentField): string | undefined {
@@ -387,11 +423,12 @@ export default class WaKnownDate extends WebAwesomeFormAssociatedElement {
     const hasHint = !!this.hint || !!hasHintSlot;
     const groupAriaLabel = this.label || this.localize.term('date') || 'Date';
 
+    // Validity surfaces through the native constraint validation flow (the browser's popup on submit), anchored on
+    // `validationTarget` - matching `<wa-time-input>`. We only use `user-invalid` to mark the fields with
+    // `aria-invalid` for assistive tech; we never render an inline error message of our own.
     const userInvalid = !isServer && this.customStates.has('user-invalid');
-    const errorMessage = userInvalid ? this.validationMessage : '';
-    const showError = userInvalid && !!errorMessage;
 
-    const describedBy = [hasHint ? this.hintId : null, showError ? this.errorId : null].filter(Boolean).join(' ');
+    const describedBy = hasHint ? this.hintId : '';
 
     const fields = this.fieldOrder().map(field => this.renderField(field, describedBy, userInvalid));
 
@@ -407,10 +444,6 @@ export default class WaKnownDate extends WebAwesomeFormAssociatedElement {
       >
         ${this.hint}
       </slot>
-
-      <div part="error" id=${this.errorId} class="error" role="alert" aria-live="polite" ?hidden=${!showError}>
-        ${errorMessage}
-      </div>
     `;
 
     return html`
