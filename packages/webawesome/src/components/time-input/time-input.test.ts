@@ -968,8 +968,12 @@ describe('<wa-time-input>', () => {
     // segmented-field styles against silent regressions.
     function iconCenterFromRight(host: HTMLElement, partSelector: string): number {
       const part = host.shadowRoot!.querySelector(partSelector);
-      const icon = part?.querySelector('wa-icon') ?? part;
-      const iconRect = icon!.getBoundingClientRect();
+      // The trailing parts are <slot> elements; a custom-slotted icon is assigned content, not a
+      // child, so fall back to assignedElements() before measuring the slot wrapper itself.
+      let icon: Element | null | undefined = part?.querySelector('wa-icon');
+      if (!icon && part instanceof HTMLSlotElement) icon = part.assignedElements()[0];
+      const target = icon ?? part!;
+      const iconRect = target.getBoundingClientRect();
       const hostRect = host.getBoundingClientRect();
       return hostRect.right - (iconRect.left + iconRect.right) / 2;
     }
@@ -997,6 +1001,29 @@ describe('<wa-time-input>', () => {
 
       expect(expandDelta, 'expand icon is off the select trailing axis').to.be.lessThan(2);
       expect(clearDelta, 'clear button is off the select trailing axis').to.be.lessThan(2);
+    });
+
+    it('keeps the expand icon on the <wa-select> axis with no clear button', async () => {
+      // No with-clear/value: only the expand button is rendered. Confirms the expand button stays
+      // anchored to the trailing edge independently of whether the clear button is present.
+      const container = await fixture(html`
+        <div>
+          <wa-select><wa-option value="a">A</wa-option></wa-select>
+          <wa-time-input></wa-time-input>
+        </div>
+      `);
+      const select = container.querySelector<HTMLElement & { updateComplete: Promise<unknown> }>('wa-select')!;
+      const time = container.querySelector<WaTimeInput>('wa-time-input')!;
+      await Promise.all([customElements.whenDefined('wa-select'), customElements.whenDefined('wa-time-input')]);
+      await select.updateComplete;
+      await time.updateComplete;
+      await aTimeout(50);
+
+      expect(time.shadowRoot!.querySelector('[part~="clear-button"]'), 'clear button should be absent').to.equal(null);
+      const expandDelta = Math.abs(
+        iconCenterFromRight(time, '[part~="expand-icon"]') - iconCenterFromRight(select, '[part~="expand-icon"]'),
+      );
+      expect(expandDelta, 'expand icon is off the select trailing axis without a clear button').to.be.lessThan(2);
     });
   });
 });
