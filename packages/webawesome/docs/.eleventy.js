@@ -183,7 +183,7 @@ export default async function (eleventyConfig) {
   const SITEMAP_ACCOUNT_FILE_ALLOW = new Set(['signup.njk']);
   eleventyConfig.addCollection('sitemap', collection => {
     return collection
-      .getAll()
+      .getAllSorted()
       .map(item => {
         const raw = String(item.data.ogUrl || item.url || '').replace(/\.njk$/, '');
         const urlPath = raw.replace(/^https?:\/\/[^/]+/, '');
