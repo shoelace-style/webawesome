@@ -247,7 +247,7 @@ Because the host renders `display: contents`, the component is transparent to la
   day!
 </p>
 
-<wa-button size="s" onclick="document.getElementById('inline').randomize()" style="margin-top:var(--wa-space-m)" appearance="filled">Randomize</wa-button>
+<wa-button size="s" onclick="document.getElementById('inline').randomize()" appearance="filled">Randomize</wa-button>
 ```
 
 ### Imperative control
