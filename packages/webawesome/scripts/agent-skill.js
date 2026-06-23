@@ -261,6 +261,21 @@ function renderComponentApiTable(section, component) {
 }
 
 /**
+ * Moves a component's `## Examples` section to the end of the doc so the API comes first.
+ *
+ * The component layout (docs/_layouts/component.njk) emits the page in this order: summary →
+ * Examples (the markdown body) → API sections (Importing, Slots, Attributes & Properties, …). The
+ * skill wants summary → API → Examples. The examples are one contiguous block — `## Examples` up to
+ * the next `## ` heading (`## Importing`) — so we just cut that block out and append it at the end.
+ */
+function moveExamplesToEnd(markdown) {
+  const match = markdown.match(/\n## Examples\n[\s\S]*?(?=\n## |$)/);
+  if (!match) return markdown;
+  const examples = match[0];
+  return (markdown.slice(0, match.index) + markdown.slice(match.index + examples.length)).trimEnd() + '\n' + examples;
+}
+
+/**
  * Processes rendered HTML from Eleventy output and converts it to clean Markdown.
  *
  * When `component` (a Custom Elements Manifest declaration) is provided, that component's API
@@ -427,6 +442,13 @@ function processHtmlToMarkdown(htmlContent, baseUrl, component = null) {
     )
     .forEach(el => el.remove());
 
+  // Drop the "Need a hand?" help footer and its leading divider
+  main.querySelectorAll('.component-help').forEach(el => {
+    const divider = el.previousElementSibling;
+    if (divider && divider.tagName === 'WA-DIVIDER') divider.remove();
+    el.remove();
+  });
+
   // Get the h1 title if present (we'll add it separately in the header)
   const h1 = main.querySelector('h1.title');
   const title = h1 ? h1.textContent.trim() : null;
@@ -446,6 +468,11 @@ function processHtmlToMarkdown(htmlContent, baseUrl, component = null) {
 
   // Clean up excessive blank lines
   markdown = markdown.replace(/\n{3,}/g, '\n\n').trim();
+
+  // For component docs, move the examples below the API reference.
+  if (component) {
+    markdown = moveExamplesToEnd(markdown);
+  }
 
   return { content: markdown, title };
 }

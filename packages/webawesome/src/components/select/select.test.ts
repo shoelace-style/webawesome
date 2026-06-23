@@ -1209,4 +1209,46 @@ describe('<wa-select>', () => {
       expect(el.displayInput.value).to.equal('Option 2');
     });
   });
+
+  describe('trailing affordance alignment', () => {
+    // <wa-select> and <wa-input> are the canonical trailing axis the other form controls line
+    // up against (date/time/combobox guards compare against <wa-select>). This anchors the two
+    // references together so the axis itself can't silently drift.
+    function iconCenterFromRight(host: HTMLElement, partSelector: string): number {
+      const part = host.shadowRoot!.querySelector(partSelector);
+      let icon: Element | null | undefined = part?.querySelector('wa-icon');
+      if (!icon && part instanceof HTMLSlotElement) icon = part.assignedElements()[0];
+      const target = icon ?? part!;
+      const iconRect = target.getBoundingClientRect();
+      const hostRect = host.getBoundingClientRect();
+      return hostRect.right - (iconRect.left + iconRect.right) / 2;
+    }
+
+    it('shares the trailing axis with <wa-input>', async () => {
+      const fixture = fixtures[0];
+      const container = await fixture(html`
+        <div>
+          <wa-select with-clear value="a"><wa-option value="a">A</wa-option></wa-select>
+          <wa-input with-clear value="text"><wa-icon slot="end" name="circle-info"></wa-icon></wa-input>
+        </div>
+      `);
+      const select = container.querySelector<HTMLElement & { updateComplete: Promise<unknown> }>('wa-select')!;
+      const input = container.querySelector<HTMLElement & { updateComplete: Promise<unknown> }>('wa-input')!;
+      await Promise.all([customElements.whenDefined('wa-select'), customElements.whenDefined('wa-input')]);
+      await select.updateComplete;
+      await input.updateComplete;
+      await aTimeout(50);
+
+      // input's trailing-most icon is the end-slot decoration; select's is the chevron.
+      const trailingDelta = Math.abs(
+        iconCenterFromRight(input, '[part~="end"]') - iconCenterFromRight(select, '[part~="expand-icon"]'),
+      );
+      const clearDelta = Math.abs(
+        iconCenterFromRight(input, '[part~="clear-button"]') - iconCenterFromRight(select, '[part~="clear-button"]'),
+      );
+
+      expect(trailingDelta, 'input end-slot icon is off the select trailing axis').to.be.lessThan(2);
+      expect(clearDelta, 'input clear button is off the select clear axis').to.be.lessThan(2);
+    });
+  });
 });
