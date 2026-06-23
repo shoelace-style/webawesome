@@ -15,6 +15,7 @@ import { getComponents } from './_utils/manifest.js';
 import { markdown } from './_utils/markdown.js';
 import { SimulateWebAwesomeApp } from './_utils/simulate-webawesome-app.js';
 // import { formatCodePlugin } from './_plugins/format-code.js';
+import { HtmlBasePlugin } from '@11ty/eleventy';
 import litPlugin from '@lit-labs/eleventy-plugin-lit';
 import { readFile } from 'fs/promises';
 import process from 'process';
@@ -22,7 +23,6 @@ import * as url from 'url';
 import { generateAgentSkill } from '../scripts/agent-skill.js';
 import { generateDesignSkill } from '../scripts/design-skill.js';
 import { getSiteDir } from '../scripts/utils.js';
-import { HtmlBasePlugin } from '@11ty/eleventy';
 import { replaceTextPlugin } from './_plugins/replace-text.js';
 import { searchPlugin } from './_plugins/search.js';
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
@@ -186,22 +186,24 @@ export default async function (eleventyConfig) {
       .getAll()
       .map(item => {
         const raw = String(item.data.ogUrl || item.url || '').replace(/\.njk$/, '');
-        const path = raw.replace(/^https?:\/\/[^/]+/, '');
-        return { item, path };
+        const urlPath = raw.replace(/^https?:\/\/[^/]+/, '');
+        return { item, urlPath };
       })
-      .filter(({ item, path }) => {
-        if (!path) return false;
+      .filter(({ item, urlPath }) => {
+        if (!urlPath) return false;
         if (item.data.noindex) return false;
         if (item.data.eleventyExcludeFromCollections) return false;
-        if (SITEMAP_EXCLUDE_PATTERNS.some(re => re.test(path))) return false;
+        if (SITEMAP_EXCLUDE_PATTERNS.some(re => re.test(urlPath))) return false;
         if (isAccountSourceFile(item.inputPath)) {
-          const basename = String(item.inputPath || '').split(/[/\\]/).pop();
+          const basename = String(item.inputPath || '')
+            .split(/[/\\]/)
+            .pop();
           return SITEMAP_ACCOUNT_FILE_ALLOW.has(basename);
         }
         return true;
       })
-      .map(({ item, path }) => ({
-        path,
+      .map(({ item, urlPath }) => ({
+        path: urlPath,
         lastmod: item.date ? item.date.toISOString().split('T')[0] : null,
       }));
   });
