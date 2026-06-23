@@ -22,6 +22,7 @@ import * as url from 'url';
 import { generateAgentSkill } from '../scripts/agent-skill.js';
 import { generateDesignSkill } from '../scripts/design-skill.js';
 import { getSiteDir } from '../scripts/utils.js';
+import { HtmlBasePlugin } from '@11ty/eleventy';
 import { replaceTextPlugin } from './_plugins/replace-text.js';
 import { searchPlugin } from './_plugins/search.js';
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
@@ -158,6 +159,51 @@ export default async function (eleventyConfig) {
   // With Prettier 3, this means a leading pipe will exist be present when the line wraps.
   eleventyConfig.addFilter('trimPipes', content => {
     return typeof content === 'string' ? content.replace(/^(\s|\|)/g, '').replace(/(\s|\|)$/g, '') : content;
+  });
+
+  // Sitemap collection: public, indexable URLs only.
+  // Filters out noindex pages, opted-out pages, and app-only paths (admin, workspaces,
+  // logged-in account pages, etc.). The template uses the htmlBaseUrl filter to absolutize.
+  const SITEMAP_EXCLUDE_PATTERNS = [
+    /^\/admin(\/|$)/,
+    /^\/workspaces(\/|$)/,
+    /^\/projects(\/|$)/,
+    /^\/purchase(\/|$)/,
+    /^\/invitations(\/|$)/,
+    /^\/patterns(\/|$)/,
+    /^\/dev-emails/,
+    /\.html$/i,
+  ];
+  // Per the SEO audit: of the public auth-gateway pages, only /signup belongs in the sitemap.
+  // /login, /claim, /account/reset-password, /account/update-password are returning-user or
+  // token-driven flows that don't need search indexing.
+  // Match on source file path so this holds even when ogUrl rewrites the public URL away
+  // from /account/* (e.g. signup.njk → /signup, login.njk → /login).
+  const isAccountSourceFile = inputPath => /[/\\]account[/\\]/.test(String(inputPath || ''));
+  const SITEMAP_ACCOUNT_FILE_ALLOW = new Set(['signup.njk']);
+  eleventyConfig.addCollection('sitemap', collection => {
+    return collection
+      .getAll()
+      .map(item => {
+        const raw = String(item.data.ogUrl || item.url || '').replace(/\.njk$/, '');
+        const path = raw.replace(/^https?:\/\/[^/]+/, '');
+        return { item, path };
+      })
+      .filter(({ item, path }) => {
+        if (!path) return false;
+        if (item.data.noindex) return false;
+        if (item.data.eleventyExcludeFromCollections) return false;
+        if (SITEMAP_EXCLUDE_PATTERNS.some(re => re.test(path))) return false;
+        if (isAccountSourceFile(item.inputPath)) {
+          const basename = String(item.inputPath || '').split(/[/\\]/).pop();
+          return SITEMAP_ACCOUNT_FILE_ALLOW.has(basename);
+        }
+        return true;
+      })
+      .map(({ item, path }) => ({
+        path,
+        lastmod: item.date ? item.date.toISOString().split('T')[0] : null,
+      }));
   });
 
   /**
@@ -311,6 +357,11 @@ export default async function (eleventyConfig) {
       },
     ]),
   );
+
+  // Provides the htmlBaseUrl filter used by sitemap.xml.njk to absolutize URLs.
+  // Bundled with Eleventy 2.0+, no install required. Also future-proofs against
+  // a future deployment under a path prefix.
+  eleventyConfig.addPlugin(HtmlBasePlugin);
 
   // Build the search index
   eleventyConfig.addPlugin(
