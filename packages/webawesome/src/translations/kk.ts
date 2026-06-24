@@ -38,7 +38,7 @@ const translation: Translation = {
   goToSlide: (slide, count) => `${slide}/${count} слайдқа өту`,
   hidePassword: 'Құпиясөзді жасыру',
   hour: 'Сағат',
-  incompleteDate: 'Толық күнді енгізіңіз.',
+  incompleteDate: 'Жарамды күнді енгізіңіз.',
   increment: 'Арттыру',
   loading: 'Жүктелуде',
   minute: 'Минут',

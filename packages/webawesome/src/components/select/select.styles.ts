@@ -256,8 +256,7 @@ export default css`
     border-radius: var(--wa-border-radius-m);
     border-style: var(--wa-border-style);
     border-width: var(--wa-border-width-s);
-    padding-block: 0.5em;
-    padding-inline: 0;
+    padding: 0.25em;
     overflow: auto;
     overscroll-behavior: none;
 
@@ -268,6 +267,13 @@ export default css`
     &::slotted(wa-divider) {
       --spacing: 0.5em;
     }
+  }
+
+  /* Space options with half the listbox's padding */
+  .listbox slot:not([name]) {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125em;
   }
 
   slot:not([name])::slotted(small) {

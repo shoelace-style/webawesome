@@ -247,8 +247,25 @@ describe('<wa-known-date>', () => {
       await el.updateComplete;
       typeIn(getField(el, 'day'), '15');
       await el.updateComplete;
+      // A partial entry has digits but can't compose to a real date, so it reports as badInput — the same
+      // native flag a partially typed `<input type="date">` would report.
       expect(el.checkValidity()).to.equal(false);
-      expect(el.validity.valueMissing).to.equal(true);
+      expect(el.validity.badInput).to.equal(true);
+    });
+
+    it('reports the invalid-date message (not the required message) for an out-of-range entry', async () => {
+      // Even when required, an out-of-range entry must surface the "valid date" message rather than the
+      // RequiredValidator's "Please fill out this field" — the hidden mirror is empty because the entry
+      // never composed, so PartialDateValidator must take precedence.
+      const el = await fixture<WaKnownDate>(html`<wa-known-date required></wa-known-date>`);
+      await el.updateComplete;
+      typeIn(getField(el, 'day'), '15');
+      typeIn(getField(el, 'month'), '33');
+      typeIn(getField(el, 'year'), '2020');
+      await el.updateComplete;
+      expect(el.checkValidity()).to.equal(false);
+      expect(el.validity.badInput).to.equal(true);
+      expect(el.validationMessage).to.equal(el.localize.term('incompleteDate'));
     });
 
     it('is valid for a complete real date', async () => {
@@ -472,17 +489,15 @@ describe('<wa-known-date>', () => {
   });
 
   describe('user-invalid reflection on fields', () => {
-    it('sets aria-invalid="true" on the field inputs and shows the error region after interaction', async () => {
+    it('sets aria-invalid="true" on the field inputs after interaction', async () => {
       const el = await fixture<WaKnownDate>(html`<wa-known-date required></wa-known-date>`);
       await el.updateComplete;
 
-      // Before interaction: not user-invalid, fields not marked, error region hidden.
+      // Before interaction: not user-invalid, fields not marked.
       expect(el.customStates.has('user-invalid')).to.equal(false);
       for (const f of getFields(el)) {
         expect(f.getAttribute('aria-invalid')).to.not.equal('true');
       }
-      const errorBefore = el.shadowRoot!.querySelector<HTMLElement>('[part~="error"]')!;
-      expect(errorBefore.hidden).to.equal(true);
 
       // Interact: typing dispatches a composed `input`, flipping `hasInteracted`. The value stays
       // invalid (required + only a partial entry).
@@ -493,11 +508,18 @@ describe('<wa-known-date>', () => {
       for (const f of getFields(el)) {
         expect(f.getAttribute('aria-invalid')).to.equal('true');
       }
+    });
 
-      const errorAfter = el.shadowRoot!.querySelector<HTMLElement>('[part~="error"]')!;
-      expect(errorAfter.hidden).to.equal(false);
-      expect(errorAfter.textContent?.trim().length).to.be.greaterThan(0);
-      expect(errorAfter.textContent?.trim()).to.equal(el.validationMessage.trim());
+    it('never renders an inline error region — validation surfaces through the native popup', async () => {
+      // Unlike a custom inline message, validity is reported via the native constraint validation flow,
+      // matching <wa-time-input>. Interacting with an invalid control must not inject any error element.
+      const el = await fixture<WaKnownDate>(html`<wa-known-date required></wa-known-date>`);
+      await el.updateComplete;
+      typeIn(getField(el, 'day'), '15');
+      await el.updateComplete;
+
+      expect(el.customStates.has('user-invalid')).to.equal(true);
+      expect(el.shadowRoot!.querySelector('[part~="error"]')).to.equal(null);
     });
   });
 
@@ -541,6 +563,48 @@ describe('<wa-known-date>', () => {
       const el = await compose('15', '1', '0');
       expect(el.value).to.equal('');
       expect(el.checkValidity()).to.equal(false);
+    });
+  });
+
+  describe('validationTarget anchoring', () => {
+    async function compose(day: string, month: string, year: string, lang = 'en-GB') {
+      const el = await fixture<WaKnownDate>(html`<wa-known-date lang=${lang}></wa-known-date>`);
+      await el.updateComplete;
+      typeIn(getField(el, 'day'), day);
+      typeIn(getField(el, 'month'), month);
+      typeIn(getField(el, 'year'), year);
+      await el.updateComplete;
+      return el;
+    }
+
+    it('anchors on the out-of-range day (day 32)', async () => {
+      const el = await compose('32', '1', '2020');
+      expect((el.validationTarget as HTMLInputElement).dataset.field).to.equal('day');
+    });
+
+    it('anchors on the out-of-range month (month 13)', async () => {
+      const el = await compose('15', '13', '2020');
+      expect((el.validationTarget as HTMLInputElement).dataset.field).to.equal('month');
+    });
+
+    it('anchors on the day for a non-composing real-date combination (Feb 30)', async () => {
+      const el = await compose('30', '2', '2024');
+      expect((el.validationTarget as HTMLInputElement).dataset.field).to.equal('day');
+    });
+
+    it('anchors on the first empty field for a partial entry', async () => {
+      const el = await fixture<WaKnownDate>(html`<wa-known-date lang="en-GB"></wa-known-date>`);
+      await el.updateComplete;
+      // en-GB order is day/month/year; fill the day, leaving month as the first empty field.
+      typeIn(getField(el, 'day'), '15');
+      await el.updateComplete;
+      expect((el.validationTarget as HTMLInputElement).dataset.field).to.equal('month');
+    });
+
+    it('anchors on the offending field regardless of locale order (en-US)', async () => {
+      // en-US order is month/day/year, but the day is the out-of-range field.
+      const el = await compose('32', '1', '2020', 'en-US');
+      expect((el.validationTarget as HTMLInputElement).dataset.field).to.equal('day');
     });
   });
 

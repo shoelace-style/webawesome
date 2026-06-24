@@ -150,9 +150,138 @@ function createTurndownService(baseUrl) {
 }
 
 /**
- * Processes rendered HTML from Eleventy output and converts it to clean Markdown.
+ * Renders a component's API table (Slots, Attributes & Properties, Methods, Events, CSS custom
+ * properties, Custom States, CSS parts) directly from the Custom Elements Manifest.
+ *
+ * The docs site builds these tables from the CEM, so scraping the rendered HTML is a lossy
+ * round-trip: per-row type, default, and description collapse into a single cell and any inline
+ * `<code>` after the first is dropped. Reading the CEM (as scripts/llms.js already does) keeps
+ * them accurate. Returns a markdown table string, or null when the section has no CEM data.
+ *
+ * The result is restored after the Turndown pass via a placeholder (see processHtmlToMarkdown),
+ * so it can contain real backticks, brackets, and `<…>` text without being escaped or parsed.
  */
-function processHtmlToMarkdown(htmlContent, baseUrl) {
+function renderComponentApiTable(section, component) {
+  const bt = s => '`' + s + '`';
+  const esc = s =>
+    String(s ?? '')
+      .replace(/\r?\n/g, ' ')
+      .replace(/\|/g, '\\|')
+      .replace(/\s+/g, ' ')
+      .trim();
+  const codeOrDash = s => {
+    const t = esc(s);
+    return t ? bt(t) : '—';
+  };
+  const table = (headers, rows) =>
+    rows.length
+      ? ['| ' + headers.join(' | ') + ' |', '| ' + headers.map(() => '---').join(' | ') + ' |', ...rows].join('\n')
+      : null;
+
+  switch (section) {
+    case 'Slots': {
+      // Rendered as a bullet list (not a table) with an explicit warning: losing slot names is the
+      // exact failure that makes LLMs invent non-existent slots like `slot="main"`, so the valid
+      // names are stated plainly. The default slot is shown as `(default)`.
+      const slots = component.slots || [];
+      if (!slots.length) return null;
+      const lines = [
+        'Valid slot names for this component (use exactly these — any other `slot` value is',
+        'silently ignored and the element falls back to the default slot):',
+        '',
+      ];
+      for (const s of slots) {
+        const name = s.name ? bt(esc(s.name)) : '`(default)`';
+        lines.push(`- ${name} — ${esc(s.description) || 'No description.'}`);
+      }
+      return lines.join('\n');
+    }
+
+    case 'Attributes & Properties': {
+      const props = (component.members || []).filter(
+        m => m.kind === 'field' && m.privacy !== 'private' && m.description,
+      );
+      return table(
+        ['Property', 'Attribute', 'Description', 'Type', 'Default'],
+        props.map(p => {
+          const attr = (component.attributes || []).find(a => a.fieldName === p.name);
+          return `| ${bt(esc(p.name))} | ${attr ? bt(esc(attr.name)) : '—'} | ${esc(p.description) || '—'} | ${codeOrDash(p.type && p.type.text)} | ${codeOrDash(p.default)} |`;
+        }),
+      );
+    }
+
+    case 'Methods': {
+      const methods = (component.members || []).filter(
+        m => m.kind === 'method' && m.privacy !== 'private' && !m.name.startsWith('#') && m.description,
+      );
+      return table(
+        ['Name', 'Description', 'Arguments'],
+        methods.map(m => {
+          const args = (m.parameters || [])
+            .map(p => `${p.name}: ${esc(p.type && p.type.text) || 'unknown'}`)
+            .join(', ');
+          return `| ${bt(esc(m.name) + '()')} | ${esc(m.description) || '—'} | ${args ? bt(esc(args)) : '—'} |`;
+        }),
+      );
+    }
+
+    case 'Events':
+      return table(
+        ['Name', 'Description'],
+        (component.events || []).filter(e => e.name).map(e => `| ${bt(esc(e.name))} | ${esc(e.description) || '—'} |`),
+      );
+
+    case 'CSS custom properties':
+      return table(
+        ['Name', 'Description', 'Default'],
+        (component.cssProperties || []).map(
+          p => `| ${bt(esc(p.name))} | ${esc(p.description) || '—'} | ${codeOrDash(p.default)} |`,
+        ),
+      );
+
+    case 'Custom States':
+      return table(
+        ['Name', 'Description', 'CSS selector'],
+        (component.cssStates || []).map(
+          s => `| ${bt(esc(s.name))} | ${esc(s.description) || '—'} | ${bt(':state(' + esc(s.name) + ')')} |`,
+        ),
+      );
+
+    case 'CSS parts':
+      return table(
+        ['Name', 'Description', 'CSS selector'],
+        (component.cssParts || []).map(
+          p => `| ${bt(esc(p.name))} | ${esc(p.description) || '—'} | ${bt('::part(' + esc(p.name) + ')')} |`,
+        ),
+      );
+
+    default:
+      return null;
+  }
+}
+
+/**
+ * Moves a component's `## Examples` section to the end of the doc so the API comes first.
+ *
+ * The component layout (docs/_layouts/component.njk) emits the page in this order: summary →
+ * Examples (the markdown body) → API sections (Importing, Slots, Attributes & Properties, …). The
+ * skill wants summary → API → Examples. The examples are one contiguous block — `## Examples` up to
+ * the next `## ` heading (`## Importing`) — so we just cut that block out and append it at the end.
+ */
+function moveExamplesToEnd(markdown) {
+  const match = markdown.match(/\n## Examples\n[\s\S]*?(?=\n## |$)/);
+  if (!match) return markdown;
+  const examples = match[0];
+  return (markdown.slice(0, match.index) + markdown.slice(match.index + examples.length)).trimEnd() + '\n' + examples;
+}
+
+/**
+ * Processes rendered HTML from Eleventy output and converts it to clean Markdown.
+ *
+ * When `component` (a Custom Elements Manifest declaration) is provided, that component's API
+ * tables are regenerated from the manifest instead of being scraped from the rendered HTML.
+ */
+function processHtmlToMarkdown(htmlContent, baseUrl, component = null) {
   const root = parse(htmlContent, {
     blockTextElements: {
       script: true,
@@ -166,6 +295,16 @@ function processHtmlToMarkdown(htmlContent, baseUrl) {
     console.warn('Warning: Could not find main#content in HTML');
     return '';
   }
+
+  // Strip "Link to This Section" permalink anchors and their tooltips from headings
+  main.querySelectorAll('a[id$="-permalink"], wa-tooltip[for$="-permalink"]').forEach(node => node.remove());
+
+  // Strip the "Learn more about <topic>." helper paragraphs that follow API headings
+  main.querySelectorAll('p').forEach(p => {
+    if (/^Learn more about\b/.test(p.textContent.trim()) && p.querySelector('a[href*="/docs/usage/"]')) {
+      p.remove();
+    }
+  });
 
   // Process color groups before removing copy buttons - extract token names
   main.querySelectorAll('ul.color-group').forEach(ul => {
@@ -185,7 +324,36 @@ function processHtmlToMarkdown(htmlContent, baseUrl) {
   // Process tables - convert to markdown tables, skipping visual-only columns
   // We use a special marker that we'll convert back to newlines after turndown
   const TABLE_NEWLINE = '{{TABLE_NEWLINE}}';
+
+  // Map each component API table to its section heading, in document order, so CEM-backed tables
+  // can be regenerated from the manifest instead of scraped (see renderComponentApiTable).
+  const sectionByTable = new Map();
+  if (component) {
+    let currentHeading = '';
+    main.querySelectorAll('h2, table').forEach(node => {
+      if (node.tagName === 'H2') {
+        currentHeading = node.textContent.trim();
+      } else if (node.classList?.contains('component-table')) {
+        sectionByTable.set(node, currentHeading);
+      }
+    });
+  }
+
+  // CEM-generated tables are swapped in via placeholders and restored after Turndown, so their
+  // backticks, brackets, pipes, and `<…>` text aren't escaped or parsed as HTML.
+  const cemTables = [];
+
   main.querySelectorAll('table').forEach(table => {
+    // Regenerate component API tables from the CEM (lossless) rather than scraping the HTML.
+    if (sectionByTable.has(table)) {
+      const cemTable = renderComponentApiTable(sectionByTable.get(table), component);
+      if (cemTable !== null) {
+        table.replaceWith(`{{CEMTABLE${cemTables.length}}}`);
+        cemTables.push(cemTable);
+        return;
+      }
+    }
+
     const headers = [];
     const headerCells = table.querySelectorAll('thead th');
     const columnsToSkip = new Set();
@@ -274,6 +442,13 @@ function processHtmlToMarkdown(htmlContent, baseUrl) {
     )
     .forEach(el => el.remove());
 
+  // Drop the "Need a hand?" help footer and its leading divider
+  main.querySelectorAll('.component-help').forEach(el => {
+    const divider = el.previousElementSibling;
+    if (divider && divider.tagName === 'WA-DIVIDER') divider.remove();
+    el.remove();
+  });
+
   // Get the h1 title if present (we'll add it separately in the header)
   const h1 = main.querySelector('h1.title');
   const title = h1 ? h1.textContent.trim() : null;
@@ -284,6 +459,8 @@ function processHtmlToMarkdown(htmlContent, baseUrl) {
 
   // Restore table newlines from markers (underscores may be escaped by turndown)
   markdown = markdown.replace(/\{\{TABLE[_\\]+NEWLINE\}\}/g, '\n');
+  // Restore CEM-generated tables (kept out of the Turndown pass so their markdown isn't escaped)
+  markdown = markdown.replace(/\{\{CEMTABLE(\d+)\}\}/g, (_, i) => cemTables[Number(i)]);
 
   // Remove server-side Nunjucks templates that aren't rendered in static build
   // These are templates meant for the production server (e.g., {% if session.isLoggedIn %})
@@ -291,6 +468,11 @@ function processHtmlToMarkdown(htmlContent, baseUrl) {
 
   // Clean up excessive blank lines
   markdown = markdown.replace(/\n{3,}/g, '\n\n').trim();
+
+  // For component docs, move the examples below the API reference.
+  if (component) {
+    markdown = moveExamplesToEnd(markdown);
+  }
 
   return { content: markdown, title };
 }
@@ -377,160 +559,6 @@ function getComponentInfo(components, frontMatterCache) {
 
   // Sort alphabetically by tag name
   return componentList.sort((a, b) => a.tagName.localeCompare(b.tagName));
-}
-
-/**
- * Builds a fast lookup of CEM declarations keyed by tag name (e.g. `wa-button`).
- */
-function indexComponentsByTag(components) {
-  const map = new Map();
-  for (const component of components) {
-    if (component.tagName) map.set(component.tagName, component);
-  }
-  return map;
-}
-
-/**
- * Collapses whitespace/newlines and escapes pipes so a value is safe inside a Markdown table cell.
- * CEM descriptions frequently contain hard newlines, which would otherwise break the table.
- */
-function cell(value) {
-  if (value === undefined || value === null || value === '') return '';
-  return String(value).replace(/\r?\n/g, ' ').replace(/\s+/g, ' ').replace(/\|/g, '\\|').trim();
-}
-
-/** Wraps a value in backticks for a Markdown table cell, escaping pipes. Empty stays empty. */
-function code(value) {
-  const c = cell(value);
-  return c ? `\`${c}\`` : '';
-}
-
-/** Renders a simple Markdown table from a header array and an array of row arrays. */
-function table(headers, rows) {
-  if (!rows.length) return '';
-  const head = `| ${headers.join(' | ')} |`;
-  const sep = `| ${headers.map(() => '---').join(' | ')} |`;
-  const body = rows.map(r => `| ${r.join(' | ')} |`).join('\n');
-  return `${head}\n${sep}\n${body}`;
-}
-
-/**
- * Generates the authoritative API reference for a component directly from its CEM declaration.
- *
- * The rendered-HTML → Turndown path mangles multi-column tables (collapsing the slots,
- * attributes, and CSS-parts tables into garbled single cells and dropping slot names), which in
- * turn causes consuming LLMs to invent non-existent slots/attributes. The CEM is clean,
- * structured source of truth, so we build the API tables from it instead of scraping.
- *
- * Returns a Markdown string of `## Slots`, `## Attributes & Properties`, etc., or '' if the
- * component has no documented API.
- */
-function generateCemReference(decl) {
-  if (!decl) return '';
-  const sections = [];
-
-  // Slots — also emitted as an explicit bullet list so valid slot names can never be lost to
-  // table formatting. The default slot is rendered as `(default)`.
-  if (decl.slots?.length) {
-    const lines = ['## Slots', ''];
-    lines.push('Valid slot names for this component (use exactly these — any other `slot` value');
-    lines.push('is silently ignored and the element falls back to the default slot):');
-    lines.push('');
-    for (const slot of decl.slots) {
-      const name = slot.name ? `\`${slot.name}\`` : '`(default)`';
-      lines.push(`- ${name} — ${cell(slot.description) || 'No description.'}`);
-    }
-    sections.push(lines.join('\n'));
-  }
-
-  // Attributes & properties
-  if (decl.attributes?.length) {
-    const rows = decl.attributes.map(attr => [
-      code(attr.name),
-      code(attr.fieldName && attr.fieldName !== attr.name ? attr.fieldName : ''),
-      code(attr.type?.text),
-      code(attr.default),
-      cell(attr.description),
-    ]);
-    sections.push(
-      ['## Attributes & Properties', '', table(['Attribute', 'Property', 'Type', 'Default', 'Description'], rows)].join(
-        '\n',
-      ),
-    );
-  }
-
-  // Methods — only those documented with a description (skips internal reactive handlers).
-  const methods = (decl.members || []).filter(
-    m => m.kind === 'method' && m.privacy !== 'private' && !m.name.startsWith('#') && m.description,
-  );
-  if (methods.length) {
-    const rows = methods.map(m => {
-      const args = (m.parameters || []).map(p => `${p.name}${p.type?.text ? `: ${p.type.text}` : ''}`).join(', ');
-      return [code(m.name), cell(m.description), code(args)];
-    });
-    sections.push(['## Methods', '', table(['Method', 'Description', 'Arguments'], rows)].join('\n'));
-  }
-
-  // Events
-  if (decl.events?.length) {
-    const rows = decl.events.map(e => [code(e.name), cell(e.description)]);
-    sections.push(['## Events', '', table(['Event', 'Description'], rows)].join('\n'));
-  }
-
-  // Custom states
-  if (decl.cssStates?.length) {
-    const rows = decl.cssStates.map(s => [code(s.name), cell(s.description)]);
-    sections.push(['## Custom States', '', table(['State', 'Description'], rows)].join('\n'));
-  }
-
-  // CSS parts
-  if (decl.cssParts?.length) {
-    const rows = decl.cssParts.map(p => [code(p.name), cell(p.description)]);
-    sections.push(['## CSS Parts', '', table(['Part', 'Description'], rows)].join('\n'));
-  }
-
-  // CSS custom properties
-  if (decl.cssProperties?.length) {
-    const rows = decl.cssProperties.map(p => [code(p.name), code(p.default), cell(p.description)]);
-    sections.push(['## CSS Custom Properties', '', table(['Property', 'Default', 'Description'], rows)].join('\n'));
-  }
-
-  return sections.join('\n\n');
-}
-
-/**
- * Headings that begin the auto-generated API reference in the scraped Markdown. Everything from
- * the first of these onward is replaced with clean CEM-derived tables, since the scraped versions
- * are garbled. Prose and examples above these headings are kept as-is.
- */
-const SCRAPED_API_HEADINGS = [
-  'Slots',
-  'Attributes & Properties',
-  'Attributes and Properties',
-  'Methods',
-  'Events',
-  'Custom States',
-  'CSS parts',
-  'CSS Parts',
-  'CSS custom properties',
-  'CSS Custom Properties',
-  'Dependencies',
-  'Importing',
-];
-
-/**
- * Truncates scraped Markdown at the first auto-generated API section heading, returning only the
- * prose/examples portion. The clean CEM reference (and Importing notes) are appended separately.
- */
-function stripScrapedApiSections(markdown) {
-  const lines = markdown.split('\n');
-  for (let i = 0; i < lines.length; i++) {
-    const match = lines[i].match(/^#{2,3}\s+(.+?)\s*$/);
-    if (match && SCRAPED_API_HEADINGS.includes(match[1].trim())) {
-      return lines.slice(0, i).join('\n').trim();
-    }
-  }
-  return markdown.trim();
 }
 
 /**
@@ -1099,12 +1127,12 @@ function copyAndProcessDoc(siteDir, docsDir, destDir, htmlRelPath, destFileName,
 /**
  * Copies all component documentation files from rendered HTML.
  *
- * Prose and examples come from the scraped HTML, but the API reference (slots, attributes,
- * methods, events, CSS parts/properties/states) is regenerated from the CEM via
- * `generateCemReference`, because the scraped tables are garbled by the HTML → Markdown
- * conversion. `componentsByTag` is the CEM index from `indexComponentsByTag`.
+ * Prose and examples come from the scraped HTML, but the API tables (slots, attributes,
+ * methods, events, CSS parts/properties/states) are regenerated in-place from the CEM via
+ * `renderComponentApiTable` (passed through to `processHtmlToMarkdown`), because the scraped
+ * tables are garbled by the HTML → Markdown conversion. `components` is the CEM component list.
  */
-function copyAllComponentDocs(siteDir, destDir, baseUrl, frontMatterCache, componentsByTag) {
+function copyAllComponentDocs(siteDir, destDir, baseUrl, frontMatterCache, components = []) {
   const htmlDir = path.join(siteDir, 'docs/components');
   const componentsDestDir = path.join(destDir, 'components');
 
@@ -1127,8 +1155,9 @@ function copyAllComponentDocs(siteDir, destDir, baseUrl, frontMatterCache, compo
     if (!fs.existsSync(htmlPath)) continue;
 
     const frontmatter = frontMatterCache.get(componentName) || {};
+    const component = components.find(c => c.tagName === `wa-${componentName}`) || null;
     const htmlContent = fs.readFileSync(htmlPath, 'utf-8');
-    const { content: processed } = processHtmlToMarkdown(htmlContent, baseUrl);
+    const { content: processed } = processHtmlToMarkdown(htmlContent, baseUrl, component);
 
     const title = frontmatter.title || componentName;
     const isProComponent = frontmatter.isProComponent === true;
@@ -1137,19 +1166,11 @@ function copyAllComponentDocs(siteDir, destDir, baseUrl, frontMatterCache, compo
     const header = [
       `# ${title}${proBadge}`,
       '',
-      `**Full documentation:** ${baseUrl}/docs/components/${componentName}`,
-      '',
-      isProComponent ? `> This component requires [Web Awesome Pro](${baseUrl}/purchase).` : '',
+      ...(isProComponent ? [`> This component requires [Web Awesome Pro](${baseUrl}/purchase).`, ''] : []),
       '',
     ].join('\n');
 
-    // Keep scraped prose/examples; replace the garbled scraped API tables with clean CEM tables.
-    const decl = componentsByTag.get(`wa-${componentName}`);
-    const cemReference = generateCemReference(decl);
-    const prose = cemReference ? stripScrapedApiSections(processed) : processed;
-    const body = cemReference ? `${prose}\n\n${cemReference}\n` : prose;
-
-    fs.writeFileSync(path.join(componentsDestDir, `${componentName}.md`), `${header}${body}`, 'utf-8');
+    fs.writeFileSync(path.join(componentsDestDir, `${componentName}.md`), header + processed, 'utf-8');
   }
 }
 
@@ -1245,7 +1266,6 @@ export async function generateAgentSkill(options = {}) {
   }
 
   const components = getAllComponents(customElementsManifest);
-  const componentsByTag = indexComponentsByTag(components);
   const packageData = customElementsManifest.package || {};
   const frontMatterCache = loadAllFrontMatter(docsDir);
   const componentList = getComponentInfo(components, frontMatterCache);
@@ -1267,7 +1287,7 @@ export async function generateAgentSkill(options = {}) {
   fs.writeFileSync(path.join(outdir, 'SKILL.md'), skillMd, 'utf-8');
 
   // Copy all component docs from rendered HTML
-  copyAllComponentDocs(siteDir, refsDir, baseUrl, frontMatterCache, componentsByTag);
+  copyAllComponentDocs(siteDir, refsDir, baseUrl, frontMatterCache, components);
 
   // Generate themes reference (static content)
   const themesRef = generateThemesReference(baseUrl);

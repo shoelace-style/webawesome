@@ -37,7 +37,7 @@ const translation: Translation = {
   goToSlide: (slide, count) => `Ugrás a ${count}/${slide}. diára`,
   hidePassword: 'Jelszó elrejtése',
   hour: 'Óra',
-  incompleteDate: 'Adjon meg egy teljes dátumot.',
+  incompleteDate: 'Adjon meg egy érvényes dátumot.',
   increment: 'Növelés',
   loading: 'Betöltés',
   minute: 'Perc',

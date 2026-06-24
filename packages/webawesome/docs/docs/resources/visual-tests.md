@@ -2,6 +2,7 @@
 title: Visual Tests
 description: A page to visually test component styles against native styles.
 layout: page
+hasProseContent: false
 ---
 
 <style>

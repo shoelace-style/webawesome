@@ -37,7 +37,7 @@ const translation: Translation = {
   goToSlide: (slide, count) => `轉到第 ${slide} 張幻燈片，共 ${count} 張`,
   hidePassword: '隱藏密碼',
   hour: '小時',
-  incompleteDate: '請輸入完整的日期。',
+  incompleteDate: '請輸入有效的日期。',
   increment: '增加',
   loading: '載入中',
   minute: '分鐘',

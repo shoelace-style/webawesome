@@ -14,8 +14,35 @@ declare module 'lit' {
   }
 }
 
+const HAS_ENDING_COLON = /;\s+$/;
+
 function camelToKebab(str: string) {
   return str.replace(/[A-Z]/g, c => `-${c.toLowerCase()}`);
+}
+
+// if your server doesn't have a polyfill available for this.style, (assumed by it being undefined) we modify the attribute directly.
+function buildStyleAttribute(options: { property?: string | null; value?: unknown; element: HTMLElement }) {
+  const { property, value, element } = options;
+  if (value) {
+    let style = element.getAttribute('style') || '';
+    if (style) {
+      // need to check if the previous property ended with a colon or not.
+      if (!style.match(HAS_ENDING_COLON)) {
+        style += ';';
+      }
+      style += ' ';
+    }
+
+    const str = `${property}: ${value}`;
+
+    if (style.includes(str)) {
+      return;
+    }
+
+    return `${style}${str};`;
+  }
+
+  return null;
 }
 
 export default class WebAwesomeElement extends LitElement {
@@ -148,13 +175,17 @@ export default class WebAwesomeElement extends LitElement {
    * Internal way to set styles across both client and server
    */
   protected setStyle<T extends keyof CSSStyleDeclaration & string>(property: T, value: CSSStyleDeclaration[T]) {
+    // if your server doesn't have a polyfill available for this.style, (assumed by it being undefined) we modify the attribute directly.
     if (!this.style) {
-      if (value != null) {
-        let style = this.getAttribute('style') || '';
-        if (style) {
-          style += ' ';
-        }
-        this.setAttribute('style', `${style}${camelToKebab(property)}: ${value};`);
+      const str = buildStyleAttribute({
+        // because this is going to be serialized to an HTML style attribute, need to transform the casing.
+        property: camelToKebab(property),
+        value,
+        element: this,
+      });
+
+      if (str) {
+        this.setAttribute('style', str);
       }
 
       return;
@@ -169,13 +200,17 @@ export default class WebAwesomeElement extends LitElement {
    * Internal way to set a CSS custom property across both client and server.
    */
   protected setStyleProperty<T extends string>(property: T, value: string) {
+    // if your server doesn't have a polyfill available for this.style, (assumed by it being undefined) we modify the attribute directly.
     if (!this.style) {
-      if (value != null) {
-        let style = this.getAttribute('style') || '';
-        if (style) {
-          style += ' ';
-        }
-        this.setAttribute('style', `${style}${property}: ${value};`);
+      const str = buildStyleAttribute({
+        // because this is going to be serialized to an HTML style attribute, need to transform the casing.
+        property,
+        value,
+        element: this,
+      });
+
+      if (str) {
+        this.setAttribute('style', str);
       }
 
       return;

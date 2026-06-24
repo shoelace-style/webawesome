@@ -622,6 +622,59 @@ describe('<wa-select>', () => {
           await el.updateComplete;
           expect(displayInput.getAttribute('aria-expanded')).to.equal('false');
         });
+
+        it('should scroll a type-to-select match into view', async () => {
+          const el = await fixture<WaSelect>(html`
+            <wa-select>
+              <wa-option value="argentina">Argentina</wa-option>
+              <wa-option value="belgium">Belgium</wa-option>
+              <wa-option value="canada">Canada</wa-option>
+              <wa-option value="denmark">Denmark</wa-option>
+              <wa-option value="egypt">Egypt</wa-option>
+              <wa-option value="france">France</wa-option>
+              <wa-option value="ghana">Ghana</wa-option>
+            </wa-select>
+          `);
+          const listbox = el.shadowRoot!.querySelector<HTMLElement>('.listbox')!;
+          const ghana = el.querySelector<WaOption>('wa-option[value="ghana"]')!;
+          const scrollTo = sinon.stub(listbox, 'scrollTo');
+
+          sinon.stub(listbox, 'getBoundingClientRect').returns({
+            top: 0,
+            left: 0,
+            right: 200,
+            bottom: 100,
+            width: 200,
+            height: 100,
+            x: 0,
+            y: 0,
+            toJSON: () => {},
+          });
+          sinon.stub(ghana, 'getBoundingClientRect').returns({
+            top: 140,
+            left: 0,
+            right: 200,
+            bottom: 160,
+            width: 200,
+            height: 20,
+            x: 0,
+            y: 140,
+            toJSON: () => {},
+          });
+          Object.defineProperty(listbox, 'offsetHeight', { configurable: true, value: 100 });
+          Object.defineProperty(ghana, 'clientHeight', { configurable: true, value: 20 });
+
+          el.focus();
+          await sendKeys({ press: 'g' });
+          await sendKeys({ press: 'h' });
+          await sendKeys({ press: 'a' });
+          await sendKeys({ press: 'n' });
+          await sendKeys({ press: 'a' });
+          await el.updateComplete;
+
+          expect(el.currentOption).to.equal(ghana);
+          expect(scrollTo).to.have.been.calledWith({ top: 60, behavior: 'auto' });
+        });
       });
 
       describe('form integration', () => {
@@ -1154,6 +1207,48 @@ describe('<wa-select>', () => {
 
       expect(el.value).to.equal('option-2');
       expect(el.displayInput.value).to.equal('Option 2');
+    });
+  });
+
+  describe('trailing affordance alignment', () => {
+    // <wa-select> and <wa-input> are the canonical trailing axis the other form controls line
+    // up against (date/time/combobox guards compare against <wa-select>). This anchors the two
+    // references together so the axis itself can't silently drift.
+    function iconCenterFromRight(host: HTMLElement, partSelector: string): number {
+      const part = host.shadowRoot!.querySelector(partSelector);
+      let icon: Element | null | undefined = part?.querySelector('wa-icon');
+      if (!icon && part instanceof HTMLSlotElement) icon = part.assignedElements()[0];
+      const target = icon ?? part!;
+      const iconRect = target.getBoundingClientRect();
+      const hostRect = host.getBoundingClientRect();
+      return hostRect.right - (iconRect.left + iconRect.right) / 2;
+    }
+
+    it('shares the trailing axis with <wa-input>', async () => {
+      const fixture = fixtures[0];
+      const container = await fixture(html`
+        <div>
+          <wa-select with-clear value="a"><wa-option value="a">A</wa-option></wa-select>
+          <wa-input with-clear value="text"><wa-icon slot="end" name="circle-info"></wa-icon></wa-input>
+        </div>
+      `);
+      const select = container.querySelector<HTMLElement & { updateComplete: Promise<unknown> }>('wa-select')!;
+      const input = container.querySelector<HTMLElement & { updateComplete: Promise<unknown> }>('wa-input')!;
+      await Promise.all([customElements.whenDefined('wa-select'), customElements.whenDefined('wa-input')]);
+      await select.updateComplete;
+      await input.updateComplete;
+      await aTimeout(50);
+
+      // input's trailing-most icon is the end-slot decoration; select's is the chevron.
+      const trailingDelta = Math.abs(
+        iconCenterFromRight(input, '[part~="end"]') - iconCenterFromRight(select, '[part~="expand-icon"]'),
+      );
+      const clearDelta = Math.abs(
+        iconCenterFromRight(input, '[part~="clear-button"]') - iconCenterFromRight(select, '[part~="clear-button"]'),
+      );
+
+      expect(trailingDelta, 'input end-slot icon is off the select trailing axis').to.be.lessThan(2);
+      expect(clearDelta, 'input clear button is off the select clear axis').to.be.lessThan(2);
     });
   });
 });

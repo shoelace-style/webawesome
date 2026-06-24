@@ -18,4 +18,4 @@ We’re fully aware that we may not get it right every time for every user, so w
 
 This is the path forward. Together, we will continue to make Web Awesome accessible to as many users as possible.
 
-<wa-icon name="heart" variant="regular" animation="beat" label="love" style="color: var(--wa-brand-orange);"></wa-icon> The Web Awesome Team
+<wa-icon name="heart" animation="beat" label="love" class="heart-affection"></wa-icon> The Web Awesome Team

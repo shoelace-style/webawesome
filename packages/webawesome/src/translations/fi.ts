@@ -37,7 +37,7 @@ const translation: Translation = {
   goToSlide: (slide, count) => `Siirry diaan ${slide} / ${count}`,
   hidePassword: 'Piilota salasana',
   hour: 'Tunti',
-  incompleteDate: 'Anna täydellinen päivämäärä.',
+  incompleteDate: 'Anna kelvollinen päivämäärä.',
   increment: 'Lisää',
   loading: 'Ladataan',
   minute: 'Minuutti',

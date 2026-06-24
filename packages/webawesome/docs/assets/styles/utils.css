@@ -976,6 +976,7 @@
       position: absolute;
       inset: 0;
       z-index: 0;
+      border-radius: inherit;
       pointer-events: none;
     }
   }
@@ -1071,6 +1072,17 @@
     --wa-mask-fade-start: 60%;
     --wa-mask-fade-end: 95%;
     mask-image: linear-gradient(to bottom, #000 var(--wa-mask-fade-start), transparent var(--wa-mask-fade-end));
+  }
+
+  /* Decorative heart that warms to brand orange and beats on hover. Pair with
+   * name="heart" animation="beat" — the animation is paused at rest. Use for
+   * affection / thank-you gestures (page footer, sign-offs, etc.). */
+  wa-icon.heart-affection {
+    --animation-iteration-count: 0;
+  }
+  wa-icon.heart-affection:hover {
+    --animation-iteration-count: infinite;
+    color: var(--wa-brand-orange);
   }
 
   /* icon swap on hover/focus: plain buttons + dropdown items (pair .icon-default / .icon-hover in icon slot) */
@@ -1192,6 +1204,17 @@
   /* decreasing visual size of icons in certain contexts (such as in sidebar nav) */
   wa-icon.icon-shrink {
     font-size: round(0.875em, 1px);
+  }
+
+  /* duotone icons styled as small illustrations: dark primary + brand secondary, fully opaque */
+  wa-icon.duotone-illustrated {
+    --primary-color: var(--wa-color-text-normal);
+    --secondary-color: var(--wa-color-brand-80);
+    --secondary-opacity: 1;
+
+    .wa-dark & {
+      --secondary-color: var(--wa-color-brand-60);
+    }
   }
   /* #endregion */
 

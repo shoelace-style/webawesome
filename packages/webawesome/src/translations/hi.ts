@@ -36,7 +36,7 @@ const translation: Translation = {
   goToSlide: (slide, count) => `${count} में से स्लाइड ${slide} पर जाएं`,
   hidePassword: 'पासवर्ड छुपाएं',
   hour: 'घंटा',
-  incompleteDate: 'पूरी तारीख़ दर्ज करें.',
+  incompleteDate: 'मान्य तारीख़ दर्ज करें.',
   increment: 'बढ़ाएं',
   loading: 'लोड हो रहा है',
   minute: 'मिनट',

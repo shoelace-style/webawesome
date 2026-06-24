@@ -28,7 +28,7 @@ import styles from './card.styles.js';
  *
  * @cssproperty [--spacing=var(--wa-space-l)] - The amount of space around and between sections of the card. Expects a single value.
  *
- * @ssr - `<wa-card>` requires `with-header` / `with-media` / `with-footer` attributes to be set if you use any of these slots. This is a limitation of the platform not currently providing a `:has-slotted` CSS directive to allow us to apply things like borders based on slotted content. Without these attributes, only the body of the card will be rendered via SSR.
+ * @ssr - If you use the header, media, or footer slots, set the matching `with-header`, `with-media`, or `with-footer` attribute — otherwise only the card's body will render during SSR. This works around the lack of a `:has-slotted` CSS pseudo-class, which would normally let us style borders based on slotted content.
  */
 @customElement('wa-card')
 export default class WaCard extends WebAwesomeElement {

@@ -17,7 +17,7 @@ import { requestInclude } from './request.js';
  * @event wa-load - Emitted when the included file is loaded.
  * @event {{ status: number }} wa-include-error - Emitted when the included file fails to load due to an error.
  *
- * @ssr - `<wa-include>` uses fetch, but due to its asynchronous nature similar to `<wa-icon>`, there is no way to get the rendered content on your server.
+ * @ssr - `<wa-include>` fetches its content asynchronously (like `<wa-icon>`), so the rendered output isn't available during SSR.
  */
 @customElement('wa-include')
 export default class WaInclude extends WebAwesomeElement {

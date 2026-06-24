@@ -21,6 +21,7 @@ import { RequiredValidator } from '../../internal/validators/required-validator.
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
 import formControlStyles from '../../styles/component/form-control.styles.js';
+import segmentedFieldStyles from '../../styles/component/segmented-field.styles.js';
 import sizeStyles from '../../styles/component/size.styles.js';
 import { LocalizeController } from '../../utilities/localize.js';
 import {
@@ -109,7 +110,7 @@ const SINGLE_GROUP = 'single';
  */
 @customElement('wa-time-input')
 export default class WaTimeInput extends WebAwesomeFormAssociatedElement {
-  static css = [sizeStyles, formControlStyles, styles];
+  static css = [sizeStyles, formControlStyles, segmentedFieldStyles, styles];
 
   static shadowRootOptions = {
     ...WebAwesomeFormAssociatedElement.shadowRootOptions,

@@ -62,9 +62,6 @@
     }
 
     /* Headings hug what they introduce: generous above, tight below. */
-    & * + :where(h1) {
-      margin-block-start: var(--wa-prose-rhythm-3xl);
-    }
     & :where(h1):has(+ *) {
       margin-block-end: var(--wa-prose-rhythm-s);
     }

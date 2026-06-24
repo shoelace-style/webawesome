@@ -67,5 +67,5 @@ export async function generateDesignSkill(options = {}) {
     injectVersion(path.join(dest, 'SKILL.md'), version);
   }
 
-  console.log(`Copied design skill (v${version}) to ${outDirs.length} location(s).`);
+  console.log(`\nCopied design skill (v${version}) to ${outDirs.length} location(s).`);
 }
