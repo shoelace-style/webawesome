@@ -54,11 +54,13 @@ Slot virtually any HTML — text, badges, cards, images, or other components —
 
 ```html {.example}
 <div>
-  <wa-random-content id="rc-providing">
-    <p>Plain text works fine.</p>
-    <wa-badge variant="brand">So do components</wa-badge>
-    <wa-card>Even rich cards with their own content.</wa-card>
-  </wa-random-content>
+  <div class="wa-cluster wa-align-items-center" style="min-height: 5rem">
+    <wa-random-content id="rc-providing">
+      <p>Plain text works fine.</p>
+      <wa-badge variant="brand">So do components</wa-badge>
+      <wa-card>Even rich cards with their own content.</wa-card>
+    </wa-random-content>
+  </div>
 
   <wa-divider></wa-divider>
 
