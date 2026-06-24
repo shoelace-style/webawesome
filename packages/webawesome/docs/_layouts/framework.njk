@@ -1,0 +1,15 @@
+{% set hasSidebar = true %}
+{% set hasOutline = true %}
+
+{# need this override this to get right class #}
+{% set layout = "page-outline" %}
+
+{% extends "../_includes/base.njk" %}
+
+{%- block beforeContent -%}
+  <wa-breadcrumb class="page-breadcrumbs">
+    <wa-icon slot="separator" name="angle-right" variant="regular"></wa-icon>
+    <wa-breadcrumb-item href="/docs/frameworks">Frameworks</wa-breadcrumb-item>
+    <wa-breadcrumb-item>{{ title }}</wa-breadcrumb-item>
+  </wa-breadcrumb>
+{%- endblock -%}

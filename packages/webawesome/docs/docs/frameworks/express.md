@@ -1,14 +1,8 @@
 ---
 title: Express
 description: Tips for using Web Awesome in your Express app.
-layout: page-outline
+layout: framework
 ---
-
-<wa-breadcrumb class="page-breadcrumbs">
-  <wa-icon slot="separator" name="angle-right" variant="regular"></wa-icon>
-  <wa-breadcrumb-item href="/docs/frameworks">Frameworks</wa-breadcrumb-item>
-  <wa-breadcrumb-item>{{ title }}</wa-breadcrumb-item>
-</wa-breadcrumb>
 
 There isn't much to know with Express as it is relatively unopinionated.
 
@@ -63,9 +57,18 @@ There are other ways to setup Web Awesome such as with NPM or downloading ZIP fi
 
 SSR can be added to your express app by "transforming" your responses.
 
+The first step is to install Web Awesome to your `node_modules` folder.
+
 ```js
 npm install @awesome.me/webawesome
 ```
+
+After installing, you will need to do a few things:
+
+1. Register the Web Awesome components in the "server" component registry
+1. import the `renderString` function from `@awesome.me/webawesome/dist/ssr/render-string.js`
+1. Setup the `LitElementRenderer`
+1. Modify the `response` call to "transform" the string with Lit SSR.
 
 ```diff-javascript
 + // Will register all web awesome components on your server

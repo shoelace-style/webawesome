@@ -28,19 +28,35 @@ frameworks:
     icon_name: "react"
     href: "/docs/frameworks/react"
 
+  # Svelte
   - color: "#ff3e00"
     title: Svelte
     icon_name: "svelte"
     href: "/docs/frameworks/svelte"
 
+  # Vue 3
   - color: "#41b883"
     title: Vue 3
     icon_name: "vuejs"
     href: "/docs/frameworks/vue"
 
+  # Nuxt
+  - color: "#41b883"
+    title: Nuxt
+    icon_name: "nuxt"
+    href: "/docs/frameworks/nuxt"
+
+  # Express
   - color: "#41b883"
     title: Express
+    icon_name: "expressjs"
     href: "/docs/frameworks/express"
+
+  # Astro
+  - color: "#41b883"
+    title: Astro
+    icon_name: "astrojs"
+    href: "/docs/frameworks/astro"
 ---
 
 
