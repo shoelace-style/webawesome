@@ -12,7 +12,7 @@ npm install @awesome.me/webawesome
 
 Once you've installed it from NPM, you can import component as "client" scripts, and add the "global" stylesheet in the frontmatter.
 
-```astro
+```jsx
 ---
 import "@awesome.me/webawesome/dist/styles/webawesome.css";
 ---
@@ -57,8 +57,7 @@ Once our plugin is setup, you must now register components in 2 places, one on t
 
 So the previous example should look like this:
 
-```astro
-
+```jsx
 ---
 // Global CSS
 import "@awesome.me/webawesome/dist/styles/webawesome.css";
