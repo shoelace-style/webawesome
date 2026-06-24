@@ -151,7 +151,7 @@ export function codeExamplesTransformer(options = {}) {
             ${
               hasPreview
                 ? `
-              <div class="code-example-preview">
+              <div class="code-example-preview wa-not-prose">
                 <div>
                   ${preview}
                 </div>
