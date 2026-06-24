@@ -57,6 +57,12 @@ frameworks:
     title: Astro
     icon_name: "astrojs"
     href: "/docs/frameworks/astro"
+
+  # Build Awesome
+  - color: "#41b883"
+    title: Build Awesome (11ty)
+    icon_name: "eleventy"
+    href: "/docs/frameworks/buildawesome"
 ---
 
 
