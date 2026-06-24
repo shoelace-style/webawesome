@@ -191,7 +191,7 @@ Tune the duration, easing, and travel distance with the `--animation-duration`, 
 
 ### Autoplay
 
-Add the `autoplay` attribute to rotate content on a timer, and set the cadence with `autoplay-interval` (milliseconds). It pauses while the pointer is over the component or focus is inside it, and resumes when the user moves away. It respects reduced motion, too: content still rotates, but the entrance animation is skipped.
+Add the `autoplay` attribute to rotate content on a timer, and set the cadence with `autoplay-interval` (milliseconds). It pauses while the pointer is over the component or focus is inside it, and resumes when the user moves away. It respects reduced motion, too: content still rotates, but the entrance animation is skipped. Each new item is announced to screen readers using its text, so give icon-only content an accessible label (for example `<wa-icon label="…">`).
 
 ```html {.example}
 <div class="rc-autoplay-demo">

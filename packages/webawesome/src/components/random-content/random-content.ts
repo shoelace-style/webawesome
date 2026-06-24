@@ -62,6 +62,10 @@ export default class WaRandomContent extends WebAwesomeElement {
   private currentSelection = new Set<Element>();
   private isInitialSelection = true;
   private autoplayController = new AutoplayController(this, () => this.randomize());
+  // Tracks the pending "clear animation attribute" listener per child so rapid re-animation
+  // (e.g. fast autoplay) doesn't stack listeners — `cancel()` fires `animationcancel`, not the
+  // `animationend` the listener waits for, so it wouldn't otherwise be removed.
+  private animationCleanups = new WeakMap<Element, AbortController>();
 
   /** Text pushed to a visually-hidden live region so screen readers hear rotations. */
   @state() private liveAnnouncement = '';
@@ -86,11 +90,6 @@ export default class WaRandomContent extends WebAwesomeElement {
     super.connectedCallback();
     // Restart autoplay on reconnect; the initial start happens in firstUpdated().
     if (this.hasUpdated) this.syncAutoplay();
-  }
-
-  disconnectedCallback() {
-    super.disconnectedCallback();
-    this.autoplayController.stop();
   }
 
   firstUpdated(changedProperties: PropertyValues<this>) {
@@ -181,7 +180,14 @@ export default class WaRandomContent extends WebAwesomeElement {
         // Cancel any in-progress animation so the CSS animation restarts cleanly.
         el.getAnimations().forEach(a => a.cancel());
         htmlEl.dataset['waAnimation'] = this.animation;
-        htmlEl.addEventListener('animationend', () => delete htmlEl.dataset['waAnimation'], { once: true });
+        // Drop the previous (un-fired) listener before adding a new one so they don't accumulate.
+        this.animationCleanups.get(el)?.abort();
+        const cleanup = new AbortController();
+        this.animationCleanups.set(el, cleanup);
+        htmlEl.addEventListener('animationend', () => delete htmlEl.dataset['waAnimation'], {
+          once: true,
+          signal: cleanup.signal,
+        });
       });
     }
 

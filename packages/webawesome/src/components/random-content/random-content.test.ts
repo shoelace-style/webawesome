@@ -477,4 +477,23 @@ describe('<wa-random-content>', () => {
       });
     });
   }
+
+  // Not part of the CSR/SSR fixture loop: the listener must be attached before the element mounts,
+  // which the fixture helpers don't allow.
+  describe('initial render', () => {
+    it('emits wa-content-change on first render', async () => {
+      await customElements.whenDefined('wa-random-content');
+      const emitted: Element[][] = [];
+      const el = document.createElement('wa-random-content') as WaRandomContent;
+      el.addEventListener('wa-content-change', (e: Event) => emitted.push((e as CustomEvent).detail.items));
+      el.innerHTML = '<span>A</span><span>B</span>';
+      document.body.append(el);
+      await el.updateComplete;
+      // Covers the first-render emission specifically (the other event test only checks an explicit
+      // randomize()). The listener has to be attached before mount to observe it.
+      expect(emitted.length).to.be.at.least(1);
+      expect(emitted[0]).to.have.lengthOf(1);
+      el.remove();
+    });
+  });
 });
