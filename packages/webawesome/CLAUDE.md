@@ -2,6 +2,15 @@
 
 Web Awesome — free/open-source Lit-based web component library (`@awesome.me/webawesome`). Part of a monorepo; the pro package (`webawesome-pro`) extends this one.
 
+## House Rules — internal conventions
+
+The team's internal UI/UX/CSS/docs conventions live in the app repo's house-rules corpus: [`../../../.house-rules/HOUSE-RULES.md`](../../../.house-rules/HOUSE-RULES.md). Three slices apply here:
+
+- [`../../../.house-rules/content.md`](../../../.house-rules/content.md) — voice by surface (reference docs are neutral/precise; marketing is playful), Title Case for headings/buttons/labels, sentence case for body and helper text, plan/product names (`Pro`, `Free`, `Plus`) capitalized as proper nouns. Applies to docs pages, examples, code-block prose, and component `@summary` text.
+- [`../../../.house-rules/css.md`](../../../.house-rules/css.md) — CSS for the free docs site (`docs/assets/styles/`): `@layer wa-utils` for shared utilities, `@layer wa-theme` for token-definition files (hex literals only there), `var(--wa-*)` consumption everywhere else, region comments, reuse-before-create. **Library component styles** (Lit components in `src/components/`) follow this CLAUDE.md's § Style Conventions instead.
+- [`../../../.house-rules/docs.md`](../../../.house-rules/docs.md) — docs authoring conventions: component-page front matter, the `{.example}` fence, container syntax (`:::added/:::fixed/...`), changelog entry style, component page structure, internal links via `/docs/...`.
+- [`../../../.house-rules/accessibility.md`](../../../.house-rules/accessibility.md) — a11y floor for team-authored UI. Examples in component doc pages still go through these rules: `<wa-icon label="...">` not `aria-label`, form controls labeled via the component's `label` API, decorative icons omit `label`, `.wa-visually-hidden` for SR-only text. Library component internals stay covered by `runFormControlBaseTests` and `expect(el).to.be.accessible()` — write/extend the test, not a house rule.
+
 ## Commands
 
 ```bash
