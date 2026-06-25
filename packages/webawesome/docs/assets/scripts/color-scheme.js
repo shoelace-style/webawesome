@@ -16,6 +16,8 @@ async function updateTheme(value) {
 
   await doViewTransition(() => {
     document.documentElement.classList.toggle('wa-dark', isDark);
+    // Inside the transition so listeners (e.g. code-example previews) re-sync in step with the crossfade.
+    document.dispatchEvent(new Event('color-scheme-applied'));
   });
 
   // Sync all selectors and update tooltip

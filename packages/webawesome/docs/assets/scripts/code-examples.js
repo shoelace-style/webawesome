@@ -209,6 +209,24 @@ initCodeExamples();
 document.addEventListener('turbo:load', initCodeExamples);
 
 //
+// Absorb per-example color-scheme overrides back into the page theme whenever the site color scheme
+// is applied — the only reset short of reloading. color-scheme.js fires this inside its View
+// Transition, so suppressing the preview's own transition lets the previews crossfade in step with
+// the rest of the page rather than trailing it.
+//
+document.addEventListener('color-scheme-applied', () => {
+  const overridden = document.querySelectorAll('.code-example-preview.wa-light, .code-example-preview.wa-dark');
+  overridden.forEach(preview => {
+    preview.classList.add('is-syncing-scheme');
+    preview.classList.remove('wa-light', 'wa-dark');
+  });
+  // Restore transitions only after the View Transition has snapshotted the final state.
+  requestAnimationFrame(() =>
+    requestAnimationFrame(() => overridden.forEach(preview => preview.classList.remove('is-syncing-scheme'))),
+  );
+});
+
+//
 // Resizing previews
 //
 document.addEventListener('mousedown', handleResizerDrag);

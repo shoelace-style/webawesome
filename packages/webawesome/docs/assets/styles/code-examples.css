@@ -72,6 +72,19 @@
   }
 }
 
+/* While absorbing a global color-scheme change, freeze the preview subtree so the site's View
+   Transition snapshots final colors and crossfades the previews in step. Zeroing the transition
+   tokens reaches component shadow DOM (which inherits them); transition: none catches the rest. */
+.code-example-preview.is-syncing-scheme {
+  --wa-transition-fast: 0s;
+  --wa-transition-normal: 0s;
+  --wa-transition-slow: 0s;
+}
+.code-example-preview.is-syncing-scheme,
+.code-example-preview.is-syncing-scheme * {
+  transition: none !important;
+}
+
 /* Block the preview while dragging to prevent iframes from intercepting drag events */
 .code-example-preview.is-dragging:after {
   content: '';
