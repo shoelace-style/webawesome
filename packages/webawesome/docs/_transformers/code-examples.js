@@ -135,8 +135,8 @@ export function codeExamplesTransformer(options = {}) {
       });
       preview = root.toString();
 
-      // Iframes are separate documents, so a scoped color-scheme/direction toggle can't reach
-      // their content (it would half-theme the example). Suppress both toggles in that case.
+      // A scoped color-scheme/direction toggle can't reach into a separate iframe document,
+      // so suppress both toggles for framed examples.
       const hasFrame = !!root.querySelector('wa-zoomable-frame, iframe');
 
       // Substitute the expanded source code for any `<wa-zoomable-frame data-select-src="...">` or `<wa-include data-select-src="...">` in the preview

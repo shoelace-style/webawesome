@@ -10,9 +10,8 @@
   --code-example-preview-padding-inline-start: var(--wa-space-xl);
   --code-example-preview-padding-inline-end: calc(var(--wa-space-xl) + var(--code-example-resizer-inline-size));
 
-  /* Chrome colors captured at the page theme. Declared here (above the preview), these freeze the
-     page-theme values so the resizer keeps them even when a per-example color-scheme override is
-     applied to .code-example-preview. */
+  /* Frozen above the preview so the resizer keeps the page's colors even when a per-example
+     color-scheme override is applied to .code-example-preview. */
   --code-example-chrome-surface: var(--wa-color-surface-default);
   --code-example-chrome-surface-lowered: var(--wa-color-surface-lowered);
   --code-example-chrome-text-quiet: var(--wa-color-text-quiet);
@@ -257,26 +256,22 @@
   }
 }
 
-/* Icon-only toggle buttons shouldn't grow like the text buttons (Code/Edit). They're centered
-   by the shared rule above; only one icon shows at a time (the other is display:none) and all
-   icons are the same size, so the button sizes to an icon and the swap is in place — no shift. */
+/* Hug the icon instead of stretching like the text buttons; floor the width for a comfortable target. */
 .code-example-buttons .code-example-theme,
 .code-example-buttons .code-example-dir {
   flex: 0 0 auto;
   min-inline-size: 2.25rem;
 }
 
-/* Reset the inherited sibling margin on the swapped icons so the visible one stays centered
-   (otherwise the first icon carries a margin-inline-end and the swap appears to shift). */
+/* Drop the inherited sibling margin so the swapped icon stays centered. */
 .code-example-theme > wa-icon,
 .code-example-dir > wa-icon {
   margin: 0;
 }
 
-/* Icon swap via display so the inactive icon leaves the accessibility tree. */
+/* Swap icons via display so the inactive one leaves the accessibility tree. */
 
-/* Theme icon — show one based on EFFECTIVE scheme.
-   Effective dark = explicit wa-dark on the preview, OR page dark with no explicit wa-light. */
+/* Show the dark-mode icon when the preview is effectively dark: explicit wa-dark, or page dark with no explicit wa-light. */
 .code-example-theme-to-light {
   display: none;
 }
