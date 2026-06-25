@@ -263,6 +263,7 @@
 .code-example-buttons .code-example-theme,
 .code-example-buttons .code-example-dir {
   flex: 0 0 auto;
+  min-inline-size: 2.25rem;
 }
 
 /* Reset the inherited sibling margin on the swapped icons so the visible one stays centered
