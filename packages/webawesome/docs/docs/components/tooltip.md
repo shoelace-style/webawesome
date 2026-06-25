@@ -107,14 +107,18 @@ Set the `trigger` attribute to `click` to toggle the tooltip on click instead of
 Tooltips can be controller programmatically by setting the `trigger` attribute to `manual`. Use the `open` attribute to control when the tooltip is shown.
 
 ```html {.example}
-<wa-button appearance="filled" style="margin-right: 4rem;">Toggle Manually</wa-button>
+<div class="manual-trigger-example">
+  <wa-tooltip for="manual-trigger-tooltip" trigger="manual" class="manual-tooltip">This is an avatar!</wa-tooltip>
+  <wa-avatar id="manual-trigger-tooltip" label="User"></wa-avatar>
 
-<wa-tooltip for="manual-trigger-tooltip" trigger="manual" class="manual-tooltip">This is an avatar!</wa-tooltip>
-<wa-avatar id="manual-trigger-tooltip" label="User"></wa-avatar>
+  <wa-divider></wa-divider>
+
+  <wa-button appearance="filled" class="manual-toggle">Toggle Manually</wa-button>
+</div>
 
 <script>
   const tooltip = document.querySelector('.manual-tooltip');
-  const toggle = tooltip.previousElementSibling;
+  const toggle = document.querySelector('.manual-toggle');
 
   toggle.addEventListener('click', () => (tooltip.open = !tooltip.open));
 </script>

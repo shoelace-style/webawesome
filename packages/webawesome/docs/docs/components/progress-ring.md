@@ -54,17 +54,21 @@ To change the color, use the `--track-color` and `--indicator-color` custom prop
 Use the default slot to show a label inside the progress ring.
 
 ```html {.example}
-<wa-progress-ring value="50" class="progress-ring-values" style="margin-bottom: .5rem;">50%</wa-progress-ring>
+<div class="progress-ring-overview">
+  <wa-progress-ring value="50" class="progress-ring-values">50%</wa-progress-ring>
 
-<br />
+  <wa-divider></wa-divider>
 
-<wa-button appearance="filled" circle><wa-icon name="minus" variant="solid" label="Decrease"></wa-icon></wa-button>
-<wa-button appearance="filled" circle><wa-icon name="plus" variant="solid" label="Increase"></wa-icon></wa-button>
+  <div class="wa-cluster">
+    <wa-button appearance="filled" circle><wa-icon name="minus" variant="solid" label="Decrease"></wa-icon></wa-button>
+    <wa-button appearance="filled" circle><wa-icon name="plus" variant="solid" label="Increase"></wa-icon></wa-button>
+  </div>
+</div>
 
 <script>
   const progressRing = document.querySelector('.progress-ring-values');
-  const subtractButton = progressRing.nextElementSibling.nextElementSibling;
-  const addButton = subtractButton.nextElementSibling;
+  const subtractButton = document.querySelector('.progress-ring-overview wa-button:has(wa-icon[name="minus"])');
+  const addButton = document.querySelector('.progress-ring-overview wa-button:has(wa-icon[name="plus"])');
 
   addButton.addEventListener('click', () => {
     const value = Math.min(100, progressRing.value + 10);
