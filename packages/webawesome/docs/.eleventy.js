@@ -153,8 +153,9 @@ export default async function (eleventyConfig) {
     ogImageWidth: data => data.ogImageWidth || (data.ogImage ? null : siteMetadata.imageWidth),
     ogImageHeight: data => data.ogImageHeight || (data.ogImage ? null : siteMetadata.imageHeight),
     ogUrl: data => {
-      // Strip template extensions: a page setting `permalink: /foo.njk` leaks the template
-      // file path into page.url, which is never a valid public URL for og:url or canonical.
+      // Strip template extensions: downstream consumers (e.g. webawesome-app) set
+      // `permalink: /foo.njk` for two-pass SSR, so page.url carries an `.njk` resolution
+      // artifact rather than the clean public URL — never what og:url or canonical should point at.
       // Also always emit an absolute URL — front-matter overrides like `ogUrl: /signup` should
       // resolve against siteMetadata.url so canonical/og:url consumers don't see relative hrefs.
       const raw = (data.ogUrl || data.page?.url || '').replace(/\.njk$/, '');
