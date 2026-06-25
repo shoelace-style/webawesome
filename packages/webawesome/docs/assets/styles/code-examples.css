@@ -18,6 +18,7 @@
   --code-example-chrome-text-quiet: var(--wa-color-text-quiet);
   --code-example-chrome-text-normal: var(--wa-color-text-normal);
   --code-example-chrome-fill-quiet: var(--wa-color-neutral-fill-quiet);
+  --code-example-chrome-border: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
 
   background: var(--wa-color-surface-lowered);
   border: var(--code-example-border);
@@ -91,7 +92,7 @@
   inline-size: var(--code-example-resizer-inline-size);
   color: var(--code-example-chrome-text-quiet);
   background-color: var(--code-example-chrome-surface);
-  border-inline-start: var(--code-example-border);
+  border-inline-start: var(--code-example-chrome-border);
   border-start-end-radius: var(--code-example-panel-radius);
   cursor: ew-resize;
   transition:
@@ -118,8 +119,8 @@
 }
 
 .code-example-preview.is-dragging .code-example-resizer {
-  background-color: var(--wa-color-neutral-fill-quiet);
-  color: var(--wa-color-text-normal);
+  background-color: var(--code-example-chrome-fill-quiet);
+  color: var(--code-example-chrome-text-normal);
 }
 
 .code-example-toggle wa-icon {

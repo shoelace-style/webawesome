@@ -21,7 +21,7 @@ function setPreviewDirection(content, dir) {
         mutation.addedNodes.forEach(node => {
           if (node.nodeType !== 1) return;
           node.setAttribute('dir', 'rtl');
-          node.querySelectorAll?.('*').forEach(el => el.setAttribute('dir', 'rtl'));
+          node.querySelectorAll('*').forEach(el => el.setAttribute('dir', 'rtl'));
         });
       }
     });
