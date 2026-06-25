@@ -112,6 +112,8 @@ export function codeExamplesTransformer(options = {}) {
       const hasButtons = !code.classList.contains('no-buttons');
       const isOpen = code.classList.contains('open') || !hasButtons;
       const noEdit = code.classList.contains('no-edit');
+      const noTheme = code.classList.contains('no-theme');
+      const noDir = code.classList.contains('no-dir');
       const uuid = crypto.randomUUID();
       const id = `code-example-${uuid.slice(-12)}`;
       let preview = pre.textContent;
@@ -133,6 +135,10 @@ export function codeExamplesTransformer(options = {}) {
       });
       preview = root.toString();
 
+      // Iframes are separate documents, so a scoped color-scheme/direction toggle can't reach
+      // their content (it would half-theme the example). Suppress both toggles in that case.
+      const hasFrame = !!root.querySelector('wa-zoomable-frame, iframe');
+
       // Substitute the expanded source code for any `<wa-zoomable-frame data-select-src="...">` or `<wa-include data-select-src="...">` in the preview
       let elementPre, elementCode;
       const targetElement = root.querySelector('wa-zoomable-frame[data-select-src], wa-include[data-select-src]');
@@ -152,9 +158,7 @@ export function codeExamplesTransformer(options = {}) {
               hasPreview
                 ? `
               <div class="code-example-preview wa-not-prose">
-                <div>
-                  ${preview}
-                </div>
+                <div class="code-example-content">${preview}</div>
                 <div class="code-example-resizer" aria-hidden="true">
                   <wa-icon name="grip-lines-vertical"></wa-icon>
                 </div>
@@ -178,6 +182,28 @@ export function codeExamplesTransformer(options = {}) {
                     Code
                     <wa-icon name="chevron-down"></wa-icon>
                   </button>
+
+                  ${
+                    hasPreview && !noTheme && !hasFrame
+                      ? `
+                        <button class="code-example-theme" type="button">
+                          <wa-icon class="code-example-theme-to-dark" name="moon" label="Show in dark mode"></wa-icon>
+                          <wa-icon class="code-example-theme-to-light" name="sun" label="Show in light mode"></wa-icon>
+                        </button>
+                      `
+                      : ''
+                  }
+
+                  ${
+                    hasPreview && !noDir && !hasFrame
+                      ? `
+                        <button class="code-example-dir" type="button">
+                          <wa-icon class="code-example-dir-to-rtl" name="align-right" label="Change direction to RTL"></wa-icon>
+                          <wa-icon class="code-example-dir-to-ltr" name="align-left" label="Change direction to LTR"></wa-icon>
+                        </button>
+                      `
+                      : ''
+                  }
 
                   ${
                     noEdit
