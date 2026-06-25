@@ -123,7 +123,7 @@ Every theme is designed to adapt to light and dark mode. Light mode styles are a
 
 You can force a section to behave like `.wa-dark` in light mode and like `.wa-light` in dark mode by using `class="wa-invert"`.
 
-```html {.example .no-theme}
+```html {.example .no-color-scheme}
 <p>This card will always use the opposite of the color scheme applied to the docs.</p>
 
 <wa-card class="wa-invert">

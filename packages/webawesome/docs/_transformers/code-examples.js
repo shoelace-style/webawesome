@@ -112,7 +112,7 @@ export function codeExamplesTransformer(options = {}) {
       const hasButtons = !code.classList.contains('no-buttons');
       const isOpen = code.classList.contains('open') || !hasButtons;
       const noEdit = code.classList.contains('no-edit');
-      const noTheme = code.classList.contains('no-theme');
+      const noColorScheme = code.classList.contains('no-color-scheme');
       const noDir = code.classList.contains('no-dir');
       const uuid = crypto.randomUUID();
       const id = `code-example-${uuid.slice(-12)}`;
@@ -184,7 +184,7 @@ export function codeExamplesTransformer(options = {}) {
                   </button>
 
                   ${
-                    hasPreview && !noTheme && !hasFrame
+                    hasPreview && !noColorScheme && !hasFrame
                       ? `
                         <button class="code-example-theme" type="button">
                           <wa-icon class="code-example-theme-to-dark" name="moon" label="Show in dark mode"></wa-icon>
