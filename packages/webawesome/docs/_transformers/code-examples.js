@@ -160,7 +160,7 @@ export function codeExamplesTransformer(options = {}) {
               <div class="code-example-preview wa-not-prose">
                 <div class="code-example-content">${preview}</div>
                 <div class="code-example-resizer" aria-hidden="true">
-                  <wa-icon name="grip-lines-vertical"></wa-icon>
+                  <wa-icon src="/assets/images/grip-lines-vertical.svg"></wa-icon>
                 </div>
               </div>
               `
@@ -180,15 +180,15 @@ export function codeExamplesTransformer(options = {}) {
                     aria-controls="${id}"
                   >
                     Code
-                    <wa-icon name="chevron-down"></wa-icon>
+                    <wa-icon src="/assets/images/chevron-down.svg"></wa-icon>
                   </button>
 
                   ${
                     hasPreview && !noColorScheme && !hasFrame
                       ? `
                         <button class="code-example-theme" type="button">
-                          <wa-icon class="code-example-theme-to-dark" name="moon" label="Show in dark mode"></wa-icon>
-                          <wa-icon class="code-example-theme-to-light" name="sun" label="Show in light mode"></wa-icon>
+                          <wa-icon class="code-example-theme-to-dark" src="/assets/images/moon-stars.svg" label="Show in dark mode"></wa-icon>
+                          <wa-icon class="code-example-theme-to-light" src="/assets/images/sun-bright.svg" label="Show in light mode"></wa-icon>
                         </button>
                       `
                       : ''
@@ -198,8 +198,8 @@ export function codeExamplesTransformer(options = {}) {
                     hasPreview && !noDir && !hasFrame
                       ? `
                         <button class="code-example-dir" type="button">
-                          <wa-icon class="code-example-dir-to-rtl" name="align-right" label="Change direction to RTL"></wa-icon>
-                          <wa-icon class="code-example-dir-to-ltr" name="align-left" label="Change direction to LTR"></wa-icon>
+                          <wa-icon class="code-example-dir-to-rtl" src="/assets/images/align-right.svg" label="Change direction to RTL"></wa-icon>
+                          <wa-icon class="code-example-dir-to-ltr" src="/assets/images/align-left.svg" label="Change direction to LTR"></wa-icon>
                         </button>
                       `
                       : ''
@@ -210,7 +210,7 @@ export function codeExamplesTransformer(options = {}) {
                       ? ''
                       : `
                         <button class="code-example-pen" type="button">
-                          <wa-icon name="pen-to-square"></wa-icon>
+                          <wa-icon src="/assets/images/pen-to-square.svg"></wa-icon>
                           Edit
                         </button>
                       `
