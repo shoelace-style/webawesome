@@ -101,6 +101,8 @@ export default async function (eleventyConfig) {
     name: 'Web Awesome',
     description: 'Build better with Web Awesome, the open source library of web components from Font Awesome.',
     image: 'https://webawesome.com/assets/images/open-graph/default.png',
+    imageWidth: 2400,
+    imageHeight: 1260,
   };
 
   // Title composition/stripping config - single source of truth
@@ -146,10 +148,20 @@ export default async function (eleventyConfig) {
     ogTitle: data => composePageTitle(data.ogTitle || data.title),
     ogDescription: data => data.ogDescription || data.description,
     ogImage: data => data.ogImage || siteMetadata.image,
+    // Only emit dimensions when we know them: use the default if the page is using the
+    // default image, the explicit override if provided, otherwise null (suppresses emission).
+    ogImageWidth: data => data.ogImageWidth || (data.ogImage ? null : siteMetadata.imageWidth),
+    ogImageHeight: data => data.ogImageHeight || (data.ogImage ? null : siteMetadata.imageHeight),
     ogUrl: data => {
-      if (data.ogUrl) return data.ogUrl;
-      const url = data.page?.url || '';
-      return url ? `${siteMetadata.url}${url}` : siteMetadata.url;
+      // Strip template extensions: downstream consumers (e.g. webawesome-app) set
+      // `permalink: /foo.njk` for two-pass SSR, so page.url carries an `.njk` resolution
+      // artifact rather than the clean public URL — never what og:url or canonical should point at.
+      // Also always emit an absolute URL — front-matter overrides like `ogUrl: /signup` should
+      // resolve against siteMetadata.url so canonical/og:url consumers don't see relative hrefs.
+      const raw = (data.ogUrl || data.page?.url || '').replace(/\.njk$/, '');
+      if (!raw) return siteMetadata.url;
+      if (/^https?:\/\//.test(raw)) return raw;
+      return `${siteMetadata.url}${raw.startsWith('/') ? '' : '/'}${raw}`;
     },
     ogType: data => data.ogType || 'website',
   });
