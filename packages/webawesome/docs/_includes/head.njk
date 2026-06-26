@@ -5,10 +5,9 @@
 
 <title>{{ pageTitle }}</title>
 
-<link rel="canonical" href="{{ ogUrl }}" />
-
-{# Skip OG tags for noindex pages to prevent social sharing #}
+{# Skip canonical + OG on noindex: permalinked templates leak the template path as ogUrl. #}
 {% if not noindex %}
+  <link rel="canonical" href="{{ ogUrl }}" />
   <meta property="og:type" content="{{ ogType }}" />
   <meta property="og:url" content="{{ ogUrl }}" />
   <meta property="og:title" content="{{ ogTitle }}" />
