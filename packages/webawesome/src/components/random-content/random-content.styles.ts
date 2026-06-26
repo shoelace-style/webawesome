@@ -102,9 +102,4 @@ export default css`
     }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    ::slotted([data-wa-animation]) {
-      animation-duration: 1ms;
-    }
-  }
 `;

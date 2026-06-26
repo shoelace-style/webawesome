@@ -179,9 +179,6 @@ export default class WaRandomContent extends WebAwesomeElement {
         }
         // Cancel any in-progress animation so the CSS animation restarts cleanly.
         el.getAnimations().forEach(a => a.cancel());
-        // Abort the previous animationend listener (cancel() fires animationcancel, not animationend,
-        // so { once: true } alone would leave the old listener attached until a future animation ends).
-
         htmlEl.dataset['waAnimation'] = this.animation;
         // Drop the previous (un-fired) listener before adding a new one so they don't accumulate.
         this.animationCleanups.get(el)?.abort();
