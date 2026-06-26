@@ -172,6 +172,7 @@ export default css`
 
   :host([animation='spin-pulse']) {
     animation-name: spin;
+    animation-delay: var(--animation-delay, 0s);
     animation-direction: var(--animation-direction, normal);
     animation-duration: var(--animation-duration, 1s);
     animation-iteration-count: var(--animation-iteration-count, infinite);
