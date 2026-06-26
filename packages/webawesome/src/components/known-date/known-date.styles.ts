@@ -115,17 +115,6 @@ export default css`
     margin: 0;
   }
 
-  [part~='error'] {
-    color: var(--wa-color-danger-text-loud, var(--wa-color-text-loud));
-    font-size: var(--wa-font-size-smaller);
-    line-height: var(--wa-form-control-hint-line-height);
-    margin-block: 0.5em 0;
-  }
-
-  [part~='error'][hidden] {
-    display: none;
-  }
-
   /* Hide the mirror used for native form-data + constraint validation. */
   .value-input {
     position: absolute;

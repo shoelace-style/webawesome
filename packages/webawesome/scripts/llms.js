@@ -178,6 +178,12 @@ Constraint Validation API.
 
 Font Awesome is the default icon library, so \`<wa-icon name="...">\` values should reference Font Awesome
 icon names.
+
+For AI agents and coding assistants building with Web Awesome: two Agent Skills ship with the package. The
+\`webawesome\` skill is this component reference in progressive, on-demand form; the companion \`webawesome-design\`
+skill covers full-page layout (\`<wa-page>\`), theming, brand color, and visual composition. After installing
+\`@awesome.me/webawesome\`, register them with \`npx skills add ./node_modules/@awesome.me/webawesome/dist/skills/webawesome\`
+and \`npx skills add ./node_modules/@awesome.me/webawesome/dist/skills/webawesome-design\`. See ${baseUrl}/docs/ai/agent-skills for both.
 `.trim(),
   );
   lines.push('');

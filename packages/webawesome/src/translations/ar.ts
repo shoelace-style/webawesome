@@ -37,7 +37,7 @@ const translation: Translation = {
   goToSlide: (slide, count) => `عرض شريحة رقم ${slide} من ${count}`,
   hidePassword: 'اخفاء كلمة المرور',
   hour: 'الساعة',
-  incompleteDate: 'أدخل تاريخًا كاملاً.',
+  incompleteDate: 'أدخل تاريخًا صالحًا.',
   increment: 'زيادة',
   loading: 'جاري التحميل',
   minute: 'الدقيقة',

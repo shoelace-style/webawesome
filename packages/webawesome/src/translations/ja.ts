@@ -37,7 +37,7 @@ const translation: Translation = {
   goToSlide: (slide, count) => `${count} 枚中 ${slide} 枚のスライドに移動`,
   hidePassword: 'パスワードを隠す',
   hour: '時',
-  incompleteDate: '完全な日付を入力してください。',
+  incompleteDate: '有効な日付を入力してください。',
   increment: '増やす',
   loading: '読み込み中',
   minute: '分',
