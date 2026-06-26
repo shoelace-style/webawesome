@@ -151,7 +151,7 @@ Variants assign palette hues to five semantic roles — `brand`, `neutral`, `suc
 
 Every theme is designed to adapt to light and dark mode. Light mode applies by default; apply `class="wa-light"` or `class="wa-dark"` to set the color scheme on the page or any section. To invert sections, detect user preference, or apply dark mode automatically, head over to [Customizing & Theming](/docs/customizing#light-and-dark-mode).
 
-```html {.example}
+```html {.example .no-color-scheme}
 {% include 'theming/light-dark-example.njk' %}
 ```
 

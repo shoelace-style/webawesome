@@ -10,6 +10,15 @@
   --code-example-preview-padding-inline-start: var(--wa-space-xl);
   --code-example-preview-padding-inline-end: calc(var(--wa-space-xl) + var(--code-example-resizer-inline-size));
 
+  /* Frozen above the preview so the resizer keeps the page's colors even when a per-example
+     color-scheme override is applied to .code-example-preview. */
+  --code-example-chrome-surface: var(--wa-color-surface-default);
+  --code-example-chrome-surface-lowered: var(--wa-color-surface-lowered);
+  --code-example-chrome-text-quiet: var(--wa-color-text-quiet);
+  --code-example-chrome-text-normal: var(--wa-color-text-normal);
+  --code-example-chrome-fill-quiet: var(--wa-color-neutral-fill-quiet);
+  --code-example-chrome-border: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
+
   background: var(--wa-color-surface-lowered);
   border: var(--code-example-border);
   border-radius: var(--wa-panel-border-radius);
@@ -37,6 +46,7 @@
 .code-example-preview {
   position: relative;
   background: var(--wa-color-surface-default);
+  color: var(--wa-color-text-normal);
   border-start-start-radius: var(--wa-panel-border-radius);
   border-start-end-radius: var(--wa-panel-border-radius);
   border-block-end: var(--code-example-border);
@@ -53,6 +63,19 @@
   > :last-child:not(dialog) {
     margin-block-end: 0;
   }
+}
+
+/* While a preview change runs through a View Transition, freeze its subtree so the snapshot captures
+   final colors and the crossfade does the animating. Zeroing the transition tokens reaches component
+   shadow DOM (which inherits them); transition: none catches the rest. */
+.code-example-preview.is-syncing-scheme {
+  --wa-transition-fast: 0s;
+  --wa-transition-normal: 0s;
+  --wa-transition-slow: 0s;
+}
+.code-example-preview.is-syncing-scheme,
+.code-example-preview.is-syncing-scheme * {
+  transition: none !important;
 }
 
 /* Block the preview while dragging to prevent iframes from intercepting drag events */
@@ -72,9 +95,9 @@
   inset-block: 0;
   inset-inline-end: 0;
   inline-size: var(--code-example-resizer-inline-size);
-  color: var(--wa-color-text-quiet);
-  background-color: var(--wa-color-surface-default);
-  border-inline-start: var(--code-example-border);
+  color: var(--code-example-chrome-text-quiet);
+  background-color: var(--code-example-chrome-surface);
+  border-inline-start: var(--code-example-chrome-border);
   border-start-end-radius: var(--code-example-panel-radius);
   cursor: ew-resize;
   transition:
@@ -82,13 +105,13 @@
     color var(--wa-transition-fast) var(--wa-transition-easing);
 
   &:hover {
-    background-color: var(--wa-color-surface-lowered);
-    color: var(--wa-color-text-normal);
+    background-color: var(--code-example-chrome-surface-lowered);
+    color: var(--code-example-chrome-text-normal);
   }
 
   &:active {
-    background-color: var(--wa-color-neutral-fill-quiet);
-    color: var(--wa-color-text-normal);
+    background-color: var(--code-example-chrome-fill-quiet);
+    color: var(--code-example-chrome-text-normal);
   }
 
   wa-icon {
@@ -101,8 +124,8 @@
 }
 
 .code-example-preview.is-dragging .code-example-resizer {
-  background-color: var(--wa-color-neutral-fill-quiet);
-  color: var(--wa-color-text-normal);
+  background-color: var(--code-example-chrome-fill-quiet);
+  color: var(--code-example-chrome-text-normal);
 }
 
 .code-example-toggle wa-icon {
@@ -220,7 +243,9 @@
   }
 
   .code-example-toggle,
-  .code-example-pen {
+  .code-example-pen,
+  .code-example-theme,
+  .code-example-dir {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -235,4 +260,43 @@
     flex: 0 0 var(--code-example-pen-inline-size);
     white-space: nowrap;
   }
+}
+
+/* Hug the icon instead of stretching like the text buttons; floor the width for a comfortable target. */
+.code-example-buttons .code-example-theme,
+.code-example-buttons .code-example-dir {
+  flex: 0 0 auto;
+  min-inline-size: 2.25rem;
+}
+
+/* Drop the inherited sibling margin so the swapped icon stays centered. */
+.code-example-theme > wa-icon,
+.code-example-dir > wa-icon {
+  margin: 0;
+}
+
+/* Swap icons via display so the inactive one leaves the accessibility tree. The visible icon shows
+   the currently active state. */
+
+/* Effective dark = explicit wa-dark, or page dark with no explicit wa-light. */
+.code-example-theme-dark {
+  display: none;
+}
+.code-example:has(.code-example-preview.wa-dark) .code-example-theme-light,
+html.wa-dark .code-example:not(:has(.code-example-preview.wa-light)) .code-example-theme-light {
+  display: none;
+}
+.code-example:has(.code-example-preview.wa-dark) .code-example-theme-dark,
+html.wa-dark .code-example:not(:has(.code-example-preview.wa-light)) .code-example-theme-dark {
+  display: inline-flex;
+}
+
+.code-example-dir-rtl {
+  display: none;
+}
+.code-example:has(.code-example-content[dir='rtl']) .code-example-dir-ltr {
+  display: none;
+}
+.code-example:has(.code-example-content[dir='rtl']) .code-example-dir-rtl {
+  display: inline-flex;
 }

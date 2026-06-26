@@ -112,6 +112,8 @@ export function codeExamplesTransformer(options = {}) {
       const hasButtons = !code.classList.contains('no-buttons');
       const isOpen = code.classList.contains('open') || !hasButtons;
       const noEdit = code.classList.contains('no-edit');
+      const noColorScheme = code.classList.contains('no-color-scheme');
+      const noDir = code.classList.contains('no-dir');
       const uuid = crypto.randomUUID();
       const id = `code-example-${uuid.slice(-12)}`;
       let preview = pre.textContent;
@@ -133,6 +135,10 @@ export function codeExamplesTransformer(options = {}) {
       });
       preview = root.toString();
 
+      // A scoped color-scheme/direction toggle can't reach into a separate iframe document,
+      // so suppress both toggles for framed examples.
+      const hasFrame = !!root.querySelector('wa-zoomable-frame, iframe');
+
       // Substitute the expanded source code for any `<wa-zoomable-frame data-select-src="...">` or `<wa-include data-select-src="...">` in the preview
       let elementPre, elementCode;
       const targetElement = root.querySelector('wa-zoomable-frame[data-select-src], wa-include[data-select-src]');
@@ -152,11 +158,9 @@ export function codeExamplesTransformer(options = {}) {
               hasPreview
                 ? `
               <div class="code-example-preview wa-not-prose">
-                <div>
-                  ${preview}
-                </div>
+                <div class="code-example-content">${preview}</div>
                 <div class="code-example-resizer" aria-hidden="true">
-                  <wa-icon name="grip-lines-vertical"></wa-icon>
+                  <wa-icon src="/assets/images/grip-lines-vertical.svg"></wa-icon>
                 </div>
               </div>
               `
@@ -176,15 +180,37 @@ export function codeExamplesTransformer(options = {}) {
                     aria-controls="${id}"
                   >
                     Code
-                    <wa-icon name="chevron-down"></wa-icon>
+                    <wa-icon src="/assets/images/chevron-down.svg"></wa-icon>
                   </button>
+
+                  ${
+                    hasPreview && !noColorScheme && !hasFrame
+                      ? `
+                        <button class="code-example-theme" type="button">
+                          <wa-icon class="code-example-theme-light" src="/assets/images/sun-bright.svg" label="Show in dark mode"></wa-icon>
+                          <wa-icon class="code-example-theme-dark" src="/assets/images/moon-stars.svg" label="Show in light mode"></wa-icon>
+                        </button>
+                      `
+                      : ''
+                  }
+
+                  ${
+                    hasPreview && !noDir && !hasFrame
+                      ? `
+                        <button class="code-example-dir" type="button">
+                          <wa-icon class="code-example-dir-ltr" src="/assets/images/align-left.svg" label="Change direction to RTL"></wa-icon>
+                          <wa-icon class="code-example-dir-rtl" src="/assets/images/align-right.svg" label="Change direction to LTR"></wa-icon>
+                        </button>
+                      `
+                      : ''
+                  }
 
                   ${
                     noEdit
                       ? ''
                       : `
                         <button class="code-example-pen" type="button">
-                          <wa-icon name="pen-to-square"></wa-icon>
+                          <wa-icon src="/assets/images/pen-to-square.svg"></wa-icon>
                           Edit
                         </button>
                       `
