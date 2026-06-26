@@ -53,6 +53,7 @@ export default class WaRandomContent extends WebAwesomeElement {
   private uniqueQueue: Element[] = [];
   private currentSelection = new Set<Element>();
   private intervalId: ReturnType<typeof setInterval> | undefined;
+  private animationAbort = new WeakMap<Element, AbortController>();
 
   /** Number of children to show simultaneously. Clamped to [1, childCount]. */
   @property({ type: Number }) items = 1;
@@ -127,8 +128,8 @@ export default class WaRandomContent extends WebAwesomeElement {
       selected = this.uniqueQueue.splice(0, count);
       this.currentSelection = new Set(selected);
     } else {
-      const pool = children.length > count ? children.filter(c => !this.currentSelection.has(c)) : children;
-      selected = this.sample(pool, count);
+      const pool = children.filter(c => !this.currentSelection.has(c));
+      selected = this.sample(pool.length >= count ? pool : children, count);
       this.currentSelection = new Set(selected);
     }
 
@@ -154,8 +155,13 @@ export default class WaRandomContent extends WebAwesomeElement {
         }
         // Cancel any in-progress animation so the CSS animation restarts cleanly.
         el.getAnimations().forEach(a => a.cancel());
+        // Abort the previous animationend listener (cancel() fires animationcancel, not animationend,
+        // so { once: true } alone would leave the old listener attached until a future animation ends).
+        this.animationAbort.get(el)?.abort();
+        const ac = new AbortController();
+        this.animationAbort.set(el, ac);
         htmlEl.dataset['waAnimation'] = this.animation;
-        htmlEl.addEventListener('animationend', () => delete htmlEl.dataset['waAnimation'], { once: true });
+        htmlEl.addEventListener('animationend', () => delete htmlEl.dataset['waAnimation'], { once: true, signal: ac.signal });
       });
     }
   }

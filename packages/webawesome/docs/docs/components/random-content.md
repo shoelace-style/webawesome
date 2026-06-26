@@ -7,124 +7,74 @@ category: Helpers
 Randomly selects and displays one or more of its slotted children. Transparent to layout by default (`display: contents`), so it composes naturally in both block and inline contexts.
 
 ```html {.example}
+<div style="margin: 0 auto;">
+  <h2>Animal Facts Flashcards</h2>
 <wa-random-content id="initial" class="wa-grid" items="1" mode="unique" animation="fade-right" style="--animation-easing: ease-in-out; --animation-duration: 500ms">
-  <article class="wa-stack">
-    <div class="wa-frame wa-border-radius-l">
-      <img
-        src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=2680&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-      />
-    </div>
-    <div class="wa-stack wa-gap-3xs">
-      <span>Jeff Hanks</span>
-      <span>Product Designer</span>
-    </div>
-    <div class="wa-cluster wa-gap-3xs">
-      <wa-button appearance="plain" size="s">
-        <wa-icon name="bluesky" family="brands" label="link to Blusky profile"></wa-icon>
-      </wa-button>
-      <wa-button appearance="plain" size="s">
-        <wa-icon name="dribbble" family="brands" label="link to Dribbble profile"></wa-icon>
-      </wa-button>
-    </div>
-  </article>
-  <article class="wa-stack">
-    <div class="wa-frame wa-border-radius-l">
-      <img
-        src="https://images.unsplash.com/photo-1674044494331-8db2ecf18d46?q=80&w=3019&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-      />
-    </div>
-    <div class="wa-stack wa-gap-3xs">
-      <span>Allen Bryant</span>
-      <span>Staff Engineer</span>
-    </div>
-    <div class="wa-cluster wa-gap-3xs">
-      <wa-button appearance="plain" size="s">
-        <wa-icon name="bluesky" family="brands" label="link to Blusky profile"></wa-icon>
-      </wa-button>
-      <wa-button appearance="plain" size="s">
-        <wa-icon name="dribbble" family="brands" label="link to Dribbble profile"></wa-icon>
-      </wa-button>
-    </div>
-  </article>
-  <article class="wa-stack">
-    <div class="wa-frame wa-border-radius-l">
-      <img
-        src="https://images.unsplash.com/photo-1645288059073-af3e9eb62a29?q=80&w=2936&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-      />
-    </div>
-    <div class="wa-stack wa-gap-3xs">
-      <span>Mariah Greene</span>
-      <span>DevOps</span>
-    </div>
-    <div class="wa-cluster wa-gap-3xs">
-      <wa-button appearance="plain" size="s">
-        <wa-icon name="bluesky" family="brands" label="link to Blusky profile"></wa-icon>
-      </wa-button>
-      <wa-button appearance="plain" size="s">
-        <wa-icon name="dribbble" family="brands" label="link to Dribbble profile"></wa-icon>
-      </wa-button>
-    </div>
-  </article>
-  <article class="wa-stack">
-    <div class="wa-frame wa-border-radius-l">
-      <img
-        src="https://images.unsplash.com/photo-1613428800237-c86372070fab?q=80&w=3017&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-      />
-    </div>
-    <div class="wa-stack wa-gap-3xs">
-      <span>Beverly Winslow</span>
-      <span>Design Systems Lead</span>
-    </div>
-    <div class="wa-cluster wa-gap-3xs">
-      <wa-button appearance="plain" size="s">
-        <wa-icon name="bluesky" family="brands" label="link to Blusky profile"></wa-icon>
-      </wa-button>
-      <wa-button appearance="plain" size="s">
-        <wa-icon name="dribbble" family="brands" label="link to Dribbble profile"></wa-icon>
-      </wa-button>
-    </div>
-  </article>
-  <article class="wa-stack">
-    <div class="wa-frame wa-border-radius-l">
-      <img
-        src="https://images.unsplash.com/photo-1614807547811-4174d3582092?q=80&w=2932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-      />
-    </div>
-    <div class="wa-stack wa-gap-3xs">
-      <span>Eric Masterson</span>
-      <span>Copy Writer</span>
-    </div>
-    <div class="wa-cluster wa-gap-3xs">
-      <wa-button appearance="plain" size="s">
-        <wa-icon name="bluesky" family="brands" label="link to Blusky profile"></wa-icon>
-      </wa-button>
-      <wa-button appearance="plain" size="s">
-        <wa-icon name="dribbble" family="brands" label="link to Dribbble profile"></wa-icon>
-      </wa-button>
-    </div>
-  </article>
-  <article class="wa-stack">
-    <div class="wa-frame wa-border-radius-l">
-      <img
-        src="https://images.unsplash.com/photo-1559188286-a173792c8340?q=80&w=2906&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-      />
-    </div>
-    <div class="wa-stack wa-gap-3xs">
-      <span>Stephen Coffee</span>
-      <span>Visual Designer</span>
-    </div>
-    <div class="wa-cluster wa-gap-3xs">
-      <wa-button appearance="plain" size="s">
-        <wa-icon name="bluesky" family="brands" label="link to Blusky profile"></wa-icon>
-      </wa-button>
-      <wa-button appearance="plain" size="s">
-        <wa-icon name="dribbble" family="brands" label="link to Dribbble profile"></wa-icon>
-      </wa-button>
-    </div>
-  </article>
+<wa-card class="card-overview">
+  <img
+    slot="media"
+    src="https://images.unsplash.com/photo-1631300691885-dcaa088736d9?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    alt="Green Sea Turtle swimming in the ocean."
+  />
+
+  <strong>Green Sea Turtle</strong><br />
+  The only aquatic turtle species which is herbivorous when fully grown.<br />
+  <small class="wa-caption-s">Class: Reptilia</small>
+
+  <wa-button slot="footer" variant="brand" pill>More Info</wa-button>
+
+</wa-card>
+<wa-card class="card-overview">
+  <img
+    slot="media"
+    src="https://images.unsplash.com/photo-1702033056173-c76ab71f7d94?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    alt="White-backed Vulture surveying the plains."
+  />
+
+  <strong>White-backed Vulture</strong><br />
+  Their incubation period is around 8 weeks and the nestling period is about 4–5 months.<br />
+  <small class="wa-caption-s">Class: Aves</small>
+
+  <wa-button slot="footer" variant="brand" pill>More Info</wa-button>
+
+</wa-card>
+<wa-card class="card-overview">
+  <img
+    slot="media"
+    src="https://images.unsplash.com/photo-1550853024-fae8cd4be47f?q=80&w=2376&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    alt="Toucan pearched on a branch in the jungle."
+  />
+
+  <strong>Keel-billed Toucan</strong><br />
+  They make their nests in tree hollows and holes excavated by other animals.<br />
+  <small class="wa-caption-s">Class: Aves</small>
+
+  <wa-button slot="footer" variant="brand" pill>More Info</wa-button>
+
+</wa-card>
+<wa-card class="card-overview">
+  <img
+    slot="media"
+    src="https://images.unsplash.com/photo-1516703995331-215d1188db0c?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    alt="Quokka mother with a baby in her pouch."
+  />
+
+  <strong>Quokka</strong><br />
+  Have little fear of humans and commonly approach people closely.<br />
+  <small class="wa-caption-s">Class: Mammalia</small>
+
+  <wa-button slot="footer" variant="brand" pill>More Info</wa-button>
+
+</wa-card>
 </wa-random-content>
 
 <wa-button size="s" style="margin-top:var(--wa-space-m)" onclick="document.getElementById('initial').randomize()" appearance="filled">Randomize</wa-button>
+</div>
+<style>
+  .card-overview {
+    width: 300px;
+  }
+</style>
 ```
 ## Examples
 

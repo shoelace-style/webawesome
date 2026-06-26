@@ -89,4 +89,10 @@ export default css`
   ::slotted([data-wa-animation='fade-right']) {
     animation-name: wa-rc-fade-right;
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    ::slotted([data-wa-animation]) {
+      animation-duration: 1ms;
+    }
+  }
 `;
