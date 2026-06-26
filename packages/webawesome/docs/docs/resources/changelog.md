@@ -32,7 +32,10 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 ## Unreleased
 
 :::added
-- Added the `<wa-random-content>` experimental component
+
+- Added the experimental `<wa-random-content>` component, which randomly shows one or more of its children — handy for rotating testimonials, tips, or featured content
+
+:::
 
 :::fixed
 - Fixed a bug in `wa-video` that was causing the `z-index` to leak out of the context of the component [issue:2542]
