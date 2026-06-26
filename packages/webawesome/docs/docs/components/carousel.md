@@ -265,7 +265,7 @@ This example is best demonstrated using a mouse. Try clicking and dragging the s
 </script>
 ```
 
-### Multiple Slides Per View
+### Multiple Slides per View
 
 The `slides-per-page` attribute makes it possible to display multiple slides at a time. You can also use the `slides-per-move` attribute to advance more than once slide at a time, if desired.
 

@@ -34,7 +34,7 @@ use-cases:
 
 ## Examples
 
-### Drawer without Header
+### Drawer Without Header
 
 Headers are enabled by default. To render a drawer without a header, add the `without-header` attribute.
 
@@ -98,7 +98,7 @@ Similarly, you can add `data-drawer="close"` to a button _inside_ of a drawer to
 <wa-button appearance="filled" data-drawer="open drawer-dismiss">Open Drawer</wa-button>
 ```
 
-### Slide in From Start
+### Slide in from Start
 
 By default, drawers slide in from the end. To make the drawer slide in from the start, set the `placement` attribute to `start`.
 
@@ -118,7 +118,7 @@ By default, drawers slide in from the end. To make the drawer slide in from the 
 </script>
 ```
 
-### Slide in From Top
+### Slide in from Top
 
 To make the drawer slide in from the top, set the `placement` attribute to `top`.
 
@@ -138,7 +138,7 @@ To make the drawer slide in from the top, set the `placement` attribute to `top`
 </script>
 ```
 
-### Slide in From Bottom
+### Slide in from Bottom
 
 To make the drawer slide in from the bottom, set the `placement` attribute to `bottom`.
 

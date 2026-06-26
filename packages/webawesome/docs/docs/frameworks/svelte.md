@@ -44,7 +44,7 @@ Next, import the Web Awesome stylesheet, import the components you need, and the
 </wa-callout>
 ```
 
-### Two-way Binding
+### Two-Way Binding
 
 One caveat is there's currently Svelte only supports `bind:value` directive in `<input>`, `<textarea>` and `<select>`, but you can still achieve two-way binding manually.
 

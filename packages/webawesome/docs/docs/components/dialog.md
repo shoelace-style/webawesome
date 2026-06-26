@@ -34,7 +34,7 @@ use-cases:
 
 ## Examples
 
-### Dialog without Header
+### Dialog Without Header
 
 Headers are enabled by default. To render a dialog without a header, add the `without-header` attribute.
 

@@ -191,7 +191,7 @@ export default MyComponent;
 
 You can find a copy + paste import for each component by selecting the _React_ tab in the _Importing_ section of each component's documentation.
 
-#### Notes about tree shaking
+#### Notes About Tree Shaking
 
 Previously, it was recommended to import from a single entrypoint like so:
 

@@ -52,7 +52,7 @@ Add descriptive hint to a slider with the `hint` attribute. For hints that conta
 <wa-slider label="Volume" hint="Controls the volume of the current song." min="0" max="100" value="50"></wa-slider>
 ```
 
-### Showing tooltips
+### Showing Tooltips
 
 Use the `with-tooltip` attribute to display a tooltip with the current value when the slider is focused or being dragged.
 
@@ -60,7 +60,7 @@ Use the `with-tooltip` attribute to display a tooltip with the current value whe
 <wa-slider label="Quality" name="quality" min="0" max="100" value="50" with-tooltip></wa-slider>
 ```
 
-### Setting min, max, and step
+### Setting Min, Max, and Step
 
 Use the `min` and `max` attributes to define the slider's range, and the `step` attribute to control the increment between values.
 
@@ -68,7 +68,7 @@ Use the `min` and `max` attributes to define the slider's range, and the `step` 
 <wa-slider label="Between zero and one" min="0" max="1" step="0.1" value="0.5" with-tooltip></wa-slider>
 ```
 
-### Showing markers
+### Showing Markers
 
 Use the `with-markers` attribute to display visual indicators at each step increment. This works best with sliders that have a smaller range of values.
 
@@ -76,7 +76,7 @@ Use the `with-markers` attribute to display visual indicators at each step incre
 <wa-slider label="Size" name="size" min="0" max="8" value="4" with-markers></wa-slider>
 ```
 
-### Adding references
+### Adding References
 
 Use the `reference` slot to add contextual labels below the slider. References are automatically spaced using `space-between`, making them easy to align with the start, center, and end positions.
 
@@ -100,7 +100,7 @@ Use the `reference` slot to add contextual labels below the slider. References a
 If you want to show a reference next to a specific marker, you can add `position: absolute` to it and set the `left`, `right`, `top`, or `bottom` property to a percentage that corresponds to the marker's position.
 :::
 
-### Formatting the value
+### Formatting the Value
 
 Customize how values are displayed in tooltips and announced to screen readers using the `valueFormatter` property. Set it to a function that accepts a number and returns a formatted string. The [`Intl.NumberFormat API`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat) is particularly useful for this.
 
@@ -158,7 +158,7 @@ Customize how values are displayed in tooltips and announced to screen readers u
 </script>
 ```
 
-### Range selection
+### Range Selection
 
 Use the `range` attribute to enable dual-thumb selection for choosing a range of values. Set the initial thumb positions with the `min-value` and `max-value` attributes.
 

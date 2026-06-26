@@ -497,7 +497,7 @@ By default, the arrow will be aligned as close to the center of the _anchor_ as 
 </div>
 ```
 
-### Adding a border
+### Adding a Border
 
 Borders can also be added to the popup element by targeting the contents of the `wa-popup` element. This styling can also be extended to the arrow itself by targeting `.arrow` class in the popup.
 
@@ -821,7 +821,7 @@ Toggle the switch to see the difference.
 </script>
 ```
 
-### Auto-size
+### Auto-Size
 
 Use the `auto-size` attribute to tell the popup to resize when necessary to prevent it from overflowing.
 Possible values are `horizontal`, `vertical`, and `both`. You can use `autoSizeBoundary` and `auto-size-padding` to customize the behavior of this option. Auto-size works well with `flip`, but if you're using `auto-size-padding` make sure `flip-padding` is the same value.

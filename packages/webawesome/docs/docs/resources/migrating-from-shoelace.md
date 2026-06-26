@@ -694,7 +694,7 @@ Cancel `wa-invalid` with `event.preventDefault()` to suppress the browser's defa
 
 The `customError` attribute is a declarative version of `setCustomValidity()` that you can set from your template.
 
-### Step 6: Things to Watch For
+### Step 6: Things to Watch for
 
 Most of what follows is silent breakage: code that won't throw but will misbehave. Check each item against your codebase.
 
