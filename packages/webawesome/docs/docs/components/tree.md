@@ -64,38 +64,40 @@ The `selection` attribute lets you change the selection behavior of the tree.
 - Use `leaf-multiple` to allow the selection of multiple leaf nodes.
 
 ```html {.example}
-<wa-select id="selection-mode" value="single" label="Selection">
-  <wa-option value="single">Single</wa-option>
-  <wa-option value="multiple">Multiple</wa-option>
-  <wa-option value="leaf">Leaf</wa-option>
-  <wa-option value="leaf-multiple">Leaf-multiple</wa-option>
-</wa-select>
-
-<br />
-
-<wa-tree class="tree-selectable">
-  <wa-tree-item expanded>
-    Electronics
+<div>
+  <wa-tree class="tree-selectable">
     <wa-tree-item expanded>
-      Computers
-      <wa-tree-item>Laptops</wa-tree-item>
-      <wa-tree-item>Desktops</wa-tree-item>
-      <wa-tree-item>Tablets</wa-tree-item>
+      Electronics
+      <wa-tree-item expanded>
+        Computers
+        <wa-tree-item>Laptops</wa-tree-item>
+        <wa-tree-item>Desktops</wa-tree-item>
+        <wa-tree-item>Tablets</wa-tree-item>
+      </wa-tree-item>
+      <wa-tree-item>
+        Phones
+        <wa-tree-item>Smartphones</wa-tree-item>
+        <wa-tree-item>Accessories</wa-tree-item>
+      </wa-tree-item>
     </wa-tree-item>
     <wa-tree-item>
-      Phones
-      <wa-tree-item>Smartphones</wa-tree-item>
-      <wa-tree-item>Accessories</wa-tree-item>
+      Clothing
+      <wa-tree-item>Shirts</wa-tree-item>
+      <wa-tree-item>Pants</wa-tree-item>
+      <wa-tree-item>Shoes</wa-tree-item>
     </wa-tree-item>
-  </wa-tree-item>
-  <wa-tree-item>
-    Clothing
-    <wa-tree-item>Shirts</wa-tree-item>
-    <wa-tree-item>Pants</wa-tree-item>
-    <wa-tree-item>Shoes</wa-tree-item>
-  </wa-tree-item>
-  <wa-tree-item>Books</wa-tree-item>
-</wa-tree>
+    <wa-tree-item>Books</wa-tree-item>
+  </wa-tree>
+
+  <wa-divider></wa-divider>
+
+  <wa-select id="selection-mode" value="single" label="Selection">
+    <wa-option value="single">Single</wa-option>
+    <wa-option value="multiple">Multiple</wa-option>
+    <wa-option value="leaf">Leaf</wa-option>
+    <wa-option value="leaf-multiple">Leaf-multiple</wa-option>
+  </wa-select>
+</div>
 
 <script>
   const selectionMode = document.querySelector('#selection-mode');

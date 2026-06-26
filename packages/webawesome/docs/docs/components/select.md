@@ -365,7 +365,9 @@ Here's a comprehensive example showing different lazy loading scenarios:
       <wa-option value="bar">Bar</wa-option>
       <wa-option value="baz">Baz</wa-option>
     </wa-select>
-    <br />
+
+    <wa-divider></wa-divider>
+
     <wa-button appearance="filled" type="button">Add "foo" option</wa-button>
   </div>
 
@@ -373,7 +375,9 @@ Here's a comprehensive example showing different lazy loading scenarios:
 
   <div>
     <wa-select name="select-2" value="foo" label="Single select (with no existing options)"> </wa-select>
-    <br />
+
+    <wa-divider></wa-divider>
+
     <wa-button appearance="filled" type="button">Add "foo" option</wa-button>
   </div>
 
@@ -384,7 +388,9 @@ Here's a comprehensive example showing different lazy loading scenarios:
       <wa-option value="bar" selected>Bar</wa-option>
       <wa-option value="baz" selected>Baz</wa-option>
     </wa-select>
-    <br />
+
+    <wa-divider></wa-divider>
+
     <wa-button appearance="filled" type="button">Add "foo" option (selected)</wa-button>
   </div>
 
@@ -392,7 +398,9 @@ Here's a comprehensive example showing different lazy loading scenarios:
 
   <div>
     <wa-select name="select-4" value="foo" multiple label="Multiple Select (with no existing options)"> </wa-select>
-    <br />
+
+    <wa-divider></wa-divider>
+
     <wa-button appearance="filled" type="button">Add "foo" option</wa-button>
   </div>
 
