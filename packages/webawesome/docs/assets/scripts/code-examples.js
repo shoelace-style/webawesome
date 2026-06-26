@@ -1,3 +1,5 @@
+import { doViewTransition } from './view-transitions.js';
+
 const version = document.documentElement.getAttribute('data-version') || '';
 
 const codeExampleAnimations = new WeakMap();
@@ -19,9 +21,7 @@ function setPreviewDirection(content, dir) {
     const observer = new MutationObserver(mutations => {
       for (const mutation of mutations) {
         mutation.addedNodes.forEach(node => {
-          if (node.nodeType !== 1) return;
-          node.setAttribute('dir', 'rtl');
-          node.querySelectorAll('*').forEach(el => el.setAttribute('dir', 'rtl'));
+          if (node.nodeType === 1) stampDirection(node, 'rtl');
         });
       }
     });
@@ -209,21 +209,42 @@ initCodeExamples();
 document.addEventListener('turbo:load', initCodeExamples);
 
 //
-// Absorb per-example color-scheme overrides back into the page theme whenever the site color scheme
-// is applied — the only reset short of reloading. color-scheme.js fires this inside its View
-// Transition, so suppressing the preview's own transition lets the previews crossfade in step with
-// the rest of the page rather than trailing it.
+// Preview color-scheme changes run through a View Transition so they crossfade in step with the page
+// (direction changes flip instantly — they read better without a crossfade). While transitioning, a
+// preview is frozen — is-syncing-scheme zeros its transition tokens so the snapshot captures the final
+// state instead of an in-flight CSS fade (the tokens reach component shadow DOM by inheritance) — and
+// given a view-transition-name to scope the crossfade to it.
 //
+function freezePreview(preview, name) {
+  preview.style.viewTransitionName = name;
+  preview.classList.add('is-syncing-scheme');
+}
+
+function thawPreview(preview) {
+  preview.style.viewTransitionName = '';
+  preview.classList.remove('is-syncing-scheme');
+}
+
+// A single per-example toggle gets its own View Transition.
+function transitionPreview(preview, apply) {
+  if (!preview) return;
+  freezePreview(preview, 'code-example-preview');
+  doViewTransition(apply).finally(() => thawPreview(preview));
+}
+
+// The site color-scheme toggle is one page-wide View Transition (driven by color-scheme.js): freeze and
+// tag the overridden previews before it captures, absorb them back to the page theme inside it, thaw after.
+let syncingPreviews = [];
+document.addEventListener('color-scheme-change', () => {
+  syncingPreviews = [...document.querySelectorAll('.code-example-preview.wa-light, .code-example-preview.wa-dark')];
+  syncingPreviews.forEach((preview, index) => freezePreview(preview, `code-example-preview-${index}`));
+});
 document.addEventListener('color-scheme-applied', () => {
-  const overridden = document.querySelectorAll('.code-example-preview.wa-light, .code-example-preview.wa-dark');
-  overridden.forEach(preview => {
-    preview.classList.add('is-syncing-scheme');
-    preview.classList.remove('wa-light', 'wa-dark');
-  });
-  // Restore transitions only after the View Transition has snapshotted the final state.
-  requestAnimationFrame(() =>
-    requestAnimationFrame(() => overridden.forEach(preview => preview.classList.remove('is-syncing-scheme'))),
-  );
+  syncingPreviews.forEach(preview => preview.classList.remove('wa-light', 'wa-dark'));
+});
+document.addEventListener('color-scheme-settled', () => {
+  syncingPreviews.forEach(thawPreview);
+  syncingPreviews = [];
 });
 
 //
@@ -269,18 +290,19 @@ document.addEventListener('click', event => {
   const themeBtn = event.target?.closest('.code-example-theme');
   if (themeBtn) {
     const preview = themeBtn.closest('.code-example')?.querySelector('.code-example-preview');
-    if (preview) {
+    transitionPreview(preview, () => {
       const effectiveDark =
         preview.classList.contains('wa-dark') ||
         (!preview.classList.contains('wa-light') && document.documentElement.classList.contains('wa-dark'));
       preview.classList.remove('wa-dark', 'wa-light');
       preview.classList.add(effectiveDark ? 'wa-light' : 'wa-dark');
-    }
+    });
     return;
   }
 
   const dirBtn = event.target?.closest('.code-example-dir');
   if (dirBtn) {
+    // Direction flips instantly — no View Transition, so the RTL/LTR swap doesn't crossfade.
     const content = dirBtn.closest('.code-example')?.querySelector('.code-example-content');
     if (content) {
       const toRtl = content.getAttribute('dir') !== 'rtl';
