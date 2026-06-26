@@ -1,5 +1,5 @@
 /* Order of precedence for all cascade layers in Web Awesome */
-@layer wa-native, wa-base, wa-utilities, wa-color-palette, wa-color-variant, wa-theme, wa-theme-dimension, wa-theme-overrides;
+@layer wa-native, wa-base, wa-utilities, wa-utilities-prose, wa-color-palette, wa-color-variant, wa-theme, wa-theme-dimension, wa-theme-overrides;
 
 @layer wa-base {
   /**
