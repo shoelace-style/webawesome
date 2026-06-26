@@ -31,6 +31,12 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 ## Unreleased
 
+:::added
+
+- Added the experimental `<wa-random-content>` component, which randomly shows one or more of its children — handy for rotating testimonials, tips, or featured content
+
+:::
+
 :::fixed
 - Fixed a bug in `wa-video` that was causing the `z-index` to leak out of the context of the component [issue:2542]
 - Fixed a bug in `<wa-chart>` and its variants that threw a `DataCloneError` when the Chart.js config contained functions, such as tooltip or scale callbacks

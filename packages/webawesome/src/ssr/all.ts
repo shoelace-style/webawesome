@@ -44,6 +44,7 @@ export { default as WaProgressRing } from '../components/progress-ring/progress-
 export { default as WaQrCode } from '../components/qr-code/qr-code.js';
 export { default as WaRadioGroup } from '../components/radio-group/radio-group.js';
 export { default as WaRadio } from '../components/radio/radio.js';
+export { default as WaRandomContent } from '../components/random-content/random-content.js';
 export { default as WaRating } from '../components/rating/rating.js';
 export { default as WaRelativeTime } from '../components/relative-time/relative-time.js';
 export { default as WaResizeObserver } from '../components/resize-observer/resize-observer.js';
