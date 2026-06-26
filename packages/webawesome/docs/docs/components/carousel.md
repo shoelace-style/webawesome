@@ -280,7 +280,7 @@ The `slides-per-page` attribute makes it possible to display multiple slides at 
 </wa-carousel>
 ```
 
-### Adding and Removing Slides
+### Adding & Removing Slides
 
 The content of the carousel can be changed by adding or removing carousel items. The carousel will update itself automatically.
 

@@ -236,7 +236,7 @@ When a component relies on the presence of slotted content to do something, don'
 
 See the source of card, dialog, or drawer for examples.
 
-### Dynamic Slot Names and Expand/Collapse Icons
+### Dynamic Slot Names & Expand/Collapse Icons
 
 A pattern has been established in `<wa-details>` and `<wa-tree-item>` for expand/collapse icons that animate on open/close. In short, create two slots called `expand-icon` and `collapse-icon` and render them both in the DOM, using CSS to show/hide only one based on the current open state. Avoid conditionally rendering them. Also avoid using dynamic slot names, such as `<slot name=${open ? 'open' : 'closed'}>`, because Firefox will not animate them.
 
@@ -410,7 +410,7 @@ connectedCallback() {
 }
 ```
 
-#### Slot Detection and `with-*` Attributes
+#### Slot Detection & `with-*` Attributes
 
 Some components use `HasSlotController` to conditionally render parts of their template (e.g. a footer that only appears when a `footer` slot is present). During SSR, slot detection doesn't work because the DOM isn't available, so these parts would be missing from the initial server-rendered markup.
 

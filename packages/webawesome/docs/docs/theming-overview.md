@@ -145,7 +145,7 @@ Variants assign palette hues to five semantic roles — `brand`, `neutral`, `suc
   <wa-icon slot="end" name="arrow-right"></wa-icon>
 </wa-button>
 
-### Light and Dark Mode
+### Light & Dark Mode
 
 <span class="wa-cluster">`.wa-light` `.wa-dark`</span>
 

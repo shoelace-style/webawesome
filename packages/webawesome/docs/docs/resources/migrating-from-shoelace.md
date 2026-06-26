@@ -664,7 +664,7 @@ You also gain a few systems that didn't exist in Shoelace:
 The `wa-theme-shoelace` theme and `wa-palette-shoelace` color palette defines tokens that approximate Shoelace's defaults, so most of your existing custom CSS will keep working. Apply it with `<html class="wa-theme-shoelace wa-palette-shoelace">` for a one-line escape hatch during migration.
 :::
 
-### Step 5: Forms and Validation
+### Step 5: Forms & Validation
 
 Web Awesome form controls are real form-associated custom elements (FACE) using `ElementInternals`. This means:
 

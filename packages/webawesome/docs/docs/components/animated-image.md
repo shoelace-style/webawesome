@@ -36,7 +36,7 @@ Both GIF and WEBP images are supported.
 ></wa-animated-image>
 ```
 
-### Setting a Width and Height
+### Setting a Width & Height
 
 To set a custom size, apply a width and/or height to the host element.
 

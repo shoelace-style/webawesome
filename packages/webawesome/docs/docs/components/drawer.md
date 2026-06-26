@@ -74,7 +74,7 @@ Footers can be used to display titles and more. Use the `footer` slot to add a f
 </script>
 ```
 
-### Opening and Closing Drawers Declaratively
+### Opening & Closing Drawers Declaratively
 
 You can open and close drawers with JavaScript by toggling the `open` attribute, but you can also do it declaratively. Add the `data-drawer="open id"` to any button on the page, where `id` is the ID of the drawer you want to open.
 

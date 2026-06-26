@@ -74,7 +74,7 @@ Footers can be used to display titles and more. Use the `footer` slot to add a f
 </script>
 ```
 
-### Opening and Closing Dialogs Declaratively
+### Opening & Closing Dialogs Declaratively
 
 You can open and close dialogs with JavaScript by toggling the `open` attribute, but you can also do it declaratively. Add the `data-dialog="open id"` to any button on the page, where `id` is the ID of the dialog you want to open.
 

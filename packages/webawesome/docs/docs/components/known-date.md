@@ -103,7 +103,7 @@ The three fields render in the natural order for the inherited `lang` (or the ex
 <wa-known-date label="Japanese order" lang="ja-JP"></wa-known-date>
 ```
 
-### Min and Max
+### Min & Max
 
 Constrain the accepted range with `min` and `max`. Values outside the range are reported as invalid.
 
@@ -123,7 +123,7 @@ Set `required` to make the date input required for form submission. Like other f
 </form>
 ```
 
-### Disabled and Readonly
+### Disabled & Readonly
 
 ```html {.example}
 <wa-known-date label="Disabled" value="2007-03-27" disabled></wa-known-date>

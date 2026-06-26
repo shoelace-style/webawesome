@@ -232,7 +232,7 @@ If you want to disable this behavior after the first load, simply remove the `la
 </script>
 ```
 
-### Customizing the Expand and Collapse Icons
+### Customizing the Expand & Collapse Icons
 
 Use the `expand-icon` and `collapse-icon` slots to change the expand and collapse icons, respectively. To disable the animation, override the `rotate` property on the `expand-button` part as shown below.
 

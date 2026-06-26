@@ -129,7 +129,7 @@ Combine `required` with `with-clear` to enforce a value while still letting user
 </form>
 ```
 
-### Min and Max
+### Min & Max
 
 Constrain the selectable range. The picker delegates reversed-range (overnight) semantics to the native `<input type="time">`, so `min="22:00" max="06:00"` represents an overnight range.
 

@@ -60,7 +60,7 @@ Use the `with-tooltip` attribute to display a tooltip with the current value whe
 <wa-slider label="Quality" name="quality" min="0" max="100" value="50" with-tooltip></wa-slider>
 ```
 
-### Setting Min, Max, and Step
+### Setting Min, Max, & Step
 
 Use the `min` and `max` attributes to define the slider's range, and the `step` attribute to control the increment between values.
 

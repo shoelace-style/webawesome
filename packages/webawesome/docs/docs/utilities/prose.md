@@ -36,7 +36,7 @@ By default, content is constrained to a comfortable reading column of `65ch`. Ov
 
 ## Examples
 
-### Headings and Paragraphs
+### Headings & Paragraphs
 
 Each heading level gets generous space above and tight space below, so the eye reads it as part of the section it introduces — not the one it follows. When two headings sit back-to-back, the second tightens up so it reads as subordinate to the first.
 
