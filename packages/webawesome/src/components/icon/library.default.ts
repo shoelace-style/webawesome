@@ -88,17 +88,14 @@ export function getIconFolder(_name: string, family: string, variant: string) {
     folder = 'whiteboard-semibold';
   }
 
-  // Mosaic (Pro+, new in 7.3)
+  // Mosaic, Pixel, and Vellum (Pro+, new in 7.3) ship a single style each, so `variant` is ignored.
+  // If Font Awesome adds weights to these packs, branch on `variant` here like the families above.
   if (family === 'mosaic') {
     folder = 'mosaic-solid';
   }
-
-  // Pixel (Pro+, new in 7.3)
   if (family === 'pixel') {
     folder = 'pixel-regular';
   }
-
-  // Vellum (Pro+, new in 7.3)
   if (family === 'vellum') {
     folder = 'vellum-solid';
   }

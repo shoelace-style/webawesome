@@ -486,7 +486,7 @@ Use the `flip` animation to rotate an icon in 3D space. By default, flip rotates
 
 ### Flip 360
 
-Use the `flip-360` animation to flip an icon all the way around in one smooth rotation — an extension of `flip` that gives it some extra oomph. It shares the same `--flip-x`, `--flip-y`, and `--flip-z` axis properties.
+Use the `flip-360` animation to flip an icon all the way around in one smooth rotation — an extension of `flip` that gives it some extra oomph. It shares the same `--flip-x`, `--flip-y`, and `--flip-z` axis properties, plus `--flip-angle`, `--flip-anticipation-scale`, and `--flip-overshoot`.
 
 ```html {.example}
 <wa-icon name="compact-disc" animation="flip-360" label="Flipping Compact Disc" style="font-size: 2em;"></wa-icon>

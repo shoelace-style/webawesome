@@ -387,6 +387,12 @@ describe('<wa-icon>', () => {
             '16px',
           ],
           [
+            'fixed (explicit)',
+            html`<wa-icon library="system" name="check" canvas="fixed" style="font-size:16px"></wa-icon>`,
+            '20px',
+            '16px',
+          ],
+          [
             'square',
             html`<wa-icon library="system" name="check" canvas="square" style="font-size:16px"></wa-icon>`,
             '20px',
@@ -409,6 +415,18 @@ describe('<wa-icon>', () => {
             expect(style.width).to.equal(width);
             expect(style.height).to.equal(height);
           });
+        });
+
+        it('should hug the icon for canvas="auto" without a fixed-width box', async () => {
+          const el = await fixture<WaIcon>(
+            html`<wa-icon library="system" name="check" canvas="auto" style="font-size:16px"></wa-icon>`,
+          );
+          await elementUpdated(el);
+          await el.updateComplete;
+          const style = getComputedStyle(el);
+          // auto keeps the 1em height but drops the fixed 1.25em (20px) min-width that `fixed` enforces
+          expect(style.height).to.equal('16px');
+          expect(style.minWidth).to.equal('0px');
         });
 
         it('should reflect the canvas property to an attribute', async () => {

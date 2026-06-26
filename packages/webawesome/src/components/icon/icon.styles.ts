@@ -312,6 +312,8 @@ export default css`
   @keyframes bounce {
     0% {
       transform: scale(1, 1) translateY(0);
+      /* No fallback by design (ported from FA 7.3): the first segment uses the user's --animation-timing or the CSS
+         initial ease, while the explicit cubic-beziers on later stops drive the bounce physics. */
       animation-timing-function: var(--animation-timing);
     }
     14% {

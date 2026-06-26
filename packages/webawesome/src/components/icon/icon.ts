@@ -64,7 +64,7 @@ export type IconCanvas = 'fixed' | 'auto' | 'square' | 'roomy';
  * @cssproperty [--animation-timing] Describes how the animation will progress over one cycle of its duration.
  * @cssproperty [--beat-fade-opacity] Set lowest opacity value an icon with `beat-fade` animation will fade to and from.
  * @cssproperty [--beat-fade-scale] Set max value that an icon with `beat-fade` animation will scale.
- * @cssproperty [--beat-scale] Set max value that an icon with `beat` animation will scale.
+ * @cssproperty [--beat-scale] Set the scale multiplier for an icon with `beat` animation. This multiplies the animation's 1.25× base pulse, so the default `1.25` peaks at ~1.56× and `2` roughly doubles the pulse.
  * @cssproperty [--bounce-height] Set the max height an icon with `bounce` animation will jump to when bouncing.
  * @cssproperty [--bounce-jump-scale-x] Set the icon’s horizontal distortion (“squish”) at the top of the jump.
  * @cssproperty [--bounce-jump-scale-y] Set the icon’s vertical distortion (“squish”) at the top of the jump.
@@ -74,7 +74,7 @@ export type IconCanvas = 'fixed' | 'auto' | 'square' | 'roomy';
  * @cssproperty [--bounce-start-scale-x] Set the icon’s horizontal distortion (“squish”) when starting to bounce.
  * @cssproperty [--bounce-start-scale-y] Set the icon’s vertical distortion (“squish”) when starting to bounce.
  * @cssproperty [--fade-opacity] Set lowest opacity value an icon with `fade` animation will fade to and from.
- * @cssproperty [--flip-angle] Set rotation angle of flip for an icon with `flip` animation. A positive angle denotes a clockwise rotation, a negative angle a counter-clockwise one.
+ * @cssproperty [--flip-angle] Set rotation angle of flip for an icon with `flip` or `flip-360` animation. A positive angle denotes a clockwise rotation, a negative angle a counter-clockwise one.
  * @cssproperty [--flip-x] Set x-coordinate of the vector denoting the axis of rotation (between 0 and 1) for an icon with `flip` animation.
  * @cssproperty [--flip-y] Set y-coordinate of the vector denoting the axis of rotation (between 0 and 1) for an icon with `flip` animation.
  * @cssproperty [--flip-z] Set z-coordinate of the vector denoting the axis of rotation (between 0 and 1) for an icon with `flip` animation.
