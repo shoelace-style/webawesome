@@ -263,16 +263,17 @@ Apply `wa-not-prose` to any element inside a `wa-prose` container to disable pro
 <article class="wa-prose">
   <h3>Ready when you are</h3>
   <p>
-    The paragraphs around this section follow prose rhythm. The button row below sits inside a
-    <code>wa-not-prose</code> wrapper, so its spacing reverts to the component defaults.
+    The paragraphs around this section follow prose rhythm. The callout below is given
+    <code>wa-not-prose</code>, so its font sizing and spacing revert to the component defaults.
   </p>
 
-  <div class="wa-not-prose">
-    <div class="wa-cluster" style="gap: var(--wa-space-s);">
-      <wa-button variant="brand">Primary action</wa-button>
-      <wa-button appearance="outlined">Secondary action</wa-button>
+  <wa-callout class="wa-not-prose" variant="warning">
+    <wa-icon slot="icon" name="highlighter"></wa-icon>
+    <div class="wa-stack">
+      <h4>Leave it to the prose</h4>
+      <p>The elements in this callout are exempt from <code>wa-prose</code> rules, thanks to <code>wa-not-prose</code>.</p>
     </div>
-  </div>
+  </wa-callout>
 
   <p>And the paragraph after picks the rhythm back up where it left off.</p>
 </article>
