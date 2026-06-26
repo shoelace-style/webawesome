@@ -282,28 +282,28 @@
   margin: 0;
 }
 
-/* Swap icons via display so the inactive one leaves the accessibility tree. */
+/* Swap icons via display so the inactive one leaves the accessibility tree. The visible icon shows
+   the currently active state. */
 
-/* Show the dark-mode icon when the preview is effectively dark: explicit wa-dark, or page dark with no explicit wa-light. */
-.code-example-theme-to-light {
+/* Effective dark = explicit wa-dark, or page dark with no explicit wa-light. */
+.code-example-theme-dark {
   display: none;
 }
-.code-example:has(.code-example-preview.wa-dark) .code-example-theme-to-dark,
-html.wa-dark .code-example:not(:has(.code-example-preview.wa-light)) .code-example-theme-to-dark {
+.code-example:has(.code-example-preview.wa-dark) .code-example-theme-light,
+html.wa-dark .code-example:not(:has(.code-example-preview.wa-light)) .code-example-theme-light {
   display: none;
 }
-.code-example:has(.code-example-preview.wa-dark) .code-example-theme-to-light,
-html.wa-dark .code-example:not(:has(.code-example-preview.wa-light)) .code-example-theme-to-light {
+.code-example:has(.code-example-preview.wa-dark) .code-example-theme-dark,
+html.wa-dark .code-example:not(:has(.code-example-preview.wa-light)) .code-example-theme-dark {
   display: inline-flex;
 }
 
-/* Direction icon — RTL state shows the "switch to LTR" icon. */
-.code-example-dir-to-ltr {
+.code-example-dir-rtl {
   display: none;
 }
-.code-example:has(.code-example-content[dir='rtl']) .code-example-dir-to-rtl {
+.code-example:has(.code-example-content[dir='rtl']) .code-example-dir-ltr {
   display: none;
 }
-.code-example:has(.code-example-content[dir='rtl']) .code-example-dir-to-ltr {
+.code-example:has(.code-example-content[dir='rtl']) .code-example-dir-rtl {
   display: inline-flex;
 }

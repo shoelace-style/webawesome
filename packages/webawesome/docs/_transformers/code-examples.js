@@ -187,8 +187,8 @@ export function codeExamplesTransformer(options = {}) {
                     hasPreview && !noColorScheme && !hasFrame
                       ? `
                         <button class="code-example-theme" type="button">
-                          <wa-icon class="code-example-theme-to-dark" src="/assets/images/moon-stars.svg" label="Show in dark mode"></wa-icon>
-                          <wa-icon class="code-example-theme-to-light" src="/assets/images/sun-bright.svg" label="Show in light mode"></wa-icon>
+                          <wa-icon class="code-example-theme-light" src="/assets/images/sun-bright.svg" label="Show in dark mode"></wa-icon>
+                          <wa-icon class="code-example-theme-dark" src="/assets/images/moon-stars.svg" label="Show in light mode"></wa-icon>
                         </button>
                       `
                       : ''
@@ -198,8 +198,8 @@ export function codeExamplesTransformer(options = {}) {
                     hasPreview && !noDir && !hasFrame
                       ? `
                         <button class="code-example-dir" type="button">
-                          <wa-icon class="code-example-dir-to-rtl" src="/assets/images/align-right.svg" label="Change direction to RTL"></wa-icon>
-                          <wa-icon class="code-example-dir-to-ltr" src="/assets/images/align-left.svg" label="Change direction to LTR"></wa-icon>
+                          <wa-icon class="code-example-dir-ltr" src="/assets/images/align-left.svg" label="Change direction to RTL"></wa-icon>
+                          <wa-icon class="code-example-dir-rtl" src="/assets/images/align-right.svg" label="Change direction to LTR"></wa-icon>
                         </button>
                       `
                       : ''
