@@ -101,5 +101,4 @@ export default css`
       animation-name: wa-rc-fade-right;
     }
   }
-
 `;
