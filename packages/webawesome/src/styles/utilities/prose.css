@@ -1,4 +1,4 @@
-@layer wa-utilities-prose {
+@layer wa-prose {
   /* `wa-prose` applies hierarchical, asymmetric typographic rhythm to a block
      of long-form content. Builds on `wa-native`'s base block styles instead of
      duplicating them. Em-based spacing scales when composed with `wa-font-size-*`.
