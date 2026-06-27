@@ -16,33 +16,30 @@ use-cases:
 Web Awesome comes bundled with over 2,000 free icons courtesy of [Font Awesome](https://fontawesome.com/). These icons are part of the `default` icon library. Font Awesome Pro users can unlock additional [icon families](#families-and-variants). Or, if you prefer, you can register your own [custom icon library](#third-party-icon-libraries).
 
 ```html {.example}
-<!-- A few icon rebuses — can you read them? -->
-<div class="wa-cluster wa-gap-xl" style="font-size: 2em;">
-  <!-- Raining cats and dogs -->
-  <span class="wa-cluster wa-gap-0">
-    <wa-icon name="cloud-rain"></wa-icon>
-    <wa-icon name="cat"></wa-icon>
-    <wa-icon name="dog"></wa-icon>
-  </span>
+<div class="icon-rebuses" style="font-size: 2em;">
+  <!-- Catfish -->
+  <wa-icon name="cat"></wa-icon>
+  <wa-icon name="fish"></wa-icon>
 
   <!-- Brainstorm -->
-  <span class="wa-cluster wa-gap-0">
-    <wa-icon name="brain"></wa-icon>
-    <wa-icon name="cloud-bolt"></wa-icon>
-  </span>
+  <wa-icon name="brain"></wa-icon>
+  <wa-icon name="cloud-bolt"></wa-icon>
 
   <!-- Bookworm -->
-  <span class="wa-cluster wa-gap-0">
-    <wa-icon name="book"></wa-icon>
-    <wa-icon name="worm"></wa-icon>
-  </span>
+  <wa-icon name="book"></wa-icon>
+  <wa-icon name="worm"></wa-icon>
 
   <!-- Moonwalk -->
-  <span class="wa-cluster wa-gap-0">
-    <wa-icon name="moon"></wa-icon>
-    <wa-icon name="person-walking"></wa-icon>
-  </span>
+  <wa-icon name="moon"></wa-icon>
+  <wa-icon name="person-walking"></wa-icon>
 </div>
+
+<style>
+  /* Space between each rebus pair: trailing margin on every 2nd icon */
+  .icon-rebuses wa-icon:nth-of-type(2n):not(:last-of-type) {
+    margin-inline-end: var(--wa-space-m);
+  }
+</style>
 ```
 
 <wa-callout variant="brand">
@@ -137,10 +134,10 @@ A _family_ sets an icon's overall style; a _variant_ sets its weight. Set them w
       <td>Free</td>
       <td>
         <div class="wa-cluster icon-copy-row wa-gap-s" style="font-size: 1.25em; align-items: center;">
-          <wa-copy-button copy-label="Copy code" value="<wa-icon name=&quot;gem&quot;></wa-icon>"><wa-icon variant="solid" name="gem"></wa-icon></wa-copy-button>
-          <wa-copy-button copy-label="Copy code" value="<wa-icon variant=&quot;regular&quot; name=&quot;gem&quot;></wa-icon>"><wa-icon variant="regular" name="gem"></wa-icon></wa-copy-button>
-          <wa-copy-button copy-label="Copy code" value="<wa-icon variant=&quot;light&quot; name=&quot;gem&quot;></wa-icon>"><wa-icon variant="light" name="gem"></wa-icon></wa-copy-button>
-          <wa-copy-button copy-label="Copy code" value="<wa-icon variant=&quot;thin&quot; name=&quot;gem&quot;></wa-icon>"><wa-icon variant="thin" name="gem"></wa-icon></wa-copy-button>
+          <wa-copy-button copy-label="Copy code" value="<wa-icon name=&quot;house&quot;></wa-icon>"><wa-icon variant="solid" name="house"></wa-icon></wa-copy-button>
+          <wa-copy-button copy-label="Copy code" value="<wa-icon variant=&quot;regular&quot; name=&quot;house&quot;></wa-icon>"><wa-icon variant="regular" name="house"></wa-icon></wa-copy-button>
+          <wa-copy-button copy-label="Copy code" value="<wa-icon variant=&quot;light&quot; name=&quot;house&quot;></wa-icon>"><wa-icon variant="light" name="house"></wa-icon></wa-copy-button>
+          <wa-copy-button copy-label="Copy code" value="<wa-icon variant=&quot;thin&quot; name=&quot;house&quot;></wa-icon>"><wa-icon variant="thin" name="house"></wa-icon></wa-copy-button>
         </div>
       </td>
     </tr>
@@ -162,10 +159,10 @@ A _family_ sets an icon's overall style; a _variant_ sets its weight. Set them w
       <td>Pro</td>
       <td>
         <div class="wa-cluster icon-copy-row wa-gap-s" style="font-size: 1.25em; align-items: center;">
-          <wa-copy-button copy-label="Copy code" value="<wa-icon family=&quot;duotone&quot; name=&quot;gem&quot;></wa-icon>"><wa-icon family="duotone" variant="solid" name="gem"></wa-icon></wa-copy-button>
-          <wa-copy-button copy-label="Copy code" value="<wa-icon family=&quot;duotone&quot; variant=&quot;regular&quot; name=&quot;gem&quot;></wa-icon>"><wa-icon family="duotone" variant="regular" name="gem"></wa-icon></wa-copy-button>
-          <wa-copy-button copy-label="Copy code" value="<wa-icon family=&quot;duotone&quot; variant=&quot;light&quot; name=&quot;gem&quot;></wa-icon>"><wa-icon family="duotone" variant="light" name="gem"></wa-icon></wa-copy-button>
-          <wa-copy-button copy-label="Copy code" value="<wa-icon family=&quot;duotone&quot; variant=&quot;thin&quot; name=&quot;gem&quot;></wa-icon>"><wa-icon family="duotone" variant="thin" name="gem"></wa-icon></wa-copy-button>
+          <wa-copy-button copy-label="Copy code" value="<wa-icon family=&quot;duotone&quot; name=&quot;house&quot;></wa-icon>"><wa-icon family="duotone" variant="solid" name="house"></wa-icon></wa-copy-button>
+          <wa-copy-button copy-label="Copy code" value="<wa-icon family=&quot;duotone&quot; variant=&quot;regular&quot; name=&quot;house&quot;></wa-icon>"><wa-icon family="duotone" variant="regular" name="house"></wa-icon></wa-copy-button>
+          <wa-copy-button copy-label="Copy code" value="<wa-icon family=&quot;duotone&quot; variant=&quot;light&quot; name=&quot;house&quot;></wa-icon>"><wa-icon family="duotone" variant="light" name="house"></wa-icon></wa-copy-button>
+          <wa-copy-button copy-label="Copy code" value="<wa-icon family=&quot;duotone&quot; variant=&quot;thin&quot; name=&quot;house&quot;></wa-icon>"><wa-icon family="duotone" variant="thin" name="house"></wa-icon></wa-copy-button>
         </div>
       </td>
     </tr>
@@ -175,10 +172,10 @@ A _family_ sets an icon's overall style; a _variant_ sets its weight. Set them w
       <td>Pro</td>
       <td>
         <div class="wa-cluster icon-copy-row wa-gap-s" style="font-size: 1.25em; align-items: center;">
-          <wa-copy-button copy-label="Copy code" value="<wa-icon family=&quot;sharp&quot; name=&quot;gem&quot;></wa-icon>"><wa-icon family="sharp" variant="solid" name="gem"></wa-icon></wa-copy-button>
-          <wa-copy-button copy-label="Copy code" value="<wa-icon family=&quot;sharp&quot; variant=&quot;regular&quot; name=&quot;gem&quot;></wa-icon>"><wa-icon family="sharp" variant="regular" name="gem"></wa-icon></wa-copy-button>
-          <wa-copy-button copy-label="Copy code" value="<wa-icon family=&quot;sharp&quot; variant=&quot;light&quot; name=&quot;gem&quot;></wa-icon>"><wa-icon family="sharp" variant="light" name="gem"></wa-icon></wa-copy-button>
-          <wa-copy-button copy-label="Copy code" value="<wa-icon family=&quot;sharp&quot; variant=&quot;thin&quot; name=&quot;gem&quot;></wa-icon>"><wa-icon family="sharp" variant="thin" name="gem"></wa-icon></wa-copy-button>
+          <wa-copy-button copy-label="Copy code" value="<wa-icon family=&quot;sharp&quot; name=&quot;house&quot;></wa-icon>"><wa-icon family="sharp" variant="solid" name="house"></wa-icon></wa-copy-button>
+          <wa-copy-button copy-label="Copy code" value="<wa-icon family=&quot;sharp&quot; variant=&quot;regular&quot; name=&quot;house&quot;></wa-icon>"><wa-icon family="sharp" variant="regular" name="house"></wa-icon></wa-copy-button>
+          <wa-copy-button copy-label="Copy code" value="<wa-icon family=&quot;sharp&quot; variant=&quot;light&quot; name=&quot;house&quot;></wa-icon>"><wa-icon family="sharp" variant="light" name="house"></wa-icon></wa-copy-button>
+          <wa-copy-button copy-label="Copy code" value="<wa-icon family=&quot;sharp&quot; variant=&quot;thin&quot; name=&quot;house&quot;></wa-icon>"><wa-icon family="sharp" variant="thin" name="house"></wa-icon></wa-copy-button>
         </div>
       </td>
     </tr>
@@ -188,10 +185,10 @@ A _family_ sets an icon's overall style; a _variant_ sets its weight. Set them w
       <td>Pro</td>
       <td>
         <div class="wa-cluster icon-copy-row wa-gap-s" style="font-size: 1.25em; align-items: center;">
-          <wa-copy-button copy-label="Copy code" value="<wa-icon family=&quot;sharp-duotone&quot; name=&quot;gem&quot;></wa-icon>"><wa-icon family="sharp-duotone" variant="solid" name="gem"></wa-icon></wa-copy-button>
-          <wa-copy-button copy-label="Copy code" value="<wa-icon family=&quot;sharp-duotone&quot; variant=&quot;regular&quot; name=&quot;gem&quot;></wa-icon>"><wa-icon family="sharp-duotone" variant="regular" name="gem"></wa-icon></wa-copy-button>
-          <wa-copy-button copy-label="Copy code" value="<wa-icon family=&quot;sharp-duotone&quot; variant=&quot;light&quot; name=&quot;gem&quot;></wa-icon>"><wa-icon family="sharp-duotone" variant="light" name="gem"></wa-icon></wa-copy-button>
-          <wa-copy-button copy-label="Copy code" value="<wa-icon family=&quot;sharp-duotone&quot; variant=&quot;thin&quot; name=&quot;gem&quot;></wa-icon>"><wa-icon family="sharp-duotone" variant="thin" name="gem"></wa-icon></wa-copy-button>
+          <wa-copy-button copy-label="Copy code" value="<wa-icon family=&quot;sharp-duotone&quot; name=&quot;house&quot;></wa-icon>"><wa-icon family="sharp-duotone" variant="solid" name="house"></wa-icon></wa-copy-button>
+          <wa-copy-button copy-label="Copy code" value="<wa-icon family=&quot;sharp-duotone&quot; variant=&quot;regular&quot; name=&quot;house&quot;></wa-icon>"><wa-icon family="sharp-duotone" variant="regular" name="house"></wa-icon></wa-copy-button>
+          <wa-copy-button copy-label="Copy code" value="<wa-icon family=&quot;sharp-duotone&quot; variant=&quot;light&quot; name=&quot;house&quot;></wa-icon>"><wa-icon family="sharp-duotone" variant="light" name="house"></wa-icon></wa-copy-button>
+          <wa-copy-button copy-label="Copy code" value="<wa-icon family=&quot;sharp-duotone&quot; variant=&quot;thin&quot; name=&quot;house&quot;></wa-icon>"><wa-icon family="sharp-duotone" variant="thin" name="house"></wa-icon></wa-copy-button>
         </div>
       </td>
     </tr>
@@ -275,11 +272,19 @@ The _canvas_ is the box an icon sits in. Choose one of four mutually exclusive m
       style="background: var(--wa-color-brand-fill-quiet); border: var(--wa-border-width-s) dashed var(--wa-color-brand-border-loud);"
     ></wa-icon>
     <wa-icon
-      name="ruler-vertical"
+      name="image"
       style="background: var(--wa-color-brand-fill-quiet); border: var(--wa-border-width-s) dashed var(--wa-color-brand-border-loud);"
     ></wa-icon>
     <wa-icon
       name="face-smile"
+      style="background: var(--wa-color-brand-fill-quiet); border: var(--wa-border-width-s) dashed var(--wa-color-brand-border-loud);"
+    ></wa-icon>
+    <wa-icon
+      name="file"
+      style="background: var(--wa-color-brand-fill-quiet); border: var(--wa-border-width-s) dashed var(--wa-color-brand-border-loud);"
+    ></wa-icon>
+    <wa-icon
+      name="ruler-vertical"
       style="background: var(--wa-color-brand-fill-quiet); border: var(--wa-border-width-s) dashed var(--wa-color-brand-border-loud);"
     ></wa-icon>
   </div>
@@ -350,8 +355,9 @@ Web Awesome supports [{{ site.siblings.fontAwesome.name }}'s rotation and flip u
       <td>
         <div class="wa-cluster icon-copy-row wa-gap-s" style="font-size: 1.5em; align-items: center;">
           <wa-copy-button copy-label="Copy code" value="<wa-icon name=&quot;paper-plane&quot; rotate=&quot;90&quot;></wa-icon>"><wa-icon name="paper-plane" rotate="90"></wa-icon></wa-copy-button>
-          <wa-copy-button copy-label="Copy code" value="<wa-icon name=&quot;location-arrow&quot; rotate=&quot;90&quot;></wa-icon>"><wa-icon name="location-arrow" rotate="90"></wa-icon></wa-copy-button>
-          <wa-copy-button copy-label="Copy code" value="<wa-icon name=&quot;hand-point-up&quot; rotate=&quot;90&quot;></wa-icon>"><wa-icon name="hand-point-up" rotate="90"></wa-icon></wa-copy-button>
+          <wa-copy-button copy-label="Copy code" value="<wa-icon name=&quot;car-side&quot; rotate=&quot;90&quot;></wa-icon>"><wa-icon name="car-side" rotate="90"></wa-icon></wa-copy-button>
+          <wa-copy-button copy-label="Copy code" value="<wa-icon name=&quot;fish&quot; rotate=&quot;90&quot;></wa-icon>"><wa-icon name="fish" rotate="90"></wa-icon></wa-copy-button>
+          <wa-copy-button copy-label="Copy code" value="<wa-icon name=&quot;sailboat&quot; rotate=&quot;90&quot;></wa-icon>"><wa-icon name="sailboat" rotate="90"></wa-icon></wa-copy-button>
         </div>
       </td>
     </tr>
@@ -361,8 +367,9 @@ Web Awesome supports [{{ site.siblings.fontAwesome.name }}'s rotation and flip u
       <td>
         <div class="wa-cluster icon-copy-row wa-gap-s" style="font-size: 1.5em; align-items: center;">
           <wa-copy-button copy-label="Copy code" value="<wa-icon name=&quot;paper-plane&quot; rotate=&quot;180&quot;></wa-icon>"><wa-icon name="paper-plane" rotate="180"></wa-icon></wa-copy-button>
-          <wa-copy-button copy-label="Copy code" value="<wa-icon name=&quot;location-arrow&quot; rotate=&quot;180&quot;></wa-icon>"><wa-icon name="location-arrow" rotate="180"></wa-icon></wa-copy-button>
-          <wa-copy-button copy-label="Copy code" value="<wa-icon name=&quot;hand-point-up&quot; rotate=&quot;180&quot;></wa-icon>"><wa-icon name="hand-point-up" rotate="180"></wa-icon></wa-copy-button>
+          <wa-copy-button copy-label="Copy code" value="<wa-icon name=&quot;car-side&quot; rotate=&quot;180&quot;></wa-icon>"><wa-icon name="car-side" rotate="180"></wa-icon></wa-copy-button>
+          <wa-copy-button copy-label="Copy code" value="<wa-icon name=&quot;fish&quot; rotate=&quot;180&quot;></wa-icon>"><wa-icon name="fish" rotate="180"></wa-icon></wa-copy-button>
+          <wa-copy-button copy-label="Copy code" value="<wa-icon name=&quot;sailboat&quot; rotate=&quot;180&quot;></wa-icon>"><wa-icon name="sailboat" rotate="180"></wa-icon></wa-copy-button>
         </div>
       </td>
     </tr>
@@ -372,8 +379,9 @@ Web Awesome supports [{{ site.siblings.fontAwesome.name }}'s rotation and flip u
       <td>
         <div class="wa-cluster icon-copy-row wa-gap-s" style="font-size: 1.5em; align-items: center;">
           <wa-copy-button copy-label="Copy code" value="<wa-icon name=&quot;paper-plane&quot; rotate=&quot;270&quot;></wa-icon>"><wa-icon name="paper-plane" rotate="270"></wa-icon></wa-copy-button>
-          <wa-copy-button copy-label="Copy code" value="<wa-icon name=&quot;location-arrow&quot; rotate=&quot;270&quot;></wa-icon>"><wa-icon name="location-arrow" rotate="270"></wa-icon></wa-copy-button>
-          <wa-copy-button copy-label="Copy code" value="<wa-icon name=&quot;hand-point-up&quot; rotate=&quot;270&quot;></wa-icon>"><wa-icon name="hand-point-up" rotate="270"></wa-icon></wa-copy-button>
+          <wa-copy-button copy-label="Copy code" value="<wa-icon name=&quot;car-side&quot; rotate=&quot;270&quot;></wa-icon>"><wa-icon name="car-side" rotate="270"></wa-icon></wa-copy-button>
+          <wa-copy-button copy-label="Copy code" value="<wa-icon name=&quot;fish&quot; rotate=&quot;270&quot;></wa-icon>"><wa-icon name="fish" rotate="270"></wa-icon></wa-copy-button>
+          <wa-copy-button copy-label="Copy code" value="<wa-icon name=&quot;sailboat&quot; rotate=&quot;270&quot;></wa-icon>"><wa-icon name="sailboat" rotate="270"></wa-icon></wa-copy-button>
         </div>
       </td>
     </tr>
@@ -383,8 +391,9 @@ Web Awesome supports [{{ site.siblings.fontAwesome.name }}'s rotation and flip u
       <td>
         <div class="wa-cluster icon-copy-row wa-gap-s" style="font-size: 1.5em; align-items: center;">
           <wa-copy-button copy-label="Copy code" value="<wa-icon name=&quot;paper-plane&quot; flip=&quot;x&quot;></wa-icon>"><wa-icon name="paper-plane" flip="x"></wa-icon></wa-copy-button>
-          <wa-copy-button copy-label="Copy code" value="<wa-icon name=&quot;location-arrow&quot; flip=&quot;x&quot;></wa-icon>"><wa-icon name="location-arrow" flip="x"></wa-icon></wa-copy-button>
-          <wa-copy-button copy-label="Copy code" value="<wa-icon name=&quot;hand-point-up&quot; flip=&quot;x&quot;></wa-icon>"><wa-icon name="hand-point-up" flip="x"></wa-icon></wa-copy-button>
+          <wa-copy-button copy-label="Copy code" value="<wa-icon name=&quot;car-side&quot; flip=&quot;x&quot;></wa-icon>"><wa-icon name="car-side" flip="x"></wa-icon></wa-copy-button>
+          <wa-copy-button copy-label="Copy code" value="<wa-icon name=&quot;fish&quot; flip=&quot;x&quot;></wa-icon>"><wa-icon name="fish" flip="x"></wa-icon></wa-copy-button>
+          <wa-copy-button copy-label="Copy code" value="<wa-icon name=&quot;sailboat&quot; flip=&quot;x&quot;></wa-icon>"><wa-icon name="sailboat" flip="x"></wa-icon></wa-copy-button>
         </div>
       </td>
     </tr>
@@ -394,8 +403,9 @@ Web Awesome supports [{{ site.siblings.fontAwesome.name }}'s rotation and flip u
       <td>
         <div class="wa-cluster icon-copy-row wa-gap-s" style="font-size: 1.5em; align-items: center;">
           <wa-copy-button copy-label="Copy code" value="<wa-icon name=&quot;paper-plane&quot; flip=&quot;y&quot;></wa-icon>"><wa-icon name="paper-plane" flip="y"></wa-icon></wa-copy-button>
-          <wa-copy-button copy-label="Copy code" value="<wa-icon name=&quot;location-arrow&quot; flip=&quot;y&quot;></wa-icon>"><wa-icon name="location-arrow" flip="y"></wa-icon></wa-copy-button>
-          <wa-copy-button copy-label="Copy code" value="<wa-icon name=&quot;hand-point-up&quot; flip=&quot;y&quot;></wa-icon>"><wa-icon name="hand-point-up" flip="y"></wa-icon></wa-copy-button>
+          <wa-copy-button copy-label="Copy code" value="<wa-icon name=&quot;car-side&quot; flip=&quot;y&quot;></wa-icon>"><wa-icon name="car-side" flip="y"></wa-icon></wa-copy-button>
+          <wa-copy-button copy-label="Copy code" value="<wa-icon name=&quot;fish&quot; flip=&quot;y&quot;></wa-icon>"><wa-icon name="fish" flip="y"></wa-icon></wa-copy-button>
+          <wa-copy-button copy-label="Copy code" value="<wa-icon name=&quot;sailboat&quot; flip=&quot;y&quot;></wa-icon>"><wa-icon name="sailboat" flip="y"></wa-icon></wa-copy-button>
         </div>
       </td>
     </tr>
@@ -405,8 +415,9 @@ Web Awesome supports [{{ site.siblings.fontAwesome.name }}'s rotation and flip u
       <td>
         <div class="wa-cluster icon-copy-row wa-gap-s" style="font-size: 1.5em; align-items: center;">
           <wa-copy-button copy-label="Copy code" value="<wa-icon name=&quot;paper-plane&quot; flip=&quot;both&quot;></wa-icon>"><wa-icon name="paper-plane" flip="both"></wa-icon></wa-copy-button>
-          <wa-copy-button copy-label="Copy code" value="<wa-icon name=&quot;location-arrow&quot; flip=&quot;both&quot;></wa-icon>"><wa-icon name="location-arrow" flip="both"></wa-icon></wa-copy-button>
-          <wa-copy-button copy-label="Copy code" value="<wa-icon name=&quot;hand-point-up&quot; flip=&quot;both&quot;></wa-icon>"><wa-icon name="hand-point-up" flip="both"></wa-icon></wa-copy-button>
+          <wa-copy-button copy-label="Copy code" value="<wa-icon name=&quot;car-side&quot; flip=&quot;both&quot;></wa-icon>"><wa-icon name="car-side" flip="both"></wa-icon></wa-copy-button>
+          <wa-copy-button copy-label="Copy code" value="<wa-icon name=&quot;fish&quot; flip=&quot;both&quot;></wa-icon>"><wa-icon name="fish" flip="both"></wa-icon></wa-copy-button>
+          <wa-copy-button copy-label="Copy code" value="<wa-icon name=&quot;sailboat&quot; flip=&quot;both&quot;></wa-icon>"><wa-icon name="sailboat" flip="both"></wa-icon></wa-copy-button>
         </div>
       </td>
     </tr>
@@ -438,7 +449,12 @@ Use the `beat` animation to scale an icon up or down. This is useful for grabbin
 <wa-icon name="heart" animation="beat" label="Beating Heart" style="font-size: 2em;"></wa-icon>
 <wa-icon name="circle-plus" animation="beat" label="Beating Circle Plus" style="font-size: 2em;"></wa-icon>
 <!-- Use --beat-scale to control how far it grows -->
-<wa-icon name="heart" animation="beat" label="Beating Heart" style="font-size: 2em; --beat-scale: 2;"></wa-icon>
+<wa-icon
+  name="face-grin-hearts"
+  animation="beat"
+  label="Beating Smiley"
+  style="font-size: 2em; --beat-scale: 1.5;"
+></wa-icon>
 ```
 
 ### Fade
@@ -664,16 +680,16 @@ Use the `jello` animation for a playful jiggle — great for calling attention t
 
 ### Swing
 
-Use the `swing` animation for a subtle dangle with a slow decay — great for things that physically dangle, like keys or a hanging sign. Set `--swing-angle` to control the peak rotation.
+Use the `swing` animation for a subtle dangle with a slow decay — great for things that physically dangle, like keys or a price tag. Set `--swing-angle` to control the peak rotation.
 
 ```html {.example}
 <wa-icon name="bell" animation="swing" label="Swinging Bell" style="font-size: 2em;"></wa-icon>
 <wa-icon name="key" animation="swing" label="Swinging Key" style="font-size: 2em;"></wa-icon>
 <!-- Use --swing-angle to control the peak rotation -->
 <wa-icon
-  name="bell"
+  name="tag"
   animation="swing"
-  label="Swinging Bell"
+  label="Swinging Tag"
   style="font-size: 2em; --animation-duration: 2s; --swing-angle: 45deg;"
 ></wa-icon>
 ```
@@ -729,7 +745,7 @@ Duotone icons render on two layers — a primary and a secondary — that you ca
 <style>
   .duotone-demo-preview {
     justify-content: center;
-    font-size: 4rem;
+    font-size: 3rem;
     min-height: 6rem;
     margin-block-end: 1.5rem;
   }
@@ -748,26 +764,46 @@ Duotone icons render on two layers — a primary and a secondary — that you ca
     const [primary, secondary] = demo.querySelectorAll('wa-color-picker');
     const [primaryOpacity, secondaryOpacity] = demo.querySelectorAll('wa-slider');
 
-    const apply = () => {
+    // Until the user picks a color, each layer stays on its default currentColor so it tracks
+    // the color scheme. Opacity changes must not pin a color, or the icons freeze on toggle.
+    let hasPrimaryColor = false;
+    let hasSecondaryColor = false;
+
+    const applyOpacity = () => {
       icons.forEach(icon => {
-        icon.style.setProperty('--primary-color', primary.value);
-        icon.style.setProperty('--secondary-color', secondary.value);
         icon.style.setProperty('--primary-opacity', primaryOpacity.value);
         icon.style.setProperty('--secondary-opacity', secondaryOpacity.value);
       });
     };
 
-    [primary, secondary, primaryOpacity, secondaryOpacity].forEach(control => control.addEventListener('input', apply));
-
-    // Default the color pickers to the page's text color, matching the icons' default duotone rendering (currentColor).
-    const probe = document.createElement('span');
-    demo.appendChild(probe);
-    const defaultColor = getComputedStyle(probe).color;
-    probe.remove();
-    customElements.whenDefined('wa-color-picker').then(() => {
-      primary.value = defaultColor;
-      secondary.value = defaultColor;
+    primary.addEventListener('input', () => {
+      hasPrimaryColor = true;
+      icons.forEach(icon => icon.style.setProperty('--primary-color', primary.value));
     });
+    secondary.addEventListener('input', () => {
+      hasSecondaryColor = true;
+      icons.forEach(icon => icon.style.setProperty('--secondary-color', secondary.value));
+    });
+    primaryOpacity.addEventListener('input', applyOpacity);
+    secondaryOpacity.addEventListener('input', applyOpacity);
+
+    // Keep the unedited color pickers showing the page's text color so their swatches match the
+    // icons' default currentColor — and re-probe when the scheme changes so they don't go stale.
+    const syncColorDefaults = () => {
+      const probe = document.createElement('span');
+      demo.appendChild(probe);
+      const textColor = getComputedStyle(probe).color;
+      probe.remove();
+      if (!hasPrimaryColor) primary.value = textColor;
+      if (!hasSecondaryColor) secondary.value = textColor;
+    };
+
+    customElements.whenDefined('wa-color-picker').then(syncColorDefaults);
+    document.addEventListener('color-scheme-settled', syncColorDefaults);
+    const preview = demo.closest('.code-example-preview');
+    if (preview) {
+      new MutationObserver(syncColorDefaults).observe(preview, { attributes: true, attributeFilter: ['class'] });
+    }
   })();
 </script>
 ```
@@ -796,7 +832,7 @@ For duotone icons, you can swap the primary and secondary opacity values using t
     <wa-icon family="duotone" name="user" swap-opacity></wa-icon>
     <wa-icon family="duotone" name="envelope" swap-opacity></wa-icon>
     <wa-icon family="duotone" name="calendar" swap-opacity></wa-icon>
-    <span style="font-size: 1rem;">Swapped opacity</span>
+    <span style="font-size: 1rem;">Swapped Opacity</span>
   </div>
 </div>
 ```
