@@ -1,7 +1,7 @@
 import { getIconPath, getKitCode } from '../../utilities/base-path.js';
 import type { IconLibrary } from './library.js';
 
-const FA_VERSION = '7.2.0';
+const FA_VERSION = '7.3.0';
 
 /** Returns the folder name used by Font Awesome for a given icon family and variant combination. */
 export function getIconFolder(_name: string, family: string, variant: string) {
@@ -50,7 +50,7 @@ export function getIconFolder(_name: string, family: string, variant: string) {
   }
 
   // Slab (Pro+)
-  // Correct usage: family="slab" or family="slab-press", variant="regular"
+  // Correct usage: family="slab", family="slab-press", family="slab-duo", or family="slab-press-duo", variant="regular"
   if (family === 'slab') {
     // NOTE: variant="press-regular" is deprecated, use family="slab-press" variant="regular" instead
     if (variant === 'solid' || variant === 'regular') folder = 'slab-regular';
@@ -58,6 +58,12 @@ export function getIconFolder(_name: string, family: string, variant: string) {
   }
   if (family === 'slab-press') {
     folder = 'slab-press-regular';
+  }
+  if (family === 'slab-duo') {
+    folder = 'slab-duo-regular';
+  }
+  if (family === 'slab-press-duo') {
+    folder = 'slab-press-duo-regular';
   }
 
   // Thumbprint (Pro+)
@@ -80,6 +86,18 @@ export function getIconFolder(_name: string, family: string, variant: string) {
   // Whiteboard (Pro+)
   if (family === 'whiteboard') {
     folder = 'whiteboard-semibold';
+  }
+
+  // Mosaic, Pixel, and Vellum (Pro+, new in 7.3) ship a single style each, so `variant` is ignored.
+  // If Font Awesome adds weights to these packs, branch on `variant` here like the families above.
+  if (family === 'mosaic') {
+    folder = 'mosaic-solid';
+  }
+  if (family === 'pixel') {
+    folder = 'pixel-regular';
+  }
+  if (family === 'vellum') {
+    folder = 'vellum-solid';
   }
 
   // Classic
@@ -163,6 +181,9 @@ const library: IconLibrary = {
         (family === 'jelly' && variant === 'duo-regular') ||
         // Utility duo (correct usage: family="utility-duo")
         family === 'utility-duo' ||
+        // Slab duo (new in 7.3)
+        family === 'slab-duo' ||
+        family === 'slab-press-duo' ||
         // Thumbprint
         family === 'thumbprint'
       ) {

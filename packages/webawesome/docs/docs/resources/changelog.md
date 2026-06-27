@@ -34,10 +34,14 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 :::added
 
 - Added the experimental `<wa-random-content>` component, which randomly shows one or more of its children — handy for rotating testimonials, tips, or featured content
+- Added the Mosaic, Pixel, Vellum, Slab Duo, and Slab Press Duo Pro+ icon families to `<wa-icon>` [pr:2562]
+- Added the `buzz`, `flip-360`, `float`, `jello`, `spin-snap`, `spin-snap-4`, `spin-snap-8`, `swing`, and `wag` animations to `<wa-icon>` [pr:2562]
+- Added the `canvas` attribute to `<wa-icon>` for choosing the icon canvas — `fixed` (default), `auto`, `square`, or `roomy` [pr:2562]
 
 :::
 
 :::fixed
+
 - Fixed a bug in `wa-video` that was causing the `z-index` to leak out of the context of the component [issue:2542]
 - Fixed a bug in `<wa-chart>` and its variants that threw a `DataCloneError` when the Chart.js config contained functions, such as tooltip or scale callbacks
 - Fixed a bug in `<wa-date-input>` and `<wa-time-input>` where an empty `start`/`end` slot added a phantom gap causing it to be misaligned with other form controls [issue:2527]
@@ -61,6 +65,14 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
   - The current (keyboard-highlighted) state now uses `--wa-form-control-activated-color` for its background and a new `--current-text-color` custom property for its text, so options track form control theming alongside `<wa-checkbox>`, `<wa-radio>`, `<wa-switch>`, and `<wa-slider>`
   - Hover and current state changes now animate, matching `<wa-dropdown-item>`
 - Reordered component reference pages in the `webawesome` Agent Skill to put the import instructions and API tables before the examples
+- Updated `<wa-icon>` to use [Font Awesome 7.3.0](https://fontawesome.com/changelog#v7-3-0) [pr:2562]
+- Aligned `<wa-icon>` animation defaults with Font Awesome 7.3.0 — `flip`, `shake`, `fade`, and `beat-fade` use updated timing, duration, and keyframes [pr:2562]
+
+:::
+
+:::deprecated
+
+- Deprecated the `auto-width` attribute on `<wa-icon>` in favor of `canvas="auto"` [pr:2562]
 
 :::
 
