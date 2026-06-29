@@ -6,7 +6,7 @@
      sits at 0,0,0 specificity — any utility class or element rule the author
      applies inside the container takes precedence without weight tricks. */
   @scope (.wa-prose) to (.wa-not-prose) {
-    :scope {
+    :where(:scope) {
       /* #region Tokens ~~~~~~~~~~~~ */
 
       /* Em-based rhythm scale: each token resolves at the use site, so margins
