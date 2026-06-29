@@ -5,7 +5,7 @@
      The class and its element selectors are wrapped in `:where()` so every rule
      sits at 0,0,0 specificity — any utility class or element rule the author
      applies inside the container takes precedence without weight tricks. */
-     
+
   /* @scope is Newly Available in Baseline 2025. As such, it should be reserved for
      non-essential, progressive enhancement features until @scope is established
      as Widely Available. https://caniuse.com/css-cascade-scope */
