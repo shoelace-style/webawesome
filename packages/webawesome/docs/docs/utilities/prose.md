@@ -21,7 +21,7 @@ Wrap a block of content in `wa-prose` to apply a hierarchical, asymmetric typogr
 
 Reach for it on documentation, blog posts, articles, or marketing copy. Element styling (color, font, borders) still comes from [native styles](/docs/utilities/native/); `wa-prose` only adjusts rhythm, type scale, and the reading column.
 
-## Using prose
+## Using Prose
 
 Wrap your long-form content in any block element with the `wa-prose` class.
 
@@ -36,7 +36,7 @@ By default, content is constrained to a comfortable reading column of `65ch`. Ov
 
 ## Examples
 
-### Headings and paragraphs
+### Headings & Paragraphs
 
 Each heading level gets generous space above and tight space below, so the eye reads it as part of the section it introduces — not the one it follows. When two headings sit back-to-back, the second tightens up so it reads as subordinate to the first.
 
@@ -94,7 +94,7 @@ Lists get a small breath between multi-line items. Quiet markers and bold `<dt>`
 </article>
 ```
 
-### Inline elements
+### Inline Elements
 
 Inline elements you'd reach for in long-form writing — `<kbd>`, `<mark>`, `<sub>`/`<sup>`, `<abbr>` — work as expected inside a prose container, styled by [native styles](/docs/utilities/native/).
 
@@ -108,7 +108,7 @@ Inline elements you'd reach for in long-form writing — `<kbd>`, `<mark>`, `<su
 </article>
 ```
 
-### Major blocks
+### Major Blocks
 
 Code samples, tables, callouts, and collapsible `<details>` get more breathing room than running prose, so they read as distinct chunks of content rather than another sentence.
 
@@ -159,7 +159,7 @@ develop in HC-110, dilution B</code></pre>
 </article>
 ```
 
-### Section breaks
+### Section Breaks
 
 `<hr>` marks a topic shift. Its own margin defines the gap; the heading or paragraph that follows hugs up to it so the divider stays visually anchored to what comes next.
 
@@ -180,7 +180,7 @@ develop in HC-110, dilution B</code></pre>
 </article>
 ```
 
-## Typographic details
+## Typographic Details
 
 A few quieter refinements come along with the rhythm:
 
@@ -188,7 +188,7 @@ A few quieter refinements come along with the rhythm:
 - **Hanging punctuation** pulls opening quotes, em-dashes, and trailing stops into the margin (Safari today; progressive enhancement elsewhere).
 - **Long-word breaks** on `<code>` and `<pre>` so URLs and identifiers can't overflow the column.
 
-## Composing with font-size utilities
+## Composing with Font Size Utilities
 
 Apply any [`wa-font-size-*`](/docs/utilities/text/#font-size) utility to a `wa-prose` container and text, headings, and rhythm scale together. No size variants required.
 
@@ -214,7 +214,7 @@ Apply any [`wa-font-size-*`](/docs/utilities/text/#font-size) utility to a `wa-p
 </div>
 ```
 
-## Adjusting rhythm
+## Adjusting Rhythm
 
 Set `--wa-prose-rhythm-scale` on the prose container to multiply every margin in the system. Values below `1` tighten the rhythm; values above loosen it. Type sizes are unaffected.
 
@@ -234,7 +234,7 @@ Set `--wa-prose-rhythm-scale` on the prose container to multiply every margin in
 </div>
 ```
 
-## Composing with other utilities
+## Composing with Other Utilities
 
 The `wa-prose` class and its element rules sit at `0,0,0` specificity, so any utility class you apply alongside — `wa-heading-m`, `wa-cluster`, `wa-text-center`, and so on — wins automatically. The same goes for plain element rules in your own stylesheet, no `!important` or specificity tricks required.
 
@@ -255,7 +255,7 @@ Color flows from your theme's [color tokens](/docs/tokens/color/), so prose foll
 }
 ```
 
-## Opting out of prose
+## Opting out of Prose
 
 Apply `wa-not-prose` to any element inside a `wa-prose` container to disable prose rhythm for that element and its descendants. Other utilities — `wa-cluster`, `wa-stack`, `wa-font-size-*` — keep working in the opt-out subtree.
 

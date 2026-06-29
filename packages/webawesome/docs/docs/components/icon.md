@@ -996,7 +996,7 @@ Custom icons can be loaded individually with the `src` attribute. Only SVGs on a
 <wa-icon src="https://shoelace.style/assets/images/shoe.svg" style="font-size: 4rem;"></wa-icon>
 ```
 
-## Self-hosting the Default Library
+### Self-Hosting the Default Library
 
 By default, icons are loaded from the {{ site.siblings.fontAwesome.name }} CDN. If you'd prefer to [download the icons](https://fontawesome.com/download) and serve them from your own server, you can use the `setIconPath()` function to point the default icon library at your self-hosted directory.
 
@@ -1051,7 +1051,7 @@ For example, this will change the default icon library to use [Bootstrap Icons](
 </script>
 ```
 
-### Customize the default library to use SVG sprites
+#### Customize the Default Library to Use SVG Sprites
 
 To improve performance you can use a SVG sprites to avoid multiple trips for each SVG. The browser will load the sprite sheet once and then you reference the particular SVG within the sprite sheet using hash selector.
 
@@ -1091,7 +1091,7 @@ If you want to change the icons Web Awesome uses internally, you can register an
 </script>
 ```
 
-## Third-party Icon Libraries
+### Third-Party Icon Libraries
 
 You can register additional icons to use with the `<wa-icon>` component through icon libraries. Icon files can exist locally or on a CORS-enabled endpoint (e.g. a CDN). There is no limit to how many icon libraries you can register and there is no cost associated with registering them, as individual icons are only requested when they're used.
 

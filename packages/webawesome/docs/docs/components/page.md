@@ -134,7 +134,7 @@ This is often desirable, but you can change this behavior using the `disable-sti
 <wa-page disable-sticky="header aside"> ... </wa-page>
 ```
 
-### Skip To Content
+### Skip to Content
 
 The layout provides a "skip to content" link that's visually hidden until the user tabs into it. You don't have to do anything to configure this, unless you want to change the text displayed in the link. In that case, you can slot in your own text using the `skip-to-content` slot.
 
@@ -250,7 +250,7 @@ You can override the default spacing for each slot with your own CSS. In this ex
 }
 ```
 
-## Utility classes
+## Utility Classes
 
 [Native styles](/docs/utilities/native/) define a few useful defaults for `<wa-page>`, as well as two utility classes you can use for common responsive design tasks:
 

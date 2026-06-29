@@ -603,7 +603,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::
 
-## Pre-release Versions
+## Pre-Release Versions
 
 Betas, release candidates, and snapshots from before each major release.
 

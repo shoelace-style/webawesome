@@ -664,7 +664,7 @@ You also gain a few systems that didn't exist in Shoelace:
 The `wa-theme-shoelace` theme and `wa-palette-shoelace` color palette defines tokens that approximate Shoelace's defaults, so most of your existing custom CSS will keep working. Apply it with `<html class="wa-theme-shoelace wa-palette-shoelace">` for a one-line escape hatch during migration.
 :::
 
-### Step 5: Forms and Validation
+### Step 5: Forms & Validation
 
 Web Awesome form controls are real form-associated custom elements (FACE) using `ElementInternals`. This means:
 
@@ -694,7 +694,7 @@ Cancel `wa-invalid` with `event.preventDefault()` to suppress the browser's defa
 
 The `customError` attribute is a declarative version of `setCustomValidity()` that you can set from your template.
 
-### Step 6: Things to Watch For
+### Step 6: Things to Watch for
 
 Most of what follows is silent breakage: code that won't throw but will misbehave. Check each item against your codebase.
 

@@ -44,7 +44,7 @@ Since content is rendered client-side, it won't be visible to search engine craw
 
 ## Examples
 
-### Providing content
+### Providing Content
 
 Markdown must go inside a `<script type="text/markdown">` element, which must be a direct child of the markdown component. (The script is required to prevent the browser from parsing the content.) The rendered output is placed in the light DOM where it inherits your page's styles.
 
@@ -58,7 +58,7 @@ Markdown must go inside a `<script type="text/markdown">` element, which must be
 
 The [Marked](https://marked.js.org/) library is used under the hood to render markdown. Marked supports [GitHub Flavored Markdown](https://github.github.com/gfm/) (GFM) and the [CommonMark](https://commonmark.org/) specification. This includes headings, bold, italic, links, images, lists, blockquotes, code blocks, tables, task lists, strike-through, and auto-links. For a full breakdown of supported syntax, see the [Marked documentation](https://marked.js.org/#specifications).
 
-### Whitespace normalization
+### Whitespace Normalization
 
 Indentation inside the script is automatically normalized before the markdown parser sees it. This lets you indent your content to match the surrounding HTML without it being treated as a code block. The normalization process:
 
@@ -93,7 +93,7 @@ For tab-indented source files, adjust the tab stop width with the `tab-size` att
 </wa-markdown>
 ```
 
-### Formatting features
+### Formatting Features
 
 All standard markdown formatting supported by Marked is available, including headings, lists, blockquotes, code blocks, links, and images.
 
@@ -151,7 +151,7 @@ All `<wa-markdown>` instances share a single [Marked](https://marked.js.org/usin
 The Marked instance is shared across all `<wa-markdown>` elements. If you want every instance on the page to pick up the new configuration, call `WaMarkdown.updateAll()` instead of `renderMarkdown()` on a single element.
 :::
 
-### Writing a custom Marked plugin
+### Writing a Custom Marked Plugin
 
 Custom [Marked extensions](https://marked.js.org/using_advanced#extensions) can be applied through any element's `marked` property. The example below adds support for `==highlight==` syntax, wrapping matched text in `<mark>` tags.
 
@@ -196,7 +196,7 @@ Custom [Marked extensions](https://marked.js.org/using_advanced#extensions) can 
 </script>
 ```
 
-### Updating content dynamically
+### Updating Content Dynamically
 
 The component parses and renders automatically when the script element is first slotted in. It does not watch for subsequent changes to the script's content. To re-render after modifying the source, update the script's `textContent` and call `renderMarkdown()`.
 

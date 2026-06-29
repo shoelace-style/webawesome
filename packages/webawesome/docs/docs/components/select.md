@@ -346,11 +346,11 @@ Be sure you trust the content you are outputting! Passing unsanitized user input
 When using custom tags with `with-remove`, you must include the `data-value` attribute set to the option's value. This allows the select to identify which option to deselect when the tag's remove button is clicked.
 :::
 
-### Lazy loading options
+### Lazy Loading Options
 
 Lazy loading options works similarly to native `<select>` elements. The select component handles various scenarios intelligently:
 
-#### Basic lazy loading scenarios:
+#### Basic Lazy Loading Scenarios
 
 - **Empty select with value**: If a `<wa-select>` is created without any options but given a `value` attribute, its value will be `""` initially. When options are added later, if any option has a value matching the select's value attribute, the select's value will update to match.
 

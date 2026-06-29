@@ -16,7 +16,7 @@ use-cases:
 
 Native styles use design tokens to spruce up native HTML elements so that they match the look and feel of your theme. While these native styles are completely optional, they're a great starting point for a cohesive design and a huge help when using a combination of native elements and Web Awesome components in your project.
 
-## Using native styles
+## Using Native Styles
 
 <wa-tab-group>
   <wa-tab panel="cdn"><wa-icon name="rocket-launch" variant="regular"></wa-icon> CDN</wa-tab>
@@ -70,7 +70,7 @@ Or, if you only want styles for native elements, include a theme and native styl
 
 You can additionally include any pre-made [theme](/docs/themes/) or [color palette](/docs/color-palettes/) to change the look of native elements.
 
-## Opting out of native styles
+## Opting out of Native Styles
 
 If you want to keep Web Awesome's components, tokens, and utilities but let a native element fall back to browser defaults, reset that element in your own stylesheet.
 
@@ -101,7 +101,7 @@ To opt out for an entire section, apply the same reset within a wrapper and targ
 
 If your app has separate page-level entry points, the simplest page-level opt-out is to not load `native.css` on pages that should keep browser defaults. You can still load your theme, components, and any [utilities](/docs/utilities/) you want on those pages.
 
-## Content flow
+## Content Flow
 
 Native styles set default space between many block-level HTML elements using the `--wa-content-spacing` token from your theme. This helps ensure that your content is readable.
 
@@ -253,7 +253,7 @@ Use `<dl>` to create lists of terms (`<dt>`) and definitions (`<dd>`).
 </dl>
 ```
 
-### Code blocks
+### Code Blocks
 
 Create code blocks or other preformatted text with `<pre>`. Preformatted text uses your theme's monospace font family and a subtle background color.
 
@@ -266,7 +266,7 @@ export function thing() {
 </pre>
 ```
 
-### Inline text
+### Inline Text
 
 Use any inline text element like `<strong>`, `<em>`, `<a>`, `<kbd>`, and others to stylize or emphasize text.
 
@@ -293,7 +293,7 @@ Use any inline text element like `<strong>`, `<em>`, `<a>`, `<kbd>`, and others 
 </div>
 ```
 
-## Widgets & media
+## Widgets & Media
 
 ### Media
 
@@ -517,7 +517,7 @@ When using `<wa-icon>` within a button, wrap adjacent label text in `<span>` or 
 </button>
 ```
 
-### Form controls
+### Form Controls
 
 Create a variety of form controls with `<input type="">`, `<select>`, and `<textarea>`. Each control closely matches the appearance of the corresponding Web Awesome component.
 
@@ -630,7 +630,7 @@ Group form controls together with `<fieldset>` and `<legend>`.
 </fieldset>
 ```
 
-### Form layouts
+### Form Layouts
 
 Wrap form controls in a flex container to arrange them horizontally or vertically with even spacing. Layout utility classes like [`wa-cluster`](/docs/utilities/cluster) and [`wa-stack`](/docs/utilities/stack) can be added directly to a `<fieldset>` or `<form>` to make this especially easy.
 
