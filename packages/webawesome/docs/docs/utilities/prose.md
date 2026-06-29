@@ -260,21 +260,26 @@ Color flows from your theme's [color tokens](/docs/tokens/color/), so prose foll
 Apply `wa-not-prose` to any element inside a `wa-prose` container to disable prose rhythm for that element and its descendants. Other utilities — `wa-cluster`, `wa-stack`, `wa-font-size-*` — keep working in the opt-out subtree.
 
 ```html {.example}
-<article class="wa-prose">
+<article class="wa-prose wa-font-size-s">
   <h3>Ready when you are</h3>
   <p>
-    The paragraphs around this section follow prose rhythm. The callout below is given
-    <code>wa-not-prose</code>, so its font sizing and spacing revert to the component defaults.
+    The content in this section follows prose rhythm and adopt a smaller font size. The callout below is given
+    <code>wa-not-prose</code>, so its spacing and font sizing revert to element defaults.
   </p>
 
   <wa-callout class="wa-not-prose" variant="warning">
     <wa-icon slot="icon" name="highlighter"></wa-icon>
-    <div class="wa-stack">
+    <div class="wa-stack wa-gap-s">
       <h4>Leave it to the prose</h4>
-      <p>The elements in this callout are exempt from <code>wa-prose</code> rules, thanks to <code>wa-not-prose</code>.</p>
+      <p>This callout and its child elements are exempt from <code>wa-prose</code> rules, thanks to <code>wa-not-prose</code>.</p>
     </div>
   </wa-callout>
 
-  <p>And the paragraph after picks the rhythm back up where it left off.</p>
+  <p>And the content after picks the rhythm back up where it left off.</p>
+  <ul>
+    <li>Asymmetric spacing</li>
+    <li>Relative font sizing</li>
+    <li>Comfortable line length</li>
+  </ul>
 </article>
 ```
