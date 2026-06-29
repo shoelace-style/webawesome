@@ -75,9 +75,6 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
 
   @property() title = ''; // make reactive to pass through
 
-  /** The name of the checkbox, submitted as a name/value pair with form data. */
-  @property({ reflect: true }) name = null;
-
   private _value: string | null = this.getAttribute('value') ?? null;
 
   /** The value of the checkbox, submitted as a name/value pair with form data. */
