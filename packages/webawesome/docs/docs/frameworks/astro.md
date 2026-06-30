@@ -38,7 +38,7 @@ To get started, install the adapter from NPM.
 npm install @awesome.me/astro-lit
 ```
 
-Now we have to go register the plugin in our `astro.config.mjs`
+Now you have to register the plugin in your `astro.config.mjs`
 
 ```js
 // astro.config.mjs
