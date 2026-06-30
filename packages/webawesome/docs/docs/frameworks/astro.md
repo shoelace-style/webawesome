@@ -53,7 +53,7 @@ export default defineConfig({
 });
 ```
 
-Once our plugin is setup, you must now register components in 2 places, one on the "server", one on the "client", as well as make sure our `hydration` script runs before any client components register.
+Once your plugin is setup, you must now register components in 2 places, one on the "server", one on the "client", as well as make sure the `hydration` script runs before any client components register.
 
 So the previous example should look like this:
 
