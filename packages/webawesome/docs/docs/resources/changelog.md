@@ -29,7 +29,9 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 {% include "changelog-email-signup.njk" %}
 
-## Unreleased
+## 3.10.0
+
+<small><time datetime="2026-06-30">June 30th, 2026</time></small>
 
 :::added
 
@@ -42,6 +44,8 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::fixed
 
+- Fixed a type issue in `<wa-checkbox>` that caused the `name` property to have an incorrect type. [pr:2568]
+- Fixed a bug in `<wa-page>` causing the viewport to always overflow if a footer was present. [pr:2537]
 - Fixed a bug in `wa-video` that was causing the `z-index` to leak out of the context of the component [issue:2542]
 - Fixed a bug in `<wa-chart>` and its variants that threw a `DataCloneError` when the Chart.js config contained functions, such as tooltip or scale callbacks
 - Fixed a bug in `<wa-date-input>` and `<wa-time-input>` where an empty `start`/`end` slot added a phantom gap causing it to be misaligned with other form controls [issue:2527]
