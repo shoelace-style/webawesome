@@ -69,7 +69,7 @@ export async function build(options = {}) {
     options.watchedDocsDirectories = [getDocsDir()];
   }
 
-  const transformTypes = options.transformTypes || ((_dir) => {})
+  const transformTypes = options.transformTypes || (_dir => {});
 
   /**
    * Runs the full build.
@@ -238,9 +238,9 @@ export async function build(options = {}) {
       if (process.env.ROOT_DIR) {
         process.chdir(process.env.ROOT_DIR);
       }
-      const cdnDir = getCdnDir()
+      const cdnDir = getCdnDir();
       execSync(`tsc --project ./tsconfig.prod.json --outdir "${getCdnDir()}"`, { stdio: 'inherit' });
-      transformTypes(cdnDir)
+      transformTypes(cdnDir);
       process.chdir(cwd);
     } catch (error) {
       process.chdir(cwd);
