@@ -46,6 +46,7 @@ if (!process.env.NODE_ENV) {
  * @property {Array<string>} [watchedDocsDirectories]
  * @property {(eventName: "change" | "add" | "unlink", filePath: string) => unknown} [beforeWatchEvent]
  * @property {(eventName: "change" | "add" | "unlink", filePath: string) => unknown} [afterWatchEvent]
+ * @property {(dir: string) => void} [transformTypes]
  */
 
 /**
@@ -67,6 +68,8 @@ export async function build(options = {}) {
   if (!options.watchedDocsDirectories) {
     options.watchedDocsDirectories = [getDocsDir()];
   }
+
+  const transformTypes = options.transformTypes || ((_dir) => {})
 
   /**
    * Runs the full build.
@@ -235,7 +238,9 @@ export async function build(options = {}) {
       if (process.env.ROOT_DIR) {
         process.chdir(process.env.ROOT_DIR);
       }
+      const cdnDir = getCdnDir()
       execSync(`tsc --project ./tsconfig.prod.json --outdir "${getCdnDir()}"`, { stdio: 'inherit' });
+      transformTypes(cdnDir)
       process.chdir(cwd);
     } catch (error) {
       process.chdir(cwd);
