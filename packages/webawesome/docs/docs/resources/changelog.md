@@ -65,6 +65,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
   - The current (keyboard-highlighted) state now uses `--wa-form-control-activated-color` for its background and a new `--current-text-color` custom property for its text, so options track form control theming alongside `<wa-checkbox>`, `<wa-radio>`, `<wa-switch>`, and `<wa-slider>`
   - Hover and current state changes now animate, matching `<wa-dropdown-item>`
 - Reordered component reference pages in the `webawesome` Agent Skill to put the import instructions and API tables before the examples
+- Rewrote `prose.css` rules with `@scope` so that `wa-prose` and `wa-not-prose` classes are proximity aware. This ensures that nested instances of either class work as expected, no matter the nesting depth. [pr:2564]
 - Updated `<wa-icon>` to use [Font Awesome 7.3.0](https://fontawesome.com/changelog#v7-3-0) [pr:2562]
 - Aligned `<wa-icon>` animation defaults with Font Awesome 7.3.0 — `flip`, `shake`, `fade`, and `beat-fade` use updated timing, duration, and keyframes [pr:2562]
 
