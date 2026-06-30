@@ -29,6 +29,15 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 {% include "changelog-email-signup.njk" %}
 
+## Unreleased
+
+:::fixed
+
+- Fixed type resolution issues with `pro` components like `<wa-file-input>`, `<wa-combobox>`, etc. [pr:2577]
+
+:::
+
+
 ## 3.10.0
 
 <small><time datetime="2026-06-30">June 30th, 2026</time></small>
