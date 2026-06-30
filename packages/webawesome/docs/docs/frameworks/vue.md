@@ -46,7 +46,7 @@ Once you have configured your application for custom elements, you should be abl
 
 ## Usage
 
-### QR code generator example
+### QR Code Generator Example
 
 ```html
 <template>
@@ -83,7 +83,7 @@ When binding complex data such as objects and arrays, use the `.prop` modifier t
 <wa-color-picker :swatches.prop="mySwatches" />
 ```
 
-### Two-way Binding
+### Two-Way Binding
 
 One caveat is there's currently [varying levels of support for v-model on custom elements](https://github.com/vuejs/vue/issues/7830), but you can still achieve two-way binding manually.
 

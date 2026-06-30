@@ -8,7 +8,7 @@ Angular [plays nice](https://custom-elements-everywhere.com/#angular) with custo
 
 ## Installation
 
-### Download the npm package
+### Download the npm Package
 
 To add Web Awesome to your Angular app, install the package from npm.
 
@@ -58,7 +58,7 @@ import { AppComponent } from './app.component';
 export class AppModule {}
 ```
 
-## Reference Web Awesome components in your Angular component code
+## Reference Web Awesome Components in Your Angular Component Code
 
 ```js
 // need to have both or Angular will tree shake the component out.

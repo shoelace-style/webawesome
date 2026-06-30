@@ -51,7 +51,7 @@ Use the `placeholder` attribute to add a placeholder.
 <wa-number-input placeholder="Enter a number" style="max-width: 260px;"></wa-number-input>
 ```
 
-### Setting Min, Max, and Step
+### Setting Min, Max, & Step
 
 Use the `min` and `max` attributes to set a minimum and maximum value. Use the `step` attribute to change the granularity the value must adhere to when using the stepper buttons or arrow keys.
 

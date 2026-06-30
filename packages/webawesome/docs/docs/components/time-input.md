@@ -129,7 +129,7 @@ Combine `required` with `with-clear` to enforce a value while still letting user
 </form>
 ```
 
-### Min and Max
+### Min & Max
 
 Constrain the selectable range. The picker delegates reversed-range (overnight) semantics to the native `<input type="time">`, so `min="22:00" max="06:00"` represents an overnight range.
 
@@ -219,7 +219,7 @@ Use the `disabled` attribute to disable the time input entirely. Disabled time i
 <wa-time-input label="Disabled" value="09:00" disabled></wa-time-input>
 ```
 
-### Read-only
+### Read-Only
 
 Use the `readonly` attribute to make the time input non-editable while still allowing it to be focused and to submit its value with the form. The popup still opens for browsing.
 

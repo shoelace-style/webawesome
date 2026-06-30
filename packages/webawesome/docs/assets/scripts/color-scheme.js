@@ -14,9 +14,14 @@ async function updateTheme(value) {
     tooltip.disabled = true;
   }
 
+  // Lifecycle for listeners (e.g. code-example previews): tag elements before the transition captures,
+  // update state inside it, clean up after it settles.
+  document.dispatchEvent(new Event('color-scheme-change'));
   await doViewTransition(() => {
     document.documentElement.classList.toggle('wa-dark', isDark);
+    document.dispatchEvent(new Event('color-scheme-applied'));
   });
+  document.dispatchEvent(new Event('color-scheme-settled'));
 
   // Sync all selectors and update tooltip
   document.querySelectorAll('.color-scheme-selector').forEach(el => (el.value = value));

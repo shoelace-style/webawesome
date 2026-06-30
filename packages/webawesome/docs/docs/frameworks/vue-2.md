@@ -55,7 +55,7 @@ When binding complex data such as objects and arrays, use the `.prop` modifier t
 <wa-color-picker :swatches.prop="mySwatches" />
 ```
 
-### Two-way Binding
+### Two-Way Binding
 
 One caveat is there's currently [no support for v-model on custom elements](https://github.com/vuejs/vue/issues/7830), but you can still achieve two-way binding manually.
 
