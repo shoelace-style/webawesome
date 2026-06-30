@@ -806,7 +806,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
     this.syncValues();
   }
 
-  @watch('opacity')
+  @watch('opacity', { waitUntilFirstUpdate: true })
   handleOpacityChange() {
     this.alpha = 100;
   }
@@ -940,6 +940,15 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
     super.firstUpdated(changedProperties);
 
     this.hasEyeDropper = 'EyeDropper' in window;
+
+    // The initial `value` is synced into the color state in the constructor, before the `opacity`
+    // property has been applied. With opacity off, `syncValues()` reduces an initial HEXA value to a
+    // 6-digit hex and stores that alpha-less string, so the alpha is lost. Now that opacity is in
+    // effect, re-apply the original value so an opacity picker keeps its alpha in both the slider
+    // state and the submitted value. See https://github.com/shoelace-style/webawesome/issues/2550
+    if (this.opacity && this.defaultValue) {
+      this.setColor(this.defaultValue);
+    }
   }
 
   private handleKeyDown = (event: KeyboardEvent) => {

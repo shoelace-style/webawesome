@@ -24,6 +24,18 @@ describe('<wa-color-picker>', () => {
           expect(opacitySlider).to.exist;
         });
 
+        it('should preserve the alpha of an initial HEXA value when opacity is enabled', async () => {
+          // https://github.com/shoelace-style/webawesome/issues/2550
+          const el = await fixture<WaColorPicker>(
+            html` <wa-color-picker format="hex" opacity value="#4d64d54d"></wa-color-picker> `,
+          );
+          await el.updateComplete;
+
+          // The alpha (~30%) must survive loading: the value should stay HEXA, not collapse to 6-digit hex.
+          expect(el.value).to.equal('#4d64d54d');
+          expect(el.getFormattedValue('hexa')).to.equal('#4d64d54d');
+        });
+
         it('should render the correct swatches when passing a string of color values', async () => {
           const el = await fixture<WaColorPicker>(html`
             <wa-color-picker swatches="red; #008000; rgb(0,0,255);"></wa-color-picker>
