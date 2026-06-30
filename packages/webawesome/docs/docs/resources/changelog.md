@@ -54,6 +54,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug in `<wa-known-date>` that showed validation errors while typing instead of on form submission like other form controls
 - Fixed a bug in `<wa-known-date>` where the validation tooltip always pointed to the first input regardless of which one was invalid
 - Fixed a bug in `<wa-toast-item>` where the documented `--padding` custom property was unused in component styles
+- Fixed a bug in `<wa-color-picker>` where swatches grew larger than normal when only a few were present [issue:2571]
 - Aligned the `start` and `end` slot region in `<wa-date-input>` and `<wa-time-input>` with `<wa-input>` and `<wa-select>`
   - The trailing calendar/clock and clear icons no longer sit a few pixels inward of where the other controls place them
   - The `start` and `end` slots now use the same spacing as the other controls instead of a tighter gap
