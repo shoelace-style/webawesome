@@ -37,7 +37,7 @@ const translation: Translation = {
   goToSlide: (slide, count) => `Idi na slajd ${slide} od ${count}`,
   hidePassword: 'Sakrij lozinku',
   hour: 'Sat',
-  incompleteDate: 'Unesite potpuni datum.',
+  incompleteDate: 'Unesite valjani datum.',
   increment: 'Povećaj',
   loading: 'Učitavanje',
   minute: 'Minuta',

@@ -147,7 +147,7 @@ await allDefined({
 
 </wa-details>
 
-## Component Rendering and Updating
+## Component Rendering & Updating
 
 Web Awesome components are built with [Lit](https://lit.dev/), a tiny library that makes authoring custom elements easier, more maintainable, and a lot of fun! As a Web Awesome user, here is some helpful information about rendering and updating you should probably be aware of.
 

@@ -37,7 +37,7 @@ const translation: Translation = {
   goToSlide: (slide, count) => `עבור לשקופית ${slide} של ${count}`,
   hidePassword: 'הסתר סיסמא',
   hour: 'שעה',
-  incompleteDate: 'הזן תאריך מלא.',
+  incompleteDate: 'הזן תאריך תקין.',
   increment: 'הגדל',
   loading: 'טוען',
   minute: 'דקה',

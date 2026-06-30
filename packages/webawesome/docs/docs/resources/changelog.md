@@ -31,14 +31,50 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 ## Unreleased
 
+:::added
+
+- Added the experimental `<wa-random-content>` component, which randomly shows one or more of its children — handy for rotating testimonials, tips, or featured content
+- Added the Mosaic, Pixel, Vellum, Slab Duo, and Slab Press Duo Pro+ icon families to `<wa-icon>` [pr:2562]
+- Added the `buzz`, `flip-360`, `float`, `jello`, `spin-snap`, `spin-snap-4`, `spin-snap-8`, `swing`, and `wag` animations to `<wa-icon>` [pr:2562]
+- Added the `canvas` attribute to `<wa-icon>` for choosing the icon canvas — `fixed` (default), `auto`, `square`, or `roomy` [pr:2562]
+
+:::
+
 :::fixed
 
 - Fixed a bug in `<wa-page>` causing the viewport to always overflow if a footer was present. [pr:2537]
+- Fixed a bug in `wa-video` that was causing the `z-index` to leak out of the context of the component [issue:2542]
+- Fixed a bug in `<wa-chart>` and its variants that threw a `DataCloneError` when the Chart.js config contained functions, such as tooltip or scale callbacks
 - Fixed a bug in `<wa-date-input>` and `<wa-time-input>` where an empty `start`/`end` slot added a phantom gap causing it to be misaligned with other form controls [issue:2527]
 - Fixed a bug in `<wa-select>` that prevented the dropdown menu from scrolling when using the keyboard [issue:2472]
 - Fixed a bug in `<wa-carousel>` that caused the pagination controls to clip vertically by adding block padding around them [issue:2495]
 - Fixed a bug in `<wa-carousel>` with `loop` enabled that displayed the wrong slide, briefly flashing it on load, when the carousel was initialized inside a hidden container such as an inactive tab panel [issue:1163]
 - Fixed component API tables in the `webawesome` Agent Skill by generating them from the CEM instead of scraping the rendered HTML [issue:2475]
+- Fixed a bug in `<wa-known-date>` that showed validation errors while typing instead of on form submission like other form controls
+- Fixed a bug in `<wa-known-date>` where the validation tooltip always pointed to the first input regardless of which one was invalid
+- Fixed a bug in `<wa-toast-item>` where the documented `--padding` custom property was unused in component styles
+- Aligned the `start` and `end` slot region in `<wa-date-input>` and `<wa-time-input>` with `<wa-input>` and `<wa-select>`
+  - The trailing calendar/clock and clear icons no longer sit a few pixels inward of where the other controls place them
+  - The `start` and `end` slots now use the same spacing as the other controls instead of a tighter gap
+
+:::
+
+:::changed
+
+- Synced `<wa-option>` visuals with `<wa-dropdown-item>` so options and menu items read as the same primitive [issue:2413]
+  - `<wa-option>` now uses rounded corners and sits inset within `<wa-select>`'s listbox, with spacing between options
+  - The current (keyboard-highlighted) state now uses `--wa-form-control-activated-color` for its background and a new `--current-text-color` custom property for its text, so options track form control theming alongside `<wa-checkbox>`, `<wa-radio>`, `<wa-switch>`, and `<wa-slider>`
+  - Hover and current state changes now animate, matching `<wa-dropdown-item>`
+- Reordered component reference pages in the `webawesome` Agent Skill to put the import instructions and API tables before the examples
+- Rewrote `prose.css` rules with `@scope` so that `wa-prose` and `wa-not-prose` classes are proximity aware. This ensures that nested instances of either class work as expected, no matter the nesting depth. [pr:2564]
+- Updated `<wa-icon>` to use [Font Awesome 7.3.0](https://fontawesome.com/changelog#v7-3-0) [pr:2562]
+- Aligned `<wa-icon>` animation defaults with Font Awesome 7.3.0 — `flip`, `shake`, `fade`, and `beat-fade` use updated timing, duration, and keyframes [pr:2562]
+
+:::
+
+:::deprecated
+
+- Deprecated the `auto-width` attribute on `<wa-icon>` in favor of `canvas="auto"` [pr:2562]
 
 :::
 
@@ -569,7 +605,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::
 
-## Pre-release Versions
+## Pre-Release Versions
 
 Betas, release candidates, and snapshots from before each major release.
 

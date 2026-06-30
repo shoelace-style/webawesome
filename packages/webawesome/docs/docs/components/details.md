@@ -106,7 +106,7 @@ Links and other interactive elements will still retain their behavior:
 
 The details component, including its `icon-placement`, automatically adapts to right-to-left languages:
 
-```html {.example}
+```html {.example .no-dir}
 <div class="wa-stack">
   <wa-details summary="تبديلني" lang="ar" dir="rtl">
     استخدام طريقة لوريم إيبسوم لأنها تعطي توزيعاَ طبيعياَ -إلى حد ما- للأحرف عوضاً عن

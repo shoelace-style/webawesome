@@ -38,7 +38,7 @@ const translation: Translation = {
   goToSlide: (slide, count) => `${count} slayttan ${slide} slayta gidin`,
   hidePassword: 'Şifreyi sakla',
   hour: 'Saat',
-  incompleteDate: 'Tam bir tarih girin.',
+  incompleteDate: 'Geçerli bir tarih girin.',
   increment: 'Artır',
   loading: 'Yükleme',
   minute: 'Dakika',

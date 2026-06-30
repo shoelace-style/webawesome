@@ -103,7 +103,7 @@ The three fields render in the natural order for the inherited `lang` (or the ex
 <wa-known-date label="Japanese order" lang="ja-JP"></wa-known-date>
 ```
 
-### Min and Max
+### Min & Max
 
 Constrain the accepted range with `min` and `max`. Values outside the range are reported as invalid.
 
@@ -113,7 +113,7 @@ Constrain the accepted range with `min` and `max`. Values outside the range are 
 
 ### Required
 
-Set `required` to make the date input required for form submission. Submitting a form with an empty or partially filled date input triggers the standard browser validation flow and a localized error message appears inside the fieldset.
+Set `required` to make the date input required for form submission. Like other form controls, validation surfaces through the browser's native constraint validation flow: submitting a form with an empty or partially filled date input prevents submission and shows the browser's validation message. No error appears while the user is simply filling in or tabbing between the fields.
 
 ```html {.example}
 <form>
@@ -123,7 +123,7 @@ Set `required` to make the date input required for form submission. Submitting a
 </form>
 ```
 
-### Disabled and Readonly
+### Disabled & Readonly
 
 ```html {.example}
 <wa-known-date label="Disabled" value="2007-03-27" disabled></wa-known-date>

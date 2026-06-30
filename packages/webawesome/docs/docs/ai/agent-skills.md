@@ -13,7 +13,7 @@ Web Awesome publishes **two complementary Agent Skills** that are designed to wo
 | `webawesome`        | "What does this component do?"                   | Working with a specific component's properties, slots, events, or framework setup |
 | `webawesome-design` | "How do I build a good-looking page with these?" | Laying out a page (`<wa-page>`), theming on-brand, or composing a polished UI     |
 
-### Which skill do I need?
+### Which Skill Do I Need?
 
 The simplest way to decide:
 
@@ -34,7 +34,7 @@ When working with AI coding assistants like Claude Code, Cursor, or other tools 
 
 Unlike a single file, Agent Skills use progressive disclosure. The AI loads only the documentation it needs for the current task, so a large reference doesn't bloat the context window. Each skill also triggers on its own kind of request, so the right one loads when you ask for it.
 
-### Skill quality
+### Skill Quality
 
 Both skills are kept in sync with the library by tooling. The `webawesome` skill is generated from the Custom Elements Manifest on every release, so it matches the current component API exactly. The `webawesome-design` skill is hand-authored but verified — every component tag, attribute, slot, and CSS custom property it cites is cross-checked against the library on every build, so it can't claim something the components don't actually do.
 
@@ -84,7 +84,7 @@ node_modules/@awesome.me/webawesome/dist/skills/webawesome-design/
 
 Add both as separate doc sources if you want both skills available. Cursor will index the markdown and surface it via @-mention or as relevant context.
 
-### Other AI tools
+### Other AI Tools
 
 The skills follow the [Agent Skills specification](https://agentskills.io/), so any tool that supports the spec should be able to use them. We've tested in Claude Code and Cursor. If your tool can load a directory of markdown references on demand, point it at the same `node_modules/@awesome.me/webawesome/dist/skills/` directories shown above.
 

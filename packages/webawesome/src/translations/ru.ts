@@ -38,7 +38,7 @@ const translation: Translation = {
   goToSlide: (slide, count) => `Перейти к слайду ${slide} из ${count}`,
   hidePassword: 'Скрыть пароль',
   hour: 'Час',
-  incompleteDate: 'Введите полную дату.',
+  incompleteDate: 'Введите корректную дату.',
   increment: 'Увеличить',
   loading: 'Загрузка',
   minute: 'Минута',

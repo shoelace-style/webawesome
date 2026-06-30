@@ -565,3 +565,9 @@ wa-scroller:has(.component-table) {
 #content .hosted-project-instructions table {
   margin-block: 0;
 }
+
+/* Icon docs: copy-button-wrapped icon previews. The copy button hosts a quiet
+   neutral color; reset it so the slotted icons match a default wa-icon. */
+#content .icon-copy-row wa-copy-button {
+  color: inherit;
+}

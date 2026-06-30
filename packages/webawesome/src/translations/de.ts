@@ -38,7 +38,7 @@ const translation: Translation = {
   goToSlide: (slide, count) => `Zu Folie ${slide} von ${count} gehen`,
   hidePassword: 'Passwort verbergen',
   hour: 'Stunde',
-  incompleteDate: 'Geben Sie ein vollständiges Datum ein.',
+  incompleteDate: 'Geben Sie ein gültiges Datum ein.',
   increment: 'Erhöhen',
   loading: 'Wird geladen',
   minute: 'Minute',

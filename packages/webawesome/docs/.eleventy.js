@@ -15,6 +15,7 @@ import { getComponents } from './_utils/manifest.js';
 import { markdown } from './_utils/markdown.js';
 import { SimulateWebAwesomeApp } from './_utils/simulate-webawesome-app.js';
 // import { formatCodePlugin } from './_plugins/format-code.js';
+import { HtmlBasePlugin } from '@11ty/eleventy';
 import litPlugin from '@lit-labs/eleventy-plugin-lit';
 import { readFile } from 'fs/promises';
 import process from 'process';
@@ -101,6 +102,8 @@ export default async function (eleventyConfig) {
     name: 'Web Awesome',
     description: 'Build better with Web Awesome, the open source library of web components from Font Awesome.',
     image: 'https://webawesome.com/assets/images/open-graph/default.png',
+    imageWidth: 2400,
+    imageHeight: 1260,
   };
 
   // Title composition/stripping config - single source of truth
@@ -146,10 +149,20 @@ export default async function (eleventyConfig) {
     ogTitle: data => composePageTitle(data.ogTitle || data.title),
     ogDescription: data => data.ogDescription || data.description,
     ogImage: data => data.ogImage || siteMetadata.image,
+    // Only emit dimensions when we know them: use the default if the page is using the
+    // default image, the explicit override if provided, otherwise null (suppresses emission).
+    ogImageWidth: data => data.ogImageWidth || (data.ogImage ? null : siteMetadata.imageWidth),
+    ogImageHeight: data => data.ogImageHeight || (data.ogImage ? null : siteMetadata.imageHeight),
     ogUrl: data => {
-      if (data.ogUrl) return data.ogUrl;
-      const url = data.page?.url || '';
-      return url ? `${siteMetadata.url}${url}` : siteMetadata.url;
+      // Strip template extensions: downstream consumers (e.g. webawesome-app) set
+      // `permalink: /foo.njk` for two-pass SSR, so page.url carries an `.njk` resolution
+      // artifact rather than the clean public URL — never what og:url or canonical should point at.
+      // Also always emit an absolute URL — front-matter overrides like `ogUrl: /signup` should
+      // resolve against siteMetadata.url so canonical/og:url consumers don't see relative hrefs.
+      const raw = (data.ogUrl || data.page?.url || '').replace(/\.njk$/, '');
+      if (!raw) return siteMetadata.url;
+      if (/^https?:\/\//.test(raw)) return raw;
+      return `${siteMetadata.url}${raw.startsWith('/') ? '' : '/'}${raw}`;
     },
     ogType: data => data.ogType || 'website',
   });
@@ -158,6 +171,56 @@ export default async function (eleventyConfig) {
   // With Prettier 3, this means a leading pipe will exist be present when the line wraps.
   eleventyConfig.addFilter('trimPipes', content => {
     return typeof content === 'string' ? content.replace(/^(\s|\|)/g, '').replace(/(\s|\|)$/g, '') : content;
+  });
+
+  // Sitemap collection: public, indexable URLs only.
+  // Filters out noindex pages, opted-out pages, and app-only paths (admin, workspaces,
+  // logged-in account pages, etc.). The template uses the htmlBaseUrl filter to absolutize.
+  const SITEMAP_EXCLUDE_PATTERNS = [
+    /^\/admin(\/|$)/,
+    /^\/workspaces(\/|$)/,
+    /^\/projects(\/|$)/,
+    /^\/purchase(\/|$)/,
+    /^\/invitations(\/|$)/,
+    /^\/patterns(\/|$)/,
+    /^\/dev-emails/,
+    /\.html$/i,
+  ];
+  // Per the SEO audit: of the public auth-gateway pages, only /signup belongs in the sitemap.
+  // /login, /claim, /account/reset-password, /account/update-password are returning-user or
+  // token-driven flows that don't need search indexing.
+  // Match on source file path so this holds even when ogUrl rewrites the public URL away
+  // from /account/* (e.g. signup.njk → /signup, login.njk → /login).
+  const isAccountSourceFile = inputPath => /[/\\]account[/\\]/.test(String(inputPath || ''));
+  const SITEMAP_ACCOUNT_FILE_ALLOW = new Set(['signup.njk']);
+  eleventyConfig.addCollection('sitemap', collection => {
+    return collection
+      .getAllSorted()
+      .map(item => {
+        // Strip .njk for pages that set `permalink: /foo.njk` — those pages emit
+        // page.url as the raw template path. Pages without a permalink override use
+        // 11ty's computed url like /foo/ and won't contain .njk in the first place.
+        const raw = String(item.data.ogUrl || item.url || '').replace(/\.njk$/, '');
+        const urlPath = raw.replace(/^https?:\/\/[^/]+/, '');
+        return { item, urlPath };
+      })
+      .filter(({ item, urlPath }) => {
+        if (!urlPath) return false;
+        if (item.data.noindex) return false;
+        if (item.data.eleventyExcludeFromCollections) return false;
+        if (SITEMAP_EXCLUDE_PATTERNS.some(re => re.test(urlPath))) return false;
+        if (isAccountSourceFile(item.inputPath)) {
+          const basename = String(item.inputPath || '')
+            .split(/[/\\]/)
+            .pop();
+          return SITEMAP_ACCOUNT_FILE_ALLOW.has(basename);
+        }
+        return true;
+      })
+      .map(({ item, urlPath }) => ({
+        path: urlPath,
+        lastmod: item.date ? item.date.toISOString().split('T')[0] : null,
+      }));
   });
 
   /**
@@ -311,6 +374,11 @@ export default async function (eleventyConfig) {
       },
     ]),
   );
+
+  // Provides the htmlBaseUrl filter used by sitemap.xml.njk to absolutize URLs.
+  // Bundled with Eleventy 2.0+, no install required. Also future-proofs against
+  // a future deployment under a path prefix.
+  eleventyConfig.addPlugin(HtmlBasePlugin);
 
   // Build the search index
   eleventyConfig.addPlugin(

@@ -143,7 +143,7 @@ You can provide custom icons by passing a function to the `getSymbol` property.
 </script>
 ```
 
-### Value-based Icons
+### Value-Based Icons
 
 You can also use the `getSymbol` property to render different icons based on value and/or whether the icon is currently selected.
 
