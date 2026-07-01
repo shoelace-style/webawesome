@@ -45,6 +45,9 @@ function buildStyleAttribute(options: { property?: string | null; value?: unknow
   return null;
 }
 
+/**
+ * @internal
+ */
 export default class WebAwesomeElement extends LitElement {
   // One or more CSSResultGroup to include in the component's shadow root. Host styles are automatically prepended.
   static css?: CSSResultGroup;
