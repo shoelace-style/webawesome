@@ -45,10 +45,12 @@ Web Awesome comes bundled with over 2,000 free icons courtesy of [Font Awesome](
 <wa-callout variant="brand">
   <wa-icon slot="icon" family="brands" name="font-awesome"></wa-icon>
   Not sure which icon to use?
-  <a href="https://fontawesome.com/search?o=r&m=free&f=brands%2Cclassic">Find the perfect icon over at {{ site.siblings.fontAwesome.name }}!</a>
+  <a href="https://fontawesome.com/search?o=r&m=free&f=brands%2Cclassic" target="_blank">Find the perfect icon over at {{ site.siblings.fontAwesome.name }}!</a>
 </wa-callout>
 
-## Sizing
+## Examples
+
+### Sizing
 
 Icons are sized relative to the current font size. To change their size, set the `font-size` property on the icon itself or on a parent element — drag the slider to see it in action.
 
@@ -94,7 +96,7 @@ Icons are sized relative to the current font size. To change their size, set the
 </script>
 ```
 
-## Colors
+### Colors
 
 Icons inherit their color from the current text color. Thus, you can set the `color` property on the `<wa-icon>` element or an ancestor to change the color.
 
@@ -109,7 +111,7 @@ Icons inherit their color from the current text color. Thus, you can set the `co
 </div>
 ```
 
-## Families & Variants
+### Families & Variants
 
 A _family_ sets an icon's overall style; a _variant_ sets its weight. Set them with the `family` and `variant` attributes — `family` defaults to `classic` and `variant` to `solid`.
 
@@ -202,7 +204,7 @@ A _family_ sets an icon's overall style; a _variant_ sets its weight. Set them w
   plan. <a href="/docs/#using-font-awesome-kit-codes">Provide a Kit code</a> to unlock them.
 </wa-callout>
 
-## Canvas
+### Canvas
 
 The _canvas_ is the box an icon sits in. Choose one of four mutually exclusive modes with the `canvas` attribute (the default is `fixed`). It mirrors [{{ site.siblings.fontAwesome.name }}'s icon canvas](https://docs.fontawesome.com/web/style/icon-canvas/) and scales with `font-size`, independent of [sizing](#sizing). The tinted box below shows each canvas's extent.
 
@@ -336,7 +338,7 @@ The _canvas_ is the box an icon sits in. Choose one of four mutually exclusive m
 The `auto-width` attribute still works but is deprecated — prefer `canvas="auto"`, which renders the same way.
 :::
 
-## Rotating & Flipping
+### Rotating & Flipping
 
 Web Awesome supports [{{ site.siblings.fontAwesome.name }}'s rotation and flip utilities](https://docs.fontawesome.com/web/style/rotate/) for adjusting icon orientation. Use the `rotate` attribute to turn an icon by **any** number of degrees — not just the quarter-turns below — and the `flip` attribute to mirror it across the `x`, `y`, or `both` axes.
 
@@ -435,13 +437,13 @@ Rotate by any angle — and combine `rotate` and `flip` on the same icon:
 <wa-icon name="snowboarding" rotate="45" flip="x" style="font-size: 2em;"></wa-icon>
 ```
 
-## Animating
+### Animating
 
 Web Awesome supports [{{ site.siblings.fontAwesome.name }}'s animation utilities](https://docs.fontawesome.com/web/style/animate/) for adding visual interest to icons. To select different types of animations, use the `animation` attribute when you reference an icon.
 
 Every animation accepts the same timing controls — `--animation-delay`, `--animation-direction`, `--animation-duration`, `--animation-iteration-count`, and `--animation-timing` — plus the animation-specific custom properties shown in each example below. All animations respect `prefers-reduced-motion` (see [Accessibility Considerations](#accessibility-considerations)).
 
-### Beat
+#### Beat
 
 Use the `beat` animation to scale an icon up or down. This is useful for grabbing attention or for use with health/heart-centric icons.
 
@@ -457,7 +459,7 @@ Use the `beat` animation to scale an icon up or down. This is useful for grabbin
 ></wa-icon>
 ```
 
-### Fade
+#### Fade
 
 Use the `fade` animation to fade an icon in and out visually to grab attention in a subtle (or not so subtle) way.
 
@@ -474,7 +476,7 @@ Use the `fade` animation to fade an icon in and out visually to grab attention i
 ></wa-icon>
 ```
 
-### Beat-Fade
+#### Beat-Fade
 
 Use the `beat-fade` animation to grab attention by visually scaling and pulsing an icon in and out.
 
@@ -497,7 +499,7 @@ Use the `beat-fade` animation to grab attention by visually scaling and pulsing 
 ></wa-icon>
 ```
 
-### Bounce
+#### Bounce
 
 Use the `bounce` animation to grab attention by visually bouncing an icon up and down.
 
@@ -529,7 +531,7 @@ Use the `bounce` animation to grab attention by visually bouncing an icon up and
 ></wa-icon>
 ```
 
-### Flip
+#### Flip
 
 Use the `flip` animation to rotate an icon in 3D space. By default, flip rotates an icon about the Y axis 180 degrees. Flipping is helpful for transitions, processing states, or for using physical objects that one flips in the real world.
 
@@ -553,7 +555,7 @@ Use the `flip` animation to rotate an icon in 3D space. By default, flip rotates
 ></wa-icon>
 ```
 
-### Flip 360
+#### Flip 360
 
 Use the `flip-360` animation to flip an icon all the way around in one smooth rotation — an extension of `flip` that gives it some extra oomph. It shares the same `--flip-x`, `--flip-y`, and `--flip-z` axis properties, plus `--flip-angle`, `--flip-anticipation-scale`, and `--flip-overshoot`.
 
@@ -576,7 +578,7 @@ Use the `flip-360` animation to flip an icon all the way around in one smooth ro
 ></wa-icon>
 ```
 
-### Shake
+#### Shake
 
 Use the `shake` animation to grab attention or note that something is not allowed by shaking an icon back and forth.
 
@@ -587,7 +589,7 @@ Use the `shake` animation to grab attention or note that something is not allowe
 <wa-icon name="bomb" animation="shake" label="Shaking Bomb" style="font-size: 2em;"></wa-icon>
 ```
 
-### Spin
+#### Spin
 
 Use the `spin` animation to get any icon to rotate, and use `spin-pulse` to have it rotate with eight steps. Use `spin-reverse` to rotate counter-clockwise. This works especially well with `spinner` and everything in the spinner icons category.
 
@@ -613,7 +615,7 @@ Use the `spin` animation to get any icon to rotate, and use `spin-pulse` to have
 ></wa-icon>
 ```
 
-### Spin Snap
+#### Spin Snap
 
 Use `spin-snap` to rotate in distinct steps with a pause on each, like a clock's second hand. `spin-snap-4` stops at four positions and `spin-snap-8` at eight. Unlike `spin-pulse` — a continuous eight-step rotation — the snap animations ease into each stop. Add `--animation-direction: reverse` to any of them to run counter-clockwise.
 
@@ -630,7 +632,7 @@ Use `spin-snap` to rotate in distinct steps with a pause on each, like a clock's
 ></wa-icon>
 ```
 
-### Buzz
+#### Buzz
 
 Use the `buzz` animation for a fast, tight vibration with rapid decay — quick attention without being loud, like a phone buzzing on a table or an expiring timer. Set `--buzz-distance` to control how far it travels.
 
@@ -646,7 +648,7 @@ Use the `buzz` animation for a fast, tight vibration with rapid decay — quick 
 ></wa-icon>
 ```
 
-### Float
+#### Float
 
 Use the `float` animation for a slow, drifting motion — great for empty states, subtle attention, and adding a bit of playful lightness. Adjust `--float-height`, `--float-drift`, and `--float-tilt` to shape the motion.
 
@@ -662,7 +664,7 @@ Use the `float` animation for a slow, drifting motion — great for empty states
 ></wa-icon>
 ```
 
-### Jello
+#### Jello
 
 Use the `jello` animation for a playful jiggle — great for calling attention to something new, fun, or interactive. Set `--jello-scale-x` and `--jello-scale-y` to control how far it deforms.
 
@@ -678,7 +680,7 @@ Use the `jello` animation for a playful jiggle — great for calling attention t
 ></wa-icon>
 ```
 
-### Swing
+#### Swing
 
 Use the `swing` animation for a subtle dangle with a slow decay — great for things that physically dangle, like keys or a price tag. Set `--swing-angle` to control the peak rotation.
 
@@ -694,7 +696,7 @@ Use the `swing` animation for a subtle dangle with a slow decay — great for th
 ></wa-icon>
 ```
 
-### Wag
+#### Wag
 
 Use the `wag` animation, a cousin of `swing`, for a bottom-anchored wag — the top of the icon sways back and forth with a slow decay. Set `--wag-angle` to control the peak rotation.
 
@@ -710,7 +712,7 @@ Use the `wag` animation, a cousin of `swing`, for a bottom-anchored wag — the 
 ></wa-icon>
 ```
 
-## Duotone
+### Duotone
 
 Duotone icons render on two layers — a primary and a secondary — that you can recolor and fade independently. By default both layers use `currentColor`, with the secondary layer at 40% opacity. These properties don't inherit, so set them directly on the icon.
 
@@ -814,7 +816,7 @@ Duotone icons render on two layers — a primary and a secondary — that you ca
   <a href="/docs/#using-font-awesome-kit-codes">providing a valid {{ site.siblings.fontAwesome.name }} Kit code</a>.
 </wa-callout>
 
-## Swap Duotone Opacity
+### Swap Duotone Opacity
 
 For duotone icons, you can swap the primary and secondary opacity values using the `swap-opacity` attribute. This is useful when you want to emphasize the secondary layer of the icon.
 
@@ -837,7 +839,7 @@ For duotone icons, you can swap the primary and secondary opacity values using t
 </div>
 ```
 
-## Font Awesome Pro+ Icons
+### Font Awesome Pro+ Icons
 
 If you're a [Font Awesome Pro+ customer](https://fontawesome.com/), you have access to whole packs of distinctive icons. Set the pack's `family` and `variant` like any other icon.
 
