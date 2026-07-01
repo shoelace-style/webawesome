@@ -143,7 +143,7 @@ export default async function (eleventyConfig) {
   eleventyConfig.addFilter('headingId', content => createId(String(content ?? '')));
 
   // Adds a input path relative to the 11ty input path. Essentially filePathStem + extension
-  eleventyConfig.addFilter("relativeInputPath", (page) => {
+  eleventyConfig.addFilter('relativeInputPath', page => {
     return eleventyConfig.directories.getInputPathRelativeToInputDirectory(page.inputPath);
   });
 
