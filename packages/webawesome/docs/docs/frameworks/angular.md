@@ -1,14 +1,8 @@
 ---
 title: Angular
 description: Tips for using Web Awesome in your Angular app.
-layout: page-outline
+layout: framework
 ---
-
-<wa-breadcrumb class="page-breadcrumbs">
-  <wa-icon slot="separator" name="angle-right" variant="regular"></wa-icon>
-  <wa-breadcrumb-item href="/docs/frameworks">Frameworks</wa-breadcrumb-item>
-  <wa-breadcrumb-item>{{ title }}</wa-breadcrumb-item>
-</wa-breadcrumb>
 
 Angular [plays nice](https://custom-elements-everywhere.com/#angular) with custom elements, so you can use Web Awesome in your Angular apps with ease.
 
