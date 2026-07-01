@@ -23,7 +23,7 @@ import styles from './slider.styles.js';
  * <wa-slider>
  *
  * @summary Sliders let users choose a numeric value within a defined range by dragging a thumb along a track.
- * @documentation https://webawesome.com/docs/components/range
+ * @documentation https://webawesome.com/docs/components/slider
  * @status stable
  * @since 2.0
  *
