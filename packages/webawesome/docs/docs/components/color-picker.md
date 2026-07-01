@@ -19,32 +19,40 @@ use-cases:
 ```
 
 :::info
-This component works with standard `<form>` elements. Please refer to the section on [form controls](/docs/form-controls) to learn more about form submission and client-side validation.
+This component works with standard `<form>` elements. See [form controls](/docs/form-controls) for form submission and client-side validation.
 :::
 
 ## Examples
 
-### Initial Value
+### Labels
 
-Use the `value` attribute to set an initial value for the color picker.
+Use the `label` attribute to give the color picker an accessible label. For labels that contain HTML, use the `label` slot instead.
+
+```html {.example}
+<wa-color-picker label="Brand color"></wa-color-picker>
+```
+
+### Hint
+
+Add a descriptive hint with the `hint` attribute. For hints that contain HTML, use the `hint` slot instead.
+
+```html {.example}
+<wa-color-picker label="Accent" hint="Pick something with enough contrast to read against white."></wa-color-picker>
+```
+
+### Setting an Initial Value
+
+Use the `value` attribute to set a starting color. The value's format follows the `format` attribute, but any parsable color (including CSS color names) is accepted as input.
 
 ```html {.example}
 <wa-color-picker value="#4a90e2" label="Select a color"></wa-color-picker>
 ```
 
-### Opacity
-
-Use the `opacity` attribute to enable the opacity slider. When this is enabled, the value will be displayed as HEXA, RGBA, HSLA, or HSVA based on `format`.
-
-```html {.example}
-<wa-color-picker value="#f5a623ff" opacity label="Select a color"></wa-color-picker>
-```
-
 ### Formats
 
-Set the color picker's format with the `format` attribute. Valid options include `hex`, `rgb`, `hsl`, and `hsv`. Note that the color picker's input will accept any parsable format (including CSS color names) regardless of this option.
+Set the color picker's format with the `format` attribute. Valid options are `hex`, `rgb`, `hsl`, and `hsv`. The input still accepts any parsable format regardless of this setting.
 
-To prevent users from toggling the format themselves, add the `without-format-toggle` attribute.
+To stop people from cycling through formats themselves, add the `without-format-toggle` attribute.
 
 ```html {.example}
 <div class="wa-grid" style="--min-column-size: 12ch;">
@@ -55,9 +63,25 @@ To prevent users from toggling the format themselves, add the `without-format-to
 </div>
 ```
 
+### Opacity
+
+Use the `opacity` attribute to add an opacity slider. With opacity enabled, the value is shown as HEXA, RGBA, HSLA, or HSVA to match the `format`.
+
+```html {.example}
+<wa-color-picker value="#f5a623ff" opacity label="Select a color"></wa-color-picker>
+```
+
+### Uppercase Values
+
+By default, values are lowercase. Add the `uppercase` attribute to display them in uppercase instead.
+
+```html {.example}
+<wa-color-picker value="#4a90e2" uppercase label="Select a color"></wa-color-picker>
+```
+
 ### Swatches
 
-Use the `swatches` attribute to add convenient presets to the color picker. Any format the color picker can parse is acceptable (including [CSS color names](https://www.w3schools.com/colors/colors_names.asp)), but each value must be separated by a semicolon (`;`). Alternatively, you can pass an array of color values to this property using JavaScript.
+Use the `swatches` attribute to offer preset colors. Any format the picker can parse works (including [CSS color names](https://www.w3schools.com/colors/colors_names.asp)), and each value must be separated by a semicolon (`;`).
 
 ```html {.example}
 <wa-color-picker
@@ -69,34 +93,16 @@ Use the `swatches` attribute to add convenient presets to the color picker. Any 
 ></wa-color-picker>
 ```
 
-You can also pass an array of objects with `color` and `label` properties using JavaScript. When labels are provided, they will be used as the accessible name for each swatch instead of the raw color value.
-
-```html {.example}
-<wa-color-picker id="labeled-swatches" label="Select a color"></wa-color-picker>
-
-<script>
-  const colorPicker = document.getElementById('labeled-swatches');
-  await customElements.whenDefined("wa-color-picker")
-  await colorPicker.updateComplete
-  colorPicker.swatches = [
-    { color: '#d0021b', label: 'Red' },
-    { color: '#f5a623', label: 'Orange' },
-    { color: '#f8e71c', label: 'Yellow' },
-    { color: '#7ed321', label: 'Green' },
-    { color: '#4a90e2', label: 'Blue' },
-    { color: '#bd10e0', label: 'Purple' },
-    { color: '#000', label: 'Black' },
-    { color: '#fff', label: 'White' },
-  ];
-</script>
-```
+:::info
+To give swatches accessible names, set the `swatches` property in JavaScript to an array of `{ color, label }` objects — each `label` becomes that swatch's accessible name instead of the raw color value.
+:::
 
 ### Placement
 
-The preferred placement of the dropdown can be set with the `placement` attribute. Note that the actual position may vary to ensure the panel remains in the viewport.
+Set the `placement` attribute to control where the dropdown opens. The actual position may shift to keep the panel inside the viewport.
 
 ```html {.example}
-<div class="wa-gap-m wa-align-items-baseline">
+<div class="wa-cluster wa-align-items-baseline">
   <wa-color-picker placement="top-start" label="Select a color"></wa-color-picker>
   <wa-color-picker placement="bottom-end" label="Select a color"></wa-color-picker>
   <wa-color-picker placement="right" label="Select a color"></wa-color-picker>
@@ -109,27 +115,76 @@ The preferred placement of the dropdown can be set with the `placement` attribut
 Use the `size` attribute to change the color picker's trigger size.
 
 ```html {.example}
-<div class="wa-gap-m wa-align-items-baseline">
-  <wa-color-picker size="xs" label="Select a color"></wa-color-picker>
-  <wa-color-picker size="s" label="Select a color"></wa-color-picker>
-  <wa-color-picker size="m" label="Select a color"></wa-color-picker>
-  <wa-color-picker size="l" label="Select a color"></wa-color-picker>
-  <wa-color-picker size="xl" label="Select a color"></wa-color-picker>
+<div class="wa-cluster wa-align-items-baseline">
+  <wa-color-picker size="xs" label="Extra small"></wa-color-picker>
+  <wa-color-picker size="s" label="Small"></wa-color-picker>
+  <wa-color-picker size="m" label="Medium"></wa-color-picker>
+  <wa-color-picker size="l" label="Large"></wa-color-picker>
+  <wa-color-picker size="xl" label="Extra large"></wa-color-picker>
 </div>
 ```
 
 ### Disabled
 
-The color picker can be rendered as disabled.
+Use the `disabled` attribute to disable a color picker.
 
 ```html {.example}
 <wa-color-picker disabled label="Select a color"></wa-color-picker>
 ```
 
-### Hint
+### Applying the Selected Color
 
-Add descriptive hint to a color picker with the `hint` attribute. For hints that contain HTML, use the `hint` slot instead.
+The color picker emits an `input` event as the user picks, so you can apply the chosen color to your UI in real time. Here, changing the color themes a preview card.
 
 ```html {.example}
-<wa-color-picker label="Select a color" hint="Choose a color with appropriate contrast!"></wa-color-picker>
+<div class="color-apply-demo">
+  <div class="color-apply-preview">
+    <wa-icon name="palette"></wa-icon>
+    <div>
+      <strong>Brand preview</strong>
+      <p>Pick a color to theme this card in real time.</p>
+    </div>
+  </div>
+
+  <wa-divider></wa-divider>
+
+  <wa-color-picker label="Accent color" value="#6e40c9"></wa-color-picker>
+</div>
+
+<script>
+  const demo = document.querySelector('.color-apply-demo');
+  const picker = demo.querySelector('wa-color-picker');
+  const preview = demo.querySelector('.color-apply-preview');
+
+  picker.addEventListener('input', () => {
+    preview.style.setProperty('--accent', picker.value);
+  });
+</script>
+
+<style>
+  .color-apply-demo .color-apply-preview {
+    --accent: #6e40c9;
+    display: flex;
+    align-items: center;
+    gap: var(--wa-space-m);
+    margin-block-end: 1rem;
+    padding: var(--wa-space-l);
+    border-radius: var(--wa-border-radius-l);
+    border-inline-start: 4px solid var(--accent);
+    background-color: color-mix(in srgb, var(--accent) 12%, transparent);
+  }
+
+  .color-apply-demo .color-apply-preview wa-icon {
+    color: var(--accent);
+    font-size: 1.5rem;
+  }
+
+  .color-apply-demo .color-apply-preview strong {
+    color: var(--accent);
+  }
+
+  .color-apply-demo .color-apply-preview p {
+    margin: 0.25rem 0 0;
+  }
+</style>
 ```
