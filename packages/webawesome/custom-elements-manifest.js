@@ -216,8 +216,10 @@ export default {
       defaultExport: true,
       includeDefaultDOMEvents: true,
       componentTypePath: (name, tag, modulePath) => {
-        if (!tag) { return `./${modulePath}` }
-        const unprefixedTag = tag.replace("wa-", "")
+        if (!tag) {
+          return `./${modulePath}`;
+        }
+        const unprefixedTag = tag.replace('wa-', '');
         return `./components/${unprefixedTag}/${unprefixedTag}.js`;
       },
     }),
