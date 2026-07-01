@@ -19,9 +19,9 @@ use-cases:
 
 ## Examples
 
-### Size
+### Sizing
 
-Spinners are sized based on the current font size. To change their size, set the `font-size` property on the spinner itself or on a parent element as shown below.
+Spinners are sized based on the current font size. To change the size, set `font-size` on the spinner itself or on a parent element.
 
 ```html {.example}
 <wa-spinner></wa-spinner>
@@ -31,16 +31,24 @@ Spinners are sized based on the current font size. To change their size, set the
 
 ### Track Width
 
-The width of the spinner's track can be changed by setting the `--track-width` custom property.
+Use the `--track-width` custom property to change the thickness of the spinner's track.
 
 ```html {.example}
 <wa-spinner style="font-size: 50px; --track-width: 10px;"></wa-spinner>
 ```
 
-### Color
+### Colors
 
-The spinner's colors can be changed by setting the `--indicator-color` and `--track-color` custom properties.
+Use the `--track-color` and `--indicator-color` custom properties to recolor the spinner.
 
 ```html {.example}
 <wa-spinner style="font-size: 3rem; --indicator-color: deeppink; --track-color: pink;"></wa-spinner>
+```
+
+### Speed
+
+Use the `--speed` custom property to set how long one full rotation takes.
+
+```html {.example}
+<wa-spinner style="font-size: 3rem; --speed: 2s;"></wa-spinner>
 ```
