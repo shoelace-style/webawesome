@@ -101,13 +101,19 @@ Use the `rows` attribute to change the number of text rows that show by default.
 
 Use the `resize` attribute to control how the user can resize the textarea.
 
-| Mode                 | Behavior                                       | Best for                              |
-| -------------------- | ---------------------------------------------- | ------------------------------------- |
-| `vertical` (default) | Drag the bottom edge to change the height      | Most multi-line fields                |
-| `none`               | Resizing is disabled                           | Fixed layouts where height must hold  |
-| `horizontal`         | Drag the side edge to change the width         | Adjusting line length                 |
-| `both`               | Drag the corner to change width and height     | Free-form editing                     |
-| `auto`               | Grows to fit its content as the user types     | Inputs whose length varies a lot      |
+| Mode                 | Behavior                                   | Best for                             |
+| -------------------- | ------------------------------------------ | ------------------------------------ |
+| `vertical` (default) | Drag the bottom edge to change the height  | Most multi-line fields               |
+| `none`               | Resizing is disabled                       | Fixed layouts where height must hold |
+| `horizontal`         | Drag the side edge to change the width     | Adjusting line length                |
+| `both`               | Drag the corner to change width and height | Free-form editing                    |
+| `auto`               | Grows to fit its content as the user types | Inputs whose length varies a lot     |
+
+The default, `vertical`, lets the user drag the bottom edge to resize the field.
+
+```html {.example}
+<wa-textarea label="Feedback" resize="vertical"></wa-textarea>
+```
 
 Set `resize` to `auto` and the textarea grows to fit its content as the user types.
 

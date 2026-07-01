@@ -171,7 +171,7 @@ Use the `max-options-visible` attribute to cap how many tags show at once before
 
 ### Setting Initial Values
 
-Use the `selected` attribute on individual options to set the initial selection, just like native HTML. For a multiple select, mark every option that should start selected.
+Use the `selected` attribute on individual options to set the initial selection, just like native HTML.
 
 ```html {.example}
 <wa-select label="Default branch">

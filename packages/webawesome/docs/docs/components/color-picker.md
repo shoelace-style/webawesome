@@ -94,8 +94,18 @@ Use the `swatches` attribute to offer preset colors. Any format the picker can p
 ```
 
 :::info
-To give swatches accessible names, set the `swatches` property in JavaScript to an array of `{ color, label }` objects — each `label` becomes that swatch's accessible name instead of the raw color value.
+To give swatches accessible names, set the `swatches` property in JavaScript to an array of `{ color, label }` objects — each `label` becomes that swatch's accessible name instead of the raw color value. (Their appearance is identical, so this isn't a live example.)
 :::
+
+```js
+const picker = document.querySelector('wa-color-picker');
+picker.swatches = [
+  { color: '#d0021b', label: 'Red' },
+  { color: '#f5a623', label: 'Orange' },
+  { color: '#417505', label: 'Green' },
+  { color: '#4a90e2', label: 'Blue' },
+];
+```
 
 ### Placement
 
