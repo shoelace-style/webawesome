@@ -16,18 +16,17 @@ use-cases:
 ---
 
 ```html {.example}
-<wa-select>
-  <wa-option value="">Option 1</wa-option>
-  <wa-option value="option-2">Option 2</wa-option>
-  <wa-option value="option-3">Option 3</wa-option>
-  <wa-option value="option-4">Option 4</wa-option>
-  <wa-option value="option-5">Option 5</wa-option>
-  <wa-option value="option-6">Option 6</wa-option>
+<wa-select label="Coffee order" placeholder="How do you take it?">
+  <wa-option value="espresso">Espresso</wa-option>
+  <wa-option value="latte">Latte</wa-option>
+  <wa-option value="cappuccino">Cappuccino</wa-option>
+  <wa-option value="cold-brew">Cold brew</wa-option>
+  <wa-option value="drip">Drip</wa-option>
 </wa-select>
 ```
 
 :::info
-This component works with standard `<form>` elements. Please refer to the section on [form controls](/docs/form-controls) to learn more about form submission and client-side validation.
+This component works with standard `<form>` elements. See [form controls](/docs/form-controls) for form submission and client-side validation.
 :::
 
 ## Examples
@@ -37,19 +36,19 @@ This component works with standard `<form>` elements. Please refer to the sectio
 Use the `label` attribute to give the select an accessible label. For labels that contain HTML, use the `label` slot instead.
 
 ```html {.example}
-<wa-select label="Select one">
-  <wa-option value="option-1">Option 1</wa-option>
-  <wa-option value="option-2">Option 2</wa-option>
-  <wa-option value="option-3">Option 3</wa-option>
+<wa-select label="Country">
+  <wa-option value="us">United States</wa-option>
+  <wa-option value="ca">Canada</wa-option>
+  <wa-option value="mx">Mexico</wa-option>
 </wa-select>
 ```
 
 ### Hint
 
-Add descriptive hint to a select with the `hint` attribute. For hints that contain HTML, use the `hint` slot instead.
+Add a descriptive hint with the `hint` attribute. For hints that contain HTML, use the `hint` slot instead.
 
 ```html {.example}
-<wa-select label="Experience" hint="Please tell us your skill level.">
+<wa-select label="Experience" hint="Tell us how comfortable you are with the command line.">
   <wa-option value="1">Novice</wa-option>
   <wa-option value="2">Intermediate</wa-option>
   <wa-option value="3">Advanced</wa-option>
@@ -58,7 +57,7 @@ Add descriptive hint to a select with the `hint` attribute. For hints that conta
 
 ### Placeholders
 
-Use the `placeholder` attribute to add a placeholder.
+Use the `placeholder` attribute to show prompt text before a selection is made.
 
 ```html {.example}
 <wa-select placeholder="Select one">
@@ -68,52 +67,63 @@ Use the `placeholder` attribute to add a placeholder.
 </wa-select>
 ```
 
-### Clearable
-
-Use the `with-clear` attribute to make the control clearable. The clear button only appears when an option is selected.
-
-```html {.example}
-<wa-select with-clear value="option-1">
-  <wa-option value="option-1">Option 1</wa-option>
-  <wa-option value="option-2">Option 2</wa-option>
-  <wa-option value="option-3">Option 3</wa-option>
-</wa-select>
-```
-
 ### Appearance
 
-Use the `appearance` attribute to change the select's visual appearance.
+Use the `appearance` attribute to change the select's visual style.
 
 ```html {.example}
-<wa-select appearance="filled">
-  <wa-option value="option-1">Option 1</wa-option>
-  <wa-option value="option-2">Option 2</wa-option>
-  <wa-option value="option-3">Option 3</wa-option>
-</wa-select>
-<br />
-<wa-select appearance="filled-outlined">
-  <wa-option value="option-1">Option 1</wa-option>
-  <wa-option value="option-2">Option 2</wa-option>
-  <wa-option value="option-3">Option 3</wa-option>
-</wa-select>
-<br />
-<wa-select appearance="outlined">
-  <wa-option value="option-1">Option 1</wa-option>
-  <wa-option value="option-2">Option 2</wa-option>
-  <wa-option value="option-3">Option 3</wa-option>
-</wa-select>
+<div class="wa-stack">
+  <wa-select appearance="outlined" value="outlined">
+    <wa-option value="outlined">outlined</wa-option>
+  </wa-select>
+  <wa-select appearance="filled" value="filled">
+    <wa-option value="filled">filled</wa-option>
+  </wa-select>
+  <wa-select appearance="filled-outlined" value="filled-outlined">
+    <wa-option value="filled-outlined">filled-outlined</wa-option>
+  </wa-select>
+</div>
 ```
 
 ### Pill
 
-Use the `pill` attribute to give selects rounded edges.
+Use the `pill` attribute to give the select rounded edges.
 
 ```html {.example}
-<wa-select pill>
+<wa-select pill placeholder="Select one">
   <wa-option value="option-1">Option 1</wa-option>
   <wa-option value="option-2">Option 2</wa-option>
   <wa-option value="option-3">Option 3</wa-option>
 </wa-select>
+```
+
+### Sizes
+
+Use the `size` attribute to change a select's size.
+
+```html {.example}
+<div class="wa-stack">
+  <wa-select size="xs" placeholder="Extra small">
+    <wa-option value="option-1">Option 1</wa-option>
+    <wa-option value="option-2">Option 2</wa-option>
+  </wa-select>
+  <wa-select size="s" placeholder="Small">
+    <wa-option value="option-1">Option 1</wa-option>
+    <wa-option value="option-2">Option 2</wa-option>
+  </wa-select>
+  <wa-select size="m" placeholder="Medium">
+    <wa-option value="option-1">Option 1</wa-option>
+    <wa-option value="option-2">Option 2</wa-option>
+  </wa-select>
+  <wa-select size="l" placeholder="Large">
+    <wa-option value="option-1">Option 1</wa-option>
+    <wa-option value="option-2">Option 2</wa-option>
+  </wa-select>
+  <wa-select size="xl" placeholder="Extra large">
+    <wa-option value="option-1">Option 1</wa-option>
+    <wa-option value="option-2">Option 2</wa-option>
+  </wa-select>
+</div>
 ```
 
 ### Disabled
@@ -128,46 +138,46 @@ Use the `disabled` attribute to disable a select.
 </wa-select>
 ```
 
-### Multiple
+### Clearable
 
-To allow multiple options to be selected, use the `multiple` attribute. It's a good practice to use `with-clear` when this option is enabled. You can select multiple options by adding the `selected` attribute to individual options.
+Use the `with-clear` attribute to let people reset their choice. The clear button only appears once an option is selected.
 
 ```html {.example}
-<wa-select label="Select a Few" multiple with-clear>
-  <wa-option value="option-1" selected>Option 1</wa-option>
-  <wa-option value="option-2" selected>Option 2</wa-option>
-  <wa-option value="option-3" selected>Option 3</wa-option>
-  <wa-option value="option-4">Option 4</wa-option>
-  <wa-option value="option-5">Option 5</wa-option>
-  <wa-option value="option-6">Option 6</wa-option>
+<wa-select with-clear value="option-1">
+  <wa-option value="option-1">Option 1</wa-option>
+  <wa-option value="option-2">Option 2</wa-option>
+  <wa-option value="option-3">Option 3</wa-option>
+</wa-select>
+```
+
+### Multiple
+
+To let people choose more than one option, add the `multiple` attribute. Pair it with `with-clear` so a long selection is easy to reset. Mark the initial selection with the `selected` attribute on individual options.
+
+```html {.example}
+<wa-select label="Notify me about" multiple with-clear>
+  <wa-option value="mentions" selected>Mentions</wa-option>
+  <wa-option value="replies" selected>Replies</wa-option>
+  <wa-option value="reactions">Reactions</wa-option>
+  <wa-option value="follows">New followers</wa-option>
+  <wa-option value="releases">Releases</wa-option>
 </wa-select>
 ```
 
 :::info
-Selecting multiple options may result in wrapping, causing the control to expand vertically. You can use the `max-options-visible` attribute to control the maximum number of selected options to show at once.
+<strong>Multiple selections can grow the control vertically.</strong><br />
+Use the `max-options-visible` attribute to cap how many tags show at once before the rest collapse into a count.
 :::
 
 ### Setting Initial Values
 
-Use the `selected` attribute on individual options to set the initial selection, similar to native HTML.
+Use the `selected` attribute on individual options to set the initial selection, just like native HTML. For a multiple select, mark every option that should start selected.
 
 ```html {.example}
-<wa-select>
-  <wa-option value="option-1" selected>Option 1</wa-option>
-  <wa-option value="option-2">Option 2</wa-option>
-  <wa-option value="option-3">Option 3</wa-option>
-  <wa-option value="option-4">Option 4</wa-option>
-</wa-select>
-```
-
-For multiple selections, apply it to all selected options.
-
-```html {.example}
-<wa-select multiple with-clear>
-  <wa-option value="option-1" selected>Option 1</wa-option>
-  <wa-option value="option-2" selected>Option 2</wa-option>
-  <wa-option value="option-3">Option 3</wa-option>
-  <wa-option value="option-4">Option 4</wa-option>
+<wa-select label="Default branch">
+  <wa-option value="main" selected>main</wa-option>
+  <wa-option value="develop">develop</wa-option>
+  <wa-option value="staging">staging</wa-option>
 </wa-select>
 ```
 
@@ -177,72 +187,27 @@ Framework users can bind directly to the `value` property for reactive data bind
 
 ### Grouping Options
 
-Use `<wa-divider>` to group listbox items visually. You can also use `<small>` to provide labels, but they won't be announced by most assistive devices.
+Use `<wa-divider>` to separate groups of options visually. You can also add `<small>` labels, but note that most assistive technologies won't announce them.
 
 ```html {.example}
-<wa-select>
-  <small>Section 1</small>
-  <wa-option value="option-1">Option 1</wa-option>
-  <wa-option value="option-2">Option 2</wa-option>
-  <wa-option value="option-3">Option 3</wa-option>
+<wa-select label="Add a language" placeholder="Select one">
+  <small>Frontend</small>
+  <wa-option value="ts">TypeScript</wa-option>
+  <wa-option value="css">CSS</wa-option>
   <wa-divider></wa-divider>
-  <small>Section 2</small>
-  <wa-option value="option-4">Option 4</wa-option>
-  <wa-option value="option-5">Option 5</wa-option>
-  <wa-option value="option-6">Option 6</wa-option>
-</wa-select>
-```
-
-### Sizes
-
-Use the `size` attribute to change a select's size.
-
-```html {.example}
-<wa-select placeholder="Extra Small" size="xs">
-  <wa-option value="option-1">Option 1</wa-option>
-  <wa-option value="option-2">Option 2</wa-option>
-  <wa-option value="option-3">Option 3</wa-option>
-</wa-select>
-
-<br />
-
-<wa-select placeholder="Small" size="s">
-  <wa-option value="option-1">Option 1</wa-option>
-  <wa-option value="option-2">Option 2</wa-option>
-  <wa-option value="option-3">Option 3</wa-option>
-</wa-select>
-
-<br />
-
-<wa-select placeholder="Medium" size="m">
-  <wa-option value="option-1">Option 1</wa-option>
-  <wa-option value="option-2">Option 2</wa-option>
-  <wa-option value="option-3">Option 3</wa-option>
-</wa-select>
-
-<br />
-
-<wa-select placeholder="Large" size="l">
-  <wa-option value="option-1">Option 1</wa-option>
-  <wa-option value="option-2">Option 2</wa-option>
-  <wa-option value="option-3">Option 3</wa-option>
-</wa-select>
-
-<br />
-
-<wa-select placeholder="Extra Large" size="xl">
-  <wa-option value="option-1">Option 1</wa-option>
-  <wa-option value="option-2">Option 2</wa-option>
-  <wa-option value="option-3">Option 3</wa-option>
+  <small>Backend</small>
+  <wa-option value="go">Go</wa-option>
+  <wa-option value="rust">Rust</wa-option>
+  <wa-option value="python">Python</wa-option>
 </wa-select>
 ```
 
 ### Placement
 
-The preferred placement of the select's listbox can be set with the `placement` attribute. Note that the actual position may vary to ensure the panel remains in the viewport. Valid placements are `top` and `bottom`.
+Set the `placement` attribute to control where the listbox opens. Valid placements are `bottom` (default) and `top`; the actual position may flip to keep the panel in the viewport.
 
 ```html {.example}
-<wa-select placement="top">
+<wa-select placement="top" placeholder="Opens upward">
   <wa-option value="option-1">Option 1</wa-option>
   <wa-option value="option-2">Option 2</wa-option>
   <wa-option value="option-3">Option 3</wa-option>
@@ -251,55 +216,22 @@ The preferred placement of the select's listbox can be set with the `placement` 
 
 ### Start & End Decorations
 
-Use the `start` and `end` slots to add presentational elements like `<wa-icon>` within the combobox.
+Use the `start` and `end` slots to add presentational elements such as `<wa-icon>` inside the combobox.
 
 ```html {.example}
-<wa-select placeholder="Extra Small" size="xs" with-clear>
-  <wa-icon slot="start" name="house" variant="solid"></wa-icon>
-  <wa-icon slot="end" name="flag-checkered"></wa-icon>
-  <wa-option value="option-1">Option 1</wa-option>
-  <wa-option value="option-2">Option 2</wa-option>
-  <wa-option value="option-3">Option 3</wa-option>
-</wa-select>
-<br />
-<wa-select placeholder="Small" size="s" with-clear>
-  <wa-icon slot="start" name="house" variant="solid"></wa-icon>
-  <wa-icon slot="end" name="flag-checkered"></wa-icon>
-  <wa-option value="option-1">Option 1</wa-option>
-  <wa-option value="option-2">Option 2</wa-option>
-  <wa-option value="option-3">Option 3</wa-option>
-</wa-select>
-<br />
-<wa-select placeholder="Medium" size="m" with-clear>
-  <wa-icon slot="start" name="house" variant="solid"></wa-icon>
-  <wa-icon slot="end" name="flag-checkered"></wa-icon>
-  <wa-option value="option-1">Option 1</wa-option>
-  <wa-option value="option-2">Option 2</wa-option>
-  <wa-option value="option-3">Option 3</wa-option>
-</wa-select>
-<br />
-<wa-select placeholder="Large" size="l" with-clear>
-  <wa-icon slot="start" name="house" variant="solid"></wa-icon>
-  <wa-icon slot="end" name="flag-checkered"></wa-icon>
-  <wa-option value="option-1">Option 1</wa-option>
-  <wa-option value="option-2">Option 2</wa-option>
-  <wa-option value="option-3">Option 3</wa-option>
-</wa-select>
-<br />
-<wa-select placeholder="Extra Large" size="xl" with-clear>
-  <wa-icon slot="start" name="house" variant="solid"></wa-icon>
-  <wa-icon slot="end" name="flag-checkered"></wa-icon>
-  <wa-option value="option-1">Option 1</wa-option>
-  <wa-option value="option-2">Option 2</wa-option>
-  <wa-option value="option-3">Option 3</wa-option>
+<wa-select label="Destination" placeholder="Where to?" with-clear>
+  <wa-icon slot="start" name="plane-departure" variant="solid"></wa-icon>
+  <wa-option value="lax">Los Angeles</wa-option>
+  <wa-option value="jfk">New York</wa-option>
+  <wa-option value="nrt">Tokyo</wa-option>
 </wa-select>
 ```
 
 ### Custom Tags
 
-When multiple options can be selected, you can provide custom tags by passing a function to the `getTag` property. Your function can return a string of HTML, a [Lit Template](https://lit.dev/docs/templates/overview/), or an [`HTMLElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement). The `getTag()` function will be called for each option. The first argument is an `<wa-option>` element and the second argument is the tag's index (its position in the tag list).
+When multiple options can be selected, supply custom tags by passing a function to the `getTag` property. The function runs for each selected option and can return a string of HTML, a [Lit template](https://lit.dev/docs/templates/overview/), or an [`HTMLElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement). Its first argument is the `<wa-option>` element and its second is the tag's index.
 
-Remember that custom tags are rendered in a shadow root. To style them, you can use the `style` attribute in your template or you can add your own [parts](/docs/usage/#css-parts) and target them with the [`::part()`](https://developer.mozilla.org/en-US/docs/Web/CSS/::part) selector.
+Because custom tags render in a shadow root, style them with the `style` attribute in your template, or add your own [parts](/docs/usage/#css-parts) and target them with [`::part()`](https://developer.mozilla.org/en-US/docs/Web/CSS/::part).
 
 ```html {.example}
 <wa-select placeholder="Select one" multiple with-clear class="custom-tag">
@@ -323,11 +255,11 @@ Remember that custom tags are rendered in a shadow root. To style them, you can 
   await select.updateComplete;
 
   select.getTag = (option, index) => {
-    // Use the same icon used in wa-option
+    // Reuse the icon from the matching wa-option
     const name = option.querySelector('wa-icon[slot="start"]').name;
 
-    // You can return a string, a Lit Template, or an HTMLElement here
-    // Important: include data-value so the tag can be removed properly!
+    // Return a string, a Lit Template, or an HTMLElement.
+    // Include data-value so the tag can be removed properly.
     return `
       <wa-tag with-remove data-value="${option.value}">
         <wa-icon name="${name}"></wa-icon>
@@ -339,24 +271,20 @@ Remember that custom tags are rendered in a shadow root. To style them, you can 
 ```
 
 :::warning
-Be sure you trust the content you are outputting! Passing unsanitized user input to `getTag()` can result in XSS vulnerabilities.
+<strong>Only pass content you trust to `getTag()`.</strong><br />
+Unsanitized user input rendered into a tag can result in XSS vulnerabilities.
 :::
 
 :::info
-When using custom tags with `with-remove`, you must include the `data-value` attribute set to the option's value. This allows the select to identify which option to deselect when the tag's remove button is clicked.
+When using custom tags with `with-remove`, include the `data-value` attribute set to the option's value so the select knows which option to deselect when the tag's remove button is clicked.
 :::
 
 ### Lazy Loading Options
 
-Lazy loading options works similarly to native `<select>` elements. The select component handles various scenarios intelligently:
+The select handles options that arrive after the initial render, similar to a native `<select>`:
 
-#### Basic Lazy Loading Scenarios
-
-- **Empty select with value**: If a `<wa-select>` is created without any options but given a `value` attribute, its value will be `""` initially. When options are added later, if any option has a value matching the select's value attribute, the select's value will update to match.
-
-- **Multiple select with partial options**: If a `<wa-select multiple>` has an initial value with multiple options, but only some options are present in the DOM, it will respect only the available options. When additional selected options are loaded later (and the user hasn't changed the selection), those options will be automatically added to the selection.
-
-Here's a comprehensive example showing different lazy loading scenarios:
+- **Empty select with a value:** a `<wa-select>` created without options but given a `value` starts with an empty value. When an option whose value matches is added later, the select updates to match.
+- **Multiple select with partial options:** a `<wa-select multiple>` with an initial value respects only the options present in the DOM. When the remaining selected options load later — and the user hasn't changed the selection — they're added automatically.
 
 ```html {.example}
 <form id="lazy-options-example">
@@ -384,7 +312,7 @@ Here's a comprehensive example showing different lazy loading scenarios:
   <br />
 
   <div>
-    <wa-select name="select-3" multiple label="Multiple Select (with existing selected options)">
+    <wa-select name="select-3" multiple label="Multiple select (with existing selected options)">
       <wa-option value="bar" selected>Bar</wa-option>
       <wa-option value="baz" selected>Baz</wa-option>
     </wa-select>
@@ -397,7 +325,7 @@ Here's a comprehensive example showing different lazy loading scenarios:
   <br />
 
   <div>
-    <wa-select name="select-4" value="foo" multiple label="Multiple Select (with no existing options)"> </wa-select>
+    <wa-select name="select-4" value="foo" multiple label="Multiple select (with no existing options)"> </wa-select>
 
     <wa-divider></wa-divider>
 
@@ -468,6 +396,4 @@ Here's a comprehensive example showing different lazy loading scenarios:
 </script>
 ```
 
-:::info
-The key principle is that the select component prioritizes user interactions and explicit selections over programmatic changes, ensuring a predictable user experience even with dynamically loaded content.
-:::
+Throughout, the select prioritizes user interactions and explicit selections over programmatic changes, keeping behavior predictable even with dynamically loaded content.
