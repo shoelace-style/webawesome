@@ -16,7 +16,7 @@ use-cases:
 ---
 
 ```html {.example}
-<wa-badge>Badge</wa-badge>
+<wa-badge>New</wa-badge>
 ```
 
 ## Examples
@@ -70,19 +70,19 @@ Use the `appearance` attribute to change the badge's visual appearance.
 </div>
 ```
 
-### Size
+### Sizes
 
 Badges are sized relative to the current font size. You can set `font-size` on any badge (or an ancestor element) to change it.
 
 ```html {.example}
-<wa-badge variant="brand" style="font-size: var(--wa-font-size-xs);">Brand</wa-badge>
-<wa-badge variant="brand" style="font-size: var(--wa-font-size-s);">Brand</wa-badge>
-<wa-badge variant="brand" style="font-size: var(--wa-font-size-m);">Brand</wa-badge>
-<wa-badge variant="brand" style="font-size: var(--wa-font-size-l);">Brand</wa-badge>
-<wa-badge variant="brand" style="font-size: var(--wa-font-size-xl);">Brand</wa-badge>
+<wa-badge variant="brand" style="font-size: var(--wa-font-size-xs);">Extra Small</wa-badge>
+<wa-badge variant="brand" style="font-size: var(--wa-font-size-s);">Small</wa-badge>
+<wa-badge variant="brand" style="font-size: var(--wa-font-size-m);">Medium</wa-badge>
+<wa-badge variant="brand" style="font-size: var(--wa-font-size-l);">Large</wa-badge>
+<wa-badge variant="brand" style="font-size: var(--wa-font-size-xl);">Extra Large</wa-badge>
 ```
 
-### Pill Badges
+### Pill
 
 Use the `pill` attribute to give badges rounded edges.
 
@@ -124,6 +124,12 @@ Use the `attention` attribute to draw attention to the badge with a subtle anima
     }
   }
 </style>
+```
+
+Set the `--pulse-color` custom property to color the pulse independently of the badge's variant.
+
+```html {.example}
+<wa-badge variant="neutral" attention="pulse" pill style="--pulse-color: var(--wa-color-brand-fill-loud)">1</wa-badge>
 ```
 
 ### Start & End Decorations
