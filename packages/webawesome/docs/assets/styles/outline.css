@@ -64,7 +64,7 @@
 
   #outline-standard {
     position: sticky;
-    inset-block-start: calc(var(--docs-header-height) + 3.5rem);
+    inset-block-start: var(--scroll-margin-top);
     inline-size: 15rem;
   }
 
