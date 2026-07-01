@@ -16,11 +16,11 @@ use-cases:
 ---
 
 ```html {.example}
-<wa-input></wa-input>
+<wa-input label="Name"></wa-input>
 ```
 
 :::info
-This component works with standard `<form>` elements. Please refer to the section on [form controls](/docs/form-controls) to learn more about form submission and client-side validation.
+This component works with standard `<form>` elements. See [form controls](/docs/form-controls) for form submission and client-side validation.
 :::
 
 ## Examples
@@ -46,7 +46,7 @@ Add descriptive hint to an input with the `hint` attribute. For hints that conta
 Use the `placeholder` attribute to add a placeholder.
 
 ```html {.example}
-<wa-input placeholder="Type something"></wa-input>
+<wa-input label="Search" placeholder="Search the docs"></wa-input>
 ```
 
 ### Clearable
@@ -70,9 +70,11 @@ Add the `password-toggle` attribute to add a toggle button that will show the pa
 Use the `appearance` attribute to change the input's visual appearance.
 
 ```html {.example}
-<wa-input placeholder="Type something" appearance="filled"></wa-input><br />
-<wa-input placeholder="Type something" appearance="filled-outlined"></wa-input><br />
-<wa-input placeholder="Type something" appearance="outlined"></wa-input>
+<div class="wa-stack">
+  <wa-input appearance="outlined" placeholder="outlined"></wa-input>
+  <wa-input appearance="filled" placeholder="filled"></wa-input>
+  <wa-input appearance="filled-outlined" placeholder="filled-outlined"></wa-input>
+</div>
 ```
 
 ### Disabled
@@ -83,20 +85,26 @@ Use the `disabled` attribute to disable an input.
 <wa-input placeholder="Disabled" disabled></wa-input>
 ```
 
+### Readonly
+
+Use the `readonly` attribute to keep a value visible but uneditable. Unlike `disabled`, a readonly input stays focusable and its value is still submitted with the form.
+
+```html {.example}
+<wa-input label="Account ID" value="WA-2049" readonly></wa-input>
+```
+
 ### Sizes
 
 Use the `size` attribute to change an input's size.
 
 ```html {.example}
-<wa-input placeholder="Extra Small" size="xs"></wa-input>
-<br />
-<wa-input placeholder="Small" size="s"></wa-input>
-<br />
-<wa-input placeholder="Medium" size="m"></wa-input>
-<br />
-<wa-input placeholder="Large" size="l"></wa-input>
-<br />
-<wa-input placeholder="Extra Large" size="xl"></wa-input>
+<div class="wa-stack">
+  <wa-input size="xs" placeholder="Extra small"></wa-input>
+  <wa-input size="s" placeholder="Small"></wa-input>
+  <wa-input size="m" placeholder="Medium"></wa-input>
+  <wa-input size="l" placeholder="Large"></wa-input>
+  <wa-input size="xl" placeholder="Extra large"></wa-input>
+</div>
 ```
 
 ### Pill
@@ -104,15 +112,7 @@ Use the `size` attribute to change an input's size.
 Use the `pill` attribute to give inputs rounded edges.
 
 ```html {.example}
-<wa-input placeholder="Extra Small" size="xs" pill></wa-input>
-<br />
-<wa-input placeholder="Small" size="s" pill></wa-input>
-<br />
-<wa-input placeholder="Medium" size="m" pill></wa-input>
-<br />
-<wa-input placeholder="Large" size="l" pill></wa-input>
-<br />
-<wa-input placeholder="Extra Large" size="xl" pill></wa-input>
+<wa-input placeholder="Search" pill></wa-input>
 ```
 
 ### Input Types
@@ -120,11 +120,11 @@ Use the `pill` attribute to give inputs rounded edges.
 The `type` attribute controls the type of input the browser renders.
 
 ```html {.example}
-<wa-input type="email" placeholder="Email"></wa-input>
-<br />
-<wa-input type="number" placeholder="Number"></wa-input>
-<br />
-<wa-input type="date" placeholder="Date"></wa-input>
+<div class="wa-stack">
+  <wa-input type="email" placeholder="Email"></wa-input>
+  <wa-input type="number" placeholder="Number"></wa-input>
+  <wa-input type="date" placeholder="Date"></wa-input>
+</div>
 ```
 
 ### Start & End Decorations
@@ -132,20 +132,15 @@ The `type` attribute controls the type of input the browser renders.
 Use the `start` and `end` slots to add presentational elements like `<wa-icon>` within the input.
 
 ```html {.example}
-<wa-input placeholder="Small" size="s">
-  <wa-icon name="house" slot="start"></wa-icon>
-  <wa-icon name="comment" slot="end"></wa-icon>
-</wa-input>
-<br />
-<wa-input placeholder="Medium" size="m">
-  <wa-icon name="house" slot="start"></wa-icon>
-  <wa-icon name="comment" slot="end"></wa-icon>
-</wa-input>
-<br />
-<wa-input placeholder="Large" size="l">
-  <wa-icon name="house" slot="start"></wa-icon>
-  <wa-icon name="comment" slot="end"></wa-icon>
-</wa-input>
+<div class="wa-stack">
+  <wa-input label="Search" placeholder="Search the docs">
+    <wa-icon name="magnifying-glass" slot="start"></wa-icon>
+  </wa-input>
+  <wa-input label="Website" placeholder="example.com">
+    <wa-icon name="globe" slot="start"></wa-icon>
+    <wa-icon name="circle-info" slot="end"></wa-icon>
+  </wa-input>
+</div>
 ```
 
 ### Customizing Label Position
