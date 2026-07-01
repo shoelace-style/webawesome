@@ -15,7 +15,7 @@ use-cases:
 ---
 
 ```html {.example}
-<wa-button>Button</wa-button>
+<wa-button>Save</wa-button>
 ```
 
 ## Examples
@@ -36,7 +36,7 @@ Use the `variant` attribute to set the button's [semantic variant](/docs/theming
 
 ### Appearance
 
-Use the `appearance` attribute to change the button's visual appearance.
+Use the `appearance` attribute to change the button's visual appearance. Pair it with any `variant` for the full matrix.
 
 ```html {.example}
 <div class="wa-stack">
@@ -92,23 +92,17 @@ Use the `size` attribute to change a button's size.
 </div>
 ```
 
-### Pill Buttons
+### Pill
 
 Use the `pill` attribute to give buttons rounded edges.
 
 ```html {.example}
-<div class="wa-cluster wa-gap-2xs">
-  <wa-button size="xs" pill>Extra Small</wa-button>
-  <wa-button size="s" pill>Small</wa-button>
-  <wa-button size="m" pill>Medium</wa-button>
-  <wa-button size="l" pill>Large</wa-button>
-  <wa-button size="xl" pill>Extra Large</wa-button>
-</div>
+<wa-button pill>Pill Button</wa-button>
 ```
 
 ### Link Buttons
 
-It's often helpful to have a button that works like a link. This is possible by setting the `href` attribute, which will make the component render an `<a>` under the hood. This gives you all the default link behavior the browser provides (e.g. [[CMD/CTRL/SHIFT]] + [[CLICK]]) and exposes the `rel`, `target`, and `download` attributes.
+Set the `href` attribute to render the button as an `<a>` under the hood. Provides all the browser's native link behavior (e.g. [[CMD/CTRL/SHIFT]] + [[CLICK]]) plus the `rel`, `target`, and `download` attributes.
 
 ```html {.example}
 <div class="wa-cluster wa-gap-2xs">
@@ -120,7 +114,7 @@ It's often helpful to have a button that works like a link. This is possible by 
 
 ### Icon Buttons
 
-When only an [icon](/docs/components/icon) is slotted into the `label` slot, the button becomes an icon button. In this case, it's important to give the icon a label for users with assistive devices. Icon buttons can use any appearance or variant.
+When an [icon](/docs/components/icon) is the only thing slotted into the label, the button becomes an icon button. Icon buttons work with any appearance or variant.
 
 ```html {.example}
 <div class="wa-cluster wa-gap-2xs">
@@ -131,99 +125,46 @@ When only an [icon](/docs/components/icon) is slotted into the `label` slot, the
 </div>
 ```
 
-### Setting a Custom Width
-
-As expected, buttons can be given a custom width by setting the `width` CSS property. This is useful for making buttons span the full width of their container on smaller screens.
-
-```html {.example}
-<div class="wa-stack">
-  <wa-button size="xs" style="width: 100%;">Extra Small</wa-button>
-  <wa-button size="s" style="width: 100%;">Small</wa-button>
-  <wa-button size="m" style="width: 100%;">Medium</wa-button>
-  <wa-button size="l" style="width: 100%;">Large</wa-button>
-  <wa-button size="xl" style="width: 100%;">Extra Large</wa-button>
-</div>
-```
+:::warning
+<strong>Give icon-only buttons a label.</strong><br />
+With no text to announce, a screen reader has nothing to read. Add `label` to the icon (`<wa-icon name="house" label="Home">`) so the button has an accessible name.
+:::
 
 ### Start & End Decorations
 
-Use the `start` and `end` slots to add presentational elements like `<wa-icon>` next to the button label.
+Use the `start` and `end` slots to add presentational elements like `<wa-icon>` beside the button label.
 
 ```html {.example}
-<div class="wa-stack">
-  <div class="wa-cluster wa-gap-2xs">
-    <wa-button size="s">
-      <wa-icon slot="start" name="gear"></wa-icon>
-      Settings
-    </wa-button>
+<div class="wa-cluster wa-gap-2xs">
+  <wa-button>
+    <wa-icon slot="start" name="gear"></wa-icon>
+    Settings
+  </wa-button>
 
-    <wa-button size="s">
-      <wa-icon slot="end" name="undo"></wa-icon>
-      Refresh
-    </wa-button>
+  <wa-button>
+    <wa-icon slot="end" name="undo"></wa-icon>
+    Refresh
+  </wa-button>
 
-    <wa-button size="s">
-      <wa-icon slot="start" name="link"></wa-icon>
-      <wa-icon slot="end" name="arrow-up-right-from-square"></wa-icon>
-      Open
-    </wa-button>
-  </div>
-
-  <div class="wa-cluster wa-gap-2xs">
-    <wa-button>
-      <wa-icon slot="start" name="gear"></wa-icon>
-      Settings
-    </wa-button>
-
-    <wa-button>
-      <wa-icon slot="end" name="undo"></wa-icon>
-      Refresh
-    </wa-button>
-
-    <wa-button>
-      <wa-icon slot="start" name="link"></wa-icon>
-      <wa-icon slot="end" name="arrow-up-right-from-square"></wa-icon>
-      Open
-    </wa-button>
-  </div>
-
-  <div class="wa-cluster wa-gap-2xs">
-    <wa-button size="l">
-      <wa-icon slot="start" name="gear"></wa-icon>
-      Settings
-    </wa-button>
-
-    <wa-button size="l">
-      <wa-icon slot="end" name="undo"></wa-icon>
-      Refresh
-    </wa-button>
-
-    <wa-button size="l">
-      <wa-icon slot="start" name="link"></wa-icon>
-      <wa-icon slot="end" name="arrow-up-right-from-square"></wa-icon>
-      Open
-    </wa-button>
-  </div>
+  <wa-button>
+    <wa-icon slot="start" name="link"></wa-icon>
+    <wa-icon slot="end" name="arrow-up-right-from-square"></wa-icon>
+    Open
+  </wa-button>
 </div>
 ```
 
 ### Caret
 
-Use the `with-caret` attribute to add a dropdown indicator when a button will trigger a dropdown, menu, or popover.
+Use the `with-caret` attribute to add a dropdown indicator when a button triggers a dropdown, menu, or popover.
 
 ```html {.example}
-<div class="wa-cluster wa-gap-2xs">
-  <wa-button size="xs" with-caret>Extra Small</wa-button>
-  <wa-button size="s" with-caret>Small</wa-button>
-  <wa-button size="m" with-caret>Medium</wa-button>
-  <wa-button size="l" with-caret>Large</wa-button>
-  <wa-button size="xl" with-caret>Extra Large</wa-button>
-</div>
+<wa-button with-caret>Options</wa-button>
 ```
 
 ### Loading
 
-Use the `loading` attribute to make a button busy. The width will remain the same as before, preventing adjacent elements from moving around.
+Use the `loading` attribute to put a button in a busy state. Its width stays the same, so adjacent elements don't shift.
 
 ```html {.example}
 <div class="wa-cluster wa-gap-2xs">
@@ -237,25 +178,37 @@ Use the `loading` attribute to make a button busy. The width will remain the sam
 
 ### Disabled
 
-Use the `disabled` attribute to disable a button.
+Use the `disabled` attribute to disable a button. It works on link buttons too.
 
 ```html {.example}
-<wa-button variant="brand" disabled>Brand</wa-button>
-<wa-button variant="success" disabled>Success</wa-button>
-<wa-button variant="neutral" disabled>Neutral</wa-button>
-<wa-button variant="warning" disabled>Warning</wa-button>
-<wa-button variant="danger" disabled>Danger</wa-button>
+<div class="wa-stack">
+  <div class="wa-cluster wa-gap-2xs">
+    <wa-button variant="brand" disabled>Brand</wa-button>
+    <wa-button variant="success" disabled>Success</wa-button>
+    <wa-button variant="neutral" disabled>Neutral</wa-button>
+    <wa-button variant="warning" disabled>Warning</wa-button>
+    <wa-button variant="danger" disabled>Danger</wa-button>
+  </div>
 
-<br /><br />
-
-<wa-button href="https://example.com/" disabled>Link</wa-button>
-<wa-button href="https://example.com/" target="_blank" disabled>New Window</wa-button>
-<wa-button href="/assets/images/logo.svg" download="shoelace.svg" disabled>Download</wa-button>
+  <div class="wa-cluster wa-gap-2xs">
+    <wa-button href="https://example.com/" disabled>Link</wa-button>
+    <wa-button href="https://example.com/" target="_blank" disabled>New Window</wa-button>
+    <wa-button href="/assets/images/logo.svg" download="shoelace.svg" disabled>Download</wa-button>
+  </div>
+</div>
 ```
 
-### Styling Buttons
+### Custom Width
 
-This example demonstrates how to style buttons using a custom class. This is the recommended approach if you need to add additional variations. To customize an existing variation, modify the selector to target the button's `variant` attribute instead of a class (e.g. `wa-button[variant="brand"]`).
+Give a button a custom `width` to size it independently of its content — useful for making buttons span their container on smaller screens.
+
+```html {.example}
+<wa-button style="width: 100%;">Save</wa-button>
+```
+
+### Customizing
+
+Target the `base` part to restyle a button from the outside. Use a custom class when you're adding a new variation; to retheme an existing one, target its `variant` attribute instead (e.g. `wa-button[variant="brand"]`).
 
 ```html {.example}
 <wa-button class="pink">Pink Button</wa-button>
