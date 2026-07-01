@@ -45,6 +45,16 @@
     --nav-products-fill-quiet-build: color-mix(in oklab, var(--brand-build-awesome-green), black 65%);
   }
 
+  /* Smooth in-page anchor scrolling. Snaps for reduced-motion users; themes can override. */
+  :root {
+    scroll-behavior: smooth;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    :root {
+      scroll-behavior: auto;
+    }
+  }
+
   /* #region layout utilities */
 
   /* DO NOT redefine this base class anywhere else (no shadow rules in

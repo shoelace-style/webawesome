@@ -29,8 +29,8 @@ document.addEventListener('click', event => {
 
     if (target) {
       event.preventDefault();
-      // Offset comes from scroll-margin-top on wa-page descendants (library layers.css).
-      target.scrollIntoView({ behavior: 'smooth' });
+      // Offset from the library's scroll-margin-top; smoothness from CSS scroll-behavior (honors reduced-motion).
+      target.scrollIntoView();
       history.replaceState(history.state, '', `#${id}`);
     }
   }
@@ -56,7 +56,8 @@ function alignToHashTarget(target) {
     steadyFrames = offset === previousOffset ? steadyFrames + 1 : 0;
     previousOffset = offset;
     if (steadyFrames >= 3 || ++attempts > 90) {
-      target.scrollIntoView();
+      // Snap, never animate — this corrects a stale load position, not a user action.
+      target.scrollIntoView({ behavior: 'instant' });
     } else {
       requestAnimationFrame(tick);
     }
@@ -75,7 +76,7 @@ allDefined().then(() => {
     // Re-align after hydration; the browser's initial hash jump landed at a stale position.
     alignToHashTarget(hashTarget);
   } else if (navigationType === 'reload' && scrollY) {
-    window.scrollTo(0, scrollY);
+    window.scrollTo({ top: Number(scrollY), behavior: 'instant' });
   } else {
     sessionStorage.removeItem(key);
   }
