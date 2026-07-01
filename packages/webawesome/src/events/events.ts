@@ -7,6 +7,7 @@ export type { WaAfterHideEvent } from './after-hide.js';
 export type { WaAfterShowEvent } from './after-show.js';
 export type { WaCancelEvent } from './cancel.js';
 export type { WaClearEvent } from './clear.js';
+export type { WaCompleteEvent } from './complete.js';
 export type { WaCollapseEvent } from './collapse.js';
 export type { WaCopyEvent } from './copy.js';
 export type { WaCreateEvent } from './create.js';
