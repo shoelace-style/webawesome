@@ -13,14 +13,22 @@ use-cases:
 ---
 
 ```html {.example}
-<wa-progress-ring value="25"></wa-progress-ring>
+<wa-progress-ring value="25" label="Sync progress"></wa-progress-ring>
 ```
 
 ## Examples
 
-### Size
+### Labels
 
-Use the `--size` custom property to set the diameter of the progress ring.
+Use the `label` attribute to tell assistive devices how to announce the progress ring.
+
+```html {.example}
+<wa-progress-ring value="25" label="Sync progress"></wa-progress-ring>
+```
+
+### Sizing
+
+Use the `--size` custom property to set the diameter of the ring.
 
 ```html {.example}
 <wa-progress-ring value="50" style="--size: 200px;"></wa-progress-ring>
@@ -28,7 +36,7 @@ Use the `--size` custom property to set the diameter of the progress ring.
 
 ### Track & Indicator Width
 
-Use the `--track-width` and `--indicator-width` custom properties to set the width of the progress ring's track and indicator.
+Use `--track-width` and `--indicator-width` to set the width of the ring's track and indicator independently.
 
 ```html {.example}
 <wa-progress-ring value="50" style="--track-width: 6px; --indicator-width: 12px;"></wa-progress-ring>
@@ -36,7 +44,7 @@ Use the `--track-width` and `--indicator-width` custom properties to set the wid
 
 ### Colors
 
-To change the color, use the `--track-color` and `--indicator-color` custom properties.
+Use `--track-color` and `--indicator-color` to recolor the ring.
 
 ```html {.example}
 <wa-progress-ring
@@ -45,13 +53,12 @@ To change the color, use the `--track-color` and `--indicator-color` custom prop
     --track-color: pink;
     --indicator-color: deeppink;
   "
->
-</wa-progress-ring>
+></wa-progress-ring>
 ```
 
-### Labels
+### Showing Values
 
-Use the default slot to show a label inside the progress ring.
+Use the default slot to show a value inside the ring.
 
 ```html {.example}
 <div class="progress-ring-overview">

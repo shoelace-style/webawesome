@@ -16,6 +16,16 @@ use-cases:
 ---
 
 ```html {.example}
+<wa-tag>Featured</wa-tag>
+```
+
+## Examples
+
+### Variants
+
+Set the `variant` attribute to match the tag to its meaning.
+
+```html {.example}
 <wa-tag variant="brand">Brand</wa-tag>
 <wa-tag variant="success">Success</wa-tag>
 <wa-tag variant="neutral">Neutral</wa-tag>
@@ -23,12 +33,9 @@ use-cases:
 <wa-tag variant="danger">Danger</wa-tag>
 ```
 
-## Examples
-
 ### Appearance
 
-Use the `size` attribute to change a tag's visual appearance.
-The default appearance is `filled-outlined`.
+Use the `appearance` attribute to change the tag's visual style. The default is `filled-outlined`.
 
 ```html {.example}
 <div class="wa-stack">
@@ -44,21 +51,18 @@ The default appearance is `filled-outlined`.
     <wa-tag variant="success" appearance="filled">Filled</wa-tag>
     <wa-tag variant="success" appearance="outlined">Outlined</wa-tag>
   </p>
-
   <p>
     <wa-tag variant="neutral" appearance="accent">Accent</wa-tag>
     <wa-tag variant="neutral" appearance="filled-outlined">Filled-Outlined</wa-tag>
     <wa-tag variant="neutral" appearance="filled">Filled</wa-tag>
     <wa-tag variant="neutral" appearance="outlined">Outlined</wa-tag>
   </p>
-
   <p>
     <wa-tag variant="warning" appearance="accent">Accent</wa-tag>
     <wa-tag variant="warning" appearance="filled-outlined">Filled-Outlined</wa-tag>
     <wa-tag variant="warning" appearance="filled">Filled</wa-tag>
     <wa-tag variant="warning" appearance="outlined">Outlined</wa-tag>
   </p>
-
   <p>
     <wa-tag variant="danger" appearance="accent">Accent</wa-tag>
     <wa-tag variant="danger" appearance="filled-outlined">Filled-Outlined</wa-tag>
@@ -82,7 +86,7 @@ Use the `size` attribute to change a tag's size.
 
 ### Pill
 
-Use the `pill` attribute to give tabs rounded edges.
+Use the `pill` attribute to give tags rounded edges.
 
 ```html {.example}
 <wa-tag size="xs" pill>Extra Small</wa-tag>
@@ -94,7 +98,7 @@ Use the `pill` attribute to give tabs rounded edges.
 
 ### Removable
 
-Use the `with-remove` attribute to add a remove button to the tag.
+Use the `with-remove` attribute to add a remove button to the tag. The button carries a built-in `Remove` label for assistive technology, and activating it emits the `wa-remove` event so you can handle the removal.
 
 ```html {.example}
 <div class="tags-removable">

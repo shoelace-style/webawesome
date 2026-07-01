@@ -13,10 +13,6 @@ use-cases:
   - loading state
 ---
 
-These are simple containers for scaffolding layouts that mimic what users will see when content has finished loading. This prevents large areas of empty space during asynchronous operations.
-
-Skeletons try not to be opinionated, as there are endless possibilities for designing layouts. Therefore, you'll likely use more than one skeleton to create the effect you want. If you find yourself using them frequently, consider creating a template that renders them with the desired arrangement and styles.
-
 ```html {.example}
 <div class="skeleton-overview">
   <header>
@@ -63,11 +59,19 @@ Skeletons try not to be opinionated, as there are endless possibilities for desi
 </style>
 ```
 
+A single skeleton stands in for one line or shape. Because layouts vary endlessly, you'll usually combine several to mirror the content that's loading. If you reach for the same arrangement often, wrap it in a template that renders the skeletons with your spacing and styles.
+
 ## Examples
 
 ### Effects
 
-There are two built-in effects, `sheen` and `pulse`. Effects are intentionally subtle, as they can be distracting when used extensively. The default is `none`, which displays a static, non-animated skeleton.
+Set the `effect` attribute to choose how the skeleton animates while content loads. Effects are intentionally subtle, since motion across many skeletons at once can distract.
+
+| Effect | Behavior | Best for |
+| --- | --- | --- |
+| `none` <wa-badge appearance="outlined" variant="neutral" pill style="font-size: var(--wa-font-size-2xs);">default</wa-badge> | Static, non-animated placeholder | Dense layouts where motion would be noisy |
+| `sheen` | A light sweeps across the indicator | Signaling that content is actively loading |
+| `pulse` | The indicator fades in and out | A calmer alternative to `sheen` |
 
 ```html {.example}
 <div class="skeleton-effects">
@@ -94,7 +98,7 @@ There are two built-in effects, `sheen` and `pulse`. Effects are intentionally s
 
 ### Paragraphs
 
-Use multiple skeletons and some clever styles to simulate paragraphs.
+Stack several skeletons and vary their widths to stand in for a block of text.
 
 ```html {.example}
 <div class="skeleton-paragraphs">
@@ -126,7 +130,7 @@ Use multiple skeletons and some clever styles to simulate paragraphs.
 
 ### Avatars
 
-Set a matching width and height to make a circle, square, or rounded avatar skeleton.
+Set a matching width and height to stand in for a circle, square, or rounded avatar.
 
 ```html {.example}
 <div class="skeleton-avatars">
@@ -153,9 +157,9 @@ Set a matching width and height to make a circle, square, or rounded avatar skel
 </style>
 ```
 
-### Custom Shapes
+### Shapes
 
-Set a `border-radius` on the `indicator` part to make circles, squares, and rectangles. For more complex shapes, you can apply `clip-path` to the `indicator` part. [Try Clippy](https://bennettfeely.com/clippy/) if you need help generating custom shapes.
+Set a `border-radius` on the `indicator` part to make circles, squares, and rectangles. For more complex shapes, apply a `clip-path` to the `indicator` part. [Try Clippy](https://bennettfeely.com/clippy/) if you need help generating custom shapes.
 
 ```html {.example}
 <div class="skeleton-shapes">
@@ -215,9 +219,9 @@ Set a `border-radius` on the `indicator` part to make circles, squares, and rect
 </style>
 ```
 
-### Custom Colors
+### Custom Properties
 
-Set the `--color` and `--sheen-color` custom properties to adjust the skeleton's color.
+Set the `--color` and `--sheen-color` custom properties to tune the skeleton to your surface. `--sheen-color` is the highlight that sweeps across when `effect="sheen"`.
 
 ```html {.example}
 <wa-skeleton effect="sheen" style="--color: tomato; --sheen-color: #ffb094;"></wa-skeleton>
