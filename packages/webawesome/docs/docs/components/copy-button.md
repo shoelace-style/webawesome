@@ -13,18 +13,53 @@ use-cases:
 ---
 
 ```html {.example}
-<wa-copy-button value="Web Awesome rocks!"></wa-copy-button>
+<wa-copy-button value="https://webawesome.com"></wa-copy-button>
 ```
 
 :::info
+<strong>Copying requires a secure context.</strong><br />
 Copy buttons use the browser's [`clipboard.writeText()`](https://developer.mozilla.org/en-US/docs/Web/API/Clipboard/writeText) method, which requires a [secure context](https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts) (HTTPS) in most browsers.
 :::
 
 ## Examples
 
+### Copying From Other Elements
+
+Set `value` to copy a literal string, or point `from` at another element's `id` to copy live content. When both are present, `from` wins.
+
+By default `from` copies the target's [`textContent`](https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent). Add a modifier to copy an attribute or property instead:
+
+| Syntax | Copies | Example |
+| --- | --- | --- |
+| `from="id"` | The element's `textContent` | `from="my-phone"` |
+| `from="id[attr]"` | The named attribute | `from="my-link[href]"` |
+| `from="id.prop"` | The named property | `from="my-input.value"` |
+
+```html {.example}
+<div class="wa-stack">
+  <!-- Copies the span's textContent -->
+  <div class="wa-cluster wa-align-items-center wa-gap-2xs">
+    <span id="my-phone">+1 (234) 456-7890</span>
+    <wa-copy-button from="my-phone"></wa-copy-button>
+  </div>
+
+  <!-- Copies the input's "value" property -->
+  <div class="wa-cluster wa-align-items-center wa-gap-2xs">
+    <wa-input id="my-input" type="text" value="User input" style="max-width: 300px;"></wa-input>
+    <wa-copy-button from="my-input.value"></wa-copy-button>
+  </div>
+
+  <!-- Copies the link's "href" attribute -->
+  <div class="wa-cluster wa-align-items-center wa-gap-2xs">
+    <a id="my-link" href="https://webawesome.com/">Web Awesome Website</a>
+    <wa-copy-button from="my-link[href]"></wa-copy-button>
+  </div>
+</div>
+```
+
 ### Custom Labels
 
-The default copy button shows a tooltip on hover and focus, and the tooltip text changes briefly to confirm a successful or failed copy. You can customize these labels using the `copy-label`, `success-label`, and `error-label` attributes. The `copy-label` is also used as the button's accessible name.
+The copy button shows a tooltip on hover and focus, then briefly swaps it to confirm a copy. Set `copy-label`, `success-label`, and `error-label` to customize the text for each state. `copy-label` also serves as the button's accessible name.
 
 ```html {.example}
 <wa-copy-button
@@ -37,7 +72,7 @@ The default copy button shows a tooltip on hover and focus, and the tooltip text
 
 ### Custom Icons
 
-Use the `copy-icon`, `success-icon`, and `error-icon` slots to customize the icons that get displayed for each state. You can use [`<wa-icon>`](/docs/components/icon) or your own images.
+Use the `copy-icon`, `success-icon`, and `error-icon` slots to replace the icon shown in each state. [`<wa-icon>`](/docs/components/icon) works best, but any image will do.
 
 ```html {.example}
 <wa-copy-button value="Copied from a custom button">
@@ -49,80 +84,44 @@ Use the `copy-icon`, `success-icon`, and `error-icon` slots to customize the ico
 
 ### Custom Trigger
 
-By default, the copy button renders an icon-only button. You can slot in any element to use as a custom trigger instead. This works with Web Awesome buttons, native buttons, or any clickable element.
+By default the copy button renders an icon-only button. Slot in any clickable element to use as the trigger instead — a Web Awesome button, a native button, or anything else.
 
 ```html {.example}
-<wa-copy-button value="You can copy anything with a custom trigger!">
-  <wa-button appearance="filled">Copy to Clipboard</wa-button>
-</wa-copy-button>
-```
+<div class="wa-stack">
+  <wa-copy-button value="You can copy anything with a custom trigger!">
+    <wa-button appearance="filled">Copy to Clipboard</wa-button>
+  </wa-copy-button>
 
-You can also use a native button as the trigger.
-
-```html {.example}
-<wa-copy-button value="Native buttons work too!">
-  <button type="button" class="wa-filled">Copy to Clipboard</button>
-</wa-copy-button>
+  <wa-copy-button value="https://webawesome.com">
+    <button type="button" class="wa-filled">Copy to Clipboard</button>
+  </wa-copy-button>
+</div>
 ```
 
 :::info
-Custom triggers automatically receive the same tooltip and copy feedback as the default trigger — no extra wiring required. The icon swap is the only piece that's specific to the default trigger. Use `without-tooltip` to opt out of the tooltip, and use the `wa-copy` and `wa-error` events or the `:state(success)` and `:state(error)` CSS custom states for additional feedback.
+<strong>Custom triggers get the same feedback with no extra wiring.</strong><br />
+They receive the same tooltip and copy feedback as the default trigger; the icon swap is the one piece unique to it. Set `tooltip="none"` to opt out of the tooltip, and listen for the `wa-copy` and `wa-error` events or style the `:state(success)` and `:state(error)` custom states for your own feedback.
 :::
-
-### Copying Values from Other Elements
-
-Normally, the data that gets copied will come from the component's `value` attribute, but you can copy data from any element within the same document by providing its `id` to the `from` attribute.
-
-When using the `from` attribute, the element's [`textContent`](https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent) will be copied by default. Passing an attribute or property modifier will let you copy data from one of the element's attributes or properties instead.
-
-To copy data from an attribute, use `from="id[attr]"` where `id` is the id of the target element and `attr` is the name of the attribute you'd like to copy. To copy data from a property, use `from="id.prop"` where `id` is the id of the target element and `prop` is the name of the property you'd like to copy.
-
-```html {.example}
-<!-- Copies the span's textContent -->
-<div class="wa-cluster wa-align-items-center wa-gap-2xs">
-  <span id="my-phone">+1 (234) 456-7890</span>
-  <wa-copy-button from="my-phone"></wa-copy-button>
-</div>
-
-<br />
-
-<!-- Copies the input's "value" property -->
-<div class="wa-cluster wa-align-items-center wa-gap-2xs">
-  <wa-input id="my-input" type="text" value="User input" style="max-width: 300px;"></wa-input>
-  <wa-copy-button from="my-input.value"></wa-copy-button>
-</div>
-
-<br />
-
-<!-- Copies the link's "href" attribute -->
-<div class="wa-cluster wa-align-items-center wa-gap-2xs">
-  <a id="my-link" href="https://shoelace.style/">Web Awesome Website</a>
-  <wa-copy-button from="my-link[href]"></wa-copy-button>
-</div>
-```
-
-### Handling Errors
-
-A copy error will occur if the value is an empty string, if the `from` attribute points to an id that doesn't exist, or if the browser rejects the operation for any reason. When this happens, the `wa-error` event will be emitted.
-
-This example demonstrates what happens when a copy error occurs. You can customize the error label and icon using the `error-label` attribute and the `error-icon` slot, respectively.
-
-```html {.example}
-<wa-copy-button from="i-do-not-exist"></wa-copy-button>
-```
 
 ### Disabled
 
-Copy buttons can be disabled by adding the `disabled` attribute.
+Add the `disabled` attribute to turn off the copy button.
 
 ```html {.example}
 <wa-copy-button value="You can't copy me" disabled></wa-copy-button>
 ```
 
-### Changing Feedback Duration
+### Handling Errors
 
-After copying, the tooltip briefly displays a success or error label. Use the `feedback-duration` attribute to control how long it stays visible.
+A copy fails when `value` is empty, when `from` points to an id that doesn't exist, or when the browser rejects the operation. Either way, the button shows its error state and emits the `wa-error` event. Customize the message with `error-label` and the icon with the `error-icon` slot.
 
+```html {.example}
+<wa-copy-button from="i-do-not-exist"></wa-copy-button>
+```
+
+### Feedback Duration
+
+After a copy, the tooltip briefly shows the success or error label. Set `feedback-duration` (in milliseconds) to control how long it stays visible.
 
 ```html {.example}
 <wa-copy-button value="Web Awesome rocks!" feedback-duration="250"></wa-copy-button>
@@ -130,61 +129,38 @@ After copying, the tooltip briefly displays a success or error label. Use the `f
 
 ### Tooltip Modes
 
-The `tooltip` attribute controls when the built-in tooltip appears. It applies to both the default trigger and [custom triggers](#custom-trigger).
+The `tooltip` attribute controls when the built-in tooltip appears, on both the default and custom triggers.
 
-- `full` (default): the tooltip shows on hover and focus, and is reused to display copy feedback.
-- `copy`: the tooltip stays silent on hover and focus, and only appears briefly to confirm a successful or failed copy.
-- `none`: no tooltip is shown in any state.
-
-```html {.example}
-<wa-copy-button value="Full" tooltip="full"></wa-copy-button>
-<wa-copy-button value="Copy" tooltip="copy"></wa-copy-button>
-<wa-copy-button value="None" tooltip="none"></wa-copy-button>
-```
+| Value | Behavior |
+| --- | --- |
+| `full` <wa-badge appearance="outlined" variant="neutral" pill>default</wa-badge> | Shows on hover and focus, and reused for copy feedback |
+| `copy` | Stays silent on hover and focus; appears only to confirm a copy |
+| `none` | Never shown |
 
 ```html {.example}
-<wa-copy-button value="Full" tooltip="full">
-  <wa-button appearance="filled">Full</wa-button>
-</wa-copy-button>
-<wa-copy-button value="Copy" tooltip="copy">
-  <wa-button appearance="filled">Copy</wa-button>
-</wa-copy-button>
-<wa-copy-button value="None" tooltip="none">
-  <wa-button appearance="filled">None</wa-button>
-</wa-copy-button>
+<div class="wa-cluster">
+  <wa-copy-button value="npm install @awesome.me/webawesome" tooltip="full"></wa-copy-button>
+  <wa-copy-button value="npm install @awesome.me/webawesome" tooltip="copy"></wa-copy-button>
+  <wa-copy-button value="npm install @awesome.me/webawesome" tooltip="none"></wa-copy-button>
+</div>
 ```
 
-### Changing Tooltip Placement
+### Tooltip Placement
 
-The tooltip is shown above the trigger by default. Use the `tooltip-placement` attribute to position it on the `top`, `right`, `bottom`, or `left`.
+The tooltip sits above the trigger by default. Set `tooltip-placement` to `top`, `right`, `bottom`, or `left` to move it.
 
 ```html {.example}
-<wa-copy-button value="Above" tooltip-placement="top"></wa-copy-button>
-<wa-copy-button value="Right" tooltip-placement="right"></wa-copy-button>
-<wa-copy-button value="Below" tooltip-placement="bottom"></wa-copy-button>
-<wa-copy-button value="Left" tooltip-placement="left"></wa-copy-button>
+<div class="wa-cluster">
+  <wa-copy-button value="Above" tooltip-placement="top"></wa-copy-button>
+  <wa-copy-button value="Right" tooltip-placement="right"></wa-copy-button>
+  <wa-copy-button value="Below" tooltip-placement="bottom"></wa-copy-button>
+  <wa-copy-button value="Left" tooltip-placement="left"></wa-copy-button>
+</div>
 ```
 
-The same attribute applies to custom triggers.
+### Customizing
 
-```html {.example}
-<wa-copy-button value="Above" tooltip-placement="top">
-  <wa-button appearance="filled">Above</wa-button>
-</wa-copy-button>
-<wa-copy-button value="Right" tooltip-placement="right">
-  <wa-button appearance="filled">Right</wa-button>
-</wa-copy-button>
-<wa-copy-button value="Below" tooltip-placement="bottom">
-  <wa-button appearance="filled">Below</wa-button>
-</wa-copy-button>
-<wa-copy-button value="Left" tooltip-placement="left">
-  <wa-button appearance="filled">Left</wa-button>
-</wa-copy-button>
-```
-
-### Custom Styles
-
-You can customize the button to your liking with CSS.
+Style the button through its CSS parts — `button`, `copy-icon`, `success-icon`, and `error-icon` — to match your design.
 
 ```html {.example}
 <wa-copy-button value="I'm so stylish" class="custom-styles">
