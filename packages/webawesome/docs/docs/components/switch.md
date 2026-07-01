@@ -13,49 +13,21 @@ use-cases:
 ---
 
 ```html {.example}
-<wa-switch>Switch</wa-switch>
+<wa-switch>Enable notifications</wa-switch>
 ```
 
 :::info
-This component works with standard `<form>` elements. Please refer to the section on [form controls](/docs/form-controls) to learn more about form submission and client-side validation.
+This component works with standard `<form>` elements. See [form controls](/docs/form-controls) for form submission and client-side validation.
 :::
 
 ## Examples
 
-### Checked
+### Labels
 
-Use the `checked` attribute to activate the switch.
-
-```html {.example}
-<wa-switch checked>Checked</wa-switch>
-```
-
-:::info
-The `checked` attribute is the initial value and does not reflect changes, consistent with native checkboxes. To toggle the checked state with JavaScript, use the `checked` property instead. To target checked switches with CSS, use the `:state(checked)` selector.
-:::
-
-### Disabled
-
-Use the `disabled` attribute to disable the switch.
+Add label text as the switch's default content. For labels that contain HTML, slot the markup in directly.
 
 ```html {.example}
-<wa-switch disabled>Disabled</wa-switch>
-```
-
-### Sizes
-
-Use the `size` attribute to change a switch's size.
-
-```html {.example}
-<wa-switch size="xs">Extra Small</wa-switch>
-<br />
-<wa-switch size="s">Small</wa-switch>
-<br />
-<wa-switch size="m">Medium</wa-switch>
-<br />
-<wa-switch size="l">Large</wa-switch>
-<br />
-<wa-switch size="xl">Extra Large</wa-switch>
+<wa-switch>Subscribe to the newsletter</wa-switch>
 ```
 
 ### Hint
@@ -63,10 +35,45 @@ Use the `size` attribute to change a switch's size.
 Add descriptive hint to a switch with the `hint` attribute. For hints that contain HTML, use the `hint` slot instead.
 
 ```html {.example}
-<wa-switch hint="What should the user know about the switch?">Label</wa-switch>
+<wa-switch hint="You can change this at any time in settings.">Email me about new releases</wa-switch>
 ```
 
-### Custom Styles
+### Setting Initial Values
+
+Use the `checked` attribute to activate the switch.
+
+```html {.example}
+<wa-switch checked>Remember this device</wa-switch>
+```
+
+:::info
+<strong>`checked` sets the initial value, not the current state.</strong><br />
+Consistent with native checkboxes, it doesn't reflect later changes. To toggle the checked state with JavaScript, use the `checked` property instead. To target checked switches with CSS, use the `:state(checked)` selector.
+:::
+
+### Disabled
+
+Use the `disabled` attribute to disable the switch.
+
+```html {.example}
+<wa-switch disabled>Sync over cellular</wa-switch>
+```
+
+### Sizes
+
+Use the `size` attribute to change a switch's size.
+
+```html {.example}
+<div class="wa-stack">
+  <wa-switch size="xs">Extra Small</wa-switch>
+  <wa-switch size="s">Small</wa-switch>
+  <wa-switch size="m">Medium</wa-switch>
+  <wa-switch size="l">Large</wa-switch>
+  <wa-switch size="xl">Extra Large</wa-switch>
+</div>
+```
+
+### Custom Properties
 
 Use the available custom properties to change how the switch is styled.
 
