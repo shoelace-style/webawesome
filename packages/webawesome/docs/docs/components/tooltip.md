@@ -13,18 +13,23 @@ use-cases:
   - hover info
 ---
 
-A tooltip's target is based on the `for` attribute which points to an element id.
+Point the `for` attribute at the `id` of the element the tooltip describes, and Web Awesome wires up positioning and accessibility for you.
 
 ```html {.example}
 <wa-tooltip for="my-button">This is a tooltip</wa-tooltip>
 <wa-button appearance="filled" id="my-button">Hover Me</wa-button>
 ```
 
+:::warning
+<strong>Keep tooltips to text and presentational content.</strong><br />
+Tooltips can't be reliably focused or operated with a keyboard, so avoid buttons, links, and form controls inside one. Reach for a [popover](/docs/components/popover) or [dropdown](/docs/components/dropdown) when you need interactive content.
+:::
+
 ## Examples
 
 ### Placement
 
-Use the `placement` attribute to set the preferred placement of the tooltip.
+Use the `placement` attribute to set the tooltip's preferred position. The actual placement may shift to keep the tooltip inside the viewport.
 
 ```html {.example}
 <div class="tooltip-placement-example">
@@ -93,18 +98,62 @@ Use the `placement` attribute to set the preferred placement of the tooltip.
 </style>
 ```
 
-### Click Trigger
+### Triggers
 
-Set the `trigger` attribute to `click` to toggle the tooltip on click instead of hover.
+The `trigger` attribute controls how a tooltip is activated. Pass multiple values separated by a space to combine them — the default is `hover focus`, which shows the tooltip on pointer hover and keyboard focus.
+
+| Value    | Shows the tooltip when                                     |
+| -------- | ---------------------------------------------------------- |
+| `hover`  | The pointer moves over the target                          |
+| `focus`  | The target receives keyboard focus                         |
+| `click`  | The target is clicked; clicking again dismisses it         |
+| `manual` | Only when you set `open` yourself — no built-in activation |
 
 ```html {.example}
 <wa-button appearance="filled" id="toggle-button">Click to Toggle</wa-button>
 <wa-tooltip for="toggle-button" trigger="click">Click again to dismiss</wa-tooltip>
 ```
 
-### Manual Trigger
+### HTML in Tooltips
 
-Tooltips can be controller programmatically by setting the `trigger` attribute to `manual`. Use the `open` attribute to control when the tooltip is shown.
+Use the default slot to add presentational HTML, such as emphasis or line breaks.
+
+```html {.example}
+<wa-button appearance="filled" id="rich-tooltip">Hover me</wa-button>
+<wa-tooltip for="rich-tooltip">
+  <div>This tooltip includes <strong>formatted</strong> content, such as <em>emphasis</em> and line breaks.</div>
+</wa-tooltip>
+```
+
+### Customizing
+
+Use the `--max-width` custom property to set the width at which the tooltip's content wraps.
+
+```html {.example}
+<wa-tooltip for="wrapping-tooltip" style="--max-width: 80px;">
+  This tooltip will wrap after only 80 pixels.
+</wa-tooltip>
+<wa-button appearance="filled" id="wrapping-tooltip">Hover me</wa-button>
+```
+
+Remove the arrow on a single tooltip with the `without-arrow` attribute.
+
+```html {.example}
+<wa-button appearance="filled" id="no-arrow">No Arrow</wa-button>
+<wa-tooltip for="no-arrow" without-arrow>This is a tooltip with no arrow</wa-tooltip>
+```
+
+Resize the arrow on every tooltip with the `--wa-tooltip-arrow-size` design token. Set it in a `:root` block after the Web Awesome stylesheet loads — `0` removes arrows globally.
+
+```css
+:root {
+  --wa-tooltip-arrow-size: 0;
+}
+```
+
+### Showing & Hiding Manually
+
+Set `trigger="manual"` and toggle the `open` attribute to control the tooltip yourself — handy for onboarding hints or surfacing a tooltip in response to your own logic.
 
 ```html {.example}
 <div class="manual-trigger-example">
@@ -122,43 +171,4 @@ Tooltips can be controller programmatically by setting the `trigger` attribute t
 
   toggle.addEventListener('click', () => (tooltip.open = !tooltip.open));
 </script>
-```
-
-### Removing Arrows
-
-You can control the size of tooltip arrows by overriding the `--wa-tooltip-arrow-size` design token. To remove the arrow, use the `without-arrow` attribute.
-
-```html {.example}
-<wa-button appearance="filled" id="no-arrow">No Arrow</wa-button>
-<wa-tooltip for="no-arrow" without-arrow>This is a tooltip with no arrow</wa-tooltip>
-```
-
-To override it globally, set it in a root block in your stylesheet after the Web Awesome stylesheet is loaded.
-
-```css
-:root {
-  --wa-tooltip-arrow-size: 0;
-}
-```
-
-### HTML in Tooltips
-
-Use the default slot to create tooltips with HTML content. Tooltips are designed only for text and presentational elements. Avoid placing interactive content, such as buttons, links, and form controls, in a tooltip.
-
-```html {.example}
-<wa-button appearance="filled" id="rich-tooltip">Hover me</wa-button>
-<wa-tooltip for="rich-tooltip">
-  <div>I'm not <strong>just</strong> a tooltip, I'm a <em>tooltip</em> with HTML!</div>
-</wa-tooltip>
-```
-
-### Setting a Maximum Width
-
-Use the `--max-width` custom property to change the width the tooltip can grow to before wrapping occurs.
-
-```html {.example}
-<wa-tooltip for="wrapping-tooltip" style="--max-width: 80px;">
-  This tooltip will wrap after only 80 pixels.
-</wa-tooltip>
-<wa-button appearance="filled" id="wrapping-tooltip">Hover me</wa-button>
 ```
