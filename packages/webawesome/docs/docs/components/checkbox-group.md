@@ -69,33 +69,31 @@ Checkbox groups stack vertically by default. Set the `orientation` attribute to 
 The size of grouped checkboxes and switches is determined by the checkbox group's `size` attribute. Any `size` set on individual items will be overridden.
 
 ```html {.example}
-<div>
-  <wa-checkbox-group id="checkbox-group-size" label="Options" hint="Use the select below to change the size." size="m">
+<div class="wa-stack">
+  <wa-checkbox-group label="Extra small" size="xs">
     <wa-checkbox>Option 1</wa-checkbox>
     <wa-checkbox>Option 2</wa-checkbox>
-    <wa-checkbox>Option 3</wa-checkbox>
   </wa-checkbox-group>
-
-  <wa-divider></wa-divider>
-
-  <wa-select label="Size" value="m" style="max-width: 200px;">
-    <wa-option value="xs">Extra small</wa-option>
-    <wa-option value="s">Small</wa-option>
-    <wa-option value="m">Medium</wa-option>
-    <wa-option value="l">Large</wa-option>
-    <wa-option value="xl">Extra large</wa-option>
-  </wa-select>
+  <wa-checkbox-group label="Small" size="s">
+    <wa-checkbox>Option 1</wa-checkbox>
+    <wa-checkbox>Option 2</wa-checkbox>
+  </wa-checkbox-group>
+  <wa-checkbox-group label="Medium" size="m">
+    <wa-checkbox>Option 1</wa-checkbox>
+    <wa-checkbox>Option 2</wa-checkbox>
+  </wa-checkbox-group>
+  <wa-checkbox-group label="Large" size="l">
+    <wa-checkbox>Option 1</wa-checkbox>
+    <wa-checkbox>Option 2</wa-checkbox>
+  </wa-checkbox-group>
+  <wa-checkbox-group label="Extra large" size="xl">
+    <wa-checkbox>Option 1</wa-checkbox>
+    <wa-checkbox>Option 2</wa-checkbox>
+  </wa-checkbox-group>
 </div>
-
-<script>
-  const checkboxGroup = document.getElementById('checkbox-group-size');
-  const sizeSelect = checkboxGroup.parentElement.querySelector('wa-select');
-
-  sizeSelect.addEventListener('change', () => (checkboxGroup.size = sizeSelect.value));
-</script>
 ```
 
-### Disabling
+### Disabled
 
 A checkbox group itself can't be disabled. Add the `disabled` attribute to individual checkboxes to disable them.
 
