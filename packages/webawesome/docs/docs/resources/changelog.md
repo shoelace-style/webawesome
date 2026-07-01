@@ -34,6 +34,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 :::fixed
 
 - Fixed type resolution issues with `pro` components like `<wa-file-input>`, `<wa-combobox>`, etc. [pr:2577]
+- Fixed an issue where fonts weren't loading for themes that import multiple fonts from Bunny Fonts [pr:2582]
 
 :::
 
