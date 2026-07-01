@@ -13,3 +13,13 @@
     <wa-breadcrumb-item>{{ title }}</wa-breadcrumb-item>
   </wa-breadcrumb>
 {%- endblock -%}
+
+{%- block afterContent -%}
+
+{% markdown %}
+:::info
+Are you using Web Awesome with {{ title }}? [Help us improve this page!](https://github.com/shoelace-style/webawesome/blob/next/packages/webawesome/docs/{{ page | relativeInputPath }})
+:::
+{% endmarkdown %}
+
+{% endblock %}

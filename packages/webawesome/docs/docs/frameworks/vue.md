@@ -111,6 +111,12 @@ Here is an example:
 
 For more on slots and limitations with Web Components, check out the Vue documentation here: <https://vuejs.org/guide/extras/web-components#slots>
 
-:::info
-Are you using Web Awesome with Vue? [Help us improve this page!](https://github.com/shoelace-style/webawesome/blob/next/packages/webawesome/docs/docs/frameworks/vue.md)
-:::
+### SSR
+
+SSR in Vue is going to be wildly different depending on your setup.
+
+There is an example here:
+
+<https://github.com/KonnorRogers/webawesome-vite-vue-ssr> using Vite + Vue.
+
+We are aware there are other plugins and meta frameworks out there like Vike and Vite plugin SSR, so we will give those some time to shake out before we add documentation for them as they're still experimental.
