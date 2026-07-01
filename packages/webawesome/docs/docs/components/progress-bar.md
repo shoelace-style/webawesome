@@ -20,23 +20,38 @@ use-cases:
 
 ### Labels
 
-Use the `label` attribute to label the progress bar and tell assistive devices how to announce it.
+Use the `label` attribute to tell assistive devices how to announce the progress bar.
 
 ```html {.example}
 <wa-progress-bar value="50" label="Upload progress"></wa-progress-bar>
 ```
 
-### Custom Height
+### Indeterminate
 
-Use the `--track-height` custom property to set the progress bar's height.
+Add the `indeterminate` attribute when an operation is pending but its progress can't be measured. In this state, `value` is ignored and the label, if present, isn't shown.
 
 ```html {.example}
-<wa-progress-bar value="50" style="--track-height: 6px;"></wa-progress-bar>
+<wa-progress-bar indeterminate></wa-progress-bar>
+```
+
+### Customizing
+
+Set `--track-height` to change the bar's thickness and `--track-color` / `--indicator-color` to recolor it.
+
+```html {.example}
+<wa-progress-bar
+  value="60"
+  style="
+    --track-height: 1.5rem;
+    --track-color: var(--wa-color-neutral-fill-quiet);
+    --indicator-color: var(--wa-color-success-fill-loud);
+  "
+></wa-progress-bar>
 ```
 
 ### Showing Values
 
-Use the default slot to show a value.
+Use the default slot to show a value inside the bar.
 
 ```html {.example}
 <div class="wa-stack">
@@ -71,12 +86,4 @@ Use the default slot to show a value.
     progressBar.textContent = `${value}%`;
   });
 </script>
-```
-
-### Indeterminate
-
-The `indeterminate` attribute can be used to inform the user that the operation is pending, but its status cannot currently be determined. In this state, `value` is ignored and the label, if present, will not be shown.
-
-```html {.example}
-<wa-progress-bar indeterminate></wa-progress-bar>
 ```
