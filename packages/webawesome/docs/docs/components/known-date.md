@@ -24,16 +24,19 @@ Known Date collects a date the user already knows — a birthday, a passport iss
 ```
 
 :::info
-For dates the user needs help finding (scheduling, ranges, browsing), use [`<wa-date-input>`](/docs/components/date-input) instead. Known Date is intentionally simple: no popup calendar, no auto-advance between fields, and no clever parsing.
+<strong>Need a calendar, ranges, or browsing?</strong><br />
+Use [`<wa-date-input>`](/docs/components/date-input) instead. Known Date is intentionally simple: no popup calendar, no auto-advance between fields, and no clever parsing.
 :::
 
 ## Form Submission
 
 The hidden form value is canonical ISO 8601 (`YYYY-MM-DD`), regardless of the locale used to render the fields:
 
-- A complete, real calendar date is submitted as `YYYY-MM-DD`.
-- A partial entry (one or two fields filled) submits no value — the form data omits the entry entirely.
-- An invalid combination such as 30 February submits no value.
+| Entry | Form value |
+| --- | --- |
+| Complete, valid date | `YYYY-MM-DD` (e.g. `2007-03-27`) |
+| Partial (one or two fields) | _(empty)_ — omitted from form data |
+| Invalid date (e.g. 30 February) | _(empty)_ |
 
 ```html {.example}
 <form id="kd-form-demo">
@@ -96,11 +99,11 @@ Use the `hint` attribute (or slot) to show an example value. The hint is associa
 The three fields render in the natural order for the inherited `lang` (or the explicit `locale` attribute). The labels stay the same; only the position changes.
 
 ```html {.example}
-<wa-known-date label="UK order" lang="en-GB"></wa-known-date>
-<br />
-<wa-known-date label="US order" lang="en-US"></wa-known-date>
-<br />
-<wa-known-date label="Japanese order" lang="ja-JP"></wa-known-date>
+<div class="wa-stack">
+  <wa-known-date label="UK order" lang="en-GB"></wa-known-date>
+  <wa-known-date label="US order" lang="en-US"></wa-known-date>
+  <wa-known-date label="Japanese order" lang="ja-JP"></wa-known-date>
+</div>
 ```
 
 ### Min & Max
@@ -123,12 +126,20 @@ Set `required` to make the date input required for form submission. Like other f
 </form>
 ```
 
-### Disabled & Readonly
+### Disabled
+
+Use the `disabled` attribute to disable a date field.
 
 ```html {.example}
-<wa-known-date label="Disabled" value="2007-03-27" disabled></wa-known-date>
-<br />
-<wa-known-date label="Readonly" value="2007-03-27" readonly></wa-known-date>
+<wa-known-date label="Birthday" value="2007-03-27" disabled></wa-known-date>
+```
+
+### Readonly
+
+Use the `readonly` attribute to keep a value visible but uneditable. Unlike `disabled`, a readonly date field stays focusable and its value is still submitted with the form.
+
+```html {.example}
+<wa-known-date label="Member since" value="2007-03-27" readonly></wa-known-date>
 ```
 
 ### Autocomplete
@@ -142,25 +153,23 @@ Set `autocomplete="bday"` to enable browser autofill for birthdays. The host exp
 ### Sizes
 
 ```html {.example}
-<wa-known-date label="Extra small" size="xs"></wa-known-date>
-<br />
-<wa-known-date label="Small" size="s"></wa-known-date>
-<br />
-<wa-known-date label="Medium (default)" size="m"></wa-known-date>
-<br />
-<wa-known-date label="Large" size="l"></wa-known-date>
-<br />
-<wa-known-date label="Extra large" size="xl"></wa-known-date>
+<div class="wa-stack">
+  <wa-known-date label="Extra small" size="xs"></wa-known-date>
+  <wa-known-date label="Small" size="s"></wa-known-date>
+  <wa-known-date label="Medium (default)" size="m"></wa-known-date>
+  <wa-known-date label="Large" size="l"></wa-known-date>
+  <wa-known-date label="Extra large" size="xl"></wa-known-date>
+</div>
 ```
 
-### Appearances
+### Appearance
 
 ```html {.example}
-<wa-known-date label="Outlined (default)" appearance="outlined"></wa-known-date>
-<br />
-<wa-known-date label="Filled" appearance="filled"></wa-known-date>
-<br />
-<wa-known-date label="Filled outlined" appearance="filled-outlined"></wa-known-date>
+<div class="wa-stack">
+  <wa-known-date label="Outlined (default)" appearance="outlined"></wa-known-date>
+  <wa-known-date label="Filled" appearance="filled"></wa-known-date>
+  <wa-known-date label="Filled outlined" appearance="filled-outlined"></wa-known-date>
+</div>
 ```
 
 ### Pill
