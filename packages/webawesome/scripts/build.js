@@ -118,7 +118,7 @@ export async function build(options = {}) {
       spinner.succeed(`The build is complete ${chalk.gray(`(finished in ${time})`)}`);
 
       // update the lit-render-string in case it changed
-      const mod = await import(`../dist/ssr/render-string.js?cachebust=${new Date().getTime()}`);
+      const mod = await import(path.join(getDistDir(), `ssr/render-string.js?cachebust=${new Date().getTime()}`));
       litRenderString = mod.renderString;
     } catch (err) {
       spinner.fail();
