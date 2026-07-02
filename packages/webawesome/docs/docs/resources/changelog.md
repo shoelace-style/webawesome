@@ -33,6 +33,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::added
 
+- Added an experimental `<wa-otp-input>` component, generally used for fixed length codes (PINs, OTPs, verification codes, etc).
 - Added the experimental `<wa-random-content>` component, which randomly shows one or more of its children — handy for rotating testimonials, tips, or featured content
 - Added the Mosaic, Pixel, Vellum, Slab Duo, and Slab Press Duo Pro+ icon families to `<wa-icon>` [pr:2562]
 - Added the `buzz`, `flip-360`, `float`, `jello`, `spin-snap`, `spin-snap-4`, `spin-snap-8`, `swing`, and `wag` animations to `<wa-icon>` [pr:2562]
