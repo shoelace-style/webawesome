@@ -7,48 +7,80 @@ const translation: Translation = {
   $dir: 'ltr',
 
   am: 'AM',
-  carousel: 'Vrtuljak',
+  autosizeColumn: 'Automatski prilagodi veličinu stupca',
   captions: 'Titlovi',
+  carousel: 'Vrtuljak',
   chooseDate: 'Odaberi datum',
-  chooseTime: 'Odaberi vrijeme',
   chooseDecade: 'Odaberi desetljeće',
   chooseMonth: 'Odaberi mjesec',
+  chooseTime: 'Odaberi vrijeme',
   chooseYear: 'Odaberi godinu',
   clearEntry: 'Očisti unos',
-  createOption: value => `Stvori "${value}"`,
+  clearSort: 'Poništi sortiranje',
   close: 'Zatvori',
   closeCalendar: 'Zatvori kalendar',
   closeTimeInput: 'Zatvori birač vremena',
+  collapseRow: 'Sažmi redak',
+  columnMenu: 'Opcije stupca',
+  columnMovedToPosition: (label, position, total) => `${label} premješten na poziciju ${position} od ${total}`,
+  columns: 'Stupci',
+  compactPageXOfY: (page, total) => `${page} od ${total}`,
   copied: 'Kopirano',
   copy: 'Kopiraj',
+  createOption: value => `Stvori "${value}"`,
+  currentlyPlaying: 'trenutno se reproducira',
   currentValue: 'Trenutna vrijednost',
   date: 'Datum',
   datePickerKeyboardHelp: 'Strelicama mijenjajte vrijednosti; pritisnite Alt+Strelica dolje za otvaranje kalendara.',
   day: 'Dan',
   dayPeriod: 'AM/PM',
   decrement: 'Smanji',
+  deselectAllRows: 'Poništi odabir svih redaka',
   dropFileHere: 'Drop file here or click to browse',
   dropFilesHere: 'Drop files here or click to browse',
   empty: 'Prazno',
-  error: 'Greška',
-  enterFullscreen: 'Uđi u cijeli zaslon',
   endDate: 'Datum završetka',
+  enterFullscreen: 'Uđi u cijeli zaslon',
+  error: 'Greška',
   exitFullscreen: 'Izađi iz cijelog zaslona',
+  expandRow: 'Proširi redak',
+  filterByColumn: label => `Filtriraj po stupcu ${label}`,
+  filterMax: 'Maks',
+  filterMin: 'Min',
+  firstPage: 'Prva stranica',
   goToSlide: (slide, count) => `Idi na slajd ${slide} od ${count}`,
+  hideColumn: 'Sakrij stupac',
   hidePassword: 'Sakrij lozinku',
   hour: 'Sat',
   incompleteDate: 'Unesite valjani datum.',
   increment: 'Povećaj',
+  jumpBackwardX: count => {
+    const mod10 = count % 10;
+    const mod100 = count % 100;
+    if (mod10 === 1 && mod100 !== 11) return `Skoči ${count} stranicu unatrag`;
+    if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `Skoči ${count} stranice unatrag`;
+    return `Skoči ${count} stranica unatrag`;
+  },
+  jumpForwardX: count => {
+    const mod10 = count % 10;
+    const mod100 = count % 100;
+    if (mod10 === 1 && mod100 !== 11) return `Skoči ${count} stranicu unaprijed`;
+    if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `Skoči ${count} stranice unaprijed`;
+    return `Skoči ${count} stranica unaprijed`;
+  },
+  lastPage: 'Posljednja stranica',
   loading: 'Učitavanje',
   minute: 'Minuta',
-  moreOptions: 'Više opcija',
   month: 'Mjesec',
+  moreOptions: 'Više opcija',
   mute: 'Utišaj',
   nextDecade: 'Sljedeće desetljeće',
   nextMonth: 'Sljedeći mjesec',
+  nextPage: 'Sljedeća stranica',
   nextSlide: 'Sljedeći slajd',
   nextVideo: 'Sljedeći video',
   nextYear: 'Sljedeća godina',
+  noData: 'Nema podataka',
   now: 'Sada',
   numCharacters: num => {
     if (num === 1) return '1 znak';
@@ -69,16 +101,28 @@ const translation: Translation = {
     if (num === 1) return '1 opcija je odabrana';
     return `${num} odabranih opcija`;
   },
+  numRowsSelected: num => {
+    if (num === 1) return '1 redak odabran';
+    const mod10 = num % 10;
+    const mod100 = num % 100;
+    if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `${num} retka odabrana`;
+    return `${num} redaka odabrano`;
+  },
+  pageXOfY: (page, total) => `Stranica ${page} od ${total}`,
+  pagination: 'Straničenje',
   pause: 'Pauziraj',
   pauseAnimation: 'Pauziraj animaciju',
   pictureInPicture: 'Slika u slici',
-  pm: 'PM',
+  pinLeft: 'Prikvači lijevo',
+  pinRight: 'Prikvači desno',
   play: 'Reproduciraj',
+  playAnimation: 'Reproduciraj animaciju',
   playbackSpeed: 'Brzina reprodukcije',
   playlist: 'Popis za reprodukciju',
-  playAnimation: 'Reproduciraj animaciju',
+  pm: 'PM',
   previousDecade: 'Prethodno desetljeće',
   previousMonth: 'Prethodni mjesec',
+  previousPage: 'Prethodna stranica',
   previousSlide: 'Prethodni slajd',
   previousVideo: 'Prethodni video',
   previousYear: 'Prethodna godina',
@@ -100,89 +144,44 @@ const translation: Translation = {
   readonly: 'Samo za čitanje',
   remove: 'Makni',
   resize: 'Promijeni veličinu',
+  resizeColumn: 'Promijeni veličinu stupca',
+  rowsPerPage: 'Redaka po stranici',
   scrollableRegion: 'Područje s mogućnošću pomicanja',
   scrollToEnd: 'Skrolaj do kraja',
   scrollToStart: 'Skrolaj na početak',
+  search: 'Pretraži',
   second: 'Sekunda',
+  seek: 'Traži',
+  seekProgress: (current, duration) => `${current} od ${duration}`,
   selectAColorFromTheScreen: 'Odaberi boju sa ekrana',
+  selectAllRows: 'Odaberi sve retke',
   selected: 'Odabrano',
   selectedDateLabel: date => `Odabrano: ${date}`,
   selectedRangeLabel: range => `Odabrani raspon: ${range}`,
+  selectGroup: 'Odaberi grupu',
   selectionCleared: 'Odabir poništen',
+  selectRow: 'Odaberi redak',
+  showingNofMRows: (shown, total) => `Prikazuje se ${shown} od ${total} redaka`,
+  showingXtoYofZ: (start, end, total) => `${start}–${end} od ${total}`,
   showPassword: 'Pokaži lozinku',
   slideNum: slide => `Slajd ${slide}`,
+  sortAscending: 'Sortiraj uzlazno',
+  sortColumn: 'Sortiraj stupac',
+  sortDescending: 'Sortiraj silazno',
   startDate: 'Datum početka',
   time: 'Vrijeme',
   timeInputKeyboardHelp:
     'Strelicama mijenjajte vrijednosti; pritisnite Alt+Strelica dolje za otvaranje birača vremena.',
   today: 'Danas',
   toggleColorFormat: 'Zamijeni format boje',
-  seek: 'Traži',
-  seekProgress: (current, duration) => `${current} od ${duration}`,
-  currentlyPlaying: 'trenutno se reproducira',
   unmute: 'Uključi zvuk',
+  unpin: 'Otkvači',
+  unpinColumn: 'Otkvači stupac',
   videoPlayer: 'Video player',
   volume: 'Glasnoća',
   year: 'Godina',
   zoomIn: 'Povećaj',
   zoomOut: 'Smanji',
-
-  noData: 'Nema podataka',
-  search: 'Pretraži',
-  selectAllRows: 'Odaberi sve retke',
-  deselectAllRows: 'Poništi odabir svih redaka',
-  selectRow: 'Odaberi redak',
-  selectGroup: 'Odaberi grupu',
-  resizeColumn: 'Promijeni veličinu stupca',
-  sortColumn: 'Sortiraj stupac',
-  columns: 'Stupci',
-  expandRow: 'Proširi redak',
-  collapseRow: 'Sažmi redak',
-  pagination: 'Straničenje',
-  firstPage: 'Prva stranica',
-  previousPage: 'Prethodna stranica',
-  nextPage: 'Sljedeća stranica',
-  lastPage: 'Posljednja stranica',
-  rowsPerPage: 'Redaka po stranici',
-  jumpBackwardX: count => {
-    const mod10 = count % 10;
-    const mod100 = count % 100;
-    if (mod10 === 1 && mod100 !== 11) return `Skoči ${count} stranicu unatrag`;
-    if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `Skoči ${count} stranice unatrag`;
-    return `Skoči ${count} stranica unatrag`;
-  },
-  jumpForwardX: count => {
-    const mod10 = count % 10;
-    const mod100 = count % 100;
-    if (mod10 === 1 && mod100 !== 11) return `Skoči ${count} stranicu unaprijed`;
-    if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `Skoči ${count} stranice unaprijed`;
-    return `Skoči ${count} stranica unaprijed`;
-  },
-  pageXOfY: (page, total) => `Stranica ${page} od ${total}`,
-  compactPageXOfY: (page, total) => `${page} od ${total}`,
-  showingXtoYofZ: (start, end, total) => `${start}–${end} od ${total}`,
-  numRowsSelected: num => {
-    if (num === 1) return '1 redak odabran';
-    const mod10 = num % 10;
-    const mod100 = num % 100;
-    if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `${num} retka odabrana`;
-    return `${num} redaka odabrano`;
-  },
-  showingNofMRows: (shown, total) => `Prikazuje se ${shown} od ${total} redaka`,
-  columnMovedToPosition: (label, position, total) => `${label} premješten na poziciju ${position} od ${total}`,
-  filterMin: 'Min',
-  filterMax: 'Maks',
-  filterByColumn: label => `Filtriraj po stupcu ${label}`,
-  columnMenu: 'Opcije stupca',
-  unpinColumn: 'Otkvači stupac',
-  pinLeft: 'Prikvači lijevo',
-  pinRight: 'Prikvači desno',
-  unpin: 'Otkvači',
-  sortAscending: 'Sortiraj uzlazno',
-  sortDescending: 'Sortiraj silazno',
-  clearSort: 'Poništi sortiranje',
-  hideColumn: 'Sakrij stupac',
-  autosizeColumn: 'Automatski prilagodi veličinu stupca',
 };
 
 registerTranslation(translation);
