@@ -18,6 +18,11 @@
   container-name: code-example;
   isolation: isolate;
 
+  /* Skip rendering (layout, paint, and the boot/measure work of the components inside) for examples that are off-screen
+    until they scroll near the viewport. */
+  content-visibility: auto;
+  contain-intrinsic-size: auto 400px;
+
   &:has(+ *) {
     margin-block-end: var(--wa-content-spacing);
   }
