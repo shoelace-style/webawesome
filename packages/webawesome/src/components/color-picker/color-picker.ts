@@ -806,7 +806,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
     this.syncValues();
   }
 
-  @watch('opacity')
+  @watch('opacity', { waitUntilFirstUpdate: true })
   handleOpacityChange() {
     this.alpha = 100;
   }
@@ -938,6 +938,14 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
   firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
+
+    const defaultValue = this.defaultValue;
+    if (defaultValue) {
+      const defaultColor = this.parseColor(defaultValue);
+      if (this.opacity && defaultColor && defaultColor.hsva.a < 1 && this.value === defaultColor.hex) {
+        this.setColor(defaultValue);
+      }
+    }
 
     this.hasEyeDropper = 'EyeDropper' in window;
   }
