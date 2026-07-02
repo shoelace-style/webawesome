@@ -10,6 +10,7 @@ export default css`
     position: relative;
     display: inline-flex;
     align-items: center;
+    align-self: start;
     gap: var(--segment-gap, var(--wa-space-xs));
     cursor: text;
   }
