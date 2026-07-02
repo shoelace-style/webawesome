@@ -23,7 +23,7 @@ This component works with standard `<form>` elements. See [form controls](/docs/
 
 ## Examples
 
-### Labels
+### Label
 
 Ratings are usually identified by context, so the label isn't displayed. Always provide one with the `label` attribute so assistive devices can announce the control.
 
@@ -47,7 +47,7 @@ Use the `readonly` attribute to display a rating that users can't change. Unlike
 <wa-rating label="Rating" readonly value="3"></wa-rating>
 ```
 
-### Sizes
+### Size
 
 Use the `size` attribute to change the rating's size.
 

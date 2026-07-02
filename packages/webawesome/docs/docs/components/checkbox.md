@@ -23,7 +23,7 @@ This component works with standard `<form>` elements. See [form controls](/docs/
 
 ## Examples
 
-### Setting Initial Values
+### Initial Value
 
 Use the `checked` attribute to activate the checkbox.
 
@@ -60,7 +60,7 @@ Use the `disabled` attribute to disable the checkbox.
 <wa-checkbox disabled>I accept marketing emails</wa-checkbox>
 ```
 
-### Sizes
+### Size
 
 Use the `size` attribute to change a checkbox's size.
 

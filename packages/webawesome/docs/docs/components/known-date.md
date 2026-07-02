@@ -150,7 +150,7 @@ Set `autocomplete="bday"` to enable browser autofill for birthdays. The host exp
 <wa-known-date label="Date of birth" autocomplete="bday"></wa-known-date>
 ```
 
-### Sizes
+### Size
 
 ```html {.example}
 <div class="wa-stack">

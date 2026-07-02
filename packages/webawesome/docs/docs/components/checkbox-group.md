@@ -25,7 +25,7 @@ Checkboxes in a group remain independent form controls with their own `name`, `v
 
 ## Examples
 
-### Labels
+### Label
 
 Use the `label` attribute to give the group an accessible label. For labels that contain HTML, use the `label` slot instead.
 
@@ -64,7 +64,7 @@ Checkbox groups stack vertically by default. Set the `orientation` attribute to 
 </wa-checkbox-group>
 ```
 
-### Sizes
+### Size
 
 The size of grouped checkboxes and switches is determined by the checkbox group's `size` attribute. Any `size` set on individual items will be overridden.
 

@@ -21,7 +21,7 @@ use-cases:
 
 ## Examples
 
-### Setting Initial Values
+### Initial Value
 
 Use the `value` attribute on the radio group to set the initially selected radio. Match it to the `value` of the radio that should start checked, just like native HTML.
 
@@ -122,7 +122,7 @@ The default orientation for radio items is `vertical`. Set the `orientation` to 
 </wa-radio-group>
 ```
 
-### Sizes
+### Size
 
 The size of radios will be determined by the Radio Group's `size` attribute.
 

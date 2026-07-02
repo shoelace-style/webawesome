@@ -23,7 +23,7 @@ This component works with standard `<form>` elements. See [form controls](/docs/
 
 ## Examples
 
-### Labels
+### Label
 
 Use the `label` attribute to give the input an accessible label. For labels that contain HTML, use the `label` slot instead.
 
@@ -43,7 +43,7 @@ Add descriptive hint to an input with the `hint` attribute. For hints that conta
 ></wa-number-input>
 ```
 
-### Placeholders
+### Placeholder
 
 Use the `placeholder` attribute to add a placeholder.
 
@@ -84,7 +84,7 @@ Use the `readonly` attribute to keep a value visible but uneditable. Unlike `dis
 <wa-number-input label="Readonly" value="42" readonly style="max-width: 260px;"></wa-number-input>
 ```
 
-### Sizes
+### Size
 
 Use the `size` attribute to change an input's size.
 
@@ -106,7 +106,7 @@ Use the `pill` attribute to give inputs rounded edges.
 <wa-number-input label="Quantity" pill value="5" style="max-width: 260px;"></wa-number-input>
 ```
 
-### Setting Min, Max & Step
+### Min, Max & Step
 
 Use the `min` and `max` attributes to set a minimum and maximum value. Use the `step` attribute to change the granularity the value must adhere to when using the stepper buttons or arrow keys.
 
@@ -198,7 +198,7 @@ Use [CSS parts](#css-parts) to customize the way form controls are drawn. This e
 </style>
 ```
 
-### Form Validation
+### Validation
 
 Use the `required` attribute to make the field required. Combine with `min` and `max` for range validation.
 

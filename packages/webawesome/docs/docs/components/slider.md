@@ -36,7 +36,7 @@ This component works with standard `<form>` elements. See [form controls](/docs/
 
 ## Examples
 
-### Labels
+### Label
 
 Use the `label` attribute to give the slider an accessible label. For labels that contain HTML, use the `label` slot instead.
 
@@ -52,20 +52,20 @@ Add descriptive hint to a slider with the `hint` attribute. For hints that conta
 <wa-slider label="Volume" hint="Controls the volume of the current song." min="0" max="100" value="50"></wa-slider>
 ```
 
-### Showing Tooltips
-
-Use the `with-tooltip` attribute to display a tooltip with the current value when the slider is focused or being dragged.
-
-```html {.example}
-<wa-slider label="Quality" name="quality" min="0" max="100" value="50" with-tooltip></wa-slider>
-```
-
-### Setting Min, Max & Step
+### Min, Max & Step
 
 Use the `min` and `max` attributes to define the slider's range, and the `step` attribute to control the increment between values.
 
 ```html {.example}
 <wa-slider label="Between zero and one" min="0" max="1" step="0.1" value="0.5" with-tooltip></wa-slider>
+```
+
+### Showing a Tooltip
+
+Use the `with-tooltip` attribute to display a tooltip with the current value when the slider is focused or being dragged.
+
+```html {.example}
+<wa-slider label="Quality" name="quality" min="0" max="100" value="50" with-tooltip></wa-slider>
 ```
 
 ### Showing Markers
@@ -100,64 +100,6 @@ Use the `reference` slot to add contextual labels below the slider. References a
 <strong>Show a reference next to a specific marker.</strong><br />
 Add `position: absolute` to the reference and set `left`, `right`, `top`, or `bottom` to a percentage that matches the marker's position.
 :::
-
-### Formatting the Value
-
-Customize how values are displayed in tooltips and announced to screen readers using the `valueFormatter` property. Set it to a function that accepts a number and returns a formatted string. The [`Intl.NumberFormat API`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat) is particularly useful for this.
-
-```html {.example}
-<!-- Percent -->
-<wa-slider
-  id="slider__percent"
-  label="Percentage"
-  name="percentage"
-  value="0.5"
-  min="0"
-  max="1"
-  step=".01"
-  with-tooltip
-></wa-slider
-><br />
-
-<script>
-  const slider = document.getElementById('slider__percent');
-  const formatter = new Intl.NumberFormat('en-US', { style: 'percent' });
-
-  customElements.whenDefined('wa-slider').then(() => {
-    slider.valueFormatter = value => formatter.format(value);
-  });
-</script>
-
-<!-- Duration -->
-<wa-slider id="slider__duration" label="Duration" name="duration" value="12" min="0" max="24" with-tooltip></wa-slider
-><br />
-
-<script>
-  const slider = document.getElementById('slider__duration');
-  const formatter = new Intl.NumberFormat('en-US', { style: 'unit', unit: 'hour', unitDisplay: 'long' });
-
-  customElements.whenDefined('wa-slider').then(() => {
-    slider.valueFormatter = value => formatter.format(value);
-  });
-</script>
-
-<!-- Currency -->
-<wa-slider id="slider__currency" label="Currency" name="currency" min="0" max="100" value="50" with-tooltip></wa-slider>
-
-<script>
-  const slider = document.getElementById('slider__currency');
-  const formatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    currencyDisplay: 'symbol',
-    maximumFractionDigits: 0,
-  });
-
-  customElements.whenDefined('wa-slider').then(() => {
-    slider.valueFormatter = value => formatter.format(value);
-  });
-</script>
-```
 
 ### Range Selection
 
@@ -251,7 +193,7 @@ Range sliders can also be vertical.
 </script>
 ```
 
-### Sizes
+### Size
 
 Control the slider's size with the `size` attribute. Valid options are `xs`, `s`, `m`, `l`, and `xl`.
 
@@ -301,6 +243,64 @@ Use the `readonly` attribute to show a value that users can't change by dragging
 
 ```html {.example}
 <wa-slider label="Server load" value="72" min="0" max="100" with-tooltip readonly></wa-slider>
+```
+
+### Formatting the Value
+
+Customize how values are displayed in tooltips and announced to screen readers using the `valueFormatter` property. Set it to a function that accepts a number and returns a formatted string. The [`Intl.NumberFormat API`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat) is particularly useful for this.
+
+```html {.example}
+<!-- Percent -->
+<wa-slider
+  id="slider__percent"
+  label="Percentage"
+  name="percentage"
+  value="0.5"
+  min="0"
+  max="1"
+  step=".01"
+  with-tooltip
+></wa-slider
+><br />
+
+<script>
+  const slider = document.getElementById('slider__percent');
+  const formatter = new Intl.NumberFormat('en-US', { style: 'percent' });
+
+  customElements.whenDefined('wa-slider').then(() => {
+    slider.valueFormatter = value => formatter.format(value);
+  });
+</script>
+
+<!-- Duration -->
+<wa-slider id="slider__duration" label="Duration" name="duration" value="12" min="0" max="24" with-tooltip></wa-slider
+><br />
+
+<script>
+  const slider = document.getElementById('slider__duration');
+  const formatter = new Intl.NumberFormat('en-US', { style: 'unit', unit: 'hour', unitDisplay: 'long' });
+
+  customElements.whenDefined('wa-slider').then(() => {
+    slider.valueFormatter = value => formatter.format(value);
+  });
+</script>
+
+<!-- Currency -->
+<wa-slider id="slider__currency" label="Currency" name="currency" min="0" max="100" value="50" with-tooltip></wa-slider>
+
+<script>
+  const slider = document.getElementById('slider__currency');
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    currencyDisplay: 'symbol',
+    maximumFractionDigits: 0,
+  });
+
+  customElements.whenDefined('wa-slider').then(() => {
+    slider.valueFormatter = value => formatter.format(value);
+  });
+</script>
 ```
 
 ### Reacting to Input

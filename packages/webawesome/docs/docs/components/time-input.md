@@ -25,11 +25,6 @@ Type digits to fill the focused segment (focus auto-advances when a segment can 
 <wa-time-input label="Pick a time"></wa-time-input>
 ```
 
-:::info
-<strong>The submitted value is always canonical 24-hour.</strong><br />
-It matches HTML `<input type="time">`: `HH:mm` for whole-minute steps, `HH:mm:ss` when seconds are shown (`step` < 60), even when the UI is 12-hour. The displayed text follows the user's locale, inherited from the `lang` attribute on the host or an ancestor.
-:::
-
 ## Form Submission
 
 The hidden form value is canonical 24-hour time, regardless of the user's locale or `hour-format`:
@@ -90,7 +85,7 @@ Set the `value` attribute to a time string to pre-populate the input.
 <wa-time-input label="Meeting time" value="14:30"></wa-time-input>
 ```
 
-### Labels
+### Label
 
 Use the `label` attribute to give the time input an accessible label. For labels that contain HTML, use the `label` slot instead.
 
@@ -121,16 +116,12 @@ Use the `start` and `end` slots to add presentational elements like `<wa-icon>` 
 </div>
 ```
 
-### Required + Clear Button
+### Clearable
 
-Combine `required` with `with-clear` to enforce a value while still letting users wipe their selection in a single click.
+Add the `with-clear` attribute to let users wipe their selection in a single click. The clear button only appears once a value is set.
 
 ```html {.example}
-<form>
-  <wa-time-input name="alarm" label="Alarm" required with-clear></wa-time-input>
-  <br />
-  <wa-button type="submit" appearance="filled" variant="neutral">Submit</wa-button>
-</form>
+<wa-time-input label="Alarm" with-clear value="07:00"></wa-time-input>
 ```
 
 ### Min & Max
@@ -183,7 +174,7 @@ Add a quick-pick "Now" button in the popup footer with `with-now`.
 <wa-time-input label="When?" with-now></wa-time-input>
 ```
 
-### Sizes
+### Size
 
 Use the `size` attribute to match the time input to surrounding form controls.
 

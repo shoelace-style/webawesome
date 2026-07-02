@@ -23,7 +23,7 @@ This component works with standard `<form>` elements. See [form controls](/docs/
 
 ## Examples
 
-### Labels
+### Label
 
 Use the `label` attribute to give the textarea an accessible label. For labels that contain HTML, use the `label` slot instead.
 
@@ -39,7 +39,7 @@ Add a descriptive hint to a textarea with the `hint` attribute. For hints that c
 <wa-textarea label="Feedback" hint="Please tell us what you think."></wa-textarea>
 ```
 
-### Placeholders
+### Placeholder
 
 Use the `placeholder` attribute to add a placeholder.
 
@@ -75,7 +75,7 @@ Use the `readonly` attribute to keep a value visible but uneditable. Unlike `dis
 <wa-textarea label="Release notes" value="Fixed a handful of bugs and polished the edges." readonly></wa-textarea>
 ```
 
-### Sizes
+### Size
 
 Use the `size` attribute to change a textarea's size.
 
@@ -137,7 +137,7 @@ Add the `with-count` attribute to show a character count below the textarea. Whe
 It's exposed through a live region so assistive technologies announce updates as the user types.
 :::
 
-### Setting Initial Values
+### Initial Value
 
 Use the `value` attribute to set an initial value.
 

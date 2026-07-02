@@ -24,7 +24,7 @@ This component works with standard `<form>` elements. See [form controls](/docs/
 
 ## Examples
 
-### Labels
+### Label
 
 Use the `label` attribute to give the color picker an accessible label. For labels that contain HTML, use the `label` slot instead.
 
@@ -48,7 +48,7 @@ Use the `value` attribute to set a starting color. The value's format follows th
 <wa-color-picker value="#4a90e2" label="Select a color"></wa-color-picker>
 ```
 
-### Formats
+### Format
 
 Set the color picker's format with the `format` attribute. Valid options are `hex`, `rgb`, `hsl`, and `hsv`. The input still accepts any parsable format regardless of this setting.
 
@@ -120,7 +120,7 @@ Set the `placement` attribute to control where the dropdown opens. The actual po
 </div>
 ```
 
-### Sizes
+### Size
 
 Use the `size` attribute to change the color picker's trigger size.
 

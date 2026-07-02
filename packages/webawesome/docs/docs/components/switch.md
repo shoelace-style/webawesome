@@ -22,7 +22,7 @@ This component works with standard `<form>` elements. See [form controls](/docs/
 
 ## Examples
 
-### Labels
+### Label
 
 Add label text as the switch's default content. For labels that contain HTML, slot the markup in directly.
 
@@ -38,7 +38,7 @@ Add descriptive hint to a switch with the `hint` attribute. For hints that conta
 <wa-switch hint="You can change this at any time in settings.">Email me about new releases</wa-switch>
 ```
 
-### Setting Initial Values
+### Initial Value
 
 Use the `checked` attribute to activate the switch.
 
@@ -59,7 +59,7 @@ Use the `disabled` attribute to disable the switch.
 <wa-switch disabled>Sync over cellular</wa-switch>
 ```
 
-### Sizes
+### Size
 
 Use the `size` attribute to change a switch's size.
 

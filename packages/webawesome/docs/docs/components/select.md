@@ -31,7 +31,7 @@ This component works with standard `<form>` elements. See [form controls](/docs/
 
 ## Examples
 
-### Labels
+### Label
 
 Use the `label` attribute to give the select an accessible label. For labels that contain HTML, use the `label` slot instead.
 
@@ -55,7 +55,7 @@ Add a descriptive hint with the `hint` attribute. For hints that contain HTML, u
 </wa-select>
 ```
 
-### Placeholders
+### Placeholder
 
 Use the `placeholder` attribute to show prompt text before a selection is made.
 
@@ -97,7 +97,7 @@ Use the `pill` attribute to give the select rounded edges.
 </wa-select>
 ```
 
-### Sizes
+### Size
 
 Use the `size` attribute to change a select's size.
 
@@ -169,7 +169,7 @@ To let people choose more than one option, add the `multiple` attribute. Pair it
 Use the `max-options-visible` attribute to cap how many tags show at once before the rest collapse into a count.
 :::
 
-### Setting Initial Values
+### Initial Value
 
 Use the `selected` attribute on individual options to set the initial selection, just like native HTML.
 

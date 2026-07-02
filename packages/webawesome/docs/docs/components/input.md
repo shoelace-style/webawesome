@@ -25,7 +25,7 @@ This component works with standard `<form>` elements. See [form controls](/docs/
 
 ## Examples
 
-### Labels
+### Label
 
 Use the `label` attribute to give the input an accessible label. For labels that contain HTML, use the `label` slot instead.
 
@@ -41,7 +41,7 @@ Add descriptive hint to an input with the `hint` attribute. For hints that conta
 <wa-input label="Nickname" hint="What would you like people to call you?"></wa-input>
 ```
 
-### Placeholders
+### Placeholder
 
 Use the `placeholder` attribute to add a placeholder.
 
@@ -93,7 +93,7 @@ Use the `readonly` attribute to keep a value visible but uneditable. Unlike `dis
 <wa-input label="Account ID" value="WA-2049" readonly></wa-input>
 ```
 
-### Sizes
+### Size
 
 Use the `size` attribute to change an input's size.
 
