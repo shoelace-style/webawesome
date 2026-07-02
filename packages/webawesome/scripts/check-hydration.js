@@ -202,6 +202,12 @@ export async function check(options = {}) {
     });
   });
 
+  // Prime the dev server's compile cache with one sequential request per URL
+  // before hammering it concurrently — avoids a cold-start pileup on CI.
+  for (const url of urls) {
+    await fetch(url).catch(() => {});
+  }
+
   const failures = [];
 
   // Shared-index worker pool: each worker pulls the next URL when it finishes,
