@@ -84,29 +84,29 @@ npm install @lit-labs/eleventy-plugin-lit
 
 Once installed, register the plugin in your `eleventy.config.js` file.
 
-```diff
+```js
 // eleventy.config.js
 
-import litPlugin from '@lit-labs/eleventy-plugin-lit'
-import * as fs from "node:fs"
-import * as path from "node:path"
+import litPlugin from '@lit-labs/eleventy-plugin-lit';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
 
-const webawesomeDir = "./node_modules/@awesome.me/webawesome"
-const webawesomeComponentsDir = path.join(webawesomeDir, "dist", "components")
-const webawesomeComponents = fs.readdirSync(webawesomeComponentsDir).map((componentName) => {
-  return path.join(webawesomeComponentsDir, componentName, componentName + ".js")
-})
+const webawesomeDir = './node_modules/@awesome.me/webawesome';
+const webawesomeComponentsDir = path.join(webawesomeDir, 'dist', 'components');
+const webawesomeComponents = fs.readdirSync(webawesomeComponentsDir).map(componentName => {
+  return path.join(webawesomeComponentsDir, componentName, componentName + '.js');
+});
 
-export default async function(eleventyConfig) {
+export default async function (eleventyConfig) {
   eleventyConfig.addPlugin(litPlugin, {
     mode: 'worker',
-    componentModules: webawesomeComponents
+    componentModules: webawesomeComponents,
   });
 
   eleventyConfig.addPassthroughCopy({
-    webawesomeDir: "webawesome",
+    webawesomeDir: 'webawesome',
   });
-};
+}
 
 export const config = {
   markdownTemplateEngine: 'njk',
