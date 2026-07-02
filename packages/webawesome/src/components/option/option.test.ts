@@ -1,5 +1,6 @@
 import { aTimeout, expect } from '@open-wc/testing';
 import { html } from 'lit';
+import sinon from 'sinon';
 import { fixtures } from '../../internal/test/fixture.js';
 import type WaSelect from '../select/select.js';
 import type WaOption from './option.js';
@@ -102,6 +103,45 @@ describe('<wa-option>', () => {
         it('should fall back to defaultLabel when label is empty', async () => {
           const el = await fixture<WaOption>(html` <wa-option>Fallback</wa-option> `);
           expect(el.label).to.equal('Fallback');
+        });
+
+        it('should not throw when its controller lacks handleDefaultSlotChange()', async () => {
+          const callbackErrors: unknown[] = [];
+
+          const whenDefined = sinon.stub(customElements, 'whenDefined').callsFake(() => {
+            return {
+              then(onFulfilled: () => unknown) {
+                try {
+                  onFulfilled();
+                } catch (error) {
+                  callbackErrors.push(error);
+                }
+
+                return Promise.resolve();
+              },
+            } as unknown as Promise<CustomElementConstructor>;
+          });
+
+          try {
+            const el = await fixture<HTMLElement>(html`
+              <wa-combobox>
+                <wa-option>Before</wa-option>
+              </wa-combobox>
+            `);
+            const combobox = el.closest('wa-combobox')!;
+            const option = el.querySelector<WaOption>('wa-option')!;
+
+            // Simulate an older or partially upgraded controller that doesn't expose the optional method.
+            (combobox as Partial<WaSelect>).handleDefaultSlotChange = undefined;
+            option.replaceChildren(document.createTextNode('After'));
+
+            await aTimeout(0);
+
+            expect(whenDefined.calledWith('wa-combobox')).to.be.true;
+            expect(callbackErrors).to.deep.equal([]);
+          } finally {
+            whenDefined.restore();
+          }
         });
       });
 
