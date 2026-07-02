@@ -5,7 +5,10 @@ layout: framework
 officialDocs: https://expressjs.com
 ---
 
-Express is relatively unopinionated, so there isn't much to know.
+:::info
+**Using Express with a frontend framework?** <br>Follow the [React](/docs/frameworks/react), [Vue](/docs/frameworks/vue), or [Svelte](/docs/frameworks/svelte) page instead, since their setup differs.
+:::
+
 
 ## Usage
 
@@ -61,10 +64,6 @@ There are other ways to set up Web Awesome, such as with npm or downloading ZIP 
     </wa-button>
   </div>
 </wa-callout>
-
-:::info
-**Using Express with a frontend framework?** <br>Follow the [React](/docs/frameworks/react), [Vue](/docs/frameworks/vue), or [Svelte](/docs/frameworks/svelte) page instead, since their setup differs.
-:::
 
 ## Server-Side Rendering
 
