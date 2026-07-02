@@ -286,7 +286,7 @@ The content of the carousel can be changed by adding or removing carousel items.
 
 ```html {.example}
 <div>
-  <wa-carousel class="dynamic-carousel" pagination navigation>
+  <wa-carousel class="dynamic-carousel" pagination navigation loop>
     <wa-carousel-item style="background: red">Slide 1</wa-carousel-item>
     <wa-carousel-item style="background: orange">Slide 2</wa-carousel-item>
     <wa-carousel-item style="background: yellow">Slide 3</wa-carousel-item>
@@ -322,21 +322,22 @@ The content of the carousel can be changed by adding or removing carousel items.
     const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple'];
     let colorIndex = 2;
 
+    const slides = () => [...dynamicCarousel.children].filter(child => !child.hasAttribute('data-clone'));
+
     const addSlide = () => {
       const slide = document.createElement('wa-carousel-item');
       const color = colors[++colorIndex % colors.length];
-      slide.innerText = `Slide ${dynamicCarousel.children.length + 1}`;
+      slide.innerText = `Slide ${slides().length + 1}`;
       slide.style.setProperty('background', color);
-      dynamicCarousel.appendChild(slide);
+      dynamicCarousel.addSlide(slide);
       dynamicRemove.disabled = false;
     };
 
     const removeSlide = () => {
-      const slide = dynamicCarousel.children[dynamicCarousel.children.length - 1];
-      const numSlides = dynamicCarousel.querySelectorAll('wa-carousel-item').length;
+      const numSlides = slides().length;
 
       if (numSlides > 1) {
-        slide.remove();
+        dynamicCarousel.removeSlide(numSlides - 1);
         colorIndex--;
       }
 
