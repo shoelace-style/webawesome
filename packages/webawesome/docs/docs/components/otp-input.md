@@ -73,10 +73,9 @@ The default length is 6 segments. Use the `length` attribute to change it.
 Use the `type` attribute to restrict which characters are accepted. The default is `numeric`. Use `alpha` for letters only, or `alphanumeric` for both.
 
 ```html {.example}
-<wa-otp-input label="Numeric (default)" type="numeric"></wa-otp-input>
-<br><br>
+<wa-otp-input label="Numeric (default)" type="numeric"></wa-otp-input> <br /><br />
 <wa-otp-input label="Alpha" type="alpha" length="6"></wa-otp-input>
-<br><br>
+<br /><br />
 <wa-otp-input label="Alphanumeric" type="alphanumeric" length="6"></wa-otp-input>
 ```
 
@@ -87,7 +86,7 @@ Use the `format` attribute to arrange segments into groups with literal separato
 ```html {.example}
 <!-- Two groups of three with a space: e.g. "ABC DEF" -->
 <wa-otp-input label="Invite code" type="alphanumeric" format="### ###"></wa-otp-input>
-<br><br>
+<br /><br />
 <!-- Two groups of four joined by a dash: e.g. "1234-5678" -->
 <wa-otp-input label="Serial number" format="####-####"></wa-otp-input>
 ```
@@ -97,12 +96,11 @@ Use the `format` attribute to arrange segments into groups with literal separato
 Use the `appearance` attribute to change the visual style of the segments.
 
 ```html {.example}
-<wa-otp-input label="Outlined (default)" appearance="outlined"></wa-otp-input>
-<br><br>
+<wa-otp-input label="Outlined (default)" appearance="outlined"></wa-otp-input> <br /><br />
 <wa-otp-input label="Filled" appearance="filled"></wa-otp-input>
-<br><br>
+<br /><br />
 <wa-otp-input label="Filled outlined" appearance="filled-outlined"></wa-otp-input>
-<br><br>
+<br /><br />
 <wa-otp-input label="Contained" appearance="contained"></wa-otp-input>
 ```
 
@@ -119,8 +117,7 @@ Add the `mask` attribute to display entered characters as bullets (•). The act
 Use the `case` attribute to automatically transform characters as they are entered. The default is `preserve`. Use `upper` to force uppercase or `lower` to force lowercase.
 
 ```html {.example}
-<wa-otp-input label="Uppercase invite code" type="alpha" case="upper" length="6"></wa-otp-input>
-<br><br>
+<wa-otp-input label="Uppercase invite code" type="alpha" case="upper" length="6"></wa-otp-input> <br /><br />
 <wa-otp-input label="Lowercase code" type="alpha" case="lower" length="6"></wa-otp-input>
 ```
 
@@ -129,10 +126,9 @@ Use the `case` attribute to automatically transform characters as they are enter
 Use the `size` attribute to change the size of each segment.
 
 ```html {.example}
-<wa-otp-input label="Small" size="small"></wa-otp-input>
-<br><br>
+<wa-otp-input label="Small" size="small"></wa-otp-input> <br /><br />
 <wa-otp-input label="Medium (default)" size="medium"></wa-otp-input>
-<br><br>
+<br /><br />
 <wa-otp-input label="Large" size="large"></wa-otp-input>
 ```
 
@@ -157,8 +153,7 @@ Use the `readonly` attribute to display a value without allowing edits. Unlike `
 Use the `placeholder` attribute to show a hint character in each empty segment, making the expected length and format clear at a glance.
 
 ```html {.example}
-<wa-otp-input label="PIN" length="4" placeholder="·"></wa-otp-input>
-<br><br>
+<wa-otp-input label="PIN" length="4" placeholder="·"></wa-otp-input> <br /><br />
 <wa-otp-input label="Verification code" placeholder="0"></wa-otp-input>
 ```
 
@@ -194,7 +189,7 @@ Paste a full code in one step, the component fills all segments at once. Charact
     await navigator.clipboard.writeText('123456');
     const label = document.querySelector('#copy-label');
     label.textContent = 'Copied!';
-    setTimeout(() => label.textContent = 'Copy code: 123456', 2000);
+    setTimeout(() => (label.textContent = 'Copy code: 123456'), 2000);
   });
 </script>
 ```
@@ -210,7 +205,7 @@ The `wa-complete` event fires once when the last segment is filled. Use it to su
 ```html {.example}
 <form id="sms-form">
   <wa-otp-input id="sms-code" name="code" label="SMS verification code"></wa-otp-input>
-  <br>
+  <br />
   <small id="sms-status"></small>
 </form>
 
@@ -229,7 +224,7 @@ Use the `name` attribute to include the OTP value in form submissions. The value
 ```html {.example}
 <form id="verify-form">
   <wa-otp-input name="code" label="Enter your 6-digit code" required></wa-otp-input>
-  <br><br>
+  <br /><br />
   <wa-button type="submit" appearance="filled">Verify</wa-button>
   <wa-button type="reset" appearance="outlined">Reset</wa-button>
 </form>
@@ -264,7 +259,7 @@ Add the `required` attribute to require a value before submission. A partial ent
 <form id="mfa-form">
   <wa-otp-input id="mfa-code" name="code" label="Two-factor code" required></wa-otp-input>
   <br />
-<br />
+  <br />
   <wa-button appearance="filled" type="submit">Continue</wa-button>
 </form>
 
