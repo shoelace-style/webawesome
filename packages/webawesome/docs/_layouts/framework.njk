@@ -13,42 +13,63 @@
 {%- set feedbackBody = "Feedback on the " + title + " docs (" + page.url + ") — bug, use case, or feature request:" -%}
 {%- set feedbackUrl = "https://github.com/shoelace-style/webawesome/discussions/new?category=ideas-suggestions&title=" + (feedbackTitle | urlencode) + "&body=" + (feedbackBody | urlencode) -%}
 
-<h2>Next Steps</h2>
+{% set nextSteps = [
+  {
+    title: "Components",
+    href: "/docs/components",
+    external: false,
+    icon_name: "puzzle-piece",
+    summary: "Start building your interface."
+  },
+  {
+    title: "CSS Utilities",
+    href: "/docs/utilities",
+    external: false,
+    icon_name: "wand-magic-sparkles",
+    summary: "Lay out and style without custom CSS."
+  },
+  {
+    title: "Theming",
+    href: "/docs/themes",
+    external: false,
+    icon_name: "palette",
+    summary: "Match Web Awesome to your brand."
+  }
+] %}
 
-<div class="modern-card-list info-cards">
-  <section class="search-list-grid">
-    <a class="hover-grow hover-emphasize-border duotone-hover-context" data-duotone-hover-trigger href="/docs/components">
-      <wa-card>
-        <wa-icon class="info-card-icon duotone-illustrated duotone-secondary-reveal" name="puzzle-piece" family="duotone" variant="regular"></wa-icon>
-        <span class="page-name">Components</span>
-        <p class="modern-card-summary">Start building your interface.</p>
-      </wa-card>
-    </a>
-    <a class="hover-grow hover-emphasize-border duotone-hover-context" data-duotone-hover-trigger href="/docs/utilities">
-      <wa-card>
-        <wa-icon class="info-card-icon duotone-illustrated duotone-secondary-reveal" name="wand-magic-sparkles" family="duotone" variant="regular"></wa-icon>
-        <span class="page-name">CSS Utilities</span>
-        <p class="modern-card-summary">Lay out and style without custom CSS.</p>
-      </wa-card>
-    </a>
-    <a class="hover-grow hover-emphasize-border duotone-hover-context" data-duotone-hover-trigger href="/docs/themes">
-      <wa-card>
-        <wa-icon class="info-card-icon duotone-illustrated duotone-secondary-reveal" name="palette" family="duotone" variant="regular"></wa-icon>
-        <span class="page-name">Theming</span>
-        <p class="modern-card-summary">Match Web Awesome to your brand.</p>
-      </wa-card>
-    </a>
-    {% if officialDocs -%}
-    <a class="hover-grow hover-emphasize-border duotone-hover-context" data-duotone-hover-trigger href="{{ officialDocs }}" target="_blank" rel="noopener noreferrer">
-      <wa-card>
-        <wa-icon class="info-card-icon duotone-illustrated duotone-secondary-reveal" name="book" family="duotone" variant="regular"></wa-icon>
-        <span class="page-name">{{ title }} Docs</span>
-        <p class="modern-card-summary">The official {{ title }} documentation.</p>
-      </wa-card>
-    </a>
-    {%- endif %}
-  </section>
-</div>
+{% if officialDocs %}
+  {% set nextSteps = nextSteps.concat([{
+    title: title + " Docs",
+    href: officialDocs,
+    external: true,
+    icon_name: "book",
+    summary: "The official " + title + " documentation."
+  }]) %}
+{% endif %}
+
+
+<section class="modern-card-list info-cards">
+  <h2>Next Steps</h2>
+
+  <div class="search-list-grid">
+    {% for step in nextSteps %}
+      <a
+        class="hover-grow hover-emphasize-border duotone-hover-context"
+        data-duotone-hover-trigger
+        href="{{ step.href }}"
+        {% if step.external -%}
+        target="_blank" rel="noopener noreferrer"
+        {%- endif -%}
+      >
+        <wa-card>
+          <wa-icon class="info-card-icon duotone-illustrated duotone-secondary-reveal" name="{{ step.icon_name }}" family="duotone" variant="regular"></wa-icon>
+          <span class="page-name">{{ step.title }}</span>
+          <p class="modern-card-summary">{{ step.summary }}</p>
+        </wa-card>
+      </a>
+    {% endfor %}
+  </div>
+</section>
 
 <wa-callout variant="neutral">
   <div class="wa-flank:end wa-gap-xl">
