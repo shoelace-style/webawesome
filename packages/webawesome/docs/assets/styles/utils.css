@@ -532,6 +532,11 @@
     border-color: color-mix(in oklab, var(--wa-brand-orange) 30%, var(--wa-color-surface-default));
     color: var(--wa-color-text-normal);
 
+    /* Re-declare --wa-color-text-link so its var() substitution resolves in the orange-scoped
+       context (callouts carry .wa-brand-orange). The theme sets it at :root where brand is still
+       blue, so inheritance alone keeps links blue. */
+    --wa-color-text-link: var(--wa-color-brand-40);
+
     &::part(icon) {
       align-items: flex-start;
       color: var(--wa-brand-orange);
@@ -539,11 +544,6 @@
 
     wa-icon[slot='icon'] {
       font-size: var(--wa-font-size-xl);
-    }
-
-    strong {
-      display: block;
-      margin-block-end: var(--wa-space-2xs);
     }
 
     strong a {
@@ -565,6 +565,10 @@
     wa-details [slot='summary'] u {
       --underline-color: var(--wa-color-brand);
     }
+  }
+
+  .wa-dark wa-callout.pro {
+    --wa-color-text-link: var(--wa-color-brand-70);
   }
 
   /* free badge */
