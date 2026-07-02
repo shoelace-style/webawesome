@@ -14,9 +14,11 @@
  *     components aren't marked Pro.
  *  3. Every relative markdown link in `agent-skill/choosing-components.md` and `design-skill/**.md`
  *     resolves to a file that exists.
+ *  4. Design skill frontmatter descriptions don't contain XML-like tags rejected by Claude.ai Skills.
  */
 
 import fs from 'fs';
+import matter from 'gray-matter';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -32,6 +34,7 @@ const PRO_CEM = path.join(REPO_ROOT, 'packages', 'webawesome-pro', 'dist', 'cust
 
 const CHOOSING_COMPONENTS = path.join(__dirname, 'agent-skill', 'choosing-components.md');
 const DESIGN_SKILL_DIR = path.join(__dirname, 'design-skill');
+const DESIGN_SKILL = path.join(DESIGN_SKILL_DIR, 'SKILL.md');
 
 // `choosing-components.md` lives at source in `scripts/agent-skill/` but ships into the same
 // `references/` dir as everything else the agent-skill generator produces — so relative links it
@@ -97,6 +100,17 @@ const cemAvailable = cemByTag.size > 0;
 if (!cemAvailable) {
   warnings.push(
     `Custom Elements Manifests not found (run \`npm run build\` first); skipping attribute-existence check.`,
+  );
+}
+
+// --- Check: Skill descriptions must be accepted by Claude.ai Skills ---
+const designSkillMd = fs.readFileSync(DESIGN_SKILL, 'utf-8');
+const designFrontmatter = matter(designSkillMd).data;
+const designDescription = String(designFrontmatter.description || '');
+const xmlLikeTagRegex = /<\/?[A-Za-z][A-Za-z0-9-]*(?:\s[^>]*)?>/;
+if (xmlLikeTagRegex.test(designDescription)) {
+  errors.push(
+    `design-skill/SKILL.md frontmatter description contains XML-like tags; use plain component names such as \`wa-page\` instead of \`<wa-page>\``,
   );
 }
 
