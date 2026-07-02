@@ -115,6 +115,54 @@ const translation: Translation = {
   year: 'Año',
   zoomIn: 'Acercar',
   zoomOut: 'Alejar',
+
+  // Data grid — control labels
+  noData: 'No hay datos',
+  search: 'Buscar',
+  selectAllRows: 'Seleccionar todas las filas',
+  deselectAllRows: 'Deseleccionar todas las filas',
+  selectRow: 'Seleccionar fila',
+  selectGroup: 'Seleccionar grupo',
+  resizeColumn: 'Cambiar el tamaño de la columna',
+  sortColumn: 'Ordenar columna',
+  columns: 'Columnas',
+  expandRow: 'Expandir fila',
+  collapseRow: 'Contraer fila',
+  pagination: 'Paginación',
+  firstPage: 'Primera página',
+  previousPage: 'Página anterior',
+  nextPage: 'Página siguiente',
+  lastPage: 'Última página',
+  rowsPerPage: 'Filas por página',
+  jumpBackwardX: count => {
+    if (count === 1) return 'Retroceder 1 página';
+    return `Retroceder ${count} páginas`;
+  },
+  jumpForwardX: count => {
+    if (count === 1) return 'Avanzar 1 página';
+    return `Avanzar ${count} páginas`;
+  },
+  pageXOfY: (page, total) => `Página ${page} de ${total}`,
+  compactPageXOfY: (page, total) => `${page} de ${total}`,
+  showingXtoYofZ: (start, end, total) => `${start}–${end} de ${total}`,
+  numRowsSelected: num => (num === 1 ? '1 fila seleccionada' : `${num} filas seleccionadas`),
+  showingNofMRows: (shown, total) => `Mostrando ${shown} de ${total} filas`,
+  columnMovedToPosition: (label, position, total) => `${label} movida a la posición ${position} de ${total}`,
+
+  // Data grid — column menu, filtering, and pinning
+  filterMin: 'Mín',
+  filterMax: 'Máx',
+  filterByColumn: label => `Filtrar por ${label}`,
+  columnMenu: 'Opciones de columna',
+  unpinColumn: 'Desfijar columna',
+  pinLeft: 'Fijar a la izquierda',
+  pinRight: 'Fijar a la derecha',
+  unpin: 'Desfijar',
+  sortAscending: 'Ordenar de forma ascendente',
+  sortDescending: 'Ordenar de forma descendente',
+  clearSort: 'Borrar orden',
+  hideColumn: 'Ocultar columna',
+  autosizeColumn: 'Ajustar el tamaño de la columna al contenido',
 };
 
 registerTranslation(translation);

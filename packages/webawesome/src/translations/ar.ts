@@ -125,6 +125,62 @@ const translation: Translation = {
   year: 'السنة',
   zoomIn: 'تكبير',
   zoomOut: 'تصغير',
+
+  // Data grid
+  noData: 'لا توجد بيانات',
+  search: 'بحث',
+  selectAllRows: 'تحديد كل الصفوف',
+  deselectAllRows: 'إلغاء تحديد كل الصفوف',
+  selectRow: 'تحديد الصف',
+  selectGroup: 'تحديد المجموعة',
+  resizeColumn: 'تغيير حجم العمود',
+  sortColumn: 'فرز العمود',
+  columns: 'الأعمدة',
+  expandRow: 'توسيع الصف',
+  collapseRow: 'طي الصف',
+  pagination: 'ترقيم الصفحات',
+  firstPage: 'الصفحة الأولى',
+  previousPage: 'الصفحة السابقة',
+  nextPage: 'الصفحة التالية',
+  lastPage: 'الصفحة الأخيرة',
+  rowsPerPage: 'الصفوف في الصفحة',
+  jumpBackwardX: count => {
+    if (count === 1) return 'الرجوع صفحة واحدة';
+    if (count === 2) return 'الرجوع صفحتين';
+    if (count > 2 && count < 11) return `الرجوع ${count} صفحات`;
+    return `الرجوع ${count} صفحة`;
+  },
+  jumpForwardX: count => {
+    if (count === 1) return 'التقدم صفحة واحدة';
+    if (count === 2) return 'التقدم صفحتين';
+    if (count > 2 && count < 11) return `التقدم ${count} صفحات`;
+    return `التقدم ${count} صفحة`;
+  },
+  pageXOfY: (page, total) => `الصفحة ${page} من ${total}`,
+  compactPageXOfY: (page, total) => `${page} من ${total}`,
+  showingXtoYofZ: (start, end, total) => `${start}–${end} من ${total}`,
+  numRowsSelected: num => {
+    if (num === 0) return 'لم يتم تحديد أي صفوف';
+    if (num === 1) return 'تم تحديد صف واحد';
+    if (num === 2) return 'تم تحديد صفان';
+    if (num > 2 && num < 11) return `تم تحديد ${num} صفوف`;
+    return `تم تحديد ${num} صفًا`;
+  },
+  showingNofMRows: (shown, total) => `عرض ${shown} من ${total} صفوف`,
+  columnMovedToPosition: (label, position, total) => `تم نقل ${label} إلى الموضع ${position} من ${total}`,
+  filterMin: 'الحد الأدنى',
+  filterMax: 'الحد الأقصى',
+  filterByColumn: label => `التصفية حسب ${label}`,
+  columnMenu: 'خيارات العمود',
+  unpinColumn: 'إلغاء تثبيت العمود',
+  pinLeft: 'التثبيت إلى اليسار',
+  pinRight: 'التثبيت إلى اليمين',
+  unpin: 'إلغاء التثبيت',
+  sortAscending: 'فرز تصاعدي',
+  sortDescending: 'فرز تنازلي',
+  clearSort: 'مسح الفرز',
+  hideColumn: 'إخفاء العمود',
+  autosizeColumn: 'ملاءمة حجم العمود تلقائيًا',
 };
 
 registerTranslation(translation);

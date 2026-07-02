@@ -7,6 +7,7 @@ const translation: Translation = {
   $dir: 'ltr',
 
   am: 'AM',
+  autosizeColumn: 'Подогнать ширину столбца',
   carousel: 'Карусель',
   captions: 'Субтитры',
   chooseDate: 'Выбрать дату',
@@ -19,6 +20,11 @@ const translation: Translation = {
   close: 'Закрыть',
   closeCalendar: 'Закрыть календарь',
   closeTimeInput: 'Закрыть выбор времени',
+  clearSort: 'Очистить сортировку',
+  collapseRow: 'Свернуть строку',
+  columnMenu: 'Параметры столбца',
+  columnMovedToPosition: (label, position, total) => `${label} перемещён на позицию ${position} из ${total}`,
+  columns: 'Столбцы',
   copied: 'Скопировано',
   copy: 'Скопировать',
   currentValue: 'Текущее значение',
@@ -28,6 +34,7 @@ const translation: Translation = {
   day: 'День',
   dayPeriod: 'AM/PM',
   decrement: 'Уменьшить',
+  deselectAllRows: 'Снять выделение со всех строк',
   dropFileHere: 'Перетащите файл сюда или нажмите, чтобы выбрать',
   dropFilesHere: 'Перетащите файлы сюда или нажмите, чтобы выбрать',
   empty: 'Пусто',
@@ -35,11 +42,32 @@ const translation: Translation = {
   enterFullscreen: 'Перейти в полноэкранный режим',
   endDate: 'Дата окончания',
   exitFullscreen: 'Выйти из полноэкранного режима',
+  expandRow: 'Развернуть строку',
+  filterByColumn: label => `Фильтровать по «${label}»`,
+  filterMax: 'Макс.',
+  filterMin: 'Мин.',
+  firstPage: 'Первая страница',
   goToSlide: (slide, count) => `Перейти к слайду ${slide} из ${count}`,
+  hideColumn: 'Скрыть столбец',
   hidePassword: 'Скрыть пароль',
   hour: 'Час',
   incompleteDate: 'Введите корректную дату.',
   increment: 'Увеличить',
+  jumpBackwardX: count => {
+    const mod10 = count % 10;
+    const mod100 = count % 100;
+    if (mod10 === 1 && mod100 !== 11) return `Назад на ${count} страницу`;
+    if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `Назад на ${count} страницы`;
+    return `Назад на ${count} страниц`;
+  },
+  jumpForwardX: count => {
+    const mod10 = count % 10;
+    const mod100 = count % 100;
+    if (mod10 === 1 && mod100 !== 11) return `Вперёд на ${count} страницу`;
+    if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `Вперёд на ${count} страницы`;
+    return `Вперёд на ${count} страниц`;
+  },
+  lastPage: 'Последняя страница',
   loading: 'Загрузка',
   minute: 'Минута',
   moreOptions: 'Дополнительные параметры',
@@ -47,9 +75,11 @@ const translation: Translation = {
   mute: 'Выключить звук',
   nextDecade: 'Следующее десятилетие',
   nextMonth: 'Следующий месяц',
+  nextPage: 'Следующая страница',
   nextSlide: 'Следующий слайд',
   nextVideo: 'Следующее видео',
   nextYear: 'Следующий год',
+  noData: 'Нет данных',
   now: 'Сейчас',
   numCharacters: num => {
     const mod10 = num % 10;
@@ -70,9 +100,21 @@ const translation: Translation = {
     if (num === 1) return 'Выбран 1 вариант';
     return `выбрано ${num} варианта`;
   },
+  numRowsSelected: num => {
+    const mod10 = num % 10;
+    const mod100 = num % 100;
+    if (mod10 === 1 && mod100 !== 11) return `Выбрана ${num} строка`;
+    if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `Выбрано ${num} строки`;
+    return `Выбрано ${num} строк`;
+  },
+  pageXOfY: (page, total) => `Страница ${page} из ${total}`,
+  compactPageXOfY: (page, total) => `${page} из ${total}`,
+  pagination: 'Постраничная навигация',
   pause: 'Пауза',
   pauseAnimation: 'Приостановить анимацию',
   pictureInPicture: 'Картинка в картинке',
+  pinLeft: 'Закрепить слева',
+  pinRight: 'Закрепить справа',
   play: 'Воспроизвести',
   playbackSpeed: 'Скорость воспроизведения',
   playlist: 'Плейлист',
@@ -81,6 +123,7 @@ const translation: Translation = {
   previousDecade: 'Предыдущее десятилетие',
   previousMonth: 'Предыдущий месяц',
   previousSlide: 'Предыдущий слайд',
+  previousPage: 'Предыдущая страница',
   previousVideo: 'Предыдущее видео',
   previousYear: 'Предыдущий год',
   progress: 'Прогресс',
@@ -102,17 +145,28 @@ const translation: Translation = {
   readonly: 'Только для чтения',
   remove: 'Удалить',
   resize: 'Изменить размер',
+  resizeColumn: 'Изменить ширину столбца',
+  rowsPerPage: 'Строк на странице',
   scrollableRegion: 'Прокручиваемая область',
   scrollToEnd: 'Пролистать до конца',
   scrollToStart: 'Пролистать к началу',
+  search: 'Поиск',
   second: 'Секунда',
   selectAColorFromTheScreen: 'Выберите цвет на экране',
+  selectAllRows: 'Выделить все строки',
+  selectRow: 'Выделить строку',
+  selectGroup: 'Выделить группу',
   selected: 'Выбрано',
   selectedDateLabel: date => `Выбрано: ${date}`,
   selectedRangeLabel: range => `Выбранный диапазон: ${range}`,
   selectionCleared: 'Выбор очищен',
   showPassword: 'Показать пароль',
+  showingNofMRows: (shown, total) => `Показано ${shown} из ${total} строк`,
+  showingXtoYofZ: (start, end, total) => `${start}–${end} из ${total}`,
   slideNum: slide => `Слайд ${slide}`,
+  sortAscending: 'Сортировать по возрастанию',
+  sortColumn: 'Сортировать столбец',
+  sortDescending: 'Сортировать по убыванию',
   startDate: 'Дата начала',
   time: 'Время',
   timeInputKeyboardHelp:
@@ -123,6 +177,8 @@ const translation: Translation = {
   seekProgress: (current, duration) => `${current} из ${duration}`,
   currentlyPlaying: 'воспроизводится сейчас',
   unmute: 'Включить звук',
+  unpin: 'Открепить',
+  unpinColumn: 'Открепить столбец',
   videoPlayer: 'Видеоплеер',
   volume: 'Громкость',
   year: 'Год',

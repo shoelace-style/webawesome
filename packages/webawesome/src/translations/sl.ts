@@ -7,6 +7,7 @@ const translation: Translation = {
   $dir: 'ltr',
 
   am: 'AM',
+  autosizeColumn: 'Samodejno prilagodi velikost stolpca',
   carousel: 'Vrtiljak',
   captions: 'Podnapisi',
   chooseDate: 'Izberite datum',
@@ -15,10 +16,15 @@ const translation: Translation = {
   chooseYear: 'Izberite leto',
   chooseTime: 'Izberite čas',
   clearEntry: 'Počisti vnos',
+  clearSort: 'Počisti razvrščanje',
   createOption: value => `Ustvari "${value}"`,
   close: 'Zapri',
   closeCalendar: 'Zapri koledar',
   closeTimeInput: 'Zapri izbirnik časa',
+  collapseRow: 'Strni vrstico',
+  columnMenu: 'Možnosti stolpca',
+  columnMovedToPosition: (label, position, total) => `${label} premaknjen na položaj ${position} od ${total}`,
+  columns: 'Stolpci',
   copied: 'Kopirano',
   copy: 'Kopiraj',
   currentValue: 'Trenutna vrednost',
@@ -28,6 +34,7 @@ const translation: Translation = {
     'S puščičnimi tipkami spreminjajte vrednosti; pritisnite Alt+Puščica navzdol za odpiranje koledarja.',
   day: 'Dan',
   decrement: 'Zmanjšaj',
+  deselectAllRows: 'Prekliči izbiro vseh vrstic',
   dropFileHere: 'Drop file here or click to browse',
   dropFilesHere: 'Drop files here or click to browse',
   empty: 'Prazno',
@@ -35,11 +42,32 @@ const translation: Translation = {
   enterFullscreen: 'Vstopi v celozaslonski način',
   endDate: 'Končni datum',
   exitFullscreen: 'Zapusti celozaslonski način',
+  expandRow: 'Razširi vrstico',
+  filterByColumn: label => `Filtriraj po ${label}`,
+  filterMax: 'Najv.',
+  filterMin: 'Najm.',
+  firstPage: 'Prva stran',
   goToSlide: (slide, count) => `Pojdi na diapozitiv ${slide} od ${count}`,
+  hideColumn: 'Skrij stolpec',
   hidePassword: 'Skrij geslo',
   hour: 'Ura',
   incompleteDate: 'Vnesite veljaven datum.',
   increment: 'Povečaj',
+  jumpBackwardX: count => {
+    const mod100 = count % 100;
+    if (mod100 === 1) return `Pomakni se ${count} stran nazaj`;
+    if (mod100 === 2) return `Pomakni se ${count} strani nazaj`;
+    if (mod100 === 3 || mod100 === 4) return `Pomakni se ${count} strani nazaj`;
+    return `Pomakni se ${count} strani nazaj`;
+  },
+  jumpForwardX: count => {
+    const mod100 = count % 100;
+    if (mod100 === 1) return `Pomakni se ${count} stran naprej`;
+    if (mod100 === 2) return `Pomakni se ${count} strani naprej`;
+    if (mod100 === 3 || mod100 === 4) return `Pomakni se ${count} strani naprej`;
+    return `Pomakni se ${count} strani naprej`;
+  },
+  lastPage: 'Zadnja stran',
   loading: 'Nalaganje',
   minute: 'Minuta',
   moreOptions: 'Več možnosti',
@@ -49,7 +77,9 @@ const translation: Translation = {
   nextMonth: 'Naslednji mesec',
   nextSlide: 'Naslednji diapozitiv',
   nextVideo: 'Naslednji videoposnetek',
+  nextPage: 'Naslednja stran',
   nextYear: 'Naslednje leto',
+  noData: 'Ni podatkov',
   now: 'Zdaj',
   numCharacters: num => {
     const mod100 = num % 100;
@@ -72,9 +102,21 @@ const translation: Translation = {
     if (num === 3 || num === 4) return `${num} možnosti izbrane`;
     return `${num} možnosti izbranih`;
   },
+  numRowsSelected: num => {
+    const mod100 = num % 100;
+    if (mod100 === 1) return `${num} izbrana vrstica`;
+    if (mod100 === 2) return `${num} izbrani vrstici`;
+    if (mod100 === 3 || mod100 === 4) return `${num} izbrane vrstice`;
+    return `${num} izbranih vrstic`;
+  },
   pause: 'Premor',
   pauseAnimation: 'Zaustavi animacijo',
+  pageXOfY: (page, total) => `Stran ${page} od ${total}`,
+  compactPageXOfY: (page, total) => `${page} od ${total}`,
+  pagination: 'Oštevilčevanje strani',
   pictureInPicture: 'Slika v sliki',
+  pinLeft: 'Pripni levo',
+  pinRight: 'Pripni desno',
   play: 'Predvajaj',
   playbackSpeed: 'Hitrost predvajanja',
   playlist: 'Seznam predvajanja',
@@ -84,6 +126,7 @@ const translation: Translation = {
   previousMonth: 'Prejšnji mesec',
   previousSlide: 'Prejšnji diapozitiv',
   previousVideo: 'Prejšnji videoposnetek',
+  previousPage: 'Prejšnja stran',
   previousYear: 'Prejšnje leto',
   progress: 'Napredek',
   rangeTooLong: max => {
@@ -103,17 +146,28 @@ const translation: Translation = {
   readonly: 'Samo za branje',
   remove: 'Odstrani',
   resize: 'Spremeni velikost',
+  resizeColumn: 'Spremeni velikost stolpca',
+  rowsPerPage: 'Vrstic na stran',
   scrollableRegion: 'Področje za drsenje',
   scrollToEnd: 'Pomakni se na konec',
   scrollToStart: 'Pomakni se na začetek',
+  search: 'Iskanje',
   second: 'Sekunda',
   selectAColorFromTheScreen: 'Izberite barvo z zaslona',
+  selectAllRows: 'Izberi vse vrstice',
+  selectRow: 'Izberi vrstico',
+  selectGroup: 'Izberi skupino',
   selected: 'Izbrano',
   selectedDateLabel: date => `Izbrano: ${date}`,
   selectedRangeLabel: range => `Izbrano obdobje: ${range}`,
   selectionCleared: 'Izbira počiščena',
   showPassword: 'Prikaži geslo',
+  showingNofMRows: (shown, total) => `Prikazanih ${shown} od ${total} vrstic`,
+  showingXtoYofZ: (start, end, total) => `${start}–${end} od ${total}`,
   slideNum: slide => `Diapozitiv ${slide}`,
+  sortAscending: 'Razvrsti naraščajoče',
+  sortColumn: 'Razvrsti stolpec',
+  sortDescending: 'Razvrsti padajoče',
   startDate: 'Začetni datum',
   time: 'Čas',
   timeInputKeyboardHelp:
@@ -124,6 +178,8 @@ const translation: Translation = {
   seekProgress: (current, duration) => `${current} od ${duration}`,
   currentlyPlaying: 'se trenutno predvaja',
   unmute: 'Vklopi zvok',
+  unpin: 'Odpni',
+  unpinColumn: 'Odpni stolpec',
   videoPlayer: 'Videopredvajalnik',
   volume: 'Glasnost',
   year: 'Leto',
