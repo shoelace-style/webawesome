@@ -9,10 +9,57 @@
 
 {%- block afterContent -%}
 
-{% markdown %}
-:::info
-Are you using Web Awesome with {{ title }}? [Help us improve this page!](https://github.com/shoelace-style/webawesome/blob/next/packages/webawesome/docs/{{ page | relativeInputPath }})
-:::
-{% endmarkdown %}
+{%- set feedbackTitle = "Docs feedback: " + title -%}
+{%- set feedbackBody = "Feedback on the " + title + " docs (" + page.url + ") — bug, use case, or feature request:" -%}
+{%- set feedbackUrl = "https://github.com/shoelace-style/webawesome/discussions/new?category=ideas-suggestions&title=" + (feedbackTitle | urlencode) + "&body=" + (feedbackBody | urlencode) -%}
+
+<h2>Next Steps</h2>
+
+<div class="modern-card-list info-cards">
+  <section class="search-list-grid">
+    <a class="hover-grow hover-emphasize-border duotone-hover-context" data-duotone-hover-trigger href="/docs/components">
+      <wa-card>
+        <wa-icon class="info-card-icon duotone-illustrated duotone-secondary-reveal" name="puzzle-piece" family="duotone" variant="regular"></wa-icon>
+        <span class="page-name">Components</span>
+        <p class="modern-card-summary">Start building your interface.</p>
+      </wa-card>
+    </a>
+    <a class="hover-grow hover-emphasize-border duotone-hover-context" data-duotone-hover-trigger href="/docs/utilities">
+      <wa-card>
+        <wa-icon class="info-card-icon duotone-illustrated duotone-secondary-reveal" name="wand-magic-sparkles" family="duotone" variant="regular"></wa-icon>
+        <span class="page-name">CSS Utilities</span>
+        <p class="modern-card-summary">Lay out and style without custom CSS.</p>
+      </wa-card>
+    </a>
+    <a class="hover-grow hover-emphasize-border duotone-hover-context" data-duotone-hover-trigger href="/docs/themes">
+      <wa-card>
+        <wa-icon class="info-card-icon duotone-illustrated duotone-secondary-reveal" name="palette" family="duotone" variant="regular"></wa-icon>
+        <span class="page-name">Theming</span>
+        <p class="modern-card-summary">Match Web Awesome to your brand.</p>
+      </wa-card>
+    </a>
+    {% if officialDocs -%}
+    <a class="hover-grow hover-emphasize-border duotone-hover-context" data-duotone-hover-trigger href="{{ officialDocs }}" target="_blank" rel="noopener noreferrer">
+      <wa-card>
+        <wa-icon class="info-card-icon duotone-illustrated duotone-secondary-reveal" name="book" family="duotone" variant="regular"></wa-icon>
+        <span class="page-name">{{ title }} Docs</span>
+        <p class="modern-card-summary">The official {{ title }} documentation.</p>
+      </wa-card>
+    </a>
+    {%- endif %}
+  </section>
+</div>
+
+<wa-callout variant="neutral">
+  <div class="wa-flank:end wa-gap-xl">
+    <p><strong>Using Web Awesome with {{ title }}?</strong><br />
+    Found a bug or have a suggestion? Help make things more awesome!</p>
+
+    <wa-button size="small" href="{{ feedbackUrl }}" target="_blank" rel="noopener noreferrer">
+      <wa-icon slot="start" name="lightbulb-on" variant="regular"></wa-icon>
+      Share feedback
+    </wa-button>
+  </div>
+</wa-callout>
 
 {% endblock %}
