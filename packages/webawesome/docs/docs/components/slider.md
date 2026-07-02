@@ -31,12 +31,12 @@ use-cases:
 ```
 
 :::info
-This component works with standard `<form>` elements. Please refer to the section on [form controls](/docs/form-controls) to learn more about form submission and client-side validation.
+This component works with standard `<form>` elements. See [form controls](/docs/form-controls) for form submission and client-side validation.
 :::
 
 ## Examples
 
-### Labels
+### Label
 
 Use the `label` attribute to give the slider an accessible label. For labels that contain HTML, use the `label` slot instead.
 
@@ -52,20 +52,20 @@ Add descriptive hint to a slider with the `hint` attribute. For hints that conta
 <wa-slider label="Volume" hint="Controls the volume of the current song." min="0" max="100" value="50"></wa-slider>
 ```
 
-### Showing Tooltips
-
-Use the `with-tooltip` attribute to display a tooltip with the current value when the slider is focused or being dragged.
-
-```html {.example}
-<wa-slider label="Quality" name="quality" min="0" max="100" value="50" with-tooltip></wa-slider>
-```
-
-### Setting Min, Max, & Step
+### Min, Max & Step
 
 Use the `min` and `max` attributes to define the slider's range, and the `step` attribute to control the increment between values.
 
 ```html {.example}
 <wa-slider label="Between zero and one" min="0" max="1" step="0.1" value="0.5" with-tooltip></wa-slider>
+```
+
+### Showing a Tooltip
+
+Use the `with-tooltip` attribute to display a tooltip with the current value when the slider is focused or being dragged.
+
+```html {.example}
+<wa-slider label="Quality" name="quality" min="0" max="100" value="50" with-tooltip></wa-slider>
 ```
 
 ### Showing Markers
@@ -97,66 +97,9 @@ Use the `reference` slot to add contextual labels below the slider. References a
 ```
 
 :::info
-If you want to show a reference next to a specific marker, you can add `position: absolute` to it and set the `left`, `right`, `top`, or `bottom` property to a percentage that corresponds to the marker's position.
+<strong>Show a reference next to a specific marker.</strong><br />
+Add `position: absolute` to the reference and set `left`, `right`, `top`, or `bottom` to a percentage that matches the marker's position.
 :::
-
-### Formatting the Value
-
-Customize how values are displayed in tooltips and announced to screen readers using the `valueFormatter` property. Set it to a function that accepts a number and returns a formatted string. The [`Intl.NumberFormat API`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat) is particularly useful for this.
-
-```html {.example}
-<!-- Percent -->
-<wa-slider
-  id="slider__percent"
-  label="Percentage"
-  name="percentage"
-  value="0.5"
-  min="0"
-  max="1"
-  step=".01"
-  with-tooltip
-></wa-slider
-><br />
-
-<script>
-  const slider = document.getElementById('slider__percent');
-  const formatter = new Intl.NumberFormat('en-US', { style: 'percent' });
-
-  customElements.whenDefined('wa-slider').then(() => {
-    slider.valueFormatter = value => formatter.format(value);
-  });
-</script>
-
-<!-- Duration -->
-<wa-slider id="slider__duration" label="Duration" name="duration" value="12" min="0" max="24" with-tooltip></wa-slider
-><br />
-
-<script>
-  const slider = document.getElementById('slider__duration');
-  const formatter = new Intl.NumberFormat('en-US', { style: 'unit', unit: 'hour', unitDisplay: 'long' });
-
-  customElements.whenDefined('wa-slider').then(() => {
-    slider.valueFormatter = value => formatter.format(value);
-  });
-</script>
-
-<!-- Currency -->
-<wa-slider id="slider__currency" label="Currency" name="currency" min="0" max="100" value="50" with-tooltip></wa-slider>
-
-<script>
-  const slider = document.getElementById('slider__currency');
-  const formatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    currencyDisplay: 'symbol',
-    maximumFractionDigits: 0,
-  });
-
-  customElements.whenDefined('wa-slider').then(() => {
-    slider.valueFormatter = value => formatter.format(value);
-  });
-</script>
-```
 
 ### Range Selection
 
@@ -252,14 +195,16 @@ Range sliders can also be vertical.
 
 ### Size
 
-Control the slider's size using the `size` attribute. Valid options include `xs`, `s`, `m`, `l`, and `xl`.
+Control the slider's size with the `size` attribute. Valid options are `xs`, `s`, `m`, `l`, and `xl`.
 
 ```html {.example}
-<wa-slider size="xs" value="50" label="Extra Small"></wa-slider><br />
-<wa-slider size="s" value="50" label="Small"></wa-slider><br />
-<wa-slider size="m" value="50" label="Medium"></wa-slider><br />
-<wa-slider size="l" value="50" label="Large"></wa-slider><br />
-<wa-slider size="xl" value="50" label="Extra Large"></wa-slider>
+<div class="wa-stack">
+  <wa-slider size="xs" value="50" label="Extra small"></wa-slider>
+  <wa-slider size="s" value="50" label="Small"></wa-slider>
+  <wa-slider size="m" value="50" label="Medium"></wa-slider>
+  <wa-slider size="l" value="50" label="Large"></wa-slider>
+  <wa-slider size="xl" value="50" label="Extra large"></wa-slider>
+</div>
 ```
 
 ### Indicator Offset
@@ -290,4 +235,160 @@ Use the `disabled` attribute to disable a slider.
 
 ```html {.example}
 <wa-slider label="Disabled" value="50" disabled></wa-slider>
+```
+
+### Readonly
+
+Use the `readonly` attribute to show a value that users can't change by dragging. Unlike `disabled`, a readonly slider stays focusable and its value is still submitted with the form.
+
+```html {.example}
+<wa-slider label="Server load" value="72" min="0" max="100" with-tooltip readonly></wa-slider>
+```
+
+### Formatting the Value
+
+Customize how values are displayed in tooltips and announced to screen readers using the `valueFormatter` property. Set it to a function that accepts a number and returns a formatted string. The [`Intl.NumberFormat API`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat) is particularly useful for this.
+
+```html {.example}
+<!-- Percent -->
+<wa-slider
+  id="slider__percent"
+  label="Percentage"
+  name="percentage"
+  value="0.5"
+  min="0"
+  max="1"
+  step=".01"
+  with-tooltip
+></wa-slider
+><br />
+
+<script>
+  const slider = document.getElementById('slider__percent');
+  const formatter = new Intl.NumberFormat('en-US', { style: 'percent' });
+
+  customElements.whenDefined('wa-slider').then(() => {
+    slider.valueFormatter = value => formatter.format(value);
+  });
+</script>
+
+<!-- Duration -->
+<wa-slider id="slider__duration" label="Duration" name="duration" value="12" min="0" max="24" with-tooltip></wa-slider
+><br />
+
+<script>
+  const slider = document.getElementById('slider__duration');
+  const formatter = new Intl.NumberFormat('en-US', { style: 'unit', unit: 'hour', unitDisplay: 'long' });
+
+  customElements.whenDefined('wa-slider').then(() => {
+    slider.valueFormatter = value => formatter.format(value);
+  });
+</script>
+
+<!-- Currency -->
+<wa-slider id="slider__currency" label="Currency" name="currency" min="0" max="100" value="50" with-tooltip></wa-slider>
+
+<script>
+  const slider = document.getElementById('slider__currency');
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    currencyDisplay: 'symbol',
+    maximumFractionDigits: 0,
+  });
+
+  customElements.whenDefined('wa-slider').then(() => {
+    slider.valueFormatter = value => formatter.format(value);
+  });
+</script>
+```
+
+### Reacting to Input
+
+The slider emits an `input` event as the user drags, so you can drive live UI from its value in real time. Here, moving the slider resizes the preview text.
+
+```html {.example}
+<div class="text-size-demo">
+  <p class="text-size-preview">The quick brown fox jumps over the lazy dog.</p>
+
+  <wa-divider></wa-divider>
+
+  <wa-slider label="Text size" min="12" max="48" value="18" with-tooltip></wa-slider>
+</div>
+
+<script>
+  const demo = document.querySelector('.text-size-demo');
+  const slider = demo.querySelector('wa-slider');
+  const preview = demo.querySelector('.text-size-preview');
+
+  slider.addEventListener('input', () => {
+    preview.style.fontSize = `${slider.value}px`;
+  });
+</script>
+
+<style>
+  .text-size-demo .text-size-preview {
+    margin: 0 0 1rem;
+    font-size: 18px;
+    transition: font-size 75ms ease;
+  }
+</style>
+```
+
+### Filtering with a Range
+
+A range slider's two thumbs make it a natural filter control. Here, dragging the thumbs hides list items whose price falls outside the selected range.
+
+```html {.example}
+<div class="price-filter-demo">
+  <ul class="price-filter-list">
+    <li data-price="15">Sticker pack — $15</li>
+    <li data-price="30">T-shirt — $30</li>
+    <li data-price="55">Hoodie — $55</li>
+    <li data-price="80">Backpack — $80</li>
+    <li data-price="120">Jacket — $120</li>
+  </ul>
+
+  <wa-divider></wa-divider>
+
+  <wa-slider id="price-filter" label="Price range" range min="0" max="150" min-value="0" max-value="150" with-tooltip></wa-slider>
+</div>
+
+<script>
+  const demo = document.querySelector('.price-filter-demo');
+  const slider = demo.querySelector('wa-slider');
+  const items = demo.querySelectorAll('.price-filter-list li');
+  const currency = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+
+  function filter() {
+    items.forEach(item => {
+      const price = Number(item.dataset.price);
+      item.hidden = price < slider.minValue || price > slider.maxValue;
+    });
+  }
+
+  customElements.whenDefined('wa-slider').then(() => {
+    slider.valueFormatter = value => currency.format(value);
+    slider.addEventListener('input', filter);
+    filter();
+  });
+</script>
+
+<style>
+  .price-filter-demo .price-filter-list {
+    list-style: none;
+    margin: 0 0 1rem;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-height: 13rem;
+  }
+
+  .price-filter-demo .price-filter-list li {
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--wa-border-radius-m);
+    background-color: color-mix(in srgb, var(--wa-color-brand-fill-loud) 10%, transparent);
+  }
+</style>
 ```
