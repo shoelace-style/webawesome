@@ -36,6 +36,22 @@ describe('<wa-color-picker>', () => {
           expect(getComputedStyle(swatches[2]).backgroundColor).to.equal('rgb(0, 0, 255)');
         });
 
+        it('should keep swatches compact when there are fewer swatches than a full row', async () => {
+          const el = await fixture<WaColorPicker>(html`
+            <wa-color-picker swatches="red; green; blue;"></wa-color-picker>
+          `);
+          const trigger = el.shadowRoot!.querySelector<HTMLButtonElement>('[part~="trigger"]')!;
+          const swatch = el.shadowRoot!.querySelector<HTMLElement>('[part~="swatch"]')!;
+
+          await clickOnElement(trigger);
+          await aTimeout(200);
+
+          const fontSize = parseFloat(getComputedStyle(swatch).fontSize);
+          const swatchWidth = swatch.getBoundingClientRect().width;
+
+          expect(swatchWidth).to.be.lessThan(fontSize * 2);
+        });
+
         it('should render the correct swatches when passing an array of color values', async () => {
           const el = await fixture<WaColorPicker>(html` <wa-color-picker></wa-color-picker> `);
           el.swatches = ['red', '#008000', 'rgb(0,0,255)'];
