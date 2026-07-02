@@ -2,36 +2,35 @@
 title: Build Awesome (11ty)
 description: Tips for using Web Awesome in your Build Awesome (11ty) app.
 layout: framework
+officialDocs: https://www.11ty.dev
 ---
 
-Due to Build Awesome (11ty) being relatively unopinionated, there are many different ways to setup Web Awesome with your Build Awesome / 11ty site.
-
-The easiest way to use Web Awesome with Build Awesome is via NPM, since you're most likely using Build Awesome via NPM.
+Build Awesome (11ty) is relatively unopinionated, so there are several ways to add Web Awesome — the simplest is via npm, which your project most likely already uses.
 
 ## Installation
 
+To add Web Awesome to your Build Awesome site, install the package from npm.
 
-```js
+```bash
 npm install @awesome.me/webawesome
 ```
 
-After installing Web Awesome, we need to make our components available to the "frontend", we can do so by using `addPassthroughCopy`.
+## Usage
 
-If you haven't already, create a `eleventy.config.js`
+### Copy the Assets
 
-
-and do the following:
+Web Awesome's assets must be available to the browser. Add `addPassthroughCopy` to your `eleventy.config.js` to copy them into your build output — create the file if you don't have one yet:
 
 ```js
 // eleventy.config.js
 
-const webawesomeDir = "./node_modules/@awesome.me/webawesome"
+const webawesomeDir = './node_modules/@awesome.me/webawesome';
 
-export default async function(eleventyConfig) {
+export default async function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({
-    webawesomeDir: "webawesome",
+    webawesomeDir: 'webawesome',
   });
-};
+}
 
 export const config = {
   markdownTemplateEngine: 'njk',
@@ -44,7 +43,9 @@ export const config = {
 };
 ```
 
-And then in the `<head>` of your layout, add the following:
+### Load the Styles & Loader
+
+Add the stylesheet and component loader to your layout's `<head>`:
 
 ```html
 <head>
@@ -53,17 +54,35 @@ And then in the `<head>` of your layout, add the following:
 </head>
 ```
 
-And you're all set up to use Web Awesome! But you can still go 1 step further and add [SSR](/docs/ssr).
+<wa-callout variant="success">
+  <div class="wa-flank:end wa-gap-xl">
+    <p>
+      <strong>Web Awesome is ready to use.</strong><br />
+      Want server-side rendering too?
+    </p>
+    <wa-button size="small" variant="success" href="#server-side-rendering">
+      Add SSR
+    </wa-button>
+  </div>
+</wa-callout>
 
-## Adding SSR
+## Server-Side Rendering
 
-To add SSR, first install the `@lit-labs/eleventy-plugin-lit` plugin.
+With server-side rendering, your Web Awesome components render to HTML on the server, so pages display fully styled before client-side JavaScript loads. Learn more in the [SSR docs](/docs/ssr).
+
+To add SSR support to Build Awesome (11ty), follow the steps below.
+
+### Install the Plugin
+
+Install the `@lit-labs/eleventy-plugin-lit` plugin from npm:
 
 ```bash
 npm install @lit-labs/eleventy-plugin-lit
 ```
 
-And now you can update your `eleventy.config.js` to add the plugin.
+### Register the Plugin
+
+Once installed, register the plugin in your `eleventy.config.js` file.
 
 ```diff
 // eleventy.config.js
@@ -100,7 +119,9 @@ export const config = {
 };
 ```
 
-And now you must update your layout file to use the SSR loader instead of the regular loader.
+### Swap in the SSR Loader
+
+Update your layout to use the SSR loader instead of the default loader:
 
 ```html
 <head>
@@ -109,14 +130,25 @@ And now you must update your layout file to use the SSR loader instead of the re
 </head>
 ```
 
-And thats it! You should be all setup with Web Awesome + SSR!
+### See It in Action
 
-There are many other different ways to setup Web Awesome including things like bundlers, CDN only, preprocessing CSS, etc. This we felt was the simplest and still robust setup to get you started. A nice, middleground for both new and experienced Build Awesome users.
+Need an example of a complete Build Awesome (11ty) SSR project using Web Awesome?
 
-An example repo can be found here:
-
-<https://github.com/KonnorRogers/11ty-webawesome-ssr>
-
-As well as the deployed site:
-
-<https://konnorrogers.github.io/11ty-webawesome-ssr/>
+<div class="modern-card-list info-cards">
+  <section class="search-list-grid">
+    <a class="hover-grow hover-emphasize-border duotone-hover-context" data-duotone-hover-trigger href="https://github.com/KonnorRogers/11ty-webawesome-ssr" target="_blank" rel="noopener noreferrer">
+      <wa-card>
+        <wa-icon class="info-card-icon duotone-illustrated duotone-secondary-reveal" name="file-code" family="duotone" variant="regular"></wa-icon>
+        <span class="page-name">Example Repository</span>
+        <p class="modern-card-summary">A complete Build Awesome (11ty) SSR project using Web Awesome.</p>
+      </wa-card>
+    </a>
+    <a class="hover-grow hover-emphasize-border duotone-hover-context" data-duotone-hover-trigger href="https://konnorrogers.github.io/11ty-webawesome-ssr/" target="_blank" rel="noopener noreferrer">
+      <wa-card>
+        <wa-icon class="info-card-icon duotone-illustrated duotone-secondary-reveal" name="globe" family="duotone" variant="regular"></wa-icon>
+        <span class="page-name">Live Demo</span>
+        <p class="modern-card-summary">See the 11ty SSR example deployed and running.</p>
+      </wa-card>
+    </a>
+  </section>
+</div>

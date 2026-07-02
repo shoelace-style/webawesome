@@ -2,15 +2,14 @@
 title: Express
 description: Tips for using Web Awesome in your Express app.
 layout: framework
+officialDocs: https://expressjs.com
 ---
 
-There isn't much to know with Express as it is relatively unopinionated.
+Express is relatively unopinionated, so there isn't much to know.
 
-If you're using a frontend framework with Express such as [React](/docs/frameworks/react), [Vue](/docs/frameworks/vue), [Svelte](/docs/frameworks/svelte), etc. Please refer to those specific frameworks as they may have different setup and integration instructions.
+## Usage
 
-[Framework Integrations](/docs/frameworks)
-
-In a bare minimal Express app the following will work "as expected"
+In a bare-minimum Express app, the following works as expected:
 
 ```js
 import express from 'express';
@@ -32,7 +31,7 @@ app.get('/', (req, res) => {
         </wa-page>
       </body>
     </html>
-  `)
+  `);
 });
 
 app.listen(port, () => {
@@ -40,7 +39,7 @@ app.listen(port, () => {
 });
 ```
 
-The key piece is:
+The key piece is loading Web Awesome's stylesheet and loader in your `<head>`:
 
 ```html
 <head>
@@ -49,78 +48,63 @@ The key piece is:
 </head>
 ```
 
-Which is what will load Web Awesome.
+There are other ways to set up Web Awesome, such as with npm or downloading ZIP files, which are documented on the [Installation](/docs) page.
 
-There are other ways to setup Web Awesome such as with NPM or downloading ZIP files which are documented on our [Installation](/docs) page
+<wa-callout variant="success">
+  <div class="wa-flank:end wa-gap-xl">
+    <p>
+      <strong>Web Awesome is ready to use.</strong><br />
+      Want server-side rendering too?
+    </p>
+    <wa-button size="small" variant="success" href="#server-side-rendering">
+      Add SSR
+    </wa-button>
+  </div>
+</wa-callout>
 
-## Adding SSR (Server Side Rendering)
+:::info
+**Using Express with a frontend framework?** <br>Follow the [React](/docs/frameworks/react), [Vue](/docs/frameworks/vue), or [Svelte](/docs/frameworks/svelte) page instead, since their setup differs.
+:::
 
-SSR can be added to your express app by "transforming" your responses.
+## Server-Side Rendering
 
-The first step is to install Web Awesome to your `node_modules` folder.
+SSR works by rendering your HTML through Lit on the server. First, install Web Awesome locally:
 
-```js
+```bash
 npm install @awesome.me/webawesome
 ```
 
-After installing, you will need to do a few things:
-
-1. Register the Web Awesome components in the "server" component registry
-1. import the `renderString` function from `@awesome.me/webawesome/dist/ssr/render-string.js`
-1. Setup the `LitElementRenderer`
-1. Modify the `response` call to "transform" the string with Lit SSR.
-
-```diff-javascript
-+ // Will register all web awesome components on your server
-+ import "@awesome.me/webawesome/dist/ssr.js"
-+ // Will transform a plain HTML string into a Lit Template, run SSR, and then turn it back into a string.
-+ import { renderString } from "@awesome.me/webawesome/dist/ssr/render-string.js";
-+ import {LitElementRenderer} from '@lit-labs/ssr';
-+ // Call connectedCallback for `my-element` by returning an options object with `connectedCallback` set to true.
-+ LitElementRenderer.renderOptions.push(
-+  (element) => element.localName.startsWith('wa-') ? {connectedCallback: true} : undefined
-+ );
-
-import express from 'express';
-
-const app = express();
-const port = 3000;
-
-app.get('/', (req, res) => {
-+  res.send(renderString(`
--  res.send(`
-    <!doctype html>
-    <html>
-      <head>
-        <link rel="stylesheet" href="{% cdnUrl 'styles/webawesome.css' %}" />
-        <script type="module" src="{% cdnUrl 'webawesome.loader.js' %}"></script>
-      </head>
-      <body>
-        <wa-page>
-          <wa-button>Hello World</wa-button>
-        </wa-page>
-      </body>
-    </html>
-+  `))
--  `)
-});
-
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
-```
-
-<wa-details summary="Full code without diff">
+Then add the SSR setup to the top of your server. This registers the components and tells Lit to run each one's `connectedCallback` while rendering:
 
 ```js
-// Will register all web awesome components on your server
-import "@awesome.me/webawesome/dist/ssr.js"
-// Will transform a plain HTML string into a Lit Template, run SSR, and then turn it back into a string.
-import { renderString } from "@awesome.me/webawesome/dist/ssr/render-string.js";
-import {LitElementRenderer} from '@lit-labs/ssr';
-// Call connectedCallback for all Web Awesome elements by returning an options object with `connectedCallback` set to true.
-LitElementRenderer.renderOptions.push(
- (element) => element.localName.startsWith('wa-') ? {connectedCallback: true} : undefined
+// Register all Web Awesome components on the server
+import '@awesome.me/webawesome/dist/ssr.js';
+// renderString turns an HTML string into a Lit template, runs SSR, and returns a string
+import { renderString } from '@awesome.me/webawesome/dist/ssr/render-string.js';
+import { LitElementRenderer } from '@lit-labs/ssr';
+
+LitElementRenderer.renderOptions.push(element =>
+  element.localName.startsWith('wa-') ? { connectedCallback: true } : undefined,
+);
+```
+
+Finally, wrap each HTML response in `renderString()`:
+
+```diff
+- res.send(`...your HTML...`);
++ res.send(renderString(`...your HTML...`));
+```
+
+<wa-details summary="Full example">
+
+```js
+// Register all Web Awesome components on the server
+import '@awesome.me/webawesome/dist/ssr.js';
+// renderString turns an HTML string into a Lit template, runs SSR, and returns a string
+import { renderString } from '@awesome.me/webawesome/dist/ssr/render-string.js';
+import { LitElementRenderer } from '@lit-labs/ssr';
+LitElementRenderer.renderOptions.push(element =>
+  element.localName.startsWith('wa-') ? { connectedCallback: true } : undefined,
 );
 
 import express from 'express';
@@ -129,7 +113,8 @@ const app = express();
 const port = 3000;
 
 app.get('/', (req, res) => {
-  res.send(renderString(`
+  res.send(
+    renderString(`
     <!doctype html>
     <html>
       <head>
@@ -142,7 +127,8 @@ app.get('/', (req, res) => {
         </wa-page>
       </body>
     </html>
-  `))
+  `),
+  );
 });
 
 app.listen(port, () => {
@@ -152,72 +138,49 @@ app.listen(port, () => {
 
 </wa-details>
 
-<br><br>
+### Using a View Engine
 
-If you're using a view engine library such as Pug, Haml, Nunjucks, etc, you can add a middleware to capture the rendering function and transform the string.
+If you use a view engine such as Pug, Haml, or Nunjucks, add a middleware that runs each rendered view through `renderString`. It reuses the same SSR setup from above:
 
 :::warning
-The below middleware is a quick and dirty hack. If these routes ever serve non-HTML routes such as JSON, CSV, even emails for older clients, etc, it is worth adding a content-type check or some sort of flag on the rendering not to transform it with Lit. It is out of the scope of this page to cover that however.
+<strong>This middleware transforms every response through Lit.</strong><br />
+If a route can return non-HTML like JSON or CSV, add a content-type check so it skips the transform.
 :::
 
 ```js
-// Will register all web awesome components on your server
-import "@awesome.me/webawesome/dist/ssr.js"
-// Will transform a plain HTML string into a Lit Template, run SSR, and then turn it back into a string.
-import { renderString } from "@awesome.me/webawesome/dist/ssr/render-string.js";
-import {LitElementRenderer} from '@lit-labs/ssr';
-// Call connectedCallback for all Web Awesome elements by returning an options object with `connectedCallback` set to true.
-LitElementRenderer.renderOptions.push(
- (element) => element.localName.startsWith('wa-') ? {connectedCallback: true} : undefined
-);
+app.set('view engine', 'nunjucks');
 
-import express from 'express';
-
-const app = express();
-const port = 3000;
-
-app.set('view engine', 'nunjucks')
-app.set('views', 'views')
-
+// Transform each rendered view through Lit before sending
 app.use((req, res, next) => {
-  // Store the original render function
   const original = res.render.bind(res);
 
-  // re-define it
   res.render = (view, options, callback) => {
-    if (typeof options === "function") {
+    if (typeof options === 'function') {
       callback = options;
       options = {};
     }
 
     original(view, options, (err, html) => {
-      if (err) {
-        return typeof callback === "function" ? callback(err) : next(err);
-      }
-
+      if (err) return typeof callback === 'function' ? callback(err) : next(err);
       const out = renderString(html);
-
-      if (typeof callback === "function") {
-        return callback(null, out);
-      }
-
-      return res.send(out);
+      return typeof callback === 'function' ? callback(null, out) : res.send(out);
     });
   };
 
   next();
 });
-
-app.get('/', (req, res) => {
-  // Assumes you have something like `views/index.njk`
-  res.render("index")
-});
-
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
 ```
 
-If you'd like to see an example repo, one can be found here:
+### See It in Action
 
-<https://github.com/KonnorRogers/webawesome-ssr-express>
+<div class="modern-card-list info-cards">
+  <section class="search-list-grid">
+    <a class="hover-grow hover-emphasize-border duotone-hover-context" data-duotone-hover-trigger href="https://github.com/KonnorRogers/webawesome-ssr-express" target="_blank" rel="noopener noreferrer">
+      <wa-card>
+        <wa-icon class="info-card-icon duotone-illustrated duotone-secondary-reveal" name="file-code" family="duotone" variant="regular"></wa-icon>
+        <span class="page-name">Example Repository</span>
+        <p class="modern-card-summary">A complete Express SSR project using Web Awesome.</p>
+      </wa-card>
+    </a>
+  </section>
+</div>
