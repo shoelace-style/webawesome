@@ -2,6 +2,7 @@ import { html, isServer, type PropertyValues } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { live } from 'lit/directives/live.js';
+import { WaClearEvent } from '../../events/clear.js';
 import { WaCompleteEvent } from '../../events/complete.js';
 import { HasSlotController } from '../../internal/slot.js';
 import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
@@ -396,6 +397,7 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
   /** Clears the current value and returns focus to the field. */
   clear() {
     this.value = '';
+    this.dispatchEvent(new WaClearEvent());
     this.focus();
   }
 
