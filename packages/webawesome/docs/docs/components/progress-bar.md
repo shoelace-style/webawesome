@@ -18,7 +18,7 @@ use-cases:
 
 ## Examples
 
-### Labels
+### Label
 
 Use the `label` attribute to tell assistive devices how to announce the progress bar.
 

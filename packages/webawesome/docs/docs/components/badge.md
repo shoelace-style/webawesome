@@ -21,7 +21,7 @@ use-cases:
 
 ## Examples
 
-### Variants
+### Variant
 
 Set the `variant` attribute to change the badge's variant.
 
@@ -70,7 +70,7 @@ Use the `appearance` attribute to change the badge's visual appearance.
 </div>
 ```
 
-### Sizes
+### Size
 
 Badges are sized relative to the current font size. You can set `font-size` on any badge (or an ancestor element) to change it.
 

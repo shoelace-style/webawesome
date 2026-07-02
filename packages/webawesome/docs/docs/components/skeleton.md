@@ -63,15 +63,15 @@ A single skeleton stands in for one line or shape. Because layouts vary endlessl
 
 ## Examples
 
-### Effects
+### Effect
 
 Set the `effect` attribute to choose how the skeleton animates while content loads. Effects are intentionally subtle, since motion across many skeletons at once can distract.
 
-| Effect | Behavior | Best for |
-| --- | --- | --- |
-| `none` <wa-badge appearance="outlined" variant="neutral" pill style="font-size: var(--wa-font-size-2xs);">default</wa-badge> | Static, non-animated placeholder | Dense layouts where motion would be noisy |
-| `sheen` | A light sweeps across the indicator | Signaling that content is actively loading |
-| `pulse` | The indicator fades in and out | A calmer alternative to `sheen` |
+| Effect                                                                                                                       | Behavior                            | Best for                                   |
+| ---------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- | ------------------------------------------ |
+| `none` <wa-badge appearance="outlined" variant="neutral" pill style="font-size: var(--wa-font-size-2xs);">default</wa-badge> | Static, non-animated placeholder    | Dense layouts where motion would be noisy  |
+| `sheen`                                                                                                                      | A light sweeps across the indicator | Signaling that content is actively loading |
+| `pulse`                                                                                                                      | The indicator fades in and out      | A calmer alternative to `sheen`            |
 
 ```html {.example}
 <div class="skeleton-effects">

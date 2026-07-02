@@ -18,7 +18,7 @@ use-cases:
 
 ## Examples
 
-### Labels
+### Label
 
 Use the `label` attribute to tell assistive devices how to announce the progress ring.
 
@@ -26,7 +26,7 @@ Use the `label` attribute to tell assistive devices how to announce the progress
 <wa-progress-ring value="25" label="Sync progress"></wa-progress-ring>
 ```
 
-### Sizing
+### Size
 
 Use the `--size` custom property to set the diameter of the ring.
 

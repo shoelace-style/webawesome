@@ -24,7 +24,7 @@ use-cases:
 
 ## Examples
 
-### Variants
+### Variant
 
 Set the `variant` attribute to match the callout to its message.
 
@@ -95,7 +95,7 @@ Use the `appearance` attribute to change the callout's visual style. With no `ap
 </div>
 ```
 
-### Sizes
+### Size
 
 Use the `size` attribute to change a callout's size.
 

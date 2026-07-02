@@ -19,7 +19,7 @@ use-cases:
 
 ## Examples
 
-### Sizing
+### Size
 
 Spinners are sized based on the current font size. To change the size, set `font-size` on the spinner itself or on a parent element.
 

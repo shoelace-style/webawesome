@@ -21,7 +21,7 @@ use-cases:
 
 ## Examples
 
-### Variants
+### Variant
 
 Set the `variant` attribute to match the tag to its meaning.
 
@@ -72,7 +72,7 @@ Use the `appearance` attribute to change the tag's visual style. The default is 
 </div>
 ```
 
-### Sizes
+### Size
 
 Use the `size` attribute to change a tag's size.
 
