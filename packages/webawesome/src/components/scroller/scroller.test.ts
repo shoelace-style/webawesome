@@ -27,11 +27,11 @@ describe('<wa-scroller>', () => {
           expect(content).to.have.attribute('aria-label');
         });
 
-        it('should set aria-orientation based on orientation property', async () => {
+        it('should not set aria-orientation on the region content container', async () => {
           const el = await fixture<WaScroller>(html` <wa-scroller orientation="vertical"></wa-scroller> `);
 
           const content = el.shadowRoot!.querySelector('#content')!;
-          expect(content).to.have.attribute('aria-orientation', 'vertical');
+          expect(content).to.not.have.attribute('aria-orientation');
         });
       });
 
