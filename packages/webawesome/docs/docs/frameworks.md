@@ -1,7 +1,7 @@
 ---
 title: Frameworks
 description: Using Web Awesome with frameworks.
-layout: page-outline
+layout: docs
 hasOutline: false
 synonyms:
   - integrations
@@ -56,7 +56,7 @@ frameworks:
       icon_src: "/assets/images/logos/logo-express-white.svg"
 
   # Astro
-  - color: "#41b883"
+  - color: "#ff5d01"
     title: Astro
     icon_src: "/assets/images/logos/astro-logo-dark.svg"
     href: "/docs/frameworks/astro"
@@ -70,23 +70,14 @@ frameworks:
     href: "/docs/frameworks/buildawesome"
 ---
 
-<style>
-  .framework-icon {
-    font-size: var(--wa-font-size-4xl);
-    color: var(--color, currentColor);
-  }
-</style>
+Web Awesome is built on standard web components, so it works with any framework. These guides cover setup and known limitations for the most common ones.
 
-Web Awesome is designed to work in harmony with various frameworks. We have documented some of the most common ones including setup and limitations.
-
-Select your framework below to get started.
-
-<div class="wa-grid" style="--min-column-size: 20ch;">
-  {# sort alphabetically #}
+<div class="modern-card-list">
+  <section class="search-list-grid">
   {%- for framework in frameworks | sort(false, true, 'title') -%}
     <a href="{{ framework.href }}" class="wa-link-plain hover-grow hover-emphasize-border">
-      <wa-card appearance="outlined" style="height: 100%;">
-        <div class="wa-stack wa-align-items-center">
+      <wa-card class="framework-card">
+        <div class="framework-logo">
           <wa-icon
             class="
               framework-icon
@@ -115,18 +106,25 @@ Select your framework below to get started.
               style="--color: {{ framework.dark.color or framework.color or "currentColor" }};"
             ></wa-icon>
           {%- endif -%}
-          <span class="wa-heading-m">
-            {{ framework.title }}
-          </span>
         </div>
+        <span class="page-name">
+          {{ framework.title }}
+        </span>
       </wa-card>
     </a>
   {%- endfor -%}
+  </section>
 </div>
 
 
-<p style="margin-top: 4rem; text-align: center;">
-  <a href="https://github.com/shoelace-style/webawesome/discussions/new?category=ideas-suggestions">
-    Don't see your framework here? Feel free to open a discussion!
-  </a>
-</p>
+<div class="wa-placeholder wa-stack wa-gap-2xl wa-align-items-center wa-justify-content-center wa-text-center">
+  <div class="wa-stack wa-align-items-center">
+    <wa-icon name="puzzle" variant="regular" class="wa-font-size-3xl"></wa-icon>
+    <h3 class="font-brand wa-heading-xl" data-no-anchor>Don't See Your Framework?</h3>
+    <p class="text-wrap-balance line-length line-length-m">We document the most common frameworks, but we're always adding more. Tell us what you're building with and we'll consider a guide.</p>
+  </div>
+  <wa-button href="{{ site.github.ideas }}">
+    <wa-icon name="lightbulb-on" slot="start" variant="regular"></wa-icon>
+    Request a Framework
+  </wa-button>
+</div>
