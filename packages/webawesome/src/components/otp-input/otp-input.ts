@@ -2,10 +2,10 @@ import { html, isServer, type PropertyValues } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { live } from 'lit/directives/live.js';
-import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
+import { WaCompleteEvent } from '../../events/complete.js';
 import { HasSlotController } from '../../internal/slot.js';
 import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
-import { WaCompleteEvent } from '../../events/complete.js';
+import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
 import formControlStyles from '../../styles/component/form-control.styles.js';
 import sizeStyles from '../../styles/component/size.styles.js';
 import styles from './otp-input.styles.js';
@@ -180,7 +180,13 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
       }
     }
     // Re-filter and truncate when type, case, length, or format changes after first render.
-    if (this.hasUpdated && (changedProperties.has('type') || changedProperties.has('case') || changedProperties.has('length') || changedProperties.has('format'))) {
+    if (
+      this.hasUpdated &&
+      (changedProperties.has('type') ||
+        changedProperties.has('case') ||
+        changedProperties.has('length') ||
+        changedProperties.has('format'))
+    ) {
       const refiltered = this.filterAndTransform(this._value).slice(0, this.effectiveLength);
       if (refiltered !== this._value) {
         this._value = refiltered;
@@ -430,13 +436,7 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
         <slot name="label">${this.label}</slot>
       </label>
 
-      <div
-        part="segments"
-        class="segments"
-        role="group"
-        aria-labelledby="label"
-        @click=${this.handleSegmentsClick}
-      >
+      <div part="segments" class="segments" role="group" aria-labelledby="label" @click=${this.handleSegmentsClick}>
         ${parts.map(part => {
           if (part.type === 'separator') {
             return html`<span part="segment-separator" class="segment-separator" aria-hidden="true"
