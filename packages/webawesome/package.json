@@ -8,7 +8,7 @@
   "homepage": "https://webawesome.com/",
   "author": "Web Awesome",
   "license": "MIT",
-  "customElements": "dist-cdn/custom-elements.json",
+  "customElements": "dist/custom-elements.json",
   "web-types": "./dist/web-types.json",
   "type": "module",
   "types": "dist/webawesome.d.ts",
