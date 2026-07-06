@@ -40,7 +40,7 @@ Add a descriptive hint with the `hint` attribute. For hints that contain HTML, u
 <wa-color-picker label="Accent" hint="Pick something with enough contrast to read against white."></wa-color-picker>
 ```
 
-### Setting an Initial Value
+### Initial Value
 
 Use the `value` attribute to set a starting color. The value's format follows the `format` attribute, but any parsable color (including CSS color names) is accepted as input.
 
