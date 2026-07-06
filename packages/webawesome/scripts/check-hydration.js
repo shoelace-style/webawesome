@@ -129,7 +129,7 @@ async function checkUrl(context, url) {
     // pass — the first attempt that surfaces errors stops the loop and reports,
     // so a later reload can never erase an error we already caught.
     for (let attempt = 1; attempt <= RELOAD_ATTEMPTS; attempt++) {
-      const response = await page.goto(url, { waitUntil: 'networkidle', timeout: 30_000 });
+      const response = await page.goto(url, { timeout: 30_000 });
 
       if (response && !response.ok()) {
         console.log(`⚠️  ${label} — HTTP ${response.status()}`);
