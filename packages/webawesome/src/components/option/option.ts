@@ -121,7 +121,7 @@ export default class WaOption extends WebAwesomeElement {
       customElements.whenDefined('wa-select').then(() => {
         const controller = this.closest('wa-select');
         if (controller) {
-          controller.handleDefaultSlotChange();
+          controller.handleDefaultSlotChange?.();
         }
       });
 
@@ -130,7 +130,7 @@ export default class WaOption extends WebAwesomeElement {
         // We cast to <wa-select> because it shares the same API as combobox
         const controller = this.closest<WaSelect>('wa-combobox');
         if (controller) {
-          controller.handleDefaultSlotChange();
+          controller.handleDefaultSlotChange?.();
         }
       });
     } else {
