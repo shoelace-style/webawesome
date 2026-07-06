@@ -35,6 +35,11 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 - Fixed type resolution issues with `pro` components like `<wa-file-input>`, `<wa-combobox>`, etc. [pr:2577]
 - Fixed an issue where some fonts wouldn't load in themes that import multiple fonts [pr:2582]
+- Fixed an issue with an improper custom elements manifest path. [pr:2590]
+- Fixed an unnecessary aria-orientation attribute on `<wa-scroller>` [pr:2589]
+- Fixed a lifecycle issue in `<wa-option>` [pr:2591]
+- Fixed a bug with extra margin on the first button of a `<wa-button-group>` [pr:2592]
+
 
 :::
 
