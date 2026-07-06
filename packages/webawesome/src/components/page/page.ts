@@ -1,8 +1,9 @@
 import type { PropertyValues } from 'lit';
-import { html, isServer } from 'lit';
+import { html, isServer, nothing } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
 import { live } from 'lit/directives/live.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
+import { HasSlotController } from '../../internal/slot.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import visuallyHidden from '../../styles/component/visually-hidden.styles.js';
 import '../button/button.js';
@@ -172,6 +173,8 @@ export default class WaPage extends WebAwesomeElement {
   @query("[part~='drawer']") navigationDrawer: WaDrawer;
   @query("slot[name~='navigation-toggle']") navigationToggleSlot: HTMLSlotElement;
 
+  private readonly hasSlotController = new HasSlotController(this, 'navigation-footer');
+
   /**
    * The view is a reflection of the "mobileBreakpoint", when the page is larger than the `mobile-breakpoint` (768px by
    * default), it is considered to be a "desktop" view. The view is merely a way to distinguish when to show/hide the
@@ -204,6 +207,12 @@ export default class WaPage extends WebAwesomeElement {
    */
   @property({ attribute: 'disable-navigation-toggle', reflect: true, type: Boolean }) disableNavigationToggle: boolean =
     false;
+
+  /**
+   * Only required for SSR. Set to `true` if you're slotting in a `navigation-footer` element so the server-rendered
+   * markup includes the mobile drawer footer before the component hydrates on the client.
+   */
+  @property({ attribute: 'with-navigation-footer', type: Boolean }) withNavigationFooter = false;
 
   pageResizeObserver =
     typeof ResizeObserver !== 'undefined'
@@ -341,6 +350,9 @@ export default class WaPage extends WebAwesomeElement {
   }
 
   render() {
+    // Forward the footer only when slotted — wa-drawer shows an empty padded footer for any forwarded slot.
+    const hasNavigationFooter = this.hasSlotController.test('navigation-footer', 'withNavigationFooter');
+
     return html`
       <a href="#main-content" part="skip-to-content" class="wa-visually-hidden">
         <slot name="skip-to-content">Skip to content</slot>
@@ -435,9 +447,11 @@ export default class WaPage extends WebAwesomeElement {
           <slot name=${this.view === 'mobile' ? 'navigation' : '____'}></slot>
         </slot>
 
-        <slot slot="footer" name="mobile-navigation-footer">
-          <slot part="navigation-footer" name=${this.view === 'mobile' ? 'navigation-footer' : '___'}></slot>
-        </slot>
+        ${hasNavigationFooter
+          ? html`<slot slot="footer" name="mobile-navigation-footer">
+              <slot part="navigation-footer" name=${this.view === 'mobile' ? 'navigation-footer' : '___'}></slot>
+            </slot>`
+          : nothing}
       </wa-drawer>
     `;
   }

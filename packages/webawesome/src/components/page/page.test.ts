@@ -124,6 +124,21 @@ describe('<wa-page>', () => {
         });
       });
 
+      describe('mobile drawer footer', () => {
+        it('should not forward a footer slot into the drawer when no navigation-footer is slotted', async () => {
+          const el = await fixture<WaPage>(html`<wa-page>Content</wa-page>`);
+          await el.updateComplete;
+          expect(el.shadowRoot!.querySelector('slot[slot="footer"]')).to.be.null;
+        });
+
+        it('should forward a footer slot into the drawer when navigation-footer is slotted', async () => {
+          const el = await fixture<WaPage>(html`<wa-page><div slot="navigation-footer">Nav Footer</div></wa-page>`);
+          el.requestUpdate(); // re-render so HasSlotController re-checks the slot
+          await el.updateComplete;
+          expect(el.shadowRoot!.querySelector('slot[slot="footer"]')).to.exist;
+        });
+      });
+
       describe('CSS parts', () => {
         it('should have a base part', async () => {
           const el = await fixture<WaPage>(html`<wa-page>Content</wa-page>`);
