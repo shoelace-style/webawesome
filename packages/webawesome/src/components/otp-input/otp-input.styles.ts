@@ -24,28 +24,34 @@ export default css`
     cursor: default;
   }
 
-  /* Suppress the active-segment focus ring and color when readonly */
-  :host(:state(readonly)) .segment--active {
+  /* Suppress the active/selected-segment focus ring and color when readonly */
+  :host(:state(readonly)) .segment--active,
+  :host(:state(readonly)) .segment--selected {
     border-color: inherit;
   }
 
-  :host(:state(readonly)) .segments:focus-within .segment--active {
+  :host(:state(readonly)) .segments:focus-within .segment--active,
+  :host(:state(readonly)) .segments:focus-within .segment--selected {
     outline: none;
     border-color: inherit;
   }
 
-  /* Focus ring on the active segment only */
-  .segments:focus-within .segment--active {
+  /* Focus ring on the active segment, and on every segment in a multi-character selection */
+  .segments:focus-within .segment--active,
+  .segments:focus-within .segment--selected {
     outline: var(--wa-focus-ring-style) var(--wa-focus-ring-width) var(--wa-color-focus);
     outline-offset: var(--wa-focus-ring-offset);
   }
 
-  /* Hidden real input — off-screen but focusable */
+  /* Hidden real input — off-screen but focusable.
+     Chromium mishandles typing over a full selection (drops the inserted character) when a
+     text input has zero layout size, so this stays a non-zero 1x1px box instead of 0x0. */
   .hidden-input {
     position: absolute;
-    width: 0;
-    height: 0;
+    width: 1px;
+    height: 1px;
     opacity: 0;
+    overflow: hidden;
     pointer-events: none;
     border: none;
     padding: 0;
@@ -65,10 +71,15 @@ export default css`
     font-variant-numeric: tabular-nums;
     position: relative;
     user-select: none;
+    /* Zero-width outline present at all times so the focus ring can grow in smoothly
+       instead of popping in the instant .segment--active/--selected starts matching. */
+    outline: var(--wa-focus-ring-style) 0 var(--wa-color-focus);
     transition:
       background-color var(--wa-transition-normal),
       border-color var(--wa-transition-normal),
-      outline-color var(--wa-transition-fast);
+      outline-color var(--wa-transition-fast),
+      outline-width var(--wa-transition-fast),
+      outline-offset var(--wa-transition-fast);
     transition-timing-function: var(--wa-transition-easing);
   }
 
@@ -99,26 +110,26 @@ export default css`
     user-select: none;
   }
 
-  /* ── Appearance: outlined (default) ── */
+  /* Appearance: outlined (default) */
   :host([appearance='outlined']) .segment,
   :host(:not([appearance])) .segment {
     background-color: var(--wa-form-control-background-color);
     border: var(--wa-form-control-border-width) var(--wa-form-control-border-style) var(--wa-form-control-border-color);
   }
 
-  /* ── Appearance: filled ── */
+  /* Appearance: filled */
   :host([appearance='filled']) .segment {
     background-color: var(--wa-color-neutral-fill-quiet);
     border: var(--wa-form-control-border-width) var(--wa-form-control-border-style) transparent;
   }
 
-  /* ── Appearance: filled-outlined ── */
+  /* Appearance: filled-outlined */
   :host([appearance='filled-outlined']) .segment {
     background-color: var(--wa-color-neutral-fill-quiet);
     border: var(--wa-form-control-border-width) var(--wa-form-control-border-style) var(--wa-form-control-border-color);
   }
 
-  /* ── Appearance: contained ── */
+  /* Appearance: contained */
   :host([appearance='contained']) .segments {
     gap: 0;
     border: var(--wa-form-control-border-width) var(--wa-form-control-border-style) var(--wa-form-control-border-color);
@@ -139,12 +150,16 @@ export default css`
       var(--wa-form-control-border-color);
   }
 
-  /* ── Active segment (where next char will go) ── */
-  :host(:not(:state(readonly))) .segment--active {
+  /* ── Active segment (where next char will go), and every segment in a multi-character
+     selection (e.g. from Cmd/Ctrl+A) — same border + focus-ring treatment for both.
+     :host(...) wrapper matches the specificity of the appearance rules above so this
+     border-color isn't silently lost to the cascade. ── */
+  :host(:not(:state(readonly))) .segment--active,
+  :host(:not(:state(readonly))) .segment--selected {
     border-color: var(--wa-color-focus);
   }
 
-  /* ── Placeholder hint character in empty segments ── */
+  /* Placeholder hint character in empty segments */
   .segment--placeholder {
     opacity: 0.35;
     pointer-events: none;

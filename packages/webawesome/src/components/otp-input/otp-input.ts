@@ -5,6 +5,7 @@ import { live } from 'lit/directives/live.js';
 import { WaClearEvent } from '../../events/clear.js';
 import { WaCompleteEvent } from '../../events/complete.js';
 import { HasSlotController } from '../../internal/slot.js';
+import { submitForm } from '../../internal/submit-on-enter.js';
 import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
 import formControlStyles from '../../styles/component/form-control.styles.js';
@@ -24,7 +25,8 @@ import styles from './otp-input.styles.js';
  * @event blur - Emitted when the control loses focus.
  * @event input - Emitted when a character is entered or removed.
  * @event change - Emitted when the value changes and the field loses focus.
- * @event wa-complete - Emitted once when all segments are filled.
+ * @event wa-complete - Emitted once when all segments are filled. Cancelable — call `preventDefault()` to stop
+ *   `autosubmit` from submitting the form for this completion.
  * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
  * @csspart label - The label element.
@@ -66,6 +68,19 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
   @state() private _focused = false;
   // Which segment the cursor is on. -1 when unfocused.
   @state() private _activeIndex = -1;
+  // The other end of a native multi-character selection (e.g. from Cmd/Ctrl+A).
+  // -1, or equal to _activeIndex, means "no selection — just a caret at _activeIndex".
+  @state() private _selectionAnchor = -1;
+
+  private get hasSelection(): boolean {
+    return this._selectionAnchor >= 0 && this._selectionAnchor !== this._activeIndex;
+  }
+
+  // Move the caret to `index` with no active selection.
+  private setCaretIndex(index: number) {
+    this._activeIndex = index;
+    this._selectionAnchor = -1;
+  }
 
   // Backing field — not a reactive @state; value setter triggers requestUpdate() manually
   private _value = '';
@@ -84,13 +99,13 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
     if (this.input) this.input.value = next;
     // When value changes while focused, move cursor to the end of the new value
     if (this._focused) {
-      this._activeIndex = Math.min(next.length, this.effectiveLength - 1);
+      this.setCaretIndex(Math.min(next.length, this.effectiveLength - 1));
     }
     this.requestUpdate('value', oldValue);
   }
 
   /** The default value. Used to restore the field on form reset. Reflects the `value` HTML attribute. */
-  @property({ attribute: 'value', reflect: true }) defaultValue = this.getAttribute('value') ?? '';
+  @property({ attribute: 'value', reflect: true }) defaultValue: string | null = this.getAttribute('value') ?? null;
 
   /** Number of character segments to display. Overridden by `format` when set. */
   @property({ type: Number, reflect: true }) length = 6;
@@ -132,6 +147,9 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
 
   /** Makes the field readonly — the value displays but cannot be edited by the user. */
   @property({ type: Boolean, reflect: true }) readonly = false;
+
+  /** When true, the form is submitted automatically once all segments are filled. */
+  @property({ type: Boolean, reflect: true }) autosubmit = false;
 
   /** Automatically focuses the field when the page loads. */
   @property({ type: Boolean }) autofocus = false;
@@ -225,6 +243,8 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
   // select it (so typing replaces it); otherwise place an empty cursor there.
   private syncCursor() {
     if (!this._focused || !this.input || this._activeIndex < 0) return;
+    // Don't collapse a live multi-character selection (e.g. from Cmd/Ctrl+A) on unrelated re-renders.
+    if (this.hasSelection) return;
     const len = this._value.length;
     const start = Math.min(this._activeIndex, len);
     const end = this._activeIndex < len ? start + 1 : start;
@@ -260,20 +280,32 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
     }
 
     // Update the active segment to wherever the cursor is now
-    this._activeIndex = Math.min(cursorAfterFilter, this.effectiveLength - 1);
+    this.setCaretIndex(Math.min(cursorAfterFilter, this.effectiveLength - 1));
 
     const prevLength = this._value.length;
     const oldValue = this._value;
     this._value = filtered;
     this.setValue(filtered);
 
-    this.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
-
-    if (filtered.length === this.effectiveLength && prevLength < this.effectiveLength) {
-      this.dispatchEvent(new WaCompleteEvent());
-    }
+    // No manual 'input' dispatch here — the native event that triggered this handler already
+    // bubbles and composes out of the shadow root on its own (unlike Backspace/Delete/paste,
+    // which call preventDefault() and so need a synthetic one instead).
+    this.maybeDispatchComplete(filtered.length === this.effectiveLength && prevLength < this.effectiveLength);
 
     this.requestUpdate('value', oldValue);
+  }
+
+  // Dispatch wa-complete when the value just became fully filled, then submit the form if
+  // autosubmit is enabled and no listener canceled the event.
+  private maybeDispatchComplete(justCompleted: boolean) {
+    if (!justCompleted) return;
+    const notCanceled = this.dispatchEvent(new WaCompleteEvent());
+    if (this.autosubmit && notCanceled) {
+      // Deferred like submitOnEnter — requestSubmit() called synchronously from inside the
+      // triggering input event doesn't reliably fire, and this also gives async wa-complete
+      // listeners a moment to have run before the form actually submits.
+      setTimeout(() => submitForm(this));
+    }
   }
 
   private handleKeyDown(e: KeyboardEvent) {
@@ -283,41 +315,63 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
     if (e.key === 'Tab') {
       if (!e.shiftKey && this._activeIndex < max - 1) {
         e.preventDefault();
-        this._activeIndex++;
+        this.setCaretIndex(this._activeIndex + 1);
       } else if (e.shiftKey && this._activeIndex > 0) {
         e.preventDefault();
-        this._activeIndex--;
+        this.setCaretIndex(this._activeIndex - 1);
       }
       // else: Tab/Shift-Tab at boundary → propagate out of component
     } else if (e.key === 'ArrowRight') {
       e.preventDefault();
-      this._activeIndex = Math.min(this._activeIndex + 1, max - 1);
+      if (this.hasSelection) {
+        this.setCaretIndex(Math.min(Math.max(this._selectionAnchor, this._activeIndex), max - 1));
+      } else {
+        this._activeIndex = Math.min(this._activeIndex + 1, max - 1);
+      }
     } else if (e.key === 'ArrowLeft') {
       e.preventDefault();
-      this._activeIndex = Math.max(this._activeIndex - 1, 0);
+      if (this.hasSelection) {
+        this.setCaretIndex(Math.max(Math.min(this._selectionAnchor, this._activeIndex), 0));
+      } else {
+        this._activeIndex = Math.max(this._activeIndex - 1, 0);
+      }
     } else if (this.readonly) {
       // All character-mutating keys are blocked when readonly; navigation above still works.
     } else if (e.key === 'Backspace') {
       // Prevent browser from shifting chars; manually splice the slot and move back.
       e.preventDefault();
-      const idx = this._activeIndex;
-      if (idx < this._value.length) {
-        this.spliceValue(idx);
+      if (this.hasSelection) {
+        const start = Math.min(this._selectionAnchor, this._activeIndex);
+        const end = Math.max(this._selectionAnchor, this._activeIndex);
+        this.spliceValue(start, end);
+        this.setCaretIndex(Math.min(start, max - 1));
+      } else {
+        const idx = this._activeIndex;
+        if (idx < this._value.length) {
+          this.spliceValue(idx);
+        }
+        this.setCaretIndex(Math.max(idx - 1, 0));
       }
-      this._activeIndex = Math.max(idx - 1, 0);
     } else if (e.key === 'Delete') {
       // Same as Backspace but cursor stays in place.
       e.preventDefault();
-      const idx = this._activeIndex;
-      if (idx < this._value.length) {
-        this.spliceValue(idx);
+      if (this.hasSelection) {
+        const start = Math.min(this._selectionAnchor, this._activeIndex);
+        const end = Math.max(this._selectionAnchor, this._activeIndex);
+        this.spliceValue(start, end);
+        this.setCaretIndex(Math.min(start, max - 1));
+      } else {
+        const idx = this._activeIndex;
+        if (idx < this._value.length) {
+          this.spliceValue(idx);
+        }
       }
     }
   }
 
-  // Remove the character at `index` from _value and sync state.
-  private spliceValue(index: number) {
-    const next = this._value.slice(0, index) + this._value.slice(index + 1);
+  // Remove the characters in [start, end) from _value and sync state.
+  private spliceValue(start: number, end: number = start + 1) {
+    const next = this._value.slice(0, start) + this._value.slice(end);
     const oldValue = this._value;
     this._value = next;
     this.setValue(next);
@@ -352,24 +406,36 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
     this.setValue(next);
     if (this.input) this.input.value = next;
 
-    this._activeIndex = Math.min(idx + filtered.length, max - 1);
+    this.setCaretIndex(Math.min(idx + filtered.length, max - 1));
 
     this.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
-    if (next.length === max && prevLength < max) {
-      this.dispatchEvent(new WaCompleteEvent());
-    }
+    this.maybeDispatchComplete(next.length === max && prevLength < max);
 
     this.requestUpdate('value', oldValue);
   }
 
   private handleFocus() {
     this._focused = true;
-    this._activeIndex = Math.min(this._value.length, this.effectiveLength - 1);
+    this.setCaretIndex(Math.min(this._value.length, this.effectiveLength - 1));
+  }
+
+  // Mirror a native multi-character selection (e.g. Cmd/Ctrl+A) into component state so
+  // render() can highlight it and Backspace/Delete can clear the whole range.
+  private handleSelect() {
+    if (!this.input) return;
+    const start = this.input.selectionStart ?? 0;
+    const end = this.input.selectionEnd ?? start;
+    if (end - start > 1) {
+      this._selectionAnchor = start;
+      this._activeIndex = end;
+    } else if (this._selectionAnchor !== -1) {
+      this._selectionAnchor = -1;
+    }
   }
 
   private handleBlur() {
     this._focused = false;
-    this._activeIndex = -1;
+    this.setCaretIndex(-1);
     if (this._value !== this._lastChangeValue) {
       this._lastChangeValue = this._value;
       this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
@@ -389,7 +455,7 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
       const index = segments.indexOf(segment as HTMLElement);
       if (index >= 0) {
         // Allow clicking on any filled segment for replacement; clamp to first empty otherwise
-        this._activeIndex = Math.min(index, this._value.length);
+        this.setCaretIndex(Math.min(index, this._value.length));
       }
     }
   }
@@ -425,6 +491,9 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
     const chars = [...this._value];
     const parts = this.parsedFormat;
     const activeIndex = this._activeIndex;
+    const selected = this.hasSelection
+      ? [Math.min(this._selectionAnchor, activeIndex), Math.max(this._selectionAnchor, activeIndex)]
+      : null;
     let segmentIndex = 0;
 
     return html`
@@ -448,7 +517,8 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
 
           const i = segmentIndex++;
           const char = chars[i] ?? '';
-          const isActive = i === activeIndex;
+          const isSelected = selected !== null && i >= selected[0] && i < selected[1];
+          const isActive = selected === null && i === activeIndex;
 
           return html`
             <div
@@ -456,6 +526,7 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
               class=${classMap({
                 segment: true,
                 'segment--active': isActive,
+                'segment--selected': isSelected,
                 'segment--filled': Boolean(char),
               })}
               aria-hidden="true"
@@ -491,6 +562,7 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
           @paste=${this.handlePaste}
           @focus=${this.handleFocus}
           @blur=${this.handleBlur}
+          @select=${this.handleSelect}
         />
       </div>
 

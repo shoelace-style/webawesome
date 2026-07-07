@@ -1,4 +1,4 @@
-import { expect, oneEvent, waitUntil } from '@open-wc/testing';
+import { aTimeout, expect, oneEvent, waitUntil } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import sinon from 'sinon';
@@ -32,6 +32,15 @@ describe('<wa-otp-input>', () => {
           expect(el.readonly).to.equal(false);
           expect(el.autofocus).to.equal(false);
           expect(el.placeholder).to.equal('');
+        });
+
+        it('should not reflect a value attribute when none was set', async () => {
+          // Regression guard: defaultValue previously initialized to '' when the attribute was
+          // absent, and since it's a reflecting property, Lit would then write value="" back
+          // onto the element even though the author never set one.
+          const el = await fixture<WaOtpInput>(html`<wa-otp-input></wa-otp-input>`);
+          expect(el.defaultValue).to.equal(null);
+          expect(el.hasAttribute('value')).to.equal(false);
         });
 
         it('should render the correct number of segments', async () => {
@@ -133,6 +142,22 @@ describe('<wa-otp-input>', () => {
           expect(spy).to.have.been.called;
         });
 
+        it('should fire exactly one input event per keystroke, carrying the typed character', async () => {
+          // Regression guard: handleInput() previously dispatched a synthetic 'input' event in
+          // addition to the real native one that already bubbles/composes out of the shadow
+          // root on its own, causing every keystroke to fire the event twice (the second with
+          // no `data`).
+          const el = await fixture<WaOtpInput>(html`<wa-otp-input></wa-otp-input>`);
+          el.focus();
+          const spy = sinon.spy();
+          el.addEventListener('input', spy);
+          await sendKeys({ type: '1' });
+          await waitUntil(() => spy.called);
+          expect(spy).to.have.been.calledOnce;
+          const event = spy.firstCall.args[0] as InputEvent;
+          expect(event.data).to.equal('1');
+        });
+
         it('should fire a change event when value changes on blur', async () => {
           const el = await fixture<WaOtpInput>(html`<wa-otp-input></wa-otp-input>`);
           el.focus();
@@ -195,6 +220,73 @@ describe('<wa-otp-input>', () => {
           form.reset();
           await el.updateComplete;
           expect(el.value).to.equal('123456');
+        });
+      });
+
+      describe('autosubmit', () => {
+        it('should submit the form when autosubmit is enabled and the value completes', async () => {
+          const form = await fixture<HTMLFormElement>(
+            html`<form><wa-otp-input name="code" length="3" autosubmit></wa-otp-input></form>`,
+          );
+          const el = form.querySelector<WaOtpInput>('wa-otp-input')!;
+          const submitHandler = sinon.spy((event: SubmitEvent) => event.preventDefault());
+
+          form.addEventListener('submit', submitHandler);
+          el.focus();
+          await sendKeys({ type: '123' });
+          await waitUntil(() => submitHandler.calledOnce);
+
+          expect(submitHandler).to.have.been.calledOnce;
+        });
+
+        it('should not submit the form when autosubmit is disabled', async () => {
+          const form = await fixture<HTMLFormElement>(
+            html`<form><wa-otp-input name="code" length="3"></wa-otp-input></form>`,
+          );
+          const el = form.querySelector<WaOtpInput>('wa-otp-input')!;
+          const submitHandler = sinon.spy((event: SubmitEvent) => event.preventDefault());
+
+          form.addEventListener('submit', submitHandler);
+          el.focus();
+          await sendKeys({ type: '123' });
+          await el.updateComplete;
+
+          expect(submitHandler).to.not.have.been.called;
+        });
+
+        it('should not submit the form when wa-complete is canceled', async () => {
+          const form = await fixture<HTMLFormElement>(
+            html`<form><wa-otp-input name="code" length="3" autosubmit></wa-otp-input></form>`,
+          );
+          const el = form.querySelector<WaOtpInput>('wa-otp-input')!;
+          const submitHandler = sinon.spy((event: SubmitEvent) => event.preventDefault());
+
+          form.addEventListener('submit', submitHandler);
+          el.addEventListener('wa-complete', event => event.preventDefault());
+          el.focus();
+          await sendKeys({ type: '123' });
+          await el.updateComplete;
+
+          expect(submitHandler).to.not.have.been.called;
+        });
+
+        it('should not submit again when typing continues after completion', async () => {
+          const form = await fixture<HTMLFormElement>(
+            html`<form><wa-otp-input name="code" length="3" autosubmit></wa-otp-input></form>`,
+          );
+          const el = form.querySelector<WaOtpInput>('wa-otp-input')!;
+          const submitHandler = sinon.spy((event: SubmitEvent) => event.preventDefault());
+
+          form.addEventListener('submit', submitHandler);
+          el.value = '12';
+          el.focus();
+          await sendKeys({ type: '3' });
+          await waitUntil(() => submitHandler.calledOnce);
+          await sendKeys({ press: 'Backspace' });
+          await sendKeys({ type: '3' });
+          await el.updateComplete;
+
+          expect(submitHandler).to.have.been.calledOnce;
         });
       });
 
@@ -280,6 +372,123 @@ describe('<wa-otp-input>', () => {
           const el = await fixture<WaOtpInput>(html`<wa-otp-input value="123456" mask></wa-otp-input>`);
           const firstSegment = el.shadowRoot!.querySelector('[part~="segment"]')!;
           expect(firstSegment.textContent?.trim()).to.equal('•');
+        });
+      });
+
+      describe('selection', () => {
+        // el.select() calls the hidden input's native .select(), which produces the same
+        // (selectionStart, selectionEnd) range as a user pressing Cmd/Ctrl+A — this is the
+        // mechanism under test, independent of OS/browser keyboard-shortcut quirks. The
+        // browser's 'select' event fires asynchronously, so tests wait for it explicitly
+        // before driving further key presses.
+        async function selectAllAndWait(el: WaOtpInput) {
+          const selectPromise = oneEvent(el.input, 'select');
+          el.select();
+          await selectPromise;
+        }
+
+        it('should clear the whole value when Backspace is pressed after select()', async () => {
+          const el = await fixture<WaOtpInput>(html`<wa-otp-input value="123456"></wa-otp-input>`);
+          el.focus();
+          await el.updateComplete;
+          await selectAllAndWait(el);
+          await sendKeys({ press: 'Backspace' });
+          await el.updateComplete;
+          expect(el.value).to.equal('');
+        });
+
+        it('should clear the whole value when Delete is pressed after select()', async () => {
+          const el = await fixture<WaOtpInput>(html`<wa-otp-input value="123456"></wa-otp-input>`);
+          el.focus();
+          await el.updateComplete;
+          await selectAllAndWait(el);
+          await sendKeys({ press: 'Delete' });
+          await el.updateComplete;
+          expect(el.value).to.equal('');
+        });
+
+        it('should only select entered characters, not the full segment length', async () => {
+          const el = await fixture<WaOtpInput>(html`<wa-otp-input value="123" length="6"></wa-otp-input>`);
+          el.focus();
+          await el.updateComplete;
+          await selectAllAndWait(el);
+          await sendKeys({ press: 'Backspace' });
+          await el.updateComplete;
+          expect(el.value).to.equal('');
+        });
+
+        it('should highlight all filled segments as selected and hide the caret', async () => {
+          const el = await fixture<WaOtpInput>(html`<wa-otp-input value="123456"></wa-otp-input>`);
+          el.focus();
+          await el.updateComplete;
+          await selectAllAndWait(el);
+          await el.updateComplete;
+          const selectedSegments = el.shadowRoot!.querySelectorAll('.segment--selected');
+          expect(selectedSegments.length).to.equal(6);
+          expect(el.shadowRoot!.querySelector('.caret')).to.equal(null);
+        });
+
+        it('should visibly change the segment border color when selected', async () => {
+          // Regression guard: .segment--selected previously lost the cascade to the
+          // appearance rules (e.g. outlined/filled), which have equal-or-higher CSS
+          // specificity, so the class was applied but never visually rendered.
+          const el = await fixture<WaOtpInput>(html`<wa-otp-input value="123456"></wa-otp-input>`);
+          el.focus();
+          await el.updateComplete;
+          const segment = el.shadowRoot!.querySelector('[part~="segment"]') as HTMLElement;
+          const unselectedBorderColor = getComputedStyle(segment).borderColor;
+          await selectAllAndWait(el);
+          await el.updateComplete;
+          await aTimeout(200); // let the border-color transition settle
+          const selectedBorderColor = getComputedStyle(segment).borderColor;
+          expect(selectedBorderColor).to.not.equal(unselectedBorderColor);
+        });
+
+        it('should still replace the value when typing over a full selection', async () => {
+          const el = await fixture<WaOtpInput>(html`<wa-otp-input value="123456"></wa-otp-input>`);
+          el.focus();
+          await el.updateComplete;
+          await selectAllAndWait(el);
+          await sendKeys({ type: '9' });
+          await el.updateComplete;
+          expect(el.value).to.equal('9');
+        });
+
+        it('should preserve an active selection across an unrelated re-render', async () => {
+          const el = await fixture<WaOtpInput>(html`<wa-otp-input value="123456"></wa-otp-input>`);
+          el.focus();
+          await el.updateComplete;
+          await selectAllAndWait(el);
+          // An unrelated reactive property change re-renders the component; syncCursor()
+          // must not collapse the selection back to a single caret in the process.
+          el.placeholder = '·';
+          await el.updateComplete;
+          await sendKeys({ press: 'Backspace' });
+          await el.updateComplete;
+          expect(el.value).to.equal('');
+        });
+
+        it('should clear the selection when a specific segment is clicked', async () => {
+          const el = await fixture<WaOtpInput>(html`<wa-otp-input value="123456"></wa-otp-input>`);
+          el.focus();
+          await el.updateComplete;
+          await selectAllAndWait(el);
+          const segments = el.shadowRoot!.querySelectorAll<HTMLElement>('[part~="segment"]');
+          segments[2].dispatchEvent(new MouseEvent('click', { bubbles: true, composed: true }));
+          await el.updateComplete;
+          await sendKeys({ press: 'Backspace' });
+          await el.updateComplete;
+          expect(el.value).to.equal('12456');
+        });
+
+        it('should not delete the value when Backspace is pressed after select() while readonly', async () => {
+          const el = await fixture<WaOtpInput>(html`<wa-otp-input value="123456" readonly></wa-otp-input>`);
+          el.focus();
+          await el.updateComplete;
+          await selectAllAndWait(el);
+          await sendKeys({ press: 'Backspace' });
+          await el.updateComplete;
+          expect(el.value).to.equal('123456');
         });
       });
 

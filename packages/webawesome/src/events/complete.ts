@@ -1,6 +1,6 @@
 export class WaCompleteEvent extends Event {
   constructor() {
-    super('wa-complete', { bubbles: true, cancelable: false, composed: true });
+    super('wa-complete', { bubbles: true, cancelable: true, composed: true });
   }
 }
 
