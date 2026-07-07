@@ -40,6 +40,11 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a lifecycle issue in `<wa-option>` [pr:2591]
 - Fixed a bug with extra margin on the first button of a `<wa-button-group>` [pr:2592]
 
+:::
+
+:::changed
+
+- Removed `font-variant-numeric: tabular-nums;` from default `<table>` styles in Native Styles in lieu of an opt-in `wa-tabular-nums` class [pr:2613]
 
 :::
 
