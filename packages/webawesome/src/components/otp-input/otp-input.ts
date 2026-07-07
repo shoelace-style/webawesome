@@ -16,7 +16,7 @@ import styles from './otp-input.styles.js';
  * @summary A form-associated OTP/passcode input that displays a fixed number of character segments.
  * @documentation https://webawesome.com/docs/components/otp-input
  * @status experimental
- * @since 3.9
+ * @since 3.10
  *
  * @slot label - An optional label. Use this for labels that contain HTML. When `label` attribute is set it takes priority.
  * @slot hint - Optional hint text. Use this for hints that contain HTML. When `hint` attribute is set it takes priority.
@@ -237,6 +237,13 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
     // After every render, sync the hidden input's cursor/selection to _activeIndex so
     // the next keypress inserts or replaces at the correct segment position.
     this.syncCursor();
+
+    // Keep the active/selected segment in view — the hidden input's own position is static,
+    // so it won't trigger the browser's native scroll-into-view as the caret moves between
+    // segments in a `.segments` row that's scrolled horizontally (long `length`, large `size`).
+    this.segmentsContainer
+      ?.querySelector('.segment--active, .segment--selected')
+      ?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
   }
 
   // Position the hidden input cursor at _activeIndex. If the slot has a character,

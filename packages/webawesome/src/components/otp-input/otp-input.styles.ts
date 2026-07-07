@@ -13,6 +13,16 @@ export default css`
     align-self: start;
     gap: var(--segment-gap, var(--wa-space-xs));
     cursor: text;
+    /* Never grow past the host's available width — long values or large segment sizes scroll
+       horizontally instead of overflowing the page. */
+    max-width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .segments::-webkit-scrollbar {
+    width: 0;
+    height: 0;
   }
 
   :host(:state(disabled)) .segments {
@@ -71,6 +81,7 @@ export default css`
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
     width: var(--segment-size, 2.5em);
     height: var(--segment-size, 2.5em);
     border-radius: var(--segment-border-radius, var(--wa-form-control-border-radius));
@@ -113,6 +124,7 @@ export default css`
   /* Separator character between segment groups */
   .segment-separator {
     display: inline-block;
+    flex-shrink: 0;
     color: var(--wa-color-text-quiet);
     white-space: pre;
     user-select: none;
