@@ -41,11 +41,21 @@ export default css`
   :host([orientation='horizontal']) {
     --_button-horizontal-indent: var(--wa-form-control-border-width);
     --_button-horizontal-indent-outlined: calc(var(--wa-form-control-border-width) * -1);
+
+    ::slotted(:first-child) {
+      --_button-horizontal-indent: 0;
+      --_button-horizontal-indent-outlined: 0;
+    }
   }
 
   :host([orientation='vertical']) {
     --_button-vertical-indent: var(--wa-form-control-border-width);
     --_button-vertical-indent-outlined: calc(var(--wa-form-control-border-width) * -1);
+
+    ::slotted(:first-child) {
+      --_button-vertical-indent: 0;
+      --_button-vertical-indent-outlined: 0;
+    }
   }
 
   /* All buttons that are not in front or at the end get their border radius removed */

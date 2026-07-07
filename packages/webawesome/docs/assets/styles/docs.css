@@ -157,6 +157,15 @@ wa-page:not([view='mobile']) > main {
     margin-block-start: var(--wa-prose-rhythm-m);
   }
 
+  /* The anchor-heading transformer injects a <wa-tooltip> between stacked headings,
+     breaking the sibling adjacency prose.css tightens on — bridge it through the tooltip. */
+  .anchor-heading:has(+ wa-tooltip + .anchor-heading) {
+    margin-block-end: 0;
+  }
+  .anchor-heading + wa-tooltip + .anchor-heading {
+    margin-block-start: var(--wa-prose-rhythm-m);
+  }
+
   /* Treat h2 + `<small><time>` as one header unit (changelog releases). */
   h2:has(+ p > small > time) {
     margin-block-end: var(--wa-space-3xs);
