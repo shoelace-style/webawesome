@@ -190,10 +190,10 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
     super.willUpdate(changedProperties);
 
     if (
-         changedProperties.has('value')
-      || changedProperties.has('checked')
-      || changedProperties.has('defaultChecked')
-      || changedProperties.has('disabled')
+      changedProperties.has('value') ||
+      changedProperties.has('checked') ||
+      changedProperties.has('defaultChecked') ||
+      changedProperties.has('disabled')
     ) {
       this.handleValueOrCheckedChange();
     }

@@ -456,51 +456,51 @@ describe('<wa-switch>', () => {
         });
 
         // https://github.com/shoelace-style/webawesome/issues/2602
-        it("Should properly set value when moving from `disabled` -> `not disabled` -> `disabled`", async () => {
+        it('Should properly set value when moving from `disabled` -> `not disabled` -> `disabled`', async () => {
           const form = await fixture<HTMLFormElement>(html`
             <form id="f"><wa-switch name="x" value="1"></wa-switch></form>
-          `)
+          `);
 
           const switchEl = form.querySelector<WaSwitch>('wa-switch')!;
-          const fd = () => new FormData(form)
+          const fd = () => new FormData(form);
 
-          expect(switchEl.checked).to.equal(false)
-          expect(fd().get("x")).to.be.null
+          expect(switchEl.checked).to.equal(false);
+          expect(fd().get('x')).to.be.null;
 
-          switchEl.disabled = true
+          switchEl.disabled = true;
           await switchEl.updateComplete;
-          switchEl.disabled = false
+          switchEl.disabled = false;
           await switchEl.updateComplete;
 
-          expect(switchEl.checked).to.equal(false)
-          expect(fd().get("x")).to.be.null
-        })
+          expect(switchEl.checked).to.equal(false);
+          expect(fd().get('x')).to.be.null;
+        });
 
         // https://github.com/shoelace-style/webawesome/issues/2602
-        it("Should properly set value when moving from `disabled` -> `not disabled` -> `disabled` when in a `<fieldset>`", async () => {
+        it('Should properly set value when moving from `disabled` -> `not disabled` -> `disabled` when in a `<fieldset>`', async () => {
           const form = await fixture<HTMLFormElement>(html`
             <form id="f">
               <fieldset>
                 <wa-switch name="x" value="1"></wa-switch>
               </fieldset>
             </form>
-          `)
+          `);
 
           const switchEl = form.querySelector<WaSwitch>('wa-switch')!;
           const fieldset = form.querySelector<HTMLFieldSetElement>('fieldset')!;
-          const fd = () => new FormData(form)
+          const fd = () => new FormData(form);
 
-          expect(switchEl.checked).to.equal(false)
-          expect(fd().get("x")).to.be.null
+          expect(switchEl.checked).to.equal(false);
+          expect(fd().get('x')).to.be.null;
 
-          fieldset.disabled = true
+          fieldset.disabled = true;
           await switchEl.updateComplete;
-          fieldset.disabled = false
+          fieldset.disabled = false;
           await switchEl.updateComplete;
 
-          expect(switchEl.checked).to.equal(false)
-          expect(fd().get("x")).to.be.null
-        })
+          expect(switchEl.checked).to.equal(false);
+          expect(fd().get('x')).to.be.null;
+        });
       });
     });
   }

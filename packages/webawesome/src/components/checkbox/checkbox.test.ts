@@ -514,51 +514,51 @@ describe('<wa-checkbox>', () => {
         });
 
         // https://github.com/shoelace-style/webawesome/issues/2602
-        it("Should properly set value when moving from `disabled` -> `not disabled` -> `disabled`", async () => {
+        it('Should properly set value when moving from `disabled` -> `not disabled` -> `disabled`', async () => {
           const form = await fixture<HTMLFormElement>(html`
             <form id="f"><wa-checkbox name="x" value="1"></wa-checkbox></form>
-          `)
+          `);
 
           const checkbox = form.querySelector<WaCheckbox>('wa-checkbox')!;
-          const fd = () => new FormData(form)
+          const fd = () => new FormData(form);
 
-          expect(checkbox.checked).to.equal(false)
-          expect(fd().get("x")).to.be.null
+          expect(checkbox.checked).to.equal(false);
+          expect(fd().get('x')).to.be.null;
 
-          checkbox.disabled = true
+          checkbox.disabled = true;
           await checkbox.updateComplete;
-          checkbox.disabled = false
+          checkbox.disabled = false;
           await checkbox.updateComplete;
 
-          expect(checkbox.checked).to.equal(false)
-          expect(fd().get("x")).to.be.null
-        })
+          expect(checkbox.checked).to.equal(false);
+          expect(fd().get('x')).to.be.null;
+        });
 
         // https://github.com/shoelace-style/webawesome/issues/2602
-        it("Should properly set value when moving from `disabled` -> `not disabled` -> `disabled` when in a `<fieldset>`", async () => {
+        it('Should properly set value when moving from `disabled` -> `not disabled` -> `disabled` when in a `<fieldset>`', async () => {
           const form = await fixture<HTMLFormElement>(html`
             <form id="f">
               <fieldset>
                 <wa-checkbox name="x" value="1"></wa-checkbox>
               </fieldset>
             </form>
-          `)
+          `);
 
           const checkbox = form.querySelector<WaCheckbox>('wa-checkbox')!;
           const fieldset = form.querySelector<HTMLFieldSetElement>('fieldset')!;
-          const fd = () => new FormData(form)
+          const fd = () => new FormData(form);
 
-          expect(checkbox.checked).to.equal(false)
-          expect(fd().get("x")).to.be.null
+          expect(checkbox.checked).to.equal(false);
+          expect(fd().get('x')).to.be.null;
 
-          fieldset.disabled = true
+          fieldset.disabled = true;
           await checkbox.updateComplete;
-          fieldset.disabled = false
+          fieldset.disabled = false;
           await checkbox.updateComplete;
 
-          expect(checkbox.checked).to.equal(false)
-          expect(fd().get("x")).to.be.null
-        })
+          expect(checkbox.checked).to.equal(false);
+          expect(fd().get('x')).to.be.null;
+        });
       });
     });
   }
