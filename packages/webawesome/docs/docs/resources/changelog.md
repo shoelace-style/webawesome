@@ -39,6 +39,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed an unnecessary aria-orientation attribute on `<wa-scroller>` [pr:2589]
 - Fixed a lifecycle issue in `<wa-option>` [pr:2591]
 - Fixed a bug with extra margin on the first button of a `<wa-button-group>` [pr:2592]
+- Fixed a bug in `<wa-checkbox>` where it would improperly submit values after it was enabled after being disabled. [pr:2607]
 
 
 :::
