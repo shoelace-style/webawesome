@@ -36,7 +36,7 @@ Add the `indeterminate` attribute when an operation is pending but its progress 
 
 ### Customizing
 
-Set `--track-height` to change the bar's thickness and `--track-color` / `--indicator-color` to recolor it.
+Set the `--track-height` custom property to change the bar's thickness, and `--track-color` / `--indicator-color` to recolor it.
 
 ```html {.example}
 <wa-progress-bar

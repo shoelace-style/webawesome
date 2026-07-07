@@ -13,7 +13,7 @@ use-cases:
 ---
 
 ```html {.example}
-<wa-progress-ring value="25" label="Sync progress"></wa-progress-ring>
+<wa-progress-ring value="25"></wa-progress-ring>
 ```
 
 ## Examples
@@ -36,7 +36,7 @@ Use the `--size` custom property to set the diameter of the ring.
 
 ### Track & Indicator Width
 
-Use `--track-width` and `--indicator-width` to set the width of the ring's track and indicator independently.
+Use the `--track-width` and `--indicator-width` custom properties to set the width of the ring's track and indicator independently.
 
 ```html {.example}
 <wa-progress-ring value="50" style="--track-width: 6px; --indicator-width: 12px;"></wa-progress-ring>
@@ -44,14 +44,14 @@ Use `--track-width` and `--indicator-width` to set the width of the ring's track
 
 ### Colors
 
-Use `--track-color` and `--indicator-color` to recolor the ring.
+Use the `--track-color` and `--indicator-color` custom properties to recolor the ring.
 
 ```html {.example}
 <wa-progress-ring
   value="50"
   style="
-    --track-color: pink;
-    --indicator-color: deeppink;
+    --track-color: var(--wa-color-success-fill-quiet);
+    --indicator-color: var(--wa-color-success-fill-loud);
   "
 ></wa-progress-ring>
 ```
@@ -67,8 +67,8 @@ Use the default slot to show a value inside the ring.
   <wa-divider></wa-divider>
 
   <div class="wa-cluster">
-    <wa-button appearance="filled" circle><wa-icon name="minus" variant="solid" label="Decrease"></wa-icon></wa-button>
-    <wa-button appearance="filled" circle><wa-icon name="plus" variant="solid" label="Increase"></wa-icon></wa-button>
+    <wa-button appearance="filled" circle><wa-icon name="minus" label="Decrease"></wa-icon></wa-button>
+    <wa-button appearance="filled" circle><wa-icon name="plus" label="Increase"></wa-icon></wa-button>
   </div>
 </div>
 

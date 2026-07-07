@@ -13,12 +13,12 @@ use-cases:
   - hover info
 ---
 
-Point the `for` attribute at the `id` of the element the tooltip describes, and Web Awesome wires up positioning and accessibility for you.
-
 ```html {.example}
 <wa-tooltip for="my-button">This is a tooltip</wa-tooltip>
 <wa-button appearance="filled" id="my-button">Hover Me</wa-button>
 ```
+
+Point the `for` attribute at the `id` of the element the tooltip describes, and Web Awesome wires up positioning and accessibility for you.
 
 :::warning
 <strong>Keep tooltips to text and presentational content.</strong><br />

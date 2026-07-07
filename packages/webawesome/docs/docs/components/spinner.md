@@ -42,7 +42,7 @@ Use the `--track-width` custom property to change the thickness of the spinner's
 Use the `--track-color` and `--indicator-color` custom properties to recolor the spinner.
 
 ```html {.example}
-<wa-spinner style="font-size: 3rem; --indicator-color: deeppink; --track-color: pink;"></wa-spinner>
+<wa-spinner style="font-size: 3rem; --indicator-color: var(--wa-color-success-fill-loud); --track-color: var(--wa-color-success-fill-quiet);"></wa-spinner>
 ```
 
 ### Speed
@@ -50,5 +50,5 @@ Use the `--track-color` and `--indicator-color` custom properties to recolor the
 Use the `--speed` custom property to set how long one full rotation takes.
 
 ```html {.example}
-<wa-spinner style="font-size: 3rem; --speed: 2s;"></wa-spinner>
+<wa-spinner style="font-size: 3rem; --speed: 4s;"></wa-spinner>
 ```

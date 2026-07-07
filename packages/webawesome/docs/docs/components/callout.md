@@ -128,7 +128,7 @@ Use the `size` attribute to change a callout's size.
 </div>
 ```
 
-### Providing Content
+### Without an Icon
 
 Icons are optional. Omit the `icon` slot for a text-only callout.
 
