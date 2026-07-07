@@ -1,14 +1,9 @@
 ---
 title: React
 description: Tips for using Web Awesome in your React app.
-layout: page-outline
+layout: framework
+officialDocs: https://react.dev
 ---
-
-<wa-breadcrumb class="page-breadcrumbs">
-  <wa-icon slot="separator" name="angle-right" variant="regular"></wa-icon>
-  <wa-breadcrumb-item href="/docs/frameworks">Frameworks</wa-breadcrumb-item>
-  <wa-breadcrumb-item>{{ title }}</wa-breadcrumb-item>
-</wa-breadcrumb>
 
 ## Installation
 
@@ -70,7 +65,7 @@ declare module 'react' {
 
 ## Event Handling
 
-Many Web Awesome components emit [native events](https://developer.mozilla.org/en-US/docs/Web/API/Event). For example, the [input component](/components/input) emits the `input` event when it receives input. In React, you can listen for the event using `onInput`.
+Many Web Awesome components emit [native events](https://developer.mozilla.org/en-US/docs/Web/API/Event). For example, the [input component](/docs/components/input) emits the `input` event when it receives input. In React, you can listen for the event using `onInput`.
 
 Here's how you can bind the input's value to a state variable.
 
@@ -208,63 +203,33 @@ However, tree-shaking extra Web Awesome components proved to be a challenge. As 
 
 ### Event Handling with React Wrappers
 
-Many Web Awesome components emit [native events](https://developer.mozilla.org/en-US/docs/Web/API/Event). For example, the [input component](/components/input) emits the `input` event when it receives input. In React, you can listen for the event using `onInput`.
+Event handling works the same as with [native custom elements](#event-handling) — bind to `onInput` and type `event.target` identically, just importing the `WaInput` wrapper instead of the custom element.
 
-Here's how you can bind the input's value to a state variable.
+Wrappers add two conveniences. Pass `defaultValue` for an uncontrolled input:
 
 ```jsx
-import { useState } from 'react';
 import WaInput from '@awesome.me/webawesome/dist/react/input/index.js';
 
-function MyComponent() {
-  const [value, setValue] = useState('');
-
-  return (
-    <>
-      <WaInput value={value} onInput={event => setValue(event.target.value)} />;
-      <WaInput defaultValue={'Foo'} /> {/* This is an "uncontrolled input" */}
-    </>
-  );
-}
-
-export default MyComponent;
+<WaInput defaultValue="Foo" />;
 ```
 
-If you're using TypeScript, it's important to note that `event.target` will be a reference to the underlying custom element. You can use `(event.target as any).value` as a quick fix, or you can strongly type the event target as shown below.
-
-```tsx
-import { useState } from 'react';
-import WaInput from '@awesome.me/webawesome/dist/react/input/index.js';
-import type WaInputElement from '@awesome.me/webawesome/dist/components/input/input.js';
-
-function MyComponent() {
-  const [value, setValue] = useState('');
-
-  return <WaInput value={value} onInput={event => setValue((event.target as WaInputElement).value)} />;
-}
-
-export default MyComponent;
-```
-
-You can also import the event type for use in your callbacks, shown below.
+And import the component's event type to type your callbacks directly:
 
 ```tsx
 import { useCallback, useState } from 'react';
 import WaInput, { type WaInputEvent } from '@awesome.me/webawesome/dist/react/input/index.js';
-import type WaInputElement from '@awesome.me/webawesome/dist/components/input/input.js';
 
 function MyComponent() {
   const [value, setValue] = useState('');
-  const onInput = useCallback((event: WaInputEvent) => {
-    setValue(event.detail);
-  }, []);
+  const onInput = useCallback((event: WaInputEvent) => setValue(event.detail), []);
 
-  return <WaInput value={value} onInput={event => setValue((event.target as WaInputElement).value)} />;
+  return <WaInput value={value} onInput={onInput} />;
 }
 
 export default MyComponent;
 ```
 
-:::info
-Are you using Web Awesome with React? [Help us improve this page!](https://github.com/shoelace-style/webawesome/blob/next/packages/webawesome/docs/docs/frameworks/react.md)
-:::
+<wa-callout variant="success">
+  <strong>Web Awesome is ready to use.</strong><br />
+  Explore components, utilities, and theming to start building.
+</wa-callout>

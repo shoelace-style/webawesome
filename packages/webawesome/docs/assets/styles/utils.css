@@ -499,6 +499,11 @@
     overflow: clip;
   }
 
+  /* Hide the empty forwarded footer that steals the drawer's bottom space (band-aid; see wa-page footer fix). */
+  wa-page[view='mobile']::part(drawer__footer) {
+    display: none;
+  }
+
   /* pro badge */
   wa-badge.pro {
     color: var(--wa-color-brand-on-loud);
@@ -924,6 +929,12 @@
   wa-page > #sidebar {
     overflow: auto;
     max-block-size: 100%;
+  }
+
+  /* Reserve the icon-heading outdent as padding so #sidebar's overflow box doesn't clip it on mobile. */
+  wa-page[view='mobile'] > #sidebar {
+    padding-inline-start: var(--wa-space-xs);
+    margin-inline-start: calc(var(--wa-space-xs) * -1);
   }
 
   wa-page:not([view='mobile']) > #sidebar {
