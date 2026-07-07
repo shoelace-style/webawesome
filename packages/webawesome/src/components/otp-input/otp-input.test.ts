@@ -375,6 +375,29 @@ describe('<wa-otp-input>', () => {
         });
       });
 
+      describe('appearance', () => {
+        it('should draw the active segment focus ring inward for contained appearance', async () => {
+          // Regression guard: contained segments sit flush with zero gap and have no border of
+          // their own, so the focus ring's default positive outline-offset bled into the
+          // neighboring segment, rendering as a stray line at each shared edge.
+          const el = await fixture<WaOtpInput>(html`<wa-otp-input appearance="contained" value="1"></wa-otp-input>`);
+          el.focus();
+          await el.updateComplete;
+          await aTimeout(200); // let the outline-offset transition settle
+          const active = el.shadowRoot!.querySelector('.segment--active') as HTMLElement;
+          expect(getComputedStyle(active).outlineOffset).to.equal('-3px');
+        });
+
+        it('should keep the default outward focus ring for outlined appearance', async () => {
+          const el = await fixture<WaOtpInput>(html`<wa-otp-input appearance="outlined" value="1"></wa-otp-input>`);
+          el.focus();
+          await el.updateComplete;
+          await aTimeout(200);
+          const active = el.shadowRoot!.querySelector('.segment--active') as HTMLElement;
+          expect(getComputedStyle(active).outlineOffset).to.equal('1px');
+        });
+      });
+
       describe('selection', () => {
         // el.select() calls the hidden input's native .select(), which produces the same
         // (selectionStart, selectionEnd) range as a user pressing Cmd/Ctrl+A — this is the

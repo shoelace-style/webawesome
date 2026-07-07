@@ -43,6 +43,14 @@ export default css`
     outline-offset: var(--wa-focus-ring-offset);
   }
 
+  /* Contained segments sit flush with zero gap and have no border of their own, so a ring drawn
+     outside the segment edge (the default, positive offset) bleeds into the neighboring segment.
+     Draw it inward instead so it stays within this segment's own box. */
+  :host([appearance='contained']) .segments:focus-within .segment--active,
+  :host([appearance='contained']) .segments:focus-within .segment--selected {
+    outline-offset: calc(-1 * var(--wa-focus-ring-width));
+  }
+
   /* Hidden real input — off-screen but focusable.
      Chromium mishandles typing over a full selection (drops the inserted character) when a
      text input has zero layout size, so this stays a non-zero 1x1px box instead of 0x0. */
