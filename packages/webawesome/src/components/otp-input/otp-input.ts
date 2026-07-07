@@ -238,7 +238,7 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
     // the next keypress inserts or replaces at the correct segment position.
     this.syncCursor();
 
-    // Keep the active/selected segment in view — the hidden input's own position is static,
+    // Keep the active/selected segment in view, the hidden input's own position is static,
     // so it won't trigger the browser's native scroll-into-view as the caret moves between
     // segments in a `.segments` row that's scrolled horizontally (long `length`, large `size`).
     this.segmentsContainer
