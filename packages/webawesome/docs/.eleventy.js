@@ -142,6 +142,11 @@ export default async function (eleventyConfig) {
   // Generates the same heading anchor id used by anchorHeadingsTransformer, so links can target headings reliably
   eleventyConfig.addFilter('headingId', content => createId(String(content ?? '')));
 
+  // Adds a input path relative to the 11ty input path. Essentially filePathStem + extension
+  eleventyConfig.addFilter('relativeInputPath', page => {
+    return eleventyConfig.directories.getInputPathRelativeToInputDirectory(page.inputPath);
+  });
+
   eleventyConfig.addGlobalData('eleventyComputed', {
     // Page title with smart + default site name formatting
     pageTitle: data => composePageTitle(data.title),
