@@ -1,5 +1,6 @@
 import { aTimeout, expect } from '@open-wc/testing';
 import { html } from 'lit';
+import sinon from 'sinon';
 import { fixtures } from '../../internal/test/fixture.js';
 import type WaSelect from '../select/select.js';
 import type WaOption from './option.js';

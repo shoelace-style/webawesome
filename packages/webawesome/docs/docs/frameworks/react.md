@@ -173,7 +173,7 @@ These instructions are for apps created via Create React App. If you're using Je
 
 For more details, refer to Jest's [`transformIgnorePatterns` customization](https://jestjs.io/docs/tutorial-react-native#transformignorepatterns-customization) documentation.
 
-## Legacy React Wrappers (React 18 and Below)
+## Legacy React Wrappers (React 18 & Below)
 
 React 18 and below have [poor support](https://custom-elements-everywhere.com/#react) for custom elements. For these versions, Web Awesome provides React wrappers for every component.
 
@@ -191,7 +191,7 @@ export default MyComponent;
 
 You can find a copy + paste import for each component by selecting the _React_ tab in the _Importing_ section of each component's documentation.
 
-#### Notes about tree shaking
+#### Notes About Tree Shaking
 
 Previously, it was recommended to import from a single entrypoint like so:
 

@@ -42,7 +42,9 @@ Use the default slot to show a value.
 <div class="wa-stack">
   <wa-progress-bar value="50" id="progress-bar-demo">50%</wa-progress-bar>
 
-  <div>
+  <wa-divider></wa-divider>
+
+  <div class="wa-cluster">
     <wa-button pill appearance="filled">
       <wa-icon name="minus" label="Decrease"></wa-icon>
     </wa-button>

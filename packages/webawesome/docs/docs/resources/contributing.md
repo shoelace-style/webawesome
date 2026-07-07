@@ -85,7 +85,7 @@ The docs are powered by [Eleventy](https://www.11ty.dev/). Check out `docs/compo
 
 If you need help with documentation, feel free to reach out on the [community chat]({{ site.urls.discord }}).
 
-### Web Awesome-flavoured Markdown
+### Web Awesome-Flavored Markdown
 
 The Web Awesome documentation uses an extended version of [markdown-it](https://github.com/markdown-it/markdown-it). Generally speaking, it follows the [Commonmark spec](https://spec.commonmark.org/) while sprinkling in some additional features.
 
@@ -236,7 +236,7 @@ When a component relies on the presence of slotted content to do something, don'
 
 See the source of card, dialog, or drawer for examples.
 
-### Dynamic Slot Names and Expand/Collapse Icons
+### Dynamic Slot Names & Expand/Collapse Icons
 
 A pattern has been established in `<wa-details>` and `<wa-tree-item>` for expand/collapse icons that animate on open/close. In short, create two slots called `expand-icon` and `collapse-icon` and render them both in the DOM, using CSS to show/hide only one based on the current open state. Avoid conditionally rendering them. Also avoid using dynamic slot names, such as `<slot name=${open ? 'open' : 'closed'}>`, because Firefox will not animate them.
 
@@ -310,13 +310,13 @@ export default class WaExample {
 
 When an item within a keyboard navigable set is disabled (e.g. tabs, trees, menu items, etc.), the disabled item _should not_ receive focus via keyboard, click, or tap. It should be skipped just like in operating system menus and in native HTML form controls. There is no exception to this. If a particular item requires focus for assistive devices to provide a good user experience, the item should not be disabled and, upon activation, it should inform the user why the respective action cannot be completed.
 
-### When to use a property vs. a CSS custom property
+### When to Use a Property vs. a CSS Custom Property
 
 When designing a component's API, standard properties are generally used to change the _behavior_ of a component, whereas CSS custom properties ("CSS variables") are used to change the _appearance_ of a component. Remember that properties can't respond to media queries, but CSS variables can.
 
 There are some exceptions to this (e.g. when it significantly improves developer experience), but a good rule of thumbs is "will this need to change based on screen size?" If so, you probably want to use a CSS variable.
 
-### When to use a CSS custom property vs. a CSS part
+### When to Use a CSS Custom Property vs. a CSS Part
 
 There are two ways to enable customizations for components. One way is with CSS custom properties ("CSS variables"), the other is with CSS parts ("parts").
 
@@ -410,7 +410,7 @@ connectedCallback() {
 }
 ```
 
-#### Slot Detection and `with-*` Attributes
+#### Slot Detection & `with-*` Attributes
 
 Some components use `HasSlotController` to conditionally render parts of their template (e.g. a footer that only appears when a `footer` slot is present). During SSR, slot detection doesn't work because the DOM isn't available, so these parts would be missing from the initial server-rendered markup.
 
@@ -440,7 +440,7 @@ Avoid inlining SVG icons inside of templates. If a component requires an icon, m
 
 This will render the icons instantly whereas the default library will fetch them from a remote source. If an icon isn't available in the system library, you will need to add it to `library.system.ts`. Using the system library ensures that all icons load instantly and are customizable by users who wish to provide a custom resolver for the system library.
 
-### Writing tests
+### Writing Tests
 
 What to test for a given component:
 
@@ -463,7 +463,7 @@ Guidelines for writing tests:
 - Try to aim testing the user facing features of the component instead of the internal workings of the component.
 - Group multiple tests for one feature into describe blocks.
 
-### Running tests
+### Running Tests
 
 Right now, tests run both "hydrated" (SSR → client hydrated) and "client only". If you're debugging only one specific kind you can set an environment variable. For example, to run only the client tests, you can do:
 
@@ -477,7 +477,7 @@ or for hydrated rendering only:
 SSR_ONLY="true" npm run test
 ```
 
-## Built On
+## Built on
 
 Web Awesome stands on the shoulders of some excellent open source projects. Special thanks to:
 

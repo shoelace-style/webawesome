@@ -29,6 +29,7 @@ export type { WaLazyChangeEvent } from './lazy-change.js';
 export type { WaLazyLoadEvent } from './lazy-load.js';
 export type { WaLoadEvent } from './load.js';
 export type { WaMutationEvent } from './mutation.js';
+export type { WaContentChangeEvent } from './random-content-change.js';
 export type { WaPageChangeEvent } from './page-change.js';
 export type { WaRemoveEvent } from './remove.js';
 export type { WaRepositionEvent } from './reposition.js';

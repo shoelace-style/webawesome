@@ -1,0 +1,9 @@
+---
+permalink: /robots.txt
+layout: false
+eleventyExcludeFromCollections: true
+---
+User-agent: *
+Allow: /
+
+Sitemap: {{ "/sitemap.xml" | htmlBaseUrl(siteMetadata.url) }}

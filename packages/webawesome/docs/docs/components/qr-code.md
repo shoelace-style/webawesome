@@ -16,7 +16,8 @@ QR codes are useful for providing small pieces of information to users who can q
 ```html {.example}
 <div class="qr-overview">
   <wa-qr-code value="https://webawesome.com/" label="Scan this code to visit Web Awesome on the web!"></wa-qr-code>
-  <br />
+
+  <wa-divider></wa-divider>
 
   <wa-input maxlength="255" with-clear label="Value">
     <wa-icon slot="start" name="link"></wa-icon>

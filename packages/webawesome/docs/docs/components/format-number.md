@@ -17,7 +17,9 @@ Localization is handled by the browser's [`Intl.NumberFormat` API](https://devel
 ```html {.example}
 <div class="format-number-overview">
   <wa-format-number value="1000"></wa-format-number>
-  <br /><br />
+
+  <wa-divider></wa-divider>
+
   <wa-input type="number" value="1000" label="Number to Format" style="max-width: 180px;"></wa-input>
 </div>
 

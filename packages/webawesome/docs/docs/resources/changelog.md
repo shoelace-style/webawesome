@@ -40,6 +40,35 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::fixed
 
+- Fixed type resolution issues with `pro` components like `<wa-file-input>`, `<wa-combobox>`, etc. [pr:2577]
+- Fixed an issue where some fonts wouldn't load in themes that import multiple fonts [pr:2582]
+- Fixed an issue with an improper custom elements manifest path. [pr:2590]
+- Fixed an unnecessary aria-orientation attribute on `<wa-scroller>` [pr:2589]
+- Fixed a lifecycle issue in `<wa-option>` [pr:2591]
+- Fixed a bug with extra margin on the first button of a `<wa-button-group>` [pr:2592]
+
+
+:::
+
+
+## 3.10.0
+
+<small><time datetime="2026-06-30">June 30th, 2026</time></small>
+
+:::added
+
+- Added the experimental `<wa-random-content>` component, which randomly shows one or more of its children — handy for rotating testimonials, tips, or featured content
+- Added the Mosaic, Pixel, Vellum, Slab Duo, and Slab Press Duo Pro+ icon families to `<wa-icon>` [pr:2562]
+- Added the `buzz`, `flip-360`, `float`, `jello`, `spin-snap`, `spin-snap-4`, `spin-snap-8`, `swing`, and `wag` animations to `<wa-icon>` [pr:2562]
+- Added the `canvas` attribute to `<wa-icon>` for choosing the icon canvas — `fixed` (default), `auto`, `square`, or `roomy` [pr:2562]
+
+:::
+
+:::fixed
+
+- Fixed a type issue in `<wa-checkbox>` that caused the `name` property to have an incorrect type. [pr:2568]
+- Fixed a bug in `<wa-page>` causing the viewport to always overflow if a footer was present. [pr:2537]
+- Fixed a bug in `wa-video` that was causing the `z-index` to leak out of the context of the component [issue:2542]
 - Fixed a bug in `<wa-chart>` and its variants that threw a `DataCloneError` when the Chart.js config contained functions, such as tooltip or scale callbacks
 - Fixed a bug in `<wa-date-input>` and `<wa-time-input>` where an empty `start`/`end` slot added a phantom gap causing it to be misaligned with other form controls [issue:2527]
 - Fixed a bug in `<wa-select>` that prevented the dropdown menu from scrolling when using the keyboard [issue:2472]
@@ -64,6 +93,15 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
   - Hover and current state changes now animate, matching `<wa-dropdown-item>`
 - Reordered component reference pages in the `webawesome` Agent Skill to put the import instructions and API tables before the examples
 - Moved screen reader announcements to a shared light-DOM live region so updates work reliably across browsers, affecting `<wa-pagination>` and `<wa-copy-button>` (core) and `<wa-data-grid>` and `<wa-date-picker>` (pro)
+- Rewrote `prose.css` rules with `@scope` so that `wa-prose` and `wa-not-prose` classes are proximity aware. This ensures that nested instances of either class work as expected, no matter the nesting depth. [pr:2564]
+- Updated `<wa-icon>` to use [Font Awesome 7.3.0](https://fontawesome.com/changelog#v7-3-0) [pr:2562]
+- Aligned `<wa-icon>` animation defaults with Font Awesome 7.3.0 — `flip`, `shake`, `fade`, and `beat-fade` use updated timing, duration, and keyframes [pr:2562]
+
+:::
+
+:::deprecated
+
+- Deprecated the `auto-width` attribute on `<wa-icon>` in favor of `canvas="auto"` [pr:2562]
 
 :::
 
@@ -594,7 +632,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::
 
-## Pre-release Versions
+## Pre-Release Versions
 
 Betas, release candidates, and snapshots from before each major release.
 

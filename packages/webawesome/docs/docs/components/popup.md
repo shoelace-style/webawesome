@@ -27,20 +27,24 @@ Popup is a low-level utility built specifically for positioning elements. Do not
     <div class="box"></div>
   </wa-popup>
 
-  <div class="popup-overview-options">
-    <wa-combobox
-      label="Placement"
-      name="placement"
-      placeholder="Select placement..."
-      class="popup-overview-select"
-    ></wa-combobox>
-    <wa-input type="number" name="distance" label="distance" value="0"></wa-input>
-    <wa-input type="number" name="skidding" label="Skidding" value="0"></wa-input>
-  </div>
+  <wa-divider></wa-divider>
 
-  <div class="popup-overview-options">
-    <wa-switch name="active" checked>Active</wa-switch>
-    <wa-switch name="arrow">Arrow</wa-switch>
+  <div class="wa-cluster">
+    <div class="popup-overview-options">
+      <wa-combobox
+        label="Placement"
+        name="placement"
+        placeholder="Select placement..."
+        class="popup-overview-select"
+      ></wa-combobox>
+      <wa-input type="number" name="distance" label="distance" value="0"></wa-input>
+      <wa-input type="number" name="skidding" label="Skidding" value="0"></wa-input>
+    </div>
+
+    <div class="popup-overview-options">
+      <wa-switch name="active" checked>Active</wa-switch>
+      <wa-switch name="arrow">Arrow</wa-switch>
+    </div>
   </div>
 </div>
 
@@ -147,7 +151,8 @@ Popups are inactive and hidden until the `active` attribute is applied. Removing
     <div class="box"></div>
   </wa-popup>
 
-  <br />
+  <wa-divider></wa-divider>
+
   <wa-switch checked>Active</wa-switch>
 </div>
 
@@ -218,6 +223,8 @@ Since placement is preferred when using `flip`, you can observe the popup's curr
     <span slot="anchor"></span>
     <div class="box"></div>
   </wa-popup>
+
+  <wa-divider></wa-divider>
 
   <wa-combobox name="placement" label="Placement" placeholder="Select placement..."></wa-combobox>
 </div>
@@ -292,6 +299,8 @@ Use the `distance` attribute to change the distance between the popup and its an
     <div class="box"></div>
   </wa-popup>
 
+  <wa-divider></wa-divider>
+
   <wa-slider min="-50" max="50" step="1" value="0" label="Distance"></wa-slider>
 </div>
 
@@ -335,6 +344,8 @@ The `skidding` attribute is similar to `distance`, but instead allows you to off
     <span slot="anchor"></span>
     <div class="box"></div>
   </wa-popup>
+
+  <wa-divider></wa-divider>
 
   <wa-slider min="-50" max="50" step="1" value="0" label="Skidding"></wa-slider>
 </div>
@@ -382,24 +393,28 @@ By default, the arrow will be aligned as close to the center of the _anchor_ as 
     <div class="box"></div>
   </wa-popup>
 
-  <div class="popup-arrow-options">
-    <wa-combobox
-      label="Placement"
-      name="placement"
-      placeholder="Select placement..."
-      class="popup-overview-select"
-    ></wa-combobox>
+  <wa-divider></wa-divider>
 
-    <wa-select label="Arrow Placement" name="arrow-placement" value="anchor">
-      <wa-option value="anchor">anchor</wa-option>
-      <wa-option value="start">start</wa-option>
-      <wa-option value="end">end</wa-option>
-      <wa-option value="center">center</wa-option>
-    </wa-select>
-  </div>
+  <div class="wa-cluster">
+    <div class="popup-arrow-options">
+      <wa-combobox
+        label="Placement"
+        name="placement"
+        placeholder="Select placement..."
+        class="popup-overview-select"
+      ></wa-combobox>
 
-  <div class="popup-arrow-options">
-    <wa-switch name="arrow" checked>Arrow</wa-switch>
+      <wa-select label="Arrow Placement" name="arrow-placement" value="anchor">
+        <wa-option value="anchor">anchor</wa-option>
+        <wa-option value="start">start</wa-option>
+        <wa-option value="end">end</wa-option>
+        <wa-option value="center">center</wa-option>
+      </wa-select>
+    </div>
+
+    <div class="popup-arrow-options">
+      <wa-switch name="arrow" checked>Arrow</wa-switch>
+    </div>
   </div>
 
   <style>
@@ -482,7 +497,7 @@ By default, the arrow will be aligned as close to the center of the _anchor_ as 
 </div>
 ```
 
-### Adding a border
+### Adding a Border
 
 Borders can also be added to the popup element by targeting the contents of the `wa-popup` element. This styling can also be extended to the arrow itself by targeting `.arrow` class in the popup.
 
@@ -494,6 +509,8 @@ When adding borders to the popup element which has an arrow, make sure to set th
     <span slot="anchor"></span>
     <div class="box"></div>
   </wa-popup>
+
+  <wa-divider></wa-divider>
 
   <div class="popup-border-options">
     <wa-combobox
@@ -658,7 +675,8 @@ Scroll the container to see how the popup flips to prevent clipping.
     </wa-popup>
   </div>
 
-  <br />
+  <wa-divider></wa-divider>
+
   <wa-switch checked>Flip</wa-switch>
 </div>
 
@@ -766,6 +784,8 @@ Toggle the switch to see the difference.
     </wa-popup>
   </div>
 
+  <wa-divider></wa-divider>
+
   <wa-switch checked>Shift</wa-switch>
 </div>
 
@@ -801,7 +821,7 @@ Toggle the switch to see the difference.
 </script>
 ```
 
-### Auto-size
+### Auto-Size
 
 Use the `auto-size` attribute to tell the popup to resize when necessary to prevent it from overflowing.
 Possible values are `horizontal`, `vertical`, and `both`. You can use `autoSizeBoundary` and `auto-size-padding` to customize the behavior of this option. Auto-size works well with `flip`, but if you're using `auto-size-padding` make sure `flip-padding` is the same value.
@@ -822,7 +842,8 @@ Scroll the container to see the popup resize as its available space changes.
     </wa-popup>
   </div>
 
-  <br />
+  <wa-divider></wa-divider>
+
   <wa-switch checked>Auto-size</wa-switch>
 </div>
 
@@ -876,10 +897,14 @@ When a gap exists between the anchor and the popup element, this option will add
     <span slot="anchor"></span>
     <div class="box"></div>
   </wa-popup>
-  <br />
-  <wa-switch checked>Hover Bridge</wa-switch><br />
-  <wa-slider min="0" max="50" step="1" value="10" label="Distance"></wa-slider>
-  <wa-slider min="-50" max="50" step="1" value="0" label="Skidding"></wa-slider>
+
+  <wa-divider></wa-divider>
+
+  <div class="wa-cluster">
+    <wa-switch checked>Hover Bridge</wa-switch>
+    <wa-slider min="0" max="50" step="1" value="10" label="Distance"></wa-slider>
+    <wa-slider min="-50" max="50" step="1" value="0" label="Skidding"></wa-slider>
+  </div>
 </div>
 <style>
   .popup-hover-bridge span[slot='anchor'] {
@@ -939,6 +964,8 @@ This example anchors a popup to the mouse cursor using a virtual element. As suc
   <wa-popup placement="right-start">
     <div class="circle"></div>
   </wa-popup>
+
+  <wa-divider></wa-divider>
 
   <wa-switch>Highlight mouse cursor</wa-switch>
 </div>

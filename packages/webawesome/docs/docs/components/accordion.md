@@ -265,22 +265,24 @@ To place HTML in an accordion item's header, use the `label` slot instead of the
 </wa-accordion>
 ```
 
-### Expand and Collapse All
+### Expand & Collapse All
 
 Use the `expandAll()` and `collapseAll()` methods to programmatically control all items at once. Note that `expandAll()` is a no-op when `mode` is `single` or `single-collapsible`.
 
 ```html {.example}
-<wa-accordion id="accordion-methods">
-  <wa-accordion-item label="Section one">Content for the first section.</wa-accordion-item>
-  <wa-accordion-item label="Section two">Content for the second section.</wa-accordion-item>
-  <wa-accordion-item label="Section three">Content for the third section.</wa-accordion-item>
-</wa-accordion>
+<div>
+  <wa-accordion id="accordion-methods">
+    <wa-accordion-item label="Section one">Content for the first section.</wa-accordion-item>
+    <wa-accordion-item label="Section two">Content for the second section.</wa-accordion-item>
+    <wa-accordion-item label="Section three">Content for the third section.</wa-accordion-item>
+  </wa-accordion>
 
-<br />
+  <wa-divider></wa-divider>
 
-<div class="wa-cluster">
-  <wa-button appearance="filled" id="expand-all">Expand All</wa-button>
-  <wa-button appearance="filled" id="collapse-all">Collapse All</wa-button>
+  <div class="wa-cluster">
+    <wa-button appearance="filled" id="expand-all">Expand All</wa-button>
+    <wa-button appearance="filled" id="collapse-all">Collapse All</wa-button>
+  </div>
 </div>
 
 <script>

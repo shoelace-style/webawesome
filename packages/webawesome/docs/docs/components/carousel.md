@@ -265,7 +265,7 @@ This example is best demonstrated using a mouse. Try clicking and dragging the s
 </script>
 ```
 
-### Multiple Slides Per View
+### Multiple Slides per View
 
 The `slides-per-page` attribute makes it possible to display multiple slides at a time. You can also use the `slides-per-move` attribute to advance more than once slide at a time, if desired.
 
@@ -280,32 +280,29 @@ The `slides-per-page` attribute makes it possible to display multiple slides at 
 </wa-carousel>
 ```
 
-### Adding and Removing Slides
+### Adding & Removing Slides
 
 The content of the carousel can be changed by adding or removing carousel items. The carousel will update itself automatically.
 
 ```html {.example}
-<wa-carousel class="dynamic-carousel" pagination navigation>
-  <wa-carousel-item style="background: red">Slide 1</wa-carousel-item>
-  <wa-carousel-item style="background: orange">Slide 2</wa-carousel-item>
-  <wa-carousel-item style="background: yellow">Slide 3</wa-carousel-item>
-</wa-carousel>
+<div>
+  <wa-carousel class="dynamic-carousel" pagination navigation>
+    <wa-carousel-item style="background: red">Slide 1</wa-carousel-item>
+    <wa-carousel-item style="background: orange">Slide 2</wa-carousel-item>
+    <wa-carousel-item style="background: yellow">Slide 3</wa-carousel-item>
+  </wa-carousel>
 
-<div class="carousel-options">
-  <wa-button appearance="filled" id="dynamic-add">Add slide</wa-button>
-  <wa-button appearance="filled" id="dynamic-remove">Remove slide</wa-button>
+  <wa-divider></wa-divider>
+
+  <div class="wa-cluster">
+    <wa-button appearance="filled" id="dynamic-add">Add slide</wa-button>
+    <wa-button appearance="filled" id="dynamic-remove">Remove slide</wa-button>
+  </div>
 </div>
 
 <style>
   .dynamic-carousel {
     --aspect-ratio: 3 / 2;
-  }
-
-  .dynamic-carousel ~ .carousel-options {
-    display: flex;
-    justify-content: center;
-    gap: var(--wa-space-xs);
-    margin-top: var(--wa-space-l);
   }
 
   .dynamic-carousel wa-carousel-item {
@@ -414,46 +411,50 @@ Setting the `orientation` attribute to `vertical` will render the carousel in a 
 Use the `--aspect-ratio` custom property to customize the size of the carousel's viewport from the default value of 16/9.
 
 ```html {.example}
-<wa-carousel class="aspect-ratio" navigation pagination style="--aspect-ratio: 3/2;">
-  <wa-carousel-item>
-    <img
-      alt="The sun shines on the mountains and trees (by Adam Kool on Unsplash)"
-      src="https://images.unsplash.com/photo-1426604966848-d7adac402bff?q=10"
-    />
-  </wa-carousel-item>
-  <wa-carousel-item>
-    <img
-      alt="A river winding through an evergreen forest (by Luca Bravo on Unsplash)"
-      src="https://images.unsplash.com/photo-1473448912268-2022ce9509d8?q=10"
-    />
-  </wa-carousel-item>
-  <wa-carousel-item>
-    <img
-      alt="The sun is setting over a lavender field (by Leonard Cotte on Unsplash)"
-      src="https://images.unsplash.com/photo-1499002238440-d264edd596ec?q=10"
-    />
-  </wa-carousel-item>
-  <wa-carousel-item>
-    <img
-      alt="A field of grass with the sun setting in the background (by Sapan Patel on Unsplash)"
-      src="https://images.unsplash.com/photo-1475113548554-5a36f1f523d6?q=10"
-    />
-  </wa-carousel-item>
-  <wa-carousel-item>
-    <img
-      alt="A scenic view of a mountain with clouds rolling in (by V2osk on Unsplash)"
-      src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=10"
-    />
-  </wa-carousel-item>
-</wa-carousel>
+<div>
+  <wa-carousel class="aspect-ratio" navigation pagination style="--aspect-ratio: 3/2;">
+    <wa-carousel-item>
+      <img
+        alt="The sun shines on the mountains and trees (by Adam Kool on Unsplash)"
+        src="https://images.unsplash.com/photo-1426604966848-d7adac402bff?q=10"
+      />
+    </wa-carousel-item>
+    <wa-carousel-item>
+      <img
+        alt="A river winding through an evergreen forest (by Luca Bravo on Unsplash)"
+        src="https://images.unsplash.com/photo-1473448912268-2022ce9509d8?q=10"
+      />
+    </wa-carousel-item>
+    <wa-carousel-item>
+      <img
+        alt="The sun is setting over a lavender field (by Leonard Cotte on Unsplash)"
+        src="https://images.unsplash.com/photo-1499002238440-d264edd596ec?q=10"
+      />
+    </wa-carousel-item>
+    <wa-carousel-item>
+      <img
+        alt="A field of grass with the sun setting in the background (by Sapan Patel on Unsplash)"
+        src="https://images.unsplash.com/photo-1475113548554-5a36f1f523d6?q=10"
+      />
+    </wa-carousel-item>
+    <wa-carousel-item>
+      <img
+        alt="A scenic view of a mountain with clouds rolling in (by V2osk on Unsplash)"
+        src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=10"
+      />
+    </wa-carousel-item>
+  </wa-carousel>
 
-<wa-divider></wa-divider>
+  <wa-divider></wa-divider>
 
-<wa-select label="Aspect ratio" name="aspect" value="3/2">
-  <wa-option value="1/1">1/1</wa-option>
-  <wa-option value="3/2">3/2</wa-option>
-  <wa-option value="16/9">16/9</wa-option>
-</wa-select>
+  <div class="wa-cluster">
+    <wa-select label="Aspect ratio" name="aspect" value="3/2">
+      <wa-option value="1/1">1/1</wa-option>
+      <wa-option value="3/2">3/2</wa-option>
+      <wa-option value="16/9">16/9</wa-option>
+    </wa-select>
+  </div>
+</div>
 
 <script>
   (() => {

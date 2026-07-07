@@ -51,6 +51,8 @@ This example demonstrates all of the baked-in animations and easings. Animations
     <div class="box"></div>
   </wa-animation>
 
+  <wa-divider></wa-divider>
+
   <div class="controls">
     <wa-select label="Animation" value="bounce"></wa-select>
     <wa-select label="Easing" value="linear"></wa-select>
@@ -113,6 +115,8 @@ This example demonstrates all of the baked-in animations and easings. Animations
   <wa-animation name="bounce" easing="ease-in-out" duration="2000" play>
     <div class="box"></div>
   </wa-animation>
+
+  <wa-divider></wa-divider>
 
   <div class="controls">
     <wa-combobox label="Animation" placeholder="Select animation..."></wa-combobox>
