@@ -327,7 +327,7 @@ Structure tabular data with `<table>` and related elements like `<caption>`, `<t
 ```html {.example}
 <table>
   <caption>
-    Common furniture pieces and their attributes
+    Furniture pieces and their attributes
   </caption>
   <thead>
     <tr>
