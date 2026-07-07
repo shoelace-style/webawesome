@@ -31,6 +31,23 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 ## Unreleased
 
+:::fixed
+
+- Fixed type resolution issues with `pro` components like `<wa-file-input>`, `<wa-combobox>`, etc. [pr:2577]
+- Fixed an issue where some fonts wouldn't load in themes that import multiple fonts [pr:2582]
+- Fixed an issue with an improper custom elements manifest path. [pr:2590]
+- Fixed an unnecessary aria-orientation attribute on `<wa-scroller>` [pr:2589]
+- Fixed a lifecycle issue in `<wa-option>` [pr:2591]
+- Fixed a bug with extra margin on the first button of a `<wa-button-group>` [pr:2592]
+
+
+:::
+
+
+## 3.10.0
+
+<small><time datetime="2026-06-30">June 30th, 2026</time></small>
+
 :::added
 
 - Added an experimental `<wa-otp-input>` component, generally used for fixed length codes (PINs, OTPs, verification codes, etc).
@@ -43,6 +60,8 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::fixed
 
+- Fixed a type issue in `<wa-checkbox>` that caused the `name` property to have an incorrect type. [pr:2568]
+- Fixed a bug in `<wa-page>` causing the viewport to always overflow if a footer was present. [pr:2537]
 - Fixed a bug in `wa-video` that was causing the `z-index` to leak out of the context of the component [issue:2542]
 - Fixed a bug in `<wa-chart>` and its variants that threw a `DataCloneError` when the Chart.js config contained functions, such as tooltip or scale callbacks
 - Fixed a bug in `<wa-date-input>` and `<wa-time-input>` where an empty `start`/`end` slot added a phantom gap causing it to be misaligned with other form controls [issue:2527]
@@ -66,6 +85,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
   - The current (keyboard-highlighted) state now uses `--wa-form-control-activated-color` for its background and a new `--current-text-color` custom property for its text, so options track form control theming alongside `<wa-checkbox>`, `<wa-radio>`, `<wa-switch>`, and `<wa-slider>`
   - Hover and current state changes now animate, matching `<wa-dropdown-item>`
 - Reordered component reference pages in the `webawesome` Agent Skill to put the import instructions and API tables before the examples
+- Rewrote `prose.css` rules with `@scope` so that `wa-prose` and `wa-not-prose` classes are proximity aware. This ensures that nested instances of either class work as expected, no matter the nesting depth. [pr:2564]
 - Updated `<wa-icon>` to use [Font Awesome 7.3.0](https://fontawesome.com/changelog#v7-3-0) [pr:2562]
 - Aligned `<wa-icon>` animation defaults with Font Awesome 7.3.0 — `flip`, `shake`, `fade`, and `beat-fade` use updated timing, duration, and keyframes [pr:2562]
 
@@ -604,7 +624,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::
 
-## Pre-release Versions
+## Pre-Release Versions
 
 Betas, release candidates, and snapshots from before each major release.
 

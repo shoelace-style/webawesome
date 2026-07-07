@@ -126,7 +126,6 @@ export default class WaScroller extends WebAwesomeElement {
         part="content"
         role="region"
         aria-label=${this.localize.term('scrollableRegion')}
-        aria-orientation=${this.orientation}
         tabindex=${this.canScroll ? '0' : '-1'}
         @keydown=${this.handleKeyDown}
         @scroll=${this.updateScroll}

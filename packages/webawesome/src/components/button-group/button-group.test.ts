@@ -98,6 +98,32 @@ describe('<wa-button-group>', () => {
           const buttons = el.querySelectorAll('wa-button');
           expect(buttons.length).to.equal(3);
         });
+
+        for (const appearance of ['accent', 'filled', 'filled-outlined', 'outlined', 'plain'] as const) {
+          it(`should not offset the first ${appearance} button`, async () => {
+            const el = await fixture<WaButtonGroup>(html`
+              <wa-button-group>
+                <wa-button appearance=${appearance}>Button 1</wa-button>
+                <wa-button appearance=${appearance}>Button 2</wa-button>
+              </wa-button-group>
+            `);
+            const firstButton = el.querySelector('wa-button')!;
+
+            expect(getComputedStyle(firstButton).marginInlineStart).to.equal('0px');
+          });
+
+          it(`should not offset the first vertical ${appearance} button`, async () => {
+            const el = await fixture<WaButtonGroup>(html`
+              <wa-button-group orientation="vertical">
+                <wa-button appearance=${appearance}>Button 1</wa-button>
+                <wa-button appearance=${appearance}>Button 2</wa-button>
+              </wa-button-group>
+            `);
+            const firstButton = el.querySelector('wa-button')!;
+
+            expect(getComputedStyle(firstButton).marginBlockStart).to.equal('0px');
+          });
+        }
       });
 
       describe('CSS parts and states', () => {

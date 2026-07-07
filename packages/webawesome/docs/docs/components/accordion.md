@@ -265,7 +265,7 @@ To place HTML in an accordion item's header, use the `label` slot instead of the
 </wa-accordion>
 ```
 
-### Expand and Collapse All
+### Expand & Collapse All
 
 Use the `expandAll()` and `collapseAll()` methods to programmatically control all items at once. Note that `expandAll()` is a no-op when `mode` is `single` or `single-collapsible`.
 

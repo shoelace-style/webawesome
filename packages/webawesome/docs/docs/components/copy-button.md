@@ -69,7 +69,7 @@ You can also use a native button as the trigger.
 Custom triggers automatically receive the same tooltip and copy feedback as the default trigger — no extra wiring required. The icon swap is the only piece that's specific to the default trigger. Use `without-tooltip` to opt out of the tooltip, and use the `wa-copy` and `wa-error` events or the `:state(success)` and `:state(error)` CSS custom states for additional feedback.
 :::
 
-### Copying Values From Other Elements
+### Copying Values from Other Elements
 
 Normally, the data that gets copied will come from the component's `value` attribute, but you can copy data from any element within the same document by providing its `id` to the `from` attribute.
 

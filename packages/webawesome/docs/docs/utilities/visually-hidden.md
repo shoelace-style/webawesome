@@ -40,7 +40,7 @@ In this example, the link will open a new window. Screen readers will announce "
 </a>
 ```
 
-### Content Conveyed By Context
+### Content Conveyed by Context
 
 Adding a label may seem redundant at times, but they're very helpful for unsighted users. Rather than omit them, you can provide context to unsighted users with visually hidden content that will be announced by assistive devices such as screen readers.
 

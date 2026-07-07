@@ -26,7 +26,7 @@ Use the `--size` custom property to set the diameter of the progress ring.
 <wa-progress-ring value="50" style="--size: 200px;"></wa-progress-ring>
 ```
 
-### Track and Indicator Width
+### Track & Indicator Width
 
 Use the `--track-width` and `--indicator-width` custom properties to set the width of the progress ring's track and indicator.
 

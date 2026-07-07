@@ -111,7 +111,7 @@ The Theme Builder is a visual editor for **Pro workspace projects** that lets yo
 
 You can launch the Theme Builder from your project's <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="gear" variant="regular"></wa-icon> Settings</wa-tag> by pressing <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="paintbrush" variant="regular"></wa-icon> Edit Your Theme</wa-tag>.
 
-### Light and Dark Mode
+### Light & Dark Mode
 
 Every theme is designed to adapt to light and dark mode. Light mode styles are applied by default, but you can apply a specific color scheme to an entire page or just a section with `class="wa-light"` or `class="wa-dark"`.
 

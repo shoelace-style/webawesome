@@ -48,7 +48,7 @@ Use `<wa-button>` or `<button>` elements as popover anchors. Connect the popover
 Make sure the anchor element exists in the DOM before the popover connects. If it doesn't exist, the popover won't attach and you'll see a console warning.
 :::
 
-### Opening and Closing
+### Opening & Closing
 
 Popovers show when you click their anchor element. You can also control them programmatically by setting the `open` property to `true` or `false`.
 

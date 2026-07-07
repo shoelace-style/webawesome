@@ -26,13 +26,6 @@ describe('<wa-scroller>', () => {
           const content = el.shadowRoot!.querySelector('#content')!;
           expect(content).to.have.attribute('aria-label');
         });
-
-        it('should set aria-orientation based on orientation property', async () => {
-          const el = await fixture<WaScroller>(html` <wa-scroller orientation="vertical"></wa-scroller> `);
-
-          const content = el.shadowRoot!.querySelector('#content')!;
-          expect(content).to.have.attribute('aria-orientation', 'vertical');
-        });
       });
 
       describe('properties', () => {

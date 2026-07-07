@@ -7,7 +7,7 @@ hasBreadcrumbs: false
 
 Web Awesome publishes machine-readable documentation so AI coding assistants can understand its components and help you write better code. Whether you're using Claude, ChatGPT, Copilot, Cursor, or another tool, you can give it context about Web Awesome's APIs, properties, events, slots, and more.
 
-## AI-ready Documentation
+## AI-Ready Documentation
 
 We provide two formats for giving AI tools context about Web Awesome. Both formats are generated automatically with every Web Awesome build and are available in your `node_modules` directory after installing via npm.
 
@@ -37,7 +37,7 @@ We're a small team, and like most people building things these days, we use AI t
 
 But Web Awesome is an open-source library that a lot of people rely on, so we want to be clear about how we use AI.
 
-<h3 data-no-anchor>Human-led, AI-assisted</h3>
+<h3 data-no-anchor>Human-Led, AI-Assisted</h3>
 
 Everything in Web Awesome is built and owned by humans. AI is a capable assistant, but it never gets the final say. The humans on our team are always responsible for:
 
