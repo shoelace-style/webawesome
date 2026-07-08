@@ -219,7 +219,7 @@ Set a `border-radius` on the `indicator` part to make circles, squares, and rect
 </style>
 ```
 
-### Custom Properties
+### Colors
 
 Set the `--color` and `--sheen-color` custom properties to tune the skeleton to your surface. `--sheen-color` is the highlight that sweeps across when `effect="sheen"`.
 
