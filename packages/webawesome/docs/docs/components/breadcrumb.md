@@ -12,8 +12,6 @@ use-cases:
   - hierarchy navigation
 ---
 
-Breadcrumbs are usually placed before a page's main content with the current page shown last to indicate the user's position in the navigation.
-
 ```html {.example}
 <wa-breadcrumb>
   <wa-breadcrumb-item>Catalog</wa-breadcrumb-item>
@@ -23,9 +21,11 @@ Breadcrumbs are usually placed before a page's main content with the current pag
 </wa-breadcrumb>
 ```
 
+Breadcrumbs are usually placed before a page's main content with the current page shown last to indicate the user's position in the navigation.
+
 ## Examples
 
-### Breadcrumb Links
+### Links
 
 By default, breadcrumb items are rendered as buttons so you can use them to navigate single-page applications. In this case, you'll need to add event listeners to handle clicks.
 
@@ -63,7 +63,7 @@ Use the `start` and `end` slots to add presentational elements like `<wa-icon>` 
 </wa-breadcrumb>
 ```
 
-### Custom Separators
+### Separator
 
 Use the `separator` slot to change the separator that goes between breadcrumb items. Icons work well, but you can also use text or an image.
 
@@ -94,20 +94,20 @@ Use the `separator` slot to change the separator that goes between breadcrumb it
 </wa-breadcrumb>
 ```
 
-### Custom Colors
+### Colors
 
 Breadcrumb labels match the color set on `<wa-breadcrumb-item>`. Content in the `start`, `end`, and `separator` slots can be styled using CSS parts.
 
 ```html {.example}
 <style>
   .redcrumbs wa-breadcrumb-item {
-    color: firebrick;
+    color: var(--wa-color-red-40);
   }
   .redcrumbs wa-breadcrumb-item:last-of-type {
-    color: crimson;
+    color: var(--wa-color-red-60);
   }
   .redcrumbs wa-breadcrumb-item::part(separator) {
-    color: pink;
+    color: var(--wa-color-red-80);
   }
   .redcrumbs wa-breadcrumb-item::part(start),
   .redcrumbs wa-breadcrumb-item::part(end) {
@@ -124,7 +124,7 @@ Breadcrumb labels match the color set on `<wa-breadcrumb-item>`. Content in the 
 </wa-breadcrumb>
 ```
 
-### With Dropdowns
+### Dropdowns
 
 Dropdown menus can be placed in the default slot to provide additional options.
 
@@ -143,26 +143,5 @@ Dropdown menus can be placed in the default slot to provide additional options.
   </wa-breadcrumb-item>
   <wa-breadcrumb-item>Our Services</wa-breadcrumb-item>
   <wa-breadcrumb-item>Digital Media</wa-breadcrumb-item>
-</wa-breadcrumb>
-```
-
-Alternatively, you can place dropdown menus in a `start` or `end` slot.
-
-```html {.example}
-<wa-breadcrumb>
-  <wa-breadcrumb-item>Homepage</wa-breadcrumb-item>
-  <wa-breadcrumb-item>Our Services</wa-breadcrumb-item>
-  <wa-breadcrumb-item>Digital Media</wa-breadcrumb-item>
-  <wa-breadcrumb-item>
-    Web Design
-    <wa-dropdown slot="end">
-      <wa-button slot="trigger" size="s" appearance="filled" pill>
-        <wa-icon label="More options" name="ellipsis" variant="solid"></wa-icon>
-      </wa-button>
-      <wa-dropdown-item type="checkbox" checked>Web Design</wa-dropdown-item>
-      <wa-dropdown-item type="checkbox">Web Development</wa-dropdown-item>
-      <wa-dropdown-item type="checkbox">Marketing</wa-dropdown-item>
-    </wa-dropdown>
-  </wa-breadcrumb-item>
 </wa-breadcrumb>
 ```
