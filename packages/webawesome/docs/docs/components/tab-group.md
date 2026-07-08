@@ -14,8 +14,6 @@ use-cases:
   - settings tabs
 ---
 
-Tab groups make use of [tabs](/docs/components/tab) and [tab panels](/docs/components/tab-panel). Each panel should have a name that's unique within the tab group, and tabs should have a `panel` attribute that points to the respective panel's name.
-
 ```html {.example}
 <wa-tab-group>
   <wa-tab panel="general">General</wa-tab>
@@ -30,9 +28,11 @@ Tab groups make use of [tabs](/docs/components/tab) and [tab panels](/docs/compo
 </wa-tab-group>
 ```
 
+Tab groups make use of [tabs](/docs/components/tab) and [tab panels](/docs/components/tab-panel). Each panel should have a name that's unique within the tab group, and tabs should have a `panel` attribute that points to the respective panel's name.
+
 ## Examples
 
-### Setting the Active Tab
+### Active Tab
 
 To make a tab active, set the `active` attribute to the name of the appropriate panel.
 
@@ -48,9 +48,16 @@ To make a tab active, set the `active` attribute to the name of the appropriate 
 </wa-tab-group>
 ```
 
-### Tabs on Bottom
+### Placement
 
-Tabs can be shown on the bottom by setting `placement` to `bottom`.
+Set the `placement` attribute to move the tabs to a different edge of the panels.
+
+| Placement                                                                       | Tabs appear                       |
+| ------------------------------------------------------------------------------- | --------------------------------- |
+| `top` <wa-badge appearance="outlined" variant="neutral" pill style="font-size: var(--wa-font-size-2xs);">default</wa-badge> | Above the panels, horizontally    |
+| `bottom`                                                                        | Below the panels, horizontally    |
+| `start`                                                                         | Before the panels, stacked vertically |
+| `end`                                                                           | After the panels, stacked vertically  |
 
 ```html {.example}
 <wa-tab-group placement="bottom">
@@ -59,16 +66,12 @@ Tabs can be shown on the bottom by setting `placement` to `bottom`.
   <wa-tab panel="advanced">Advanced</wa-tab>
   <wa-tab panel="disabled" disabled>Disabled</wa-tab>
 
-  <wa-tab-panel name="general">This is the general tab panel.</wa-tab-panel>
+  <wa-tab-panel name="general" active>This is the general tab panel.</wa-tab-panel>
   <wa-tab-panel name="custom">This is the custom tab panel.</wa-tab-panel>
   <wa-tab-panel name="advanced">This is the advanced tab panel.</wa-tab-panel>
   <wa-tab-panel name="disabled">This is a disabled tab panel.</wa-tab-panel>
 </wa-tab-group>
 ```
-
-### Tabs on Start
-
-Tabs can be shown on the starting side by setting `placement` to `start`.
 
 ```html {.example}
 <wa-tab-group placement="start">
@@ -77,25 +80,7 @@ Tabs can be shown on the starting side by setting `placement` to `start`.
   <wa-tab panel="advanced">Advanced</wa-tab>
   <wa-tab panel="disabled" disabled>Disabled</wa-tab>
 
-  <wa-tab-panel name="general">This is the general tab panel.</wa-tab-panel>
-  <wa-tab-panel name="custom">This is the custom tab panel.</wa-tab-panel>
-  <wa-tab-panel name="advanced">This is the advanced tab panel.</wa-tab-panel>
-  <wa-tab-panel name="disabled">This is a disabled tab panel.</wa-tab-panel>
-</wa-tab-group>
-```
-
-### Tabs on End
-
-Tabs can be shown on the ending side by setting `placement` to `end`.
-
-```html {.example}
-<wa-tab-group placement="end">
-  <wa-tab panel="general">General</wa-tab>
-  <wa-tab panel="custom">Custom</wa-tab>
-  <wa-tab panel="advanced">Advanced</wa-tab>
-  <wa-tab panel="disabled" disabled>Disabled</wa-tab>
-
-  <wa-tab-panel name="general">This is the general tab panel.</wa-tab-panel>
+  <wa-tab-panel name="general" active>This is the general tab panel.</wa-tab-panel>
   <wa-tab-panel name="custom">This is the custom tab panel.</wa-tab-panel>
   <wa-tab-panel name="advanced">This is the advanced tab panel.</wa-tab-panel>
   <wa-tab-panel name="disabled">This is a disabled tab panel.</wa-tab-panel>
@@ -113,7 +98,7 @@ You can make a tab closable by adding a close button next to the tab and inside 
   <wa-button slot="nav" tabindex="-1" appearance="plain" size="s">
     <wa-icon name="xmark" label="Close the closable tab"></wa-icon>
   </wa-button>
-  <wa-tab panel="closable-2">Advanced</wa-tab>
+  <wa-tab panel="advanced">Advanced</wa-tab>
 
   <wa-tab-panel name="general">This is the general tab panel.</wa-tab-panel>
   <wa-tab-panel name="closable">This is the closable tab panel.</wa-tab-panel>
