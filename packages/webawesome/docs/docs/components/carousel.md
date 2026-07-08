@@ -130,9 +130,9 @@ Use the `navigation` attribute to show previous and next buttons.
 </wa-carousel>
 ```
 
-### Looping
+### Loop
 
-By default, the carousel will not advanced beyond the first and last slides. You can change this behavior and force the carousel to "wrap" with the `loop` attribute.
+By default, the carousel will not advance beyond the first and last slides. You can change this behavior and force the carousel to "wrap" with the `loop` attribute.
 
 ```html {.example}
 <wa-carousel loop navigation pagination>
@@ -171,7 +171,7 @@ By default, the carousel will not advanced beyond the first and last slides. You
 
 ### Autoplay
 
-The carousel will automatically advance when the `autoplay` attribute is used. To change how long a slide is shown before advancing, set `autoplay-interval` to the desired number of milliseconds. For best results, use the `loop` attribute when autoplay is enabled. Note that autoplay will pause while the user interacts with the carousel.
+The carousel will automatically advance when the `autoplay` attribute is used. To change how long a slide is shown before advancing, set `autoplay-interval` to the desired number of milliseconds. For best results, use the `loop` attribute when autoplay is enabled. Autoplay pauses while the user interacts with the carousel.
 
 ```html {.example}
 <wa-carousel autoplay loop pagination>
@@ -208,148 +208,7 @@ The carousel will automatically advance when the `autoplay` attribute is used. T
 </wa-carousel>
 ```
 
-### Mouse Dragging
-
-The carousel uses [scroll snap](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Scroll_Snap) to position slides at various snap positions. This allows users to scroll through the slides very naturally, especially on touch devices. Unfortunately, desktop users won't be able to click and drag with a mouse, which can feel unnatural. Adding the `mouse-dragging` attribute can help with this.
-
-This example is best demonstrated using a mouse. Try clicking and dragging the slide to move it. Then toggle the switch and try again.
-
-```html {.example}
-<div class="mouse-dragging">
-  <wa-carousel pagination>
-    <wa-carousel-item>
-      <img
-        alt="The sun shines on the mountains and trees (by Adam Kool on Unsplash)"
-        src="https://images.unsplash.com/photo-1426604966848-d7adac402bff?q=10"
-      />
-    </wa-carousel-item>
-    <wa-carousel-item>
-      <img
-        alt="A river winding through an evergreen forest (by Luca Bravo on Unsplash)"
-        src="https://images.unsplash.com/photo-1473448912268-2022ce9509d8?q=10"
-      />
-    </wa-carousel-item>
-    <wa-carousel-item>
-      <img
-        alt="The sun is setting over a lavender field (by Leonard Cotte on Unsplash)"
-        src="https://images.unsplash.com/photo-1499002238440-d264edd596ec?q=10"
-      />
-    </wa-carousel-item>
-    <wa-carousel-item>
-      <img
-        alt="A field of grass with the sun setting in the background (by Sapan Patel on Unsplash)"
-        src="https://images.unsplash.com/photo-1475113548554-5a36f1f523d6?q=10"
-      />
-    </wa-carousel-item>
-    <wa-carousel-item>
-      <img
-        alt="A scenic view of a mountain with clouds rolling in (by V2osk on Unsplash)"
-        src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=10"
-      />
-    </wa-carousel-item>
-  </wa-carousel>
-
-  <wa-divider></wa-divider>
-
-  <wa-switch>Enable mouse dragging</wa-switch>
-</div>
-
-<script>
-  const container = document.querySelector('.mouse-dragging');
-  const carousel = container.querySelector('wa-carousel');
-  const toggle = container.querySelector('wa-switch');
-
-  toggle.addEventListener('change', () => {
-    carousel.toggleAttribute('mouse-dragging', toggle.checked);
-  });
-</script>
-```
-
-### Multiple Slides per View
-
-The `slides-per-page` attribute makes it possible to display multiple slides at a time. You can also use the `slides-per-move` attribute to advance more than once slide at a time, if desired.
-
-```html {.example}
-<wa-carousel navigation pagination slides-per-page="2" slides-per-move="2">
-  <wa-carousel-item style="background: red;">Slide 1</wa-carousel-item>
-  <wa-carousel-item style="background: orange;">Slide 2</wa-carousel-item>
-  <wa-carousel-item style="background: yellow;">Slide 3</wa-carousel-item>
-  <wa-carousel-item style="background: green;">Slide 4</wa-carousel-item>
-  <wa-carousel-item style="background: blue;">Slide 5</wa-carousel-item>
-  <wa-carousel-item style="background: purple;">Slide 6</wa-carousel-item>
-</wa-carousel>
-```
-
-### Adding & Removing Slides
-
-The content of the carousel can be changed by adding or removing carousel items. The carousel will update itself automatically.
-
-```html {.example}
-<div>
-  <wa-carousel class="dynamic-carousel" pagination navigation>
-    <wa-carousel-item style="background: red">Slide 1</wa-carousel-item>
-    <wa-carousel-item style="background: orange">Slide 2</wa-carousel-item>
-    <wa-carousel-item style="background: yellow">Slide 3</wa-carousel-item>
-  </wa-carousel>
-
-  <wa-divider></wa-divider>
-
-  <div class="wa-cluster">
-    <wa-button appearance="filled" id="dynamic-add">Add slide</wa-button>
-    <wa-button appearance="filled" id="dynamic-remove">Remove slide</wa-button>
-  </div>
-</div>
-
-<style>
-  .dynamic-carousel {
-    --aspect-ratio: 3 / 2;
-  }
-
-  .dynamic-carousel wa-carousel-item {
-    flex: 0 0 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: var(--wa-font-size-2xl);
-  }
-</style>
-
-<script>
-  (() => {
-    const dynamicCarousel = document.querySelector('.dynamic-carousel');
-    const dynamicAdd = document.querySelector('#dynamic-add');
-    const dynamicRemove = document.querySelector('#dynamic-remove');
-    const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple'];
-    let colorIndex = 2;
-
-    const addSlide = () => {
-      const slide = document.createElement('wa-carousel-item');
-      const color = colors[++colorIndex % colors.length];
-      slide.innerText = `Slide ${dynamicCarousel.children.length + 1}`;
-      slide.style.setProperty('background', color);
-      dynamicCarousel.appendChild(slide);
-      dynamicRemove.disabled = false;
-    };
-
-    const removeSlide = () => {
-      const slide = dynamicCarousel.children[dynamicCarousel.children.length - 1];
-      const numSlides = dynamicCarousel.querySelectorAll('wa-carousel-item').length;
-
-      if (numSlides > 1) {
-        slide.remove();
-        colorIndex--;
-      }
-
-      dynamicRemove.disabled = numSlides - 1 <= 1;
-    };
-
-    dynamicAdd.addEventListener('click', addSlide);
-    dynamicRemove.addEventListener('click', removeSlide);
-  })();
-</script>
-```
-
-### Vertical Scrolling
+### Orientation
 
 Setting the `orientation` attribute to `vertical` will render the carousel in a vertical layout. If the content of your slides vary in height, you will need to set an explicit `height` or `max-height` on the carousel using CSS.
 
@@ -468,6 +327,21 @@ Use the `--aspect-ratio` custom property to customize the size of the carousel's
 </script>
 ```
 
+### Multiple Slides per View
+
+The `slides-per-page` attribute makes it possible to display multiple slides at a time. You can also use the `slides-per-move` attribute to advance more than one slide at a time, if desired.
+
+```html {.example}
+<wa-carousel navigation pagination slides-per-page="2" slides-per-move="2">
+  <wa-carousel-item style="background: red;">Slide 1</wa-carousel-item>
+  <wa-carousel-item style="background: orange;">Slide 2</wa-carousel-item>
+  <wa-carousel-item style="background: yellow;">Slide 3</wa-carousel-item>
+  <wa-carousel-item style="background: green;">Slide 4</wa-carousel-item>
+  <wa-carousel-item style="background: blue;">Slide 5</wa-carousel-item>
+  <wa-carousel-item style="background: purple;">Slide 6</wa-carousel-item>
+</wa-carousel>
+```
+
 ### Scroll Hint
 
 Use the `--scroll-hint` custom property to add inline padding in horizontal carousels and block padding in vertical carousels. This will make the closest slides slightly visible, hinting that there are more items in the carousel.
@@ -507,9 +381,135 @@ Use the `--scroll-hint` custom property to add inline padding in horizontal caro
 </wa-carousel>
 ```
 
-### Gallery Example
+### Mouse Dragging
 
-The carousel has a robust API that makes it possible to extend and customize. This example syncs the active slide with a set of thumbnails, effectively creating a gallery-style carousel.
+The carousel uses [scroll snap](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Scroll_Snap) to position slides at various snap positions. This allows users to scroll through the slides very naturally, especially on touch devices. Unfortunately, desktop users won't be able to click and drag with a mouse, which can feel unnatural. Adding the `mouse-dragging` attribute can help with this.
+
+This example is best demonstrated using a mouse. Try clicking and dragging the slide to move it. Then toggle the switch and try again.
+
+```html {.example}
+<div class="mouse-dragging">
+  <wa-carousel pagination>
+    <wa-carousel-item>
+      <img
+        alt="The sun shines on the mountains and trees (by Adam Kool on Unsplash)"
+        src="https://images.unsplash.com/photo-1426604966848-d7adac402bff?q=10"
+      />
+    </wa-carousel-item>
+    <wa-carousel-item>
+      <img
+        alt="A river winding through an evergreen forest (by Luca Bravo on Unsplash)"
+        src="https://images.unsplash.com/photo-1473448912268-2022ce9509d8?q=10"
+      />
+    </wa-carousel-item>
+    <wa-carousel-item>
+      <img
+        alt="The sun is setting over a lavender field (by Leonard Cotte on Unsplash)"
+        src="https://images.unsplash.com/photo-1499002238440-d264edd596ec?q=10"
+      />
+    </wa-carousel-item>
+    <wa-carousel-item>
+      <img
+        alt="A field of grass with the sun setting in the background (by Sapan Patel on Unsplash)"
+        src="https://images.unsplash.com/photo-1475113548554-5a36f1f523d6?q=10"
+      />
+    </wa-carousel-item>
+    <wa-carousel-item>
+      <img
+        alt="A scenic view of a mountain with clouds rolling in (by V2osk on Unsplash)"
+        src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=10"
+      />
+    </wa-carousel-item>
+  </wa-carousel>
+
+  <wa-divider></wa-divider>
+
+  <wa-switch>Enable mouse dragging</wa-switch>
+</div>
+
+<script>
+  const container = document.querySelector('.mouse-dragging');
+  const carousel = container.querySelector('wa-carousel');
+  const toggle = container.querySelector('wa-switch');
+
+  toggle.addEventListener('change', () => {
+    carousel.toggleAttribute('mouse-dragging', toggle.checked);
+  });
+</script>
+```
+
+### Adding & Removing Slides
+
+The content of the carousel can be changed by adding or removing carousel items. The carousel will update itself automatically.
+
+```html {.example}
+<div>
+  <wa-carousel class="dynamic-carousel" pagination navigation>
+    <wa-carousel-item style="background: red">Slide 1</wa-carousel-item>
+    <wa-carousel-item style="background: orange">Slide 2</wa-carousel-item>
+    <wa-carousel-item style="background: yellow">Slide 3</wa-carousel-item>
+  </wa-carousel>
+
+  <wa-divider></wa-divider>
+
+  <div class="wa-cluster">
+    <wa-button appearance="filled" id="dynamic-add">Add slide</wa-button>
+    <wa-button appearance="filled" id="dynamic-remove">Remove slide</wa-button>
+  </div>
+</div>
+
+<style>
+  .dynamic-carousel {
+    --aspect-ratio: 3 / 2;
+  }
+
+  .dynamic-carousel wa-carousel-item {
+    flex: 0 0 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--wa-font-size-2xl);
+  }
+</style>
+
+<script>
+  (() => {
+    const dynamicCarousel = document.querySelector('.dynamic-carousel');
+    const dynamicAdd = document.querySelector('#dynamic-add');
+    const dynamicRemove = document.querySelector('#dynamic-remove');
+    const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple'];
+    let colorIndex = 2;
+
+    const addSlide = () => {
+      const slide = document.createElement('wa-carousel-item');
+      const color = colors[++colorIndex % colors.length];
+      slide.innerText = `Slide ${dynamicCarousel.children.length + 1}`;
+      slide.style.setProperty('background', color);
+      dynamicCarousel.appendChild(slide);
+      dynamicRemove.disabled = false;
+    };
+
+    const removeSlide = () => {
+      const slide = dynamicCarousel.children[dynamicCarousel.children.length - 1];
+      const numSlides = dynamicCarousel.querySelectorAll('wa-carousel-item').length;
+
+      if (numSlides > 1) {
+        slide.remove();
+        colorIndex--;
+      }
+
+      dynamicRemove.disabled = numSlides - 1 <= 1;
+    };
+
+    dynamicAdd.addEventListener('click', addSlide);
+    dynamicRemove.addEventListener('click', removeSlide);
+  })();
+</script>
+```
+
+### Thumbnail Gallery
+
+The carousel's API makes it possible to extend and customize. This example syncs the active slide with a set of thumbnails, effectively creating a gallery-style carousel.
 
 ```html {.example}
 <wa-carousel class="carousel-thumbnails" navigation loop>
