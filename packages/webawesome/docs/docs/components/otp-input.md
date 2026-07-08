@@ -126,10 +126,11 @@ Use the `case` attribute to automatically transform characters as they are enter
 Use the `size` attribute to change the size of each segment.
 
 ```html {.example}
-<wa-otp-input label="Small" size="small"></wa-otp-input> <br /><br />
-<wa-otp-input label="Medium (default)" size="medium"></wa-otp-input>
-<br /><br />
-<wa-otp-input label="Large" size="large"></wa-otp-input>
+<wa-otp-input label="Extra small" size="xs"></wa-otp-input> <br /><br />
+<wa-otp-input label="Small" size="s"></wa-otp-input> <br /><br />
+<wa-otp-input label="Medium (default)" size="m"></wa-otp-input> <br /><br />
+<wa-otp-input label="Large" size="l"></wa-otp-input> <br /><br />
+<wa-otp-input label="Extra large" size="xl"></wa-otp-input>
 ```
 
 ### Disabled

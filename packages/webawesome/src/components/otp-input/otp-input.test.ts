@@ -22,7 +22,7 @@ describe('<wa-otp-input>', () => {
           expect(el.type).to.equal('numeric');
           expect(el.mask).to.equal(false);
           expect(el.case).to.equal('preserve');
-          expect(el.size).to.equal('medium');
+          expect(el.size).to.equal('m');
           expect(el.label).to.equal('');
           expect(el.hint).to.equal('');
           expect(el.format).to.equal('');

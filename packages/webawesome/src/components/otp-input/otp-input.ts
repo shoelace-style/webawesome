@@ -4,9 +4,12 @@ import { classMap } from 'lit/directives/class-map.js';
 import { live } from 'lit/directives/live.js';
 import { WaClearEvent } from '../../events/clear.js';
 import { WaCompleteEvent } from '../../events/complete.js';
+import { scrollIntoView } from '../../internal/scroll.js';
+import { warnDeprecatedSize } from '../../internal/size.js';
 import { HasSlotController } from '../../internal/slot.js';
 import { submitForm } from '../../internal/submit-on-enter.js';
 import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
+import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
 import formControlStyles from '../../styles/component/form-control.styles.js';
 import sizeStyles from '../../styles/component/size.styles.js';
@@ -123,7 +126,12 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
   @property({ reflect: true }) case: 'preserve' | 'upper' | 'lower' = 'preserve';
 
   /** The size of each segment. */
-  @property({ reflect: true }) size: 'small' | 'medium' | 'large' = 'medium';
+  @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
+
+  @watch('size')
+  handleSizeChange() {
+    warnDeprecatedSize(this.localName, this.size);
+  }
 
   /** A label shown above the segments. Use the `label` slot for HTML content. */
   @property() label = '';
@@ -241,9 +249,10 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
     // Keep the active/selected segment in view, the hidden input's own position is static,
     // so it won't trigger the browser's native scroll-into-view as the caret moves between
     // segments in a `.segments` row that's scrolled horizontally (long `length`, large `size`).
-    this.segmentsContainer
-      ?.querySelector('.segment--active, .segment--selected')
-      ?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+    const activeSegment = this.segmentsContainer?.querySelector<HTMLElement>('.segment--active, .segment--selected');
+    if (activeSegment && this.segmentsContainer) {
+      scrollIntoView(activeSegment, this.segmentsContainer, 'horizontal', 'auto');
+    }
   }
 
   // Position the hidden input cursor at _activeIndex. If the slot has a character,

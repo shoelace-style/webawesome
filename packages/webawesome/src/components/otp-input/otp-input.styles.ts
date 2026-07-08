@@ -18,6 +18,12 @@ export default css`
     max-width: 100%;
     overflow-x: auto;
     scrollbar-width: none;
+    /* Setting overflow-x forces overflow-y to also compute to non-visible, which would otherwise
+       clip the focus ring's bleed around the active segment — above/below for any segment, and
+       left/right for the first/last segment specifically. Reserve room for it with padding, then
+       cancel the layout impact with an equal negative margin on both axes. */
+    padding: calc(var(--wa-focus-ring-offset) + var(--wa-focus-ring-width));
+    margin: calc(-1 * (var(--wa-focus-ring-offset) + var(--wa-focus-ring-width)));
   }
 
   .segments::-webkit-scrollbar {
@@ -156,6 +162,11 @@ export default css`
     border-radius: var(--segment-border-radius, var(--wa-form-control-border-radius));
     background-color: var(--wa-form-control-background-color);
     overflow: hidden;
+    /* The focus ring is drawn inward here (see outline-offset above), so there's no outward bleed
+       to reserve room for. .segments is also the visible bordered box in this appearance, so the
+       padding/negative-margin bleed trick from the base rule would visibly shift and inflate it. */
+    padding: 0;
+    margin: 0;
   }
 
   :host([appearance='contained']) .segment {
