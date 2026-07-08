@@ -322,10 +322,92 @@ Pair media with a caption using `<figure>` and `<figcaption>`. Captions use a qu
 
 ### Tables
 
-Structure tabular data with `<table>` and related elements like `<caption>`, `<thead>`, `<tbody>`, `<th>`, `<tr>`, and `<td>`. Headers carry a subtle bottom border, and numeric columns use `tabular-nums` so digits line up.
+Structure tabular data with `<table>` and related elements like `<caption>`, `<thead>`, `<tbody>`, `<th>`, `<tr>`, and `<td>`. Headers carry a subtle bottom border.
 
 ```html {.example}
 <table>
+  <caption>
+    Furniture pieces and their attributes
+  </caption>
+  <thead>
+    <tr>
+      <th>Item</th>
+      <th>Material</th>
+      <th>Room</th>
+      <th>Avg. Price (USD)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Table</td>
+      <td>Oak</td>
+      <td>Dining room</td>
+      <td>$450</td>
+    </tr>
+    <tr>
+      <td>Sofa</td>
+      <td>Fabric</td>
+      <td>Living room</td>
+      <td>$800</td>
+    </tr>
+    <tr>
+      <td>Dresser</td>
+      <td>Pine</td>
+      <td>Bedroom</td>
+      <td>$320</td>
+    </tr>
+  </tbody>
+</table>
+```
+
+Add the `wa-hover-rows` class to highlight table rows on hover and the `wa-zebra-rows` class to add alternating row colors to your table.
+
+```html {.example}
+<table class="wa-zebra-rows wa-hover-rows">
+  <caption>
+    Common savanna wildlife
+  </caption>
+  <thead>
+    <tr>
+      <th>Animal</th>
+      <th>Diet</th>
+      <th>Status</th>
+      <th>Range (km²)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Plains Zebra</td>
+      <td>Herbivore</td>
+      <td>Least Concern</td>
+      <td>2,500,000</td>
+    </tr>
+    <tr>
+      <td>Blue Wildebeest</td>
+      <td>Herbivore</td>
+      <td>Least Concern</td>
+      <td>1,000,000</td>
+    </tr>
+    <tr>
+      <td>African Lion</td>
+      <td>Carnivore</td>
+      <td>Vulnerable</td>
+      <td>2,100,000</td>
+    </tr>
+    <tr>
+      <td>Spotted Hyena</td>
+      <td>Carnivore</td>
+      <td>Least Concern</td>
+      <td>10,000,000</td>
+    </tr>
+  </tbody>
+</table>
+```
+
+For tables with a lot of numeric date, add the `wa-tabular-nums` class to any row, column, or whole table to ensure digits align.
+
+```html {.example}
+<table class="wa-tabular-nums">
   <caption>
     Average rainfall, in millimeters
   </caption>
@@ -355,47 +437,6 @@ Structure tabular data with `<table>` and related elements like `<caption>`, `<t
       <td>362</td>
       <td>508</td>
       <td>327</td>
-    </tr>
-  </tbody>
-</table>
-```
-
-Add the `wa-hover-rows` class to highlight table rows on hover and the `wa-zebra-rows` class to add alternating row colors to your table.
-
-```html {.example}
-<table class="wa-zebra-rows wa-hover-rows">
-  <thead>
-    <tr>
-      <th>First column</th>
-      <th>Second column</th>
-      <th>Third column</th>
-      <th>Final column</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Data</td>
-      <td>Data</td>
-      <td>Data</td>
-      <td>Data</td>
-    </tr>
-    <tr>
-      <td>Data</td>
-      <td>Data</td>
-      <td>Data</td>
-      <td>Data</td>
-    </tr>
-    <tr>
-      <td>Data</td>
-      <td>Data</td>
-      <td>Data</td>
-      <td>Data</td>
-    </tr>
-    <tr>
-      <td>Data</td>
-      <td>Data</td>
-      <td>Data</td>
-      <td>Data</td>
     </tr>
   </tbody>
 </table>
