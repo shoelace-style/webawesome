@@ -54,14 +54,16 @@ use-cases:
 
 ## Examples
 
-### Selection Modes
+### Selection
 
-The `selection` attribute lets you change the selection behavior of the tree.
+Set the `selection` attribute to change what a tree lets you select.
 
-- Use `single` to allow the selection of a single item (default).
-- Use `multiple` to allow the selection of multiple items.
-- Use `leaf` to only allow leaf nodes to be selected.
-- Use `leaf-multiple` to allow the selection of multiple leaf nodes.
+| Value                                                                              | Selects                              |
+| ---------------------------------------------------------------------------------- | ------------------------------------ |
+| `single` <wa-badge appearance="outlined" variant="neutral" pill style="font-size: var(--wa-font-size-2xs);">default</wa-badge> | One item at a time                   |
+| `multiple`                                                                         | Any number of items                  |
+| `leaf`                                                                             | One leaf node (a node with no children) |
+| `leaf-multiple`                                                                    | Any number of leaf nodes             |
 
 ```html {.example}
 <div>
@@ -156,9 +158,9 @@ Trees inherit their font size by default. You can change the size of a tree and 
 </wa-tree>
 ```
 
-### Showing Indent Guides
+### Indent Guides
 
-Indent guides can be drawn by setting `--indent-guide-width`. You can also change the color, offset, and style, using `--indent-guide-color`, `--indent-guide-style`, and `--indent-guide-offset`, respectively.
+Set the `--indent-guide-width` custom property to draw indent guides. The `--indent-guide-color`, `--indent-guide-style`, and `--indent-guide-offset` custom properties tune their color, style, and offset.
 
 ```html {.example}
 <wa-tree class="tree-with-lines">
@@ -200,39 +202,7 @@ Indent guides can be drawn by setting `--indent-guide-width`. You can also chang
 </style>
 ```
 
-### Lazy Loading
-
-Use the `lazy` attribute on a tree item to indicate that the content is not yet present and will be loaded later. When the user tries to expand the node, the `loading` state is set to `true` and the `wa-lazy-load` event will be emitted to allow you to load data asynchronously. The item will remain in a loading state until its content is changed.
-
-If you want to disable this behavior after the first load, simply remove the `lazy` attribute and, on the next expand, the existing content will be shown instead.
-
-```html {.example}
-<wa-tree>
-  <wa-tree-item lazy>Remote Repositories</wa-tree-item>
-</wa-tree>
-
-<script type="module">
-  const lazyItem = document.querySelector('wa-tree-item[lazy]');
-
-  lazyItem.addEventListener('wa-lazy-load', () => {
-    // Simulate fetching data from a server
-    setTimeout(() => {
-      const repos = ['design-system', 'marketing-site', 'mobile-app', 'api-gateway'];
-
-      for (const repo of repos) {
-        const treeItem = document.createElement('wa-tree-item');
-        treeItem.innerText = repo;
-        lazyItem.append(treeItem);
-      }
-
-      // Disable lazy mode once the content has been loaded
-      lazyItem.lazy = false;
-    }, 1000);
-  });
-</script>
-```
-
-### Customizing the Expand & Collapse Icons
+### Expand & Collapse Icons
 
 Use the `expand-icon` and `collapse-icon` slots to change the expand and collapse icons, respectively. To disable the animation, override the `rotate` property on the `expand-button` part as shown below.
 
@@ -278,7 +248,7 @@ Use the `expand-icon` and `collapse-icon` slots to change the expand and collaps
 </style>
 ```
 
-### With Icons
+### Item Icons
 
 Decorative icons can be used before labels to provide hints for each node.
 
@@ -349,4 +319,36 @@ Decorative icons can be used before labels to provide hints for each node.
     </wa-tree-item>
   </wa-tree-item>
 </wa-tree>
+```
+
+### Lazy Loading
+
+Use the `lazy` attribute on a tree item to indicate that the content is not yet present and will be loaded later. When the user tries to expand the node, the `loading` state is set to `true` and the `wa-lazy-load` event will be emitted to allow you to load data asynchronously. The item will remain in a loading state until its content is changed.
+
+If you want to disable this behavior after the first load, remove the `lazy` attribute and, on the next expand, the existing content will be shown instead.
+
+```html {.example}
+<wa-tree>
+  <wa-tree-item lazy>Remote Repositories</wa-tree-item>
+</wa-tree>
+
+<script type="module">
+  const lazyItem = document.querySelector('wa-tree-item[lazy]');
+
+  lazyItem.addEventListener('wa-lazy-load', () => {
+    // Simulate fetching data from a server
+    setTimeout(() => {
+      const repos = ['design-system', 'marketing-site', 'mobile-app', 'api-gateway'];
+
+      for (const repo of repos) {
+        const treeItem = document.createElement('wa-tree-item');
+        treeItem.innerText = repo;
+        lazyItem.append(treeItem);
+      }
+
+      // Disable lazy mode once the content has been loaded
+      lazyItem.lazy = false;
+    }, 1000);
+  });
+</script>
 ```
