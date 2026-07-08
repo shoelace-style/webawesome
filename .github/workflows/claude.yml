@@ -34,6 +34,25 @@ jobs:
         with:
           fetch-depth: 1
 
+      # House rules live only in webawesome-app. Fetch just that folder onto the
+      # runner (ref main = always current, nothing committed here). Requires the
+      # HOUSE_RULES_TOKEN secret: a token with contents:read on webawesome-app.
+      # Gated to PR events, so plain-issue @claude mentions skip the fetch.
+      - name: Fetch house rules
+        if: >-
+          github.event_name == 'pull_request_review' ||
+          github.event_name == 'pull_request_review_comment' ||
+          (github.event_name == 'issue_comment' && github.event.issue.pull_request)
+        uses: actions/checkout@v4
+        with:
+          repository: shoelace-style/webawesome-app
+          ref: main
+          sparse-checkout: .house-rules
+          sparse-checkout-cone-mode: false # scope to .house-rules only, drop repo-root files
+          path: .house-rules-src
+          token: ${{ secrets.HOUSE_RULES_TOKEN }}
+          persist-credentials: false # read-only fetch, don't write the token into .git/config
+
       - name: Run Claude Code
         id: claude
         uses: anthropics/claude-code-action@v1
@@ -44,11 +63,7 @@ jobs:
           additional_permissions: |
             actions: read
 
-          # Optional: Give a custom prompt to Claude. If this is not specified, Claude will perform the instructions specified in the comment that tagged it.
-          # prompt: 'Update the pull request description to include a summary of changes.'
-
-          # Optional: Add claude_args to customize behavior and configuration
-          # See https://github.com/anthropics/claude-code-action/blob/main/docs/usage.md
-          # or https://code.claude.com/docs/en/cli-reference for available options
-          # claude_args: '--allowed-tools Bash(gh pr:*)'
-
+          # House-rules-aware review. Same directive as webawesome-app, paths
+          # rebased to the fetched copy at .house-rules-src/.house-rules/.
+          claude_args: |
+            --append-system-prompt "When reviewing a pull request or its changes in this repository, also check the diff against our internal house rules. Read .house-rules-src/.house-rules/HOUSE-RULES.md for the index, then read the slice(s) matching the surfaces the diff touches: user-facing copy or content -> .house-rules-src/.house-rules/content.md; new or changed CSS -> .house-rules-src/.house-rules/css.md; library docs pages -> .house-rules-src/.house-rules/docs.md; team-authored UI consuming WA components -> .house-rules-src/.house-rules/accessibility.md. If those files are not present, skip the house-rules check silently and do not infer rules from memory. Report violations of the firm rules (token-not-literals, plan/product term capitalization, the accessibility floor, the WA-specific a11y APIs) as findings with file and line. Treat the softer defaults as suggestions; per HOUSE-RULES.md, deviation is fine when the PR explains why. Do not modify repository files during review; post findings as a PR comment."
