@@ -40,6 +40,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a lifecycle issue in `<wa-option>` [pr:2591]
 - Fixed a bug with extra margin on the first button of a `<wa-button-group>` [pr:2592]
 - Fixed a bug in `<wa-checkbox>` where it would improperly submit values after it was enabled after being disabled. [pr:2607]
+- Fixed the remove button in `<wa-tag>` to match the tag's `size` [pr:2615]
 
 :::
 

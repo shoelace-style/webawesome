@@ -69,6 +69,7 @@ export default class WaTag extends WebAwesomeElement {
               exportparts="base:remove-button__base"
               class="remove"
               appearance="plain"
+              size=${this.size}
               @click=${this.handleRemoveClick}
               tabindex="-1"
             >
