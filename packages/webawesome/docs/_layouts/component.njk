@@ -274,8 +274,22 @@
 <h3>CSS Parts</h3>
 <p>Learn more about <a href="/docs/usage/#css-parts">CSS parts</a>.</p>
 
+{#
+  Visual anatomy: renders the component live; hovering/focusing a CSS Parts row highlights its part on
+  the stage (and vice versa). Progressive enhancement — the table is the source of truth and the no-JS
+  fallback. component-anatomy.js reads the part list from this table's rows (data-part-name).
+  Sub-components (those with a `parent` in front matter — tab, option, tree-item, …) are skipped
+  automatically: they don't render meaningfully outside their parent. Otherwise opt a component out with
+  `hasAnatomy: false` (overlays/portals, layout/utility wrappers, or any component whose in-stage layout is
+  unreliable). Components whose parts are all state-dependent don't need a flag — component-anatomy.js
+  drops the stage at runtime when nothing is highlightable.
+#}
+{% if hasAnatomy != false and not parent %}
+<component-anatomy component="{{ component.tagName }}" class="wa-not-prose"></component-anatomy>
+{% endif %}
+
 <wa-scroller>
-  <table class="component-table wa-hover-rows">
+  <table class="component-table wa-hover-rows" data-anatomy-table>
     <thead>
       <tr>
         <th class="table-name">Name</th>
@@ -285,7 +299,7 @@
     </thead>
     <tbody>
       {% for cssPart in component.cssParts %}
-      <tr{% if cssPart.deprecated %} class="wa-color-text-quiet"{% endif %}>
+      <tr data-part-name="{{ cssPart.name }}"{% if cssPart.deprecated %} class="wa-color-text-quiet"{% endif %}>
         <td class="table-name"><code>{{ cssPart.name }}</code></td>
         <td class="table-description">{{ cssPart.description | inlineMarkdown | safe }}</td>
         <td class="table-selector">

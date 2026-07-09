@@ -1,0 +1,133 @@
+/* Component anatomy: the live component on a dotted-grid stage. There are no persistent markers — the
+   CSS Parts table is the index, and hovering/focusing a linked row highlights its part on the stage
+   (and hovering the part highlights its row). The table remains the accessible source of truth. */
+
+/* The Web Awesome brand-orange accent for the highlight. Defined on both the stage and the parts table
+   since they're siblings, not nested. */
+component-anatomy,
+[data-anatomy-table] {
+  --anatomy-accent: var(--wa-color-orange-50);
+  --anatomy-accent-strong: var(--wa-color-orange-60);
+  /* WA palette runs 05 (darkest) → 95 (lightest); the badge fill is mid-tone, so text needs a light tint. */
+  --anatomy-accent-on: var(--wa-color-orange-95);
+}
+
+component-anatomy {
+  display: block;
+  margin-block: var(--wa-space-l);
+}
+
+/* A dedicated anatomy subject ({.example .anatomy-only}) renders (so the diagram can clone + measure it)
+   but is hidden from the visible examples list, keeping the page's real examples simple. */
+.code-example-anatomy-only {
+  display: none;
+}
+
+/* Stage — full width, since detail lives in the table below. Dot-grid comes from .background-dot-grid;
+   match the proportions the pro home's features section uses (tighter + smaller than the utility default). */
+.anatomy-stage {
+  /* Literals mirror the pro home's features section (site.css); no token exists for these yet. */
+  --background-dot-radius: 1px;
+  --background-dot-spacing: 1rem;
+  /* Fainter than the utility default (85%) so the dots read as a quiet backdrop and the component
+     keeps contrast against them. */
+  --background-dot-color: color-mix(in oklab, var(--wa-color-text-normal), transparent 92%);
+  display: grid;
+  place-items: center;
+  min-height: 10rem;
+  padding: var(--wa-space-2xl);
+  border: var(--wa-border-width-s) solid var(--wa-color-neutral-border-quiet);
+  border-radius: var(--wa-panel-border-radius);
+  background-color: var(--wa-color-surface-lowered);
+}
+
+/* A definite width so fluid, block-level components (slider, input, select) fill a comfortable size
+   instead of collapsing to min-content. Centering is handled two ways: text-align for inline components
+   (button, badge), margin-inline:auto for block/flex ones narrower than the subject (number-input);
+   fluid components fill the width so the auto margins collapse to 0. */
+.anatomy-subject {
+  inline-size: min(100%, 24rem);
+  text-align: center;
+}
+
+/* Isolation boundary: the cloned component must render as if placed normally. text-align is the only
+   inherited property the anatomy puts on the component's ancestor chain (to center inline components
+   above), so reset it here — any future inherited property added to .anatomy-subject/.anatomy-stage must
+   be neutralized here too. margin-inline centers block-level components. */
+.anatomy-subject > * {
+  margin-inline: auto;
+  text-align: start;
+}
+
+/* Regions overlay sits above the inert subject; each region is an invisible hover target over a part. */
+.anatomy-regions {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.anatomy-region {
+  position: absolute;
+  border-radius: var(--wa-border-radius-s);
+  pointer-events: auto;
+  background-color: transparent;
+  /* A small uniform breathing room between the ring and the part; kept subtle so it doesn't compound with
+     a part's own box padding (e.g. the button's start/end containers are wider than their icon). */
+  outline: var(--wa-border-width-m) solid transparent;
+  outline-offset: var(--wa-space-3xs);
+  transition:
+    outline-color var(--wa-transition-fast) var(--wa-transition-easing),
+    background-color var(--wa-transition-fast) var(--wa-transition-easing);
+}
+
+/* Highlight: an accent ring offset just outside the part, plus a faint accent wash. */
+.anatomy-region.is-highlighted {
+  outline-color: var(--anatomy-accent-strong);
+  background-color: color-mix(in oklab, var(--anatomy-accent) 12%, transparent);
+}
+
+/* Part-name badge (wa-badge), sits just above the part and fades in with the highlight. The fill lives on
+   the badge's :host, so recolor it by styling the element directly — an outer-tree rule overrides the
+   component's own :host appearance styles (no ::part or !important needed). */
+.anatomy-region-label {
+  --pulse-color: var(--anatomy-accent);
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  margin-block-end: var(--wa-space-2xs);
+  background-color: var(--anatomy-accent);
+  color: var(--anatomy-accent-on);
+  border-color: transparent;
+  font-family: var(--wa-font-family-code);
+  font-size: var(--wa-font-size-2xs);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(var(--wa-space-3xs));
+  transition:
+    opacity var(--wa-transition-fast) var(--wa-transition-easing),
+    transform var(--wa-transition-fast) var(--wa-transition-easing);
+}
+
+.anatomy-region.is-highlighted .anatomy-region-label {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Linked rows drive the diagram — give them a distinct accent-tinted hover so they read as interactive,
+   separate from the table's default neutral row hover. */
+.component-table tr.is-linked {
+  cursor: pointer;
+}
+
+.component-table.wa-hover-rows tr.is-linked:hover,
+.component-table tr.is-linked.is-active {
+  background-color: color-mix(in oklab, var(--anatomy-accent) 8%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .anatomy-region,
+  .anatomy-region-label {
+    transition: none;
+  }
+}
