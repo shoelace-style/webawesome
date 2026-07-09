@@ -25,16 +25,22 @@ Type digits to fill the focused segment (focus auto-advances when a segment can 
 <wa-time-input label="Pick a time"></wa-time-input>
 ```
 
+```html {.example .anatomy-only}
+<wa-time-input label="Meeting time" hint="Choose a time that works for you." value="14:30" with-clear>
+  <wa-icon slot="start" name="clock"></wa-icon>
+</wa-time-input>
+```
+
 ## Form Submission
 
 The hidden form value is canonical 24-hour time, regardless of the user's locale or `hour-format`:
 
-| Input | Form value | Notes |
-| --- | --- | --- |
-| Whole-minute steps (default) | `HH:mm` | `step="60"` or any multiple; e.g. `14:30` |
-| Sub-minute steps | `HH:mm:ss` | When `step` < 60 and the seconds segment shows; e.g. `14:30:15` |
-| 12-hour UI | 24-hour | `2:30 PM` submits as `14:30` |
-| Partial input | _(empty)_ | Until every required segment is filled |
+| Input                        | Form value | Notes                                                           |
+| ---------------------------- | ---------- | --------------------------------------------------------------- |
+| Whole-minute steps (default) | `HH:mm`    | `step="60"` or any multiple; e.g. `14:30`                       |
+| Sub-minute steps             | `HH:mm:ss` | When `step` < 60 and the seconds segment shows; e.g. `14:30:15` |
+| 12-hour UI                   | 24-hour    | `2:30 PM` submits as `14:30`                                    |
+| Partial input                | _(empty)_  | Until every required segment is filled                          |
 
 The example below renders a working form. Submit it (or change the time) and watch the console. The time input submits its value just like a native `<input type="time">`, regardless of how the user typed or what locale they used.
 

@@ -2,6 +2,7 @@
 title: Color Picker
 layout: component
 category: Forms
+hasAnatomy: false
 synonyms:
   - color chooser
   - color selector

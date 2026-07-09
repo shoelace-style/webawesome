@@ -34,7 +34,7 @@ Add label text as the switch's default content. For labels that contain HTML, sl
 
 Add descriptive hint to a switch with the `hint` attribute. For hints that contain HTML, use the `hint` slot instead.
 
-```html {.example}
+```html {.example .anatomy}
 <wa-switch hint="You can change this at any time in settings.">Email me about new releases</wa-switch>
 ```
 

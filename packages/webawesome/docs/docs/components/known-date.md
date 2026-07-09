@@ -2,6 +2,7 @@
 title: Known Date
 layout: component
 category: Forms
+hasAnatomy: false
 synonyms:
   - dmy input
   - birthday input
@@ -32,11 +33,11 @@ Use [`<wa-date-input>`](/docs/components/date-input) instead. Known Date is inte
 
 The hidden form value is canonical ISO 8601 (`YYYY-MM-DD`), regardless of the locale used to render the fields:
 
-| Entry | Form value |
-| --- | --- |
-| Complete, valid date | `YYYY-MM-DD` (e.g. `2007-03-27`) |
-| Partial (one or two fields) | _(empty)_ — omitted from form data |
-| Invalid date (e.g. 30 February) | _(empty)_ |
+| Entry                           | Form value                         |
+| ------------------------------- | ---------------------------------- |
+| Complete, valid date            | `YYYY-MM-DD` (e.g. `2007-03-27`)   |
+| Partial (one or two fields)     | _(empty)_ — omitted from form data |
+| Invalid date (e.g. 30 February) | _(empty)_                          |
 
 ```html {.example}
 <form id="kd-form-demo">

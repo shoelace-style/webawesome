@@ -17,6 +17,12 @@ use-cases:
 <wa-number-input label="Quantity" value="1" style="max-width: 260px;"></wa-number-input>
 ```
 
+```html {.example .anatomy-only}
+<wa-number-input label="Quantity" hint="How many would you like?" value="1" style="max-width: 260px;">
+  <wa-icon slot="start" name="hashtag"></wa-icon>
+</wa-number-input>
+```
+
 :::info
 This component works with standard `<form>` elements. See [form controls](/docs/form-controls) for form submission and client-side validation.
 :::

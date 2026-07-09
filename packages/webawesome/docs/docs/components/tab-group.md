@@ -14,7 +14,7 @@ use-cases:
   - settings tabs
 ---
 
-```html {.example}
+```html {.example .anatomy}
 <wa-tab-group>
   <wa-tab panel="general">General</wa-tab>
   <wa-tab panel="custom">Custom</wa-tab>

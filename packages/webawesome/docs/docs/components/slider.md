@@ -14,7 +14,7 @@ use-cases:
   - seek bar
 ---
 
-```html {.example}
+```html {.example .anatomy}
 <wa-slider
   label="Number of users"
   hint="Limit six per team"
@@ -351,7 +351,16 @@ A range slider's two thumbs make it a natural filter control. Here, dragging the
 
   <wa-divider></wa-divider>
 
-  <wa-slider id="price-filter" label="Price range" range min="0" max="150" min-value="0" max-value="150" with-tooltip></wa-slider>
+  <wa-slider
+    id="price-filter"
+    label="Price range"
+    range
+    min="0"
+    max="150"
+    min-value="0"
+    max-value="150"
+    with-tooltip
+  ></wa-slider>
 </div>
 
 <script>
