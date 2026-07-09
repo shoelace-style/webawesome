@@ -17,14 +17,23 @@ component-anatomy {
   margin-block: var(--wa-space-l);
 }
 
+/* A wa-card frames the diagram: the stage fills the body edge-to-edge, state toggles sit in the header. */
+.anatomy {
+  box-shadow: none;
+}
+
+.anatomy::part(body) {
+  padding: 0;
+}
+
 /* A dedicated anatomy subject ({.example .anatomy-only}) renders (so the diagram can clone + measure it)
    but is hidden from the visible examples list, keeping the page's real examples simple. */
 .code-example-anatomy-only {
   display: none;
 }
 
-/* Stage — full width, since detail lives in the table below. Dot-grid comes from .background-dot-grid;
-   match the proportions the pro home's features section uses (tighter + smaller than the utility default). */
+/* Stage — the card body. Dot-grid comes from .background-dot-grid; match the proportions the pro home's
+   features section uses (tighter + smaller than the utility default). The card frames it, so no border. */
 .anatomy-stage {
   /* Literals mirror the pro home's features section (site.css); no token exists for these yet. */
   --background-dot-radius: 1px;
@@ -36,8 +45,6 @@ component-anatomy {
   place-items: center;
   min-height: 10rem;
   padding: var(--wa-space-2xl);
-  border: var(--wa-border-width-s) solid var(--wa-color-neutral-border-quiet);
-  border-radius: var(--wa-panel-border-radius);
   background-color: var(--wa-color-surface-lowered);
 }
 
@@ -70,6 +77,7 @@ component-anatomy {
   position: absolute;
   border-radius: var(--wa-border-radius-s);
   pointer-events: auto;
+  cursor: pointer;
   background-color: transparent;
   /* A small uniform breathing room between the ring and the part; kept subtle so it doesn't compound with
      a part's own box padding (e.g. the button's start/end containers are wider than their icon). */
@@ -114,6 +122,18 @@ component-anatomy {
   transform: translateY(0);
 }
 
+/* State toggles (plain buttons + a muted heading) in the card header. Revealed only when a component has
+   in-box parts the default state hides. The active button reads as selected via wa-button's own appearance. */
+.anatomy-states-label {
+  color: var(--wa-color-text-quiet);
+  white-space: nowrap;
+}
+
+/* wa-button is em-scaled, so a smaller font-size shrinks the whole control below the built-in `small`. */
+.anatomy-state {
+  font-size: var(--wa-font-size-xs);
+}
+
 /* Linked rows drive the diagram — give them a distinct accent-tinted hover so they read as interactive,
    separate from the table's default neutral row hover. */
 .component-table tr.is-linked {
@@ -121,7 +141,8 @@ component-anatomy {
 }
 
 .component-table.wa-hover-rows tr.is-linked:hover,
-.component-table tr.is-linked.is-active {
+.component-table tr.is-linked.is-active,
+.component-table tr.is-linked.is-flash {
   background-color: color-mix(in oklab, var(--anatomy-accent) 8%, transparent);
 }
 

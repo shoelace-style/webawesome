@@ -1,14 +1,16 @@
 // Renders a component live on a stage. Hovering/focusing a CSS Parts table row highlights its part on the
-// stage (a ring + wash + a floating part-name badge); hovering the part highlights its row. There are no
-// persistent markers — the table is the accessible source of truth, so a part we can't locate or measure
-// keeps its row, just without a highlight.
+// stage (a ring + wash + a floating part-name badge); hovering the part highlights its row, and clicking
+// the part scrolls to its table row. There are no persistent markers — the table is the accessible source
+// of truth, so a part we can't locate or measure keeps its row, just without a highlight.
 //
 // The part list is read from the table's rows (`[data-anatomy-table] tr[data-part-name]`), produced by
 // component.njk. Keep the two in sync.
 
 // Attributes that duplicate an id or point at another node; cloning them would break the real page's
 // label/aria wiring. We deliberately keep `name` — the stage isn't inside a <form>, and stripping it
-// would blank `<wa-icon name="...">` and similar attribute-driven content.
+// would blank `<wa-icon name="...">` and similar attribute-driven content. `class`/`style` are kept too
+// (examples use them for on-stage sizing and WA utilities); this assumes an example never reuses a
+// page-scoped docs class, which would leak docs.css onto the stage.
 const IDENTITY_ATTRS = [
   'id',
   'for',
@@ -18,6 +20,21 @@ const IDENTITY_ATTRS = [
   'aria-owns',
   'aria-activedescendant',
 ];
+
+// In-box states that reveal a part not shown by default, keyed by the part they surface. A toggle is
+// offered only when the component has that part and it isn't already shown in the default state. Portal
+// states (open menus, dialogs) are out of scope — those parts render outside the stage.
+const STATE_MAP = {
+  spinner: { label: 'Loading', attrs: { loading: '' } },
+  // indeterminate and checked are mutually exclusive — clear checked or the checkbox renders no icon.
+  'indeterminate-icon': { label: 'Indeterminate', attrs: { indeterminate: '' }, remove: ['checked'] },
+  caret: { label: 'Caret', attrs: { 'with-caret': '' } },
+  count: { label: 'Character count', attrs: { 'with-count': '' } },
+  markers: { label: 'Markers', attrs: { 'with-markers': '' } },
+  'password-toggle-button': { label: 'Password toggle', attrs: { 'password-toggle': '' } },
+  'remove-button': { label: 'Removable', attrs: { 'with-remove': '' } },
+  tags: { label: 'Multiple', attrs: { multiple: '' } },
+};
 
 function stripIdentity(root) {
   const nodes = [root, ...root.querySelectorAll('*')];
@@ -52,10 +69,15 @@ function measureRect(el) {
 class ComponentAnatomy extends HTMLElement {
   #resizeObserver;
   #themeObserver;
-  #onResize;
   #measured = [];
+  #recordByRow = new Map();
   #stage;
   #overlay;
+  #subject;
+  #rows = [];
+  #stateSnapshot = new Map();
+  #stateToken = 0;
+  #flashTimer;
 
   connectedCallback() {
     // Drop anything restored from a Turbo snapshot and rebuild from the table, so positions always
@@ -71,7 +93,7 @@ class ComponentAnatomy extends HTMLElement {
   #teardown() {
     this.#resizeObserver?.disconnect();
     this.#themeObserver?.disconnect();
-    if (this.#onResize) window.removeEventListener('resize', this.#onResize);
+    clearTimeout(this.#flashTimer);
     this.#measured = [];
   }
 
@@ -94,8 +116,8 @@ class ComponentAnatomy extends HTMLElement {
       return;
     }
 
-    const rows = [...table.querySelectorAll('tbody tr[data-part-name]')];
-    if (!rows.length) return;
+    this.#rows = [...table.querySelectorAll('tbody tr[data-part-name]')];
+    if (!this.#rows.length) return;
 
     // Subject: an example flagged `.anatomy`/`.anatomy-only` if the page has one, else the first example,
     // else a bare element.
@@ -107,11 +129,13 @@ class ComponentAnatomy extends HTMLElement {
     }
     const subject = example ? example.cloneNode(true) : document.createElement(tag);
     stripIdentity(subject);
+    this.#subject = subject;
 
-    // Structure: stage (positioning context) holds an inert subject wrapper plus an interactive regions
-    // overlay. Only the subject is inert — inert would also swallow the regions' pointer events.
-    const anatomy = document.createElement('div');
-    anatomy.className = 'anatomy';
+    // Structure: a wa-card frames the diagram (stage in the body, state toggles in the header). The stage
+    // holds an inert subject wrapper plus an interactive regions overlay — only the subject is inert, since
+    // inert would also swallow the regions' pointer events.
+    const card = document.createElement('wa-card');
+    card.className = 'anatomy wa-not-prose';
 
     const stage = document.createElement('div');
     // Reuse the shared dot-grid background utility (same one the pro homepage uses).
@@ -127,14 +151,15 @@ class ComponentAnatomy extends HTMLElement {
     overlay.setAttribute('aria-hidden', 'true');
 
     stage.append(subjectWrap, overlay);
-    anatomy.append(stage);
-    this.append(anatomy);
+    card.append(stage);
+    this.append(card);
     this.#stage = stage;
     this.#overlay = overlay;
 
     await this.#whenReady(tag, subject);
 
-    this.#layout(rows, subject, overlay);
+    this.#wireRows();
+    this.#relayout();
 
     // If nothing on the component is highlightable (sub-components that don't render standalone, or
     // components whose parts are all state-dependent), the stage adds no value — drop it and let the
@@ -144,6 +169,7 @@ class ComponentAnatomy extends HTMLElement {
       return;
     }
 
+    this.#buildStateControls(card);
     this.#observe();
   }
 
@@ -151,6 +177,10 @@ class ComponentAnatomy extends HTMLElement {
     // The autoloader registers the element once it's in the DOM; race a timeout so a component that never
     // loads (e.g. a bare fallback) degrades gracefully instead of hanging.
     await Promise.race([window.customElements.whenDefined(tag), new Promise(resolve => setTimeout(resolve, 2000))]);
+    await this.#settle(subject);
+  }
+
+  async #settle(subject) {
     if (subject.updateComplete) {
       try {
         await subject.updateComplete;
@@ -161,29 +191,46 @@ class ComponentAnatomy extends HTMLElement {
     await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
   }
 
-  #layout(rows, subject, overlay) {
-    // Measure relative to the overlay (regions' offset parent), not the stage, so the 1px stage border
-    // doesn't shift every region.
-    const originRect = overlay.getBoundingClientRect();
-    this.#measured = [];
+  #bindHover(el, toggle) {
+    el.addEventListener('pointerenter', () => toggle(true));
+    el.addEventListener('pointerleave', () => toggle(false));
+  }
 
-    for (const row of rows) {
+  // Wired once (rows persist across re-layouts); the record is resolved live, so re-measuring on a state
+  // change leaves no stale or duplicate listeners.
+  #wireRows() {
+    for (const row of this.#rows) {
+      if (row.__anatomyWired) continue;
+      row.__anatomyWired = true;
+      const toggle = active => this.#highlightRow(row, active);
+      this.#bindHover(row, toggle);
+      row.addEventListener('focusin', () => toggle(true));
+      row.addEventListener('focusout', () => toggle(false));
+    }
+  }
+
+  #relayout() {
+    // Rebuild from scratch — a state toggle can change which parts render.
+    this.#overlay.replaceChildren();
+    for (const row of this.#rows) row.classList.remove('is-linked', 'is-active');
+    this.#measured = [];
+    this.#recordByRow.clear();
+
+    const originRect = this.#overlay.getBoundingClientRect();
+    for (const row of this.#rows) {
       const name = row.dataset.partName;
 
       // Nested parts live in a child component's shadow root (exported via exportparts); resolving them
       // is deferred. Treat as not-shown.
-      const el = name.includes('__') ? null : subject.shadowRoot?.querySelector(`[part~="${CSS.escape(name)}"]`);
+      const el = name.includes('__') ? null : this.#subject.shadowRoot?.querySelector(`[part~="${CSS.escape(name)}"]`);
       const rect = el ? measureRect(el) : null;
       // No region to point at (part is nested or not shown in this state); the table still documents it.
       if (!rect) continue;
 
-      // An invisible hover region over the part: highlighting is entirely hover/focus-driven — no
-      // persistent markers or numbers. The region doubles as the reverse hit-target (stage → row).
       row.classList.add('is-linked');
       const region = document.createElement('span');
       region.className = 'anatomy-region';
 
-      // A small part-name badge that surfaces near the part while it's highlighted; pulse draws the eye.
       const label = document.createElement('wa-badge');
       label.className = 'anatomy-region-label';
       label.setAttribute('pill', '');
@@ -191,12 +238,17 @@ class ComponentAnatomy extends HTMLElement {
       label.textContent = name;
       region.append(label);
 
-      overlay.append(region);
+      this.#overlay.append(region);
+
+      // Match the part's own corner radius so the ring hugs its shape — set once (stable across reflows).
+      const radius = getComputedStyle(el).borderRadius;
+      if (radius && radius !== '0px') region.style.borderRadius = radius;
 
       const record = { el, region, row, area: rect.width * rect.height };
       this.#measured.push(record);
+      this.#recordByRow.set(row, record);
       this.#position(record, originRect);
-      this.#wireHighlight(record);
+      this.#wireRegion(record);
     }
 
     // Stack smaller regions above larger ones so a part nested inside a bigger container (e.g. a select's
@@ -208,6 +260,19 @@ class ComponentAnatomy extends HTMLElement {
       });
   }
 
+  #wireRegion(record) {
+    const { region, row } = record;
+    this.#bindHover(region, active => this.#highlight(record, active));
+    // pointerleave clears the hover highlight as the page scrolls, so `is-flash` carries it to the landing row.
+    region.addEventListener('click', () => {
+      row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      for (const other of this.#rows) other.classList.remove('is-flash');
+      row.classList.add('is-flash');
+      clearTimeout(this.#flashTimer);
+      this.#flashTimer = setTimeout(() => row.classList.remove('is-flash'), 1500);
+    });
+  }
+
   #position(record, originRect) {
     const rect = measureRect(record.el);
     if (!rect) return;
@@ -216,26 +281,91 @@ class ComponentAnatomy extends HTMLElement {
     region.style.top = `${rect.top - originRect.top}px`;
     region.style.width = `${rect.width}px`;
     region.style.height = `${rect.height}px`;
-    // Match the part's own corner radius so the ring hugs its exact shape.
-    const radius = getComputedStyle(record.el).borderRadius;
-    if (radius && radius !== '0px') region.style.borderRadius = radius;
-  }
-
-  #wireHighlight(record) {
-    const { region, row } = record;
-    const on = () => this.#highlight(record, true);
-    const off = () => this.#highlight(record, false);
-    row.addEventListener('pointerenter', on);
-    row.addEventListener('pointerleave', off);
-    row.addEventListener('focusin', on);
-    row.addEventListener('focusout', off);
-    region.addEventListener('pointerenter', on);
-    region.addEventListener('pointerleave', off);
   }
 
   #highlight(record, active) {
     record.region.classList.toggle('is-highlighted', active);
     record.row.classList.toggle('is-active', active);
+  }
+
+  #highlightRow(row, active) {
+    const record = this.#recordByRow.get(row);
+    if (record) this.#highlight(record, active);
+  }
+
+  // State toggles that reveal an in-box part the default state hides — offered only for a part the
+  // component has and isn't already showing.
+  #buildStateControls(card) {
+    const available = [];
+    for (const [part, config] of Object.entries(STATE_MAP)) {
+      const row = this.#rows.find(r => r.dataset.partName === part);
+      if (row && !this.#recordByRow.has(row)) available.push(config);
+    }
+    if (!available.length) return;
+
+    // Snapshot the original value of every attribute a state touches, so "Default" restores it exactly.
+    const touched = new Set(available.flatMap(state => [...Object.keys(state.attrs), ...(state.remove ?? [])]));
+    this.#stateSnapshot = new Map([...touched].map(attr => [attr, this.#subject.getAttribute(attr)]));
+
+    const header = document.createElement('div');
+    header.className = 'wa-flank:end wa-align-items-center';
+    header.slot = 'header';
+
+    const heading = document.createElement('small');
+    heading.className = 'anatomy-states-label';
+    heading.textContent = 'Component states';
+
+    const bar = document.createElement('div');
+    bar.className = 'anatomy-states wa-cluster wa-gap-3xs';
+    bar.setAttribute('role', 'group');
+    bar.setAttribute('aria-label', 'Component states');
+
+    const buttons = [];
+    // The active button reads as selected via wa-button's own appearance (filled vs plain) — no custom color.
+    const setActive = button => {
+      for (const other of buttons) {
+        const active = other === button;
+        other.setAttribute('appearance', active ? 'filled' : 'plain');
+        other.setAttribute('aria-pressed', String(active));
+      }
+    };
+    const makeButton = (label, state) => {
+      const button = document.createElement('wa-button');
+      button.className = 'anatomy-state';
+      button.setAttribute('appearance', 'plain');
+      button.setAttribute('size', 'small');
+      button.textContent = label;
+      button.addEventListener('click', () => {
+        if (button.getAttribute('appearance') === 'filled') return;
+        setActive(button);
+        this.#applyState(state);
+      });
+      buttons.push(button);
+      return button;
+    };
+
+    const defaultButton = makeButton('Default', null);
+    bar.append(defaultButton);
+    for (const state of available) bar.append(makeButton(state.label, state));
+    setActive(defaultButton);
+
+    header.append(heading, bar);
+    card.append(header);
+  }
+
+  async #applyState(state) {
+    for (const [attr, value] of this.#stateSnapshot) {
+      if (value === null) this.#subject.removeAttribute(attr);
+      else this.#subject.setAttribute(attr, value);
+    }
+    if (state) {
+      for (const attr of state.remove ?? []) this.#subject.removeAttribute(attr);
+      for (const [attr, value] of Object.entries(state.attrs)) this.#subject.setAttribute(attr, value);
+    }
+    // Guard against out-of-order re-layouts when states are toggled rapidly.
+    const token = ++this.#stateToken;
+    await this.#settle(this.#subject);
+    if (token === this.#stateToken) this.#relayout();
   }
 
   #reposition() {
@@ -260,9 +390,6 @@ class ComponentAnatomy extends HTMLElement {
       attributes: true,
       attributeFilter: ['class', 'dir'],
     });
-
-    this.#onResize = schedule;
-    window.addEventListener('resize', this.#onResize);
   }
 }
 
