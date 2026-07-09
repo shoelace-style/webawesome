@@ -2,6 +2,16 @@ import type WaSlider from '../../components/slider/slider.js';
 import type { Validator } from '../webawesome-form-associated-element.js';
 
 /**
+ * True when `value` isn't aligned to the step grid anchored at `min`. The step count is compared to the nearest integer
+ * with a small tolerance so values that legitimately land on the grid (e.g. `0.3` with a step of `0.1`) aren't rejected
+ * because of floating-point error, matching the native `<input>` step-mismatch behavior.
+ */
+function isStepMismatch(value: number, min: number, step: number): boolean {
+  const steps = (value - min) / step;
+  return Math.abs(steps - Math.round(steps)) > 1e-9;
+}
+
+/**
  * Comprehensive validator for sliders that handles range and step validation
  */
 export const SliderValidator = (): Validator<WaSlider> => {
@@ -59,8 +69,8 @@ export const SliderValidator = (): Validator<WaSlider> => {
 
         // Check step mismatch
         if (element.step && element.step !== 1) {
-          const minStepMismatch = (minValue - element.min) % element.step !== 0;
-          const maxStepMismatch = (maxValue - element.min) % element.step !== 0;
+          const minStepMismatch = isStepMismatch(minValue, element.min, element.step);
+          const maxStepMismatch = isStepMismatch(maxValue, element.min, element.step);
 
           if (minStepMismatch || maxStepMismatch) {
             validity.isValid = false;
@@ -97,7 +107,7 @@ export const SliderValidator = (): Validator<WaSlider> => {
         }
 
         // Check step mismatch
-        if (element.step && element.step !== 1 && (value - element.min) % element.step !== 0) {
+        if (element.step && element.step !== 1 && isStepMismatch(value, element.min, element.step)) {
           validity.isValid = false;
           validity.invalidKeys.push('stepMismatch');
           validity.message =
