@@ -41,7 +41,7 @@ use-cases:
 
 ### Basic Card
 
-Basic cards aren't very exciting, but they can display any content you want them to.
+A card can hold any content. Media, a header, and a footer are all optional.
 
 ```html {.example}
 <wa-card class="card-basic">
@@ -55,7 +55,7 @@ Basic cards aren't very exciting, but they can display any content you want them
 </style>
 ```
 
-### Card with Header
+### Header
 
 Headers can be used to display titles and more.
 If using SSR, you need to also use the `with-header` attribute to add a header to the card (if not, it is added automatically).
@@ -80,7 +80,7 @@ If using SSR, you need to also use the `with-header` attribute to add a header t
 </style>
 ```
 
-### Card with Footer
+### Footer
 
 Footers can be used to display actions, summaries, or other relevant content.
 If using SSR, you need to also use the `with-footer` attribute to add a footer to the card (if not, it is added automatically).
@@ -165,7 +165,7 @@ Use the `appearance` attribute to change the card's visual appearance.
 Set the `orientation` attribute to `horizontal` to create a card with a horizontal, side-by-side layout. Make sure to set a width or maximum width for the media slot. Horizontal cards do not currently contain the header and footer slots.
 
 :::info
-The `actions` slot is only available for the horizontal orientation
+The `actions` slot is only available for the horizontal orientation.
 :::
 
 ```html {.example}

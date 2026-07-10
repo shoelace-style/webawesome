@@ -33,12 +33,12 @@ Use the `--width` custom property to change the width of the divider.
 Use the `--color` custom property to change the color of the divider.
 
 ```html {.example}
-<wa-divider style="--color: tomato;"></wa-divider>
+<wa-divider style="--color: var(--wa-color-brand-fill-loud);"></wa-divider>
 ```
 
 ### Spacing
 
-Use the `--spacing` custom property to change the amount of space between the divider and it's neighboring elements.
+Use the `--spacing` custom property to change the amount of space between the divider and its neighboring elements.
 
 ```html {.example}
 <div class="wa-text-center">
@@ -50,7 +50,7 @@ Use the `--spacing` custom property to change the amount of space between the di
 
 ### Orientation
 
-The default orientation for dividers is `horizontal`. Set `orientation` attribute to `vertical` to draw a vertical divider. The divider will span the full height of its [Flexbox](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/CSS_layout/Flexbox) or [CSS Grid](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/grid) container.
+The default orientation for dividers is `horizontal`. Set the `orientation` attribute to `vertical` to draw a vertical divider. The divider will span the full height of its [Flexbox](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/CSS_layout/Flexbox) or [CSS Grid](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/grid) container.
 
 ```html {.example}
 <div style="display: flex; align-items: center;">
