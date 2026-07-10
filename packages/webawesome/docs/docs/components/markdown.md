@@ -35,7 +35,7 @@ The markdown component turns raw markdown into rendered HTML using the [Marked](
 ```
 
 :::info
-Since content is rendered client-side, it won't be visible to search engine crawlers or available before JavaScript loads. This makes it a poor fit for SEO-critical content like landing pages and blog posts. It's best suited for prototyping, dashboards, admin panels, and other contexts where search indexing isn't a concern.
+**This component isn't suited for SEO-critical content.** Content renders client-side, so crawlers won't see it and it won't appear before JavaScript loads. It's best for prototypes, dashboards, and admin panels — not landing pages or blog posts.
 :::
 
 :::warning
@@ -148,7 +148,7 @@ All `<wa-markdown>` instances share a single [Marked](https://marked.js.org/usin
 ```
 
 :::info
-The Marked instance is shared across all `<wa-markdown>` elements. If you want every instance on the page to pick up the new configuration, call `WaMarkdown.updateAll()` instead of `renderMarkdown()` on a single element.
+**The Marked configuration is shared across every instance.** To make all `<wa-markdown>` elements pick up a change, call `WaMarkdown.updateAll()` instead of `renderMarkdown()` on a single element.
 :::
 
 ### Writing a Custom Marked Plugin
