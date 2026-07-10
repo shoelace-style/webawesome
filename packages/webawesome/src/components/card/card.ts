@@ -25,6 +25,7 @@ import styles from './card.styles.js';
  * @csspart header - The container that wraps the card's header.
  * @csspart body - The container that wraps the card's main content.
  * @csspart footer - The container that wraps the card's footer.
+ * @csspart actions - The container that wraps the card's actions.
  *
  * @cssproperty [--spacing=var(--wa-space-l)] - The amount of space around and between sections of the card. Expects a single value.
  *

@@ -94,10 +94,13 @@ function toLength(px: number | string): string {
  * @csspart body - The wrapper around menu, main, and aside.
  * @csspart menu - The left hand side of the page. Generally intended for navigation.
  * @csspart navigation - The `<nav>` that wraps the navigation slots on desktop viewports.
+ * @csspart navigation-desktop - The `<nav>` for navigation on desktop viewports.
  * @csspart navigation-header - The header for a navigation area. On mobile this will be the header for `<wa-drawer>`.
  * @csspart navigation-footer - The footer for a navigation area. On mobile this will be the footer for `<wa-drawer>`.
  * @csspart navigation-toggle - The default `<wa-button>` that will toggle the `<wa-drawer>` for mobile viewports.
  * @csspart navigation-toggle-icon - The default `<wa-icon>` displayed inside of the navigation-toggle button.
+ * @csspart drawer - The `<wa-drawer>` that contains the navigation on mobile viewports.
+ * @csspart main - The wrapper around the main header, content, and footer.
  * @csspart main-header - The header above main content.
  * @csspart main-content - The main content.
  * @csspart main-footer - The footer below main content.
