@@ -1,0 +1,35 @@
+# Fails if any component renders a `part="…"` attribute with no matching `@csspart`,
+# keeping the rendered and documented CSS part surfaces from drifting apart. Static
+# analysis only — no build or dev server needed.
+
+name: CSS Parts
+
+on:
+  push:
+    branches: [next]
+  pull_request:
+    branches: [next]
+  workflow_dispatch:
+
+jobs:
+  css_parts:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [24.x]
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check CSS part coverage
+        run: npm run test:parts
+        working-directory: ./packages/webawesome
