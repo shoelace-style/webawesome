@@ -41,6 +41,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug with extra margin on the first button of a `<wa-button-group>` [pr:2592]
 - Fixed a bug in `<wa-checkbox>` where it would improperly submit values after it was enabled after being disabled. [pr:2607]
 - Fixed the remove button in `<wa-tag>` to match the tag's `size` [pr:2615]
+- Fixed missing CSS parts documentation for `<wa-card>`, `<wa-color-picker>`, `<wa-textarea>`, `<wa-scroller>`, and `<wa-page>` [pr:2623]
 
 :::
 
@@ -49,7 +50,6 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Removed `font-variant-numeric: tabular-nums;` from default `<table>` styles in Native Styles in lieu of an opt-in `wa-tabular-nums` class [pr:2613]
 
 :::
-
 
 ## 3.10.0
 

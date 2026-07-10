@@ -68,6 +68,7 @@ declare const EyeDropper: EyeDropperConstructor;
  *
  * @csspart base - The component's base wrapper.
  * @csspart trigger - The color picker's dropdown trigger.
+ * @csspart trigger-container - The container that wraps the color picker's trigger.
  * @csspart swatches - The container that holds the swatches.
  * @csspart swatch - Each individual swatch.
  * @csspart grid - The color grid.
