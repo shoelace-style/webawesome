@@ -62,10 +62,10 @@ function fixDSD(e) {
       if (parent.shadowRoot) {
         template.remove();
         attachShadowRoots(parent.shadowRoot);
-        return
+        return;
       }
 
-      const shadowRoot = parent.attachShadow({ mode })
+      const shadowRoot = parent.attachShadow({ mode });
       shadowRoot.appendChild(template.content);
       template.remove();
       attachShadowRoots(shadowRoot);
@@ -85,4 +85,3 @@ window.addEventListener('turbo:before-cache', saveScrollPosition);
 window.addEventListener('turbo:before-render', restoreScrollPosition);
 window.addEventListener('turbo:render', restoreScrollPosition);
 preventTurboFouce();
-
