@@ -33,7 +33,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::added
 
-- Added a `base` CSS part to `<wa-accordion>` for styling the component's container.
+- Added a `base` CSS part to `<wa-accordion>` for styling the component's container. [pr:2632]
 
 :::
 
