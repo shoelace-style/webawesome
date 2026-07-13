@@ -275,17 +275,15 @@
 <p>Learn more about <a href="/docs/usage/#css-parts">CSS parts</a>.</p>
 
 {#
-  Visual anatomy: renders the component live; hovering/focusing a CSS Parts row highlights its part on
-  the stage (and vice versa). Progressive enhancement — the table is the source of truth and the no-JS
-  fallback. component-anatomy.js reads the part list from this table's rows (data-part-name).
-  Sub-components (those with a `parent` in front matter — tab, option, tree-item, …) are skipped
-  automatically: they don't render meaningfully outside their parent. Otherwise opt a component out with
-  `hasAnatomy: false` (overlays/portals, layout/utility wrappers, or any component whose in-stage layout is
-  unreliable). Components whose parts are all state-dependent don't need a flag — component-anatomy.js
-  drops the stage at runtime when nothing is highlightable.
+  Visual anatomy diagram (progressive enhancement over the table; component-anatomy.js reads the part list
+  from these data-part-name rows). Sub-components (`parent` in front matter) are skipped automatically; opt
+  others out with `hasAnatomy: false` (overlays/portals, layout wrappers). All-state-dependent parts need no
+  flag — the JS drops the stage when nothing is highlightable. The wrapper is the sticky diagram's containing
+  block, so it releases the pin when the table ends (see anatomy.css).
 #}
+<div class="anatomy-section">
 {% if hasAnatomy != false and not parent %}
-<component-anatomy component="{{ component.tagName }}" class="wa-not-prose"></component-anatomy>
+<component-anatomy component="{{ component.tagName }}" class="wa-not-prose wa-mask-fade-below"></component-anatomy>
 {% endif %}
 
 <wa-scroller>
@@ -313,6 +311,7 @@
     </tbody>
   </table>
 </wa-scroller>
+</div>
 {% endif %}
 
 {# Dependencies #}

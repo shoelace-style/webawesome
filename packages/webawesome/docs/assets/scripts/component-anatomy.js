@@ -1,16 +1,10 @@
-// Renders a component live on a stage. Hovering/focusing a CSS Parts table row highlights its part on the
-// stage (a ring + wash + a floating part-name badge); hovering the part highlights its row, and clicking
-// the part scrolls to its table row. There are no persistent markers — the table is the accessible source
-// of truth, so a part we can't locate or measure keeps its row, just without a highlight.
-//
-// The part list is read from the table's rows (`[data-anatomy-table] tr[data-part-name]`), produced by
-// component.njk. Keep the two in sync.
+// Renders a component live on a stage and cross-links it with the CSS Parts table. Hover (mouse), focus
+// (keyboard), and tap (touch) all work both ways: a linked row's part-name button highlights its part on the
+// stage, and a part highlights (or scrolls to) its row. No markers — the table is the accessible source of
+// truth. The part list is read from `[data-anatomy-table] tr[data-part-name]`, produced by component.njk.
 
-// Attributes that duplicate an id or point at another node; cloning them would break the real page's
-// label/aria wiring. We deliberately keep `name` — the stage isn't inside a <form>, and stripping it
-// would blank `<wa-icon name="...">` and similar attribute-driven content. `class`/`style` are kept too
-// (examples use them for on-stage sizing and WA utilities); this assumes an example never reuses a
-// page-scoped docs class, which would leak docs.css onto the stage.
+// Cloned attributes that duplicate an id or point at another node break the real page's label/aria wiring.
+// `name` is deliberately kept — stripping it would blank `<wa-icon name="...">`; the stage isn't in a <form>.
 const IDENTITY_ATTRS = [
   'id',
   'for',
@@ -21,9 +15,8 @@ const IDENTITY_ATTRS = [
   'aria-activedescendant',
 ];
 
-// In-box states that reveal a part not shown by default, keyed by the part they surface. A toggle is
-// offered only when the component has that part and it isn't already shown in the default state. Portal
-// states (open menus, dialogs) are out of scope — those parts render outside the stage.
+// In-box states that reveal a part the default state hides, keyed by that part. Portal states (open menus,
+// dialogs) are out of scope — those parts render outside the stage.
 const STATE_MAP = {
   spinner: { label: 'Loading', attrs: { loading: '' } },
   // indeterminate and checked are mutually exclusive — clear checked or the checkbox renders no icon.
@@ -43,8 +36,8 @@ function stripIdentity(root) {
   }
 }
 
-// Bounding box for a part element, resolving `display: contents` cases (e.g. a bare `<slot part="label">`
-// reports a zero rect) by unioning the rendered children it stands in for. Returns null when nothing renders.
+// Bounding box for a part, resolving `display: contents` (a bare `<slot part>` reports a zero rect) by
+// unioning the children it stands in for. Returns null when nothing renders.
 function measureRect(el) {
   const rect = el.getBoundingClientRect();
   if (rect.width || rect.height) return rect;
@@ -74,14 +67,21 @@ class ComponentAnatomy extends HTMLElement {
   #stage;
   #overlay;
   #subject;
+  #card;
+  #section;
   #rows = [];
   #stateSnapshot = new Map();
   #stateToken = 0;
   #flashTimer;
+  // Breathing room (--wa-space-m, resolved to px in #build) between the pinned card and a row scrolled to it.
+  #scrollGap = 0;
+  // Read live so a mid-session modality/preference change is honored. On touch (hover: none) the pointer
+  // highlight is gated off so it never sticks without a leave; focus/tap drive it instead.
+  #hoverQuery = window.matchMedia('(hover: hover)');
+  #motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 
   connectedCallback() {
-    // Drop anything restored from a Turbo snapshot and rebuild from the table, so positions always
-    // reflect the current viewport.
+    // Rebuild from the table (dropping any Turbo-snapshot restore) so positions match the current viewport.
     this.querySelector('.anatomy')?.remove();
     this.#build();
   }
@@ -119,8 +119,7 @@ class ComponentAnatomy extends HTMLElement {
     this.#rows = [...table.querySelectorAll('tbody tr[data-part-name]')];
     if (!this.#rows.length) return;
 
-    // Subject: an example flagged `.anatomy`/`.anatomy-only` if the page has one, else the first example,
-    // else a bare element.
+    // Subject: the example flagged `.anatomy`/`.anatomy-only`, else the first example, else a bare element.
     const example =
       document.querySelector(`.code-example-content[data-anatomy-subject] ${tag}`) ||
       document.querySelector(`.code-example-content ${tag}`);
@@ -131,14 +130,11 @@ class ComponentAnatomy extends HTMLElement {
     stripIdentity(subject);
     this.#subject = subject;
 
-    // Structure: a wa-card frames the diagram (stage in the body, state toggles in the header). The stage
-    // holds an inert subject wrapper plus an interactive regions overlay — only the subject is inert, since
-    // inert would also swallow the regions' pointer events.
+    // Only the subject is inert — inert would also swallow the regions overlay's pointer events.
     const card = document.createElement('wa-card');
     card.className = 'anatomy wa-not-prose';
 
     const stage = document.createElement('div');
-    // Reuse the shared dot-grid background utility (same one the pro homepage uses).
     stage.className = 'anatomy-stage background-dot-grid';
 
     const subjectWrap = document.createElement('div');
@@ -155,27 +151,32 @@ class ComponentAnatomy extends HTMLElement {
     this.append(card);
     this.#stage = stage;
     this.#overlay = overlay;
+    this.#card = card;
+    this.#section = this.closest('.anatomy-section');
+    this.#scrollGap = this.#spacePx('--wa-space-m');
 
     await this.#whenReady(tag, subject);
 
     this.#wireRows();
     this.#relayout();
 
-    // If nothing on the component is highlightable (sub-components that don't render standalone, or
-    // components whose parts are all state-dependent), the stage adds no value — drop it and let the
-    // table stand alone.
+    // Nothing highlightable (sub-components, or all-state-dependent parts) — drop the stage, keep the table.
     if (!this.#measured.length) {
       this.querySelector('.anatomy')?.remove();
       return;
     }
 
+    // One labeled figure a screen reader can skip; figure, not img, so the state toggles stay operable.
+    this.setAttribute('role', 'figure');
+    this.setAttribute('aria-label', `Anatomy of ${tag}`);
+
     this.#buildStateControls(card);
     this.#observe();
+    this.#updateScrollInset();
   }
 
   async #whenReady(tag, subject) {
-    // The autoloader registers the element once it's in the DOM; race a timeout so a component that never
-    // loads (e.g. a bare fallback) degrades gracefully instead of hanging.
+    // Race a timeout so a component that never registers (e.g. a bare fallback) degrades instead of hanging.
     await Promise.race([window.customElements.whenDefined(tag), new Promise(resolve => setTimeout(resolve, 2000))]);
     await this.#settle(subject);
   }
@@ -192,25 +193,56 @@ class ComponentAnatomy extends HTMLElement {
   }
 
   #bindHover(el, toggle) {
-    el.addEventListener('pointerenter', () => toggle(true));
+    el.addEventListener('pointerenter', () => {
+      if (this.#hoverQuery.matches) toggle(true);
+    });
     el.addEventListener('pointerleave', () => toggle(false));
   }
 
-  // Wired once (rows persist across re-layouts); the record is resolved live, so re-measuring on a state
-  // change leaves no stale or duplicate listeners.
+  // Wired once; rows persist across re-layouts and the record is resolved live, so no stale/duplicate
+  // listeners. Hover is row-wide; focus is scoped to the part-name button (see #ensureTrigger).
   #wireRows() {
     for (const row of this.#rows) {
       if (row.__anatomyWired) continue;
       row.__anatomyWired = true;
-      const toggle = active => this.#highlightRow(row, active);
-      this.#bindHover(row, toggle);
-      row.addEventListener('focusin', () => toggle(true));
-      row.addEventListener('focusout', () => toggle(false));
+      this.#bindHover(row, active => this.#highlightRow(row, active));
     }
   }
 
+  // Upgrade a demonstrated row's part name to a focusable button so keyboard/touch can drive the diagram.
+  // Not-shown parts keep their plain <code> untouched. Idempotent.
+  #ensureTrigger(row) {
+    if (row.__anatomyTrigger?.isConnected) return;
+    const code = row.querySelector('.table-name code');
+    if (!code) return;
+
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'anatomy-part-trigger';
+    code.replaceWith(button);
+    button.append(code);
+    button.addEventListener('focus', () => this.#highlightRow(row, true));
+    button.addEventListener('blur', () => this.#highlightRow(row, false));
+    // Locate: a pinned stage is already in view, so just flash; otherwise scroll it in first.
+    button.addEventListener('click', () => {
+      const record = this.#recordByRow.get(row);
+      if (!record) return;
+      if (!this.#isSticky()) this.#stage.scrollIntoView({ behavior: this.#scrollBehavior(), block: 'center' });
+      this.#flash(record);
+    });
+    row.__anatomyTrigger = button;
+  }
+
+  #revertTrigger(row) {
+    const button = row.__anatomyTrigger;
+    if (!button?.isConnected) return;
+    const code = button.querySelector('code');
+    if (code) button.replaceWith(code);
+    row.__anatomyTrigger = null;
+  }
+
+  // Rebuilt from scratch — a state toggle can change which parts render.
   #relayout() {
-    // Rebuild from scratch — a state toggle can change which parts render.
     this.#overlay.replaceChildren();
     for (const row of this.#rows) row.classList.remove('is-linked', 'is-active');
     this.#measured = [];
@@ -220,14 +252,13 @@ class ComponentAnatomy extends HTMLElement {
     for (const row of this.#rows) {
       const name = row.dataset.partName;
 
-      // Nested parts live in a child component's shadow root (exported via exportparts); resolving them
-      // is deferred. Treat as not-shown.
+      // Nested parts (`__`, exported from a child shadow root) are deferred — treat as not-shown.
       const el = name.includes('__') ? null : this.#subject.shadowRoot?.querySelector(`[part~="${CSS.escape(name)}"]`);
       const rect = el ? measureRect(el) : null;
-      // No region to point at (part is nested or not shown in this state); the table still documents it.
       if (!rect) continue;
 
       row.classList.add('is-linked');
+      this.#ensureTrigger(row);
       const region = document.createElement('span');
       region.className = 'anatomy-region';
 
@@ -240,7 +271,7 @@ class ComponentAnatomy extends HTMLElement {
 
       this.#overlay.append(region);
 
-      // Match the part's own corner radius so the ring hugs its shape — set once (stable across reflows).
+      // Hug the part's own corner radius; set once (stable across reflows).
       const radius = getComputedStyle(el).borderRadius;
       if (radius && radius !== '0px') region.style.borderRadius = radius;
 
@@ -251,8 +282,9 @@ class ComponentAnatomy extends HTMLElement {
       this.#wireRegion(record);
     }
 
-    // Stack smaller regions above larger ones so a part nested inside a bigger container (e.g. a select's
-    // clear-button inside form-control-input) still receives hover instead of being covered.
+    for (const row of this.#rows) if (!this.#recordByRow.has(row)) this.#revertTrigger(row);
+
+    // Stack smaller regions above larger ones so a part nested in a bigger container still receives hover.
     [...this.#measured]
       .sort((a, b) => b.area - a.area)
       .forEach((record, i) => {
@@ -261,16 +293,73 @@ class ComponentAnatomy extends HTMLElement {
   }
 
   #wireRegion(record) {
-    const { region, row } = record;
+    const { region } = record;
     this.#bindHover(region, active => this.#highlight(record, active));
-    // pointerleave clears the hover highlight as the page scrolls, so `is-flash` carries it to the landing row.
+    // Identify: tap a part → bring its row below the pinned card and flash the pair.
     region.addEventListener('click', () => {
-      row.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      for (const other of this.#rows) other.classList.remove('is-flash');
-      row.classList.add('is-flash');
-      clearTimeout(this.#flashTimer);
-      this.#flashTimer = setTimeout(() => row.classList.remove('is-flash'), 1500);
+      this.#scrollRowIntoView(record.row);
+      this.#flash(record);
     });
+  }
+
+  #isSticky() {
+    return getComputedStyle(this).position === 'sticky';
+  }
+
+  #scrollBehavior() {
+    return this.#motionQuery.matches ? 'auto' : 'smooth';
+  }
+
+  // Direct window scroll, not scrollIntoView — the table's <wa-scroller> is a scroll container on both axes,
+  // which throws off scrollIntoView's offset and scroll-margin.
+  #scrollRowIntoView(row) {
+    const top = row.getBoundingClientRect().top;
+    window.scrollBy({ top: Math.round(top - this.#insetPx()), behavior: this.#scrollBehavior() });
+  }
+
+  // On-screen height of the pinned card (wa-page chrome + card) that scroll targets must clear; 0 when not
+  // sticky. card.offsetTop (from the host, its offsetParent) already includes the host's top padding.
+  #insetPx() {
+    if (!this.#card) return 0;
+    const cs = getComputedStyle(this);
+    if (cs.position !== 'sticky') return 0;
+    const px = name => parseFloat(cs.getPropertyValue(name)) || 0;
+    const chrome = px('--banner-top') + px('--header-top') + px('--subheader-top');
+    return chrome + this.#card.offsetTop + this.#card.offsetHeight + this.#scrollGap;
+  }
+
+  // Resolve a WA spacing token to px — custom properties read back as calc(), so measure it instead.
+  #spacePx(token) {
+    const probe = document.createElement('div');
+    probe.style.cssText = `position: absolute; visibility: hidden; block-size: var(${token})`;
+    this.append(probe);
+    const px = probe.offsetHeight;
+    probe.remove();
+    return px;
+  }
+
+  // Mirror #insetPx into a CSS var so the browser's keyboard-focus auto-scroll (honoring the buttons'
+  // scroll-margin) also lands them below the pinned card.
+  #updateScrollInset() {
+    if (!this.#section) return;
+    const inset = this.#insetPx();
+    if (inset) this.#section.style.setProperty('--anatomy-scroll-inset', `${Math.round(inset)}px`);
+    else this.#section.style.removeProperty('--anatomy-scroll-inset');
+  }
+
+  // is-flash (not a hover class) so the highlight survives a smooth scroll — pointerleave would clear it.
+  #flash(record) {
+    for (const other of this.#rows) other.classList.remove('is-flash');
+    for (const other of this.#measured) other.region.classList.remove('is-flash');
+
+    record.row.classList.add('is-flash');
+    record.region.classList.add('is-flash');
+
+    clearTimeout(this.#flashTimer);
+    this.#flashTimer = setTimeout(() => {
+      record.row.classList.remove('is-flash');
+      record.region.classList.remove('is-flash');
+    }, 1500);
   }
 
   #position(record, originRect) {
@@ -293,8 +382,7 @@ class ComponentAnatomy extends HTMLElement {
     if (record) this.#highlight(record, active);
   }
 
-  // State toggles that reveal an in-box part the default state hides — offered only for a part the
-  // component has and isn't already showing.
+  // State toggles, offered only for a part the component has but doesn't show by default.
   #buildStateControls(card) {
     const available = [];
     for (const [part, config] of Object.entries(STATE_MAP)) {
@@ -303,7 +391,7 @@ class ComponentAnatomy extends HTMLElement {
     }
     if (!available.length) return;
 
-    // Snapshot the original value of every attribute a state touches, so "Default" restores it exactly.
+    // Snapshot every attribute a state touches so "Default" restores it exactly.
     const touched = new Set(available.flatMap(state => [...Object.keys(state.attrs), ...(state.remove ?? [])]));
     this.#stateSnapshot = new Map([...touched].map(attr => [attr, this.#subject.getAttribute(attr)]));
 
@@ -321,7 +409,6 @@ class ComponentAnatomy extends HTMLElement {
     bar.setAttribute('aria-label', 'Component states');
 
     const buttons = [];
-    // The active button reads as selected via wa-button's own appearance (filled vs plain) — no custom color.
     const setActive = button => {
       for (const other of buttons) {
         const active = other === button;
@@ -378,7 +465,10 @@ class ComponentAnatomy extends HTMLElement {
     let frame;
     const schedule = () => {
       cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(() => this.#reposition());
+      frame = requestAnimationFrame(() => {
+        this.#reposition();
+        this.#updateScrollInset();
+      });
     };
 
     this.#resizeObserver = new ResizeObserver(schedule);
