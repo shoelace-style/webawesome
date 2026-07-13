@@ -31,6 +31,12 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 ## Unreleased
 
+:::added
+
+- Added a `base` CSS part to `<wa-accordion>` for styling the component's container.
+
+:::
+
 :::fixed
 
 - Fixed type resolution issues with `pro` components like `<wa-file-input>`, `<wa-combobox>`, etc. [pr:2577]
