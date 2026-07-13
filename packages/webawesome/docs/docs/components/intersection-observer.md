@@ -12,7 +12,7 @@ use-cases:
   - element visibility
 ---
 
-This component leverages the [IntersectionObserver API](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver) to track when its direct children enter or leave a designated root element. The `wa-intersect` event fires whenever elements cross the visibility threshold.
+This component uses the [IntersectionObserver API](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver) to track when its direct children enter or leave a designated root element. The `wa-intersect` event fires whenever elements cross the visibility threshold.
 
 ```html {.example}
 <div id="intersection__overview">
@@ -67,7 +67,7 @@ This component leverages the [IntersectionObserver API](https://developer.mozill
 
       &.visible {
         background-color: var(--wa-color-brand-60);
-        color: white;
+        color: var(--wa-color-brand-on-loud);
       }
     }
 
@@ -81,42 +81,13 @@ This component leverages the [IntersectionObserver API](https://developer.mozill
 ```
 
 :::info
-Keep in mind that only direct children of the host element are monitored. Nested elements won't trigger intersection events.
+<strong>Only direct children of the host are monitored.</strong><br />
+Nested elements won't trigger intersection events.
 :::
 
-## Usage Examples
+## Examples
 
-### Adding Observable Content
-
-The intersection observer tracks only its direct children. The component uses [`display: contents`](https://developer.mozilla.org/en-US/docs/Web/CSS/display#contents) styling, which makes it seamless to integrate with flex and grid layouts from a parent container.
-
-```html
-<div style="display: flex; flex-direction: column;">
-  <wa-intersection-observer>
-    <div class="box">Box 1</div>
-    <div class="box">Box 2</div>
-    <div class="box">Box 3</div>
-  </wa-intersection-observer>
-</div>
-```
-
-The component tracks elements as they enter and exit the root element (viewport by default) and emits the `wa-intersect` event on state changes. The event provides `event.detail.entry`, an [`IntersectionObserverEntry`](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry) object with intersection details.
-
-You can identify the triggering element through `entry.target`. Check `entry.isIntersecting` to determine if an element is entering or exiting the viewport.
-
-```javascript
-observer.addEventListener('wa-intersect', event => {
-  const entry = event.detail.entry;
-
-  if (entry.isIntersecting) {
-    console.log('Element entered viewport:', entry.target);
-  } else {
-    console.log('Element left viewport:', entry.target);
-  }
-});
-```
-
-### Setting a Custom Root Element
+### Root Element
 
 You can observe intersections within a specific container by assigning the `root` attribute to the [root element's](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver/root) ID. Apply [`rootMargin`](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver/rootMargin) with the `root-margin` attribute to expand or contract the observation area.
 
@@ -126,7 +97,7 @@ You can observe intersections within a specific container by assigning the `root
 </div>
 ```
 
-### Configuring Multiple Thresholds
+### Thresholds
 
 Track different visibility percentages by providing multiple [`threshold`](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#threshold) values as a space-separated list.
 
@@ -134,7 +105,7 @@ Track different visibility percentages by providing multiple [`threshold`](https
 <wa-intersection-observer threshold="0 0.25 0.5 0.75 1"> ... </wa-intersection-observer>
 ```
 
-### Applying Classes on Intersect
+### Intersect Class
 
 The `intersect-class` attribute automatically toggles the specified class on direct children when they become visible. This enables pure CSS styling without JavaScript event handlers.
 
@@ -189,7 +160,7 @@ The `intersect-class` attribute automatically toggles the specified class on dir
       align-items: center;
       justify-content: center;
       text-align: center;
-      color: white;
+      color: var(--wa-color-brand-on-loud);
       opacity: 0;
       padding: 2rem;
       margin-inline: auto;
@@ -302,4 +273,34 @@ The `intersect-class` attribute automatically toggles the specified class on dir
     }
   }
 </style>
+```
+
+### Reacting to Intersections
+
+The intersection observer tracks only its direct children. The component uses [`display: contents`](https://developer.mozilla.org/en-US/docs/Web/CSS/display#contents) styling, so it integrates cleanly with flex and grid layouts from a parent container.
+
+```html
+<div style="display: flex; flex-direction: column;">
+  <wa-intersection-observer>
+    <div class="box">Box 1</div>
+    <div class="box">Box 2</div>
+    <div class="box">Box 3</div>
+  </wa-intersection-observer>
+</div>
+```
+
+The component tracks elements as they enter and exit the root element (viewport by default) and emits the `wa-intersect` event on state changes. The event provides `event.detail.entry`, an [`IntersectionObserverEntry`](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry) object with intersection details.
+
+You can identify the triggering element through `entry.target`. Check `entry.isIntersecting` to determine if an element is entering or exiting the viewport.
+
+```javascript
+observer.addEventListener('wa-intersect', event => {
+  const entry = event.detail.entry;
+
+  if (entry.isIntersecting) {
+    console.log('Element entered viewport:', entry.target);
+  } else {
+    console.log('Element left viewport:', entry.target);
+  }
+});
 ```
