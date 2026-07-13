@@ -1,9 +1,9 @@
-import { fixtures } from '$webawesome/internal/test/fixture.js';
-import { clickOnElement } from '$webawesome/internal/test/pointer-utilities.js';
 import { aTimeout, expect, waitUntil } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import sinon from 'sinon';
+import { fixtures } from '../../internal/test/fixture.js';
+import { clickOnElement } from '../../internal/test/pointer-utilities.js';
 import type WaToastItem from '../toast-item/toast-item.js';
 import type WaToast from './toast.js';
 

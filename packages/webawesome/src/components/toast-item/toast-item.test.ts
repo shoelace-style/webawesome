@@ -1,8 +1,8 @@
-import { fixtures } from '$webawesome/internal/test/fixture.js';
-import { clickOnElement, moveMouseOnElement } from '$webawesome/internal/test/pointer-utilities.js';
 import { aTimeout, expect, waitUntil } from '@open-wc/testing';
 import { html } from 'lit';
 import sinon from 'sinon';
+import { fixtures } from '../../internal/test/fixture.js';
+import { clickOnElement, moveMouseOnElement } from '../../internal/test/pointer-utilities.js';
 import type WaToastItem from './toast-item.js';
 
 describe('<wa-toast-item>', () => {
