@@ -1,8 +1,8 @@
+import { html, isServer } from 'lit';
+import { customElement, property, query } from 'lit/decorators.js';
 import { animate, prefersReducedMotion } from '../../internal/animate.js';
 import { uniqueId } from '../../internal/math.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import { html, isServer } from 'lit';
-import { customElement, property, query } from 'lit/decorators.js';
 import '../toast-item/toast-item.js';
 import type WaToastItem from '../toast-item/toast-item.js';
 import styles from './toast.styles.js';

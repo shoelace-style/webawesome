@@ -1,5 +1,6 @@
-import '../icon/icon.js';
-import '../progress-ring/progress-ring.js';
+import { html } from 'lit';
+import { customElement, property, query, state } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { WaAfterHideEvent } from '../../events/after-hide.js';
 import { WaAfterShowEvent } from '../../events/after-show.js';
 import { WaHideEvent } from '../../events/hide.js';
@@ -12,9 +13,8 @@ import WebAwesomeElement from '../../internal/webawesome-element.js';
 import sizeStyles from '../../styles/component/size.styles.js';
 import variantStyles from '../../styles/component/variants.styles.js';
 import { LocalizeController } from '../../utilities/localize.js';
-import { html } from 'lit';
-import { customElement, property, query, state } from 'lit/decorators.js';
-import { classMap } from 'lit/directives/class-map.js';
+import '../icon/icon.js';
+import '../progress-ring/progress-ring.js';
 import styles from './toast-item.styles.js';
 
 /**
