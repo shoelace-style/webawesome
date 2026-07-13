@@ -34,10 +34,25 @@ jobs:
         with:
           fetch-depth: 1
 
-      # House rules live only in webawesome-app. Fetch just that folder onto the
-      # runner (ref main = always current, nothing committed here). Requires the
-      # HOUSE_RULES_TOKEN secret: a token with contents:read on webawesome-app.
-      # Gated to PR events, so plain-issue @claude mentions skip the fetch.
+      # House rules live only in webawesome-app (private). Mint a short-lived
+      # token from the house-rules GitHub App, then fetch just that folder onto
+      # the runner (ref main = always current, nothing committed here). Both
+      # steps are gated to PR events, so plain-issue @claude mentions skip them.
+      # Needs the HOUSE_RULES_APP_ID and HOUSE_RULES_APP_PRIVATE_KEY secrets; the
+      # app must be installed on webawesome-app with contents:read.
+      - name: Mint house-rules token
+        id: house-rules-token
+        if: >-
+          github.event_name == 'pull_request_review' ||
+          github.event_name == 'pull_request_review_comment' ||
+          (github.event_name == 'issue_comment' && github.event.issue.pull_request)
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.HOUSE_RULES_APP_ID }}
+          private-key: ${{ secrets.HOUSE_RULES_APP_PRIVATE_KEY }}
+          owner: shoelace-style
+          repositories: webawesome-app
+
       - name: Fetch house rules
         if: >-
           github.event_name == 'pull_request_review' ||
@@ -50,7 +65,7 @@ jobs:
           sparse-checkout: .house-rules
           sparse-checkout-cone-mode: false # scope to .house-rules only, drop repo-root files
           path: .house-rules-src
-          token: ${{ secrets.HOUSE_RULES_TOKEN }}
+          token: ${{ steps.house-rules-token.outputs.token }}
           persist-credentials: false # read-only fetch, don't write the token into .git/config
 
       - name: Run Claude Code
