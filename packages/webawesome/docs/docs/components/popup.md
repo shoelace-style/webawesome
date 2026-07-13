@@ -12,14 +12,6 @@ use-cases:
   - floating UI
 ---
 
-This component's name is inspired by [`<popup>`](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/Popup/explainer.md). It uses [Floating UI](https://floating-ui.com/) under the hood to provide a well-tested, lightweight, and fully declarative positioning utility for tooltips, dropdowns, and more.
-
-Popup doesn't provide any styles — just positioning! The popup's preferred placement, distance, and skidding (offset) can be configured using attributes. An arrow that points to the anchor can be shown and customized to your liking. Additional positioning options are available and described in more detail below.
-
-:::warning
-Popup is a low-level utility built specifically for positioning elements. Do not mistake it for a [tooltip](/docs/components/tooltip) or similar because _it does not facilitate an accessible experience!_ Almost every correct usage of `<wa-popup>` will involve building other components. It should rarely, if ever, occur directly in your HTML.
-:::
-
 ```html {.example}
 <div class="popup-overview">
   <wa-popup placement="top" active>
@@ -134,8 +126,18 @@ Popup is a low-level utility built specifically for positioning elements. Do not
 </style>
 ```
 
+This component's name is inspired by [`<popup>`](https://github.com/MicrosoftEdge/MSEdgeExplainers/blob/main/Popup/explainer.md). It uses [Floating UI](https://floating-ui.com/) under the hood to provide a well-tested, lightweight, and fully declarative positioning utility for tooltips, dropdowns, and more.
+
+Popup doesn't provide any styles — just positioning! The popup's preferred placement, distance, and skidding (offset) can be configured using attributes. An arrow that points to the anchor can be shown and customized to your liking. Additional positioning options are available and described in more detail below.
+
+:::warning
+<strong>Popup is a low-level positioning utility, not an accessible component.</strong><br />
+Don't use it as a [tooltip](/docs/components/tooltip) or similar — it doesn't facilitate an accessible experience. Almost every correct use builds it into another component rather than placing `<wa-popup>` directly in your HTML.
+:::
+
 :::info
-A popup's anchor should not be styled with `display: contents` since the coordinates will not be eligible for calculation. However, if the anchor is a `<slot>` element, popup will use the first assigned element as the anchor. This behavior allows other components to pass anchors through more easily via composition.
+<strong>Don't style a popup's anchor with `display: contents`.</strong><br />
+The coordinates won't be eligible for calculation. If the anchor is a `<slot>`, popup uses the first assigned element as the anchor, so components can pass anchors through via composition.
 :::
 
 ## Examples
@@ -497,7 +499,7 @@ By default, the arrow will be aligned as close to the center of the _anchor_ as 
 </div>
 ```
 
-### Adding a Border
+### Border
 
 Borders can also be added to the popup element by targeting the contents of the `wa-popup` element. This styling can also be extended to the arrow itself by targeting `.arrow` class in the popup.
 
@@ -602,7 +604,7 @@ When adding borders to the popup element which has an arrow, make sure to set th
 
 {# TODO: this example totally destroys browsers. Needs investigation.
 
-### Syncing with the Anchor's Dimensions
+### Sync
 
 Use the `sync` attribute to make the popup the same width or height as the anchor element. This is useful for controls that need the popup to stay the same width or height as the trigger.
 
@@ -928,7 +930,7 @@ When a gap exists between the anchor and the popup element, this option will add
   }
 
   .popup-hover-bridge wa-popup::part(hover-bridge) {
-    background: tomato;
+    background: var(--wa-color-warning-fill-loud);
     opacity: 0.5;
   }
 </style>
