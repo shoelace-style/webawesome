@@ -14,7 +14,7 @@ use-cases:
 
 ```html {.example}
 <wa-animated-image
-  src="https://shoelace.style/assets/images/walk.gif"
+  src="/assets/images/walk.gif"
   alt="Animation of untied shoes walking on pavement"
 ></wa-animated-image>
 ```
@@ -31,7 +31,7 @@ Both GIF and WEBP images are supported.
 
 ```html {.example}
 <wa-animated-image
-  src="https://shoelace.style/assets/images/tie.webp"
+  src="/assets/images/tie.webp"
   alt="Animation of a shoe being tied"
 ></wa-animated-image>
 ```
@@ -42,7 +42,7 @@ To set a custom size, apply a width and/or height to the host element.
 
 ```html {.example}
 <wa-animated-image
-  src="https://shoelace.style/assets/images/walk.gif"
+  src="/assets/images/walk.gif"
   alt="Animation of untied shoes walking on pavement"
   style="width: 150px; height: 200px;"
 >
@@ -55,7 +55,7 @@ You can change the appearance and location of the control box by targeting the `
 
 ```html {.example}
 <wa-animated-image
-  src="https://shoelace.style/assets/images/walk.gif"
+  src="/assets/images/walk.gif"
   alt="Animation of untied shoes walking on pavement"
   class="animated-image-custom-control-box"
 ></wa-animated-image>

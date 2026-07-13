@@ -995,7 +995,7 @@ If you're a [Font Awesome Pro+ customer](https://fontawesome.com/), you have acc
 Custom icons can be loaded individually with the `src` attribute. Only SVGs on a local or CORS-enabled endpoint are supported. If you're using more than one custom icon, it might make sense to register a [custom icon library](#third-party-icon-libraries).
 
 ```html {.example}
-<wa-icon src="https://shoelace.style/assets/images/shoe.svg" style="font-size: 4rem;"></wa-icon>
+<wa-icon src="/assets/images/shoe.svg" style="font-size: 4rem;"></wa-icon>
 ```
 
 ## Icon Libraries
