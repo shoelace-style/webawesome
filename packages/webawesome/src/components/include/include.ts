@@ -50,6 +50,27 @@ export default class WaInclude extends WebAwesomeElement {
   async handleSrcChange() {
     try {
       const src = this.src;
+
+      if (src.startsWith("#")) {
+        const template = document.querySelector(src)
+        let node: Node | null = null
+        if (template?.localName === "template") {
+          node = document.importNode((template as HTMLTemplateElement).content, true)
+        } else {
+          if (template) {
+            node = document.importNode(template, true)
+          }
+        }
+
+        if (node) {
+          this.replaceChildren(node)
+        } else {
+          this.innerHTML = ""
+        }
+
+        return
+      }
+
       const file = await requestInclude(src, this.mode);
 
       // If the src changed since the request started do nothing, otherwise we risk overwriting a subsequent response
