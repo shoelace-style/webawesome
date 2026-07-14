@@ -19,6 +19,11 @@ use-cases:
 </wa-toast-item>
 ```
 
+:::new
+<strong>Now Available in Web Awesome Core</strong><br />
+Toast Item moved over from Pro in [**3.11.0**](/docs/resources/changelog#unreleased). On an earlier Core version? Upgrade to use it.
+:::
+
 :::info
 <strong>Toast items are meant to live inside a `<wa-toast>` container.</strong><br />
 The container manages their lifecycle and positioning. For usage examples showing how to display notifications, see the [Toast documentation](/docs/components/toast).
