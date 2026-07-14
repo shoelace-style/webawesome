@@ -2,6 +2,7 @@
 title: Toast Item
 layout: component
 category: Feedback
+parent: toast
 isProComponent: false
 synonyms:
   - notification item
