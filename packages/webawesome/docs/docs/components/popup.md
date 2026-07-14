@@ -544,9 +544,10 @@ When adding borders to the popup element which has an arrow, make sure to set th
       --arrow-color: var(--wa-color-brand-on-loud);
       --popup-border-width: var(--wa-panel-border-width);
 
+      /* Inset box-shadow, not a border: Safari seams a clip-path edge that runs along a border. */
       &::part(arrow) {
-        border-bottom: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-brand-border-loud);
-        border-right: var(--wa-panel-border-width) var(--wa-panel-border-style) var(--wa-color-brand-border-loud);
+        box-shadow: inset calc(-1 * var(--wa-panel-border-width)) calc(-1 * var(--wa-panel-border-width)) 0 0
+          var(--wa-color-brand-border-loud);
       }
     }
 

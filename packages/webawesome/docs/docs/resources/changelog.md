@@ -33,6 +33,10 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::fixed
 
+- Fixed a Safari-only clip-path/border seam along the arrow's outer edges by painting the arrow border with an inset box-shadow instead of a `border`
+  - `<wa-tooltip>` — surfaced as a stark white hairline on the dark arrow over light backgrounds
+  - `<wa-popover>` — same latent seam on the arrow's border
+  - The arrow border is now always solid; `--wa-tooltip-border-style` / `--wa-panel-border-style` no longer apply to it. No visual change, since all themes use `solid`
 - Fixed type resolution issues with `pro` components like `<wa-file-input>`, `<wa-combobox>`, etc. [pr:2577]
 - Fixed an issue where some fonts wouldn't load in themes that import multiple fonts [pr:2582]
 - Fixed an issue with an improper custom elements manifest path. [pr:2590]
