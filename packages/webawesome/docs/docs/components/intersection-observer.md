@@ -66,7 +66,7 @@ This component uses the [IntersectionObserver API](https://developer.mozilla.org
       }
 
       &.visible {
-        background-color: var(--wa-color-brand-60);
+        background-color: var(--wa-color-brand-fill-loud);
         color: var(--wa-color-brand-on-loud);
       }
     }

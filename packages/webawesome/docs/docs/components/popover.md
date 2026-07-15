@@ -112,7 +112,7 @@ Use the `--arrow-size` custom property to change the size of the popover's arrow
 </div>
 ```
 
-### Maximum Width
+### Max Width
 
 Use the `--max-width` custom property to control the maximum width of the popover.
 
