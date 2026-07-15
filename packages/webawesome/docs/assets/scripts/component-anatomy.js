@@ -19,6 +19,9 @@ const IDENTITY_ATTRS = [
 // dialogs) are out of scope — those parts render outside the stage.
 const STATE_MAP = {
   spinner: { label: 'Loading', attrs: { loading: '' } },
+  // props sets the first matching property (not attribute) — radio/checkbox use `checked`, option `selected`,
+  // and radio's `checked` is internal @state that markup can't set.
+  'checked-icon': { label: 'Checked', props: ['checked', 'selected'] },
   // indeterminate and checked are mutually exclusive — clear checked or the checkbox renders no icon.
   'indeterminate-icon': { label: 'Indeterminate', attrs: { indeterminate: '' }, remove: ['checked'] },
   caret: { label: 'Caret', attrs: { 'with-caret': '' } },
@@ -71,6 +74,7 @@ class ComponentAnatomy extends HTMLElement {
   #section;
   #rows = [];
   #stateSnapshot = new Map();
+  #statePropSnapshot = new Map();
   #stateToken = 0;
   #flashTimer;
   // Breathing room (--wa-space-m, resolved to px in #build) between the pinned card and a row scrolled to it.
@@ -255,7 +259,8 @@ class ComponentAnatomy extends HTMLElement {
       // Nested parts (`__`, exported from a child shadow root) are deferred — treat as not-shown.
       const el = name.includes('__') ? null : this.#subject.shadowRoot?.querySelector(`[part~="${CSS.escape(name)}"]`);
       const rect = el ? measureRect(el) : null;
-      if (!rect) continue;
+      // Zero area = present but collapsed (e.g. option's checked-icon before selection) — treat as not-shown.
+      if (!rect || !rect.width || !rect.height) continue;
 
       row.classList.add('is-linked');
       this.#ensureTrigger(row);
@@ -391,9 +396,11 @@ class ComponentAnatomy extends HTMLElement {
     }
     if (!available.length) return;
 
-    // Snapshot every attribute a state touches so "Default" restores it exactly.
-    const touched = new Set(available.flatMap(state => [...Object.keys(state.attrs), ...(state.remove ?? [])]));
+    // Snapshot every attribute and property a state touches so "Default" restores it exactly.
+    const touched = new Set(available.flatMap(state => [...Object.keys(state.attrs ?? {}), ...(state.remove ?? [])]));
     this.#stateSnapshot = new Map([...touched].map(attr => [attr, this.#subject.getAttribute(attr)]));
+    const props = new Set(available.map(state => this.#stateProp(state)).filter(Boolean));
+    this.#statePropSnapshot = new Map([...props].map(name => [name, this.#subject[name]]));
 
     const header = document.createElement('div');
     header.className = 'wa-flank:end wa-align-items-center';
@@ -433,11 +440,22 @@ class ComponentAnatomy extends HTMLElement {
 
     const defaultButton = makeButton('Default', null);
     bar.append(defaultButton);
-    for (const state of available) bar.append(makeButton(state.label, state));
+    for (const state of available) {
+      // A prop-based state labels itself from the property it sets (checked → Checked, selected → Selected).
+      const prop = this.#stateProp(state);
+      const label = prop ? prop[0].toUpperCase() + prop.slice(1) : state.label;
+      bar.append(makeButton(label, state));
+    }
     setActive(defaultButton);
 
     header.append(heading, bar);
     card.append(header);
+  }
+
+  // First property in `state.props` that the subject actually has (radio/checkbox: `checked`, option:
+  // `selected`) — so a state can reveal a part markup can't, like radio's internal @state `checked`.
+  #stateProp(state) {
+    return state.props?.find(name => name in this.#subject) ?? null;
   }
 
   async #applyState(state) {
@@ -445,9 +463,12 @@ class ComponentAnatomy extends HTMLElement {
       if (value === null) this.#subject.removeAttribute(attr);
       else this.#subject.setAttribute(attr, value);
     }
+    for (const [name, value] of this.#statePropSnapshot) this.#subject[name] = value;
     if (state) {
       for (const attr of state.remove ?? []) this.#subject.removeAttribute(attr);
-      for (const [attr, value] of Object.entries(state.attrs)) this.#subject.setAttribute(attr, value);
+      for (const [attr, value] of Object.entries(state.attrs ?? {})) this.#subject.setAttribute(attr, value);
+      const prop = this.#stateProp(state);
+      if (prop) this.#subject[prop] = true;
     }
     // Guard against out-of-order re-layouts when states are toggled rapidly.
     const token = ++this.#stateToken;
