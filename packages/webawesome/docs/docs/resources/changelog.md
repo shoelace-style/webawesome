@@ -31,8 +31,18 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 ## Unreleased
 
+:::added
+
+- Moved `<wa-toast>` and `<wa-toast-item>` from Pro to Core [pr:2631]
+
+:::
+
 :::fixed
 
+- Fixed a Safari-only clip-path/border seam along the arrow's outer edges by painting the arrow border with an inset box-shadow instead of a `border` [pr:2638]
+  - `<wa-tooltip>` — surfaced as a stark white hairline on the dark arrow over light backgrounds
+  - `<wa-popover>` — same latent seam on the arrow's border
+  - The arrow border is now always solid; `--wa-tooltip-border-style` / `--wa-panel-border-style` no longer apply to it. No visual change, since all themes use `solid`
 - Fixed type resolution issues with `pro` components like `<wa-file-input>`, `<wa-combobox>`, etc. [pr:2577]
 - Fixed an issue where some fonts wouldn't load in themes that import multiple fonts [pr:2582]
 - Fixed an issue with an improper custom elements manifest path. [pr:2590]
@@ -299,7 +309,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::added
 
-- Moved `<wa-page>` from pro to core [pr:2244]
+- Moved `<wa-page>` from Pro to Core [pr:2244]
 - Added a new core experimental component: `<wa-markdown>` (#6 of 14 per stretch goals) [pr:2170]
 - Added the `data-wa-preload` attribute for preloading components that aren't on the page yet when using the autoloader [issue:1501] [pr:2238]
 - Added `placement` attribute to `<wa-color-picker>` [issue:2099]

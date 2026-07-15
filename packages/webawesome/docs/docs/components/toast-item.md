@@ -2,6 +2,7 @@
 title: Toast Item
 layout: component
 category: Feedback
+parent: toast
 isProComponent: false
 synonyms:
   - notification item
@@ -18,6 +19,11 @@ use-cases:
   This is how a toast item looks!
 </wa-toast-item>
 ```
+
+:::new
+<strong>Now Available in Web Awesome Core</strong><br />
+Toast Item moved over from Pro in [**3.11.0**](/docs/resources/changelog#unreleased). On an earlier Core version? Upgrade to use it.
+:::
 
 :::info
 <strong>Toast items are meant to live inside a `<wa-toast>` container.</strong><br />

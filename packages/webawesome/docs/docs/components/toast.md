@@ -31,6 +31,11 @@ use-cases:
 </script>
 ```
 
+:::new
+<strong>Now Available in Web Awesome Core</strong><br />
+Toast moved over from Pro in [**3.11.0**](/docs/resources/changelog#unreleased). On an earlier Core version? Upgrade to use it.
+:::
+
 Adding a single `<wa-toast>` element to the page gives you the ability to dispatch notifications at any time. Toast notifications appear in a stack that renders in the [top layer](https://developer.mozilla.org/en-US/docs/Glossary/Top_layer), showing above everything else on the page.
 
 You can put the `<wa-toast>` element anywhere in the DOM, as long as it's somewhere inside the `<body>`. In most apps, a single toast element is optimal.

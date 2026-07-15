@@ -37,6 +37,18 @@ markdown.use(markdownItMark);
   });
 });
 
+markdown.use(markdownItContainer, 'new', {
+  render: function (tokens, idx) {
+    if (tokens[idx].nesting === 1) {
+      return `
+        <wa-callout variant="neutral" class="new">
+          <wa-icon slot="icon" name="bullhorn" variant="solid"></wa-icon>
+      `;
+    }
+    return '</wa-callout>\n';
+  },
+});
+
 markdown.use(markdownItContainer, 'pro', {
   validate: params => /^pro(\s+.+)?$/.test(params.trim()),
   render: function (tokens, idx) {

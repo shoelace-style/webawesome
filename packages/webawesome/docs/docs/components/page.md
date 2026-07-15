@@ -16,6 +16,11 @@ use-cases:
 
 The page component is designed to power full webpages. It is flexible enough to handle most modern designs and includes a simple mechanism for handling desktop and mobile navigation.
 
+:::new
+<strong>Now Available in Web Awesome Core</strong><br />
+Page moved over from Pro in [**3.5.0**](/docs/resources/changelog#wa_350). On an earlier Core version? Upgrade to use it.
+:::
+
 ## Layout Anatomy
 
 This image depicts a page's anatomy, including the default positions of each section. The labels represent the [named slots](#slots) you can use to populate them.
