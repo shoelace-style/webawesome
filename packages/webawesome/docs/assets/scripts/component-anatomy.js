@@ -34,9 +34,10 @@ const STATE_MAP = {
   initials: { label: 'Initials', attrs: { initials: 'WA' } },
   image: {
     label: 'Image',
+    // The same photo the avatar docs use, so the Image state reads like a real avatar.
     attrs: {
       image:
-        "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Crect width='48' height='48' fill='%23a78bfa'/%3E%3C/svg%3E",
+        'https://images.unsplash.com/photo-1529778873920-4da4926a72c2?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80',
     },
   },
 };
