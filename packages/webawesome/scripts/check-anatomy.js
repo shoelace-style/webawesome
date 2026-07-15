@@ -20,6 +20,7 @@ function frontMatter(source) {
 }
 
 function hasNoDiagram(fm) {
+  if (/(^|\n)hasAnatomy:\s*true\b/.test(fm)) return false; // opt-in override for sub-components
   return /(^|\n)hasAnatomy:\s*false\b/.test(fm) || /(^|\n)parent:\s*\S/.test(fm);
 }
 

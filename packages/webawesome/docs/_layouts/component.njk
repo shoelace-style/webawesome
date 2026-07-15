@@ -282,7 +282,7 @@
   block, so it releases the pin when the table ends (see anatomy.css).
 #}
 <div class="anatomy-section">
-{% if hasAnatomy != false and not parent %}
+{% if (hasAnatomy != false and not parent) or hasAnatomy == true %}
 <component-anatomy component="{{ component.tagName }}" class="wa-not-prose wa-mask-fade-below"></component-anatomy>
 {% endif %}
 
