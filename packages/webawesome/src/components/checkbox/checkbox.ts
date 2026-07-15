@@ -227,7 +227,7 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
     const isIndeterminate = !this.checked && this.indeterminate;
 
     const iconName = isIndeterminate ? 'indeterminate' : 'check';
-    const iconState = isIndeterminate ? 'indeterminate' : 'check';
+    const iconState = isIndeterminate ? 'indeterminate' : 'checked';
 
     // We need to use the attribute for SSR, because for some reason Lit SSR always sets `.checked=${live(this.checked)}` as "true"
     // TODO: Tell Konnor to submit a bug report + repo about this.
