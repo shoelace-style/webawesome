@@ -153,19 +153,21 @@ component-anatomy {
   scroll-margin-block-start: var(--anatomy-scroll-inset, 0px);
 }
 
+/* A transparent inline wrapper around the <code>, so the table row never shifts when a name toggles between
+   plain code and button. `all: unset` strips the native button's intrinsic box (which otherwise renders ~2
+   line-boxes tall); line-height: 0 then collapses the button's own strut so the <code>'s restored line box
+   below governs — leaving the exact box of the un-upgraded plain <code>. */
 .anatomy-part-trigger {
-  display: inline-flex;
-  padding: 0;
-  border: none;
-  background: none;
-  font: inherit;
-  color: inherit;
+  all: unset;
+  line-height: 0;
   cursor: pointer;
   border-radius: var(--wa-border-radius-s);
 }
 
-/* Touch cue (no hover): WA's link-decoration token — dotted at rest, solid on hover/focus. */
+/* Restore the code's own line box (the button's line-height: 0 would otherwise collapse it), and the touch
+   cue: WA's link-decoration token — dotted at rest, solid on hover/focus. */
 .anatomy-part-trigger code {
+  line-height: var(--wa-line-height-normal);
   text-decoration: var(--wa-link-decoration-default);
   text-underline-offset: var(--wa-space-3xs);
 }
