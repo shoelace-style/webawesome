@@ -30,6 +30,15 @@ const STATE_MAP = {
   'password-toggle-button': { label: 'Password toggle', attrs: { 'password-toggle': '' } },
   'remove-button': { label: 'Removable', attrs: { 'with-remove': '' } },
   tags: { label: 'Multiple', attrs: { multiple: '' } },
+  // avatar's three modes are mutually-exclusive, attribute-driven parts — Default (icon) → Initials → Image.
+  initials: { label: 'Initials', attrs: { initials: 'WA' } },
+  image: {
+    label: 'Image',
+    attrs: {
+      image:
+        "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Crect width='48' height='48' fill='%23a78bfa'/%3E%3C/svg%3E",
+    },
+  },
 };
 
 function stripIdentity(root) {
