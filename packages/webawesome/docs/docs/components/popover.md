@@ -13,22 +13,22 @@ use-cases:
   - click popup
 ---
 
-Popovers display interactive content when their anchor element is clicked. Unlike [tooltips](/docs/components/tooltip), popovers can contain links, buttons, and form controls. They appear without an overlay and will close when you click outside or press [[Escape]]. Only one popover can be open at a time.
-
 ```html {.example}
 <wa-popover for="popover__overview">
   <div style="display: flex; flex-direction: column; gap: 1rem;">
     <p>This popover contains interactive content that users can engage with directly.</p>
-    <wa-button appearance="filled" variant="primary" size="s">Take Action</wa-button>
+    <wa-button appearance="filled" variant="brand" size="s">Take Action</wa-button>
   </div>
 </wa-popover>
 
 <wa-button appearance="filled" id="popover__overview">Show popover</wa-button>
 ```
 
+Unlike [tooltips](/docs/components/tooltip), popovers can contain links, buttons, and form controls. They appear without an overlay and close when you click outside or press [[Escape]]. Only one popover can be open at a time.
+
 ## Examples
 
-### Assigning an Anchor
+### Anchor
 
 Use `<wa-button>` or `<button>` elements as popover anchors. Connect the popover to its anchor by setting the `for` attribute to match the anchor's `id`.
 
@@ -45,7 +45,8 @@ Use `<wa-button>` or `<button>` elements as popover anchors. Connect the popover
 ```
 
 :::warning
-Make sure the anchor element exists in the DOM before the popover connects. If it doesn't exist, the popover won't attach and you'll see a console warning.
+<strong>The anchor must exist in the DOM before the popover connects.</strong><br />
+Otherwise the popover won't attach and you'll see a console warning.
 :::
 
 ### Opening & Closing
@@ -57,7 +58,7 @@ Use `data-popover="close"` on any button inside a popover to close it automatica
 ```html {.example}
 <wa-popover for="popover__opening">
   <p>The button below has <code>data-popover="close"</code> so clicking it will close the popover.</p>
-  <wa-button appearance="filled" data-popover="close" variant="primary">Dismiss</wa-button>
+  <wa-button appearance="filled" data-popover="close" variant="brand">Dismiss</wa-button>
 </wa-popover>
 
 <wa-button appearance="filled" id="popover__opening">Show popover</wa-button>
@@ -111,7 +112,7 @@ Use the `--arrow-size` custom property to change the size of the popover's arrow
 </div>
 ```
 
-### Setting a Maximum Width
+### Max Width
 
 Use the `--max-width` custom property to control the maximum width of the popover.
 
@@ -122,7 +123,7 @@ Use the `--max-width` custom property to control the maximum width of the popove
 </wa-popover>
 ```
 
-### Setting Focus
+### Initial Focus
 
 Use the [`autofocus`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/autofocus) global attribute to move focus to a specific form control when the popover opens.
 
@@ -130,7 +131,7 @@ Use the [`autofocus`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_a
 <wa-popover for="popover__autofocus">
   <div style="display: flex; flex-direction: column; gap: 1rem;">
     <wa-textarea autofocus placeholder="What's on your mind?" size="s" resize="none" rows="2"></wa-textarea>
-    <wa-button appearance="filled" variant="primary" size="s" data-popover="close"> Submit </wa-button>
+    <wa-button appearance="filled" variant="brand" size="s" data-popover="close"> Submit </wa-button>
   </div>
 </wa-popover>
 
