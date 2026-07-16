@@ -113,9 +113,9 @@ By default, the first item in the `wa-flank` container will flank the other cont
 </div>
 ```
 
-## Sizing
+## Size
 
-The flank's inline size is determined by the size of its content, but you can set a target size using the `--flank-size` property. When the flank wraps, it stretches to fill the inline size of the container.
+The flank's inline size is determined by the size of its content, but you can set a target size using the `--flank-size` custom property. When the flank wraps, it stretches to fill the inline size of the container.
 
 ```html {.example}
 <div class="wa-stack">
@@ -130,7 +130,7 @@ The flank's inline size is determined by the size of its content, but you can se
 </div>
 ```
 
-The main content fills the remaining inline space of the container. By default, the items wrap when the main content is less than 50% of the container. You can change the minimum size of the main content with the `--content-percentage` property.
+The main content fills the remaining inline space of the container. By default, the items wrap when the main content is less than 50% of the container. You can change the minimum size of the main content with the `--content-percentage` custom property.
 
 ```html {.example}
 <div class="wa-stack">
