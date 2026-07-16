@@ -1,7 +1,7 @@
 ---
 title: Native Styles
 description: Native styles apply your theme to native HTML elements so they match the look and feel of Web Awesome components.
-layout: page-outline
+layout: docs
 tags: styleUtilities
 synonyms:
   - browser default
@@ -404,7 +404,7 @@ Add the `wa-hover-rows` class to highlight table rows on hover and the `wa-zebra
 </table>
 ```
 
-For tables with a lot of numeric date, add the `wa-tabular-nums` class to any row, column, or whole table to ensure digits align.
+For tables with a lot of numeric data, add the `wa-tabular-nums` class to any row, column, or whole table to ensure digits align.
 
 ```html {.example}
 <table class="wa-tabular-nums">
