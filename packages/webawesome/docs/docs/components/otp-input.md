@@ -212,12 +212,14 @@ On Android, Chrome can also read the code from an incoming SMS with the [WebOTP 
 Add the `autosubmit` attribute to submit the containing form automatically when the last segment is filled. The `wa-complete` event fires first and is cancelable — call `preventDefault()` to stop the submission.
 
 ```html {.example}
-<form id="autosubmit-form">
+<form class="autosubmit">
   <wa-otp-input name="code" label="SMS verification code" autosubmit></wa-otp-input>
 </form>
 
 <script type="module">
-  document.querySelector('#autosubmit-form').addEventListener('submit', event => {
+  const form = document.querySelector('.autosubmit');
+
+  form.addEventListener('submit', event => {
     event.preventDefault();
     alert(`Submitted code: ${new FormData(event.target).get('code')}`);
   });
@@ -231,14 +233,16 @@ To run your own logic on completion instead — verify the code over the network
 Add the `required` attribute to require a value before submission. A partial entry (some segments filled, but not all) is always invalid regardless of `required`, with the `tooShort` validity flag set.
 
 ```html {.example}
-<form id="mfa-form">
+<form class="validation">
   <wa-otp-input name="code" label="Two-factor code" required></wa-otp-input>
   <br />
   <wa-button appearance="filled" type="submit">Continue</wa-button>
 </form>
 
 <script type="module">
-  document.querySelector('#mfa-form').addEventListener('submit', event => {
+  const form = document.querySelector('.validation');
+
+  form.addEventListener('submit', event => {
     event.preventDefault();
     alert('Code accepted!');
   });
@@ -250,17 +254,18 @@ Add the `required` attribute to require a value before submission. A partial ent
 Use the `setCustomValidity()` method to set a custom validation message. This will prevent the form from submitting and make the browser display the error message you provide. To clear the error, call this function with an empty string.
 
 ```html {.example}
-<form id="custom-validity-form">
+<form class="custom-validity">
   <wa-otp-input name="code" label="Verification code" hint="The correct code is 314159." required></wa-otp-input>
   <br />
   <wa-button appearance="filled" type="submit">Verify</wa-button>
 </form>
 
 <script type="module">
-  const form = document.getElementById('custom-validity-form');
+  const form = document.querySelector('.custom-validity');
   const otp = form.querySelector('wa-otp-input');
 
   otp.addEventListener('input', () => {
+    // Only flag complete entries — partial input is already invalid via tooShort
     const isValid = otp.value.length < otp.length || otp.value === '314159';
     otp.setCustomValidity(isValid ? '' : 'That code didn’t match. Check your device and try again.');
   });
@@ -293,27 +298,16 @@ Use the `--segment-size`, `--segment-gap`, and `--segment-border-radius` custom 
 </style>
 ```
 
-Combine CSS parts with [custom states](/docs/form-controls#custom-validation-styles) to style validation feedback — for example, coloring the segments when the `user-invalid` custom state applies. Submit the form with a partial entry to see it:
+Combine CSS parts with [custom states](/docs/form-controls#custom-validation-styles) to style validation feedback — for example, coloring the segments when the `user-invalid` custom state applies. Enter a partial code and click away to see it:
 
 ```html {.example}
-<form id="invalid-style-demo">
-  <wa-otp-input name="code" label="Two-factor code" required></wa-otp-input>
-  <br />
-  <wa-button appearance="filled" type="submit">Continue</wa-button>
-</form>
+<wa-otp-input class="invalid-style" label="Two-factor code" required></wa-otp-input>
 
 <style>
-  #invalid-style-demo wa-otp-input:state(user-invalid)::part(segment) {
+  .invalid-style:state(user-invalid)::part(segment) {
     border-color: var(--wa-color-danger-border-loud);
   }
 </style>
-
-<script type="module">
-  document.querySelector('#invalid-style-demo').addEventListener('submit', event => {
-    event.preventDefault();
-    alert('Code accepted!');
-  });
-</script>
 ```
 
 ## Accessibility Considerations
