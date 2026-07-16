@@ -319,9 +319,10 @@ The component uses a single visually hidden `<input>` as the focus and form targ
 
 Keyboard interaction follows the single-input model:
 
-| Key                                   | Behavior                                                             |
-| ------------------------------------- | -------------------------------------------------------------------- |
-| <kbd>←</kbd> <kbd>→</kbd>             | Move between segments                                                |
-| <kbd>Tab</kbd> / <kbd>Shift+Tab</kbd> | Move between segments; leaves the field at the first or last segment |
-| <kbd>Backspace</kbd>                  | Clears the current segment and moves back (no character shift)       |
-| <kbd>Delete</kbd>                     | Clears the current segment without moving                            |
+| Key                       | Behavior                                                       |
+| ------------------------- | -------------------------------------------------------------- |
+| <kbd>←</kbd> <kbd>→</kbd> | Move between segments                                          |
+| <kbd>Tab</kbd>            | Moves focus to the next form control                           |
+| <kbd>Enter</kbd>          | Submits the containing form                                    |
+| <kbd>Backspace</kbd>      | Clears the current segment and moves back (no character shift) |
+| <kbd>Delete</kbd>         | Clears the current segment without moving                      |

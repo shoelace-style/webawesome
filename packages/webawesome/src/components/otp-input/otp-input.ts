@@ -7,7 +7,7 @@ import { WaCompleteEvent } from '../../events/complete.js';
 import { scrollIntoView } from '../../internal/scroll.js';
 import { warnDeprecatedSize } from '../../internal/size.js';
 import { HasSlotController } from '../../internal/slot.js';
-import { submitForm } from '../../internal/submit-on-enter.js';
+import { submitForm, submitOnEnter } from '../../internal/submit-on-enter.js';
 import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
@@ -330,15 +330,10 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
     if (e.isComposing) return;
     const max = this.effectiveLength;
 
-    if (e.key === 'Tab') {
-      if (!e.shiftKey && this._activeIndex < max - 1) {
-        e.preventDefault();
-        this.setCaretIndex(this._activeIndex + 1);
-      } else if (e.shiftKey && this._activeIndex > 0) {
-        e.preventDefault();
-        this.setCaretIndex(this._activeIndex - 1);
-      }
-      // else: Tab/Shift-Tab at boundary → propagate out of component
+    // Tab is deliberately not handled — it moves focus to the next control like any single input;
+    // arrow keys handle movement between segments.
+    if (e.key === 'Enter') {
+      submitOnEnter(e, this);
     } else if (e.key === 'ArrowRight') {
       e.preventDefault();
       if (this.hasSelection) {
@@ -566,7 +561,6 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
           class="hidden-input"
           type="text"
           .value=${live(this._value)}
-          maxlength=${this.effectiveLength}
           minlength=${this.effectiveLength}
           autocomplete=${this.autocomplete}
           inputmode=${this.type === 'numeric' ? 'numeric' : 'text'}

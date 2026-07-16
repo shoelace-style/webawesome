@@ -596,6 +596,70 @@ describe('<wa-otp-input>', () => {
           expect(segments.getAttribute('role')).to.equal('group');
         });
       });
+
+      describe('enter key', () => {
+        it('should submit the containing form when enter is pressed', async () => {
+          const form = await fixture<HTMLFormElement>(
+            html`<form><wa-otp-input name="code" length="3" value="123"></wa-otp-input></form>`,
+          );
+          const el = form.querySelector<WaOtpInput>('wa-otp-input')!;
+          const submitHandler = sinon.spy((event: SubmitEvent) => event.preventDefault());
+
+          form.addEventListener('submit', submitHandler);
+          el.focus();
+          await sendKeys({ press: 'Enter' });
+          await waitUntil(() => submitHandler.calledOnce);
+
+          expect(submitHandler).to.have.been.calledOnce;
+        });
+      });
+
+      describe('tab key', () => {
+        it('should move focus out of the field when tab is pressed', async () => {
+          const container = await fixture<HTMLDivElement>(
+            html`<div>
+              <wa-otp-input label="Code"></wa-otp-input>
+              <button type="button">After</button>
+            </div>`,
+          );
+          const el = container.querySelector<WaOtpInput>('wa-otp-input')!;
+          const button = container.querySelector('button')!;
+
+          el.focus();
+          await sendKeys({ press: 'Tab' });
+
+          expect(document.activeElement).to.equal(button);
+        });
+      });
+
+      describe('right-to-left', () => {
+        it('should keep segments laid out left-to-right in RTL contexts', async () => {
+          const container = await fixture<HTMLDivElement>(
+            html`<div dir="rtl"><wa-otp-input label="Code" value="12"></wa-otp-input></div>`,
+          );
+          const el = container.querySelector<WaOtpInput>('wa-otp-input')!;
+          await el.updateComplete;
+          const segments = el.shadowRoot!.querySelector('.segments')!;
+          expect(getComputedStyle(segments).direction).to.equal('ltr');
+        });
+      });
+
+      describe('autofill', () => {
+        it('should filter, not truncate, raw values that exceed the segment count', async () => {
+          const el = await fixture<WaOtpInput>(html`<wa-otp-input label="Code"></wa-otp-input>`);
+          await el.updateComplete;
+          const input = el.shadowRoot!.querySelector<HTMLInputElement>('.hidden-input')!;
+
+          // Simulate browser autofill: set the raw input value (with separators) and fire input
+          input.value = '123 456';
+          input.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
+          await el.updateComplete;
+
+          // maxlength would truncate an autofilled "123 456" to "123 45" before filtering ran
+          expect(input.hasAttribute('maxlength')).to.be.false;
+          expect(el.value).to.equal('123456');
+        });
+      });
     });
   }
 });

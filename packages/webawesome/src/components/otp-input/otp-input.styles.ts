@@ -8,6 +8,9 @@ export default css`
   /* Segments container */
   .segments {
     position: relative;
+    /* Codes read left-to-right regardless of locale — keep segment order and caret movement LTR
+       even when the surrounding page is RTL. */
+    direction: ltr;
     display: inline-flex;
     align-items: center;
     align-self: start;
