@@ -118,11 +118,11 @@ Add the `mask` attribute to display entered characters as bullets (•). The val
 
 ### Appearance
 
-Use the `appearance` attribute to change the visual style of the segments.
+Use the `appearance` attribute to change the visual style of the segments. The default is `outlined`.
 
 ```html {.example}
 <div class="wa-stack">
-  <wa-otp-input label="Outlined (default)" appearance="outlined"></wa-otp-input>
+  <wa-otp-input label="Outlined" appearance="outlined"></wa-otp-input>
   <wa-otp-input label="Filled" appearance="filled"></wa-otp-input>
   <wa-otp-input label="Filled outlined" appearance="filled-outlined"></wa-otp-input>
   <wa-otp-input label="Contained" appearance="contained"></wa-otp-input>
@@ -131,13 +131,13 @@ Use the `appearance` attribute to change the visual style of the segments.
 
 ### Size
 
-Use the `size` attribute to change the size of each segment.
+Use the `size` attribute to change the size of each segment. The default is `m`.
 
 ```html {.example}
 <div class="wa-stack">
   <wa-otp-input label="Extra small" size="xs"></wa-otp-input>
   <wa-otp-input label="Small" size="s"></wa-otp-input>
-  <wa-otp-input label="Medium (default)" size="m"></wa-otp-input>
+  <wa-otp-input label="Medium" size="m"></wa-otp-input>
   <wa-otp-input label="Large" size="l"></wa-otp-input>
   <wa-otp-input label="Extra large" size="xl"></wa-otp-input>
 </div>
@@ -172,26 +172,16 @@ Use the `value` attribute to prefill the segments — for example, when a code a
 Pasting a full code fills all segments in one step. Characters that don't match the `type` attribute are silently dropped, so pasting `"ABC-123"` into a `numeric` field produces `123`.
 
 ```html {.example}
-<div id="paste-demo">
-  <wa-button id="copy-btn" appearance="outlined" size="s">
-    <wa-icon slot="prefix" name="clipboard"></wa-icon>
-    <span id="copy-label">Copy code: 123456</span>
+<wa-copy-button value="314159">
+  <wa-button appearance="filled">
+    <wa-icon slot="start" name="clipboard"></wa-icon>
+    Copy code: 314159
   </wa-button>
+</wa-copy-button>
 
-  <wa-divider></wa-divider>
+<wa-divider></wa-divider>
 
-  <wa-otp-input id="paste-target" label="Paste your code below"></wa-otp-input>
-</div>
-
-<script type="module">
-  const demo = document.getElementById('paste-demo');
-  demo.querySelector('#copy-btn').addEventListener('click', async () => {
-    await navigator.clipboard.writeText('123456');
-    const label = demo.querySelector('#copy-label');
-    label.textContent = 'Copied!';
-    setTimeout(() => (label.textContent = 'Copy code: 123456'), 2000);
-  });
-</script>
+<wa-otp-input label="Paste your code below"></wa-otp-input>
 ```
 
 ### Autofill
@@ -261,7 +251,7 @@ Use the `setCustomValidity()` method to set a custom validation message. This wi
 
 ```html {.example}
 <form id="custom-validity-form">
-  <wa-otp-input name="code" label="Verification code" hint="The correct code is 123456." required></wa-otp-input>
+  <wa-otp-input name="code" label="Verification code" hint="The correct code is 314159." required></wa-otp-input>
   <br />
   <wa-button appearance="filled" type="submit">Verify</wa-button>
 </form>
@@ -271,7 +261,7 @@ Use the `setCustomValidity()` method to set a custom validation message. This wi
   const otp = form.querySelector('wa-otp-input');
 
   otp.addEventListener('input', () => {
-    const isValid = otp.value.length < otp.length || otp.value === '123456';
+    const isValid = otp.value.length < otp.length || otp.value === '314159';
     otp.setCustomValidity(isValid ? '' : 'That code didn’t match. Check your device and try again.');
   });
 
