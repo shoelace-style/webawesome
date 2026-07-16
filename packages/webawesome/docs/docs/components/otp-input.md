@@ -14,6 +14,9 @@ use-cases:
   - PIN entry
   - invite code
   - serial number
+  - license key
+  - gift card
+  - device pairing
 ---
 
 ```html {.example}
@@ -92,8 +95,8 @@ Use the `format` attribute to arrange segments into groups with literal separato
 <div class="wa-stack">
   <!-- Two groups of three with a space: e.g. "ABC DEF" -->
   <wa-otp-input label="Invite code" type="alphanumeric" format="### ###"></wa-otp-input>
-  <!-- Two groups of four joined by a dash: e.g. "1234-5678" -->
-  <wa-otp-input label="Serial number" format="####-####"></wa-otp-input>
+  <!-- Three groups of four joined by dashes: e.g. "1234-5678-9012" -->
+  <wa-otp-input label="License key" type="alphanumeric" format="####-####-####"></wa-otp-input>
 </div>
 ```
 
