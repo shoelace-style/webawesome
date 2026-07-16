@@ -147,13 +147,7 @@ The main content fills the remaining inline space of the container. By default, 
 
 ## Align Items
 
-By default, items are centered in the block direction of the `wa-flank` container. You can add any of the following [`wa-align-items-*`](/docs/utilities/align-items) classes to an element with `wa-flank` to specify how items are aligned in the block direction:
-
-- `wa-align-items-start`
-- `wa-align-items-end`
-- `wa-align-items-center`
-- `wa-align-items-stretch`
-- `wa-align-items-baseline`
+By default, items are centered in the block direction of the `wa-flank` container. Add any [`wa-align-items-*`](/docs/utilities/align-items) class to change how items line up in the block direction.
 
 ```html {.example}
 <div class="wa-stack">
@@ -178,18 +172,7 @@ By default, items are centered in the block direction of the `wa-flank` containe
 
 ## Gap
 
-By default, the gap between flank items uses `--wa-space-m` from your theme. You can add any of the following [`wa-gap-*`](/docs/utilities/gap) classes to an element with `wa-flank` to specify the gap between items:
-
-- `wa-gap-0`
-- `wa-gap-3xs`
-- `wa-gap-2xs`
-- `wa-gap-xs`
-- `wa-gap-s`
-- `wa-gap-m`
-- `wa-gap-l`
-- `wa-gap-xl`
-- `wa-gap-2xl`
-- `wa-gap-3xl`
+By default, the gap between flank items uses `--wa-space-m` from your theme. Add any [`wa-gap-*`](/docs/utilities/gap) class to change the spacing between items.
 
 ```html {.example}
 <div class="wa-stack">
