@@ -26,7 +26,7 @@ Type digits to fill the focused segment (focus auto-advances when a segment can 
 ```
 
 ```html {.example .anatomy-only}
-<wa-time-input label="Meeting time" hint="Choose a time that works for you." value="14:30" with-clear>
+<wa-time-input label="Meeting time" hint="Choose a time that works for you." value="14:30">
   <wa-icon slot="start" name="clock"></wa-icon>
 </wa-time-input>
 ```

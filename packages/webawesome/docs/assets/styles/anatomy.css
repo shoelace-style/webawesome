@@ -1,6 +1,6 @@
 component-anatomy,
 [data-anatomy-table] {
-  /* Both selectors: they're siblings, so the table's row tints also need the accent. */
+  /* Siblings, so the table's row tints share the accent. */
   --anatomy-accent: var(--wa-color-orange-50);
   --anatomy-accent-strong: var(--wa-color-orange-60);
   --anatomy-accent-on: var(--wa-color-orange-95);
@@ -8,27 +8,25 @@ component-anatomy,
 
 component-anatomy {
   display: block;
-  margin-block: var(--wa-space-l);
+  margin-block: var(--wa-space-m);
+  --anatomy-dim: 0.35;
 }
 
-/* Pin the diagram while the parts table scrolls under it. The host (not the card) sticks — .anatomy-section
-   is its containing block, so the pin releases at the section end. Offset uses wa-page's own chrome vars, not
-   --docs-header-height (unset here). The host is a solid surface-default box (matches wa-page → theme-safe)
-   masked via .wa-mask-fade-below into a scrim: opaque top inset, faded bottom inset. */
+/* Pin the diagram while the table scrolls under it; the host (not the card) sticks so the pin releases at the
+   section end. Offset = wa-page's own chrome vars. Masked into a scrim via .wa-mask-fade-below. */
 .anatomy-section component-anatomy.wa-mask-fade-below {
-  /* Neutralized off the sticky context so the card is never clipped; the extra class out-specifics the
-     utility's default start. */
+  /* Off the sticky context the card is never clipped; the extra class out-specifics the utility default. */
   --wa-mask-fade-start: 100%;
 }
 
 @media (min-height: 40rem) {
   .anatomy-section component-anatomy.wa-mask-fade-below {
-    --anatomy-fade: var(--wa-space-3xl);
+    --anatomy-fade: var(--wa-space-2xl);
     position: sticky;
     top: calc(var(--banner-top, 0px) + var(--header-top, 0px) + var(--subheader-top, 0px));
     z-index: 1;
     margin-block: 0;
-    padding-block: var(--wa-space-xl) var(--anatomy-fade);
+    padding-block: var(--wa-space-l) var(--anatomy-fade);
     background-color: var(--wa-color-surface-default);
     --wa-mask-fade-start: calc(100% - var(--anatomy-fade));
   }
@@ -42,7 +40,7 @@ component-anatomy {
   padding: 0;
 }
 
-/* Rendered (so the diagram can clone it) but hidden from the visible examples list. */
+/* Rendered so the diagram can clone it, but hidden from the visible examples list. */
 .code-example-anatomy-only {
   display: none;
 }
@@ -53,23 +51,43 @@ component-anatomy {
   --background-dot-color: color-mix(in oklab, var(--wa-color-text-normal), transparent 92%);
   display: grid;
   place-items: center;
-  min-height: 10rem;
-  padding: var(--wa-space-2xl);
+  min-height: 8rem;
+  padding: var(--wa-space-xl);
   background-color: var(--wa-color-surface-lowered);
 }
 
-/* Definite width so fluid components fill it; inline components center via text-align, block/flex ones via
-   the margin-inline below. */
+/* Definite width so fluid components fill it; inline content centers via text-align, block/flex via margin. */
 .anatomy-subject {
   inline-size: min(100%, 24rem);
   text-align: center;
 }
 
-/* Isolation boundary: reset the only inherited property (text-align) the anatomy sets above so the clone
-   renders as if placed normally. Any future inherited property added above must be neutralized here too. */
+/* Isolation boundary: reset the text-align inherited from above so the clone renders as if placed normally. */
 .anatomy-subject > * {
   margin-inline: auto;
   text-align: start;
+}
+
+/* Fade a child's context (siblings + a group parent's label/hint chrome). Only non-ancestors, so opacity
+   never compounds on the subject. */
+.anatomy-context-dim,
+.anatomy-context-parent::part(form-control-label),
+.anatomy-context-parent::part(hint) {
+  opacity: var(--anatomy-dim);
+}
+
+/* A horizontal card lays media + body side-by-side; widen the stage and cap the media so neither is crushed. */
+.anatomy-subject:has(wa-card[orientation='horizontal']) {
+  inline-size: min(100%, 32rem);
+}
+
+.anatomy-subject wa-card[orientation='horizontal'] img[slot='media'] {
+  max-inline-size: 14rem;
+}
+
+/* A breadcrumb reads as one line; size it to its content (up to the stage) instead of the 24rem default. */
+.anatomy-subject:has(wa-breadcrumb) {
+  inline-size: fit-content;
 }
 
 .anatomy-regions {
@@ -85,7 +103,6 @@ component-anatomy {
   cursor: pointer;
   background-color: transparent;
   outline: var(--wa-border-width-m) solid transparent;
-  /* Small offset so the ring doesn't compound with a part's own box padding. */
   outline-offset: var(--wa-space-3xs);
   transition:
     outline-color var(--wa-transition-fast) var(--wa-transition-easing),
@@ -98,8 +115,7 @@ component-anatomy {
   background-color: color-mix(in oklab, var(--anatomy-accent) 12%, transparent);
 }
 
-/* wa-badge's fill lives on its :host, so recolor by styling the element directly — an outer-tree rule beats
-   the component's own :host styles (no ::part / !important). */
+/* wa-badge's fill lives on its :host, so recolor via an outer-tree rule (beats the component's own :host). */
 .anatomy-region-label {
   --pulse-color: var(--anatomy-accent);
   position: absolute;
@@ -146,17 +162,14 @@ component-anatomy {
   background-color: color-mix(in oklab, var(--anatomy-accent) 8%, transparent);
 }
 
-/* Scroll targets clear the pinned card via --anatomy-scroll-inset (the card's on-screen height, kept by JS;
-   0 when not sticky) — covers a tapped row and the browser's keyboard-focus auto-scroll. */
+/* Scroll targets clear the pinned card via --anatomy-scroll-inset (kept by JS; 0 when not sticky). */
 .anatomy-section tr[data-part-name],
 .anatomy-section .anatomy-part-trigger {
   scroll-margin-block-start: var(--anatomy-scroll-inset, 0px);
 }
 
-/* A transparent inline wrapper around the <code>, so the table row never shifts when a name toggles between
-   plain code and button. `all: unset` strips the native button's intrinsic box (which otherwise renders ~2
-   line-boxes tall); line-height: 0 then collapses the button's own strut so the <code>'s restored line box
-   below governs — leaving the exact box of the un-upgraded plain <code>. */
+/* `all: unset` strips the native button's intrinsic box (~2 line-boxes tall); line-height: 0 collapses its
+   strut so the row matches the plain <code> and never shifts when a name toggles to a button. */
 .anatomy-part-trigger {
   all: unset;
   line-height: 0;
@@ -164,8 +177,7 @@ component-anatomy {
   border-radius: var(--wa-border-radius-s);
 }
 
-/* Restore the code's own line box (the button's line-height: 0 would otherwise collapse it), and the touch
-   cue: WA's link-decoration token — dotted at rest, solid on hover/focus. */
+/* Restore the code's line box (the button's line-height: 0 collapses it) + touch cue via WA's link token. */
 .anatomy-part-trigger code {
   line-height: var(--wa-line-height-normal);
   text-decoration: var(--wa-link-decoration-default);

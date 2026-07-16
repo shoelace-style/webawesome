@@ -20,7 +20,7 @@ use-cases:
 ```
 
 ```html {.example .anatomy-only}
-<wa-input type="password" label="Password" hint="Must be at least 8 characters." value="correcthorse" with-clear>
+<wa-input type="password" label="Password" hint="Must be at least 8 characters." value="correcthorse">
   <wa-icon slot="start" name="lock"></wa-icon>
 </wa-input>
 ```

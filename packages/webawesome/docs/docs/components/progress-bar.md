@@ -22,7 +22,7 @@ use-cases:
 
 Use the `label` attribute to tell assistive devices how to announce the progress bar.
 
-```html {.example .anatomy}
+```html {.example}
 <wa-progress-bar value="50" label="Upload progress"></wa-progress-bar>
 ```
 

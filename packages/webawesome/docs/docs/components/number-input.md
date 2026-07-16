@@ -18,8 +18,8 @@ use-cases:
 ```
 
 ```html {.example .anatomy-only}
-<wa-number-input label="Quantity" hint="How many would you like?" value="1" style="max-width: 260px;">
-  <wa-icon slot="start" name="hashtag"></wa-icon>
+<wa-number-input label="Tickets" hint="How many would you like?" value="2" style="max-width: 260px;">
+  <wa-icon slot="start" name="ticket"></wa-icon>
 </wa-number-input>
 ```
 

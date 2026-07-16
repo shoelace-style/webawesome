@@ -26,7 +26,7 @@ use-cases:
 ```
 
 ```html {.example .anatomy-only}
-<wa-select label="Coffee order" hint="We'll grind it fresh to order." value="latte" with-clear>
+<wa-select label="Coffee order" hint="We'll grind it fresh to order." value="latte">
   <wa-icon slot="start" name="mug-hot"></wa-icon>
   <wa-option value="espresso">Espresso</wa-option>
   <wa-option value="latte">Latte</wa-option>

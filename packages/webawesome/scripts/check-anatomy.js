@@ -1,7 +1,9 @@
 /**
  * Fails when a component doc flags an anatomy example the diagram can't use — the flagged block doesn't
- * contain the component's tag (the clone falls back), or the page has no diagram (`hasAnatomy: false` / a
- * `parent` sub-component) so an `.anatomy-only` flag hides the example for nothing. Static analysis, no build.
+ * contain the component's tag (the clone falls back), the page has no diagram (`hasAnatomy: false` / a
+ * `parent` sub-component) so an `.anatomy-only` flag hides the example for nothing, or a multi-instance
+ * example doesn't mark exactly one `data-anatomy-subject` (the diagram would silently pick the first).
+ * Static analysis, no build.
  */
 import { globby } from 'globby';
 import { readFile } from 'node:fs/promises';
@@ -43,9 +45,18 @@ export async function check(options = {}) {
       if (blocks.length > 0) problems.push('flagged an anatomy example, but this page has no diagram');
     } else {
       // Boundary guard so `wa-input` doesn't match `wa-input-foo`.
-      const hasTag = new RegExp(`<${tag}(?![\\w-])`);
+      const tagPattern = new RegExp(`<${tag}(?![\\w-])`, 'g');
       for (const [index, block] of blocks.entries()) {
-        if (!hasTag.test(block)) problems.push(`anatomy example #${index + 1} has no <${tag}> to render`);
+        const tagCount = (block.match(tagPattern) || []).length;
+        const markedCount = (block.match(/data-anatomy-subject/g) || []).length;
+        if (tagCount === 0) {
+          problems.push(`anatomy example #${index + 1} has no <${tag}> to render`);
+        } else if (markedCount > 1) {
+          problems.push(`anatomy example #${index + 1} marks ${markedCount} subjects (need exactly one)`);
+        } else if (tagCount > 1 && markedCount === 0) {
+          // Several instances but no marker → the diagram would silently pick the first. Force a choice.
+          problems.push(`anatomy example #${index + 1} has ${tagCount} <${tag}> but none marked data-anatomy-subject`);
+        }
       }
     }
 

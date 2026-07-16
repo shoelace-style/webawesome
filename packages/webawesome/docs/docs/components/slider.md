@@ -14,7 +14,7 @@ use-cases:
   - seek bar
 ---
 
-```html {.example .anatomy}
+```html {.example}
 <wa-slider
   label="Number of users"
   hint="Limit six per team"
@@ -25,6 +25,13 @@ use-cases:
   with-markers
   with-tooltip
 >
+  <span slot="reference">Less</span>
+  <span slot="reference">More</span>
+</wa-slider>
+```
+
+```html {.example .anatomy-only}
+<wa-slider label="Number of users" hint="Limit six per team" value="3" min="0" max="6">
   <span slot="reference">Less</span>
   <span slot="reference">More</span>
 </wa-slider>

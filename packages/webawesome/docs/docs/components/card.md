@@ -38,7 +38,7 @@ use-cases:
 ```
 
 ```html {.example .anatomy-only}
-<wa-card style="max-width: 300px;">
+<wa-card>
   <img
     slot="media"
     src="https://images.unsplash.com/photo-1559209172-0ff8f6d49ff7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"
@@ -47,6 +47,9 @@ use-cases:
   <strong slot="header">Mittens</strong>
   This kitten is as cute as he is playful. Bring him home today!
   <wa-button slot="footer" variant="brand" pill>More Info</wa-button>
+  <wa-button slot="actions" variant="neutral" appearance="plain">
+    <wa-icon name="ellipsis" label="Actions"></wa-icon>
+  </wa-button>
 </wa-card>
 ```
 
