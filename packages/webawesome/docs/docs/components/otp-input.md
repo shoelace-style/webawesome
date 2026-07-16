@@ -31,7 +31,7 @@ This component works with standard `<form>` elements. See [form controls](/docs/
 Use the `label` attribute to give the field an accessible label. For labels that contain HTML, use the `label` slot instead.
 
 ```html {.example}
-<wa-otp-input label="Verification code"></wa-otp-input>
+<wa-otp-input label="Security code"></wa-otp-input>
 ```
 
 ### Hint
@@ -39,7 +39,7 @@ Use the `label` attribute to give the field an accessible label. For labels that
 Add descriptive hint text with the `hint` attribute. For hints that contain HTML, use the `hint` slot instead.
 
 ```html {.example}
-<wa-otp-input label="Verification code" hint="Check your email for a 6-digit code."></wa-otp-input>
+<wa-otp-input label="Sign-in code" hint="Check your email for a 6-digit code."></wa-otp-input>
 ```
 
 ### Placeholder
