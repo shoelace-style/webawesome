@@ -350,6 +350,11 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
       }
     } else if (this.readonly) {
       // All character-mutating keys are blocked when readonly; navigation above still works.
+      // preventDefault matters here: a readonly input isn't an editable context, so WebKit
+      // treats an unhandled Backspace as the history-back gesture and navigates away.
+      if (e.key === 'Backspace' || e.key === 'Delete') {
+        e.preventDefault();
+      }
     } else if (e.key === 'Backspace') {
       // Prevent browser from shifting chars; manually splice the slot and move back.
       e.preventDefault();

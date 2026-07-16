@@ -595,6 +595,14 @@ describe('<wa-otp-input>', () => {
           const segments = el.shadowRoot!.querySelector('.segments')!;
           expect(segments.getAttribute('role')).to.equal('group');
         });
+
+        it('should pass accessibility checks', async () => {
+          const el = await fixture<WaOtpInput>(
+            html`<wa-otp-input label="Verification code" hint="Check your email for a 6-digit code."></wa-otp-input>`,
+          );
+          await el.updateComplete;
+          await expect(el).to.be.accessible();
+        });
       });
 
       describe('enter key', () => {
