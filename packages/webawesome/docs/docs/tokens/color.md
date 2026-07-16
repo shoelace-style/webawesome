@@ -247,7 +247,7 @@ Surfaces are background layers that content rests on. They convey elevation hier
 
 ### Text
 
-Text colors are used for readable content, and should maintain a minimum 4.5:1 contrast ratio against surface colors.
+Text colors are used for readable content and should meet a minimum 4.5:1 contrast ratio against surface colors.
 
 <wa-scroller>
   <table class="token-table wa-hover-rows">
