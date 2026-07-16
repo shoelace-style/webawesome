@@ -40,9 +40,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a lifecycle issue in `<wa-option>` [pr:2591]
 - Fixed a bug with extra margin on the first button of a `<wa-button-group>` [pr:2592]
 
-
 :::
-
 
 ## 3.10.0
 
@@ -50,7 +48,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::added
 
-- Added an experimental `<wa-otp-input>` component, generally used for fixed length codes (PINs, OTPs, verification codes, etc).
+- Added the experimental `<wa-otp-input>` component for entering fixed-length codes — one-time passcodes, PINs, and verification codes [pr:2584]
 - Added the experimental `<wa-random-content>` component, which randomly shows one or more of its children — handy for rotating testimonials, tips, or featured content
 - Added the Mosaic, Pixel, Vellum, Slab Duo, and Slab Press Duo Pro+ icon families to `<wa-icon>` [pr:2562]
 - Added the `buzz`, `flip-360`, `float`, `jello`, `spin-snap`, `spin-snap-4`, `spin-snap-8`, `swing`, and `wag` animations to `<wa-icon>` [pr:2562]

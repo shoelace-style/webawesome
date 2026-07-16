@@ -16,7 +16,7 @@ import sizeStyles from '../../styles/component/size.styles.js';
 import styles from './otp-input.styles.js';
 
 /**
- * @summary A form-associated OTP/passcode input that displays a fixed number of character segments.
+ * @summary OTP inputs collect one-time passcodes, PINs, and other fixed-length codes, one character per segment. Use them for SMS verification, two-factor authentication, and invite codes.
  * @documentation https://webawesome.com/docs/components/otp-input
  * @status experimental
  * @since 3.10
@@ -30,6 +30,7 @@ import styles from './otp-input.styles.js';
  * @event change - Emitted when the value changes and the field loses focus.
  * @event wa-complete - Emitted once when all segments are filled. Cancelable — call `preventDefault()` to stop
  *   `autosubmit` from submitting the form for this completion.
+ * @event wa-clear - Emitted when the control's value is cleared.
  * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
  * @csspart label - The label element.
