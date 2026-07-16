@@ -24,11 +24,13 @@ Several Web Awesome components (like [`<wa-badge>`](/docs/components/badge), [`<
 
 Add one of these classes to any element to apply a semantic color:
 
-- `.wa-brand`
-- `.wa-neutral`
-- `.wa-success`
-- `.wa-warning`
-- `.wa-danger`
+| Class Name   | Best For                              |
+| ------------ | ------------------------------------- |
+| `wa-brand`   | Primary emphasis and brand moments    |
+| `wa-neutral` | Default, low-emphasis UI              |
+| `wa-success` | Positive or confirming states         |
+| `wa-warning` | Cautionary states that need attention |
+| `wa-danger`  | Errors and destructive actions        |
 
 ## How Variants Work
 
