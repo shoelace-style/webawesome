@@ -37,8 +37,8 @@ import styles from './otp-input.styles.js';
  * @csspart label - The label element.
  * @csspart hint - The hint element.
  * @csspart segments - The wrapper around all segment cells and separators.
- * @csspart segment - An individual character segment cell.
- * @csspart segment-separator - A literal separator character between segment groups (e.g. space or dash).
+ * @csspart segment - An individual character segment cell. Use `[part~="segment"]` to style all.
+ * @csspart segment-literal - Inert literal text between segment groups (e.g. space or dash).
  *
  * @cssstate --blank - Applied when no characters have been entered.
  * @cssstate --filled - Applied when all segments are filled.
@@ -46,9 +46,9 @@ import styles from './otp-input.styles.js';
  * @cssstate readonly - Applied when the component is readonly.
  * @cssstate user-invalid - Applied when validation fails after interaction.
  *
- * @cssproperty --segment-size - Width and height of each segment cell. Default: `2.5em`.
- * @cssproperty --segment-gap - Gap between segments (not used in `contained` appearance). Default: themed.
- * @cssproperty --segment-border-radius - Corner radius of each segment. Default: themed.
+ * @cssproperty [--segment-size=2.5em] - Width and height of each segment cell.
+ * @cssproperty [--segment-gap=var(--wa-space-xs)] - Gap between segments (not used in `contained` appearance).
+ * @cssproperty [--segment-border-radius=var(--wa-form-control-border-radius)] - Corner radius of each segment.
  */
 @customElement('wa-otp-input')
 export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
@@ -523,9 +523,7 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
       <div part="segments" class="segments" role="group" aria-labelledby="label" @click=${this.handleSegmentsClick}>
         ${parts.map(part => {
           if (part.type === 'separator') {
-            return html`<span part="segment-separator" class="segment-separator" aria-hidden="true"
-              >${part.char}</span
-            >`;
+            return html`<span part="segment-literal" class="segment-literal" aria-hidden="true">${part.char}</span>`;
           }
 
           const i = segmentIndex++;
