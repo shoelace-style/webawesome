@@ -20,7 +20,23 @@ export class LocalizeController extends DefaultLocalizationController<Translatio
       return this.host.lang || 'en';
     }
 
-    return super.lang();
+    return normalizeLang(super.lang());
+  }
+}
+
+// Chrome Translate (and some browser extensions) rewrite the root `lang` attribute to a non-BCP-47
+// value like `auto` at runtime. That flows through `super.lang()` straight into `Intl.NumberFormat`
+// and `Intl.DateTimeFormat`, which throw a `RangeError: Invalid language tag` on such tags. This
+// surfaces as an unhandled promise rejection during re-render and can't be worked around by
+// consumers, since the invalid tag is set after render inside the component's own locale
+// resolution. Falling back to English keeps `<wa-format-number>`, `<wa-format-date>`, and
+// `<wa-relative-time>` rendering instead of throwing. See issue #2479.
+function normalizeLang(lang: string): string {
+  try {
+    Intl.getCanonicalLocales(lang);
+    return lang;
+  } catch {
+    return 'en';
   }
 }
 

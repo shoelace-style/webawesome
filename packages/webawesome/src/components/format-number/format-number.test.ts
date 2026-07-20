@@ -59,6 +59,21 @@ describe('<wa-format-number>', () => {
         });
       });
 
+      describe('invalid language tags', () => {
+        // Chrome Translate rewrites the root `lang` to `auto` at runtime, which is not a valid
+        // BCP-47 tag. The component must fall back instead of throwing an unhandled `RangeError`.
+        // See issue #2479.
+        ['auto', 'en_US'].forEach(lang => {
+          it(`should fall back to a valid language for lang="${lang}"`, async () => {
+            const el = await fixture<WaFormatNumber>(
+              html`<wa-format-number value="1000" lang="${lang}"></wa-format-number>`,
+            );
+            const expected = new Intl.NumberFormat('en', { style: 'decimal', useGrouping: true }).format(1000);
+            expect(el.shadowRoot?.textContent).to.equal(expected);
+          });
+        });
+      });
+
       describe('grouping', () => {
         it('should use grouping separators by default', async () => {
           const el = await fixture<WaFormatNumber>(html`<wa-format-number value="1000"></wa-format-number>`);

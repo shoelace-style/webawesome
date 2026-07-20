@@ -46,6 +46,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug in `<wa-checkbox>` where it would improperly submit values after it was enabled after being disabled. [pr:2607]
 - Fixed the remove button in `<wa-tag>` to match the tag's `size` [pr:2615]
 - Fixed missing CSS parts documentation for `<wa-card>`, `<wa-color-picker>`, `<wa-textarea>`, `<wa-scroller>`, and `<wa-page>` [pr:2623]
+- Fixed an unhandled `RangeError: Invalid language tag` thrown by `<wa-format-number>`, `<wa-format-date>`, and `<wa-relative-time>` when the resolved `lang` is not a valid BCP-47 tag — most commonly `auto`, which Chrome Translate writes to the root `lang` at runtime; `LocalizeController` now falls back to a valid language instead of throwing [issue:2479]
 
 :::
 
