@@ -16,7 +16,8 @@ import sizeStyles from '../../styles/component/size.styles.js';
 import styles from './otp-input.styles.js';
 
 /**
- * @summary OTP inputs collect one-time passcodes, PINs, and other fixed-length codes, one character per segment. Use them for SMS verification, two-factor authentication, and invite codes.
+ * @summary OTP inputs collect one-time passcodes, PINs, and other fixed-length codes, one character per segment.
+ * Use them for SMS verification, two-factor authentication, and invite codes.
  * @documentation https://webawesome.com/docs/components/otp-input
  * @status experimental
  * @since 3.10

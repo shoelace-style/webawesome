@@ -167,7 +167,7 @@ Use the `readonly` attribute to display a value without allowing edits. Unlike `
 Use the `value` attribute to prefill the segments — for example, when a code arrives in a link's query parameter.
 
 ```html {.example}
-<wa-otp-input label="Magic link code" value="483920"></wa-otp-input>
+<wa-otp-input label="Magic link code" value="271828"></wa-otp-input>
 ```
 
 ### Pasting
