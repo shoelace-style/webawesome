@@ -546,7 +546,8 @@
       font-size: var(--wa-font-size-xl);
     }
 
-    strong a {
+    strong a,
+    [class*='wa-caption'] a {
       color: inherit;
     }
 
