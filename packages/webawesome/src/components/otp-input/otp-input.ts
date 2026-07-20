@@ -37,7 +37,7 @@ import styles from './otp-input.styles.js';
  * @csspart label - The label element.
  * @csspart hint - The hint element.
  * @csspart segments - The wrapper around all segment cells and separators.
- * @csspart segment - An individual character segment cell. Use `[part~="segment"]` to style all.
+ * @csspart segment - An individual character segment cell.
  * @csspart segment-literal - Inert literal text between segment groups (e.g. space or dash).
  *
  * @cssstate --blank - Applied when no characters have been entered.
