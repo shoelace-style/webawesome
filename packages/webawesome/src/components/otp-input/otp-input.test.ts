@@ -581,6 +581,24 @@ describe('<wa-otp-input>', () => {
         });
       });
 
+      describe('caret', () => {
+        it('should show the caret in an empty active segment', async () => {
+          const el = await fixture<WaOtpInput>(html`<wa-otp-input label="Code"></wa-otp-input>`);
+          el.focus();
+          await el.updateComplete;
+          expect(el.shadowRoot!.querySelector('.caret')).to.exist;
+        });
+
+        it('should not draw the caret over a filled segment', async () => {
+          // A filled active segment is in replace mode — the ring marks it; a caret
+          // through the existing character reads as a strikethrough.
+          const el = await fixture<WaOtpInput>(html`<wa-otp-input label="Code" value="123456"></wa-otp-input>`);
+          el.focus();
+          await el.updateComplete;
+          expect(el.shadowRoot!.querySelector('.caret')).to.not.exist;
+        });
+      });
+
       describe('accessibility', () => {
         it('should have aria-describedby pointing to the hint element', async () => {
           const el = await fixture<WaOtpInput>(html`<wa-otp-input hint="Enter your code"></wa-otp-input>`);

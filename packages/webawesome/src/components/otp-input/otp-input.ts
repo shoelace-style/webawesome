@@ -554,7 +554,7 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
                 : this.placeholder
                   ? html`<span class="segment--placeholder">${this.placeholder}</span>`
                   : ''}
-              ${isActive ? html`<span class="caret"></span>` : ''}
+              ${isActive && !char ? html`<span class="caret"></span>` : ''}
             </div>
           `;
         })}
