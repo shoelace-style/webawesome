@@ -8,6 +8,9 @@ export default css`
   /* Segments container */
   .segments {
     position: relative;
+    /* Codes read left-to-right regardless of locale — keep segment order and caret movement LTR
+       even when the surrounding page is RTL. */
+    direction: ltr;
     display: inline-flex;
     align-items: center;
     align-self: start;
@@ -127,8 +130,8 @@ export default css`
     }
   }
 
-  /* Separator character between segment groups */
-  .segment-separator {
+  /* Literal separator character between segment groups */
+  .segment-literal {
     display: inline-block;
     flex-shrink: 0;
     color: var(--wa-color-text-quiet);
@@ -176,7 +179,7 @@ export default css`
 
   /* Dividers between contained segments */
   :host([appearance='contained']) .segment + .segment,
-  :host([appearance='contained']) .segment-separator + .segment {
+  :host([appearance='contained']) .segment-literal + .segment {
     border-left: var(--wa-form-control-border-width) var(--wa-form-control-border-style)
       var(--wa-form-control-border-color);
   }
