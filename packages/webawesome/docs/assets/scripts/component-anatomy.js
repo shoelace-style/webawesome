@@ -44,20 +44,30 @@ function stripIdentity(root) {
   }
 }
 
+// Slotted text is content too. A part on a bare `<slot>` (`content`, `label`, …) is often mostly text, so
+// measuring assigned *elements* alone would box just an icon and miss the words beside it.
+function nodeRect(node) {
+  if (node.nodeType !== Node.TEXT_NODE) return node.getBoundingClientRect?.();
+  if (!node.textContent.trim()) return null;
+  const range = document.createRange();
+  range.selectNodeContents(node);
+  return range.getBoundingClientRect();
+}
+
 // Bounding box for a part; a degenerate rect (a `display: contents` slot, or slider's 0-height `markers`
-// container) is rebuilt from the children that carry the real extent. Null when nothing renders.
+// container) is rebuilt from the nodes that carry the real extent. Null when nothing renders.
 function measureRect(el) {
   const rect = el.getBoundingClientRect();
   if (rect.width && rect.height) return rect;
 
-  const standIns = el.tagName === 'SLOT' ? el.assignedElements({ flatten: true }) : [...el.children];
+  const standIns = el.tagName === 'SLOT' ? el.assignedNodes({ flatten: true }) : [...el.children];
   let left = Infinity;
   let top = Infinity;
   let right = -Infinity;
   let bottom = -Infinity;
   for (const node of standIns) {
-    const r = node.getBoundingClientRect();
-    if (!(r.width || r.height)) continue;
+    const r = nodeRect(node);
+    if (!r || !(r.width || r.height)) continue;
     left = Math.min(left, r.left);
     top = Math.min(top, r.top);
     right = Math.max(right, r.right);
