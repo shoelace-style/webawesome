@@ -24,11 +24,13 @@ Several Web Awesome components (like [`<wa-badge>`](/docs/components/badge), [`<
 
 Add one of these classes to any element to apply a semantic color:
 
-- `.wa-brand`
-- `.wa-neutral`
-- `.wa-success`
-- `.wa-warning`
-- `.wa-danger`
+| Class Name   | Best For                              |
+| ------------ | ------------------------------------- |
+| `wa-brand`   | Primary emphasis and brand color      |
+| `wa-neutral` | Default, low-emphasis UI              |
+| `wa-success` | Positive or confirming states         |
+| `wa-warning` | Cautionary states that need attention |
+| `wa-danger`  | Errors and destructive actions        |
 
 ## How Variants Work
 
@@ -36,16 +38,16 @@ The variant classes don't apply styles directly. Instead, each one points a gene
 
 Web Awesome's [native styles](/docs/utilities/native/) use this pattern wherever it made sense, which is how a native `<button>` can pick up a `.wa-success` class and just work.
 
-## Example: Custom Class with Variants
+## Custom Class with Variants
 
 Here's a tiny `.callout` class that responds to every color variant without any extra selectors:
 
-```html { .example }
-<p class="callout">This is a callout.</p>
-<p class="callout wa-brand">This is a callout.</p>
-<p class="callout wa-success">This is a callout.</p>
-<p class="callout wa-warning">This is a callout.</p>
-<p class="callout wa-danger">This is a callout.</p>
+```html {.example}
+<p class="callout">Neutral</p>
+<p class="callout wa-brand">Brand</p>
+<p class="callout wa-success">Success</p>
+<p class="callout wa-warning">Warning</p>
+<p class="callout wa-danger">Danger</p>
 
 <style>
   .callout {
