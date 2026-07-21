@@ -30,6 +30,7 @@ import styles from './tooltip.styles.js';
  * @event wa-after-hide - Emitted after the tooltip has hidden and all animations are complete.
  *
  * @csspart base - The component's base wrapper, an `<wa-popup>` element.
+ * @csspart tooltip - The component's outer wrapper.
  * @csspart base__popup - The popup's exported `popup` part. Use this to target the tooltip's popup container.
  * @csspart base__arrow - The popup's exported `arrow` part. Use this to target the tooltip's arrow.
  * @csspart body - The tooltip's body where its content is rendered.
@@ -382,7 +383,7 @@ export default class WaTooltip extends WebAwesomeElement {
   render() {
     return html`
       <wa-popup
-        part="base"
+        part="base tooltip"
         exportparts="
           popup:base__popup,
           arrow:base__arrow

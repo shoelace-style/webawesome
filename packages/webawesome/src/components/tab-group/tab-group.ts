@@ -33,6 +33,7 @@ import styles from './tab-group.styles.js';
  * @event {{ name: String }} wa-tab-hide - Emitted when a tab is hidden.
  *
  * @csspart base - The component's base wrapper.
+ * @csspart tab-group - The component's outer wrapper.
  * @csspart nav - The tab group's navigation container where tabs are slotted in.
  * @csspart tabs - The container that wraps the tabs.
  * @csspart body - The tab group's body where tab panels are slotted in.
@@ -396,7 +397,7 @@ export default class WaTabGroup extends WebAwesomeElement {
 
     return html`
       <div
-        part="base"
+        part="base tab-group"
         class=${classMap({
           'tab-group': true,
           'tab-group-top': this.placement === 'top',

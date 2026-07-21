@@ -35,6 +35,7 @@ import styles from './details.styles.js';
  * @event wa-after-hide - Emitted after the details closes and all animations are complete.
  *
  * @csspart base - The inner `<details>` element used to render the component.
+ * @csspart details - The component's outer wrapper.
  *                 Styles you apply to the component are automatically applied to this part, so you usually don't need to deal with it unless you need to set the `display` property.
  * @csspart header - The header that wraps both the summary and the expand/collapse icon.
  * @csspart summary - The container that wraps the summary.
@@ -290,7 +291,7 @@ export default class WaDetails extends WebAwesomeElement {
     const isRtl = !this.hasUpdated ? this.dir === 'rtl' : this.localize.dir() === 'rtl';
 
     return html`
-      <details part="base">
+      <details part="base details">
         <summary
           part="header"
           role="button"

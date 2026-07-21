@@ -67,6 +67,7 @@ declare const EyeDropper: EyeDropperConstructor;
  * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
  * @csspart base - The component's base wrapper.
+ * @csspart color-picker - The component's outer wrapper.
  * @csspart trigger - The color picker's dropdown trigger.
  * @csspart trigger-container - The container that wraps the color picker's trigger.
  * @csspart swatches - The container that holds the swatches.
@@ -1115,7 +1116,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
     const colorPicker = html`
       <div
-        part="base"
+        part="base color-picker"
         class=${classMap({
           'color-picker': true,
         })}

@@ -25,6 +25,7 @@ import styles from './accordion-item.styles.js';
  * @slot icon - Optional expand/collapse icon. Works best with `<wa-icon>`.
  *
  * @csspart base - The component's base wrapper.
+ * @csspart accordion-item - The component's outer wrapper.
  * @csspart heading - The heading element wrapping the trigger button. Omitted when `heading-level="none"`.
  * @csspart button - The trigger button that toggles the panel.
  * @csspart label - The container that wraps the label.
@@ -200,7 +201,7 @@ export default class WaAccordionItem extends WebAwesomeElement {
     `;
 
     return html`
-      <div part="base">
+      <div part="base accordion-item">
         ${this.headingLevel === 'none' ? button : this.renderHeadingWrapper(button)}
         <div
           part="panel"

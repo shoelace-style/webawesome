@@ -35,6 +35,7 @@ import styles from './button.styles.js';
  * @slot end - An element, such as `<wa-icon>`, placed after the label.
  *
  * @csspart base - The component's base wrapper.
+ * @csspart button - The component's outer wrapper.
  * @csspart start - The container that wraps the `start` slot.
  * @csspart label - The button's label.
  * @csspart end - The container that wraps the `end` slot.
@@ -304,7 +305,7 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
     /* eslint-disable lit/binding-positions */
     return html`
       <${tag}
-        part="base"
+        part="base button"
         class=${classMap({
           button: true,
           caret: this.withCaret,

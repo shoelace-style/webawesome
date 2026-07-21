@@ -16,6 +16,7 @@ import styles from './badge.styles.js';
  * @slot end - An element, such as `<wa-icon>`, placed after the label.
  *
  * @csspart base - The component's base wrapper.
+ * @csspart badge - The component's outer wrapper.
  * @csspart start - The container that wraps the `start` slot.
  * @csspart end - The container that wraps the `end` slot.
  *
@@ -44,7 +45,7 @@ export default class WaBadge extends WebAwesomeElement {
         <slot name="start"></slot>
       </span>
 
-      <span part="base" role="status">
+      <span part="base badge" role="status">
         <slot></slot>
       </span>
 

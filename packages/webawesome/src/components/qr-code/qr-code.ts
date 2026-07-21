@@ -14,6 +14,7 @@ import styles from './qr-code.styles.js';
  * @since 2.0
  *
  * @csspart base - The component's base wrapper.
+ * @csspart qr-code - The component's outer wrapper.
  */
 @customElement('wa-qr-code')
 export default class WaQrCode extends WebAwesomeElement {
@@ -103,7 +104,7 @@ export default class WaQrCode extends WebAwesomeElement {
   render() {
     return html`
       <canvas
-        part="base"
+        part="base qr-code"
         class="qr-code"
         role="img"
         aria-label=${this.label?.length > 0 ? this.label : this.value}

@@ -17,6 +17,7 @@ import styles from './progress-bar.styles.js';
  * @slot - A label to show inside the progress indicator.
  *
  * @csspart base - The component's base wrapper.
+ * @csspart progress-bar - The component's outer wrapper.
  * @csspart indicator - The progress bar's indicator.
  * @csspart label - The progress bar's label.
  *
@@ -62,7 +63,7 @@ export default class WaProgressBar extends WebAwesomeElement {
   render() {
     return html`
       <div
-        part="base"
+        part="base progress-bar"
         class="progress-bar"
         role="progressbar"
         title=${ifDefined(this.title)}

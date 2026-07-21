@@ -16,6 +16,7 @@ import styles from './progress-ring.styles.js';
  * @slot - A label to show inside the ring.
  *
  * @csspart base - The component's base wrapper.
+ * @csspart progress-ring - The component's outer wrapper.
  * @csspart label - The progress ring label.
  * @csspart track - The progress ring's track.
  * @csspart indicator - The progress ring's indicator.
@@ -63,7 +64,7 @@ export default class WaProgressRing extends WebAwesomeElement {
   render() {
     return html`
       <div
-        part="base"
+        part="base progress-ring"
         class="progress-ring"
         role="progressbar"
         aria-label=${this.label.length > 0 ? this.label : this.localize.term('progress')}
