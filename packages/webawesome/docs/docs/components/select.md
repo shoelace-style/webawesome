@@ -67,6 +67,33 @@ Use the `placeholder` attribute to show prompt text before a selection is made.
 </wa-select>
 ```
 
+### Initial Value
+
+Use the `selected` attribute on individual options to set the initial selection, just like native HTML.
+
+```html {.example}
+<wa-select label="Default branch">
+  <wa-option value="main" selected>main</wa-option>
+  <wa-option value="develop">develop</wa-option>
+  <wa-option value="staging">staging</wa-option>
+</wa-select>
+```
+
+When the `multiple` attribute is present, add `selected` to each option that should start selected.
+
+```html {.example}
+<wa-select label="Toppings" multiple>
+  <wa-option value="mushrooms" selected>Mushrooms</wa-option>
+  <wa-option value="olives" selected>Olives</wa-option>
+  <wa-option value="peppers">Peppers</wa-option>
+  <wa-option value="onions">Onions</wa-option>
+</wa-select>
+```
+
+:::info
+Framework users can bind directly to the `value` property for reactive data binding and form state management.
+:::
+
 ### Appearance
 
 Use the `appearance` attribute to change the select's visual style.
@@ -152,7 +179,7 @@ Use the `with-clear` attribute to let people reset their choice. The clear butto
 
 ### Multiple
 
-To let people choose more than one option, add the `multiple` attribute. Pair it with `with-clear` so a long selection is easy to reset. Mark the initial selection with the `selected` attribute on individual options.
+To let people choose more than one option, add the `multiple` attribute. Pair it with `with-clear` so a long selection is easy to reset.
 
 ```html {.example}
 <wa-select label="Notify me about" multiple with-clear>
@@ -167,22 +194,6 @@ To let people choose more than one option, add the `multiple` attribute. Pair it
 :::info
 <strong>Multiple selections can grow the control vertically.</strong><br />
 Use the `max-options-visible` attribute to cap how many tags show at once before the rest collapse into a count.
-:::
-
-### Initial Value
-
-Use the `selected` attribute on individual options to set the initial selection, just like native HTML.
-
-```html {.example}
-<wa-select label="Default branch">
-  <wa-option value="main" selected>main</wa-option>
-  <wa-option value="develop">develop</wa-option>
-  <wa-option value="staging">staging</wa-option>
-</wa-select>
-```
-
-:::info
-Framework users can bind directly to the `value` property for reactive data binding and form state management.
 :::
 
 ### Grouping Options
