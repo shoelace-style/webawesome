@@ -45,7 +45,11 @@ component-anatomy {
   display: none;
 }
 
+/* The stage sits flush in the card body (::part(body) has no padding), so it carries the card's inner curve
+   itself — otherwise its square corners poke past the card's rounded ones. Prefer wa-card's own value so we
+   track it, and fall back to the same formula from public tokens if it's ever renamed. */
 .anatomy-stage {
+  --stage-radius: var(--inner-border-radius, calc(var(--wa-panel-border-radius) - var(--wa-panel-border-width)));
   --background-dot-radius: 1px;
   --background-dot-spacing: 1rem;
   --background-dot-color: color-mix(in oklab, var(--wa-color-text-normal), transparent 92%);
@@ -54,6 +58,14 @@ component-anatomy {
   min-height: 8rem;
   padding: var(--wa-space-xl);
   background-color: var(--wa-color-surface-lowered);
+  border-end-start-radius: var(--stage-radius);
+  border-end-end-radius: var(--stage-radius);
+}
+
+/* No state toggles means no header above, so the stage meets the card's top edge too. */
+.anatomy:not(:has([slot='header'])) .anatomy-stage {
+  border-start-start-radius: var(--stage-radius);
+  border-start-end-radius: var(--stage-radius);
 }
 
 /* Definite width so fluid components fill it; inline content centers via text-align, block/flex via margin. */
