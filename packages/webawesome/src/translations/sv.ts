@@ -45,8 +45,10 @@ const translation: Translation = {
   exitFullscreen: 'Avsluta helskärm',
   expandRow: 'Visa rad',
   filterByColumn: label => `Filtrera efter ${label}`,
+  filterFrom: 'Från',
   filterMax: 'Max',
   filterMin: 'Min',
+  filterTo: 'Till',
   firstPage: 'Första sidan',
   goToSlide: (slide, count) => `Gå till bild ${slide} av ${count}`,
   hideColumn: 'Dölj kolumn',
@@ -83,6 +85,7 @@ const translation: Translation = {
     if (num === 1) return '1 alternativ valt';
     return `${num} alternativ valda`;
   },
+  numRowsCopied: num => (num === 1 ? '1 rad kopierad' : `${num} rader kopierade`),
   numRowsSelected: num => (num === 1 ? '1 rad markerad' : `${num} rader markerade`),
   pageXOfY: (page, total) => `Sida ${page} av ${total}`,
   pagination: 'Paginering',

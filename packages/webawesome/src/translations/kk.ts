@@ -46,8 +46,10 @@ const translation: Translation = {
   exitFullscreen: 'Толық экраннан шығу',
   expandRow: 'Жолды жаю',
   filterByColumn: label => `${label} бойынша сүзу`,
+  filterFrom: 'Бастап',
   filterMax: 'Макс.',
   filterMin: 'Мин.',
+  filterTo: 'Дейін',
   firstPage: 'Бірінші бет',
   goToSlide: (slide, count) => `${slide}/${count} слайдқа өту`,
   hideColumn: 'Бағананы жасыру',
@@ -85,6 +87,7 @@ const translation: Translation = {
     if (num === 6) return `${num}-ау таңдалды`;
     return `${num} таңдалды`;
   },
+  numRowsCopied: num => (num === 1 ? '1 жол көшірілді' : `${num} жол көшірілді`),
   numRowsSelected: num => (num === 1 ? '1 жол таңдалды' : `${num} жол таңдалды`),
   pageXOfY: (page, total) => `${total} ішінен ${page} бет`,
   pagination: 'Беттеу',

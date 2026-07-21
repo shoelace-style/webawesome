@@ -45,8 +45,10 @@ const translation: Translation = {
   exitFullscreen: '退出全屏',
   expandRow: '展开行',
   filterByColumn: label => `按${label}筛选`,
+  filterFrom: '开始',
   filterMax: '最大值',
   filterMin: '最小值',
+  filterTo: '结束',
   firstPage: '首页',
   goToSlide: (slide, count) => `转到第 ${slide} 张幻灯片，共 ${count} 张`,
   hideColumn: '隐藏列',
@@ -77,6 +79,7 @@ const translation: Translation = {
     if (num === 1) return '已选择 1 个项目';
     return `${num} 选择项目`;
   },
+  numRowsCopied: num => `已复制 ${num} 行`,
   numRowsSelected: num => `已选择 ${num} 行`,
   pageXOfY: (page, total) => `第 ${page} 页，共 ${total} 页`,
   pagination: '分页',

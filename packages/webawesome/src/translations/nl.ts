@@ -46,8 +46,10 @@ const translation: Translation = {
   exitFullscreen: 'Volledig scherm sluiten',
   expandRow: 'Rij uitvouwen',
   filterByColumn: label => `Filteren op ${label}`,
+  filterFrom: 'Van',
   filterMax: 'Max',
   filterMin: 'Min',
+  filterTo: 'Tot',
   firstPage: 'Eerste pagina',
   goToSlide: (slide, count) => `Ga naar slide ${slide} van ${count}`,
   hideColumn: 'Kolom verbergen',
@@ -84,6 +86,7 @@ const translation: Translation = {
     if (num === 1) return '1 optie geselecteerd';
     return `${num} opties geselecteerd`;
   },
+  numRowsCopied: num => (num === 1 ? '1 rij gekopieerd' : `${num} rijen gekopieerd`),
   numRowsSelected: num => (num === 1 ? '1 rij geselecteerd' : `${num} rijen geselecteerd`),
   pageXOfY: (page, total) => `Pagina ${page} van ${total}`,
   pagination: 'Paginering',

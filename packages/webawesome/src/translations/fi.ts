@@ -45,8 +45,10 @@ const translation: Translation = {
   exitFullscreen: 'Poistu koko näytöltä',
   expandRow: 'Laajenna rivi',
   filterByColumn: label => `Suodata: ${label}`,
+  filterFrom: 'Alkaen',
   filterMax: 'Enint.',
   filterMin: 'Väh.',
+  filterTo: 'Päättyen',
   firstPage: 'Ensimmäinen sivu',
   goToSlide: (slide, count) => `Siirry diaan ${slide} / ${count}`,
   hideColumn: 'Piilota sarake',
@@ -83,6 +85,7 @@ const translation: Translation = {
     if (num === 1) return 'Yksi vaihtoehto valittu';
     return `${num} vaihtoehtoa valittu`;
   },
+  numRowsCopied: num => (num === 1 ? '1 rivi kopioitu' : `${num} riviä kopioitu`),
   numRowsSelected: num => (num === 1 ? '1 rivi valittu' : `${num} riviä valittu`),
   pageXOfY: (page, total) => `Sivu ${page} / ${total}`,
   pagination: 'Sivutus',

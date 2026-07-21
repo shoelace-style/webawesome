@@ -159,7 +159,7 @@ export default class WaPopover extends WebAwesomeElement {
       event.stopPropagation();
       this.open = false;
       if (this.anchor && typeof (this.anchor as any).focus === 'function') {
-        (this.anchor as any).focus();
+        (this.anchor as any).focus({ preventScroll: true });
       }
     }
   };
@@ -193,20 +193,23 @@ export default class WaPopover extends WebAwesomeElement {
       document.addEventListener('keydown', this.handleDocumentKeyDown, { signal: this.eventController.signal });
       document.addEventListener('click', this.handleDocumentClick, { signal: this.eventController.signal });
 
-      // Show the dialog non-modally
-      this.dialog.show();
+      // Show the dialog non-modally. Set the `open` attribute instead of calling show(): show() runs the native
+      // dialog focusing steps, which scroll the page even though the popover is anchored in-viewport. The popover
+      // manages focus itself below (with preventScroll), so those steps are unwanted.
+      this.dialog.setAttribute('open', '');
       this.popup.active = true;
       openPopovers.add(this);
       registerDismissible(this);
 
-      // Autofocus the first element with the autofocus attribute
+      // Autofocus the first element with the autofocus attribute. preventScroll everywhere: the popup may not be
+      // positioned yet, and an anchored popover is always shown in-viewport, so focus must never scroll the page.
       requestAnimationFrame(() => {
         const elementToFocus = this.querySelector<HTMLElement>('[autofocus]');
         if (elementToFocus && typeof elementToFocus.focus === 'function') {
-          elementToFocus.focus();
+          elementToFocus.focus({ preventScroll: true });
         } else {
           // Fall back to setting focus on the dialog
-          this.dialog.focus();
+          this.dialog.focus({ preventScroll: true });
         }
       });
 

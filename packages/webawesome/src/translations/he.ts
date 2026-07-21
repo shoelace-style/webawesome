@@ -45,8 +45,10 @@ const translation: Translation = {
   exitFullscreen: 'יציאה ממסך מלא',
   expandRow: 'הרחב שורה',
   filterByColumn: label => `סנן לפי ${label}`,
+  filterFrom: 'מ-',
   filterMax: 'מקסימום',
   filterMin: 'מינימום',
+  filterTo: 'עד',
   firstPage: 'עמוד ראשון',
   goToSlide: (slide, count) => `עבור לשקופית ${slide} של ${count}`,
   hideColumn: 'הסתר עמודה',
@@ -82,6 +84,10 @@ const translation: Translation = {
     if (num === 0) return 'לא נבחרו אפשרויות';
     if (num === 1) return 'נבחרה אפשרות אחת';
     return `נבחרו ${num} אפשרויות`;
+  },
+  numRowsCopied: num => {
+    if (num === 1) return 'הועתקה שורה אחת';
+    return `הועתקו ${num} שורות`;
   },
   numRowsSelected: num => {
     if (num === 1) return 'נבחרה שורה אחת';

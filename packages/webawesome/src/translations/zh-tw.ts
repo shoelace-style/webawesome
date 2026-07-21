@@ -45,8 +45,10 @@ const translation: Translation = {
   exitFullscreen: '退出全螢幕',
   expandRow: '展開列',
   filterByColumn: label => `依${label}篩選`,
+  filterFrom: '開始',
   filterMax: '最大值',
   filterMin: '最小值',
+  filterTo: '結束',
   firstPage: '第一頁',
   goToSlide: (slide, count) => `轉到第 ${slide} 張幻燈片，共 ${count} 張`,
   hideColumn: '隱藏欄',
@@ -77,6 +79,7 @@ const translation: Translation = {
     if (num === 1) return '已選擇 1 個項目';
     return `${num} 選擇項目`;
   },
+  numRowsCopied: num => `已複製 ${num} 列`,
   numRowsSelected: num => `已選擇 ${num} 列`,
   pageXOfY: (page, total) => `第 ${page} 頁，共 ${total} 頁`,
   pagination: '分頁',

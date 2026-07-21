@@ -45,8 +45,10 @@ const translation: Translation = {
   exitFullscreen: 'Ukončit celou obrazovku',
   expandRow: 'Rozbalit řádek',
   filterByColumn: label => `Filtrovat podle: ${label}`,
+  filterFrom: 'Od',
   filterMax: 'Max',
   filterMin: 'Min',
+  filterTo: 'Do',
   firstPage: 'První stránka',
   goToSlide: (slide, count) => `Přejít na slide ${slide} z ${count}`,
   hideColumn: 'Skrýt sloupec',
@@ -92,6 +94,11 @@ const translation: Translation = {
     if (num === 0) return 'Nejsou vybrány žádné možnosti';
     if (num === 1) return 'Je vybrána jedna možnost';
     return `Počet vybraných možností: ${num}`;
+  },
+  numRowsCopied: num => {
+    if (num === 1) return 'Byl zkopírován 1 řádek';
+    if (num >= 2 && num <= 4) return `Byly zkopírovány ${num} řádky`;
+    return `Bylo zkopírováno ${num} řádků`;
   },
   numRowsSelected: num => {
     if (num === 1) return 'Je vybrán 1 řádek';

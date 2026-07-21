@@ -45,8 +45,10 @@ const translation: Translation = {
   exitFullscreen: '全画面表示を終了',
   expandRow: '行を展開',
   filterByColumn: label => `${label} で絞り込む`,
+  filterFrom: '開始',
   filterMax: '最大',
   filterMin: '最小',
+  filterTo: '終了',
   firstPage: '最初のページ',
   goToSlide: (slide, count) => `${count} 枚中 ${slide} 枚のスライドに移動`,
   hideColumn: '列を非表示',
@@ -76,6 +78,7 @@ const translation: Translation = {
     if (num === 0) return '項目が選択されていません';
     return `${num} 個の項目が選択されました`;
   },
+  numRowsCopied: num => `${num} 行をコピーしました`,
   numRowsSelected: num => `${num} 行を選択中`,
   pageXOfY: (page, total) => `${total} ページ中 ${page} ページ`,
   pagination: 'ページ送り',

@@ -45,8 +45,10 @@ const translation: Translation = {
   exitFullscreen: 'Keluar layar penuh',
   expandRow: 'Perluas baris',
   filterByColumn: label => `Filter berdasarkan ${label}`,
+  filterFrom: 'Dari',
   filterMax: 'Maks',
   filterMin: 'Min',
+  filterTo: 'Hingga',
   firstPage: 'Halaman pertama',
   goToSlide: (slide, count) => `Pergi ke slide ${slide} dari ${count}`,
   hideColumn: 'Sembunyikan kolom',
@@ -83,6 +85,7 @@ const translation: Translation = {
     if (num === 1) return '1 opsi yang dipilih';
     return `${num} opsi yang dipilih`;
   },
+  numRowsCopied: num => `${num} baris disalin`,
   numRowsSelected: num => `${num} baris dipilih`,
   pageXOfY: (page, total) => `Halaman ${page} dari ${total}`,
   pagination: 'Penomoran halaman',

@@ -46,8 +46,10 @@ const translation: Translation = {
   exitFullscreen: 'Tam ekrandan çık',
   expandRow: 'Satırı genişlet',
   filterByColumn: label => `${label} sütununa göre filtrele`,
+  filterFrom: 'Başlangıç',
   filterMax: 'En çok',
   filterMin: 'En az',
+  filterTo: 'Bitiş',
   firstPage: 'İlk sayfa',
   goToSlide: (slide, count) => `${count} slayttan ${slide} slayta gidin`,
   hideColumn: 'Sütunu gizle',
@@ -84,6 +86,7 @@ const translation: Translation = {
     if (num === 1) return '1 seçenek seçildi';
     return `${num} seçenek seçildi`;
   },
+  numRowsCopied: num => (num === 1 ? '1 satır kopyalandı' : `${num} satır kopyalandı`),
   numRowsSelected: num => (num === 1 ? '1 satır seçildi' : `${num} satır seçildi`),
   pageXOfY: (page, total) => `Sayfa ${page} / ${total}`,
   pagination: 'Sayfalandırma',

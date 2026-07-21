@@ -45,8 +45,10 @@ const translation: Translation = {
   exitFullscreen: 'Kilépés a teljes képernyőből',
   expandRow: 'Sor kibontása',
   filterByColumn: label => `Szűrés a következő szerint: ${label}`,
+  filterFrom: 'Ettől',
   filterMax: 'Max.',
   filterMin: 'Min.',
+  filterTo: 'Eddig',
   firstPage: 'Első oldal',
   goToSlide: (slide, count) => `Ugrás a ${count}/${slide}. diára`,
   hideColumn: 'Oszlop elrejtése',
@@ -83,6 +85,7 @@ const translation: Translation = {
     if (num === 1) return '1 lehetőség kiválasztva';
     return `${num} lehetőség kiválasztva`;
   },
+  numRowsCopied: num => (num === 1 ? '1 sor másolva' : `${num} sor másolva`),
   numRowsSelected: num => (num === 1 ? '1 sor kiválasztva' : `${num} sor kiválasztva`),
   pageXOfY: (page, total) => `${total}/${page}. oldal`,
   pagination: 'Lapozás',

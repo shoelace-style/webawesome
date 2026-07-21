@@ -46,8 +46,10 @@ const translation: Translation = {
   exitFullscreen: 'Выйти из полноэкранного режима',
   expandRow: 'Развернуть строку',
   filterByColumn: label => `Фильтровать по «${label}»`,
+  filterFrom: 'С',
   filterMax: 'Макс.',
   filterMin: 'Мин.',
+  filterTo: 'По',
   firstPage: 'Первая страница',
   goToSlide: (slide, count) => `Перейти к слайду ${slide} из ${count}`,
   hideColumn: 'Скрыть столбец',
@@ -101,6 +103,13 @@ const translation: Translation = {
     if (num === 0) return 'выбрано 0 вариантов';
     if (num === 1) return 'Выбран 1 вариант';
     return `выбрано ${num} варианта`;
+  },
+  numRowsCopied: num => {
+    const mod10 = num % 10;
+    const mod100 = num % 100;
+    if (mod10 === 1 && mod100 !== 11) return `Скопирована ${num} строка`;
+    if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `Скопировано ${num} строки`;
+    return `Скопировано ${num} строк`;
   },
   numRowsSelected: num => {
     const mod10 = num % 10;

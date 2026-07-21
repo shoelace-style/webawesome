@@ -45,8 +45,10 @@ const translation: Translation = {
   exitFullscreen: 'الخروج من وضع ملء الشاشة',
   expandRow: 'توسيع الصف',
   filterByColumn: label => `التصفية حسب ${label}`,
+  filterFrom: 'من',
   filterMax: 'الحد الأقصى',
   filterMin: 'الحد الأدنى',
+  filterTo: 'إلى',
   firstPage: 'الصفحة الأولى',
   goToSlide: (slide, count) => `عرض شريحة رقم ${slide} من ${count}`,
   hideColumn: 'إخفاء العمود',
@@ -100,6 +102,13 @@ const translation: Translation = {
     if (num === 2) return 'تم تحديد خياران';
     if (num > 2 && num < 11) return `تم تحديد ${num} خيارات`;
     return `تم تحديد ${num} خيار`;
+  },
+  numRowsCopied: num => {
+    if (num === 0) return 'لم يتم نسخ أي صفوف';
+    if (num === 1) return 'تم نسخ صف واحد';
+    if (num === 2) return 'تم نسخ صفان';
+    if (num > 2 && num < 11) return `تم نسخ ${num} صفوف`;
+    return `تم نسخ ${num} صفًا`;
   },
   numRowsSelected: num => {
     if (num === 0) return 'لم يتم تحديد أي صفوف';

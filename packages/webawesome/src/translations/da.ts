@@ -45,8 +45,10 @@ const translation: Translation = {
   exitFullscreen: 'Afslut fuldskærm',
   expandRow: 'Udvid række',
   filterByColumn: label => `Filtrér efter ${label}`,
+  filterFrom: 'Fra',
   filterMax: 'Maks.',
   filterMin: 'Min.',
+  filterTo: 'Til',
   firstPage: 'Første side',
   goToSlide: (slide, count) => `Gå til dias ${slide} af ${count}`,
   hideColumn: 'Skjul kolonne',
@@ -83,6 +85,7 @@ const translation: Translation = {
     if (num === 1) return '1 valgt';
     return `${num} valgt`;
   },
+  numRowsCopied: num => (num === 1 ? '1 række kopieret' : `${num} rækker kopieret`),
   numRowsSelected: num => (num === 1 ? '1 række valgt' : `${num} rækker valgt`),
   pageXOfY: (page, total) => `Side ${page} af ${total}`,
   pagination: 'Sidenavigation',

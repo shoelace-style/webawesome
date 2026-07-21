@@ -42,6 +42,7 @@ export interface Translation extends DefaultTranslation {
   chooseTime: string;
   chooseYear: string;
   clearEntry: string;
+  clearFilter?: string;
   clearSort: string;
   close: string;
   closeCalendar: string;
@@ -71,8 +72,10 @@ export interface Translation extends DefaultTranslation {
   exitFullscreen: string;
   expandRow: string;
   filterByColumn: (label: string) => string;
+  filterFrom: string;
   filterMax: string;
   filterMin: string;
+  filterTo: string;
   firstPage: string;
   goToSlide: (slide: number, count: number) => string;
   hideColumn: string;
@@ -99,6 +102,7 @@ export interface Translation extends DefaultTranslation {
   numCharacters: (num: number) => string;
   numCharactersRemaining: (num: number) => string;
   numOptionsSelected: (num: number) => string;
+  numRowsCopied: (num: number) => string;
   numRowsSelected: (num: number) => string;
   pageXOfY: (page: number, total: number) => string;
   pagination: string;

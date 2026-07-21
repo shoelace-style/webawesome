@@ -46,8 +46,10 @@ const translation: Translation = {
   exitFullscreen: 'Wyłącz pełny ekran',
   expandRow: 'Rozwiń wiersz',
   filterByColumn: label => `Filtruj według: ${label}`,
+  filterFrom: 'Od',
   filterMax: 'Maks.',
   filterMin: 'Min.',
+  filterTo: 'Do',
   firstPage: 'Pierwsza strona',
   goToSlide: (slide, count) => `Przejdź do slajdu ${slide} z ${count}`,
   hideColumn: 'Ukryj kolumnę',
@@ -99,6 +101,13 @@ const translation: Translation = {
     if (num === 0) return 'Nie wybrano opcji';
     if (num === 1) return 'Wybrano 1 opcję';
     return `Wybrano ${num} opcje`;
+  },
+  numRowsCopied: num => {
+    if (num === 1) return 'Skopiowano 1 wiersz';
+    const mod10 = num % 10;
+    const mod100 = num % 100;
+    if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `Skopiowano ${num} wiersze`;
+    return `Skopiowano ${num} wierszy`;
   },
   numRowsSelected: num => {
     if (num === 1) return 'Wybrano 1 wiersz';

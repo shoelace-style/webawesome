@@ -46,8 +46,10 @@ const translation: Translation = {
   exitFullscreen: 'Вийти з повноекранного режиму',
   expandRow: 'Розгорнути рядок',
   filterByColumn: label => `Фільтрувати за «${label}»`,
+  filterFrom: 'Від',
   filterMax: 'Макс.',
   filterMin: 'Мін.',
+  filterTo: 'До',
   firstPage: 'Перша сторінка',
   goToSlide: (slide, count) => `Перейти до слайда №${slide} з ${count}`,
   hideColumn: 'Приховати стовпець',
@@ -103,6 +105,13 @@ const translation: Translation = {
     if (n === 1) return 'вибрано 1 варіант';
     if (n === 2 || n === 3 || n === 4) return `вибрано ${num} варіанти`;
     return `вибрано ${num} варіантів`;
+  },
+  numRowsCopied: num => {
+    const mod10 = num % 10;
+    const mod100 = num % 100;
+    if (mod10 === 1 && mod100 !== 11) return `Скопійовано ${num} рядок`;
+    if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `Скопійовано ${num} рядки`;
+    return `Скопійовано ${num} рядків`;
   },
   numRowsSelected: num => {
     const mod10 = num % 10;

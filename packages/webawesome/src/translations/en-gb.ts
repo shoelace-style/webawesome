@@ -46,8 +46,10 @@ const translation: Translation = {
   exitFullscreen: 'Exit fullscreen',
   expandRow: 'Expand row',
   filterByColumn: label => `Filter by ${label}`,
+  filterFrom: 'From',
   filterMax: 'Max',
   filterMin: 'Min',
+  filterTo: 'To',
   firstPage: 'First page',
   goToSlide: (slide, count) => `Go to slide ${slide} of ${count}`,
   hideColumn: 'Hide column',
@@ -84,6 +86,7 @@ const translation: Translation = {
     if (num === 1) return '1 option selected';
     return `${num} options selected`;
   },
+  numRowsCopied: num => (num === 1 ? '1 row copied' : `${num} rows copied`),
   numRowsSelected: num => (num === 1 ? '1 row selected' : `${num} rows selected`),
   pageXOfY: (page, total) => `Page ${page} of ${total}`,
   pagination: 'Pagination',

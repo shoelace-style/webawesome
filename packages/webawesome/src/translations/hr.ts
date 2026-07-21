@@ -45,8 +45,10 @@ const translation: Translation = {
   exitFullscreen: 'Izađi iz cijelog zaslona',
   expandRow: 'Proširi redak',
   filterByColumn: label => `Filtriraj po stupcu ${label}`,
+  filterFrom: 'Od',
   filterMax: 'Maks',
   filterMin: 'Min',
+  filterTo: 'Do',
   firstPage: 'Prva stranica',
   goToSlide: (slide, count) => `Idi na slajd ${slide} od ${count}`,
   hideColumn: 'Sakrij stupac',
@@ -100,6 +102,13 @@ const translation: Translation = {
     if (num === 0) return 'Nije odabrana nijedna opcija';
     if (num === 1) return '1 opcija je odabrana';
     return `${num} odabranih opcija`;
+  },
+  numRowsCopied: num => {
+    if (num === 1) return '1 redak kopiran';
+    const mod10 = num % 10;
+    const mod100 = num % 100;
+    if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `${num} retka kopirana`;
+    return `${num} redaka kopirano`;
   },
   numRowsSelected: num => {
     if (num === 1) return '1 redak odabran';

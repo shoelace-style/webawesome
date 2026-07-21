@@ -46,8 +46,10 @@ const translation: Translation = {
   exitFullscreen: 'خروج از حالت تمام‌صفحه',
   expandRow: 'گسترش ردیف',
   filterByColumn: label => `فیلتر بر اساس ${label}`,
+  filterFrom: 'از',
   filterMax: 'حداکثر',
   filterMin: 'حداقل',
+  filterTo: 'تا',
   firstPage: 'صفحه اول',
   goToSlide: (slide, count) => `رفتن به اسلاید ${slide} از ${count}`,
   hideColumn: 'پنهان کردن ستون',
@@ -83,6 +85,7 @@ const translation: Translation = {
     if (num === 0) return 'هیچ گزینه‌ای انتخاب نشده است';
     return `${num} گزینه انتخاب شده است`;
   },
+  numRowsCopied: num => (num === 1 ? '1 ردیف کپی شده است' : `${num} ردیف کپی شده است`),
   numRowsSelected: num => (num === 1 ? '1 ردیف انتخاب شده است' : `${num} ردیف انتخاب شده است`),
   pageXOfY: (page, total) => `صفحه ${page} از ${total}`,
   pagination: 'صفحه‌بندی',

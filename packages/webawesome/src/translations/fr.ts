@@ -46,8 +46,10 @@ const translation: Translation = {
   exitFullscreen: 'Quitter le plein écran',
   expandRow: 'Développer la ligne',
   filterByColumn: label => `Filtrer par ${label}`,
+  filterFrom: 'De',
   filterMax: 'Max',
   filterMin: 'Min',
+  filterTo: 'À',
   firstPage: 'Première page',
   goToSlide: (slide, count) => `Aller à la diapositive ${slide} de ${count}`,
   hideColumn: 'Masquer la colonne',
@@ -84,6 +86,7 @@ const translation: Translation = {
     if (num === 1) return '1 option sélectionnée';
     return `${num} options sélectionnées`;
   },
+  numRowsCopied: num => (num === 1 ? '1 ligne copiée' : `${num} lignes copiées`),
   numRowsSelected: num => (num === 1 ? '1 ligne sélectionnée' : `${num} lignes sélectionnées`),
   pageXOfY: (page, total) => `Page ${page} sur ${total}`,
   pagination: 'Pagination',

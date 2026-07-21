@@ -45,8 +45,10 @@ const translation: Translation = {
   exitFullscreen: 'पूर्ण स्क्रीन से बाहर निकलें',
   expandRow: 'पंक्ति विस्तृत करें',
   filterByColumn: label => `${label} के अनुसार फ़िल्टर करें`,
+  filterFrom: 'से',
   filterMax: 'अधिकतम',
   filterMin: 'न्यूनतम',
+  filterTo: 'तक',
   firstPage: 'पहला पृष्ठ',
   goToSlide: (slide, count) => `${count} में से स्लाइड ${slide} पर जाएं`,
   hideColumn: 'कॉलम छुपाएं',
@@ -83,6 +85,7 @@ const translation: Translation = {
     if (num === 1) return '1 विकल्प चयनित';
     return `${num} विकल्प चयनित`;
   },
+  numRowsCopied: num => (num === 1 ? '1 पंक्ति कॉपी की गई' : `${num} पंक्तियाँ कॉपी की गईं`),
   numRowsSelected: num => (num === 1 ? '1 पंक्ति चयनित' : `${num} पंक्तियाँ चयनित`),
   pageXOfY: (page, total) => `${total} में से पृष्ठ ${page}`,
   pagination: 'पृष्ठ क्रमांकन',
