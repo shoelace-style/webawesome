@@ -318,7 +318,7 @@ eleventyExcludeFromCollections: true
   wa-page[view='mobile'] [slot*='navigation'] {
     padding: 0;
   }
-  wa-page::part(base) {
+  wa-page::part(page) {
     background-color: var(--wa-color-surface-lowered);
   }
   [slot='header'] {
