@@ -77,6 +77,9 @@ function measureRect(el) {
   return { left, top, right, bottom, width: right - left, height: bottom - top };
 }
 
+const HIGHLIGHT_LEAVE_DELAY = 250;
+const HIGHLIGHT_HOLD = 1500;
+
 class ComponentAnatomy extends HTMLElement {
   #resizeObserver;
   #themeObserver;
@@ -91,8 +94,13 @@ class ComponentAnatomy extends HTMLElement {
   #stateSnapshot = new Map();
   #statePropSnapshot = new Map();
   #stateToken = 0;
-  #flashTimer;
   #scrollGap = 0;
+  #activeRecord = null;
+  #hoverRecord = null;
+  #focusRecord = null;
+  #holdRecord = null;
+  #leaveTimer;
+  #holdTimer;
   // Read live so a mid-session modality change is honored; on touch the pointer highlight is gated off so it
   // never sticks without a leave.
   #hoverQuery = window.matchMedia('(hover: hover)');
@@ -111,7 +119,8 @@ class ComponentAnatomy extends HTMLElement {
   #teardown() {
     this.#resizeObserver?.disconnect();
     this.#themeObserver?.disconnect();
-    clearTimeout(this.#flashTimer);
+    clearTimeout(this.#leaveTimer);
+    clearTimeout(this.#holdTimer);
     this.#measured = [];
   }
 
@@ -256,20 +265,14 @@ class ComponentAnatomy extends HTMLElement {
     await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
   }
 
-  #bindHover(el, toggle) {
-    el.addEventListener('pointerenter', () => {
-      if (this.#hoverQuery.matches) toggle(true);
-    });
-    el.addEventListener('pointerleave', () => toggle(false));
-  }
-
   // Wired once; rows persist across re-layouts and the record is resolved live. Hover is row-wide; focus is
   // scoped to the part-name button.
   #wireRows() {
     for (const row of this.#rows) {
       if (row.__anatomyWired) continue;
       row.__anatomyWired = true;
-      this.#bindHover(row, active => this.#highlightRow(row, active));
+      row.addEventListener('pointerenter', () => this.#enter(this.#recordByRow.get(row)));
+      row.addEventListener('pointerleave', () => this.#leave());
     }
   }
 
@@ -284,14 +287,22 @@ class ComponentAnatomy extends HTMLElement {
     button.className = 'anatomy-part-trigger';
     code.replaceWith(button);
     button.append(code);
-    button.addEventListener('focus', () => this.#highlightRow(row, true));
-    button.addEventListener('blur', () => this.#highlightRow(row, false));
+    // :focus-visible so keyboard focus persists, but a mouse click (covered by its hold) doesn't linger.
+    button.addEventListener('focus', () => {
+      if (!button.matches(':focus-visible')) return;
+      this.#focusRecord = this.#recordByRow.get(row) ?? null;
+      this.#apply();
+    });
+    button.addEventListener('blur', () => {
+      this.#focusRecord = null;
+      this.#apply();
+    });
     button.addEventListener('click', () => {
       const record = this.#recordByRow.get(row);
       if (!record) return;
-      // A pinned stage is already in view, so just flash; otherwise scroll it in first.
+      // A pinned stage is already in view; otherwise scroll it in first.
       if (!this.#isSticky()) this.#stage.scrollIntoView({ behavior: this.#scrollBehavior(), block: 'center' });
-      this.#flash(record);
+      this.#hold(record);
     });
     row.__anatomyTrigger = button;
   }
@@ -354,10 +365,11 @@ class ComponentAnatomy extends HTMLElement {
 
   #wireRegion(record) {
     const { region } = record;
-    this.#bindHover(region, active => this.#highlight(record, active));
+    region.addEventListener('pointerenter', () => this.#enter(record));
+    region.addEventListener('pointerleave', () => this.#leave());
     region.addEventListener('click', () => {
       this.#scrollRowIntoView(record.row);
-      this.#flash(record);
+      this.#hold(record);
     });
   }
 
@@ -403,19 +415,47 @@ class ComponentAnatomy extends HTMLElement {
     else this.#section.style.removeProperty('--anatomy-scroll-inset');
   }
 
-  // is-flash (not the hover class) so the highlight survives a smooth scroll.
-  #flash(record) {
-    for (const other of this.#rows) other.classList.remove('is-flash');
-    for (const other of this.#measured) other.region.classList.remove('is-flash');
+  // Single source of truth: hover > click-hold > focus. Only this record carries the highlight classes.
+  #apply() {
+    const next = this.#hoverRecord ?? this.#holdRecord ?? this.#focusRecord ?? null;
+    if (next === this.#activeRecord) return;
+    if (this.#activeRecord) this.#paint(this.#activeRecord, false);
+    this.#activeRecord = next;
+    if (next) this.#paint(next, true);
+  }
 
-    record.row.classList.add('is-flash');
-    record.region.classList.add('is-flash');
+  #paint(record, on) {
+    record.region.classList.toggle('is-highlighted', on);
+    record.row.classList.toggle('is-active', on);
+  }
 
-    clearTimeout(this.#flashTimer);
-    this.#flashTimer = setTimeout(() => {
-      record.row.classList.remove('is-flash');
-      record.region.classList.remove('is-flash');
-    }, 1500);
+  #enter(record) {
+    if (!this.#hoverQuery.matches) return;
+    // Still over a row — cancel any pending clear so crossing a not-shown row between two linked ones (or
+    // sweeping the list) doesn't flicker the highlight off.
+    clearTimeout(this.#leaveTimer);
+    if (!record) return;
+    this.#hoverRecord = record;
+    this.#apply();
+  }
+
+  #leave() {
+    if (!this.#hoverQuery.matches) return;
+    this.#leaveTimer = setTimeout(() => {
+      this.#hoverRecord = null;
+      this.#apply();
+    }, HIGHLIGHT_LEAVE_DELAY);
+  }
+
+  // Lingers past the scroll-into-view, but yields to any newer hover/focus.
+  #hold(record) {
+    clearTimeout(this.#holdTimer);
+    this.#holdRecord = record;
+    this.#apply();
+    this.#holdTimer = setTimeout(() => {
+      this.#holdRecord = null;
+      this.#apply();
+    }, HIGHLIGHT_HOLD);
   }
 
   #position(record, originRect) {
@@ -426,16 +466,6 @@ class ComponentAnatomy extends HTMLElement {
     region.style.top = `${rect.top - originRect.top}px`;
     region.style.width = `${rect.width}px`;
     region.style.height = `${rect.height}px`;
-  }
-
-  #highlight(record, active) {
-    record.region.classList.toggle('is-highlighted', active);
-    record.row.classList.toggle('is-active', active);
-  }
-
-  #highlightRow(row, active) {
-    const record = this.#recordByRow.get(row);
-    if (record) this.#highlight(record, active);
   }
 
   async #buildStateControls(card) {

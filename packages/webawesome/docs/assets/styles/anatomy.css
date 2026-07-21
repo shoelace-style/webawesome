@@ -4,6 +4,8 @@ component-anatomy,
   --anatomy-accent: var(--wa-color-orange-50);
   --anatomy-accent-strong: var(--wa-color-orange-60);
   --anatomy-accent-on: var(--wa-color-orange-95);
+  /* One shade for a highlighted region and its table row, so the two always match. */
+  --anatomy-tint: color-mix(in oklab, var(--anatomy-accent) 8%, transparent);
 }
 
 component-anatomy {
@@ -121,10 +123,9 @@ component-anatomy {
     background-color var(--wa-transition-fast) var(--wa-transition-easing);
 }
 
-.anatomy-region.is-highlighted,
-.anatomy-region.is-flash {
+.anatomy-region.is-highlighted {
   outline-color: var(--anatomy-accent-strong);
-  background-color: color-mix(in oklab, var(--anatomy-accent) 12%, transparent);
+  background-color: var(--anatomy-tint);
 }
 
 /* wa-badge's fill lives on its :host, so recolor via an outer-tree rule (beats the component's own :host). */
@@ -148,8 +149,7 @@ component-anatomy {
     transform var(--wa-transition-fast) var(--wa-transition-easing);
 }
 
-.anatomy-region.is-highlighted .anatomy-region-label,
-.anatomy-region.is-flash .anatomy-region-label {
+.anatomy-region.is-highlighted .anatomy-region-label {
   opacity: 1;
   transform: translateY(0);
 }
@@ -169,9 +169,8 @@ component-anatomy {
 }
 
 .component-table.wa-hover-rows tr.is-linked:hover,
-.component-table tr.is-linked.is-active,
-.component-table tr.is-linked.is-flash {
-  background-color: color-mix(in oklab, var(--anatomy-accent) 8%, transparent);
+.component-table tr.is-linked.is-active {
+  background-color: var(--anatomy-tint);
 }
 
 /* Scroll targets clear the pinned card via --anatomy-scroll-inset (kept by JS; 0 when not sticky). */
