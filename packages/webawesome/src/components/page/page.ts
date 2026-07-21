@@ -87,7 +87,7 @@ function toLength(px: number | string): string {
  * @slot skip-to-content - The "skip to content" slot. You can override this If you would like to override the `Skip to content` button and add additional "Skip to X", they can be inserted here.
  * @slot footer - The content to display in the footer. This is always displayed underneath the viewport so will always make the page "scrollable".
  *
- * @csspart base - The component's base wrapper.
+ * @csspart base - Deprecated. Use the `page` part instead.
  * @csspart page - The component's outer wrapper.
  * @csspart banner - The banner to show above header.
  * @csspart header - The header, usually for top level navigation / branding.

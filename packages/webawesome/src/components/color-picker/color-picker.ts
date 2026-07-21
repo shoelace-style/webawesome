@@ -66,7 +66,7 @@ declare const EyeDropper: EyeDropperConstructor;
  * @event input - Emitted when the color picker receives input.
  * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
- * @csspart base - The component's base wrapper.
+ * @csspart base - Deprecated. Use the `color-picker` part instead.
  * @csspart color-picker - The component's outer wrapper.
  * @csspart trigger - The color picker's dropdown trigger.
  * @csspart trigger-container - The container that wraps the color picker's trigger.

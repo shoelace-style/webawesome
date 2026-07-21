@@ -44,7 +44,7 @@ const generateId = (): string => uniqueId('wa-known-date-');
  * @csspart form-control-input - Alias on the fields row matching other form controls.
  * @csspart hint - The hint's wrapper.
  * @csspart label - Alias on the legend's inner label wrapper.
- * @csspart base - The component's outer wrapper (alias of the fields row).
+ * @csspart base - Deprecated. Use the `known-date` part instead.
  * @csspart known-date - The component's outer wrapper.
  * @csspart fieldset - The `<fieldset>` element grouping the three fields (or a `role="group"` div).
  * @csspart legend - The `<legend>` element (when a label is present).

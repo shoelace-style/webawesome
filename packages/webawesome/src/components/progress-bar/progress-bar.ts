@@ -16,7 +16,7 @@ import styles from './progress-bar.styles.js';
  *
  * @slot - A label to show inside the progress indicator.
  *
- * @csspart base - The component's base wrapper.
+ * @csspart base - Deprecated. Use the `progress-bar` part instead.
  * @csspart progress-bar - The component's outer wrapper.
  * @csspart indicator - The progress bar's indicator.
  * @csspart label - The progress bar's label.

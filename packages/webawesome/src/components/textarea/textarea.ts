@@ -34,7 +34,7 @@ import styles from './textarea.styles.js';
  * @csspart form-control-input - The input's wrapper.
  * @csspart hint - The hint's wrapper.
  * @csspart textarea - The internal `<textarea>` control.
- * @csspart base - The wrapper around the `<textarea>` control.
+ * @csspart base - Deprecated. Use the `textarea-wrapper` part instead.
  * @csspart textarea-wrapper - The component's outer wrapper.
  * @csspart textarea-adjuster - The invisible sizer that grows the control to fit its content when `resize` is `auto`.
  * @csspart count - The character count element, rendered when the `with-count` attribute is present.

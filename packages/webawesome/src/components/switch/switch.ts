@@ -30,7 +30,7 @@ import styles from './switch.styles.js';
  * @event focus - Emitted when the control gains focus.
  * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
- * @csspart base - The component's base wrapper.
+ * @csspart base - Deprecated. Use the `switch` part instead.
  * @csspart switch - The component's outer wrapper.
  * @csspart control - The control that houses the switch's thumb.
  * @csspart thumb - The switch's thumb.

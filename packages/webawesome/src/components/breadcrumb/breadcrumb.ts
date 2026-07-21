@@ -18,7 +18,7 @@ import styles from './breadcrumb.styles.js';
  *
  * @dependency wa-icon
  *
- * @csspart base - The component's base wrapper.
+ * @csspart base - Deprecated. Use the `breadcrumb` part instead.
  * @csspart breadcrumb - The component's outer wrapper.
  */
 @customElement('wa-breadcrumb')

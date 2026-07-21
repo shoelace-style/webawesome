@@ -82,7 +82,7 @@ const SINGLE_GROUP = 'single';
  * @csspart form-control-label - The label's wrapper.
  * @csspart form-control-input - The input's wrapper.
  * @csspart hint - The hint's wrapper.
- * @csspart base - The component's base wrapper.
+ * @csspart base - Deprecated. Use the `time-input` part instead.
  * @csspart time-input - The component's outer wrapper.
  * @csspart input-wrapper - The container around the start slot, segmented input, clear button, and expand button.
  * @csspart start - The container that wraps the `start` slot.

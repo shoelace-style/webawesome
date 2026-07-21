@@ -13,7 +13,7 @@ import styles from './qr-code.styles.js';
  * @status stable
  * @since 2.0
  *
- * @csspart base - The component's base wrapper.
+ * @csspart base - Deprecated. Use the `qr-code` part instead.
  * @csspart qr-code - The component's outer wrapper.
  */
 @customElement('wa-qr-code')

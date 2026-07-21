@@ -24,7 +24,7 @@ import styles from './accordion-item.styles.js';
  * @slot label - The accordion item's label. Alternatively, use the `label` attribute.
  * @slot icon - Optional expand/collapse icon. Works best with `<wa-icon>`.
  *
- * @csspart base - The component's base wrapper.
+ * @csspart base - Deprecated. Use the `accordion-item` part instead.
  * @csspart accordion-item - The component's outer wrapper.
  * @csspart heading - The heading element wrapping the trigger button. Omitted when `heading-level="none"`.
  * @csspart button - The trigger button that toggles the panel.

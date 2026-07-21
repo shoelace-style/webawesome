@@ -15,7 +15,7 @@ import styles from './progress-ring.styles.js';
  *
  * @slot - A label to show inside the ring.
  *
- * @csspart base - The component's base wrapper.
+ * @csspart base - Deprecated. Use the `progress-ring` part instead.
  * @csspart progress-ring - The component's outer wrapper.
  * @csspart label - The progress ring label.
  * @csspart track - The progress ring's track.

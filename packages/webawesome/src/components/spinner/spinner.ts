@@ -11,7 +11,7 @@ import styles from './spinner.styles.js';
  * @status stable
  * @since 2.0
  *
- * @csspart base - The component's base wrapper.
+ * @csspart base - Deprecated. Use the `spinner` part instead.
  * @csspart spinner - The component's outer wrapper.
  *
  * @cssproperty --track-width - The width of the track.
