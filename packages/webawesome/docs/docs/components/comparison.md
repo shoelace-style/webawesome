@@ -14,7 +14,7 @@ use-cases:
 
 Compare two pieces of content with a divider users can drag across them. It's most often used for before/after images — for best results, the two sides should share the same dimensions. Any content works, though; see the [theme page](/docs/themes) for a full-UI example.
 
-```html {.example}
+```html {.example .anatomy}
 <wa-comparison>
   <img
     slot="before"

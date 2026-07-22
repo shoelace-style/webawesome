@@ -18,6 +18,14 @@ use-cases:
 <wa-button>Save</wa-button>
 ```
 
+```html {.example .anatomy-only}
+<wa-button>
+  <wa-icon slot="start" name="gear"></wa-icon>
+  Settings
+  <wa-icon slot="end" name="chevron-right"></wa-icon>
+</wa-button>
+```
+
 ## Examples
 
 ### Variant
@@ -214,7 +222,7 @@ Target the `base` part to restyle a button from the outside. Use a custom class 
 <wa-button class="pink">Pink Button</wa-button>
 
 <style>
-  wa-button.pink::part(base) {
+  wa-button.pink::part(button) {
     border-radius: 6px;
     border: solid 2px;
     background: #ff1493;
@@ -228,11 +236,11 @@ Target the `base` part to restyle a button from the outside. Use a custom class 
     transition: all var(--wa-transition-slow) var(--wa-transition-easing);
   }
 
-  wa-button.pink::part(base):hover {
+  wa-button.pink::part(button):hover {
     transform: scale(1.05);
   }
 
-  wa-button.pink::part(base):active {
+  wa-button.pink::part(button):active {
     border-top-color: #ad005c;
     border-right-color: #ff7ac1;
     border-bottom-color: #ff7ac1;
@@ -240,7 +248,7 @@ Target the `base` part to restyle a button from the outside. Use a custom class 
     transform: translateY(1px);
   }
 
-  wa-button.pink::part(base):focus-visible {
+  wa-button.pink::part(button):focus-visible {
     outline: dashed 2px deeppink;
     outline-offset: 4px;
   }

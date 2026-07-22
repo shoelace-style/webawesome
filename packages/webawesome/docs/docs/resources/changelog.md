@@ -31,6 +31,12 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 ## Unreleased
 
+:::added
+
+- Added a CSS part named after the component to every component that renders a wrapper element (e.g. `button`, `details`, `carousel`), alongside the existing `base` part. Where the component name is already used by an inner part, the wrapper takes a `-wrapper` suffix (`input-wrapper`, `textarea-wrapper`).
+
+:::
+
 :::fixed
 
 - Fixed a Safari-only clip-path/border seam along the arrow's outer edges by painting the arrow border with an inset box-shadow instead of a `border`
@@ -48,12 +54,19 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed missing CSS parts documentation for `<wa-card>`, `<wa-color-picker>`, `<wa-textarea>`, `<wa-scroller>`, and `<wa-page>` [pr:2623]
 - Fixed `<wa-checkbox>` rendering its checked icon under the undocumented `check-icon` CSS part; it now uses the documented `checked-icon` part, matching `<wa-radio>`
 - Fixed a bug in `<wa-dialog>` and `<wa-drawer>` that left the page permanently scroll locked and inert when third-party CSS, e.g. from ad blockers, hides an open dialog or drawer with `display: none`
+- Fixed `<wa-page>` documenting `skip-links` and `skip-link` CSS parts that don't render; replaced them with the `skip-to-content` part it actually exposes
 
 :::
 
 :::changed
 
 - Removed `font-variant-numeric: tabular-nums;` from default `<table>` styles in Native Styles in lieu of an opt-in `wa-tabular-nums` class [pr:2613]
+
+:::
+
+:::deprecated
+
+- The generic `base` CSS part is deprecated in favor of the part named after the component. Existing `::part(base)` selectors keep working and will until the next major version; `base` now appears as deprecated in each component's CSS Parts table.
 
 :::
 

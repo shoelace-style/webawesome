@@ -42,7 +42,8 @@ import styles from './number-input.styles.js';
  * @csspart label - The label element.
  * @csspart form-control-label - Alias for the label element.
  * @csspart hint - The hint element.
- * @csspart base - The wrapper containing the input and steppers.
+ * @csspart base - Deprecated. Use the `number-input` part instead.
+ * @csspart number-input - The component's outer wrapper.
  * @csspart input - The internal `<input>` control.
  * @csspart start - The container that wraps the `start` slot.
  * @csspart end - The container that wraps the `end` slot.
@@ -330,7 +331,7 @@ export default class WaNumberInput extends WebAwesomeFormAssociatedElement {
         <slot name="label">${this.label}</slot>
       </label>
 
-      <div part="base" class="number-field">
+      <div part="base number-input" class="number-field">
         ${!this.withoutSteppers
           ? html`
               <button

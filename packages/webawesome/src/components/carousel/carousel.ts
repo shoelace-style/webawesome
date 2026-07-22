@@ -34,7 +34,8 @@ import styles from './carousel.styles.js';
  * @slot next-icon - Optional next icon to use instead of the default. Works best with `<wa-icon>`.
  * @slot previous-icon - Optional previous icon to use instead of the default. Works best with `<wa-icon>`.
  *
- * @csspart base - The carousel's internal wrapper.
+ * @csspart base - Deprecated. Use the `carousel` part instead.
+ * @csspart carousel - The component's outer wrapper.
  * @csspart scroll-container - The scroll container that wraps the slides.
  * @csspart pagination - The pagination indicators wrapper.
  * @csspart pagination-item - The pagination indicator.
@@ -610,7 +611,7 @@ export default class WaCarousel extends WebAwesomeElement {
     const isRTL = isServer ? this.dir === 'rtl' : this.localize.dir() === 'rtl';
 
     return html`
-      <div part="base" class="carousel">
+      <div part="base carousel" class="carousel">
         <div
           id="scroll-container"
           part="scroll-container"

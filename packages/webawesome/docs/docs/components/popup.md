@@ -2,6 +2,7 @@
 title: Popup
 layout: component
 category: Helpers
+hasAnatomy: false
 synonyms:
   - floating element
   - anchor
