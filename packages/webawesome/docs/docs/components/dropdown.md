@@ -2,6 +2,7 @@
 title: Dropdown
 layout: component
 category: Actions
+hasAnatomy: false
 synonyms:
   - menu
   - context menu

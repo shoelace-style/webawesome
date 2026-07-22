@@ -42,7 +42,8 @@ import styles from './input.styles.js';
  *
  * @csspart label - The label
  * @csspart hint - The hint's wrapper.
- * @csspart base - The wrapper being rendered as an input
+ * @csspart base - Deprecated. Use the `input-wrapper` part instead.
+ * @csspart input-wrapper - The component's outer wrapper.
  * @csspart input - The internal `<input>` control.
  * @csspart start - The container that wraps the `start` slot.
  * @csspart clear-button - The clear button.
@@ -401,7 +402,7 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
         <slot name="label">${this.label}</slot>
       </label>
 
-      <div part="base" class="text-field">
+      <div part="base input-wrapper" class="text-field">
         <slot name="start" part="start" class="start"></slot>
 
         <input

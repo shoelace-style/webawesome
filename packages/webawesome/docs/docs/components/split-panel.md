@@ -13,7 +13,7 @@ use-cases:
   - resizable columns
 ---
 
-```html {.example}
+```html {.example .anatomy}
 <wa-split-panel>
   <div slot="start" class="split-demo">
     Start

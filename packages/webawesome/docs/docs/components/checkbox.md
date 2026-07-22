@@ -17,6 +17,10 @@ use-cases:
 <wa-checkbox>I agree to the terms and conditions</wa-checkbox>
 ```
 
+```html {.example .anatomy-only}
+<wa-checkbox checked hint="You can turn this off later in settings.">Remember me</wa-checkbox>
+```
+
 :::info
 This component works with standard `<form>` elements. See [form controls](/docs/form-controls) for form submission and client-side validation.
 :::

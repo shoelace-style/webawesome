@@ -18,7 +18,8 @@ import styles from './breadcrumb.styles.js';
  *
  * @dependency wa-icon
  *
- * @csspart base - The component's base wrapper.
+ * @csspart base - Deprecated. Use the `breadcrumb` part instead.
+ * @csspart breadcrumb - The component's outer wrapper.
  */
 @customElement('wa-breadcrumb')
 export default class WaBreadcrumb extends WebAwesomeElement {
@@ -86,7 +87,7 @@ export default class WaBreadcrumb extends WebAwesomeElement {
     }
 
     return html`
-      <nav part="base" class="breadcrumb" aria-label=${this.label}>
+      <nav part="base breadcrumb" class="breadcrumb" aria-label=${this.label}>
         <slot @slotchange=${this.handleSlotChange}></slot>
       </nav>
 

@@ -19,6 +19,12 @@ use-cases:
 <wa-input label="Name"></wa-input>
 ```
 
+```html {.example .anatomy-only}
+<wa-input type="password" label="Password" hint="Must be at least 8 characters." value="correcthorse">
+  <wa-icon slot="start" name="lock"></wa-icon>
+</wa-input>
+```
+
 :::info
 This component works with standard `<form>` elements. See [form controls](/docs/form-controls) for form submission and client-side validation.
 :::

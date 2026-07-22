@@ -6,6 +6,7 @@
 @import 'cera-typeface.css';
 @import 'theme-icons.css';
 @import 'utils.css';
+@import 'anatomy.css';
 
 :root {
   /* layout-based example style aspects */

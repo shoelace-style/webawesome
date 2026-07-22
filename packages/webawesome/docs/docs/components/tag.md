@@ -19,6 +19,10 @@ use-cases:
 <wa-tag>Featured</wa-tag>
 ```
 
+```html {.example .anatomy-only}
+<wa-tag><wa-icon name="star"></wa-icon> Featured</wa-tag>
+```
+
 ## Examples
 
 ### Variant

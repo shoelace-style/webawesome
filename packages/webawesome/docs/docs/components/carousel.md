@@ -250,7 +250,7 @@ Setting the `orientation` attribute to `vertical` will render the carousel in a 
     max-height: 400px;
   }
 
-  .vertical::part(base) {
+  .vertical::part(carousel) {
     grid-template-areas: 'slides slides pagination';
   }
 
