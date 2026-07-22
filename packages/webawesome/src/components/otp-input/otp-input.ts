@@ -280,9 +280,9 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
     this.requestUpdate('value', oldValue);
   }
 
-  private handleInput(e: InputEvent) {
+  private handleInput(event: InputEvent) {
     if (this.readonly) return;
-    const input = e.target as HTMLInputElement;
+    const input = event.target as HTMLInputElement;
     const rawValue = input.value;
     const rawCursor = input.selectionStart ?? rawValue.length;
 
@@ -326,23 +326,23 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
     }
   }
 
-  private handleKeyDown(e: KeyboardEvent) {
-    if (e.isComposing) return;
+  private handleKeyDown(event: KeyboardEvent) {
+    if (event.isComposing) return;
     const max = this.effectiveLength;
 
     // Tab is deliberately not handled — it moves focus to the next control like any single input;
     // arrow keys handle movement between segments.
-    if (e.key === 'Enter') {
-      submitOnEnter(e, this);
-    } else if (e.key === 'ArrowRight') {
-      e.preventDefault();
+    if (event.key === 'Enter') {
+      submitOnEnter(event, this);
+    } else if (event.key === 'ArrowRight') {
+      event.preventDefault();
       if (this.hasSelection) {
         this.setCaretIndex(Math.min(Math.max(this._selectionAnchor, this._activeIndex), max - 1));
       } else {
         this._activeIndex = Math.min(this._activeIndex + 1, max - 1);
       }
-    } else if (e.key === 'ArrowLeft') {
-      e.preventDefault();
+    } else if (event.key === 'ArrowLeft') {
+      event.preventDefault();
       if (this.hasSelection) {
         this.setCaretIndex(Math.max(Math.min(this._selectionAnchor, this._activeIndex), 0));
       } else {
@@ -352,12 +352,12 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
       // All character-mutating keys are blocked when readonly; navigation above still works.
       // preventDefault matters here: a readonly input isn't an editable context, so WebKit
       // treats an unhandled Backspace as the history-back gesture and navigates away.
-      if (e.key === 'Backspace' || e.key === 'Delete') {
-        e.preventDefault();
+      if (event.key === 'Backspace' || event.key === 'Delete') {
+        event.preventDefault();
       }
-    } else if (e.key === 'Backspace') {
+    } else if (event.key === 'Backspace') {
       // Prevent browser from shifting chars; manually splice the slot and move back.
-      e.preventDefault();
+      event.preventDefault();
       if (this.hasSelection) {
         const start = Math.min(this._selectionAnchor, this._activeIndex);
         const end = Math.max(this._selectionAnchor, this._activeIndex);
@@ -370,9 +370,9 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
         }
         this.setCaretIndex(Math.max(idx - 1, 0));
       }
-    } else if (e.key === 'Delete') {
+    } else if (event.key === 'Delete') {
       // Same as Backspace but cursor stays in place.
-      e.preventDefault();
+      event.preventDefault();
       if (this.hasSelection) {
         const start = Math.min(this._selectionAnchor, this._activeIndex);
         const end = Math.max(this._selectionAnchor, this._activeIndex);
@@ -398,10 +398,10 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
     this.requestUpdate('value', oldValue);
   }
 
-  private handlePaste(e: ClipboardEvent) {
-    e.preventDefault();
+  private handlePaste(event: ClipboardEvent) {
+    event.preventDefault();
     if (this.readonly) return;
-    const text = e.clipboardData?.getData('text/plain') ?? '';
+    const text = event.clipboardData?.getData('text/plain') ?? '';
     const filtered = this.filterAndTransform(text);
     if (!filtered) return;
 
@@ -460,13 +460,13 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
     }
   }
 
-  private handleSegmentsClick(e: MouseEvent) {
+  private handleSegmentsClick(event: MouseEvent) {
     if (this.disabled) return;
 
     this.input?.focus(); // handleFocus sets _activeIndex to first empty slot
 
     // If the user clicked directly on a specific segment, override _activeIndex
-    const target = e.target as Element;
+    const target = event.target as Element;
     const segment = target.closest('[part~="segment"]');
     if (segment && this.shadowRoot) {
       const segments = [...this.shadowRoot.querySelectorAll('[part~="segment"]')];
