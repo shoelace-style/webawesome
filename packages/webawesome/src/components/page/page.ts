@@ -106,8 +106,7 @@ function toLength(px: number | string): string {
  * @csspart main-content - The main content.
  * @csspart main-footer - The footer below main content.
  * @csspart aside - The right hand side of the page. Used for things like table of contents, ads, etc.
- * @csspart skip-links - Wrapper around skip-link
- * @csspart skip-link - The "skip to main content" link
+ * @csspart skip-to-content - The "skip to content" link that lets keyboard users bypass navigation.
  * @csspart footer - The footer of the page. This is always below the initial viewport size.
  * @csspart dialog-wrapper - A wrapper around elements such as dialogs or other modal-like elements.
  *

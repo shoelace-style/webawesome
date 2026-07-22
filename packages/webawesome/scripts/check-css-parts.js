@@ -37,12 +37,11 @@ async function readComponentSource(dir) {
   return contents.join('\n');
 }
 
-// Rendered but undocumented on purpose — pending API-shape decisions (form-control label naming;
-// `page` renders `skip-to-content` but documents `skip-link`). Drop each as it's resolved.
+// Rendered but undocumented on purpose — pending API-shape decisions (form-control label naming).
+// Drop each as it's resolved.
 const DEFAULT_ALLOWLIST = {
   'color-picker': ['form-control', 'form-control-input', 'form-control-label', 'hint'],
   input: ['form-control-label'],
-  page: ['skip-to-content'],
   select: ['label'],
   textarea: ['form-control-label'],
   'time-input': ['label'],
