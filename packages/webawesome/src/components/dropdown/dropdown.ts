@@ -45,7 +45,7 @@ const openDropdowns = new Set<WaDropdown>();
  * @slot - The dropdown's items, typically `<wa-dropdown-item>` elements.
  * @slot trigger - The element that triggers the dropdown, such as a `<wa-button>` or `<button>`.
  *
- * @csspart base - The component's host element.
+ * @csspart base - Deprecated. Style the host element instead.
  * @csspart menu - The dropdown menu container.
  *
  * @cssproperty --show-duration - The duration of the show animation.
@@ -731,7 +731,7 @@ export default class WaDropdown extends WebAwesomeElement {
     if (trigger.localName === 'wa-button') {
       await customElements.whenDefined('wa-button');
       await (trigger as WaButton).updateComplete;
-      nativeButton = trigger.shadowRoot!.querySelector<HTMLButtonElement>('[part="base"]')!;
+      nativeButton = trigger.shadowRoot!.querySelector<HTMLButtonElement>('[part~="base"]')!;
     } else {
       nativeButton = trigger as HTMLButtonElement;
     }

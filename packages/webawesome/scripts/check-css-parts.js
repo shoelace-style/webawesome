@@ -1,9 +1,10 @@
 /**
- * Fails when a component renders a `part=` with no matching `@csspart`, so the rendered and
- * documented part surfaces can't drift. Static analysis, no build.
+ * Guards the component CSS-part surface statically (no build):
+ *   1. every rendered `part=` has a matching `@csspart`, so docs can't drift from render;
+ *   2. every component that renders `base` also exposes its canonical `<name>` (or `<name>-wrapper`) part.
  *
- * Rendered-but-undocumented only. The reverse has too many false positives: the host `base` part
- * carries no `part=`, and `part=${expr}` can't be resolved without running the component.
+ * Documented-but-unrendered isn't checked — `part=${expr}` can't be resolved statically, so it
+ * produces too many false positives.
  */
 import { globby } from 'globby';
 import { readFile } from 'node:fs/promises';
@@ -38,7 +39,7 @@ async function readComponentSource(dir) {
 
 // Rendered but undocumented on purpose — pending API-shape decisions (form-control label naming;
 // `page` renders `skip-to-content` but documents `skip-link`). Drop each as it's resolved.
-const ALLOWLIST = {
+const DEFAULT_ALLOWLIST = {
   'color-picker': ['form-control', 'form-control-input', 'form-control-label', 'hint'],
   input: ['form-control-label'],
   page: ['skip-to-content'],
@@ -47,8 +48,17 @@ const ALLOWLIST = {
   'time-input': ['label'],
 };
 
+// These render `base` on a `<slot>` rather than a wrapper element. Parts don't belong on slots, and
+// the host does the styling, so they get no component-named part until the legacy `base` is removed.
+const SLOT_BASE = new Set(['button-group', 'tab-panel']);
+
+function hasCanonicalPart(name, rendered, declared) {
+  return [name, `${name}-wrapper`].some(part => rendered.has(part) && declared.has(part));
+}
+
 export async function check(options = {}) {
   const rootDir = options.rootDir || root;
+  const allowlist = options.allowlist ?? DEFAULT_ALLOWLIST;
   const dirs = await globby('src/components/*', {
     cwd: rootDir,
     absolute: true,
@@ -64,7 +74,7 @@ export async function check(options = {}) {
 
     const rendered = collect(source, RENDERED_PART, 2);
     const declared = collect(source, DECLARED_PART, 1);
-    const allowed = new Set(ALLOWLIST[name] ?? []);
+    const allowed = new Set(allowlist[name] ?? []);
 
     const undocumented = [...rendered].filter(part => !declared.has(part));
     const gaps = undocumented.filter(part => !allowed.has(part)).sort();
@@ -72,9 +82,16 @@ export async function check(options = {}) {
     // Flag allowlist entries that are now documented, so the list can't rot.
     for (const part of allowed) if (!undocumented.includes(part)) staleAllowlist.push(`${name}: ${part}`);
 
-    if (gaps.length > 0) {
-      failures.push({ name, gaps });
-      console.log(`❌ ${name} — undocumented part(s): ${gaps.join(', ')}`);
+    const missingCanonical =
+      rendered.has('base') && !SLOT_BASE.has(name) && !hasCanonicalPart(name, rendered, declared);
+
+    const problems = [];
+    if (gaps.length > 0) problems.push(`undocumented part(s): ${gaps.join(', ')}`);
+    if (missingCanonical) problems.push(`missing canonical part (\`${name}\` or \`${name}-wrapper\`)`);
+
+    if (problems.length > 0) {
+      failures.push(name);
+      console.log(`❌ ${name} — ${problems.join('; ')}`);
     } else {
       console.log(`✅ ${name}`);
     }
@@ -88,13 +105,13 @@ export async function check(options = {}) {
   }
 
   if (failures.length > 0) {
-    const total = failures.reduce((sum, f) => sum + f.gaps.length, 0);
-    console.log(`FAILED: ${total} undocumented part(s) across ${failures.length} component(s).`);
-    console.log('Add a matching `@csspart <name> - <description>` tag, or remove the stray `part=`.');
+    console.log(`FAILED: part issues across ${failures.length} component(s).`);
+    console.log('Add a matching `@csspart <name> - <description>` for any stray `part=`, and give each');
+    console.log('component a canonical `<name>` (or `<name>-wrapper`) part on its outer element.');
     process.exit(1);
   }
 
-  console.log('PASSED: every rendered part is documented (or explicitly allowlisted).');
+  console.log('PASSED: every rendered part is documented, and every component exposes its canonical part.');
 }
 
 function isRunAsMain() {

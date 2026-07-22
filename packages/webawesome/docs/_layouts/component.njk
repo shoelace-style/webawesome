@@ -285,7 +285,7 @@
     </thead>
     <tbody>
       {% for cssPart in component.cssParts %}
-      <tr>
+      <tr{% if cssPart.deprecated %} class="wa-color-text-quiet"{% endif %}>
         <td class="table-name"><code>{{ cssPart.name }}</code></td>
         <td class="table-description">{{ cssPart.description | inlineMarkdown | safe }}</td>
         <td class="table-selector">
