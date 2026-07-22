@@ -8,6 +8,7 @@ import { WaShowEvent } from '../../events/show.js';
 import { animateWithClass } from '../../internal/animate.js';
 import { isTopDismissible, registerDismissible, unregisterDismissible } from '../../internal/dismissible-stack.js';
 import { parseSpaceDelimitedTokens } from '../../internal/parse.js';
+import { RenderedWatcher } from '../../internal/rendered-watcher.js';
 import { lockBodyScrolling, unlockBodyScrolling } from '../../internal/scroll.js';
 import { HasSlotController } from '../../internal/slot.js';
 import { watch } from '../../internal/watch.js';
@@ -60,6 +61,7 @@ export default class WaDialog extends WebAwesomeElement {
 
   private readonly localize = new LocalizeController(this);
   private readonly hasSlotController = new HasSlotController(this, 'footer', 'header-actions', 'label');
+  private readonly renderedWatcher = new RenderedWatcher(this, isRendered => this.handleRenderedChange(isRendered));
   private originalTrigger: HTMLElement | null;
 
   @query('.dialog') dialog: HTMLDialogElement;
@@ -90,11 +92,13 @@ export default class WaDialog extends WebAwesomeElement {
       this.addOpenListeners();
       this.dialog.showModal();
       lockBodyScrolling(this);
+      this.renderedWatcher.start(this.dialog);
     }
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
+    this.renderedWatcher.stop();
     unlockBodyScrolling(this);
     this.removeOpenListeners();
   }
@@ -117,6 +121,7 @@ export default class WaDialog extends WebAwesomeElement {
     this.open = false;
     this.dialog.close();
     unlockBodyScrolling(this);
+    this.renderedWatcher.stop();
 
     // Restore focus to the original trigger
     const trigger = this.originalTrigger;
@@ -175,6 +180,29 @@ export default class WaDialog extends WebAwesomeElement {
     }
   };
 
+  /**
+   * Suspends the modal when third-party CSS (e.g. cookie banner blockers) hides an open dialog, so the page isn't
+   * left scroll locked and inert. "open" stays true so the modal resumes if the dialog is rendered again.
+   */
+  private handleRenderedChange(isRendered: boolean) {
+    if (!this.open) {
+      this.renderedWatcher.stop();
+      return;
+    }
+
+    if (!isRendered && this.dialog.open) {
+      // Suspend the modal while hidden so the page stays scrollable and interactive
+      this.removeOpenListeners();
+      this.dialog.close();
+      unlockBodyScrolling(this);
+    } else if (isRendered && !this.dialog.open) {
+      // Resume the modal now that the dialog is rendered again
+      this.addOpenListeners();
+      this.dialog.showModal();
+      lockBodyScrolling(this);
+    }
+  }
+
   @watch('open', { waitUntilFirstUpdate: true })
   handleOpenChange() {
     // Open or close the dialog
@@ -183,6 +211,9 @@ export default class WaDialog extends WebAwesomeElement {
     } else if (!this.open && this.dialog.open) {
       this.open = true;
       this.requestClose(this.dialog);
+    } else if (!this.open) {
+      // Closed programmatically while the modal was suspended (see handleRenderedChange)
+      this.renderedWatcher.stop();
     }
   }
 
@@ -202,6 +233,7 @@ export default class WaDialog extends WebAwesomeElement {
     this.dialog.showModal();
 
     lockBodyScrolling(this);
+    this.renderedWatcher.start(this.dialog);
 
     // Set focus on autocomplete if it exists
     requestAnimationFrame(() => {
