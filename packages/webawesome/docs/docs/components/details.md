@@ -28,7 +28,7 @@ use-cases:
 
 Use the `open` attribute to expand the details initially.
 
-```html {.example}
+```html {.example .anatomy}
 <wa-details summary="Toggle Me" open>
   This details component is expanded by default. Users can click the summary to collapse it if they want to hide the
   content.

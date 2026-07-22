@@ -29,7 +29,8 @@ import styles from './rating.styles.js';
  *  rating's value would be if the user were to commit to the hovered value.
  * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
- * @csspart base - The component's base wrapper.
+ * @csspart base - Deprecated. Use the `rating` part instead.
+ * @csspart rating - The component's outer wrapper.
  *
  * @cssproperty --symbol-color - The inactive color for symbols.
  * @cssproperty --symbol-color-active - The active color for symbols.
@@ -317,7 +318,7 @@ export default class WaRating extends WebAwesomeFormAssociatedElement {
 
     return html`
       <div
-        part="base"
+        part="base rating"
         class=${classMap({
           rating: true,
           'rating-readonly': this.readonly,

@@ -34,6 +34,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 :::added
 
 - Moved `<wa-toast>` and `<wa-toast-item>` from Pro to Core [pr:2631]
+- Added a CSS part named after the component to every component that renders a wrapper element (e.g. `button`, `details`, `carousel`), alongside the existing `base` part. Where the component name is already used by an inner part, the wrapper takes a `-wrapper` suffix (`input-wrapper`, `textarea-wrapper`).
 
 :::
 
@@ -52,12 +53,23 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug in `<wa-checkbox>` where it would improperly submit values after it was enabled after being disabled. [pr:2607]
 - Fixed the remove button in `<wa-tag>` to match the tag's `size` [pr:2615]
 - Fixed missing CSS parts documentation for `<wa-card>`, `<wa-color-picker>`, `<wa-textarea>`, `<wa-scroller>`, and `<wa-page>` [pr:2623]
+- Fixed `<wa-checkbox>` rendering its checked icon under the undocumented `check-icon` CSS part; it now uses the documented `checked-icon` part, matching `<wa-radio>` [pr:2646]
+- Fixed a bug in `<wa-dialog>` and `<wa-drawer>` that left the page permanently scroll locked and inert when third-party CSS, e.g. from ad blockers, hides an open dialog or drawer with `display: none`
+- Fixed `<wa-page>` documenting `skip-links` and `skip-link` CSS parts that don't render; replaced them with the `skip-to-content` part it actually exposes [pr:2633]
+- Fixed `x-label` and `y-label` attributes not working on `<wa-chart>` and its variants
 
 :::
 
 :::changed
 
 - Removed `font-variant-numeric: tabular-nums;` from default `<table>` styles in Native Styles in lieu of an opt-in `wa-tabular-nums` class [pr:2613]
+- Updated `@shoelace-style/localize` to 3.2.3 to fix a bug that caused a `RangeException` to be thrown when using Google Chrome's "Detect Language" translation feature [issue:2479]
+
+:::
+
+:::deprecated
+
+- The generic `base` CSS part is deprecated in favor of the part named after the component. Existing `::part(base)` selectors keep working and will until the next major version; `base` now appears as deprecated in each component's CSS Parts table.
 
 :::
 

@@ -331,7 +331,7 @@ describe('<wa-checkbox>', () => {
       describe('CSS parts and states', () => {
         it('should expose CSS parts', async () => {
           const el = await fixture<WaCheckbox>(html`<wa-checkbox hint="Help">Checkbox</wa-checkbox>`);
-          expect(el.shadowRoot!.querySelector('[part="base"]')).to.exist;
+          expect(el.shadowRoot!.querySelector('[part~="base"]')).to.exist;
           expect(el.shadowRoot!.querySelector('[part="control"]')).to.exist;
           expect(el.shadowRoot!.querySelector('[part="label"]')).to.exist;
           expect(el.shadowRoot!.querySelector('[part="hint"]')).to.exist;
@@ -426,7 +426,7 @@ describe('<wa-checkbox>', () => {
 
         it('should show check icon instead of indeterminate icon when checked', async () => {
           const el = await fixture<WaCheckbox>(html`<wa-checkbox checked></wa-checkbox>`);
-          expect(el.shadowRoot!.querySelector('[part~="check-icon"]')).to.exist;
+          expect(el.shadowRoot!.querySelector('[part~="checked-icon"]')).to.exist;
           expect(el.shadowRoot!.querySelector('[part~="indeterminate-icon"]')).to.be.null;
         });
       });

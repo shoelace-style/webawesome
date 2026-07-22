@@ -2,6 +2,7 @@
 title: Dialog
 layout: component
 category: Layout
+hasAnatomy: false
 synonyms:
   - modal
   - popup

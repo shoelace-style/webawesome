@@ -19,6 +19,14 @@ use-cases:
 <wa-badge>New</wa-badge>
 ```
 
+```html {.example .anatomy-only}
+<wa-badge variant="brand">
+  <wa-icon slot="start" name="star"></wa-icon>
+  Featured
+  <wa-icon slot="end" name="arrow-right"></wa-icon>
+</wa-badge>
+```
+
 ## Examples
 
 ### Variant

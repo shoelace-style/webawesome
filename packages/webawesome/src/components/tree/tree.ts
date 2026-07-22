@@ -63,7 +63,8 @@ function syncCheckboxes(changedTreeItem: WaTreeItem, initialSync = false) {
  * @slot expand-icon - The icon to show when the tree item is expanded. Works best with `<wa-icon>`.
  * @slot collapse-icon - The icon to show when the tree item is collapsed. Works best with `<wa-icon>`.
  *
- * @csspart base - The component's base wrapper.
+ * @csspart base - Deprecated. Use the `tree` part instead.
+ * @csspart tree - The component's outer wrapper.
  *
  * @cssproperty [--indent-size=var(--wa-space-m)] - The size of the indentation for nested items.
  * @cssproperty [--indent-guide-color=var(--wa-color-surface-border)] - The color of the indentation line.
@@ -420,7 +421,7 @@ export default class WaTree extends WebAwesomeElement {
   render() {
     return html`
       <div
-        part="base"
+        part="base tree"
         class="tree"
         @click=${this.handleClick}
         @keydown=${this.handleKeyDown}

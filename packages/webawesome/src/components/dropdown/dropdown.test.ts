@@ -25,7 +25,7 @@ describe('<wa-dropdown>', () => {
           await customElements.whenDefined('wa-button');
           const waButton = trigger as any;
           await waButton.updateComplete;
-          const nativeButton = waButton.shadowRoot!.querySelector('[part="base"]')!;
+          const nativeButton = waButton.shadowRoot!.querySelector('[part~="base"]')!;
 
           expect(nativeButton.getAttribute('aria-haspopup')).to.equal('menu');
         });
@@ -42,7 +42,7 @@ describe('<wa-dropdown>', () => {
 
           const trigger = el.querySelector<HTMLElement>('[slot="trigger"]')! as any;
           await trigger.updateComplete;
-          const nativeButton = trigger.shadowRoot!.querySelector('[part="base"]')!;
+          const nativeButton = trigger.shadowRoot!.querySelector('[part~="base"]')!;
 
           expect(nativeButton.getAttribute('aria-expanded')).to.equal('true');
         });

@@ -2,6 +2,7 @@
 title: Page
 layout: component
 category: Layout
+hasAnatomy: false
 synonyms:
   - layout
   - page layout

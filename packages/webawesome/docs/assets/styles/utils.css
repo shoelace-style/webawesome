@@ -546,7 +546,8 @@
       font-size: var(--wa-font-size-xl);
     }
 
-    strong a {
+    strong a,
+    [class*='wa-caption'] a {
       color: inherit;
     }
 
@@ -1085,13 +1086,31 @@
     }
   }
 
-  /* Bottom fade mask. With any .background-* utility, masks the ::after decoration only; on any other
-   * element, masks the host (content fades too). Mask reads alpha, color is irrelevant. */
+  /* Edge fade masks — fade an element toward one edge until transparent. On a .background-* utility they mask
+   * only its ::after decoration (grid/dots fade, not content); elsewhere they mask the element. Tune via
+   * --wa-mask-fade-start / --wa-mask-fade-end (accept a length or %, so `calc(100% - 3rem)` fades a fixed
+   * distance) and --wa-mask-fade-direction. Masking a solid box makes a scrim that reveals content behind. */
+  .wa-mask-fade-below {
+    --wa-mask-fade-direction: to bottom;
+  }
+
+  .wa-mask-fade-above {
+    --wa-mask-fade-direction: to top;
+  }
+
   .wa-mask-fade-below:not(:is(.background-grid, .background-dot-grid, .background-wa-pattern)),
-  :is(.background-grid, .background-dot-grid, .background-wa-pattern).wa-mask-fade-below::after {
+  .wa-mask-fade-above:not(:is(.background-grid, .background-dot-grid, .background-wa-pattern)),
+  :is(.background-grid, .background-dot-grid, .background-wa-pattern):is(
+      .wa-mask-fade-below,
+      .wa-mask-fade-above
+    )::after {
     --wa-mask-fade-start: 60%;
-    --wa-mask-fade-end: 95%;
-    mask-image: linear-gradient(to bottom, #000 var(--wa-mask-fade-start), transparent var(--wa-mask-fade-end));
+    --wa-mask-fade-end: 100%;
+    mask-image: linear-gradient(
+      var(--wa-mask-fade-direction),
+      #000 var(--wa-mask-fade-start),
+      transparent var(--wa-mask-fade-end)
+    );
   }
 
   /* Decorative heart that warms to brand orange and beats on hover. Pair with
