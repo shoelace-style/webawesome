@@ -18,6 +18,14 @@ use-cases:
 <wa-button>Save</wa-button>
 ```
 
+```html {.example .anatomy-only}
+<wa-button>
+  <wa-icon slot="start" name="gear"></wa-icon>
+  Settings
+  <wa-icon slot="end" name="chevron-right"></wa-icon>
+</wa-button>
+```
+
 ## Examples
 
 ### Variant

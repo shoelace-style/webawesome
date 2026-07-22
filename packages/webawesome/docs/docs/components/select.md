@@ -25,6 +25,17 @@ use-cases:
 </wa-select>
 ```
 
+```html {.example .anatomy-only}
+<wa-select label="Coffee order" hint="We'll grind it fresh to order." value="latte">
+  <wa-icon slot="start" name="mug-hot"></wa-icon>
+  <wa-option value="espresso">Espresso</wa-option>
+  <wa-option value="latte">Latte</wa-option>
+  <wa-option value="cappuccino">Cappuccino</wa-option>
+  <wa-option value="cold-brew">Cold brew</wa-option>
+  <wa-option value="drip">Drip</wa-option>
+</wa-select>
+```
+
 :::info
 This component works with standard `<form>` elements. See [form controls](/docs/form-controls) for form submission and client-side validation.
 :::

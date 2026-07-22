@@ -35,7 +35,7 @@ Use the `label` attribute to give the textarea an accessible label. For labels t
 
 Add a descriptive hint to a textarea with the `hint` attribute. For hints that contain HTML, use the `hint` slot instead.
 
-```html {.example}
+```html {.example .anatomy}
 <wa-textarea label="Feedback" hint="Please tell us what you think."></wa-textarea>
 ```
 

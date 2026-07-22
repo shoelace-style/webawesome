@@ -2,6 +2,7 @@
 title: Popover
 layout: component
 category: Helpers
+hasAnatomy: false
 synonyms:
   - popup content
   - info popup

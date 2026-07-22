@@ -2,6 +2,7 @@
 title: Scroller
 layout: component
 category: Layout
+hasAnatomy: false
 synonyms:
   - scrollable
   - scroll container
