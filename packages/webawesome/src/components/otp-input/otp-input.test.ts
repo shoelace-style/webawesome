@@ -120,7 +120,7 @@ describe('<wa-otp-input>', () => {
 
         it('should render separators from the format string', async () => {
           const el = await fixture<WaOtpInput>(html`<wa-otp-input format="###-###"></wa-otp-input>`);
-          const separators = el.shadowRoot!.querySelectorAll('[part~="segment-separator"]');
+          const separators = el.shadowRoot!.querySelectorAll('[part~="segment-literal"]');
           expect(separators.length).to.equal(1);
           expect(separators[0].textContent).to.equal('-');
         });
@@ -581,6 +581,24 @@ describe('<wa-otp-input>', () => {
         });
       });
 
+      describe('caret', () => {
+        it('should show the caret in an empty active segment', async () => {
+          const el = await fixture<WaOtpInput>(html`<wa-otp-input label="Code"></wa-otp-input>`);
+          el.focus();
+          await el.updateComplete;
+          expect(el.shadowRoot!.querySelector('.caret')).to.exist;
+        });
+
+        it('should not draw the caret over a filled segment', async () => {
+          // A filled active segment is in replace mode — the ring marks it; a caret
+          // through the existing character reads as a strikethrough.
+          const el = await fixture<WaOtpInput>(html`<wa-otp-input label="Code" value="123456"></wa-otp-input>`);
+          el.focus();
+          await el.updateComplete;
+          expect(el.shadowRoot!.querySelector('.caret')).to.not.exist;
+        });
+      });
+
       describe('accessibility', () => {
         it('should have aria-describedby pointing to the hint element', async () => {
           const el = await fixture<WaOtpInput>(html`<wa-otp-input hint="Enter your code"></wa-otp-input>`);
@@ -594,6 +612,78 @@ describe('<wa-otp-input>', () => {
           await el.updateComplete;
           const segments = el.shadowRoot!.querySelector('.segments')!;
           expect(segments.getAttribute('role')).to.equal('group');
+        });
+
+        it('should pass accessibility checks', async () => {
+          const el = await fixture<WaOtpInput>(
+            html`<wa-otp-input label="Verification code" hint="Check your email for a 6-digit code."></wa-otp-input>`,
+          );
+          await el.updateComplete;
+          await expect(el).to.be.accessible();
+        });
+      });
+
+      describe('enter key', () => {
+        it('should submit the containing form when enter is pressed', async () => {
+          const form = await fixture<HTMLFormElement>(
+            html`<form><wa-otp-input name="code" length="3" value="123"></wa-otp-input></form>`,
+          );
+          const el = form.querySelector<WaOtpInput>('wa-otp-input')!;
+          const submitHandler = sinon.spy((event: SubmitEvent) => event.preventDefault());
+
+          form.addEventListener('submit', submitHandler);
+          el.focus();
+          await sendKeys({ press: 'Enter' });
+          await waitUntil(() => submitHandler.calledOnce);
+
+          expect(submitHandler).to.have.been.calledOnce;
+        });
+      });
+
+      describe('tab key', () => {
+        it('should move focus out of the field when tab is pressed', async () => {
+          const container = await fixture<HTMLDivElement>(
+            html`<div>
+              <wa-otp-input label="Code"></wa-otp-input>
+              <button type="button">After</button>
+            </div>`,
+          );
+          const el = container.querySelector<WaOtpInput>('wa-otp-input')!;
+          const button = container.querySelector('button')!;
+
+          el.focus();
+          await sendKeys({ press: 'Tab' });
+
+          expect(document.activeElement).to.equal(button);
+        });
+      });
+
+      describe('right-to-left', () => {
+        it('should keep segments laid out left-to-right in RTL contexts', async () => {
+          const container = await fixture<HTMLDivElement>(
+            html`<div dir="rtl"><wa-otp-input label="Code" value="12"></wa-otp-input></div>`,
+          );
+          const el = container.querySelector<WaOtpInput>('wa-otp-input')!;
+          await el.updateComplete;
+          const segments = el.shadowRoot!.querySelector('.segments')!;
+          expect(getComputedStyle(segments).direction).to.equal('ltr');
+        });
+      });
+
+      describe('autofill', () => {
+        it('should filter, not truncate, raw values that exceed the segment count', async () => {
+          const el = await fixture<WaOtpInput>(html`<wa-otp-input label="Code"></wa-otp-input>`);
+          await el.updateComplete;
+          const input = el.shadowRoot!.querySelector<HTMLInputElement>('.hidden-input')!;
+
+          // Simulate browser autofill: set the raw input value (with separators) and fire input
+          input.value = '123 456';
+          input.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true }));
+          await el.updateComplete;
+
+          // maxlength would truncate an autofilled "123 456" to "123 45" before filtering ran
+          expect(input.hasAttribute('maxlength')).to.be.false;
+          expect(el.value).to.equal('123456');
         });
       });
     });

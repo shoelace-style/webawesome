@@ -14,6 +14,9 @@ use-cases:
   - PIN entry
   - invite code
   - serial number
+  - license key
+  - gift card
+  - device pairing
 ---
 
 ```html {.example}
@@ -21,116 +24,126 @@ use-cases:
 ```
 
 :::info
-This component works with standard `<form>` elements. Please refer to the section on [form controls](/docs/form-controls) to learn more about form submission and client-side validation.
+This component works with standard `<form>` elements. See [form controls](/docs/form-controls) for form submission and client-side validation.
 :::
 
 ## Examples
 
-### Labels
+### Label
 
-Use the `label` attribute to give the field a visible label. For labels that contain HTML, use the `label` slot instead.
+Use the `label` attribute to give the field an accessible label. For labels that contain HTML, use the `label` slot instead.
 
 ```html {.example}
-<wa-otp-input label="Verification code"></wa-otp-input>
+<wa-otp-input label="Security code"></wa-otp-input>
 ```
 
 ### Hint
 
-Use the `hint` attribute to provide descriptive help text below the field. For hints that contain HTML, use the `hint` slot instead.
+Add descriptive hint text with the `hint` attribute. For hints that contain HTML, use the `hint` slot instead.
 
 ```html {.example}
-<wa-otp-input label="Verification code" hint="Check your email for a 6-digit code."></wa-otp-input>
+<wa-otp-input label="Sign-in code" hint="Check your email for a 6-digit code."></wa-otp-input>
+```
+
+### Placeholder
+
+Use the `placeholder` attribute to show a hint character in each empty segment, making the expected length clear at a glance.
+
+```html {.example}
+<div class="wa-stack">
+  <wa-otp-input label="Access code" placeholder="·"></wa-otp-input>
+  <wa-otp-input label="Verification code" placeholder="0"></wa-otp-input>
+</div>
 ```
 
 ### Length
 
-The default length is 6 segments. Use the `length` attribute to change it.
+Use the `length` attribute to change the number of segments. The default is 6.
 
 ```html {.example}
-<wa-otp-input id="length-demo" label="Verification code" length="6"></wa-otp-input>
-
-<wa-divider></wa-divider>
-
-<div class="wa-cluster" style="align-items: flex-end">
-  <wa-select id="length-select" label="Length" value="6" style="width: 8rem">
-    <wa-option value="4">4</wa-option>
-    <wa-option value="5">5</wa-option>
-    <wa-option value="6">6</wa-option>
-    <wa-option value="7">7</wa-option>
-    <wa-option value="8">8</wa-option>
-  </wa-select>
+<div class="wa-stack">
+  <wa-otp-input label="Card PIN" length="4"></wa-otp-input>
+  <wa-otp-input label="Backup code" length="8"></wa-otp-input>
 </div>
-
-<script>
-  document.getElementById('length-select').addEventListener('change', event => {
-    document.getElementById('length-demo').length = Number(event.target.value);
-  });
-</script>
 ```
 
-### Types
+### Type
 
-Use the `type` attribute to restrict which characters are accepted. The default is `numeric`. Use `alpha` for letters only, or `alphanumeric` for both.
+Use the `type` attribute to restrict which characters are accepted.
 
 ```html {.example}
-<wa-otp-input label="Numeric (default)" type="numeric"></wa-otp-input> <br /><br />
-<wa-otp-input label="Alpha" type="alpha" length="6"></wa-otp-input>
-<br /><br />
-<wa-otp-input label="Alphanumeric" type="alphanumeric" length="6"></wa-otp-input>
+<div class="wa-stack">
+  <wa-otp-input label="Numeric" type="numeric"></wa-otp-input>
+  <wa-otp-input label="Alpha" type="alpha"></wa-otp-input>
+  <wa-otp-input label="Alphanumeric" type="alphanumeric"></wa-otp-input>
+</div>
 ```
+
+| Type                                                                                | Accepts            | Best for                     |
+| ----------------------------------------------------------------------------------- | ------------------ | ---------------------------- |
+| `numeric` <wa-badge appearance="outlined" variant="neutral" pill>default</wa-badge> | Digits 0–9         | SMS and 2FA codes, PINs      |
+| `alpha`                                                                             | Letters A–Z        | Letter-only codes            |
+| `alphanumeric`                                                                      | Letters and digits | Invite codes, serial numbers |
+
+The `numeric` type also sets the `inputmode` attribute on the underlying input, so mobile devices show the numeric keyboard.
 
 ### Format
 
-Use the `format` attribute to arrange segments into groups with literal separators. The `#` character marks a segment; any other character becomes a visual separator. Setting `format` implicitly sets `length`, so you do not need to specify both.
+Use the `format` attribute to arrange segments into groups with literal separators. The `#` character marks a segment; any other character becomes a visual separator. Setting `format` overrides `length`, so there is no need to specify both.
 
 ```html {.example}
-<!-- Two groups of three with a space: e.g. "ABC DEF" -->
-<wa-otp-input label="Invite code" type="alphanumeric" format="### ###"></wa-otp-input>
-<br /><br />
-<!-- Two groups of four joined by a dash: e.g. "1234-5678" -->
-<wa-otp-input label="Serial number" format="####-####"></wa-otp-input>
+<div class="wa-stack">
+  <!-- Two groups of three with a space: e.g. "ABC DEF" -->
+  <wa-otp-input label="Invite code" type="alphanumeric" format="### ###"></wa-otp-input>
+  <!-- Three groups of four joined by dashes: e.g. "1234-5678-9012" -->
+  <wa-otp-input label="License key" type="alphanumeric" format="####-####-####"></wa-otp-input>
+</div>
 ```
 
-### Appearances
+### Case
 
-Use the `appearance` attribute to change the visual style of the segments.
+Use the `case` attribute to transform characters as they are entered. The default is `preserve`. Use `upper` to force uppercase or `lower` to force lowercase.
 
 ```html {.example}
-<wa-otp-input label="Outlined (default)" appearance="outlined"></wa-otp-input> <br /><br />
-<wa-otp-input label="Filled" appearance="filled"></wa-otp-input>
-<br /><br />
-<wa-otp-input label="Filled outlined" appearance="filled-outlined"></wa-otp-input>
-<br /><br />
-<wa-otp-input label="Contained" appearance="contained"></wa-otp-input>
+<div class="wa-stack">
+  <wa-otp-input label="Upper" type="alpha" case="upper"></wa-otp-input>
+  <wa-otp-input label="Lower" type="alpha" case="lower"></wa-otp-input>
+</div>
 ```
 
 ### Mask
 
-Add the `mask` attribute to display entered characters as bullets (•). The actual value is still accessible via `el.value`, masking is display-only.
+Add the `mask` attribute to display entered characters as bullets (•). The value remains accessible via the `value` property; masking is display-only. Masking is also visual-only for assistive technology — screen readers still announce entered characters.
 
 ```html {.example}
 <wa-otp-input label="PIN" mask length="4"></wa-otp-input>
 ```
 
-### Case
+### Appearance
 
-Use the `case` attribute to automatically transform characters as they are entered. The default is `preserve`. Use `upper` to force uppercase or `lower` to force lowercase.
+Use the `appearance` attribute to change the visual style of the segments. The default is `outlined`.
 
 ```html {.example}
-<wa-otp-input label="Uppercase invite code" type="alpha" case="upper" length="6"></wa-otp-input> <br /><br />
-<wa-otp-input label="Lowercase code" type="alpha" case="lower" length="6"></wa-otp-input>
+<div class="wa-stack">
+  <wa-otp-input label="Outlined" appearance="outlined"></wa-otp-input>
+  <wa-otp-input label="Filled" appearance="filled"></wa-otp-input>
+  <wa-otp-input label="Filled outlined" appearance="filled-outlined"></wa-otp-input>
+  <wa-otp-input label="Contained" appearance="contained"></wa-otp-input>
+</div>
 ```
 
-### Sizes
+### Size
 
-Use the `size` attribute to change the size of each segment.
+Use the `size` attribute to change the size of each segment. The default is `m`.
 
 ```html {.example}
-<wa-otp-input label="Extra small" size="xs"></wa-otp-input> <br /><br />
-<wa-otp-input label="Small" size="s"></wa-otp-input> <br /><br />
-<wa-otp-input label="Medium (default)" size="m"></wa-otp-input> <br /><br />
-<wa-otp-input label="Large" size="l"></wa-otp-input> <br /><br />
-<wa-otp-input label="Extra large" size="xl"></wa-otp-input>
+<div class="wa-stack">
+  <wa-otp-input label="Extra small" size="xs"></wa-otp-input>
+  <wa-otp-input label="Small" size="s"></wa-otp-input>
+  <wa-otp-input label="Medium" size="m"></wa-otp-input>
+  <wa-otp-input label="Large" size="l"></wa-otp-input>
+  <wa-otp-input label="Extra large" size="xl"></wa-otp-input>
+</div>
 ```
 
 ### Disabled
@@ -138,7 +151,7 @@ Use the `size` attribute to change the size of each segment.
 Use the `disabled` attribute to prevent interaction.
 
 ```html {.example}
-<wa-otp-input label="Verification code" disabled value="1234"></wa-otp-input>
+<wa-otp-input label="Verification code" disabled value="391824"></wa-otp-input>
 ```
 
 ### Readonly
@@ -149,149 +162,130 @@ Use the `readonly` attribute to display a value without allowing edits. Unlike `
 <wa-otp-input label="Confirmation code" readonly value="483920"></wa-otp-input>
 ```
 
-### Placeholder
+### Initial Value
 
-Use the `placeholder` attribute to show a hint character in each empty segment, making the expected length and format clear at a glance.
-
-```html {.example}
-<wa-otp-input label="PIN" length="4" placeholder="·"></wa-otp-input> <br /><br />
-<wa-otp-input label="Verification code" placeholder="0"></wa-otp-input>
-```
-
-### Prefilling a Value
-
-Use the `value` attribute to pre-populate the segments, useful when a code arrives via a URL parameter.
+Use the `value` attribute to prefill the segments — for example, when a code arrives in a link's query parameter.
 
 ```html {.example}
-<wa-otp-input id="magic-code" label="Magic link code" length="6"></wa-otp-input>
-
-<script type="module">
-  const code = new URLSearchParams(location.search).get('code') ?? '';
-  if (code) document.querySelector('#magic-code').value = code;
-</script>
+<wa-otp-input label="Magic link code" value="271828"></wa-otp-input>
 ```
 
 ### Pasting
 
-Paste a full code in one step, the component fills all segments at once. Characters that don't match the `type` setting are silently ignored, so pasting `"ABC-123"` into a `numeric` field produces `123`.
+Pasting a full code fills all segments in one step. Characters that don't match the `type` attribute are silently dropped, so pasting `"ABC-123"` into a `numeric` field produces `123`.
 
 ```html {.example}
-<wa-button id="copy-btn" appearance="outlined" size="small">
-  <wa-icon slot="prefix" name="clipboard"></wa-icon>
-  <span id="copy-label">Copy code: 123456</span>
-</wa-button>
+<wa-copy-button value="314159">
+  <wa-button appearance="filled">
+    <wa-icon slot="start" name="clipboard"></wa-icon>
+    Copy code: 314159
+  </wa-button>
+</wa-copy-button>
 
-<wa-divider style="margin: var(--wa-space-m) 0;"></wa-divider>
+<wa-divider></wa-divider>
 
-<wa-otp-input id="paste-target" label="Paste your code below"></wa-otp-input>
-
-<script type="module">
-  document.querySelector('#copy-btn').addEventListener('click', async () => {
-    await navigator.clipboard.writeText('123456');
-    const label = document.querySelector('#copy-label');
-    label.textContent = 'Copied!';
-    setTimeout(() => (label.textContent = 'Copy code: 123456'), 2000);
-  });
-</script>
+<wa-otp-input label="Paste your code below"></wa-otp-input>
 ```
 
 ### Autofill
 
-The component sets `autocomplete="one-time-code"` by default, which tells browsers and operating systems to offer autofill for SMS-delivered verification codes. Set `autocomplete="off"` to disable this, for example when the field is used for a PIN that shouldn't be suggested by the browser.
+The `autocomplete` attribute defaults to `one-time-code`, which tells browsers and operating systems to offer autofill for SMS-delivered verification codes. Set `autocomplete="off"` to disable this — for example, when the field is used for a PIN that shouldn't be suggested by the browser.
 
-### Auto-Submit on Completion
+On Android, Chrome can also read the code from an incoming SMS with the [WebOTP API](https://developer.mozilla.org/en-US/docs/Web/API/WebOTP_API), no manual entry required. Feature-detect it and set the field's `value` from the result:
 
-The `wa-complete` event fires once when the last segment is filled. Use it to submit the form immediately without requiring a button click.
+```html
+<wa-otp-input id="sms-code" label="Verification code"></wa-otp-input>
 
-```html {.example}
-<form id="sms-form">
-  <wa-otp-input id="sms-code" name="code" label="SMS verification code"></wa-otp-input>
-  <br />
-  <small id="sms-status"></small>
-</form>
-
-<script type="module">
-  document.querySelector('#sms-code').addEventListener('wa-complete', () => {
-    document.querySelector('#sms-status').textContent = 'Code received — submitting…';
-    // document.querySelector('#sms-form').requestSubmit();
-  });
+<script>
+  if ('OTPCredential' in window) {
+    navigator.credentials
+      .get({ otp: { transport: ['sms'] } })
+      .then(otp => {
+        document.getElementById('sms-code').value = otp.code;
+      })
+      .catch(() => {
+        // The prompt was dismissed or timed out
+      });
+  }
 </script>
 ```
 
-### Form Submission
+### Autosubmit
 
-Use the `name` attribute to include the OTP value in form submissions. The value is included in `FormData` as a plain string.
+Add the `autosubmit` attribute to submit the containing form automatically when the last segment is filled. The `wa-complete` event fires first and is cancelable — call `preventDefault()` to stop the submission.
 
 ```html {.example}
-<form id="verify-form">
-  <wa-otp-input name="code" label="Enter your 6-digit code" required></wa-otp-input>
-  <br /><br />
-  <wa-button type="submit" appearance="filled">Verify</wa-button>
-  <wa-button type="reset" appearance="outlined">Reset</wa-button>
+<form class="autosubmit">
+  <wa-otp-input name="code" label="SMS verification code" autosubmit></wa-otp-input>
 </form>
 
 <script type="module">
-  document.querySelector('#verify-form').addEventListener('submit', event => {
+  const form = document.querySelector('.autosubmit');
+
+  form.addEventListener('submit', event => {
     event.preventDefault();
-    const data = new FormData(event.target);
-    alert(`Submitted code: ${data.get('code')}`);
+    alert(`Submitted code: ${new FormData(event.target).get('code')}`);
   });
 </script>
 ```
 
-### Form Attribute
-
-Use the `form` attribute to associate the field with a `<form>` element elsewhere in the page. This works the same as the native HTML `form` attribute on `<input>`.
-
-```html {.example}
-<wa-otp-input name="code" label="Enter code" form="external-form"></wa-otp-input>
-<br />
-<br />
-<form id="external-form">
-  <wa-button appearance="filled" type="submit">Submit</wa-button>
-</form>
-```
+To run your own logic on completion instead — verify the code over the network, unlock a button — listen for the `wa-complete` event without setting `autosubmit`.
 
 ### Validation
 
-Add the `required` attribute to require a value before submission. A partial entry,some segments filled but not all, is always invalid regardless of `required`, with the `tooShort` validity flag set. Use the `invalid` event to set a custom message via `setCustomValidity()`.
+Add the `required` attribute to require a value before submission. A partial entry (some segments filled, but not all) is always invalid regardless of `required`, with the `tooShort` validity flag set.
 
 ```html {.example}
-<form id="mfa-form">
-  <wa-otp-input id="mfa-code" name="code" label="Two-factor code" required></wa-otp-input>
-  <br />
+<form class="validation">
+  <wa-otp-input name="code" label="Two-factor code" required></wa-otp-input>
   <br />
   <wa-button appearance="filled" type="submit">Continue</wa-button>
 </form>
 
 <script type="module">
-  const el = document.querySelector('#mfa-code');
+  const form = document.querySelector('.validation');
 
-  el.addEventListener('invalid', () => {
-    if (el.validity.valueMissing) {
-      el.setCustomValidity('Please enter your verification code.');
-    } else if (el.validity.tooShort) {
-      el.setCustomValidity(`Please enter all ${el.length} digits.`);
-    } else {
-      el.setCustomValidity('');
-    }
-  });
-
-  el.addEventListener('input', () => el.setCustomValidity(''));
-
-  document.querySelector('#mfa-form').addEventListener('submit', event => {
+  form.addEventListener('submit', event => {
     event.preventDefault();
     alert('Code accepted!');
   });
 </script>
 ```
 
-### Custom Styles
+### Custom Validity
 
-Use [CSS parts](#css-parts) and CSS custom properties to customize the appearance. The CSS custom properties are scoped to the component and do not use the `--wa-` prefix.
+Use the `setCustomValidity()` method to set a custom validation message. This will prevent the form from submitting and make the browser display the error message you provide. To clear the error, call this function with an empty string.
 
 ```html {.example}
-<wa-otp-input id="styled-otp" label="Styled code" length="4"></wa-otp-input>
+<form class="custom-validity">
+  <wa-otp-input name="code" label="Verification code" hint="The correct code is 314159." required></wa-otp-input>
+  <br />
+  <wa-button appearance="filled" type="submit">Verify</wa-button>
+</form>
+
+<script type="module">
+  const form = document.querySelector('.custom-validity');
+  const otp = form.querySelector('wa-otp-input');
+
+  otp.addEventListener('input', () => {
+    // Only flag complete entries — partial input is already invalid via tooShort
+    const isValid = otp.value.length < otp.length || otp.value === '314159';
+    otp.setCustomValidity(isValid ? '' : 'That code didn’t match. Check your device and try again.');
+  });
+
+  form.addEventListener('submit', event => {
+    event.preventDefault();
+    alert('Code accepted!');
+  });
+</script>
+```
+
+### Customizing
+
+Use the `--segment-size`, `--segment-gap`, and `--segment-border-radius` custom properties along with [CSS parts](#css-parts) to style the segments.
+
+```html {.example}
+<wa-otp-input id="styled-otp" label="Card PIN" length="4"></wa-otp-input>
 
 <style>
   #styled-otp {
@@ -306,3 +300,29 @@ Use [CSS parts](#css-parts) and CSS custom properties to customize the appearanc
   }
 </style>
 ```
+
+Combine CSS parts with [custom states](/docs/form-controls#custom-validation-styles) to style validation feedback — for example, coloring the segments when the `user-invalid` custom state applies. Enter a partial code and click away to see it:
+
+```html {.example}
+<wa-otp-input class="invalid-style" label="Two-factor code" required></wa-otp-input>
+
+<style>
+  .invalid-style:state(user-invalid)::part(segment) {
+    border-color: var(--wa-color-danger-border-loud);
+  }
+</style>
+```
+
+## Accessibility Considerations
+
+The component uses a single visually hidden `<input>` as the focus and form target — the visible segments are decorative. Screen readers announce it as one text field, named by the `label` attribute or slot. Always provide a label; without one, the field has no accessible name.
+
+Keyboard interaction follows the single-input model:
+
+| Key                       | Behavior                                                       |
+| ------------------------- | -------------------------------------------------------------- |
+| <kbd>←</kbd> <kbd>→</kbd> | Move between segments                                          |
+| <kbd>Tab</kbd>            | Moves focus to the next form control                           |
+| <kbd>Enter</kbd>          | Submits the containing form                                    |
+| <kbd>Backspace</kbd>      | Clears the current segment and moves back (no character shift) |
+| <kbd>Delete</kbd>         | Clears the current segment without moving                      |

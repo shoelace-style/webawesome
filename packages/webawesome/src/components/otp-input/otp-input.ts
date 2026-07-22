@@ -7,7 +7,7 @@ import { WaCompleteEvent } from '../../events/complete.js';
 import { scrollIntoView } from '../../internal/scroll.js';
 import { warnDeprecatedSize } from '../../internal/size.js';
 import { HasSlotController } from '../../internal/slot.js';
-import { submitForm } from '../../internal/submit-on-enter.js';
+import { submitForm, submitOnEnter } from '../../internal/submit-on-enter.js';
 import { MirrorValidator } from '../../internal/validators/mirror-validator.js';
 import { watch } from '../../internal/watch.js';
 import { WebAwesomeFormAssociatedElement } from '../../internal/webawesome-form-associated-element.js';
@@ -16,7 +16,8 @@ import sizeStyles from '../../styles/component/size.styles.js';
 import styles from './otp-input.styles.js';
 
 /**
- * @summary A form-associated OTP/passcode input that displays a fixed number of character segments.
+ * @summary OTP inputs collect one-time passcodes, PINs, and other fixed-length codes, one character per segment.
+ * Use them for SMS verification, two-factor authentication, and invite codes.
  * @documentation https://webawesome.com/docs/components/otp-input
  * @status experimental
  * @since 3.10
@@ -30,13 +31,14 @@ import styles from './otp-input.styles.js';
  * @event change - Emitted when the value changes and the field loses focus.
  * @event wa-complete - Emitted once when all segments are filled. Cancelable — call `preventDefault()` to stop
  *   `autosubmit` from submitting the form for this completion.
+ * @event wa-clear - Emitted when the control's value is cleared.
  * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
  * @csspart label - The label element.
  * @csspart hint - The hint element.
  * @csspart segments - The wrapper around all segment cells and separators.
  * @csspart segment - An individual character segment cell.
- * @csspart segment-separator - A literal separator character between segment groups (e.g. space or dash).
+ * @csspart segment-literal - Inert literal text between segment groups (e.g. space or dash).
  *
  * @cssstate --blank - Applied when no characters have been entered.
  * @cssstate --filled - Applied when all segments are filled.
@@ -44,9 +46,9 @@ import styles from './otp-input.styles.js';
  * @cssstate readonly - Applied when the component is readonly.
  * @cssstate user-invalid - Applied when validation fails after interaction.
  *
- * @cssproperty --segment-size - Width and height of each segment cell. Default: `2.5em`.
- * @cssproperty --segment-gap - Gap between segments (not used in `contained` appearance). Default: themed.
- * @cssproperty --segment-border-radius - Corner radius of each segment. Default: themed.
+ * @cssproperty [--segment-size=2.5em] - Width and height of each segment cell.
+ * @cssproperty [--segment-gap=var(--wa-space-xs)] - Gap between segments (not used in `contained` appearance).
+ * @cssproperty [--segment-border-radius=var(--wa-form-control-border-radius)] - Corner radius of each segment.
  */
 @customElement('wa-otp-input')
 export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
@@ -328,15 +330,10 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
     if (e.isComposing) return;
     const max = this.effectiveLength;
 
-    if (e.key === 'Tab') {
-      if (!e.shiftKey && this._activeIndex < max - 1) {
-        e.preventDefault();
-        this.setCaretIndex(this._activeIndex + 1);
-      } else if (e.shiftKey && this._activeIndex > 0) {
-        e.preventDefault();
-        this.setCaretIndex(this._activeIndex - 1);
-      }
-      // else: Tab/Shift-Tab at boundary → propagate out of component
+    // Tab is deliberately not handled — it moves focus to the next control like any single input;
+    // arrow keys handle movement between segments.
+    if (e.key === 'Enter') {
+      submitOnEnter(e, this);
     } else if (e.key === 'ArrowRight') {
       e.preventDefault();
       if (this.hasSelection) {
@@ -353,6 +350,11 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
       }
     } else if (this.readonly) {
       // All character-mutating keys are blocked when readonly; navigation above still works.
+      // preventDefault matters here: a readonly input isn't an editable context, so WebKit
+      // treats an unhandled Backspace as the history-back gesture and navigates away.
+      if (e.key === 'Backspace' || e.key === 'Delete') {
+        e.preventDefault();
+      }
     } else if (e.key === 'Backspace') {
       // Prevent browser from shifting chars; manually splice the slot and move back.
       e.preventDefault();
@@ -526,9 +528,7 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
       <div part="segments" class="segments" role="group" aria-labelledby="label" @click=${this.handleSegmentsClick}>
         ${parts.map(part => {
           if (part.type === 'separator') {
-            return html`<span part="segment-separator" class="segment-separator" aria-hidden="true"
-              >${part.char}</span
-            >`;
+            return html`<span part="segment-literal" class="segment-literal" aria-hidden="true">${part.char}</span>`;
           }
 
           const i = segmentIndex++;
@@ -554,7 +554,7 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
                 : this.placeholder
                   ? html`<span class="segment--placeholder">${this.placeholder}</span>`
                   : ''}
-              ${isActive ? html`<span class="caret"></span>` : ''}
+              ${isActive && !char ? html`<span class="caret"></span>` : ''}
             </div>
           `;
         })}
@@ -564,7 +564,6 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
           class="hidden-input"
           type="text"
           .value=${live(this._value)}
-          maxlength=${this.effectiveLength}
           minlength=${this.effectiveLength}
           autocomplete=${this.autocomplete}
           inputmode=${this.type === 'numeric' ? 'numeric' : 'text'}
