@@ -47,6 +47,10 @@ Instantiate in the class body (not constructor):
 - `HasSlotController(this, 'slot-name')` — Tracks whether named slots have content. Used for conditional rendering.
 - `LocalizeController(this)` — i18n/l10n for component strings. Translations in `src/translations/`.
 
+## Code Conventions
+
+- Event handler parameters are named `event`, not `e` — read from it directly (`event.key`, `event.target`, `event.preventDefault()`). Keeps handlers consistent across the codebase.
+
 ## Style Conventions
 
 - Export default `css` tagged template literal from `component.styles.ts`.
