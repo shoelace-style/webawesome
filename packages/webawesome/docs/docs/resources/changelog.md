@@ -39,7 +39,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::fixed
 
-- Fixed a Safari-only clip-path/border seam along the arrow's outer edges by painting the arrow border with an inset box-shadow instead of a `border`
+- Fixed a Safari-only clip-path/border seam along the arrow's outer edges by painting the arrow border with an inset box-shadow instead of a `border` [pr:2638]
   - `<wa-tooltip>` — surfaced as a stark white hairline on the dark arrow over light backgrounds
   - `<wa-popover>` — same latent seam on the arrow's border
   - The arrow border is now always solid; `--wa-tooltip-border-style` / `--wa-panel-border-style` no longer apply to it. No visual change, since all themes use `solid`
@@ -52,9 +52,10 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug in `<wa-checkbox>` where it would improperly submit values after it was enabled after being disabled. [pr:2607]
 - Fixed the remove button in `<wa-tag>` to match the tag's `size` [pr:2615]
 - Fixed missing CSS parts documentation for `<wa-card>`, `<wa-color-picker>`, `<wa-textarea>`, `<wa-scroller>`, and `<wa-page>` [pr:2623]
-- Fixed `<wa-checkbox>` rendering its checked icon under the undocumented `check-icon` CSS part; it now uses the documented `checked-icon` part, matching `<wa-radio>`
+- Fixed `<wa-checkbox>` rendering its checked icon under the undocumented `check-icon` CSS part; it now uses the documented `checked-icon` part, matching `<wa-radio>` [pr:2646]
 - Fixed a bug in `<wa-dialog>` and `<wa-drawer>` that left the page permanently scroll locked and inert when third-party CSS, e.g. from ad blockers, hides an open dialog or drawer with `display: none`
-- Fixed `<wa-page>` documenting `skip-links` and `skip-link` CSS parts that don't render; replaced them with the `skip-to-content` part it actually exposes
+- Fixed `<wa-page>` documenting `skip-links` and `skip-link` CSS parts that don't render; replaced them with the `skip-to-content` part it actually exposes [pr:2633]
+- Fixed `x-label` and `y-label` attributes not working on `<wa-chart>` and its variants
 
 :::
 
