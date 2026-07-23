@@ -282,7 +282,7 @@ Use the `setCustomValidity()` method to set a custom validation message. This wi
 
 ### Customizing
 
-Use the `--segment-size`, `--segment-gap`, and `--segment-border-radius` custom properties along with [CSS parts](#css-parts) to style the segments.
+Use the `--segment-size`, `--segment-gap`, and `--segment-border-radius` custom properties along with [CSS parts](#css-parts) to style the segments, including their border and background.
 
 ```html {.example}
 <wa-otp-input id="styled-otp" label="Card PIN" length="4"></wa-otp-input>
@@ -297,17 +297,24 @@ Use the `--segment-size`, `--segment-gap`, and `--segment-border-radius` custom 
   #styled-otp::part(segment) {
     font-size: 1.5rem;
     font-weight: 700;
+    background-color: var(--wa-color-brand-fill-quiet);
+    border-color: var(--wa-color-brand-border-loud);
   }
 </style>
 ```
 
-Combine CSS parts with [custom states](/docs/form-controls#custom-validation-styles) to style validation feedback — for example, coloring the segments when the `user-invalid` custom state applies. Enter a partial code and click away to see it:
+Combine CSS parts with [custom states](/docs/form-controls#custom-validation-styles) to react to what the control is doing. For example, coloring the segments green once the code is fully entered (`--filled`), or red when validation fails (`user-invalid`). Enter a partial code and click away, then enter a full one, to see both:
 
 ```html {.example}
-<wa-otp-input class="invalid-style" label="Two-factor code" required></wa-otp-input>
+<wa-otp-input class="stateful-otp" label="Two-factor code" required></wa-otp-input>
 
 <style>
-  .invalid-style:state(user-invalid)::part(segment) {
+  .stateful-otp:state(--filled)::part(segment) {
+    background-color: var(--wa-color-success-fill-quiet);
+    border-color: var(--wa-color-success-border-loud);
+  }
+
+  .stateful-otp:state(user-invalid)::part(segment) {
     border-color: var(--wa-color-danger-border-loud);
   }
 </style>
