@@ -334,6 +334,15 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
     // arrow keys handle movement between segments.
     if (event.key === 'Enter') {
       submitOnEnter(event, this);
+    } else if (this.readonly) {
+      // There's nothing to navigate to or edit when readonly, so arrow keys, Backspace, and
+      // Delete are all left unhandled, the native input moves its own (invisible) caret instead
+      // of our synthetic per-segment one. preventDefault still matters for Backspace/Delete:
+      // a readonly input isn't an editable context, so WebKit treats an unhandled Backspace as
+      // the history-back gesture and navigates away.
+      if (event.key === 'Backspace' || event.key === 'Delete') {
+        event.preventDefault();
+      }
     } else if (event.key === 'ArrowRight') {
       event.preventDefault();
       if (this.hasSelection) {
@@ -347,13 +356,6 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
         this.setCaretIndex(Math.max(Math.min(this._selectionAnchor, this._activeIndex), 0));
       } else {
         this._activeIndex = Math.max(this._activeIndex - 1, 0);
-      }
-    } else if (this.readonly) {
-      // All character-mutating keys are blocked when readonly; navigation above still works.
-      // preventDefault matters here: a readonly input isn't an editable context, so WebKit
-      // treats an unhandled Backspace as the history-back gesture and navigates away.
-      if (event.key === 'Backspace' || event.key === 'Delete') {
-        event.preventDefault();
       }
     } else if (event.key === 'Backspace') {
       // Prevent browser from shifting chars; manually splice the slot and move back.
@@ -533,8 +535,10 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
 
           const i = segmentIndex++;
           const char = chars[i] ?? '';
-          const isSelected = selected !== null && i >= selected[0] && i < selected[1];
-          const isActive = selected === null && i === activeIndex;
+          // No segment reads as "active"/"selected" when readonly, there's nothing to type or
+          // navigate to, so the insertion-point affordance would be misleading.
+          const isSelected = !this.readonly && selected !== null && i >= selected[0] && i < selected[1];
+          const isActive = !this.readonly && selected === null && i === activeIndex;
 
           return html`
             <div

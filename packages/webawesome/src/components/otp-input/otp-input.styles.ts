@@ -43,21 +43,16 @@ export default css`
     cursor: default;
   }
 
-  /* Suppress the active/selected-segment focus ring and color when readonly */
-  :host(:state(readonly)) .segment--active,
-  :host(:state(readonly)) .segment--selected {
-    border-color: inherit;
-  }
-
-  :host(:state(readonly)) .segments:focus-within .segment--active,
-  :host(:state(readonly)) .segments:focus-within .segment--selected {
-    outline: none;
-    border-color: inherit;
-  }
-
   /* Focus ring on the active segment, and on every segment in a multi-character selection */
   .segments:focus-within .segment--active,
   .segments:focus-within .segment--selected {
+    outline: var(--wa-focus-ring-style) var(--wa-focus-ring-width) var(--wa-color-focus);
+    outline-offset: var(--wa-focus-ring-offset);
+  }
+
+  /* Readonly has no per-segment active/selected state (see render()), so every segment rings
+     at once to show the control as a whole has focus. */
+  :host(:state(readonly)) .segments:focus-within .segment {
     outline: var(--wa-focus-ring-style) var(--wa-focus-ring-width) var(--wa-color-focus);
     outline-offset: var(--wa-focus-ring-offset);
   }
@@ -66,7 +61,8 @@ export default css`
      outside the segment edge (the default, positive offset) bleeds into the neighboring segment.
      Draw it inward instead so it stays within this segment's own box. */
   :host([appearance='contained']) .segments:focus-within .segment--active,
-  :host([appearance='contained']) .segments:focus-within .segment--selected {
+  :host([appearance='contained']) .segments:focus-within .segment--selected,
+  :host([appearance='contained']:state(readonly)) .segments:focus-within .segment {
     outline-offset: calc(-1 * var(--wa-focus-ring-width));
   }
 

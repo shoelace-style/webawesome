@@ -553,6 +553,25 @@ describe('<wa-otp-input>', () => {
           const el = await fixture<WaOtpInput>(html`<wa-otp-input readonly></wa-otp-input>`);
           expect(el.hasAttribute('readonly')).to.equal(true);
         });
+
+        it('should not highlight a segment as active when focused', async () => {
+          const el = await fixture<WaOtpInput>(html`<wa-otp-input value="123456" readonly></wa-otp-input>`);
+          el.focus();
+          await el.updateComplete;
+          const active = el.shadowRoot!.querySelectorAll('.segment--active, .segment--selected');
+          expect(active.length).to.equal(0);
+        });
+
+        it('should not highlight or move a segment when arrow keys are pressed', async () => {
+          const el = await fixture<WaOtpInput>(html`<wa-otp-input value="123456" readonly></wa-otp-input>`);
+          el.focus();
+          await el.updateComplete;
+          await sendKeys({ press: 'ArrowRight' });
+          await sendKeys({ press: 'ArrowLeft' });
+          await el.updateComplete;
+          const active = el.shadowRoot!.querySelectorAll('.segment--active, .segment--selected');
+          expect(active.length).to.equal(0);
+        });
       });
 
       describe('placeholder', () => {
