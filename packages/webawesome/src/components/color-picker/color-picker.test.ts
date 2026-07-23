@@ -330,6 +330,18 @@ describe('<wa-color-picker>', () => {
           expect(new FormData(form).get('a')).to.equal('#4d64d54d');
         });
 
+        it('should preserve alpha and letter case when initialized with an uppercase HEXA value', async () => {
+          const form = await fixture<HTMLFormElement>(html`
+            <form>
+              <wa-color-picker name="a" format="hex" opacity uppercase value="#4d64d54d"></wa-color-picker>
+            </form>
+          `);
+          const colorPicker = form.querySelector<WaColorPicker>('wa-color-picker')!;
+
+          expect(colorPicker.value).to.equal('#4D64D54D');
+          expect(new FormData(form).get('a')).to.equal('#4D64D54D');
+        });
+
         it('should serialize its name and value with FormData', async () => {
           const form = await fixture<HTMLFormElement>(html`
             <form>
