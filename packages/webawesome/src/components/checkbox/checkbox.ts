@@ -32,7 +32,8 @@ import styles from './checkbox.styles.js';
  * @event input - Emitted when the checkbox receives input.
  * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
- * @csspart base - The component's label .
+ * @csspart base - Deprecated. Use the `checkbox` part instead.
+ * @csspart checkbox - The component's outer wrapper.
  * @csspart control - The square container that wraps the checkbox's checked state.
  * @csspart checked-icon - The checked icon, a `<wa-icon>` element.
  * @csspart indeterminate-icon - The indeterminate icon, a `<wa-icon>` element.
@@ -227,7 +228,7 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
     const isIndeterminate = !this.checked && this.indeterminate;
 
     const iconName = isIndeterminate ? 'indeterminate' : 'check';
-    const iconState = isIndeterminate ? 'indeterminate' : 'check';
+    const iconState = isIndeterminate ? 'indeterminate' : 'checked';
 
     // We need to use the attribute for SSR, because for some reason Lit SSR always sets `.checked=${live(this.checked)}` as "true"
     // TODO: Tell Konnor to submit a bug report + repo about this.
@@ -241,7 +242,7 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
     //
 
     return html`
-      <label part="base">
+      <label part="base checkbox">
         <span part="control">
           <input
             class="input"

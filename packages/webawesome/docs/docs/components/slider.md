@@ -30,6 +30,13 @@ use-cases:
 </wa-slider>
 ```
 
+```html {.example .anatomy-only}
+<wa-slider label="Number of users" hint="Limit six per team" value="3" min="0" max="6">
+  <span slot="reference">Less</span>
+  <span slot="reference">More</span>
+</wa-slider>
+```
+
 :::info
 This component works with standard `<form>` elements. See [form controls](/docs/form-controls) for form submission and client-side validation.
 :::
@@ -351,7 +358,16 @@ A range slider's two thumbs make it a natural filter control. Here, dragging the
 
   <wa-divider></wa-divider>
 
-  <wa-slider id="price-filter" label="Price range" range min="0" max="150" min-value="0" max-value="150" with-tooltip></wa-slider>
+  <wa-slider
+    id="price-filter"
+    label="Price range"
+    range
+    min="0"
+    max="150"
+    min-value="0"
+    max-value="150"
+    with-tooltip
+  ></wa-slider>
 </div>
 
 <script>

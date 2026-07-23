@@ -1,6 +1,6 @@
 ---
 title: Transitions
-description: Customize your theme's built-in transitions with Web Awesome's transition tokens.
+description: Transition tokens define the duration and easing of motion across Web Awesome.
 synonyms:
   - animation timing
   - easing
@@ -8,7 +8,7 @@ synonyms:
 use-cases:
   - transition speed
   - motion tokens
-hasOutline: true
+layout: docs
 ---
 
 <style>

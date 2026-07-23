@@ -14,7 +14,7 @@ use-cases:
   - gravatar
 ---
 
-```html {.example}
+```html {.example .anatomy}
 <wa-avatar label="User avatar"></wa-avatar>
 ```
 

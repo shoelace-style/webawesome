@@ -114,6 +114,11 @@ export function codeExamplesTransformer(options = {}) {
       const noEdit = code.classList.contains('no-edit');
       const noColorScheme = code.classList.contains('no-color-scheme');
       const noDir = code.classList.contains('no-dir');
+      // `anatomy` marks this example as the subject for the component-anatomy diagram. `anatomy-only`
+      // does the same but hides the example card — a dedicated rich instance that exists solely to feed
+      // the diagram, so the page's visible examples stay simple.
+      const isAnatomyOnly = code.classList.contains('anatomy-only');
+      const isAnatomy = code.classList.contains('anatomy') || isAnatomyOnly;
       const uuid = crypto.randomUUID();
       const id = `code-example-${uuid.slice(-12)}`;
       let preview = pre.textContent;
@@ -153,12 +158,13 @@ export function codeExamplesTransformer(options = {}) {
       copyCode(elementCode ?? code);
 
       const codeExample = parse(`
-          <div class="code-example ${isOpen ? 'open' : ''}">
+          <div class="code-example ${isOpen ? 'open' : ''}${isAnatomyOnly ? ' code-example-anatomy-only' : ''}">
             ${
               hasPreview
                 ? `
               <div class="code-example-preview wa-not-prose">
-                <div class="code-example-content">${preview}</div>
+                <!-- component-anatomy.js finds its subject inside code-example-content; keep the class in sync -->
+                <div class="code-example-content"${isAnatomy ? ' data-anatomy-subject="true"' : ''}>${preview}</div>
                 <div class="code-example-resizer" aria-hidden="true">
                   <wa-icon src="/assets/images/grip-lines-vertical.svg"></wa-icon>
                 </div>

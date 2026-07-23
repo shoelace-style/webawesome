@@ -2,6 +2,7 @@
 title: Tooltip
 layout: component
 category: Feedback
+hasAnatomy: false
 synonyms:
   - hint
   - hover text

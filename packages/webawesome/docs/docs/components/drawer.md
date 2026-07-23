@@ -2,6 +2,7 @@
 title: Drawer
 layout: component
 category: Layout
+hasAnatomy: false
 synonyms:
   - sidebar
   - side panel
