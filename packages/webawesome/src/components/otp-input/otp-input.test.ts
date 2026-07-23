@@ -221,6 +221,26 @@ describe('<wa-otp-input>', () => {
           await el.updateComplete;
           expect(el.value).to.equal('123456');
         });
+
+        it('should not fire a change event on blur after a form reset with no edit', async () => {
+          const form = await fixture<HTMLFormElement>(html`
+            <form>
+              <wa-otp-input name="code" value="123456"></wa-otp-input>
+            </form>
+          `);
+          const el = form.querySelector<WaOtpInput>('wa-otp-input')!;
+          el.value = '999999';
+          form.reset();
+          await el.updateComplete;
+
+          const spy = sinon.spy();
+          el.addEventListener('change', spy);
+          el.focus();
+          await el.updateComplete;
+          el.blur();
+          await aTimeout(50);
+          expect(spy).to.not.have.been.called;
+        });
       });
 
       describe('autosubmit', () => {

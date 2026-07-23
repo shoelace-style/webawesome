@@ -282,7 +282,7 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
     const oldValue = this._value;
     this._value = reset;
     this.setValue(reset);
-    this._lastChangeValue = '';
+    this._lastChangeValue = reset;
     if (this.input) this.input.value = reset;
     this.requestUpdate('value', oldValue);
   }
