@@ -16,6 +16,7 @@ const translation: Translation = {
   chooseTime: 'Valitse aika',
   chooseYear: 'Valitse vuosi',
   clearEntry: 'Poista merkintä',
+  clearFilter: 'Poista suodatin',
   clearSort: 'Poista lajittelu',
   close: 'Sulje',
   closeCalendar: 'Sulje kalenteri',
@@ -71,6 +72,7 @@ const translation: Translation = {
   nextVideo: 'Seuraava video',
   nextYear: 'Seuraava vuosi',
   noData: 'Ei tietoja',
+  noResults: 'Ei vastaavia tuloksia',
   now: 'Nyt',
   numCharacters: num => {
     if (num === 1) return '1 merkki';
@@ -116,6 +118,7 @@ const translation: Translation = {
   },
   readonly: 'Vain luku',
   remove: 'Poista',
+  resetColumns: 'Palauta sarakkeet',
   resize: 'Muuta kokoa',
   resizeColumn: 'Muuta sarakkeen kokoa',
   rowsPerPage: 'Rivejä sivulla',

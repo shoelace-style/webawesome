@@ -16,6 +16,7 @@ const translation: Translation = {
   chooseTime: 'Välj tid',
   chooseYear: 'Välj år',
   clearEntry: 'Återställ val',
+  clearFilter: 'Rensa filter',
   clearSort: 'Rensa sortering',
   close: 'Stäng',
   closeCalendar: 'Stäng kalender',
@@ -71,6 +72,7 @@ const translation: Translation = {
   nextVideo: 'Nästa video',
   nextYear: 'Nästa år',
   noData: 'Inga data',
+  noResults: 'Inga matchande resultat',
   now: 'Nu',
   numCharacters: num => {
     if (num === 1) return '1 tecken';
@@ -116,6 +118,7 @@ const translation: Translation = {
   },
   readonly: 'Skrivskyddad',
   remove: 'Ta bort',
+  resetColumns: 'Återställ kolumner',
   resize: 'Ändra storlek',
   resizeColumn: 'Ändra kolumnbredd',
   rowsPerPage: 'Rader per sida',

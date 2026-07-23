@@ -16,6 +16,7 @@ const translation: Translation = {
   chooseTime: 'Tijd kiezen',
   chooseYear: 'Jaar kiezen',
   clearEntry: 'Invoer wissen',
+  clearFilter: 'Filter wissen',
   clearSort: 'Sortering wissen',
   close: 'Sluiten',
   closeCalendar: 'Kalender sluiten',
@@ -72,6 +73,7 @@ const translation: Translation = {
   nextVideo: 'Volgende video',
   nextYear: 'Volgend jaar',
   noData: 'Geen gegevens',
+  noResults: 'Geen overeenkomende resultaten',
   now: 'Nu',
   numCharacters: num => {
     if (num === 1) return '1 teken';
@@ -117,6 +119,7 @@ const translation: Translation = {
   },
   readonly: 'Alleen-lezen',
   remove: 'Verwijderen',
+  resetColumns: 'Kolommen herstellen',
   resize: 'Formaat wijzigen',
   resizeColumn: 'Kolombreedte wijzigen',
   rowsPerPage: 'Rijen per pagina',

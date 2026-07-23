@@ -16,6 +16,7 @@ const translation: Translation = {
   chooseTime: 'انتخاب زمان',
   chooseYear: 'انتخاب سال',
   clearEntry: 'پاک کردن ورودی',
+  clearFilter: 'پاک کردن فیلتر',
   clearSort: 'پاک کردن مرتب‌سازی',
   close: 'بستن',
   closeCalendar: 'بستن تقویم',
@@ -72,6 +73,7 @@ const translation: Translation = {
   nextVideo: 'ویدیوی بعدی',
   nextYear: 'سال بعد',
   noData: 'داده‌ای وجود ندارد',
+  noResults: 'نتیجه منطبقی وجود ندارد',
   now: 'اکنون',
   numCharacters: num => {
     if (num === 1) return '1 نویسه';
@@ -116,6 +118,7 @@ const translation: Translation = {
   },
   readonly: 'فقط‌خواندنی',
   remove: 'حذف',
+  resetColumns: 'بازنشانی ستون‌ها',
   resize: 'تغییر اندازه',
   resizeColumn: 'تغییر اندازه ستون',
   rowsPerPage: 'ردیف در هر صفحه',

@@ -16,6 +16,7 @@ const translation: Translation = {
   chooseTime: 'Pilih waktu',
   chooseYear: 'Pilih tahun',
   clearEntry: 'Hapus entri',
+  clearFilter: 'Hapus filter',
   clearSort: 'Hapus pengurutan',
   close: 'Tutup',
   closeCalendar: 'Tutup kalender',
@@ -71,6 +72,7 @@ const translation: Translation = {
   nextVideo: 'Video berikutnya',
   nextYear: 'Tahun berikutnya',
   noData: 'Tidak ada data',
+  noResults: 'Tidak ada hasil yang cocok',
   now: 'Sekarang',
   numCharacters: num => {
     if (num === 1) return '1 karakter';
@@ -116,6 +118,7 @@ const translation: Translation = {
   },
   readonly: 'Hanya-baca',
   remove: 'Hapus',
+  resetColumns: 'Atur ulang kolom',
   resize: 'Ubah ukuran',
   resizeColumn: 'Ubah ukuran kolom',
   rowsPerPage: 'Baris per halaman',

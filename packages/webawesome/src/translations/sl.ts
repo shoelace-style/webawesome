@@ -16,6 +16,7 @@ const translation: Translation = {
   chooseTime: 'Izberite čas',
   chooseYear: 'Izberite leto',
   clearEntry: 'Počisti vnos',
+  clearFilter: 'Počisti filter',
   clearSort: 'Počisti razvrščanje',
   close: 'Zapri',
   closeCalendar: 'Zapri koledar',
@@ -84,6 +85,7 @@ const translation: Translation = {
   nextVideo: 'Naslednji videoposnetek',
   nextYear: 'Naslednje leto',
   noData: 'Ni podatkov',
+  noResults: 'Ni ustreznih rezultatov',
   now: 'Zdaj',
   numCharacters: num => {
     const mod100 = num % 100;
@@ -155,6 +157,7 @@ const translation: Translation = {
   },
   readonly: 'Samo za branje',
   remove: 'Odstrani',
+  resetColumns: 'Ponastavi stolpce',
   resize: 'Spremeni velikost',
   resizeColumn: 'Spremeni velikost stolpca',
   rowsPerPage: 'Vrstic na stran',

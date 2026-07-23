@@ -16,6 +16,7 @@ const translation: Translation = {
   chooseTime: 'Odaberi vrijeme',
   chooseYear: 'Odaberi godinu',
   clearEntry: 'Očisti unos',
+  clearFilter: 'Poništi filtar',
   clearSort: 'Poništi sortiranje',
   close: 'Zatvori',
   closeCalendar: 'Zatvori kalendar',
@@ -83,6 +84,7 @@ const translation: Translation = {
   nextVideo: 'Sljedeći video',
   nextYear: 'Sljedeća godina',
   noData: 'Nema podataka',
+  noResults: 'Nema odgovarajućih rezultata',
   now: 'Sada',
   numCharacters: num => {
     if (num === 1) return '1 znak';
@@ -152,6 +154,7 @@ const translation: Translation = {
   },
   readonly: 'Samo za čitanje',
   remove: 'Makni',
+  resetColumns: 'Vrati zadane stupce',
   resize: 'Promijeni veličinu',
   resizeColumn: 'Promijeni veličinu stupca',
   rowsPerPage: 'Redaka po stranici',

@@ -16,6 +16,7 @@ const translation: Translation = {
   chooseTime: 'בחר שעה',
   chooseYear: 'בחר שנה',
   clearEntry: 'נקה קלט',
+  clearFilter: 'נקה סינון',
   clearSort: 'נקה מיון',
   close: 'סגור',
   closeCalendar: 'סגור לוח שנה',
@@ -71,6 +72,7 @@ const translation: Translation = {
   nextVideo: 'הסרטון הבא',
   nextYear: 'השנה הבאה',
   noData: 'אין נתונים',
+  noResults: 'אין תוצאות תואמות',
   now: 'עכשיו',
   numCharacters: num => {
     if (num === 1) return '1 תו';
@@ -122,6 +124,7 @@ const translation: Translation = {
   },
   readonly: 'לקריאה בלבד',
   remove: 'לְהַסִיר',
+  resetColumns: 'אפס עמודות',
   resize: 'שנה גודל',
   resizeColumn: 'שנה רוחב עמודה',
   rowsPerPage: 'שורות בעמוד',

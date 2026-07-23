@@ -16,6 +16,7 @@ const translation: Translation = {
   chooseTime: 'Wybierz godzinę',
   chooseYear: 'Wybierz rok',
   clearEntry: 'Wyczyść wpis',
+  clearFilter: 'Wyczyść filtr',
   clearSort: 'Wyczyść sortowanie',
   close: 'Zamknij',
   closeCalendar: 'Zamknij kalendarz',
@@ -82,6 +83,7 @@ const translation: Translation = {
   nextVideo: 'Następny film',
   nextYear: 'Następny rok',
   noData: 'Brak danych',
+  noResults: 'Brak pasujących wyników',
   now: 'Teraz',
   numCharacters: num => {
     if (num === 1) return '1 znak';
@@ -152,6 +154,7 @@ const translation: Translation = {
   },
   readonly: 'Tylko do odczytu',
   remove: 'Usunąć',
+  resetColumns: 'Resetuj kolumny',
   resize: 'Zmień rozmiar',
   resizeColumn: 'Zmień szerokość kolumny',
   rowsPerPage: 'Wierszy na stronę',

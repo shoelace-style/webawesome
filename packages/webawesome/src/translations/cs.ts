@@ -16,6 +16,7 @@ const translation: Translation = {
   chooseTime: 'Vyberte čas',
   chooseYear: 'Vyberte rok',
   clearEntry: 'Smazat položku',
+  clearFilter: 'Zrušit filtr',
   clearSort: 'Zrušit řazení',
   close: 'Zavřít',
   closeCalendar: 'Zavřít kalendář',
@@ -79,6 +80,7 @@ const translation: Translation = {
   nextVideo: 'Další video',
   nextYear: 'Další rok',
   noData: 'Žádná data',
+  noResults: 'Žádné odpovídající výsledky',
   now: 'Nyní',
   numCharacters: num => {
     if (num === 1) return '1 znak';
@@ -136,6 +138,7 @@ const translation: Translation = {
   },
   readonly: 'Jen pro čtení',
   remove: 'Odstranit',
+  resetColumns: 'Obnovit sloupce',
   resize: 'Změnit velikost',
   resizeColumn: 'Změnit šířku sloupce',
   rowsPerPage: 'Řádků na stránku',

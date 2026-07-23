@@ -16,6 +16,7 @@ const translation: Translation = {
   chooseTime: 'Виберіть час',
   chooseYear: 'Виберіть рік',
   clearEntry: 'Очистити поле',
+  clearFilter: 'Скасувати фільтр',
   clearSort: 'Скасувати сортування',
   close: 'Закрити',
   closeCalendar: 'Закрити календар',
@@ -84,6 +85,7 @@ const translation: Translation = {
   nextVideo: 'Наступне відео',
   nextYear: 'Наступний рік',
   noData: 'Немає даних',
+  noResults: 'Немає відповідних результатів',
   now: 'Зараз',
   numCharacters: num => {
     const mod10 = num % 10;
@@ -156,6 +158,7 @@ const translation: Translation = {
   },
   readonly: 'Лише для читання',
   remove: 'Видалити',
+  resetColumns: 'Скинути стовпці',
   resize: 'Змінити розмір',
   resizeColumn: 'Змінити розмір стовпця',
   rowsPerPage: 'Рядків на сторінці',

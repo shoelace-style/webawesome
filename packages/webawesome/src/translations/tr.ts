@@ -16,6 +16,7 @@ const translation: Translation = {
   chooseTime: 'Saat seçin',
   chooseYear: 'Yıl seçin',
   clearEntry: 'Girişi sil',
+  clearFilter: 'Filtreyi temizle',
   clearSort: 'Sıralamayı temizle',
   close: 'Kapat',
   closeCalendar: 'Takvimi kapat',
@@ -72,6 +73,7 @@ const translation: Translation = {
   nextVideo: 'Sonraki video',
   nextYear: 'Sonraki yıl',
   noData: 'Veri yok',
+  noResults: 'Eşleşen sonuç yok',
   now: 'Şimdi',
   numCharacters: num => {
     if (num === 1) return '1 karakter';
@@ -117,6 +119,7 @@ const translation: Translation = {
   },
   readonly: 'Salt okunur',
   remove: 'Kaldır',
+  resetColumns: 'Sütunları sıfırla',
   resize: 'Yeniden boyutlandır',
   resizeColumn: 'Sütunu yeniden boyutlandır',
   rowsPerPage: 'Sayfa başına satır',

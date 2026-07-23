@@ -16,6 +16,7 @@ const translation: Translation = {
   chooseTime: 'Idő kiválasztása',
   chooseYear: 'Év kiválasztása',
   clearEntry: 'Bejegyzés törlése',
+  clearFilter: 'Szűrő törlése',
   clearSort: 'Rendezés törlése',
   close: 'Bezárás',
   closeCalendar: 'Naptár bezárása',
@@ -71,6 +72,7 @@ const translation: Translation = {
   nextVideo: 'Következő videó',
   nextYear: 'Következő év',
   noData: 'Nincs adat',
+  noResults: 'Nincs egyező találat',
   now: 'Most',
   numCharacters: num => {
     if (num === 1) return '1 karakter';
@@ -116,6 +118,7 @@ const translation: Translation = {
   },
   readonly: 'Csak olvasható',
   remove: 'Eltávolítás',
+  resetColumns: 'Oszlopok visszaállítása',
   resize: 'Átméretezés',
   resizeColumn: 'Oszlop átméretezése',
   rowsPerPage: 'Sorok oldalanként',

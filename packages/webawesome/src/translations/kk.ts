@@ -16,6 +16,7 @@ const translation: Translation = {
   chooseTime: 'Уақытты таңдау',
   chooseYear: 'Жылды таңдау',
   clearEntry: 'Жазбаны жою',
+  clearFilter: 'Сүзгіні тазарту',
   clearSort: 'Сұрыптауды тазарту',
   close: 'Жабу',
   closeCalendar: 'Күнтізбені жабу',
@@ -72,6 +73,7 @@ const translation: Translation = {
   nextVideo: 'Келесі бейне',
   nextYear: 'Келесі жыл',
   noData: 'Деректер жоқ',
+  noResults: 'Сәйкес нәтижелер жоқ',
   now: 'Қазір',
   numCharacters: num => {
     if (num === 1) return '1 таңба';
@@ -118,6 +120,7 @@ const translation: Translation = {
   },
   readonly: 'Тек оқуға арналған',
   remove: 'Жою',
+  resetColumns: 'Бағаналарды қалпына келтіру',
   resize: 'Өлшемін өзгерту',
   resizeColumn: 'Бағана өлшемін өзгерту',
   rowsPerPage: 'Беттегі жол саны',

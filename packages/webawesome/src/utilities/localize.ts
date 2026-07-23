@@ -42,7 +42,7 @@ export interface Translation extends DefaultTranslation {
   chooseTime: string;
   chooseYear: string;
   clearEntry: string;
-  clearFilter?: string;
+  clearFilter: string;
   clearSort: string;
   close: string;
   closeCalendar: string;
@@ -98,6 +98,7 @@ export interface Translation extends DefaultTranslation {
   nextVideo: string;
   nextYear: string;
   noData: string;
+  noResults: string;
   now: string;
   numCharacters: (num: number) => string;
   numCharactersRemaining: (num: number) => string;
@@ -127,6 +128,7 @@ export interface Translation extends DefaultTranslation {
   rangeTooShort: (min: number) => string;
   readonly: string;
   remove: string;
+  resetColumns: string;
   resize: string;
   resizeColumn: string;
   rowsPerPage: string;

@@ -16,6 +16,7 @@ const translation: Translation = {
   chooseTime: 'समय चुनें',
   chooseYear: 'वर्ष चुनें',
   clearEntry: 'प्रविष्टि साफ़ करें',
+  clearFilter: 'फ़िल्टर साफ़ करें',
   clearSort: 'क्रमबद्धता साफ़ करें',
   close: 'बंद करें',
   closeCalendar: 'कैलेंडर बंद करें',
@@ -71,6 +72,7 @@ const translation: Translation = {
   nextVideo: 'अगला वीडियो',
   nextYear: 'अगला वर्ष',
   noData: 'कोई डेटा नहीं',
+  noResults: 'कोई मेल खाने वाले परिणाम नहीं',
   now: 'अभी',
   numCharacters: num => {
     if (num === 1) return '1 अक्षर';
@@ -116,6 +118,7 @@ const translation: Translation = {
   },
   readonly: 'केवल-पढ़ने योग्य',
   remove: 'हटाएं',
+  resetColumns: 'कॉलम रीसेट करें',
   resize: 'आकार बदलें',
   resizeColumn: 'कॉलम का आकार बदलें',
   rowsPerPage: 'प्रति पृष्ठ पंक्तियाँ',

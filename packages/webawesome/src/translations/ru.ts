@@ -16,6 +16,7 @@ const translation: Translation = {
   chooseTime: 'Выбрать время',
   chooseYear: 'Выбрать год',
   clearEntry: 'Очистить запись',
+  clearFilter: 'Очистить фильтр',
   clearSort: 'Очистить сортировку',
   close: 'Закрыть',
   closeCalendar: 'Закрыть календарь',
@@ -84,6 +85,7 @@ const translation: Translation = {
   nextVideo: 'Следующее видео',
   nextYear: 'Следующий год',
   noData: 'Нет данных',
+  noResults: 'Нет совпадений',
   now: 'Сейчас',
   numCharacters: num => {
     const mod10 = num % 10;
@@ -154,6 +156,7 @@ const translation: Translation = {
   },
   readonly: 'Только для чтения',
   remove: 'Удалить',
+  resetColumns: 'Сбросить столбцы',
   resize: 'Изменить размер',
   resizeColumn: 'Изменить ширину столбца',
   rowsPerPage: 'Строк на странице',

@@ -72,6 +72,7 @@ const translation: Translation = {
   nextVideo: 'Next Video',
   nextYear: 'Next year',
   noData: 'No data',
+  noResults: 'No matching results',
   now: 'Now',
   numCharacters: num => {
     if (num === 1) return '1 character';
@@ -117,6 +118,7 @@ const translation: Translation = {
   },
   readonly: 'Read-only',
   remove: 'Remove',
+  resetColumns: 'Reset columns',
   resize: 'Resize',
   resizeColumn: 'Resize column',
   rowsPerPage: 'Rows per page',
