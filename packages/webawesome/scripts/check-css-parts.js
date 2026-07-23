@@ -37,14 +37,9 @@ async function readComponentSource(dir) {
   return contents.join('\n');
 }
 
-// Rendered but undocumented on purpose — pending API-shape decisions (form-control label naming).
-// Drop each as it's resolved.
+// Rendered but undocumented on purpose — pre-existing gaps to document separately.
 const DEFAULT_ALLOWLIST = {
-  'color-picker': ['form-control', 'form-control-input', 'form-control-label', 'hint'],
-  input: ['form-control-label'],
-  select: ['label'],
-  textarea: ['form-control-label'],
-  'time-input': ['label'],
+  'color-picker': ['form-control', 'form-control-input', 'hint'],
 };
 
 // These render `base` on a `<slot>` rather than a wrapper element. Parts don't belong on slots, and

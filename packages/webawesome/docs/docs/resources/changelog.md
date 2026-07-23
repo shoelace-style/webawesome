@@ -69,6 +69,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 :::deprecated
 
 - The generic `base` CSS part is deprecated in favor of the part named after the component. Existing `::part(base)` selectors keep working and will until the next major version; `base` now appears as deprecated in each component's CSS Parts table.
+- On form controls, the `label` CSS part is deprecated in favor of `form-control-label`. Existing `::part(label)` selectors keep working until the next major version; `label` now appears as deprecated in those components' CSS Parts tables.
 
 :::
 

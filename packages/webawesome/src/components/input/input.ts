@@ -40,7 +40,8 @@ import styles from './input.styles.js';
  * @event wa-clear - Emitted when the clear button is activated.
  * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
- * @csspart label - The label
+ * @csspart form-control-label - The label.
+ * @csspart label - Deprecated. Use the `form-control-label` part instead.
  * @csspart hint - The hint's wrapper.
  * @csspart base - Deprecated. Use the `input-wrapper` part instead.
  * @csspart input-wrapper - The component's outer wrapper.
