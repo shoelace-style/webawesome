@@ -45,17 +45,6 @@ Add descriptive hint text with the `hint` attribute. For hints that contain HTML
 <wa-otp-input label="Sign-in code" hint="Check your email for a 6-digit code."></wa-otp-input>
 ```
 
-### Placeholder
-
-Use the `placeholder` attribute to show a hint character in each empty segment, making the expected length clear at a glance.
-
-```html {.example}
-<div class="wa-stack">
-  <wa-otp-input label="Access code" placeholder="·"></wa-otp-input>
-  <wa-otp-input label="Verification code" placeholder="0"></wa-otp-input>
-</div>
-```
-
 ### Length
 
 Use the `length` attribute to change the number of segments. The default is 6.
@@ -113,10 +102,28 @@ Use the `case` attribute to transform characters as they are entered. The defaul
 
 ### Mask
 
-Add the `mask` attribute to display entered characters as bullets (•). The value remains accessible via the `value` property; masking is display-only. Masking is also visual-only for assistive technology — screen readers still announce entered characters.
+Add the `mask` attribute to display entered characters using `--mask-char` (a bullet, `•`, by default) instead of their real value. The value remains accessible via the `value` property, masking is display-only, and only visual: screen readers still announce entered characters.
 
 ```html {.example}
 <wa-otp-input label="PIN" mask length="4"></wa-otp-input>
+```
+
+Add the `with-mask` attribute to also show `--mask-char` as a hint in each empty segment, so the field reads like a password field even before anything is typed.
+
+```html {.example}
+<wa-otp-input label="PIN" mask with-mask length="4"></wa-otp-input>
+```
+
+Customize the character with the `--mask-char` custom property. It must be a quoted string.
+
+```html {.example}
+<wa-otp-input id="custom-mask-char" label="PIN" mask with-mask length="4"></wa-otp-input>
+
+<style>
+  #custom-mask-char {
+    --mask-char: '*';
+  }
+</style>
 ```
 
 ### Appearance

@@ -189,10 +189,15 @@ export default css`
     border-color: var(--wa-color-focus);
   }
 
-  /* Placeholder hint character in empty segments */
-  .segment--placeholder {
+  /* Masked filled character, and the empty-segment hint shown when with-mask is set, both draw
+     --mask-char via a pseudo-element instead of real text, so a masked value never touches the
+     DOM as plain text (nothing to find via view-source or copy). */
+  .segment--masked::before,
+  .segment--mask-hint::before {
+    content: var(--mask-char, '•');
+  }
+
+  .segment--mask-hint::before {
     opacity: 0.35;
-    pointer-events: none;
-    user-select: none;
   }
 `;

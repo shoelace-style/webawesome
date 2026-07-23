@@ -49,6 +49,8 @@ import styles from './otp-input.styles.js';
  * @cssproperty [--segment-size=2.5em] - Width and height of each segment cell.
  * @cssproperty [--segment-gap=var(--wa-space-xs)] - Gap between segments (not used in `contained` appearance).
  * @cssproperty [--segment-border-radius=var(--wa-form-control-border-radius)] - Corner radius of each segment.
+ * @cssproperty [--mask-char='•'] - Character shown in place of entered values when `mask` is set, and as a hint
+ *   in empty segments when `with-mask` is set.
  */
 @customElement('wa-otp-input')
 export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
@@ -126,7 +128,7 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
   /** Allowed character class. */
   @property({ reflect: true }) type: 'numeric' | 'alpha' | 'alphanumeric' = 'numeric';
 
-  /** When true, entered characters are displayed as bullets (•) without exposing the value visually. */
+  /** When true, entered characters are displayed as `--mask-char` instead of their real value. */
   @property({ type: Boolean, reflect: true }) mask = false;
 
   /** Case transformation applied to entered characters. */
@@ -170,10 +172,10 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
   @property({ type: Boolean }) autofocus = false;
 
   /**
-   * A hint character displayed in each empty segment. Useful for communicating the expected format
-   * at a glance — for example `placeholder="0"` for a numeric PIN or `placeholder="·"` for a code.
+   * When true, empty segments show `--mask-char` as a hint instead of appearing blank, similar to
+   * how a password field communicates its expected length before anything is typed.
    */
-  @property() placeholder = '';
+  @property({ type: Boolean, attribute: 'with-mask', reflect: true }) withMask = false;
 
   assumeInteractionOn = ['blur', 'input'];
 
@@ -559,10 +561,14 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
 
           const i = segmentIndex++;
           const char = chars[i] ?? '';
+          const filled = Boolean(char);
           // No segment reads as "active"/"selected" when readonly, there's nothing to type or
           // navigate to, so the insertion-point affordance would be misleading.
           const isSelected = !this.readonly && selected !== null && i >= selected[0] && i < selected[1];
           const isActive = !this.readonly && selected === null && i === activeIndex;
+          // Masked characters never touch the DOM as text, the glyph is drawn entirely by CSS
+          // (`--mask-char` via `content`), so there's no real value to find via view-source or copy.
+          const masked = filled && this.mask;
 
           return html`
             <div
@@ -571,18 +577,13 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
                 segment: true,
                 'segment--active': isActive,
                 'segment--selected': isSelected,
-                'segment--filled': Boolean(char),
+                'segment--filled': filled,
+                'segment--masked': masked,
+                'segment--mask-hint': !filled && this.withMask,
               })}
               aria-hidden="true"
             >
-              ${char
-                ? this.mask
-                  ? '•'
-                  : char
-                : this.placeholder
-                  ? html`<span class="segment--placeholder">${this.placeholder}</span>`
-                  : ''}
-              ${isActive && !char ? html`<span class="caret"></span>` : ''}
+              ${masked ? '' : char} ${isActive && !char ? html`<span class="caret"></span>` : ''}
             </div>
           `;
         })}

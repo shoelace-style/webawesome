@@ -31,7 +31,7 @@ describe('<wa-otp-input>', () => {
           expect(el.required).to.equal(false);
           expect(el.readonly).to.equal(false);
           expect(el.autofocus).to.equal(false);
-          expect(el.placeholder).to.equal('');
+          expect(el.withMask).to.equal(false);
         });
 
         it('should not reflect a value attribute when none was set', async () => {
@@ -368,10 +368,18 @@ describe('<wa-otp-input>', () => {
       });
 
       describe('mask', () => {
-        it('should not expose filled segment text when mask is true', async () => {
+        it('should not expose the real character as text when mask is true', async () => {
           const el = await fixture<WaOtpInput>(html`<wa-otp-input value="123456" mask></wa-otp-input>`);
           const firstSegment = el.shadowRoot!.querySelector('[part~="segment"]')!;
-          expect(firstSegment.textContent?.trim()).to.equal('•');
+          expect(firstSegment.textContent?.trim()).to.equal('');
+          expect(firstSegment.classList.contains('segment--masked')).to.equal(true);
+        });
+
+        it('should draw --mask-char via a pseudo-element when mask is true', async () => {
+          const el = await fixture<WaOtpInput>(html`<wa-otp-input value="1" mask></wa-otp-input>`);
+          const firstSegment = el.shadowRoot!.querySelector('[part~="segment"]')!;
+          const content = getComputedStyle(firstSegment, '::before').content;
+          expect(content.replace(/^"|"$/g, '')).to.equal('•');
         });
       });
 
@@ -499,7 +507,7 @@ describe('<wa-otp-input>', () => {
           await selectAllAndWait(el);
           // An unrelated reactive property change re-renders the component; syncCursor()
           // must not collapse the selection back to a single caret in the process.
-          el.placeholder = '·';
+          el.withMask = true;
           await el.updateComplete;
           await sendKeys({ press: 'Backspace' });
           await el.updateComplete;
@@ -589,29 +597,36 @@ describe('<wa-otp-input>', () => {
         });
       });
 
-      describe('placeholder', () => {
-        it('should render placeholder hint chars in empty segments', async () => {
-          const el = await fixture<WaOtpInput>(html`<wa-otp-input placeholder="·" length="3"></wa-otp-input>`);
+      describe('with-mask', () => {
+        it('should show a hint character in each empty segment', async () => {
+          const el = await fixture<WaOtpInput>(html`<wa-otp-input with-mask length="3"></wa-otp-input>`);
           await el.updateComplete;
-          const placeholders = el.shadowRoot!.querySelectorAll('.segment--placeholder');
-          expect(placeholders.length).to.equal(3);
-          expect(placeholders[0].textContent).to.equal('·');
+          const hints = el.shadowRoot!.querySelectorAll('.segment--mask-hint');
+          expect(hints.length).to.equal(3);
+          const content = getComputedStyle(hints[0], '::before').content;
+          expect(content.replace(/^"|"$/g, '')).to.equal('•');
         });
 
-        it('should not show placeholder in segments that have a value', async () => {
-          const el = await fixture<WaOtpInput>(
-            html`<wa-otp-input placeholder="·" value="1" length="3"></wa-otp-input>`,
-          );
+        it('should not show the hint in segments that have a value', async () => {
+          const el = await fixture<WaOtpInput>(html`<wa-otp-input with-mask value="1" length="3"></wa-otp-input>`);
           await el.updateComplete;
-          const placeholders = el.shadowRoot!.querySelectorAll('.segment--placeholder');
-          expect(placeholders.length).to.equal(2);
+          const hints = el.shadowRoot!.querySelectorAll('.segment--mask-hint');
+          expect(hints.length).to.equal(2);
         });
 
-        it('should show no placeholders when placeholder is empty', async () => {
+        it('should show no hints when with-mask is false', async () => {
           const el = await fixture<WaOtpInput>(html`<wa-otp-input length="3"></wa-otp-input>`);
           await el.updateComplete;
-          const placeholders = el.shadowRoot!.querySelectorAll('.segment--placeholder');
-          expect(placeholders.length).to.equal(0);
+          const hints = el.shadowRoot!.querySelectorAll('.segment--mask-hint');
+          expect(hints.length).to.equal(0);
+        });
+
+        it('should respect a custom --mask-char', async () => {
+          const el = await fixture<WaOtpInput>(html`<wa-otp-input with-mask style="--mask-char: '*'"></wa-otp-input>`);
+          await el.updateComplete;
+          const hint = el.shadowRoot!.querySelector('.segment--mask-hint')!;
+          const content = getComputedStyle(hint, '::before').content;
+          expect(content.replace(/^"|"$/g, '')).to.equal('*');
         });
       });
 
