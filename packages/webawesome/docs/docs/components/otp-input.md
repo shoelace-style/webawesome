@@ -303,7 +303,7 @@ Use the `--segment-size`, `--segment-gap`, and `--segment-border-radius` custom 
 </style>
 ```
 
-Combine CSS parts with [custom states](/docs/form-controls#custom-validation-styles) to react to what the control is doing. For example, coloring the segments green once the code is fully entered (`--filled`), or red when validation fails (`user-invalid`). Enter a partial code and click away, then enter a full one, to see both:
+Combine CSS parts with [custom states](/docs/form-controls#custom-validation-styles) to react to what the control is doing. For example, coloring the segments green once the code is fully entered (`--filled`), or red while it's invalid (`invalid`). This example uses `invalid` rather than `user-invalid` so the customization is visible right away, without requiring you to interact with the field first. Type a full code to see it turn green instead:
 
 ```html {.example}
 <wa-otp-input class="stateful-otp" label="Two-factor code" required></wa-otp-input>
@@ -314,7 +314,7 @@ Combine CSS parts with [custom states](/docs/form-controls#custom-validation-sty
     border-color: var(--wa-color-success-border-loud);
   }
 
-  .stateful-otp:state(user-invalid)::part(segment) {
+  .stateful-otp:state(invalid)::part(segment) {
     border-color: var(--wa-color-danger-border-loud);
   }
 </style>
