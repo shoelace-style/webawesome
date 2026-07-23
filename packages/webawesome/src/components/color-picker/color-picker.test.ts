@@ -318,6 +318,18 @@ describe('<wa-color-picker>', () => {
       });
 
       describe('form integration', () => {
+        it('should preserve alpha when initialized with a HEXA value and opacity enabled', async () => {
+          const form = await fixture<HTMLFormElement>(html`
+            <form>
+              <wa-color-picker name="a" format="hex" opacity value="#4d64d54d"></wa-color-picker>
+            </form>
+          `);
+          const colorPicker = form.querySelector<WaColorPicker>('wa-color-picker')!;
+
+          expect(colorPicker.value).to.equal('#4d64d54d');
+          expect(new FormData(form).get('a')).to.equal('#4d64d54d');
+        });
+
         it('should serialize its name and value with FormData', async () => {
           const form = await fixture<HTMLFormElement>(html`
             <form>
