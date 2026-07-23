@@ -477,6 +477,21 @@ describe('<wa-otp-input>', () => {
           expect(el.value).to.equal('9');
         });
 
+        it('should position the caret at the clicked segment on the very first focus, not the end of the value', async () => {
+          // `delegatesFocus` means the browser can move focus (and fire handleFocus) as part of
+          // the pointerdown's default action, before a click event ever fires — handleFocus must
+          // consult the segment the pointerdown landed on rather than defaulting to the end of
+          // the value, or the last segment would flash active before snapping to the clicked one.
+          const el = await fixture<WaOtpInput>(html`<wa-otp-input value="123456"></wa-otp-input>`);
+          await el.updateComplete;
+          const segments = el.shadowRoot!.querySelectorAll<HTMLElement>('[part~="segment"]');
+          segments[2].dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, composed: true }));
+          el.focus();
+          await el.updateComplete;
+          expect(segments[2].classList.contains('segment--active')).to.equal(true);
+          expect(segments[5].classList.contains('segment--active')).to.equal(false);
+        });
+
         it('should preserve an active selection across an unrelated re-render', async () => {
           const el = await fixture<WaOtpInput>(html`<wa-otp-input value="123456"></wa-otp-input>`);
           el.focus();

@@ -76,6 +76,11 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
   // The other end of a native multi-character selection (e.g. from Cmd/Ctrl+A).
   // -1, or equal to _activeIndex, means "no selection — just a caret at _activeIndex".
   @state() private _selectionAnchor = -1;
+  // The segment a pointerdown landed on, precomputed so handleFocus() can position the caret
+  // there on its very first render instead of defaulting to the end of the value and then
+  // jumping. `delegatesFocus` lets the browser move focus (and fire handleFocus) as part of the
+  // mousedown's default action, before our own click handler runs.
+  private _pendingClickIndex: number | null = null;
 
   private get hasSelection(): boolean {
     return this._selectionAnchor >= 0 && this._selectionAnchor !== this._activeIndex;
@@ -436,7 +441,7 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
 
   private handleFocus() {
     this._focused = true;
-    this.setCaretIndex(Math.min(this._value.length, this.effectiveLength - 1));
+    this.setCaretIndex(this._pendingClickIndex ?? Math.min(this._value.length, this.effectiveLength - 1));
   }
 
   // Mirror a native multi-character selection (e.g. Cmd/Ctrl+A) into component state so
@@ -462,22 +467,34 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
     }
   }
 
+  // Index of the segment under `target`, clamped so clicking past the filled portion lands on
+  // the first empty slot rather than the segments array boundary. Null if the click missed every
+  // segment (e.g. it landed on the container's padding).
+  private segmentIndexAt(target: Element): number | null {
+    const segment = target.closest('[part~="segment"]');
+    if (!segment || !this.shadowRoot) return null;
+    const segments = [...this.shadowRoot.querySelectorAll('[part~="segment"]')];
+    const index = segments.indexOf(segment as HTMLElement);
+    return index >= 0 ? Math.min(index, this._value.length) : null;
+  }
+
+  private handleSegmentsPointerDown(event: PointerEvent) {
+    if (this.disabled) return;
+    this._pendingClickIndex = this.segmentIndexAt(event.target as Element);
+  }
+
   private handleSegmentsClick(event: MouseEvent) {
     if (this.disabled) return;
 
-    this.input?.focus(); // handleFocus sets _activeIndex to first empty slot
+    this.input?.focus(); // handleFocus consumes _pendingClickIndex when this call changes focus
 
-    // If the user clicked directly on a specific segment, override _activeIndex
-    const target = event.target as Element;
-    const segment = target.closest('[part~="segment"]');
-    if (segment && this.shadowRoot) {
-      const segments = [...this.shadowRoot.querySelectorAll('[part~="segment"]')];
-      const index = segments.indexOf(segment as HTMLElement);
-      if (index >= 0) {
-        // Allow clicking on any filled segment for replacement; clamp to first empty otherwise
-        this.setCaretIndex(Math.min(index, this._value.length));
-      }
+    // If focus() was a no-op (the field was already focused elsewhere), handleFocus won't have
+    // run — apply the clicked segment directly instead.
+    const index = this.segmentIndexAt(event.target as Element);
+    if (index !== null) {
+      this.setCaretIndex(index);
     }
+    this._pendingClickIndex = null;
   }
 
   /** Clears the current value and returns focus to the field. */
@@ -527,7 +544,14 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
         <slot name="label">${this.label}</slot>
       </label>
 
-      <div part="segments" class="segments" role="group" aria-labelledby="label" @click=${this.handleSegmentsClick}>
+      <div
+        part="segments"
+        class="segments"
+        role="group"
+        aria-labelledby="label"
+        @pointerdown=${this.handleSegmentsPointerDown}
+        @click=${this.handleSegmentsClick}
+      >
         ${parts.map(part => {
           if (part.type === 'separator') {
             return html`<span part="segment-literal" class="segment-literal" aria-hidden="true">${part.char}</span>`;
