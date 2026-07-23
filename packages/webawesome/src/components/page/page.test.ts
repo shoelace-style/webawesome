@@ -1,4 +1,4 @@
-import { expect } from '@open-wc/testing';
+import { expect, waitUntil } from '@open-wc/testing';
 import { html } from 'lit';
 import { fixtures } from '../../internal/test/fixture.js';
 import type WaPage from './page.js';
@@ -121,6 +121,51 @@ describe('<wa-page>', () => {
           const assigned = slot.assignedElements();
           expect(assigned.length).to.equal(1);
           expect(assigned[0].textContent).to.equal('Main Footer');
+        });
+      });
+
+      describe('navigation slot placement', () => {
+        // The navigation slots are conditionally rendered in either the desktop <nav> or the mobile <wa-drawer> based
+        // on the current view. Because duplicate slot names resolve to the first slot in tree order, the real slot must
+        // only ever exist in one of the two locations at a time.
+        it('should assign navigation content to the desktop navigation on desktop and the drawer on mobile', async () => {
+          const el = await fixture<WaPage>(html`
+            <wa-page mobile-breakpoint="768" style="width: 1200px;">
+              <div slot="navigation-header">Navigation header</div>
+              <nav slot="navigation">Navigation</nav>
+              <div slot="navigation-footer">Navigation footer</div>
+              <main>Main content</main>
+            </wa-page>
+          `);
+
+          const navigationContent = el.querySelector('[slot="navigation"]')!;
+          const getAssignedContainer = () => {
+            const slot = navigationContent.assignedSlot;
+            if (!slot) return 'nowhere';
+            if (slot.closest('wa-drawer')) return 'drawer';
+            if (slot.closest('nav.navigation')) return 'desktop-navigation';
+            return 'nowhere';
+          };
+
+          // Desktop: content must land in the desktop <nav>, not the drawer
+          await waitUntil(() => el.view === 'desktop');
+          await el.updateComplete;
+          expect(getAssignedContainer()).to.equal('desktop-navigation');
+
+          // Shrink the page below the mobile breakpoint: content must move into the drawer
+          el.style.width = '400px';
+          await waitUntil(() => el.view === 'mobile');
+          await el.updateComplete;
+          expect(getAssignedContainer()).to.equal('drawer');
+
+          // The drawer footer slot exposes the navigation-footer part on mobile
+          expect(el.shadowRoot!.querySelector('wa-drawer [part~="navigation-footer"]')).to.exist;
+
+          // And back to desktop
+          el.style.width = '1200px';
+          await waitUntil(() => el.view === 'desktop');
+          await el.updateComplete;
+          expect(getAssignedContainer()).to.equal('desktop-navigation');
         });
       });
 

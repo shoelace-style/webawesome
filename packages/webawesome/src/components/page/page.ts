@@ -3,6 +3,7 @@ import { html, isServer } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
 import { live } from 'lit/directives/live.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
+import { when } from 'lit/directives/when.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import visuallyHidden from '../../styles/component/visually-hidden.styles.js';
 import '../button/button.js';
@@ -11,7 +12,6 @@ import type WaDrawer from '../drawer/drawer.js';
 import '../icon/icon.js';
 import mobileStyles from './page.mobile.styles.js';
 import styles from './page.styles.js';
-import { when } from 'lit/directives/when.js';
 
 //
 // TODO - the toPx and toLength functions aren't used anywhere else, and they're not named or documented well enough to
@@ -380,21 +380,24 @@ export default class WaPage extends WebAwesomeElement {
               <nav name="navigation" class="navigation" part="navigation navigation-desktop">
                 <!-- Add fallback divs so that CSS grid works properly. -->
                 <slot name="desktop-navigation-header">
-                  ${when(this.view === "desktop",
+                  ${when(
+                    this.view === 'desktop',
+                    () => html`<slot name="navigation-header"><div></div></slot>`,
                     () => html`<div></div>`,
-                    () => html`<slot name="navigation-header"><div></div></slot>`
                   )}
                 </slot>
                 <slot name="desktop-navigation">
-                  ${when(this.view === "desktop",
+                  ${when(
+                    this.view === 'desktop',
+                    () => html`<slot name="navigation"><div></div></slot>`,
                     () => html`<div></div>`,
-                    () => html`<slot name="navigation"><div></div></slot>`
                   )}
                 </slot>
                 <slot name="desktop-navigation-footer">
-                  ${when(this.view === "desktop",
+                  ${when(
+                    this.view === 'desktop',
+                    () => html`<slot name="navigation-footer"><div></div></slot>`,
                     () => html`<div></div>`,
-                    () => html`<slot name="navigation-footer"><div></div></slot>`
                   )}
                 </slot>
               </nav>
@@ -442,21 +445,24 @@ export default class WaPage extends WebAwesomeElement {
         class="navigation-drawer"
       >
         <slot slot="label" part="navigation-header" name="mobile-navigation-header">
-          ${when(this.view !== "desktop",
+          ${when(
+            this.view === 'mobile',
             () => html`<slot name="navigation-header"><div></div></slot>`,
             () => html`<div></div>`,
           )}
         </slot>
         <slot name="mobile-navigation">
-          ${when(this.view !== "desktop",
+          ${when(
+            this.view === 'mobile',
             () => html`<slot name="navigation"><div></div></slot>`,
             () => html`<div></div>`,
           )}
         </slot>
 
         <slot slot="footer" name="mobile-navigation-footer">
-          ${when(this.view !== "desktop",
-            () => html`<slot name="navigation-footer"><div></div></slot>`,
+          ${when(
+            this.view === 'mobile',
+            () => html`<slot part="navigation-footer" name="navigation-footer"><div></div></slot>`,
             () => html`<div></div>`,
           )}
         </slot>

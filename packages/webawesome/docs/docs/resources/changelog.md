@@ -63,6 +63,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 - Removed `font-variant-numeric: tabular-nums;` from default `<table>` styles in Native Styles in lieu of an opt-in `wa-tabular-nums` class [pr:2613]
 - Updated `@shoelace-style/localize` to 3.2.3 to fix a bug that caused a `RangeException` to be thrown when using Google Chrome's "Detect Language" translation feature [issue:2479]
+- Updated `<wa-page>` to conditionally render its navigation slots per view instead of swapping in placeholder slot names so the `navigation`, `navigation-header`, and `navigation-footer` slots only ever exist in the active container [pr:2265]
 
 :::
 
