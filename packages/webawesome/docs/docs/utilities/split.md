@@ -118,15 +118,7 @@ Items can be split across a row or a column by appending `:row` or `:column` to 
 
 ## Align Items
 
-By default, items are centered on the cross axis of the `wa-split` container. You can add any of the following [`wa-align-items-*`](/docs/utilities/align-items) classes to an element with `wa-split` to specify how items are aligned:
-
-- `wa-align-items-start`
-- `wa-align-items-end`
-- `wa-align-items-center`
-- `wa-align-items-stretch`
-- `wa-align-items-baseline`
-
-These modifiers specify how items are aligned in the block direction for `wa-split:row` and in the inline direction for `wa-split:column`.
+By default, items are centered on the cross axis of the `wa-split` container. Add any [`wa-align-items-*`](/docs/utilities/align-items) class to change how items line up: in the block direction for `wa-split:row` and in the inline direction for `wa-split:column`.
 
 ```html {.example}
 <div class="wa-stack">
@@ -151,18 +143,7 @@ These modifiers specify how items are aligned in the block direction for `wa-spl
 
 ## Gap
 
-A split's gap determines how close items can be before they wrap. By default, the gap between split items uses `--wa-space-m` from your theme. You can add any of the following [`wa-gap-*`](/docs/utilities/gap) classes to an element with `wa-split` to specify the gap between items:
-
-- `wa-gap-0`
-- `wa-gap-3xs`
-- `wa-gap-2xs`
-- `wa-gap-xs`
-- `wa-gap-s`
-- `wa-gap-m`
-- `wa-gap-l`
-- `wa-gap-xl`
-- `wa-gap-2xl`
-- `wa-gap-3xl`
+A split's gap determines how close items can be before they wrap. By default, the gap between split items uses `--wa-space-m` from your theme. Add any [`wa-gap-*`](/docs/utilities/gap) class to change the spacing between items.
 
 ```html {.example}
 <div class="wa-stack">

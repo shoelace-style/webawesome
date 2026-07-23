@@ -151,16 +151,7 @@ Frames have a square aspect ratio by default. You can append `:square` (1 / 1), 
 
 ## Border Radius
 
-Frames have a square border radius by default. You can add any of the following [`wa-border-radius-*`](/docs/utilities/rounding) classes to an element with `wa-frame` to specify the border radius:
-
-- `wa-border-radius-s`
-- `wa-border-radius-m`
-- `wa-border-radius-l`
-- `wa-border-radius-pill`
-- `wa-border-radius-circle`
-- `wa-border-radius-square`
-
-Alternatively, you can define the `border-radius` property to set custom rounding.
+Frames have a square border radius by default. Add any [`wa-border-radius-*`](/docs/utilities/rounding) class to round the corners, or define the `border-radius` property to set custom rounding.
 
 ```html {.example}
 <div class="wa-grid">

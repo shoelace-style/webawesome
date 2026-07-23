@@ -1,8 +1,8 @@
 ---
 title: Component Groups
-description: Style groups of components that share similar qualities with these Web Awesome tokens.
+description: Component group tokens style sets of related components that share visual qualities.
 order: 9999
-layout: page-outline
+layout: docs
 synonyms:
   - component tokens
   - group tokens
@@ -152,12 +152,12 @@ In addition to sharing styles with form controls, [buttons](/docs/components/but
       <tr><th>Custom Property</th><th>Description</th><th>Preview</th></tr>
     </thead>
     <tbody>
-      <tr id="token-wa-panel-border-style">
+      <tr id="token-wa-button-transform-hover">
         <td class="token-name"><code>--wa-button-transform-hover</code></td>
         <td>A transform function to apply to buttons on mouseover/hover</td>
         <td><wa-button variant="brand" appearance="filled">Mouse Over Me</wa-button></td>
       </tr>
-      <tr id="token-wa-panel-border-style">
+      <tr id="token-wa-button-transform-active">
         <td class="token-name"><code>--wa-button-transform-active</code></td>
         <td>A transform function to apply to buttons when pressed/active</td>
         <td><wa-button variant="brand" appearance="filled">Press Me</wa-button></td>
@@ -199,9 +199,7 @@ Panel tokens apply to components with larger, contained surface areas, like [cal
     This is a simple callout with an icon.
   </wa-callout>
   <wa-card>Here's a basic, no-nonsense card.</wa-card>
-  <wa-details summary="Details">
-    <code>wa-details</code>, at your service.
-  </wa-details>
+  <wa-details summary="Details"> <code>wa-details</code>, at your service. </wa-details>
 </div>
 ```
 

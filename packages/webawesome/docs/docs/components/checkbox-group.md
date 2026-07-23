@@ -44,7 +44,7 @@ Use the `label` attribute to give the group an accessible label. For labels that
 
 Add a descriptive hint to a checkbox group with the `hint` attribute. For hints that contain HTML, use the `hint` slot instead.
 
-```html {.example}
+```html {.example .anatomy}
 <wa-checkbox-group label="Workdays" hint="Choose as many as you like.">
   <wa-checkbox name="monday">Monday</wa-checkbox>
   <wa-checkbox name="wednesday">Wednesday</wa-checkbox>

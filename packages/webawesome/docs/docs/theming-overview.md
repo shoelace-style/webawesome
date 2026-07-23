@@ -47,7 +47,7 @@ A theme is the overall look — fonts, borders, space, shadows, and how each [va
     /* Match the docs' major-block rhythm (#content rules in docs.css). */
     margin-block: var(--wa-space-xl);
   }
-  .theme-showcase::part(base) {
+  .theme-showcase::part(carousel) {
     column-gap: 0;
   }
   

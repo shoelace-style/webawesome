@@ -30,7 +30,8 @@ import styles from './switch.styles.js';
  * @event focus - Emitted when the control gains focus.
  * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
- * @csspart base - The component's base wrapper.
+ * @csspart base - Deprecated. Use the `switch` part instead.
+ * @csspart switch - The component's outer wrapper.
  * @csspart control - The control that houses the switch's thumb.
  * @csspart thumb - The switch's thumb.
  * @csspart label - The switch's label.
@@ -149,7 +150,12 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
   protected willUpdate(changedProperties: PropertyValues<this>): void {
     super.willUpdate(changedProperties);
 
-    if (changedProperties.has('value') || changedProperties.has('checked') || changedProperties.has('defaultChecked')) {
+    if (
+      changedProperties.has('value') ||
+      changedProperties.has('checked') ||
+      changedProperties.has('defaultChecked') ||
+      changedProperties.has('disabled')
+    ) {
       this.handleValueOrCheckedChange();
     }
   }
@@ -223,7 +229,7 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
 
     return html`
       <label
-        part="base"
+        part="base switch"
         class=${classMap({
           checked: this.checked,
           disabled: this.disabled,

@@ -32,7 +32,7 @@ use-cases:
 
 ## Examples
 
-### Formatting Bytes
+### Bytes
 
 Set the `value` attribute to a number to get the value in bytes.
 
@@ -43,7 +43,7 @@ Set the `value` attribute to a number to get the value in bytes.
 <wa-format-bytes value="1200000000"></wa-format-bytes>
 ```
 
-### Formatting Bits
+### Bits
 
 To get the value in bits, set the `unit` attribute to `bit`.
 

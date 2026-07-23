@@ -274,8 +274,20 @@
 <h3>CSS Parts</h3>
 <p>Learn more about <a href="/docs/usage/#css-parts">CSS parts</a>.</p>
 
+{#
+  Visual anatomy diagram (progressive enhancement over the table; component-anatomy.js reads the part list
+  from these data-part-name rows). Sub-components (`parent` in front matter) are skipped automatically; opt
+  others out with `hasAnatomy: false` (overlays/portals, layout wrappers). All-state-dependent parts need no
+  flag — the JS drops the stage when nothing is highlightable. The wrapper is the sticky diagram's containing
+  block, so it releases the pin when the table ends (see anatomy.css).
+#}
+<div class="anatomy-section">
+{% if (hasAnatomy != false and not parent) or hasAnatomy == true %}
+<component-anatomy component="{{ component.tagName }}" class="wa-not-prose wa-mask-fade-below"></component-anatomy>
+{% endif %}
+
 <wa-scroller>
-  <table class="component-table wa-hover-rows">
+  <table class="component-table wa-hover-rows" data-anatomy-table>
     <thead>
       <tr>
         <th class="table-name">Name</th>
@@ -285,7 +297,7 @@
     </thead>
     <tbody>
       {% for cssPart in component.cssParts %}
-      <tr>
+      <tr{% if cssPart.deprecated %} class="wa-color-text-quiet"{% else %} data-part-name="{{ cssPart.name }}"{% endif %}>
         <td class="table-name"><code>{{ cssPart.name }}</code></td>
         <td class="table-description">{{ cssPart.description | inlineMarkdown | safe }}</td>
         <td class="table-selector">
@@ -299,6 +311,7 @@
     </tbody>
   </table>
 </wa-scroller>
+</div>
 {% endif %}
 
 {# Dependencies #}

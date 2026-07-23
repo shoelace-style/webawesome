@@ -14,7 +14,7 @@ use-cases:
   - scroll animation
 ---
 
-To animate an element, wrap it in `<wa-animation>` and set an animation `name`. The animation will not start until you add the `play` attribute. Refer to the [properties table](#attributes-and-properties) for a list of all animation options.
+To animate an element, wrap it in `<wa-animation>` and set the `name` attribute. The animation will not start until you add the `play` attribute. Refer to the [properties table](#attributes-and-properties) for a list of all animation options.
 
 ```html {.example}
 <div class="animation-overview">
@@ -37,6 +37,11 @@ To animate an element, wrap it in `<wa-animation>` and set an animation `name`. 
 
 :::info
 The animation will only be applied to the first child element found in `<wa-animation>`.
+:::
+
+:::warning
+<strong>Respect users who prefer reduced motion.</strong><br />
+`<wa-animation>` plays regardless of the user's motion preferences. Gate decorative animations behind a [`prefers-reduced-motion`](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion) media query so they don't play for people who've asked to minimize motion.
 :::
 
 ## Examples
@@ -105,77 +110,6 @@ This example demonstrates all of the baked-in animations and easings. Animations
   }
 
   .animation-sandbox .controls wa-select {
-    margin-bottom: 1rem;
-  }
-</style>
-```
-
-```html {.example}
-<div class="animation-sandbox-combobox">
-  <wa-animation name="bounce" easing="ease-in-out" duration="2000" play>
-    <div class="box"></div>
-  </wa-animation>
-
-  <wa-divider></wa-divider>
-
-  <div class="controls">
-    <wa-combobox label="Animation" placeholder="Select animation..."></wa-combobox>
-    <wa-combobox label="Easing" placeholder="Select easing..."></wa-combobox>
-    <wa-input label="Playback Rate" type="number" min="0" max="2" step=".25" value="1"></wa-input>
-  </div>
-</div>
-
-<script type="module">
-  import { getAnimationNames, getEasingNames } from '/dist/webawesome.js';
-
-  await customElements.whenDefined('wa-combobox');
-  await customElements.whenDefined('wa-option');
-
-  const container = document.querySelector('.animation-sandbox-combobox');
-  const animation = container.querySelector('wa-animation');
-  const animationName = container.querySelector('.controls wa-combobox:nth-child(1)');
-  const easingName = container.querySelector('.controls wa-combobox:nth-child(2)');
-  const playbackRate = container.querySelector('wa-input[type="number"]');
-  const animations = getAnimationNames();
-  const easings = getEasingNames();
-
-  animations.forEach(name => {
-    const option = document.createElement('wa-option');
-    option.value = name;
-    option.textContent = name;
-    animationName.append(option);
-  });
-
-  easings.forEach(name => {
-    const option = document.createElement('wa-option');
-    option.value = name;
-    option.textContent = name;
-    easingName.append(option);
-  });
-
-  await Promise.all([animationName.updateComplete, easingName.updateComplete]);
-
-  animationName.value = 'bounce';
-  easingName.value = 'ease-in-out';
-
-  animationName.addEventListener('change', () => (animation.name = animationName.value));
-  easingName.addEventListener('change', () => (animation.easing = easingName.value));
-  playbackRate.addEventListener('input', () => (animation.playbackRate = playbackRate.value));
-</script>
-
-<style>
-  .animation-sandbox-combobox .box {
-    width: 100px;
-    height: 100px;
-    background-color: var(--wa-color-brand-fill-loud);
-  }
-
-  .animation-sandbox-combobox .controls {
-    max-width: 300px;
-    margin-top: 2rem;
-  }
-
-  .animation-sandbox-combobox .controls wa-combobox {
     margin-bottom: 1rem;
   }
 </style>

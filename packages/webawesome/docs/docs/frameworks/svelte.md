@@ -1,14 +1,9 @@
 ---
 title: Svelte
 description: Tips for using Web Awesome in your Svelte app.
-layout: page-outline
+layout: framework
+officialDocs: https://svelte.dev
 ---
-
-<wa-breadcrumb class="page-breadcrumbs">
-  <wa-icon slot="separator" name="angle-right" variant="regular"></wa-icon>
-  <wa-breadcrumb-item href="/docs/frameworks">Frameworks</wa-breadcrumb-item>
-  <wa-breadcrumb-item>{{ title }}</wa-breadcrumb-item>
-</wa-breadcrumb>
 
 Svelte [plays nice](https://custom-elements-everywhere.com/#svelte) with custom elements, so you can use Web Awesome in your Svelte apps with ease.
 
@@ -22,9 +17,9 @@ npm install @awesome.me/webawesome
 
 ## Usage
 
-Next, import the Web Awesome stylesheet, import the components you need, and then start using Web Awesome!
+Import the Web Awesome stylesheet and the components you need, then start using them:
 
-```jsx
+```html
 <!-- app.html -->
 <script>
   import '@awesome.me/webawesome/dist/styles/webawesome.css';
@@ -46,9 +41,9 @@ Next, import the Web Awesome stylesheet, import the components you need, and the
 
 ### Two-Way Binding
 
-One caveat is there's currently Svelte only supports `bind:value` directive in `<input>`, `<textarea>` and `<select>`, but you can still achieve two-way binding manually.
+One caveat: Svelte currently only supports the `bind:value` directive on `<input>`, `<textarea>`, and `<select>`, but you can still achieve two-way binding manually.
 
-```jsx
+```html
 // ❌ These do not work
 <wa-input bind:value="name"></wa-input>
 
@@ -72,7 +67,7 @@ Slots in Web Awesome/web components are functionally the same as basic slots in 
 
 Here is an example:
 
-```jsx
+```html
 <wa-drawer label="Drawer" placement="start" class="drawer-placement-start" bind:open={drawerIsOpen}>
   This drawer slides in from the start.
   <div slot="footer">
@@ -83,6 +78,7 @@ Here is an example:
 </wa-drawer>
 ```
 
-:::info
-Are you using Web Awesome with Svelte? [Help us improve this page!](https://github.com/shoelace-style/webawesome/blob/next/packages/webawesome/docs/docs/frameworks/svelte.md)
-:::
+<wa-callout variant="success">
+  <strong>Web Awesome is ready to use.</strong><br />
+  Explore components, utilities, and theming to start building.
+</wa-callout>

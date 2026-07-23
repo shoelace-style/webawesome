@@ -1,0 +1,86 @@
+{% set hasSidebar = true %}
+{% set hasOutline = true %}
+{% set hasBreadcrumbs = true %}
+
+{# need this override this to get right class #}
+{% set layout = "page-outline" %}
+
+{% extends "../_includes/base.njk" %}
+
+{%- block afterContent -%}
+
+{%- set feedbackTitle = "Docs feedback: " + title -%}
+{%- set feedbackBody = "Feedback on the " + title + " docs (" + page.url + ") — bug, use case, or feature request:" -%}
+{%- set feedbackUrl = "https://github.com/shoelace-style/webawesome/discussions/new?category=ideas-suggestions&title=" + (feedbackTitle | urlencode) + "&body=" + (feedbackBody | urlencode) -%}
+
+{% set nextSteps = [
+  {
+    title: "Components",
+    href: "/docs/components",
+    external: false,
+    icon_name: "puzzle-piece",
+    summary: "Start building your interface."
+  },
+  {
+    title: "CSS Utilities",
+    href: "/docs/utilities",
+    external: false,
+    icon_name: "wand-magic-sparkles",
+    summary: "Lay out and style without custom CSS."
+  },
+  {
+    title: "Theming",
+    href: "/docs/themes",
+    external: false,
+    icon_name: "palette",
+    summary: "Match Web Awesome to your brand."
+  }
+] %}
+
+{% if officialDocs %}
+  {% set nextSteps = nextSteps.concat([{
+    title: title + " Docs",
+    href: officialDocs,
+    external: true,
+    icon_name: "book",
+    summary: "The official " + title + " documentation."
+  }]) %}
+{% endif %}
+
+
+<section class="modern-card-list info-cards">
+  <h2>Next Steps</h2>
+
+  <div class="search-list-grid">
+    {% for step in nextSteps %}
+      <a
+        class="hover-grow hover-emphasize-border duotone-hover-context"
+        data-duotone-hover-trigger
+        href="{{ step.href }}"
+        {% if step.external -%}
+        target="_blank" rel="noopener noreferrer"
+        {%- endif -%}
+      >
+        <wa-card>
+          <wa-icon class="info-card-icon duotone-illustrated duotone-secondary-reveal" name="{{ step.icon_name }}" family="duotone" variant="regular"></wa-icon>
+          <span class="page-name">{{ step.title }}</span>
+          <p class="modern-card-summary">{{ step.summary }}</p>
+        </wa-card>
+      </a>
+    {% endfor %}
+  </div>
+</section>
+
+<wa-callout variant="neutral">
+  <div class="wa-flank:end wa-gap-xl">
+    <p><strong>Using Web Awesome with {{ title }}?</strong><br />
+    Found a bug or have a suggestion? Help make things more awesome!</p>
+
+    <wa-button size="small" href="{{ feedbackUrl }}" target="_blank" rel="noopener noreferrer">
+      <wa-icon slot="start" name="lightbulb-on" variant="regular"></wa-icon>
+      Share feedback
+    </wa-button>
+  </div>
+</wa-callout>
+
+{% endblock %}
