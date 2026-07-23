@@ -521,8 +521,12 @@ export default class WaCarousel extends WebAwesomeElement {
 
   /** Adds a carousel item as the last real slide. */
   addSlide(slide: WaCarouselItem) {
-    if (!this.isCarouselItem(slide) || slide.hasAttribute('data-clone')) {
+    if (!this.isCarouselItem(slide)) {
       throw new TypeError('addSlide() expects a <wa-carousel-item>.');
+    }
+
+    if (slide.hasAttribute('data-clone')) {
+      throw new TypeError('addSlide() cannot add a cloned carousel item.');
     }
 
     const slides = this.getSlides();

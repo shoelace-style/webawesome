@@ -34,6 +34,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 :::added
 
 - Added a CSS part named after the component to every component that renders a wrapper element (e.g. `button`, `details`, `carousel`), alongside the existing `base` part. Where the component name is already used by an inner part, the wrapper takes a `-wrapper` suffix (`input-wrapper`, `textarea-wrapper`).
+- Added `addSlide()` and `removeSlide()` methods to `<wa-carousel>` for adding and removing slides dynamically, including when `loop` is enabled [issue:2173]
 
 :::
 
