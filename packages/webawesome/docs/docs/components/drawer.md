@@ -2,6 +2,7 @@
 title: Drawer
 layout: component
 category: Layout
+hasAnatomy: false
 synonyms:
   - sidebar
   - side panel
@@ -34,7 +35,7 @@ use-cases:
 
 ## Examples
 
-### Drawer Without Header
+### Without a Header
 
 Headers are enabled by default. To render a drawer without a header, add the `without-header` attribute.
 
@@ -54,7 +55,7 @@ Headers are enabled by default. To render a drawer without a header, add the `wi
 </script>
 ```
 
-### Drawer with Footer
+### Footer
 
 Footers can be used to display titles and more. Use the `footer` slot to add a footer to the drawer.
 
@@ -74,7 +75,7 @@ Footers can be used to display titles and more. Use the `footer` slot to add a f
 </script>
 ```
 
-### Opening & Closing Drawers Declaratively
+### Opening & Closing Declaratively
 
 You can open and close drawers with JavaScript by toggling the `open` attribute, but you can also do it declaratively. Add the `data-drawer="open id"` to any button on the page, where `id` is the ID of the drawer you want to open.
 
@@ -98,9 +99,16 @@ Similarly, you can add `data-drawer="close"` to a button _inside_ of a drawer to
 <wa-button appearance="filled" data-drawer="open drawer-dismiss">Open Drawer</wa-button>
 ```
 
-### Slide in from Start
+### Placement
 
-By default, drawers slide in from the end. To make the drawer slide in from the start, set the `placement` attribute to `start`.
+Drawers slide in from the end by default. Set the `placement` attribute to slide in from a different edge.
+
+| Placement                                                                       | Slides in from           |
+| ------------------------------------------------------------------------------- | ------------------------ |
+| `end` <wa-badge appearance="outlined" variant="neutral" pill style="font-size: var(--wa-font-size-2xs);">default</wa-badge> | The end (right, in LTR)  |
+| `start`                                                                         | The start (left, in LTR) |
+| `top`                                                                           | The top                  |
+| `bottom`                                                                        | The bottom               |
 
 ```html {.example}
 <wa-drawer label="Drawer" placement="start" class="drawer-placement-start">
@@ -108,7 +116,7 @@ By default, drawers slide in from the end. To make the drawer slide in from the 
   <wa-button slot="footer" variant="brand" data-drawer="close">Close</wa-button>
 </wa-drawer>
 
-<wa-button appearance="filled">Open Drawer</wa-button>
+<wa-button appearance="filled">Open from Start</wa-button>
 
 <script>
   const drawer = document.querySelector('.drawer-placement-start');
@@ -118,37 +126,13 @@ By default, drawers slide in from the end. To make the drawer slide in from the 
 </script>
 ```
 
-### Slide in from Top
-
-To make the drawer slide in from the top, set the `placement` attribute to `top`.
-
-```html {.example}
-<wa-drawer label="Drawer" placement="top" class="drawer-placement-top">
-  This drawer slides in from the top.
-  <wa-button slot="footer" variant="brand" data-drawer="close">Close</wa-button>
-</wa-drawer>
-
-<wa-button appearance="filled">Open Drawer</wa-button>
-
-<script>
-  const drawer = document.querySelector('.drawer-placement-top');
-  const openButton = drawer.nextElementSibling;
-
-  openButton.addEventListener('click', () => (drawer.open = true));
-</script>
-```
-
-### Slide in from Bottom
-
-To make the drawer slide in from the bottom, set the `placement` attribute to `bottom`.
-
 ```html {.example}
 <wa-drawer label="Drawer" placement="bottom" class="drawer-placement-bottom">
   This drawer slides in from the bottom.
   <wa-button slot="footer" variant="brand" data-drawer="close">Close</wa-button>
 </wa-drawer>
 
-<wa-button appearance="filled">Open Drawer</wa-button>
+<wa-button appearance="filled">Open from Bottom</wa-button>
 
 <script>
   const drawer = document.querySelector('.drawer-placement-bottom');
@@ -158,7 +142,7 @@ To make the drawer slide in from the bottom, set the `placement` attribute to `b
 </script>
 ```
 
-### Custom Size
+### Size
 
 Use the `--size` custom property to set the drawer's size. This will be applied to the drawer's width or height depending on its `placement`.
 
@@ -277,7 +261,7 @@ You can use `event.detail.source` to determine what triggered the request to clo
 </script>
 ```
 
-### Setting Initial Focus
+### Initial Focus
 
 To give focus to a specific element when the drawer opens, use the `autofocus` attribute.
 

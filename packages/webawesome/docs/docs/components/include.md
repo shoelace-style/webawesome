@@ -12,13 +12,13 @@ use-cases:
   - server-side include
 ---
 
+```html {.example}
+<wa-include src="/assets/examples/include.html"></wa-include>
+```
+
 Included files are asynchronously requested using `window.fetch()`. Requests are cached, so the same file can be included multiple times, but only one request will be made.
 
 The included content will be inserted into the `<wa-include>` element's default slot so it can be easily accessed and styled through the light DOM.
-
-```html {.example}
-<wa-include src="https://shoelace.style/assets/examples/include.html"></wa-include>
-```
 
 ## Examples
 
@@ -29,7 +29,7 @@ When an include file loads successfully, the `wa-load` event will be emitted. Yo
 If the request fails, the `wa-include-error` event will be emitted. In this case, `event.detail.status` will contain the resulting HTTP status code of the request, e.g. 404 (not found).
 
 ```html
-<wa-include src="https://shoelace.style/assets/examples/include.html"></wa-include>
+<wa-include src="/assets/examples/include.html"></wa-include>
 
 <script>
   const include = document.querySelector('wa-include');

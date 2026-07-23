@@ -21,8 +21,9 @@
 
 {# Dark mode #}
 <script>
-	let colorScheme = localStorage.colorScheme;
-	let isDark = localStorage.colorScheme === "dark";
+  // Because these are in a blocking script, need to use var to prevent errors when being re-run by turbo.
+	var colorScheme = localStorage.colorScheme;
+	var isDark = localStorage.colorScheme === "dark";
 	if (!colorScheme || colorScheme === "auto") {
 		isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 	}

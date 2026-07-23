@@ -13,7 +13,7 @@ use-cases:
   - navigation icon
 ---
 
-Web Awesome comes bundled with over 2,000 free icons courtesy of [Font Awesome](https://fontawesome.com/). These icons are part of the `default` icon library. Font Awesome Pro users can unlock additional [icon families](#families-and-variants). Or, if you prefer, you can register your own [custom icon library](#third-party-icon-libraries).
+Web Awesome comes bundled with over 2,000 free icons courtesy of [Font Awesome](https://fontawesome.com/). These icons are part of the `default` icon library. Font Awesome Pro users can unlock additional [icon families](#family-and-variant). Or, if you prefer, you can register your own [custom icon library](#third-party-icon-libraries).
 
 ```html {.example}
 <div class="icon-rebuses" style="font-size: 2em;">
@@ -45,10 +45,12 @@ Web Awesome comes bundled with over 2,000 free icons courtesy of [Font Awesome](
 <wa-callout variant="brand">
   <wa-icon slot="icon" family="brands" name="font-awesome"></wa-icon>
   Not sure which icon to use?
-  <a href="https://fontawesome.com/search?o=r&m=free&f=brands%2Cclassic">Find the perfect icon over at {{ site.siblings.fontAwesome.name }}!</a>
+  <a href="https://fontawesome.com/search?o=r&m=free&f=brands%2Cclassic" target="_blank">Find the perfect icon over at {{ site.siblings.fontAwesome.name }}!</a>
 </wa-callout>
 
-## Sizing
+## Examples
+
+### Size
 
 Icons are sized relative to the current font size. To change their size, set the `font-size` property on the icon itself or on a parent element — drag the slider to see it in action.
 
@@ -94,7 +96,7 @@ Icons are sized relative to the current font size. To change their size, set the
 </script>
 ```
 
-## Colors
+### Color
 
 Icons inherit their color from the current text color. Thus, you can set the `color` property on the `<wa-icon>` element or an ancestor to change the color.
 
@@ -109,7 +111,7 @@ Icons inherit their color from the current text color. Thus, you can set the `co
 </div>
 ```
 
-## Families & Variants
+### Family & Variant
 
 A _family_ sets an icon's overall style; a _variant_ sets its weight. Set them with the `family` and `variant` attributes — `family` defaults to `classic` and `variant` to `solid`.
 
@@ -202,9 +204,9 @@ A _family_ sets an icon's overall style; a _variant_ sets its weight. Set them w
   plan. <a href="/docs/#using-font-awesome-kit-codes">Provide a Kit code</a> to unlock them.
 </wa-callout>
 
-## Canvas
+### Canvas
 
-The _canvas_ is the box an icon sits in. Choose one of four mutually exclusive modes with the `canvas` attribute (the default is `fixed`). It mirrors [{{ site.siblings.fontAwesome.name }}'s icon canvas](https://docs.fontawesome.com/web/style/icon-canvas/) and scales with `font-size`, independent of [sizing](#sizing). The tinted box below shows each canvas's extent.
+The _canvas_ is the box an icon sits in. Choose one of four mutually exclusive modes with the `canvas` attribute (the default is `fixed`). It mirrors [{{ site.siblings.fontAwesome.name }}'s icon canvas](https://docs.fontawesome.com/web/style/icon-canvas/) and scales with `font-size`, independent of [sizing](#size). The tinted box below shows each canvas's extent.
 
 <table>
   <thead>
@@ -336,7 +338,7 @@ The _canvas_ is the box an icon sits in. Choose one of four mutually exclusive m
 The `auto-width` attribute still works but is deprecated — prefer `canvas="auto"`, which renders the same way.
 :::
 
-## Rotating & Flipping
+### Rotating & Flipping
 
 Web Awesome supports [{{ site.siblings.fontAwesome.name }}'s rotation and flip utilities](https://docs.fontawesome.com/web/style/rotate/) for adjusting icon orientation. Use the `rotate` attribute to turn an icon by **any** number of degrees — not just the quarter-turns below — and the `flip` attribute to mirror it across the `x`, `y`, or `both` axes.
 
@@ -435,13 +437,13 @@ Rotate by any angle — and combine `rotate` and `flip` on the same icon:
 <wa-icon name="snowboarding" rotate="45" flip="x" style="font-size: 2em;"></wa-icon>
 ```
 
-## Animating
+### Animating
 
 Web Awesome supports [{{ site.siblings.fontAwesome.name }}'s animation utilities](https://docs.fontawesome.com/web/style/animate/) for adding visual interest to icons. To select different types of animations, use the `animation` attribute when you reference an icon.
 
 Every animation accepts the same timing controls — `--animation-delay`, `--animation-direction`, `--animation-duration`, `--animation-iteration-count`, and `--animation-timing` — plus the animation-specific custom properties shown in each example below. All animations respect `prefers-reduced-motion` (see [Accessibility Considerations](#accessibility-considerations)).
 
-### Beat
+#### Beat
 
 Use the `beat` animation to scale an icon up or down. This is useful for grabbing attention or for use with health/heart-centric icons.
 
@@ -457,7 +459,7 @@ Use the `beat` animation to scale an icon up or down. This is useful for grabbin
 ></wa-icon>
 ```
 
-### Fade
+#### Fade
 
 Use the `fade` animation to fade an icon in and out visually to grab attention in a subtle (or not so subtle) way.
 
@@ -474,7 +476,7 @@ Use the `fade` animation to fade an icon in and out visually to grab attention i
 ></wa-icon>
 ```
 
-### Beat-Fade
+#### Beat-Fade
 
 Use the `beat-fade` animation to grab attention by visually scaling and pulsing an icon in and out.
 
@@ -497,7 +499,7 @@ Use the `beat-fade` animation to grab attention by visually scaling and pulsing 
 ></wa-icon>
 ```
 
-### Bounce
+#### Bounce
 
 Use the `bounce` animation to grab attention by visually bouncing an icon up and down.
 
@@ -529,7 +531,7 @@ Use the `bounce` animation to grab attention by visually bouncing an icon up and
 ></wa-icon>
 ```
 
-### Flip
+#### Flip
 
 Use the `flip` animation to rotate an icon in 3D space. By default, flip rotates an icon about the Y axis 180 degrees. Flipping is helpful for transitions, processing states, or for using physical objects that one flips in the real world.
 
@@ -553,7 +555,7 @@ Use the `flip` animation to rotate an icon in 3D space. By default, flip rotates
 ></wa-icon>
 ```
 
-### Flip 360
+#### Flip 360
 
 Use the `flip-360` animation to flip an icon all the way around in one smooth rotation — an extension of `flip` that gives it some extra oomph. It shares the same `--flip-x`, `--flip-y`, and `--flip-z` axis properties, plus `--flip-angle`, `--flip-anticipation-scale`, and `--flip-overshoot`.
 
@@ -576,7 +578,7 @@ Use the `flip-360` animation to flip an icon all the way around in one smooth ro
 ></wa-icon>
 ```
 
-### Shake
+#### Shake
 
 Use the `shake` animation to grab attention or note that something is not allowed by shaking an icon back and forth.
 
@@ -587,7 +589,7 @@ Use the `shake` animation to grab attention or note that something is not allowe
 <wa-icon name="bomb" animation="shake" label="Shaking Bomb" style="font-size: 2em;"></wa-icon>
 ```
 
-### Spin
+#### Spin
 
 Use the `spin` animation to get any icon to rotate, and use `spin-pulse` to have it rotate with eight steps. Use `spin-reverse` to rotate counter-clockwise. This works especially well with `spinner` and everything in the spinner icons category.
 
@@ -613,7 +615,7 @@ Use the `spin` animation to get any icon to rotate, and use `spin-pulse` to have
 ></wa-icon>
 ```
 
-### Spin Snap
+#### Spin Snap
 
 Use `spin-snap` to rotate in distinct steps with a pause on each, like a clock's second hand. `spin-snap-4` stops at four positions and `spin-snap-8` at eight. Unlike `spin-pulse` — a continuous eight-step rotation — the snap animations ease into each stop. Add `--animation-direction: reverse` to any of them to run counter-clockwise.
 
@@ -630,7 +632,7 @@ Use `spin-snap` to rotate in distinct steps with a pause on each, like a clock's
 ></wa-icon>
 ```
 
-### Buzz
+#### Buzz
 
 Use the `buzz` animation for a fast, tight vibration with rapid decay — quick attention without being loud, like a phone buzzing on a table or an expiring timer. Set `--buzz-distance` to control how far it travels.
 
@@ -646,7 +648,7 @@ Use the `buzz` animation for a fast, tight vibration with rapid decay — quick 
 ></wa-icon>
 ```
 
-### Float
+#### Float
 
 Use the `float` animation for a slow, drifting motion — great for empty states, subtle attention, and adding a bit of playful lightness. Adjust `--float-height`, `--float-drift`, and `--float-tilt` to shape the motion.
 
@@ -662,7 +664,7 @@ Use the `float` animation for a slow, drifting motion — great for empty states
 ></wa-icon>
 ```
 
-### Jello
+#### Jello
 
 Use the `jello` animation for a playful jiggle — great for calling attention to something new, fun, or interactive. Set `--jello-scale-x` and `--jello-scale-y` to control how far it deforms.
 
@@ -678,7 +680,7 @@ Use the `jello` animation for a playful jiggle — great for calling attention t
 ></wa-icon>
 ```
 
-### Swing
+#### Swing
 
 Use the `swing` animation for a subtle dangle with a slow decay — great for things that physically dangle, like keys or a price tag. Set `--swing-angle` to control the peak rotation.
 
@@ -694,7 +696,7 @@ Use the `swing` animation for a subtle dangle with a slow decay — great for th
 ></wa-icon>
 ```
 
-### Wag
+#### Wag
 
 Use the `wag` animation, a cousin of `swing`, for a bottom-anchored wag — the top of the icon sways back and forth with a slow decay. Set `--wag-angle` to control the peak rotation.
 
@@ -710,7 +712,7 @@ Use the `wag` animation, a cousin of `swing`, for a bottom-anchored wag — the 
 ></wa-icon>
 ```
 
-## Duotone
+### Duotone
 
 Duotone icons render on two layers — a primary and a secondary — that you can recolor and fade independently. By default both layers use `currentColor`, with the secondary layer at 40% opacity. These properties don't inherit, so set them directly on the icon.
 
@@ -814,7 +816,7 @@ Duotone icons render on two layers — a primary and a secondary — that you ca
   <a href="/docs/#using-font-awesome-kit-codes">providing a valid {{ site.siblings.fontAwesome.name }} Kit code</a>.
 </wa-callout>
 
-## Swap Duotone Opacity
+### Swap Duotone Opacity
 
 For duotone icons, you can swap the primary and secondary opacity values using the `swap-opacity` attribute. This is useful when you want to emphasize the secondary layer of the icon.
 
@@ -837,7 +839,7 @@ For duotone icons, you can swap the primary and secondary opacity values using t
 </div>
 ```
 
-## Font Awesome Pro+ Icons
+### Font Awesome Pro+ Icons
 
 If you're a [Font Awesome Pro+ customer](https://fontawesome.com/), you have access to whole packs of distinctive icons. Set the pack's `family` and `variant` like any other icon.
 
@@ -888,7 +890,7 @@ If you're a [Font Awesome Pro+ customer](https://fontawesome.com/), you have acc
       <td>
         <div class="wa-cluster icon-copy-row wa-gap-s" style="font-size: 1.5em; align-items: center;">
           <wa-copy-button copy-label="Copy code" value="<wa-icon family=&quot;jelly&quot; variant=&quot;regular&quot; name=&quot;house&quot;></wa-icon>"><wa-icon family="jelly" variant="regular" name="house"></wa-icon></wa-copy-button>
-          <wa-copy-button copy-label="Copy code" value="<wa-icon family=&quot;jelly-duo&quot; variant=&quot;regular&quot; name=&quot;house&quot;></wa-icon>"><wa-icon family="jelly-duo" variant="regular" name="house" style="--secondary-color: skyblue; --secondary-opacity: 0.8;"></wa-icon></wa-copy-button>
+          <wa-copy-button copy-label="Copy code" value="<wa-icon family=&quot;jelly-duo&quot; variant=&quot;regular&quot; name=&quot;house&quot;></wa-icon>"><wa-icon family="jelly-duo" variant="regular" name="house"></wa-icon></wa-copy-button>
           <wa-copy-button copy-label="Copy code" value="<wa-icon family=&quot;jelly-fill&quot; variant=&quot;regular&quot; name=&quot;house&quot;></wa-icon>"><wa-icon family="jelly-fill" variant="regular" name="house"></wa-icon></wa-copy-button>
         </div>
       </td>
@@ -910,7 +912,7 @@ If you're a [Font Awesome Pro+ customer](https://fontawesome.com/), you have acc
       <td>
         <div class="wa-cluster icon-copy-row wa-gap-s" style="font-size: 1.5em; align-items: center;">
           <wa-copy-button copy-label="Copy code" value="<wa-icon family=&quot;notdog&quot; variant=&quot;solid&quot; name=&quot;house&quot;></wa-icon>"><wa-icon family="notdog" variant="solid" name="house"></wa-icon></wa-copy-button>
-          <wa-copy-button copy-label="Copy code" value="<wa-icon family=&quot;notdog-duo&quot; variant=&quot;solid&quot; name=&quot;house&quot;></wa-icon>"><wa-icon family="notdog-duo" variant="solid" name="house" style="--secondary-color: skyblue; --secondary-opacity: 0.8;"></wa-icon></wa-copy-button>
+          <wa-copy-button copy-label="Copy code" value="<wa-icon family=&quot;notdog-duo&quot; variant=&quot;solid&quot; name=&quot;house&quot;></wa-icon>"><wa-icon family="notdog-duo" variant="solid" name="house"></wa-icon></wa-copy-button>
         </div>
       </td>
     </tr>
@@ -932,8 +934,8 @@ If you're a [Font Awesome Pro+ customer](https://fontawesome.com/), you have acc
         <div class="wa-cluster icon-copy-row wa-gap-s" style="font-size: 1.5em; align-items: center;">
           <wa-copy-button copy-label="Copy code" value="<wa-icon family=&quot;slab&quot; variant=&quot;regular&quot; name=&quot;house&quot;></wa-icon>"><wa-icon family="slab" variant="regular" name="house"></wa-icon></wa-copy-button>
           <wa-copy-button copy-label="Copy code" value="<wa-icon family=&quot;slab-press&quot; variant=&quot;regular&quot; name=&quot;house&quot;></wa-icon>"><wa-icon family="slab-press" variant="regular" name="house"></wa-icon></wa-copy-button>
-          <wa-copy-button copy-label="Copy code" value="<wa-icon family=&quot;slab-duo&quot; variant=&quot;regular&quot; name=&quot;house&quot;></wa-icon>"><wa-icon family="slab-duo" variant="regular" name="house" style="--secondary-color: skyblue; --secondary-opacity: 0.8;"></wa-icon></wa-copy-button>
-          <wa-copy-button copy-label="Copy code" value="<wa-icon family=&quot;slab-press-duo&quot; variant=&quot;regular&quot; name=&quot;house&quot;></wa-icon>"><wa-icon family="slab-press-duo" variant="regular" name="house" style="--secondary-color: skyblue; --secondary-opacity: 0.8;"></wa-icon></wa-copy-button>
+          <wa-copy-button copy-label="Copy code" value="<wa-icon family=&quot;slab-duo&quot; variant=&quot;regular&quot; name=&quot;house&quot;></wa-icon>"><wa-icon family="slab-duo" variant="regular" name="house"></wa-icon></wa-copy-button>
+          <wa-copy-button copy-label="Copy code" value="<wa-icon family=&quot;slab-press-duo&quot; variant=&quot;regular&quot; name=&quot;house&quot;></wa-icon>"><wa-icon family="slab-press-duo" variant="regular" name="house"></wa-icon></wa-copy-button>
         </div>
       </td>
     </tr>
@@ -943,7 +945,7 @@ If you're a [Font Awesome Pro+ customer](https://fontawesome.com/), you have acc
       <td><code>light</code></td>
       <td>
         <div class="wa-cluster icon-copy-row wa-gap-s" style="font-size: 1.5em; align-items: center;">
-          <wa-copy-button copy-label="Copy code" value="<wa-icon family=&quot;thumbprint&quot; variant=&quot;light&quot; name=&quot;house&quot;></wa-icon>"><wa-icon family="thumbprint" variant="light" name="house" style="--secondary-color: skyblue; --secondary-opacity: 0.8;"></wa-icon></wa-copy-button>
+          <wa-copy-button copy-label="Copy code" value="<wa-icon family=&quot;thumbprint&quot; variant=&quot;light&quot; name=&quot;house&quot;></wa-icon>"><wa-icon family="thumbprint" variant="light" name="house"></wa-icon></wa-copy-button>
         </div>
       </td>
     </tr>
@@ -954,7 +956,7 @@ If you're a [Font Awesome Pro+ customer](https://fontawesome.com/), you have acc
       <td>
         <div class="wa-cluster icon-copy-row wa-gap-s" style="font-size: 1.5em; align-items: center;">
           <wa-copy-button copy-label="Copy code" value="<wa-icon family=&quot;utility&quot; variant=&quot;semibold&quot; name=&quot;house&quot;></wa-icon>"><wa-icon family="utility" variant="semibold" name="house"></wa-icon></wa-copy-button>
-          <wa-copy-button copy-label="Copy code" value="<wa-icon family=&quot;utility-duo&quot; variant=&quot;semibold&quot; name=&quot;house&quot;></wa-icon>"><wa-icon family="utility-duo" variant="semibold" name="house" style="--secondary-color: skyblue; --secondary-opacity: 0.8;"></wa-icon></wa-copy-button>
+          <wa-copy-button copy-label="Copy code" value="<wa-icon family=&quot;utility-duo&quot; variant=&quot;semibold&quot; name=&quot;house&quot;></wa-icon>"><wa-icon family="utility-duo" variant="semibold" name="house"></wa-icon></wa-copy-button>
           <wa-copy-button copy-label="Copy code" value="<wa-icon family=&quot;utility-fill&quot; variant=&quot;semibold&quot; name=&quot;house&quot;></wa-icon>"><wa-icon family="utility-fill" variant="semibold" name="house"></wa-icon></wa-copy-button>
         </div>
       </td>
@@ -996,7 +998,37 @@ Custom icons can be loaded individually with the `src` attribute. Only SVGs on a
 <wa-icon src="https://shoelace.style/assets/images/shoe.svg" style="font-size: 4rem;"></wa-icon>
 ```
 
-### Self-Hosting the Default Library
+## Icon Libraries
+
+An icon library is a named set of icons with a resolver that maps each name to an SVG URL. Web Awesome ships with two built-in libraries and lets you register any number of your own.
+
+| Library | Contains | Resolves from | Customize it to… |
+| --- | --- | --- | --- |
+| `default` | 2,000+ Font Awesome icons, shown when `<wa-icon>` has no `library` attribute | The Font Awesome CDN | Self-host the icons or swap in a different set |
+| `system` | Only the icons Web Awesome components use internally | Data URIs baked into the resolver | Replace the icons components use internally (you supply them all) |
+
+[sizing](#size), [color](#color), [the canvas](#canvas), [rotating and flipping](#rotating-and-flipping), and [animations](#animating) work with icons from any library — they're applied to the `<wa-icon>` host, so they don't depend on where the icon comes from. (Only the duotone color properties are specific to Font Awesome's duotone icons.)
+
+### Customizing the Default Library
+
+To resolve the default icons elsewhere (a different set, or your own server), register a library using the `default` name and a custom resolver.
+
+For example, this will change the default icon library to use [Bootstrap Icons](https://icons.getbootstrap.com/) loaded from the jsDelivr CDN.
+
+```html
+<script type="module">
+  import { registerIconLibrary } from '/dist/webawesome.js';
+
+  registerIconLibrary('default', {
+    resolver: (name, family) => {
+      const suffix = family === 'filled' ? '-fill' : '';
+      return `https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/icons/${name}${suffix}.svg`;
+    },
+  });
+</script>
+```
+
+#### Self-Hosting
 
 By default, icons are loaded from the {{ site.siblings.fontAwesome.name }} CDN. If you'd prefer to [download the icons](https://fontawesome.com/download) and serve them from your own server, you can use the `setIconPath()` function to point the default icon library at your self-hosted directory.
 
@@ -1029,38 +1061,19 @@ For more control over how icon URLs are constructed, you can use the `getIconFol
 ```
 
 :::warning
-`setIconPath()` must be called before Web Awesome components are loaded, similar to `setBasePath()` and `setKitCode()`.
+<strong>Call `setIconPath()` before Web Awesome components load.</strong><br />
+Like `setBasePath()` and `setKitCode()`, it has no effect once components have initialized.
 :::
 
-## Customizing the Default Library
-
-The default icon library contains over 2,000 icons courtesy of [{{ site.siblings.fontAwesome.name }}]({{ site.siblings.fontAwesome.url }}). These are the icons that display when you use `<wa-icon>` without the `library` attribute. If you prefer to have these icons resolve elsewhere or to a different icon library, register an icon library using the `default` name and a custom resolver.
-
-For example, this will change the default icon library to use [Bootstrap Icons](https://icons.getbootstrap.com/) loaded from the jsDelivr CDN.
-
-```html
-<script type="module">
-  import { registerIconLibrary } from '/dist/webawesome.js';
-
-  registerIconLibrary('default', {
-    resolver: (name, family) => {
-      const suffix = family === 'filled' ? '-fill' : '';
-      return `https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/icons/${name}${suffix}.svg`;
-    },
-  });
-</script>
-```
-
-#### Customize the Default Library to Use SVG Sprites
+#### SVG Sprites
 
 To improve performance you can use a SVG sprites to avoid multiple trips for each SVG. The browser will load the sprite sheet once and then you reference the particular SVG within the sprite sheet using hash selector.
 
 As always, make sure to benchmark these changes. When using HTTP/2, it may in fact be more bandwidth-friendly to use multiple small requests instead of 1 large sprite sheet.
 
 :::warning
-When using sprite sheets, the `wa-load` and `wa-error` events will not fire.
-
-For security reasons, browsers may apply the same-origin policy on `<use>` elements located in the `<wa-icon>` shadow DOM and may refuse to load a cross-origin URL. There is currently no defined way to set a cross-origin policy for `<use>` elements. For this reason, sprite sheets should only be used if you're self-hosting them.
+<strong>Only use sprite sheets you self-host.</strong><br />
+Browsers apply the same-origin policy to the `<use>` elements inside `<wa-icon>`'s shadow DOM and may refuse a cross-origin URL, with no way to override it. `wa-load` and `wa-error` also don't fire for sprite-sheet icons.
 :::
 
 ```html
@@ -1075,11 +1088,9 @@ For security reasons, browsers may apply the same-origin policy on `<use>` eleme
 </script>
 ```
 
-## Customizing the System Library
+### Customizing the System Library
 
-The system library contains only the icons used internally by Web Awesome components. Unlike the default icon library, the system library does not rely on physical assets. Instead, its icons are hard-coded as data URIs into the resolver to ensure their availability.
-
-If you want to change the icons Web Awesome uses internally, you can register an icon library using the `system` name and a custom resolver. If you choose to do this, it's your responsibility to provide all of the icons that are required by components. You can reference `src/components/library.system.ts` for a complete list of system icons used by Web Awesome.
+To change the icons Web Awesome uses internally, register a library using the `system` name and a custom resolver. You're then responsible for providing every icon components require. See `src/components/library.system.ts` for the full list.
 
 ```html
 <script type="module">
@@ -1093,17 +1104,9 @@ If you want to change the icons Web Awesome uses internally, you can register an
 
 ### Third-Party Icon Libraries
 
-You can register additional icons to use with the `<wa-icon>` component through icon libraries. Icon files can exist locally or on a CORS-enabled endpoint (e.g. a CDN). There is no limit to how many icon libraries you can register and there is no cost associated with registering them, as individual icons are only requested when they're used.
+Register any number of additional libraries with the `registerIconLibrary()` function exported from `dist/webawesome.js`. Provide a name and a **resolver** that maps an icon name to its SVG URL (local or a CORS-enabled CDN). Icons are fetched only when used, so a registered library you don't touch costs nothing.
 
-[Sizing](#sizing), [colors](#colors), [the canvas](#canvas), [rotating and flipping](#rotating-and-flipping), and [animations](#animating) work with icons from any library — they're applied to the `<wa-icon>` host, so they don't depend on where the icon comes from. (Only the duotone color properties are specific to Font Awesome's duotone icons.)
-
-Web Awesome ships with two built-in icon libraries, `default` and `system`. The [default icon library](#customizing-the-default-library) is provided courtesy of [{{ site.siblings.fontAwesome.name }}]({{ site.siblings.fontAwesome.url }}). The [system icon library](#customizing-the-system-library) contains only a small subset of icons that are used internally by Web Awesome components.
-
-To register an additional icon library, use the `registerIconLibrary()` function that's exported from `dist/webawesome.js`. At a minimum, you must provide a name and a resolver function. The resolver function translates an icon name to a URL where the corresponding SVG file exists. Refer to the examples below to better understand how it works.
-
-If necessary, a mutator function can be used to mutate the SVG element before rendering. This is necessary for some libraries due to the many possible ways SVGs are crafted. For example, icons should ideally inherit the current text color via `currentColor`, so you may need to apply `fill="currentColor` or `stroke="currentColor"` to the SVG element using this function.
-
-Here's an example that registers an icon library located in the `/assets/icons` directory.
+Some libraries need a **mutator** to adjust each SVG on load, most often setting `fill` or `stroke` to `currentColor` so icons inherit the text color.
 
 ```html
 <script type="module">
@@ -1116,18 +1119,16 @@ Here's an example that registers an icon library located in the `/assets/icons` 
 </script>
 ```
 
-To display an icon, set the `library` and `name` attributes of an `<wa-icon>` element.
+Then reference an icon by its `library` and `name`. (An icon used before its library registers stays blank until it does.)
 
 ```html
 <!-- This will show the icon located at /assets/icons/smile.svg -->
 <wa-icon library="my-icons" name="smile"></wa-icon>
 ```
 
-If an icon is used before registration occurs, it will be empty initially but shown when registered.
+The examples below register popular open-source libraries via CDN. Adapt them to your own origin or naming.
 
-The following examples demonstrate how to register a number of popular, open source icon libraries via CDN. Feel free to adapt the code as you see fit to use your own origin or naming conventions.
-
-### Bootstrap Icons
+#### Bootstrap Icons
 
 This will register the [Bootstrap Icons](https://icons.getbootstrap.com/) library using the jsDelivr CDN. This library has two families: `regular` and `filled`.
 
@@ -1162,7 +1163,7 @@ Icons in this library are licensed under the [MIT License](https://github.com/tw
 </div>
 ```
 
-### Boxicons
+#### Boxicons
 
 This will register the [Boxicons](https://boxicons.com/) library using the jsDelivr CDN. This library has three variations: regular (`bx-*`), solid (`bxs-*`), and logos (`bxl-*`). A mutator function is required to set the SVG's `fill` to `currentColor`.
 
@@ -1207,7 +1208,7 @@ Icons in this library are licensed under the [Creative Commons 4.0 License](http
 </div>
 ```
 
-### Lucide
+#### Lucide
 
 This will register the [Lucide](https://lucide.dev/) icon library using the jsDelivr CDN. This project is a community-maintained fork of the popular [Feather](https://feathericons.com/) icon library.
 
@@ -1237,7 +1238,7 @@ Icons in this library are licensed under the [MIT License](https://github.com/lu
 </div>
 ```
 
-### Heroicons
+#### Heroicons
 
 This will register the [Heroicons](https://heroicons.com/) library using the jsDelivr CDN.
 
@@ -1267,7 +1268,7 @@ Icons in this library are licensed under the [MIT License](https://github.com/ta
 </div>
 ```
 
-### Iconoir
+#### Iconoir
 
 This will register the [Iconoir](https://iconoir.com/) library using the jsDelivr CDN.
 
@@ -1299,7 +1300,7 @@ Icons in this library are licensed under the [MIT License](https://github.com/lu
 </div>
 ```
 
-### Ionicons
+#### Ionicons
 
 This will register the [Ionicons](https://ionicons.com/) library using the jsDelivr CDN. This library has three variations: outline (default), filled (`*-filled`), and sharp (`*-sharp`). A mutator function is required to polyfill a handful of styles we're not including.
 
@@ -1344,7 +1345,7 @@ Icons in this library are licensed under the [MIT License](https://github.com/io
 </div>
 ```
 
-### Jam Icons
+#### Jam Icons
 
 This will register the [Jam Icons](https://jam-icons.com/) library using the jsDelivr CDN. This library has two variations: regular (default) and filled (`*-f`). A mutator function is required to set the SVG's `fill` to `currentColor`.
 
@@ -1377,7 +1378,7 @@ Icons in this library are licensed under the [MIT License](https://github.com/mi
 </div>
 ```
 
-### Material Icons
+#### Material Icons
 
 This will register the [Material Icons](https://material.io/resources/icons/?style=baseline) library using the jsDelivr CDN. This library has three variations: outline (default), round (`*_round`), and sharp (`*_sharp`). A mutator function is required to set the SVG's `fill` to `currentColor`.
 
@@ -1420,7 +1421,7 @@ Icons in this library are licensed under the [Apache 2.0 License](https://github
 </div>
 ```
 
-### Remix Icon
+#### Remix Icon
 
 This will register the [Remix Icon](https://remixicon.com/) library using the jsDelivr CDN. This library groups icons by categories, so the name must include the category and icon separated by a slash, as well as the `-line` or `-fill` suffix as needed. A mutator function is required to set the SVG's `fill` to `currentColor`.
 
@@ -1457,7 +1458,7 @@ Icons in this library are licensed under the [Apache 2.0 License](https://github
 </div>
 ```
 
-### Tabler Icons
+#### Tabler Icons
 
 This will register the [Tabler Icons](https://tabler-icons.io/) library using the jsDelivr CDN. This library features over 1,950 open source icons.
 
@@ -1493,7 +1494,7 @@ Icons in this library are licensed under the [MIT License](https://github.com/ta
 </div>
 ```
 
-### Unicons
+#### Unicons
 
 This will register the [Unicons](https://iconscout.com/unicons) library using the jsDelivr CDN. This library has two variations: line (default) and solid (`*-s`). A mutator function is required to set the SVG's `fill` to `currentColor`.
 

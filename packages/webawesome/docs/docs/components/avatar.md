@@ -14,15 +14,15 @@ use-cases:
   - gravatar
 ---
 
-By default, a generic icon will be shown. You can personalize avatars by adding custom icons, initials, and images. You should always provide a `label` for assistive devices.
-
-```html {.example}
+```html {.example .anatomy}
 <wa-avatar label="User avatar"></wa-avatar>
 ```
 
+By default, a generic icon will be shown. You can personalize avatars by adding [images](#image), [initials](#initials), and [custom icons](#custom-icon). You should always provide a `label` for assistive devices.
+
 ## Examples
 
-### Images
+### Image
 
 To use an image for the avatar, set the `image` and `label` attributes. This will take priority and be shown over initials and icons.
 Avatar images can be lazily loaded by setting the `loading` attribute to `lazy`.
@@ -44,28 +44,28 @@ Avatar images can be lazily loaded by setting the `loading` attribute to `lazy`.
 When you don't have an image to use, you can set the `initials` attribute to show something more personalized than an icon.
 
 ```html {.example}
-<wa-avatar initials="WA" label="Avatar with initials: SL"></wa-avatar>
+<wa-avatar initials="WA" label="Avatar with initials: WA"></wa-avatar>
 ```
 
-### Custom Icons
+### Custom Icon
 
 When no image or initials are set, an icon will be shown. The default avatar shows a generic "user" icon, but you can customize this with the `icon` slot.
 
 ```html {.example}
 <wa-avatar label="Avatar with an image icon">
-  <wa-icon slot="icon" name="image" variant="solid"></wa-icon>
+  <wa-icon slot="icon" name="image"></wa-icon>
 </wa-avatar>
 
 <wa-avatar label="Avatar with an archive icon">
-  <wa-icon slot="icon" name="archive" variant="solid"></wa-icon>
+  <wa-icon slot="icon" name="archive"></wa-icon>
 </wa-avatar>
 
 <wa-avatar label="Avatar with a briefcase icon">
-  <wa-icon slot="icon" name="briefcase" variant="solid"></wa-icon>
+  <wa-icon slot="icon" name="briefcase"></wa-icon>
 </wa-avatar>
 ```
 
-### Shapes
+### Shape
 
 Avatars can be shaped using the `shape` attribute.
 

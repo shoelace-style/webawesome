@@ -335,14 +335,32 @@ When composing elements, use `part` to export the host element and `exportparts`
 ```js
 render() {
   return html`
-    <div part="base">
-      <wa-icon part="icon" exportparts="base:icon__base" ...></wa-icon>
+    <div part="details">
+      <wa-icon part="icon" exportparts="svg:icon__svg" ...></wa-icon>
     </div>
   `;
 }
 ```
 
-This results in a consistent, easy to understand structure for parts. In this example, the `icon` part will target the host element and the `icon__base` part will target the icon's `base` part.
+This results in a consistent, easy to understand structure for parts. In this example, the `icon` part will target the host element and the `icon__svg` part will target the icon's `svg` part.
+
+#### Wrapper elements and their parts
+
+Let the host do the work. `:host` handles the outer box for nearly every component, so only render a wrapper element when you actually need one. `<wa-accordion>`, `<wa-card>`, and `<wa-dropdown>` render no wrapper at all. Style those directly with `wa-accordion { ... }`.
+
+When a component does need a wrapper, name its part after the component (the tag name without the `wa-` prefix). `<wa-details>` renders `details`; `<wa-carousel>` renders `carousel`. If the component name is already taken by an inner part (`<wa-input>` names its native control `input`), the wrapper takes a `-wrapper` suffix instead: `input-wrapper`, `textarea-wrapper`.
+
+```js
+render() {
+  return html` <div part="details">...</div> `;
+}
+```
+
+:::info
+**Don't add `base` to new components.** Components that already render a wrapper keep `base` alongside their component-named part, so existing `::part(base)` selectors keep working. It's flagged deprecated and will be removed in a future major version.
+:::
+
+Never put a part on a `<slot>`. Slots default to `display: contents`, so a part there can't take a border, background, or padding unless you also set `display`. If slotted content needs a styling hook, wrap it in a real element and put the part there.
 
 ### Dependencies
 

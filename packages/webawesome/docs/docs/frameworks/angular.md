@@ -1,20 +1,13 @@
 ---
 title: Angular
 description: Tips for using Web Awesome in your Angular app.
-layout: page-outline
+layout: framework
+officialDocs: https://angular.dev
 ---
-
-<wa-breadcrumb class="page-breadcrumbs">
-  <wa-icon slot="separator" name="angle-right" variant="regular"></wa-icon>
-  <wa-breadcrumb-item href="/docs/frameworks">Frameworks</wa-breadcrumb-item>
-  <wa-breadcrumb-item>{{ title }}</wa-breadcrumb-item>
-</wa-breadcrumb>
 
 Angular [plays nice](https://custom-elements-everywhere.com/#angular) with custom elements, so you can use Web Awesome in your Angular apps with ease.
 
 ## Installation
-
-### Download the npm Package
 
 To add Web Awesome to your Angular app, install the package from npm.
 
@@ -22,11 +15,11 @@ To add Web Awesome to your Angular app, install the package from npm.
 npm install @awesome.me/webawesome
 ```
 
-### Update the Angular Configuration
+## Configuration
 
-Next, [include a theme](/docs/themes). In this example, we'll import the light theme.
+### Load the Theme
 
-Its also important to load the components by using a `<script>` tag into the index.html file. However, the Angular way to do it is by adding a script configurations into your angular.json file as follows:
+[Include a theme](/docs/themes) by adding the stylesheet to the `styles` array in your `angular.json` file:
 
 ```json
 "architect": {
@@ -44,9 +37,9 @@ Its also important to load the components by using a `<script>` tag into the ind
 }
 ```
 
-## Configuration
+### Apply the Custom Elements Schema
 
-Then make sure to apply the custom elements schema as shown below.
+Apply the custom elements schema so Angular allows Web Awesome's `wa-*` tags:
 
 ```js
 import { BrowserModule } from '@angular/platform-browser';
@@ -59,47 +52,36 @@ import { AppComponent } from './app.component';
   imports: [BrowserModule],
   providers: [],
   bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule {}
 ```
 
-## Reference Web Awesome Components in Your Angular Component Code
+## Usage
+
+Reference Web Awesome components from your component code. Import both the component and its type — otherwise Angular tree-shakes the component out of your build:
 
 ```js
-// need to have both or Angular will tree shake the component out.
 import type { WaDrawer } from '@awesome.me/webawesome/dist/components/drawer/drawer.js';
-import "@awesome.me/webawesome/dist/components/drawer/drawer.js";
+import '@awesome.me/webawesome/dist/components/drawer/drawer.js';
 
 @Component({
   selector: 'app-drawer-example',
-  template: '<div id="page"><button (click)="showDrawer()">Show drawer</button><wa-drawer #drawer label="Drawer" class="drawer-focus" style="--size: 50vw"><p>Drawer content</p></wa-drawer></div>'
+  template: '<div id="page"><button (click)="showDrawer()">Show drawer</button><wa-drawer #drawer label="Drawer" class="drawer-focus" style="--size: 50vw"><p>Drawer content</p></wa-drawer></div>',
 })
-export class DrawerExampleComponent implements OnInit {
-
-  // use @ViewChild to get a reference to the #drawer element within component template
+export class DrawerExampleComponent {
+  // @ViewChild gives a typed reference to the <wa-drawer> element
   @ViewChild('drawer')
   drawer?: ElementRef<WaDrawer>;
 
-  ...
-
-  constructor(...) {
-  }
-
-  ngOnInit() {
-  }
-
-  ...
-
   showDrawer() {
-    // use nativeElement to access Web Awesome components
+    // Access Web Awesome methods via nativeElement
     this.drawer?.nativeElement.show();
   }
 }
 ```
 
-Now you can start using Web Awesome components in your app!
-
-:::info
-Are you using Web Awesome with Angular? [Help us improve this page!](https://github.com/shoelace-style/webawesome/blob/next/packages/webawesome/docs/docs/frameworks/angular.md)
-:::
+<wa-callout variant="success">
+  <strong>Web Awesome is ready to use.</strong><br />
+  Explore components, utilities, and theming to start building.
+</wa-callout>

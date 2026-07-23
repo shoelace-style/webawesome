@@ -155,9 +155,9 @@ Grids work especially well for card lists and content designed for browsing.
 </style>
 ```
 
-## Sizing
+## Size
 
-By default, grid items will wrap when the grid's column size is less than `20ch`, but you can set a custom minimum column size using the `--min-column-size` property.
+By default, grid items will wrap when the grid's column size is less than `20ch`, but you can set a custom minimum column size using the `--min-column-size` custom property.
 
 ```html {.example}
 <div class="wa-stack">
@@ -182,18 +182,7 @@ By default, grid items will wrap when the grid's column size is less than `20ch`
 
 ## Gap
 
-By default, the gap between grid items uses `--wa-space-m` from your theme. You can add any of the following [`wa-gap-*`](/docs/utilities/gap) classes to an element with `wa-grid` to specify the gap between items:
-
-- `wa-gap-0`
-- `wa-gap-3xs`
-- `wa-gap-2xs`
-- `wa-gap-xs`
-- `wa-gap-s`
-- `wa-gap-m`
-- `wa-gap-l`
-- `wa-gap-xl`
-- `wa-gap-2xl`
-- `wa-gap-3xl`
+By default, the gap between grid items uses `--wa-space-m` from your theme. Add any [`wa-gap-*`](/docs/utilities/gap) class to change the spacing between cells.
 
 ```html {.example}
 <div class="wa-stack">

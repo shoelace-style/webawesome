@@ -1,6 +1,6 @@
 ---
 title: Text
-description: Text utility classes use custom properties from your Web Awesome theme and other standard CSS properties to style text elements on the fly.
+description: Text utility classes use design tokens from your Web Awesome theme and standard CSS properties to style text elements on the fly.
 layout: docs
 tags: styleUtilities
 synonyms:
@@ -190,7 +190,7 @@ Use these classes to control how text wraps across lines. They apply standard CS
 :::
 
 :::info
-The original `wa-text-wrap-nowrap`, `wa-text-wrap-balance`, and `wa-text-wrap-pretty` class names continue to work as aliases for backwards compatibility. These older names are deprecated and will be removed in a future major version — we recommend updating to the shorter `wa-text-*` names above.
+The original `wa-text-wrap-nowrap`, `wa-text-wrap-balance`, and `wa-text-wrap-pretty` class names continue to work as aliases for backwards compatibility. These older names are deprecated and will be removed in a future major version; update to the shorter `wa-text-*` names above.
 :::
 
 ## Transform
@@ -226,7 +226,7 @@ Use these classes to align text within its container. They apply standard CSS [`
 | `wa-text-end`     | <div class="wa-text-end preview-wrapper">Five boxing wizards</div>                                                            |
 | `wa-text-justify` | <div class="wa-text-justify preview-wrapper">The five boxing wizards jump quickly. How quickly daft jumping zebras vex!</div> |
 
-::: info
+:::info
 Justified text can create uneven word spacing that's [harder for everyone to read](https://www.w3.org/WAI/WCAG21/Understanding/visual-presentation.html) and especially difficult for folks with dyslexia. Reserve it for short, narrow text columns.
 :::
 

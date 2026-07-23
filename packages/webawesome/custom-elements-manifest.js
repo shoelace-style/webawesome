@@ -135,6 +135,22 @@ export default {
       },
     },
     {
+      // Flag `base` in the manifest so editors and other CEM consumers see the deprecation, not just the docs.
+      name: 'wa-deprecate-base-part',
+      packageLinkPhase({ customElementsManifest }) {
+        customElementsManifest?.modules?.forEach(mod => {
+          mod.declarations?.forEach(declaration => {
+            declaration.cssParts?.forEach(part => {
+              if (part.name === 'base') {
+                part.deprecated =
+                  'Use the part named after the component instead. This part will be removed in a future major version.';
+              }
+            });
+          });
+        });
+      },
+    },
+    {
       name: 'wa-translate-module-paths',
       packageLinkPhase({ customElementsManifest }) {
         customElementsManifest?.modules?.forEach(mod => {

@@ -386,10 +386,13 @@
   table {
     width: 100%;
 
-    font-variant-numeric: tabular-nums;
-
     border: none;
     border-collapse: collapse;
+
+    &.wa-tabular-nums,
+    & .wa-tabular-nums {
+      font-variant-numeric: tabular-nums;
+    }
   }
 
   caption {

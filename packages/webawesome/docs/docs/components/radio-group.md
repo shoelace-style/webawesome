@@ -41,7 +41,7 @@ To target checked radios with CSS, use the `:state(checked)` selector.
 
 Add descriptive hint to a radio group with the `hint` attribute. For hints that contain HTML, use the `hint` slot instead.
 
-```html {.example}
+```html {.example .anatomy}
 <wa-radio-group label="Coffee roast" hint="Pick the roast we'll grind for your order." name="roast" value="medium">
   <wa-radio value="light">Light roast</wa-radio>
   <wa-radio value="medium">Medium roast</wa-radio>

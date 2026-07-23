@@ -12,11 +12,9 @@ use-cases:
   - slider comparison
 ---
 
-This is especially useful for comparing images, but can be used for comparing any type of content (for an example of using it to compare entire UIs, check out our [theme page](/docs/themes)).
-For best results, use content that shares the same dimensions.
-The slider can be controlled by dragging or pressing the left and right arrow keys. (Tip: press shift + arrows to move the slider in larger intervals, or home + end to jump to the beginning or end.)
+Compare two pieces of content with a divider users can drag across them. It's most often used for before/after images — for best results, the two sides should share the same dimensions. Any content works, though; see the [theme page](/docs/themes) for a full-UI example.
 
-```html {.example}
+```html {.example .anatomy}
 <wa-comparison>
   <img
     slot="before"
@@ -30,6 +28,11 @@ The slider can be controlled by dragging or pressing the left and right arrow ke
   />
 </wa-comparison>
 ```
+
+:::info
+<strong>The divider is keyboard accessible.</strong><br />
+Focus it and use the arrow keys — shift + arrow moves in larger steps, and home / end jump to either end.
+:::
 
 ## Examples
 
