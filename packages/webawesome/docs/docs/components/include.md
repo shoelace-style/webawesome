@@ -20,7 +20,38 @@ The included content will be inserted into the `<wa-include>` element's default 
 <wa-include src="https://shoelace.style/assets/examples/include.html"></wa-include>
 ```
 
+:::warning
+Included markup is inserted into the page as-is, and scripts run when `allow-scripts` is set. Including untrusted content can lead to XSS attacks.
+:::
+
 ## Examples
+
+### Including Part of a File
+
+To include just one section of a file instead of the whole thing, add the target element's `id` as a hash to the `src`. Only the matching element's content is included, the rest of the file is ignored.
+
+If the file loads but the `id` isn't found, the `wa-include-error` event is emitted.
+
+```html {.example}
+<wa-include src="/assets/examples/include.html#callout-fragment"></wa-include>
+```
+
+### Including a Template
+
+The same `#id` syntax also works against the current page, which is handy for reusing markup you've defined once. It pairs especially well with a `<template>`, whose content stays hidden until it's included.
+
+You get what's _inside_ the target, not the target element itself, either the children of a regular element, or the contents of a `<template>`. The original stays in place, so you can include it any number of times.
+
+```html {.example}
+<template id="greeting">
+  <wa-callout variant="brand">
+    <wa-icon slot="icon" name="hand-wave"></wa-icon>
+    Hello from a template!
+  </wa-callout>
+</template>
+
+<wa-include src="#greeting"></wa-include>
+```
 
 ### Listening for Events
 

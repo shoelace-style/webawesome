@@ -24,7 +24,10 @@ export default class WaInclude extends WebAwesomeElement {
   static css = styles;
 
   /**
-   * The location of the HTML file to include. Be sure you trust the content you are including as it will be executed as
+   * The location of the content to include. This can be a URL to an HTML file, a same-page reference to an element's id
+   * (e.g. `#my-id`), or a URL with a fragment that targets an element's id within the fetched file
+   * (e.g. `/partials.html#my-id`). When targeting an element by id, its content is cloned. If the target is a
+   * `<template>`, its child nodes are cloned. Be sure you trust the content you are including as it will be executed as
    * code and can result in XSS attacks.
    */
   @property() src: string;
@@ -46,32 +49,50 @@ export default class WaInclude extends WebAwesomeElement {
     script.parentNode!.replaceChild(newScript, script);
   }
 
+  /** Clones the contents of an element — a template's `content`, or any other element's children — for insertion. */
+  private cloneFragment(element: Element, ownerDocument: Document): Node {
+    const content =
+      element.localName === 'template' ? (element as HTMLTemplateElement).content : this.childNodesToFragment(element);
+    return ownerDocument.importNode(content, true);
+  }
+
+  private childNodesToFragment(element: Element): DocumentFragment {
+    const fragment = element.ownerDocument.createDocumentFragment();
+    element.childNodes.forEach(child => fragment.append(child.cloneNode(true)));
+    return fragment;
+  }
+
   @watch('src')
   async handleSrcChange() {
     try {
       const src = this.src;
 
-      if (src.startsWith("#")) {
-        const template = document.querySelector(src)
-        let node: Node | null = null
-        if (template?.localName === "template") {
-          node = document.importNode((template as HTMLTemplateElement).content, true)
+      // Resolve against the current document so we can pull off the hash (id), if any
+      const url = new URL(src, document.baseURI);
+      const fragmentId = url.hash.slice(1);
+
+      // A bare hash (e.g. "#id") has no file to fetch; pull the element from the current page
+      if (src.startsWith('#')) {
+        const element = fragmentId ? document.getElementById(decodeURIComponent(fragmentId)) : null;
+
+        if (element) {
+          this.replaceChildren(this.cloneFragment(element, document));
         } else {
-          if (template) {
-            node = document.importNode(template, true)
-          }
+          this.replaceChildren();
         }
 
-        if (node) {
-          this.replaceChildren(node)
-        } else {
-          this.innerHTML = ""
-        }
-
-        return
+        this.dispatchEvent(new WaLoadEvent());
+        return;
       }
 
-      const file = await requestInclude(src, this.mode);
+      // Drop the hash before fetching so the cache keys on the file, not the fragment. Without a hash, fetch src
+      // verbatim to preserve the existing cache key.
+      let fetchSrc = src;
+      if (fragmentId) {
+        url.hash = '';
+        fetchSrc = url.href;
+      }
+      const file = await requestInclude(fetchSrc, this.mode);
 
       // If the src changed since the request started do nothing, otherwise we risk overwriting a subsequent response
       if (src !== this.src) {
@@ -83,7 +104,20 @@ export default class WaInclude extends WebAwesomeElement {
         return;
       }
 
-      this.innerHTML = file.html;
+      if (fragmentId) {
+        // Pull the requested element out of the fetched file
+        const doc = new DOMParser().parseFromString(file.html, 'text/html');
+        const element = doc.getElementById(decodeURIComponent(fragmentId));
+
+        if (!element) {
+          this.dispatchEvent(new WaIncludeErrorEvent({ status: file.status }));
+          return;
+        }
+
+        this.replaceChildren(this.cloneFragment(element, document));
+      } else {
+        this.innerHTML = file.html;
+      }
 
       if (this.allowScripts) {
         [...this.querySelectorAll('script')].forEach(script => this.executeScript(script));

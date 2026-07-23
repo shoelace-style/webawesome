@@ -31,6 +31,12 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 ## Unreleased
 
+:::added
+
+- Added support for including a single element by id to `<wa-include>`, either from the current page (`src="#my-id"`) or a fetched file (`src="/file.html#my-id"`)
+
+:::
+
 :::fixed
 
 - Fixed type resolution issues with `pro` components like `<wa-file-input>`, `<wa-combobox>`, etc. [pr:2577]
