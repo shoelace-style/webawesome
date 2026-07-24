@@ -142,6 +142,9 @@ export default {
       packageLinkPhase({ customElementsManifest }) {
         customElementsManifest?.modules?.forEach(mod => {
           mod.declarations?.forEach(declaration => {
+            // We can only tell both parts exist on the component, not that they're on the same element
+            // (the manifest doesn't track that). True for every form control today; revisit if one ever
+            // adds a `label` that isn't the form-control label.
             const hasFormControlLabel = declaration.cssParts?.some(part => part.name === 'form-control-label');
             declaration.cssParts?.forEach(part => {
               if (part.name === 'base') {
