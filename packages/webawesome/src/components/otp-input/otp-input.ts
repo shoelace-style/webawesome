@@ -20,7 +20,7 @@ import styles from './otp-input.styles.js';
  * Use them for SMS verification, two-factor authentication, and invite codes.
  * @documentation https://webawesome.com/docs/components/otp-input
  * @status experimental
- * @since 3.10
+ * @since 3.11
  *
  * @slot label - An optional label. Use this for labels that contain HTML. When `label` attribute is set it takes priority.
  * @slot hint - Optional hint text. Use this for hints that contain HTML. When `hint` attribute is set it takes priority.
