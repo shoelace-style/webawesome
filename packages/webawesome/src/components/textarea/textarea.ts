@@ -30,7 +30,8 @@ import styles from './textarea.styles.js';
  * @event input - Emitted when the control receives input.
  * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
- * @csspart label - The label
+ * @csspart form-control-label - The label.
+ * @csspart label - Deprecated. Use the `form-control-label` part instead.
  * @csspart form-control-input - The input's wrapper.
  * @csspart hint - The hint's wrapper.
  * @csspart textarea - The internal `<textarea>` control.

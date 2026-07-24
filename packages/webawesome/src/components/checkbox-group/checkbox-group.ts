@@ -27,7 +27,7 @@ import styles from './checkbox-group.styles.js';
  * @slot hint - Text that describes how to use the checkbox group. Alternatively, you can use the `hint` attribute.
  *
  * @csspart form-control - The form control that wraps the label, group, and hint.
- * @csspart form-control-label - The label's wrapper.
+ * @csspart form-control-label - The label.
  * @csspart form-control-input - The element that wraps the grouped checkboxes, exposed as a `role="group"`.
  * @csspart hint - The hint's wrapper.
  *
