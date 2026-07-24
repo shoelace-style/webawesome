@@ -851,7 +851,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
         this.hue = newColor.hsva.h;
         this.saturation = newColor.hsva.s;
         this.brightness = newColor.hsva.v;
-        this.alpha = newColor.hsva.a * 100;
+        this.alpha = this.opacity ? newColor.hsva.a * 100 : 100;
         this.syncValues();
       } else {
         this.inputValue = oldValue ?? '';
@@ -1329,8 +1329,12 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
                       role="button"
                       aria-label=${swatch.label}
                       @click=${() => this.selectSwatch(swatch.color)}
-                      @keydown=${(event: KeyboardEvent) =>
-                        !this.disabled && event.key === 'Enter' && this.setColor(parsedColor.hexa)}
+                      @keydown=${(event: KeyboardEvent) => {
+                        if (event.key === 'Enter' || event.key === ' ') {
+                          event.preventDefault();
+                          this.selectSwatch(swatch.color);
+                        }
+                      }}
                     >
                       <div class="swatch-color" style=${styleMap({ backgroundColor: parsedColor.hexa })}></div>
                     </div>
