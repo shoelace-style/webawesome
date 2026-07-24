@@ -34,6 +34,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 :::added
 
 - Moved `<wa-toast>` and `<wa-toast-item>` from Pro to Core [pr:2631]
+- Added the experimental `<wa-otp-input>` component for entering fixed-length codes — one-time passcodes, PINs, and verification codes [pr:2584]
 - Added a CSS part named after the component to every component that renders a wrapper element (e.g. `button`, `details`, `carousel`), alongside the existing `base` part. Where the component name is already used by an inner part, the wrapper takes a `-wrapper` suffix (`input-wrapper`, `textarea-wrapper`).
 
 :::
@@ -57,6 +58,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug in `<wa-dialog>` and `<wa-drawer>` that left the page permanently scroll locked and inert when third-party CSS, e.g. from ad blockers, hides an open dialog or drawer with `display: none`
 - Fixed `<wa-page>` documenting `skip-links` and `skip-link` CSS parts that don't render; replaced them with the `skip-to-content` part it actually exposes [pr:2633]
 - Fixed `x-label` and `y-label` attributes not working on `<wa-chart>` and its variants
+- Fixed a bug in `<wa-color-picker>` where an initial value with alpha, e.g. `#f5a62315` with `opacity`, would lose its alpha channel on load [issue:2550]
 
 :::
 
@@ -70,6 +72,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 :::deprecated
 
 - The generic `base` CSS part is deprecated in favor of the part named after the component. Existing `::part(base)` selectors keep working and will until the next major version; `base` now appears as deprecated in each component's CSS Parts table.
+- On form controls, the `label` CSS part is deprecated in favor of `form-control-label`. Existing `::part(label)` selectors keep working until the next major version; `label` now appears as deprecated in those components' CSS Parts tables.
 
 :::
 
@@ -100,6 +103,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug in `<wa-known-date>` that showed validation errors while typing instead of on form submission like other form controls
 - Fixed a bug in `<wa-known-date>` where the validation tooltip always pointed to the first input regardless of which one was invalid
 - Fixed a bug in `<wa-toast-item>` where the documented `--padding` custom property was unused in component styles
+- Fixed a bug in `<wa-color-picker>` where swatches grew larger than normal when only a few were present [issue:2571]
 - Aligned the `start` and `end` slot region in `<wa-date-input>` and `<wa-time-input>` with `<wa-input>` and `<wa-select>`
   - The trailing calendar/clock and clear icons no longer sit a few pixels inward of where the other controls place them
   - The `start` and `end` slots now use the same spacing as the other controls instead of a tighter gap
