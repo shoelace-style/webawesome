@@ -572,6 +572,11 @@
     --wa-color-text-link: var(--wa-color-brand-70);
   }
 
+  /* Keep the "new in Core" callout's version link in the neutral scheme, not brand blue. */
+  wa-callout.new {
+    --wa-color-text-link: var(--wa-color-text-normal);
+  }
+
   /* free badge */
   wa-badge.free {
     + wa-tooltip {

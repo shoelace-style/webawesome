@@ -33,6 +33,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::added
 
+- Moved `<wa-toast>` and `<wa-toast-item>` from Pro to Core [pr:2631]
 - Added the experimental `<wa-otp-input>` component for entering fixed-length codes — one-time passcodes, PINs, and verification codes [pr:2584]
 - Added a CSS part named after the component to every component that renders a wrapper element (e.g. `button`, `details`, `carousel`), alongside the existing `base` part. Where the component name is already used by an inner part, the wrapper takes a `-wrapper` suffix (`input-wrapper`, `textarea-wrapper`).
 
@@ -324,7 +325,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::added
 
-- Moved `<wa-page>` from pro to core [pr:2244]
+- Moved `<wa-page>` from Pro to Core [pr:2244]
 - Added a new core experimental component: `<wa-markdown>` (#6 of 14 per stretch goals) [pr:2170]
 - Added the `data-wa-preload` attribute for preloading components that aren't on the page yet when using the autoloader [issue:1501] [pr:2238]
 - Added `placement` attribute to `<wa-color-picker>` [issue:2099]
