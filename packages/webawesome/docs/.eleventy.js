@@ -158,7 +158,8 @@ export default async function (eleventyConfig) {
     // default image, the explicit override if provided, otherwise null (suppresses emission).
     // data.ogImage technically is always defined above. So instead of checking if data.ogImage == null, do an explicit check for if its equal to siteMetadata.image
     ogImageWidth: data => data.ogImageWidth || (data.ogImage === siteMetadata.image ? siteMetadata.imageWidth : null),
-    ogImageHeight: data => data.ogImageHeight || (data.ogImage === siteMetadata.image ? siteMetadata.imageHeight : null),
+    ogImageHeight: data =>
+      data.ogImageHeight || (data.ogImage === siteMetadata.image ? siteMetadata.imageHeight : null),
     ogUrl: data => {
       // Strip template extensions: downstream consumers (e.g. webawesome-app) set
       // `permalink: /foo.njk` for two-pass SSR, so page.url carries an `.njk` resolution
