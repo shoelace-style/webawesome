@@ -276,6 +276,16 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
       this.addEventListener('focusout', this.handleFocusOut);
     }
 
+    // Attribute values aren't applied to properties until the first update, but the initial value sync below serializes
+    // the value using them. Read them off the element directly, like defaultValue above, so an initial HEXA/RGBA/HSLA
+    // value keeps its alpha, format, and letter case.
+    this.opacity = this.hasAttribute('opacity');
+    this.uppercase = this.hasAttribute('uppercase');
+    const format = this.getAttribute('format');
+    if (format === 'rgb' || format === 'hsl' || format === 'hsv') {
+      this.format = format;
+    }
+
     // need to set initial values on the server. looks funky, but it works.
     this.handleValueChange('', this.value || '');
   }
@@ -809,7 +819,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
     this.syncValues();
   }
 
-  @watch('opacity')
+  @watch('opacity', { waitUntilFirstUpdate: true })
   handleOpacityChange() {
     this.alpha = 100;
   }
