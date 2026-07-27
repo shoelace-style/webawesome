@@ -58,7 +58,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed `<wa-page>` documenting `skip-links` and `skip-link` CSS parts that don't render; replaced them with the `skip-to-content` part it actually exposes [pr:2633]
 - Fixed `x-label` and `y-label` attributes not working on `<wa-chart>` and its variants
 - Fixed a bug in `<wa-color-picker>` where an initial value with alpha, e.g. `#f5a62315` with `opacity`, would lose its alpha channel on load [issue:2550]
-- Fixed a bug in `<wa-color-picker>` where selecting a swatch with the keyboard didn't emit `change` and `input` events
+- Fixed a bug in `<wa-color-picker>` where selecting a swatch with the keyboard didn't emit `change` and `input` events [pr:2665]
 - Fixed a bug in `<wa-color-picker>` where an initial value with alpha but without `opacity` would render the trigger as transparent even though the value was opaque
 
 :::
