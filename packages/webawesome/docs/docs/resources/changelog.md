@@ -58,6 +58,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug in `<wa-dialog>` and `<wa-drawer>` that left the page permanently scroll locked and inert when third-party CSS, e.g. from ad blockers, hides an open dialog or drawer with `display: none`
 - Fixed `<wa-page>` documenting `skip-links` and `skip-link` CSS parts that don't render; replaced them with the `skip-to-content` part it actually exposes [pr:2633]
 - Fixed `x-label` and `y-label` attributes not working on `<wa-chart>` and its variants
+- Fixed a bug in `<wa-date-input>` where pressing [[Escape]] to dismiss the open calendar threw a "Maximum call stack size exceeded" error [issue:2637]
 - Fixed a bug in `<wa-color-picker>` where an initial value with alpha, e.g. `#f5a62315` with `opacity`, would lose its alpha channel on load [issue:2550]
 
 :::
