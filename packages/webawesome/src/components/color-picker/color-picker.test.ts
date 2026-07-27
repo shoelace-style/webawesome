@@ -18,6 +18,13 @@ describe('<wa-color-picker>', () => {
           expect(trigger?.style.color).to.equal('rgb(0, 0, 0)');
         });
 
+        it('should ignore alpha in the initial value when opacity is not enabled', async () => {
+          const el = await fixture<WaColorPicker>(html` <wa-color-picker value="#ff000080"></wa-color-picker> `);
+          const trigger = el.shadowRoot!.querySelector<HTMLButtonElement>('[part~="trigger"]');
+          expect(el.value).to.equal('#ff0000');
+          expect(trigger?.style.color).to.equal('rgb(255, 0, 0)');
+        });
+
         it('should show opacity slider when opacity is enabled', async () => {
           const el = await fixture<WaColorPicker>(html` <wa-color-picker opacity></wa-color-picker> `);
           const opacitySlider = el.shadowRoot!.querySelector('[part*="opacity-slider"]')!;
@@ -159,6 +166,44 @@ describe('<wa-color-picker>', () => {
 
           expect(changeHandler).to.have.been.calledOnce;
           expect(inputHandler).to.have.been.calledOnce;
+        });
+
+        it('should emit change and input when selecting a swatch with the keyboard', async () => {
+          const el = await fixture<WaColorPicker>(html`
+            <wa-color-picker swatches="red; green; blue;"></wa-color-picker>
+          `);
+          const trigger = el.shadowRoot!.querySelector<HTMLButtonElement>('[part~="trigger"]')!;
+          const swatch = el.shadowRoot!.querySelector<HTMLElement>('[part~="swatch"]')!;
+          const changeHandler = sinon.spy();
+          const inputHandler = sinon.spy();
+
+          el.addEventListener('change', changeHandler);
+          el.addEventListener('input', inputHandler);
+
+          await clickOnElement(trigger); // open the dropdown
+          await aTimeout(200); // wait for the dropdown to open
+          swatch.focus();
+          await sendKeys({ press: 'Enter' });
+          await el.updateComplete;
+
+          expect(el.value).to.equal('#ff0000');
+          expect(changeHandler).to.have.been.calledOnce;
+          expect(inputHandler).to.have.been.calledOnce;
+        });
+
+        it('should set a fully transparent value when selecting a transparent swatch with opacity enabled', async () => {
+          const el = await fixture<WaColorPicker>(html`
+            <wa-color-picker opacity swatches="transparent;"></wa-color-picker>
+          `);
+          const trigger = el.shadowRoot!.querySelector<HTMLButtonElement>('[part~="trigger"]')!;
+
+          await clickOnElement(trigger); // open the dropdown
+          await aTimeout(200); // wait for the dropdown to open
+          const swatch = el.shadowRoot!.querySelector<HTMLElement>('[part~="swatch"]')!;
+          await clickOnElement(swatch); // click on the swatch
+          await el.updateComplete;
+
+          expect(el.value).to.equal('#00000000');
         });
 
         it('should render the correct format when selecting a swatch of a different format', async () => {
