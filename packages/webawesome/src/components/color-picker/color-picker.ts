@@ -70,6 +70,7 @@ declare const EyeDropper: EyeDropperConstructor;
  * @csspart color-picker - The component's outer wrapper.
  * @csspart trigger - The color picker's dropdown trigger.
  * @csspart trigger-container - The container that wraps the color picker's trigger.
+ * @csspart form-control-label - The label.
  * @csspart swatches - The container that holds the swatches.
  * @csspart swatch - Each individual swatch.
  * @csspart grid - The color grid.
@@ -273,6 +274,16 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
     if (!isServer) {
       this.addEventListener('focusin', this.handleFocusIn);
       this.addEventListener('focusout', this.handleFocusOut);
+    }
+
+    // Attribute values aren't applied to properties until the first update, but the initial value sync below serializes
+    // the value using them. Read them off the element directly, like defaultValue above, so an initial HEXA/RGBA/HSLA
+    // value keeps its alpha, format, and letter case.
+    this.opacity = this.hasAttribute('opacity');
+    this.uppercase = this.hasAttribute('uppercase');
+    const format = this.getAttribute('format');
+    if (format === 'rgb' || format === 'hsl' || format === 'hsv') {
+      this.format = format;
     }
 
     // need to set initial values on the server. looks funky, but it works.
@@ -808,7 +819,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
     this.syncValues();
   }
 
-  @watch('opacity')
+  @watch('opacity', { waitUntilFirstUpdate: true })
   handleOpacityChange() {
     this.alpha = 100;
   }
@@ -840,7 +851,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
         this.hue = newColor.hsva.h;
         this.saturation = newColor.hsva.s;
         this.brightness = newColor.hsva.v;
-        this.alpha = newColor.hsva.a * 100;
+        this.alpha = this.opacity ? newColor.hsva.a * 100 : 100;
         this.syncValues();
       } else {
         this.inputValue = oldValue ?? '';
@@ -1318,8 +1329,12 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
                       role="button"
                       aria-label=${swatch.label}
                       @click=${() => this.selectSwatch(swatch.color)}
-                      @keydown=${(event: KeyboardEvent) =>
-                        !this.disabled && event.key === 'Enter' && this.setColor(parsedColor.hexa)}
+                      @keydown=${(event: KeyboardEvent) => {
+                        if (event.key === 'Enter' || event.key === ' ') {
+                          event.preventDefault();
+                          this.selectSwatch(swatch.color);
+                        }
+                      }}
                     >
                       <div class="swatch-color" style=${styleMap({ backgroundColor: parsedColor.hexa })}></div>
                     </div>

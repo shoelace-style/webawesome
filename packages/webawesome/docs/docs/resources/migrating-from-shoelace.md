@@ -27,7 +27,7 @@ If you're brand new to Web Awesome, the [Getting Started](/docs/) guide is a bet
 <wa-callout class="pro">
   <wa-icon slot="icon" name="hand-wave" animation="shake" style="--animation-delay: 2s; --animation-duration: 4s;"></wa-icon>
   <strong>A Few Components Now Live In Web Awesome Pro</strong>
-  Toast notifications, Comboboxes, File Inputs, and Charts moved to <a href="#whats-in-web-awesome-pro">Web&nbsp;Awesome&nbsp;Pro</a>. We mark them clearly with a
+   Comboboxes, File Inputs, and Charts moved to <a href="#whats-in-web-awesome-pro">Web&nbsp;Awesome&nbsp;Pro</a>. We mark them clearly with a
   <wa-badge appearance="accent" pill class="pro" data-pro-badge>Pro</wa-badge>
   badge so you'll see them coming.
 </wa-callout>
@@ -44,7 +44,7 @@ If you take nothing else from this page, take this:
 6. Remove `outline`, `circle`, and (in some places) `text` button props. Use `appearance="outlined" | "filled" | "plain"` instead.
 7. Inputs and similar controls: `prefix`/`suffix` slots → `start`/`end`. `help-text` → `hint`.
 8. `<sl-menu>`/`<sl-menu-item>` → `<wa-dropdown>`/`<wa-dropdown-item>`. There is no standalone menu component.
-9. `<sl-alert>` → `<wa-callout>` (for the static block). Toast UX is now in [`<wa-toast>`](#whats-in-web-awesome-pro) <wa-badge appearance="accent" pill class="pro">Pro</wa-badge>.
+9. `<sl-alert>` → `<wa-callout>` (for the static block). Toast UX is now under `<wa-toast>`.
 10. `<sl-image-comparer>` → `<wa-comparison>`. `<sl-range>` → `<wa-slider>`.
 
 The rest of this page is the explanation, the per-component diffs, and the new things you get.
@@ -173,7 +173,7 @@ Components below are grouped by the kind of change. **If a component isn't liste
 
 | Shoelace                       | Web Awesome                            | Notes                                                                                                              |
 | ------------------------------ | -------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
-| `<sl-alert>`                   | `<wa-callout>`                         | Static inline alert. Toast UX moved to `<wa-toast>` <wa-badge appearance="accent" pill class="pro">Pro</wa-badge>. |
+| `<sl-alert>`                   | `<wa-callout>`                         | Static inline alert. Toast UX moved to `<wa-toast>`. |
 | `<sl-image-comparer>`          | `<wa-comparison>`                      | Same idea, simpler API.                                                                                            |
 | `<sl-range>`                   | `<wa-slider>`                          | Adds multi-thumb range support via the `range` attribute.                                                          |
 | `<sl-menu>` + `<sl-menu-item>` | `<wa-dropdown>` + `<wa-dropdown-item>` | The standalone menu is gone. Menus only live inside dropdowns.                                                     |
@@ -361,7 +361,7 @@ Renamed and gained range (multi-thumb) support.
 `<sl-alert>` was both a static inline alert _and_ a toast notification system. Web Awesome splits these:
 
 - **Static inline messages** → `<wa-callout>`
-- **Toasts** → `<wa-toast>` <wa-badge appearance="accent" pill class="pro">Pro</wa-badge>
+- **Toasts** → `<wa-toast>`
 
 ```diff
 - <sl-alert variant="warning" open>
@@ -381,7 +381,7 @@ Renamed and gained range (multi-thumb) support.
 | attr `closable`            | _(removed)_          | Add your own close button if needed.                                                          |
 | attr `duration`            | _(removed)_          | Static block, no auto-dismiss. Use `<wa-toast>` if you need that.                             |
 | method `show()` / `hide()` | _(removed)_          | Use show/hide via your framework.                                                             |
-| method `toast()`           | _(use `<wa-toast>`)_ | Toast UX moved to `<wa-toast>` <wa-badge appearance="accent" pill class="pro">Pro</wa-badge>. |
+| method `toast()`           | _(use `<wa-toast>`)_ | Toast UX moved to `<wa-toast>`. |
 | events `sl-show`/`sl-hide` | _(removed)_          | No open state on callouts.                                                                    |
 
 ##### wa-dialog <span class="de-emphasize">(was sl-dialog)</span>
@@ -705,7 +705,7 @@ Most of what follows is silent breakage: code that won't throw but will misbehav
 - **CSS part renames.** Most parts are stable, but a few have changed (e.g., dialog/drawer's close button is no longer an exported `sl-icon-button` part). If you styled `::part(close-button__base)`, check the new equivalent on the component's API page.
 - **CSS custom property fallbacks.** If you used `var(--sl-color-primary-500, blue)` and didn't update the variable, the fallback will silently take over. Search for `--sl-` to clean up.
 - **`open` on `<wa-callout>`.** Doesn't exist. If you had `<sl-alert open>` in a template that toggled visibility via the attribute, you need to conditionally render the callout instead.
-- **`<sl-alert>.toast()`.** Method removed. Use `<wa-toast>` <wa-badge appearance="accent" pill class="pro">Pro</wa-badge> for notification UX.
+- **`<sl-alert>.toast()`.** Method removed. Use `<wa-toast>` for notification UX.
 - **Bootstrap Icons names.** If you don't register the Bootstrap Icons library, your icon names will resolve against Font Awesome's catalog and many will silently render as a question mark.
 
 ### Step 7: Test
@@ -764,7 +764,6 @@ Constraints:
 - Do not invent new behavior. If unsure how an API maps, look it up in the migration guide or ask.
 - Do not introduce stylistic refactors. Stay surgical.
 - Do not skip the verification steps. A pass is not done until the build passes.
-- If the project uses sl-alert.toast() heavily, mention that wa-toast is part of Web Awesome Pro and ask before suggesting alternatives.
 
 Begin with step 2 (the audit). Wait for my go-ahead before changing any files.
 </code></pre>
@@ -881,7 +880,7 @@ We work hard to keep migrations smooth. If something here is wrong, missing, or 
     margin-block-start: 0;
   }
 
-  table code { 
+  table code {
     white-space: nowrap;
   }
 

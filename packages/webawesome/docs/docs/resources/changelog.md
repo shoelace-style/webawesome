@@ -35,7 +35,10 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 - Added the experimental `<wa-data-grid>` pro component
 - Added the experimental `<wa-pagination>` component
+- Moved `<wa-toast>` and `<wa-toast-item>` from Pro to Core [pr:2631]
+- Added the experimental `<wa-otp-input>` component for entering fixed-length codes — one-time passcodes, PINs, and verification codes [pr:2584]
 - Added a CSS part named after the component to every component that renders a wrapper element (e.g. `button`, `details`, `carousel`), alongside the existing `base` part. Where the component name is already used by an inner part, the wrapper takes a `-wrapper` suffix (`input-wrapper`, `textarea-wrapper`).
+- Added `addSlide()` and `removeSlide()` methods to `<wa-carousel>` for adding and removing slides dynamically, including when `loop` is enabled [issue:2173]
 
 :::
 
@@ -58,6 +61,10 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug in `<wa-dialog>` and `<wa-drawer>` that left the page permanently scroll locked and inert when third-party CSS, e.g. from ad blockers, hides an open dialog or drawer with `display: none`
 - Fixed `<wa-page>` documenting `skip-links` and `skip-link` CSS parts that don't render; replaced them with the `skip-to-content` part it actually exposes [pr:2633]
 - Fixed `x-label` and `y-label` attributes not working on `<wa-chart>` and its variants
+- Fixed a bug in `<wa-date-input>` where pressing [[Escape]] to dismiss the open calendar threw a "Maximum call stack size exceeded" error [issue:2637]
+- Fixed a bug in `<wa-color-picker>` where an initial value with alpha, e.g. `#f5a62315` with `opacity`, would lose its alpha channel on load [issue:2550]
+- Fixed a bug in `<wa-color-picker>` where selecting a swatch with the keyboard didn't emit `change` and `input` events [pr:2665]
+- Fixed a bug in `<wa-color-picker>` where an initial value with alpha but without `opacity` would render the trigger as transparent even though the value was opaque [pr:2665]
 
 :::
 
@@ -65,12 +72,14 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 - Removed `font-variant-numeric: tabular-nums;` from default `<table>` styles in Native Styles in lieu of an opt-in `wa-tabular-nums` class [pr:2613]
 - Updated `@shoelace-style/localize` to 3.2.3 to fix a bug that caused a `RangeException` to be thrown when using Google Chrome's "Detect Language" translation feature [issue:2479]
+- Updated `<wa-page>` to conditionally render its navigation slots per view instead of swapping in placeholder slot names so the `navigation`, `navigation-header`, and `navigation-footer` slots only ever exist in the active container [pr:2265]
 
 :::
 
 :::deprecated
 
 - The generic `base` CSS part is deprecated in favor of the part named after the component. Existing `::part(base)` selectors keep working and will until the next major version; `base` now appears as deprecated in each component's CSS Parts table.
+- On form controls, the `label` CSS part is deprecated in favor of `form-control-label`. Existing `::part(label)` selectors keep working until the next major version; `label` now appears as deprecated in those components' CSS Parts tables.
 
 :::
 
@@ -102,6 +111,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug in `<wa-copy-button>` where copy success and error feedback wasn't reliably announced by some screen readers
 - Fixed a bug in `<wa-known-date>` where the validation tooltip always pointed to the first input regardless of which one was invalid
 - Fixed a bug in `<wa-toast-item>` where the documented `--padding` custom property was unused in component styles
+- Fixed a bug in `<wa-color-picker>` where swatches grew larger than normal when only a few were present [issue:2571]
 - Aligned the `start` and `end` slot region in `<wa-date-input>` and `<wa-time-input>` with `<wa-input>` and `<wa-select>`
   - The trailing calendar/clock and clear icons no longer sit a few pixels inward of where the other controls place them
   - The `start` and `end` slots now use the same spacing as the other controls instead of a tighter gap
@@ -324,7 +334,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::added
 
-- Moved `<wa-page>` from pro to core [pr:2244]
+- Moved `<wa-page>` from Pro to Core [pr:2244]
 - Added a new core experimental component: `<wa-markdown>` (#6 of 14 per stretch goals) [pr:2170]
 - Added the `data-wa-preload` attribute for preloading components that aren't on the page yet when using the autoloader [issue:1501] [pr:2238]
 - Added `placement` attribute to `<wa-color-picker>` [issue:2099]

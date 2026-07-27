@@ -15,6 +15,7 @@ export type { WaColumnMoveEvent } from './column-move.js';
 export type { WaColumnPinEvent } from './column-pin.js';
 export type { WaColumnResizeEvent } from './column-resize.js';
 export type { WaColumnVisibilityChangeEvent } from './column-visibility-change.js';
+export type { WaCompleteEvent } from './complete.js';
 export type { WaCopyEvent } from './copy.js';
 export type { WaCreateEvent } from './create.js';
 export type { WaDataErrorEvent } from './data-error.js';
