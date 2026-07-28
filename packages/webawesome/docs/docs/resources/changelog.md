@@ -63,7 +63,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug in `<wa-color-picker>` where an initial value with alpha, e.g. `#f5a62315` with `opacity`, would lose its alpha channel on load [issue:2550]
 - Fixed a bug in `<wa-color-picker>` where selecting a swatch with the keyboard didn't emit `change` and `input` events [pr:2665]
 - Fixed a bug in `<wa-color-picker>` where an initial value with alpha but without `opacity` would render the trigger as transparent even though the value was opaque [pr:2665]
-- Fixed a regression in `<wa-icon>` that reintroduced `fill: currentColor` on the internal SVG in 3.8.0 [issue:1733]
+- Fixed a regression in `<wa-icon>` that reintroduced `fill: currentColor` on the internal SVG in 3.8.0 [issue:2636]
 
 :::
 
