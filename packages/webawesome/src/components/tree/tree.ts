@@ -249,9 +249,17 @@ export default class WaTree extends WebAwesomeElement {
     const isRtl = this.localize.dir() === 'rtl';
 
     if (items.length > 0) {
-      event.preventDefault();
       const activeItemIndex = items.findIndex(item => item.matches(':focus'));
       const activeItem: WaTreeItem | undefined = items[activeItemIndex];
+
+      // Enter and Space select the focused node, so there's nothing to do when no tree item has focus. This happens
+      // when focus is inside a tree item instead of on it, e.g. on a link or a button slotted into the item. Let the
+      // event through so the focused element can handle it.
+      if (!activeItem && (event.key === 'Enter' || event.key === ' ')) {
+        return;
+      }
+
+      event.preventDefault();
 
       const focusItemAt = (index: number) => {
         const item = items[clamp(index, 0, items.length - 1)];
@@ -297,7 +305,7 @@ export default class WaTree extends WebAwesomeElement {
         focusItemAt(items.length - 1);
       } else if (event.key === 'Enter' || event.key === ' ') {
         // Selects the focused node.
-        if (!activeItem.disabled) {
+        if (activeItem && !activeItem.disabled) {
           this.selectItem(activeItem);
         }
       }
