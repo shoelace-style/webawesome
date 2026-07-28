@@ -82,7 +82,7 @@ export default class WaQrCode extends WebAwesomeElement {
       // Use the deprecated `fill` attribute if set, otherwise use the current text color
       fill: this.fill || computedStyle.color,
       // Use the deprecated `background` attribute if set, otherwise use transparent (the host has the bg color now)
-      background: this.background || null,
+      background: this.background || computedStyle.background || null,
       // We draw the canvas larger and scale its container down to avoid blurring on high-density displays
       size: this.size * 2,
       image: this.image,
