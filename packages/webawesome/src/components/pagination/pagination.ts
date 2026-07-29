@@ -131,7 +131,8 @@ function getPaginationRange(options: PaginationRangeOptions): PaginationRangeIte
  * @slot first-icon - An icon to use in lieu of the default first icon.
  * @slot last-icon - An icon to use in lieu of the default last icon.
  *
- * @csspart base - The component's base wrapper, a `<nav>` element.
+ * @csspart base - Deprecated. Use the `pagination` part instead.
+ * @csspart pagination - The component's outer wrapper, a `<nav>` element.
  * @csspart button - Every button or link, including page numbers and navigation controls.
  * @csspart previous-button - The previous button.
  * @csspart next-button - The next button.
@@ -437,7 +438,7 @@ export default class WaPagination extends WebAwesomeElement {
       return html`
         <div class="container">
           ${this.renderSummary()}
-          <nav part="base" class="pagination" aria-label=${this.label || this.localize.term('pagination')}>
+          <nav part="base pagination" class="pagination" aria-label=${this.label || this.localize.term('pagination')}>
             <ul part="pages" class="pages" role="list">
               ${this.renderNavButton({
                 part: 'previous-button',
@@ -478,7 +479,7 @@ export default class WaPagination extends WebAwesomeElement {
     return html`
       <div class="container">
         ${this.renderSummary()}
-        <nav part="base" class="pagination" aria-label=${this.label || this.localize.term('pagination')}>
+        <nav part="base pagination" class="pagination" aria-label=${this.label || this.localize.term('pagination')}>
           <ul part="pages" class="pages" role="list">
             ${this.withEdges
               ? this.renderNavButton({

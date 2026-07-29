@@ -306,8 +306,8 @@ This example turns the control into a row of pill-shaped buttons, gives the navi
     --gradient: linear-gradient(135deg, var(--wa-color-brand-fill-loud), var(--wa-color-indigo-50));
   }
 
-  /* The host uses `display: contents`, so style the `base` part to create the container chrome. */
-  .custom-pagination::part(base) {
+  /* The host uses `display: contents`, so style the `pagination` part to create the container chrome. */
+  .custom-pagination::part(pagination) {
     padding: var(--wa-space-xs);
     border-radius: var(--wa-border-radius-pill);
     background-color: var(--wa-color-neutral-fill-quiet);
