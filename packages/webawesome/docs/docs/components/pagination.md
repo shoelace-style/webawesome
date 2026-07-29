@@ -271,10 +271,10 @@ Set the `href-template` attribute to render page items as links instead of butto
 <wa-pagination total="237" page-size="10" page="3" href-template="?page={page}"></wa-pagination>
 ```
 
-In JavaScript, you can also set the `hrefTemplate` property to a function that receives the page number and returns the URL. This is handy when the URL doesn't follow a simple substitution.
+In JavaScript, you can also set the `hrefTemplate` property to a function that receives the page number and returns the URL. This is handy when the URL doesn't follow a simple substitution. When server-rendering, set the `href-template` attribute to the closest equivalent as well, so the server and the browser render the same markup.
 
 ```html {.example}
-<wa-pagination class="pagination-href-fn" total="237" page-size="10" page="3"></wa-pagination>
+<wa-pagination class="pagination-href-fn" total="237" page-size="10" page="3" href-template="?page={page}#results"></wa-pagination>
 
 <script>
   const pagination = document.querySelector('.pagination-href-fn');
