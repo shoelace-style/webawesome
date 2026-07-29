@@ -13,14 +13,15 @@ use-cases:
   - large lists
 ---
 
-Set `total` and `page-size` to generate numbered page buttons with previous and next controls. Use the `label` attribute to give the control an accessible name, which is especially helpful when more than one appears on the same page.
-
 ```html {.example}
 <wa-pagination total="237" page-size="10" page="3" label="Search results"></wa-pagination>
 ```
 
+Set `total` and `page-size` to generate numbered page buttons with previous and next controls. Use the `label` attribute to give the control an accessible name, which is especially helpful when more than one appears on the same page.
+
 :::info
-Pagination is a navigation control, not a form control. It tracks the current page and emits events, but it doesn't submit a value with a form. Update the `page` property in response to the [`wa-page-change`](#responding-to-page-changes) event to keep it in sync with your data.
+<strong>Pagination is a navigation control, not a form control.</strong><br />
+It tracks the current page and emits events, but it doesn't submit a value with a form. Keep `page` in sync with your data by updating it in response to the [`wa-page-change`](#responding-to-page-changes) event.
 :::
 
 ## Examples
@@ -42,26 +43,16 @@ Set the `appearance` attribute to change the pagination's visual style. Valid ap
 Pagination has no `size` attribute; set `font-size` on the control or any ancestor to scale it.
 
 ```html {.example}
-<wa-pagination
-  total="237"
-  page-size="10"
-  page="3"
-  style="font-size: var(--wa-font-size-s)"
-></wa-pagination>
+<wa-pagination total="237" page-size="10" page="3" style="font-size: var(--wa-font-size-s)"></wa-pagination>
 <br />
 <wa-pagination total="237" page-size="10" page="3"></wa-pagination>
 <br />
-<wa-pagination
-  total="237"
-  page-size="10"
-  page="3"
-  style="font-size: var(--wa-font-size-l)"
-></wa-pagination>
+<wa-pagination total="237" page-size="10" page="3" style="font-size: var(--wa-font-size-l)"></wa-pagination>
 ```
 
 ### Number of Buttons
 
-Use the `sibling-count` attribute to set how many pages show on each side of the current page (defaults to `2`), and `boundary-count` to set how many show at the start and end. Remaining pages collapse into an ellipsis, which jumps several pages toward that side when activated.
+Use the `sibling-count` attribute to set how many pages show on each side of the current page (defaults to `2`), and `boundary-count` to set how many show at the start and end (defaults to `1`). Remaining pages collapse into an ellipsis, which jumps several pages toward that side when activated.
 
 ```html {.example}
 <wa-pagination total="1000" page-size="10" page="50" sibling-count="1" boundary-count="1"></wa-pagination>
@@ -121,7 +112,8 @@ Use the `previous-icon`, `next-icon`, `first-icon`, and `last-icon` slots to rep
 ```
 
 :::info
-The navigation buttons keep their built-in accessible labels even when you replace the icons, so screen readers still announce them correctly.
+<strong>Replacing an icon doesn't replace its label.</strong><br />
+The navigation buttons keep their built-in accessible labels, so screen readers still announce them correctly.
 :::
 
 ### Disabled
@@ -134,7 +126,7 @@ Add the `disabled` attribute to disable the entire pagination control.
 
 ### Single Page
 
-Add the `hide-single-page` attribute to render nothing when there's only one page of results.
+Add the `hide-single-page` attribute to render nothing when there's only one page of results. Since a single page renders nothing, this example is shown as code rather than a live preview.
 
 ```html
 <wa-pagination total="5" page-size="10" hide-single-page></wa-pagination>
@@ -188,9 +180,7 @@ When the user changes the page, the `wa-page-change` event is emitted with `{ pa
 ```html {.example}
 <wa-pagination class="pagination-change" total="237" page-size="10" page="1"></wa-pagination>
 
-<p class="pagination-change-output" style="margin-block-end: 0;">
-  Showing page 1
-</p>
+<p class="pagination-change-output" style="margin-block-end: 0;">Showing page 1</p>
 
 <style>
   .pagination-change-output {
@@ -274,7 +264,13 @@ Set the `href-template` attribute to render page items as links instead of butto
 In JavaScript, you can also set the `hrefTemplate` property to a function that receives the page number and returns the URL. This is handy when the URL doesn't follow a simple substitution. When server-rendering, set the `href-template` attribute to the closest equivalent as well, so the server and the browser render the same markup.
 
 ```html {.example}
-<wa-pagination class="pagination-href-fn" total="237" page-size="10" page="3" href-template="?page={page}#results"></wa-pagination>
+<wa-pagination
+  class="pagination-href-fn"
+  total="237"
+  page-size="10"
+  page="3"
+  href-template="?page={page}#results"
+></wa-pagination>
 
 <script>
   const pagination = document.querySelector('.pagination-href-fn');
@@ -284,10 +280,11 @@ In JavaScript, you can also set the `hrefTemplate` property to a function that r
 ```
 
 :::info
-In link mode, the component navigates to a new URL and won't update on its own. Make sure to render it on the server with the correct `page` for each request. Disabled and boundary controls (such as previous on the first page) render as non-navigable anchors with their `href` removed and `aria-disabled` set.
+<strong>In link mode, the component navigates instead of updating itself.</strong><br />
+Render it on the server with the correct `page` for each request. Disabled and boundary controls, such as previous on the first page, render as anchors with no `href` and `aria-disabled` set.
 :::
 
-### Styling Paginations
+### Customizing
 
 Use the exported [CSS parts](#css-parts) to customize the pagination's appearance, where the `button` part targets every button at once. The `plain` appearance is a good starting point.
 
