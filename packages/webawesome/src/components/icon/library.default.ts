@@ -162,6 +162,13 @@ const library: IconLibrary = {
     return getIconUrl(name, family, variant);
   },
   mutator: (svg, hostEl) => {
+    // FA 7.x files set fill="currentColor" on each path, but older self-hosted dumps have no fill attribute, so we
+    // set it on the root when absent. This belongs here, not in icon.styles.ts, where it would override other
+    // libraries' fills (issue #1733).
+    if (!svg.hasAttribute('fill')) {
+      svg.setAttribute('fill', 'currentColor');
+    }
+
     // Duotone families
     if (hostEl?.family && !svg.hasAttribute('data-duotone-initialized')) {
       const { family, variant } = hostEl;

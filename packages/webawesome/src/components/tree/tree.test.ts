@@ -468,6 +468,66 @@ describe('<wa-tree>', () => {
             });
           });
         });
+
+        describe('when focus is inside a tree item instead of on it', () => {
+          const uncaughtErrors: string[] = [];
+          const collectUncaughtError = (event: ErrorEvent) => {
+            event.preventDefault();
+            uncaughtErrors.push(event.message);
+          };
+
+          beforeEach(() => {
+            uncaughtErrors.length = 0;
+            window.addEventListener('error', collectUncaughtError);
+          });
+
+          afterEach(() => {
+            window.removeEventListener('error', collectUncaughtError);
+          });
+
+          async function fixtureWithLink() {
+            const tree = await fixture<WaTree>(html`
+              <wa-tree>
+                <wa-tree-item><a href="#node-1">Node 1</a></wa-tree-item>
+                <wa-tree-item>Node 2</wa-tree-item>
+              </wa-tree>
+            `);
+            const link = tree.querySelector('a')!;
+
+            link.focus();
+            await tree.updateComplete;
+
+            return { tree, link };
+          }
+
+          it('should not throw when Enter is pressed', async () => {
+            const { tree } = await fixtureWithLink();
+
+            await sendKeys({ press: 'Enter' });
+
+            expect(uncaughtErrors).to.be.empty;
+            expect(tree.selectedItems.length).to.eq(0);
+          });
+
+          it('should not throw when Space is pressed', async () => {
+            const { tree } = await fixtureWithLink();
+
+            await sendKeys({ press: ' ' });
+
+            expect(uncaughtErrors).to.be.empty;
+            expect(tree.selectedItems.length).to.eq(0);
+          });
+
+          it('should let the focused element handle Enter', async () => {
+            const { link } = await fixtureWithLink();
+            const clickSpy = sinon.spy((event: MouseEvent) => event.preventDefault());
+            link.addEventListener('click', clickSpy);
+
+            await sendKeys({ press: 'Enter' });
+
+            expect(clickSpy).to.have.been.calledOnce;
+          });
+        });
       });
 
       describe('events', () => {
