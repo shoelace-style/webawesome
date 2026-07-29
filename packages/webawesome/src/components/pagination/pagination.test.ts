@@ -493,7 +493,13 @@ describe('<wa-pagination>', () => {
         // These cases use sibling-count="1" boundary-count="1" so the expected sequences stay compact and readable.
         it('should show every page when the total fits within the window', async () => {
           const el = await fixture<WaPagination>(
-            html`<wa-pagination total="50" page-size="10" page="1" sibling-count="1" boundary-count="1"></wa-pagination>`,
+            html`<wa-pagination
+              total="50"
+              page-size="10"
+              page="1"
+              sibling-count="1"
+              boundary-count="1"
+            ></wa-pagination>`,
           );
           expect(renderedRange(el)).to.equal('1 2 3 4 5');
         });
