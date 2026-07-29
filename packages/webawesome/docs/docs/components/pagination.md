@@ -376,3 +376,14 @@ This example turns the control into a row of pill-shaped buttons, gives the navi
   }
 </style>
 ```
+
+## Accessibility Considerations
+
+Pagination ships with several accessibility behaviors built in:
+
+- **Page changes are announced.** When the page changes, the new position is announced to screen readers through a shared live region, so the update isn't silent.
+- **Focus follows the page.** After a control is activated, focus moves to the new current page rather than falling back to the top of the document, keeping keyboard users oriented.
+- **The current page is marked.** The active page carries `aria-current="page"`, and disabled or boundary controls carry `aria-disabled` so assistive technology skips them.
+- **Icons are direction-aware.** The previous, next, first, and last icons flip automatically in right-to-left languages.
+
+Give the control an accessible name with the `label` attribute whenever more than one pagination appears on a page, so screen reader users can tell them apart.
