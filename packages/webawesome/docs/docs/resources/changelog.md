@@ -33,6 +33,8 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::added
 
+- Added the experimental `<wa-data-grid>` pro component
+- Added the experimental `<wa-pagination>` component
 - Moved `<wa-toast>` and `<wa-toast-item>` from Pro to Core [pr:2631]
 - Added the experimental `<wa-otp-input>` component for entering fixed-length codes — one-time passcodes, PINs, and verification codes [pr:2584]
 - Added a CSS part named after the component to every component that renders a wrapper element (e.g. `button`, `details`, `carousel`), alongside the existing `base` part. Where the component name is already used by an inner part, the wrapper takes a `-wrapper` suffix (`input-wrapper`, `textarea-wrapper`).
@@ -109,6 +111,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug in `<wa-carousel>` with `loop` enabled that displayed the wrong slide, briefly flashing it on load, when the carousel was initialized inside a hidden container such as an inactive tab panel [issue:1163]
 - Fixed component API tables in the `webawesome` Agent Skill by generating them from the CEM instead of scraping the rendered HTML [issue:2475]
 - Fixed a bug in `<wa-known-date>` that showed validation errors while typing instead of on form submission like other form controls
+- Fixed a bug in `<wa-copy-button>` where copy success and error feedback wasn't reliably announced by some screen readers
 - Fixed a bug in `<wa-known-date>` where the validation tooltip always pointed to the first input regardless of which one was invalid
 - Fixed a bug in `<wa-toast-item>` where the documented `--padding` custom property was unused in component styles
 - Fixed a bug in `<wa-color-picker>` where swatches grew larger than normal when only a few were present [issue:2571]
@@ -125,6 +128,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
   - The current (keyboard-highlighted) state now uses `--wa-form-control-activated-color` for its background and a new `--current-text-color` custom property for its text, so options track form control theming alongside `<wa-checkbox>`, `<wa-radio>`, `<wa-switch>`, and `<wa-slider>`
   - Hover and current state changes now animate, matching `<wa-dropdown-item>`
 - Reordered component reference pages in the `webawesome` Agent Skill to put the import instructions and API tables before the examples
+- Moved screen reader announcements to a shared light-DOM live region so updates work reliably across browsers, affecting `<wa-pagination>` and `<wa-copy-button>` (core) and `<wa-data-grid>` and `<wa-date-picker>` (pro)
 - Rewrote `prose.css` rules with `@scope` so that `wa-prose` and `wa-not-prose` classes are proximity aware. This ensures that nested instances of either class work as expected, no matter the nesting depth. [pr:2564]
 - Updated `<wa-icon>` to use [Font Awesome 7.3.0](https://fontawesome.com/changelog#v7-3-0) [pr:2562]
 - Aligned `<wa-icon>` animation defaults with Font Awesome 7.3.0 — `flip`, `shake`, `fade`, and `beat-fade` use updated timing, duration, and keyframes [pr:2562]

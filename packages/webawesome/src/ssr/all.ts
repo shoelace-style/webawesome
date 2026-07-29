@@ -38,6 +38,7 @@ export { default as WaNumberInput } from '../components/number-input/number-inpu
 export { default as WaOption } from '../components/option/option.js';
 export { default as WaOtpInput } from '../components/otp-input/otp-input.js';
 export { default as WaPage } from '../components/page/page.js';
+export { default as WaPagination } from '../components/pagination/pagination.js';
 export { default as WaPopover } from '../components/popover/popover.js';
 export { default as WaPopup } from '../components/popup/popup.js';
 export { default as WaProgressBar } from '../components/progress-bar/progress-bar.js';
