@@ -164,6 +164,15 @@ describe('<wa-icon>', () => {
           await elementUpdated(el);
           expect(el.shadowRoot?.querySelector('svg')).to.exist;
         });
+
+        it('should render the system ellipsis icon with the current text color', async () => {
+          const el = await fixture<WaIcon>(html`<wa-icon library="system"></wa-icon>`);
+          const listener = oneEvent(el, 'wa-load');
+          el.name = 'ellipsis';
+          await listener;
+          await elementUpdated(el);
+          expect(el.shadowRoot?.querySelector('path')?.getAttribute('fill')).to.equal('currentColor');
+        });
       });
 
       describe('events', () => {
