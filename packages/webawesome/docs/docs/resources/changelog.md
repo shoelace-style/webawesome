@@ -33,21 +33,17 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::added
 
-- Added the experimental `<wa-data-grid>` pro component
-- Added the experimental `<wa-pagination>` component
-- Moved `<wa-toast>` and `<wa-toast-item>` from Pro to Core [pr:2631]
+- Added a CSS part named after the component to every component that renders a wrapper element (e.g. `button`, `details`, `carousel`), alongside the existing `base` part. Where the component name is already used by an inner part, the wrapper takes a `-wrapper` suffix (`input-wrapper`, `textarea-wrapper`). [pr:2644]
 - Added the experimental `<wa-otp-input>` component for entering fixed-length codes — one-time passcodes, PINs, and verification codes [pr:2584]
-- Added a CSS part named after the component to every component that renders a wrapper element (e.g. `button`, `details`, `carousel`), alongside the existing `base` part. Where the component name is already used by an inner part, the wrapper takes a `-wrapper` suffix (`input-wrapper`, `textarea-wrapper`).
-- Added `addSlide()` and `removeSlide()` methods to `<wa-carousel>` for adding and removing slides dynamically, including when `loop` is enabled [issue:2173]
+- Moved `<wa-toast>` and `<wa-toast-item>` from Pro to Core [pr:2631]
+- Added `addSlide()` and `removeSlide()` methods to `<wa-carousel>` for adding and removing slides dynamically, including when `loop` is enabled [issue:2173] [pr:2662]
+- Added the experimental `<wa-data-grid>` pro component
+- Added the experimental `<wa-pagination>` component [pr:2680]
 
 :::
 
 :::fixed
 
-- Fixed a Safari-only clip-path/border seam along the arrow's outer edges by painting the arrow border with an inset box-shadow instead of a `border` [pr:2638]
-  - `<wa-tooltip>` — surfaced as a stark white hairline on the dark arrow over light backgrounds
-  - `<wa-popover>` — same latent seam on the arrow's border
-  - The arrow border is now always solid; `--wa-tooltip-border-style` / `--wa-panel-border-style` no longer apply to it. No visual change, since all themes use `solid`
 - Fixed type resolution issues with `pro` components like `<wa-file-input>`, `<wa-combobox>`, etc. [pr:2577]
 - Fixed an issue where some fonts wouldn't load in themes that import multiple fonts [pr:2582]
 - Fixed an issue with an improper custom elements manifest path. [pr:2590]
@@ -58,32 +54,38 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed the remove button in `<wa-tag>` to match the tag's `size` [pr:2615]
 - Fixed `<wa-slider>` reporting a step mismatch for grid-aligned fractional values (e.g. `0.3` with `step="0.1"`) [pr:2620]
 - Fixed missing CSS parts documentation for `<wa-card>`, `<wa-color-picker>`, `<wa-textarea>`, `<wa-scroller>`, and `<wa-page>` [pr:2623]
+- Fixed the focus ring on `<wa-input>` not transitioning in, since the outline was only declared on `:focus-within` [pr:2625]
+- Fixed a Safari-only clip-path/border seam along the arrow's outer edges by painting the arrow border with an inset box-shadow instead of a `border` [pr:2638]
+  - `<wa-tooltip>` — surfaced as a stark white hairline on the dark arrow over light backgrounds
+  - `<wa-popover>` — same latent seam on the arrow's border
+  - The arrow border is now always solid; `--wa-tooltip-border-style` / `--wa-panel-border-style` no longer apply to it. No visual change, since all themes use `solid`
 - Fixed `<wa-checkbox>` rendering its checked icon under the undocumented `check-icon` CSS part; it now uses the documented `checked-icon` part, matching `<wa-radio>` [pr:2646]
-- Fixed a bug in `<wa-dialog>` and `<wa-drawer>` that left the page permanently scroll locked and inert when third-party CSS, e.g. from ad blockers, hides an open dialog or drawer with `display: none`
 - Fixed `<wa-page>` documenting `skip-links` and `skip-link` CSS parts that don't render; replaced them with the `skip-to-content` part it actually exposes [pr:2633]
+- Fixed a bug in `<wa-dialog>` and `<wa-drawer>` that left the page permanently scroll locked and inert when third-party CSS, e.g. from ad blockers, hides an open dialog or drawer with `display: none` [issue:2634] [pr:2653]
 - Fixed `x-label` and `y-label` attributes not working on `<wa-chart>` and its variants
-- Fixed a bug in `<wa-date-input>` where pressing [[Escape]] to dismiss the open calendar threw a "Maximum call stack size exceeded" error [issue:2637]
-- Fixed a bug in `<wa-color-picker>` where an initial value with alpha, e.g. `#f5a62315` with `opacity`, would lose its alpha channel on load [issue:2550]
+- Fixed a bug in `<wa-color-picker>` where swatches grew larger than normal when only a few were present [issue:2571] [pr:2573]
+- Fixed a bug in `<wa-color-picker>` where an initial value with alpha, e.g. `#f5a62315` with `opacity`, would lose its alpha channel on load [issue:2550] [pr:2661]
 - Fixed a bug in `<wa-color-picker>` where selecting a swatch with the keyboard didn't emit `change` and `input` events [pr:2665]
 - Fixed a bug in `<wa-color-picker>` where an initial value with alpha but without `opacity` would render the trigger as transparent even though the value was opaque [pr:2665]
-- Fixed a regression in `<wa-icon>` that reintroduced `fill: currentColor` on the internal SVG in 3.8.0 [issue:2636]
-- Fixed a bug in `<wa-tree>` where pressing [[Enter]] or [[Space]] while focus was inside a tree item, e.g. on a link or a button slotted into it, threw a "Cannot read properties of undefined" error and swallowed the keypress instead of letting the focused element handle it [issue:2673]
-- Fixed a bug in Native Styles where elements like `<button>` didn't pick up inverted colors inside `.wa-invert` [issue:2533]
+- Fixed a bug in `<wa-date-input>` where pressing [[Escape]] to dismiss the open calendar threw a "Maximum call stack size exceeded" error [issue:2637]
+- Fixed a bug in `<wa-tree>` where pressing [[Enter]] or [[Space]] while focus was inside a tree item, e.g. on a link or a button slotted into it, threw a "Cannot read properties of undefined" error and swallowed the keypress instead of letting the focused element handle it [issue:2673] [pr:2674]
+- Fixed a regression in `<wa-icon>` that reintroduced `fill: currentColor` on the internal SVG in 3.8.0 [issue:2636] [pr:2677]
+- Fixed a bug in Native Styles where elements like `<button>` didn't pick up inverted colors inside `.wa-invert` [issue:2533] [pr:2678]
 
 :::
 
 :::changed
 
 - Removed `font-variant-numeric: tabular-nums;` from default `<table>` styles in Native Styles in lieu of an opt-in `wa-tabular-nums` class [pr:2613]
-- Updated `@shoelace-style/localize` to 3.2.3 to fix a bug that caused a `RangeException` to be thrown when using Google Chrome's "Detect Language" translation feature [issue:2479]
+- Updated `@shoelace-style/localize` to 3.2.3 to fix a bug that caused a `RangeException` to be thrown when using Google Chrome's "Detect Language" translation feature [issue:2479] [pr:2660]
 - Updated `<wa-page>` to conditionally render its navigation slots per view instead of swapping in placeholder slot names so the `navigation`, `navigation-header`, and `navigation-footer` slots only ever exist in the active container [pr:2265]
 
 :::
 
 :::deprecated
 
-- The generic `base` CSS part is deprecated in favor of the part named after the component. Existing `::part(base)` selectors keep working and will until the next major version; `base` now appears as deprecated in each component's CSS Parts table.
-- On form controls, the `label` CSS part is deprecated in favor of `form-control-label`. Existing `::part(label)` selectors keep working until the next major version; `label` now appears as deprecated in those components' CSS Parts tables.
+- The generic `base` CSS part is deprecated in favor of the part named after the component. Existing `::part(base)` selectors keep working and will until the next major version; `base` now appears as deprecated in each component's CSS Parts table. [pr:2644]
+- On form controls, the `label` CSS part is deprecated in favor of `form-control-label`. Existing `::part(label)` selectors keep working until the next major version; `label` now appears as deprecated in those components' CSS Parts tables. [pr:2663]
 
 :::
 
@@ -115,7 +117,6 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug in `<wa-copy-button>` where copy success and error feedback wasn't reliably announced by some screen readers
 - Fixed a bug in `<wa-known-date>` where the validation tooltip always pointed to the first input regardless of which one was invalid
 - Fixed a bug in `<wa-toast-item>` where the documented `--padding` custom property was unused in component styles
-- Fixed a bug in `<wa-color-picker>` where swatches grew larger than normal when only a few were present [issue:2571]
 - Aligned the `start` and `end` slot region in `<wa-date-input>` and `<wa-time-input>` with `<wa-input>` and `<wa-select>`
   - The trailing calendar/clock and clear icons no longer sit a few pixels inward of where the other controls place them
   - The `start` and `end` slots now use the same spacing as the other controls instead of a tighter gap
