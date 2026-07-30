@@ -30,11 +30,14 @@ import styles from './textarea.styles.js';
  * @event input - Emitted when the control receives input.
  * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
- * @csspart label - The label
+ * @csspart form-control-label - The label.
+ * @csspart label - Deprecated. Use the `form-control-label` part instead.
  * @csspart form-control-input - The input's wrapper.
  * @csspart hint - The hint's wrapper.
  * @csspart textarea - The internal `<textarea>` control.
- * @csspart base - The wrapper around the `<textarea>` control.
+ * @csspart base - Deprecated. Use the `textarea-wrapper` part instead.
+ * @csspart textarea-wrapper - The component's outer wrapper.
+ * @csspart textarea-adjuster - The invisible sizer that grows the control to fit its content when `resize` is `auto`.
  * @csspart count - The character count element, rendered when the `with-count` attribute is present.
  *
  * @cssstate blank - The textarea is empty.
@@ -449,7 +452,7 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
         <slot name="label">${this.label}</slot>
       </label>
 
-      <div part="base" class="textarea">
+      <div part="base textarea-wrapper" class="textarea">
         <textarea
           part="textarea"
           id="input"

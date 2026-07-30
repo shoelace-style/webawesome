@@ -28,7 +28,7 @@ use-cases:
 
 Use the `open` attribute to expand the details initially.
 
-```html {.example}
+```html {.example .anatomy}
 <wa-details summary="Toggle Me" open>
   This details component is expanded by default. Users can click the summary to collapse it if they want to hide the
   content.
@@ -46,7 +46,7 @@ Use the `disabled` attribute to prevent the details from expanding.
 </wa-details>
 ```
 
-### Customizing the Summary Icon
+### Expand & Collapse Icons
 
 Use the `expand-icon` and `collapse-icon` slots to change the expand and collapse icons, respectively. To disable the animation, override the `rotate` property on the `icon` part as shown below.
 
@@ -67,7 +67,7 @@ Use the `expand-icon` and `collapse-icon` slots to change the expand and collaps
 </style>
 ```
 
-### Icon Position
+### Icon Placement
 
 The default position for the expand and collapse icons is at the end of the summary. Set the `icon-placement` attribute to `start` to place the icon at the start of the summary.
 

@@ -15,7 +15,7 @@ use-cases:
   - important note
 ---
 
-```html {.example}
+```html {.example .anatomy}
 <wa-callout>
   <wa-icon slot="icon" name="circle-info"></wa-icon>
   This is a standard callout. You can customize its content and even the icon.

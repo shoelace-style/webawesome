@@ -43,8 +43,9 @@ const generateId = (): string => uniqueId('wa-known-date-');
  * @csspart form-control-label - The wrapper inside the legend that styles the visible label text.
  * @csspart form-control-input - Alias on the fields row matching other form controls.
  * @csspart hint - The hint's wrapper.
- * @csspart label - Alias on the legend's inner label wrapper.
- * @csspart base - The component's outer wrapper (alias of the fields row).
+ * @csspart label - Deprecated. Use the `form-control-label` part instead.
+ * @csspart base - Deprecated. Use the `known-date` part instead.
+ * @csspart known-date - The component's outer wrapper.
  * @csspart fieldset - The `<fieldset>` element grouping the three fields (or a `role="group"` div).
  * @csspart legend - The `<legend>` element (when a label is present).
  * @csspart fields - The flex row holding the three field blocks.
@@ -433,7 +434,7 @@ export default class WaKnownDate extends WebAwesomeFormAssociatedElement {
     const fields = this.fieldOrder().map(field => this.renderField(field, describedBy, userInvalid));
 
     const groupContent = html`
-      <div part="base form-control-input fields" class="fields">${fields}</div>
+      <div part="base known-date form-control-input fields" class="fields">${fields}</div>
 
       <slot
         name="hint"

@@ -3,6 +3,7 @@ import { html, isServer } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
 import { live } from 'lit/directives/live.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
+import { when } from 'lit/directives/when.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import visuallyHidden from '../../styles/component/visually-hidden.styles.js';
 import '../button/button.js';
@@ -87,23 +88,26 @@ function toLength(px: number | string): string {
  * @slot skip-to-content - The "skip to content" slot. You can override this If you would like to override the `Skip to content` button and add additional "Skip to X", they can be inserted here.
  * @slot footer - The content to display in the footer. This is always displayed underneath the viewport so will always make the page "scrollable".
  *
- * @csspart base - The component's base wrapper.
+ * @csspart base - Deprecated. Use the `page` part instead.
+ * @csspart page - The component's outer wrapper.
  * @csspart banner - The banner to show above header.
  * @csspart header - The header, usually for top level navigation / branding.
  * @csspart subheader - Shown below the header, usually intended for things like breadcrumbs and other page level navigation.
  * @csspart body - The wrapper around menu, main, and aside.
  * @csspart menu - The left hand side of the page. Generally intended for navigation.
  * @csspart navigation - The `<nav>` that wraps the navigation slots on desktop viewports.
+ * @csspart navigation-desktop - The `<nav>` for navigation on desktop viewports.
  * @csspart navigation-header - The header for a navigation area. On mobile this will be the header for `<wa-drawer>`.
  * @csspart navigation-footer - The footer for a navigation area. On mobile this will be the footer for `<wa-drawer>`.
  * @csspart navigation-toggle - The default `<wa-button>` that will toggle the `<wa-drawer>` for mobile viewports.
  * @csspart navigation-toggle-icon - The default `<wa-icon>` displayed inside of the navigation-toggle button.
+ * @csspart drawer - The `<wa-drawer>` that contains the navigation on mobile viewports.
+ * @csspart main - The wrapper around the main header, content, and footer.
  * @csspart main-header - The header above main content.
  * @csspart main-content - The main content.
  * @csspart main-footer - The footer below main content.
  * @csspart aside - The right hand side of the page. Used for things like table of contents, ads, etc.
- * @csspart skip-links - Wrapper around skip-link
- * @csspart skip-link - The "skip to main content" link
+ * @csspart skip-to-content - The "skip to content" link that lets keyboard users bypass navigation.
  * @csspart footer - The footer of the page. This is always below the initial viewport size.
  * @csspart dialog-wrapper - A wrapper around elements such as dialogs or other modal-like elements.
  *
@@ -353,7 +357,7 @@ export default class WaPage extends WebAwesomeElement {
         </style>
       `)}
 
-      <div class="base" part="base">
+      <div class="base" part="base page">
         <div class="banner" part="banner">
           <slot name="banner"></slot>
         </div>
@@ -376,13 +380,25 @@ export default class WaPage extends WebAwesomeElement {
               <nav name="navigation" class="navigation" part="navigation navigation-desktop">
                 <!-- Add fallback divs so that CSS grid works properly. -->
                 <slot name="desktop-navigation-header">
-                  <slot name=${this.view === 'desktop' ? 'navigation-header' : '___'}><div></div></slot>
+                  ${when(
+                    this.view === 'desktop',
+                    () => html`<slot name="navigation-header"><div></div></slot>`,
+                    () => html`<div></div>`,
+                  )}
                 </slot>
                 <slot name="desktop-navigation">
-                  <slot name=${this.view === 'desktop' ? 'navigation' : '____'}><div></div></slot>
+                  ${when(
+                    this.view === 'desktop',
+                    () => html`<slot name="navigation"><div></div></slot>`,
+                    () => html`<div></div>`,
+                  )}
                 </slot>
                 <slot name="desktop-navigation-footer">
-                  <slot name=${this.view === 'desktop' ? 'navigation-footer' : '___'}><div></div></slot>
+                  ${when(
+                    this.view === 'desktop',
+                    () => html`<slot name="navigation-footer"><div></div></slot>`,
+                    () => html`<div></div>`,
+                  )}
                 </slot>
               </nav>
             </slot>
@@ -429,14 +445,26 @@ export default class WaPage extends WebAwesomeElement {
         class="navigation-drawer"
       >
         <slot slot="label" part="navigation-header" name="mobile-navigation-header">
-          <slot name=${this.view === 'mobile' ? 'navigation-header' : '___'}></slot>
+          ${when(
+            this.view === 'mobile',
+            () => html`<slot name="navigation-header"><div></div></slot>`,
+            () => html`<div></div>`,
+          )}
         </slot>
         <slot name="mobile-navigation">
-          <slot name=${this.view === 'mobile' ? 'navigation' : '____'}></slot>
+          ${when(
+            this.view === 'mobile',
+            () => html`<slot name="navigation"><div></div></slot>`,
+            () => html`<div></div>`,
+          )}
         </slot>
 
         <slot slot="footer" name="mobile-navigation-footer">
-          <slot part="navigation-footer" name=${this.view === 'mobile' ? 'navigation-footer' : '___'}></slot>
+          ${when(
+            this.view === 'mobile',
+            () => html`<slot part="navigation-footer" name="navigation-footer"><div></div></slot>`,
+            () => html`<div></div>`,
+          )}
         </slot>
       </wa-drawer>
     `;

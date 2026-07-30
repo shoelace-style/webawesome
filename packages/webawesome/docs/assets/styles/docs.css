@@ -6,6 +6,7 @@
 @import 'cera-typeface.css';
 @import 'theme-icons.css';
 @import 'utils.css';
+@import 'anatomy.css';
 
 :root {
   /* layout-based example style aspects */
@@ -123,13 +124,11 @@ wa-page:not([view='mobile']) > main {
   margin-inline: auto;
 }
 
-/* Anchor wa-prose's line-length to the docs' reading-column token instead
- * of its 65ch default. The override has to land on .wa-prose itself —
- * upstream prose.css declares --wa-prose-line-length on :where(.wa-prose),
- * and a value declared on the element wins over an inherited value even
- * at 0 specificity. */
+/* Docs reading column, kept in ch (a reading measure). Must land on .wa-prose itself:
+ * upstream sets --wa-prose-line-length on :where(.wa-prose) at 0 specificity, so an
+ * own-element declaration is needed to win over the inherited value. */
 #content > .wa-prose {
-  --wa-prose-line-length: var(--content-width-m);
+  --wa-prose-line-length: round(up, 110ch, 1px);
 }
 
 #content {

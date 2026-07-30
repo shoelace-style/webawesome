@@ -4,6 +4,7 @@ import { classMap } from 'lit/directives/class-map.js';
 import { WaCopyEvent } from '../../events/copy.js';
 import { WaErrorEvent } from '../../events/error.js';
 import { animateWithClass } from '../../internal/animate.js';
+import { announce } from '../../internal/live-announcer.js';
 import { uniqueId } from '../../internal/math.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
@@ -61,7 +62,6 @@ export default class WaCopyButton extends WebAwesomeElement {
   @state() isCopying = false;
   @state() status: 'rest' | 'success' | 'error' = 'rest';
   @state() hasCustomTrigger = false;
-  @state() liveAnnouncement = '';
 
   private customTriggerEl: HTMLElement | null = null;
   private lightTooltip: WaTooltip | null = null;
@@ -141,11 +141,10 @@ export default class WaCopyButton extends WebAwesomeElement {
     this.customStates.set('error', this.status === 'error');
     this.syncTooltipText();
 
-    // Announce success/error to screen readers via live region
+    // Announce success/error to screen readers via a light-DOM live region. A live region inside the shadow root isn't
+    // reliably announced (notably JAWS + Firefox ignores it), so we use the shared announcer instead.
     if (this.status === 'success' || this.status === 'error') {
-      this.liveAnnouncement = this.currentLabel;
-    } else {
-      this.liveAnnouncement = '';
+      announce(this.currentLabel, 'polite');
     }
   }
 
@@ -425,7 +424,6 @@ export default class WaCopyButton extends WebAwesomeElement {
             `
           : ''}
         <slot name="${INTERNAL_TOOLTIP_SLOT}"></slot>
-        <div class="wa-visually-hidden" role="status" aria-live="polite">${this.liveAnnouncement}</div>
       </div>
     `;
   }

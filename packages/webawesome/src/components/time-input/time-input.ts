@@ -79,10 +79,12 @@ const SINGLE_GROUP = 'single';
  * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
  * @csspart form-control - The form control that wraps the label, input, and hint.
- * @csspart form-control-label - The label's wrapper.
+ * @csspart form-control-label - The label.
+ * @csspart label - Deprecated. Use the `form-control-label` part instead.
  * @csspart form-control-input - The input's wrapper.
  * @csspart hint - The hint's wrapper.
- * @csspart base - The component's base wrapper.
+ * @csspart base - Deprecated. Use the `time-input` part instead.
+ * @csspart time-input - The component's outer wrapper.
  * @csspart input-wrapper - The container around the start slot, segmented input, clear button, and expand button.
  * @csspart start - The container that wraps the `start` slot.
  * @csspart end - The container that wraps the `end` slot.
@@ -976,7 +978,7 @@ export default class WaTimeInput extends WebAwesomeFormAssociatedElement {
             shift
           >
             <div
-              part="base input-wrapper"
+              part="base time-input input-wrapper"
               class="input-wrapper"
               slot="anchor"
               @pointerdown=${this.handleInputWrapperPointerDown}

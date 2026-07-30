@@ -2,6 +2,7 @@
 title: Page
 layout: component
 category: Layout
+hasAnatomy: false
 synonyms:
   - layout
   - page layout
@@ -16,6 +17,11 @@ use-cases:
 
 The page component is designed to power full webpages. It is flexible enough to handle most modern designs and includes a simple mechanism for handling desktop and mobile navigation.
 
+:::new
+<strong>Now Available in Web Awesome Core</strong><br />
+Page moved over from Pro in [**3.5.0**](/docs/resources/changelog#wa_350). On an earlier Core version? Upgrade to use it.
+:::
+
 ## Layout Anatomy
 
 This image depicts a page's anatomy, including the default positions of each section. The labels represent the [named slots](#slots) you can use to populate them.
@@ -26,7 +32,7 @@ Most slots are optional. Slots that have no content will not be shown, allowing 
   <fieldset>
     <legend>Slots</legend>
     <div class="wa-grid">
-      <wa-checkbox name="slot" value="banner" checked title="The banner that gets display above the header. The banner will not be shown if no content is provided.">
+      <wa-checkbox name="slot" value="banner" checked title="The banner that gets displayed above the header. The banner will not be shown if no content is provided.">
         banner
       </wa-checkbox>
       <wa-checkbox name="slot" value="header" checked title="The header to display at the top of the page. If a banner is present, the header will appear below the banner. The header will not be shown if there is no content.">
@@ -185,7 +191,7 @@ When you use the `navigation` slot, your slotted content automatically collapses
 
 By default, a "hamburger" button appears at the start of the `header` to toggle the navigation menu on smaller screens. You can customize what this looks like by slotting your own button into the `navigation-toggle` slot, or place the `data-toggle-nav` attribute on any button on your page. This _does not_ have to be a Web Awesome element.
 
-The default button will not be shown when using either of these methods — if you want to use multiple navigation toggles on your page, simply add the `data-toggle-nav` attribute to multiple elements.
+The default button will not be shown when using either of these methods — if you want to use multiple navigation toggles on your page, add the `data-toggle-nav` attribute to multiple elements.
 
 ```html
 <wa-page mobile-breakpoint="600">
@@ -210,7 +216,7 @@ wa-page[view='desktop'] [data-toggle-nav] {
 ```
 
 :::info
-If you use [native styles](/docs/utilities/native/), this is already taken care for you, and the `data-toggle-nav` button is already hidden on wider screens.
+If you use [native styles](/docs/utilities/native/), this is handled for you, and the `data-toggle-nav` button is already hidden on wider screens.
 :::
 
 #### Custom Widths

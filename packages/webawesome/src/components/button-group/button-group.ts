@@ -14,7 +14,7 @@ import styles from './button-group.styles.js';
  *
  * @slot - One or more `<wa-button>` elements to display in the button group.
  *
- * @csspart base - The component's base wrapper.
+ * @csspart base - Deprecated. Style the host element instead.
  */
 @customElement('wa-button-group')
 export default class WaButtonGroup extends WebAwesomeElement {

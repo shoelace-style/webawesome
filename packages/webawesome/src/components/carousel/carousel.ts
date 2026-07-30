@@ -34,7 +34,8 @@ import styles from './carousel.styles.js';
  * @slot next-icon - Optional next icon to use instead of the default. Works best with `<wa-icon>`.
  * @slot previous-icon - Optional previous icon to use instead of the default. Works best with `<wa-icon>`.
  *
- * @csspart base - The carousel's internal wrapper.
+ * @csspart base - Deprecated. Use the `carousel` part instead.
+ * @csspart carousel - The component's outer wrapper.
  * @csspart scroll-container - The scroll container that wraps the slides.
  * @csspart pagination - The pagination indicators wrapper.
  * @csspart pagination-item - The pagination indicator.
@@ -518,6 +519,45 @@ export default class WaCarousel extends WebAwesomeElement {
     this.goToSlide(this.activeSlide + this.slidesPerMove, behavior);
   }
 
+  /** Adds a carousel item as the last real slide. */
+  addSlide(slide: WaCarouselItem) {
+    if (!this.isCarouselItem(slide)) {
+      throw new TypeError('addSlide() expects a <wa-carousel-item>.');
+    }
+
+    if (slide.hasAttribute('data-clone')) {
+      throw new TypeError('addSlide() cannot add a cloned carousel item.');
+    }
+
+    const slides = this.getSlides();
+    const lastSlide = slides[slides.length - 1];
+    this.insertBefore(slide, lastSlide?.nextElementSibling ?? null);
+  }
+
+  /** Removes the real slide at the specified index. */
+  removeSlide(index: number) {
+    if (!Number.isInteger(index)) {
+      return;
+    }
+
+    const slides = this.getSlides();
+    const slide = slides[index];
+
+    if (!slide) {
+      return;
+    }
+
+    const lastIndexAfterRemoval = Math.max(0, slides.length - 2);
+
+    if (index < this.activeSlide) {
+      this.activeSlide = Math.max(0, this.activeSlide - 1);
+    } else if (index === this.activeSlide) {
+      this.activeSlide = clamp(this.activeSlide, 0, lastIndexAfterRemoval);
+    }
+
+    slide.remove();
+  }
+
   /**
    * Scrolls the carousel to the slide specified by `index`.
    *
@@ -610,7 +650,7 @@ export default class WaCarousel extends WebAwesomeElement {
     const isRTL = isServer ? this.dir === 'rtl' : this.localize.dir() === 'rtl';
 
     return html`
-      <div part="base" class="carousel">
+      <div part="base carousel" class="carousel">
         <div
           id="scroll-container"
           part="scroll-container"

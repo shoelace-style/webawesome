@@ -61,7 +61,8 @@ import styles from './select.styles.js';
  * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
  * @csspart form-control - The form control that wraps the label, input, and hint.
- * @csspart form-control-label - The label's wrapper.
+ * @csspart form-control-label - The label.
+ * @csspart label - Deprecated. Use the `form-control-label` part instead.
  * @csspart form-control-input - The select's wrapper.
  * @csspart hint - The hint's wrapper.
  * @csspart combobox - The container the wraps the start, end, value, clear icon, and expand button.

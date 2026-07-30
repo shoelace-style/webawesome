@@ -1,4 +1,4 @@
-import { aTimeout, expect } from '@open-wc/testing';
+import { aTimeout, expect, waitUntil } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import { expectEvent } from '../../internal/test/expect-event.js';
@@ -261,6 +261,51 @@ describe('<wa-dialog>', () => {
           el.requestUpdate();
           await el.updateComplete;
           expect(el.shadowRoot!.querySelector('[part="footer"]')).to.not.be.null;
+        });
+      });
+
+      describe('hidden by third-party styles', () => {
+        it('should suspend the modal when hidden while open and resume it when rendered again', async () => {
+          const el = await fixture<WaDialog>(html`<wa-dialog open label="Dialog">Content</wa-dialog>`);
+
+          expect(document.documentElement.classList.contains('wa-scroll-lock')).to.be.true;
+
+          // Simulate a content blocker hiding the dialog with a cosmetic filter
+          el.style.setProperty('display', 'none', 'important');
+          await waitUntil(() => !document.documentElement.classList.contains('wa-scroll-lock'));
+
+          // The native dialog is closed so the page isn't inert, but the component stays logically open
+          expect(el.dialog.open).to.be.false;
+          expect(el.open).to.be.true;
+
+          // Unhide it and the modal should resume
+          el.style.removeProperty('display');
+          await waitUntil(() => document.documentElement.classList.contains('wa-scroll-lock'));
+
+          expect(el.dialog.open).to.be.true;
+          expect(el.open).to.be.true;
+        });
+
+        it('should not keep the page scroll locked when the dialog is already hidden before it opens', async () => {
+          // Simulate an extension stylesheet injected before the dialog opens
+          const style = document.createElement('style');
+          style.textContent = 'wa-dialog { display: none !important; }';
+          document.head.append(style);
+
+          try {
+            const el = await fixture<WaDialog>(html`<wa-dialog open label="Dialog">Content</wa-dialog>`);
+
+            await waitUntil(() => !document.documentElement.classList.contains('wa-scroll-lock'));
+            expect(el.dialog.open).to.be.false;
+            expect(el.open).to.be.true;
+
+            // Removing the stylesheet should resume the modal
+            style.remove();
+            await waitUntil(() => document.documentElement.classList.contains('wa-scroll-lock'));
+            expect(el.dialog.open).to.be.true;
+          } finally {
+            style.remove();
+          }
         });
       });
     });

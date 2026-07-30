@@ -10,7 +10,7 @@
 <div id="using-themes">
   <fieldset class="theme-options wa-stack" style="margin-block-end: var(--wa-content-spacing);">
     <legend style="align-self: start;">Theme Options</legend>
-    <wa-select id="pick-theme" label="Theme" value="default" size="small">
+    <wa-select id="pick-theme" label="Theme" value="default" size="s">
       <wa-badge slot="end" appearance="accent" pill class="pro pro-only-value">Pro</wa-badge>
       {%- for theme in themer.themes -%}
       {%- if not theme.isPro -%}
@@ -30,7 +30,7 @@
       {%- endif -%}
       {%- endfor -%}
     </wa-select>
-    <wa-select id="pick-palette" label="Color Palette" value="default" size="small">
+    <wa-select id="pick-palette" label="Color Palette" value="default" size="s">
       <wa-badge slot="end" appearance="accent" pill class="pro pro-only-value">Pro</wa-badge>
       {%- for palette in themer.palettes -%}
       {%- if not palette.isPro -%}
@@ -52,7 +52,7 @@
     <div class="wa-grid">
       {%- set colorVariants = ['brand', 'neutral', 'success', 'warning', 'danger'] -%}
       {%- for colorVariant in colorVariants -%}
-      <wa-select id="pick-{{ colorVariant }}" label="{{ colorVariant | capitalize }}" size="small">
+      <wa-select id="pick-{{ colorVariant }}" label="{{ colorVariant | capitalize }}" size="s">
         <wa-icon slot="start" name="square" class="selected-color"></wa-icon>
         {%- for color in themer.colors -%}
         <wa-option value="{{ color }}">

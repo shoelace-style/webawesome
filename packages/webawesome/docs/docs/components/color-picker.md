@@ -2,6 +2,7 @@
 title: Color Picker
 layout: component
 category: Forms
+hasAnatomy: false
 synonyms:
   - color chooser
   - color selector
@@ -106,6 +107,20 @@ picker.swatches = [
   { color: '#4a90e2', label: 'Blue' },
 ];
 ```
+
+To offer a fully transparent option, include the `transparent` keyword as a swatch. It renders with a checkerboard pattern, and selecting it sets the value to black with zero alpha, e.g. `#00000000`.
+
+```html {.example}
+<wa-color-picker
+  label="Select a color"
+  opacity
+  swatches="transparent; #d0021b; #f5a623; #f8e71c; #7ed321; #4a90e2; #9013fe; #000;"
+></wa-color-picker>
+```
+
+:::info
+Transparent swatches require the `opacity` attribute. Without it, the alpha channel is discarded and selecting the swatch yields opaque black.
+:::
 
 ### Placement
 

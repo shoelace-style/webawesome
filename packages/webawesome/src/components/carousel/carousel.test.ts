@@ -673,6 +673,64 @@ describe('<wa-carousel>', () => {
             expect(el.activeSlide).to.be.equal(2);
           });
         });
+
+        describe('#addSlide', () => {
+          it('should add a slide before the trailing loop clones', async () => {
+            const el = await fixture<WaCarousel>(html`
+              <wa-carousel loop>
+                <wa-carousel-item>Node 1</wa-carousel-item>
+                <wa-carousel-item>Node 2</wa-carousel-item>
+                <wa-carousel-item>Node 3</wa-carousel-item>
+              </wa-carousel>
+            `);
+            const slide = document.createElement('wa-carousel-item');
+            slide.textContent = 'Node 4';
+
+            el.addSlide(slide);
+            await nextFrame();
+            await el.updateComplete;
+
+            const slides = [...el.children].filter(child => !child.hasAttribute('data-clone'));
+            const clones = [...el.children].filter(child => child.hasAttribute('data-clone'));
+
+            expect(slides.map(slide => slide.textContent?.trim())).to.deep.equal([
+              'Node 1',
+              'Node 2',
+              'Node 3',
+              'Node 4',
+            ]);
+            expect(el.children[el.children.length - 2]).to.equal(slide);
+            expect(clones).to.have.lengthOf(2);
+          });
+        });
+
+        describe('#removeSlide', () => {
+          it('should remove real slides and keep the active slide in range when looping', async () => {
+            const el = await fixture<WaCarousel>(html`
+              <wa-carousel loop>
+                <wa-carousel-item>Node 1</wa-carousel-item>
+                <wa-carousel-item>Node 2</wa-carousel-item>
+                <wa-carousel-item>Node 3</wa-carousel-item>
+              </wa-carousel>
+            `);
+
+            el.goToSlide(2, 'auto');
+            await oneEvent(el.scrollContainer, 'scrollend');
+            await intersectionObserverCallbacks();
+            await el.updateComplete;
+
+            el.removeSlide(2);
+            await nextFrame();
+            await el.updateComplete;
+
+            const slides = [...el.children].filter(child => !child.hasAttribute('data-clone'));
+            const clones = [...el.children].filter(child => child.hasAttribute('data-clone'));
+
+            expect(slides.map(slide => slide.textContent?.trim())).to.deep.equal(['Node 1', 'Node 2']);
+            expect(el.activeSlide).to.equal(1);
+            expect(clones).to.have.lengthOf(2);
+          });
+        });
       });
 
       describe('when inside a hidden container', () => {
