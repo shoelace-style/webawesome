@@ -159,6 +159,20 @@ describe('<wa-slider>', () => {
           await el.updateComplete;
           expect(el.value).to.equal(0);
         });
+
+        it('should be valid when the value sits on a fractional step grid', async () => {
+          const el = await fixture<WaSlider>(html`<wa-slider min="0" max="1" step="0.1" value="0.3"></wa-slider>`);
+          expect(el.validity.stepMismatch).to.be.false;
+          expect(el.checkValidity()).to.be.true;
+        });
+
+        it('should be valid when a range slider sits on a fractional step grid', async () => {
+          const el = await fixture<WaSlider>(
+            html`<wa-slider range min="0" max="1" step="0.1" min-value="0.1" max-value="0.7"></wa-slider>`,
+          );
+          expect(el.validity.stepMismatch).to.be.false;
+          expect(el.checkValidity()).to.be.true;
+        });
       });
 
       describe('form integration', () => {
