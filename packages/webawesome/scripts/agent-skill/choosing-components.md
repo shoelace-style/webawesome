@@ -13,7 +13,7 @@ The major decisions:
 - **Pick one from a set** — radio group, select, combobox (Pro), switch, slider, rating, color picker
 - **Pick many** — multiple checkboxes, multi-select, multi-combobox (Pro)
 - **Trigger an action** — button, copy button, dropdown menu, button group, tabs
-- **Show feedback or status** — callout, toast (Pro), badge, spinner, progress, skeleton, tooltip, popover
+- **Show feedback or status** — callout, toast, badge, spinner, progress, skeleton, tooltip, popover
 - **Capture input** — input, number input, textarea, file input (Pro)
 - **Show data** — format helpers, relative time, QR code, comparison, carousel, avatar, charts (Pro)
 - **Navigate or organize** — page, breadcrumb, tabs, details, tree, divider, card, tag, badge
@@ -87,7 +87,7 @@ Non-interactive output telling the user something.
 | You need…                                                  | Use                                                                       |
 | ---------------------------------------------------------- | ------------------------------------------------------------------------- |
 | Persistent inline message (info, success, warning, danger) | `<wa-callout>` with a `variant`                                           |
-| Brief ephemeral notification                               | `<wa-toast-item>` inside `<wa-toast>` **(Pro)**                           |
+| Brief ephemeral notification                               | `<wa-toast-item>` inside `<wa-toast>`                           |
 | Compact status indicator (number, "NEW", state)            | `<wa-badge>`                                                              |
 | Loading, duration unknown                                  | `<wa-spinner>`                                                            |
 | Loading, with progress                                     | `<wa-progress-bar>` (horizontal) or `<wa-progress-ring>` (compact circle) |
