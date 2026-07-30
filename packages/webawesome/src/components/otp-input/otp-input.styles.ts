@@ -46,24 +46,13 @@ export default css`
   /* Focus ring on the active segment, and on every segment in a multi-character selection */
   .segments:focus-within .segment--active,
   .segments:focus-within .segment--selected {
-    outline: var(--wa-focus-ring-style) var(--wa-focus-ring-width) var(--wa-color-focus);
-    outline-offset: var(--wa-focus-ring-offset);
+    outline-color: var(--wa-color-focus);
   }
 
   /* Readonly has no per-segment active/selected state (see render()), so every segment rings
      at once to show the control as a whole has focus. */
   :host(:state(readonly)) .segments:focus-within .segment {
-    outline: var(--wa-focus-ring-style) var(--wa-focus-ring-width) var(--wa-color-focus);
-    outline-offset: var(--wa-focus-ring-offset);
-  }
-
-  /* Contained segments sit flush with zero gap and have no border of their own, so a ring drawn
-     outside the segment edge (the default, positive offset) bleeds into the neighboring segment.
-     Draw it inward instead so it stays within this segment's own box. */
-  :host([appearance='contained']) .segments:focus-within .segment--active,
-  :host([appearance='contained']) .segments:focus-within .segment--selected,
-  :host([appearance='contained']:state(readonly)) .segments:focus-within .segment {
-    outline-offset: calc(-1 * var(--wa-focus-ring-width));
+    outline-color: var(--wa-color-focus);
   }
 
   /* Hidden real input — off-screen but focusable.
@@ -95,15 +84,12 @@ export default css`
     font-variant-numeric: tabular-nums;
     position: relative;
     user-select: none;
-    /* Zero-width outline present at all times so the focus ring can grow in smoothly
-       instead of popping in the instant .segment--active/--selected starts matching. */
-    outline: var(--wa-focus-ring-style) 0 var(--wa-color-focus);
+    outline: var(--wa-focus-ring-style) var(--wa-focus-ring-width) transparent;
+    outline-offset: var(--wa-focus-ring-offset);
     transition:
       background-color var(--wa-transition-normal),
       border-color var(--wa-transition-normal),
-      outline-color var(--wa-transition-fast),
-      outline-width var(--wa-transition-fast),
-      outline-offset var(--wa-transition-fast);
+      outline-color var(--wa-transition-fast);
     transition-timing-function: var(--wa-transition-easing);
   }
 
@@ -161,7 +147,7 @@ export default css`
     border-radius: var(--segment-border-radius, var(--wa-form-control-border-radius));
     background-color: var(--wa-form-control-background-color);
     overflow: hidden;
-    /* The focus ring is drawn inward here (see outline-offset above), so there's no outward bleed
+    /* The focus ring is drawn inward here (see outline-offset below), so there's no outward bleed
        to reserve room for. .segments is also the visible bordered box in this appearance, so the
        padding/negative-margin bleed trick from the base rule would visibly shift and inflate it. */
     padding: 0;
@@ -171,6 +157,10 @@ export default css`
   :host([appearance='contained']) .segment {
     border: none;
     border-radius: 0;
+    /* Contained segments sit flush with zero gap and have no border of their own, so a ring drawn
+       outside the segment edge (the default, positive offset) bleeds into the neighboring segment.
+       Draw it inward instead so it stays within this segment's own box. */
+    outline-offset: calc(-1 * var(--wa-focus-ring-width));
   }
 
   /* Dividers between contained segments */

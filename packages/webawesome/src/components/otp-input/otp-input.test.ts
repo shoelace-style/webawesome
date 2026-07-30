@@ -411,7 +411,6 @@ describe('<wa-otp-input>', () => {
           const el = await fixture<WaOtpInput>(html`<wa-otp-input appearance="contained" value="1"></wa-otp-input>`);
           el.focus();
           await el.updateComplete;
-          await aTimeout(200); // let the outline-offset transition settle
           const active = el.shadowRoot!.querySelector('.segment--active') as HTMLElement;
           expect(getComputedStyle(active).outlineOffset).to.equal('-3px');
         });
@@ -420,7 +419,6 @@ describe('<wa-otp-input>', () => {
           const el = await fixture<WaOtpInput>(html`<wa-otp-input appearance="outlined" value="1"></wa-otp-input>`);
           el.focus();
           await el.updateComplete;
-          await aTimeout(200);
           const active = el.shadowRoot!.querySelector('.segment--active') as HTMLElement;
           expect(getComputedStyle(active).outlineOffset).to.equal('1px');
         });
