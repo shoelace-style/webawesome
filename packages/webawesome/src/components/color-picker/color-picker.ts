@@ -67,10 +67,13 @@ declare const EyeDropper: EyeDropperConstructor;
  * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
  * @csspart base - Deprecated. Use the `color-picker` part instead.
- * @csspart color-picker - The component's outer wrapper.
+ * @csspart color-picker - The dropdown panel that holds the grid, sliders, and swatches.
  * @csspart trigger - The color picker's dropdown trigger.
  * @csspart trigger-container - The container that wraps the color picker's trigger.
+ * @csspart form-control - Alias on `trigger-container`, matching other form controls.
  * @csspart form-control-label - The label.
+ * @csspart form-control-input - Alias on `trigger`, matching other form controls.
+ * @csspart hint - The hint's wrapper.
  * @csspart swatches - The container that holds the swatches.
  * @csspart swatch - Each individual swatch.
  * @csspart grid - The color grid.

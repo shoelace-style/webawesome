@@ -37,10 +37,9 @@ async function readComponentSource(dir) {
   return contents.join('\n');
 }
 
-// Rendered but undocumented on purpose — pre-existing gaps to document separately.
-const DEFAULT_ALLOWLIST = {
-  'color-picker': ['form-control', 'form-control-input', 'hint'],
-};
+// Rendered but undocumented on purpose — pre-existing gaps to document separately. Empty here; the
+// Pro package passes its own through `check({ allowlist })`.
+const DEFAULT_ALLOWLIST = {};
 
 // These render `base` on a `<slot>` rather than a wrapper element. Parts don't belong on slots, and
 // the host does the styling, so they get no component-named part until the legacy `base` is removed.
