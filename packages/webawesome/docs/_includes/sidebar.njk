@@ -11,7 +11,6 @@
   </div>
 </div>
 {% from "pro-badge.njk" import proBadge %}
-{% from "planned-badge.njk" import plannedBadge %}
 
 {%- macro sidebarComponent(page, suppressProBadge=false) -%}
   {%- set component = page.data.component -%}
@@ -129,9 +128,7 @@
         {%- endif %}
       </li>
     {%- endfor %}
-    {%- if cat.slug == 'forms' %}
-      <li><span class="is-planned wa-split">Data Grid <span>{{ plannedBadge("A Web Awesome Kickstarter stretch goal!") }}</span></span></li>
-    {%- elif cat.slug == 'data-viz' %}
+    {%- if cat.slug == 'data-viz' %}
       <li><a href="/docs/components/chart">Advanced Usage</a></li>
     {%- endif %}
     </ul>
