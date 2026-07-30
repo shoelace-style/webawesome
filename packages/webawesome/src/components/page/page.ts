@@ -3,6 +3,7 @@ import { html, isServer } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
 import { live } from 'lit/directives/live.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
+import { when } from 'lit/directives/when.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import visuallyHidden from '../../styles/component/visually-hidden.styles.js';
 import '../button/button.js';
@@ -379,13 +380,25 @@ export default class WaPage extends WebAwesomeElement {
               <nav name="navigation" class="navigation" part="navigation navigation-desktop">
                 <!-- Add fallback divs so that CSS grid works properly. -->
                 <slot name="desktop-navigation-header">
-                  <slot name=${this.view === 'desktop' ? 'navigation-header' : '___'}><div></div></slot>
+                  ${when(
+                    this.view === 'desktop',
+                    () => html`<slot name="navigation-header"><div></div></slot>`,
+                    () => html`<div></div>`,
+                  )}
                 </slot>
                 <slot name="desktop-navigation">
-                  <slot name=${this.view === 'desktop' ? 'navigation' : '____'}><div></div></slot>
+                  ${when(
+                    this.view === 'desktop',
+                    () => html`<slot name="navigation"><div></div></slot>`,
+                    () => html`<div></div>`,
+                  )}
                 </slot>
                 <slot name="desktop-navigation-footer">
-                  <slot name=${this.view === 'desktop' ? 'navigation-footer' : '___'}><div></div></slot>
+                  ${when(
+                    this.view === 'desktop',
+                    () => html`<slot name="navigation-footer"><div></div></slot>`,
+                    () => html`<div></div>`,
+                  )}
                 </slot>
               </nav>
             </slot>
@@ -432,14 +445,26 @@ export default class WaPage extends WebAwesomeElement {
         class="navigation-drawer"
       >
         <slot slot="label" part="navigation-header" name="mobile-navigation-header">
-          <slot name=${this.view === 'mobile' ? 'navigation-header' : '___'}></slot>
+          ${when(
+            this.view === 'mobile',
+            () => html`<slot name="navigation-header"><div></div></slot>`,
+            () => html`<div></div>`,
+          )}
         </slot>
         <slot name="mobile-navigation">
-          <slot name=${this.view === 'mobile' ? 'navigation' : '____'}></slot>
+          ${when(
+            this.view === 'mobile',
+            () => html`<slot name="navigation"><div></div></slot>`,
+            () => html`<div></div>`,
+          )}
         </slot>
 
         <slot slot="footer" name="mobile-navigation-footer">
-          <slot part="navigation-footer" name=${this.view === 'mobile' ? 'navigation-footer' : '___'}></slot>
+          ${when(
+            this.view === 'mobile',
+            () => html`<slot part="navigation-footer" name="navigation-footer"><div></div></slot>`,
+            () => html`<div></div>`,
+          )}
         </slot>
       </wa-drawer>
     `;

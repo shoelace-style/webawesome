@@ -6,10 +6,10 @@
   :root {
     /* max-width for fixed width app-based pages
      * We round() these to avoid obscure component rendering bugs caused by widths with fractional pixels */
-    --content-width-l: round(up, 132ch, 1px);
-    --content-width-m: round(up, 110ch, 1px);
-    --content-width-s: round(up, 80ch, 1px);
-    --content-width-xs: round(up, 50ch, 1px);
+    --content-width-l: round(up, 83rem, 1px);
+    --content-width-m: round(up, 70rem, 1px);
+    --content-width-s: round(up, 50rem, 1px);
+    --content-width-xs: round(up, 31.5rem, 1px);
     --content-width-full: 100%;
     --content-flow-spacing: 8ch;
     --content-padding-inline: var(--wa-space-2xl);
@@ -570,6 +570,11 @@
 
   .wa-dark wa-callout.pro {
     --wa-color-text-link: var(--wa-color-brand-70);
+  }
+
+  /* Keep the "new in Core" callout's version link in the neutral scheme, not brand blue. */
+  wa-callout.new {
+    --wa-color-text-link: var(--wa-color-text-normal);
   }
 
   /* free badge */

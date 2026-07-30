@@ -8,7 +8,7 @@ import { fixtures } from '../../internal/test/fixture.js';
 import { registerIconLibrary } from '../../../dist-cdn/webawesome.js';
 import type WaIcon from './icon.js';
 import type { IconAnimation } from './icon.js';
-import { getIconFolder } from './library.default.js';
+import defaultLibrary, { getIconFolder } from './library.default.js';
 
 // Captures the autoWidth argument passed to a resolver so we can assert the canvas="auto" coupling.
 let probeAutoWidth: boolean | undefined;
@@ -27,6 +27,14 @@ const testLibraryIcons = {
   'bad-icon': `<div></div>`,
 };
 
+// Mimics stroke-based libraries like Lucide and Feather, whose SVGs style themselves entirely through
+// presentation attributes on the root element.
+const strokeIcon = `
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="M4 4h16v16H4z"></path>
+  </svg>
+`;
+
 describe('<wa-icon>', () => {
   before(() => {
     registerIconLibrary('test-library', {
@@ -42,6 +50,10 @@ describe('<wa-icon>', () => {
         return '';
       },
       mutator: (svg: SVGElement) => svg.setAttribute('fill', 'currentColor'),
+    });
+
+    registerIconLibrary('stroke-library', {
+      resolver: () => `data:image/svg+xml,${encodeURIComponent(strokeIcon)}`,
     });
 
     registerIconLibrary('autowidth-probe', {
@@ -92,6 +104,23 @@ describe('<wa-icon>', () => {
 
     it('falls back to "solid" for an unknown family', () => {
       expect(getIconFolder('icon-name', 'not-a-real-family', 'solid')).to.equal('solid');
+    });
+  });
+
+  // Font Awesome fill handling lives in the default library's mutator, not the component stylesheet, so that
+  // other libraries receive their SVG exactly as authored. A stylesheet fill regressed twice (issue #1733).
+  describe('default library fill handling', () => {
+    it('adds fill="currentColor" to icons that do not specify a fill', () => {
+      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      defaultLibrary.mutator!(svg);
+      expect(svg.getAttribute('fill')).to.equal('currentColor');
+    });
+
+    it('respects an existing fill attribute', () => {
+      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.setAttribute('fill', 'none');
+      defaultLibrary.mutator!(svg);
+      expect(svg.getAttribute('fill')).to.equal('none');
     });
   });
 
@@ -185,6 +214,19 @@ describe('<wa-icon>', () => {
           expect(svg?.getAttribute('fill')).to.equal('currentColor');
         });
 
+        // Guards issue #1733: a fill rule in the component stylesheet overrides the presentation attributes that
+        // stroke-based libraries (Lucide, Feather, etc.) rely on, turning their icons into filled blobs.
+        it('should not force a fill on stroke-based library icons', async () => {
+          const el = await fixture<WaIcon>(html`<wa-icon library="stroke-library"></wa-icon>`);
+          const listener = oneEvent(el, 'wa-load');
+          el.name = 'square';
+          await listener;
+          await elementUpdated(el);
+          const svg = el.shadowRoot!.querySelector('svg')!;
+          expect(svg.getAttribute('fill')).to.equal('none');
+          expect(getComputedStyle(svg).fill).to.equal('none');
+        });
+
         it('should render icons from an async resolver', async () => {
           registerIconLibrary('async-library', {
             resolver: async name => {
@@ -217,7 +259,7 @@ describe('<wa-icon>', () => {
       });
 
       describe('sprite sheets', () => {
-        it.only('should produce a <use> element with the correct href', async () => {
+        it('should produce a <use> element with the correct href', async () => {
           // With SSR, this `registerIconLibrary` won't cross the server  boundary.
           registerIconLibrary('sprite', {
             resolver: name => `/docs/assets/images/sprite.svg#${name}`,
@@ -438,22 +480,28 @@ describe('<wa-icon>', () => {
 
         it('should pass autoWidth=true to the resolver for canvas="auto"', async () => {
           probeAutoWidth = undefined;
-          const el = await fixture<WaIcon>(html`<wa-icon library="autowidth-probe" name="x" canvas="auto"></wa-icon>`);
-          await oneEvent(el, 'wa-load');
+          const el = await fixture<WaIcon>(html`<wa-icon library="autowidth-probe" canvas="auto"></wa-icon>`);
+          const listener = oneEvent(el, 'wa-load');
+          el.name = 'x';
+          await listener;
           expect(probeAutoWidth).to.be.true;
         });
 
         it('should pass autoWidth=true to the resolver for the deprecated auto-width attribute', async () => {
           probeAutoWidth = undefined;
-          const el = await fixture<WaIcon>(html`<wa-icon library="autowidth-probe" name="x" auto-width></wa-icon>`);
-          await oneEvent(el, 'wa-load');
+          const el = await fixture<WaIcon>(html`<wa-icon library="autowidth-probe" auto-width></wa-icon>`);
+          const listener = oneEvent(el, 'wa-load');
+          el.name = 'x';
+          await listener;
           expect(probeAutoWidth).to.be.true;
         });
 
         it('should pass autoWidth=false to the resolver by default', async () => {
           probeAutoWidth = undefined;
-          const el = await fixture<WaIcon>(html`<wa-icon library="autowidth-probe" name="x"></wa-icon>`);
-          await oneEvent(el, 'wa-load');
+          const el = await fixture<WaIcon>(html`<wa-icon library="autowidth-probe"></wa-icon>`);
+          const listener = oneEvent(el, 'wa-load');
+          el.name = 'x';
+          await listener;
           expect(probeAutoWidth).to.be.false;
         });
       });

@@ -135,15 +135,25 @@ export default {
       },
     },
     {
-      // Flag `base` in the manifest so editors and other CEM consumers see the deprecation, not just the docs.
-      name: 'wa-deprecate-base-part',
+      // Flag legacy duplicate parts in the manifest so editors and other CEM consumers see the
+      // deprecation, not just the docs: `base` everywhere, and `label` on form controls that also
+      // expose the canonical `form-control-label`.
+      name: 'wa-deprecate-legacy-parts',
       packageLinkPhase({ customElementsManifest }) {
         customElementsManifest?.modules?.forEach(mod => {
           mod.declarations?.forEach(declaration => {
+            // We can only tell both parts exist on the component, not that they're on the same element
+            // (the manifest doesn't track that). True for every form control today; revisit if one ever
+            // adds a `label` that isn't the form-control label.
+            const hasFormControlLabel = declaration.cssParts?.some(part => part.name === 'form-control-label');
             declaration.cssParts?.forEach(part => {
               if (part.name === 'base') {
                 part.deprecated =
                   'Use the part named after the component instead. This part will be removed in a future major version.';
+              }
+              if (part.name === 'label' && hasFormControlLabel) {
+                part.deprecated =
+                  'Use the `form-control-label` part instead. This part will be removed in a future major version.';
               }
             });
           });

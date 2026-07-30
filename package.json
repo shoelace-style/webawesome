@@ -49,7 +49,7 @@
     "custom-element-vuejs-integration": "^1.4.0",
     "del": "^7.1.0",
     "download": "^8.0.0",
-    "esbuild": "0.23.1",
+    "esbuild": "0.25.12",
     "esbuild-plugin-replace": "^1.4.0",
     "front-matter": "^4.0.2",
     "get-port": "^7.1.0",
@@ -84,7 +84,8 @@
   },
   "overrides": {
     "playwright": "^1.49.1",
-    "axe-core": "^4.11.4"
+    "axe-core": "^4.11.4",
+    "esbuild": "$esbuild"
   },
   "lint-staged": {
     "*.{ts,js}": [

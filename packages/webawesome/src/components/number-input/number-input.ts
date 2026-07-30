@@ -39,8 +39,8 @@ import styles from './number-input.styles.js';
  *  value from changing.
  * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
- * @csspart label - The label element.
- * @csspart form-control-label - Alias for the label element.
+ * @csspart form-control-label - The label.
+ * @csspart label - Deprecated. Use the `form-control-label` part instead.
  * @csspart hint - The hint element.
  * @csspart base - Deprecated. Use the `number-input` part instead.
  * @csspart number-input - The component's outer wrapper.
