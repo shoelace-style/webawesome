@@ -68,6 +68,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a regression in `<wa-icon>` that reintroduced `fill: currentColor` on the internal SVG in 3.8.0 [issue:2636] [pr:2677]
 - Fixed a bug in `<wa-tree>` where pressing [[Enter]] or [[Space]] while focus was inside a tree item, e.g. on a link or a button slotted into it, threw a "Cannot read properties of undefined" error and swallowed the keypress instead of letting the focused element handle it [issue:2673] [pr:2674]
 - Fixed a bug in Native Styles where elements like `<button>` didn't pick up inverted colors inside `.wa-invert` [issue:2533] [pr:2678]
+- Fixed a bug in `<wa-color-picker>` where swatches grew larger than normal when only a few were present [issue:2571] [pr:2573]
 
 :::
 
@@ -114,7 +115,6 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug in `<wa-copy-button>` where copy success and error feedback wasn't reliably announced by some screen readers
 - Fixed a bug in `<wa-known-date>` where the validation tooltip always pointed to the first input regardless of which one was invalid
 - Fixed a bug in `<wa-toast-item>` where the documented `--padding` custom property was unused in component styles
-- Fixed a bug in `<wa-color-picker>` where swatches grew larger than normal when only a few were present [issue:2571]
 - Aligned the `start` and `end` slot region in `<wa-date-input>` and `<wa-time-input>` with `<wa-input>` and `<wa-select>`
   - The trailing calendar/clock and clear icons no longer sit a few pixels inward of where the other controls place them
   - The `start` and `end` slots now use the same spacing as the other controls instead of a tighter gap
