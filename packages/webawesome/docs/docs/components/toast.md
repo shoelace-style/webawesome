@@ -1,8 +1,8 @@
 ---
 title: Toast
 layout: component
+hasAnatomy: false
 category: Feedback
-isProComponent: false
 synonyms:
   - notification
   - snackbar
