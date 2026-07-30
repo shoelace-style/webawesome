@@ -3,7 +3,7 @@ title: Toast Item
 layout: component
 category: Feedback
 parent: toast
-isProComponent: false
+hasAnatomy: true
 synonyms:
   - notification item
   - alert item
@@ -13,7 +13,7 @@ use-cases:
   - toast message
 ---
 
-```html {.example}
+```html {.example .anatomy}
 <wa-toast-item variant="brand" duration="0">
   <wa-icon slot="icon" name="bell"></wa-icon>
   This is how a toast item looks!
