@@ -33,21 +33,17 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::added
 
+- Added a CSS part named after the component to every component that renders a wrapper element (e.g. `button`, `details`, `carousel`), alongside the existing `base` part. Where the component name is already used by an inner part, the wrapper takes a `-wrapper` suffix (`input-wrapper`, `textarea-wrapper`). [pr:2644]
+- Added the experimental `<wa-otp-input>` component for entering fixed-length codes — one-time passcodes, PINs, and verification codes [pr:2584]
+- Moved `<wa-toast>` and `<wa-toast-item>` from Pro to Core [pr:2631]
+- Added `addSlide()` and `removeSlide()` methods to `<wa-carousel>` for adding and removing slides dynamically, including when `loop` is enabled [issue:2173] [pr:2662]
 - Added the experimental `<wa-data-grid>` pro component
 - Added the experimental `<wa-pagination>` component [pr:2680]
-- Moved `<wa-toast>` and `<wa-toast-item>` from Pro to Core [pr:2631]
-- Added the experimental `<wa-otp-input>` component for entering fixed-length codes — one-time passcodes, PINs, and verification codes [pr:2584]
-- Added a CSS part named after the component to every component that renders a wrapper element (e.g. `button`, `details`, `carousel`), alongside the existing `base` part. Where the component name is already used by an inner part, the wrapper takes a `-wrapper` suffix (`input-wrapper`, `textarea-wrapper`). [pr:2644]
-- Added `addSlide()` and `removeSlide()` methods to `<wa-carousel>` for adding and removing slides dynamically, including when `loop` is enabled [issue:2173] [pr:2662]
 
 :::
 
 :::fixed
 
-- Fixed a Safari-only clip-path/border seam along the arrow's outer edges by painting the arrow border with an inset box-shadow instead of a `border` [pr:2638]
-  - `<wa-tooltip>` — surfaced as a stark white hairline on the dark arrow over light backgrounds
-  - `<wa-popover>` — same latent seam on the arrow's border
-  - The arrow border is now always solid; `--wa-tooltip-border-style` / `--wa-panel-border-style` no longer apply to it. No visual change, since all themes use `solid`
 - Fixed type resolution issues with `pro` components like `<wa-file-input>`, `<wa-combobox>`, etc. [pr:2577]
 - Fixed an issue where some fonts wouldn't load in themes that import multiple fonts [pr:2582]
 - Fixed an issue with an improper custom elements manifest path. [pr:2590]
@@ -57,19 +53,23 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug in `<wa-checkbox>` where it would improperly submit values after it was enabled after being disabled. [pr:2607]
 - Fixed the remove button in `<wa-tag>` to match the tag's `size` [pr:2615]
 - Fixed missing CSS parts documentation for `<wa-card>`, `<wa-color-picker>`, `<wa-textarea>`, `<wa-scroller>`, and `<wa-page>` [pr:2623]
+- Fixed the focus ring on `<wa-input>` not transitioning in, since the outline was only declared on `:focus-within` [pr:2625]
+- Fixed a Safari-only clip-path/border seam along the arrow's outer edges by painting the arrow border with an inset box-shadow instead of a `border` [pr:2638]
+  - `<wa-tooltip>` — surfaced as a stark white hairline on the dark arrow over light backgrounds
+  - `<wa-popover>` — same latent seam on the arrow's border
+  - The arrow border is now always solid; `--wa-tooltip-border-style` / `--wa-panel-border-style` no longer apply to it. No visual change, since all themes use `solid`
 - Fixed `<wa-checkbox>` rendering its checked icon under the undocumented `check-icon` CSS part; it now uses the documented `checked-icon` part, matching `<wa-radio>` [pr:2646]
-- Fixed a bug in `<wa-dialog>` and `<wa-drawer>` that left the page permanently scroll locked and inert when third-party CSS, e.g. from ad blockers, hides an open dialog or drawer with `display: none` [issue:2634] [pr:2653]
 - Fixed `<wa-page>` documenting `skip-links` and `skip-link` CSS parts that don't render; replaced them with the `skip-to-content` part it actually exposes [pr:2633]
+- Fixed a bug in `<wa-dialog>` and `<wa-drawer>` that left the page permanently scroll locked and inert when third-party CSS, e.g. from ad blockers, hides an open dialog or drawer with `display: none` [issue:2634] [pr:2653]
 - Fixed `x-label` and `y-label` attributes not working on `<wa-chart>` and its variants
-- Fixed a bug in `<wa-date-input>` where pressing [[Escape]] to dismiss the open calendar threw a "Maximum call stack size exceeded" error [issue:2637]
+- Fixed a bug in `<wa-color-picker>` where swatches grew larger than normal when only a few were present [issue:2571] [pr:2573]
 - Fixed a bug in `<wa-color-picker>` where an initial value with alpha, e.g. `#f5a62315` with `opacity`, would lose its alpha channel on load [issue:2550] [pr:2661]
 - Fixed a bug in `<wa-color-picker>` where selecting a swatch with the keyboard didn't emit `change` and `input` events [pr:2665]
 - Fixed a bug in `<wa-color-picker>` where an initial value with alpha but without `opacity` would render the trigger as transparent even though the value was opaque [pr:2665]
-- Fixed a regression in `<wa-icon>` that reintroduced `fill: currentColor` on the internal SVG in 3.8.0 [issue:2636] [pr:2677]
+- Fixed a bug in `<wa-date-input>` where pressing [[Escape]] to dismiss the open calendar threw a "Maximum call stack size exceeded" error [issue:2637]
 - Fixed a bug in `<wa-tree>` where pressing [[Enter]] or [[Space]] while focus was inside a tree item, e.g. on a link or a button slotted into it, threw a "Cannot read properties of undefined" error and swallowed the keypress instead of letting the focused element handle it [issue:2673] [pr:2674]
+- Fixed a regression in `<wa-icon>` that reintroduced `fill: currentColor` on the internal SVG in 3.8.0 [issue:2636] [pr:2677]
 - Fixed a bug in Native Styles where elements like `<button>` didn't pick up inverted colors inside `.wa-invert` [issue:2533] [pr:2678]
-- Fixed a bug in `<wa-color-picker>` where swatches grew larger than normal when only a few were present [issue:2571] [pr:2573]
-- Fixed the focus ring on `<wa-input>` not transitioning in, since the outline was only declared on `:focus-within` [pr:2625]
 
 :::
 
