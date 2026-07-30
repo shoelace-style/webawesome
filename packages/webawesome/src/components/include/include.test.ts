@@ -148,7 +148,7 @@ describe('<wa-include>', () => {
           expect(span!.textContent).to.equal('Loaded');
         });
 
-        it.only('should not update innerHTML if src changes before the request completes', async () => {
+        it('should not update innerHTML if src changes before the request completes', async () => {
           // Unique per fixture iteration so the module-level requestInclude cache doesn't leak between runs
           const firstSrc = `/first-${fixture.type}`;
           const secondSrc = `/second-${fixture.type}`;
@@ -191,6 +191,121 @@ describe('<wa-include>', () => {
 
           // Should contain second content, not first
           expect(el.innerHTML).to.contain('Second content');
+        });
+      });
+
+      describe('same-page fragments', () => {
+        it('should clone the content of a same-page template referenced by id', async () => {
+          const template = document.createElement('template');
+          template.id = `tpl-${fixture.type}`;
+          template.innerHTML = '<span class="from-template">Templated</span>';
+          document.body.append(template);
+
+          try {
+            const el = await fixture<WaInclude>(html`<wa-include src="#tpl-${fixture.type}"></wa-include>`);
+            await el.updateComplete;
+
+            const span = el.querySelector('.from-template');
+            expect(span).to.exist;
+            expect(span!.textContent).to.equal('Templated');
+            // The original template should be left untouched (we clone its content)
+            expect(el.querySelector('template')).to.not.exist;
+          } finally {
+            template.remove();
+          }
+        });
+
+        it('should clone the content of a non-template same-page element referenced by id', async () => {
+          const source = document.createElement('div');
+          source.id = `frag-${fixture.type}`;
+          source.innerHTML = '<span class="from-div">Fragment</span>';
+          document.body.append(source);
+
+          try {
+            const el = await fixture<WaInclude>(html`<wa-include src="#frag-${fixture.type}"></wa-include>`);
+            await el.updateComplete;
+
+            const span = el.querySelector('.from-div');
+            expect(span).to.exist;
+            expect(span!.textContent).to.equal('Fragment');
+            // The wrapping element's content is inserted, not the element itself, so the id isn't duplicated
+            expect(el.querySelector(`#frag-${fixture.type}`)).to.not.exist;
+            // The original should still be in the document (we clone, not move)
+            expect(document.body.querySelector(`#frag-${fixture.type}`)).to.equal(source);
+          } finally {
+            source.remove();
+          }
+        });
+
+        it('should clear its contents when a same-page id is not found', async () => {
+          const el = await fixture<WaInclude>(html`<wa-include src="#does-not-exist-${fixture.type}"></wa-include>`);
+          await el.updateComplete;
+          expect(el.children.length).to.equal(0);
+        });
+      });
+
+      describe('remote fragments', () => {
+        it('should extract the content of an element by id from a fetched file', async () => {
+          sinon.stub(window, 'fetch').resolves({
+            ...stubbedFetchResponse,
+            ok: true,
+            status: 200,
+            text: () =>
+              delayResolve('<div id="ignored">Ignored</div><section id="wanted"><b class="pick">Picked</b></section>'),
+          });
+
+          const loadHandler = sinon.spy();
+          document.addEventListener('wa-load', loadHandler);
+
+          const el = await fixture<WaInclude>(html`<wa-include src="/remote-fragment#wanted"></wa-include>`);
+
+          await waitUntil(() => loadHandler.calledOnce);
+          document.removeEventListener('wa-load', loadHandler);
+
+          expect(el.querySelector('.pick')).to.exist;
+          expect(el.querySelector('#ignored')).to.not.exist;
+          // The wrapping element's content is inserted, not the element itself
+          expect(el.querySelector('#wanted')).to.not.exist;
+        });
+
+        it('should clone the content of a template extracted from a fetched file', async () => {
+          sinon.stub(window, 'fetch').resolves({
+            ...stubbedFetchResponse,
+            ok: true,
+            status: 200,
+            text: () => delayResolve('<template id="tpl"><span class="from-remote-tpl">Remote</span></template>'),
+          });
+
+          const loadHandler = sinon.spy();
+          document.addEventListener('wa-load', loadHandler);
+
+          const el = await fixture<WaInclude>(html`<wa-include src="/remote-template#tpl"></wa-include>`);
+
+          await waitUntil(() => loadHandler.calledOnce);
+          document.removeEventListener('wa-load', loadHandler);
+
+          expect(el.querySelector('.from-remote-tpl')).to.exist;
+          expect(el.querySelector('template')).to.not.exist;
+        });
+
+        it('should emit wa-include-error when the id is missing from a fetched file', async () => {
+          sinon.stub(window, 'fetch').resolves({
+            ...stubbedFetchResponse,
+            ok: true,
+            status: 200,
+            text: () => delayResolve('<div id="other">Nope</div>'),
+          });
+
+          const errorHandler = sinon.spy();
+          document.addEventListener('wa-include-error', errorHandler);
+
+          const el = await fixture<WaInclude>(html`<wa-include src="/remote-missing#absent"></wa-include>`);
+
+          await waitUntil(() => errorHandler.calledOnce);
+          document.removeEventListener('wa-include-error', errorHandler);
+
+          expect(errorHandler).to.have.been.calledOnce;
+          expect(el.children.length).to.equal(0);
         });
       });
     });
