@@ -56,6 +56,7 @@ component-anatomy {
   --background-dot-spacing: 1rem;
   --background-dot-color: color-mix(in oklab, var(--wa-color-text-normal), transparent 92%);
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   place-items: center;
   min-height: 8rem;
   padding: var(--wa-space-xl);
@@ -70,7 +71,9 @@ component-anatomy {
   border-start-end-radius: var(--stage-radius);
 }
 
-/* Definite width so fluid components fill it; inline content centers via text-align, block/flex via margin. */
+/* Definite width so fluid components fill it; inline content centers via text-align, block/flex via margin.
+   The percentage needs the stage's definite track above — a `place-items: center` item sizes the track from
+   itself, which silently turns every clamp here into a no-op. */
 .anatomy-subject {
   inline-size: min(100%, 24rem);
   text-align: center;
@@ -102,6 +105,16 @@ component-anatomy {
 /* A breadcrumb reads as one line; size it to its content (up to the stage) instead of the 24rem default. */
 .anatomy-subject:has(wa-breadcrumb) {
   inline-size: fit-content;
+}
+
+/* A tab group's nav needs more than 24rem before its tabs start clipping. */
+.anatomy-subject:has(wa-tab-group) {
+  inline-size: min(100%, 28rem);
+}
+
+/* A data grid is fluid and its toolbar needs the room — at 24rem the columns menu clips. */
+.anatomy-subject:has(wa-data-grid) {
+  inline-size: 100%;
 }
 
 .anatomy-regions {
