@@ -70,9 +70,9 @@ declare const EyeDropper: EyeDropperConstructor;
  * @csspart color-picker - The dropdown panel that holds the grid, sliders, and swatches.
  * @csspart trigger - The color picker's dropdown trigger.
  * @csspart trigger-container - The container that wraps the color picker's trigger.
- * @csspart form-control - Alias on `trigger-container`, matching other form controls.
+ * @csspart form-control - The form control that wraps the label, input, and hint.
  * @csspart form-control-label - The label.
- * @csspart form-control-input - Alias on `trigger`, matching other form controls.
+ * @csspart form-control-input - The color picker's trigger button.
  * @csspart hint - The hint's wrapper.
  * @csspart swatches - The container that holds the swatches.
  * @csspart swatch - Each individual swatch.

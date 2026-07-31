@@ -83,6 +83,12 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a regression in `<wa-icon>` that reintroduced `fill: currentColor` on the internal SVG in 3.8.0 [issue:2636] [pr:2677]
 - Fixed a bug in Native Styles where elements like `<button>` didn't pick up inverted colors inside `.wa-invert` [issue:2533] [pr:2678]
 - Fixed `<wa-color-picker>` rendering the `form-control`, `form-control-input`, and `hint` CSS parts without documenting them, and corrected the `color-picker` part's description to name the dropdown panel it actually targets [issue:2624]
+- Fixed several components documenting CSS parts that never render, so `::part()` selectors targeting them silently did nothing [issue:2624]
+  - `<wa-page>` — removed `dialog-wrapper`
+  - `<wa-radio-group>` — removed `radios`; `form-control-input` is the wrapper around the grouped radios
+  - `<wa-slider>` — renamed `tooltip__content` to `tooltip__body`, and now forwards the `tooltip__tooltip` part it already documented
+  - `<wa-textarea>` — removed `form-control-input`, which it never rendered
+  - `<wa-video>` — removed `progress`; the progress bar is the slider's `timeline-indicator` part
 
 :::
 
