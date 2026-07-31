@@ -46,6 +46,23 @@ describe('<wa-button>', () => {
           const el = await fixture<WaButton>(html` <wa-button disabled>Button Label</wa-button> `);
           await expect(el).to.be.accessible();
         });
+
+        it('should be accessible when loading', async () => {
+          const el = await fixture<WaButton>(html` <wa-button loading><span>Button Label</span></wa-button> `);
+          await expect(el).to.be.accessible();
+        });
+
+        it('should keep the label in the accessibility tree when loading', async () => {
+          const el = await fixture<WaButton>(html` <wa-button loading><span>Button Label</span></wa-button> `);
+          const label = el.querySelector('span')!;
+          expect(getComputedStyle(label).visibility).to.not.equal('hidden');
+        });
+
+        it('should set aria-busy when loading', async () => {
+          const el = await fixture<WaButton>(html` <wa-button loading>Button Label</wa-button> `);
+          const button = el.shadowRoot!.querySelector<HTMLButtonElement>('[part~="base"]')!;
+          expect(button.getAttribute('aria-busy')).to.equal('true');
+        });
       });
 
       describe('properties', () => {

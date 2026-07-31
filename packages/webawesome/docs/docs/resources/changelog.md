@@ -34,6 +34,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 :::fixed
 
 - Fixed the focus ring on `<wa-otp-input>` animating its width and offset, which re-ran the animation on every keystroke as the active segment advanced. It now fades in at a fixed size, matching `<wa-input>` and the other form controls
+- Fixed `<wa-button>` losing its accessible name while `loading`. The label was hidden with `visibility: hidden`, which removed it from the accessibility tree. It is now hidden with `opacity`, so the label stays in the tree and the button's width is unchanged. The button also sets `aria-busy` while loading [issue:2693]
 
 :::
 
