@@ -1,9 +1,11 @@
 import type { PropertyValues } from 'lit';
 import { html, isServer } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { live } from 'lit/directives/live.js';
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import { when } from 'lit/directives/when.js';
+import { HasSlotController } from '../../internal/slot.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import visuallyHidden from '../../styles/component/visually-hidden.styles.js';
 import '../button/button.js';
@@ -121,6 +123,8 @@ function toLength(px: number | string): string {
 @customElement('wa-page')
 export default class WaPage extends WebAwesomeElement {
   static css = [visuallyHidden, styles];
+
+  private readonly hasSlotController = new HasSlotController(this, 'navigation-footer', 'mobile-navigation-footer');
 
   // SSR guard: ResizeObserver is not available during server-side rendering
   private headerResizeObserver = !isServer ? this.slotResizeObserver('header') : null;
@@ -345,6 +349,10 @@ export default class WaPage extends WebAwesomeElement {
   }
 
   render() {
+    const hasMobileNavigationFooter =
+      this.view === 'mobile' &&
+      (this.hasSlotController.test('navigation-footer') || this.hasSlotController.test('mobile-navigation-footer'));
+
     return html`
       <a href="#main-content" part="skip-to-content" class="wa-visually-hidden">
         <slot name="skip-to-content">Skip to content</slot>
@@ -459,7 +467,11 @@ export default class WaPage extends WebAwesomeElement {
           )}
         </slot>
 
-        <slot slot="footer" name="mobile-navigation-footer">
+        <slot
+          slot=${ifDefined(hasMobileNavigationFooter ? 'footer' : undefined)}
+          name="mobile-navigation-footer"
+          ?hidden=${!hasMobileNavigationFooter}
+        >
           ${when(
             this.view === 'mobile',
             () => html`<slot part="navigation-footer" name="navigation-footer"><div></div></slot>`,
