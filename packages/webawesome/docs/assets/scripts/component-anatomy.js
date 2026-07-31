@@ -158,6 +158,8 @@ class ComponentAnatomy extends HTMLElement {
     const clone = contextRoot ? contextRoot.cloneNode(true) : document.createElement(tag);
     stripIdentity(clone);
     const subject = this.#findSubject(clone, tag);
+    // Quiet: the lookup above already warned about an ambiguous example.
+    const liveSubject = contextRoot ? this.#findSubject(contextRoot, tag, true) : null;
     this.#dimContext(clone, subject);
     this.#subject = subject;
 
@@ -190,6 +192,9 @@ class ComponentAnatomy extends HTMLElement {
     this.#scrollGap = this.#spacePx('--wa-space-m');
 
     await this.#whenReady(tag, clone, subject);
+
+    // Not at clone time: this module runs from <head>, so the clone predates the example's own script.
+    if (liveSubject && this.#copyLiveProperties(liveSubject, subject)) await this.#settle(subject);
 
     this.#wireRows();
     this.#relayout();
@@ -227,17 +232,46 @@ class ComponentAnatomy extends HTMLElement {
 
   // The documented element within the clone: the marked child, else the first tag, else the clone. Warns on
   // the ambiguous cases so a mis-marked example fails loudly.
-  #findSubject(clone, tag) {
+  #findSubject(clone, tag, quiet = false) {
     const marked = clone.querySelectorAll('[data-anatomy-subject]');
-    if (marked.length > 1) {
+    if (marked.length > 1 && !quiet) {
       console.warn(`[component-anatomy] Multiple [data-anatomy-subject] in the <${tag}> example; using the first.`);
     }
     if (marked.length) return marked[0];
     const matches = clone.matches?.(tag) ? [clone] : [...clone.querySelectorAll(tag)];
-    if (matches.length > 1) {
+    if (matches.length > 1 && !quiet) {
       console.warn(`[component-anatomy] ${matches.length} <${tag}> but none marked data-anatomy-subject; add it.`);
     }
     return matches[0] || clone;
+  }
+
+  // `cloneNode` copies attributes, not properties, so a property-driven component (Data Grid's `data` and
+  // `columns`) clones empty. Setters can reach past their own value — wa-checkbox's `checked` also writes
+  // `valueHasChanged` and the private `_checked`, defeating the attribute fallback the state toggles reset
+  // through — so assign only what genuinely differs, and restore the `state: true` properties afterwards.
+  #copyLiveProperties(source, target) {
+    const properties = source?.constructor?.elementProperties;
+    if (!properties || !target) return false;
+
+    const internal = [];
+    const pending = [];
+    for (const [name, options] of properties) {
+      if (options.attribute !== false) continue;
+      if (options.state === true) internal.push([name, target[name]]);
+      else if (target[name] !== source[name]) pending.push([name, source[name]]);
+    }
+    if (!pending.length) return false;
+
+    for (const [name, value] of pending) target[name] = value;
+
+    for (const [name, value] of internal) {
+      try {
+        target[name] = value;
+      } catch {
+        /* getter-only, like `validity` — nothing to restore */
+      }
+    }
+    return true;
   }
 
   // Fade the subject's siblings (and a group parent's own label/hint chrome). One level at a time, never an
