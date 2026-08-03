@@ -32,7 +32,6 @@ import styles from './textarea.styles.js';
  *
  * @csspart form-control-label - The label.
  * @csspart label - Deprecated. Use the `form-control-label` part instead.
- * @csspart form-control-input - The input's wrapper.
  * @csspart hint - The hint's wrapper.
  * @csspart textarea - The internal `<textarea>` control.
  * @csspart base - Deprecated. Use the `textarea-wrapper` part instead.

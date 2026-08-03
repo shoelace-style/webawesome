@@ -34,8 +34,7 @@ import styles from './radio-group.styles.js';
  *
  * @csspart form-control - The form control that wraps the label, input, and hint.
  * @csspart form-control-label - The label.
- * @csspart form-control-input - The input's wrapper.
- * @csspart radios - The wrapper than surrounds radio items, styled as a flex container by default.
+ * @csspart form-control-input - The element that wraps the grouped radios, styled as a flex container by default.
  * @csspart hint - The hint's wrapper.
  */
 @customElement('wa-radio-group')
