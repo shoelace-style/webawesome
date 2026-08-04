@@ -38,6 +38,10 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::
 
+:::changed
+- Improved accessibility of `<wa-dropdown>` by adding `aria-posinset` and `aria-setsize` so supportive screen readers can correctly announce the number of dropdown items []
+:::
+
 ## 3.11.0
 
 <small><time datetime="2026-07-30">July 30th, 2026</time></small>
