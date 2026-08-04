@@ -34,6 +34,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 :::fixed
 
 - Fixed the focus ring on `<wa-otp-input>` animating its width and offset, which re-ran the animation on every keystroke as the active segment advanced. It now fades in at a fixed size, matching `<wa-input>` and the other form controls
+- Fixed a bug in `<wa-toast>` that caused center placements to render incorrectly on narrow screens [issue:2701]
 
 :::
 
