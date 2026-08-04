@@ -1,5 +1,5 @@
 import { aTimeout, expect, waitUntil } from '@open-wc/testing';
-import { sendKeys } from '@web/test-runner-commands';
+import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit';
 import sinon from 'sinon';
 import { fixtures } from '../../internal/test/fixture.js';
@@ -46,6 +46,31 @@ describe('<wa-toast>', () => {
             expect(el.getAttribute('placement')).to.equal(placement);
           });
         }
+
+        it('should keep centered placements within a narrow viewport', async () => {
+          const originalViewport = { width: window.innerWidth, height: window.innerHeight };
+
+          try {
+            await setViewport({ width: 390, height: originalViewport.height });
+
+            for (const placement of ['top-center', 'bottom-center'] as const) {
+              const el = await fixture<WaToast>(html`<wa-toast placement="${placement}"></wa-toast>`);
+              await el.create('A notification that should remain visible', { duration: 0 });
+
+              const hostRect = el.getBoundingClientRect();
+              const itemRect = el.querySelector('wa-toast-item')!.getBoundingClientRect();
+
+              expect(hostRect.left).to.be.closeTo(0, 1);
+              expect(hostRect.right).to.be.closeTo(window.innerWidth, 1);
+              expect(itemRect.left).to.be.at.least(0);
+              expect(itemRect.right).to.be.at.most(window.innerWidth);
+
+              el.remove();
+            }
+          } finally {
+            await setViewport(originalViewport);
+          }
+        });
       });
 
       describe('create() method', () => {

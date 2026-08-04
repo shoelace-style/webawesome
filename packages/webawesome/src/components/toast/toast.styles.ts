@@ -97,10 +97,5 @@ export default css`
       width: 100%;
       padding: var(--wa-space-s);
     }
-
-    :host([placement='top-center']),
-    :host([placement='bottom-center']) {
-      translate: 0;
-    }
   }
 `;
