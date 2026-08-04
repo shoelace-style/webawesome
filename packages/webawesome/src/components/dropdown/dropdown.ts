@@ -523,6 +523,8 @@ export default class WaDropdown extends WebAwesomeElement {
     const hasSubmenu = items.some(item => item.hasSubmenu);
 
     items.forEach((item, index) => {
+      item.setAttribute('aria-posinset', String(index + 1));
+      item.setAttribute('aria-setsize', String(items.length));
       item.active = index === 0;
       item.checkboxAdjacent = hasCheckbox;
       item.submenuAdjacent = hasSubmenu;
