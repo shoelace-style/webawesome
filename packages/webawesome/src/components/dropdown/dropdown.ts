@@ -115,11 +115,12 @@ export default class WaDropdown extends WebAwesomeElement {
     unregisterDismissible(this);
   }
 
-  firstUpdated() {
+  firstUpdated(changedProperties: PropertyValues<typeof this>) {
+    super.firstUpdated(changedProperties)
     this.syncAriaAttributes();
   }
 
-  async updated(changedProperties: PropertyValues) {
+  async updated(changedProperties: PropertyValues<typeof this>) {
     if (changedProperties.has('open')) {
       const previousOpen = changedProperties.get('open');
       // check if the previous value is the same
@@ -514,6 +515,7 @@ export default class WaDropdown extends WebAwesomeElement {
 
   /** Prepares dropdown items when they get added or removed */
   private async handleMenuSlotChange() {
+    console.log("handleMenuSlotChange")
     const items = this.getItems(true);
     await Promise.all(items.map(item => item.updateComplete));
 

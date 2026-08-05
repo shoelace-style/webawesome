@@ -221,7 +221,8 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
    */
   @property({ attribute: false }) valueFormatter: (value: number) => string;
 
-  firstUpdated() {
+  firstUpdated(changedProperties: PropertyValues<this>) {
+    super.firstUpdated(changedProperties)
     // Setup dragging based on range or single thumb mode
     if (this.isRange) {
       // Enable dragging on both thumbs for range slider

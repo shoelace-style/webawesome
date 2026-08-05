@@ -1,4 +1,4 @@
-import { html } from 'lit';
+import { html, type PropertyValues } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { WaAfterHideEvent } from '../../events/after-hide.js';
@@ -150,7 +150,7 @@ export default class WaTooltip extends WebAwesomeElement {
     }
   }
 
-  firstUpdated() {
+  firstUpdated(changedProperties: PropertyValues<typeof this>) {
     this.body.hidden = !this.open;
 
     // If the tooltip is visible on init, update its position
@@ -158,6 +158,7 @@ export default class WaTooltip extends WebAwesomeElement {
       this.popup.active = true;
       this.popup.reposition();
     }
+    super.firstUpdated(changedProperties)
   }
 
   private handleBlur = () => {

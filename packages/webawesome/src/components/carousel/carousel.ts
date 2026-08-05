@@ -1,6 +1,6 @@
 import '../../internal/scrollend-polyfill.js';
 
-import type { PropertyValueMap } from 'lit';
+import type { PropertyValueMap, PropertyValues } from 'lit';
 import { html, isServer } from 'lit';
 import { customElement, eventOptions, property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
@@ -127,7 +127,8 @@ export default class WaCarousel extends WebAwesomeElement {
     this.resizeObserver?.disconnect();
   }
 
-  protected firstUpdated(): void {
+  protected firstUpdated(changedProperties: PropertyValues<typeof this>): void {
+    super.firstUpdated(changedProperties)
     this.initializeSlides();
     this.mutationObserver = new MutationObserver(this.handleSlotChange);
     this.mutationObserver.observe(this, {

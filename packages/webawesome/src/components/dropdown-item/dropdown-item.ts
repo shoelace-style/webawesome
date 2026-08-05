@@ -107,7 +107,8 @@ export default class WaDropdownItem extends WebAwesomeElement {
     this.shadowRoot?.removeEventListener?.('slotchange', this.handleSlotChange);
   }
 
-  firstUpdated() {
+  firstUpdated(changedProperties: PropertyValues<typeof this>) {
+    super.firstUpdated(changedProperties)
     this.setAttribute('tabindex', '-1');
     this.hasSubmenu = this.hasSlotController.test('submenu');
     this.updateHasSubmenuState();

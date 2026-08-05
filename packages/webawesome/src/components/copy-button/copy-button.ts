@@ -1,4 +1,4 @@
-import { html } from 'lit';
+import { html, type PropertyValues } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { WaCopyEvent } from '../../events/copy.js';
@@ -120,7 +120,8 @@ export default class WaCopyButton extends WebAwesomeElement {
    */
   @property({ reflect: true }) tooltip: 'full' | 'copy' | 'none' = 'full';
 
-  firstUpdated() {
+  firstUpdated(changedProperties: PropertyValues<typeof this>) {
+    super.firstUpdated(changedProperties)
     if (this.didSSR) {
       this.updateComplete.then(() => {
         this.handleDefaultSlotChange();
