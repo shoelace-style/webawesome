@@ -515,7 +515,6 @@ export default class WaDropdown extends WebAwesomeElement {
 
   /** Prepares dropdown items when they get added or removed */
   private async handleMenuSlotChange() {
-    console.log("handleMenuSlotChange")
     const items = this.getItems(true);
     await Promise.all(items.map(item => item.updateComplete));
 
