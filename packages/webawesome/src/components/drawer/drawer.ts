@@ -97,7 +97,7 @@ export default class WaDrawer extends WebAwesomeElement {
   @property({ attribute: 'with-footer', type: Boolean }) withFooter = false;
 
   firstUpdated(changedProperties: PropertyValues<typeof this>) {
-    super.firstUpdated(changedProperties)
+    super.firstUpdated(changedProperties);
     if (this.open) {
       this.addOpenListeners();
       this.drawer.showModal();

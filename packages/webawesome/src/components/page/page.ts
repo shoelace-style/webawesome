@@ -311,7 +311,7 @@ export default class WaPage extends WebAwesomeElement {
 
     this.shadowRoot!.addEventListener('slotchange', this.updateNavigationToggleState);
     this.updateNavigationToggleState();
-    super.firstUpdated(changedProperties)
+    super.firstUpdated(changedProperties);
   }
 
   disconnectedCallback() {

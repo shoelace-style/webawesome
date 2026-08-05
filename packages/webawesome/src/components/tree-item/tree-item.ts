@@ -138,7 +138,7 @@ export default class WaTreeItem extends WebAwesomeElement {
   }
 
   firstUpdated(changedProperties: PropertyValues<typeof this>) {
-    super.firstUpdated(changedProperties)
+    super.firstUpdated(changedProperties);
     this.childrenContainer.hidden = !this.expanded;
     this.childrenContainer.style.height = this.expanded ? 'auto' : '0';
 

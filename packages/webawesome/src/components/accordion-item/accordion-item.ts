@@ -75,7 +75,7 @@ export default class WaAccordionItem extends WebAwesomeElement {
   @property({ reflect: true }) appearance: 'filled' | 'outlined' | 'filled-outlined' | 'plain' = 'outlined';
 
   firstUpdated(changedProperties: PropertyValues<typeof this>) {
-    super.firstUpdated(changedProperties)
+    super.firstUpdated(changedProperties);
     this.body.style.height = this.expanded ? 'auto' : '0';
   }
 

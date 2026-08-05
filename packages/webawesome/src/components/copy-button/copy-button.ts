@@ -121,7 +121,7 @@ export default class WaCopyButton extends WebAwesomeElement {
   @property({ reflect: true }) tooltip: 'full' | 'copy' | 'none' = 'full';
 
   firstUpdated(changedProperties: PropertyValues<typeof this>) {
-    super.firstUpdated(changedProperties)
+    super.firstUpdated(changedProperties);
     if (this.didSSR) {
       this.updateComplete.then(() => {
         this.handleDefaultSlotChange();

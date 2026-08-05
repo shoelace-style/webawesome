@@ -108,7 +108,7 @@ export default class WaDropdownItem extends WebAwesomeElement {
   }
 
   firstUpdated(changedProperties: PropertyValues<typeof this>) {
-    super.firstUpdated(changedProperties)
+    super.firstUpdated(changedProperties);
     this.setAttribute('tabindex', '-1');
     this.hasSubmenu = this.hasSlotController.test('submenu');
     this.updateHasSubmenuState();

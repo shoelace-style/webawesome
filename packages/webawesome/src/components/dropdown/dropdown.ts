@@ -116,7 +116,7 @@ export default class WaDropdown extends WebAwesomeElement {
   }
 
   firstUpdated(changedProperties: PropertyValues<typeof this>) {
-    super.firstUpdated(changedProperties)
+    super.firstUpdated(changedProperties);
     this.syncAriaAttributes();
   }
 

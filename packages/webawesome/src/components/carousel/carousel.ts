@@ -128,7 +128,7 @@ export default class WaCarousel extends WebAwesomeElement {
   }
 
   protected firstUpdated(changedProperties: PropertyValues<typeof this>): void {
-    super.firstUpdated(changedProperties)
+    super.firstUpdated(changedProperties);
     this.initializeSlides();
     this.mutationObserver = new MutationObserver(this.handleSlotChange);
     this.mutationObserver.observe(this, {

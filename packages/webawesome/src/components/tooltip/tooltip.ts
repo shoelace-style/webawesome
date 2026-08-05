@@ -158,7 +158,7 @@ export default class WaTooltip extends WebAwesomeElement {
       this.popup.active = true;
       this.popup.reposition();
     }
-    super.firstUpdated(changedProperties)
+    super.firstUpdated(changedProperties);
   }
 
   private handleBlur = () => {

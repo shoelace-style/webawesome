@@ -325,7 +325,7 @@ export default class WaTimeInput extends WebAwesomeFormAssociatedElement {
   }
 
   firstUpdated(changedProperties: PropertyValues<typeof this>) {
-    super.firstUpdated(changedProperties)
+    super.firstUpdated(changedProperties);
 
     if (this.pendingValue != null) {
       this._value = this.pendingValue;

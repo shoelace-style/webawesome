@@ -197,7 +197,7 @@ export default class WaKnownDate extends WebAwesomeFormAssociatedElement {
   //
 
   firstUpdated(changedProperties: PropertyValues<typeof this>) {
-    super.firstUpdated(changedProperties)
+    super.firstUpdated(changedProperties);
     if (this.pendingValue != null) {
       this._value = this.pendingValue;
       this.pendingValue = null;
