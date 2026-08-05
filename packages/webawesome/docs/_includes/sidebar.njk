@@ -15,10 +15,10 @@
 {%- macro sidebarComponent(page, suppressProBadge=false) -%}
   {%- set component = page.data.component -%}
   {%- set isExperimental = component and component.status == 'experimental' -%}
-  {%- set isPro = page.data.isProComponent and not suppressProBadge -%}
-  {%- if isPro %}<span class="wa-split">{% endif -%}
+  {%- set hasProBadge = true if (page.data.isProComponent and not suppressProBadge) else false -%}
+  {%- if hasProBadge %}<span class="wa-split">{% endif -%}
   <a{% if isExperimental %} class="wa-cluster wa-gap-xs"{% endif %} href="{{ page.url }}">{{ page.data.title }}{% if isExperimental %} <wa-icon name="flask" aria-hidden="true" class="icon-shrink de-emphasize"></wa-icon>{% endif %}</a>
-  {%- if isPro %} {{ proBadge() }}</span>{% endif -%}
+  {%- if hasProBadge %} {{ proBadge() }}</span>{% endif -%}
 {%- endmacro %}
 
 {%- set sortedComponentPages = collections.componentPages | sort(false, false, 'data.title') -%}
