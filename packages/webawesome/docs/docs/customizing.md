@@ -146,7 +146,7 @@ You can force a section to behave like `.wa-dark` in light mode and like `.wa-li
 ```
 
 :::warning
-Apply `wa-invert` (and other color scheme classes like `wa-light` and `wa-dark`) to a container, not directly to a component. These classes reset the variant color tokens on the element they're applied to, which overrides the element's own variant styles.
+Avoid adding `wa-invert` (and other color scheme classes like `wa-light` and `wa-dark`) directly to a component. These classes reset the variant color tokens on the element they're applied to, which overrides the element's own variant styles.
 :::
 
 #### Detecting Color Scheme Preference
