@@ -1,4 +1,4 @@
-import { html, isServer, nothing } from 'lit';
+import { html, isServer, nothing, type PropertyValues } from 'lit';
 import type { TemplateResult } from 'lit-html';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
@@ -324,7 +324,9 @@ export default class WaTimeInput extends WebAwesomeFormAssociatedElement {
     this.removeOpenListeners();
   }
 
-  firstUpdated() {
+  firstUpdated(changedProperties: PropertyValues<typeof this>) {
+    super.firstUpdated(changedProperties);
+
     if (this.pendingValue != null) {
       this._value = this.pendingValue;
       this.pendingValue = null;

@@ -90,7 +90,8 @@ export default class WaDetails extends WebAwesomeElement {
     this.detailsObserver?.disconnect();
   }
 
-  firstUpdated() {
+  firstUpdated(changedProperties: PropertyValues<typeof this>) {
+    super.firstUpdated(changedProperties);
     this.body.style.height = this.open ? 'auto' : '0';
     if (this.open) {
       this.details.open = true;

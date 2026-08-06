@@ -299,7 +299,7 @@ export default class WaPage extends WebAwesomeElement {
     return Math.max(0, top > 0 ? Math.min(elementHeight, windowHeight - top) : Math.min(bottom, windowHeight));
   }
 
-  firstUpdated() {
+  firstUpdated(changedProperties: PropertyValues<typeof this>) {
     // If the user provides a #main-content id, it should be present in the default slot and the "skip to
     // content" link will point to it. If not, we'll prepend an empty element for them so things just work.
     if (!document.getElementById('main-content')) {
@@ -311,6 +311,7 @@ export default class WaPage extends WebAwesomeElement {
 
     this.shadowRoot!.addEventListener('slotchange', this.updateNavigationToggleState);
     this.updateNavigationToggleState();
+    super.firstUpdated(changedProperties);
   }
 
   disconnectedCallback() {

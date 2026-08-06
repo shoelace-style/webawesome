@@ -36,11 +36,14 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed the focus ring on `<wa-otp-input>` animating its width and offset, which re-ran the animation on every keystroke as the active segment advanced. It now fades in at a fixed size, matching `<wa-input>` and the other form controls
 - Fixed a bug in `<wa-toast>` that caused center placements to render incorrectly on narrow screens [issue:2701]
 - Fixed `<wa-button>` losing its accessible name while `loading`. The label was hidden with `visibility: hidden`, which removed it from the accessibility tree. It is now hidden with `opacity`, so the label stays in the tree and the button's width is unchanged. The button also sets `aria-busy` while loading [issue:2693]
+- Fixed a bug in `<wa-data-grid>` that caused an expanded row detail's space to stay reserved at its old position after changing pages, sorting, or filtering
 
 :::
 
 :::changed
+
 - Improved accessibility of `<wa-dropdown>` by adding `aria-posinset` and `aria-setsize` so supportive screen readers can correctly announce the number of dropdown items []
+
 :::
 
 ## 3.11.0
