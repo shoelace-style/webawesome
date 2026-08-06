@@ -1,4 +1,4 @@
-import { html, isServer } from 'lit';
+import { html, isServer, type PropertyValues } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { WaAfterHideEvent } from '../../events/after-hide.js';
@@ -96,10 +96,8 @@ export default class WaDrawer extends WebAwesomeElement {
    */
   @property({ attribute: 'with-footer', type: Boolean }) withFooter = false;
 
-  firstUpdated() {
-    if (isServer) {
-      return;
-    }
+  firstUpdated(changedProperties: PropertyValues<typeof this>) {
+    super.firstUpdated(changedProperties);
     if (this.open) {
       this.addOpenListeners();
       this.drawer.showModal();
