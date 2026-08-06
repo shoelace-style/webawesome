@@ -3,6 +3,7 @@ import { html } from 'lit';
 import sinon from 'sinon';
 import { fixtures } from '../../internal/test/fixture.js';
 import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
+import { clickOnElement } from '../../internal/test/pointer-utilities.js';
 import type WaButton from './button.js';
 
 const variants = ['brand', 'success', 'neutral', 'warning', 'danger'];
@@ -56,6 +57,18 @@ describe('<wa-button>', () => {
           const el = await fixture<WaButton>(html` <wa-button loading><span>Button Label</span></wa-button> `);
           const label = el.querySelector('span')!;
           expect(getComputedStyle(label).visibility).to.not.equal('hidden');
+        });
+
+        it('should not let clicks reach the hidden label when loading', async () => {
+          const el = await fixture<WaButton>(html` <wa-button loading><span>Button Label</span></wa-button> `);
+          const label = el.querySelector('span')!;
+          const labelHandler = sinon.spy();
+          label.addEventListener('click', labelHandler);
+
+          // Away from the centre, where the spinner sits
+          await clickOnElement(label, 'left');
+
+          expect(labelHandler).not.to.have.been.called;
         });
 
         it('should set aria-busy when loading', async () => {
