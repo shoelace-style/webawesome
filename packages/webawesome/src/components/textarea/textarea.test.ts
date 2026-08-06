@@ -116,6 +116,40 @@ describe('<wa-textarea>', () => {
           const hint = el.shadowRoot!.querySelector('[part~="hint"]')!;
           expect(hint.textContent).to.contain('Some hint');
         });
+
+        it('should render the hint part as a top-level child so it can be positioned in custom layouts', async () => {
+          const el = await fixture<WaTextarea>(html`<wa-textarea hint="Some hint"></wa-textarea>`);
+          const hint = el.shadowRoot!.querySelector('[part~="hint"]')!;
+          expect(hint.parentNode).to.equal(el.shadowRoot);
+        });
+
+        it('should hide the hint part when there is no hint', async () => {
+          const el = await fixture<WaTextarea>(html`<wa-textarea></wa-textarea>`);
+          const hint = el.shadowRoot!.querySelector('[part~="hint"]')!;
+          expect(getComputedStyle(hint).display).to.equal('none');
+        });
+
+        it('should show the hint part when a hint is provided', async () => {
+          const el = await fixture<WaTextarea>(html`<wa-textarea hint="Some hint"></wa-textarea>`);
+          const hint = el.shadowRoot!.querySelector('[part~="hint"]')!;
+          expect(getComputedStyle(hint).display).to.not.equal('none');
+        });
+
+        it('should keep the character count visible when there is no hint', async () => {
+          const el = await fixture<WaTextarea>(html`<wa-textarea with-count maxlength="10"></wa-textarea>`);
+          const count = el.shadowRoot!.querySelector('[part~="count"]')! as HTMLElement;
+          expect(count.getBoundingClientRect().height).to.be.greaterThan(0);
+        });
+
+        it('should lay the hint and character count out on one line', async () => {
+          const el = await fixture<WaTextarea>(
+            html`<wa-textarea hint="Some hint" with-count maxlength="10"></wa-textarea>`,
+          );
+          const hint = el.shadowRoot!.querySelector('[part~="hint"]')! as HTMLElement;
+          const count = el.shadowRoot!.querySelector('[part~="count"]')! as HTMLElement;
+          expect(getComputedStyle(hint).display).to.equal('flex');
+          expect(count.getBoundingClientRect().top).to.be.lessThan(hint.getBoundingClientRect().bottom);
+        });
       });
 
       describe('events', () => {

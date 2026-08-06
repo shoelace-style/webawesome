@@ -135,13 +135,18 @@ export default css`
    * Footer (hint + character count)
    */
 
-  .footer {
+  /*
+   * This element carries the hint part, so the shared form control styles apply to it. Those styles set display:block
+   * and hide the element when it has no hint, both of which have to be undone when a character count is present.
+   */
+  .footer.has-slotted,
+  .footer.has-count {
     display: flex;
     align-items: baseline;
     gap: 1em;
   }
 
-  .footer.has-count [part='hint'] {
+  .footer.has-count .hint {
     flex: 1 1 auto;
     min-width: 0;
   }

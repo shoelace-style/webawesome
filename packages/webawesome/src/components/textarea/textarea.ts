@@ -483,21 +483,17 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
       </div>
 
       <div
+        part="hint"
         class=${classMap({
           footer: true,
           'has-count': this.withCount,
+          // The shared form control styles hide the hint part when both of these are absent, which would also hide the
+          // character count, so has-hint keeps the footer visible when a count is shown without a hint.
+          'has-slotted': hasHint,
+          'has-hint': this.withCount,
         })}
       >
-        <slot
-          id="hint"
-          name="hint"
-          part="hint"
-          aria-hidden=${hasHint ? 'false' : 'true'}
-          class=${classMap({
-            'has-slotted': hasHint,
-          })}
-          >${this.hint}</slot
-        >
+        <slot id="hint" name="hint" class="hint" aria-hidden=${hasHint ? 'false' : 'true'}>${this.hint}</slot>
 
         ${this.withCount
           ? html`
