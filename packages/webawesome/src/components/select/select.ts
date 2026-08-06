@@ -27,6 +27,7 @@ import type WaOption from '../option/option.js';
 import '../popup/popup.js';
 import type WaPopup from '../popup/popup.js';
 import '../tag/tag.js';
+import type WaTag from '../tag/tag.js';
 import styles from './select.styles.js';
 
 /**
@@ -302,6 +303,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
           ?pill=${this.pill}
           size=${this.size}
           with-remove
+          .isRemoveTabbable=${false}
           data-value=${option.value}
           @wa-remove=${(event: WaRemoveEvent) => this.handleTagRemove(event, option)}
         >
@@ -877,6 +879,10 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
 
     if (changedProperties.has('value') || changedProperties.has('displayLabel')) {
       this.customStates.set('blank', !this.value && !this.displayLabel);
+    }
+
+    if (this.multiple) {
+      this.shadowRoot?.querySelectorAll<WaTag>('wa-tag').forEach(tag => (tag.isRemoveTabbable = false));
     }
   }
 

@@ -1101,6 +1101,56 @@ describe('<wa-select>', () => {
         expect(el.value).to.equal('');
         await resetMouse();
       });
+
+      describe('tag tab order', () => {
+        it('should not make tag remove buttons tab stops', async () => {
+          const container = await fixture<HTMLDivElement>(html`
+            <div>
+              <wa-select multiple .value=${['a', 'b']}>
+                <wa-option value="a">A</wa-option>
+                <wa-option value="b">B</wa-option>
+              </wa-select>
+              <button id="after">After</button>
+            </div>
+          `);
+          const select = container.querySelector<WaSelect>('wa-select')!;
+          const after = container.querySelector<HTMLButtonElement>('#after')!;
+          await select.updateComplete;
+
+          select.focus();
+          expect(select.shadowRoot!.querySelectorAll('wa-tag')).to.have.length(2);
+          expect(document.activeElement).to.equal(select);
+          await sendKeys({ press: 'Tab' });
+
+          expect(document.activeElement).to.equal(after);
+        });
+
+        it('should not make tag remove buttons tab stops when getTag is overridden', async () => {
+          const container = await fixture<HTMLDivElement>(html`
+            <div>
+              <wa-select multiple .value=${['a', 'b']}>
+                <wa-option value="a">A</wa-option>
+                <wa-option value="b">B</wa-option>
+              </wa-select>
+              <button id="after">After</button>
+            </div>
+          `);
+          const select = container.querySelector<WaSelect>('wa-select')!;
+          const after = container.querySelector<HTMLButtonElement>('#after')!;
+
+          select.getTag = option => `<wa-tag with-remove>${option.label}</wa-tag>`;
+          select.requestUpdate();
+          await select.updateComplete;
+          await aTimeout(0);
+
+          select.focus();
+          expect(select.shadowRoot!.querySelectorAll('wa-tag')).to.have.length(2);
+          expect(document.activeElement).to.equal(select);
+          await sendKeys({ press: 'Tab' });
+
+          expect(document.activeElement).to.equal(after);
+        });
+      });
     });
   }
 

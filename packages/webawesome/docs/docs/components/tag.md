@@ -102,10 +102,15 @@ Use the `pill` attribute to give tags rounded edges.
 
 ### Removable
 
-Use the `with-remove` attribute to add a remove button to the tag. The button carries a built-in `Remove` label for assistive technology, and activating it emits the `wa-remove` event so you can handle the removal.
+Use the `with-remove` attribute to add a remove button to the tag. The button carries a built-in `Remove` label for assistive technology, and activating it emits the `wa-remove` event so you can handle the removal. The button is reachable with <kbd>Tab</kbd> and activates with <kbd>Enter</kbd> or <kbd>Space</kbd>.
+
+:::info
+<strong>`wa-remove` only announces the intent</strong><br />
+Removing the tag is up to you. Move focus to the tag's container afterwards (give it `tabindex="-1"`) so keyboard users aren't left on a removed element.
+:::
 
 ```html {.example}
-<div class="tags-removable">
+<div class="tags-removable wa-cluster wa-gap-2xs" tabindex="-1">
   <wa-tag size="xs" with-remove>Extra Small</wa-tag>
   <wa-tag size="s" with-remove>Small</wa-tag>
   <wa-tag size="m" with-remove>Medium</wa-tag>
@@ -113,19 +118,21 @@ Use the `with-remove` attribute to add a remove button to the tag. The button ca
   <wa-tag size="xl" with-remove>Extra Large</wa-tag>
 </div>
 
+<wa-divider></wa-divider>
+
+<wa-button id="tags-reset" appearance="filled">Reset</wa-button>
+
 <script>
   const div = document.querySelector('.tags-removable');
+  const tags = [...div.children];
 
   div.addEventListener('wa-remove', event => {
-    const tag = event.target;
-    tag.style.opacity = '0';
-    setTimeout(() => (tag.style.opacity = '1'), 2000);
+    event.target.remove();
+    div.focus();
+  });
+
+  document.getElementById('tags-reset').addEventListener('click', () => {
+    div.replaceChildren(...tags);
   });
 </script>
-
-<style>
-  .tags-removable wa-tag {
-    transition: opacity var(--wa-transition-normal);
-  }
-</style>
 ```

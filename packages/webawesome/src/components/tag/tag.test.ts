@@ -1,4 +1,5 @@
 import { expect } from '@open-wc/testing';
+import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import { expectEvent } from '../../internal/test/expect-event.js';
 import { fixtures } from '../../internal/test/fixture.js';
@@ -84,6 +85,88 @@ describe('<wa-tag>', () => {
           const removeButton = el.shadowRoot!.querySelector<HTMLElement>('wa-button')!;
 
           await expectEvent(el, 'wa-remove', () => removeButton.click());
+        });
+      });
+
+      describe('keyboard', () => {
+        it('should reach the remove button with Tab', async () => {
+          const container = await fixture<HTMLDivElement>(html`
+            <div>
+              <button>Before</button>
+              <wa-tag with-remove>Test</wa-tag>
+              <button id="after">After</button>
+            </div>
+          `);
+          const before = container.querySelector('button')!;
+          const tag = container.querySelector<WaTag>('wa-tag')!;
+          const removeButton = tag.shadowRoot!.querySelector('wa-button')!;
+          const after = container.querySelector<HTMLButtonElement>('#after')!;
+
+          before.focus();
+          await sendKeys({ press: 'Tab' });
+
+          expect(document.activeElement).to.equal(tag);
+          expect(tag.shadowRoot!.activeElement).to.equal(removeButton);
+
+          await sendKeys({ press: 'Tab' });
+          expect(document.activeElement).to.equal(after);
+        });
+
+        it('should emit wa-remove when Enter is pressed on the remove button', async () => {
+          const container = await fixture<HTMLDivElement>(html`
+            <div>
+              <button>Before</button>
+              <wa-tag with-remove>Test</wa-tag>
+            </div>
+          `);
+          const before = container.querySelector('button')!;
+          const tag = container.querySelector<WaTag>('wa-tag')!;
+
+          before.focus();
+          await sendKeys({ press: 'Tab' });
+
+          await expectEvent(tag, 'wa-remove', async () => {
+            await sendKeys({ press: 'Enter' });
+          });
+        });
+
+        it('should emit wa-remove when Space is pressed on the remove button', async () => {
+          const container = await fixture<HTMLDivElement>(html`
+            <div>
+              <button>Before</button>
+              <wa-tag with-remove>Test</wa-tag>
+            </div>
+          `);
+          const before = container.querySelector('button')!;
+          const tag = container.querySelector<WaTag>('wa-tag')!;
+
+          before.focus();
+          await sendKeys({ press: 'Tab' });
+
+          await expectEvent(tag, 'wa-remove', async () => {
+            await sendKeys({ press: 'Space' });
+          });
+        });
+
+        it('should skip the remove button when isRemoveTabbable is false', async () => {
+          const container = await fixture<HTMLDivElement>(html`
+            <div>
+              <button id="before">Before</button>
+              <wa-tag with-remove>Test</wa-tag>
+              <button id="after">After</button>
+            </div>
+          `);
+          const before = container.querySelector<HTMLButtonElement>('#before')!;
+          const after = container.querySelector<HTMLButtonElement>('#after')!;
+          const tag = container.querySelector<WaTag>('wa-tag')!;
+
+          tag.isRemoveTabbable = false;
+          await tag.updateComplete;
+
+          before.focus();
+          await sendKeys({ press: 'Tab' });
+
+          expect(document.activeElement).to.equal(after);
         });
       });
 

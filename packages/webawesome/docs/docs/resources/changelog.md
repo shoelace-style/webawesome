@@ -39,7 +39,10 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 :::
 
 :::changed
+
 - Improved accessibility of `<wa-dropdown>` by adding `aria-posinset` and `aria-setsize` so supportive screen readers can correctly announce the number of dropdown items []
+- Improved keyboard support for `<wa-tag with-remove>`: the remove button is now reachable with <kbd>Tab</kbd> and activates with <kbd>Enter</kbd> or <kbd>Space</kbd>
+
 :::
 
 ## 3.11.0

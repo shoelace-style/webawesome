@@ -54,6 +54,9 @@ export default class WaTag extends WebAwesomeElement {
   /** Makes the tag removable and shows a remove button. */
   @property({ attribute: 'with-remove', type: Boolean }) withRemove = false;
 
+  /** @internal Set by parent controls (`<wa-select>`, `<wa-combobox>`) that must remain a single tab stop. */
+  @property({ type: Boolean, attribute: false }) isRemoveTabbable = true;
+
   private handleRemoveClick() {
     this.dispatchEvent(new WaRemoveEvent());
   }
@@ -71,7 +74,7 @@ export default class WaTag extends WebAwesomeElement {
               appearance="plain"
               size=${this.size}
               @click=${this.handleRemoveClick}
-              tabindex="-1"
+              tabindex=${this.isRemoveTabbable ? '0' : '-1'}
             >
               <wa-icon name="xmark" library="system" variant="solid" label=${this.localize.term('remove')}></wa-icon>
             </wa-button>
