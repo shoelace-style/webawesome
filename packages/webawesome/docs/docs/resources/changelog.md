@@ -34,8 +34,13 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 :::fixed
 
 - Fixed the focus ring on `<wa-otp-input>` animating its width and offset, which re-ran the animation on every keystroke as the active segment advanced. It now fades in at a fixed size, matching `<wa-input>` and the other form controls
+- Fixed a bug in `<wa-toast>` that caused center placements to render incorrectly on narrow screens [issue:2701]
 - Fixed `<wa-button>` losing its accessible name while `loading`. The label was hidden with `visibility: hidden`, which removed it from the accessibility tree. It is now hidden with `opacity`, so the label stays in the tree and the button's width is unchanged. The button also sets `aria-busy` while loading [issue:2693]
 
+:::
+
+:::changed
+- Improved accessibility of `<wa-dropdown>` by adding `aria-posinset` and `aria-setsize` so supportive screen readers can correctly announce the number of dropdown items []
 :::
 
 ## 3.11.0
@@ -83,6 +88,13 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug in `<wa-tree>` where pressing [[Enter]] or [[Space]] while focus was inside a tree item, e.g. on a link or a button slotted into it, threw a "Cannot read properties of undefined" error and swallowed the keypress instead of letting the focused element handle it [issue:2673] [pr:2674]
 - Fixed a regression in `<wa-icon>` that reintroduced `fill: currentColor` on the internal SVG in 3.8.0 [issue:2636] [pr:2677]
 - Fixed a bug in Native Styles where elements like `<button>` didn't pick up inverted colors inside `.wa-invert` [issue:2533] [pr:2678]
+- Fixed `<wa-color-picker>` rendering the `form-control`, `form-control-input`, and `hint` CSS parts without documenting them, and corrected the `color-picker` part's description to name the dropdown panel it actually targets [issue:2624]
+- Fixed several components documenting CSS parts that never render, so `::part()` selectors targeting them silently did nothing [issue:2624]
+  - `<wa-page>` — removed `dialog-wrapper`
+  - `<wa-radio-group>` — removed `radios`; `form-control-input` is the wrapper around the grouped radios
+  - `<wa-slider>` — renamed `tooltip__content` to `tooltip__body`, and now forwards the `tooltip__tooltip` part it already documented
+  - `<wa-textarea>` — removed `form-control-input`, which it never rendered
+  - `<wa-video>` — removed `progress`; the progress bar is the slider's `timeline-indicator` part
 
 :::
 

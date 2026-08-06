@@ -59,6 +59,26 @@ describe('<wa-dropdown>', () => {
           const menu = el.shadowRoot!.querySelector('#menu')!;
           expect(menu.getAttribute('role')).to.equal('menu');
         });
+
+        it('should exclude labels and dividers from the reported menu item count', async () => {
+          const el = await fixture<WaDropdown>(html`
+            <wa-dropdown>
+              <wa-button slot="trigger">Dropdown</wa-button>
+              <h3>Type</h3>
+              <wa-dropdown-item>Phone</wa-dropdown-item>
+              <wa-dropdown-item>Tablet</wa-dropdown-item>
+              <wa-dropdown-item>Desktop</wa-dropdown-item>
+              <wa-divider></wa-divider>
+              <wa-dropdown-item>More options</wa-dropdown-item>
+            </wa-dropdown>
+          `);
+          await el.updateComplete;
+
+          const items = [...el.querySelectorAll('wa-dropdown-item')];
+          await waitUntil(() => items.every(item => item.hasAttribute('aria-posinset')));
+          expect(items.map(item => item.getAttribute('aria-posinset'))).to.deep.equal(['1', '2', '3', '4']);
+          expect(items.map(item => item.getAttribute('aria-setsize'))).to.deep.equal(['4', '4', '4', '4']);
+        });
       });
 
       describe('properties', () => {
