@@ -36,12 +36,15 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed the focus ring on `<wa-otp-input>` animating its width and offset, which re-ran the animation on every keystroke as the active segment advanced. It now fades in at a fixed size, matching `<wa-input>` and the other form controls
 - Fixed a bug in `<wa-toast>` that caused center placements to render incorrectly on narrow screens [issue:2701]
 - Fixed a bug in `<wa-data-grid>` that caused an expanded row detail's space to stay reserved at its old position after changing pages, sorting, or filtering
+- Fixed a bug in `<wa-tooltip>` where canceling the `wa-hide` event didn't keep the tooltip open
+- Fixed a bug in `<wa-tooltip>` where tooltips with `trigger="manual"` closed when pressing <kbd>Escape</kbd>
 
 :::
 
 :::changed
 
 - Improved accessibility of `<wa-dropdown>` by adding `aria-posinset` and `aria-setsize` so supportive screen readers can correctly announce the number of dropdown items []
+- Improved `<wa-tooltip>` so it correctly light dismisses when the user presses the target or clicks anywhere else on the page [discuss:1921]
 
 :::
 
