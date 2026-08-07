@@ -121,7 +121,9 @@ export default class WaPopover extends WebAwesomeElement {
     this.eventController.abort();
   }
 
-  firstUpdated() {
+  firstUpdated(changedProperties: PropertyValues<typeof this>) {
+    super.firstUpdated(changedProperties);
+
     // If the popover is visible on init, update its position
     if (this.open) {
       this.dialog.show();

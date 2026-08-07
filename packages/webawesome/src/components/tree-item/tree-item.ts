@@ -1,5 +1,5 @@
 import { consume, createContext, provide } from '@lit/context';
-import type { PropertyValueMap } from 'lit';
+import type { PropertyValueMap, PropertyValues } from 'lit';
 import { html } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
@@ -137,7 +137,8 @@ export default class WaTreeItem extends WebAwesomeElement {
     this.updateIndentation();
   }
 
-  firstUpdated() {
+  firstUpdated(changedProperties: PropertyValues<typeof this>) {
+    super.firstUpdated(changedProperties);
     this.childrenContainer.hidden = !this.expanded;
     this.childrenContainer.style.height = this.expanded ? 'auto' : '0';
 
