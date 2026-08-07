@@ -31,6 +31,12 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 ## Unreleased
 
+:::added
+
+- Added the `filterOptions` column option to `<wa-data-grid>` to supply a `set`/`includes-*` filter picker's values yourself, enabling value pickers in server mode and custom ordering/labeling in client mode
+
+:::
+
 :::fixed
 
 - Fixed the focus ring on `<wa-otp-input>` animating its width and offset, which re-ran the animation on every keystroke as the active segment advanced. It now fades in at a fixed size, matching `<wa-input>` and the other form controls
