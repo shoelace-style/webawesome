@@ -146,7 +146,9 @@ export default css`
     gap: 1em;
   }
 
+  /* Slots default to display:contents, which would leave the hint unable to shrink below its content */
   .footer.has-count .hint {
+    display: block;
     flex: 1 1 auto;
     min-width: 0;
   }

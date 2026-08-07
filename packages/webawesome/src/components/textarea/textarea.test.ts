@@ -150,6 +150,19 @@ describe('<wa-textarea>', () => {
           expect(getComputedStyle(hint).display).to.equal('flex');
           expect(count.getBoundingClientRect().top).to.be.lessThan(hint.getBoundingClientRect().bottom);
         });
+
+        it('should keep the character count inside the control when the hint cannot wrap', async () => {
+          const el = await fixture<WaTextarea>(
+            html`<wa-textarea
+              style="width: 300px"
+              hint="Supercalifragilisticexpialidocious-antidisestablishmentarianism-pneumonoultramicroscopicsilicovolcanoconiosis"
+              with-count
+              maxlength="10"
+            ></wa-textarea>`,
+          );
+          const count = el.shadowRoot!.querySelector('[part~="count"]')! as HTMLElement;
+          expect(count.getBoundingClientRect().right).to.be.at.most(el.getBoundingClientRect().right);
+        });
       });
 
       describe('events', () => {
