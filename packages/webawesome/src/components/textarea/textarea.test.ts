@@ -145,9 +145,10 @@ describe('<wa-textarea>', () => {
           const el = await fixture<WaTextarea>(
             html`<wa-textarea hint="Some hint" with-count maxlength="10"></wa-textarea>`,
           );
-          const hint = el.shadowRoot!.querySelector('[part~="hint"]')! as HTMLElement;
+          const footer = el.shadowRoot!.querySelector('[part~="hint"]')! as HTMLElement;
+          const hint = el.shadowRoot!.querySelector('.hint')! as HTMLElement;
           const count = el.shadowRoot!.querySelector('[part~="count"]')! as HTMLElement;
-          expect(getComputedStyle(hint).display).to.equal('flex');
+          expect(getComputedStyle(footer).display).to.equal('flex');
           expect(count.getBoundingClientRect().top).to.be.lessThan(hint.getBoundingClientRect().bottom);
         });
 
