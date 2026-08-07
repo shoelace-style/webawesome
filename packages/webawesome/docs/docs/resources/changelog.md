@@ -35,9 +35,8 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 - Fixed the focus ring on `<wa-otp-input>` animating its width and offset, which re-ran the animation on every keystroke as the active segment advanced. It now fades in at a fixed size, matching `<wa-input>` and the other form controls
 - Fixed a bug in `<wa-toast>` that caused center placements to render incorrectly on narrow screens [issue:2701]
-- Fixed system icons so the SVGs don't include `fill="currentColor"`, which is now set in the mutator like the default icon library [issue:2688]
+- Fixed system icons in `<wa-pagination>`, `<wa-time-input>`, and `<wa-date-input>` rendering black instead of inheriting the current text color [issue:2688]
 - Fixed a bug in `<wa-data-grid>` that caused an expanded row detail's space to stay reserved at its old position after changing pages, sorting, or filtering
-
 
 :::
 
