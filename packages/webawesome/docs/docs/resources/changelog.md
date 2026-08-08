@@ -33,6 +33,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::fixed
 
+- Fixed native table row headers (`<th scope="row">`) rendering at a smaller font size than the cells beside them, which knocked their text out of vertical alignment. The smaller type is now scoped to column headers
 - Fixed the focus ring on `<wa-otp-input>` animating its width and offset, which re-ran the animation on every keystroke as the active segment advanced. It now fades in at a fixed size, matching `<wa-input>` and the other form controls
 - Fixed a bug in `<wa-toast>` that caused center placements to render incorrectly on narrow screens [issue:2701]
 - Fixed a bug in `<wa-data-grid>` that caused an expanded row detail's space to stay reserved at its old position after changing pages, sorting, or filtering
