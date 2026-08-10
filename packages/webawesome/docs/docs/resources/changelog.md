@@ -31,6 +31,12 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 ## Unreleased
 
+:::added
+
+- Added the `filterOptions` column option to `<wa-data-grid>` to supply a `set`/`includes-*` filter picker's values yourself, enabling value pickers in server mode and custom ordering/labeling in client mode
+
+:::
+
 :::fixed
 
 - Fixed native table row headers (`<th scope="row">`) rendering at a smaller font size than the cells beside them, which knocked their text out of vertical alignment. The smaller type is now scoped to column headers
@@ -44,6 +50,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 :::changed
 
 - Improved accessibility of `<wa-dropdown>` by adding `aria-posinset` and `aria-setsize` so supportive screen readers can correctly announce the number of dropdown items []
+- Updated `<wa-data-grid>` to TanStack Table 9 internally (the grid's public API, state format, and behavior are unchanged)
 
 :::
 
