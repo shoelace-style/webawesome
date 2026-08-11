@@ -33,6 +33,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::added
 
+- Added version 3.0.0 of the [official Web Awesome Figma Design Kit](/docs/resources/figma)
 - Added the `filterOptions` column option to `<wa-data-grid>` to supply a `set`/`includes-*` filter picker's values yourself, enabling value pickers in server mode and custom ordering/labeling in client mode
 
 :::
