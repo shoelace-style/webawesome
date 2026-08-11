@@ -145,6 +145,10 @@ You can force a section to behave like `.wa-dark` in light mode and like `.wa-li
 </wa-card>
 ```
 
+:::warning
+Avoid adding `wa-invert` (and other color scheme classes like `wa-light` and `wa-dark`) directly to a component. These classes reset the variant color tokens on the element they're applied to, which overrides the element's own variant styles.
+:::
+
 #### Detecting Color Scheme Preference
 
 While both light and dark mode styles are built-in to all themes, Web Awesome doesn't automatically detect the user's color scheme preference. We recommend doing this at the application level.
@@ -234,7 +238,7 @@ To create your own dark mode styles, scope your styles to these selectors:
 | `:where(:root)`       | The default scope, with low specificity so other theme classes can override it |
 | `.wa-light`           | Explicit light sections                                                        |
 | `.wa-dark`            | Explicit dark sections                                                         |
-| `.wa-invert`          | Flips the current color scheme on this element                                 |
+| `.wa-invert`          | Flips the current color scheme for the section it's applied to                 |
 | `.wa-dark .wa-invert` | An inverted descendant inside a dark section (becomes light)                   |
 
 For a complete list of all custom properties used for theming, refer to `src/styles/themes/default.css` in the project's source code.

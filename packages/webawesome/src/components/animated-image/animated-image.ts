@@ -63,7 +63,6 @@ export default class WaAnimatedImage extends WebAwesomeElement {
   }
 
   firstUpdated(changedProperties: PropertyValues<this>) {
-    super.firstUpdated;
     if (this.didSSR) {
       const img = this.animatedImage;
       if (img && img.complete) {

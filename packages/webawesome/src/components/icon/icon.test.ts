@@ -9,6 +9,7 @@ import { registerIconLibrary } from '../../../dist-cdn/webawesome.js';
 import type WaIcon from './icon.js';
 import type { IconAnimation } from './icon.js';
 import defaultLibrary, { getIconFolder } from './library.default.js';
+import systemLibrary from './library.system.js';
 
 // Captures the autoWidth argument passed to a resolver so we can assert the canvas="auto" coupling.
 let probeAutoWidth: boolean | undefined;
@@ -120,6 +121,23 @@ describe('<wa-icon>', () => {
       const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
       svg.setAttribute('fill', 'none');
       defaultLibrary.mutator!(svg);
+      expect(svg.getAttribute('fill')).to.equal('none');
+    });
+  });
+
+  // The system library embeds Font Awesome SVGs as strings, and not all of them include a fill attribute, so its
+  // mutator applies the same fallback as the default library.
+  describe('system library fill handling', () => {
+    it('adds fill="currentColor" to icons that do not specify a fill', () => {
+      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      systemLibrary.mutator!(svg);
+      expect(svg.getAttribute('fill')).to.equal('currentColor');
+    });
+
+    it('respects an existing fill attribute', () => {
+      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.setAttribute('fill', 'none');
+      systemLibrary.mutator!(svg);
       expect(svg.getAttribute('fill')).to.equal('none');
     });
   });

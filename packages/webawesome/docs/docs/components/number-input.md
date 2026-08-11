@@ -193,7 +193,7 @@ Use [CSS parts](#css-parts) to customize the way form controls are drawn. This e
       align-items: center;
     }
 
-    ::part(label) {
+    ::part(form-control-label) {
       text-align: right;
     }
 
