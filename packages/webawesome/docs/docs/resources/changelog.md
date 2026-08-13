@@ -35,6 +35,10 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 - Added version 3.0.0 of the [official Web Awesome Figma Design Kit](/docs/resources/figma)
 - Added the `filterOptions` column option to `<wa-data-grid>` to supply a `set`/`includes-*` filter picker's values yourself, enabling value pickers in server mode and custom ordering/labeling in client mode
+- Added the `href`, `target`, `rel`, and `download` attributes to `<wa-dropdown-item>` so items can navigate when selected
+  - Selecting a link item honors modifier keys, e.g. pressing <kbd>Command</kbd> or <kbd>Control</kbd> to open a new tab, except in Safari
+  - Items with a submenu ignore `href`
+  - Added the `link` custom state to `<wa-dropdown-item>`
 
 :::
 
@@ -46,6 +50,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed system icons in `<wa-pagination>`, `<wa-time-input>`, and `<wa-date-input>` rendering black instead of inheriting the current text color [issue:2688]
 - Fixed a bug in `<wa-data-grid>` that caused an expanded row detail's space to stay reserved at its old position after changing pages, sorting, or filtering
 - Fixed the `hint` part in `<wa-textarea>`, which sat on the slot inside an unexposed wrapper and couldn't be positioned by custom layouts. The part now lives on that wrapper, so `::part(hint)` selects the hint and the character count together [issue:2614]
+- Fixed the missing Custom States table in the `<wa-dropdown-item>` docs. The `active`, `checked`, `disabled`, `has-submenu`, and `submenu-open` states already worked, but went undocumented
 
 :::
 
