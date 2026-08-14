@@ -39,7 +39,8 @@ export default css`
     outline: var(--wa-focus-ring-style) var(--wa-focus-ring-width) transparent;
     outline-offset: var(--wa-focus-ring-offset);
 
-    &:focus-within {
+    /* Only ring the field when the text input has focus, not inner buttons */
+    &:has(input:focus, textarea:focus) {
       outline-color: var(--wa-color-focus);
     }
 
@@ -214,6 +215,12 @@ export default css`
 
     &:focus {
       outline: none;
+    }
+
+    &:focus-visible {
+      outline: var(--wa-focus-ring);
+      outline-offset: var(--wa-focus-ring-offset);
+      border-radius: var(--wa-border-radius-s);
     }
   }
 

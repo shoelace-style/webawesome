@@ -461,7 +461,6 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
                 type="button"
                 aria-label=${this.localize.term(this.passwordVisible ? 'hidePassword' : 'showPassword')}
                 @click=${this.handlePasswordToggle}
-                tabindex="-1"
               >
                 ${!this.passwordVisible
                   ? html`

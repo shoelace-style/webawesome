@@ -56,7 +56,8 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::changed
 
-- Improved accessibility of `<wa-dropdown>` by adding `aria-posinset` and `aria-setsize` so supportive screen readers can correctly announce the number of dropdown items []
+- Improved accessibility of `<wa-dropdown>` by adding `aria-posinset` and `aria-setsize` so supportive screen readers can correctly announce the number of dropdown items [#2697]
+- Improved accessibility of `<wa-input type="password">` by making the toggle password button focusable [issue:2727]
 - Updated `<wa-data-grid>` to TanStack Table 9 internally (the grid's public API, state format, and behavior are unchanged)
 
 :::
