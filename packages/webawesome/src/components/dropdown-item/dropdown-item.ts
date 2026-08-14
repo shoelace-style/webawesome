@@ -339,7 +339,7 @@ export default class WaDropdownItem extends WebAwesomeElement {
 
   render() {
     return html`
-      ${this.isLink()
+      ${this.href
         ? html`
             <a
               id="link"
