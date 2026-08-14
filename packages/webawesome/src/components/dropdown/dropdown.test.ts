@@ -712,21 +712,22 @@ describe('<wa-dropdown>', () => {
   });
 
   describe('submenu positioning', () => {
-    const submenuFixture = () => fixtures[0]<WaDropdown>(html`
-      <wa-dropdown>
-        <wa-button slot="trigger">Menu</wa-button>
-        <wa-dropdown-item id="parent-item">
-          Email Template Previews
-          <wa-dropdown-item slot="submenu">Received</wa-dropdown-item>
-          <wa-dropdown-item slot="submenu">Approval Needed</wa-dropdown-item>
-          <wa-dropdown-item slot="submenu">Needs Scheduled</wa-dropdown-item>
-          <wa-dropdown-item slot="submenu">Scheduled</wa-dropdown-item>
-          <wa-dropdown-item slot="submenu">Awaiting Payment</wa-dropdown-item>
-          <wa-dropdown-item slot="submenu">New User Welcome</wa-dropdown-item>
-          <wa-dropdown-item slot="submenu">Reset Password</wa-dropdown-item>
-        </wa-dropdown-item>
-      </wa-dropdown>
-    `);
+    const submenuFixture = () =>
+      fixtures[0]<WaDropdown>(html`
+        <wa-dropdown>
+          <wa-button slot="trigger">Menu</wa-button>
+          <wa-dropdown-item id="parent-item">
+            Email Template Previews
+            <wa-dropdown-item slot="submenu">Received</wa-dropdown-item>
+            <wa-dropdown-item slot="submenu">Approval Needed</wa-dropdown-item>
+            <wa-dropdown-item slot="submenu">Needs Scheduled</wa-dropdown-item>
+            <wa-dropdown-item slot="submenu">Scheduled</wa-dropdown-item>
+            <wa-dropdown-item slot="submenu">Awaiting Payment</wa-dropdown-item>
+            <wa-dropdown-item slot="submenu">New User Welcome</wa-dropdown-item>
+            <wa-dropdown-item slot="submenu">Reset Password</wa-dropdown-item>
+          </wa-dropdown-item>
+        </wa-dropdown>
+      `);
 
     async function openSubmenu(el: WaDropdown) {
       el.open = true;
