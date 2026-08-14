@@ -260,6 +260,121 @@ describe('<wa-dropdown>', () => {
           expect(el.open).to.be.false;
         });
 
+        it('should navigate when a link item is selected', async () => {
+          const el = await fixture<WaDropdown>(html`
+            <wa-dropdown open>
+              <wa-button slot="trigger">Dropdown</wa-button>
+              <wa-dropdown-item value="about" href="/about">About</wa-dropdown-item>
+            </wa-dropdown>
+          `);
+          await el.updateComplete;
+          await aTimeout(200);
+
+          const item = el.querySelector<HTMLElement>('wa-dropdown-item')!;
+          const link = item.shadowRoot!.querySelector<HTMLAnchorElement>('#link')!;
+          const clickHandler = sinon.spy((event: MouseEvent) => event.preventDefault());
+          link.addEventListener('click', clickHandler);
+
+          item.click();
+          await aTimeout(200);
+
+          expect(clickHandler).to.have.been.calledOnce;
+          expect(el.open).to.be.false;
+        });
+
+        it('should not navigate when wa-select is prevented on a link item', async () => {
+          const el = await fixture<WaDropdown>(html`
+            <wa-dropdown open>
+              <wa-button slot="trigger">Dropdown</wa-button>
+              <wa-dropdown-item value="about" href="/about">About</wa-dropdown-item>
+            </wa-dropdown>
+          `);
+          await el.updateComplete;
+          await aTimeout(200);
+
+          el.addEventListener('wa-select', event => event.preventDefault());
+
+          const item = el.querySelector<HTMLElement>('wa-dropdown-item')!;
+          const link = item.shadowRoot!.querySelector<HTMLAnchorElement>('#link')!;
+          const clickHandler = sinon.spy((event: MouseEvent) => event.preventDefault());
+          link.addEventListener('click', clickHandler);
+
+          item.click();
+          await aTimeout(200);
+
+          expect(clickHandler).to.not.have.been.called;
+          expect(el.open).to.be.true;
+        });
+
+        it('should not navigate when a disabled link item is clicked', async () => {
+          const el = await fixture<WaDropdown>(html`
+            <wa-dropdown open>
+              <wa-button slot="trigger">Dropdown</wa-button>
+              <wa-dropdown-item value="about" href="/about" disabled>About</wa-dropdown-item>
+            </wa-dropdown>
+          `);
+          await el.updateComplete;
+          await aTimeout(200);
+
+          const item = el.querySelector<HTMLElement>('wa-dropdown-item')!;
+          const link = item.shadowRoot!.querySelector<HTMLAnchorElement>('#link')!;
+          const clickHandler = sinon.spy((event: MouseEvent) => event.preventDefault());
+          link.addEventListener('click', clickHandler);
+
+          item.click();
+          await aTimeout(200);
+
+          expect(clickHandler).to.not.have.been.called;
+        });
+
+        // Skipped for SSR because a dropdown that hydrates with the open attribute never transitions open, so
+        // showMenu() never runs and the document keydown listener is never attached. This is a pre-existing
+        // wa-dropdown issue unrelated to link items.
+        const itOrSkip = fixture.type === 'ssr-client-hydrated' ? it.skip : it;
+
+        itOrSkip('should navigate when a link item is selected with Enter', async () => {
+          const el = await fixture<WaDropdown>(html`
+            <wa-dropdown open>
+              <wa-button slot="trigger">Dropdown</wa-button>
+              <wa-dropdown-item value="about" href="/about">About</wa-dropdown-item>
+            </wa-dropdown>
+          `);
+          await el.updateComplete;
+          await aTimeout(200);
+
+          const item = el.querySelector<HTMLElement>('wa-dropdown-item')!;
+          const link = item.shadowRoot!.querySelector<HTMLAnchorElement>('#link')!;
+          const clickHandler = sinon.spy((event: MouseEvent) => event.preventDefault());
+          link.addEventListener('click', clickHandler);
+
+          item.focus();
+          await sendKeys({ press: 'Enter' });
+          await aTimeout(200);
+
+          expect(clickHandler).to.have.been.calledOnce;
+        });
+
+        it('should still fire wa-select for link items', async () => {
+          const el = await fixture<WaDropdown>(html`
+            <wa-dropdown open>
+              <wa-button slot="trigger">Dropdown</wa-button>
+              <wa-dropdown-item value="about" href="/about">About</wa-dropdown-item>
+            </wa-dropdown>
+          `);
+          await el.updateComplete;
+          await aTimeout(200);
+
+          const item = el.querySelector<HTMLElement>('wa-dropdown-item')!;
+          const link = item.shadowRoot!.querySelector<HTMLAnchorElement>('#link')!;
+          link.addEventListener('click', event => event.preventDefault());
+
+          const events = await expectEvent(el, 'wa-select', () => {
+            item.click();
+          });
+
+          expect((events[0] as CustomEvent).detail.item.value).to.equal('about');
+        });
+
         it('should not close after selection when wa-select is prevented', async () => {
           const el = await fixture<WaDropdown>(html`
             <wa-dropdown open>

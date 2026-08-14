@@ -473,7 +473,7 @@ export default class WaDropdown extends WebAwesomeElement {
           }
         }, 0);
       } else {
-        this.makeSelection(activeItem);
+        this.makeSelection(activeItem, event);
       }
     }
   };
@@ -510,7 +510,7 @@ export default class WaDropdown extends WebAwesomeElement {
       return;
     }
 
-    this.makeSelection(item);
+    this.makeSelection(item, event);
   }
 
   /** Prepares dropdown items when they get added or removed */
@@ -702,7 +702,7 @@ export default class WaDropdown extends WebAwesomeElement {
   };
 
   /** Makes a selection, emits the wa-select event, and closes the dropdown. */
-  private makeSelection(item: WaDropdownItem) {
+  private makeSelection(item: WaDropdownItem, sourceEvent?: MouseEvent | KeyboardEvent) {
     const trigger = this.getTrigger();
 
     if (item.disabled) {
@@ -717,6 +717,10 @@ export default class WaDropdown extends WebAwesomeElement {
     this.dispatchEvent(selectEvent);
 
     if (!selectEvent.defaultPrevented) {
+      // Items with an href navigate by clicking a hidden link. The source event is passed along so modifier keys, such
+      // as Command or Control to open a new tab, are honored.
+      item.navigate(sourceEvent);
+
       this.open = false;
       trigger?.focus({ preventScroll: true });
     }
