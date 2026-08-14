@@ -70,6 +70,11 @@ export default css`
     padding-inline-end: 1.75em;
   }
 
+  /* The link only exists to be clicked programmatically. */
+  #link {
+    display: none;
+  }
+
   #check {
     visibility: hidden;
     margin-inline-start: -1.5em;
