@@ -483,21 +483,14 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
       </div>
 
       <div
+        part="hint"
         class=${classMap({
           footer: true,
           'has-count': this.withCount,
+          'has-slotted': hasHint,
         })}
       >
-        <slot
-          id="hint"
-          name="hint"
-          part="hint"
-          aria-hidden=${hasHint ? 'false' : 'true'}
-          class=${classMap({
-            'has-slotted': hasHint,
-          })}
-          >${this.hint}</slot
-        >
+        <slot id="hint" name="hint" class="hint" aria-hidden=${hasHint ? 'false' : 'true'}>${this.hint}</slot>
 
         ${this.withCount
           ? html`

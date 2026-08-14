@@ -152,6 +152,43 @@ Set `type="checkbox"` to turn a [dropdown item](/docs/components/dropdown-item) 
 When any item is checkable, every item in the dropdown gains matching padding so labels stay aligned.
 :::
 
+### Link Items
+
+Set `href` on a [dropdown item](/docs/components/dropdown-item) to navigate when the item is selected. The `target`, `rel`, and `download` attributes work the same as they do on an `<a>` element.
+
+Link items still emit `wa-select`, so you can react to them like any other item. Calling `event.preventDefault()` cancels the navigation along with the close. Items that open a submenu ignore `href`, since selecting them opens the submenu instead of navigating.
+
+```html {.example}
+<wa-dropdown>
+  <wa-button appearance="filled" slot="trigger" with-caret>Resources</wa-button>
+
+  <wa-dropdown-item href="/docs/">
+    <wa-icon slot="icon" name="book"></wa-icon>
+    Documentation
+  </wa-dropdown-item>
+
+  <wa-dropdown-item href="https://github.com/shoelace-style/webawesome" target="_blank" rel="noreferrer">
+    <wa-icon slot="icon" name="github" family="brands"></wa-icon>
+    GitHub
+    <wa-icon slot="details" name="arrow-up-right-from-square"></wa-icon>
+  </wa-dropdown-item>
+
+  <wa-divider></wa-divider>
+
+  <wa-dropdown-item href="/assets/images/awesome.svg" download="awesome.svg">
+    <wa-icon slot="icon" name="download"></wa-icon>
+    Download logo
+  </wa-dropdown-item>
+</wa-dropdown>
+```
+
+Modifier keys work as expected in most browsers, so [[Command]] + clicking a link item opens it in a new tab. Safari is the exception, as it ignores modifier keys on synthetic clicks.
+
+:::warning
+<strong>Link items aren't announced as links.</strong><br />
+A dropdown item keeps its `menuitem` role, so write labels that make the destination clear from context, adding a [visually hidden](/docs/utilities/visually-hidden) label when it needs more detail.
+:::
+
 ### Destructive Items
 
 Set `variant="danger"` on a [dropdown item](/docs/components/dropdown-item) to flag a destructive action like deleting.
