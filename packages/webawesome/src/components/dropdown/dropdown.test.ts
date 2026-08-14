@@ -3,7 +3,7 @@ import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit';
 import sinon from 'sinon';
 import { expectEvent } from '../../internal/test/expect-event.js';
-import { fixtures } from '../../internal/test/fixture.js';
+import { clientFixture, fixtures } from '../../internal/test/fixture.js';
 import type WaDropdownItem from '../dropdown-item/dropdown-item.js';
 import type WaDropdown from './dropdown.js';
 
@@ -653,7 +653,7 @@ describe('<wa-dropdown>', () => {
 
   describe('trigger interaction', () => {
     it('should toggle open when the trigger is clicked', async () => {
-      const el = await fixtures[0]<WaDropdown>(html`
+      const el = await clientFixture<WaDropdown>(html`
         <wa-dropdown>
           <wa-button slot="trigger">Dropdown</wa-button>
           <wa-dropdown-item>One</wa-dropdown-item>
@@ -674,7 +674,7 @@ describe('<wa-dropdown>', () => {
 
   describe('dismissible stack', () => {
     it('should only close the dropdown when pressing Escape on a dropdown with a popover inside', async () => {
-      const el = await fixtures[0]<HTMLDivElement>(html`
+      const el = await clientFixture<HTMLDivElement>(html`
         <div>
           <wa-dropdown id="test-dropdown">
             <wa-button slot="trigger">Dropdown</wa-button>
@@ -713,7 +713,7 @@ describe('<wa-dropdown>', () => {
 
   describe('submenu positioning', () => {
     const submenuFixture = () =>
-      fixtures[0]<WaDropdown>(html`
+      clientFixture<WaDropdown>(html`
         <wa-dropdown>
           <wa-button slot="trigger">Menu</wa-button>
           <wa-dropdown-item id="parent-item">
