@@ -32,6 +32,21 @@ describe('<wa-card>', () => {
           await expect(el).to.be.accessible();
         });
 
+        it('should not create duplicate landmarks when the page has its own header and footer', async () => {
+          const el = await fixture(html`
+            <div>
+              <header>Site header</header>
+              <wa-card>
+                <div slot="header">Card header</div>
+                Body content
+                <div slot="footer">Card footer</div>
+              </wa-card>
+              <footer>Site footer</footer>
+            </div>
+          `);
+          await expect(el).to.be.accessible();
+        });
+
         it('should pass accessibility tests with media', async () => {
           const el = await fixture<WaCard>(html`
             <wa-card>

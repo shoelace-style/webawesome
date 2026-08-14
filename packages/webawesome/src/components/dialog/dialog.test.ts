@@ -29,6 +29,21 @@ describe('<wa-dialog>', () => {
 
           expect(document.activeElement).to.equal(input);
         });
+
+        it('should not create duplicate landmarks when the page has its own header and footer', async () => {
+          const el = await fixture(html`
+            <div>
+              <header>Site header</header>
+              <wa-dialog label="Test dialog" open>
+                Dialog content
+                <div slot="footer">Dialog footer</div>
+              </wa-dialog>
+              <footer>Site footer</footer>
+            </div>
+          `);
+          await el.querySelector<WaDialog>('wa-dialog')!.updateComplete;
+          await expect(el).to.be.accessible();
+        });
       });
 
       describe('properties', () => {

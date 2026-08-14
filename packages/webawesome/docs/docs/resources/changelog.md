@@ -53,6 +53,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug in `<wa-tooltip>` where tooltips with `trigger="manual"` closed when pressing <kbd>Escape</kbd>
 - Fixed the `hint` part in `<wa-textarea>`, which sat on the slot inside an unexposed wrapper and couldn't be positioned by custom layouts. The part now lives on that wrapper, so `::part(hint)` selects the hint and the character count together [issue:2614]
 - Fixed the missing Custom States table in the `<wa-dropdown-item>` docs. The `active`, `checked`, `disabled`, `has-submenu`, and `submenu-open` states already worked, but went undocumented
+- Fixed a bug in `<wa-card>`, `<wa-dialog>`, and `<wa-drawer>` that added duplicate `banner` and `contentinfo` landmarks to the page [issue:2723]
 
 :::
 
