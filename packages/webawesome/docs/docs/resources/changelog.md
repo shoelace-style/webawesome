@@ -47,6 +47,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed native table row headers (`<th scope="row">`) rendering at a smaller font size than the cells beside them, which knocked their text out of vertical alignment. The smaller type is now scoped to column headers
 - Fixed the focus ring on `<wa-otp-input>` animating its width and offset, which re-ran the animation on every keystroke as the active segment advanced. It now fades in at a fixed size, matching `<wa-input>` and the other form controls
 - Fixed a bug in `<wa-toast>` that caused center placements to render incorrectly on narrow screens [issue:2701]
+- Fixed `<wa-button>` losing its accessible name while `loading`. The label was hidden with `visibility: hidden`, which removed it from the accessibility tree. It is now hidden with `opacity`, so the label stays in the tree and the button's width is unchanged. The button also sets `aria-busy` while loading [issue:2693]
 - Fixed system icons in `<wa-pagination>`, `<wa-time-input>`, and `<wa-date-input>` rendering black instead of inheriting the current text color [issue:2688]
 - Fixed a bug in `<wa-data-grid>` that caused an expanded row detail's space to stay reserved at its old position after changing pages, sorting, or filtering
 - Fixed a bug in `<wa-tooltip>` where canceling the `wa-hide` event didn't keep the tooltip open
