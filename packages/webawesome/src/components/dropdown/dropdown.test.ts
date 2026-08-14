@@ -1,9 +1,10 @@
 import { aTimeout, expect, waitUntil } from '@open-wc/testing';
-import { sendKeys } from '@web/test-runner-commands';
+import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit';
 import sinon from 'sinon';
 import { expectEvent } from '../../internal/test/expect-event.js';
 import { fixtures } from '../../internal/test/fixture.js';
+import type WaDropdownItem from '../dropdown-item/dropdown-item.js';
 import type WaDropdown from './dropdown.js';
 
 describe('<wa-dropdown>', () => {
@@ -707,6 +708,71 @@ describe('<wa-dropdown>', () => {
       await aTimeout(200);
 
       expect(dropdown.open).to.be.false;
+    });
+  });
+
+  describe('submenu positioning', () => {
+    const submenuFixture = () => fixtures[0]<WaDropdown>(html`
+      <wa-dropdown>
+        <wa-button slot="trigger">Menu</wa-button>
+        <wa-dropdown-item id="parent-item">
+          Email Template Previews
+          <wa-dropdown-item slot="submenu">Received</wa-dropdown-item>
+          <wa-dropdown-item slot="submenu">Approval Needed</wa-dropdown-item>
+          <wa-dropdown-item slot="submenu">Needs Scheduled</wa-dropdown-item>
+          <wa-dropdown-item slot="submenu">Scheduled</wa-dropdown-item>
+          <wa-dropdown-item slot="submenu">Awaiting Payment</wa-dropdown-item>
+          <wa-dropdown-item slot="submenu">New User Welcome</wa-dropdown-item>
+          <wa-dropdown-item slot="submenu">Reset Password</wa-dropdown-item>
+        </wa-dropdown-item>
+      </wa-dropdown>
+    `);
+
+    async function openSubmenu(el: WaDropdown) {
+      el.open = true;
+      await waitUntil(() => el.open);
+      await aTimeout(200);
+
+      const parentItem = el.querySelector<WaDropdownItem>('#parent-item')!;
+      parentItem.submenuOpen = true;
+      await waitUntil(() => parentItem.submenuElement?.style.left !== '');
+      await aTimeout(100);
+      return parentItem;
+    }
+
+    it('should keep submenus inside the viewport on narrow screens', async () => {
+      const originalViewport = { width: window.innerWidth, height: window.innerHeight };
+      await setViewport({ width: 342, height: 700 });
+
+      try {
+        const el = await submenuFixture();
+        const parentItem = await openSubmenu(el);
+
+        const rect = parentItem.submenuElement.getBoundingClientRect();
+        expect(rect.width).to.be.greaterThan(0);
+        expect(rect.left).to.be.at.least(0);
+        expect(rect.right).to.be.at.most(window.innerWidth);
+
+        // The submenu should overlap the menu instead of being squeezed beside it, so no item wraps to multiple lines.
+        const itemHeights = [...parentItem.querySelectorAll<WaDropdownItem>('[slot="submenu"]')].map(
+          item => item.getBoundingClientRect().height,
+        );
+        expect(Math.max(...itemHeights)).to.be.lessThan(Math.min(...itemHeights) * 1.5);
+      } finally {
+        await setViewport(originalViewport);
+      }
+    });
+
+    it('should place submenus beside the parent item when there is room', async () => {
+      const el = await submenuFixture();
+      const parentItem = await openSubmenu(el);
+
+      const rect = parentItem.submenuElement.getBoundingClientRect();
+      const itemRect = parentItem.getBoundingClientRect();
+      expect(parentItem.submenuElement.getAttribute('data-placement')).to.match(/^right/);
+      // Allow for the intentional 5px overlap from the offset middleware.
+      expect(rect.left).to.be.at.least(itemRect.right - 6);
+      expect(rect.right).to.be.at.most(window.innerWidth);
     });
   });
 });
