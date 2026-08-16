@@ -194,5 +194,8 @@ Instead, the following [custom states](https://developer.mozilla.org/en-US/docs/
 - `:state(valid)` - the form control is valid
 - `:state(user-invalid)` - the form control is invalid and the user has interacted with it
 - `:state(user-valid)` - the form control is valid and the user has interacted with it
+- `:state(focused)` - the form control has focus
+
+Use `:state(focused)` or `:focus-within` when styling `::part(...)` on focus. Safari does not restyle `host:focus::part(...)` when focus is delegated into the shadow tree.
 
 These custom states work alongside the browser's built-in pseudo classes for validation: [`:required`](https://developer.mozilla.org/en-US/docs/Web/CSS/:required), [`:optional`](https://developer.mozilla.org/en-US/docs/Web/CSS/:optional), [`:invalid`](https://developer.mozilla.org/en-US/docs/Web/CSS/:invalid), [`:valid`](https://developer.mozilla.org/en-US/docs/Web/CSS/:valid), [`:user-invalid`](https://developer.mozilla.org/en-US/docs/Web/CSS/:user-invalid), and [`:user-valid`](https://developer.mozilla.org/en-US/docs/Web/CSS/:user-valid).

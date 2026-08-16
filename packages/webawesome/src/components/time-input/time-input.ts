@@ -107,6 +107,7 @@ const SINGLE_GROUP = 'single';
  * @cssproperty [--column-width=3em] - Width of each popup column.
  *
  * @cssstate blank - The time picker has no committed value.
+ * @cssstate focused - The time picker has focus.
  * @cssstate open - The popup is open.
  * @cssstate disabled - The time picker is disabled.
  */

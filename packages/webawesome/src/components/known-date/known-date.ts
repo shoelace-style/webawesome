@@ -57,6 +57,7 @@ const generateId = (): string => uniqueId('wa-known-date-');
  * @csspart field-input - The native `<input>` inside a field.
  *
  * @cssstate blank - The known date has no committed value.
+ * @cssstate focused - The known date has focus.
  * @cssstate disabled - The known date is disabled.
  */
 @customElement('wa-known-date')

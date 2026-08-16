@@ -118,6 +118,8 @@ export class WebAwesomeFormAssociatedElement
     if ('addEventListener' in this) {
       // eslint-disable-next-line
       this.addEventListener('invalid', this.emitInvalid);
+      this.addEventListener('focusin', this.handleHostFocusIn);
+      this.addEventListener('focusout', this.handleHostFocusOut);
     }
   }
   states: CustomStateSet;
@@ -149,6 +151,20 @@ export class WebAwesomeFormAssociatedElement
     // An "invalid" event counts as interacted, this is usually triggered by a button "submitting"
     this.hasInteracted = true;
     this.dispatchEvent(new WaInvalidEvent());
+  };
+
+  // Safari does not restyle host:focus::part(...) when focus is delegated into the shadow tree.
+  // Reflecting focus into a custom state forces that recalc so :focus::part rules apply.
+  private handleHostFocusIn = () => {
+    this.customStates.set('focused', true);
+  };
+
+  private handleHostFocusOut = () => {
+    requestAnimationFrame(() => {
+      if (!this.matches(':focus-within')) {
+        this.customStates.set('focused', false);
+      }
+    });
   };
 
   protected willUpdate(changedProperties: Parameters<LitElement['willUpdate']>[0]) {

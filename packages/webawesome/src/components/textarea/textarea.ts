@@ -40,6 +40,7 @@ import styles from './textarea.styles.js';
  * @csspart count - The character count element, rendered when the `with-count` attribute is present.
  *
  * @cssstate blank - The textarea is empty.
+ * @cssstate focused - The textarea has focus.
  */
 @customElement('wa-textarea')
 export default class WaTextarea extends WebAwesomeFormAssociatedElement {

@@ -52,6 +52,7 @@ import styles from './input.styles.js';
  * @csspart end - The container that wraps the `end` slot.
  *
  * @cssstate blank - The input is empty.
+ * @cssstate focused - The input has focus.
  */
 @customElement('wa-input')
 export default class WaInput extends WebAwesomeFormAssociatedElement {

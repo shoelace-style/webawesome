@@ -573,6 +573,33 @@ describe('<wa-input>', () => {
           await el.updateComplete;
           expect(el.customStates.has('blank')).to.be.false;
         });
+
+        it('should apply :focus::part styles when focused', async () => {
+          const el = await fixture<WaInput>(html`<wa-input label="Name"></wa-input>`);
+          const style = document.createElement('style');
+          style.textContent = `
+            wa-input::part(label) { color: rgb(0, 0, 0); }
+            wa-input:focus::part(label) { color: rgb(255, 0, 0); }
+          `;
+          document.body.append(style);
+
+          expect(el.customStates.has('focused')).to.be.false;
+
+          el.focus();
+          await el.updateComplete;
+
+          const label = el.shadowRoot!.querySelector('[part~="form-control-label"]')!;
+          expect(el.customStates.has('focused')).to.be.true;
+          expect(getComputedStyle(label).color).to.equal('rgb(255, 0, 0)');
+
+          el.blur();
+          await aTimeout(50);
+          await el.updateComplete;
+
+          expect(el.customStates.has('focused')).to.be.false;
+          expect(getComputedStyle(label).color).to.equal('rgb(0, 0, 0)');
+          style.remove();
+        });
       });
 
       describe('when type="number"', () => {

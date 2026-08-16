@@ -33,6 +33,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::added
 
+- Added the `focused` custom state to form controls so `:state(focused)` matches when the control has focus. This is the reliable hook for `::part(...)` focus styles; Safari does not restyle `host:focus::part(...)` when focus is delegated into the shadow tree
 - Added version 3.0.0 of the [official Web Awesome Figma Design Kit](/docs/resources/figma)
 - Added the `filterOptions` column option to `<wa-data-grid>` to supply a `set`/`includes-*` filter picker's values yourself, enabling value pickers in server mode and custom ordering/labeling in client mode
 - Added the `href`, `target`, `rel`, and `download` attributes to `<wa-dropdown-item>` so items can navigate when selected
@@ -44,6 +45,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::fixed
 
+- Fixed a Safari bug where `host:focus::part(...)` styles did not apply on form controls that use `delegatesFocus`. Focusing the inner control now sets `:state(focused)`, which forces the part styles to recalculate so floating labels and other `:focus::part` rules work
 - Fixed native table row headers (`<th scope="row">`) rendering at a smaller font size than the cells beside them, which knocked their text out of vertical alignment. The smaller type is now scoped to column headers
 - Fixed the focus ring on `<wa-otp-input>` animating its width and offset, which re-ran the animation on every keystroke as the active segment advanced. It now fades in at a fixed size, matching `<wa-input>` and the other form controls
 - Fixed a bug in `<wa-toast>` that caused center placements to render incorrectly on narrow screens [issue:2701]
