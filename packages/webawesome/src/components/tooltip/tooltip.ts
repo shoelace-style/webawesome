@@ -15,6 +15,29 @@ import WaPopup from '../popup/popup.js';
 import styles from './tooltip.styles.js';
 
 /**
+ * Checks containment in the composed tree, including nodes assigned through one or more slots.
+ */
+function containsComposedNode(ancestor: Node, node: Node | null) {
+  while (node) {
+    if (node === ancestor) {
+      return true;
+    }
+
+    if (node instanceof Element && node.assignedSlot) {
+      node = node.assignedSlot;
+    } else if (node.parentNode) {
+      node = node.parentNode;
+    } else if (node instanceof ShadowRoot) {
+      node = node.host;
+    } else {
+      node = null;
+    }
+  }
+
+  return false;
+}
+
+/**
  * @summary Tooltips display brief contextual information when the user hovers, focuses, or taps a target element.
  * @documentation https://webawesome.com/docs/components/tooltip
  * @status stable
@@ -269,8 +292,8 @@ export default class WaTooltip extends WebAwesomeElement {
     // the anchor or the tooltip itself. Relying on `:hover` matching here is unreliable in Chrome when the pointer
     // moves onto a slotted child element of the tooltip, since the host's `:hover` state can briefly report false
     // during that transition.
-    const movedIntoAnchor = Boolean(relatedTarget && this.anchor?.contains(relatedTarget));
-    const movedIntoTooltip = Boolean(relatedTarget && this.contains(relatedTarget));
+    const movedIntoAnchor = Boolean(relatedTarget && this.anchor && containsComposedNode(this.anchor, relatedTarget));
+    const movedIntoTooltip = Boolean(relatedTarget && containsComposedNode(this, relatedTarget));
 
     if (movedIntoAnchor || movedIntoTooltip) {
       return;

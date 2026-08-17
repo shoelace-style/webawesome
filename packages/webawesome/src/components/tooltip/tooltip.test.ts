@@ -474,6 +474,43 @@ describe('<wa-tooltip>', () => {
       await waitUntil(() => !tooltip.open);
       expect(tooltip.open).to.be.false;
     });
+
+    it('should remain open when the pointer moves onto content forwarded through a parent slot', async () => {
+      const el = await fixtures[0]<HTMLDivElement>(html`<div></div>`);
+      const shadowRoot = el.attachShadow({ mode: 'open' });
+      shadowRoot.innerHTML = `
+        <wa-button id="forwarded-hover-btn">Hover me</wa-button>
+        <wa-tooltip for="forwarded-hover-btn" trigger="hover" show-delay="0" hide-delay="0">
+          <slot name="content"></slot>
+        </wa-tooltip>
+      `;
+
+      const childLink = document.createElement('a');
+      childLink.id = 'forwarded-tooltip-link';
+      childLink.slot = 'content';
+      childLink.href = '#';
+      childLink.textContent = 'Forwarded link inside the tooltip';
+      childLink.style.cssText = 'display: inline-block; padding: 1rem;';
+      el.append(childLink);
+
+      const tooltip = shadowRoot.querySelector<WaTooltip>('wa-tooltip')!;
+      const anchor = shadowRoot.querySelector<HTMLElement>('#forwarded-hover-btn')!;
+      expect(childLink.assignedSlot?.parentElement).to.equal(tooltip);
+      await tooltip.updateComplete;
+
+      await moveMouseOnElement(anchor);
+      await waitUntil(() => tooltip.open);
+      expect(tooltip.open).to.be.true;
+
+      await moveMouseOnElement(childLink);
+      await aTimeout(tooltip.hideDelay + 50);
+
+      expect(tooltip.open).to.be.true;
+
+      await moveMouseOnElement(document.body, 'top', 0, 0);
+      await waitUntil(() => !tooltip.open);
+      expect(tooltip.open).to.be.false;
+    });
   });
 
   describe('light dismiss', () => {
