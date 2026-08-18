@@ -1284,6 +1284,7 @@ Many of these changes and improvements were the direct result of feedback from u
 - Fixed a bug in `<wa-carousel>` that caused interactive elements to be activated when dragging
 - Fixed a bug in `<wa-tab-group>` that prevented changing tabs by setting `active` on `<wa-tab>` elements
 - Fixed a bug in `<wa-tab-group>` that caused an error when removed from the DOM too quickly
+- Fixed the focus ring on `<wa-switch>`, which was drawn around the thumb inside the track and was easy to miss. It now surrounds the whole control
 - Fixed a bug in `<wa-textarea>` causing scroll jumping when using `resize="auto"`
 - Fixed a bug with certain bundlers when using dynamic imports
 
