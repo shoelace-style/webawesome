@@ -1113,7 +1113,7 @@ describe('<wa-select>', () => {
             <wa-option value="1">Option 1</wa-option>
             <wa-option value="2">Option 2</wa-option>
           </wa-select>
-          <wa-tooltip id="test-tooltip" for="test-select" trigger="manual">Tooltip content</wa-tooltip>
+          <wa-tooltip id="test-tooltip" for="test-select" trigger="click">Tooltip content</wa-tooltip>
         </div>
       `);
 
@@ -1126,7 +1126,7 @@ describe('<wa-select>', () => {
       await waitUntil(() => select.open);
       await aTimeout(200);
 
-      // Open tooltip programmatically (manual trigger won't steal focus)
+      // Open the tooltip programmatically so focus stays on the select
       tooltip.open = true;
       await waitUntil(() => tooltip.open);
       await aTimeout(200);

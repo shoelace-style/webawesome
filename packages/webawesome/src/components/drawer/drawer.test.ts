@@ -29,6 +29,21 @@ describe('<wa-drawer>', () => {
 
           expect(document.activeElement).to.equal(input);
         });
+
+        it('should not create duplicate landmarks when the page has its own header and footer', async () => {
+          const el = await fixture(html`
+            <div>
+              <header>Site header</header>
+              <wa-drawer label="Test drawer" open>
+                Drawer content
+                <div slot="footer">Drawer footer</div>
+              </wa-drawer>
+              <footer>Site footer</footer>
+            </div>
+          `);
+          await el.querySelector<WaDrawer>('wa-drawer')!.updateComplete;
+          await expect(el).to.be.accessible();
+        });
       });
 
       describe('properties', () => {

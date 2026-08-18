@@ -191,17 +191,30 @@ export default css`
 
   .clear,
   .password-toggle {
+    position: relative;
     display: inline-flex;
+    align-self: center;
     align-items: center;
     justify-content: center;
+    aspect-ratio: 1;
+    height: 1.5em;
     font-size: inherit;
     color: var(--wa-color-neutral-on-quiet);
     border: none;
+    border-radius: var(--wa-border-radius-s);
     background: none;
     padding: 0;
     transition: var(--wa-transition-normal) color;
     cursor: pointer;
     margin-inline-start: var(--wa-form-control-padding-inline);
+
+    /* Extends the pointer target to the full height of the field */
+    &::after {
+      content: '';
+      position: absolute;
+      inset-inline: 0;
+      height: var(--wa-form-control-height);
+    }
 
     @media (hover: hover) {
       &:hover {
@@ -220,7 +233,6 @@ export default css`
     &:focus-visible {
       outline: var(--wa-focus-ring);
       outline-offset: var(--wa-focus-ring-offset);
-      border-radius: var(--wa-border-radius-s);
     }
   }
 
