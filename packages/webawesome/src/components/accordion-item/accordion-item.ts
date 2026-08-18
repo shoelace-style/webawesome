@@ -16,7 +16,7 @@ import styles from './accordion-item.styles.js';
  * @summary Accordion items are used inside `<wa-accordion>` to create expandable sections with accessible headers.
  * @documentation https://webawesome.com/docs/components/accordion
  * @status experimental
- * @since 1.0
+ * @since 3.8
  *
  * @dependency wa-icon
  *

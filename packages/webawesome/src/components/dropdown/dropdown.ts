@@ -624,6 +624,7 @@ export default class WaDropdown extends WebAwesomeElement {
         }),
         shift({
           padding: 8,
+          crossAxis: true,
         }),
       ],
     }).then(({ x, y, placement }) => {
