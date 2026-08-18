@@ -50,6 +50,8 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed `<wa-button>` losing its accessible name while `loading`. The label was hidden with `visibility: hidden`, which removed it from the accessibility tree. It is now hidden with `opacity`, so the label stays in the tree and the button's width is unchanged. The button also sets `aria-busy` while loading [issue:2693]
 - Fixed system icons in `<wa-pagination>`, `<wa-time-input>`, and `<wa-date-input>` rendering black instead of inheriting the current text color [issue:2688]
 - Fixed a bug in `<wa-data-grid>` that caused an expanded row detail's space to stay reserved at its old position after changing pages, sorting, or filtering
+- Fixed a bug in `<wa-data-grid>` that caused the empty and loading states to be invisible in some cases [issue:2734]
+- Fixed `<wa-data-grid>` showing its empty state behind the translucent loading overlay while a server request was in flight, before the grid knows whether the dataset is empty
 - Fixed a bug in `<wa-tooltip>` where canceling the `wa-hide` event didn't keep the tooltip open
 - Fixed a bug in `<wa-tooltip>` where tooltips with `trigger="manual"` closed when pressing <kbd>Escape</kbd>
 - Fixed the `hint` part in `<wa-textarea>`, which sat on the slot inside an unexposed wrapper and couldn't be positioned by custom layouts. The part now lives on that wrapper, so `::part(hint)` selects the hint and the character count together [issue:2614]
