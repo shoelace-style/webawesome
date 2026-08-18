@@ -108,7 +108,7 @@ export default class WaCard extends WebAwesomeElement {
     return html`
       <slot name="media" part="media" class="media"></slot>
 
-      <header
+      <div
         part="header"
         class=${classMap({
           header: true,
@@ -117,11 +117,11 @@ export default class WaCard extends WebAwesomeElement {
       >
         <slot name="header"></slot>
         <slot name="header-actions"></slot>
-      </header>
+      </div>
 
       <div part="body" class="body"><slot></slot></div>
 
-      <footer
+      <div
         part="footer"
         class=${classMap({
           footer: true,
@@ -130,7 +130,7 @@ export default class WaCard extends WebAwesomeElement {
       >
         <slot name="footer"></slot>
         <slot name="footer-actions"></slot>
-      </footer>
+      </div>
     `;
   }
 }
