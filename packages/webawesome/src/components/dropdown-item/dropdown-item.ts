@@ -117,7 +117,7 @@ export default class WaDropdownItem extends WebAwesomeElement {
   connectedCallback() {
     super.connectedCallback();
     this.addEventListener?.('click', this.handleHostClick);
-    this.addEventListener?.('mouseenter', this.handleMouseEnter.bind(this));
+    this.addEventListener?.('pointerenter', this.handlePointerEnter);
     this.shadowRoot?.addEventListener?.('click', this.handleClick, { capture: true });
     this.shadowRoot?.addEventListener?.('slotchange', this.handleSlotChange);
   }
@@ -126,7 +126,7 @@ export default class WaDropdownItem extends WebAwesomeElement {
     super.disconnectedCallback();
     this.closeSubmenu();
     this.removeEventListener?.('click', this.handleHostClick);
-    this.removeEventListener?.('mouseenter', this.handleMouseEnter);
+    this.removeEventListener?.('pointerenter', this.handlePointerEnter);
     this.shadowRoot?.removeEventListener?.('click', this.handleClick, { capture: true });
     this.shadowRoot?.removeEventListener?.('slotchange', this.handleSlotChange);
   }
@@ -329,13 +329,16 @@ export default class WaDropdownItem extends WebAwesomeElement {
     }
   };
 
-  /** Handles mouse enter to open the submenu */
-  private handleMouseEnter() {
-    if (this.hasSubmenu && !this.disabled) {
+  /** Handles pointer enter to open the submenu on hover */
+  private handlePointerEnter = (event: PointerEvent) => {
+    // Only open on hover from a mouse. Taps on touch devices fire a synthetic mouseenter right before the click, and
+    // opening here would let the click land on the just-opened submenu when it overlaps the item. Touch and pen users
+    // open submenus with the click instead.
+    if (event.pointerType === 'mouse' && this.hasSubmenu && !this.disabled) {
       this.notifyParentOfOpening();
       this.submenuOpen = true;
     }
-  }
+  };
 
   render() {
     return html`
