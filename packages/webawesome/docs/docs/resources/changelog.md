@@ -58,6 +58,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed the missing Custom States table in the `<wa-dropdown-item>` docs. The `active`, `checked`, `disabled`, `has-submenu`, and `submenu-open` states already worked, but went undocumented
 - Fixed a bug in `<wa-card>`, `<wa-dialog>`, and `<wa-drawer>` that added duplicate `banner` and `contentinfo` landmarks to the page [issue:2723]
 - Fixed a bug in `<wa-dropdown>` where submenus could extend beyond the viewport on narrow screens. When neither side has room, the submenu now shifts over the menu to stay fully visible
+- Fixed the focus ring on `<wa-switch>`, which was drawn around the thumb inside the track and was easy to miss. It now surrounds the whole control
 
 :::
 
@@ -1285,7 +1286,6 @@ Many of these changes and improvements were the direct result of feedback from u
 - Fixed a bug in `<wa-carousel>` that caused interactive elements to be activated when dragging
 - Fixed a bug in `<wa-tab-group>` that prevented changing tabs by setting `active` on `<wa-tab>` elements
 - Fixed a bug in `<wa-tab-group>` that caused an error when removed from the DOM too quickly
-- Fixed the focus ring on `<wa-switch>`, which was drawn around the thumb inside the track and was easy to miss. It now surrounds the whole control
 - Fixed a bug in `<wa-textarea>` causing scroll jumping when using `resize="auto"`
 - Fixed a bug with certain bundlers when using dynamic imports
 
