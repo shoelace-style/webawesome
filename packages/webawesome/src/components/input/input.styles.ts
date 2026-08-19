@@ -208,7 +208,6 @@ export default css`
     cursor: pointer;
     margin-inline-start: var(--wa-form-control-padding-inline);
 
-    /* Extends the pointer target to the full height of the field */
     &::after {
       content: '';
       position: absolute;
