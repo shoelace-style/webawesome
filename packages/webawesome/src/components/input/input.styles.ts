@@ -206,7 +206,10 @@ export default css`
     padding: 0;
     transition: var(--wa-transition-normal) color;
     cursor: pointer;
-    margin-inline-start: var(--wa-form-control-padding-inline);
+    /* The box is wider than the glyph, so overhang half of that growth on each side. Keeps the
+       glyph flush with the field's trailing padding edge, like every other form control. */
+    margin-inline-start: calc(var(--wa-form-control-padding-inline) - 0.125em);
+    margin-inline-end: -0.125em;
 
     &::after {
       content: '';
