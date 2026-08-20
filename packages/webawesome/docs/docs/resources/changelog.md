@@ -34,9 +34,9 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 :::added
 
 - Added version 3.0.0 of the [official Web Awesome Figma Design Kit](/docs/resources/figma)
-- Added the `filterOptions` column option to `<wa-data-grid>` to supply a `set`/`includes-*` filter picker's values yourself, enabling value pickers in server mode and custom ordering/labeling in client mode
-- Added the `href`, `target`, `rel`, and `download` attributes to `<wa-dropdown-item>` so items can navigate when selected
-  - Selecting a link item honors modifier keys, e.g. pressing <kbd>Command</kbd> or <kbd>Control</kbd> to open a new tab, except in Safari
+- Added the `filterOptions` column option to `<wa-data-grid>` to supply a `set`/`includes-*` filter picker's values yourself, enabling value pickers in server mode and custom ordering in client mode [pr:2724]
+- Added the `href`, `target`, `rel`, and `download` attributes to `<wa-dropdown-item>` so items can navigate when selected [pr:2733]
+  - Selecting a link item honors modifier keys, e.g. pressing [[Command]] or [[Control]] to open a new tab, except in Safari
   - Items with a submenu ignore `href`
   - Added the `link` custom state to `<wa-dropdown-item>`
 
@@ -44,31 +44,32 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::fixed
 
-- Fixed native table row headers (`<th scope="row">`) rendering at a smaller font size than the cells beside them, which knocked their text out of vertical alignment. The smaller type is now scoped to column headers
-- Fixed the focus ring on `<wa-otp-input>` animating its width and offset, which re-ran the animation on every keystroke as the active segment advanced. It now fades in at a fixed size, matching `<wa-input>` and the other form controls
-- Fixed a bug in `<wa-toast>` that caused center placements to render incorrectly on narrow screens [issue:2701]
-- Fixed `<wa-button>` losing its accessible name while `loading`. The label was hidden with `visibility: hidden`, which removed it from the accessibility tree. It is now hidden with `opacity`, so the label stays in the tree and the button's width is unchanged. The button also sets `aria-busy` while loading [issue:2693]
-- Fixed system icons in `<wa-pagination>`, `<wa-time-input>`, and `<wa-date-input>` rendering black instead of inheriting the current text color [issue:2688]
+- Fixed native table row headers (`<th scope="row">`) rendering at a smaller font size than the cells beside them, which knocked their text out of vertical alignment [pr:2729]
+- Fixed the focus ring on `<wa-otp-input>` re-running its animation on every keystroke as the active segment advanced; it now fades in at a fixed size, matching the other form controls [pr:2685]
+- Fixed a bug in `<wa-toast>` that caused center placements to render incorrectly on narrow screens [issue:2701] [pr:2706]
+- Fixed `<wa-button>` losing its accessible name while `loading`, and added `aria-busy` for the duration [issue:2693] [pr:2694]
+- Fixed system icons in `<wa-pagination>`, `<wa-time-input>`, and `<wa-date-input>` rendering black instead of inheriting the current text color [issue:2688] [pr:2718]
 - Fixed a bug in `<wa-data-grid>` that caused an expanded row detail's space to stay reserved at its old position after changing pages, sorting, or filtering
 - Fixed a bug in `<wa-data-grid>` that caused the empty and loading states to be invisible in some cases [issue:2734]
-- Fixed `<wa-data-grid>` showing its empty state behind the translucent loading overlay while a server request was in flight, before the grid knows whether the dataset is empty
-- Fixed a bug in `<wa-tooltip>` where canceling the `wa-hide` event didn't keep the tooltip open
-- Fixed a bug in `<wa-tooltip>` where tooltips with `trigger="manual"` closed when pressing <kbd>Escape</kbd>
-- Fixed the `hint` part in `<wa-textarea>`, which sat on the slot inside an unexposed wrapper and couldn't be positioned by custom layouts. The part now lives on that wrapper, so `::part(hint)` selects the hint and the character count together [issue:2614]
-- Fixed the missing Custom States table in the `<wa-dropdown-item>` docs. The `active`, `checked`, `disabled`, `has-submenu`, and `submenu-open` states already worked, but went undocumented
-- Fixed a bug in `<wa-card>`, `<wa-dialog>`, and `<wa-drawer>` that added duplicate `banner` and `contentinfo` landmarks to the page [issue:2723]
-- Fixed a bug in `<wa-dropdown>` where submenus could extend beyond the viewport on narrow screens. When neither side has room, the submenu now shifts over the menu to stay fully visible
-- Fixed the focus ring on `<wa-switch>`, which was drawn around the thumb inside the track and was easy to miss. It now surrounds the whole control
+- Fixed `<wa-data-grid>` showing its empty state behind the loading overlay while a server request was in flight
+- Fixed a bug in `<wa-tooltip>` where canceling the `wa-hide` event didn't keep the tooltip open [pr:2721]
+- Fixed a bug in `<wa-tooltip>` where tooltips with `trigger="manual"` closed when pressing [[Escape]] [pr:2721]
+- Fixed the `hint` part in `<wa-textarea>`, which sat on a slot inside an unexposed wrapper; `::part(hint)` now selects the hint and the character count together [issue:2614] [pr:2720]
+- Fixed the missing Custom States table in the `<wa-dropdown-item>` docs [pr:2733]
+- Fixed a bug in `<wa-card>`, `<wa-dialog>`, and `<wa-drawer>` that added duplicate `banner` and `contentinfo` landmarks to the page [issue:2723] [pr:2737]
+- Fixed a bug in `<wa-dropdown>` where submenus could extend beyond the viewport on narrow screens; when neither side has room, the submenu now shifts over the menu [pr:2738]
+- Fixed the easy-to-miss focus ring on `<wa-switch>`, which was drawn around the thumb inside the track; it now surrounds the whole control [pr:2749]
+- Fixed the clear button and password toggle in `<wa-input>` sitting inside the field's trailing padding instead of flush with its edge, unlike every other form control [pr:2750]
 
 :::
 
 :::changed
 
-- Improved accessibility of `<wa-dropdown>` by adding `aria-posinset` and `aria-setsize` so supportive screen readers can correctly announce the number of dropdown items [issue:2697]
-- Improved accessibility of `<wa-input type="password">` by making the toggle password button focusable [issue:2727]
-- Improved the click target of the clear button in `<wa-select>`, which now spans the full height of the control
-- Improved `<wa-tooltip>` so it correctly light dismisses when the user presses the target or clicks anywhere else on the page [discuss:1921]
-- Updated `<wa-data-grid>` to TanStack Table 9 internally (the grid's public API, state format, and behavior are unchanged)
+- Improved accessibility of `<wa-dropdown>` by adding `aria-posinset` and `aria-setsize` so screen readers announce the correct number of dropdown items [issue:2697] [pr:2708]
+- Improved accessibility of `<wa-input type="password">` by making the toggle password button focusable [issue:2727] [pr:2736]
+- Improved the click target of the clear button in `<wa-select>`, which now spans the full height of the control [pr:2748]
+- Improved `<wa-tooltip>` so it correctly light dismisses when the user presses the target or clicks anywhere else on the page [discuss:1921] [pr:2721]
+- Updated `<wa-data-grid>` to TanStack Table 9 internally (the grid's public API, state format, and behavior are unchanged) [pr:2724]
 
 :::
 
