@@ -91,5 +91,9 @@
     "*.{ts,js}": [
       "prettier --write"
     ]
+  },
+  "allowScripts": {
+    "esbuild": true,
+    "rs-module-lexer": true
   }
 }

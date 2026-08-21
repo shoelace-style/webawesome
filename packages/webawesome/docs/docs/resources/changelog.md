@@ -29,7 +29,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 {% include "changelog-email-signup.njk" %}
 
-## Unreleased
+## 3.12.0
 
 :::added
 
