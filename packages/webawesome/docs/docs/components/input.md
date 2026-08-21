@@ -154,7 +154,7 @@ Use the `start` and `end` slots to add presentational elements like `<wa-icon>` 
 Use [CSS parts](#css-parts) to customize the way form controls are drawn. This example uses CSS grid to position the label to the left of the control, but the possible orientations are nearly endless. The same technique works for inputs, textareas, radio groups, and similar form controls. The label part is a flex container, so align it with `justify-content` rather than `text-align`.
 
 :::info
-<strong>Labels sit at the end of their column so every one is the same distance from its field.</strong><br />
+**Labels sit at the end of their column so every one is the same distance from its field.**
 Start-aligned labels leave a different-sized gap on each row, which makes it harder to see which label belongs to which field.
 :::
 

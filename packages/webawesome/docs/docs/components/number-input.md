@@ -173,7 +173,6 @@ Use [CSS parts](#css-parts) to customize the way form controls are drawn. This e
 
 :::info
 **Labels sit at the end of their column so every one is the same distance from its field.**
-
 Start-aligned labels leave a different-sized gap on each row, which makes it harder to see which label belongs to which field.
 :::
 
