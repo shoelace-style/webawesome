@@ -147,14 +147,6 @@
     color: var(--wa-color-on-quiet);
     transition: color var(--wa-transition-normal) var(--wa-transition-easing);
   }
-
-  .site-search-result-caret {
-    flex: 0 0 auto;
-    font-size: var(--wa-font-size-s);
-    color: var(--wa-color-on-quiet);
-    opacity: 0;
-    transition: opacity var(--wa-transition-normal) var(--wa-transition-easing);
-  }
 }
 
 .wa-dark .site-search-result {
@@ -192,7 +184,6 @@
       opacity: 1;
     }
 
-    .site-search-result-caret,
     .site-search-recent-remove {
       opacity: 1;
     }
@@ -210,7 +201,6 @@
     opacity: 1;
   }
 
-  .site-search-result-caret,
   .site-search-recent-remove {
     opacity: 1;
   }
@@ -235,7 +225,7 @@
   --wa-form-control-height: 2em;
 
   flex: 0 0 auto;
-  /* Lands where the other lists put their chevron */
+  /* Same inset as the anchor's trailing padding */
   margin-inline-end: var(--wa-space-s);
   font-size: var(--wa-font-size-s);
   opacity: 0;
