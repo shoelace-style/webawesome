@@ -105,19 +105,23 @@
   margin: 0;
 }
 
-/* Result row — layout (cluster/gap) comes from utility classes on the anchor */
+/* Result row — layout (cluster/gap) comes from utility classes on the anchor.
+   The row carries the background so recent rows can seat a button inside it. */
 .site-search-result {
+  --row-bg-neutral: var(--wa-color-neutral-fill-quiet);
+  --row-bg-brand: var(--wa-color-brand-fill-quiet);
+
+  display: flex;
+  align-items: center;
+  border-radius: var(--wa-border-radius-m);
+  transition: background-color var(--wa-transition-normal) var(--wa-transition-easing);
+
   > a {
+    flex: 1 1 auto;
+    min-width: 0;
     text-decoration: none;
     padding: var(--wa-space-xs) var(--wa-space-s);
-    border-radius: var(--wa-border-radius-m);
     color: inherit;
-    transition: background-color var(--wa-transition-normal) var(--wa-transition-easing);
-  }
-
-  > a:focus-visible {
-    outline: var(--wa-focus-ring);
-    outline-offset: -2px;
   }
 
   .site-search-result-icon {
@@ -153,42 +157,117 @@
   }
 }
 
-@media (hover: hover) {
-  .site-search-result > a:hover {
-    background: var(--wa-color-neutral-fill-quiet);
+.wa-dark .site-search-result {
+  --row-bg-neutral: var(--wa-color-neutral-fill-normal);
+  --row-bg-brand: var(--wa-color-brand-fill-normal);
+}
 
+/* Source order is load-bearing: equal specificity, and removeRecentSearch leaves
+   a row both selected and focused, so focus must come last. */
+@media (hover: hover) {
+  .site-search-result:hover {
+    background-color: var(--row-bg-neutral);
+  }
+}
+
+.site-search-result[data-selected='true'] {
+  background-color: var(--row-bg-brand);
+}
+
+/* Neutral so a tabbed row never reads as the arrow-selected one. Ungated by the
+   hover query — keyboards get attached to touch devices. */
+.site-search-result:focus-within {
+  background-color: var(--row-bg-neutral);
+}
+
+/* Duplicated only because :hover must stay behind the media query */
+@media (hover: hover) {
+  .site-search-result:hover {
     .site-search-result-icon,
     .site-search-result-url {
       color: var(--wa-color-brand-fill-loud);
+    }
+
+    .site-search-result-icon {
       opacity: 1;
     }
 
-    .site-search-result-caret {
+    .site-search-result-caret,
+    .site-search-recent-remove {
       opacity: 1;
     }
-  }
-
-  .wa-dark .site-search-result > a:hover {
-    background: var(--wa-color-neutral-fill-normal);
   }
 }
 
-.site-search-result[data-selected='true'] > a {
-  background: var(--wa-color-brand-fill-quiet);
-
+.site-search-result[data-selected='true'],
+.site-search-result:focus-within {
   .site-search-result-icon,
   .site-search-result-url {
     color: var(--wa-color-brand-fill-loud);
+  }
+
+  .site-search-result-icon {
     opacity: 1;
   }
 
-  .site-search-result-caret {
+  .site-search-result-caret,
+  .site-search-recent-remove {
     opacity: 1;
   }
 }
 
-.wa-dark .site-search-result[data-selected='true'] > a {
-  background: var(--wa-color-brand-fill-normal);
+/* native.css rings every anchor, but the anchor stops short of the remove button.
+   Safe to kill only because the rule below rings the row instead. */
+.site-search-result > a:focus-visible {
+  outline: none;
+}
+
+/* Anchor-scoped, so a focused remove button shows only its own ring. */
+.site-search-result:has(> a:focus-visible) {
+  outline: var(--wa-focus-ring);
+  outline-offset: -2px;
+}
+
+.site-search-recent-remove {
+  --remove-color: var(--wa-color-on-quiet);
+  /* wa-button rings icon buttons 2px outside, so a full-height control leaves the
+     ring nowhere to go. 2em fits ring and all, and tracks the font-size above. */
+  --wa-form-control-height: 2em;
+
+  flex: 0 0 auto;
+  /* Lands where the other lists put their chevron */
+  margin-inline-end: var(--wa-space-s);
+  font-size: var(--wa-font-size-s);
+  opacity: 0;
+  transition: opacity var(--wa-transition-normal) var(--wa-transition-easing);
+
+  /* `plain` paints a fill on hover and active; stating it transparent here covers
+     every state at once. */
+  &::part(base) {
+    background-color: transparent;
+    color: var(--remove-color);
+    transition: color var(--wa-transition-normal) var(--wa-transition-easing);
+  }
+
+  /* :focus-within, not :focus-visible — wa-button delegates focus into its shadow
+     root, so the host never reliably matches :focus-visible itself. */
+  &:focus-within,
+  &:active {
+    --remove-color: var(--wa-color-danger-on-quiet);
+  }
+}
+
+@media (hover: hover) {
+  .site-search-recent-remove:hover {
+    --remove-color: var(--wa-color-danger-on-quiet);
+  }
+}
+
+/* No hover on touch, and this is the only pointer affordance for removing */
+@media not (hover: hover) {
+  .site-search-recent-remove {
+    opacity: 1;
+  }
 }
 
 #site-search-empty {

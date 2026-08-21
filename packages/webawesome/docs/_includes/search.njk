@@ -14,7 +14,9 @@
     </header>
 
     {# Body #}
-    <div id="site-search-body">
+    {# Opts out of Chrome's keyboard-focusable scrollers — that's for regions with
+       no focusable content, and the extra tab stop rings the whole dialog. #}
+    <div id="site-search-body" tabindex="-1">
       {# Default state — Suggested starts + Recent searches #}
       <div id="site-search-default" class="wa-stack wa-gap-0">
         <div id="site-search-suggested-list" class="site-search-listing" role="listbox" aria-label="Suggested">
@@ -125,6 +127,8 @@
         </div>
       </div>
     </div>
+
+    <div id="site-search-live-region" class="wa-visually-hidden" role="status" aria-live="polite"></div>
 
     <footer class="wa-flank:end wa-flex-nowrap wa-color-text-quiet">
       <div class="wa-cluster wa-flex-nowrap">

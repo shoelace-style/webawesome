@@ -88,6 +88,11 @@ function getElements() {
   };
 }
 
+function announce(message) {
+  const liveRegion = document.getElementById('site-search-live-region');
+  if (liveRegion) liveRegion.textContent = message;
+}
+
 // Returns the visible options container for keyboard nav: the results listbox
 // when there's an active query, otherwise the default-state container which
 // wraps both the Suggested and Recent sublists.
@@ -112,16 +117,24 @@ function loadRecentSearches() {
   }
 }
 
+function saveRecentSearches(queries) {
+  try {
+    if (queries.length > 0) {
+      localStorage.setItem(recentSearchesKey, JSON.stringify(queries));
+    } else {
+      localStorage.removeItem(recentSearchesKey);
+    }
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 function saveRecentSearch(query) {
   const trimmed = (query || '').trim();
   if (!trimmed) return;
-  try {
-    const current = loadRecentSearches();
-    const next = [trimmed, ...current.filter(q => q !== trimmed)].slice(0, recentSearchesMax);
-    localStorage.setItem(recentSearchesKey, JSON.stringify(next));
-  } catch {
-    // localStorage unavailable or full — skip silently
-  }
+  const current = loadRecentSearches();
+  saveRecentSearches([trimmed, ...current.filter(q => q !== trimmed)].slice(0, recentSearchesMax));
 }
 
 function renderRecentSearches() {
@@ -139,11 +152,13 @@ function renderRecentSearches() {
 
   queries.forEach((query, index) => {
     const li = document.createElement('li');
-    li.className = 'site-search-result';
+    li.className = 'site-search-result site-search-recent';
     li.setAttribute('role', 'option');
     li.id = `recent-item-${index + 1}`;
     li.dataset.recentQuery = query;
     li.setAttribute('data-selected', 'false');
+    // Beats name-from-contents, so the row doesn't absorb the button's label
+    li.setAttribute('aria-label', query);
 
     const a = document.createElement('a');
     a.href = '#';
@@ -153,14 +168,67 @@ function renderRecentSearches() {
       <div class="site-search-result-details">
         <div class="site-search-result-title wa-font-size-s"></div>
       </div>
-      <wa-icon class="site-search-result-caret" name="chevron-right" variant="regular" aria-hidden="true"></wa-icon>
     `;
     // textContent — never innerHTML — for the user-supplied query string
     a.querySelector('.site-search-result-title').textContent = query;
 
-    li.appendChild(a);
+    const remove = document.createElement('wa-button');
+    remove.className = 'site-search-recent-remove';
+    remove.dataset.recentRemove = '';
+    remove.setAttribute('appearance', 'plain');
+    remove.innerHTML = `<wa-icon name="xmark" variant="regular"></wa-icon>`;
+    // setAttribute, not a template literal — the query is user-supplied
+    remove.querySelector('wa-icon').setAttribute('label', `Remove ${query} from recent searches`);
+
+    li.append(a, remove);
     recentListbox.appendChild(li);
   });
+}
+
+// In place, not a re-render: the neighbour inheriting focus is already upgraded
+// and can take it synchronously. A rebuilt wa-button could not.
+function removeRecentSearch(li, selectionMethod) {
+  const query = li?.dataset.recentQuery;
+  if (!query) return;
+
+  const remaining = loadRecentSearches().filter(q => q !== query);
+  const wasSelected = li.getAttribute('data-selected') === 'true';
+  const hadFocus = li.contains(document.activeElement);
+  const next = li.nextElementSibling ?? li.previousElementSibling;
+
+  if (!saveRecentSearches(remaining)) return;
+  li.remove();
+
+  const { input, recentContainer, recentDivider } = getElements();
+  if (remaining.length === 0) {
+    if (recentContainer) recentContainer.hidden = true;
+    if (recentDivider) recentDivider.hidden = true;
+  }
+
+  trackEvent('navigation:search_recent_remove', {
+    remaining: remaining.length,
+    selection_method: selectionMethod,
+  });
+
+  announce(
+    remaining.length > 0
+      ? `Removed “${query}” from recent searches.`
+      : `Removed “${query}”. No recent searches remain.`,
+  );
+
+  if (!input) return;
+
+  // Otherwise focus falls to the body, outside the dialog
+  if (hadFocus) (next?.querySelector('[data-recent-remove]') ?? input).focus();
+
+  if (!wasSelected) return;
+
+  if (next) {
+    next.setAttribute('data-selected', 'true');
+    input.setAttribute('aria-activedescendant', next.id);
+  } else {
+    input.setAttribute('aria-activedescendant', '');
+  }
 }
 
 function trackQuerySubmit(query, resultSelectedValue) {
@@ -317,6 +385,20 @@ function handleKeyDown(event) {
   const activeList = getActiveList();
   if (!input || !activeList) return;
 
+  // List keys belong to the input. Without this the Enter interception below
+  // swallows activation for every other focusable in the dialog.
+  if (event.target !== input) return;
+
+  // Backspace too: MacBooks have no forward-delete key. Untrimmed on purpose —
+  // whitespace still renders recents, and it's the user's to edit.
+  if (event.shiftKey && ['Delete', 'Backspace'].includes(event.key) && !input.value) {
+    const selectedRecent = activeList.querySelector('.site-search-recent[data-selected="true"]');
+    if (!selectedRecent) return;
+    event.preventDefault();
+    removeRecentSearch(selectedRecent, 'keyboard');
+    return;
+  }
+
   // Handle keyboard selections
   if (['ArrowDown', 'ArrowUp', 'Home', 'End', 'Enter'].includes(event.key)) {
     event.preventDefault();
@@ -417,7 +499,16 @@ function selectResult(link, selectionMethod) {
 // Click handler for the default-state list. Defers to handleDefaultSelection
 // so keyboard Enter can share the same logic with a known selection_method.
 function handleDefaultListClick(event) {
-  const link = event.target.closest('a');
+  const removeButton = event.target.closest('[data-recent-remove]');
+  if (removeButton) {
+    event.preventDefault();
+    removeRecentSearch(removeButton.closest('li'), 'mouse_click');
+    return;
+  }
+
+  // From the row, not the target — the anchor doesn't span it. Assumes one
+  // non-anchor control per row, guarded above.
+  const link = event.target.closest('li')?.querySelector('a');
   if (!link) return;
   event.preventDefault();
   handleDefaultSelection(link, 'mouse_click');
