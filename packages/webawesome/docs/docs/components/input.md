@@ -151,12 +151,12 @@ Use the `start` and `end` slots to add presentational elements like `<wa-icon>` 
 
 ### Customizing Label Position
 
-Use [CSS parts](#css-parts) to customize the way form controls are drawn. This example uses CSS grid to position the label to the left of the control, but the possible orientations are nearly endless. The same technique works for inputs, textareas, radio groups, and similar form controls.
+Use [CSS parts](#css-parts) to customize the way form controls are drawn. This example uses CSS grid to position the label to the left of the control, but the possible orientations are nearly endless. The same technique works for inputs, textareas, radio groups, and similar form controls. The label part is a flex container, so use `justify-content` to align its text. `text-align` has no effect.
 
 ```html {.example}
 <div class="label-on-left">
   <wa-input label="Name" hint="Enter your name"></wa-input>
-  <wa-input label="Email" type="email" hint="Enter your email"></wa-input>
+  <wa-input label="Email address" type="email" hint="Enter your email"></wa-input>
   <wa-textarea label="Bio" hint="Tell us something about yourself"></wa-textarea>
 </div>
 
@@ -178,7 +178,7 @@ Use [CSS parts](#css-parts) to customize the way form controls are drawn. This e
     }
 
     ::part(form-control-label) {
-      text-align: right;
+      justify-content: end;
     }
 
     ::part(hint) {
