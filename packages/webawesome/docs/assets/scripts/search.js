@@ -180,14 +180,7 @@ function renderRecentSearches() {
     // setAttribute, not a template literal — the query is user-supplied
     remove.querySelector('wa-icon').setAttribute('label', `Remove ${query} from recent searches`);
 
-    // Outside the anchor so every chevron in the dialog shares one vertical line
-    const caret = document.createElement('wa-icon');
-    caret.className = 'site-search-result-caret';
-    caret.setAttribute('name', 'chevron-right');
-    caret.setAttribute('variant', 'regular');
-    caret.setAttribute('aria-hidden', 'true');
-
-    li.append(a, remove, caret);
+    li.append(a, remove);
     recentListbox.appendChild(li);
   });
 }
@@ -513,7 +506,7 @@ function handleDefaultListClick(event) {
     return;
   }
 
-  // From the row, not the target — the caret sits outside the anchor. Assumes one
+  // From the row, not the target — the anchor doesn't span it. Assumes one
   // non-anchor control per row, guarded above.
   const link = event.target.closest('li')?.querySelector('a');
   if (!link) return;
