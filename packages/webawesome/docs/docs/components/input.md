@@ -177,6 +177,14 @@ Use [CSS parts](#css-parts) to customize the way form controls are drawn. This e
       align-items: center;
     }
 
+    wa-textarea {
+      align-items: start;
+
+      &::part(form-control-label) {
+        padding-block-start: var(--wa-form-control-padding-block);
+      }
+    }
+
     ::part(form-control-label) {
       justify-content: end;
     }
