@@ -317,6 +317,10 @@ function handleKeyDown(event) {
   const activeList = getActiveList();
   if (!input || !activeList) return;
 
+  // List keys belong to the input. Without this the Enter interception below
+  // swallows activation for every other focusable in the dialog.
+  if (event.target !== input) return;
+
   // Handle keyboard selections
   if (['ArrowDown', 'ArrowUp', 'Home', 'End', 'Enter'].includes(event.key)) {
     event.preventDefault();
