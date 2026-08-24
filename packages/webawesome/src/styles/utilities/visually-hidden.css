@@ -13,5 +13,12 @@
     overflow: hidden !important;
     white-space: nowrap !important;
     padding: 0 !important;
+
+    /**
+      Always set top / left to prevent accidental overflows. (we could also set -1px margin, but this seems sufficient)
+      <https://github.com/shoelace-style/webawesome/issues/2567>
+     */
+    top: 0px !important;
+    left: 0px !important;
   }
 }
