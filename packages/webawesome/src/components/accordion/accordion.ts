@@ -62,12 +62,6 @@ export default class WaAccordion extends WebAwesomeElement {
     return item.closest('wa-accordion') === this;
   }
 
-  private initRovingTabIndex() {
-    this.getFocusableItems().forEach((item, index) => {
-      item.isTabbable = index === 0;
-    });
-  }
-
   private handleSlotChange() {
     if (this.didSSR) {
       const promises: Promise<boolean>[] = [];
@@ -90,19 +84,6 @@ export default class WaAccordion extends WebAwesomeElement {
     this.syncIconPlacement();
     this.syncHeadingLevel();
     this.syncAppearance();
-    this.initRovingTabIndex();
-  }
-
-  private handleFocusIn(event: FocusEvent) {
-    const items = this.getFocusableItems();
-    const path = event.composedPath();
-    const closestItem = path.find(
-      (el): el is WaAccordionItem => el instanceof Element && el.tagName.toLowerCase() === 'wa-accordion-item',
-    );
-    if (!closestItem || !this.ownsItem(closestItem)) return;
-    const focusedItem = items.find(item => item === closestItem);
-    if (!focusedItem) return;
-    items.forEach(item => (item.isTabbable = item === focusedItem));
   }
 
   private handleKeyDown(event: KeyboardEvent) {
@@ -115,7 +96,7 @@ export default class WaAccordion extends WebAwesomeElement {
     );
     if (!closestItem || !this.ownsItem(closestItem)) return;
 
-    const currentIndex = items.findIndex(item => item.isTabbable);
+    const currentIndex = items.findIndex(item => item === closestItem);
     let nextIndex = currentIndex;
 
     switch (event.key) {
@@ -139,7 +120,6 @@ export default class WaAccordion extends WebAwesomeElement {
         return;
     }
 
-    items.forEach((item, index) => (item.isTabbable = index === nextIndex));
     items[nextIndex].focus();
   }
 
@@ -205,7 +185,6 @@ export default class WaAccordion extends WebAwesomeElement {
       <slot
         @slotchange=${this.handleSlotChange}
         @wa-accordion-item-trigger=${this.handleItemTrigger}
-        @focusin=${this.handleFocusIn}
         @keydown=${this.handleKeyDown}
       ></slot>
     `;
