@@ -109,7 +109,6 @@ function toLength(px: number | string): string {
  * @csspart aside - The right hand side of the page. Used for things like table of contents, ads, etc.
  * @csspart skip-to-content - The "skip to content" link that lets keyboard users bypass navigation.
  * @csspart footer - The footer of the page. This is always below the initial viewport size.
- * @csspart dialog-wrapper - A wrapper around elements such as dialogs or other modal-like elements.
  *
  * @cssproperty [--menu-width=auto] - The width of the page's "menu" section.
  * @cssproperty [--main-width=1fr] - The width of the page's "main" section.
@@ -300,7 +299,7 @@ export default class WaPage extends WebAwesomeElement {
     return Math.max(0, top > 0 ? Math.min(elementHeight, windowHeight - top) : Math.min(bottom, windowHeight));
   }
 
-  firstUpdated() {
+  firstUpdated(changedProperties: PropertyValues<typeof this>) {
     // If the user provides a #main-content id, it should be present in the default slot and the "skip to
     // content" link will point to it. If not, we'll prepend an empty element for them so things just work.
     if (!document.getElementById('main-content')) {
@@ -312,6 +311,7 @@ export default class WaPage extends WebAwesomeElement {
 
     this.shadowRoot!.addEventListener('slotchange', this.updateNavigationToggleState);
     this.updateNavigationToggleState();
+    super.firstUpdated(changedProperties);
   }
 
   disconnectedCallback() {

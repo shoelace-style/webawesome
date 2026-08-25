@@ -1,4 +1,4 @@
-import { html, isServer } from 'lit';
+import { html, isServer, type PropertyValues } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -196,7 +196,8 @@ export default class WaKnownDate extends WebAwesomeFormAssociatedElement {
   // Lifecycle
   //
 
-  firstUpdated() {
+  firstUpdated(changedProperties: PropertyValues<typeof this>) {
+    super.firstUpdated(changedProperties);
     if (this.pendingValue != null) {
       this._value = this.pendingValue;
       this.pendingValue = null;

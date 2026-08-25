@@ -1208,6 +1208,15 @@
   /* #endregion */
   /* #endregion */
 
+  /* #region code blocks */
+  /* Browsers make an overflowing code block a tab stop so it can be scrolled by keyboard. */
+  /* Blocks with a copy button scroll the inner <code>, but the ring stays on the pre, which would clip an inset one. */
+  pre:is(:focus-visible, :has(> code:focus-visible)) {
+    outline: var(--wa-focus-ring);
+    outline-offset: var(--wa-focus-ring-offset);
+  }
+  /* #endregion */
+
   /* #region resets */
   code.appearance-plain {
     background: transparent;

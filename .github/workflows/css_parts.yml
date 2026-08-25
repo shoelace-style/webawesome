@@ -1,6 +1,6 @@
-# Fails if any component renders a `part="…"` attribute with no matching `@csspart`,
-# keeping the rendered and documented CSS part surfaces from drifting apart. Static
-# analysis only — no build or dev server needed.
+# Fails if any component renders a `part="…"` attribute with no matching `@csspart`, or
+# documents a `@csspart` that nothing renders, keeping the rendered and documented CSS part
+# surfaces from drifting apart. Static analysis only — no build or dev server needed.
 
 name: CSS Parts
 

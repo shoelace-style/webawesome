@@ -1,4 +1,4 @@
-import { html, isServer } from 'lit';
+import { html, isServer, type PropertyValues } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { WaAfterHideEvent } from '../../events/after-hide.js';
@@ -96,10 +96,8 @@ export default class WaDrawer extends WebAwesomeElement {
    */
   @property({ attribute: 'with-footer', type: Boolean }) withFooter = false;
 
-  firstUpdated() {
-    if (isServer) {
-      return;
-    }
+  firstUpdated(changedProperties: PropertyValues<typeof this>) {
+    super.firstUpdated(changedProperties);
     if (this.open) {
       this.addOpenListeners();
       this.drawer.showModal();
@@ -284,7 +282,7 @@ export default class WaDrawer extends WebAwesomeElement {
       >
         ${hasHeader
           ? html`
-              <header part="header" class="header">
+              <div part="header" class="header">
                 <h2 part="title" class="title" id="title">
                   <!-- If there's no label, use an invisible character to prevent the header from collapsing -->
                   <slot name="label"> ${this.label.length > 0 ? this.label : String.fromCharCode(8203)} </slot>
@@ -306,15 +304,15 @@ export default class WaDrawer extends WebAwesomeElement {
                     ></wa-icon>
                   </wa-button>
                 </div>
-              </header>
+              </div>
             `
           : ''}
 
         <div part="body" class="body"><slot></slot></div>
 
-        <footer part="footer" class="footer" ?hidden=${!hasFooter}>
+        <div part="footer" class="footer" ?hidden=${!hasFooter}>
           <slot name="footer"></slot>
-        </footer>
+        </div>
       </dialog>
     `;
   }

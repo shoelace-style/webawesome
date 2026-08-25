@@ -53,7 +53,7 @@ import styles from './slider.styles.js';
  * @csspart thumb-max - The max value thumb in a range slider.
  * @csspart tooltip - The tooltip, a `<wa-tooltip>` element.
  * @csspart tooltip__tooltip - The tooltip's `tooltip` part.
- * @csspart tooltip__content - The tooltip's `content` part.
+ * @csspart tooltip__body - The tooltip's `body` part.
  * @csspart tooltip__arrow - The tooltip's `arrow` part.
  *
  * @cssstate disabled - Applied when the slider is disabled.
@@ -221,7 +221,8 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
    */
   @property({ attribute: false }) valueFormatter: (value: number) => string;
 
-  firstUpdated() {
+  firstUpdated(changedProperties: PropertyValues<this>) {
+    super.firstUpdated(changedProperties);
     // Setup dragging based on range or single thumb mode
     if (this.isRange) {
       // Enable dragging on both thumbs for range slider
@@ -879,6 +880,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
               part="tooltip"
               exportparts="
                 base:tooltip__base,
+                tooltip:tooltip__tooltip,
                 body:tooltip__body,
                 arrow:tooltip__arrow
               "

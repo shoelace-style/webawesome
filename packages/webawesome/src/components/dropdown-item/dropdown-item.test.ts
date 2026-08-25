@@ -170,6 +170,122 @@ describe('<wa-dropdown-item>', () => {
         });
       });
 
+      describe('links', () => {
+        it('should not render a link when href is absent', async () => {
+          const el = await fixture<WaDropdownItem>(html`<wa-dropdown-item>Item</wa-dropdown-item>`);
+          expect(el.shadowRoot!.querySelector('#link')).to.not.exist;
+        });
+
+        it('should render a hidden link when href is set', async () => {
+          const el = await fixture<WaDropdownItem>(html`<wa-dropdown-item href="/about">About</wa-dropdown-item>`);
+          const link = el.shadowRoot!.querySelector<HTMLAnchorElement>('#link')!;
+          expect(link).to.exist;
+          expect(link.getAttribute('href')).to.equal('/about');
+          expect(link.getAttribute('aria-hidden')).to.equal('true');
+          expect(link.getAttribute('tabindex')).to.equal('-1');
+        });
+
+        it('should pass target, rel, and download through to the link', async () => {
+          const el = await fixture<WaDropdownItem>(html`
+            <wa-dropdown-item href="/file.pdf" target="_blank" rel="noreferrer" download="report.pdf">
+              Download
+            </wa-dropdown-item>
+          `);
+          const link = el.shadowRoot!.querySelector<HTMLAnchorElement>('#link')!;
+          expect(link.getAttribute('target')).to.equal('_blank');
+          expect(link.getAttribute('rel')).to.equal('noreferrer');
+          expect(link.getAttribute('download')).to.equal('report.pdf');
+        });
+
+        it('should omit target, rel, and download when they are not set', async () => {
+          const el = await fixture<WaDropdownItem>(html`<wa-dropdown-item href="/about">About</wa-dropdown-item>`);
+          const link = el.shadowRoot!.querySelector<HTMLAnchorElement>('#link')!;
+          expect(link.hasAttribute('target')).to.be.false;
+          expect(link.hasAttribute('rel')).to.be.false;
+          expect(link.hasAttribute('download')).to.be.false;
+        });
+
+        it('should keep role="menuitem" when href is set', async () => {
+          const el = await fixture<WaDropdownItem>(html`<wa-dropdown-item href="/about">About</wa-dropdown-item>`);
+          expect(el.getAttribute('role')).to.equal('menuitem');
+        });
+
+        it('should expose the link custom state when href is set', async () => {
+          const el = await fixture<WaDropdownItem>(html`<wa-dropdown-item>Item</wa-dropdown-item>`);
+          expect(el.matches(':state(link)')).to.be.false;
+
+          el.href = '/about';
+          await el.updateComplete;
+          expect(el.matches(':state(link)')).to.be.true;
+        });
+
+        // Skipped for SSR because rendering a submenu server-side triggers a pre-existing hydration mismatch. The
+        // submenu icon and container render only after firstUpdated(), so the server omits markup the client adds.
+        // This is unrelated to link behavior and also fails for submenu items without an href.
+        const itOrSkip = fixture.type === 'ssr-client-hydrated' ? it.skip : it;
+
+        itOrSkip('should not navigate when the item has a submenu', async () => {
+          const el = await fixture<WaDropdownItem>(html`
+            <wa-dropdown-item href="/about">
+              About
+              <wa-dropdown-item slot="submenu" href="/about/team">Team</wa-dropdown-item>
+            </wa-dropdown-item>
+          `);
+          await el.updateComplete;
+          expect(el.matches(':state(link)')).to.be.false;
+
+          // The link element still exists so server and client render the same template, but the item must not navigate
+          const link = el.shadowRoot!.querySelector<HTMLAnchorElement>('#link')!;
+          const clickHandler = sinon.spy((event: MouseEvent) => event.preventDefault());
+          link.addEventListener('click', clickHandler);
+
+          el.navigate();
+          expect(clickHandler).to.not.have.been.called;
+        });
+
+        it('should click the link when navigate() is called', async () => {
+          const el = await fixture<WaDropdownItem>(html`<wa-dropdown-item href="/about">About</wa-dropdown-item>`);
+          const link = el.shadowRoot!.querySelector<HTMLAnchorElement>('#link')!;
+          const clickHandler = sinon.spy((event: MouseEvent) => event.preventDefault());
+          link.addEventListener('click', clickHandler);
+
+          el.navigate();
+          expect(clickHandler).to.have.been.calledOnce;
+        });
+
+        it('should forward modifier keys from the source event to the link', async () => {
+          const el = await fixture<WaDropdownItem>(html`<wa-dropdown-item href="/about">About</wa-dropdown-item>`);
+          const link = el.shadowRoot!.querySelector<HTMLAnchorElement>('#link')!;
+          const clickHandler = sinon.spy((event: MouseEvent) => event.preventDefault());
+          link.addEventListener('click', clickHandler);
+
+          el.navigate(new MouseEvent('click', { metaKey: true, shiftKey: true }));
+
+          const forwarded = clickHandler.firstCall.args[0];
+          expect(forwarded.metaKey).to.be.true;
+          expect(forwarded.shiftKey).to.be.true;
+          expect(forwarded.ctrlKey).to.be.false;
+          expect(forwarded.altKey).to.be.false;
+        });
+
+        it('should not navigate when disabled', async () => {
+          const el = await fixture<WaDropdownItem>(
+            html`<wa-dropdown-item href="/about" disabled>About</wa-dropdown-item>`,
+          );
+          const link = el.shadowRoot!.querySelector<HTMLAnchorElement>('#link')!;
+          const clickHandler = sinon.spy((event: MouseEvent) => event.preventDefault());
+          link.addEventListener('click', clickHandler);
+
+          el.navigate();
+          expect(clickHandler).to.not.have.been.called;
+        });
+
+        it('should not throw when navigate() is called without an href', async () => {
+          const el = await fixture<WaDropdownItem>(html`<wa-dropdown-item>Item</wa-dropdown-item>`);
+          expect(() => el.navigate()).to.not.throw();
+        });
+      });
+
       describe('CSS parts and states', () => {
         it('should have an icon part', async () => {
           const el = await fixture<WaDropdownItem>(html`<wa-dropdown-item>Item</wa-dropdown-item>`);

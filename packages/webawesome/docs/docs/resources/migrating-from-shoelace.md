@@ -24,8 +24,8 @@ This guide is for developers with a working Shoelace 2.x project who want to upg
 
 If you're brand new to Web Awesome, the [Getting Started](/docs/) guide is a better starting point.
 
-<wa-callout class="pro">
-  <wa-icon slot="icon" name="hand-wave" animation="shake" style="--animation-delay: 2s; --animation-duration: 4s;"></wa-icon>
+<wa-callout class="pro wa-brand-orange">
+  <wa-icon slot="icon" name="crown" family="duotone" variant="regular" class="duotone-illustrated"></wa-icon>
   <strong>A Few Components Now Live In Web Awesome Pro</strong>
    Comboboxes, File Inputs, and Charts moved to <a href="#whats-in-web-awesome-pro">Web&nbsp;Awesome&nbsp;Pro</a>. We mark them clearly with a
   <wa-badge appearance="accent" pill class="pro" data-pro-badge>Pro</wa-badge>

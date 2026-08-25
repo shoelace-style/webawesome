@@ -118,32 +118,15 @@ wa-page:not([view='mobile']) > main {
   font-size: var(--wa-font-size-xs);
 }
 
-/* Center the prose wrapper inside main so the line-length cap reads as a
- * centered reading column, not a flush-left one. */
+/* Docs content renders on wa-prose's own rhythm — the docs are a live demo of it;
+   deliberate exceptions live in #content below. The line-length override must land on
+   .wa-prose itself, since an element's own declaration beats an inherited one. */
 #content > .wa-prose {
   margin-inline: auto;
-}
-
-/* Docs reading column, kept in ch (a reading measure). Must land on .wa-prose itself:
- * upstream sets --wa-prose-line-length on :where(.wa-prose) at 0 specificity, so an
- * own-element declaration is needed to win over the inherited value. */
-#content > .wa-prose {
   --wa-prose-line-length: round(up, 110ch, 1px);
 }
 
 #content {
-  /* Remap wa-prose's em-based rhythm to the docs' rem-based spacing scale.
-     wa-prose intentionally scales with element font-size, but the docs were
-     authored against the rem-based rhythm and depend on that visual cadence. */
-  --wa-prose-rhythm-2xs: var(--wa-space-2xs);
-  --wa-prose-rhythm-xs: var(--wa-space-xs);
-  --wa-prose-rhythm-s: var(--wa-space-s);
-  --wa-prose-rhythm-m: var(--wa-space-m);
-  --wa-prose-rhythm-l: var(--wa-space-l);
-  --wa-prose-rhythm-xl: var(--wa-space-xl);
-  --wa-prose-rhythm-2xl: var(--wa-space-2xl);
-  --wa-prose-rhythm-3xl: var(--wa-space-3xl);
-
   /* Extend wa-prose's major-blocks treatment to `.code-example` live demos
      (wa-prose covers `<details>` natively). */
   .code-example:has(+ *) {
@@ -163,6 +146,11 @@ wa-page:not([view='mobile']) > main {
   }
   .anchor-heading + wa-tooltip + .anchor-heading {
     margin-block-start: var(--wa-prose-rhythm-m);
+  }
+
+  /* Treat the page title + its date line as one header unit. */
+  h1.title:has(+ p > wa-format-date) {
+    margin-block-end: var(--wa-space-s);
   }
 
   /* Treat h2 + `<small><time>` as one header unit (changelog releases). */
@@ -187,6 +175,22 @@ wa-page:not([view='mobile']) > main {
   .dependency-list code {
     background-color: transparent;
     white-space: nowrap;
+  }
+}
+
+/* Policy pages are dense numbered clauses; give the items room to separate and let
+   the markers recede so the clause text leads. */
+.page-policy #content {
+  :is(ol, ul) li:not(:last-child) {
+    margin-block-end: var(--wa-space-m);
+  }
+
+  ol li {
+    padding-inline-start: var(--wa-space-xs);
+  }
+
+  ol li::marker {
+    color: var(--wa-color-text-quiet);
   }
 }
 

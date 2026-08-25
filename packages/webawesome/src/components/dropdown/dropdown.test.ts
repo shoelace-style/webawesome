@@ -1,9 +1,10 @@
 import { aTimeout, expect, waitUntil } from '@open-wc/testing';
-import { sendKeys } from '@web/test-runner-commands';
+import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit';
 import sinon from 'sinon';
 import { expectEvent } from '../../internal/test/expect-event.js';
-import { fixtures } from '../../internal/test/fixture.js';
+import { clientFixture, fixtures } from '../../internal/test/fixture.js';
+import type WaDropdownItem from '../dropdown-item/dropdown-item.js';
 import type WaDropdown from './dropdown.js';
 
 describe('<wa-dropdown>', () => {
@@ -58,6 +59,26 @@ describe('<wa-dropdown>', () => {
 
           const menu = el.shadowRoot!.querySelector('#menu')!;
           expect(menu.getAttribute('role')).to.equal('menu');
+        });
+
+        it('should exclude labels and dividers from the reported menu item count', async () => {
+          const el = await fixture<WaDropdown>(html`
+            <wa-dropdown>
+              <wa-button slot="trigger">Dropdown</wa-button>
+              <h3>Type</h3>
+              <wa-dropdown-item>Phone</wa-dropdown-item>
+              <wa-dropdown-item>Tablet</wa-dropdown-item>
+              <wa-dropdown-item>Desktop</wa-dropdown-item>
+              <wa-divider></wa-divider>
+              <wa-dropdown-item>More options</wa-dropdown-item>
+            </wa-dropdown>
+          `);
+          await el.updateComplete;
+
+          const items = [...el.querySelectorAll('wa-dropdown-item')];
+          await waitUntil(() => items.every(item => item.hasAttribute('aria-posinset')));
+          expect(items.map(item => item.getAttribute('aria-posinset'))).to.deep.equal(['1', '2', '3', '4']);
+          expect(items.map(item => item.getAttribute('aria-setsize'))).to.deep.equal(['4', '4', '4', '4']);
         });
       });
 
@@ -238,6 +259,121 @@ describe('<wa-dropdown>', () => {
 
           await waitUntil(() => !el.open);
           expect(el.open).to.be.false;
+        });
+
+        it('should navigate when a link item is selected', async () => {
+          const el = await fixture<WaDropdown>(html`
+            <wa-dropdown open>
+              <wa-button slot="trigger">Dropdown</wa-button>
+              <wa-dropdown-item value="about" href="/about">About</wa-dropdown-item>
+            </wa-dropdown>
+          `);
+          await el.updateComplete;
+          await aTimeout(200);
+
+          const item = el.querySelector<HTMLElement>('wa-dropdown-item')!;
+          const link = item.shadowRoot!.querySelector<HTMLAnchorElement>('#link')!;
+          const clickHandler = sinon.spy((event: MouseEvent) => event.preventDefault());
+          link.addEventListener('click', clickHandler);
+
+          item.click();
+          await aTimeout(200);
+
+          expect(clickHandler).to.have.been.calledOnce;
+          expect(el.open).to.be.false;
+        });
+
+        it('should not navigate when wa-select is prevented on a link item', async () => {
+          const el = await fixture<WaDropdown>(html`
+            <wa-dropdown open>
+              <wa-button slot="trigger">Dropdown</wa-button>
+              <wa-dropdown-item value="about" href="/about">About</wa-dropdown-item>
+            </wa-dropdown>
+          `);
+          await el.updateComplete;
+          await aTimeout(200);
+
+          el.addEventListener('wa-select', event => event.preventDefault());
+
+          const item = el.querySelector<HTMLElement>('wa-dropdown-item')!;
+          const link = item.shadowRoot!.querySelector<HTMLAnchorElement>('#link')!;
+          const clickHandler = sinon.spy((event: MouseEvent) => event.preventDefault());
+          link.addEventListener('click', clickHandler);
+
+          item.click();
+          await aTimeout(200);
+
+          expect(clickHandler).to.not.have.been.called;
+          expect(el.open).to.be.true;
+        });
+
+        it('should not navigate when a disabled link item is clicked', async () => {
+          const el = await fixture<WaDropdown>(html`
+            <wa-dropdown open>
+              <wa-button slot="trigger">Dropdown</wa-button>
+              <wa-dropdown-item value="about" href="/about" disabled>About</wa-dropdown-item>
+            </wa-dropdown>
+          `);
+          await el.updateComplete;
+          await aTimeout(200);
+
+          const item = el.querySelector<HTMLElement>('wa-dropdown-item')!;
+          const link = item.shadowRoot!.querySelector<HTMLAnchorElement>('#link')!;
+          const clickHandler = sinon.spy((event: MouseEvent) => event.preventDefault());
+          link.addEventListener('click', clickHandler);
+
+          item.click();
+          await aTimeout(200);
+
+          expect(clickHandler).to.not.have.been.called;
+        });
+
+        // Skipped for SSR because a dropdown that hydrates with the open attribute never transitions open, so
+        // showMenu() never runs and the document keydown listener is never attached. This is a pre-existing
+        // wa-dropdown issue unrelated to link items.
+        const itOrSkip = fixture.type === 'ssr-client-hydrated' ? it.skip : it;
+
+        itOrSkip('should navigate when a link item is selected with Enter', async () => {
+          const el = await fixture<WaDropdown>(html`
+            <wa-dropdown open>
+              <wa-button slot="trigger">Dropdown</wa-button>
+              <wa-dropdown-item value="about" href="/about">About</wa-dropdown-item>
+            </wa-dropdown>
+          `);
+          await el.updateComplete;
+          await aTimeout(200);
+
+          const item = el.querySelector<HTMLElement>('wa-dropdown-item')!;
+          const link = item.shadowRoot!.querySelector<HTMLAnchorElement>('#link')!;
+          const clickHandler = sinon.spy((event: MouseEvent) => event.preventDefault());
+          link.addEventListener('click', clickHandler);
+
+          item.focus();
+          await sendKeys({ press: 'Enter' });
+          await aTimeout(200);
+
+          expect(clickHandler).to.have.been.calledOnce;
+        });
+
+        it('should still fire wa-select for link items', async () => {
+          const el = await fixture<WaDropdown>(html`
+            <wa-dropdown open>
+              <wa-button slot="trigger">Dropdown</wa-button>
+              <wa-dropdown-item value="about" href="/about">About</wa-dropdown-item>
+            </wa-dropdown>
+          `);
+          await el.updateComplete;
+          await aTimeout(200);
+
+          const item = el.querySelector<HTMLElement>('wa-dropdown-item')!;
+          const link = item.shadowRoot!.querySelector<HTMLAnchorElement>('#link')!;
+          link.addEventListener('click', event => event.preventDefault());
+
+          const events = await expectEvent(el, 'wa-select', () => {
+            item.click();
+          });
+
+          expect((events[0] as CustomEvent).detail.item.value).to.equal('about');
         });
 
         it('should not close after selection when wa-select is prevented', async () => {
@@ -517,7 +653,7 @@ describe('<wa-dropdown>', () => {
 
   describe('trigger interaction', () => {
     it('should toggle open when the trigger is clicked', async () => {
-      const el = await fixtures[0]<WaDropdown>(html`
+      const el = await clientFixture<WaDropdown>(html`
         <wa-dropdown>
           <wa-button slot="trigger">Dropdown</wa-button>
           <wa-dropdown-item>One</wa-dropdown-item>
@@ -538,7 +674,7 @@ describe('<wa-dropdown>', () => {
 
   describe('dismissible stack', () => {
     it('should only close the dropdown when pressing Escape on a dropdown with a popover inside', async () => {
-      const el = await fixtures[0]<HTMLDivElement>(html`
+      const el = await clientFixture<HTMLDivElement>(html`
         <div>
           <wa-dropdown id="test-dropdown">
             <wa-button slot="trigger">Dropdown</wa-button>
@@ -572,6 +708,72 @@ describe('<wa-dropdown>', () => {
       await aTimeout(200);
 
       expect(dropdown.open).to.be.false;
+    });
+  });
+
+  describe('submenu positioning', () => {
+    const submenuFixture = () =>
+      clientFixture<WaDropdown>(html`
+        <wa-dropdown>
+          <wa-button slot="trigger">Menu</wa-button>
+          <wa-dropdown-item id="parent-item">
+            Email Template Previews
+            <wa-dropdown-item slot="submenu">Received</wa-dropdown-item>
+            <wa-dropdown-item slot="submenu">Approval Needed</wa-dropdown-item>
+            <wa-dropdown-item slot="submenu">Needs Scheduled</wa-dropdown-item>
+            <wa-dropdown-item slot="submenu">Scheduled</wa-dropdown-item>
+            <wa-dropdown-item slot="submenu">Awaiting Payment</wa-dropdown-item>
+            <wa-dropdown-item slot="submenu">New User Welcome</wa-dropdown-item>
+            <wa-dropdown-item slot="submenu">Reset Password</wa-dropdown-item>
+          </wa-dropdown-item>
+        </wa-dropdown>
+      `);
+
+    async function openSubmenu(el: WaDropdown) {
+      el.open = true;
+      await waitUntil(() => el.open);
+      await aTimeout(200);
+
+      const parentItem = el.querySelector<WaDropdownItem>('#parent-item')!;
+      parentItem.submenuOpen = true;
+      await waitUntil(() => parentItem.submenuElement?.style.left !== '');
+      await aTimeout(100);
+      return parentItem;
+    }
+
+    it('should keep submenus inside the viewport on narrow screens', async () => {
+      const originalViewport = { width: window.innerWidth, height: window.innerHeight };
+      await setViewport({ width: 342, height: 700 });
+
+      try {
+        const el = await submenuFixture();
+        const parentItem = await openSubmenu(el);
+
+        const rect = parentItem.submenuElement.getBoundingClientRect();
+        expect(rect.width).to.be.greaterThan(0);
+        expect(rect.left).to.be.at.least(0);
+        expect(rect.right).to.be.at.most(window.innerWidth);
+
+        // The submenu should overlap the menu instead of being squeezed beside it, so no item wraps to multiple lines.
+        const itemHeights = [...parentItem.querySelectorAll<WaDropdownItem>('[slot="submenu"]')].map(
+          item => item.getBoundingClientRect().height,
+        );
+        expect(Math.max(...itemHeights)).to.be.lessThan(Math.min(...itemHeights) * 1.5);
+      } finally {
+        await setViewport(originalViewport);
+      }
+    });
+
+    it('should place submenus beside the parent item when there is room', async () => {
+      const el = await submenuFixture();
+      const parentItem = await openSubmenu(el);
+
+      const rect = parentItem.submenuElement.getBoundingClientRect();
+      const itemRect = parentItem.getBoundingClientRect();
+      expect(parentItem.submenuElement.getAttribute('data-placement')).to.match(/^right/);
+      // Allow for the intentional 5px overlap from the offset middleware.
+      expect(rect.left).to.be.at.least(itemRect.right - 6);
+      expect(rect.right).to.be.at.most(window.innerWidth);
     });
   });
 });
