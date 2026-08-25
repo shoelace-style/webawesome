@@ -32,7 +32,6 @@ import styles from './textarea.styles.js';
  *
  * @csspart form-control-label - The label.
  * @csspart label - Deprecated. Use the `form-control-label` part instead.
- * @csspart form-control-input - The input's wrapper.
  * @csspart hint - The hint's wrapper.
  * @csspart textarea - The internal `<textarea>` control.
  * @csspart base - Deprecated. Use the `textarea-wrapper` part instead.
@@ -484,21 +483,14 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
       </div>
 
       <div
+        part="hint"
         class=${classMap({
           footer: true,
           'has-count': this.withCount,
+          'has-slotted': hasHint,
         })}
       >
-        <slot
-          id="hint"
-          name="hint"
-          part="hint"
-          aria-hidden=${hasHint ? 'false' : 'true'}
-          class=${classMap({
-            'has-slotted': hasHint,
-          })}
-          >${this.hint}</slot
-        >
+        <slot id="hint" name="hint" class="hint" aria-hidden=${hasHint ? 'false' : 'true'}>${this.hint}</slot>
 
         ${this.withCount
           ? html`

@@ -110,6 +110,8 @@ The `trigger` attribute controls how a tooltip is activated. Pass multiple value
 | `click`  | The target is clicked; clicking again dismisses it         |
 | `manual` | Only when you set `open` yourself — no built-in activation |
 
+Open tooltips light dismiss, which means pressing the target, clicking the tooltip, or clicking anywhere else on the page hides them. Pressing <kbd>Escape</kbd> will also hide them. Tooltips with `trigger="manual"` never light dismiss, and calling `preventDefault()` on the `wa-hide` event will keep the tooltip open.
+
 ```html {.example}
 <wa-button appearance="filled" id="toggle-button">Click to Toggle</wa-button>
 <wa-tooltip for="toggle-button" trigger="click">Click again to dismiss</wa-tooltip>

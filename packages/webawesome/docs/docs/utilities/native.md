@@ -360,6 +360,45 @@ Structure tabular data with `<table>` and related elements like `<caption>`, `<t
 </table>
 ```
 
+Add `scope="col"` to column headers and `scope="row"` to the first cell in a row so assistive technology knows which cells each header describes. Row headers keep the body font size, so their text aligns with the cells beside them.
+
+```html {.example}
+<table>
+  <caption>
+    Coffee brewing methods
+  </caption>
+  <thead>
+    <tr>
+      <th scope="col">Method</th>
+      <th scope="col">Grind</th>
+      <th scope="col">Brew Time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">French Press</th>
+      <td>Coarse</td>
+      <td>4 minutes</td>
+    </tr>
+    <tr>
+      <th scope="row">Pour Over</th>
+      <td>Medium</td>
+      <td>3 minutes</td>
+    </tr>
+    <tr>
+      <th scope="row">Espresso</th>
+      <td>Fine</td>
+      <td>30 seconds</td>
+    </tr>
+    <tr>
+      <th scope="row">Cold Brew</th>
+      <td>Extra coarse</td>
+      <td>12 hours</td>
+    </tr>
+  </tbody>
+</table>
+```
+
 Add the `wa-hover-rows` class to highlight table rows on hover and the `wa-zebra-rows` class to add alternating row colors to your table.
 
 ```html {.example}

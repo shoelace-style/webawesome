@@ -609,4 +609,4 @@ Style internal regions with `::part()` from outside the component (e.g. `wa-page
 | `footer`                 | The page footer.                                                                                              |
 | `drawer`                 | The mobile navigation `<wa-drawer>`. (Drawer internals are also exposed via `drawer__*` parts.)              |
 
-(Also exposed: `skip-links`, `skip-link`, `dialog-wrapper`.)
+(Also exposed: `skip-to-content`, the visually hidden skip link.)

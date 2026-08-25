@@ -217,6 +217,19 @@ describe('<wa-page>', () => {
           expect(el.shadowRoot!.querySelector('[part~="header"]')).to.exist;
         });
 
+        it('should give the header part the default surface background', async () => {
+          const el = await fixture<WaPage>(html`
+            <wa-page view="mobile" style="--wa-color-surface-default: rgb(1, 2, 3);">
+              <header slot="header">Header</header>
+              <nav slot="navigation">Navigation</nav>
+              <main>Content</main>
+            </wa-page>
+          `);
+          const header = el.shadowRoot!.querySelector<HTMLElement>('[part~="header"]')!;
+
+          expect(getComputedStyle(header).backgroundColor).to.equal('rgb(1, 2, 3)');
+        });
+
         it('should have a banner part', async () => {
           const el = await fixture<WaPage>(html`<wa-page>Content</wa-page>`);
           expect(el.shadowRoot!.querySelector('[part~="banner"]')).to.exist;

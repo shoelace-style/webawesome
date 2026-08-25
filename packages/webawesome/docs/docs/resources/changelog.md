@@ -33,7 +33,53 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::fixed
 
-- Fixed the focus ring on `<wa-otp-input>` animating its width and offset, which re-ran the animation on every keystroke as the active segment advanced. It now fades in at a fixed size, matching `<wa-input>` and the other form controls
+- Fixed a bug in `<wa-page>` where the header did not have a background set. [pr:2690]
+- Fixed a bug in `.wa-visually-hidden` utility where it did not set a `top` and `left` causing unexpected overflows. [pr:2765]
+- Fixed `<wa-accordion>` removing headers from the page's tab sequence via a roving tabindex; `Tab` and `Shift + Tab` now move through every header, matching the [W3C accordion pattern](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/examples/accordion/). Arrow keys and Home/End remain as shortcuts for moving between headers.
+
+:::
+
+## 3.12.0
+
+:::added
+
+- Added version 3.0.0 of the [official Web Awesome Figma Design Kit](/docs/resources/figma)
+- Added the `filterOptions` column option to `<wa-data-grid>` to supply a `set`/`includes-*` filter picker's values yourself, enabling value pickers in server mode and custom ordering in client mode [pr:2724]
+- Added the `href`, `target`, `rel`, and `download` attributes to `<wa-dropdown-item>` so items can navigate when selected [pr:2733]
+  - Selecting a link item honors modifier keys, e.g. pressing [[Command]] or [[Control]] to open a new tab, except in Safari
+  - Items with a submenu ignore `href`
+  - Added the `link` custom state to `<wa-dropdown-item>`
+
+:::
+
+:::fixed
+
+- Fixed native table row headers (`<th scope="row">`) rendering at a smaller font size than the cells beside them, which knocked their text out of vertical alignment [pr:2729]
+- Fixed the focus ring on `<wa-otp-input>` re-running its animation on every keystroke as the active segment advanced; it now fades in at a fixed size, matching the other form controls [pr:2685]
+- Fixed a bug in `<wa-toast>` that caused center placements to render incorrectly on narrow screens [issue:2701] [pr:2706]
+- Fixed `<wa-button>` losing its accessible name while `loading`, and added `aria-busy` for the duration [issue:2693] [pr:2694]
+- Fixed system icons in `<wa-pagination>`, `<wa-time-input>`, and `<wa-date-input>` rendering black instead of inheriting the current text color [issue:2688] [pr:2718]
+- Fixed a bug in `<wa-data-grid>` that caused an expanded row detail's space to stay reserved at its old position after changing pages, sorting, or filtering
+- Fixed a bug in `<wa-data-grid>` that caused the empty and loading states to be invisible in some cases [issue:2734]
+- Fixed `<wa-data-grid>` showing its empty state behind the loading overlay while a server request was in flight
+- Fixed a bug in `<wa-tooltip>` where canceling the `wa-hide` event didn't keep the tooltip open [pr:2721]
+- Fixed a bug in `<wa-tooltip>` where tooltips with `trigger="manual"` closed when pressing [[Escape]] [pr:2721]
+- Fixed the `hint` part in `<wa-textarea>`, which sat on a slot inside an unexposed wrapper; `::part(hint)` now selects the hint and the character count together [issue:2614] [pr:2720]
+- Fixed the missing Custom States table in the `<wa-dropdown-item>` docs [pr:2733]
+- Fixed a bug in `<wa-card>`, `<wa-dialog>`, and `<wa-drawer>` that added duplicate `banner` and `contentinfo` landmarks to the page [issue:2723] [pr:2737]
+- Fixed a bug in `<wa-dropdown>` where submenus could extend beyond the viewport on narrow screens; when neither side has room, the submenu now shifts over the menu [pr:2738]
+- Fixed the easy-to-miss focus ring on `<wa-switch>`, which was drawn around the thumb inside the track; it now surrounds the whole control [pr:2749]
+- Fixed the clear button and password toggle in `<wa-input>` sitting inside the field's trailing padding instead of flush with its edge, unlike every other form control [pr:2750]
+
+:::
+
+:::changed
+
+- Improved accessibility of `<wa-dropdown>` by adding `aria-posinset` and `aria-setsize` so screen readers announce the correct number of dropdown items [issue:2697] [pr:2708]
+- Improved accessibility of `<wa-input type="password">` by making the toggle password button focusable [issue:2727] [pr:2736]
+- Improved the click target of the clear button in `<wa-select>`, which now spans the full height of the control [pr:2748]
+- Improved `<wa-tooltip>` so it correctly light dismisses when the user presses the target or clicks anywhere else on the page [discuss:1921] [pr:2721]
+- Updated `<wa-data-grid>` to TanStack Table 9 internally (the grid's public API, state format, and behavior are unchanged) [pr:2724]
 
 :::
 
@@ -82,6 +128,13 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug in `<wa-tree>` where pressing [[Enter]] or [[Space]] while focus was inside a tree item, e.g. on a link or a button slotted into it, threw a "Cannot read properties of undefined" error and swallowed the keypress instead of letting the focused element handle it [issue:2673] [pr:2674]
 - Fixed a regression in `<wa-icon>` that reintroduced `fill: currentColor` on the internal SVG in 3.8.0 [issue:2636] [pr:2677]
 - Fixed a bug in Native Styles where elements like `<button>` didn't pick up inverted colors inside `.wa-invert` [issue:2533] [pr:2678]
+- Fixed `<wa-color-picker>` rendering the `form-control`, `form-control-input`, and `hint` CSS parts without documenting them, and corrected the `color-picker` part's description to name the dropdown panel it actually targets [issue:2624] [pr:2696]
+- Fixed several components documenting CSS parts that never render, so `::part()` selectors targeting them silently did nothing [issue:2624] [pr:2696]
+  - `<wa-page>` — removed `dialog-wrapper`
+  - `<wa-radio-group>` — removed `radios`; `form-control-input` is the wrapper around the grouped radios
+  - `<wa-slider>` — renamed `tooltip__content` to `tooltip__body`, and now forwards the `tooltip__tooltip` part it already documented
+  - `<wa-textarea>` — removed `form-control-input`, which it never rendered
+  - `<wa-video>` — removed `progress`; the progress bar is the slider's `timeline-indicator` part
 
 :::
 

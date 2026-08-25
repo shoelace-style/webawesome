@@ -66,7 +66,7 @@ export default css`
   }
 
   /* Focus */
-  label:not(.disabled) .input:focus-visible ~ .switch .thumb {
+  label:not(.disabled) .input:focus-visible ~ [part~='control'] {
     outline: var(--wa-focus-ring);
     outline-offset: var(--wa-focus-ring-offset);
   }

@@ -1,6 +1,7 @@
 import type { PropertyValues } from 'lit';
 import { html } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { animateWithClass } from '../../internal/animate.js';
 import { warnDeprecatedSize } from '../../internal/size.js';
 import { HasSlotController } from '../../internal/slot.js';
@@ -32,6 +33,13 @@ import styles from './dropdown-item.styles.js';
  * @csspart details - The container for the details slot.
  * @csspart submenu-icon - The submenu indicator icon (a `<wa-icon>` element).
  * @csspart submenu - The submenu container.
+ *
+ * @cssstate active - Applied when the item is the active item in the menu.
+ * @cssstate checked - Applied when the item is checked.
+ * @cssstate disabled - Applied when the item is disabled.
+ * @cssstate has-submenu - Applied when the item has a submenu.
+ * @cssstate link - Applied when the item is a link (i.e. `href` is set).
+ * @cssstate submenu-open - Applied when the item's submenu is open.
  */
 @customElement('wa-dropdown-item')
 export default class WaDropdownItem extends WebAwesomeElement {
@@ -40,6 +48,7 @@ export default class WaDropdownItem extends WebAwesomeElement {
   private readonly hasSlotController = new HasSlotController(this, '[default]', 'start', 'end');
 
   @query('#submenu') submenuElement: HTMLDivElement;
+  @query('#link') private linkElement: HTMLAnchorElement | null;
 
   /** @internal The controller will set this property to true when the item is active. */
   @property({ type: Boolean }) active = false;
@@ -87,13 +96,28 @@ export default class WaDropdownItem extends WebAwesomeElement {
   /** Whether the submenu is currently open. */
   @property({ type: Boolean, reflect: true }) submenuOpen = false;
 
+  /**
+   * When set, selecting the item will navigate to this URL. The item remains a menu item for assistive devices, so
+   * make sure the label describes where the link goes. Ignored when the item has a submenu.
+   */
+  @property({ reflect: true }) href: string;
+
+  /** Tells the browser where to open the link. Only used when `href` is present. */
+  @property() target: '_blank' | '_parent' | '_self' | '_top';
+
+  /** When using `href`, this attribute will map to the underlying link's `rel` attribute. */
+  @property() rel: string;
+
+  /** Tells the browser to download the linked file as this filename. Only used when `href` is present. */
+  @property() download: string;
+
   /** @internal Store whether this item has a submenu */
   @state() hasSubmenu = false;
 
   connectedCallback() {
     super.connectedCallback();
     this.addEventListener?.('click', this.handleHostClick);
-    this.addEventListener?.('mouseenter', this.handleMouseEnter.bind(this));
+    this.addEventListener?.('pointerenter', this.handlePointerEnter);
     this.shadowRoot?.addEventListener?.('click', this.handleClick, { capture: true });
     this.shadowRoot?.addEventListener?.('slotchange', this.handleSlotChange);
   }
@@ -102,12 +126,13 @@ export default class WaDropdownItem extends WebAwesomeElement {
     super.disconnectedCallback();
     this.closeSubmenu();
     this.removeEventListener?.('click', this.handleHostClick);
-    this.removeEventListener?.('mouseenter', this.handleMouseEnter);
+    this.removeEventListener?.('pointerenter', this.handlePointerEnter);
     this.shadowRoot?.removeEventListener?.('click', this.handleClick, { capture: true });
     this.shadowRoot?.removeEventListener?.('slotchange', this.handleSlotChange);
   }
 
-  firstUpdated() {
+  firstUpdated(changedProperties: PropertyValues<typeof this>) {
+    super.firstUpdated(changedProperties);
     this.setAttribute('tabindex', '-1');
     this.hasSubmenu = this.hasSlotController.test('submenu');
     this.updateHasSubmenuState();
@@ -141,6 +166,10 @@ export default class WaDropdownItem extends WebAwesomeElement {
         this.setAttribute('role', 'menuitem');
         this.removeAttribute('aria-checked');
       }
+    }
+
+    if (changedProperties.has('href') || changedProperties.has('hasSubmenu')) {
+      this.customStates.set('link', this.isLink());
     }
 
     if (changedProperties.has('submenuOpen')) {
@@ -245,6 +274,36 @@ export default class WaDropdownItem extends WebAwesomeElement {
     }
   }
 
+  /** Determines whether the item navigates when selected. Items with submenus never navigate. */
+  private isLink() {
+    return Boolean(this.href) && !this.hasSubmenu;
+  }
+
+  /**
+   * @internal Navigates to the item's `href` by clicking the hidden link in the shadow root. The event that triggered
+   * the selection is passed along so modifier keys, such as pressing Command or Control to open a new tab, are honored.
+   * Note that Safari ignores modifier keys on synthetic clicks.
+   */
+  navigate(sourceEvent?: MouseEvent | KeyboardEvent) {
+    const link = this.linkElement;
+
+    if (!this.isLink() || this.disabled || !link) {
+      return;
+    }
+
+    link.dispatchEvent(
+      new MouseEvent('click', {
+        bubbles: false,
+        cancelable: true,
+        composed: false,
+        altKey: sourceEvent?.altKey ?? false,
+        ctrlKey: sourceEvent?.ctrlKey ?? false,
+        metaKey: sourceEvent?.metaKey ?? false,
+        shiftKey: sourceEvent?.shiftKey ?? false,
+      }),
+    );
+  }
+
   /** Gets all dropdown items in the submenu. */
   private getSubmenuItems(): WaDropdownItem[] {
     // Only get direct children with slot="submenu", not nested ones
@@ -270,16 +329,32 @@ export default class WaDropdownItem extends WebAwesomeElement {
     }
   };
 
-  /** Handles mouse enter to open the submenu */
-  private handleMouseEnter() {
-    if (this.hasSubmenu && !this.disabled) {
+  /** Handles pointer enter to open the submenu on hover */
+  private handlePointerEnter = (event: PointerEvent) => {
+    // Only open on hover from a mouse. Taps on touch devices fire a synthetic mouseenter right before the click, and
+    // opening here would let the click land on the just-opened submenu when it overlaps the item. Touch and pen users
+    // open submenus with the click instead.
+    if (event.pointerType === 'mouse' && this.hasSubmenu && !this.disabled) {
       this.notifyParentOfOpening();
       this.submenuOpen = true;
     }
-  }
+  };
 
   render() {
     return html`
+      ${this.href
+        ? html`
+            <a
+              id="link"
+              href=${this.href}
+              target=${ifDefined(this.target)}
+              rel=${ifDefined(this.rel)}
+              download=${ifDefined(this.download)}
+              tabindex="-1"
+              aria-hidden="true"
+            ></a>
+          `
+        : ''}
       ${this.type === 'checkbox'
         ? html`
             <wa-icon

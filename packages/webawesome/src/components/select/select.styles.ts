@@ -203,9 +203,12 @@ export default css`
 
   /* Clear button */
   [part~='clear-button'] {
+    flex: 0 0 auto;
     display: inline-flex;
+    align-self: stretch;
     align-items: center;
     justify-content: center;
+    inline-size: 1.5em;
     font-size: inherit;
     color: var(--wa-color-neutral-on-quiet);
     border: none;
@@ -213,7 +216,10 @@ export default css`
     padding: 0;
     transition: color var(--wa-transition-normal);
     cursor: pointer;
-    margin-inline-start: var(--wa-form-control-padding-inline);
+    /* The box is wider than the glyph, so overhang half that growth on each side. Keeps the glyph
+       on the same trailing axis as the segmented-field pickers' clear buttons. */
+    margin-inline-start: calc(var(--wa-form-control-padding-inline) - 0.125em);
+    margin-inline-end: -0.125em;
 
     &:focus {
       outline: none;
