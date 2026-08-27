@@ -189,7 +189,12 @@ document.addEventListener('keydown', event => {
     (event.key === '/' &&
       !event.composedPath().some(el => {
         const tag = el?.tagName?.toLowerCase();
-        return tag === 'textarea' || (tag === 'input' && !['checkbox', 'radio'].includes(el.type));
+        return (
+          tag === 'textarea' ||
+          (tag === 'input' && !['checkbox', 'radio'].includes(el.type)) ||
+          // Editable regions like code editors (e.g. CodeMirror in Create) are typing surfaces too
+          el?.isContentEditable
+        );
       }))
   ) {
     event.preventDefault();
