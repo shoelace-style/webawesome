@@ -6,11 +6,12 @@ import { doViewTransition } from '../scripts/view-transitions.js';
 async function updateTheme(value, isInitialLoad = false) {
   const body = document.body;
 
-  // Get brand, palette, and theme name from the selected option
+  // Get brand, palette, and theme name from the selected option, falling back to the saved values on pages without a
+  // theme selector so visiting them doesn't reset the user's choice
   const themeSelector = document.querySelector('.theme-selector');
   const selectedOption = themeSelector?.querySelector(`wa-dropdown-item[value="${value}"]`);
-  let brand = selectedOption?.getAttribute('data-brand') || 'blue';
-  let palette = selectedOption?.getAttribute('data-palette') || 'default';
+  let brand = selectedOption?.getAttribute('data-brand') || localStorage.getItem('brand') || 'blue';
+  let palette = selectedOption?.getAttribute('data-palette') || localStorage.getItem('palette') || 'default';
   let themeName = selectedOption?.textContent.trim() || 'Unknown';
 
   if (!isInitialLoad) {
@@ -50,6 +51,13 @@ async function updateTheme(value, isInitialLoad = false) {
     setCookie({ name: 'webawesome_brand', value: brand });
     setCookie({ name: 'webawesome_palette', value: palette });
     setCookie({ name: 'webawesome_theme', value });
+  }
+
+  // A page can pin its brand with data-page-brand on <wa-page> (e.g. Create stays orange). This gets applied after
+  // persistence so the pin never overwrites the user's saved brand choice.
+  const pageBrand = document.querySelector('wa-page')?.dataset.pageBrand;
+  if (pageBrand) {
+    brand = pageBrand;
   }
 
   // Update theme classes
