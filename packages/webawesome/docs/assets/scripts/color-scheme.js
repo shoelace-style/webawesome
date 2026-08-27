@@ -35,15 +35,19 @@ async function updateTheme(value) {
 }
 
 // Handle changes
-document.addEventListener('input', e => {
-  if (e.target.matches('.color-scheme-selector')) {
-    updateTheme(e.target.value);
+document.addEventListener('input', event => {
+  if (event.target.matches('.color-scheme-selector')) {
+    updateTheme(event.target.value);
   }
 });
 
 // Handle backslash key toggle
-document.addEventListener('keydown', e => {
-  if (e.key === '\\' && !e.composedPath().some(el => el.tagName === 'INPUT')) {
+document.addEventListener('keydown', event => {
+  // The shortcut must not fire from within editables (inputs, textareas, contenteditable hosts like code editors)
+  if (
+    event.key === '\\' &&
+    !event.composedPath().some(el => el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.isContentEditable)
+  ) {
     const current = localStorage.getItem('color-scheme') || 'auto';
     const isDark =
       current === 'dark' || (current === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
