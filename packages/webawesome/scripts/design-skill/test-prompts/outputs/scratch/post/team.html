@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="en" class="wa-theme-default wa-palette-default wa-light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>The team behind the catalog — Glasshouse</title>
+    <link rel="stylesheet" href="https://ka-f.webawesome.com/webawesome@3.8.0/styles/webawesome.css" />
+    <script type="module" src="https://ka-f.webawesome.com/webawesome@3.8.0/webawesome.loader.js"></script>
+    <style>
+      html,
+      body {
+        min-height: 100%;
+        padding: 0;
+        margin: 0;
+      }
+
+      main {
+        padding: 0;
+      }
+
+      .section {
+        padding-inline: var(--wa-space-xl);
+      }
+
+      /* Editorial serif stack — institutional, considered, never trendy.
+         System-only so it renders consistently without webfonts. */
+      .editorial {
+        font-family: 'Iowan Old Style', 'Charter', 'Georgia', 'Hoefler Text', 'Palatino Linotype',
+          'Palatino', serif;
+        font-feature-settings: 'liga', 'kern';
+        letter-spacing: -0.005em;
+      }
+
+      /* ----- Top bar ----- */
+
+      .site-header {
+        background-color: var(--wa-color-surface-default);
+        border-block-end: var(--wa-border-width-s) solid var(--wa-color-surface-border);
+        padding-block: var(--wa-space-s);
+      }
+
+      .site-logo {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--wa-space-s);
+        text-decoration: none;
+        color: var(--wa-color-text-normal);
+      }
+
+      .site-logo-mark {
+        inline-size: var(--wa-space-xl);
+        block-size: var(--wa-space-xl);
+        border-radius: var(--wa-border-radius-circle);
+        background-color: var(--wa-color-neutral-fill-loud);
+        color: var(--wa-color-neutral-on-loud);
+        display: grid;
+        place-items: center;
+        font-family: 'Iowan Old Style', 'Charter', 'Georgia', serif;
+        font-size: var(--wa-font-size-s);
+        font-style: italic;
+        font-weight: 600;
+      }
+
+      .site-logo-wordmark {
+        font-family: 'Iowan Old Style', 'Charter', 'Georgia', serif;
+        font-size: var(--wa-font-size-l);
+        letter-spacing: -0.01em;
+      }
+
+      .site-nav {
+        gap: var(--wa-space-l);
+      }
+
+      .site-nav a {
+        color: var(--wa-color-text-normal);
+        text-decoration: none;
+        font-size: var(--wa-font-size-s);
+        padding-block: var(--wa-space-2xs);
+        border-block-end: var(--wa-border-width-s) solid transparent;
+      }
+
+      .site-nav a:hover {
+        border-block-end-color: var(--wa-color-text-normal);
+      }
+
+      .site-nav a[aria-current='page'] {
+        border-block-end-color: var(--wa-color-text-normal);
+      }
+
+      /* Drawer copy of the nav (mobile only). */
+      .drawer-nav a {
+        color: var(--wa-color-text-normal);
+        text-decoration: none;
+        font-size: var(--wa-font-size-m);
+        padding-block: var(--wa-space-xs);
+        border-block-end: var(--wa-border-width-s) solid var(--wa-color-surface-border);
+      }
+
+      /* ----- Page intro ----- */
+
+      .intro {
+        padding-block: var(--wa-space-4xl) var(--wa-space-2xl);
+        max-width: 64ch;
+        margin-inline: auto;
+      }
+
+      .eyebrow {
+        font-size: var(--wa-font-size-xs);
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--wa-color-text-quiet);
+        margin: 0 0 var(--wa-space-m);
+      }
+
+      .page-title {
+        font-size: var(--wa-font-size-3xl);
+        line-height: 1.1;
+        margin: 0 0 var(--wa-space-l);
+        font-weight: 500;
+      }
+
+      .lede {
+        font-size: var(--wa-font-size-l);
+        line-height: 1.55;
+        color: var(--wa-color-text-normal);
+        margin: 0;
+      }
+
+      .lede + .lede {
+        margin-block-start: var(--wa-space-m);
+      }
+
+      /* ----- Team grid ----- */
+
+      .team {
+        padding-block: var(--wa-space-2xl) var(--wa-space-4xl);
+        max-width: calc(var(--wa-space-5xl) * 15);
+        margin-inline: auto;
+      }
+
+      .team-grid {
+        --min-column-size: calc(var(--wa-space-5xl) * 4.5);
+      }
+
+      .member {
+        padding-block: var(--wa-space-l);
+        border-block-start: var(--wa-border-width-s) solid var(--wa-color-surface-border);
+      }
+
+      .member-portrait {
+        --flank-size: calc(var(--wa-space-5xl) + var(--wa-space-3xl));
+      }
+
+      .portrait {
+        background-color: var(--wa-color-surface-lowered);
+        color: var(--wa-color-text-quiet);
+        display: grid;
+        place-items: center;
+        border-radius: var(--wa-border-radius-s);
+      }
+
+      .portrait-initials {
+        font-family: 'Iowan Old Style', 'Charter', 'Georgia', serif;
+        font-size: var(--wa-font-size-2xl);
+        font-weight: 400;
+        letter-spacing: 0.02em;
+        color: var(--wa-color-text-quiet);
+      }
+
+      .member-name {
+        font-size: var(--wa-font-size-l);
+        font-weight: 500;
+        margin: 0;
+        line-height: 1.2;
+      }
+
+      .member-role {
+        font-size: var(--wa-font-size-s);
+        color: var(--wa-color-text-quiet);
+        margin: 0;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .member-bio {
+        font-size: var(--wa-font-size-m);
+        line-height: 1.5;
+        margin: 0;
+        color: var(--wa-color-text-normal);
+      }
+
+      /* ----- Closing note ----- */
+
+      .closing {
+        padding-block: var(--wa-space-2xl) var(--wa-space-4xl);
+        max-width: 64ch;
+        margin-inline: auto;
+        border-block-start: var(--wa-border-width-s) solid var(--wa-color-surface-border);
+      }
+
+      .closing-question {
+        font-size: var(--wa-font-size-l);
+        margin: 0 0 var(--wa-space-s);
+        font-weight: 500;
+      }
+
+      .closing-copy {
+        font-size: var(--wa-font-size-m);
+        line-height: 1.55;
+        color: var(--wa-color-text-normal);
+        margin: 0;
+      }
+
+      .closing-link {
+        color: var(--wa-color-text-normal);
+        text-decoration: underline;
+        text-decoration-thickness: var(--wa-border-width-s);
+        text-underline-offset: 0.2em;
+      }
+
+      .closing-link:hover {
+        text-decoration-thickness: var(--wa-border-width-m);
+      }
+
+      /* ----- Site footer ----- */
+
+      .site-footer {
+        background-color: var(--wa-color-surface-lowered);
+        border-block-start: var(--wa-border-width-s) solid var(--wa-color-surface-border);
+        padding-block: var(--wa-space-xl);
+        color: var(--wa-color-text-quiet);
+        font-size: var(--wa-font-size-s);
+      }
+
+      /* ----- Nav recipe — hide each copy in the view where it shouldn't appear ----- */
+
+      wa-page[view='mobile'] .header-nav {
+        display: none;
+      }
+
+      wa-page[view='desktop']::part(navigation) {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <wa-page mobile-breakpoint="820">
+      <header slot="header" class="site-header section wa-split">
+        <a href="/" class="site-logo" aria-label="Museum home">
+          <span class="site-logo-mark" aria-hidden="true">M</span>
+          <span class="site-logo-wordmark">Museum of Natural History</span>
+        </a>
+
+        <nav class="header-nav wa-cluster site-nav" aria-label="Primary">
+          <a href="/visit">Visit</a>
+          <a href="/collection">Collection</a>
+          <a href="/exhibitions">Exhibitions</a>
+          <a href="/learn">Learn</a>
+          <a href="/about" aria-current="page">About</a>
+        </nav>
+
+        <wa-button data-toggle-nav appearance="plain" class="wa-mobile-only" aria-label="Open menu">
+          <wa-icon name="bars"></wa-icon>
+        </wa-button>
+      </header>
+
+      <nav slot="navigation" class="wa-stack wa-gap-xs drawer-nav" aria-label="Primary (mobile)">
+        <a href="/visit" data-drawer="close">Visit</a>
+        <a href="/collection" data-drawer="close">Collection</a>
+        <a href="/exhibitions" data-drawer="close">Exhibitions</a>
+        <a href="/learn" data-drawer="close">Learn</a>
+        <a href="/about" data-drawer="close" aria-current="page">About</a>
+      </nav>
+
+      <main class="editorial">
+        <section class="intro section">
+          <p class="eyebrow">Glasshouse — the digital team</p>
+          <h1 class="page-title">The team behind the catalog</h1>
+          <p class="lede">
+            Glasshouse is the small in-house digital team responsible for the museum's online
+            collection — roughly 280,000 specimens, photographs, and field notes drawn from more than
+            a century of research. The team was established in 2021 to bring a public-facing record
+            of the collection online, and to keep it accurate, accessible, and useful long after the
+            initial launch. The decision to build the catalog in-house rather than contract it out
+            was deliberate: a collection of this size needs people who understand the specimens, the
+            cataloguing conventions, and the audiences who depend on the record. Six of us now do
+            that work, supported by curators and conservators across the museum.
+          </p>
+        </section>
+
+        <section class="team section" aria-labelledby="team-heading">
+          <h2 id="team-heading" class="wa-visually-hidden">Team members</h2>
+
+          <div class="team-grid wa-grid wa-gap-xl">
+            <article class="member">
+              <div class="wa-flank member-portrait wa-gap-l wa-align-items-start">
+                <div class="wa-frame wa-frame:square portrait" aria-hidden="true">
+                  <span class="portrait-initials">AO</span>
+                </div>
+                <div class="wa-stack wa-gap-s">
+                  <div class="wa-stack wa-gap-2xs">
+                    <h3 class="member-name">Adaeze Okonkwo</h3>
+                    <p class="member-role">Director of Digital Programs</p>
+                  </div>
+                  <p class="member-bio">
+                    Previously led digital strategy at a federal research institution. Oversees
+                    Glasshouse's roadmap, governance, and long-term stewardship of the catalog.
+                  </p>
+                  <div class="wa-cluster wa-gap-2xs">
+                    <wa-tag size="small">Digital strategy</wa-tag>
+                    <wa-tag size="small">Governance</wa-tag>
+                    <wa-tag size="small">Stewardship</wa-tag>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="member">
+              <div class="wa-flank member-portrait wa-gap-l wa-align-items-start">
+                <div class="wa-frame wa-frame:square portrait" aria-hidden="true">
+                  <span class="portrait-initials">FS</span>
+                </div>
+                <div class="wa-stack wa-gap-s">
+                  <div class="wa-stack wa-gap-2xs">
+                    <h3 class="member-name">Felipe Souza</h3>
+                    <p class="member-role">Senior Cataloguer</p>
+                  </div>
+                  <p class="member-bio">
+                    Joined from a regional natural history museum where he managed invertebrate
+                    collections. Sets cataloguing standards and reviews specimen records before they
+                    publish.
+                  </p>
+                  <div class="wa-cluster wa-gap-2xs">
+                    <wa-tag size="small">Invertebrate paleontology</wa-tag>
+                    <wa-tag size="small">Metadata standards</wa-tag>
+                    <wa-tag size="small">Darwin Core</wa-tag>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="member">
+              <div class="wa-flank member-portrait wa-gap-l wa-align-items-start">
+                <div class="wa-frame wa-frame:square portrait" aria-hidden="true">
+                  <span class="portrait-initials">WC</span>
+                </div>
+                <div class="wa-stack wa-gap-s">
+                  <div class="wa-stack wa-gap-2xs">
+                    <h3 class="member-name">Wei Chen</h3>
+                    <p class="member-role">Frontend Engineer</p>
+                  </div>
+                  <p class="member-bio">
+                    Came to the museum from a public broadcaster's digital editions team. Builds the
+                    catalog's reading interfaces with attention to typography, performance, and
+                    keyboard navigation.
+                  </p>
+                  <div class="wa-cluster wa-gap-2xs">
+                    <wa-tag size="small">Web typography</wa-tag>
+                    <wa-tag size="small">Accessibility</wa-tag>
+                    <wa-tag size="small">Performance</wa-tag>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="member">
+              <div class="wa-flank member-portrait wa-gap-l wa-align-items-start">
+                <div class="wa-frame wa-frame:square portrait" aria-hidden="true">
+                  <span class="portrait-initials">IL</span>
+                </div>
+                <div class="wa-stack wa-gap-s">
+                  <div class="wa-stack wa-gap-2xs">
+                    <h3 class="member-name">Ingrid Lindqvist</h3>
+                    <p class="member-role">Conservation Photographer</p>
+                  </div>
+                  <p class="member-bio">
+                    Trained at a Scandinavian university museum's imaging studio. Photographs
+                    specimens for the catalog using calibrated lighting, macro stacking, and
+                    UV-fluorescence techniques.
+                  </p>
+                  <div class="wa-cluster wa-gap-2xs">
+                    <wa-tag size="small">Macro imaging</wa-tag>
+                    <wa-tag size="small">Color management</wa-tag>
+                    <wa-tag size="small">UV fluorescence</wa-tag>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="member">
+              <div class="wa-flank member-portrait wa-gap-l wa-align-items-start">
+                <div class="wa-frame wa-frame:square portrait" aria-hidden="true">
+                  <span class="portrait-initials">TV</span>
+                </div>
+                <div class="wa-stack wa-gap-s">
+                  <div class="wa-stack wa-gap-2xs">
+                    <h3 class="member-name">Tomás Vargas</h3>
+                    <p class="member-role">Digital Archivist</p>
+                  </div>
+                  <p class="member-bio">
+                    Spent a decade in a municipal library system before moving into museum work.
+                    Oversees the catalog's preservation metadata, persistent identifiers, and long-term
+                    archival format strategy.
+                  </p>
+                  <div class="wa-cluster wa-gap-2xs">
+                    <wa-tag size="small">Preservation metadata</wa-tag>
+                    <wa-tag size="small">Persistent identifiers</wa-tag>
+                    <wa-tag size="small">OAI-PMH</wa-tag>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <article class="member">
+              <div class="wa-flank member-portrait wa-gap-l wa-align-items-start">
+                <div class="wa-frame wa-frame:square portrait" aria-hidden="true">
+                  <span class="portrait-initials">PR</span>
+                </div>
+                <div class="wa-stack wa-gap-s">
+                  <div class="wa-stack wa-gap-2xs">
+                    <h3 class="member-name">Priya Raghunathan</h3>
+                    <p class="member-role">UX Researcher</p>
+                  </div>
+                  <p class="member-bio">
+                    Comes from civic-technology research and academic libraries. Conducts the
+                    interviews and observational studies that inform how the catalog serves
+                    educators, researchers, and amateur naturalists.
+                  </p>
+                  <div class="wa-cluster wa-gap-2xs">
+                    <wa-tag size="small">Qualitative research</wa-tag>
+                    <wa-tag size="small">Accessibility studies</wa-tag>
+                    <wa-tag size="small">Public audiences</wa-tag>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="closing section">
+          <h2 class="closing-question">Want to work with us?</h2>
+          <p class="closing-copy">
+            Glasshouse hires when the work requires it; positions are posted on the museum's
+            careers page as they open. <a class="closing-link" href="/about/careers">See open roles</a>.
+          </p>
+        </section>
+      </main>
+
+      <footer slot="footer" class="site-footer section">
+        <div class="wa-split">
+          <small>&copy; Museum of Natural History, established 1897</small>
+          <small>Glasshouse · est. 2021</small>
+        </div>
+      </footer>
+    </wa-page>
+  </body>
+</html>

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en" class="wa-theme-default wa-palette-default wa-light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Custom callout</title>
+
+    <link rel="stylesheet" href="https://ka-f.webawesome.com/webawesome@3.8.0/styles/webawesome.css" />
+    <script type="module" src="https://ka-f.webawesome.com/webawesome@3.8.0/webawesome.loader.js"></script>
+
+    <style>
+      html,
+      body {
+        min-height: 100%;
+        padding: 0;
+        margin: 0;
+      }
+
+      body {
+        background-color: var(--wa-color-surface-default);
+        color: var(--wa-color-text-normal);
+        font-family: var(--wa-font-family-body);
+      }
+
+      .page {
+        max-width: 44rem;
+        margin-inline: auto;
+        padding: var(--wa-space-2xl) var(--wa-space-l);
+      }
+
+      /*
+        A darker brand callout. The default variant="brand" appearance uses
+        --wa-color-brand-fill-quiet; we recolor the host to the *loud* step and
+        pair it with the matching on-loud text color so contrast holds up.
+
+        Host background/color/border are documented as supported on <wa-callout>.
+        We also explicitly recolor the `icon` and `message` parts so neither
+        relies on a token cascade we can't visually verify.
+      */
+      .callout-loud {
+        background-color: var(--wa-color-brand-fill-loud);
+        color: var(--wa-color-brand-on-loud);
+        border-color: transparent;
+      }
+      .callout-loud::part(message) {
+        color: var(--wa-color-brand-on-loud);
+      }
+      .callout-loud::part(icon) {
+        color: var(--wa-color-brand-on-loud);
+      }
+      .callout-loud strong {
+        color: var(--wa-color-brand-on-loud);
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <wa-callout variant="brand" class="callout-loud">
+        <wa-icon slot="icon" name="bullhorn"></wa-icon>
+        <strong>New feature available</strong><br />
+        We've rolled out an updated dashboard with smarter filters and faster search. Existing layouts are preserved, so
+        you can try the new experience without losing your saved views.
+      </wa-callout>
+    </main>
+  </body>
+</html>

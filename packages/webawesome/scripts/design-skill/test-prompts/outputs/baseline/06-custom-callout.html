@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en" class="wa-theme-default wa-palette-default wa-light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Custom callout</title>
+
+    <link rel="stylesheet" href="https://ka-f.webawesome.com/webawesome@3.8.0/styles/webawesome.css" />
+    <script type="module" src="https://ka-f.webawesome.com/webawesome@3.8.0/webawesome.loader.js"></script>
+
+    <style>
+      html,
+      body {
+        min-height: 100%;
+        padding: 0;
+        margin: 0;
+      }
+
+      body {
+        background: var(--wa-color-surface-default);
+        color: var(--wa-color-text-normal);
+        font-family: var(--wa-font-family-body);
+        padding: var(--wa-space-xl);
+      }
+
+      .demo {
+        max-width: 65ch;
+        margin-inline: auto;
+      }
+
+      /* Darken the brand callout to the loud fill and keep text/icon readable.
+         The callout doc lists host background/color as supported, plus `message`
+         and `icon` parts — set the on-loud color through both so nothing in
+         the message inherits the page's text color. */
+      wa-callout.is-loud {
+        background: var(--wa-color-brand-fill-loud);
+        border-color: var(--wa-color-brand-fill-loud);
+        color: var(--wa-color-brand-on-loud);
+      }
+
+      wa-callout.is-loud::part(message),
+      wa-callout.is-loud::part(icon) {
+        color: var(--wa-color-brand-on-loud);
+      }
+    </style>
+  </head>
+  <body>
+    <main class="demo">
+      <wa-callout variant="brand" class="is-loud">
+        <wa-icon slot="icon" name="circle-info"></wa-icon>
+        <strong>Heads up — your trial ends Friday.</strong>
+        <p>
+          Upgrade now to keep your projects, integrations, and team seats without interruption. Existing data stays
+          right where it is, and your billing only starts after the trial wraps.
+        </p>
+      </wa-callout>
+    </main>
+  </body>
+</html>

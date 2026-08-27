@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en" class="wa-theme-default wa-palette-default wa-light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Invoices — Riverwidth</title>
+    <link rel="stylesheet" href="https://ka-f.webawesome.com/webawesome@3.8.0/styles/webawesome.css" />
+    <script type="module" src="https://ka-f.webawesome.com/webawesome@3.8.0/webawesome.loader.js"></script>
+    <style>
+      html,
+      body {
+        min-height: 100%;
+        padding: 0;
+        margin: 0;
+      }
+
+      /* Humanist sans stack — quiet, indie, not Inter/Roboto. */
+      :root {
+        --rw-sans:
+          'Söhne', 'IBM Plex Sans', 'Inter Tight', ui-sans-serif, system-ui, -apple-system, 'Segoe UI',
+          sans-serif;
+        --wa-font-family-body: var(--rw-sans);
+        --wa-font-family-heading: var(--rw-sans);
+      }
+
+      body {
+        background: var(--wa-color-surface-default);
+        color: var(--wa-color-text-normal);
+        font-family: var(--wa-font-family-body);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: var(--wa-space-2xl) var(--wa-space-l);
+        box-sizing: border-box;
+      }
+
+      /* Small app-chrome breadcrumb so the screen reads as part of a tool,
+         not a marketing page. Quiet, leaves the empty state as the focal point. */
+      .chrome {
+        position: fixed;
+        inset-block-start: 0;
+        inset-inline: 0;
+        padding: var(--wa-space-m) var(--wa-space-l);
+        color: var(--wa-color-text-quiet);
+        font-size: var(--wa-font-size-s);
+        letter-spacing: 0.01em;
+      }
+
+      .chrome strong {
+        color: var(--wa-color-text-normal);
+        font-weight: 600;
+      }
+
+      .container {
+        max-width: 46rem;
+        margin: 0 auto;
+        width: 100%;
+      }
+
+      .empty-state {
+        max-width: 30rem;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      .empty-state__icon {
+        font-size: 4rem;
+        color: var(--wa-color-brand-on-quiet);
+        line-height: 1;
+      }
+
+      .empty-state__heading {
+        font-size: var(--wa-font-size-2xl);
+        font-weight: 600;
+        letter-spacing: -0.018em;
+        line-height: 1.15;
+        margin: 0;
+        color: var(--wa-color-text-normal);
+      }
+
+      .empty-state__copy {
+        color: var(--wa-color-text-quiet);
+        line-height: 1.55;
+        margin: 0;
+        font-size: var(--wa-font-size-m);
+      }
+
+      .empty-state__cta {
+        margin-block-start: var(--wa-space-s);
+      }
+
+      .empty-state__import {
+        color: var(--wa-color-text-quiet);
+        font-size: var(--wa-font-size-s);
+      }
+
+      .empty-state__import a {
+        color: var(--wa-color-text-normal);
+        text-decoration: underline;
+        text-decoration-color: var(--wa-color-text-quiet);
+        text-underline-offset: 0.25em;
+        transition: text-decoration-color var(--wa-transition-fast) ease;
+      }
+
+      .empty-state__import a:hover {
+        text-decoration-color: var(--wa-color-text-normal);
+      }
+
+      .tips {
+        margin-block-start: var(--wa-space-3xl);
+        padding-block-start: var(--wa-space-2xl);
+        border-block-start: var(--wa-border-width-s) solid var(--wa-color-surface-border);
+      }
+
+      .tip {
+        color: var(--wa-color-text-quiet);
+        font-size: var(--wa-font-size-s);
+        line-height: 1.5;
+      }
+
+      .tip wa-icon {
+        color: var(--wa-color-text-quiet);
+        font-size: var(--wa-font-size-m);
+        padding-block-start: 0.15em;
+      }
+
+      @media (min-width: 720px) {
+        .empty-state__heading {
+          font-size: var(--wa-font-size-3xl);
+        }
+        .empty-state__icon {
+          font-size: 4.5rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        body {
+          padding: var(--wa-space-xl) var(--wa-space-m);
+        }
+        .tips {
+          margin-block-start: var(--wa-space-2xl);
+          padding-block-start: var(--wa-space-xl);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="chrome">
+      <strong>Riverwidth</strong> &nbsp;·&nbsp; Invoices
+    </div>
+
+    <div class="container">
+      <main class="empty-state">
+        <div class="wa-stack wa-gap-l wa-align-items-center">
+          <wa-icon class="empty-state__icon" name="file-invoice"></wa-icon>
+
+          <div class="wa-stack wa-gap-s">
+            <h1 class="empty-state__heading">Your invoices live here.</h1>
+            <p class="empty-state__copy">
+              Send your first one and watch this space fill up. Most freelancers get paid 23% faster when
+              invoices look this good.
+            </p>
+          </div>
+
+          <div class="wa-stack wa-gap-xs wa-align-items-center empty-state__cta">
+            <wa-button variant="brand" size="large">Create your first invoice</wa-button>
+            <small class="empty-state__import">or <a href="#">import from FreshBooks</a>.</small>
+          </div>
+        </div>
+      </main>
+
+      <section class="tips wa-grid" style="--min-column-size: 13rem;">
+        <div class="tip wa-flank wa-gap-s wa-align-items-start">
+          <wa-icon name="file-pen"></wa-icon>
+          <span>Use a draft to test the look.</span>
+        </div>
+        <div class="tip wa-flank wa-gap-s wa-align-items-start">
+          <wa-icon name="swatchbook"></wa-icon>
+          <span>Templates remember your branding.</span>
+        </div>
+        <div class="tip wa-flank wa-gap-s wa-align-items-start">
+          <wa-icon name="bell"></wa-icon>
+          <span>Reminders go out automatically — you control the cadence.</span>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>

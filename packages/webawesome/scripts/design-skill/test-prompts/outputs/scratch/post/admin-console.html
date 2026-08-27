@@ -1,0 +1,1085 @@
+<!doctype html>
+<html lang="en" class="wa-theme-default wa-palette-default wa-light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Security · Brightside Studio · Quadrant</title>
+    <link rel="stylesheet" href="https://ka-f.webawesome.com/webawesome@3.8.0/styles/webawesome.css" />
+    <script type="module" src="https://ka-f.webawesome.com/webawesome@3.8.0/webawesome.loader.js"></script>
+    <style>
+      html,
+      body {
+        min-height: 100%;
+        padding: 0;
+        margin: 0;
+      }
+
+      body {
+        font-size: var(--wa-font-size-s);
+        color: var(--wa-color-text-normal);
+      }
+
+      wa-page {
+        --menu-width: 15rem;
+        --aside-width: 18rem;
+      }
+
+      wa-page[view='mobile'] {
+        --menu-width: auto;
+        --aside-width: auto;
+      }
+
+      wa-page[view='mobile'] [slot='aside'] {
+        display: none;
+      }
+
+      /* --- Header ----------------------------------------------------------- */
+
+      .page-header {
+        padding-inline: var(--wa-space-l);
+        padding-block: var(--wa-space-xs);
+        background: var(--wa-color-surface-default);
+        border-block-end: var(--wa-border-width-s) solid var(--wa-color-surface-border);
+        gap: var(--wa-space-m);
+      }
+
+      .wordmark {
+        font-weight: var(--wa-font-weight-bold);
+        font-size: var(--wa-font-size-m);
+        letter-spacing: -0.01em;
+        color: var(--wa-color-text-normal);
+        text-decoration: none;
+      }
+
+      .brand-divider {
+        inline-size: var(--wa-border-width-s);
+        block-size: var(--wa-space-m);
+        background: var(--wa-color-surface-border);
+      }
+
+      .workspace-switcher::part(base) {
+        font-size: var(--wa-font-size-s);
+        font-weight: var(--wa-font-weight-semibold);
+        gap: var(--wa-space-2xs);
+      }
+
+      .header-search {
+        flex: 1 1 24rem;
+        max-width: 28rem;
+      }
+
+      /* --- Navigation ------------------------------------------------------- */
+
+      [slot='navigation'] {
+        padding: var(--wa-space-m) var(--wa-space-s);
+      }
+
+      .nav-group-label {
+        display: block;
+        font-size: var(--wa-font-size-2xs);
+        font-weight: var(--wa-font-weight-semibold);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--wa-color-text-quiet);
+        padding-inline: var(--wa-space-xs);
+        margin-block-end: var(--wa-space-2xs);
+      }
+
+      .nav-link {
+        display: flex;
+        align-items: center;
+        gap: var(--wa-space-xs);
+        padding: var(--wa-space-2xs) var(--wa-space-xs);
+        border-radius: var(--wa-border-radius-m);
+        color: var(--wa-color-text-normal);
+        font-size: var(--wa-font-size-s);
+        text-decoration: none;
+        line-height: 1.4;
+      }
+
+      .nav-link wa-icon {
+        color: var(--wa-color-text-quiet);
+        font-size: var(--wa-font-size-s);
+        inline-size: var(--wa-space-m);
+      }
+
+      .nav-link:hover {
+        background: var(--wa-color-surface-lowered);
+      }
+
+      .nav-link.is-active {
+        background: var(--wa-color-neutral-fill-quiet);
+        color: var(--wa-color-text-normal);
+        font-weight: var(--wa-font-weight-semibold);
+      }
+
+      .nav-link.is-active wa-icon {
+        color: var(--wa-color-brand-fill-loud);
+      }
+
+      .nav-footer {
+        padding: var(--wa-space-s) var(--wa-space-m);
+        border-block-start: var(--wa-border-width-s) solid var(--wa-color-surface-border);
+        background: var(--wa-color-surface-lowered);
+      }
+
+      .nav-footer-plan {
+        font-size: var(--wa-font-size-xs);
+        color: var(--wa-color-text-quiet);
+        line-height: 1.3;
+      }
+
+      .nav-footer-plan strong {
+        display: block;
+        font-size: var(--wa-font-size-s);
+        color: var(--wa-color-text-normal);
+        font-weight: var(--wa-font-weight-semibold);
+      }
+
+      .nav-footer-link {
+        display: inline-block;
+        margin-block-start: var(--wa-space-2xs);
+        font-size: var(--wa-font-size-xs);
+        color: var(--wa-color-text-link);
+      }
+
+      /* --- Subheader -------------------------------------------------------- */
+
+      .page-subheader {
+        padding: var(--wa-space-s) var(--wa-space-xl);
+        background: var(--wa-color-surface-default);
+        border-block-end: var(--wa-border-width-s) solid var(--wa-color-surface-border);
+        gap: var(--wa-space-m);
+      }
+
+      .page-subheader wa-breadcrumb {
+        font-size: var(--wa-font-size-s);
+      }
+
+      /* --- Main ------------------------------------------------------------- */
+
+      wa-page::part(main-content) {
+        padding: 0;
+      }
+
+      .page-main {
+        padding: var(--wa-space-l) var(--wa-space-xl) var(--wa-space-3xl);
+        max-width: 64rem;
+      }
+
+      /* Tab group spacing — tighten the nav, breathe the panel. */
+      wa-tab-group {
+        --track-width: var(--wa-border-width-s);
+      }
+
+      wa-tab-panel[name='authentication'] {
+        padding-block-start: var(--wa-space-xl);
+      }
+
+      .placeholder-panel {
+        padding-block: var(--wa-space-2xl);
+        text-align: center;
+        color: var(--wa-color-text-quiet);
+        font-size: var(--wa-font-size-s);
+      }
+
+      /* Section card structure — outer cards on page surface, sub-blocks on lowered. */
+      .settings-section {
+        background: var(--wa-color-surface-default);
+        border: var(--wa-border-width-s) solid var(--wa-color-surface-border);
+        border-radius: var(--wa-border-radius-l);
+        overflow: hidden;
+      }
+
+      .settings-section__head {
+        padding: var(--wa-space-l) var(--wa-space-l) var(--wa-space-s);
+      }
+
+      .settings-section__title {
+        font-size: var(--wa-font-size-m);
+        font-weight: var(--wa-font-weight-semibold);
+        margin: 0;
+        line-height: 1.3;
+      }
+
+      .settings-section__description {
+        font-size: var(--wa-font-size-s);
+        color: var(--wa-color-text-quiet);
+        margin-block-start: var(--wa-space-3xs);
+        line-height: 1.5;
+      }
+
+      .settings-section__body {
+        padding: 0 var(--wa-space-l) var(--wa-space-l);
+      }
+
+      .settings-section__footer {
+        padding: var(--wa-space-s) var(--wa-space-l);
+        background: var(--wa-color-surface-lowered);
+        border-block-start: var(--wa-border-width-s) solid var(--wa-color-surface-border);
+      }
+
+      /* Label-value definition list (SSO). */
+      .label-value {
+        display: grid;
+        grid-template-columns: minmax(12rem, max-content) 1fr;
+        gap: var(--wa-space-2xs) var(--wa-space-xl);
+        margin: 0;
+        font-size: var(--wa-font-size-s);
+      }
+
+      .label-value dt {
+        color: var(--wa-color-text-quiet);
+      }
+
+      .label-value dd {
+        margin: 0;
+        font-variant-numeric: tabular-nums;
+        font-family: var(--wa-font-family-code);
+        font-size: var(--wa-font-size-xs);
+        color: var(--wa-color-text-normal);
+      }
+
+      .label-value dd.is-prose {
+        font-family: var(--wa-font-family-body);
+        font-size: var(--wa-font-size-s);
+      }
+
+      /* Switch row — split label-and-hint with the control. */
+      .switch-row__label strong {
+        display: block;
+        font-size: var(--wa-font-size-s);
+        font-weight: var(--wa-font-weight-semibold);
+        line-height: 1.4;
+      }
+
+      .switch-row__label span {
+        display: block;
+        font-size: var(--wa-font-size-s);
+        color: var(--wa-color-text-quiet);
+        margin-block-start: var(--wa-space-3xs);
+        line-height: 1.45;
+      }
+
+      .enrollment-row {
+        padding: var(--wa-space-s) var(--wa-space-m);
+        background: var(--wa-color-surface-lowered);
+        border-radius: var(--wa-border-radius-m);
+        font-size: var(--wa-font-size-s);
+      }
+
+      .enrollment-row strong {
+        font-weight: var(--wa-font-weight-semibold);
+      }
+
+      .enrollment-row a {
+        color: var(--wa-color-text-link);
+        font-weight: var(--wa-font-weight-semibold);
+      }
+
+      /* Domain tags & add row */
+      .add-domain-row {
+        display: flex;
+        gap: var(--wa-space-xs);
+        max-width: 32rem;
+      }
+
+      .add-domain-row wa-input {
+        flex: 1;
+      }
+
+      /* IP allowlist table */
+      .table-search {
+        max-width: 18rem;
+        flex: 1;
+      }
+
+      .ip-table {
+        inline-size: 100%;
+        border-collapse: collapse;
+        font-size: var(--wa-font-size-s);
+      }
+
+      .ip-table thead th {
+        text-align: start;
+        font-weight: var(--wa-font-weight-semibold);
+        font-size: var(--wa-font-size-xs);
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: var(--wa-color-text-quiet);
+        padding: var(--wa-space-xs) var(--wa-space-s);
+        border-block-end: var(--wa-border-width-s) solid var(--wa-color-surface-border);
+        background: var(--wa-color-surface-lowered);
+      }
+
+      .ip-table tbody td {
+        padding: var(--wa-space-s);
+        border-block-end: var(--wa-border-width-s) solid var(--wa-color-surface-border);
+        vertical-align: middle;
+        line-height: 1.4;
+      }
+
+      .ip-table tbody tr:last-child td {
+        border-block-end: 0;
+      }
+
+      .ip-table .cidr {
+        font-family: var(--wa-font-family-code);
+        font-size: var(--wa-font-size-xs);
+        font-variant-numeric: tabular-nums;
+        color: var(--wa-color-text-normal);
+      }
+
+      .ip-table .added-by {
+        color: var(--wa-color-text-quiet);
+      }
+
+      .ip-table .row-actions {
+        inline-size: 1%;
+        text-align: end;
+      }
+
+      /* API access — token summary + sub-card */
+      .token-summary {
+        padding: var(--wa-space-m);
+        background: var(--wa-color-surface-lowered);
+        border-radius: var(--wa-border-radius-m);
+      }
+
+      .token-summary__count {
+        display: flex;
+        align-items: baseline;
+        gap: var(--wa-space-xs);
+      }
+
+      .token-summary__count strong {
+        font-size: var(--wa-font-size-l);
+        font-weight: var(--wa-font-weight-semibold);
+        font-variant-numeric: tabular-nums;
+      }
+
+      .token-summary__count span {
+        color: var(--wa-color-text-quiet);
+      }
+
+      .service-tokens {
+        background: var(--wa-color-surface-lowered);
+        border-radius: var(--wa-border-radius-m);
+        overflow: hidden;
+      }
+
+      .service-tokens__head {
+        padding: var(--wa-space-s) var(--wa-space-m);
+        font-size: var(--wa-font-size-xs);
+        font-weight: var(--wa-font-weight-semibold);
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: var(--wa-color-text-quiet);
+        border-block-end: var(--wa-border-width-s) solid var(--wa-color-surface-border);
+      }
+
+      .service-token-row {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: var(--wa-space-s) var(--wa-space-m);
+        align-items: center;
+        padding: var(--wa-space-s) var(--wa-space-m);
+        border-block-end: var(--wa-border-width-s) solid var(--wa-color-surface-border);
+      }
+
+      .service-token-row:last-child {
+        border-block-end: 0;
+      }
+
+      .service-token-row__meta {
+        min-inline-size: 0;
+      }
+
+      .service-token-row__name {
+        font-weight: var(--wa-font-weight-semibold);
+        font-family: var(--wa-font-family-code);
+        font-size: var(--wa-font-size-s);
+      }
+
+      .service-token-row__used {
+        font-size: var(--wa-font-size-xs);
+        color: var(--wa-color-text-quiet);
+      }
+
+      .service-token-row__scopes {
+        margin-block-start: var(--wa-space-2xs);
+      }
+
+      /* Danger zone */
+      .settings-section.is-danger {
+        border-color: var(--wa-color-danger-border-normal);
+      }
+
+      .settings-section.is-danger .settings-section__head {
+        background: var(--wa-color-danger-fill-quiet);
+        color: var(--wa-color-danger-on-quiet);
+        padding-block-end: var(--wa-space-l);
+      }
+
+      .settings-section.is-danger .settings-section__title {
+        color: var(--wa-color-danger-on-quiet);
+      }
+
+      .settings-section.is-danger .settings-section__description {
+        color: var(--wa-color-danger-on-quiet);
+        opacity: 0.85;
+      }
+
+      /* --- Aside ----------------------------------------------------------- */
+
+      .page-aside {
+        padding: var(--wa-space-l) var(--wa-space-l) var(--wa-space-l) 0;
+      }
+
+      .score-card {
+        background: var(--wa-color-surface-default);
+        border: var(--wa-border-width-s) solid var(--wa-color-surface-border);
+        border-radius: var(--wa-border-radius-l);
+        padding: var(--wa-space-m);
+      }
+
+      .score-card__head h3 {
+        margin: 0;
+        font-size: var(--wa-font-size-s);
+        font-weight: var(--wa-font-weight-semibold);
+      }
+
+      .score-card__value {
+        font-size: var(--wa-font-size-2xl);
+        font-weight: var(--wa-font-weight-semibold);
+        line-height: 1;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .score-card__value small {
+        font-size: var(--wa-font-size-s);
+        color: var(--wa-color-text-quiet);
+        font-weight: var(--wa-font-weight-normal);
+      }
+
+      .score-card wa-progress-bar {
+        --track-height: var(--wa-space-2xs);
+      }
+
+      .score-card__sub-title {
+        font-size: var(--wa-font-size-xs);
+        font-weight: var(--wa-font-weight-semibold);
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: var(--wa-color-text-quiet);
+        margin: 0;
+      }
+
+      .checklist {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: var(--wa-space-xs);
+      }
+
+      .checklist li {
+        display: flex;
+        align-items: flex-start;
+        gap: var(--wa-space-xs);
+        font-size: var(--wa-font-size-s);
+        line-height: 1.4;
+      }
+
+      .checklist li wa-icon {
+        color: var(--wa-color-warning-fill-loud);
+        font-size: var(--wa-font-size-s);
+        margin-block-start: 0.15em;
+      }
+
+      .score-card__audited {
+        font-size: var(--wa-font-size-xs);
+        color: var(--wa-color-text-quiet);
+        padding-block-start: var(--wa-space-xs);
+        border-block-start: var(--wa-border-width-s) solid var(--wa-color-surface-border);
+      }
+
+      /* Dialog */
+      .reset-confirm {
+        --width: 28rem;
+      }
+
+      .reset-confirm wa-input {
+        margin-block-start: var(--wa-space-s);
+      }
+
+      .reset-confirm__body {
+        font-size: var(--wa-font-size-s);
+        line-height: 1.5;
+      }
+
+      .reset-confirm__body code {
+        font-family: var(--wa-font-family-code);
+        font-size: var(--wa-font-size-xs);
+        background: var(--wa-color-neutral-fill-quiet);
+        padding: 0 var(--wa-space-2xs);
+        border-radius: var(--wa-border-radius-s);
+      }
+    </style>
+  </head>
+  <body>
+    <wa-page mobile-breakpoint="1100">
+      <!-- ============================================================== -->
+      <!-- Header                                                         -->
+      <!-- ============================================================== -->
+      <header slot="header" class="page-header wa-split">
+        <div class="brand-block wa-cluster wa-gap-s">
+          <wa-button data-toggle-nav appearance="plain" size="s" class="wa-mobile-only">
+            <wa-icon name="bars" label="Open menu"></wa-icon>
+          </wa-button>
+          <a href="#" class="wordmark">Quadrant</a>
+          <span class="brand-divider" aria-hidden="true"></span>
+          <wa-dropdown>
+            <wa-button slot="trigger" appearance="plain" size="s" with-caret class="workspace-switcher">
+              Brightside Studio
+            </wa-button>
+            <wa-dropdown-item type="checkbox" checked>Brightside Studio</wa-dropdown-item>
+            <wa-dropdown-item>Brightside Labs</wa-dropdown-item>
+            <wa-dropdown-item>Parent Co Holdings</wa-dropdown-item>
+            <wa-divider></wa-divider>
+            <wa-dropdown-item>
+              <wa-icon slot="icon" name="plus"></wa-icon>
+              New workspace
+            </wa-dropdown-item>
+          </wa-dropdown>
+        </div>
+
+        <wa-input
+          class="header-search"
+          type="search"
+          size="s"
+          placeholder="Search members, teams, settings..."
+          aria-label="Global search"
+        >
+          <wa-icon slot="start" name="magnifying-glass"></wa-icon>
+        </wa-input>
+
+        <div class="wa-cluster wa-gap-2xs">
+          <wa-button appearance="plain" size="s" aria-label="Notifications">
+            <wa-icon name="bell"></wa-icon>
+            <wa-badge variant="danger" pill>3</wa-badge>
+          </wa-button>
+          <wa-avatar initials="MK" label="Mira Kapoor"></wa-avatar>
+        </div>
+      </header>
+
+      <!-- ============================================================== -->
+      <!-- Navigation                                                     -->
+      <!-- ============================================================== -->
+      <nav slot="navigation" class="wa-stack wa-gap-l">
+        <div class="nav-group">
+          <span class="nav-group-label">Workspace</span>
+          <div class="wa-stack wa-gap-3xs">
+            <a href="#" class="nav-link" data-drawer="close">
+              <wa-icon name="users"></wa-icon>
+              Members
+            </a>
+            <a href="#" class="nav-link" data-drawer="close">
+              <wa-icon name="people-group"></wa-icon>
+              Teams
+            </a>
+            <a href="#" class="nav-link" data-drawer="close">
+              <wa-icon name="credit-card"></wa-icon>
+              Billing
+            </a>
+            <a href="#" class="nav-link" data-drawer="close">
+              <wa-icon name="plug"></wa-icon>
+              Integrations
+            </a>
+            <a href="#" class="nav-link is-active" aria-current="page" data-drawer="close">
+              <wa-icon name="shield-halved"></wa-icon>
+              Security
+            </a>
+          </div>
+        </div>
+
+        <div class="nav-group">
+          <span class="nav-group-label">Personal</span>
+          <div class="wa-stack wa-gap-3xs">
+            <a href="#" class="nav-link" data-drawer="close">
+              <wa-icon name="user"></wa-icon>
+              Profile
+            </a>
+            <a href="#" class="nav-link" data-drawer="close">
+              <wa-icon name="bell"></wa-icon>
+              Notifications
+            </a>
+            <a href="#" class="nav-link" data-drawer="close">
+              <wa-icon name="key"></wa-icon>
+              API tokens
+            </a>
+          </div>
+        </div>
+      </nav>
+
+      <div slot="navigation-footer" class="nav-footer">
+        <div class="nav-footer-plan">
+          <strong>Business plan</strong>
+          $1,990 / month
+        </div>
+        <a href="#" class="nav-footer-link">Upgrade options</a>
+      </div>
+
+      <!-- ============================================================== -->
+      <!-- Subheader                                                      -->
+      <!-- ============================================================== -->
+      <nav slot="subheader" class="page-subheader wa-split">
+        <wa-breadcrumb>
+          <wa-breadcrumb-item href="#">Workspace</wa-breadcrumb-item>
+          <wa-breadcrumb-item href="">Security</wa-breadcrumb-item>
+        </wa-breadcrumb>
+        <wa-button size="s" appearance="outlined">
+          <wa-icon slot="start" name="arrow-down-to-line"></wa-icon>
+          Export audit log
+        </wa-button>
+      </nav>
+
+      <!-- ============================================================== -->
+      <!-- Main                                                           -->
+      <!-- ============================================================== -->
+      <main class="page-main">
+        <wa-tab-group active="authentication">
+          <wa-tab panel="authentication">Authentication</wa-tab>
+          <wa-tab panel="audit-log">Audit log</wa-tab>
+          <wa-tab panel="sessions">Sessions</wa-tab>
+          <wa-tab panel="compliance">Compliance</wa-tab>
+
+          <wa-tab-panel name="authentication">
+            <div class="wa-stack wa-gap-2xl">
+              <!-- 1. Single sign-on -->
+              <section class="settings-section" aria-labelledby="sso-title">
+                <div class="settings-section__head wa-split wa-align-items-start wa-gap-l">
+                  <div>
+                    <h3 id="sso-title" class="settings-section__title">Single sign-on</h3>
+                    <p class="settings-section__description">
+                      Members authenticate through your identity provider before reaching the workspace.
+                    </p>
+                  </div>
+                  <wa-badge variant="success" appearance="filled-outlined">
+                    <wa-icon slot="start" name="circle-check"></wa-icon>
+                    Enabled — Okta SAML
+                  </wa-badge>
+                </div>
+
+                <div class="settings-section__body wa-stack wa-gap-m">
+                  <dl class="label-value">
+                    <dt>Identity provider</dt>
+                    <dd class="is-prose">Okta (SAML 2.0)</dd>
+
+                    <dt>Login URL</dt>
+                    <dd>…/sso/saml2/0oa9k8z2hLqV8AYpC4x7</dd>
+
+                    <dt>Certificate thumbprint</dt>
+                    <dd>2F:9A:4C:18:DE:E0:7B:55:91:6C:0F:23:7A:E8:44:1B:CD:5E:90:F3</dd>
+
+                    <dt>Last verified</dt>
+                    <dd class="is-prose">June 18, 2026 · 9:41 AM</dd>
+                  </dl>
+
+                  <wa-callout variant="warning" size="s">
+                    <wa-icon slot="icon" name="triangle-exclamation"></wa-icon>
+                    Disabling SSO will require all 142 members to re-establish password authentication.
+                  </wa-callout>
+                </div>
+
+                <div class="settings-section__footer wa-cluster wa-gap-2xs wa-justify-content-end">
+                  <wa-button size="s" appearance="plain">Test connection</wa-button>
+                  <wa-button size="s" appearance="outlined" variant="danger">Disable</wa-button>
+                  <wa-button size="s" variant="brand">Edit configuration</wa-button>
+                </div>
+              </section>
+
+              <!-- 2. Two-factor enforcement -->
+              <section class="settings-section" aria-labelledby="tfa-title">
+                <div class="settings-section__head wa-split wa-align-items-start wa-gap-l">
+                  <div>
+                    <h3 id="tfa-title" class="settings-section__title">Two-factor enforcement</h3>
+                    <p class="settings-section__description">
+                      Require a second authentication factor for every workspace member.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="settings-section__body wa-stack wa-gap-m">
+                  <div class="switch-row wa-split wa-gap-l">
+                    <div class="switch-row__label">
+                      <strong>Require 2FA for all members</strong>
+                      <span>Unenrolled members are blocked from signing in until they add a factor.</span>
+                    </div>
+                    <wa-switch checked aria-label="Require 2FA for all members"></wa-switch>
+                  </div>
+
+                  <div class="enrollment-row wa-split wa-gap-m">
+                    <span><strong>138</strong> of 142 members enrolled</span>
+                    <a href="#">View 4 unenrolled</a>
+                  </div>
+                </div>
+              </section>
+
+              <!-- 3. Allowed email domains -->
+              <section class="settings-section" aria-labelledby="domains-title">
+                <div class="settings-section__head wa-split wa-align-items-start wa-gap-l">
+                  <div>
+                    <h3 id="domains-title" class="settings-section__title">Allowed email domains</h3>
+                    <p class="settings-section__description">
+                      Only users with email addresses on these domains can be invited.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="settings-section__body wa-stack wa-gap-m">
+                  <div class="wa-cluster wa-gap-xs">
+                    <wa-tag with-remove size="s">@brightside.studio</wa-tag>
+                    <wa-tag with-remove size="s">@brightside.contractors</wa-tag>
+                    <wa-tag with-remove size="s">@parent-co.com</wa-tag>
+                  </div>
+
+                  <div class="add-domain-row">
+                    <wa-input
+                      size="s"
+                      type="text"
+                      placeholder="@domain.com"
+                      aria-label="Add a new allowed domain"
+                    ></wa-input>
+                    <wa-button size="s" variant="brand">Add domain</wa-button>
+                  </div>
+                </div>
+              </section>
+
+              <!-- 4. IP allowlist -->
+              <section class="settings-section" aria-labelledby="ip-title">
+                <div class="settings-section__head wa-split wa-align-items-start wa-gap-l">
+                  <div>
+                    <h3 id="ip-title" class="settings-section__title">IP allowlist</h3>
+                    <p class="settings-section__description">
+                      Sign-in attempts from addresses outside these ranges are rejected.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="settings-section__body wa-stack wa-gap-m">
+                  <div class="table-toolbar wa-split wa-gap-m">
+                    <wa-input
+                      class="table-search"
+                      type="search"
+                      size="s"
+                      placeholder="Search ranges or labels..."
+                      aria-label="Search IP ranges"
+                    >
+                      <wa-icon slot="start" name="magnifying-glass"></wa-icon>
+                    </wa-input>
+                    <wa-button size="s" variant="brand">
+                      <wa-icon slot="start" name="plus"></wa-icon>
+                      Add range
+                    </wa-button>
+                  </div>
+
+                  <table class="ip-table">
+                    <thead>
+                      <tr>
+                        <th scope="col">CIDR</th>
+                        <th scope="col">Label</th>
+                        <th scope="col">Added by</th>
+                        <th scope="col">Added</th>
+                        <th scope="col" class="row-actions">
+                          <span class="wa-visually-hidden">Actions</span>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="cidr">192.0.2.0/24</td>
+                        <td>Office HQ — Toronto</td>
+                        <td class="added-by">Mira Kapoor</td>
+                        <td class="added-by">Mar 4, 2025</td>
+                        <td class="row-actions">
+                          <wa-dropdown>
+                            <wa-button slot="trigger" appearance="plain" size="s" aria-label="Row actions">
+                              <wa-icon name="ellipsis"></wa-icon>
+                            </wa-button>
+                            <wa-dropdown-item>Edit label</wa-dropdown-item>
+                            <wa-dropdown-item>Copy CIDR</wa-dropdown-item>
+                            <wa-divider></wa-divider>
+                            <wa-dropdown-item variant="danger">Remove</wa-dropdown-item>
+                          </wa-dropdown>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="cidr">198.51.100.0/24</td>
+                        <td>Office NYC</td>
+                        <td class="added-by">Dev Okafor</td>
+                        <td class="added-by">Mar 4, 2025</td>
+                        <td class="row-actions">
+                          <wa-dropdown>
+                            <wa-button slot="trigger" appearance="plain" size="s" aria-label="Row actions">
+                              <wa-icon name="ellipsis"></wa-icon>
+                            </wa-button>
+                            <wa-dropdown-item>Edit label</wa-dropdown-item>
+                            <wa-dropdown-item>Copy CIDR</wa-dropdown-item>
+                            <wa-divider></wa-divider>
+                            <wa-dropdown-item variant="danger">Remove</wa-dropdown-item>
+                          </wa-dropdown>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="cidr">203.0.113.10/32</td>
+                        <td>Founder home — A. Choi</td>
+                        <td class="added-by">Mira Kapoor</td>
+                        <td class="added-by">Apr 19, 2025</td>
+                        <td class="row-actions">
+                          <wa-dropdown>
+                            <wa-button slot="trigger" appearance="plain" size="s" aria-label="Row actions">
+                              <wa-icon name="ellipsis"></wa-icon>
+                            </wa-button>
+                            <wa-dropdown-item>Edit label</wa-dropdown-item>
+                            <wa-dropdown-item>Copy CIDR</wa-dropdown-item>
+                            <wa-divider></wa-divider>
+                            <wa-dropdown-item variant="danger">Remove</wa-dropdown-item>
+                          </wa-dropdown>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="cidr">203.0.113.42/32</td>
+                        <td>Founder home — J. Park</td>
+                        <td class="added-by">Mira Kapoor</td>
+                        <td class="added-by">Apr 19, 2025</td>
+                        <td class="row-actions">
+                          <wa-dropdown>
+                            <wa-button slot="trigger" appearance="plain" size="s" aria-label="Row actions">
+                              <wa-icon name="ellipsis"></wa-icon>
+                            </wa-button>
+                            <wa-dropdown-item>Edit label</wa-dropdown-item>
+                            <wa-dropdown-item>Copy CIDR</wa-dropdown-item>
+                            <wa-divider></wa-divider>
+                            <wa-dropdown-item variant="danger">Remove</wa-dropdown-item>
+                          </wa-dropdown>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="cidr">10.20.0.0/16</td>
+                        <td>VPN — corporate</td>
+                        <td class="added-by">Dev Okafor</td>
+                        <td class="added-by">Jun 2, 2025</td>
+                        <td class="row-actions">
+                          <wa-dropdown>
+                            <wa-button slot="trigger" appearance="plain" size="s" aria-label="Row actions">
+                              <wa-icon name="ellipsis"></wa-icon>
+                            </wa-button>
+                            <wa-dropdown-item>Edit label</wa-dropdown-item>
+                            <wa-dropdown-item>Copy CIDR</wa-dropdown-item>
+                            <wa-divider></wa-divider>
+                            <wa-dropdown-item variant="danger">Remove</wa-dropdown-item>
+                          </wa-dropdown>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="cidr">172.16.40.0/22</td>
+                        <td>Office Lisbon — coworking</td>
+                        <td class="added-by">Sara Lindberg</td>
+                        <td class="added-by">Oct 12, 2025</td>
+                        <td class="row-actions">
+                          <wa-dropdown>
+                            <wa-button slot="trigger" appearance="plain" size="s" aria-label="Row actions">
+                              <wa-icon name="ellipsis"></wa-icon>
+                            </wa-button>
+                            <wa-dropdown-item>Edit label</wa-dropdown-item>
+                            <wa-dropdown-item>Copy CIDR</wa-dropdown-item>
+                            <wa-divider></wa-divider>
+                            <wa-dropdown-item variant="danger">Remove</wa-dropdown-item>
+                          </wa-dropdown>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="cidr">2001:db8::/32</td>
+                        <td>Site-to-site — Parent Co</td>
+                        <td class="added-by">Mira Kapoor</td>
+                        <td class="added-by">Jan 7, 2026</td>
+                        <td class="row-actions">
+                          <wa-dropdown>
+                            <wa-button slot="trigger" appearance="plain" size="s" aria-label="Row actions">
+                              <wa-icon name="ellipsis"></wa-icon>
+                            </wa-button>
+                            <wa-dropdown-item>Edit label</wa-dropdown-item>
+                            <wa-dropdown-item>Copy CIDR</wa-dropdown-item>
+                            <wa-divider></wa-divider>
+                            <wa-dropdown-item variant="danger">Remove</wa-dropdown-item>
+                          </wa-dropdown>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+
+              <!-- 5. API access -->
+              <section class="settings-section" aria-labelledby="api-title">
+                <div class="settings-section__head wa-split wa-align-items-start wa-gap-l">
+                  <div>
+                    <h3 id="api-title" class="settings-section__title">API access</h3>
+                    <p class="settings-section__description">
+                      Personal and service tokens that can call the Quadrant API on behalf of this workspace.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="settings-section__body wa-stack wa-gap-m">
+                  <div class="token-summary wa-split wa-gap-m">
+                    <div class="token-summary__count">
+                      <strong>12</strong>
+                      <span>active personal access tokens</span>
+                    </div>
+                    <wa-button size="s" appearance="plain">Manage tokens</wa-button>
+                  </div>
+
+                  <div class="service-tokens">
+                    <div class="service-tokens__head">Service tokens · 3</div>
+
+                    <div class="service-token-row">
+                      <div class="service-token-row__meta wa-stack wa-gap-3xs">
+                        <span class="service-token-row__name">ci.brightside.studio</span>
+                        <span class="service-token-row__used">Last used 12 minutes ago · 192.0.2.18</span>
+                        <div class="service-token-row__scopes wa-cluster wa-gap-2xs">
+                          <wa-tag size="xs">projects:read</wa-tag>
+                          <wa-tag size="xs">builds:write</wa-tag>
+                          <wa-tag size="xs">artifacts:write</wa-tag>
+                        </div>
+                      </div>
+                      <div class="service-token-row__actions wa-cluster wa-gap-2xs">
+                        <wa-button size="xs" appearance="plain">Rotate</wa-button>
+                        <wa-button size="xs" appearance="plain" variant="danger">Revoke</wa-button>
+                      </div>
+                    </div>
+
+                    <div class="service-token-row">
+                      <div class="service-token-row__meta wa-stack wa-gap-3xs">
+                        <span class="service-token-row__name">data-warehouse-sync</span>
+                        <span class="service-token-row__used">Last used 4 hours ago · 10.20.4.91</span>
+                        <div class="service-token-row__scopes wa-cluster wa-gap-2xs">
+                          <wa-tag size="xs">projects:read</wa-tag>
+                          <wa-tag size="xs">members:read</wa-tag>
+                          <wa-tag size="xs">audit:read</wa-tag>
+                        </div>
+                      </div>
+                      <div class="service-token-row__actions wa-cluster wa-gap-2xs">
+                        <wa-button size="xs" appearance="plain">Rotate</wa-button>
+                        <wa-button size="xs" appearance="plain" variant="danger">Revoke</wa-button>
+                      </div>
+                    </div>
+
+                    <div class="service-token-row">
+                      <div class="service-token-row__meta wa-stack wa-gap-3xs">
+                        <span class="service-token-row__name">figma-handoff-bot</span>
+                        <span class="service-token-row__used">Last used 6 days ago · 198.51.100.7</span>
+                        <div class="service-token-row__scopes wa-cluster wa-gap-2xs">
+                          <wa-tag size="xs">projects:read</wa-tag>
+                          <wa-tag size="xs">comments:write</wa-tag>
+                        </div>
+                      </div>
+                      <div class="service-token-row__actions wa-cluster wa-gap-2xs">
+                        <wa-button size="xs" appearance="plain">Rotate</wa-button>
+                        <wa-button size="xs" appearance="plain" variant="danger">Revoke</wa-button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <!-- 6. Danger zone -->
+              <section class="settings-section is-danger" aria-labelledby="reset-title">
+                <div class="settings-section__head wa-split wa-align-items-start wa-gap-l">
+                  <div>
+                    <h3 id="reset-title" class="settings-section__title">Reset workspace encryption keys</h3>
+                    <p class="settings-section__description">
+                      Rotating the workspace key invalidates every existing secret. Integrations, build
+                      tokens, and stored credentials must be re-issued before they will work again.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="settings-section__body wa-stack wa-gap-m">
+                  <wa-button variant="danger" size="s" data-dialog="open reset-keys-dialog">
+                    Reset encryption keys
+                  </wa-button>
+                </div>
+              </section>
+            </div>
+          </wa-tab-panel>
+
+          <wa-tab-panel name="audit-log">
+            <div class="placeholder-panel">Audit log view goes here.</div>
+          </wa-tab-panel>
+          <wa-tab-panel name="sessions">
+            <div class="placeholder-panel">Active session list goes here.</div>
+          </wa-tab-panel>
+          <wa-tab-panel name="compliance">
+            <div class="placeholder-panel">Compliance attestations and reports go here.</div>
+          </wa-tab-panel>
+        </wa-tab-group>
+      </main>
+
+      <!-- ============================================================== -->
+      <!-- Aside                                                          -->
+      <!-- ============================================================== -->
+      <aside slot="aside" class="page-aside">
+        <div class="score-card wa-stack wa-gap-m">
+          <div class="score-card__head wa-split wa-align-items-baseline">
+            <h3>Security score</h3>
+            <span class="score-card__value">87<small>/100</small></span>
+          </div>
+          <wa-progress-bar value="87" label="Security score"></wa-progress-bar>
+
+          <p class="score-card__sub-title">Things to improve</p>
+          <ul class="checklist">
+            <li>
+              <wa-icon name="circle-exclamation"></wa-icon>
+              4 members still missing 2FA enrollment
+            </li>
+            <li>
+              <wa-icon name="circle-exclamation"></wa-icon>
+              Audit log retention is set to 90 days
+            </li>
+            <li>
+              <wa-icon name="circle-exclamation"></wa-icon>
+              No incident response contact on file
+            </li>
+          </ul>
+
+          <p class="score-card__audited">Last audited Jun 21, 2026 · 11:08 PM</p>
+        </div>
+      </aside>
+    </wa-page>
+
+    <!-- ============================================================== -->
+    <!-- Reset keys confirmation dialog                                 -->
+    <!-- ============================================================== -->
+    <wa-dialog id="reset-keys-dialog" label="Reset workspace encryption keys" class="reset-confirm">
+      <div class="reset-confirm__body wa-stack wa-gap-s">
+        <p>
+          This will rotate the encryption key used by every secret, build token, and integration in
+          <strong>Brightside Studio</strong>. Until each is re-issued, those integrations will fail.
+        </p>
+        <p>
+          To confirm, type the workspace name <code>Brightside Studio</code> below.
+        </p>
+        <wa-input
+          placeholder="Workspace name"
+          aria-label="Workspace name confirmation"
+          autofocus
+        ></wa-input>
+      </div>
+      <wa-button slot="footer" appearance="plain" data-dialog="close">Cancel</wa-button>
+      <wa-button slot="footer" variant="danger" disabled>Reset keys</wa-button>
+    </wa-dialog>
+  </body>
+</html>
