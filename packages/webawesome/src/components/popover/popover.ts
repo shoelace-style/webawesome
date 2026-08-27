@@ -91,6 +91,7 @@ export default class WaPopover extends WebAwesomeElement {
   @property({ attribute: 'without-arrow', type: Boolean, reflect: true }) withoutArrow = false;
 
   private eventController = new AbortController();
+  private pressStartedInside = false;
 
   connectedCallback() {
     super.connectedCallback();
@@ -117,6 +118,7 @@ export default class WaPopover extends WebAwesomeElement {
 
     // Cleanup events in case the popover is removed while open
     document.removeEventListener('keydown', this.handleDocumentKeyDown);
+    document.removeEventListener('pointerdown', this.handleDocumentPointerDown, { capture: true });
     unregisterDismissible(this);
     this.eventController.abort();
   }
@@ -166,7 +168,22 @@ export default class WaPopover extends WebAwesomeElement {
     }
   };
 
+  private handleDocumentPointerDown = (event: PointerEvent) => {
+    // Remember whether the press started inside the popover. A click event targets the common ancestor of the
+    // pointerdown and pointerup elements, so a drag that starts inside and ends outside reports a target outside the
+    // popover. Only the originating press should decide whether this is an outside click.
+    this.pressStartedInside = event.composedPath().includes(this);
+  };
+
   private handleDocumentClick = (event: PointerEvent) => {
+    const pressStartedInside = this.pressStartedInside;
+    this.pressStartedInside = false;
+
+    // Ignore presses that began inside the popover, such as dragging to select text and releasing outside of it
+    if (pressStartedInside) {
+      return;
+    }
+
     // Ignore clicks on the anchor so it will be closed by the anchor's click handler
     if (this.anchor && event.composedPath().includes(this.anchor)) {
       return;
@@ -193,6 +210,10 @@ export default class WaPopover extends WebAwesomeElement {
       openPopovers.forEach(popover => (popover.open = false));
 
       document.addEventListener('keydown', this.handleDocumentKeyDown, { signal: this.eventController.signal });
+      document.addEventListener('pointerdown', this.handleDocumentPointerDown, {
+        capture: true,
+        signal: this.eventController.signal,
+      });
       document.addEventListener('click', this.handleDocumentClick, { signal: this.eventController.signal });
 
       // Show the dialog non-modally. Set the `open` attribute instead of calling show(): show() runs the native
@@ -229,7 +250,9 @@ export default class WaPopover extends WebAwesomeElement {
       }
 
       document.removeEventListener('keydown', this.handleDocumentKeyDown);
+      document.removeEventListener('pointerdown', this.handleDocumentPointerDown, { capture: true });
       document.removeEventListener('click', this.handleDocumentClick);
+      this.pressStartedInside = false;
 
       openPopovers.delete(this);
       unregisterDismissible(this);
