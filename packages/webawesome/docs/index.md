@@ -234,9 +234,9 @@ hasFramedMain: false
             <h3 class="wa-heading-m">Get More with {{ site.namePro }}!</h3>
             <p>Unlock Pro-only themes, components, patterns, and great services like the Theme Builder.</p>
           </div>
-          <wa-button class="wa-dark" size="s" href="/purchase">
+          <wa-button class="wa-dark" size="s" href="/pro?from=docs-landing">
             <wa-icon slot="start" name="rocket-launch"></wa-icon>
-            Purchase Pro
+            Get Pro
           </wa-button>
         {% endif %}
       {% endraw %}

@@ -31,6 +31,17 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 ## Unreleased
 
+:::fixed
+
+- Fixed a bug in `<wa-page>` where empty contents for `navigation-footer` would reserve space for a navigation footer in the mobile navigation drawer.
+- Fixed a bug in `<wa-page>` where the header did not have a background set. [pr:2690]
+- Fixed a bug in `.wa-visually-hidden` utility where it did not set a `top` and `left` causing unexpected overflows. [pr:2765]
+- Fixed `<wa-accordion>` removing headers from the page's tab sequence via a roving tabindex; `Tab` and `Shift + Tab` now move through every header, matching the [W3C accordion pattern](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/examples/accordion/). Arrow keys and Home/End remain as shortcuts for moving between headers.
+
+:::
+
+## 3.12.0
+
 :::added
 
 - Added version 3.0.0 of the [official Web Awesome Figma Design Kit](/docs/resources/figma)
@@ -52,6 +63,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug in `<wa-data-grid>` that caused an expanded row detail's space to stay reserved at its old position after changing pages, sorting, or filtering
 - Fixed a bug in `<wa-data-grid>` that caused the empty and loading states to be invisible in some cases [issue:2734]
 - Fixed `<wa-data-grid>` showing its empty state behind the loading overlay while a server request was in flight
+- Fixed a bug in `<wa-popover>` where dragging to select text inside the popover closed it if the cursor was released outside of it
 - Fixed a bug in `<wa-tooltip>` where canceling the `wa-hide` event didn't keep the tooltip open [pr:2721]
 - Fixed a bug in `<wa-tooltip>` where tooltips with `trigger="manual"` closed when pressing [[Escape]] [pr:2721]
 - Fixed the `hint` part in `<wa-textarea>`, which sat on a slot inside an unexposed wrapper; `::part(hint)` now selects the hint and the character count together [issue:2614] [pr:2720]

@@ -168,6 +168,7 @@ export default css`
   }
   [part~='header'] {
     top: var(--banner-top);
+    background-color: var(--wa-color-surface-default);
 
     /** Make the header flex so that you don't unexpectedly have the default toggle button appearing above a slotted div because block elements are fun. */
     display: flex;

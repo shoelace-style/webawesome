@@ -31,46 +31,43 @@ anything else. Otherwise, follow these instructions to include the utilities sty
   <wa-tab panel="hosted"><wa-icon name="rocket-launch" variant="regular"></wa-icon> Hosted Projects</wa-tab>
 
   <wa-tab-panel name="cdn">
-    {% markdown %}
-    Add the following stylesheet to the `<head>` section of your pages:
+{% markdown %}
+Add the following stylesheet to the `<head>` section of your pages:
 
-      ```html
-      <link rel="stylesheet" href="{% cdnUrl 'styles/utilities.css' %}">
-      ```
-      {% endmarkdown %}
+```html
+<link rel="stylesheet" href="{% cdnUrl 'styles/utilities.css' %}">
+```
+{% endmarkdown %}
   </wa-tab-panel>
 
   <wa-tab-panel name="npm">
-    {% markdown %}
-    After installing `@awesome.me/webawesome`, import the following stylesheet into your app:
+{% markdown %}
+After installing `@awesome.me/webawesome`, import the following stylesheet into your app:
 
-    ```js
-    import '@awesome.me/webawesome/dist/styles/utilities.css';
-    ```
-    {% endmarkdown %}
+```js
+import '@awesome.me/webawesome/dist/styles/utilities.css';
+```
+{% endmarkdown %}
   </wa-tab-panel>
 
   <wa-tab-panel name="self-hosted">
-    {% markdown %}
-    Add the following stylesheet to the `<head>` section of your pages:
+{% markdown %}
+Add the following stylesheet to the `<head>` section of your pages:
 
-      ```html
-      <link rel="stylesheet" href="/dist/styles/utilities.css">
-      ```
-      {% endmarkdown %}
+```html
+<link rel="stylesheet" href="/dist/styles/utilities.css">
+```
+{% endmarkdown %}
   </wa-tab-panel>
 
   <wa-tab-panel name="hosted">
-    {% markdown %}
-    If you're using a [hosted project](/workspaces), CSS utilities can be toggled on from your project settings.
+{% markdown %}
+If you're using a [hosted project](/workspaces), CSS utilities can be toggled on from your project settings.
 
-    1. Head over to your project's <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="gear"
-        variant="regular"></wa-icon> Settings</wa-tag>.
-    2. Next to <wa-tag class="tag-ui" appearance="outlined">Features</wa-tag>, select the <wa-tag class="tag-ui"
-      appearance="outlined">CSS utilities</wa-tag> checkbox.
-    3. <wa-tag class="tag-ui" appearance="outlined">Save Changes</wa-tag> to immediately update anywhere you're using
-    your project.
-    {% endmarkdown %}
+1. Head over to your project's <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="gear" variant="regular"></wa-icon> Settings</wa-tag>.
+2. Next to <wa-tag class="tag-ui" appearance="outlined">Features</wa-tag>, select the <wa-tag class="tag-ui" appearance="outlined">CSS utilities</wa-tag> checkbox.
+3. <wa-tag class="tag-ui" appearance="outlined">Save Changes</wa-tag> to immediately update anywhere you're using your project.
+{% endmarkdown %}
   </wa-tab-panel>
 </wa-tab-group>
 
