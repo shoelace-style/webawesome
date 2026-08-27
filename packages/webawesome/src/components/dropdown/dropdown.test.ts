@@ -2,6 +2,7 @@ import { aTimeout, expect, waitUntil } from '@open-wc/testing';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit';
 import sinon from 'sinon';
+import { getDeepestActiveElement } from '../../internal/active-elements.js';
 import { expectEvent } from '../../internal/test/expect-event.js';
 import { clientFixture, fixtures } from '../../internal/test/fixture.js';
 import type WaDropdownItem from '../dropdown-item/dropdown-item.js';
@@ -451,14 +452,21 @@ describe('<wa-dropdown>', () => {
           `);
 
           const trigger = el.querySelector<HTMLElement>('[slot="trigger"]')!;
+          const firstItem = el.querySelector('wa-dropdown-item')!;
+          el.style.setProperty('--hide-duration', '100ms');
           trigger.click();
           await waitUntil(() => el.open);
           await aTimeout(200);
 
+          const afterHide = new Promise(resolve => el.addEventListener('wa-after-hide', resolve, { once: true }));
           await sendKeys({ press: 'Escape' });
-          await waitUntil(() => !el.open);
+          await aTimeout(50);
 
+          expect(getDeepestActiveElement()).to.equal(firstItem);
+
+          await afterHide;
           expect(el.open).to.be.false;
+          expect(getDeepestActiveElement()).to.equal(trigger.shadowRoot!.querySelector('[part~="base"]'));
         });
 
         it('should navigate items with ArrowDown', async () => {
