@@ -813,6 +813,8 @@ If your Shoelace app used `sl-alert.toast()`, a custom combobox library, or char
 
 ## Frequent Gotchas
 
+If your problem isn't migration-specific, check [Support](/support) for more troubleshooting answers.
+
 <wa-details name="migration-gotcha" summary="My buttons all look gray">
 
 You probably have `variant="primary"` somewhere. Web Awesome uses `variant="brand"`.
