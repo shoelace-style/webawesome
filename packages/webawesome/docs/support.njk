@@ -1,0 +1,128 @@
+---
+title: Help & Support
+description: Answers to the questions we hear most, plus the fastest ways to reach a human when you need one.
+layout: page
+permalink: /support/
+hasOutline: true
+hasProseContent: true
+synonyms: [help, faq, questions, answers, contact, refund, billing, license, seats]
+---
+
+{% import "faq-list.njk" as faq %}
+{% import "search-list-empty.njk" as searchList %}
+
+<p class="support-intro">Whatever you're running into with Web Awesome, this is the place to get unstuck. Search the answers below or browse by topic, from installing Core to managing Pro seats. And if you need a human, <a href="#get-help">Get Help</a> reaches us.</p>
+
+<div class="search-list support-view" data-search-list-section="[data-topic]" data-search-list-item="article.faq-entry">
+  <wa-input id="support-filter" class="search-list-input" type="search" placeholder="Search these questions&hellip;" pill with-clear>
+    <span slot="label" class="wa-visually-hidden">Filter Questions</span>
+    <wa-icon name="search" slot="start"></wa-icon>
+  </wa-input>
+  {#- Screen-reader only: the count is announced, never shown. A miss is surfaced visually by
+      .search-list-empty instead, so a sighted user still sees why the page went quiet. -#}
+  <p id="support-filter-status" class="search-list-status wa-visually-hidden" role="status" aria-live="polite"></p>
+
+  {#- Each chip searches for its own label, so what you click is what lands in the field. The
+      slug is the no-JS fallback and the entry the label is meant to surface: if a label stops
+      matching its entry, add it to that entry's synonyms rather than splitting the two.
+      search-list.js upgrades each one into a toggle button aimed at #support-results. -#}
+  {%- set popularShortcuts = [
+    { label: 'Getting Started', slug: 'cdn-vs-npm' },
+    { label: 'Frameworks', slug: 'frameworks' },
+    { label: 'Contributing', slug: 'how-do-i-contribute' },
+    { label: 'Core vs Pro', slug: 'core-vs-pro' },
+    { label: 'Seats', slug: 'seats-coverage' },
+    { label: 'Refunds', slug: 'refunds' }
+  ] %}
+  <nav class="support-popular wa-cluster wa-gap-2xs wa-align-items-baseline wa-font-size-s" aria-label="Popular searches">
+    {%- for shortcut in popularShortcuts %}
+      <a class="support-popular-link wa-border-radius-pill" href="#{{ shortcut.slug }}" data-search-list-query="{{ shortcut.label | lower }}">{{ shortcut.label }}</a>
+    {%- endfor %}
+  </nav>
+
+  {#- data-search-list-results marks what the filter rewrites, so the fade acknowledging an
+      update covers the answers without touching the field you're typing in. -#}
+  <div id="support-results" class="support-results" data-search-list-results>
+    {%- for topic in faqTopics %}
+      {%- set topicEntries = [] %}
+      {%- for entry in collections.faq %}{% if entry.data.topic == topic.slug %}{% set topicEntries = (topicEntries.push(entry), topicEntries) %}{% endif %}{% endfor %}
+      {%- if topicEntries.length %}
+        <h2 id="{{ topic.slug }}" class="support-section-heading">{{ topic.name }}</h2>
+        <section class="wa-stack wa-gap-l" data-topic="{{ topic.slug }}" aria-labelledby="{{ topic.slug }}">
+          <p class="support-section-blurb wa-caption-s">{{ topic.blurb }}</p>
+          {#- Entries sit in their own flex column so inter-entry rhythm comes from `gap`,
+              which collapses around filtered-out entries. Margins can't: they'd stay on the
+              first *visible* entry once the DOM-first one is hidden. -#}
+          <div class="wa-stack wa-gap-3xl">{{ faq.prose(topicEntries) }}</div>
+        </section>
+      {%- endif %}
+    {%- endfor %}
+
+    {#- Both escape hatches become actions rather than a parenthetical. The site-search button
+        reuses `data-search` (search.js opens the dialog for any click on it) and repeats the
+        shortcut exactly as the sidebar trigger teaches it (search-trigger-button.njk). -#}
+    {%- set supportActions %}
+      <wa-button appearance="outlined" size="s" data-search>
+        <wa-icon slot="start" name="magnifying-glass" variant="regular"></wa-icon>
+        Search the Whole Site
+        <kbd slot="end" class="wa-desktop-only">/</kbd>
+      </wa-button>
+      <wa-button appearance="outlined" size="s" href="#get-help">
+        <wa-icon slot="start" name="life-ring" variant="regular"></wa-icon>
+        Get Help from Our Team
+      </wa-button>
+    {%- endset %}
+    {{ searchList.state('Nothing here matches that.', '', supportActions) }}
+  </div>
+</div>
+
+<h2 id="get-help" class="support-section-heading">Get Help</h2>
+
+<div class="wa-stack wa-gap-l">
+  <p class="support-section-blurb wa-caption-s">Pick the channel that fits what you need. Each one reaches us.</p>
+
+  {#- The channel id lives on the row itself — app UI deep-links /support#email. -#}
+  <div class="wa-stack wa-gap-3xl support-channels wa-not-prose" data-no-anchor data-no-outline>
+    <div class="wa-flank:end wa-gap-xl support-channel" id="github">
+      <div class="wa-stack wa-gap-2xs">
+        <h3 class="wa-heading-l">Bugs &amp; Feature Requests</h3>
+        <p>Reproducible bugs and ideas belong on <a href="{{ site.github.issues }}" class="wa-color-text-normal">GitHub</a>, where we can triage and track them.</p>
+      </div>
+
+      <div class="wa-stack wa-gap-xs">
+        <wa-button appearance="filled" size="s" href="{{ site.github.issues }}">
+          <wa-icon name="bug" variant="regular" slot="start"></wa-icon>
+          Report a Bug
+        </wa-button>
+        <wa-button appearance="filled" size="s" href="{{ site.github.ideas }}">
+          <wa-icon name="lightbulb-on" variant="regular" slot="start"></wa-icon>
+          Request a Feature
+        </wa-button>
+      </div>
+    </div>
+
+    <div class="wa-flank:end wa-gap-xl support-channel" id="discord">
+      <div class="wa-stack wa-gap-2xs">
+        <h3 class="wa-heading-l">Community &amp; Discussion</h3>
+        <p>Ask questions, share what you're building, and chat live with other developers on <a href="{{ site.urls.discord }}" class="wa-color-text-normal">Discord</a>.</p>
+      </div>
+
+      <wa-button appearance="filled" size="s" href="{{ site.urls.discord }}">
+        <wa-icon family="brands" name="discord" slot="start"></wa-icon>
+        Join the Server
+      </wa-button>
+    </div>
+
+    <div class="wa-flank:end wa-gap-xl support-channel" id="email">
+      <div class="wa-stack wa-gap-2xs">
+        <h3 class="wa-heading-l">Anything Else</h3>
+        <p>Account access, billing, or private matters. Email reaches our support team directly.</p>
+      </div>
+
+      <wa-button appearance="filled" size="s" href="mailto:{{ site.emails.help }}">
+        <wa-icon name="envelope" variant="regular" slot="start"></wa-icon>
+        Get Help via Email
+      </wa-button>
+    </div>
+  </div>
+</div>
