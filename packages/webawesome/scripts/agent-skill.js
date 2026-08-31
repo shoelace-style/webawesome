@@ -1058,7 +1058,7 @@ Pro users can customize themes using the [Theme Builder](${baseUrl}/docs/themes)
 function generateSupportReference(baseUrl) {
   return `# Support
 
-**Full documentation:** ${baseUrl}/docs/resources/support
+**Full documentation:** ${baseUrl}/support
 
 ## Getting Help
 
