@@ -208,7 +208,7 @@ export function enableSearchLists() {
 
     const incomingQuery = new URL(window.location.href).searchParams.get('q');
     if (incomingQuery) {
-      input.value = incomingQuery;
+      input.value = incomingQuery.trim();
       applyFilter(incomingQuery.trim());
     }
   });

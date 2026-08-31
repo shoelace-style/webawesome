@@ -35,8 +35,12 @@ synonyms: [help, faq, questions, answers, contact, refund, billing, license, sea
     { label: 'Refunds', slug: 'refunds' }
   ] %}
   <nav class="support-popular wa-cluster wa-gap-2xs wa-align-items-baseline wa-font-size-s" aria-label="Popular searches">
+    {#- Some targets come from the pro/app halves of the docs bundle; a standalone build of
+        this package skips their chips rather than shipping dead anchors. -#}
     {%- for shortcut in popularShortcuts %}
+    {%- if (collections.faq | faqBySlugs([shortcut.slug], false)).length %}
       <a class="support-popular-link wa-border-radius-pill" href="#{{ shortcut.slug }}" data-search-list-query="{{ shortcut.label | lower }}">{{ shortcut.label }}</a>
+    {%- endif %}
     {%- endfor %}
   </nav>
 

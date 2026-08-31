@@ -143,16 +143,17 @@ export default async function (eleventyConfig) {
   eleventyConfig.addFilter('headingId', content => createId(String(content ?? '')));
   // A silently dropped slug is the worst failure here: the page still builds, just missing the
   // answer someone deliberately listed. Fail the build and name the slug instead.
-  eleventyConfig.addFilter('faqBySlugs', (entries, slugs) =>
+  eleventyConfig.addFilter('faqBySlugs', (entries, slugs, strict = true) =>
     slugs.map(slug => {
       const entry = entries.find(entry => entry.page.fileSlug === slug);
+      if (!entry && !strict) return null;
       if (!entry) {
         throw new Error(
           `No FAQ entry with slug "${slug}" — check docs/_faqs/*/${slug}.md exists and carries tag "faq".`,
         );
       }
       return entry;
-    }),
+    }).filter(Boolean),
   );
 
   // Adds a input path relative to the 11ty input path. Essentially filePathStem + extension
