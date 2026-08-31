@@ -141,6 +141,19 @@ export default async function (eleventyConfig) {
   eleventyConfig.addFilter('uniqueId', (_value, length = 8) => nanoid(length));
   // Generates the same heading anchor id used by anchorHeadingsTransformer, so links can target headings reliably
   eleventyConfig.addFilter('headingId', content => createId(String(content ?? '')));
+  // A silently dropped slug is the worst failure here: the page still builds, just missing the
+  // answer someone deliberately listed. Fail the build and name the slug instead.
+  eleventyConfig.addFilter('faqBySlugs', (entries, slugs) =>
+    slugs.map(slug => {
+      const entry = entries.find(entry => entry.page.fileSlug === slug);
+      if (!entry) {
+        throw new Error(
+          `No FAQ entry with slug "${slug}" — check docs/_faqs/*/${slug}.md exists and carries tag "faq".`,
+        );
+      }
+      return entry;
+    }),
+  );
 
   // Adds a input path relative to the 11ty input path. Essentially filePathStem + extension
   eleventyConfig.addFilter('relativeInputPath', page => {
@@ -276,6 +289,43 @@ export default async function (eleventyConfig) {
     });
   });
 
+  eleventyConfig.addCollection('faq', collection => {
+    const entries = collection.getFilteredByTag('faq');
+    if (entries.length === 0) {
+      throw new Error(
+        'The "faq" collection is empty. Every page that consumes it would render as blank chrome, so the build stops here — check that docs/_faqs/_faqs.11tydata.js is in place and still tags entries "faq".',
+      );
+    }
+
+    // /support builds its section ids straight from the topic slugs (see support.njk), and its
+    // page chrome owns the rest — an entry slug matching either would silently collide with
+    // that id and break deep links into it. Topics come from the data file so the two can't
+    // drift; the second list is the chrome ids, which live only in the template.
+    const topicSlugs = JSON.parse(fs.readFileSync(path.join(__dirname, '_data/faqTopics.json'), 'utf-8')).map(
+      topic => topic.slug,
+    );
+    const reservedIds = [...topicSlugs, 'get-help', 'github', 'discord', 'email'];
+    const seen = new Map(reservedIds.map(id => [id, 'reserved page id on /support']));
+    for (const entry of entries) {
+      const slug = entry.page.fileSlug;
+      // Only cross-directory collisions land here. The bundle merge copies free, then pro, then
+      // app over one another, so two entries at the identical path are last-copy-wins and only
+      // one of them ever reaches this loop.
+      if (seen.has(slug)) {
+        throw new Error(`Duplicate FAQ slug "${slug}": ${seen.get(slug)} and ${entry.inputPath}`);
+      }
+      // An entry with no question renders an accordion item with an empty label — a control
+      // nobody can name, read out, or click on purpose.
+      if (!entry.data.question) {
+        throw new Error(`FAQ entry ${entry.inputPath} is missing required front matter: question`);
+      }
+      seen.set(slug, entry.inputPath);
+    }
+    return entries.sort(
+      (a, b) => (a.data.order ?? 999) - (b.data.order ?? 999) || a.page.fileSlug.localeCompare(b.page.fileSlug),
+    );
+  });
+
   // Shortcodes - {% shortCode arg1, arg2 %}
   eleventyConfig.addShortcode('cdnUrl', location => {
     // We use WA (free) via the public CDN for CodePen examples
@@ -319,6 +369,13 @@ export default async function (eleventyConfig) {
 
   // Add anchors to headings
   eleventyConfig.addTransform('doc-transforms', function (content) {
+    // Several of these transformers key off `this.page.url`, which Eleventy sets to `false` for
+    // pages that don't emit output (e.g. `permalink: false`, like the FAQ collection entries).
+    // Skip transforming content nothing will ever write to disk.
+    if (this.page.outputPath === false) {
+      return content;
+    }
+
     let doc = HTMLParse(content, { blockTextElements: { code: true }, comment: true });
 
     const transformers = [
