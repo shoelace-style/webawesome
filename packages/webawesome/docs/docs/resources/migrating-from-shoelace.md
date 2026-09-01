@@ -832,7 +832,7 @@ Web Awesome Pro is a separate, paid package (`@awesome.me/webawesome-pro`) that 
 - [`<wa-toast>`](/docs/components/toast) and [`<wa-toast-item>`](/docs/components/toast-item): toast notification stack
 - [`<wa-combobox>`](/docs/components/combobox): combobox or autocomplete with multiselect
 - [`<wa-file-input>`](/docs/components/file-input): drag-and-drop file input with previews
-- [`<wa-chart>`](/docs/components/chart) and seven typed chart subclasses (built on Chart.js, themed via design tokens)
+- [`<wa-chart>`](/docs/components/chart) and eight typed chart subclasses (built on Chart.js, themed via design tokens)
 - [`<wa-sparkline>`](/docs/components/sparkline): inline trend visualization
 - 8 additional [themes](/docs/themes) (`active`, `brutalist`, `glossy`, `matter`, `mellow`, `playful`, `premium`, `tailspin`) with additional hand-crafted [color palettes](/docs/color-palettes)
 - Pro Theme Builder, Pro Color Tools, Pattern Library, Figma Design Kit
