@@ -232,13 +232,13 @@ These are entirely new in Web Awesome (free, MIT-licensed). We mention them here
 
 These cover patterns Shoelace users frequently built themselves or stitched together with third-party libraries. They live in [`@awesome.me/webawesome-pro`](#whats-in-web-awesome-pro):
 
-| Component                          | What it does                                                                                                                                                                                                                    |
-| ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `<wa-toast>` and `<wa-toast-item>` | Toast notification stack. Replaces the `sl-alert.toast()` pattern.                                                                                                                                                              |
-| `<wa-combobox>`                    | Combobox or autocomplete with multiselect, async loading, and tag rendering.                                                                                                                                                    |
-| `<wa-file-input>`                  | Drag-and-drop file input with previews and validation.                                                                                                                                                                          |
-| `<wa-chart>` and typed subclasses  | `<wa-bar-chart>`, `<wa-line-chart>`, `<wa-pie-chart>`, `<wa-doughnut-chart>`, `<wa-bubble-chart>`, `<wa-scatter-chart>`, `<wa-radar-chart>`, `<wa-polar-area-chart>`. Built on Chart.js, themed with Web Awesome design tokens. |
-| `<wa-sparkline>`                   | Small inline trend visualization.                                                                                                                                                                                               |
+| Component                          | What it does                                                                                                                                        |
+| ---------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `<wa-toast>` and `<wa-toast-item>` | Toast notification stack. Replaces the `sl-alert.toast()` pattern.                                                                                  |
+| `<wa-combobox>`                    | Combobox or autocomplete with multiselect, async loading, and tag rendering.                                                                        |
+| `<wa-file-input>`                  | Drag-and-drop file input with previews and validation.                                                                                              |
+| `<wa-chart>` and typed subclasses  | Eight typed subclasses: bar, line, pie, doughnut, bubble, scatter, radar, and polar area. Built on Chart.js, themed with Web Awesome design tokens. |
+| `<wa-sparkline>`                   | Small inline trend visualization.                                                                                                                   |
 
 #### Per-Component Changes
 
