@@ -54,7 +54,7 @@ The rest of this page is the explanation, the per-component diffs, and the new t
 A few things are philosophically different. Knowing them up front saves head-scratching.
 
 **Cascade Layers**<br>
-Component styles live in `@layer wa-component`, so your unlayered application CSS automatically wins specificity ties — you can drop most `!important` overrides on component internals. Web Awesome's own layers, in order of strength: `wa-theme`, `wa-color-variant`, `wa-color-palette`, `wa-utilities`, `wa-component`.<br><br>
+Web Awesome's global stylesheets — themes, color palettes, utilities, native styles — live in cascade layers, so your unlayered application CSS automatically wins against them and you can drop most `!important` overrides of tokens and utility classes. The layers, from weakest to strongest: `wa-native`, `wa-base`, `wa-utilities`, `wa-color-palette`, `wa-color-variant`, `wa-theme`, `wa-theme-dimension`, `wa-theme-overrides`. Styles inside each component's shadow root aren't affected by your page's layers; override those the same way you did in Shoelace, with custom properties and `::part()`.<br><br>
 **Native Form Association**<br>
 Form controls use `ElementInternals`, so they participate in `<form>` natively. `new FormData(form)` reads them, `form.checkValidity()` includes them, `form.reset()` resets them. The `formdata`-event shim Shoelace needed is gone.<br><br>
 <strong>A <code>shoelace</code> Theme for Soft Landings</strong><br>
@@ -171,12 +171,12 @@ Components below are grouped by the kind of change. **If a component isn't liste
 
 #### Renamed Elements
 
-| Shoelace                       | Web Awesome                            | Notes                                                                                                              |
-| ------------------------------ | -------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
-| `<sl-alert>`                   | `<wa-callout>`                         | Static inline alert. Toast UX moved to `<wa-toast>`. |
-| `<sl-image-comparer>`          | `<wa-comparison>`                      | Same idea, simpler API.                                                                                            |
-| `<sl-range>`                   | `<wa-slider>`                          | Adds multi-thumb range support via the `range` attribute.                                                          |
-| `<sl-menu>` + `<sl-menu-item>` | `<wa-dropdown>` + `<wa-dropdown-item>` | The standalone menu is gone. Menus only live inside dropdowns.                                                     |
+| Shoelace                       | Web Awesome                            | Notes                                                          |
+| ------------------------------ | -------------------------------------- | -------------------------------------------------------------- |
+| `<sl-alert>`                   | `<wa-callout>`                         | Static inline alert. Toast UX moved to `<wa-toast>`.           |
+| `<sl-image-comparer>`          | `<wa-comparison>`                      | Same idea, simpler API.                                        |
+| `<sl-range>`                   | `<wa-slider>`                          | Adds multi-thumb range support via the `range` attribute.      |
+| `<sl-menu>` + `<sl-menu-item>` | `<wa-dropdown>` + `<wa-dropdown-item>` | The standalone menu is gone. Menus only live inside dropdowns. |
 
 #### Removed Elements
 
@@ -374,15 +374,15 @@ Renamed and gained range (multi-thumb) support.
 + </wa-callout>
 ```
 
-| Shoelace                   | Web Awesome          | Change                                                                                        |
-| -------------------------- | -------------------- | --------------------------------------------------------------------------------------------- |
-| `variant="primary"`        | `variant="brand"`    | Renamed                                                                                       |
-| attr `open`                | _(removed)_          | Callouts are always rendered. Hide them with your own conditional rendering.                  |
-| attr `closable`            | _(removed)_          | Add your own close button if needed.                                                          |
-| attr `duration`            | _(removed)_          | Static block, no auto-dismiss. Use `<wa-toast>` if you need that.                             |
-| method `show()` / `hide()` | _(removed)_          | Use show/hide via your framework.                                                             |
-| method `toast()`           | _(use `<wa-toast>`)_ | Toast UX moved to `<wa-toast>`. |
-| events `sl-show`/`sl-hide` | _(removed)_          | No open state on callouts.                                                                    |
+| Shoelace                   | Web Awesome          | Change                                                                       |
+| -------------------------- | -------------------- | ---------------------------------------------------------------------------- |
+| `variant="primary"`        | `variant="brand"`    | Renamed                                                                      |
+| attr `open`                | _(removed)_          | Callouts are always rendered. Hide them with your own conditional rendering. |
+| attr `closable`            | _(removed)_          | Add your own close button if needed.                                         |
+| attr `duration`            | _(removed)_          | Static block, no auto-dismiss. Use `<wa-toast>` if you need that.            |
+| method `show()` / `hide()` | _(removed)_          | Use show/hide via your framework.                                            |
+| method `toast()`           | _(use `<wa-toast>`)_ | Toast UX moved to `<wa-toast>`.                                              |
+| events `sl-show`/`sl-hide` | _(removed)_          | No open state on callouts.                                                   |
 
 ##### wa-dialog <span class="de-emphasize">(was sl-dialog)</span>
 
@@ -706,7 +706,7 @@ Most of what follows is silent breakage: code that won't throw but will misbehav
 - **CSS custom property fallbacks.** If you used `var(--sl-color-primary-500, blue)` and didn't update the variable, the fallback will silently take over. Search for `--sl-` to clean up.
 - **`open` on `<wa-callout>`.** Doesn't exist. If you had `<sl-alert open>` in a template that toggled visibility via the attribute, you need to conditionally render the callout instead.
 - **`<sl-alert>.toast()`.** Method removed. Use `<wa-toast>` for notification UX.
-- **Bootstrap Icons names.** If you don't register the Bootstrap Icons library, your icon names will resolve against Font Awesome's catalog and many will silently render as a question mark.
+- **Bootstrap Icons names.** If you don't register the Bootstrap Icons library, your icon names resolve against Font Awesome's catalog. Many happen to match (Font Awesome's aliases cover names like `exclamation-triangle`), which makes the rest easy to miss: a name Font Awesome doesn't know (e.g., `three-dots`) renders nothing at all — no fallback glyph, just an empty icon and a `wa-error` event.
 
 ### Step 7: Test
 
@@ -827,13 +827,13 @@ Update the event name. `sl-show` → `wa-show`, `sl-change` → `change` (native
 
 <wa-details name="migration-gotcha" summary="My theme overrides don't work">
 
-Web Awesome wraps component styles in `@layer wa-component`. Your unlayered CSS now wins automatically, so you can probably remove `!important` declarations. Conversely, if your overrides were _inside_ a layer, they may now lose to unlayered rules.
+Web Awesome's theme, palette, and utility styles ship in cascade layers (`wa-theme`, `wa-utilities`, and friends). Your unlayered CSS wins against them automatically, so you can probably remove `!important` declarations. Conversely, if your overrides were _inside_ a layer of your own, they may now lose — unlayered rules always beat layered ones.
 
 </wa-details>
 
-<wa-details name="migration-gotcha" summary="My icons render as question marks">
+<wa-details name="migration-gotcha" summary="Some of my icons are blank">
 
-You're requesting a Bootstrap Icons name (e.g., `exclamation-triangle`) but the default icon library is Font Awesome (`triangle-exclamation`). Either register Bootstrap Icons or update icon names.
+You're probably requesting a Bootstrap Icons name the default Font Awesome library doesn't have (e.g., `three-dots`; Font Awesome's is `ellipsis`). A missing icon renders nothing — no fallback glyph — and fires a `wa-error` event, which you can listen for to find the stragglers. Either register Bootstrap Icons or update the icon names.
 
 </wa-details>
 
