@@ -6,7 +6,7 @@ layout: page-outline
 
 {% from "macros/component-badges.njk" import statusBadge %}
 
-<style type="text/css">
+<style>
   .migration-soft-landing-callout,
   .migration-warning-callout {
     margin-block: var(--wa-space-xl);
@@ -16,6 +16,30 @@ layout: page-outline
     margin-block-end: var(--wa-space-xl);
   }
 
+  /* Give every wa-details breathing room above and below. */
+  #content wa-details {
+    margin-block: var(--wa-space-m) var(--wa-space-l);
+  }
+
+  /* Tighten spacing when one wa-details is immediately followed by another. */
+  #content wa-details:has(+ wa-details) {
+    margin-block-end: var(--wa-space-2xs);
+  }
+
+  #content wa-details + wa-details {
+    margin-block-start: 0;
+  }
+
+  table code {
+    white-space: nowrap;
+  }
+
+  .page-migrating-from-shoelace #content table {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+  }
 </style>
 
 Web Awesome is the next major version of [Shoelace](https://shoelace.style). It keeps Shoelace's spirit (framework-agnostic web components, accessible by default, beautiful out of the box) and rebuilds it on a stronger foundation: native form association, cascade layers, OKLCH-based theming, a real utility CSS layer, and a much larger component catalog.
@@ -26,8 +50,8 @@ If you're brand new to Web Awesome, the [Getting Started](/docs/) guide is a bet
 
 <wa-callout class="pro wa-brand-orange">
   <wa-icon slot="icon" name="crown" family="duotone" variant="regular" class="duotone-illustrated"></wa-icon>
-  <strong>A Few Components Now Live In Web Awesome Pro</strong>
-   Comboboxes, File Inputs, and Charts moved to <a href="#whats-in-web-awesome-pro">Web&nbsp;Awesome&nbsp;Pro</a>. We mark them clearly with a
+  <strong>A Few Components Now Live in Web Awesome Pro</strong><br />
+  Comboboxes, File Inputs, and Charts moved to <a href="#whats-in-web-awesome-pro">Web&nbsp;Awesome&nbsp;Pro</a>. We mark them clearly with a
   <wa-badge appearance="accent" pill class="pro" data-pro-badge>Pro</wa-badge>
   badge so you'll see them coming.
 </wa-callout>
@@ -38,7 +62,7 @@ If you take nothing else from this page, take this:
 
 1. Replace the package: `@shoelace-style/shoelace` → `@awesome.me/webawesome`.
 2. Replace every element prefix: `sl-` → `wa-`.
-3. Replace every CSS variable prefix: `--sl-*` → `--wa-*`.
+3. Replace every custom property prefix: `--sl-*` → `--wa-*`.
 4. Replace every event prefix: `sl-` → `wa-` (e.g. `sl-show` → `wa-show`).
 5. Replace `variant="primary"` → `variant="brand"`. Web Awesome no longer uses "primary".
 6. Remove `outline`, `circle`, and (in some places) `text` button props. Use `appearance="outlined" | "filled" | "plain"` instead.
@@ -79,10 +103,10 @@ Work through the steps below in order. Track your progress with the interactive 
 <div class="migration-checklist-actions wa-cluster wa-gap-s">
   <wa-button variant="brand" appearance="accent" size="m" href="/docs/resources/migration-checklist">
     <wa-icon slot="start" variant="regular" name="list-check"></wa-icon>
-    Open The Interactive Checklist
+    Open the Interactive Checklist
   </wa-button>
   <wa-button variant="brand" appearance="outlined" size="m" href="/assets/downloads/shoelace-migration-checklist.md" download="shoelace-migration-checklist.md">
-    <wa-icon slot="start" variant="" name="download"></wa-icon>
+    <wa-icon slot="start" name="download"></wa-icon>
     Download Checklist as Markdown
   </wa-button>
 </div>
@@ -149,7 +173,8 @@ Most of the migration is mechanical text replacement. Here are the patterns we r
 
 <wa-callout variant="warning" class="migration-warning-callout">
   <wa-icon slot="icon" name="triangle-exclamation" variant="regular"></wa-icon>
-  <strong>Silent breakage warning.</strong> Event listener strings are the highest-risk change. If you wrote <code>el.addEventListener('sl-show', …)</code> and forget to update it, nothing throws. The listener simply never fires. Grep your codebase for <code>'sl-</code> and <code>"sl-</code> after migration and confirm zero results.
+  <strong>Silent breakage warning.</strong><br />
+  Event listener strings are the highest-risk change. If you wrote <code>el.addEventListener('sl-show', …)</code> and forget to update it, nothing throws. The listener simply never fires. Grep your codebase for <code>'sl-</code> and <code>"sl-</code> after migration and confirm zero results.
 </wa-callout>
 
 #### Recommended One-Time Tweaks
@@ -191,25 +216,29 @@ Components below are grouped by the kind of change. **If a component isn't liste
 
 These are entirely new in Web Awesome (free, MIT-licensed). We mention them here because they often replace patterns that previously required custom code on top of Shoelace.
 
-- **`<wa-callout>`:** replaces most uses of `<sl-alert>` for inline messaging.
-- **`<wa-comparison>`:** visual content with a before/after slider (replaces `<sl-image-comparer>`).
-- **`<wa-popover>`:** anchored, persistent popover content (separate from `<wa-tooltip>` and `<wa-dropdown>`). Useful for help bubbles, in-context callouts, and feature spotlights.
-- **`<wa-page>`:** application shell with header, sidebar, main, and footer slots, including a built-in mobile navigation drawer.
-- **`<wa-scroller>`:** overflow container with scroll affordances (shadows, fade edges, optional scroll buttons).
-- **`<wa-zoomable-frame>`:** zoomable, pannable iframe wrapper.
-- **`<wa-number-input>`:** dedicated numeric input with stepper buttons, separate from `<wa-input>`.
-- **`<wa-markdown>`:** renders Markdown in the browser (experimental).
-- **`<wa-intersection-observer>`:** observer primitive exposed as a component, alongside the existing mutation/resize observers.
+| Component                    | What it does                                                                                                                              |
+| ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `<wa-callout>`               | Replaces most uses of `<sl-alert>` for inline messaging.                                                                                  |
+| `<wa-comparison>`            | Visual content with a before/after slider (replaces `<sl-image-comparer>`).                                                               |
+| `<wa-popover>`               | Anchored, persistent popover content (separate from `<wa-tooltip>` and `<wa-dropdown>`). Useful for help bubbles and in-context callouts. |
+| `<wa-page>`                  | Application shell with header, sidebar, main, and footer slots, including a built-in mobile navigation drawer.                            |
+| `<wa-scroller>`              | Overflow container with scroll affordances (shadows, fade edges, optional scroll buttons).                                                |
+| `<wa-zoomable-frame>`        | Zoomable, pannable iframe wrapper.                                                                                                        |
+| `<wa-number-input>`          | Dedicated numeric input with stepper buttons, separate from `<wa-input>`.                                                                 |
+| `<wa-markdown>`              | Renders Markdown in the browser (experimental).                                                                                           |
+| `<wa-intersection-observer>` | Observer primitive exposed as a component, alongside the existing mutation/resize observers.                                              |
 
 #### New Pro Components
 
-These cover patterns Shoelace users frequently built themselves or stitched together with third-party libraries. They live in [`@awesome.me/webawesome-pro`](#whats-in-webawesome-pro):
+These cover patterns Shoelace users frequently built themselves or stitched together with third-party libraries. They live in [`@awesome.me/webawesome-pro`](#whats-in-web-awesome-pro):
 
-- **`<wa-toast>` and `<wa-toast-item>`:** toast notification stack. Replaces the `sl-alert.toast()` pattern.
-- **`<wa-combobox>`:** combobox or autocomplete with multiselect, async loading, and tag rendering.
-- **`<wa-file-input>`:** drag-and-drop file input with previews and validation.
-- **`<wa-chart>` and seven typed chart subclasses:** `<wa-bar-chart>`, `<wa-line-chart>`, `<wa-pie-chart>`, `<wa-doughnut-chart>`, `<wa-bubble-chart>`, `<wa-scatter-chart>`, `<wa-radar-chart>`, `<wa-polar-area-chart>`. Built on Chart.js, themed with Web Awesome design tokens.
-- **`<wa-sparkline>`:** small inline trend visualization.
+| Component                          | What it does                                                                                                                                                                                                                    |
+| ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `<wa-toast>` and `<wa-toast-item>` | Toast notification stack. Replaces the `sl-alert.toast()` pattern.                                                                                                                                                              |
+| `<wa-combobox>`                    | Combobox or autocomplete with multiselect, async loading, and tag rendering.                                                                                                                                                    |
+| `<wa-file-input>`                  | Drag-and-drop file input with previews and validation.                                                                                                                                                                          |
+| `<wa-chart>` and typed subclasses  | `<wa-bar-chart>`, `<wa-line-chart>`, `<wa-pie-chart>`, `<wa-doughnut-chart>`, `<wa-bubble-chart>`, `<wa-scatter-chart>`, `<wa-radar-chart>`, `<wa-polar-area-chart>`. Built on Chart.js, themed with Web Awesome design tokens. |
+| `<wa-sparkline>`                   | Small inline trend visualization.                                                                                                                                                                                               |
 
 #### Per-Component Changes
 
@@ -660,8 +689,8 @@ You also gain a few systems that didn't exist in Shoelace:
 - **Modular shadow tokens:** `--wa-shadow-s|m|l` are composed from standalone `offset-x`, `offset-y`, `blur`, and `spread` tokens. Use the modular tokens to create custom shadow effects or transforms based on shadow qualities.
 
 :::info
-**Keep Your Custom CSS Familiar**
-The `wa-theme-shoelace` theme and `wa-palette-shoelace` color palette defines tokens that approximate Shoelace's defaults, so most of your existing custom CSS will keep working. Apply it with `<html class="wa-theme-shoelace wa-palette-shoelace">` for a one-line escape hatch during migration.
+<strong>Keep Your Custom CSS Familiar</strong><br />
+The `wa-theme-shoelace` theme and `wa-palette-shoelace` color palette define tokens that approximate Shoelace's defaults, so most of your existing custom CSS will keep working. Apply it with `<html class="wa-theme-shoelace wa-palette-shoelace">` for a one-line escape hatch during migration.
 :::
 
 ### Step 5: Forms & Validation
@@ -694,7 +723,7 @@ Cancel `wa-invalid` with `event.preventDefault()` to suppress the browser's defa
 
 The `customError` attribute is a declarative version of `setCustomValidity()` that you can set from your template.
 
-### Step 6: Things to Watch for
+### Step 6: Things to Watch For
 
 Most of what follows is silent breakage: code that won't throw but will misbehave. Check each item against your codebase.
 
@@ -857,37 +886,10 @@ Replace `class="sl-theme-dark"` with `class="wa-dark"` on `<html>`. The class na
 
 ## Need Help?
 
-- [Web Awesome Discord](https://discord.gg/webawesome)
-- [GitHub Discussions](https://github.com/shoelace-style/webawesome/discussions)
-- [Filing an issue](https://github.com/shoelace-style/webawesome/issues)
+- [Web Awesome Discord]({{ site.urls.discord }})
+- [GitHub Discussions]({{ site.github.discussions }})
+- [Filing an issue]({{ site.github.issues }})
 
 ---
 
-We work hard to keep migrations smooth. If something here is wrong, missing, or could be clearer, please [open an issue](https://github.com/shoelace-style/webawesome/issues) and we'll fix it.
-
-<style>
-  /* Give every wa-details breathing room above and below. */
-  #content wa-details {
-    margin-block: var(--wa-space-m) var(--wa-space-l);
-  }
-
-  /* Tighten spacing when one wa-details is immediately followed by another. */
-  #content wa-details:has(+ wa-details) {
-    margin-block-end: var(--wa-space-2xs);
-  }
-
-  #content wa-details + wa-details {
-    margin-block-start: 0;
-  }
-
-  table code {
-    white-space: nowrap;
-  }
-
-  .page-migrating-from-shoelace #content table {
-    display: block;
-    width: 100%;
-    max-width: 100%;
-    overflow-x: auto;
-  }
-</style>
+We work hard to keep migrations smooth. If something here is wrong, missing, or could be clearer, please [open an issue]({{ site.github.issues }}) and we'll fix it.

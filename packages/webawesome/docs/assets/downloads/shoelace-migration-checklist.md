@@ -14,7 +14,7 @@ Drop this file into your project (e.g. at the repo root or under `docs/`) and ch
 - [ ] Added `@awesome.me/webawesome` to `package.json`
 - [ ] Updated CSS import to `@awesome.me/webawesome/dist/styles/webawesome.css`
 - [ ] Updated autoloader import to `@awesome.me/webawesome/dist/webawesome.loader.js`
-- [ ] Updated CDN URLs (if used) to `early.webawesome.com/webawesome@3/...`
+- [ ] Updated CDN URLs (if used) to `ka-f.webawesome.com/webawesome@<version>/...`
 - [ ] Updated `setBasePath` import to `@awesome.me/webawesome/dist/webawesome.js`
 - [ ] Picked a starting theme: `wa-theme-shoelace` for soft landing, or `default`/`awesome`
 - [ ] App builds successfully after the swap
@@ -54,12 +54,12 @@ Run these in order. Commit between passes.
 - [ ] `<sl-image-comparer>` → `<wa-comparison>`
 - [ ] `<sl-range>` → `<wa-slider>`
 - [ ] `<sl-menu>` + `<sl-menu-item>` → `<wa-dropdown>` + `<wa-dropdown-item>`
-- [ ] `<sl-menu-label>` → `<wa-divider>` + heading, or restructure
 
 ### Removed elements
 
 - [ ] `<sl-icon-button>` → `<wa-button>` with single `<wa-icon>` child
-- [ ] `<sl-radio-button>` → `<wa-button-group>` of `<wa-radio>` controls
+- [ ] `<sl-menu-label>` → `<wa-divider>` + heading, or restructure
+- [ ] `<sl-radio-button>` → `<wa-radio>` with `appearance="button"`
 - [ ] `<sl-visually-hidden>` → `class="wa-visually-hidden"` utility on any element
 
 ### Buttons

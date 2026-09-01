@@ -22,22 +22,21 @@ layout: page
     download="shoelace-migration-checklist.md">Download the markdown version</a>.
 </p>
 
-<wa-card id="checklist-toolbar" class="checklist-toolbar wa-stack" role="toolbar" aria-label="Migration checklist">
-  <div class="checklist-toolbar-progress wa-cluster wa-gap-s" role="group" aria-labelledby="checklist-progress-label">
+<wa-card id="checklist-toolbar" class="checklist-toolbar wa-stack">
+  <div class="checklist-toolbar-progress wa-cluster wa-gap-s">
     <p id="checklist-progress-label" class="checklist-toolbar-count de-emphasize wa-font-weight-semibold">0 of 0
       complete</p>
-    <wa-progress-bar id="checklist-progress-bar" value="0" label="Migration progress"
-      aria-labelledby="checklist-progress-label"></wa-progress-bar>
+    <wa-progress-bar id="checklist-progress-bar" value="0" label="Migration progress"></wa-progress-bar>
   </div>
   <div slot="footer" class="wa-grid">
     <wa-button id="checklist-reset" variant="danger" appearance="outlined" size="s">
       <wa-icon slot="start" name="arrow-rotate-left"></wa-icon>
-      Reset progress
+      Reset Progress
     </wa-button>
     <wa-button href="/assets/downloads/shoelace-migration-checklist.md" download="shoelace-migration-checklist.md"
       variant="neutral" appearance="outlined" size="s">
       <wa-icon slot="start" name="download"></wa-icon>
-      Export checklist (.md)
+      Export Checklist (.md)
     </wa-button>
   </div>
 </wa-card>
@@ -54,7 +53,7 @@ layout: page
   <wa-checkbox data-checklist-item="install-loader-import">Updated autoloader import to
     <code>@awesome.me/webawesome/dist/webawesome.loader.js</code></wa-checkbox>
   <wa-checkbox data-checklist-item="install-cdn-urls">Updated CDN URLs (if used) to
-    <code>early.webawesome.com/webawesome@3/...</code></wa-checkbox>
+    <code>{% cdnUrl '' %}...</code></wa-checkbox>
   <wa-checkbox data-checklist-item="install-setbasepath">Updated <code>setBasePath</code> import to
     <code>@awesome.me/webawesome/dist/webawesome.js</code></wa-checkbox>
   <wa-checkbox data-checklist-item="install-theme-picked">Picked a starting theme: <code>wa-theme-shoelace</code> for
@@ -121,15 +120,15 @@ layout: page
     <code>&lt;wa-slider&gt;</code></wa-checkbox>
   <wa-checkbox data-checklist-item="rename-menu"><code>&lt;sl-menu&gt;</code> + <code>&lt;sl-menu-item&gt;</code> →
     <code>&lt;wa-dropdown&gt;</code> + <code>&lt;wa-dropdown-item&gt;</code></wa-checkbox>
-  <wa-checkbox data-checklist-item="rename-menu-label"><code>&lt;sl-menu-label&gt;</code> →
-    <code>&lt;wa-divider&gt;</code> + heading, or restructure</wa-checkbox>
 
   <h3>Removed Elements</h3>
 
   <wa-checkbox data-checklist-item="removed-icon-button"><code>&lt;sl-icon-button&gt;</code> →
     <code>&lt;wa-button&gt;</code> with single <code>&lt;wa-icon&gt;</code> child</wa-checkbox>
+  <wa-checkbox data-checklist-item="rename-menu-label"><code>&lt;sl-menu-label&gt;</code> →
+    <code>&lt;wa-divider&gt;</code> + heading, or restructure</wa-checkbox>
   <wa-checkbox data-checklist-item="removed-radio-button"><code>&lt;sl-radio-button&gt;</code> →
-    <code>&lt;wa-button-group&gt;</code> of <code>&lt;wa-radio&gt;</code> controls</wa-checkbox>
+    <code>&lt;wa-radio&gt;</code> with <code>appearance="button"</code></wa-checkbox>
   <wa-checkbox data-checklist-item="removed-visually-hidden"><code>&lt;sl-visually-hidden&gt;</code> →
     <code>class="wa-visually-hidden"</code> utility on any element</wa-checkbox>
 
@@ -425,16 +424,6 @@ layout: page
       inline-size: 100%;
     }
 
-    #checklist-toolbar .checklist-toolbar-actions {
-      flex-direction: column;
-      align-items: stretch;
-    }
-
-    #checklist-toolbar .checklist-toolbar-actions wa-button {
-      inline-size: 100%;
-    }
-
-    /* Toolbar footer uses slot="footer" + wa-grid when actions moved out of .checklist-toolbar-actions */
     #checklist-toolbar [slot='footer'] wa-button {
       inline-size: 100%;
     }
