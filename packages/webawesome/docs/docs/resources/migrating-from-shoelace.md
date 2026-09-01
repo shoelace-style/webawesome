@@ -216,29 +216,32 @@ Components below are grouped by the kind of change. **If a component isn't liste
 
 These are entirely new in Web Awesome (free, MIT-licensed). We mention them here because they often replace patterns that previously required custom code on top of Shoelace.
 
-| Component                    | What it does                                                                                                                              |
-| ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| `<wa-callout>`               | Replaces most uses of `<sl-alert>` for inline messaging.                                                                                  |
-| `<wa-comparison>`            | Visual content with a before/after slider (replaces `<sl-image-comparer>`).                                                               |
-| `<wa-popover>`               | Anchored, persistent popover content (separate from `<wa-tooltip>` and `<wa-dropdown>`). Useful for help bubbles and in-context callouts. |
-| `<wa-page>`                  | Application shell with header, sidebar, main, and footer slots, including a built-in mobile navigation drawer.                            |
-| `<wa-scroller>`              | Overflow container with scroll affordances (shadows, fade edges, optional scroll buttons).                                                |
-| `<wa-zoomable-frame>`        | Zoomable, pannable iframe wrapper.                                                                                                        |
-| `<wa-number-input>`          | Dedicated numeric input with stepper buttons, separate from `<wa-input>`.                                                                 |
-| `<wa-markdown>`              | Renders Markdown in the browser (experimental).                                                                                           |
-| `<wa-intersection-observer>` | Observer primitive exposed as a component, alongside the existing mutation/resize observers.                                              |
+| Component                          | What it does                                                                                                                              |
+| ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `<wa-callout>`                     | Replaces most uses of `<sl-alert>` for inline messaging.                                                                                  |
+| `<wa-toast>` and `<wa-toast-item>` | Toast notification stack. Replaces the `sl-alert.toast()` pattern.                                                                        |
+| `<wa-comparison>`                  | Visual content with a before/after slider (replaces `<sl-image-comparer>`).                                                               |
+| `<wa-popover>`                     | Anchored, persistent popover content (separate from `<wa-tooltip>` and `<wa-dropdown>`). Useful for help bubbles and in-context callouts. |
+| `<wa-page>`                        | Application shell with header, sidebar, main, and footer slots, including a built-in mobile navigation drawer.                            |
+| `<wa-scroller>`                    | Overflow container with scroll affordances (shadows, fade edges, optional scroll buttons).                                                |
+| `<wa-zoomable-frame>`              | Zoomable, pannable iframe wrapper.                                                                                                        |
+| `<wa-number-input>`                | Dedicated numeric input with stepper buttons, separate from `<wa-input>`.                                                                 |
+| `<wa-markdown>`                    | Renders Markdown in the browser (experimental).                                                                                           |
+| `<wa-intersection-observer>`       | Observer primitive exposed as a component, alongside the existing mutation/resize observers.                                              |
 
 #### New Pro Components
 
 These cover patterns Shoelace users frequently built themselves or stitched together with third-party libraries. They live in [`@awesome.me/webawesome-pro`](#whats-in-web-awesome-pro):
 
-| Component                          | What it does                                                                                                                                        |
-| ---------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `<wa-toast>` and `<wa-toast-item>` | Toast notification stack. Replaces the `sl-alert.toast()` pattern.                                                                                  |
-| `<wa-combobox>`                    | Combobox or autocomplete with multiselect, async loading, and tag rendering.                                                                        |
-| `<wa-file-input>`                  | Drag-and-drop file input with previews and validation.                                                                                              |
-| `<wa-chart>` and typed subclasses  | Eight typed subclasses: bar, line, pie, doughnut, bubble, scatter, radar, and polar area. Built on Chart.js, themed with Web Awesome design tokens. |
-| `<wa-sparkline>`                   | Small inline trend visualization.                                                                                                                   |
+| Component                                | What it does                                                                                                                                        |
+| ---------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `<wa-combobox>`                          | Combobox or autocomplete with multiselect, async loading, and tag rendering.                                                                        |
+| `<wa-file-input>`                        | Drag-and-drop file input with previews and validation.                                                                                              |
+| `<wa-chart>` and typed subclasses        | Eight typed subclasses: bar, line, pie, doughnut, bubble, scatter, radar, and polar area. Built on Chart.js, themed with Web Awesome design tokens. |
+| `<wa-sparkline>`                         | Small inline trend visualization.                                                                                                                   |
+| `<wa-data-grid>`                         | Tabular data with sorting, filtering, grouping, pagination, and virtualization. {{ statusBadge('experimental') }}                                   |
+| `<wa-date-input>` and `<wa-date-picker>` | Segmented date entry and inline calendar selection. {{ statusBadge('experimental') }}                                                               |
+| `<wa-video>` and `<wa-video-playlist>`   | Video playback with custom controls, captions, and playlists. {{ statusBadge('experimental') }}                                                     |
 
 #### Per-Component Changes
 
@@ -777,7 +780,7 @@ Operating instructions:
 4. Execute passes in this order, committing after each one:
    a. Swap the npm package and update imports.
    b. Find-and-replace: sl- → wa-, --sl- → --wa-, sl-theme- → wa-theme-, 'sl- → 'wa- (and "sl- → "wa-) in JS event strings, Sl → Wa for TS event class imports.
-   c. Per-component fixes: variant="primary" → variant="brand"; slot="prefix"/"suffix" → "start"/"end"; help-text → hint; clearable → with-clear; outline boolean → appearance="outlined"; remove circle (auto-detected); remove sl-alert .toast() usage (toast UX moved to Pro wa-toast); migrate sl-menu/sl-menu-item to wa-dropdown/wa-dropdown-item; sl-image-comparer → wa-comparison; sl-range → wa-slider.
+   c. Per-component fixes: variant="primary" → variant="brand"; slot="prefix"/"suffix" → "start"/"end"; help-text → hint; clearable → with-clear; outline boolean → appearance="outlined"; remove circle (auto-detected); remove sl-alert .toast() usage (toast UX moved to wa-toast); migrate sl-menu/sl-menu-item to wa-dropdown/wa-dropdown-item; sl-image-comparer → wa-comparison; sl-range → wa-slider.
    d. Theme tokens: replace --sl-color-primary-* → --wa-color-brand-*, spacing/font-size scale renames (small → s, x-small → xs, etc.), shadow consolidation, --sl-input-* → --wa-form-control-*. Note that color-scale numbers invert (Shoelace 50→950 light-to-dark, Web Awesome 95→05 light-to-dark).
    e. Forms: remove formdata-event-based serialization shims; verify every form control has a name attribute; update sl-invalid → wa-invalid.
 5. After each pass, run the project's build/typecheck/lint and any tests. Report results before continuing.
@@ -809,7 +812,7 @@ When the agent finishes, walk through the [migration checklist](/docs/resources/
 We've focused on what changed, but a lot is also new. In free Web Awesome alone, you get:
 
 **New Components**<br>
-`<wa-callout>`, `<wa-comparison>`, `<wa-popover>`, `<wa-page>`, `<wa-scroller>`, `<wa-zoomable-frame>`, `<wa-number-input>`, `<wa-markdown>`, and `<wa-intersection-observer>` are all net-new. They cover patterns you previously had to build yourself or reach for a third-party library.<br><br>
+`<wa-callout>`, `<wa-toast>`, `<wa-comparison>`, `<wa-popover>`, `<wa-page>`, `<wa-scroller>`, `<wa-zoomable-frame>`, `<wa-number-input>`, `<wa-markdown>`, and `<wa-intersection-observer>` are all net-new. They cover patterns you previously had to build yourself or reach for a third-party library.<br><br>
 **Native HTML Styling**<br>
 A separate `dist/styles/native.css` themes plain HTML elements (`<button>`, `<input>`, `<table>`, `<details>`, headings, lists, blockquotes, etc.) using the same design tokens as your Web Awesome theme. Opt-in. Shoelace had no equivalent.<br><br>
 **Utility CSS Layer**<br>
@@ -829,16 +832,18 @@ Every build emits an [Agent Skill bundle](/docs/ai/agent-skills) and an `llms.tx
 
 Web Awesome Pro is a separate, paid package (`@awesome.me/webawesome-pro`) that adds components for higher-stakes patterns. It's a strict superset of free, so you don't lose anything by upgrading. Pro includes:
 
-- [`<wa-toast>`](/docs/components/toast) and [`<wa-toast-item>`](/docs/components/toast-item): toast notification stack
 - [`<wa-combobox>`](/docs/components/combobox): combobox or autocomplete with multiselect
 - [`<wa-file-input>`](/docs/components/file-input): drag-and-drop file input with previews
 - [`<wa-chart>`](/docs/components/chart) and eight typed chart subclasses (built on Chart.js, themed via design tokens)
 - [`<wa-sparkline>`](/docs/components/sparkline): inline trend visualization
+- [`<wa-data-grid>`](/docs/components/data-grid): tabular data with sorting, filtering, and virtualization {{ statusBadge('experimental') }}
+- [`<wa-date-input>`](/docs/components/date-input) and [`<wa-date-picker>`](/docs/components/date-picker): segmented date entry and inline calendar selection {{ statusBadge('experimental') }}
+- [`<wa-video>`](/docs/components/video) and [`<wa-video-playlist>`](/docs/components/video-playlist): video playback with custom controls, captions, and playlists {{ statusBadge('experimental') }}
 - 8 additional [themes](/docs/themes) (`active`, `brutalist`, `glossy`, `matter`, `mellow`, `playful`, `premium`, `tailspin`) with additional hand-crafted [color palettes](/docs/color-palettes)
 - Pro Theme Builder, Pro Color Tools, Pattern Library, Figma Design Kit
 - Hosted projects and human support
 
-If your Shoelace app used `sl-alert.toast()`, a custom combobox library, or charting, Pro is the natural home for those.
+If your Shoelace app leaned on a custom combobox, date picker, data grid, or charting library, Pro is the natural home for those. See [Web Awesome Pro](/pro) for the full tour and pricing.
 
 ## Frequent Gotchas
 

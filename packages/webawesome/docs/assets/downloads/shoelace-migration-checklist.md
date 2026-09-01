@@ -50,7 +50,7 @@ Run these in order. Commit between passes.
 
 ### Renamed elements
 
-- [ ] `<sl-alert>` → `<wa-callout>` (inline use; toast UX is now Pro `<wa-toast>`)
+- [ ] `<sl-alert>` → `<wa-callout>` (inline use; toast UX is now `<wa-toast>`)
 - [ ] `<sl-image-comparer>` → `<wa-comparison>`
 - [ ] `<sl-range>` → `<wa-slider>`
 - [ ] `<sl-menu>` + `<sl-menu-item>` → `<wa-dropdown>` + `<wa-dropdown-item>`
@@ -96,7 +96,7 @@ Run these in order. Commit between passes.
 - [ ] Replaced `<sl-alert>` static usage with `<wa-callout>`
 - [ ] Removed `open`, `closable`, `duration` (callouts always render)
 - [ ] Removed `show()`/`hide()` calls (use conditional rendering)
-- [ ] Migrated `.toast()` calls to Web Awesome Pro `<wa-toast>` (or built your own)
+- [ ] Migrated `.toast()` calls to Web Awesome `<wa-toast>`
 
 ### Dialog and drawer
 
@@ -203,7 +203,7 @@ Run these in order. Commit between passes.
 - [ ] Tried `<wa-page>` for app shell layout
 - [ ] Tried `<wa-popover>` where you previously used a tooltip with rich content
 - [ ] Tried `<wa-number-input>` instead of `<wa-input type="number">`
-- [ ] Evaluated Web Awesome Pro for `<wa-toast>`, `<wa-combobox>`, `<wa-file-input>`, charts, sparklines, additional themes
+- [ ] Evaluated Web Awesome Pro for `<wa-combobox>`, `<wa-file-input>`, charts, sparklines, data grids, date pickers, video, additional themes
 
 ---
 
