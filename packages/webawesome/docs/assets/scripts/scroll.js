@@ -56,10 +56,33 @@ allDefined().then(() => {
   const scrollY = sessionStorage.getItem(key);
 
   // Only restore when reloading, otherwise clear it
-  if (navigationType === 'reload' && scrollY) {
+  const didRestoreScroll = navigationType === 'reload' && scrollY;
+
+  if (didRestoreScroll) {
     window.scrollTo(0, scrollY);
   } else {
     sessionStorage.removeItem(key);
+  }
+
+  // The browser aims fragment navigation at the pre-upgrade layout, which is taller than the
+  // settled one, so a deep link lands well past its target.
+  const id = location.hash.slice(1);
+  const isScrollAlreadyRestored = didRestoreScroll || navigationType === 'back_forward';
+
+  if (id && !isScrollAlreadyRestored) {
+    // allDefined() covers definition plus a frame, not each element's own render.
+    const upgraded = [...document.querySelectorAll('*')].filter(el => el.updateComplete);
+
+    Promise.allSettled(upgraded.map(el => el.updateComplete))
+      .then(() => new Promise(requestAnimationFrame))
+      .then(() => {
+        const target = document.getElementById(id);
+        const headerHeight = document.querySelector('wa-page > header').clientHeight;
+
+        if (target) {
+          window.scrollTo(0, target.getBoundingClientRect().top + window.scrollY - headerHeight);
+        }
+      });
   }
 
   // After restoring, keep tabs on the page's scroll position for next reload
