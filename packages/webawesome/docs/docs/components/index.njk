@@ -6,6 +6,7 @@ layout: docs
 
 {% from "pro-badge.njk" import proBadge %}
 {% from "macros/component-badges.njk" import componentMetaBadges %}
+{% import "search-list-empty.njk" as searchList %}
 
 <div class="search-list component-list">
   <wa-input class="search-list-input" type="search" placeholder="Search Components" pill autofocus with-clear>
@@ -35,9 +36,7 @@ layout: docs
     {% endfor %}
   </section>
 
-  <div class="search-list-empty" hidden>
-    No results found
-  </div>
+  {{ searchList.state('No components match that.') }}
 </div>
 
 <style>
