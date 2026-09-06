@@ -1,4 +1,4 @@
-import { elementUpdated, expect } from '@open-wc/testing';
+import { aTimeout, elementUpdated, expect } from '@open-wc/testing';
 import { html } from 'lit';
 import { fixtures } from '../../internal/test/fixture.js';
 import type WaFormatNumber from './format-number.js';
@@ -48,6 +48,21 @@ describe('<wa-format-number>', () => {
       });
 
       describe('locale formatting', () => {
+        it('should preserve locale normalization, invalid-language fallback, and numbering-system extensions', async () => {
+          const el = await fixture<WaFormatNumber>(
+            html`<wa-format-number lang="en" value="1234.5"></wa-format-number>`,
+          );
+          for (const [lang, expectedLang] of [
+            ['en_US', 'en-US'],
+            ['auto', 'en'],
+            ['en-u-nu-arab', 'en-u-nu-arab'],
+          ]) {
+            el.lang = lang;
+            await elementUpdated(el);
+            expect(el.shadowRoot?.textContent).to.equal(new Intl.NumberFormat(expectedLang).format(el.value));
+          }
+        });
+
         ['de', 'fr', 'ja', 'ru'].forEach(lang => {
           it(`should format correctly for locale: ${lang}`, async () => {
             const el = await fixture<WaFormatNumber>(
@@ -144,6 +159,77 @@ describe('<wa-format-number>', () => {
       });
 
       describe('edge cases', () => {
+        it('should reuse formatting settings without reusing the formatted value', async () => {
+          const el = await fixture<WaFormatNumber>(
+            html`<wa-format-number lang="nb-NO" type="currency" currency="NOK"></wa-format-number>`,
+          );
+          const formatter = new Intl.NumberFormat('nb-NO', { style: 'currency', currency: 'NOK' });
+
+          for (const value of [1234.5, -0, Infinity, -Infinity, NaN, -9876.5]) {
+            el.value = value;
+            await elementUpdated(el);
+            expect(el.shadowRoot?.textContent).to.equal(isNaN(value) ? '' : formatter.format(value));
+          }
+        });
+
+        it('should respond to changes in every formatting option and the locale', async () => {
+          const el = await fixture<WaFormatNumber>(
+            html`<wa-format-number lang="en-US" value="1234.56789"></wa-format-number>`,
+          );
+          const changes: Partial<WaFormatNumber>[] = [
+            { type: 'currency' },
+            { currency: 'NOK' },
+            { currencyDisplay: 'name' },
+            { withoutGrouping: true },
+            { minimumIntegerDigits: 6 },
+            { minimumFractionDigits: 4 },
+            { maximumFractionDigits: 5 },
+            { minimumSignificantDigits: 8 },
+            { maximumSignificantDigits: 9 },
+            { lang: 'de-DE' },
+            { type: 'percent' },
+          ];
+
+          for (const change of changes) {
+            Object.assign(el, change);
+            await elementUpdated(el);
+            const expected = new Intl.NumberFormat(el.lang, {
+              style: el.type,
+              currency: el.currency,
+              currencyDisplay: el.currencyDisplay,
+              useGrouping: !el.withoutGrouping,
+              minimumIntegerDigits: el.minimumIntegerDigits,
+              minimumFractionDigits: el.minimumFractionDigits,
+              maximumFractionDigits: el.maximumFractionDigits,
+              minimumSignificantDigits: el.minimumSignificantDigits,
+              maximumSignificantDigits: el.maximumSignificantDigits,
+            }).format(el.value);
+            expect(el.shadowRoot?.textContent).to.equal(expected);
+          }
+        });
+
+        it('should use the new document language while retaining explicit element languages', async () => {
+          const originalLang = document.documentElement.lang;
+          const el = await fixture<WaFormatNumber>(html`<wa-format-number value="1234.5"></wa-format-number>`);
+          try {
+            for (const lang of ['nb-NO', 'de-DE', 'en-US']) {
+              document.documentElement.lang = lang;
+              await aTimeout(0);
+              await elementUpdated(el);
+              expect(el.shadowRoot?.textContent).to.equal(new Intl.NumberFormat(lang).format(el.value));
+            }
+
+            el.lang = 'fr-FR';
+            document.documentElement.lang = 'nb-NO';
+            await aTimeout(0);
+            await elementUpdated(el);
+            expect(el.shadowRoot?.textContent).to.equal(new Intl.NumberFormat('fr-FR').format(el.value));
+          } finally {
+            document.documentElement.lang = originalLang;
+            await aTimeout(0);
+          }
+        });
+
         it('should return empty string for NaN values', async () => {
           const el = await fixture<WaFormatNumber>(html`<wa-format-number></wa-format-number>`);
           el.value = NaN;
@@ -165,4 +251,92 @@ describe('<wa-format-number>', () => {
       });
     });
   }
+
+  describe('formatter reuse', () => {
+    it('should share formatters across instances and value changes', () => {
+      const original = Intl.NumberFormat;
+      let constructions = 0;
+      Intl.NumberFormat = new Proxy(original, {
+        construct(target, args, newTarget) {
+          constructions++;
+          return Reflect.construct(target, args, newTarget);
+        },
+      });
+
+      try {
+        for (let i = 0; i < 10; i++) {
+          const el = document.createElement('wa-format-number');
+          el.lang = 'en-x-reuse';
+          el.value = i + 0.25;
+          expect(el.render()).to.equal(new original('en').format(el.value));
+          el.value += 1;
+          expect(el.render()).to.equal(new original('en').format(el.value));
+        }
+        expect(constructions).to.equal(1);
+      } finally {
+        Intl.NumberFormat = original;
+      }
+    });
+
+    it('should evict older formatters once the shared cache reaches its limit', () => {
+      const original = Intl.NumberFormat;
+      let constructions = 0;
+      Intl.NumberFormat = new Proxy(original, {
+        construct(target, args, newTarget) {
+          constructions++;
+          return Reflect.construct(target, args, newTarget);
+        },
+      });
+
+      try {
+        const el = document.createElement('wa-format-number');
+        el.lang = 'en-x-bound';
+        el.render();
+        el.render();
+        expect(constructions).to.equal(1);
+
+        for (let i = 0; i < 100; i++) {
+          el.lang = `en-x-bound${i}`;
+          el.render();
+        }
+        expect(constructions).to.equal(101);
+
+        el.lang = 'en-x-bound';
+        el.render();
+        expect(constructions).to.equal(102);
+      } finally {
+        Intl.NumberFormat = original;
+      }
+    });
+
+    it('should preserve Intl coercion for null and mutable object options', () => {
+      const el = document.createElement('wa-format-number');
+      el.lang = 'en-US';
+      el.value = 1.23456;
+      expect(el.render()).to.equal('1.235');
+
+      el.maximumFractionDigits = null as unknown as number;
+      expect(el.render()).to.equal('1');
+
+      let digits = 1;
+      el.maximumFractionDigits = { valueOf: () => digits } as unknown as number;
+      expect(el.render()).to.equal('1.2');
+      digits = 3;
+      expect(el.render()).to.equal('1.235');
+    });
+
+    it('should not suppress Intl validation errors after warming the cache', () => {
+      const el = document.createElement('wa-format-number');
+      el.lang = 'en-US';
+      el.value = 1.23456;
+      expect(el.render()).to.equal('1.235');
+
+      for (const digits of [NaN, Infinity, -Infinity, -1]) {
+        el.maximumFractionDigits = digits;
+        expect(() => el.render()).to.throw(RangeError);
+      }
+      el.maximumFractionDigits = undefined!;
+      expect(el.render()).to.equal('1.235');
+    });
+  });
 });

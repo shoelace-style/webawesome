@@ -2,6 +2,8 @@ import { customElement, property } from 'lit/decorators.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import { LocalizeController } from '../../utilities/localize.js';
 
+const numberFormatters = new Map<string, Intl.NumberFormat>();
+
 /**
  * @summary Formats a number for display using the specified locale and options, including currency, percent, and unit
  *  styles. Powered by the Intl.NumberFormat API.
@@ -47,12 +49,46 @@ export default class WaFormatNumber extends WebAwesomeElement {
   /** The maximum number of significant digits to use,. Possible values are 1-21. */
   @property({ attribute: 'maximum-significant-digits', type: Number }) maximumSignificantDigits: number;
 
+  private formatNumber(value: number, options: Intl.NumberFormatOptions) {
+    const number = Number(value);
+    if (isNaN(number)) {
+      return '';
+    }
+
+    const locale = this.localize.lang();
+    // Only cache primitive option values. Objects can change their coercion between renders, and JSON would collapse
+    // non-finite numbers into null. Let Intl handle these values directly, including any validation errors.
+    const cacheable = Object.values(options).every(
+      value =>
+        value === undefined ||
+        typeof value === 'string' ||
+        typeof value === 'boolean' ||
+        (typeof value === 'number' && Number.isFinite(value)),
+    );
+    if (!cacheable) {
+      return new Intl.NumberFormat(locale, options).format(number);
+    }
+
+    const key = JSON.stringify([locale, options]);
+    let formatter = numberFormatters.get(key);
+    if (!formatter) {
+      formatter = new Intl.NumberFormat(locale, options);
+      // Bound the shared cache so long-lived pages and SSR processes cannot accumulate unlimited formatters.
+      if (numberFormatters.size >= 100) {
+        numberFormatters.clear();
+      }
+      numberFormatters.set(key, formatter);
+    }
+
+    return formatter.format(number);
+  }
+
   render() {
     if (isNaN(this.value)) {
       return '';
     }
 
-    return this.localize.number(this.value, {
+    return this.formatNumber(this.value, {
       style: this.type,
       currency: this.currency,
       currencyDisplay: this.currencyDisplay,
