@@ -41,7 +41,8 @@ export class HasSlotController implements ReactiveController {
   }
 
   private hasNamedSlot(name: string) {
-    return this.host.querySelector?.(`:scope > [slot="${name}"]`) !== null;
+    // Match on the host to avoid searching descendant subtrees for direct-child slots.
+    return this.host.matches?.(`:has(> [slot="${name}"])`) ?? false;
   }
 
   /**

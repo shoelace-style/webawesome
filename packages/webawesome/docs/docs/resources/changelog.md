@@ -31,6 +31,12 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 ## Unreleased
 
+:::changed
+
+- Improved named-slot detection performance for components containing large descendant subtrees, such as `<wa-card>` [#2787]
+
+:::
+
 :::fixed
 
 - Fixed a bug in `<wa-page>` where empty contents for `navigation-footer` would reserve space for a navigation footer in the mobile navigation drawer.
