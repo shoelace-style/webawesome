@@ -111,6 +111,89 @@ describe('<wa-card>', () => {
       });
 
       describe('slots', () => {
+        it('should ignore named slots belonging to descendants', async () => {
+          const el = await fixture<WaCard>(html`
+            <wa-card>
+              <div>
+                <div slot="header">Nested header</div>
+                <div slot="media">Nested media</div>
+                <div slot="footer">Nested footer</div>
+                <div slot="header-actions">Nested header actions</div>
+                <div slot="footer-actions">Nested footer actions</div>
+              </div>
+            </wa-card>
+          `);
+
+          expect(el.withHeader).to.be.false;
+          expect(el.withMedia).to.be.false;
+          expect(el.withFooter).to.be.false;
+          expect(el.shadowRoot!.querySelector('.header')!.classList.contains('has-actions')).to.be.false;
+          expect(el.shadowRoot!.querySelector('.footer')!.classList.contains('has-actions')).to.be.false;
+        });
+
+        it('should detect a named slot after unslotted content', async () => {
+          const el = await fixture<WaCard>(html`
+            <wa-card with-footer>
+              Text content
+              <div><span>Nested body content</span></div>
+              <div slot="footer">Footer</div>
+            </wa-card>
+          `);
+
+          expect(el.withFooter).to.be.true;
+          expect(el.withHeader).to.be.false;
+          expect(el.withMedia).to.be.false;
+        });
+
+        it('should update named slots when content is added, renamed, and removed', async () => {
+          const el = await fixture<WaCard>(html`<wa-card>Body</wa-card>`);
+          const content = document.createElement('div');
+          content.slot = 'header';
+          content.textContent = 'Additional content';
+          el.append(content);
+          await aTimeout(0);
+          await el.updateComplete;
+
+          expect(el.withHeader).to.be.true;
+          expect(el.withFooter).to.be.false;
+
+          content.slot = 'footer';
+          await aTimeout(0);
+          await el.updateComplete;
+
+          expect(el.withHeader).to.be.false;
+          expect(el.withFooter).to.be.true;
+
+          content.remove();
+          await aTimeout(0);
+          await el.updateComplete;
+
+          expect(el.withHeader).to.be.false;
+          expect(el.withFooter).to.be.false;
+        });
+
+        it('should stop detecting a named slot when its element moves into the body', async () => {
+          const el = await fixture<WaCard>(html`
+            <wa-card with-header>
+              <div slot="header">Header</div>
+              <div id="body">Body</div>
+            </wa-card>
+          `);
+          const header = el.querySelector('[slot="header"]')!;
+          const body = el.querySelector('#body')!;
+          expect(el.withHeader).to.be.true;
+
+          body.append(header);
+          await aTimeout(0);
+          await el.updateComplete;
+          expect(el.withHeader).to.be.false;
+
+          el.append(header);
+          await aTimeout(0);
+          await el.updateComplete;
+          expect(el.withHeader).to.be.true;
+        });
+
         it('should render default slot content inside the body part', async () => {
           const el = await fixture<WaCard>(html`<wa-card>Main content</wa-card>`);
           const bodyPart = el.shadowRoot!.querySelector('[part~="body"]')!;
