@@ -292,7 +292,8 @@ h1.title wa-badge {
   }
 }
 
-.component-summary {
+.component-summary,
+.support-intro {
   font-weight: var(--wa-font-weight-semibold);
   font-size: var(--wa-font-size-l);
 }
@@ -453,12 +454,9 @@ wa-card .page-name {
   }
 }
 
-/* Component list: centered search input (anchors a hero-style browse page) */
 .component-list {
   .search-list-input {
     display: block;
-    max-inline-size: 32rem;
-    margin-inline: auto;
     margin-block: var(--wa-space-m) var(--wa-space-s);
   }
 
@@ -478,7 +476,6 @@ wa-card .page-name {
 .modern-card-list {
   .search-list-input {
     display: block;
-    max-inline-size: 32rem;
     margin-block: 0 var(--wa-space-2xl);
   }
 
@@ -491,6 +488,166 @@ wa-card .page-name {
     }
   }
 }
+
+/* #region Support
+   /support drives the shared .search-list filter, but its filterable units are prose
+   FAQ entries instead of card-grid links. */
+.support-view {
+  .search-list-input {
+    display: block;
+    margin-block-end: var(--wa-space-s);
+  }
+
+  /* The filter's label is visually hidden, so its empty box shouldn't reserve space. */
+  .search-list-input::part(form-control-label) {
+    margin-block-end: 0;
+  }
+}
+
+/* Guarded on :not([hidden]) because the display declaration would otherwise beat [hidden]. */
+.search-list-empty:not([hidden]) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--wa-space-s);
+  color: var(--wa-color-text-quiet);
+
+  p {
+    margin: 0;
+  }
+}
+
+/* A lowered surface, not a dashed outline: a zero-result view is a real state of the page,
+   not a slot waiting for content. Shared with the components index's own #components-empty
+   so both empty states read the same. */
+.empty-state-panel {
+  /* One step off whatever the page's own ground is. Lowered is right on the docs surface,
+     which sits on the default surface; the pro components index rebinds it (site.css) because
+     that page's ground is already lowered. */
+  --panel-surface: var(--wa-color-surface-lowered);
+
+  align-self: stretch;
+  background-color: var(--panel-surface);
+  border-radius: var(--wa-border-radius-l);
+  padding: var(--wa-space-3xl);
+}
+
+/* Four empty-state actions wrap 3+1 in a cluster. As a grid they can only square up or stack:
+   with wa-gap-s (12px), two columns need 2 × 14rem + 12px = 460px and three would need
+   3 × 14rem + 24px = 696px, so capping the grid below that makes a three-across row
+   unreachable at any viewport. Above 460px it settles at 2×2, below it collapses to one
+   column. The cap and fill are custom because the utility set ships no width classes;
+   --min-column-size is wa-grid's own customization API. */
+.search-list-empty-actions {
+  --min-column-size: 14rem;
+  inline-size: 100%;
+  max-inline-size: 30rem;
+}
+
+.search-list-empty-actions wa-button {
+  inline-size: 100%;
+}
+
+/* Timings come from the theme's transition tokens — no bespoke values. The script
+   flags every results region, so this is the default for all search lists. */
+@media (prefers-reduced-motion: no-preference) {
+  [data-search-list-updated] {
+    animation: search-list-updated var(--wa-transition-normal) var(--wa-transition-easing);
+  }
+
+  @keyframes search-list-updated {
+    from {
+      opacity: 0.75;
+    }
+  }
+}
+
+.support-popular {
+  margin-block-end: var(--wa-space-4xl);
+}
+
+/* Upgraded by search-list.js into a toggle button (role="button" + aria-pressed), so the
+   pressed chip is the one whose term is currently filtering the page. */
+.support-popular-link {
+  border: var(--wa-border-style) var(--wa-border-width-s) var(--wa-color-surface-border);
+  padding: var(--wa-space-3xs) var(--wa-space-s);
+  text-decoration: none;
+  transition:
+    border-color var(--wa-transition-normal),
+    background-color var(--wa-transition-normal),
+    color var(--wa-transition-normal);
+
+  &:is(:hover, :focus-visible) {
+    border-color: var(--wa-color-brand-border-loud);
+  }
+
+  &[aria-pressed='true'] {
+    background-color: var(--wa-color-brand-fill-quiet);
+    border-color: var(--wa-color-brand-border-quiet);
+    color: var(--wa-color-brand-on-quiet);
+  }
+}
+
+/* Weight is deliberately NOT set — it inherits the same heading weight as every other heading
+   on the site, because a heading at body weight reads as broken rather than as quiet. The
+   demotion is size plus color, never weight. */
+.support-section-heading {
+  color: var(--wa-color-text-quiet);
+  /* One step below the questions, which sit at wa-heading-l (20px). If the questions ever
+     move, move this with them: the pair is what carries the hierarchy. */
+  font-size: var(--wa-font-size-m);
+  line-height: var(--wa-line-height-condensed);
+  /* wa-prose tightens h1/h2 tracking for display sizes; at this step it should read normally. */
+  letter-spacing: normal;
+  margin-block: var(--wa-space-4xl) var(--wa-space-xs);
+}
+
+/* The chip row above already separates the first section. */
+.support-results > .support-section-heading:first-child {
+  margin-block-start: 0;
+}
+
+.support-section-blurb {
+  border-block-end: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-surface-border);
+  padding-block-end: var(--wa-space-s);
+}
+
+/* Progressive enhancement: FAQ entries coming back fade in instead of snapping. Engines
+   without @starting-style ignore this and keep the instant toggle. Gated on
+   data-search-list-filtered so the first paint of the page isn't animated. Scoped to the
+   FAQ entries rather than shared with the card grids: card links already run their own
+   transition for .hover-grow / .hover-emphasize-border, and a second `transition` shorthand
+   on the same element would clobber it. */
+@media (prefers-reduced-motion: no-preference) {
+  .support-results[data-search-list-filtered] .faq-entry {
+    opacity: 1;
+    /* Only opacity transitions. `display` is deliberately out of the list: with allow-discrete
+       the exit held the entry at full opacity for the whole duration and then popped it away,
+       because nothing animates opacity on the way out. Filtering out is instant now; coming
+       back still fades, since @starting-style applies whenever an entry is rendered again. */
+    transition: opacity var(--wa-transition-normal) var(--wa-transition-easing);
+
+    @starting-style {
+      opacity: 0;
+    }
+  }
+}
+
+/* Channel rows: heading + blurb flanked by their actions, no card chrome and no rules —
+   spacing alone separates them. The stack's gap has to beat the flank's own wa-gap-xl (32px)
+   between a row's content and its actions, or a stacked row at narrow widths reads as two
+   rows; wa-gap-3xl clears that and preserves the separation the hairlines used to carry. */
+.support-channel {
+  /* One shared basis for every row's actions, whether that's a lone button or a stack of
+     two. wa-flank derives its wrap point from this, so all three rows break to a single
+     column at the same width instead of each one breaking at its own button's width. */
+  --flank-size: 15rem;
+
+  /* Only a floor — the blurb still takes every pixel the actions don't need. */
+  --content-percentage: 40%;
+}
+
+/* #endregion */
 
 /* Framework docs: hub logo cards + framework-page info cards */
 

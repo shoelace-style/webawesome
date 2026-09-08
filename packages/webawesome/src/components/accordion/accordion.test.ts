@@ -409,6 +409,27 @@ describe('<wa-accordion>', () => {
           await expectEvent(el, 'wa-collapse', () => sendKeys({ press: 'Enter' }));
           expect(item.expanded).to.be.false;
         });
+
+        it('should keep every enabled header tabbable at once instead of using a roving tabindex', async () => {
+          const el = await fixture<WaAccordion>(html`
+            <wa-accordion>
+              <wa-accordion-item label="One">Content one</wa-accordion-item>
+              <wa-accordion-item label="Two">Content two</wa-accordion-item>
+            </wa-accordion>
+          `);
+          const [first, second] = el.querySelectorAll<WaAccordionItem>('wa-accordion-item');
+          const firstButton = first.shadowRoot!.querySelector<HTMLButtonElement>('[part~="button"]')!;
+          const secondButton = second.shadowRoot!.querySelector<HTMLButtonElement>('[part~="button"]')!;
+
+          expect(firstButton.getAttribute('tabindex')).to.equal('0');
+          expect(secondButton.getAttribute('tabindex')).to.equal('0');
+
+          secondButton.focus();
+          await el.updateComplete;
+
+          expect(firstButton.getAttribute('tabindex')).to.equal('0');
+          expect(secondButton.getAttribute('tabindex')).to.equal('0');
+        });
       });
 
       describe('nested accordions', () => {

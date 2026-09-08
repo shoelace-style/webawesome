@@ -1,0 +1,27 @@
+{#- actions takes markup for the cluster below the message; hide their originals with
+    data-search-list-with-section. Stacking stays OUT of the markup on purpose: wa-stack,
+    wa-gap-* and wa-align-items-* all carry a display: flex, which is still an author rule
+    and so beats the UA's [hidden] { display: none } — the state would never hide.
+    .search-list-empty:not([hidden]) in docs.css owns display, direction, alignment and gap.
+    Only the utilities that set no display — wa-text-center, wa-font-size-s — are safe here.
+    `detail` defaults to the line most pages want; pass '' to drop it. -#}
+
+{% macro state(message, detail='Try a different search term.', actions='', actionsClass='wa-cluster wa-gap-s wa-justify-content-center') %}
+  <div class="search-list-empty empty-state-panel wa-text-center wa-font-size-s" hidden>
+    <wa-icon
+      name="face-monocle"
+      family="duotone"
+      variant="regular"
+      class="duotone-illustrated wa-font-size-3xl"
+    ></wa-icon>
+    <p>{{ message }}</p>
+    {%- if detail %}
+      <p>{{ detail | safe }}</p>
+    {%- endif %}
+    {%- if actions %}
+      {#- Two or three actions cluster fine. Four wrap 3+1, so pass `actionsClass` a
+          `wa-grid ... search-list-empty-actions` to square them up instead. -#}
+      <div class="{{ actionsClass }}">{{ actions | safe }}</div>
+    {%- endif %}
+  </div>
+{% endmacro %}

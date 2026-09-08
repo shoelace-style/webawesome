@@ -336,3 +336,7 @@ Listen for the `wa-expand` or `wa-collapse` events and call `event.preventDefaul
   });
 </script>
 ```
+
+## Accessibility Considerations
+
+Every enabled header is part of the page's normal tab sequence. `Tab` and `Shift + Tab` move through each header along with the rest of the page, per the [W3C accordion pattern](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/examples/accordion/). When the header is in focus, the arrow keys are a shortcut for moving between headers. The Up and Down keys move from the previous to the next header, Home and End keys jump to the first and last header.

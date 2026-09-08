@@ -1,6 +1,7 @@
 import { expect, waitUntil } from '@open-wc/testing';
 import { html } from 'lit';
 import { fixtures } from '../../internal/test/fixture.js';
+import type WaDrawer from '../drawer/drawer.js';
 import type WaPage from './page.js';
 
 describe('<wa-page>', () => {
@@ -167,6 +168,42 @@ describe('<wa-page>', () => {
           await el.updateComplete;
           expect(getAssignedContainer()).to.equal('desktop-navigation');
         });
+
+        it('should only render the mobile drawer footer when navigation footer content exists', async () => {
+          const el = await fixture<WaPage>(html`
+            <wa-page mobile-breakpoint="768" style="width: 400px;">
+              <nav slot="navigation">Navigation</nav>
+              <main>Main content</main>
+            </wa-page>
+          `);
+
+          await waitUntil(() => el.view === 'mobile');
+          await el.updateComplete;
+
+          const drawer = el.shadowRoot!.querySelector<WaDrawer>('wa-drawer')!;
+          const mobileFooterSlot = el.shadowRoot!.querySelector<HTMLSlotElement>(
+            'slot[name="mobile-navigation-footer"]',
+          )!;
+
+          await drawer.updateComplete;
+          expect(mobileFooterSlot.hasAttribute('slot')).to.be.false;
+          expect(drawer.shadowRoot!.querySelector<HTMLElement>('[part="footer"]')!.hidden).to.be.true;
+
+          const navigationFooter = document.createElement('div');
+          navigationFooter.slot = 'navigation-footer';
+          navigationFooter.textContent = 'Navigation footer';
+          el.append(navigationFooter);
+
+          await waitUntil(() => mobileFooterSlot.getAttribute('slot') === 'footer');
+          await drawer.updateComplete;
+          expect(drawer.shadowRoot!.querySelector<HTMLElement>('[part="footer"]')!.hidden).to.be.false;
+
+          navigationFooter.remove();
+
+          await waitUntil(() => !mobileFooterSlot.hasAttribute('slot'));
+          await drawer.updateComplete;
+          expect(drawer.shadowRoot!.querySelector<HTMLElement>('[part="footer"]')!.hidden).to.be.true;
+        });
       });
 
       describe('CSS parts', () => {
@@ -178,6 +215,19 @@ describe('<wa-page>', () => {
         it('should have a header part', async () => {
           const el = await fixture<WaPage>(html`<wa-page>Content</wa-page>`);
           expect(el.shadowRoot!.querySelector('[part~="header"]')).to.exist;
+        });
+
+        it('should give the header part the default surface background', async () => {
+          const el = await fixture<WaPage>(html`
+            <wa-page view="mobile" style="--wa-color-surface-default: rgb(1, 2, 3);">
+              <header slot="header">Header</header>
+              <nav slot="navigation">Navigation</nav>
+              <main>Content</main>
+            </wa-page>
+          `);
+          const header = el.shadowRoot!.querySelector<HTMLElement>('[part~="header"]')!;
+
+          expect(getComputedStyle(header).backgroundColor).to.equal('rgb(1, 2, 3)');
         });
 
         it('should have a banner part', async () => {

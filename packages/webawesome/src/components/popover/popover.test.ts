@@ -1,5 +1,5 @@
 import { aTimeout, expect, waitUntil } from '@open-wc/testing';
-import { sendKeys } from '@web/test-runner-commands';
+import { sendKeys, sendMouse } from '@web/test-runner-commands';
 import { html } from 'lit';
 import sinon from 'sinon';
 import { expectEvent } from '../../internal/test/expect-event.js';
@@ -350,6 +350,35 @@ describe('<wa-popover>', () => {
       await waitUntil(() => !popover.open);
 
       expect(popover.open).to.be.false;
+    });
+
+    it('should stay open when a drag starts inside the popover and ends outside', async () => {
+      const el = await fixtures[0]<HTMLDivElement>(html`
+        <div style="padding: 200px;">
+          <wa-button id="anchor">Anchor</wa-button>
+          <wa-popover for="anchor">Select this text by dragging</wa-popover>
+        </div>
+      `);
+      const popover = el.querySelector<WaPopover>('wa-popover')!;
+
+      popover.open = true;
+      await waitUntil(() => popover.open);
+      await aTimeout(200);
+
+      // Press inside the popover's visible panel, then release outside of it. The host is display: contents, so
+      // measure the popup that actually renders the content.
+      const panel = popover.shadowRoot!.querySelector('wa-popup')!.shadowRoot!.querySelector('[part~="popup"]')!;
+      const inside = panel.getBoundingClientRect();
+      await sendMouse({
+        type: 'move',
+        position: [Math.floor(inside.x + inside.width / 2), Math.floor(inside.y + inside.height / 2)],
+      });
+      await sendMouse({ type: 'down' });
+      await sendMouse({ type: 'move', position: [Math.floor(inside.x + inside.width / 2), 1] });
+      await sendMouse({ type: 'up' });
+      await aTimeout(200);
+
+      expect(popover.open).to.be.true;
     });
 
     it('should close when a data-popover="close" button is clicked', async () => {

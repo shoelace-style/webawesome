@@ -6,7 +6,7 @@ layout: page-outline
 
 {% from "macros/component-badges.njk" import statusBadge %}
 
-<style type="text/css">
+<style>
   .migration-soft-landing-callout,
   .migration-warning-callout {
     margin-block: var(--wa-space-xl);
@@ -16,6 +16,30 @@ layout: page-outline
     margin-block-end: var(--wa-space-xl);
   }
 
+  /* Give every wa-details breathing room above and below. */
+  #content wa-details {
+    margin-block: var(--wa-space-m) var(--wa-space-l);
+  }
+
+  /* Tighten spacing when one wa-details is immediately followed by another. */
+  #content wa-details:has(+ wa-details) {
+    margin-block-end: var(--wa-space-2xs);
+  }
+
+  #content wa-details + wa-details {
+    margin-block-start: 0;
+  }
+
+  table code {
+    white-space: nowrap;
+  }
+
+  .page-migrating-from-shoelace #content table {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+  }
 </style>
 
 Web Awesome is the next major version of [Shoelace](https://shoelace.style). It keeps Shoelace's spirit (framework-agnostic web components, accessible by default, beautiful out of the box) and rebuilds it on a stronger foundation: native form association, cascade layers, OKLCH-based theming, a real utility CSS layer, and a much larger component catalog.
@@ -26,8 +50,8 @@ If you're brand new to Web Awesome, the [Getting Started](/docs/) guide is a bet
 
 <wa-callout class="pro wa-brand-orange">
   <wa-icon slot="icon" name="crown" family="duotone" variant="regular" class="duotone-illustrated"></wa-icon>
-  <strong>A Few Components Now Live In Web Awesome Pro</strong>
-   Comboboxes, File Inputs, and Charts moved to <a href="#whats-in-web-awesome-pro">Web&nbsp;Awesome&nbsp;Pro</a>. We mark them clearly with a
+  <strong>A Few Components Now Live in Web Awesome Pro</strong><br />
+  Comboboxes, File Inputs, and Charts moved to <a href="#whats-in-web-awesome-pro">Web&nbsp;Awesome&nbsp;Pro</a>. We mark them clearly with a
   <wa-badge appearance="accent" pill class="pro" data-pro-badge>Pro</wa-badge>
   badge so you'll see them coming.
 </wa-callout>
@@ -38,7 +62,7 @@ If you take nothing else from this page, take this:
 
 1. Replace the package: `@shoelace-style/shoelace` → `@awesome.me/webawesome`.
 2. Replace every element prefix: `sl-` → `wa-`.
-3. Replace every CSS variable prefix: `--sl-*` → `--wa-*`.
+3. Replace every custom property prefix: `--sl-*` → `--wa-*`.
 4. Replace every event prefix: `sl-` → `wa-` (e.g. `sl-show` → `wa-show`).
 5. Replace `variant="primary"` → `variant="brand"`. Web Awesome no longer uses "primary".
 6. Remove `outline`, `circle`, and (in some places) `text` button props. Use `appearance="outlined" | "filled" | "plain"` instead.
@@ -54,7 +78,7 @@ The rest of this page is the explanation, the per-component diffs, and the new t
 A few things are philosophically different. Knowing them up front saves head-scratching.
 
 **Cascade Layers**<br>
-Component styles live in `@layer wa-component`, so your unlayered application CSS automatically wins specificity ties — you can drop most `!important` overrides on component internals. Web Awesome's own layers, in order of strength: `wa-theme`, `wa-color-variant`, `wa-color-palette`, `wa-utilities`, `wa-component`.<br><br>
+Web Awesome's global stylesheets — themes, color palettes, utilities, native styles — live in cascade layers, so your unlayered application CSS automatically wins against them and you can drop most `!important` overrides of tokens and utility classes. The layers, from weakest to strongest: `wa-native`, `wa-base`, `wa-utilities`, `wa-color-palette`, `wa-color-variant`, `wa-theme`, `wa-theme-dimension`, `wa-theme-overrides`. Styles inside each component's shadow root aren't affected by your page's layers; override those the same way you did in Shoelace, with custom properties and `::part()`.<br><br>
 **Native Form Association**<br>
 Form controls use `ElementInternals`, so they participate in `<form>` natively. `new FormData(form)` reads them, `form.checkValidity()` includes them, `form.reset()` resets them. The `formdata`-event shim Shoelace needed is gone.<br><br>
 <strong>A <code>shoelace</code> Theme for Soft Landings</strong><br>
@@ -79,10 +103,10 @@ Work through the steps below in order. Track your progress with the interactive 
 <div class="migration-checklist-actions wa-cluster wa-gap-s">
   <wa-button variant="brand" appearance="accent" size="m" href="/docs/resources/migration-checklist">
     <wa-icon slot="start" variant="regular" name="list-check"></wa-icon>
-    Open The Interactive Checklist
+    Open the Interactive Checklist
   </wa-button>
   <wa-button variant="brand" appearance="outlined" size="m" href="/assets/downloads/shoelace-migration-checklist.md" download="shoelace-migration-checklist.md">
-    <wa-icon slot="start" variant="" name="download"></wa-icon>
+    <wa-icon slot="start" name="download"></wa-icon>
     Download Checklist as Markdown
   </wa-button>
 </div>
@@ -149,7 +173,8 @@ Most of the migration is mechanical text replacement. Here are the patterns we r
 
 <wa-callout variant="warning" class="migration-warning-callout">
   <wa-icon slot="icon" name="triangle-exclamation" variant="regular"></wa-icon>
-  <strong>Silent breakage warning.</strong> Event listener strings are the highest-risk change. If you wrote <code>el.addEventListener('sl-show', …)</code> and forget to update it, nothing throws. The listener simply never fires. Grep your codebase for <code>'sl-</code> and <code>"sl-</code> after migration and confirm zero results.
+  <strong>Silent breakage warning.</strong><br />
+  Event listener strings are the highest-risk change. If you wrote <code>el.addEventListener('sl-show', …)</code> and forget to update it, nothing throws. The listener simply never fires. Grep your codebase for <code>'sl-</code> and <code>"sl-</code> after migration and confirm zero results.
 </wa-callout>
 
 #### Recommended One-Time Tweaks
@@ -171,12 +196,12 @@ Components below are grouped by the kind of change. **If a component isn't liste
 
 #### Renamed Elements
 
-| Shoelace                       | Web Awesome                            | Notes                                                                                                              |
-| ------------------------------ | -------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
-| `<sl-alert>`                   | `<wa-callout>`                         | Static inline alert. Toast UX moved to `<wa-toast>`. |
-| `<sl-image-comparer>`          | `<wa-comparison>`                      | Same idea, simpler API.                                                                                            |
-| `<sl-range>`                   | `<wa-slider>`                          | Adds multi-thumb range support via the `range` attribute.                                                          |
-| `<sl-menu>` + `<sl-menu-item>` | `<wa-dropdown>` + `<wa-dropdown-item>` | The standalone menu is gone. Menus only live inside dropdowns.                                                     |
+| Shoelace                       | Web Awesome                            | Notes                                                          |
+| ------------------------------ | -------------------------------------- | -------------------------------------------------------------- |
+| `<sl-alert>`                   | `<wa-callout>`                         | Static inline alert. Toast UX moved to `<wa-toast>`.           |
+| `<sl-image-comparer>`          | `<wa-comparison>`                      | Same idea, simpler API.                                        |
+| `<sl-range>`                   | `<wa-slider>`                          | Adds multi-thumb range support via the `range` attribute.      |
+| `<sl-menu>` + `<sl-menu-item>` | `<wa-dropdown>` + `<wa-dropdown-item>` | The standalone menu is gone. Menus only live inside dropdowns. |
 
 #### Removed Elements
 
@@ -191,25 +216,32 @@ Components below are grouped by the kind of change. **If a component isn't liste
 
 These are entirely new in Web Awesome (free, MIT-licensed). We mention them here because they often replace patterns that previously required custom code on top of Shoelace.
 
-- **`<wa-callout>`:** replaces most uses of `<sl-alert>` for inline messaging.
-- **`<wa-comparison>`:** visual content with a before/after slider (replaces `<sl-image-comparer>`).
-- **`<wa-popover>`:** anchored, persistent popover content (separate from `<wa-tooltip>` and `<wa-dropdown>`). Useful for help bubbles, in-context callouts, and feature spotlights.
-- **`<wa-page>`:** application shell with header, sidebar, main, and footer slots, including a built-in mobile navigation drawer.
-- **`<wa-scroller>`:** overflow container with scroll affordances (shadows, fade edges, optional scroll buttons).
-- **`<wa-zoomable-frame>`:** zoomable, pannable iframe wrapper.
-- **`<wa-number-input>`:** dedicated numeric input with stepper buttons, separate from `<wa-input>`.
-- **`<wa-markdown>`:** renders Markdown in the browser (experimental).
-- **`<wa-intersection-observer>`:** observer primitive exposed as a component, alongside the existing mutation/resize observers.
+| Component                          | What it does                                                                                                                              |
+| ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `<wa-callout>`                     | Replaces most uses of `<sl-alert>` for inline messaging.                                                                                  |
+| `<wa-toast>` and `<wa-toast-item>` | Toast notification stack. Replaces the `sl-alert.toast()` pattern.                                                                        |
+| `<wa-comparison>`                  | Visual content with a before/after slider (replaces `<sl-image-comparer>`).                                                               |
+| `<wa-popover>`                     | Anchored, persistent popover content (separate from `<wa-tooltip>` and `<wa-dropdown>`). Useful for help bubbles and in-context callouts. |
+| `<wa-page>`                        | Application shell with header, sidebar, main, and footer slots, including a built-in mobile navigation drawer.                            |
+| `<wa-scroller>`                    | Overflow container with scroll affordances (shadows, fade edges, optional scroll buttons).                                                |
+| `<wa-zoomable-frame>`              | Zoomable, pannable iframe wrapper.                                                                                                        |
+| `<wa-number-input>`                | Dedicated numeric input with stepper buttons, separate from `<wa-input>`.                                                                 |
+| `<wa-markdown>`                    | Renders Markdown in the browser (experimental).                                                                                           |
+| `<wa-intersection-observer>`       | Observer primitive exposed as a component, alongside the existing mutation/resize observers.                                              |
 
 #### New Pro Components
 
-These cover patterns Shoelace users frequently built themselves or stitched together with third-party libraries. They live in [`@awesome.me/webawesome-pro`](#whats-in-webawesome-pro):
+These cover patterns Shoelace users frequently built themselves or stitched together with third-party libraries. They live in [`@awesome.me/webawesome-pro`](#whats-in-web-awesome-pro):
 
-- **`<wa-toast>` and `<wa-toast-item>`:** toast notification stack. Replaces the `sl-alert.toast()` pattern.
-- **`<wa-combobox>`:** combobox or autocomplete with multiselect, async loading, and tag rendering.
-- **`<wa-file-input>`:** drag-and-drop file input with previews and validation.
-- **`<wa-chart>` and seven typed chart subclasses:** `<wa-bar-chart>`, `<wa-line-chart>`, `<wa-pie-chart>`, `<wa-doughnut-chart>`, `<wa-bubble-chart>`, `<wa-scatter-chart>`, `<wa-radar-chart>`, `<wa-polar-area-chart>`. Built on Chart.js, themed with Web Awesome design tokens.
-- **`<wa-sparkline>`:** small inline trend visualization.
+| Component                                | What it does                                                                                                                                        |
+| ---------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `<wa-combobox>`                          | Combobox or autocomplete with multiselect, async loading, and tag rendering.                                                                        |
+| `<wa-file-input>`                        | Drag-and-drop file input with previews and validation.                                                                                              |
+| `<wa-chart>` and typed subclasses        | Eight typed subclasses: bar, line, pie, doughnut, bubble, scatter, radar, and polar area. Built on Chart.js, themed with Web Awesome design tokens. |
+| `<wa-sparkline>`                         | Small inline trend visualization.                                                                                                                   |
+| `<wa-data-grid>`                         | Tabular data with sorting, filtering, grouping, pagination, and virtualization. {{ statusBadge('experimental') }}                                   |
+| `<wa-date-input>` and `<wa-date-picker>` | Segmented date entry and inline calendar selection. {{ statusBadge('experimental') }}                                                               |
+| `<wa-video>` and `<wa-video-playlist>`   | Video playback with custom controls, captions, and playlists. {{ statusBadge('experimental') }}                                                     |
 
 #### Per-Component Changes
 
@@ -374,15 +406,15 @@ Renamed and gained range (multi-thumb) support.
 + </wa-callout>
 ```
 
-| Shoelace                   | Web Awesome          | Change                                                                                        |
-| -------------------------- | -------------------- | --------------------------------------------------------------------------------------------- |
-| `variant="primary"`        | `variant="brand"`    | Renamed                                                                                       |
-| attr `open`                | _(removed)_          | Callouts are always rendered. Hide them with your own conditional rendering.                  |
-| attr `closable`            | _(removed)_          | Add your own close button if needed.                                                          |
-| attr `duration`            | _(removed)_          | Static block, no auto-dismiss. Use `<wa-toast>` if you need that.                             |
-| method `show()` / `hide()` | _(removed)_          | Use show/hide via your framework.                                                             |
-| method `toast()`           | _(use `<wa-toast>`)_ | Toast UX moved to `<wa-toast>`. |
-| events `sl-show`/`sl-hide` | _(removed)_          | No open state on callouts.                                                                    |
+| Shoelace                   | Web Awesome          | Change                                                                       |
+| -------------------------- | -------------------- | ---------------------------------------------------------------------------- |
+| `variant="primary"`        | `variant="brand"`    | Renamed                                                                      |
+| attr `open`                | _(removed)_          | Callouts are always rendered. Hide them with your own conditional rendering. |
+| attr `closable`            | _(removed)_          | Add your own close button if needed.                                         |
+| attr `duration`            | _(removed)_          | Static block, no auto-dismiss. Use `<wa-toast>` if you need that.            |
+| method `show()` / `hide()` | _(removed)_          | Use show/hide via your framework.                                            |
+| method `toast()`           | _(use `<wa-toast>`)_ | Toast UX moved to `<wa-toast>`.                                              |
+| events `sl-show`/`sl-hide` | _(removed)_          | No open state on callouts.                                                   |
 
 ##### wa-dialog <span class="de-emphasize">(was sl-dialog)</span>
 
@@ -660,8 +692,8 @@ You also gain a few systems that didn't exist in Shoelace:
 - **Modular shadow tokens:** `--wa-shadow-s|m|l` are composed from standalone `offset-x`, `offset-y`, `blur`, and `spread` tokens. Use the modular tokens to create custom shadow effects or transforms based on shadow qualities.
 
 :::info
-**Keep Your Custom CSS Familiar**
-The `wa-theme-shoelace` theme and `wa-palette-shoelace` color palette defines tokens that approximate Shoelace's defaults, so most of your existing custom CSS will keep working. Apply it with `<html class="wa-theme-shoelace wa-palette-shoelace">` for a one-line escape hatch during migration.
+<strong>Keep Your Custom CSS Familiar</strong><br />
+The `wa-theme-shoelace` theme and `wa-palette-shoelace` color palette define tokens that approximate Shoelace's defaults, so most of your existing custom CSS will keep working. Apply it with `<html class="wa-theme-shoelace wa-palette-shoelace">` for a one-line escape hatch during migration.
 :::
 
 ### Step 5: Forms & Validation
@@ -694,7 +726,7 @@ Cancel `wa-invalid` with `event.preventDefault()` to suppress the browser's defa
 
 The `customError` attribute is a declarative version of `setCustomValidity()` that you can set from your template.
 
-### Step 6: Things to Watch for
+### Step 6: Things to Watch For
 
 Most of what follows is silent breakage: code that won't throw but will misbehave. Check each item against your codebase.
 
@@ -706,7 +738,7 @@ Most of what follows is silent breakage: code that won't throw but will misbehav
 - **CSS custom property fallbacks.** If you used `var(--sl-color-primary-500, blue)` and didn't update the variable, the fallback will silently take over. Search for `--sl-` to clean up.
 - **`open` on `<wa-callout>`.** Doesn't exist. If you had `<sl-alert open>` in a template that toggled visibility via the attribute, you need to conditionally render the callout instead.
 - **`<sl-alert>.toast()`.** Method removed. Use `<wa-toast>` for notification UX.
-- **Bootstrap Icons names.** If you don't register the Bootstrap Icons library, your icon names will resolve against Font Awesome's catalog and many will silently render as a question mark.
+- **Bootstrap Icons names.** If you don't register the Bootstrap Icons library, your icon names resolve against Font Awesome's catalog. Many happen to match (Font Awesome's aliases cover names like `exclamation-triangle`), which makes the rest easy to miss: a name Font Awesome doesn't know (e.g., `three-dots`) renders nothing at all — no fallback glyph, just an empty icon and a `wa-error` event.
 
 ### Step 7: Test
 
@@ -748,7 +780,7 @@ Operating instructions:
 4. Execute passes in this order, committing after each one:
    a. Swap the npm package and update imports.
    b. Find-and-replace: sl- → wa-, --sl- → --wa-, sl-theme- → wa-theme-, 'sl- → 'wa- (and "sl- → "wa-) in JS event strings, Sl → Wa for TS event class imports.
-   c. Per-component fixes: variant="primary" → variant="brand"; slot="prefix"/"suffix" → "start"/"end"; help-text → hint; clearable → with-clear; outline boolean → appearance="outlined"; remove circle (auto-detected); remove sl-alert .toast() usage (toast UX moved to Pro wa-toast); migrate sl-menu/sl-menu-item to wa-dropdown/wa-dropdown-item; sl-image-comparer → wa-comparison; sl-range → wa-slider.
+   c. Per-component fixes: variant="primary" → variant="brand"; slot="prefix"/"suffix" → "start"/"end"; help-text → hint; clearable → with-clear; outline boolean → appearance="outlined"; remove circle (auto-detected); remove sl-alert .toast() usage (toast UX moved to wa-toast); migrate sl-menu/sl-menu-item to wa-dropdown/wa-dropdown-item; sl-image-comparer → wa-comparison; sl-range → wa-slider.
    d. Theme tokens: replace --sl-color-primary-* → --wa-color-brand-*, spacing/font-size scale renames (small → s, x-small → xs, etc.), shadow consolidation, --sl-input-* → --wa-form-control-*. Note that color-scale numbers invert (Shoelace 50→950 light-to-dark, Web Awesome 95→05 light-to-dark).
    e. Forms: remove formdata-event-based serialization shims; verify every form control has a name attribute; update sl-invalid → wa-invalid.
 5. After each pass, run the project's build/typecheck/lint and any tests. Report results before continuing.
@@ -780,7 +812,7 @@ When the agent finishes, walk through the [migration checklist](/docs/resources/
 We've focused on what changed, but a lot is also new. In free Web Awesome alone, you get:
 
 **New Components**<br>
-`<wa-callout>`, `<wa-comparison>`, `<wa-popover>`, `<wa-page>`, `<wa-scroller>`, `<wa-zoomable-frame>`, `<wa-number-input>`, `<wa-markdown>`, and `<wa-intersection-observer>` are all net-new. They cover patterns you previously had to build yourself or reach for a third-party library.<br><br>
+`<wa-callout>`, `<wa-toast>`, `<wa-comparison>`, `<wa-popover>`, `<wa-page>`, `<wa-scroller>`, `<wa-zoomable-frame>`, `<wa-number-input>`, `<wa-markdown>`, and `<wa-intersection-observer>` are all net-new. They cover patterns you previously had to build yourself or reach for a third-party library.<br><br>
 **Native HTML Styling**<br>
 A separate `dist/styles/native.css` themes plain HTML elements (`<button>`, `<input>`, `<table>`, `<details>`, headings, lists, blockquotes, etc.) using the same design tokens as your Web Awesome theme. Opt-in. Shoelace had no equivalent.<br><br>
 **Utility CSS Layer**<br>
@@ -800,18 +832,22 @@ Every build emits an [Agent Skill bundle](/docs/ai/agent-skills) and an `llms.tx
 
 Web Awesome Pro is a separate, paid package (`@awesome.me/webawesome-pro`) that adds components for higher-stakes patterns. It's a strict superset of free, so you don't lose anything by upgrading. Pro includes:
 
-- [`<wa-toast>`](/docs/components/toast) and [`<wa-toast-item>`](/docs/components/toast-item): toast notification stack
 - [`<wa-combobox>`](/docs/components/combobox): combobox or autocomplete with multiselect
 - [`<wa-file-input>`](/docs/components/file-input): drag-and-drop file input with previews
-- [`<wa-chart>`](/docs/components/chart) and seven typed chart subclasses (built on Chart.js, themed via design tokens)
+- [`<wa-chart>`](/docs/components/chart) and eight typed chart subclasses (built on Chart.js, themed via design tokens)
 - [`<wa-sparkline>`](/docs/components/sparkline): inline trend visualization
+- [`<wa-data-grid>`](/docs/components/data-grid): tabular data with sorting, filtering, and virtualization {{ statusBadge('experimental') }}
+- [`<wa-date-input>`](/docs/components/date-input) and [`<wa-date-picker>`](/docs/components/date-picker): segmented date entry and inline calendar selection {{ statusBadge('experimental') }}
+- [`<wa-video>`](/docs/components/video) and [`<wa-video-playlist>`](/docs/components/video-playlist): video playback with custom controls, captions, and playlists {{ statusBadge('experimental') }}
 - 8 additional [themes](/docs/themes) (`active`, `brutalist`, `glossy`, `matter`, `mellow`, `playful`, `premium`, `tailspin`) with additional hand-crafted [color palettes](/docs/color-palettes)
 - Pro Theme Builder, Pro Color Tools, Pattern Library, Figma Design Kit
 - Hosted projects and human support
 
-If your Shoelace app used `sl-alert.toast()`, a custom combobox library, or charting, Pro is the natural home for those.
+If your Shoelace app leaned on a custom combobox, date picker, data grid, or charting library, Pro is the natural home for those. See [Web Awesome Pro](/pro) for the full tour and pricing.
 
 ## Frequent Gotchas
+
+If your problem isn't migration-specific, check [Support](/support) for more troubleshooting answers.
 
 <wa-details name="migration-gotcha" summary="My buttons all look gray">
 
@@ -827,13 +863,13 @@ Update the event name. `sl-show` → `wa-show`, `sl-change` → `change` (native
 
 <wa-details name="migration-gotcha" summary="My theme overrides don't work">
 
-Web Awesome wraps component styles in `@layer wa-component`. Your unlayered CSS now wins automatically, so you can probably remove `!important` declarations. Conversely, if your overrides were _inside_ a layer, they may now lose to unlayered rules.
+Web Awesome's theme, palette, and utility styles ship in cascade layers (`wa-theme`, `wa-utilities`, and friends). Your unlayered CSS wins against them automatically, so you can probably remove `!important` declarations. Conversely, if your overrides were _inside_ a layer of your own, they may now lose — unlayered rules always beat layered ones.
 
 </wa-details>
 
-<wa-details name="migration-gotcha" summary="My icons render as question marks">
+<wa-details name="migration-gotcha" summary="Some of my icons are blank">
 
-You're requesting a Bootstrap Icons name (e.g., `exclamation-triangle`) but the default icon library is Font Awesome (`triangle-exclamation`). Either register Bootstrap Icons or update icon names.
+You're probably requesting a Bootstrap Icons name the default Font Awesome library doesn't have (e.g., `three-dots`; Font Awesome's is `ellipsis`). A missing icon renders nothing — no fallback glyph — and fires a `wa-error` event, which you can listen for to find the stragglers. Either register Bootstrap Icons or update the icon names.
 
 </wa-details>
 
@@ -857,37 +893,10 @@ Replace `class="sl-theme-dark"` with `class="wa-dark"` on `<html>`. The class na
 
 ## Need Help?
 
-- [Web Awesome Discord](https://discord.gg/webawesome)
-- [GitHub Discussions](https://github.com/shoelace-style/webawesome/discussions)
-- [Filing an issue](https://github.com/shoelace-style/webawesome/issues)
+- [Web Awesome Discord]({{ site.urls.discord }})
+- [GitHub Discussions]({{ site.github.discussions }})
+- [Filing an issue]({{ site.github.issues }})
 
 ---
 
-We work hard to keep migrations smooth. If something here is wrong, missing, or could be clearer, please [open an issue](https://github.com/shoelace-style/webawesome/issues) and we'll fix it.
-
-<style>
-  /* Give every wa-details breathing room above and below. */
-  #content wa-details {
-    margin-block: var(--wa-space-m) var(--wa-space-l);
-  }
-
-  /* Tighten spacing when one wa-details is immediately followed by another. */
-  #content wa-details:has(+ wa-details) {
-    margin-block-end: var(--wa-space-2xs);
-  }
-
-  #content wa-details + wa-details {
-    margin-block-start: 0;
-  }
-
-  table code {
-    white-space: nowrap;
-  }
-
-  .page-migrating-from-shoelace #content table {
-    display: block;
-    width: 100%;
-    max-width: 100%;
-    overflow-x: auto;
-  }
-</style>
+We work hard to keep migrations smooth. If something here is wrong, missing, or could be clearer, please [open an issue]({{ site.github.issues }}) and we'll fix it.

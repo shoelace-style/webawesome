@@ -12,4 +12,6 @@
   <wa-button appearance="plain" size="s" href="{{ site.urls.support }}/" data-track-event="navigation:header_link_click" data-track-destination="help">
     Help
   </wa-button>
+  {# Pro-only; the partial ships in webawesome-pro and is absent from open-source builds #}
+  {% include "site/pro-nav-link.njk" ignore missing %}
 </div>

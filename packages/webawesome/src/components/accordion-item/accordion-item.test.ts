@@ -49,6 +49,12 @@ describe('<wa-accordion-item>', () => {
           const button = el.shadowRoot!.querySelector('[part~="button"]')!;
           expect(button.getAttribute('tabindex')).to.equal('-1');
         });
+
+        it('should set tabindex to 0 on the button when not disabled', async () => {
+          const el = await fixture<WaAccordionItem>(html`<wa-accordion-item label="Test">Content</wa-accordion-item>`);
+          const button = el.shadowRoot!.querySelector('[part~="button"]')!;
+          expect(button.getAttribute('tabindex')).to.equal('0');
+        });
       });
 
       describe('properties', () => {
