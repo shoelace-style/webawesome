@@ -29,6 +29,14 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 {% include "changelog-email-signup.njk" %}
 
+## Unreleased
+
+:::added
+
+- Added the `<wa-stepper>` and `<wa-step>` components for guiding users through a multi-step process, such as a checkout flow or setup wizard
+
+:::
+
 ## 3.12.0
 
 :::added
