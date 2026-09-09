@@ -39,6 +39,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug in `<wa-tooltip>` where hovering content projected into the tooltip through a `<slot>` closed the tooltip
 - Fixed `<wa-accordion>` removing headers from the page's tab sequence via a roving tabindex; `Tab` and `Shift + Tab` now move through every header, matching the [W3C accordion pattern](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/examples/accordion/). Arrow keys and Home/End remain as shortcuts for moving between headers.
 - Fixed a bug in `<wa-combobox>` where typing into a closed combobox showed all options on the first keystroke instead of filtering [issue:2776]
+- Fixed a bug in `<wa-data-grid>` where picking a date in a `date-range` column filter emptied the filter panel while leaving the popover open, leaving a small empty box anchored to the filter button
 
 :::
 
