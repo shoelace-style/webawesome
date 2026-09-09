@@ -71,7 +71,7 @@ export default class WaTagInput extends WebAwesomeFormAssociatedElement {
   }
 
   assumeInteractionOn = ['blur', 'input'];
-  private readonly hasSlotController = new HasSlotController(this, 'hint', 'label', 'start', 'end');
+  private readonly hasSlotController = new HasSlotController(this, 'hint', 'label');
 
   /** @internal Used by the validator to localize validation messages. */
   readonly localize = new LocalizeController(this);
@@ -722,8 +722,6 @@ export default class WaTagInput extends WebAwesomeFormAssociatedElement {
         class=${classMap({
           'tag-input': true,
           'has-tags': tags.length > 0,
-          'has-start': this.hasSlotController.test('start'),
-          'has-end': this.hasSlotController.test('end'),
         })}
         @mousedown=${this.handleWrapperMouseDown}
         @click=${this.handleWrapperClick}

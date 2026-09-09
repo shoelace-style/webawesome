@@ -179,23 +179,19 @@ export default css`
       }
     }
 
-    /* Start and end decorations */
-    .start,
-    .end {
-      display: inline-flex;
+    /*
+     * Start and end decorations. The slots keep their default display of contents, so the slotted element is the flex
+     * item and an empty slot adds no gap. This also sidesteps slot detection, which can't run on the server.
+     */
+    .start::slotted(*),
+    .end::slotted(*) {
       flex: 0 0 auto;
-      align-items: center;
       cursor: default;
-
-      &::slotted(wa-icon) {
-        color: var(--wa-color-neutral-on-quiet);
-      }
     }
 
-    /* Empty slots are still flex items, so hide them or they add a gap and widen the inline padding */
-    .tag-input:not(.has-start) .start,
-    .tag-input:not(.has-end) .end {
-      display: none;
+    .start::slotted(wa-icon),
+    .end::slotted(wa-icon) {
+      color: var(--wa-color-neutral-on-quiet);
     }
 
     /* The box's gap already contributes 0.25em, so subtract it to match other form controls */

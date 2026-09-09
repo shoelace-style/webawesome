@@ -221,20 +221,25 @@ describe('<wa-tag-input>', () => {
           const blockInset = tagRect.top - boxRect.top - borderWidth;
           const inlineInset = tagRect.left - boxRect.left - borderWidth;
 
-          expect(getComputedStyle(start).display).to.equal('none');
-          expect(getComputedStyle(end).display).to.equal('none');
+          expect(start.getBoundingClientRect().width).to.equal(0);
+          expect(end.getBoundingClientRect().width).to.equal(0);
           expect(Math.abs(inlineInset - blockInset)).to.be.lessThan(1);
         });
 
-        it('should show the start and end slots only when they have content', async () => {
+        it('should render a start decoration and give an empty end slot no space', async () => {
           const el = await fixture<WaTagInput>(
             html`<wa-tag-input value="a"><wa-icon slot="start" name="envelope"></wa-icon></wa-tag-input>`,
           );
-          const start = el.shadowRoot!.querySelector<HTMLElement>('[part~="start"]')!;
-          const end = el.shadowRoot!.querySelector<HTMLElement>('[part~="end"]')!;
+          const start = el.shadowRoot!.querySelector<HTMLSlotElement>('[part~="start"]')!;
+          const end = el.shadowRoot!.querySelector<HTMLSlotElement>('[part~="end"]')!;
+          const icon = el.querySelector('wa-icon')!;
+          const [tag] = getTags(el);
 
-          expect(getComputedStyle(start).display).to.not.equal('none');
-          expect(getComputedStyle(end).display).to.equal('none');
+          expect(start.assignedElements()).to.deep.equal([icon]);
+          expect(icon.getBoundingClientRect().width).to.be.greaterThan(0);
+          expect(icon.getBoundingClientRect().right).to.be.lessThan(tag.getBoundingClientRect().left);
+          expect(end.assignedElements()).to.deep.equal([]);
+          expect(end.getBoundingClientRect().width).to.equal(0);
         });
       });
 
