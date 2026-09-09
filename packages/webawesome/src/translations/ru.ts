@@ -6,6 +6,7 @@ const translation: Translation = {
   $name: 'Русский',
   $dir: 'ltr',
 
+  allTagsRemoved: 'Все теги удалены',
   am: 'AM',
   autosizeColumn: 'Подогнать ширину столбца',
   captions: 'Субтитры',
@@ -183,11 +184,27 @@ const translation: Translation = {
   sortColumn: 'Сортировать столбец',
   sortDescending: 'Сортировать по убыванию',
   startDate: 'Дата начала',
+  tagAdded: tag => `${tag} добавлен`,
+  tagAlreadyAdded: tag => `Тег ${tag} уже добавлен`,
+  tagInputKeyboardHelp: 'Нажмите Backspace или Delete, чтобы удалить этот тег.',
+  tagRemoved: tag => `${tag} удалён`,
   time: 'Время',
   timeInputKeyboardHelp:
     'Используйте стрелки для изменения значений; нажмите Alt+Стрелка вниз, чтобы открыть выбор времени.',
   today: 'Сегодня',
   toggleColorFormat: 'Переключить цветовую модель',
+  tooFewTags: min => {
+    const mod10 = min % 10;
+    const mod100 = min % 100;
+    if (mod10 === 1 && mod100 !== 11) return `Добавьте не менее ${min} тега`;
+    return `Добавьте не менее ${min} тегов`;
+  },
+  tooManyTags: max => {
+    const mod10 = max % 10;
+    const mod100 = max % 100;
+    if (mod10 === 1 && mod100 !== 11) return `Добавьте не более ${max} тега`;
+    return `Добавьте не более ${max} тегов`;
+  },
   unmute: 'Включить звук',
   unpin: 'Открепить',
   unpinColumn: 'Открепить столбец',

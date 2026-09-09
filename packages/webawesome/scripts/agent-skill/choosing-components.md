@@ -113,6 +113,7 @@ The user types or uploads.
 | Single-line text (incl. email, password, etc.) | `<wa-input>` with the appropriate `type`                     |
 | A number with stepper buttons                  | `<wa-number-input>` (richer than `<wa-input type="number">`) |
 | Multi-line text                                | `<wa-textarea>`                                              |
+| A free-form list of short values (keywords, emails, labels) | `<wa-tag-input>`                                              |
 | File upload                                    | `<wa-file-input>` **(Pro)**                                  |
 | A color value                                  | `<wa-color-picker>`                                          |
 

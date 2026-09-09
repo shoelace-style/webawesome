@@ -31,6 +31,14 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 ## Unreleased
 
+:::added
+
+- Added the `<wa-tag-input>` component for collecting lists of short values such as keywords, email addresses, and labels
+  - Adds tags on [[Enter]], delimiter, paste, and blur; supports `max-tags`, `min-tags`, `allow-duplicates`, `with-clear`, and the cancelable `wa-create` event
+  - Added the `allTagsRemoved`, `tagAdded`, `tagAlreadyAdded`, `tagInputKeyboardHelp`, `tagRemoved`, `tooFewTags`, and `tooManyTags` translation keys
+
+:::
+
 :::fixed
 
 - Fixed a bug in `<wa-page>` where empty contents for `navigation-footer` would reserve space for a navigation footer in the mobile navigation drawer.

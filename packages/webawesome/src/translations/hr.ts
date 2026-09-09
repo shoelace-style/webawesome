@@ -6,6 +6,7 @@ const translation: Translation = {
   $name: 'Hrvatski',
   $dir: 'ltr',
 
+  allTagsRemoved: 'Sve oznake uklonjene',
   am: 'AM',
   autosizeColumn: 'Automatski prilagodi veličinu stupca',
   captions: 'Titlovi',
@@ -181,11 +182,29 @@ const translation: Translation = {
   sortColumn: 'Sortiraj stupac',
   sortDescending: 'Sortiraj silazno',
   startDate: 'Datum početka',
+  tagAdded: tag => `${tag} dodano`,
+  tagAlreadyAdded: tag => `Oznaka ${tag} već postoji`,
+  tagInputKeyboardHelp: 'Pritisnite Backspace ili Delete za uklanjanje ove oznake.',
+  tagRemoved: tag => `${tag} uklonjeno`,
   time: 'Vrijeme',
   timeInputKeyboardHelp:
     'Strelicama mijenjajte vrijednosti; pritisnite Alt+Strelica dolje za otvaranje birača vremena.',
   today: 'Danas',
   toggleColorFormat: 'Zamijeni format boje',
+  tooFewTags: min => {
+    if (min === 1) return 'Dodajte najmanje 1 oznaku';
+    const mod10 = min % 10;
+    const mod100 = min % 100;
+    if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `Dodajte najmanje ${min} oznake`;
+    return `Dodajte najmanje ${min} oznaka`;
+  },
+  tooManyTags: max => {
+    if (max === 1) return 'Dodajte najviše 1 oznaku';
+    const mod10 = max % 10;
+    const mod100 = max % 100;
+    if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `Dodajte najviše ${max} oznake`;
+    return `Dodajte najviše ${max} oznaka`;
+  },
   unmute: 'Uključi zvuk',
   unpin: 'Otkvači',
   unpinColumn: 'Otkvači stupac',

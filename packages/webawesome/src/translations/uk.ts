@@ -6,6 +6,7 @@ const translation: Translation = {
   $name: 'Українська',
   $dir: 'ltr',
 
+  allTagsRemoved: 'Усі теги видалено',
   am: 'AM',
   autosizeColumn: 'Автоматичний розмір стовпця',
   captions: 'Субтитри',
@@ -185,11 +186,29 @@ const translation: Translation = {
   sortColumn: 'Сортувати стовпець',
   sortDescending: 'Сортувати за спаданням',
   startDate: 'Дата початку',
+  tagAdded: tag => `${tag} додано`,
+  tagAlreadyAdded: tag => `Тег ${tag} уже додано`,
+  tagInputKeyboardHelp: 'Натисніть Backspace або Delete, щоб видалити цей тег.',
+  tagRemoved: tag => `${tag} видалено`,
   time: 'Час',
   timeInputKeyboardHelp:
     'Використовуйте стрілки для зміни значень; натисніть Alt+Стрілка вниз, щоб відкрити засіб вибору часу.',
   today: 'Сьогодні',
   toggleColorFormat: 'Переключити кольорову модель',
+  tooFewTags: min => {
+    const mod10 = min % 10;
+    const mod100 = min % 100;
+    if (mod10 === 1 && mod100 !== 11) return `Додайте щонайменше ${min} тег`;
+    if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `Додайте щонайменше ${min} теги`;
+    return `Додайте щонайменше ${min} тегів`;
+  },
+  tooManyTags: max => {
+    const mod10 = max % 10;
+    const mod100 = max % 100;
+    if (mod10 === 1 && mod100 !== 11) return `Додайте не більше ніж ${max} тег`;
+    if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `Додайте не більше ніж ${max} теги`;
+    return `Додайте не більше ніж ${max} тегів`;
+  },
   unmute: 'Увімкнути звук',
   unpin: 'Відкріпити',
   unpinColumn: 'Відкріпити стовпець',

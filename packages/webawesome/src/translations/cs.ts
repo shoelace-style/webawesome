@@ -6,6 +6,7 @@ const translation: Translation = {
   $name: 'Čeština',
   $dir: 'ltr',
 
+  allTagsRemoved: 'Všechny štítky odebrány',
   am: 'dop.',
   autosizeColumn: 'Přizpůsobit šířku obsahu',
   captions: 'Titulky',
@@ -165,10 +166,24 @@ const translation: Translation = {
   sortColumn: 'Seřadit sloupec',
   sortDescending: 'Seřadit sestupně',
   startDate: 'Datum zahájení',
+  tagAdded: tag => `${tag} přidáno`,
+  tagAlreadyAdded: tag => `Štítek ${tag} již existuje`,
+  tagInputKeyboardHelp: 'Stisknutím Backspace nebo Delete tento štítek odeberete.',
+  tagRemoved: tag => `${tag} odebráno`,
   time: 'Čas',
   timeInputKeyboardHelp: 'Pomocí šipek změňte hodnoty; stisknutím Alt+Šipka dolů otevřete výběr času.',
   today: 'Dnes',
   toggleColorFormat: 'Přepnout formát barvy',
+  tooFewTags: min => {
+    if (min === 1) return 'Přidejte alespoň 1 štítek';
+    if (min >= 2 && min <= 4) return `Přidejte alespoň ${min} štítky`;
+    return `Přidejte alespoň ${min} štítků`;
+  },
+  tooManyTags: max => {
+    if (max === 1) return 'Přidejte nejvýše 1 štítek';
+    if (max >= 2 && max <= 4) return `Přidejte nejvýše ${max} štítky`;
+    return `Přidejte nejvýše ${max} štítků`;
+  },
   unmute: 'Zapnout zvuk',
   unpin: 'Odepnout',
   unpinColumn: 'Odepnout sloupec',
