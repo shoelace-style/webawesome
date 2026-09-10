@@ -70,7 +70,7 @@ Framework users can bind directly to the `value` property, an array of strings.
 
 Use the `delimiter` attribute to change which characters turn typed text into a tag. Each character in the string is a separate delimiter, and pasted text is split on the same characters. Set it to an empty string so only <kbd>Enter</kbd> adds a tag.
 
-Text left in the text box becomes a tag when the tag input loses focus.
+Text left in the text box becomes a tag when the tag input loses focus. Text that can't become a tag is discarded.
 
 ```html {.example}
 <div class="wa-stack">
