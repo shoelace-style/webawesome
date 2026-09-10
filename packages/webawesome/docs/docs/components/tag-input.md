@@ -19,13 +19,8 @@ use-cases:
 ```
 
 ```html {.example .anatomy-only}
-<wa-tag-input
-  label="Recipients"
-  hint="Press Enter or type a comma to add another."
-  value="ada@example.com, grace@example.com"
-  with-clear
->
-  <wa-icon slot="start" name="envelope"></wa-icon>
+<wa-tag-input label="Topics" hint="Press Enter or type a comma after each topic." value="Design, CSS" with-clear>
+  <wa-icon slot="start" name="tag"></wa-icon>
 </wa-tag-input>
 ```
 
@@ -73,7 +68,7 @@ Framework users can bind directly to the `value` property, an array of strings.
 
 ### Delimiter
 
-Typing a delimiter character adds the text before it as a tag, and pasted text is split on it. Use the `delimiter` attribute to change the character. Each character in the string is treated as a separate delimiter. Set it to an empty string so only <kbd>Enter</kbd> adds a tag.
+Typing a delimiter character adds the text before it as a tag, and pasted text is split on it. Use the `delimiter` attribute to change the character. Each character in the string is treated as a separate delimiter. Set it to an empty string so only <kbd>Enter</kbd> adds a tag. Text still in the text box when the tag input loses focus is added as a tag too.
 
 ```html {.example}
 <div class="wa-stack">
@@ -85,7 +80,7 @@ Typing a delimiter character adds the text before it as a tag, and pasted text i
 
 ### Clearable
 
-Add the `with-clear` attribute to show a button that removes every tag at once.
+Add the `with-clear` attribute to show a button that removes every tag at once. The button only appears once there is at least one tag.
 
 ```html {.example}
 <wa-tag-input label="Tickers" value="AAPL, MSFT, NVDA" with-clear></wa-tag-input>
@@ -96,15 +91,21 @@ Add the `with-clear` attribute to show a button that removes every tag at once.
 Use the `max-tags` attribute to cap the number of tags. Once the limit is reached, no more tags can be added until one is removed.
 
 ```html {.example}
-<wa-tag-input label="Top three" hint="Choose up to three." max-tags="3" placeholder="Add a favorite"></wa-tag-input>
+<wa-tag-input
+  label="Top three"
+  hint="Choose up to three."
+  value="Coffee, Tea"
+  max-tags="3"
+  placeholder="Add a favorite"
+></wa-tag-input>
 ```
 
-### Duplicates
+### Allowing Duplicates
 
 Duplicate tags are ignored by default. Add the `allow-duplicates` attribute to let the same value appear more than once.
 
 ```html {.example}
-<wa-tag-input label="Rolls" allow-duplicates placeholder="Roll again"></wa-tag-input>
+<wa-tag-input label="Dice rolls" value="6, 6" allow-duplicates placeholder="Roll again"></wa-tag-input>
 ```
 
 ### Appearance
@@ -175,7 +176,7 @@ Use the `start` and `end` slots to add presentational elements like `<wa-icon>` 
 
 ### Validation
 
-Add the `required` attribute to require at least one tag. Use the `min-tags` and `max-tags` attributes to validate the number of tags. `max-tags` also prevents adding more.
+Add the `required` attribute to require at least one tag. Use the `min-tags` and `max-tags` attributes to validate the number of tags. `min-tags` only applies once there is at least one tag, so pair it with `required` to make tags mandatory. `max-tags` also prevents adding more.
 
 ```html {.example}
 <form class="tag-input-validation">
@@ -257,6 +258,11 @@ The `wa-create` event fires before typed text becomes a tag. Call `event.prevent
 </script>
 ```
 
+:::warning
+<strong>Tell people why a tag was rejected.</strong><br />
+Rejecting a tag produces no message of its own. Update the `hint` or call `setCustomValidity()` from your listener so the reason reaches screen readers too.
+:::
+
 ### Reacting to Changes
 
 Listen for the `change` event to respond when a tag is added or removed. The `value` property holds the current list.
@@ -313,3 +319,5 @@ Tags are reachable with the arrow keys rather than <kbd>Tab</kbd>, so the contro
 | <kbd>←</kbd> <kbd>→</kbd>           | From an empty text box, <kbd>←</kbd> focuses the last tag. Moves between tags, and <kbd>→</kbd> from the last tag returns to the text box. |
 | <kbd>Home</kbd> <kbd>End</kbd>      | On a focused tag, <kbd>Home</kbd> focuses the first tag and <kbd>End</kbd> returns to the text box                                         |
 | <kbd>Escape</kbd>                   | Clears the typed text. On a focused tag, returns to the text box.                                                                          |
+
+In right-to-left languages, the arrow keys follow the reading direction, so <kbd>→</kbd> moves toward the start of the list and <kbd>←</kbd> moves toward the text box.
