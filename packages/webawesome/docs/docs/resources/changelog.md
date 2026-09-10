@@ -31,6 +31,10 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 ## Unreleased
 
+:::added
+
+- Added the `<wa-stepper>` and `<wa-step>` components for guiding users through a multi-step process, such as a checkout flow or setup wizard
+
 :::fixed
 
 - Fixed a bug in `<wa-page>` where empty contents for `navigation-footer` would reserve space for a navigation footer in the mobile navigation drawer
