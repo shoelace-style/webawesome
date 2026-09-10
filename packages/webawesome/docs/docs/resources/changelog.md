@@ -42,6 +42,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug in `<wa-data-grid>` where picking a date in a `date-range` column filter emptied the filter panel while leaving the popover open, leaving a small empty box anchored to the filter button
 - Fixed a bug in `<wa-data-grid>` where the first click on a link or button rendered by a `formatter` that returns a DOM node was discarded, so neither the control nor `wa-cell-click` responded until a second click [issue:2763]
 - Fixed a bug in `<wa-data-grid>` where a `flex` column with a `minWidth` above 150 lost its flex and rendered at `minWidth` instead [issue:2791]
+- Fixed a bug in `<wa-data-grid>` where icons incorrectly resolved through the default icon library instead of the system library, so they failed to render when the default library was customized or unavailable [issue:2801]
 
 :::
 
