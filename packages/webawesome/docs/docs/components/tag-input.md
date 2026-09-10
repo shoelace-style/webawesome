@@ -43,7 +43,7 @@ Use the `label` attribute to give the tag input an accessible label. For labels 
 Add a descriptive hint with the `hint` attribute. For hints that contain HTML, use the `hint` slot instead.
 
 ```html {.example}
-<wa-tag-input label="Skills" hint="Press Enter or type a comma after each skill."></wa-tag-input>
+<wa-tag-input label="Ingredients" hint="Press Enter or type a comma after each ingredient."></wa-tag-input>
 ```
 
 ### Placeholder
@@ -51,7 +51,7 @@ Add a descriptive hint with the `hint` attribute. For hints that contain HTML, u
 Use the `placeholder` attribute to show prompt text in the text box. The placeholder is hidden once the maximum number of tags is reached.
 
 ```html {.example}
-<wa-tag-input label="Tags" placeholder="Add a tag"></wa-tag-input>
+<wa-tag-input label="Guest list" placeholder="Add a name"></wa-tag-input>
 ```
 
 ### Initial Value
@@ -68,7 +68,9 @@ Framework users can bind directly to the `value` property, an array of strings.
 
 ### Delimiter
 
-Typing a delimiter character adds the text before it as a tag, and pasted text is split on it. Use the `delimiter` attribute to change the character. Each character in the string is treated as a separate delimiter. Set it to an empty string so only <kbd>Enter</kbd> adds a tag. Text still in the text box when the tag input loses focus is added as a tag too.
+Use the `delimiter` attribute to change which characters turn typed text into a tag. Each character in the string is a separate delimiter, and pasted text is split on the same characters. Set it to an empty string so only <kbd>Enter</kbd> adds a tag.
+
+Text left in the text box becomes a tag when the tag input loses focus.
 
 ```html {.example}
 <div class="wa-stack">
@@ -92,11 +94,11 @@ Use the `max-tags` attribute to cap the number of tags. Once the limit is reache
 
 ```html {.example}
 <wa-tag-input
-  label="Top three"
+  label="Desert island albums"
   hint="Choose up to three."
-  value="Coffee, Tea"
+  value="Kind of Blue, Rumours"
   max-tags="3"
-  placeholder="Add a favorite"
+  placeholder="Add an album"
 ></wa-tag-input>
 ```
 
@@ -160,7 +162,7 @@ Use the `readonly` attribute to show tags that can't be changed. Unlike `disable
 
 ### Start & End Decorations
 
-Use the `start` and `end` slots to add presentational elements like `<wa-icon>` within the tag input.
+Use the `start` and `end` slots to add presentational elements such as `<wa-icon>` inside the tag input.
 
 ```html {.example}
 <div class="wa-stack">
