@@ -316,13 +316,19 @@ export default class WaTagInput extends WebAwesomeFormAssociatedElement {
     return true;
   }
 
-  /** Adds every string as a tag that passes the rules. Emits input and change once if any were added. */
-  private addTags(texts: string[]): boolean {
+  /**
+   * Adds every string as a tag that passes the rules. Emits input and change once if any were added. Returns the
+   * texts that were refused, so the caller can put them back in the text box instead of discarding them.
+   */
+  private addTags(texts: string[]): string[] {
+    const rejected: string[] = [];
     let added = false;
 
     for (const text of texts) {
       if (this.tryAddTag(text)) {
         added = true;
+      } else if (text.trim()) {
+        rejected.push(text.trim());
       }
     }
 
@@ -331,7 +337,7 @@ export default class WaTagInput extends WebAwesomeFormAssociatedElement {
       this.emitInputAndChange();
     }
 
-    return added;
+    return rejected;
   }
 
   /** Removes the tag at the given index in response to user input. Returns true when a tag was removed. */
@@ -393,8 +399,8 @@ export default class WaTagInput extends WebAwesomeFormAssociatedElement {
       const segments = text.split(regex);
       const remainder = segments.pop() ?? '';
 
-      this.addTags(segments);
-      this.setInputText(remainder);
+      const rejected = this.addTags(segments);
+      this.setInputText([...rejected, remainder].filter(Boolean).join(this.delimiter[0]));
       return;
     }
 
@@ -421,8 +427,8 @@ export default class WaTagInput extends WebAwesomeFormAssociatedElement {
     const end = this.input.selectionEnd ?? start;
     const combined = this.input.value.slice(0, start) + pasted + this.input.value.slice(end);
 
-    this.addTags(combined.split(regex));
-    this.setInputText('');
+    const rejected = this.addTags(combined.split(regex));
+    this.setInputText(rejected.join(this.delimiter[0]));
   }
 
   private handleKeyDown(event: KeyboardEvent) {
@@ -440,7 +446,7 @@ export default class WaTagInput extends WebAwesomeFormAssociatedElement {
       if (text) {
         event.preventDefault();
 
-        if (this.addTags([text])) {
+        if (this.addTags([text]).length === 0) {
           this.setInputText('');
         }
       } else {

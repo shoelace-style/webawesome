@@ -432,6 +432,19 @@ describe('<wa-tag-input>', () => {
           expect(el.value).to.deep.equal(['abc', 'd']);
         });
 
+        it('should keep pasted text beyond max-tags in the text box', async function () {
+          if (!supportsSyntheticPaste()) this.skip();
+          const el = await fixture<WaTagInput>(html`<wa-tag-input max-tags="2"></wa-tag-input>`);
+
+          el.focus();
+          paste(el, 'a,b,c,d');
+          await el.updateComplete;
+          await aTimeout(0);
+
+          expect(el.value).to.deep.equal(['a', 'b']);
+          expect(el.inputValue).to.equal('c,d');
+        });
+
         it('should leave pasted text without a delimiter to the browser', async function () {
           if (!supportsSyntheticPaste()) this.skip();
           const el = await fixture<WaTagInput>(html`<wa-tag-input></wa-tag-input>`);
@@ -475,6 +488,29 @@ describe('<wa-tag-input>', () => {
 
           await type(el, 'a');
           await press(el, 'Enter');
+
+          expect(el.value).to.deep.equal(['a']);
+          expect(el.inputValue).to.equal('a');
+        });
+
+        it('should keep text the delimiter refuses in the text box', async () => {
+          const el = await fixture<WaTagInput>(html`<wa-tag-input></wa-tag-input>`);
+
+          el.addEventListener('wa-create', event => event.preventDefault());
+
+          await type(el, 'no,');
+          await aTimeout(0);
+
+          expect(el.value).to.deep.equal([]);
+          expect(el.inputValue).to.equal('no');
+          expect(getInput(el).value).to.equal('no');
+        });
+
+        it('should keep a duplicate added with a delimiter in the text box', async () => {
+          const el = await fixture<WaTagInput>(html`<wa-tag-input value="a"></wa-tag-input>`);
+
+          await type(el, 'a,');
+          await aTimeout(0);
 
           expect(el.value).to.deep.equal(['a']);
           expect(el.inputValue).to.equal('a');
