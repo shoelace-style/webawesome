@@ -80,6 +80,23 @@ Text left in the text box becomes a tag when the tag input loses focus. Text tha
 </div>
 ```
 
+### Pasting
+
+Pasting delimiter-separated text adds a tag for each value in one step. The same rules apply as when typing, so values that can't become tags, such as duplicates and anything past `max-tags`, stay in the text box instead of being lost. Pasted text without a delimiter is inserted as ordinary text.
+
+```html {.example}
+<wa-copy-button value="Cumin, Paprika, Coriander, Turmeric">
+  <wa-button appearance="filled">
+    <wa-icon slot="start" name="clipboard"></wa-icon>
+    Copy spices
+  </wa-button>
+</wa-copy-button>
+
+<wa-divider></wa-divider>
+
+<wa-tag-input label="Spices" placeholder="Paste the copied list here"></wa-tag-input>
+```
+
 ### Clearable
 
 Add the `with-clear` attribute to show a button that removes every tag at once. The button only appears once there is at least one tag.
