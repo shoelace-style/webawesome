@@ -33,7 +33,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::added
 
-- Added the experimental `<wa-tag-input>` component
+- Added the experimental `<wa-tag-input>` component for collecting a list of short values, such as keywords, email addresses, or labels, as removable tags [pr:2796]
 
 :::
 
