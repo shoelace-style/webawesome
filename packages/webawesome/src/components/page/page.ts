@@ -188,6 +188,11 @@ export default class WaPage extends WebAwesomeElement {
   @property({ attribute: 'view', reflect: true }) view: 'mobile' | 'desktop' = 'desktop';
 
   /**
+   * Sets a `nonce` for the injected `<style>` tag used for handling media queries. The style tag will use `window.litNonce` if `nonce` isn't defined on `<wa-page>`
+   */
+  @property({ reflect: true }) nonce: string | undefined;
+
+  /**
    * Whether or not the navigation drawer is open. Note, the navigation drawer is only "open" on mobile views.
    */
   @property({ attribute: 'nav-open', reflect: true, type: Boolean }) navOpen = false;
@@ -353,6 +358,12 @@ export default class WaPage extends WebAwesomeElement {
       this.view === 'mobile' &&
       (this.hasSlotController.test('navigation-footer') || this.hasSlotController.test('mobile-navigation-footer'));
 
+
+      // Hopefully there is a future with container queries where the `<style>` tag can go away and we can do sizing with proper container query variables. Until then...this is the best we got.
+      // Use the nonce on the element, if it doesn't exist, fallback to window.litNonce for strict CSPs.
+      // @ts-expect-error - error because globalThis.litNonce
+      let nonce = (this.nonce || globalThis.litNonce || null) as string | null
+
     return html`
       <a href="#main-content" part="skip-to-content" class="wa-visually-hidden">
         <slot name="skip-to-content">Skip to content</slot>
@@ -360,7 +371,10 @@ export default class WaPage extends WebAwesomeElement {
 
       <!-- unsafeHTML needed for SSR until this is solved: https://github.com/lit/lit/issues/4696 -->
       ${unsafeHTML(`
-        <style id="mobile-styles">
+        <style
+          ${/* ifDefined not supported in unsafeHTML */ nonce ? "" : nonce="${nonce}"}
+          id="mobile-styles"
+        >
           ${mobileStyles(toLength(this.mobileBreakpoint))}
         </style>
       `)}
