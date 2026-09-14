@@ -4,9 +4,9 @@ description: >
   Design and lay out user interfaces with Web Awesome. Use this when building or styling a PAGE,
   LAYOUT, or SECTION; choosing or customizing a THEME; applying brand COLORS or design tokens; or
   composing a polished, good-looking UI with Web Awesome components and utilities. Triggers on requests
-  like "build a landing page", "make an app layout", "set up <wa-page>", "add a sidebar", "apply a
+  like "build a landing page", "make an app layout", "set up wa-page", "add a sidebar", "apply a
   theme", "match our brand color", "style this to look designed", "build a settings page", or "lay out
-  a dashboard". Teaches layout (when and how to use <wa-page>), theming (--wa-* tokens), and visual
+  a dashboard". Teaches layout (when and how to use wa-page), theming (--wa-* tokens), and visual
   composition. Pair with the `webawesome` skill, which documents individual component APIs.
 license: MIT / Commercial (for Web Awesome Pro)
 metadata:
