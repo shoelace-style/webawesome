@@ -106,6 +106,11 @@ export default css`
       max-width: 100%;
       cursor: default;
 
+      /* Nested inside the box, so a step down from the box's radius */
+      &:not([pill]) {
+        border-radius: var(--wa-border-radius-s);
+      }
+
       &::part(content) {
         display: block;
         min-width: 0;
@@ -118,10 +123,11 @@ export default css`
         outline: none;
       }
 
+      /* Drawn inward: a ring outside the tag would sit on the box's border */
       &:focus-visible,
       &.tag--focused {
         outline: var(--wa-focus-ring);
-        outline-offset: var(--wa-focus-ring-offset);
+        outline-offset: calc(-1 * var(--wa-focus-ring-width));
       }
     }
 

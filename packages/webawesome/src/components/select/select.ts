@@ -864,6 +864,8 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
               remove-button:tag__remove-button,
               remove-button__base:tag__remove-button__base
             "
+            ?pill=${this.pill}
+            size=${this.size}
             >+${this.selectedOptions.length - index}</wa-tag
           >
         `;
