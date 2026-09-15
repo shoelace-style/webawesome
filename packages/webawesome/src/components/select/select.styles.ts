@@ -169,17 +169,12 @@ export default css`
     flex-wrap: wrap;
     gap: 0.25em;
 
-    &::slotted(wa-tag) {
-      cursor: pointer !important;
-    }
-
     /* Nested inside the box, so a step down from the box's radius */
     & wa-tag:not([pill]) {
       border-radius: var(--wa-border-radius-s);
     }
 
-    .disabled &,
-    .disabled &::slotted(wa-tag) {
+    .disabled & {
       cursor: not-allowed !important;
     }
   }
