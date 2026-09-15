@@ -52,6 +52,14 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::
 
+:::changed
+
+- Promoted the following components from {{ statusBadge('experimental') }} to {{ statusBadge('stable') }}
+  - Free: `<wa-accordion>`, `<wa-accordion-item>`, `<wa-known-date>`, `<wa-otp-input>`, `<wa-pagination>`, `<wa-random-content>`, and `<wa-time-input>`
+  - Pro: `<wa-date-input>`, `<wa-date-picker>`, `<wa-video>`, and `<wa-video-playlist>`
+
+:::
+
 ## 3.12.0
 
 :::added

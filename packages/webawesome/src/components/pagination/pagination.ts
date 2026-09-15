@@ -117,7 +117,7 @@ function getPaginationRange(options: PaginationRangeOptions): PaginationRangeIte
 /**
  * @summary Pagination splits long lists of content into pages, letting users navigate between them.
  * @documentation https://webawesome.com/docs/components/pagination
- * @status experimental
+ * @status stable
  * @since 3.11
  *
  * @dependency wa-icon
