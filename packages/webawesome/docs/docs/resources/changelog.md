@@ -52,6 +52,12 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::
 
+:::changed
+
+- Updated the tags inside `<wa-select multiple>` and `<wa-combobox multiple>` to use `--wa-border-radius-s`, a step down from the control's own radius, matching `<wa-tag-input>`
+
+:::
+
 ## 3.12.0
 
 :::added

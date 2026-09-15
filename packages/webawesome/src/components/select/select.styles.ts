@@ -173,6 +173,11 @@ export default css`
       cursor: pointer !important;
     }
 
+    /* Nested inside the box, so a step down from the box's radius */
+    & wa-tag:not([pill]) {
+      border-radius: var(--wa-border-radius-s);
+    }
+
     .disabled &,
     .disabled &::slotted(wa-tag) {
       cursor: not-allowed !important;
