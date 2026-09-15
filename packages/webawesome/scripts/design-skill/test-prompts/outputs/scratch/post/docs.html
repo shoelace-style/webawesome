@@ -1,0 +1,638 @@
+<!doctype html>
+<html lang="en" class="wa-theme-default wa-palette-default wa-light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Typography — Halftone</title>
+
+    <link rel="stylesheet" href="https://ka-f.webawesome.com/webawesome@3.9.0/styles/webawesome.css" />
+    <link rel="stylesheet" href="https://ka-f.webawesome.com/webawesome@3.9.0/styles/themes/default.css" />
+    <link rel="stylesheet" href="https://ka-f.webawesome.com/webawesome@3.9.0/styles/native.css" />
+    <script type="module" src="https://ka-f.webawesome.com/webawesome@3.9.0/webawesome.loader.js"></script>
+
+    <style>
+      /* --- Halftone-ish demo variables. Used on this page only. --- */
+      :root {
+        --halftone-scale: 1.125;
+        --halftone-baseline: 1.5rem;
+        --halftone-leading: 1.55;
+        --halftone-heading-leading: 1.15;
+
+        --ht-step--1: 0.889rem;
+        --ht-step-0: 1rem;
+        --ht-step-1: 1.125rem;
+        --ht-step-2: 1.266rem;
+        --ht-step-3: 1.424rem;
+        --ht-step-4: 1.602rem;
+
+        --ht-serif: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", "Charter", "Source Serif Pro", Georgia, serif;
+        --ht-sans: "Inter Tight", "IBM Plex Sans", -apple-system, "Helvetica Neue", Arial, sans-serif;
+        --ht-mono: "JetBrains Mono", "IBM Plex Mono", "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+
+        --ht-ink: #1a1814;
+        --ht-paper: #fbfaf6;
+        --ht-rule: #d8d3c4;
+        --ht-mute: #6f6a5d;
+        --ht-accent: #8a2b1e;
+      }
+
+      html, body { min-height: 100%; padding: 0; margin: 0; }
+
+      body {
+        background: var(--ht-paper);
+        color: var(--ht-ink);
+        font-family: var(--ht-serif);
+        font-size: 1.0625rem;
+        line-height: var(--halftone-leading);
+        font-feature-settings: "kern" 1, "liga" 1, "dlig" 1, "onum" 1;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* Zero the main slot padding; control spacing per section. */
+      wa-page::part(main-content) { padding: 0; }
+      wa-page::part(navigation) { background: #f3efe4; border-inline-end: 1px solid var(--ht-rule); }
+      wa-page::part(aside) { background: transparent; border-inline-start: 1px solid var(--ht-rule); }
+
+      /* ============== Header (top bar) ============== */
+      .ht-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--wa-space-l);
+        padding: 0.75rem 1.5rem;
+        background: var(--ht-paper);
+        border-block-end: 1px solid var(--ht-rule);
+      }
+      .ht-brand {
+        display: inline-flex;
+        align-items: baseline;
+        gap: 0.5rem;
+        color: var(--ht-ink);
+        text-decoration: none;
+        font-family: var(--ht-serif);
+        font-size: 1.125rem;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+      }
+      .ht-brand .ht-mark {
+        display: inline-block;
+        width: 0.65em;
+        height: 0.65em;
+        border-radius: 50%;
+        background: radial-gradient(circle at 35% 35%, #fff 0 12%, var(--ht-ink) 14% 100%);
+        transform: translateY(-1px);
+      }
+      .ht-brand .ht-tag {
+        font-family: var(--ht-sans);
+        font-size: 0.75rem;
+        font-weight: 500;
+        color: var(--ht-mute);
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+      .ht-header-meta {
+        display: flex;
+        align-items: center;
+        gap: 1.25rem;
+        font-family: var(--ht-sans);
+        font-size: 0.875rem;
+        color: var(--ht-mute);
+      }
+      .ht-header-meta a { color: var(--ht-ink); text-decoration: none; border-block-end: 1px solid transparent; }
+      .ht-header-meta a:hover { border-block-end-color: var(--ht-ink); }
+      .ht-version {
+        font-family: var(--ht-mono);
+        font-size: 0.75rem;
+        padding: 0.15rem 0.45rem;
+        border: 1px solid var(--ht-rule);
+        border-radius: 2px;
+      }
+
+      /* ============== Subheader (breadcrumb row) ============== */
+      .ht-subheader {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.6rem 1.5rem;
+        background: var(--ht-paper);
+        border-block-end: 1px solid var(--ht-rule);
+        font-family: var(--ht-sans);
+        font-size: 0.875rem;
+      }
+      .ht-subheader wa-breadcrumb { --separator-color: var(--ht-mute); }
+      .ht-subheader wa-breadcrumb-item::part(label) { color: var(--ht-mute); }
+      .ht-subheader wa-breadcrumb-item:last-of-type::part(label) { color: var(--ht-ink); font-weight: 600; }
+
+      .ht-nav-toggle { display: none; }
+      wa-page[view="mobile"] .ht-nav-toggle { display: inline-flex; }
+
+      /* ============== Sidebar nav ============== */
+      .ht-sidenav {
+        padding: 1.25rem 1rem 2rem;
+        font-family: var(--ht-sans);
+        font-size: 0.9375rem;
+      }
+      .ht-sidenav-eyebrow {
+        font-size: 0.7rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--ht-mute);
+        padding: 0 0.6rem 0.5rem;
+      }
+      .ht-sidenav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      .ht-sidenav li + li { margin-block-start: 1px; }
+      .ht-sidenav a {
+        display: block;
+        padding: 0.4rem 0.65rem;
+        color: var(--ht-ink);
+        text-decoration: none;
+        border-radius: 3px;
+        border-inline-start: 2px solid transparent;
+      }
+      .ht-sidenav a:hover { background: rgba(0,0,0,0.04); }
+      .ht-sidenav a[aria-current="page"] {
+        background: var(--ht-paper);
+        border-inline-start-color: var(--ht-accent);
+        font-weight: 600;
+      }
+
+      /* ============== Main article ============== */
+      .ht-article {
+        max-width: 38rem;
+        padding: 3rem 2rem 4rem;
+        margin-inline: auto;
+      }
+      .ht-article h1 {
+        font-family: var(--ht-serif);
+        font-size: var(--ht-step-4);
+        line-height: var(--halftone-heading-leading);
+        font-weight: 600;
+        letter-spacing: -0.015em;
+        margin: 0 0 0.4rem;
+      }
+      .ht-article .ht-eyebrow {
+        display: block;
+        font-family: var(--ht-sans);
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--ht-mute);
+        margin-block-end: 0.85rem;
+      }
+      .ht-article .ht-lede {
+        font-size: var(--ht-step-1);
+        line-height: 1.5;
+        color: #2b271f;
+        margin: 1rem 0 2.5rem;
+        max-width: 34rem;
+        text-wrap: pretty;
+      }
+      .ht-article h2 {
+        font-family: var(--ht-serif);
+        font-size: var(--ht-step-3);
+        line-height: var(--halftone-heading-leading);
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        margin: 3rem 0 0.75rem;
+        scroll-margin-block-start: 6rem;
+      }
+      .ht-article h2 .ht-anchor {
+        color: var(--ht-mute);
+        font-family: var(--ht-mono);
+        font-size: 0.7em;
+        font-weight: 400;
+        margin-inline-start: 0.4em;
+        text-decoration: none;
+        opacity: 0;
+        transition: opacity 120ms;
+      }
+      .ht-article h2:hover .ht-anchor { opacity: 1; }
+      .ht-article p {
+        margin: 0 0 1.125rem;
+        hyphens: auto;
+        text-wrap: pretty;
+        max-width: 34rem;
+      }
+      .ht-article p:last-of-type { margin-bottom: 0; }
+      .ht-article a { color: var(--ht-accent); text-decoration: underline; text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
+      .ht-article strong { font-weight: 600; }
+      .ht-article em { font-style: italic; }
+      .ht-article code {
+        font-family: var(--ht-mono);
+        font-size: 0.88em;
+        background: rgba(0,0,0,0.05);
+        padding: 0.05em 0.35em;
+        border-radius: 3px;
+      }
+
+      /* Scale-at-a-glance mini table */
+      .ht-scale-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-family: var(--ht-sans);
+        font-size: 0.875rem;
+        margin: 1.75rem 0;
+        border-block: 1px solid var(--ht-ink);
+      }
+      .ht-scale-table th, .ht-scale-table td {
+        text-align: start;
+        padding: 0.55rem 0.75rem;
+        border-block-end: 1px solid var(--ht-rule);
+      }
+      .ht-scale-table thead th {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--ht-mute);
+        font-weight: 600;
+        border-block-end: 1px solid var(--ht-ink);
+      }
+      .ht-scale-table tbody tr:last-child td { border-block-end: 0; }
+      .ht-scale-table .ht-step { font-family: var(--ht-mono); width: 3rem; color: var(--ht-mute); }
+      .ht-scale-table .ht-size { font-family: var(--ht-mono); white-space: nowrap; }
+      .ht-scale-table .ht-px { font-family: var(--ht-mono); color: var(--ht-mute); white-space: nowrap; }
+      .ht-scale-table .ht-sample { font-family: var(--ht-serif); }
+      .ht-scale-table tr:nth-child(1) .ht-sample { font-size: 0.875rem; }
+      .ht-scale-table tr:nth-child(2) .ht-sample { font-size: 0.95rem; }
+      .ht-scale-table tr:nth-child(3) .ht-sample { font-size: 1rem; }
+      .ht-scale-table tr:nth-child(4) .ht-sample { font-size: 1.06rem; }
+      .ht-scale-table tr:nth-child(5) .ht-sample { font-size: 1.14rem; font-weight: 600; }
+      .ht-scale-table tr:nth-child(6) .ht-sample { font-size: 1.22rem; font-weight: 600; }
+
+      /* Code block */
+      pre {
+        background: #1f1d18;
+        color: #f0ead9;
+        font-family: var(--ht-mono);
+        font-size: 0.82rem;
+        line-height: 1.55;
+        padding: 1.1rem 1.25rem;
+        margin: 1.5rem 0;
+        border-radius: 4px;
+        overflow-x: auto;
+      }
+      pre code { background: transparent; padding: 0; color: inherit; font-size: inherit; }
+      .tok-prop { color: #c2b88a; }
+      .tok-val  { color: #e7c98a; }
+      .tok-sel  { color: #b8b8b8; }
+      .tok-cmt  { color: #7d7868; font-style: italic; }
+      .tok-fn   { color: #b8a3d9; }
+
+      /* Two-column safe/avoid list */
+      .ht-fontlist {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+        margin: 1.5rem 0;
+        padding: 1.25rem;
+        border: 1px solid var(--ht-rule);
+        background: #f6f2e8;
+        border-radius: 4px;
+      }
+      .ht-fontlist h3 {
+        font-family: var(--ht-sans);
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--ht-mute);
+        margin: 0 0 0.6rem;
+        font-weight: 600;
+      }
+      .ht-fontlist h3.ht-safe::before { content: "✓ "; color: #2f6a3a; }
+      .ht-fontlist h3.ht-avoid::before { content: "✕ "; color: var(--ht-accent); }
+      .ht-fontlist ul { list-style: none; margin: 0; padding: 0; font-family: var(--ht-serif); font-size: 0.95rem; }
+      .ht-fontlist li {
+        padding: 0.3rem 0;
+        border-block-end: 1px dotted var(--ht-rule);
+      }
+      .ht-fontlist li:last-child { border-block-end: 0; }
+
+      /* Callouts: lightly remap to match the page typography */
+      .ht-article wa-callout {
+        margin: 1.75rem 0;
+        font-family: var(--ht-sans);
+        font-size: 0.9375rem;
+        line-height: 1.55;
+      }
+      .ht-article wa-callout strong { font-weight: 600; }
+
+      /* ============== Aside (TOC) ============== */
+      .ht-toc {
+        padding: 2.25rem 1.5rem 2rem;
+        font-family: var(--ht-sans);
+        font-size: 0.875rem;
+      }
+      .ht-toc-eyebrow {
+        font-size: 0.7rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--ht-mute);
+        margin: 0 0 0.75rem;
+      }
+      .ht-toc ul { list-style: none; margin: 0; padding: 0; }
+      .ht-toc li + li { margin-block-start: 0.45rem; }
+      .ht-toc a {
+        display: block;
+        color: var(--ht-mute);
+        text-decoration: none;
+        padding-inline-start: 0.6rem;
+        border-inline-start: 1px solid var(--ht-rule);
+      }
+      .ht-toc a:hover { color: var(--ht-ink); border-inline-start-color: var(--ht-ink); }
+
+      /* ============== Footer (prev/next) ============== */
+      .ht-pager {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        max-width: 38rem;
+        margin: 1rem auto 2rem;
+        padding: 2rem 2rem 0;
+        border-block-start: 1px solid var(--ht-rule);
+      }
+      .ht-pager a {
+        display: block;
+        padding: 1rem 1.1rem;
+        text-decoration: none;
+        color: var(--ht-ink);
+        border: 1px solid var(--ht-rule);
+        border-radius: 4px;
+        background: var(--ht-paper);
+        transition: border-color 120ms, transform 120ms;
+      }
+      .ht-pager a:hover { border-color: var(--ht-ink); }
+      .ht-pager .ht-pager-label {
+        display: block;
+        font-family: var(--ht-sans);
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--ht-mute);
+        margin-block-end: 0.25rem;
+      }
+      .ht-pager .ht-pager-title {
+        font-family: var(--ht-serif);
+        font-size: 1.05rem;
+        font-weight: 600;
+      }
+      .ht-pager .ht-prev { text-align: start; }
+      .ht-pager .ht-next { text-align: end; }
+
+      .ht-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 38rem;
+        margin: 0 auto;
+        padding: 1.25rem 2rem 2.5rem;
+        font-family: var(--ht-sans);
+        font-size: 0.8rem;
+        color: var(--ht-mute);
+      }
+
+      /* Tighten things on mobile */
+      @media (max-width: 768px) {
+        .ht-article { padding: 2rem 1.25rem 3rem; }
+        .ht-pager, .ht-meta { padding-inline: 1.25rem; }
+        .ht-pager { grid-template-columns: 1fr; }
+        .ht-fontlist { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <wa-page mobile-breakpoint="920">
+      <!-- =================== Header =================== -->
+      <header slot="header" class="ht-header">
+        <a href="/" class="ht-brand">
+          <span class="ht-mark" aria-hidden="true"></span>
+          <span>Halftone</span>
+          <span class="ht-tag">CSS for zines</span>
+        </a>
+        <nav class="ht-header-meta">
+          <a href="/docs">Docs</a>
+          <a href="/recipes">Recipes</a>
+          <a href="https://github.com/halftone-css/halftone">GitHub</a>
+          <span class="ht-version">v0.7.2</span>
+        </nav>
+      </header>
+
+      <!-- =================== Subheader =================== -->
+      <div slot="subheader" class="ht-subheader">
+        <wa-breadcrumb>
+          <wa-breadcrumb-item href="/">Home</wa-breadcrumb-item>
+          <wa-breadcrumb-item href="/docs">Guide</wa-breadcrumb-item>
+          <wa-breadcrumb-item>Typography</wa-breadcrumb-item>
+        </wa-breadcrumb>
+        <wa-button class="ht-nav-toggle" data-toggle-nav size="small" appearance="outlined" pill>
+          <wa-icon slot="start" name="bars" label="Open navigation"></wa-icon>
+          Menu
+        </wa-button>
+      </div>
+
+      <!-- =================== Sidebar navigation =================== -->
+      <nav slot="navigation" class="ht-sidenav" aria-label="Documentation">
+        <p class="ht-sidenav-eyebrow">Guide</p>
+        <ul>
+          <li><a href="/docs/getting-started">Getting started</a></li>
+          <li><a href="/docs/layout">Layout</a></li>
+          <li><a href="/docs/typography" aria-current="page">Typography</a></li>
+          <li><a href="/docs/color">Color</a></li>
+          <li><a href="/docs/print-bleed">Print bleed</a></li>
+          <li><a href="/docs/recipes">Recipes</a></li>
+          <li><a href="/docs/changelog">Changelog</a></li>
+        </ul>
+      </nav>
+
+      <!-- =================== Main content =================== -->
+      <main>
+        <article class="ht-article">
+          <span class="ht-eyebrow">Guide · §3</span>
+          <h1>Typography</h1>
+
+          <p class="ht-lede">
+            Most websites are typeset like tax forms. Halftone is for the rest of us &mdash; for
+            designers who think a paragraph longer than two alphabets is a confession, that real
+            ligatures matter, and that a baseline grid is the difference between a layout and a
+            list of things on a page. The defaults here have opinions. The rest of this page is
+            where they get explained.
+          </p>
+
+          <h2 id="type-scale">Type scale <a href="#type-scale" class="ht-anchor" aria-label="Permalink to Type scale">#</a></h2>
+
+          <p>
+            Halftone uses a modular scale of <strong>1.125</strong>, which is the minor second in
+            musical terms. That's a small ratio &mdash; deliberately so. A scale of 1.333 puts
+            your <code>h2</code> in a parade. 1.5 puts it on a billboard. 1.125 puts it on a page,
+            where it belongs.
+          </p>
+
+          <p>
+            You read the scale up from the body size. The body stays <code>1rem</code>. Each step
+            is the previous step times 1.125. By the time you reach the <code>h1</code> you're at
+            <code>1.602rem</code> &mdash; bigger than the body, smaller than a shout. Six steps
+            cover ninety percent of editorial work; if you need more, you don't need more steps,
+            you need a magazine layout, and that's a different framework.
+          </p>
+
+          <table class="ht-scale-table" aria-label="Type scale at a glance">
+            <thead>
+              <tr>
+                <th>Step</th>
+                <th>Size</th>
+                <th>Px</th>
+                <th>Use</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="ht-step">&minus;1</td><td class="ht-size">0.889rem</td><td class="ht-px">14.2</td><td class="ht-sample">Captions &amp; footnotes</td></tr>
+              <tr><td class="ht-step">0</td><td class="ht-size">1rem</td><td class="ht-px">16.0</td><td class="ht-sample">Body text (default)</td></tr>
+              <tr><td class="ht-step">1</td><td class="ht-size">1.125rem</td><td class="ht-px">18.0</td><td class="ht-sample">Lede, intro paragraph</td></tr>
+              <tr><td class="ht-step">2</td><td class="ht-size">1.266rem</td><td class="ht-px">20.3</td><td class="ht-sample">Subhead, <code>h3</code></td></tr>
+              <tr><td class="ht-step">3</td><td class="ht-size">1.424rem</td><td class="ht-px">22.8</td><td class="ht-sample">Section head, <code>h2</code></td></tr>
+              <tr><td class="ht-step">4</td><td class="ht-size">1.602rem</td><td class="ht-px">25.6</td><td class="ht-sample">Page title, <code>h1</code></td></tr>
+            </tbody>
+          </table>
+
+          <wa-callout variant="brand" appearance="outlined">
+            <wa-icon slot="icon" name="circle-info"></wa-icon>
+            <strong>Overriding the scale.</strong> Set <code>--halftone-scale</code> on
+            <code>:root</code>. 1.2 (major second) gives a touch more contrast. 1.25 (minor third)
+            is louder still. We've tested up to 1.333 and stopped &mdash; past that, your
+            <code>h1</code> starts to sound less like a heading and more like a megaphone.
+          </wa-callout>
+
+          <h2 id="vertical-rhythm">Vertical rhythm <a href="#vertical-rhythm" class="ht-anchor" aria-label="Permalink to Vertical rhythm">#</a></h2>
+
+          <p>
+            A baseline grid is the set of imaginary horizontal lines body text aligns to &mdash;
+            the same way a sheet of ruled paper works, only invisible. Halftone sets that grid to
+            <code>1.5rem</code> (24px on a 16px base) and every block-level element snaps to a
+            multiple of it. Paragraph margins, heading margins, list spacing, blockquote insets:
+            all <code>1.5rem</code>, <code>3rem</code>, or <code>4.5rem</code>. Nothing in
+            between.
+          </p>
+
+          <p>
+            Why bother? Because the result is a page where text blocks line up across columns,
+            even when those columns hold different things &mdash; a heading on the left, body on
+            the right, a sidebar in the gutter. Without the grid, the columns drift relative to
+            each other and the page reads as a collage. With it, the page reads as a page.
+          </p>
+
+<pre><code><span class="tok-sel">:root</span> {
+  <span class="tok-prop">--halftone-baseline</span>: <span class="tok-val">1.5rem</span>;
+  <span class="tok-prop">--halftone-leading</span>:  <span class="tok-val">1.55</span>;
+}
+
+<span class="tok-sel">p, ul, ol, blockquote</span> {
+  <span class="tok-prop">margin-block</span>: <span class="tok-fn">var</span>(<span class="tok-val">--halftone-baseline</span>);
+  <span class="tok-prop">line-height</span>:  <span class="tok-fn">var</span>(<span class="tok-val">--halftone-leading</span>);
+}
+
+<span class="tok-cmt">/* Snap headings to a tighter leading so they don't break the rhythm. */</span>
+<span class="tok-sel">h1, h2, h3, h4, h5, h6</span> {
+  <span class="tok-prop">line-height</span>: <span class="tok-fn">var</span>(<span class="tok-val">--halftone-heading-leading</span>, <span class="tok-val">1.15</span>);
+  <span class="tok-prop">margin-block</span>: <span class="tok-fn">calc</span>(<span class="tok-fn">var</span>(<span class="tok-val">--halftone-baseline</span>) * <span class="tok-val">2</span>) <span class="tok-fn">var</span>(<span class="tok-val">--halftone-baseline</span>);
+}</code></pre>
+
+          <wa-callout variant="warning" appearance="outlined">
+            <wa-icon slot="icon" name="triangle-exclamation"></wa-icon>
+            <strong>The most common pitfall: forgetting to set <code>line-height</code> on
+            headings.</strong> If <code>h1</code>&ndash;<code>h6</code> inherit the body
+            <code>line-height</code> of 1.5, the leading swallows large type and the descenders
+            knock into the next line. Pin heading leading somewhere between
+            <code>1.1</code> and <code>1.25</code>. The prebuilt stylesheet does this for you; if
+            you're picking and choosing modules, it's on you.
+          </wa-callout>
+
+          <h2 id="print-safe-fonts">Print-safe fonts <a href="#print-safe-fonts" class="ht-anchor" aria-label="Permalink to Print-safe fonts">#</a></h2>
+
+          <p>
+            PDF embedding is where ambitious web type goes to die. The variable font with twelve
+            axes and twenty stylistic sets that looks like a Brooklyn studio's rebrand in Chrome
+            will, in any PDF library written before 2024, get flattened to a single weight,
+            embedded as a bitmap, or substituted for Helvetica entirely. The web is one rendering
+            target. Print is another. Halftone's default stack is built for both, which means
+            <em>static fonts in the print stylesheet</em>: no variable axes, no color glyphs, no
+            web-only providers that load fonts via JavaScript after the DOM is ready &mdash; by
+            the time the PDF generator sees your page, those fonts have evaporated.
+          </p>
+
+          <wa-callout variant="danger" appearance="outlined">
+            <wa-icon slot="icon" name="circle-exclamation"></wa-icon>
+            <strong>Variable fonts in print stylesheets are a trap.</strong> Chrome flattens them
+            to a single instance, which is usually fine. Safari flattens them to outline data
+            and triples your file size. Firefox sometimes drops the font entirely and substitutes
+            Times. There is no portable answer &mdash; use static fonts inside your
+            <code>@media print</code> block and don't gamble on the renderer.
+          </wa-callout>
+
+          <div class="ht-fontlist">
+            <div>
+              <h3 class="ht-safe">Safe choices</h3>
+              <ul>
+                <li>Iowan Old Style <em>(system)</em></li>
+                <li>Charter <em>(system)</em></li>
+                <li>Source Serif 4 <em>(static OTF)</em></li>
+                <li>IBM Plex Sans <em>(static OTF)</em></li>
+                <li>JetBrains Mono <em>(static OTF)</em></li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="ht-avoid">Avoid for print</h3>
+              <ul>
+                <li>Variable fonts of any kind</li>
+                <li>Color &amp; SVG glyph fonts</li>
+                <li>Google Fonts loaded at runtime</li>
+                <li>Adobe Fonts via JS embed</li>
+                <li>Anything without a desktop license</li>
+              </ul>
+            </div>
+          </div>
+
+          <p>
+            None of this is forever. Variable-font support in print renderers is improving, and in
+            two years the danger callout above may read as superstition. Until then, Halftone
+            ships static, embeds clean, and prints what you see.
+          </p>
+        </article>
+
+        <footer>
+          <nav class="ht-pager" aria-label="Page navigation">
+            <a class="ht-prev" href="/docs/layout">
+              <span class="ht-pager-label">← Previous</span>
+              <span class="ht-pager-title">Layout</span>
+            </a>
+            <a class="ht-next" href="/docs/color">
+              <span class="ht-pager-label">Next →</span>
+              <span class="ht-pager-title">Color</span>
+            </a>
+          </nav>
+          <div class="ht-meta">
+            <span>Last revised 2026-06-08</span>
+            <a href="https://github.com/halftone-css/halftone/edit/main/docs/typography.md" style="color: inherit; text-decoration: underline;">Edit on GitHub</a>
+          </div>
+        </footer>
+      </main>
+
+      <!-- =================== Aside (sticky TOC) =================== -->
+      <aside slot="aside" class="ht-toc" aria-label="On this page">
+        <p class="ht-toc-eyebrow">On this page</p>
+        <ul>
+          <li><a href="#type-scale">Type scale</a></li>
+          <li><a href="#vertical-rhythm">Vertical rhythm</a></li>
+          <li><a href="#print-safe-fonts">Print-safe fonts</a></li>
+        </ul>
+      </aside>
+    </wa-page>
+  </body>
+</html>

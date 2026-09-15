@@ -85,7 +85,7 @@ the only text color guaranteed to hit WCAG contrast: `fill-loud` with `on-loud`,
 `on-normal`, `fill-quiet` with `on-quiet`. The palettes are tuned for those exact pairings. **Mixing
 steps is the most common visual bug in WA output** — `on-loud` text on a `fill-quiet` background is
 too dark; `on-quiet` text on `fill-loud` is too pale. If a callout, badge, or card looks dark-on-dark
-or low-contrast after you styled it, this is almost always why. (SKILL.md rule 9 calls out two
+or low-contrast after you styled it, this is almost always why. (SKILL.md's [Before styling any `<wa-*>`](../SKILL.md#before-styling-any-wa-) section calls out two
 specific instances: an `appearance="outlined"` or `appearance="plain"` button whose `variant`
 matches the band it sits on, and a `<wa-callout>` whose body text becomes unreadable after the host
 `background` changed but its text token didn't.)
@@ -118,9 +118,9 @@ control didn't change; the assumption that "quiet" was a relative shade did.
 **In Web Awesome:** on any colored band, secondary actions need a full-contrast on-color text
 (`--wa-color-brand-on-loud`, `--wa-color-brand-on-quiet`, etc., matching the band's step) — or use a
 filled/outlined appearance with explicit `::part(base)` recolor. Don't leave them on the page-surface
-quiet default. See SKILL.md rule 9 (component styling through attributes, tokens, and
-`::part()` — including the contrast-on-bands check) and [theming.md](theming.md)'s closing note for
-the component-specific fix.
+quiet default. See SKILL.md's [Before styling any `<wa-*>`](../SKILL.md#before-styling-any-wa-) section
+(component styling through attributes, tokens, and `::part()` — including the contrast-on-bands check)
+and [theming.md](theming.md)'s closing note for the component-specific fix.
 
 ### Flip the contrast to keep brand color from going dark
 
