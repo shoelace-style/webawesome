@@ -6,6 +6,7 @@ const translation: Translation = {
   $name: 'العربية',
   $dir: 'rtl',
 
+  allTagsRemoved: 'تمت إزالة كل الوسوم',
   am: 'ص',
   autosizeColumn: 'ملاءمة حجم العمود تلقائيًا',
   captions: 'تسميات توضيحية',
@@ -179,10 +180,26 @@ const translation: Translation = {
   sortColumn: 'فرز العمود',
   sortDescending: 'فرز تنازلي',
   startDate: 'تاريخ البدء',
+  tagAdded: tag => `تمت إضافة ${tag}`,
+  tagAlreadyAdded: tag => `الوسم ${tag} مضاف بالفعل`,
+  tagInputKeyboardHelp: 'اضغط Backspace أو Delete لإزالة هذا الوسم.',
+  tagRemoved: tag => `تمت إزالة ${tag}`,
   time: 'الوقت',
   timeInputKeyboardHelp: 'استخدم مفاتيح الأسهم لتغيير القيم؛ اضغط Alt+سهم الأسفل لفتح منتقي الوقت.',
   today: 'اليوم',
   toggleColorFormat: 'تغيير صيغة عرض  اللون',
+  tooFewTags: min => {
+    if (min === 1) return 'أضف وسمًا واحدًا على الأقل';
+    if (min === 2) return 'أضف وسمين على الأقل';
+    if (min > 2 && min < 11) return `أضف ${min} وسوم على الأقل`;
+    return `أضف ${min} وسمًا على الأقل`;
+  },
+  tooManyTags: max => {
+    if (max === 1) return 'لا تضف أكثر من وسم واحد';
+    if (max === 2) return 'لا تضف أكثر من وسمين';
+    if (max > 2 && max < 11) return `لا تضف أكثر من ${max} وسوم`;
+    return `لا تضف أكثر من ${max} وسمًا`;
+  },
   unmute: 'إلغاء كتم الصوت',
   unpin: 'إلغاء التثبيت',
   unpinColumn: 'إلغاء تثبيت العمود',

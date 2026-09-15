@@ -6,6 +6,7 @@ const translation: Translation = {
   $name: 'Slovenski',
   $dir: 'ltr',
 
+  allTagsRemoved: 'Vse oznake odstranjene',
   am: 'AM',
   autosizeColumn: 'Samodejno prilagodi velikost stolpca',
   captions: 'Podnapisi',
@@ -184,11 +185,29 @@ const translation: Translation = {
   sortColumn: 'Razvrsti stolpec',
   sortDescending: 'Razvrsti padajoče',
   startDate: 'Začetni datum',
+  tagAdded: tag => `${tag} dodano`,
+  tagAlreadyAdded: tag => `Oznaka ${tag} že obstaja`,
+  tagInputKeyboardHelp: 'Pritisnite Backspace ali Delete, da odstranite to oznako.',
+  tagRemoved: tag => `${tag} odstranjeno`,
   time: 'Čas',
   timeInputKeyboardHelp:
     'S puščičnimi tipkami spreminjajte vrednosti; pritisnite Alt+Puščica navzdol za odpiranje izbirnika časa.',
   today: 'Danes',
   toggleColorFormat: 'Preklopi format barve',
+  tooFewTags: min => {
+    const mod100 = min % 100;
+    if (mod100 === 1) return `Dodajte vsaj ${min} oznako`;
+    if (mod100 === 2) return `Dodajte vsaj ${min} oznaki`;
+    if (mod100 === 3 || mod100 === 4) return `Dodajte vsaj ${min} oznake`;
+    return `Dodajte vsaj ${min} oznak`;
+  },
+  tooManyTags: max => {
+    const mod100 = max % 100;
+    if (mod100 === 1) return `Dodajte največ ${max} oznako`;
+    if (mod100 === 2) return `Dodajte največ ${max} oznaki`;
+    if (mod100 === 3 || mod100 === 4) return `Dodajte največ ${max} oznake`;
+    return `Dodajte največ ${max} oznak`;
+  },
   unmute: 'Vklopi zvok',
   unpin: 'Odpni',
   unpinColumn: 'Odpni stolpec',
