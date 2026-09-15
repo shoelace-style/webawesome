@@ -112,6 +112,23 @@ describe('<wa-select>', () => {
           expect(tag.hasAttribute('pill')).to.be.true;
         });
 
+        it('should pass pill and size to the overflow tag', async () => {
+          const el = await fixture<WaSelect>(html`
+            <wa-select multiple pill size="l" max-options-visible="1">
+              <wa-option value="option-1" selected>Option 1</wa-option>
+              <wa-option value="option-2" selected>Option 2</wa-option>
+              <wa-option value="option-3" selected>Option 3</wa-option>
+            </wa-select>
+          `);
+          const tags = el.shadowRoot!.querySelectorAll('[part~="tag"]');
+          const overflowTag = tags[tags.length - 1];
+
+          expect(tags.length).to.equal(2);
+          expect(overflowTag.textContent?.trim()).to.equal('+2');
+          expect(overflowTag.hasAttribute('pill')).to.be.true;
+          expect(overflowTag.getAttribute('size')).to.equal('l');
+        });
+
         it('should update the display label when an option changes', async () => {
           const el = await fixture<WaSelect>(html`
             <wa-select value="option-1">
