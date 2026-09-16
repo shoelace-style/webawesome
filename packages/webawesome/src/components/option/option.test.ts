@@ -107,6 +107,26 @@ describe('<wa-option>', () => {
       });
 
       describe('slots', () => {
+        async function ignoreControllerlessUpdates() {
+          const option = await fixture<WaOption>(html`<wa-option value="1">One</wa-option>`);
+          await aTimeout(0);
+          const whenDefined = sinon.spy(customElements, 'whenDefined');
+
+          try {
+            option.textContent = 'Updated label';
+            option.value = '2';
+            await aTimeout(0);
+
+            expect(option.label).to.equal('Updated label');
+            expect(whenDefined.calledWith('wa-select')).to.be.false;
+            expect(whenDefined.calledWith('wa-combobox')).to.be.false;
+          } finally {
+            whenDefined.restore();
+          }
+        }
+
+        it('should not wait for a controller when used on its own', ignoreControllerlessUpdates);
+
         it('should render default slot content', async () => {
           const el = await fixture<WaOption>(html` <wa-option>My Option</wa-option> `);
           const slot = el.shadowRoot!.querySelector<HTMLSlotElement>('slot:not([name])');
@@ -202,6 +222,44 @@ describe('<wa-option>', () => {
       });
 
       describe('within a select', () => {
+        async function notifyOnlyTheActualController() {
+          const select = await fixture<WaSelect>(html`
+            <wa-select label="Test" value="1">
+              <wa-option value="1">One</wa-option>
+            </wa-select>
+          `);
+          await aTimeout(0);
+
+          const option = select.querySelector<WaOption>('wa-option')!;
+          const whenDefined = sinon.spy(customElements, 'whenDefined');
+          const notify = sinon.spy(select, 'handleDefaultSlotChange');
+
+          try {
+            option.textContent = 'Updated label';
+            await aTimeout(0);
+
+            expect(option.label).to.equal('Updated label');
+            expect(select.displayLabel).to.equal('Updated label');
+            expect(notify.called).to.be.true;
+            expect(whenDefined.calledWith('wa-select')).to.be.true;
+            expect(whenDefined.calledWith('wa-combobox')).to.be.false;
+
+            whenDefined.resetHistory();
+            notify.resetHistory();
+            option.value = '2';
+            await aTimeout(0);
+
+            expect(notify.called).to.be.true;
+            expect(whenDefined.calledWith('wa-select')).to.be.true;
+            expect(whenDefined.calledWith('wa-combobox')).to.be.false;
+          } finally {
+            whenDefined.restore();
+            notify.restore();
+          }
+        }
+
+        it('should notify its select without waiting for an unrelated combobox', notifyOnlyTheActualController);
+
         it('should be selectable inside a wa-select', async () => {
           const select = await fixture<WaSelect>(html`
             <wa-select label="Test" value="2">
