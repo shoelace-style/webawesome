@@ -240,8 +240,8 @@ These cover patterns Shoelace users frequently built themselves or stitched toge
 | `<wa-chart>` and typed subclasses        | Eight typed subclasses: bar, line, pie, doughnut, bubble, scatter, radar, and polar area. Built on Chart.js, themed with Web Awesome design tokens. |
 | `<wa-sparkline>`                         | Small inline trend visualization.                                                                                                                   |
 | `<wa-data-grid>`                         | Tabular data with sorting, filtering, grouping, pagination, and virtualization. {{ statusBadge('experimental') }}                                   |
-| `<wa-date-input>` and `<wa-date-picker>` | Segmented date entry and inline calendar selection. {{ statusBadge('experimental') }}                                                               |
-| `<wa-video>` and `<wa-video-playlist>`   | Video playback with custom controls, captions, and playlists. {{ statusBadge('experimental') }}                                                     |
+| `<wa-date-input>` and `<wa-date-picker>` | Segmented date entry and inline calendar selection.                                                                                                 |
+| `<wa-video>` and `<wa-video-playlist>`   | Video playback with custom controls, captions, and playlists.                                                                                       |
 
 #### Per-Component Changes
 
@@ -590,7 +590,7 @@ Web Animations API surface is unchanged. Event renames:
 
 ##### wa-copy-button <span class="de-emphasize">(was sl-copy-button)</span>
 
-Currently {{ statusBadge('experimental') }}. Otherwise drop-in.
+Drop-in aside from the event renames.
 
 | Shoelace   | Web Awesome | Change  |
 | ---------- | ----------- | ------- |
@@ -837,8 +837,8 @@ Web Awesome Pro is a separate, paid package (`@awesome.me/webawesome-pro`) that 
 - [`<wa-chart>`](/docs/components/chart) and eight typed chart subclasses (built on Chart.js, themed via design tokens)
 - [`<wa-sparkline>`](/docs/components/sparkline): inline trend visualization
 - [`<wa-data-grid>`](/docs/components/data-grid): tabular data with sorting, filtering, and virtualization {{ statusBadge('experimental') }}
-- [`<wa-date-input>`](/docs/components/date-input) and [`<wa-date-picker>`](/docs/components/date-picker): segmented date entry and inline calendar selection {{ statusBadge('experimental') }}
-- [`<wa-video>`](/docs/components/video) and [`<wa-video-playlist>`](/docs/components/video-playlist): video playback with custom controls, captions, and playlists {{ statusBadge('experimental') }}
+- [`<wa-date-input>`](/docs/components/date-input) and [`<wa-date-picker>`](/docs/components/date-picker): segmented date entry and inline calendar selection
+- [`<wa-video>`](/docs/components/video) and [`<wa-video-playlist>`](/docs/components/video-playlist): video playback with custom controls, captions, and playlists
 - 8 additional [themes](/docs/themes) (`active`, `brutalist`, `glossy`, `matter`, `mellow`, `playful`, `premium`, `tailspin`) with additional hand-crafted [color palettes](/docs/color-palettes)
 - Pro Theme Builder, Pro Color Tools, Pattern Library, Figma Design Kit
 - Hosted projects and human support
