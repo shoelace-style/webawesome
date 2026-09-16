@@ -518,12 +518,12 @@ describe('<wa-stepper>', () => {
       });
 
       describe('size and variant', () => {
-        it('should scale the marker with the size attribute', async () => {
+        it('should scale the marker with the font size', async () => {
           const wrapper = await fixture<HTMLDivElement>(html`
             <div>
-              <wa-stepper active="cart" size="s"><wa-step name="cart">Cart</wa-step></wa-stepper>
+              <wa-stepper active="cart" style="font-size: 12px"><wa-step name="cart">Cart</wa-step></wa-stepper>
               <wa-stepper active="cart"><wa-step name="cart">Cart</wa-step></wa-stepper>
-              <wa-stepper active="cart" size="l"><wa-step name="cart">Cart</wa-step></wa-stepper>
+              <wa-stepper active="cart" style="font-size: 20px"><wa-step name="cart">Cart</wa-step></wa-stepper>
             </div>
           `);
 

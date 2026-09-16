@@ -5,7 +5,6 @@ import { WaStepChangeEvent } from '../../events/step-change.js';
 import { parseSpaceDelimitedTokens } from '../../internal/parse.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import sizeStyles from '../../styles/component/size.styles.js';
 import visuallyHidden from '../../styles/component/visually-hidden.styles.js';
 import { LocalizeController } from '../../utilities/localize.js';
 import '../step/step.js';
@@ -50,7 +49,7 @@ import styles from './stepper.styles.js';
  */
 @customElement('wa-stepper')
 export default class WaStepper extends WebAwesomeElement {
-  static css = [sizeStyles, visuallyHidden, styles];
+  static css = [visuallyHidden, styles];
 
   private readonly localize = new LocalizeController(this);
   private mutationObserver?: MutationObserver;
@@ -72,9 +71,6 @@ export default class WaStepper extends WebAwesomeElement {
    * it hydrates, which is why `horizontal` is the default.
    */
   @property({ reflect: true }) orientation: 'horizontal' | 'vertical' | 'auto' = 'horizontal';
-
-  /** The stepper's size. Scales the markers, connectors, and text together. */
-  @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
 
   /**
    * Requires steps to be completed in order. When set, `next()`/`goTo()`/a `data-stepper` invoker and, if

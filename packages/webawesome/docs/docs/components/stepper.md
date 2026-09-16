@@ -113,36 +113,42 @@ To flag a step that failed or needs attention, pair the variant with an icon in 
 
 ### Size
 
-Use the `size` attribute to change a stepper's size. Markers, connectors, and text scale together, so a stepper sits at the same scale as the buttons and inputs around it.
+A stepper is sized relative to the current font size, like a badge. Set `font-size` on the stepper (or an ancestor element) to change it; markers, connectors, and text scale together.
 
 ```html {.example}
-<div class="wa-stack">
-  <wa-stepper size="xs" active="shipping">
+<div class="wa-stack wa-gap-l">
+  <wa-stepper class="size-stepper" active="shipping" style="font-size: var(--wa-font-size-xs);">
     <wa-step name="cart" completed>Cart</wa-step>
     <wa-step name="shipping">Shipping</wa-step>
     <wa-step name="payment">Payment</wa-step>
   </wa-stepper>
-  <wa-stepper size="s" active="shipping">
+  <wa-stepper class="size-stepper" active="shipping" style="font-size: var(--wa-font-size-s);">
     <wa-step name="cart" completed>Cart</wa-step>
     <wa-step name="shipping">Shipping</wa-step>
     <wa-step name="payment">Payment</wa-step>
   </wa-stepper>
-  <wa-stepper size="m" active="shipping">
+  <wa-stepper class="size-stepper" active="shipping" style="font-size: var(--wa-font-size-m);">
     <wa-step name="cart" completed>Cart</wa-step>
     <wa-step name="shipping">Shipping</wa-step>
     <wa-step name="payment">Payment</wa-step>
   </wa-stepper>
-  <wa-stepper size="l" active="shipping">
+  <wa-stepper class="size-stepper" active="shipping" style="font-size: var(--wa-font-size-l);">
     <wa-step name="cart" completed>Cart</wa-step>
     <wa-step name="shipping">Shipping</wa-step>
     <wa-step name="payment">Payment</wa-step>
   </wa-stepper>
-  <wa-stepper size="xl" active="shipping">
+  <wa-stepper class="size-stepper" active="shipping" style="font-size: var(--wa-font-size-xl);">
     <wa-step name="cart" completed>Cart</wa-step>
     <wa-step name="shipping">Shipping</wa-step>
     <wa-step name="payment">Payment</wa-step>
   </wa-stepper>
 </div>
+
+<style>
+  .size-stepper {
+    max-inline-size: 24em;
+  }
+</style>
 ```
 
 ### Drawing Attention
