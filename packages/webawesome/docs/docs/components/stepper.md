@@ -72,7 +72,7 @@ Set the `orientation` attribute to `vertical` to stack the steps, useful in a si
 
 Set it to `auto` to lay steps out in a row and stack them when the stepper is narrower than about 6em per step, so labels stay readable on small screens. Use it for any stepper that will be shown on a phone. Resize the example to see the switch. While stacked, the stepper has the `stacked` custom state, so `wa-stepper:state(stacked)` targets it.
 
-The default, `horizontal`, keeps a row at any width and wraps labels instead. It's the default because `auto` measures the stepper in the browser, so a server-rendered `auto` stepper renders as a row first and stacks once it hydrates.
+The default, `horizontal`, keeps a row at any width. Labels wrap between words, and a row that still can't fit overflows its container rather than squeezing the steps. It's the default because `auto` measures the stepper in the browser, so a server-rendered `auto` stepper renders as a row first and stacks once it hydrates.
 
 ```html {.example}
 <wa-stepper orientation="auto" active="team">
@@ -407,10 +407,54 @@ Use the exported [CSS parts](#css-parts) and [custom properties](#css-custom-pro
 </style>
 ```
 
+Here the connector properties become a transit line, the `marker` part turns each stop into a ring, and the `completed` and `active` custom states mark the stops behind you and the one you're at. Shrink it to see `orientation="auto"` stack it into a strip map.
+
+```html {.example}
+<wa-stepper class="tube-stepper" label="Piccadilly line" orientation="auto" active="green-park">
+  <wa-step name="heathrow" completed>Heathrow</wa-step>
+  <wa-step name="earls-court" completed>
+    Earl's Court
+    <span slot="description">District line</span>
+  </wa-step>
+  <wa-step name="knightsbridge" completed>Knightsbridge</wa-step>
+  <wa-step name="green-park" attention="pulse">
+    Green Park
+    <span slot="description">Victoria and Jubilee lines</span>
+  </wa-step>
+  <wa-step name="kings-cross">King's Cross</wa-step>
+</wa-stepper>
+
+<style>
+  .tube-stepper {
+    --line: var(--wa-color-brand-fill-loud);
+    --marker-size: 1.25em;
+    --gap: var(--wa-space-m);
+    --connector-width: 0.375em;
+    --connector-gap: 0px;
+    --connector-color: var(--wa-color-brand-fill-normal);
+    --connector-color-active: var(--line);
+  }
+
+  .tube-stepper wa-step::part(marker) {
+    color: transparent;
+    background-color: var(--wa-color-surface-default);
+    border: 0.25em solid var(--line);
+  }
+
+  .tube-stepper wa-step:state(completed)::part(marker) {
+    background-color: var(--line);
+  }
+
+  .tube-stepper wa-step:state(active)::part(marker) {
+    scale: 1.25;
+  }
+</style>
+```
+
 Steps share the row equally. Give a step with more content extra room by setting `flex` on it. The connectors meet in the middle of each gap, so uneven widths don't break the line. In a stacked layout, `flex` has no effect, because the column has no extra height to distribute.
 
 ```html {.example}
-<wa-stepper class="uneven-stepper" active="mordor">
+<wa-stepper class="uneven-stepper" orientation="auto" active="mordor">
   <wa-step name="shire" completed>The Shire</wa-step>
   <wa-step name="rivendell" completed>Rivendell</wa-step>
   <wa-step name="moria" completed>Moria</wa-step>
