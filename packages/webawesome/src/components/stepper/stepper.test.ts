@@ -1,4 +1,5 @@
-import { expect, html, waitUntil } from '@open-wc/testing';
+import { aTimeout, expect, html, waitUntil } from '@open-wc/testing';
+import { sendKeys } from '@web/test-runner-commands';
 import sinon from 'sinon';
 import { fixtures } from '../../internal/test/fixture.js';
 import type WaStep from '../step/step.js';
@@ -199,7 +200,7 @@ describe('<wa-stepper>', () => {
       });
 
       describe('linear mode', () => {
-        it('should mark only the step right after the active one as locked', async () => {
+        it('should lock every step past the first incomplete one', async () => {
           const el = await whenSynced(
             await fixture<WaStepper>(html`
               <wa-stepper active="shipping" linear>
@@ -215,7 +216,7 @@ describe('<wa-stepper>', () => {
           expect(cart.customStates.has('locked')).to.be.false;
           expect(shipping.customStates.has('locked')).to.be.false;
           expect(payment.customStates.has('locked')).to.be.true;
-          expect(review.customStates.has('locked')).to.be.false;
+          expect(review.customStates.has('locked')).to.be.true;
         });
 
         it('should no-op when jumping past the locked boundary', async () => {
@@ -248,12 +249,10 @@ describe('<wa-stepper>', () => {
       });
 
       describe('connector coloring', () => {
-        it('should color every connector at or before the active step, and none after it, regardless of completed', async () => {
-          // "completed" is set on cart only, but that shouldn't matter — coloring tracks the active step's
-          // position, not the `completed` attribute.
+        it('should color the connector after every completed step and no others', async () => {
           const el = await whenSynced(
             await fixture<WaStepper>(html`
-              <wa-stepper active="shipping">
+              <wa-stepper active="payment">
                 <wa-step name="cart" completed>Cart</wa-step>
                 <wa-step name="shipping">Shipping</wa-step>
                 <wa-step name="payment">Payment</wa-step>
@@ -263,40 +262,52 @@ describe('<wa-stepper>', () => {
 
           const [cart, shipping, payment] = getSteps(el);
           expect(cart.customStates.has('connector-active')).to.be.true;
-          expect(shipping.customStates.has('connector-active')).to.be.true;
-          expect(payment.customStates.has('connector-active')).to.be.false;
-        });
-
-        it('should turn the connector after the active step gray even when the active step itself is completed', async () => {
-          const el = await whenSynced(
-            await fixture<WaStepper>(html`
-              <wa-stepper active="cart">
-                <wa-step name="cart" completed>Cart</wa-step>
-                <wa-step name="shipping">Shipping</wa-step>
-                <wa-step name="payment">Payment</wa-step>
-              </wa-stepper>
-            `),
-          );
-
-          const [, shipping, payment] = getSteps(el);
           expect(shipping.customStates.has('connector-active')).to.be.false;
           expect(payment.customStates.has('connector-active')).to.be.false;
         });
 
-        it('should color the connector leading into the active step even when nothing is completed', async () => {
+        it('should color the connector after a completed step even when the active step is behind it', async () => {
           const el = await whenSynced(
             await fixture<WaStepper>(html`
-              <wa-stepper active="payment">
+              <wa-stepper active="cart">
                 <wa-step name="cart">Cart</wa-step>
-                <wa-step name="shipping">Shipping</wa-step>
+                <wa-step name="shipping" completed>Shipping</wa-step>
                 <wa-step name="payment">Payment</wa-step>
               </wa-stepper>
             `),
           );
 
-          const [, shipping, payment] = getSteps(el);
+          const [cart, shipping] = getSteps(el);
+          expect(cart.customStates.has('connector-active')).to.be.false;
           expect(shipping.customStates.has('connector-active')).to.be.true;
-          expect(payment.customStates.has('connector-active')).to.be.true;
+        });
+
+        it('should hand the previous variant to the half-connector leading in', async () => {
+          const el = await whenSynced(
+            await fixture<WaStepper>(html`
+              <wa-stepper active="payment">
+                <wa-step name="cart" completed variant="success">Cart</wa-step>
+                <wa-step name="shipping" completed>Shipping</wa-step>
+                <wa-step name="payment">Payment</wa-step>
+              </wa-stepper>
+            `),
+          );
+
+          const [cart, shipping, payment] = getSteps(el);
+          const startFill = (step: WaStep) =>
+            getComputedStyle(step.shadowRoot!.querySelector('.connector-start')!).backgroundColor;
+          const token = (name: string) => {
+            const probe = document.createElement('span');
+            probe.style.color = `var(${name})`;
+            document.body.append(probe);
+            const rgb = getComputedStyle(probe).color;
+            probe.remove();
+            return rgb;
+          };
+
+          expect(startFill(cart)).to.equal(token('--wa-color-neutral-fill-normal'));
+          expect(startFill(shipping)).to.equal(token('--wa-color-success-fill-normal'));
+          expect(startFill(payment)).to.equal(token('--wa-color-brand-fill-normal'));
         });
       });
 
@@ -397,75 +408,99 @@ describe('<wa-stepper>', () => {
           expect(el.active).to.equal('cart');
         });
 
-        it('a disabled step should not be focusable by mouse click', async () => {
-          // A tabindex="-1" element (needed to keep it out of the roving-tabindex target) is still focusable by
-          // mouse click in every browser — only Tab skips it. The stepper prevents the default mousedown action for
-          // disabled steps specifically to stop that; some browsers (e.g. Safari) would otherwise show a focus ring
-          // on a step that's supposed to be entirely non-interactive.
-          const el = await fixture<WaStepper>(html`
-            <wa-stepper active="cart">
-              <wa-step name="cart">Cart</wa-step>
-              <wa-step name="gift-wrap" disabled>Gift Wrap</wa-step>
-            </wa-stepper>
-          `);
+        it('should render no focusable controls when not clickable', async () => {
+          const el = await whenSynced(
+            await fixture<WaStepper>(html`
+              <wa-stepper active="cart">
+                <wa-step name="cart">Cart</wa-step>
+                <wa-step name="shipping">Shipping</wa-step>
+              </wa-stepper>
+            `),
+          );
 
-          const giftWrap = getSteps(el)[1];
-          const mousedownEvent = new MouseEvent('mousedown', { bubbles: true, cancelable: true });
-          giftWrap.dispatchEvent(mousedownEvent);
-
-          expect(mousedownEvent.defaultPrevented).to.be.true;
+          getSteps(el).forEach(step => {
+            expect(step.shadowRoot!.querySelector('button')).to.not.exist;
+            expect(step.hasAttribute('tabindex')).to.be.false;
+          });
         });
 
-        it('ArrowRight should move focus without changing the active step', async () => {
-          const el = await fixture<WaStepper>(html`
-            <wa-stepper active="cart">
-              <wa-step name="cart">Cart</wa-step>
-              <wa-step name="shipping">Shipping</wa-step>
-            </wa-stepper>
-          `);
+        it('should render each step as a button when clickable, disabling disabled and locked ones', async () => {
+          const el = await whenSynced(
+            await fixture<WaStepper>(html`
+              <wa-stepper active="cart" clickable linear>
+                <wa-step name="cart" completed>Cart</wa-step>
+                <wa-step name="gift-wrap" disabled>Gift Wrap</wa-step>
+                <wa-step name="shipping">Shipping</wa-step>
+              </wa-stepper>
+            `),
+          );
 
-          const [cart, shipping] = getSteps(el);
-          cart.focus();
-
-          cart.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true }));
-          await el.updateComplete;
-
-          expect(el.active).to.equal('cart');
-          expect(document.activeElement).to.equal(shipping);
+          const buttons = getSteps(el).map(
+            step => step.shadowRoot!.querySelector<HTMLButtonElement>('[part~="button"]')!,
+          );
+          expect(buttons.every(button => button?.localName === 'button')).to.be.true;
+          expect(buttons[0].disabled).to.be.false;
+          expect(buttons[1].disabled).to.be.true;
+          expect(buttons[2].disabled).to.be.true;
         });
 
-        it('Enter on a focused step should not activate it by default', async () => {
-          const el = await fixture<WaStepper>(html`
-            <wa-stepper active="cart">
-              <wa-step name="cart">Cart</wa-step>
-              <wa-step name="shipping">Shipping</wa-step>
-            </wa-stepper>
+        it('activating the button with the keyboard should change the active step', async () => {
+          const el = await whenSynced(
+            await fixture<WaStepper>(html`
+              <wa-stepper active="cart" clickable>
+                <wa-step name="cart">Cart</wa-step>
+                <wa-step name="shipping">Shipping</wa-step>
+              </wa-stepper>
+            `),
+          );
+
+          const shipping = getSteps(el)[1];
+          const button = shipping.shadowRoot!.querySelector<HTMLButtonElement>('[part~="button"]')!;
+          button.focus();
+          expect(shipping.shadowRoot!.activeElement).to.equal(button);
+
+          await sendKeys({ press: 'Enter' });
+          await waitUntil(() => el.active === 'shipping');
+        });
+      });
+
+      describe('size and variant', () => {
+        it('should scale the marker with the size attribute', async () => {
+          const wrapper = await fixture<HTMLDivElement>(html`
+            <div>
+              <wa-stepper active="cart" size="s"><wa-step name="cart">Cart</wa-step></wa-stepper>
+              <wa-stepper active="cart"><wa-step name="cart">Cart</wa-step></wa-stepper>
+              <wa-stepper active="cart" size="l"><wa-step name="cart">Cart</wa-step></wa-stepper>
+            </div>
           `);
 
-          const [, shipping] = getSteps(el);
-          shipping.focus();
+          const steppers = [...wrapper.querySelectorAll<WaStepper>('wa-stepper')];
+          await Promise.all(steppers.map(stepper => whenSynced(stepper)));
+          const [small, medium, large] = steppers.map(
+            stepper =>
+              stepper.querySelector('wa-step')!.shadowRoot!.querySelector('[part~="marker"]')!.getBoundingClientRect()
+                .width,
+          );
 
-          shipping.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
-          await el.updateComplete;
-
-          expect(el.active).to.equal('cart');
+          expect(small).to.be.lessThan(medium);
+          expect(medium).to.be.lessThan(large);
         });
 
-        it('Enter on a focused step should activate it when clickable', async () => {
-          const el = await fixture<WaStepper>(html`
-            <wa-stepper active="cart" clickable>
-              <wa-step name="cart">Cart</wa-step>
-              <wa-step name="shipping">Shipping</wa-step>
-            </wa-stepper>
-          `);
+        it('should keep the number in the marker whatever the variant', async () => {
+          const el = await whenSynced(
+            await fixture<WaStepper>(html`
+              <wa-stepper active="cart">
+                <wa-step name="cart">Cart</wa-step>
+                <wa-step name="shipping" variant="warning">Shipping</wa-step>
+                <wa-step name="payment" variant="danger">Payment</wa-step>
+              </wa-stepper>
+            `),
+          );
 
-          const [, shipping] = getSteps(el);
-          shipping.focus();
-
-          shipping.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
-          await el.updateComplete;
-
-          expect(el.active).to.equal('shipping');
+          const [, shipping, payment] = getSteps(el);
+          expect(shipping.shadowRoot!.querySelector('[part~="marker"] wa-icon')).to.not.exist;
+          expect(payment.shadowRoot!.querySelector('[part~="marker"]')!.textContent!.trim()).to.equal('3');
+          expect(payment.shadowRoot!.querySelector('[part~="status"]')!.textContent!.trim()).to.equal('Not completed');
         });
       });
 
@@ -521,6 +556,68 @@ describe('<wa-stepper>', () => {
         });
       });
 
+      describe('responsive layout', () => {
+        function isStacked(el: WaStepper) {
+          return getSteps(el).every(step => step.hasAttribute('data-wa-step-vertical'));
+        }
+
+        it('should stack an auto stepper that is too narrow to give each step room', async () => {
+          const wrapper = await fixture<HTMLDivElement>(html`
+            <div style="width: 240px">
+              <wa-stepper active="cart" orientation="auto">
+                <wa-step name="cart" completed>Cart</wa-step>
+                <wa-step name="shipping">Shipping</wa-step>
+                <wa-step name="payment">Payment</wa-step>
+              </wa-stepper>
+            </div>
+          `);
+
+          const el = await whenSynced(wrapper.querySelector('wa-stepper')!);
+          await waitUntil(() => isStacked(el));
+          expect(el.customStates.has('stacked')).to.be.true;
+
+          wrapper.style.width = '640px';
+          await waitUntil(() => !isStacked(el));
+          expect(el.customStates.has('stacked')).to.be.false;
+        });
+
+        it('should never stack by default', async () => {
+          const wrapper = await fixture<HTMLDivElement>(html`
+            <div style="width: 240px">
+              <wa-stepper active="cart">
+                <wa-step name="cart" completed>Cart</wa-step>
+                <wa-step name="shipping">Shipping</wa-step>
+                <wa-step name="payment">Payment</wa-step>
+              </wa-stepper>
+            </div>
+          `);
+
+          const el = await whenSynced(wrapper.querySelector('wa-stepper')!);
+          await aTimeout(50);
+          expect(isStacked(el)).to.be.false;
+        });
+
+        it('should wrap long labels instead of overflowing', async () => {
+          const wrapper = await fixture<HTMLDivElement>(html`
+            <div style="width: 420px">
+              <wa-stepper active="cart" orientation="horizontal">
+                <wa-step name="cart">Cart</wa-step>
+                <wa-step name="shipping">Shipping address and delivery preferences</wa-step>
+                <wa-step name="payment">Payment</wa-step>
+              </wa-stepper>
+            </div>
+          `);
+
+          const el = await whenSynced(wrapper.querySelector('wa-stepper')!);
+          const steps = el.shadowRoot!.querySelector<HTMLElement>('[part~="steps"]')!;
+          const label = getSteps(el)[1].shadowRoot!.querySelector('[part~="label"]')!.getBoundingClientRect();
+          const marker = getSteps(el)[1].shadowRoot!.querySelector('[part~="marker"]')!.getBoundingClientRect();
+
+          expect(steps.scrollWidth).to.be.at.most(steps.clientWidth + 1);
+          expect(label.height).to.be.greaterThan(marker.height);
+        });
+      });
+
       describe('vertical layout', () => {
         it('should stack the description under the label', async () => {
           const el = await whenSynced(
@@ -559,9 +656,7 @@ describe('<wa-stepper>', () => {
           const [plan, write] = getSteps(el);
           const planMarker = plan.shadowRoot!.querySelector('[part~="marker"]')!.getBoundingClientRect();
           const writeMarker = write.shadowRoot!.querySelector('[part~="marker"]')!.getBoundingClientRect();
-          const connectors = [
-            ...plan.shadowRoot!.querySelectorAll<HTMLElement>('[part~="connector"], [part~="connector-trailing"]'),
-          ]
+          const connectors = [...plan.shadowRoot!.querySelectorAll<HTMLElement>('[part~="connector"]')]
             .map(connector => connector.getBoundingClientRect())
             .filter(rect => rect.height > 0);
 

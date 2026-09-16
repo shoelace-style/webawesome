@@ -2,6 +2,15 @@ import { expect, html, waitUntil } from '@open-wc/testing';
 import { fixtures } from '../../internal/test/fixture.js';
 import type WaStep from './step.js';
 
+function toRgb(color: string) {
+  const probe = document.createElement('span');
+  probe.style.color = color;
+  document.body.append(probe);
+  const rgb = getComputedStyle(probe).color;
+  probe.remove();
+  return rgb;
+}
+
 describe('<wa-step>', () => {
   for (const fixture of fixtures) {
     describe(`with "${fixture.type}" rendering`, () => {
@@ -41,7 +50,6 @@ describe('<wa-step>', () => {
 
         expect(el.getAttribute('aria-disabled')).to.equal('true');
         expect(el.customStates.has('disabled')).to.be.true;
-        expect(el.tabIndex).to.equal(-1);
       });
 
       it('should set aria-current="step" only while active', async () => {
@@ -81,41 +89,49 @@ describe('<wa-step>', () => {
         await waitUntil(() => !el.shadowRoot!.querySelector('[part~="description"]')!.hasAttribute('hidden'));
       });
 
-      describe('marker color custom properties', () => {
+      describe('attention', () => {
+        it('should animate the marker, not the whole step, when attention is set', async () => {
+          const el = await fixture<WaStep>(html`<wa-step name="verify" attention="pulse">Verify email</wa-step>`);
+          const marker = el.shadowRoot!.querySelector('.marker')!;
+
+          expect(getComputedStyle(marker).animationName).to.equal('pulse');
+          expect(getComputedStyle(el).animationName).to.equal('none');
+
+          el.attention = 'bounce';
+          await el.updateComplete;
+          expect(getComputedStyle(marker).animationName).to.equal('bounce');
+        });
+      });
+
+      describe('variant', () => {
         function markerBackground(el: WaStep) {
           return getComputedStyle(el.shadowRoot!.querySelector('.marker')!).backgroundColor;
         }
 
-        it('should let --marker-background-color override the default fill', async () => {
-          const el = await fixture<WaStep>(html`<wa-step name="cart">Cart</wa-step>`);
-
-          el.style.setProperty('--marker-background-color', 'rgb(255, 0, 0)');
-
-          // A custom property change on the host crossing into its own shadow tree isn't reflected synchronously
-          // (or even after a single requestAnimationFrame) in a *derived* property that references it via var() —
-          // a real, if surprising, browser timing quirk, not something this component controls. Polling is the
-          // correct way to observe it, matching how the rest of this suite handles eventually-consistent state.
-          await waitUntil(() => markerBackground(el) === 'rgb(255, 0, 0)');
-        });
-
-        it("should tint an untouched step's marker toward its variant, distinct from the neutral default", async () => {
+        it("should tint an untouched step's ring toward its variant, distinct from the neutral default", async () => {
           const neutral = await fixture<WaStep>(html`<wa-step name="cart">Cart</wa-step>`);
-          const danger = await fixture<WaStep>(html`<wa-step name="cart" variant="danger">Cart</wa-step>`);
+          const warning = await fixture<WaStep>(html`<wa-step name="cart" variant="warning">Cart</wa-step>`);
+          const ringOf = (el: WaStep) => getComputedStyle(el.shadowRoot!.querySelector('.marker')!).borderColor;
 
-          expect(markerBackground(danger)).to.not.equal(markerBackground(neutral));
+          expect(markerBackground(neutral)).to.equal('rgba(0, 0, 0, 0)');
+          expect(ringOf(warning)).to.not.equal(ringOf(neutral));
         });
 
-        it('should let --marker-background-color win over a variant tint', async () => {
-          // Regression: --marker-background-color must NOT be given a default value anywhere (e.g. on <wa-stepper>),
-          // since var(--marker-background-color, <variant-tint-fallback>) only ever falls through to the tint when
-          // the property is genuinely unset. A stray default would resolve first and hide the tint permanently.
-          const el = await fixture<WaStep>(html`<wa-step name="cart" variant="danger">Cart</wa-step>`);
-          const tinted = markerBackground(el);
+        it('should keep the variant color on a completed step', async () => {
+          const wrapper = await fixture<HTMLDivElement>(html`
+            <div>
+              <wa-step name="a" completed>Brand</wa-step>
+              <wa-step name="b" completed variant="success">Success</wa-step>
+              <wa-step name="c" variant="success">Upcoming success</wa-step>
+            </div>
+          `);
 
-          el.style.setProperty('--marker-background-color', 'rgb(255, 0, 0)');
+          const [brand, success, upcoming] = [...wrapper.querySelectorAll<WaStep>('wa-step')];
+          const successFill = getComputedStyle(success).getPropertyValue('--wa-color-success-fill-normal').trim();
 
-          await waitUntil(() => markerBackground(el) === 'rgb(255, 0, 0)');
-          expect(markerBackground(el)).to.not.equal(tinted);
+          expect(markerBackground(success)).to.not.equal(markerBackground(brand));
+          expect(markerBackground(success)).to.not.equal(markerBackground(upcoming));
+          expect(markerBackground(success)).to.equal(toRgb(successFill));
         });
       });
     });

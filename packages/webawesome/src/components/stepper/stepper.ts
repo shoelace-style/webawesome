@@ -1,16 +1,13 @@
 import { html, isServer } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
-import { classMap } from 'lit/directives/class-map.js';
 import { WaAfterStepChangeEvent } from '../../events/after-step-change.js';
 import { WaStepChangeEvent } from '../../events/step-change.js';
-import { clamp } from '../../internal/math.js';
 import { parseSpaceDelimitedTokens } from '../../internal/parse.js';
-import { scrollIntoView } from '../../internal/scroll.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
+import sizeStyles from '../../styles/component/size.styles.js';
 import visuallyHidden from '../../styles/component/visually-hidden.styles.js';
 import { LocalizeController } from '../../utilities/localize.js';
-import '../button/button.js';
 import '../step/step.js';
 import type WaStep from '../step/step.js';
 import styles from './stepper.styles.js';
@@ -22,8 +19,6 @@ import styles from './stepper.styles.js';
  * @status experimental
  * @since 3.13
  *
- * @dependency wa-button
- * @dependency wa-icon
  * @dependency wa-step
  *
  * @event {{ step: WaStep, previousStep: WaStep | null }} wa-step-change - Emitted before the active step changes.
@@ -35,57 +30,54 @@ import styles from './stepper.styles.js';
  *
  * @csspart stepper - The component's outer `<nav>` wrapper.
  * @csspart summary - Visually hidden "Step X of Y" text that tells assistive technology where the active step sits.
- * @csspart steps-container - The container wrapping `steps` and, when present, the scroll buttons.
- * @csspart steps - The `<ol>` that lays out the steps. Scrolls horizontally when steps no longer fit.
- * @csspart scroll-button - The previous/next scroll buttons that show when steps overflow horizontally, a
- *  `<wa-button>`.
- * @csspart scroll-button-start - The starting scroll button.
- * @csspart scroll-button-end - The ending scroll button.
- * @csspart scroll-button__base - The scroll button's exported `base` part.
+ * @csspart steps - The `<ol>` that lays out the steps.
  *
  * @cssproperty [--gap=var(--wa-space-l)] - The space between steps.
  * @cssproperty [--marker-size=2em] - The size of each step's marker.
- * @cssproperty [--marker-color=var(--wa-color-neutral-on-normal)] - The text/icon color of an untouched step's
- *  marker. A step's own `variant` tints this unless the property is set explicitly, which always wins.
- * @cssproperty [--marker-background-color=var(--wa-color-neutral-fill-normal)] - The background color of an
- *  untouched step's marker.
- * @cssproperty [--marker-border-color=var(--wa-color-neutral-border-normal)] - The border color of an untouched
- *  step's marker.
- * @cssproperty [--connector-color=var(--wa-color-surface-border)] - The color of the connector line between
- *  incomplete steps.
- * @cssproperty [--connector-active=var(--wa-color-brand-fill-loud)] - The color of the connector line behind
- *  completed and active steps.
+ * @cssproperty [--connector-color=var(--wa-color-neutral-fill-normal)] - The color of the connector line after a
+ *  step that isn't completed.
+ * @cssproperty --connector-color-active - The color of the connector line after a completed step. Unset by default,
+ *  so the line takes the completed marker's fill and follows its `variant`.
  * @cssproperty [--connector-gap=0.35em] - The gap between a marker's edge and the connector line, on both sides.
  *  Kept clear of the marker geometrically, so it holds even if a marker's background is transparent.
  *
  * @cssstate completed - Applied when every step is completed.
  * @cssstate loading - Applied when at least one step is loading.
+ * @cssstate stacked - Applied while the steps are laid out vertically, whether by `orientation="vertical"` or because
+ *  an `auto` stepper is too narrow to give each step room.
  */
 @customElement('wa-stepper')
 export default class WaStepper extends WebAwesomeElement {
-  static css = [visuallyHidden, styles];
+  static css = [sizeStyles, visuallyHidden, styles];
 
   private readonly localize = new LocalizeController(this);
   private mutationObserver?: MutationObserver;
   private resizeObserver?: ResizeObserver;
-  private lastFocusedStep: WaStep | null = null;
 
   @query('.steps') stepsEl: HTMLOListElement;
 
-  @state() private hasScrollControls = false;
+  @state() private isStacked = false;
   @state() private activeIndex = 0;
   @state() private stepCount = 0;
 
   /** The name of the active step. Falls back to the first step if unset, or if it doesn't match any step's name. */
   @property({ reflect: true }) active = '';
 
-  /** The stepper's layout direction. */
-  @property({ reflect: true }) orientation: 'horizontal' | 'vertical' = 'horizontal';
+  /**
+   * The stepper's layout direction. `auto` lays steps out in a row and stacks them when the stepper is too narrow to
+   * give each step about 6em of width, so labels stay legible on small screens; use it for anything shown on a
+   * phone. It relies on measuring the stepper, so a server-rendered `auto` stepper starts as a row and stacks once
+   * it hydrates, which is why `horizontal` is the default.
+   */
+  @property({ reflect: true }) orientation: 'horizontal' | 'vertical' | 'auto' = 'horizontal';
+
+  /** The stepper's size. Scales the markers, connectors, and text together. */
+  @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
 
   /**
    * Requires steps to be completed in order. When set, `next()`/`goTo()`/a `data-stepper` invoker and, if
    * `clickable` is also set, clicking or activating a step can't reach a step until every step before it is
-   * completed. Future steps render as blocked.
+   * completed. Every step past that point renders as locked.
    */
   @property({ type: Boolean, reflect: true }) linear = false;
 
@@ -99,17 +91,11 @@ export default class WaStepper extends WebAwesomeElement {
   /** A label that describes the stepper to assistive devices. Especially useful when more than one is on the page. */
   @property() label = '';
 
-  /** Disables the scroll arrows that appear when steps overflow horizontally. */
-  @property({ attribute: 'without-scroll-controls', type: Boolean }) withoutScrollControls = false;
-
   constructor() {
     super();
 
     if (!isServer) {
       this.addEventListener('click', this.handleClick);
-      this.addEventListener('keydown', this.handleKeyDown);
-      this.addEventListener('focusin', this.handleFocusIn);
-      this.addEventListener('mousedown', this.handleMouseDown);
     }
   }
 
@@ -124,16 +110,24 @@ export default class WaStepper extends WebAwesomeElement {
           childList: true,
           subtree: true,
           attributes: true,
-          attributeFilter: ['name', 'completed', 'loading', 'disabled'],
+          attributeFilter: ['name', 'completed', 'loading', 'disabled', 'variant'],
         });
       });
     }
 
     // SSR guard: ResizeObserver is not available during server-side rendering. Catches viewport/container resizes;
-    // syncSteps() (steps added/removed, orientation changed) re-checks on its own via updateScrollControls() below.
+    // syncSteps() (steps added/removed, orientation changed) re-checks on its own via updateStacking() below.
     if (typeof ResizeObserver !== 'undefined') {
-      this.resizeObserver = new ResizeObserver(() => this.updateScrollControls());
-      this.updateComplete.then(() => this.resizeObserver!.observe(this.stepsEl));
+      this.resizeObserver = new ResizeObserver(entries => {
+        // Stacking changes the stepper's height, so apply it on the next frame like <wa-page> does, to keep the
+        // observer from reporting an undelivered-notifications loop.
+        requestAnimationFrame(() => {
+          for (const entry of entries) {
+            this.updateStacking(entry.borderBoxSize[0].inlineSize);
+          }
+        });
+      });
+      this.resizeObserver.observe(this);
     }
   }
 
@@ -149,22 +143,14 @@ export default class WaStepper extends WebAwesomeElement {
       // races the step's SSR hydration — flipping its marker between a plain number and a `<wa-icon>` before the
       // step has reconciled its server-rendered markup trips Lit's hydration mismatch check. Later syncs
       // (slotchange, attribute changes, goTo()) happen well after hydration and stay synchronous.
-      Promise.all(this.getAllSteps().map(step => step.updateComplete)).then(() => {
-        this.syncSteps();
-        this.scrollActiveStepIntoView('auto');
-      });
+      Promise.all(this.getAllSteps().map(step => step.updateComplete)).then(() => this.syncSteps());
     } else {
       this.syncSteps();
-      this.scrollActiveStepIntoView('auto');
     }
   }
 
   private getAllSteps(): WaStep[] {
     return [...this.querySelectorAll<WaStep>('wa-step')];
-  }
-
-  private getFocusableSteps(): WaStep[] {
-    return this.getAllSteps().filter(step => !step.disabled);
   }
 
   /** In `linear` mode, the 0-based index of the boundary a step's position must fall within (inclusive) to be reachable. */
@@ -195,33 +181,22 @@ export default class WaStepper extends WebAwesomeElement {
     }
 
     const boundaryIndex = this.getLinearBoundaryIndex(steps);
-    const activeIndex = steps.indexOf(activeStep);
-    this.activeIndex = activeIndex;
+    this.activeIndex = steps.indexOf(activeStep);
     this.stepCount = steps.length;
+    this.updateStacking(this.getBoundingClientRect().width);
+    const isVertical = this.orientation === 'vertical' || this.isStacked;
 
     steps.forEach((step, index) => {
       step.position = index + 1;
       step.active = step === activeStep;
-      step.locked = this.linear && index === boundaryIndex + 1;
+      step.locked = this.linear && index > boundaryIndex;
       step.clickable = this.clickable;
-      // The connector leading into a step is "active" (colored) for every step at or before the active one —
-      // marking how far the user has progressed, independent of each step's own `completed` attribute. The
-      // connector leading out of the active step (into whatever comes after it) is never active. Both halves of one
-      // logical connector (this step's leading half and the previous step's trailing half) always agree, since
-      // `index < activeIndex` here is equivalent to `index <= activeIndex` evaluated one step later.
-      step.connectorActive = index <= activeIndex;
-      step.trailingConnectorActive = index < activeIndex;
-      step.toggleAttribute('data-wa-step-vertical', this.orientation === 'vertical');
-    });
-
-    const focusableSteps = steps.filter(step => !step.disabled);
-    const focusTarget =
-      (this.lastFocusedStep && focusableSteps.includes(this.lastFocusedStep) && this.lastFocusedStep) ||
-      (activeStep && !activeStep.disabled && activeStep) ||
-      focusableSteps[0];
-
-    steps.forEach(step => {
-      step.tabIndex = step === focusTarget ? 0 : -1;
+      step.connectorActive = step.completed;
+      // The half-connector leading into a step is drawn by that step, so it needs to know the previous step's
+      // variant to match the half leading out of it.
+      const previous = steps[index - 1];
+      step.connectorStartVariant = previous?.completed ? previous.variant || 'brand' : '';
+      step.toggleAttribute('data-wa-step-vertical', isVertical);
     });
 
     this.customStates.set(
@@ -232,55 +207,30 @@ export default class WaStepper extends WebAwesomeElement {
     const isLoading = steps.some(step => step.loading);
     this.customStates.set('loading', isLoading);
     this.setAttribute('aria-busy', isLoading ? 'true' : 'false');
-
-    this.updateScrollControls();
+    this.customStates.set('stacked', isVertical);
   }
 
-  @watch(['active', 'linear', 'clickable', 'orientation'], { waitUntilFirstUpdate: true })
+  @watch(['active', 'linear', 'clickable', 'orientation', 'isStacked'], { waitUntilFirstUpdate: true })
   handleStateChange() {
     this.syncSteps();
   }
 
-  // Also runs as the change handler for `withoutScrollControls` itself, matching <wa-tab-group>'s equivalent watcher.
-  @watch('withoutScrollControls', { waitUntilFirstUpdate: true })
-  updateScrollControls() {
-    if (this.withoutScrollControls || this.orientation !== 'horizontal' || !this.stepsEl) {
-      this.hasScrollControls = false;
+  /**
+   * Decides whether an `auto` stepper stacks at the given width. Each step needs roughly 6em to keep a short label
+   * on one line, so the row stacks once the stepper is narrower than that times the step count, plus the gaps.
+   */
+  private updateStacking(width: number) {
+    if (this.orientation !== 'auto' || !this.stepsEl) {
+      this.isStacked = false;
       return;
     }
 
-    // Padding the comparison by a pixel avoids a Safari zoom rounding quirk toggling this indefinitely — see
-    // <wa-tab-group>'s identical comparison (https://github.com/shoelace-style/shoelace/issues/1839).
-    this.hasScrollControls = this.stepsEl.scrollWidth > this.stepsEl.clientWidth + 1;
-  }
+    const stepCount = this.getAllSteps().length;
+    const fontSize = parseFloat(getComputedStyle(this).fontSize);
+    const gap = parseFloat(getComputedStyle(this.stepsEl).columnGap) || 0;
+    const minRowWidth = stepCount * fontSize * 6 + Math.max(0, stepCount - 1) * gap;
 
-  private handleScrollToStart() {
-    this.stepsEl.scroll({
-      left:
-        this.localize.dir() === 'rtl'
-          ? this.stepsEl.scrollLeft + this.stepsEl.clientWidth
-          : this.stepsEl.scrollLeft - this.stepsEl.clientWidth,
-      behavior: 'smooth',
-    });
-  }
-
-  private handleScrollToEnd() {
-    this.stepsEl.scroll({
-      left:
-        this.localize.dir() === 'rtl'
-          ? this.stepsEl.scrollLeft - this.stepsEl.clientWidth
-          : this.stepsEl.scrollLeft + this.stepsEl.clientWidth,
-      behavior: 'smooth',
-    });
-  }
-
-  // Reveals the active step when it changes (goTo()/next()/previous(), or the initial `active` on first render) —
-  // distinct from the keyboard scroll-into-view in handleKeyDown below, which follows *focus*, not activation.
-  private scrollActiveStepIntoView(behavior: 'auto' | 'smooth' = 'smooth') {
-    if (this.orientation !== 'horizontal' || !this.stepsEl) return;
-
-    const activeStep = this.getAllSteps().find(step => step.active);
-    if (activeStep) scrollIntoView(activeStep, this.stepsEl, 'horizontal', behavior);
+    this.isStacked = width < minRowWidth;
   }
 
   /**
@@ -304,7 +254,6 @@ export default class WaStepper extends WebAwesomeElement {
     this.active = target.name;
 
     this.updateComplete.then(() => {
-      this.scrollActiveStepIntoView('smooth');
       this.dispatchEvent(new WaAfterStepChangeEvent({ step: target, previousStep }));
     });
   }
@@ -334,87 +283,9 @@ export default class WaStepper extends WebAwesomeElement {
     this.goTo(step.name);
   }
 
-  // A disabled step still carries a tabindex attribute (needed to keep it out of the roving-tabindex focus target
-  // without removing/re-adding the attribute on every sync), and any element with a tabindex attribute, even -1
-  // remains focusable by mouse click, just not by Tab. Preventing the default mousedown action is the standard way
-  // to stop click-to-focus without affecting the tabindex itself. See handleClick above for why the click itself
-  // already no-ops for disabled steps; this only stops the resulting focus ring some browsers would otherwise show.
-  private handleMouseDown(event: MouseEvent) {
-    const step = (event.target as HTMLElement).closest('wa-step');
-    if (step && step.closest('wa-stepper') === this && step.disabled) {
-      event.preventDefault();
-    }
-  }
-
-  private handleKeyDown(event: KeyboardEvent) {
-    const target = event.target as HTMLElement;
-    const step = target.closest('wa-step');
-
-    if (!step || step.closest('wa-stepper') !== this) return;
-
-    if (event.key === 'Enter' || event.key === ' ') {
-      if (this.clickable && !step.disabled) {
-        event.preventDefault();
-        this.goTo(step.name);
-      }
-      return;
-    }
-
-    if (!['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown', 'Home', 'End'].includes(event.key)) return;
-
-    const steps = this.getFocusableSteps();
-    if (steps.length === 0) return;
-
-    event.preventDefault();
-
-    const isRtl = this.localize.dir() === 'rtl';
-    const currentIndex = steps.indexOf(step);
-
-    const focusStepAt = (index: number) => {
-      const target = steps[clamp(index, 0, steps.length - 1)];
-      target?.focus();
-
-      if (target && this.orientation === 'horizontal') {
-        scrollIntoView(target, this.stepsEl, 'horizontal');
-      }
-    };
-
-    if (event.key === 'Home') {
-      focusStepAt(0);
-    } else if (event.key === 'End') {
-      focusStepAt(steps.length - 1);
-    } else if (
-      event.key === 'ArrowDown' ||
-      (event.key === 'ArrowRight' && !isRtl) ||
-      (event.key === 'ArrowLeft' && isRtl)
-    ) {
-      focusStepAt(currentIndex + 1);
-    } else {
-      focusStepAt(currentIndex - 1);
-    }
-  }
-
-  // Keeps the roving tabindex in sync as focus moves between steps, so a subsequent Tab into the stepper (e.g. after
-  // tabbing away and back) resumes at the step the user was last on.
-  private handleFocusIn = (event: FocusEvent) => {
-    const step = (event.target as HTMLElement).closest('wa-step');
-    if (!step || step.closest('wa-stepper') !== this || step.disabled) return;
-
-    this.lastFocusedStep = step;
-    this.getAllSteps().forEach(s => {
-      s.tabIndex = s === step ? 0 : -1;
-    });
-  };
-
   render() {
-    const isRtl = this.hasUpdated ? this.localize.dir() === 'rtl' : this.dir === 'rtl';
-
     return html`
-      <nav
-        part="stepper"
-        class=${classMap({ stepper: true, 'has-scroll-controls': this.hasScrollControls })}
-        aria-label=${this.label}
-      >
+      <nav part="stepper" class="stepper" aria-label=${this.label}>
         ${this.stepCount > 0
           ? html`
               <span part="summary" class="wa-visually-hidden">
@@ -422,49 +293,9 @@ export default class WaStepper extends WebAwesomeElement {
               </span>
             `
           : ''}
-        <div part="steps-container" class="steps-container">
-          ${this.hasScrollControls
-            ? html`
-                <wa-button
-                  part="scroll-button scroll-button-start"
-                  exportparts="base:scroll-button__base"
-                  class="scroll-button scroll-button-start"
-                  appearance="plain"
-                  @click=${this.handleScrollToStart}
-                >
-                  <wa-icon
-                    name=${isRtl ? 'chevron-right' : 'chevron-left'}
-                    library="system"
-                    variant="solid"
-                    label=${this.localize.term('scrollToStart')}
-                  ></wa-icon>
-                </wa-button>
-              `
-            : ''}
-
-          <ol part="steps" class="steps" role="list">
-            <slot @slotchange=${() => this.syncSteps()}></slot>
-          </ol>
-
-          ${this.hasScrollControls
-            ? html`
-                <wa-button
-                  part="scroll-button scroll-button-end"
-                  exportparts="base:scroll-button__base"
-                  class="scroll-button scroll-button-end"
-                  appearance="plain"
-                  @click=${this.handleScrollToEnd}
-                >
-                  <wa-icon
-                    name=${isRtl ? 'chevron-left' : 'chevron-right'}
-                    library="system"
-                    variant="solid"
-                    label=${this.localize.term('scrollToEnd')}
-                  ></wa-icon>
-                </wa-button>
-              `
-            : ''}
-        </div>
+        <ol part="steps" class="steps" role="list">
+          <slot @slotchange=${() => this.syncSteps()}></slot>
+        </ol>
       </nav>
     `;
   }

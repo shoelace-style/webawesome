@@ -1,6 +1,6 @@
 import { html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { classMap } from 'lit/directives/class-map.js';
+import { styleMap } from 'lit/directives/style-map.js';
 import { HasSlotController } from '../../internal/slot.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
@@ -26,8 +26,10 @@ import styles from './step.styles.js';
  *  indicator.
  *
  * @csspart step - The component's outer wrapper.
- * @csspart connector - The line connecting this step to the one before it.
- * @csspart connector-trailing - The line connecting this step to the one after it.
+ * @csspart connector - The line connecting this step to its neighbors. Each step draws the half leading in and the
+ *  half leading out, and both carry this part name.
+ * @csspart button - The `<button>` wrapping the marker and content. Only rendered when the parent stepper is
+ *  `clickable`; otherwise the same wrapper is a plain, non-focusable element.
  * @csspart marker - The circular marker that shows the step's number, checkmark, or loading indicator.
  * @csspart spinner - The spinner shown in the marker while the step is `loading`.
  * @csspart spinner__base - The spinner's exported `base` part.
@@ -39,19 +41,19 @@ import styles from './step.styles.js';
  *
  * @cssproperty [--marker-size=2em] - The size of the step's marker. Usually set on `<wa-stepper>` so every step
  *  matches.
+ * @cssproperty --pulse-color - The color of the marker's pulse effect when using `attention="pulse"`. Defaults to the
+ *  step's accent color.
  *
  * @cssstate active - Applied when this is the parent stepper's current step.
  * @cssstate completed - Mirrors the `completed` attribute.
  * @cssstate loading - Mirrors the `loading` attribute.
  * @cssstate disabled - Mirrors the `disabled` attribute.
- * @cssstate locked - Applied by the parent stepper when `linear` is set and this step is the one right after the
- *  active step.
+ * @cssstate locked - Applied by the parent stepper when `linear` is set and this step can't be reached yet, i.e. it
+ *  comes after the first incomplete step.
  * @cssstate clickable - Applied by the parent stepper when its `clickable` attribute is set, allowing this step to
  *  be clicked or activated (Enter/Space) directly.
- * @cssstate connector-active - Applied when the connector leading into this step should render as reached, i.e. this
- *  step is at or before the stepper's active step.
- * @cssstate trailing-connector-active - Applied when the connector leading out of this step, toward the next one,
- *  should render as reached, i.e. this step comes before the stepper's active step.
+ * @cssstate connector-active - Applied when the connector leading out of this step should render as reached, i.e. this
+ *  step is completed.
  */
 @customElement('wa-step')
 export default class WaStep extends WebAwesomeElement {
@@ -69,11 +71,20 @@ export default class WaStep extends WebAwesomeElement {
   /** Shows a loading indicator instead of the step number, e.g. while an async transition is in progress. */
   @property({ type: Boolean, reflect: true }) loading = false;
 
-  /** Makes the step non-interactive. It's not focusable, not clickable, and not reachable by arrow key navigation. */
+  /**
+   * Makes the step non-interactive. It can't be clicked or reached with `next()`/`goTo()`, and it renders as a
+   * disabled button when the stepper is `clickable`.
+   */
   @property({ type: Boolean, reflect: true }) disabled = false;
 
-  /** Overrides the marker's color. Purely cosmetic, and doesn't change behavior. */
+  /**
+   * Colors the step's marker with a semantic color, in every state. The color is cosmetic; pair it with an icon in the
+   * `bullet` slot and a clear label when a step needs to read as failed or flagged.
+   */
   @property({ reflect: true }) variant: 'neutral' | 'brand' | 'success' | 'warning' | 'danger' | '' = '';
+
+  /** Adds an animation to the step's marker to draw attention to it, e.g. the step the user should do next. */
+  @property({ reflect: true }) attention: 'none' | 'pulse' | 'bounce' = 'none';
 
   /**
    * Only required for SSR. Set to `true` if you're slotting in a `description` element, so the server-rendered
@@ -91,37 +102,30 @@ export default class WaStep extends WebAwesomeElement {
   @state() active = false;
 
   /**
-   * @internal Set by the parent `<wa-stepper>` to match its own `clickable` attribute. Governs the marker's cursor
-   * affordance.
+   * @internal Set by the parent `<wa-stepper>` to match its own `clickable` attribute. Renders the step's marker and
+   * content inside a `<button>` when set.
    */
   @state() clickable = false;
 
   /**
-   * @internal Set by the parent `<wa-stepper>`. True only for the single step right after the active one when the
-   * stepper's `linear` attribute is set.
+   * @internal Set by the parent `<wa-stepper>`. True for every step that can't be reached yet when the stepper's
+   * `linear` attribute is set.
    */
   @state() locked = false;
 
   /**
-   * @internal Set by the parent `<wa-stepper>`. Whether the connector leading into this step should render as
-   * "reached": true for every step at or before the active one, false for the connector leading out of the active
-   * step and everything after it.
+   * @internal Set by the parent `<wa-stepper>`. Whether the connector leading out of this step, toward the next
+   * one, should render as "reached": true when this step is completed.
    */
   @state() connectorActive = false;
 
   /**
-   * @internal Set by the parent `<wa-stepper>`. Whether the connector leading out of this step, toward the next
-   * one, should render as "reached": true for every step strictly before the active one.
+   * @internal Set by the parent `<wa-stepper>`. The variant of the completed step before this one, so the
+   * half-connector leading in matches the half leading out of it. Empty when the previous step isn't completed.
    */
-  @state() trailingConnectorActive = false;
+  @state() connectorStartVariant = '';
 
   @property({ reflect: true }) role = 'listitem';
-
-  /**
-   * @internal
-   * Need to wrap in a `@property()` otherwise NextJS blows up.
-   */
-  @property({ type: Number, reflect: true, attribute: 'tabindex' }) tabIndex = -1;
 
   @watch('completed')
   handleCompletedChange() {
@@ -138,12 +142,6 @@ export default class WaStep extends WebAwesomeElement {
   handleDisabledChange() {
     this.customStates.set('disabled', this.disabled);
     this.syncAriaDisabled();
-
-    // Belt-and-suspenders: the parent stepper also excludes disabled steps from its roving tabindex, but a step
-    // can be disabled before it's ever synced by its stepper (e.g. set before being slotted in).
-    if (this.disabled) {
-      this.tabIndex = -1;
-    }
   }
 
   @watch('active')
@@ -184,11 +182,6 @@ export default class WaStep extends WebAwesomeElement {
     this.customStates.set('connector-active', this.connectorActive);
   }
 
-  @watch('trailingConnectorActive')
-  handleTrailingConnectorActiveChange() {
-    this.customStates.set('trailing-connector-active', this.trailingConnectorActive);
-  }
-
   private renderBullet() {
     if (this.loading) {
       return html`<wa-spinner part="spinner" exportparts="base:spinner__base"></wa-spinner>`;
@@ -198,40 +191,46 @@ export default class WaStep extends WebAwesomeElement {
       return html`<wa-icon name="check" library="system" variant="solid"></wa-icon>`;
     }
 
-    if (this.locked) {
-      // Unlike `check` (used above), `lock` isn't in the small curated "system" icon set, so this uses the default
-      // (full Font Awesome) library instead.
-      return html`<wa-icon name="lock" variant="solid"></wa-icon>`;
-    }
-
-    return this.position;
+    return this.localize.number(this.position);
   }
 
   render() {
     const hasDescription = this.hasSlotController.test('description', 'withDescription');
 
+    const body = html`
+      <span part="marker" class="marker">
+        <slot name="bullet">${this.renderBullet()}</slot>
+      </span>
+      <span part="content" class="content">
+        <span part="label" class="label">
+          <slot></slot>
+        </span>
+        <span part="status" class="wa-visually-hidden">${this.getStatusText()}</span>
+        <span part="description" class="description" ?hidden=${!hasDescription}>
+          <slot name="description"></slot>
+        </span>
+      </span>
+    `;
+
     return html`
       <div part="step" class="step">
-        <span part="connector" class="connector"></span>
-        <span part="connector-trailing" class="connector-trailing"></span>
         <span
-          part="marker"
-          class=${classMap({
-            marker: true,
-            'marker-completed': this.completed,
+          part="connector"
+          class="connector-start"
+          style=${styleMap({
+            '--_connector-start-fill': this.connectorStartVariant
+              ? `var(--connector-color-active, var(--wa-color-${this.connectorStartVariant}-fill-normal))`
+              : null,
           })}
-        >
-          <slot name="bullet">${this.renderBullet()}</slot>
-        </span>
-        <span part="content" class="content">
-          <span part="label" class="label">
-            <slot></slot>
-          </span>
-          <span part="status" class="wa-visually-hidden">${this.getStatusText()}</span>
-          <span part="description" class="description" ?hidden=${!hasDescription}>
-            <slot name="description"></slot>
-          </span>
-        </span>
+        ></span>
+        <span part="connector" class="connector-end"></span>
+        ${this.clickable
+          ? html`
+              <button part="button" class="body" type="button" ?disabled=${this.disabled || this.locked}>
+                ${body}
+              </button>
+            `
+          : html`<div class="body">${body}</div>`}
       </div>
     `;
   }
