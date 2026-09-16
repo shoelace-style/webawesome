@@ -32,6 +32,7 @@ export interface Translation extends DefaultTranslation {
   $name: string; // e.g. English, Español
   $dir: 'ltr' | 'rtl';
 
+  allTagsRemoved: string;
   am: string;
   autosizeColumn: string;
   captions: string;
@@ -155,10 +156,16 @@ export interface Translation extends DefaultTranslation {
   sortColumn: string;
   sortDescending: string;
   startDate: string;
+  tagAdded: (tag: string) => string;
+  tagAlreadyAdded: (tag: string) => string;
+  tagInputKeyboardHelp: string;
+  tagRemoved: (tag: string) => string;
   time: string;
   timeInputKeyboardHelp: string;
   today: string;
   toggleColorFormat: string;
+  tooFewTags: (min: number) => string;
+  tooManyTags: (max: number) => string;
   unmute: string;
   unpin: string;
   unpinColumn: string;

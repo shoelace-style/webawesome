@@ -6,6 +6,7 @@ const translation: Translation = {
   $name: 'Deutsch',
   $dir: 'ltr',
 
+  allTagsRemoved: 'Alle Schlagwörter entfernt',
   am: 'AM',
   autosizeColumn: 'Spaltenbreite anpassen',
   captions: 'Untertitel',
@@ -146,11 +147,19 @@ const translation: Translation = {
   sortColumn: 'Spalte sortieren',
   sortDescending: 'Absteigend sortieren',
   startDate: 'Startdatum',
+  tagAdded: tag => `${tag} hinzugefügt`,
+  tagAlreadyAdded: tag => `${tag} ist bereits vorhanden`,
+  tagInputKeyboardHelp: 'Drücken Sie die Rücktaste oder Entf, um dieses Schlagwort zu entfernen.',
+  tagRemoved: tag => `${tag} entfernt`,
   time: 'Uhrzeit',
   timeInputKeyboardHelp:
     'Verwenden Sie die Pfeiltasten, um Werte zu ändern; drücken Sie Alt+Pfeil nach unten, um die Uhrzeitauswahl zu öffnen.',
   today: 'Heute',
   toggleColorFormat: 'Farbformat wechseln',
+  tooFewTags: min =>
+    min === 1 ? 'Fügen Sie mindestens 1 Schlagwort hinzu' : `Fügen Sie mindestens ${min} Schlagwörter hinzu`,
+  tooManyTags: max =>
+    max === 1 ? 'Fügen Sie höchstens 1 Schlagwort hinzu' : `Fügen Sie höchstens ${max} Schlagwörter hinzu`,
   unmute: 'Stummschaltung aufheben',
   unpin: 'Lösen',
   unpinColumn: 'Spalte lösen',

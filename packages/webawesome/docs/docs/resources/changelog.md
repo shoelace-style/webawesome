@@ -34,13 +34,30 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 :::added
 
 - Added the `<wa-stepper>` and `<wa-step>` components for guiding users through a multi-step process, such as a checkout flow or setup wizard
+- Added the experimental `<wa-tag-input>` component for collecting a list of short values, such as keywords, email addresses, or labels, as removable tags [pr:2796]
+
+:::
 
 :::fixed
 
-- Fixed a bug in `<wa-page>` where empty contents for `navigation-footer` would reserve space for a navigation footer in the mobile navigation drawer.
+- Fixed a bug in `<wa-page>` where empty contents for `navigation-footer` would reserve space for a navigation footer in the mobile navigation drawer
 - Fixed a bug in `<wa-page>` where the header did not have a background set. [pr:2690]
 - Fixed a bug in `.wa-visually-hidden` utility where it did not set a `top` and `left` causing unexpected overflows. [pr:2765]
+- Fixed a bug in `<wa-tooltip>` where hovering content projected into the tooltip through a `<slot>` closed the tooltip
 - Fixed `<wa-accordion>` removing headers from the page's tab sequence via a roving tabindex; `Tab` and `Shift + Tab` now move through every header, matching the [W3C accordion pattern](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/examples/accordion/). Arrow keys and Home/End remain as shortcuts for moving between headers.
+- Fixed a bug in `<wa-combobox>` where typing into a closed combobox showed all options on the first keystroke instead of filtering [issue:2776]
+- Fixed a bug in `<wa-data-grid>` where picking a date in a `date-range` column filter emptied the filter panel while leaving the popover open, leaving a small empty box anchored to the filter button
+- Fixed a bug in `<wa-data-grid>` where the first click on a link or button rendered by a `formatter` that returns a DOM node was discarded, so neither the control nor `wa-cell-click` responded until a second click [issue:2763]
+- Fixed a bug in `<wa-data-grid>` where a `flex` column with a `minWidth` above 150 lost its flex and rendered at `minWidth` instead [issue:2791]
+- Fixed a bug in `<wa-data-grid>` where icons incorrectly resolved through the default icon library instead of the system library, so they failed to render when the default library was customized or unavailable [issue:2801]
+
+:::
+
+:::changed
+
+- Promoted the following components from {{ statusBadge('experimental') }} to {{ statusBadge('stable') }}
+  - Free: `<wa-accordion>`, `<wa-accordion-item>`, `<wa-known-date>`, `<wa-otp-input>`, `<wa-pagination>`, `<wa-random-content>`, and `<wa-time-input>`
+  - Pro: `<wa-date-input>`, `<wa-date-picker>`, `<wa-video>`, and `<wa-video-playlist>`
 
 :::
 

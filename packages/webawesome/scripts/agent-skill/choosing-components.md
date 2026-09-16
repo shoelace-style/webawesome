@@ -87,7 +87,7 @@ Non-interactive output telling the user something.
 | You need…                                                  | Use                                                                       |
 | ---------------------------------------------------------- | ------------------------------------------------------------------------- |
 | Persistent inline message (info, success, warning, danger) | `<wa-callout>` with a `variant`                                           |
-| Brief ephemeral notification                               | `<wa-toast-item>` inside `<wa-toast>`                           |
+| Brief ephemeral notification                               | `<wa-toast-item>` inside `<wa-toast>`                                     |
 | Compact status indicator (number, "NEW", state)            | `<wa-badge>`                                                              |
 | Loading, duration unknown                                  | `<wa-spinner>`                                                            |
 | Loading, with progress                                     | `<wa-progress-bar>` (horizontal) or `<wa-progress-ring>` (compact circle) |
@@ -113,6 +113,7 @@ The user types or uploads.
 | Single-line text (incl. email, password, etc.) | `<wa-input>` with the appropriate `type`                     |
 | A number with stepper buttons                  | `<wa-number-input>` (richer than `<wa-input type="number">`) |
 | Multi-line text                                | `<wa-textarea>`                                              |
+| A free-form list of short values (keywords, emails, labels) | `<wa-tag-input>`                                |
 | File upload                                    | `<wa-file-input>` **(Pro)**                                  |
 | A color value                                  | `<wa-color-picker>`                                          |
 

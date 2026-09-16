@@ -6,6 +6,7 @@ const translation: Translation = {
   $name: 'Polski',
   $dir: 'ltr',
 
+  allTagsRemoved: 'Usunięto wszystkie tagi',
   am: 'AM',
   autosizeColumn: 'Dopasuj szerokość kolumny',
   captions: 'Napisy',
@@ -181,11 +182,29 @@ const translation: Translation = {
   sortColumn: 'Sortuj kolumnę',
   sortDescending: 'Sortuj malejąco',
   startDate: 'Data początkowa',
+  tagAdded: tag => `Dodano ${tag}`,
+  tagAlreadyAdded: tag => `Tag ${tag} już istnieje`,
+  tagInputKeyboardHelp: 'Naciśnij Backspace lub Delete, aby usunąć ten tag.',
+  tagRemoved: tag => `Usunięto ${tag}`,
   time: 'Godzina',
   timeInputKeyboardHelp:
     'Użyj klawiszy strzałek, aby zmienić wartości; naciśnij Alt+Strzałka w dół, aby otworzyć selektor godziny.',
   today: 'Dzisiaj',
   toggleColorFormat: 'Przełącz format',
+  tooFewTags: min => {
+    if (min === 1) return 'Dodaj co najmniej 1 tag';
+    const mod10 = min % 10;
+    const mod100 = min % 100;
+    if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `Dodaj co najmniej ${min} tagi`;
+    return `Dodaj co najmniej ${min} tagów`;
+  },
+  tooManyTags: max => {
+    if (max === 1) return 'Dodaj nie więcej niż 1 tag';
+    const mod10 = max % 10;
+    const mod100 = max % 100;
+    if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `Dodaj nie więcej niż ${max} tagi`;
+    return `Dodaj nie więcej niż ${max} tagów`;
+  },
   unmute: 'Włącz dźwięk',
   unpin: 'Odepnij',
   unpinColumn: 'Odepnij kolumnę',
