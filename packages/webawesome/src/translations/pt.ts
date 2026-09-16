@@ -27,6 +27,7 @@ const translation: Translation = {
   columnMovedToPosition: (label, position, total) => `${label} movida para a posição ${position} de ${total}`,
   columns: 'Colunas',
   compactPageXOfY: (page, total) => `${page} de ${total}`,
+  completed: 'Concluído',
   copied: 'Copiado',
   copy: 'Copiar',
   createOption: value => `Criar "${value}"`,
@@ -63,6 +64,7 @@ const translation: Translation = {
   jumpForwardX: count => `Avançar ${count} páginas`,
   lastPage: 'Última página',
   loading: 'Carregando',
+  locked: 'Bloqueado',
   minute: 'Minuto',
   month: 'Mês',
   moreOptions: 'Mais opções',
@@ -75,6 +77,7 @@ const translation: Translation = {
   nextYear: 'Próximo ano',
   noData: 'Sem dados',
   noResults: 'Sem resultados correspondentes',
+  notCompleted: 'Não concluído',
   now: 'Agora',
   numCharacters: num => {
     if (num === 1) return '1 caractere';
@@ -147,6 +150,7 @@ const translation: Translation = {
   sortColumn: 'Ordenar coluna',
   sortDescending: 'Ordenar descendente',
   startDate: 'Data de início',
+  stepXOfY: (step, total) => `Etapa ${step} de ${total}`,
   tagAdded: tag => `${tag} adicionado`,
   tagAlreadyAdded: tag => `${tag} já existe`,
   tagInputKeyboardHelp: 'Pressione Backspace ou Delete para remover esta etiqueta.',

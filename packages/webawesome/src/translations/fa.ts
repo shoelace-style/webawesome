@@ -27,6 +27,7 @@ const translation: Translation = {
   columnMovedToPosition: (label, position, total) => `${label} به موقعیت ${position} از ${total} منتقل شد`,
   columns: 'ستون‌ها',
   compactPageXOfY: (page, total) => `${page} از ${total}`,
+  completed: 'تکمیل شده',
   copied: 'کپی شد',
   copy: 'کپی',
   createOption: value => `ایجاد "${value}"`,
@@ -63,6 +64,7 @@ const translation: Translation = {
   jumpForwardX: count => `${count} صفحه به جلو`,
   lastPage: 'صفحه آخر',
   loading: 'بارگزاری',
+  locked: 'قفل شده',
   minute: 'دقیقه',
   month: 'ماه',
   moreOptions: 'گزینه‌های بیشتر',
@@ -75,6 +77,7 @@ const translation: Translation = {
   nextYear: 'سال بعد',
   noData: 'داده‌ای وجود ندارد',
   noResults: 'نتیجه منطبقی وجود ندارد',
+  notCompleted: 'تکمیل نشده',
   now: 'اکنون',
   numCharacters: num => {
     if (num === 1) return '1 نویسه';
@@ -146,6 +149,7 @@ const translation: Translation = {
   sortColumn: 'مرتب‌سازی ستون',
   sortDescending: 'مرتب‌سازی نزولی',
   startDate: 'تاریخ شروع',
+  stepXOfY: (step, total) => `مرحله ${step} از ${total}`,
   tagAdded: tag => `${tag} افزوده شد`,
   tagAlreadyAdded: tag => `${tag} قبلاً افزوده شده است`,
   tagInputKeyboardHelp: 'برای حذف این برچسب، Backspace یا Delete را فشار دهید.',

@@ -27,6 +27,7 @@ const translation: Translation = {
   columnMovedToPosition: (label, position, total) => `${label} siirretty sijaintiin ${position} / ${total}`,
   columns: 'Sarakkeet',
   compactPageXOfY: (page, total) => `${page} / ${total}`,
+  completed: 'Valmis',
   copied: 'Kopioitu',
   copy: 'Kopioi',
   createOption: value => `Luo "${value}"`,
@@ -62,6 +63,7 @@ const translation: Translation = {
   jumpForwardX: count => `Siirry ${count} sivua eteenpäin`,
   lastPage: 'Viimeinen sivu',
   loading: 'Ladataan',
+  locked: 'Lukittu',
   minute: 'Minuutti',
   month: 'Kuukausi',
   moreOptions: 'Lisää vaihtoehtoja',
@@ -74,6 +76,7 @@ const translation: Translation = {
   nextYear: 'Seuraava vuosi',
   noData: 'Ei tietoja',
   noResults: 'Ei vastaavia tuloksia',
+  notCompleted: 'Ei valmis',
   now: 'Nyt',
   numCharacters: num => {
     if (num === 1) return '1 merkki';
@@ -146,6 +149,7 @@ const translation: Translation = {
   sortColumn: 'Lajittele sarake',
   sortDescending: 'Lajittele laskevasti',
   startDate: 'Alkamispäivä',
+  stepXOfY: (step, total) => `Vaihe ${step}/${total}`,
   tagAdded: tag => `${tag} lisätty`,
   tagAlreadyAdded: tag => `${tag} on jo lisätty`,
   tagInputKeyboardHelp: 'Poista tämä tunniste painamalla Backspace tai Delete.',

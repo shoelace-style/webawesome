@@ -27,6 +27,7 @@ const translation: Translation = {
   columnMovedToPosition: (label, position, total) => `${label} flyttet til posisjon ${position} av ${total}`,
   columns: 'Kolonner',
   compactPageXOfY: (page, total) => `${page} av ${total}`,
+  completed: 'Fullført',
   copied: 'Kopiert',
   copy: 'Kopier',
   createOption: value => `Opprett "${value}"`,
@@ -62,6 +63,7 @@ const translation: Translation = {
   jumpForwardX: count => `Hopp ${count} sider fremover`,
   lastPage: 'Siste side',
   loading: 'Laster',
+  locked: 'Låst',
   minute: 'Minutt',
   month: 'Måned',
   moreOptions: 'Flere alternativer',
@@ -74,6 +76,7 @@ const translation: Translation = {
   nextYear: 'Neste år',
   noData: 'Ingen data',
   noResults: 'Ingen samsvarende resultater',
+  notCompleted: 'Ikke fullført',
   now: 'Nå',
   numCharacters: num => {
     if (num === 1) return '1 tegn';
@@ -146,6 +149,7 @@ const translation: Translation = {
   sortColumn: 'Sorter kolonne',
   sortDescending: 'Sorter synkende',
   startDate: 'Startdato',
+  stepXOfY: (step, total) => `Trinn ${step} av ${total}`,
   tagAdded: tag => `${tag} lagt til`,
   tagAlreadyAdded: tag => `${tag} er allerede lagt til`,
   tagInputKeyboardHelp: 'Trykk på Backspace eller Delete for å fjerne denne taggen.',

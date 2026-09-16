@@ -27,6 +27,7 @@ const translation: Translation = {
   columnMovedToPosition: (label, position, total) => `${label} premješten na poziciju ${position} od ${total}`,
   columns: 'Stupci',
   compactPageXOfY: (page, total) => `${page} od ${total}`,
+  completed: 'Dovršeno',
   copied: 'Kopirano',
   copy: 'Kopiraj',
   createOption: value => `Stvori "${value}"`,
@@ -74,6 +75,7 @@ const translation: Translation = {
   },
   lastPage: 'Posljednja stranica',
   loading: 'Učitavanje',
+  locked: 'Zaključano',
   minute: 'Minuta',
   month: 'Mjesec',
   moreOptions: 'Više opcija',
@@ -86,6 +88,7 @@ const translation: Translation = {
   nextYear: 'Sljedeća godina',
   noData: 'Nema podataka',
   noResults: 'Nema odgovarajućih rezultata',
+  notCompleted: 'Nije dovršeno',
   now: 'Sada',
   numCharacters: num => {
     if (num === 1) return '1 znak';
@@ -182,6 +185,7 @@ const translation: Translation = {
   sortColumn: 'Sortiraj stupac',
   sortDescending: 'Sortiraj silazno',
   startDate: 'Datum početka',
+  stepXOfY: (step, total) => `Korak ${step} od ${total}`,
   tagAdded: tag => `${tag} dodano`,
   tagAlreadyAdded: tag => `Oznaka ${tag} već postoji`,
   tagInputKeyboardHelp: 'Pritisnite Backspace ili Delete za uklanjanje ove oznake.',
