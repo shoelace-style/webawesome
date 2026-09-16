@@ -25,13 +25,17 @@ export default css`
   }
 
   .steps {
+    /* The scroll container clips anything outside the steps' boxes, including their focus rings, so it pads out
+       by the ring's full extent and pulls the same amount back with a negative margin to stay visually flush. */
+    --focus-ring-extent: calc(var(--wa-focus-ring-width) + var(--wa-focus-ring-offset));
+
     display: flex;
     flex-direction: row;
     align-items: flex-start;
     flex-wrap: nowrap;
     gap: var(--gap);
-    margin: 0;
-    padding: 0;
+    margin: calc(-1 * var(--focus-ring-extent));
+    padding: var(--focus-ring-extent);
     list-style: none;
     overflow-x: auto;
     scrollbar-width: none;

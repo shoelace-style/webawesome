@@ -5,6 +5,8 @@ import { HasSlotController } from '../../internal/slot.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import variantStyles from '../../styles/component/variants.styles.js';
+import visuallyHidden from '../../styles/component/visually-hidden.styles.js';
+import { LocalizeController } from '../../utilities/localize.js';
 import '../icon/icon.js';
 import '../spinner/spinner.js';
 import styles from './step.styles.js';
@@ -29,7 +31,10 @@ import styles from './step.styles.js';
  * @csspart marker - The circular marker that shows the step's number, checkmark, or loading indicator.
  * @csspart spinner - The spinner shown in the marker while the step is `loading`.
  * @csspart spinner__base - The spinner's exported `base` part.
+ * @csspart content - The wrapper around the label, status text, and description.
  * @csspart label - The step's label.
+ * @csspart status - Visually hidden text that tells assistive technology whether the step is completed, not
+ *  completed, or locked.
  * @csspart description - The step's description.
  *
  * @cssproperty [--marker-size=2em] - The size of the step's marker. Usually set on `<wa-stepper>` so every step
@@ -50,8 +55,9 @@ import styles from './step.styles.js';
  */
 @customElement('wa-step')
 export default class WaStep extends WebAwesomeElement {
-  static css = [variantStyles, styles];
+  static css = [variantStyles, visuallyHidden, styles];
 
+  private readonly localize = new LocalizeController(this);
   private readonly hasSlotController = new HasSlotController(this, 'description');
 
   /** Identifies the step. Matched against the stepper's `active` attribute and used in events. */
@@ -98,14 +104,14 @@ export default class WaStep extends WebAwesomeElement {
 
   /**
    * @internal Set by the parent `<wa-stepper>`. Whether the connector leading into this step should render as
-   * "reached" — true for every step at or before the active one, false for the connector leading out of the active
+   * "reached": true for every step at or before the active one, false for the connector leading out of the active
    * step and everything after it.
    */
   @state() connectorActive = false;
 
   /**
    * @internal Set by the parent `<wa-stepper>`. Whether the connector leading out of this step, toward the next
-   * one, should render as "reached" — true for every step strictly before the active one.
+   * one, should render as "reached": true for every step strictly before the active one.
    */
   @state() trailingConnectorActive = false;
 
@@ -131,7 +137,7 @@ export default class WaStep extends WebAwesomeElement {
   @watch('disabled')
   handleDisabledChange() {
     this.customStates.set('disabled', this.disabled);
-    this.setAttribute('aria-disabled', this.disabled ? 'true' : 'false');
+    this.syncAriaDisabled();
 
     // Belt-and-suspenders: the parent stepper also excludes disabled steps from its roving tabindex, but a step
     // can be disabled before it's ever synced by its stepper (e.g. set before being slotted in).
@@ -154,6 +160,18 @@ export default class WaStep extends WebAwesomeElement {
   @watch('locked')
   handleLockedChange() {
     this.customStates.set('locked', this.locked);
+    this.syncAriaDisabled();
+  }
+
+  private syncAriaDisabled() {
+    this.setAttribute('aria-disabled', this.disabled || this.locked ? 'true' : 'false');
+  }
+
+  private getStatusText() {
+    if (this.completed) return this.localize.term('completed');
+    if (this.locked) return this.localize.term('locked');
+    if (this.active) return '';
+    return this.localize.term('notCompleted');
   }
 
   @watch('clickable')
@@ -205,11 +223,14 @@ export default class WaStep extends WebAwesomeElement {
         >
           <slot name="bullet">${this.renderBullet()}</slot>
         </span>
-        <span part="label" class="label">
-          <slot></slot>
-        </span>
-        <span part="description" class="description" ?hidden=${!hasDescription}>
-          <slot name="description"></slot>
+        <span part="content" class="content">
+          <span part="label" class="label">
+            <slot></slot>
+          </span>
+          <span part="status" class="wa-visually-hidden">${this.getStatusText()}</span>
+          <span part="description" class="description" ?hidden=${!hasDescription}>
+            <slot name="description"></slot>
+          </span>
         </span>
       </div>
     `;

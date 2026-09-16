@@ -350,7 +350,9 @@ describe('<wa-stepper>', () => {
 
           expect(el.customStates.has('completed')).to.be.false;
 
-          getSteps(el)[1].completed = true;
+          const shipping = getSteps(el)[1];
+          shipping.completed = true;
+          await shipping.updateComplete;
           await waitUntil(() => el.customStates.has('completed'));
         });
       });
@@ -516,6 +518,115 @@ describe('<wa-stepper>', () => {
           expect(warn.called).to.be.true;
 
           warn.restore();
+        });
+      });
+
+      describe('vertical layout', () => {
+        it('should stack the description under the label', async () => {
+          const el = await whenSynced(
+            await fixture<WaStepper>(html`
+              <wa-stepper orientation="vertical" active="plan">
+                <wa-step name="plan">
+                  Plan
+                  <span slot="description">Outline the piece</span>
+                </wa-step>
+                <wa-step name="write">Write</wa-step>
+              </wa-stepper>
+            `),
+          );
+
+          const [plan] = getSteps(el);
+          const label = plan.shadowRoot!.querySelector('[part~="label"]')!.getBoundingClientRect();
+          const description = plan.shadowRoot!.querySelector('[part~="description"]')!.getBoundingClientRect();
+
+          expect(description.top).to.be.at.least(label.bottom);
+          expect(Math.round(description.left)).to.equal(Math.round(label.left));
+        });
+
+        it('should run the connector from one marker to the next', async () => {
+          const el = await whenSynced(
+            await fixture<WaStepper>(html`
+              <wa-stepper orientation="vertical" active="plan">
+                <wa-step name="plan">
+                  Plan
+                  <span slot="description">Outline the piece and gather sources</span>
+                </wa-step>
+                <wa-step name="write">Write</wa-step>
+              </wa-stepper>
+            `),
+          );
+
+          const [plan, write] = getSteps(el);
+          const planMarker = plan.shadowRoot!.querySelector('[part~="marker"]')!.getBoundingClientRect();
+          const writeMarker = write.shadowRoot!.querySelector('[part~="marker"]')!.getBoundingClientRect();
+          const connectors = [
+            ...plan.shadowRoot!.querySelectorAll<HTMLElement>('[part~="connector"], [part~="connector-trailing"]'),
+          ]
+            .map(connector => connector.getBoundingClientRect())
+            .filter(rect => rect.height > 0);
+
+          expect(connectors).to.have.lengthOf(1);
+          const [connector] = connectors;
+          const span = writeMarker.top - planMarker.bottom;
+
+          expect(connector.top).to.be.at.least(planMarker.bottom);
+          expect(connector.bottom).to.be.at.most(writeMarker.top);
+          expect(connector.height).to.be.at.least(span * 0.6);
+        });
+      });
+
+      describe('assistive text', () => {
+        it('should describe each step as completed, not completed, or locked', async () => {
+          const el = await whenSynced(
+            await fixture<WaStepper>(html`
+              <wa-stepper active="shipping" linear>
+                <wa-step name="cart" completed>Cart</wa-step>
+                <wa-step name="shipping">Shipping</wa-step>
+                <wa-step name="payment">Payment</wa-step>
+              </wa-stepper>
+            `),
+          );
+
+          const [cart, shipping, payment] = getSteps(el);
+          const statusOf = (step: WaStep) => step.shadowRoot!.querySelector('[part~="status"]')!.textContent!.trim();
+
+          expect(statusOf(cart)).to.equal('Completed');
+          expect(statusOf(shipping)).to.equal('');
+          expect(statusOf(payment)).to.equal('Locked');
+          expect(payment.getAttribute('aria-disabled')).to.equal('true');
+          expect(shipping.getAttribute('aria-disabled')).to.equal('false');
+        });
+
+        it('should describe a pending step as not completed', async () => {
+          const el = await whenSynced(
+            await fixture<WaStepper>(html`
+              <wa-stepper active="cart">
+                <wa-step name="cart">Cart</wa-step>
+                <wa-step name="shipping">Shipping</wa-step>
+              </wa-stepper>
+            `),
+          );
+
+          const [, shipping] = getSteps(el);
+          expect(shipping.shadowRoot!.querySelector('[part~="status"]')!.textContent!.trim()).to.equal('Not completed');
+        });
+
+        it('should announce the current position as "Step X of Y"', async () => {
+          const el = await whenSynced(
+            await fixture<WaStepper>(html`
+              <wa-stepper active="shipping">
+                <wa-step name="cart" completed>Cart</wa-step>
+                <wa-step name="shipping">Shipping</wa-step>
+                <wa-step name="payment">Payment</wa-step>
+              </wa-stepper>
+            `),
+          );
+
+          const summary = el.shadowRoot!.querySelector('[part~="summary"]')!;
+          expect(summary.textContent!.trim()).to.equal('Step 2 of 3');
+
+          el.next();
+          await waitUntil(() => summary.textContent!.trim() === 'Step 3 of 3');
         });
       });
     });

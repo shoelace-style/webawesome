@@ -8,6 +8,7 @@ import { parseSpaceDelimitedTokens } from '../../internal/parse.js';
 import { scrollIntoView } from '../../internal/scroll.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
+import visuallyHidden from '../../styles/component/visually-hidden.styles.js';
 import { LocalizeController } from '../../utilities/localize.js';
 import '../button/button.js';
 import '../step/step.js';
@@ -33,6 +34,7 @@ import styles from './stepper.styles.js';
  * @slot - One or more `<wa-step>` elements.
  *
  * @csspart stepper - The component's outer `<nav>` wrapper.
+ * @csspart summary - Visually hidden "Step X of Y" text that tells assistive technology where the active step sits.
  * @csspart steps-container - The container wrapping `steps` and, when present, the scroll buttons.
  * @csspart steps - The `<ol>` that lays out the steps. Scrolls horizontally when steps no longer fit.
  * @csspart scroll-button - The previous/next scroll buttons that show when steps overflow horizontally, a
@@ -61,7 +63,7 @@ import styles from './stepper.styles.js';
  */
 @customElement('wa-stepper')
 export default class WaStepper extends WebAwesomeElement {
-  static css = styles;
+  static css = [visuallyHidden, styles];
 
   private readonly localize = new LocalizeController(this);
   private mutationObserver?: MutationObserver;
@@ -71,6 +73,8 @@ export default class WaStepper extends WebAwesomeElement {
   @query('.steps') stepsEl: HTMLOListElement;
 
   @state() private hasScrollControls = false;
+  @state() private activeIndex = 0;
+  @state() private stepCount = 0;
 
   /** The name of the active step. Falls back to the first step if unset, or if it doesn't match any step's name. */
   @property({ reflect: true }) active = '';
@@ -87,8 +91,8 @@ export default class WaStepper extends WebAwesomeElement {
 
   /**
    * Allows clicking a step, or focusing it and pressing Enter/Space, to jump straight to it. When unset (the
-   * default), only `next()`/`previous()`/`goTo()` — e.g. from your own Next/Back buttons or a `data-stepper`
-   * invoker — change the active step.
+   * default), only `next()`/`previous()`/`goTo()` change the active step, e.g. from your own Next/Back buttons or a
+   * `data-stepper` invoker.
    */
   @property({ type: Boolean, reflect: true }) clickable = false;
 
@@ -192,6 +196,8 @@ export default class WaStepper extends WebAwesomeElement {
 
     const boundaryIndex = this.getLinearBoundaryIndex(steps);
     const activeIndex = steps.indexOf(activeStep);
+    this.activeIndex = activeIndex;
+    this.stepCount = steps.length;
 
     steps.forEach((step, index) => {
       step.position = index + 1;
@@ -409,6 +415,13 @@ export default class WaStepper extends WebAwesomeElement {
         class=${classMap({ stepper: true, 'has-scroll-controls': this.hasScrollControls })}
         aria-label=${this.label}
       >
+        ${this.stepCount > 0
+          ? html`
+              <span part="summary" class="wa-visually-hidden">
+                ${this.localize.term('stepXOfY', this.activeIndex + 1, this.stepCount)}
+              </span>
+            `
+          : ''}
         <div part="steps-container" class="steps-container">
           ${this.hasScrollControls
             ? html`

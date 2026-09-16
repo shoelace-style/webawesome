@@ -28,9 +28,12 @@ export default css`
   }
 
   :host(:focus-visible) {
+    outline: none;
+  }
+
+  :host(:focus-visible) .marker {
     outline: var(--wa-focus-ring);
     outline-offset: var(--wa-focus-ring-offset);
-    border-radius: var(--wa-border-radius-s);
   }
 
   .step {
@@ -46,11 +49,22 @@ export default css`
     text-align: center;
   }
 
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+  }
+
   :host([data-wa-step-vertical]) .step {
     flex-direction: row;
     align-items: flex-start;
     text-align: start;
     gap: 1em;
+  }
+
+  :host([data-wa-step-vertical]) .content {
+    justify-content: center;
+    min-height: var(--marker-size, 2em);
   }
 
   :host(:not([data-wa-step-vertical]):first-child) .step {
@@ -76,9 +90,8 @@ export default css`
   }
 
   :host(:not([data-wa-step-vertical]):first-child) .connector,
-  :host([data-wa-step-vertical]:first-child) .connector,
-  :host(:not([data-wa-step-vertical]):last-child) .connector-trailing,
-  :host([data-wa-step-vertical]) .connector-trailing {
+  :host([data-wa-step-vertical]) .connector,
+  :host(:last-child) .connector-trailing {
     display: none;
   }
 
@@ -113,15 +126,14 @@ export default css`
     inset-inline-end: calc(-1 * var(--gap, var(--wa-space-l)) / 2);
   }
 
-  :host([data-wa-step-vertical]) .connector {
+  /* Vertical steps only draw the trailing half-connector, stretched to reach the next step's marker: it starts just
+     below this marker and runs through the whole step (label, description) and across the gap to the next host. */
+  :host([data-wa-step-vertical]) .connector-trailing {
     inset-inline-start: calc(var(--marker-size, 2em) / 2);
+    inset-block-start: calc(var(--marker-size, 2em) + var(--connector-gap, 0.35em));
+    inset-block-end: calc(-1 * var(--gap, var(--wa-space-l)) + var(--connector-gap, 0.35em));
     width: var(--wa-border-width-m, 2px);
     translate: -50% 0;
-  }
-
-  :host([data-wa-step-vertical]:not(:first-child)) .connector {
-    inset-block-start: calc(-1 * var(--gap, var(--wa-space-l)) + var(--connector-gap, 0.35em));
-    inset-block-end: calc(var(--marker-size, 2em) + var(--connector-gap, 0.35em));
   }
 
   :host(:state(connector-active)) .connector {
