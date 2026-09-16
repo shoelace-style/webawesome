@@ -79,10 +79,18 @@ export default class WaStepper extends WebAwesomeElement {
   @property({ reflect: true }) orientation: 'horizontal' | 'vertical' = 'horizontal';
 
   /**
-   * Requires steps to be completed in order. When set, `next()`/`goTo()` (and clicking or activating a step) can't
-   * reach a step until every step before it is completed. Future steps render as blocked.
+   * Requires steps to be completed in order. When set, `next()`/`goTo()`/a `data-stepper` invoker and, if
+   * `clickable` is also set, clicking or activating a step can't reach a step until every step before it is
+   * completed. Future steps render as blocked.
    */
   @property({ type: Boolean, reflect: true }) linear = false;
+
+  /**
+   * Allows clicking a step, or focusing it and pressing Enter/Space, to jump straight to it. When unset (the
+   * default), only `next()`/`previous()`/`goTo()` — e.g. from your own Next/Back buttons or a `data-stepper`
+   * invoker — change the active step.
+   */
+  @property({ type: Boolean, reflect: true }) clickable = false;
 
   /** A label that describes the stepper to assistive devices. Especially useful when more than one is on the page. */
   @property() label = '';
@@ -189,6 +197,7 @@ export default class WaStepper extends WebAwesomeElement {
       step.position = index + 1;
       step.active = step === activeStep;
       step.locked = this.linear && index === boundaryIndex + 1;
+      step.clickable = this.clickable;
       // The connector leading into a step is "active" (colored) for every step at or before the active one —
       // marking how far the user has progressed, independent of each step's own `completed` attribute. The
       // connector leading out of the active step (into whatever comes after it) is never active. Both halves of one
@@ -221,7 +230,7 @@ export default class WaStepper extends WebAwesomeElement {
     this.updateScrollControls();
   }
 
-  @watch(['active', 'linear', 'orientation'], { waitUntilFirstUpdate: true })
+  @watch(['active', 'linear', 'clickable', 'orientation'], { waitUntilFirstUpdate: true })
   handleStateChange() {
     this.syncSteps();
   }
@@ -311,6 +320,8 @@ export default class WaStepper extends WebAwesomeElement {
   }
 
   private handleClick(event: MouseEvent) {
+    if (!this.clickable) return;
+
     const step = (event.target as HTMLElement).closest('wa-step');
     if (!step || step.closest('wa-stepper') !== this || step.disabled) return;
 
@@ -336,7 +347,7 @@ export default class WaStepper extends WebAwesomeElement {
     if (!step || step.closest('wa-stepper') !== this) return;
 
     if (event.key === 'Enter' || event.key === ' ') {
-      if (!step.disabled) {
+      if (this.clickable && !step.disabled) {
         event.preventDefault();
         this.goTo(step.name);
       }

@@ -22,16 +22,28 @@ use-cases:
 </wa-stepper>
 ```
 
-Set `active` to the name of the current [`<wa-step>`](/docs/components/step). A stepper is a display, not a form control, but its steps are directly interactive — clicking a step, or focusing it and pressing Enter/Space, jumps straight to it, the same as calling `goTo()`. Pair it with your own Next/Back buttons (see [Navigating Declaratively](#navigating-declaratively)) for linear flows, or call its methods directly to move between steps as the user progresses.
+Set `active` to the name of the current [`<wa-step>`](/docs/components/step). A stepper is a display, not a form control, and by default its steps aren't directly interactive — pair it with your own Next/Back buttons (see [Navigating Declaratively](#navigating-declaratively)) or call its methods directly to move between steps as the user progresses. Add `clickable` (see [Clickable](#clickable)) to let people click a step, or focus it and press Enter/Space, to jump straight to it.
 
 ## Examples
 
-### Linear Mode
+### Clickable
 
-Add `linear` to require steps to be completed in order. The step right after the active one renders `locked`, and `next()`/`goTo()` (including a click or a [`data-stepper`](#navigating-declaratively) invoker) can't reach it, or anything past it, until the steps before it are `completed`.
+Add `clickable` to let clicking a step, or focusing it and pressing Enter/Space, jump straight to it — the same as calling `goTo()`. Without it, steps are still focusable (so assistive tech can read the stepper's progress), but activating one does nothing; only `next()`/`previous()`/`goTo()` change the active step.
 
 ```html {.example}
-<wa-stepper active="shipping" linear>
+<wa-stepper active="shipping" clickable>
+  <wa-step name="cart" completed>Cart</wa-step>
+  <wa-step name="shipping">Shipping</wa-step>
+  <wa-step name="payment">Payment</wa-step>
+</wa-stepper>
+```
+
+### Linear Mode
+
+Add `linear` to require steps to be completed in order. The step right after the active one renders `locked`, and `next()`/`goTo()` (including a [`data-stepper`](#navigating-declaratively) invoker, or a click/activation when `clickable` is also set) can't reach it, or anything past it, until the steps before it are `completed`.
+
+```html {.example}
+<wa-stepper active="shipping" linear clickable>
   <wa-step name="cart" completed>Cart</wa-step>
   <wa-step name="shipping">Shipping</wa-step>
   <wa-step name="payment">Payment</wa-step>
@@ -253,6 +265,6 @@ Use the exported [CSS parts](#css-parts) and [custom properties](#css-custom-pro
 
 - **Structure.** The stepper renders a `<nav>` landmark wrapping an ordered list; each `<wa-step>` carries `role="listitem"`. Set `label` whenever more than one stepper appears on the same page, so screen reader users can tell them apart.
 - **Current step.** The active step carries `aria-current="step"`, removed (not set to `"false"`) on every other step.
-- **Keyboard.** Steps use a single roving tab stop. Tab moves focus into and out of the stepper as one stop, and Arrow keys (or Home/End) move focus between steps without changing which one is active. Enter or Space activates the focused step, same as clicking it. `disabled` steps are skipped entirely; they're never focusable. When steps [scroll](#scrolling-steps), moving focus this way scrolls the newly focused step into view automatically.
+- **Keyboard.** Steps use a single roving tab stop. Tab moves focus into and out of the stepper as one stop, and Arrow keys (or Home/End) move focus between steps without changing which one is active. When [`clickable`](#clickable) is set, Enter or Space activates the focused step, same as clicking it; otherwise focus moves normally but doesn't change the active step. `disabled` steps are skipped entirely; they're never focusable. When steps [scroll](#scrolling-steps), moving focus this way scrolls the newly focused step into view automatically.
 - **Busy state.** While any step is `loading`, the stepper carries `aria-busy="true"` so assistive technology has one signal that the whole process is doing something async, not just the individual step.
 - **`variant` is cosmetic only.** A colored marker (e.g. `variant="danger"`) doesn't carry meaning on its own. Make sure the reason is also in the step's visible label or description.

@@ -6,9 +6,13 @@ export default css`
       display: flex;
       flex: 1 1 0%;
       min-width: max-content;
-      cursor: pointer;
+      cursor: default;
       outline: none;
     }
+  }
+
+  :host(:state(clickable)) {
+    cursor: pointer;
   }
 
   :host([data-wa-step-vertical]) {
@@ -166,6 +170,11 @@ export default css`
     color: var(--marker-color, var(--wa-color-on-quiet));
     background-color: var(--marker-background-color, var(--wa-color-fill-quiet));
     border-color: var(--marker-border-color, var(--wa-color-border-normal));
+  }
+
+  :host([completed][variant='']) {
+    --wa-color-fill-loud: var(--wa-color-success-fill-loud);
+    --wa-color-on-loud: var(--wa-color-success-on-loud);
   }
 
   :host(:state(active)) .marker,

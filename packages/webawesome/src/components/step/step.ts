@@ -41,6 +41,8 @@ import styles from './step.styles.js';
  * @cssstate disabled - Mirrors the `disabled` attribute.
  * @cssstate locked - Applied by the parent stepper when `linear` is set and this step is the one right after the
  *  active step.
+ * @cssstate clickable - Applied by the parent stepper when its `clickable` attribute is set, allowing this step to
+ *  be clicked or activated (Enter/Space) directly.
  * @cssstate connector-active - Applied when the connector leading into this step should render as reached, i.e. this
  *  step is at or before the stepper's active step.
  * @cssstate trailing-connector-active - Applied when the connector leading out of this step, toward the next one,
@@ -81,6 +83,12 @@ export default class WaStep extends WebAwesomeElement {
 
   /** @internal Set by the parent `<wa-stepper>`. Whether this is the stepper's current step. */
   @state() active = false;
+
+  /**
+   * @internal Set by the parent `<wa-stepper>` to match its own `clickable` attribute. Governs the marker's cursor
+   * affordance.
+   */
+  @state() clickable = false;
 
   /**
    * @internal Set by the parent `<wa-stepper>`. True only for the single step right after the active one when the
@@ -146,6 +154,11 @@ export default class WaStep extends WebAwesomeElement {
   @watch('locked')
   handleLockedChange() {
     this.customStates.set('locked', this.locked);
+  }
+
+  @watch('clickable')
+  handleClickableChange() {
+    this.customStates.set('clickable', this.clickable);
   }
 
   @watch('connectorActive')

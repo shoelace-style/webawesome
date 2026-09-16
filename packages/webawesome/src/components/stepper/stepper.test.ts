@@ -356,9 +356,22 @@ describe('<wa-stepper>', () => {
       });
 
       describe('interaction', () => {
-        it('clicking a step should activate it', async () => {
+        it('clicking a step should not activate it by default', async () => {
           const el = await fixture<WaStepper>(html`
             <wa-stepper active="cart">
+              <wa-step name="cart">Cart</wa-step>
+              <wa-step name="shipping">Shipping</wa-step>
+            </wa-stepper>
+          `);
+
+          getSteps(el)[1].click();
+          await el.updateComplete;
+          expect(el.active).to.equal('cart');
+        });
+
+        it('clicking a step should activate it when clickable', async () => {
+          const el = await fixture<WaStepper>(html`
+            <wa-stepper active="cart" clickable>
               <wa-step name="cart">Cart</wa-step>
               <wa-step name="shipping">Shipping</wa-step>
             </wa-stepper>
@@ -369,9 +382,9 @@ describe('<wa-stepper>', () => {
           expect(el.active).to.equal('shipping');
         });
 
-        it('clicking a disabled step should not activate it', async () => {
+        it('clicking a disabled step should not activate it, even when clickable', async () => {
           const el = await fixture<WaStepper>(html`
-            <wa-stepper active="cart">
+            <wa-stepper active="cart" clickable>
               <wa-step name="cart">Cart</wa-step>
               <wa-step name="gift-wrap" disabled>Gift Wrap</wa-step>
             </wa-stepper>
@@ -419,9 +432,26 @@ describe('<wa-stepper>', () => {
           expect(document.activeElement).to.equal(shipping);
         });
 
-        it('Enter on a focused step should activate it', async () => {
+        it('Enter on a focused step should not activate it by default', async () => {
           const el = await fixture<WaStepper>(html`
             <wa-stepper active="cart">
+              <wa-step name="cart">Cart</wa-step>
+              <wa-step name="shipping">Shipping</wa-step>
+            </wa-stepper>
+          `);
+
+          const [, shipping] = getSteps(el);
+          shipping.focus();
+
+          shipping.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
+          await el.updateComplete;
+
+          expect(el.active).to.equal('cart');
+        });
+
+        it('Enter on a focused step should activate it when clickable', async () => {
+          const el = await fixture<WaStepper>(html`
+            <wa-stepper active="cart" clickable>
               <wa-step name="cart">Cart</wa-step>
               <wa-step name="shipping">Shipping</wa-step>
             </wa-stepper>
