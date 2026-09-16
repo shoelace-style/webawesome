@@ -43,7 +43,9 @@
   {% endif %}
   <script type="module" src="/assets/scripts/search-list.js"></script>
   <script type="module" src="/assets/scripts/outline.js"></script>
-  <script type="module" src="/assets/scripts/color-scheme.js"></script>
+  {% if hasColorScheme != false %}
+    <script type="module" src="/assets/scripts/color-scheme.js"></script>
+  {% endif %}
   <script type="module" src="/assets/scripts/theme.js"></script>
   <script type="module" src="/assets/scripts/install-tabs.js"></script>
   <script type="module" src="/assets/scripts/component-anatomy.js"></script>
