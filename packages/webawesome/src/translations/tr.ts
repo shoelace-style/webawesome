@@ -27,6 +27,7 @@ const translation: Translation = {
   columnMovedToPosition: (label, position, total) => `${label} ${total} konumdan ${position}. konuma taşındı`,
   columns: 'Sütunlar',
   compactPageXOfY: (page, total) => `${page} / ${total}`,
+  completed: 'Tamamlandı',
   copied: 'Kopyalandı',
   copy: 'Kopya',
   createOption: value => `"${value}" oluştur`,
@@ -63,6 +64,7 @@ const translation: Translation = {
   jumpForwardX: count => `${count} sayfa ileri atla`,
   lastPage: 'Son sayfa',
   loading: 'Yükleme',
+  locked: 'Kilitli',
   minute: 'Dakika',
   month: 'Ay',
   moreOptions: 'Daha fazla seçenek',
@@ -75,6 +77,7 @@ const translation: Translation = {
   nextYear: 'Sonraki yıl',
   noData: 'Veri yok',
   noResults: 'Eşleşen sonuç yok',
+  notCompleted: 'Tamamlanmadı',
   now: 'Şimdi',
   numCharacters: num => {
     if (num === 1) return '1 karakter';
@@ -147,6 +150,7 @@ const translation: Translation = {
   sortColumn: 'Sütunu sırala',
   sortDescending: 'Azalan sırala',
   startDate: 'Başlangıç tarihi',
+  stepXOfY: (step, total) => `Adım ${step} / ${total}`,
   tagAdded: tag => `${tag} eklendi`,
   tagAlreadyAdded: tag => `${tag} zaten eklendi`,
   tagInputKeyboardHelp: 'Bu etiketi kaldırmak için Backspace veya Delete tuşuna basın.',

@@ -27,6 +27,7 @@ const translation: Translation = {
   columnMovedToPosition: (label, position, total) => `تم نقل ${label} إلى الموضع ${position} من ${total}`,
   columns: 'الأعمدة',
   compactPageXOfY: (page, total) => `${page} من ${total}`,
+  completed: 'مكتمل',
   copied: 'تم النسخ',
   copy: 'نسخ',
   createOption: value => `إنشاء "${value}"`,
@@ -72,6 +73,7 @@ const translation: Translation = {
   },
   lastPage: 'الصفحة الأخيرة',
   loading: 'جاري التحميل',
+  locked: 'مقفل',
   minute: 'الدقيقة',
   month: 'الشهر',
   moreOptions: 'مزيد من الخيارات',
@@ -84,6 +86,7 @@ const translation: Translation = {
   nextYear: 'السنة التالية',
   noData: 'لا توجد بيانات',
   noResults: 'لا توجد نتائج مطابقة',
+  notCompleted: 'غير مكتمل',
   now: 'الآن',
   numCharacters: num => {
     if (num === 0) return '0 أحرف';
@@ -180,6 +183,7 @@ const translation: Translation = {
   sortColumn: 'فرز العمود',
   sortDescending: 'فرز تنازلي',
   startDate: 'تاريخ البدء',
+  stepXOfY: (step, total) => `الخطوة ${step} من ${total}`,
   tagAdded: tag => `تمت إضافة ${tag}`,
   tagAlreadyAdded: tag => `الوسم ${tag} مضاف بالفعل`,
   tagInputKeyboardHelp: 'اضغط Backspace أو Delete لإزالة هذا الوسم.',

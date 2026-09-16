@@ -27,6 +27,7 @@ const translation: Translation = {
   columnMovedToPosition: (label, position, total) => `${label} को ${total} में से स्थान ${position} पर ले जाया गया`,
   columns: 'कॉलम',
   compactPageXOfY: (page, total) => `${total} में से ${page}`,
+  completed: 'पूर्ण',
   copied: 'कॉपी किया गया',
   copy: 'कॉपी करें',
   createOption: value => `"${value}" बनाएँ`,
@@ -62,6 +63,7 @@ const translation: Translation = {
   jumpForwardX: count => `${count} पृष्ठ आगे जाएं`,
   lastPage: 'अंतिम पृष्ठ',
   loading: 'लोड हो रहा है',
+  locked: 'लॉक',
   minute: 'मिनट',
   month: 'महीना',
   moreOptions: 'अधिक विकल्प',
@@ -74,6 +76,7 @@ const translation: Translation = {
   nextYear: 'अगला वर्ष',
   noData: 'कोई डेटा नहीं',
   noResults: 'कोई मेल खाने वाले परिणाम नहीं',
+  notCompleted: 'अपूर्ण',
   now: 'अभी',
   numCharacters: num => {
     if (num === 1) return '1 अक्षर';
@@ -146,6 +149,7 @@ const translation: Translation = {
   sortColumn: 'कॉलम क्रमबद्ध करें',
   sortDescending: 'अवरोही क्रम में क्रमबद्ध करें',
   startDate: 'आरंभ तिथि',
+  stepXOfY: (step, total) => `${total} में से चरण ${step}`,
   tagAdded: tag => `${tag} जोड़ा गया`,
   tagAlreadyAdded: tag => `${tag} पहले से जोड़ा गया है`,
   tagInputKeyboardHelp: 'इस टैग को हटाने के लिए Backspace या Delete दबाएँ।',

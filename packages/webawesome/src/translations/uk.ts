@@ -27,6 +27,7 @@ const translation: Translation = {
   columnMovedToPosition: (label, position, total) => `${label} переміщено на позицію ${position} з ${total}`,
   columns: 'Стовпці',
   compactPageXOfY: (page, total) => `${page} з ${total}`,
+  completed: 'Завершено',
   copied: 'Скопійовано',
   copy: 'Скопіювати',
   createOption: value => `Створити «${value}»`,
@@ -75,6 +76,7 @@ const translation: Translation = {
   },
   lastPage: 'Остання сторінка',
   loading: 'Завантаження',
+  locked: 'Заблоковано',
   minute: 'Хвилина',
   month: 'Місяць',
   moreOptions: 'Більше параметрів',
@@ -87,6 +89,7 @@ const translation: Translation = {
   nextYear: 'Наступний рік',
   noData: 'Немає даних',
   noResults: 'Немає відповідних результатів',
+  notCompleted: 'Не завершено',
   now: 'Зараз',
   numCharacters: num => {
     const mod10 = num % 10;
@@ -186,6 +189,7 @@ const translation: Translation = {
   sortColumn: 'Сортувати стовпець',
   sortDescending: 'Сортувати за спаданням',
   startDate: 'Дата початку',
+  stepXOfY: (step, total) => `Крок ${step} з ${total}`,
   tagAdded: tag => `${tag} додано`,
   tagAlreadyAdded: tag => `Тег ${tag} уже додано`,
   tagInputKeyboardHelp: 'Натисніть Backspace або Delete, щоб видалити цей тег.',

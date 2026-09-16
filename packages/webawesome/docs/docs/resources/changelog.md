@@ -33,7 +33,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::added
 
-- Added the `<wa-stepper>` and `<wa-step>` components for guiding users through a multi-step process, such as a checkout flow or setup wizard
+- Added the experimental `<wa-stepper>` and `<wa-step>` components for guiding users through a multi-step process, such as a checkout flow or setup wizard [pr:2794]
 - Added the experimental `<wa-tag-input>` component for collecting a list of short values, such as keywords, email addresses, or labels, as removable tags [pr:2796]
 
 :::

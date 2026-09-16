@@ -112,6 +112,11 @@ component-anatomy {
   inline-size: min(100%, 28rem);
 }
 
+/* Three steps in a row, one with a description, wrap their labels at the 24rem default. */
+.anatomy-subject:has(wa-stepper) {
+  inline-size: min(100%, 32rem);
+}
+
 /* A data grid is fluid and its toolbar needs the room — at 24rem the columns menu clips. */
 .anatomy-subject:has(wa-data-grid) {
   inline-size: 100%;
