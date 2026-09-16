@@ -17,7 +17,6 @@ export default css`
 
       display: flex;
       flex: 1 1 0%;
-      min-width: 0;
     }
 
     :host(:not([variant=''])) {
@@ -134,7 +133,7 @@ export default css`
     :host(:not([data-wa-step-vertical])) .connector-start,
     :host(:not([data-wa-step-vertical])) .connector-end {
       top: calc(var(--marker-size, 2em) / 2);
-      height: var(--wa-border-width-m);
+      height: var(--connector-width, var(--wa-border-width-m));
       translate: 0 -50%;
     }
 
@@ -154,7 +153,7 @@ export default css`
       inset-inline-start: calc(var(--marker-size, 2em) / 2);
       inset-block-start: calc(var(--marker-size, 2em) + var(--connector-gap, 0.35em));
       inset-block-end: calc(-1 * var(--gap, var(--wa-space-l)) + var(--connector-gap, 0.35em));
-      width: var(--wa-border-width-m);
+      width: var(--connector-width, var(--wa-border-width-m));
       translate: -50% 0;
     }
 

@@ -38,6 +38,8 @@ import styles from './stepper.styles.js';
  *  step that isn't completed.
  * @cssproperty --connector-color-active - The color of the connector line after a completed step. Unset by default,
  *  so the line takes the completed marker's fill and follows its `variant`.
+ * @cssproperty [--connector-width=var(--wa-border-width-m)] - The thickness of the connector line, in either
+ *  orientation.
  * @cssproperty [--connector-gap=0.35em] - The gap between a marker's edge and the connector line, on both sides.
  *  Kept clear of the marker geometrically, so it holds even if a marker's background is transparent.
  *
