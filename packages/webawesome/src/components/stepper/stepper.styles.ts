@@ -6,6 +6,7 @@ export default css`
       --gap: var(--wa-space-l);
       --marker-size: 2em;
       --connector-color: var(--wa-color-neutral-fill-normal);
+      --connector-width: var(--wa-border-width-m);
       --connector-gap: 0.35em;
       display: block;
     }

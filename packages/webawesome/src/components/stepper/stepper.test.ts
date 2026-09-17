@@ -309,6 +309,59 @@ describe('<wa-stepper>', () => {
           expect(startFill(shipping)).to.equal(token('--wa-color-success-fill-normal'));
           expect(startFill(payment)).to.equal(token('--wa-color-brand-fill-normal'));
         });
+
+        it('should size the connector with --connector-width in both orientations', async () => {
+          const thickness = (el: WaStepper) => {
+            const [first] = getSteps(el);
+            const rect = first.shadowRoot!.querySelector('.connector-end')!.getBoundingClientRect();
+            return el.orientation === 'vertical' ? rect.width : rect.height;
+          };
+
+          const row = await whenSynced(
+            await fixture<WaStepper>(html`
+              <wa-stepper active="cart" style="--connector-width: 6px">
+                <wa-step name="cart">Cart</wa-step>
+                <wa-step name="shipping">Shipping</wa-step>
+              </wa-stepper>
+            `),
+          );
+          expect(thickness(row)).to.equal(6);
+
+          const column = await whenSynced(
+            await fixture<WaStepper>(html`
+              <wa-stepper orientation="vertical" active="cart" style="--connector-width: 6px">
+                <wa-step name="cart">Cart</wa-step>
+                <wa-step name="shipping">Shipping</wa-step>
+              </wa-stepper>
+            `),
+          );
+          expect(thickness(column)).to.equal(6);
+        });
+      });
+
+      describe('long labels', () => {
+        it('should keep long words whole and never let labels overlap', async () => {
+          const wrapper = await fixture<HTMLDivElement>(html`
+            <div style="width: 200px">
+              <wa-stepper active="a">
+                <wa-step name="a">Knightsbridge</wa-step>
+                <wa-step name="b">Hammersmith</wa-step>
+                <wa-step name="c">Cockfosters</wa-step>
+              </wa-stepper>
+            </div>
+          `);
+          const el = wrapper.querySelector('wa-stepper')!;
+          await whenSynced(el);
+
+          const [a, b] = getSteps(el);
+          const labelEl = a.shadowRoot!.querySelector<HTMLElement>('[part~="label"]')!;
+          const labelA = labelEl.getBoundingClientRect();
+          const labelB = b.shadowRoot!.querySelector('[part~="label"]')!.getBoundingClientRect();
+          const oneLine = parseFloat(getComputedStyle(labelEl).lineHeight);
+
+          expect(labelA.right).to.be.at.most(labelB.left);
+          expect(labelA.height).to.be.closeTo(oneLine, 1);
+        });
       });
 
       describe('stepper-level custom states', () => {
@@ -465,12 +518,12 @@ describe('<wa-stepper>', () => {
       });
 
       describe('size and variant', () => {
-        it('should scale the marker with the size attribute', async () => {
+        it('should scale the marker with the font size', async () => {
           const wrapper = await fixture<HTMLDivElement>(html`
             <div>
-              <wa-stepper active="cart" size="s"><wa-step name="cart">Cart</wa-step></wa-stepper>
+              <wa-stepper active="cart" style="font-size: 12px"><wa-step name="cart">Cart</wa-step></wa-stepper>
               <wa-stepper active="cart"><wa-step name="cart">Cart</wa-step></wa-stepper>
-              <wa-stepper active="cart" size="l"><wa-step name="cart">Cart</wa-step></wa-stepper>
+              <wa-stepper active="cart" style="font-size: 20px"><wa-step name="cart">Cart</wa-step></wa-stepper>
             </div>
           `);
 
