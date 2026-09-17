@@ -5,27 +5,18 @@ export default css`
     /* Emphasis follows relevance, using the same tiers as button, badge, and callout: the current step is accent,
        completed steps are filled, and steps still to come are outlined. */
     :host {
-      --_accent: var(--wa-form-control-activated-color);
-      --_accent-on: var(--wa-color-brand-on-loud);
-      --_filled: var(--wa-color-brand-fill-normal);
-      --_filled-on: var(--wa-color-brand-on-normal);
+      --_accent: var(--wa-color-fill-loud, var(--wa-form-control-activated-color));
+      --_accent-on: var(--wa-color-on-loud, var(--wa-color-brand-on-loud));
+      --_filled: var(--wa-color-fill-normal, var(--wa-color-brand-fill-normal));
+      --_filled-on: var(--wa-color-on-normal, var(--wa-color-brand-on-normal));
       --_marker-background: transparent;
-      --_marker-border-color: var(--wa-color-neutral-border-normal);
+      --_marker-border-color: var(--wa-color-border-normal, var(--wa-color-neutral-border-normal));
       --_marker-border-style: solid;
       --_marker-border-width: var(--wa-form-control-border-width);
-      --_marker-color: var(--wa-color-text-quiet);
+      --_marker-color: var(--wa-color-on-quiet, var(--wa-color-text-quiet));
 
       display: flex;
       flex: 1 1 0%;
-    }
-
-    :host(:not([variant=''])) {
-      --_accent: var(--wa-color-fill-loud);
-      --_accent-on: var(--wa-color-on-loud);
-      --_filled: var(--wa-color-fill-normal);
-      --_filled-on: var(--wa-color-on-normal);
-      --_marker-border-color: var(--wa-color-border-normal);
-      --_marker-color: var(--wa-color-on-quiet);
     }
 
     :host(:state(completed)) {
