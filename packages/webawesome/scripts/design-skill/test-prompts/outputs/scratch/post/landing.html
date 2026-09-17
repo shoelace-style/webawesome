@@ -1,0 +1,531 @@
+<!doctype html>
+<html lang="en" class="wa-theme-default wa-palette-default wa-brand-orange wa-light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Foundry — CI/CD for embedded systems</title>
+    <link rel="stylesheet" href="https://ka-f.webawesome.com/webawesome@3.8.0/styles/webawesome.css" />
+    <script type="module" src="https://ka-f.webawesome.com/webawesome@3.8.0/webawesome.loader.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      html,
+      body {
+        min-height: 100%;
+        padding: 0;
+        margin: 0;
+      }
+
+      :root {
+        --wa-font-family-body: -apple-system, BlinkMacSystemFont, 'Söhne', 'Inter Tight', 'SF Pro Text',
+          system-ui, sans-serif;
+        --wa-font-family-heading: var(--wa-font-family-body);
+        --wa-font-family-code: 'JetBrains Mono', 'Berkeley Mono', 'SF Mono', ui-monospace, Menlo, Consolas,
+          monospace;
+        --wa-font-weight-heading: 600;
+
+        /* Refine brand toward a copper / burnt-orange so it reads as foundry/firmware, not Halloween */
+        --wa-color-brand-fill-loud: var(--wa-color-orange-30);
+        --wa-color-brand-fill-normal: var(--wa-color-orange-40);
+        --wa-color-brand-fill-quiet: var(--wa-color-orange-90);
+        --wa-color-brand-border-loud: var(--wa-color-orange-20);
+        --wa-color-brand-on-loud: #ffffff;
+      }
+
+      /* Reset wa-page's built-in main padding so hero/section bands run edge-to-edge. */
+      wa-page::part(main-content) {
+        padding: 0;
+      }
+      wa-page > main {
+        padding: 0;
+      }
+
+      /* --- Page band & container -------------------------------------------------- */
+      .section {
+        padding-block: var(--wa-space-3xl);
+        padding-inline: var(--wa-space-xl);
+      }
+      .section.tight {
+        padding-block: var(--wa-space-2xl);
+      }
+      .section.tighter {
+        padding-block: var(--wa-space-xl);
+      }
+      .container {
+        max-width: 68rem;
+        margin-inline: auto;
+      }
+      .container.narrow {
+        max-width: 44rem;
+      }
+      .surface-quiet {
+        background-color: var(--wa-color-surface-lowered);
+      }
+      .surface-bordered-top {
+        border-block-start: var(--wa-border-width-s) solid var(--wa-color-surface-border);
+      }
+
+      /* --- Header ----------------------------------------------------------------- */
+      header[slot='header'] {
+        position: relative;
+        padding-inline: var(--wa-space-xl);
+      }
+      .brand-mark {
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        text-decoration: none;
+        color: var(--wa-color-text-normal);
+        font-size: var(--wa-font-size-l);
+      }
+      .brand-mark-dot {
+        inline-size: var(--wa-space-xs);
+        block-size: var(--wa-space-xs);
+        border-radius: var(--wa-border-radius-circle);
+        background: var(--wa-color-brand-fill-loud);
+      }
+      .header-links {
+        font-size: var(--wa-font-size-s);
+      }
+      .header-links a {
+        color: var(--wa-color-text-normal);
+        text-decoration: none;
+        transition: color var(--wa-transition-fast);
+      }
+      .header-links a:hover {
+        color: var(--wa-color-brand-fill-loud);
+      }
+      .header-end {
+        margin-inline-start: auto;
+      }
+      .status-pill {
+        font-size: var(--wa-font-size-s);
+        font-family: var(--wa-font-family-code);
+        color: var(--wa-color-text-quiet);
+        text-decoration: none;
+      }
+      .status-pill:hover {
+        color: var(--wa-color-text-normal);
+      }
+      .status-dot {
+        inline-size: var(--wa-space-xs);
+        block-size: var(--wa-space-xs);
+        border-radius: var(--wa-border-radius-circle);
+        background: var(--wa-color-green-50);
+        box-shadow: 0 0 0 var(--wa-space-3xs) color-mix(in oklab, var(--wa-color-green-50) 22%, transparent);
+      }
+
+      /* Header-on-desktop / drawer-on-mobile recipe. */
+      wa-page[view='mobile'] .header-links {
+        display: none;
+      }
+      wa-page[view='mobile'] .status-pill .status-label {
+        display: none;
+      }
+      wa-page[view='desktop']::part(navigation) {
+        display: none;
+      }
+
+      /* Mobile drawer nav (lives in the navigation slot, opens via the built-in wa-page drawer). */
+      .drawer-nav a {
+        color: var(--wa-color-text-normal);
+        text-decoration: none;
+        padding-block: var(--wa-space-2xs);
+        font-size: var(--wa-font-size-m);
+      }
+      .drawer-nav a:hover {
+        color: var(--wa-color-brand-fill-loud);
+      }
+      .drawer-status {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--wa-space-2xs);
+        margin-block-start: var(--wa-space-l);
+        font-family: var(--wa-font-family-code);
+        font-size: var(--wa-font-size-s);
+        color: var(--wa-color-text-quiet);
+        text-decoration: none;
+      }
+
+      /* --- Hero ------------------------------------------------------------------- */
+      .hero h1 {
+        font-size: var(--wa-font-size-4xl);
+        line-height: 1.05;
+        letter-spacing: -0.025em;
+        margin: 0;
+        max-width: 22ch;
+      }
+      .hero-lede {
+        font-size: var(--wa-font-size-l);
+        color: var(--wa-color-text-quiet);
+        line-height: 1.5;
+        max-width: 60ch;
+        margin: 0;
+      }
+      .hero-meta {
+        font-family: var(--wa-font-family-code);
+        font-size: var(--wa-font-size-s);
+        color: var(--wa-color-text-quiet);
+      }
+      .hero-meta strong {
+        color: var(--wa-color-text-normal);
+        font-weight: 500;
+      }
+
+      /* --- Logo row --------------------------------------------------------------- */
+      .logo-row {
+        text-align: center;
+      }
+      .logo-row-label {
+        font-family: var(--wa-font-family-code);
+        font-size: var(--wa-font-size-xs);
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        color: var(--wa-color-text-quiet);
+        margin: 0 0 var(--wa-space-l);
+      }
+      .logo-row-marks {
+        --wa-cluster-gap: var(--wa-space-3xl);
+      }
+      .logo-mark {
+        font-weight: 600;
+        font-size: var(--wa-font-size-m);
+        letter-spacing: 0.08em;
+        color: var(--wa-color-text-quiet);
+        opacity: 0.85;
+      }
+
+      /* --- Features --------------------------------------------------------------- */
+      .features {
+        --min-column-size: 18rem;
+      }
+      .feature-index {
+        font-family: var(--wa-font-family-code);
+        font-size: var(--wa-font-size-xs);
+        color: var(--wa-color-brand-fill-loud);
+        letter-spacing: 0.08em;
+      }
+      .feature h2 {
+        margin: 0;
+        font-size: var(--wa-font-size-xl);
+        letter-spacing: -0.015em;
+        line-height: 1.2;
+      }
+      .feature-lede {
+        margin: 0;
+        color: var(--wa-color-text-normal);
+        font-weight: 500;
+      }
+      .feature-body {
+        margin: 0;
+        color: var(--wa-color-text-quiet);
+        line-height: 1.55;
+      }
+      .feature-meta {
+        font-family: var(--wa-font-family-code);
+        font-size: var(--wa-font-size-xs);
+        color: var(--wa-color-text-quiet);
+        padding-block-start: var(--wa-space-2xs);
+        line-height: 1.6;
+      }
+      .feature-meta-label {
+        color: var(--wa-color-text-normal);
+        font-weight: 500;
+      }
+
+      /* --- Pricing teaser --------------------------------------------------------- */
+      .pricing h2 {
+        font-size: var(--wa-font-size-2xl);
+        letter-spacing: -0.02em;
+        margin: 0;
+        line-height: 1.1;
+      }
+      .pricing-lede {
+        font-size: var(--wa-font-size-l);
+        color: var(--wa-color-text-quiet);
+        margin: 0;
+        line-height: 1.5;
+      }
+      .pricing-lede strong {
+        color: var(--wa-color-text-normal);
+        font-weight: 500;
+      }
+
+      /* --- Footer ----------------------------------------------------------------- */
+      footer[slot='footer'] {
+        padding: var(--wa-space-2xl) var(--wa-space-xl);
+        background: var(--wa-color-surface-lowered);
+        border-block-start: var(--wa-border-width-s) solid var(--wa-color-surface-border);
+      }
+      .footer-grid {
+        display: grid;
+        gap: var(--wa-space-2xl);
+        grid-template-columns: 1.4fr repeat(3, 1fr);
+      }
+      @media (max-width: 800px) {
+        .footer-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      .footer-brand p {
+        margin: 0;
+        color: var(--wa-color-text-quiet);
+        font-size: var(--wa-font-size-s);
+        line-height: 1.55;
+        max-width: 24rem;
+      }
+      .footer-col h3 {
+        margin: 0 0 var(--wa-space-s);
+        font-size: var(--wa-font-size-xs);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--wa-color-text-quiet);
+        font-weight: 600;
+      }
+      .footer-col ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: var(--wa-space-2xs);
+        font-size: var(--wa-font-size-s);
+      }
+      .footer-col a {
+        color: var(--wa-color-text-normal);
+        text-decoration: none;
+      }
+      .footer-col a:hover {
+        color: var(--wa-color-brand-fill-loud);
+      }
+      .soc2-badge {
+        padding: var(--wa-space-2xs) var(--wa-space-s);
+        border: var(--wa-border-width-s) solid var(--wa-color-surface-border);
+        border-radius: var(--wa-border-radius-pill);
+        font-family: var(--wa-font-family-code);
+        font-size: var(--wa-font-size-xs);
+        color: var(--wa-color-text-quiet);
+        background: var(--wa-color-surface-default);
+        width: max-content;
+      }
+      .soc2-badge wa-icon {
+        color: var(--wa-color-green-50);
+      }
+      .footer-meta {
+        margin-block-start: var(--wa-space-xl);
+        padding-block-start: var(--wa-space-l);
+        border-block-start: var(--wa-border-width-s) solid var(--wa-color-surface-border);
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: var(--wa-space-s);
+        font-size: var(--wa-font-size-xs);
+        color: var(--wa-color-text-quiet);
+      }
+    </style>
+  </head>
+  <body>
+    <wa-page mobile-breakpoint="900">
+      <!-- HEADER ------------------------------------------------------------------- -->
+      <header slot="header" class="wa-split">
+        <a href="/" class="brand-mark wa-cluster wa-gap-2xs">
+          <span class="brand-mark-dot" aria-hidden="true"></span>
+          <span>Foundry</span>
+        </a>
+
+        <div class="header-end wa-cluster wa-gap-l">
+          <nav class="header-links wa-cluster wa-gap-xl" aria-label="Primary">
+            <a href="/product">Product</a>
+            <a href="/pricing">Pricing</a>
+            <a href="/docs">Docs</a>
+            <a href="/changelog">Changelog</a>
+          </nav>
+
+          <a href="/status" class="status-pill wa-cluster wa-gap-2xs" aria-label="System status: all systems operational">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span class="status-label">All systems operational</span>
+          </a>
+
+          <wa-button data-toggle-nav appearance="plain" size="small" class="wa-mobile-only">
+            <wa-icon name="bars" label="Open menu"></wa-icon>
+          </wa-button>
+        </div>
+      </header>
+
+      <!-- Mirrored nav for the mobile drawer. Hidden on desktop via ::part(navigation). -->
+      <nav slot="navigation" class="drawer-nav wa-stack wa-gap-2xs" aria-label="Mobile">
+        <a href="/product" data-drawer="close">Product</a>
+        <a href="/pricing" data-drawer="close">Pricing</a>
+        <a href="/docs" data-drawer="close">Docs</a>
+        <a href="/changelog" data-drawer="close">Changelog</a>
+        <a href="/status" class="drawer-status" data-drawer="close">
+          <span class="status-dot" aria-hidden="true"></span>
+          All systems operational
+        </a>
+      </nav>
+
+      <main>
+        <!-- HERO ------------------------------------------------------------------- -->
+        <section class="section hero">
+          <div class="container wa-stack wa-gap-l">
+            <h1>Stop waiting on builds. Ship firmware faster.</h1>
+            <p class="hero-lede">
+              Foundry is a CI/CD platform built for embedded systems engineers. Cross-compilation,
+              hardware-in-the-loop tests, and OTA staging in one pipeline &mdash; no Jenkins glued to a Mac mini
+              under the bench.
+            </p>
+            <div class="wa-cluster wa-gap-s hero-ctas">
+              <wa-button variant="brand" size="large">
+                Start free &mdash; no credit card
+                <wa-icon slot="end" name="arrow-right"></wa-icon>
+              </wa-button>
+              <wa-button appearance="outlined" size="large">
+                <wa-icon slot="start" name="play"></wa-icon>
+                Watch 2-minute demo
+              </wa-button>
+            </div>
+            <p class="hero-meta">
+              <strong>Self-hosted</strong> or <strong>Foundry Cloud</strong> &middot; Linux, macOS, Windows runners
+            </p>
+          </div>
+        </section>
+
+        <!-- LOGO ROW --------------------------------------------------------------- -->
+        <section class="section tighter logo-row surface-bordered-top">
+          <div class="container">
+            <p class="logo-row-label">Shipping with Foundry</p>
+            <div class="logo-row-marks wa-cluster wa-gap-3xl wa-justify-content-center">
+              <span class="logo-mark">ACME ROBOTICS</span>
+              <span class="logo-mark">VOLTAGE LABS</span>
+              <span class="logo-mark">MIDDLE-OUT MOTORS</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- FEATURES --------------------------------------------------------------- -->
+        <section class="section">
+          <div class="container">
+            <div class="features wa-grid wa-gap-2xl">
+              <article class="feature wa-stack wa-gap-s">
+                <span class="feature-index">01 &middot; BUILD</span>
+                <h2>Cross-compilation matrix</h2>
+                <p class="feature-lede">Build for 14 targets in parallel.</p>
+                <p class="feature-body">
+                  ARM Cortex-M, RISC-V, Xtensa, AArch64. Same toolchain image, same lockfile, every commit.
+                  Toolchain diffs surface as a build artifact &mdash; not a Slack message.
+                </p>
+                <p class="feature-meta">
+                  <span class="feature-meta-label">Targets &rarr;</span>
+                  stm32f4 &middot; nrf52840 &middot; esp32-s3 &middot; rp2040 &middot; imxrt1060 &middot; +9
+                </p>
+              </article>
+
+              <article class="feature wa-stack wa-gap-s">
+                <span class="feature-index">02 &middot; TEST</span>
+                <h2>Hardware-in-the-loop tests</h2>
+                <p class="feature-lede">Real boards, real I/O.</p>
+                <p class="feature-body">
+                  Provision a Foundry-managed board farm or bring your own bench. Drive CAN, SPI, I2C, UART, and
+                  JTAG from the same test harness you run locally. Tests execute on the silicon you ship.
+                </p>
+                <p class="feature-meta">
+                  <span class="feature-meta-label">Median latency &rarr;</span>
+                  41ms from host to DUT
+                </p>
+              </article>
+
+              <article class="feature wa-stack wa-gap-s">
+                <span class="feature-index">03 &middot; SHIP</span>
+                <h2>OTA staging</h2>
+                <p class="feature-lede">Canary releases, rollback in 30 seconds.</p>
+                <p class="feature-body">
+                  Promote firmware through dev, staging, and production cohorts. Watch crash and battery metrics
+                  in real time. Roll an entire fleet back with one command &mdash; or one click.
+                </p>
+                <p class="feature-meta">
+                  <span class="feature-meta-label">Rollback p95 &rarr;</span>
+                  28s to last-known-good across 50k devices
+                </p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <!-- PRICING TEASER --------------------------------------------------------- -->
+        <section class="section tight pricing surface-quiet surface-bordered-top">
+          <div class="container narrow wa-stack wa-gap-m wa-align-items-center wa-text-center">
+            <h2>Pricing built around projects, not seats.</h2>
+            <p class="pricing-lede">
+              Free for teams under 5. Paid tiers from <strong>$99/mo per project</strong> &mdash; unlimited
+              builds, unlimited targets, every runner type.
+            </p>
+            <wa-button appearance="outlined" size="medium">
+              See pricing
+              <wa-icon slot="end" name="arrow-right"></wa-icon>
+            </wa-button>
+          </div>
+        </section>
+      </main>
+
+      <!-- FOOTER ------------------------------------------------------------------- -->
+      <footer slot="footer">
+        <div class="container">
+          <div class="footer-grid">
+            <div class="footer-brand wa-stack wa-gap-m">
+              <a href="/" class="brand-mark">
+                <span class="brand-mark-dot" aria-hidden="true"></span>
+                <span>Foundry</span>
+              </a>
+              <p>Continuous integration for embedded systems. Built in Palo Alto by firmware engineers who got tired of duct-taping Jenkins to bench rigs.</p>
+              <span class="soc2-badge wa-cluster wa-gap-2xs">
+                <wa-icon name="shield-halved"></wa-icon>
+                <span>SOC 2 Type II compliant</span>
+              </span>
+            </div>
+
+            <div class="footer-col">
+              <h3>Product</h3>
+              <ul>
+                <li><a href="/product">Features</a></li>
+                <li><a href="/pricing">Pricing</a></li>
+                <li><a href="/changelog">Changelog</a></li>
+                <li><a href="/docs">Docs</a></li>
+                <li><a href="/integrations">Integrations</a></li>
+              </ul>
+            </div>
+
+            <div class="footer-col">
+              <h3>Company</h3>
+              <ul>
+                <li><a href="/about">About</a></li>
+                <li><a href="/customers">Customers</a></li>
+                <li><a href="/blog">Blog</a></li>
+                <li><a href="/careers">Careers</a></li>
+                <li><a href="/contact">Contact</a></li>
+              </ul>
+            </div>
+
+            <div class="footer-col">
+              <h3>Resources</h3>
+              <ul>
+                <li><a href="/status">Status</a></li>
+                <li><a href="/security">Security</a></li>
+                <li><a href="/privacy">Privacy</a></li>
+                <li><a href="/terms">Terms</a></li>
+                <li><a href="/support">Support</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="footer-meta">
+            <span>&copy; 2026 Foundry Systems, Inc.</span>
+            <span>Palo Alto, CA</span>
+          </div>
+        </div>
+      </footer>
+    </wa-page>
+  </body>
+</html>

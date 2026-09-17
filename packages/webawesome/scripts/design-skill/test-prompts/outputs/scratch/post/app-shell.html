@@ -1,0 +1,609 @@
+<!doctype html>
+<html lang="en" class="wa-theme-default wa-palette-default wa-light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Net worth · Cinder</title>
+    <link rel="stylesheet" href="https://ka-f.webawesome.com/webawesome@3.8.0/styles/webawesome.css" />
+    <script type="module" src="https://ka-f.webawesome.com/webawesome@3.8.0/webawesome.loader.js"></script>
+    <style>
+      html,
+      body {
+        min-height: 100%;
+        padding: 0;
+        margin: 0;
+      }
+
+      :root {
+        /* Cinder: a quiet, low-saturation warm copper. Used sparingly. */
+        --wa-color-brand-fill-loud: #8b4a3a;
+        --wa-color-brand-fill-normal: #a05c4b;
+        --wa-color-brand-fill-quiet: #f4ece8;
+        --wa-color-brand-on-loud: #ffffff;
+        --wa-color-brand-on-normal: #ffffff;
+        --wa-color-brand-on-quiet: #6f3a2c;
+        --wa-color-brand-border-loud: #8b4a3a;
+        --wa-color-brand-border-normal: #c8a89e;
+        --wa-color-brand-border-quiet: #e8dad3;
+
+        /* Subtle warm surfaces — feels lit, not stark. */
+        --wa-color-surface-default: #fbfaf8;
+        --wa-color-surface-raised: #ffffff;
+        --wa-color-surface-lowered: #f5f3ef;
+        --wa-color-surface-border: #ebe7e1;
+
+        /* Lesser-known font stack — system fonts, avoiding Inter/Roboto defaults. */
+        --wa-font-family-body: ui-sans-serif, -apple-system, BlinkMacSystemFont,
+          'SF Pro Text', 'Segoe UI Variable Text', 'Segoe UI', system-ui, sans-serif;
+        --wa-font-family-heading: var(--wa-font-family-body);
+        --wa-font-family-code: ui-monospace, 'SF Mono', 'JetBrains Mono',
+          Menlo, Consolas, monospace;
+
+        /* Slightly tighter rounded corners than default — quiet, not playful. */
+        --wa-border-radius-scale: 0.9;
+      }
+
+      body {
+        background: var(--wa-color-surface-default);
+        color: var(--wa-color-text-normal);
+        -webkit-font-smoothing: antialiased;
+        font-feature-settings: 'ss01', 'cv11';
+      }
+
+      /* ---------- Page chrome ---------- */
+
+      wa-page {
+        --menu-width: 15rem;
+      }
+      wa-page[view='mobile'] {
+        --menu-width: auto;
+      }
+
+      wa-page::part(header) {
+        background: var(--wa-color-surface-default);
+        border-block-end: var(--wa-border-width-s) solid var(--wa-color-surface-border);
+        padding-inline: var(--wa-space-xl);
+      }
+
+      wa-page::part(menu) {
+        background: var(--wa-color-surface-lowered);
+        border-inline-end: var(--wa-border-width-s) solid var(--wa-color-surface-border);
+      }
+
+      wa-page::part(navigation),
+      wa-page::part(navigation-header) {
+        padding-inline: var(--wa-space-m);
+      }
+
+      /* ---------- Header bar ---------- */
+
+      .header-bar {
+        block-size: var(--wa-space-4xl);
+      }
+
+      .page-title {
+        font-size: var(--wa-font-size-l);
+        font-weight: var(--wa-font-weight-semibold);
+        letter-spacing: -0.01em;
+        margin: 0;
+        color: var(--wa-color-text-normal);
+      }
+
+      .month-trigger::part(base) {
+        font-weight: var(--wa-font-weight-normal);
+        color: var(--wa-color-text-normal);
+      }
+
+      .header-avatar {
+        --size: var(--wa-space-xl);
+      }
+
+      .header-avatar::part(initials) {
+        background: var(--wa-color-brand-fill-quiet);
+        color: var(--wa-color-brand-on-quiet);
+        font-weight: var(--wa-font-weight-semibold);
+        font-size: var(--wa-font-size-s);
+        letter-spacing: 0.02em;
+      }
+
+      /* ---------- Sidebar ---------- */
+
+      .brand-mark {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--wa-space-xs);
+        padding-block: var(--wa-space-m);
+        padding-inline: var(--wa-space-2xs);
+        font-weight: var(--wa-font-weight-semibold);
+        font-size: var(--wa-font-size-m);
+        letter-spacing: -0.01em;
+        color: var(--wa-color-text-normal);
+        text-decoration: none;
+      }
+
+      .brand-dot {
+        inline-size: 0.5rem;
+        block-size: 0.5rem;
+        border-radius: var(--wa-border-radius-circle);
+        background: var(--wa-color-brand-fill-loud);
+        display: inline-block;
+      }
+
+      .nav-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .nav-list li + li {
+        margin-block-start: var(--wa-space-3xs);
+      }
+
+      .nav-link {
+        display: flex;
+        align-items: center;
+        gap: var(--wa-space-s);
+        padding-block: var(--wa-space-2xs);
+        padding-inline: var(--wa-space-s);
+        border-radius: var(--wa-border-radius-m);
+        color: var(--wa-color-text-quiet);
+        text-decoration: none;
+        font-size: var(--wa-font-size-s);
+        font-weight: var(--wa-font-weight-normal);
+        line-height: 1;
+        transition: background-color var(--wa-transition-fast),
+          color var(--wa-transition-fast);
+      }
+
+      .nav-link wa-icon {
+        font-size: var(--wa-font-size-m);
+        color: var(--wa-color-text-quiet);
+      }
+
+      .nav-link:hover {
+        background: var(--wa-color-surface-raised);
+        color: var(--wa-color-text-normal);
+      }
+
+      .nav-link[aria-current='page'] {
+        background: var(--wa-color-surface-raised);
+        color: var(--wa-color-text-normal);
+        font-weight: var(--wa-font-weight-semibold);
+        box-shadow: inset 0 0 0 var(--wa-border-width-s)
+          var(--wa-color-surface-border);
+      }
+
+      .nav-link[aria-current='page'] wa-icon {
+        color: var(--wa-color-brand-fill-loud);
+      }
+
+      .nav-footer {
+        padding-block: var(--wa-space-l);
+        font-size: var(--wa-font-size-xs);
+        color: var(--wa-color-text-quiet);
+      }
+
+      /* ---------- Main content ---------- */
+
+      .page-main {
+        padding-block: var(--wa-space-xl);
+        padding-inline: var(--wa-space-xl);
+        max-width: 70rem;
+      }
+
+      .section-heading {
+        font-size: var(--wa-font-size-s);
+        font-weight: var(--wa-font-weight-semibold);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--wa-color-text-quiet);
+        margin: 0;
+      }
+
+      /* ---------- Summary cards ---------- */
+
+      .summary-card {
+        --spacing: var(--wa-space-l);
+      }
+
+      .summary-card::part(body) {
+        display: flex;
+        flex-direction: column;
+        gap: var(--wa-space-xs);
+      }
+
+      .summary-label {
+        font-size: var(--wa-font-size-s);
+        color: var(--wa-color-text-quiet);
+        font-weight: var(--wa-font-weight-normal);
+        margin: 0;
+      }
+
+      .summary-value {
+        font-size: var(--wa-font-size-2xl);
+        font-weight: var(--wa-font-weight-semibold);
+        letter-spacing: -0.02em;
+        color: var(--wa-color-text-normal);
+        font-variant-numeric: tabular-nums;
+        line-height: 1.1;
+      }
+
+      .summary-meta {
+        font-size: var(--wa-font-size-s);
+        color: var(--wa-color-text-quiet);
+        margin: 0;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .summary-unit {
+        font-size: var(--wa-font-size-m);
+        font-weight: var(--wa-font-weight-normal);
+        color: var(--wa-color-text-quiet);
+      }
+
+      .trend-up {
+        color: var(--wa-color-brand-on-quiet);
+        font-weight: var(--wa-font-weight-semibold);
+      }
+
+      .sparkline {
+        block-size: var(--wa-space-xl);
+        inline-size: var(--wa-space-5xl);
+        color: var(--wa-color-brand-fill-loud);
+        flex-shrink: 0;
+      }
+
+      /* ---------- Accounts list ---------- */
+
+      .accounts-card {
+        --spacing: 0;
+      }
+
+      .accounts-card::part(header) {
+        padding: var(--wa-space-l);
+        border-block-end: var(--wa-border-width-s) solid
+          var(--wa-color-surface-border);
+      }
+
+      .accounts-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .account-row {
+        display: grid;
+        grid-template-columns: var(--wa-space-2xl) 1fr auto;
+        align-items: center;
+        gap: var(--wa-space-m);
+        padding-block: var(--wa-space-m);
+        padding-inline: var(--wa-space-l);
+        border-block-end: var(--wa-border-width-s) solid
+          var(--wa-color-surface-border);
+      }
+
+      .account-row:last-child {
+        border-block-end: none;
+      }
+
+      .institution-mark {
+        inline-size: var(--wa-space-2xl);
+        block-size: var(--wa-space-2xl);
+        border-radius: var(--wa-border-radius-m);
+        background: var(--wa-color-surface-lowered);
+        color: var(--wa-color-text-normal);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: var(--wa-font-weight-semibold);
+        font-size: var(--wa-font-size-s);
+        letter-spacing: -0.01em;
+      }
+
+      .account-name {
+        font-size: var(--wa-font-size-m);
+        font-weight: var(--wa-font-weight-semibold);
+        color: var(--wa-color-text-normal);
+        margin: 0;
+        line-height: 1.2;
+      }
+
+      .account-meta {
+        display: flex;
+        align-items: center;
+        gap: var(--wa-space-xs);
+        margin-block-start: var(--wa-space-3xs);
+        font-size: var(--wa-font-size-xs);
+        color: var(--wa-color-text-quiet);
+      }
+
+      .account-meta wa-tag::part(base) {
+        font-weight: var(--wa-font-weight-normal);
+        text-transform: none;
+        letter-spacing: 0;
+      }
+
+      .account-balance {
+        text-align: end;
+      }
+
+      .balance-amount {
+        font-size: var(--wa-font-size-m);
+        font-weight: var(--wa-font-weight-semibold);
+        color: var(--wa-color-text-normal);
+        font-variant-numeric: tabular-nums;
+        line-height: 1.2;
+      }
+
+      .balance-synced {
+        font-size: var(--wa-font-size-xs);
+        color: var(--wa-color-text-quiet);
+        margin-block-start: var(--wa-space-3xs);
+      }
+
+      /* ---------- Empty chart ---------- */
+
+      .empty-chart-card {
+        --spacing: var(--wa-space-l);
+      }
+
+      .empty-chart {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: var(--wa-space-s);
+        min-block-size: 14rem;
+        border-radius: var(--wa-border-radius-m);
+        background: var(--wa-color-surface-lowered);
+        border: var(--wa-border-width-s) dashed
+          var(--wa-color-surface-border);
+        padding: var(--wa-space-xl);
+      }
+
+      .empty-chart wa-icon {
+        font-size: var(--wa-font-size-xl);
+        color: var(--wa-color-text-quiet);
+      }
+
+      .empty-chart-note {
+        font-size: var(--wa-font-size-s);
+        color: var(--wa-color-text-quiet);
+        text-align: center;
+        max-width: 42ch;
+        margin: 0;
+      }
+
+      /* ---------- Responsive ---------- */
+
+      @media (max-width: 720px) {
+        .page-main {
+          padding-inline: var(--wa-space-m);
+          padding-block: var(--wa-space-l);
+        }
+        .summary-value {
+          font-size: var(--wa-font-size-xl);
+        }
+        .account-row {
+          padding-inline: var(--wa-space-m);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <wa-page mobile-breakpoint="920">
+      <header slot="header" class="header-bar wa-split">
+        <div class="wa-cluster wa-gap-m">
+          <wa-button
+            data-toggle-nav
+            appearance="plain"
+            class="wa-mobile-only"
+          >
+            <wa-icon name="bars" label="Menu"></wa-icon>
+          </wa-button>
+          <h1 class="page-title">Net worth</h1>
+        </div>
+        <div class="wa-cluster wa-gap-s">
+          <wa-dropdown>
+            <wa-button slot="trigger" appearance="plain" class="month-trigger" with-caret>
+              June 2026
+            </wa-button>
+            <wa-dropdown-item>June 2026</wa-dropdown-item>
+            <wa-dropdown-item>May 2026</wa-dropdown-item>
+            <wa-dropdown-item>April 2026</wa-dropdown-item>
+            <wa-dropdown-item>March 2026</wa-dropdown-item>
+            <wa-dropdown-item>February 2026</wa-dropdown-item>
+            <wa-dropdown-item>January 2026</wa-dropdown-item>
+          </wa-dropdown>
+          <wa-avatar
+            initials="AL"
+            label="Ada Lovelace"
+            class="header-avatar"
+          ></wa-avatar>
+        </div>
+      </header>
+
+      <a href="#" slot="navigation-header" class="brand-mark">
+        <span class="brand-dot" aria-hidden="true"></span>
+        Cinder
+      </a>
+
+      <nav slot="navigation" aria-label="Primary">
+        <ul class="nav-list">
+          <li>
+            <a href="#" class="nav-link" aria-current="page" data-drawer="close">
+              <wa-icon name="chart-line"></wa-icon>
+              Net worth
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link" data-drawer="close">
+              <wa-icon name="wallet"></wa-icon>
+              Accounts
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link" data-drawer="close">
+              <wa-icon name="arrow-trend-up"></wa-icon>
+              Trends
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link" data-drawer="close">
+              <wa-icon name="gear"></wa-icon>
+              Settings
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div slot="navigation-footer" class="nav-footer">
+        Quiet by design.
+      </div>
+
+      <main class="page-main wa-stack wa-gap-2xl">
+        <section
+          aria-label="Summary"
+          class="wa-grid wa-gap-m"
+          style="--min-column-size: 15rem;"
+        >
+          <wa-card class="summary-card">
+            <p class="summary-label">Net worth</p>
+            <div class="wa-split wa-align-items-end">
+              <div class="wa-stack wa-gap-2xs">
+                <div class="summary-value">$142,308</div>
+                <p class="summary-meta">
+                  <span class="trend-up">+2.1%</span> this month
+                </p>
+              </div>
+              <svg
+                class="sparkline"
+                viewBox="0 0 88 28"
+                preserveAspectRatio="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M0 22 L11 19 L22 21 L33 16 L44 18 L55 12 L66 14 L77 8 L88 5"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+          </wa-card>
+
+          <wa-card class="summary-card">
+            <p class="summary-label">Liquid</p>
+            <div class="summary-value">$18,420</div>
+            <p class="summary-meta">Covers 4.4 months of burn</p>
+          </wa-card>
+
+          <wa-card class="summary-card">
+            <p class="summary-label">Burn rate</p>
+            <div class="summary-value">$4,210<span class="summary-unit">/mo</span></div>
+            <p class="summary-meta">Down from $4,560 in May</p>
+          </wa-card>
+        </section>
+
+        <section class="wa-stack wa-gap-m" aria-labelledby="accounts-heading">
+          <div class="wa-split">
+            <h2 id="accounts-heading" class="section-heading">Accounts</h2>
+            <wa-button appearance="plain" size="small">
+              <wa-icon slot="start" name="plus"></wa-icon>
+              Add account
+            </wa-button>
+          </div>
+          <wa-card class="accounts-card">
+            <ul class="accounts-list">
+              <li class="account-row">
+                <span class="institution-mark" aria-hidden="true">S</span>
+                <div>
+                  <p class="account-name">Schwab Brokerage</p>
+                  <div class="account-meta">
+                    <wa-tag size="xs" appearance="outlined">Brokerage</wa-tag>
+                    <span aria-label="Account ending in 5544">···· 5544</span>
+                  </div>
+                </div>
+                <div class="account-balance">
+                  <div class="balance-amount">$98,420.12</div>
+                  <div class="balance-synced">Synced 2 hours ago</div>
+                </div>
+              </li>
+              <li class="account-row">
+                <span class="institution-mark" aria-hidden="true">A</span>
+                <div>
+                  <p class="account-name">Ally Savings</p>
+                  <div class="account-meta">
+                    <wa-tag size="xs" appearance="outlined">Savings</wa-tag>
+                    <span aria-label="Account ending in 8821">···· 8821</span>
+                  </div>
+                </div>
+                <div class="account-balance">
+                  <div class="balance-amount">$14,210.00</div>
+                  <div class="balance-synced">Synced 2 hours ago</div>
+                </div>
+              </li>
+              <li class="account-row">
+                <span class="institution-mark" aria-hidden="true">C</span>
+                <div>
+                  <p class="account-name">Chase Checking</p>
+                  <div class="account-meta">
+                    <wa-tag size="xs" appearance="outlined">Checking</wa-tag>
+                    <span aria-label="Account ending in 4193">···· 4193</span>
+                  </div>
+                </div>
+                <div class="account-balance">
+                  <div class="balance-amount">$4,210.18</div>
+                  <div class="balance-synced">Synced 2 hours ago</div>
+                </div>
+              </li>
+              <li class="account-row">
+                <span class="institution-mark" aria-hidden="true">V</span>
+                <div>
+                  <p class="account-name">Vanguard 401k</p>
+                  <div class="account-meta">
+                    <wa-tag size="xs" appearance="outlined">Retirement</wa-tag>
+                    <span aria-label="Account ending in 3091">···· 3091</span>
+                  </div>
+                </div>
+                <div class="account-balance">
+                  <div class="balance-amount">$24,418.45</div>
+                  <div class="balance-synced">Synced 2 hours ago</div>
+                </div>
+              </li>
+              <li class="account-row">
+                <span class="institution-mark" aria-hidden="true">W</span>
+                <div>
+                  <p class="account-name">Wealthfront</p>
+                  <div class="account-meta">
+                    <wa-tag size="xs" appearance="outlined">Brokerage</wa-tag>
+                    <span aria-label="Account ending in 0212">···· 0212</span>
+                  </div>
+                </div>
+                <div class="account-balance">
+                  <div class="balance-amount">$1,049.92</div>
+                  <div class="balance-synced">Synced 2 hours ago</div>
+                </div>
+              </li>
+            </ul>
+          </wa-card>
+        </section>
+
+        <section class="wa-stack wa-gap-m" aria-labelledby="history-heading">
+          <h2 id="history-heading" class="section-heading">Net worth over time</h2>
+          <wa-card class="empty-chart-card">
+            <div class="empty-chart">
+              <wa-icon name="chart-line"></wa-icon>
+              <p class="empty-chart-note">
+                12 months of history once your accounts have been connected
+                long enough.
+              </p>
+            </div>
+          </wa-card>
+        </section>
+      </main>
+    </wa-page>
+  </body>
+</html>

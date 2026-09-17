@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="en" class="wa-theme-default wa-palette-default wa-light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pricing — Marshfield</title>
+
+    <link rel="stylesheet" href="https://ka-f.webawesome.com/webawesome@3.9.0/styles/webawesome.css" />
+    <script type="module" src="https://ka-f.webawesome.com/webawesome@3.9.0/webawesome.loader.js"></script>
+
+    <style>
+      :root {
+        /* Marshfield brand: a quiet Vermont forest green. */
+        --wa-color-brand-fill-loud: #2f4a3c;
+        --wa-color-brand-fill-normal: #3b5d4d;
+        --wa-color-brand-fill-quiet: #e8efe9;
+        --wa-color-brand-on-loud: #fbf9f3;
+        --wa-color-brand-on-quiet: #1f3a2a;
+        --wa-color-brand-border-loud: #2f4a3c;
+        --wa-color-brand-border-normal: #3b5d4d;
+        --wa-color-brand-border-quiet: #c9d6cb;
+
+        /* Warm paper surface across the page. */
+        --wa-color-surface-default: #f7f3ea;
+        --wa-color-surface-raised: #fbf9f3;
+
+        /* Serif stack chosen to avoid Inter/Roboto territory — favors system serifs. */
+        --serif:
+          'Iowan Old Style', 'Charter', 'Source Serif Pro', 'Palatino Linotype', Palatino, Georgia, 'Times New Roman',
+          serif;
+      }
+
+      html,
+      body {
+        min-height: 100%;
+        padding: 0;
+        margin: 0;
+        background: var(--wa-color-surface-default);
+        color: var(--wa-color-text-normal);
+        font-family: var(--wa-font-family-body);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* Zero the wa-page main padding so sections own their gutters. */
+      wa-page::part(main-content) {
+        padding: 0;
+      }
+      wa-page > main {
+        padding: 0;
+      }
+
+      .container {
+        max-width: 64rem;
+        margin-inline: auto;
+        padding-inline: var(--wa-space-l);
+      }
+
+      .container-narrow {
+        max-width: 38rem;
+        margin-inline: auto;
+        padding-inline: var(--wa-space-l);
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: var(--serif);
+        font-weight: 500;
+        letter-spacing: -0.012em;
+        color: var(--wa-color-text-normal);
+        margin: 0;
+      }
+
+      p {
+        margin: 0;
+      }
+
+      a {
+        color: var(--wa-color-text-normal);
+      }
+      a:hover {
+        color: var(--wa-color-brand-on-quiet);
+      }
+
+      /* Header bar */
+      .header-bar {
+        padding-block: var(--wa-space-m);
+        border-block-end: 1px solid var(--wa-color-surface-border);
+        background: var(--wa-color-surface-default);
+        position: relative;
+      }
+
+      .wordmark {
+        font-family: var(--serif);
+        font-size: var(--wa-font-size-l);
+        font-weight: 500;
+        letter-spacing: -0.012em;
+        text-decoration: none;
+      }
+
+      .header-links a {
+        text-decoration: none;
+        font-size: var(--wa-font-size-s);
+        color: var(--wa-color-text-quiet);
+        transition: color var(--wa-transition-fast);
+      }
+
+      .header-links a:hover,
+      .header-links a[aria-current='page'] {
+        color: var(--wa-color-text-normal);
+      }
+
+      .header-links a[aria-current='page'] {
+        font-weight: 500;
+      }
+
+      /* Mobile: hide inline header links, reveal as a panel when toggled. */
+      wa-page[view='mobile'] .header-links {
+        display: none;
+      }
+      wa-page[view='mobile'][nav-open] .header-links {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--wa-space-m);
+        position: absolute;
+        inset-block-start: 100%;
+        inset-inline: 0;
+        padding: var(--wa-space-l);
+        background: var(--wa-color-surface-default);
+        border-block-end: 1px solid var(--wa-color-surface-border);
+        z-index: 10;
+      }
+
+      /* Lede */
+      .lede {
+        padding-block: var(--wa-space-3xl) var(--wa-space-xl);
+      }
+
+      .eyebrow {
+        font-family: var(--serif);
+        font-size: var(--wa-font-size-s);
+        font-style: italic;
+        color: var(--wa-color-text-quiet);
+      }
+
+      .lede h1 {
+        font-size: var(--wa-font-size-3xl);
+        line-height: 1.08;
+      }
+
+      .lede-body {
+        font-size: var(--wa-font-size-l);
+        line-height: 1.55;
+        color: var(--wa-color-text-quiet);
+      }
+
+      /* Pricing grid */
+      .pricing {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+        gap: var(--wa-space-m);
+        padding-block: var(--wa-space-xl) var(--wa-space-3xl);
+        align-items: stretch;
+      }
+
+      wa-card.tier {
+        --spacing: var(--wa-space-l);
+        height: 100%;
+      }
+
+      .tier-name {
+        font-family: var(--serif);
+        font-size: var(--wa-font-size-l);
+        font-weight: 500;
+      }
+
+      .tier-price-amount {
+        font-family: var(--serif);
+        font-size: var(--wa-font-size-3xl);
+        font-weight: 500;
+        line-height: 1;
+        letter-spacing: -0.02em;
+      }
+
+      .tier-price-period {
+        font-family: var(--serif);
+        font-size: var(--wa-font-size-m);
+        color: var(--wa-color-text-quiet);
+        line-height: 1;
+      }
+
+      .tier-tagline {
+        color: var(--wa-color-text-quiet);
+        font-style: italic;
+        font-size: var(--wa-font-size-s);
+      }
+
+      .tier-features {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        flex: 1 1 auto;
+      }
+
+      .tier-features li {
+        padding-block: var(--wa-space-s);
+        font-size: var(--wa-font-size-s);
+        line-height: 1.45;
+        border-block-start: 1px dashed var(--wa-color-surface-border);
+      }
+
+      .tier-features li:first-child {
+        border-block-start: none;
+        padding-block-start: 0;
+      }
+
+      .tier-cta {
+        margin-block-start: auto;
+      }
+
+      /* "What's not on the list" */
+      .exclusions {
+        border-block-start: 1px solid var(--wa-color-surface-border);
+        padding-block: var(--wa-space-2xl);
+      }
+
+      .exclusions h2 {
+        font-size: var(--wa-font-size-xl);
+      }
+
+      .exclusions-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+        gap: var(--wa-space-xl);
+      }
+
+      .exclusion-title {
+        font-weight: 500;
+        font-family: var(--serif);
+        font-size: var(--wa-font-size-m);
+      }
+
+      .exclusion-body {
+        color: var(--wa-color-text-quiet);
+        font-size: var(--wa-font-size-s);
+        line-height: 1.5;
+      }
+
+      /* FAQ */
+      .faq {
+        border-block-start: 1px solid var(--wa-color-surface-border);
+        padding-block: var(--wa-space-2xl) var(--wa-space-3xl);
+      }
+
+      .faq h2 {
+        font-size: var(--wa-font-size-xl);
+      }
+
+      wa-details.faq-item {
+        border-block-end: 1px solid var(--wa-color-surface-border);
+        --spacing: var(--wa-space-m);
+      }
+
+      wa-details.faq-item:first-of-type {
+        border-block-start: 1px solid var(--wa-color-surface-border);
+      }
+
+      wa-details.faq-item::part(header) {
+        padding-inline: 0;
+        padding-block: var(--wa-space-m);
+      }
+
+      wa-details.faq-item::part(summary) {
+        font-family: var(--serif);
+        font-size: var(--wa-font-size-m);
+        font-weight: 500;
+        color: var(--wa-color-text-normal);
+      }
+
+      wa-details.faq-item::part(content) {
+        padding-inline: 0;
+        padding-block-end: var(--wa-space-l);
+        color: var(--wa-color-text-quiet);
+        line-height: 1.6;
+        font-size: var(--wa-font-size-s);
+        max-width: 42rem;
+      }
+
+      /* Footer */
+      .page-footer {
+        border-block-start: 1px solid var(--wa-color-surface-border);
+        padding-block: var(--wa-space-l);
+        color: var(--wa-color-text-quiet);
+        font-size: var(--wa-font-size-s);
+      }
+
+      /* CTA buttons — match the serif voice. */
+      wa-button.tier-cta::part(base) {
+        font-family: var(--serif);
+        letter-spacing: 0.01em;
+      }
+    </style>
+  </head>
+
+  <body>
+    <wa-page mobile-breakpoint="820">
+      <header slot="header" class="header-bar">
+        <div class="container wa-split wa-align-items-center">
+          <a href="/" class="wordmark">Marshfield</a>
+
+          <nav class="header-links wa-cluster wa-gap-xl wa-align-items-center" aria-label="Primary">
+            <a href="#">Why Marshfield</a>
+            <a href="#" aria-current="page">Pricing</a>
+            <a href="#">Help</a>
+            <a href="#">Sign in</a>
+          </nav>
+
+          <wa-button data-toggle-nav appearance="plain" class="wa-mobile-only">
+            <wa-icon name="bars" label="Menu"></wa-icon>
+          </wa-button>
+        </div>
+      </header>
+
+      <main>
+        <section class="container-narrow lede wa-stack wa-gap-l">
+          <p class="eyebrow">Pricing</p>
+          <h1>Three plans. The price you see is the price you keep paying.</h1>
+          <p class="lede-body">
+            We don't run lifetime deals, we don't dangle introductory rates, and we don't bury the cost of growing your
+            show in a footnote. If we ever need to change a price, we'll tell you first and explain why.
+          </p>
+        </section>
+
+        <section class="container pricing">
+          <wa-card class="tier" appearance="filled-outlined" with-header>
+            <div slot="header" class="wa-split wa-align-items-center">
+              <span class="tier-name">Solo</span>
+            </div>
+
+            <div class="wa-stack wa-gap-l" style="height: 100%;">
+              <div class="wa-stack wa-gap-2xs">
+                <div class="wa-cluster wa-gap-2xs wa-align-items-baseline">
+                  <span class="tier-price-amount">$9</span>
+                  <span class="tier-price-period">/ month</span>
+                </div>
+                <p class="tier-tagline">For your first show.</p>
+              </div>
+
+              <ul class="tier-features">
+                <li>One show</li>
+                <li>Basic analytics</li>
+                <li>10&nbsp;GB of storage</li>
+                <li>Email support</li>
+              </ul>
+
+              <wa-button class="tier-cta" appearance="outlined" variant="brand">Start with Solo.</wa-button>
+            </div>
+          </wa-card>
+
+          <wa-card class="tier" appearance="filled-outlined" with-header>
+            <div slot="header" class="wa-split wa-align-items-center">
+              <span class="tier-name">Studio</span>
+              <wa-badge variant="brand" appearance="accent" pill>Most popular</wa-badge>
+            </div>
+
+            <div class="wa-stack wa-gap-l" style="height: 100%;">
+              <div class="wa-stack wa-gap-2xs">
+                <div class="wa-cluster wa-gap-2xs wa-align-items-baseline">
+                  <span class="tier-price-amount">$29</span>
+                  <span class="tier-price-period">/ month</span>
+                </div>
+                <p class="tier-tagline">For shows that are starting to take off.</p>
+              </div>
+
+              <ul class="tier-features">
+                <li>Up to three shows</li>
+                <li>Monetization tools</li>
+                <li>Automatic transcripts (English and Spanish)</li>
+                <li>50&nbsp;GB of storage</li>
+                <li>Priority support</li>
+              </ul>
+
+              <wa-button class="tier-cta" variant="brand">Start with Studio.</wa-button>
+            </div>
+          </wa-card>
+
+          <wa-card class="tier" appearance="filled-outlined" with-header>
+            <div slot="header" class="wa-split wa-align-items-center">
+              <span class="tier-name">Network</span>
+            </div>
+
+            <div class="wa-stack wa-gap-l" style="height: 100%;">
+              <div class="wa-stack wa-gap-2xs">
+                <div class="wa-cluster wa-gap-2xs wa-align-items-baseline">
+                  <span class="tier-price-amount">$89</span>
+                  <span class="tier-price-period">/ month</span>
+                </div>
+                <p class="tier-tagline">For producers running a small network.</p>
+              </div>
+
+              <ul class="tier-features">
+                <li>Unlimited shows</li>
+                <li>Custom domains</li>
+                <li>Team seats</li>
+                <li>A dedicated customer success manager</li>
+                <li>250&nbsp;GB of storage</li>
+                <li>An uptime SLA</li>
+              </ul>
+
+              <wa-button class="tier-cta" appearance="outlined" variant="brand">Talk to us.</wa-button>
+            </div>
+          </wa-card>
+        </section>
+
+        <section class="container exclusions wa-stack wa-gap-l">
+          <h2>What's not on the list</h2>
+          <ul class="exclusions-list">
+            <li class="wa-stack wa-gap-2xs">
+              <span class="exclusion-title">No annual commitments.</span>
+              <span class="exclusion-body">Pay monthly. Cancel any time. There's no exit interview.</span>
+            </li>
+            <li class="wa-stack wa-gap-2xs">
+              <span class="exclusion-title">No ads in your feed. Ever.</span>
+              <span class="exclusion-body">
+                We make our money from subscriptions, not from your listeners' attention. Your audience belongs to you.
+              </span>
+            </li>
+            <li class="wa-stack wa-gap-2xs">
+              <span class="exclusion-title">No surprise overage charges.</span>
+              <span class="exclusion-body">
+                If you're approaching a storage or bandwidth limit, we'll email you ahead of time. You decide what
+                happens next.
+              </span>
+            </li>
+          </ul>
+        </section>
+
+        <section class="container faq wa-stack wa-gap-m">
+          <h2>Common questions</h2>
+          <div class="wa-stack wa-gap-0">
+            <wa-details class="faq-item" appearance="plain" summary="Can I switch tiers any time?">
+              Yes. Upgrade, downgrade, or move sideways whenever you'd like — from inside your account, no email
+              required. Changes take effect on your next billing date, and the difference is prorated automatically.
+            </wa-details>
+
+            <wa-details class="faq-item" appearance="plain" summary="What counts as a 'show'?">
+              One show is one podcast feed: a single ongoing series with its own title, artwork, and audience. Bonus
+              episodes, trailers, and seasons all live inside the same show and don't count against your show limit.
+              Spin-offs with their own feed count as a second show.
+            </wa-details>
+
+            <wa-details class="faq-item" appearance="plain" summary="What happens if I exceed my storage?">
+              We'll send you a friendly heads-up at ninety percent so nothing breaks unexpectedly. If you do go over,
+              your existing episodes keep playing — you just can't upload new ones until you free up space or move up a
+              tier. There's no automatic charge.
+            </wa-details>
+
+            <wa-details class="faq-item" appearance="plain" summary="Do you have a free trial?">
+              We don't, and we've thought about this a lot. A free tier usually means someone else is paying — with
+              worse support, hidden caps, or both. Instead, your first thirty days are fully refundable. Try the real
+              product, and if it isn't a fit, write us and we'll send the money back.
+            </wa-details>
+
+            <wa-details class="faq-item" appearance="plain" summary="What's your refund policy?">
+              Within your first thirty days, just ask. No forms, no questions, no make-it-right discount nonsense. After
+              that, if something genuinely isn't working — a billing mistake, an outage we caused, a feature we
+              promised — email us and we'll figure it out together.
+            </wa-details>
+          </div>
+        </section>
+      </main>
+
+      <footer slot="footer" class="page-footer">
+        <div class="container wa-split wa-align-items-center wa-flex-wrap">
+          <span>Marshfield Podcast Co. &middot; Marshfield, Vermont</span>
+          <span>Six people. Profitable since 2023.</span>
+        </div>
+      </footer>
+    </wa-page>
+  </body>
+</html>
