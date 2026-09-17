@@ -27,6 +27,7 @@ const translation: Translation = {
   columnMovedToPosition: (label, position, total) => `${label} dipindahkan ke posisi ${position} dari ${total}`,
   columns: 'Kolom',
   compactPageXOfY: (page, total) => `${page} dari ${total}`,
+  completed: 'Selesai',
   copied: 'Disalin',
   copy: 'Salin',
   createOption: value => `Buat "${value}"`,
@@ -62,6 +63,7 @@ const translation: Translation = {
   jumpForwardX: count => `Maju ${count} halaman`,
   lastPage: 'Halaman terakhir',
   loading: 'Memuat',
+  locked: 'Terkunci',
   minute: 'Menit',
   month: 'Bulan',
   moreOptions: 'Lebih banyak opsi',
@@ -74,6 +76,7 @@ const translation: Translation = {
   nextYear: 'Tahun berikutnya',
   noData: 'Tidak ada data',
   noResults: 'Tidak ada hasil yang cocok',
+  notCompleted: 'Belum selesai',
   now: 'Sekarang',
   numCharacters: num => {
     if (num === 1) return '1 karakter';
@@ -146,6 +149,7 @@ const translation: Translation = {
   sortColumn: 'Urutkan kolom',
   sortDescending: 'Urutkan menurun',
   startDate: 'Tanggal mulai',
+  stepXOfY: (step, total) => `Langkah ${step} dari ${total}`,
   tagAdded: tag => `${tag} ditambahkan`,
   tagAlreadyAdded: tag => `${tag} sudah ditambahkan`,
   tagInputKeyboardHelp: 'Tekan Backspace atau Delete untuk menghapus tag ini.',

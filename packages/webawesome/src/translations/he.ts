@@ -27,6 +27,7 @@ const translation: Translation = {
   columnMovedToPosition: (label, position, total) => `${label} הועברה למיקום ${position} מתוך ${total}`,
   columns: 'עמודות',
   compactPageXOfY: (page, total) => `${page} מתוך ${total}`,
+  completed: 'הושלם',
   copied: 'מוּעֲתָק',
   copy: 'העתק',
   createOption: value => `יצירת "${value}"`,
@@ -62,6 +63,7 @@ const translation: Translation = {
   jumpForwardX: count => `דלג ${count} עמודים קדימה`,
   lastPage: 'עמוד אחרון',
   loading: 'טוען',
+  locked: 'נעול',
   minute: 'דקה',
   month: 'חודש',
   moreOptions: 'אפשרויות נוספות',
@@ -74,6 +76,7 @@ const translation: Translation = {
   nextYear: 'השנה הבאה',
   noData: 'אין נתונים',
   noResults: 'אין תוצאות תואמות',
+  notCompleted: 'לא הושלם',
   now: 'עכשיו',
   numCharacters: num => {
     if (num === 1) return '1 תו';
@@ -152,6 +155,7 @@ const translation: Translation = {
   sortColumn: 'מיין עמודה',
   sortDescending: 'מיין בסדר יורד',
   startDate: 'תאריך התחלה',
+  stepXOfY: (step, total) => `שלב ${step} מתוך ${total}`,
   tagAdded: tag => `${tag} נוסף`,
   tagAlreadyAdded: tag => `התגית ${tag} כבר קיימת`,
   tagInputKeyboardHelp: 'הקש Backspace או Delete להסרת התגית הזו.',

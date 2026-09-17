@@ -27,6 +27,7 @@ const translation: Translation = {
   columnMovedToPosition: (label, position, total) => `${label} перемещён на позицию ${position} из ${total}`,
   columns: 'Столбцы',
   compactPageXOfY: (page, total) => `${page} из ${total}`,
+  completed: 'Завершено',
   copied: 'Скопировано',
   copy: 'Скопировать',
   createOption: value => `Создать «${value}»`,
@@ -75,6 +76,7 @@ const translation: Translation = {
   },
   lastPage: 'Последняя страница',
   loading: 'Загрузка',
+  locked: 'Заблокировано',
   minute: 'Минута',
   month: 'Месяц',
   moreOptions: 'Дополнительные параметры',
@@ -87,6 +89,7 @@ const translation: Translation = {
   nextYear: 'Следующий год',
   noData: 'Нет данных',
   noResults: 'Нет совпадений',
+  notCompleted: 'Не завершено',
   now: 'Сейчас',
   numCharacters: num => {
     const mod10 = num % 10;
@@ -184,6 +187,7 @@ const translation: Translation = {
   sortColumn: 'Сортировать столбец',
   sortDescending: 'Сортировать по убыванию',
   startDate: 'Дата начала',
+  stepXOfY: (step, total) => `Шаг ${step} из ${total}`,
   tagAdded: tag => `${tag} добавлен`,
   tagAlreadyAdded: tag => `Тег ${tag} уже добавлен`,
   tagInputKeyboardHelp: 'Нажмите Backspace или Delete, чтобы удалить этот тег.',

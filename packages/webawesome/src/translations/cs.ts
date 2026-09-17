@@ -27,6 +27,7 @@ const translation: Translation = {
   columnMovedToPosition: (label, position, total) => `${label} přesunut na pozici ${position} z ${total}`,
   columns: 'Sloupce',
   compactPageXOfY: (page, total) => `${page} z ${total}`,
+  completed: 'Dokončeno',
   copied: 'Zkopírováno',
   copy: 'Kopírovat',
   createOption: value => `Vytvořit "${value}"`,
@@ -70,6 +71,7 @@ const translation: Translation = {
   },
   lastPage: 'Poslední stránka',
   loading: 'Nahrává se',
+  locked: 'Uzamčeno',
   minute: 'Minuta',
   month: 'Měsíc',
   moreOptions: 'Další možnosti',
@@ -82,6 +84,7 @@ const translation: Translation = {
   nextYear: 'Další rok',
   noData: 'Žádná data',
   noResults: 'Žádné odpovídající výsledky',
+  notCompleted: 'Nedokončeno',
   now: 'Nyní',
   numCharacters: num => {
     if (num === 1) return '1 znak';
@@ -166,6 +169,7 @@ const translation: Translation = {
   sortColumn: 'Seřadit sloupec',
   sortDescending: 'Seřadit sestupně',
   startDate: 'Datum zahájení',
+  stepXOfY: (step, total) => `Krok ${step} z ${total}`,
   tagAdded: tag => `${tag} přidáno`,
   tagAlreadyAdded: tag => `Štítek ${tag} již existuje`,
   tagInputKeyboardHelp: 'Stisknutím Backspace nebo Delete tento štítek odeberete.',

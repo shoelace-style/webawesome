@@ -27,6 +27,7 @@ const translation: Translation = {
   columnMovedToPosition: (label, position, total) => `${label} ${total} ішінен ${position} позицияға жылжытылды`,
   columns: 'Бағаналар',
   compactPageXOfY: (page, total) => `${total} ішінен ${page}`,
+  completed: 'Аяқталды',
   copied: 'Көшірілді',
   copy: 'Көшіру',
   createOption: value => `"${value}" жасау`,
@@ -63,6 +64,7 @@ const translation: Translation = {
   jumpForwardX: count => `${count} бетке алға өту`,
   lastPage: 'Соңғы бет',
   loading: 'Жүктелуде',
+  locked: 'Құлыпталған',
   minute: 'Минут',
   month: 'Ай',
   moreOptions: 'Қосымша опциялар',
@@ -75,6 +77,7 @@ const translation: Translation = {
   nextYear: 'Келесі жыл',
   noData: 'Деректер жоқ',
   noResults: 'Сәйкес нәтижелер жоқ',
+  notCompleted: 'Аяқталмады',
   now: 'Қазір',
   numCharacters: num => {
     if (num === 1) return '1 таңба';
@@ -148,6 +151,7 @@ const translation: Translation = {
   sortColumn: 'Бағананы сұрыптау',
   sortDescending: 'Кему ретімен сұрыптау',
   startDate: 'Басталу күні',
+  stepXOfY: (step, total) => `${total} қадамның ${step}-і`,
   tagAdded: tag => `${tag} қосылды`,
   tagAlreadyAdded: tag => `${tag} тегі әлдеқашан қосылған`,
   tagInputKeyboardHelp: 'Бұл тегті жою үшін Backspace немесе Delete пернесін басыңыз.',

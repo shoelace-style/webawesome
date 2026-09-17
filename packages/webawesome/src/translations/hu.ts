@@ -27,6 +27,7 @@ const translation: Translation = {
   columnMovedToPosition: (label, position, total) => `${label} áthelyezve a(z) ${total}/${position}. pozícióba`,
   columns: 'Oszlopok',
   compactPageXOfY: (page, total) => `${total}/${page}`,
+  completed: 'Kész',
   copied: 'Másolva',
   copy: 'Másolás',
   createOption: value => `„${value}" létrehozása`,
@@ -62,6 +63,7 @@ const translation: Translation = {
   jumpForwardX: count => `Ugrás ${count} oldallal előre`,
   lastPage: 'Utolsó oldal',
   loading: 'Betöltés',
+  locked: 'Zárolva',
   minute: 'Perc',
   month: 'Hónap',
   moreOptions: 'További lehetőségek',
@@ -74,6 +76,7 @@ const translation: Translation = {
   nextYear: 'Következő év',
   noData: 'Nincs adat',
   noResults: 'Nincs egyező találat',
+  notCompleted: 'Nincs kész',
   now: 'Most',
   numCharacters: num => {
     if (num === 1) return '1 karakter';
@@ -146,6 +149,7 @@ const translation: Translation = {
   sortColumn: 'Oszlop rendezése',
   sortDescending: 'Csökkenő rendezés',
   startDate: 'Kezdő dátum',
+  stepXOfY: (step, total) => `${step}. lépés / ${total}`,
   tagAdded: tag => `${tag} hozzáadva`,
   tagAlreadyAdded: tag => `${tag} már hozzá van adva`,
   tagInputKeyboardHelp: 'A címke eltávolításához nyomja meg a Backspace vagy a Delete billentyűt.',

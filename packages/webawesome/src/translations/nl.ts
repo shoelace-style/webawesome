@@ -27,6 +27,7 @@ const translation: Translation = {
   columnMovedToPosition: (label, position, total) => `${label} verplaatst naar positie ${position} van ${total}`,
   columns: 'Kolommen',
   compactPageXOfY: (page, total) => `${page} van ${total}`,
+  completed: 'Voltooid',
   copied: 'Gekopieerd',
   copy: 'Kopiëren',
   createOption: value => `"${value}" aanmaken`,
@@ -63,6 +64,7 @@ const translation: Translation = {
   jumpForwardX: count => `${count} pagina's vooruit`,
   lastPage: 'Laatste pagina',
   loading: 'Bezig met laden',
+  locked: 'Vergrendeld',
   minute: 'Minuut',
   month: 'Maand',
   moreOptions: 'Meer opties',
@@ -75,6 +77,7 @@ const translation: Translation = {
   nextYear: 'Volgend jaar',
   noData: 'Geen gegevens',
   noResults: 'Geen overeenkomende resultaten',
+  notCompleted: 'Niet voltooid',
   now: 'Nu',
   numCharacters: num => {
     if (num === 1) return '1 teken';
@@ -147,6 +150,7 @@ const translation: Translation = {
   sortColumn: 'Kolom sorteren',
   sortDescending: 'Aflopend sorteren',
   startDate: 'Begindatum',
+  stepXOfY: (step, total) => `Stap ${step} van ${total}`,
   tagAdded: tag => `${tag} toegevoegd`,
   tagAlreadyAdded: tag => `${tag} is al toegevoegd`,
   tagInputKeyboardHelp: 'Druk op Backspace of Delete om deze tag te verwijderen.',
