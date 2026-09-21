@@ -21,6 +21,8 @@ import styles from './divider.styles.js';
  * @cssproperty --width - The width of the divider.
  * @cssproperty --spacing - The spacing of the divider.
  * @cssproperty --label-spacing - The amount of space between the label and the divider's lines.
+ * @cssproperty --label-offset - The length of the line between the divider's edge and a label placed at the `start` or
+ *  `end`.
  *
  * @ssr - If you slot in a label, set the `with-label` attribute, otherwise the label won't be centered in the divider
  *  until the component hydrates on the client. This works around the lack of a `:has-slotted` CSS pseudo-class.
@@ -39,6 +41,9 @@ export default class WaDivider extends WebAwesomeElement {
    * label's layout before the component hydrates on the client.
    */
   @property({ attribute: 'with-label', type: Boolean, reflect: true }) withLabel = false;
+
+  /** Where the label sits along the divider. */
+  @property({ attribute: 'label-placement', reflect: true }) labelPlacement: 'start' | 'center' | 'end' = 'center';
 
   connectedCallback() {
     super.connectedCallback();

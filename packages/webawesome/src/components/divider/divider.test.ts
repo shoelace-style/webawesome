@@ -85,13 +85,25 @@ describe('<wa-divider>', () => {
           await elementUpdated(el);
 
           const host = el.getBoundingClientRect();
-          const label = el.shadowRoot!.querySelector('slot')!.getBoundingClientRect();
+          const label = el.shadowRoot!.querySelector('[part="label"]')!.getBoundingClientRect();
           const before = label.left - host.left;
           const after = host.right - label.right;
 
           expect(getComputedStyle(el).borderTopWidth).to.equal('0px');
           expect(before).to.be.greaterThan(0);
           expect(Math.abs(before - after)).to.be.lessThan(1);
+        });
+
+        it('should name the separator after the slotted text', async () => {
+          const el = await fixture<WaDivider>(html`<wa-divider with-label>OR</wa-divider>`);
+          await elementUpdated(el);
+          expect(el.internals.ariaLabel).to.equal('OR');
+        });
+
+        it('should leave an author aria-label in place', async () => {
+          const el = await fixture<WaDivider>(html`<wa-divider with-label aria-label="Featured">OR</wa-divider>`);
+          await elementUpdated(el);
+          expect(el.getAttribute('aria-label')).to.equal('Featured');
         });
 
         it('should center the label between two lines when vertical', async () => {
@@ -101,13 +113,106 @@ describe('<wa-divider>', () => {
           await elementUpdated(el);
 
           const host = el.getBoundingClientRect();
-          const label = el.shadowRoot!.querySelector('slot')!.getBoundingClientRect();
+          const label = el.shadowRoot!.querySelector('[part="label"]')!.getBoundingClientRect();
           const before = label.top - host.top;
           const after = host.bottom - label.bottom;
 
           expect(getComputedStyle(el).borderInlineStartWidth).to.equal('0px');
           expect(before).to.be.greaterThan(0);
           expect(Math.abs(before - after)).to.be.lessThan(1);
+        });
+      });
+
+      describe('label placement', () => {
+        it('should default label-placement to "center"', async () => {
+          const el = await fixture<WaDivider>(html`<wa-divider>OR</wa-divider>`);
+          expect(el.labelPlacement).to.equal('center');
+          expect(el.getAttribute('label-placement')).to.equal('center');
+        });
+
+        it('should reflect label-placement to an attribute', async () => {
+          const el = await fixture<WaDivider>(html`<wa-divider label-placement="end">OR</wa-divider>`);
+          expect(el.labelPlacement).to.equal('end');
+          expect(el.getAttribute('label-placement')).to.equal('end');
+        });
+
+        it('should inset a start label by --label-offset when horizontal', async () => {
+          const el = await fixture<WaDivider>(
+            html`<wa-divider
+              with-label
+              label-placement="start"
+              style="width: 400px; --label-offset: 24px; --label-spacing: 0;"
+              >OR</wa-divider
+            >`,
+          );
+          await elementUpdated(el);
+
+          const host = el.getBoundingClientRect();
+          const label = el.shadowRoot!.querySelector('[part="label"]')!.getBoundingClientRect();
+          expect(Math.abs(label.left - host.left - 24)).to.be.lessThan(1);
+        });
+
+        it('should inset an end label by --label-offset when horizontal', async () => {
+          const el = await fixture<WaDivider>(
+            html`<wa-divider
+              with-label
+              label-placement="end"
+              style="width: 400px; --label-offset: 24px; --label-spacing: 0;"
+              >OR</wa-divider
+            >`,
+          );
+          await elementUpdated(el);
+
+          const host = el.getBoundingClientRect();
+          const label = el.shadowRoot!.querySelector('[part="label"]')!.getBoundingClientRect();
+          expect(Math.abs(host.right - label.right - 24)).to.be.lessThan(1);
+        });
+
+        it('should inset a start label by --label-offset when vertical', async () => {
+          const el = await fixture<WaDivider>(
+            html`<wa-divider
+              orientation="vertical"
+              with-label
+              label-placement="start"
+              style="height: 200px; --label-offset: 24px; --label-spacing: 0;"
+              >OR</wa-divider
+            >`,
+          );
+          await elementUpdated(el);
+
+          const host = el.getBoundingClientRect();
+          const label = el.shadowRoot!.querySelector('[part="label"]')!.getBoundingClientRect();
+          expect(Math.abs(label.top - host.top - 24)).to.be.lessThan(1);
+        });
+
+        it('should inset an end label by --label-offset when vertical', async () => {
+          const el = await fixture<WaDivider>(
+            html`<wa-divider
+              orientation="vertical"
+              with-label
+              label-placement="end"
+              style="height: 200px; --label-offset: 24px; --label-spacing: 0;"
+              >OR</wa-divider
+            >`,
+          );
+          await elementUpdated(el);
+
+          const host = el.getBoundingClientRect();
+          const label = el.shadowRoot!.querySelector('[part="label"]')!.getBoundingClientRect();
+          expect(Math.abs(host.bottom - label.bottom - 24)).to.be.lessThan(1);
+        });
+
+        it('should not collapse either line below --label-offset when the label is centered', async () => {
+          const el = await fixture<WaDivider>(
+            html`<wa-divider with-label style="width: 400px; --label-offset: 24px; --label-spacing: 0;"
+              >OR</wa-divider
+            >`,
+          );
+          await elementUpdated(el);
+
+          const host = el.getBoundingClientRect();
+          const label = el.shadowRoot!.querySelector('[part="label"]')!.getBoundingClientRect();
+          expect(label.left - host.left).to.be.greaterThan(24);
         });
       });
     });

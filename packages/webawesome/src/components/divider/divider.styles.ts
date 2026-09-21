@@ -6,6 +6,7 @@ export default css`
     --width: var(--wa-border-width-s);
     --spacing: var(--wa-space-m);
     --label-spacing: var(--wa-space-s);
+    --label-offset: 0;
   }
 
   :host(:not([orientation='vertical'])) {
@@ -56,8 +57,17 @@ export default css`
     border-inline-start: solid var(--width) var(--color);
   }
 
+  :host([with-label][label-placement='start'])::before,
+  :host([with-label][label-placement='end'])::after {
+    flex: 0 0 var(--label-offset);
+    min-inline-size: 0;
+    min-block-size: 0;
+  }
+
   :host([with-label]) .label {
-    display: block;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--wa-space-2xs);
     flex: 0 1 auto;
     color: var(--wa-color-text-quiet);
     font-size: var(--wa-font-size-s);
