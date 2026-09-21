@@ -75,15 +75,35 @@ Apply the `without-interaction` attribute to make the frame non-interactive. Thi
 
 ### Permissions & Sandboxing
 
-Use the `allow` attribute to set a [Permissions Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Permissions_Policy) that controls which features the embedded content can use, and the `sandbox` attribute to restrict what it's allowed to do. Note that `allow="fullscreen"` is the modern equivalent of the older `allowfullscreen` attribute.
+Use the `sandbox` attribute to restrict what the embedded content can do. An empty `sandbox` applies every restriction; add space-separated tokens such as `allow-scripts` or `allow-same-origin` to lift specific ones. Both frames below load the same `srcdoc`, but only the second one is allowed to run its script.
+
+```html {.example}
+<div class="wa-stack">
+  <wa-zoomable-frame
+    sandbox
+    without-controls
+    style="height: 4rem; background: var(--wa-color-danger-fill-quiet)"
+    srcdoc="<body style='margin: 0; display: grid; place-items: center; height: 100vh; font-family: system-ui'><p><span id='icon' aria-hidden='true'>🧙</span> <span id='msg'>You shall not pass.</span></p><script>icon.textContent = '🐇'; msg.textContent = 'The script ran.'</script></body>"
+  ></wa-zoomable-frame>
+
+  <wa-zoomable-frame
+    sandbox="allow-scripts"
+    without-controls
+    style="height: 4rem; background: var(--wa-color-success-fill-quiet)"
+    srcdoc="<body style='margin: 0; display: grid; place-items: center; height: 100vh; font-family: system-ui'><p><span id='icon' aria-hidden='true'>🧙</span> <span id='msg'>You shall not pass.</span></p><script>icon.textContent = '🐇'; msg.textContent = 'The script ran.'</script></body>"
+  ></wa-zoomable-frame>
+</div>
+```
+
+Use the `allow` attribute to set a [Permissions Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Permissions_Policy) that controls which browser features the embedded content can use. `allow="fullscreen"` is the modern equivalent of the older `allowfullscreen` attribute.
 
 ```html
-<wa-zoomable-frame src="https://example.com/" allow="clipboard-write; fullscreen" sandbox="allow-scripts">
-</wa-zoomable-frame>
+<wa-zoomable-frame src="https://example.com/" allow="clipboard-write; fullscreen"> </wa-zoomable-frame>
 ```
 
 :::info
-The browser reads `allow` and `sandbox` when the frame loads, so setting them up front works as expected. Changing either one afterwards has no effect until the frame navigates again, which you can trigger by reassigning `src`.
+<strong>Set `allow` and `sandbox` before the frame loads.</strong><br />
+The browser applies them when the frame navigates, so changing either one afterwards has no effect until `src` points at a new URL.
 :::
 
 ### Label
