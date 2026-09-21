@@ -64,6 +64,10 @@ export default css`
     min-block-size: 0;
   }
 
+  :host(:not([with-label])) .label {
+    display: none;
+  }
+
   :host([with-label]) .label {
     display: inline-flex;
     align-items: center;

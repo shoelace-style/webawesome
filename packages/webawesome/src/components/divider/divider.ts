@@ -69,7 +69,11 @@ export default class WaDivider extends WebAwesomeElement {
   }
 
   render() {
-    return html`<slot part="label" class="label" @slotchange=${this.handleSlotChange}></slot>`;
+    return html`
+      <div part="label" class="label">
+        <slot @slotchange=${this.handleSlotChange}></slot>
+      </div>
+    `;
   }
 }
 

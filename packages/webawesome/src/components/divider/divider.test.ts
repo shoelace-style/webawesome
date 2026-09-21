@@ -63,6 +63,13 @@ describe('<wa-divider>', () => {
           expect(el.hasAttribute('with-label')).to.be.true;
         });
 
+        it('should render the label part on a wrapper, not the slot', async () => {
+          const el = await fixture<WaDivider>(html`<wa-divider with-label>OR</wa-divider>`);
+          const part = el.shadowRoot!.querySelector('[part="label"]')!;
+          expect(part.tagName).to.not.equal('SLOT');
+          expect(part.querySelector('slot')).to.exist;
+        });
+
         it('should pass accessibility tests with a label', async () => {
           const el = await fixture<WaDivider>(html`<wa-divider with-label>OR</wa-divider>`);
           await expect(el).to.be.accessible();
