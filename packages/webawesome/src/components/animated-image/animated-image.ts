@@ -114,8 +114,9 @@ export default class WaAnimatedImage extends WebAwesomeElement {
     const verb = this.localize.term(this.play ? 'pauseAnimation' : 'playAnimation');
     const label = `${verb} ${this.alt}`;
 
-    // when SSR'ed and the component has not updated, render the frozen still image, but its invisible so it only prevents layout shifting.
-    const shouldShow = (this.didSSR && !this.hasUpdated) || this.play;
+    // Before hydration, an SSR'ed image is rendered only to reserve layout space, so it stays invisible.
+    const isSSRPlaceholder = this.didSSR && !this.hasUpdated;
+    const shouldShow = isSSRPlaceholder || this.play;
 
     return html`
       <div
@@ -133,7 +134,7 @@ export default class WaAnimatedImage extends WebAwesomeElement {
           alt=${this.alt}
           crossorigin="anonymous"
           aria-hidden=${shouldShow ? 'false' : 'true'}
-          style="visibility: hidden;"
+          style=${styleMap({ visibility: isSSRPlaceholder ? 'hidden' : null })}
           role="presentation"
           @load=${this.handleLoad}
           @error=${this.handleError}
