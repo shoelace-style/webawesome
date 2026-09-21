@@ -87,6 +87,47 @@ describe('<wa-zoomable-frame>', () => {
           expect(el.contentDocument).to.not.be.null;
         });
 
+        it('should pass allow through to the iframe', async () => {
+          const el = await fixture<WaZoomableFrame>(
+            html`<wa-zoomable-frame allow="fullscreen; clipboard-write"></wa-zoomable-frame>`,
+          );
+          const iframe = el.shadowRoot!.querySelector('iframe')!;
+          expect(iframe.getAttribute('allow')).to.equal('fullscreen; clipboard-write');
+        });
+
+        it('should apply allow and sandbox before the frame navigates', async () => {
+          const el = await fixture<WaZoomableFrame>(
+            html`<wa-zoomable-frame allow="fullscreen" sandbox="allow-scripts" src="about:blank"></wa-zoomable-frame>`,
+          );
+          const iframe = el.shadowRoot!.querySelector('iframe')!;
+          expect(iframe.getAttribute('allow')).to.equal('fullscreen');
+          expect(iframe.getAttribute('sandbox')).to.equal('allow-scripts');
+        });
+
+        it('should pass name through to the iframe', async () => {
+          const el = await fixture<WaZoomableFrame>(html`<wa-zoomable-frame name="preview"></wa-zoomable-frame>`);
+          const iframe = el.shadowRoot!.querySelector('iframe')!;
+          expect(iframe.getAttribute('name')).to.equal('preview');
+        });
+
+        it('should pass label through to the iframe as a title', async () => {
+          const el = await fixture<WaZoomableFrame>(
+            html`<wa-zoomable-frame label="Theme preview"></wa-zoomable-frame>`,
+          );
+          const iframe = el.shadowRoot!.querySelector('iframe')!;
+          expect(iframe.getAttribute('title')).to.equal('Theme preview');
+        });
+
+        it('should not render passthrough attributes when they are unset', async () => {
+          const el = await fixture<WaZoomableFrame>(html`<wa-zoomable-frame></wa-zoomable-frame>`);
+          const iframe = el.shadowRoot!.querySelector('iframe')!;
+          expect(iframe.hasAttribute('allow')).to.be.false;
+          expect(iframe.hasAttribute('sandbox')).to.be.false;
+          expect(iframe.hasAttribute('name')).to.be.false;
+          expect(iframe.hasAttribute('title')).to.be.false;
+          expect(iframe.hasAttribute('referrerpolicy')).to.be.false;
+        });
+
         it('should make iframe inert when withoutInteraction is set', async () => {
           const el = await fixture<WaZoomableFrame>(
             html`<wa-zoomable-frame without-interaction srcdoc="<html><body>test</body></html>"></wa-zoomable-frame>`,

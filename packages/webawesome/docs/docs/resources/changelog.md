@@ -29,6 +29,21 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 {% include "changelog-email-signup.njk" %}
 
+## Unreleased
+
+:::added
+
+- Added the `allow`, `name`, and `label` attributes to `<wa-zoomable-frame>`
+
+:::
+
+:::fixed
+
+- Fixed a bug in `<wa-zoomable-frame>` where the internal iframe rendered `referrerpolicy="undefined"` when no referrer policy was set
+- Fixed the React wrapper types for properties whose setters accept more than their getters return, so TypeScript no longer rejects documented values such as a `Date` for `<WaDateInput value>` and `<WaTimeInput value>` or `null` for `<WaSlider value>`
+
+:::
+
 ## 3.13.0
 
 <small><time datetime="2026-09-16">September 16th, 2026</time></small>

@@ -73,6 +73,27 @@ Apply the `without-interaction` attribute to make the frame non-interactive. Thi
 <wa-zoomable-frame src="/examples/themes/showcase" zoom="0.5" without-interaction> </wa-zoomable-frame>
 ```
 
+### Permissions & Sandboxing
+
+Use the `allow` attribute to set a [Permissions Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Permissions_Policy) that controls which features the embedded content can use, and the `sandbox` attribute to restrict what it's allowed to do. Note that `allow="fullscreen"` is the modern equivalent of the older `allowfullscreen` attribute.
+
+```html
+<wa-zoomable-frame src="https://example.com/" allow="clipboard-write; fullscreen" sandbox="allow-scripts">
+</wa-zoomable-frame>
+```
+
+:::info
+The browser reads `allow` and `sandbox` when the frame loads, so setting them up front works as expected. Changing either one afterwards has no effect until the frame navigates again, which you can trigger by reassigning `src`.
+:::
+
+### Label
+
+Use the `label` attribute to describe the frame's content for assistive devices. Set this when the frame's purpose isn't clear from the surrounding content.
+
+```html
+<wa-zoomable-frame src="/examples/themes/showcase" label="Theme preview"> </wa-zoomable-frame>
+```
+
 ### Theme Sync
 
 By default, the frame does not sync theme classes into the iframe. Add the `with-theme-sync` attribute to mirror the host page's light/dark mode and [theme selector classes](/docs/theming-overview) (such as `wa-theme-*`, `wa-brand-*`, and `wa-palette-*`) into the iframe document. This is useful when the iframe renders Web Awesome styles that should match the host page's theme.
