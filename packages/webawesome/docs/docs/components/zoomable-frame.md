@@ -108,7 +108,7 @@ The browser applies them when the frame navigates, so changing either one afterw
 
 ### Label
 
-Use the `label` attribute to describe the frame's content for assistive devices. Set this when the frame's purpose isn't clear from the surrounding content.
+Use the `label` attribute to give the frame an accessible name. Screen readers announce it when moving between frames, so every frame should have one that describes its content.
 
 ```html
 <wa-zoomable-frame src="/examples/themes/showcase" label="Theme preview"> </wa-zoomable-frame>

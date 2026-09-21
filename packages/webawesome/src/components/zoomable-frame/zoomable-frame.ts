@@ -77,8 +77,8 @@ export default class WaZoomableFrame extends WebAwesomeElement {
   @property() sandbox: string;
 
   /**
-   * A description of the frame's content for assistive devices. Set this when the frame's purpose isn't clear from the
-   * surrounding content.
+   * An accessible name for the frame. Screen readers announce it when moving between frames, so set one that describes
+   * the frame's content.
    */
   @property() label = '';
 
