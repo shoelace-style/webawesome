@@ -34,6 +34,10 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 :::added
 
 - Added support for labels in `<wa-divider>` [discuss:2802]
+  - Added the default slot and the `label` part
+  - Added the `label-placement` attribute
+  - Added the `--label-spacing` and `--label-offset` custom properties
+  - Added the `with-label` attribute for server-side rendering
 
 :::
 
