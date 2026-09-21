@@ -29,6 +29,15 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 {% include "changelog-email-signup.njk" %}
 
+## Unreleased
+
+:::fixed
+
+- Fixed a memory leak in `<wa-option>` where removed `<wa-select>` elements and their options were never garbage collected unless `<wa-combobox>` was also registered [issue:2813]
+- Fixed a bug in `<wa-animated-image>` that caused the image to stay hidden while playing [issue:2811]
+
+:::
+
 ## 3.13.0
 
 <small><time datetime="2026-09-16">September 16th, 2026</time></small>
