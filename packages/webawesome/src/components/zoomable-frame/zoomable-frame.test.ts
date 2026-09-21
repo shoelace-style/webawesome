@@ -102,6 +102,10 @@ describe('<wa-zoomable-frame>', () => {
           const iframe = el.shadowRoot!.querySelector('iframe')!;
           expect(iframe.getAttribute('allow')).to.equal('fullscreen');
           expect(iframe.getAttribute('sandbox')).to.equal('allow-scripts');
+
+          // A frame sandboxed without allow-same-origin has an opaque origin, so its document is unreachable. A sandbox
+          // applied after the frame loads would leave the document accessible.
+          expect(iframe.contentDocument).to.be.null;
         });
 
         it('should pass name through to the iframe', async () => {
