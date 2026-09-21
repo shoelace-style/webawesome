@@ -66,6 +66,43 @@ The default orientation for dividers is `horizontal`. Set the `orientation` attr
 If your container isn't Flexbox or CSS Grid, you may need to set an explicit height for the divider.
 :::
 
+### Labels
+
+Slot in content to show a label in the center of the divider. Labels work well for separating alternatives, such as two ways to sign in.
+
+```html {.example}
+<div class="wa-text-center">
+  Sign in with your email
+  <wa-divider>OR</wa-divider>
+  Sign in with a passkey
+</div>
+```
+
+Labels are centered in vertical dividers, too.
+
+```html {.example}
+<div style="display: flex; align-items: stretch; height: 8rem;">
+  <div style="align-self: center;">Sign in with your email</div>
+  <wa-divider orientation="vertical">OR</wa-divider>
+  <div style="align-self: center;">Sign in with a passkey</div>
+</div>
+```
+
+Use the `--label-spacing` custom property to change the amount of space between the label and the divider's lines. To restyle the label itself, target the `label` part.
+
+```html {.example}
+<wa-divider class="divider-label" aria-label="Featured" style="--label-spacing: 2rem;">
+  <wa-icon name="star" variant="solid"></wa-icon>
+</wa-divider>
+
+<style>
+  .divider-label::part(label) {
+    color: var(--wa-color-brand-on-quiet);
+    font-size: var(--wa-font-size-l);
+  }
+</style>
+```
+
 ### Dropdown Dividers
 
 Use dividers in [dropdowns](/docs/components/dropdown) to visually group dropdown items.
