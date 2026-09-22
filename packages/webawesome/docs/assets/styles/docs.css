@@ -153,11 +153,11 @@ wa-page:not([view='mobile']) > main {
     margin-block-end: var(--wa-space-s);
   }
 
-  /* Treat h2 + `<small><time>` as one header unit (changelog releases). */
-  h2:has(+ p > small > time) {
+  /* Treat h2 + `<small><time>` as one header unit (changelog releases), bridging the injected tooltip. */
+  h2:has(+ wa-tooltip + p > small > time) {
     margin-block-end: var(--wa-space-3xs);
   }
-  h2 + p:has(> small > time) {
+  h2 + wa-tooltip + p:has(> small > time) {
     margin-block-start: 0;
     margin-block-end: var(--wa-space-l);
     color: var(--wa-color-text-quiet);
