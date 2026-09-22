@@ -125,7 +125,7 @@ composition, and express the difference through tokens and the component's API:
 </wa-card>
 
 <style>
-  .stat-card::part(body) {
+  wa-card.stat-card::part(body) {
     padding: var(--wa-space-l);
   }
 </style>
