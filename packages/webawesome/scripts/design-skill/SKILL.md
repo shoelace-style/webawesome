@@ -63,7 +63,9 @@ Answer one question before any markup: **am I building a whole page, or a piece 
   grid, sticky regions, and a responsive nav drawer. Nav goes in `slot="navigation"` **once**; the
   component renders it as a desktop sidebar and moves it into a mobile drawer with its own hamburger.
   Don't write a second copy of the nav, a `<wa-drawer>`, a toggle, or media queries for any of that.
-  Read [layouts-page.md](references/layouts-page.md) and copy its canonical example.
+  Read [layouts-page.md](references/layouts-page.md) and copy its canonical example. There is exactly one
+  sanctioned second copy — the header-on-desktop / drawer-on-mobile recipe in that file, where each copy is
+  hidden in the view it doesn't belong to. Use that recipe as written or don't duplicate at all.
 - **A section, widget, card, form, panel, or an embed into a page you don't control** → no `<wa-page>`.
   Compose with `wa-stack`, `wa-cluster`, `wa-grid`, `wa-flank`, `wa-split`, `wa-frame`. `<wa-page>`
   features (slots, `view`, `--menu-width`, `data-toggle-nav`, `.wa-mobile-only`) do nothing here; use a
