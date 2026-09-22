@@ -1,7 +1,8 @@
 import { html, isServer } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
-import { WaAfterStepChangeEvent } from '../../events/after-step-change.js';
+import { WaBeforeStepChangeEvent } from '../../events/before-step-change.js';
 import { WaStepChangeEvent } from '../../events/step-change.js';
+import { announce } from '../../internal/live-announcer.js';
 import { parseSpaceDelimitedTokens } from '../../internal/parse.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
@@ -16,14 +17,13 @@ import styles from './stepper.styles.js';
  *  stages. Use them for checkout flows, multi-step setup, onboarding, or just to show the status of a process.
  * @documentation https://webawesome.com/docs/components/stepper
  * @status experimental
- * @since 3.13
+ * @since 3.14
  *
  * @dependency wa-step
  *
- * @event {{ step: WaStep, previousStep: WaStep | null }} wa-step-change - Emitted before the active step changes.
- *  Calling `event.preventDefault()` prevents the change, to guard against invalid or unsaved data.
- * @event {{ step: WaStep, previousStep: WaStep | null }} wa-after-step-change - Emitted after the active step
- *  changes.
+ * @event {{ step: WaStep, previousStep: WaStep | null }} wa-before-step-change - Emitted before the active step
+ *  changes. Calling `event.preventDefault()` prevents the change, to guard against invalid or unsaved data.
+ * @event {{ step: WaStep, previousStep: WaStep | null }} wa-step-change - Emitted after the active step changes.
  *
  * @slot - One or more `<wa-step>` elements.
  *
@@ -56,6 +56,7 @@ export default class WaStepper extends WebAwesomeElement {
   private resizeObserver?: ResizeObserver;
 
   @query('.steps') stepsEl: HTMLOListElement;
+  @query('slot') defaultSlot: HTMLSlotElement;
 
   @state() private isStacked = false;
   @state() private activeIndex = 0;
@@ -100,33 +101,37 @@ export default class WaStepper extends WebAwesomeElement {
   connectedCallback() {
     super.connectedCallback();
 
-    // SSR guard: MutationObserver is not available during server-side rendering
-    if (typeof MutationObserver !== 'undefined') {
-      this.updateComplete.then(() => {
-        this.mutationObserver = new MutationObserver(() => this.syncSteps());
-        this.mutationObserver.observe(this, {
-          childList: true,
-          subtree: true,
-          attributes: true,
-          attributeFilter: ['name', 'completed', 'loading', 'disabled', 'variant'],
-        });
-      });
-    }
+    // SSR guard: MutationObserver/ResizeObserver aren't available during server-side rendering.
+    if (isServer) return;
 
-    // SSR guard: ResizeObserver is not available during server-side rendering. Catches viewport/container resizes;
-    // syncSteps() (steps added/removed, orientation changed) re-checks on its own via updateStacking() below.
-    if (typeof ResizeObserver !== 'undefined') {
-      this.resizeObserver = new ResizeObserver(entries => {
-        // Stacking changes the stepper's height, so apply it on the next frame like <wa-page> does, to keep the
-        // observer from reporting an undelivered-notifications loop.
-        requestAnimationFrame(() => {
-          for (const entry of entries) {
-            this.updateStacking(entry.borderBoxSize[0].inlineSize);
-          }
-        });
+    this.updateComplete.then(() => {
+      // subtree:true is needed to catch attribute changes on descendant <wa-step> elements, but that also picks up
+      // mutations from a stepper nested inside this one's content (e.g. inside a step's description). Filter those
+      // out so a nested stepper doesn't resync this one.
+      this.mutationObserver = new MutationObserver(mutations => {
+        const isOwnMutation = mutations.some(mutation => (mutation.target as Element).closest?.('wa-stepper') === this);
+        if (isOwnMutation) this.syncSteps();
       });
-      this.resizeObserver.observe(this);
-    }
+      this.mutationObserver.observe(this, {
+        childList: true,
+        subtree: true,
+        attributes: true,
+        attributeFilter: ['name', 'completed', 'loading', 'disabled', 'variant'],
+      });
+    });
+
+    // Catches viewport/container resizes; syncSteps() (steps added/removed, orientation changed) re-checks on its
+    // own via updateStacking() below.
+    this.resizeObserver = new ResizeObserver(entries => {
+      // Stacking changes the stepper's height, so apply it on the next frame like <wa-page> does, to keep the
+      // observer from reporting an undelivered-notifications loop.
+      requestAnimationFrame(() => {
+        for (const entry of entries) {
+          this.updateStacking(entry.borderBoxSize[0].inlineSize);
+        }
+      });
+    });
+    this.resizeObserver.observe(this);
   }
 
   disconnectedCallback() {
@@ -138,7 +143,7 @@ export default class WaStepper extends WebAwesomeElement {
   firstUpdated() {
     if (this.didSSR) {
       // Wait for every step's own first render before mutating them (position/active/locked). Doing it any earlier
-      // races the step's SSR hydration — flipping its marker between a plain number and a `<wa-icon>` before the
+      // races the step's SSR hydration: flipping its marker between a plain number and a `<wa-icon>` before the
       // step has reconciled its server-rendered markup trips Lit's hydration mismatch check. Later syncs
       // (slotchange, attribute changes, goTo()) happen well after hydration and stay synchronous.
       Promise.all(this.getAllSteps().map(step => step.updateComplete)).then(() => this.syncSteps());
@@ -147,8 +152,11 @@ export default class WaStepper extends WebAwesomeElement {
     }
   }
 
+  // Scoped to this stepper's own light-DOM children via slot assignment, so a stepper nested inside a step's
+  // description (or elsewhere in slotted content) doesn't get pulled into this one's step list.
   private getAllSteps(): WaStep[] {
-    return [...this.querySelectorAll<WaStep>('wa-step')];
+    if (!this.defaultSlot) return [];
+    return this.defaultSlot.assignedElements().filter((el): el is WaStep => el.localName === 'wa-step');
   }
 
   /** In `linear` mode, the 0-based index of the boundary a step's position must fall within (inclusive) to be reachable. */
@@ -189,7 +197,6 @@ export default class WaStepper extends WebAwesomeElement {
       step.active = step === activeStep;
       step.locked = this.linear && index > boundaryIndex;
       step.clickable = this.clickable;
-      step.connectorActive = step.completed;
       // The half-connector leading into a step is drawn by that step, so it needs to know the previous step's
       // variant to match the half leading out of it.
       const previous = steps[index - 1];
@@ -202,9 +209,10 @@ export default class WaStepper extends WebAwesomeElement {
       steps.every(step => step.completed),
     );
 
-    const isLoading = steps.some(step => step.loading);
-    this.customStates.set('loading', isLoading);
-    this.setAttribute('aria-busy', isLoading ? 'true' : 'false');
+    this.customStates.set(
+      'loading',
+      steps.some(step => step.loading),
+    );
     this.customStates.set('stacked', isVertical);
   }
 
@@ -232,9 +240,9 @@ export default class WaStepper extends WebAwesomeElement {
   }
 
   /**
-   * Requests a change to the named step. Emits a cancelable `wa-step-change`; if not canceled, updates `active` and
-   * emits `wa-after-step-change`. No-ops silently if the step doesn't exist, is disabled, or (in `linear` mode)
-   * isn't reachable yet.
+   * Requests a change to the named step. Emits a cancelable `wa-before-step-change`; if not canceled, updates
+   * `active`, emits `wa-step-change`, and announces the new position to assistive technology. No-ops silently if the
+   * step doesn't exist, is disabled, or (in `linear` mode) isn't reachable yet.
    */
   goTo(name: string) {
     const steps = this.getAllSteps();
@@ -245,15 +253,21 @@ export default class WaStepper extends WebAwesomeElement {
     const previousStep = steps.find(step => step.active) ?? null;
     if (target === previousStep) return;
 
-    const changeEvent = new WaStepChangeEvent({ step: target, previousStep });
+    const changeEvent = new WaBeforeStepChangeEvent({ step: target, previousStep });
     this.dispatchEvent(changeEvent);
     if (changeEvent.defaultPrevented) return;
 
     this.active = target.name;
 
     this.updateComplete.then(() => {
-      this.dispatchEvent(new WaAfterStepChangeEvent({ step: target, previousStep }));
+      this.dispatchEvent(new WaStepChangeEvent({ step: target, previousStep }));
+      this.announceActiveStep();
     });
+  }
+
+  /** Announces the active step's position to assistive technology via the shared light-DOM live region. */
+  private announceActiveStep() {
+    announce(this.localize.term('stepXOfY', this.activeIndex + 1, this.stepCount), 'polite');
   }
 
   /** Advances to the step after the active one, if any. */
@@ -283,7 +297,7 @@ export default class WaStepper extends WebAwesomeElement {
 
   render() {
     return html`
-      <nav part="stepper" class="stepper" aria-label=${this.label}>
+      <nav part="stepper" class="stepper" aria-label=${this.label || this.localize.term('stepper')}>
         ${this.stepCount > 0
           ? html`
               <span part="summary" class="wa-visually-hidden">
@@ -299,8 +313,8 @@ export default class WaStepper extends WebAwesomeElement {
   }
 }
 
-// Handles `data-stepper="<command> <id> [args]"` invokers, which may live anywhere on the page — not just inside
-// the stepper — so they're resolved with a document-level listener rather than a handler scoped to this component.
+// Handles `data-stepper="<command> <id> [args]"` invokers, which may live anywhere on the page, not just inside
+// the stepper, so they're resolved with a document-level listener rather than a handler scoped to this component.
 // Matches the `data-dialog="open <id>"` / `data-drawer="open <id>"` / `<wa-copy-button from="<id>">` convention used
 // elsewhere in the library: an explicit id, resolved via the invoker's own root node (the invoker's shadow root if
 // it has one, the document otherwise) with a console warning if it can't be found.
@@ -322,7 +336,7 @@ if (!isServer) {
 
     if (command === 'next') {
       stepper.next();
-    } else if (command === 'prev') {
+    } else if (command === 'previous') {
       stepper.previous();
     } else if (command === 'goto' && rest.length > 0) {
       stepper.goTo(rest.join(' '));

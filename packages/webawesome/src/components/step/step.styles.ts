@@ -19,7 +19,7 @@ export default css`
       flex: 1 1 0%;
     }
 
-    :host(:not([variant=''])) {
+    :host([variant]) {
       --_accent: var(--wa-color-fill-loud);
       --_accent-on: var(--wa-color-on-loud);
       --_filled: var(--wa-color-fill-normal);
@@ -157,8 +157,33 @@ export default css`
       translate: -50% 0;
     }
 
-    :host(:state(connector-active)) .connector-end {
+    :host(:state(completed)) .connector-end {
       background-color: var(--connector-color-active, var(--_filled));
+    }
+
+    /* The previous step's completed variant, handed down as connectorStartVariant and applied here as a plain data
+       attribute, mapped to its fill token in CSS rather than built as a var() name in JS. --connector-color-active
+       only belongs here too: it's only checked when the previous step was actually completed (i.e. data-variant is
+       set), matching the completed .connector-end rule above. Checking it unconditionally would bleed the
+       "after a completed step" color onto a connector whose previous step isn't completed. */
+    .connector-start[data-variant='neutral'] {
+      --_connector-start-fill: var(--connector-color-active, var(--wa-color-neutral-fill-normal));
+    }
+
+    .connector-start[data-variant='brand'] {
+      --_connector-start-fill: var(--connector-color-active, var(--wa-color-brand-fill-normal));
+    }
+
+    .connector-start[data-variant='success'] {
+      --_connector-start-fill: var(--connector-color-active, var(--wa-color-success-fill-normal));
+    }
+
+    .connector-start[data-variant='warning'] {
+      --_connector-start-fill: var(--connector-color-active, var(--wa-color-warning-fill-normal));
+    }
+
+    .connector-start[data-variant='danger'] {
+      --_connector-start-fill: var(--connector-color-active, var(--wa-color-danger-fill-normal));
     }
 
     .connector-start {

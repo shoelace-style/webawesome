@@ -4,15 +4,15 @@ export class WaStepChangeEvent extends Event {
   readonly detail: WaStepChangeEventDetail;
 
   constructor(detail: WaStepChangeEventDetail) {
-    super('wa-step-change', { bubbles: true, cancelable: true, composed: true });
+    super('wa-step-change', { bubbles: true, cancelable: false, composed: true });
     this.detail = detail;
   }
 }
 
 interface WaStepChangeEventDetail {
-  /** The step that will become active if the event isn't canceled. */
+  /** The step that's now active. */
   step: WaStep;
-  /** The step that's currently active, or `null` if none is. */
+  /** The step that was active before, or `null` if none was. */
   previousStep: WaStep | null;
 }
 

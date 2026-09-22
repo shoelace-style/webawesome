@@ -15,7 +15,7 @@ function getActiveStep(el: WaStepper) {
 
 /**
  * Waits for the stepper's initial step sync (position/active/locked) to land. For SSR-hydrated fixtures this
- * happens one tick after the fixture resolves, to avoid racing each step's own hydration — see the comment on
+ * happens one tick after the fixture resolves, to avoid racing each step's own hydration. See the comment on
  * `WaStepper.firstUpdated()`.
  */
 async function whenSynced(el: WaStepper) {
@@ -97,6 +97,18 @@ describe('<wa-stepper>', () => {
 
           expect(el.shadowRoot!.querySelector('nav')!.getAttribute('aria-label')).to.equal('Checkout');
         });
+
+        it('should fall back to a localized label when the label attribute is unset', async () => {
+          const el = await fixture<WaStepper>(html`
+            <wa-stepper>
+              <wa-step name="cart">Cart</wa-step>
+            </wa-stepper>
+          `);
+
+          const label = el.shadowRoot!.querySelector('nav')!.getAttribute('aria-label');
+          expect(label).to.be.ok;
+          expect(label).to.not.equal('');
+        });
       });
 
       describe('methods', () => {
@@ -160,7 +172,7 @@ describe('<wa-stepper>', () => {
       });
 
       describe('events', () => {
-        it('should emit a cancelable wa-step-change before changing, then wa-after-step-change', async () => {
+        it('should emit a cancelable wa-before-step-change before changing, then wa-step-change', async () => {
           const el = await fixture<WaStepper>(html`
             <wa-stepper active="cart">
               <wa-step name="cart">Cart</wa-step>
@@ -168,21 +180,21 @@ describe('<wa-stepper>', () => {
             </wa-stepper>
           `);
 
+          const beforeSpy = sinon.spy();
           const changeSpy = sinon.spy();
-          const afterSpy = sinon.spy();
+          el.addEventListener('wa-before-step-change', beforeSpy);
           el.addEventListener('wa-step-change', changeSpy);
-          el.addEventListener('wa-after-step-change', afterSpy);
 
           el.goTo('shipping');
-          await waitUntil(() => afterSpy.called);
+          await waitUntil(() => changeSpy.called);
 
+          expect(beforeSpy.calledOnce).to.be.true;
+          expect(beforeSpy.firstCall.args[0].detail.step.name).to.equal('shipping');
+          expect(beforeSpy.firstCall.args[0].detail.previousStep.name).to.equal('cart');
           expect(changeSpy.calledOnce).to.be.true;
-          expect(changeSpy.firstCall.args[0].detail.step.name).to.equal('shipping');
-          expect(changeSpy.firstCall.args[0].detail.previousStep.name).to.equal('cart');
-          expect(afterSpy.calledOnce).to.be.true;
         });
 
-        it('should not change the active step when wa-step-change is canceled', async () => {
+        it('should announce the new step position to assistive technology via the shared live region', async () => {
           const el = await fixture<WaStepper>(html`
             <wa-stepper active="cart">
               <wa-step name="cart">Cart</wa-step>
@@ -190,12 +202,59 @@ describe('<wa-stepper>', () => {
             </wa-stepper>
           `);
 
-          el.addEventListener('wa-step-change', event => event.preventDefault());
+          el.goTo('shipping');
+          await aTimeout(0);
+
+          const log = document.querySelector('[role="log"][aria-live="polite"]');
+          expect(log).to.exist;
+          const lastAnnouncement = log!.lastElementChild;
+          expect(lastAnnouncement?.textContent).to.equal('Step 2 of 2');
+        });
+
+        it('should not change the active step when wa-before-step-change is canceled', async () => {
+          const el = await fixture<WaStepper>(html`
+            <wa-stepper active="cart">
+              <wa-step name="cart">Cart</wa-step>
+              <wa-step name="shipping">Shipping</wa-step>
+            </wa-stepper>
+          `);
+
+          el.addEventListener('wa-before-step-change', event => event.preventDefault());
 
           el.goTo('shipping');
           await el.updateComplete;
 
           expect(el.active).to.equal('cart');
+        });
+      });
+
+      describe('nesting', () => {
+        it('should scope its step collection to its own children, not a stepper nested in a description slot', async () => {
+          const el = await whenSynced(
+            await fixture<WaStepper>(html`
+              <wa-stepper active="a">
+                <wa-step name="a" with-description>
+                  A
+                  <div slot="description">
+                    <wa-stepper active="x">
+                      <wa-step name="x">X</wa-step>
+                      <wa-step name="y">Y</wa-step>
+                    </wa-stepper>
+                  </div>
+                </wa-step>
+                <wa-step name="b">B</wa-step>
+              </wa-stepper>
+            `),
+          );
+
+          // getSteps() uses querySelectorAll, so it isn't scoping-aware; the summary text is, since it's driven by
+          // the component's own (slot-scoped) internal step count.
+          expect(el.shadowRoot!.querySelector('[part~="summary"]')!.textContent!.trim()).to.equal('Step 1 of 2');
+          expect(el.active).to.equal('a');
+
+          const inner = el.querySelector<WaStepper>('wa-stepper');
+          await waitUntil(() => getSteps(inner!).some(step => step.active));
+          expect(getSteps(inner!)).to.have.lengthOf(2);
         });
       });
 
@@ -249,6 +308,17 @@ describe('<wa-stepper>', () => {
       });
 
       describe('connector coloring', () => {
+        const endFill = (step: WaStep) =>
+          getComputedStyle(step.shadowRoot!.querySelector('.connector-end')!).backgroundColor;
+        const token = (name: string) => {
+          const probe = document.createElement('span');
+          probe.style.color = `var(${name})`;
+          document.body.append(probe);
+          const rgb = getComputedStyle(probe).color;
+          probe.remove();
+          return rgb;
+        };
+
         it('should color the connector after every completed step and no others', async () => {
           const el = await whenSynced(
             await fixture<WaStepper>(html`
@@ -261,9 +331,9 @@ describe('<wa-stepper>', () => {
           );
 
           const [cart, shipping, payment] = getSteps(el);
-          expect(cart.customStates.has('connector-active')).to.be.true;
-          expect(shipping.customStates.has('connector-active')).to.be.false;
-          expect(payment.customStates.has('connector-active')).to.be.false;
+          expect(endFill(cart)).to.equal(token('--wa-color-brand-fill-normal'));
+          expect(endFill(shipping)).to.equal(token('--wa-color-neutral-fill-normal'));
+          expect(endFill(payment)).to.equal(token('--wa-color-neutral-fill-normal'));
         });
 
         it('should color the connector after a completed step even when the active step is behind it', async () => {
@@ -278,8 +348,8 @@ describe('<wa-stepper>', () => {
           );
 
           const [cart, shipping] = getSteps(el);
-          expect(cart.customStates.has('connector-active')).to.be.false;
-          expect(shipping.customStates.has('connector-active')).to.be.true;
+          expect(endFill(cart)).to.equal(token('--wa-color-neutral-fill-normal'));
+          expect(endFill(shipping)).to.equal(token('--wa-color-brand-fill-normal'));
         });
 
         it('should hand the previous variant to the half-connector leading in', async () => {
@@ -308,6 +378,31 @@ describe('<wa-stepper>', () => {
           expect(startFill(cart)).to.equal(token('--wa-color-neutral-fill-normal'));
           expect(startFill(shipping)).to.equal(token('--wa-color-success-fill-normal'));
           expect(startFill(payment)).to.equal(token('--wa-color-brand-fill-normal'));
+        });
+
+        it('should not apply --connector-color-active to a connector-start whose previous step is not completed', async () => {
+          // Regression test: a --connector-color-active override set on the stepper (e.g. to give a "transit line"
+          // example a distinct completed color) must not leak onto the connector-start half of a step whose
+          // previous step isn't completed, even though that override is inherited by every step in the shadow tree.
+          const el = await whenSynced(
+            await fixture<WaStepper>(html`
+              <wa-stepper active="shipping" style="--connector-color-active: rgb(1, 2, 3)">
+                <wa-step name="cart" completed>Cart</wa-step>
+                <wa-step name="shipping">Shipping</wa-step>
+                <wa-step name="payment">Payment</wa-step>
+              </wa-stepper>
+            `),
+          );
+
+          const [, shipping, payment] = getSteps(el);
+          const startFill = (step: WaStep) =>
+            getComputedStyle(step.shadowRoot!.querySelector('.connector-start')!).backgroundColor;
+
+          // shipping's previous step (cart) IS completed, so its connector-start correctly picks up the override.
+          expect(startFill(shipping)).to.equal('rgb(1, 2, 3)');
+          // payment's previous step (shipping) is NOT completed, so its connector-start must not pick up the
+          // override, matching the plain, uncompleted color its neighboring connector-end (drawn by shipping) uses.
+          expect(startFill(payment)).to.equal(endFill(shipping));
         });
 
         it('should size the connector with --connector-width in both orientations', async () => {
@@ -388,7 +483,7 @@ describe('<wa-stepper>', () => {
           await waitUntil(() => el.customStates.has('completed'));
         });
 
-        it('should set the loading state and aria-busy when any step is loading', async () => {
+        it('should set the loading state without propagating aria-busy to the host', async () => {
           const el = await fixture<WaStepper>(html`
             <wa-stepper active="shipping">
               <wa-step name="cart" completed>Cart</wa-step>
@@ -397,12 +492,13 @@ describe('<wa-stepper>', () => {
           `);
 
           await waitUntil(() => el.customStates.has('loading'));
-          expect(el.getAttribute('aria-busy')).to.equal('true');
+          expect(el.hasAttribute('aria-busy')).to.be.false;
+          expect(getSteps(el)[1].getAttribute('aria-busy')).to.equal('true');
         });
 
         it('should recompute the completed state when a slotted step changes on the client', async () => {
           // Exercises the MutationObserver path (as opposed to the initial sync above), so it's meaningful only for
-          // a live client — skip it for the SSR-hydrated fixture, which already covers the initial-sync case.
+          // a live client. Skip it for the SSR-hydrated fixture, which already covers the initial-sync case.
           if (fixture.type !== 'client-only') return;
 
           const el = await fixture<WaStepper>(html`
@@ -475,6 +571,22 @@ describe('<wa-stepper>', () => {
             expect(step.shadowRoot!.querySelector('button')).to.not.exist;
             expect(step.hasAttribute('tabindex')).to.be.false;
           });
+        });
+
+        it('should put aria-current on the button, not the host, when clickable', async () => {
+          const el = await whenSynced(
+            await fixture<WaStepper>(html`
+              <wa-stepper active="shipping" clickable>
+                <wa-step name="cart" completed>Cart</wa-step>
+                <wa-step name="shipping">Shipping</wa-step>
+              </wa-stepper>
+            `),
+          );
+
+          const [cart, shipping] = getSteps(el);
+          expect(shipping.hasAttribute('aria-current')).to.be.false;
+          expect(shipping.shadowRoot!.querySelector('[part~="button"]')!.getAttribute('aria-current')).to.equal('step');
+          expect(cart.shadowRoot!.querySelector('[part~="button"]')!.hasAttribute('aria-current')).to.be.false;
         });
 
         it('should render each step as a button when clickable, disabling disabled and locked ones', async () => {
@@ -567,7 +679,7 @@ describe('<wa-stepper>', () => {
                 <wa-step name="payment">Payment</wa-step>
               </wa-stepper>
               <button data-stepper="next checkout">Next</button>
-              <button data-stepper="prev checkout">Back</button>
+              <button data-stepper="previous checkout">Back</button>
               <button data-stepper="goto checkout payment">Skip to payment</button>
             </div>
           `);
@@ -741,8 +853,8 @@ describe('<wa-stepper>', () => {
           expect(statusOf(cart)).to.equal('Completed');
           expect(statusOf(shipping)).to.equal('');
           expect(statusOf(payment)).to.equal('Locked');
-          expect(payment.getAttribute('aria-disabled')).to.equal('true');
-          expect(shipping.getAttribute('aria-disabled')).to.equal('false');
+          expect(payment.hasAttribute('aria-disabled')).to.be.false;
+          expect(shipping.hasAttribute('aria-disabled')).to.be.false;
         });
 
         it('should describe a pending step as not completed', async () => {

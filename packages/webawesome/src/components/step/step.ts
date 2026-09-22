@@ -1,6 +1,5 @@
-import { html } from 'lit';
+import { html, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
-import { styleMap } from 'lit/directives/style-map.js';
 import { HasSlotController } from '../../internal/slot.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
@@ -15,7 +14,7 @@ import styles from './step.styles.js';
  * @summary Steps represent a single stage inside a `<wa-stepper>`, showing its position, label, and status.
  * @documentation https://webawesome.com/docs/components/step
  * @status experimental
- * @since 3.13
+ * @since 3.14
  *
  * @dependency wa-icon
  * @dependency wa-spinner
@@ -32,7 +31,6 @@ import styles from './step.styles.js';
  *  `clickable`; otherwise the same wrapper is a plain, non-focusable element.
  * @csspart marker - The circular marker that shows the step's number, checkmark, or loading indicator.
  * @csspart spinner - The spinner shown in the marker while the step is `loading`.
- * @csspart spinner__base - The spinner's exported `base` part.
  * @csspart content - The wrapper around the label, status text, and description.
  * @csspart label - The step's label.
  * @csspart status - Visually hidden text that tells assistive technology whether the step is completed, not
@@ -52,8 +50,6 @@ import styles from './step.styles.js';
  *  comes after the first incomplete step.
  * @cssstate clickable - Applied by the parent stepper when its `clickable` attribute is set, allowing this step to
  *  be clicked or activated (Enter/Space) directly.
- * @cssstate connector-active - Applied when the connector leading out of this step should render as reached, i.e. this
- *  step is completed.
  */
 @customElement('wa-step')
 export default class WaStep extends WebAwesomeElement {
@@ -81,7 +77,7 @@ export default class WaStep extends WebAwesomeElement {
    * Colors the step's marker with a semantic color, in every state. The color is cosmetic; pair it with an icon in the
    * `bullet` slot and a clear label when a step needs to read as failed or flagged.
    */
-  @property({ reflect: true }) variant: 'neutral' | 'brand' | 'success' | 'warning' | 'danger' | '' = '';
+  @property({ reflect: true }) variant?: 'neutral' | 'brand' | 'success' | 'warning' | 'danger';
 
   /** Adds an animation to the step's marker to draw attention to it, e.g. the step the user should do next. */
   @property({ reflect: true }) attention: 'none' | 'pulse' | 'bounce' = 'none';
@@ -114,12 +110,6 @@ export default class WaStep extends WebAwesomeElement {
   @state() locked = false;
 
   /**
-   * @internal Set by the parent `<wa-stepper>`. Whether the connector leading out of this step, toward the next
-   * one, should render as "reached": true when this step is completed.
-   */
-  @state() connectorActive = false;
-
-  /**
    * @internal Set by the parent `<wa-stepper>`. The variant of the completed step before this one, so the
    * half-connector leading in matches the half leading out of it. Empty when the previous step isn't completed.
    */
@@ -141,32 +131,32 @@ export default class WaStep extends WebAwesomeElement {
   @watch('disabled')
   handleDisabledChange() {
     this.customStates.set('disabled', this.disabled);
-    this.syncAriaDisabled();
   }
 
   @watch('active')
   handleActiveChange() {
     this.customStates.set('active', this.active);
+    this.syncAriaCurrent();
+  }
 
-    if (this.active) {
+  @watch('locked')
+  handleLockedChange() {
+    this.customStates.set('locked', this.locked);
+  }
+
+  // aria-current belongs on whichever element actually receives focus: the inner <button> when the step is
+  // clickable, the host (a plain listitem) otherwise.
+  private syncAriaCurrent() {
+    if (this.active && !this.clickable) {
       this.setAttribute('aria-current', 'step');
     } else {
       this.removeAttribute('aria-current');
     }
   }
 
-  @watch('locked')
-  handleLockedChange() {
-    this.customStates.set('locked', this.locked);
-    this.syncAriaDisabled();
-  }
-
-  private syncAriaDisabled() {
-    this.setAttribute('aria-disabled', this.disabled || this.locked ? 'true' : 'false');
-  }
-
   private getStatusText() {
     if (this.completed) return this.localize.term('completed');
+    if (this.disabled) return this.localize.term('disabled');
     if (this.locked) return this.localize.term('locked');
     if (this.active) return '';
     return this.localize.term('notCompleted');
@@ -175,16 +165,12 @@ export default class WaStep extends WebAwesomeElement {
   @watch('clickable')
   handleClickableChange() {
     this.customStates.set('clickable', this.clickable);
-  }
-
-  @watch('connectorActive')
-  handleConnectorActiveChange() {
-    this.customStates.set('connector-active', this.connectorActive);
+    this.syncAriaCurrent();
   }
 
   private renderBullet() {
     if (this.loading) {
-      return html`<wa-spinner part="spinner" exportparts="base:spinner__base"></wa-spinner>`;
+      return html`<wa-spinner part="spinner"></wa-spinner>`;
     }
 
     if (this.completed) {
@@ -214,19 +200,17 @@ export default class WaStep extends WebAwesomeElement {
 
     return html`
       <div part="step" class="step">
-        <span
-          part="connector"
-          class="connector-start"
-          style=${styleMap({
-            '--_connector-start-fill': this.connectorStartVariant
-              ? `var(--connector-color-active, var(--wa-color-${this.connectorStartVariant}-fill-normal))`
-              : null,
-          })}
-        ></span>
+        <span part="connector" class="connector-start" data-variant=${this.connectorStartVariant || nothing}></span>
         <span part="connector" class="connector-end"></span>
         ${this.clickable
           ? html`
-              <button part="button" class="body" type="button" ?disabled=${this.disabled || this.locked}>
+              <button
+                part="button"
+                class="body"
+                type="button"
+                ?disabled=${this.disabled || this.locked}
+                aria-current=${this.active ? 'step' : nothing}
+              >
                 ${body}
               </button>
             `
@@ -237,7 +221,7 @@ export default class WaStep extends WebAwesomeElement {
 }
 
 // The change-in-update warning is required for this component because HasSlotController calls requestUpdate() in
-// response to slotchange events after first render — including the synthetic slotchange WebAwesomeElement dispatches
+// response to slotchange events after first render, including the synthetic slotchange WebAwesomeElement dispatches
 // post-hydration to work around SSR not being able to catch real slotchange events. See
 // https://lit.dev/docs/tools/development/#development-build-runtime-warnings
 WaStep.disableWarning?.('change-in-update');

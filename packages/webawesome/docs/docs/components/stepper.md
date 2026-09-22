@@ -247,7 +247,7 @@ Add the `disabled` attribute to a step that doesn't apply to the current user. T
 
 ### Navigating Declaratively
 
-Add the `data-stepper` attribute to any button on the page, with `next <id>`, `prev <id>`, or `goto <id> <name>` as its value, to call `next()`, `previous()`, or `goTo()` on the stepper with that `id`. It's the same convention as `<wa-dialog>`'s `data-dialog="open <id>"`, and the button doesn't need to be inside the stepper.
+Add the `data-stepper` attribute to any button on the page, with `next <id>`, `previous <id>`, or `goto <id> <name>` as its value, to call `next()`, `previous()`, or `goTo()` on the stepper with that `id`. It's the same convention as `<wa-dialog>`'s `data-dialog="open <id>"`, and the button doesn't need to be inside the stepper.
 
 ```html {.example}
 <div class="stepper-declarative-demo">
@@ -260,7 +260,7 @@ Add the `data-stepper` attribute to any button on the page, with `next <id>`, `p
   <wa-divider></wa-divider>
 
   <div class="wa-cluster">
-    <wa-button appearance="filled" data-stepper="prev stepper-declarative">Back</wa-button>
+    <wa-button appearance="filled" data-stepper="previous stepper-declarative">Back</wa-button>
     <wa-button appearance="filled" data-stepper="next stepper-declarative">Continue</wa-button>
     <wa-button appearance="filled" data-stepper="goto stepper-declarative payment">Skip to Payment</wa-button>
   </div>
@@ -269,7 +269,7 @@ Add the `data-stepper` attribute to any button on the page, with `next <id>`, `p
 
 ### Reacting to Changes
 
-The `wa-after-step-change` event fires once the active step has changed, with `{ step, previousStep }` in `event.detail`. The stepper never sets `completed` itself. Mark a step done from your own code, e.g. once the user has advanced past it.
+The `wa-step-change` event fires once the active step has changed, with `{ step, previousStep }` in `event.detail`. The stepper never sets `completed` itself. Mark a step done from your own code, e.g. once the user has advanced past it.
 
 ```html {.example}
 <div class="stepper-events-demo">
@@ -282,7 +282,7 @@ The `wa-after-step-change` event fires once the active step has changed, with `{
   <wa-divider></wa-divider>
 
   <div class="wa-cluster wa-align-items-center">
-    <wa-button appearance="filled" data-stepper="prev stepper-events">Back</wa-button>
+    <wa-button appearance="filled" data-stepper="previous stepper-events">Back</wa-button>
     <wa-button appearance="filled" data-stepper="next stepper-events">Continue</wa-button>
     <small>Active step: <span id="stepper-events-output">cart</span></small>
   </div>
@@ -292,7 +292,7 @@ The `wa-after-step-change` event fires once the active step has changed, with `{
   const stepperEvents = document.getElementById('stepper-events');
   const stepperEventsOutput = document.getElementById('stepper-events-output');
 
-  stepperEvents.addEventListener('wa-after-step-change', event => {
+  stepperEvents.addEventListener('wa-step-change', event => {
     const { step, previousStep } = event.detail;
     const steps = [...stepperEvents.querySelectorAll('wa-step')];
 
@@ -313,7 +313,7 @@ The `wa-after-step-change` event fires once the active step has changed, with `{
 
 ### Pairing with Content
 
-The stepper only shows progress; it doesn't hold the content for each step. Keep that content in your own elements and show the one that matches the active step from a `wa-after-step-change` listener. This keeps the stepper usable with any layout, from a single form panel to a full page per step.
+The stepper only shows progress; it doesn't hold the content for each step. Keep that content in your own elements and show the one that matches the active step from a `wa-step-change` listener. This keeps the stepper usable with any layout, from a single form panel to a full page per step.
 
 ```html {.example}
 <div class="stepper-content-demo wa-stack">
@@ -330,7 +330,7 @@ The stepper only shows progress; it doesn't hold the content for each step. Keep
   <wa-divider></wa-divider>
 
   <div class="wa-cluster">
-    <wa-button appearance="filled" data-stepper="prev stepper-content">Back</wa-button>
+    <wa-button appearance="filled" data-stepper="previous stepper-content">Back</wa-button>
     <wa-button appearance="filled" data-stepper="next stepper-content">Continue</wa-button>
   </div>
 </div>
@@ -339,7 +339,7 @@ The stepper only shows progress; it doesn't hold the content for each step. Keep
   const stepperContent = document.getElementById('stepper-content');
   const stepperContentPanels = stepperContent.parentElement.querySelectorAll('[data-step]');
 
-  stepperContent.addEventListener('wa-after-step-change', event => {
+  stepperContent.addEventListener('wa-step-change', event => {
     stepperContentPanels.forEach(panel => {
       panel.hidden = panel.dataset.step !== event.detail.step.name;
     });
@@ -349,7 +349,7 @@ The stepper only shows progress; it doesn't hold the content for each step. Keep
 
 ### Preventing a Step Change
 
-The `wa-step-change` event fires before the step changes and is cancelable. Call `event.preventDefault()` to block the transition, e.g. to guard against unsaved changes. Toggle the switch and press Continue to see the change blocked or allowed.
+The `wa-before-step-change` event fires before the step changes and is cancelable. Call `event.preventDefault()` to block the transition, e.g. to guard against unsaved changes. Toggle the switch and press Continue to see the change blocked or allowed.
 
 ```html {.example}
 <div class="stepper-guard-demo">
@@ -373,7 +373,7 @@ The `wa-step-change` event fires before the step changes and is cancelable. Call
   const stepperGuardUnsaved = document.getElementById('stepper-guard-unsaved');
   const stepperGuardOutput = document.getElementById('stepper-guard-output');
 
-  stepperGuard.addEventListener('wa-step-change', event => {
+  stepperGuard.addEventListener('wa-before-step-change', event => {
     if (stepperGuardUnsaved.checked) {
       event.preventDefault();
       stepperGuardOutput.textContent = 'Blocked by unsaved changes';
@@ -382,7 +382,7 @@ The `wa-step-change` event fires before the step changes and is cancelable. Call
     }
   });
 
-  stepperGuard.addEventListener('wa-after-step-change', event => {
+  stepperGuard.addEventListener('wa-step-change', event => {
     if (event.detail.previousStep) event.detail.previousStep.completed = true;
   });
 </script>
@@ -479,26 +479,10 @@ Steps share the row equally. Give a step with more content extra room by setting
 
 ## Accessibility Considerations
 
-#### Structure
-
-The stepper renders a `<nav>` landmark wrapping an ordered list, and each `<wa-step>` carries `role="listitem"`. Set the `label` attribute whenever more than one stepper appears on the same page, so screen reader users can tell them apart.
-
-#### Current Step
-
-The active step carries `aria-current="step"`, removed (not set to `"false"`) on every other step. The stepper also renders visually hidden "Step 2 of 4" text, so the position is announced without relying on the markers.
-
-#### Step Status
-
-Each step's status is announced, not just shown. Completed steps carry visually hidden "Completed" text, pending steps "Not completed", and locked steps "Locked" plus `aria-disabled="true"`. The checkmark itself is decorative.
-
-#### Keyboard
-
-Steps are only in the tab order when the stepper is [`clickable`](#clickable), and then each one is rendered as a `<button>`: Tab moves between them and Enter or Space activates one, the same as clicking it. `disabled` and locked steps render as disabled buttons, so they're skipped. Without `clickable`, nothing in the stepper takes focus, and screen readers still read every step in order.
-
-#### Busy State
-
-While any step is `loading`, the stepper carries `aria-busy="true"`, so assistive technology has one signal that the whole process is doing something async, not just the individual step.
-
-#### Color and Meaning
-
-The `variant` attribute is cosmetic. It changes color, which doesn't carry meaning on its own, so include the reason in the step's visible label or description, and add an icon in the `bullet` slot when a step needs to read as failed.
+- **Structure.** The stepper renders a `<nav>` landmark wrapping an ordered list, and each `<wa-step>` carries `role="listitem"`. Set the `label` attribute whenever more than one stepper appears on the same page, so screen reader users can tell them apart.
+- **Current step.** The active step carries `aria-current="step"` on whichever element is actually focusable: the step's own host when the stepper isn't `clickable`, or its inner `<button>` when it is. It's removed, not set to `"false"`, everywhere else. The stepper also renders visually hidden "Step 2 of 4" text, so the position is announced without relying on the markers.
+- **Step changes are announced.** When `next()`, `previous()`, or `goTo()` changes the active step, the new position is announced to screen readers through a shared live region, so the update isn't silent even when nothing in the stepper has focus.
+- **Step status.** Each step's status is announced, not just shown. Completed steps carry visually hidden "Completed" text, pending steps "Not completed", disabled steps "Disabled", and locked steps "Locked". The checkmark itself is decorative.
+- **Keyboard.** Steps are only in the tab order when the stepper is [`clickable`](#clickable), and then each one is rendered as a `<button>`: [[Tab]] moves between them and [[Enter]] or [[Space]] activates one, the same as clicking it. `disabled` and locked steps render as disabled buttons, so they're skipped. Without `clickable`, nothing in the stepper takes focus, and screen readers still read every step in order.
+- **Busy state.** Each loading step carries `aria-busy="true"`. The stepper itself carries the `loading` custom state while any step is loading, as a styling hook. It isn't propagated to the stepper's own `aria-busy`, since nesting that on the landmark can suppress announcements for the whole region.
+- **Color and meaning.** The `variant` attribute is cosmetic. It changes color, which doesn't carry meaning on its own, so include the reason in the step's visible label or description, and add an icon in the `bullet` slot when a step needs to read as failed.

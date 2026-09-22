@@ -22,8 +22,8 @@ describe('<wa-step>', () => {
       });
 
       it('should be accessible', async () => {
-        // <wa-step> renders role="listitem", which ARIA requires to live inside a role="list" container — the job
-        // <wa-stepper> normally does. Provide one here since this test exercises the step in isolation.
+        // <wa-step> renders role="listitem", which ARIA requires to live inside a role="list" container. That's the
+        // job <wa-stepper> normally does; provide one here since this test exercises the step in isolation.
         const wrapper = await fixture<HTMLDivElement>(
           html`<div role="list"><wa-step name="cart" completed>Cart</wa-step></div>`,
         );
@@ -45,11 +45,12 @@ describe('<wa-step>', () => {
         expect(el.shadowRoot!.querySelector('[part~="marker"] wa-spinner')).to.exist;
       });
 
-      it('should reflect disabled to aria-disabled and the disabled custom state', async () => {
+      it('should reflect disabled to the disabled custom state and status text', async () => {
         const el = await fixture<WaStep>(html`<wa-step name="gift-wrap" disabled>Gift Wrap</wa-step>`);
 
-        expect(el.getAttribute('aria-disabled')).to.equal('true');
+        expect(el.hasAttribute('aria-disabled')).to.be.false;
         expect(el.customStates.has('disabled')).to.be.true;
+        expect(el.shadowRoot!.querySelector('[part~="status"]')!.textContent!.trim()).to.equal('Disabled');
       });
 
       it('should set aria-current="step" only while active', async () => {

@@ -65,6 +65,7 @@ export interface Translation extends DefaultTranslation {
   dayPeriod: string;
   decrement: string;
   deselectAllRows: string;
+  disabled: string;
   dropFileHere: string;
   dropFilesHere: string;
   empty: string;
@@ -159,6 +160,7 @@ export interface Translation extends DefaultTranslation {
   sortColumn: string;
   sortDescending: string;
   startDate: string;
+  stepper: string;
   stepXOfY: (step: number, total: number) => string;
   tagAdded: (tag: string) => string;
   tagAlreadyAdded: (tag: string) => string;
