@@ -1,5 +1,6 @@
 import { html, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { HasSlotController } from '../../internal/slot.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
@@ -111,9 +112,9 @@ export default class WaStep extends WebAwesomeElement {
 
   /**
    * @internal Set by the parent `<wa-stepper>`. The variant of the completed step before this one, so the
-   * half-connector leading in matches the half leading out of it. Empty when the previous step isn't completed.
+   * half-connector leading in matches the half leading out of it. Unset when the previous step isn't completed.
    */
-  @state() connectorStartVariant = '';
+  @state() connectorStartVariant?: WaStep['variant'];
 
   @property({ reflect: true }) role = 'listitem';
 
@@ -200,7 +201,14 @@ export default class WaStep extends WebAwesomeElement {
 
     return html`
       <div part="step" class="step">
-        <span part="connector" class="connector-start" data-variant=${this.connectorStartVariant || nothing}></span>
+        <span
+          part="connector"
+          class=${classMap({
+            'connector-start': true,
+            [`wa-${this.connectorStartVariant}`]: !!this.connectorStartVariant,
+          })}
+          ?data-completed=${!!this.connectorStartVariant}
+        ></span>
         <span part="connector" class="connector-end"></span>
         ${this.clickable
           ? html`

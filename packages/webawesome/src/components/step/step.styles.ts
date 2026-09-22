@@ -161,33 +161,10 @@ export default css`
       background-color: var(--connector-color-active, var(--_filled));
     }
 
-    /* The previous step's completed variant, handed down as connectorStartVariant and applied here as a plain data
-       attribute, mapped to its fill token in CSS rather than built as a var() name in JS. --connector-color-active
-       only belongs here too: it's only checked when the previous step was actually completed (i.e. data-variant is
-       set), matching the completed .connector-end rule above. Checking it unconditionally would bleed the
-       "after a completed step" color onto a connector whose previous step isn't completed. */
-    .connector-start[data-variant='neutral'] {
-      --_connector-start-fill: var(--connector-color-active, var(--wa-color-neutral-fill-normal));
-    }
-
-    .connector-start[data-variant='brand'] {
-      --_connector-start-fill: var(--connector-color-active, var(--wa-color-brand-fill-normal));
-    }
-
-    .connector-start[data-variant='success'] {
-      --_connector-start-fill: var(--connector-color-active, var(--wa-color-success-fill-normal));
-    }
-
-    .connector-start[data-variant='warning'] {
-      --_connector-start-fill: var(--connector-color-active, var(--wa-color-warning-fill-normal));
-    }
-
-    .connector-start[data-variant='danger'] {
-      --_connector-start-fill: var(--connector-color-active, var(--wa-color-danger-fill-normal));
-    }
-
-    .connector-start {
-      background-color: var(--_connector-start-fill, var(--connector-color, var(--wa-color-neutral-fill-normal)));
+    /* The leading half takes the previous step's fill, only when that step is completed. The stepper hands down that
+       step's variant as a .wa-{variant} class, so variantStyles resolves --wa-color-fill-normal for it. */
+    .connector-start[data-completed] {
+      background-color: var(--connector-color-active, var(--wa-color-fill-normal));
     }
 
     /* Marker */
@@ -294,7 +271,18 @@ export default css`
       display: none;
     }
 
+    /* Forced colors flatten backgrounds to Canvas, so anything that's fill-only needs a system-color edge. */
     @media (forced-colors: active) {
+      .connector-start,
+      .connector-end {
+        background-color: CanvasText;
+      }
+
+      :host(:state(completed)) .marker,
+      :host(:state(active)) .marker {
+        border-color: CanvasText;
+      }
+
       :host(:state(active)) .marker {
         outline: dashed 1px SelectedItem;
       }

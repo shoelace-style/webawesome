@@ -88,14 +88,30 @@ describe('<wa-stepper>', () => {
           await expect(el).to.be.accessible();
         });
 
-        it('should render a <nav> landmark labeled by the label attribute', async () => {
+        it('should render a labeled group, not a landmark, when the steps are not interactive', async () => {
           const el = await fixture<WaStepper>(html`
             <wa-stepper label="Checkout">
               <wa-step name="cart">Cart</wa-step>
             </wa-stepper>
           `);
 
-          expect(el.shadowRoot!.querySelector('nav')!.getAttribute('aria-label')).to.equal('Checkout');
+          const wrapper = el.shadowRoot!.querySelector('[part~="stepper"]')!;
+          expect(wrapper.localName).to.equal('div');
+          expect(wrapper.getAttribute('role')).to.equal('group');
+          expect(wrapper.getAttribute('aria-label')).to.equal('Checkout');
+          expect(el.shadowRoot!.querySelector('nav')).to.not.exist;
+        });
+
+        it('should render a <nav> landmark when clickable', async () => {
+          const el = await fixture<WaStepper>(html`
+            <wa-stepper label="Checkout" clickable>
+              <wa-step name="cart">Cart</wa-step>
+            </wa-stepper>
+          `);
+
+          const wrapper = el.shadowRoot!.querySelector('[part~="stepper"]')!;
+          expect(wrapper.localName).to.equal('nav');
+          expect(wrapper.getAttribute('aria-label')).to.equal('Checkout');
         });
 
         it('should fall back to a localized label when the label attribute is unset', async () => {
@@ -105,9 +121,32 @@ describe('<wa-stepper>', () => {
             </wa-stepper>
           `);
 
-          const label = el.shadowRoot!.querySelector('nav')!.getAttribute('aria-label');
+          const label = el.shadowRoot!.querySelector('[part~="stepper"]')!.getAttribute('aria-label');
           expect(label).to.be.ok;
           expect(label).to.not.equal('');
+        });
+      });
+
+      describe('announcements', () => {
+        it('should announce the new step position via the shared live region', async () => {
+          const el = await fixture<WaStepper>(html`
+            <wa-stepper active="cart">
+              <wa-step name="cart">Cart</wa-step>
+              <wa-step name="shipping">Shipping</wa-step>
+            </wa-stepper>
+          `);
+
+          // The shared log keeps each announcement for a few seconds, so count nodes rather than reading the last one:
+          // a stale node from an earlier test would otherwise let this pass without a new announcement.
+          const log = document.body.querySelector('[role="log"][aria-live="polite"]');
+          const countBefore = log?.childElementCount ?? 0;
+
+          el.goTo('shipping');
+          await el.updateComplete;
+
+          const logAfter = document.body.querySelector('[role="log"][aria-live="polite"]')!;
+          expect(logAfter.childElementCount).to.equal(countBefore + 1);
+          expect(logAfter.lastElementChild!.textContent).to.equal('Step 2 of 2');
         });
       });
 
@@ -192,23 +231,6 @@ describe('<wa-stepper>', () => {
           expect(beforeSpy.firstCall.args[0].detail.step.name).to.equal('shipping');
           expect(beforeSpy.firstCall.args[0].detail.previousStep.name).to.equal('cart');
           expect(changeSpy.calledOnce).to.be.true;
-        });
-
-        it('should announce the new step position to assistive technology via the shared live region', async () => {
-          const el = await fixture<WaStepper>(html`
-            <wa-stepper active="cart">
-              <wa-step name="cart">Cart</wa-step>
-              <wa-step name="shipping">Shipping</wa-step>
-            </wa-stepper>
-          `);
-
-          el.goTo('shipping');
-          await aTimeout(0);
-
-          const log = document.querySelector('[role="log"][aria-live="polite"]');
-          expect(log).to.exist;
-          const lastAnnouncement = log!.lastElementChild;
-          expect(lastAnnouncement?.textContent).to.equal('Step 2 of 2');
         });
 
         it('should not change the active step when wa-before-step-change is canceled', async () => {

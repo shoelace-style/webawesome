@@ -27,7 +27,9 @@ import styles from './stepper.styles.js';
  *
  * @slot - One or more `<wa-step>` elements.
  *
- * @csspart stepper - The component's outer `<nav>` wrapper.
+ * @csspart stepper - The component's outer wrapper. A `<nav>` landmark when the stepper is `clickable`, since its
+ *  steps are then controls you can navigate with; otherwise a labeled `role="group"`, since a display-only stepper has
+ *  nothing to navigate.
  * @csspart summary - Visually hidden "Step X of Y" text that tells assistive technology where the active step sits.
  * @csspart steps - The `<ol>` that lays out the steps.
  *
@@ -104,7 +106,10 @@ export default class WaStepper extends WebAwesomeElement {
     // SSR guard: MutationObserver/ResizeObserver aren't available during server-side rendering.
     if (isServer) return;
 
+    // After the first update...
     this.updateComplete.then(() => {
+      this.handleSlotChange();
+
       // subtree:true is needed to catch attribute changes on descendant <wa-step> elements, but that also picks up
       // mutations from a stepper nested inside this one's content (e.g. inside a step's description). Filter those
       // out so a nested stepper doesn't resync this one.
@@ -140,16 +145,22 @@ export default class WaStepper extends WebAwesomeElement {
     this.resizeObserver?.disconnect();
   }
 
-  firstUpdated() {
+  private handleSlotChange() {
     if (this.didSSR) {
-      // Wait for every step's own first render before mutating them (position/active/locked). Doing it any earlier
-      // races the step's SSR hydration: flipping its marker between a plain number and a `<wa-icon>` before the
-      // step has reconciled its server-rendered markup trips Lit's hydration mismatch check. Later syncs
-      // (slotchange, attribute changes, goTo()) happen well after hydration and stay synchronous.
-      Promise.all(this.getAllSteps().map(step => step.updateComplete)).then(() => this.syncSteps());
-    } else {
-      this.syncSteps();
+      // Wait for any still-hydrating step's first render before mutating it (position/active/locked). Doing it any
+      // earlier races the step's SSR hydration: flipping its marker between a plain number and a `<wa-icon>` before
+      // the step has reconciled its server-rendered markup trips Lit's hydration mismatch check.
+      const pending = this.getAllSteps()
+        .filter(step => step.didSSR && !step.hasUpdated)
+        .map(step => step.updateComplete);
+
+      if (pending.length > 0) {
+        Promise.allSettled(pending).then(() => this.handleSlotChange());
+        return;
+      }
     }
+
+    this.syncSteps();
   }
 
   // Scoped to this stepper's own light-DOM children via slot assignment, so a stepper nested inside a step's
@@ -200,7 +211,7 @@ export default class WaStepper extends WebAwesomeElement {
       // The half-connector leading into a step is drawn by that step, so it needs to know the previous step's
       // variant to match the half leading out of it.
       const previous = steps[index - 1];
-      step.connectorStartVariant = previous?.completed ? previous.variant || 'brand' : '';
+      step.connectorStartVariant = previous?.completed ? previous.variant || 'brand' : undefined;
       step.toggleAttribute('data-wa-step-vertical', isVertical);
     });
 
@@ -296,20 +307,24 @@ export default class WaStepper extends WebAwesomeElement {
   }
 
   render() {
-    return html`
-      <nav part="stepper" class="stepper" aria-label=${this.label || this.localize.term('stepper')}>
-        ${this.stepCount > 0
-          ? html`
-              <span part="summary" class="wa-visually-hidden">
-                ${this.localize.term('stepXOfY', this.activeIndex + 1, this.stepCount)}
-              </span>
-            `
-          : ''}
-        <ol part="steps" class="steps" role="list">
-          <slot @slotchange=${() => this.syncSteps()}></slot>
-        </ol>
-      </nav>
+    const label = this.label || this.localize.term('stepper');
+    const body = html`
+      ${this.stepCount > 0
+        ? html`
+            <span part="summary" class="wa-visually-hidden">
+              ${this.localize.term('stepXOfY', this.activeIndex + 1, this.stepCount)}
+            </span>
+          `
+        : ''}
+      <ol part="steps" class="steps" role="list">
+        <slot @slotchange=${this.handleSlotChange}></slot>
+      </ol>
     `;
+
+    // A landmark only earns its keep when there's something inside it to navigate, i.e. when the steps are buttons.
+    return this.clickable
+      ? html`<nav part="stepper" class="stepper" aria-label=${label}>${body}</nav>`
+      : html`<div part="stepper" class="stepper" role="group" aria-label=${label}>${body}</div>`;
   }
 }
 
