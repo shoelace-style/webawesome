@@ -2,8 +2,8 @@
 
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+import semver from 'semver';
 import * as url from 'url';
-import semver from "semver"
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
