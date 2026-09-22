@@ -73,6 +73,47 @@ Apply the `without-interaction` attribute to make the frame non-interactive. Thi
 <wa-zoomable-frame src="/examples/themes/showcase" zoom="0.5" without-interaction> </wa-zoomable-frame>
 ```
 
+### Permissions & Sandboxing
+
+Use the `sandbox` attribute to restrict what the embedded content can do. An empty `sandbox` applies every restriction; add space-separated tokens such as `allow-scripts` or `allow-same-origin` to lift specific ones. Both frames below load the same `srcdoc`, but only the second one is allowed to run its script.
+
+```html {.example}
+<div class="wa-stack">
+  <wa-zoomable-frame
+    sandbox
+    without-controls
+    style="height: 4rem; background: var(--wa-color-danger-fill-quiet)"
+    srcdoc="<body style='margin: 0; display: grid; place-items: center; height: 100vh; font-family: system-ui'><p><span id='icon' aria-hidden='true'>🧙</span> <span id='msg'>You shall not pass.</span></p><script>icon.textContent = '🐇'; msg.textContent = 'The script ran.'</script></body>"
+  ></wa-zoomable-frame>
+
+  <wa-zoomable-frame
+    sandbox="allow-scripts"
+    without-controls
+    style="height: 4rem; background: var(--wa-color-success-fill-quiet)"
+    srcdoc="<body style='margin: 0; display: grid; place-items: center; height: 100vh; font-family: system-ui'><p><span id='icon' aria-hidden='true'>🧙</span> <span id='msg'>You shall not pass.</span></p><script>icon.textContent = '🐇'; msg.textContent = 'The script ran.'</script></body>"
+  ></wa-zoomable-frame>
+</div>
+```
+
+Use the `allow` attribute to set a [Permissions Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Permissions_Policy) that controls which browser features the embedded content can use. `allow="fullscreen"` is the modern equivalent of the older `allowfullscreen` attribute.
+
+```html
+<wa-zoomable-frame src="https://example.com/" allow="clipboard-write; fullscreen"> </wa-zoomable-frame>
+```
+
+:::info
+<strong>Set `allow` and `sandbox` before the frame loads.</strong><br />
+The browser applies them when the frame navigates, so changing either one afterwards has no effect until `src` points at a new URL.
+:::
+
+### Label
+
+Use the `label` attribute to give the frame an accessible name. Screen readers announce it when moving between frames, so every frame should have one that describes its content.
+
+```html
+<wa-zoomable-frame src="/examples/themes/showcase" label="Theme preview"> </wa-zoomable-frame>
+```
+
 ### Theme Sync
 
 By default, the frame does not sync theme classes into the iframe. Add the `with-theme-sync` attribute to mirror the host page's light/dark mode and [theme selector classes](/docs/theming-overview) (such as `wa-theme-*`, `wa-brand-*`, and `wa-palette-*`) into the iframe document. This is useful when the iframe renders Web Awesome styles that should match the host page's theme.
