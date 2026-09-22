@@ -201,6 +201,10 @@ The default button will not be shown when using either of these methods — if y
 </wa-page>
 ```
 
+:::info
+`<wa-page>` can't detect a `data-toggle-nav` button inside another component's shadow root. In that case, add the `disable-navigation-toggle` attribute to hide the default button yourself.
+:::
+
 Alternatively, you can apply `nav-state="open"` and `nav-state="closed"` to the layout component to show and hide the navigation, respectively.
 
 ```html

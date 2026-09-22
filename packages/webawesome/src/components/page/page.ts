@@ -130,6 +130,7 @@ export default class WaPage extends WebAwesomeElement {
   private subheaderResizeObserver = !isServer ? this.slotResizeObserver('subheader') : null;
   private bannerResizeObserver = !isServer ? this.slotResizeObserver('banner') : null;
   private footerResizeObserver = !isServer ? this.slotResizeObserver('footer') : null;
+  private hasExplicitNavigationToggleSetting = false;
   private slotResizeObserver(slot: string) {
     return new ResizeObserver(entries => {
       requestAnimationFrame(() => {
@@ -205,9 +206,11 @@ export default class WaPage extends WebAwesomeElement {
   @property({ attribute: 'navigation-placement', reflect: true }) navigationPlacement: 'start' | 'end' = 'start';
 
   /**
-   * Determines whether or not to hide the default hamburger button.
-   * This will automatically flip to "true" if you add an element with `data-toggle-nav` anywhere in the element light DOM.
-   * Generally this will be set for you and you don't need to do anything, unless you're using SSR, in which case you should set this manually for initial page loads.
+   * Determines whether or not to hide the default hamburger button. This will automatically flip to "true" if you add
+   * an element with `data-toggle-nav` anywhere in the element light DOM. Generally this will be set for you and you
+   * don't need to do anything, unless you're using SSR, in which case you should set this manually for initial page
+   * loads. If you set this yourself, automatic detection is skipped. This is useful when your toggle lives inside
+   * another component's shadow root, where it can't be detected.
    */
   @property({ attribute: 'disable-navigation-toggle', reflect: true, type: Boolean }) disableNavigationToggle: boolean =
     false;
@@ -241,6 +244,8 @@ export default class WaPage extends WebAwesomeElement {
       const slotName = (e.target as HTMLSlotElement).name;
       if (!['navigation', 'navigation-header', 'navigation-footer'].includes(slotName)) return;
     }
+
+    if (this.hasExplicitNavigationToggleSetting) return;
 
     const hasCustomToggle = Boolean(this.querySelector(":not([slot='navigation-toggle']) [data-toggle-nav]"));
     const hasNavigationContent =
@@ -285,7 +290,7 @@ export default class WaPage extends WebAwesomeElement {
 
   /**
    * https://stackoverflow.com/a/26831113
-   * This prevents awkward gaps when scrolling the page and the aside / menu dont "fill" the gaps.
+   * This prevents awkward gaps when scrolling the page and the aside / menu don't "fill" the gaps.
    */
   visiblePixelsInViewport(element: HTMLElement | null) {
     if (!element) {
@@ -313,6 +318,8 @@ export default class WaPage extends WebAwesomeElement {
       this.prepend(div);
     }
 
+    // Capture before auto-detection runs so an explicit attribute/property wins
+    this.hasExplicitNavigationToggleSetting = this.disableNavigationToggle;
     this.shadowRoot!.addEventListener('slotchange', this.updateNavigationToggleState);
     this.updateNavigationToggleState();
     super.firstUpdated(changedProperties);
