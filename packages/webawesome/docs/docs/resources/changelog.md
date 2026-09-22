@@ -42,6 +42,17 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug in `<wa-zoomable-frame>` where the internal iframe rendered `referrerpolicy="undefined"` when no referrer policy was set
 - Fixed a memory leak in `<wa-option>` where removed `<wa-select>` elements and their options were never garbage collected unless `<wa-combobox>` was also registered [issue:2813]
 - Fixed a bug in `<wa-animated-image>` that caused the image to stay hidden while playing [issue:2811]
+- Fixed the `<wa-page>` docs, which referenced a nonexistent `nav-state` attribute instead of `nav-open`
+
+:::
+
+:::changed
+
+- Improved the agent skills for design system work
+  - The `webawesome-design` skill now leads with a discover-the-project step, pairs every rule with its replacement and reason, and ends with a mechanical verification pass
+  - Added a `your-design-system.md` reference for building and extending a project design system on Web Awesome, including a `DESIGN.md` template
+  - Updated the `webawesome` skill's `<wa-page>` guidance to match the design skill and the component's actual behavior
+  - Added missing components to the `choosing-components.md` decision tree and corrected the Pro component list
 
 :::
 

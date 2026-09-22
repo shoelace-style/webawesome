@@ -702,140 +702,96 @@ ${freeComponentsSection}
 ${proComponentsSection}
 ## Building Full Pages with \`<wa-page>\`
 
-\`<wa-page>\` scaffolds an entire page layout (banner, header, navigation, main content, aside,
-footer) with responsive behavior built in. Most layout bugs come from a few specific mistakes —
-read this before generating a page.
+\`<wa-page>\` scaffolds an entire page layout (banner, header, navigation, main content, aside, footer)
+with sticky regions and a responsive navigation drawer built in. The companion \`webawesome-design\`
+skill has the full guide (\`references/layouts-page.md\`) with canonical examples; the facts below are
+the ones that break pages when guessed.
 
-### Main content goes in the DEFAULT slot — there is no \`main\` slot
+### Main content goes in the default slot; there is no \`main\` slot
 
-Put your primary content directly inside \`<wa-page>\` with **no \`slot\` attribute**. There is
-**no slot named \`main\`**. Writing \`<main slot="main">\` sends the element to a slot that does not
-exist, so it is dropped and **the entire page renders blank**. This failure is silent — no error,
-no warning.
+Put primary content directly inside \`<wa-page>\` with no \`slot\` attribute. \`slot="main"\`, \`slot="nav"\`,
+and \`slot="content"\` don't exist, so the element is silently dropped and the page renders blank.
 
 \`\`\`html
-<!-- Correct: <main> is unslotted, so it lands in the default slot -->
 <wa-page>
-  <main>...your sections...</main>
-</wa-page>
-
-<!-- WRONG: there is no "main" slot — the page body disappears -->
-<wa-page>
-  <main slot="main">...</main>
+  <header slot="header">…</header>
+  <nav slot="navigation">…</nav>
+  <main>…</main>
+  <footer slot="footer">…</footer>
 </wa-page>
 \`\`\`
 
-### Valid slots (use these exact names)
+Valid named slots: \`banner\`, \`header\`, \`subheader\`, \`navigation-header\`, \`navigation\`,
+\`navigation-footer\`, \`navigation-toggle\`, \`navigation-toggle-icon\`, \`menu\`, \`main-header\`,
+\`main-footer\`, \`aside\`, \`skip-to-content\`, \`footer\`. (\`menu\` replaces the entire left region and opts
+out of the responsive drawer; use \`navigation\` for ordinary nav.) \`<wa-page>\` adds no semantic elements
+of its own, so slot in your own \`<header>\`, \`<nav>\`, \`<main>\`, and \`<footer>\`.
 
-\`banner\`, \`header\`, \`subheader\`, \`navigation-header\`, \`navigation\`,
-\`navigation-footer\`, \`menu\`, \`main-header\`, \`main-footer\`, \`aside\`, \`footer\`,
-\`skip-to-content\`, \`navigation-toggle\`. **Anything else** (e.g. \`slot="main"\`, \`slot="nav"\`,
-\`slot="content"\`) is silently ignored. There is no \`nav\` slot — the navigation slot is
-\`navigation\`. (\`menu\` is an advanced escape hatch that *replaces* the entire left navigation
-region; don't use it for ordinary nav links — and for a landing page, skip the left region
-entirely, see below.)
+### Write the nav once, in \`slot="navigation"\`
 
-### Navigation: a landing page needs nav in the \`header\` ONLY — do NOT use the \`navigation\` slot
+The \`navigation\` slot renders in exactly one place at a time: as a left sidebar when \`view="desktop"\`
+and inside the component's own \`<wa-drawer>\` when \`view="mobile"\`, opened by a hamburger button the
+component provides. One copy serves both views. Don't duplicate the links into \`header\` (they show
+twice on desktop), don't add your own \`<wa-drawer>\`, and don't write media queries for the nav.
 
-This is the #1 \`<wa-page>\` bug, and it comes from a wrong mental model. **The \`navigation\` slot
-is a persistent left sidebar, not a top nav bar.** On desktop it renders as a vertical menu column
-down the **left side** of the page (the \`menu\` region), and on mobile it collapses into a slide-out
-drawer. It is for **app layouts** (docs sites, dashboards) — NOT for a marketing landing page.
+Want nav links in the header bar on desktop with no sidebar (the marketing-site look)? Keep the links
+in \`header\`, mirror them in \`slot="navigation"\` so the drawer has content, and hide each copy in the
+view where it doesn't belong:
 
-A landing page's nav belongs in the **\`header\`** slot (the sticky top bar). If you put your links
-in the \`header\` **and also** in a \`<… slot="navigation">\`, you get **both at once on desktop**: the
-top bar AND a duplicate vertical list down the left side. That is the duplicated nav you must avoid.
-
-**Rule for landing pages: put nav links inline in the \`header\` slot and do not add a \`navigation\`
-(or \`menu\`) slot at all.** You do not need it, and adding it is what creates the duplicate.
-
-Mobile toggle for a header-only nav: \`<wa-page>\` auto-hides any element with \`[data-toggle-nav]\`
-on desktop and shows it on mobile (and \`.wa-mobile-only\` / \`.wa-desktop-only\` are honored too), so
-put a toggle button in the header with \`data-toggle-nav\` and wire it to show/hide your own header
-links — no media query needed. (Note: the component's built-in hamburger only appears when a
-\`navigation\` slot has content and you haven't supplied your own toggle; with header-only nav it
-stays hidden, which is what you want.)
-
-**Only** use the \`navigation\` slot if you genuinely want a left sidebar layout. In that case put
-the links there **only**, leave the \`header\` free of nav links, and you get the responsive drawer
-for free. Never list the same links in both \`header\` and \`navigation\`.
-
-### Zero the page reset AND mind the slot padding
-
-1. Zero \`<html>\`/\`<body>\` padding & margin or you get gaps:
-   \`\`\`css
-   html, body { min-height: 100%; padding: 0; margin: 0; }
-   \`\`\`
-2. **Always zero the padding on the default (main) slot.** Every slot region already has its own
-   \`padding\` and \`gap\`, including the default (main) slot. That built-in main padding is the most
-   common layout bug: it insets your full-bleed bands and, combined with any padding you add to
-   \`<main>\` or section wrappers, **stacks** and overflows on mobile. So always start by zeroing it
-   and control spacing yourself per section:
-   \`\`\`css
-   /* Always do this — then add your own padding inside each section. */
-   wa-page::part(main-content) { padding: 0; }
-   \`\`\`
-   With the main slot zeroed, give each section the horizontal padding it needs (and let full-bleed
-   sections run edge to edge). Don't add padding to \`<main>\` itself — pad the sections inside it.
-
-### Minimal complete example
-
-This is a landing page, so nav lives in the \`header\` only — there is **no \`navigation\` slot**.
-
-\`\`\`html
-<html class="wa-theme-default">
-  <head>
-    <style>
-      html, body { min-height: 100%; padding: 0; margin: 0; }
-
-      /* Zero the built-in padding on the main slot AND on the slotted <main>,
-         then pad each section yourself. (::part alone doesn't remove the
-         padding wa-page puts on a slotted <main>/<section>.) */
-      wa-page::part(main-content) { padding: 0; }
-      wa-page > main { padding: 0; }
-
-      /* Header nav: visible on desktop, hidden on mobile until toggled open. */
-      .header-links { display: flex; gap: var(--wa-space-l); }
-      wa-page[view='mobile'] .header-links { display: none; }
-      wa-page[view='mobile'][nav-open] .header-links {
-        display: flex; flex-direction: column;
-        position: absolute; inset-block-start: 100%; inset-inline: 0;
-        padding: var(--wa-space-m); background: var(--wa-color-surface-default);
-      }
-    </style>
-  </head>
-  <body>
-    <wa-page mobile-breakpoint="768">
-      <div slot="banner">Free shipping this week!</div>
-
-      <header slot="header" class="wa-split" style="position: relative;">
-        <a href="#">Brand</a>
-        <nav class="header-links">
-          <a href="#features">Features</a>
-          <a href="#pricing">Pricing</a>
-        </nav>
-        <!-- Auto-hidden on desktop, shown on mobile. Toggles [nav-open] on the page. -->
-        <wa-button data-toggle-nav appearance="plain" class="wa-mobile-only">
-          <wa-icon name="bars" label="Menu"></wa-icon>
-        </wa-button>
-      </header>
-
-      <!-- Main content: unslotted (default slot). NEVER slot="main". -->
-      <main>
-        <section>...</section>
-      </main>
-
-      <footer slot="footer">© 2026 Brand</footer>
-    </wa-page>
-  </body>
-</html>
+\`\`\`css
+wa-page[view='mobile'] .header-nav {
+  display: none;
+}
+wa-page[view='desktop']::part(navigation) {
+  display: none;
+}
+/* Leave --menu-width at its default (auto) so the hidden sidebar column collapses to nothing. */
 \`\`\`
 
-(\`data-toggle-nav\` toggles the page's \`nav-open\` attribute, which the CSS above uses to reveal the
-header links on mobile. No JavaScript and no \`navigation\` slot required.)
+Put your own \`data-toggle-nav\` button inside the header so the hamburger sits in your bar; supplying
+one hides the default button, and it is hidden automatically on desktop.
 
-See the full reference at [\`<wa-page>\`](references/components/page.md) and
-${baseUrl}/docs/components/page.
+Never put a \`data-toggle-nav\` button on a page that has no \`navigation\` content: on mobile it still
+opens the component's drawer, which is then empty and modal, covering the page.
+
+### Reset the page and control the main padding
+
+1. Zero \`<html>\` and \`<body>\` margin and padding, or you get gaps (native styles do this for you):
+
+   \`\`\`css
+   html,
+   body {
+     min-height: 100%;
+     padding: 0;
+     margin: 0;
+   }
+   \`\`\`
+
+2. \`<wa-page>\` pads a \`<main>\` or \`<section>\` placed in the default slot (a \`<div>\` gets no padding).
+   Keep it for a contained column such as a docs article or a form. For full-bleed heroes and color
+   bands, zero it on the light-DOM element and let each section own its gutter:
+
+   \`\`\`css
+   main {
+     padding: 0;
+   }
+   \`\`\`
+
+   \`wa-page::part(main-content) { padding: 0 }\` does nothing here: the padding lives on your slotted
+   element, not on the part.
+
+3. If you set a fixed \`--menu-width\` for a desktop sidebar, reset it with
+   \`wa-page[view='mobile'] { --menu-width: auto; }\`. The \`aside\` slot has no drawer, so hide it on
+   mobile yourself.
+
+### \`view\` is read-only, and the utility classes need a \`<wa-page>\`
+
+The component sets \`view="mobile"\` or \`view="desktop"\` from \`mobile-breakpoint\` (default \`768px\`).
+Read it in CSS; never set it. \`.wa-mobile-only\` and \`.wa-desktop-only\` work only inside a \`<wa-page>\`
+because they key off \`view\`. Add \`data-drawer="close"\` to nav links so the drawer closes after a tap.
+
+See the full reference at [\`<wa-page>\`](references/components/page.md), the \`webawesome-design\` skill's
+\`layouts-page.md\`, and ${baseUrl}/docs/components/page.
 
 ## Themes
 
