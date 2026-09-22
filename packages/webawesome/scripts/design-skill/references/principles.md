@@ -127,7 +127,7 @@ control didn't change; the assumption that "quiet" was a relative shade did.
 
 **In Web Awesome:** on any colored band, secondary actions need a full-contrast on-color text
 (`--wa-color-brand-on-loud`, `--wa-color-brand-on-quiet`, etc., matching the band's step) — or use a
-filled/outlined appearance with explicit `::part(base)` recolor. Don't leave them on the page-surface
+filled/outlined appearance with an explicit `::part(button)` recolor. Don't leave them on the page-surface
 quiet default. See the host-vs-part pair and the rules table in SKILL.md, and [theming.md](theming.md)'s closing note for
 the component-specific fix.
 

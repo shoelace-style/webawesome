@@ -482,32 +482,38 @@ order, stopping at the first that does the job:
    `--wa-color-brand-fill-loud` or a component's own `--*` property on a container flows inward.
 2. **A `::part()` selector.** When you need to style the component's _internal_ surface — its padding,
    border, border-radius, background, width — target one of its exposed **parts**. Most components
-   expose a **`base`** part (the outer wrapper); many expose more (`content`, `label`, `caret`,
-   `remove-button`, `checkbox`, `thumb`, …) — the set is **per-component**, so check that element's API.
-   `::part()` is the correct, supported way through the shadow boundary.
+   expose an outer-wrapper part **named after the component** (`button`, `input`, `details`,
+   `tab-group`, …); many expose more (`content`, `label`, `caret`, `remove-button`, `checkbox`,
+   `thumb`, …) — the set is **per-component**, so check that element's API. `::part()` is the correct,
+   supported way through the shadow boundary.
+
+   **There is no `base` part any more.** Components still answer to `::part(base)` as a legacy alias,
+   and plenty of older examples use it, but it's deprecated library-wide and disappears in the next
+   major. Use the component-named part in anything you write.
+
 3. **Host-level layout only, on the element itself.** Properties that act on the element _as a box in
    your layout_ — `margin`, and participation in a flex/grid parent — apply to the host normally. But
    `padding`, `border`, and `background` set on the host often sit _outside_ or _behind_ the rendered
-   control and won't look right; those belong on `::part(base)`.
+   control and won't look right; those belong on the component's outer part.
 
 ```css
 /* ✗ Doesn't reach the component's visual surface (shadow DOM blocks it). */
-.cta {
+wa-button.cta {
   border-radius: var(--wa-border-radius-pill);
   padding-inline: var(--wa-space-2xl);
 }
 
 /* ✓ Target the part that actually renders the surface. */
-.cta::part(base) {
+wa-button.cta::part(button) {
   border-radius: var(--wa-border-radius-pill);
   padding-inline: var(--wa-space-2xl);
 }
 
 /* ✓ Width is layout (host); the internal look is the part. */
-.full-width-control {
+wa-button.full-width-control {
   width: 100%;
 }
-.full-width-control::part(base) {
+wa-button.full-width-control::part(button) {
   justify-content: space-between;
 }
 ```

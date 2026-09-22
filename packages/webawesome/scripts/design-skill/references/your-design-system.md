@@ -140,7 +140,7 @@ the component's CSS:
 
 ```css
 /* A hero call-to-action: pill shape, extra horizontal padding, still a normal wa-button */
-wa-button.hero::part(base) {
+wa-button.hero::part(button) {
   border-radius: var(--wa-border-radius-pill);
   padding-inline: var(--wa-space-2xl);
 }

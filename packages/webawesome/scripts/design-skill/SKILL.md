@@ -130,9 +130,9 @@ rule to cases the table doesn't list.
 | `style="…"` repeated across elements                                        | A named class in a `<style>` block, reused                                                             | Inline styles can't be reused or re-themed. Inline is for one-off custom-property values only.      |
 | Palette tints (`--wa-color-blue-50`) in custom CSS                          | Semantic tokens (`--wa-color-brand-fill-loud`, `--wa-color-surface-raised`, `--wa-color-text-quiet`)   | Semantic tokens re-resolve for `wa-dark` and re-branding; palette tints are frozen.                 |
 | Text color guessed on a filled background                                   | The matching `*-on-*` token (`fill-loud` ↔ `on-loud`, `fill-quiet` ↔ `on-quiet`)                     | Built-in palettes tune these pairs for WCAG contrast; mixing steps produces dark-on-dark text.      |
-| `background`/`color`/`border` on a `<wa-*>` host or a class on it           | Attributes → the component's tokens → `::part(base)` (see the pair below)                              | Shadow DOM: host CSS lands on an invisible wrapper while the visible surface keeps its defaults.    |
+| `background`/`color`/`border` on a `<wa-*>` host, or `::part(base)`         | Attributes → the component's tokens → the part named after the component (`::part(button)`)            | Host CSS lands on an invisible wrapper; `base` is deprecated and goes away in the next major.       |
 | Styling a component from memory                                             | Open `references/components/<name>.md` in the `webawesome` skill first                                 | Parts, custom properties, and `variant`→token mappings differ per component and can't be guessed.   |
-| `variant="brand" appearance="outlined"` on a brand-colored band             | A filled/neutral button, or recolor `::part(base)` to the band's `*-on-*` token                        | Same hue as the band makes the label and border effectively invisible.                              |
+| `variant="brand" appearance="outlined"` on a brand-colored band             | A filled/neutral button, or recolor `::part(button)` to the band's `*-on-*` token                      | Same hue as the band makes the label and border effectively invisible.                              |
 | Emojis as icons, bullets, logos, or placeholder text                        | `<wa-icon name="…">` (Font Awesome Free; Pro families with a kit code)                                 | Emojis render inconsistently and ignore color, size, and weight. See composition.md § Icons.        |
 | A page with no theme classes                                                | `<html class="wa-theme-default wa-palette-default wa-light">` (or the project's own)                   | Unthemed output looks unstyled and defeats every token below it.                                    |
 | The same nav links in `header` **and** `slot="navigation"` on a `<wa-page>` | One `slot="navigation"`, or the header-on-desktop / drawer-on-mobile recipe with each copy view-scoped | `navigation` already renders in both views; an extra copy shows twice on desktop.                   |
@@ -150,8 +150,8 @@ rule to cases the table doesn't list.
   color: var(--wa-color-surface-default);
 }
 
-/* Correct: reach the button's actual surface through its documented base part. */
-.cta-band wa-button.secondary::part(base) {
+/* Correct: reach the button's actual surface through its documented `button` part. */
+.cta-band wa-button.secondary::part(button) {
   background-color: transparent;
   border-color: var(--wa-color-surface-default);
   color: var(--wa-color-surface-default);
@@ -160,7 +160,9 @@ rule to cases the table doesn't list.
 
 The same logic applies to every `<wa-*>`: the only things you may do to a component without opening its
 reference are position it (`margin`, placing it inside a layout utility) and set its width. Everything
-visual goes through the documented API. The recurring silent failure this prevents: assuming a `variant`
+visual goes through the documented API, and the outer part is named after the component — `button`,
+`input`, `details`, `tab-group` — not `base`. Older examples on the web use `::part(base)`; it still
+resolves, but it's deprecated and its reference page marks it so. The recurring silent failure this prevents: assuming a `variant`
 or a `*-quiet` token maps the way you expect, then shipping a callout whose panel you darkened while its
 body text stayed dark. Full treatment, including callouts and borders on colored bands:
 [composition.md § Styling components](references/composition.md#styling-components--css-parts).
@@ -180,6 +182,7 @@ find violations independently; treat its findings as authoritative over your fir
 | Hex colors                  | `#[0-9a-fA-F]{3,8}\b`                                                    | Replace with a token. Only a `:root` brand override may keep a hex.               |
 | Pixel or rem literals       | `\d(px\|rem)\b`                                                          | Replace with `--wa-space-*`, `--wa-font-size-*`, `ch` for measure, or `wa-gap-*`. |
 | Self-closed custom elements | `<wa-[a-z-]+[^>]*/>`                                                     | Add the closing tag.                                                              |
+| Deprecated `base` part      | `::part\(base\)`                                                         | Rename to the component's own part (`button`, `input`, `details`, …).             |
 | Component host rules        | `wa-[a-z-]+[^{:]*\{` (not `::part`)                                      | Move visual properties to `::part(…)`, tokens, or attributes.                     |
 | Hand-rolled flex/grid       | `display:\s*(flex\|grid)`                                                | Replace with a layout utility unless it's a genuine gap.                          |
 | Inline styles               | `style="`                                                                | Promote repeats to a class; keep only one-off custom-property values.             |
