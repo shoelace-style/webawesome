@@ -34,6 +34,12 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 :::added
 
 - Added the `allow`, `name`, and `label` attributes to `<wa-zoomable-frame>`
+- Added async options to `<wa-combobox>` for loading options from a server [discuss:1881]
+  - Added the `dataSource` property, which can return options as data or as custom `<wa-option>` HTML
+  - Added the `server`, `loading`, and `filter-debounce` attributes
+  - Added the `reload()` method
+  - Added the `wa-options-request` and `wa-options-error` events
+  - Added the `loading`, `no-results`, `empty`, and `error` status slots
 
 :::
 
@@ -42,6 +48,15 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug in `<wa-zoomable-frame>` where the internal iframe rendered `referrerpolicy="undefined"` when no referrer policy was set
 - Fixed a memory leak in `<wa-option>` where removed `<wa-select>` elements and their options were never garbage collected unless `<wa-combobox>` was also registered [issue:2813]
 - Fixed a bug in `<wa-animated-image>` that caused the image to stay hidden while playing [issue:2811]
+- Fixed a bug in `<wa-combobox>` where screen reader announcements weren't reliably spoken because they came from a live region inside the shadow root
+- Fixed a bug in `<wa-combobox>` where the input had an `aria-activedescendant` that pointed to an option assistive devices couldn't resolve
+- Fixed a bug in `<wa-combobox>` where the option position and option count announcements weren't localized
+
+:::
+
+:::changed
+
+- Updated `<wa-combobox>` to show a "no results" message instead of closing the listbox when nothing matches the query, except with `allow-custom-value`, where it still closes
 
 :::
 

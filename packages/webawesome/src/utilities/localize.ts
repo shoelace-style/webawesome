@@ -99,13 +99,17 @@ export interface Translation extends DefaultTranslation {
   nextVideo: string;
   nextYear: string;
   noData: string;
+  noOptions: string;
   noResults: string;
   now: string;
   numCharacters: (num: number) => string;
   numCharactersRemaining: (num: number) => string;
+  numOptionsAvailable: (num: number) => string;
   numOptionsSelected: (num: number) => string;
   numRowsCopied: (num: number) => string;
   numRowsSelected: (num: number) => string;
+  optionPosition: (label: string, position: number, total: number) => string;
+  optionsLoadError: string;
   pageXOfY: (page: number, total: number) => string;
   pagination: string;
   pause: string;
