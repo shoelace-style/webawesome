@@ -373,7 +373,12 @@ export default class WaPage extends WebAwesomeElement {
           <slot name="navigation-toggle">
             <wa-button part="navigation-toggle" size="s" appearance="plain" variant="neutral">
               <slot name="navigation-toggle-icon">
-                <wa-icon name="bars" part="navigation-toggle-icon" label="Toggle navigation drawer"></wa-icon>
+                <wa-icon
+                  library="system"
+                  name="bars"
+                  part="navigation-toggle-icon"
+                  label="Toggle navigation drawer"
+                ></wa-icon>
               </slot>
             </wa-button>
           </slot>
