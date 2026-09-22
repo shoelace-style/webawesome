@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en" class="wa-theme-default wa-palette-default wa-light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Brand hero</title>
+    <link rel="stylesheet" href="https://ka-f.webawesome.com/webawesome@3.8.0/styles/webawesome.css" />
+    <script type="module" src="https://ka-f.webawesome.com/webawesome@3.8.0/webawesome.loader.js"></script>
+    <style>
+      html,
+      body {
+        min-height: 100%;
+        padding: 0;
+        margin: 0;
+      }
+
+      /* Hero band: full-bleed, brand-filled, with a constrained centered content column. */
+      .hero {
+        background-color: var(--wa-color-brand-fill-loud);
+        color: var(--wa-color-brand-on-loud);
+        padding-block: var(--wa-space-3xl);
+        padding-inline: var(--wa-space-xl);
+      }
+
+      .hero-content {
+        max-width: 44rem;
+        margin-inline: auto;
+        text-align: center;
+      }
+
+      .hero-headline {
+        font-size: var(--wa-font-size-3xl);
+        line-height: var(--wa-line-height-condensed);
+        margin: 0;
+      }
+
+      .hero-lede {
+        font-size: var(--wa-font-size-l);
+        line-height: var(--wa-line-height-normal);
+        margin: 0;
+        /* The brand band already supplies on-loud text; keep the lede at the same color
+           so it stays fully readable against the saturated background. */
+        color: inherit;
+      }
+
+      /* Primary CTA on a brand band — variant="brand" would blend in, so we recolor the
+         button's base part to a solid on-color surface with brand-colored text. This keeps
+         the API contract (style components through their documented part) while flipping
+         the contrast for the band. */
+      .hero wa-button.cta-primary::part(base) {
+        background-color: var(--wa-color-brand-on-loud);
+        border-color: var(--wa-color-brand-on-loud);
+        color: var(--wa-color-brand-fill-loud);
+      }
+
+      /* Secondary outlined CTA: recolor border + label to the band's on-color so both
+         the outline and the label are clearly visible against the brand fill. */
+      .hero wa-button.cta-secondary::part(base) {
+        background-color: transparent;
+        border-color: var(--wa-color-brand-on-loud);
+        color: var(--wa-color-brand-on-loud);
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section class="hero">
+        <div class="hero-content wa-stack wa-gap-l wa-align-items-center">
+          <h1 class="hero-headline">Build interfaces that feel intentional.</h1>
+          <p class="hero-lede">
+            A complete design system of accessible web components, layout utilities, and tokens — so your team ships
+            polished product without reinventing the basics.
+          </p>
+          <div class="wa-cluster wa-gap-s">
+            <wa-button class="cta-primary" variant="brand" size="l">
+              <wa-icon slot="start" name="rocket"></wa-icon>
+              Get started
+            </wa-button>
+            <wa-button class="cta-secondary" variant="brand" appearance="outlined" size="l">
+              <wa-icon slot="start" name="play"></wa-icon>
+              Watch demo
+            </wa-button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

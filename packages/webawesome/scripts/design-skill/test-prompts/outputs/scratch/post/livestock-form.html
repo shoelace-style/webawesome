@@ -1,0 +1,1008 @@
+<!doctype html>
+<html lang="en" class="wa-theme-default wa-palette-default wa-light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Imported livestock declaration | State Department of Agriculture</title>
+
+    <link rel="stylesheet" href="https://ka-f.webawesome.com/webawesome@3.8.0/styles/webawesome.css" />
+    <script type="module" src="https://ka-f.webawesome.com/webawesome@3.8.0/webawesome.loader.js"></script>
+
+    <style>
+      /* ---------- Tokens: lean the default theme toward a plain, official feel. ---------- */
+      :root {
+        /* Sober, document-y palette. Body sans, headings serif for weight. */
+        --wa-font-family-body:
+          ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+        --wa-font-family-heading:
+          'Charter', 'Iowan Old Style', 'Palatino Linotype', 'Book Antiqua', Palatino, Georgia, serif;
+
+        /* Pull the brand color toward a state-government navy. */
+        --wa-color-brand-fill-loud: #1b3a5c;
+        --wa-color-brand-fill-normal: #234c79;
+        --wa-color-brand-fill-quiet: #e3ebf3;
+        --wa-color-brand-on-loud: #ffffff;
+        --wa-color-brand-on-quiet: #1b3a5c;
+        --wa-color-brand-border-loud: #1b3a5c;
+        --wa-color-brand-border-normal: #234c79;
+        --wa-color-brand-border-quiet: #c7d3e0;
+
+        /* Minimal radii — official documents are square-ish. */
+        --wa-border-radius-s: 2px;
+        --wa-border-radius-m: 3px;
+        --wa-border-radius-l: 4px;
+      }
+
+      html,
+      body {
+        min-height: 100%;
+        padding: 0;
+        margin: 0;
+      }
+
+      body {
+        background: #f4f5f7;
+        color: var(--wa-color-text-normal);
+        font-family: var(--wa-font-family-body);
+        line-height: var(--wa-line-height-normal);
+      }
+
+      /* ---------- Header ---------- */
+      .site-header {
+        background: #ffffff;
+        border-bottom: 1px solid var(--wa-color-surface-border);
+        position: sticky;
+        top: 0;
+        z-index: 10;
+      }
+
+      .site-header__inner {
+        max-width: 980px;
+        margin-inline: auto;
+        padding: var(--wa-space-s) var(--wa-space-l);
+        display: flex;
+        align-items: center;
+        gap: var(--wa-space-m);
+        min-height: 56px;
+      }
+
+      .agency {
+        display: flex;
+        align-items: center;
+        gap: var(--wa-space-s);
+        min-width: 0;
+      }
+
+      /* Seal placeholder — a simple roundel reads as official without inventing artwork. */
+      .agency__seal {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background:
+          radial-gradient(circle at center, #fff 0 30%, transparent 31%) #1b3a5c,
+          #1b3a5c;
+        border: 2px solid #1b3a5c;
+        box-shadow: inset 0 0 0 2px #ffffff;
+        flex-shrink: 0;
+      }
+
+      .agency__name {
+        font-size: var(--wa-font-size-s);
+        line-height: 1.2;
+      }
+
+      .agency__name strong {
+        display: block;
+        font-weight: var(--wa-font-weight-semibold);
+        color: var(--wa-color-text-normal);
+      }
+
+      .agency__name span {
+        color: var(--wa-color-text-quiet);
+      }
+
+      .session {
+        margin-inline-start: auto;
+        display: inline-flex;
+        align-items: center;
+        gap: var(--wa-space-2xs);
+        padding: var(--wa-space-2xs) var(--wa-space-s);
+        font-size: var(--wa-font-size-xs);
+        color: var(--wa-color-text-quiet);
+        background: var(--wa-color-neutral-fill-quiet);
+        border: 1px solid var(--wa-color-surface-border);
+        border-radius: var(--wa-border-radius-s);
+        white-space: nowrap;
+      }
+
+      .session__time {
+        font-variant-numeric: tabular-nums;
+        font-weight: var(--wa-font-weight-semibold);
+        color: var(--wa-color-text-normal);
+        letter-spacing: 0.02em;
+      }
+
+      .session__dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--wa-color-warning-fill-loud);
+      }
+
+      /* ---------- Main column ---------- */
+      .page {
+        max-width: 780px;
+        margin-inline: auto;
+        padding: var(--wa-space-2xl) var(--wa-space-l) var(--wa-space-3xl);
+      }
+
+      .page__intro {
+        margin-bottom: var(--wa-space-xl);
+      }
+
+      .breadcrumb {
+        font-size: var(--wa-font-size-xs);
+        color: var(--wa-color-text-quiet);
+        margin-bottom: var(--wa-space-m);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+
+      .breadcrumb a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .breadcrumb a:hover {
+        text-decoration: underline;
+      }
+
+      .page h1 {
+        font-family: var(--wa-font-family-heading);
+        font-size: var(--wa-font-size-2xl);
+        font-weight: var(--wa-font-weight-semibold);
+        margin: 0 0 var(--wa-space-s);
+        color: var(--wa-color-text-normal);
+        line-height: 1.2;
+      }
+
+      .lede {
+        font-size: var(--wa-font-size-m);
+        color: var(--wa-color-text-quiet);
+        margin: 0 0 var(--wa-space-l);
+        max-width: 62ch;
+      }
+
+      /* ---------- Form structure ---------- */
+      .form {
+        background: #ffffff;
+        border: 1px solid var(--wa-color-surface-border);
+      }
+
+      .form > fieldset {
+        border: 0;
+        border-top: 1px solid var(--wa-color-surface-border);
+        margin: 0;
+        padding: var(--wa-space-xl) var(--wa-space-l);
+      }
+
+      .form > fieldset:first-of-type {
+        border-top: 0;
+      }
+
+      .form > fieldset > legend {
+        font-family: var(--wa-font-family-heading);
+        font-size: var(--wa-font-size-l);
+        font-weight: var(--wa-font-weight-semibold);
+        padding: 0;
+        margin: 0 0 var(--wa-space-s);
+        color: var(--wa-color-text-normal);
+      }
+
+      .fieldset-intro {
+        color: var(--wa-color-text-quiet);
+        font-size: var(--wa-font-size-s);
+        margin: 0 0 var(--wa-space-l);
+        max-width: 60ch;
+      }
+
+      /* Two-column grid for form fields. Single column on phones (in a barn). */
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--wa-space-l) var(--wa-space-m);
+      }
+
+      .grid > .full {
+        grid-column: 1 / -1;
+      }
+
+      @media (max-width: 600px) {
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* ---------- Federal-offense callout ---------- */
+      wa-callout.federal-notice {
+        margin-bottom: var(--wa-space-xl);
+      }
+
+      /* ---------- Validation styles ----------
+         WA exposes validity state but no default error chrome. Bind the
+         documented :state(user-invalid) selector to a danger border + hint
+         color so the existing validity API drives the UI. The .is-invalid
+         class is a parallel hook used to surface the same styling on initial
+         load (before any user interaction has flipped user-invalid). */
+      wa-input:state(user-invalid)::part(input),
+      wa-input.is-invalid::part(input),
+      wa-select:state(user-invalid)::part(combobox),
+      wa-select.is-invalid::part(combobox) {
+        border-color: var(--wa-color-danger-border-loud);
+        box-shadow: 0 0 0 1px var(--wa-color-danger-border-loud);
+      }
+
+      wa-input:state(user-invalid)::part(hint),
+      wa-input.is-invalid::part(hint),
+      wa-select:state(user-invalid)::part(hint),
+      wa-select.is-invalid::part(hint) {
+        color: var(--wa-color-danger-on-quiet);
+      }
+
+      /* WA components set display via :host, which beats the UA stylesheet's
+         [hidden] { display: none }. Re-assert it for the conditional field. */
+      wa-input[hidden] {
+        display: none !important;
+      }
+
+      /* ---------- Currency prefix on the value field ---------- */
+      .currency-prefix {
+        color: var(--wa-color-text-quiet);
+        font-variant-numeric: tabular-nums;
+        padding-inline-start: var(--wa-space-2xs);
+      }
+
+      /* ---------- Vaccination rows ---------- */
+      .vax-list {
+        display: grid;
+        gap: var(--wa-space-m);
+        margin-top: var(--wa-space-l);
+      }
+
+      .vax-row {
+        position: relative;
+        border: 1px solid var(--wa-color-surface-border);
+        background: var(--wa-color-neutral-fill-quiet);
+        padding: var(--wa-space-m);
+        padding-block-end: var(--wa-space-l);
+      }
+
+      .vax-row__header {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        margin-bottom: var(--wa-space-s);
+      }
+
+      .vax-row__label {
+        font-size: var(--wa-font-size-xs);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--wa-color-text-quiet);
+      }
+
+      .vax-row__remove {
+        margin-inline-start: auto;
+      }
+
+      .vax-grid {
+        display: grid;
+        grid-template-columns: 2fr 1.2fr 1fr 1fr;
+        gap: var(--wa-space-m);
+      }
+
+      @media (max-width: 720px) {
+        .vax-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      .vax-add {
+        margin-top: var(--wa-space-m);
+      }
+
+      /* ---------- File upload (native, styled to match WA's dropzone aesthetic) ---------- */
+      .file-field {
+        display: block;
+      }
+
+      .file-field__label {
+        display: block;
+        font-size: var(--wa-font-size-s);
+        font-weight: var(--wa-font-weight-semibold);
+        color: var(--wa-color-text-normal);
+        margin-bottom: var(--wa-space-2xs);
+      }
+
+      .file-field__required {
+        color: var(--wa-color-danger-fill-loud);
+        margin-inline-start: 2px;
+      }
+
+      .file-field__dropzone {
+        position: relative;
+        border: 1px dashed var(--wa-color-surface-border);
+        background: var(--wa-color-neutral-fill-quiet);
+        padding: var(--wa-space-xl);
+        text-align: center;
+        cursor: pointer;
+        transition: background var(--wa-transition-fast) var(--wa-transition-easing);
+        border-radius: var(--wa-border-radius-m);
+      }
+
+      .file-field__dropzone:hover,
+      .file-field__dropzone:focus-within {
+        background: var(--wa-color-brand-fill-quiet);
+        border-color: var(--wa-color-brand-border-normal);
+      }
+
+      .file-field__dropzone input[type='file'] {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        cursor: pointer;
+      }
+
+      .file-field__dropzone wa-icon {
+        font-size: 1.75rem;
+        color: var(--wa-color-text-quiet);
+        margin-bottom: var(--wa-space-2xs);
+      }
+
+      .file-field__dropzone strong {
+        display: block;
+        font-weight: var(--wa-font-weight-semibold);
+        color: var(--wa-color-text-normal);
+        margin-bottom: var(--wa-space-2xs);
+      }
+
+      .file-field__dropzone span {
+        display: block;
+        font-size: var(--wa-font-size-s);
+        color: var(--wa-color-text-quiet);
+      }
+
+      .file-field__hint {
+        display: block;
+        font-size: var(--wa-font-size-s);
+        color: var(--wa-color-text-quiet);
+        margin-top: var(--wa-space-2xs);
+      }
+
+      /* ---------- Attestation block ---------- */
+      .attest-list {
+        display: grid;
+        gap: var(--wa-space-m);
+        margin-bottom: var(--wa-space-l);
+      }
+
+      .attest-list wa-checkbox {
+        font-size: var(--wa-font-size-s);
+      }
+
+      .signature-row {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: var(--wa-space-m);
+        padding-top: var(--wa-space-l);
+        border-top: 1px solid var(--wa-color-surface-border);
+      }
+
+      @media (max-width: 600px) {
+        .signature-row {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .signature-row wa-input[name='signature']::part(input) {
+        font-family: var(--wa-font-family-heading);
+        font-style: italic;
+        font-size: var(--wa-font-size-l);
+      }
+
+      .form-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: var(--wa-space-s);
+        margin-top: var(--wa-space-l);
+      }
+
+      @media (max-width: 600px) {
+        .form-actions {
+          flex-direction: column-reverse;
+        }
+        .form-actions wa-button {
+          width: 100%;
+        }
+      }
+
+      /* ---------- "What happens next" aside ---------- */
+      .next-steps {
+        margin-top: var(--wa-space-2xl);
+        padding: var(--wa-space-l);
+        background: #ffffff;
+        border: 1px solid var(--wa-color-surface-border);
+      }
+
+      .next-steps h2 {
+        font-family: var(--wa-font-family-heading);
+        font-size: var(--wa-font-size-l);
+        font-weight: var(--wa-font-weight-semibold);
+        margin: 0 0 var(--wa-space-m);
+        color: var(--wa-color-text-normal);
+      }
+
+      .next-steps ol {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        counter-reset: step;
+        display: grid;
+        gap: var(--wa-space-m);
+      }
+
+      .next-steps li {
+        display: grid;
+        grid-template-columns: 1.75rem 1fr;
+        gap: var(--wa-space-s);
+        align-items: start;
+        font-size: var(--wa-font-size-s);
+        color: var(--wa-color-text-quiet);
+        counter-increment: step;
+      }
+
+      .next-steps li::before {
+        content: counter(step);
+        background: var(--wa-color-brand-fill-loud);
+        color: var(--wa-color-brand-on-loud);
+        font-weight: var(--wa-font-weight-semibold);
+        font-size: var(--wa-font-size-xs);
+        font-variant-numeric: tabular-nums;
+        height: 1.75rem;
+        width: 1.75rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+      }
+
+      /* ---------- Footer ---------- */
+      .site-footer {
+        max-width: 780px;
+        margin: var(--wa-space-xl) auto var(--wa-space-2xl);
+        padding-inline: var(--wa-space-l);
+        font-size: var(--wa-font-size-xs);
+        color: var(--wa-color-text-quiet);
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header" role="banner">
+      <div class="site-header__inner">
+        <div class="agency">
+          <div class="agency__seal" aria-hidden="true"></div>
+          <div class="agency__name">
+            <strong>State Department of Agriculture</strong>
+            <span>Animal Industry Division</span>
+          </div>
+        </div>
+        <div
+          class="session"
+          role="status"
+          aria-live="polite"
+          aria-label="Session expires in 28 minutes and 14 seconds"
+        >
+          <span class="session__dot" aria-hidden="true"></span>
+          Session expires in
+          <span class="session__time">28:14</span>
+        </div>
+      </div>
+    </header>
+
+    <main class="page">
+      <div class="page__intro">
+        <div class="breadcrumb">
+          <a href="#">Filings</a> &nbsp;/&nbsp; <a href="#">Animal industry</a> &nbsp;/&nbsp;
+          Imported livestock declaration
+        </div>
+
+        <h1>Imported livestock declaration</h1>
+
+        <p class="lede">
+          Use this form to declare livestock you are bringing into the state.
+          State law requires that this declaration be filed within 72 hours of
+          the animals crossing state lines. Filings submitted after the deadline
+          may be subject to penalties.
+        </p>
+
+        <wa-callout variant="warning" appearance="filled-outlined" class="federal-notice">
+          <wa-icon slot="icon" name="triangle-exclamation"></wa-icon>
+          <strong>Knowingly making a false declaration on this form is a federal offense.</strong>
+          Under 18 U.S.C. &sect; 1001, false statements on this declaration are
+          punishable by fines and imprisonment of up to five years.
+        </wa-callout>
+      </div>
+
+      <form class="form" id="livestock-form" novalidate>
+        <!-- 1. Importer information -->
+        <fieldset>
+          <legend>Importer information</legend>
+          <p class="fieldset-intro">
+            Provide the legal owner or authorized broker for the animals being
+            imported. The information below must match the records on file with
+            the USDA.
+          </p>
+
+          <div class="grid">
+            <wa-input
+              class="full"
+              name="legal_name"
+              label="Legal name"
+              autocomplete="name"
+              required
+            ></wa-input>
+
+            <wa-input
+              class="full"
+              name="business_name"
+              label="Business name (optional)"
+              autocomplete="organization"
+            ></wa-input>
+
+            <wa-input
+              class="full"
+              name="premises_id"
+              label="USDA Premises ID"
+              hint="7-digit alphanumeric, e.g. NY12345A"
+              value="NY1234"
+              custom-error="The format is 2-letter state code + 5 digits + 1 letter. Example: NY12345A."
+              pattern="[A-Z]{2}[0-9]{5}[A-Z]"
+              autocapitalize="characters"
+              required
+            ></wa-input>
+
+            <wa-input
+              name="phone"
+              label="Phone"
+              type="tel"
+              inputmode="tel"
+              autocomplete="tel"
+              hint="Include area code"
+              required
+            ></wa-input>
+
+            <wa-input
+              name="email"
+              label="Email"
+              type="email"
+              inputmode="email"
+              autocomplete="email"
+              hint="Approval notices will be sent here"
+              required
+            ></wa-input>
+          </div>
+        </fieldset>
+
+        <!-- 2. Animals being imported -->
+        <fieldset>
+          <legend>Animals being imported</legend>
+          <p class="fieldset-intro">
+            Enter information about the shipment as a whole. Itemized records by
+            individual animal are collected in a separate manifest after this
+            declaration is approved.
+          </p>
+
+          <div class="grid">
+            <wa-select
+              class="full"
+              name="species"
+              id="species-select"
+              label="Species"
+              placeholder="Select a species"
+              required
+            >
+              <wa-option value="cattle">Cattle</wa-option>
+              <wa-option value="swine">Swine</wa-option>
+              <wa-option value="sheep">Sheep</wa-option>
+              <wa-option value="goats">Goats</wa-option>
+              <wa-option value="poultry">Poultry</wa-option>
+              <wa-option value="other">Other</wa-option>
+            </wa-select>
+
+            <wa-input
+              class="full"
+              id="species-other"
+              name="species_other"
+              label="Specify species"
+              hint="Provide the common name and, if known, the scientific name"
+              hidden
+              required
+              disabled
+            ></wa-input>
+
+            <wa-input
+              name="count"
+              label="Count"
+              type="number"
+              inputmode="numeric"
+              min="1"
+              step="1"
+              hint="Total head in this shipment"
+              required
+            ></wa-input>
+
+            <wa-input
+              name="value_usd"
+              label="Total estimated value"
+              type="number"
+              inputmode="decimal"
+              min="0"
+              step="0.01"
+              hint="In U.S. dollars, including transport"
+              required
+            >
+              <span slot="start" class="currency-prefix">$</span>
+            </wa-input>
+          </div>
+        </fieldset>
+
+        <!-- 3. Origin and route -->
+        <fieldset>
+          <legend>Origin and route</legend>
+          <p class="fieldset-intro">
+            Indicate where the animals are traveling from and the point at which
+            they entered the state.
+          </p>
+
+          <div class="grid">
+            <wa-select
+              name="origin"
+              label="Origin state or country"
+              placeholder="Select an origin"
+              required
+            >
+              <small>U.S. states</small>
+              <wa-option value="pa">Pennsylvania</wa-option>
+              <wa-option value="nj">New Jersey</wa-option>
+              <wa-option value="ct">Connecticut</wa-option>
+              <wa-option value="ma">Massachusetts</wa-option>
+              <wa-option value="vt">Vermont</wa-option>
+              <wa-option value="oh">Ohio</wa-option>
+              <wa-option value="us-other">Other U.S. state</wa-option>
+              <wa-divider></wa-divider>
+              <small>Other countries</small>
+              <wa-option value="ca-on">Canada — Ontario</wa-option>
+              <wa-option value="ca-qc">Canada — Quebec</wa-option>
+              <wa-option value="ca-other">Canada — other province</wa-option>
+              <wa-option value="mx">Mexico</wa-option>
+              <wa-option value="intl-other">Other country</wa-option>
+            </wa-select>
+
+            <wa-input
+              name="crossing_date"
+              label="Date of crossing"
+              type="date"
+              hint="Date the animals entered the state"
+              required
+            ></wa-input>
+
+            <wa-select
+              name="port_of_entry"
+              label="Port of entry"
+              placeholder="Select a port"
+              required
+            >
+              <wa-option value="niagara-falls">Niagara Falls Bridge — Buffalo, NY</wa-option>
+              <wa-option value="peace-bridge">Peace Bridge — Buffalo, NY</wa-option>
+              <wa-option value="rainbow-bridge">Rainbow Bridge — Niagara Falls, NY</wa-option>
+              <wa-option value="lewiston-queenston">Lewiston-Queenston Bridge — Lewiston, NY</wa-option>
+              <wa-option value="champlain">Champlain Land Border — Champlain, NY</wa-option>
+              <wa-option value="massena">Massena International Bridge — Massena, NY</wa-option>
+              <wa-option value="ogdensburg">Ogdensburg-Prescott Bridge — Ogdensburg, NY</wa-option>
+              <wa-option value="thousand-islands">Thousand Islands Bridge — Alexandria Bay, NY</wa-option>
+            </wa-select>
+
+            <wa-input
+              name="transporter"
+              label="Transporter company"
+              hint="Legal name of the carrier"
+              autocomplete="organization"
+              required
+            ></wa-input>
+
+            <wa-radio-group
+              class="full"
+              name="vet_on_file"
+              label="USDA-accredited veterinarian on file"
+              hint="Required for all species except poultry under 20 head"
+              orientation="horizontal"
+              required
+            >
+              <wa-radio value="yes">Yes</wa-radio>
+              <wa-radio value="no">No</wa-radio>
+              <wa-radio value="pending">Pending</wa-radio>
+            </wa-radio-group>
+          </div>
+        </fieldset>
+
+        <!-- 4. Health certificates -->
+        <fieldset>
+          <legend>Health certificates</legend>
+          <p class="fieldset-intro">
+            Upload a Certificate of Veterinary Inspection (CVI) issued within
+            the past 30 days, and list each vaccination administered to the
+            animals in this shipment.
+          </p>
+
+          <label class="file-field" for="cvi-upload">
+            <span class="file-field__label">
+              Certificate of Veterinary Inspection (CVI)
+              <span class="file-field__required" aria-hidden="true">*</span>
+              <span class="wa-visually-hidden">required</span>
+            </span>
+            <div class="file-field__dropzone">
+              <wa-icon name="cloud-arrow-up" aria-hidden="true"></wa-icon>
+              <strong>Drag a file here, or click to browse</strong>
+              <span>PDF, JPG, or PNG. Maximum 10&nbsp;MB.</span>
+              <input
+                type="file"
+                id="cvi-upload"
+                name="cvi"
+                accept=".pdf,.jpg,.jpeg,.png"
+                required
+                aria-describedby="cvi-hint"
+              />
+            </div>
+            <span class="file-field__hint" id="cvi-hint">
+              The CVI must be signed by the originating state's accredited
+              veterinarian and dated within the past 30 days.
+            </span>
+          </label>
+
+          <div class="vax-list" id="vax-list" aria-label="Vaccination records">
+            <!-- Row 1 -->
+            <div class="vax-row" data-vax-row>
+              <div class="vax-row__header">
+                <span class="vax-row__label">Vaccination 1</span>
+                <wa-button
+                  type="button"
+                  appearance="plain"
+                  size="s"
+                  class="vax-row__remove"
+                  data-vax-remove
+                >
+                  <wa-icon slot="start" name="trash"></wa-icon>
+                  Remove
+                </wa-button>
+              </div>
+              <div class="vax-grid">
+                <wa-input name="vax_disease[]" label="Disease" value="Brucellosis" required></wa-input>
+                <wa-input name="vax_date[]" label="Date administered" type="date" value="2026-05-14" required></wa-input>
+                <wa-input name="vax_lot[]" label="Lot number" value="BR-22841-A" required></wa-input>
+                <wa-input name="vax_vet_license[]" label="Vet license #" value="NY-9442" required></wa-input>
+              </div>
+            </div>
+
+            <!-- Row 2 -->
+            <div class="vax-row" data-vax-row>
+              <div class="vax-row__header">
+                <span class="vax-row__label">Vaccination 2</span>
+                <wa-button
+                  type="button"
+                  appearance="plain"
+                  size="s"
+                  class="vax-row__remove"
+                  data-vax-remove
+                >
+                  <wa-icon slot="start" name="trash"></wa-icon>
+                  Remove
+                </wa-button>
+              </div>
+              <div class="vax-grid">
+                <wa-input name="vax_disease[]" label="Disease" value="Bovine Viral Diarrhea" required></wa-input>
+                <wa-input name="vax_date[]" label="Date administered" type="date" value="2026-05-14" required></wa-input>
+                <wa-input name="vax_lot[]" label="Lot number" value="BVD-77103" required></wa-input>
+                <wa-input name="vax_vet_license[]" label="Vet license #" value="NY-9442" required></wa-input>
+              </div>
+            </div>
+
+            <!-- Row 3 -->
+            <div class="vax-row" data-vax-row>
+              <div class="vax-row__header">
+                <span class="vax-row__label">Vaccination 3</span>
+                <wa-button
+                  type="button"
+                  appearance="plain"
+                  size="s"
+                  class="vax-row__remove"
+                  data-vax-remove
+                >
+                  <wa-icon slot="start" name="trash"></wa-icon>
+                  Remove
+                </wa-button>
+              </div>
+              <div class="vax-grid">
+                <wa-input name="vax_disease[]" label="Disease" value="Leptospirosis (5-way)" required></wa-input>
+                <wa-input name="vax_date[]" label="Date administered" type="date" value="2026-04-30" required></wa-input>
+                <wa-input name="vax_lot[]" label="Lot number" value="LP-50128" required></wa-input>
+                <wa-input name="vax_vet_license[]" label="Vet license #" value="NY-9442" required></wa-input>
+              </div>
+            </div>
+          </div>
+
+          <div class="vax-add">
+            <wa-button type="button" appearance="outlined" size="s" id="vax-add">
+              <wa-icon slot="start" name="plus"></wa-icon>
+              Add another vaccination
+            </wa-button>
+          </div>
+        </fieldset>
+
+        <!-- 5. Attestation -->
+        <fieldset>
+          <legend>Attestation</legend>
+          <p class="fieldset-intro">
+            Read each statement and check the box to indicate your agreement.
+            All three statements are required.
+          </p>
+
+          <div class="attest-list">
+            <wa-checkbox name="attest_true" required>
+              I certify that the information provided in this declaration is
+              true and accurate to the best of my knowledge.
+            </wa-checkbox>
+
+            <wa-checkbox name="attest_federal" required>
+              I understand that knowingly providing false information on this
+              declaration is a federal offense punishable by fines and
+              imprisonment under 18 U.S.C. &sect; 1001.
+            </wa-checkbox>
+
+            <wa-checkbox name="attest_inspect" required>
+              I authorize the State Department of Agriculture to verify the
+              contents of this declaration with the USDA-accredited veterinarian
+              named above and to inspect the animals upon arrival in the state.
+            </wa-checkbox>
+          </div>
+
+          <div class="signature-row">
+            <wa-input
+              name="signature"
+              label="Type your full legal name as signature"
+              hint="This serves as an electronic signature under the E-SIGN Act"
+              autocomplete="name"
+              required
+            ></wa-input>
+
+            <wa-input
+              name="signed_on"
+              label="Date"
+              type="date"
+              id="signed-on"
+              hint="Auto-filled to today"
+              required
+              readonly
+            ></wa-input>
+          </div>
+
+          <div class="form-actions">
+            <wa-button type="button" appearance="plain" variant="neutral">Save draft</wa-button>
+            <wa-button type="submit" appearance="accent" variant="brand">
+              Submit declaration
+            </wa-button>
+          </div>
+        </fieldset>
+      </form>
+
+      <aside class="next-steps" aria-labelledby="next-heading">
+        <h2 id="next-heading">What happens next</h2>
+        <ol>
+          <li>
+            The Department of Agriculture reviews your declaration. Review
+            typically takes 1 to 2 business days.
+          </li>
+          <li>
+            A field officer may contact you by phone if additional information
+            is required.
+          </li>
+          <li>
+            You will receive an approval notice by email at the address
+            provided in this declaration.
+          </li>
+        </ol>
+      </aside>
+    </main>
+
+    <footer class="site-footer">
+      An official site of the State Department of Agriculture. For assistance,
+      call (518) 555-0145 between 8:00&nbsp;a.m. and 5:00&nbsp;p.m. Eastern time.
+    </footer>
+
+    <script type="module">
+      await Promise.all([
+        customElements.whenDefined('wa-select'),
+        customElements.whenDefined('wa-input'),
+        customElements.whenDefined('wa-button'),
+      ]);
+
+      // Premises ID — drive the visible error state from the input's own validity API.
+      // The component already knows it's invalid (custom-error attribute + pattern mismatch).
+      // We just (a) mirror the customError message into the hint area when invalid, and
+      // (b) toggle .is-invalid so the error styling shows on initial load before any user
+      // interaction has flipped :state(user-invalid).
+      const premisesId = document.querySelector('wa-input[name="premises_id"]');
+      await premisesId.updateComplete;
+      const premisesHint = premisesId.hint;
+      const premisesError = premisesId.customError;
+
+      function syncPremisesValidity() {
+        const isValid = premisesId.validity.valid;
+        premisesId.hint = isValid ? premisesHint : premisesError;
+        premisesId.classList.toggle('is-invalid', !isValid);
+      }
+      premisesId.addEventListener('input', () => {
+        const matches = /^[A-Z]{2}[0-9]{5}[A-Z]$/.test(premisesId.value);
+        premisesId.setCustomValidity(matches ? '' : premisesError);
+        syncPremisesValidity();
+      });
+      syncPremisesValidity();
+
+      // Conditional "Specify species" field — appears when the user picks "Other".
+      // Hidden + disabled when not in use so it stays out of the tab order and form submission.
+      const speciesSelect = document.getElementById('species-select');
+      const speciesOther = document.getElementById('species-other');
+
+      speciesSelect.addEventListener('change', () => {
+        const isOther = speciesSelect.value === 'other';
+        speciesOther.hidden = !isOther;
+        speciesOther.disabled = !isOther;
+        if (isOther) speciesOther.focus();
+      });
+
+      // Add / remove vaccination rows. Template cloned from the first row, then cleared.
+      const vaxList = document.getElementById('vax-list');
+      const vaxAdd = document.getElementById('vax-add');
+
+      function relabelRows() {
+        vaxList.querySelectorAll('[data-vax-row]').forEach((row, i) => {
+          row.querySelector('.vax-row__label').textContent = `Vaccination ${i + 1}`;
+        });
+      }
+
+      vaxAdd.addEventListener('click', () => {
+        const template = vaxList.querySelector('[data-vax-row]');
+        const clone = template.cloneNode(true);
+        clone.querySelectorAll('wa-input').forEach(input => {
+          input.value = '';
+        });
+        vaxList.appendChild(clone);
+        relabelRows();
+        clone.querySelector('wa-input')?.focus();
+      });
+
+      vaxList.addEventListener('click', event => {
+        const removeBtn = event.target.closest('[data-vax-remove]');
+        if (!removeBtn) return;
+        const rows = vaxList.querySelectorAll('[data-vax-row]');
+        if (rows.length <= 1) return; // keep at least one row
+        removeBtn.closest('[data-vax-row]').remove();
+        relabelRows();
+      });
+
+      // Auto-fill the signature date to today.
+      const today = new Date().toISOString().slice(0, 10);
+      document.getElementById('signed-on').value = today;
+    </script>
+  </body>
+</html>
