@@ -2,6 +2,7 @@
 
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+import semver from 'semver';
 import * as url from 'url';
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
@@ -25,9 +26,7 @@ const versions = fs
   .readFileSync(versionsFile, { encoding: 'utf8' })
   .split(/\r?\n/)
   .filter(Boolean)
-  .sort((a, b) => {
-    return a.localeCompare(b);
-  });
+  .sort(semver.compare);
 
 if (!versions.includes(currentVersion)) {
   versions.push(currentVersion);
