@@ -7,6 +7,19 @@ surfaces and elevation. The throughline: **use the scales and tokens; never impr
 For the _why_ behind these scales — when to vary weight instead of size, why the spacing scale jumps
 non-linearly, how to keep depth meaningful — see [principles.md](principles.md).
 
+**Contents**
+
+- [Spacing rhythm](#spacing-rhythm)
+- [Layout-utility decision guide](#layout-utility-decision-guide)
+- [Companion utilities](#companion-utilities)
+- [Typography](#typography)
+- [Icons](#icons)
+- [Images & placeholders](#images--placeholders)
+- [Surfaces & elevation](#surfaces--elevation)
+- [Custom CSS](#custom-css)
+- [Styling components & CSS parts](#styling-components--css-parts)
+- [Polish checklist](#polish-checklist)
+
 ---
 
 ## Spacing rhythm
@@ -39,7 +52,7 @@ Guidance:
 
 ### Sizing fixed elements with tokens (don't fall back to raw `rem`/`px`)
 
-Rule 5 forbids raw `px`/`rem`, but the moment you build a fixed-size element — a round icon badge, an
+The rules table in SKILL.md forbids raw `px`/`rem`, but the moment you build a fixed-size element — a round icon badge, an
 avatar, a content column's `max-width`, a hairline border — it's tempting to type `3.5rem` or `1px`.
 Don't. Use the scales instead:
 
@@ -104,7 +117,7 @@ Modifiers combine: `class="wa-cluster wa-gap-xs wa-align-items-start"`. Make one
 The layout primitives above are the headlines. A set of small companion utility classes covers the
 everyday refinements you'd otherwise reach for inline `style=""` to express — alignment, text
 treatment, sizing, color, accessibility. Use these alongside the layout primitives instead of inline
-styles (see Rule 8 in the main skill).
+styles (see the inline-styles rule in SKILL.md).
 
 ### Alignment modifiers
 
@@ -118,7 +131,7 @@ Combine with any layout utility to fine-tune cross-axis and main-axis placement.
 
 `wa-split` and `wa-cluster` already center on the cross-axis by default (0-specificity); reach for
 `wa-align-items-*` when you need something different. Never write `style="align-items: center;"` on top
-of a utility class that already centers — it's redundant and breaks Rule 8.
+of a utility class that already centers — it's redundant and breaks the inline-styles rule.
 
 ### Text utilities
 
@@ -369,8 +382,8 @@ playbook so your CSS stays themed, accessible, and dark-mode-aware automatically
 ### The playbook
 
 1. **Every value is a token.** Spacing → `--wa-space-*`. Color → `--wa-color-*`. Radius, shadow, font
-   size, transition — same. No raw `px`, hex, or stray `rem`. (Same rule as inline styles — see SKILL.md
-   rule 5.)
+   size, transition — same. No raw `px`, hex, or stray `rem`. (Same rule as in the SKILL.md rules
+   table.)
 2. **Use semantic color tokens, not palette tints.** Reference `--wa-color-brand-fill-loud`,
    `--wa-color-surface-raised`, `--wa-color-text-normal` — not `--wa-color-blue-50` and friends.
    **Semantic tokens flip automatically with `wa-light` / `wa-dark`; palette tints don't.** A custom rule
@@ -390,8 +403,8 @@ playbook so your CSS stays themed, accessible, and dark-mode-aware automatically
    breaks contrast (`on-loud` text on `fill-quiet` is too dark).
 
 5. **Reusable classes in a `<style>` block, not inline.** A class named for the role (`.brand-callout`),
-   defined once, reused wherever it applies. Inline styles can't be re-themed or reused (Rule 8 in the
-   main skill).
+   defined once, reused wherever it applies. Inline styles can't be re-themed or reused (see the inline-styles
+   rule in SKILL.md).
 6. **Don't re-alias tokens into your own namespace.** `--brand-dark: var(--wa-color-orange-30)` defeats
    theme overrides — if the user re-themes, your alias keeps pointing at orange. Reference `--wa-*`
    tokens directly so the cascade still works.
@@ -469,32 +482,38 @@ order, stopping at the first that does the job:
    `--wa-color-brand-fill-loud` or a component's own `--*` property on a container flows inward.
 2. **A `::part()` selector.** When you need to style the component's _internal_ surface — its padding,
    border, border-radius, background, width — target one of its exposed **parts**. Most components
-   expose a **`base`** part (the outer wrapper); many expose more (`content`, `label`, `caret`,
-   `remove-button`, `checkbox`, `thumb`, …) — the set is **per-component**, so check that element's API.
-   `::part()` is the correct, supported way through the shadow boundary.
+   expose an outer-wrapper part **named after the component** (`button`, `input`, `details`,
+   `tab-group`, …); many expose more (`content`, `label`, `caret`, `remove-button`, `checkbox`,
+   `thumb`, …) — the set is **per-component**, so check that element's API. `::part()` is the correct,
+   supported way through the shadow boundary.
+
+   **There is no `base` part any more.** Components still answer to `::part(base)` as a legacy alias,
+   and plenty of older examples use it, but it's deprecated library-wide and disappears in the next
+   major. Use the component-named part in anything you write.
+
 3. **Host-level layout only, on the element itself.** Properties that act on the element _as a box in
    your layout_ — `margin`, and participation in a flex/grid parent — apply to the host normally. But
    `padding`, `border`, and `background` set on the host often sit _outside_ or _behind_ the rendered
-   control and won't look right; those belong on `::part(base)`.
+   control and won't look right; those belong on the component's outer part.
 
 ```css
 /* ✗ Doesn't reach the component's visual surface (shadow DOM blocks it). */
-.cta {
+wa-button.cta {
   border-radius: var(--wa-border-radius-pill);
   padding-inline: var(--wa-space-2xl);
 }
 
 /* ✓ Target the part that actually renders the surface. */
-.cta::part(base) {
+wa-button.cta::part(button) {
   border-radius: var(--wa-border-radius-pill);
   padding-inline: var(--wa-space-2xl);
 }
 
 /* ✓ Width is layout (host); the internal look is the part. */
-.full-width-control {
+wa-button.full-width-control {
   width: 100%;
 }
-.full-width-control::part(base) {
+wa-button.full-width-control::part(button) {
   justify-content: space-between;
 }
 ```
@@ -514,7 +533,7 @@ the inline-styles rule in the main skill file.
 
 ## Polish checklist
 
-After the **structural Final Pass** in SKILL.md (markup, slot decisions, rule compliance), walk this
+After the **Verify before you finish** pass in SKILL.md (searches, markup, slot decisions, rule compliance), walk this
 **visual-quality pass** before calling a layout done. These check the things that make the output look
 intentionally designed — spacing rhythm, hierarchy, contrast on surfaces, and brand presence.
 

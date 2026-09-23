@@ -73,10 +73,15 @@ const translation: Translation = {
   nextVideo: '下一个视频',
   nextYear: '下一年',
   noData: '暂无数据',
+  noOptions: '暂无选项',
   noResults: '无匹配结果',
   now: '此刻',
   numCharacters: num => `${num}个字符`,
   numCharactersRemaining: num => `剩余${num}个字符`,
+  numOptionsAvailable: num => {
+    if (num === 0) return '没有可用选项';
+    return `${num} 个可用选项`;
+  },
   numOptionsSelected: num => {
     if (num === 0) return '未选择任何项目';
     if (num === 1) return '已选择 1 个项目';
@@ -84,6 +89,8 @@ const translation: Translation = {
   },
   numRowsCopied: num => `已复制 ${num} 行`,
   numRowsSelected: num => `已选择 ${num} 行`,
+  optionPosition: (label, position, total) => `${label}，${position} / ${total}`,
+  optionsLoadError: '无法加载选项',
   pageXOfY: (page, total) => `第 ${page} 页，共 ${total} 页`,
   pagination: '分页',
   pause: '暂停',

@@ -73,6 +73,7 @@ const translation: Translation = {
   nextVideo: 'הסרטון הבא',
   nextYear: 'השנה הבאה',
   noData: 'אין נתונים',
+  noOptions: 'אין אפשרויות',
   noResults: 'אין תוצאות תואמות',
   now: 'עכשיו',
   numCharacters: num => {
@@ -82,6 +83,11 @@ const translation: Translation = {
   numCharactersRemaining: num => {
     if (num === 1) return '1 תו נותר';
     return `${num} תווים נותרים`;
+  },
+  numOptionsAvailable: num => {
+    if (num === 0) return 'אין אפשרויות זמינות';
+    if (num === 1) return 'אפשרות אחת זמינה';
+    return `${num} אפשרויות זמינות`;
   },
   numOptionsSelected: num => {
     if (num === 0) return 'לא נבחרו אפשרויות';
@@ -96,6 +102,8 @@ const translation: Translation = {
     if (num === 1) return 'נבחרה שורה אחת';
     return `נבחרו ${num} שורות`;
   },
+  optionPosition: (label, position, total) => `${label}, ${position} מתוך ${total}`,
+  optionsLoadError: 'לא ניתן היה לטעון את האפשרויות',
   pageXOfY: (page, total) => `עמוד ${page} מתוך ${total}`,
   pagination: 'עימוד',
   pause: 'השהייה',

@@ -201,14 +201,10 @@ The default button will not be shown when using either of these methods — if y
 </wa-page>
 ```
 
-:::info
-`<wa-page>` can't detect a `data-toggle-nav` button inside another component's shadow root. In that case, add the `disable-navigation-toggle` attribute to hide the default button yourself.
-:::
-
-Alternatively, you can apply `nav-state="open"` and `nav-state="closed"` to the layout component to show and hide the navigation, respectively.
+Alternatively, you can add or remove the `nav-open` attribute to open or close the navigation drawer, or call the `showNavigation()`, `hideNavigation()`, and `toggleNavigation()` methods. The drawer only opens on mobile views.
 
 ```html
-<wa-page nav-state="open"> ... </wa-page>
+<wa-page nav-open> ... </wa-page>
 ```
 
 `<wa-page>` is given the attribute `view="mobile"` or `view="desktop"` when the viewport narrower or wider than the `mobile-breakpoint` value, respectively. You can leverage these attributes to change styles depending on the size of the viewport. This is especially useful to hide your `data-toggle-nav` button when the viewport is wider.
@@ -220,7 +216,7 @@ wa-page[view='desktop'] [data-toggle-nav] {
 ```
 
 :::info
-If you use [native styles](/docs/utilities/native/), this is handled for you, and the `data-toggle-nav` button is already hidden on wider screens.
+Web Awesome's base styles already include this rule, so the `data-toggle-nav` button is hidden on wider screens automatically.
 :::
 
 #### Custom Widths
@@ -262,7 +258,7 @@ You can override the default spacing for each slot with your own CSS. In this ex
 
 ## Utility Classes
 
-[Native styles](/docs/utilities/native/) define a few useful defaults for `<wa-page>`, as well as two utility classes you can use for common responsive design tasks:
+Web Awesome's base styles define a few useful defaults for `<wa-page>`, as well as two utility classes you can use for common responsive design tasks. They only work inside a `<wa-page>`, because they key off its `view` attribute:
 
 - `.wa-mobile-only` hides an element on the desktop view
 - `.wa-desktop-only` hides an element on the mobile view
