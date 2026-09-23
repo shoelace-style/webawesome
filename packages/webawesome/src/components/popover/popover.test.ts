@@ -381,6 +381,40 @@ describe('<wa-popover>', () => {
       expect(popover.open).to.be.true;
     });
 
+    it('should allow text inside the popover to be selected', async () => {
+      const el = await fixtures[0]<HTMLDivElement>(html`
+        <div style="padding: 200px;">
+          <wa-button id="anchor">Anchor</wa-button>
+          <wa-popover for="anchor"><p>Select this text by dragging</p></wa-popover>
+        </div>
+      `);
+      const popover = el.querySelector<WaPopover>('wa-popover')!;
+      const paragraph = popover.querySelector('p')!;
+
+      popover.open = true;
+      await waitUntil(() => popover.open);
+      await aTimeout(200);
+
+      // Drag from the start of the text to its middle. Check the selection before the cursor leaves the popover,
+      // since a range that crosses the shadow boundary reads as an empty string in Selection.toString().
+      const text = paragraph.getBoundingClientRect();
+      const y = Math.floor(text.y + text.height / 2);
+      await sendMouse({ type: 'move', position: [Math.floor(text.x + 2), y] });
+      await sendMouse({ type: 'down' });
+      await sendMouse({ type: 'move', position: [Math.floor(text.x + text.width / 2), y] });
+      await aTimeout(50);
+
+      expect(window.getSelection()?.toString()).to.not.equal('');
+
+      // Releasing outside must not close the popover
+      await sendMouse({ type: 'move', position: [Math.floor(text.x + text.width / 2), 1] });
+      await sendMouse({ type: 'up' });
+      await aTimeout(200);
+
+      expect(popover.open).to.be.true;
+      window.getSelection()?.removeAllRanges();
+    });
+
     it('should close when a data-popover="close" button is clicked', async () => {
       const el = await fixtures[0]<HTMLDivElement>(html`
         <div>

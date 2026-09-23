@@ -33,6 +33,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::added
 
+- Added the `with-label` attribute to `<wa-dialog>` and `<wa-drawer>` for server-side rendering [pr:2846]
 - Added support for labels in `<wa-divider>` [discuss:2802]
   - Added the default slot and the `label` part
   - Added the `label-placement` attribute
@@ -58,7 +59,10 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug in `<wa-combobox>` where the option position and option count announcements weren't localized
 - Fixed a bug in `<wa-page>` where the navigation toggle's icon loaded from the default icon library instead of the system library [issue:2820]
 - Fixed a bug in `<wa-page>` where `disable-navigation-toggle` was ignored when navigation content was present [issue:2774]
-
+- Fixed a bug in `<wa-popover>` that prevented text inside the popover from being selected
+- Fixed a bug in `<wa-date-input>` and `<wa-time-input>` where the clear and expand buttons used a different hover color than `<wa-input>` and `<wa-select>` [issue:2834]
+- Fixed a bug in the layout utilities (`wa-stack`, `wa-cluster`, etc.) that stopped native `<dialog>` and popover children from centering [issue:2777] [pr:2847]
+- Fixed a bug in `<wa-dialog>` and `<wa-drawer>` where the internal `<dialog>` element had no accessible name [issue:2785] [pr:2846]
 :::
 
 :::changed

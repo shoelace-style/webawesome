@@ -1,6 +1,7 @@
 import { html, isServer, type PropertyValues } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { WaAfterHideEvent } from '../../events/after-hide.js';
 import { WaAfterShowEvent } from '../../events/after-show.js';
 import { WaHideEvent } from '../../events/hide.js';
@@ -77,7 +78,8 @@ export default class WaDrawer extends WebAwesomeElement {
 
   /**
    * The drawer's label as displayed in the header. You should always include a relevant label, as it is required for
-   * proper accessibility. If you need to display HTML, use the `label` slot instead.
+   * proper accessibility. If you need to display HTML, use the `label` slot instead. When `without-header` is set,
+   * only the attribute provides the drawer's accessible name.
    */
   @property({ reflect: true }) label = '';
 
@@ -95,6 +97,12 @@ export default class WaDrawer extends WebAwesomeElement {
    * includes the footer before the component hydrates on the client.
    */
   @property({ attribute: 'with-footer', type: Boolean }) withFooter = false;
+
+  /**
+   * Only required for SSR. Set to `true` if you're slotting in a `label` element so the server-rendered markup names
+   * the drawer before the component hydrates on the client.
+   */
+  @property({ attribute: 'with-label', type: Boolean }) withLabel = false;
 
   firstUpdated(changedProperties: PropertyValues<typeof this>) {
     super.firstUpdated(changedProperties);
@@ -264,10 +272,13 @@ export default class WaDrawer extends WebAwesomeElement {
   render() {
     const hasHeader = !this.withoutHeader;
     const hasFooter = this.hasSlotController.test('footer', 'withFooter');
+    const hasLabel = this.label.length > 0 || this.hasSlotController.test('label', 'withLabel');
 
     return html`
       <dialog
         part="dialog"
+        aria-labelledby=${ifDefined(hasHeader && hasLabel ? 'title' : undefined)}
+        aria-label=${ifDefined(!hasHeader && this.label ? this.label : undefined)}
         class=${classMap({
           drawer: true,
           open: this.open,
