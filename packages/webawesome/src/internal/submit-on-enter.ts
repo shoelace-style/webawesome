@@ -22,6 +22,58 @@ export function submitOnEnter<T extends HTMLElement>(event: KeyboardEvent, el: T
   }
 }
 
+// Submittable inputs are all tags we know that are submittable by pressing "Enter".
+// This is rough, and I may miss some, but its the best I could get to.
+const submittableTags = new Map([
+  ["input", true],
+  ["wa-input", true],
+  ["wa-tag-input", true],
+  ["wa-number-input", true],
+  ["wa-otp-input", true],
+  ["wa-slider", true]
+])
+
+// Pulled from sidebar here: <https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/button>
+const submittableTypes = new Map([
+  ["button", false],
+  ["checkbox", false],
+  ["color", false],
+  ["date", false],
+  ["datetime-local", false],
+  ["email", true],
+  ["file", false],
+  ["hidden", false],
+  ["image", false],
+  ["month", false],
+  ["number", true],
+  ["password", true],
+  ["radio", false],
+  ["range", false],
+  ["reset", true],
+  ["search", true],
+  ["submit", false],
+  ["tel", true],
+  ["text", true],
+  ["time", false],
+  ["url", true],
+  ["week", false],
+])
+
+const isSubmittableElement = (el: Element) => {
+  const tagName = el?.localName
+  if (!tagName) { return false }
+
+  const isSubmittableTag = Boolean(submittableTags.get(tagName))
+
+  if (!isSubmittableTag) { return false }
+
+  // We dont need to typecheck unless the input is either `<wa-input>` or `<input>`
+  if (tagName !== "input" && tagName !== "wa-input") { return true }
+
+  const type = (el as HTMLInputElement).type
+  return Boolean(submittableTypes.get(type))
+}
+
 export function submitForm(el: HTMLElement | WebAwesomeFormAssociatedElement) {
   let form: HTMLFormElement | null = null;
 
@@ -37,18 +89,28 @@ export function submitForm(el: HTMLElement | WebAwesomeFormAssociatedElement) {
     return;
   }
 
-  const formElements = [...form.elements];
+  const formElements = Array.from(form.elements);
+
+  let submittableFormElements = 0
+  for (const el of formElements) {
+    if (isSubmittableElement(el)) {
+      submittableFormElements += 1
+    }
+  }
 
   // If we're the only formElement, we submit like a native input.
-  if (formElements.length === 1) {
+  if (submittableFormElements === 1) {
     form.requestSubmit(null);
     return;
   }
 
-  const button = formElements.find((el: HTMLButtonElement) => el.type === 'submit' && !el.matches(':disabled')) as
-    | undefined
-    | HTMLButtonElement
-    | WaButton;
+  const button = formElements.find((el: HTMLButtonElement | HTMLInputElement) => {
+    return el.type === 'submit' && !el.matches(':disabled')
+  }) as | undefined
+        | HTMLButtonElement
+        | HTMLInputElement
+        | WaButton;
+
 
   // No button found, don't submit.
   if (!button) {
