@@ -86,7 +86,5 @@ export default css`
     border-style: var(--wa-panel-border-style);
     box-shadow: var(--wa-shadow-l);
     color: var(--wa-color-text-normal);
-    user-select: none;
-    -webkit-user-select: none;
   }
 `;

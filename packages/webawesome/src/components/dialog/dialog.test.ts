@@ -30,6 +30,49 @@ describe('<wa-dialog>', () => {
           expect(document.activeElement).to.equal(input);
         });
 
+        it('should name the dialog from its label', async () => {
+          const el = await fixture<WaDialog>(html`<wa-dialog label="Settings" open>Content</wa-dialog>`);
+          const dialog = el.shadowRoot!.querySelector('[part~="dialog"]')!;
+          const title = el.shadowRoot!.getElementById('title')!;
+
+          expect(dialog.getAttribute('aria-labelledby')).to.equal(title.id);
+          expect(title.textContent!.trim()).to.equal('Settings');
+        });
+
+        it('should name the dialog from a slotted label', async () => {
+          const el = await fixture<WaDialog>(
+            html`<wa-dialog open><span slot="label">Settings</span>Content</wa-dialog>`,
+          );
+          const dialog = el.shadowRoot!.querySelector('[part~="dialog"]')!;
+
+          expect(dialog.getAttribute('aria-labelledby')).to.equal('title');
+        });
+
+        it('should name the dialog from a slotted label before hydration when with-label is set', async () => {
+          const el = await fixture<WaDialog>(
+            html`<wa-dialog open with-label><span slot="label">Settings</span>Content</wa-dialog>`,
+          );
+          const dialog = el.shadowRoot!.querySelector('[part~="dialog"]')!;
+
+          expect(dialog.getAttribute('aria-labelledby')).to.equal('title');
+        });
+
+        it('should leave the dialog unnamed when it has no label', async () => {
+          const el = await fixture<WaDialog>(html`<wa-dialog open>Content</wa-dialog>`);
+          const dialog = el.shadowRoot!.querySelector('[part~="dialog"]')!;
+
+          expect(dialog.hasAttribute('aria-labelledby')).to.be.false;
+          expect(dialog.hasAttribute('aria-label')).to.be.false;
+        });
+
+        it('should name the dialog from its label when the header is hidden', async () => {
+          const el = await fixture<WaDialog>(html`<wa-dialog label="Settings" without-header open>Content</wa-dialog>`);
+          const dialog = el.shadowRoot!.querySelector('[part~="dialog"]')!;
+
+          expect(dialog.getAttribute('aria-label')).to.equal('Settings');
+          expect(dialog.hasAttribute('aria-labelledby')).to.be.false;
+        });
+
         it('should not create duplicate landmarks when the page has its own header and footer', async () => {
           const el = await fixture(html`
             <div>
