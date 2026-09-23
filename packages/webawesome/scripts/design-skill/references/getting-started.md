@@ -3,6 +3,10 @@
 When a user just wants something that looks good without making a hundred small decisions, use this
 default. It's a complete, on-brand, responsive starting point. Change one thing at a time from here.
 
+This is for **greenfield** work. In an existing project the defaults below are already decided, possibly
+differently; discover them first (see [your-design-system.md](your-design-system.md)) and match what you
+find rather than resetting the theme.
+
 ## The default decisions
 
 | Decision           | Default                            | Why                                                |

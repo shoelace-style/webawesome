@@ -74,6 +74,7 @@ const translation: Translation = {
   nextVideo: 'Próximo vídeo',
   nextYear: 'Próximo ano',
   noData: 'Sem dados',
+  noOptions: 'Sem opções',
   noResults: 'Sem resultados correspondentes',
   now: 'Agora',
   numCharacters: num => {
@@ -84,6 +85,11 @@ const translation: Translation = {
     if (num === 1) return '1 caractere restante';
     return `${num} caracteres restantes`;
   },
+  numOptionsAvailable: num => {
+    if (num === 0) return 'Nenhuma opção disponível';
+    if (num === 1) return '1 opção disponível';
+    return `${num} opções disponíveis`;
+  },
   numOptionsSelected: num => {
     if (num === 0) return 'Nenhuma opção selecionada';
     if (num === 1) return '1 opção selecionada';
@@ -91,6 +97,8 @@ const translation: Translation = {
   },
   numRowsCopied: num => (num === 1 ? '1 linha copiada' : `${num} linhas copiadas`),
   numRowsSelected: num => (num === 1 ? '1 linha selecionada' : `${num} linhas selecionadas`),
+  optionPosition: (label, position, total) => `${label}, ${position} de ${total}`,
+  optionsLoadError: 'Não foi possível carregar as opções',
   pageXOfY: (page, total) => `Página ${page} de ${total}`,
   pagination: 'Paginação',
   pause: 'Pausar',

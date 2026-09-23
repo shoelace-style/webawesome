@@ -74,6 +74,7 @@ const translation: Translation = {
   nextVideo: 'Sonraki video',
   nextYear: 'Sonraki yıl',
   noData: 'Veri yok',
+  noOptions: 'Seçenek yok',
   noResults: 'Eşleşen sonuç yok',
   now: 'Şimdi',
   numCharacters: num => {
@@ -84,6 +85,11 @@ const translation: Translation = {
     if (num === 1) return '1 karakter kaldı';
     return `${num} karakter kaldı`;
   },
+  numOptionsAvailable: num => {
+    if (num === 0) return 'Kullanılabilir seçenek yok';
+    if (num === 1) return '1 seçenek kullanılabilir';
+    return `${num} seçenek kullanılabilir`;
+  },
   numOptionsSelected: num => {
     if (num === 0) return 'Hiçbir seçenek seçilmedi';
     if (num === 1) return '1 seçenek seçildi';
@@ -91,6 +97,8 @@ const translation: Translation = {
   },
   numRowsCopied: num => (num === 1 ? '1 satır kopyalandı' : `${num} satır kopyalandı`),
   numRowsSelected: num => (num === 1 ? '1 satır seçildi' : `${num} satır seçildi`),
+  optionPosition: (label, position, total) => `${label}, ${position} / ${total}`,
+  optionsLoadError: 'Seçenekler yüklenemedi',
   pageXOfY: (page, total) => `Sayfa ${page} / ${total}`,
   pagination: 'Sayfalandırma',
   pause: 'Duraklat',

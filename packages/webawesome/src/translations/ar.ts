@@ -83,6 +83,7 @@ const translation: Translation = {
   nextVideo: 'الفيديو التالي',
   nextYear: 'السنة التالية',
   noData: 'لا توجد بيانات',
+  noOptions: 'لا توجد خيارات',
   noResults: 'لا توجد نتائج مطابقة',
   now: 'الآن',
   numCharacters: num => {
@@ -98,6 +99,13 @@ const translation: Translation = {
     if (num === 2) return '2 حرفان متبقيان';
     if (num > 2 && num < 11) return `${num} أحرف متبقية`;
     return `${num} حرفًا متبقيًا`;
+  },
+  numOptionsAvailable: num => {
+    if (num === 0) return 'لا توجد خيارات متاحة';
+    if (num === 1) return 'خيار واحد متاح';
+    if (num === 2) return 'خياران متاحان';
+    if (num > 2 && num < 11) return `${num} خيارات متاحة`;
+    return `${num} خيارًا متاحًا`;
   },
   numOptionsSelected: num => {
     if (num === 0) return 'لم يتم تحديد أي خيارات';
@@ -120,6 +128,8 @@ const translation: Translation = {
     if (num > 2 && num < 11) return `تم تحديد ${num} صفوف`;
     return `تم تحديد ${num} صفًا`;
   },
+  optionPosition: (label, position, total) => `${label}، ${position} من ${total}`,
+  optionsLoadError: 'تعذر تحميل الخيارات',
   pageXOfY: (page, total) => `الصفحة ${page} من ${total}`,
   pagination: 'ترقيم الصفحات',
   pause: 'إيقاف مؤقت',
