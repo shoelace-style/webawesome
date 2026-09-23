@@ -595,7 +595,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::removed
 
-- Removed a `preinstall` script in `webawesome-pro` that was causing issues in some package managers.
+- Removed a `preinstall` script in `webawesome-pro` that was causing issues in some package managers
 
 :::
 
@@ -730,7 +730,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::fixed
 
-- [PRO]: Fixed a few sizing bugs in `<wa-page>` and `slot="footer"` no longer will always "overflow" the container.
+- [PRO]: Fixed a few sizing bugs in `<wa-page>` and `slot="footer"` no longer will always "overflow" the container
 - Fixed a bug in `<wa-slider>` that caused some touch devices to end up with the incorrect value [issue:1703]
 - Fixed a bug in `<wa-card>` that prevented some slots from being detected correctly [discuss:1450]
 - Fixed a z-index bug in `<wa-scroller>` styles [issue:1724]
