@@ -140,6 +140,23 @@ This is often desirable, but you can change this behavior using the `disable-sti
 <wa-page disable-sticky="header aside"> ... </wa-page>
 ```
 
+### Backgrounds
+
+The `banner`, `header`, and `subheader` sections always paint the page's surface color, so content doesn't show through while they're sticky. To change it, style the section's CSS part rather than the element you slot into it.
+
+```css
+wa-page::part(header) {
+  background-color: var(--wa-color-brand-fill-normal);
+}
+```
+
+Every other section is transparent and shows the page's own background.
+
+:::info
+<strong>Set Your Own Background on Every Other Section</strong><br />
+Since [3.14.0](/docs/resources/changelog#wa_3140), only the `banner`, `header`, and `subheader` parts paint a background. For any other section, set `background-color: var(--wa-color-surface-default)` on the element you slot in.
+:::
+
 ### Skip to Content
 
 The layout provides a "skip to content" link that's visually hidden until the user tabs into it. You don't have to do anything to configure this, unless you want to change the text displayed in the link. In that case, you can slot in your own text using the `skip-to-content` slot.
