@@ -33,6 +33,11 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::added
 
+- Added support for labels in `<wa-divider>` [discuss:2802]
+  - Added the default slot and the `label` part
+  - Added the `label-placement` attribute
+  - Added the `--label-spacing` and `--label-offset` custom properties
+  - Added the `with-label` attribute for server-side rendering
 - Added the `allow`, `name`, and `label` attributes to `<wa-zoomable-frame>`
 - Added async options to `<wa-combobox>` for loading options from a server [discuss:1881]
   - Added the `dataSource` property, which can return options as data or as custom `<wa-option>` HTML
@@ -51,12 +56,19 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug in `<wa-combobox>` where screen reader announcements weren't reliably spoken because they came from a live region inside the shadow root
 - Fixed a bug in `<wa-combobox>` where the input had an `aria-activedescendant` that pointed to an option assistive devices couldn't resolve
 - Fixed a bug in `<wa-combobox>` where the option position and option count announcements weren't localized
+- Fixed a bug in `<wa-page>` where the navigation toggle's icon loaded from the default icon library instead of the system library [issue:2820]
+- Fixed a bug in `<wa-page>` where `disable-navigation-toggle` was ignored when navigation content was present [issue:2774]
 
 :::
 
 :::changed
 
 - Updated `<wa-combobox>` to show a "no results" message instead of closing the listbox when nothing matches the query, except with `allow-custom-value`, where it still closes
+- Improved the agent skills for design system work
+  - The `webawesome-design` skill now leads with a discover-the-project step, pairs every rule with its replacement and reason, and ends with a mechanical verification pass
+  - Added a `your-design-system.md` reference for building and extending a project design system on Web Awesome, including a `DESIGN.md` template
+  - Updated the `webawesome` skill's `<wa-page>` guidance to match the design skill and the component's actual behavior
+  - Added missing components to the `choosing-components.md` decision tree and corrected the Pro component list
 
 :::
 
