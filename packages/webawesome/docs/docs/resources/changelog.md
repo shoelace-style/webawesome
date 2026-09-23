@@ -51,6 +51,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::fixed
 
+- Fixed using the `<Enter>` key in various components like `<wa-input>` to more closely align with the platform. [pr:2850]
 - Fixed a bug in `<wa-zoomable-frame>` where the internal iframe rendered `referrerpolicy="undefined"` when no referrer policy was set
 - Fixed a memory leak in `<wa-option>` where removed `<wa-select>` elements and their options were never garbage collected unless `<wa-combobox>` was also registered [issue:2813]
 - Fixed a bug in `<wa-animated-image>` that caused the image to stay hidden while playing [issue:2811]
