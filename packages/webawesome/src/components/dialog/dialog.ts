@@ -8,6 +8,7 @@ import { WaHideEvent } from '../../events/hide.js';
 import { WaShowEvent } from '../../events/show.js';
 import { animateWithClass } from '../../internal/animate.js';
 import { isTopDismissible, registerDismissible, unregisterDismissible } from '../../internal/dismissible-stack.js';
+import { isEventInsideRect } from '../../internal/offset.js';
 import { parseSpaceDelimitedTokens } from '../../internal/parse.js';
 import { RenderedWatcher } from '../../internal/rendered-watcher.js';
 import { lockBodyScrolling, unlockBodyScrolling } from '../../internal/scroll.js';
@@ -171,8 +172,9 @@ export default class WaDialog extends WebAwesomeElement {
   }
 
   private async handleDialogPointerDown(event: PointerEvent) {
-    // Detect when the backdrop is clicked
-    if (event.target === this.dialog) {
+    // The backdrop and the dialog's own scrollbar both report the <dialog> as the target, so only a point outside
+    // its box counts as a backdrop click
+    if (event.target === this.dialog && !isEventInsideRect(event, this.dialog)) {
       if (this.lightDismiss) {
         this.requestClose(this.dialog);
       } else {

@@ -8,6 +8,7 @@ import { WaHideEvent } from '../../events/hide.js';
 import { WaShowEvent } from '../../events/show.js';
 import { animateWithClass } from '../../internal/animate.js';
 import { isTopDismissible, registerDismissible, unregisterDismissible } from '../../internal/dismissible-stack.js';
+import { isEventInsideRect } from '../../internal/offset.js';
 import { parseSpaceDelimitedTokens } from '../../internal/parse.js';
 import { RenderedWatcher } from '../../internal/rendered-watcher.js';
 import { lockBodyScrolling, unlockBodyScrolling } from '../../internal/scroll.js';
@@ -180,8 +181,9 @@ export default class WaDrawer extends WebAwesomeElement {
   }
 
   private async handleDialogPointerDown(event: PointerEvent) {
-    // Detect when the backdrop is clicked
-    if (event.target === this.drawer) {
+    // The backdrop and the drawer's own scrollbar both report the <dialog> as the target, so only a point outside
+    // its box counts as a backdrop click
+    if (event.target === this.drawer && !isEventInsideRect(event, this.drawer)) {
       if (this.lightDismiss) {
         this.requestClose(this.drawer);
       } else {

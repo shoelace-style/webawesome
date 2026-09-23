@@ -3,7 +3,7 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import { expectEvent } from '../../internal/test/expect-event.js';
 import { fixtures } from '../../internal/test/fixture.js';
-import { clickOnElement } from '../../internal/test/pointer-utilities.js';
+import { clickOnElement, outsideOf } from '../../internal/test/pointer-utilities.js';
 import type WaDrawer from './drawer.js';
 
 describe('<wa-drawer>', () => {
@@ -273,7 +273,9 @@ describe('<wa-drawer>', () => {
           const dialog = el.shadowRoot!.querySelector<HTMLDialogElement>('.drawer')!;
 
           // Simulate a backdrop click by dispatching pointerdown with the dialog as the target
-          dialog.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, composed: true }));
+          dialog.dispatchEvent(
+            new PointerEvent('pointerdown', { bubbles: true, composed: true, ...outsideOf(dialog) }),
+          );
           await aTimeout(250);
 
           expect(el.open).to.be.true;
@@ -285,10 +287,31 @@ describe('<wa-drawer>', () => {
 
           await expectEvent(el, 'wa-after-hide', () => {
             // Simulate a backdrop click by dispatching pointerdown with the dialog as the target
-            dialog.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, composed: true }));
+            dialog.dispatchEvent(
+              new PointerEvent('pointerdown', { bubbles: true, composed: true, ...outsideOf(dialog) }),
+            );
           });
 
           expect(el.open).to.be.false;
+        });
+
+        it('should not close when a pointerdown targets the drawer with a point inside its box', async () => {
+          const el = await fixture<WaDrawer>(html`<wa-drawer open light-dismiss>Content</wa-drawer>`);
+          const dialog = el.shadowRoot!.querySelector<HTMLDialogElement>('.drawer')!;
+          const rect = dialog.getBoundingClientRect();
+
+          // A scrollbar hit targets the dialog element, just like the backdrop, but the point is inside its box
+          dialog.dispatchEvent(
+            new PointerEvent('pointerdown', {
+              bubbles: true,
+              composed: true,
+              clientX: rect.right - 2,
+              clientY: rect.top + rect.height / 2,
+            }),
+          );
+          await aTimeout(250);
+
+          expect(el.open).to.be.true;
         });
 
         it('should not close when clicking inside the drawer even when light-dismiss is enabled', async () => {
