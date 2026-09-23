@@ -89,3 +89,9 @@ export async function dragElement(
   await callbacks.afterMouseMove?.();
   await sendMouse({ type: 'up' });
 }
+
+/** Coordinates just outside an element's box, for simulating a backdrop click that still targets the element. */
+export function outsideOf(el: Element) {
+  const rect = el.getBoundingClientRect();
+  return { clientX: rect.left - 10, clientY: rect.top - 10 };
+}

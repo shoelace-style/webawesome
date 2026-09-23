@@ -89,6 +89,7 @@ const translation: Translation = {
   nextVideo: 'Naslednji videoposnetek',
   nextYear: 'Naslednje leto',
   noData: 'Ni podatkov',
+  noOptions: 'Ni možnosti',
   noResults: 'Ni ustreznih rezultatov',
   notCompleted: 'Ni dokončano',
   now: 'Zdaj',
@@ -105,6 +106,14 @@ const translation: Translation = {
     if (mod100 === 2) return `Preostaneta ${num} znaka`;
     if (mod100 === 3 || mod100 === 4) return `Preostanejo ${num} znaki`;
     return `Preostane ${num} znakov`;
+  },
+  numOptionsAvailable: num => {
+    if (num === 0) return 'Ni razpoložljivih možnosti';
+    const mod100 = num % 100;
+    if (mod100 === 1) return `Na voljo je ${num} možnost`;
+    if (mod100 === 2) return `Na voljo sta ${num} možnosti`;
+    if (mod100 === 3 || mod100 === 4) return `Na voljo so ${num} možnosti`;
+    return `Na voljo je ${num} možnosti`;
   },
   numOptionsSelected: num => {
     if (num === 0) return 'Nobena možnost ni izbrana';
@@ -127,6 +136,8 @@ const translation: Translation = {
     if (mod100 === 3 || mod100 === 4) return `${num} izbrane vrstice`;
     return `${num} izbranih vrstic`;
   },
+  optionPosition: (label, position, total) => `${label}, ${position} od ${total}`,
+  optionsLoadError: 'Možnosti ni bilo mogoče naložiti',
   pageXOfY: (page, total) => `Stran ${page} od ${total}`,
   pagination: 'Oštevilčevanje strani',
   pause: 'Premor',

@@ -76,6 +76,7 @@ const translation: Translation = {
   nextVideo: 'Næste video',
   nextYear: 'Næste år',
   noData: 'Ingen data',
+  noOptions: 'Ingen muligheder',
   noResults: 'Ingen matchende resultater',
   notCompleted: 'Ikke fuldført',
   now: 'Nu',
@@ -87,6 +88,11 @@ const translation: Translation = {
     if (num === 1) return '1 tegn tilbage';
     return `${num} tegn tilbage`;
   },
+  numOptionsAvailable: num => {
+    if (num === 0) return 'Ingen tilgængelige muligheder';
+    if (num === 1) return '1 mulighed tilgængelig';
+    return `${num} muligheder tilgængelige`;
+  },
   numOptionsSelected: (num: number) => {
     if (num === 0) return 'Ingen valgt';
     if (num === 1) return '1 valgt';
@@ -94,6 +100,8 @@ const translation: Translation = {
   },
   numRowsCopied: num => (num === 1 ? '1 række kopieret' : `${num} rækker kopieret`),
   numRowsSelected: num => (num === 1 ? '1 række valgt' : `${num} rækker valgt`),
+  optionPosition: (label, position, total) => `${label}, ${position} af ${total}`,
+  optionsLoadError: 'Mulighederne kunne ikke indlæses',
   pageXOfY: (page, total) => `Side ${page} af ${total}`,
   pagination: 'Sidenavigation',
   pause: 'Sæt på pause',

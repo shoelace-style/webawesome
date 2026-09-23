@@ -76,6 +76,7 @@ const translation: Translation = {
   nextVideo: 'Neste video',
   nextYear: 'Neste år',
   noData: 'Ingen data',
+  noOptions: 'Ingen alternativer',
   noResults: 'Ingen samsvarende resultater',
   notCompleted: 'Ikke fullført',
   now: 'Nå',
@@ -87,6 +88,11 @@ const translation: Translation = {
     if (num === 1) return '1 tegn gjenstår';
     return `${num} tegn gjenstår`;
   },
+  numOptionsAvailable: num => {
+    if (num === 0) return 'Ingen tilgjengelige alternativer';
+    if (num === 1) return 'Ett alternativ tilgjengelig';
+    return `${num} alternativer tilgjengelige`;
+  },
   numOptionsSelected: num => {
     if (num === 0) return 'Ingen alternativer valgt';
     if (num === 1) return 'Ett alternativ valgt';
@@ -94,6 +100,8 @@ const translation: Translation = {
   },
   numRowsCopied: num => (num === 1 ? '1 rad kopiert' : `${num} rader kopiert`),
   numRowsSelected: num => (num === 1 ? '1 rad valgt' : `${num} rader valgt`),
+  optionPosition: (label, position, total) => `${label}, ${position} av ${total}`,
+  optionsLoadError: 'Alternativene kunne ikke lastes',
   pageXOfY: (page, total) => `Side ${page} av ${total}`,
   pagination: 'Paginering',
   pause: 'Pause',

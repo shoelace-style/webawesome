@@ -84,6 +84,7 @@ const translation: Translation = {
   nextVideo: 'Další video',
   nextYear: 'Další rok',
   noData: 'Žádná data',
+  noOptions: 'Žádné možnosti',
   noResults: 'Žádné odpovídající výsledky',
   notCompleted: 'Nedokončeno',
   now: 'Nyní',
@@ -96,6 +97,12 @@ const translation: Translation = {
     if (num === 1) return '1 zbývající znak';
     if (num >= 2 && num <= 4) return `${num} zbývající znaky`;
     return `${num} zbývajících znaků`;
+  },
+  numOptionsAvailable: num => {
+    if (num === 0) return 'Nejsou k dispozici žádné možnosti';
+    if (num === 1) return 'K dispozici je 1 možnost';
+    if (num >= 2 && num <= 4) return `K dispozici jsou ${num} možnosti`;
+    return `K dispozici je ${num} možností`;
   },
   numOptionsSelected: num => {
     if (num === 0) return 'Nejsou vybrány žádné možnosti';
@@ -112,6 +119,8 @@ const translation: Translation = {
     if (num >= 2 && num <= 4) return `Jsou vybrány ${num} řádky`;
     return `Je vybráno ${num} řádků`;
   },
+  optionPosition: (label, position, total) => `${label}, ${position} z ${total}`,
+  optionsLoadError: 'Možnosti se nepodařilo načíst',
   pageXOfY: (page, total) => `Stránka ${page} z ${total}`,
   pagination: 'Stránkování',
   pause: 'Pozastavit',

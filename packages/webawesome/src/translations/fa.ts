@@ -77,6 +77,7 @@ const translation: Translation = {
   nextVideo: 'ویدیوی بعدی',
   nextYear: 'سال بعد',
   noData: 'داده‌ای وجود ندارد',
+  noOptions: 'هیچ گزینه‌ای وجود ندارد',
   noResults: 'نتیجه منطبقی وجود ندارد',
   notCompleted: 'تکمیل نشده',
   now: 'اکنون',
@@ -88,12 +89,18 @@ const translation: Translation = {
     if (num === 1) return '1 نویسه باقیمانده';
     return `${num} نویسه باقیمانده`;
   },
+  numOptionsAvailable: num => {
+    if (num === 0) return 'هیچ گزینه‌ای در دسترس نیست';
+    return `${num} گزینه در دسترس است`;
+  },
   numOptionsSelected: num => {
     if (num === 0) return 'هیچ گزینه‌ای انتخاب نشده است';
     return `${num} گزینه انتخاب شده است`;
   },
   numRowsCopied: num => (num === 1 ? '1 ردیف کپی شده است' : `${num} ردیف کپی شده است`),
   numRowsSelected: num => (num === 1 ? '1 ردیف انتخاب شده است' : `${num} ردیف انتخاب شده است`),
+  optionPosition: (label, position, total) => `${label}، ${position} از ${total}`,
+  optionsLoadError: 'گزینه‌ها بارگذاری نشدند',
   pageXOfY: (page, total) => `صفحه ${page} از ${total}`,
   pagination: 'صفحه‌بندی',
   pause: 'مکث',

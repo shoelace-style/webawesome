@@ -89,6 +89,7 @@ const translation: Translation = {
   nextVideo: 'Следующее видео',
   nextYear: 'Следующий год',
   noData: 'Нет данных',
+  noOptions: 'Нет вариантов',
   noResults: 'Нет совпадений',
   notCompleted: 'Не завершено',
   now: 'Сейчас',
@@ -105,6 +106,14 @@ const translation: Translation = {
     if (mod10 === 1 && mod100 !== 11) return `Остался ${num} символ`;
     if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `Осталось ${num} символа`;
     return `Осталось ${num} символов`;
+  },
+  numOptionsAvailable: num => {
+    if (num === 0) return 'Нет доступных вариантов';
+    const mod10 = num % 10;
+    const mod100 = num % 100;
+    if (mod10 === 1 && mod100 !== 11) return `Доступен ${num} вариант`;
+    if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `Доступно ${num} варианта`;
+    return `Доступно ${num} вариантов`;
   },
   numOptionsSelected: num => {
     if (num === 0) return 'выбрано 0 вариантов';
@@ -125,6 +134,8 @@ const translation: Translation = {
     if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `Выбрано ${num} строки`;
     return `Выбрано ${num} строк`;
   },
+  optionPosition: (label, position, total) => `${label}, ${position} из ${total}`,
+  optionsLoadError: 'Не удалось загрузить варианты',
   pageXOfY: (page, total) => `Страница ${page} из ${total}`,
   pagination: 'Постраничная навигация',
   pause: 'Пауза',

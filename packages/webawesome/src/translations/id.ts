@@ -76,6 +76,7 @@ const translation: Translation = {
   nextVideo: 'Video berikutnya',
   nextYear: 'Tahun berikutnya',
   noData: 'Tidak ada data',
+  noOptions: 'Tidak ada opsi',
   noResults: 'Tidak ada hasil yang cocok',
   notCompleted: 'Belum selesai',
   now: 'Sekarang',
@@ -87,6 +88,11 @@ const translation: Translation = {
     if (num === 1) return '1 karakter tersisa';
     return `${num} karakter tersisa`;
   },
+  numOptionsAvailable: num => {
+    if (num === 0) return 'Tidak ada opsi yang tersedia';
+    if (num === 1) return '1 opsi tersedia';
+    return `${num} opsi tersedia`;
+  },
   numOptionsSelected: num => {
     if (num === 0) return 'Tidak ada opsi yang dipilih';
     if (num === 1) return '1 opsi yang dipilih';
@@ -94,6 +100,8 @@ const translation: Translation = {
   },
   numRowsCopied: num => `${num} baris disalin`,
   numRowsSelected: num => `${num} baris dipilih`,
+  optionPosition: (label, position, total) => `${label}, ${position} dari ${total}`,
+  optionsLoadError: 'Opsi tidak dapat dimuat',
   pageXOfY: (page, total) => `Halaman ${page} dari ${total}`,
   pagination: 'Penomoran halaman',
   pause: 'Jeda',

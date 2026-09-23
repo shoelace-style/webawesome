@@ -76,6 +76,7 @@ const translation: Translation = {
   nextVideo: 'Nästa video',
   nextYear: 'Nästa år',
   noData: 'Inga data',
+  noOptions: 'Inga alternativ',
   noResults: 'Inga matchande resultat',
   notCompleted: 'Inte slutförd',
   now: 'Nu',
@@ -87,6 +88,11 @@ const translation: Translation = {
     if (num === 1) return '1 tecken kvar';
     return `${num} tecken kvar`;
   },
+  numOptionsAvailable: num => {
+    if (num === 0) return 'Inga alternativ tillgängliga';
+    if (num === 1) return '1 alternativ tillgängligt';
+    return `${num} alternativ tillgängliga`;
+  },
   numOptionsSelected: num => {
     if (num === 0) return 'Inga alternativ har valts';
     if (num === 1) return '1 alternativ valt';
@@ -94,6 +100,8 @@ const translation: Translation = {
   },
   numRowsCopied: num => (num === 1 ? '1 rad kopierad' : `${num} rader kopierade`),
   numRowsSelected: num => (num === 1 ? '1 rad markerad' : `${num} rader markerade`),
+  optionPosition: (label, position, total) => `${label}, ${position} av ${total}`,
+  optionsLoadError: 'Alternativen kunde inte läsas in',
   pageXOfY: (page, total) => `Sida ${page} av ${total}`,
   pagination: 'Paginering',
   pause: 'Pausa',

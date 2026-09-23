@@ -1,13 +1,17 @@
 ---
 name: webawesome-design
 description: >
-  Design and lay out user interfaces with Web Awesome. Use this when building or styling a PAGE,
-  LAYOUT, or SECTION; choosing or customizing a THEME; applying brand COLORS or design tokens; or
-  composing a polished, good-looking UI with Web Awesome components and utilities. Triggers on requests
-  like "build a landing page", "make an app layout", "set up <wa-page>", "add a sidebar", "apply a
-  theme", "match our brand color", "style this to look designed", "build a settings page", or "lay out
-  a dashboard". Teaches layout (when and how to use <wa-page>), theming (--wa-* tokens), and visual
-  composition. Pair with the `webawesome` skill, which documents individual component APIs.
+  Designs and lays out user interfaces with Web Awesome as the foundational design system. Use this skill
+  whenever an agent builds or styles a page, layout, section, screen, or widget with Web Awesome; sets up
+  or customizes a theme, palette, brand color, or --wa-* design token; needs to match a project's existing
+  Web Awesome-based design system or make new UI consistent with the rest of an app; or wants output that
+  looks intentionally designed rather than merely functional. Triggers include "build a landing page",
+  "make an app layout", "set up <wa-page>", "add a sidebar", "apply a theme", "match our brand color",
+  "use our design system", "make this consistent with the rest of the app", "extend our theme", "style
+  this to look designed", "build a settings page", "lay out a dashboard", and any question about wa-*
+  layout utilities or --wa-* tokens. Covers layout (<wa-page> vs. utilities), theming, composition, and
+  extending the system for a project. Pairs with the webawesome skill, which documents individual
+  component APIs.
 license: MIT / Commercial (for Web Awesome Pro)
 metadata:
   author: Web Awesome
@@ -17,346 +21,213 @@ compatibility: Works in modern browsers. Requires no build tools when using the 
 
 # Designing with Web Awesome
 
-This skill teaches you to **design well** with Web Awesome: how to lay out pages, theme them on-brand,
-and compose interfaces that look intentionally designed rather than merely functional. The single most
-important habit is to **lean into Web Awesome's design system first** — its components, layout utilities,
-tokens, and styling API — and reach for custom CSS only when the system genuinely doesn't cover the need
-(see "Use Web Awesome's design system first" below). For the API of any single component (props, slots,
-events), use the companion `webawesome` skill or [llms.txt](https://webawesome.com/docs/ai/).
+Web Awesome is a complete design system: components, layout utilities, design tokens, themes, and a
+documented styling API for every component. Teams build **their** design system on top of it, so on any
+task your job is to (1) find out what the project has already decided, (2) build with the system rather
+than around it, and (3) verify the result before you finish. Using the system is what gives you theming,
+dark mode, accessibility, and consistency for free; every hand-rolled `<div>` or raw `px` value gives one
+of those back.
 
-Read this file first. It routes you to the right reference and states the rules that matter most.
-
----
-
-## STEP 0 — Decide your layout strategy (do this first, every time)
-
-Before writing any markup, answer one question: **am I building a whole page, or a piece of one?**
-
-### → Building a full page, app shell, or site layout?
-
-If you own the entire viewport (header, navigation/sidebar, main content, footer), **use `<wa-page>`.**
-It is the recommended, supported way to scaffold a full page in Web Awesome, and it gives you sticky
-headers, a responsive navigation drawer, and a correct grid with almost no markup.
-
-**Read [references/layouts-page.md](references/layouts-page.md) and follow its rules exactly.**
-
-⚠️ **`<wa-page>` owns the layout — including the navigation.** The `navigation` slot is **special**: you
-put your nav in `slot="navigation"` **once**, and the component renders it as a left sidebar on desktop
-and moves it into a mobile drawer (with a hamburger button it provides) below `mobile-breakpoint`. You do
-**not** wire up a drawer, a toggle, or media queries for any of this — it's automatic.
-
-The #1 mistake is **duplicating** the nav: putting the same links in `header` _and_ `navigation` (or
-copying them around) so they render **twice**. There is no "this copy is mobile, that copy is desktop" —
-`slot="navigation"` is already both. Write it once.
-
-- **App shell / docs / dashboard (you want a desktop left sidebar):** Put nav in `slot="navigation"`, set
-  `--menu-width`, reset it to `auto` on mobile. The default hamburger or a `data-toggle-nav` element opens
-  its drawer. Copy the **canonical example in layouts-page.md.**
-- **Landing page / marketing site:** Simplest is to put nav in `slot="navigation"` anyway (sidebar on
-  desktop, drawer on mobile — both free). If you specifically want nav in the **header bar** on desktop
-  with **no** sidebar, use the **"header on desktop, drawer on mobile" recipe** in layouts-page.md — the
-  one sanctioned, view-scoped way to duplicate nav. Either way, **don't hand-roll your own `<wa-drawer>`
-  or toggle.** Copy the **"Landing page" skeleton** below.
-
-### → Building a section, widget, card, form, panel, or embedding into a page you don't fully control?
-
-**Do NOT use `<wa-page>`.** Reaching for it here causes broken layouts (it expects to own the viewport).
-Instead, compose with layout utilities: `wa-stack`, `wa-cluster`, `wa-grid`, `wa-flank`, `wa-split`,
-`wa-frame`. And because there's no `<wa-page>`, its features are **unavailable** here: no `slot="…"`,
-no `view='mobile'`, no `--menu-width`, no `data-toggle-nav`, and no `.wa-desktop-only` /
-`.wa-mobile-only` (those only work inside `<wa-page>`; use a CSS media query instead).
-
-**Read [references/layouts-inpage.md](references/layouts-inpage.md).**
-
-### The rule
-
-Never mix the two **at the same level**. Don't nest `<wa-page>` inside another `<wa-page>`, and don't
-hand-roll a full-page grid when `<wa-page>` was the right tool.
-
-**Layouts nest, though.** A full page _contains_ sections, and every section is itself a
-piece-of-a-page — same for `<wa-dialog>` bodies, `<wa-drawer>` bodies, card contents, and any embedded
-panel. Inside those inner containers, you're back in the in-page branch (utility classes, no
-`<wa-page>` slot semantics) regardless of what the outer page is. Answer STEP 0 for the outermost
-frame; then answer it again for each self-contained inner container.
-
-**If you're unsure which branch applies, ask the user: "Are you building a full page, or a piece of
-one?"** before generating markup.
+For the API of any single component (attributes, slots, parts, tokens), read the companion `webawesome`
+skill (`references/components/<name>.md`) or [llms.txt](https://webawesome.com/docs/ai/). This file is a
+workflow plus the short list of things that go wrong most often. Detail lives in `references/`, linked
+where you need it.
 
 ---
 
-## Use Web Awesome's design system first (the core mindset)
+## Workflow
 
-Web Awesome is a complete, opinionated design system — components, layout utilities, design tokens, themes,
-and a styling API — designed so you **rarely need to write custom CSS or build your own primitives**. Your
-default is to **understand what the system already provides and reach for it**, not to invent. Custom code
-is the exception you justify, not the starting point.
+### 1. Discover what the project already decided
 
-Before you write a custom class, a raw `flex`/`grid` rule, a hardcoded value, or a hand-built component,
-**work down this ladder and stop at the first rung that does the job:**
+Most "the agent ignored our design system" failures are really "the agent never looked." In an existing
+project, spend a minute finding the decisions that are already made before you write markup or CSS:
 
-1. **A component.** Is there already a `<wa-*>` for this (button, card, dialog, dropdown, input, tabs, …)?
-   Use it instead of assembling the same thing from `<div>`s. Check the companion [`webawesome` skill](https://webawesome.com/docs/ai/) before building UI by hand. **Watch for these commonly re-invented ones:**
-   a "featured/Most Popular" pricing tier is a `<wa-card>` with a `<wa-badge>` in its header slot (not an
-   absolutely-positioned hand-rolled ribbon); a section separator is `<wa-divider>` (not a styled `<hr>`);
-   a pill/label is `<wa-tag>` or `<wa-badge>`; a quote mark, check bullet, or star rating is `<wa-icon>` /
-   `<wa-rating>` (not CSS `::before` glyphs). If your markup is starting to _look like_ a component, stop
-   and use the component.
-2. **A layout utility.** Need to arrange things? Use `wa-stack`, `wa-cluster`, `wa-grid`, `wa-flank`,
-   `wa-split`, `wa-frame` (and `<wa-page>` for full pages) before reaching for hand-written flexbox/grid.
-   (Modifier classes like `wa-frame:landscape` and `wa-flank:end` are real, supported syntax — not typos.)
-3. **A token.** Need a color, space, radius, font size, shadow, or transition? Use the `--wa-*` token or
-   `wa-*` utility from the scale — never a raw `px`/hex/`rem` literal. Don't re-alias an existing token into
-   your own namespace (`--brand-dark: var(--wa-color-orange-30)`); reference the `--wa-*` token directly so
-   re-theming still works. (See [composition.md](references/composition.md) for token-based recipes for
-   fixed-size elements — icon badges, avatars, content widths — so you're never tempted back to raw `rem`.)
-4. **The component's styling API.** Need a component to look different? **First look up that specific
-   component's documented styling API** — its **attributes** (`variant`, `appearance`, `size`, `pill`, …),
-   its **CSS custom properties** (`--wa-*` it exposes), and its **CSS parts** (`::part(...)`) — in the
-   companion [`webawesome` skill](https://webawesome.com/docs/ai/) (or [llms.txt](https://webawesome.com/docs/ai/)).
-   Then style through that API in this order: **attributes → component tokens → `::part()`**. Never guess a
-   token name, a part name, or which token a `variant` resolves to, and never fight the shadow DOM with host
-   CSS. This lookup is **mandatory** — see rule 9 below. (Also composition.md.)
-5. **Only then, extend.** If — and only if — the system genuinely doesn't cover the need, you may write a
-   small amount of custom CSS **built on top of the tokens** (e.g. a one-off layout using `--wa-space-*`).
-   Extending the system a little is fine; **replacing or bypassing it is not.** Keep custom code minimal,
-   token-based, and consistent with how Web Awesome does things — never a parallel design language. When
-   you do, follow the [Custom CSS playbook](references/composition.md#custom-css) so your rules stay
-   themed, dark-mode-safe, and accessible.
+- The classes on `<html>` (`wa-theme-*`, `wa-palette-*`, `wa-brand-*`, `wa-light`/`wa-dark`) and the
+  stylesheet that overrides `--wa-*` tokens. That file **is** the project's theme; add to it, don't
+  compete with it.
+- House recipes: project classes, wrapper components, and repeated `wa-*` compositions (a `.stat-card`,
+  a `<my-button>`, the way every form is laid out). Reuse them before reaching for a raw component.
+- A design brief the team keeps for agents (`DESIGN.md`, a design section in `AGENTS.md`/`CLAUDE.md`).
+- How existing pages handle layout, nav, and spacing. Match them.
 
-If you catch yourself writing a hex color, a `px` value, a raw flexbox container, or re-implementing
-something that smells like an existing component, **stop and look it up first.** Most of the time the
-system already has it, and using it gives you theming, dark mode, accessibility, and consistency for free.
+Precedence: **project conventions > this skill's defaults > your own taste.** On a greenfield project
+with nothing to discover, use the opinionated defaults in [getting-started.md](references/getting-started.md).
+How to search a project quickly, where customizations belong, and how to extend the system without
+forking it: [your-design-system.md](references/your-design-system.md).
+
+### 2. Pick the layout branch
+
+Answer one question before any markup: **am I building a whole page, or a piece of one?**
+
+- **A full page, app shell, or site layout (you own the viewport)** → use `<wa-page>`. It provides the
+  grid, sticky regions, and a responsive nav drawer. Nav goes in `slot="navigation"` **once**; the
+  component renders it as a desktop sidebar and moves it into a mobile drawer with its own hamburger.
+  Don't write a second copy of the nav, a `<wa-drawer>`, a toggle, or media queries for any of that.
+  Read [layouts-page.md](references/layouts-page.md) and copy its canonical example. There is exactly one
+  sanctioned second copy — the header-on-desktop / drawer-on-mobile recipe in that file, where each copy is
+  hidden in the view it doesn't belong to. Use that recipe as written or don't duplicate at all.
+- **A section, widget, card, form, panel, or an embed into a page you don't control** → no `<wa-page>`.
+  Compose with `wa-stack`, `wa-cluster`, `wa-grid`, `wa-flank`, `wa-split`, `wa-frame`. `<wa-page>`
+  features (slots, `view`, `--menu-width`, `data-toggle-nav`, `.wa-mobile-only`) do nothing here; use a
+  media query for responsive visibility. Read [layouts-inpage.md](references/layouts-inpage.md).
+
+Layouts nest: a full page contains sections, and every section, dialog body, drawer body, and card body
+is back in the in-page branch. Answer the question for the outermost frame, then again for each
+self-contained inner container. If you genuinely can't tell which branch applies, ask the user.
+
+### 3. Build with the system, in this order
+
+Before writing a custom class, a raw `flex`/`grid` rule, a literal value, or a hand-built component, walk
+down this ladder and stop at the first rung that does the job:
+
+1. **A project recipe** (from step 1), if one exists.
+2. **A component.** Is there a `<wa-*>` for this? Use it instead of assembling the same thing from
+   `<div>`s. Commonly re-invented: a "Most Popular" pricing ribbon is `<wa-card>` with a `<wa-badge>` in
+   its header slot; a section rule is `<wa-divider>`; a pill is `<wa-tag>` or `<wa-badge>`; a check bullet,
+   quote mark, or star is `<wa-icon>` or `<wa-rating>`. Unsure which component fits? The `webawesome`
+   skill's `choosing-components.md` is a decision tree by intent.
+3. **A layout utility.** `wa-stack`, `wa-cluster`, `wa-grid`, `wa-flank`, `wa-split`, `wa-frame`, plus the
+   companion utilities (`wa-gap-*`, `wa-align-items-*`, `wa-text-*`, `wa-color-text-*`) before any
+   hand-written flexbox or grid. (Modifiers like `wa-frame:landscape` and `wa-flank:end` are real syntax.)
+4. **A token.** Every color, space, radius, font size, shadow, and transition comes from `--wa-*`. No hex,
+   `px`, or stray `rem`. Reference tokens directly; don't re-alias them into your own names.
+5. **The component's styling API.** To make a component look different: its attributes (`variant`,
+   `appearance`, `size`, `pill`) → its own `--wa-*` custom properties → its documented `::part()`. Look
+   the component up first; you cannot guess parts, tokens, or how a `variant` resolves to colors.
+6. **Extend.** Only when the system genuinely doesn't cover the need, write a small amount of custom CSS
+   built on tokens, following the [Custom CSS playbook](references/composition.md#custom-css). Extending
+   the system a little is fine; replacing it or building a parallel design language is not.
+
+If you catch yourself typing a hex color, a `px` value, a bare `display: flex`, or markup that is starting
+to look like an existing component, stop and look it up. The system almost always has it.
+
+### 4. Verify before you finish
+
+Run the checks in [Verify before you finish](#verify-before-you-finish) below. Producing the markup is the
+first draft; models reliably state these rules and then violate them while generating a long file, and an
+explicit pass is what catches it.
+
+---
+
+## What is fixed, and what is yours to decide
+
+- **Fixed (follow exactly):** token names and scales, component choice and their styling API, `<wa-page>`
+  slot semantics, the project's discovered conventions.
+- **Yours (use judgment):** composition and hierarchy, which recipe fits, where on the spacing scale a gap
+  belongs, copy, and how bold to be with color. [principles.md](references/principles.md) explains the
+  design judgment the tokens encode; read it when output is correct but unrefined.
 
 ---
 
 ## The rules that matter most
 
-These are the things that go wrong most often. Treat them as hard constraints.
+Each row names the mistake, the replacement, and why it matters. The "why" is there so you can apply the
+rule to cases the table doesn't list.
 
-1. **Custom elements never self-close.** Always use a closing tag: `<wa-input></wa-input>`, never `<wa-input />`.
-2. **When using `<wa-page>`, reset `html` and `body`** with `html, body { min-height: 100%; padding: 0; margin: 0; }`, or you'll get unexpected gaps. (Web Awesome's Native styles handle this for you; see theming.)
-3. **`<wa-page>` adds no semantic elements.** Slot in your own `<header>`, `<main>`, `<footer>`, `<nav>`, `<aside>`.
-4. **Zero `<main>` padding for full-bleed pages.** `<wa-page>` pads the main area, which insets hero and section backgrounds from the viewport edge. Set `main { padding: 0 }` and let each section own its gutter. Keep the default only for a single contained column. See [references/layouts-page.md](references/layouts-page.md).
-5. **Never hardcode colors, spacing, radii, or font sizes.** Use design tokens (`--wa-color-*`, `--wa-space-*`, `--wa-border-radius-*`, `--wa-font-size-*`) and utility classes (`wa-gap-*`). Raw `px` and hex values break theming and consistency.
-6. **Set a theme and palette on `<html>`.** A page with no theme class looks unstyled. See [references/theming.md](references/theming.md).
-7. **Use the layout utilities instead of ad-hoc flexbox/grid CSS.** `wa-stack` (vertical), `wa-cluster` (inline wrap), `wa-grid` (responsive columns). Pair them with **companion utilities** (`wa-align-items-*`, `wa-justify-content-*`, `wa-text-*`, `wa-size-*`, `wa-color-text-*`, `wa-visually-hidden`) for alignment, text, sizing, color, and accessibility — anywhere you'd otherwise reach for inline `style=""`. See [references/composition.md](references/composition.md).
-8. **Avoid inline `style` attributes; put reusable styles in a `<style>` block.** Style with utility classes and your own semantic classes, defined once and reused, not `style="…"` scattered on elements. Inline styles can't be reused, overridden by theme, or kept consistent, and they bloat the markup. Reserve inline styles for genuinely one-off, per-instance values (e.g. a unique `--c1` on a single element).
-9. **Look up a component's styling API before you style it — every time, for every `<wa-*>`.** This is a
-   hard prerequisite, not a suggestion. Web Awesome components are custom elements with a shadow DOM, so your
-   page CSS, classes, and `color`/`background` declarations **do not reach inside them** and **`variant`
-   colors resolve through tokens you cannot guess**. Before you write **any** custom CSS that targets a
-   `<wa-*>` element — or that sets a `--wa-*` token expecting that element to consume it — **open that exact
-   component's reference** in the companion [`webawesome` skill](https://webawesome.com/docs/ai/)
-   (`references/components/<name>.md`) or [llms.txt](https://webawesome.com/docs/ai/) and read its
-   **CSS Parts**, **CSS Custom Properties**, **Attributes** (`variant`/`appearance`/`size`/…), and any
-   **Styling** notes. Then style **only** through what that doc lists, in this order: **attributes →
-   the component's own tokens → its documented `::part()`**.
+| Instead of…                                                                 | Do this                                                                                                | Why                                                                                                 |
+| --------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------- |
+| `<wa-input />`                                                              | `<wa-input></wa-input>`                                                                                | Custom elements never self-close; the parser swallows everything after the slash.                   |
+| Hex, `px`, or `rem` literals                                                | `--wa-color-*`, `--wa-space-*`, `--wa-border-radius-*`, `--wa-font-size-*`; `wa-gap-*` classes         | Literals ignore the theme, dark mode, and `--wa-*-scale` knobs. Only allowed hex: a brand override. |
+| `display: flex; gap: 16px` by hand                                          | `wa-stack`, `wa-cluster`, `wa-grid`, `wa-flank`, `wa-split` + `wa-gap-*`                               | Utilities carry the spacing scale and sensible defaults; ad-hoc flex drifts from them.              |
+| `style="…"` repeated across elements                                        | A named class in a `<style>` block, reused                                                             | Inline styles can't be reused or re-themed. Inline is for one-off custom-property values only.      |
+| Palette tints (`--wa-color-blue-50`) in custom CSS                          | Semantic tokens (`--wa-color-brand-fill-loud`, `--wa-color-surface-raised`, `--wa-color-text-quiet`)   | Semantic tokens re-resolve for `wa-dark` and re-branding; palette tints are frozen.                 |
+| Text color guessed on a filled background                                   | The matching `*-on-*` token (`fill-loud` ↔ `on-loud`, `fill-quiet` ↔ `on-quiet`)                     | Built-in palettes tune these pairs for WCAG contrast; mixing steps produces dark-on-dark text.      |
+| `background`/`color`/`border` on a `<wa-*>` host, or `::part(base)`         | Attributes → the component's tokens → the part named after the component (`::part(button)`)            | Host CSS lands on an invisible wrapper; `base` is deprecated and goes away in the next major.       |
+| Styling a component from memory                                             | Open `references/components/<name>.md` in the `webawesome` skill first                                 | Parts, custom properties, and `variant`→token mappings differ per component and can't be guessed.   |
+| `variant="brand" appearance="outlined"` on a brand-colored band             | A filled/neutral button, or recolor `::part(button)` to the band's `*-on-*` token                      | Same hue as the band makes the label and border effectively invisible.                              |
+| Emojis as icons, bullets, logos, or placeholder text                        | `<wa-icon name="…">` (Font Awesome Free; Pro families with a kit code)                                 | Emojis render inconsistently and ignore color, size, and weight. See composition.md § Icons.        |
+| A page with no theme classes                                                | `<html class="wa-theme-default wa-palette-default wa-light">` (or the project's own)                   | Unthemed output looks unstyled and defeats every token below it.                                    |
+| The same nav links in `header` **and** `slot="navigation"` on a `<wa-page>` | One `slot="navigation"`, or the header-on-desktop / drawer-on-mobile recipe with each copy view-scoped | `navigation` already renders in both views; an extra copy shows twice on desktop.                   |
+| A fixed `--menu-width` with the desktop sidebar hidden                      | Leave `--menu-width` at `auto`                                                                         | Hiding the sidebar part doesn't collapse the grid track; only `--menu-width` does.                  |
+| `<wa-page>` default `main` padding under full-bleed sections                | `main { padding: 0 }` and let each section own its gutter                                              | The default padding insets hero and band backgrounds from the viewport edge.                        |
+| A styled `<strong>` as a heading; an icon-only control with no name         | Real `<h2>`/`<h3>`; `label` on `<wa-icon>` or `aria-label` on the control; meaningful `alt`            | Screen readers and the document outline depend on real semantics.                                   |
 
-   The **only** thing you may do to a `<wa-*>` element _without_ looking it up is position it in the layout
-   (outer `margin`, and placing it inside a `wa-stack`/`wa-cluster`/`wa-grid`). **Everything visual —
-   `background`, `color`, `border`, `border-radius`, fill, text color, internal padding — requires the
-   lookup first.** The recurring, silent failure this prevents: you assume a `variant` (or a `*-quiet` /
-   `*-loud` token) maps the way you expect, set a background or token accordingly, and the component's text
-   or border resolves to a _different_ token than you assumed — producing dark-on-dark text, an invisible
-   border, or a "styled" box whose visible surface never changed. (Real example: a `<wa-callout variant=
-"brand">` on a theme that inverted `--wa-color-brand-fill-quiet`/`-on-quiet` rendered a dark panel with
-   near-black body text, because the callout's text color came from a token the author never checked. The
-   fix was to read [the callout reference](references/components/callout.md) — which documents that host
-   `background`/`color` are supported and exposes `message`/`icon` parts — and set the colors explicitly.)
-   If you cannot point to the doc line that says a token/part/attribute exists, you have not earned the right
-   to use it yet — go read the doc.
+**The host-vs-part pair, because it is the most visible failure.** A secondary button on a colored CTA band:
 
-   **Buttons especially — the most common and most visible offender.** When styling a `<wa-button>`, ALWAYS check its styling API first. Reach for `variant` / `appearance` / `size` / `pill` attributes; if you must go further, set its **tokens** or target its **`base` part** — never apply `background`, `color`, `border`, `border-radius`, padding, or box-shadow to the `<wa-button>` host (or a class on it). Those declarations style the host wrapper, not the actual button surface inside the shadow DOM, so the visible button keeps its default fill while your "styling" lands on an invisible box around it. The classic failure: a secondary/outline button on a colored CTA band whose label and border are barely visible because the contrast fix was applied to the host instead of `::part(base)`. Fix the look through the part:
+```css
+/* Incorrect: styles the host wrapper, not the button. Label and border stay low-contrast. */
+.cta-band wa-button.secondary {
+  background: transparent;
+  border: var(--wa-border-width-s) solid var(--wa-color-surface-default);
+  color: var(--wa-color-surface-default);
+}
 
-   ```css
-   /* WRONG — styles the host wrapper, not the button; label/border stay low-contrast */
-   .cta-band wa-button.secondary {
-     background: transparent;
-     border: var(--wa-border-width-s) solid var(--wa-color-surface-default);
-     color: var(--wa-color-surface-default);
-   }
-
-   /* RIGHT — reach the actual button surface via its base part */
-   .cta-band wa-button.secondary::part(base) {
-     background-color: transparent;
-     border-color: var(--wa-color-surface-default);
-     color: var(--wa-color-surface-default);
-   }
-   ```
-
-   **Contrast on colored bands (a separate, equally common button bug).** Even with correct `::part(base)` usage, a button can vanish because its colors match the band it sits on. **Never place an `appearance="outlined"` or `appearance="plain"` button whose `variant` matches the band color** — e.g. `<wa-button variant="brand" appearance="outlined">` on a brand-colored hero or CTA. The outline and label are the same hue as the background, so the button is effectively invisible (this is exactly what happened on the brand-colored hero bands of multiple pages). On any colored band, a secondary button must use a **contrasting** treatment: a solid/filled neutral or on-color button, or an outline/text recolored via `::part(base)` to the band's on-color token (`--wa-color-*-on-loud`, or a surface token). After placing any button on a non-default background, verify its label **and** border are clearly visible against that band.
-
-10. **Use `<wa-icon>` for icons; never emojis.** Don't put emojis in the UI unless the user explicitly asks for them — and that includes the places they sneak in: logos, image-`alt`/placeholder text, list bullets, decorative `::before` content, and JS-injected toast/success messages. Reach for the [`<wa-icon>`](https://webawesome.com/docs/components/icon) component instead. The default icon library is Font Awesome Free; if the user has **Font Awesome Pro or Web Awesome Pro**, wire up their kit code and use Pro icon families. If your tool has access to Font Awesome's [official agent skills](https://github.com/FortAwesome/fontawesome-agent-tools) (`icons:suggest-icon`, `icons:add-icon`), prefer those over guessing an icon name — they recommend icons by intent rather than keyword match. See [references/composition.md](references/composition.md) for usage and Pro setup.
-11. **Keep markup valid and accessible.** Use real heading elements for hierarchy (`<h2>`/`<h3>`/`<h4>`) — don't fake a heading with a styled `<strong>`, which breaks the document outline. Give icon-only controls a `label` (or `aria-label`) and images meaningful `alt`. Never put two `style` attributes on one element — the second silently wins; merge them (or, per Rule 8, use a class).
-
----
-
-## Final pass — verify your work before you finish (do this every time)
-
-Producing the markup is the first draft, not the finished design. **You must circle back and verify the
-output against this skill before declaring it done — every time.** Models reliably state these rules and
-then violate them while generating long files; an explicit verification pass is what actually catches it.
-
-**This is the structural pass** — markup, decisions, valid HTML, rule compliance. For visual quality
-(spacing rhythm, hierarchy, contrast, surface choices) walk the
-[Polish checklist](references/composition.md#polish-checklist) in composition.md too.
-
-This verification is **mandatory and has two parts:**
-
-1. **Self re-read.** Re-read the rules above and walk your own output line by line, fixing each item in the
-   checklist below.
-2. **Independent subagent review (required).** After your self-pass, **dispatch one or more verification
-   subagents** to re-check the design independently — do not rely solely on your own review of work you
-   just wrote. Give each subagent the produced markup/CSS and this skill's rules, and ask it to find
-   violations and report or fix them. For a substantial page, split the work: e.g. one subagent audits the
-   `<wa-page>` layout and the navigation-duplication trap, another audits tokens/emojis/accessibility.
-   Apply whatever the subagents surface, then confirm the result is clean. Treat their findings as
-   authoritative over your own first draft.
-
-Walk this checklist (yourself, and via the subagents) and fix each before declaring it done:
-
-- [ ] **Duplicated `<wa-page>` nav (check this first on any full page).** Search your markup for the same
-      nav links appearing in more than one slot. `slot="navigation"` already renders in **both** views
-      (sidebar on desktop, drawer on mobile), so a second copy elsewhere shows **twice**. The _only_ allowed
-      duplication is the deliberate "header on desktop, drawer on mobile" recipe, where each copy is hidden
-      in the opposite view via `wa-page[view='…']`. If you find an accidental copy, delete it and keep the
-      single `slot="navigation"`. Also confirm you did **not** hand-roll a `<wa-drawer>` or toggle — the
-      component provides both. See the landing-page skeleton above.
-- [ ] **Empty `<wa-page>` nav column band.** Only set a fixed `--menu-width` when you actually render a
-      desktop sidebar. If you hid the desktop sidebar via the header/drawer recipe
-      (`wa-page[view='desktop']::part(navigation) { display: none }`), confirm `--menu-width` is left at
-      its `auto` default — a fixed value (e.g. `14rem`) reserves an empty band down the left side,
-      because hiding the sidebar part does **not** collapse the `menu` grid track (only `--menu-width`
-      does). The tell is "I added `display: none` but the gap is still there." Search for a fixed
-      `--menu-width` paired with a hidden desktop sidebar and remove it.
-- [ ] **Raw values** — search for `#` (hex), `px`, and stray `rem`. The only allowed hex is the `:root`
-      brand-token override; everything else is a `--wa-*` token. (Sizing recipes: composition.md.)
-- [ ] **Repeated inline styles** — if the same `style="…"` appears more than once, promote it to a class.
-      Inline is only for genuinely one-off per-instance custom-property values.
-- [ ] **Hand-rolled `display:flex`/`grid`** — if it has `gap`/`align`/`justify`, replace it with
-      `wa-stack`/`wa-cluster`/`wa-grid`/`wa-flank`/`wa-split`.
-- [ ] **Re-invented components** — did you hand-build something that's already a `<wa-*>` (featured card,
-      divider, badge/tag, rating)? Swap in the component.
-- [ ] **Emojis** — none in the UI (incl. logos, `alt`/placeholder text, bullets, `::before`, JS toasts).
-      Use `<wa-icon>`. If the user has Pro, the kit code is wired up.
-- [ ] **Images** — real assets (ask the user if you don't have one), else a token-based placeholder in
-      `wa-frame`. No broken `src`, no emoji stand-in; meaningful `alt`. (See composition.md.)
-- [ ] **Component styling — did you look up the API first? (do this for EVERY styled `<wa-*>`).** For each
-      Web Awesome element you applied custom CSS to (callout, card, badge, input, details, divider, tabs,
-      anything), confirm you actually opened its `references/components/<name>.md` and that every part name,
-      `--wa-*` custom property, and `variant`/`appearance` you used **appears in that doc**. Overrides go
-      through attributes → the component's own tokens → its documented `::part()` — never a guessed-at part,
-      token, or an assumed `variant`→token mapping. If you set a `background`/`color` on a component and
-      relied on its text/border picking up a matching token, **verify which token that text/border actually
-      uses** (read the doc) rather than assuming `*-quiet`/`*-loud` behave a certain way.
-- [ ] **Component text contrast (every `<wa-callout>` and any recolored component).** Anywhere you changed a
-      component's `background` or fill, confirm its **body text and any border are clearly readable** against
-      that new background — not just the bold lead-in. The classic miss is a callout whose panel you darkened
-      while its body text stayed dark (dark-on-dark). If in doubt, set the text color explicitly through the
-      documented part/property (e.g. the callout's `message` part) rather than hoping a token cascades.
-- [ ] **Button styling (check every `<wa-button>`), two checks.** (a) **Host vs part:** no `background`,
-      `color`, `border`, `border-radius`, or box-shadow set on the `<wa-button>` host or a class on it —
-      those go on `::part(base)` (or use `variant`/`appearance`/`pill`). Search for `wa-button` rules
-      that aren't `::part(...)` and move the visual properties to the part. (b) **Contrast on bands:** no
-      `appearance="outlined"`/`"plain"` button whose `variant` matches the band it sits on (e.g. brand
-      outlined on a brand-colored hero) — it goes invisible. Every secondary button on a colored band
-      must have a clearly visible label **and** border (recolor `::part(base)` to the band's on-color
-      token, or use a filled/neutral button).
-- [ ] **Nav toggle placement (header/drawer recipe).** If you hid the desktop sidebar and use a top
-      header bar, confirm there's an explicit `data-toggle-nav` button (mobile-only) **inside** your
-      `<header slot="header">`. If you relied on `<wa-page>`'s built-in hamburger, it renders before your
-      header content and wraps onto its own unstyled row outside the bar — add your own toggle.
-- [ ] **Valid & accessible** — real headings (not styled `<strong>`), labels on icon-only controls, no
-      element with two `style` attributes.
-
-If you can, **render the page and look at it** (sticky regions not overlapping, secondary buttons readable
-on colored bands, no mobile nav bleeding into desktop, nothing clipped) and fix what you see.
-
----
-
-## Recommended starting points
-
-Pick the skeleton that matches your STEP 0 answer. Each produces a complete, on-brand, responsive result
-out of the box. **Free users:** only use free themes (default, shoelace, or awesome). **Pro users:** swap in a Pro theme/palette if the user wants one (see theming).
-
-### Full page — landing / marketing (`<wa-page>`) — use this by default
-
-Nav goes in `slot="navigation"` **once**. `<wa-page>` renders it as a sidebar on desktop and a drawer
-(with a hamburger) on mobile — **no hand-rolled `<wa-drawer>`, no toggle, no media queries** for the nav.
-This is the right skeleton for a hero-driven landing page, marketing site, or most content pages. (Want
-nav in the **header bar** on desktop with no sidebar? See the "header on desktop, drawer on mobile" recipe
-in layouts-page.md.)
-
-```html
-<!doctype html>
-<html lang="en" class="wa-theme-default wa-palette-default wa-light">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- Load Web Awesome here (see the webawesome skill for installation) -->
-    <style>
-      html,
-      body {
-        min-height: 100%;
-        padding: 0;
-        margin: 0;
-      }
-      main {
-        padding: 0; /* let hero/section backgrounds run edge-to-edge */
-      }
-      .section {
-        padding-inline: var(--wa-space-xl);
-      }
-      wa-page {
-        --menu-width: 14rem;
-      }
-      wa-page[view='mobile'] {
-        --menu-width: auto; /* collapse the reserved sidebar space on mobile */
-      }
-    </style>
-  </head>
-  <body>
-    <wa-page>
-      <header slot="header" class="section">
-        <strong>My Brand</strong>
-      </header>
-
-      <!-- Write the nav ONCE. Desktop: sidebar. Mobile: drawer + hamburger, automatically. -->
-      <nav slot="navigation" class="wa-stack wa-gap-2xs">
-        <a href="#features" data-drawer="close">Features</a>
-        <a href="#pricing" data-drawer="close">Pricing</a>
-        <a href="#faq" data-drawer="close">FAQ</a>
-        <wa-button variant="brand">Get started</wa-button>
-      </nav>
-
-      <main>
-        <section class="section wa-stack wa-gap-l">
-          <h1>Big headline</h1>
-          <p>Your hero content goes here.</p>
-          <wa-button variant="brand" size="large">Get started</wa-button>
-        </section>
-        <!-- more full-bleed <section class="section"> blocks … -->
-      </main>
-
-      <footer slot="footer" class="section">
-        <small>&copy; My Brand</small>
-      </footer>
-    </wa-page>
-  </body>
-</html>
+/* Correct: reach the button's actual surface through its documented `button` part. */
+.cta-band wa-button.secondary::part(button) {
+  background-color: transparent;
+  border-color: var(--wa-color-surface-default);
+  color: var(--wa-color-surface-default);
+}
 ```
 
-### Full page — app shell / docs (`<wa-page>` WITH a desktop sidebar)
+The same logic applies to every `<wa-*>`: the only things you may do to a component without opening its
+reference are position it (`margin`, placing it inside a layout utility) and set its width. Everything
+visual goes through the documented API, and the outer part is named after the component — `button`,
+`input`, `details`, `tab-group` — not `base`. Older examples on the web use `::part(base)`; it still
+resolves, but it's deprecated and its reference page marks it so. The recurring silent failure this prevents: assuming a `variant`
+or a `*-quiet` token maps the way you expect, then shipping a callout whose panel you darkened while its
+body text stayed dark. Full treatment, including callouts and borders on colored bands:
+[composition.md § Styling components](references/composition.md#styling-components--css-parts).
 
-When you want a richer left sidebar on desktop with a header, footer, and a subheader (e.g. breadcrumbs).
-This uses `navigation` + `navigation-header`/`navigation-footer`, `--menu-width`, and an optional
-`data-toggle-nav` in the subheader. **See the canonical example in
-[references/layouts-page.md](references/layouts-page.md).**
+---
 
-### A section (utilities only, no `<wa-page>`)
+## Verify before you finish
+
+Do this every time, in two layers. First the mechanical searches (cheap and reliable), then the judgment
+checklist. If your tool can dispatch subagents, hand the produced files and this file to one and ask it to
+find violations independently; treat its findings as authoritative over your first draft.
+
+**Searches.** Run these over your output and fix every hit that isn't a deliberate exception:
+
+| Search for                  | Pattern                                                                  | A hit means                                                                       |
+| --------------------------- | ------------------------------------------------------------------------ | --------------------------------------------------------------------------------- |
+| Hex colors                  | `#[0-9a-fA-F]{3,8}\b`                                                    | Replace with a token. Only a `:root` brand override may keep a hex.               |
+| Pixel or rem literals       | `\d(px\|rem)\b`                                                          | Replace with `--wa-space-*`, `--wa-font-size-*`, `ch` for measure, or `wa-gap-*`. Exceptions: `--menu-width`/`--aside-width` and `mobile-breakpoint`, which take real lengths. |
+| Self-closed custom elements | `<wa-[a-z-]+[^>]*/>`                                                     | Add the closing tag.                                                              |
+| Deprecated `base` part      | `::part\(base\)`                                                         | Rename to the component's own part (`button`, `input`, `details`, …).             |
+| Component host rules        | `^\s*wa-[a-z-]+[^{:]*\{` (not `::part`)                                  | Read what the rule sets. Visual properties (`background`, `color`, `border`, `padding`) move to the component's part, tokens, or attributes. A host rule that sets **only** custom properties — `--menu-width`, `--wa-*` — is correct; leave it. |
+| Hand-rolled flex/grid       | `display:\s*(flex\|grid)`                                                | Replace with a layout utility unless it's a genuine gap.                          |
+| Inline styles               | `style="`                                                                | Promote repeats to a class; keep only one-off custom-property values.             |
+| Emojis                      | `[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}]`                                 | Replace with `<wa-icon>`.                                                         |
+| `<wa-page>` traps           | `slot="main"`, `slot="nav"`, `<wa-page` inside another element's content | There is no `main` or `nav` slot; one `<wa-page>` per page at the top level.      |
+
+**Checklist.** Walk it line by line against your own output:
+
+- [ ] Project conventions from step 1 are followed (theme classes, override file, house recipes, page patterns).
+- [ ] Theme and palette are set on `<html>`.
+- [ ] Nav appears once on any `<wa-page>` (or is view-scoped per the header/drawer recipe); no hand-rolled drawer or toggle; `--menu-width` is `auto` whenever the desktop sidebar is hidden.
+- [ ] Every styled `<wa-*>` was looked up, and every part, custom property, `variant`, and `appearance` you used appears in its reference.
+- [ ] Every recolored component has readable body text **and** border on its new background.
+- [ ] No outlined or plain button shares its hue with the band it sits on.
+- [ ] Nothing hand-built duplicates an existing component (featured card, divider, badge, rating, callout).
+- [ ] Images are real assets or token-based placeholders in `wa-frame` with meaningful `alt`; no broken `src`.
+- [ ] Real headings, labels on icon-only controls, no element with two `style` attributes.
+
+Then walk the [Polish checklist](references/composition.md#polish-checklist) for visual quality (spacing
+rhythm, hierarchy, surfaces) and, for full pages, the [`<wa-page>` checklist](references/layouts-page.md#wa-page-checklist).
+If you can render the page, look at it: sticky regions not overlapping, secondary buttons readable on
+colored bands, no mobile nav bleeding into desktop, nothing clipped.
+
+---
+
+## Starting points
+
+Pick the one that matches your step 2 answer. Each is complete, on-brand, and responsive as written; copy
+it, then re-theme with tokens. Free users: only the free themes (default, awesome, shoelace). Pro users may
+swap in a Pro theme or palette (see theming).
+
+- **Landing or marketing page (`<wa-page>`)** → the "landing page" canonical example in
+  [layouts-page.md](references/layouts-page.md#canonical-example--landing-page). Nav in `slot="navigation"`
+  once. Want header-bar nav on desktop with no sidebar? Use that file's header-on-desktop / drawer-on-mobile
+  recipe instead.
+- **App shell, docs, or dashboard (`<wa-page>` with a desktop sidebar)** → the "app/docs" canonical example in
+  [layouts-page.md](references/layouts-page.md#canonical-example--appdocs-with-a-desktop-sidebar).
+- **Greenfield, no decisions yet** → the opinionated default in [getting-started.md](references/getting-started.md).
+- **Specific screens** (login card, settings, dashboard grid, hero) → [patterns.md](references/patterns.md).
+- **A section, form, or widget (utilities only)**:
 
 ```html
-<section class="wa-stack wa-gap-l" style="max-width: 32rem;">
+<section class="wa-stack wa-gap-l contact-form">
   <h2>Contact us</h2>
   <wa-input label="Name"></wa-input>
   <wa-input label="Email" type="email"></wa-input>
@@ -366,16 +237,25 @@ This uses `navigation` + `navigation-header`/`navigation-footer`, `--menu-width`
     <wa-button appearance="plain">Cancel</wa-button>
   </div>
 </section>
+
+<style>
+  .contact-form {
+    max-width: 60ch;
+  }
+</style>
 ```
 
 ---
 
 ## References
 
-- **[principles.md](references/principles.md):** Design principles behind WA's tokens — hierarchy, spacing rhythm, typography, color discipline, depth, finishing moves, empty states. The _why_ that makes the other references click. Read this when output looks correct but unrefined.
-- **[layouts-page.md](references/layouts-page.md):** Full-page layouts with `<wa-page>`. Read this for the full-page branch.
+Read the one that matches the job; each is self-contained.
+
+- **[your-design-system.md](references/your-design-system.md):** Building a project's design system on Web Awesome. How to discover existing decisions, where customizations live, how to extend without forking, and a `DESIGN.md` template for teams. Read this in any existing project, and whenever asked to "match our design system."
+- **[layouts-page.md](references/layouts-page.md):** Full-page layouts with `<wa-page>`: mental model, the nav rules, canonical examples, checklist, API summary. Read this for the full-page branch.
 - **[layouts-inpage.md](references/layouts-inpage.md):** Sections, widgets, and embeds with layout utilities. Read this for the in-page branch.
-- **[theming.md](references/theming.md):** Themes, palettes, light/dark, semantic colors, and customizing with `--wa-*` tokens.
-- **[composition.md](references/composition.md):** Spacing rhythm, the layout-utility decision guide, typography, surfaces, images/placeholders, and the custom CSS playbook (dark-mode-safe, contrast-aware). Read this to make things look designed.
-- **[patterns.md](references/patterns.md):** Ready-made, best-practice recipes (app shell, login, settings, dashboard grid, hero).
-- **[getting-started.md](references/getting-started.md):** The opinionated default setup, explained.
+- **[theming.md](references/theming.md):** Themes, palettes, light/dark, brand color, and customizing with `--wa-*` tokens.
+- **[composition.md](references/composition.md):** Spacing rhythm, the layout-utility decision guide, companion utilities, typography, icons, images, surfaces, the Custom CSS playbook, styling components through parts, and the Polish checklist. Read this to make things look designed.
+- **[principles.md](references/principles.md):** The design judgment behind the tokens: color discipline, depth, hierarchy, spacing, type, finishing moves, empty states. Read this when output looks correct but unrefined.
+- **[patterns.md](references/patterns.md):** Ready-made recipes: app shell, landing page, login, settings, dashboard grid.
+- **[getting-started.md](references/getting-started.md):** The opinionated default setup for greenfield work.

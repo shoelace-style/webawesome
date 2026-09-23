@@ -1,12 +1,14 @@
 import { html, isServer, type PropertyValues } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { WaAfterHideEvent } from '../../events/after-hide.js';
 import { WaAfterShowEvent } from '../../events/after-show.js';
 import { WaHideEvent } from '../../events/hide.js';
 import { WaShowEvent } from '../../events/show.js';
 import { animateWithClass } from '../../internal/animate.js';
 import { isTopDismissible, registerDismissible, unregisterDismissible } from '../../internal/dismissible-stack.js';
+import { isEventInsideRect } from '../../internal/offset.js';
 import { parseSpaceDelimitedTokens } from '../../internal/parse.js';
 import { RenderedWatcher } from '../../internal/rendered-watcher.js';
 import { lockBodyScrolling, unlockBodyScrolling } from '../../internal/scroll.js';
@@ -71,7 +73,8 @@ export default class WaDialog extends WebAwesomeElement {
 
   /**
    * The dialog's label as displayed in the header. You should always include a relevant label, as it is required for
-   * proper accessibility. If you need to display HTML, use the `label` slot instead.
+   * proper accessibility. If you need to display HTML, use the `label` slot instead. When `without-header` is set,
+   * only the attribute provides the dialog's accessible name.
    */
   @property({ reflect: true }) label = '';
 
@@ -86,6 +89,12 @@ export default class WaDialog extends WebAwesomeElement {
    * includes the footer before the component hydrates on the client.
    */
   @property({ attribute: 'with-footer', type: Boolean }) withFooter = false;
+
+  /**
+   * Only required for SSR. Set to `true` if you're slotting in a `label` element so the server-rendered markup names
+   * the dialog before the component hydrates on the client.
+   */
+  @property({ attribute: 'with-label', type: Boolean }) withLabel = false;
 
   firstUpdated(changedProperties: PropertyValues<typeof this>) {
     super.firstUpdated(changedProperties);
@@ -163,8 +172,9 @@ export default class WaDialog extends WebAwesomeElement {
   }
 
   private async handleDialogPointerDown(event: PointerEvent) {
-    // Detect when the backdrop is clicked
-    if (event.target === this.dialog) {
+    // The backdrop and the dialog's own scrollbar both report the <dialog> as the target, so only a point outside
+    // its box counts as a backdrop click
+    if (event.target === this.dialog && !isEventInsideRect(event, this.dialog)) {
       if (this.lightDismiss) {
         this.requestClose(this.dialog);
       } else {
@@ -254,10 +264,13 @@ export default class WaDialog extends WebAwesomeElement {
   render() {
     const hasHeader = !this.withoutHeader;
     const hasFooter = this.hasSlotController.test('footer', 'withFooter');
+    const hasLabel = this.label.length > 0 || this.hasSlotController.test('label', 'withLabel');
 
     return html`
       <dialog
         part="dialog"
+        aria-labelledby=${ifDefined(hasHeader && hasLabel ? 'title' : undefined)}
+        aria-label=${ifDefined(!hasHeader && this.label ? this.label : undefined)}
         class=${classMap({
           dialog: true,
           open: this.open,

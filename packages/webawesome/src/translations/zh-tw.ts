@@ -76,11 +76,16 @@ const translation: Translation = {
   nextVideo: '下一個影片',
   nextYear: '下一年',
   noData: '無資料',
+  noOptions: '暫無選項',
   noResults: '無相符的結果',
   notCompleted: '未完成',
   now: '現在',
   numCharacters: num => `${num}個字元`,
   numCharactersRemaining: num => `剩餘${num}個字元`,
+  numOptionsAvailable: num => {
+    if (num === 0) return '沒有可用選項';
+    return `${num} 個可用選項`;
+  },
   numOptionsSelected: num => {
     if (num === 0) return '未選擇任何項目';
     if (num === 1) return '已選擇 1 個項目';
@@ -88,6 +93,8 @@ const translation: Translation = {
   },
   numRowsCopied: num => `已複製 ${num} 列`,
   numRowsSelected: num => `已選擇 ${num} 列`,
+  optionPosition: (label, position, total) => `${label}，${position} / ${total}`,
+  optionsLoadError: '無法載入選項',
   pageXOfY: (page, total) => `第 ${page} 頁，共 ${total} 頁`,
   pagination: '分頁',
   pause: '暫停',

@@ -34,12 +34,19 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 :::added
 
 - Added the experimental `<wa-stepper>` and `<wa-step>` components for guiding users through a multi-step process, such as a checkout flow or setup wizard [pr:2794]
+- Added the `with-label` attribute to `<wa-dialog>` and `<wa-drawer>` for server-side rendering [pr:2846]
 - Added support for labels in `<wa-divider>` [discuss:2802]
   - Added the default slot and the `label` part
   - Added the `label-placement` attribute
   - Added the `--label-spacing` and `--label-offset` custom properties
   - Added the `with-label` attribute for server-side rendering
 - Added the `allow`, `name`, and `label` attributes to `<wa-zoomable-frame>`
+- Added async options to `<wa-combobox>` for loading options from a server [discuss:1881]
+  - Added the `dataSource` property, which can return options as data or as custom `<wa-option>` HTML
+  - Added the `server`, `loading`, and `filter-debounce` attributes
+  - Added the `reload()` method
+  - Added the `wa-options-request` and `wa-options-error` events
+  - Added the `loading`, `no-results`, `empty`, and `error` status slots
 
 :::
 
@@ -48,8 +55,29 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug in `<wa-zoomable-frame>` where the internal iframe rendered `referrerpolicy="undefined"` when no referrer policy was set
 - Fixed a memory leak in `<wa-option>` where removed `<wa-select>` elements and their options were never garbage collected unless `<wa-combobox>` was also registered [issue:2813]
 - Fixed a bug in `<wa-animated-image>` that caused the image to stay hidden while playing [issue:2811]
+- Fixed a bug in `<wa-combobox>` where screen reader announcements weren't reliably spoken because they came from a live region inside the shadow root
+- Fixed a bug in `<wa-combobox>` where the input had an `aria-activedescendant` that pointed to an option assistive devices couldn't resolve
+- Fixed a bug in `<wa-combobox>` where the option position and option count announcements weren't localized
 - Fixed a bug in `<wa-page>` where the navigation toggle's icon loaded from the default icon library instead of the system library [issue:2820]
 - Fixed a bug in `<wa-page>` where `disable-navigation-toggle` was ignored when navigation content was present [issue:2774]
+- Fixed a bug in `<wa-popover>` that prevented text inside the popover from being selected
+- Fixed a bug in `<wa-date-input>` and `<wa-time-input>` where the clear and expand buttons used a different hover color than `<wa-input>` and `<wa-select>` [issue:2834]
+- Fixed a bug in the layout utilities (`wa-stack`, `wa-cluster`, etc.) that stopped native `<dialog>` and popover children from centering [issue:2777] [pr:2847]
+- Fixed a bug in `<wa-dialog>` and `<wa-drawer>` where the internal `<dialog>` element had no accessible name [issue:2785] [pr:2846]
+- Fixed a bug in `<wa-dialog>` and `<wa-drawer>` where clicking its own scrollbar closed it when `light-dismiss` was enabled [issue:2778] [pr:2851]
+- Fixed a bug in `<wa-page>` where backgrounds set on the `banner`, `header`, and `subheader` parts were covered by slotted content [issue:2827] [pr:2848]
+
+:::
+
+:::changed
+
+- Updated `<wa-combobox>` to show a "no results" message instead of closing the listbox when nothing matches the query, except with `allow-custom-value`, where it still closes
+- Improved the agent skills for design system work
+  - The `webawesome-design` skill now leads with a discover-the-project step, pairs every rule with its replacement and reason, and ends with a mechanical verification pass
+  - Added a `your-design-system.md` reference for building and extending a project design system on Web Awesome, including a `DESIGN.md` template
+  - Updated the `webawesome` skill's `<wa-page>` guidance to match the design skill and the component's actual behavior
+  - Added missing components to the `choosing-components.md` decision tree and corrected the Pro component list
+- Changed `<wa-page>` so only the `banner`, `header`, and `subheader` parts paint a background. See [Backgrounds](/docs/components/page#backgrounds) to keep other sections opaque [issue:2827] [pr:2848]
 
 :::
 

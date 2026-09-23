@@ -76,6 +76,7 @@ const translation: Translation = {
   nextVideo: 'Seuraava video',
   nextYear: 'Seuraava vuosi',
   noData: 'Ei tietoja',
+  noOptions: 'Ei vaihtoehtoja',
   noResults: 'Ei vastaavia tuloksia',
   notCompleted: 'Ei valmis',
   now: 'Nyt',
@@ -87,6 +88,11 @@ const translation: Translation = {
     if (num === 1) return '1 merkki jäljellä';
     return `${num} merkkiä jäljellä`;
   },
+  numOptionsAvailable: num => {
+    if (num === 0) return 'Ei vaihtoehtoja saatavilla';
+    if (num === 1) return 'Yksi vaihtoehto saatavilla';
+    return `${num} vaihtoehtoa saatavilla`;
+  },
   numOptionsSelected: num => {
     if (num === 0) return 'Ei valittuja vaihtoehtoja';
     if (num === 1) return 'Yksi vaihtoehto valittu';
@@ -94,6 +100,8 @@ const translation: Translation = {
   },
   numRowsCopied: num => (num === 1 ? '1 rivi kopioitu' : `${num} riviä kopioitu`),
   numRowsSelected: num => (num === 1 ? '1 rivi valittu' : `${num} riviä valittu`),
+  optionPosition: (label, position, total) => `${label}, ${position} / ${total}`,
+  optionsLoadError: 'Vaihtoehtoja ei voitu ladata',
   pageXOfY: (page, total) => `Sivu ${page} / ${total}`,
   pagination: 'Sivutus',
   pause: 'Keskeytä',

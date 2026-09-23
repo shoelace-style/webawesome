@@ -76,17 +76,24 @@ const translation: Translation = {
   nextVideo: '次の動画',
   nextYear: '翌年',
   noData: 'データがありません',
+  noOptions: '項目がありません',
   noResults: '一致する結果がありません',
   notCompleted: '未完了',
   now: '現在',
   numCharacters: num => `${num}文字`,
   numCharactersRemaining: num => `残り${num}文字`,
+  numOptionsAvailable: num => {
+    if (num === 0) return '利用できる項目がありません';
+    return `${num} 個の項目が利用できます`;
+  },
   numOptionsSelected: num => {
     if (num === 0) return '項目が選択されていません';
     return `${num} 個の項目が選択されました`;
   },
   numRowsCopied: num => `${num} 行をコピーしました`,
   numRowsSelected: num => `${num} 行を選択中`,
+  optionPosition: (label, position, total) => `${label}、${total} 中 ${position}`,
+  optionsLoadError: '項目を読み込めませんでした',
   pageXOfY: (page, total) => `${total} ページ中 ${page} ページ`,
   pagination: 'ページ送り',
   pause: '一時停止',

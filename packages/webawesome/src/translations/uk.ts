@@ -89,6 +89,7 @@ const translation: Translation = {
   nextVideo: 'Наступне відео',
   nextYear: 'Наступний рік',
   noData: 'Немає даних',
+  noOptions: 'Немає варіантів',
   noResults: 'Немає відповідних результатів',
   notCompleted: 'Не завершено',
   now: 'Зараз',
@@ -105,6 +106,14 @@ const translation: Translation = {
     if (mod10 === 1 && mod100 !== 11) return `Залишився ${num} символ`;
     if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `Залишилося ${num} символи`;
     return `Залишилося ${num} символів`;
+  },
+  numOptionsAvailable: num => {
+    if (num === 0) return 'Немає доступних варіантів';
+    const mod10 = num % 10;
+    const mod100 = num % 100;
+    if (mod10 === 1 && mod100 !== 11) return `Доступний ${num} варіант`;
+    if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `Доступно ${num} варіанти`;
+    return `Доступно ${num} варіантів`;
   },
   numOptionsSelected: num => {
     const n = num % 10;
@@ -127,6 +136,8 @@ const translation: Translation = {
     if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `Вибрано ${num} рядки`;
     return `Вибрано ${num} рядків`;
   },
+  optionPosition: (label, position, total) => `${label}, ${position} з ${total}`,
+  optionsLoadError: 'Не вдалося завантажити варіанти',
   pageXOfY: (page, total) => `Сторінка ${page} з ${total}`,
   pagination: 'Нумерація сторінок',
   pause: 'Пауза',

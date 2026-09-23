@@ -87,6 +87,7 @@ const translation: Translation = {
   nextVideo: 'Następny film',
   nextYear: 'Następny rok',
   noData: 'Brak danych',
+  noOptions: 'Brak opcji',
   noResults: 'Brak pasujących wyników',
   notCompleted: 'Nieukończono',
   now: 'Teraz',
@@ -103,6 +104,14 @@ const translation: Translation = {
     const mod100 = num % 100;
     if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `Pozostały ${num} znaki`;
     return `Pozostało ${num} znaków`;
+  },
+  numOptionsAvailable: num => {
+    if (num === 0) return 'Brak dostępnych opcji';
+    if (num === 1) return 'Dostępna 1 opcja';
+    const mod10 = num % 10;
+    const mod100 = num % 100;
+    if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `Dostępne ${num} opcje`;
+    return `Dostępnych ${num} opcji`;
   },
   numOptionsSelected: num => {
     if (num === 0) return 'Nie wybrano opcji';
@@ -123,6 +132,8 @@ const translation: Translation = {
     if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `Wybrano ${num} wiersze`;
     return `Wybrano ${num} wierszy`;
   },
+  optionPosition: (label, position, total) => `${label}, ${position} z ${total}`,
+  optionsLoadError: 'Nie udało się wczytać opcji',
   pageXOfY: (page, total) => `Strona ${page} z ${total}`,
   pagination: 'Paginacja',
   pause: 'Wstrzymaj',
