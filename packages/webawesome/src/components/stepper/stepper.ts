@@ -21,11 +21,11 @@ import styles from './stepper.styles.js';
  *
  * @dependency wa-step
  *
- * @event {{ name: string, previousName: string | null, step: WaStep, previousStep: WaStep | null }}
- *  wa-before-step-change - Emitted before the active step
+ * @event {{ name: string, previousName: string | null, step: WaStep, previousStep: WaStep | null }} wa-before-step-change
+ *  - Emitted before the active step
  *  changes. Calling `event.preventDefault()` prevents the change, to guard against invalid or unsaved data.
- * @event {{ name: string, previousName: string | null, step: WaStep, previousStep: WaStep | null }}
- *  wa-step-change - Emitted after the active step changes.
+ * @event {{ name: string, previousName: string | null, step: WaStep, previousStep: WaStep | null }} wa-step-change
+ *  - Emitted after the active step changes.
  *
  * @slot - One or more `<wa-step>` elements.
  *
