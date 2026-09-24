@@ -14,11 +14,11 @@ function toRgb(color: string) {
 describe('<wa-step>', () => {
   for (const fixture of fixtures) {
     describe(`with "${fixture.type}" rendering`, () => {
-      it('should render as a listitem with the default number marker', async () => {
+      it('should render as a listitem with an empty marker until a stepper numbers it', async () => {
         const el = await fixture<WaStep>(html`<wa-step name="cart">Cart</wa-step>`);
 
         expect(el.getAttribute('role')).to.equal('listitem');
-        expect(el.shadowRoot!.querySelector('[part~="marker"]')!.textContent!.trim()).to.equal('1');
+        expect(el.shadowRoot!.querySelector('[part~="marker"]')!.textContent!.trim()).to.equal('');
       });
 
       it('should be accessible', async () => {

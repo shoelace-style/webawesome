@@ -89,9 +89,9 @@ export default class WaStep extends WebAwesomeElement {
 
   /**
    * @internal Set by the parent `<wa-stepper>` to this step's 1-based position among its siblings. Used as the
-   * default marker content.
+   * default marker content. Stays 0 until the stepper sets it, e.g. during SSR, which leaves the marker empty.
    */
-  @state() position = 1;
+  @state() position = 0;
 
   /**
    * Draws the step as the stepper's current step. The parent `<wa-stepper>` sets this from its own `active`
@@ -179,7 +179,7 @@ export default class WaStep extends WebAwesomeElement {
       return html`<wa-icon name="check" library="system" variant="solid"></wa-icon>`;
     }
 
-    return this.localize.number(this.position);
+    return this.position > 0 ? this.localize.number(this.position) : '';
   }
 
   render() {

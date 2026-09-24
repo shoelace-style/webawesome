@@ -52,7 +52,7 @@ import styles from './stepper.styles.js';
  *  an `auto` stepper is too narrow to give each step room.
  *
  * @ssr - During SSR, `<wa-stepper>` can't access its children to determine which step is active. To render the correct
- *  step, also set the `active` attribute on the matching `<wa-step>`.
+ *  step, also set the `active` attribute on the matching `<wa-step>`. Step numbers appear once the stepper hydrates.
  */
 @customElement('wa-stepper')
 export default class WaStepper extends WebAwesomeElement {
