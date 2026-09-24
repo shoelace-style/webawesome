@@ -33,15 +33,16 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::added
 
-- Added the experimental `<wa-stepper>` and `<wa-step>` components for guiding users through a multi-step process, such as a checkout flow or setup wizard [pr:2794]
+- Added the experimental `<wa-stepper>` and `<wa-step>` components [pr:2794]
+- Added a `nonce` attribute to `<wa-page>` and falls back to using `window.litNonce` if `nonce` is not set directly for first render. [pr:2779]
 - Added the `with-label` attribute to `<wa-dialog>` and `<wa-drawer>` for server-side rendering [pr:2846]
-- Added support for labels in `<wa-divider>` [discuss:2802]
+- Added support for labels in `<wa-divider>` [discuss:2802] [pr:2830]
   - Added the default slot and the `label` part
   - Added the `label-placement` attribute
   - Added the `--label-spacing` and `--label-offset` custom properties
   - Added the `with-label` attribute for server-side rendering
-- Added the `allow`, `name`, and `label` attributes to `<wa-zoomable-frame>`
-- Added async options to `<wa-combobox>` for loading options from a server [discuss:1881]
+- Added the `allow`, `name`, and `label` attributes to `<wa-zoomable-frame>` [pr:2832]
+- Added async options to `<wa-combobox>` for loading options from a server [discuss:1881] [pr:2837]
   - Added the `dataSource` property, which can return options as data or as custom `<wa-option>` HTML
   - Added the `server`, `loading`, and `filter-debounce` attributes
   - Added the `reload()` method
@@ -52,32 +53,34 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::fixed
 
-- Fixed a bug in `<wa-zoomable-frame>` where the internal iframe rendered `referrerpolicy="undefined"` when no referrer policy was set
-- Fixed a memory leak in `<wa-option>` where removed `<wa-select>` elements and their options were never garbage collected unless `<wa-combobox>` was also registered [issue:2813]
-- Fixed a bug in `<wa-animated-image>` that caused the image to stay hidden while playing [issue:2811]
-- Fixed a bug in `<wa-combobox>` where screen reader announcements weren't reliably spoken because they came from a live region inside the shadow root
-- Fixed a bug in `<wa-combobox>` where the input had an `aria-activedescendant` that pointed to an option assistive devices couldn't resolve
-- Fixed a bug in `<wa-combobox>` where the option position and option count announcements weren't localized
-- Fixed a bug in `<wa-page>` where the navigation toggle's icon loaded from the default icon library instead of the system library [issue:2820]
-- Fixed a bug in `<wa-page>` where `disable-navigation-toggle` was ignored when navigation content was present [issue:2774]
-- Fixed a bug in `<wa-popover>` that prevented text inside the popover from being selected
-- Fixed a bug in `<wa-date-input>` and `<wa-time-input>` where the clear and expand buttons used a different hover color than `<wa-input>` and `<wa-select>` [issue:2834]
-- Fixed a bug in the layout utilities (`wa-stack`, `wa-cluster`, etc.) that stopped native `<dialog>` and popover children from centering [issue:2777] [pr:2847]
+- Fixed a bug in `<wa-animated-image>` that caused the image to stay hidden while playing [issue:2811] [pr:2828]
+- Fixed several screen reader bugs in `<wa-combobox>` [pr:2837]
+  - Fixed announcements that weren't reliably spoken because they came from a live region inside the shadow root
+  - Fixed an `aria-activedescendant` on the input that pointed to an option assistive devices couldn't resolve
+  - Fixed the option position and option count announcements not being localized
+- Fixed a bug in `<wa-date-input>` and `<wa-time-input>` where the clear and expand buttons used a different hover color than `<wa-input>` and `<wa-select>` [issue:2834] [pr:2845]
 - Fixed a bug in `<wa-dialog>` and `<wa-drawer>` where the internal `<dialog>` element had no accessible name [issue:2785] [pr:2846]
 - Fixed a bug in `<wa-dialog>` and `<wa-drawer>` where clicking its own scrollbar closed it when `light-dismiss` was enabled [issue:2778] [pr:2851]
-- Fixed a bug in `<wa-page>` where backgrounds set on the `banner`, `header`, and `subheader` parts were covered by slotted content [issue:2827] [pr:2848]
+- Fixed a memory leak in `<wa-option>` where removed `<wa-select>` elements and their options were never garbage collected unless `<wa-combobox>` was also registered [issue:2813] [pr:2814]
+- Fixed a bug in `<wa-page>` where the navigation toggle's icon loaded from the default icon library instead of the system library [issue:2820] [pr:2840]
+- Fixed a bug in `<wa-page>` where `disable-navigation-toggle` was ignored when navigation content was present [issue:2774] [pr:2840]
+- Fixed a bug in `<wa-popover>` that prevented text inside the popover from being selected [pr:2849]
+- Fixed a bug in `<wa-zoomable-frame>` where the internal iframe rendered `referrerpolicy="undefined"` when no referrer policy was set [pr:2832]
+- Fixed a bug in the layout utilities (`wa-stack`, `wa-cluster`, etc.) that stopped native `<dialog>` and popover children from centering [issue:2777] [pr:2847]
+- Fixed a bug in the `.wa-visually-hidden-label` and `.wa-visually-hidden-hint` utilities where they didn't set `top` and `left`, so labels and hints hidden on form controls could still extend the page's scrollable area [pr:2836]
+- Fixed implicit form submission so pressing [[Enter]] submits a form holding one text field alongside non-submittable controls such as checkboxes or hidden inputs, bringing `<wa-input>`, `<wa-number-input>`, `<wa-otp-input>`, `<wa-slider>`, and `<wa-tag-input>` closer to the browser [pr:2850]
 
 :::
 
 :::changed
 
-- Updated `<wa-combobox>` to show a "no results" message instead of closing the listbox when nothing matches the query, except with `allow-custom-value`, where it still closes
-- Improved the agent skills for design system work
+- Updated `<wa-combobox>` to show a "no results" message instead of closing the listbox when nothing matches the query, except with `allow-custom-value`, where it still closes [pr:2837]
+- Updated `<wa-page>` so only the `banner`, `header`, and `subheader` parts paint a background, which keeps slotted content from covering a background set on them. See [Backgrounds](/docs/components/page#backgrounds) to keep other sections opaque [issue:2827] [pr:2848]
+- Improved the agent skills for design system work [pr:2838]
   - The `webawesome-design` skill now leads with a discover-the-project step, pairs every rule with its replacement and reason, and ends with a mechanical verification pass
   - Added a `your-design-system.md` reference for building and extending a project design system on Web Awesome, including a `DESIGN.md` template
   - Updated the `webawesome` skill's `<wa-page>` guidance to match the design skill and the component's actual behavior
   - Added missing components to the `choosing-components.md` decision tree and corrected the Pro component list
-- Changed `<wa-page>` so only the `banner`, `header`, and `subheader` parts paint a background. See [Backgrounds](/docs/components/page#backgrounds) to keep other sections opaque [issue:2827] [pr:2848]
 
 :::
 
@@ -594,7 +597,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::removed
 
-- Removed a `preinstall` script in `webawesome-pro` that was causing issues in some package managers.
+- Removed a `preinstall` script in `webawesome-pro` that was causing issues in some package managers
 
 :::
 
@@ -729,7 +732,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::fixed
 
-- [PRO]: Fixed a few sizing bugs in `<wa-page>` and `slot="footer"` no longer will always "overflow" the container.
+- [PRO]: Fixed a few sizing bugs in `<wa-page>` and `slot="footer"` no longer will always "overflow" the container
 - Fixed a bug in `<wa-slider>` that caused some touch devices to end up with the incorrect value [issue:1703]
 - Fixed a bug in `<wa-card>` that prevented some slots from being detected correctly [discuss:1450]
 - Fixed a z-index bug in `<wa-scroller>` styles [issue:1724]
