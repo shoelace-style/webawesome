@@ -2,8 +2,6 @@ import { css } from 'lit';
 
 export default css`
   @layer wa-component {
-    /* Emphasis follows relevance, using the same tiers as button, badge, and callout: the current step is accent,
-       completed steps are filled, and steps still to come are outlined. */
     :host {
       --_accent: var(--wa-color-brand-fill-loud);
       --_accent-on: var(--wa-color-brand-on-loud);
@@ -19,8 +17,7 @@ export default css`
       flex: 2 1 0%;
     }
 
-    /* Horizontal steps span the full width. The first and last markers sit flush with the edges, so those steps take
-       half the share of the middle ones, which keeps every marker evenly spaced. */
+    /* Horizontal steps span the full width. */
     :host(:not([data-wa-step-vertical]):first-child),
     :host(:not([data-wa-step-vertical]):last-child) {
       flex-grow: 1;
@@ -131,9 +128,7 @@ export default css`
       min-height: var(--marker-size, 2em);
     }
 
-    /* Connector. Each step draws two halves that meet in the middle of the gap between hosts, so neither half needs
-       to know its neighbor's width. The half leading out of a completed step takes that step's fill; the half leading
-       in takes the previous step's, which the stepper hands down and the step applies as an inline custom property. */
+    /* Connector. Each step draws two halves that meet in the middle of the gap. */
     .connector-start,
     .connector-end {
       position: absolute;
@@ -172,8 +167,7 @@ export default css`
       inset-inline-end: calc(var(--marker-size, 2em) + var(--connector-gap, 0.35em));
     }
 
-    /* Vertical steps only draw the end half, stretched to reach the next step's marker: it starts just below this
-       marker and runs through the whole step (label, description) and across the gap to the next host. */
+    /* Vertical steps only draw the end half, stretched to reach the next step's marker. */
     :host([data-wa-step-vertical]) .connector-end {
       inset-inline-start: calc(var(--marker-size, 2em) / 2);
       inset-block-start: calc(var(--marker-size, 2em) + var(--connector-gap, 0.35em));
@@ -186,8 +180,7 @@ export default css`
       background-color: var(--connector-color-active, var(--_filled));
     }
 
-    /* The leading half takes the previous step's fill, only when that step is completed. The stepper hands down that
-       step's variant as a .wa-{variant} class, so variantStyles resolves --wa-color-fill-normal for it. */
+    /* The leading half takes the completed previous step's fill via the .wa-{variant} class the stepper hands down. */
     .connector-start[data-completed] {
       background-color: var(--connector-color-active, var(--wa-color-fill-normal));
     }
