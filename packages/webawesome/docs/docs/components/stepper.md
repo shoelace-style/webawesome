@@ -70,7 +70,21 @@ Set the `orientation` attribute to `vertical` to stack the steps, useful in a si
 </wa-stepper>
 ```
 
-Set it to `auto` to lay steps out in a row and stack them when the stepper is narrower than about 6em per step, so labels stay readable on small screens. Use it for any stepper that will be shown on a phone. Resize the example to see the switch. While stacked, the stepper has the `stacked` custom state, so `wa-stepper:state(stacked)` targets it.
+Each connector runs from its step's marker, across the gap, to the next marker. To lengthen the connectors, increase the `--gap` custom property.
+
+```html {.example}
+<wa-stepper orientation="vertical" active="proof" style="--gap: var(--wa-space-3xl);">
+  <wa-step name="mix" completed>Mix</wa-step>
+  <wa-step name="knead" completed>Knead</wa-step>
+  <wa-step name="proof">
+    Proof
+    <span slot="description">Let it rise. Resist poking it.</span>
+  </wa-step>
+  <wa-step name="bake">Bake</wa-step>
+</wa-stepper>
+```
+
+Set `orientation` to `auto` to lay steps out in a row and stack them when the stepper is narrower than about 6em per step, so labels stay readable on small screens. Use it for any stepper that will be shown on a phone. Resize the example to see the switch. While stacked, the stepper has the `stacked` custom state, so `wa-stepper:state(stacked)` targets it.
 
 The default, `horizontal`, keeps a row at any width. Labels wrap between words, and a row that still can't fit overflows its container rather than squeezing the steps. It's the default because `auto` measures the stepper in the browser, so a server-rendered `auto` stepper renders as a row first and stacks once it hydrates.
 
