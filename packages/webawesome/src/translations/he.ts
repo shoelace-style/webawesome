@@ -164,7 +164,7 @@ const translation: Translation = {
   sortColumn: 'מיין עמודה',
   sortDescending: 'מיין בסדר יורד',
   startDate: 'תאריך התחלה',
-  stepper: 'שלבים',
+  steps: 'שלבים',
   stepXOfY: (step, total) => `שלב ${step} מתוך ${total}`,
   tagAdded: tag => `${tag} נוסף`,
   tagAlreadyAdded: tag => `התגית ${tag} כבר קיימת`,

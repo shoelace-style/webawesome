@@ -282,7 +282,7 @@ Add the `data-stepper` attribute to any button on the page, with `next <id>`, `p
 
 ### Reacting to Changes
 
-The `wa-step-change` event fires once the active step has changed, with `{ step, previousStep }` in `event.detail`. The stepper never sets `completed` itself. Mark a step done from your own code, e.g. once the user has advanced past it.
+The `wa-step-change` event fires once the active step has changed, with `name` and `previousName` in `event.detail`, plus the `step` and `previousStep` elements themselves. The stepper never sets `completed` itself. Mark a step done from your own code, e.g. once the user has advanced past it.
 
 ```html {.example}
 <div class="stepper-events-demo">
@@ -306,7 +306,7 @@ The `wa-step-change` event fires once the active step has changed, with `{ step,
   const stepperEventsOutput = document.getElementById('stepper-events-output');
 
   stepperEvents.addEventListener('wa-step-change', event => {
-    const { step, previousStep } = event.detail;
+    const { name, step, previousStep } = event.detail;
     const steps = [...stepperEvents.querySelectorAll('wa-step')];
 
     if (previousStep) {
@@ -319,7 +319,7 @@ The `wa-step-change` event fires once the active step has changed, with `{ step,
       }
     }
 
-    stepperEventsOutput.textContent = step.name;
+    stepperEventsOutput.textContent = name;
   });
 </script>
 ```
@@ -354,7 +354,7 @@ The stepper only shows progress; it doesn't hold the content for each step. Keep
 
   stepperContent.addEventListener('wa-step-change', event => {
     stepperContentPanels.forEach(panel => {
-      panel.hidden = panel.dataset.step !== event.detail.step.name;
+      panel.hidden = panel.dataset.step !== event.detail.name;
     });
   });
 </script>

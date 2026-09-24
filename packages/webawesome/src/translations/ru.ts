@@ -199,7 +199,7 @@ const translation: Translation = {
   sortColumn: 'Сортировать столбец',
   sortDescending: 'Сортировать по убыванию',
   startDate: 'Дата начала',
-  stepper: 'Шаги',
+  steps: 'Шаги',
   stepXOfY: (step, total) => `Шаг ${step} из ${total}`,
   tagAdded: tag => `${tag} добавлен`,
   tagAlreadyAdded: tag => `Тег ${tag} уже добавлен`,

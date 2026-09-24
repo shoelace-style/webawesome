@@ -158,7 +158,7 @@ const translation: Translation = {
   sortColumn: 'Oszlop rendezése',
   sortDescending: 'Csökkenő rendezés',
   startDate: 'Kezdő dátum',
-  stepper: 'Lépések',
+  steps: 'Lépések',
   stepXOfY: (step, total) => `${step}. lépés / ${total}`,
   tagAdded: tag => `${tag} hozzáadva`,
   tagAlreadyAdded: tag => `${tag} már hozzá van adva`,

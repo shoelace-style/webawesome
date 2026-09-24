@@ -151,7 +151,7 @@ const translation: Translation = {
   sortColumn: '排序列',
   sortDescending: '降序排序',
   startDate: '开始日期',
-  stepper: '步骤',
+  steps: '步骤',
   stepXOfY: (step, total) => `第 ${step} 步，共 ${total} 步`,
   tagAdded: tag => `已添加 ${tag}`,
   tagAlreadyAdded: tag => `${tag} 已添加`,

@@ -158,7 +158,7 @@ const translation: Translation = {
   sortColumn: 'Lajittele sarake',
   sortDescending: 'Lajittele laskevasti',
   startDate: 'Alkamispäivä',
-  stepper: 'Vaiheet',
+  steps: 'Vaiheet',
   stepXOfY: (step, total) => `Vaihe ${step}/${total}`,
   tagAdded: tag => `${tag} lisätty`,
   tagAlreadyAdded: tag => `${tag} on jo lisätty`,

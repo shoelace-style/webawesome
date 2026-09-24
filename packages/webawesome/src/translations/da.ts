@@ -158,7 +158,7 @@ const translation: Translation = {
   sortColumn: 'Sortér kolonne',
   sortDescending: 'Sortér faldende',
   startDate: 'Startdato',
-  stepper: 'Trin',
+  steps: 'Trin',
   stepXOfY: (step, total) => `Trin ${step} af ${total}`,
   tagAdded: tag => `${tag} tilføjet`,
   tagAlreadyAdded: tag => `${tag} er allerede tilføjet`,

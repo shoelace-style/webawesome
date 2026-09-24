@@ -164,7 +164,7 @@ export interface Translation extends DefaultTranslation {
   sortColumn: string;
   sortDescending: string;
   startDate: string;
-  stepper: string;
+  steps: string;
   stepXOfY: (step: number, total: number) => string;
   tagAdded: (tag: string) => string;
   tagAlreadyAdded: (tag: string) => string;

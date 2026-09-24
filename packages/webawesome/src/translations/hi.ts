@@ -158,7 +158,7 @@ const translation: Translation = {
   sortColumn: 'कॉलम क्रमबद्ध करें',
   sortDescending: 'अवरोही क्रम में क्रमबद्ध करें',
   startDate: 'आरंभ तिथि',
-  stepper: 'चरण',
+  steps: 'चरण',
   stepXOfY: (step, total) => `${total} में से चरण ${step}`,
   tagAdded: tag => `${tag} जोड़ा गया`,
   tagAlreadyAdded: tag => `${tag} पहले से जोड़ा गया है`,

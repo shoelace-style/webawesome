@@ -201,7 +201,7 @@ const translation: Translation = {
   sortColumn: 'Сортувати стовпець',
   sortDescending: 'Сортувати за спаданням',
   startDate: 'Дата початку',
-  stepper: 'Кроки',
+  steps: 'Кроки',
   stepXOfY: (step, total) => `Крок ${step} з ${total}`,
   tagAdded: tag => `${tag} додано`,
   tagAlreadyAdded: tag => `Тег ${tag} уже додано`,

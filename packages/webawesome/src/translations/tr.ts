@@ -159,7 +159,7 @@ const translation: Translation = {
   sortColumn: 'Sütunu sırala',
   sortDescending: 'Azalan sırala',
   startDate: 'Başlangıç tarihi',
-  stepper: 'Adımlar',
+  steps: 'Adımlar',
   stepXOfY: (step, total) => `Adım ${step} / ${total}`,
   tagAdded: tag => `${tag} eklendi`,
   tagAlreadyAdded: tag => `${tag} zaten eklendi`,

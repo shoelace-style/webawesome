@@ -158,7 +158,7 @@ const translation: Translation = {
   sortColumn: 'Sorter kolonne',
   sortDescending: 'Sorter synkende',
   startDate: 'Startdato',
-  stepper: 'Trinn',
+  steps: 'Trinn',
   stepXOfY: (step, total) => `Trinn ${step} av ${total}`,
   tagAdded: tag => `${tag} lagt til`,
   tagAlreadyAdded: tag => `${tag} er allerede lagt til`,

@@ -158,7 +158,7 @@ const translation: Translation = {
   sortColumn: 'Urutkan kolom',
   sortDescending: 'Urutkan menurun',
   startDate: 'Tanggal mulai',
-  stepper: 'Langkah-langkah',
+  steps: 'Langkah-langkah',
   stepXOfY: (step, total) => `Langkah ${step} dari ${total}`,
   tagAdded: tag => `${tag} ditambahkan`,
   tagAlreadyAdded: tag => `${tag} sudah ditambahkan`,

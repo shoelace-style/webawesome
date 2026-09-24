@@ -157,7 +157,7 @@ const translation: Translation = {
   sortColumn: 'Spalte sortieren',
   sortDescending: 'Absteigend sortieren',
   startDate: 'Startdatum',
-  stepper: 'Schritte',
+  steps: 'Schritte',
   stepXOfY: (step, total) => `Schritt ${step} von ${total}`,
   tagAdded: tag => `${tag} hinzugefügt`,
   tagAlreadyAdded: tag => `${tag} ist bereits vorhanden`,

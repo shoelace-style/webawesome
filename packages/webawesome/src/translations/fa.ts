@@ -157,7 +157,7 @@ const translation: Translation = {
   sortColumn: 'مرتب‌سازی ستون',
   sortDescending: 'مرتب‌سازی نزولی',
   startDate: 'تاریخ شروع',
-  stepper: 'مراحل',
+  steps: 'مراحل',
   stepXOfY: (step, total) => `مرحله ${step} از ${total}`,
   tagAdded: tag => `${tag} افزوده شد`,
   tagAlreadyAdded: tag => `${tag} قبلاً افزوده شده است`,

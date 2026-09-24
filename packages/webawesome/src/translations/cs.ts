@@ -179,7 +179,7 @@ const translation: Translation = {
   sortColumn: 'Seřadit sloupec',
   sortDescending: 'Seřadit sestupně',
   startDate: 'Datum zahájení',
-  stepper: 'Kroky',
+  steps: 'Kroky',
   stepXOfY: (step, total) => `Krok ${step} z ${total}`,
   tagAdded: tag => `${tag} přidáno`,
   tagAlreadyAdded: tag => `Štítek ${tag} již existuje`,

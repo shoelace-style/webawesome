@@ -10,6 +10,10 @@ export class WaBeforeStepChangeEvent extends Event {
 }
 
 interface WaBeforeStepChangeEventDetail {
+  /** The name of the step that will become active if the event isn't canceled. */
+  name: string;
+  /** The name of the step that's currently active, or `null` if none is. */
+  previousName: string | null;
   /** The step that will become active if the event isn't canceled. */
   step: WaStep;
   /** The step that's currently active, or `null` if none is. */

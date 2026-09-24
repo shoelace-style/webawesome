@@ -194,7 +194,7 @@ const translation: Translation = {
   sortColumn: 'فرز العمود',
   sortDescending: 'فرز تنازلي',
   startDate: 'تاريخ البدء',
-  stepper: 'الخطوات',
+  steps: 'الخطوات',
   stepXOfY: (step, total) => `الخطوة ${step} من ${total}`,
   tagAdded: tag => `تمت إضافة ${tag}`,
   tagAlreadyAdded: tag => `الوسم ${tag} مضاف بالفعل`,

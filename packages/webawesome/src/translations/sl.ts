@@ -200,7 +200,7 @@ const translation: Translation = {
   sortColumn: 'Razvrsti stolpec',
   sortDescending: 'Razvrsti padajoče',
   startDate: 'Začetni datum',
-  stepper: 'Koraki',
+  steps: 'Koraki',
   stepXOfY: (step, total) => `Korak ${step} od ${total}`,
   tagAdded: tag => `${tag} dodano`,
   tagAlreadyAdded: tag => `Oznaka ${tag} že obstaja`,

@@ -197,7 +197,7 @@ const translation: Translation = {
   sortColumn: 'Sortiraj stupac',
   sortDescending: 'Sortiraj silazno',
   startDate: 'Datum početka',
-  stepper: 'Koraci',
+  steps: 'Koraci',
   stepXOfY: (step, total) => `Korak ${step} od ${total}`,
   tagAdded: tag => `${tag} dodano`,
   tagAlreadyAdded: tag => `Oznaka ${tag} već postoji`,

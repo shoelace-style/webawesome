@@ -21,9 +21,11 @@ import styles from './stepper.styles.js';
  *
  * @dependency wa-step
  *
- * @event {{ step: WaStep, previousStep: WaStep | null }} wa-before-step-change - Emitted before the active step
+ * @event {{ name: string, previousName: string | null, step: WaStep, previousStep: WaStep | null }}
+ *  wa-before-step-change - Emitted before the active step
  *  changes. Calling `event.preventDefault()` prevents the change, to guard against invalid or unsaved data.
- * @event {{ step: WaStep, previousStep: WaStep | null }} wa-step-change - Emitted after the active step changes.
+ * @event {{ name: string, previousName: string | null, step: WaStep, previousStep: WaStep | null }}
+ *  wa-step-change - Emitted after the active step changes.
  *
  * @slot - One or more `<wa-step>` elements.
  *
@@ -267,14 +269,15 @@ export default class WaStepper extends WebAwesomeElement {
     const previousStep = steps.find(step => step.active) ?? null;
     if (target === previousStep) return;
 
-    const changeEvent = new WaBeforeStepChangeEvent({ step: target, previousStep });
+    const detail = { name: target.name, previousName: previousStep?.name ?? null, step: target, previousStep };
+    const changeEvent = new WaBeforeStepChangeEvent(detail);
     this.dispatchEvent(changeEvent);
     if (changeEvent.defaultPrevented) return;
 
     this.active = target.name;
 
     this.updateComplete.then(() => {
-      this.dispatchEvent(new WaStepChangeEvent({ step: target, previousStep }));
+      this.dispatchEvent(new WaStepChangeEvent(detail));
       this.announceActiveStep();
     });
   }
@@ -310,7 +313,7 @@ export default class WaStepper extends WebAwesomeElement {
   }
 
   render() {
-    const label = this.label || this.localize.term('stepper');
+    const label = this.label || this.localize.term('steps');
     const body = html`
       ${this.stepCount > 0
         ? html`

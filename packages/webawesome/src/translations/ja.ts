@@ -150,7 +150,7 @@ const translation: Translation = {
   sortColumn: '列を並べ替え',
   sortDescending: '降順で並べ替え',
   startDate: '開始日',
-  stepper: 'ステップ',
+  steps: 'ステップ',
   stepXOfY: (step, total) => `ステップ ${step} / ${total}`,
   tagAdded: tag => `${tag} を追加しました`,
   tagAlreadyAdded: tag => `${tag} はすでに追加されています`,

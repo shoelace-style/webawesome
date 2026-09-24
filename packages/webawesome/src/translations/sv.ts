@@ -158,7 +158,7 @@ const translation: Translation = {
   sortColumn: 'Sortera kolumn',
   sortDescending: 'Sortera fallande',
   startDate: 'Startdatum',
-  stepper: 'Steg',
+  steps: 'Steg',
   stepXOfY: (step, total) => `Steg ${step} av ${total}`,
   tagAdded: tag => `${tag} tillagd`,
   tagAlreadyAdded: tag => `${tag} är redan tillagd`,

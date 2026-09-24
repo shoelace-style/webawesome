@@ -230,6 +230,8 @@ describe('<wa-stepper>', () => {
           expect(beforeSpy.calledOnce).to.be.true;
           expect(beforeSpy.firstCall.args[0].detail.step.name).to.equal('shipping');
           expect(beforeSpy.firstCall.args[0].detail.previousStep.name).to.equal('cart');
+          expect(beforeSpy.firstCall.args[0].detail.name).to.equal('shipping');
+          expect(beforeSpy.firstCall.args[0].detail.previousName).to.equal('cart');
           expect(changeSpy.calledOnce).to.be.true;
         });
 

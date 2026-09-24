@@ -159,7 +159,7 @@ const translation: Translation = {
   sortColumn: 'Бағананы сұрыптау',
   sortDescending: 'Кему ретімен сұрыптау',
   startDate: 'Басталу күні',
-  stepper: 'Қадамдар',
+  steps: 'Қадамдар',
   stepXOfY: (step, total) => `${total} қадамның ${step}-і`,
   tagAdded: tag => `${tag} қосылды`,
   tagAlreadyAdded: tag => `${tag} тегі әлдеқашан қосылған`,
