@@ -365,11 +365,10 @@ export default class WaPage extends WebAwesomeElement {
       this.view === 'mobile' &&
       (this.hasSlotController.test('navigation-footer') || this.hasSlotController.test('mobile-navigation-footer'));
 
-
-      // Hopefully there is a future with container queries where the `<style>` tag can go away and we can do sizing with proper container query variables. Until then...this is the best we got.
-      // Use the nonce on the element, if it doesn't exist, fallback to window.litNonce for strict CSPs.
-      // @ts-expect-error - error because globalThis.litNonce
-      let nonce = (this.nonce || globalThis.litNonce || null) as string | null
+    // Hopefully there is a future with container queries where the `<style>` tag can go away and we can do sizing with proper container query variables. Until then...this is the best we got.
+    // Use the nonce on the element, if it doesn't exist, fallback to window.litNonce for strict CSPs.
+    // @ts-expect-error - error because globalThis.litNonce
+    let nonce = (this.nonce || globalThis.litNonce || null) as string | null;
 
     return html`
       <a href="#main-content" part="skip-to-content" class="wa-visually-hidden">
@@ -379,7 +378,7 @@ export default class WaPage extends WebAwesomeElement {
       <!-- unsafeHTML needed for SSR until this is solved: https://github.com/lit/lit/issues/4696 -->
       ${unsafeHTML(`
         <style
-          ${/* ifDefined not supported in unsafeHTML */ nonce ? `nonce="${nonce}"` : ""}
+          ${/* ifDefined not supported in unsafeHTML */ nonce ? `nonce="${nonce}"` : ''}
           id="mobile-styles"
         >
           ${mobileStyles(toLength(this.mobileBreakpoint))}
