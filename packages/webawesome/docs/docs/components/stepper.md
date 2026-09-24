@@ -265,7 +265,7 @@ Add the `data-stepper` attribute to any button on the page, with `next <id>`, `p
 
 ```html {.example}
 <div class="stepper-declarative-demo">
-  <wa-stepper id="stepper-declarative" active="cart" linear>
+  <wa-stepper id="stepper-declarative" active="cart">
     <wa-step name="cart" completed>Cart</wa-step>
     <wa-step name="shipping">Shipping</wa-step>
     <wa-step name="payment">Payment</wa-step>
