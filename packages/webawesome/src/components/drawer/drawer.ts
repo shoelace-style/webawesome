@@ -48,7 +48,8 @@ import styles from './drawer.styles.js';
  * @csspart header-actions - Optional actions to add to the header. Works best with `<wa-button>`.
  * @csspart title - The drawer's title.
  * @csspart close-button - The close button, a `<wa-button>`.
- * @csspart close-button__base - The close button's exported `base` part.
+ * @csspart close-button__base - Deprecated. Use the `close-button__button` part instead.
+ * @csspart close-button__button - The close button's exported `button` part.
  * @csspart body - The drawer's body.
  * @csspart footer - The drawer's footer.
  *
@@ -304,7 +305,7 @@ export default class WaDrawer extends WebAwesomeElement {
                   <slot name="header-actions"></slot>
                   <wa-button
                     part="close-button"
-                    exportparts="base:close-button__base"
+                    exportparts="base:close-button__base, button:close-button__button"
                     class="close"
                     appearance="plain"
                     @click="${(event: PointerEvent) => this.requestClose(event.target as Element)}"
