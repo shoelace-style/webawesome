@@ -48,6 +48,9 @@ import styles from './stepper.styles.js';
  * @cssstate loading - Applied when at least one step is loading.
  * @cssstate stacked - Applied while the steps are laid out vertically, whether by `orientation="vertical"` or because
  *  an `auto` stepper is too narrow to give each step room.
+ *
+ * @ssr - During SSR, `<wa-stepper>` can't access its children to determine which step is active. To render the correct
+ *  step, also set the `active` attribute on the matching `<wa-step>`.
  */
 @customElement('wa-stepper')
 export default class WaStepper extends WebAwesomeElement {
@@ -211,7 +214,7 @@ export default class WaStepper extends WebAwesomeElement {
       // The half-connector leading into a step is drawn by that step, so it needs to know the previous step's
       // variant to match the half leading out of it.
       const previous = steps[index - 1];
-      step.connectorStartVariant = previous?.completed ? previous.variant || 'brand' : undefined;
+      step.connectorStartVariant = previous?.completed ? previous.variant : undefined;
       step.toggleAttribute('data-wa-step-vertical', isVertical);
     });
 

@@ -99,7 +99,7 @@ The default, `horizontal`, keeps a row at any width. Labels wrap between words, 
 
 ### Variant
 
-Set the `variant` attribute on a step to color its marker with a semantic color. It applies in every state: the current step uses the variant's loud fill, a completed step its normal fill, and an upcoming step a thin border in its color. The color is cosmetic and never changes the marker's content, like `variant` on a badge or callout.
+Set the `variant` attribute on a step to color its marker with a semantic color. The current step uses the variant's loud fill, a completed step its normal fill, and an upcoming step a thin border in its color. The default is `brand`, whose upcoming steps keep a neutral border so a plain stepper reads quietly. The color is cosmetic and never changes the marker's content, like `variant` on a badge or callout.
 
 ```html {.example}
 <wa-stepper active="current">
@@ -107,18 +107,17 @@ Set the `variant` attribute on a step to color its marker with a semantic color.
   <wa-step name="success" variant="success">Success</wa-step>
   <wa-step name="warning" variant="warning">Warning</wa-step>
   <wa-step name="danger" variant="danger">Danger</wa-step>
-  <wa-step name="brand" variant="brand">Brand</wa-step>
 </wa-stepper>
 ```
 
-To flag a step that failed or needs attention, pair the variant with an icon in the [`bullet` slot](#custom-bullet) and state the reason in the label or description, so the meaning doesn't depend on color alone.
+To flag a step that failed or needs attention, pair the variant with an icon in the [`icon` slot](#custom-icon) and state the reason in the label or description, so the meaning doesn't depend on color alone.
 
 ```html {.example}
 <wa-stepper active="payment">
   <wa-step name="cart" completed variant="success">Cart</wa-step>
   <wa-step name="shipping" completed variant="success">Shipping</wa-step>
   <wa-step name="payment" variant="danger">
-    <wa-icon slot="bullet" name="xmark" library="system" variant="solid"></wa-icon>
+    <wa-icon slot="icon" name="xmark" library="system" variant="solid"></wa-icon>
     Payment
     <span slot="description">Card declined</span>
   </wa-step>
@@ -206,24 +205,24 @@ Add the `description` slot to any step for supporting text under its label.
 </wa-stepper>
 ```
 
-### Custom Bullet
+### Custom Icon
 
-Use the `bullet` slot on a step to replace its number, checkmark, or spinner with custom content, such as a `<wa-icon>`. The marker keeps its state styling, so a bullet reads as completed, current, or upcoming the same way a number would.
+Use the `icon` slot on a step to replace its number, checkmark, or spinner with an element such as `<wa-icon>`. The marker keeps its state styling, so an icon reads as completed, current, or upcoming the same way a number would.
 
 ```html {.example}
 <wa-stepper active="shipped">
   <wa-step name="ordered" completed>
-    <wa-icon slot="bullet" name="bag-shopping"></wa-icon>
+    <wa-icon slot="icon" name="bag-shopping"></wa-icon>
     Ordered
     <span slot="description">Monday</span>
   </wa-step>
   <wa-step name="shipped">
-    <wa-icon slot="bullet" name="truck"></wa-icon>
+    <wa-icon slot="icon" name="truck"></wa-icon>
     Shipped
     <span slot="description">Left the warehouse</span>
   </wa-step>
   <wa-step name="delivered">
-    <wa-icon slot="bullet" name="house"></wa-icon>
+    <wa-icon slot="icon" name="house"></wa-icon>
     Delivered
     <span slot="description">Thursday, probably</span>
   </wa-step>
@@ -499,4 +498,4 @@ Steps share the row equally. Give a step with more content extra room by setting
 - **Step status.** Each step's status is announced, not just shown. Completed steps carry visually hidden "Completed" text, pending steps "Not completed", disabled steps "Disabled", and locked steps "Locked". The checkmark itself is decorative.
 - **Keyboard.** Steps are only in the tab order when the stepper is [`clickable`](#clickable), and then each one is rendered as a `<button>`: [[Tab]] moves between them and [[Enter]] or [[Space]] activates one, the same as clicking it. `disabled` and locked steps render as disabled buttons, so they're skipped. Without `clickable`, nothing in the stepper takes focus, and screen readers still read every step in order.
 - **Busy state.** Each loading step carries `aria-busy="true"`. The stepper itself carries the `loading` custom state while any step is loading, as a styling hook. It isn't propagated to the stepper's own `aria-busy`, since nesting that on the landmark can suppress announcements for the whole region.
-- **Color and meaning.** The `variant` attribute is cosmetic. It changes color, which doesn't carry meaning on its own, so include the reason in the step's visible label or description, and add an icon in the `bullet` slot when a step needs to read as failed.
+- **Color and meaning.** The `variant` attribute is cosmetic. It changes color, which doesn't carry meaning on its own, so include the reason in the step's visible label or description, and add an icon in the `icon` slot when a step needs to read as failed.

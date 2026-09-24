@@ -67,13 +67,13 @@ describe('<wa-step>', () => {
         expect(el.hasAttribute('aria-current')).to.be.false;
       });
 
-      it('should let a slotted bullet replace the default marker content', async () => {
+      it('should let a slotted icon replace the default marker content', async () => {
         const el = await fixture<WaStep>(
-          html`<wa-step name="submit" completed><wa-icon slot="bullet" name="rocket"></wa-icon>Submit</wa-step>`,
+          html`<wa-step name="submit" completed><wa-icon slot="icon" name="rocket"></wa-icon>Submit</wa-step>`,
         );
 
-        const bulletSlot = el.shadowRoot!.querySelector<HTMLSlotElement>('slot[name="bullet"]')!;
-        const assigned = bulletSlot.assignedElements();
+        const iconSlot = el.shadowRoot!.querySelector<HTMLSlotElement>('slot[name="icon"]')!;
+        const assigned = iconSlot.assignedElements();
         expect(assigned).to.have.lengthOf(1);
         expect(assigned[0].getAttribute('name')).to.equal('rocket');
       });

@@ -22,8 +22,7 @@ import styles from './step.styles.js';
  *
  * @slot - The step's label.
  * @slot description - Optional text shown under the label.
- * @slot bullet - Custom content, such as a `<wa-icon>`, that replaces the step number, checkmark, or loading
- *  indicator.
+ * @slot icon - An element, such as `<wa-icon>`, that replaces the step number, checkmark, or loading indicator.
  *
  * @csspart step - The component's outer wrapper.
  * @csspart connector - The line connecting this step to its neighbors. Each step draws the half leading in and the
@@ -38,8 +37,6 @@ import styles from './step.styles.js';
  *  completed, or locked.
  * @csspart description - The step's description.
  *
- * @cssproperty [--marker-size=2em] - The size of the step's marker. Usually set on `<wa-stepper>` so every step
- *  matches.
  * @cssproperty --pulse-color - The color of the marker's pulse effect when using `attention="pulse"`. Defaults to the
  *  step's accent color.
  *
@@ -75,10 +72,11 @@ export default class WaStep extends WebAwesomeElement {
   @property({ type: Boolean, reflect: true }) disabled = false;
 
   /**
-   * Colors the step's marker with a semantic color, in every state. The color is cosmetic; pair it with an icon in the
-   * `bullet` slot and a clear label when a step needs to read as failed or flagged.
+   * Colors the step's marker with a semantic color. Upcoming `brand` steps keep a neutral outline so a default stepper
+   * reads quietly. The color is cosmetic; pair it with an icon in the `icon` slot and a clear label when a step needs
+   * to read as failed or flagged.
    */
-  @property({ reflect: true }) variant?: 'neutral' | 'brand' | 'success' | 'warning' | 'danger';
+  @property({ reflect: true }) variant: 'neutral' | 'brand' | 'success' | 'warning' | 'danger' = 'brand';
 
   /** Adds an animation to the step's marker to draw attention to it, e.g. the step the user should do next. */
   @property({ reflect: true }) attention: 'none' | 'pulse' | 'bounce' = 'none';
@@ -95,8 +93,11 @@ export default class WaStep extends WebAwesomeElement {
    */
   @state() position = 1;
 
-  /** @internal Set by the parent `<wa-stepper>`. Whether this is the stepper's current step. */
-  @state() active = false;
+  /**
+   * Draws the step as the stepper's current step. The parent `<wa-stepper>` sets this from its own `active`
+   * attribute, so you only need to set it yourself for SSR.
+   */
+  @property({ type: Boolean, reflect: true }) active = false;
 
   /**
    * @internal Set by the parent `<wa-stepper>` to match its own `clickable` attribute. Renders the step's marker and
@@ -169,7 +170,7 @@ export default class WaStep extends WebAwesomeElement {
     this.syncAriaCurrent();
   }
 
-  private renderBullet() {
+  private renderIcon() {
     if (this.loading) {
       return html`<wa-spinner part="spinner"></wa-spinner>`;
     }
@@ -186,7 +187,7 @@ export default class WaStep extends WebAwesomeElement {
 
     const body = html`
       <span part="marker" class="marker">
-        <slot name="bullet">${this.renderBullet()}</slot>
+        <slot name="icon">${this.renderIcon()}</slot>
       </span>
       <span part="content" class="content">
         <span part="label" class="label">
