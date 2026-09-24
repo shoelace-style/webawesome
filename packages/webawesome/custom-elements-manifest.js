@@ -136,8 +136,8 @@ export default {
     },
     {
       // Flag legacy duplicate parts in the manifest so editors and other CEM consumers see the
-      // deprecation, not just the docs: `base` everywhere, and `label` on form controls that also
-      // expose the canonical `form-control-label`.
+      // deprecation, not just the docs: `base` everywhere, `label` on form controls that also
+      // expose the canonical `form-control-label`, and the dialog and drawer `close-button__base`.
       name: 'wa-deprecate-legacy-parts',
       packageLinkPhase({ customElementsManifest }) {
         customElementsManifest?.modules?.forEach(mod => {
@@ -154,6 +154,10 @@ export default {
               if (part.name === 'label' && hasFormControlLabel) {
                 part.deprecated =
                   'Use the `form-control-label` part instead. This part will be removed in a future major version.';
+              }
+              if (part.name === 'close-button__base') {
+                part.deprecated =
+                  'Use the `close-button__button` part instead. This part will be removed in a future major version.';
               }
             });
           });

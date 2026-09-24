@@ -472,6 +472,7 @@ export default class WaPage extends WebAwesomeElement {
           title:drawer__title,
           close-button:drawer__close-button,
           close-button__base:drawer__close-button__base,
+          close-button__button:drawer__close-button__button,
           body:drawer__body,
           footer:drawer__footer
         "

@@ -29,6 +29,20 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 {% include "changelog-email-signup.njk" %}
 
+## Unreleased
+
+:::added
+
+- Added the `close-button__button` CSS part to `<wa-dialog>` and `<wa-drawer>`, re-exported by `<wa-page>` as `drawer__close-button__button` [issue:2856]
+
+:::
+
+:::deprecated
+
+- The `close-button__base` CSS part on `<wa-dialog>` and `<wa-drawer>` is deprecated in favor of `close-button__button`, matching the `button` part on `<wa-button>`. Existing `::part(close-button__base)` selectors keep working until the next major version. [issue:2856]
+
+:::
+
 ## 3.14.0
 
 <small><time datetime="2026-09-24">September 24th, 2026</time></small>
