@@ -16,7 +16,14 @@ export default css`
       --_marker-color: var(--wa-color-text-quiet);
 
       display: flex;
-      flex: 1 1 0%;
+      flex: 2 1 0%;
+    }
+
+    /* Horizontal steps span the full width. The first and last markers sit flush with the edges, so those steps take
+       half the share of the middle ones, which keeps every marker evenly spaced. */
+    :host(:not([data-wa-step-vertical]):first-child),
+    :host(:not([data-wa-step-vertical]):last-child) {
+      flex-grow: 1;
     }
 
     :host([variant]) {
@@ -73,6 +80,16 @@ export default css`
       color: var(--wa-color-text-normal);
       text-align: center;
       cursor: default;
+    }
+
+    :host(:not([data-wa-step-vertical]):first-child) .body {
+      align-items: flex-start;
+      text-align: start;
+    }
+
+    :host(:not([data-wa-step-vertical]):last-child) .body {
+      align-items: flex-end;
+      text-align: end;
     }
 
     button.body {
@@ -145,6 +162,14 @@ export default css`
     :host(:not([data-wa-step-vertical])) .connector-end {
       inset-inline-start: calc(50% + var(--marker-size, 2em) / 2 + var(--connector-gap, 0.35em));
       inset-inline-end: calc(-1 * var(--gap, var(--wa-space-l)) / 2);
+    }
+
+    :host(:not([data-wa-step-vertical]):first-child) .connector-end {
+      inset-inline-start: calc(var(--marker-size, 2em) + var(--connector-gap, 0.35em));
+    }
+
+    :host(:not([data-wa-step-vertical]):last-child) .connector-start {
+      inset-inline-end: calc(var(--marker-size, 2em) + var(--connector-gap, 0.35em));
     }
 
     /* Vertical steps only draw the end half, stretched to reach the next step's marker: it starts just below this
