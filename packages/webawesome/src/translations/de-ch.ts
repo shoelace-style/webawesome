@@ -7,6 +7,7 @@ const translation: Translation = {
   $code: 'de-CH',
   $name: 'Deutsch (Schweiz)',
 
+  allTagsRemoved: 'Alle Schlagwörter entfernt',
   am: 'AM',
   autosizeColumn: 'Spaltenbreite anpassen',
   captions: 'Untertitel',
@@ -73,6 +74,7 @@ const translation: Translation = {
   nextVideo: 'Nächstes Video',
   nextYear: 'Nächstes Jahr',
   noData: 'Keine Daten',
+  noOptions: 'Keine Optionen',
   now: 'Jetzt',
   numCharacters: num => {
     if (num === 1) return '1 Zeichen';
@@ -82,6 +84,11 @@ const translation: Translation = {
     if (num === 1) return '1 Zeichen verbleibend';
     return `${num} Zeichen verbleibend`;
   },
+  numOptionsAvailable: num => {
+    if (num === 0) return 'Keine Optionen verfügbar';
+    if (num === 1) return '1 Option verfügbar';
+    return `${num} Optionen verfügbar`;
+  },
   numOptionsSelected: num => {
     if (num === 0) return 'Keine Optionen ausgewählt';
     if (num === 1) return '1 Option ausgewählt';
@@ -89,6 +96,8 @@ const translation: Translation = {
   },
   numRowsCopied: num => (num === 1 ? '1 Zeile kopiert' : `${num} Zeilen kopiert`),
   numRowsSelected: num => (num === 1 ? '1 Zeile ausgewählt' : `${num} Zeilen ausgewählt`),
+  optionPosition: (label, position, total) => `${label}, ${position} von ${total}`,
+  optionsLoadError: 'Optionen konnten nicht geladen werden',
   pageXOfY: (page, total) => `Seite ${page} von ${total}`,
   pagination: 'Seitennavigation',
   pause: 'Pausieren',
@@ -144,11 +153,19 @@ const translation: Translation = {
   sortColumn: 'Spalte sortieren',
   sortDescending: 'Absteigend sortieren',
   startDate: 'Startdatum',
+  tagAdded: tag => `${tag} hinzugefügt`,
+  tagAlreadyAdded: tag => `${tag} ist bereits vorhanden`,
+  tagInputKeyboardHelp: 'Drücken Sie die Rücktaste oder Entf, um dieses Schlagwort zu entfernen.',
+  tagRemoved: tag => `${tag} entfernt`,
   time: 'Uhrzeit',
   timeInputKeyboardHelp:
     'Verwenden Sie die Pfeiltasten, um Werte zu ändern; drücken Sie Alt+Pfeil nach unten, um die Uhrzeitauswahl zu öffnen.',
   today: 'Heute',
   toggleColorFormat: 'Farbformat wechseln',
+  tooFewTags: min =>
+    min === 1 ? 'Fügen Sie mindestens 1 Schlagwort hinzu' : `Fügen Sie mindestens ${min} Schlagwörter hinzu`,
+  tooManyTags: max =>
+    max === 1 ? 'Fügen Sie höchstens 1 Schlagwort hinzu' : `Fügen Sie höchstens ${max} Schlagwörter hinzu`,
   unmute: 'Stummschaltung aufheben',
   unpin: 'Lösen',
   unpinColumn: 'Spalte lösen',

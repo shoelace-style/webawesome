@@ -6,6 +6,7 @@ const translation: Translation = {
   $name: 'Español',
   $dir: 'ltr',
 
+  allTagsRemoved: 'Se eliminaron todas las etiquetas',
   am: 'AM',
   autosizeColumn: 'Ajustar el tamaño de la columna al contenido',
   captions: 'Subtítulos',
@@ -79,6 +80,7 @@ const translation: Translation = {
   nextVideo: 'Siguiente vídeo',
   nextYear: 'Año siguiente',
   noData: 'No hay datos',
+  noOptions: 'No hay opciones',
   noResults: 'No hay resultados coincidentes',
   now: 'Ahora',
   numCharacters: num => {
@@ -89,6 +91,11 @@ const translation: Translation = {
     if (num === 1) return '1 carácter restante';
     return `${num} caracteres restantes`;
   },
+  numOptionsAvailable: num => {
+    if (num === 0) return 'No hay opciones disponibles';
+    if (num === 1) return '1 opción disponible';
+    return `${num} opciones disponibles`;
+  },
   numOptionsSelected: num => {
     if (num === 0) return 'No hay opciones seleccionadas';
     if (num === 1) return '1 opción seleccionada';
@@ -96,6 +103,8 @@ const translation: Translation = {
   },
   numRowsCopied: num => (num === 1 ? '1 fila copiada' : `${num} filas copiadas`),
   numRowsSelected: num => (num === 1 ? '1 fila seleccionada' : `${num} filas seleccionadas`),
+  optionPosition: (label, position, total) => `${label}, ${position} de ${total}`,
+  optionsLoadError: 'No se pudieron cargar las opciones',
   pageXOfY: (page, total) => `Página ${page} de ${total}`,
   pagination: 'Paginación',
   pause: 'Pausar',
@@ -152,11 +161,17 @@ const translation: Translation = {
   sortColumn: 'Ordenar columna',
   sortDescending: 'Ordenar de forma descendente',
   startDate: 'Fecha de inicio',
+  tagAdded: tag => `Se añadió ${tag}`,
+  tagAlreadyAdded: tag => `${tag} ya existe`,
+  tagInputKeyboardHelp: 'Pulse Retroceso o Suprimir para eliminar esta etiqueta.',
+  tagRemoved: tag => `Se eliminó ${tag}`,
   time: 'Hora',
   timeInputKeyboardHelp:
     'Use las teclas de flecha para cambiar los valores; presione Alt+Flecha abajo para abrir el selector de hora.',
   today: 'Hoy',
   toggleColorFormat: 'Alternar formato de color',
+  tooFewTags: min => (min === 1 ? 'Añada al menos 1 etiqueta' : `Añada al menos ${min} etiquetas`),
+  tooManyTags: max => (max === 1 ? 'Añada como máximo 1 etiqueta' : `Añada como máximo ${max} etiquetas`),
   unmute: 'Activar sonido',
   unpin: 'Desfijar',
   unpinColumn: 'Desfijar columna',

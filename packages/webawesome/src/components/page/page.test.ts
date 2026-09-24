@@ -1,4 +1,4 @@
-import { expect, waitUntil } from '@open-wc/testing';
+import { aTimeout, expect, waitUntil } from '@open-wc/testing';
 import { html } from 'lit';
 import { fixtures } from '../../internal/test/fixture.js';
 import type WaDrawer from '../drawer/drawer.js';
@@ -125,6 +125,86 @@ describe('<wa-page>', () => {
         });
       });
 
+      describe('navigation toggle', () => {
+        it('should auto-disable the default toggle when there is no navigation content', async () => {
+          const el = await fixture<WaPage>(html`
+            <wa-page>
+              <header slot="header">Header</header>
+              <main>Main content</main>
+            </wa-page>
+          `);
+          expect(el.disableNavigationToggle).to.be.true;
+        });
+
+        it('should auto-enable the default toggle when navigation content is present', async () => {
+          const el = await fixture<WaPage>(html`
+            <wa-page>
+              <header slot="header">Header</header>
+              <nav slot="navigation">Navigation</nav>
+              <main>Main content</main>
+            </wa-page>
+          `);
+          expect(el.disableNavigationToggle).to.be.false;
+        });
+
+        it('should auto-disable the default toggle when a light DOM data-toggle-nav element is present', async () => {
+          const el = await fixture<WaPage>(html`
+            <wa-page>
+              <header slot="header"><button data-toggle-nav>Menu</button></header>
+              <nav slot="navigation">Navigation</nav>
+              <main>Main content</main>
+            </wa-page>
+          `);
+          expect(el.disableNavigationToggle).to.be.true;
+        });
+
+        // See #2774. A toggle inside another component's shadow root can't be detected, so an explicit attribute must win.
+        it('should respect an explicit disable-navigation-toggle when navigation content is present', async () => {
+          const el = await fixture<WaPage>(html`
+            <wa-page disable-navigation-toggle>
+              <header slot="header">Header</header>
+              <nav slot="navigation">Navigation</nav>
+              <main>Main content</main>
+            </wa-page>
+          `);
+          expect(el.disableNavigationToggle).to.be.true;
+          expect(el.hasAttribute('disable-navigation-toggle')).to.be.true;
+        });
+
+        it('should keep an explicit disable-navigation-toggle after navigation slots change', async () => {
+          const el = await fixture<WaPage>(html`
+            <wa-page disable-navigation-toggle>
+              <header slot="header">Header</header>
+              <nav slot="navigation">Navigation</nav>
+              <main>Main content</main>
+            </wa-page>
+          `);
+          const footer = document.createElement('div');
+          footer.slot = 'navigation-footer';
+          footer.textContent = 'Footer';
+          el.append(footer);
+          await el.updateComplete;
+          await aTimeout(50);
+          expect(el.disableNavigationToggle).to.be.true;
+          expect(el.hasAttribute('disable-navigation-toggle')).to.be.true;
+        });
+
+        it('should respect disableNavigationToggle set as a property before first render', async () => {
+          const el = document.createElement('wa-page');
+          el.disableNavigationToggle = true;
+          el.innerHTML =
+            '<header slot="header">Header</header><nav slot="navigation">Navigation</nav><main>Main</main>';
+          document.body.append(el);
+          try {
+            await el.updateComplete;
+            await aTimeout(50);
+            expect(el.disableNavigationToggle).to.be.true;
+          } finally {
+            el.remove();
+          }
+        });
+      });
+
       describe('navigation slot placement', () => {
         // The navigation slots are conditionally rendered in either the desktop <nav> or the mobile <wa-drawer> based
         // on the current view. Because duplicate slot names resolve to the first slot in tree order, the real slot must
@@ -228,6 +308,45 @@ describe('<wa-page>', () => {
           const header = el.shadowRoot!.querySelector<HTMLElement>('[part~="header"]')!;
 
           expect(getComputedStyle(header).backgroundColor).to.equal('rgb(1, 2, 3)');
+        });
+
+        it('should give the banner and subheader parts the default surface background', async () => {
+          const el = await fixture<WaPage>(html`
+            <wa-page style="--wa-color-surface-default: rgb(1, 2, 3);">
+              <div slot="banner">Banner</div>
+              <header slot="header">Header</header>
+              <div slot="subheader">Subheader</div>
+              <main>Content</main>
+            </wa-page>
+          `);
+          const banner = el.shadowRoot!.querySelector<HTMLElement>('[part~="banner"]')!;
+          const subheader = el.shadowRoot!.querySelector<HTMLElement>('[part~="subheader"]')!;
+
+          expect(getComputedStyle(banner).backgroundColor).to.equal('rgb(1, 2, 3)');
+          expect(getComputedStyle(subheader).backgroundColor).to.equal('rgb(1, 2, 3)');
+        });
+
+        it('should let a ::part(header) background show through the slotted header', async () => {
+          const container = await fixture(html`
+            <div>
+              <style>
+                wa-page::part(header) {
+                  background-color: rgb(4, 5, 6);
+                }
+              </style>
+              <wa-page>
+                <header slot="header">Header</header>
+                <main>Content</main>
+              </wa-page>
+            </div>
+          `);
+          const el = container.querySelector<WaPage>('wa-page')!;
+          await el.updateComplete;
+          const header = el.shadowRoot!.querySelector<HTMLElement>('[part~="header"]')!;
+          const slottedHeader = el.querySelector<HTMLElement>('[slot="header"]')!;
+
+          expect(getComputedStyle(header).backgroundColor).to.equal('rgb(4, 5, 6)');
+          expect(getComputedStyle(slottedHeader).backgroundColor).to.equal('rgba(0, 0, 0, 0)');
         });
 
         it('should have a banner part', async () => {

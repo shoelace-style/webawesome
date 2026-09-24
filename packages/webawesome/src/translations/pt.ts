@@ -6,6 +6,7 @@ const translation: Translation = {
   $name: 'Português',
   $dir: 'ltr',
 
+  allTagsRemoved: 'Todas as etiquetas foram removidas',
   am: 'AM',
   autosizeColumn: 'Ajustar largura da coluna',
   captions: 'Legendas',
@@ -73,6 +74,7 @@ const translation: Translation = {
   nextVideo: 'Próximo vídeo',
   nextYear: 'Próximo ano',
   noData: 'Sem dados',
+  noOptions: 'Sem opções',
   noResults: 'Sem resultados correspondentes',
   now: 'Agora',
   numCharacters: num => {
@@ -83,6 +85,11 @@ const translation: Translation = {
     if (num === 1) return '1 caractere restante';
     return `${num} caracteres restantes`;
   },
+  numOptionsAvailable: num => {
+    if (num === 0) return 'Nenhuma opção disponível';
+    if (num === 1) return '1 opção disponível';
+    return `${num} opções disponíveis`;
+  },
   numOptionsSelected: num => {
     if (num === 0) return 'Nenhuma opção selecionada';
     if (num === 1) return '1 opção selecionada';
@@ -90,6 +97,8 @@ const translation: Translation = {
   },
   numRowsCopied: num => (num === 1 ? '1 linha copiada' : `${num} linhas copiadas`),
   numRowsSelected: num => (num === 1 ? '1 linha selecionada' : `${num} linhas selecionadas`),
+  optionPosition: (label, position, total) => `${label}, ${position} de ${total}`,
+  optionsLoadError: 'Não foi possível carregar as opções',
   pageXOfY: (page, total) => `Página ${page} de ${total}`,
   pagination: 'Paginação',
   pause: 'Pausar',
@@ -146,11 +155,17 @@ const translation: Translation = {
   sortColumn: 'Ordenar coluna',
   sortDescending: 'Ordenar descendente',
   startDate: 'Data de início',
+  tagAdded: tag => `${tag} adicionado`,
+  tagAlreadyAdded: tag => `${tag} já existe`,
+  tagInputKeyboardHelp: 'Pressione Backspace ou Delete para remover esta etiqueta.',
+  tagRemoved: tag => `${tag} removido`,
   time: 'Hora',
   timeInputKeyboardHelp:
     'Use as teclas de seta para alterar os valores; pressione Alt+Seta para baixo para abrir o seletor de hora.',
   today: 'Hoje',
   toggleColorFormat: 'Trocar o formato de cor',
+  tooFewTags: min => (min === 1 ? 'Adicione pelo menos 1 etiqueta' : `Adicione pelo menos ${min} etiquetas`),
+  tooManyTags: max => (max === 1 ? 'Adicione no máximo 1 etiqueta' : `Adicione no máximo ${max} etiquetas`),
   unmute: 'Ativar som',
   unpin: 'Desafixar',
   unpinColumn: 'Desafixar coluna',

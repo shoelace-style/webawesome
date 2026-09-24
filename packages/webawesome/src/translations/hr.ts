@@ -6,6 +6,7 @@ const translation: Translation = {
   $name: 'Hrvatski',
   $dir: 'ltr',
 
+  allTagsRemoved: 'Sve oznake uklonjene',
   am: 'AM',
   autosizeColumn: 'Automatski prilagodi veličinu stupca',
   captions: 'Titlovi',
@@ -84,6 +85,7 @@ const translation: Translation = {
   nextVideo: 'Sljedeći video',
   nextYear: 'Sljedeća godina',
   noData: 'Nema podataka',
+  noOptions: 'Nema opcija',
   noResults: 'Nema odgovarajućih rezultata',
   now: 'Sada',
   numCharacters: num => {
@@ -99,6 +101,14 @@ const translation: Translation = {
     const mod100 = num % 100;
     if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `${num} preostala znaka`;
     return `${num} preostalih znakova`;
+  },
+  numOptionsAvailable: num => {
+    if (num === 0) return 'Nema dostupnih opcija';
+    if (num === 1) return '1 opcija je dostupna';
+    const mod10 = num % 10;
+    const mod100 = num % 100;
+    if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `${num} opcije su dostupne`;
+    return `${num} opcija je dostupno`;
   },
   numOptionsSelected: num => {
     if (num === 0) return 'Nije odabrana nijedna opcija';
@@ -119,6 +129,8 @@ const translation: Translation = {
     if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `${num} retka odabrana`;
     return `${num} redaka odabrano`;
   },
+  optionPosition: (label, position, total) => `${label}, ${position} od ${total}`,
+  optionsLoadError: 'Opcije se ne mogu učitati',
   pageXOfY: (page, total) => `Stranica ${page} od ${total}`,
   pagination: 'Straničenje',
   pause: 'Pauziraj',
@@ -181,11 +193,29 @@ const translation: Translation = {
   sortColumn: 'Sortiraj stupac',
   sortDescending: 'Sortiraj silazno',
   startDate: 'Datum početka',
+  tagAdded: tag => `${tag} dodano`,
+  tagAlreadyAdded: tag => `Oznaka ${tag} već postoji`,
+  tagInputKeyboardHelp: 'Pritisnite Backspace ili Delete za uklanjanje ove oznake.',
+  tagRemoved: tag => `${tag} uklonjeno`,
   time: 'Vrijeme',
   timeInputKeyboardHelp:
     'Strelicama mijenjajte vrijednosti; pritisnite Alt+Strelica dolje za otvaranje birača vremena.',
   today: 'Danas',
   toggleColorFormat: 'Zamijeni format boje',
+  tooFewTags: min => {
+    if (min === 1) return 'Dodajte najmanje 1 oznaku';
+    const mod10 = min % 10;
+    const mod100 = min % 100;
+    if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `Dodajte najmanje ${min} oznake`;
+    return `Dodajte najmanje ${min} oznaka`;
+  },
+  tooManyTags: max => {
+    if (max === 1) return 'Dodajte najviše 1 oznaku';
+    const mod10 = max % 10;
+    const mod100 = max % 100;
+    if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `Dodajte najviše ${max} oznake`;
+    return `Dodajte najviše ${max} oznaka`;
+  },
   unmute: 'Uključi zvuk',
   unpin: 'Otkvači',
   unpinColumn: 'Otkvači stupac',

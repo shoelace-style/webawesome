@@ -6,6 +6,7 @@ const translation: Translation = {
   $name: 'Italiano',
   $dir: 'ltr',
 
+  allTagsRemoved: 'Tutti i tag rimossi',
   am: 'AM',
   autosizeColumn: 'Adatta colonna al contenuto',
   captions: 'Sottotitoli',
@@ -73,6 +74,7 @@ const translation: Translation = {
   nextVideo: 'Video successivo',
   nextYear: 'Anno successivo',
   noData: 'Nessun dato',
+  noOptions: 'Nessuna opzione',
   noResults: 'Nessun risultato corrispondente',
   now: 'Adesso',
   numCharacters: num => {
@@ -83,6 +85,11 @@ const translation: Translation = {
     if (num === 1) return '1 carattere rimanente';
     return `${num} caratteri rimanenti`;
   },
+  numOptionsAvailable: num => {
+    if (num === 0) return 'Nessuna opzione disponibile';
+    if (num === 1) return '1 opzione disponibile';
+    return `${num} opzioni disponibili`;
+  },
   numOptionsSelected: num => {
     if (num === 0) return 'Nessuna opzione selezionata';
     if (num === 1) return '1 opzione selezionata';
@@ -90,6 +97,8 @@ const translation: Translation = {
   },
   numRowsCopied: num => (num === 1 ? '1 riga copiata' : `${num} righe copiate`),
   numRowsSelected: num => (num === 1 ? '1 riga selezionata' : `${num} righe selezionate`),
+  optionPosition: (label, position, total) => `${label}, ${position} di ${total}`,
+  optionsLoadError: 'Impossibile caricare le opzioni',
   pageXOfY: (page, total) => `Pagina ${page} di ${total}`,
   pagination: 'Impaginazione',
   pause: 'Pausa',
@@ -146,11 +155,17 @@ const translation: Translation = {
   sortColumn: 'Ordina colonna',
   sortDescending: 'Ordina in modo decrescente',
   startDate: 'Data di inizio',
+  tagAdded: tag => `${tag} aggiunto`,
+  tagAlreadyAdded: tag => `${tag} è già presente`,
+  tagInputKeyboardHelp: 'Premi Backspace o Canc per rimuovere questo tag.',
+  tagRemoved: tag => `${tag} rimosso`,
   time: 'Ora',
   timeInputKeyboardHelp:
     'Usa i tasti freccia per modificare i valori; premi Alt+Freccia giù per aprire il selettore ora.',
   today: 'Oggi',
   toggleColorFormat: 'Cambia formato colore',
+  tooFewTags: min => (min === 1 ? 'Aggiungi almeno 1 tag' : `Aggiungi almeno ${min} tag`),
+  tooManyTags: max => (max === 1 ? 'Aggiungi al massimo 1 tag' : `Aggiungi al massimo ${max} tag`),
   unmute: 'Attiva audio',
   unpin: 'Sblocca',
   unpinColumn: 'Sblocca colonna',

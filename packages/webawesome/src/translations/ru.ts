@@ -6,6 +6,7 @@ const translation: Translation = {
   $name: 'Русский',
   $dir: 'ltr',
 
+  allTagsRemoved: 'Все теги удалены',
   am: 'AM',
   autosizeColumn: 'Подогнать ширину столбца',
   captions: 'Субтитры',
@@ -85,6 +86,7 @@ const translation: Translation = {
   nextVideo: 'Следующее видео',
   nextYear: 'Следующий год',
   noData: 'Нет данных',
+  noOptions: 'Нет вариантов',
   noResults: 'Нет совпадений',
   now: 'Сейчас',
   numCharacters: num => {
@@ -100,6 +102,14 @@ const translation: Translation = {
     if (mod10 === 1 && mod100 !== 11) return `Остался ${num} символ`;
     if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `Осталось ${num} символа`;
     return `Осталось ${num} символов`;
+  },
+  numOptionsAvailable: num => {
+    if (num === 0) return 'Нет доступных вариантов';
+    const mod10 = num % 10;
+    const mod100 = num % 100;
+    if (mod10 === 1 && mod100 !== 11) return `Доступен ${num} вариант`;
+    if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `Доступно ${num} варианта`;
+    return `Доступно ${num} вариантов`;
   },
   numOptionsSelected: num => {
     if (num === 0) return 'выбрано 0 вариантов';
@@ -120,6 +130,8 @@ const translation: Translation = {
     if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `Выбрано ${num} строки`;
     return `Выбрано ${num} строк`;
   },
+  optionPosition: (label, position, total) => `${label}, ${position} из ${total}`,
+  optionsLoadError: 'Не удалось загрузить варианты',
   pageXOfY: (page, total) => `Страница ${page} из ${total}`,
   pagination: 'Постраничная навигация',
   pause: 'Пауза',
@@ -183,11 +195,27 @@ const translation: Translation = {
   sortColumn: 'Сортировать столбец',
   sortDescending: 'Сортировать по убыванию',
   startDate: 'Дата начала',
+  tagAdded: tag => `${tag} добавлен`,
+  tagAlreadyAdded: tag => `Тег ${tag} уже добавлен`,
+  tagInputKeyboardHelp: 'Нажмите Backspace или Delete, чтобы удалить этот тег.',
+  tagRemoved: tag => `${tag} удалён`,
   time: 'Время',
   timeInputKeyboardHelp:
     'Используйте стрелки для изменения значений; нажмите Alt+Стрелка вниз, чтобы открыть выбор времени.',
   today: 'Сегодня',
   toggleColorFormat: 'Переключить цветовую модель',
+  tooFewTags: min => {
+    const mod10 = min % 10;
+    const mod100 = min % 100;
+    if (mod10 === 1 && mod100 !== 11) return `Добавьте не менее ${min} тега`;
+    return `Добавьте не менее ${min} тегов`;
+  },
+  tooManyTags: max => {
+    const mod10 = max % 10;
+    const mod100 = max % 100;
+    if (mod10 === 1 && mod100 !== 11) return `Добавьте не более ${max} тега`;
+    return `Добавьте не более ${max} тегов`;
+  },
   unmute: 'Включить звук',
   unpin: 'Открепить',
   unpinColumn: 'Открепить столбец',

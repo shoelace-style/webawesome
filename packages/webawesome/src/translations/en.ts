@@ -6,6 +6,7 @@ const translation: Translation = {
   $name: 'English',
   $dir: 'ltr',
 
+  allTagsRemoved: 'All tags removed',
   am: 'AM',
   autosizeColumn: 'Autosize column',
   captions: 'Captions',
@@ -72,6 +73,7 @@ const translation: Translation = {
   nextVideo: 'Next Video',
   nextYear: 'Next year',
   noData: 'No data',
+  noOptions: 'No options',
   noResults: 'No matching results',
   now: 'Now',
   numCharacters: num => {
@@ -82,6 +84,11 @@ const translation: Translation = {
     if (num === 1) return '1 character remaining';
     return `${num} characters remaining`;
   },
+  numOptionsAvailable: num => {
+    if (num === 0) return 'No options available';
+    if (num === 1) return '1 option available';
+    return `${num} options available`;
+  },
   numOptionsSelected: num => {
     if (num === 0) return 'No options selected';
     if (num === 1) return '1 option selected';
@@ -89,6 +96,8 @@ const translation: Translation = {
   },
   numRowsCopied: num => (num === 1 ? '1 row copied' : `${num} rows copied`),
   numRowsSelected: num => (num === 1 ? '1 row selected' : `${num} rows selected`),
+  optionPosition: (label, position, total) => `${label}, ${position} of ${total}`,
+  optionsLoadError: 'Options could not be loaded',
   pageXOfY: (page, total) => `Page ${page} of ${total}`,
   pagination: 'Pagination',
   pause: 'Pause',
@@ -145,10 +154,16 @@ const translation: Translation = {
   sortColumn: 'Sort column',
   sortDescending: 'Sort descending',
   startDate: 'Start date',
+  tagAdded: tag => `${tag} added`,
+  tagAlreadyAdded: tag => `${tag} is already added`,
+  tagInputKeyboardHelp: 'Press Backspace or Delete to remove this tag.',
+  tagRemoved: tag => `${tag} removed`,
   time: 'Time',
   timeInputKeyboardHelp: 'Use arrow keys to change values; press Alt+Down Arrow to open the time picker.',
   today: 'Today',
   toggleColorFormat: 'Toggle color format',
+  tooFewTags: min => (min === 1 ? 'Add at least 1 tag' : `Add at least ${min} tags`),
+  tooManyTags: max => (max === 1 ? 'Add no more than 1 tag' : `Add no more than ${max} tags`),
   unmute: 'Unmute',
   unpin: 'Unpin',
   unpinColumn: 'Unpin column',

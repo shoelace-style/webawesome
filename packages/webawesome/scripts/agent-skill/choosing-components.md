@@ -10,14 +10,19 @@ intent, then check that component's individual reference for its API.
 
 The major decisions:
 
-- **Pick one from a set** — radio group, select, combobox (Pro), switch, slider, rating, color picker
-- **Pick many** — multiple checkboxes, multi-select, multi-combobox (Pro)
+- **Pick one from a set** — radio group, select, combobox (Pro), switch, slider, rating, color picker, date/time
+- **Pick many** — checkbox group, multi-select, multi-combobox (Pro), tag input
 - **Trigger an action** — button, copy button, dropdown menu, button group, tabs
 - **Show feedback or status** — callout, toast, badge, spinner, progress, skeleton, tooltip, popover
-- **Capture input** — input, number input, textarea, file input (Pro)
-- **Show data** — format helpers, relative time, QR code, comparison, carousel, avatar, charts (Pro)
-- **Navigate or organize** — page, breadcrumb, tabs, details, tree, divider, card, tag, badge
+- **Capture input** — input, number input, textarea, date/time inputs, OTP input, file input (Pro)
+- **Show data** — format helpers, relative time, QR code, comparison, carousel, avatar, data grid (Pro), charts (Pro)
+- **Navigate or organize** — page, breadcrumb, tabs, accordion, details, tree, pagination, split panel, divider, card, tag, badge
 - **Overlay or float** — dialog, drawer, tooltip, popover, dropdown
+
+**Check the project first.** If the codebase already has a wrapper, class, or house recipe for the thing you
+need (a `.stat-card`, a `<my-button>`, an established way of building a `<wa-select>`), use that instead of
+starting from the raw component. Matching the project's conventions beats the defaults below. The
+`webawesome-design` skill's `your-design-system.md` explains how to find them.
 
 ---
 
@@ -25,16 +30,19 @@ The major decisions:
 
 The user is choosing one value from a set of options.
 
-| You need…                                     | Use                                  |
-| --------------------------------------------- | ------------------------------------ |
-| 2–5 visible options, all related              | `<wa-radio-group>` with `<wa-radio>` |
-| More options, dropdown form field             | `<wa-select>` with `<wa-option>`     |
-| Many options + typeahead / search             | `<wa-combobox>` **(Pro)**            |
-| Yes / no toggle that takes effect immediately | `<wa-switch>`                        |
-| Yes / no in a form (submitted later)          | `<wa-checkbox>`                      |
-| A numeric value within a continuous range     | `<wa-slider>`                        |
-| A star rating                                 | `<wa-rating>`                        |
-| A color                                       | `<wa-color-picker>`                  |
+| You need…                                        | Use                                                                                |
+| ------------------------------------------------ | ---------------------------------------------------------------------------------- |
+| 2–5 visible options, all related                 | `<wa-radio-group>` with `<wa-radio>`                                               |
+| More options, dropdown form field                | `<wa-select>` with `<wa-option>`                                                   |
+| Many options + typeahead / search                | `<wa-combobox>` **(Pro)**                                                          |
+| Yes / no toggle that takes effect immediately    | `<wa-switch>`                                                                      |
+| Yes / no in a form (submitted later)             | `<wa-checkbox>`                                                                    |
+| A numeric value within a continuous range        | `<wa-slider>`                                                                      |
+| A star rating                                    | `<wa-rating>`                                                                      |
+| A color                                          | `<wa-color-picker>`                                                                |
+| A date the user already knows (birthday, expiry) | `<wa-known-date>`                                                                  |
+| A date from a calendar popup, or a date range    | `<wa-date-input>` **(Pro)**; `<wa-date-picker>` **(Pro)** for an inline month grid |
+| A time of day                                    | `<wa-time-input>`                                                                  |
 
 **`<wa-dropdown>` is not for picking a value.** `<wa-dropdown>` is for a **menu of actions** (think: a
 "More…" button that opens a list of commands). For picking a value from a list, use `<wa-select>` (or
@@ -51,12 +59,13 @@ something, it's a switch.
 
 Multi-selection from a set.
 
-| You need…                                 | Use                                            |
-| ----------------------------------------- | ---------------------------------------------- |
-| A small set of independent options        | Multiple `<wa-checkbox>` elements              |
-| Many options in a multi-select dropdown   | `<wa-select multiple>`                         |
-| Many options with typeahead, multi-select | `<wa-combobox multiple>` **(Pro)**             |
-| Removable chip / tag selections           | `<wa-tag with-remove>` (manage your own state) |
+| You need…                                 | Use                                                                                      |
+| ----------------------------------------- | ---------------------------------------------------------------------------------------- |
+| A small set of independent options        | `<wa-checkbox-group>` wrapping `<wa-checkbox>` elements (shared label, hint, validation) |
+| Many options in a multi-select dropdown   | `<wa-select multiple>`                                                                   |
+| Many options with typeahead, multi-select | `<wa-combobox multiple>` **(Pro)**                                                       |
+| A free-form list of short values          | `<wa-tag-input>` (each tag submits as its own form value)                                |
+| Removable chips whose state you manage    | `<wa-tag with-remove>`                                                                   |
 
 ---
 
@@ -87,7 +96,7 @@ Non-interactive output telling the user something.
 | You need…                                                  | Use                                                                       |
 | ---------------------------------------------------------- | ------------------------------------------------------------------------- |
 | Persistent inline message (info, success, warning, danger) | `<wa-callout>` with a `variant`                                           |
-| Brief ephemeral notification                               | `<wa-toast-item>` inside `<wa-toast>`                           |
+| Brief ephemeral notification                               | `<wa-toast-item>` inside `<wa-toast>`                                     |
 | Compact status indicator (number, "NEW", state)            | `<wa-badge>`                                                              |
 | Loading, duration unknown                                  | `<wa-spinner>`                                                            |
 | Loading, with progress                                     | `<wa-progress-bar>` (horizontal) or `<wa-progress-ring>` (compact circle) |
@@ -108,13 +117,17 @@ content, click to open. If you need anything beyond a short string, it's a popov
 
 The user types or uploads.
 
-| You need…                                      | Use                                                          |
-| ---------------------------------------------- | ------------------------------------------------------------ |
-| Single-line text (incl. email, password, etc.) | `<wa-input>` with the appropriate `type`                     |
-| A number with stepper buttons                  | `<wa-number-input>` (richer than `<wa-input type="number">`) |
-| Multi-line text                                | `<wa-textarea>`                                              |
-| File upload                                    | `<wa-file-input>` **(Pro)**                                  |
-| A color value                                  | `<wa-color-picker>`                                          |
+| You need…                                                   | Use                                                          |
+| ----------------------------------------------------------- | ------------------------------------------------------------ |
+| Single-line text (incl. email, password, etc.)              | `<wa-input>` with the appropriate `type`                     |
+| A number with stepper buttons                               | `<wa-number-input>` (richer than `<wa-input type="number">`) |
+| Multi-line text                                             | `<wa-textarea>`                                              |
+| A free-form list of short values (keywords, emails, labels) | `<wa-tag-input>`                                             |
+| A one-time code, PIN, or fixed-length code                  | `<wa-otp-input>`                                             |
+| A known date (birthday, expiry) or a time of day            | `<wa-known-date>` / `<wa-time-input>` (see "Pick one")       |
+| A date from a calendar popup                                | `<wa-date-input>` **(Pro)**                                  |
+| File upload                                                 | `<wa-file-input>` **(Pro)**                                  |
+| A color value                                               | `<wa-color-picker>`                                          |
 
 Use a `<form>` and the [form controls reference](form-controls.md) for validation patterns and form
 association behavior.
@@ -125,23 +138,26 @@ association behavior.
 
 Read-only data display.
 
-| You need…                                         | Use                                                                                      |
-| ------------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| Format a number with locale-aware rules           | `<wa-format-number>`                                                                     |
-| Format a date with locale-aware rules             | `<wa-format-date>`                                                                       |
-| Format a byte count                               | `<wa-format-bytes>`                                                                      |
-| Show a time as "5 minutes ago" (relative, live)   | `<wa-relative-time>`                                                                     |
-| A QR code                                         | `<wa-qr-code>`                                                                           |
-| Side-by-side image comparison                     | `<wa-comparison>`                                                                        |
-| A carousel / slideshow                            | `<wa-carousel>` with `<wa-carousel-item>`                                                |
-| An iframe with zoom controls                      | `<wa-zoomable-frame>`                                                                    |
-| A user avatar                                     | `<wa-avatar>`                                                                            |
-| An animation                                      | `<wa-animation>`                                                                         |
-| Markdown content rendered inline                  | `<wa-markdown>`                                                                          |
-| Include external HTML                             | `<wa-include>`                                                                           |
-| A small inline trend chart                        | `<wa-sparkline>` **(Pro)**                                                               |
-| A data chart (bar, line, pie, donut, radar, etc.) | The chart family **(Pro)** — `<wa-bar-chart>`, `<wa-line-chart>`, `<wa-pie-chart>`, etc. |
-| A video player                                    | `<wa-video>` or `<wa-video-playlist>` **(Pro)**                                          |
+| You need…                                                     | Use                                                                                      |
+| ------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| Format a number with locale-aware rules                       | `<wa-format-number>`                                                                     |
+| Format a date with locale-aware rules                         | `<wa-format-date>`                                                                       |
+| Format a byte count                                           | `<wa-format-bytes>`                                                                      |
+| Show a time as "5 minutes ago" (relative, live)               | `<wa-relative-time>`                                                                     |
+| A QR code                                                     | `<wa-qr-code>`                                                                           |
+| Side-by-side image comparison                                 | `<wa-comparison>`                                                                        |
+| A carousel / slideshow                                        | `<wa-carousel>` with `<wa-carousel-item>`                                                |
+| An iframe with zoom controls                                  | `<wa-zoomable-frame>`                                                                    |
+| A user avatar                                                 | `<wa-avatar>`                                                                            |
+| A simple, static table                                        | A native `<table>` (Web Awesome's native styles theme it)                                |
+| A sortable, filterable, selectable data table                 | `<wa-data-grid>` **(Pro)**                                                               |
+| Horizontally overflowing content (wide table, strip of cards) | `<wa-scroller>`                                                                          |
+| An animation                                                  | `<wa-animation>`                                                                         |
+| Markdown content rendered inline                              | `<wa-markdown>`                                                                          |
+| Include external HTML                                         | `<wa-include>`                                                                           |
+| A small inline trend chart                                    | `<wa-sparkline>` **(Pro)**                                                               |
+| A data chart (bar, line, pie, donut, radar, etc.)             | The chart family **(Pro)** — `<wa-bar-chart>`, `<wa-line-chart>`, `<wa-pie-chart>`, etc. |
+| A video player                                                | `<wa-video>` or `<wa-video-playlist>` **(Pro)**                                          |
 
 ---
 
@@ -149,17 +165,23 @@ Read-only data display.
 
 Structuring content or moving between views.
 
-| You need…                                            | Use                                                 |
-| ---------------------------------------------------- | --------------------------------------------------- |
-| The page-level frame (header, sidebar, main, footer) | `<wa-page>` — see the `webawesome-design` skill     |
-| Breadcrumb trail                                     | `<wa-breadcrumb>` with `<wa-breadcrumb-item>`       |
-| Switch between sections inline                       | `<wa-tab-group>` with `<wa-tab>` + `<wa-tab-panel>` |
-| Expandable details disclosure                        | `<wa-details>`                                      |
-| Tree navigation (hierarchical lists)                 | `<wa-tree>` with `<wa-tree-item>`                   |
-| Visual separator between sections                    | `<wa-divider>`                                      |
-| Group of related content as a card                   | `<wa-card>`                                         |
-| Inline label (interactive)                           | `<wa-tag>` — removable, supports actions            |
-| Inline status indicator (non-interactive)            | `<wa-badge>` — small status pill                    |
+| You need…                                             | Use                                                 |
+| ----------------------------------------------------- | --------------------------------------------------- |
+| The page-level frame (header, sidebar, main, footer)  | `<wa-page>` — see the `webawesome-design` skill     |
+| Breadcrumb trail                                      | `<wa-breadcrumb>` with `<wa-breadcrumb-item>`       |
+| Switch between sections inline                        | `<wa-tab-group>` with `<wa-tab>` + `<wa-tab-panel>` |
+| A single expandable disclosure                        | `<wa-details>`                                      |
+| A stack of related disclosures (FAQ, settings groups) | `<wa-accordion>` with `<wa-accordion-item>`         |
+| Paging through a long list                            | `<wa-pagination>`                                   |
+| Two resizable side-by-side panes                      | `<wa-split-panel>`                                  |
+| Tree navigation (hierarchical lists)                  | `<wa-tree>` with `<wa-tree-item>`                   |
+| Visual separator between sections                     | `<wa-divider>`                                      |
+| Group of related content as a card                    | `<wa-card>`                                         |
+| Inline label (interactive)                            | `<wa-tag>` — removable, supports actions            |
+| Inline status indicator (non-interactive)             | `<wa-badge>` — small status pill                    |
+
+**Details vs. accordion.** Details = one independent disclosure. Accordion = a group of them that share
+styling and can open one at a time. Three or more `<wa-details>` in a row usually want to be an accordion.
 
 **Tag vs. badge.** Tag = interactive label (filter chip, removable selection, clickable category). Badge
 = small status indicator (count, "NEW", state). If the user can interact with it, it's a tag.
@@ -207,7 +229,8 @@ The Pro-only set is:
 
 - **`<wa-combobox>`** — typeahead select (single or `multiple`)
 - **`<wa-file-input>`** — file upload form control
-- **`<wa-toast>` / `<wa-toast-item>`** — toast notification stack
+- **`<wa-date-input>` / `<wa-date-picker>`** — calendar date entry and inline month grid
+- **`<wa-data-grid>`** — sortable, filterable, selectable data table
 - **`<wa-sparkline>`** — small inline trend chart
 - **The chart family** — `<wa-chart>` (generic), `<wa-bar-chart>`, `<wa-line-chart>`, `<wa-pie-chart>`,
   `<wa-doughnut-chart>`, `<wa-polar-area-chart>`, `<wa-radar-chart>`, `<wa-scatter-chart>`,
@@ -216,5 +239,6 @@ The Pro-only set is:
 
 Don't use Pro components unless the user has Web Awesome Pro. When in doubt, pick the closest Free
 equivalent (`<wa-select>` instead of `<wa-combobox>`, native `<input type="file">` instead of
-`<wa-file-input>`, `<wa-callout>` instead of toast for non-ephemeral messages) or compose from primitives.
+`<wa-file-input>`, `<wa-known-date>` instead of `<wa-date-input>`, a native `<table>` instead of
+`<wa-data-grid>`) or compose from primitives.
 The full Pro list also lives in the main `SKILL.md`.

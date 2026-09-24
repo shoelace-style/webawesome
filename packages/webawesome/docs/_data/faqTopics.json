@@ -1,0 +1,28 @@
+[
+  {
+    "slug": "general",
+    "name": "About Web Awesome",
+    "blurb": "What Web Awesome is, how the open source project works, and where Pro fits in."
+  },
+  {
+    "slug": "usage",
+    "name": "Using Web Awesome",
+    "blurb": "Installing, frameworks, theming, and everyday questions about building with it."
+  },
+  {
+    "slug": "troubleshooting",
+    "name": "Troubleshooting",
+    "blurb": "Something looks off or stopped working? Start here."
+  },
+  {
+    "slug": "licensing",
+    "name": "Licensing",
+    "blurb": "What you can and can't do with Core and Pro, in plain language."
+  },
+  { "slug": "billing", "name": "Pro & Billing", "blurb": "Seats, subscriptions, payments, invoices, and refunds." },
+  {
+    "slug": "account",
+    "name": "Account & Workspaces",
+    "blurb": "Signing in, workspaces, and managing your team's seats."
+  }
+]

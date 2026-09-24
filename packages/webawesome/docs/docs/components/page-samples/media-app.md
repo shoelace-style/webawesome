@@ -385,6 +385,9 @@ eleventyExcludeFromCollections: true
   [slot='main-header'] {
     background-color: var(--wa-color-surface-raised);
   }
+  [slot='main-footer'] {
+    background-color: var(--wa-color-surface-default);
+  }
   #play-controls wa-icon-button::part(base) {
     border: var(--wa-border-width-l) var(--wa-border-style) currentColor;
     border-radius: var(--wa-border-radius-circle);

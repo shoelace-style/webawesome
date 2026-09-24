@@ -6,6 +6,7 @@ const translation: Translation = {
   $name: 'Magyar',
   $dir: 'ltr',
 
+  allTagsRemoved: 'Minden címke eltávolítva',
   am: 'de.',
   autosizeColumn: 'Oszlop méretezése a tartalomhoz',
   captions: 'Feliratok',
@@ -72,6 +73,7 @@ const translation: Translation = {
   nextVideo: 'Következő videó',
   nextYear: 'Következő év',
   noData: 'Nincs adat',
+  noOptions: 'Nincsenek lehetőségek',
   noResults: 'Nincs egyező találat',
   now: 'Most',
   numCharacters: num => {
@@ -82,6 +84,11 @@ const translation: Translation = {
     if (num === 1) return '1 karakter maradt';
     return `${num} karakter maradt`;
   },
+  numOptionsAvailable: num => {
+    if (num === 0) return 'Nincs elérhető lehetőség';
+    if (num === 1) return '1 lehetőség érhető el';
+    return `${num} lehetőség érhető el`;
+  },
   numOptionsSelected: num => {
     if (num === 0) return 'Nincsenek kiválasztva opciók';
     if (num === 1) return '1 lehetőség kiválasztva';
@@ -89,6 +96,8 @@ const translation: Translation = {
   },
   numRowsCopied: num => (num === 1 ? '1 sor másolva' : `${num} sor másolva`),
   numRowsSelected: num => (num === 1 ? '1 sor kiválasztva' : `${num} sor kiválasztva`),
+  optionPosition: (label, position, total) => `${label}, ${total}/${position}`,
+  optionsLoadError: 'A lehetőségeket nem sikerült betölteni',
   pageXOfY: (page, total) => `${total}/${page}. oldal`,
   pagination: 'Lapozás',
   pause: 'Szünet',
@@ -145,10 +154,16 @@ const translation: Translation = {
   sortColumn: 'Oszlop rendezése',
   sortDescending: 'Csökkenő rendezés',
   startDate: 'Kezdő dátum',
+  tagAdded: tag => `${tag} hozzáadva`,
+  tagAlreadyAdded: tag => `${tag} már hozzá van adva`,
+  tagInputKeyboardHelp: 'A címke eltávolításához nyomja meg a Backspace vagy a Delete billentyűt.',
+  tagRemoved: tag => `${tag} eltávolítva`,
   time: 'Idő',
   timeInputKeyboardHelp: 'A nyílbillentyűkkel módosíthatja az értékeket; az Alt+Lefelé nyíl megnyitja az időválasztót.',
   today: 'Ma',
   toggleColorFormat: 'Színformátum változtatása',
+  tooFewTags: min => `Adjon hozzá legalább ${min} címkét`,
+  tooManyTags: max => `Legfeljebb ${max} címkét adjon hozzá`,
   unmute: 'Elnémítás feloldása',
   unpin: 'Rögzítés feloldása',
   unpinColumn: 'Oszlop rögzítésének feloldása',

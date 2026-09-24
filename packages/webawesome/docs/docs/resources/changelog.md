@@ -31,16 +31,98 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 ## Unreleased
 
+:::added
+
+- Added the `with-label` attribute to `<wa-dialog>` and `<wa-drawer>` for server-side rendering [pr:2846]
+- Added support for labels in `<wa-divider>` [discuss:2802] [pr:2830]
+  - Added the default slot and the `label` part
+  - Added the `label-placement` attribute
+  - Added the `--label-spacing` and `--label-offset` custom properties
+  - Added the `with-label` attribute for server-side rendering
+- Added the `allow`, `name`, and `label` attributes to `<wa-zoomable-frame>` [pr:2832]
+- Added async options to `<wa-combobox>` for loading options from a server [discuss:1881] [pr:2837]
+  - Added the `dataSource` property, which can return options as data or as custom `<wa-option>` HTML
+  - Added the `server`, `loading`, and `filter-debounce` attributes
+  - Added the `reload()` method
+  - Added the `wa-options-request` and `wa-options-error` events
+  - Added the `loading`, `no-results`, `empty`, and `error` status slots
+
+:::
+
 :::fixed
 
-- Fixed a bug in `<wa-page>` where empty contents for `navigation-footer` would reserve space for a navigation footer in the mobile navigation drawer.
-- Fixed a bug in `<wa-page>` where the header did not have a background set. [pr:2690]
-- Fixed a bug in `.wa-visually-hidden` utility where it did not set a `top` and `left` causing unexpected overflows. [pr:2765]
-- Fixed `<wa-accordion>` removing headers from the page's tab sequence via a roving tabindex; `Tab` and `Shift + Tab` now move through every header, matching the [W3C accordion pattern](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/examples/accordion/). Arrow keys and Home/End remain as shortcuts for moving between headers.
+- Fixed a bug in `<wa-animated-image>` that caused the image to stay hidden while playing [issue:2811] [pr:2828]
+- Fixed several screen reader bugs in `<wa-combobox>` [pr:2837]
+  - Fixed announcements that weren't reliably spoken because they came from a live region inside the shadow root
+  - Fixed an `aria-activedescendant` on the input that pointed to an option assistive devices couldn't resolve
+  - Fixed the option position and option count announcements not being localized
+- Fixed a bug in `<wa-date-input>` and `<wa-time-input>` where the clear and expand buttons used a different hover color than `<wa-input>` and `<wa-select>` [issue:2834] [pr:2845]
+- Fixed a bug in `<wa-dialog>` and `<wa-drawer>` where the internal `<dialog>` element had no accessible name [issue:2785] [pr:2846]
+- Fixed a bug in `<wa-dialog>` and `<wa-drawer>` where clicking its own scrollbar closed it when `light-dismiss` was enabled [issue:2778] [pr:2851]
+- Fixed a memory leak in `<wa-option>` where removed `<wa-select>` elements and their options were never garbage collected unless `<wa-combobox>` was also registered [issue:2813] [pr:2814]
+- Fixed a bug in `<wa-page>` where the navigation toggle's icon loaded from the default icon library instead of the system library [issue:2820] [pr:2840]
+- Fixed a bug in `<wa-page>` where `disable-navigation-toggle` was ignored when navigation content was present [issue:2774] [pr:2840]
+- Fixed a bug in `<wa-popover>` that prevented text inside the popover from being selected [pr:2849]
+- Fixed a bug in `<wa-zoomable-frame>` where the internal iframe rendered `referrerpolicy="undefined"` when no referrer policy was set [pr:2832]
+- Fixed a bug in the layout utilities (`wa-stack`, `wa-cluster`, etc.) that stopped native `<dialog>` and popover children from centering [issue:2777] [pr:2847]
+- Fixed a bug in the `.wa-visually-hidden-label` and `.wa-visually-hidden-hint` utilities where they didn't set `top` and `left`, so labels and hints hidden on form controls could still extend the page's scrollable area [pr:2836]
+- Fixed implicit form submission so pressing [[Enter]] submits a form holding one text field alongside non-submittable controls such as checkboxes or hidden inputs, bringing `<wa-input>`, `<wa-number-input>`, `<wa-otp-input>`, `<wa-slider>`, and `<wa-tag-input>` closer to the browser [pr:2850]
+
+:::
+
+:::changed
+
+- Updated `<wa-combobox>` to show a "no results" message instead of closing the listbox when nothing matches the query, except with `allow-custom-value`, where it still closes [pr:2837]
+- Updated `<wa-page>` so only the `banner`, `header`, and `subheader` parts paint a background, which keeps slotted content from covering a background set on them. See [Backgrounds](/docs/components/page#backgrounds) to keep other sections opaque [issue:2827] [pr:2848]
+- Improved the agent skills for design system work [pr:2838]
+  - The `webawesome-design` skill now leads with a discover-the-project step, pairs every rule with its replacement and reason, and ends with a mechanical verification pass
+  - Added a `your-design-system.md` reference for building and extending a project design system on Web Awesome, including a `DESIGN.md` template
+  - Updated the `webawesome` skill's `<wa-page>` guidance to match the design skill and the component's actual behavior
+  - Added missing components to the `choosing-components.md` decision tree and corrected the Pro component list
+
+:::
+
+## 3.13.0
+
+<small><time datetime="2026-09-16">September 16th, 2026</time></small>
+
+:::added
+
+- Added the experimental `<wa-tag-input>` component for collecting a list of short values, such as keywords, email addresses, or labels, as removable tags [pr:2796]
+
+:::
+
+:::fixed
+
+- Fixed a bug in `<wa-page>` where an empty `navigation-footer` slot still reserved space for a footer in the mobile navigation drawer [issue:2609] [pr:2691]
+- Fixed a bug in `<wa-page>` where the built-in mobile navigation toggle had no background, leaving a transparent gap in sticky headers [issue:2666] [pr:2690]
+- Fixed a bug in the `.wa-visually-hidden` utility where it didn't set `top` and `left`, so hidden elements could still extend the page's scrollable area [pr:2765]
+- Fixed a bug in `<wa-tooltip>` where hovering content projected into the tooltip through a `<slot>` closed the tooltip [issue:2745] [pr:2746]
+- Fixed a bug in `<wa-popover>` where dragging to select text inside the popover closed it if the cursor was released outside of it [pr:2773]
+- Fixed `<wa-accordion>` removing headers from the page's tab sequence via a roving tabindex, matching the [W3C accordion pattern](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/examples/accordion/) [issue:2764] [pr:2769]
+  - [[Tab]] and [[Shift]] + [[Tab]] now move through every header
+  - Arrow keys, [[Home]], and [[End]] remain as shortcuts for moving between headers
+- Fixed the `+n` overflow tag in `<wa-select multiple>` ignoring the `pill` and `size` attributes, so it no longer looks different from the tags beside it [pr:2805]
+- Fixed a bug in `<wa-combobox>` where typing into a closed combobox showed all options on the first keystroke instead of filtering [issue:2776]
+- Fixed a bug in `<wa-data-grid>` where picking a date in a `date-range` column filter emptied the filter panel while leaving the popover open, leaving a small empty box anchored to the filter button [issue:2768]
+- Fixed a bug in `<wa-data-grid>` where the first click on a link or button rendered by a `formatter` that returns a DOM node was discarded, so neither the control nor `wa-cell-click` responded until a second click [issue:2763]
+- Fixed a bug in `<wa-data-grid>` where a `flex` column with a `minWidth` above 150 lost its flex and rendered at `minWidth` instead [issue:2791]
+- Fixed a bug in `<wa-data-grid>` where icons incorrectly resolved through the default icon library instead of the system library, so they failed to render when the default library was customized or unavailable [issue:2801] [pr:2804]
+
+:::
+
+:::changed
+
+- Promoted the following components from {{ statusBadge('experimental') }} to {{ statusBadge('stable') }} [pr:2809]
+  - Free: `<wa-accordion>`, `<wa-accordion-item>`, `<wa-known-date>`, `<wa-otp-input>`, `<wa-pagination>`, `<wa-random-content>`, and `<wa-time-input>`
+  - Pro: `<wa-date-input>`, `<wa-date-picker>`, `<wa-video>`, and `<wa-video-playlist>`
+- Updated the tags inside `<wa-select multiple>` and `<wa-combobox multiple>` to use `--wa-border-radius-s`, a step down from the control's own radius, matching `<wa-tag-input>` [pr:2805]
 
 :::
 
 ## 3.12.0
+
+<small><time datetime="2026-08-21">August 21st, 2026</time></small>
 
 :::added
 
@@ -63,7 +145,6 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug in `<wa-data-grid>` that caused an expanded row detail's space to stay reserved at its old position after changing pages, sorting, or filtering
 - Fixed a bug in `<wa-data-grid>` that caused the empty and loading states to be invisible in some cases [issue:2734]
 - Fixed `<wa-data-grid>` showing its empty state behind the loading overlay while a server request was in flight
-- Fixed a bug in `<wa-popover>` where dragging to select text inside the popover closed it if the cursor was released outside of it
 - Fixed a bug in `<wa-tooltip>` where canceling the `wa-hide` event didn't keep the tooltip open [pr:2721]
 - Fixed a bug in `<wa-tooltip>` where tooltips with `trigger="manual"` closed when pressing [[Escape]] [pr:2721]
 - Fixed the `hint` part in `<wa-textarea>`, which sat on a slot inside an unexposed wrapper; `::part(hint)` now selects the hint and the character count together [issue:2614] [pr:2720]
@@ -514,7 +595,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::removed
 
-- Removed a `preinstall` script in `webawesome-pro` that was causing issues in some package managers.
+- Removed a `preinstall` script in `webawesome-pro` that was causing issues in some package managers
 
 :::
 
@@ -649,7 +730,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::fixed
 
-- [PRO]: Fixed a few sizing bugs in `<wa-page>` and `slot="footer"` no longer will always "overflow" the container.
+- [PRO]: Fixed a few sizing bugs in `<wa-page>` and `slot="footer"` no longer will always "overflow" the container
 - Fixed a bug in `<wa-slider>` that caused some touch devices to end up with the incorrect value [issue:1703]
 - Fixed a bug in `<wa-card>` that prevented some slots from being detected correctly [discuss:1450]
 - Fixed a z-index bug in `<wa-scroller>` styles [issue:1724]

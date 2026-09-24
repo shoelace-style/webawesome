@@ -6,6 +6,7 @@ const translation: Translation = {
   $name: 'Қазақ',
   $dir: 'ltr',
 
+  allTagsRemoved: 'Барлық тегтер жойылды',
   am: 'AM',
   autosizeColumn: 'Бағана өлшемін мазмұнға келтіру',
   captions: 'Субтитрлер',
@@ -73,6 +74,7 @@ const translation: Translation = {
   nextVideo: 'Келесі бейне',
   nextYear: 'Келесі жыл',
   noData: 'Деректер жоқ',
+  noOptions: 'Опциялар жоқ',
   noResults: 'Сәйкес нәтижелер жоқ',
   now: 'Қазір',
   numCharacters: num => {
@@ -83,6 +85,10 @@ const translation: Translation = {
     if (num === 1) return '1 таңба қалды';
     return `${num} таңба қалды`;
   },
+  numOptionsAvailable: num => {
+    if (num === 0) return 'Қолжетімді опциялар жоқ';
+    return `${num} опция қолжетімді`;
+  },
   numOptionsSelected: num => {
     if (num === 0) return 'Ештеңе таңдалмады';
     if (num < 6 || num === 7) return `${num}-еу таңдалды`;
@@ -91,6 +97,8 @@ const translation: Translation = {
   },
   numRowsCopied: num => (num === 1 ? '1 жол көшірілді' : `${num} жол көшірілді`),
   numRowsSelected: num => (num === 1 ? '1 жол таңдалды' : `${num} жол таңдалды`),
+  optionPosition: (label, position, total) => `${label}, ${total} ішінен ${position}`,
+  optionsLoadError: 'Опцияларды жүктеу мүмкін болмады',
   pageXOfY: (page, total) => `${total} ішінен ${page} бет`,
   pagination: 'Беттеу',
   pause: 'Тоқтату',
@@ -147,11 +155,17 @@ const translation: Translation = {
   sortColumn: 'Бағананы сұрыптау',
   sortDescending: 'Кему ретімен сұрыптау',
   startDate: 'Басталу күні',
+  tagAdded: tag => `${tag} қосылды`,
+  tagAlreadyAdded: tag => `${tag} тегі әлдеқашан қосылған`,
+  tagInputKeyboardHelp: 'Бұл тегті жою үшін Backspace немесе Delete пернесін басыңыз.',
+  tagRemoved: tag => `${tag} жойылды`,
   time: 'Уақыт',
   timeInputKeyboardHelp:
     'Мәндерді өзгерту үшін көрсеткі пернелерін пайдаланыңыз; уақыт таңдағышын ашу үшін Alt+Төмен көрсеткі пернесін басыңыз.',
   today: 'Бүгін',
   toggleColorFormat: 'Түс пішімін ауыстыру',
+  tooFewTags: min => `Кемінде ${min} тег қосыңыз`,
+  tooManyTags: max => `${max} тегтен артық қоспаңыз`,
   unmute: 'Дыбысты қосу',
   unpin: 'Бекітуді алып тастау',
   unpinColumn: 'Бағана бекітуін алып тастау',

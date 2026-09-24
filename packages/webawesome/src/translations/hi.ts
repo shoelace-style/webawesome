@@ -6,6 +6,7 @@ const translation: Translation = {
   $name: 'हिन्दी',
   $dir: 'ltr',
 
+  allTagsRemoved: 'सभी टैग हटाए गए',
   am: 'पूर्वाह्न',
   autosizeColumn: 'कॉलम का आकार स्वतः समायोजित करें',
   captions: 'कैप्शन',
@@ -72,6 +73,7 @@ const translation: Translation = {
   nextVideo: 'अगला वीडियो',
   nextYear: 'अगला वर्ष',
   noData: 'कोई डेटा नहीं',
+  noOptions: 'कोई विकल्प नहीं',
   noResults: 'कोई मेल खाने वाले परिणाम नहीं',
   now: 'अभी',
   numCharacters: num => {
@@ -82,6 +84,11 @@ const translation: Translation = {
     if (num === 1) return '1 अक्षर शेष';
     return `${num} अक्षर शेष`;
   },
+  numOptionsAvailable: num => {
+    if (num === 0) return 'कोई विकल्प उपलब्ध नहीं';
+    if (num === 1) return '1 विकल्प उपलब्ध';
+    return `${num} विकल्प उपलब्ध`;
+  },
   numOptionsSelected: num => {
     if (num === 0) return 'कोई विकल्प चयनित नहीं';
     if (num === 1) return '1 विकल्प चयनित';
@@ -89,6 +96,8 @@ const translation: Translation = {
   },
   numRowsCopied: num => (num === 1 ? '1 पंक्ति कॉपी की गई' : `${num} पंक्तियाँ कॉपी की गईं`),
   numRowsSelected: num => (num === 1 ? '1 पंक्ति चयनित' : `${num} पंक्तियाँ चयनित`),
+  optionPosition: (label, position, total) => `${label}, ${total} में से ${position}`,
+  optionsLoadError: 'विकल्प लोड नहीं किए जा सके',
   pageXOfY: (page, total) => `${total} में से पृष्ठ ${page}`,
   pagination: 'पृष्ठ क्रमांकन',
   pause: 'रोकें',
@@ -145,10 +154,16 @@ const translation: Translation = {
   sortColumn: 'कॉलम क्रमबद्ध करें',
   sortDescending: 'अवरोही क्रम में क्रमबद्ध करें',
   startDate: 'आरंभ तिथि',
+  tagAdded: tag => `${tag} जोड़ा गया`,
+  tagAlreadyAdded: tag => `${tag} पहले से जोड़ा गया है`,
+  tagInputKeyboardHelp: 'इस टैग को हटाने के लिए Backspace या Delete दबाएँ।',
+  tagRemoved: tag => `${tag} हटाया गया`,
   time: 'समय',
   timeInputKeyboardHelp: 'मान बदलने के लिए तीर कुंजियों का उपयोग करें; समय चयनकर्ता खोलने के लिए Alt+नीचे तीर दबाएं.',
   today: 'आज',
   toggleColorFormat: 'रंग प्रारूप बदलें',
+  tooFewTags: min => `कम से कम ${min} टैग जोड़ें`,
+  tooManyTags: max => `${max} से अधिक टैग न जोड़ें`,
   unmute: 'अनम्यूट',
   unpin: 'अनपिन करें',
   unpinColumn: 'कॉलम अनपिन करें',

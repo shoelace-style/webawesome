@@ -6,6 +6,7 @@ const translation: Translation = {
   $name: 'Українська',
   $dir: 'ltr',
 
+  allTagsRemoved: 'Усі теги видалено',
   am: 'AM',
   autosizeColumn: 'Автоматичний розмір стовпця',
   captions: 'Субтитри',
@@ -85,6 +86,7 @@ const translation: Translation = {
   nextVideo: 'Наступне відео',
   nextYear: 'Наступний рік',
   noData: 'Немає даних',
+  noOptions: 'Немає варіантів',
   noResults: 'Немає відповідних результатів',
   now: 'Зараз',
   numCharacters: num => {
@@ -100,6 +102,14 @@ const translation: Translation = {
     if (mod10 === 1 && mod100 !== 11) return `Залишився ${num} символ`;
     if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `Залишилося ${num} символи`;
     return `Залишилося ${num} символів`;
+  },
+  numOptionsAvailable: num => {
+    if (num === 0) return 'Немає доступних варіантів';
+    const mod10 = num % 10;
+    const mod100 = num % 100;
+    if (mod10 === 1 && mod100 !== 11) return `Доступний ${num} варіант`;
+    if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `Доступно ${num} варіанти`;
+    return `Доступно ${num} варіантів`;
   },
   numOptionsSelected: num => {
     const n = num % 10;
@@ -122,6 +132,8 @@ const translation: Translation = {
     if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `Вибрано ${num} рядки`;
     return `Вибрано ${num} рядків`;
   },
+  optionPosition: (label, position, total) => `${label}, ${position} з ${total}`,
+  optionsLoadError: 'Не вдалося завантажити варіанти',
   pageXOfY: (page, total) => `Сторінка ${page} з ${total}`,
   pagination: 'Нумерація сторінок',
   pause: 'Пауза',
@@ -185,11 +197,29 @@ const translation: Translation = {
   sortColumn: 'Сортувати стовпець',
   sortDescending: 'Сортувати за спаданням',
   startDate: 'Дата початку',
+  tagAdded: tag => `${tag} додано`,
+  tagAlreadyAdded: tag => `Тег ${tag} уже додано`,
+  tagInputKeyboardHelp: 'Натисніть Backspace або Delete, щоб видалити цей тег.',
+  tagRemoved: tag => `${tag} видалено`,
   time: 'Час',
   timeInputKeyboardHelp:
     'Використовуйте стрілки для зміни значень; натисніть Alt+Стрілка вниз, щоб відкрити засіб вибору часу.',
   today: 'Сьогодні',
   toggleColorFormat: 'Переключити кольорову модель',
+  tooFewTags: min => {
+    const mod10 = min % 10;
+    const mod100 = min % 100;
+    if (mod10 === 1 && mod100 !== 11) return `Додайте щонайменше ${min} тег`;
+    if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `Додайте щонайменше ${min} теги`;
+    return `Додайте щонайменше ${min} тегів`;
+  },
+  tooManyTags: max => {
+    const mod10 = max % 10;
+    const mod100 = max % 100;
+    if (mod10 === 1 && mod100 !== 11) return `Додайте не більше ніж ${max} тег`;
+    if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `Додайте не більше ніж ${max} теги`;
+    return `Додайте не більше ніж ${max} тегів`;
+  },
   unmute: 'Увімкнути звук',
   unpin: 'Відкріпити',
   unpinColumn: 'Відкріпити стовпець',

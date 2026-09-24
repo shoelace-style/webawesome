@@ -6,6 +6,7 @@ const translation: Translation = {
   $name: 'Svenska',
   $dir: 'ltr',
 
+  allTagsRemoved: 'Alla taggar borttagna',
   am: 'FM',
   autosizeColumn: 'Anpassa kolumnbredd',
   captions: 'Undertexter',
@@ -72,6 +73,7 @@ const translation: Translation = {
   nextVideo: 'Nästa video',
   nextYear: 'Nästa år',
   noData: 'Inga data',
+  noOptions: 'Inga alternativ',
   noResults: 'Inga matchande resultat',
   now: 'Nu',
   numCharacters: num => {
@@ -82,6 +84,11 @@ const translation: Translation = {
     if (num === 1) return '1 tecken kvar';
     return `${num} tecken kvar`;
   },
+  numOptionsAvailable: num => {
+    if (num === 0) return 'Inga alternativ tillgängliga';
+    if (num === 1) return '1 alternativ tillgängligt';
+    return `${num} alternativ tillgängliga`;
+  },
   numOptionsSelected: num => {
     if (num === 0) return 'Inga alternativ har valts';
     if (num === 1) return '1 alternativ valt';
@@ -89,6 +96,8 @@ const translation: Translation = {
   },
   numRowsCopied: num => (num === 1 ? '1 rad kopierad' : `${num} rader kopierade`),
   numRowsSelected: num => (num === 1 ? '1 rad markerad' : `${num} rader markerade`),
+  optionPosition: (label, position, total) => `${label}, ${position} av ${total}`,
+  optionsLoadError: 'Alternativen kunde inte läsas in',
   pageXOfY: (page, total) => `Sida ${page} av ${total}`,
   pagination: 'Paginering',
   pause: 'Pausa',
@@ -145,10 +154,16 @@ const translation: Translation = {
   sortColumn: 'Sortera kolumn',
   sortDescending: 'Sortera fallande',
   startDate: 'Startdatum',
+  tagAdded: tag => `${tag} tillagd`,
+  tagAlreadyAdded: tag => `${tag} är redan tillagd`,
+  tagInputKeyboardHelp: 'Tryck på Backspace eller Delete för att ta bort den här taggen.',
+  tagRemoved: tag => `${tag} borttagen`,
   time: 'Tid',
   timeInputKeyboardHelp: 'Använd piltangenterna för att ändra värden; tryck Alt+Pil ned för att öppna tidsväljaren.',
   today: 'Idag',
   toggleColorFormat: 'Växla färgformat',
+  tooFewTags: min => (min === 1 ? 'Lägg till minst 1 tagg' : `Lägg till minst ${min} taggar`),
+  tooManyTags: max => (max === 1 ? 'Lägg till högst 1 tagg' : `Lägg till högst ${max} taggar`),
   unmute: 'Slå på ljud',
   unpin: 'Ta bort fästning',
   unpinColumn: 'Ta bort fäst kolumn',

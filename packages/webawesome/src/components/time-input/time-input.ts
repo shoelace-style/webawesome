@@ -53,7 +53,7 @@ const SINGLE_GROUP = 'single';
  * @summary Time pickers let users enter a time through a segmented field or select one visually from a popup column
  *  picker. They support 12- and 24-hour formats, optional seconds, and locale-aware segment order.
  * @documentation https://webawesome.com/docs/components/time-input
- * @status experimental
+ * @status stable
  * @since 3.8
  *
  * @dependency wa-icon

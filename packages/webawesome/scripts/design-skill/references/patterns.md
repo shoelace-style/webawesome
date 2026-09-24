@@ -1,6 +1,6 @@
 # Recipes
 
-Best-practice compositions built from Web Awesome primitives. Each recipe names its **STEP 0 branch**
+Best-practice compositions built from Web Awesome primitives. Each recipe names its **layout branch**
 (full-page → `<wa-page>`; in-page → utilities only), its **design intent**, and its **rationale** (the
 established web-design convention it follows). Copy, then re-theme with tokens.
 
@@ -11,6 +11,15 @@ These snippets keep a few one-off values inline (a `max-width`, a `--min-column-
 self-contained. In a real page, lift anything reused into a `<style>` block as a class, and **never style
 a component host inline** — restyle components through their tokens, attributes, or `::part()` (see
 [composition.md](composition.md)).
+
+**Contents**
+
+- [App shell (full-page, `<wa-page>`)](#app-shell-full-page-wa-page)
+- [Marketing landing page (full-page, `<wa-page>`)](#marketing-landing-page-full-page-wa-page)
+- [Login / auth card (in-page, utilities only)](#login--auth-card-in-page-utilities-only)
+- [Settings section (in-page, utilities only)](#settings-section-in-page-utilities-only)
+- [Dashboard card grid (in-page, utilities only)](#dashboard-card-grid-in-page-utilities-only)
+- [Want more?](#want-more)
 
 ---
 

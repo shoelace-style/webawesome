@@ -6,6 +6,7 @@ const translation: Translation = {
   $name: '简体中文',
   $dir: 'ltr',
 
+  allTagsRemoved: '已移除所有标签',
   am: '上午',
   autosizeColumn: '自适应列宽',
   captions: '字幕',
@@ -72,10 +73,15 @@ const translation: Translation = {
   nextVideo: '下一个视频',
   nextYear: '下一年',
   noData: '暂无数据',
+  noOptions: '暂无选项',
   noResults: '无匹配结果',
   now: '此刻',
   numCharacters: num => `${num}个字符`,
   numCharactersRemaining: num => `剩余${num}个字符`,
+  numOptionsAvailable: num => {
+    if (num === 0) return '没有可用选项';
+    return `${num} 个可用选项`;
+  },
   numOptionsSelected: num => {
     if (num === 0) return '未选择任何项目';
     if (num === 1) return '已选择 1 个项目';
@@ -83,6 +89,8 @@ const translation: Translation = {
   },
   numRowsCopied: num => `已复制 ${num} 行`,
   numRowsSelected: num => `已选择 ${num} 行`,
+  optionPosition: (label, position, total) => `${label}，${position} / ${total}`,
+  optionsLoadError: '无法加载选项',
   pageXOfY: (page, total) => `第 ${page} 页，共 ${total} 页`,
   pagination: '分页',
   pause: '暂停',
@@ -139,10 +147,16 @@ const translation: Translation = {
   sortColumn: '排序列',
   sortDescending: '降序排序',
   startDate: '开始日期',
+  tagAdded: tag => `已添加 ${tag}`,
+  tagAlreadyAdded: tag => `${tag} 已添加`,
+  tagInputKeyboardHelp: '按 Backspace 或 Delete 键移除此标签。',
+  tagRemoved: tag => `已移除 ${tag}`,
   time: '时间',
   timeInputKeyboardHelp: '使用方向键更改值；按 Alt+下方向键打开时间选择器。',
   today: '今天',
   toggleColorFormat: '切换颜色模式',
+  tooFewTags: min => `请至少添加 ${min} 个标签`,
+  tooManyTags: max => `最多只能添加 ${max} 个标签`,
   unmute: '取消静音',
   unpin: '取消固定',
   unpinColumn: '取消固定列',

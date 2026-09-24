@@ -6,6 +6,7 @@ const translation: Translation = {
   $name: 'العربية',
   $dir: 'rtl',
 
+  allTagsRemoved: 'تمت إزالة كل الوسوم',
   am: 'ص',
   autosizeColumn: 'ملاءمة حجم العمود تلقائيًا',
   captions: 'تسميات توضيحية',
@@ -82,6 +83,7 @@ const translation: Translation = {
   nextVideo: 'الفيديو التالي',
   nextYear: 'السنة التالية',
   noData: 'لا توجد بيانات',
+  noOptions: 'لا توجد خيارات',
   noResults: 'لا توجد نتائج مطابقة',
   now: 'الآن',
   numCharacters: num => {
@@ -97,6 +99,13 @@ const translation: Translation = {
     if (num === 2) return '2 حرفان متبقيان';
     if (num > 2 && num < 11) return `${num} أحرف متبقية`;
     return `${num} حرفًا متبقيًا`;
+  },
+  numOptionsAvailable: num => {
+    if (num === 0) return 'لا توجد خيارات متاحة';
+    if (num === 1) return 'خيار واحد متاح';
+    if (num === 2) return 'خياران متاحان';
+    if (num > 2 && num < 11) return `${num} خيارات متاحة`;
+    return `${num} خيارًا متاحًا`;
   },
   numOptionsSelected: num => {
     if (num === 0) return 'لم يتم تحديد أي خيارات';
@@ -119,6 +128,8 @@ const translation: Translation = {
     if (num > 2 && num < 11) return `تم تحديد ${num} صفوف`;
     return `تم تحديد ${num} صفًا`;
   },
+  optionPosition: (label, position, total) => `${label}، ${position} من ${total}`,
+  optionsLoadError: 'تعذر تحميل الخيارات',
   pageXOfY: (page, total) => `الصفحة ${page} من ${total}`,
   pagination: 'ترقيم الصفحات',
   pause: 'إيقاف مؤقت',
@@ -179,10 +190,26 @@ const translation: Translation = {
   sortColumn: 'فرز العمود',
   sortDescending: 'فرز تنازلي',
   startDate: 'تاريخ البدء',
+  tagAdded: tag => `تمت إضافة ${tag}`,
+  tagAlreadyAdded: tag => `الوسم ${tag} مضاف بالفعل`,
+  tagInputKeyboardHelp: 'اضغط Backspace أو Delete لإزالة هذا الوسم.',
+  tagRemoved: tag => `تمت إزالة ${tag}`,
   time: 'الوقت',
   timeInputKeyboardHelp: 'استخدم مفاتيح الأسهم لتغيير القيم؛ اضغط Alt+سهم الأسفل لفتح منتقي الوقت.',
   today: 'اليوم',
   toggleColorFormat: 'تغيير صيغة عرض  اللون',
+  tooFewTags: min => {
+    if (min === 1) return 'أضف وسمًا واحدًا على الأقل';
+    if (min === 2) return 'أضف وسمين على الأقل';
+    if (min > 2 && min < 11) return `أضف ${min} وسوم على الأقل`;
+    return `أضف ${min} وسمًا على الأقل`;
+  },
+  tooManyTags: max => {
+    if (max === 1) return 'لا تضف أكثر من وسم واحد';
+    if (max === 2) return 'لا تضف أكثر من وسمين';
+    if (max > 2 && max < 11) return `لا تضف أكثر من ${max} وسوم`;
+    return `لا تضف أكثر من ${max} وسمًا`;
+  },
   unmute: 'إلغاء كتم الصوت',
   unpin: 'إلغاء التثبيت',
   unpinColumn: 'إلغاء تثبيت العمود',

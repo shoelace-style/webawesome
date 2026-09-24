@@ -6,6 +6,7 @@ const translation: Translation = {
   $name: 'Suomi',
   $dir: 'ltr',
 
+  allTagsRemoved: 'Kaikki tunnisteet poistettu',
   am: 'ap.',
   autosizeColumn: 'Sovita sarakkeen koko',
   captions: 'Tekstitys',
@@ -72,6 +73,7 @@ const translation: Translation = {
   nextVideo: 'Seuraava video',
   nextYear: 'Seuraava vuosi',
   noData: 'Ei tietoja',
+  noOptions: 'Ei vaihtoehtoja',
   noResults: 'Ei vastaavia tuloksia',
   now: 'Nyt',
   numCharacters: num => {
@@ -82,6 +84,11 @@ const translation: Translation = {
     if (num === 1) return '1 merkki jäljellä';
     return `${num} merkkiä jäljellä`;
   },
+  numOptionsAvailable: num => {
+    if (num === 0) return 'Ei vaihtoehtoja saatavilla';
+    if (num === 1) return 'Yksi vaihtoehto saatavilla';
+    return `${num} vaihtoehtoa saatavilla`;
+  },
   numOptionsSelected: num => {
     if (num === 0) return 'Ei valittuja vaihtoehtoja';
     if (num === 1) return 'Yksi vaihtoehto valittu';
@@ -89,6 +96,8 @@ const translation: Translation = {
   },
   numRowsCopied: num => (num === 1 ? '1 rivi kopioitu' : `${num} riviä kopioitu`),
   numRowsSelected: num => (num === 1 ? '1 rivi valittu' : `${num} riviä valittu`),
+  optionPosition: (label, position, total) => `${label}, ${position} / ${total}`,
+  optionsLoadError: 'Vaihtoehtoja ei voitu ladata',
   pageXOfY: (page, total) => `Sivu ${page} / ${total}`,
   pagination: 'Sivutus',
   pause: 'Keskeytä',
@@ -145,10 +154,16 @@ const translation: Translation = {
   sortColumn: 'Lajittele sarake',
   sortDescending: 'Lajittele laskevasti',
   startDate: 'Alkamispäivä',
+  tagAdded: tag => `${tag} lisätty`,
+  tagAlreadyAdded: tag => `${tag} on jo lisätty`,
+  tagInputKeyboardHelp: 'Poista tämä tunniste painamalla Backspace tai Delete.',
+  tagRemoved: tag => `${tag} poistettu`,
   time: 'Aika',
   timeInputKeyboardHelp: 'Muuta arvoja nuolinäppäimillä; avaa ajanvalitsin painamalla Alt+Nuoli alas.',
   today: 'Tänään',
   toggleColorFormat: 'Vaihda väriformaattia',
+  tooFewTags: min => (min === 1 ? 'Lisää vähintään 1 tunniste' : `Lisää vähintään ${min} tunnistetta`),
+  tooManyTags: max => (max === 1 ? 'Lisää enintään 1 tunniste' : `Lisää enintään ${max} tunnistetta`),
   unmute: 'Poista mykistys',
   unpin: 'Poista kiinnitys',
   unpinColumn: 'Poista sarakkeen kiinnitys',

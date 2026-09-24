@@ -6,6 +6,7 @@ const translation: Translation = {
   $name: 'Nederlands',
   $dir: 'ltr',
 
+  allTagsRemoved: 'Alle tags verwijderd',
   am: 'AM',
   autosizeColumn: 'Kolom automatisch passend maken',
   captions: 'Ondertiteling',
@@ -73,6 +74,7 @@ const translation: Translation = {
   nextVideo: 'Volgende video',
   nextYear: 'Volgend jaar',
   noData: 'Geen gegevens',
+  noOptions: 'Geen opties',
   noResults: 'Geen overeenkomende resultaten',
   now: 'Nu',
   numCharacters: num => {
@@ -83,6 +85,11 @@ const translation: Translation = {
     if (num === 1) return '1 teken resterend';
     return `${num} tekens resterend`;
   },
+  numOptionsAvailable: num => {
+    if (num === 0) return 'Geen opties beschikbaar';
+    if (num === 1) return '1 optie beschikbaar';
+    return `${num} opties beschikbaar`;
+  },
   numOptionsSelected: num => {
     if (num === 0) return 'Geen optie geselecteerd';
     if (num === 1) return '1 optie geselecteerd';
@@ -90,6 +97,8 @@ const translation: Translation = {
   },
   numRowsCopied: num => (num === 1 ? '1 rij gekopieerd' : `${num} rijen gekopieerd`),
   numRowsSelected: num => (num === 1 ? '1 rij geselecteerd' : `${num} rijen geselecteerd`),
+  optionPosition: (label, position, total) => `${label}, ${position} van ${total}`,
+  optionsLoadError: 'De opties konden niet worden geladen',
   pageXOfY: (page, total) => `Pagina ${page} van ${total}`,
   pagination: 'Paginering',
   pause: 'Pauzeren',
@@ -146,11 +155,17 @@ const translation: Translation = {
   sortColumn: 'Kolom sorteren',
   sortDescending: 'Aflopend sorteren',
   startDate: 'Begindatum',
+  tagAdded: tag => `${tag} toegevoegd`,
+  tagAlreadyAdded: tag => `${tag} is al toegevoegd`,
+  tagInputKeyboardHelp: 'Druk op Backspace of Delete om deze tag te verwijderen.',
+  tagRemoved: tag => `${tag} verwijderd`,
   time: 'Tijd',
   timeInputKeyboardHelp:
     'Gebruik de pijltjestoetsen om waarden te wijzigen; druk op Alt+Pijl omlaag om de tijdkiezer te openen.',
   today: 'Vandaag',
   toggleColorFormat: 'Wissel kleurnotatie',
+  tooFewTags: min => (min === 1 ? 'Voeg minimaal 1 tag toe' : `Voeg minimaal ${min} tags toe`),
+  tooManyTags: max => (max === 1 ? 'Voeg maximaal 1 tag toe' : `Voeg maximaal ${max} tags toe`),
   unmute: 'Dempen opheffen',
   unpin: 'Losmaken',
   unpinColumn: 'Kolom losmaken',

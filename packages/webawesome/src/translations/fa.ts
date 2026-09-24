@@ -6,6 +6,7 @@ const translation: Translation = {
   $name: 'فارسی',
   $dir: 'rtl',
 
+  allTagsRemoved: 'همه برچسب‌ها حذف شدند',
   am: 'ق.ظ',
   autosizeColumn: 'تنظیم خودکار اندازه ستون',
   captions: 'زیرنویس',
@@ -73,6 +74,7 @@ const translation: Translation = {
   nextVideo: 'ویدیوی بعدی',
   nextYear: 'سال بعد',
   noData: 'داده‌ای وجود ندارد',
+  noOptions: 'هیچ گزینه‌ای وجود ندارد',
   noResults: 'نتیجه منطبقی وجود ندارد',
   now: 'اکنون',
   numCharacters: num => {
@@ -83,12 +85,18 @@ const translation: Translation = {
     if (num === 1) return '1 نویسه باقیمانده';
     return `${num} نویسه باقیمانده`;
   },
+  numOptionsAvailable: num => {
+    if (num === 0) return 'هیچ گزینه‌ای در دسترس نیست';
+    return `${num} گزینه در دسترس است`;
+  },
   numOptionsSelected: num => {
     if (num === 0) return 'هیچ گزینه‌ای انتخاب نشده است';
     return `${num} گزینه انتخاب شده است`;
   },
   numRowsCopied: num => (num === 1 ? '1 ردیف کپی شده است' : `${num} ردیف کپی شده است`),
   numRowsSelected: num => (num === 1 ? '1 ردیف انتخاب شده است' : `${num} ردیف انتخاب شده است`),
+  optionPosition: (label, position, total) => `${label}، ${position} از ${total}`,
+  optionsLoadError: 'گزینه‌ها بارگذاری نشدند',
   pageXOfY: (page, total) => `صفحه ${page} از ${total}`,
   pagination: 'صفحه‌بندی',
   pause: 'مکث',
@@ -145,11 +153,17 @@ const translation: Translation = {
   sortColumn: 'مرتب‌سازی ستون',
   sortDescending: 'مرتب‌سازی نزولی',
   startDate: 'تاریخ شروع',
+  tagAdded: tag => `${tag} افزوده شد`,
+  tagAlreadyAdded: tag => `${tag} قبلاً افزوده شده است`,
+  tagInputKeyboardHelp: 'برای حذف این برچسب، Backspace یا Delete را فشار دهید.',
+  tagRemoved: tag => `${tag} حذف شد`,
   time: 'زمان',
   timeInputKeyboardHelp:
     'از کلیدهای جهت‌نما برای تغییر مقادیر استفاده کنید؛ برای باز کردن انتخابگر زمان Alt+جهت‌نمای پایین را فشار دهید.',
   today: 'امروز',
   toggleColorFormat: 'تغییر قالب رنگ',
+  tooFewTags: min => `حداقل ${min} برچسب اضافه کنید`,
+  tooManyTags: max => `بیش از ${max} برچسب اضافه نکنید`,
   unmute: 'لغو بی‌صدا',
   unpin: 'برداشتن سنجاق',
   unpinColumn: 'برداشتن سنجاق ستون',

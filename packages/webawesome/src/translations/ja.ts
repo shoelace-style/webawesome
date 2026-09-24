@@ -6,6 +6,7 @@ const translation: Translation = {
   $name: '日本語',
   $dir: 'ltr',
 
+  allTagsRemoved: 'すべてのタグを削除しました',
   am: '午前',
   autosizeColumn: '列の幅を自動調整',
   captions: '字幕',
@@ -72,16 +73,23 @@ const translation: Translation = {
   nextVideo: '次の動画',
   nextYear: '翌年',
   noData: 'データがありません',
+  noOptions: '項目がありません',
   noResults: '一致する結果がありません',
   now: '現在',
   numCharacters: num => `${num}文字`,
   numCharactersRemaining: num => `残り${num}文字`,
+  numOptionsAvailable: num => {
+    if (num === 0) return '利用できる項目がありません';
+    return `${num} 個の項目が利用できます`;
+  },
   numOptionsSelected: num => {
     if (num === 0) return '項目が選択されていません';
     return `${num} 個の項目が選択されました`;
   },
   numRowsCopied: num => `${num} 行をコピーしました`,
   numRowsSelected: num => `${num} 行を選択中`,
+  optionPosition: (label, position, total) => `${label}、${total} 中 ${position}`,
+  optionsLoadError: '項目を読み込めませんでした',
   pageXOfY: (page, total) => `${total} ページ中 ${page} ページ`,
   pagination: 'ページ送り',
   pause: '一時停止',
@@ -138,10 +146,16 @@ const translation: Translation = {
   sortColumn: '列を並べ替え',
   sortDescending: '降順で並べ替え',
   startDate: '開始日',
+  tagAdded: tag => `${tag} を追加しました`,
+  tagAlreadyAdded: tag => `${tag} はすでに追加されています`,
+  tagInputKeyboardHelp: 'Backspace または Delete キーを押すと、このタグを削除します。',
+  tagRemoved: tag => `${tag} を削除しました`,
   time: '時刻',
   timeInputKeyboardHelp: '矢印キーで値を変更し、Alt+下矢印キーで時刻選択を開きます。',
   today: '今日',
   toggleColorFormat: '色のフォーマットを切り替える',
+  tooFewTags: min => `タグを${min}個以上追加してください`,
+  tooManyTags: max => `タグは${max}個以内にしてください`,
   unmute: 'ミュート解除',
   unpin: '固定を解除',
   unpinColumn: '列の固定を解除',

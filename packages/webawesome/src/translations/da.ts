@@ -6,6 +6,7 @@ const translation: Translation = {
   $name: 'Dansk',
   $dir: 'ltr',
 
+  allTagsRemoved: 'Alle tags fjernet',
   am: 'AM',
   autosizeColumn: 'Tilpas kolonnebredde automatisk',
   captions: 'Undertekster',
@@ -72,6 +73,7 @@ const translation: Translation = {
   nextVideo: 'Næste video',
   nextYear: 'Næste år',
   noData: 'Ingen data',
+  noOptions: 'Ingen muligheder',
   noResults: 'Ingen matchende resultater',
   now: 'Nu',
   numCharacters: num => {
@@ -82,6 +84,11 @@ const translation: Translation = {
     if (num === 1) return '1 tegn tilbage';
     return `${num} tegn tilbage`;
   },
+  numOptionsAvailable: num => {
+    if (num === 0) return 'Ingen tilgængelige muligheder';
+    if (num === 1) return '1 mulighed tilgængelig';
+    return `${num} muligheder tilgængelige`;
+  },
   numOptionsSelected: (num: number) => {
     if (num === 0) return 'Ingen valgt';
     if (num === 1) return '1 valgt';
@@ -89,6 +96,8 @@ const translation: Translation = {
   },
   numRowsCopied: num => (num === 1 ? '1 række kopieret' : `${num} rækker kopieret`),
   numRowsSelected: num => (num === 1 ? '1 række valgt' : `${num} rækker valgt`),
+  optionPosition: (label, position, total) => `${label}, ${position} af ${total}`,
+  optionsLoadError: 'Mulighederne kunne ikke indlæses',
   pageXOfY: (page, total) => `Side ${page} af ${total}`,
   pagination: 'Sidenavigation',
   pause: 'Sæt på pause',
@@ -145,10 +154,16 @@ const translation: Translation = {
   sortColumn: 'Sortér kolonne',
   sortDescending: 'Sortér faldende',
   startDate: 'Startdato',
+  tagAdded: tag => `${tag} tilføjet`,
+  tagAlreadyAdded: tag => `${tag} er allerede tilføjet`,
+  tagInputKeyboardHelp: 'Tryk på Backspace eller Delete for at fjerne dette tag.',
+  tagRemoved: tag => `${tag} fjernet`,
   time: 'Klokkeslæt',
   timeInputKeyboardHelp: 'Brug piletasterne til at ændre værdier; tryk Alt+Pil ned for at åbne klokkeslætsvælgeren.',
   today: 'I dag',
   toggleColorFormat: 'Skift farveformat',
+  tooFewTags: min => (min === 1 ? 'Tilføj mindst 1 tag' : `Tilføj mindst ${min} tags`),
+  tooManyTags: max => (max === 1 ? 'Tilføj højst 1 tag' : `Tilføj højst ${max} tags`),
   unmute: 'Slå lyd til',
   unpin: 'Frigør',
   unpinColumn: 'Frigør kolonne',

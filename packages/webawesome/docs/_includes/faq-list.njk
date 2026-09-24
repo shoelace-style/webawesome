@@ -1,0 +1,24 @@
+{#- accordion: presentation preserved from the original /pro accordion markup. -#}
+
+{% macro prose(entries) %}
+  {%- for entry in entries %}
+    {#- data-no-outline keeps the question headings out of the page outline, which lists topics only. -#}
+    <article class="faq-entry" data-no-outline data-synonyms="{{ (entry.data.synonyms or []) | join(' ') }}">
+      <h3 class="wa-heading-l" id="{{ entry.page.fileSlug }}">{{ entry.data.question }}</h3>
+      {{ entry.templateContent | safe }}
+    </article>
+  {%- endfor %}
+{% endmacro %}
+
+{#- `labels` maps a slug to a label that replaces the entry's own question on this surface
+    only. Reach for it when a page's framing makes the shared question read wrong, never to
+    say something the answer doesn't support — the body is still the shared entry. -#}
+{% macro accordion(entries, accordionMode='single-collapsible', labels={}) %}
+  <wa-accordion appearance="plain" class="wa-body-s" mode="{{ accordionMode }}">
+    {%- for entry in entries %}
+      <wa-accordion-item label="{{ labels[entry.page.fileSlug] or entry.data.question }}">
+        {{ entry.templateContent | safe }}
+      </wa-accordion-item>
+    {%- endfor %}
+  </wa-accordion>
+{% endmacro %}

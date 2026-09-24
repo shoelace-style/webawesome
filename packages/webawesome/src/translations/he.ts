@@ -6,6 +6,7 @@ const translation: Translation = {
   $name: 'עברית',
   $dir: 'rtl',
 
+  allTagsRemoved: 'כל התגיות הוסרו',
   am: 'לפנה"צ',
   autosizeColumn: 'התאם רוחב עמודה לתוכן',
   captions: 'כתוביות',
@@ -72,6 +73,7 @@ const translation: Translation = {
   nextVideo: 'הסרטון הבא',
   nextYear: 'השנה הבאה',
   noData: 'אין נתונים',
+  noOptions: 'אין אפשרויות',
   noResults: 'אין תוצאות תואמות',
   now: 'עכשיו',
   numCharacters: num => {
@@ -81,6 +83,11 @@ const translation: Translation = {
   numCharactersRemaining: num => {
     if (num === 1) return '1 תו נותר';
     return `${num} תווים נותרים`;
+  },
+  numOptionsAvailable: num => {
+    if (num === 0) return 'אין אפשרויות זמינות';
+    if (num === 1) return 'אפשרות אחת זמינה';
+    return `${num} אפשרויות זמינות`;
   },
   numOptionsSelected: num => {
     if (num === 0) return 'לא נבחרו אפשרויות';
@@ -95,6 +102,8 @@ const translation: Translation = {
     if (num === 1) return 'נבחרה שורה אחת';
     return `נבחרו ${num} שורות`;
   },
+  optionPosition: (label, position, total) => `${label}, ${position} מתוך ${total}`,
+  optionsLoadError: 'לא ניתן היה לטעון את האפשרויות',
   pageXOfY: (page, total) => `עמוד ${page} מתוך ${total}`,
   pagination: 'עימוד',
   pause: 'השהייה',
@@ -151,10 +160,16 @@ const translation: Translation = {
   sortColumn: 'מיין עמודה',
   sortDescending: 'מיין בסדר יורד',
   startDate: 'תאריך התחלה',
+  tagAdded: tag => `${tag} נוסף`,
+  tagAlreadyAdded: tag => `התגית ${tag} כבר קיימת`,
+  tagInputKeyboardHelp: 'הקש Backspace או Delete להסרת התגית הזו.',
+  tagRemoved: tag => `${tag} הוסר`,
   time: 'שעה',
   timeInputKeyboardHelp: 'השתמש במקשי החיצים כדי לשנות ערכים; לחץ Alt+חץ למטה כדי לפתוח את בורר השעה.',
   today: 'היום',
   toggleColorFormat: 'החלף פורמט צבע',
+  tooFewTags: min => (min === 1 ? 'הוסף תגית אחת לפחות' : `הוסף ${min} תגיות לפחות`),
+  tooManyTags: max => (max === 1 ? 'אל תוסיף יותר מתגית אחת' : `אל תוסיף יותר מ-${max} תגיות`),
   unmute: 'ביטול השתקה',
   unpin: 'בטל הצמדה',
   unpinColumn: 'בטל הצמדת עמודה',

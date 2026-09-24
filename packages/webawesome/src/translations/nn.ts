@@ -6,6 +6,7 @@ const translation: Translation = {
   $name: 'Norwegian Nynorsk',
   $dir: 'ltr',
 
+  allTagsRemoved: 'Alle taggar fjerna',
   am: 'AM',
   autosizeColumn: 'Tilpass kolonnebreidd',
   captions: 'Teksting',
@@ -72,6 +73,7 @@ const translation: Translation = {
   nextVideo: 'Neste video',
   nextYear: 'Neste år',
   noData: 'Inga data',
+  noOptions: 'Ingen alternativ',
   noResults: 'Ingen treff',
   now: 'No',
   numCharacters: num => {
@@ -82,6 +84,11 @@ const translation: Translation = {
     if (num === 1) return '1 teikn att';
     return `${num} teikn att`;
   },
+  numOptionsAvailable: num => {
+    if (num === 0) return 'Ingen tilgjengelege alternativ';
+    if (num === 1) return 'Eitt alternativ tilgjengeleg';
+    return `${num} alternativ tilgjengelege`;
+  },
   numOptionsSelected: num => {
     if (num === 0) return 'Ingen alternativ valt';
     if (num === 1) return 'Eitt alternativ valt';
@@ -89,6 +96,8 @@ const translation: Translation = {
   },
   numRowsCopied: num => (num === 1 ? '1 rad kopiert' : `${num} radar kopierte`),
   numRowsSelected: num => (num === 1 ? '1 rad vald' : `${num} radar valde`),
+  optionPosition: (label, position, total) => `${label}, ${position} av ${total}`,
+  optionsLoadError: 'Alternativa kunne ikkje lastast',
   pageXOfY: (page, total) => `Side ${page} av ${total}`,
   pagination: 'Paginering',
   pause: 'Pause',
@@ -145,10 +154,16 @@ const translation: Translation = {
   sortColumn: 'Sorter kolonne',
   sortDescending: 'Sorter synkande',
   startDate: 'Startdato',
+  tagAdded: tag => `${tag} lagd til`,
+  tagAlreadyAdded: tag => `${tag} er allereie lagd til`,
+  tagInputKeyboardHelp: 'Trykk på Backspace eller Delete for å fjerne denne taggen.',
+  tagRemoved: tag => `${tag} fjerna`,
   time: 'Klokkeslett',
   timeInputKeyboardHelp: 'Bruk piltastane for å endre verdiar; trykk Alt+Pil ned for å opne klokkeslettveljaren.',
   today: 'I dag',
   toggleColorFormat: 'Byt fargeformat',
+  tooFewTags: min => (min === 1 ? 'Legg til minst 1 tagg' : `Legg til minst ${min} taggar`),
+  tooManyTags: max => (max === 1 ? 'Legg til høgst 1 tagg' : `Legg til høgst ${max} taggar`),
   unmute: 'Skru på lyd',
   unpin: 'Løys frå',
   unpinColumn: 'Løys kolonne frå',

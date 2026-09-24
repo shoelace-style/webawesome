@@ -60,6 +60,7 @@ export { default as WaSwitch } from '../components/switch/switch.js';
 export { default as WaTabGroup } from '../components/tab-group/tab-group.js';
 export { default as WaTabPanel } from '../components/tab-panel/tab-panel.js';
 export { default as WaTab } from '../components/tab/tab.js';
+export { default as WaTagInput } from '../components/tag-input/tag-input.js';
 export { default as WaTag } from '../components/tag/tag.js';
 export { default as WaTextarea } from '../components/textarea/textarea.js';
 export { default as WaTimeInput } from '../components/time-input/time-input.js';

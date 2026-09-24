@@ -26,7 +26,7 @@
     --line-length-xl: 90ch;
     --line-length-none: none;
 
-    --wa-brand-orange: #f36944;
+    --wa-brand-orange: #f46a45;
     --wa-brand-grey: #30323b;
 
     --brand-web-awesome-orange: var(--wa-brand-orange);
@@ -640,13 +640,38 @@
     font-weight: var(--wa-font-weight-bold);
   }
 
-  .kbd-modern {
+  /* The three colours are custom properties so a variant on another surface swaps those and keeps the shape. */
+  .kbd-modern,
+  wa-tooltip kbd {
+    --kbd-fill: color-mix(in oklab, var(--wa-color-surface-default), transparent 50%);
+    --kbd-border-color: var(--wa-color-neutral-border-quiet);
+    --kbd-shadow: var(--wa-shadow-s);
+
     padding: var(--wa-space-2xs) var(--wa-space-xs);
     line-height: 1;
-    background-color: color-mix(in oklab, var(--wa-color-surface-default), transparent 50%);
-    border: var(--wa-panel-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
+    background-color: var(--kbd-fill);
+    border: var(--wa-panel-border-style) var(--wa-panel-border-width) var(--kbd-border-color);
     border-radius: var(--wa-border-radius-s);
-    box-shadow: var(--wa-shadow-s);
+    box-shadow: var(--kbd-shadow);
+  }
+
+  /* The tooltip's fill is the page's inverse, so the surface-based colours above would read as a bright block on it. */
+  wa-tooltip kbd {
+    --kbd-fill: color-mix(in oklab, currentColor 7%, transparent);
+    --kbd-border-color: color-mix(in oklab, currentColor 10%, transparent);
+    --kbd-shadow: 0 1px 0 rgb(0 0 0 / 20%);
+
+    position: relative;
+    top: -0.1em;
+    display: inline-block;
+    padding: 0.15em 0.4em;
+    margin-block: -0.15em;
+    font-family: var(--wa-font-family-body);
+    font-size: 0.8em;
+    line-height: 1.2;
+    color: inherit;
+    vertical-align: middle;
+    border-width: var(--wa-border-width-s);
   }
 
   /* step icons for ordered instructions */

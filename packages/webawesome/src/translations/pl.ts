@@ -6,6 +6,7 @@ const translation: Translation = {
   $name: 'Polski',
   $dir: 'ltr',
 
+  allTagsRemoved: 'Usunięto wszystkie tagi',
   am: 'AM',
   autosizeColumn: 'Dopasuj szerokość kolumny',
   captions: 'Napisy',
@@ -83,6 +84,7 @@ const translation: Translation = {
   nextVideo: 'Następny film',
   nextYear: 'Następny rok',
   noData: 'Brak danych',
+  noOptions: 'Brak opcji',
   noResults: 'Brak pasujących wyników',
   now: 'Teraz',
   numCharacters: num => {
@@ -98,6 +100,14 @@ const translation: Translation = {
     const mod100 = num % 100;
     if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `Pozostały ${num} znaki`;
     return `Pozostało ${num} znaków`;
+  },
+  numOptionsAvailable: num => {
+    if (num === 0) return 'Brak dostępnych opcji';
+    if (num === 1) return 'Dostępna 1 opcja';
+    const mod10 = num % 10;
+    const mod100 = num % 100;
+    if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `Dostępne ${num} opcje`;
+    return `Dostępnych ${num} opcji`;
   },
   numOptionsSelected: num => {
     if (num === 0) return 'Nie wybrano opcji';
@@ -118,6 +128,8 @@ const translation: Translation = {
     if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `Wybrano ${num} wiersze`;
     return `Wybrano ${num} wierszy`;
   },
+  optionPosition: (label, position, total) => `${label}, ${position} z ${total}`,
+  optionsLoadError: 'Nie udało się wczytać opcji',
   pageXOfY: (page, total) => `Strona ${page} z ${total}`,
   pagination: 'Paginacja',
   pause: 'Wstrzymaj',
@@ -181,11 +193,29 @@ const translation: Translation = {
   sortColumn: 'Sortuj kolumnę',
   sortDescending: 'Sortuj malejąco',
   startDate: 'Data początkowa',
+  tagAdded: tag => `Dodano ${tag}`,
+  tagAlreadyAdded: tag => `Tag ${tag} już istnieje`,
+  tagInputKeyboardHelp: 'Naciśnij Backspace lub Delete, aby usunąć ten tag.',
+  tagRemoved: tag => `Usunięto ${tag}`,
   time: 'Godzina',
   timeInputKeyboardHelp:
     'Użyj klawiszy strzałek, aby zmienić wartości; naciśnij Alt+Strzałka w dół, aby otworzyć selektor godziny.',
   today: 'Dzisiaj',
   toggleColorFormat: 'Przełącz format',
+  tooFewTags: min => {
+    if (min === 1) return 'Dodaj co najmniej 1 tag';
+    const mod10 = min % 10;
+    const mod100 = min % 100;
+    if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `Dodaj co najmniej ${min} tagi`;
+    return `Dodaj co najmniej ${min} tagów`;
+  },
+  tooManyTags: max => {
+    if (max === 1) return 'Dodaj nie więcej niż 1 tag';
+    const mod10 = max % 10;
+    const mod100 = max % 100;
+    if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return `Dodaj nie więcej niż ${max} tagi`;
+    return `Dodaj nie więcej niż ${max} tagów`;
+  },
   unmute: 'Włącz dźwięk',
   unpin: 'Odepnij',
   unpinColumn: 'Odepnij kolumnę',

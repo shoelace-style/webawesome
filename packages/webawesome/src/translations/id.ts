@@ -6,6 +6,7 @@ const translation: Translation = {
   $name: 'Bahasa Indonesia',
   $dir: 'ltr',
 
+  allTagsRemoved: 'Semua tag dihapus',
   am: 'AM',
   autosizeColumn: 'Sesuaikan ukuran kolom',
   captions: 'Teks',
@@ -72,6 +73,7 @@ const translation: Translation = {
   nextVideo: 'Video berikutnya',
   nextYear: 'Tahun berikutnya',
   noData: 'Tidak ada data',
+  noOptions: 'Tidak ada opsi',
   noResults: 'Tidak ada hasil yang cocok',
   now: 'Sekarang',
   numCharacters: num => {
@@ -82,6 +84,11 @@ const translation: Translation = {
     if (num === 1) return '1 karakter tersisa';
     return `${num} karakter tersisa`;
   },
+  numOptionsAvailable: num => {
+    if (num === 0) return 'Tidak ada opsi yang tersedia';
+    if (num === 1) return '1 opsi tersedia';
+    return `${num} opsi tersedia`;
+  },
   numOptionsSelected: num => {
     if (num === 0) return 'Tidak ada opsi yang dipilih';
     if (num === 1) return '1 opsi yang dipilih';
@@ -89,6 +96,8 @@ const translation: Translation = {
   },
   numRowsCopied: num => `${num} baris disalin`,
   numRowsSelected: num => `${num} baris dipilih`,
+  optionPosition: (label, position, total) => `${label}, ${position} dari ${total}`,
+  optionsLoadError: 'Opsi tidak dapat dimuat',
   pageXOfY: (page, total) => `Halaman ${page} dari ${total}`,
   pagination: 'Penomoran halaman',
   pause: 'Jeda',
@@ -145,11 +154,17 @@ const translation: Translation = {
   sortColumn: 'Urutkan kolom',
   sortDescending: 'Urutkan menurun',
   startDate: 'Tanggal mulai',
+  tagAdded: tag => `${tag} ditambahkan`,
+  tagAlreadyAdded: tag => `${tag} sudah ditambahkan`,
+  tagInputKeyboardHelp: 'Tekan Backspace atau Delete untuk menghapus tag ini.',
+  tagRemoved: tag => `${tag} dihapus`,
   time: 'Waktu',
   timeInputKeyboardHelp:
     'Gunakan tombol panah untuk mengubah nilai; tekan Alt+Panah Bawah untuk membuka pemilih waktu.',
   today: 'Hari ini',
   toggleColorFormat: 'Beralih format warna',
+  tooFewTags: min => `Tambahkan minimal ${min} tag`,
+  tooManyTags: max => `Tambahkan tidak lebih dari ${max} tag`,
   unmute: 'Aktifkan suara',
   unpin: 'Lepas sematan',
   unpinColumn: 'Lepas sematan kolom',

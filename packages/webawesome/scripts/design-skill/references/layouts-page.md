@@ -1,6 +1,6 @@
 # Full-page layouts with `<wa-page>`
 
-You are here because STEP 0 determined you're building a **full page, app shell, or site layout**. In
+You are here because the layout branch (SKILL.md workflow, step 2) determined you're building a **full page, app shell, or site layout**. In
 this branch, `<wa-page>` is **required** and the rules below are absolute. Do not hand-roll a full-page
 grid; `<wa-page>` exists precisely so you don't have to.
 
@@ -11,6 +11,21 @@ named regions and let the component do the work. Do **not** rebuild any of this 
 show/hide of a hamburger. Every time you reach for one of those, stop — `<wa-page>` already does it.
 
 Full docs: https://webawesome.com/docs/components/page
+
+**Contents**
+
+- [Mental model](#mental-model)
+- [The `navigation` slot is automatic — one copy serves both views](#the-navigation-slot-is-automatic--one-copy-serves-both-views)
+- [The one place duplicating nav is correct: header on desktop, drawer on mobile](#the-one-place-duplicating-nav-is-correct-header-on-desktop-drawer-on-mobile)
+- [Everything below is `<wa-page>`-only](#everything-below-is-wa-page-only)
+- [Hard rules (these are the things that go wrong)](#hard-rules-these-are-the-things-that-go-wrong)
+- [Canonical example — landing page](#canonical-example--landing-page)
+- [Canonical example — app/docs (with a desktop sidebar)](#canonical-example--appdocs-with-a-desktop-sidebar)
+- [Anti-patterns](#anti-patterns)
+- [`<wa-page>` checklist](#wa-page-checklist)
+- [Sticky sections](#sticky-sections)
+- [Server-side rendering](#server-side-rendering)
+- [API reference](#api-reference)
 
 ---
 
@@ -290,7 +305,8 @@ utilities instead (see [layouts-inpage.md](layouts-inpage.md)).
    toggle, add `data-toggle-nav` to any element inside `<wa-page>` (this auto-hides the default
    hamburger). You can add `data-toggle-nav` to **multiple** elements — they all toggle the same drawer
    (handy for an app shell with, say, both a header and a footer toggle). `data-toggle-nav` only toggles
-   the `navigation` drawer, so it does nothing without `navigation` content — never pair it with a
+   the `navigation` drawer; on a page with no `navigation` content it opens that drawer **empty** (a
+   modal panel covering the page), so never use it without `navigation` content and never pair it with a
    hand-rolled drawer. **When you want the toggle to live
    inside your own styled header bar (the header/drawer recipe), put a `data-toggle-nav` button there
    yourself** rather than relying on the built-in hamburger — the built-in one renders in the header
@@ -471,28 +487,28 @@ navigation sidebar, main content, a sticky table-of-contents aside, and a footer
 
 ## Anti-patterns
 
-| ❌ Don't                                                                                                         | ✅ Do                                                                                                                                                                               |
-| ---------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Forget the `html, body` reset → gaps appear                                                                      | Always add the reset (or use native styles)                                                                                                                                         |
-| Expect `<wa-page>` to emit `<main>`/`<header>`                                                                   | Slot in your own semantic elements                                                                                                                                                  |
-| Put nav in `menu` and wonder why it won't collapse                                                               | Use `navigation` (+ `navigation-header`/`-footer`) for mobile collapse                                                                                                              |
+| ❌ Don't                                                                                                                                                           | ✅ Do                                                                                                                                                                                                              |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Forget the `html, body` reset → gaps appear                                                                                                                        | Always add the reset (or use native styles)                                                                                                                                                                        |
+| Expect `<wa-page>` to emit `<main>`/`<header>`                                                                                                                     | Slot in your own semantic elements                                                                                                                                                                                 |
+| Put nav in `menu` and wonder why it won't collapse                                                                                                                 | Use `navigation` (+ `navigation-header`/`-footer`) for mobile collapse                                                                                                                                             |
 | Author a second nav copy in `header` while also using `slot="navigation"`, without hiding one per view → links show in **both** the header and the desktop sidebar | Write nav **once** in `slot="navigation"` (it moves between views automatically). For header nav on desktop + a mobile drawer, use the header-on-desktop / drawer-on-mobile recipe and `view`-scope-hide each copy |
-| Hand-roll your own `<wa-drawer>` + toggle button for the mobile menu                                             | Put nav in `slot="navigation"`; `<wa-page>` provides the drawer and hamburger automatically                                                                                         |
-| Write media queries to show/hide the nav, sidebar, or hamburger                                                  | Don't — the component switches via its own `view` state. Media queries are for page content, not the nav machinery                                                                  |
-| Pair `data-toggle-nav` with your own `<wa-drawer>` (it toggles the `navigation` drawer, not yours → dead button) | Use the `navigation` slot's built-in drawer; `data-toggle-nav` only ever controls that one                                                                                          |
-| Set `--menu-width: 16rem` and leave it on mobile                                                                 | Reset widths to `auto` under `wa-page[view='mobile']`                                                                                                                               |
-| Nav links that leave the drawer open after a tap                                                                 | Add `data-drawer="close"` to navigation links                                                                                                                                       |
-| Expect `aside` to disappear on mobile on its own                                                                 | `aside` has no drawer; hide it (`.wa-desktop-only` or `display: none`)                                                                                                              |
-| Try to set `view="mobile"` yourself                                                                              | `view` is read-only; the component sets it. Only read it in CSS                                                                                                                     |
-| Hand-roll a `display: grid` page shell                                                                           | Use `<wa-page>`; it already is the grid                                                                                                                                             |
-| Nest `<wa-page>` inside a section or another page                                                                | One `<wa-page>` per page, at the top level                                                                                                                                          |
-| Hardcode header colors with hex                                                                                  | Use `--wa-color-surface-*` / semantic tokens                                                                                                                                        |
-| `<wa-button />` (self-closing)                                                                                   | `<wa-button></wa-button>`                                                                                                                                                           |
+| Hand-roll your own `<wa-drawer>` + toggle button for the mobile menu                                                                                               | Put nav in `slot="navigation"`; `<wa-page>` provides the drawer and hamburger automatically                                                                                                                        |
+| Write media queries to show/hide the nav, sidebar, or hamburger                                                                                                    | Don't — the component switches via its own `view` state. Media queries are for page content, not the nav machinery                                                                                                 |
+| Pair `data-toggle-nav` with your own `<wa-drawer>`, or use it with no `navigation` content (it opens the built-in drawer, empty, over the page)                    | Use the `navigation` slot's built-in drawer; `data-toggle-nav` only ever controls that one                                                                                                                         |
+| Set `--menu-width: 16rem` and leave it on mobile                                                                                                                   | Reset widths to `auto` under `wa-page[view='mobile']`                                                                                                                                                              |
+| Nav links that leave the drawer open after a tap                                                                                                                   | Add `data-drawer="close"` to navigation links                                                                                                                                                                      |
+| Expect `aside` to disappear on mobile on its own                                                                                                                   | `aside` has no drawer; hide it (`.wa-desktop-only` or `display: none`)                                                                                                                                             |
+| Try to set `view="mobile"` yourself                                                                                                                                | `view` is read-only; the component sets it. Only read it in CSS                                                                                                                                                    |
+| Hand-roll a `display: grid` page shell                                                                                                                             | Use `<wa-page>`; it already is the grid                                                                                                                                                                            |
+| Nest `<wa-page>` inside a section or another page                                                                                                                  | One `<wa-page>` per page, at the top level                                                                                                                                                                         |
+| Hardcode header colors with hex                                                                                                                                    | Use `--wa-color-surface-*` / semantic tokens                                                                                                                                                                       |
+| `<wa-button />` (self-closing)                                                                                                                                     | `<wa-button></wa-button>`                                                                                                                                                                                          |
 
 ## `<wa-page>` checklist
 
 Before calling a `<wa-page>` layout done, walk this **`<wa-page>`-specific** structural pass. This sits
-alongside the general structural Final Pass in SKILL.md and the visual Polish Checklist in composition.md;
+alongside the general "Verify before you finish" pass in SKILL.md and the visual Polish Checklist in composition.md;
 each catches different things.
 
 - [ ] **Right sidebar decision.** Landing page: nav in `slot="navigation"` **once** (auto sidebar on desktop, drawer on mobile) — or, if you want header-bar nav with no desktop sidebar, the header-on-desktop / drawer-on-mobile recipe above with `--menu-width` left at `auto`. App shell / docs: `navigation` slot with `--menu-width` set, reset to `auto` under `wa-page[view='mobile']`. Either way, don't hand-roll a `<wa-drawer>`.
@@ -545,42 +561,42 @@ or the `webawesome` skill. This is a working summary.
 
 ### Slots
 
-| Slot                     | Purpose                                                                                  |
-| ------------------------ | ---------------------------------------------------------------------------------------- |
-| _(default)_              | The page's main content.                                                                 |
-| `banner`                 | Above the header. Hidden when empty.                                                     |
-| `header`                 | Top of the page. Sticky.                                                                 |
-| `subheader`              | Below the header (e.g. breadcrumbs). Sticky.                                             |
-| `menu`                   | Left column. _Overrides_ `navigation` and makes you handle mobile yourself. Rarely used. |
-| `navigation`             | Left sidebar content. Collapses into a drawer on mobile. Use this for nav.               |
-| `navigation-header`      | Header of the navigation area (drawer header on mobile).                                 |
-| `navigation-footer`      | Footer of the navigation area (drawer footer on mobile).                                 |
-| `navigation-toggle`      | Your own button to toggle the nav drawer.                                                |
-| `navigation-toggle-icon` | Your own icon for the toggle button.                                                     |
-| `main-header`            | Inline header above the main content.                                                    |
-| `main-footer`            | Inline footer below the main content.                                                    |
+| Slot                     | Purpose                                                                                                                                                                     |
+| ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| _(default)_              | The page's main content.                                                                                                                                                    |
+| `banner`                 | Above the header. Hidden when empty.                                                                                                                                        |
+| `header`                 | Top of the page. Sticky.                                                                                                                                                    |
+| `subheader`              | Below the header (e.g. breadcrumbs). Sticky.                                                                                                                                |
+| `menu`                   | Left column. _Overrides_ `navigation` and makes you handle mobile yourself. Rarely used.                                                                                    |
+| `navigation`             | Left sidebar content. Collapses into a drawer on mobile. Use this for nav.                                                                                                  |
+| `navigation-header`      | Header of the navigation area (drawer header on mobile).                                                                                                                    |
+| `navigation-footer`      | Footer of the navigation area (drawer footer on mobile).                                                                                                                    |
+| `navigation-toggle`      | Your own button to toggle the nav drawer.                                                                                                                                   |
+| `navigation-toggle-icon` | Your own icon for the toggle button.                                                                                                                                        |
+| `main-header`            | Inline header above the main content.                                                                                                                                       |
+| `main-footer`            | Inline footer below the main content.                                                                                                                                       |
 | `aside`                  | Right sidebar (e.g. table of contents). Sticky. **No auto-drawer — hide it on mobile yourself** (`wa-page[view='mobile'] [slot='aside'] { display: none }`) or it overlaps. |
-| `skip-to-content`        | Custom text for the "skip to content" link.                                              |
-| `footer`                 | Page footer. Always below the fold.                                                      |
+| `skip-to-content`        | Custom text for the "skip to content" link.                                                                                                                                 |
+| `footer`                 | Page footer. Always below the fold.                                                                                                                                         |
 
 ### Attributes
 
-| Attribute                   | Type                    | Default     | Purpose                                                           |
-| --------------------------- | ----------------------- | ----------- | ----------------------------------------------------------------- |
-| `view`                      | `'mobile' \| 'desktop'` | `'desktop'` | Reflects the current view. Set automatically; you read it in CSS. |
-| `nav-open`                  | `boolean`               | `false`     | Whether the mobile nav drawer is open.                            |
-| `mobile-breakpoint`         | `string`                | `'768px'`   | Width at which navigation collapses. Accepts px or CSS lengths.   |
+| Attribute                   | Type                    | Default     | Purpose                                                                           |
+| --------------------------- | ----------------------- | ----------- | --------------------------------------------------------------------------------- |
+| `view`                      | `'mobile' \| 'desktop'` | `'desktop'` | Reflects the current view. Set automatically; you read it in CSS.                 |
+| `nav-open`                  | `boolean`               | `false`     | Whether the mobile nav drawer is open.                                            |
+| `mobile-breakpoint`         | `string`                | `'768px'`   | Width at which navigation collapses. Accepts px or CSS lengths.                   |
 | `navigation-placement`      | `'start' \| 'end'`      | `'start'`   | Which side the mobile drawer opens from. Use `end` for RTL or right-handed reach. |
-| `disable-navigation-toggle` | `boolean`               | `false`     | Hide the default hamburger button.                                |
-| `disable-sticky`            | `string`                | —           | Space-delimited list of sections to make non-sticky.              |
+| `disable-navigation-toggle` | `boolean`               | `false`     | Hide the default hamburger button.                                                |
+| `disable-sticky`            | `string`                | —           | Space-delimited list of sections to make non-sticky.                              |
 
 ### CSS custom properties
 
 | Property             | Default | Purpose                                                                                                                                                  |
 | -------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--menu-width`       | `auto`  | Width of the left (menu) column.                                                                                                                          |
-| `--main-width`       | `1fr`   | Width of the main content column.                                                                                                                         |
-| `--aside-width`      | `auto`  | Width of the right (aside) column.                                                                                                                        |
+| `--menu-width`       | `auto`  | Width of the left (menu) column.                                                                                                                         |
+| `--main-width`       | `1fr`   | Width of the main content column.                                                                                                                        |
+| `--aside-width`      | `auto`  | Width of the right (aside) column.                                                                                                                       |
 | `--banner-height`    | `0px`   | Measured automatically once rendered. Set it to the known height to prevent layout shift before JS runs — useful for SSR. Used to offset sticky regions. |
 | `--header-height`    | `0px`   | Measured automatically once rendered. Set it to the known height to prevent layout shift before JS runs — useful for SSR. Used to offset sticky regions. |
 | `--subheader-height` | `0px`   | Measured automatically once rendered. Set it to the known height to prevent layout shift before JS runs — useful for SSR. Used to offset sticky regions. |
@@ -591,22 +607,22 @@ Style internal regions with `::part()` from outside the component (e.g. `wa-page
 
 | Part                     | What it is                                                                                                   |
 | ------------------------ | ------------------------------------------------------------------------------------------------------------ |
-| `base`                   | The outermost wrapper.                                                                                        |
-| `banner`                 | The banner region above the header.                                                                           |
-| `header`                 | The header region.                                                                                            |
-| `subheader`              | The subheader region.                                                                                         |
-| `body`                   | The wrapper around `menu`, `main`, and `aside`.                                                               |
-| `menu`                   | The sticky left column wrapper.                                                                               |
+| `base`                   | The outermost wrapper.                                                                                       |
+| `banner`                 | The banner region above the header.                                                                          |
+| `header`                 | The header region.                                                                                           |
+| `subheader`              | The subheader region.                                                                                        |
+| `body`                   | The wrapper around `menu`, `main`, and `aside`.                                                              |
+| `menu`                   | The sticky left column wrapper.                                                                              |
 | `navigation`             | **The desktop sidebar `<nav>` only** — _not_ the mobile drawer. This is what the header/drawer recipe hides. |
 | `navigation-header`      | The navigation area's header.                                                                                |
 | `navigation-footer`      | The navigation area's footer.                                                                                |
-| `navigation-toggle`      | The default hamburger `<wa-button>`.                                                                          |
-| `navigation-toggle-icon` | The default hamburger `<wa-icon>`.                                                                            |
+| `navigation-toggle`      | The default hamburger `<wa-button>`.                                                                         |
+| `navigation-toggle-icon` | The default hamburger `<wa-icon>`.                                                                           |
 | `main-header`            | The inline header above main content.                                                                        |
 | `main-content`           | The main content region.                                                                                     |
 | `main-footer`            | The inline footer below main content.                                                                        |
-| `aside`                  | The sticky right column.                                                                                      |
-| `footer`                 | The page footer.                                                                                              |
+| `aside`                  | The sticky right column.                                                                                     |
+| `footer`                 | The page footer.                                                                                             |
 | `drawer`                 | The mobile navigation `<wa-drawer>`. (Drawer internals are also exposed via `drawer__*` parts.)              |
 
 (Also exposed: `skip-to-content`, the visually hidden skip link.)
