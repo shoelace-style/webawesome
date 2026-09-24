@@ -33,6 +33,8 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::added
 
+- Added the experimental `<wa-stepper>` and `<wa-step>` components [pr:2794]
+- Added a `nonce` attribute to `<wa-page>` and falls back to using `window.litNonce` if `nonce` is not set directly for first render. [pr:2779]
 - Added the `with-label` attribute to `<wa-dialog>` and `<wa-drawer>` for server-side rendering [pr:2846]
 - Added support for labels in `<wa-divider>` [discuss:2802] [pr:2830]
   - Added the default slot and the `label` part

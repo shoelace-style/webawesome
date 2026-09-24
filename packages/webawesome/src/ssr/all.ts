@@ -56,6 +56,8 @@ export { default as WaSkeleton } from '../components/skeleton/skeleton.js';
 export { default as WaSlider } from '../components/slider/slider.js';
 export { default as WaSpinner } from '../components/spinner/spinner.js';
 export { default as WaSplitPanel } from '../components/split-panel/split-panel.js';
+export { default as WaStep } from '../components/step/step.js';
+export { default as WaStepper } from '../components/stepper/stepper.js';
 export { default as WaSwitch } from '../components/switch/switch.js';
 export { default as WaTabGroup } from '../components/tab-group/tab-group.js';
 export { default as WaTabPanel } from '../components/tab-panel/tab-panel.js';
