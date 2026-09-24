@@ -379,7 +379,7 @@ export default class WaPage extends WebAwesomeElement {
       <!-- unsafeHTML needed for SSR until this is solved: https://github.com/lit/lit/issues/4696 -->
       ${unsafeHTML(`
         <style
-          ${/* ifDefined not supported in unsafeHTML */ nonce ? "" : nonce="${nonce}"}
+          ${/* ifDefined not supported in unsafeHTML */ nonce ? `nonce="${nonce}"` : ""}
           id="mobile-styles"
         >
           ${mobileStyles(toLength(this.mobileBreakpoint))}
