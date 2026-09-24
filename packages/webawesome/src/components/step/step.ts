@@ -179,7 +179,8 @@ export default class WaStep extends WebAwesomeElement {
       return html`<wa-icon name="check" library="system" variant="solid"></wa-icon>`;
     }
 
-    return this.position > 0 ? this.localize.number(this.position) : '';
+    // nothing, not '', so hydration inserts a text node once the stepper sets the position.
+    return this.position > 0 ? this.localize.number(this.position) : nothing;
   }
 
   render() {
