@@ -35,6 +35,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 Fixed a bug in `<wa-dropdown>` where the initial focused element would get lost. [pr:2886]
 Fixed a bug in `<wa-dropdown>` where submenus would occasionally get dismissed due to not properly rechecking submenu hover states. [pr:2877]
+Fixed an issue in `<wa-tooltip>` where `abortController` preserved instances of `anchor` in the exception message causing the anchor to still be reachable. [pr:2873]
 
 :::
 
