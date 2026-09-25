@@ -651,6 +651,113 @@ describe('<wa-dropdown>', () => {
     });
   }
 
+  describe('opening focus', () => {
+    async function createDropdown() {
+      return clientFixture<HTMLDivElement>(html`
+        <div>
+          <wa-dropdown style="--show-duration: 1s">
+            <button slot="trigger">Menu</button>
+            <wa-dropdown-item value="one">One</wa-dropdown-item>
+            <wa-dropdown-item value="two">Two</wa-dropdown-item>
+            <input aria-label="Search" />
+          </wa-dropdown>
+          <button id="outside">Outside</button>
+        </div>
+      `);
+    }
+
+    async function startOpening(dropdown: WaDropdown, focusTarget?: HTMLElement) {
+      const menu = dropdown.shadowRoot!.querySelector<HTMLElement>('[part="menu"]')!;
+      menu.style.animationPlayState = 'paused';
+      dropdown.querySelector<HTMLButtonElement>('[slot="trigger"]')!.click();
+      await dropdown.updateComplete;
+      await dropdown.shadowRoot!.querySelector('wa-popup')!.updateComplete;
+      focusTarget?.focus();
+      await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+      const animation = menu.getAnimations().find(animation => animation instanceof CSSAnimation)!;
+      expect(animation).to.exist;
+      await animation.ready;
+      return animation;
+    }
+
+    it('should preserve keyboard navigation made before the opening animation finishes', async () => {
+      const host = await createDropdown();
+      const dropdown = host.querySelector('wa-dropdown')!;
+      const items = dropdown.querySelectorAll('wa-dropdown-item');
+      const animation = await startOpening(dropdown);
+      try {
+        expect(document.activeElement === items[0]).to.be.true;
+        await sendKeys({ press: 'ArrowDown' });
+        expect(document.activeElement === items[1]).to.be.true;
+        const shown = oneEvent(dropdown, 'wa-after-show');
+        animation.finish();
+        await shown;
+        expect(document.activeElement === items[1]).to.be.true;
+        const selected = oneEvent(dropdown, 'wa-select');
+        await sendKeys({ press: 'Enter' });
+        expect((await selected).detail.item === items[1]).to.be.true;
+      } finally {
+        animation.cancel();
+      }
+    });
+
+    for (const target of ['wa-dropdown-item[value="two"]', 'input', '#outside']) {
+      it(`should preserve focus on ${target} when the opening animation finishes`, async () => {
+        const host = await createDropdown();
+        const dropdown = host.querySelector('wa-dropdown')!;
+        const focused = host.querySelector<HTMLElement>(target)!;
+        if (target === '#outside') {
+          dropdown.addEventListener('wa-show', () => focused.focus(), { once: true });
+        }
+        const animation = await startOpening(dropdown, target === '#outside' ? undefined : focused);
+        try {
+          expect(document.activeElement === focused).to.be.true;
+          const shown = oneEvent(dropdown, 'wa-after-show');
+          animation.finish();
+          await shown;
+          expect(document.activeElement === focused).to.be.true;
+        } finally {
+          animation.cancel();
+        }
+      });
+    }
+
+    it('should preserve native autofocus on an input in grouped content', async () => {
+      const dropdown = await clientFixture<WaDropdown>(html`
+        <wa-dropdown style="--show-duration: 1s">
+          <button slot="trigger">Menu</button>
+          <wa-dropdown-item>One</wa-dropdown-item>
+          <div><input autofocus aria-label="Search" /></div>
+        </wa-dropdown>
+      `);
+      const animation = await startOpening(dropdown);
+      try {
+        const input = dropdown.querySelector('input')!;
+        expect(document.activeElement === input).to.be.true;
+        const shown = oneEvent(dropdown, 'wa-after-show');
+        animation.finish();
+        await shown;
+        expect(document.activeElement === input).to.be.true;
+      } finally {
+        animation.cancel();
+      }
+    });
+
+    it('should select the focused row instead of a previously active row', async () => {
+      const host = await createDropdown();
+      const dropdown = host.querySelector('wa-dropdown')!;
+      const items = dropdown.querySelectorAll('wa-dropdown-item');
+      const animation = await startOpening(dropdown);
+      const shown = oneEvent(dropdown, 'wa-after-show');
+      animation.finish();
+      await shown;
+      items[1].focus();
+      const selected = oneEvent(dropdown, 'wa-select');
+      await sendKeys({ press: 'Enter' });
+      expect((await selected).detail.item === items[1]).to.be.true;
+    });
+  });
+
   describe('trigger interaction', () => {
     it('should toggle open when the trigger is clicked', async () => {
       const el = await clientFixture<WaDropdown>(html`
