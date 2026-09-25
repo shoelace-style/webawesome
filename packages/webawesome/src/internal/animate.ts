@@ -17,11 +17,11 @@ export async function animateWithClass(el: Element, className: string) {
   // Popup activation is reactive; let its display styles render before sampling animations.
   await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
 
-  const animationPromises: Promise<Animation>[] = []
+  const animationPromises: Promise<Animation>[] = [];
 
   for (const animation of el.getAnimations()) {
     if (animation instanceof CSSAnimation && animation.effect?.getComputedTiming().endTime !== Infinity) {
-      animationPromises.push(animation.finished)
+      animationPromises.push(animation.finished);
     }
   }
 
