@@ -281,7 +281,8 @@ export default class WaDropdown extends WebAwesomeElement {
     const submenu = this.getCurrentSubmenuItem();
     const items = submenu ? this.getSubmenuItems(submenu) : this.getItems();
     const content = this.defaultSlot.assignedElements({ flatten: true });
-    const focusedContent = [...activeElements()].find(
+    const activeEls = [...activeElements()];
+    const focusedContent = activeEls.find(
       element =>
         element instanceof HTMLElement &&
         element.closest('wa-dropdown') === this &&
@@ -290,10 +291,12 @@ export default class WaDropdown extends WebAwesomeElement {
     );
 
     // Input received while the popup becomes usable takes precedence over initial focus.
-    if (focusedContent || [...activeElements()].pop() === focused) {
+    if (focusedContent || activeEls.pop() === focused) {
       const initialItem = focusedContent ?? items[0];
       items.forEach(item => (item.active = item === initialItem));
-      if (!focusedContent) items[0]?.focus({ preventScroll: true });
+      if (!focusedContent) {
+        items[0]?.focus({ preventScroll: true });
+      }
     }
 
     await animation;
