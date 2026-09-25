@@ -183,7 +183,13 @@ export default class WaDropdownItem extends WebAwesomeElement {
   }
 
   private handleSlotChange = () => {
-    this.hasSubmenu = this.hasSlotController.test('submenu');
+    const submenuSlot = this.shadowRoot?.querySelector<HTMLSlotElement>('slot[name="submenu"]');
+    const hasSubmenu = submenuSlot
+      ? submenuSlot.assignedElements({ flatten: true }).length > 0
+      : this.hasSlotController.test('submenu');
+    // Retire the branch before losing the old submenu state and popup.
+    if (this.hasSubmenu && !hasSubmenu) void this.closeSubmenu();
+    this.hasSubmenu = hasSubmenu;
     this.updateHasSubmenuState();
 
     if (this.hasSubmenu) {
@@ -237,23 +243,6 @@ export default class WaDropdownItem extends WebAwesomeElement {
       detail: { item: this },
     });
     this.dispatchEvent(event);
-
-    // Find sibling items that have open submenus and close them
-    const parent = this.parentElement;
-    if (parent) {
-      const siblings = [...parent.children].filter(
-        el =>
-          el !== this &&
-          el.localName === 'wa-dropdown-item' &&
-          el.getAttribute('slot') === this.getAttribute('slot') &&
-          (el as WaDropdownItem).submenuOpen,
-      ) as WaDropdownItem[];
-
-      // Close each sibling submenu with animation
-      siblings.forEach(sibling => {
-        sibling.submenuOpen = false;
-      });
-    }
   }
 
   /** Closes the submenu. */
@@ -262,6 +251,7 @@ export default class WaDropdownItem extends WebAwesomeElement {
     if (!this.hasSubmenu || !submenu) return;
 
     this.submenuOpen = false;
+    this.dispatchEvent(new Event('submenu-closing'));
     this.setAttribute('aria-expanded', 'false');
 
     if (!submenu.hidden) {
@@ -306,11 +296,11 @@ export default class WaDropdownItem extends WebAwesomeElement {
 
   /** Gets all dropdown items in the submenu. */
   private getSubmenuItems(): WaDropdownItem[] {
-    // Only get direct children with slot="submenu", not nested ones
-    return [...this.children].filter(
-      el =>
-        el.localName === 'wa-dropdown-item' && el.getAttribute('slot') === 'submenu' && !el.hasAttribute('disabled'),
-    ) as WaDropdownItem[];
+    const slot = this.submenuElement?.querySelector<HTMLSlotElement>('slot[name="submenu"]');
+    return (slot?.assignedElements({ flatten: true }) ?? []).filter(
+      (element): element is WaDropdownItem =>
+        element.localName === 'wa-dropdown-item' && !(element as WaDropdownItem).disabled,
+    );
   }
 
   /** Prevents click events from firing on the host when the item is disabled (e.g. programmatic .click() calls). */
