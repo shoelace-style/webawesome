@@ -37,6 +37,7 @@ Fixed a bug in `<wa-dropdown>` where the initial focused element would get lost.
 Fixed a bug in `<wa-dropdown>` where submenus would occasionally get dismissed due to not properly rechecking submenu hover states. [pr:2877]
 Fixed an issue in `<wa-tooltip>` where `abortController` preserved instances of `anchor` in the exception message causing the anchor to still be reachable. [pr:2873]
 Fixed a bug in `<wa-popup>` which could lead to possibly stale cleanup functions. [pr:2871]
+Fixed a bug in `<wa-dropdown-item>` where dynamically added submenus would not trigger a `slotchange` event leading to `HasSlotController` reporting false. [pr:2868]
 
 :::
 
