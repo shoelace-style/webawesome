@@ -404,7 +404,7 @@ export default class WaDropdownItem extends WebAwesomeElement {
               <slot name="submenu"></slot>
             </div>
           `
-        : ''}
+        : html`<slot name="submenu" hidden></slot>`}
     `;
   }
 }

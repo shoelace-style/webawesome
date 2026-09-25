@@ -1,4 +1,4 @@
-import { aTimeout, expect } from '@open-wc/testing';
+import { aTimeout, expect, nextFrame } from '@open-wc/testing';
 import { html } from 'lit';
 import { fixtures } from '../../internal/test/fixture.js';
 import type WaPopup from './popup.js';
@@ -219,6 +219,66 @@ describe('<wa-popup>', () => {
       });
 
       describe('behavior', () => {
+        for (const removal of [
+          'after coalesced activation',
+          'during initial reposition',
+          'after reconnection during initial reposition',
+        ]) {
+          it(`should stop resize work when removed ${removal}`, async () => {
+            const popup = await fixture<WaPopup>(html`
+              <wa-popup>
+                <button slot="anchor">Anchor</button>
+                Popup content
+              </wa-popup>
+            `);
+            await nextFrame();
+
+            let repositionCount = 0;
+            popup.addEventListener('wa-reposition', () => repositionCount++);
+            if (removal === 'during initial reposition') {
+              popup.addEventListener('wa-reposition', () => popup.remove(), { once: true });
+            } else if (removal === 'after reconnection during initial reposition') {
+              const parent = popup.parentElement!;
+              popup.addEventListener(
+                'wa-reposition',
+                () => {
+                  popup.remove();
+                  parent.append(popup);
+                },
+                { once: true },
+              );
+            }
+
+            try {
+              popup.active = true;
+              await popup.updateComplete;
+              await nextFrame();
+              expect(repositionCount).to.be.greaterThan(0);
+
+              if (removal === 'after coalesced activation') {
+                repositionCount = 0;
+                window.dispatchEvent(new Event('resize'));
+                expect(repositionCount).to.be.greaterThan(0);
+
+                popup.active = false;
+                popup.active = true;
+                await popup.updateComplete;
+              }
+
+              popup.remove();
+
+              await nextFrame();
+              expect(popup.isConnected).to.be.false;
+              repositionCount = 0;
+              window.dispatchEvent(new Event('resize'));
+              expect(repositionCount).to.equal(0);
+            } finally {
+              popup.active = false;
+              popup.remove();
+            }
+          });
+        }
+
         it('should not throw when active changes rapidly', async () => {
           const el = await fixture<WaPopup>(html`<wa-popup></wa-popup>`);
 
