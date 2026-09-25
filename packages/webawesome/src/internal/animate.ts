@@ -6,40 +6,23 @@ export async function animate(el: Element, keyframes: Keyframe[], options?: Keyf
 }
 
 /**
- * Applies a class to the specified element to animate it. The class is removed after the animation finishes and then
- * the promise resolves. If a timeout is provided, the class will be removed and the animation will
+ * Applies a class to the specified element, waits for its finite CSS animations to finish or be canceled, then removes
+ * the class. Transitions and animations created with the Web Animations API do not delay completion.
  */
-export function animateWithClass(el: Element, className: string) {
-  return new Promise<void>(resolve => {
-    const controller = new AbortController();
-    const { signal } = controller;
+export async function animateWithClass(el: Element, className: string) {
+  // Flush a previous class removal so immediately reusing the class starts a fresh animation.
+  el.getAnimations();
+  el.classList.add(className);
 
-    if (el.classList.contains(className)) {
-      return;
-    }
-    el.classList.add(className);
-
-    let resolved = false;
-    let onEnd = () => {
-      if (resolved) {
-        return;
-      }
-      resolved = true;
-      el.classList.remove(className);
-      resolve();
-      controller.abort();
-    };
-
-    el.addEventListener('animationend', onEnd, { once: true, signal });
-    el.addEventListener('animationcancel', onEnd, { once: true, signal });
-
-    // if there are no animations or animation is set to 0ms, end immediately
-    requestAnimationFrame(() => {
-      if (!resolved && el.getAnimations().length === 0) {
-        onEnd();
-      }
-    });
-  });
+  // Popup activation is reactive; let its display styles render before sampling animations.
+  await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+  const animations = el
+    .getAnimations()
+    .filter(
+      animation => animation instanceof CSSAnimation && animation.effect?.getComputedTiming().endTime !== Infinity,
+    );
+  await Promise.allSettled(animations.map(animation => animation.finished));
+  el.classList.remove(className);
 }
 
 /** Parses a CSS duration and returns the number of milliseconds. */
