@@ -29,6 +29,15 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 {% include "changelog-email-signup.njk" %}
 
+## Unreleased
+
+:::fixed
+
+Fixed a bug in `<wa-dropdown>` where the initial focused element would get lost. [pr:2886]
+Fixed a bug in `<wa-dropdown>` where submenus would occasionally get dismissed due to not properly rechecking submenu hover states. [pr:2877]
+
+:::
+
 ## 3.14.0
 
 <small><time datetime="2026-09-24">September 24th, 2026</time></small>
