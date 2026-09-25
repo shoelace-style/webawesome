@@ -149,7 +149,7 @@ export default class WaTooltip extends WebAwesomeElement {
         this.updateComplete.then(() => {
           // don't try to open disabled tooltips.
           if (this.disabled) {
-            return
+            return;
           }
 
           this.open = true;
