@@ -55,11 +55,10 @@ const openDropdowns = new Set<WaDropdown>();
 export default class WaDropdown extends WebAwesomeElement {
   static css = [sizeStyles, styles];
 
-  private submenuCleanups: Map<WaDropdownItem, ReturnType<typeof autoUpdate>> = new Map();
   private readonly localize = new LocalizeController(this);
   private userTypedQuery = '';
   private userTypedTimeout: ReturnType<typeof setTimeout>;
-  private openSubmenuStack: WaDropdownItem[] = [];
+  private activeSubmenus: { item: WaDropdownItem; cleanup: () => void }[] = [];
 
   @query('slot:not([name])') defaultSlot: HTMLSlotElement;
   @query('#menu') private menu: HTMLDivElement;
@@ -104,10 +103,6 @@ export default class WaDropdown extends WebAwesomeElement {
     super.disconnectedCallback();
     clearInterval(this.userTypedTimeout);
     this.closeAllSubmenus();
-
-    // Clean up all submenu positioning
-    this.submenuCleanups.forEach(cleanup => cleanup());
-    this.submenuCleanups.clear();
 
     document.removeEventListener('mousemove', this.handleGlobalMouseMove);
     document.removeEventListener('keydown', this.handleDocumentKeyDown);
@@ -184,54 +179,17 @@ export default class WaDropdown extends WebAwesomeElement {
     items.forEach(item => (item.size = this.size));
   }
 
-  /** Handles the submenu navigation stack */
-  private addToSubmenuStack(item: WaDropdownItem) {
-    const index = this.openSubmenuStack.indexOf(item);
-    if (index !== -1) {
-      this.openSubmenuStack = this.openSubmenuStack.slice(0, index + 1);
-    } else {
-      this.openSubmenuStack.push(item);
-    }
-  }
-
-  /** Removes the last item from the submenu stack */
-  private removeFromSubmenuStack() {
-    return this.openSubmenuStack.pop();
-  }
-
-  /** Gets the current active submenu item */
+  /** Gets the current active submenu item. */
   private getCurrentSubmenuItem(): WaDropdownItem | undefined {
-    return this.openSubmenuStack.length > 0 ? this.openSubmenuStack[this.openSubmenuStack.length - 1] : undefined;
+    return this.activeSubmenus[this.activeSubmenus.length - 1]?.item;
   }
 
-  /** Closes all submenus in the dropdown. */
-  private closeAllSubmenus() {
-    const items = this.getItems(true);
-    items.forEach(item => {
-      item.submenuOpen = false;
-    });
-    this.openSubmenuStack = [];
-  }
-
-  /** Closes sibling submenus at the same level as the specified item. */
-  private closeSiblingSubmenus(item: WaDropdownItem) {
-    const parentDropdownItem = item.closest<WaDropdownItem>('wa-dropdown-item:not([slot="submenu"])');
-    let siblingItems: WaDropdownItem[];
-
-    if (parentDropdownItem) {
-      siblingItems = this.getSubmenuItems(parentDropdownItem, true);
-    } else {
-      siblingItems = this.getItems(true);
-    }
-
-    siblingItems.forEach(siblingItem => {
-      if (siblingItem !== item && siblingItem.submenuOpen) {
-        siblingItem.submenuOpen = false;
-      }
-    });
-
-    if (!this.openSubmenuStack.includes(item)) {
-      this.openSubmenuStack.push(item);
+  /** Closes a branch and releases its positioning before hide animations finish. */
+  private closeAllSubmenus(from = 0) {
+    // Remove ownership first: item close notifications may reenter this method.
+    for (const { item, cleanup } of this.activeSubmenus.splice(from).reverse()) {
+      cleanup();
+      void item.closeSubmenu();
     }
   }
 
@@ -324,24 +282,11 @@ export default class WaDropdown extends WebAwesomeElement {
       return;
     }
 
-    const activeElement = [...activeElements()].find(el => el.localName === 'wa-dropdown-item');
-    const isFocusedOnItem = activeElement?.localName === 'wa-dropdown-item';
+    const focusedItem = [...activeElements()].find(el => el.localName === 'wa-dropdown-item');
     const currentSubmenuItem = this.getCurrentSubmenuItem();
-    const isInSubmenu = !!currentSubmenuItem;
-
-    let items: WaDropdownItem[];
-    let activeItem: WaDropdownItem | undefined;
-    let activeItemIndex: number;
-
-    if (isInSubmenu) {
-      items = this.getSubmenuItems(currentSubmenuItem);
-      activeItem = items.find(item => item.active || item === activeElement);
-      activeItemIndex = activeItem ? items.indexOf(activeItem) : -1;
-    } else {
-      items = this.getItems();
-      activeItem = items.find(item => item.active || item === activeElement);
-      activeItemIndex = activeItem ? items.indexOf(activeItem) : -1;
-    }
+    const items = currentSubmenuItem ? this.getSubmenuItems(currentSubmenuItem) : this.getItems();
+    const activeItem = items.find(item => item === focusedItem) ?? items.find(item => item.active);
+    const activeItemIndex = activeItem ? items.indexOf(activeItem) : -1;
 
     let itemToSelect: WaDropdownItem | undefined;
 
@@ -365,51 +310,27 @@ export default class WaDropdown extends WebAwesomeElement {
       }
     }
 
-    if (event.key === (isRtl ? 'ArrowLeft' : 'ArrowRight') && isFocusedOnItem && activeItem) {
+    if (event.key === (isRtl ? 'ArrowLeft' : 'ArrowRight') && focusedItem && activeItem) {
       if (activeItem.hasSubmenu) {
         event.preventDefault();
         event.stopPropagation();
 
         activeItem.submenuOpen = true;
-        this.addToSubmenuStack(activeItem);
-
-        setTimeout(() => {
-          const submenuItems = this.getSubmenuItems(activeItem!);
-          if (submenuItems.length > 0) {
-            submenuItems.forEach((item, index) => (item.active = index === 0));
-            submenuItems[0].focus({ preventScroll: true });
-          }
-        }, 0);
 
         return;
       }
     }
 
-    if (event.key === (isRtl ? 'ArrowRight' : 'ArrowLeft') && isInSubmenu) {
+    if (event.key === (isRtl ? 'ArrowRight' : 'ArrowLeft') && currentSubmenuItem) {
       event.preventDefault();
       event.stopPropagation();
 
-      const removedItem = this.removeFromSubmenuStack();
-      if (removedItem) {
-        removedItem.submenuOpen = false;
-
-        setTimeout(() => {
-          removedItem.focus({ preventScroll: true });
-          removedItem.active = true;
-
-          const parentItems =
-            removedItem.slot === 'submenu'
-              ? this.getSubmenuItems(removedItem.parentElement as WaDropdownItem)
-              : this.getItems();
-
-          parentItems.forEach(item => {
-            if (item !== removedItem) {
-              item.active = false;
-            }
-          });
-        }, 0);
-      }
-
+      // Closing retires ownership synchronously; only this keypress restores focus.
+      void currentSubmenuItem.closeSubmenu();
+      currentSubmenuItem.focus({ preventScroll: true });
+      const parent = this.getCurrentSubmenuItem();
+      const parentItems = parent ? this.getSubmenuItems(parent, true) : this.getItems(true);
+      parentItems.forEach(item => (item.active = item === currentSubmenuItem));
       return;
     }
 
@@ -457,21 +378,12 @@ export default class WaDropdown extends WebAwesomeElement {
       return;
     }
 
-    if ((event.key === 'Enter' || (event.key === ' ' && this.userTypedQuery === '')) && isFocusedOnItem && activeItem) {
+    if ((event.key === 'Enter' || (event.key === ' ' && this.userTypedQuery === '')) && focusedItem && activeItem) {
       event.preventDefault();
       event.stopPropagation();
 
       if (activeItem.hasSubmenu) {
         activeItem.submenuOpen = true;
-        this.addToSubmenuStack(activeItem);
-
-        setTimeout(() => {
-          const submenuItems = this.getSubmenuItems(activeItem!);
-          if (submenuItems.length > 0) {
-            submenuItems.forEach((item, index) => (item.active = index === 0));
-            submenuItems[0].focus({ preventScroll: true });
-          }
-        }, 0);
       } else {
         this.makeSelection(activeItem, event);
       }
@@ -501,8 +413,6 @@ export default class WaDropdown extends WebAwesomeElement {
 
     if (item.hasSubmenu) {
       if (!item.submenuOpen) {
-        this.closeSiblingSubmenus(item);
-        this.addToSubmenuStack(item);
         item.submenuOpen = true;
       }
 
@@ -537,76 +447,74 @@ export default class WaDropdown extends WebAwesomeElement {
     this.open = !this.open;
   }
 
-  /** Handles submenu opening events */
-  private handleSubmenuOpening(event: CustomEvent) {
-    const openingItem = event.detail.item as WaDropdownItem;
-    this.closeSiblingSubmenus(openingItem);
-    this.addToSubmenuStack(openingItem);
+  /** Keeps one composed ancestor branch, including forwarded submenu slots. */
+  private handleSubmenuOpening(event: CustomEvent<{ item: WaDropdownItem }>) {
+    event.stopPropagation();
+    const path = event.composedPath();
+    const branch = path
+      .slice(0, path.indexOf(this))
+      .filter(
+        (element): element is WaDropdownItem =>
+          element instanceof HTMLElement && element.localName === 'wa-dropdown-item',
+      )
+      .reverse();
 
-    this.setupSubmenuPosition(openingItem);
-    this.processSubmenuItems(openingItem);
+    // A child requested during ancestor teardown cannot own an orphan popover.
+    if (branch.some(item => !item.submenuOpen)) {
+      void event.detail.item.closeSubmenu();
+      return;
+    }
+
+    let shared = 0;
+    while (shared < branch.length && this.activeSubmenus[shared]?.item === branch[shared]) shared++;
+    // Repeated ancestor notifications must preserve its still-open descendants.
+    if (shared === branch.length) return;
+    this.closeAllSubmenus(shared);
+    for (const item of branch.slice(shared)) {
+      this.activeSubmenus.push({ item, cleanup: this.setupSubmenuPosition(item) });
+    }
   }
 
-  /** Sets up submenu positioning with autoUpdate */
+  /** Binds positioning and close notifications to this open lifetime. */
   private setupSubmenuPosition(item: WaDropdownItem) {
-    if (!item.submenuElement) return;
-
-    this.cleanupSubmenuPosition(item);
-
+    const controller = new AbortController();
+    const { signal } = controller;
     const cleanup = autoUpdate(item, item.submenuElement, () => {
-      this.positionSubmenu(item);
+      this.positionSubmenu(item, signal);
       this.updateSafeTriangleCoordinates(item);
     });
 
-    this.submenuCleanups.set(item, cleanup);
+    // Listen on the item itself: a disconnected item's event cannot bubble here.
+    item.addEventListener(
+      'submenu-closing',
+      () => {
+        const index = this.activeSubmenus.findIndex(entry => entry.item === item);
+        if (index !== -1) this.closeAllSubmenus(index);
+      },
+      { signal },
+    );
 
     const submenuSlot = item.submenuElement.querySelector('slot[name="submenu"]');
-    if (submenuSlot) {
-      submenuSlot.removeEventListener('slotchange', WaDropdown.handleSubmenuSlotChange);
-      submenuSlot.addEventListener('slotchange', WaDropdown.handleSubmenuSlotChange);
-      WaDropdown.handleSubmenuSlotChange({ target: submenuSlot } as unknown as Event);
-    }
-  }
-
-  private static handleSubmenuSlotChange(event: Event) {
-    const slot = event.target as HTMLSlotElement;
-    if (!slot) return;
-
-    const items = slot.assignedElements().filter(el => el.localName === 'wa-dropdown-item') as WaDropdownItem[];
-
-    if (items.length === 0) return;
-
-    const hasSubmenuItems = items.some(item => item.hasSubmenu);
-    const hasCheckboxItems = items.some(item => item.type === 'checkbox');
-
-    items.forEach(item => {
-      item.submenuAdjacent = hasSubmenuItems;
-      item.checkboxAdjacent = hasCheckboxItems;
-    });
+    submenuSlot?.addEventListener('slotchange', () => this.processSubmenuItems(item), { signal });
+    this.processSubmenuItems(item);
+    return () => {
+      controller.abort();
+      cleanup();
+    };
   }
 
   private processSubmenuItems(item: WaDropdownItem) {
-    if (!item.submenuElement) return;
-
-    const submenuItems = this.getSubmenuItems(item, true);
-    const hasSubmenuItems = submenuItems.some(subItem => subItem.hasSubmenu);
-
-    submenuItems.forEach(subItem => {
-      subItem.submenuAdjacent = hasSubmenuItems;
+    const items = this.getSubmenuItems(item, true);
+    const hasSubmenu = items.some(child => child.hasSubmenu);
+    const hasCheckbox = items.some(child => child.type === 'checkbox');
+    items.forEach(child => {
+      child.submenuAdjacent = hasSubmenu;
+      child.checkboxAdjacent = hasCheckbox;
     });
   }
 
-  /** Cleans up submenu positioning */
-  private cleanupSubmenuPosition(item: WaDropdownItem) {
-    const cleanup = this.submenuCleanups.get(item);
-    if (cleanup) {
-      cleanup();
-      this.submenuCleanups.delete(item);
-    }
-  }
-
   /** Positions a submenu relative to its parent item */
-  private positionSubmenu(item: WaDropdownItem) {
+  private positionSubmenu(item: WaDropdownItem, signal: AbortSignal) {
     if (!item.submenuElement) return;
 
     const isRtl = this.localize.dir() === 'rtl';
@@ -628,6 +536,7 @@ export default class WaDropdown extends WebAwesomeElement {
         }),
       ],
     }).then(({ x, y, placement }) => {
+      if (signal.aborted) return;
       item.submenuElement.setAttribute('data-placement', placement);
 
       Object.assign(item.submenuElement.style, {
@@ -667,8 +576,9 @@ export default class WaDropdown extends WebAwesomeElement {
 
   /** Handle global mouse movement for safe triangle logic */
   private handleGlobalMouseMove = (event: MouseEvent) => {
-    const currentSubmenuItem = this.getCurrentSubmenuItem();
-    if (!currentSubmenuItem?.submenuOpen || !currentSubmenuItem.submenuElement) return;
+    const branch = this.activeSubmenus[this.activeSubmenus.length - 1];
+    const currentSubmenuItem = branch?.item;
+    if (!branch || !currentSubmenuItem?.submenuOpen || !currentSubmenuItem.submenuElement) return;
 
     const submenuRect = currentSubmenuItem.submenuElement.getBoundingClientRect();
     const isRtl = this.localize.dir() === 'rtl';
@@ -695,7 +605,7 @@ export default class WaDropdown extends WebAwesomeElement {
 
     if (!isOverItem && !isOverSubmenu) {
       setTimeout(() => {
-        if (!submenuItemHovered && !submenuElementHovered) {
+        if (this.activeSubmenus.includes(branch) && !submenuItemHovered && !submenuElementHovered) {
           currentSubmenuItem.submenuOpen = false;
         }
       }, 100);

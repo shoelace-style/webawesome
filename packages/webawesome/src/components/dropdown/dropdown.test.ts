@@ -1,4 +1,4 @@
-import { aTimeout, expect, waitUntil } from '@open-wc/testing';
+import { aTimeout, expect, nextFrame, oneEvent, waitUntil } from '@open-wc/testing';
 import { sendKeys, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit';
 import sinon from 'sinon';
@@ -708,6 +708,245 @@ describe('<wa-dropdown>', () => {
       await aTimeout(200);
 
       expect(dropdown.open).to.be.false;
+    });
+  });
+
+  describe('submenu ownership', () => {
+    async function openDropdown(dropdown: WaDropdown) {
+      const shown = oneEvent(dropdown, 'wa-after-show');
+      dropdown.style.setProperty('--show-duration', '0ms');
+      dropdown.open = true;
+      await shown;
+    }
+
+    async function openSubmenu(item: WaDropdownItem) {
+      item.submenuElement.style.animation = 'none';
+      item.submenuOpen = true;
+      await item.updateComplete;
+      await nextFrame();
+      await nextFrame();
+    }
+
+    for (const dir of ['ltr', 'rtl']) {
+      it(`should return to the root menu after replacing a sibling submenu (${dir})`, async () => {
+        const dropdown = await clientFixture<WaDropdown>(html`
+          <wa-dropdown dir=${dir}>
+            <button slot="trigger">Actions</button>
+            <wa-dropdown-item id="first">First</wa-dropdown-item>
+            <wa-dropdown-item id="parent">
+              More
+              <wa-dropdown-item slot="submenu">First action</wa-dropdown-item>
+            </wa-dropdown-item>
+            <wa-dropdown-item id="other">
+              Other
+              <wa-dropdown-item slot="submenu">Other action</wa-dropdown-item>
+            </wa-dropdown-item>
+          </wa-dropdown>
+        `);
+        const first = dropdown.querySelector<WaDropdownItem>('#first')!;
+        const parent = dropdown.querySelector<WaDropdownItem>('#parent')!;
+        const other = dropdown.querySelector<WaDropdownItem>('#other')!;
+        await openDropdown(dropdown);
+        await openSubmenu(parent);
+        await openSubmenu(other);
+        other.querySelector<WaDropdownItem>('wa-dropdown-item')!.focus();
+
+        await sendKeys({ press: dir === 'rtl' ? 'ArrowRight' : 'ArrowLeft' });
+        expect(document.activeElement?.id).to.equal(other.id);
+        await sendKeys({ press: 'ArrowDown' });
+        expect(document.activeElement?.id).to.equal(first.id);
+        expect(parent.submenuOpen).to.be.false;
+      });
+    }
+
+    it('should preserve ancestors and close all descendants of a replaced branch', async () => {
+      const dropdown = await clientFixture<WaDropdown>(html`
+        <wa-dropdown>
+          <button slot="trigger">Actions</button>
+          <wa-dropdown-item id="parent">
+            More
+            <wa-dropdown-item id="middle" slot="submenu">
+              Middle
+              <wa-dropdown-item id="inner" slot="submenu">
+                Inner
+                <wa-dropdown-item slot="submenu">Deep action</wa-dropdown-item>
+              </wa-dropdown-item>
+            </wa-dropdown-item>
+            <wa-dropdown-item id="alternate" slot="submenu">
+              Alternate
+              <wa-dropdown-item slot="submenu">Alternate action</wa-dropdown-item>
+            </wa-dropdown-item>
+          </wa-dropdown-item>
+        </wa-dropdown>
+      `);
+      const parent = dropdown.querySelector<WaDropdownItem>('#parent')!;
+      const middle = dropdown.querySelector<WaDropdownItem>('#middle')!;
+      const inner = dropdown.querySelector<WaDropdownItem>('#inner')!;
+      const alternate = dropdown.querySelector<WaDropdownItem>('#alternate')!;
+      await openDropdown(dropdown);
+      await openSubmenu(parent);
+      await openSubmenu(middle);
+      await openSubmenu(inner);
+      void parent.openSubmenu();
+      await nextFrame();
+      await nextFrame();
+      expect(middle.submenuOpen).to.be.true;
+      expect(inner.submenuOpen).to.be.true;
+      inner.disabled = true;
+      await openSubmenu(alternate);
+
+      expect(parent.submenuOpen).to.be.true;
+      expect(middle.submenuOpen).to.be.false;
+      expect(inner.submenuOpen).to.be.false;
+      expect(inner.submenuElement.matches(':popover-open')).to.be.false;
+      alternate.querySelector<WaDropdownItem>('wa-dropdown-item')!.focus();
+      await sendKeys({ press: 'ArrowLeft' });
+      expect(document.activeElement?.id).to.equal(alternate.id);
+      await sendKeys({ press: 'ArrowLeft' });
+      expect(document.activeElement?.id).to.equal(parent.id);
+    });
+
+    for (const close of ['property', 'disconnect']) {
+      it(`should retire descendants and navigation after an ancestor ${close}`, async () => {
+        const dropdown = await clientFixture<WaDropdown>(html`
+          <wa-dropdown>
+            <button slot="trigger">Actions</button>
+            <wa-dropdown-item id="first">First</wa-dropdown-item>
+            <wa-dropdown-item id="parent">
+              More
+              <wa-dropdown-item id="child" slot="submenu">
+                Child
+                <wa-dropdown-item slot="submenu">Deep action</wa-dropdown-item>
+              </wa-dropdown-item>
+            </wa-dropdown-item>
+          </wa-dropdown>
+        `);
+        const first = dropdown.querySelector<WaDropdownItem>('#first')!;
+        const parent = dropdown.querySelector<WaDropdownItem>('#parent')!;
+        const child = dropdown.querySelector<WaDropdownItem>('#child')!;
+        await openDropdown(dropdown);
+        await openSubmenu(parent);
+        await openSubmenu(child);
+        child.disabled = true;
+        if (close === 'property') {
+          parent.submenuOpen = false;
+          await parent.updateComplete;
+        } else {
+          parent.remove();
+        }
+        first.focus();
+        await sendKeys({ press: 'Home' });
+        await nextFrame();
+
+        expect(document.activeElement?.id).to.equal(first.id);
+        expect(child.submenuOpen).to.be.false;
+        expect(child.submenuElement.matches(':popover-open')).to.be.false;
+      });
+    }
+    it('should navigate forwarded submenu slots in a shadow root', async () => {
+      const host = await clientFixture<HTMLDivElement>(html`
+        <div>
+          <wa-dropdown-item id="child" slot="forwarded">
+            Child
+            <wa-dropdown-item slot="submenu">Child action</wa-dropdown-item>
+          </wa-dropdown-item>
+          <wa-dropdown-item id="alternate" slot="forwarded">
+            Alternate
+            <wa-dropdown-item slot="submenu">Alternate action</wa-dropdown-item>
+          </wa-dropdown-item>
+        </div>
+      `);
+      const root = host.attachShadow({ mode: 'open' });
+      root.innerHTML = `
+        <wa-dropdown>
+          <button slot="trigger">Actions</button>
+          <wa-dropdown-item id="parent">More<slot name="forwarded" slot="submenu"></slot></wa-dropdown-item>
+          <wa-dropdown-item id="other">Other</wa-dropdown-item>
+        </wa-dropdown>
+      `;
+      const dropdown = root.querySelector<WaDropdown>('wa-dropdown')!;
+      const parent = root.querySelector<WaDropdownItem>('#parent')!;
+      const child = host.querySelector<WaDropdownItem>('#child')!;
+      const alternate = host.querySelector<WaDropdownItem>('#alternate')!;
+      await parent.updateComplete;
+      await openDropdown(dropdown);
+      await openSubmenu(parent);
+      expect(document.activeElement?.id).to.equal(child.id);
+      await openSubmenu(child);
+      await openSubmenu(alternate);
+      expect(child.submenuOpen).to.be.false;
+      alternate.querySelector<WaDropdownItem>('wa-dropdown-item')!.focus();
+      await sendKeys({ press: 'ArrowLeft' });
+      expect(document.activeElement?.id).to.equal(alternate.id);
+      await sendKeys({ press: 'Home' });
+      expect(document.activeElement?.id).to.equal(child.id);
+      await sendKeys({ press: 'ArrowLeft' });
+      expect(root.activeElement?.id).to.equal(parent.id);
+      await sendKeys({ press: 'ArrowDown' });
+      expect(root.activeElement?.id).to.equal('other');
+
+      await openSubmenu(parent);
+      child.remove();
+      alternate.remove();
+      await nextFrame();
+      expect(parent.hasSubmenu).to.be.false;
+      expect(parent.submenuOpen).to.be.false;
+      parent.focus();
+      await sendKeys({ press: 'ArrowDown' });
+      expect(root.activeElement?.id).to.equal('other');
+    });
+
+    it('should retire an emptied submenu', async () => {
+      const dropdown = await clientFixture<WaDropdown>(html`
+        <wa-dropdown>
+          <button slot="trigger">Actions</button>
+          <wa-dropdown-item id="first">First</wa-dropdown-item>
+          <wa-dropdown-item id="parent">
+            More
+            <wa-dropdown-item id="child" slot="submenu">Action</wa-dropdown-item>
+          </wa-dropdown-item>
+        </wa-dropdown>
+      `);
+      const parent = dropdown.querySelector<WaDropdownItem>('#parent')!;
+      const child = dropdown.querySelector<WaDropdownItem>('#child')!;
+      await openDropdown(dropdown);
+      await openSubmenu(parent);
+      const retiredSubmenu = parent.submenuElement;
+      child.remove();
+      await nextFrame();
+      expect(parent.submenuOpen).to.be.false;
+      expect(retiredSubmenu.matches(':popover-open')).to.be.false;
+      parent.focus();
+      await sendKeys({ press: 'ArrowDown' });
+      expect(document.activeElement?.id).to.equal('first');
+    });
+    it('should not let a hover timeout close a reopened submenu', async () => {
+      const dropdown = await clientFixture<WaDropdown>(html`
+        <wa-dropdown>
+          <button slot="trigger">Actions</button>
+          <wa-dropdown-item id="parent">
+            More
+            <wa-dropdown-item slot="submenu">Action</wa-dropdown-item>
+          </wa-dropdown-item>
+        </wa-dropdown>
+      `);
+      const parent = dropdown.querySelector<WaDropdownItem>('#parent')!;
+      await openDropdown(dropdown);
+      await openSubmenu(parent);
+      const clock = sinon.useFakeTimers({ toFake: ['setTimeout', 'clearTimeout'] });
+      try {
+        document.dispatchEvent(
+          new MouseEvent('mousemove', { clientX: window.innerWidth, clientY: window.innerHeight }),
+        );
+        parent.submenuOpen = false;
+        await parent.updateComplete;
+        await nextFrame();
+        await openSubmenu(parent);
+        clock.tick(100);
+        expect(parent.submenuOpen).to.be.true;
+      } finally {
+        clock.restore();
+      }
     });
   });
 
