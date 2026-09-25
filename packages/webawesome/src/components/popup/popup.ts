@@ -301,11 +301,20 @@ export default class WaPopup extends WebAwesomeElement {
       return;
     }
 
+    this.cleanup?.();
+    this.cleanup = undefined;
     this.popup?.showPopover?.();
 
-    this.cleanup = autoUpdate(this.anchorEl, this.popup, () => {
+    const cleanup = autoUpdate(this.anchorEl, this.popup, () => {
       this.reposition();
     });
+
+    // The first reposition runs synchronously and can deactivate or remove the popup.
+    if (!this.active || !this.isConnected) {
+      cleanup();
+      return;
+    }
+    this.cleanup = cleanup;
   }
 
   private async stop(): Promise<void> {
