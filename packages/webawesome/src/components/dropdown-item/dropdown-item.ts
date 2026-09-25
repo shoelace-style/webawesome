@@ -46,6 +46,8 @@ export default class WaDropdownItem extends WebAwesomeElement {
   static css = styles;
 
   private readonly hasSlotController = new HasSlotController(this, '[default]', 'start', 'end');
+  private submenuGeneration = 0;
+  private submenuAnimation?: Promise<void>;
 
   @query('#submenu') submenuElement: HTMLDivElement;
   @query('#link') private linkElement: HTMLAnchorElement | null;
@@ -124,7 +126,16 @@ export default class WaDropdownItem extends WebAwesomeElement {
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    this.closeSubmenu();
+    this.submenuGeneration++;
+    void this.closeSubmenu();
+    const submenu = this.submenuElement;
+    if (submenu) {
+      submenu.classList.remove('show', 'hide');
+      submenu.hidden = true;
+      submenu.removeAttribute('data-visible');
+      submenu.hidePopover?.();
+      this.setAttribute('aria-expanded', 'false');
+    }
     this.removeEventListener?.('click', this.handleHostClick);
     this.removeEventListener?.('pointerenter', this.handlePointerEnter);
     this.shadowRoot?.removeEventListener?.('click', this.handleClick, { capture: true });
@@ -174,11 +185,7 @@ export default class WaDropdownItem extends WebAwesomeElement {
 
     if (changedProperties.has('submenuOpen')) {
       this.customStates.set('submenu-open', this.submenuOpen);
-      if (this.submenuOpen) {
-        this.openSubmenu();
-      } else {
-        this.closeSubmenu();
-      }
+      this.submenuAnimation = this.updateSubmenuVisibility(this.submenuAnimation);
     }
   }
 
@@ -202,30 +209,52 @@ export default class WaDropdownItem extends WebAwesomeElement {
 
   /** Opens the submenu. */
   async openSubmenu() {
-    const submenu = this.submenuElement;
-    if (!this.hasSubmenu || !submenu || !this.isConnected) return;
-
-    // Notify parent dropdown to handle positioning
-    this.notifyParentOfOpening();
-
-    // Use Popover API to show the submenu
-    submenu.showPopover?.();
-    submenu.hidden = false;
-    submenu.setAttribute('data-visible', '');
+    if (!this.hasSubmenu || !this.submenuElement || !this.isConnected) return;
     this.submenuOpen = true;
-    this.setAttribute('aria-expanded', 'true');
+    await this.updateComplete;
+    return this.submenuAnimation;
+  }
 
-    // Animate the submenu
-    await animateWithClass(submenu, 'show');
+  private async updateSubmenuVisibility(previousAnimation?: Promise<void>) {
+    const submenu = this.submenuElement;
+    if (!this.hasSubmenu || !submenu || !this.isConnected) {
+      await previousAnimation;
+      return;
+    }
 
-    // Set focus to the first submenu item
-    setTimeout(() => {
+    const open = this.submenuOpen;
+    const generation = ++this.submenuGeneration;
+    const isCurrent = () => generation === this.submenuGeneration && this.isConnected && this.submenuOpen === open;
+
+    // Cancel the previous animation before joining it so its cleanup cannot hide a reopened submenu.
+    submenu.classList.remove('show', 'hide');
+    if (open) {
+      this.notifyParentOfOpening();
+      if (!isCurrent()) return;
+      submenu.showPopover?.();
+      submenu.hidden = false;
+      submenu.setAttribute('data-visible', '');
+    }
+    this.setAttribute('aria-expanded', String(open));
+
+    await previousAnimation;
+    await this.updateComplete;
+    if (!isCurrent()) return;
+
+    // Focus when opening becomes usable, before the user can navigate during the animation.
+    if (open) {
       const items = this.getSubmenuItems();
-      if (items.length > 0) {
-        items.forEach((item, index) => (item.active = index === 0));
-        items[0].focus({ preventScroll: true });
-      }
-    }, 0);
+      items.forEach((item, index) => (item.active = index === 0));
+      items[0]?.focus({ preventScroll: true });
+    }
+    await animateWithClass(submenu, open ? 'show' : 'hide');
+    if (!isCurrent()) return;
+
+    if (!open) {
+      submenu.hidden = true;
+      submenu.removeAttribute('data-visible');
+      submenu.hidePopover?.();
+    }
   }
 
   /** Notifies the parent dropdown that this item is opening its submenu */
@@ -258,20 +287,10 @@ export default class WaDropdownItem extends WebAwesomeElement {
 
   /** Closes the submenu. */
   async closeSubmenu() {
-    const submenu = this.submenuElement;
-    if (!this.hasSubmenu || !submenu) return;
-
+    if (!this.hasSubmenu || !this.submenuElement) return;
     this.submenuOpen = false;
-    this.setAttribute('aria-expanded', 'false');
-
-    if (!submenu.hidden) {
-      await animateWithClass(submenu, 'hide');
-      if (submenu?.isConnected) {
-        submenu.hidden = true;
-        submenu.removeAttribute('data-visible');
-        submenu.hidePopover?.();
-      }
-    }
+    await this.updateComplete;
+    return this.submenuAnimation;
   }
 
   /** Determines whether the item navigates when selected. Items with submenus never navigate. */
@@ -335,7 +354,6 @@ export default class WaDropdownItem extends WebAwesomeElement {
     // opening here would let the click land on the just-opened submenu when it overlaps the item. Touch and pen users
     // open submenus with the click instead.
     if (event.pointerType === 'mouse' && this.hasSubmenu && !this.disabled) {
-      this.notifyParentOfOpening();
       this.submenuOpen = true;
     }
   };
