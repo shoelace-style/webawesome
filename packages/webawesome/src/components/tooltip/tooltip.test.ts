@@ -880,7 +880,7 @@ describe('<wa-tooltip>', () => {
       const el = await fixtures[0]<HTMLDivElement>(html`
         <div>
           <wa-button id="ld-prevent-btn">Hover me</wa-button>
-          <wa-tooltip for="ld-prevent-btn" open>Tooltip</wa-tooltip>
+          <wa-tooltip for="ld-prevent-btn" trigger="manual" open>Tooltip</wa-tooltip>
         </div>
       `);
       const tooltip = el.querySelector<WaTooltip>('wa-tooltip')!;
