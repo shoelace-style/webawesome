@@ -1,4 +1,4 @@
-import { html, type PropertyValues } from 'lit';
+import { html } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { WaAfterHideEvent } from '../../events/after-hide.js';
@@ -7,7 +7,6 @@ import { WaHideEvent } from '../../events/hide.js';
 import { WaShowEvent } from '../../events/show.js';
 import { animateWithClass } from '../../internal/animate.js';
 import { isTopDismissible, registerDismissible, unregisterDismissible } from '../../internal/dismissible-stack.js';
-import { waitForEvent } from '../../internal/event.js';
 import { uniqueId } from '../../internal/math.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
@@ -126,6 +125,7 @@ export default class WaTooltip extends WebAwesomeElement {
   @state() anchor: null | Element = null;
 
   private eventController = new AbortController();
+  private openTransition: { open: boolean; promise?: Promise<void> } = { open: false };
 
   connectedCallback() {
     super.connectedCallback();
@@ -143,13 +143,8 @@ export default class WaTooltip extends WebAwesomeElement {
       // The events that re-arm the tooltip after a light dismiss can be missed while disconnected
       this.dismissedByPress = false;
 
-      // TODO: This is a hack that I need to revisit [Konnor]
-      if (this.open) {
-        this.open = false;
-        this.updateComplete.then(() => {
-          this.open = true;
-        });
-      }
+      // Reconcile the current request after rendering without changing the caller's intent.
+      void this.requestOpen(this.open);
 
       // If the user doesn't give us an id, generate one.
       if (!this.id) {
@@ -175,21 +170,15 @@ export default class WaTooltip extends WebAwesomeElement {
     document.removeEventListener('click', this.handleDocumentClick);
     unregisterDismissible(this);
     this.eventController.abort();
+    clearTimeout(this.hoverTimeout);
+    this.openTransition = { open: false, promise: this.openTransition.promise };
+    this.popup?.popup?.classList.remove('show-with-scale', 'hide-with-scale');
+    if (this.body) this.body.hidden = true;
+    if (this.popup) this.popup.active = false;
 
     if (this.anchor) {
       this.removeFromAriaLabelledBy(this.anchor, this.id);
     }
-  }
-
-  firstUpdated(changedProperties: PropertyValues<typeof this>) {
-    this.body.hidden = !this.open;
-
-    // If the tooltip is visible on init, update its position
-    if (this.open) {
-      this.popup.active = true;
-      this.popup.reposition();
-    }
-    super.firstUpdated(changedProperties);
   }
 
   private handleBlur = () => {
@@ -346,52 +335,61 @@ export default class WaTooltip extends WebAwesomeElement {
 
   @watch('open', { waitUntilFirstUpdate: true })
   async handleOpenChange() {
-    if (this.open) {
-      if (this.disabled) {
-        return;
-      }
+    const previous = this.openTransition;
+    const open = this.open;
+    if (!this.isConnected || previous.open === open || (open && this.disabled)) {
+      return previous.promise;
+    }
 
-      // Show
-      const waShowEvent = new WaShowEvent();
-      this.dispatchEvent(waShowEvent);
-      if (waShowEvent.defaultPrevented) {
-        this.open = false;
-        return;
-      }
+    const event = open ? new WaShowEvent() : new WaHideEvent();
+    this.dispatchEvent(event);
+    if (this.openTransition !== previous || this.open !== open) {
+      return this.openTransition.promise;
+    }
+    if (event.defaultPrevented) {
+      this.open = previous.open;
+      return previous.promise;
+    }
 
-      // Manual tooltips never light dismiss, so they skip the document listeners and the dismissible
-      // stack. Joining the stack without handling Escape would block dismissibles beneath them.
+    const transition: { open: boolean; promise?: Promise<void> } = { open };
+    this.openTransition = transition;
+    const isCurrent = () => this.isConnected && this.openTransition === transition && this.open === open;
+
+    if (open) {
+      // Manual tooltips never light dismiss or block dismissibles beneath them.
       if (!this.hasTrigger('manual')) {
         document.addEventListener('keydown', this.handleDocumentKeyDown, { signal: this.eventController.signal });
         document.addEventListener('click', this.handleDocumentClick, { signal: this.eventController.signal });
         registerDismissible(this);
       }
-
       this.body.hidden = false;
       this.popup.active = true;
-      await animateWithClass(this.popup.popup, 'show-with-scale');
-      this.popup.reposition();
-
-      this.dispatchEvent(new WaAfterShowEvent());
     } else {
-      // Hide
-      const waHideEvent = new WaHideEvent();
-      this.dispatchEvent(waHideEvent);
-      if (waHideEvent.defaultPrevented) {
-        this.open = true;
-        return;
-      }
-
       document.removeEventListener('keydown', this.handleDocumentKeyDown);
       document.removeEventListener('click', this.handleDocumentClick);
       unregisterDismissible(this);
-
-      await animateWithClass(this.popup.popup, 'hide-with-scale');
-      this.popup.active = false;
-      this.body.hidden = true;
-
-      this.dispatchEvent(new WaAfterHideEvent());
     }
+
+    // Let the previous animation finish cleanup before reusing its classes.
+    this.popup.popup.classList.remove('show-with-scale', 'hide-with-scale');
+    transition.promise = (async () => {
+      await previous.promise;
+      if (!isCurrent()) return;
+      await animateWithClass(this.popup.popup, open ? 'show-with-scale' : 'hide-with-scale');
+      if (!isCurrent()) return;
+
+      if (open) {
+        this.popup.reposition();
+      } else {
+        this.popup.active = false;
+        this.body.hidden = true;
+      }
+      // Reposition emits an event whose listener can change the requested state.
+      if (isCurrent()) {
+        this.dispatchEvent(open ? new WaAfterShowEvent() : new WaAfterHideEvent());
+      }
+    })();
+    return transition.promise;
   }
 
   @watch('for')
@@ -460,24 +458,21 @@ export default class WaTooltip extends WebAwesomeElement {
     }
   }
 
-  /** Shows the tooltip. */
-  async show() {
-    if (this.open) {
-      return undefined;
-    }
+  private async requestOpen(open: boolean) {
+    this.open = open;
+    if (!this.isConnected) return;
+    await this.updateComplete;
+    return this.handleOpenChange();
+  }
 
-    this.open = true;
-    return waitForEvent(this, 'wa-after-show');
+  /** Shows the tooltip. */
+  show() {
+    return this.requestOpen(true);
   }
 
   /** Hides the tooltip */
-  async hide() {
-    if (!this.open) {
-      return undefined;
-    }
-
-    this.open = false;
-    return waitForEvent(this, 'wa-after-hide');
+  hide() {
+    return this.requestOpen(false);
   }
 
   render() {
@@ -501,7 +496,7 @@ export default class WaTooltip extends WebAwesomeElement {
         hover-bridge
         .anchor=${this.anchor}
       >
-        <div part="body" class="body">
+        <div part="body" class="body" hidden>
           <slot></slot>
         </div>
       </wa-popup>
