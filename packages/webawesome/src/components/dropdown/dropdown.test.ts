@@ -1,5 +1,5 @@
-import { aTimeout, expect, waitUntil } from '@open-wc/testing';
-import { sendKeys, setViewport } from '@web/test-runner-commands';
+import { aTimeout, expect, nextFrame, oneEvent, waitUntil } from '@open-wc/testing';
+import { sendKeys, sendMouse, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit';
 import sinon from 'sinon';
 import { expectEvent } from '../../internal/test/expect-event.js';
@@ -709,6 +709,66 @@ describe('<wa-dropdown>', () => {
 
       expect(dropdown.open).to.be.false;
     });
+  });
+
+  describe('submenu hover dismissal', () => {
+    for (const destination of ['parent item', 'submenu', 'outside']) {
+      it(`should ${destination === 'outside' ? 'close' : 'keep open'} the submenu when the pointer returns to ${destination}`, async () => {
+        await sendMouse({ type: 'move', position: [window.innerWidth - 10, window.innerHeight - 10] });
+        const el = await clientFixture<WaDropdown>(html`
+          <wa-dropdown style="--show-duration: 0ms; --hide-duration: 0ms;">
+            <wa-button slot="trigger">Menu</wa-button>
+            <wa-dropdown-item>
+              More options
+              <wa-dropdown-item slot="submenu">Nested option</wa-dropdown-item>
+            </wa-dropdown-item>
+          </wa-dropdown>
+        `);
+        const shown = oneEvent(el, 'wa-after-show');
+        el.open = true;
+        await shown;
+
+        const parentItem = el.querySelector<WaDropdownItem>('wa-dropdown-item')!;
+        const itemRect = parentItem.getBoundingClientRect();
+        const itemPosition: [number, number] = [
+          Math.round(itemRect.left + itemRect.width / 2),
+          Math.round(itemRect.top + itemRect.height / 2),
+        ];
+        await sendMouse({ type: 'move', position: itemPosition });
+        await parentItem.updateComplete;
+        await nextFrame();
+        expect(parentItem.submenuOpen).to.be.true;
+
+        const clock = sinon.useFakeTimers({ toFake: ['setTimeout', 'clearTimeout'] });
+        try {
+          await sendMouse({ type: 'move', position: [window.innerWidth - 10, window.innerHeight - 10] });
+          expect(parentItem.matches(':hover')).to.be.false;
+          expect(parentItem.submenuElement.matches(':hover')).to.be.false;
+
+          if (destination === 'parent item') {
+            await sendMouse({ type: 'move', position: itemPosition });
+            expect(parentItem.matches(':hover')).to.be.true;
+          } else if (destination === 'submenu') {
+            const submenuRect = parentItem.submenuElement.getBoundingClientRect();
+            await sendMouse({
+              type: 'move',
+              position: [
+                Math.round(submenuRect.left + submenuRect.width / 2),
+                Math.round(submenuRect.top + submenuRect.height / 2),
+              ],
+            });
+            expect(parentItem.submenuElement.matches(':hover')).to.be.true;
+          }
+
+          clock.tick(100);
+          await parentItem.updateComplete;
+          expect(parentItem.submenuOpen).to.equal(destination !== 'outside');
+          expect(parentItem.getAttribute('aria-expanded')).to.equal(String(destination !== 'outside'));
+        } finally {
+          clock.restore();
+        }
+      });
+    }
   });
 
   describe('submenu positioning', () => {

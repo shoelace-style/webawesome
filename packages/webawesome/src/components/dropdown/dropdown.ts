@@ -695,7 +695,7 @@ export default class WaDropdown extends WebAwesomeElement {
 
     if (!isOverItem && !isOverSubmenu) {
       setTimeout(() => {
-        if (!submenuItemHovered && !submenuElementHovered) {
+        if (!currentSubmenuItem.matches(':hover') && !currentSubmenuItem.submenuElement?.matches(':hover')) {
           currentSubmenuItem.submenuOpen = false;
         }
       }, 100);
