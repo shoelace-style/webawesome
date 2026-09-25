@@ -279,6 +279,47 @@ describe('<wa-tooltip>', () => {
       });
 
       describe('disabled behavior', () => {
+        it('should ignore show() while disabled and allow showing after enabling', async () => {
+          const el = await fixture<HTMLDivElement>(html`
+            <div>
+              <wa-button id="btn">Show tooltip</wa-button>
+              <wa-tooltip for="btn" disabled>Tooltip</wa-tooltip>
+            </div>
+          `);
+          const tooltip = el.querySelector<WaTooltip>('wa-tooltip')!;
+          const body = tooltip.shadowRoot!.querySelector<HTMLElement>('[part~="body"]')!;
+          const showHandler = sinon.spy();
+          tooltip.addEventListener('wa-show', showHandler);
+
+          const show = tooltip.show();
+          expect(tooltip.open).to.be.false;
+          await show;
+          expect(showHandler).not.to.have.been.called;
+
+          tooltip.disabled = false;
+          await tooltip.updateComplete;
+          await tooltip.show();
+
+          expect(tooltip.open).to.be.true;
+          expect(body.hidden).to.be.false;
+          expect(showHandler).to.have.been.calledOnce;
+        });
+
+        it('should stay closed when initially open and disabled', async () => {
+          const el = await fixture<HTMLDivElement>(html`
+            <div>
+              <wa-button id="btn">Show tooltip</wa-button>
+              <wa-tooltip for="btn" open disabled>Tooltip</wa-tooltip>
+            </div>
+          `);
+          const tooltip = el.querySelector<WaTooltip>('wa-tooltip')!;
+          const body = tooltip.shadowRoot!.querySelector<HTMLElement>('[part~="body"]')!;
+          await tooltip.updateComplete;
+
+          expect(tooltip.open).to.be.false;
+          expect(body.hidden).to.be.true;
+        });
+
         it('should hide the tooltip when it becomes disabled while open', async () => {
           const el = await fixture<HTMLDivElement>(html`
             <div>
@@ -316,9 +357,10 @@ describe('<wa-tooltip>', () => {
           const tooltip = el.querySelector<WaTooltip>('wa-tooltip')!;
 
           tooltip.open = true;
-          await aTimeout(200);
+          await tooltip.updateComplete;
 
           const body = tooltip.shadowRoot!.querySelector<HTMLElement>('[part~="body"]')!;
+          expect(tooltip.open).to.be.false;
           expect(body.hidden).to.be.true;
         });
       });

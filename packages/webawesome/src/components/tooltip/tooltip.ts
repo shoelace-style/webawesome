@@ -147,7 +147,7 @@ export default class WaTooltip extends WebAwesomeElement {
       if (this.open) {
         this.open = false;
         this.updateComplete.then(() => {
-          this.open = true;
+          this.open = !this.disabled;
         });
       }
 
@@ -348,6 +348,7 @@ export default class WaTooltip extends WebAwesomeElement {
   async handleOpenChange() {
     if (this.open) {
       if (this.disabled) {
+        this.open = false;
         return;
       }
 
@@ -462,7 +463,7 @@ export default class WaTooltip extends WebAwesomeElement {
 
   /** Shows the tooltip. */
   async show() {
-    if (this.open) {
+    if (this.open || this.disabled) {
       return undefined;
     }
 
