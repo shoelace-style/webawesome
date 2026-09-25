@@ -301,6 +301,7 @@ export default class WaPopup extends WebAwesomeElement {
       return;
     }
 
+    // There is a small chance a cleanup may already be assigned. If it is, cleanup the cleanup, then register a new one.
     this.cleanup?.();
     this.cleanup = undefined;
     this.popup?.showPopover?.();
