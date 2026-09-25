@@ -60,6 +60,8 @@ export default class WaDropdown extends WebAwesomeElement {
   private userTypedQuery = '';
   private userTypedTimeout: ReturnType<typeof setTimeout>;
   private openSubmenuStack: WaDropdownItem[] = [];
+  private menuTransition?: AbortController;
+  private menuAnimation?: Promise<void>;
 
   @query('slot:not([name])') defaultSlot: HTMLSlotElement;
   @query('#menu') private menu: HTMLDivElement;
@@ -100,8 +102,19 @@ export default class WaDropdown extends WebAwesomeElement {
   /** The offset of the dropdown menu along its trigger. */
   @property({ type: Number }) skidding = 0;
 
+  connectedCallback() {
+    super.connectedCallback();
+    if (this.hasUpdated && this.open) {
+      void this.updateMenuVisibility(true);
+    }
+  }
+
   disconnectedCallback() {
     super.disconnectedCallback();
+    this.menuTransition?.abort();
+    this.menu?.classList.remove('show', 'hide');
+    if (this.popup) this.popup.active = false;
+    openDropdowns.delete(this);
     clearInterval(this.userTypedTimeout);
     this.closeAllSubmenus();
 
@@ -109,9 +122,6 @@ export default class WaDropdown extends WebAwesomeElement {
     this.submenuCleanups.forEach(cleanup => cleanup());
     this.submenuCleanups.clear();
 
-    document.removeEventListener('mousemove', this.handleGlobalMouseMove);
-    document.removeEventListener('keydown', this.handleDocumentKeyDown);
-    document.removeEventListener('pointerdown', this.handleDocumentPointerDown);
     unregisterDismissible(this);
   }
 
@@ -136,12 +146,7 @@ export default class WaDropdown extends WebAwesomeElement {
 
       this.customStates.set('open', this.open);
 
-      if (this.open) {
-        await this.showMenu();
-      } else {
-        this.closeAllSubmenus();
-        await this.hideMenu();
-      }
+      await this.updateMenuVisibility(this.open);
     }
 
     if (changedProperties.has('size')) {
@@ -240,77 +245,63 @@ export default class WaDropdown extends WebAwesomeElement {
     return this.querySelector<WaButton | HTMLButtonElement>('[slot="trigger"]');
   }
 
-  /** Shows the dropdown menu. This should only be called from within updated(). */
-  private async showMenu() {
-    const anchor = this.getTrigger();
-    if (!anchor || !this.popup || !this.menu) return;
+  /** Reconciles the accepted open state across transitions and reconnection. */
+  private async updateMenuVisibility(open: boolean) {
+    if (!this.isConnected || !this.popup || !this.menu || (open && !this.getTrigger())) return;
 
-    const showEvent = new WaShowEvent();
-    this.dispatchEvent(showEvent);
-    if (showEvent.defaultPrevented) {
-      this.open = false;
+    const event = open ? new WaShowEvent() : new WaHideEvent({ source: this });
+    this.dispatchEvent(event);
+    if (event.defaultPrevented) {
+      this.open = !open;
       return;
     }
 
-    // if this dropdown is already open, do nothing
-    // (this can happen when wa-hide was cancelled)
-    if (this.popup.active) {
-      return;
+    // The popup remains active while hiding; membership distinguishes a canceled hide from a reopen.
+    if (!this.isConnected || this.open !== open || (open && openDropdowns.has(this))) return;
+
+    this.menuTransition?.abort();
+    this.menuTransition = new AbortController();
+    const { signal } = this.menuTransition;
+    const isCurrent = () => !signal.aborted && this.isConnected && this.open === open;
+
+    if (open) {
+      openDropdowns.forEach(dropdown => (dropdown.open = false));
+      this.popup.active = true;
+      openDropdowns.add(this);
+      registerDismissible(this);
+      document.addEventListener('keydown', this.handleDocumentKeyDown, { signal });
+      document.addEventListener('pointerdown', this.handleDocumentPointerDown, { signal });
+      document.addEventListener('mousemove', this.handleGlobalMouseMove, { signal });
+    } else {
+      this.closeAllSubmenus();
+      openDropdowns.delete(this);
+      unregisterDismissible(this);
     }
-
-    openDropdowns.forEach(dropdown => (dropdown.open = false));
-
-    this.popup.active = true; // Use wa-popup's active property instead of showPopover
-    this.open = true;
-    openDropdowns.add(this);
-    registerDismissible(this);
     this.syncAriaAttributes();
-    document.addEventListener('keydown', this.handleDocumentKeyDown);
-    document.addEventListener('pointerdown', this.handleDocumentPointerDown);
-    document.addEventListener('mousemove', this.handleGlobalMouseMove);
 
-    // In case its still trying to hide, remove the class to cancel the hide animation.
-    this.menu.classList.remove('hide');
-    await animateWithClass(this.menu, 'show'); // Animate the menu div
-
-    const items = this.getItems();
-    if (items.length > 0) {
-      items.forEach((item, index) => (item.active = index === 0));
-      items[0].focus({ preventScroll: true });
-    }
-
-    this.dispatchEvent(new WaAfterShowEvent());
-  }
-
-  /** Hides the dropdown menu. This should only be called from within updated(). */
-  private async hideMenu() {
-    if (!this.popup || !this.menu) return;
-
-    const hideEvent = new WaHideEvent({ source: this });
-    this.dispatchEvent(hideEvent);
-    if (hideEvent.defaultPrevented) {
-      this.open = true;
-      return;
-    }
-
-    this.open = false;
-    openDropdowns.delete(this);
-    unregisterDismissible(this);
-    this.syncAriaAttributes();
-    document.removeEventListener('keydown', this.handleDocumentKeyDown);
-    document.removeEventListener('pointerdown', this.handleDocumentPointerDown);
-    document.removeEventListener('mousemove', this.handleGlobalMouseMove);
-
-    this.menu.classList.remove('show');
-    await animateWithClass(this.menu, 'hide'); // Animate before hiding
-
-    // Sometimes this ends up out of sync. So make sure it aligns with `open`
-    this.popup.active = this.open; // Hide using wa-popup
-    this.dispatchEvent(new WaAfterHideEvent());
+    // Cancel and join the old animation before reusing its classes.
+    this.menu.classList.remove('show', 'hide');
+    const previousAnimation = this.menuAnimation;
+    this.menuAnimation = (async () => {
+      await previousAnimation;
+      if (!isCurrent()) return;
+      await animateWithClass(this.menu, open ? 'show' : 'hide');
+      if (!isCurrent()) return;
+      if (open) {
+        const items = this.getItems();
+        items.forEach((item, index) => (item.active = index === 0));
+        items[0]?.focus({ preventScroll: true });
+      } else {
+        this.popup.active = false;
+      }
+      // Focusing an item can synchronously close or remove the dropdown.
+      if (isCurrent()) this.dispatchEvent(open ? new WaAfterShowEvent() : new WaAfterHideEvent());
+    })();
+    return this.menuAnimation;
   }
 
   /** Handles key down events when the menu is open */
-  private handleDocumentKeyDown = async (event: KeyboardEvent) => {
+  private handleDocumentKeyDown = (event: KeyboardEvent) => {
     const isRtl = this.localize.dir() === 'rtl';
 
     if (event.key === 'Escape' && this.open && isTopDismissible(this)) {
@@ -420,7 +411,7 @@ export default class WaDropdown extends WebAwesomeElement {
     }
 
     if (event.key === 'Tab') {
-      await this.hideMenu();
+      this.open = false;
     }
 
     if (
