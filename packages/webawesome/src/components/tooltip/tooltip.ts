@@ -174,7 +174,8 @@ export default class WaTooltip extends WebAwesomeElement {
     document.removeEventListener('keydown', this.handleDocumentKeyDown);
     document.removeEventListener('click', this.handleDocumentClick);
     unregisterDismissible(this);
-    this.eventController.abort();
+    // Avoid retaining detached anchors in the default abort reason's stack.
+    this.eventController.abort(null);
 
     if (this.anchor) {
       this.removeFromAriaLabelledBy(this.anchor, this.id);

@@ -245,6 +245,7 @@ export default class WaDropdown extends WebAwesomeElement {
     const anchor = this.getTrigger();
     if (!anchor || !this.popup || !this.menu) return;
 
+    const focused = [...activeElements()].pop();
     const showEvent = new WaShowEvent();
     this.dispatchEvent(showEvent);
     if (showEvent.defaultPrevented) {
@@ -271,14 +272,35 @@ export default class WaDropdown extends WebAwesomeElement {
 
     // In case its still trying to hide, remove the class to cancel the hide animation.
     this.menu.classList.remove('hide');
-    await animateWithClass(this.menu, 'show'); // Animate the menu div
+    const animation = animateWithClass(this.menu, 'show');
+    await this.popup.updateComplete;
+    // Initial anchor slot changes can restart the popup on the next frame.
+    await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+    if (!this.open || !this.isConnected) return;
 
-    const items = this.getItems();
-    if (items.length > 0) {
-      items.forEach((item, index) => (item.active = index === 0));
-      items[0].focus({ preventScroll: true });
+    const submenu = this.getCurrentSubmenuItem();
+    const items = submenu ? this.getSubmenuItems(submenu) : this.getItems();
+    const content = this.defaultSlot.assignedElements({ flatten: true });
+    const activeEls = [...activeElements()];
+    const focusedContent = activeEls.find(
+      element =>
+        element instanceof HTMLElement &&
+        element.closest('wa-dropdown') === this &&
+        !element.matches(':disabled, [disabled]') &&
+        content.some(root => root.contains(element)),
+    );
+
+    // Input received while the popup becomes usable takes precedence over initial focus.
+    if (focusedContent || activeEls.pop() === focused) {
+      const initialItem = focusedContent ?? items[0];
+      items.forEach(item => (item.active = item === initialItem));
+      if (!focusedContent) {
+        items[0]?.focus({ preventScroll: true });
+      }
     }
 
+    await animation;
+    if (!this.open || !this.isConnected) return;
     this.dispatchEvent(new WaAfterShowEvent());
   }
 
@@ -329,19 +351,9 @@ export default class WaDropdown extends WebAwesomeElement {
     const currentSubmenuItem = this.getCurrentSubmenuItem();
     const isInSubmenu = !!currentSubmenuItem;
 
-    let items: WaDropdownItem[];
-    let activeItem: WaDropdownItem | undefined;
-    let activeItemIndex: number;
-
-    if (isInSubmenu) {
-      items = this.getSubmenuItems(currentSubmenuItem);
-      activeItem = items.find(item => item.active || item === activeElement);
-      activeItemIndex = activeItem ? items.indexOf(activeItem) : -1;
-    } else {
-      items = this.getItems();
-      activeItem = items.find(item => item.active || item === activeElement);
-      activeItemIndex = activeItem ? items.indexOf(activeItem) : -1;
-    }
+    const items = isInSubmenu ? this.getSubmenuItems(currentSubmenuItem) : this.getItems();
+    const activeItem = items.find(item => item === activeElement) ?? items.find(item => item.active);
+    const activeItemIndex = activeItem ? items.indexOf(activeItem) : -1;
 
     let itemToSelect: WaDropdownItem | undefined;
 
@@ -682,20 +694,20 @@ export default class WaDropdown extends WebAwesomeElement {
 
     // Calculate these up front since this event cant fire a lot.
     const composedPath = event.composedPath();
-    const submenuItemHovered = currentSubmenuItem.matches(':hover');
-    const submenuElementHovered = Boolean(currentSubmenuItem.submenuElement?.matches(':hover'));
+    const submenuItemHovered = () => currentSubmenuItem.matches(':hover');
+    const submenuElementHovered = () => Boolean(currentSubmenuItem.submenuElement?.matches(':hover'));
 
-    const isOverItem = submenuItemHovered || !!composedPath.find(el => el === currentSubmenuItem);
+    const isOverItem = submenuItemHovered() || !!composedPath.find(el => el === currentSubmenuItem);
 
     const isOverSubmenu =
-      submenuElementHovered ||
+      submenuElementHovered() ||
       !!composedPath.find(
         el => el instanceof HTMLElement && el.closest('[part="submenu"]') === currentSubmenuItem.submenuElement,
       );
 
     if (!isOverItem && !isOverSubmenu) {
       setTimeout(() => {
-        if (!submenuItemHovered && !submenuElementHovered) {
+        if (!submenuItemHovered() && !submenuElementHovered()) {
           currentSubmenuItem.submenuOpen = false;
         }
       }, 100);
