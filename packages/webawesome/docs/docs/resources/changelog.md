@@ -41,6 +41,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug in `<wa-popup>` which could lead to possibly stale cleanup functions. [pr:2871]
 - Fixed a bug in `<wa-dropdown-item>` where dynamically added submenus would not trigger a `slotchange` event leading to `HasSlotController` reporting false. [pr:2868]
 - Fixed a bug in `<wa-tooltip>` where it would still open even when it was disabled. [pr:2869]
+- Fixed a bug in `<wa-radio-group>` where arrow keys and [[Space]] were taken from buttons, links, and fields placed inside the group [pr:2893]
 
 :::
 
