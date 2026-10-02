@@ -119,6 +119,9 @@ export default css`
     padding: 0;
     margin: 0;
     -webkit-appearance: none;
+    /* Firefox still paints a text caret in readonly inputs.
+       https://bugzilla.mozilla.org/show_bug.cgi?id=1133804 */
+    caret-color: transparent;
 
     &:focus {
       outline: none;
