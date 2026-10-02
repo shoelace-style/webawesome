@@ -81,6 +81,7 @@
 
     {# wa-page-based Banner #}
     {% block pageBanner %}
+    {% include "slot-banner.njk" ignore missing %}
     {% if hasBanner %}
     {#- BA Kickstarter Banner -#}
     {% include "slot-banner-ba-kickstarter.njk" ignore missing %}
