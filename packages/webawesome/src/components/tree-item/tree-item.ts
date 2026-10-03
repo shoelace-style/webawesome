@@ -125,9 +125,6 @@ export default class WaTreeItem extends WebAwesomeElement {
     // TODO: Because the parent influences the child, we should be able to handle this in SSR with a custom renderer.
     if (this.isNestedItem()) {
       this.setAttribute('slot', 'children');
-      if (!this._parentTreeContext?.expanded) {
-        this.expanded = false;
-      }
     }
 
     if (this._parentTreeContext) {
