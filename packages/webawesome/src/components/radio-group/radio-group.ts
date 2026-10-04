@@ -74,7 +74,7 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
   @property({ reflect: true }) name: string | null = null;
 
   /** Disables the radio group and all child radios. */
-  @property({ type: Boolean, reflect: true }) disabled = false;
+  @property({ type: Boolean }) disabled = false;
 
   /** The orientation in which to show radio items. */
   @property({ reflect: true }) orientation: 'horizontal' | 'vertical' = 'vertical';
@@ -227,7 +227,7 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
       radios.map(async radio => {
         await radio.updateComplete;
 
-        if (!radio.disabled && radio.value === this.value) {
+        if (radio.value === this.value) {
           radio.checked = true;
         } else {
           radio.checked = false;
