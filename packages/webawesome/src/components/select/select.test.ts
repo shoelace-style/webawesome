@@ -1007,6 +1007,7 @@ describe('<wa-select>', () => {
             const el = form.querySelector<WaSelect>('wa-select')!;
             expect(Array.isArray(el.value)).to.equal(true);
             expect(el.value!.length).to.equal(0);
+            expect(getComputedStyle(el.displayInput).opacity).to.not.equal('0');
 
             const option = document.createElement('wa-option');
             option.value = 'option-1';
@@ -1018,6 +1019,7 @@ describe('<wa-select>', () => {
             expect(el.value!.length).to.equal(1);
             expect(el.value).to.have.members(['option-1']);
             expect(new FormData(form).getAll('select')).have.members(['option-1']);
+            expect(getComputedStyle(el.displayInput).opacity).to.equal('0');
           });
         });
 
