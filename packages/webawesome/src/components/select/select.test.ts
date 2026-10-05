@@ -112,6 +112,49 @@ describe('<wa-select>', () => {
           expect(tag.hasAttribute('pill')).to.be.true;
         });
 
+        for (const [name, getTag] of Object.entries({
+          string: (option: WaOption) => `<wa-badge>${option.label}</wa-badge>`,
+          template: (option: WaOption) => html`<wa-badge>${option.label}</wa-badge>`,
+          element: (option: WaOption) => {
+            const badge = document.createElement('wa-badge');
+            badge.textContent = option.label;
+            return badge;
+          },
+        })) {
+          it(`should give custom ${name} tags the selected-items area`, async () => {
+            const el = await fixture<WaSelect>(html`
+              <wa-select label="Contact" multiple placeholder="Select a few">
+                <wa-option value="email" selected>Email</wa-option>
+                <wa-option value="phone" selected>Phone</wa-option>
+              </wa-select>
+            `);
+            el.getTag = getTag;
+            await el.updateComplete;
+
+            expect(getComputedStyle(el.displayInput).opacity).to.equal('0');
+            expect(el.shadowRoot!.querySelectorAll('wa-badge').length).to.equal(2);
+            await expect(el).to.be.accessible();
+
+            el.value = [];
+            await el.updateComplete;
+            expect(getComputedStyle(el.displayInput).opacity).to.not.equal('0');
+            expect(el.displayInput.value).to.equal('');
+          });
+        }
+
+        it('should show the selection count when custom tags are empty', async () => {
+          const el = await fixture<WaSelect>(html`
+            <wa-select multiple>
+              <wa-option value="email" selected>Email</wa-option>
+            </wa-select>
+          `);
+          el.getTag = () => '';
+          await el.updateComplete;
+
+          expect(getComputedStyle(el.displayInput).opacity).to.not.equal('0');
+          expect(el.displayInput.value).to.not.equal('');
+        });
+
         it('should pass pill and size to the overflow tag', async () => {
           const el = await fixture<WaSelect>(html`
             <wa-select multiple pill size="l" max-options-visible="1">
