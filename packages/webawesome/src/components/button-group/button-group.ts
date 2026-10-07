@@ -37,17 +37,8 @@ export default class WaButtonGroup extends WebAwesomeElement {
   updated(changedProperties: PropertyValues<this>) {
     super.updated(changedProperties);
 
-    if (changedProperties.has('disableRole')) {
-      this.setAttribute('role', this.disableRole ? 'presentation' : 'group');
-    }
-
-    if (changedProperties.has('label')) {
-      if (this.label) {
-        this.setAttribute('aria-label', this.label);
-      } else {
-        this.removeAttribute('aria-label');
-      }
-    }
+    this.internals.role = this.disableRole ? 'presentation' : 'group';
+    this.internals.ariaLabel = this.disableRole ? null : this.label || null;
   }
 
   private handleFocus(event: Event) {

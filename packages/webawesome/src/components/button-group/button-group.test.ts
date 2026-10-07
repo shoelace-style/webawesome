@@ -27,7 +27,7 @@ describe('<wa-button-group>', () => {
               <wa-button>Button 1</wa-button>
             </wa-button-group>
           `);
-          expect(el.getAttribute('role')).to.equal('group');
+          expect(el.internals.role).to.equal('group');
         });
 
         it('should have role="presentation" on the host when the role is disabled', async () => {
@@ -40,7 +40,13 @@ describe('<wa-button-group>', () => {
           el.disableRole = true;
           await elementUpdated(el);
 
-          expect(el.getAttribute('role')).to.equal('presentation');
+          expect(el.internals.role).to.equal('presentation');
+          expect(el.internals.ariaLabel).to.be.null;
+
+          el.disableRole = false;
+          await elementUpdated(el);
+          expect(el.internals.role).to.equal('group');
+          expect(el.internals.ariaLabel).to.equal('Actions');
         });
 
         it('should set aria-label on the host from the label property', async () => {
@@ -49,7 +55,7 @@ describe('<wa-button-group>', () => {
               <wa-button>Button 1</wa-button>
             </wa-button-group>
           `);
-          expect(el.getAttribute('aria-label')).to.equal('My Group');
+          expect(el.internals.ariaLabel).to.equal('My Group');
         });
 
         it('should sync aria-label on the host when the label property changes', async () => {
@@ -61,11 +67,26 @@ describe('<wa-button-group>', () => {
 
           el.label = 'Second';
           await elementUpdated(el);
-          expect(el.getAttribute('aria-label')).to.equal('Second');
+          expect(el.internals.ariaLabel).to.equal('Second');
 
           el.label = '';
           await elementUpdated(el);
-          expect(el.hasAttribute('aria-label')).to.be.false;
+          expect(el.internals.ariaLabel).to.be.null;
+        });
+
+        it('should preserve explicit role and aria-label attributes', async () => {
+          const el = await fixture<WaButtonGroup>(html`
+            <wa-button-group role="toolbar" aria-label="Custom toolbar">
+              <wa-button>Button 1</wa-button>
+            </wa-button-group>
+          `);
+          expect(el.getAttribute('role')).to.equal('toolbar');
+          expect(el.getAttribute('aria-label')).to.equal('Custom toolbar');
+
+          el.label = 'Actions';
+          await elementUpdated(el);
+          expect(el.getAttribute('role')).to.equal('toolbar');
+          expect(el.getAttribute('aria-label')).to.equal('Custom toolbar');
         });
 
         it('should not apply role or aria attributes to the slot', async () => {
