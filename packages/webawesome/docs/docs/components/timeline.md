@@ -247,7 +247,7 @@ Set the `orientation` attribute to `horizontal` to lay items out in a row instea
     </wa-timeline-item>
     <wa-timeline-item>
       <wa-avatar slot="icon" label="Zarya">
-        <wa-icon slot="icon" name="shuttle-space"></wa-icon>
+        <wa-icon slot="icon" name="shuttle-space-vertical"></wa-icon>
       </wa-avatar>
       <wa-format-date slot="opposite" date="1998-11-20" year="numeric"></wa-format-date>
       <span class="wa-heading-m">Zarya</span>
