@@ -132,17 +132,17 @@ describe('<wa-button-group>', () => {
           expect(el.getAttribute('orientation')).to.equal('vertical');
         });
 
-        it('should not set aria-orientation since the group role does not support it', async () => {
+        it('should set aria-orientation when orientation changes', async () => {
           const el = await fixture<WaButtonGroup>(html`
             <wa-button-group>
               <wa-button>Button 1</wa-button>
             </wa-button-group>
           `);
-          expect(el.hasAttribute('aria-orientation')).to.be.false;
+          expect(el.getAttribute('aria-orientation')).to.equal('horizontal');
 
           el.orientation = 'vertical';
           await elementUpdated(el);
-          expect(el.hasAttribute('aria-orientation')).to.be.false;
+          expect(el.getAttribute('aria-orientation')).to.equal('vertical');
         });
       });
 

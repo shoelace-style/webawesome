@@ -37,6 +37,10 @@ export default class WaButtonGroup extends WebAwesomeElement {
   updated(changedProperties: PropertyValues<this>) {
     super.updated(changedProperties);
 
+    if (changedProperties.has('orientation')) {
+      this.setAttribute('aria-orientation', this.orientation);
+    }
+
     this.internals.role = this.disableRole ? 'presentation' : 'group';
     this.internals.ariaLabel = this.disableRole ? null : this.label || null;
   }
