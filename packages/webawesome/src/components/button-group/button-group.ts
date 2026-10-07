@@ -37,8 +37,16 @@ export default class WaButtonGroup extends WebAwesomeElement {
   updated(changedProperties: PropertyValues<this>) {
     super.updated(changedProperties);
 
-    if (changedProperties.has('orientation')) {
-      this.setAttribute('aria-orientation', this.orientation);
+    if (changedProperties.has('disableRole')) {
+      this.setAttribute('role', this.disableRole ? 'presentation' : 'group');
+    }
+
+    if (changedProperties.has('label')) {
+      if (this.label) {
+        this.setAttribute('aria-label', this.label);
+      } else {
+        this.removeAttribute('aria-label');
+      }
     }
   }
 
@@ -67,9 +75,6 @@ export default class WaButtonGroup extends WebAwesomeElement {
       <slot
         part="base"
         class="button-group"
-        role="${this.disableRole ? 'presentation' : 'group'}"
-        aria-label=${this.label}
-        aria-orientation=${this.orientation}
         @focusout=${this.handleBlur}
         @focusin=${this.handleFocus}
         @mouseover=${this.handleMouseOver}

@@ -21,24 +21,63 @@ describe('<wa-button-group>', () => {
           }
         });
 
-        it('should have role="group" on the base part by default', async () => {
+        it('should have role="group" on the host by default', async () => {
           const el = await fixture<WaButtonGroup>(html`
             <wa-button-group label="Actions">
               <wa-button>Button 1</wa-button>
             </wa-button-group>
           `);
-          const base = el.shadowRoot!.querySelector('[part~="base"]')!;
-          expect(base.getAttribute('role')).to.equal('group');
+          expect(el.getAttribute('role')).to.equal('group');
         });
 
-        it('should set aria-label from the label property', async () => {
+        it('should have role="presentation" on the host when the role is disabled', async () => {
+          const el = await fixture<WaButtonGroup>(html`
+            <wa-button-group label="Actions">
+              <wa-button>Button 1</wa-button>
+            </wa-button-group>
+          `);
+
+          el.disableRole = true;
+          await elementUpdated(el);
+
+          expect(el.getAttribute('role')).to.equal('presentation');
+        });
+
+        it('should set aria-label on the host from the label property', async () => {
           const el = await fixture<WaButtonGroup>(html`
             <wa-button-group label="My Group">
               <wa-button>Button 1</wa-button>
             </wa-button-group>
           `);
+          expect(el.getAttribute('aria-label')).to.equal('My Group');
+        });
+
+        it('should sync aria-label on the host when the label property changes', async () => {
+          const el = await fixture<WaButtonGroup>(html`
+            <wa-button-group label="First">
+              <wa-button>Button 1</wa-button>
+            </wa-button-group>
+          `);
+
+          el.label = 'Second';
+          await elementUpdated(el);
+          expect(el.getAttribute('aria-label')).to.equal('Second');
+
+          el.label = '';
+          await elementUpdated(el);
+          expect(el.hasAttribute('aria-label')).to.be.false;
+        });
+
+        it('should not apply role or aria attributes to the slot', async () => {
+          const el = await fixture<WaButtonGroup>(html`
+            <wa-button-group label="My Group" orientation="vertical">
+              <wa-button>Button 1</wa-button>
+            </wa-button-group>
+          `);
           const base = el.shadowRoot!.querySelector('[part~="base"]')!;
-          expect(base.getAttribute('aria-label')).to.equal('My Group');
+          expect(base.hasAttribute('role')).to.be.false;
+          expect(base.hasAttribute('aria-label')).to.be.false;
+          expect(base.hasAttribute('aria-orientation')).to.be.false;
         });
       });
 
@@ -72,17 +111,17 @@ describe('<wa-button-group>', () => {
           expect(el.getAttribute('orientation')).to.equal('vertical');
         });
 
-        it('should set aria-orientation when orientation changes', async () => {
+        it('should not set aria-orientation since the group role does not support it', async () => {
           const el = await fixture<WaButtonGroup>(html`
             <wa-button-group>
               <wa-button>Button 1</wa-button>
             </wa-button-group>
           `);
-          expect(el.getAttribute('aria-orientation')).to.equal('horizontal');
+          expect(el.hasAttribute('aria-orientation')).to.be.false;
 
           el.orientation = 'vertical';
           await elementUpdated(el);
-          expect(el.getAttribute('aria-orientation')).to.equal('vertical');
+          expect(el.hasAttribute('aria-orientation')).to.be.false;
         });
       });
 
