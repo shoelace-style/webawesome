@@ -21,14 +21,14 @@ describe('<wa-button-group>', () => {
           }
         });
 
-        it('should have role="group" on the base part by default', async () => {
+        it('should expose group semantics on the host by default', async () => {
           const el = await fixture<WaButtonGroup>(html`
             <wa-button-group label="Actions">
               <wa-button>Button 1</wa-button>
             </wa-button-group>
           `);
-          const base = el.shadowRoot!.querySelector('[part~="base"]')!;
-          expect(base.getAttribute('role')).to.equal('group');
+          expect(el.internals.role).to.equal('group');
+          expect(el.shadowRoot!.querySelector('slot')!.hasAttribute('role')).to.be.false;
         });
 
         it('should set aria-label from the label property', async () => {
@@ -37,8 +37,16 @@ describe('<wa-button-group>', () => {
               <wa-button>Button 1</wa-button>
             </wa-button-group>
           `);
-          const base = el.shadowRoot!.querySelector('[part~="base"]')!;
-          expect(base.getAttribute('aria-label')).to.equal('My Group');
+          expect(el.internals.ariaLabel).to.equal('My Group');
+          expect(el.shadowRoot!.querySelector('slot')!.hasAttribute('aria-label')).to.be.false;
+
+          el.label = 'Updated';
+          await elementUpdated(el);
+          expect(el.internals.ariaLabel).to.equal('Updated');
+
+          el.label = '';
+          await elementUpdated(el);
+          expect(el.internals.ariaLabel).to.be.null;
         });
       });
 
@@ -72,17 +80,39 @@ describe('<wa-button-group>', () => {
           expect(el.getAttribute('orientation')).to.equal('vertical');
         });
 
-        it('should set aria-orientation when orientation changes', async () => {
+        it('should not add aria-orientation to the group or its slot', async () => {
           const el = await fixture<WaButtonGroup>(html`
-            <wa-button-group>
+            <wa-button-group orientation="vertical" label="Actions">
               <wa-button>Button 1</wa-button>
             </wa-button-group>
           `);
-          expect(el.getAttribute('aria-orientation')).to.equal('horizontal');
+          expect(el.hasAttribute('aria-orientation')).to.be.false;
+          expect(el.shadowRoot!.querySelector('slot')!.hasAttribute('aria-orientation')).to.be.false;
+        });
 
-          el.orientation = 'vertical';
+        it('should remove group semantics and its default label when disableRole is set', async () => {
+          const el = await fixture<WaButtonGroup>(html`<wa-button-group label="Actions"></wa-button-group>`);
+          el.disableRole = true;
           await elementUpdated(el);
-          expect(el.getAttribute('aria-orientation')).to.equal('vertical');
+          expect(el.internals.role).to.equal('presentation');
+          expect(el.internals.ariaLabel).to.be.null;
+
+          el.disableRole = false;
+          await elementUpdated(el);
+          expect(el.internals.role).to.equal('group');
+          expect(el.internals.ariaLabel).to.equal('Actions');
+        });
+
+        it('should preserve author-provided roles and labels', async () => {
+          const el = await fixture<WaButtonGroup>(html`
+            <wa-button-group role="toolbar" aria-label="Custom" label="Actions">
+              <wa-button>Button 1</wa-button>
+            </wa-button-group>
+          `);
+          el.label = 'Updated';
+          await elementUpdated(el);
+          expect(el.getAttribute('role')).to.equal('toolbar');
+          expect(el.getAttribute('aria-label')).to.equal('Custom');
         });
       });
 
