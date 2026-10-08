@@ -444,6 +444,38 @@ describe('<wa-textarea>', () => {
       });
 
       describe('methods', () => {
+        it('should report vertical scrolling without a horizontal offset', async () => {
+          const el = await fixture<WaTextarea>(html`<wa-textarea rows="2" resize="none"></wa-textarea>`);
+          el.value = Array.from({ length: 30 }, (_, index) => `Line ${index + 1}`).join('\n');
+          await el.updateComplete;
+
+          expect(el.scrollPosition()).to.deep.equal({ top: 0, left: 0 });
+          el.scrollPosition({ top: 100 });
+
+          expect(el.scrollPosition()).to.deep.equal({ top: 100, left: 0 });
+        });
+
+        it('should report independent scroll offsets and preserve an omitted coordinate', async () => {
+          const el = await fixture<WaTextarea>(
+            html`<wa-textarea rows="2" resize="none" style="width: 200px"></wa-textarea>`,
+          );
+          const textarea = el.shadowRoot!.querySelector('textarea')!;
+          textarea.wrap = 'off';
+          el.value = Array.from({ length: 30 }, () => 'Long line '.repeat(30)).join('\n');
+          await el.updateComplete;
+
+          el.scrollPosition({ top: 100, left: 50 });
+          expect(textarea.scrollTop).to.equal(100);
+          expect(textarea.scrollLeft).to.equal(50);
+          expect(el.scrollPosition()).to.deep.equal({ top: 100, left: 50 });
+
+          el.scrollPosition({ top: 0 });
+          expect(el.scrollPosition()).to.deep.equal({ top: 0, left: 50 });
+
+          el.scrollPosition({ left: 0 });
+          expect(el.scrollPosition()).to.deep.equal({ top: 0, left: 0 });
+        });
+
         it('should set replacement text in the correct location with setRangeText()', async () => {
           const el = await fixture<WaTextarea>(html`<wa-textarea value="test"></wa-textarea>`);
 
