@@ -104,6 +104,16 @@ Custom esbuild-based build (`scripts/build.js`). Generates:
 - React wrappers (`src/react/`)
 - Agent skill (`dist/skills/webawesome/`) and `dist/llms.txt` — AI-ready component API docs
 
+## Docs Site (`docs/`)
+
+Three things about authoring pages in `docs/` that are not obvious from the code.
+
+**Heading ids get a `wa_` prefix when the slug does not start with a letter** (`docs/_transformers/anchor-headings.js:12`), because ids must. So `### 1. Add the Stylesheet & Loader` becomes `id="wa_1-add-the-stylesheet-and-loader"`, not `#1-add-the-stylesheet-and-loader`. Link numbered steps by that real id, or link the unnumbered `##` above them. `&` and `and` slugify identically, so swapping one for the other never moves an anchor.
+
+**The FAQ macros must run before any `{% markdown %}` block in the same file.** `faq.accordion` and `faq.prose` read each entry's `templateContent`, which 11ty populates only after that entry renders. Calling them later throws `TemplateContentPrematureUseError`, and 11ty's usual retry does not recover it. Compute the result into a `{% set %}` right after `{% import "faq-list.njk" %}`, then output that variable wherever you want it.
+
+**Container queries inside docs prose never see a wide container.** `#content > .wa-prose` caps line length at `110ch` (`docs/assets/styles/docs.css`), so `.modern-card-list`'s `repeat(3, 1fr)` always falls through to its 2-column rule — measured unchanged at 1280, 1440 and 2200px. Measure before assuming a column count.
+
 ## Key Directories
 
 - `src/components/` — All components
