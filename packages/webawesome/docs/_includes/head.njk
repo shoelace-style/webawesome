@@ -63,9 +63,10 @@
 {% endraw %}
 
 <link rel="manifest" href="/manifest.json" />
-<link rel="icon" href="/assets/images/app-icons/favicon.ico" sizes="any">
-<link rel="icon" href="/assets/images/app-icons/icon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="/assets/images/app-icons/apple-touch-icon.png">
+{# Products built on the docs swap these through an `appIcons` object in their data. #}
+<link rel="icon" href="{{ appIcons.ico or '/assets/images/app-icons/favicon.ico' }}" sizes="any">
+<link rel="icon" href="{{ appIcons.svg or '/assets/images/app-icons/icon.svg' }}" type="image/svg+xml">
+<link rel="apple-touch-icon" href="{{ appIcons.appleTouch or '/assets/images/app-icons/apple-touch-icon.png' }}">
 
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
 <script type="module" src="/dist/webawesome.ssr-loader.js"></script>
