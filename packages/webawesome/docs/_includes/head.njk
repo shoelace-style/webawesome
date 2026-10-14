@@ -63,7 +63,7 @@
 {% endraw %}
 
 <link rel="manifest" href="/manifest.json" />
-{# Products built on the docs swap these through an `appIcons` object in their data. #}
+{# Products built on the docs swap these through an `appIcons` data object (`ico`, `svg`, `appleTouch`); a key left out keeps the Web Awesome icon. #}
 <link rel="icon" href="{{ appIcons.ico or '/assets/images/app-icons/favicon.ico' }}" sizes="any">
 <link rel="icon" href="{{ appIcons.svg or '/assets/images/app-icons/icon.svg' }}" type="image/svg+xml">
 <link rel="apple-touch-icon" href="{{ appIcons.appleTouch or '/assets/images/app-icons/apple-touch-icon.png' }}">
