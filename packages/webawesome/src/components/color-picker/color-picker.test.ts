@@ -25,6 +25,15 @@ describe('<wa-color-picker>', () => {
           expect(trigger?.style.color).to.equal('rgb(255, 0, 0)');
         });
 
+        it('should give the value input an accessible name', async () => {
+          const el = await fixture<WaColorPicker>(html` <wa-color-picker label="Color"></wa-color-picker> `);
+          const field = el.shadowRoot!.querySelector<HTMLElement & { updateComplete: Promise<unknown> }>('wa-input')!;
+          await field.updateComplete;
+          const input = field.shadowRoot!.querySelector('input')!;
+
+          expect(input.labels?.[0]?.textContent?.trim()).to.equal('Current value');
+        });
+
         it('should show opacity slider when opacity is enabled', async () => {
           const el = await fixture<WaColorPicker>(html` <wa-color-picker opacity></wa-color-picker> `);
           const opacitySlider = el.shadowRoot!.querySelector('[part*="opacity-slider"]')!;

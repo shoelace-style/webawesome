@@ -1253,7 +1253,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
             value=${isEmpty ? '' : this.inputValue}
             ?required=${this.required}
             ?disabled=${this.disabled}
-            aria-label=${this.localize.term('currentValue')}
+            label=${this.localize.term('currentValue')}
             @keydown=${this.handleInputKeyDown}
             @change=${this.handleInputChange}
             @input=${this.handleInputInput}
