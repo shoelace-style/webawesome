@@ -1,4 +1,4 @@
-import { aTimeout, expect, oneEvent } from '@open-wc/testing';
+import { aTimeout, expect, oneEvent, waitUntil } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import sinon from 'sinon';
@@ -60,6 +60,40 @@ describe('<wa-radio-group>', () => {
           const radios = el.querySelectorAll('wa-radio');
           expect(radios[0].checked).to.be.false;
           expect(radios[1].checked).to.be.true;
+        });
+
+        it('should keep a selected disabled radio checked', async () => {
+          const el = await fixture<WaRadioGroup>(html`
+            <wa-radio-group value="1">
+              <wa-radio value="1" disabled>One</wa-radio>
+              <wa-radio value="2">Two</wa-radio>
+            </wa-radio-group>
+          `);
+          const radios = el.querySelectorAll('wa-radio');
+
+          expect(radios[0].checked).to.be.true;
+          expect(radios[0].tabIndex).to.equal(-1);
+          expect(radios[1].checked).to.be.false;
+          expect(radios[1].tabIndex).to.equal(0);
+        });
+
+        it('should reflect an explicitly set disabled property', async () => {
+          const el = await fixture<WaRadioGroup>(html`
+            <wa-radio-group value="1">
+              <wa-radio value="1">One</wa-radio>
+            </wa-radio-group>
+          `);
+
+          el.disabled = true;
+          await el.updateComplete;
+          expect(el.hasAttribute('disabled')).to.be.true;
+          expect(el.matches(':disabled')).to.be.true;
+
+          el.disabled = false;
+          await el.updateComplete;
+          expect(el.hasAttribute('disabled')).to.be.false;
+          expect(el.matches(':disabled')).to.be.false;
+          expect(el.querySelector('wa-radio')!.checked).to.be.true;
         });
       });
 
@@ -421,6 +455,56 @@ describe('<wa-radio-group>', () => {
       });
 
       describe('form integration', () => {
+        for (const initiallyDisabled of [false, true]) {
+          it(`should preserve selection when a fieldset is disabled (initially disabled: ${initiallyDisabled})`, async () => {
+            const form = await fixture<HTMLFormElement>(html`
+              <form>
+                <fieldset ?disabled=${initiallyDisabled}>
+                  <wa-radio-group name="choice" value="1">
+                    <wa-radio value="1">One</wa-radio>
+                    <wa-radio value="2">Two</wa-radio>
+                  </wa-radio-group>
+                </fieldset>
+              </form>
+            `);
+            const fieldset = form.querySelector('fieldset')!;
+            const group = form.querySelector('wa-radio-group')!;
+            const radios = group.querySelectorAll('wa-radio');
+            const changeHandler = sinon.spy();
+            group.addEventListener('change', changeHandler);
+
+            expect(radios[0].checked).to.be.true;
+            fieldset.disabled = true;
+            await group.updateComplete;
+            await Promise.all([...radios].map(radio => radio.updateComplete));
+
+            expect(group.value).to.equal('1');
+            expect(group.hasAttribute('disabled')).to.be.false;
+            expect(radios[0].checked).to.be.true;
+            expect(radios[1].checked).to.be.false;
+            expect([...radios].every(radio => radio.tabIndex === -1)).to.be.true;
+            expect(new FormData(form).has('choice')).to.be.false;
+
+            radios[1].click();
+            expect(group.value).to.equal('1');
+            expect(changeHandler.called).to.be.false;
+
+            fieldset.disabled = false;
+            await waitUntil(() => !group.disabled && [...radios].every(radio => !radio.disabled));
+            await group.updateComplete;
+            await Promise.all([...radios].map(radio => radio.updateComplete));
+
+            expect(radios[0].checked).to.be.true;
+            expect(radios[0].tabIndex).to.equal(0);
+            expect(new FormData(form).get('choice')).to.equal('1');
+
+            await expectEvent(group, 'change', () => radios[1].click());
+            expect(group.value).to.equal('2');
+            expect(radios[1].checked).to.be.true;
+            expect(new FormData(form).get('choice')).to.equal('2');
+          });
+        }
+
         it('should submit the correct value when a value is provided', async () => {
           const form = await fixture<HTMLFormElement>(html`
             <form>
