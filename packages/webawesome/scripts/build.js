@@ -11,7 +11,7 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { dirname, extname, join, posix, relative } from 'node:path';
 import process from 'node:process';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import open from 'open';
 import ora from 'ora';
 import copy from 'recursive-copy';
@@ -118,7 +118,9 @@ export async function build(options = {}) {
       spinner.succeed(`The build is complete ${chalk.gray(`(finished in ${time})`)}`);
 
       // update the lit-render-string in case it changed
-      const mod = await import(path.join(getDistDir(), `ssr/render-string.js?cachebust=${new Date().getTime()}`));
+      // A file URL, because a Windows path like `C:\...` is not something `import()` can load
+      const renderString = pathToFileURL(path.join(getDistDir(), 'ssr/render-string.js')).href;
+      const mod = await import(`${renderString}?cachebust=${new Date().getTime()}`);
       litRenderString = mod.renderString;
     } catch (err) {
       spinner.fail();
@@ -633,7 +635,7 @@ async function loadComponents() {
 
       const modulePath = path.join(baseDir, component, component + '.js');
 
-      return import(modulePath + `?cachebust=${new Date().getTime()}`);
+      return import(pathToFileURL(modulePath).href + `?cachebust=${new Date().getTime()}`);
     }),
   );
 }
