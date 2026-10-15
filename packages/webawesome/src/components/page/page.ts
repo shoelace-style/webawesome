@@ -1,5 +1,5 @@
 import type { PropertyValues } from 'lit';
-import { html, isServer } from 'lit';
+import { css, html, isServer } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import { live } from 'lit/directives/live.js';
@@ -21,13 +21,13 @@ import styles from './page.styles.js';
 //
 
 /** Converts a non-pixel value to a pixel value. */
-function toPx(value: string | number, element: HTMLElement | SVGElement = document.documentElement): number {
+function toPx(value: string | number, element?: HTMLElement | SVGElement): number {
   if (!Number.isNaN(Number(value))) {
     return Number(value);
   }
 
   // If CSS.registerProperty isn't supported, try to parse as-is
-  if (!window.CSS || !CSS.registerProperty) {
+  if (!globalThis.CSS || !globalThis.CSS.registerProperty) {
     if (typeof value === 'string' && value.endsWith('px')) {
       return parseFloat(value);
     }
@@ -50,6 +50,10 @@ function toPx(value: string | number, element: HTMLElement | SVGElement = docume
     }
   }
 
+  // Move this down here, if we leave it as a default assigned param it breaks SSR on servers without a DOM.
+  if (!element) {
+    element = document.documentElement;
+  }
   const previousValue = element.style.getPropertyValue(resolver);
   element.style.setProperty(resolver, value as string);
   const computedValue = getComputedStyle(element)?.getPropertyValue(resolver);
@@ -121,7 +125,15 @@ function toLength(px: number | string): string {
  */
 @customElement('wa-page')
 export default class WaPage extends WebAwesomeElement {
-  static css = [visuallyHidden, styles];
+  static css = [
+    visuallyHidden,
+    // Wrap page styles in an `@layer` so that we don't need to worry about specificity problems with the inserted mobile styles `<style>` tag.
+    css`
+      @layer wa-page {
+        ${styles}
+      }
+    `,
+  ];
 
   private readonly hasSlotController = new HasSlotController(this, 'navigation-footer', 'mobile-navigation-footer');
 
@@ -135,9 +147,9 @@ export default class WaPage extends WebAwesomeElement {
     return new ResizeObserver(entries => {
       requestAnimationFrame(() => {
         for (const entry of entries) {
-          if (entry.contentBoxSize) {
-            const contentBoxSize = entry.borderBoxSize[0];
-            this.style.setProperty(`--${slot}-height`, `${Math.round(contentBoxSize.blockSize)}px`);
+          if (entry.borderBoxSize) {
+            const borderBoxSize = entry.borderBoxSize[0];
+            this.style.setProperty(`--${slot}-height`, `${Math.round(borderBoxSize.blockSize)}px`);
           }
         }
       });
@@ -178,6 +190,7 @@ export default class WaPage extends WebAwesomeElement {
   @query("[part~='footer']") footer: HTMLElement;
   @query("[part~='banner']") banner: HTMLElement;
   @query("[part~='drawer']") navigationDrawer: WaDrawer;
+  @query('.width-measurer') private widthMeasurer: HTMLElement;
   @query("slot[name~='navigation-toggle']") navigationToggleSlot: HTMLSlotElement;
 
   /**
@@ -206,6 +219,17 @@ export default class WaPage extends WebAwesomeElement {
   mobileBreakpoint = '768px';
 
   /**
+   * @internal
+   * Private break point for storing the actual pixel number value
+   */
+  // For some reason "private" reports this as not used and breaks builds?
+  protected internalMobileBreakpointPx = toPx(this.mobileBreakpoint);
+
+  /** Space-separated list of `banner`, `header`, `subheader`, in any order that will disable its sticky properties. */
+  @property({ attribute: 'disable-sticky', reflect: true })
+  disableSticky: undefined | null | string = null;
+
+  /**
    * Where to place the navigation when in the mobile viewport.
    */
   @property({ attribute: 'navigation-placement', reflect: true }) navigationPlacement: 'start' | 'end' = 'start';
@@ -225,19 +249,12 @@ export default class WaPage extends WebAwesomeElement {
       ? new ResizeObserver(entries => {
           requestAnimationFrame(() => {
             for (const entry of entries) {
-              if (entry.contentBoxSize) {
-                const contentBoxSize = entry.borderBoxSize[0];
-                const pageWidth = contentBoxSize.inlineSize;
-
-                const oldView = this.view;
-
-                if (pageWidth >= toPx(this.mobileBreakpoint)) {
-                  this.view = 'desktop';
-                } else {
-                  this.view = 'mobile';
+              if (entry.target === this.widthMeasurer) {
+                const width = this.offsetWidth; // Reach up onto the `host` `<wa-page>`. We don't use the widthMeasurer as that will be `<wa-page>`'s contentBox and not borderBox. `offsetWidth` wont reflow as its within a ResizeObserver callback so its already been measured.
+                const view = width >= this.internalMobileBreakpointPx ? 'desktop' : 'mobile';
+                if (view !== this.view) {
+                  this.view = view;
                 }
-
-                this.requestUpdate('view', oldView);
               }
             }
           });
@@ -267,29 +284,18 @@ export default class WaPage extends WebAwesomeElement {
     super.updated(changedProperties);
   }
 
-  constructor() {
-    super();
-
-    if (!isServer) {
-      this.addEventListener('click', this.handleNavigationToggle);
+  protected willUpdate(changed: PropertyValues<this>) {
+    // Forced style recalc, but once per breakpoint change rather than per resize.
+    if (changed.has('mobileBreakpoint')) {
+      this.internalMobileBreakpointPx = toPx(this.mobileBreakpoint);
     }
   }
 
-  connectedCallback() {
-    super.connectedCallback();
+  constructor() {
+    super();
 
-    // SSR guard: browser APIs are not available during server-side rendering
-    if (!isServer) {
-      // setTimeout to wait for DOM to finish, then RAF to start observing.
-      setTimeout(() => {
-        requestAnimationFrame(() => {
-          this.pageResizeObserver?.observe(this);
-          this.headerResizeObserver?.observe(this.header);
-          this.subheaderResizeObserver?.observe(this.subheader);
-          this.bannerResizeObserver?.observe(this.banner);
-          this.footerResizeObserver?.observe(this.footer);
-        });
-      });
+    if ('addEventListener' in this) {
+      this.addEventListener('click', this.handleNavigationToggle);
     }
   }
 
@@ -314,6 +320,13 @@ export default class WaPage extends WebAwesomeElement {
   }
 
   firstUpdated(changedProperties: PropertyValues<typeof this>) {
+    // These need to register after first render, we don't need to tear them down in disconnectedCallback as they're all scoped within `<wa-page>` element and do not reach outside.
+    this.pageResizeObserver?.observe(this.widthMeasurer);
+    this.headerResizeObserver?.observe(this.header);
+    this.subheaderResizeObserver?.observe(this.subheader);
+    this.bannerResizeObserver?.observe(this.banner);
+    this.footerResizeObserver?.observe(this.footer);
+
     // If the user provides a #main-content id, it should be present in the default slot and the "skip to
     // content" link will point to it. If not, we'll prepend an empty element for them so things just work.
     if (!document.getElementById('main-content')) {
@@ -327,16 +340,8 @@ export default class WaPage extends WebAwesomeElement {
     this.hasExplicitNavigationToggleSetting = this.disableNavigationToggle;
     this.shadowRoot!.addEventListener('slotchange', this.updateNavigationToggleState);
     this.updateNavigationToggleState();
-    super.firstUpdated(changedProperties);
-  }
 
-  disconnectedCallback() {
-    super.disconnectedCallback();
-    this.pageResizeObserver?.unobserve(this);
-    this.headerResizeObserver?.unobserve(this.header);
-    this.subheaderResizeObserver?.unobserve(this.subheader);
-    this.footerResizeObserver?.unobserve(this.footer);
-    this.bannerResizeObserver?.unobserve(this.banner);
+    super.firstUpdated(changedProperties);
   }
 
   /**
@@ -371,6 +376,11 @@ export default class WaPage extends WebAwesomeElement {
     let nonce = (this.nonce || globalThis.litNonce || null) as string | null;
 
     return html`
+      <!--
+        This looks weird, but because all other slots rely on the slotted content widths, we use this to get the actual width. By having the ResizeObserver here instead of on the host, we bypass the ResizeObserver loop limit shenanigans.
+        We set the height to 0 so changing view never resizes the host.
+        -->
+      <div class="width-measurer" style="display: block; height: 0;"></div>
       <a href="#main-content" part="skip-to-content" class="wa-visually-hidden">
         <slot name="skip-to-content">Skip to content</slot>
       </a>
