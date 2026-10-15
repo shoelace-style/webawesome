@@ -33,6 +33,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::fixed
 
+- Fixed `<wa-button-group>` labels missing from the accessibility tree [issue:2863]
 - Fixed a regression in implicit form submission where pressing [[Enter]] submitted the form even when its submit button was disabled [pr:2861]
 - Fixed a bug in `animateWithClass` internal helper which could occasionally leave animations in indeterminate states. [pr:2870]
 - Fixed a bug in `<wa-dropdown>` where the initial focused element would get lost. [pr:2886]

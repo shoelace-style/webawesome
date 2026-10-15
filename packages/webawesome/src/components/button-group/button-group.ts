@@ -34,11 +34,12 @@ export default class WaButtonGroup extends WebAwesomeElement {
   /** The button group's orientation. */
   @property({ reflect: true }) orientation: 'horizontal' | 'vertical' = 'horizontal';
 
-  updated(changedProperties: PropertyValues<this>) {
-    super.updated(changedProperties);
+  willUpdate(changedProperties: PropertyValues<this>) {
+    super.willUpdate(changedProperties);
 
-    if (changedProperties.has('orientation')) {
-      this.setAttribute('aria-orientation', this.orientation);
+    if (changedProperties.has('disableRole') || changedProperties.has('label')) {
+      this.internals.role = this.disableRole ? 'presentation' : 'group';
+      this.internals.ariaLabel = this.disableRole ? null : this.label || null;
     }
   }
 
@@ -67,9 +68,6 @@ export default class WaButtonGroup extends WebAwesomeElement {
       <slot
         part="base"
         class="button-group"
-        role="${this.disableRole ? 'presentation' : 'group'}"
-        aria-label=${this.label}
-        aria-orientation=${this.orientation}
         @focusout=${this.handleBlur}
         @focusin=${this.handleFocus}
         @mouseover=${this.handleMouseOver}
