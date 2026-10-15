@@ -46,6 +46,36 @@ describe('<wa-tree-item>', () => {
             expect(parentItem.expanded).to.be.false;
           });
 
+          for (const expanded of [true, false]) {
+            it(`should preserve a nested expanded item when its parent is ${expanded ? 'expanded' : 'collapsed'}`, async () => {
+              const root = await fixture<WaTreeItem>(html`
+                <wa-tree-item ?expanded=${expanded}>
+                  Root
+                  <wa-tree-item expanded>
+                    Child
+                    <wa-tree-item expanded>
+                      Grandchild
+                      <wa-tree-item>Leaf</wa-tree-item>
+                    </wa-tree-item>
+                  </wa-tree-item>
+                </wa-tree-item>
+              `);
+              const children = [...root.querySelectorAll<WaTreeItem>('wa-tree-item[expanded]')];
+              expect(children).to.have.length(2);
+              for (const child of children) {
+                await child.updateComplete;
+                expect(child.expanded).to.be.true;
+                expect(child).to.have.attribute('aria-expanded', 'true');
+                expect(child.childrenContainer.hidden).to.be.false;
+              }
+              root.expanded = true;
+              await root.updateComplete;
+              for (const child of children) {
+                expect(child.expanded).to.be.true;
+              }
+            });
+          }
+
           it('should reflect when set', async () => {
             parentItem.expanded = true;
             await parentItem.updateComplete;
