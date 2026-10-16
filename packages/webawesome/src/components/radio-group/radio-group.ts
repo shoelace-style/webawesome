@@ -274,6 +274,12 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
       return;
     }
 
+    // Only keys pressed on a radio move the selection. Links, buttons, and fields inside the group keep their own
+    // keyboard behavior.
+    if (!this.getAllRadios().includes(event.target as WaRadio)) {
+      return;
+    }
+
     const radios = this.getAllRadios().filter(radio => !radio.disabled);
 
     if (radios.length <= 0) {
