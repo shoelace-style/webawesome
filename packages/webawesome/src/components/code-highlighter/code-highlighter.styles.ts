@@ -56,6 +56,12 @@ export default css`
       overflow-wrap: break-word;
     }
 
+    /* Room for the copy button, whose width is 0.8 of the form control height at the host's font size. This resolves
+       at the pre's smaller font size instead, so the gap to the button is a few pixels under --wa-space-m. */
+    :host(:not([without-copy])) pre {
+      padding-inline-end: calc(var(--wa-space-2xs) + var(--wa-form-control-height) * 0.8 + var(--wa-space-m));
+    }
+
     code {
       font: inherit;
     }
@@ -64,6 +70,12 @@ export default css`
       position: absolute;
       inset-block-start: var(--wa-space-2xs);
       inset-inline-end: var(--wa-space-2xs);
+    }
+
+    /* The block's own fill, so the button occludes code it sits over instead of overlapping it */
+    [part~='copy-button']::part(button) {
+      background-color: var(--wa-color-neutral-fill-quiet);
+      border-radius: var(--wa-border-radius-s);
     }
 
     [part~='copy-button']::part(button):hover,
