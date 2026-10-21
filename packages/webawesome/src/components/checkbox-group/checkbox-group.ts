@@ -53,6 +53,7 @@ export default class WaCheckboxGroup extends WebAwesomeElement {
 
   /**
    * The group's size. When present, this size will be applied to all `<wa-checkbox>` and `<wa-switch>` items inside.
+   * The long-form values `small`, `medium`, and `large` are deprecated; use `s`, `m`, and `l` instead.
    */
   @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large';
 

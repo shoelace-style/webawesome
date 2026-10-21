@@ -73,7 +73,10 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
     this._value = val;
   }
 
-  /** The switch's size. */
+  /**
+   * The switch's size.
+   * The long-form values `small`, `medium`, and `large` are deprecated; use `s`, `m`, and `l` instead.
+   */
   @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
 
   @watch('size')

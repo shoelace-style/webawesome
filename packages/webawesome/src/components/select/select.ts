@@ -218,7 +218,10 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     return ret;
   }
 
-  /** The select's size. */
+  /**
+   * The select's size.
+   * The long-form values `small`, `medium`, and `large` are deprecated; use `s`, `m`, and `l` instead.
+   */
   @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
 
   @watch('size')
