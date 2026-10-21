@@ -71,7 +71,10 @@ export default class WaToastItem extends WebAwesomeElement {
   /** The toast item's variant. */
   @property({ reflect: true }) variant: 'brand' | 'success' | 'warning' | 'danger' | 'neutral' = 'neutral';
 
-  /** The toast item's size. */
+  /**
+   * The toast item's size.
+   * The long-form values `small`, `medium`, and `large` are deprecated; use `s`, `m`, and `l` instead.
+   */
   @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
 
   @watch('size')

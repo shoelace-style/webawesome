@@ -244,7 +244,10 @@ export default class WaTimeInput extends WebAwesomeFormAssociatedElement {
   /** Makes the input non-editable. The popup still opens for browsing. */
   @property({ type: Boolean, reflect: true }) readonly = false;
 
-  /** The time picker's size. */
+  /**
+   * The time picker's size.
+   * The long-form values `small`, `medium`, and `large` are deprecated; use `s`, `m`, and `l` instead.
+   */
   @property({ reflect: true }) size: WaTimeInputSize | 'small' | 'medium' | 'large' = 'm';
 
   @watch('size')

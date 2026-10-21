@@ -100,7 +100,10 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
   /** The default value of the form control. Primarily used for resetting the form control. */
   @property({ attribute: 'value', reflect: true }) defaultValue: string | null = this.getAttribute('value') || null;
 
-  /** The radio group's size. When present, this size will be applied to all `<wa-radio>` items inside. */
+  /**
+   * The radio group's size. When present, this size will be applied to all `<wa-radio>` items inside.
+   * The long-form values `small`, `medium`, and `large` are deprecated; use `s`, `m`, and `l` instead.
+   */
   @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large';
 
   @watch('size')

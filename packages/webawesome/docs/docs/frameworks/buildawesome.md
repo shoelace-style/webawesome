@@ -60,7 +60,7 @@ Add the stylesheet and component loader to your layout's `<head>`:
       <strong>Web Awesome is ready to use.</strong><br />
       Want server-side rendering too?
     </p>
-    <wa-button size="small" variant="success" href="#server-side-rendering">
+    <wa-button size="s" variant="success" href="#server-side-rendering">
       Add SSR
     </wa-button>
   </div>

@@ -134,7 +134,10 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
   /** Case transformation applied to entered characters. */
   @property({ reflect: true }) case: 'preserve' | 'upper' | 'lower' = 'preserve';
 
-  /** The size of each segment. */
+  /**
+   * The size of each segment.
+   * The long-form values `small`, `medium`, and `large` are deprecated; use `s`, `m`, and `l` instead.
+   */
   @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
 
   @watch('size')

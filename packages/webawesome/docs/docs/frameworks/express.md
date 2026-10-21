@@ -59,7 +59,7 @@ There are other ways to set up Web Awesome, such as with npm or downloading ZIP 
       <strong>Web Awesome is ready to use.</strong><br />
       Want server-side rendering too?
     </p>
-    <wa-button size="small" variant="success" href="#server-side-rendering">
+    <wa-button size="s" variant="success" href="#server-side-rendering">
       Add SSR
     </wa-button>
   </div>
