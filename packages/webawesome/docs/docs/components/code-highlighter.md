@@ -15,13 +15,11 @@ use-cases:
 ---
 
 ```html {.example}
-<wa-code-highlighter language="js">
-  // Switch color schemes and remember the choice
-  function toggleDarkMode() {
-    const root = document.documentElement;
-    const isDark = root.classList.toggle('wa-dark');
-    localStorage.setItem('scheme', isDark ? 'dark' : 'light');
-  }
+<wa-code-highlighter language="html">
+  &lt;wa-button variant="brand"&gt;
+    &lt;wa-icon slot="start" name="rocket"&gt;&lt;/wa-icon&gt;
+    Launch
+  &lt;/wa-button&gt;
 </wa-code-highlighter>
 ```
 
