@@ -19,6 +19,7 @@ export default css`
 
       display: block;
       position: relative;
+      font-size: var(--wa-font-size-s);
     }
 
     pre {
@@ -29,7 +30,7 @@ export default css`
       border-radius: var(--wa-border-radius-m);
       color: var(--wa-color-text-normal);
       font-family: var(--wa-font-family-code);
-      font-size: var(--wa-font-size-s);
+      font-size: inherit;
       line-height: var(--wa-line-height-normal);
       tab-size: 2;
       hyphens: none;
@@ -62,6 +63,7 @@ export default css`
 
     [part~='copy-button'] {
       position: absolute;
+      font-size: var(--wa-font-size-m);
       inset-block-start: var(--wa-space-2xs);
       inset-inline-end: var(--wa-space-2xs);
     }
