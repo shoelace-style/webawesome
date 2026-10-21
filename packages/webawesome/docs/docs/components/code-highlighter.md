@@ -93,6 +93,8 @@ Set the `language` attribute to a grammar name or alias from the supported langu
 
 </wa-details>
 
+### Loading Grammars
+
 Bundled grammars ship with the component and highlight before the code block first paints. The rest load on demand the first time a language is used, from `assets/grammars/<name>.js` relative to the [base path](/docs/#setting-the-base-path), like other library assets. Each grammar is a plain ES module, so self-hosting the library's `assets` folder self-hosts the grammars too.
 
 While a grammar loads, the element has the `loading` custom state. When the code is highlighted, the `wa-load` event is emitted. If no grammar matches the language, the `error` custom state is applied, the `wa-error` event is emitted, and the code renders as plain text. To add a language, see [Custom Grammars](#custom-grammars).
