@@ -15,22 +15,19 @@ use-cases:
 ---
 
 ```html {.example}
-<wa-code-highlighter language="html">
-  &lt;wa-button variant="brand"&gt;
-    &lt;wa-icon slot="start" name="rocket"&gt;&lt;/wa-icon&gt;
-    Launch
-  &lt;/wa-button&gt;
+<wa-code-highlighter language="js">
+  // Switch color schemes and remember the choice
+  function toggleDarkMode() {
+    const root = document.documentElement;
+    const isDark = root.classList.toggle('wa-dark');
+    localStorage.setItem('scheme', isDark ? 'dark' : 'light');
+  }
 </wa-code-highlighter>
 ```
 
 :::warning
 <strong>Highlighting requires the CSS Custom Highlight API.</strong><br />
 It's available in Chrome 105+, Safari 17.2+, and Firefox 140+. Older browsers show the code as plain, unstyled text.
-:::
-
-:::info
-<strong>Slotted code is parsed as HTML.</strong><br />
-Most code works as is, but some `<` and `&` characters need escaping. See [Escaping Code](#escaping-code) for when. Common indentation and surrounding blank lines are removed, so you can indent code to match your markup.
 :::
 
 ## Examples
@@ -53,52 +50,50 @@ Set the `language` attribute to a grammar name or alias from the supported langu
 
 <wa-details summary="View Supported Languages">
 
-| Language    | Value         | Aliases              | Loading                                                                   |
-| ----------- | ------------- | -------------------- | ------------------------------------------------------------------------- |
-| Assembly    | `assembly`    |                      | On demand                                                                 |
-| Astro       | `astro`       |                      | On demand                                                                 |
-| Bash        | `bash`        | `sh`, `shell`, `zsh` | On demand                                                                 |
-| C           | `c`           |                      | On demand                                                                 |
-| C++         | `cpp`         |                      | On demand                                                                 |
-| C#          | `csharp`      |                      | On demand                                                                 |
-| CSS         | `css`         |                      | <wa-badge appearance="outlined" variant="neutral" pill>bundled</wa-badge> |
-| Dart        | `dart`        |                      | On demand                                                                 |
-| Dockerfile  | `dockerfile`  | `docker`             | On demand                                                                 |
-| Elixir      | `elixir`      |                      | On demand                                                                 |
-| Git diff    | `git-diff`    |                      | On demand                                                                 |
-| Go          | `go`          |                      | On demand                                                                 |
-| GraphQL     | `graphql`     | `gql`                | On demand                                                                 |
-| HEEx        | `heex`        |                      | On demand                                                                 |
-| HTML        | `html`        |                      | <wa-badge appearance="outlined" variant="neutral" pill>bundled</wa-badge> |
-| INI         | `ini`         |                      | On demand                                                                 |
-| Java        | `java`        |                      | On demand                                                                 |
-| JavaScript  | `javascript`  | `js`, `jsx`          | <wa-badge appearance="outlined" variant="neutral" pill>bundled</wa-badge> |
-| JSON        | `json`        |                      | <wa-badge appearance="outlined" variant="neutral" pill>bundled</wa-badge> |
-| Kotlin      | `kotlin`      |                      | On demand                                                                 |
-| Lua         | `lua`         |                      | On demand                                                                 |
-| Markdown    | `markdown`    | `md`                 | On demand                                                                 |
-| Nginx       | `nginx`       |                      | On demand                                                                 |
-| Objective-C | `objective-c` |                      | On demand                                                                 |
-| Perl        | `perl`        |                      | On demand                                                                 |
-| PHP         | `php`         |                      | On demand                                                                 |
-| PowerShell  | `powershell`  |                      | On demand                                                                 |
-| Python      | `python`      | `py`                 | On demand                                                                 |
-| R           | `r`           |                      | On demand                                                                 |
-| Ruby        | `ruby`        | `rb`                 | On demand                                                                 |
-| Rust        | `rust`        |                      | On demand                                                                 |
-| SCSS        | `scss`        | `sass`               | On demand                                                                 |
-| SQL         | `sql`         |                      | On demand                                                                 |
-| Svelte      | `svelte`      |                      | On demand                                                                 |
-| Swift       | `swift`       |                      | On demand                                                                 |
-| TOML        | `toml`        |                      | On demand                                                                 |
-| TSX         | `tsx`         |                      | On demand                                                                 |
-| TypeScript  | `typescript`  | `ts`                 | <wa-badge appearance="outlined" variant="neutral" pill>bundled</wa-badge> |
-| Vue         | `vue`         |                      | On demand                                                                 |
-| YAML        | `yaml`        | `yml`                | On demand                                                                 |
+| Language    | Value         | Aliases              | Bundled                                      |
+| ----------- | ------------- | -------------------- | -------------------------------------------- |
+| Assembly    | `assembly`    |                      |                                              |
+| Astro       | `astro`       |                      |                                              |
+| Bash        | `bash`        | `sh`, `shell`, `zsh` |                                              |
+| C           | `c`           |                      |                                              |
+| C++         | `cpp`         |                      |                                              |
+| C#          | `csharp`      |                      |                                              |
+| CSS         | `css`         |                      | <wa-icon name="check" label="Yes"></wa-icon> |
+| Dart        | `dart`        |                      |                                              |
+| Dockerfile  | `dockerfile`  | `docker`             |                                              |
+| Elixir      | `elixir`      |                      |                                              |
+| Git diff    | `git-diff`    |                      |                                              |
+| Go          | `go`          |                      |                                              |
+| GraphQL     | `graphql`     | `gql`                |                                              |
+| HEEx        | `heex`        |                      |                                              |
+| HTML        | `html`        |                      | <wa-icon name="check" label="Yes"></wa-icon> |
+| INI         | `ini`         |                      |                                              |
+| Java        | `java`        |                      |                                              |
+| JavaScript  | `javascript`  | `js`, `jsx`          | <wa-icon name="check" label="Yes"></wa-icon> |
+| JSON        | `json`        |                      | <wa-icon name="check" label="Yes"></wa-icon> |
+| Kotlin      | `kotlin`      |                      |                                              |
+| Lua         | `lua`         |                      |                                              |
+| Markdown    | `markdown`    | `md`                 |                                              |
+| Nginx       | `nginx`       |                      |                                              |
+| Objective-C | `objective-c` |                      |                                              |
+| Perl        | `perl`        |                      |                                              |
+| PHP         | `php`         |                      |                                              |
+| PowerShell  | `powershell`  |                      |                                              |
+| Python      | `python`      | `py`                 |                                              |
+| R           | `r`           |                      |                                              |
+| Ruby        | `ruby`        | `rb`                 |                                              |
+| Rust        | `rust`        |                      |                                              |
+| SCSS        | `scss`        | `sass`               |                                              |
+| SQL         | `sql`         |                      |                                              |
+| Svelte      | `svelte`      |                      |                                              |
+| Swift       | `swift`       |                      |                                              |
+| TOML        | `toml`        |                      |                                              |
+| TSX         | `tsx`         |                      |                                              |
+| TypeScript  | `typescript`  | `ts`                 | <wa-icon name="check" label="Yes"></wa-icon> |
+| Vue         | `vue`         |                      |                                              |
+| YAML        | `yaml`        | `yml`                |                                              |
 
 </wa-details>
-
-### Loading Grammars
 
 Bundled grammars ship with the component and highlight before the code block first paints. The rest load on demand the first time a language is used, from `assets/grammars/<name>.js` relative to the [base path](/docs/#setting-the-base-path), like other library assets. Each grammar is a plain ES module, so self-hosting the library's `assets` folder self-hosts the grammars too.
 
@@ -130,7 +125,7 @@ HTML formatters and minifiers leave `<pre>` alone, but they may collapse the whi
 
 ### Preserving Indentation
 
-Add the `without-dedent` attribute to keep slotted whitespace exactly as written, like a `<pre>` element. A single newline right after the opening tag is ignored.
+Common indentation and surrounding blank lines are removed by default, so slotted code can be indented to match the surrounding markup. Add the `without-dedent` attribute to keep slotted whitespace exactly as written, like a `<pre>` element. A single newline right after the opening tag is ignored.
 
 ```html {.example}
 <wa-code-highlighter language="yaml" without-dedent>
@@ -159,7 +154,7 @@ The code block is a region with the accessible name "Code". Use the `label` attr
 </wa-code-highlighter>
 ```
 
-### Copy Button
+### Removing the Copy Button
 
 A copy button appears when the pointer is over the code block or when it has focus. On touch devices, it's always visible. Add the `without-copy` attribute to remove it.
 
@@ -173,7 +168,7 @@ A copy button appears when the pointer is over the code block or when it has foc
 
 ### Customizing
 
-Token colors come from custom properties. Each one colors a group of related tokens, and its default is a pair of palette tokens for light and dark mode.
+Token colors come from custom properties. Each one colors a group of related tokens, and its default is a pair of palette tokens for light and dark mode. Tokens can only change color, background color, and text decoration, since the CSS Custom Highlight API doesn't support other properties, so they can't be bold or italic.
 
 | Custom property    | Colors                                                                  | Default (light / dark)                          |
 | ------------------ | ----------------------------------------------------------------------- | ----------------------------------------------- |
@@ -181,17 +176,26 @@ Token colors come from custom properties. Each one colors a group of related tok
 | `--keyword-color`  | Keywords, storage modifiers, at-rules, doctypes, `!important`, sections | `--wa-color-purple-40` / `--wa-color-purple-60` |
 | `--operator-color` | Operators and punctuation                                               | `--wa-color-gray-30` / `--wa-color-gray-80`     |
 | `--string-color`   | Strings, regular expressions, attribute values, links, raw text         | `--wa-color-green-40` / `--wa-color-green-60`   |
-| `--constant-color` | Numbers, booleans, constants, symbols, entities                         | `--wa-color-orange-40` / `--wa-color-orange-60` |
-| `--function-color` | Functions, decorators, animation names                                  | `--wa-color-blue-40` / `--wa-color-blue-60` |
+| `--constant-color` | Numbers, booleans, constants, symbols, entities, anchors                | `--wa-color-orange-40` / `--wa-color-orange-60` |
+| `--function-color` | Functions, decorators, animation names                                  | `--wa-color-blue-40` / `--wa-color-blue-60`     |
 | `--type-color`     | Types and built-ins                                                     | `--wa-color-blue-40` / `--wa-color-blue-60`     |
-| `--variable-color` | Variables and interpolations                                            | `--wa-color-blue-40` / `--wa-color-blue-60` |
+| `--variable-color` | Variables and interpolations                                            | `--wa-color-blue-40` / `--wa-color-blue-60`     |
 | `--property-color` | Properties, keys, attribute names                                       | `--wa-color-blue-40` / `--wa-color-blue-60`     |
-| `--tag-color`      | Tags                                                                    | `--wa-color-purple-40` / `--wa-color-purple-60`       |
+| `--tag-color`      | Tags                                                                    | `--wa-color-purple-40` / `--wa-color-purple-60` |
 | `--selector-color` | CSS selectors                                                           | `--wa-color-purple-40` / `--wa-color-purple-60` |
 | `--inserted-color` | Inserted lines in diffs                                                 | `--wa-color-green-40` / `--wa-color-green-60`   |
 | `--deleted-color`  | Deleted lines in diffs                                                  | `--wa-color-red-40` / `--wa-color-red-60`       |
 
-Set the custom properties to recolor tokens. Use `light-dark()` to pick a color for each mode.
+To recolor every code block on a page, set the custom properties on `wa-code-highlighter` in a stylesheet, like any other [component custom property](/docs/customizing#custom-properties). Setting them on `:root` has no effect: the component declares its own defaults on the host, and those take precedence over inherited values.
+
+```css
+wa-code-highlighter {
+  --keyword-color: light-dark(var(--wa-color-pink-40), var(--wa-color-pink-60));
+  --string-color: light-dark(var(--wa-color-blue-40), var(--wa-color-blue-60));
+}
+```
+
+To recolor a single block, set the custom properties on that element. Use `light-dark()` to pick a color for each mode.
 
 ```html {.example}
 <wa-code-highlighter language="js" class="code-highlighter-colors">
@@ -202,9 +206,9 @@ Set the custom properties to recolor tokens. Use `light-dark()` to pick a color 
 
 <style>
   .code-highlighter-colors {
-    --comment-color: light-dark(var(--wa-color-pink-40), var(--wa-color-pink-70));
-    --keyword-color: light-dark(var(--wa-color-orange-40), var(--wa-color-orange-70));
-    --string-color: light-dark(var(--wa-color-cyan-40), var(--wa-color-cyan-70));
+    --comment-color: light-dark(var(--wa-color-pink-40), var(--wa-color-pink-60));
+    --keyword-color: light-dark(var(--wa-color-orange-40), var(--wa-color-orange-60));
+    --string-color: light-dark(var(--wa-color-cyan-40), var(--wa-color-cyan-60));
   }
 </style>
 ```
@@ -239,11 +243,6 @@ Style the container with the `pre` part and the copy button with the `copy-butto
 </style>
 ```
 
-:::info
-<strong>Tokens can only change color, background color, and text decoration.</strong><br />
-The CSS Custom Highlight API doesn't support other properties, so tokens can't be bold or italic.
-:::
-
 ### Providing Code Programmatically
 
 Set the `code` property to display code from JavaScript. It takes precedence over slotted content and renders verbatim, without dedenting. Clear it to show the slotted code again.
@@ -267,6 +266,94 @@ Set the `code` property to display code from JavaScript. It takes precedence ove
   textarea.addEventListener('input', () => {
     highlighter.code = textarea.value;
   });
+</script>
+```
+
+### Editor Themes
+
+Popular editor themes map onto the custom properties and the `pre` part. Pick a theme to see it applied to its own CSS, then use the copy button to copy the rules. Paste them into a stylesheet and add the class to a code block, or replace the class selector with `wa-code-highlighter` to theme every block on the page.
+
+```html {.example}
+<div id="code-highlighter__themes">
+  <wa-code-highlighter language="css" class="dracula" label="Theme CSS"></wa-code-highlighter>
+
+  <wa-divider></wa-divider>
+
+  <wa-select label="Theme" value="dracula" style="width: 12rem">
+    <wa-option value="dracula">Dracula</wa-option>
+    <wa-option value="atom-one-dark">Atom One Dark</wa-option>
+  </wa-select>
+
+  <style data-theme="dracula">
+    /* Dracula */
+    .dracula {
+      --comment-color: #6272a4;
+      --keyword-color: #ff79c6;
+      --operator-color: #f8f8f2;
+      --string-color: #f1fa8c;
+      --constant-color: #bd93f9;
+      --function-color: #50fa7b;
+      --type-color: #8be9fd;
+      --variable-color: #f8f8f2;
+      --property-color: #8be9fd;
+      --tag-color: #ff79c6;
+      --selector-color: #50fa7b;
+      --inserted-color: #50fa7b;
+      --deleted-color: #ff5555;
+    }
+
+    .dracula::part(pre) {
+      background-color: #282a36;
+      color: #f8f8f2;
+    }
+
+    .dracula::part(copy-button__button) {
+      color: #f8f8f2;
+    }
+  </style>
+
+  <style data-theme="atom-one-dark">
+    /* Atom One Dark */
+    .atom-one-dark {
+      --comment-color: #5c6370;
+      --keyword-color: #c678dd;
+      --operator-color: #56b6c2;
+      --string-color: #98c379;
+      --constant-color: #d19a66;
+      --function-color: #61afef;
+      --type-color: #e5c07b;
+      --variable-color: #e06c75;
+      --property-color: #d19a66;
+      --tag-color: #e06c75;
+      --selector-color: #e06c75;
+      --inserted-color: #98c379;
+      --deleted-color: #e06c75;
+    }
+
+    .atom-one-dark::part(pre) {
+      background-color: #282c34;
+      color: #abb2bf;
+    }
+
+    .atom-one-dark::part(copy-button__button) {
+      color: #abb2bf;
+    }
+  </style>
+</div>
+
+<script type="module">
+  const container = document.getElementById('code-highlighter__themes');
+  const highlighter = container.querySelector('wa-code-highlighter');
+  const select = container.querySelector('wa-select');
+
+  function applyTheme(name) {
+    highlighter.className = name;
+    highlighter.textContent = container.querySelector(`style[data-theme="${name}"]`).textContent;
+  }
+
+  await customElements.whenDefined('wa-select');
+  applyTheme(select.value);
+  select.addEventListener('change', () => applyTheme(select.value));
 </script>
 ```
 

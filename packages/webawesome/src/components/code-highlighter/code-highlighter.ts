@@ -87,7 +87,7 @@ function getHighlight(category: string) {
  * @cssproperty [--string-color=light-dark(var(--wa-color-green-40), var(--wa-color-green-60))] - The color of strings,
  *  regular expressions, attribute values, links, and raw text.
  * @cssproperty [--constant-color=light-dark(var(--wa-color-orange-40), var(--wa-color-orange-60))] - The color of
- *  numbers, booleans, constants, symbols, and entities.
+ *  numbers, booleans, constants, symbols, entities, and anchors.
  * @cssproperty [--function-color=light-dark(var(--wa-color-blue-40), var(--wa-color-blue-60))] - The color of
  *  functions, decorators, and animation names.
  * @cssproperty [--type-color=light-dark(var(--wa-color-blue-40), var(--wa-color-blue-60))] - The color of types and
