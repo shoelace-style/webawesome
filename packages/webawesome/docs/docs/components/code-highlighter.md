@@ -177,19 +177,19 @@ Token colors come from custom properties. Each one colors a group of related tok
 
 | Custom property    | Colors                                                                  | Default (light / dark)                          |
 | ------------------ | ----------------------------------------------------------------------- | ----------------------------------------------- |
-| `--comment-color`  | Comments and quotes                                                     | `--wa-color-gray-50` / `--wa-color-gray-60`     |
-| `--keyword-color`  | Keywords, storage modifiers, at-rules, doctypes, `!important`, sections | `--wa-color-indigo-40` / `--wa-color-indigo-70` |
+| `--comment-color`  | Comments and quotes                                                     | `--wa-color-gray-40` / `--wa-color-gray-60`     |
+| `--keyword-color`  | Keywords, storage modifiers, at-rules, doctypes, `!important`, sections | `--wa-color-purple-40` / `--wa-color-purple-60` |
 | `--operator-color` | Operators and punctuation                                               | `--wa-color-gray-30` / `--wa-color-gray-80`     |
-| `--string-color`   | Strings, regular expressions, attribute values, links, raw text         | `--wa-color-green-40` / `--wa-color-green-70`   |
-| `--constant-color` | Numbers, booleans, constants, symbols, entities                         | `--wa-color-orange-40` / `--wa-color-orange-70` |
-| `--function-color` | Functions, decorators, animation names                                  | `--wa-color-purple-40` / `--wa-color-purple-70` |
-| `--type-color`     | Types and built-ins                                                     | `--wa-color-cyan-40` / `--wa-color-cyan-70`     |
-| `--variable-color` | Variables and interpolations                                            | `--wa-color-yellow-40` / `--wa-color-yellow-70` |
-| `--property-color` | Properties, keys, attribute names                                       | `--wa-color-blue-40` / `--wa-color-blue-70`     |
-| `--tag-color`      | Tags                                                                    | `--wa-color-red-40` / `--wa-color-red-70`       |
-| `--selector-color` | CSS selectors                                                           | `--wa-color-purple-40` / `--wa-color-purple-70` |
-| `--inserted-color` | Inserted lines in diffs                                                 | `--wa-color-green-40` / `--wa-color-green-70`   |
-| `--deleted-color`  | Deleted lines in diffs                                                  | `--wa-color-red-40` / `--wa-color-red-70`       |
+| `--string-color`   | Strings, regular expressions, attribute values, links, raw text         | `--wa-color-green-40` / `--wa-color-green-60`   |
+| `--constant-color` | Numbers, booleans, constants, symbols, entities                         | `--wa-color-orange-40` / `--wa-color-orange-60` |
+| `--function-color` | Functions, decorators, animation names                                  | `--wa-color-blue-40` / `--wa-color-blue-60` |
+| `--type-color`     | Types and built-ins                                                     | `--wa-color-blue-40` / `--wa-color-blue-60`     |
+| `--variable-color` | Variables and interpolations                                            | `--wa-color-blue-40` / `--wa-color-blue-60` |
+| `--property-color` | Properties, keys, attribute names                                       | `--wa-color-blue-40` / `--wa-color-blue-60`     |
+| `--tag-color`      | Tags                                                                    | `--wa-color-purple-40` / `--wa-color-purple-60`       |
+| `--selector-color` | CSS selectors                                                           | `--wa-color-purple-40` / `--wa-color-purple-60` |
+| `--inserted-color` | Inserted lines in diffs                                                 | `--wa-color-green-40` / `--wa-color-green-60`   |
+| `--deleted-color`  | Deleted lines in diffs                                                  | `--wa-color-red-40` / `--wa-color-red-60`       |
 
 Set the custom properties to recolor tokens. Use `light-dark()` to pick a color for each mode.
 

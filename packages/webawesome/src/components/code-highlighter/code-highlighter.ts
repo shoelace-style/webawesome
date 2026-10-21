@@ -78,30 +78,30 @@ function getHighlight(category: string) {
  * @cssstate error - Applied when no grammar exists for the current language.
  * @cssstate highlighted - Applied once the code has been highlighted.
  *
- * @cssproperty [--comment-color=light-dark(var(--wa-color-gray-50), var(--wa-color-gray-60))] - The color of comments
+ * @cssproperty [--comment-color=light-dark(var(--wa-color-gray-40), var(--wa-color-gray-60))] - The color of comments
  *  and quotes.
- * @cssproperty [--keyword-color=light-dark(var(--wa-color-indigo-40), var(--wa-color-indigo-70))] - The color of
+ * @cssproperty [--keyword-color=light-dark(var(--wa-color-purple-40), var(--wa-color-purple-60))] - The color of
  *  keywords, storage modifiers, at-rules, doctypes, `!important`, and sections.
  * @cssproperty [--operator-color=light-dark(var(--wa-color-gray-30), var(--wa-color-gray-80))] - The color of operators
  *  and punctuation.
- * @cssproperty [--string-color=light-dark(var(--wa-color-green-40), var(--wa-color-green-70))] - The color of strings,
+ * @cssproperty [--string-color=light-dark(var(--wa-color-green-40), var(--wa-color-green-60))] - The color of strings,
  *  regular expressions, attribute values, links, and raw text.
- * @cssproperty [--constant-color=light-dark(var(--wa-color-orange-40), var(--wa-color-orange-70))] - The color of
+ * @cssproperty [--constant-color=light-dark(var(--wa-color-orange-40), var(--wa-color-orange-60))] - The color of
  *  numbers, booleans, constants, symbols, and entities.
- * @cssproperty [--function-color=light-dark(var(--wa-color-purple-40), var(--wa-color-purple-70))] - The color of
+ * @cssproperty [--function-color=light-dark(var(--wa-color-blue-40), var(--wa-color-blue-60))] - The color of
  *  functions, decorators, and animation names.
- * @cssproperty [--type-color=light-dark(var(--wa-color-cyan-40), var(--wa-color-cyan-70))] - The color of types and
+ * @cssproperty [--type-color=light-dark(var(--wa-color-blue-40), var(--wa-color-blue-60))] - The color of types and
  *  built-ins.
- * @cssproperty [--variable-color=light-dark(var(--wa-color-yellow-40), var(--wa-color-yellow-70))] - The color of
+ * @cssproperty [--variable-color=light-dark(var(--wa-color-blue-40), var(--wa-color-blue-60))] - The color of
  *  variables and interpolations.
- * @cssproperty [--property-color=light-dark(var(--wa-color-blue-40), var(--wa-color-blue-70))] - The color of
+ * @cssproperty [--property-color=light-dark(var(--wa-color-blue-40), var(--wa-color-blue-60))] - The color of
  *  properties, keys, and attribute names.
- * @cssproperty [--tag-color=light-dark(var(--wa-color-red-40), var(--wa-color-red-70))] - The color of tags.
- * @cssproperty [--selector-color=light-dark(var(--wa-color-purple-40), var(--wa-color-purple-70))] - The color of CSS
+ * @cssproperty [--tag-color=light-dark(var(--wa-color-purple-40), var(--wa-color-purple-60))] - The color of tags.
+ * @cssproperty [--selector-color=light-dark(var(--wa-color-purple-40), var(--wa-color-purple-60))] - The color of CSS
  *  selectors.
- * @cssproperty [--inserted-color=light-dark(var(--wa-color-green-40), var(--wa-color-green-70))] - The color of
+ * @cssproperty [--inserted-color=light-dark(var(--wa-color-green-40), var(--wa-color-green-60))] - The color of
  *  inserted lines in diffs.
- * @cssproperty [--deleted-color=light-dark(var(--wa-color-red-40), var(--wa-color-red-70))] - The color of deleted
+ * @cssproperty [--deleted-color=light-dark(var(--wa-color-red-40), var(--wa-color-red-60))] - The color of deleted
  *  lines in diffs.
  *
  * @ssr - `<wa-code-highlighter>` renders an empty code block during SSR. The code and its highlighting appear after the

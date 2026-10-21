@@ -3,19 +3,19 @@ import { css } from 'lit';
 export default css`
   @layer wa-component {
     :host {
-      --comment-color: light-dark(var(--wa-color-gray-50), var(--wa-color-gray-60));
-      --keyword-color: light-dark(var(--wa-color-indigo-40), var(--wa-color-indigo-70));
+      --comment-color: light-dark(var(--wa-color-gray-40), var(--wa-color-gray-60));
+      --keyword-color: light-dark(var(--wa-color-purple-40), var(--wa-color-purple-60));
       --operator-color: light-dark(var(--wa-color-gray-30), var(--wa-color-gray-80));
-      --string-color: light-dark(var(--wa-color-green-40), var(--wa-color-green-70));
-      --constant-color: light-dark(var(--wa-color-orange-40), var(--wa-color-orange-70));
-      --function-color: light-dark(var(--wa-color-purple-40), var(--wa-color-purple-70));
-      --type-color: light-dark(var(--wa-color-cyan-40), var(--wa-color-cyan-70));
-      --variable-color: light-dark(var(--wa-color-yellow-40), var(--wa-color-yellow-70));
-      --property-color: light-dark(var(--wa-color-blue-40), var(--wa-color-blue-70));
-      --tag-color: light-dark(var(--wa-color-red-40), var(--wa-color-red-70));
-      --selector-color: light-dark(var(--wa-color-purple-40), var(--wa-color-purple-70));
-      --inserted-color: light-dark(var(--wa-color-green-40), var(--wa-color-green-70));
-      --deleted-color: light-dark(var(--wa-color-red-40), var(--wa-color-red-70));
+      --string-color: light-dark(var(--wa-color-green-40), var(--wa-color-green-60));
+      --constant-color: light-dark(var(--wa-color-orange-40), var(--wa-color-orange-60));
+      --function-color: light-dark(var(--wa-color-blue-40), var(--wa-color-blue-60));
+      --type-color: light-dark(var(--wa-color-blue-40), var(--wa-color-blue-60));
+      --variable-color: light-dark(var(--wa-color-blue-40), var(--wa-color-blue-60));
+      --property-color: light-dark(var(--wa-color-blue-40), var(--wa-color-blue-60));
+      --tag-color: light-dark(var(--wa-color-purple-40), var(--wa-color-purple-60));
+      --selector-color: light-dark(var(--wa-color-purple-40), var(--wa-color-purple-60));
+      --inserted-color: light-dark(var(--wa-color-green-40), var(--wa-color-green-60));
+      --deleted-color: light-dark(var(--wa-color-red-40), var(--wa-color-red-60));
 
       display: block;
       position: relative;
