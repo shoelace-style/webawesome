@@ -186,7 +186,7 @@ Token colors come from custom properties. Each one colors a group of related tok
 | `--inserted-color` | Inserted lines in diffs                                                 | `--wa-color-green-40` / `--wa-color-green-60`   |
 | `--deleted-color`  | Deleted lines in diffs                                                  | `--wa-color-red-40` / `--wa-color-red-60`       |
 
-To recolor every code block on a page, set the custom properties on `wa-code-highlighter` in a stylesheet, like any other [component custom property](/docs/customizing#custom-properties). Setting them on `:root` has no effect: the component declares its own defaults on the host, and those take precedence over inherited values.
+To recolor every code block on a page, set the custom properties on `wa-code-highlighter` in a stylesheet, like any other [component custom property](/docs/customizing#custom-properties). To set them from `:root` or any ancestor instead, use the `--syntax-*` names described in [Using microlighter Themes](#using-microlighter-themes).
 
 ```css
 wa-code-highlighter {
@@ -213,7 +213,7 @@ To recolor a single block, set the custom properties on that element. Use `light
 </style>
 ```
 
-The default colors follow the theme's color scheme. To show one code block in dark mode, add `class="wa-dark"` to it.
+The default and microlighter theme colors follow the [color scheme](/docs/customizing#light-and-dark-mode). To show one code block in dark mode, add `class="wa-dark"` to it.
 
 ```html {.example}
 <wa-code-highlighter language="css" class="wa-dark">
@@ -243,6 +243,83 @@ Style the container with the `pre` part and the copy button with the `copy-butto
 </style>
 ```
 
+### Using microlighter Themes
+
+The component reads the `--syntax-*` custom properties that [microlighter themes](https://github.com/davatron5000/microlighter/tree/main/src/themes) set, so any theme stylesheet from the `microlighter` package works without changes. Load one and set the `data-syntax-theme` attribute on the `<html>` element. Every code highlighter on the page follows the theme.
+
+```html
+<html data-syntax-theme="dracula">
+  <head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/microlighter@2/dist/themes/dracula.css" />
+  </head>
+  <body>
+    <wa-code-highlighter language="js">
+      const fish = ['catfish', 'swordfish', 'pufferfish'];
+    </wa-code-highlighter>
+  </body>
+</html>
+```
+
+Each `--syntax-*` custom property becomes the default for the matching token custom property, such as `--syntax-keyword` for `--keyword-color`. The `--syntax-background` and `--syntax-foreground` custom properties color the `pre` part. Custom properties set on the element still win, so one block can override part of a theme.
+
+To scope a theme, set the attribute on another element or on one code highlighter. This example sets it on the code highlighter and loads the stylesheet for the selected theme.
+
+```html {.example}
+<div id="code-highlighter__microlighter">
+  <wa-code-highlighter language="js">
+    // Count the fish in the sea
+    const fish = ['catfish', 'swordfish', 'pufferfish'];
+    console.log(`There are ${fish.length} kinds of fish`);
+  </wa-code-highlighter>
+
+  <wa-divider></wa-divider>
+
+  <wa-select label="Theme" value="dracula" style="width: 12rem">
+    <wa-option value="none">None</wa-option>
+    <wa-option value="cobalt2">Cobalt2</wa-option>
+    <wa-option value="dracula">Dracula</wa-option>
+    <wa-option value="github">GitHub</wa-option>
+    <wa-option value="gruvbox">Gruvbox</wa-option>
+    <wa-option value="min">Min</wa-option>
+    <wa-option value="monokai">Monokai</wa-option>
+    <wa-option value="night-owl">Night Owl</wa-option>
+    <wa-option value="solarized-light">Solarized Light</wa-option>
+    <wa-option value="tokyo-night">Tokyo Night</wa-option>
+    <wa-option value="vesper">Vesper</wa-option>
+    <wa-option value="vscode-plus">VS Code Plus</wa-option>
+  </wa-select>
+</div>
+
+<script type="module">
+  const container = document.getElementById('code-highlighter__microlighter');
+  const highlighter = container.querySelector('wa-code-highlighter');
+  const select = container.querySelector('wa-select');
+
+  function applyTheme(name) {
+    if (name === 'none') {
+      highlighter.removeAttribute('data-syntax-theme');
+      return;
+    }
+
+    if (!container.querySelector(`link[data-theme="${name}"]`)) {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = `https://cdn.jsdelivr.net/npm/microlighter@2.2.0/dist/themes/${name}.css`;
+      link.dataset.theme = name;
+      container.append(link);
+    }
+
+    highlighter.setAttribute('data-syntax-theme', name);
+  }
+
+  await customElements.whenDefined('wa-select');
+  applyTheme(select.value);
+  select.addEventListener('change', () => applyTheme(select.value));
+</script>
+```
+
+Themes follow Web Awesome's color scheme, not the operating system. Add `class="wa-dark"` to the `<html>` element to switch to the theme's dark colors. To follow the user's system setting instead, see [Detecting Color Scheme Preference](/docs/customizing#detecting-color-scheme-preference). To show one themed block in a different mode, add `class="wa-dark"` or `class="wa-light"` to that code highlighter.
+
 ### Providing Code Programmatically
 
 Set the `code` property to display code from JavaScript. It takes precedence over slotted content and renders verbatim, without dedenting. Clear it to show the slotted code again.
@@ -266,94 +343,6 @@ Set the `code` property to display code from JavaScript. It takes precedence ove
   textarea.addEventListener('input', () => {
     highlighter.code = textarea.value;
   });
-</script>
-```
-
-### Editor Themes
-
-Popular editor themes map onto the custom properties and the `pre` part. Pick a theme to see it applied to its own CSS, then use the copy button to copy the rules. Paste them into a stylesheet and add the class to a code block, or replace the class selector with `wa-code-highlighter` to theme every block on the page.
-
-```html {.example}
-<div id="code-highlighter__themes">
-  <wa-code-highlighter language="css" class="dracula" label="Theme CSS"></wa-code-highlighter>
-
-  <wa-divider></wa-divider>
-
-  <wa-select label="Theme" value="dracula" style="width: 12rem">
-    <wa-option value="dracula">Dracula</wa-option>
-    <wa-option value="atom-one-dark">Atom One Dark</wa-option>
-  </wa-select>
-
-  <style data-theme="dracula">
-    /* Dracula */
-    .dracula {
-      --comment-color: #6272a4;
-      --keyword-color: #ff79c6;
-      --operator-color: #f8f8f2;
-      --string-color: #f1fa8c;
-      --constant-color: #bd93f9;
-      --function-color: #50fa7b;
-      --type-color: #8be9fd;
-      --variable-color: #f8f8f2;
-      --property-color: #8be9fd;
-      --tag-color: #ff79c6;
-      --selector-color: #50fa7b;
-      --inserted-color: #50fa7b;
-      --deleted-color: #ff5555;
-    }
-
-    .dracula::part(pre) {
-      background-color: #282a36;
-      color: #f8f8f2;
-    }
-
-    .dracula::part(copy-button__button) {
-      color: #f8f8f2;
-    }
-  </style>
-
-  <style data-theme="atom-one-dark">
-    /* Atom One Dark */
-    .atom-one-dark {
-      --comment-color: #5c6370;
-      --keyword-color: #c678dd;
-      --operator-color: #56b6c2;
-      --string-color: #98c379;
-      --constant-color: #d19a66;
-      --function-color: #61afef;
-      --type-color: #e5c07b;
-      --variable-color: #e06c75;
-      --property-color: #d19a66;
-      --tag-color: #e06c75;
-      --selector-color: #e06c75;
-      --inserted-color: #98c379;
-      --deleted-color: #e06c75;
-    }
-
-    .atom-one-dark::part(pre) {
-      background-color: #282c34;
-      color: #abb2bf;
-    }
-
-    .atom-one-dark::part(copy-button__button) {
-      color: #abb2bf;
-    }
-  </style>
-</div>
-
-<script type="module">
-  const container = document.getElementById('code-highlighter__themes');
-  const highlighter = container.querySelector('wa-code-highlighter');
-  const select = container.querySelector('wa-select');
-
-  function applyTheme(name) {
-    highlighter.className = name;
-    highlighter.textContent = container.querySelector(`style[data-theme="${name}"]`).textContent;
-  }
-
-  await customElements.whenDefined('wa-select');
-  applyTheme(select.value);
-  select.addEventListener('change', () => applyTheme(select.value));
 </script>
 ```
 
