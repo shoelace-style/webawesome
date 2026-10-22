@@ -95,9 +95,17 @@ Set the `language` attribute to a grammar name or alias from the supported langu
 
 ### Loading Grammars
 
-Bundled grammars ship with the component and highlight before the code block first paints. The rest load on demand the first time a language is used, from `assets/grammars/<name>.js` relative to the [base path](/docs/#setting-the-base-path), like other library assets. Each grammar is a plain ES module, so self-hosting the library's `assets` folder self-hosts the grammars too.
+Bundled grammars ship with the component and highlight before the code block first paints. The rest load on demand the first time a language is used. Like other library assets, they load from `assets/grammars/<name>.js` relative to the [base path](/docs/#setting-the-base-path). Each grammar is a plain ES module, so self-hosting the library's `assets` folder self-hosts the grammars too.
 
-While a grammar loads, the element has the `loading` custom state. When the code is highlighted, the `wa-load` event is emitted. If no grammar matches the language, the `error` custom state is applied, the `wa-error` event is emitted, and the code renders as plain text. To add a language, see [Custom Grammars](#custom-grammars).
+The element reports each stage of highlighting with a custom state and an event.
+
+| Stage                           | Custom state  | Event      |
+| ------------------------------- | ------------- | ---------- |
+| The grammar is loading          | `loading`     | None       |
+| The code is highlighted         | `highlighted` | `wa-load`  |
+| No grammar matches the language | `error`       | `wa-error` |
+
+When no grammar matches, the code renders as plain text. To add a language, see [Custom Grammars](#custom-grammars).
 
 ### Escaping Code
 
@@ -168,7 +176,7 @@ A copy button appears when the pointer is over the code block or when it has foc
 
 ### Customizing
 
-Token colors come from custom properties. Each one colors a group of related tokens, and its default is a pair of palette tokens for light and dark mode. Tokens can only change color, background color, and text decoration, since the CSS Custom Highlight API doesn't support other properties, so they can't be bold or italic.
+Token colors come from custom properties. Each one colors a group of related tokens, and its default is a pair of palette tokens for light and dark mode. Tokens can only change color, background color, and text decoration. The CSS Custom Highlight API doesn't support other properties, so tokens can't be bold or italic.
 
 | Custom property    | Colors                                                                  | Default (light / dark)                          |
 | ------------------ | ----------------------------------------------------------------------- | ----------------------------------------------- |
@@ -318,7 +326,13 @@ To scope a theme, set the attribute on another element or on one code highlighte
 </script>
 ```
 
-Themes follow Web Awesome's color scheme, not the operating system. Add `class="wa-dark"` to the `<html>` element to switch to the theme's dark colors. To follow the user's system setting instead, see [Detecting Color Scheme Preference](/docs/customizing#detecting-color-scheme-preference). To show one themed block in a different mode, add `class="wa-dark"` or `class="wa-light"` to that code highlighter.
+Themes follow Web Awesome's color scheme, not the operating system.
+
+| Goal                             | How                                                                                          |
+| -------------------------------- | -------------------------------------------------------------------------------------------- |
+| Dark colors on the whole page    | Add `class="wa-dark"` to the `<html>` element                                                |
+| Follow the user's system setting | See [Detecting Color Scheme Preference](/docs/customizing#detecting-color-scheme-preference) |
+| One block in a different mode    | Add `class="wa-dark"` or `class="wa-light"` to that code highlighter                         |
 
 ### Providing Code Programmatically
 
