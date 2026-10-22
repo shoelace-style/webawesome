@@ -75,7 +75,6 @@ export default css`
     /* The block's own fill, so the button occludes code it sits over instead of overlapping it */
     [part~='copy-button']::part(button) {
       background-color: var(--wa-color-neutral-fill-quiet);
-      border-radius: var(--wa-border-radius-s);
     }
 
     [part~='copy-button']::part(button):hover,
