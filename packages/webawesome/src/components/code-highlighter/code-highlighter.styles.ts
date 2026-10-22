@@ -65,7 +65,8 @@ export default css`
     }
 
     /* Theme stylesheets set color-scheme on the host itself, where page styles beat the :host rule */
-    :host([data-syntax-theme]) pre {
+    :host([data-syntax-theme]) pre,
+    :host([data-syntax-theme]) [part~='copy-button'] {
       color-scheme: var(--wa-color-scheme, inherit);
     }
 
@@ -74,7 +75,15 @@ export default css`
     }
 
     [part~='copy-button'] {
+      /* The docs code block button's neutral-20 to 30 lightness step, on the theme's own hue. Invalid without a syntax
+         theme, so the hover falls back to the WA fill. */
+      --_hover-fill: light-dark(
+        oklch(from var(--syntax-background) calc(l - 0.074) c h),
+        oklch(from var(--syntax-background) calc(l + 0.074) c h)
+      );
+
       position: absolute;
+      color: var(--syntax-foreground, var(--wa-color-neutral-on-quiet));
       font-size: var(--wa-font-size-m);
       inset-block-start: var(--wa-space-2xs);
       inset-inline-end: var(--wa-space-2xs);
@@ -82,12 +91,12 @@ export default css`
 
     /* The block's own fill, so the button occludes code it sits over instead of overlapping it */
     [part~='copy-button']::part(button) {
-      background-color: var(--wa-color-neutral-fill-quiet);
+      background-color: var(--syntax-background, var(--wa-color-neutral-fill-quiet));
     }
 
     [part~='copy-button']::part(button):hover,
     [part~='copy-button']::part(button):focus-visible {
-      background-color: var(--wa-color-neutral-fill-normal);
+      background-color: var(--_hover-fill, var(--wa-color-neutral-fill-normal));
     }
 
     /* Reveal the copy button on hover and focus when the device can hover */
