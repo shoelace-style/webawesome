@@ -3,19 +3,19 @@ import { css } from 'lit';
 export default css`
   @layer wa-component {
     :host {
-      --comment-color: light-dark(var(--wa-color-gray-40), var(--wa-color-gray-60));
-      --keyword-color: light-dark(var(--wa-color-purple-40), var(--wa-color-purple-60));
-      --operator-color: light-dark(var(--wa-color-gray-30), var(--wa-color-gray-80));
-      --string-color: light-dark(var(--wa-color-green-40), var(--wa-color-green-60));
-      --constant-color: light-dark(var(--wa-color-orange-40), var(--wa-color-orange-60));
-      --function-color: light-dark(var(--wa-color-blue-40), var(--wa-color-blue-60));
-      --type-color: light-dark(var(--wa-color-blue-40), var(--wa-color-blue-60));
-      --variable-color: light-dark(var(--wa-color-blue-40), var(--wa-color-blue-60));
-      --property-color: light-dark(var(--wa-color-blue-40), var(--wa-color-blue-60));
-      --tag-color: light-dark(var(--wa-color-purple-40), var(--wa-color-purple-60));
-      --selector-color: light-dark(var(--wa-color-purple-40), var(--wa-color-purple-60));
-      --inserted-color: light-dark(var(--wa-color-green-40), var(--wa-color-green-60));
-      --deleted-color: light-dark(var(--wa-color-red-40), var(--wa-color-red-60));
+      --comment-color: var(--syntax-comment, light-dark(var(--wa-color-gray-40), var(--wa-color-gray-60)));
+      --keyword-color: var(--syntax-keyword, light-dark(var(--wa-color-purple-40), var(--wa-color-purple-60)));
+      --operator-color: var(--syntax-operator, light-dark(var(--wa-color-gray-30), var(--wa-color-gray-80)));
+      --string-color: var(--syntax-string, light-dark(var(--wa-color-green-40), var(--wa-color-green-60)));
+      --constant-color: var(--syntax-constant, light-dark(var(--wa-color-orange-40), var(--wa-color-orange-60)));
+      --function-color: var(--syntax-function, light-dark(var(--wa-color-blue-40), var(--wa-color-blue-60)));
+      --type-color: var(--syntax-type, light-dark(var(--wa-color-blue-40), var(--wa-color-blue-60)));
+      --variable-color: var(--syntax-variable, light-dark(var(--wa-color-blue-40), var(--wa-color-blue-60)));
+      --property-color: var(--syntax-property, light-dark(var(--wa-color-blue-40), var(--wa-color-blue-60)));
+      --tag-color: var(--syntax-tag, light-dark(var(--wa-color-purple-40), var(--wa-color-purple-60)));
+      --selector-color: var(--syntax-selector, light-dark(var(--wa-color-purple-40), var(--wa-color-purple-60)));
+      --inserted-color: var(--syntax-inserted, light-dark(var(--wa-color-green-40), var(--wa-color-green-60)));
+      --deleted-color: var(--syntax-deleted, light-dark(var(--wa-color-red-40), var(--wa-color-red-60)));
 
       display: block;
       position: relative;
@@ -26,9 +26,9 @@ export default css`
       margin: 0;
       padding: var(--wa-space-m);
       overflow: auto;
-      background-color: var(--wa-color-neutral-fill-quiet);
+      background-color: var(--syntax-background, var(--wa-color-neutral-fill-quiet));
       border-radius: var(--wa-border-radius-m);
-      color: var(--wa-color-text-normal);
+      color: var(--syntax-foreground, var(--wa-color-text-normal));
       font-family: var(--wa-font-family-code);
       font-size: inherit;
       line-height: var(--wa-line-height-normal);
