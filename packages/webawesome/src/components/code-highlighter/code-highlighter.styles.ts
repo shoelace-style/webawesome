@@ -17,6 +17,7 @@ export default css`
       --inserted-color: var(--syntax-inserted, light-dark(var(--wa-color-green-40), var(--wa-color-green-60)));
       --deleted-color: var(--syntax-deleted, light-dark(var(--wa-color-red-40), var(--wa-color-red-60)));
 
+      color-scheme: var(--wa-color-scheme, inherit);
       display: block;
       position: relative;
       font-size: var(--wa-font-size-s);
@@ -61,6 +62,11 @@ export default css`
        at the pre's smaller font size instead, so the gap to the button is a few pixels under --wa-space-m. */
     :host(:not([without-copy])) pre {
       padding-inline-end: calc(var(--wa-space-2xs) + var(--wa-form-control-height) * 0.8 + var(--wa-space-m));
+    }
+
+    /* Theme stylesheets set color-scheme on the host itself, where page styles beat the :host rule */
+    :host([data-syntax-theme]) pre {
+      color-scheme: var(--wa-color-scheme, inherit);
     }
 
     code {
