@@ -457,7 +457,9 @@ wa-card .page-name {
 .component-list {
   .search-list-input {
     display: block;
+    max-inline-size: 40rem;
     margin-block: var(--wa-space-m) var(--wa-space-s);
+    margin-inline: auto;
   }
 
   .search-list-shortcut {
