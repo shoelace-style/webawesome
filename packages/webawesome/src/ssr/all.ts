@@ -66,6 +66,8 @@ export { default as WaTagInput } from '../components/tag-input/tag-input.js';
 export { default as WaTag } from '../components/tag/tag.js';
 export { default as WaTextarea } from '../components/textarea/textarea.js';
 export { default as WaTimeInput } from '../components/time-input/time-input.js';
+export { default as WaTimelineItem } from '../components/timeline-item/timeline-item.js';
+export { default as WaTimeline } from '../components/timeline/timeline.js';
 export { default as WaToastItem } from '../components/toast-item/toast-item.js';
 export { default as WaToast } from '../components/toast/toast.js';
 export { default as WaTooltip } from '../components/tooltip/tooltip.js';

@@ -247,6 +247,7 @@
     "tinycolor",
     "touchcancel",
     "touchend",
+    "trailhead",
     "transitionend",
     "treegrid",
     "treeitem",
@@ -276,6 +277,7 @@
     "weeknumber",
     "weeknumbers",
     "xmark",
+    "Zarya",
     "zoomable"
   ],
   "ignorePaths": [
