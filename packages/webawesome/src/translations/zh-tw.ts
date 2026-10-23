@@ -22,6 +22,7 @@ const translation: Translation = {
   close: '關閉',
   closeCalendar: '關閉日曆',
   closeTimeInput: '關閉時間選擇器',
+  code: '程式碼',
   collapseRow: '收合列',
   columnMenu: '欄選項',
   columnMovedToPosition: (label, position, total) => `${label} 已移動至第 ${position} 個位置，共 ${total} 個`,

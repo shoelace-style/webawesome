@@ -22,6 +22,7 @@ const translation: Translation = {
   close: 'Tutup',
   closeCalendar: 'Tutup kalender',
   closeTimeInput: 'Tutup pemilih waktu',
+  code: 'Kode',
   collapseRow: 'Ciutkan baris',
   columnMenu: 'Opsi kolom',
   columnMovedToPosition: (label, position, total) => `${label} dipindahkan ke posisi ${position} dari ${total}`,

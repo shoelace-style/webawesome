@@ -48,6 +48,7 @@ export interface Translation extends DefaultTranslation {
   close: string;
   closeCalendar: string;
   closeTimeInput: string;
+  code: string;
   collapseRow: string;
   columnMenu: string;
   columnMovedToPosition: (label: string, position: number, total: number) => string;

@@ -22,6 +22,7 @@ const translation: Translation = {
   close: 'Fermer',
   closeCalendar: 'Fermer le calendrier',
   closeTimeInput: `Fermer le sélecteur d'heure`,
+  code: 'Code',
   collapseRow: 'Réduire la ligne',
   columnMenu: 'Options de colonne',
   columnMovedToPosition: (label, position, total) => `${label} déplacée à la position ${position} sur ${total}`,

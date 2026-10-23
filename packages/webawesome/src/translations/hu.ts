@@ -22,6 +22,7 @@ const translation: Translation = {
   close: 'Bezárás',
   closeCalendar: 'Naptár bezárása',
   closeTimeInput: 'Időválasztó bezárása',
+  code: 'Kód',
   collapseRow: 'Sor összecsukása',
   columnMenu: 'Oszlop beállításai',
   columnMovedToPosition: (label, position, total) => `${label} áthelyezve a(z) ${total}/${position}. pozícióba`,

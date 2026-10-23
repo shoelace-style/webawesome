@@ -22,6 +22,7 @@ const translation: Translation = {
   close: 'Kapat',
   closeCalendar: 'Takvimi kapat',
   closeTimeInput: 'Saat seçiciyi kapat',
+  code: 'Kod',
   collapseRow: 'Satırı daralt',
   columnMenu: 'Sütun seçenekleri',
   columnMovedToPosition: (label, position, total) => `${label} ${total} konumdan ${position}. konuma taşındı`,

@@ -22,6 +22,7 @@ const translation: Translation = {
   close: 'बंद करें',
   closeCalendar: 'कैलेंडर बंद करें',
   closeTimeInput: 'समय चयनकर्ता बंद करें',
+  code: 'कोड',
   collapseRow: 'पंक्ति संकुचित करें',
   columnMenu: 'कॉलम विकल्प',
   columnMovedToPosition: (label, position, total) => `${label} को ${total} में से स्थान ${position} पर ले जाया गया`,

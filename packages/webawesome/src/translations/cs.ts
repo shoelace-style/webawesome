@@ -22,6 +22,7 @@ const translation: Translation = {
   close: 'Zavřít',
   closeCalendar: 'Zavřít kalendář',
   closeTimeInput: 'Zavřít výběr času',
+  code: 'Kód',
   collapseRow: 'Sbalit řádek',
   columnMenu: 'Možnosti sloupce',
   columnMovedToPosition: (label, position, total) => `${label} přesunut na pozici ${position} z ${total}`,

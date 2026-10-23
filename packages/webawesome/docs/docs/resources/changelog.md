@@ -31,6 +31,13 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 ## Unreleased
 
+:::added
+
+- Added the experimental `<wa-code-highlighter>` component for displaying syntax-highlighted code with a copy button
+  - Added `registerCodeGrammar()` for adding or replacing grammars
+
+:::
+
 :::fixed
 
 - Fixed a bug in `<wa-page>` and `<wa-tab-group>` where they did not render on first frame and their first render was delayed [pr:2932]

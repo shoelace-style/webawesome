@@ -154,6 +154,7 @@ Read-only data display.
 | Horizontally overflowing content (wide table, strip of cards) | `<wa-scroller>`                                                                          |
 | An animation                                                  | `<wa-animation>`                                                                         |
 | Markdown content rendered inline                              | `<wa-markdown>`                                                                          |
+| A syntax-highlighted code block                               | `<wa-code-highlighter>`                                                                  |
 | Include external HTML                                         | `<wa-include>`                                                                           |
 | A small inline trend chart                                    | `<wa-sparkline>` **(Pro)**                                                               |
 | A data chart (bar, line, pie, donut, radar, etc.)             | The chart family **(Pro)** — `<wa-bar-chart>`, `<wa-line-chart>`, `<wa-pie-chart>`, etc. |

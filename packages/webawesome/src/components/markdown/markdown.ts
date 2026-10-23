@@ -1,6 +1,7 @@
 import { html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { Marked } from 'marked';
+import { dedent } from '../../internal/dedent.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import styles from './markdown.styles.js';
 
@@ -53,79 +54,6 @@ export default class WaMarkdown extends WebAwesomeElement {
     super.disconnectedCallback();
   }
 
-  /**
-   * Normalizes whitespace in the given text by converting leading tabs to spaces, trimming leading/trailing blank
-   * lines, and removing the common indentation prefix from all lines.
-   */
-  private dedent(text: string): string {
-    // Step 1: Normalize line endings
-    const normalized = text.replace(/\r\n/g, '\n');
-
-    // Step 2: Split into lines and expand leading tabs to spaces (respecting tab stops)
-    const lines = normalized.split('\n').map(line => {
-      let expanded = '';
-      let column = 0;
-
-      for (let i = 0; i < line.length; i++) {
-        const char = line[i];
-
-        if (char === '\t') {
-          const spacesToNextStop = this.tabSize - (column % this.tabSize);
-          expanded += ' '.repeat(spacesToNextStop);
-          column += spacesToNextStop;
-        } else if (char === ' ') {
-          expanded += ' ';
-          column++;
-        } else {
-          // Hit non-whitespace — append the rest of the line as-is
-          expanded += line.slice(i);
-          break;
-        }
-      }
-
-      return expanded;
-    });
-
-    // Step 3: Trim leading and trailing blank lines
-    let start = 0;
-    while (start < lines.length && lines[start].trim() === '') {
-      start++;
-    }
-
-    let end = lines.length - 1;
-    while (end >= start && lines[end].trim() === '') {
-      end--;
-    }
-
-    const trimmedLines = lines.slice(start, end + 1);
-
-    if (trimmedLines.length === 0) {
-      return '';
-    }
-
-    // Step 4: Find minimum indentation (non-empty lines only)
-    let minIndent = Infinity;
-    for (const line of trimmedLines) {
-      if (line.trim() === '') continue;
-      const match = line.match(/^( *)/);
-      const leadingSpaces = match ? match[1].length : 0;
-      minIndent = Math.min(minIndent, leadingSpaces);
-    }
-
-    if (minIndent === Infinity) {
-      minIndent = 0;
-    }
-
-    // Step 5: Slice the common prefix from all lines
-    const dedentedLines = trimmedLines.map(line => {
-      if (line.trim() === '') return '';
-      return line.slice(minIndent);
-    });
-
-    // Step 6: Join and return
-    return dedentedLines.join('\n');
-  }
-
   /** Finds the `<script type="text/markdown">` source element inside this component. */
   private getSourceScript(): HTMLScriptElement | null {
     return this.querySelector('script[type="text/markdown"]');
@@ -145,7 +73,7 @@ export default class WaMarkdown extends WebAwesomeElement {
 
     const generation = ++this.renderGeneration;
     const raw = script.textContent ?? '';
-    const dedented = this.dedent(raw);
+    const dedented = dedent(raw, { tabSize: this.tabSize });
 
     let result: string | Promise<string>;
 

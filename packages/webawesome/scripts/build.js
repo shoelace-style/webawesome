@@ -8,6 +8,7 @@ import { mkdir, readFile } from 'fs/promises';
 import getPort, { portNumbers } from 'get-port';
 import { globby } from 'globby';
 import * as fs from 'node:fs';
+import { createRequire } from 'node:module';
 import * as path from 'node:path';
 import { dirname, extname, join, posix, relative } from 'node:path';
 import process from 'node:process';
@@ -85,6 +86,7 @@ export async function build(options = {}) {
         generateReactWrappers,
         generateTypes,
         generateStyles,
+        copyCodeGrammars,
       ];
 
       for (const step of steps) {
@@ -219,6 +221,22 @@ export async function build(options = {}) {
     spinner.succeed();
 
     return Promise.resolve();
+  }
+
+  /**
+   * Copies the code highlighter grammars so they load on demand from the base path. Their MIT license goes with them.
+   */
+  async function copyCodeGrammars() {
+    spinner.start('Copying code grammars');
+
+    const require = createRequire(import.meta.url);
+    // The package only exports dist, so step up from a dist file to reach its LICENSE
+    const packageDir = dirname(dirname(require.resolve('microlighter/grammar-dependencies.js')));
+    const outDir = join(getCdnDir(), 'assets/grammars');
+    await copy(join(packageDir, 'dist/grammars'), outDir, { overwrite: true, filter: /\.js$/ });
+    await fs.promises.copyFile(join(packageDir, 'LICENSE'), join(outDir, 'LICENSE'));
+
+    spinner.succeed();
   }
 
   /**
