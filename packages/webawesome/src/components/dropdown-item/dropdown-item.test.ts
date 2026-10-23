@@ -1,11 +1,95 @@
-import { expect } from '@open-wc/testing';
+import { expect, oneEvent } from '@open-wc/testing';
 import { html } from 'lit';
 import sinon from 'sinon';
-import { fixtures } from '../../internal/test/fixture.js';
+import { clientFixture, fixtures } from '../../internal/test/fixture.js';
 import { clickOnElement } from '../../internal/test/pointer-utilities.js';
 import type WaDropdownItem from './dropdown-item.js';
 
 describe('<wa-dropdown-item>', () => {
+  describe('submenu lifecycle', () => {
+    async function submenuFixture() {
+      const item = await clientFixture<WaDropdownItem>(html`
+        <wa-dropdown-item>
+          Parent
+          <wa-dropdown-item slot="submenu">First</wa-dropdown-item>
+          <wa-dropdown-item slot="submenu">Second</wa-dropdown-item>
+        </wa-dropdown-item>
+      `);
+      await item.updateComplete;
+      return item;
+    }
+
+    it('should share repeated opening requests without notifying or animating twice', async () => {
+      const item = await submenuFixture();
+      const openingHandler = sinon.spy();
+      item.addEventListener('submenu-opening', openingHandler);
+
+      const firstOpening = item.openSubmenu();
+      const secondOpening = item.openSubmenu();
+      await item.updateComplete;
+
+      expect(openingHandler).to.have.been.calledOnce;
+      await Promise.all([firstOpening, secondOpening]);
+      expect(item.submenuElement.matches(':popover-open')).to.be.true;
+      expect(item.getAttribute('aria-expanded')).to.equal('true');
+    });
+
+    it('should focus when opening starts without stealing focus when animation finishes', async () => {
+      const item = await submenuFixture();
+      item.style.setProperty('--show-duration', '10s');
+      const animationStarted = oneEvent(item.submenuElement, 'animationstart');
+      const opening = item.openSubmenu();
+      await animationStarted;
+
+      const [first, second] = item.querySelectorAll<WaDropdownItem>('[slot="submenu"]');
+      expect(document.activeElement).to.equal(first);
+      second.focus();
+      item.submenuElement.getAnimations().forEach(animation => animation.finish());
+      await opening;
+      expect(document.activeElement).to.equal(second);
+    });
+
+    it('should keep a reopened submenu visible when its earlier close is canceled', async () => {
+      const item = await submenuFixture();
+      await item.openSubmenu();
+      item.style.setProperty('--show-duration', '10s');
+      const closingStarted = oneEvent(item.submenuElement, 'animationstart');
+      const closing = item.closeSubmenu();
+      await closingStarted;
+
+      item.style.setProperty('--show-duration', '0s');
+      item.submenuOpen = true;
+      const reopening = item.openSubmenu();
+      await Promise.all([closing, reopening]);
+
+      expect(item.submenuOpen).to.be.true;
+      expect(item.submenuElement.hidden).to.be.false;
+      expect(item.submenuElement.matches(':popover-open')).to.be.true;
+      expect(item.getAttribute('aria-expanded')).to.equal('true');
+    });
+
+    it('should retire an opening submenu when disconnected and allow it to reopen', async () => {
+      const item = await submenuFixture();
+      const parent = item.parentElement!;
+      item.style.setProperty('--show-duration', '10s');
+      const animationStarted = oneEvent(item.submenuElement, 'animationstart');
+      const opening = item.openSubmenu();
+      await animationStarted;
+
+      item.remove();
+      expect(item.submenuElement.hidden).to.be.true;
+      expect(item.submenuElement.hasAttribute('data-visible')).to.be.false;
+      await opening;
+
+      item.style.setProperty('--show-duration', '0s');
+      parent.append(item);
+      await item.openSubmenu();
+      expect(item.submenuElement.hidden).to.be.false;
+      expect(item.submenuElement.matches(':popover-open')).to.be.true;
+      expect(item.getAttribute('aria-expanded')).to.equal('true');
+    });
+  });
+
   for (const fixture of fixtures) {
     describe(`with "${fixture.type}" rendering`, () => {
       describe('accessibility', () => {
