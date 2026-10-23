@@ -5,6 +5,8 @@ import sinon from 'sinon';
 import { expectEvent } from '../../internal/test/expect-event.js';
 import { fixtures } from '../../internal/test/fixture.js';
 import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
+import type WaCheckbox from '../checkbox/checkbox.js';
+import type WaInput from '../input/input.js';
 import type WaRadio from '../radio/radio.js';
 import type WaRadioGroup from './radio-group.js';
 
@@ -330,6 +332,85 @@ describe('<wa-radio-group>', () => {
           await sendKeys({ press: 'ArrowRight' });
           await el.updateComplete;
           expect(el.value).to.equal('3');
+        });
+
+        it('should let Space activate a button inside the group', async () => {
+          const el = await fixture<WaRadioGroup>(html`
+            <wa-radio-group value="1">
+              <wa-radio value="1"></wa-radio>
+              <button type="button">Edit</button>
+              <wa-radio value="2"></wa-radio>
+            </wa-radio-group>
+          `);
+          const button = el.querySelector('button')!;
+          const clickHandler = sinon.spy();
+          button.addEventListener('click', clickHandler);
+
+          button.focus();
+          await sendKeys({ press: ' ' });
+          await el.updateComplete;
+
+          expect(clickHandler).to.have.been.calledOnce;
+          expect(el.value).to.equal('1');
+          expect(document.activeElement).to.equal(button);
+        });
+
+        it('should let Space toggle a checkbox inside the group', async () => {
+          const el = await fixture<WaRadioGroup>(html`
+            <wa-radio-group value="2">
+              <wa-radio value="1"></wa-radio>
+              <wa-radio value="2"></wa-radio>
+              <wa-checkbox>Sub-option</wa-checkbox>
+            </wa-radio-group>
+          `);
+          const checkbox = el.querySelector<WaCheckbox>('wa-checkbox')!;
+
+          checkbox.focus();
+          await sendKeys({ press: ' ' });
+          await checkbox.updateComplete;
+
+          expect(checkbox.checked).to.be.true;
+          expect(el.value).to.equal('2');
+        });
+
+        it('should not change the selection when an arrow key is pressed on a link inside the group', async () => {
+          const el = await fixture<WaRadioGroup>(html`
+            <wa-radio-group value="1">
+              <wa-radio value="1"></wa-radio>
+              <a href="#example">Example</a>
+              <wa-radio value="2"></wa-radio>
+            </wa-radio-group>
+          `);
+          const link = el.querySelector('a')!;
+          el.addEventListener('change', () => expect.fail('change should not be emitted'));
+
+          link.focus();
+          await sendKeys({ press: 'ArrowDown' });
+          await el.updateComplete;
+
+          expect(el.value).to.equal('1');
+          expect(document.activeElement).to.equal(link);
+        });
+
+        it('should let a text field inside the group take spaces and arrow keys', async () => {
+          const el = await fixture<WaRadioGroup>(html`
+            <wa-radio-group value="1">
+              <wa-radio value="1"></wa-radio>
+              <wa-radio value="other">Other</wa-radio>
+              <wa-input label="Other"></wa-input>
+            </wa-radio-group>
+          `);
+          const input = el.querySelector<WaInput>('wa-input')!;
+
+          input.focus();
+          await sendKeys({ type: 'ac' });
+          await sendKeys({ press: 'ArrowLeft' });
+          await sendKeys({ type: ' b ' });
+          await el.updateComplete;
+
+          expect(input.value).to.equal('a b c');
+          expect(el.value).to.equal('1');
+          expect(document.activeElement).to.equal(input);
         });
       });
 
