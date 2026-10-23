@@ -46,6 +46,12 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::
 
+:::changed
+
+- Improved the component search page so synonyms that were already tagged in metadata show up in search results (thanks, fbot!)
+
+:::
+
 ## 3.14.0
 
 <small><time datetime="2026-09-24">September 24th, 2026</time></small>
