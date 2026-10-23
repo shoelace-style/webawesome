@@ -291,6 +291,7 @@ export default class WaCopyButton extends WebAwesomeElement {
         // No target
         this.showStatus('error');
         this.dispatchEvent(new WaErrorEvent());
+        return;
       }
     }
 
