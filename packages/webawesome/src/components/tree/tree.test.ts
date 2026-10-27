@@ -1,4 +1,4 @@
-import { expect, triggerBlurFor, triggerFocusFor } from '@open-wc/testing';
+import { aTimeout, expect, triggerBlurFor, triggerFocusFor } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import sinon from 'sinon';
@@ -604,6 +604,122 @@ describe('<wa-tree>', () => {
 
           expect(el).to.have.attribute('tabindex', '-1');
           expect(node).to.have.attribute('tabindex', '0');
+        });
+      });
+
+      describe('initialization', () => {
+        // Waits for items to render and for the tree's deferred item initialization to run
+        async function settle(tree: WaTree) {
+          await tree.updateComplete;
+          await Promise.all([...tree.querySelectorAll<WaTreeItem>('wa-tree-item')].map(item => item.updateComplete));
+          await aTimeout(0);
+        }
+
+        const defaultIcons = (item: WaTreeItem) => [...item.querySelectorAll(':scope > [data-default]')];
+
+        it('should only initialize the item whose lazy state changed', async () => {
+          const tree = await fixture<WaTree>(html`
+            <wa-tree>
+              <span slot="expand-icon">-</span>
+              <span slot="collapse-icon">+</span>
+              <wa-tree-item id="a" lazy>A</wa-tree-item>
+              <wa-tree-item id="b" lazy>B</wa-tree-item>
+            </wa-tree>
+          `);
+          const itemA = tree.querySelector<WaTreeItem>('#a')!;
+          const itemB = tree.querySelector<WaTreeItem>('#b')!;
+          await settle(tree);
+
+          const iconsB = defaultIcons(itemB);
+          expect(iconsB).to.have.lengthOf(2);
+
+          itemA.insertAdjacentHTML('beforeend', '<wa-tree-item>A1</wa-tree-item><wa-tree-item>A2</wa-tree-item>');
+          itemA.lazy = false;
+          await settle(tree);
+
+          const iconsBAfter = defaultIcons(itemB);
+          expect(iconsBAfter).to.have.lengthOf(2);
+          iconsBAfter.forEach((icon, index) => expect(icon).to.equal(iconsB[index]));
+
+          for (const child of itemA.querySelectorAll('wa-tree-item')) {
+            expect(child.querySelectorAll(':scope > [slot="expand-icon"][data-default]')).to.have.lengthOf(1);
+            expect(child.querySelectorAll(':scope > [slot="collapse-icon"][data-default]')).to.have.lengthOf(1);
+          }
+        });
+
+        it('should initialize nested items appended in a single mutation', async () => {
+          const tree = await fixture<WaTree>(html`
+            <wa-tree selection="multiple">
+              <wa-tree-item id="parent">Parent</wa-tree-item>
+            </wa-tree>
+          `);
+          const parent = tree.querySelector<WaTreeItem>('#parent')!;
+          await settle(tree);
+
+          const subtree = document.createElement('wa-tree-item');
+          subtree.innerHTML = `
+            Child
+            <wa-tree-item>Grandchild 1</wa-tree-item>
+            <wa-tree-item>Grandchild 2 <wa-tree-item>Great-grandchild</wa-tree-item></wa-tree-item>
+          `;
+          parent.append(subtree);
+          await settle(tree);
+
+          for (const item of [subtree, ...subtree.querySelectorAll<WaTreeItem>('wa-tree-item')]) {
+            expect(item.selectable).to.be.true;
+          }
+        });
+
+        it('should not replace default icons that are already up to date', async () => {
+          const tree = await fixture<WaTree>(html`
+            <wa-tree>
+              <span slot="expand-icon">-</span>
+              <span slot="collapse-icon">+</span>
+              <wa-tree-item id="untouched">Node 1</wa-tree-item>
+            </wa-tree>
+          `);
+          const untouched = tree.querySelector<WaTreeItem>('#untouched')!;
+          await settle(tree);
+
+          const icons = defaultIcons(untouched);
+          expect(icons).to.have.lengthOf(2);
+
+          const extra = document.createElement('wa-tree-item');
+          extra.textContent = 'Node 2';
+          tree.append(extra);
+          await settle(tree);
+          extra.remove();
+          await settle(tree);
+
+          const iconsAfter = defaultIcons(untouched);
+          expect(iconsAfter).to.have.lengthOf(2);
+          iconsAfter.forEach((icon, index) => expect(icon).to.equal(icons[index]));
+        });
+
+        it('should update default icons when the tree-level icon changes', async () => {
+          const tree = await fixture<WaTree>(html`
+            <wa-tree>
+              <span slot="expand-icon">-</span>
+              <span slot="collapse-icon">+</span>
+              <wa-tree-item id="existing">Node 1</wa-tree-item>
+            </wa-tree>
+          `);
+          const existing = tree.querySelector<WaTreeItem>('#existing')!;
+          await settle(tree);
+
+          const oldIcon = existing.querySelector(':scope > [slot="expand-icon"]')!;
+          expect(oldIcon.textContent).to.equal('-');
+
+          const newIcon = document.createElement('span');
+          newIcon.slot = 'expand-icon';
+          newIcon.textContent = 'v';
+          tree.querySelector(':scope > [slot="expand-icon"]')!.replaceWith(newIcon);
+          await settle(tree);
+
+          const updatedIcon = existing.querySelector(':scope > [slot="expand-icon"]')!;
+          expect(updatedIcon).to.not.equal(oldIcon);
+          expect(updatedIcon.textContent).to.equal('v');
+          expect(updatedIcon).to.have.attribute('data-default');
         });
       });
 

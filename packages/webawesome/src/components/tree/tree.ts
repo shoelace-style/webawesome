@@ -105,7 +105,7 @@ export default class WaTree extends WebAwesomeElement {
     if ('addEventListener' in this) {
       this.addEventListener('focusin', this.handleFocusIn);
       this.addEventListener('focusout', this.handleFocusOut);
-      this.addEventListener('wa-lazy-change', this.handleSlotChange);
+      this.addEventListener('wa-lazy-change', this.handleLazyChange);
     }
   }
 
@@ -133,7 +133,7 @@ export default class WaTree extends WebAwesomeElement {
   // Generates a clone of the expand icon element to use for each tree item
   private getExpandButtonIcon(status: 'expand' | 'collapse') {
     const slot = status === 'expand' ? this.expandedIconSlot : this.collapsedIconSlot;
-    const icon = slot.assignedElements({ flatten: true })[0] as HTMLElement;
+    const icon = slot?.assignedElements({ flatten: true })[0] as HTMLElement | undefined;
 
     // Clone it, remove ids, and slot it
     if (icon) {
@@ -148,42 +148,52 @@ export default class WaTree extends WebAwesomeElement {
     return null;
   }
 
-  // Initializes new items by setting the `selectable` property and the expanded/collapsed icons if any
-  private initTreeItem = (item: WaTreeItem) => {
-    item.updateComplete.then(() => {
-      item.selectable = this.selection === 'multiple' || (this.selection === 'leaf-multiple' && item.isLeaf);
+  // Initializes items by setting the `selectable` property and the expanded/collapsed icons if any
+  private initTreeItems(items: WaTreeItem[]) {
+    // Resolve the tree-level icons once per batch
+    const icons = { expand: this.getExpandButtonIcon('expand'), collapse: this.getExpandButtonIcon('collapse') };
 
-      ['expand', 'collapse']
-        .filter(status => !!this.querySelector(`[slot="${status}-icon"]`))
-        .forEach((status: 'expand' | 'collapse') => {
-          const existingIcon = item.querySelector(`[slot="${status}-icon"]`);
-          const expandButtonIcon = this.getExpandButtonIcon(status);
+    for (const item of items) {
+      item.updateComplete.then(() => {
+        item.selectable = this.selection === 'multiple' || (this.selection === 'leaf-multiple' && item.isLeaf);
 
-          if (!expandButtonIcon) return;
+        for (const status of ['expand', 'collapse'] as const) {
+          const icon = icons[status];
+          if (!icon) continue;
+
+          const existingIcon = item.querySelector(`:scope > [slot="${status}-icon"]`);
 
           if (existingIcon === null) {
-            // No separator exists, add one
-            item.append(expandButtonIcon);
-          } else if (existingIcon.hasAttribute('data-default')) {
-            // A default separator exists, replace it
-            existingIcon.replaceWith(expandButtonIcon);
-          } else {
-            // The user provided a custom icon, leave it alone
+            // No icon exists, add one
+            item.append(icon.cloneNode(true));
+          } else if (existingIcon.hasAttribute('data-default') && !existingIcon.isEqualNode(icon)) {
+            // A stale default icon exists, replace it. Custom icons are left alone.
+            existingIcon.replaceWith(icon.cloneNode(true));
           }
-        });
-    });
-  };
+        }
+      });
+    }
+  }
 
   private handleTreeChanged = (mutations: MutationRecord[]) => {
+    const addedItems: WaTreeItem[] = [];
+
     for (const mutation of mutations) {
-      const addedNodes: WaTreeItem[] = [...mutation.addedNodes].filter(WaTreeItem.isTreeItem) as WaTreeItem[];
+      const addedNodes = [...mutation.addedNodes].filter(WaTreeItem.isTreeItem) as WaTreeItem[];
       const removedNodes = [...mutation.removedNodes].filter(WaTreeItem.isTreeItem) as WaTreeItem[];
 
-      addedNodes.forEach(this.initTreeItem);
+      // Added nodes only include the root of each subtree, so include nested items too
+      for (const item of addedNodes) {
+        addedItems.push(item, ...item.querySelectorAll<WaTreeItem>('wa-tree-item'));
+      }
 
       if (this.lastFocusedItem && removedNodes.includes(this.lastFocusedItem)) {
         this.lastFocusedItem = null;
       }
+    }
+
+    if (addedItems.length) {
+      this.initTreeItems(addedItems);
     }
   };
 
@@ -370,9 +380,12 @@ export default class WaTree extends WebAwesomeElement {
   };
 
   private handleSlotChange() {
-    const items = this.getAllTreeItems();
-    items.forEach(this.initTreeItem);
+    this.initTreeItems(this.getAllTreeItems());
   }
+
+  private handleLazyChange = (event: Event) => {
+    this.initTreeItems([event.target as WaTreeItem]);
+  };
 
   @watch('selection')
   async handleSelectionChange() {
@@ -436,8 +449,8 @@ export default class WaTree extends WebAwesomeElement {
         @mousedown=${this.handleMouseDown}
       >
         <slot @slotchange=${this.handleSlotChange}></slot>
-        <span hidden aria-hidden="true"><slot name="expand-icon"></slot></span>
-        <span hidden aria-hidden="true"><slot name="collapse-icon"></slot></span>
+        <span hidden aria-hidden="true"><slot name="expand-icon" @slotchange=${this.handleSlotChange}></slot></span>
+        <span hidden aria-hidden="true"><slot name="collapse-icon" @slotchange=${this.handleSlotChange}></slot></span>
       </div>
     `;
   }
