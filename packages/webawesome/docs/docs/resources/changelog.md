@@ -44,6 +44,8 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug in `<wa-dropdown-item>` where dynamically added submenus would not trigger a `slotchange` event leading to `HasSlotController` reporting false. [pr:2868]
 - Fixed a bug in `<wa-tooltip>` where it would still open even when it was disabled. [pr:2869]
 - Fixed a bug in `<wa-switch>` where pressing an arrow key dispatched `change` and `input` events even when the switch was already in that position
+- Fixed a bug in `<wa-tree>` where nested items added in a single DOM mutation were not initialized until another change in the tree occurred
+- Fixed a performance issue in `<wa-tree>` where removing `lazy` from one item re-initialized all items in the tree causing slowness for trees with many items
 
 :::
 
