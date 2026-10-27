@@ -129,6 +129,8 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
     const isRtl = this.localize.dir() === 'rtl';
     if (event.key === 'ArrowLeft') {
       event.preventDefault();
+      // Pressing toward the side the switch is already on changes nothing, so it fires nothing
+      if (this.checked === isRtl) return;
       this.checked = isRtl;
       this.updateComplete.then(() => {
         this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
@@ -138,6 +140,7 @@ export default class WaSwitch extends WebAwesomeFormAssociatedElement {
 
     if (event.key === 'ArrowRight') {
       event.preventDefault();
+      if (this.checked === !isRtl) return;
       this.checked = !isRtl;
 
       this.updateComplete.then(() => {
