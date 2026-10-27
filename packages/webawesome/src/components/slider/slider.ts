@@ -184,7 +184,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
   /** The maximum value allowed. */
   @property({ type: Number }) max: number = 100;
 
-  /** The granularity the value must adhere to when incrementing and decrementing. */
+  /** The granularity the value must adhere to when incrementing and decrementing. Steps are counted from `min`. */
   @property({ type: Number }) step: number = 1;
 
   /** Tells the browser to focus the slider when the page loads or a dialog is shown. */
@@ -440,17 +440,18 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
 
   /** Clamps a number to min/max while ensuring it's a valid step interval. */
   private clampAndRoundToStep(value: number) {
-    const stepPrecision = (String(this.step).split('.')[1] || '').replace(/0+$/g, '').length;
-
     // Ensure we're working with numbers (in case the user passes strings to the respective properties)
     const step = Number(this.step);
     const min = Number(this.min);
     const max = Number(this.max);
 
-    value = Math.round(value / step) * step;
+    // Like a native range input, the step grid is anchored at min, not zero
+    value = Math.round((value - min) / step) * step + min;
     value = clamp(value, min, max);
 
-    return parseFloat(value.toFixed(stepPrecision));
+    // Values are min + n * step, so keep enough decimals for both
+    const decimals = (n: number) => (String(n).split('.')[1] || '').replace(/0+$/g, '').length;
+    return parseFloat(value.toFixed(Math.max(decimals(step), decimals(min))));
   }
 
   /** Given a value, returns its percentage within a range of min/max. */
