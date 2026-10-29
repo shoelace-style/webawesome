@@ -287,21 +287,53 @@ export default class WaDropdownItem extends WebAwesomeElement {
   navigate(sourceEvent?: MouseEvent | KeyboardEvent) {
     const link = this.linkElement;
 
-    if (!this.isLink() || this.disabled || !link) {
+    if (
+      !this.isLink() ||
+      this.disabled ||
+      !link ||
+      (sourceEvent instanceof MouseEvent && sourceEvent.defaultPrevented)
+    ) {
       return;
     }
 
-    link.dispatchEvent(
-      new MouseEvent('click', {
-        bubbles: false,
-        cancelable: true,
-        composed: false,
-        altKey: sourceEvent?.altKey ?? false,
-        ctrlKey: sourceEvent?.ctrlKey ?? false,
-        metaKey: sourceEvent?.metaKey ?? false,
-        shiftKey: sourceEvent?.shiftKey ?? false,
-      }),
-    );
+    const dispatchClick = () => {
+      if (sourceEvent instanceof MouseEvent && sourceEvent.defaultPrevented) {
+        return;
+      }
+
+      link.dispatchEvent(
+        new MouseEvent('click', {
+          bubbles: false,
+          cancelable: true,
+          composed: false,
+          altKey: sourceEvent?.altKey ?? false,
+          ctrlKey: sourceEvent?.ctrlKey ?? false,
+          metaKey: sourceEvent?.metaKey ?? false,
+          shiftKey: sourceEvent?.shiftKey ?? false,
+        }),
+      );
+    };
+
+    if (sourceEvent instanceof MouseEvent && sourceEvent.eventPhase !== Event.NONE) {
+      const path = sourceEvent.composedPath();
+      const rootTarget = path[path.length - 1];
+
+      if (rootTarget) {
+        let handled = false;
+        const finish = () => {
+          if (handled) return;
+          handled = true;
+          rootTarget.removeEventListener(sourceEvent.type, finish);
+          dispatchClick();
+        };
+
+        rootTarget.addEventListener(sourceEvent.type, finish, { once: true });
+        queueMicrotask(finish);
+        return;
+      }
+    }
+
+    dispatchClick();
   }
 
   /** Gets all dropdown items in the submenu. */

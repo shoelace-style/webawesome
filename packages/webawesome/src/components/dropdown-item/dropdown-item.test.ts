@@ -316,6 +316,19 @@ describe('<wa-dropdown-item>', () => {
           expect(clickHandler).to.not.have.been.called;
         });
 
+        it('should not navigate when source event is defaultPrevented', async () => {
+          const el = await fixture<WaDropdownItem>(html`<wa-dropdown-item href="/about">About</wa-dropdown-item>`);
+          const link = el.shadowRoot!.querySelector<HTMLAnchorElement>('#link')!;
+          const clickHandler = sinon.spy((event: MouseEvent) => event.preventDefault());
+          link.addEventListener('click', clickHandler);
+
+          const sourceEvent = new MouseEvent('click', { cancelable: true });
+          sourceEvent.preventDefault();
+          el.navigate(sourceEvent);
+
+          expect(clickHandler).to.not.have.been.called;
+        });
+
         it('should not throw when navigate() is called without an href', async () => {
           const el = await fixture<WaDropdownItem>(html`<wa-dropdown-item>Item</wa-dropdown-item>`);
           expect(() => el.navigate()).to.not.throw();
