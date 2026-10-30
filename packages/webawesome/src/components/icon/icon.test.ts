@@ -306,6 +306,38 @@ describe('<wa-icon>', () => {
           const svg = el.shadowRoot?.querySelector("svg[part='svg']");
           expect(svg?.getAttribute('fill')).to.equal('currentColor');
         });
+
+        it('should size the <svg> as a square instead of the 300px replaced element default', async () => {
+          registerIconLibrary('sprite', {
+            resolver: name => `/docs/assets/images/sprite.svg#${name}`,
+            spriteSheet: true,
+          });
+
+          const el = await fixture<WaIcon>(html`<wa-icon name="non-existent" library="sprite"></wa-icon>`);
+          await waitUntil(() => el.shadowRoot!.querySelector('use'));
+          const svg = el.shadowRoot!.querySelector<SVGElement>("svg[part='svg']")!;
+          const { width, height } = svg.getBoundingClientRect();
+
+          // The sprite sheet <svg> has no viewBox to take an aspect ratio from, so without one of its own it is 300px wide
+          // and intercepts pointer events meant for whatever sits next to the icon.
+          expect(height).to.be.greaterThan(0);
+          expect(width).to.equal(height);
+        });
+
+        it('should leave the aspect ratio alone when the mutator sets a viewBox', async () => {
+          registerIconLibrary('sprite', {
+            resolver: name => `/docs/assets/images/sprite.svg#${name}`,
+            mutator: svg => svg.setAttribute('viewBox', '0 0 32 16'),
+            spriteSheet: true,
+          });
+
+          const el = await fixture<WaIcon>(html`<wa-icon name="non-existent" library="sprite"></wa-icon>`);
+          await waitUntil(() => el.shadowRoot!.querySelector('svg[viewBox]'));
+          const svg = el.shadowRoot!.querySelector<SVGElement>("svg[part='svg']")!;
+
+          // The square default is only a fallback: an <svg> that states its own viewBox keeps the ratio it asked for.
+          expect(getComputedStyle(svg).aspectRatio).to.equal('auto');
+        });
       });
 
       describe('transformations', () => {
