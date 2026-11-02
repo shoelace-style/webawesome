@@ -45,6 +45,7 @@ import styles from './details.styles.js';
  * @cssproperty --spacing - The amount of space around and between the details' content. Expects a single value.
  * @cssproperty [--show-duration=var(--wa-transition-normal)] - The show duration to use when applying built-in animation classes.
  * @cssproperty [--hide-duration=var(--wa-transition-normal)] - The hide duration to use when applying built-in animation classes.
+ * @cssproperty [--easing=var(--wa-transition-easing)] - The easing of the expand/collapse animation.
  *
  * @cssstate animating - Applied when the details is animating expand/collapse.
  */
@@ -212,7 +213,7 @@ export default class WaDetails extends WebAwesomeElement {
 
       this.isAnimating = true;
       const duration = parseDuration(getComputedStyle(this.body).getPropertyValue('--show-duration'));
-      const easing = getComputedStyle(this.body).getPropertyValue('--wa-transition-easing') || 'ease';
+      const easing = getComputedStyle(this.body).getPropertyValue('--easing') || 'ease';
       // We can't animate to 'auto', so use the scroll height for now
       await animate(
         this.body,
@@ -244,7 +245,7 @@ export default class WaDetails extends WebAwesomeElement {
 
       this.isAnimating = true;
       const duration = parseDuration(getComputedStyle(this.body).getPropertyValue('--hide-duration'));
-      const easing = getComputedStyle(this.body).getPropertyValue('--wa-transition-easing') || 'ease';
+      const easing = getComputedStyle(this.body).getPropertyValue('--easing') || 'ease';
       // We can't animate from 'auto', so use the scroll height for now
       await animate(
         this.body,

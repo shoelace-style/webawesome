@@ -5,6 +5,7 @@ export default css`
     --spacing: var(--wa-space-m);
     --show-duration: var(--wa-transition-normal);
     --hide-duration: var(--wa-transition-normal);
+    --easing: var(--wa-transition-easing);
 
     display: block;
   }
@@ -97,7 +98,7 @@ export default css`
     display: flex;
     align-items: center;
     color: var(--wa-color-text-quiet);
-    transition: rotate var(--wa-transition-normal) var(--wa-transition-easing);
+    transition: rotate var(--wa-transition-normal) var(--easing);
   }
 
   :host([open]) [part~='icon'] {
