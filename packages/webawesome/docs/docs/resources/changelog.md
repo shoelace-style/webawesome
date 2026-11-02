@@ -35,7 +35,6 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 - Added the experimental `<wa-code-highlighter>` component for displaying syntax-highlighted code with a copy button
   - Added `registerCodeGrammar()` for adding or replacing grammars
-- Added the `--easing` custom property to `<wa-details>` to match `<wa-accordion-item>`
 
 :::
 
