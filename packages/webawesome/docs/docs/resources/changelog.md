@@ -41,6 +41,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 :::fixed
 
 - Fixed `<wa-button-group>` labels missing from the accessibility tree [issue:2863] [pr:2923]
+- Fixed a bug in `<wa-checkbox-group>` where the vertical spacing of its label and checkboxes didn't match `<wa-radio-group>` [issue:2959]
 - Fixed a regression in `<wa-tooltip>` where tapping an anchor on a touch device immediately dismissed its hover/focus tooltip. [issue:2948] [pr:2955]
 - Fixed a bug in `<wa-select multiple>` where custom tags from `getTag` were squeezed beside the selection count [issue:2913] [pr:2917]
 - Fixed a bug in `<wa-select multiple>` where tags for options added after the first render were misaligned in Firefox [issue:2909] [pr:2917]
