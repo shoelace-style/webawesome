@@ -34,7 +34,7 @@ const translation: Translation = {
   close: 'اغلاق',
   closeCalendar: 'إغلاق التقويم',
   closeTimeInput: 'إغلاق منتقي الوقت',
-  code: 'رمز برمجي',
+  code: 'الكود',
   codeBlock: 'كتلة رمز برمجي',
   collapseRow: 'طي الصف',
   colorBlue: 'أزرق',

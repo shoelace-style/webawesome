@@ -34,7 +34,7 @@ const translation: Translation = {
   close: 'Zatvori',
   closeCalendar: 'Zatvori kalendar',
   closeTimeInput: 'Zatvori birač vremena',
-  code: 'Kod',
+  code: 'Kôd',
   codeBlock: 'Blok koda',
   collapseRow: 'Sažmi redak',
   colorBlue: 'Plava',

@@ -1037,6 +1037,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
               disabled: this.disabled,
               enabled: !this.disabled,
               multiple: this.multiple,
+              'has-selection': this.selectedOptions.length > 0,
             })}
             placement=${this.placement}
             flip

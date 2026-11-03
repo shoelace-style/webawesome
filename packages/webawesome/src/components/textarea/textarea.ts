@@ -386,7 +386,7 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
 
     return {
       top: this.input.scrollTop,
-      left: this.input.scrollTop,
+      left: this.input.scrollLeft,
     };
   }
 

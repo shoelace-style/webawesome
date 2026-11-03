@@ -113,7 +113,7 @@ You can launch the Theme Builder from your project's <wa-tag class="tag-ui" appe
 
 ### Light & Dark Mode
 
-Every theme is designed to adapt to light and dark mode. Light mode styles are applied by default, but you can apply a specific color scheme to an entire page or just a section with `class="wa-light"` or `class="wa-dark"`.
+Every theme is designed to adapt to light and dark mode. Light mode styles are applied by default, but you can apply a specific color scheme to an entire page or just a section with `class="wa-light"` or `class="wa-dark"`. Each color scheme also sets the `--wa-color-scheme` custom property to `light` or `dark`, so your own styles and components can read the active scheme.
 
 ```html {.example}
 {% include 'theming/light-dark-example.njk' %}
