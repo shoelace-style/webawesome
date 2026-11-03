@@ -26,6 +26,7 @@ export type { WaExpandEvent } from './expand.js';
 export type { WaFilterChangeEvent } from './filter-change.js';
 export type { WaFinishEvent } from './finish.js';
 export type { WaFocusDayEvent } from './focus-day.js';
+export type { WaFormatChangeEvent } from './format-change.js';
 export type { WaHideEvent } from './hide.js';
 export type { WaHoverEvent } from './hover.js';
 export type { WaIncludeErrorEvent } from './include-error.js';

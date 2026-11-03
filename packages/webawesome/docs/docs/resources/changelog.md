@@ -34,6 +34,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 :::added
 
 - Added the experimental `<wa-rich-text-editor>` pro component for writing and formatting content, with HTML or Markdown values that submit with forms
+- Added the `wa-format-change` event, which `<wa-rich-text-editor>` emits when the formatting at the selection changes
 
 :::
 
