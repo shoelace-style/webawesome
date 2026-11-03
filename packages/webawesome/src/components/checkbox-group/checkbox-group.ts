@@ -31,7 +31,7 @@ import styles from './checkbox-group.styles.js';
  * @csspart form-control-input - The element that wraps the grouped checkboxes, exposed as a `role="group"`.
  * @csspart hint - The hint's wrapper.
  *
- * @cssproperty [--gap=0.5em] - The gap between grouped checkboxes.
+ * @cssproperty [--gap=0.75em] - The gap between grouped checkboxes.
  */
 @customElement('wa-checkbox-group')
 export default class WaCheckboxGroup extends WebAwesomeElement {

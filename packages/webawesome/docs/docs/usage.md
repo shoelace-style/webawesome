@@ -132,6 +132,7 @@ You can customize this behavior by passing in options:
 - `root` allows you to pass in a different element to search within, or a different document entirely (defaults to `document`).
 - `match` allows you to specify a custom function to determine which elements to wait for. This function should return `true` for elements you want to wait for and `false` for those you don't.
 - `additionalElements` allows you to wait for custom elements to be defined that may not be present in the DOM at the time `allDefined()` is called. This can be useful for elements that are loaded dynamically via JS.
+- `timeout` sets the maximum time to wait in milliseconds (defaults to `2000`). If any elements still aren't registered when it expires, a warning naming them is logged and the promise resolves anyway. Set it to `Infinity` to wait indefinitely.
 
 Here is an example of using `match` and `root` to await registration of Web Awesome components inside an element with an id of `sidebar`, plus a `<my-component>` element if present in the DOM, and `<wa-slider>` and `<other-slider>` elements whether present in the DOM or not:
 
