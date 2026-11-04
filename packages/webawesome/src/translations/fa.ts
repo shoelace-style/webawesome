@@ -22,6 +22,7 @@ const translation: Translation = {
   close: 'بستن',
   closeCalendar: 'بستن تقویم',
   closeTimeInput: 'بستن انتخابگر زمان',
+  code: 'کد',
   collapseRow: 'جمع کردن ردیف',
   columnMenu: 'گزینه‌های ستون',
   columnMovedToPosition: (label, position, total) => `${label} به موقعیت ${position} از ${total} منتقل شد`,

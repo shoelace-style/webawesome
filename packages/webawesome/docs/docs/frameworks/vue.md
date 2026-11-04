@@ -116,7 +116,7 @@ For more on slots and their limitations with web components, see [Vue's document
       <strong>Web Awesome is ready to use.</strong><br />
       Want server-side rendering too?
     </p>
-    <wa-button size="small" variant="success" href="#server-side-rendering">
+    <wa-button size="s" variant="success" href="#server-side-rendering">
       Add SSR
     </wa-button>
   </div>

@@ -90,7 +90,10 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
   /** The default value of the form control. Primarily used for resetting the form control. */
   @property({ attribute: 'value', reflect: true }) defaultValue: string = this.getAttribute('value') ?? '';
 
-  /** The textarea's size. */
+  /**
+   * The textarea's size.
+   * The long-form values `small`, `medium`, and `large` are deprecated; use `s`, `m`, and `l` instead.
+   */
   @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
 
   @watch('size')
@@ -383,7 +386,7 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
 
     return {
       top: this.input.scrollTop,
-      left: this.input.scrollTop,
+      left: this.input.scrollLeft,
     };
   }
 

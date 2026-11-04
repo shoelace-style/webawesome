@@ -252,6 +252,9 @@ function trackQuerySubmit(query, resultSelectedValue) {
 
 // Show the search dialog when slash (or CMD+K) is pressed and focus is not inside a form element
 document.addEventListener('keydown', event => {
+  // The focused component may already own the shortcut, like CMD+K for links in the rich text editor
+  if (event.defaultPrevented) return;
+
   if (
     (event.key === 'k' && (event.metaKey || event.ctrlKey)) ||
     (event.key === '/' &&

@@ -15,6 +15,7 @@ export { default as WaCarouselItem } from '../components/carousel-item/carousel-
 export { default as WaCarousel } from '../components/carousel/carousel.js';
 export { default as WaCheckboxGroup } from '../components/checkbox-group/checkbox-group.js';
 export { default as WaCheckbox } from '../components/checkbox/checkbox.js';
+export { default as WaCodeHighlighter } from '../components/code-highlighter/code-highlighter.js';
 export { default as WaColorPicker } from '../components/color-picker/color-picker.js';
 export { default as WaComparison } from '../components/comparison/comparison.js';
 export { default as WaCopyButton } from '../components/copy-button/copy-button.js';

@@ -19,7 +19,7 @@ layout: docs
   <section class="search-list-grid">
     {% for page in collections.componentPages | sort(false, false, 'data.title') %}
       {% set component = page.data.component %}
-      <a class="hover-grow hover-emphasize-border" href="{{ page.url }}">
+      <a class="hover-grow hover-emphasize-border" href="{{ page.url }}" data-synonyms="{{ (page.data.synonyms or []) | join(' ') }}">
         <wa-card>
           <span class="page-name">{{ page.data.title }}</span>
           {% if component.summary %}

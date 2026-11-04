@@ -22,6 +22,7 @@ const translation: Translation = {
   close: '閉じる',
   closeCalendar: 'カレンダーを閉じる',
   closeTimeInput: '時刻選択を閉じる',
+  code: 'コード',
   collapseRow: '行を折りたたむ',
   columnMenu: '列のオプション',
   columnMovedToPosition: (label, position, total) => `${label} を ${total} 列中 ${position} 番目に移動しました`,

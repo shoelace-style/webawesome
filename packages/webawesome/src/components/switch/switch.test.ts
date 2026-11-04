@@ -147,6 +147,24 @@ describe('<wa-switch>', () => {
           expect(el.checked).to.be.false;
         });
 
+        it('should not emit change or input when an arrow key does not change the state', async () => {
+          const off = await fixture<WaSwitch>(html`<wa-switch></wa-switch>`);
+          const on = await fixture<WaSwitch>(html`<wa-switch checked></wa-switch>`);
+          for (const el of [off, on]) {
+            el.addEventListener('change', () => expect.fail('change incorrectly emitted'));
+            el.addEventListener('input', () => expect.fail('input incorrectly emitted'));
+          }
+
+          off.focus();
+          await sendKeys({ press: 'ArrowLeft' });
+          on.focus();
+          await sendKeys({ press: 'ArrowRight' });
+          await Promise.all([off.updateComplete, on.updateComplete]);
+
+          expect(off.checked).to.be.false;
+          expect(on.checked).to.be.true;
+        });
+
         it('should not emit change or input when checked is set by JavaScript', async () => {
           const el = await fixture<WaSwitch>(html`<wa-switch></wa-switch>`);
           el.addEventListener('change', () => expect.fail('change incorrectly emitted'));

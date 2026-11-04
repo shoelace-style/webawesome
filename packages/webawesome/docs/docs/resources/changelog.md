@@ -34,19 +34,48 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 :::added
 
 - Added the experimental `<wa-timeline>` and `<wa-timeline-item>` components for showing a chronological list of events, such as an order history, activity feed, or changelog
+- Added the experimental `<wa-code-highlighter>` component for displaying syntax-highlighted code with a copy button
+  - Added `registerCodeGrammar()` for adding or replacing grammars
 
 :::
 
 :::fixed
 
+- Fixed `<wa-accordion-item>` styles to match `<wa-details>`, including label weight, content color, and spacing between the label and content [issue:2963]
+- Fixed `<wa-details>` using linear easing for its expand/collapse animation instead of the theme's `--wa-transition-easing` [issue:2963]
+- Fixed a bug in `allDefined()` where an unregistered `wa-*` element anywhere in the document made it wait forever; it now logs a warning and resolves after the new `timeout` option (2 seconds by default) [issue:2957]
+- Fixed `<wa-button-group>` labels missing from the accessibility tree [issue:2863] [pr:2923]
+- Fixed a bug in `<wa-checkbox-group>` where the vertical spacing of its label and checkboxes didn't match `<wa-radio-group>` [issue:2959]
+- Fixed a regression in `<wa-tooltip>` where tapping an anchor on a touch device immediately dismissed its hover/focus tooltip. [issue:2948] [pr:2955]
+- Fixed a bug in `<wa-select multiple>` where custom tags from `getTag` were squeezed beside the selection count [issue:2913] [pr:2917]
+- Fixed a bug in `<wa-select multiple>` where tags for options added after the first render were misaligned in Firefox [issue:2909] [pr:2917]
+- Fixed `<wa-textarea>` returning the vertical offset as the horizontal scroll position [issue:2919] [pr:2922]
+- Fixed a bug in `<wa-page>` and `<wa-tab-group>` where they did not render on first frame and their first render was delayed [pr:2932]
+- Fixed an issue where `disable-sticky` on `<wa-page>` was not documented. [pr:2932]
 - Fixed a regression in implicit form submission where pressing [[Enter]] submitted the form even when its submit button was disabled [pr:2861]
+- Fixed a bug in `<wa-radio-group>` where disabled fieldsets cleared the selected radio's checked state or prevented the group from being re-enabled [issue:2907] [pr:2912]
+- Fixed a bug in `<wa-radio-group>` where `focus()` and label clicks failed to focus an enabled radio when the checked radio was disabled [issue:2907] [pr:2912]
 - Fixed a bug in `animateWithClass` internal helper which could occasionally leave animations in indeterminate states. [pr:2870]
+- Fixed a bug in `<wa-copy-button>` where a missing `from` target copied the fallback `value` instead of stopping after `wa-error` [issue:2891] [pr:2911]
 - Fixed a bug in `<wa-dropdown>` where the initial focused element would get lost. [pr:2886]
 - Fixed a bug in `<wa-dropdown>` where submenus would occasionally get dismissed due to not properly rechecking submenu hover states. [pr:2877]
 - Fixed an issue in `<wa-tooltip>` where `abortController` preserved instances of `anchor` in the exception message causing the anchor to still be reachable. [pr:2873]
 - Fixed a bug in `<wa-popup>` which could lead to possibly stale cleanup functions. [pr:2871]
 - Fixed a bug in `<wa-dropdown-item>` where dynamically added submenus would not trigger a `slotchange` event leading to `HasSlotController` reporting false. [pr:2868]
 - Fixed a bug in `<wa-tooltip>` where it would still open even when it was disabled. [pr:2869]
+- Fixed a bug in `<wa-switch>` where pressing an arrow key dispatched `change` and `input` events even when the switch was already in that position
+- Fixed a bug in `<wa-slider>` where steps were counted from zero instead of `min` [issue:2951]
+- Fixed a bug in `<wa-tree>` where nested items added in a single DOM mutation were not initialized until another change in the tree occurred
+- Fixed a performance issue in `<wa-tree>` where removing `lazy` from one item re-initialized all items in the tree causing slowness for trees with many items
+- Fixed a bug in `<wa-tree-item>` where the `expanded` attribute was ignored on nested items [issue:2792] [pr:2908]
+
+:::
+
+:::changed
+
+- Promoted the following components from {{ statusBadge('experimental') }} to {{ statusBadge('stable') }}
+  - Free: `<wa-step>` and `<wa-stepper>`
+  - Pro: `<wa-data-grid>`
 
 :::
 

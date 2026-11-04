@@ -51,6 +51,7 @@ export default class WaRadio extends WebAwesomeFormAssociatedElement {
   /**
    * The radio's size. When used inside a radio group, the size will be determined by the radio group's size, which will
    * override this attribute.
+   * The long-form values `small`, `medium`, and `large` are deprecated; use `s`, `m`, and `l` instead.
    */
   @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large';
 

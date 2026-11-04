@@ -163,6 +163,8 @@ function createTurndownService(baseUrl) {
  */
 function renderComponentApiTable(section, component) {
   const bt = s => '`' + s + '`';
+  const deprecatedLast = items =>
+    [...items].sort((a, b) => Number(Boolean(a.deprecated)) - Number(Boolean(b.deprecated)));
   const esc = s =>
     String(s ?? '')
       .replace(/\r?\n/g, ' ')
@@ -183,7 +185,7 @@ function renderComponentApiTable(section, component) {
       // Rendered as a bullet list (not a table) with an explicit warning: losing slot names is the
       // exact failure that makes LLMs invent non-existent slots like `slot="main"`, so the valid
       // names are stated plainly. The default slot is shown as `(default)`.
-      const slots = component.slots || [];
+      const slots = deprecatedLast(component.slots || []);
       if (!slots.length) return null;
       const lines = [
         'Valid slot names for this component (use exactly these — any other `slot` value is',
@@ -198,8 +200,8 @@ function renderComponentApiTable(section, component) {
     }
 
     case 'Attributes & Properties': {
-      const props = (component.members || []).filter(
-        m => m.kind === 'field' && m.privacy !== 'private' && m.description,
+      const props = deprecatedLast(
+        (component.members || []).filter(m => m.kind === 'field' && m.privacy !== 'private' && m.description),
       );
       return table(
         ['Property', 'Attribute', 'Description', 'Type', 'Default'],
@@ -211,8 +213,10 @@ function renderComponentApiTable(section, component) {
     }
 
     case 'Methods': {
-      const methods = (component.members || []).filter(
-        m => m.kind === 'method' && m.privacy !== 'private' && !m.name.startsWith('#') && m.description,
+      const methods = deprecatedLast(
+        (component.members || []).filter(
+          m => m.kind === 'method' && m.privacy !== 'private' && !m.name.startsWith('#') && m.description,
+        ),
       );
       return table(
         ['Name', 'Description', 'Arguments'],
@@ -228,13 +232,15 @@ function renderComponentApiTable(section, component) {
     case 'Events':
       return table(
         ['Name', 'Description'],
-        (component.events || []).filter(e => e.name).map(e => `| ${bt(esc(e.name))} | ${esc(e.description) || '—'} |`),
+        deprecatedLast((component.events || []).filter(e => e.name)).map(
+          e => `| ${bt(esc(e.name))} | ${esc(e.description) || '—'} |`,
+        ),
       );
 
-    case 'CSS custom properties':
+    case 'CSS Custom Properties':
       return table(
         ['Name', 'Description', 'Default'],
-        (component.cssProperties || []).map(
+        deprecatedLast(component.cssProperties || []).map(
           p => `| ${bt(esc(p.name))} | ${esc(p.description) || '—'} | ${codeOrDash(p.default)} |`,
         ),
       );
@@ -242,21 +248,21 @@ function renderComponentApiTable(section, component) {
     case 'Custom States':
       return table(
         ['Name', 'Description', 'CSS selector'],
-        (component.cssStates || []).map(
+        deprecatedLast(component.cssStates || []).map(
           s => `| ${bt(esc(s.name))} | ${esc(s.description) || '—'} | ${bt(':state(' + esc(s.name) + ')')} |`,
         ),
       );
 
-    case 'CSS parts':
+    case 'CSS Parts':
       return table(
         ['Name', 'Description', 'CSS selector'],
-        (component.cssParts || []).map(
+        deprecatedLast(component.cssParts || []).map(
           p => `| ${bt(esc(p.name))} | ${esc(p.description) || '—'} | ${bt('::part(' + esc(p.name) + ')')} |`,
         ),
       );
 
     default:
-      return null;
+      throw new Error(`No manifest renderer for the "${section}" table on <${component.tagName}>`);
   }
 }
 
@@ -330,8 +336,8 @@ function processHtmlToMarkdown(htmlContent, baseUrl, component = null) {
   const sectionByTable = new Map();
   if (component) {
     let currentHeading = '';
-    main.querySelectorAll('h2, table').forEach(node => {
-      if (node.tagName === 'H2') {
+    main.querySelectorAll('h2, h3, table').forEach(node => {
+      if (node.tagName !== 'TABLE') {
         currentHeading = node.textContent.trim();
       } else if (node.classList?.contains('component-table')) {
         sectionByTable.set(node, currentHeading);

@@ -40,7 +40,10 @@ export default class WaTag extends WebAwesomeElement {
   /** The tag's visual appearance. */
   @property({ reflect: true }) appearance: 'accent' | 'filled' | 'outlined' | 'filled-outlined' = 'filled-outlined';
 
-  /** The tag's size. */
+  /**
+   * The tag's size.
+   * The long-form values `small`, `medium`, and `large` are deprecated; use `s`, `m`, and `l` instead.
+   */
   @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
 
   @watch('size')

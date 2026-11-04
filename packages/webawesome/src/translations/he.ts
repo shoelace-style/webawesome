@@ -22,6 +22,7 @@ const translation: Translation = {
   close: 'סגור',
   closeCalendar: 'סגור לוח שנה',
   closeTimeInput: 'סגור בורר שעה',
+  code: 'קוד',
   collapseRow: 'כווץ שורה',
   columnMenu: 'אפשרויות עמודה',
   columnMovedToPosition: (label, position, total) => `${label} הועברה למיקום ${position} מתוך ${total}`,

@@ -22,6 +22,7 @@ const translation: Translation = {
   close: 'Sluiten',
   closeCalendar: 'Kalender sluiten',
   closeTimeInput: 'Tijdkiezer sluiten',
+  code: 'Code',
   collapseRow: 'Rij samenvouwen',
   columnMenu: 'Kolomopties',
   columnMovedToPosition: (label, position, total) => `${label} verplaatst naar positie ${position} van ${total}`,

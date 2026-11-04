@@ -556,6 +556,39 @@ describe('<wa-tooltip>', () => {
   });
 
   describe('light dismiss', () => {
+    for (const fixture of fixtures) {
+      for (const focusable of [false, true]) {
+        it(`should stay open after a touch tap on a ${focusable ? 'button' : 'span'} with ${fixture.type} rendering`, async () => {
+          const el = await fixture<HTMLDivElement>(html`
+            <div>
+              <button id="touch-button">Tap me</button>
+              <span id="touch-span">Tap me</span>
+              <wa-tooltip for=${focusable ? 'touch-button' : 'touch-span'}>Tooltip</wa-tooltip>
+            </div>
+          `);
+          const tooltip = el.querySelector<WaTooltip>('wa-tooltip')!;
+          const anchor = el.querySelector<HTMLElement>(focusable ? '#touch-button' : '#touch-span')!;
+
+          // A tap produces pointer events followed by compatibility mouse events. Test the full sequence so neither
+          // mousedown nor click can dismiss the tooltip opened by the same tap's hover/focus events.
+          anchor.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, pointerType: 'touch' }));
+          anchor.dispatchEvent(new PointerEvent('pointerup', { bubbles: true, pointerType: 'touch' }));
+          anchor.dispatchEvent(new MouseEvent('mouseover', { bubbles: true }));
+          anchor.dispatchEvent(new MouseEvent('mousedown', { bubbles: true, detail: 1 }));
+          if (focusable) anchor.focus();
+          anchor.dispatchEvent(new MouseEvent('mouseup', { bubbles: true, detail: 1 }));
+          anchor.dispatchEvent(new MouseEvent('click', { bubbles: true, detail: 1 }));
+
+          await waitUntil(() => tooltip.open);
+          await aTimeout(tooltip.showDelay + 50);
+          expect(tooltip.open).to.be.true;
+
+          document.body.click();
+          await waitUntil(() => !tooltip.open);
+        });
+      }
+    }
+
     it('should hide when the anchor is clicked and stay hidden until the pointer leaves and re-enters', async () => {
       const el = await fixtures[0]<HTMLDivElement>(html`
         <div>
@@ -750,6 +783,23 @@ describe('<wa-tooltip>', () => {
   });
 
   describe('keyboard navigation', () => {
+    for (const key of ['Enter', 'Space']) {
+      it(`should light dismiss a focused tooltip with ${key}`, async () => {
+        const el = await fixtures[0]<HTMLDivElement>(html`
+          <div>
+            <button id="keyboard-anchor">Focus me</button>
+            <wa-tooltip for="keyboard-anchor" trigger="focus">Tooltip</wa-tooltip>
+          </div>
+        `);
+        const tooltip = el.querySelector<WaTooltip>('wa-tooltip')!;
+        el.querySelector('button')!.focus();
+        await waitUntil(() => tooltip.open);
+
+        await sendKeys({ press: key });
+        await waitUntil(() => !tooltip.open);
+      });
+    }
+
     it('should not close a manual tooltip on Escape', async () => {
       const el = await fixtures[0]<HTMLDivElement>(html`
         <div>

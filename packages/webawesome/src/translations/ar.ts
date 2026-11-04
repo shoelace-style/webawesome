@@ -22,6 +22,7 @@ const translation: Translation = {
   close: 'اغلاق',
   closeCalendar: 'إغلاق التقويم',
   closeTimeInput: 'إغلاق منتقي الوقت',
+  code: 'الكود',
   collapseRow: 'طي الصف',
   columnMenu: 'خيارات العمود',
   columnMovedToPosition: (label, position, total) => `تم نقل ${label} إلى الموضع ${position} من ${total}`,

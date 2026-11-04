@@ -166,6 +166,22 @@ describe('<wa-slider>', () => {
           expect(el.checkValidity()).to.be.true;
         });
 
+        // https://github.com/shoelace-style/webawesome/issues/2951
+        it('should count steps from min, not zero, when clicking the track', async () => {
+          const el = await fixture<WaSlider>(html`<wa-slider min="0.4" max="0.7" step="0.3" value="0.4"></wa-slider>`);
+          await clickOnElement(el.shadowRoot!.querySelector('[part~="track"]')!, 'right');
+          await el.updateComplete;
+          expect(el.value).to.equal(0.7);
+          expect(el.validity.stepMismatch).to.be.false;
+        });
+
+        it('should count steps from min, not zero, when stepUp() is called', async () => {
+          const el = await fixture<WaSlider>(html`<wa-slider min="0.5" max="5" step="1" value="0.5"></wa-slider>`);
+          el.stepUp();
+          await el.updateComplete;
+          expect(el.value).to.equal(1.5);
+        });
+
         it('should be valid when a range slider sits on a fractional step grid', async () => {
           const el = await fixture<WaSlider>(
             html`<wa-slider range min="0" max="1" step="0.1" min-value="0.1" max-value="0.7"></wa-slider>`,

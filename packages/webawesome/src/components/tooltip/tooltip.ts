@@ -208,7 +208,7 @@ export default class WaTooltip extends WebAwesomeElement {
     }
   };
 
-  private handleClick = () => {
+  private handleClick = (event: MouseEvent) => {
     if (this.hasTrigger('click')) {
       if (this.open) {
         this.hide();
@@ -222,8 +222,11 @@ export default class WaTooltip extends WebAwesomeElement {
       return;
     }
 
-    // Light dismiss for activations that don't fire mousedown, like Enter or Space on a button.
-    this.lightDismiss();
+    // Pointer presses are handled on pointerdown. Keyboard and programmatic clicks have no click count.
+    // A touch-generated click must not dismiss the tooltip opened by that tap's hover/focus events.
+    if (event.detail === 0) {
+      this.lightDismiss();
+    }
   };
 
   private handleFocus = () => {
@@ -236,8 +239,8 @@ export default class WaTooltip extends WebAwesomeElement {
     }
   };
 
-  private handleMouseDown = () => {
-    if (this.hasTrigger('click') || this.hasTrigger('manual')) {
+  private handlePointerDown = (event: PointerEvent) => {
+    if (event.pointerType === 'touch' || this.hasTrigger('click') || this.hasTrigger('manual')) {
       return;
     }
 
@@ -434,7 +437,7 @@ export default class WaTooltip extends WebAwesomeElement {
       newAnchor.addEventListener('blur', this.handleBlur, { capture: true, signal });
       newAnchor.addEventListener('focus', this.handleFocus, { capture: true, signal });
       newAnchor.addEventListener('click', this.handleClick, { signal });
-      newAnchor.addEventListener('mousedown', this.handleMouseDown, { signal });
+      newAnchor.addEventListener('pointerdown', this.handlePointerDown, { signal });
       newAnchor.addEventListener('mouseover', this.handleMouseOver, { signal });
       newAnchor.addEventListener('mouseout', this.handleMouseOut, { signal });
     }
@@ -444,7 +447,7 @@ export default class WaTooltip extends WebAwesomeElement {
       oldAnchor.removeEventListener('blur', this.handleBlur, { capture: true });
       oldAnchor.removeEventListener('focus', this.handleFocus, { capture: true });
       oldAnchor.removeEventListener('click', this.handleClick);
-      oldAnchor.removeEventListener('mousedown', this.handleMouseDown);
+      oldAnchor.removeEventListener('pointerdown', this.handlePointerDown);
       oldAnchor.removeEventListener('mouseover', this.handleMouseOver);
       oldAnchor.removeEventListener('mouseout', this.handleMouseOut);
     }

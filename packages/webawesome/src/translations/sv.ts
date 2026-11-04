@@ -22,6 +22,7 @@ const translation: Translation = {
   close: 'Stäng',
   closeCalendar: 'Stäng kalender',
   closeTimeInput: 'Stäng tidsväljare',
+  code: 'Kod',
   collapseRow: 'Dölj rad',
   columnMenu: 'Kolumnalternativ',
   columnMovedToPosition: (label, position, total) => `${label} flyttad till position ${position} av ${total}`,

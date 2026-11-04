@@ -22,6 +22,7 @@ const translation: Translation = {
   close: 'Sulje',
   closeCalendar: 'Sulje kalenteri',
   closeTimeInput: 'Sulje ajanvalitsin',
+  code: 'Koodi',
   collapseRow: 'Tiivistä rivi',
   columnMenu: 'Sarakkeen asetukset',
   columnMovedToPosition: (label, position, total) => `${label} siirretty sijaintiin ${position} / ${total}`,

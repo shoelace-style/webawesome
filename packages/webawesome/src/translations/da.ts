@@ -22,6 +22,7 @@ const translation: Translation = {
   close: 'Luk',
   closeCalendar: 'Luk kalender',
   closeTimeInput: 'Luk klokkeslætsvælger',
+  code: 'Kode',
   collapseRow: 'Skjul række',
   columnMenu: 'Kolonneindstillinger',
   columnMovedToPosition: (label, position, total) => `${label} flyttet til position ${position} af ${total}`,

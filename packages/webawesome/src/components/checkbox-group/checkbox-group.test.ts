@@ -1,4 +1,4 @@
-import { expect, fixture, html } from '@open-wc/testing';
+import { expect, fixture, html, waitUntil } from '@open-wc/testing';
 import type WaCheckboxGroup from './checkbox-group.js';
 
 describe('<wa-checkbox-group>', () => {
@@ -123,5 +123,33 @@ describe('<wa-checkbox-group>', () => {
     await added.updateComplete;
 
     expect(added.getAttribute('size')).to.equal('l');
+  });
+
+  it('should space its label and items the same as <wa-radio-group>', async () => {
+    const el = await fixture<HTMLDivElement>(html`
+      <div style="display: flex; gap: 2rem;">
+        <wa-checkbox-group label="Toppings">
+          <wa-checkbox value="cheese">Cheese</wa-checkbox>
+          <wa-checkbox value="olives">Olives</wa-checkbox>
+          <wa-checkbox value="onions">Onions</wa-checkbox>
+        </wa-checkbox-group>
+        <wa-radio-group label="Crust" value="thin">
+          <wa-radio value="thin">Thin</wa-radio>
+          <wa-radio value="thick">Thick</wa-radio>
+          <wa-radio value="stuffed">Stuffed</wa-radio>
+        </wa-radio-group>
+      </div>
+    `);
+    const [checkboxGroup, radioGroup] = Array.from(el.children) as HTMLElement[];
+    // Radio groups set the first and last radios' attributes (which trim their outer margins) after slotting
+    await waitUntil(() => radioGroup.lastElementChild!.hasAttribute('data-wa-radio-last'));
+
+    // Offsets of each item from the top of its group
+    const offsets = (group: HTMLElement) =>
+      Array.from(group.children).map(item => item.getBoundingClientRect().top - group.getBoundingClientRect().top);
+    const checkboxOffsets = offsets(checkboxGroup);
+    const radioOffsets = offsets(radioGroup);
+
+    checkboxOffsets.forEach((offset, index) => expect(offset).to.be.closeTo(radioOffsets[index], 0.5));
   });
 });

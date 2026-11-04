@@ -22,6 +22,7 @@ const translation: Translation = {
   close: 'Жабу',
   closeCalendar: 'Күнтізбені жабу',
   closeTimeInput: 'Уақыт таңдағышын жабу',
+  code: 'Код',
   collapseRow: 'Жолды жию',
   columnMenu: 'Бағана опциялары',
   columnMovedToPosition: (label, position, total) => `${label} ${total} ішінен ${position} позицияға жылжытылды`,

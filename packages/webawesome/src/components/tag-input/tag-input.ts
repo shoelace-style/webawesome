@@ -162,7 +162,10 @@ export default class WaTagInput extends WebAwesomeFormAssociatedElement {
    */
   @property({ attribute: 'with-hint', type: Boolean }) withHint = false;
 
-  /** The tag input's size. Also applied to each tag. */
+  /**
+   * The tag input's size. Also applied to each tag.
+   * The long-form values `small`, `medium`, and `large` are deprecated; use `s`, `m`, and `l` instead.
+   */
   @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
 
   @watch('size')

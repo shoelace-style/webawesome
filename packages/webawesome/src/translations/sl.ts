@@ -22,6 +22,7 @@ const translation: Translation = {
   close: 'Zapri',
   closeCalendar: 'Zapri koledar',
   closeTimeInput: 'Zapri izbirnik časa',
+  code: 'Koda',
   collapseRow: 'Strni vrstico',
   columnMenu: 'Možnosti stolpca',
   columnMovedToPosition: (label, position, total) => `${label} premaknjen na položaj ${position} od ${total}`,
