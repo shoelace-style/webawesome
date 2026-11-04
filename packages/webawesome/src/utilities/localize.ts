@@ -133,6 +133,7 @@ export interface Translation extends DefaultTranslation {
   incompleteDate: string;
   increment: string;
   indent: string;
+  inlineWithText?: string;
   insertColumnAfter: string;
   insertColumnBefore: string;
   insertEmbed: string;

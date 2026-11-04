@@ -107,6 +107,7 @@ const translation: Translation = {
   incompleteDate: 'Enter a valid date.',
   increment: 'Increment',
   indent: 'Indent',
+  inlineWithText: 'In line with text',
   insertColumnAfter: 'Insert column after',
   insertColumnBefore: 'Insert column before',
   insertEmbed: 'Insert embed',
