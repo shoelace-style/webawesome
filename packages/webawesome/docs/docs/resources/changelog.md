@@ -40,6 +40,8 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::fixed
 
+- Fixed a bug in `<wa-input>` where clicking the field's padding placed the caret at the wrong position [issue:2956]
+  - Moved the inline padding from the `base` part to the `input` part, so custom padding set on `base` should move to `input`
 - Fixed `<wa-button-group>` labels missing from the accessibility tree [issue:2863] [pr:2923]
 - Fixed a regression in `<wa-tooltip>` where tapping an anchor on a touch device immediately dismissed its hover/focus tooltip. [issue:2948] [pr:2955]
 - Fixed a bug in `<wa-select multiple>` where custom tags from `getTag` were squeezed beside the selection count [issue:2913] [pr:2917]
