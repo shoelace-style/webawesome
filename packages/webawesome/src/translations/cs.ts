@@ -237,7 +237,6 @@ const translation: Translation = {
   readonly: 'Jen pro čtení',
   redo: 'Znovu',
   remove: 'Odstranit',
-  removeColors: 'Odebrat barvy',
   removeLink: 'Odebrat odkaz',
   resetColumns: 'Obnovit sloupce',
   resize: 'Změnit velikost',

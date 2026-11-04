@@ -208,7 +208,6 @@ const translation: Translation = {
   readonly: 'Skrivebeskyttet',
   redo: 'Gentag',
   remove: 'Fjern',
-  removeColors: 'Fjern farver',
   removeLink: 'Fjern link',
   resetColumns: 'Nulstil kolonner',
   resize: 'Tilpas størrelse',

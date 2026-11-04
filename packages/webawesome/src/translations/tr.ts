@@ -209,7 +209,6 @@ const translation: Translation = {
   readonly: 'Salt okunur',
   redo: 'Yinele',
   remove: 'Kaldır',
-  removeColors: 'Renkleri kaldır',
   removeLink: 'Bağlantıyı kaldır',
   resetColumns: 'Sütunları sıfırla',
   resize: 'Yeniden boyutlandır',

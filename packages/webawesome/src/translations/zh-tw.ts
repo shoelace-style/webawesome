@@ -201,7 +201,6 @@ const translation: Translation = {
   readonly: '唯讀',
   redo: '重做',
   remove: '移除',
-  removeColors: '移除色彩',
   removeLink: '移除連結',
   resetColumns: '重設欄',
   resize: '調整大小',

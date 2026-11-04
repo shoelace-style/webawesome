@@ -208,7 +208,6 @@ const translation: Translation = {
   readonly: 'Skrivskyddad',
   redo: 'Gör om',
   remove: 'Ta bort',
-  removeColors: 'Ta bort färger',
   removeLink: 'Ta bort länk',
   resetColumns: 'Återställ kolumner',
   resize: 'Ändra storlek',

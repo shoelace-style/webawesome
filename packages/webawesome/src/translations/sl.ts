@@ -262,7 +262,6 @@ const translation: Translation = {
   readonly: 'Samo za branje',
   redo: 'Uveljavi',
   remove: 'Odstrani',
-  removeColors: 'Odstrani barve',
   removeLink: 'Odstrani povezavo',
   resetColumns: 'Ponastavi stolpce',
   resize: 'Spremeni velikost',

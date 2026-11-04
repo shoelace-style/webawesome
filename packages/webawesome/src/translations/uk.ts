@@ -263,7 +263,6 @@ const translation: Translation = {
   readonly: 'Лише для читання',
   redo: 'Повторити',
   remove: 'Видалити',
-  removeColors: 'Прибрати кольори',
   removeLink: 'Видалити посилання',
   resetColumns: 'Скинути стовпці',
   resize: 'Змінити розмір',

@@ -208,7 +208,6 @@ const translation: Translation = {
   readonly: 'Csak olvasható',
   redo: 'Újra',
   remove: 'Eltávolítás',
-  removeColors: 'Színek eltávolítása',
   removeLink: 'Hivatkozás eltávolítása',
   resetColumns: 'Oszlopok visszaállítása',
   resize: 'Átméretezés',

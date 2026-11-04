@@ -209,7 +209,6 @@ const translation: Translation = {
   readonly: 'Тек оқуға арналған',
   redo: 'Қайталау',
   remove: 'Жою',
-  removeColors: 'Түстерді жою',
   removeLink: 'Сілтемені жою',
   resetColumns: 'Бағаналарды қалпына келтіру',
   resize: 'Өлшемін өзгерту',

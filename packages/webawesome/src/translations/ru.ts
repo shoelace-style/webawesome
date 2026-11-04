@@ -259,7 +259,6 @@ const translation: Translation = {
   readonly: 'Только для чтения',
   redo: 'Повторить',
   remove: 'Удалить',
-  removeColors: 'Убрать цвета',
   removeLink: 'Удалить ссылку',
   resetColumns: 'Сбросить столбцы',
   resize: 'Изменить размер',

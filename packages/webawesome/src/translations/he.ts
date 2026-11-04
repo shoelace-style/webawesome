@@ -214,7 +214,6 @@ const translation: Translation = {
   readonly: 'לקריאה בלבד',
   redo: 'בצע שוב',
   remove: 'לְהַסִיר',
-  removeColors: 'הסר צבעים',
   removeLink: 'הסר קישור',
   resetColumns: 'אפס עמודות',
   resize: 'שנה גודל',

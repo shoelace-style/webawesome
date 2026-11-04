@@ -200,7 +200,6 @@ const translation: Translation = {
   readonly: '読み取り専用',
   redo: 'やり直す',
   remove: '削除',
-  removeColors: '色を削除',
   removeLink: 'リンクを削除',
   resetColumns: '列をリセット',
   resize: 'サイズ変更',

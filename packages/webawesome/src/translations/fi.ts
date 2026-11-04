@@ -208,7 +208,6 @@ const translation: Translation = {
   readonly: 'Vain luku',
   redo: 'Tee uudelleen',
   remove: 'Poista',
-  removeColors: 'Poista värit',
   removeLink: 'Poista linkki',
   resetColumns: 'Palauta sarakkeet',
   resize: 'Muuta kokoa',
