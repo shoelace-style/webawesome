@@ -61,11 +61,7 @@ export default class WaQrCode extends WebAwesomeElement {
     this.generate();
   }
 
-  generate() {
-    if (!this.hasUpdated) {
-      return;
-    }
-
+  getSettings () {
     this.canvas.style.maxWidth = `${this.size}px`;
     this.canvas.style.maxHeight = `${this.size}px`;
 
@@ -79,24 +75,32 @@ export default class WaQrCode extends WebAwesomeElement {
       this.spanComputedStyle ||= getComputedStyle(span);
     }
 
+    return {
+      text: this.value,
+      radius: this.radius,
+      ecLevel: this.errorCorrection,
+      // Use the deprecated `fill` attribute if set, otherwise use the current text color
+      fill: this.fill || computedStyle.color,
+      // Use the deprecated `background` attribute if set, otherwise use transparent (the host has the bg color now)
+      background: this.background || computedStyle.background || null,
+      // We draw the canvas larger and scale its container down to avoid blurring on high-density displays
+      size: this.size * 2,
+      image: this.image,
+      imageEcCover: this.imageCoverage,
+      imagePadding: this.imagePadding,
+      imageBackground: this.imageBackground || this.background,
+      // @ts-expect-error
+      cornerFill: this.spanComputedStyle?.color,
+    }
+  }
+
+  generate(settings?: ReturnType<typeof this.getSettings> | null) {
+    if (!this.hasUpdated) {
+      return;
+    }
+
     QrCreator.render(
-      {
-        text: this.value,
-        radius: this.radius,
-        ecLevel: this.errorCorrection,
-        // Use the deprecated `fill` attribute if set, otherwise use the current text color
-        fill: this.fill || computedStyle.color,
-        // Use the deprecated `background` attribute if set, otherwise use transparent (the host has the bg color now)
-        background: this.background || null,
-        // We draw the canvas larger and scale its container down to avoid blurring on high-density displays
-        size: this.size * 2,
-        image: this.image,
-        imageEcCover: this.imageCoverage,
-        imagePadding: this.imagePadding,
-        imageBackground: this.imageBackground || this.background,
-        // @ts-expect-error
-        cornerFill: this.spanComputedStyle?.color,
-      },
+      settings || this.getSettings(),
       this.canvas,
     );
   }
