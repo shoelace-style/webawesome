@@ -208,7 +208,6 @@ const translation: Translation = {
   readonly: 'Hanya-baca',
   redo: 'Ulangi',
   remove: 'Hapus',
-  removeColors: 'Hapus warna',
   removeLink: 'Hapus tautan',
   resetColumns: 'Atur ulang kolom',
   resize: 'Ubah ukuran',

@@ -257,8 +257,8 @@ export default class WaDropdown extends WebAwesomeElement {
     }
 
     // if this dropdown is already open, do nothing
-    // (this can happen when wa-hide was cancelled)
-    if (this.popup.active) {
+    // (this can happen when wa-hide was cancelled). A popup that's still animating closed isn't open, so reopen it.
+    if (this.popup.active && !this.menu.classList.contains('hide')) {
       return;
     }
 

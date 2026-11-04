@@ -207,7 +207,6 @@ const translation: Translation = {
   readonly: 'Read-only',
   redo: 'Redo',
   remove: 'Remove',
-  removeColors: 'Remove colours',
   removeLink: 'Remove link',
   resize: 'Resize',
   resizeColumn: 'Resize column',

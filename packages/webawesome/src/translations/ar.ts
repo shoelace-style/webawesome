@@ -254,7 +254,6 @@ const translation: Translation = {
   readonly: 'للقراءة فقط',
   redo: 'إعادة',
   remove: 'حذف',
-  removeColors: 'إزالة الألوان',
   removeLink: 'إزالة الرابط',
   resetColumns: 'إعادة تعيين الأعمدة',
   resize: 'تغيير الحجم',

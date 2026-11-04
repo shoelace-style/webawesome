@@ -208,7 +208,6 @@ const translation: Translation = {
   readonly: 'केवल-पढ़ने योग्य',
   redo: 'फिर से करें',
   remove: 'हटाएं',
-  removeColors: 'रंग हटाएं',
   removeLink: 'लिंक हटाएं',
   resetColumns: 'कॉलम रीसेट करें',
   resize: 'आकार बदलें',

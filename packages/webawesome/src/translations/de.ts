@@ -209,7 +209,6 @@ const translation: Translation = {
   readonly: 'Schreibgeschützt',
   redo: 'Wiederholen',
   remove: 'Entfernen',
-  removeColors: 'Farben entfernen',
   removeLink: 'Link entfernen',
   resetColumns: 'Spalten zurücksetzen',
   resize: 'Größe ändern',

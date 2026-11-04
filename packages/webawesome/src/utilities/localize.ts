@@ -133,6 +133,7 @@ export interface Translation extends DefaultTranslation {
   incompleteDate: string;
   increment: string;
   indent: string;
+  inlineWithText?: string;
   insertColumnAfter: string;
   insertColumnBefore: string;
   insertEmbed: string;
@@ -170,6 +171,7 @@ export interface Translation extends DefaultTranslation {
   nextSlide: string;
   nextVideo: string;
   nextYear: string;
+  noColor?: string;
   noData: string;
   noOptions: string;
   noResults: string;
@@ -214,7 +216,6 @@ export interface Translation extends DefaultTranslation {
   readonly: string;
   redo: string;
   remove: string;
-  removeColors: string;
   removeLink: string;
   resetColumns: string;
   resize: string;

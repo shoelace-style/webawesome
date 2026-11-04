@@ -207,7 +207,6 @@ const translation: Translation = {
   readonly: 'فقط‌خواندنی',
   redo: 'انجام مجدد',
   remove: 'حذف',
-  removeColors: 'حذف رنگ‌ها',
   removeLink: 'حذف پیوند',
   resetColumns: 'بازنشانی ستون‌ها',
   resize: 'تغییر اندازه',
