@@ -905,6 +905,41 @@ describe('<wa-dropdown>', () => {
         }
       });
     }
+
+    it('should return focus to the parent item when a submenu holding focus closes', async () => {
+      await sendMouse({ type: 'move', position: [window.innerWidth - 10, window.innerHeight - 10] });
+      const el = await clientFixture<WaDropdown>(html`
+        <wa-dropdown style="--show-duration: 0ms; --hide-duration: 0ms;">
+          <wa-button slot="trigger">Menu</wa-button>
+          <wa-dropdown-item>
+            More options
+            <wa-dropdown-item slot="submenu">Nested option</wa-dropdown-item>
+          </wa-dropdown-item>
+          <wa-dropdown-item>Plain option</wa-dropdown-item>
+        </wa-dropdown>
+      `);
+      const shown = oneEvent(el, 'wa-after-show');
+      el.open = true;
+      await shown;
+
+      // Hovering the parent opens its submenu and focuses the first nested item
+      const parentItem = el.querySelector<WaDropdownItem>('wa-dropdown-item')!;
+      const nestedItem = parentItem.querySelector<WaDropdownItem>('[slot="submenu"]')!;
+      const itemRect = parentItem.getBoundingClientRect();
+      await sendMouse({
+        type: 'move',
+        position: [Math.round(itemRect.left + itemRect.width / 2), Math.round(itemRect.top + itemRect.height / 2)],
+      });
+      await waitUntil(() => document.activeElement === nestedItem);
+
+      // Without this, hiding the submenu drops focus to the body
+      parentItem.submenuOpen = false;
+      await parentItem.updateComplete;
+      await waitUntil(() => parentItem.submenuElement.hidden);
+
+      expect(document.activeElement).to.equal(parentItem);
+      expect(el.open).to.be.true;
+    });
   });
 
   describe('submenu positioning', () => {
