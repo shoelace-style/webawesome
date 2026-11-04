@@ -22,6 +22,7 @@ const translation: Translation = {
   caption: 'Bildtext',
   captions: 'Undertexter',
   carousel: 'Karusell',
+  cell: 'Cell',
   chooseDate: 'Välj datum',
   chooseDecade: 'Välj decennium',
   chooseMonth: 'Välj månad',
@@ -45,6 +46,7 @@ const translation: Translation = {
   colorPurple: 'Lila',
   colorRed: 'Röd',
   colorYellow: 'Gul',
+  column: 'Kolumn',
   columnMenu: 'Kolumnalternativ',
   columnMovedToPosition: (label, position, total) => `${label} flyttad till position ${position} av ${total}`,
   columns: 'Kolumner',
@@ -211,6 +213,7 @@ const translation: Translation = {
   resetColumns: 'Återställ kolumner',
   resize: 'Ändra storlek',
   resizeColumn: 'Ändra kolumnbredd',
+  row: 'Rad',
   rowsAndColumns: (rows, columns) =>
     `${rows} ${rows === 1 ? 'rad' : 'rader'}, ${columns} ${columns === 1 ? 'kolumn' : 'kolumner'}`,
   rowsPerPage: 'Rader per sida',

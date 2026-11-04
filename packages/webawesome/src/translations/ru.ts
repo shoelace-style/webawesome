@@ -22,6 +22,7 @@ const translation: Translation = {
   caption: 'Подпись',
   captions: 'Субтитры',
   carousel: 'Карусель',
+  cell: 'Ячейка',
   chooseDate: 'Выбрать дату',
   chooseDecade: 'Выбрать десятилетие',
   chooseMonth: 'Выбрать месяц',
@@ -45,6 +46,7 @@ const translation: Translation = {
   colorPurple: 'Фиолетовый',
   colorRed: 'Красный',
   colorYellow: 'Жёлтый',
+  column: 'Столбец',
   columnMenu: 'Параметры столбца',
   columnMovedToPosition: (label, position, total) => `${label} перемещён на позицию ${position} из ${total}`,
   columns: 'Столбцы',
@@ -262,6 +264,7 @@ const translation: Translation = {
   resetColumns: 'Сбросить столбцы',
   resize: 'Изменить размер',
   resizeColumn: 'Изменить ширину столбца',
+  row: 'Строка',
   rowsAndColumns: (rows, columns) => {
     const plural = (n: number, one: string, few: string, many: string) => {
       const mod10 = n % 10;

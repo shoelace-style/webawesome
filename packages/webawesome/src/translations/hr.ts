@@ -22,6 +22,7 @@ const translation: Translation = {
   caption: 'Natpis',
   captions: 'Titlovi',
   carousel: 'Vrtuljak',
+  cell: 'Ćelija',
   chooseDate: 'Odaberi datum',
   chooseDecade: 'Odaberi desetljeće',
   chooseMonth: 'Odaberi mjesec',
@@ -45,6 +46,7 @@ const translation: Translation = {
   colorPurple: 'Ljubičasta',
   colorRed: 'Crvena',
   colorYellow: 'Žuta',
+  column: 'Stupac',
   columnMenu: 'Opcije stupca',
   columnMovedToPosition: (label, position, total) => `${label} premješten na poziciju ${position} od ${total}`,
   columns: 'Stupci',
@@ -262,6 +264,7 @@ const translation: Translation = {
   resetColumns: 'Vrati zadane stupce',
   resize: 'Promijeni veličinu',
   resizeColumn: 'Promijeni veličinu stupca',
+  row: 'Redak',
   rowsAndColumns: (rows, columns) => {
     const plural = (num: number, one: string, few: string, many: string) => {
       const mod10 = num % 10;

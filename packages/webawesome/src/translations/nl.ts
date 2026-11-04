@@ -22,6 +22,7 @@ const translation: Translation = {
   caption: 'Bijschrift',
   captions: 'Ondertiteling',
   carousel: 'Carrousel',
+  cell: 'Cel',
   chooseDate: 'Datum kiezen',
   chooseDecade: 'Decennium kiezen',
   chooseMonth: 'Maand kiezen',
@@ -45,6 +46,7 @@ const translation: Translation = {
   colorPurple: 'Paars',
   colorRed: 'Rood',
   colorYellow: 'Geel',
+  column: 'Kolom',
   columnMenu: 'Kolomopties',
   columnMovedToPosition: (label, position, total) => `${label} verplaatst naar positie ${position} van ${total}`,
   columns: 'Kolommen',
@@ -212,6 +214,7 @@ const translation: Translation = {
   resetColumns: 'Kolommen herstellen',
   resize: 'Formaat wijzigen',
   resizeColumn: 'Kolombreedte wijzigen',
+  row: 'Rij',
   rowsAndColumns: (rows, columns) =>
     `${rows} ${rows === 1 ? 'rij' : 'rijen'}, ${columns} ${columns === 1 ? 'kolom' : 'kolommen'}`,
   rowsPerPage: 'Rijen per pagina',

@@ -48,6 +48,7 @@ export interface Translation extends DefaultTranslation {
   caption: string;
   captions: string;
   carousel: string;
+  cell: string;
   chooseDate: string;
   chooseDecade: string;
   chooseMonth: string;
@@ -71,6 +72,7 @@ export interface Translation extends DefaultTranslation {
   colorPurple: string;
   colorRed: string;
   colorYellow: string;
+  column: string;
   columnMenu: string;
   columnMovedToPosition: (label: string, position: number, total: number) => string;
   columns: string;
@@ -217,6 +219,7 @@ export interface Translation extends DefaultTranslation {
   resetColumns: string;
   resize: string;
   resizeColumn: string;
+  row: string;
   rowsAndColumns: (rows: number, columns: number) => string;
   rowsPerPage: string;
   scrollableRegion: string;

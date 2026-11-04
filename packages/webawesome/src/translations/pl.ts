@@ -22,6 +22,7 @@ const translation: Translation = {
   caption: 'Podpis',
   captions: 'Napisy',
   carousel: 'Karuzela',
+  cell: 'Komórka',
   chooseDate: 'Wybierz datę',
   chooseDecade: 'Wybierz dekadę',
   chooseMonth: 'Wybierz miesiąc',
@@ -45,6 +46,7 @@ const translation: Translation = {
   colorPurple: 'Fioletowy',
   colorRed: 'Czerwony',
   colorYellow: 'Żółty',
+  column: 'Kolumna',
   columnMenu: 'Opcje kolumny',
   columnMovedToPosition: (label, position, total) => `Przeniesiono ${label} na pozycję ${position} z ${total}`,
   columns: 'Kolumny',
@@ -262,6 +264,7 @@ const translation: Translation = {
   resetColumns: 'Resetuj kolumny',
   resize: 'Zmień rozmiar',
   resizeColumn: 'Zmień szerokość kolumny',
+  row: 'Wiersz',
   rowsAndColumns: (rows, columns) => {
     const plural = (n: number, one: string, few: string, many: string) => {
       if (n === 1) return `${n} ${one}`;

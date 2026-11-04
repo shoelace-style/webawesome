@@ -22,6 +22,7 @@ const translation: Translation = {
   caption: 'Legenda',
   captions: 'Legendas',
   carousel: 'Carrossel',
+  cell: 'Célula',
   chooseDate: 'Escolher data',
   chooseDecade: 'Escolher década',
   chooseMonth: 'Escolher mês',
@@ -45,6 +46,7 @@ const translation: Translation = {
   colorPurple: 'Roxo',
   colorRed: 'Vermelho',
   colorYellow: 'Amarelo',
+  column: 'Coluna',
   columnMenu: 'Opções da coluna',
   columnMovedToPosition: (label, position, total) => `${label} movida para a posição ${position} de ${total}`,
   columns: 'Colunas',
@@ -213,6 +215,7 @@ const translation: Translation = {
   resetColumns: 'Repor colunas',
   resize: 'Mudar o tamanho',
   resizeColumn: 'Redimensionar coluna',
+  row: 'Linha',
   rowsAndColumns: (rows, columns) =>
     `${rows} ${rows === 1 ? 'linha' : 'linhas'}, ${columns} ${columns === 1 ? 'coluna' : 'colunas'}`,
   rowsPerPage: 'Linhas por página',

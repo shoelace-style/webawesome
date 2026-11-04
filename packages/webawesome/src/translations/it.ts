@@ -22,6 +22,7 @@ const translation: Translation = {
   caption: 'Didascalia',
   captions: 'Sottotitoli',
   carousel: 'Carosello',
+  cell: 'Cella',
   chooseDate: 'Scegli data',
   chooseDecade: 'Scegli decennio',
   chooseMonth: 'Scegli mese',
@@ -45,6 +46,7 @@ const translation: Translation = {
   colorPurple: 'Viola',
   colorRed: 'Rosso',
   colorYellow: 'Giallo',
+  column: 'Colonna',
   columnMenu: 'Opzioni colonna',
   columnMovedToPosition: (label, position, total) => `${label} spostata in posizione ${position} di ${total}`,
   columns: 'Colonne',
@@ -213,6 +215,7 @@ const translation: Translation = {
   resetColumns: 'Ripristina colonne',
   resize: 'Ridimensiona',
   resizeColumn: 'Ridimensiona colonna',
+  row: 'Riga',
   rowsAndColumns: (rows, columns) =>
     `${rows} ${rows === 1 ? 'riga' : 'righe'}, ${columns} ${columns === 1 ? 'colonna' : 'colonne'}`,
   rowsPerPage: 'Righe per pagina',

@@ -22,6 +22,7 @@ const translation: Translation = {
   caption: 'כיתוב',
   captions: 'כתוביות',
   carousel: 'קרוסלה',
+  cell: 'תא',
   chooseDate: 'בחר תאריך',
   chooseDecade: 'בחר עשור',
   chooseMonth: 'בחר חודש',
@@ -45,6 +46,7 @@ const translation: Translation = {
   colorPurple: 'סגול',
   colorRed: 'אדום',
   colorYellow: 'צהוב',
+  column: 'עמודה',
   columnMenu: 'אפשרויות עמודה',
   columnMovedToPosition: (label, position, total) => `${label} הועברה למיקום ${position} מתוך ${total}`,
   columns: 'עמודות',
@@ -217,6 +219,7 @@ const translation: Translation = {
   resetColumns: 'אפס עמודות',
   resize: 'שנה גודל',
   resizeColumn: 'שנה רוחב עמודה',
+  row: 'שורה',
   rowsAndColumns: (rows, columns) =>
     `${rows === 1 ? 'שורה אחת' : `${rows} שורות`}, ${columns === 1 ? 'עמודה אחת' : `${columns} עמודות`}`,
   rowsPerPage: 'שורות בעמוד',
