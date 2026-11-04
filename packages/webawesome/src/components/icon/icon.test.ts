@@ -9,7 +9,7 @@ import { registerIconLibrary } from '../../../dist-cdn/webawesome.js';
 import type WaIcon from './icon.js';
 import type { IconAnimation } from './icon.js';
 import defaultLibrary, { getIconFolder } from './library.default.js';
-import systemLibrary from './library.system.js';
+import systemLibrary, { icons as systemIcons } from './library.system.js';
 
 // Captures the autoWidth argument passed to a resolver so we can assert the canvas="auto" coupling.
 let probeAutoWidth: boolean | undefined;
@@ -140,6 +140,16 @@ describe('<wa-icon>', () => {
       systemLibrary.mutator!(svg);
       expect(svg.getAttribute('fill')).to.equal('none');
     });
+  });
+
+  // Pro artwork can only ship in the pro package (see webawesome-pro's library.system.pro.ts).
+  it('system library contains no Font Awesome Pro icons', () => {
+    const proIcons = Object.entries(systemIcons).flatMap(([variant, collection]) =>
+      Object.entries(collection)
+        .filter(([, svg]) => svg.includes('Font Awesome Pro'))
+        .map(([name]) => `${variant}/${name}`),
+    );
+    expect(proIcons).to.deep.equal([]);
   });
 
   for (const fixture of fixtures) {
