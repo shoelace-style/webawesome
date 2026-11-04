@@ -777,6 +777,35 @@ describe('<wa-dropdown>', () => {
       await waitUntil(() => !el.open);
       expect(el.open).to.be.false;
     });
+
+    it('should still close on Escape after reopening during the hide animation', async () => {
+      const el = await clientFixture<WaDropdown>(html`
+        <wa-dropdown>
+          <wa-button slot="trigger">Dropdown</wa-button>
+          <wa-dropdown-item>One</wa-dropdown-item>
+          <wa-dropdown-item>Two</wa-dropdown-item>
+        </wa-dropdown>
+      `);
+      const popup = el.shadowRoot!.querySelector<any>('wa-popup')!;
+
+      const trigger = el.querySelector<HTMLElement>('[slot="trigger"]')!;
+      trigger.click();
+      await waitUntil(() => el.open);
+      await aTimeout(200);
+
+      // Reopen while the hide animation is still running
+      await sendKeys({ press: 'Escape' });
+      expect(el.open).to.be.false;
+      trigger.click();
+      await waitUntil(() => el.open);
+      await aTimeout(200);
+
+      await sendKeys({ press: 'Escape' });
+      await aTimeout(200);
+
+      expect(el.open).to.be.false;
+      expect(popup.active).to.be.false;
+    });
   });
 
   describe('dismissible stack', () => {
