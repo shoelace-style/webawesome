@@ -33,6 +33,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::added
 
+- Added the experimental `<wa-rich-text-editor>` pro component for writing and formatting content, with HTML or Markdown values that submit with forms
 - Added the experimental `<wa-code-highlighter>` component for displaying syntax-highlighted code with a copy button
   - Added `registerCodeGrammar()` for adding or replacing grammars
 
@@ -52,6 +53,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug in `<wa-page>` and `<wa-tab-group>` where they did not render on first frame and their first render was delayed [pr:2932]
 - Fixed an issue where `disable-sticky` on `<wa-page>` was not documented. [pr:2932]
 - Fixed a regression in implicit form submission where pressing [[Enter]] submitted the form even when its submit button was disabled [pr:2861]
+- Fixed a bug in `<wa-dropdown-item>` where items without a checkbox sat slightly left of checkbox items in the same menu
 - Fixed a bug in `<wa-radio-group>` where disabled fieldsets cleared the selected radio's checked state or prevented the group from being re-enabled [issue:2907] [pr:2912]
 - Fixed a bug in `<wa-radio-group>` where `focus()` and label clicks failed to focus an enabled radio when the checked radio was disabled [issue:2907] [pr:2912]
 - Fixed a bug in `animateWithClass` internal helper which could occasionally leave animations in indeterminate states. [pr:2870]
