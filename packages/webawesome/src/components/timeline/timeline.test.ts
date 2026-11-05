@@ -51,7 +51,6 @@ describe('<wa-timeline>', () => {
           expect(el.orientation).to.equal('vertical');
           expect(el.markerPlacement).to.equal('start');
           expect(el.markerAlignment).to.equal('start');
-          expect(el.reverse).to.be.false;
         });
 
         it('should reflect orientation', async () => {
@@ -74,13 +73,6 @@ describe('<wa-timeline>', () => {
           expect(el.markerAlignment).to.equal('center');
           expect(el.getAttribute('marker-alignment')).to.equal('center');
         });
-
-        it('should reflect reverse', async () => {
-          const el = await fixture<WaTimeline>(html`<wa-timeline reverse></wa-timeline>`);
-
-          expect(el.reverse).to.be.true;
-          expect(el.hasAttribute('reverse')).to.be.true;
-        });
       });
 
       describe('item sync', () => {
@@ -95,29 +87,24 @@ describe('<wa-timeline>', () => {
 
           await waitUntil(() => first.hasAttribute('data-wa-timeline-horizontal'));
           expect(first.hasAttribute('data-wa-timeline-placement')).to.be.false;
-          expect(first.hasAttribute('data-wa-timeline-reverse')).to.be.false;
 
           el.orientation = 'vertical';
           el.markerPlacement = 'alternate';
           el.markerAlignment = 'center';
-          el.reverse = true;
           await waitUntil(() => second.getAttribute('data-wa-timeline-placement') === 'alternate-end');
 
           expect(first.getAttribute('data-wa-timeline-placement')).to.equal('alternate-start');
           expect(first.hasAttribute('data-wa-timeline-horizontal')).to.be.false;
           expect(first.hasAttribute('data-wa-timeline-center')).to.be.true;
-          expect(first.hasAttribute('data-wa-timeline-reverse')).to.be.true;
 
           el.markerPlacement = 'end';
           await waitUntil(() => first.getAttribute('data-wa-timeline-placement') === 'end');
 
           // Placement and alignment are vertical-only, so they clear when the timeline goes horizontal.
           el.orientation = 'horizontal';
-          el.reverse = false;
           await waitUntil(() => !first.hasAttribute('data-wa-timeline-center'));
 
           expect(first.hasAttribute('data-wa-timeline-placement')).to.be.false;
-          expect(first.hasAttribute('data-wa-timeline-reverse')).to.be.false;
         });
 
         it('should tell each item the variant of the item shown before it', async () => {
@@ -135,12 +122,6 @@ describe('<wa-timeline>', () => {
           expect(previousVariant(second)).to.equal('success');
           expect(previousVariant(third)).to.equal('neutral');
 
-          el.reverse = true;
-          await waitUntil(() => previousVariant(second) === 'danger');
-          expect(previousVariant(third)).to.be.null;
-          expect(previousVariant(first)).to.equal('neutral');
-
-          el.reverse = false;
           first.setAttribute('variant', 'warning');
           await waitUntil(() => previousVariant(second) === 'warning');
         });
@@ -173,64 +154,29 @@ describe('<wa-timeline>', () => {
         });
       });
 
-      describe('reverse', () => {
-        it('should render items last to first when reverse is set, and restore document order when unset', async () => {
+      describe('prepending', () => {
+        it('should show a prepended item first and hand off the connector and previous variant', async () => {
           const el = await fixture<WaTimeline>(html`
-            <wa-timeline reverse>
-              <wa-timeline-item>First</wa-timeline-item>
-              <wa-timeline-item>Second</wa-timeline-item>
-              <wa-timeline-item>Third</wa-timeline-item>
-            </wa-timeline>
-          `);
-          const [first, , third] = getItems(el);
-
-          await waitUntil(() => first.getAttribute('slot') === 'item-0');
-          await el.updateComplete;
-
-          const slotNames = [...el.shadowRoot!.querySelectorAll('slot[name]')].map(slot => slot.getAttribute('name'));
-          expect(slotNames).to.deep.equal(['item-2', 'item-1', 'item-0']);
-          expect(rect(third).top).to.be.lessThan(rect(first).top);
-
-          el.reverse = false;
-          await waitUntil(() => !first.hasAttribute('slot'));
-          await el.updateComplete;
-
-          expect(el.shadowRoot!.querySelectorAll('slot[name]').length).to.equal(0);
-          expect(rect(first).top).to.be.lessThan(rect(third).top);
-        });
-
-        it('should show an item appended to a reversed timeline at the top', async () => {
-          const el = await fixture<WaTimeline>(html`
-            <wa-timeline reverse>
-              <wa-timeline-item>First</wa-timeline-item>
-              <wa-timeline-item>Second</wa-timeline-item>
-            </wa-timeline>
-          `);
-          const [first] = getItems(el);
-          await waitUntil(() => first.getAttribute('slot') === 'item-0');
-
-          const added = document.createElement('wa-timeline-item');
-          added.textContent = 'Third';
-          el.append(added);
-
-          await waitUntil(() => added.getAttribute('slot') === 'item-2');
-          await el.updateComplete;
-          expect(rect(added).top).to.be.lessThan(rect(first).top);
-        });
-
-        it("should hide the first item's connector instead of the last one's when reversed", async () => {
-          const el = await fixture<WaTimeline>(html`
-            <wa-timeline reverse>
+            <wa-timeline>
               <wa-timeline-item>First</wa-timeline-item>
               <wa-timeline-item>Last</wa-timeline-item>
             </wa-timeline>
           `);
+          await whenSynced(el);
           const [first, last] = getItems(el);
-          await waitUntil(() => first.hasAttribute('data-wa-timeline-reverse'));
-          await Promise.all([first.updateComplete, last.updateComplete]);
 
-          expect(getComputedStyle(part(first, 'connector')).display).to.equal('none');
-          expect(getComputedStyle(part(last, 'connector')).display).to.not.equal('none');
+          const added = document.createElement('wa-timeline-item');
+          added.variant = 'success';
+          added.textContent = 'Newest';
+          el.prepend(added);
+
+          await waitUntil(() => previousVariant(first) === 'success');
+          await added.updateComplete;
+
+          expect(previousVariant(added)).to.be.null;
+          expect(rect(added).top).to.be.lessThan(rect(first).top);
+          expect(getComputedStyle(part(added, 'connector')).display).to.not.equal('none');
+          expect(getComputedStyle(part(last, 'connector')).display).to.equal('none');
         });
       });
 
@@ -309,6 +255,62 @@ describe('<wa-timeline>', () => {
           expect(half(first, '::after')).to.not.equal('none');
           expect(half(last, '::before')).to.not.equal('none');
           expect(half(last, '::after')).to.equal('none');
+        });
+
+        it('should center the connector under the marker in both directions', async () => {
+          for (const dir of ['ltr', 'rtl']) {
+            const wrapper = await fixture<HTMLElement>(html`
+              <div dir=${dir}>
+                <wa-timeline style="--connector-width: 4px;">
+                  <wa-timeline-item>First</wa-timeline-item>
+                  <wa-timeline-item>Second</wa-timeline-item>
+                </wa-timeline>
+              </div>
+            `);
+            const el = wrapper.querySelector<WaTimeline>('wa-timeline')!;
+            await whenSynced(el);
+            const [first] = getItems(el);
+            const middle = (target: Element) => rect(target).left + rect(target).width / 2;
+
+            expect(middle(part(first, 'connector'))).to.be.closeTo(middle(part(first, 'marker')), 0.5);
+          }
+        });
+
+        it('should keep content taller than the marker inside the timeline', async () => {
+          const el = await fixture<WaTimeline>(html`
+            <wa-timeline style="font-size: 16px; line-height: 1.8;">
+              <wa-timeline-item>
+                <span style="font-size: 32px; line-height: 1.2;">Big heading first</span>
+                <span slot="opposite">Date</span>
+              </wa-timeline-item>
+              <wa-timeline-item>Second</wa-timeline-item>
+            </wa-timeline>
+          `);
+          await whenSynced(el);
+          const [first, second] = getItems(el);
+
+          expect(rect(part(first, 'content')).top).to.be.at.least(rect(el).top - 0.5);
+          expect(rect(part(first, 'opposite')).top).to.be.at.least(rect(el).top - 0.5);
+
+          // The connector still stops one --connector-gap short of the next marker, which sits lower in its item.
+          const gap = parseFloat(getComputedStyle(el).fontSize) * 0.35;
+          const connectorEnd = rect(part(first, 'connector')).bottom;
+          expect(rect(part(second, 'marker')).top - connectorEnd).to.be.closeTo(gap, 1);
+        });
+
+        it('should center the marker on a first line taller than the marker', async () => {
+          const el = await fixture<WaTimeline>(html`
+            <wa-timeline style="font-size: 16px; line-height: 1.8;">
+              <wa-timeline-item>First</wa-timeline-item>
+              <wa-timeline-item>Second</wa-timeline-item>
+            </wa-timeline>
+          `);
+          await whenSynced(el);
+          const [first] = getItems(el);
+          const lineHeight = 16 * 1.8 * 1.125;
+
+          const lineCenter = rect(part(first, 'content')).top + lineHeight / 2;
+          expect(center(part(first, 'marker'))).to.be.closeTo(lineCenter, 1);
         });
       });
 

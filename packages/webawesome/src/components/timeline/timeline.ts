@@ -1,5 +1,5 @@
 import { html, isServer } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import '../timeline-item/timeline-item.js';
@@ -18,7 +18,8 @@ import styles from './timeline.styles.js';
  *
  * @csspart timeline - The ordered list that lays out the items.
  *
- * @cssproperty [--gap=var(--wa-space-l)] - The space between items.
+ * @cssproperty [--gap=var(--wa-space-l)] - The space between items. Connectors are sized from this value, so set it
+ *  here instead of setting `gap` on the `timeline` part. Use a length such as `0px`, not a bare `0`, to remove it.
  * @cssproperty [--marker-size=1em] - The size of each item's marker. Usually set here so every item matches.
  * @cssproperty [--connector-color=var(--wa-color-neutral-fill-normal)] - The color of the connector line after a
  *  `neutral` item, which is the default. Any other `variant` colors its own connector instead.
@@ -28,7 +29,7 @@ import styles from './timeline.styles.js';
  *  as `0px`, not a bare `0`, to remove it.
  *
  * @ssr - During SSR, `<wa-timeline>` can't reach its items, so server-rendered markup uses the default vertical layout
- *  and document order. `orientation`, `marker-placement`, `marker-alignment`, and `reverse` apply once it hydrates.
+ *  and document order. `orientation`, `marker-placement`, and `marker-alignment` apply once it hydrates.
  */
 @customElement('wa-timeline')
 export default class WaTimeline extends WebAwesomeElement {
@@ -51,15 +52,6 @@ export default class WaTimeline extends WebAwesomeElement {
    * `orientation` is `vertical`.
    */
   @property({ attribute: 'marker-alignment', reflect: true }) markerAlignment: 'start' | 'center' = 'start';
-
-  /**
-   * Shows the last item first without changing document order, so `append()` adds at the top and reading and focus
-   * order still match the screen. Server-rendered timelines show document order until they hydrate.
-   */
-  @property({ type: Boolean, reflect: true }) reverse = false;
-
-  /** Slotted item count. A reversed timeline renders one named slot per item, last to first. */
-  @state() private itemCount = 0;
 
   connectedCallback() {
     super.connectedCallback();
@@ -90,16 +82,13 @@ export default class WaTimeline extends WebAwesomeElement {
     this.syncItems();
   }
 
-  // Reads the light DOM, not the default slot: a reversed timeline moves every item into a named slot.
   private getAllItems() {
     return [...this.children].filter(el => el.localName === 'wa-timeline-item') as WaTimelineItem[];
   }
 
   /**
-   * Hands each item its layout as `data-wa-timeline-*` attributes.
-   * A reversed timeline can't reorder its light DOM, so each item also gets a numbered slot rendered last to first,
-   * which keeps reading and focus order matching the screen. Each item also learns the previous item's variant for
-   * its centered connector.
+   * Hands each item its layout as `data-wa-timeline-*` attributes. Each item also learns the previous item's variant
+   * for its centered connector.
    */
   private syncItems() {
     const items = this.getAllItems();
@@ -113,57 +102,36 @@ export default class WaTimeline extends WebAwesomeElement {
 
       item.toggleAttribute('data-wa-timeline-horizontal', !isVertical);
       item.toggleAttribute('data-wa-timeline-center', isVertical && this.markerAlignment === 'center');
-      item.toggleAttribute('data-wa-timeline-reverse', this.reverse);
       if (placement) {
         item.setAttribute('data-wa-timeline-placement', placement);
       } else {
         item.removeAttribute('data-wa-timeline-placement');
       }
 
-      if (this.reverse) {
-        item.setAttribute('slot', `item-${index}`);
-      } else if (item.getAttribute('slot')?.startsWith('item-')) {
-        item.removeAttribute('slot');
-      }
-
       // An attribute, not a property: a property set before the item hydrates never reaches its template, but an
       // attribute is real DOM either way.
-      const previous = this.reverse ? items[index + 1] : items[index - 1];
+      const previous = items[index - 1];
       if (previous) {
         item.setAttribute('data-wa-timeline-previous-variant', previous.variant);
       } else {
         item.removeAttribute('data-wa-timeline-previous-variant');
       }
     });
-
-    this.itemCount = this.reverse ? items.length : 0;
   }
 
-  @watch(['orientation', 'markerPlacement', 'markerAlignment', 'reverse'], {
-    waitUntilFirstUpdate: true,
-  })
+  @watch(['orientation', 'markerPlacement', 'markerAlignment'], { waitUntilFirstUpdate: true })
   handleLayoutChange() {
     this.syncItems();
   }
 
   render() {
-    const reversedSlots = Array.from({ length: this.itemCount }, (_, i) => this.itemCount - 1 - i);
-
-    // slotchange bubbles, so listening on the list catches it from the default slot and every numbered slot alike.
     return html`
-      <ol part="timeline" class="timeline" role="list" @slotchange=${this.handleSlotChange}>
-        ${reversedSlots.map(index => html`<slot name="item-${index}"></slot>`)}
-        <slot></slot>
+      <ol part="timeline" class="timeline" role="list">
+        <slot @slotchange=${this.handleSlotChange}></slot>
       </ol>
     `;
   }
 }
-
-// The change-in-update warning is required for this component because syncItems() sets the itemCount state from
-// slotchange after first render, including the synthetic slotchange WebAwesomeElement dispatches post-hydration to
-// work around SSR not being able to catch real slotchange events. See
-// https://lit.dev/docs/tools/development/#development-build-runtime-warnings
-WaTimeline.disableWarning?.('change-in-update');
 
 declare global {
   interface HTMLElementTagNameMap {

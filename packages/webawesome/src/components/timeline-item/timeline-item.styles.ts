@@ -6,6 +6,8 @@ export default css`
       --_filled: var(--wa-color-fill-normal, var(--wa-color-neutral-fill-normal));
       --_filled-on: var(--wa-color-on-normal, var(--wa-color-neutral-on-normal));
       --_connector-color: var(--_filled);
+      /* How far a first line taller than the marker would rise above the item. Applied as padding so it stays inside. */
+      --_line-overhang: max(0px, (1.125lh - var(--marker-size)) / 2);
 
       display: block;
     }
@@ -42,6 +44,7 @@ export default css`
       display: grid;
       grid-template-columns: subgrid;
       grid-column: 1 / -1;
+      padding-block-start: var(--_line-overhang);
     }
 
     .rail {
@@ -103,11 +106,11 @@ export default css`
     .connector {
       position: absolute;
       z-index: 0;
-      inset-inline-start: 50%;
+      inset-inline: 0;
       inset-block-start: calc(var(--marker-size) + var(--connector-gap));
-      inset-block-end: calc(-1 * var(--gap) + var(--connector-gap));
+      inset-block-end: calc(-1 * var(--gap) - var(--_line-overhang) + var(--connector-gap));
       width: var(--connector-width);
-      translate: -50% 0;
+      margin-inline: auto;
       background-color: var(--_connector-color);
     }
 
@@ -121,6 +124,7 @@ export default css`
       grid-template-rows: subgrid;
       grid-column: auto;
       grid-row: 1 / -1;
+      padding-block-start: 0;
       text-align: center;
     }
 
@@ -185,17 +189,12 @@ export default css`
       grid-column: 1;
     }
 
-    /* Reverse (via <wa-timeline reverse>): the last item renders first, so first and last swap connector roles. */
-    :host([data-wa-timeline-reverse]:last-child) .connector {
-      display: block;
-    }
-
-    :host([data-wa-timeline-reverse]:first-child) .connector {
-      display: none;
-    }
-
     /* Center alignment. The connector spans the row behind the marker and splits at it: the incoming half takes the
        previous item's color, the outgoing half this item's. --connector-gap doesn't apply. */
+    :host([data-wa-timeline-center]) .item {
+      padding-block-start: 0;
+    }
+
     :host([data-wa-timeline-center]) .marker {
       margin-block: auto;
     }
@@ -238,20 +237,8 @@ export default css`
       display: none;
     }
 
-    :host([data-wa-timeline-center][data-wa-timeline-reverse]:first-child) .connector::before,
-    :host([data-wa-timeline-center][data-wa-timeline-reverse]:last-child) .connector::after {
-      display: block;
-    }
-
-    :host([data-wa-timeline-center][data-wa-timeline-reverse]:last-child) .connector::before,
-    :host([data-wa-timeline-center][data-wa-timeline-reverse]:first-child) .connector::after {
-      display: none;
-    }
-
-    /* A lone item has nothing to connect to in any mode. */
-    :host(:only-child) .connector,
-    :host([data-wa-timeline-center]:only-child) .connector,
-    :host([data-wa-timeline-reverse]:only-child) .connector {
+    /* A lone item has nothing to connect to. */
+    :host([data-wa-timeline-center]:only-child) .connector {
       display: none;
     }
 

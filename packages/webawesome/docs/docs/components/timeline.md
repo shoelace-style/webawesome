@@ -160,7 +160,7 @@ Set the `variant` attribute on an item to color its marker and the connector aft
 To flag something that failed or needs attention, pair variant with an icon and state the reason in the content, so the meaning doesn't depend on color alone.
 
 ```html {.example}
-<wa-timeline>
+<wa-timeline style="--marker-size: 2em;">
   <wa-timeline-item variant="success">
     <wa-icon slot="icon" name="check"></wa-icon>
     <span class="wa-heading-m">Build passed</span>
@@ -460,7 +460,7 @@ The default slot accepts any content, not only a title and a line of text.
         approved these changes
         <wa-badge variant="success" appearance="outlined" pill>Approved</wa-badge>
       </div>
-      <p>Looks great. The reverse order handling is a nice touch.</p>
+      <p>Looks great. The new tests are a nice touch.</p>
     </div>
   </wa-timeline-item>
   <wa-timeline-item variant="brand">
@@ -554,48 +554,66 @@ Append a `<wa-timeline-item>` to add an entry.
 </script>
 ```
 
-:::info
-<strong>With `marker-placement="alternate"`, append rather than prepend.</strong><br />
-Sides are assigned in document order, so prepending an entry moves every existing entry to the other side. Add `reverse` if new entries should show at the top.
-:::
+### Newest First
 
-### Reverse
-
-Add the `reverse` attribute to show the last item first. Reading and focus order follow the visual order, and entries added with `append()` land at the top.
+To show the newest entry at the top, put it first in the markup and add entries with `prepend()`. Reading and focus order follow document order, so they match the screen.
 
 ```html {.example}
-<wa-timeline reverse>
-  <wa-timeline-item>
-    <wa-badge slot="opposite" appearance="outlined" pill>0–0</wa-badge>
-    <span class="wa-heading-m">Kickoff</span>
-    <p>Rovers get us under way, playing left to right.</p>
-  </wa-timeline-item>
-  <wa-timeline-item variant="success">
-    <wa-badge slot="opposite" appearance="outlined" pill>1–0</wa-badge>
-    <span class="wa-heading-m">Goal, Rovers</span>
-    <p>A low cross from the left, tapped in at the far post.</p>
-  </wa-timeline-item>
-  <wa-timeline-item variant="warning">
-    <wa-badge slot="opposite" appearance="outlined" pill>1–0</wa-badge>
-    <span class="wa-heading-m">Yellow card</span>
-    <p>A late tackle in midfield. The referee has a word.</p>
-  </wa-timeline-item>
-  <wa-timeline-item variant="brand">
-    <wa-badge slot="opposite" appearance="outlined" pill>1–1</wa-badge>
-    <span class="wa-heading-m">Goal, City</span>
-    <p>A free kick curled over the wall and into the corner.</p>
-  </wa-timeline-item>
-  <wa-timeline-item variant="neutral">
-    <wa-badge slot="opposite" appearance="outlined" pill>1–1</wa-badge>
-    <span class="wa-heading-m">Full time</span>
-    <p>Honors even. Both sides will take the point.</p>
-  </wa-timeline-item>
-</wa-timeline>
+<div class="wa-stack">
+  <wa-timeline id="timeline-newest">
+    <wa-timeline-item variant="success">
+      <wa-badge slot="opposite" appearance="outlined" pill>1–0</wa-badge>
+      <span class="wa-heading-m">Goal, Rovers</span>
+      <p>A low cross from the left, tapped in at the far post.</p>
+    </wa-timeline-item>
+    <wa-timeline-item>
+      <wa-badge slot="opposite" appearance="outlined" pill>0–0</wa-badge>
+      <span class="wa-heading-m">Kickoff</span>
+      <p>Rovers get us under way, playing left to right.</p>
+    </wa-timeline-item>
+  </wa-timeline>
+
+  <wa-divider></wa-divider>
+
+  <wa-button id="timeline-newest-advance" appearance="filled">Add Play</wa-button>
+</div>
+
+<script>
+  const timelineNewest = document.getElementById('timeline-newest');
+  const timelineNewestButton = document.getElementById('timeline-newest-advance');
+  const timelineNewestPlays = [
+    {
+      score: '1–0',
+      variant: 'warning',
+      label: 'Yellow card',
+      body: 'A late tackle in midfield. The referee has a word.',
+    },
+    {
+      score: '1–1',
+      variant: 'brand',
+      label: 'Goal, City',
+      body: 'A free kick curled over the wall and into the corner.',
+    },
+    { score: '1–1', variant: 'neutral', label: 'Full time', body: 'Honors even. Both sides will take the point.' },
+  ];
+
+  timelineNewestButton.addEventListener('click', () => {
+    const next = timelineNewestPlays.shift();
+    if (!next) return;
+
+    const item = document.createElement('wa-timeline-item');
+    item.variant = next.variant;
+    item.innerHTML = `<wa-badge slot="opposite" appearance="outlined" pill>${next.score}</wa-badge><span class="wa-heading-m">${next.label}</span><p>${next.body}</p>`;
+    timelineNewest.prepend(item);
+
+    if (timelineNewestPlays.length === 0) timelineNewestButton.disabled = true;
+  });
+</script>
 ```
 
 :::info
-<strong>Rendering on the server? Put the newest item first in the markup.</strong><br />
-The server can't see the items to reorder them, so a reversed timeline shows document order until it hydrates.
+<strong>With `marker-placement="alternate"`, use append instead of prepend.</strong><br />
+Sides are assigned in document order, so prepending an entry moves existing entries to the other side.
 :::
 
 ### Customizing
@@ -738,7 +756,6 @@ Here the connector and markers become one rule with diamond stops. The `--connec
 
 - **Structure.** The timeline renders an ordered list, and each `<wa-timeline-item>` carries `role="listitem"`.
 - **Keyboard.** Nothing in the timeline takes focus. Items are records, not controls, so the timeline never intercepts clicks or adds keyboard handling. If an entry needs to link somewhere or trigger an action, put a real `<a>` or `<wa-button>` in its content.
-- **Reading order.** With `reverse`, items are reordered through named slots rather than CSS, so screen readers and the Tab key follow the same order that's on screen.
-- **Added entries aren't announced.** Appending a `<wa-timeline-item>` updates the list silently; there's no live region. If an update needs to be announced, do it from your own live region rather than relying on the timeline.
+- **Added entries aren't announced.** Adding a `<wa-timeline-item>` updates the list silently; there's no live region. If an update needs to be announced, do it from your own live region rather than relying on the timeline.
 - **Color and meaning.** The `variant` attribute is cosmetic. It changes color, which doesn't carry meaning on its own, so state the reason in the item's visible content rather than relying on color alone.
 - **Custom icons.** When the `icon` slot holds an icon that's the only indicator of an item's meaning (e.g. a checkmark for "completed" with no other label), give it an accessible name with [`<wa-icon label="...">`](/docs/components/icon). A marker that only repeats what the item's own content already says can stay decorative.
