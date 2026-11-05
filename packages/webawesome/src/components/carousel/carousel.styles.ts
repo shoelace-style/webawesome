@@ -127,10 +127,6 @@ export default css`
     cursor: not-allowed;
   }
 
-  .navigation-button-disabled::part(base) {
-    pointer-events: none;
-  }
-
   .navigation-button-previous {
     grid-column: 1;
     grid-row: 1;

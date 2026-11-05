@@ -40,7 +40,7 @@ export default css`
     margin-inline-end: 0.5em;
   }
 
-  [part~='base'] {
+  [part~='checkbox'] {
     display: flex;
     align-items: flex-start;
     position: relative;
@@ -67,7 +67,7 @@ export default css`
   }
 
   /* Disabled */
-  :host [part~='base']:has(input:disabled) {
+  :host [part~='checkbox']:has(input:disabled) {
     opacity: 0.5;
     cursor: not-allowed;
   }

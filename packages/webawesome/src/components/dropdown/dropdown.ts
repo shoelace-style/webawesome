@@ -754,7 +754,7 @@ export default class WaDropdown extends WebAwesomeElement {
     if (trigger.localName === 'wa-button') {
       await customElements.whenDefined('wa-button');
       await (trigger as WaButton).updateComplete;
-      nativeButton = trigger.shadowRoot!.querySelector<HTMLButtonElement>('[part~="base"]')!;
+      nativeButton = trigger.shadowRoot!.querySelector<HTMLButtonElement>('[part~="button"]')!;
     } else {
       nativeButton = trigger as HTMLButtonElement;
     }

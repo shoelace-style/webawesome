@@ -123,7 +123,10 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
   private isSafeValue = false;
   private readonly localize = new LocalizeController(this);
 
-  @query('[part~="base"]') base: HTMLElement;
+  /** @internal */
+  @query('[part~="color-picker"]') wrapper: HTMLElement;
+  /** @deprecated Use the `color-picker` part instead. */
+  @query('[part~="color-picker"]') base: HTMLElement;
   @query('[part~="input"]') input: WaInput;
   @query('[part~="form-control-label"]') triggerLabel: HTMLElement;
   @query('[part~="form-control-input"]') triggerButton: HTMLButtonElement;
@@ -1071,15 +1074,15 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
   }
 
   addOpenListeners() {
-    this.base.addEventListener('keydown', this.handleKeyDown);
+    this.wrapper.addEventListener('keydown', this.handleKeyDown);
     document.addEventListener('keydown', this.handleDocumentKeyDown);
     document.addEventListener('mousedown', this.handleDocumentMouseDown);
     registerDismissible(this);
   }
 
   removeOpenListeners() {
-    if (this.base) {
-      this.base.removeEventListener('keydown', this.handleKeyDown);
+    if (this.wrapper) {
+      this.wrapper.removeEventListener('keydown', this.handleKeyDown);
     }
     document.removeEventListener('keydown', this.handleDocumentKeyDown);
     document.removeEventListener('mousedown', this.handleDocumentMouseDown);
@@ -1101,7 +1104,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
       this.addOpenListeners();
       await this.updateComplete;
-      this.base.hidden = false;
+      this.wrapper.hidden = false;
       this.popup.active = true;
       await animateWithClass(this.popup.popup, 'show-with-scale');
       this.dispatchEvent(new CustomEvent('wa-after-show'));
@@ -1111,7 +1114,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
       this.removeOpenListeners();
       await animateWithClass(this.popup.popup, 'hide-with-scale');
-      this.base.hidden = true;
+      this.wrapper.hidden = true;
       this.popup.active = false;
       this.dispatchEvent(new CustomEvent('wa-after-hide'));
     }
