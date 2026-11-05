@@ -42,8 +42,8 @@ describe('<wa-progress-bar>', () => {
 
         it('should set aria-valuenow from value', async () => {
           const el = await fixture<WaProgressBar>(html`<wa-progress-bar value="75"></wa-progress-bar>`);
-          const base = el.shadowRoot!.querySelector('[part~="base"]')!;
-          expect(base.getAttribute('aria-valuenow')).to.equal('75');
+          const progressBar = el.shadowRoot!.querySelector('[part~="progress-bar"]')!;
+          expect(progressBar.getAttribute('aria-valuenow')).to.equal('75');
         });
 
         it('should set the --percentage custom property from value', async () => {
@@ -66,16 +66,16 @@ describe('<wa-progress-bar>', () => {
 
         it('should set aria-valuenow to 0 when indeterminate', async () => {
           const el = await fixture<WaProgressBar>(html`<wa-progress-bar indeterminate></wa-progress-bar>`);
-          const base = el.shadowRoot!.querySelector('[part~="base"]')!;
-          expect(base.getAttribute('aria-valuenow')).to.equal('0');
+          const progressBar = el.shadowRoot!.querySelector('[part~="progress-bar"]')!;
+          expect(progressBar.getAttribute('aria-valuenow')).to.equal('0');
         });
 
         it('should use custom label for aria-label when provided', async () => {
           const el = await fixture<WaProgressBar>(
             html`<wa-progress-bar value="50" label="Uploading"></wa-progress-bar>`,
           );
-          const base = el.shadowRoot!.querySelector('[part~="base"]')!;
-          expect(base.getAttribute('aria-label')).to.equal('Uploading');
+          const progressBar = el.shadowRoot!.querySelector('[part~="progress-bar"]')!;
+          expect(progressBar.getAttribute('aria-label')).to.equal('Uploading');
         });
 
         it('should hide the label slot when indeterminate', async () => {
@@ -86,10 +86,10 @@ describe('<wa-progress-bar>', () => {
 
         it('should have proper ARIA progressbar role', async () => {
           const el = await fixture<WaProgressBar>(html`<wa-progress-bar value="50"></wa-progress-bar>`);
-          const base = el.shadowRoot!.querySelector('[part~="base"]')!;
-          expect(base.getAttribute('role')).to.equal('progressbar');
-          expect(base.getAttribute('aria-valuemin')).to.equal('0');
-          expect(base.getAttribute('aria-valuemax')).to.equal('100');
+          const progressBar = el.shadowRoot!.querySelector('[part~="progress-bar"]')!;
+          expect(progressBar.getAttribute('role')).to.equal('progressbar');
+          expect(progressBar.getAttribute('aria-valuemin')).to.equal('0');
+          expect(progressBar.getAttribute('aria-valuemax')).to.equal('100');
         });
       });
 
@@ -102,9 +102,11 @@ describe('<wa-progress-bar>', () => {
       });
 
       describe('CSS parts', () => {
-        it('should have a base part', async () => {
+        it('should expose the "progress-bar" part and keep the deprecated base part', async () => {
           const el = await fixture<WaProgressBar>(html`<wa-progress-bar value="50"></wa-progress-bar>`);
-          expect(el.shadowRoot!.querySelector('[part~="base"]')).to.exist;
+          const wrapper = el.shadowRoot!.querySelector('[part~="progress-bar"]');
+          expect(wrapper).to.exist;
+          expect(wrapper!.matches('[part~="base"]')).to.be.true;
         });
 
         it('should have an indicator part', async () => {

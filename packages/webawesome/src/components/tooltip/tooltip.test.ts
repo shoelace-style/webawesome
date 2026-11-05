@@ -383,7 +383,7 @@ describe('<wa-tooltip>', () => {
       });
 
       describe('CSS parts and states', () => {
-        it('should expose the base CSS part', async () => {
+        it('should expose the "tooltip" part and keep the deprecated base part', async () => {
           const el = await fixture<HTMLDivElement>(html`
             <div>
               <wa-button id="btn">Hover</wa-button>
@@ -391,8 +391,9 @@ describe('<wa-tooltip>', () => {
             </div>
           `);
           const tooltip = el.querySelector<WaTooltip>('wa-tooltip')!;
-          const base = tooltip.shadowRoot!.querySelector('[part~="base"]');
-          expect(base).to.exist;
+          const wrapper = tooltip.shadowRoot!.querySelector('[part~="tooltip"]');
+          expect(wrapper).to.exist;
+          expect(wrapper!.matches('[part~="base"]')).to.be.true;
         });
 
         it('should expose the body CSS part', async () => {
