@@ -36,7 +36,9 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Added the experimental `<wa-rich-text-editor>` pro component for writing and formatting content, with HTML or Markdown values that submit with forms
 - Added the experimental `<wa-code-highlighter>` component for displaying syntax-highlighted code with a copy button
   - Added `registerCodeGrammar()` for adding or replacing grammars
-- Added the `button-group` and `tab-panel` CSS parts to `<wa-button-group>` and `<wa-tab-panel>` which render a wrapper element so their deprecated `base` part is no longer on a `<slot>`
+- Continued the `base` part deprecation from 3.11.0 [pr:2644]
+  - Added the `button-group` and `tab-panel` CSS parts to `<wa-button-group>` and `<wa-tab-panel>` which render a wrapper element so their deprecated `base` part is no longer on a `<slot>`
+  - Added component-named versions of exported parts that were named after `base`, such as `close-button__button` in `<wa-dialog>` and `tooltip__popup` and `tooltip__arrow` in `<wa-tooltip>`
 
 :::
 
@@ -67,6 +69,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug in `<wa-dropdown-item>` where dynamically added submenus would not trigger a `slotchange` event leading to `HasSlotController` reporting false. [pr:2868]
 - Fixed a bug in `<wa-tooltip>` where it would still open even when it was disabled. [pr:2869]
 - Fixed a bug in `<wa-switch>` where pressing an arrow key dispatched `change` and `input` events even when the switch was already in that position
+- Fixed a bug in `<wa-slider>` where the `tooltip__arrow` part didn't target the tooltip's arrow
 - Fixed a bug in `<wa-slider>` where steps were counted from zero instead of `min` [issue:2951]
 - Fixed a bug in `<wa-tree>` where nested items added in a single DOM mutation were not initialized until another change in the tree occurred
 - Fixed a performance issue in `<wa-tree>` where removing `lazy` from one item re-initialized all items in the tree causing slowness for trees with many items
@@ -79,6 +82,12 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Promoted the following components from {{ statusBadge('experimental') }} to {{ statusBadge('stable') }}
   - Free: `<wa-step>` and `<wa-stepper>`
   - Pro: `<wa-data-grid>`
+
+:::
+
+:::deprecated
+
+- Deprecated exported parts named after `base`, such as `close-button__base` in `<wa-dialog>` and `base__popup` and `base__arrow` in `<wa-tooltip>`, in favor of their component-named versions, continuing the `base` part deprecation from 3.11.0. They keep working until the next major version.
 
 :::
 

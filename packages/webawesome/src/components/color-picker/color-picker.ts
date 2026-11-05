@@ -87,13 +87,15 @@ declare const EyeDropper: EyeDropperConstructor;
  * @csspart preview - The preview color.
  * @csspart input - The text input.
  * @csspart eyedropper-button - The eye dropper button.
- * @csspart eyedropper-button__base - The eye dropper button's exported `button` part.
+ * @csspart eyedropper-button__base - Deprecated. Use the `eyedropper-button__button` part instead.
+ * @csspart eyedropper-button__button - The eye dropper button's exported `button` part.
  * @csspart eyedropper-button__start - The eye dropper button's exported `start` part.
  * @csspart eyedropper-button__label - The eye dropper button's exported `label` part.
  * @csspart eyedropper-button__end - The eye dropper button's exported `end` part.
  * @csspart eyedropper-button__caret - The eye dropper button's exported `caret` part.
  * @csspart format-button - The format button.
- * @csspart format-button__base - The format button's exported `button` part.
+ * @csspart format-button__base - Deprecated. Use the `format-button__button` part instead.
+ * @csspart format-button__button - The format button's exported `button` part.
  * @csspart format-button__start - The format button's exported `start` part.
  * @csspart format-button__label - The format button's exported `label` part.
  * @csspart format-button__end - The format button's exported `end` part.
@@ -1274,6 +1276,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
                     aria-label=${this.localize.term('toggleColorFormat')}
                     exportparts="
                       base:format-button__base,
+                      button:format-button__button,
                       start:format-button__start,
                       label:format-button__label,
                       end:format-button__end,
@@ -1295,6 +1298,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
                     appearance="outlined"
                     exportparts="
                       base:eyedropper-button__base,
+                      button:eyedropper-button__button,
                       start:eyedropper-button__start,
                       label:eyedropper-button__label,
                       end:eyedropper-button__end,
