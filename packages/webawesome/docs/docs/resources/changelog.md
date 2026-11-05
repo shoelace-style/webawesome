@@ -36,6 +36,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Added the experimental `<wa-rich-text-editor>` pro component for writing and formatting content, with HTML or Markdown values that submit with forms
 - Added the experimental `<wa-code-highlighter>` component for displaying syntax-highlighted code with a copy button
   - Added `registerCodeGrammar()` for adding or replacing grammars
+- Added the `button-group` and `tab-panel` CSS parts to `<wa-button-group>` and `<wa-tab-panel>` which render a wrapper element so their deprecated `base` part is no longer on a `<slot>`
 
 :::
 

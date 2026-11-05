@@ -60,10 +60,6 @@ async function readComponentSource(dir) {
 // Pro package passes its own through `check({ allowlist })`.
 const DEFAULT_ALLOWLIST = {};
 
-// These render `base` on a `<slot>` rather than a wrapper element. Parts don't belong on slots, and
-// the host does the styling, so they get no component-named part until the legacy `base` is removed.
-const SLOT_BASE = new Set(['button-group', 'tab-panel']);
-
 function hasCanonicalPart(name, rendered, declared) {
   return [name, `${name}-wrapper`].some(part => rendered.has(part) && declared.has(part));
 }
@@ -104,8 +100,7 @@ export async function check(options = {}) {
       ? []
       : [...declared].filter(part => !rendered.has(part) && !exported.has(part) && !deprecated.has(part)).sort();
 
-    const missingCanonical =
-      rendered.has('base') && !SLOT_BASE.has(name) && !hasCanonicalPart(name, rendered, declared);
+    const missingCanonical = rendered.has('base') && !hasCanonicalPart(name, rendered, declared);
 
     const problems = [];
     if (gaps.length > 0) problems.push(`undocumented part(s): ${gaps.join(', ')}`);
