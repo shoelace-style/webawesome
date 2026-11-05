@@ -307,6 +307,31 @@ describe('<wa-dropdown>', () => {
           expect(el.open).to.be.true;
         });
 
+        it('should not navigate when click is prevented on a link item', async () => {
+          const el = await fixture<WaDropdown>(html`
+            <wa-dropdown open>
+              <wa-button slot="trigger">Dropdown</wa-button>
+              <wa-dropdown-item value="about" href="/about">About</wa-dropdown-item>
+            </wa-dropdown>
+          `);
+          await el.updateComplete;
+          await aTimeout(200);
+
+          const documentClickHandler = (event: MouseEvent) => event.preventDefault();
+          document.addEventListener('click', documentClickHandler, { once: true });
+
+          const item = el.querySelector<HTMLElement>('wa-dropdown-item')!;
+          const link = item.shadowRoot!.querySelector<HTMLAnchorElement>('#link')!;
+          const clickHandler = sinon.spy((event: MouseEvent) => event.preventDefault());
+          link.addEventListener('click', clickHandler);
+
+          item.click();
+          await aTimeout(200);
+
+          expect(clickHandler).to.not.have.been.called;
+          expect(el.open).to.be.false;
+        });
+
         it('should not navigate when a disabled link item is clicked', async () => {
           const el = await fixture<WaDropdown>(html`
             <wa-dropdown open>
