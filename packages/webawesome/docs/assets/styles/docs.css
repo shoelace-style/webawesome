@@ -65,6 +65,63 @@ wa-page::part(header-actions) {
   align-self: center;
 }
 
+/* #region Icon Family Selector */
+/* Families in rows, variants in columns. Each cell is a label wrapping a visually hidden radio. */
+.icon-family-grid {
+  display: grid;
+  grid-template-columns: auto repeat(4, 1fr);
+  align-items: center;
+  justify-items: center;
+  gap: var(--wa-space-2xs);
+
+  > span {
+    color: var(--wa-color-text-quiet);
+    font-size: var(--wa-font-size-xs);
+    white-space: nowrap;
+  }
+
+  /* Family names */
+  > span:nth-child(5n + 1) {
+    justify-self: end;
+    padding-inline-end: var(--wa-space-2xs);
+  }
+
+  label {
+    display: grid;
+    position: relative;
+    place-items: center;
+    width: 2em;
+    aspect-ratio: 1;
+    border-radius: var(--wa-border-radius-m);
+    font-size: var(--wa-font-size-xl);
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--wa-color-neutral-fill-quiet);
+    }
+
+    &:has(:checked) {
+      background-color: var(--wa-color-brand-fill-normal);
+      color: var(--wa-color-brand-on-normal);
+    }
+
+    &:has(:focus-visible) {
+      outline: var(--wa-focus-ring);
+      outline-offset: var(--wa-focus-ring-offset);
+    }
+  }
+}
+
+.icon-family-footer {
+  font-size: var(--wa-font-size-xs);
+
+  small {
+    color: var(--wa-color-text-quiet);
+    font-size: inherit;
+  }
+}
+/* #endregion */
+
 wa-button.delete {
   &::part(base):hover {
     color: var(--wa-color-danger-on-quiet);

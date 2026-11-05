@@ -29,6 +29,13 @@
 	}
 	document.documentElement.classList.toggle('wa-dark', isDark);
 
+  // Set the icon family and variant before any icon renders. This site defaults to classic regular rather than the
+  // library's classic solid. A style saved by the selector (e.g. "sharp light") overrides that. Anything else, such
+  // as a style the selector no longer offers, is ignored. Keep this list in sync with icon-family-selector.njk.
+  var iconFamily = /^(classic|sharp|duotone|sharp-duotone) (solid|regular|light|thin)$/.exec(localStorage.getItem('icon-family'));
+  document.documentElement.dataset.faFamily = iconFamily ? iconFamily[1] : 'classic';
+  document.documentElement.dataset.faVariant = iconFamily ? iconFamily[2] : 'regular';
+
   function setCookie(options) {
     let {
       name,

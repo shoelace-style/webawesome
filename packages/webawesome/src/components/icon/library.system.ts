@@ -1,10 +1,15 @@
+import { getDefaultIconFamily, getDefaultIconVariant } from './library.config.js';
+import { getIconFolder } from './library.default.js';
 import type { IconLibrary } from './library.js';
+import { systemIconSets } from './library.system.sets.js';
+
+export type SystemIcons = { [variant: string]: { [name: string]: string } };
 
 function dataUri(svg: string) {
   return `data:image/svg+xml,${encodeURIComponent(svg)}`;
 }
 
-export const icons: { [key: string]: { [key: string]: string } } = {
+export const icons: SystemIcons = {
   //
   // Solid variant
   //
@@ -115,6 +120,8 @@ export const icons: { [key: string]: { [key: string]: string } } = {
   },
 };
 
+const loadedSets = new Map<string, Promise<SystemIcons | undefined>>();
+
 //
 // System icons are a separate library to ensure they're always available, regardless of how the default icon library is
 // configured or if its icons resolve properly. All Web Awesome components must use the system library instead of the
@@ -123,16 +130,32 @@ export const icons: { [key: string]: { [key: string]: string } } = {
 const systemLibrary: IconLibrary = {
   name: 'system',
   resolver: (name: string, _family = 'classic', variant = 'solid') => {
-    let collection = icons[variant];
-
     // Fall back to a question mark if the icon is missing
-    let svg = collection[name] ?? icons.regular[name] ?? icons.regular['circle-question'];
+    const resolve = (set?: SystemIcons) => {
+      const svg =
+        set?.[variant]?.[name] ??
+        (icons[variant] ?? icons.solid)[name] ??
+        icons.regular[name] ??
+        icons.regular['circle-question'];
+      return svg ? dataUri(svg) : '';
+    };
 
-    if (svg) {
-      return dataUri(svg);
+    // Use an alternate set when one exists for the default family and variant
+    const folder = getIconFolder(name, getDefaultIconFamily(), getDefaultIconVariant());
+    const loader = systemIconSets[folder];
+    if (!loader) {
+      return resolve();
     }
 
-    return '';
+    let set = loadedSets.get(folder);
+    if (!set) {
+      set = loader().then(
+        module => module.default,
+        () => undefined,
+      );
+      loadedSets.set(folder, set);
+    }
+    return set.then(resolve);
   },
   mutator: svg => {
     // The embedded Font Awesome SVGs are pasted verbatim and have no fill attribute, so set one when absent to

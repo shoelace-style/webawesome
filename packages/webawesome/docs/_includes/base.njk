@@ -36,6 +36,7 @@
     <script type="module" src="/assets/scripts/color-scheme.js"></script>
   {% endif %}
   <script type="module" src="/assets/scripts/theme.js"></script>
+  <script type="module" src="/assets/scripts/icon-family.js"></script>
   <script type="module" src="/assets/scripts/install-tabs.js"></script>
   <script type="module" src="/assets/scripts/component-anatomy.js"></script>
 
@@ -142,7 +143,7 @@
       {% set outlineLabel = "On This Page..." %}
       <nav id="outline-expandable" aria-label="{{ outlineLabel }}">
         <wa-details class="outline-links">
-          <span class="wa-body-s wa-cluster wa-gap-xs" slot="summary"><wa-icon name="book-open" variant="regular"></wa-icon> {{ outlineLabel }}</span>
+          <span class="wa-body-s wa-cluster wa-gap-xs" slot="summary"><wa-icon name="book-open"></wa-icon> {{ outlineLabel }}</span>
         </wa-details>
       </nav>
       {% endif %}
@@ -161,7 +162,7 @@
         {% if item.url == breadcrumbParentUrl %}{% set breadcrumbParentTitle = item.data.title %}{% endif %}
       {% endfor %}
       <wa-breadcrumb class="page-breadcrumbs">
-        <wa-icon slot="separator" name="angle-right" variant="regular"></wa-icon>
+        <wa-icon slot="separator" name="angle-right"></wa-icon>
         <wa-breadcrumb-item href="{{ breadcrumbParentUrl }}">{{ breadcrumbParentTitle }}</wa-breadcrumb-item>
         <wa-breadcrumb-item>{{ title }}</wa-breadcrumb-item>
       </wa-breadcrumb>
