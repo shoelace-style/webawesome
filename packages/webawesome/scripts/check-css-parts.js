@@ -2,7 +2,9 @@
  * Guards the component CSS-part surface statically (no build):
  *   1. every rendered `part=` has a matching `@csspart`, so docs can't drift from render;
  *   2. every `@csspart` is actually rendered, so docs can't promise a part that does nothing;
- *   3. every component that renders `base` also exposes its canonical `<name>` (or `<name>-wrapper`) part.
+ *   3. every component that renders `base` also exposes its canonical `<name>` (or `<name>-wrapper`) part;
+ *   4. `base` is an anti-pattern: no component outside the legacy list may render, forward, or document one,
+ *      and nothing in `src/` may select one. The legacy list only shrinks and is emptied in the next major.
  *
  * Check 2 can't see `part=${expr}`, so any component that builds a part name dynamically is skipped
  * for it rather than reported with false positives.
@@ -25,6 +27,10 @@ const DEPRECATED_PART = /@csspart\s+(\S+)\s*-\s*Deprecated\b/g;
 const DYNAMIC_PART = /(?<![\w[])part=(?:\$\{|(["'])[^"']*\$\{)/;
 // `exportparts="inner:outer, bare"` republishes a child's parts under this component's names.
 const EXPORTED_PARTS = /exportparts=(["'])([^"'$]+)\1/g;
+// A `base` part, or a forwarded name built on one (`close-button__base`, `base__popup`).
+const BASE_PART = /^(?:base|[\w-]+__base|base__[\w-]+)$/;
+// A selector or lookup that targets one.
+const BASE_SELECTOR = /::part\(\s*(?:base|[\w-]+__base|base__[\w-]+)\s*\)|\[part[~|]?=\s*["']base["']\s*\]/g;
 
 function collect(source, regex, group) {
   const out = new Set();
@@ -47,6 +53,17 @@ function collectExported(source) {
   return out;
 }
 
+// Both sides of every `exportparts` entry.
+function collectExportTokens(source) {
+  const out = new Set();
+  for (const match of source.matchAll(EXPORTED_PARTS)) {
+    for (const entry of match[2].split(',')) {
+      for (const token of entry.split(':')) if (token.trim()) out.add(token.trim());
+    }
+  }
+  return out;
+}
+
 // Skip tests, styles, and `library.*.ts`: the icon library holds SVG fragments whose `part=`
 // belongs to the consuming component (`indeterminate-icon` is a checkbox part, not icon's).
 async function readComponentSource(dir) {
@@ -60,6 +77,48 @@ async function readComponentSource(dir) {
 // Pro package passes its own through `check({ allowlist })`.
 const DEFAULT_ALLOWLIST = {};
 
+// Components that still carry a deprecated `base` part (rendered, forwarded, or documented as a tombstone).
+// Remove entries as they're cleaned up; never add one. The Pro package passes its own through `check({ legacyBase })`.
+const DEFAULT_LEGACY_BASE = [
+  'accordion-item',
+  'badge',
+  'breadcrumb',
+  'button',
+  'button-group',
+  'carousel',
+  'checkbox',
+  'color-picker',
+  'comparison',
+  'details',
+  'dialog',
+  'drawer',
+  'dropdown',
+  'input',
+  'known-date',
+  'number-input',
+  'page',
+  'pagination',
+  'progress-bar',
+  'progress-ring',
+  'qr-code',
+  'rating',
+  'select',
+  'slider',
+  'spinner',
+  'switch',
+  'tab',
+  'tab-group',
+  'tab-panel',
+  'tag',
+  'tag-input',
+  'textarea',
+  'time-input',
+  'toast-item',
+  'tooltip',
+  'tree',
+  'tree-item',
+];
+
 function hasCanonicalPart(name, rendered, declared) {
   return [name, `${name}-wrapper`].some(part => rendered.has(part) && declared.has(part));
 }
@@ -67,6 +126,7 @@ function hasCanonicalPart(name, rendered, declared) {
 export async function check(options = {}) {
   const rootDir = options.rootDir || root;
   const allowlist = options.allowlist ?? DEFAULT_ALLOWLIST;
+  const legacyBase = new Set(options.legacyBase ?? DEFAULT_LEGACY_BASE);
   const dirs = await globby('src/components/*', {
     cwd: rootDir,
     absolute: true,
@@ -76,6 +136,7 @@ export async function check(options = {}) {
   const failures = [];
   const staleAllowlist = [];
   const unverifiable = [];
+  const staleLegacyBase = [];
 
   for (const dir of dirs.sort()) {
     const name = basename(dir);
@@ -102,10 +163,18 @@ export async function check(options = {}) {
 
     const missingCanonical = rendered.has('base') && !hasCanonicalPart(name, rendered, declared);
 
+    const baseParts = [...new Set([...rendered, ...declared, ...collectExportTokens(source)])]
+      .filter(part => BASE_PART.test(part))
+      .sort();
+    if (baseParts.length === 0 && legacyBase.has(name)) staleLegacyBase.push(name);
+
     const problems = [];
     if (gaps.length > 0) problems.push(`undocumented part(s): ${gaps.join(', ')}`);
     if (phantoms.length > 0) problems.push(`documented but never rendered: ${phantoms.join(', ')}`);
     if (missingCanonical) problems.push(`missing canonical part (\`${name}\` or \`${name}-wrapper\`)`);
+    if (baseParts.length > 0 && !legacyBase.has(name)) {
+      problems.push(`uses the deprecated \`base\` part: ${baseParts.join(', ')}`);
+    }
 
     if (problems.length > 0) {
       failures.push(name);
@@ -115,7 +184,35 @@ export async function check(options = {}) {
     }
   }
 
+  // Styles and lookups anywhere in src/, outside tests and the generated React wrappers.
+  const baseSelectors = [];
+  const sourceFiles = await globby('src/**/*.{ts,css}', {
+    cwd: rootDir,
+    ignore: ['**/*.test.ts', 'src/react/**'],
+  });
+  for (const file of sourceFiles.sort()) {
+    const content = await readFile(`${rootDir}/${file}`, 'utf8');
+    for (const match of content.matchAll(BASE_SELECTOR)) {
+      const line = content.slice(0, match.index).split('\n').length;
+      baseSelectors.push(`${file}:${line} ${match[0]}`);
+    }
+  }
+
   console.log('');
+  if (baseSelectors.length > 0) {
+    console.log(
+      `❌ ${baseSelectors.length} selector(s) target the deprecated \`base\` part. Use the named part instead:`,
+    );
+    for (const entry of baseSelectors) console.log(`      ${entry}`);
+    console.log('');
+  }
+
+  if (staleLegacyBase.length > 0) {
+    console.log(`❌ ${staleLegacyBase.length} legacy \`base\` entr(ies) no longer use it. Remove them from the list:`);
+    for (const entry of staleLegacyBase) console.log(`      ${entry}`);
+    console.log('');
+  }
+
   if (staleAllowlist.length > 0) {
     console.log(`⚠️  ${staleAllowlist.length} stale allowlist entr(ies) — now documented, remove from ALLOWLIST:`);
     for (const entry of staleAllowlist) console.log(`      ${entry}`);
@@ -130,12 +227,13 @@ export async function check(options = {}) {
     console.log('');
   }
 
-  if (failures.length > 0) {
+  if (failures.length > 0 || baseSelectors.length > 0 || staleLegacyBase.length > 0) {
     console.log(`FAILED: part issues across ${failures.length} component(s).`);
     console.log('Add a matching `@csspart <name> - <description>` for any stray `part=`. For a documented');
     console.log("part nothing renders, either render it or drop the tag — unless it's forwarded via");
     console.log('`exportparts` or is a `Deprecated.` tombstone, both of which are already exempt. And give');
     console.log('each component a canonical `<name>` (or `<name>-wrapper`) part on its outer element.');
+    console.log('Never add a `base` part: name the wrapper after the component and forward named parts.');
     process.exit(1);
   }
 
