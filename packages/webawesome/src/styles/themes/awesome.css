@@ -583,7 +583,8 @@
       --checked-icon-color: var(--wa-color-surface-default);
     }
 
-    wa-option {
+    wa-option,
+    wa-rich-text-editor {
       --current-text-color: var(--wa-color-surface-default);
     }
 
