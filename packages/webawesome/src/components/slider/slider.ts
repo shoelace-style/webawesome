@@ -55,7 +55,7 @@ import styles from './slider.styles.js';
  * @csspart tooltip__base - Deprecated. Use the `tooltip__tooltip` part instead.
  * @csspart tooltip__tooltip - The tooltip's `tooltip` part.
  * @csspart tooltip__body - The tooltip's `body` part.
- * @csspart tooltip__arrow - The tooltip's `tooltip__arrow` part.
+ * @csspart tooltip__arrow - The tooltip's popup's `arrow` part.
  *
  * @cssstate disabled - Applied when the slider is disabled.
  * @cssstate dragging - Applied when the slider is being dragged.
