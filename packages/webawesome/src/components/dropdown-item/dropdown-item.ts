@@ -264,6 +264,11 @@ export default class WaDropdownItem extends WebAwesomeElement {
     this.submenuOpen = false;
     this.setAttribute('aria-expanded', 'false');
 
+    // Hiding a submenu that holds focus drops focus to the body, so return it to this item as ArrowLeft does
+    if (this.getSubmenuItems().some(item => item.matches(':focus-within'))) {
+      this.focus({ preventScroll: true });
+    }
+
     if (!submenu.hidden) {
       await animateWithClass(submenu, 'hide');
       if (submenu?.isConnected) {

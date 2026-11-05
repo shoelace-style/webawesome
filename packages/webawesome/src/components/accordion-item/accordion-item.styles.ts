@@ -41,7 +41,6 @@ export default css`
       text-align: start;
       color: var(--wa-color-text-normal);
       font: inherit;
-      font-weight: var(--wa-font-weight-semibold);
 
       &:focus {
         outline: none;
@@ -104,7 +103,6 @@ export default css`
 
     .body {
       overflow: hidden;
-      color: var(--wa-color-text-quiet);
     }
 
     :host([expanded]) .body:not(.animating) {
@@ -113,7 +111,7 @@ export default css`
 
     .content {
       display: block;
-      padding: 0 var(--spacing) var(--spacing);
+      padding: var(--spacing);
     }
   }
 `;

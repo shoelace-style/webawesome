@@ -468,6 +468,7 @@
         wa-select,
         wa-combobox,
         wa-tag-input,
+        wa-rich-text-editor,
         input:not(
             [type='button'],
             [type='checkbox'],
@@ -483,12 +484,13 @@
         textarea,
         select
       ):not(:focus, [appearance='filled']) {
-      &:where(:not(wa-input, wa-textarea, wa-select, wa-combobox, wa-tag-input)),
+      &:where(:not(wa-input, wa-textarea, wa-select, wa-combobox, wa-tag-input, wa-rich-text-editor)),
       &:where(wa-input)::part(base),
       &:where(wa-textarea)::part(base),
       &:where(wa-select)::part(combobox),
       &:where(wa-combobox)::part(combobox),
-      &:where(wa-tag-input)::part(tag-input) {
+      &:where(wa-tag-input)::part(tag-input),
+      &:where(wa-rich-text-editor)::part(rich-text-editor) {
         box-shadow: inset var(--wa-shadow-offset-x-s)
           max(var(--wa-shadow-offset-y-s), var(--wa-form-control-border-width)) 0 0 var(--wa-color-shadow);
       }

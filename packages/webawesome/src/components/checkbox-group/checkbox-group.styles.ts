@@ -2,9 +2,7 @@ import { css } from 'lit';
 
 export default css`
   :host {
-    --gap: 0.5em;
-
-    display: block;
+    --gap: 0.75em;
   }
 
   :host([orientation='horizontal']) {
@@ -34,7 +32,6 @@ export default css`
     /* Keep items sized to their content so the clickable label doesn't span the full width */
     align-items: start;
     gap: var(--gap);
-    margin-block-start: 0.5em;
   }
 
   /* Horizontal */
