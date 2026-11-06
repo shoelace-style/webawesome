@@ -1,8 +1,8 @@
 import { getDefaultIconFamily, getDefaultIconVariant, setDefaultIconFamily } from '/dist/webawesome.js';
 
 //
-// Syncs the icon family selectors with the library's current defaults. The library is the source of truth: the blocking
-// script in head.njk gives it this site's default or the visitor's saved style before any icon renders.
+// Syncs the icon family selectors with the library's current defaults. The library is the source of truth:
+// the blocking script in head.njk gives it this site's default or the visitor's saved style before any icon renders.
 //
 function syncSelectors() {
   const value = `${getDefaultIconFamily()} ${getDefaultIconVariant()}`;
