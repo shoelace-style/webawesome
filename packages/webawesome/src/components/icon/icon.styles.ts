@@ -59,6 +59,13 @@ export default css`
     overflow: visible;
     width: auto;
 
+    /* A sprite sheet <svg> only holds a <use>, and the symbol's viewBox doesn't reach the outer <svg>. With no ratio to
+       derive a width from, "auto" falls back to the 300px replaced element default. Icons are square unless the <svg>
+       states its own viewBox or width. */
+    &:not([viewBox], [width]) {
+      aspect-ratio: 1;
+    }
+
     /* Duotone colors with path-specific opacity fallback */
     path[data-duotone-primary] {
       color: var(--primary-color);
