@@ -73,7 +73,7 @@ describe('<wa-button>', () => {
 
         it('should set aria-busy when loading', async () => {
           const el = await fixture<WaButton>(html` <wa-button loading>Button Label</wa-button> `);
-          const button = el.shadowRoot!.querySelector<HTMLButtonElement>('[part~="base"]')!;
+          const button = el.shadowRoot!.querySelector<HTMLButtonElement>('[part~="button"]')!;
           expect(button.getAttribute('aria-busy')).to.equal('true');
         });
       });
@@ -81,7 +81,7 @@ describe('<wa-button>', () => {
       describe('properties', () => {
         it('should have title if title attribute is set', async () => {
           const el = await fixture<WaButton>(html` <wa-button title="Test"></wa-button> `);
-          const button = el.shadowRoot!.querySelector<HTMLButtonElement>('[part~="base"]')!;
+          const button = el.shadowRoot!.querySelector<HTMLButtonElement>('[part~="button"]')!;
           expect(button.title).to.equal('Test');
         });
 

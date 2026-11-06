@@ -397,7 +397,7 @@
         /* Give buttons a raised effect via solid box-shadow
          * and adjust height to visually match other inputs */
         &:where(:not(wa-button)),
-        &::part(base) {
+        &::part(button) {
           height: calc(var(--wa-form-control-height) - var(--wa-shadow-offset-y-s));
           box-shadow: var(--wa-shadow-offset-x-s) var(--wa-shadow-offset-y-s) 0 0 var(--wa-color-shadow);
 
@@ -410,7 +410,7 @@
         /* Give active buttons a "punch in" effect */
         &:not([disabled], :disabled):active {
           &:where(:not(wa-button)),
-          &::part(base) {
+          &::part(button) {
             color: var(--wa-color-fill-quiet);
             background-color: var(--wa-color-shadow);
             border-color: var(--wa-color-shadow);
@@ -426,14 +426,14 @@
       & > *:not(:last-child) {
         &:is(wa-button:not([appearance='plain'], .wa-plain)),
         & wa-button:not([appearance='plain'], .wa-plain) {
-          &::part(base) {
+          &::part(button) {
             height: var(--wa-form-control-height);
             margin-bottom: 0;
             margin-right: 0;
             box-shadow: none;
           }
           &:not([disabled], :disabled):active {
-            &::part(base) {
+            &::part(button) {
               height: calc(var(--wa-form-control-height) - var(--wa-shadow-offset-y-s));
               margin-top: var(--wa-shadow-offset-y-s);
               transform: none;
@@ -445,7 +445,7 @@
         &:is(wa-button:not([appearance='plain'], .wa-plain)),
         & wa-button:not([appearance='plain'], .wa-plain) {
           &:not([disabled], :disabled):active {
-            &::part(base) {
+            &::part(button) {
               box-shadow: var(--wa-shadow-offset-x-s) calc(var(--wa-shadow-offset-y-s) * -1) 0 0 var(--wa-color-shadow);
             }
           }
@@ -485,8 +485,8 @@
         select
       ):not(:focus, [appearance='filled']) {
       &:where(:not(wa-input, wa-textarea, wa-select, wa-combobox, wa-tag-input, wa-rich-text-editor)),
-      &:where(wa-input)::part(base),
-      &:where(wa-textarea)::part(base),
+      &:where(wa-input)::part(input-wrapper),
+      &:where(wa-textarea)::part(textarea-wrapper),
       &:where(wa-select)::part(combobox),
       &:where(wa-combobox)::part(combobox),
       &:where(wa-tag-input)::part(tag-input),
@@ -516,7 +516,7 @@
 
         &:not([disabled], :disabled):active {
           &:where(:not(wa-button)),
-          &::part(base) {
+          &::part(button) {
             color: var(--wa-color-on-quiet);
           }
         }
@@ -538,7 +538,7 @@
         --wa-color-shadow: var(--wa-color-on-loud);
 
         &:where(:not(wa-button)),
-        &::part(base) {
+        &::part(button) {
           border-color: var(--wa-color-shadow);
         }
       }

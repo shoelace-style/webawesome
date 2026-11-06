@@ -300,7 +300,7 @@ describe('<wa-comparison>', () => {
             </wa-comparison>
           `);
 
-          expect(el.shadowRoot!.querySelector('[part~="base"]')).to.exist;
+          expect(el.shadowRoot!.querySelector('[part~="comparison"]')!.matches('[part~="base"]')).to.be.true;
           expect(el.shadowRoot!.querySelector('[part~="before"]')).to.exist;
           expect(el.shadowRoot!.querySelector('[part~="after"]')).to.exist;
           expect(el.shadowRoot!.querySelector('[part~="divider"]')).to.exist;

@@ -580,8 +580,8 @@
 
       &:focus-within {
         &:where(:not(wa-input, wa-textarea, wa-select, wa-combobox, wa-tag-input)),
-        &:where(wa-input)::part(base),
-        &:where(wa-textarea)::part(base),
+        &:where(wa-input)::part(input-wrapper),
+        &:where(wa-textarea)::part(textarea-wrapper),
         &:where(wa-select)::part(combobox),
         &:where(wa-combobox)::part(combobox),
         &:where(wa-tag-input)::part(tag-input) {
