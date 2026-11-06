@@ -21,7 +21,7 @@ export function changelogListIconsTransformer() {
           .forEach(li => {
             li.insertAdjacentHTML(
               'afterbegin',
-              `<wa-icon name="${iconName}" class="changelog-bullet de-emphasize" variant="regular" aria-hidden="true"></wa-icon>`,
+              `<wa-icon name="${iconName}" class="changelog-bullet de-emphasize" aria-hidden="true"></wa-icon>`,
             );
           });
       });

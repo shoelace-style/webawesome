@@ -568,10 +568,7 @@ export default class WaDropdown extends WebAwesomeElement {
 
     this.cleanupSubmenuPosition(item);
 
-    const cleanup = autoUpdate(item, item.submenuElement, () => {
-      this.positionSubmenu(item);
-      this.updateSafeTriangleCoordinates(item);
-    });
+    const cleanup = autoUpdate(item, item.submenuElement, () => this.positionSubmenu(item));
 
     this.submenuCleanups.set(item, cleanup);
 
@@ -649,7 +646,15 @@ export default class WaDropdown extends WebAwesomeElement {
         left: `${x}px`,
         top: `${y}px`,
       });
+
+      // Runs after positioning so the triangle uses the resolved placement and rect
+      this.updateSafeTriangleCoordinates(item);
     });
+  }
+
+  /** Whether the submenu opened on the left of its parent item, which happens in RTL or when it flips */
+  private isSubmenuOnLeft(item: WaDropdownItem) {
+    return item.submenuElement.getAttribute('data-placement')?.startsWith('left') ?? false;
   }
 
   /** Updates the safe triangle coordinates for a submenu */
@@ -666,17 +671,11 @@ export default class WaDropdown extends WebAwesomeElement {
     item.submenuElement.style.setProperty('--safe-triangle-visible', 'block');
 
     const submenuRect = item.submenuElement.getBoundingClientRect();
-    const isRtl = this.localize.dir() === 'rtl';
+    const submenuEdgeX = this.isSubmenuOnLeft(item) ? submenuRect.right : submenuRect.left;
 
-    item.submenuElement.style.setProperty(
-      '--safe-triangle-submenu-start-x',
-      `${isRtl ? submenuRect.right : submenuRect.left}px`,
-    );
+    item.submenuElement.style.setProperty('--safe-triangle-submenu-start-x', `${submenuEdgeX}px`);
     item.submenuElement.style.setProperty('--safe-triangle-submenu-start-y', `${submenuRect.top}px`);
-    item.submenuElement.style.setProperty(
-      '--safe-triangle-submenu-end-x',
-      `${isRtl ? submenuRect.right : submenuRect.left}px`,
-    );
+    item.submenuElement.style.setProperty('--safe-triangle-submenu-end-x', `${submenuEdgeX}px`);
     item.submenuElement.style.setProperty('--safe-triangle-submenu-end-y', `${submenuRect.bottom}px`);
   }
 
@@ -686,10 +685,10 @@ export default class WaDropdown extends WebAwesomeElement {
     if (!currentSubmenuItem?.submenuOpen || !currentSubmenuItem.submenuElement) return;
 
     const submenuRect = currentSubmenuItem.submenuElement.getBoundingClientRect();
-    const isRtl = this.localize.dir() === 'rtl';
-    const submenuEdgeX = isRtl ? submenuRect.right : submenuRect.left;
+    const isOnLeft = this.isSubmenuOnLeft(currentSubmenuItem);
+    const submenuEdgeX = isOnLeft ? submenuRect.right : submenuRect.left;
 
-    const constrainedX = isRtl ? Math.max(event.clientX, submenuEdgeX) : Math.min(event.clientX, submenuEdgeX);
+    const constrainedX = isOnLeft ? Math.max(event.clientX, submenuEdgeX) : Math.min(event.clientX, submenuEdgeX);
     const constrainedY = Math.max(submenuRect.top, Math.min(event.clientY, submenuRect.bottom));
 
     currentSubmenuItem.submenuElement.style.setProperty('--safe-triangle-cursor-x', `${constrainedX}px`);

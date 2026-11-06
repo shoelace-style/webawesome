@@ -1006,5 +1006,19 @@ describe('<wa-dropdown>', () => {
       expect(rect.left).to.be.at.least(itemRect.right - 6);
       expect(rect.right).to.be.at.most(window.innerWidth);
     });
+
+    it('should aim the safe triangle at the near edge when the submenu flips to the other side', async () => {
+      const el = await submenuFixture();
+      el.querySelector<HTMLElement>('[slot="trigger"]')!.style.cssText = 'position: fixed; top: 0; right: 0;';
+      const parentItem = await openSubmenu(el);
+
+      const rect = parentItem.submenuElement.getBoundingClientRect();
+      expect(parentItem.submenuElement.getAttribute('data-placement')).to.match(/^left/);
+
+      // A cursor over the parent item sits to the right of a flipped submenu, so it shouldn't be clamped to the left edge
+      const clientX = Math.round(rect.right + 20);
+      document.dispatchEvent(new MouseEvent('mousemove', { clientX, clientY: Math.round(rect.top + 10) }));
+      expect(parentItem.submenuElement.style.getPropertyValue('--safe-triangle-cursor-x')).to.equal(`${clientX}px`);
+    });
   });
 });
