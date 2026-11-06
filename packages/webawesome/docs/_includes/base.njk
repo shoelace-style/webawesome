@@ -3,6 +3,7 @@
 {%- if hasAnchors == undefined %}{% set hasAnchors = true %}{% endif -%}
 {%- if hasBanner == undefined %}{% set hasBanner = true %}{% endif -%}
 {%- if hasThemeSelector == undefined %}{% set hasThemeSelector = true %}{% endif -%}
+{%- if hasIconSelector == undefined %}{% set hasIconSelector = true %}{% endif -%}
 {%- if hasSiteDialog == undefined %}{% set hasSiteDialog = true %}{% endif -%}
 {%- if hasGeneratedTitle == undefined %}{% set hasGeneratedTitle = true %}{% endif -%}
 {%- if hasLinkify == undefined %}{% set hasLinkify = true %}{% endif -%}
@@ -36,7 +37,9 @@
     <script type="module" src="/assets/scripts/color-scheme.js"></script>
   {% endif %}
   <script type="module" src="/assets/scripts/theme.js"></script>
-  <script type="module" src="/assets/scripts/icon-family.js"></script>
+  {% if hasIconSelector %}
+    <script type="module" src="/assets/scripts/icon-family.js"></script>
+  {% endif %}
   <script type="module" src="/assets/scripts/install-tabs.js"></script>
   <script type="module" src="/assets/scripts/component-anatomy.js"></script>
 

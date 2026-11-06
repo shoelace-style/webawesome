@@ -1,13 +1,15 @@
 <div class="wa-stack wa-gap-xs wa-mobile-only">
   {% include "search-trigger-button.njk" %}
-  <div class="wa-split">
+  <div class="wa-split wa-gap-xs">
     {% include "ssr-switch.njk" %}
     <div class="wa-cluster wa-gap-3xs wa-flex-nowrap">
       {% include "color-scheme-selector.njk" %}
       {% if hasThemeSelector %}
         {% include "theme-selector.njk" %}
       {% endif %}
-      {% include "icon-family-selector.njk" %}
+      {% if hasIconSelector %}
+        {% include "icon-family-selector.njk" %}
+      {% endif %}
     </div>
   </div>
 </div>

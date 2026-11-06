@@ -214,7 +214,7 @@ To change the family and variant of every icon at once, add the `data-fa-family`
 </html>
 ```
 
-Or call `setDefaultIconFamily()` with a family and an optional variant. Omitting the variant keeps the current default. Icons already on the page will be redrawn. The data attributes are only read on page load, but you can use this function to change them at runtime.
+Or call `setDefaultIconFamily()` with a family and an optional variant. Omitting the variant keeps the current default. Icons already on the page will be redrawn. The data attributes are read once, when the first icon renders, so use this function to change the defaults after that.
 
 ```html
 <script type="module">
@@ -224,7 +224,7 @@ Or call `setDefaultIconFamily()` with a family and an optional variant. Omitting
 </script>
 ```
 
-The defaults apply to any icon without its own `family` or `variant` attribute. Any family and variant an icon accepts will work, including Font Awesome's Pro+ packs (but some icon sets may not have corresponding glyphs).
+The defaults apply to any icon without its own `family` or `variant` attribute. Any family and variant an icon accepts will work, including Font Awesome's Pro+ packs. An icon that doesn't exist in the chosen family and variant renders blank and emits `wa-error`.
 
 To get the current values, you can call `getDefaultIconFamily()` and `getDefaultIconVariant()`.
 

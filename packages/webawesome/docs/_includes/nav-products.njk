@@ -30,7 +30,9 @@
           {% if hasThemeSelector %}
             {% include "theme-selector.njk" %}
           {% endif %}
-          {% include "icon-family-selector.njk" %}
+          {% if hasIconSelector %}
+            {% include "icon-family-selector.njk" %}
+          {% endif %}
 
           {% include "github-icon-buttons.njk" %}
         </div>
