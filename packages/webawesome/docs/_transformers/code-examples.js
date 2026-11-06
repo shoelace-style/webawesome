@@ -166,7 +166,7 @@ export function codeExamplesTransformer(options = {}) {
                 <!-- component-anatomy.js finds its subject inside code-example-content; keep the class in sync -->
                 <div class="code-example-content"${isAnatomy ? ' data-anatomy-subject="true"' : ''}>${preview}</div>
                 <div class="code-example-resizer" aria-hidden="true">
-                  <wa-icon src="/assets/images/grip-lines-vertical.svg"></wa-icon>
+                  <wa-icon name="grip-lines-vertical"></wa-icon>
                 </div>
               </div>
               `
