@@ -1,4 +1,5 @@
 import { getIconPath, getKitCode } from '../../utilities/base-path.js';
+import { getDefaultIconFamily, getDefaultIconVariant } from './library.config.js';
 import type { IconLibrary } from './library.js';
 
 const FA_VERSION = '7.3.0';
@@ -158,8 +159,9 @@ function getIconUrl(name: string, family: string, variant: string) {
 
 const library: IconLibrary = {
   name: 'default',
-  resolver: (name: string, family = 'classic', variant = 'solid') => {
-    return getIconUrl(name, family, variant);
+  resolver: (name: string, family: string, variant: string) => {
+    // Removing an attribute leaves null, not undefined, so default parameters would miss it
+    return getIconUrl(name, family || getDefaultIconFamily(), variant || getDefaultIconVariant());
   },
   mutator: (svg, hostEl) => {
     // FA 7.x files set fill="currentColor" on each path, but older self-hosted dumps have no fill attribute, so we
@@ -170,8 +172,9 @@ const library: IconLibrary = {
     }
 
     // Duotone families
-    if (hostEl?.family && !svg.hasAttribute('data-duotone-initialized')) {
-      const { family, variant } = hostEl;
+    if (hostEl && !svg.hasAttribute('data-duotone-initialized')) {
+      const family = hostEl.family || getDefaultIconFamily();
+      const { variant } = hostEl;
 
       if (
         // Duotone

@@ -9,7 +9,9 @@ import { registerIconLibrary } from '../../../dist-cdn/webawesome.js';
 import type WaIcon from './icon.js';
 import type { IconAnimation } from './icon.js';
 import defaultLibrary, { getIconFolder } from './library.default.js';
+import { getDefaultIconFamily, setDefaultIconFamily } from './library.js';
 import systemLibrary, { icons as systemIcons } from './library.system.js';
+import { systemIconSets } from './library.system.sets.js';
 
 // Captures the autoWidth argument passed to a resolver so we can assert the canvas="auto" coupling.
 let probeAutoWidth: boolean | undefined;
@@ -150,6 +152,36 @@ describe('<wa-icon>', () => {
         .map(([name]) => `${variant}/${name}`),
     );
     expect(proIcons).to.deep.equal([]);
+  });
+
+  describe('default icon family and variant', () => {
+    const fakeSvg = '<svg id="fake-sharp-light"></svg>';
+
+    afterEach(() => {
+      setDefaultIconFamily('classic', 'solid');
+      delete systemIconSets['sharp-light'];
+    });
+
+    it('applies to the default library when the icon has no family or variant', async () => {
+      setDefaultIconFamily('sharp', 'light');
+
+      // A property that was never set is undefined, a removed attribute leaves null, and an empty one leaves ''
+      for (const unset of [undefined, null, ''] as unknown as string[]) {
+        expect(await defaultLibrary.resolver('house', unset, unset, false)).to.include('/sharp-light/');
+      }
+      expect(await defaultLibrary.resolver('house', getDefaultIconFamily(), 'solid', false)).to.include(
+        '/sharp-solid/',
+      );
+    });
+
+    it('resolves system icons from an alternate set and falls back to the built-in icons', async () => {
+      systemIconSets['sharp-light'] = async () => ({ default: { solid: { check: fakeSvg } } });
+      setDefaultIconFamily('sharp', 'light');
+      const check = decodeURIComponent(await systemLibrary.resolver('check', 'classic', 'solid', false));
+      const xmark = decodeURIComponent(await systemLibrary.resolver('xmark', 'classic', 'solid', false));
+      expect(check).to.include('fake-sharp-light');
+      expect(xmark).to.include(systemIcons.solid.xmark);
+    });
   });
 
   for (const fixture of fixtures) {

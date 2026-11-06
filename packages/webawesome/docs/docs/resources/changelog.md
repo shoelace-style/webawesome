@@ -36,6 +36,11 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Added the experimental `<wa-rich-text-editor>` pro component for writing and formatting content, with HTML or Markdown values that submit with forms
 - Added the experimental `<wa-code-highlighter>` component for displaying syntax-highlighted code with a copy button
   - Added `registerCodeGrammar()` for adding or replacing grammars
+- Added the ability to change the default icon family and variant for all icons [pr:2978]
+  - Added the `data-fa-family` and `data-fa-variant` attributes
+  - Added an optional `variant` argument to `setDefaultIconFamily()`
+  - Added `getDefaultIconVariant()`
+  - In {{ site.namePro }}, the icons inside components follow the defaults for the `classic`, `sharp`, `duotone`, and `sharp-duotone` families
 
 :::
 
@@ -59,6 +64,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug in `animateWithClass` internal helper which could occasionally leave animations in indeterminate states. [pr:2870]
 - Fixed a bug in `<wa-copy-button>` where a missing `from` target copied the fallback `value` instead of stopping after `wa-error` [issue:2891] [pr:2911]
 - Fixed a bug in `<wa-dropdown>` where reopening the menu during its hide animation left it stuck open, ignoring [[Escape]] and clicks outside
+- Fixed a bug in `<wa-dropdown>` where submenus that flipped to the opposite side closed while the pointer moved toward them [pr:2978]
 - Fixed a bug in `<wa-dropdown>` where the initial focused element would get lost. [pr:2886]
 - Fixed a bug in `<wa-dropdown>` where submenus would occasionally get dismissed due to not properly rechecking submenu hover states. [pr:2877]
 - Fixed an issue in `<wa-tooltip>` where `abortController` preserved instances of `anchor` in the exception message causing the anchor to still be reachable. [pr:2873]
@@ -78,6 +84,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Promoted the following components from {{ statusBadge('experimental') }} to {{ statusBadge('stable') }}
   - Free: `<wa-step>` and `<wa-stepper>`
   - Pro: `<wa-data-grid>`
+- Changed the indeterminate icon in `<wa-checkbox>` to the system library's `minus` icon so it matches the checkmark [pr:2978]
 
 :::
 
@@ -1467,7 +1474,7 @@ Many of these changes and improvements were the direct result of feedback from u
         data-track-context="feedback_callout"
         data-track-destination="report_bug"
       >
-        <wa-icon slot="start" variant="regular" name="bug"></wa-icon>
+        <wa-icon slot="start" name="bug"></wa-icon>
         Report a bug
       </wa-button>
       <wa-button
@@ -1478,7 +1485,7 @@ Many of these changes and improvements were the direct result of feedback from u
         data-track-context="feedback_callout"
         data-track-destination="ask_for_help"
       >
-        <wa-icon slot="start" variant="regular" name="message-question"></wa-icon>
+        <wa-icon slot="start" name="message-question"></wa-icon>
         Ask for help
       </wa-button>
     </div>
