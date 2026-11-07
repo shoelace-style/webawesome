@@ -320,22 +320,8 @@ export default class WaDropdownItem extends WebAwesomeElement {
     };
 
     if (sourceEvent instanceof MouseEvent && sourceEvent.eventPhase !== Event.NONE) {
-      const path = sourceEvent.composedPath();
-      const rootTarget = path[path.length - 1];
-
-      if (rootTarget) {
-        let handled = false;
-        const finish = () => {
-          if (handled) return;
-          handled = true;
-          rootTarget.removeEventListener(sourceEvent.type, finish);
-          dispatchClick();
-        };
-
-        rootTarget.addEventListener(sourceEvent.type, finish, { once: true });
-        queueMicrotask(finish);
-        return;
-      }
+      setTimeout(dispatchClick);
+      return;
     }
 
     dispatchClick();

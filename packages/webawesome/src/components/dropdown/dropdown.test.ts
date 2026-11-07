@@ -4,6 +4,7 @@ import { html } from 'lit';
 import sinon from 'sinon';
 import { expectEvent } from '../../internal/test/expect-event.js';
 import { clientFixture, fixtures } from '../../internal/test/fixture.js';
+import { clickOnElement } from '../../internal/test/pointer-utilities.js';
 import type WaDropdownItem from '../dropdown-item/dropdown-item.js';
 import type WaDropdown from './dropdown.js';
 
@@ -325,7 +326,7 @@ describe('<wa-dropdown>', () => {
           const clickHandler = sinon.spy((event: MouseEvent) => event.preventDefault());
           link.addEventListener('click', clickHandler);
 
-          item.click();
+          await clickOnElement(item);
           await aTimeout(200);
 
           expect(clickHandler).to.not.have.been.called;
