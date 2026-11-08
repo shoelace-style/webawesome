@@ -11,6 +11,19 @@ interface DragOptions {
   initialEvent: PointerEvent;
 }
 
+/**
+ * Captures the pointer of a drag on an element. Without capture, releasing the pointer elsewhere makes the browser click
+ * the closest element that contains both the press and the release, such as a card around a slider. With capture, the
+ * click is fired at the capturing element instead.
+ */
+function capturePointer(el: Element, event: PointerEvent) {
+  try {
+    el.setPointerCapture(event.pointerId);
+  } catch {
+    // The pointer of a synthetic event isn't active, so it can't be captured. The drag still works without capture.
+  }
+}
+
 /** Begins listening for dragging. */
 export function drag(container: HTMLElement, options?: Partial<DragOptions>) {
   function move(pointerEvent: PointerEvent) {
@@ -40,6 +53,7 @@ export function drag(container: HTMLElement, options?: Partial<DragOptions>) {
 
   // If an initial event is set, trigger the first drag immediately
   if (options?.initialEvent instanceof PointerEvent) {
+    capturePointer(container, options.initialEvent);
     move(options.initialEvent);
   }
 }
@@ -96,6 +110,10 @@ export class DraggableElement {
     }
 
     this.isDragging = true;
+
+    if (event instanceof PointerEvent) {
+      capturePointer(this.element, event);
+    }
 
     document.addEventListener('pointerup', this.handleDragStop);
     document.addEventListener('pointermove', this.handleDragMove);
