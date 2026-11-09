@@ -54,6 +54,29 @@ describe('<wa-popover>', () => {
             await waitUntil(() => target().getAttribute('aria-expanded') === 'false');
           }
         });
+
+        it('should remove its ARIA state from an anchor it no longer controls', async () => {
+          const el = await fixture<HTMLDivElement>(html`
+            <div>
+              <button id="first-anchor">First</button>
+              <button id="second-anchor">Second</button>
+              <wa-popover for="first-anchor">Content</wa-popover>
+            </div>
+          `);
+          const popover = el.querySelector<WaPopover>('wa-popover')!;
+          const firstAnchor = el.querySelector('#first-anchor')!;
+          const secondAnchor = el.querySelector('#second-anchor')!;
+          await waitUntil(() => firstAnchor.hasAttribute('aria-expanded'));
+
+          popover.for = 'second-anchor';
+          await waitUntil(() => secondAnchor.hasAttribute('aria-expanded'));
+          expect(firstAnchor.hasAttribute('aria-haspopup')).to.be.false;
+          expect(firstAnchor.hasAttribute('aria-expanded')).to.be.false;
+
+          popover.remove();
+          expect(secondAnchor.hasAttribute('aria-haspopup')).to.be.false;
+          expect(secondAnchor.hasAttribute('aria-expanded')).to.be.false;
+        });
       });
 
       describe('properties', () => {
