@@ -929,6 +929,21 @@
       font-size: var(--font-size-3xs);
     }
 
+    /* Drawer top block shares the section headings' icon edge: search, dividers, and the first and last icon glyphs */
+    .wa-mobile-only {
+      --icon-button-inset: calc((var(--wa-form-control-height) - 1.25 * var(--wa-font-size-m)) / 2);
+    }
+
+    #search-trigger,
+    .wa-mobile-only > wa-divider {
+      margin-inline-start: calc(var(--wa-space-xs) * -1);
+    }
+
+    .wa-mobile-only > .wa-split {
+      inline-size: auto;
+      margin-inline: calc(var(--wa-space-xs) * -1 - var(--icon-button-inset)) calc(var(--icon-button-inset) * -1);
+    }
+
     /* site nav links: docs list rhythm and weight, icons on the section headings' icon edge */
     .subheader-links {
       gap: 0;
@@ -1001,10 +1016,11 @@
     max-block-size: 100%;
   }
 
-  /* Reserve the icon-heading outdent as padding so #sidebar's overflow box doesn't clip it on mobile. */
+  /* Stretch #sidebar's overflow box to the drawer's edges (padding keeps content in place) so outdented icons and
+   * icon-button hover/focus rings aren't clipped on mobile. */
   wa-page[view='mobile'] > #sidebar {
-    padding-inline-start: var(--wa-space-xs);
-    margin-inline-start: calc(var(--wa-space-xs) * -1);
+    padding-inline: var(--wa-space-l);
+    margin-inline: calc(var(--wa-space-l) * -1);
   }
 
   wa-page:not([view='mobile']) > #sidebar {
