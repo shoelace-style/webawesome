@@ -933,6 +933,11 @@
       justify-content: flex-start; /* align search trigger button content to start */
     }
 
+    /* The icon buttons' padding already adds space above this divider, so match it below */
+    .wa-mobile-only > wa-divider {
+      margin-block-end: var(--wa-space-2xs);
+    }
+
     /* current page: accent line replacing the section's left rail */
     li:has(> .current),
     li:has(> .wa-split > .current) {
