@@ -8,6 +8,10 @@ function syncSelectors() {
   const value = `${getDefaultIconFamily()} ${getDefaultIconVariant()}`;
 
   document.querySelectorAll('.icon-family-selector input').forEach(input => (input.checked = input.value === value));
+
+  const checkedLabel = document.querySelector('.icon-family-selector input:checked')?.closest('label');
+  const styleName = checkedLabel?.querySelector('.wa-visually-hidden').textContent;
+  document.querySelectorAll('.icon-family-tooltip .tooltip-value').forEach(el => (el.textContent = styleName));
 }
 
 // Handle changes
@@ -20,15 +24,6 @@ document.addEventListener('change', event => {
     syncSelectors();
   }
 });
-
-// Keep the tooltip from covering the selector while it's open
-for (const type of ['wa-show', 'wa-after-hide']) {
-  document.addEventListener(type, event => {
-    if (event.target.matches('.icon-family-selector')) {
-      event.target.previousElementSibling.disabled = type === 'wa-show';
-    }
-  });
-}
 
 syncSelectors();
 

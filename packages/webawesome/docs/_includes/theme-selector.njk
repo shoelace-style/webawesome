@@ -1,6 +1,7 @@
-<wa-dropdown class="theme-selector" title="Select Theme">
-  <wa-button slot="trigger" id="theme-selector-trigger" appearance="plain" pill>
-    <wa-icon name="palette" label="Select Theme"></wa-icon>
+{% set themeTriggerId = "theme-trigger-" + ("" | uniqueId(8)) %}
+<wa-dropdown class="theme-selector">
+  <wa-button slot="trigger" id="{{ themeTriggerId }}" appearance="plain" pill>
+    <wa-icon name="palette" label="Theme"></wa-icon>
   </wa-button>
 
   {# Free themes #}
@@ -30,7 +31,7 @@
     Docs
   </wa-dropdown-item>
 </wa-dropdown>
-<wa-tooltip for="theme-selector-trigger" id="theme-tooltip">Select Theme</wa-tooltip>
+<wa-tooltip for="{{ themeTriggerId }}" class="theme-tooltip">Theme: <span class="tooltip-value">Default</span></wa-tooltip>
 
 <script>
   // Handle dropdown selection and trigger input event for theme.js
