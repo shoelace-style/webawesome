@@ -387,6 +387,12 @@
   }
 
   /* subheader */
+  /* site nav (header band and mobile drawer): match sidebar “current” emphasis */
+  .subheader-links wa-button.current::part(label) {
+    font-weight: var(--wa-font-weight-bold);
+    color: var(--wa-color-text-normal);
+  }
+
   wa-page > [slot='subheader'] {
     background-color: var(--wa-color-surface-default);
     border-block-end: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-surface-border);
@@ -398,12 +404,6 @@
     /* icon-based logo */
     wa-icon.logo-web-awesome {
       font-size: var(--wa-font-size-xl);
-    }
-
-    /* subheader doc nav: match sidebar “current” emphasis */
-    .subheader-links wa-button.current::part(label) {
-      font-weight: var(--wa-font-weight-bold);
-      color: var(--wa-color-text-normal);
     }
 
     /* Narrow (≤ 85ch): compact header with logo */
@@ -927,6 +927,36 @@
       /* 1 scale below --wa-font-size-2xs for badge proportions in sidebar nav */
       --font-size-3xs: round(calc(var(--wa-font-size-2xs) / 1.125), 1px);
       font-size: var(--font-size-3xs);
+    }
+
+    /* site nav links: docs list rhythm and weight, icons on the section headings' icon edge */
+    .subheader-links {
+      gap: 0;
+    }
+
+    .subheader-links wa-button {
+      margin-inline-start: calc(var(--wa-space-xs) * -1 - var(--wa-border-width-s));
+    }
+
+    .subheader-links [slot='start'] {
+      min-inline-size: 1.25em; /* the headings' icon box; min- so a narrower icon still centers in it */
+      margin-inline-end: var(--wa-space-xs);
+    }
+
+    .subheader-links wa-button::part(button) {
+      justify-content: flex-start;
+      height: auto;
+      line-height: var(--wa-line-height-condensed);
+      padding-block: calc(var(--wa-space-xs) - var(--wa-border-width-s));
+      padding-inline: 0;
+    }
+
+    .subheader-links wa-button::part(label) {
+      color: var(--wa-color-text-normal);
+    }
+
+    .subheader-links wa-button:not(.current)::part(label) {
+      font-weight: var(--wa-font-weight-normal);
     }
 
     wa-button#search-trigger::part(button) {
