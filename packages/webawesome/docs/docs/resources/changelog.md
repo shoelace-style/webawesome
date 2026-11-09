@@ -53,6 +53,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed `<wa-details>` using linear easing for its expand/collapse animation instead of the theme's `--wa-transition-easing` [issue:2963]
 - Fixed a bug in `allDefined()` where an unregistered `wa-*` element anywhere in the document made it wait forever; it now logs a warning and resolves after the new `timeout` option (2 seconds by default) [issue:2957]
 - Fixed `<wa-button-group>` labels missing from the accessibility tree [issue:2863] [pr:2923]
+- Fixed a bug in `<wa-otp-input>` where the last segment was cut off inside `.wa-frame` and other containers that size it to its content [issue:2854]
 - Fixed a bug in `<wa-checkbox-group>` where the vertical spacing of its label and checkboxes didn't match `<wa-radio-group>` [issue:2959]
 - Fixed a regression in `<wa-tooltip>` where tapping an anchor on a touch device immediately dismissed its hover/focus tooltip. [issue:2948] [pr:2955]
 - Fixed a bug in `<wa-select multiple>` where custom tags from `getTag` were squeezed beside the selection count [issue:2913] [pr:2917]
