@@ -45,10 +45,9 @@
 }
 
 .icon-family-footer {
-  font-size: var(--wa-font-size-xs);
-
   small {
+    padding-inline-end: 1em;
     color: var(--wa-color-text-quiet);
-    font-size: inherit;
+    font-size: var(--wa-font-size-xs);
   }
 }

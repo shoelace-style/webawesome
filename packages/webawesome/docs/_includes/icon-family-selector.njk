@@ -4,12 +4,12 @@
 {# This include renders in both the header and the mobile sidebar, so each copy needs its own ID #}
 {% set iconFamilyId = "icon-family-" + ("" | uniqueId(8)) %}
 <wa-button id="{{ iconFamilyId }}" appearance="plain" pill>
-  <wa-icon name="icons" label="Select Icon Style"></wa-icon>
+  <wa-icon name="icons" label="Icon Style"></wa-icon>
 </wa-button>
-<wa-tooltip for="{{ iconFamilyId }}">Select Icon Style</wa-tooltip>
+<wa-tooltip for="{{ iconFamilyId }}" class="icon-family-tooltip">Icon Style: <span class="tooltip-value">Classic Regular</span></wa-tooltip>
 
-<wa-popover for="{{ iconFamilyId }}" class="icon-family-selector" placement="bottom">
-  <div class="icon-family-grid" role="radiogroup" aria-label="Icon Style">
+<wa-popover for="{{ iconFamilyId }}" class="header-popover icon-family-selector" placement="bottom">
+  <div class="header-popover-section icon-family-grid" role="radiogroup" aria-label="Icon Style">
     <span></span>
     {% for variant in iconVariants %}
     <span>{{ variant | title }}</span>
@@ -30,13 +30,13 @@
 
   <wa-divider></wa-divider>
   <div class="icon-family-footer wa-split wa-gap-m">
-    <a class="wa-cluster wa-gap-xs" href="/docs/components/icon#changing-the-default-family-and-variant" data-popover="close">
+    <a class="header-popover-docs-link wa-cluster wa-gap-s" href="/docs/components/icon#changing-the-default-family-and-variant" data-popover="close">
       <wa-icon name="book-open"></wa-icon>
       Docs
     </a>
     <small>
       Most styles require
-      <a href="https://fontawesome.com/icons" rel="noopener noreferrer" target="_blank">{{ site.siblings.fontAwesome.name }} Pro</a>.
+      <a class="wa-color-text-quiet" href="https://fontawesome.com/icons" rel="noopener noreferrer" target="_blank">{{ site.siblings.fontAwesome.name }} Pro</a>.
     </small>
   </div>
 </wa-popover>

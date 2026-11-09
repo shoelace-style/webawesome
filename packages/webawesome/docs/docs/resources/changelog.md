@@ -46,7 +46,12 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::fixed
 
-- Fixed a bug in `<wa-slider>`, `<wa-color-picker>`, `<wa-comparison>`, and `<wa-split-panel>` where releasing a drag outside of the component clicked the element around it [issue:2983]
+- Fixed a bug in `<wa-slider>`, `<wa-color-picker>`, `<wa-comparison>`, and `<wa-split-panel>` where releasing a drag outside of the component clicked the element around it, such as a clickable card; drags now capture the pointer [issue:2983]
+- Fixed a bug in `<wa-date-input>` and `<wa-time-input>` where pressing [[Ctrl]]/[[Cmd]] + [[A]] in a segment selected the whole page [issue:2980]
+- Fixed a bug in `<wa-date-input>` and `<wa-time-input>` where dragging across the segments selected their text in Safari [issue:2980]
+- Improved `<wa-popover>` accessibility [pr:2986]
+  - Fixed the anchor not telling screen readers that it opens a popover, or whether it's open
+  - Fixed focus not returning to the anchor after closing with a `data-popover="close"` button
 - Fixed `<wa-accordion-item>` styles to match `<wa-details>`, including label weight, content color, and spacing between the label and content [issue:2963]
 - Fixed `<wa-details>` using linear easing for its expand/collapse animation instead of the theme's `--wa-transition-easing` [issue:2963]
 - Fixed a bug in `allDefined()` where an unregistered `wa-*` element anywhere in the document made it wait forever; it now logs a warning and resolves after the new `timeout` option (2 seconds by default) [issue:2957]
@@ -66,6 +71,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug in `<wa-copy-button>` where a missing `from` target copied the fallback `value` instead of stopping after `wa-error` [issue:2891] [pr:2911]
 - Fixed a bug in `<wa-dropdown>` where reopening the menu during its hide animation left it stuck open, ignoring [[Escape]] and clicks outside
 - Fixed a bug in `<wa-dropdown>` where submenus that flipped to the opposite side closed while the pointer moved toward them [pr:2978]
+- Fixed a bug in `<wa-dropdown>` where long menus overflowed the viewport horizontally instead of shrinking to fit [pr:2969]
 - Fixed a bug in `<wa-dropdown>` where the initial focused element would get lost. [pr:2886]
 - Fixed a bug in `<wa-dropdown>` where submenus would occasionally get dismissed due to not properly rechecking submenu hover states. [pr:2877]
 - Fixed an issue in `<wa-tooltip>` where `abortController` preserved instances of `anchor` in the exception message causing the anchor to still be reachable. [pr:2873]
