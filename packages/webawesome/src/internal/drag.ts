@@ -5,7 +5,7 @@ interface DragOptions {
   onStop: () => void;
   /**
    * When an initial event is passed, the first drag will be triggered immediately using the coordinates therein. This
-   * is useful when the drag is initiated by a mousedown/touchstart event but you want the initial "click" to activate
+   * is useful when the drag is initiated by a pointerdown event but you want the initial "click" to activate
    * a drag (e.g. positioning a handle initially at the click target).
    */
   initialEvent: PointerEvent;
