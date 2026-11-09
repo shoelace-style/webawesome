@@ -178,6 +178,10 @@ export default class WaPopover extends WebAwesomeElement {
     target.removeAttribute('aria-expanded');
   }
 
+  private focusAnchor() {
+    (this.anchor as HTMLElement | null)?.focus({ preventScroll: true });
+  }
+
   private handleAnchorClick = () => {
     // Clicks on the anchor should toggle the popover
     this.open = !this.open;
@@ -191,6 +195,7 @@ export default class WaPopover extends WebAwesomeElement {
     if (button) {
       event.stopPropagation();
       this.open = false;
+      this.focusAnchor();
     }
   };
 
@@ -200,9 +205,7 @@ export default class WaPopover extends WebAwesomeElement {
       event.preventDefault();
       event.stopPropagation();
       this.open = false;
-      if (this.anchor && typeof (this.anchor as any).focus === 'function') {
-        (this.anchor as any).focus({ preventScroll: true });
-      }
+      this.focusAnchor();
     }
   };
 

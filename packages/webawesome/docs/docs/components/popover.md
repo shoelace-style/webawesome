@@ -56,7 +56,7 @@ Otherwise the popover won't attach and you'll see a console warning.
 
 Popovers show when you click their anchor element. You can also control them programmatically by setting the `open` property to `true` or `false`.
 
-Use `data-popover="close"` on any button inside a popover to close it automatically.
+Use `data-popover="close"` on any button inside a popover to close it automatically. Closing this way or with [[Escape]] returns focus to the anchor.
 
 ```html {.example}
 <wa-popover for="popover__opening">

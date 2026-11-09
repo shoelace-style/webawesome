@@ -446,7 +446,7 @@ describe('<wa-popover>', () => {
       window.getSelection()?.removeAllRanges();
     });
 
-    it('should close when a data-popover="close" button is clicked', async () => {
+    it('should close and return focus to the anchor when a data-popover="close" button is clicked', async () => {
       const el = await fixtures[0]<HTMLDivElement>(html`
         <div>
           <wa-button id="anchor">Anchor</wa-button>
@@ -466,6 +466,7 @@ describe('<wa-popover>', () => {
       await waitUntil(() => !popover.open);
 
       expect(popover.open).to.be.false;
+      expect(document.activeElement).to.equal(el.querySelector('#anchor'));
     });
   });
 
