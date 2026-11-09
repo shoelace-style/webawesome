@@ -46,7 +46,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::fixed
 
-- Improved `<wa-popover>` accessibility
+- Improved `<wa-popover>` accessibility [pr:2986]
   - Fixed the anchor not telling screen readers that it opens a popover, or whether it's open
   - Fixed focus not returning to the anchor after closing with a `data-popover="close"` button
 - Fixed `<wa-accordion-item>` styles to match `<wa-details>`, including label weight, content color, and spacing between the label and content [issue:2963]
