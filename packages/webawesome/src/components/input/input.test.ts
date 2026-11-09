@@ -810,6 +810,50 @@ describe('<wa-input>', () => {
           expect(el.value).to.equal('tboomt'); // cspell:disable-line
         });
       });
+
+      describe('autofocus', () => {
+        beforeEach(() => {
+          (document.activeElement as HTMLElement | null)?.blur();
+        });
+
+        it('should receive focus when it renders with autofocus', async () => {
+          const el = await fixture<WaInput>(html`<wa-input autofocus></wa-input>`);
+
+          expect(document.activeElement).to.equal(el);
+        });
+
+        it('should not take focus from an element that already has it', async () => {
+          const other = document.createElement('input');
+          document.body.append(other);
+          other.focus();
+
+          try {
+            const el = await fixture<WaInput>(html`<wa-input autofocus></wa-input>`);
+            await el.updateComplete;
+
+            expect(document.activeElement).to.equal(other);
+          } finally {
+            other.remove();
+          }
+        });
+
+        it('should focus the first of two elements with autofocus', async () => {
+          const el = await fixture<HTMLDivElement>(
+            html`<div><wa-input autofocus></wa-input><wa-input autofocus></wa-input></div>`,
+          );
+          const inputs = [...el.querySelectorAll<WaInput>('wa-input')];
+          await Promise.all(inputs.map(input => input.updateComplete));
+
+          expect(document.activeElement).to.equal(inputs[0]);
+        });
+
+        it('should not receive focus inside a closed dialog', async () => {
+          const el = await fixture<HTMLElement>(html`<wa-dialog><wa-input autofocus></wa-input></wa-dialog>`);
+          await el.querySelector<WaInput>('wa-input')!.updateComplete;
+
+          expect(document.activeElement).to.equal(document.body);
+        });
+      });
     });
   }
 });

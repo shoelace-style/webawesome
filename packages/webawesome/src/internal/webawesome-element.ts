@@ -154,6 +154,18 @@ export default class WebAwesomeElement extends LitElement {
         slotElement.dispatchEvent(new Event('slotchange', { bubbles: true, composed: false, cancelable: false }));
       });
     }
+
+    // Focus the element if it has `autofocus`. Browsers apply `autofocus` early in the page load, so a component that
+    // renders later doesn't receive focus. As with the browser's autofocus, nothing happens when another element
+    // already has focus. Elements in a dialog, drawer, or popover are skipped: those components focus their autofocus
+    // element when they open, and focusing it here can scroll the page to it before the container hides it.
+    if (
+      this.hasAttribute('autofocus') &&
+      (document.activeElement === null || document.activeElement === document.body) &&
+      !this.closest('wa-dialog, wa-drawer, wa-popover, dialog')
+    ) {
+      this.focus();
+    }
   }
 
   protected update(changedProperties: PropertyValues<this>): void {
