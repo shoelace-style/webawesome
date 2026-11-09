@@ -929,28 +929,27 @@
       font-size: var(--font-size-3xs);
     }
 
-    /* Drawer top block shares the section headings' icon edge: search, dividers, and the first and last icon glyphs */
+    /* Drawer top block outdents like the section headings so everything shares their icon edge */
     .wa-mobile-only {
       --icon-button-inset: calc((var(--wa-form-control-height) - 1.25 * var(--wa-font-size-m)) / 2);
-    }
-
-    #search-trigger,
-    .wa-mobile-only > wa-divider {
       margin-inline-start: calc(var(--wa-space-xs) * -1);
     }
 
+    /* Pull the icon buttons out by their padding so the glyphs, not the buttons, meet the edges. inline-size: auto
+     * undoes wa-split's 100% so the negative margins can widen it. */
     .wa-mobile-only > .wa-split {
       inline-size: auto;
-      margin-inline: calc(var(--wa-space-xs) * -1 - var(--icon-button-inset)) calc(var(--icon-button-inset) * -1);
+      margin-inline: calc(var(--icon-button-inset) * -1);
     }
 
-    /* site nav links: docs list rhythm and weight, icons on the section headings' icon edge */
-    .subheader-links {
-      gap: 0;
+    wa-button#search-trigger::part(button),
+    .subheader-links wa-button::part(button) {
+      justify-content: flex-start;
     }
 
+    /* site nav links: docs list rhythm and weight */
     .subheader-links wa-button {
-      margin-inline-start: calc(var(--wa-space-xs) * -1 - var(--wa-border-width-s));
+      margin-inline-start: calc(var(--wa-border-width-s) * -1);
     }
 
     .subheader-links [slot='start'] {
@@ -959,23 +958,15 @@
     }
 
     .subheader-links wa-button::part(button) {
-      justify-content: flex-start;
       height: auto;
       line-height: var(--wa-line-height-condensed);
       padding-block: calc(var(--wa-space-xs) - var(--wa-border-width-s));
       padding-inline: 0;
     }
 
-    .subheader-links wa-button::part(label) {
-      color: var(--wa-color-text-normal);
-    }
-
     .subheader-links wa-button:not(.current)::part(label) {
+      color: var(--wa-color-text-normal);
       font-weight: var(--wa-font-weight-normal);
-    }
-
-    wa-button#search-trigger::part(button) {
-      justify-content: flex-start; /* align search trigger button content to start */
     }
 
     /* The icon buttons' padding already adds space above this divider, so match it below */
