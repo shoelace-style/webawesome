@@ -687,8 +687,8 @@ export default class WaTimeInput extends WebAwesomeFormAssociatedElement {
       return;
     }
 
-    // AM/PM letter shortcuts on the dayPeriod segment.
-    if (field === 'dayPeriod') {
+    // AM/PM letter shortcuts on the dayPeriod segment. Modified keys (Cmd/Ctrl+A, Cmd+P) are not shortcuts.
+    if (field === 'dayPeriod' && !event.ctrlKey && !event.metaKey && !event.altKey) {
       const period = dayPeriodFromKey(event.key);
       if (period != null) {
         event.preventDefault();

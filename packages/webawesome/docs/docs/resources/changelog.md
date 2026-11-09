@@ -46,6 +46,8 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::fixed
 
+- Fixed a bug in `<wa-date-input>` and `<wa-time-input>` where pressing [[Ctrl]]/[[Cmd]] + [[A]] in a segment selected the whole page [issue:2980]
+- Fixed a bug in `<wa-date-input>` and `<wa-time-input>` where dragging across the segments selected their text in Safari [issue:2980]
 - Improved `<wa-popover>` accessibility [pr:2986]
   - Fixed the anchor not telling screen readers that it opens a popover, or whether it's open
   - Fixed focus not returning to the anchor after closing with a `data-popover="close"` button
