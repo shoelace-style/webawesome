@@ -16,10 +16,10 @@
     data-description="{{ theme.description }}"
     data-palette="{{ theme.palette.filename | stripExtension }}"
     data-brand="{{ theme.colorBrand.color }}"
-    {% raw %}{%- if not currentUser.hasPro -%}{% endraw %} disabled {% raw %}{%- endif -%}{% endraw %}>
+    {% raw %}{%- if not currentUser.canAccess.proThemes -%}{% endraw %} disabled {% raw %}{%- endif -%}{% endraw %}>
     <span class="wa-cluster wa-gap-xs wa-flex-nowrap">
       {{ theme.name }}
-      {% raw %}{%- if not currentUser.hasPro -%}{% endraw %}{{ proBadge({ description: "This theme requires access to " ~ site.namePro }) }}{% raw %}{%- endif -%}{% endraw %}
+      {% raw %}{%- if not currentUser.canAccess.proThemes -%}{% endraw %}{{ proBadge({ description: "This theme requires access to " ~ site.namePro }) }}{% raw %}{%- endif -%}{% endraw %}
     </span>
   </wa-tab>
   {%- endif -%}
@@ -28,7 +28,7 @@
   {%- if not theme.isPro -%}
   <wa-tab-panel name="{{ theme.filename | stripExtension }}"></wa-tab-panel>
   {%- else -%}
-  {% raw %}{%- if currentUser.hasPro -%}{% endraw %}
+  {% raw %}{%- if currentUser.canAccess.proThemes -%}{% endraw %}
   <wa-tab-panel name="{{ theme.filename | stripExtension }}"></wa-tab-panel>
   {% raw %}{%- endif -%}{% endraw %}
   {%- endif -%}

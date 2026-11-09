@@ -31,8 +31,17 @@ export function SimulateWebAwesomeApp(str, context = {}) {
       return '';
     },
     // Stub the server EJS shortcodes.
+    // Mirrors what the app sets on req.currentUser (src/middleware/set-workspaces.ts): a frozen feature map plus the
+    // plan key. The docs read individual features (proThemes, proCDN, figma), never a single "has pro" flag.
     currentUser: {
-      hasPro: false,
+      plan: 'free',
+      canAccess: {
+        proThemes: false,
+        proCDN: false,
+        proPatterns: false,
+        figma: false,
+        create: false,
+      },
     },
     server: {
       head: '',
