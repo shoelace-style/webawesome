@@ -17,7 +17,7 @@ hasOutline: false
 {% include "theming/color-palette-picker.njk" %}
 
 {% raw %}
-{% if not currentUser or not currentUser.canAccess.proThemes %}
+{% if not currentUser or not currentUser.can.proThemes.allowed %}
 {% endraw %}
 <wa-callout class="pro wa-brand-orange">
   <wa-icon slot="icon" name="crown" family="duotone" variant="regular" class="duotone-illustrated"></wa-icon>
