@@ -23,6 +23,60 @@ describe('<wa-popover>', () => {
           const dialog = popover.shadowRoot!.querySelector('dialog');
           expect(dialog).to.exist;
         });
+
+        it('should reflect its open state on the trigger', async () => {
+          const el = await fixture<HTMLDivElement>(html`
+            <div>
+              <button id="plain-anchor">Plain</button>
+              <wa-popover for="plain-anchor">Content</wa-popover>
+              <wa-button id="wa-anchor">Web Awesome</wa-button>
+              <wa-popover for="wa-anchor">Content</wa-popover>
+            </div>
+          `);
+          const plainButton = el.querySelector('#plain-anchor')!;
+          const waButton = el.querySelector('#wa-anchor')!;
+          const triggers = [
+            { popover: el.querySelector<WaPopover>('wa-popover[for="plain-anchor"]')!, target: () => plainButton },
+            {
+              popover: el.querySelector<WaPopover>('wa-popover[for="wa-anchor"]')!,
+              target: () => waButton.shadowRoot!.querySelector('[part~="button"]')!,
+            },
+          ];
+
+          for (const { popover, target } of triggers) {
+            await waitUntil(() => target().getAttribute('aria-expanded') === 'false');
+            expect(target().getAttribute('aria-haspopup')).to.equal('dialog');
+
+            await popover.show();
+            await waitUntil(() => target().getAttribute('aria-expanded') === 'true');
+
+            await popover.hide();
+            await waitUntil(() => target().getAttribute('aria-expanded') === 'false');
+          }
+        });
+
+        it('should remove its ARIA state from an anchor it no longer controls', async () => {
+          const el = await fixture<HTMLDivElement>(html`
+            <div>
+              <button id="first-anchor">First</button>
+              <button id="second-anchor">Second</button>
+              <wa-popover for="first-anchor">Content</wa-popover>
+            </div>
+          `);
+          const popover = el.querySelector<WaPopover>('wa-popover')!;
+          const firstAnchor = el.querySelector('#first-anchor')!;
+          const secondAnchor = el.querySelector('#second-anchor')!;
+          await waitUntil(() => firstAnchor.hasAttribute('aria-expanded'));
+
+          popover.for = 'second-anchor';
+          await waitUntil(() => secondAnchor.hasAttribute('aria-expanded'));
+          expect(firstAnchor.hasAttribute('aria-haspopup')).to.be.false;
+          expect(firstAnchor.hasAttribute('aria-expanded')).to.be.false;
+
+          popover.remove();
+          expect(secondAnchor.hasAttribute('aria-haspopup')).to.be.false;
+          expect(secondAnchor.hasAttribute('aria-expanded')).to.be.false;
+        });
       });
 
       describe('properties', () => {
@@ -415,7 +469,7 @@ describe('<wa-popover>', () => {
       window.getSelection()?.removeAllRanges();
     });
 
-    it('should close when a data-popover="close" button is clicked', async () => {
+    it('should close and return focus to the anchor when a data-popover="close" button is clicked', async () => {
       const el = await fixtures[0]<HTMLDivElement>(html`
         <div>
           <wa-button id="anchor">Anchor</wa-button>
@@ -435,6 +489,7 @@ describe('<wa-popover>', () => {
       await waitUntil(() => !popover.open);
 
       expect(popover.open).to.be.false;
+      expect(document.activeElement).to.equal(el.querySelector('#anchor'));
     });
   });
 
