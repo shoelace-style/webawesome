@@ -77,14 +77,14 @@ hasFramedMain: false
       flex: 1 1 67%;
     }
     & wa-button {
-      &::part(base) {
+      &::part(button) {
         border-color: black;
         border-width: 0.125rem;
         box-shadow: 0 0.25rem 0 0 black;
         flex: 1 1 auto;
         height: 2.5rem;
       }
-      &:active:not([disabled])::part(base) {
+      &:active:not([disabled])::part(button) {
         box-shadow: 0 0 0 0 transparent;
         transform: translateY(0.25rem);
       }
@@ -170,13 +170,13 @@ hasFramedMain: false
         flex: 1 1 auto;
         gap: 0.5rem;
       }
-      & wa-button::part(base) {
+      & wa-button::part(button) {
         height: 1.5rem;
         font-size: 0.75rem;
       }
     }
   }
-  wa-button.tile::part(base) {
+  wa-button.tile::part(button) {
     border-color: var(--wa-color-surface-border);
     border-radius: 0.75rem;
     color: var(--wa-color-text-normal);

@@ -280,7 +280,7 @@
   }
 
   .nav-products {
-    wa-button[appearance='plain']:not([disabled]):not([loading]):hover::part(base) {
+    wa-button[appearance='plain']:not([disabled]):not([loading]):hover::part(button) {
       background-color: var(--wa-color-fill-normal, var(--wa-color-neutral-fill-normal));
     }
 
@@ -883,7 +883,7 @@
       }
     }
 
-    li wa-badge::part(base) {
+    li wa-badge::part(badge) {
       font-size: var(--wa-font-size-2xs);
       font-weight: var(--wa-font-weight-bold);
     }
@@ -929,7 +929,7 @@
       font-size: var(--font-size-3xs);
     }
 
-    wa-button#search-trigger::part(base) {
+    wa-button#search-trigger::part(button) {
       justify-content: flex-start; /* align search trigger button content to start */
     }
 
@@ -1165,7 +1165,7 @@
 
   /* buttons that are "shushed" (visually muted) by default, but have their full presentation otherwise  */
   wa-button.shush {
-    &:not(:hover):not(active)::part(base) {
+    &:not(:hover):not(active)::part(button) {
       color: var(--wa-color-text-quiet);
     }
   }

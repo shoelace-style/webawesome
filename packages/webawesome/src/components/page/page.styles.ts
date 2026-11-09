@@ -115,7 +115,7 @@ export default css`
     max-height: auto;
   }
 
-  [part~='base'] {
+  [part~='page'] {
     min-height: 100dvh;
     display: grid;
     grid-template-rows: repeat(3, minmax(0, auto)) minmax(0, 1fr) minmax(0, auto);
