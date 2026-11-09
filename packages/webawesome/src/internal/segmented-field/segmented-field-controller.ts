@@ -360,6 +360,12 @@ export class SegmentedFieldController implements ReactiveController {
     const field = el.dataset.segment as SegmentField;
     if (!group || !field) return;
 
+    // Select all. Segments are not text fields, so swallow the shortcut instead of selecting the whole page.
+    if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'a') {
+      event.preventDefault();
+      return;
+    }
+
     // Stepping (Arrow Up / Down).
     if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
       event.preventDefault();

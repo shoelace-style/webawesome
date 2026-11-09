@@ -46,6 +46,8 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::fixed
 
+- Fixed a bug in `<wa-date-input>` and `<wa-time-input>` where pressing [[Ctrl]]/[[Cmd]] + [[A]] in a segment selected the whole page [issue:2980]
+- Fixed a bug in `<wa-date-input>` and `<wa-time-input>` where dragging across the segments selected their text in Safari [issue:2980]
 - Fixed `<wa-accordion-item>` styles to match `<wa-details>`, including label weight, content color, and spacing between the label and content [issue:2963]
 - Fixed `<wa-details>` using linear easing for its expand/collapse animation instead of the theme's `--wa-transition-easing` [issue:2963]
 - Fixed a bug in `allDefined()` where an unregistered `wa-*` element anywhere in the document made it wait forever; it now logs a warning and resolves after the new `timeout` option (2 seconds by default) [issue:2957]
