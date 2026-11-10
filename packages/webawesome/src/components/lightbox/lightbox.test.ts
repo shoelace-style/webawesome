@@ -3,6 +3,7 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import { expectEvent } from '../../internal/test/expect-event.js';
 import { fixtures } from '../../internal/test/fixture.js';
+import { clickOnElement } from '../../internal/test/pointer-utilities.js';
 import type WaLightbox from './lightbox.js';
 
 /** A tiny image that loads instantly, so thumbnails and slides have real dimensions. */
@@ -511,6 +512,21 @@ describe('<wa-lightbox>', () => {
 
           expect(el.matches(':state(zoomed)')).to.be.false;
           expect(zoomButton.getAttribute('aria-label')).to.equal('Zoom in');
+        });
+
+        it('should toggle zoom when the image is clicked with a mouse', async () => {
+          const el = await fixture<WaLightbox>(gallery());
+          await ready(el);
+          await open(el);
+          await waitUntil(() => part<HTMLImageElement>(el, 'image').naturalWidth > 0);
+
+          await clickOnElement(part(el, 'image'));
+          await el.updateComplete;
+          expect(el.matches(':state(zoomed)')).to.be.true;
+
+          await clickOnElement(part(el, 'image'));
+          await el.updateComplete;
+          expect(el.matches(':state(zoomed)')).to.be.false;
         });
 
         it('should reset zoom when the current item changes', async () => {

@@ -653,7 +653,7 @@ export default class WaLightbox extends WebAwesomeElement {
       el.getAnimations().forEach(animation => animation.cancel());
       el.style.opacity = '';
     }
-    this.dialog.classList.remove('pulling', 'preparing', 'overlapping');
+    this.dialog.classList.remove('pulling', 'panning', 'preparing', 'overlapping');
     this.resetZoom();
     this.syncActiveItem();
     this.isClosing = false;
@@ -1140,6 +1140,7 @@ export default class WaLightbox extends WebAwesomeElement {
     }
 
     if (this.gesture === 'pan') {
+      this.dialog.classList.toggle('panning', this.didDrag);
       this.panBy(event.clientX - pointer.lastX, event.clientY - pointer.lastY);
     } else if (this.gesture === 'pull') {
       this.pull(deltaX, deltaY);
@@ -1182,6 +1183,7 @@ export default class WaLightbox extends WebAwesomeElement {
 
     const gesture = this.gesture;
     this.pointer = null;
+    this.dialog.classList.remove('panning');
     if (gesture === 'pinch') return;
     this.gesture = null;
 
@@ -1204,12 +1206,13 @@ export default class WaLightbox extends WebAwesomeElement {
     // A press that never moved is a tap, even if it could have become a pan
     if (this.didDrag || !this.downOnMedia) return;
 
-    // A second tap close to the first toggles zoom. dblclick isn't reliable for touch.
+    // A mouse click toggles zoom right away, as its cursor says it will. Touch takes a second tap close to the first,
+    // since a single tap is too easy to make by accident. dblclick isn't reliable for touch.
     const isDoubleTap =
       event.timeStamp - this.lastTap.time < DOUBLE_TAP_DELAY &&
       Math.hypot(event.clientX - this.lastTap.x, event.clientY - this.lastTap.y) < 30;
 
-    if (isDoubleTap) {
+    if (event.pointerType === 'mouse' || isDoubleTap) {
       this.lastTap.time = 0;
       if (this.canZoom && this.measure()) {
         const scale = this.scale > 1 ? 1 : Math.min(this.maxZoom, DOUBLE_TAP_ZOOM);
@@ -1225,6 +1228,7 @@ export default class WaLightbox extends WebAwesomeElement {
     if (event.pointerId !== this.pointer?.id) return;
 
     this.pointer = null;
+    this.dialog.classList.remove('panning');
     if (this.gesture === 'pinch') return;
 
     if (this.gesture === 'pull') {

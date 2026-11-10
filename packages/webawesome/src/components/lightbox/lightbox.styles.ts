@@ -221,7 +221,11 @@ export default css`
     }
 
     .zoomed .media {
-      cursor: grab;
+      cursor: zoom-out;
+    }
+
+    .panning .media {
+      cursor: grabbing;
     }
 
     :is(.zoomed, .pulling) .media,
