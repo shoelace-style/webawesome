@@ -46,6 +46,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::fixed
 
+- Fixed a bug in `<wa-dropdown>` where scrolling past the end of a long menu on macOS showed the page through the menu's background [issue:2711]
 - Fixed a bug in `<wa-slider>`, `<wa-color-picker>`, `<wa-comparison>`, and `<wa-split-panel>` where releasing a drag outside of the component clicked the element around it, such as a clickable card; drags now capture the pointer [issue:2983]
 - Fixed a bug in `<wa-date-input>` and `<wa-time-input>` where pressing [[Ctrl]]/[[Cmd]] + [[A]] in a segment selected the whole page [issue:2980]
 - Fixed a bug in `<wa-date-input>` and `<wa-time-input>` where dragging across the segments selected their text in Safari [issue:2980]
