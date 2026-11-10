@@ -319,8 +319,8 @@ describe('<wa-button>', () => {
           form.addEventListener('submit', submitSpy);
           const button = form.querySelector('wa-button');
 
-          button!.addEventListener('click', e => {
-            e.preventDefault();
+          button!.addEventListener('click', event => {
+            event.preventDefault();
           });
 
           await clickOnElement(button as WaButton);
