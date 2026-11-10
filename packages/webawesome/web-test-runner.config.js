@@ -33,7 +33,7 @@ const browsers = [
 ];
 
 if (process.env.CI !== 'true') {
-  // browsers.push(playwrightLauncher({ product: 'webkit', concurrency }));
+  browsers.push(playwrightLauncher({ product: 'webkit', concurrency }));
 }
 
 export default {
