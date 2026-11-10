@@ -307,25 +307,26 @@ describe('<wa-button>', () => {
           expect(submitter.value).to.equal('value-2');
         });
 
-
         // https://github.com/shoelace-style/webawesome/issues/3007
-        it("Should not build a button and click if `defaultPrevented` is called on the click event", async () => {
-          const form = await fixture<HTMLFormElement>(html`<form>
-            <wa-button type="submit">Submit</wa-button>
-          </form>`)
+        it('Should not build a button and click if `defaultPrevented` is called on the click event', async () => {
+          const form = await fixture<HTMLFormElement>(
+            html`<form>
+              <wa-button type="submit">Submit</wa-button>
+            </form>`,
+          );
 
-          const submitSpy = sinon.spy()
-          form.addEventListener("submit", submitSpy)
-          const button = form.querySelector("button")
+          const submitSpy = sinon.spy();
+          form.addEventListener('submit', submitSpy);
+          const button = form.querySelector('button');
 
-          button!.addEventListener("click", (e) => {
-            e.preventDefault()
-          })
+          button!.addEventListener('click', e => {
+            e.preventDefault();
+          });
 
-          await clickOnElement(button as HTMLButtonElement)
+          await clickOnElement(button as HTMLButtonElement);
 
-          expect(submitSpy).to.not.be.called
-        })
+          expect(submitSpy).to.not.be.called;
+        });
       });
     });
   }
