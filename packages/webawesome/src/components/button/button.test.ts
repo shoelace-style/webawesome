@@ -196,6 +196,7 @@ describe('<wa-button>', () => {
           form.addEventListener('submit', handleSubmit);
           button.click();
 
+          await aTimeout(0);
           expect(handleSubmit).to.have.been.calledOnce;
         });
 
