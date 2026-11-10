@@ -10,34 +10,38 @@
 {%- endif -%}
 {%- endfor -%}
 
-<wa-tab-group id="palette-picker">
-  {%- for palette in themer.palettes -%}
-  {%- if not palette.isPro -%}
-  <wa-tab panel="{{ palette.name | lower }}">{{ palette.name }}</wa-tab>
-  {%- else -%}
-  <wa-tab panel="{{ palette.name | lower }}" {% raw %}{%- if not currentUser.hasPro -%}{% endraw %} disabled {% raw %}{%- endif -%}{% endraw %}>
-    <span class="wa-cluster wa-gap-xs wa-flex-nowrap">
-      {{ palette.name }}
-      {% raw %}{%- if not currentUser.hasPro -%}{% endraw %}{{ proBadge({ description: "This palette requires access to " ~ site.namePro }) }}{% raw %}{%- endif -%}{% endraw %}
-    </span>
-  </wa-tab>
-  {%- endif -%}
-  {%- endfor -%}
-  {%- for palette in themer.palettes -%}
-  <wa-tab-panel name="{{ palette.name | lower }}"></wa-tab-panel>
-  {%- endfor -%}
-</wa-tab-group>
+<div class="wa-stack wa-gap-l">
+  <wa-tab-group id="palette-picker">
+    {%- for palette in themer.palettes -%}
+    {%- if not palette.isPro -%}
+    <wa-tab panel="{{ palette.name | lower }}">{{ palette.name }}</wa-tab>
+    {%- else -%}
+    <wa-tab panel="{{ palette.name | lower }}" {% raw %}{%- if not currentUser.hasPro -%}{% endraw %} disabled {% raw %}{%- endif -%}{% endraw %}>
+      <span class="wa-cluster wa-gap-xs wa-flex-nowrap">
+        {{ palette.name }}
+        {% raw %}{%- if not currentUser.hasPro -%}{% endraw %}{{ proBadge({ description: "This palette requires access to " ~ site.namePro }) }}{% raw %}{%- endif -%}{% endraw %}
+      </span>
+    </wa-tab>
+    {%- endif -%}
+    {%- endfor -%}
+    {%- for palette in themer.palettes -%}
+    <wa-tab-panel name="{{ palette.name | lower }}"></wa-tab-panel>
+    {%- endfor -%}
+  </wa-tab-group>
 
-{%- for palette in themer.palettes %}
-<div class="palette-description" data-palette="{{ palette.name | lower }}" {% if not loop.first %}hidden{% endif %}>
-  <p>{{ palette.name }} has {{ palette.description }}</p>
-  <p class="palette-pairing">
-    Pairs with the
-    {%- for theme in palette.pairedThemes %}{% if loop.last and not loop.first %} and{% elif not loop.first %},{% endif %} <a href="/docs/themes?theme={{ theme.slug }}">{{ theme.name }}</a>{% endfor %}
-    {{ 'themes' if palette.pairedThemes.length > 1 else 'theme' }}.
-  </p>
+  {%- for palette in themer.palettes %}
+  <div class="palette-description" data-palette="{{ palette.name | lower }}" {% if not loop.first %}hidden{% endif %}>
+    <div class="wa-stack wa-gap-2xs">
+      <p>{{ palette.name }} has {{ palette.description }}</p>
+      <p class="wa-caption-s">
+        Pairs with the
+        {%- for theme in palette.pairedThemes %}{% if loop.last and not loop.first %} and{% elif not loop.first %},{% endif %} <a class="wa-color-text-quiet" href="/docs/themes?theme={{ theme.slug }}">{{ theme.name }}</a>{% endfor %}
+        {{ 'themes' if palette.pairedThemes.length > 1 else 'theme' }}.
+      </p>
+    </div>
+  </div>
+  {%- endfor %}
 </div>
-{%- endfor %}
 
 <div id="color-palettes" class="wa-palette-default">
   {% include "theming/color-palette-viewer.njk" %}
@@ -63,25 +67,6 @@
   /* Empty panels are just contract markers — strip their default padding. */
   #palette-picker wa-tab-panel {
     --padding: 0;
-  }
-
-  .palette-description {
-    margin-block-start: var(--wa-space-l);
-    max-inline-size: 65ch;
-
-    p {
-      margin: 0;
-    }
-
-    .palette-pairing {
-      margin-block-start: var(--wa-space-2xs);
-      color: var(--wa-color-text-quiet);
-      font-size: var(--wa-font-size-s);
-
-      a {
-        color: inherit;
-      }
-    }
   }
 
   #color-palettes {
