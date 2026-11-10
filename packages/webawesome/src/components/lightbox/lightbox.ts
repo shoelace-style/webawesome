@@ -338,8 +338,10 @@ export default class WaLightbox extends WebAwesomeElement {
       this.departing = isCut ? this.getDepartingImage() : null;
     }
 
-    // Zoom never carries over to another item
-    if (changedProperties.has('index') || (changedProperties as Map<string, unknown>).has('itemList')) {
+    // Zoom never carries over to another item. There's nothing to reset before the first render, which is also the
+    // only one that happens on the server.
+    const hasNewItems = changedProperties.has('index') || (changedProperties as Map<string, unknown>).has('itemList');
+    if (this.hasUpdated && hasNewItems) {
       this.resetZoom();
     }
   }
@@ -1626,7 +1628,7 @@ export default class WaLightbox extends WebAwesomeElement {
             ? html`
                 <div class="error-message">
                   <wa-icon library="system" name="image"></wa-icon>
-                  ${this.localize.term('error')}
+                  ${this.localize.term('mediaLoadError')}
                 </div>
               `
             : ''}
@@ -1656,7 +1658,7 @@ export default class WaLightbox extends WebAwesomeElement {
           'has-captions': items.some(i => i.caption),
           'has-thumbnails': hasThumbnails,
         })}
-        aria-label=${this.label || this.localize.term('image')}
+        aria-label=${this.label || this.localize.term('lightbox')}
         tabindex="-1"
         @cancel=${this.handleDialogCancel}
         @keydown=${this.handleKeyDown}
