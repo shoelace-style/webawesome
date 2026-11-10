@@ -387,28 +387,33 @@ as the video's poster. Videos pause when you move to another item or close the l
 
 ### Custom Content
 
-To show something other than an image or a native video, such as a video player or an embed, put it in a `<template>`
-inside the item. The lightbox copies the template's content into the slide when it's needed, so nothing in it loads
-until then. Set the `width` and `height` attributes to give the slide its proportions. Custom content can't be
-zoomed.
+To show something other than an image or a native video, such as another component, a video player, or an embed, put
+it in a `<template>` inside the item. The lightbox copies the template's content into the slide when it's needed, so
+nothing in it loads until then. Set the `width` and `height` attributes to give the slide its proportions. Custom
+content can't be zoomed.
 
-This example plays a [`<wa-video>`](/docs/components/video) with its own controls. Setting the `type` attribute to
-`video` adds the play button to its thumbnail.
-
-<wa-callout variant="brand">
-  <wa-icon slot="icon" name="crown"></wa-icon>
-  The <code>&lt;wa-video&gt;</code> component requires <a href="/pro">Web Awesome Pro</a>. Any element works as custom
-  content.
-</wa-callout>
+This example shows a [comparison](/docs/components/comparison) in the first slide.
 
 ```html {.example}
-<wa-lightbox class="wa-grid lightbox-content" label="Photos and videos">
-  <wa-lightbox-item type="video" width="3840" height="2160" caption="A dog wearing glasses">
-    <img src="/assets/images/dog-with-glasses.jpg" alt="A dog wearing glasses" />
+<wa-lightbox class="wa-grid lightbox-content" label="Photos">
+  <wa-lightbox-item width="1200" height="800" caption="Drag the divider to compare">
+    <img
+      src="https://images.unsplash.com/photo-1517331156700-3c241d2b4d83?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=480&h=320&q=60"
+      alt="Kittens in a basket looking around"
+    />
     <template>
-      <wa-video title="A dog wearing glasses" poster="/assets/images/dog-with-glasses.jpg">
-        <source src="https://uploads.webawesome.com/dog-with-glasses.mp4" type="video/mp4" />
-      </wa-video>
+      <wa-comparison>
+        <img
+          slot="before"
+          src="https://images.unsplash.com/photo-1517331156700-3c241d2b4d83?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1200&h=800&q=80&sat=-100&bri=-5"
+          alt="Grayscale version of kittens in a basket looking around"
+        />
+        <img
+          slot="after"
+          src="https://images.unsplash.com/photo-1517331156700-3c241d2b4d83?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1200&h=800&q=80"
+          alt="Color version of kittens in a basket looking around"
+        />
+      </wa-comparison>
     </template>
   </wa-lightbox-item>
   <wa-lightbox-item
@@ -437,14 +442,40 @@ This example plays a [`<wa-video>`](/docs/components/video) with its own control
   .lightbox-content {
     --min-column-size: 8rem;
 
-    img {
+    wa-lightbox-item > img {
       width: 100%;
       aspect-ratio: 1;
       border-radius: var(--wa-border-radius-m);
       object-fit: cover;
     }
+
+    wa-comparison img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   }
 </style>
+```
+
+A video player works the same way. Set the `type` attribute to `video` to add the play button to its thumbnail.
+
+<wa-callout variant="brand">
+  <wa-icon slot="icon" name="crown"></wa-icon>
+  The <a href="/docs/components/video"><code>&lt;wa-video&gt;</code></a> component requires
+  <a href="/pro">Web Awesome Pro</a>.
+</wa-callout>
+
+```html
+<wa-lightbox-item type="video" width="1920" height="1080">
+  <img src="poster.jpg" alt="..." />
+  <template>
+    <wa-video poster="poster.jpg">
+      <source src="video.mp4" type="video/mp4" />
+    </wa-video>
+  </template>
+</wa-lightbox-item>
 ```
 
 ### Single Image
