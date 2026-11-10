@@ -203,12 +203,14 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
 
     if (!form) return;
 
-    const lightDOMButton = this.constructLightDOMButton();
-
-    // form.append(lightDOMButton);
-    this.parentElement?.append(lightDOMButton);
-    lightDOMButton.click();
-    lightDOMButton.remove();
+    // We need to let the initial click event run through a full event loop and *then* click the button. This gives the user the opportunity to call "preventDefault()"
+    setTimeout(() => {
+      if (event.defaultPrevented) { return }
+      const lightDOMButton = this.constructLightDOMButton();
+      this.parentElement?.append(lightDOMButton);
+      lightDOMButton.click();
+      lightDOMButton.remove();
+    })
   }
 
   private handleInvalid() {
