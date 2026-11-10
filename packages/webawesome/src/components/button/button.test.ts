@@ -196,7 +196,6 @@ describe('<wa-button>', () => {
           form.addEventListener('submit', handleSubmit);
           button.click();
 
-          await aTimeout(0);
           expect(handleSubmit).to.have.been.calledOnce;
         });
 
@@ -324,10 +323,7 @@ describe('<wa-button>', () => {
             e.preventDefault();
           });
 
-          await clickOnElement(button as HTMLButtonElement);
-          // Let a proper event loop run.
-          await aTimeout(1);
-
+          await clickOnElement(button as WaButton);
           expect(submitSpy).to.not.be.called;
         });
       });
