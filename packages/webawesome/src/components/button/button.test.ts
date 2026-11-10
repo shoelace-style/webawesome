@@ -325,7 +325,7 @@ describe('<wa-button>', () => {
 
           await clickOnElement(button as HTMLButtonElement);
           // Let a proper event loop run.
-          await aTimeout(1)
+          await aTimeout(1);
 
           expect(submitSpy).to.not.be.called;
         });
