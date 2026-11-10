@@ -43,6 +43,9 @@
   <script type="module" src="/assets/scripts/install-tabs.js"></script>
   <script type="module" src="/assets/scripts/component-anatomy.js"></script>
 
+  {# Outside the head block: every layout renders the header, including ones that replace docs.css. #}
+  <link rel="stylesheet" href="/assets/styles/header-popover.css" />
+
   {% block head %}
   <link rel="stylesheet" href="/assets/styles/docs.css" />
   {% endblock %}
