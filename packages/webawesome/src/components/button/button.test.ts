@@ -317,7 +317,7 @@ describe('<wa-button>', () => {
 
           const submitSpy = sinon.spy();
           form.addEventListener('submit', submitSpy);
-          const button = form.querySelector('button');
+          const button = form.querySelector('wa-button');
 
           button!.addEventListener('click', e => {
             e.preventDefault();
