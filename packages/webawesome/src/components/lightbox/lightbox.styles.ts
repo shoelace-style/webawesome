@@ -19,6 +19,9 @@ export default css`
     }
 
     .dialog {
+      /* Controls only get a backing when the media can be behind them. */
+      --control-fill: transparent;
+      --navigation-fill: transparent;
       --control-size: 2.5rem;
       --caption-space: 0rem;
       --thumbnails-space: 0rem;
@@ -47,6 +50,16 @@ export default css`
       /* Hides the first frame, before the lightbox has scrolled to the current slide. */
       &.preparing {
         opacity: 0;
+      }
+
+      &.zoomed {
+        --control-fill: rgb(0 0 0 / 0.5);
+        --navigation-fill: rgb(0 0 0 / 0.5);
+      }
+
+      /* The media is wide enough at rest to sit under the previous and next buttons. */
+      &.overlapping {
+        --navigation-fill: rgb(0 0 0 / 0.5);
       }
 
       &.has-captions {
@@ -280,8 +293,9 @@ export default css`
     .counter {
       padding: var(--wa-space-2xs) var(--wa-space-s);
       border-radius: var(--wa-border-radius-pill);
-      background: rgb(0 0 0 / 0.5);
+      background: var(--control-fill);
       font-size: var(--wa-font-size-s);
+      transition: background var(--wa-transition-fast) ease;
       font-variant-numeric: tabular-nums;
       unicode-bidi: isolate;
     }
@@ -302,9 +316,9 @@ export default css`
       --wa-form-control-height: var(--control-size);
       --wa-form-control-border-radius: var(--wa-border-radius-pill);
       --wa-form-control-padding-inline: 0.875em;
-      --wa-color-fill-loud: rgb(0 0 0 / 0.5);
-      --wa-color-fill-normal: rgb(0 0 0 / 0.5);
-      --wa-color-fill-quiet: rgb(0 0 0 / 0.5);
+      --wa-color-fill-loud: var(--control-fill);
+      --wa-color-fill-normal: var(--control-fill);
+      --wa-color-fill-quiet: var(--control-fill);
       --wa-color-border-loud: transparent;
       --wa-color-border-normal: transparent;
       --wa-color-border-quiet: transparent;
@@ -328,7 +342,7 @@ export default css`
       padding: 0 0.75em;
       border: solid 1px transparent;
       border-radius: var(--wa-border-radius-pill);
-      background: rgb(0 0 0 / 0.5);
+      background: var(--control-fill);
       color: white;
       font: inherit;
       text-decoration: none;
@@ -345,7 +359,7 @@ export default css`
       padding: 0;
       border: solid 1px transparent;
       border-radius: var(--wa-border-radius-circle);
-      background: rgb(0 0 0 / 0.5);
+      background: var(--control-fill);
       color: inherit;
       font: inherit;
       cursor: pointer;
@@ -361,7 +375,7 @@ export default css`
         cursor: default;
 
         &:hover {
-          background: rgb(0 0 0 / 0.5);
+          background: var(--navigation-fill);
         }
       }
     }
@@ -388,6 +402,11 @@ export default css`
 
     /* On short screens, like a phone on its side, the controls overlay the media. */
     @media (max-height: 30rem) {
+      .dialog {
+        --control-fill: rgb(0 0 0 / 0.5);
+        --navigation-fill: rgb(0 0 0 / 0.5);
+      }
+
       .slide {
         padding-block: var(--spacing) calc(var(--spacing) + var(--thumbnails-space));
       }
@@ -402,6 +421,7 @@ export default css`
     .navigation {
       align-self: center;
       margin-inline: var(--spacing);
+      background: var(--navigation-fill);
 
       &.previous {
         grid-area: 2 / 1;

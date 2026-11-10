@@ -149,6 +149,7 @@ export default class WaLightbox extends WebAwesomeElement {
   private fitRect: DOMRect | null = null; // the active media's box at rest
   private stageRect: DOMRect | null = null;
   private transformFrame = 0;
+  private overlapFrame = 0;
   private gesture: 'pan' | 'pull' | 'pinch' | null = null;
   private pointer: {
     id: number;
@@ -394,6 +395,7 @@ export default class WaLightbox extends WebAwesomeElement {
       }
 
       if (isOpen && item) {
+        this.updateOverlap();
         this.announce();
         this.scrollThumbnailIntoView();
 
@@ -556,6 +558,7 @@ export default class WaLightbox extends WebAwesomeElement {
 
     this.isReady = true;
     this.pitch = 0;
+    this.updateOverlap();
     this.scrollToIndex(this.currentIndex);
     this.dialog.focus({ preventScroll: true });
     this.announce();
@@ -645,7 +648,7 @@ export default class WaLightbox extends WebAwesomeElement {
       el.getAnimations().forEach(animation => animation.cancel());
       el.style.opacity = '';
     }
-    this.dialog.classList.remove('pulling', 'preparing');
+    this.dialog.classList.remove('pulling', 'preparing', 'overlapping');
     this.resetZoom();
     this.syncActiveItem();
     this.isClosing = false;
@@ -924,6 +927,7 @@ export default class WaLightbox extends WebAwesomeElement {
   }
 
   private handleResize() {
+    this.updateOverlap();
     this.stageWidth = this.slides.clientWidth;
     this.pitch = 0;
     this.resetZoom();
@@ -949,6 +953,23 @@ export default class WaLightbox extends WebAwesomeElement {
   //
   // Zoom and pan
   //
+
+  /**
+   * Notes whether the current media is wide enough at rest to sit under the previous and next buttons, so they can
+   * show a backing only when they need one. Uses layout widths, which don't change while a slide is scrolling.
+   */
+  private updateOverlap() {
+    cancelAnimationFrame(this.overlapFrame);
+    this.overlapFrame = requestAnimationFrame(() => {
+      const media = this.currentMedia;
+      const button = this.shadowRoot?.querySelector<HTMLElement>('.navigation:not([hidden])');
+      if (!media || !button || !this.dialog.open) return;
+
+      const sideSpace = (this.slides.clientWidth - media.offsetWidth) / 2;
+      const buttonSpace = button.offsetWidth + parseFloat(getComputedStyle(button).marginInlineStart) * 2;
+      this.dialog.classList.toggle('overlapping', sideSpace < buttonSpace);
+    });
+  }
 
   /** Measures the current media at rest. Zooming and panning are relative to this box. */
   private measure() {
@@ -1528,6 +1549,7 @@ export default class WaLightbox extends WebAwesomeElement {
         this.fitRect = null;
       }
       this.requestUpdate();
+      this.updateComplete.then(() => this.updateOverlap());
     }
   }
 
