@@ -43,8 +43,7 @@
   <script type="module" src="/assets/scripts/install-tabs.js"></script>
   <script type="module" src="/assets/scripts/component-anatomy.js"></script>
 
-  {# Outside the head block: every layout renders the header, including ones that replace docs.css. #}
-  <link rel="stylesheet" href="/assets/styles/header-popover.css" />
+  {# Outside the head block so layouts that replace it still style the search dialog this template draws. #}
   {% if hasSearch != false %}
     <link rel="stylesheet" href="/assets/styles/search.css" />
   {% endif %}
@@ -108,6 +107,8 @@
 
     {# wa-page-based Header #}
     {% block pageHeader %}
+    {# Inside the block so a layout that replaces the header drops these styles with it. #}
+    <link rel="stylesheet" href="/assets/styles/header-popover.css" />
     <header slot="header">
       {% include 'nav-products.njk' %}
     </header>
