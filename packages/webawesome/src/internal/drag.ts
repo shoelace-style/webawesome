@@ -51,9 +51,11 @@ export function drag(container: HTMLElement, options?: Partial<DragOptions>) {
   document.addEventListener('pointermove', move, { passive: true });
   document.addEventListener('pointerup', stop);
 
-  // If an initial event is set, trigger the first drag immediately
+  // If an initial event is set, trigger the first drag immediately. Capture on the element that received the press
+  // (the divider, not the host) so clicks after a drag keep their target and composed path.
   if (options?.initialEvent instanceof PointerEvent) {
-    capturePointer(container, options.initialEvent);
+    const pressed = options.initialEvent.currentTarget;
+    capturePointer(pressed instanceof Element ? pressed : container, options.initialEvent);
     move(options.initialEvent);
   }
 }
