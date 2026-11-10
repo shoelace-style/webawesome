@@ -45,6 +45,9 @@
 
   {# Outside the head block: every layout renders the header, including ones that replace docs.css. #}
   <link rel="stylesheet" href="/assets/styles/header-popover.css" />
+  {% if hasSearch != false %}
+    <link rel="stylesheet" href="/assets/styles/search.css" />
+  {% endif %}
 
   {% block head %}
   <link rel="stylesheet" href="/assets/styles/docs.css" />
