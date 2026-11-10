@@ -49,6 +49,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug in `<wa-slider>`, `<wa-color-picker>`, `<wa-comparison>`, and `<wa-split-panel>` where releasing a drag outside of the component clicked the element around it, such as a clickable card; drags now capture the pointer [issue:2983]
 - Fixed a bug in `<wa-date-input>` and `<wa-time-input>` where pressing [[Ctrl]]/[[Cmd]] + [[A]] in a segment selected the whole page [issue:2980]
 - Fixed a bug in `<wa-date-input>` and `<wa-time-input>` where dragging across the segments selected their text in Safari [issue:2980]
+- Fixed a bug in `<wa-date-picker>` where the `day-YYYY-MM-DD` slots were missing from its Slots table and `custom-elements.json` [issue:2889]
 - Improved `<wa-popover>` accessibility [pr:2986]
   - Fixed the anchor not telling screen readers that it opens a popover, or whether it's open
   - Fixed focus not returning to the anchor after closing with a `data-popover="close"` button
