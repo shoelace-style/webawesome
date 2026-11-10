@@ -91,6 +91,15 @@ export default css`
       transition: none;
     }
 
+    /* Tapping an image on a touch screen hides the controls, and tapping again shows them. */
+    .controls-hidden .chrome {
+      opacity: 0;
+      visibility: hidden;
+      transition:
+        opacity var(--wa-transition-normal) ease,
+        visibility 0s var(--wa-transition-normal);
+    }
+
     /* Slides */
 
     .slides {

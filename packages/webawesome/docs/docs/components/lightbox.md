@@ -81,8 +81,9 @@ use-cases:
 
 Wrap each thumbnail in a [`<wa-lightbox-item>`](/docs/components/lightbox-item) and set the item's `src` attribute
 to the full-size image. Clicking a thumbnail opens the lightbox, where you can swipe or use the arrow keys to move
-between items, click or pinch to zoom, and pull up or down or press [[Escape]] to close. Use the `label` attribute
-to describe the lightbox's contents to assistive devices.
+between items, click or pinch to zoom, and pull up or down or press [[Escape]] to close. On touch screens, tapping the
+image hides the controls and tapping again brings them back. Use the `label` attribute to describe the lightbox's
+contents to assistive devices.
 
 The lightbox itself is a plain block element, so you can lay out the thumbnails any way you like.
 

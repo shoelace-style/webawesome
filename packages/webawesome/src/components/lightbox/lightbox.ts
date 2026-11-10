@@ -170,6 +170,7 @@ export default class WaLightbox extends WebAwesomeElement {
   private didDrag = false;
   private downOnMedia = false;
   private lastTap = { time: 0, x: 0, y: 0 };
+  private tapTimeout = 0;
 
   @query('.dialog') dialog: HTMLDialogElement;
   @query('.backdrop') backdrop: HTMLElement;
@@ -653,7 +654,8 @@ export default class WaLightbox extends WebAwesomeElement {
       el.getAnimations().forEach(animation => animation.cancel());
       el.style.opacity = '';
     }
-    this.dialog.classList.remove('pulling', 'panning', 'preparing', 'overlapping');
+    clearTimeout(this.tapTimeout);
+    this.dialog.classList.remove('pulling', 'panning', 'preparing', 'overlapping', 'controls-hidden');
     this.resetZoom();
     this.syncActiveItem();
     this.isClosing = false;
@@ -1214,12 +1216,24 @@ export default class WaLightbox extends WebAwesomeElement {
 
     if (event.pointerType === 'mouse' || isDoubleTap) {
       this.lastTap.time = 0;
+      clearTimeout(this.tapTimeout);
       if (this.canZoom && this.measure()) {
         const scale = this.scale > 1 ? 1 : Math.min(this.maxZoom, DOUBLE_TAP_ZOOM);
         this.zoomAt(event.clientX, event.clientY, scale, !prefersReducedMotion());
       }
     } else {
       this.lastTap = { time: event.timeStamp, x: event.clientX, y: event.clientY };
+
+      // On its own, a tap on an image hides or shows the controls. It waits to see if it's the start of a double
+      // tap first, unless the image can't be zoomed. Taps on videos and custom content belong to them.
+      const item = this.currentItem;
+      if (item && item.type !== 'video' && !item.contentTemplate) {
+        clearTimeout(this.tapTimeout);
+        this.tapTimeout = window.setTimeout(
+          () => this.dialog.classList.toggle('controls-hidden'),
+          this.canZoom ? DOUBLE_TAP_DELAY : 0,
+        );
+      }
     }
   }
 
@@ -1384,6 +1398,9 @@ export default class WaLightbox extends WebAwesomeElement {
   };
 
   private handleKeyDown(event: KeyboardEvent) {
+    // Anyone using the keyboard needs the controls back
+    this.dialog.classList.remove('controls-hidden');
+
     // Leave modified keys to the browser so shortcuts like page zoom keep working
     if (event.ctrlKey || event.metaKey || event.altKey) return;
 
