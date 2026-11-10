@@ -1,4 +1,4 @@
-import { html, isServer, type PropertyValues } from 'lit';
+import { html, isServer, nothing, type PropertyValues } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -1801,7 +1801,7 @@ export default class WaLightbox extends WebAwesomeElement {
           </button>
 
           <div class="footer">
-            <div part="caption" class="caption" ?hidden=${!item?.caption}>${item?.caption}</div>
+            <div part="caption" class="caption" ?hidden=${!item?.caption}>${item?.caption || nothing}</div>
 
             <div part="thumbnails" class="thumbnails" role="tablist" ?hidden=${!hasThumbnails}>
               ${hasThumbnails

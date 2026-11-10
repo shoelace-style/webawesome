@@ -33,6 +33,15 @@ const gallery = (attributes: { loop?: boolean; thumbnails?: boolean; withoutZoom
   </wa-lightbox>
 `;
 
+/** Adds a button after the lightbox that opens it with a data-lightbox invoker. */
+function addInvoker(el: WaLightbox, value: string) {
+  const button = document.createElement('button');
+  button.textContent = 'Open';
+  button.setAttribute('data-lightbox', value);
+  el.after(button);
+  return button;
+}
+
 /** Waits for the lightbox to find its items, which happens after its first render. */
 async function ready(el: WaLightbox, count = 3) {
   await waitUntil(() => el.items.length === count, 'the lightbox should find its items');
@@ -301,37 +310,27 @@ describe('<wa-lightbox>', () => {
 
       describe('declarative invokers', () => {
         it('should open at the first item from an element with data-lightbox="open id"', async () => {
-          const container = await fixture<HTMLElement>(html`
-            <div>
-              ${gallery()}
-              <button data-lightbox="open invoked">Open</button>
-            </div>
-          `);
-          const el = container.querySelector<WaLightbox>('wa-lightbox')!;
+          const el = await fixture<WaLightbox>(gallery());
           el.id = 'invoked';
+          const button = addInvoker(el, 'open invoked');
           await ready(el);
           el.index = 2;
 
           await expectEvent(el, 'wa-after-show', () => {
-            container.querySelector('button')!.click();
+            button.click();
           });
 
           expect(el.index).to.equal(0);
         });
 
         it('should open at a specific item when its id is given', async () => {
-          const container = await fixture<HTMLElement>(html`
-            <div>
-              ${gallery()}
-              <button data-lightbox="open invoked blue">Open</button>
-            </div>
-          `);
-          const el = container.querySelector<WaLightbox>('wa-lightbox')!;
+          const el = await fixture<WaLightbox>(gallery());
           el.id = 'invoked';
+          const button = addInvoker(el, 'open invoked blue');
           await ready(el);
 
           await expectEvent(el, 'wa-after-show', () => {
-            container.querySelector('button')!.click();
+            button.click();
           });
 
           expect(el.currentItem!.id).to.equal('blue');
@@ -416,9 +415,14 @@ describe('<wa-lightbox>', () => {
 
         it('should not emit wa-item-change when it first finds its items', async () => {
           let count = 0;
-          const container = await fixture<HTMLElement>(html`<div @wa-item-change=${() => count++}>${gallery()}</div>`);
-          await ready(container.querySelector<WaLightbox>('wa-lightbox')!);
+          const handleItemChange = () => count++;
+
+          // Listening on the document catches anything emitted before the fixture hands the lightbox back
+          document.addEventListener('wa-item-change', handleItemChange);
+          const el = await fixture<WaLightbox>(gallery());
+          await ready(el);
           await aTimeout(50);
+          document.removeEventListener('wa-item-change', handleItemChange);
 
           expect(count).to.equal(0);
         });
