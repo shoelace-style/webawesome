@@ -5,6 +5,9 @@ export default css`
     :host {
       --backdrop-color: color-mix(in oklab, black 95%, transparent);
       --backdrop-filter: none;
+      --media-border-radius: 0px;
+      --controls-color: var(--wa-color-neutral-95);
+      --controls-background: rgb(0 0 0 / 0.5);
       --show-duration: var(--wa-transition-slow);
       --hide-duration: var(--wa-transition-slow);
       --spacing: clamp(var(--wa-space-m), 3vw, var(--wa-space-2xl));
@@ -36,7 +39,7 @@ export default css`
       padding: 0;
       border: none;
       background: none;
-      color: white;
+      color: var(--controls-color);
       color-scheme: dark;
       font-family: var(--wa-font-family-body);
       overflow: hidden;
@@ -53,13 +56,13 @@ export default css`
       }
 
       &.zoomed {
-        --control-fill: rgb(0 0 0 / 0.5);
-        --navigation-fill: rgb(0 0 0 / 0.5);
+        --control-fill: var(--controls-background);
+        --navigation-fill: var(--controls-background);
       }
 
       /* The media is wide enough at rest to sit under the previous and next buttons. */
       &.overlapping {
-        --navigation-fill: rgb(0 0 0 / 0.5);
+        --navigation-fill: var(--controls-background);
       }
 
       &.has-captions {
@@ -142,6 +145,8 @@ export default css`
       position: relative;
       width: min(100cqw, calc(100cqh * var(--ratio)), var(--natural-width));
       aspect-ratio: var(--ratio);
+      border-radius: var(--media-border-radius);
+      overflow: clip;
       cursor: zoom-in;
 
       /* Keeps the image's stacking inside the slide so the controls stay on top. */
@@ -250,6 +255,7 @@ export default css`
     /* A copy of the previous image that fades out when cutting to another slide. */
     .departing {
       position: fixed;
+      border-radius: var(--media-border-radius);
       object-fit: cover;
       pointer-events: none;
     }
@@ -322,12 +328,12 @@ export default css`
       --wa-color-border-loud: transparent;
       --wa-color-border-normal: transparent;
       --wa-color-border-quiet: transparent;
-      --wa-color-on-loud: white;
-      --wa-color-on-normal: white;
-      --wa-color-on-quiet: white;
-      --wa-color-mix-hover: white 20%;
-      --wa-color-mix-active: white 30%;
-      --wa-focus-ring: solid 2px white;
+      --wa-color-on-loud: var(--controls-color);
+      --wa-color-on-normal: var(--controls-color);
+      --wa-color-on-quiet: var(--controls-color);
+      --wa-color-mix-hover: var(--controls-color) 20%;
+      --wa-color-mix-active: var(--controls-color) 30%;
+      --wa-focus-ring: solid 2px var(--controls-color);
       --wa-focus-ring-offset: 2px;
     }
 
@@ -343,7 +349,7 @@ export default css`
       border: solid 1px transparent;
       border-radius: var(--wa-border-radius-pill);
       background: var(--control-fill);
-      color: white;
+      color: var(--controls-color);
       font: inherit;
       text-decoration: none;
       cursor: pointer;
@@ -366,8 +372,9 @@ export default css`
       transition: background var(--wa-transition-fast) ease;
       -webkit-tap-highlight-color: transparent;
 
+      /* The hover tint goes over the backing, so the icon keeps its contrast with the media behind it. */
       &:hover {
-        background: rgb(255 255 255 / 0.2);
+        background: color-mix(in oklab, var(--controls-color) 20%, var(--control-fill));
       }
 
       &[aria-disabled='true'] {
@@ -375,14 +382,14 @@ export default css`
         cursor: default;
 
         &:hover {
-          background: var(--navigation-fill);
+          background: var(--control-fill);
         }
       }
     }
 
     /* A two-tone ring stays visible over light and dark images. */
     :is(.control, .thumbnail):focus-visible {
-      outline: solid 2px white;
+      outline: solid 2px var(--controls-color);
       outline-offset: 2px;
       box-shadow: 0 0 0 4px black;
     }
@@ -403,12 +410,18 @@ export default css`
     /* On short screens, like a phone on its side, the controls overlay the media. */
     @media (max-height: 30rem) {
       .dialog {
-        --control-fill: rgb(0 0 0 / 0.5);
-        --navigation-fill: rgb(0 0 0 / 0.5);
+        --control-fill: var(--controls-background);
+        --navigation-fill: var(--controls-background);
       }
 
       .slide {
         padding-block: var(--spacing) calc(var(--spacing) + var(--thumbnails-space));
+      }
+
+      .caption {
+        padding: var(--wa-space-2xs) var(--wa-space-s);
+        border-radius: var(--wa-border-radius-m);
+        background: var(--controls-background);
       }
     }
 
@@ -422,6 +435,14 @@ export default css`
       align-self: center;
       margin-inline: var(--spacing);
       background: var(--navigation-fill);
+
+      &:hover {
+        background: color-mix(in oklab, var(--controls-color) 20%, var(--navigation-fill));
+      }
+
+      &[aria-disabled='true']:hover {
+        background: var(--navigation-fill);
+      }
 
       &.previous {
         grid-area: 2 / 1;
@@ -447,7 +468,6 @@ export default css`
       font-size: var(--wa-font-size-m);
       line-height: var(--wa-line-height-condensed);
       text-align: center;
-      text-shadow: 0 1px 2px rgb(0 0 0 / 0.8);
       text-wrap: balance;
     }
 
@@ -516,7 +536,7 @@ export default css`
       }
 
       &[aria-selected='true'] {
-        outline: solid 2px white;
+        outline: solid 2px var(--controls-color);
         outline-offset: 1px;
 
         & img {
@@ -525,7 +545,7 @@ export default css`
       }
     }
 
-    /* The selected thumbnail already has a white ring, so focus needs its own. */
+    /* The selected thumbnail already has a ring, so focus needs its own. */
     .thumbnail:focus-visible {
       outline: solid 3px var(--wa-color-focus);
       outline-offset: 2px;

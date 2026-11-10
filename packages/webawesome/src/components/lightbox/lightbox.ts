@@ -91,6 +91,11 @@ interface GestureEvent extends UIEvent {
  *
  * @cssproperty [--backdrop-color=color-mix(in oklab, black 95%, transparent)] - The color of the backdrop.
  * @cssproperty [--backdrop-filter=none] - A filter to apply to the backdrop behind the lightbox.
+ * @cssproperty [--media-border-radius=0px] - The border radius of the media in each slide.
+ * @cssproperty [--controls-color=var(--wa-color-neutral-95)] - The text and icon color used for the controls,
+ *  counter, and caption.
+ * @cssproperty [--controls-background=rgb(0 0 0 / 0.5)] - The background of the controls when the media is behind
+ *  them.
  * @cssproperty [--show-duration=var(--wa-transition-slow)] - The animation duration when showing the lightbox.
  * @cssproperty [--hide-duration=var(--wa-transition-slow)] - The animation duration when hiding the lightbox.
  * @cssproperty [--spacing=clamp(var(--wa-space-m), 3vw, var(--wa-space-2xl))] - The space around the media, the
@@ -705,6 +710,10 @@ export default class WaLightbox extends WebAwesomeElement {
     const thumbnailRect = thumbnail.getBoundingClientRect();
     const thumbnailStyle = getComputedStyle(thumbnail);
     const radius = parseFloat(thumbnailStyle.borderTopLeftRadius) || 0;
+
+    // The slide's own corners, scaled along with it if it's zoomed
+    const mediaRadius =
+      (parseFloat(getComputedStyle(media).borderTopLeftRadius) || 0) * (mediaRect.width / (media.offsetWidth || 1));
     const viewportWidth = window.innerWidth;
     const viewportHeight = window.innerHeight;
     const fullImage = media.querySelector('img');
@@ -728,11 +737,14 @@ export default class WaLightbox extends WebAwesomeElement {
 
     // The clip is in viewport coordinates on an untransformed wrapper, so it tracks the thumbnail's box exactly
     const isCropped =
-      radius > 0 || Math.abs(imageWidth - thumbnailRect.width) > 1 || Math.abs(imageHeight - thumbnailRect.height) > 1;
+      radius > 0 ||
+      mediaRadius > 0 ||
+      Math.abs(imageWidth - thumbnailRect.width) > 1 ||
+      Math.abs(imageHeight - thumbnailRect.height) > 1;
     const inset = (rect: DOMRect, round: number) =>
       `inset(${rect.top}px ${viewportWidth - rect.right}px ${viewportHeight - rect.bottom}px ${rect.left}px round ${round}px)`;
     const clipAtThumbnail = inset(thumbnailRect, radius);
-    const clipAtMedia = flightClip !== 'none' ? flightClip : inset(mediaRect, 0);
+    const clipAtMedia = flightClip !== 'none' ? flightClip : inset(mediaRect, mediaRadius);
 
     // Then write
     this.morphAnimations.forEach(animation => animation.cancel());

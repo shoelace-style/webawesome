@@ -964,6 +964,109 @@ the lightbox from closing unless the close button is clicked.
 </script>
 ```
 
+### Styling Lightboxes
+
+Combine custom properties and CSS parts to give a lightbox its own look. The `--controls-color` and
+`--controls-background` custom properties set the color of the controls, counter, and caption and the background the
+controls get when the media is behind them. Use CSS parts for everything else, like the gradient on the `backdrop`
+part in this example.
+
+```html {.example}
+<wa-lightbox class="wa-grid lightbox-styled" label="Landscape photos" with-thumbnails loop>
+  <wa-lightbox-item
+    src="https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=1600&h=1067&fit=crop&q=80"
+    width="1600"
+    height="1067"
+    caption="First light in the valley"
+  >
+    <img
+      src="https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=480&h=320&fit=crop&q=60"
+      alt="The sun shines on the mountains and trees"
+    />
+  </wa-lightbox-item>
+  <wa-lightbox-item
+    src="https://images.unsplash.com/photo-1473448912268-2022ce9509d8?w=1600&h=1067&fit=crop&q=80"
+    width="1600"
+    height="1067"
+    caption="Where the river slows down"
+  >
+    <img
+      src="https://images.unsplash.com/photo-1473448912268-2022ce9509d8?w=480&h=320&fit=crop&q=60"
+      alt="A river winding through an evergreen forest"
+    />
+  </wa-lightbox-item>
+  <wa-lightbox-item
+    src="https://images.unsplash.com/photo-1499002238440-d264edd596ec?w=1600&h=1067&fit=crop&q=80"
+    width="1600"
+    height="1067"
+    caption="Lavender at golden hour"
+  >
+    <img
+      src="https://images.unsplash.com/photo-1499002238440-d264edd596ec?w=480&h=320&fit=crop&q=60"
+      alt="The sun is setting over a lavender field"
+    />
+  </wa-lightbox-item>
+  <wa-lightbox-item
+    src="https://images.unsplash.com/photo-1475113548554-5a36f1f523d6?w=1600&h=1067&fit=crop&q=80"
+    width="1600"
+    height="1067"
+    caption="The last of the evening sun"
+  >
+    <img
+      src="https://images.unsplash.com/photo-1475113548554-5a36f1f523d6?w=480&h=320&fit=crop&q=60"
+      alt="A field of grass with the sun setting in the background"
+    />
+  </wa-lightbox-item>
+</wa-lightbox>
+
+<style>
+  .lightbox-styled {
+    --min-column-size: 8rem;
+    --controls-background: color-mix(in oklab, var(--wa-color-indigo-40) 70%, transparent);
+    --show-duration: 450ms;
+    --hide-duration: 350ms;
+    --thumbnail-size: 4rem;
+    --media-border-radius: 1.5rem;
+
+    &::part(backdrop) {
+      background:
+        radial-gradient(at 10% 15%, var(--wa-color-purple-50), transparent 55%),
+        radial-gradient(at 90% 10%, var(--wa-color-blue-60), transparent 55%),
+        radial-gradient(at 85% 90%, var(--wa-color-pink-50), transparent 55%),
+        radial-gradient(at 15% 85%, var(--wa-color-cyan-50), transparent 55%), var(--wa-color-indigo-50);
+    }
+
+    img {
+      width: 100%;
+      aspect-ratio: 1;
+      border-radius: 1.5rem;
+      object-fit: cover;
+    }
+
+    &::part(caption) {
+      font-family: var(--wa-font-family-longform);
+      font-size: var(--wa-font-size-xl);
+    }
+
+    &::part(counter) {
+      font-weight: var(--wa-font-weight-bold);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    &::part(navigation-button),
+    &::part(zoom-button),
+    &::part(close-button) {
+      border-color: color-mix(in oklab, currentColor 40%, transparent);
+    }
+
+    &::part(thumbnail) {
+      border-radius: var(--wa-border-radius-circle);
+    }
+  }
+</style>
+```
+
 ## Accessibility Considerations
 
 The lightbox handles most accessibility needs for you.
