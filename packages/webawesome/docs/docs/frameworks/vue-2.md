@@ -1,7 +1,6 @@
 ---
 title: Vue (version 2)
-description: Tips for using Web Awesome in your Vue 2 app.
-ogDescription: "Configure Vue 2 for custom elements, and bind data without v-model."
+description: Configure Vue 2 for custom elements, and bind data without v-model.
 layout: framework
 officialDocs: https://v2.vuejs.org
 ---
