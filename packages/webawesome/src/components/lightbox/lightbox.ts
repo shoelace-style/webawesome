@@ -61,7 +61,7 @@ interface GestureEvent extends UIEvent {
  * @slot zoom-out-icon - Optional icon to show on the zoom button when the image is zoomed in. Works best with
  *  `<wa-icon>`.
  *
- * @event wa-show - Emitted when the lightbox opens.
+ * @event wa-show - Emitted when the lightbox opens. Calling `event.preventDefault()` will prevent it from opening.
  * @event wa-after-show - Emitted after the lightbox opens and all animations are complete.
  * @event {{ source: Element }} wa-hide - Emitted when the lightbox is requested to close. Calling
  *  `event.preventDefault()` will prevent the lightbox from closing. You can inspect `event.detail.source` to see

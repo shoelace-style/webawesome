@@ -24,6 +24,7 @@ import styles from './lightbox-item.styles.js';
  *
  * @cssstate active - Applied when this is the current item in an open lightbox.
  * @cssstate empty - Applied when nothing is slotted in. Empty items aren't displayed on the page.
+ * @cssstate morphing - Applied while the lightbox animates between this item's thumbnail and its full-size media.
  */
 @customElement('wa-lightbox-item')
 export default class WaLightboxItem extends WebAwesomeElement {
