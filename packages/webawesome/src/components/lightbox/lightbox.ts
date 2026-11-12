@@ -449,6 +449,8 @@ export default class WaLightbox extends WebAwesomeElement {
     const newIndex = current ? items.indexOf(current) : -1;
     if (newIndex > -1 && newIndex !== this.index) {
       this.index = newIndex;
+    } else if (current && newIndex === -1) {
+      this.index = this.currentIndex;
     }
   }
 
