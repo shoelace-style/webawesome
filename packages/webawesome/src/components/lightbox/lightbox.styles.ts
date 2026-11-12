@@ -3,8 +3,8 @@ import { css } from 'lit';
 export default css`
   @layer wa-component {
     :host {
-      --backdrop-color: color-mix(in oklab, black 95%, transparent);
-      --backdrop-filter: none;
+      --backdrop-color: color-mix(in oklab, black 90%, transparent);
+      --backdrop-filter: blur(1rem);
       --media-border-radius: 0px;
       --controls-color: var(--wa-color-neutral-95);
       --controls-background: rgb(0 0 0 / 0.5);
