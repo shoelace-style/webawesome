@@ -263,6 +263,9 @@ export default class WaLightbox extends WebAwesomeElement {
     if (isServer) return;
 
     this.updateComplete.then(() => {
+      // Removed again before the first render finished, or reconnected before an earlier observer was cleaned up
+      if (!this.isConnected) return;
+      this.mutationObserver?.disconnect();
       this.syncItems();
 
       // Items can live at any depth, so watch the whole subtree. Mutations inside a nested lightbox are ignored, and
