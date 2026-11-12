@@ -48,8 +48,8 @@ export default css`
       height: 3rem;
       margin: auto;
       border-radius: var(--wa-border-radius-circle);
-      background: rgb(0 0 0 / 0.5);
-      color: white;
+      background: var(--controls-background, rgb(0 0 0 / 0.5));
+      color: var(--controls-color, white);
       font-size: var(--wa-font-size-l);
       pointer-events: none;
       transition: background var(--wa-transition-fast) var(--wa-transition-easing);
@@ -57,7 +57,7 @@ export default css`
 
     @media (hover: hover) {
       .trigger:hover .play-button {
-        background: rgb(0 0 0 / 0.7);
+        background: color-mix(in oklab, var(--controls-color, white) 20%, var(--controls-background, rgb(0 0 0 / 0.5)));
       }
     }
 

@@ -257,7 +257,7 @@ export default css`
       align-items: center;
       justify-content: center;
       gap: var(--wa-space-xs);
-      background: rgb(0 0 0 / 0.6);
+      background: var(--controls-background);
       font-size: var(--wa-font-size-s);
 
       & wa-icon {
