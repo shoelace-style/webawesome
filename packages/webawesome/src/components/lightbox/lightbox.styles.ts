@@ -386,17 +386,15 @@ export default css`
       -webkit-tap-highlight-color: transparent;
 
       /* The hover tint goes over the backing, so the icon keeps its contrast with the media behind it. */
-      &:hover {
-        background: color-mix(in oklab, var(--controls-color) 20%, var(--control-fill));
+      @media (hover: hover) {
+        &:not([aria-disabled='true']):hover {
+          background: color-mix(in oklab, var(--controls-color) 20%, var(--control-fill));
+        }
       }
 
       &[aria-disabled='true'] {
         opacity: 0.4;
         cursor: default;
-
-        &:hover {
-          background: var(--control-fill);
-        }
       }
     }
 
@@ -449,12 +447,10 @@ export default css`
       margin-inline: var(--spacing);
       background: var(--navigation-fill);
 
-      &:hover {
-        background: color-mix(in oklab, var(--controls-color) 20%, var(--navigation-fill));
-      }
-
-      &[aria-disabled='true']:hover {
-        background: var(--navigation-fill);
+      @media (hover: hover) {
+        &:not([aria-disabled='true']):hover {
+          background: color-mix(in oklab, var(--controls-color) 20%, var(--navigation-fill));
+        }
       }
 
       &.previous {
@@ -549,8 +545,10 @@ export default css`
         transition: opacity var(--wa-transition-fast) var(--wa-transition-easing);
       }
 
-      &:hover img {
-        opacity: 0.8;
+      @media (hover: hover) {
+        &:hover img {
+          opacity: 0.8;
+        }
       }
 
       &[aria-selected='true'] {

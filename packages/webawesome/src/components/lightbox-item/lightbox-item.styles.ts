@@ -55,8 +55,10 @@ export default css`
       transition: background var(--wa-transition-fast) var(--wa-transition-easing);
     }
 
-    .trigger:hover .play-button {
-      background: rgb(0 0 0 / 0.7);
+    @media (hover: hover) {
+      .trigger:hover .play-button {
+        background: rgb(0 0 0 / 0.7);
+      }
     }
 
     /* The lightbox hides the thumbnail while its image animates to or from the slide. */
