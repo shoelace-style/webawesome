@@ -357,7 +357,7 @@ render() {
 ```
 
 :::info
-**Don't add `base` to new components.** Components that already render a wrapper keep `base` alongside their component-named part, so existing `::part(base)` selectors keep working. It's flagged deprecated and will be removed in a future major version.
+**Don't add `base` to new components.** Components that already render a wrapper keep `base` alongside their component-named part, so existing `::part(base)` selectors keep working. It's flagged deprecated and will be removed in a future major version. `npm run test:parts` fails if a component that doesn't already have `base` renders, forwards, or documents one, or if anything in `src/` selects it.
 :::
 
 Never put a part on a `<slot>`. Slots default to `display: contents`, so a part there can't take a border, background, or padding unless you also set `display`. If slotted content needs a styling hook, wrap it in a real element and put the part there.

@@ -287,10 +287,11 @@ describe('<wa-rating>', () => {
       });
 
       describe('CSS parts', () => {
-        it('should expose the base part', async () => {
+        it('should expose the "rating" part and keep the deprecated base part', async () => {
           const el = await fixture<WaRating>(html`<wa-rating></wa-rating>`);
-          const base = el.shadowRoot!.querySelector('[part~="base"]');
-          expect(base).to.not.be.null;
+          const wrapper = el.shadowRoot!.querySelector('[part~="rating"]');
+          expect(wrapper).to.exist;
+          expect(wrapper!.matches('[part~="base"]')).to.be.true;
         });
       });
     });

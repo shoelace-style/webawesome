@@ -102,7 +102,7 @@ Work through the steps below in order. Track your progress with the interactive 
 
 <div class="migration-checklist-actions wa-cluster wa-gap-s">
   <wa-button variant="brand" appearance="accent" size="m" href="/docs/resources/migration-checklist">
-    <wa-icon slot="start" variant="regular" name="list-check"></wa-icon>
+    <wa-icon slot="start" name="list-check"></wa-icon>
     Open the Interactive Checklist
   </wa-button>
   <wa-button variant="brand" appearance="outlined" size="m" href="/assets/downloads/shoelace-migration-checklist.md" download="shoelace-migration-checklist.md">
@@ -149,7 +149,7 @@ If you used `setBasePath()`, the import location moves but the API is unchanged:
 ```
 
 <wa-callout variant="brand" class="migration-soft-landing-callout">
-  <wa-icon slot="icon" name="lightbulb" variant="regular"></wa-icon>
+  <wa-icon slot="icon" name="lightbulb"></wa-icon>
   <strong>Want a soft landing?</strong><br />
   Apply the Shoelace-compatible theme first: <code>&lt;html class='wa-theme-shoelace wa-light'&gt;</code>. It adds a palette and design close to Shoelace's defaults so you can focus on markup changes without wrestling with unfamiliar styles.
 </wa-callout>
@@ -172,7 +172,7 @@ Most of the migration is mechanical text replacement. Here are the patterns we r
 | `Sl` (event-class prefix)  | `Wa`                     | TypeScript imports of event classes    |
 
 <wa-callout variant="warning" class="migration-warning-callout">
-  <wa-icon slot="icon" name="triangle-exclamation" variant="regular"></wa-icon>
+  <wa-icon slot="icon" name="triangle-exclamation"></wa-icon>
   <strong>Silent breakage warning.</strong><br />
   Event listener strings are the highest-risk change. If you wrote <code>el.addEventListener('sl-show', …)</code> and forget to update it, nothing throws. The listener simply never fires. Grep your codebase for <code>'sl-</code> and <code>"sl-</code> after migration and confirm zero results.
 </wa-callout>

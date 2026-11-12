@@ -1,6 +1,7 @@
 import { expect, oneEvent } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
+import sinon from 'sinon';
 import { expectEvent } from '../../internal/test/expect-event.js';
 import { fixtures } from '../../internal/test/fixture.js';
 import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
@@ -302,6 +303,21 @@ describe('<wa-slider>', () => {
           await el.updateComplete;
           expect(el.value).to.equal(6);
           expect(el.defaultValue).to.equal(4);
+        });
+
+        // Without pointer capture, releasing a drag outside of the slider makes the browser click the closest element
+        // that contains both the press and the release, such as a card around the slider
+        it('should capture the pointer when a drag starts', async () => {
+          const el = await fixture<WaSlider>(html`<wa-slider></wa-slider>`);
+          const setPointerCapture = sinon.spy(Element.prototype, 'setPointerCapture');
+
+          try {
+            await clickOnElement(el.shadowRoot!.querySelector('[part~="track"]')!);
+            expect(setPointerCapture).to.have.been.called;
+            expect(el.shadowRoot!.contains(setPointerCapture.firstCall.thisValue as Element)).to.be.true;
+          } finally {
+            setPointerCapture.restore();
+          }
         });
       });
     });

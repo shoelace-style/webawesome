@@ -94,7 +94,7 @@ use-cases:
 
 Web Awesome's color system is made up of three layers: a [color palette](/docs/color-palettes) that gives you a full spectrum of hues, [variant colors](#variant-colors) that define semantic color variations (like success and danger), and [colors for themed elements](#color-for-themed-elements) that apply specific tints from your palette and variant colors to the elements that make up a theme.
 
-For an overview of how theming works across the library, see [Theming <wa-icon name="arrow-right" variant="regular"></wa-icon>](/docs/theming-overview).
+For an overview of how theming works across the library, see [Theming <wa-icon name="arrow-right"></wa-icon>](/docs/theming-overview).
 
 ## Color Palette
 

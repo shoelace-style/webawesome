@@ -52,7 +52,7 @@ export function outlineTransformer(options = {}) {
       const escapedText = escapeHtml(text);
       let liMarkup;
       if (options.linkIcon) {
-        const icon = `<wa-icon name="${options.linkIcon}" variant="light" aria-hidden="true"></wa-icon>`;
+        const icon = `<wa-icon name="${options.linkIcon}" aria-hidden="true"></wa-icon>`;
         liMarkup = `<li data-level="${level}" class="wa-cluster wa-gap-xs wa-flex-nowrap">${icon}<a href="${escapedHref}">${escapedText}</a></li>`;
       } else {
         liMarkup = `<li data-level="${level}"><a href="${escapedHref}">${escapedText}</a></li>`;

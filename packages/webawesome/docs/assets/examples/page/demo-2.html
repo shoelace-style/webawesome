@@ -383,7 +383,7 @@
       wa-page[view='mobile'] [slot*='navigation'] {
         padding: 0;
       }
-      wa-page::part(base) {
+      wa-page::part(page) {
         background-color: var(--wa-color-surface-lowered);
       }
       [slot='header'] {
@@ -461,12 +461,12 @@
       [slot='main-header'] {
         background-color: var(--wa-color-surface-raised);
       }
-      #play-controls wa-button::part(base) {
+      #play-controls wa-button::part(button) {
         border: var(--wa-border-width-l) var(--wa-border-style) currentColor;
         border-radius: var(--wa-border-radius-circle);
         font-size: 1.5rem;
       }
-      #play-controls wa-button:has(wa-icon[name='play'])::part(base) {
+      #play-controls wa-button:has(wa-icon[name='play'])::part(button) {
         border: none;
         font-size: 2.5rem;
         padding: 0.5em 0.45em 0.5em 0.55em;

@@ -53,7 +53,8 @@ import styles from './tag-input.styles.js';
  * @csspart tag - Each tag, a `<wa-tag>`.
  * @csspart tag__content - The tag's content part.
  * @csspart tag__remove-button - The tag's remove button.
- * @csspart tag__remove-button__base - The tag's remove button base part.
+ * @csspart tag__remove-button__base - Deprecated. Use the `tag__remove-button__button` part instead.
+ * @csspart tag__remove-button__button - The tag's remove button's exported `button` part.
  * @csspart input - The internal text box, an `<input>` element.
  * @csspart clear-button - The clear button.
  * @csspart end - The container that wraps the `end` slot.
@@ -768,7 +769,8 @@ export default class WaTagInput extends WebAwesomeFormAssociatedElement {
                       exportparts="
                         content:tag__content,
                         remove-button:tag__remove-button,
-                        remove-button__base:tag__remove-button__base
+                        remove-button__base:tag__remove-button__base,
+                        remove-button__button:tag__remove-button__button
                       "
                       role="listitem"
                       tabindex="-1"

@@ -354,6 +354,28 @@ Set the `skidding` attribute to slide the panel along the trigger, in pixels.
 </wa-dropdown>
 ```
 
+### Customizing
+
+Style the panel through the `menu` part. The `<wa-dropdown>` element doesn't render a box of its own, so styles set on it won't reach the panel.
+
+```html {.example}
+<wa-dropdown class="brand-dropdown">
+  <wa-button appearance="filled" slot="trigger" with-caret>Edit</wa-button>
+
+  <wa-dropdown-item>Cut</wa-dropdown-item>
+  <wa-dropdown-item>Copy</wa-dropdown-item>
+  <wa-dropdown-item>Paste</wa-dropdown-item>
+</wa-dropdown>
+
+<style>
+  wa-dropdown.brand-dropdown::part(menu) {
+    background-color: var(--wa-color-brand-fill-quiet);
+    border-color: var(--wa-color-brand-border-quiet);
+    border-radius: var(--wa-border-radius-l);
+  }
+</style>
+```
+
 ### Reacting to Selections
 
 When an item is selected, the dropdown emits the `wa-select` event. Inspect `event.detail.item` for the selected [dropdown item](/docs/components/dropdown-item); if you set a `value` on each item, read it from `event.detail.item.value`.

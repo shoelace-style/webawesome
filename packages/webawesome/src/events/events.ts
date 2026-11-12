@@ -52,6 +52,7 @@ export type { WaSlideChangeEvent } from './slide-change.js';
 export type { WaSortChangeEvent } from './sort-change.js';
 export type { WaStartEvent } from './start.js';
 export type { WaStepChangeEvent } from './step-change.js';
+export type { WaSuggestionsErrorEvent } from './suggestions-error.js';
 export type { WaTabHideEvent } from './tab-hide.js';
 export type { WaTabShowEvent } from './tab-show.js';
 export type { WaVideoChangeEvent } from './video-change.js';

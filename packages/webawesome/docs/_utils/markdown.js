@@ -29,7 +29,7 @@ markdown.use(markdownItMark);
       if (tokens[idx].nesting === 1) {
         return `
           <wa-callout variant="${variant}">
-            <wa-icon slot="icon" name="${icon}" variant="regular"></wa-icon>
+            <wa-icon slot="icon" name="${icon}"></wa-icon>
         `;
       }
       return '</wa-callout>\n';
@@ -42,7 +42,7 @@ markdown.use(markdownItContainer, 'new', {
     if (tokens[idx].nesting === 1) {
       return `
         <wa-callout variant="neutral" class="new">
-          <wa-icon slot="icon" name="bullhorn" variant="solid"></wa-icon>
+          <wa-icon slot="icon" name="bullhorn"></wa-icon>
       `;
     }
     return '</wa-callout>\n';

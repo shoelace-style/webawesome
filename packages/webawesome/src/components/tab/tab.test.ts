@@ -109,10 +109,11 @@ describe('<wa-tab>', () => {
       });
 
       describe('CSS parts', () => {
-        it('should have a base part', async () => {
+        it('should expose the "tab" part and keep the deprecated base part', async () => {
           const el = await fixture<WaTab>(html`<wa-tab>Test</wa-tab>`);
-          const base = el.shadowRoot!.querySelector('[part~="base"]');
-          expect(base).to.exist;
+          const wrapper = el.shadowRoot!.querySelector('[part~="tab"]');
+          expect(wrapper).to.exist;
+          expect(wrapper!.matches('[part~="base"]')).to.be.true;
         });
       });
     });
