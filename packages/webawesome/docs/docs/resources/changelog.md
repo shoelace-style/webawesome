@@ -41,6 +41,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
   - Added an optional `variant` argument to `setDefaultIconFamily()`
   - Added `getDefaultIconVariant()`
   - In {{ site.namePro }}, the icons inside components follow the defaults for the `classic`, `sharp`, `duotone`, and `sharp-duotone` families
+- Added the `--backdrop-color` custom property to `<wa-dialog>` and `<wa-drawer>`
 
 :::
 
