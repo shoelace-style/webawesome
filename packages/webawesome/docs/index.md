@@ -1,6 +1,6 @@
 ---
 title: Web Awesome
-description: Build better with Web Awesome, the open source library of web components from Font Awesome.
+description: The open-source UI toolkit from the team behind Font Awesome. Built on web standards, so it works with any framework and matches any brand.
 layout: page
 hasGeneratedTitle: false
 hasFramedMain: false
