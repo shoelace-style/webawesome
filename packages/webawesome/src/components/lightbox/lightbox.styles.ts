@@ -399,7 +399,8 @@ export default css`
     }
 
     /* A two-tone ring stays visible over light and dark images. */
-    :is(.control, .thumbnail):focus-visible {
+    :is(.control, .thumbnail):focus-visible,
+    ::slotted(:is(button, a)[slot='actions']:focus-visible) {
       outline: solid 2px var(--controls-color);
       outline-offset: 2px;
       box-shadow: 0 0 0 4px black;
