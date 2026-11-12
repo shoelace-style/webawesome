@@ -1,5 +1,5 @@
 import { aTimeout, expect, oneEvent, waitUntil } from '@open-wc/testing';
-import { sendKeys } from '@web/test-runner-commands';
+import { sendKeys, sendMouse } from '@web/test-runner-commands';
 import { html } from 'lit';
 import sinon from 'sinon';
 import { fixtures } from '../../internal/test/fixture.js';
@@ -66,6 +66,50 @@ describe('<wa-color-picker>', () => {
           el.addEventListener('input', () => expect.fail('change should not be emitted'));
           el.value = color;
           await el.updateComplete;
+        });
+
+        it('should stop changing the color when disabled during a drag', async () => {
+          const el = await fixture<WaColorPicker>(html` <wa-color-picker value="#ff0000"></wa-color-picker> `);
+          const grid = el.shadowRoot!.querySelector<HTMLElement>('[part~="grid"]')!;
+          const inputHandler = sinon.spy();
+          const changeHandler = sinon.spy();
+          el.addEventListener('input', inputHandler);
+          el.addEventListener('change', changeHandler);
+          await el.show();
+
+          let valueAtDisable: string | undefined;
+          await dragElement(grid, 20, 20, {
+            afterMouseDown: async () => {
+              valueAtDisable = el.value;
+              expect(valueAtDisable).not.to.equal('#ff0000');
+              expect(inputHandler).to.have.been.calledOnce;
+              el.disabled = true;
+              await el.updateComplete;
+            },
+          });
+          await el.updateComplete;
+
+          expect(el.value).to.equal(valueAtDisable);
+          expect(inputHandler).to.have.been.calledOnce;
+          expect(changeHandler).not.to.have.been.called;
+        });
+
+        it('should close the popup and block the format button when disabled', async () => {
+          const el = await fixture<WaColorPicker>(html` <wa-color-picker value="#ff0000"></wa-color-picker> `);
+          const button = el.shadowRoot!.querySelector<HTMLElement>('[part~="format-button"]')!;
+          const changeHandler = sinon.spy();
+          el.addEventListener('change', changeHandler);
+          await el.show();
+          const { x, y, width, height } = button.getBoundingClientRect();
+
+          el.disabled = true;
+          await el.updateComplete;
+          await sendMouse({ type: 'click', position: [Math.floor(x + width / 2), Math.floor(y + height / 2)] });
+
+          expect(el.value).to.equal('#ff0000');
+          expect(el.format).to.equal('hex');
+          expect(changeHandler).not.to.have.been.called;
+          expect(el.open).to.be.false;
         });
 
         it('should emit change and input when the color grid selector is moved', async () => {

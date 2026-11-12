@@ -356,6 +356,10 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
     drag(container, {
       onMove: x => {
+        if (this.disabled) {
+          return;
+        }
+
         this.alpha = clamp((x / width) * 100, 0, 100);
         this.syncValues();
 
@@ -367,7 +371,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
         }
       },
       onStop: () => {
-        if (this.value !== initialValue) {
+        if (!this.disabled && this.value !== initialValue) {
           initialValue = this.value;
 
           this.updateComplete.then(() => {
@@ -391,6 +395,10 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
     drag(container, {
       onMove: x => {
+        if (this.disabled) {
+          return;
+        }
+
         this.hue = clamp((x / width) * 360, 0, 360);
         this.syncValues();
 
@@ -402,7 +410,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
         }
       },
       onStop: () => {
-        if (this.value !== initialValue) {
+        if (!this.disabled && this.value !== initialValue) {
           initialValue = this.value;
           this.updateComplete.then(() => {
             this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
@@ -427,6 +435,10 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
     drag(grid, {
       onMove: (x, y) => {
+        if (this.disabled) {
+          return;
+        }
+
         this.saturation = clamp((x / width) * 100, 0, 100);
         this.brightness = clamp(100 - (y / height) * 100, 0, 100);
         this.syncValues();
@@ -440,7 +452,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
       },
       onStop: () => {
         this.isDraggingGridHandle = false;
-        if (this.value !== initialValue) {
+        if (!this.disabled && this.value !== initialValue) {
           initialValue = this.value;
           this.updateComplete.then(() => {
             this.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
@@ -1055,7 +1067,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
 
   /** Shows the color picker panel. */
   async show() {
-    if (this.open) {
+    if (this.open || this.disabled) {
       return undefined;
     }
 
@@ -1089,9 +1101,16 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
     unregisterDismissible(this);
   }
 
+  @watch('disabled', { waitUntilFirstUpdate: true })
+  handleDisabledChange() {
+    if (this.disabled && this.open) {
+      this.open = false;
+    }
+  }
+
   @watch('open', { waitUntilFirstUpdate: true })
   async handleOpenChange() {
-    if (this.disabled) {
+    if (this.open && this.disabled) {
       this.open = false;
       return;
     }
@@ -1143,6 +1162,7 @@ export default class WaColorPicker extends WebAwesomeFormAssociatedElement {
           'color-picker': true,
         })}
         aria-disabled=${this.disabled ? 'true' : 'false'}
+        ?inert=${this.disabled}
         tabindex="-1"
       >
         <div
