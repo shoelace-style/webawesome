@@ -297,6 +297,11 @@ Overlays provide a backdrop that isolates content, often with some transparency 
         <td>Semi-transparent backdrop behind modal dialogs</td>
         <td><div class="swatch" style="background-color: var(--wa-color-overlay-modal)"></div></td>
       </tr>
+      <tr id="token-wa-color-overlay-media">
+        <td class="token-name"><code>--wa-color-overlay-media</code></td>
+        <td>Nearly opaque backdrop behind full-screen media, like the lightbox</td>
+        <td><div class="swatch" style="background-color: var(--wa-color-overlay-media)"></div></td>
+      </tr>
       <tr id="token-wa-color-overlay-inline">
         <td class="token-name"><code>--wa-color-overlay-inline</code></td>
         <td>Subtle overlay for inline highlights or dimmed regions</td>

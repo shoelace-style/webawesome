@@ -89,7 +89,7 @@ interface GestureEvent extends UIEvent {
  * @csspart thumbnail - A thumbnail in the strip.
  * @csspart thumbnail-active - Applied to the current item's thumbnail.
  *
- * @cssproperty [--backdrop-color=color-mix(in oklab, black 90%, transparent)] - The color of the backdrop.
+ * @cssproperty [--backdrop-color=var(--wa-color-overlay-media)] - The color of the backdrop.
  * @cssproperty [--backdrop-filter=blur(1rem)] - A filter to apply to the backdrop behind the lightbox.
  * @cssproperty [--media-border-radius=0px] - The border radius of the media in each slide.
  * @cssproperty [--controls-color=var(--wa-color-neutral-95)] - The text and icon color used for the controls,
