@@ -66,7 +66,7 @@ export default css`
       }
 
       &.has-captions {
-        --caption-space: calc(3rem + var(--spacing));
+        --caption-space: calc(3 * var(--wa-font-size-m) * var(--wa-line-height-condensed) + var(--spacing));
       }
 
       &.has-thumbnails {
@@ -476,12 +476,17 @@ export default css`
       padding: var(--spacing);
     }
 
+    /* Longer captions are cut to the three lines reserved for them, so the media never resizes between slides. */
     .caption {
+      display: -webkit-box;
       max-width: 70ch;
+      overflow: hidden;
       font-size: var(--wa-font-size-m);
       line-height: var(--wa-line-height-condensed);
       text-align: center;
       text-wrap: balance;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
     }
 
     /* Hidden while zoomed, where they would be unreadable over the image. */
