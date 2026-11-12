@@ -52,7 +52,7 @@ export default css`
       color: white;
       font-size: var(--wa-font-size-l);
       pointer-events: none;
-      transition: background var(--wa-transition-fast) ease;
+      transition: background var(--wa-transition-fast) var(--wa-transition-easing);
     }
 
     .trigger:hover .play-button {

@@ -84,7 +84,7 @@ export default css`
     /* These follow the finger during a pull, then ease back. */
     .backdrop,
     .chrome {
-      transition: opacity var(--wa-transition-normal) ease;
+      transition: opacity var(--wa-transition-normal) var(--wa-transition-easing);
     }
 
     .pulling :is(.backdrop, .chrome) {
@@ -96,7 +96,7 @@ export default css`
       opacity: 0;
       visibility: hidden;
       transition:
-        opacity var(--wa-transition-normal) ease,
+        opacity var(--wa-transition-normal) var(--wa-transition-easing),
         visibility 0s var(--wa-transition-normal);
     }
 
@@ -186,7 +186,7 @@ export default css`
         position: relative;
         z-index: 1;
         opacity: 0;
-        transition: opacity var(--wa-transition-normal) ease;
+        transition: opacity var(--wa-transition-normal) var(--wa-transition-easing);
         user-select: none;
         -webkit-user-drag: none;
 
@@ -314,7 +314,7 @@ export default css`
       border-radius: var(--wa-border-radius-pill);
       background: var(--control-fill);
       font-size: var(--wa-font-size-s);
-      transition: background var(--wa-transition-fast) ease;
+      transition: background var(--wa-transition-fast) var(--wa-transition-easing);
       font-variant-numeric: tabular-nums;
       unicode-bidi: isolate;
     }
@@ -382,7 +382,7 @@ export default css`
       color: inherit;
       font: inherit;
       cursor: pointer;
-      transition: background var(--wa-transition-fast) ease;
+      transition: background var(--wa-transition-fast) var(--wa-transition-easing);
       -webkit-tap-highlight-color: transparent;
 
       /* The hover tint goes over the backing, so the icon keeps its contrast with the media behind it. */
@@ -493,7 +493,7 @@ export default css`
     .caption,
     .thumbnails {
       transition:
-        opacity var(--wa-transition-normal) ease,
+        opacity var(--wa-transition-normal) var(--wa-transition-easing),
         visibility 0s;
     }
 
@@ -501,7 +501,7 @@ export default css`
       opacity: 0;
       visibility: hidden;
       transition:
-        opacity var(--wa-transition-normal) ease,
+        opacity var(--wa-transition-normal) var(--wa-transition-easing),
         visibility 0s var(--wa-transition-normal);
     }
 
@@ -546,7 +546,7 @@ export default css`
         height: 100%;
         object-fit: cover;
         opacity: 0.5;
-        transition: opacity var(--wa-transition-fast) ease;
+        transition: opacity var(--wa-transition-fast) var(--wa-transition-easing);
       }
 
       &:hover img {
