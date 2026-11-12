@@ -114,6 +114,7 @@ export default class WaLightbox extends WebAwesomeElement {
   private mutationObserver?: MutationObserver;
   private originalTrigger: HTMLElement | null = null;
   private announcer: HTMLElement | null = null;
+  private announceFrame = 0;
   private isClosing = false;
   private morphId = 0;
   private morphAnimations: Animation[] = [];
@@ -287,6 +288,7 @@ export default class WaLightbox extends WebAwesomeElement {
   disconnectedCallback() {
     super.disconnectedCallback();
     this.mutationObserver?.disconnect();
+    cancelAnimationFrame(this.announceFrame);
     unlockBodyScrolling(this);
     this.removeOpenListeners();
 
@@ -1518,8 +1520,18 @@ export default class WaLightbox extends WebAwesomeElement {
     const count = this.itemList.length;
     const position = count > 1 ? this.localize.term('compactPageXOfY', this.currentIndex + 1, count) : '';
     const parts = [position, item.resolvedAlt, item.caption].filter(Boolean);
+    const message = [...new Set(parts)].join(', ');
+    const announcer = this.announcer;
 
-    this.announcer.textContent = [...new Set(parts)].join(', ');
+    // Text that arrives with the region, or with the dialog that reveals it, isn't read. Empty it, let one frame put
+    // it in the accessibility tree, then fill it on the next, as <wa-toast> does.
+    announcer.textContent = '';
+    cancelAnimationFrame(this.announceFrame);
+    this.announceFrame = requestAnimationFrame(() => {
+      this.announceFrame = requestAnimationFrame(() => {
+        announcer.textContent = message;
+      });
+    });
   }
 
   //
