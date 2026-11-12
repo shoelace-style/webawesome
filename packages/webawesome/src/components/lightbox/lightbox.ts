@@ -61,7 +61,7 @@ interface GestureEvent extends UIEvent {
  * @slot zoom-out-icon - Optional icon to show on the zoom button when the image is zoomed in. Works best with
  *  `<wa-icon>`.
  *
- * @event wa-show - Emitted when the lightbox opens.
+ * @event wa-show - Emitted when the lightbox opens. Calling `event.preventDefault()` will prevent it from opening.
  * @event wa-after-show - Emitted after the lightbox opens and all animations are complete.
  * @event {{ source: Element }} wa-hide - Emitted when the lightbox is requested to close. Calling
  *  `event.preventDefault()` will prevent the lightbox from closing. You can inspect `event.detail.source` to see
@@ -114,6 +114,7 @@ export default class WaLightbox extends WebAwesomeElement {
   private mutationObserver?: MutationObserver;
   private originalTrigger: HTMLElement | null = null;
   private announcer: HTMLElement | null = null;
+  private announceFrame = 0;
   private isClosing = false;
   private morphId = 0;
   private morphAnimations: Animation[] = [];
@@ -263,6 +264,9 @@ export default class WaLightbox extends WebAwesomeElement {
     if (isServer) return;
 
     this.updateComplete.then(() => {
+      // Removed again before the first render finished, or reconnected before an earlier observer was cleaned up
+      if (!this.isConnected) return;
+      this.mutationObserver?.disconnect();
       this.syncItems();
 
       // Items can live at any depth, so watch the whole subtree. Mutations inside a nested lightbox are ignored, and
@@ -284,6 +288,7 @@ export default class WaLightbox extends WebAwesomeElement {
   disconnectedCallback() {
     super.disconnectedCallback();
     this.mutationObserver?.disconnect();
+    cancelAnimationFrame(this.announceFrame);
     unlockBodyScrolling(this);
     this.removeOpenListeners();
 
@@ -449,6 +454,8 @@ export default class WaLightbox extends WebAwesomeElement {
     const newIndex = current ? items.indexOf(current) : -1;
     if (newIndex > -1 && newIndex !== this.index) {
       this.index = newIndex;
+    } else if (current && newIndex === -1) {
+      this.index = this.currentIndex;
     }
   }
 
@@ -1513,8 +1520,18 @@ export default class WaLightbox extends WebAwesomeElement {
     const count = this.itemList.length;
     const position = count > 1 ? this.localize.term('compactPageXOfY', this.currentIndex + 1, count) : '';
     const parts = [position, item.resolvedAlt, item.caption].filter(Boolean);
+    const message = [...new Set(parts)].join(', ');
+    const announcer = this.announcer;
 
-    this.announcer.textContent = [...new Set(parts)].join(', ');
+    // Text that arrives with the region, or with the dialog that reveals it, isn't read. Empty it, let one frame put
+    // it in the accessibility tree, then fill it on the next, as <wa-toast> does.
+    announcer.textContent = '';
+    cancelAnimationFrame(this.announceFrame);
+    this.announceFrame = requestAnimationFrame(() => {
+      this.announceFrame = requestAnimationFrame(() => {
+        announcer.textContent = message;
+      });
+    });
   }
 
   //

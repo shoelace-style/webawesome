@@ -178,6 +178,18 @@ describe('<wa-lightbox>', () => {
 
           expect(el.currentItem).to.equal(el.items[2]);
         });
+
+        it('should move the index back when the current last item is removed', async () => {
+          const el = await fixture<WaLightbox>(gallery());
+          await ready(el);
+          el.index = 2;
+          await el.updateComplete;
+
+          el.items[2].remove();
+          await ready(el, 2);
+
+          expect(el.index).to.equal(1);
+        });
       });
 
       describe('opening and closing', () => {
