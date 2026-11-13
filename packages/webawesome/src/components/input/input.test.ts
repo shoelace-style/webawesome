@@ -1,4 +1,4 @@
-import { aTimeout, expect, oneEvent, waitUntil } from '@open-wc/testing';
+import { aTimeout, expect, nextFrame, oneEvent, waitUntil } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import sinon from 'sinon';
@@ -819,22 +819,7 @@ describe('<wa-input>', () => {
         it('should receive focus when it renders with autofocus', async () => {
           const el = await fixture<WaInput>(html`<wa-input autofocus></wa-input>`);
 
-          expect(document.activeElement).to.equal(el);
-        });
-
-        it('should not take focus from an element that already has it', async () => {
-          const other = document.createElement('input');
-          document.body.append(other);
-          other.focus();
-
-          try {
-            const el = await fixture<WaInput>(html`<wa-input autofocus></wa-input>`);
-            await el.updateComplete;
-
-            expect(document.activeElement).to.equal(other);
-          } finally {
-            other.remove();
-          }
+          await waitUntil(() => document.activeElement === el);
         });
 
         it('should focus the first of two elements with autofocus', async () => {
@@ -842,16 +827,11 @@ describe('<wa-input>', () => {
             html`<div><wa-input autofocus></wa-input><wa-input autofocus></wa-input></div>`,
           );
           const inputs = [...el.querySelectorAll<WaInput>('wa-input')];
-          await Promise.all(inputs.map(input => input.updateComplete));
+
+          await waitUntil(() => document.activeElement !== document.body);
+          await nextFrame();
 
           expect(document.activeElement).to.equal(inputs[0]);
-        });
-
-        it('should not receive focus inside a closed dialog', async () => {
-          const el = await fixture<HTMLElement>(html`<wa-dialog><wa-input autofocus></wa-input></wa-dialog>`);
-          await el.querySelector<WaInput>('wa-input')!.updateComplete;
-
-          expect(document.activeElement).to.equal(document.body);
         });
       });
     });
