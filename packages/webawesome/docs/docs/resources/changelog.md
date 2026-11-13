@@ -112,6 +112,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
   - Added the `button-group` and `tab-panel` CSS parts to `<wa-button-group>` and `<wa-tab-panel>` which render a wrapper element so their deprecated `base` part is no longer on a `<slot>`
   - Added component-named versions of exported parts that were named after `base`, such as `close-button__button` in `<wa-dialog>` and `tooltip__popup` and `tooltip__arrow` in `<wa-tooltip>`
 - Deprecated exported parts named after `base`, such as `close-button__base` in `<wa-dialog>` and `base__popup` and `base__arrow` in `<wa-tooltip>`, in favor of their component-named versions, continuing the `base` part deprecation from 3.11.0. They keep working until the next major version.
+  - The custom elements manifest now marks them deprecated too, so editors flag them like `base`
 
 :::
 

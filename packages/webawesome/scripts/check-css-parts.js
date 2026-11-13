@@ -28,7 +28,7 @@ const DYNAMIC_PART = /(?<![\w[])part=(?:\$\{|(["'])[^"']*\$\{)/;
 // `exportparts="inner:outer, bare"` republishes a child's parts under this component's names.
 const EXPORTED_PARTS = /exportparts=(["'])([^"'$]+)\1/g;
 // A `base` part, or a forwarded name built on one (`close-button__base`, `base__popup`).
-const BASE_PART = /^(?:base|[\w-]+__base|base__[\w-]+)$/;
+export const BASE_PART = /^(?:base|[\w-]+__base|base__[\w-]+)$/;
 // A selector or lookup that targets one.
 const BASE_SELECTOR = /::part\(\s*(?:base|[\w-]+__base|base__[\w-]+)\s*\)|\[part[~|]?=\s*["']base["']\s*\]/g;
 

@@ -11,6 +11,7 @@ import fs from 'fs';
 import * as path from 'node:path';
 import { pascalCase } from 'pascal-case';
 import * as url from 'url';
+import { BASE_PART } from './scripts/check-css-parts.js';
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 const packageData = JSON.parse(fs.readFileSync(path.join(__dirname, 'package.json'), 'utf8'));
@@ -152,8 +153,9 @@ export default {
     },
     {
       // Flag legacy duplicate parts in the manifest so editors and other CEM consumers see the
-      // deprecation, not just the docs: `base` everywhere, and `label` on form controls that also
-      // expose the canonical `form-control-label`.
+      // deprecation, not just the docs: `base` and the forwarded names built on it (`close-button__base`,
+      // `base__popup`) everywhere, and `label` on form controls that also expose the canonical
+      // `form-control-label`.
       name: 'wa-deprecate-legacy-parts',
       packageLinkPhase({ customElementsManifest }) {
         customElementsManifest?.modules?.forEach(mod => {
@@ -163,7 +165,7 @@ export default {
             // adds a `label` that isn't the form-control label.
             const hasFormControlLabel = declaration.cssParts?.some(part => part.name === 'form-control-label');
             declaration.cssParts?.forEach(part => {
-              if (part.name === 'base') {
+              if (BASE_PART.test(part.name)) {
                 part.deprecated =
                   'Use the part named after the component instead. This part will be removed in a future major version.';
               }
