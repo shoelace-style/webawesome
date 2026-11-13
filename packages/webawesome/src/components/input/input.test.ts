@@ -588,28 +588,27 @@ describe('<wa-input>', () => {
           expect(el.validity.tooLong).to.be.true;
         });
 
-        it("Should properly update validity on required attribute change", async () => {
+        it('Should properly update validity on required attribute change', async () => {
           const form = await fixture<HTMLFormElement>(html`
             <form>
               <wa-input></wa-input>
             </form>
-          `)
+          `);
 
-          const input = form.querySelector("wa-input") as WaInput
+          const input = form.querySelector('wa-input') as WaInput;
 
-          const valueMissing = () => input.validity.valueMissing
+          const valueMissing = () => input.validity.valueMissing;
 
-          expect(valueMissing()).to.equal(false)
+          expect(valueMissing()).to.equal(false);
 
-          input.required = true
-          await input.updateComplete
-          expect(valueMissing()).to.equal(true)
+          input.required = true;
+          await input.updateComplete;
+          expect(valueMissing()).to.equal(true);
 
-          input.required = false
-          await input.updateComplete
-          expect(valueMissing()).to.equal(false)
-        })
-
+          input.required = false;
+          await input.updateComplete;
+          expect(valueMissing()).to.equal(false);
+        });
       });
 
       describe('CSS parts and states', () => {
