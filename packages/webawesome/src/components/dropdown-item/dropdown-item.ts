@@ -303,7 +303,10 @@ export default class WaDropdownItem extends WebAwesomeElement {
       if (handled) return;
 
       handled = true;
-      window.removeEventListener(sourceEvent!.type, handleWindowEvent);
+
+      if (sourceEvent?.type) {
+        window.removeEventListener(sourceEvent.type, handleWindowEvent);
+      }
 
       // Keyboard events are always prevented by the dropdown, so only honor preventDefault() on clicks
       if (sourceEvent instanceof MouseEvent && sourceEvent.defaultPrevented) {
