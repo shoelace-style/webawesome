@@ -3,6 +3,7 @@ import { html } from 'lit';
 import sinon from 'sinon';
 import { fixtures } from '../../internal/test/fixture.js';
 import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
+import { clickOnElement } from '../../internal/test/pointer-utilities.js';
 import type WaButton from './button.js';
 
 const variants = ['brand', 'success', 'neutral', 'warning', 'danger'];
@@ -46,12 +47,41 @@ describe('<wa-button>', () => {
           const el = await fixture<WaButton>(html` <wa-button disabled>Button Label</wa-button> `);
           await expect(el).to.be.accessible();
         });
+
+        it('should be accessible when loading', async () => {
+          const el = await fixture<WaButton>(html` <wa-button loading><span>Button Label</span></wa-button> `);
+          await expect(el).to.be.accessible();
+        });
+
+        it('should keep the label in the accessibility tree when loading', async () => {
+          const el = await fixture<WaButton>(html` <wa-button loading><span>Button Label</span></wa-button> `);
+          const label = el.querySelector('span')!;
+          expect(getComputedStyle(label).visibility).to.not.equal('hidden');
+        });
+
+        it('should not let clicks reach the hidden label when loading', async () => {
+          const el = await fixture<WaButton>(html` <wa-button loading><span>Button Label</span></wa-button> `);
+          const label = el.querySelector('span')!;
+          const labelHandler = sinon.spy();
+          label.addEventListener('click', labelHandler);
+
+          // Away from the centre, where the spinner sits
+          await clickOnElement(label, 'left');
+
+          expect(labelHandler).not.to.have.been.called;
+        });
+
+        it('should set aria-busy when loading', async () => {
+          const el = await fixture<WaButton>(html` <wa-button loading>Button Label</wa-button> `);
+          const button = el.shadowRoot!.querySelector<HTMLButtonElement>('[part~="button"]')!;
+          expect(button.getAttribute('aria-busy')).to.equal('true');
+        });
       });
 
       describe('properties', () => {
         it('should have title if title attribute is set', async () => {
           const el = await fixture<WaButton>(html` <wa-button title="Test"></wa-button> `);
-          const button = el.shadowRoot!.querySelector<HTMLButtonElement>('[part~="base"]')!;
+          const button = el.shadowRoot!.querySelector<HTMLButtonElement>('[part~="button"]')!;
           expect(button.title).to.equal('Test');
         });
 
@@ -275,6 +305,26 @@ describe('<wa-button>', () => {
 
           expect(submitter.name).to.equal('btn-2');
           expect(submitter.value).to.equal('value-2');
+        });
+
+        // https://github.com/shoelace-style/webawesome/issues/3007
+        it('Should not build a button and click if `defaultPrevented` is called on the click event', async () => {
+          const form = await fixture<HTMLFormElement>(
+            html`<form>
+              <wa-button type="submit">Submit</wa-button>
+            </form>`,
+          );
+
+          const submitSpy = sinon.spy();
+          form.addEventListener('submit', submitSpy);
+          const button = form.querySelector('wa-button');
+
+          button!.addEventListener('click', event => {
+            event.preventDefault();
+          });
+
+          await clickOnElement(button as WaButton);
+          expect(submitSpy).to.not.be.called;
         });
       });
     });

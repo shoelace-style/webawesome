@@ -1,6 +1,6 @@
 ---
 title: Focus
-description: Configure recognizable focus states with Web Awesome's focus tokens.
+description: Focus tokens define a consistent, recognizable focus ring for keyboard users.
 synonyms:
   - focus ring
   - focus outline
@@ -9,10 +9,10 @@ use-cases:
   - keyboard focus
   - accessibility focus
   - tab focus
-hasOutline: true
+layout: docs
 ---
 
-Focus tokens create a consistent, recognizable outline that lets keyboard users track where they are on the page. Together with [`--wa-color-focus`](?active_tab=color), these tokens assemble the focus ring applied to all interactive Web Awesome components.
+Focus tokens create a consistent, recognizable outline that lets keyboard users track where they are on the page. Together with [`--wa-color-focus`](/docs/tokens/color), these tokens assemble the focus ring applied to all interactive Web Awesome components.
 
 <wa-scroller>
   <table class="token-table wa-hover-rows">

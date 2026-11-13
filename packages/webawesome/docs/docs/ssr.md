@@ -63,6 +63,8 @@ eleventyConfig.addPlugin(litPlugin, {
 As SSR becomes more stable, we'll work to add more instructions for various frameworks and meta frameworks.
 :::
 
+Checkout our [Frameworks](/docs/frameworks) page for specific frameworks as they tend to have SSR-specific sections.
+
 ## Helpful Tips
 
 ### The `did-ssr` Attribute

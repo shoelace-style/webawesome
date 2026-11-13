@@ -11,42 +11,11 @@ use-cases:
   - payment code
 ---
 
-QR codes are useful for providing small pieces of information to users who can quickly scan them with a smartphone. Most smartphones have built-in QR code scanners, so simply pointing the camera at a QR code will decode it and allow the user to visit a website, dial a phone number, read a message, etc.
-
 ```html {.example}
-<div class="qr-overview">
-  <wa-qr-code value="https://webawesome.com/" label="Scan this code to visit Web Awesome on the web!"></wa-qr-code>
-
-  <wa-divider></wa-divider>
-
-  <wa-input maxlength="255" with-clear label="Value">
-    <wa-icon slot="start" name="link"></wa-icon>
-  </wa-input>
-</div>
-
-<script>
-  const container = document.querySelector('.qr-overview');
-  const qrCode = container.querySelector('wa-qr-code');
-  const input = container.querySelector('wa-input');
-
-  customElements.whenDefined('wa-qr-code').then(() => {
-    qrCode.updateComplete.then(() => {
-      input.value = qrCode.value;
-      input.addEventListener('input', () => (qrCode.value = input.value));
-    });
-  });
-</script>
-
-<style>
-  .qr-overview {
-    max-width: 256px;
-  }
-
-  .qr-overview wa-input {
-    margin-top: 1rem;
-  }
-</style>
+<wa-qr-code value="https://webawesome.com/" label="Scan to visit Web Awesome"></wa-qr-code>
 ```
+
+QR codes are useful for providing small pieces of information to users who can quickly scan them with a smartphone. Most smartphones have built-in QR code scanners, so pointing the camera at a QR code will decode it and allow the user to visit a website, dial a phone number, read a message, etc.
 
 ## Examples
 
@@ -78,7 +47,7 @@ A _quiet zone_ is the blank space around a QR code that helps scanners detect it
 ></wa-qr-code>
 ```
 
-#### Corner Color
+### Corner Color
 
 You can change the color of the corners to be different from the main element with the `--corner-color` custom property.
 
@@ -115,7 +84,7 @@ QR codes can be rendered with various levels of [error correction](https://www.q
 </style>
 ```
 
-### Images
+### Image
 
 Use the `image` attribute to add a logo or image to the center of the QR code. When using an image, the error correction level will automatically be set to `H` to ensure the code remains scannable.
 
@@ -153,6 +122,45 @@ The higher the `image-coverage` value, the harder it will be for QR readers to s
     display: flex;
     flex-wrap: wrap;
     gap: 2rem;
+  }
+</style>
+```
+
+### Generating from a Value
+
+Bind an input to the `value` property to build a live generator that updates the code as the user types.
+
+```html {.example}
+<div class="qr-generator">
+  <wa-qr-code value="https://webawesome.com/" label="Scan this code to visit Web Awesome on the web!"></wa-qr-code>
+
+  <wa-divider></wa-divider>
+
+  <wa-input maxlength="255" with-clear label="Value">
+    <wa-icon slot="start" name="link"></wa-icon>
+  </wa-input>
+</div>
+
+<script>
+  const container = document.querySelector('.qr-generator');
+  const qrCode = container.querySelector('wa-qr-code');
+  const input = container.querySelector('wa-input');
+
+  customElements.whenDefined('wa-qr-code').then(() => {
+    qrCode.updateComplete.then(() => {
+      input.value = qrCode.value;
+      input.addEventListener('input', () => (qrCode.value = input.value));
+    });
+  });
+</script>
+
+<style>
+  .qr-generator {
+    max-width: 256px;
+  }
+
+  .qr-generator wa-input {
+    margin-top: 1rem;
   }
 </style>
 ```

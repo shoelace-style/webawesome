@@ -29,7 +29,7 @@ markdown.use(markdownItMark);
       if (tokens[idx].nesting === 1) {
         return `
           <wa-callout variant="${variant}">
-            <wa-icon slot="icon" name="${icon}" variant="regular"></wa-icon>
+            <wa-icon slot="icon" name="${icon}"></wa-icon>
         `;
       }
       return '</wa-callout>\n';
@@ -37,17 +37,26 @@ markdown.use(markdownItMark);
   });
 });
 
+markdown.use(markdownItContainer, 'new', {
+  render: function (tokens, idx) {
+    if (tokens[idx].nesting === 1) {
+      return `
+        <wa-callout variant="neutral" class="new">
+          <wa-icon slot="icon" name="bullhorn"></wa-icon>
+      `;
+    }
+    return '</wa-callout>\n';
+  },
+});
+
 markdown.use(markdownItContainer, 'pro', {
   validate: params => /^pro(\s+.+)?$/.test(params.trim()),
   render: function (tokens, idx) {
     if (tokens[idx].nesting === 1) {
-      const info = tokens[idx].info.trim().replace(/^pro\s*/, '');
-      const iconMatch = info.match(/^\{([\w-]+)\}\s*(.*)$/);
-      const iconName = iconMatch ? iconMatch[1] : 'hand-wave';
-      const title = iconMatch ? iconMatch[2].trim() : info.trim();
+      const title = tokens[idx].info.trim().replace(/^pro\s*/, '');
       return `
-        <wa-callout class="pro">
-          <wa-icon slot="icon" name="${markdown.utils.escapeHtml(iconName)}"></wa-icon>
+        <wa-callout class="pro wa-brand-orange">
+          <wa-icon slot="icon" name="crown" family="duotone" variant="regular" class="duotone-illustrated"></wa-icon>
           ${title ? `<strong>${markdown.utils.escapeHtml(title)}</strong>` : ''}
       `;
     }

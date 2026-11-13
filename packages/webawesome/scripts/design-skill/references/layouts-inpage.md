@@ -1,6 +1,6 @@
 # In-page layouts (sections, widgets, embeds)
 
-You are here because STEP 0 determined you're building **a piece of a page**: a section, card, form,
+You are here because the layout branch (SKILL.md workflow, step 2) determined you're building **a piece of a page**: a section, card, form,
 panel, toolbar, or something embedded into a page you don't fully control.
 
 **Do not use `<wa-page>` here.** It's designed to own the whole viewport (sticky headers, a responsive

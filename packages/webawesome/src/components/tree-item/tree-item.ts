@@ -1,5 +1,5 @@
 import { consume, createContext, provide } from '@lit/context';
-import type { PropertyValueMap } from 'lit';
+import type { PropertyValueMap, PropertyValues } from 'lit';
 import { html } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
@@ -47,16 +47,19 @@ export const treeItemContext = createContext<TreeItemContext>('wa-tree-item');
  * @slot expand-icon - The icon to show when the tree item is expanded.
  * @slot collapse-icon - The icon to show when the tree item is collapsed.
  *
- * @csspart base - The component's base wrapper.
+ * @csspart base - Deprecated. Use the `tree-item` part instead.
+ * @csspart tree-item - The component's outer wrapper.
  * @csspart item - The tree item's container. This element wraps everything except slotted tree item children.
  * @csspart indentation - The tree item's indentation container.
  * @csspart expand-button - The container that wraps the tree item's expand button and spinner.
  * @csspart spinner - The spinner that shows when a lazy tree item is in the loading state.
- * @csspart spinner__base - The spinner's base part.
+ * @csspart spinner__base - Deprecated. Use the `spinner__spinner` part instead.
+ * @csspart spinner__spinner - The spinner's exported `spinner` part.
  * @csspart label - The tree item's label.
  * @csspart children - The container that wraps the tree item's nested children.
  * @csspart checkbox - The checkbox that shows when using multiselect.
- * @csspart checkbox__base - The checkbox's exported `base` part.
+ * @csspart checkbox__base - Deprecated. Use the `checkbox__checkbox` part instead.
+ * @csspart checkbox__checkbox - The checkbox's exported `checkbox` part.
  * @csspart checkbox__control - The checkbox's exported `control` part.
  * @csspart checkbox__checked-icon - The checkbox's exported `checked-icon` part.
  * @csspart checkbox__indeterminate-icon - The checkbox's exported `indeterminate-icon` part.
@@ -124,9 +127,6 @@ export default class WaTreeItem extends WebAwesomeElement {
     // TODO: Because the parent influences the child, we should be able to handle this in SSR with a custom renderer.
     if (this.isNestedItem()) {
       this.setAttribute('slot', 'children');
-      if (!this._parentTreeContext?.expanded) {
-        this.expanded = false;
-      }
     }
 
     if (this._parentTreeContext) {
@@ -136,7 +136,8 @@ export default class WaTreeItem extends WebAwesomeElement {
     this.updateIndentation();
   }
 
-  firstUpdated() {
+  firstUpdated(changedProperties: PropertyValues<typeof this>) {
+    super.firstUpdated(changedProperties);
     this.childrenContainer.hidden = !this.expanded;
     this.childrenContainer.style.height = this.expanded ? 'auto' : '0';
 
@@ -315,7 +316,7 @@ export default class WaTreeItem extends WebAwesomeElement {
 
     return html`
       <div
-        part="base"
+        part="base tree-item"
         class="${classMap({
           'tree-item': true,
           'tree-item-expanded': this.expanded,
@@ -339,7 +340,9 @@ export default class WaTreeItem extends WebAwesomeElement {
             <slot class="expand-icon-slot" name="expand-icon">
               ${when(
                 this.loading,
-                () => html` <wa-spinner part="spinner" exportparts="base:spinner__base"></wa-spinner> `,
+                () => html`
+                  <wa-spinner part="spinner" exportparts="base:spinner__base, spinner:spinner__spinner"></wa-spinner>
+                `,
                 () => html`
                   <wa-icon name=${isRtl ? 'chevron-left' : 'chevron-right'} library="system" variant="solid"></wa-icon>
                 `,
@@ -357,6 +360,7 @@ export default class WaTreeItem extends WebAwesomeElement {
                 part="checkbox"
                 exportparts="
                     base:checkbox__base,
+                    checkbox:checkbox__checkbox,
                     control:checkbox__control,
                     checked-icon:checkbox__checked-icon,
                     indeterminate-icon:checkbox__indeterminate-icon,

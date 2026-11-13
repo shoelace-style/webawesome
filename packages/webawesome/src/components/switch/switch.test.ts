@@ -147,6 +147,24 @@ describe('<wa-switch>', () => {
           expect(el.checked).to.be.false;
         });
 
+        it('should not emit change or input when an arrow key does not change the state', async () => {
+          const off = await fixture<WaSwitch>(html`<wa-switch></wa-switch>`);
+          const on = await fixture<WaSwitch>(html`<wa-switch checked></wa-switch>`);
+          for (const el of [off, on]) {
+            el.addEventListener('change', () => expect.fail('change incorrectly emitted'));
+            el.addEventListener('input', () => expect.fail('input incorrectly emitted'));
+          }
+
+          off.focus();
+          await sendKeys({ press: 'ArrowLeft' });
+          on.focus();
+          await sendKeys({ press: 'ArrowRight' });
+          await Promise.all([off.updateComplete, on.updateComplete]);
+
+          expect(off.checked).to.be.false;
+          expect(on.checked).to.be.true;
+        });
+
         it('should not emit change or input when checked is set by JavaScript', async () => {
           const el = await fixture<WaSwitch>(html`<wa-switch></wa-switch>`);
           el.addEventListener('change', () => expect.fail('change incorrectly emitted'));
@@ -350,7 +368,7 @@ describe('<wa-switch>', () => {
       describe('CSS parts and states', () => {
         it('should expose CSS parts', async () => {
           const el = await fixture<WaSwitch>(html`<wa-switch hint="Help">Switch</wa-switch>`);
-          expect(el.shadowRoot!.querySelector('[part="base"]')).to.exist;
+          expect(el.shadowRoot!.querySelector('[part~="switch"]')!.matches('[part~="base"]')).to.be.true;
           expect(el.shadowRoot!.querySelector('[part="control"]')).to.exist;
           expect(el.shadowRoot!.querySelector('[part="thumb"]')).to.exist;
           expect(el.shadowRoot!.querySelector('[part="label"]')).to.exist;
@@ -453,6 +471,53 @@ describe('<wa-switch>', () => {
           lastSwitch.focus();
           await aTimeout(10);
           expect(window.scrollY).to.equal(0);
+        });
+
+        // https://github.com/shoelace-style/webawesome/issues/2602
+        it('Should properly set value when moving from `disabled` -> `not disabled` -> `disabled`', async () => {
+          const form = await fixture<HTMLFormElement>(html`
+            <form id="f"><wa-switch name="x" value="1"></wa-switch></form>
+          `);
+
+          const switchEl = form.querySelector<WaSwitch>('wa-switch')!;
+          const fd = () => new FormData(form);
+
+          expect(switchEl.checked).to.equal(false);
+          expect(fd().get('x')).to.be.null;
+
+          switchEl.disabled = true;
+          await switchEl.updateComplete;
+          switchEl.disabled = false;
+          await switchEl.updateComplete;
+
+          expect(switchEl.checked).to.equal(false);
+          expect(fd().get('x')).to.be.null;
+        });
+
+        // https://github.com/shoelace-style/webawesome/issues/2602
+        it('Should properly set value when moving from `disabled` -> `not disabled` -> `disabled` when in a `<fieldset>`', async () => {
+          const form = await fixture<HTMLFormElement>(html`
+            <form id="f">
+              <fieldset>
+                <wa-switch name="x" value="1"></wa-switch>
+              </fieldset>
+            </form>
+          `);
+
+          const switchEl = form.querySelector<WaSwitch>('wa-switch')!;
+          const fieldset = form.querySelector<HTMLFieldSetElement>('fieldset')!;
+          const fd = () => new FormData(form);
+
+          expect(switchEl.checked).to.equal(false);
+          expect(fd().get('x')).to.be.null;
+
+          fieldset.disabled = true;
+          await switchEl.updateComplete;
+          fieldset.disabled = false;
+          await switchEl.updateComplete;
+
+          expect(switchEl.checked).to.equal(false);
+          expect(fd().get('x')).to.be.null;
         });
       });
     });

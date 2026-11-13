@@ -12,19 +12,15 @@ export default css`
     flex-wrap: wrap;
 
     @media (hover: hover) {
-      > :hover,
-      &::slotted(:hover) {
+      & ::slotted(:hover) {
         z-index: 1;
       }
     }
 
     /* Focus and checked are always on top */
-    > :focus,
-    &::slotted(:focus),
-    > [aria-checked='true'],
-    &::slotted([aria-checked='true']),
-    > [checked],
-    &::slotted([checked]) {
+    & ::slotted(:focus),
+    & ::slotted([aria-checked='true']),
+    & ::slotted([checked]) {
       z-index: 2 !important;
     }
 
@@ -41,11 +37,21 @@ export default css`
   :host([orientation='horizontal']) {
     --_button-horizontal-indent: var(--wa-form-control-border-width);
     --_button-horizontal-indent-outlined: calc(var(--wa-form-control-border-width) * -1);
+
+    ::slotted(:first-child) {
+      --_button-horizontal-indent: 0;
+      --_button-horizontal-indent-outlined: 0;
+    }
   }
 
   :host([orientation='vertical']) {
     --_button-vertical-indent: var(--wa-form-control-border-width);
     --_button-vertical-indent-outlined: calc(var(--wa-form-control-border-width) * -1);
+
+    ::slotted(:first-child) {
+      --_button-vertical-indent: 0;
+      --_button-vertical-indent-outlined: 0;
+    }
   }
 
   /* All buttons that are not in front or at the end get their border radius removed */

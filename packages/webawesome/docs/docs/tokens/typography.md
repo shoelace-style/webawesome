@@ -1,7 +1,7 @@
 ---
 title: Typography
-description: Get consistent font styles and vertical rhythm with Web Awesome's typography tokens.
-layout: page-outline
+description: Typography tokens define font styles, sizing, and vertical rhythm across Web Awesome.
+layout: docs
 synonyms:
   - fonts
   - type scale
@@ -51,7 +51,7 @@ Font family tokens are assigned to specific roles — body text, headings, code,
 
 ## Font Size
 
-Font sizes use a ratio of 1.125 to scale proportionally. The medium size (`m`) is the base; sizes below are 1.125× smaller and sizes above are *twice* 1.125× larger to maximize visual contrast between larger sizes. All values use `rem` units and round to the nearest whole pixel.
+Font sizes use a ratio of 1.125 to scale proportionally. The medium size (`m`) is the base; sizes below are 1.125× smaller and sizes above are _twice_ 1.125× larger to maximize visual contrast between larger sizes. All values use `rem` units and round to the nearest whole pixel.
 
 Use `--wa-font-size-scale` to proportionally increase or decrease all sizes at once.
 
@@ -225,7 +225,7 @@ Line heights are unitless to scale proportionately with text size. For readabili
 
 ## Link Decoration
 
-Together with [`--wa-color-text-link`](?active_tab=color), these tokens add text decoration to `<a>` elements to signal their role as hyperlinks.
+Together with [`--wa-color-text-link`](/docs/tokens/color), these tokens add text decoration to `<a>` elements to signal their role as hyperlinks.
 
 <wa-scroller>
   <table class="token-table wa-hover-rows">

@@ -30,11 +30,13 @@ import styles from './textarea.styles.js';
  * @event input - Emitted when the control receives input.
  * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
- * @csspart label - The label
- * @csspart form-control-input - The input's wrapper.
+ * @csspart form-control-label - The label.
+ * @csspart label - Deprecated. Use the `form-control-label` part instead.
  * @csspart hint - The hint's wrapper.
  * @csspart textarea - The internal `<textarea>` control.
- * @csspart base - The wrapper around the `<textarea>` control.
+ * @csspart base - Deprecated. Use the `textarea-wrapper` part instead.
+ * @csspart textarea-wrapper - The component's outer wrapper.
+ * @csspart textarea-adjuster - The invisible sizer that grows the control to fit its content when `resize` is `auto`.
  * @csspart count - The character count element, rendered when the `with-count` attribute is present.
  *
  * @cssstate blank - The textarea is empty.
@@ -56,7 +58,10 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
   @state() private announcedCountText = '';
 
   @query('.control') input: HTMLTextAreaElement;
-  @query('[part~="base"]') base: HTMLDivElement;
+  /** @internal */
+  @query('[part~="textarea-wrapper"]') wrapper: HTMLDivElement;
+  /** @deprecated Use the `textarea-wrapper` part instead. */
+  @query('[part~="textarea-wrapper"]') base: HTMLDivElement;
   @query('.size-adjuster') sizeAdjuster: HTMLTextAreaElement;
 
   @property() title = ''; // make reactive to pass through
@@ -88,7 +93,10 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
   /** The default value of the form control. Primarily used for resetting the form control. */
   @property({ attribute: 'value', reflect: true }) defaultValue: string = this.getAttribute('value') ?? '';
 
-  /** The textarea's size. */
+  /**
+   * The textarea's size.
+   * The long-form values `small`, `medium`, and `large` are deprecated; use `s`, `m`, and `l` instead.
+   */
   @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
 
   @watch('size')
@@ -294,8 +302,8 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
   private setTextareaDimensions() {
     if (this.resize === 'none') {
       // just in case this is called via a property changing.
-      this.base.style.width = ``;
-      this.base.style.height = ``;
+      this.wrapper.style.width = ``;
+      this.wrapper.style.height = ``;
       return;
     }
 
@@ -312,8 +320,8 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
       this.input.style.height = `${newHeight}px`;
       this.sizeAdjuster.style.height = `${newHeight}px`;
 
-      this.base.style.width = ``;
-      this.base.style.height = ``;
+      this.wrapper.style.width = ``;
+      this.wrapper.style.height = ``;
       return;
     }
 
@@ -322,12 +330,12 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
     // These should always be set by a manual resize operation , so its reasonable to expect px.
     if (this.input.style.width) {
       const width = Number(this.input.style.width.split(/px/)[0]) + 2;
-      this.base.style.width = `${width}px`;
+      this.wrapper.style.width = `${width}px`;
     }
 
     if (this.input.style.height) {
       const height = Number(this.input.style.height.split(/px/)[0]) + 2;
-      this.base.style.height = `${height}px`;
+      this.wrapper.style.height = `${height}px`;
     }
   }
 
@@ -381,7 +389,7 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
 
     return {
       top: this.input.scrollTop,
-      left: this.input.scrollTop,
+      left: this.input.scrollLeft,
     };
   }
 
@@ -449,7 +457,7 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
         <slot name="label">${this.label}</slot>
       </label>
 
-      <div part="base" class="textarea">
+      <div part="base textarea-wrapper" class="textarea">
         <textarea
           part="textarea"
           id="input"
@@ -481,21 +489,14 @@ export default class WaTextarea extends WebAwesomeFormAssociatedElement {
       </div>
 
       <div
+        part="hint"
         class=${classMap({
           footer: true,
           'has-count': this.withCount,
+          'has-slotted': hasHint,
         })}
       >
-        <slot
-          id="hint"
-          name="hint"
-          part="hint"
-          aria-hidden=${hasHint ? 'false' : 'true'}
-          class=${classMap({
-            'has-slotted': hasHint,
-          })}
-          >${this.hint}</slot
-        >
+        <slot id="hint" name="hint" class="hint" aria-hidden=${hasHint ? 'false' : 'true'}>${this.hint}</slot>
 
         ${this.withCount
           ? html`

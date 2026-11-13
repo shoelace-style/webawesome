@@ -386,10 +386,13 @@
   table {
     width: 100%;
 
-    font-variant-numeric: tabular-nums;
-
     border: none;
     border-collapse: collapse;
+
+    &.wa-tabular-nums,
+    & .wa-tabular-nums {
+      font-variant-numeric: tabular-nums;
+    }
   }
 
   caption {
@@ -433,13 +436,13 @@
   }
 
   th {
-    font-size: var(--wa-font-size-smaller);
     font-weight: var(--wa-font-weight-bold);
 
-    /* Adds a stronger border below column headers only
-     * Row headers are avoided with [scope="row"]
-     * or when the next sibling is a non-header cell */
+    /* Column headers only, ruled out by [scope="row"] or by a following non-header cell.
+     * Row headers keep the body font size because padding here is em-relative, so smaller
+     * type would pull their text out of alignment with the cells beside them. */
     &:not([scope='row']):not(:has(+ td)) {
+      font-size: var(--wa-font-size-smaller);
       border-block-end: var(--wa-border-style) var(--wa-border-width-s) var(--wa-color-border-normal);
     }
   }
@@ -490,6 +493,10 @@
 
         border-end-start-radius: 0;
         border-end-end-radius: 0;
+      }
+
+      &::details-content {
+        padding-block-start: var(--wa-space-m);
       }
     }
 

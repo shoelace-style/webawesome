@@ -16,6 +16,16 @@ The single rule behind every other rule: **stay on the scale.** WA's scales are 
 constrained on purpose, so the decisions between adjacent values are real ones. Pick from the scale
 and most other principles take care of themselves.
 
+**Contents**
+
+- [1. Color: less is more, and never alone](#1-color-less-is-more-and-never-alone)
+- [2. Depth via tokens, not artistry](#2-depth-via-tokens-not-artistry)
+- [3. Make hierarchy do the work, not styling](#3-make-hierarchy-do-the-work-not-styling)
+- [4. Spacing is a system, not a tweak](#4-spacing-is-a-system-not-a-tweak)
+- [5. Typography earns its weight](#5-typography-earns-its-weight)
+- [6. Finishing moves](#6-finishing-moves)
+- [7. Empty and edge states](#7-empty-and-edge-states)
+
 ---
 
 ## 1. Color: less is more, and never alone
@@ -85,7 +95,7 @@ the only text color guaranteed to hit WCAG contrast: `fill-loud` with `on-loud`,
 `on-normal`, `fill-quiet` with `on-quiet`. The palettes are tuned for those exact pairings. **Mixing
 steps is the most common visual bug in WA output** — `on-loud` text on a `fill-quiet` background is
 too dark; `on-quiet` text on `fill-loud` is too pale. If a callout, badge, or card looks dark-on-dark
-or low-contrast after you styled it, this is almost always why. (SKILL.md rule 9 calls out two
+or low-contrast after you styled it, this is almost always why. (SKILL.md's rules table calls out two
 specific instances: an `appearance="outlined"` or `appearance="plain"` button whose `variant`
 matches the band it sits on, and a `<wa-callout>` whose body text becomes unreadable after the host
 `background` changed but its text token didn't.)
@@ -117,9 +127,8 @@ control didn't change; the assumption that "quiet" was a relative shade did.
 
 **In Web Awesome:** on any colored band, secondary actions need a full-contrast on-color text
 (`--wa-color-brand-on-loud`, `--wa-color-brand-on-quiet`, etc., matching the band's step) — or use a
-filled/outlined appearance with explicit `::part(base)` recolor. Don't leave them on the page-surface
-quiet default. See SKILL.md rule 9 (component styling through attributes, tokens, and
-`::part()` — including the contrast-on-bands check) and [theming.md](theming.md)'s closing note for
+filled/outlined appearance with an explicit `::part(button)` recolor. Don't leave them on the page-surface
+quiet default. See the host-vs-part pair and the rules table in SKILL.md, and [theming.md](theming.md)'s closing note for
 the component-specific fix.
 
 ### Flip the contrast to keep brand color from going dark

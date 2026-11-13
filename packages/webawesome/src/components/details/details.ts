@@ -34,8 +34,9 @@ import styles from './details.styles.js';
  * @event wa-hide - Emitted when the details closes.
  * @event wa-after-hide - Emitted after the details closes and all animations are complete.
  *
- * @csspart base - The inner `<details>` element used to render the component.
- *                 Styles you apply to the component are automatically applied to this part, so you usually don't need to deal with it unless you need to set the `display` property.
+ * @csspart base - Deprecated. Use the `details` part instead.
+ * @csspart details - The component's outer wrapper.
+ *                    Styles you apply to the component are automatically applied to this part, so you usually don't need to deal with it unless you need to set the `display` property.
  * @csspart header - The header that wraps both the summary and the expand/collapse icon.
  * @csspart summary - The container that wraps the summary.
  * @csspart icon - The container that wraps the expand/collapse icons.
@@ -89,7 +90,8 @@ export default class WaDetails extends WebAwesomeElement {
     this.detailsObserver?.disconnect();
   }
 
-  firstUpdated() {
+  firstUpdated(changedProperties: PropertyValues<typeof this>) {
+    super.firstUpdated(changedProperties);
     this.body.style.height = this.open ? 'auto' : '0';
     if (this.open) {
       this.details.open = true;
@@ -210,6 +212,7 @@ export default class WaDetails extends WebAwesomeElement {
 
       this.isAnimating = true;
       const duration = parseDuration(getComputedStyle(this.body).getPropertyValue('--show-duration'));
+      const easing = getComputedStyle(this.body).getPropertyValue('--wa-transition-easing') || 'ease';
       // We can't animate to 'auto', so use the scroll height for now
       await animate(
         this.body,
@@ -217,10 +220,7 @@ export default class WaDetails extends WebAwesomeElement {
           { height: '0', opacity: '0' },
           { height: `${this.body.scrollHeight}px`, opacity: '1' },
         ],
-        {
-          duration,
-          easing: 'linear',
-        },
+        { duration, easing },
       );
 
       // If a newer animation has started, handle the final state
@@ -244,6 +244,7 @@ export default class WaDetails extends WebAwesomeElement {
 
       this.isAnimating = true;
       const duration = parseDuration(getComputedStyle(this.body).getPropertyValue('--hide-duration'));
+      const easing = getComputedStyle(this.body).getPropertyValue('--wa-transition-easing') || 'ease';
       // We can't animate from 'auto', so use the scroll height for now
       await animate(
         this.body,
@@ -251,7 +252,7 @@ export default class WaDetails extends WebAwesomeElement {
           { height: `${this.body.scrollHeight}px`, opacity: '1' },
           { height: '0', opacity: '0' },
         ],
-        { duration, easing: 'linear' },
+        { duration, easing },
       );
 
       // If a newer animation has started, handle the final state
@@ -290,7 +291,7 @@ export default class WaDetails extends WebAwesomeElement {
     const isRtl = !this.hasUpdated ? this.dir === 'rtl' : this.localize.dir() === 'rtl';
 
     return html`
-      <details part="base">
+      <details part="base details">
         <summary
           part="header"
           role="button"

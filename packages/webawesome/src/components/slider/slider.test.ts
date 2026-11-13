@@ -1,6 +1,7 @@
 import { expect, oneEvent } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
+import sinon from 'sinon';
 import { expectEvent } from '../../internal/test/expect-event.js';
 import { fixtures } from '../../internal/test/fixture.js';
 import { runFormControlBaseTests } from '../../internal/test/form-control-base-tests.js';
@@ -159,6 +160,36 @@ describe('<wa-slider>', () => {
           await el.updateComplete;
           expect(el.value).to.equal(0);
         });
+
+        it('should be valid when the value sits on a fractional step grid', async () => {
+          const el = await fixture<WaSlider>(html`<wa-slider min="0" max="1" step="0.1" value="0.3"></wa-slider>`);
+          expect(el.validity.stepMismatch).to.be.false;
+          expect(el.checkValidity()).to.be.true;
+        });
+
+        // https://github.com/shoelace-style/webawesome/issues/2951
+        it('should count steps from min, not zero, when clicking the track', async () => {
+          const el = await fixture<WaSlider>(html`<wa-slider min="0.4" max="0.7" step="0.3" value="0.4"></wa-slider>`);
+          await clickOnElement(el.shadowRoot!.querySelector('[part~="track"]')!, 'right');
+          await el.updateComplete;
+          expect(el.value).to.equal(0.7);
+          expect(el.validity.stepMismatch).to.be.false;
+        });
+
+        it('should count steps from min, not zero, when stepUp() is called', async () => {
+          const el = await fixture<WaSlider>(html`<wa-slider min="0.5" max="5" step="1" value="0.5"></wa-slider>`);
+          el.stepUp();
+          await el.updateComplete;
+          expect(el.value).to.equal(1.5);
+        });
+
+        it('should be valid when a range slider sits on a fractional step grid', async () => {
+          const el = await fixture<WaSlider>(
+            html`<wa-slider range min="0" max="1" step="0.1" min-value="0.1" max-value="0.7"></wa-slider>`,
+          );
+          expect(el.validity.stepMismatch).to.be.false;
+          expect(el.checkValidity()).to.be.true;
+        });
       });
 
       describe('form integration', () => {
@@ -272,6 +303,21 @@ describe('<wa-slider>', () => {
           await el.updateComplete;
           expect(el.value).to.equal(6);
           expect(el.defaultValue).to.equal(4);
+        });
+
+        // Without pointer capture, releasing a drag outside of the slider makes the browser click the closest element
+        // that contains both the press and the release, such as a card around the slider
+        it('should capture the pointer when a drag starts', async () => {
+          const el = await fixture<WaSlider>(html`<wa-slider></wa-slider>`);
+          const setPointerCapture = sinon.spy(Element.prototype, 'setPointerCapture');
+
+          try {
+            await clickOnElement(el.shadowRoot!.querySelector('[part~="track"]')!);
+            expect(setPointerCapture).to.have.been.called;
+            expect(el.shadowRoot!.contains(setPointerCapture.firstCall.thisValue as Element)).to.be.true;
+          } finally {
+            setPointerCapture.restore();
+          }
         });
       });
     });

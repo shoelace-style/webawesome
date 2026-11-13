@@ -17,28 +17,33 @@ layout: page
 {% include "theming/theme-picker.njk" %}
 
 {% raw %}
-{% if not currentUser or not currentUser.hasPro %}
+{% if not currentUser or not currentUser.can.proThemes.allowed %}
 {% endraw %}
-<wa-callout class="pro">
-  <wa-icon slot="icon" name="hand-wave" animation="shake"
-    style="--animation-delay: 2s; --animation-duration: 4s;"></wa-icon>
-  <strong>
-    <a href="/purchase?from=pro-docs&context=themes">Unlock every theme with {{ site.namePro }}!</a>
-  </strong>
+<wa-callout class="pro wa-brand-orange">
+  <wa-icon slot="icon" name="crown" family="duotone" variant="regular" class="duotone-illustrated"></wa-icon>
+  <div class="wa-stack">
+    <div class="wa-stack wa-gap-2xs">
+      <strong>
+        <a href="/pro?from=pro-docs&context=themes">Unlock every theme with {{ site.namePro }}!</a>
+      </strong>
 
-  <wa-details appearance="plain">
-    <span slot="summary">Subscribing to {{ site.namePro }} unlocks every theme, plus premium color palettes, the visual
-      Theme Builder, and <u class="appearance-underlined variant-drawn">more</u>.</span>
+      <wa-details appearance="plain">
+        <span slot="summary">Subscribing to {{ site.namePro }} unlocks every theme, plus premium color palettes, the
+          visual Theme Builder, and <u class="appearance-underlined variant-drawn">more</u>.</span>
 
-    <div class="wa-stack wa-gap-xl">
-      {% include "pro-perks.njk" ignore missing %}
+        <div class="wa-stack wa-gap-xl">
+          {% include "pro-perks.njk" ignore missing %}
 
-      <wa-button href="/purchase?from=pro-docs&context=themes">
-        Get {{ site.namePro }}
-        <wa-icon slot="end" name="arrow-right"></wa-icon>
-      </wa-button>
+          <wa-button href="/pro?from=pro-docs&context=themes">
+            Get {{ site.namePro }}
+            <wa-icon slot="end" name="arrow-right"></wa-icon>
+          </wa-button>
+        </div>
+      </wa-details>
     </div>
-  </wa-details>
+
+    {% include "pro-login-cta.njk" ignore missing %}
+  </div>
 </wa-callout>
 {% raw %}
 {% endif %}
@@ -48,20 +53,20 @@ layout: page
 
 <div id="import-code">
   {% for theme in themer.themes %}
-  {% if theme.isPro %}{% raw %}{% if currentUser.hasPro %}{% endraw %}{% endif %}
+  {% if theme.isPro %}{% raw %}{% if currentUser.can.proThemes.allowed %}{% endraw %}{% endif %}
   <div class="theme-instructions" data-theme="{{ theme.filename | stripExtension }}" {% if not loop.first %}hidden{%
     endif %}>
     <wa-tab-group data-install-tabs>
-      <wa-tab panel="cdn"><wa-icon name="globe" variant="regular"></wa-icon> CDN</wa-tab>
-      <wa-tab panel="npm"><wa-icon name="box-open" variant="regular"></wa-icon> npm</wa-tab>
-      <wa-tab panel="self-hosted"><wa-icon name="arrow-down-to-line" variant="regular"></wa-icon> Self-Hosted</wa-tab>
-      <wa-tab panel="hosted"><wa-icon name="rocket-launch" variant="regular"></wa-icon> Hosted Projects</wa-tab>
+      <wa-tab panel="cdn"><wa-icon name="globe"></wa-icon> CDN</wa-tab>
+      <wa-tab panel="npm"><wa-icon name="box-open"></wa-icon> npm</wa-tab>
+      <wa-tab panel="self-hosted"><wa-icon name="arrow-down-to-line"></wa-icon> Self-Hosted</wa-tab>
+      <wa-tab panel="hosted"><wa-icon name="rocket-launch"></wa-icon> Hosted Projects</wa-tab>
 
       <wa-tab-panel name="cdn">
         {% if theme.isPro %}
 {% markdown %}
 <wa-callout variant="neutral" size="s">
-  <wa-icon name="info-circle" variant="regular"></wa-icon>
+  <wa-icon name="info-circle"></wa-icon>
   This theme can only be used on workspaces with a Pro subscription.
 </wa-callout>
 {% endmarkdown %}
@@ -122,22 +127,22 @@ Then apply the following classes to the `<html>` element:
         {% if theme.isPro %}
 {% markdown %}
 **For projects on Pro workspaces:**
-1. Head over to your project's <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="gear" variant="regular"></wa-icon> Settings</wa-tag>.
-2. Press <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="paintbrush" variant="regular"></wa-icon> Edit Your Theme</wa-tag> to open the Theme Builder.
+1. Head over to your project's <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="gear"></wa-icon> Settings</wa-tag>.
+2. Press <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="paintbrush"></wa-icon> Edit Your Theme</wa-tag> to open the Theme Builder.
 3. Open <wa-tag class="tag-ui" appearance="outlined">Theme</wa-tag> and select <wa-tag class="tag-ui" appearance="outlined">{{ theme.filename | stripExtension | capitalize }}</wa-tag>.
 4. Press <wa-tag class="tag-ui" appearance="outlined">Save Theme</wa-tag> to immediately update anywhere you're using your project.
 {% endmarkdown %}
         {% else %}
 {% markdown %}
 **For projects on Free workspaces:**
-1. Head over to your project's <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="gear" variant="regular"></wa-icon> Settings</wa-tag>.
-2. For your <wa-tag class="tag-ui" appearance="outlined">Theme</wa-tag>, select <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="paintbrush" variant="regular"></wa-icon> {{ theme.filename | stripExtension | capitalize }}</wa-tag>.
-3. For your <wa-tag class="tag-ui" appearance="outlined">Color Palette</wa-tag>, select <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="swatchbook" variant="regular"></wa-icon> {{ theme.palette.filename | stripExtension | capitalize }}</wa-tag>.
+1. Head over to your project's <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="gear"></wa-icon> Settings</wa-tag>.
+2. For your <wa-tag class="tag-ui" appearance="outlined">Theme</wa-tag>, select <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="paintbrush"></wa-icon> {{ theme.filename | stripExtension | capitalize }}</wa-tag>.
+3. For your <wa-tag class="tag-ui" appearance="outlined">Color Palette</wa-tag>, select <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="swatchbook"></wa-icon> {{ theme.palette.filename | stripExtension | capitalize }}</wa-tag>.
 4. Press <wa-tag class="tag-ui" appearance="outlined">Save Changes</wa-tag> to immediately update anywhere you're using your project.
 
 **For projects on Pro workspaces:**
-1. Head over to your project's <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="gear" variant="regular"></wa-icon> Settings</wa-tag>.
-2. Press <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="paintbrush" variant="regular"></wa-icon> Edit Your Theme</wa-tag> to open the Theme Builder.
+1. Head over to your project's <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="gear"></wa-icon> Settings</wa-tag>.
+2. Press <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="paintbrush"></wa-icon> Edit Your Theme</wa-tag> to open the Theme Builder.
 3. Open <wa-tag class="tag-ui" appearance="outlined">Theme</wa-tag> and select <wa-tag class="tag-ui" appearance="outlined">{{ theme.filename | stripExtension | capitalize }}</wa-tag>.
 4. Press <wa-tag class="tag-ui" appearance="outlined">Save Theme</wa-tag> to immediately update anywhere you're using your project.
 {% endmarkdown %}

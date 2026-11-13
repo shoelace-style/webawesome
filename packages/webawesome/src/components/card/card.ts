@@ -25,6 +25,7 @@ import styles from './card.styles.js';
  * @csspart header - The container that wraps the card's header.
  * @csspart body - The container that wraps the card's main content.
  * @csspart footer - The container that wraps the card's footer.
+ * @csspart actions - The container that wraps the card's actions.
  *
  * @cssproperty [--spacing=var(--wa-space-l)] - The amount of space around and between sections of the card. Expects a single value.
  *
@@ -107,7 +108,7 @@ export default class WaCard extends WebAwesomeElement {
     return html`
       <slot name="media" part="media" class="media"></slot>
 
-      <header
+      <div
         part="header"
         class=${classMap({
           header: true,
@@ -116,11 +117,11 @@ export default class WaCard extends WebAwesomeElement {
       >
         <slot name="header"></slot>
         <slot name="header-actions"></slot>
-      </header>
+      </div>
 
       <div part="body" class="body"><slot></slot></div>
 
-      <footer
+      <div
         part="footer"
         class=${classMap({
           footer: true,
@@ -129,7 +130,7 @@ export default class WaCard extends WebAwesomeElement {
       >
         <slot name="footer"></slot>
         <slot name="footer-actions"></slot>
-      </footer>
+      </div>
     `;
   }
 }

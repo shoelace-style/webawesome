@@ -1,5 +1,5 @@
 import { aTimeout, expect, waitUntil } from '@open-wc/testing';
-import { sendKeys } from '@web/test-runner-commands';
+import { sendKeys, sendMouse } from '@web/test-runner-commands';
 import { html } from 'lit';
 import sinon from 'sinon';
 import { expectEvent } from '../../internal/test/expect-event.js';
@@ -22,6 +22,93 @@ describe('<wa-popover>', () => {
           await popover.updateComplete;
           const dialog = popover.shadowRoot!.querySelector('dialog');
           expect(dialog).to.exist;
+        });
+
+        it('should reflect its open state on the trigger', async () => {
+          const el = await fixture<HTMLDivElement>(html`
+            <div>
+              <button id="plain-anchor">Plain</button>
+              <wa-popover for="plain-anchor">Content</wa-popover>
+              <wa-button id="wa-anchor">Web Awesome</wa-button>
+              <wa-popover for="wa-anchor">Content</wa-popover>
+            </div>
+          `);
+          const plainButton = el.querySelector('#plain-anchor')!;
+          const waButton = el.querySelector('#wa-anchor')!;
+          const triggers = [
+            { popover: el.querySelector<WaPopover>('wa-popover[for="plain-anchor"]')!, target: () => plainButton },
+            {
+              popover: el.querySelector<WaPopover>('wa-popover[for="wa-anchor"]')!,
+              target: () => waButton.shadowRoot!.querySelector('[part~="button"]')!,
+            },
+          ];
+
+          for (const { popover, target } of triggers) {
+            await waitUntil(() => target().getAttribute('aria-expanded') === 'false');
+            expect(target().getAttribute('aria-haspopup')).to.equal('dialog');
+
+            await popover.show();
+            await waitUntil(() => target().getAttribute('aria-expanded') === 'true');
+
+            await popover.hide();
+            await waitUntil(() => target().getAttribute('aria-expanded') === 'false');
+          }
+        });
+
+        it('should remove its ARIA state from an anchor it no longer controls', async () => {
+          const el = await fixture<HTMLDivElement>(html`
+            <div>
+              <button id="first-anchor">First</button>
+              <button id="second-anchor">Second</button>
+              <wa-popover for="first-anchor">Content</wa-popover>
+            </div>
+          `);
+          const popover = el.querySelector<WaPopover>('wa-popover')!;
+          const firstAnchor = el.querySelector('#first-anchor')!;
+          const secondAnchor = el.querySelector('#second-anchor')!;
+          await waitUntil(() => firstAnchor.hasAttribute('aria-expanded'));
+
+          popover.for = 'second-anchor';
+          await waitUntil(() => secondAnchor.hasAttribute('aria-expanded'));
+          expect(firstAnchor.hasAttribute('aria-haspopup')).to.be.false;
+          expect(firstAnchor.hasAttribute('aria-expanded')).to.be.false;
+
+          popover.remove();
+          expect(secondAnchor.hasAttribute('aria-haspopup')).to.be.false;
+          expect(secondAnchor.hasAttribute('aria-expanded')).to.be.false;
+        });
+
+        it('should open, close, and disconnect with a virtual anchor', async () => {
+          const el = await fixture<HTMLDivElement>(html`
+            <div>
+              <wa-popover>
+                <button data-popover="close">Close</button>
+              </wa-popover>
+            </div>
+          `);
+          const popover = el.querySelector<WaPopover>('wa-popover')!;
+          popover.anchor = { getBoundingClientRect: () => new DOMRect(0, 0, 10, 10) };
+
+          await popover.show();
+          popover.querySelector('button')!.click();
+          await waitUntil(() => !popover.open);
+          popover.remove();
+        });
+
+        it('should switch from a virtual anchor to a real one', async () => {
+          const el = await fixture<HTMLDivElement>(html`
+            <div>
+              <button id="real-anchor">Real</button>
+              <wa-popover>Content</wa-popover>
+            </div>
+          `);
+          const popover = el.querySelector<WaPopover>('wa-popover')!;
+          const realAnchor = el.querySelector('#real-anchor')!;
+          popover.anchor = { getBoundingClientRect: () => new DOMRect(0, 0, 10, 10) };
+          await popover.updateComplete;
+
+          popover.for = 'real-anchor';
+          await waitUntil(() => realAnchor.getAttribute('aria-expanded') === 'false');
         });
       });
 
@@ -352,7 +439,70 @@ describe('<wa-popover>', () => {
       expect(popover.open).to.be.false;
     });
 
-    it('should close when a data-popover="close" button is clicked', async () => {
+    it('should stay open when a drag starts inside the popover and ends outside', async () => {
+      const el = await fixtures[0]<HTMLDivElement>(html`
+        <div style="padding: 200px;">
+          <wa-button id="anchor">Anchor</wa-button>
+          <wa-popover for="anchor">Select this text by dragging</wa-popover>
+        </div>
+      `);
+      const popover = el.querySelector<WaPopover>('wa-popover')!;
+
+      popover.open = true;
+      await waitUntil(() => popover.open);
+      await aTimeout(200);
+
+      // Press inside the popover's visible panel, then release outside of it. The host is display: contents, so
+      // measure the popup that actually renders the content.
+      const panel = popover.shadowRoot!.querySelector('wa-popup')!.shadowRoot!.querySelector('[part~="popup"]')!;
+      const inside = panel.getBoundingClientRect();
+      await sendMouse({
+        type: 'move',
+        position: [Math.floor(inside.x + inside.width / 2), Math.floor(inside.y + inside.height / 2)],
+      });
+      await sendMouse({ type: 'down' });
+      await sendMouse({ type: 'move', position: [Math.floor(inside.x + inside.width / 2), 1] });
+      await sendMouse({ type: 'up' });
+      await aTimeout(200);
+
+      expect(popover.open).to.be.true;
+    });
+
+    it('should allow text inside the popover to be selected', async () => {
+      const el = await fixtures[0]<HTMLDivElement>(html`
+        <div style="padding: 200px;">
+          <wa-button id="anchor">Anchor</wa-button>
+          <wa-popover for="anchor"><p>Select this text by dragging</p></wa-popover>
+        </div>
+      `);
+      const popover = el.querySelector<WaPopover>('wa-popover')!;
+      const paragraph = popover.querySelector('p')!;
+
+      popover.open = true;
+      await waitUntil(() => popover.open);
+      await aTimeout(200);
+
+      // Drag from the start of the text to its middle. Check the selection before the cursor leaves the popover,
+      // since a range that crosses the shadow boundary reads as an empty string in Selection.toString().
+      const text = paragraph.getBoundingClientRect();
+      const y = Math.floor(text.y + text.height / 2);
+      await sendMouse({ type: 'move', position: [Math.floor(text.x + 2), y] });
+      await sendMouse({ type: 'down' });
+      await sendMouse({ type: 'move', position: [Math.floor(text.x + text.width / 2), y] });
+      await aTimeout(50);
+
+      expect(window.getSelection()?.toString()).to.not.equal('');
+
+      // Releasing outside must not close the popover
+      await sendMouse({ type: 'move', position: [Math.floor(text.x + text.width / 2), 1] });
+      await sendMouse({ type: 'up' });
+      await aTimeout(200);
+
+      expect(popover.open).to.be.true;
+      window.getSelection()?.removeAllRanges();
+    });
+
+    it('should close and return focus to the anchor when a data-popover="close" button is clicked', async () => {
       const el = await fixtures[0]<HTMLDivElement>(html`
         <div>
           <wa-button id="anchor">Anchor</wa-button>
@@ -372,6 +522,7 @@ describe('<wa-popover>', () => {
       await waitUntil(() => !popover.open);
 
       expect(popover.open).to.be.false;
+      expect(document.activeElement).to.equal(el.querySelector('#anchor'));
     });
   });
 

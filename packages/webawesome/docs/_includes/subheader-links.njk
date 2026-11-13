@@ -3,13 +3,15 @@
   <wa-button appearance="plain" size="s" href="/docs" data-track-event="navigation:header_link_click" data-track-destination="start">
     Start
   </wa-button>
-  <wa-button appearance="plain" size="s" href="/docs/components" data-track-event="navigation:header_link_click" data-track-destination="components">
-    Components
-  </wa-button>
-  <wa-button appearance="plain" size="s" href="/docs" data-track-event="navigation:header_link_click" data-track-destination="docs">
+  {% include "nav-link-components.njk" %}
+  <wa-button appearance="plain" size="s" href="/docs" data-match="section" data-track-event="navigation:header_link_click" data-track-destination="docs">
     Docs
   </wa-button>
   <wa-button appearance="plain" size="s" href="{{ site.urls.support }}/" data-track-event="navigation:header_link_click" data-track-destination="help">
     Help
   </wa-button>
+  {# Pro-only; the partial ships in webawesome-pro and is absent from open-source builds #}
+  {% include "site/pro-nav-link.njk" ignore missing %}
+  {# App-only #}
+  {% include "nav-link-create.njk" ignore missing %}
 </div>

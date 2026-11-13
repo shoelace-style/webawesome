@@ -16,8 +16,6 @@ use-cases:
   - collapsible navigation
 ---
 
-Accordions use [accordion items](/docs/components/accordion-item) to create a vertically stacked set of expandable sections.
-
 ```html {.example}
 <wa-accordion>
   <wa-accordion-item label="What is Web Awesome?">
@@ -34,6 +32,8 @@ Accordions use [accordion items](/docs/components/accordion-item) to create a ve
   </wa-accordion-item>
 </wa-accordion>
 ```
+
+Accordions use [accordion items](/docs/components/accordion-item) to create a vertically stacked set of expandable sections.
 
 ## Examples
 
@@ -52,7 +52,7 @@ Use the `expanded` attribute on an accordion item to expand it by default.
 </wa-accordion>
 ```
 
-### Disabled Items
+### Disabled
 
 Use the `disabled` attribute on an accordion item to prevent it from being toggled.
 
@@ -65,22 +65,9 @@ Use the `disabled` attribute on an accordion item to prevent it from being toggl
 </wa-accordion>
 ```
 
-### Without a Heading
-
-The [W3C accordion pattern](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/examples/accordion/) recommends wrapping each accordion trigger in a heading element so screen reader users can navigate the page outline and locate accordion sections using heading navigation. Each accordion item uses an `<h3>` by default for this reason.
-
-But if an accordion lives outside the document outline, for example, inside a nav or another component that has its own structure, set `heading-level="none"` on the accordion to omit the heading wrapper and render the button directly.
-
-```html {.example}
-<wa-accordion heading-level="none">
-  <wa-accordion-item label="Settings"> Adjust your preferences here. </wa-accordion-item>
-  <wa-accordion-item label="Notifications"> Manage how and when you receive notifications. </wa-accordion-item>
-</wa-accordion>
-```
-
 ### Heading Level
 
-The default heading level is `3`. Use `heading-level` on the accordion to match the level to your page's hierarchy. Values outside 1–6 fall back to `3`. The heading level is a semantic choice only — the accordion inherits the surrounding font, so the visual appearance is identical at every level.
+Each accordion item wraps its trigger in a heading so screen reader users can navigate to it, per the [W3C accordion pattern](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/examples/accordion/). The default is `<h3>`. Set the `heading-level` attribute to match your page's hierarchy (values outside 1–6 fall back to `3`). The level is semantic only; the accordion inherits the surrounding font, so the appearance is identical at every level.
 
 ```html {.example}
 <wa-accordion heading-level="2">
@@ -91,7 +78,16 @@ The default heading level is `3`. Use `heading-level` on the accordion to match 
 </wa-accordion>
 ```
 
-### Sizing
+If an accordion lives outside the document outline (inside a nav or another component with its own structure), set `heading-level="none"` to omit the heading wrapper and render the button directly.
+
+```html {.example}
+<wa-accordion heading-level="none">
+  <wa-accordion-item label="Settings"> Adjust your preferences here. </wa-accordion-item>
+  <wa-accordion-item label="Notifications"> Manage how and when you receive notifications. </wa-accordion-item>
+</wa-accordion>
+```
+
+### Size
 
 The accordion's text and expand/collapse icon scale with `font-size`. Setting `font-size` on a `<wa-accordion>` proportionally resizes the type and icon together.
 
@@ -156,11 +152,13 @@ Use the `appearance` attribute to change the accordion's visual appearance.
 
 ### Mode
 
-Use the `mode` attribute to control how items can be expanded:
+Use the `mode` attribute to control how items can be expanded.
 
-- `multiple` (default): any number of items can be open at once, and each item toggles independently.
-- `single`: only one item can be open at a time. Opening a new item collapses the previously open one, and clicking the open item is a no-op — once an item is open, it stays open until another is opened.
-- `single-collapsible`: at most one item can be open at a time. Same as `single`, except clicking the open item closes it, so zero open items is a valid state.
+| Mode                                                                                 | Behavior                                                                                          |
+| ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
+| `multiple` <wa-badge appearance="outlined" variant="neutral" pill style="font-size: var(--wa-font-size-2xs);">default</wa-badge> | Any number of items open at once; each toggles independently                                     |
+| `single`                                                                             | One item open at a time; opening another collapses it, and clicking the open item keeps it open  |
+| `single-collapsible`                                                                 | Like `single`, but clicking the open item closes it — so zero open items is a valid state        |
 
 ```html {.example}
 <wa-accordion mode="single">
@@ -238,6 +236,38 @@ By default the icon rotates as the item expands. You can target the `icon` part 
   }
   wa-accordion-item.plus-minus[expanded] [data-when='expanded'] {
     display: inline-flex;
+  }
+</style>
+```
+
+### Customizing
+
+Style an accordion with regular CSS. There's no container [part](/docs/customizing#css-parts), because `<wa-accordion>` is the container. Put `background-color`, `border-color`, and `border-radius` right on it.
+
+Each divider is the top border of the item below it. Change them with `border-top-color` on `<wa-accordion-item>`.
+
+```html {.example}
+<wa-accordion class="brand-accordion">
+  <wa-accordion-item label="Background and border">
+    These go on the accordion element itself.
+  </wa-accordion-item>
+  <wa-accordion-item label="Dividers">
+    Each divider is the top border of the item below it.
+  </wa-accordion-item>
+  <wa-accordion-item label="Everything else">
+    Style headers and content with the accordion item's CSS parts.
+  </wa-accordion-item>
+</wa-accordion>
+
+<style>
+  wa-accordion.brand-accordion {
+    background-color: var(--wa-color-brand-fill-quiet);
+    border-color: var(--wa-color-brand-border-quiet);
+    border-radius: var(--wa-border-radius-s);
+  }
+
+  wa-accordion.brand-accordion > wa-accordion-item {
+    border-top-color: var(--wa-color-brand-border-quiet);
   }
 </style>
 ```
@@ -338,3 +368,7 @@ Listen for the `wa-expand` or `wa-collapse` events and call `event.preventDefaul
   });
 </script>
 ```
+
+## Accessibility Considerations
+
+Every enabled header is part of the page's normal tab sequence. `Tab` and `Shift + Tab` move through each header along with the rest of the page, per the [W3C accordion pattern](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/examples/accordion/). When the header is in focus, the arrow keys are a shortcut for moving between headers. The Up and Down keys move from the previous to the next header, Home and End keys jump to the first and last header.

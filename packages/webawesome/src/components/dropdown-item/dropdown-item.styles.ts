@@ -70,9 +70,15 @@ export default css`
     padding-inline-end: 1.75em;
   }
 
+  /* The link only exists to be clicked programmatically. */
+  #link {
+    display: none;
+  }
+
+  /* The start margin cancels the check's width (1.25em) and end margin, so checked and unchecked items line up */
   #check {
     visibility: hidden;
-    margin-inline-start: -1.5em;
+    margin-inline-start: -1.75em;
     margin-inline-end: 0.5em;
     font-size: var(--wa-font-size-smaller);
   }

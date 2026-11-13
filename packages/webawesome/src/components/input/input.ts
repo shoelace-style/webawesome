@@ -40,9 +40,11 @@ import styles from './input.styles.js';
  * @event wa-clear - Emitted when the clear button is activated.
  * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
- * @csspart label - The label
+ * @csspart form-control-label - The label.
+ * @csspart label - Deprecated. Use the `form-control-label` part instead.
  * @csspart hint - The hint's wrapper.
- * @csspart base - The wrapper being rendered as an input
+ * @csspart base - Deprecated. Use the `input-wrapper` part instead.
+ * @csspart input-wrapper - The component's outer wrapper.
  * @csspart input - The internal `<input>` control.
  * @csspart start - The container that wraps the `start` slot.
  * @csspart clear-button - The clear button.
@@ -123,7 +125,10 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
   /** The default value of the form control. Primarily used for resetting the form control. */
   @property({ attribute: 'value', reflect: true }) defaultValue: string | null = this.getAttribute('value') || null;
 
-  /** The input's size. */
+  /**
+   * The input's size.
+   * The long-form values `small`, `medium`, and `large` are deprecated; use `s`, `m`, and `l` instead.
+   */
   @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
 
   @watch('size')
@@ -290,6 +295,13 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
       this.customStates.set('blank', !this.value);
       this.updateValidity();
     }
+
+    // setValidity() calls requestUpdate('validity')
+    // Skip re-validation, otherwise we loop forever
+    const onlyValidityChanged = changedProperties.size === 1 && changedProperties.has('validity');
+    if (!onlyValidityChanged) {
+      this.updateValidity();
+    }
   }
 
   @watch('step', { waitUntilFirstUpdate: true })
@@ -401,7 +413,7 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
         <slot name="label">${this.label}</slot>
       </label>
 
-      <div part="base" class="text-field">
+      <div part="base input-wrapper" class="text-field">
         <slot name="start" part="start" class="start"></slot>
 
         <input
@@ -459,7 +471,6 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
                 type="button"
                 aria-label=${this.localize.term(this.passwordVisible ? 'hidePassword' : 'showPassword')}
                 @click=${this.handlePasswordToggle}
-                tabindex="-1"
               >
                 ${!this.passwordVisible
                   ? html`

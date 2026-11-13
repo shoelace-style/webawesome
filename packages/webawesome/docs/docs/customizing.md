@@ -54,15 +54,15 @@ Web Awesome uses [themes](/docs/themes) to apply a cohesive look and feel across
       <tbody>
         <tr>
           <td>1</td>
-          <td>Go to your project's <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="gear" variant="regular"></wa-icon> Settings</wa-tag>.</td>
+          <td>Go to your project's <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="gear"></wa-icon> Settings</wa-tag>.</td>
         </tr>
         <tr>
           <td>2</td>
-          <td>Find <wa-tag class="tag-ui" appearance="outlined">Theme</wa-tag> and select <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="paintbrush" variant="regular"></wa-icon></wa-tag> the theme you'd like to use.</td>
+          <td>Find <wa-tag class="tag-ui" appearance="outlined">Theme</wa-tag> and select <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="paintbrush"></wa-icon></wa-tag> the theme you'd like to use.</td>
         </tr>
         <tr>
           <td>3</td>
-          <td>Find <wa-tag class="tag-ui" appearance="outlined">Color Palette</wa-tag> and select <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="swatchbook" variant="regular"></wa-icon></wa-tag> the palette you'd like to use.</td>
+          <td>Find <wa-tag class="tag-ui" appearance="outlined">Color Palette</wa-tag> and select <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="swatchbook"></wa-icon></wa-tag> the palette you'd like to use.</td>
         </tr>
         <tr>
           <td>4</td>
@@ -86,11 +86,11 @@ Web Awesome uses [themes](/docs/themes) to apply a cohesive look and feel across
       <tbody>
         <tr>
           <td>1</td>
-          <td>Go to your project's <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="gear" variant="regular"></wa-icon> Settings</wa-tag>.</td>
+          <td>Go to your project's <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="gear"></wa-icon> Settings</wa-tag>.</td>
         </tr>
         <tr>
           <td>2</td>
-          <td>Press <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="paintbrush" variant="regular"></wa-icon> Edit Your Theme</wa-tag> to open the <a href="#theme-builder">Theme Builder</a>.</td>
+          <td>Press <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="paintbrush"></wa-icon> Edit Your Theme</wa-tag> to open the <a href="#theme-builder">Theme Builder</a>.</td>
         </tr>
         <tr>
           <td>3</td>
@@ -109,11 +109,11 @@ Web Awesome uses [themes](/docs/themes) to apply a cohesive look and feel across
 
 The Theme Builder is a visual editor for **Pro workspace projects** that lets you customize your project's [theme](/docs/themes), [color palette](/docs/color-palettes), [variant colors](/docs/tokens/color#variant-colors), fonts, roundness, spacing, and icons — with a live preview as you go. Saves apply instantly anywhere you're using your project.
 
-You can launch the Theme Builder from your project's <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="gear" variant="regular"></wa-icon> Settings</wa-tag> by pressing <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="paintbrush" variant="regular"></wa-icon> Edit Your Theme</wa-tag>.
+You can launch the Theme Builder from your project's <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="gear"></wa-icon> Settings</wa-tag> by pressing <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="paintbrush"></wa-icon> Edit Your Theme</wa-tag>.
 
 ### Light & Dark Mode
 
-Every theme is designed to adapt to light and dark mode. Light mode styles are applied by default, but you can apply a specific color scheme to an entire page or just a section with `class="wa-light"` or `class="wa-dark"`.
+Every theme is designed to adapt to light and dark mode. Light mode styles are applied by default, but you can apply a specific color scheme to an entire page or just a section with `class="wa-light"` or `class="wa-dark"`. Each color scheme also sets the `--wa-color-scheme` custom property to `light` or `dark`, so your own styles and components can read the active scheme.
 
 ```html {.example}
 {% include 'theming/light-dark-example.njk' %}
@@ -144,6 +144,10 @@ You can force a section to behave like `.wa-dark` in light mode and like `.wa-li
   </div>
 </wa-card>
 ```
+
+:::warning
+Avoid adding `wa-invert` (and other color scheme classes like `wa-light` and `wa-dark`) directly to a component. These classes reset the variant color tokens on the element they're applied to, which overrides the element's own variant styles.
+:::
 
 #### Detecting Color Scheme Preference
 
@@ -234,7 +238,7 @@ To create your own dark mode styles, scope your styles to these selectors:
 | `:where(:root)`       | The default scope, with low specificity so other theme classes can override it |
 | `.wa-light`           | Explicit light sections                                                        |
 | `.wa-dark`            | Explicit dark sections                                                         |
-| `.wa-invert`          | Flips the current color scheme on this element                                 |
+| `.wa-invert`          | Flips the current color scheme for the section it's applied to                 |
 | `.wa-dark .wa-invert` | An inverted descendant inside a dark section (becomes light)                   |
 
 For a complete list of all custom properties used for theming, refer to `src/styles/themes/default.css` in the project's source code.
@@ -298,7 +302,7 @@ Parts allow you to style _any_ standard CSS property, not just those exposed thr
 <wa-button class="gradient-button"> Gradient Button </wa-button>
 
 <style>
-  .gradient-button::part(base) {
+  .gradient-button::part(button) {
     background: linear-gradient(217deg, var(--wa-color-indigo-50), var(--wa-color-purple-50), var(--wa-color-red-50));
     border: solid 1px var(--wa-color-purple-50);
     transition:
@@ -306,12 +310,12 @@ Parts allow you to style _any_ standard CSS property, not just those exposed thr
       box-shadow 100ms;
   }
 
-  .gradient-button::part(base):hover {
+  .gradient-button::part(button):hover {
     box-shadow: var(--wa-shadow-m);
     transform: translateY(-3px);
   }
 
-  .gradient-button::part(base):active {
+  .gradient-button::part(button):active {
     box-shadow: inset var(--wa-shadow-s);
     transform: translateY(0);
   }
@@ -332,6 +336,14 @@ CSS parts have a few important advantages:
 - It encourages us to think more about how components are designed and how customizations should be allowed before users can take advantage of them. Once we opt a part into the component's API, it's guaranteed to be supported and can't be removed until a major version of the library is released.
 
 Most (but not all) components expose parts. You can find them in each component's API documentation under the "CSS Parts" section.
+
+#### The `base` part
+
+Components used to expose a generic `base` part for their outermost element. That name is deprecated in favor of a part named after the component itself, so `<wa-button>` exposes `button` and `<wa-details>` exposes `details`.
+
+Existing `::part(base)` selectors still work and will continue to until the next major version, so there's no rush to change them. New styles should target the component's own name. Deprecated parts appear muted in each component's CSS Parts table.
+
+Not every component has one. When a component's outer element is the host, style it directly instead — `wa-card { ... }` rather than a part.
 
 ### Custom Properties
 

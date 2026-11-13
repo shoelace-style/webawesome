@@ -1,7 +1,7 @@
 ---
 title: Prose
 description: The wa-prose utility applies hierarchical, asymmetric typographic rhythm to long-form content like documentation, articles, and marketing copy.
-layout: page-outline
+layout: docs
 tags: styleUtilities
 synonyms:
   - prose
@@ -193,7 +193,7 @@ A few quieter refinements come along with the rhythm:
 Apply any [`wa-font-size-*`](/docs/utilities/text/#font-size) utility to a `wa-prose` container and text, headings, and rhythm scale together. No size variants required.
 
 ```html {.example}
-<div class="wa-cluster wa-align-items-flex-start" style="gap: var(--wa-space-l);">
+<div class="wa-cluster wa-align-items-start" style="gap: var(--wa-space-l);">
   <article class="wa-prose" style="--wa-prose-line-length: 28ch;">
     <h3>Default size</h3>
     <p>A quiet morning is the rarest hour of the day — claim it before the world wakes up.</p>
@@ -219,7 +219,7 @@ Apply any [`wa-font-size-*`](/docs/utilities/text/#font-size) utility to a `wa-p
 Set `--wa-prose-rhythm-scale` on the prose container to multiply every margin in the system. Values below `1` tighten the rhythm; values above loosen it. Type sizes are unaffected.
 
 ```html {.example}
-<div class="wa-cluster wa-align-items-flex-start" style="gap: var(--wa-space-l);">
+<div class="wa-cluster wa-align-items-start" style="gap: var(--wa-space-l);">
   <article class="wa-prose" style="--wa-prose-line-length: 28ch;">
     <h3>Default rhythm</h3>
     <p>Two paragraphs of the same length, at the same size.</p>
@@ -263,7 +263,7 @@ Apply `wa-not-prose` to any element inside a `wa-prose` container to disable pro
 <article class="wa-prose wa-font-size-s">
   <h3>Ready when you are</h3>
   <p>
-    The content in this section follows prose rhythm and adopt a smaller font size. The callout below is given
+    The content in this section follows prose rhythm and adopts a smaller font size. The callout below is given
     <code>wa-not-prose</code>, so its spacing and font sizing revert to element defaults.
   </p>
 
@@ -271,7 +271,10 @@ Apply `wa-not-prose` to any element inside a `wa-prose` container to disable pro
     <wa-icon slot="icon" name="highlighter"></wa-icon>
     <div class="wa-stack wa-gap-s">
       <h4>Leave it to the prose</h4>
-      <p>This callout and its child elements are exempt from <code>wa-prose</code> rules, thanks to <code>wa-not-prose</code>.</p>
+      <p>
+        This callout and its child elements are exempt from <code>wa-prose</code> rules, thanks to
+        <code>wa-not-prose</code>.
+      </p>
     </div>
   </wa-callout>
 

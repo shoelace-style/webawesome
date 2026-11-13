@@ -141,6 +141,27 @@ export default async function (eleventyConfig) {
   eleventyConfig.addFilter('uniqueId', (_value, length = 8) => nanoid(length));
   // Generates the same heading anchor id used by anchorHeadingsTransformer, so links can target headings reliably
   eleventyConfig.addFilter('headingId', content => createId(String(content ?? '')));
+  // A silently dropped slug is the worst failure here: the page still builds, just missing the
+  // answer someone deliberately listed. Fail the build and name the slug instead.
+  eleventyConfig.addFilter('faqBySlugs', (entries, slugs, strict = true) =>
+    slugs
+      .map(slug => {
+        const entry = entries.find(entry => entry.page.fileSlug === slug);
+        if (!entry && !strict) return null;
+        if (!entry) {
+          throw new Error(
+            `No FAQ entry with slug "${slug}" — check docs/_faqs/*/${slug}.md exists and carries tag "faq".`,
+          );
+        }
+        return entry;
+      })
+      .filter(Boolean),
+  );
+
+  // Adds a input path relative to the 11ty input path. Essentially filePathStem + extension
+  eleventyConfig.addFilter('relativeInputPath', page => {
+    return eleventyConfig.directories.getInputPathRelativeToInputDirectory(page.inputPath);
+  });
 
   eleventyConfig.addGlobalData('eleventyComputed', {
     // Page title with smart + default site name formatting
@@ -151,8 +172,10 @@ export default async function (eleventyConfig) {
     ogImage: data => data.ogImage || siteMetadata.image,
     // Only emit dimensions when we know them: use the default if the page is using the
     // default image, the explicit override if provided, otherwise null (suppresses emission).
-    ogImageWidth: data => data.ogImageWidth || (data.ogImage ? null : siteMetadata.imageWidth),
-    ogImageHeight: data => data.ogImageHeight || (data.ogImage ? null : siteMetadata.imageHeight),
+    // data.ogImage technically is always defined above. So instead of checking if data.ogImage == null, do an explicit check for if its equal to siteMetadata.image
+    ogImageWidth: data => data.ogImageWidth || (data.ogImage === siteMetadata.image ? siteMetadata.imageWidth : null),
+    ogImageHeight: data =>
+      data.ogImageHeight || (data.ogImage === siteMetadata.image ? siteMetadata.imageHeight : null),
     ogUrl: data => {
       // Strip template extensions: downstream consumers (e.g. webawesome-app) set
       // `permalink: /foo.njk` for two-pass SSR, so page.url carries an `.njk` resolution
@@ -269,6 +292,43 @@ export default async function (eleventyConfig) {
     });
   });
 
+  eleventyConfig.addCollection('faq', collection => {
+    const entries = collection.getFilteredByTag('faq');
+    if (entries.length === 0) {
+      throw new Error(
+        'The "faq" collection is empty. Every page that consumes it would render as blank chrome, so the build stops here — check that docs/_faqs/_faqs.11tydata.js is in place and still tags entries "faq".',
+      );
+    }
+
+    // /support builds its section ids straight from the topic slugs (see support.njk), and its
+    // page chrome owns the rest — an entry slug matching either would silently collide with
+    // that id and break deep links into it. Topics come from the data file so the two can't
+    // drift; the second list is the chrome ids, which live only in the template.
+    const topicSlugs = JSON.parse(fs.readFileSync(path.join(__dirname, '_data/faqTopics.json'), 'utf-8')).map(
+      topic => topic.slug,
+    );
+    const reservedIds = [...topicSlugs, 'get-help', 'github', 'discord', 'email'];
+    const seen = new Map(reservedIds.map(id => [id, 'reserved page id on /support']));
+    for (const entry of entries) {
+      const slug = entry.page.fileSlug;
+      // Only cross-directory collisions land here. The bundle merge copies free, then pro, then
+      // app over one another, so two entries at the identical path are last-copy-wins and only
+      // one of them ever reaches this loop.
+      if (seen.has(slug)) {
+        throw new Error(`Duplicate FAQ slug "${slug}": ${seen.get(slug)} and ${entry.inputPath}`);
+      }
+      // An entry with no question renders an accordion item with an empty label — a control
+      // nobody can name, read out, or click on purpose.
+      if (!entry.data.question) {
+        throw new Error(`FAQ entry ${entry.inputPath} is missing required front matter: question`);
+      }
+      seen.set(slug, entry.inputPath);
+    }
+    return entries.sort(
+      (a, b) => (a.data.order ?? 999) - (b.data.order ?? 999) || a.page.fileSlug.localeCompare(b.page.fileSlug),
+    );
+  });
+
   // Shortcodes - {% shortCode arg1, arg2 %}
   eleventyConfig.addShortcode('cdnUrl', location => {
     // We use WA (free) via the public CDN for CodePen examples
@@ -312,6 +372,13 @@ export default async function (eleventyConfig) {
 
   // Add anchors to headings
   eleventyConfig.addTransform('doc-transforms', function (content) {
+    // Several of these transformers key off `this.page.url`, which Eleventy sets to `false` for
+    // pages that don't emit output (e.g. `permalink: false`, like the FAQ collection entries).
+    // Skip transforming content nothing will ever write to disk.
+    if (this.page.outputPath === false) {
+      return content;
+    }
+
     let doc = HTMLParse(content, { blockTextElements: { code: true }, comment: true });
 
     const transformers = [
@@ -358,19 +425,19 @@ export default async function (eleventyConfig) {
       {
         replace: /\[pr:([0-9]+)\]/gs,
         replaceWith:
-          '<a class="ref-link ref-pr" href="https://github.com/shoelace-style/webawesome/pull/$1" target="_blank"><wa-badge variant="neutral" appearance="outlined"><wa-icon slot="start" name="code-pull-request" variant="regular" aria-hidden="true"></wa-icon>#$1</wa-badge></a>',
+          '<a class="ref-link ref-pr" href="https://github.com/shoelace-style/webawesome/pull/$1" target="_blank"><wa-badge variant="neutral" appearance="outlined"><wa-icon slot="start" name="code-pull-request" aria-hidden="true"></wa-icon>#$1</wa-badge></a>',
       },
       // Replace [issue:1234] with an outlined badge link to the issue on GitHub
       {
         replace: /\[issue:([0-9]+)\]/gs,
         replaceWith:
-          '<a class="ref-link ref-issue" href="https://github.com/shoelace-style/webawesome/issues/$1" target="_blank"><wa-badge variant="neutral" appearance="outlined"><wa-icon slot="start" name="circle-dot" variant="regular" aria-hidden="true"></wa-icon>#$1</wa-badge></a>',
+          '<a class="ref-link ref-issue" href="https://github.com/shoelace-style/webawesome/issues/$1" target="_blank"><wa-badge variant="neutral" appearance="outlined"><wa-icon slot="start" name="circle-dot" aria-hidden="true"></wa-icon>#$1</wa-badge></a>',
       },
       // Replace [discuss:1234] with an outlined badge link to the discussion on GitHub
       {
         replace: /\[discuss:([0-9]+)\]/gs,
         replaceWith:
-          '<a class="ref-link ref-discuss" href="https://github.com/shoelace-style/webawesome/discussions/$1" target="_blank"><wa-badge variant="neutral" appearance="outlined"><wa-icon slot="start" name="comments" variant="regular" aria-hidden="true"></wa-icon>#$1</wa-badge></a>',
+          '<a class="ref-link ref-discuss" href="https://github.com/shoelace-style/webawesome/discussions/$1" target="_blank"><wa-badge variant="neutral" appearance="outlined"><wa-icon slot="start" name="comments" aria-hidden="true"></wa-icon>#$1</wa-badge></a>',
       },
     ]),
   );

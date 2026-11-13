@@ -23,7 +23,7 @@ import styles from './slider.styles.js';
  * <wa-slider>
  *
  * @summary Sliders let users choose a numeric value within a defined range by dragging a thumb along a track.
- * @documentation https://webawesome.com/docs/components/range
+ * @documentation https://webawesome.com/docs/components/slider
  * @status stable
  * @since 2.0
  *
@@ -52,9 +52,10 @@ import styles from './slider.styles.js';
  * @csspart thumb-min - The min value thumb in a range slider.
  * @csspart thumb-max - The max value thumb in a range slider.
  * @csspart tooltip - The tooltip, a `<wa-tooltip>` element.
+ * @csspart tooltip__base - Deprecated. Use the `tooltip__tooltip` part instead.
  * @csspart tooltip__tooltip - The tooltip's `tooltip` part.
- * @csspart tooltip__content - The tooltip's `content` part.
- * @csspart tooltip__arrow - The tooltip's `arrow` part.
+ * @csspart tooltip__body - The tooltip's `body` part.
+ * @csspart tooltip__arrow - The tooltip's popup's `arrow` part.
  *
  * @cssstate disabled - Applied when the slider is disabled.
  * @cssstate dragging - Applied when the slider is being dragged.
@@ -167,7 +168,10 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
   /** The orientation of the slider. */
   @property({ reflect: true }) orientation: 'horizontal' | 'vertical' = 'horizontal';
 
-  /** The slider's size. */
+  /**
+   * The slider's size.
+   * The long-form values `small`, `medium`, and `large` are deprecated; use `s`, `m`, and `l` instead.
+   */
   @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
 
   @watch('size')
@@ -184,7 +188,7 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
   /** The maximum value allowed. */
   @property({ type: Number }) max: number = 100;
 
-  /** The granularity the value must adhere to when incrementing and decrementing. */
+  /** The granularity the value must adhere to when incrementing and decrementing. Steps are counted from `min`. */
   @property({ type: Number }) step: number = 1;
 
   /** Tells the browser to focus the slider when the page loads or a dialog is shown. */
@@ -221,7 +225,8 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
    */
   @property({ attribute: false }) valueFormatter: (value: number) => string;
 
-  firstUpdated() {
+  firstUpdated(changedProperties: PropertyValues<this>) {
+    super.firstUpdated(changedProperties);
     // Setup dragging based on range or single thumb mode
     if (this.isRange) {
       // Enable dragging on both thumbs for range slider
@@ -439,17 +444,18 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
 
   /** Clamps a number to min/max while ensuring it's a valid step interval. */
   private clampAndRoundToStep(value: number) {
-    const stepPrecision = (String(this.step).split('.')[1] || '').replace(/0+$/g, '').length;
-
     // Ensure we're working with numbers (in case the user passes strings to the respective properties)
     const step = Number(this.step);
     const min = Number(this.min);
     const max = Number(this.max);
 
-    value = Math.round(value / step) * step;
+    // Like a native range input, the step grid is anchored at min, not zero
+    value = Math.round((value - min) / step) * step + min;
     value = clamp(value, min, max);
 
-    return parseFloat(value.toFixed(stepPrecision));
+    // Values are min + n * step, so keep enough decimals for both
+    const decimals = (n: number) => (String(n).split('.')[1] || '').replace(/0+$/g, '').length;
+    return parseFloat(value.toFixed(Math.max(decimals(step), decimals(min))));
   }
 
   /** Given a value, returns its percentage within a range of min/max. */
@@ -879,8 +885,9 @@ export default class WaSlider extends WebAwesomeFormAssociatedElement {
               part="tooltip"
               exportparts="
                 base:tooltip__base,
+                tooltip:tooltip__tooltip,
                 body:tooltip__body,
-                arrow:tooltip__arrow
+                tooltip__arrow:tooltip__arrow
               "
               trigger="manual"
               distance=${this.tooltipDistance}

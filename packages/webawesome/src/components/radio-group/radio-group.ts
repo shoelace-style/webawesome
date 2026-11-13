@@ -33,9 +33,8 @@ import styles from './radio-group.styles.js';
  * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
  * @csspart form-control - The form control that wraps the label, input, and hint.
- * @csspart form-control-label - The label's wrapper.
- * @csspart form-control-input - The input's wrapper.
- * @csspart radios - The wrapper than surrounds radio items, styled as a flex container by default.
+ * @csspart form-control-label - The label.
+ * @csspart form-control-input - The element that wraps the grouped radios, styled as a flex container by default.
  * @csspart hint - The hint's wrapper.
  */
 @customElement('wa-radio-group')
@@ -75,7 +74,7 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
   @property({ reflect: true }) name: string | null = null;
 
   /** Disables the radio group and all child radios. */
-  @property({ type: Boolean, reflect: true }) disabled = false;
+  @property({ type: Boolean }) disabled = false;
 
   /** The orientation in which to show radio items. */
   @property({ reflect: true }) orientation: 'horizontal' | 'vertical' = 'vertical';
@@ -101,7 +100,10 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
   /** The default value of the form control. Primarily used for resetting the form control. */
   @property({ attribute: 'value', reflect: true }) defaultValue: string | null = this.getAttribute('value') || null;
 
-  /** The radio group's size. When present, this size will be applied to all `<wa-radio>` items inside. */
+  /**
+   * The radio group's size. When present, this size will be applied to all `<wa-radio>` items inside.
+   * The long-form values `small`, `medium`, and `large` are deprecated; use `s`, `m`, and `l` instead.
+   */
   @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large';
 
   @watch('size')
@@ -228,7 +230,7 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
       radios.map(async radio => {
         await radio.updateComplete;
 
-        if (!radio.disabled && radio.value === this.value) {
+        if (radio.value === this.value) {
           radio.checked = true;
         } else {
           radio.checked = false;
@@ -334,11 +336,11 @@ export default class WaRadioGroup extends WebAwesomeFormAssociatedElement {
     if (this.disabled) return;
 
     const radios = this.getAllRadios();
-    const checked = radios.find(radio => radio.checked);
+    const checked = radios.find(radio => radio.checked && !radio.disabled);
     const firstEnabledRadio = radios.find(radio => !radio.disabled);
     const radioToFocus = checked || firstEnabledRadio;
 
-    // Call focus for the checked radio. If no radio is checked, focus the first one that isn't disabled.
+    // Focus the checked radio if it's enabled, otherwise focus the first enabled radio.
     if (radioToFocus) {
       radioToFocus.focus(options);
     }

@@ -45,7 +45,7 @@ const openDropdowns = new Set<WaDropdown>();
  * @slot - The dropdown's items, typically `<wa-dropdown-item>` elements.
  * @slot trigger - The element that triggers the dropdown, such as a `<wa-button>` or `<button>`.
  *
- * @csspart base - The component's host element.
+ * @csspart base - Deprecated. Style the host element instead.
  * @csspart menu - The dropdown menu container.
  *
  * @cssproperty --show-duration - The duration of the show animation.
@@ -60,6 +60,7 @@ export default class WaDropdown extends WebAwesomeElement {
   private userTypedQuery = '';
   private userTypedTimeout: ReturnType<typeof setTimeout>;
   private openSubmenuStack: WaDropdownItem[] = [];
+  private originalTrigger: HTMLButtonElement | WaButton | null = null;
 
   @query('slot:not([name])') defaultSlot: HTMLSlotElement;
   @query('#menu') private menu: HTMLDivElement;
@@ -68,7 +69,10 @@ export default class WaDropdown extends WebAwesomeElement {
   /** Opens or closes the dropdown. */
   @property({ type: Boolean, reflect: true }) open = false;
 
-  /** The dropdown's size. */
+  /**
+   * The dropdown's size.
+   * The long-form values `small`, `medium`, and `large` are deprecated; use `s`, `m`, and `l` instead.
+   */
   @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
 
   @watch('size')
@@ -115,11 +119,12 @@ export default class WaDropdown extends WebAwesomeElement {
     unregisterDismissible(this);
   }
 
-  firstUpdated() {
+  firstUpdated(changedProperties: PropertyValues<typeof this>) {
+    super.firstUpdated(changedProperties);
     this.syncAriaAttributes();
   }
 
-  async updated(changedProperties: PropertyValues) {
+  async updated(changedProperties: PropertyValues<typeof this>) {
     if (changedProperties.has('open')) {
       const previousOpen = changedProperties.get('open');
       // check if the previous value is the same
@@ -244,6 +249,7 @@ export default class WaDropdown extends WebAwesomeElement {
     const anchor = this.getTrigger();
     if (!anchor || !this.popup || !this.menu) return;
 
+    const focused = [...activeElements()].pop();
     const showEvent = new WaShowEvent();
     this.dispatchEvent(showEvent);
     if (showEvent.defaultPrevented) {
@@ -252,8 +258,8 @@ export default class WaDropdown extends WebAwesomeElement {
     }
 
     // if this dropdown is already open, do nothing
-    // (this can happen when wa-hide was cancelled)
-    if (this.popup.active) {
+    // (this can happen when wa-hide was cancelled). A popup that's still animating closed isn't open, so reopen it.
+    if (this.popup.active && !this.menu.classList.contains('hide')) {
       return;
     }
 
@@ -270,14 +276,35 @@ export default class WaDropdown extends WebAwesomeElement {
 
     // In case its still trying to hide, remove the class to cancel the hide animation.
     this.menu.classList.remove('hide');
-    await animateWithClass(this.menu, 'show'); // Animate the menu div
+    const animation = animateWithClass(this.menu, 'show');
+    await this.popup.updateComplete;
+    // Initial anchor slot changes can restart the popup on the next frame.
+    await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+    if (!this.open || !this.isConnected) return;
 
-    const items = this.getItems();
-    if (items.length > 0) {
-      items.forEach((item, index) => (item.active = index === 0));
-      items[0].focus({ preventScroll: true });
+    const submenu = this.getCurrentSubmenuItem();
+    const items = submenu ? this.getSubmenuItems(submenu) : this.getItems();
+    const content = this.defaultSlot.assignedElements({ flatten: true });
+    const activeEls = [...activeElements()];
+    const focusedContent = activeEls.find(
+      element =>
+        element instanceof HTMLElement &&
+        element.closest('wa-dropdown') === this &&
+        !element.matches(':disabled, [disabled]') &&
+        content.some(root => root.contains(element)),
+    );
+
+    // Input received while the popup becomes usable takes precedence over initial focus.
+    if (focusedContent || activeEls.pop() === focused) {
+      const initialItem = focusedContent ?? items[0];
+      items.forEach(item => (item.active = item === initialItem));
+      if (!focusedContent) {
+        items[0]?.focus({ preventScroll: true });
+      }
     }
 
+    await animation;
+    if (!this.open || !this.isConnected) return;
     this.dispatchEvent(new WaAfterShowEvent());
   }
 
@@ -289,9 +316,12 @@ export default class WaDropdown extends WebAwesomeElement {
     this.dispatchEvent(hideEvent);
     if (hideEvent.defaultPrevented) {
       this.open = true;
+      this.originalTrigger = null;
       return;
     }
 
+    const originalTrigger = this.originalTrigger;
+    this.originalTrigger = null;
     this.open = false;
     openDropdowns.delete(this);
     unregisterDismissible(this);
@@ -306,6 +336,7 @@ export default class WaDropdown extends WebAwesomeElement {
     // Sometimes this ends up out of sync. So make sure it aligns with `open`
     this.popup.active = this.open; // Hide using wa-popup
     this.dispatchEvent(new WaAfterHideEvent());
+    originalTrigger?.focus({ preventScroll: true });
   }
 
   /** Handles key down events when the menu is open */
@@ -318,8 +349,8 @@ export default class WaDropdown extends WebAwesomeElement {
       event.preventDefault();
       event.stopPropagation();
 
+      this.originalTrigger = trigger;
       this.open = false;
-      trigger?.focus({ preventScroll: true });
       return;
     }
 
@@ -328,19 +359,9 @@ export default class WaDropdown extends WebAwesomeElement {
     const currentSubmenuItem = this.getCurrentSubmenuItem();
     const isInSubmenu = !!currentSubmenuItem;
 
-    let items: WaDropdownItem[];
-    let activeItem: WaDropdownItem | undefined;
-    let activeItemIndex: number;
-
-    if (isInSubmenu) {
-      items = this.getSubmenuItems(currentSubmenuItem);
-      activeItem = items.find(item => item.active || item === activeElement);
-      activeItemIndex = activeItem ? items.indexOf(activeItem) : -1;
-    } else {
-      items = this.getItems();
-      activeItem = items.find(item => item.active || item === activeElement);
-      activeItemIndex = activeItem ? items.indexOf(activeItem) : -1;
-    }
+    const items = isInSubmenu ? this.getSubmenuItems(currentSubmenuItem) : this.getItems();
+    const activeItem = items.find(item => item === activeElement) ?? items.find(item => item.active);
+    const activeItemIndex = activeItem ? items.indexOf(activeItem) : -1;
 
     let itemToSelect: WaDropdownItem | undefined;
 
@@ -472,7 +493,7 @@ export default class WaDropdown extends WebAwesomeElement {
           }
         }, 0);
       } else {
-        this.makeSelection(activeItem);
+        this.makeSelection(activeItem, event);
       }
     }
   };
@@ -509,7 +530,7 @@ export default class WaDropdown extends WebAwesomeElement {
       return;
     }
 
-    this.makeSelection(item);
+    this.makeSelection(item, event);
   }
 
   /** Prepares dropdown items when they get added or removed */
@@ -523,6 +544,8 @@ export default class WaDropdown extends WebAwesomeElement {
     const hasSubmenu = items.some(item => item.hasSubmenu);
 
     items.forEach((item, index) => {
+      item.setAttribute('aria-posinset', String(index + 1));
+      item.setAttribute('aria-setsize', String(items.length));
       item.active = index === 0;
       item.checkboxAdjacent = hasCheckbox;
       item.submenuAdjacent = hasSubmenu;
@@ -550,10 +573,7 @@ export default class WaDropdown extends WebAwesomeElement {
 
     this.cleanupSubmenuPosition(item);
 
-    const cleanup = autoUpdate(item, item.submenuElement, () => {
-      this.positionSubmenu(item);
-      this.updateSafeTriangleCoordinates(item);
-    });
+    const cleanup = autoUpdate(item, item.submenuElement, () => this.positionSubmenu(item));
 
     this.submenuCleanups.set(item, cleanup);
 
@@ -621,6 +641,7 @@ export default class WaDropdown extends WebAwesomeElement {
         }),
         shift({
           padding: 8,
+          crossAxis: true,
         }),
       ],
     }).then(({ x, y, placement }) => {
@@ -630,7 +651,15 @@ export default class WaDropdown extends WebAwesomeElement {
         left: `${x}px`,
         top: `${y}px`,
       });
+
+      // Runs after positioning so the triangle uses the resolved placement and rect
+      this.updateSafeTriangleCoordinates(item);
     });
+  }
+
+  /** Whether the submenu opened on the left of its parent item, which happens in RTL or when it flips */
+  private isSubmenuOnLeft(item: WaDropdownItem) {
+    return item.submenuElement.getAttribute('data-placement')?.startsWith('left') ?? false;
   }
 
   /** Updates the safe triangle coordinates for a submenu */
@@ -647,17 +676,11 @@ export default class WaDropdown extends WebAwesomeElement {
     item.submenuElement.style.setProperty('--safe-triangle-visible', 'block');
 
     const submenuRect = item.submenuElement.getBoundingClientRect();
-    const isRtl = this.localize.dir() === 'rtl';
+    const submenuEdgeX = this.isSubmenuOnLeft(item) ? submenuRect.right : submenuRect.left;
 
-    item.submenuElement.style.setProperty(
-      '--safe-triangle-submenu-start-x',
-      `${isRtl ? submenuRect.right : submenuRect.left}px`,
-    );
+    item.submenuElement.style.setProperty('--safe-triangle-submenu-start-x', `${submenuEdgeX}px`);
     item.submenuElement.style.setProperty('--safe-triangle-submenu-start-y', `${submenuRect.top}px`);
-    item.submenuElement.style.setProperty(
-      '--safe-triangle-submenu-end-x',
-      `${isRtl ? submenuRect.right : submenuRect.left}px`,
-    );
+    item.submenuElement.style.setProperty('--safe-triangle-submenu-end-x', `${submenuEdgeX}px`);
     item.submenuElement.style.setProperty('--safe-triangle-submenu-end-y', `${submenuRect.bottom}px`);
   }
 
@@ -667,10 +690,10 @@ export default class WaDropdown extends WebAwesomeElement {
     if (!currentSubmenuItem?.submenuOpen || !currentSubmenuItem.submenuElement) return;
 
     const submenuRect = currentSubmenuItem.submenuElement.getBoundingClientRect();
-    const isRtl = this.localize.dir() === 'rtl';
-    const submenuEdgeX = isRtl ? submenuRect.right : submenuRect.left;
+    const isOnLeft = this.isSubmenuOnLeft(currentSubmenuItem);
+    const submenuEdgeX = isOnLeft ? submenuRect.right : submenuRect.left;
 
-    const constrainedX = isRtl ? Math.max(event.clientX, submenuEdgeX) : Math.min(event.clientX, submenuEdgeX);
+    const constrainedX = isOnLeft ? Math.max(event.clientX, submenuEdgeX) : Math.min(event.clientX, submenuEdgeX);
     const constrainedY = Math.max(submenuRect.top, Math.min(event.clientY, submenuRect.bottom));
 
     currentSubmenuItem.submenuElement.style.setProperty('--safe-triangle-cursor-x', `${constrainedX}px`);
@@ -678,20 +701,20 @@ export default class WaDropdown extends WebAwesomeElement {
 
     // Calculate these up front since this event cant fire a lot.
     const composedPath = event.composedPath();
-    const submenuItemHovered = currentSubmenuItem.matches(':hover');
-    const submenuElementHovered = Boolean(currentSubmenuItem.submenuElement?.matches(':hover'));
+    const submenuItemHovered = () => currentSubmenuItem.matches(':hover');
+    const submenuElementHovered = () => Boolean(currentSubmenuItem.submenuElement?.matches(':hover'));
 
-    const isOverItem = submenuItemHovered || !!composedPath.find(el => el === currentSubmenuItem);
+    const isOverItem = submenuItemHovered() || !!composedPath.find(el => el === currentSubmenuItem);
 
     const isOverSubmenu =
-      submenuElementHovered ||
+      submenuElementHovered() ||
       !!composedPath.find(
         el => el instanceof HTMLElement && el.closest('[part="submenu"]') === currentSubmenuItem.submenuElement,
       );
 
     if (!isOverItem && !isOverSubmenu) {
       setTimeout(() => {
-        if (!submenuItemHovered && !submenuElementHovered) {
+        if (!submenuItemHovered() && !submenuElementHovered()) {
           currentSubmenuItem.submenuOpen = false;
         }
       }, 100);
@@ -699,7 +722,7 @@ export default class WaDropdown extends WebAwesomeElement {
   };
 
   /** Makes a selection, emits the wa-select event, and closes the dropdown. */
-  private makeSelection(item: WaDropdownItem) {
+  private makeSelection(item: WaDropdownItem, sourceEvent?: MouseEvent | KeyboardEvent) {
     const trigger = this.getTrigger();
 
     if (item.disabled) {
@@ -714,6 +737,10 @@ export default class WaDropdown extends WebAwesomeElement {
     this.dispatchEvent(selectEvent);
 
     if (!selectEvent.defaultPrevented) {
+      // Items with an href navigate by clicking a hidden link. The source event is passed along so modifier keys, such
+      // as Command or Control to open a new tab, are honored.
+      item.navigate(sourceEvent);
+
       this.open = false;
       trigger?.focus({ preventScroll: true });
     }
@@ -731,7 +758,7 @@ export default class WaDropdown extends WebAwesomeElement {
     if (trigger.localName === 'wa-button') {
       await customElements.whenDefined('wa-button');
       await (trigger as WaButton).updateComplete;
-      nativeButton = trigger.shadowRoot!.querySelector<HTMLButtonElement>('[part="base"]')!;
+      nativeButton = trigger.shadowRoot!.querySelector<HTMLButtonElement>('[part~="button"]')!;
     } else {
       nativeButton = trigger as HTMLButtonElement;
     }
@@ -760,7 +787,7 @@ export default class WaDropdown extends WebAwesomeElement {
         flip-fallback-strategy="best-fit"
         shift
         shift-padding="10"
-        auto-size="vertical"
+        auto-size="both"
         auto-size-padding="10"
       >
         <slot

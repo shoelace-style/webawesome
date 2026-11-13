@@ -2,7 +2,7 @@
   "name": "@webawesome/monorepo",
   "private": true,
   "description": "A forward-thinking library of web components.",
-  "version": "3.10.0",
+  "version": "3.14.0",
   "homepage": "https://webawesome.com/",
   "author": "Web Awesome",
   "license": "MIT",
@@ -49,7 +49,7 @@
     "custom-element-vuejs-integration": "^1.4.0",
     "del": "^7.1.0",
     "download": "^8.0.0",
-    "esbuild": "0.23.1",
+    "esbuild": "0.25.12",
     "esbuild-plugin-replace": "^1.4.0",
     "front-matter": "^4.0.2",
     "get-port": "^7.1.0",
@@ -68,7 +68,7 @@
     "npm-check-updates": "^17.1.11",
     "ora": "^8.1.1",
     "pascal-case": "^3.1.2",
-    "playwright": "^1.49.1",
+    "playwright": "^1.64.1",
     "plop": "^4.0.1",
     "prettier": "^3.4.2",
     "prettier-plugin-organize-imports": "^4.1.0",
@@ -83,12 +83,17 @@
     "uuid": "^9.0.1"
   },
   "overrides": {
-    "playwright": "^1.49.1",
-    "axe-core": "^4.11.4"
+    "playwright": "^1.64.1",
+    "axe-core": "^4.11.4",
+    "esbuild": "$esbuild"
   },
   "lint-staged": {
     "*.{ts,js}": [
       "prettier --write"
     ]
+  },
+  "allowScripts": {
+    "esbuild": true,
+    "rs-module-lexer": true
   }
 }

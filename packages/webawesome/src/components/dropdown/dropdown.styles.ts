@@ -21,6 +21,7 @@ export default css`
     text-align: start;
     user-select: none;
     overflow: auto;
+    overscroll-behavior: none;
     max-width: var(--auto-size-available-width) !important;
     max-height: var(--auto-size-available-height) !important;
 

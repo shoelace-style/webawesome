@@ -22,7 +22,10 @@ export function getComponents() {
         const slots = declaration.slots?.sort(sortByName);
         const events = declaration.events?.sort(sortByName);
         const cssProperties = declaration.cssProperties?.sort(sortByName);
-        const cssParts = declaration.cssParts?.sort(sortByName);
+        // Deprecated parts sort to the bottom so the supported names read first.
+        const cssParts = declaration.cssParts?.sort(
+          (a, b) => Number(Boolean(a.deprecated)) - Number(Boolean(b.deprecated)) || sortByName(a, b),
+        );
         const cssStates = declaration.cssStates?.sort(sortByName);
         const dependencies = declaration.dependencies?.sort((a, b) => a.localeCompare(b));
 

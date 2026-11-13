@@ -20,7 +20,7 @@ import styles from './zoomable-frame.styles.js';
  * @slot zoom-in-icon - The slot that contains the zoom in icon.
  * @slot zoom-out-icon - The slot that contains the zoom out icon.
  *
- * @event load - Emitted when the internal iframe when it finishes loading.
+ * @event load - Emitted from the internal iframe when it finishes loading.
  * @event error - Emitted from the internal iframe when it fails to load.
  *
  * @csspart iframe - The internal `<iframe>` element.
@@ -51,17 +51,36 @@ export default class WaZoomableFrame extends WebAwesomeElement {
   /** Inline HTML to display. */
   @property() srcdoc: string;
 
+  /**
+   * A [Permissions Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Permissions_Policy) that controls which
+   * features the embedded content can use, e.g. `clipboard-write; fullscreen`. The browser reads this when the frame
+   * loads, so changing it afterwards has no effect until the frame navigates again.
+   */
+  @property() allow: string;
+
   /** Allows fullscreen mode. */
   @property({ type: Boolean }) allowfullscreen = false;
 
   /** Controls iframe loading behavior. */
   @property() loading: 'eager' | 'lazy' = 'eager';
 
+  /** The name of the frame, which lets it be targeted by links and forms using the same name. */
+  @property() name: string;
+
   /** Controls referrer information. */
   @property() referrerpolicy: string;
 
-  /** Security restrictions for the iframe. */
+  /**
+   * Security restrictions for the iframe. The browser reads this when the frame loads, so changing it afterwards has
+   * no effect until the frame navigates again.
+   */
   @property() sandbox: string;
+
+  /**
+   * An accessible name for the frame. Screen readers announce it when moving between frames, so set one that describes
+   * the frame's content.
+   */
+  @property() label = '';
 
   /** The current zoom of the frame, e.g. 0 = 0% and 1 = 100%. */
   @property({ type: Number, reflect: true }) zoom = 1;
@@ -276,9 +295,12 @@ export default class WaZoomableFrame extends WebAwesomeElement {
           part="iframe"
           ?inert=${this.withoutInteraction}
           ?allowfullscreen=${this.allowfullscreen}
+          allow=${ifDefined(this.allow ?? undefined)}
+          sandbox=${ifDefined(this.sandbox ?? undefined)}
+          referrerpolicy=${ifDefined(this.referrerpolicy ?? undefined)}
+          name=${ifDefined(this.name ?? undefined)}
+          title=${ifDefined(this.label || undefined)}
           loading=${this.loading}
-          referrerpolicy=${this.referrerpolicy}
-          sandbox=${ifDefined((this.sandbox as any) ?? undefined)}
           src=${ifDefined(this.src ?? undefined)}
           srcdoc=${ifDefined(this.srcdoc ?? undefined)}
           @load=${this.handleLoad}

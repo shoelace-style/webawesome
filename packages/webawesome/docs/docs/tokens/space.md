@@ -1,6 +1,6 @@
 ---
 title: Space
-description: Lock down consistent spacing Web Awesome's space tokens.
+description: Space tokens define a consistent spacing scale in rem units.
 synonyms:
   - spacing
   - spacing scale
@@ -10,7 +10,7 @@ use-cases:
   - margin
   - gap
   - spacing tokens
-hasOutline: true
+layout: docs
 ---
 
 <style>

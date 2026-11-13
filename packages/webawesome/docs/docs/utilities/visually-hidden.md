@@ -42,7 +42,7 @@ In this example, the link will open a new window. Screen readers will announce "
 
 ### Content Conveyed by Context
 
-Adding a label may seem redundant at times, but they're very helpful for unsighted users. Rather than omit them, you can provide context to unsighted users with visually hidden content that will be announced by assistive devices such as screen readers.
+Adding a label may seem redundant at times, but labels are very helpful for unsighted users. Rather than omit them, you can provide context with visually hidden content that will be announced by assistive devices such as screen readers.
 
 ```html {.example}
 <wa-card style="width: 100%; max-width: 360px;">

@@ -2,6 +2,7 @@
 title: Scroller
 layout: component
 category: Layout
+hasAnatomy: false
 synonyms:
   - scrollable
   - scroll container
@@ -84,7 +85,7 @@ use-cases:
 
 ### Adding Content
 
-The scroller component automatically provides a scrollable container for any content that exceeds the available space. Simply add your content as children of the `<wa-scroller>` element, and it will handle the rest.
+The scroller component automatically provides a scrollable container for any content that exceeds the available space. Add your content as children of the `<wa-scroller>` element, and it handles the rest.
 
 ```html {.example}
 <wa-scroller>
@@ -226,5 +227,6 @@ Use the `without-scrollbar` attribute to hide the scrollbar while maintaining sc
 ```
 
 :::warning
-Hiding scrollbars can negatively impact accessibility. Users who rely on visible scrollbars to navigate content may have difficulty recognizing that content is scrollable or controlling their scrolling position. Consider the needs of all users when implementing this option.
+<strong>Hiding the scrollbar can hurt accessibility.</strong><br />
+People who rely on a visible scrollbar may not realize the content scrolls, or may struggle to control their position. Weigh that before turning it off.
 :::

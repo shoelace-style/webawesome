@@ -13,22 +13,23 @@ use-cases:
   - time since
 ---
 
-Localization is handled by the browser's [`Intl.RelativeTimeFormat` API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/RelativeTimeFormat). No language packs are required.
-
 ```html {.example}
-<!-- Shoelace 2 release date 🎉 -->
-<wa-relative-time date="2020-07-15T09:17:00-04:00"></wa-relative-time>
+<!-- Web Awesome 3 release date 🎉 -->
+<wa-relative-time date="2025-12-02T00:00:00-05:00"></wa-relative-time>
 ```
+
+Localization is handled by the browser's [`Intl.RelativeTimeFormat` API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/RelativeTimeFormat). No language packs are required.
 
 The `date` attribute determines when the date/time is calculated from. It must be a string that [`Date.parse()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/parse) can interpret or a [`Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) object set via JavaScript.
 
 :::info
-When using strings, avoid ambiguous dates such as `03/04/2020` which can be interpreted as March 4 or April 3 depending on the user's browser and locale. Instead, always use a valid [ISO 8601 date time string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/parse#Date_Time_String_Format) to ensure the date will be parsed properly by all clients.
+<strong>Always use ISO 8601 date strings.</strong><br />
+Ambiguous formats like `03/04/2020` can be read as March 4 or April 3 depending on the user's browser and locale. A valid [ISO 8601 date time string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/parse#Date_Time_String_Format) parses the same for every client.
 :::
 
 ## Examples
 
-### Keeping Time in Sync
+### Sync
 
 Use the `sync` attribute to update the displayed value automatically as time passes.
 
@@ -45,14 +46,14 @@ Use the `sync` attribute to update the displayed value automatically as time pas
 </script>
 ```
 
-### Formatting Styles
+### Format
 
 You can change how the time is displayed using the `format` attribute. Note that some locales may display the same values for `narrow` and `short` formats.
 
 ```html {.example}
-<wa-relative-time date="2020-07-15T09:17:00-04:00" format="narrow"></wa-relative-time><br />
-<wa-relative-time date="2020-07-15T09:17:00-04:00" format="short"></wa-relative-time><br />
-<wa-relative-time date="2020-07-15T09:17:00-04:00" format="long"></wa-relative-time>
+<wa-relative-time date="2025-12-02T00:00:00-05:00" format="narrow"></wa-relative-time><br />
+<wa-relative-time date="2025-12-02T00:00:00-05:00" format="short"></wa-relative-time><br />
+<wa-relative-time date="2025-12-02T00:00:00-05:00" format="long"></wa-relative-time>
 ```
 
 ### Localization
@@ -60,9 +61,9 @@ You can change how the time is displayed using the `format` attribute. Note that
 Use the `lang` attribute to set the desired locale.
 
 ```html {.example}
-English: <wa-relative-time date="2020-07-15T09:17:00-04:00" lang="en-US"></wa-relative-time><br />
-Chinese: <wa-relative-time date="2020-07-15T09:17:00-04:00" lang="zh-CN"></wa-relative-time><br />
-German: <wa-relative-time date="2020-07-15T09:17:00-04:00" lang="de"></wa-relative-time><br />
-Greek: <wa-relative-time date="2020-07-15T09:17:00-04:00" lang="el"></wa-relative-time><br />
-Russian: <wa-relative-time date="2020-07-15T09:17:00-04:00" lang="ru"></wa-relative-time>
+English: <wa-relative-time date="2025-12-02T00:00:00-05:00" lang="en-US"></wa-relative-time><br />
+Chinese: <wa-relative-time date="2025-12-02T00:00:00-05:00" lang="zh-CN"></wa-relative-time><br />
+German: <wa-relative-time date="2025-12-02T00:00:00-05:00" lang="de"></wa-relative-time><br />
+Greek: <wa-relative-time date="2025-12-02T00:00:00-05:00" lang="el"></wa-relative-time><br />
+Russian: <wa-relative-time date="2025-12-02T00:00:00-05:00" lang="ru"></wa-relative-time>
 ```

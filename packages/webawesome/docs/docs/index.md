@@ -1,6 +1,7 @@
 ---
 title: Installation
 description: Choose the installation method that works best for you.
+ogDescription: "One CDN line is the fastest start. npm and self-hosted downloads are covered too."
 layout: page-outline
 ---
 
@@ -15,9 +16,18 @@ You can load Web Awesome via CDN or by installing it locally. If you’re using 
 The CDN is the fastest way to get started with Web Awesome. Just copy and paste the following into the `<head>` of your HTML to get started!
 
 ```html
-<link rel="stylesheet" href="{% cdnUrl 'styles/webawesome.css' %}" />
+<!-- Required: default theme + autoloader -->
+<link rel="stylesheet" href="{% cdnUrl 'styles/themes/default.css' %}" />
 <script type="module" src="{% cdnUrl 'webawesome.loader.js' %}"></script>
+
+<!-- Recommended: utility classes ("CSS Utilities") -->
+<link rel="stylesheet" href="{% cdnUrl 'styles/utilities.css' %}" />
+
+<!-- Optional: CSS reset ("Native Styles") -->
+<link rel="stylesheet" href="{% cdnUrl 'styles/native.css' %}" />
 ```
+
+Prefer one line? `styles/webawesome.css` pulls in the theme, utility classes, and native styles together.
 
 Now you can [use any Web Awesome component](/docs/components)! Try putting a button on the page:
 
@@ -25,8 +35,8 @@ Now you can [use any Web Awesome component](/docs/components)! Try putting a but
 <wa-button variant="brand">Click me!</wa-button>
 ```
 
-:::pro Using Web Awesome Pro?
-Get personalized installation instructions from <a href="/workspaces">your&nbsp;workspaces</a> instead.
+:::pro
+**Using Web Awesome Pro?** Visit [your workspaces](/workspaces) for personalized installation docs.
 :::
 
 ## Installing with npm
@@ -50,8 +60,8 @@ import '@awesome.me/webawesome/dist/components/input/input.js';
 
 Once a component has been imported, you can use it in your HTML normally. Components are cherry picked to ensure you're getting the smallest possible bundle. You can find each component import in the "Importing" section of its documentation.
 
-:::pro Using Web Awesome Pro?
-Get personalized installation instructions from <a href="/workspaces">your&nbsp;workspaces</a> instead.
+:::pro
+**Using Web Awesome Pro?** Visit [your workspaces](/workspaces) for personalized installation docs.
 :::
 
 ## Get the Download (Advanced)
@@ -91,14 +101,14 @@ If you're self-hosting Web Awesome, you'll need to set up your pages to referenc
 
 <!-- Option 2: pick and choose styles -->
 
-<!-- theme (required) -->
+<!-- Required: theme -->
 <link rel="stylesheet" href="/dist/styles/themes/default.css" />
 
-<!-- native styles (optional) -->
-<link rel="stylesheet" href="/dist/styles/native.css" />
-
-<!-- CSS utilities (optional) -->
+<!-- Recommended: utility classes ("CSS Utilities") -->
 <link rel="stylesheet" href="/dist/styles/utilities.css" />
+
+<!-- Optional: CSS reset ("Native Styles") -->
+<link rel="stylesheet" href="/dist/styles/native.css" />
 ```
 
 If you choose to use a theme other than the default theme, be sure to add the corresponding class (e.g. `.wa-theme-awesome`) to your `<html>` element so that the class is applied.
@@ -156,3 +166,9 @@ Most of the magic behind assets is handled internally by Web Awesome, but if you
 ```
 
 Now you can use {{ site.siblings.fontAwesome.name }} icons through the [`<wa-icon>`](/docs/components/icon) component!
+
+To use a different family or variant for every icon, add the `data-fa-family` and `data-fa-variant` attributes too. See [Changing the Default Family & Variant](/docs/components/icon#changing-the-default-family-and-variant) for details.
+
+```html
+<html data-fa-kit-code="YOUR_KIT_CODE_HERE" data-fa-family="sharp" data-fa-variant="light"></html>
+```

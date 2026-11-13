@@ -1,6 +1,6 @@
 ---
 title: Shadows
-description: Elevate your components with Web Awesome's shadow tokens.
+description: Shadow tokens convey elevation and depth in Web Awesome components.
 synonyms:
   - box shadow
   - elevation
@@ -9,10 +9,10 @@ use-cases:
   - drop shadow
   - card shadow
   - overlay shadow
-hasOutline: true
+layout: docs
 ---
 
-Shadow tokens indicate elevation and, often, interactivity. Web Awesome provides three size-based shadow shorthands built from modular offset, blur, and spread tokens. Together with [`--wa-color-shadow`](?active_tab=color), these tokens create realistic drop shadows.
+Shadow tokens indicate elevation and, often, interactivity. Web Awesome provides three size-based shadow shorthands built from modular offset, blur, and spread tokens. Together with [`--wa-color-shadow`](/docs/tokens/color), these tokens create realistic drop shadows.
 
 Larger shadows have greater offset and blur values to suggest greater distance from the surface below. Any shadow can also be used as an inner shadow with the `inset` keyword, e.g. `box-shadow: inset var(--wa-shadow-s)`.
 

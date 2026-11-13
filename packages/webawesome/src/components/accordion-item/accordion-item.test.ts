@@ -49,6 +49,12 @@ describe('<wa-accordion-item>', () => {
           const button = el.shadowRoot!.querySelector('[part~="button"]')!;
           expect(button.getAttribute('tabindex')).to.equal('-1');
         });
+
+        it('should set tabindex to 0 on the button when not disabled', async () => {
+          const el = await fixture<WaAccordionItem>(html`<wa-accordion-item label="Test">Content</wa-accordion-item>`);
+          const button = el.shadowRoot!.querySelector('[part~="button"]')!;
+          expect(button.getAttribute('tabindex')).to.equal('0');
+        });
       });
 
       describe('properties', () => {
@@ -217,9 +223,11 @@ describe('<wa-accordion-item>', () => {
       });
 
       describe('CSS parts', () => {
-        it('should expose the base part', async () => {
+        it('should expose the "accordion-item" part and keep the deprecated base part', async () => {
           const el = await fixture<WaAccordionItem>(html`<wa-accordion-item label="Test">Content</wa-accordion-item>`);
-          expect(el.shadowRoot!.querySelector('[part~="base"]')).to.exist;
+          const wrapper = el.shadowRoot!.querySelector('[part~="accordion-item"]');
+          expect(wrapper).to.exist;
+          expect(wrapper!.matches('[part~="base"]')).to.be.true;
         });
 
         it('should expose the heading part', async () => {

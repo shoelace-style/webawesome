@@ -1,4 +1,4 @@
-import { html, isServer } from 'lit';
+import { html, isServer, type PropertyValues } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
@@ -27,7 +27,7 @@ const generateId = (): string => uniqueId('wa-known-date-');
  * @summary Known dates let users enter dates they already know - birthdays, expirations, document
  *  dates - through three separate day, month, and year fields shown in the locale's natural order.
  * @documentation https://webawesome.com/docs/components/known-date
- * @status experimental
+ * @status stable
  * @since 3.8
  *
  * @slot label - The known date's group label. Alternatively, use the `label` attribute.
@@ -43,8 +43,9 @@ const generateId = (): string => uniqueId('wa-known-date-');
  * @csspart form-control-label - The wrapper inside the legend that styles the visible label text.
  * @csspart form-control-input - Alias on the fields row matching other form controls.
  * @csspart hint - The hint's wrapper.
- * @csspart label - Alias on the legend's inner label wrapper.
- * @csspart base - The component's outer wrapper (alias of the fields row).
+ * @csspart label - Deprecated. Use the `form-control-label` part instead.
+ * @csspart base - Deprecated. Use the `known-date` part instead.
+ * @csspart known-date - The component's outer wrapper.
  * @csspart fieldset - The `<fieldset>` element grouping the three fields (or a `role="group"` div).
  * @csspart legend - The `<legend>` element (when a label is present).
  * @csspart fields - The flex row holding the three field blocks.
@@ -149,7 +150,10 @@ export default class WaKnownDate extends WebAwesomeFormAssociatedElement {
   /** Makes the fields non-editable. */
   @property({ type: Boolean, reflect: true }) readonly = false;
 
-  /** The known date's size. */
+  /**
+   * The known date's size.
+   * The long-form values `small`, `medium`, and `large` are deprecated; use `s`, `m`, and `l` instead.
+   */
   @property({ reflect: true }) size: WaKnownDateSize | 'small' | 'medium' | 'large' = 'm';
 
   @watch('size')
@@ -195,7 +199,8 @@ export default class WaKnownDate extends WebAwesomeFormAssociatedElement {
   // Lifecycle
   //
 
-  firstUpdated() {
+  firstUpdated(changedProperties: PropertyValues<typeof this>) {
+    super.firstUpdated(changedProperties);
     if (this.pendingValue != null) {
       this._value = this.pendingValue;
       this.pendingValue = null;
@@ -433,7 +438,7 @@ export default class WaKnownDate extends WebAwesomeFormAssociatedElement {
     const fields = this.fieldOrder().map(field => this.renderField(field, describedBy, userInvalid));
 
     const groupContent = html`
-      <div part="base form-control-input fields" class="fields">${fields}</div>
+      <div part="base known-date form-control-input fields" class="fields">${fields}</div>
 
       <slot
         name="hint"

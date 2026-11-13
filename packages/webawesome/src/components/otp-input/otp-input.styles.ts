@@ -1,0 +1,190 @@
+import { css } from 'lit';
+
+export default css`
+  :host(:focus) {
+    outline: none;
+  }
+
+  /* Segments container */
+  .segments {
+    position: relative;
+    /* Codes read left-to-right regardless of locale — keep segment order and caret movement LTR
+       even when the surrounding page is RTL. */
+    direction: ltr;
+    display: inline-flex;
+    align-items: center;
+    align-self: start;
+    gap: var(--segment-gap, var(--wa-space-xs));
+    cursor: text;
+    /* overflow-x clips overflow-y too, which would cut off the focus ring. The padding makes room
+       for the ring and the negative margin cancels it out. */
+    --focus-ring-bleed: calc(var(--wa-focus-ring-offset) + var(--wa-focus-ring-width));
+    padding: var(--focus-ring-bleed);
+    margin: calc(-1 * var(--focus-ring-bleed));
+    /* Scroll instead of overflowing the host. The cap counts the bleed, or a host sized to its
+       content (like inside .wa-frame) clips the last segment. */
+    max-width: calc(100% + 2 * var(--focus-ring-bleed));
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .segments::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+
+  :host(:state(disabled)) .segments {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  :host(:state(readonly)) .segments {
+    cursor: default;
+  }
+
+  /* Focus ring on the active segment, and on every segment in a multi-character selection */
+  .segments:focus-within .segment--active,
+  .segments:focus-within .segment--selected {
+    outline-color: var(--wa-color-focus);
+  }
+
+  /* Readonly has no per-segment active/selected state (see render()), so every segment rings
+     at once to show the control as a whole has focus. */
+  :host(:state(readonly)) .segments:focus-within .segment {
+    outline-color: var(--wa-color-focus);
+  }
+
+  /* Hidden real input — off-screen but focusable.
+     Chromium mishandles typing over a full selection (drops the inserted character) when a
+     text input has zero layout size, so this stays a non-zero 1x1px box instead of 0x0. */
+  .hidden-input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    overflow: hidden;
+    pointer-events: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  /* Individual visual segment */
+  .segment {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: var(--segment-size, 2.5em);
+    height: var(--segment-size, 2.5em);
+    border-radius: var(--segment-border-radius, var(--wa-form-control-border-radius));
+    font-size: 1em;
+    font-family: inherit;
+    font-variant-numeric: tabular-nums;
+    position: relative;
+    user-select: none;
+    outline: var(--wa-focus-ring-style) var(--wa-focus-ring-width) transparent;
+    outline-offset: var(--wa-focus-ring-offset);
+    transition:
+      background-color var(--wa-transition-normal),
+      border-color var(--wa-transition-normal),
+      outline-color var(--wa-transition-fast);
+    transition-timing-function: var(--wa-transition-easing);
+  }
+
+  /* Blinking caret in the active segment */
+  .caret {
+    position: absolute;
+    width: 1.5px;
+    height: 60%;
+    background-color: currentColor;
+    animation: wa-otp-caret-blink 1s step-end infinite;
+  }
+
+  @keyframes wa-otp-caret-blink {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
+
+  /* Literal separator character between segment groups */
+  .segment-literal {
+    display: inline-block;
+    flex-shrink: 0;
+    color: var(--wa-color-text-quiet);
+    white-space: pre;
+    user-select: none;
+  }
+
+  /* Appearance: outlined (default) */
+  :host([appearance='outlined']) .segment,
+  :host(:not([appearance])) .segment {
+    background-color: var(--wa-form-control-background-color);
+    border: var(--wa-form-control-border-width) var(--wa-form-control-border-style) var(--wa-form-control-border-color);
+  }
+
+  /* Appearance: filled */
+  :host([appearance='filled']) .segment {
+    background-color: var(--wa-color-neutral-fill-quiet);
+    border: var(--wa-form-control-border-width) var(--wa-form-control-border-style) transparent;
+  }
+
+  /* Appearance: filled-outlined */
+  :host([appearance='filled-outlined']) .segment {
+    background-color: var(--wa-color-neutral-fill-quiet);
+    border: var(--wa-form-control-border-width) var(--wa-form-control-border-style) var(--wa-form-control-border-color);
+  }
+
+  /* Appearance: contained */
+  :host([appearance='contained']) .segments {
+    gap: 0;
+    border: var(--wa-form-control-border-width) var(--wa-form-control-border-style) var(--wa-form-control-border-color);
+    border-radius: var(--segment-border-radius, var(--wa-form-control-border-radius));
+    background-color: var(--wa-form-control-background-color);
+    overflow: hidden;
+    /* No bleed: the ring draws inward here, and padding would inflate this visible box.
+       0px, not 0: calc() can't add a unitless 0 to a length. */
+    --focus-ring-bleed: 0px;
+  }
+
+  :host([appearance='contained']) .segment {
+    border: none;
+    border-radius: 0;
+    /* Contained segments sit flush with zero gap and have no border of their own, so a ring drawn
+       outside the segment edge (the default, positive offset) bleeds into the neighboring segment.
+       Draw it inward instead so it stays within this segment's own box. */
+    outline-offset: calc(-1 * var(--wa-focus-ring-width));
+  }
+
+  /* Dividers between contained segments */
+  :host([appearance='contained']) .segment + .segment,
+  :host([appearance='contained']) .segment-literal + .segment {
+    border-left: var(--wa-form-control-border-width) var(--wa-form-control-border-style)
+      var(--wa-form-control-border-color);
+  }
+
+  /* ── Active segment (where next char will go), and every segment in a multi-character
+     selection (e.g. from Cmd/Ctrl+A) — same border + focus-ring treatment for both.
+     :host(...) wrapper matches the specificity of the appearance rules above so this
+     border-color isn't silently lost to the cascade. ── */
+  :host(:not(:state(readonly))) .segment--active,
+  :host(:not(:state(readonly))) .segment--selected {
+    border-color: var(--wa-color-focus);
+  }
+
+  /* Masked filled character, and the empty-segment hint shown when with-mask is set, both draw
+     --mask-char via a pseudo-element instead of real text, so a masked value never touches the
+     DOM as plain text (nothing to find via view-source or copy). */
+  .segment--masked::before,
+  .segment--mask-hint::before {
+    content: var(--mask-char, '•');
+  }
+
+  .segment--mask-hint::before {
+    opacity: 0.35;
+  }
+`;

@@ -9,7 +9,7 @@ use-cases:
   - border width
   - border style
   - border color
-hasOutline: true
+layout: docs
 ---
 
 <style>

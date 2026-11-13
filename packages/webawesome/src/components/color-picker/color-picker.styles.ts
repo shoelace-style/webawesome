@@ -204,7 +204,7 @@ export default css`
   .user-input wa-button-group {
     margin-inline-start: 0.75em;
 
-    &::part(base) {
+    &::part(button-group) {
       flex-wrap: nowrap;
     }
   }
@@ -216,7 +216,7 @@ export default css`
 
   .swatches {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(1.5em, 100%), 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(1.5em, 100%), 1fr));
     grid-gap: 0.5em;
     justify-items: center;
     border-block-start: var(--wa-form-control-border-style) var(--wa-form-control-border-width)

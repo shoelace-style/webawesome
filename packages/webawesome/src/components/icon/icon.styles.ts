@@ -52,7 +52,9 @@ export default css`
   /* #endregion */
 
   svg {
-    fill: currentColor;
+    /* NOTE: Avoid setting fill here. A stylesheet rule beats SVG presentation attributes, breaking stroke-based
+       libraries like Lucide (fill="none" stroke="currentColor") and attribute-based mutators (issue #1733). The default
+       library applies fill="currentColor" in its mutator instead. */
     height: 1em;
     overflow: visible;
     width: auto;

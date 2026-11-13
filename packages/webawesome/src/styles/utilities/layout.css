@@ -7,7 +7,7 @@
       [class*='wa-stack'],
       [class*='wa-split']
     )
-    > * {
+    > :not(:where(dialog, [popover])) {
     margin-block: 0;
     margin-inline: 0;
   }

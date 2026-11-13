@@ -8,10 +8,11 @@ import { mkdir, readFile } from 'fs/promises';
 import getPort, { portNumbers } from 'get-port';
 import { globby } from 'globby';
 import * as fs from 'node:fs';
+import { createRequire } from 'node:module';
 import * as path from 'node:path';
 import { dirname, extname, join, posix, relative } from 'node:path';
 import process from 'node:process';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import open from 'open';
 import ora from 'ora';
 import copy from 'recursive-copy';
@@ -85,6 +86,7 @@ export async function build(options = {}) {
         generateReactWrappers,
         generateTypes,
         generateStyles,
+        copyCodeGrammars,
       ];
 
       for (const step of steps) {
@@ -118,7 +120,9 @@ export async function build(options = {}) {
       spinner.succeed(`The build is complete ${chalk.gray(`(finished in ${time})`)}`);
 
       // update the lit-render-string in case it changed
-      const mod = await import(`../dist/ssr/render-string.js?cachebust=${new Date().getTime()}`);
+      // A file URL, because a Windows path like `C:\...` is not something `import()` can load
+      const renderString = pathToFileURL(path.join(getDistDir(), 'ssr/render-string.js')).href;
+      const mod = await import(`${renderString}?cachebust=${new Date().getTime()}`);
       litRenderString = mod.renderString;
     } catch (err) {
       spinner.fail();
@@ -219,6 +223,22 @@ export async function build(options = {}) {
     spinner.succeed();
 
     return Promise.resolve();
+  }
+
+  /**
+   * Copies the code highlighter grammars so they load on demand from the base path. Their MIT license goes with them.
+   */
+  async function copyCodeGrammars() {
+    spinner.start('Copying code grammars');
+
+    const require = createRequire(import.meta.url);
+    // The package only exports dist, so step up from a dist file to reach its LICENSE
+    const packageDir = dirname(dirname(require.resolve('microlighter/grammar-dependencies.js')));
+    const outDir = join(getCdnDir(), 'assets/grammars');
+    await copy(join(packageDir, 'dist/grammars'), outDir, { overwrite: true, filter: /\.js$/ });
+    await fs.promises.copyFile(join(packageDir, 'LICENSE'), join(outDir, 'LICENSE'));
+
+    spinner.succeed();
   }
 
   /**
@@ -633,7 +653,7 @@ async function loadComponents() {
 
       const modulePath = path.join(baseDir, component, component + '.js');
 
-      return import(modulePath + `?cachebust=${new Date().getTime()}`);
+      return import(pathToFileURL(modulePath).href + `?cachebust=${new Date().getTime()}`);
     }),
   );
 }

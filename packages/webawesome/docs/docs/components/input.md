@@ -16,16 +16,22 @@ use-cases:
 ---
 
 ```html {.example}
-<wa-input></wa-input>
+<wa-input label="Name"></wa-input>
+```
+
+```html {.example .anatomy-only}
+<wa-input type="password" label="Password" hint="Must be at least 8 characters." value="correcthorse">
+  <wa-icon slot="start" name="lock"></wa-icon>
+</wa-input>
 ```
 
 :::info
-This component works with standard `<form>` elements. Please refer to the section on [form controls](/docs/form-controls) to learn more about form submission and client-side validation.
+This component works with standard `<form>` elements. See [form controls](/docs/form-controls) for form submission and client-side validation.
 :::
 
 ## Examples
 
-### Labels
+### Label
 
 Use the `label` attribute to give the input an accessible label. For labels that contain HTML, use the `label` slot instead.
 
@@ -41,12 +47,12 @@ Add descriptive hint to an input with the `hint` attribute. For hints that conta
 <wa-input label="Nickname" hint="What would you like people to call you?"></wa-input>
 ```
 
-### Placeholders
+### Placeholder
 
 Use the `placeholder` attribute to add a placeholder.
 
 ```html {.example}
-<wa-input placeholder="Type something"></wa-input>
+<wa-input label="Search" placeholder="Search the docs"></wa-input>
 ```
 
 ### Clearable
@@ -70,9 +76,11 @@ Add the `password-toggle` attribute to add a toggle button that will show the pa
 Use the `appearance` attribute to change the input's visual appearance.
 
 ```html {.example}
-<wa-input placeholder="Type something" appearance="filled"></wa-input><br />
-<wa-input placeholder="Type something" appearance="filled-outlined"></wa-input><br />
-<wa-input placeholder="Type something" appearance="outlined"></wa-input>
+<div class="wa-stack">
+  <wa-input appearance="outlined" placeholder="outlined"></wa-input>
+  <wa-input appearance="filled" placeholder="filled"></wa-input>
+  <wa-input appearance="filled-outlined" placeholder="filled-outlined"></wa-input>
+</div>
 ```
 
 ### Disabled
@@ -83,20 +91,26 @@ Use the `disabled` attribute to disable an input.
 <wa-input placeholder="Disabled" disabled></wa-input>
 ```
 
-### Sizes
+### Readonly
+
+Use the `readonly` attribute to keep a value visible but uneditable. Unlike `disabled`, a readonly input stays focusable and its value is still submitted with the form.
+
+```html {.example}
+<wa-input label="Account ID" value="WA-2049" readonly></wa-input>
+```
+
+### Size
 
 Use the `size` attribute to change an input's size.
 
 ```html {.example}
-<wa-input placeholder="Extra Small" size="xs"></wa-input>
-<br />
-<wa-input placeholder="Small" size="s"></wa-input>
-<br />
-<wa-input placeholder="Medium" size="m"></wa-input>
-<br />
-<wa-input placeholder="Large" size="l"></wa-input>
-<br />
-<wa-input placeholder="Extra Large" size="xl"></wa-input>
+<div class="wa-stack">
+  <wa-input size="xs" placeholder="Extra small"></wa-input>
+  <wa-input size="s" placeholder="Small"></wa-input>
+  <wa-input size="m" placeholder="Medium"></wa-input>
+  <wa-input size="l" placeholder="Large"></wa-input>
+  <wa-input size="xl" placeholder="Extra large"></wa-input>
+</div>
 ```
 
 ### Pill
@@ -104,15 +118,7 @@ Use the `size` attribute to change an input's size.
 Use the `pill` attribute to give inputs rounded edges.
 
 ```html {.example}
-<wa-input placeholder="Extra Small" size="xs" pill></wa-input>
-<br />
-<wa-input placeholder="Small" size="s" pill></wa-input>
-<br />
-<wa-input placeholder="Medium" size="m" pill></wa-input>
-<br />
-<wa-input placeholder="Large" size="l" pill></wa-input>
-<br />
-<wa-input placeholder="Extra Large" size="xl" pill></wa-input>
+<wa-input placeholder="Search" pill></wa-input>
 ```
 
 ### Input Types
@@ -120,11 +126,11 @@ Use the `pill` attribute to give inputs rounded edges.
 The `type` attribute controls the type of input the browser renders.
 
 ```html {.example}
-<wa-input type="email" placeholder="Email"></wa-input>
-<br />
-<wa-input type="number" placeholder="Number"></wa-input>
-<br />
-<wa-input type="date" placeholder="Date"></wa-input>
+<div class="wa-stack">
+  <wa-input type="email" placeholder="Email"></wa-input>
+  <wa-input type="number" placeholder="Number"></wa-input>
+  <wa-input type="date" placeholder="Date"></wa-input>
+</div>
 ```
 
 ### Start & End Decorations
@@ -132,30 +138,30 @@ The `type` attribute controls the type of input the browser renders.
 Use the `start` and `end` slots to add presentational elements like `<wa-icon>` within the input.
 
 ```html {.example}
-<wa-input placeholder="Small" size="s">
-  <wa-icon name="house" slot="start"></wa-icon>
-  <wa-icon name="comment" slot="end"></wa-icon>
-</wa-input>
-<br />
-<wa-input placeholder="Medium" size="m">
-  <wa-icon name="house" slot="start"></wa-icon>
-  <wa-icon name="comment" slot="end"></wa-icon>
-</wa-input>
-<br />
-<wa-input placeholder="Large" size="l">
-  <wa-icon name="house" slot="start"></wa-icon>
-  <wa-icon name="comment" slot="end"></wa-icon>
-</wa-input>
+<div class="wa-stack">
+  <wa-input label="Search" placeholder="Search the docs">
+    <wa-icon name="magnifying-glass" slot="start"></wa-icon>
+  </wa-input>
+  <wa-input label="Website" placeholder="example.com">
+    <wa-icon name="globe" slot="start"></wa-icon>
+    <wa-icon name="circle-info" slot="end"></wa-icon>
+  </wa-input>
+</div>
 ```
 
 ### Customizing Label Position
 
-Use [CSS parts](#css-parts) to customize the way form controls are drawn. This example uses CSS grid to position the label to the left of the control, but the possible orientations are nearly endless. The same technique works for inputs, textareas, radio groups, and similar form controls.
+Use [CSS parts](#css-parts) to customize the way form controls are drawn. This example uses CSS grid to position the label to the left of the control, but the possible orientations are nearly endless. The same technique works for inputs, textareas, radio groups, and similar form controls. The label part is a flex container, so align it with `justify-content` rather than `text-align`.
+
+:::info
+**Labels sit at the end of their column so every one is the same distance from its field.**
+Start-aligned labels leave a different-sized gap on each row, which makes it harder to see which label belongs to which field.
+:::
 
 ```html {.example}
 <div class="label-on-left">
   <wa-input label="Name" hint="Enter your name"></wa-input>
-  <wa-input label="Email" type="email" hint="Enter your email"></wa-input>
+  <wa-input label="Email address" type="email" hint="Enter your email"></wa-input>
   <wa-textarea label="Bio" hint="Tell us something about yourself"></wa-textarea>
 </div>
 
@@ -176,8 +182,16 @@ Use [CSS parts](#css-parts) to customize the way form controls are drawn. This e
       align-items: center;
     }
 
-    ::part(label) {
-      text-align: right;
+    wa-textarea {
+      align-items: start;
+
+      &::part(form-control-label) {
+        padding-block-start: var(--wa-form-control-padding-block);
+      }
+    }
+
+    ::part(form-control-label) {
+      justify-content: end;
     }
 
     ::part(hint) {

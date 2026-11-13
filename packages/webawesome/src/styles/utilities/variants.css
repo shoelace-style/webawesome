@@ -1,6 +1,7 @@
 @layer wa-utilities {
   :where(:root),
-  .wa-neutral {
+  .wa-neutral,
+  .wa-invert {
     --wa-color-fill-loud: var(--wa-color-neutral-fill-loud);
     --wa-color-fill-normal: var(--wa-color-neutral-fill-normal);
     --wa-color-fill-quiet: var(--wa-color-neutral-fill-quiet);

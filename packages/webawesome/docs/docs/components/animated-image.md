@@ -2,6 +2,7 @@
 title: Animated Image
 layout: component
 category: Media
+hasAnatomy: false
 synonyms:
   - gif
   - webp
@@ -25,7 +26,7 @@ This component uses `<canvas>` to draw freeze frames, so images are subject to [
 
 ## Examples
 
-### WEBP Images
+### Image Formats
 
 Both GIF and WEBP images are supported.
 
@@ -36,7 +37,7 @@ Both GIF and WEBP images are supported.
 ></wa-animated-image>
 ```
 
-### Setting a Width & Height
+### Width & Height
 
 To set a custom size, apply a width and/or height to the host element.
 

@@ -6,10 +6,10 @@
   :root {
     /* max-width for fixed width app-based pages
      * We round() these to avoid obscure component rendering bugs caused by widths with fractional pixels */
-    --content-width-l: round(up, 132ch, 1px);
-    --content-width-m: round(up, 110ch, 1px);
-    --content-width-s: round(up, 80ch, 1px);
-    --content-width-xs: round(up, 50ch, 1px);
+    --content-width-l: round(up, 83rem, 1px);
+    --content-width-m: round(up, 70rem, 1px);
+    --content-width-s: round(up, 50rem, 1px);
+    --content-width-xs: round(up, 31.5rem, 1px);
     --content-width-full: 100%;
     --content-flow-spacing: 8ch;
     --content-padding-inline: var(--wa-space-2xl);
@@ -26,7 +26,7 @@
     --line-length-xl: 90ch;
     --line-length-none: none;
 
-    --wa-brand-orange: #f36944;
+    --wa-brand-orange: #f46a45;
     --wa-brand-grey: #30323b;
 
     --brand-web-awesome-orange: var(--wa-brand-orange);
@@ -280,7 +280,7 @@
   }
 
   .nav-products {
-    wa-button[appearance='plain']:not([disabled]):not([loading]):hover::part(base) {
+    wa-button[appearance='plain']:not([disabled]):not([loading]):hover::part(button) {
       background-color: var(--wa-color-fill-normal, var(--wa-color-neutral-fill-normal));
     }
 
@@ -387,6 +387,12 @@
   }
 
   /* subheader */
+  /* site nav (header band and mobile drawer): match sidebar “current” emphasis */
+  .subheader-links wa-button.current::part(label) {
+    font-weight: var(--wa-font-weight-bold);
+    color: var(--wa-color-text-normal);
+  }
+
   wa-page > [slot='subheader'] {
     background-color: var(--wa-color-surface-default);
     border-block-end: var(--wa-border-style) var(--wa-panel-border-width) var(--wa-color-surface-border);
@@ -398,12 +404,6 @@
     /* icon-based logo */
     wa-icon.logo-web-awesome {
       font-size: var(--wa-font-size-xl);
-    }
-
-    /* subheader doc nav: match sidebar “current” emphasis */
-    .subheader-links wa-button.current::part(label) {
-      font-weight: var(--wa-font-weight-bold);
-      color: var(--wa-color-text-normal);
     }
 
     /* Narrow (≤ 85ch): compact header with logo */
@@ -499,6 +499,11 @@
     overflow: clip;
   }
 
+  /* Hide the empty forwarded footer that steals the drawer's bottom space (band-aid; see wa-page footer fix). */
+  wa-page[view='mobile']::part(drawer__footer) {
+    display: none;
+  }
+
   /* pro badge */
   wa-badge.pro {
     color: var(--wa-color-brand-on-loud);
@@ -527,6 +532,11 @@
     border-color: color-mix(in oklab, var(--wa-brand-orange) 30%, var(--wa-color-surface-default));
     color: var(--wa-color-text-normal);
 
+    /* Re-declare --wa-color-text-link so its var() substitution resolves in the orange-scoped
+       context (callouts carry .wa-brand-orange). The theme sets it at :root where brand is still
+       blue, so inheritance alone keeps links blue. */
+    --wa-color-text-link: var(--wa-color-brand-40);
+
     &::part(icon) {
       align-items: flex-start;
       color: var(--wa-brand-orange);
@@ -536,12 +546,8 @@
       font-size: var(--wa-font-size-xl);
     }
 
-    strong {
-      display: block;
-      margin-block-end: var(--wa-space-2xs);
-    }
-
-    strong a {
+    strong a,
+    [class*='wa-caption'] a {
       color: inherit;
     }
 
@@ -560,6 +566,15 @@
     wa-details [slot='summary'] u {
       --underline-color: var(--wa-color-brand);
     }
+  }
+
+  .wa-dark wa-callout.pro {
+    --wa-color-text-link: var(--wa-color-brand-70);
+  }
+
+  /* Keep the "new in Core" callout's version link in the neutral scheme, not brand blue. */
+  wa-callout.new {
+    --wa-color-text-link: var(--wa-color-text-normal);
   }
 
   /* free badge */
@@ -625,13 +640,38 @@
     font-weight: var(--wa-font-weight-bold);
   }
 
-  .kbd-modern {
+  /* The three colours are custom properties so a variant on another surface swaps those and keeps the shape. */
+  .kbd-modern,
+  wa-tooltip kbd {
+    --kbd-fill: color-mix(in oklab, var(--wa-color-surface-default), transparent 50%);
+    --kbd-border-color: var(--wa-color-neutral-border-quiet);
+    --kbd-shadow: var(--wa-shadow-s);
+
     padding: var(--wa-space-2xs) var(--wa-space-xs);
     line-height: 1;
-    background-color: color-mix(in oklab, var(--wa-color-surface-default), transparent 50%);
-    border: var(--wa-panel-border-style) var(--wa-panel-border-width) var(--wa-color-neutral-border-quiet);
+    background-color: var(--kbd-fill);
+    border: var(--wa-panel-border-style) var(--wa-panel-border-width) var(--kbd-border-color);
     border-radius: var(--wa-border-radius-s);
-    box-shadow: var(--wa-shadow-s);
+    box-shadow: var(--kbd-shadow);
+  }
+
+  /* The tooltip's fill is the page's inverse, so the surface-based colours above would read as a bright block on it. */
+  wa-tooltip kbd {
+    --kbd-fill: color-mix(in oklab, currentColor 7%, transparent);
+    --kbd-border-color: color-mix(in oklab, currentColor 10%, transparent);
+    --kbd-shadow: 0 1px 0 rgb(0 0 0 / 20%);
+
+    position: relative;
+    top: -0.1em;
+    display: inline-block;
+    padding: 0.15em 0.4em;
+    margin-block: -0.15em;
+    font-family: var(--wa-font-family-body);
+    font-size: 0.8em;
+    line-height: 1.2;
+    color: inherit;
+    vertical-align: middle;
+    border-width: var(--wa-border-width-s);
   }
 
   /* step icons for ordered instructions */
@@ -843,7 +883,7 @@
       }
     }
 
-    li wa-badge::part(base) {
+    li wa-badge::part(badge) {
       font-size: var(--wa-font-size-2xs);
       font-weight: var(--wa-font-weight-bold);
     }
@@ -889,8 +929,49 @@
       font-size: var(--font-size-3xs);
     }
 
-    wa-button#search-trigger::part(base) {
-      justify-content: flex-start; /* align search trigger button content to start */
+    /* Drawer top block outdents like the section headings so everything shares their icon edge */
+    .wa-mobile-only {
+      --icon-button-inset: calc((var(--wa-form-control-height) - 1.25 * var(--wa-font-size-m)) / 2);
+      margin-inline-start: calc(var(--wa-space-xs) * -1);
+    }
+
+    /* Pull the icon buttons out by their padding so the glyphs, not the buttons, meet the edges. inline-size: auto
+     * undoes wa-split's 100% so the negative margins can widen it. */
+    .wa-mobile-only > .wa-split {
+      inline-size: auto;
+      margin-inline: calc(var(--icon-button-inset) * -1);
+    }
+
+    wa-button#search-trigger::part(button),
+    .subheader-links wa-button::part(button) {
+      justify-content: flex-start;
+    }
+
+    /* site nav links: docs list rhythm and weight */
+    .subheader-links wa-button {
+      margin-inline-start: calc(var(--wa-border-width-s) * -1);
+    }
+
+    .subheader-links [slot='start'] {
+      min-inline-size: 1.25em; /* the headings' icon box; min- so a narrower icon still centers in it */
+      margin-inline-end: var(--wa-space-xs);
+    }
+
+    .subheader-links wa-button::part(button) {
+      height: auto;
+      line-height: var(--wa-line-height-condensed);
+      padding-block: calc(var(--wa-space-xs) - var(--wa-border-width-s));
+      padding-inline: 0;
+    }
+
+    .subheader-links wa-button:not(.current)::part(label) {
+      color: var(--wa-color-text-normal);
+      font-weight: var(--wa-font-weight-normal);
+    }
+
+    /* The icon buttons' padding already adds space above this divider, so match it below */
+    .wa-mobile-only > wa-divider {
+      margin-block-end: var(--wa-space-2xs);
     }
 
     /* current page: accent line replacing the section's left rail */
@@ -924,6 +1005,13 @@
   wa-page > #sidebar {
     overflow: auto;
     max-block-size: 100%;
+  }
+
+  /* Stretch #sidebar's overflow box to the drawer's edges (padding keeps content in place) so outdented icons and
+   * icon-button hover/focus rings aren't clipped on mobile. */
+  wa-page[view='mobile'] > #sidebar {
+    padding-inline: var(--wa-space-l);
+    margin-inline: calc(var(--wa-space-l) * -1);
   }
 
   wa-page:not([view='mobile']) > #sidebar {
@@ -1065,13 +1153,31 @@
     }
   }
 
-  /* Bottom fade mask. With any .background-* utility, masks the ::after decoration only; on any other
-   * element, masks the host (content fades too). Mask reads alpha, color is irrelevant. */
+  /* Edge fade masks — fade an element toward one edge until transparent. On a .background-* utility they mask
+   * only its ::after decoration (grid/dots fade, not content); elsewhere they mask the element. Tune via
+   * --wa-mask-fade-start / --wa-mask-fade-end (accept a length or %, so `calc(100% - 3rem)` fades a fixed
+   * distance) and --wa-mask-fade-direction. Masking a solid box makes a scrim that reveals content behind. */
+  .wa-mask-fade-below {
+    --wa-mask-fade-direction: to bottom;
+  }
+
+  .wa-mask-fade-above {
+    --wa-mask-fade-direction: to top;
+  }
+
   .wa-mask-fade-below:not(:is(.background-grid, .background-dot-grid, .background-wa-pattern)),
-  :is(.background-grid, .background-dot-grid, .background-wa-pattern).wa-mask-fade-below::after {
+  .wa-mask-fade-above:not(:is(.background-grid, .background-dot-grid, .background-wa-pattern)),
+  :is(.background-grid, .background-dot-grid, .background-wa-pattern):is(
+      .wa-mask-fade-below,
+      .wa-mask-fade-above
+    )::after {
     --wa-mask-fade-start: 60%;
-    --wa-mask-fade-end: 95%;
-    mask-image: linear-gradient(to bottom, #000 var(--wa-mask-fade-start), transparent var(--wa-mask-fade-end));
+    --wa-mask-fade-end: 100%;
+    mask-image: linear-gradient(
+      var(--wa-mask-fade-direction),
+      #000 var(--wa-mask-fade-start),
+      transparent var(--wa-mask-fade-end)
+    );
   }
 
   /* Decorative heart that warms to brand orange and beats on hover. Pair with
@@ -1101,7 +1207,7 @@
 
   /* buttons that are "shushed" (visually muted) by default, but have their full presentation otherwise  */
   wa-button.shush {
-    &:not(:hover):not(active)::part(base) {
+    &:not(:hover):not(active)::part(button) {
       color: var(--wa-color-text-quiet);
     }
   }
@@ -1167,6 +1273,15 @@
   }
 
   /* #endregion */
+  /* #endregion */
+
+  /* #region code blocks */
+  /* Browsers make an overflowing code block a tab stop so it can be scrolled by keyboard. */
+  /* Blocks with a copy button scroll the inner <code>, but the ring stays on the pre, which would clip an inset one. */
+  pre:is(:focus-visible, :has(> code:focus-visible)) {
+    outline: var(--wa-focus-ring);
+    outline-offset: var(--wa-focus-ring-offset);
+  }
   /* #endregion */
 
   /* #region resets */

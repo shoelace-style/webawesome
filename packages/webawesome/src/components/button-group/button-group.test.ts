@@ -1,5 +1,6 @@
 import { elementUpdated, expect } from '@open-wc/testing';
 import { html } from 'lit';
+import sinon from 'sinon';
 import { fixtures } from '../../internal/test/fixture.js';
 import type WaButtonGroup from './button-group.js';
 
@@ -7,6 +8,28 @@ describe('<wa-button-group>', () => {
   for (const fixture of fixtures) {
     describe(`with "${fixture.type}" rendering`, () => {
       describe('accessibility', () => {
+        if (fixture.type === 'client-only') {
+          it('should render and update when element internals are unavailable', async () => {
+            const attachInternals = sinon.stub(HTMLElement.prototype, 'attachInternals').throws();
+            const consoleError = sinon.stub(console, 'error');
+
+            try {
+              const el = await fixture<WaButtonGroup>(html`
+                <wa-button-group label="Actions"><button>Action</button></wa-button-group>
+              `);
+
+              expect(el.shadowRoot!.querySelector('slot')).to.exist;
+              el.label = 'Updated';
+              el.disableRole = true;
+              await elementUpdated(el);
+              expect(el.shadowRoot!.querySelector('slot')!.assignedElements()).to.include(el.querySelector('button'));
+            } finally {
+              attachInternals.restore();
+              consoleError.restore();
+            }
+          });
+        }
+
         it('should pass accessibility tests', async () => {
           const el = await fixture<WaButtonGroup>(html`
             <wa-button-group label="Actions">
@@ -21,14 +44,14 @@ describe('<wa-button-group>', () => {
           }
         });
 
-        it('should have role="group" on the base part by default', async () => {
+        it('should expose group semantics on the host by default', async () => {
           const el = await fixture<WaButtonGroup>(html`
             <wa-button-group label="Actions">
               <wa-button>Button 1</wa-button>
             </wa-button-group>
           `);
-          const base = el.shadowRoot!.querySelector('[part~="base"]')!;
-          expect(base.getAttribute('role')).to.equal('group');
+          expect(el.internals.role).to.equal('group');
+          expect(el.shadowRoot!.querySelector('slot')!.hasAttribute('role')).to.be.false;
         });
 
         it('should set aria-label from the label property', async () => {
@@ -37,8 +60,16 @@ describe('<wa-button-group>', () => {
               <wa-button>Button 1</wa-button>
             </wa-button-group>
           `);
-          const base = el.shadowRoot!.querySelector('[part~="base"]')!;
-          expect(base.getAttribute('aria-label')).to.equal('My Group');
+          expect(el.internals.ariaLabel).to.equal('My Group');
+          expect(el.shadowRoot!.querySelector('slot')!.hasAttribute('aria-label')).to.be.false;
+
+          el.label = 'Updated';
+          await elementUpdated(el);
+          expect(el.internals.ariaLabel).to.equal('Updated');
+
+          el.label = '';
+          await elementUpdated(el);
+          expect(el.internals.ariaLabel).to.be.null;
         });
       });
 
@@ -72,17 +103,39 @@ describe('<wa-button-group>', () => {
           expect(el.getAttribute('orientation')).to.equal('vertical');
         });
 
-        it('should set aria-orientation when orientation changes', async () => {
+        it('should not add aria-orientation to the group or its slot', async () => {
           const el = await fixture<WaButtonGroup>(html`
-            <wa-button-group>
+            <wa-button-group orientation="vertical" label="Actions">
               <wa-button>Button 1</wa-button>
             </wa-button-group>
           `);
-          expect(el.getAttribute('aria-orientation')).to.equal('horizontal');
+          expect(el.hasAttribute('aria-orientation')).to.be.false;
+          expect(el.shadowRoot!.querySelector('slot')!.hasAttribute('aria-orientation')).to.be.false;
+        });
 
-          el.orientation = 'vertical';
+        it('should remove group semantics and its default label when disableRole is set', async () => {
+          const el = await fixture<WaButtonGroup>(html`<wa-button-group label="Actions"></wa-button-group>`);
+          el.disableRole = true;
           await elementUpdated(el);
-          expect(el.getAttribute('aria-orientation')).to.equal('vertical');
+          expect(el.internals.role).to.equal('presentation');
+          expect(el.internals.ariaLabel).to.be.null;
+
+          el.disableRole = false;
+          await elementUpdated(el);
+          expect(el.internals.role).to.equal('group');
+          expect(el.internals.ariaLabel).to.equal('Actions');
+        });
+
+        it('should preserve author-provided roles and labels', async () => {
+          const el = await fixture<WaButtonGroup>(html`
+            <wa-button-group role="toolbar" aria-label="Custom" label="Actions">
+              <wa-button>Button 1</wa-button>
+            </wa-button-group>
+          `);
+          el.label = 'Updated';
+          await elementUpdated(el);
+          expect(el.getAttribute('role')).to.equal('toolbar');
+          expect(el.getAttribute('aria-label')).to.equal('Custom');
         });
       });
 
@@ -98,17 +151,44 @@ describe('<wa-button-group>', () => {
           const buttons = el.querySelectorAll('wa-button');
           expect(buttons.length).to.equal(3);
         });
+
+        for (const appearance of ['accent', 'filled', 'filled-outlined', 'outlined', 'plain'] as const) {
+          it(`should not offset the first ${appearance} button`, async () => {
+            const el = await fixture<WaButtonGroup>(html`
+              <wa-button-group>
+                <wa-button appearance=${appearance}>Button 1</wa-button>
+                <wa-button appearance=${appearance}>Button 2</wa-button>
+              </wa-button-group>
+            `);
+            const firstButton = el.querySelector('wa-button')!;
+
+            expect(getComputedStyle(firstButton).marginInlineStart).to.equal('0px');
+          });
+
+          it(`should not offset the first vertical ${appearance} button`, async () => {
+            const el = await fixture<WaButtonGroup>(html`
+              <wa-button-group orientation="vertical">
+                <wa-button appearance=${appearance}>Button 1</wa-button>
+                <wa-button appearance=${appearance}>Button 2</wa-button>
+              </wa-button-group>
+            `);
+            const firstButton = el.querySelector('wa-button')!;
+
+            expect(getComputedStyle(firstButton).marginBlockStart).to.equal('0px');
+          });
+        }
       });
 
       describe('CSS parts and states', () => {
-        it('should expose a "base" part', async () => {
+        it('should expose a "button-group" part on a wrapper, not the slot', async () => {
           const el = await fixture<WaButtonGroup>(html`
             <wa-button-group>
               <wa-button>Button 1</wa-button>
             </wa-button-group>
           `);
-          const base = el.shadowRoot!.querySelector('[part~="base"]');
-          expect(base).to.exist;
+          const wrapper = el.shadowRoot!.querySelector('[part~="button-group"]')!;
+          expect(wrapper.localName).to.equal('div');
+          expect(wrapper.matches('[part~="base"]')).to.be.true;
         });
       });
 

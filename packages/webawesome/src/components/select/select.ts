@@ -61,7 +61,8 @@ import styles from './select.styles.js';
  * @event wa-invalid - Emitted when the form control has been checked for validity and its constraints aren't satisfied.
  *
  * @csspart form-control - The form control that wraps the label, input, and hint.
- * @csspart form-control-label - The label's wrapper.
+ * @csspart form-control-label - The label.
+ * @csspart label - Deprecated. Use the `form-control-label` part instead.
  * @csspart form-control-input - The select's wrapper.
  * @csspart hint - The hint's wrapper.
  * @csspart combobox - The container the wraps the start, end, value, clear icon, and expand button.
@@ -73,7 +74,8 @@ import styles from './select.styles.js';
  * @csspart tag - The individual tags that represent each multiselect option.
  * @csspart tag__content - The tag's content part.
  * @csspart tag__remove-button - The tag's remove button.
- * @csspart tag__remove-button__base - The tag's remove button base part.
+ * @csspart tag__remove-button__base - Deprecated. Use the `tag__remove-button__button` part instead.
+ * @csspart tag__remove-button__button - The tag's remove button's exported `button` part.
  * @csspart clear-button - The clear button.
  * @csspart expand-icon - The container that wraps the expand icon.
  *
@@ -217,7 +219,10 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
     return ret;
   }
 
-  /** The select's size. */
+  /**
+   * The select's size.
+   * The long-form values `small`, `medium`, and `large` are deprecated; use `s`, `m`, and `l` instead.
+   */
   @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
 
   @watch('size')
@@ -293,10 +298,10 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
         <wa-tag
           part="tag"
           exportparts="
-            base:tag__base,
             content:tag__content,
             remove-button:tag__remove-button,
-            remove-button__base:tag__remove-button__base
+            remove-button__base:tag__remove-button__base,
+            remove-button__button:tag__remove-button__button
           "
           ?pill=${this.pill}
           size=${this.size}
@@ -858,11 +863,13 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
           <wa-tag
             part="tag"
             exportparts="
-              base:tag__base,
               content:tag__content,
               remove-button:tag__remove-button,
-              remove-button__base:tag__remove-button__base
+              remove-button__base:tag__remove-button__base,
+              remove-button__button:tag__remove-button__button
             "
+            ?pill=${this.pill}
+            size=${this.size}
             >+${this.selectedOptions.length - index}</wa-tag
           >
         `;
@@ -1031,6 +1038,7 @@ export default class WaSelect extends WebAwesomeFormAssociatedElement {
               disabled: this.disabled,
               enabled: !this.disabled,
               multiple: this.multiple,
+              'has-selection': this.selectedOptions.length > 0,
             })}
             placement=${this.placement}
             flip

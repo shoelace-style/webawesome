@@ -12,23 +12,25 @@ describe('<wa-spinner>', () => {
           await expect(el).to.be.accessible();
         });
 
-        it('should have role="progressbar" on the base part', async () => {
+        it('should have role="progressbar" on the spinner part', async () => {
           const el = await fixture<WaSpinner>(html`<wa-spinner></wa-spinner>`);
-          const base = el.shadowRoot!.querySelector('[part~="base"]')!;
-          expect(base).to.have.attribute('role', 'progressbar');
+          const spinner = el.shadowRoot!.querySelector('[part~="spinner"]')!;
+          expect(spinner).to.have.attribute('role', 'progressbar');
         });
 
         it('should have an aria-label for loading', async () => {
           const el = await fixture<WaSpinner>(html`<wa-spinner></wa-spinner>`);
-          const base = el.shadowRoot!.querySelector('[part~="base"]')!;
-          expect(base).to.have.attribute('aria-label');
+          const spinner = el.shadowRoot!.querySelector('[part~="spinner"]')!;
+          expect(spinner).to.have.attribute('aria-label');
         });
       });
 
       describe('CSS parts', () => {
-        it('should have a base part', async () => {
+        it('should expose the "spinner" part and keep the deprecated base part', async () => {
           const el = await fixture<WaSpinner>(html`<wa-spinner></wa-spinner>`);
-          expect(el.shadowRoot!.querySelector('[part~="base"]')).to.exist;
+          const wrapper = el.shadowRoot!.querySelector('[part~="spinner"]');
+          expect(wrapper).to.exist;
+          expect(wrapper!.matches('[part~="base"]')).to.be.true;
         });
       });
 

@@ -1,7 +1,7 @@
 ---
 title: Color
-description: Ensure consistent use of color and readable contrast with Web Awesome's color properties.
-hasOutline: true
+description: Color tokens provide a full palette, semantic variants, and themed element colors with readable contrast.
+layout: docs
 synonyms:
   - palette
   - color system
@@ -94,7 +94,7 @@ use-cases:
 
 Web Awesome's color system is made up of three layers: a [color palette](/docs/color-palettes) that gives you a full spectrum of hues, [variant colors](#variant-colors) that define semantic color variations (like success and danger), and [colors for themed elements](#color-for-themed-elements) that apply specific tints from your palette and variant colors to the elements that make up a theme.
 
-For an overview of how theming works across the library, see [Theming <wa-icon name="arrow-right" variant="regular"></wa-icon>](/docs/theming-overview).
+For an overview of how theming works across the library, see [Theming <wa-icon name="arrow-right"></wa-icon>](/docs/theming-overview).
 
 ## Color Palette
 
@@ -195,7 +195,7 @@ Each core color also has a paired _on color_ (`--wa-color-{variant}-on`) guarant
 
 ### Changing Variant Colors
 
-Any hue from your color palette can be assigned to any variant without redefining the tokens in your own stylesheet. To use a different hue, simply apply the class `"wa-{variant}-{hue}` to the `<html>` element.
+Any hue from your color palette can be assigned to any variant without redefining the tokens in your own stylesheet. To use a different hue, apply the `wa-{variant}-{hue}` class to the `<html>` element.
 
 ```html
 <html class="wa-brand-purple wa-success-cyan"></html>
@@ -247,7 +247,7 @@ Surfaces are background layers that content rests on. They convey elevation hier
 
 ### Text
 
-Text colors are used for readable content. We recommend a minimum 4.5:1 contrast ratio against surface colors for text colors.
+Text colors are used for readable content and should meet a minimum 4.5:1 contrast ratio against surface colors.
 
 <wa-scroller>
   <table class="token-table wa-hover-rows">
@@ -308,7 +308,7 @@ Overlays provide a backdrop that isolates content, often with some transparency 
 
 ### Shadow
 
-A single color is used for all drop shadows. Use it alongside the [shadow tokens](?active_tab=shadows) to construct realistic shadows.
+A single color is used for all drop shadows. Use it alongside the [shadow tokens](/docs/tokens/shadows) to construct realistic shadows.
 
 <wa-scroller>
   <table class="token-table wa-hover-rows">
@@ -345,7 +345,7 @@ These tokens power the consistent hover, active, and focus feedback you see acro
     <tbody>
       <tr id="token-wa-color-focus">
         <td class="token-name"><code>--wa-color-focus</code></td>
-        <td>Outline color for keyboard focus rings. Used alongside <a href="?active_tab=focus">focus tokens</a>.</td>
+        <td>Outline color for keyboard focus rings. Used alongside <a href="/docs/tokens/focus">focus tokens</a>.</td>
         <td><div class="swatch" style="outline: var(--wa-focus-ring)"></div></td>
       </tr>
       <tr id="token-wa-color-mix-hover">

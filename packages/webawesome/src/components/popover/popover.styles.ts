@@ -48,13 +48,12 @@ export default css`
 
     pointer-events: auto;
 
+    /* Inset box-shadow, not a border: Safari seams a clip-path edge that runs along a border. */
     &::part(arrow) {
       background-color: var(--wa-color-surface-default);
-      border-top: none;
-      border-left: none;
-      border-bottom: solid var(--wa-panel-border-width) var(--wa-color-surface-border);
-      border-right: solid var(--wa-panel-border-width) var(--wa-color-surface-border);
-      box-shadow: none;
+      border: none;
+      box-shadow: inset calc(-1 * var(--wa-panel-border-width)) calc(-1 * var(--wa-panel-border-width)) 0 0
+        var(--wa-color-surface-border);
     }
   }
 
@@ -87,7 +86,5 @@ export default css`
     border-style: var(--wa-panel-border-style);
     box-shadow: var(--wa-shadow-l);
     color: var(--wa-color-text-normal);
-    user-select: none;
-    -webkit-user-select: none;
   }
 `;

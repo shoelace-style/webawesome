@@ -709,14 +709,16 @@ describe('<wa-tab-group>', () => {
       });
 
       describe('CSS parts and states', () => {
-        it('should expose the base part', async () => {
+        it('should expose the "tab-group" part and keep the deprecated base part', async () => {
           const tabGroup = await fixture<WaTabGroup>(html`
             <wa-tab-group>
               <wa-tab panel="general">General</wa-tab>
               <wa-tab-panel name="general">Content</wa-tab-panel>
             </wa-tab-group>
           `);
-          expect(tabGroup.shadowRoot!.querySelector('[part~="base"]')).to.exist;
+          const wrapper = tabGroup.shadowRoot!.querySelector('[part~="tab-group"]');
+          expect(wrapper).to.exist;
+          expect(wrapper!.matches('[part~="base"]')).to.be.true;
         });
 
         it('should expose the nav part', async () => {

@@ -1,25 +1,38 @@
 <div class="wa-stack wa-gap-xs wa-mobile-only">
   {% include "search-trigger-button.njk" %}
-  <div class="wa-split">
-    {% include "ssr-switch.njk" %}
+  <div class="wa-split wa-gap-xs">
     <div class="wa-cluster wa-gap-3xs wa-flex-nowrap">
       {% include "color-scheme-selector.njk" %}
       {% if hasThemeSelector %}
         {% include "theme-selector.njk" %}
       {% endif %}
+      {% if hasIconSelector %}
+        {% include "icon-family-selector.njk" %}
+      {% endif %}
+      {% include "ssr-switch.njk" %}
     </div>
+    {% include "github-icon-buttons.njk" %}
   </div>
+  <wa-divider></wa-divider>
+  {# Only the links the docs nav below doesn't already cover #}
+  {% set hasNavIcon = true %}
+  <div class="subheader-links wa-stack wa-gap-0">
+    {% include "nav-link-components.njk" %}
+    {% include "site/pro-nav-link.njk" ignore missing %}
+    {% include "nav-link-create.njk" ignore missing %}
+  </div>
+  {% set hasNavIcon = false %}
+  <wa-divider></wa-divider>
 </div>
 {% from "pro-badge.njk" import proBadge %}
-{% from "planned-badge.njk" import plannedBadge %}
 
 {%- macro sidebarComponent(page, suppressProBadge=false) -%}
   {%- set component = page.data.component -%}
   {%- set isExperimental = component and component.status == 'experimental' -%}
-  {%- set isPro = page.data.isProComponent and not suppressProBadge -%}
-  {%- if isPro %}<span class="wa-split">{% endif -%}
+  {%- set hasProBadge = true if (page.data.isProComponent and not suppressProBadge) else false -%}
+  {%- if hasProBadge %}<span class="wa-split">{% endif -%}
   <a{% if isExperimental %} class="wa-cluster wa-gap-xs"{% endif %} href="{{ page.url }}">{{ page.data.title }}{% if isExperimental %} <wa-icon name="flask" aria-hidden="true" class="icon-shrink de-emphasize"></wa-icon>{% endif %}</a>
-  {%- if isPro %} {{ proBadge() }}</span>{% endif -%}
+  {%- if hasProBadge %} {{ proBadge() }}</span>{% endif -%}
 {%- endmacro %}
 
 {%- set sortedComponentPages = collections.componentPages | sort(false, false, 'data.title') -%}
@@ -27,7 +40,7 @@
 <div class="wa-stack wa-gap-xl">
   <section class="wa-stack">
     <h2 class="wa-cluster wa-gap-xs">
-      <wa-icon name="wand-magic-sparkles" variant="regular" aria-hidden="true"></wa-icon>
+      <wa-icon name="wand-magic-sparkles" aria-hidden="true"></wa-icon>
       Getting Started
     </h2>
     <ul>
@@ -54,7 +67,7 @@
 
   <section class="wa-stack">
     <h2 class="wa-cluster wa-gap-xs">
-      <wa-icon name="book-spine" variant="regular" aria-hidden="true"></wa-icon>
+      <wa-icon name="book-spine" aria-hidden="true"></wa-icon>
       Resources
     </h2>
     <ul>
@@ -76,7 +89,7 @@
 
   <section class="wa-stack">
     <h2 class="wa-cluster wa-gap-xs">
-      <wa-icon name="palette" variant="regular" aria-hidden="true"></wa-icon>
+      <wa-icon name="palette" aria-hidden="true"></wa-icon>
       Theming &amp; Utilities
     </h2>
     <ul>
@@ -105,7 +118,7 @@
   <section class="wa-stack">
     <h2 class="wa-split">
       <span class="wa-cluster wa-gap-xs">
-        <wa-icon name="{{ cat.icon }}" variant="regular" aria-hidden="true"></wa-icon>
+        <wa-icon name="{{ cat.icon }}" aria-hidden="true"></wa-icon>
         {{ cat.label }}
       </span>
       {% if categoryIsAllPro %}{{ proBadge() }}{% endif %}
@@ -129,9 +142,7 @@
         {%- endif %}
       </li>
     {%- endfor %}
-    {%- if cat.slug == 'forms' %}
-      <li><span class="is-planned wa-split">Data Grid <span>{{ plannedBadge("A Web Awesome Kickstarter stretch goal!") }}</span></span></li>
-    {%- elif cat.slug == 'data-viz' %}
+    {%- if cat.slug == 'data-viz' %}
       <li><a href="/docs/components/chart">Advanced Usage</a></li>
     {%- endif %}
     </ul>

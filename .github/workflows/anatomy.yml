@@ -1,0 +1,34 @@
+# Fails if a component doc flags an anatomy example the diagram can't use (the flagged block lacks the
+# component's tag, or the page has no diagram). Static analysis only — no build or dev server needed.
+
+name: Anatomy
+
+on:
+  push:
+    branches: [next]
+  pull_request:
+    branches: [next]
+  workflow_dispatch:
+
+jobs:
+  anatomy:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [24.x]
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check anatomy examples
+        run: npm run test:anatomy
+        working-directory: ./packages/webawesome

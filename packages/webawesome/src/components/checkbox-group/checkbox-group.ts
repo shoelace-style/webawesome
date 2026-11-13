@@ -27,11 +27,11 @@ import styles from './checkbox-group.styles.js';
  * @slot hint - Text that describes how to use the checkbox group. Alternatively, you can use the `hint` attribute.
  *
  * @csspart form-control - The form control that wraps the label, group, and hint.
- * @csspart form-control-label - The label's wrapper.
+ * @csspart form-control-label - The label.
  * @csspart form-control-input - The element that wraps the grouped checkboxes, exposed as a `role="group"`.
  * @csspart hint - The hint's wrapper.
  *
- * @cssproperty [--gap=0.5em] - The gap between grouped checkboxes.
+ * @cssproperty [--gap=0.75em] - The gap between grouped checkboxes.
  */
 @customElement('wa-checkbox-group')
 export default class WaCheckboxGroup extends WebAwesomeElement {
@@ -53,6 +53,7 @@ export default class WaCheckboxGroup extends WebAwesomeElement {
 
   /**
    * The group's size. When present, this size will be applied to all `<wa-checkbox>` and `<wa-switch>` items inside.
+   * The long-form values `small`, `medium`, and `large` are deprecated; use `s`, `m`, and `l` instead.
    */
   @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large';
 

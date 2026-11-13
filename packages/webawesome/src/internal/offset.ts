@@ -11,3 +11,14 @@ export function getOffset(element: HTMLElement, parent: HTMLElement) {
     left: Math.round(element.getBoundingClientRect().left - parent.getBoundingClientRect().left),
   };
 }
+
+/** Returns true when a mouse or pointer event's coordinates fall within the element's border box. */
+export function isEventInsideRect(event: MouseEvent, el: Element) {
+  const rect = el.getBoundingClientRect();
+  return (
+    event.clientX >= rect.left &&
+    event.clientX <= rect.right &&
+    event.clientY >= rect.top &&
+    event.clientY <= rect.bottom
+  );
+}

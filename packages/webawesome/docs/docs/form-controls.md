@@ -1,6 +1,7 @@
 ---
 title: Form Controls
 description: Using Web Awesome form controls.
+ogDescription: "How form controls validate, from required fields to your own error messages."
 layout: page-outline
 synonyms:
   - forms
@@ -67,6 +68,30 @@ To make a field required, use the `required` attribute. Required fields will aut
   });
 </script>
 ```
+
+#### Styling the Required Indicator
+
+The asterisk is drawn with three [design tokens](/docs/tokens/component-groups#form-controls). Override them to change the character, its color, and the space between it and the label.
+
+- [`--wa-form-control-required-content`](/docs/tokens/component-groups#token-wa-form-control-required-content) - the content appended to the label, e.g. `'*'`
+- [`--wa-form-control-required-content-color`](/docs/tokens/component-groups#token-wa-form-control-required-content-color) - the indicator's color
+- [`--wa-form-control-required-content-offset`](/docs/tokens/component-groups#token-wa-form-control-required-content-offset) - the inline space between the label and the indicator
+
+```html {.example}
+<form class="custom-required-indicator">
+  <wa-input name="name" label="Name" required></wa-input>
+</form>
+
+<style>
+  .custom-required-indicator {
+    --wa-form-control-required-content: '(required)';
+    --wa-form-control-required-content-color: var(--wa-color-danger-on-quiet);
+    --wa-form-control-required-content-offset: 0.5em;
+  }
+</style>
+```
+
+Set `--wa-form-control-required-content` to `''` to remove the indicator.
 
 ### Input Patterns
 

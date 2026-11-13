@@ -63,7 +63,8 @@ function syncCheckboxes(changedTreeItem: WaTreeItem, initialSync = false) {
  * @slot expand-icon - The icon to show when the tree item is expanded. Works best with `<wa-icon>`.
  * @slot collapse-icon - The icon to show when the tree item is collapsed. Works best with `<wa-icon>`.
  *
- * @csspart base - The component's base wrapper.
+ * @csspart base - Deprecated. Use the `tree` part instead.
+ * @csspart tree - The component's outer wrapper.
  *
  * @cssproperty [--indent-size=var(--wa-space-m)] - The size of the indentation for nested items.
  * @cssproperty [--indent-guide-color=var(--wa-color-surface-border)] - The color of the indentation line.
@@ -104,7 +105,7 @@ export default class WaTree extends WebAwesomeElement {
     if ('addEventListener' in this) {
       this.addEventListener('focusin', this.handleFocusIn);
       this.addEventListener('focusout', this.handleFocusOut);
-      this.addEventListener('wa-lazy-change', this.handleSlotChange);
+      this.addEventListener('wa-lazy-change', this.handleLazyChange);
     }
   }
 
@@ -132,7 +133,7 @@ export default class WaTree extends WebAwesomeElement {
   // Generates a clone of the expand icon element to use for each tree item
   private getExpandButtonIcon(status: 'expand' | 'collapse') {
     const slot = status === 'expand' ? this.expandedIconSlot : this.collapsedIconSlot;
-    const icon = slot.assignedElements({ flatten: true })[0] as HTMLElement;
+    const icon = slot?.assignedElements({ flatten: true })[0] as HTMLElement | undefined;
 
     // Clone it, remove ids, and slot it
     if (icon) {
@@ -147,42 +148,52 @@ export default class WaTree extends WebAwesomeElement {
     return null;
   }
 
-  // Initializes new items by setting the `selectable` property and the expanded/collapsed icons if any
-  private initTreeItem = (item: WaTreeItem) => {
-    item.updateComplete.then(() => {
-      item.selectable = this.selection === 'multiple' || (this.selection === 'leaf-multiple' && item.isLeaf);
+  // Initializes items by setting the `selectable` property and the expanded/collapsed icons if any
+  private initTreeItems(items: WaTreeItem[]) {
+    // Resolve the tree-level icons once per batch
+    const icons = { expand: this.getExpandButtonIcon('expand'), collapse: this.getExpandButtonIcon('collapse') };
 
-      ['expand', 'collapse']
-        .filter(status => !!this.querySelector(`[slot="${status}-icon"]`))
-        .forEach((status: 'expand' | 'collapse') => {
-          const existingIcon = item.querySelector(`[slot="${status}-icon"]`);
-          const expandButtonIcon = this.getExpandButtonIcon(status);
+    for (const item of items) {
+      item.updateComplete.then(() => {
+        item.selectable = this.selection === 'multiple' || (this.selection === 'leaf-multiple' && item.isLeaf);
 
-          if (!expandButtonIcon) return;
+        for (const status of ['expand', 'collapse'] as const) {
+          const icon = icons[status];
+          if (!icon) continue;
+
+          const existingIcon = item.querySelector(`:scope > [slot="${status}-icon"]`);
 
           if (existingIcon === null) {
-            // No separator exists, add one
-            item.append(expandButtonIcon);
-          } else if (existingIcon.hasAttribute('data-default')) {
-            // A default separator exists, replace it
-            existingIcon.replaceWith(expandButtonIcon);
-          } else {
-            // The user provided a custom icon, leave it alone
+            // No icon exists, add one
+            item.append(icon.cloneNode(true));
+          } else if (existingIcon.hasAttribute('data-default') && !existingIcon.isEqualNode(icon)) {
+            // A stale default icon exists, replace it. Custom icons are left alone.
+            existingIcon.replaceWith(icon.cloneNode(true));
           }
-        });
-    });
-  };
+        }
+      });
+    }
+  }
 
   private handleTreeChanged = (mutations: MutationRecord[]) => {
+    const addedItems: WaTreeItem[] = [];
+
     for (const mutation of mutations) {
-      const addedNodes: WaTreeItem[] = [...mutation.addedNodes].filter(WaTreeItem.isTreeItem) as WaTreeItem[];
+      const addedNodes = [...mutation.addedNodes].filter(WaTreeItem.isTreeItem) as WaTreeItem[];
       const removedNodes = [...mutation.removedNodes].filter(WaTreeItem.isTreeItem) as WaTreeItem[];
 
-      addedNodes.forEach(this.initTreeItem);
+      // Added nodes only include the root of each subtree, so include nested items too
+      for (const item of addedNodes) {
+        addedItems.push(item, ...item.querySelectorAll<WaTreeItem>('wa-tree-item'));
+      }
 
       if (this.lastFocusedItem && removedNodes.includes(this.lastFocusedItem)) {
         this.lastFocusedItem = null;
       }
+    }
+
+    if (addedItems.length) {
+      this.initTreeItems(addedItems);
     }
   };
 
@@ -248,9 +259,17 @@ export default class WaTree extends WebAwesomeElement {
     const isRtl = this.localize.dir() === 'rtl';
 
     if (items.length > 0) {
-      event.preventDefault();
       const activeItemIndex = items.findIndex(item => item.matches(':focus'));
       const activeItem: WaTreeItem | undefined = items[activeItemIndex];
+
+      // Enter and Space select the focused node, so there's nothing to do when no tree item has focus. This happens
+      // when focus is inside a tree item instead of on it, e.g. on a link or a button slotted into the item. Let the
+      // event through so the focused element can handle it.
+      if (!activeItem && (event.key === 'Enter' || event.key === ' ')) {
+        return;
+      }
+
+      event.preventDefault();
 
       const focusItemAt = (index: number) => {
         const item = items[clamp(index, 0, items.length - 1)];
@@ -296,7 +315,7 @@ export default class WaTree extends WebAwesomeElement {
         focusItemAt(items.length - 1);
       } else if (event.key === 'Enter' || event.key === ' ') {
         // Selects the focused node.
-        if (!activeItem.disabled) {
+        if (activeItem && !activeItem.disabled) {
           this.selectItem(activeItem);
         }
       }
@@ -361,9 +380,12 @@ export default class WaTree extends WebAwesomeElement {
   };
 
   private handleSlotChange() {
-    const items = this.getAllTreeItems();
-    items.forEach(this.initTreeItem);
+    this.initTreeItems(this.getAllTreeItems());
   }
+
+  private handleLazyChange = (event: Event) => {
+    this.initTreeItems([event.target as WaTreeItem]);
+  };
 
   @watch('selection')
   async handleSelectionChange() {
@@ -420,15 +442,15 @@ export default class WaTree extends WebAwesomeElement {
   render() {
     return html`
       <div
-        part="base"
+        part="base tree"
         class="tree"
         @click=${this.handleClick}
         @keydown=${this.handleKeyDown}
         @mousedown=${this.handleMouseDown}
       >
         <slot @slotchange=${this.handleSlotChange}></slot>
-        <span hidden aria-hidden="true"><slot name="expand-icon"></slot></span>
-        <span hidden aria-hidden="true"><slot name="collapse-icon"></slot></span>
+        <span hidden aria-hidden="true"><slot name="expand-icon" @slotchange=${this.handleSlotChange}></slot></span>
+        <span hidden aria-hidden="true"><slot name="collapse-icon" @slotchange=${this.handleSlotChange}></slot></span>
       </div>
     `;
   }

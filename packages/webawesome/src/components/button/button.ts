@@ -34,7 +34,8 @@ import styles from './button.styles.js';
  * @slot start - An element, such as `<wa-icon>`, placed before the label.
  * @slot end - An element, such as `<wa-icon>`, placed after the label.
  *
- * @csspart base - The component's base wrapper.
+ * @csspart base - Deprecated. Use the `button` part instead.
+ * @csspart button - The component's outer wrapper.
  * @csspart start - The container that wraps the `start` slot.
  * @csspart label - The button's label.
  * @csspart end - The container that wraps the `end` slot.
@@ -73,7 +74,10 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
   /** The button's visual appearance. */
   @property({ reflect: true }) appearance: 'accent' | 'filled' | 'outlined' | 'filled-outlined' | 'plain' = 'accent';
 
-  /** The button's size. */
+  /**
+   * The button's size.
+   * The long-form values `small`, `medium`, and `large` are deprecated; use `s`, `m`, and `l` instead.
+   */
   @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
 
   @watch('size')
@@ -199,12 +203,40 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
 
     if (!form) return;
 
-    const lightDOMButton = this.constructLightDOMButton();
+    // We need to let the initial click event run through a full event loop and *then* click the button. This gives the user the opportunity to call "preventDefault()"
+    let handled = false;
 
-    // form.append(lightDOMButton);
-    this.parentElement?.append(lightDOMButton);
-    lightDOMButton.click();
-    lightDOMButton.remove();
+    const activate = () => {
+      if (handled) {
+        return;
+      }
+
+      handled = true;
+      window.removeEventListener('click', onWindowClick);
+
+      if (event.defaultPrevented) {
+        return;
+      }
+
+      const lightDOMButton = this.constructLightDOMButton();
+      this.parentElement?.append(lightDOMButton);
+      lightDOMButton.click();
+      lightDOMButton.remove();
+    };
+
+    const onWindowClick = (e: Event) => {
+      if (e === event) {
+        activate();
+      }
+    };
+
+    // Runs at the very end of this same dispatch, after all user listeners,
+    // so `.click()` stays synchronous and `preventDefault()` is respected.
+    window.addEventListener('click', onWindowClick);
+
+    // Fallback: if someone calls stopPropagation(), the event never reaches window.
+    // Native buttons still submit in that case, so do it on the next task.
+    setTimeout(activate);
   }
 
   private handleInvalid() {
@@ -304,7 +336,7 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
     /* eslint-disable lit/binding-positions */
     return html`
       <${tag}
-        part="base"
+        part="base button"
         class=${classMap({
           button: true,
           caret: this.withCaret,
@@ -327,6 +359,7 @@ export default class WaButton extends WebAwesomeFormAssociatedElement {
         rel=${ifDefined(isLink && this.rel ? this.rel : undefined)}
         role=${ifDefined(isLink ? undefined : 'button')}
         aria-disabled=${ifDefined(isLink && this.disabled ? 'true' : undefined)}
+        aria-busy=${this.loading ? 'true' : 'false'}
         tabindex=${this.disabled ? '-1' : '0'}
         @invalid=${this.isButton() ? this.handleInvalid : null}
         @click=${this.handleClick}

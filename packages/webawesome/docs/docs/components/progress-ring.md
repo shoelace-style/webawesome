@@ -18,9 +18,17 @@ use-cases:
 
 ## Examples
 
+### Label
+
+Use the `label` attribute to tell assistive devices how to announce the progress ring.
+
+```html {.example}
+<wa-progress-ring value="25" label="Sync progress"></wa-progress-ring>
+```
+
 ### Size
 
-Use the `--size` custom property to set the diameter of the progress ring.
+Use the `--size` custom property to set the diameter of the ring.
 
 ```html {.example}
 <wa-progress-ring value="50" style="--size: 200px;"></wa-progress-ring>
@@ -28,7 +36,7 @@ Use the `--size` custom property to set the diameter of the progress ring.
 
 ### Track & Indicator Width
 
-Use the `--track-width` and `--indicator-width` custom properties to set the width of the progress ring's track and indicator.
+Use the `--track-width` and `--indicator-width` custom properties to set the width of the ring's track and indicator independently.
 
 ```html {.example}
 <wa-progress-ring value="50" style="--track-width: 6px; --indicator-width: 12px;"></wa-progress-ring>
@@ -36,22 +44,21 @@ Use the `--track-width` and `--indicator-width` custom properties to set the wid
 
 ### Colors
 
-To change the color, use the `--track-color` and `--indicator-color` custom properties.
+Use the `--track-color` and `--indicator-color` custom properties to recolor the ring.
 
 ```html {.example}
 <wa-progress-ring
   value="50"
   style="
-    --track-color: pink;
-    --indicator-color: deeppink;
+    --track-color: var(--wa-color-success-fill-quiet);
+    --indicator-color: var(--wa-color-success-fill-loud);
   "
->
-</wa-progress-ring>
+></wa-progress-ring>
 ```
 
-### Labels
+### Showing Values
 
-Use the default slot to show a label inside the progress ring.
+Use the default slot to show a value inside the ring.
 
 ```html {.example}
 <div class="progress-ring-overview">
@@ -60,8 +67,8 @@ Use the default slot to show a label inside the progress ring.
   <wa-divider></wa-divider>
 
   <div class="wa-cluster">
-    <wa-button appearance="filled" circle><wa-icon name="minus" variant="solid" label="Decrease"></wa-icon></wa-button>
-    <wa-button appearance="filled" circle><wa-icon name="plus" variant="solid" label="Increase"></wa-icon></wa-button>
+    <wa-button appearance="filled" circle><wa-icon name="minus" label="Decrease"></wa-icon></wa-button>
+    <wa-button appearance="filled" circle><wa-icon name="plus" label="Increase"></wa-icon></wa-button>
   </div>
 </div>
 

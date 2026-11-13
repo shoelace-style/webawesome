@@ -17,6 +17,8 @@ import styles from './scroller.styles.js';
  * @cssproperty [--shadow-size=2rem] - The size of the shadow.
  *
  * @csspart content - The container that wraps the slotted content.
+ * @csspart start-shadow - The scroll shadow shown at the start edge when more content is available, unless `without-shadow` is set.
+ * @csspart end-shadow - The scroll shadow shown at the end edge when more content is available, unless `without-shadow` is set.
  */
 @customElement('wa-scroller')
 export default class WaScroller extends WebAwesomeElement {
@@ -126,7 +128,6 @@ export default class WaScroller extends WebAwesomeElement {
         part="content"
         role="region"
         aria-label=${this.localize.term('scrollableRegion')}
-        aria-orientation=${this.orientation}
         tabindex=${this.canScroll ? '0' : '-1'}
         @keydown=${this.handleKeyDown}
         @scroll=${this.updateScroll}

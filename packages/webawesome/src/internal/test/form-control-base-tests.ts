@@ -2,8 +2,8 @@ import { aTimeout, expect } from '@open-wc/testing';
 import { html, type TemplateResult } from 'lit';
 import { html as staticHTML, unsafeStatic } from 'lit/static-html.js';
 import type { WebAwesomeFormControl } from '../webawesome-form-associated-element.js';
-import type { clientFixture, hydratedFixture } from './fixture.js';
-import { fixtures } from './fixture.js';
+import type { hydratedFixture } from './fixture.js';
+import { clientFixture, fixtures } from './fixture.js';
 import { clickOnElement } from './pointer-utilities.js';
 
 type CreateControlFn = () => Promise<WebAwesomeFormControl>;
@@ -157,9 +157,11 @@ function runAllValidityTests(
             expect(emittedEvents.length).to.equal(0);
           });
 
+          // The form and fieldset aren't under test, so they skip the SSR round trip. Each one spawns a worker that loads
+          // every component, and two per test can blow the timeout on a loaded runner.
           it('Should find the correct form when given a form property', async () => {
             const formId = 'test-form';
-            const form = await fixture(html`<form id="${formId}"></form>`);
+            const form = await clientFixture(html`<form id="${formId}"></form>`);
             const control = await createControl();
             expect(control.getForm()).to.equal(null);
             // control.setAttribute("form", 'test-form');
@@ -170,7 +172,7 @@ function runAllValidityTests(
 
           it('Should find the correct form when given a form attribute', async () => {
             const formId = 'test-form';
-            const form = await fixture(html`<form id="${formId}"></form>`);
+            const form = await clientFixture(html`<form id="${formId}"></form>`);
             const control = await createControl();
             expect(control.getForm()).to.equal(null);
             control.setAttribute('form', 'test-form');
@@ -200,7 +202,7 @@ function runAllValidityTests(
 
           it('Should properly move into and out of `:disabled` when using a <fieldset>', async () => {
             const control = await createControl();
-            const fieldset = await fixture<HTMLFieldSetElement>(html`<fieldset></fieldset>`);
+            const fieldset = await clientFixture<HTMLFieldSetElement>(html`<fieldset></fieldset>`);
             expect(control.disabled).to.equal(false);
             fieldset.append(control);
             fieldset.disabled = true;

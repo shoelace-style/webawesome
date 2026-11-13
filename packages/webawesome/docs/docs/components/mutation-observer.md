@@ -12,21 +12,19 @@ use-cases:
   - child list observer
 ---
 
-The mutation observer will report changes to the content it wraps through the `wa-mutation` event. When emitted, a collection of [MutationRecord](https://developer.mozilla.org/en-US/docs/Web/API/MutationRecord) objects will be attached to `event.detail` that contains information about how it changed.
-
 ```html {.example}
 <div class="mutation-overview">
   <wa-mutation-observer attr="variant">
     <wa-button appearance="filled" variant="brand">Click to mutate</wa-button>
   </wa-mutation-observer>
 
-  <br />
-  👆 Click the button and watch the console
+  <p>The observer saw the variant change to <span class="current">brand</span>.</p>
 
   <script>
     const container = document.querySelector('.mutation-overview');
     const mutationObserver = container.querySelector('wa-mutation-observer');
     const button = container.querySelector('wa-button');
+    const current = container.querySelector('.current');
     const variants = ['brand', 'success', 'neutral', 'warning', 'danger'];
     let clicks = 0;
 
@@ -36,9 +34,9 @@ The mutation observer will report changes to the content it wraps through the `w
       button.setAttribute('variant', variants[clicks % variants.length]);
     });
 
-    // Log mutations
-    mutationObserver.addEventListener('wa-mutation', event => {
-      console.log(event.detail);
+    // The observer reports each change it detects
+    mutationObserver.addEventListener('wa-mutation', () => {
+      current.textContent = button.getAttribute('variant');
     });
   </script>
 
@@ -50,8 +48,11 @@ The mutation observer will report changes to the content it wraps through the `w
 </div>
 ```
 
+The mutation observer will report changes to the content it wraps through the `wa-mutation` event. When emitted, `event.detail.mutationList` holds a collection of [MutationRecord](https://developer.mozilla.org/en-US/docs/Web/API/MutationRecord) objects describing how it changed.
+
 :::info
-When you create a mutation observer, you must indicate what changes it should respond to by including at least one of `attr`, `child-list`, or `char-data`. If you don't specify at least one of these attributes, no mutation events will be emitted.
+<strong>Specify at least one of `attr`, `child-list`, or `char-data`.</strong><br />
+These attributes tell the observer what changes to watch. Without at least one, no `wa-mutation` events are emitted.
 :::
 
 ## Examples
@@ -68,18 +69,20 @@ Use the `child-list` attribute to watch for new child elements that are added or
     </div>
   </wa-mutation-observer>
 
-  👆 Add and remove buttons and watch the console
+  <p>Add buttons, then click a numbered one to remove it. The observer saw <span class="log">no changes yet</span>.</p>
 
   <script>
     const container = document.querySelector('.mutation-child-list');
     const mutationObserver = container.querySelector('wa-mutation-observer');
     const buttons = container.querySelector('.buttons');
     const button = container.querySelector('wa-button[variant="brand"]');
+    const log = container.querySelector('.log');
     let i = 0;
 
     // Add a button
     button.addEventListener('click', () => {
       const button = document.createElement('wa-button');
+      button.setAttribute('appearance', 'filled');
       button.textContent = ++i;
       buttons.append(button);
     });
@@ -94,9 +97,10 @@ Use the `child-list` attribute to watch for new child elements that are added or
       }
     });
 
-    // Log mutations
+    // The observer reports each change it detects
     mutationObserver.addEventListener('wa-mutation', event => {
-      console.log(event.detail);
+      const [record] = event.detail.mutationList;
+      log.textContent = record.addedNodes.length ? 'a button added' : 'a button removed';
     });
   </script>
 

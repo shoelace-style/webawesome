@@ -68,7 +68,7 @@ Slot virtually any HTML — text, badges, cards, images, or other components —
 </div>
 ```
 
-### Setting the Number of Items
+### Number of Items
 
 Set `items` to show more than one child at a time. The value is clamped to the number of available children.
 
