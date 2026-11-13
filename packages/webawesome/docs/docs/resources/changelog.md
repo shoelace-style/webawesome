@@ -46,6 +46,8 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::fixed
 
+
+- Fixed a bug in `<wa-color-picker>` where the popup's value input had no accessible name, because its label was passed to `<wa-input>` as `aria-label` [issue:2914] [pr:2915]
 - Fixed a visual bug with `<wa-details>` and `<details>` not having the same visual alignment. [pr:2973]
 - Fixed an accessibility issue with `<wa-card>` where it would incorrectly be treated as a site-wide header. [issue:2723]
 - Fixed `<wa-dropdown>` losing trigger focus after closing with [[Escape]]. [issue:2766]
