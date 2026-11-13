@@ -54,8 +54,10 @@ function containsComposedNode(ancestor: Node, node: Node | null) {
  *
  * @csspart base - Deprecated. Use the `tooltip` part instead.
  * @csspart tooltip - The component's outer wrapper.
- * @csspart base__popup - The popup's exported `popup` part. Use this to target the tooltip's popup container.
- * @csspart base__arrow - The popup's exported `arrow` part. Use this to target the tooltip's arrow.
+ * @csspart base__popup - Deprecated. Use the `tooltip__popup` part instead.
+ * @csspart base__arrow - Deprecated. Use the `tooltip__arrow` part instead.
+ * @csspart tooltip__popup - The popup's exported `popup` part. Use this to target the tooltip's popup container.
+ * @csspart tooltip__arrow - The popup's exported `arrow` part. Use this to target the tooltip's arrow.
  * @csspart body - The tooltip's body where its content is rendered.
  *
  * @cssproperty --max-width - The maximum width of the tooltip before its content will wrap.
@@ -208,7 +210,7 @@ export default class WaTooltip extends WebAwesomeElement {
     }
   };
 
-  private handleClick = () => {
+  private handleClick = (event: MouseEvent) => {
     if (this.hasTrigger('click')) {
       if (this.open) {
         this.hide();
@@ -222,8 +224,11 @@ export default class WaTooltip extends WebAwesomeElement {
       return;
     }
 
-    // Light dismiss for activations that don't fire mousedown, like Enter or Space on a button.
-    this.lightDismiss();
+    // Pointer presses are handled on pointerdown. Keyboard and programmatic clicks have no click count.
+    // A touch-generated click must not dismiss the tooltip opened by that tap's hover/focus events.
+    if (event.detail === 0) {
+      this.lightDismiss();
+    }
   };
 
   private handleFocus = () => {
@@ -236,8 +241,8 @@ export default class WaTooltip extends WebAwesomeElement {
     }
   };
 
-  private handleMouseDown = () => {
-    if (this.hasTrigger('click') || this.hasTrigger('manual')) {
+  private handlePointerDown = (event: PointerEvent) => {
+    if (event.pointerType === 'touch' || this.hasTrigger('click') || this.hasTrigger('manual')) {
       return;
     }
 
@@ -434,7 +439,7 @@ export default class WaTooltip extends WebAwesomeElement {
       newAnchor.addEventListener('blur', this.handleBlur, { capture: true, signal });
       newAnchor.addEventListener('focus', this.handleFocus, { capture: true, signal });
       newAnchor.addEventListener('click', this.handleClick, { signal });
-      newAnchor.addEventListener('mousedown', this.handleMouseDown, { signal });
+      newAnchor.addEventListener('pointerdown', this.handlePointerDown, { signal });
       newAnchor.addEventListener('mouseover', this.handleMouseOver, { signal });
       newAnchor.addEventListener('mouseout', this.handleMouseOut, { signal });
     }
@@ -444,7 +449,7 @@ export default class WaTooltip extends WebAwesomeElement {
       oldAnchor.removeEventListener('blur', this.handleBlur, { capture: true });
       oldAnchor.removeEventListener('focus', this.handleFocus, { capture: true });
       oldAnchor.removeEventListener('click', this.handleClick);
-      oldAnchor.removeEventListener('mousedown', this.handleMouseDown);
+      oldAnchor.removeEventListener('pointerdown', this.handlePointerDown);
       oldAnchor.removeEventListener('mouseover', this.handleMouseOver);
       oldAnchor.removeEventListener('mouseout', this.handleMouseOut);
     }
@@ -493,7 +498,9 @@ export default class WaTooltip extends WebAwesomeElement {
         part="base tooltip"
         exportparts="
           popup:base__popup,
-          arrow:base__arrow
+          arrow:base__arrow,
+          popup:tooltip__popup,
+          arrow:tooltip__arrow
         "
         class=${classMap({
           tooltip: true,

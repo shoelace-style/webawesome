@@ -1,6 +1,6 @@
 ---
 title: Web Awesome
-description: Build better with Web Awesome, the open source library of web components from Font Awesome.
+description: The open-source UI toolkit from the team behind Font Awesome. Built on web standards, so it works with any framework and matches any brand.
 layout: page
 hasGeneratedTitle: false
 hasFramedMain: false
@@ -77,14 +77,14 @@ hasFramedMain: false
       flex: 1 1 67%;
     }
     & wa-button {
-      &::part(base) {
+      &::part(button) {
         border-color: black;
         border-width: 0.125rem;
         box-shadow: 0 0.25rem 0 0 black;
         flex: 1 1 auto;
         height: 2.5rem;
       }
-      &:active:not([disabled])::part(base) {
+      &:active:not([disabled])::part(button) {
         box-shadow: 0 0 0 0 transparent;
         transform: translateY(0.25rem);
       }
@@ -170,13 +170,13 @@ hasFramedMain: false
         flex: 1 1 auto;
         gap: 0.5rem;
       }
-      & wa-button::part(base) {
+      & wa-button::part(button) {
         height: 1.5rem;
         font-size: 0.75rem;
       }
     }
   }
-  wa-button.tile::part(base) {
+  wa-button.tile::part(button) {
     border-color: var(--wa-color-surface-border);
     border-radius: 0.75rem;
     color: var(--wa-color-text-normal);
@@ -227,7 +227,7 @@ hasFramedMain: false
     <h1 class="font-brand">Make something <span class="emphasis">awesome</span> with open-source web components</h1>
     <div class="hero-cta">
       {%- raw -%}
-        {% if currentUser.hasPro %}
+        {% if currentUser.can.proBundle.allowed %}
           <span class="wa-font-size-l" style="text-align: center; width: 100%;">Thanks for being a {{ site.namePro }} subscriber!</span>
         {% else %}
           <div class="wa-stack wa-gap-xs">

@@ -85,10 +85,11 @@ describe('<wa-tab-panel>', () => {
       });
 
       describe('CSS parts', () => {
-        it('should have a base part', async () => {
+        it('should have a "tab-panel" part on a wrapper, not the slot', async () => {
           const el = await fixture<WaTabPanel>(html`<wa-tab-panel>Test</wa-tab-panel>`);
-          const base = el.shadowRoot!.querySelector('[part~="base"]');
-          expect(base).to.exist;
+          const wrapper = el.shadowRoot!.querySelector('[part~="tab-panel"]')!;
+          expect(wrapper.localName).to.equal('div');
+          expect(wrapper.matches('[part~="base"]')).to.be.true;
         });
       });
     });

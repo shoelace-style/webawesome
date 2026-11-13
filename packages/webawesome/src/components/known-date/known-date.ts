@@ -150,7 +150,10 @@ export default class WaKnownDate extends WebAwesomeFormAssociatedElement {
   /** Makes the fields non-editable. */
   @property({ type: Boolean, reflect: true }) readonly = false;
 
-  /** The known date's size. */
+  /**
+   * The known date's size.
+   * The long-form values `small`, `medium`, and `large` are deprecated; use `s`, `m`, and `l` instead.
+   */
   @property({ reflect: true }) size: WaKnownDateSize | 'small' | 'medium' | 'large' = 'm';
 
   @watch('size')

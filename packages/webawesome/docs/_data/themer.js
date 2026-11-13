@@ -711,6 +711,19 @@ export const elementPresets = themes.map(theme => ({
   borderWidthScale: theme.tokens['--wa-border-width-scale'],
 }));
 
+const paletteDescriptions = {
+  Default: 'vivid hues at even strength, with cool blue-gray neutrals.',
+  Bright: 'lighter core colors and the bluest grays of any palette.',
+  Shoelace: 'punchier purples and pinks than Default, with softer blues and near-neutral grays.',
+  Rudimentary: 'the highest saturation of any palette, with grays that have no tint at all.',
+  Elegant: 'toned-down hues with darker core colors and cool slate grays.',
+  Mild: 'muted hues with a strong red and near-neutral grays.',
+  Natural: 'the lowest saturation of any palette, with earthy hues and warm, stone-colored grays.',
+  Anodized:
+    'soft pastel warm hues and deep, vivid cool ones. Greens, cyans, and blues shift toward blue as they darken, the way anodized metal does.',
+  Vogue: 'bold hues led by its pinks and purples, with greens leaning yellow and cyans leaning teal.',
+};
+
 /**
  * All palettes used by themes in a simple array.
  */
@@ -718,6 +731,10 @@ export const palettes = themes
   .map(theme => ({
     ...theme.palette,
     isPro: theme.isPro,
+    description: paletteDescriptions[theme.palette.name],
+    pairedThemes: themes
+      .filter(other => other.palette.name === theme.palette.name)
+      .map(other => ({ name: other.name, slug: other.filename.replace('.css', '') })),
   }))
   .filter(
     (palette, index, array) =>

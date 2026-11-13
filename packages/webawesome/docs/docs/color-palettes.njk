@@ -17,7 +17,7 @@ hasOutline: false
 {% include "theming/color-palette-picker.njk" %}
 
 {% raw %}
-{% if not currentUser or not currentUser.hasPro %}
+{% if not currentUser or not currentUser.can.proThemes.allowed %}
 {% endraw %}
 <wa-callout class="pro wa-brand-orange">
   <wa-icon slot="icon" name="crown" family="duotone" variant="regular" class="duotone-illustrated"></wa-icon>
@@ -55,16 +55,16 @@ hasOutline: false
   {% for palette in themer.palettes %}
   <div class="palette-instructions" data-palette="{{ palette.name | lower }}" {% if not loop.first %}hidden{% endif %}>
     <wa-tab-group data-install-tabs>
-      <wa-tab panel="cdn"><wa-icon name="globe" variant="regular"></wa-icon> CDN</wa-tab>
-      <wa-tab panel="npm"><wa-icon name="box-open" variant="regular"></wa-icon> npm</wa-tab>
-      <wa-tab panel="self-hosted"><wa-icon name="arrow-down-to-line" variant="regular"></wa-icon> Self-Hosted</wa-tab>
-      <wa-tab panel="hosted"><wa-icon name="rocket-launch" variant="regular"></wa-icon> Hosted Projects</wa-tab>
+      <wa-tab panel="cdn"><wa-icon name="globe"></wa-icon> CDN</wa-tab>
+      <wa-tab panel="npm"><wa-icon name="box-open"></wa-icon> npm</wa-tab>
+      <wa-tab panel="self-hosted"><wa-icon name="arrow-down-to-line"></wa-icon> Self-Hosted</wa-tab>
+      <wa-tab panel="hosted"><wa-icon name="rocket-launch"></wa-icon> Hosted Projects</wa-tab>
 
       <wa-tab-panel name="cdn">
         {% if palette.isPro %}
 {% markdown %}
 <wa-callout variant="neutral" size="s">
-  <wa-icon slot="icon" name="info-circle" variant="regular"></wa-icon>
+  <wa-icon slot="icon" name="info-circle"></wa-icon>
   This palette can only be used with a Pro subscription. {% raw %}{% if session.isLoggedIn %}{% endraw %}For instructions unique to your Pro project, open a project from <a href="/workspaces">your workspace</a>.{% raw %}{% endif %}{% endraw %}
 </wa-callout>
 {% endmarkdown %}
@@ -135,12 +135,12 @@ Then, apply the following class to the `<html>` element:
               <tbody>
                 <tr>
                   <td>1</td>
-                  <td>Go to your project's <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="gear" variant="regular"></wa-icon> Settings</wa-tag>.
+                  <td>Go to your project's <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="gear"></wa-icon> Settings</wa-tag>.
                   </td>
                 </tr>
                 <tr>
                   <td>2</td>
-                  <td>Press <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="paintbrush" variant="regular"></wa-icon> Edit Your Theme</wa-tag> to
+                  <td>Press <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="paintbrush"></wa-icon> Edit Your Theme</wa-tag> to
                     open
                     the Theme Builder.</td>
                 </tr>
@@ -170,14 +170,13 @@ Then, apply the following class to the `<html>` element:
               <tbody>
                 <tr>
                   <td>1</td>
-                  <td>Go to your project's <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="gear" variant="regular"></wa-icon> Settings</wa-tag>.
+                  <td>Go to your project's <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="gear"></wa-icon> Settings</wa-tag>.
                   </td>
                 </tr>
                 <tr>
                   <td>2</td>
                   <td>Find <wa-tag class="tag-ui" appearance="outlined">Color Palette</wa-tag>. Select <wa-tag
-                      class="tag-ui" appearance="outlined"><wa-icon name="swatchbook"
-                        variant="regular"></wa-icon>
+                      class="tag-ui" appearance="outlined"><wa-icon name="swatchbook"></wa-icon>
                       {{ palette.name | capitalize }}</wa-tag>.
                   </td>
                 </tr>
@@ -203,12 +202,12 @@ Then, apply the following class to the `<html>` element:
               <tbody>
                 <tr>
                   <td>1</td>
-                  <td>Go to your project's <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="gear" variant="regular"></wa-icon> Settings</wa-tag>.
+                  <td>Go to your project's <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="gear"></wa-icon> Settings</wa-tag>.
                   </td>
                 </tr>
                 <tr>
                   <td>2</td>
-                  <td>Press <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="paintbrush" variant="regular"></wa-icon> Edit Your Theme</wa-tag> to
+                  <td>Press <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="paintbrush"></wa-icon> Edit Your Theme</wa-tag> to
                     open
                     the Theme Builder.</td>
                 </tr>

@@ -40,7 +40,8 @@ import styles from './tab-group.styles.js';
  * @csspart scroll-button - The previous/next scroll buttons that show when tabs are scrollable, a `<wa-button>`.
  * @csspart scroll-button-start - The starting scroll button.
  * @csspart scroll-button-end - The ending scroll button.
- * @csspart scroll-button__base - The scroll button's exported `base` part.
+ * @csspart scroll-button__base - Deprecated. Use the `scroll-button__button` part instead.
+ * @csspart scroll-button__button - The scroll button's exported `button` part.
  *
  * @cssproperty --indicator-color - The color of the active tab indicator.
  * @cssproperty --track-color - The color of the indicator's track (the line that separates tabs from panels).
@@ -127,21 +128,27 @@ export default class WaTabGroup extends WebAwesomeElement {
       this.mutationObserver.observe(this, { attributes: true, childList: true, subtree: true });
       this.resizeObserver.observe(this.nav);
 
+      // Activate the initial tab now, before the first paint. This is a microtask after the first
+      // render, so the panel is in the first frame. Scrolling is skipped here because the tab
+      // group may not be laid out or visible yet; the IntersectionObserver below handles that.
+      let initialTab = this.getActiveTab() ?? this.tabs[0];
+
+      if (this.active) {
+        initialTab = this.tabs.find(t => t.panel === this.active) ?? initialTab;
+      }
+
+      if (initialTab) {
+        // Not sure if we should emit events here?? The old version in the IntersectionObserver did.
+        this.setActiveTab(initialTab, { emitEvents: false, scroll: false });
+      }
+
       // Set initial tab state when the tabs become visible
       const intersectionObserver = new IntersectionObserver((entries, observer) => {
         if (entries[0].intersectionRatio > 0) {
-          this.setAriaLabels();
-
-          if (this.active) {
-            const tab = this.tabs.find(t => t.panel === this.active);
-
-            if (tab) {
-              this.setActiveTab(tab);
-            }
-          } else {
-            this.setActiveTab(this.getActiveTab() ?? this.tabs[0], { emitEvents: false });
+          // setActiveTab() called above so will do nothing here, instead we handle any possible scrolling that is needed here.
+          if (this.activeTab && ['top', 'bottom'].includes(this.placement)) {
+            scrollIntoView(this.activeTab, this.nav, 'horizontal', 'auto');
           }
-
           observer.unobserve(entries[0].target);
         }
       });
@@ -307,10 +314,14 @@ export default class WaTabGroup extends WebAwesomeElement {
     });
   }
 
-  private setActiveTab(tab: WaTab, options?: { emitEvents?: boolean; scrollBehavior?: 'auto' | 'smooth' }) {
+  private setActiveTab(
+    tab: WaTab,
+    options?: { emitEvents?: boolean; scrollBehavior?: 'auto' | 'smooth'; scroll?: boolean },
+  ) {
     options = {
       emitEvents: true,
       scrollBehavior: 'auto',
+      scroll: true,
       ...options,
     };
 
@@ -332,7 +343,7 @@ export default class WaTabGroup extends WebAwesomeElement {
 
       this.panels.forEach(el => (el.active = el.name === this.activeTab?.panel));
 
-      if (['top', 'bottom'].includes(this.placement)) {
+      if (['top', 'bottom'].includes(this.placement) && !options.scroll) {
         scrollIntoView(this.activeTab, this.nav, 'horizontal', options.scrollBehavior);
       }
 
@@ -363,6 +374,8 @@ export default class WaTabGroup extends WebAwesomeElement {
     this.tabs = this.getAllTabs();
     this.focusableTabs = this.tabs.filter(el => !el.disabled);
     this.panels = this.getAllPanels();
+
+    this.setAriaLabels();
 
     // After updating, show or hide scroll controls as needed
     this.updateComplete.then(() => this.updateScrollControls());
@@ -414,7 +427,7 @@ export default class WaTabGroup extends WebAwesomeElement {
             ? html`
                 <wa-button
                   part="scroll-button scroll-button-start"
-                  exportparts="base:scroll-button__base"
+                  exportparts="base:scroll-button__base, button:scroll-button__button"
                   class="scroll-button scroll-button-start"
                   appearance="plain"
                   @click=${this.handleScrollToStart}
@@ -441,7 +454,7 @@ export default class WaTabGroup extends WebAwesomeElement {
                 <wa-button
                   part="scroll-button scroll-button-end"
                   class="scroll-button scroll-button-end"
-                  exportparts="base:scroll-button__base"
+                  exportparts="base:scroll-button__base, button:scroll-button__button"
                   appearance="plain"
                   @click=${this.handleScrollToEnd}
                 >

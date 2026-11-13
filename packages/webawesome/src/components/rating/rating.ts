@@ -162,7 +162,10 @@ export default class WaRating extends WebAwesomeFormAssociatedElement {
       : '<wa-icon name="star" library="system" variant="regular"></wa-icon>';
   };
 
-  /** The component's size. */
+  /**
+   * The component's size.
+   * The long-form values `small`, `medium`, and `large` are deprecated; use `s`, `m`, and `l` instead.
+   */
   @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
 
   @watch('size')

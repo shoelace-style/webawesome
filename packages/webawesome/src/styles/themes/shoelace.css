@@ -12,6 +12,7 @@
   .wa-dark .wa-theme-shoelace .wa-invert {
     /* #region Colors (Light) ~~~~~~~~~~~~~~~~~~~~~ */
     color-scheme: light;
+    --wa-color-scheme: light;
     color: var(--wa-color-text-normal);
 
     --wa-color-surface-raised: white;
@@ -98,6 +99,7 @@
   .wa-light .wa-theme-shoelace .wa-invert {
     /* #region Colors (Dark) ~~~~~~~~~~~~~~~~~~~~~~ */
     color-scheme: dark;
+    --wa-color-scheme: dark;
     color: var(--wa-color-text-normal);
 
     --wa-color-surface-raised: var(--wa-color-neutral-10);
@@ -578,13 +580,24 @@
 
       &:focus-within {
         &:where(:not(wa-input, wa-textarea, wa-select, wa-combobox, wa-tag-input)),
-        &:where(wa-input)::part(base),
-        &:where(wa-textarea)::part(base),
+        &:where(wa-input)::part(input-wrapper),
+        &:where(wa-textarea)::part(textarea-wrapper),
         &:where(wa-select)::part(combobox),
         &:where(wa-combobox)::part(combobox),
         &:where(wa-tag-input)::part(tag-input) {
           border-color: var(--wa-color-brand-border-loud);
         }
+      }
+    }
+
+    /* The same focus without the tokens above, which would fade the focus rings of the controls inside the editor */
+    wa-rich-text-editor:not([appearance='filled'], .wa-filled) {
+      &::part(rich-text-editor) {
+        outline-offset: 0;
+      }
+
+      &:focus-within::part(rich-text-editor) {
+        border-color: var(--wa-color-brand-border-loud);
       }
     }
 

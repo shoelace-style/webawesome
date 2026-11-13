@@ -31,17 +31,90 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 ## Unreleased
 
+:::added
+
+- Added the experimental `<wa-rich-text-editor>` pro component for writing and formatting content, with HTML or Markdown values that submit with forms
+- Added the experimental `<wa-code-highlighter>` component for displaying syntax-highlighted code with a copy button
+  - Added `registerCodeGrammar()` for adding or replacing grammars
+- Added the ability to change the default icon family and variant for all icons [pr:2978]
+  - Added the `data-fa-family` and `data-fa-variant` attributes
+  - Added an optional `variant` argument to `setDefaultIconFamily()`
+  - Added `getDefaultIconVariant()`
+  - In {{ site.namePro }}, the icons inside components follow the defaults for the `classic`, `sharp`, `duotone`, and `sharp-duotone` families
+
+:::
+
 :::fixed
 
+
 - Fixed a bug in `<wa-color-picker>` where the popup's value input had no accessible name, because its label was passed to `<wa-input>` as `aria-label` [issue:2914] [pr:2915]
+- Fixed a visual bug with `<wa-details>` and `<details>` not having the same visual alignment. [pr:2973]
+- Fixed an accessibility issue with `<wa-card>` where it would incorrectly be treated as a site-wide header. [issue:2723]
+- Fixed `<wa-dropdown>` losing trigger focus after closing with [[Escape]]. [issue:2766]
+- Fixed a bug in `<wa-input>` where validity would not properly update on certain property changes. [pr:3025]
+- Fixed a bug in `<wa-button>` where calling `event.preventDefault()` would not prevent form submissions. [pr:3008]
+- Fixed a bug in `<wa-dropdown>` where scrolling past the end of a long menu on macOS showed the page through the menu's background [issue:2711]
+- Fixed a bug in `<wa-slider>`, `<wa-color-picker>`, `<wa-comparison>`, and `<wa-split-panel>` where releasing a drag outside of the component clicked the element around it, such as a clickable card; drags now capture the pointer [issue:2983]
+- Fixed a bug in `<wa-date-input>` and `<wa-time-input>` where pressing [[Ctrl]]/[[Cmd]] + [[A]] in a segment selected the whole page [issue:2980]
+- Fixed a bug in `<wa-date-input>` and `<wa-time-input>` where dragging across the segments selected their text in Safari [issue:2980]
+- Fixed a bug in `<wa-date-picker>` where the `day-YYYY-MM-DD` slots were missing from its Slots table and `custom-elements.json` [issue:2889]
+- Improved `<wa-popover>` accessibility [pr:2986]
+  - Fixed the anchor not telling screen readers that it opens a popover, or whether it's open
+  - Fixed focus not returning to the anchor after closing with a `data-popover="close"` button
+- Fixed `<wa-accordion-item>` styles to match `<wa-details>`, including label weight, content color, and spacing between the label and content [issue:2963]
+- Fixed `<wa-accordion appearance="filled-outlined">` using the default border color for the lines between items instead of its outer border color [issue:2963]
+- Fixed `<wa-details>` using linear easing for its expand/collapse animation instead of the theme's `--wa-transition-easing` [issue:2963]
+- Fixed a bug in `allDefined()` where an unregistered `wa-*` element anywhere in the document made it wait forever; it now logs a warning and resolves after the new `timeout` option (2 seconds by default) [issue:2957]
+- Fixed `<wa-button-group>` labels missing from the accessibility tree [issue:2863] [pr:2923]
+- Fixed a bug in `<wa-otp-input>` where the last segment was cut off inside `.wa-frame` and other containers that size it to its content [issue:2854]
+- Fixed a bug in `<wa-checkbox-group>` where the vertical spacing of its label and checkboxes didn't match `<wa-radio-group>` [issue:2959]
+- Fixed a regression in `<wa-tooltip>` where tapping an anchor on a touch device immediately dismissed its hover/focus tooltip. [issue:2948] [pr:2955]
+- Fixed a bug in `<wa-select multiple>` where custom tags from `getTag` were squeezed beside the selection count [issue:2913] [pr:2917]
+- Fixed a bug in `<wa-select multiple>` where tags for options added after the first render were misaligned in Firefox [issue:2909] [pr:2917]
+- Fixed `<wa-textarea>` returning the vertical offset as the horizontal scroll position [issue:2919] [pr:2922]
+- Fixed a bug in `<wa-page>` and `<wa-tab-group>` where they did not render on first frame and their first render was delayed [pr:2932]
+- Fixed an issue where `disable-sticky` on `<wa-page>` was not documented. [pr:2932]
 - Fixed a regression in implicit form submission where pressing [[Enter]] submitted the form even when its submit button was disabled [pr:2861]
+- Fixed a bug in `<wa-dropdown-item>` where items without a checkbox sat slightly left of checkbox items in the same menu
+- Fixed a bug in `<wa-radio-group>` where disabled fieldsets cleared the selected radio's checked state or prevented the group from being re-enabled [issue:2907] [pr:2912]
+- Fixed a bug in `<wa-radio-group>` where `focus()` and label clicks failed to focus an enabled radio when the checked radio was disabled [issue:2907] [pr:2912]
 - Fixed a bug in `animateWithClass` internal helper which could occasionally leave animations in indeterminate states. [pr:2870]
+- Fixed a bug in `<wa-copy-button>` where a missing `from` target copied the fallback `value` instead of stopping after `wa-error` [issue:2891] [pr:2911]
+- Fixed a bug in `<wa-dropdown>` where reopening the menu during its hide animation left it stuck open, ignoring [[Escape]] and clicks outside
+- Fixed a bug in `<wa-dropdown>` where submenus that flipped to the opposite side closed while the pointer moved toward them [pr:2978]
+- Fixed a bug in `<wa-dropdown>` where long menus overflowed the viewport horizontally instead of shrinking to fit [pr:2969]
 - Fixed a bug in `<wa-dropdown>` where the initial focused element would get lost. [pr:2886]
 - Fixed a bug in `<wa-dropdown>` where submenus would occasionally get dismissed due to not properly rechecking submenu hover states. [pr:2877]
 - Fixed an issue in `<wa-tooltip>` where `abortController` preserved instances of `anchor` in the exception message causing the anchor to still be reachable. [pr:2873]
 - Fixed a bug in `<wa-popup>` which could lead to possibly stale cleanup functions. [pr:2871]
 - Fixed a bug in `<wa-dropdown-item>` where dynamically added submenus would not trigger a `slotchange` event leading to `HasSlotController` reporting false. [pr:2868]
 - Fixed a bug in `<wa-tooltip>` where it would still open even when it was disabled. [pr:2869]
+- Fixed a bug in `<wa-switch>` where pressing an arrow key dispatched `change` and `input` events even when the switch was already in that position
+- Fixed a bug in `<wa-slider>` where the `tooltip__arrow` part didn't target the tooltip's arrow
+- Fixed a bug in `<wa-slider>` where steps were counted from zero instead of `min` [issue:2951]
+- Fixed a bug in `<wa-tree>` where nested items added in a single DOM mutation were not initialized until another change in the tree occurred
+- Fixed a performance issue in `<wa-tree>` where removing `lazy` from one item re-initialized all items in the tree causing slowness for trees with many items
+- Fixed a bug in `<wa-tree-item>` where the `expanded` attribute was ignored on nested items [issue:2792] [pr:2908]
+- Fixed a bug in `<wa-combobox>` where pressing the listbox's scrollbar, padding, or status message inside a `<wa-dialog>` or `<wa-drawer>` closed the listbox [issue:2967]
+
+:::
+
+:::changed
+
+- Promoted the following components from {{ statusBadge('experimental') }} to {{ statusBadge('stable') }}
+  - Free: `<wa-step>` and `<wa-stepper>`
+  - Pro: `<wa-data-grid>`
+- Changed the indeterminate icon in `<wa-checkbox>` to the system library's `minus` icon so it matches the checkmark [pr:2978]
+
+:::
+
+:::deprecated
+
+- Continued the `base` part deprecation from 3.11.0 [pr:2644]
+  - Added the `button-group` and `tab-panel` CSS parts to `<wa-button-group>` and `<wa-tab-panel>` which render a wrapper element so their deprecated `base` part is no longer on a `<slot>`
+  - Added component-named versions of exported parts that were named after `base`, such as `close-button__button` in `<wa-dialog>` and `tooltip__popup` and `tooltip__arrow` in `<wa-tooltip>`
+- Deprecated exported parts named after `base`, such as `close-button__base` in `<wa-dialog>` and `base__popup` and `base__arrow` in `<wa-tooltip>`, in favor of their component-named versions, continuing the `base` part deprecation from 3.11.0. They keep working until the next major version.
+  - The custom elements manifest now marks them deprecated too, so editors flag them like `base`
 
 :::
 
@@ -1431,7 +1504,7 @@ Many of these changes and improvements were the direct result of feedback from u
         data-track-context="feedback_callout"
         data-track-destination="report_bug"
       >
-        <wa-icon slot="start" variant="regular" name="bug"></wa-icon>
+        <wa-icon slot="start" name="bug"></wa-icon>
         Report a bug
       </wa-button>
       <wa-button
@@ -1442,7 +1515,7 @@ Many of these changes and improvements were the direct result of feedback from u
         data-track-context="feedback_callout"
         data-track-destination="ask_for_help"
       >
-        <wa-icon slot="start" variant="regular" name="message-question"></wa-icon>
+        <wa-icon slot="start" name="message-question"></wa-icon>
         Ask for help
       </wa-button>
     </div>
