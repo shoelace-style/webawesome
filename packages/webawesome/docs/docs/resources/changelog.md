@@ -46,8 +46,9 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::fixed
 
+- Fixed an accessibility issue with `<wa-card>` where it would incorrectly be treated as a site-wide header. [issue:2723]
 - Fixed `<wa-dropdown>` losing trigger focus after closing with [[Escape]]. [issue:2766]
-- Fixed a bug in `<wa-input>` where validity would not properly update on certain property changes. [pr:]
+- Fixed a bug in `<wa-input>` where validity would not properly update on certain property changes. [pr:3025]
 - Fixed a bug in `<wa-button>` where calling `event.preventDefault()` would not prevent form submissions. [pr:3008]
 - Fixed a bug in `<wa-dropdown>` where scrolling past the end of a long menu on macOS showed the page through the menu's background [issue:2711]
 - Fixed a bug in `<wa-slider>`, `<wa-color-picker>`, `<wa-comparison>`, and `<wa-split-panel>` where releasing a drag outside of the component clicked the element around it, such as a clickable card; drags now capture the pointer [issue:2983]
