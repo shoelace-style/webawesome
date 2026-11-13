@@ -54,15 +54,15 @@ Web Awesome uses [themes](/docs/themes) to apply a cohesive look and feel across
       <tbody>
         <tr>
           <td>1</td>
-          <td>Go to your project's <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="gear" variant="regular"></wa-icon> Settings</wa-tag>.</td>
+          <td>Go to your project's <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="gear"></wa-icon> Settings</wa-tag>.</td>
         </tr>
         <tr>
           <td>2</td>
-          <td>Find <wa-tag class="tag-ui" appearance="outlined">Theme</wa-tag> and select <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="paintbrush" variant="regular"></wa-icon></wa-tag> the theme you'd like to use.</td>
+          <td>Find <wa-tag class="tag-ui" appearance="outlined">Theme</wa-tag> and select <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="paintbrush"></wa-icon></wa-tag> the theme you'd like to use.</td>
         </tr>
         <tr>
           <td>3</td>
-          <td>Find <wa-tag class="tag-ui" appearance="outlined">Color Palette</wa-tag> and select <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="swatchbook" variant="regular"></wa-icon></wa-tag> the palette you'd like to use.</td>
+          <td>Find <wa-tag class="tag-ui" appearance="outlined">Color Palette</wa-tag> and select <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="swatchbook"></wa-icon></wa-tag> the palette you'd like to use.</td>
         </tr>
         <tr>
           <td>4</td>
@@ -86,11 +86,11 @@ Web Awesome uses [themes](/docs/themes) to apply a cohesive look and feel across
       <tbody>
         <tr>
           <td>1</td>
-          <td>Go to your project's <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="gear" variant="regular"></wa-icon> Settings</wa-tag>.</td>
+          <td>Go to your project's <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="gear"></wa-icon> Settings</wa-tag>.</td>
         </tr>
         <tr>
           <td>2</td>
-          <td>Press <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="paintbrush" variant="regular"></wa-icon> Edit Your Theme</wa-tag> to open the <a href="#theme-builder">Theme Builder</a>.</td>
+          <td>Press <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="paintbrush"></wa-icon> Edit Your Theme</wa-tag> to open the <a href="#theme-builder">Theme Builder</a>.</td>
         </tr>
         <tr>
           <td>3</td>
@@ -109,11 +109,11 @@ Web Awesome uses [themes](/docs/themes) to apply a cohesive look and feel across
 
 The Theme Builder is a visual editor for **Pro workspace projects** that lets you customize your project's [theme](/docs/themes), [color palette](/docs/color-palettes), [variant colors](/docs/tokens/color#variant-colors), fonts, roundness, spacing, and icons — with a live preview as you go. Saves apply instantly anywhere you're using your project.
 
-You can launch the Theme Builder from your project's <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="gear" variant="regular"></wa-icon> Settings</wa-tag> by pressing <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="paintbrush" variant="regular"></wa-icon> Edit Your Theme</wa-tag>.
+You can launch the Theme Builder from your project's <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="gear"></wa-icon> Settings</wa-tag> by pressing <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="paintbrush"></wa-icon> Edit Your Theme</wa-tag>.
 
 ### Light & Dark Mode
 
-Every theme is designed to adapt to light and dark mode. Light mode styles are applied by default, but you can apply a specific color scheme to an entire page or just a section with `class="wa-light"` or `class="wa-dark"`.
+Every theme is designed to adapt to light and dark mode. Light mode styles are applied by default, but you can apply a specific color scheme to an entire page or just a section with `class="wa-light"` or `class="wa-dark"`. Each color scheme also sets the `--wa-color-scheme` custom property to `light` or `dark`, so your own styles and components can read the active scheme.
 
 ```html {.example}
 {% include 'theming/light-dark-example.njk' %}

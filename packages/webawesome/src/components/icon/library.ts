@@ -1,4 +1,5 @@
 import type WaIcon from '../icon/icon.js';
+import { setDefaultIconFamilyAndVariant } from './library.config.js';
 import defaultLibrary from './library.default.js';
 import systemLibrary from './library.system.js';
 
@@ -17,7 +18,6 @@ export interface IconLibrary {
   spriteSheet?: boolean;
 }
 
-let defaultIconFamily = 'classic';
 let registry: IconLibrary[] = [defaultLibrary, systemLibrary];
 let watchedIcons: Set<WaIcon> = new Set();
 
@@ -59,15 +59,16 @@ export function unregisterIconLibrary(name: string) {
   registry = registry.filter(lib => lib.name !== name);
 }
 
-/** Sets the default icon family. */
-export function setDefaultIconFamily(family: string) {
-  defaultIconFamily = family;
+export { getDefaultIconFamily, getDefaultIconVariant } from './library.config.js';
+
+/**
+ * Sets the default icon family and, optionally, the default variant. These apply to icons that don't specify their own
+ * `family` or `variant`, including the system icons used inside components. When `variant` is omitted, the current
+ * default variant is kept. The defaults can also be set with `data-fa-family` and `data-fa-variant` attributes.
+ */
+export function setDefaultIconFamily(family: string, variant?: string) {
+  setDefaultIconFamilyAndVariant(family, variant);
 
   // Update watched icons
   watchedIcons.forEach(icon => icon.setIcon());
-}
-
-/** Gets the default icon family. */
-export function getDefaultIconFamily() {
-  return defaultIconFamily;
 }

@@ -22,6 +22,19 @@ describe('<wa-card>', () => {
           await expect(el).to.be.accessible();
         });
 
+        it('should pass accessibility tests with a page header and card header', async () => {
+          const el = await fixture<HTMLDivElement>(html`
+            <div>
+              <header>Site header</header>
+              <wa-card>
+                <div slot="header">Card header</div>
+                Card content
+              </wa-card>
+            </div>
+          `);
+          await expect(el).to.be.accessible();
+        });
+
         it('should pass accessibility tests with footer', async () => {
           const el = await fixture<WaCard>(html`
             <wa-card>

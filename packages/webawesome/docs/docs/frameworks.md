@@ -1,6 +1,7 @@
 ---
 title: Frameworks
 description: Using Web Awesome with frameworks.
+ogDescription: "Web Awesome components are custom elements, so they work anywhere HTML does."
 layout: docs
 hasOutline: false
 synonyms:
@@ -119,12 +120,12 @@ Web Awesome is built on standard web components, so it works with any framework.
 
 <div class="wa-placeholder wa-stack wa-gap-2xl wa-align-items-center wa-justify-content-center wa-text-center">
   <div class="wa-stack wa-align-items-center">
-    <wa-icon name="puzzle" variant="regular" class="wa-font-size-3xl"></wa-icon>
+    <wa-icon name="puzzle" class="wa-font-size-3xl"></wa-icon>
     <h3 class="font-brand wa-heading-xl" data-no-anchor>Don't See Your Framework?</h3>
     <p class="text-wrap-balance line-length line-length-m">We document the most common frameworks, but we're always adding more. Tell us what you're building with and we'll consider a guide.</p>
   </div>
   <wa-button href="{{ site.github.ideas }}">
-    <wa-icon name="lightbulb-on" slot="start" variant="regular"></wa-icon>
+    <wa-icon name="lightbulb-on" slot="start"></wa-icon>
     Request a Framework
   </wa-button>
 </div>

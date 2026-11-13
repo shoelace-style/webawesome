@@ -36,38 +36,38 @@ describe('<wa-progress-ring>', () => {
 
         it('should set aria-valuenow from value', async () => {
           const el = await fixture<WaProgressRing>(html`<wa-progress-ring value="25"></wa-progress-ring>`);
-          const base = el.shadowRoot!.querySelector('[part~="base"]')!;
-          expect(base.getAttribute('aria-valuenow')).to.equal('25');
+          const progressRing = el.shadowRoot!.querySelector('[part~="progress-ring"]')!;
+          expect(progressRing.getAttribute('aria-valuenow')).to.equal('25');
         });
 
         it('should set the --percentage CSS variable based on value', async () => {
           const el = await fixture<WaProgressRing>(html`<wa-progress-ring value="25"></wa-progress-ring>`);
-          const base = el.shadowRoot!.querySelector('[part~="base"]')!;
-          expect(base.getAttribute('style')).to.equal('--percentage:0.25;');
+          const progressRing = el.shadowRoot!.querySelector('[part~="progress-ring"]')!;
+          expect(progressRing.getAttribute('style')).to.equal('--percentage:0.25;');
         });
 
         it('should use custom label for aria-label when provided', async () => {
           const el = await fixture<WaProgressRing>(
             html`<wa-progress-ring value="50" label="Uploading"></wa-progress-ring>`,
           );
-          const base = el.shadowRoot!.querySelector('[part~="base"]')!;
-          expect(base.getAttribute('aria-label')).to.equal('Uploading');
+          const progressRing = el.shadowRoot!.querySelector('[part~="progress-ring"]')!;
+          expect(progressRing.getAttribute('aria-label')).to.equal('Uploading');
         });
 
         it('should have proper ARIA progressbar role', async () => {
           const el = await fixture<WaProgressRing>(html`<wa-progress-ring value="50"></wa-progress-ring>`);
-          const base = el.shadowRoot!.querySelector('[part~="base"]')!;
-          expect(base.getAttribute('role')).to.equal('progressbar');
-          expect(base.getAttribute('aria-valuemin')).to.equal('0');
-          expect(base.getAttribute('aria-valuemax')).to.equal('100');
+          const progressRing = el.shadowRoot!.querySelector('[part~="progress-ring"]')!;
+          expect(progressRing.getAttribute('role')).to.equal('progressbar');
+          expect(progressRing.getAttribute('aria-valuemin')).to.equal('0');
+          expect(progressRing.getAttribute('aria-valuemax')).to.equal('100');
         });
 
         it('should update aria-valuenow when value changes', async () => {
           const el = await fixture<WaProgressRing>(html`<wa-progress-ring value="25"></wa-progress-ring>`);
           el.value = 75;
           await el.updateComplete;
-          const base = el.shadowRoot!.querySelector('[part~="base"]')!;
-          expect(base.getAttribute('aria-valuenow')).to.equal('75');
+          const progressRing = el.shadowRoot!.querySelector('[part~="progress-ring"]')!;
+          expect(progressRing.getAttribute('aria-valuenow')).to.equal('75');
         });
       });
 
@@ -80,9 +80,11 @@ describe('<wa-progress-ring>', () => {
       });
 
       describe('CSS parts', () => {
-        it('should have a base part', async () => {
+        it('should expose the "progress-ring" part and keep the deprecated base part', async () => {
           const el = await fixture<WaProgressRing>(html`<wa-progress-ring value="50"></wa-progress-ring>`);
-          expect(el.shadowRoot!.querySelector('[part~="base"]')).to.exist;
+          const wrapper = el.shadowRoot!.querySelector('[part~="progress-ring"]');
+          expect(wrapper).to.exist;
+          expect(wrapper!.matches('[part~="base"]')).to.be.true;
         });
 
         it('should have a track part', async () => {

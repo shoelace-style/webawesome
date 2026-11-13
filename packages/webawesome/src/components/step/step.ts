@@ -14,7 +14,7 @@ import styles from './step.styles.js';
 /**
  * @summary Steps represent a single stage inside a `<wa-stepper>`, showing its position, label, and status.
  * @documentation https://webawesome.com/docs/components/step
- * @status experimental
+ * @status stable
  * @since 3.14
  *
  * @dependency wa-icon

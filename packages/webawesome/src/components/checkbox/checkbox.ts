@@ -88,7 +88,10 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
     this._value = val;
   }
 
-  /** The checkbox's size. */
+  /**
+   * The checkbox's size.
+   * The long-form values `small`, `medium`, and `large` are deprecated; use `s`, `m`, and `l` instead.
+   */
   @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
 
   @watch('size')
@@ -227,7 +230,7 @@ export default class WaCheckbox extends WebAwesomeFormAssociatedElement {
     const hasHint = this.hint ? true : !!hasHintSlot;
     const isIndeterminate = !this.checked && this.indeterminate;
 
-    const iconName = isIndeterminate ? 'indeterminate' : 'check';
+    const iconName = isIndeterminate ? 'minus' : 'check';
     const iconState = isIndeterminate ? 'indeterminate' : 'checked';
 
     // We need to use the attribute for SSR, because for some reason Lit SSR always sets `.checked=${live(this.checked)}` as "true"

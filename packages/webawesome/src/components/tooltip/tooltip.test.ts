@@ -383,7 +383,7 @@ describe('<wa-tooltip>', () => {
       });
 
       describe('CSS parts and states', () => {
-        it('should expose the base CSS part', async () => {
+        it('should expose the "tooltip" part and keep the deprecated base part', async () => {
           const el = await fixture<HTMLDivElement>(html`
             <div>
               <wa-button id="btn">Hover</wa-button>
@@ -391,8 +391,40 @@ describe('<wa-tooltip>', () => {
             </div>
           `);
           const tooltip = el.querySelector<WaTooltip>('wa-tooltip')!;
-          const base = tooltip.shadowRoot!.querySelector('[part~="base"]');
-          expect(base).to.exist;
+          const wrapper = tooltip.shadowRoot!.querySelector('[part~="tooltip"]');
+          expect(wrapper).to.exist;
+          expect(wrapper!.matches('[part~="base"]')).to.be.true;
+        });
+
+        it('should expose the popup and arrow under both the deprecated base__ names and the tooltip__ names', async () => {
+          const el = await fixture<HTMLDivElement>(html`
+            <div>
+              <style>
+                wa-tooltip::part(base__popup) {
+                  outline-color: rgb(1, 2, 3);
+                }
+                wa-tooltip::part(base__arrow) {
+                  outline-color: rgb(4, 5, 6);
+                }
+                wa-tooltip::part(tooltip__popup) {
+                  outline-style: dotted;
+                }
+                wa-tooltip::part(tooltip__arrow) {
+                  outline-style: dashed;
+                }
+              </style>
+              <wa-button id="btn">Hover</wa-button>
+              <wa-tooltip for="btn">Tooltip</wa-tooltip>
+            </div>
+          `);
+          const popupEl = el.querySelector<WaTooltip>('wa-tooltip')!.shadowRoot!.querySelector('wa-popup')!;
+          await popupEl.updateComplete;
+          const popup = getComputedStyle(popupEl.shadowRoot!.querySelector('[part~="popup"]')!);
+          const arrow = getComputedStyle(popupEl.shadowRoot!.querySelector('[part~="arrow"]')!);
+          expect(popup.outlineColor).to.equal('rgb(1, 2, 3)');
+          expect(popup.outlineStyle).to.equal('dotted');
+          expect(arrow.outlineColor).to.equal('rgb(4, 5, 6)');
+          expect(arrow.outlineStyle).to.equal('dashed');
         });
 
         it('should expose the body CSS part', async () => {
@@ -556,6 +588,39 @@ describe('<wa-tooltip>', () => {
   });
 
   describe('light dismiss', () => {
+    for (const fixture of fixtures) {
+      for (const focusable of [false, true]) {
+        it(`should stay open after a touch tap on a ${focusable ? 'button' : 'span'} with ${fixture.type} rendering`, async () => {
+          const el = await fixture<HTMLDivElement>(html`
+            <div>
+              <button id="touch-button">Tap me</button>
+              <span id="touch-span">Tap me</span>
+              <wa-tooltip for=${focusable ? 'touch-button' : 'touch-span'}>Tooltip</wa-tooltip>
+            </div>
+          `);
+          const tooltip = el.querySelector<WaTooltip>('wa-tooltip')!;
+          const anchor = el.querySelector<HTMLElement>(focusable ? '#touch-button' : '#touch-span')!;
+
+          // A tap produces pointer events followed by compatibility mouse events. Test the full sequence so neither
+          // mousedown nor click can dismiss the tooltip opened by the same tap's hover/focus events.
+          anchor.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, pointerType: 'touch' }));
+          anchor.dispatchEvent(new PointerEvent('pointerup', { bubbles: true, pointerType: 'touch' }));
+          anchor.dispatchEvent(new MouseEvent('mouseover', { bubbles: true }));
+          anchor.dispatchEvent(new MouseEvent('mousedown', { bubbles: true, detail: 1 }));
+          if (focusable) anchor.focus();
+          anchor.dispatchEvent(new MouseEvent('mouseup', { bubbles: true, detail: 1 }));
+          anchor.dispatchEvent(new MouseEvent('click', { bubbles: true, detail: 1 }));
+
+          await waitUntil(() => tooltip.open);
+          await aTimeout(tooltip.showDelay + 50);
+          expect(tooltip.open).to.be.true;
+
+          document.body.click();
+          await waitUntil(() => !tooltip.open);
+        });
+      }
+    }
+
     it('should hide when the anchor is clicked and stay hidden until the pointer leaves and re-enters', async () => {
       const el = await fixtures[0]<HTMLDivElement>(html`
         <div>
@@ -750,6 +815,23 @@ describe('<wa-tooltip>', () => {
   });
 
   describe('keyboard navigation', () => {
+    for (const key of ['Enter', 'Space']) {
+      it(`should light dismiss a focused tooltip with ${key}`, async () => {
+        const el = await fixtures[0]<HTMLDivElement>(html`
+          <div>
+            <button id="keyboard-anchor">Focus me</button>
+            <wa-tooltip for="keyboard-anchor" trigger="focus">Tooltip</wa-tooltip>
+          </div>
+        `);
+        const tooltip = el.querySelector<WaTooltip>('wa-tooltip')!;
+        el.querySelector('button')!.focus();
+        await waitUntil(() => tooltip.open);
+
+        await sendKeys({ press: key });
+        await waitUntil(() => !tooltip.open);
+      });
+    }
+
     it('should not close a manual tooltip on Escape', async () => {
       const el = await fixtures[0]<HTMLDivElement>(html`
         <div>

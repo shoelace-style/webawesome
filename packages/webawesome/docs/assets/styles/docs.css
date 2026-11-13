@@ -2,7 +2,7 @@
 @import 'code-highlighter.css';
 @import 'copy-code.css';
 @import 'outline.css';
-@import 'search.css';
+@import 'icon-family-selector.css';
 @import 'cera-typeface.css';
 @import 'theme-icons.css';
 @import 'utils.css';
@@ -66,7 +66,7 @@ wa-page::part(header-actions) {
 }
 
 wa-button.delete {
-  &::part(base):hover {
+  &::part(button):hover {
     color: var(--wa-color-danger-on-quiet);
     background: var(--wa-color-danger-fill-quiet);
   }
@@ -457,7 +457,9 @@ wa-card .page-name {
 .component-list {
   .search-list-input {
     display: block;
+    max-inline-size: 40rem;
     margin-block: var(--wa-space-m) var(--wa-space-s);
+    margin-inline: auto;
   }
 
   .search-list-shortcut {

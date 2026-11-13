@@ -102,6 +102,7 @@
     "composed-offset-position": "^0.0.6",
     "lit": "^3.2.1",
     "marked": "^11.2.0",
+    "microlighter": "^2.2.0",
     "nanoid": "^5.1.5"
   },
   "lint-staged": {

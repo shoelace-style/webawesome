@@ -244,7 +244,10 @@ export default class WaTimeInput extends WebAwesomeFormAssociatedElement {
   /** Makes the input non-editable. The popup still opens for browsing. */
   @property({ type: Boolean, reflect: true }) readonly = false;
 
-  /** The time picker's size. */
+  /**
+   * The time picker's size.
+   * The long-form values `small`, `medium`, and `large` are deprecated; use `s`, `m`, and `l` instead.
+   */
   @property({ reflect: true }) size: WaTimeInputSize | 'small' | 'medium' | 'large' = 'm';
 
   @watch('size')
@@ -684,8 +687,8 @@ export default class WaTimeInput extends WebAwesomeFormAssociatedElement {
       return;
     }
 
-    // AM/PM letter shortcuts on the dayPeriod segment.
-    if (field === 'dayPeriod') {
+    // AM/PM letter shortcuts on the dayPeriod segment. Modified keys (Cmd/Ctrl+A, Cmd+P) are not shortcuts.
+    if (field === 'dayPeriod' && !event.ctrlKey && !event.metaKey && !event.altKey) {
       const period = dayPeriodFromKey(event.key);
       if (period != null) {
         event.preventDefault();

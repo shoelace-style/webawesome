@@ -40,7 +40,8 @@ import styles from './toast-item.styles.js';
  * @csspart content - The message content container.
  * @csspart close-button - The close button element.
  * @csspart progress-ring - The progress ring component.
- * @csspart progress-ring__base - The progress ring's exported base part.
+ * @csspart progress-ring__base - Deprecated. Use the `progress-ring__progress-ring` part instead.
+ * @csspart progress-ring__progress-ring - The progress ring's exported `progress-ring` part.
  * @csspart progress-ring__label - The progress ring's exported label part.
  * @csspart progress-ring__track - The progress ring's exported track part.
  * @csspart progress-ring__indicator - The progress ring's exported indicator part.
@@ -71,7 +72,10 @@ export default class WaToastItem extends WebAwesomeElement {
   /** The toast item's variant. */
   @property({ reflect: true }) variant: 'brand' | 'success' | 'warning' | 'danger' | 'neutral' = 'neutral';
 
-  /** The toast item's size. */
+  /**
+   * The toast item's size.
+   * The long-form values `small`, `medium`, and `large` are deprecated; use `s`, `m`, and `l` instead.
+   */
   @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
 
   @watch('size')
@@ -249,6 +253,7 @@ export default class WaToastItem extends WebAwesomeElement {
             part="progress-ring"
             exportparts="
               base:progress-ring__base,
+              progress-ring:progress-ring__progress-ring,
               label:progress-ring__label,
               track:progress-ring__track,
               indicator:progress-ring__indicator
