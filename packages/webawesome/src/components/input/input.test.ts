@@ -1,4 +1,4 @@
-import { aTimeout, expect, oneEvent, waitUntil } from '@open-wc/testing';
+import { aTimeout, expect, nextFrame, oneEvent, waitUntil } from '@open-wc/testing';
 import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import sinon from 'sinon';
@@ -830,6 +830,30 @@ describe('<wa-input>', () => {
           el.setRangeText('boom');
           await el.updateComplete;
           expect(el.value).to.equal('tboomt'); // cspell:disable-line
+        });
+      });
+
+      describe('autofocus', () => {
+        beforeEach(() => {
+          (document.activeElement as HTMLElement | null)?.blur();
+        });
+
+        it('should receive focus when it renders with autofocus', async () => {
+          const el = await fixture<WaInput>(html`<wa-input autofocus></wa-input>`);
+
+          await waitUntil(() => document.activeElement === el);
+        });
+
+        it('should focus the first of two elements with autofocus', async () => {
+          const el = await fixture<HTMLDivElement>(
+            html`<div><wa-input autofocus></wa-input><wa-input autofocus></wa-input></div>`,
+          );
+          const inputs = [...el.querySelectorAll<WaInput>('wa-input')];
+
+          await waitUntil(() => document.activeElement !== document.body);
+          await nextFrame();
+
+          expect(document.activeElement).to.equal(inputs[0]);
         });
       });
     });

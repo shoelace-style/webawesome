@@ -2,6 +2,7 @@ import type { CSSResultGroup, PropertyValues } from 'lit';
 import { LitElement, isServer } from 'lit';
 import { property } from 'lit/decorators.js';
 import hostStyles from '../styles/component/host.styles.js';
+import { autofocus } from './autofocus.js';
 
 // Augment Lit's module
 declare module 'lit' {
@@ -153,6 +154,10 @@ export default class WebAwesomeElement extends LitElement {
       this.shadowRoot?.querySelectorAll('slot').forEach(slotElement => {
         slotElement.dispatchEvent(new Event('slotchange', { bubbles: true, composed: false, cancelable: false }));
       });
+    }
+
+    if (this.hasAttribute('autofocus')) {
+      autofocus(this);
     }
   }
 
