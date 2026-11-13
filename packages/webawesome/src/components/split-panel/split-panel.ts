@@ -337,8 +337,7 @@ export default class WaSplitPanel extends WebAwesomeElement {
         aria-valuemax="100"
         aria-label=${this.localize.term('resize')}
         @keydown=${this.handleKeyDown}
-        @mousedown=${this.handleDrag}
-        @touchstart=${this.handleDrag}
+        @pointerdown=${this.handleDrag}
       >
         <slot name="divider"></slot>
       </div>

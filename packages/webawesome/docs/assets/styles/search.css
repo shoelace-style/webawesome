@@ -51,7 +51,7 @@
   margin: 0;
   --wa-form-control-value-font-size: var(--wa-font-size-m);
 
-  &::part(base) {
+  &::part(input-wrapper) {
     border: none;
     background: transparent;
     box-shadow: none;
@@ -233,7 +233,7 @@
 
   /* `plain` paints a fill on hover and active; stating it transparent here covers
      every state at once. */
-  &::part(base) {
+  &::part(button) {
     background-color: transparent;
     color: var(--remove-color);
     transition: color var(--wa-transition-normal) var(--wa-transition-easing);

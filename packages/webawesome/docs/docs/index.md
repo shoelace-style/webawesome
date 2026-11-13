@@ -1,6 +1,7 @@
 ---
 title: Installation
 description: Choose the installation method that works best for you.
+ogDescription: "One CDN line is the fastest start. npm and self-hosted downloads are covered too."
 layout: page-outline
 ---
 
@@ -165,3 +166,9 @@ Most of the magic behind assets is handled internally by Web Awesome, but if you
 ```
 
 Now you can use {{ site.siblings.fontAwesome.name }} icons through the [`<wa-icon>`](/docs/components/icon) component!
+
+To use a different family or variant for every icon, add the `data-fa-family` and `data-fa-variant` attributes too. See [Changing the Default Family & Variant](/docs/components/icon#changing-the-default-family-and-variant) for details.
+
+```html
+<html data-fa-kit-code="YOUR_KIT_CODE_HERE" data-fa-family="sharp" data-fa-variant="light"></html>
+```

@@ -204,6 +204,42 @@ A _family_ sets an icon's overall style; a _variant_ sets its weight. Set them w
   plan. <a href="/docs/#using-font-awesome-kit-codes">Provide a Kit code</a> to unlock them.
 </wa-callout>
 
+### Changing the Default Family & Variant
+
+To change the family and variant of every icon at once, add the `data-fa-family` and `data-fa-variant` attributes to any element, such as the one holding your kit code.
+
+```html
+<html data-fa-kit-code="YOUR_KIT_CODE_HERE" data-fa-family="sharp" data-fa-variant="light">
+  …
+</html>
+```
+
+Or call `setDefaultIconFamily()` with a family and an optional variant. Omitting the variant keeps the current default. Icons already on the page will be redrawn. The data attributes are read once, when the first icon renders, so use this function to change the defaults after that.
+
+```html
+<script type="module">
+  import { setDefaultIconFamily } from '/dist/webawesome.js';
+
+  setDefaultIconFamily('sharp', 'light');
+</script>
+```
+
+The defaults apply to any icon without its own `family` or `variant` attribute. Any family and variant an icon accepts will work, including Font Awesome's Pro+ packs. An icon that doesn't exist in the chosen family and variant renders blank and emits `wa-error`.
+
+To get the current values, you can call `getDefaultIconFamily()` and `getDefaultIconVariant()`.
+
+<wa-callout variant="brand">
+  <wa-icon slot="icon" family="brands" name="font-awesome"></wa-icon>
+  Only the <code>classic</code> family's <code>solid</code> and <code>regular</code> variants are free. Every other
+  default requires a Font Awesome Pro plan and a <a href="/docs/#using-font-awesome-kit-codes">Kit code</a>. This site
+  uses Font Awesome Pro and sets its own default to <code>classic</code> <code>regular</code>, so icons here look
+  lighter than the library's <code>solid</code> default. Use the
+  <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="icons"></wa-icon></wa-tag> Icon Style selector in the
+  header to preview the others.
+</wa-callout>
+
+In {{ site.namePro }}, the icons inside components (chevrons, clear buttons, checkmarks, and so on) follow the defaults too, for the `classic`, `sharp`, `duotone`, and `sharp-duotone` families. Otherwise, including with Pro+ packs, those icons keep their built-in style.
+
 ### Canvas
 
 The _canvas_ is the box an icon sits in. Choose one of four mutually exclusive modes with the `canvas` attribute (the default is `fixed`). It mirrors [{{ site.siblings.fontAwesome.name }}'s icon canvas](https://docs.fontawesome.com/web/style/icon-canvas/) and scales with `font-size`, independent of [sizing](#size). The tinted box below shows each canvas's extent.
@@ -1005,7 +1041,7 @@ An icon library is a named set of icons with a resolver that maps each name to a
 | Library | Contains | Resolves from | Customize it to… |
 | --- | --- | --- | --- |
 | `default` | 2,000+ Font Awesome icons, shown when `<wa-icon>` has no `library` attribute | The Font Awesome CDN | Self-host the icons or swap in a different set |
-| `system` | Only the icons Web Awesome components use internally | Data URIs baked into the resolver | Replace the icons components use internally (you supply them all) |
+| `system` | Only the icons Web Awesome components use internally | Data URIs baked into the resolver | Match the [default family and variant](#changing-the-default-family-and-variant) ({{ site.namePro }}), or replace the icons components use internally (you supply them all) |
 
 [sizing](#size), [color](#color), [the canvas](#canvas), [rotating and flipping](#rotating-and-flipping), and [animations](#animating) work with icons from any library — they're applied to the `<wa-icon>` host, so they don't depend on where the icon comes from. (Only the duotone color properties are specific to Font Awesome's duotone icons.)
 
@@ -1090,7 +1126,9 @@ Browsers apply the same-origin policy to the `<use>` elements inside `<wa-icon>`
 
 ### Customizing the System Library
 
-To change the icons Web Awesome uses internally, register a library using the `system` name and a custom resolver. You're then responsible for providing every icon components require. See `src/components/library.system.ts` for the full list.
+In {{ site.namePro }}, the quickest way to restyle the icons Web Awesome uses internally is to [change the default family and variant](#changing-the-default-family-and-variant). No custom library is needed.
+
+To replace them entirely, register a library using the `system` name and a custom resolver. It takes precedence over the default family and variant, and you're responsible for providing every icon components require. See `src/components/icon/library.system.ts` for the full list.
 
 ```html
 <script type="module">

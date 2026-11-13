@@ -2,6 +2,7 @@ import { aTimeout, expect, nextFrame, oneEvent, waitUntil } from '@open-wc/testi
 import { sendKeys, sendMouse, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit';
 import sinon from 'sinon';
+import { getDeepestActiveElement } from '../../internal/active-elements.js';
 import { expectEvent } from '../../internal/test/expect-event.js';
 import { clientFixture, fixtures } from '../../internal/test/fixture.js';
 import type WaDropdownItem from '../dropdown-item/dropdown-item.js';
@@ -26,7 +27,7 @@ describe('<wa-dropdown>', () => {
           await customElements.whenDefined('wa-button');
           const waButton = trigger as any;
           await waButton.updateComplete;
-          const nativeButton = waButton.shadowRoot!.querySelector('[part~="base"]')!;
+          const nativeButton = waButton.shadowRoot!.querySelector('[part~="button"]')!;
 
           expect(nativeButton.getAttribute('aria-haspopup')).to.equal('menu');
         });
@@ -43,7 +44,7 @@ describe('<wa-dropdown>', () => {
 
           const trigger = el.querySelector<HTMLElement>('[slot="trigger"]')! as any;
           await trigger.updateComplete;
-          const nativeButton = trigger.shadowRoot!.querySelector('[part~="base"]')!;
+          const nativeButton = trigger.shadowRoot!.querySelector('[part~="button"]')!;
 
           expect(nativeButton.getAttribute('aria-expanded')).to.equal('true');
         });
@@ -451,14 +452,21 @@ describe('<wa-dropdown>', () => {
           `);
 
           const trigger = el.querySelector<HTMLElement>('[slot="trigger"]')!;
+          const firstItem = el.querySelector('wa-dropdown-item')!;
+          el.style.setProperty('--hide-duration', '100ms');
           trigger.click();
           await waitUntil(() => el.open);
           await aTimeout(200);
 
+          const afterHide = new Promise(resolve => el.addEventListener('wa-after-hide', resolve, { once: true }));
           await sendKeys({ press: 'Escape' });
-          await waitUntil(() => !el.open);
+          await aTimeout(50);
 
+          expect(getDeepestActiveElement()).to.equal(firstItem);
+
+          await afterHide;
           expect(el.open).to.be.false;
+          expect(getDeepestActiveElement()).to.equal(trigger.shadowRoot!.querySelector('[part~="base"]'));
         });
 
         it('should navigate items with ArrowDown', async () => {
@@ -777,6 +785,35 @@ describe('<wa-dropdown>', () => {
       await waitUntil(() => !el.open);
       expect(el.open).to.be.false;
     });
+
+    it('should still close on Escape after reopening during the hide animation', async () => {
+      const el = await clientFixture<WaDropdown>(html`
+        <wa-dropdown>
+          <wa-button slot="trigger">Dropdown</wa-button>
+          <wa-dropdown-item>One</wa-dropdown-item>
+          <wa-dropdown-item>Two</wa-dropdown-item>
+        </wa-dropdown>
+      `);
+      const popup = el.shadowRoot!.querySelector<any>('wa-popup')!;
+
+      const trigger = el.querySelector<HTMLElement>('[slot="trigger"]')!;
+      trigger.click();
+      await waitUntil(() => el.open);
+      await aTimeout(200);
+
+      // Reopen while the hide animation is still running
+      await sendKeys({ press: 'Escape' });
+      expect(el.open).to.be.false;
+      trigger.click();
+      await waitUntil(() => el.open);
+      await aTimeout(200);
+
+      await sendKeys({ press: 'Escape' });
+      await aTimeout(200);
+
+      expect(el.open).to.be.false;
+      expect(popup.active).to.be.false;
+    });
   });
 
   describe('dismissible stack', () => {
@@ -876,6 +913,41 @@ describe('<wa-dropdown>', () => {
         }
       });
     }
+
+    it('should return focus to the parent item when a submenu holding focus closes', async () => {
+      await sendMouse({ type: 'move', position: [window.innerWidth - 10, window.innerHeight - 10] });
+      const el = await clientFixture<WaDropdown>(html`
+        <wa-dropdown style="--show-duration: 0ms; --hide-duration: 0ms;">
+          <wa-button slot="trigger">Menu</wa-button>
+          <wa-dropdown-item>
+            More options
+            <wa-dropdown-item slot="submenu">Nested option</wa-dropdown-item>
+          </wa-dropdown-item>
+          <wa-dropdown-item>Plain option</wa-dropdown-item>
+        </wa-dropdown>
+      `);
+      const shown = oneEvent(el, 'wa-after-show');
+      el.open = true;
+      await shown;
+
+      // Hovering the parent opens its submenu and focuses the first nested item
+      const parentItem = el.querySelector<WaDropdownItem>('wa-dropdown-item')!;
+      const nestedItem = parentItem.querySelector<WaDropdownItem>('[slot="submenu"]')!;
+      const itemRect = parentItem.getBoundingClientRect();
+      await sendMouse({
+        type: 'move',
+        position: [Math.round(itemRect.left + itemRect.width / 2), Math.round(itemRect.top + itemRect.height / 2)],
+      });
+      await waitUntil(() => document.activeElement === nestedItem);
+
+      // Without this, hiding the submenu drops focus to the body
+      parentItem.submenuOpen = false;
+      await parentItem.updateComplete;
+      await waitUntil(() => parentItem.submenuElement.hidden);
+
+      expect(document.activeElement).to.equal(parentItem);
+      expect(el.open).to.be.true;
+    });
   });
 
   describe('submenu positioning', () => {
@@ -941,6 +1013,20 @@ describe('<wa-dropdown>', () => {
       // Allow for the intentional 5px overlap from the offset middleware.
       expect(rect.left).to.be.at.least(itemRect.right - 6);
       expect(rect.right).to.be.at.most(window.innerWidth);
+    });
+
+    it('should aim the safe triangle at the near edge when the submenu flips to the other side', async () => {
+      const el = await submenuFixture();
+      el.querySelector<HTMLElement>('[slot="trigger"]')!.style.cssText = 'position: fixed; top: 0; right: 0;';
+      const parentItem = await openSubmenu(el);
+
+      const rect = parentItem.submenuElement.getBoundingClientRect();
+      expect(parentItem.submenuElement.getAttribute('data-placement')).to.match(/^left/);
+
+      // A cursor over the parent item sits to the right of a flipped submenu, so it shouldn't be clamped to the left edge
+      const clientX = Math.round(rect.right + 20);
+      document.dispatchEvent(new MouseEvent('mousemove', { clientX, clientY: Math.round(rect.top + 10) }));
+      expect(parentItem.submenuElement.style.getPropertyValue('--safe-triangle-cursor-x')).to.equal(`${clientX}px`);
     });
   });
 });
