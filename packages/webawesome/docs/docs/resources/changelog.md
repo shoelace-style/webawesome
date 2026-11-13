@@ -46,6 +46,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::fixed
 
+- Fixed `<wa-dropdown>` losing trigger focus after closing with [[Escape]]. [issue:2766]
 - Fixed a bug in `<wa-input>` where validity would not properly update on certain property changes. [pr:]
 - Fixed a bug in `<wa-button>` where calling `event.preventDefault()` would not prevent form submissions. [pr:3008]
 - Fixed a bug in `<wa-dropdown>` where scrolling past the end of a long menu on macOS showed the page through the menu's background [issue:2711]
