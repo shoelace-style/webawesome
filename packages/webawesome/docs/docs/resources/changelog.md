@@ -96,6 +96,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a performance issue in `<wa-tree>` where removing `lazy` from one item re-initialized all items in the tree causing slowness for trees with many items
 - Fixed a bug in `<wa-tree-item>` where the `expanded` attribute was ignored on nested items [issue:2792] [pr:2908]
 - Fixed a bug in `<wa-combobox>` where pressing the listbox's scrollbar, padding, or status message inside a `<wa-dialog>` or `<wa-drawer>` closed the listbox [issue:2967]
+- Fixed a bug in `<wa-combobox>` where typing to filter hid content in the `label`, `hint`, `start`, `end`, and `no-results` slots [issue:2970]
 
 :::
 
