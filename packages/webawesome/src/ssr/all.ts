@@ -33,6 +33,8 @@ export { default as WaInclude } from '../components/include/include.js';
 export { default as WaInput } from '../components/input/input.js';
 export { default as WaIntersectionObserver } from '../components/intersection-observer/intersection-observer.js';
 export { default as WaKnownDate } from '../components/known-date/known-date.js';
+export { default as WaLightboxItem } from '../components/lightbox-item/lightbox-item.js';
+export { default as WaLightbox } from '../components/lightbox/lightbox.js';
 export { default as WaMarkdown } from '../components/markdown/markdown.js';
 export { default as WaMutationObserver } from '../components/mutation-observer/mutation-observer.js';
 export { default as WaNumberInput } from '../components/number-input/number-input.js';

@@ -147,6 +147,7 @@ Read-only data display.
 | A QR code                                                     | `<wa-qr-code>`                                                                           |
 | Side-by-side image comparison                                 | `<wa-comparison>`                                                                        |
 | A carousel / slideshow                                        | `<wa-carousel>` with `<wa-carousel-item>`                                                |
+| A full-screen image / video viewer opened from thumbnails     | `<wa-lightbox>` with `<wa-lightbox-item>`                                                |
 | An iframe with zoom controls                                  | `<wa-zoomable-frame>`                                                                    |
 | A user avatar                                                 | `<wa-avatar>`                                                                            |
 | A simple, static table                                        | A native `<table>` (Web Awesome's native styles theme it)                                |

@@ -6,7 +6,6 @@ hasAnatomy: false
 synonyms:
   - modal
   - popup
-  - lightbox
   - overlay
   - modal dialog
 use-cases:
