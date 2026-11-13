@@ -293,8 +293,9 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
       }
 
       this.customStates.set('blank', !this.value);
-      this.updateValidity();
     }
+
+    this.updateValidity();
   }
 
   @watch('step', { waitUntilFirstUpdate: true })
