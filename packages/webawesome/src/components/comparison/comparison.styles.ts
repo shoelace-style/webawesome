@@ -55,6 +55,7 @@ export default css`
     background-color: var(--wa-color-surface-default);
     translate: calc(var(--divider-width) / -2);
     cursor: ew-resize;
+    touch-action: none;
   }
 
   .handle {

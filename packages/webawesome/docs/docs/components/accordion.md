@@ -240,6 +240,38 @@ By default the icon rotates as the item expands. You can target the `icon` part 
 </style>
 ```
 
+### Customizing
+
+Style an accordion with regular CSS. There's no container [part](/docs/customizing#css-parts), because `<wa-accordion>` is the container. Put `background-color`, `border-color`, and `border-radius` right on it.
+
+Each divider is the top border of the item below it. Change them with `border-top-color` on `<wa-accordion-item>`.
+
+```html {.example}
+<wa-accordion class="brand-accordion">
+  <wa-accordion-item label="Background and border">
+    These go on the accordion element itself.
+  </wa-accordion-item>
+  <wa-accordion-item label="Dividers">
+    Each divider is the top border of the item below it.
+  </wa-accordion-item>
+  <wa-accordion-item label="Everything else">
+    Style headers and content with the accordion item's CSS parts.
+  </wa-accordion-item>
+</wa-accordion>
+
+<style>
+  wa-accordion.brand-accordion {
+    background-color: var(--wa-color-brand-fill-quiet);
+    border-color: var(--wa-color-brand-border-quiet);
+    border-radius: var(--wa-border-radius-s);
+  }
+
+  wa-accordion.brand-accordion > wa-accordion-item {
+    border-top-color: var(--wa-color-brand-border-quiet);
+  }
+</style>
+```
+
 ### HTML in the Label
 
 To place HTML in an accordion item's header, use the `label` slot instead of the `label` attribute. This lets you add icons, badges, or other elements alongside the label text.
@@ -336,3 +368,7 @@ Listen for the `wa-expand` or `wa-collapse` events and call `event.preventDefaul
   });
 </script>
 ```
+
+## Accessibility Considerations
+
+Every enabled header is part of the page's normal tab sequence. `Tab` and `Shift + Tab` move through each header along with the rest of the page, per the [W3C accordion pattern](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/examples/accordion/). When the header is in focus, the arrow keys are a shortcut for moving between headers. The Up and Down keys move from the previous to the next header, Home and End keys jump to the first and last header.

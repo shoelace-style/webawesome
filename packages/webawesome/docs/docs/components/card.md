@@ -207,3 +207,23 @@ The `actions` slot is only available for the horizontal orientation.
   }
 </style>
 ```
+
+### Customizing
+
+Style a card with regular CSS. The `<wa-card>` element is the card's outer box, so `background-color`, `border-color`, and `box-shadow` go right on it.
+
+```html {.example}
+<wa-card class="brand-card">
+  <div slot="header">Custom Card</div>
+  These styles are set on the card element itself.
+</wa-card>
+
+<style>
+  wa-card.brand-card {
+    max-width: 300px;
+    background-color: var(--wa-color-brand-fill-quiet);
+    border-color: var(--wa-color-brand-border-quiet);
+    box-shadow: none;
+  }
+</style>
+```

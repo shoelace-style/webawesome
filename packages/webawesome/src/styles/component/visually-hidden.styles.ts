@@ -6,6 +6,8 @@ export default css`
   .wa-visually-hidden-hint::part(hint),
   .wa-visually-hidden-label::part(label),
   .wa-visually-hidden-label::part(form-control-label) {
+    top: 0px !important;
+    left: 0px !important;
     position: absolute !important;
     width: 1px !important;
     height: 1px !important;

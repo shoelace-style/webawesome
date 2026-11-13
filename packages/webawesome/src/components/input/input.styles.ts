@@ -39,7 +39,8 @@ export default css`
     outline: var(--wa-focus-ring-style) var(--wa-focus-ring-width) transparent;
     outline-offset: var(--wa-focus-ring-offset);
 
-    &:focus-within {
+    /* Only ring the field when the text input has focus, not inner buttons */
+    &:has(input:focus, textarea:focus) {
       outline-color: var(--wa-color-focus);
     }
 
@@ -190,17 +191,32 @@ export default css`
 
   .clear,
   .password-toggle {
+    position: relative;
     display: inline-flex;
+    align-self: center;
     align-items: center;
     justify-content: center;
+    aspect-ratio: 1;
+    height: 1.5em;
     font-size: inherit;
     color: var(--wa-color-neutral-on-quiet);
     border: none;
+    border-radius: var(--wa-border-radius-s);
     background: none;
     padding: 0;
     transition: var(--wa-transition-normal) color;
     cursor: pointer;
-    margin-inline-start: var(--wa-form-control-padding-inline);
+    /* The box is wider than the glyph, so overhang half of that growth on each side. Keeps the
+       glyph flush with the field's trailing padding edge, like every other form control. */
+    margin-inline-start: calc(var(--wa-form-control-padding-inline) - 0.125em);
+    margin-inline-end: -0.125em;
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset-inline: 0;
+      height: var(--wa-form-control-height);
+    }
 
     @media (hover: hover) {
       &:hover {
@@ -214,6 +230,11 @@ export default css`
 
     &:focus {
       outline: none;
+    }
+
+    &:focus-visible {
+      outline: var(--wa-focus-ring);
+      outline-offset: var(--wa-focus-ring-offset);
     }
   }
 

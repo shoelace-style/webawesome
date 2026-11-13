@@ -15,8 +15,8 @@ import styles from './accordion-item.styles.js';
 /**
  * @summary Accordion items are used inside `<wa-accordion>` to create expandable sections with accessible headers.
  * @documentation https://webawesome.com/docs/components/accordion
- * @status experimental
- * @since 1.0
+ * @status stable
+ * @since 3.8
  *
  * @dependency wa-icon
  *
@@ -64,9 +64,6 @@ export default class WaAccordionItem extends WebAwesomeElement {
 
   /** @internal Set by the parent accordion to control the heading level of the trigger. */
   @property({ attribute: 'heading-level', reflect: true }) headingLevel = '3';
-
-  /** @internal Set by the parent accordion to control the roving tab index. */
-  @property({ type: Boolean, attribute: false }) isTabbable = true;
 
   /** @internal Set by the parent accordion to control icon placement. */
   @property({ attribute: 'icon-placement', reflect: true }) iconPlacement: 'start' | 'end' = 'end';
@@ -188,7 +185,7 @@ export default class WaAccordionItem extends WebAwesomeElement {
         aria-expanded=${this.expanded ? 'true' : 'false'}
         aria-controls="panel"
         aria-disabled=${this.disabled ? 'true' : 'false'}
-        tabindex=${this.disabled || !this.isTabbable ? '-1' : '0'}
+        tabindex=${this.disabled ? '-1' : '0'}
         @click=${this.handleTriggerClick}
         @keydown=${this.handleTriggerKeyDown}
       >

@@ -1,12 +1,14 @@
 import { html, isServer, type PropertyValues } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
 import { classMap } from 'lit/directives/class-map.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 import { WaAfterHideEvent } from '../../events/after-hide.js';
 import { WaAfterShowEvent } from '../../events/after-show.js';
 import { WaHideEvent } from '../../events/hide.js';
 import { WaShowEvent } from '../../events/show.js';
 import { animateWithClass } from '../../internal/animate.js';
 import { isTopDismissible, registerDismissible, unregisterDismissible } from '../../internal/dismissible-stack.js';
+import { isEventInsideRect } from '../../internal/offset.js';
 import { parseSpaceDelimitedTokens } from '../../internal/parse.js';
 import { RenderedWatcher } from '../../internal/rendered-watcher.js';
 import { lockBodyScrolling, unlockBodyScrolling } from '../../internal/scroll.js';
@@ -46,7 +48,8 @@ import styles from './drawer.styles.js';
  * @csspart header-actions - Optional actions to add to the header. Works best with `<wa-button>`.
  * @csspart title - The drawer's title.
  * @csspart close-button - The close button, a `<wa-button>`.
- * @csspart close-button__base - The close button's exported `base` part.
+ * @csspart close-button__base - Deprecated. Use the `close-button__button` part instead.
+ * @csspart close-button__button - The close button's exported `button` part.
  * @csspart body - The drawer's body.
  * @csspart footer - The drawer's footer.
  *
@@ -77,7 +80,8 @@ export default class WaDrawer extends WebAwesomeElement {
 
   /**
    * The drawer's label as displayed in the header. You should always include a relevant label, as it is required for
-   * proper accessibility. If you need to display HTML, use the `label` slot instead.
+   * proper accessibility. If you need to display HTML, use the `label` slot instead. When `without-header` is set,
+   * only the attribute provides the drawer's accessible name.
    */
   @property({ reflect: true }) label = '';
 
@@ -95,6 +99,12 @@ export default class WaDrawer extends WebAwesomeElement {
    * includes the footer before the component hydrates on the client.
    */
   @property({ attribute: 'with-footer', type: Boolean }) withFooter = false;
+
+  /**
+   * Only required for SSR. Set to `true` if you're slotting in a `label` element so the server-rendered markup names
+   * the drawer before the component hydrates on the client.
+   */
+  @property({ attribute: 'with-label', type: Boolean }) withLabel = false;
 
   firstUpdated(changedProperties: PropertyValues<typeof this>) {
     super.firstUpdated(changedProperties);
@@ -172,8 +182,9 @@ export default class WaDrawer extends WebAwesomeElement {
   }
 
   private async handleDialogPointerDown(event: PointerEvent) {
-    // Detect when the backdrop is clicked
-    if (event.target === this.drawer) {
+    // The backdrop and the drawer's own scrollbar both report the <dialog> as the target, so only a point outside
+    // its box counts as a backdrop click
+    if (event.target === this.drawer && !isEventInsideRect(event, this.drawer)) {
       if (this.lightDismiss) {
         this.requestClose(this.drawer);
       } else {
@@ -264,10 +275,13 @@ export default class WaDrawer extends WebAwesomeElement {
   render() {
     const hasHeader = !this.withoutHeader;
     const hasFooter = this.hasSlotController.test('footer', 'withFooter');
+    const hasLabel = this.label.length > 0 || this.hasSlotController.test('label', 'withLabel');
 
     return html`
       <dialog
         part="dialog"
+        aria-labelledby=${ifDefined(hasHeader && hasLabel ? 'title' : undefined)}
+        aria-label=${ifDefined(!hasHeader && this.label ? this.label : undefined)}
         class=${classMap({
           drawer: true,
           open: this.open,
@@ -282,7 +296,7 @@ export default class WaDrawer extends WebAwesomeElement {
       >
         ${hasHeader
           ? html`
-              <header part="header" class="header">
+              <div part="header" class="header">
                 <h2 part="title" class="title" id="title">
                   <!-- If there's no label, use an invisible character to prevent the header from collapsing -->
                   <slot name="label"> ${this.label.length > 0 ? this.label : String.fromCharCode(8203)} </slot>
@@ -291,7 +305,7 @@ export default class WaDrawer extends WebAwesomeElement {
                   <slot name="header-actions"></slot>
                   <wa-button
                     part="close-button"
-                    exportparts="base:close-button__base"
+                    exportparts="base:close-button__base, button:close-button__button"
                     class="close"
                     appearance="plain"
                     @click="${(event: PointerEvent) => this.requestClose(event.target as Element)}"
@@ -304,15 +318,15 @@ export default class WaDrawer extends WebAwesomeElement {
                     ></wa-icon>
                   </wa-button>
                 </div>
-              </header>
+              </div>
             `
           : ''}
 
         <div part="body" class="body"><slot></slot></div>
 
-        <footer part="footer" class="footer" ?hidden=${!hasFooter}>
+        <div part="footer" class="footer" ?hidden=${!hasFooter}>
           <slot name="footer"></slot>
-        </footer>
+        </div>
       </dialog>
     `;
   }

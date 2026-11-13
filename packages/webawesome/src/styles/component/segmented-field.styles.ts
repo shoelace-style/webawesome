@@ -29,13 +29,23 @@ export default css`
     background: transparent;
     border: none;
     cursor: pointer;
-    color: var(--wa-color-text-quiet);
+    color: var(--wa-color-neutral-on-quiet);
     font: inherit;
     padding: 0.25em;
     /* Trailing padding overhangs the content edge rather than displacing the glyph. */
     margin-inline-end: -0.25em;
     border-radius: var(--wa-border-radius-s);
-    transition: color var(--wa-transition-fast);
+    transition: color var(--wa-transition-normal);
+
+    @media (hover: hover) {
+      &:hover {
+        color: color-mix(in oklab, currentColor, var(--wa-color-mix-hover));
+      }
+    }
+
+    &:active {
+      color: color-mix(in oklab, currentColor, var(--wa-color-mix-active));
+    }
   }
 
   /* Fixed widths (= glyph + 2×0.25em padding) keep each glyph centered on the trailing axis
@@ -53,22 +63,17 @@ export default css`
     margin-inline-start: var(--wa-form-control-padding-inline);
   }
 
-  [part~='clear-button']:hover,
-  [part~='expand-button']:hover {
-    color: var(--wa-color-text-loud);
-  }
-
   [part~='expand-button']:focus-visible {
     outline: var(--wa-focus-ring-style) var(--wa-focus-ring-width) var(--wa-color-focus);
     outline-offset: 2px;
   }
 
-  /* font-size scales the glyph with the host size attribute; the button width handles centering. */
+  /* font-size scales the glyph with the host size attribute; the button width handles centering.
+     Color is inherited from the button so the glyph follows its state. */
   [part~='expand-icon'] {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    color: var(--wa-color-text-quiet);
     font-size: 1.25em;
   }
 
@@ -79,7 +84,7 @@ export default css`
   [part~='end'] {
     display: inline-flex;
     align-items: center;
-    color: var(--wa-color-text-quiet);
+    color: var(--wa-color-neutral-on-quiet);
   }
 
   [part~='start']::slotted(*) {

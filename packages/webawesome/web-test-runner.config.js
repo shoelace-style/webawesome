@@ -41,6 +41,9 @@ export default {
   files: 'src/**/*.test.ts', // "default" group
   concurrentBrowsers: 3,
   nodeResolve: true,
+  // Per-file budget, not per-run. Each fixture is a round trip to a Node SSR worker, so large test suites such as
+  // <wa–data-grid> blow past the 120s default on slower CI runners.
+  testsFinishTimeout: 600000,
   testFramework: {
     config: {
       timeout: 3000,

@@ -115,26 +115,16 @@ export default class WaOption extends WebAwesomeElement {
     // Mark the default label as needing recalculation
     this.isDefaultLabelDirty = true;
 
-    if (this.isInitialized) {
-      // When the label changes, tell the parent <wa-select> to update. The parent's handleDefaultSlotChange already
-      // calls selectionChanged() internally, so we don't need to call it separately here.
-      customElements.whenDefined('wa-select').then(() => {
-        const controller = this.closest('wa-select');
-        if (controller) {
-          controller.handleDefaultSlotChange?.();
-        }
-      });
-
-      // When the label changes, tell the parent <wa-combobox> to update
-      customElements.whenDefined('wa-combobox').then(() => {
-        // We cast to <wa-select> because it shares the same API as combobox
-        const controller = this.closest<WaSelect>('wa-combobox');
-        if (controller) {
-          controller.handleDefaultSlotChange?.();
-        }
-      });
-    } else {
+    if (!this.isInitialized) {
       this.isInitialized = true;
+      return;
+    }
+
+    // Waiting for an unused controller leaves callbacks retaining detached options indefinitely.
+    // Combobox shares the same controller API as select.
+    const controller = this.closest<WaSelect>('wa-select, wa-combobox');
+    if (controller) {
+      customElements.whenDefined(controller.localName).then(() => controller.handleDefaultSlotChange?.());
     }
   }
 

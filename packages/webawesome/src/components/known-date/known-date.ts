@@ -27,7 +27,7 @@ const generateId = (): string => uniqueId('wa-known-date-');
  * @summary Known dates let users enter dates they already know - birthdays, expirations, document
  *  dates - through three separate day, month, and year fields shown in the locale's natural order.
  * @documentation https://webawesome.com/docs/components/known-date
- * @status experimental
+ * @status stable
  * @since 3.8
  *
  * @slot label - The known date's group label. Alternatively, use the `label` attribute.
@@ -150,7 +150,10 @@ export default class WaKnownDate extends WebAwesomeFormAssociatedElement {
   /** Makes the fields non-editable. */
   @property({ type: Boolean, reflect: true }) readonly = false;
 
-  /** The known date's size. */
+  /**
+   * The known date's size.
+   * The long-form values `small`, `medium`, and `large` are deprecated; use `s`, `m`, and `l` instead.
+   */
   @property({ reflect: true }) size: WaKnownDateSize | 'small' | 'medium' | 'large' = 'm';
 
   @watch('size')

@@ -19,13 +19,13 @@ Native styles use design tokens to spruce up native HTML elements so that they m
 ## Using Native Styles
 
 <wa-tab-group>
-  <wa-tab panel="cdn"><wa-icon name="rocket-launch" variant="regular"></wa-icon> CDN</wa-tab>
-  <wa-tab panel="npm"><wa-icon name="box-open" variant="regular"></wa-icon> npm</wa-tab>
-  <wa-tab panel="self-hosted"><wa-icon name="arrow-down-to-line" variant="regular"></wa-icon> Self-Hosted</wa-tab>
+  <wa-tab panel="cdn"><wa-icon name="rocket-launch"></wa-icon> CDN</wa-tab>
+  <wa-tab panel="npm"><wa-icon name="box-open"></wa-icon> npm</wa-tab>
+  <wa-tab panel="self-hosted"><wa-icon name="arrow-down-to-line"></wa-icon> Self-Hosted</wa-tab>
 
   <wa-tab-panel name="cdn">
 {% markdown %}
-1. Head over to your project's <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="gear" variant="regular"></wa-icon> Settings</wa-tag>.
+1. Head over to your project's <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="gear"></wa-icon> Settings</wa-tag>.
 2. Next to <wa-tag class="tag-ui" appearance="outlined">Features</wa-tag>, select the <wa-tag class="tag-ui" appearance="outlined">Native styles</wa-tag> checkbox.
 3. <wa-tag class="tag-ui" appearance="outlined">Save Changes</wa-tag> to immediately update anywhere you're using your project.
 {% endmarkdown %}
@@ -355,6 +355,45 @@ Structure tabular data with `<table>` and related elements like `<caption>`, `<t
       <td>Pine</td>
       <td>Bedroom</td>
       <td>$320</td>
+    </tr>
+  </tbody>
+</table>
+```
+
+Add `scope="col"` to column headers and `scope="row"` to the first cell in a row so assistive technology knows which cells each header describes. Row headers keep the body font size, so their text aligns with the cells beside them.
+
+```html {.example}
+<table>
+  <caption>
+    Coffee brewing methods
+  </caption>
+  <thead>
+    <tr>
+      <th scope="col">Method</th>
+      <th scope="col">Grind</th>
+      <th scope="col">Brew Time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">French Press</th>
+      <td>Coarse</td>
+      <td>4 minutes</td>
+    </tr>
+    <tr>
+      <th scope="row">Pour Over</th>
+      <td>Medium</td>
+      <td>3 minutes</td>
+    </tr>
+    <tr>
+      <th scope="row">Espresso</th>
+      <td>Fine</td>
+      <td>30 seconds</td>
+    </tr>
+    <tr>
+      <th scope="row">Cold Brew</th>
+      <td>Extra coarse</td>
+      <td>12 hours</td>
     </tr>
   </tbody>
 </table>

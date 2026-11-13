@@ -129,18 +129,21 @@ export default css`
     }
   }
 
-  /* Manage spacing when tags are present */
-  :host([multiple]) {
+  /*
+   * Tags can be any content, so check for a non-empty container rather than wa-tag. has-selection forces a restyle
+   * when the selection changes, since WebKit doesn't re-evaluate :has(:not(:empty)) when tags are cleared.
+   */
+  .select.multiple.has-selection {
     --_padding-with-tags: calc(var(--wa-form-control-height) * 0.1 - var(--wa-form-control-border-width));
 
-    & .combobox:has(.tags wa-tag) {
+    & .combobox:has(.tags:not(:empty)) {
       padding-block: var(--_padding-with-tags);
       padding-inline-start: var(--_padding-with-tags);
     }
   }
 
   /* Visually hide the display input when multiple is enabled */
-  :host([multiple]) .combobox:has(.tags wa-tag) .display-input {
+  .select.multiple.has-selection .combobox:has(.tags:not(:empty)) .display-input {
     position: absolute;
     z-index: -1;
     top: 0;
@@ -169,12 +172,12 @@ export default css`
     flex-wrap: wrap;
     gap: 0.25em;
 
-    &::slotted(wa-tag) {
-      cursor: pointer !important;
+    /* Nested inside the box, so a step down from the box's radius */
+    & wa-tag:not([pill]) {
+      border-radius: var(--wa-border-radius-s);
     }
 
-    .disabled &,
-    .disabled &::slotted(wa-tag) {
+    .disabled & {
       cursor: not-allowed !important;
     }
   }
@@ -197,15 +200,18 @@ export default css`
     margin-inline-end: var(--wa-form-control-padding-inline);
   }
 
-  :host([multiple]) .combobox:has(.tags wa-tag) .start::slotted(*) {
+  .select.multiple.has-selection .combobox:has(.tags:not(:empty)) .start::slotted(*) {
     margin-inline-start: calc(var(--wa-form-control-padding-inline) - var(--_padding-with-tags));
   }
 
   /* Clear button */
   [part~='clear-button'] {
+    flex: 0 0 auto;
     display: inline-flex;
+    align-self: stretch;
     align-items: center;
     justify-content: center;
+    inline-size: 1.5em;
     font-size: inherit;
     color: var(--wa-color-neutral-on-quiet);
     border: none;
@@ -213,7 +219,10 @@ export default css`
     padding: 0;
     transition: color var(--wa-transition-normal);
     cursor: pointer;
-    margin-inline-start: var(--wa-form-control-padding-inline);
+    /* The box is wider than the glyph, so overhang half that growth on each side. Keeps the glyph
+       on the same trailing axis as the segmented-field pickers' clear buttons. */
+    margin-inline-start: calc(var(--wa-form-control-padding-inline) - 0.125em);
+    margin-inline-end: -0.125em;
 
     &:focus {
       outline: none;

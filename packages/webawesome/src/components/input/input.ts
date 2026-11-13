@@ -125,7 +125,10 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
   /** The default value of the form control. Primarily used for resetting the form control. */
   @property({ attribute: 'value', reflect: true }) defaultValue: string | null = this.getAttribute('value') || null;
 
-  /** The input's size. */
+  /**
+   * The input's size.
+   * The long-form values `small`, `medium`, and `large` are deprecated; use `s`, `m`, and `l` instead.
+   */
   @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
 
   @watch('size')
@@ -290,6 +293,13 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
       }
 
       this.customStates.set('blank', !this.value);
+      this.updateValidity();
+    }
+
+    // setValidity() calls requestUpdate('validity')
+    // Skip re-validation, otherwise we loop forever
+    const onlyValidityChanged = changedProperties.size === 1 && changedProperties.has('validity');
+    if (!onlyValidityChanged) {
       this.updateValidity();
     }
   }
@@ -461,7 +471,6 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
                 type="button"
                 aria-label=${this.localize.term(this.passwordVisible ? 'hidePassword' : 'showPassword')}
                 @click=${this.handlePasswordToggle}
-                tabindex="-1"
               >
                 ${!this.passwordVisible
                   ? html`

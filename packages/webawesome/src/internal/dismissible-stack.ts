@@ -16,6 +16,9 @@ const dismissibleStack: object[] = [];
  * The most recently registered dismissible is at the top.
  */
 export function registerDismissible(key: object): void {
+  // Move an already registered dismissible to the top instead of duplicating it. This can happen when a prevented hide
+  // event reverts a dismissible back to open.
+  unregisterDismissible(key);
   dismissibleStack.push(key);
 }
 

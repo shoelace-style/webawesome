@@ -1,6 +1,7 @@
 ---
 title: Astro
 description: Tips for using Web Awesome in your Astro app.
+ogDescription: "Add Web Awesome to an Astro site, server-side rendering included."
 layout: framework
 officialDocs: https://docs.astro.build
 ---
@@ -35,7 +36,7 @@ import "@awesome.me/webawesome/dist/components/button/button.js"
       <strong>Web Awesome is ready to use.</strong><br />
       Want server-side rendering too?
     </p>
-    <wa-button size="small" variant="success" href="#server-side-rendering">
+    <wa-button size="s" variant="success" href="#server-side-rendering">
       Add SSR
     </wa-button>
   </div>

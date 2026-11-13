@@ -317,7 +317,11 @@ export default css`
     .label,
     .end,
     .caret {
-      visibility: hidden;
+      /* Hidden with opacity, not visibility, so the label stays in the accessibility tree */
+      opacity: 0;
+
+      /* Unlike visibility: hidden, opacity leaves the content clickable */
+      pointer-events: none;
     }
 
     wa-spinner {

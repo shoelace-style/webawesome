@@ -112,6 +112,70 @@ describe('<wa-select>', () => {
           expect(tag.hasAttribute('pill')).to.be.true;
         });
 
+        for (const [name, getTag] of Object.entries({
+          string: (option: WaOption) => `<wa-badge>${option.label}</wa-badge>`,
+          template: (option: WaOption) => html`<wa-badge>${option.label}</wa-badge>`,
+          element: (option: WaOption) => {
+            const badge = document.createElement('wa-badge');
+            badge.textContent = option.label;
+            return badge;
+          },
+        })) {
+          it(`should give custom ${name} tags the selected-items area`, async () => {
+            const el = await fixture<WaSelect>(html`
+              <wa-select label="Contact" multiple placeholder="Select a few">
+                <wa-option value="email" selected>Email</wa-option>
+                <wa-option value="phone" selected>Phone</wa-option>
+              </wa-select>
+            `);
+            el.getTag = getTag;
+            await el.updateComplete;
+
+            expect(getComputedStyle(el.displayInput).opacity).to.equal('0');
+            expect(el.shadowRoot!.querySelectorAll('wa-badge').length).to.equal(2);
+            await expect(el).to.be.accessible();
+
+            el.value = [];
+            await el.updateComplete;
+            await waitUntil(
+              () => getComputedStyle(el.displayInput).opacity !== '0',
+              'selection count remained hidden after clearing the tags',
+            );
+            expect(getComputedStyle(el.displayInput).opacity).to.not.equal('0');
+            expect(el.displayInput.value).to.equal('');
+          });
+        }
+
+        it('should show the selection count when custom tags are empty', async () => {
+          const el = await fixture<WaSelect>(html`
+            <wa-select multiple>
+              <wa-option value="email" selected>Email</wa-option>
+            </wa-select>
+          `);
+          el.getTag = () => '';
+          await el.updateComplete;
+
+          expect(getComputedStyle(el.displayInput).opacity).to.not.equal('0');
+          expect(el.displayInput.value).to.not.equal('');
+        });
+
+        it('should pass pill and size to the overflow tag', async () => {
+          const el = await fixture<WaSelect>(html`
+            <wa-select multiple pill size="l" max-options-visible="1">
+              <wa-option value="option-1" selected>Option 1</wa-option>
+              <wa-option value="option-2" selected>Option 2</wa-option>
+              <wa-option value="option-3" selected>Option 3</wa-option>
+            </wa-select>
+          `);
+          const tags = el.shadowRoot!.querySelectorAll('[part~="tag"]');
+          const overflowTag = tags[tags.length - 1];
+
+          expect(tags.length).to.equal(2);
+          expect(overflowTag.textContent?.trim()).to.equal('+2');
+          expect(overflowTag.hasAttribute('pill')).to.be.true;
+          expect(overflowTag.getAttribute('size')).to.equal('l');
+        });
+
         it('should update the display label when an option changes', async () => {
           const el = await fixture<WaSelect>(html`
             <wa-select value="option-1">
@@ -947,6 +1011,7 @@ describe('<wa-select>', () => {
             const el = form.querySelector<WaSelect>('wa-select')!;
             expect(Array.isArray(el.value)).to.equal(true);
             expect(el.value!.length).to.equal(0);
+            expect(getComputedStyle(el.displayInput).opacity).to.not.equal('0');
 
             const option = document.createElement('wa-option');
             option.value = 'option-1';
@@ -958,6 +1023,7 @@ describe('<wa-select>', () => {
             expect(el.value!.length).to.equal(1);
             expect(el.value).to.have.members(['option-1']);
             expect(new FormData(form).getAll('select')).have.members(['option-1']);
+            expect(getComputedStyle(el.displayInput).opacity).to.equal('0');
           });
         });
 
@@ -1113,7 +1179,7 @@ describe('<wa-select>', () => {
             <wa-option value="1">Option 1</wa-option>
             <wa-option value="2">Option 2</wa-option>
           </wa-select>
-          <wa-tooltip id="test-tooltip" for="test-select" trigger="manual">Tooltip content</wa-tooltip>
+          <wa-tooltip id="test-tooltip" for="test-select" trigger="click">Tooltip content</wa-tooltip>
         </div>
       `);
 
@@ -1126,7 +1192,7 @@ describe('<wa-select>', () => {
       await waitUntil(() => select.open);
       await aTimeout(200);
 
-      // Open tooltip programmatically (manual trigger won't steal focus)
+      // Open the tooltip programmatically so focus stays on the select
       tooltip.open = true;
       await waitUntil(() => tooltip.open);
       await aTimeout(200);
@@ -1247,8 +1313,12 @@ describe('<wa-select>', () => {
         iconCenterFromRight(input, '[part~="clear-button"]') - iconCenterFromRight(select, '[part~="clear-button"]'),
       );
 
+      // The clear buttons share a right edge, but <wa-input>'s is a square focus-ring target
+      // (aspect-ratio: 1 against its 1.5em height), so it pads the icon by 2px on each side and
+      // its center sits 2px inboard of the select's. That offset is intentional; anything beyond
+      // it means the shared trailing edge itself has drifted.
       expect(trailingDelta, 'input end-slot icon is off the select trailing axis').to.be.lessThan(2);
-      expect(clearDelta, 'input clear button is off the select clear axis').to.be.lessThan(2);
+      expect(clearDelta, 'input clear button is off the select clear axis').to.be.at.most(2);
     });
   });
 });
