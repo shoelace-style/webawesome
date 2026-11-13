@@ -1,7 +1,6 @@
 ---
 title: Frameworks
-description: Using Web Awesome with frameworks.
-ogDescription: "Web Awesome components are custom elements, so they work anywhere HTML does."
+description: Web Awesome components are custom elements, so they work anywhere HTML does.
 layout: docs
 hasOutline: false
 synonyms:

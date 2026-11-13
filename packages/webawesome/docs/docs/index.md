@@ -1,7 +1,6 @@
 ---
 title: Installation
-description: Choose the installation method that works best for you.
-ogDescription: "One CDN line is the fastest start. npm and self-hosted downloads are covered too."
+description: One CDN line is the fastest start. npm and self-hosted downloads are covered too.
 layout: page-outline
 ---
 
