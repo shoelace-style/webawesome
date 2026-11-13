@@ -3,7 +3,7 @@ import { sendKeys } from '@web/test-runner-commands';
 import { html } from 'lit';
 import { expectEvent } from '../../internal/test/expect-event.js';
 import { fixtures } from '../../internal/test/fixture.js';
-import { clickOnElement } from '../../internal/test/pointer-utilities.js';
+import { clickOnElement, outsideOf } from '../../internal/test/pointer-utilities.js';
 import type WaDialog from './dialog.js';
 
 describe('<wa-dialog>', () => {
@@ -28,6 +28,49 @@ describe('<wa-dialog>', () => {
           await aTimeout(250);
 
           expect(document.activeElement).to.equal(input);
+        });
+
+        it('should name the dialog from its label', async () => {
+          const el = await fixture<WaDialog>(html`<wa-dialog label="Settings" open>Content</wa-dialog>`);
+          const dialog = el.shadowRoot!.querySelector('[part~="dialog"]')!;
+          const title = el.shadowRoot!.getElementById('title')!;
+
+          expect(dialog.getAttribute('aria-labelledby')).to.equal(title.id);
+          expect(title.textContent!.trim()).to.equal('Settings');
+        });
+
+        it('should name the dialog from a slotted label', async () => {
+          const el = await fixture<WaDialog>(
+            html`<wa-dialog open><span slot="label">Settings</span>Content</wa-dialog>`,
+          );
+          const dialog = el.shadowRoot!.querySelector('[part~="dialog"]')!;
+
+          expect(dialog.getAttribute('aria-labelledby')).to.equal('title');
+        });
+
+        it('should name the dialog from a slotted label before hydration when with-label is set', async () => {
+          const el = await fixture<WaDialog>(
+            html`<wa-dialog open with-label><span slot="label">Settings</span>Content</wa-dialog>`,
+          );
+          const dialog = el.shadowRoot!.querySelector('[part~="dialog"]')!;
+
+          expect(dialog.getAttribute('aria-labelledby')).to.equal('title');
+        });
+
+        it('should leave the dialog unnamed when it has no label', async () => {
+          const el = await fixture<WaDialog>(html`<wa-dialog open>Content</wa-dialog>`);
+          const dialog = el.shadowRoot!.querySelector('[part~="dialog"]')!;
+
+          expect(dialog.hasAttribute('aria-labelledby')).to.be.false;
+          expect(dialog.hasAttribute('aria-label')).to.be.false;
+        });
+
+        it('should name the dialog from its label when the header is hidden', async () => {
+          const el = await fixture<WaDialog>(html`<wa-dialog label="Settings" without-header open>Content</wa-dialog>`);
+          const dialog = el.shadowRoot!.querySelector('[part~="dialog"]')!;
+
+          expect(dialog.getAttribute('aria-label')).to.equal('Settings');
+          expect(dialog.hasAttribute('aria-labelledby')).to.be.false;
         });
 
         it('should not create duplicate landmarks when the page has its own header and footer', async () => {
@@ -205,7 +248,9 @@ describe('<wa-dialog>', () => {
           const dialog = el.shadowRoot!.querySelector<HTMLDialogElement>('.dialog')!;
 
           // Simulate a backdrop click by dispatching pointerdown with the dialog as the target
-          dialog.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, composed: true }));
+          dialog.dispatchEvent(
+            new PointerEvent('pointerdown', { bubbles: true, composed: true, ...outsideOf(dialog) }),
+          );
           await aTimeout(250);
 
           expect(el.open).to.be.true;
@@ -217,10 +262,31 @@ describe('<wa-dialog>', () => {
 
           await expectEvent(el, 'wa-after-hide', () => {
             // Simulate a backdrop click by dispatching pointerdown with the dialog as the target
-            dialog.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true, composed: true }));
+            dialog.dispatchEvent(
+              new PointerEvent('pointerdown', { bubbles: true, composed: true, ...outsideOf(dialog) }),
+            );
           });
 
           expect(el.open).to.be.false;
+        });
+
+        it('should not close when a pointerdown targets the dialog with a point inside its box', async () => {
+          const el = await fixture<WaDialog>(html`<wa-dialog open light-dismiss>Content</wa-dialog>`);
+          const dialog = el.shadowRoot!.querySelector<HTMLDialogElement>('.dialog')!;
+          const rect = dialog.getBoundingClientRect();
+
+          // A scrollbar hit targets the dialog element, just like the backdrop, but the point is inside its box
+          dialog.dispatchEvent(
+            new PointerEvent('pointerdown', {
+              bubbles: true,
+              composed: true,
+              clientX: rect.right - 2,
+              clientY: rect.top + rect.height / 2,
+            }),
+          );
+          await aTimeout(250);
+
+          expect(el.open).to.be.true;
         });
 
         it('should not close when clicking inside the dialog even when light-dismiss is enabled', async () => {

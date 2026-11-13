@@ -40,9 +40,9 @@
 {% set componentName = component.tagName | stripPrefix %}
 {% set componentPath = ["components/", componentName, "/", componentName, ".js"] | join("") %}
 <wa-tab-group label="How would you like to import this component?" data-install-tabs>
-  <wa-tab panel="cdn"><wa-icon name="globe" variant="regular"></wa-icon> CDN</wa-tab>
-  <wa-tab panel="npm"><wa-icon name="box-open" variant="regular"></wa-icon> npm</wa-tab>
-  <wa-tab panel="self-hosted"><wa-icon name="arrow-down-to-line" variant="regular"></wa-icon> Self-Hosted</wa-tab>
+  <wa-tab panel="cdn"><wa-icon name="globe"></wa-icon> CDN</wa-tab>
+  <wa-tab panel="npm"><wa-icon name="box-open"></wa-icon> npm</wa-tab>
+  <wa-tab panel="self-hosted"><wa-icon name="arrow-down-to-line"></wa-icon> Self-Hosted</wa-tab>
   <wa-tab panel="react"><wa-icon name="react" family="brands"></wa-icon> React</wa-tab>
 
   <wa-tab-panel name="cdn">
@@ -345,11 +345,11 @@
 <div class="component-help">
   <strong>Need a hand?</strong>
   <wa-button size="s" appearance="filled" variant="neutral" href="{{ site.github.issues }}" target="_blank">
-    <wa-icon slot="start" variant="regular" name="bug"></wa-icon>
+    <wa-icon slot="start" name="bug"></wa-icon>
     Report a bug
   </wa-button>
   <wa-button size="s" appearance="filled" variant="neutral" href="{{ site.github.discussions }}" target="_blank">
-    <wa-icon slot="start" variant="regular" name="message-question"></wa-icon>
+    <wa-icon slot="start" name="message-question"></wa-icon>
     Ask for help
   </wa-button>
 </div>

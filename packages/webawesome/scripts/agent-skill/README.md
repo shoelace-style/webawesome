@@ -97,4 +97,5 @@ content still needs hand-maintenance because it's curated rather than derivable:
   (dropdown vs. select, callout vs. toast, tag vs. badge, dialog vs. drawer, etc.). Those callouts
   are the highest-value content here.
 - **Point at the companion `webawesome-design` skill** for layout, theming, and visual composition
-  guidance. Don't duplicate it here.
+  guidance, and at its `your-design-system.md` for "check the project's own recipes first." Don't
+  duplicate either here.

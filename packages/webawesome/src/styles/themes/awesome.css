@@ -13,6 +13,7 @@
   .wa-dark .wa-theme-awesome .wa-invert {
     /* #region Colors (Light) ~~~~~~~~~~~~~~~~~~~~~ */
     color-scheme: light;
+    --wa-color-scheme: light;
     color: var(--wa-color-text-normal);
 
     --wa-color-surface-raised: white;
@@ -99,6 +100,7 @@
   .wa-light .wa-theme-awesome .wa-invert {
     /* #region Colors (Dark) ~~~~~~~~~~~~~~~~~~~~~~ */
     color-scheme: dark;
+    --wa-color-scheme: dark;
     color: var(--wa-color-text-normal);
 
     --wa-color-surface-raised: var(--wa-color-neutral-10);
@@ -395,7 +397,7 @@
         /* Give buttons a raised effect via solid box-shadow
          * and adjust height to visually match other inputs */
         &:where(:not(wa-button)),
-        &::part(base) {
+        &::part(button) {
           height: calc(var(--wa-form-control-height) - var(--wa-shadow-offset-y-s));
           box-shadow: var(--wa-shadow-offset-x-s) var(--wa-shadow-offset-y-s) 0 0 var(--wa-color-shadow);
 
@@ -408,7 +410,7 @@
         /* Give active buttons a "punch in" effect */
         &:not([disabled], :disabled):active {
           &:where(:not(wa-button)),
-          &::part(base) {
+          &::part(button) {
             color: var(--wa-color-fill-quiet);
             background-color: var(--wa-color-shadow);
             border-color: var(--wa-color-shadow);
@@ -424,14 +426,14 @@
       & > *:not(:last-child) {
         &:is(wa-button:not([appearance='plain'], .wa-plain)),
         & wa-button:not([appearance='plain'], .wa-plain) {
-          &::part(base) {
+          &::part(button) {
             height: var(--wa-form-control-height);
             margin-bottom: 0;
             margin-right: 0;
             box-shadow: none;
           }
           &:not([disabled], :disabled):active {
-            &::part(base) {
+            &::part(button) {
               height: calc(var(--wa-form-control-height) - var(--wa-shadow-offset-y-s));
               margin-top: var(--wa-shadow-offset-y-s);
               transform: none;
@@ -443,7 +445,7 @@
         &:is(wa-button:not([appearance='plain'], .wa-plain)),
         & wa-button:not([appearance='plain'], .wa-plain) {
           &:not([disabled], :disabled):active {
-            &::part(base) {
+            &::part(button) {
               box-shadow: var(--wa-shadow-offset-x-s) calc(var(--wa-shadow-offset-y-s) * -1) 0 0 var(--wa-color-shadow);
             }
           }
@@ -465,6 +467,8 @@
         wa-textarea,
         wa-select,
         wa-combobox,
+        wa-tag-input,
+        wa-rich-text-editor,
         input:not(
             [type='button'],
             [type='checkbox'],
@@ -480,11 +484,13 @@
         textarea,
         select
       ):not(:focus, [appearance='filled']) {
-      &:where(:not(wa-input, wa-textarea, wa-select, wa-combobox)),
-      &:where(wa-input)::part(base),
-      &:where(wa-textarea)::part(base),
+      &:where(:not(wa-input, wa-textarea, wa-select, wa-combobox, wa-tag-input, wa-rich-text-editor)),
+      &:where(wa-input)::part(input-wrapper),
+      &:where(wa-textarea)::part(textarea-wrapper),
       &:where(wa-select)::part(combobox),
-      &:where(wa-combobox)::part(combobox) {
+      &:where(wa-combobox)::part(combobox),
+      &:where(wa-tag-input)::part(tag-input),
+      &:where(wa-rich-text-editor)::part(rich-text-editor) {
         box-shadow: inset var(--wa-shadow-offset-x-s)
           max(var(--wa-shadow-offset-y-s), var(--wa-form-control-border-width)) 0 0 var(--wa-color-shadow);
       }
@@ -510,7 +516,7 @@
 
         &:not([disabled], :disabled):active {
           &:where(:not(wa-button)),
-          &::part(base) {
+          &::part(button) {
             color: var(--wa-color-on-quiet);
           }
         }
@@ -532,7 +538,7 @@
         --wa-color-shadow: var(--wa-color-on-loud);
 
         &:where(:not(wa-button)),
-        &::part(base) {
+        &::part(button) {
           border-color: var(--wa-color-shadow);
         }
       }
@@ -577,7 +583,8 @@
       --checked-icon-color: var(--wa-color-surface-default);
     }
 
-    wa-option {
+    wa-option,
+    wa-rich-text-editor {
       --current-text-color: var(--wa-color-surface-default);
     }
 

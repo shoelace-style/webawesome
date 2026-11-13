@@ -12,7 +12,7 @@ import { waitForEvent } from '../../internal/event.js';
 import { uniqueId } from '../../internal/math.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import WaPopup from '../popup/popup.js';
+import WaPopup, { type VirtualElement } from '../popup/popup.js';
 import styles from './popover.styles.js';
 
 const openPopovers = new Set<WaPopover>();
@@ -55,7 +55,8 @@ export default class WaPopover extends WebAwesomeElement {
   @query('.body') body: HTMLElement;
   @query('wa-popup') popup: WaPopup;
 
-  @state() anchor: null | Element = null;
+  /** A virtual anchor only positions the popover. It gets no trigger ARIA and no focus return. */
+  @state() anchor: null | Element | VirtualElement = null;
 
   /**
    * The preferred placement of the popover. Note that the actual placement may vary as needed to keep the popover
@@ -91,6 +92,7 @@ export default class WaPopover extends WebAwesomeElement {
   @property({ attribute: 'without-arrow', type: Boolean, reflect: true }) withoutArrow = false;
 
   private eventController = new AbortController();
+  private pressStartedInside = false;
 
   connectedCallback() {
     super.connectedCallback();
@@ -117,8 +119,13 @@ export default class WaPopover extends WebAwesomeElement {
 
     // Cleanup events in case the popover is removed while open
     document.removeEventListener('keydown', this.handleDocumentKeyDown);
+    document.removeEventListener('pointerdown', this.handleDocumentPointerDown, { capture: true });
     unregisterDismissible(this);
     this.eventController.abort();
+
+    if (this.anchor instanceof Element) {
+      this.removeTriggerAria(this.anchor);
+    }
   }
 
   firstUpdated(changedProperties: PropertyValues<typeof this>) {
@@ -136,6 +143,46 @@ export default class WaPopover extends WebAwesomeElement {
     if (changedProperties.has('open')) {
       this.customStates.set('open', this.open);
     }
+
+    if ((changedProperties.has('open') || changedProperties.has('anchor')) && this.anchor instanceof Element) {
+      this.syncTriggerAria(this.anchor);
+    }
+  }
+
+  // A <wa-button> is not the focusable element; its internal button is, so that's where screen readers look
+  private getTriggerAriaTarget(anchor: Element): Element {
+    if (anchor.localName === 'wa-button') {
+      return anchor.shadowRoot?.querySelector('[part~="button"]') ?? anchor;
+    }
+    return anchor;
+  }
+
+  private async syncTriggerAria(anchor: Element) {
+    if (anchor.localName === 'wa-button') {
+      await customElements.whenDefined('wa-button');
+      await (anchor as WebAwesomeElement).updateComplete;
+    }
+
+    // The anchor may have changed or the popover may have been removed while waiting for the button to render
+    if (anchor !== this.anchor || !this.isConnected) {
+      return;
+    }
+
+    const target = this.getTriggerAriaTarget(anchor);
+    target.setAttribute('aria-haspopup', 'dialog');
+    target.setAttribute('aria-expanded', this.open ? 'true' : 'false');
+  }
+
+  private removeTriggerAria(anchor: Element) {
+    const target = this.getTriggerAriaTarget(anchor);
+    target.removeAttribute('aria-haspopup');
+    target.removeAttribute('aria-expanded');
+  }
+
+  private focusAnchor() {
+    if (this.anchor instanceof HTMLElement || this.anchor instanceof SVGElement) {
+      this.anchor.focus({ preventScroll: true });
+    }
   }
 
   private handleAnchorClick = () => {
@@ -151,6 +198,7 @@ export default class WaPopover extends WebAwesomeElement {
     if (button) {
       event.stopPropagation();
       this.open = false;
+      this.focusAnchor();
     }
   };
 
@@ -160,15 +208,28 @@ export default class WaPopover extends WebAwesomeElement {
       event.preventDefault();
       event.stopPropagation();
       this.open = false;
-      if (this.anchor && typeof (this.anchor as any).focus === 'function') {
-        (this.anchor as any).focus({ preventScroll: true });
-      }
+      this.focusAnchor();
     }
   };
 
+  private handleDocumentPointerDown = (event: PointerEvent) => {
+    // Remember whether the press started inside the popover. A click event targets the common ancestor of the
+    // pointerdown and pointerup elements, so a drag that starts inside and ends outside reports a target outside the
+    // popover. Only the originating press should decide whether this is an outside click.
+    this.pressStartedInside = event.composedPath().includes(this);
+  };
+
   private handleDocumentClick = (event: PointerEvent) => {
+    const pressStartedInside = this.pressStartedInside;
+    this.pressStartedInside = false;
+
+    // Ignore presses that began inside the popover, such as dragging to select text and releasing outside of it
+    if (pressStartedInside) {
+      return;
+    }
+
     // Ignore clicks on the anchor so it will be closed by the anchor's click handler
-    if (this.anchor && event.composedPath().includes(this.anchor)) {
+    if (this.anchor instanceof Element && event.composedPath().includes(this.anchor)) {
       return;
     }
 
@@ -193,6 +254,10 @@ export default class WaPopover extends WebAwesomeElement {
       openPopovers.forEach(popover => (popover.open = false));
 
       document.addEventListener('keydown', this.handleDocumentKeyDown, { signal: this.eventController.signal });
+      document.addEventListener('pointerdown', this.handleDocumentPointerDown, {
+        capture: true,
+        signal: this.eventController.signal,
+      });
       document.addEventListener('click', this.handleDocumentClick, { signal: this.eventController.signal });
 
       // Show the dialog non-modally. Set the `open` attribute instead of calling show(): show() runs the native
@@ -229,7 +294,9 @@ export default class WaPopover extends WebAwesomeElement {
       }
 
       document.removeEventListener('keydown', this.handleDocumentKeyDown);
+      document.removeEventListener('pointerdown', this.handleDocumentPointerDown, { capture: true });
       document.removeEventListener('click', this.handleDocumentClick);
+      this.pressStartedInside = false;
 
       openPopovers.delete(this);
       unregisterDismissible(this);
@@ -263,8 +330,9 @@ export default class WaPopover extends WebAwesomeElement {
       newAnchor.addEventListener('click', this.handleAnchorClick, { signal });
     }
 
-    if (oldAnchor) {
+    if (oldAnchor instanceof Element) {
       oldAnchor.removeEventListener('click', this.handleAnchorClick);
+      this.removeTriggerAria(oldAnchor);
     }
 
     this.anchor = newAnchor;

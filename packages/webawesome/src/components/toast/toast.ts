@@ -98,7 +98,10 @@ export interface ToastCreateOptions {
   icon?: string | ToastIconOptions;
   /** The toast item's variant. */
   variant?: 'brand' | 'success' | 'warning' | 'danger' | 'neutral';
-  /** The toast item's size. */
+  /**
+   * The toast item's size.
+   * The long-form values `small`, `medium`, and `large` are deprecated; use `s`, `m`, and `l` instead.
+   */
   size?: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large';
 }
 

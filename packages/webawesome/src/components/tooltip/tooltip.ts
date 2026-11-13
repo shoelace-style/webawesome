@@ -15,6 +15,29 @@ import WaPopup from '../popup/popup.js';
 import styles from './tooltip.styles.js';
 
 /**
+ * Checks containment in the composed tree, including nodes assigned through one or more slots.
+ */
+function containsComposedNode(ancestor: Node, node: Node | null) {
+  while (node) {
+    if (node === ancestor) {
+      return true;
+    }
+
+    if (node instanceof Element && node.assignedSlot) {
+      node = node.assignedSlot;
+    } else if (node.parentNode) {
+      node = node.parentNode;
+    } else if (node instanceof ShadowRoot) {
+      node = node.host;
+    } else {
+      node = null;
+    }
+  }
+
+  return false;
+}
+
+/**
  * @summary Tooltips display brief contextual information when the user hovers, focuses, or taps a target element.
  * @documentation https://webawesome.com/docs/components/tooltip
  * @status stable
@@ -31,8 +54,10 @@ import styles from './tooltip.styles.js';
  *
  * @csspart base - Deprecated. Use the `tooltip` part instead.
  * @csspart tooltip - The component's outer wrapper.
- * @csspart base__popup - The popup's exported `popup` part. Use this to target the tooltip's popup container.
- * @csspart base__arrow - The popup's exported `arrow` part. Use this to target the tooltip's arrow.
+ * @csspart base__popup - Deprecated. Use the `tooltip__popup` part instead.
+ * @csspart base__arrow - Deprecated. Use the `tooltip__arrow` part instead.
+ * @csspart tooltip__popup - The popup's exported `popup` part. Use this to target the tooltip's popup container.
+ * @csspart tooltip__arrow - The popup's exported `arrow` part. Use this to target the tooltip's arrow.
  * @csspart body - The tooltip's body where its content is rendered.
  *
  * @cssproperty --max-width - The maximum width of the tooltip before its content will wrap.
@@ -120,10 +145,15 @@ export default class WaTooltip extends WebAwesomeElement {
       // The events that re-arm the tooltip after a light dismiss can be missed while disconnected
       this.dismissedByPress = false;
 
-      // TODO: This is a hack that I need to revisit [Konnor]
+      // TODO: This is a hack with SSR needing to close + reopen to trigger floating UI that I need to revisit [Konnor]
       if (this.open) {
         this.open = false;
         this.updateComplete.then(() => {
+          // don't try to open disabled tooltips.
+          if (this.disabled) {
+            return;
+          }
+
           this.open = true;
         });
       }
@@ -151,7 +181,8 @@ export default class WaTooltip extends WebAwesomeElement {
     document.removeEventListener('keydown', this.handleDocumentKeyDown);
     document.removeEventListener('click', this.handleDocumentClick);
     unregisterDismissible(this);
-    this.eventController.abort();
+    // Avoid retaining detached anchors in the default abort reason's stack.
+    this.eventController.abort(null);
 
     if (this.anchor) {
       this.removeFromAriaLabelledBy(this.anchor, this.id);
@@ -179,7 +210,7 @@ export default class WaTooltip extends WebAwesomeElement {
     }
   };
 
-  private handleClick = () => {
+  private handleClick = (event: MouseEvent) => {
     if (this.hasTrigger('click')) {
       if (this.open) {
         this.hide();
@@ -193,8 +224,11 @@ export default class WaTooltip extends WebAwesomeElement {
       return;
     }
 
-    // Light dismiss for activations that don't fire mousedown, like Enter or Space on a button.
-    this.lightDismiss();
+    // Pointer presses are handled on pointerdown. Keyboard and programmatic clicks have no click count.
+    // A touch-generated click must not dismiss the tooltip opened by that tap's hover/focus events.
+    if (event.detail === 0) {
+      this.lightDismiss();
+    }
   };
 
   private handleFocus = () => {
@@ -207,8 +241,8 @@ export default class WaTooltip extends WebAwesomeElement {
     }
   };
 
-  private handleMouseDown = () => {
-    if (this.hasTrigger('click') || this.hasTrigger('manual')) {
+  private handlePointerDown = (event: PointerEvent) => {
+    if (event.pointerType === 'touch' || this.hasTrigger('click') || this.hasTrigger('manual')) {
       return;
     }
 
@@ -269,8 +303,8 @@ export default class WaTooltip extends WebAwesomeElement {
     // the anchor or the tooltip itself. Relying on `:hover` matching here is unreliable in Chrome when the pointer
     // moves onto a slotted child element of the tooltip, since the host's `:hover` state can briefly report false
     // during that transition.
-    const movedIntoAnchor = Boolean(relatedTarget && this.anchor?.contains(relatedTarget));
-    const movedIntoTooltip = Boolean(relatedTarget && this.contains(relatedTarget));
+    const movedIntoAnchor = Boolean(relatedTarget && this.anchor && containsComposedNode(this.anchor, relatedTarget));
+    const movedIntoTooltip = Boolean(relatedTarget && containsComposedNode(this, relatedTarget));
 
     if (movedIntoAnchor || movedIntoTooltip) {
       return;
@@ -325,6 +359,7 @@ export default class WaTooltip extends WebAwesomeElement {
   async handleOpenChange() {
     if (this.open) {
       if (this.disabled) {
+        this.open = false;
         return;
       }
 
@@ -404,7 +439,7 @@ export default class WaTooltip extends WebAwesomeElement {
       newAnchor.addEventListener('blur', this.handleBlur, { capture: true, signal });
       newAnchor.addEventListener('focus', this.handleFocus, { capture: true, signal });
       newAnchor.addEventListener('click', this.handleClick, { signal });
-      newAnchor.addEventListener('mousedown', this.handleMouseDown, { signal });
+      newAnchor.addEventListener('pointerdown', this.handlePointerDown, { signal });
       newAnchor.addEventListener('mouseover', this.handleMouseOver, { signal });
       newAnchor.addEventListener('mouseout', this.handleMouseOut, { signal });
     }
@@ -414,7 +449,7 @@ export default class WaTooltip extends WebAwesomeElement {
       oldAnchor.removeEventListener('blur', this.handleBlur, { capture: true });
       oldAnchor.removeEventListener('focus', this.handleFocus, { capture: true });
       oldAnchor.removeEventListener('click', this.handleClick);
-      oldAnchor.removeEventListener('mousedown', this.handleMouseDown);
+      oldAnchor.removeEventListener('pointerdown', this.handlePointerDown);
       oldAnchor.removeEventListener('mouseover', this.handleMouseOver);
       oldAnchor.removeEventListener('mouseout', this.handleMouseOut);
     }
@@ -439,7 +474,7 @@ export default class WaTooltip extends WebAwesomeElement {
 
   /** Shows the tooltip. */
   async show() {
-    if (this.open) {
+    if (this.open || this.disabled) {
       return undefined;
     }
 
@@ -463,7 +498,9 @@ export default class WaTooltip extends WebAwesomeElement {
         part="base tooltip"
         exportparts="
           popup:base__popup,
-          arrow:base__arrow
+          arrow:base__arrow,
+          popup:tooltip__popup,
+          arrow:tooltip__arrow
         "
         class=${classMap({
           tooltip: true,

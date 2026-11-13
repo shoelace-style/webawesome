@@ -168,6 +168,42 @@ describe('<wa-dropdown-item>', () => {
           const assignedNodes = slot.assignedNodes({ flatten: true });
           expect(assignedNodes.length).to.equal(1);
         });
+
+        it('should detect submenu items added or reassigned after rendering', async () => {
+          const el = await fixture<WaDropdownItem>(html`<wa-dropdown-item>More</wa-dropdown-item>`);
+          const child = document.createElement('wa-dropdown-item');
+          child.textContent = 'Child';
+          child.slot = 'submenu';
+
+          el.append(child);
+          await child.updateComplete;
+          await el.updateComplete;
+          expect(el.getAttribute('aria-haspopup')).to.equal('menu');
+          expect(el.matches(':state(has-submenu)')).to.be.true;
+
+          child.remove();
+          await Promise.resolve();
+          await el.updateComplete;
+          expect(el.hasAttribute('aria-haspopup')).to.be.false;
+          expect(el.matches(':state(has-submenu)')).to.be.false;
+
+          child.slot = 'unused';
+          el.append(child);
+          await child.updateComplete;
+          await el.updateComplete;
+          expect(el.hasAttribute('aria-haspopup')).to.be.false;
+
+          child.slot = 'submenu';
+          await Promise.resolve();
+          await el.updateComplete;
+          expect(el.getAttribute('aria-haspopup')).to.equal('menu');
+          expect(el.matches(':state(has-submenu)')).to.be.true;
+
+          await el.openSubmenu();
+          expect(el.getAttribute('aria-expanded')).to.equal('true');
+          expect(el.submenuElement.matches(':popover-open')).to.be.true;
+          await el.closeSubmenu();
+        });
       });
 
       describe('links', () => {

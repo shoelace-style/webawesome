@@ -1,6 +1,7 @@
 ---
 title: Build Awesome (11ty)
 description: Tips for using Web Awesome in your Build Awesome (11ty) app.
+ogDescription: "Add Web Awesome to a Build Awesome (11ty) site, server-side rendering included."
 layout: framework
 officialDocs: https://www.11ty.dev
 ---
@@ -60,7 +61,7 @@ Add the stylesheet and component loader to your layout's `<head>`:
       <strong>Web Awesome is ready to use.</strong><br />
       Want server-side rendering too?
     </p>
-    <wa-button size="small" variant="success" href="#server-side-rendering">
+    <wa-button size="s" variant="success" href="#server-side-rendering">
       Add SSR
     </wa-button>
   </div>

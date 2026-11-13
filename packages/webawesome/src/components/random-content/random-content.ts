@@ -40,7 +40,7 @@ if (typeof document !== 'undefined') {
 /**
  * @summary Selects one or more child elements at random and displays them, hiding the rest.
  * @documentation https://webawesome.com/docs/components/random-content
- * @status experimental
+ * @status stable
  * @since 3.10
  *
  * @slot - The pool of children to choose from. Only direct element children are eligible; unselected

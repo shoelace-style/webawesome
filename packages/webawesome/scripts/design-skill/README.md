@@ -16,8 +16,11 @@ version into the copied `SKILL.md`'s frontmatter so the skill stays in lockstep 
 
 ```
 scripts/design-skill/                  ← EDIT THESE (source of truth, in git)
-  SKILL.md                               entry point: STEP 0 gate, rules, starting points, Final Pass
+  SKILL.md                               entry point: 4-step workflow (discover, layout branch, build
+                                         ladder, verify), rules table, search patterns, starting points
   references/
+    your-design-system.md                building a project's design system on WA: discovery, layers,
+                                         extending without forking, DESIGN.md template, guardrails
     layouts-page.md                      full-page layouts with <wa-page> + wa-page checklist
     layouts-inpage.md                    sections/widgets/embeds (utilities only)
     theming.md                           themes, palettes, light/dark, brand color, tokens
@@ -93,11 +96,24 @@ to the docs site and the `webawesome` skill.
 ## Conventions
 
 - Keep `SKILL.md` short; push detail into `references/`. AI tools load references on demand
-  (progressive disclosure). When the landing-page skeleton grew SKILL.md past 290 lines, we slimmed by
-  pointing at the canonical example in `layouts-page.md`. Apply the same instinct.
-- The first thing `SKILL.md` does is the **STEP 0 layout decision gate** (full page → `<wa-page>`;
-  a piece of a page → utilities only; layouts nest, so re-answer for each self-contained inner
-  container). Keep that gate consistent across every file.
+  (progressive disclosure), and long rule lists lose their middle. Target under ~250 lines; when a
+  section grows, move it to a reference and leave a one-line pointer with "read this when…".
+  Reference files over ~100 lines carry a **Contents** list at the top.
+- `SKILL.md` is a **four-step workflow**: discover the project's existing decisions, pick the layout
+  branch (full page → `<wa-page>`; a piece of a page → utilities only; layouts nest, so re-answer for
+  each self-contained inner container), build down the system ladder, verify. Keep the layout gate
+  consistent across every file.
+- **Every prohibition names its replacement and its reason.** Rules live in "Instead of… / Do this /
+  Why" tables; the why is what lets an agent apply a rule to a case the table doesn't list. Avoid
+  ALL-CAPS emphasis and stacked "MUST"s; if a rule keeps getting ignored, the file is probably too long,
+  not too quiet.
+- **Project conventions outrank skill defaults.** Anything that describes a default (theme classes,
+  nav placement, primary/secondary button treatment) should say so, and point at
+  `your-design-system.md` for the discovery step.
+- **Verification is mechanical first, judgment second.** The "Verify before you finish" section keeps a
+  table of search patterns (hex, px, self-closed elements, host rules, emojis, bad slots) that can be run
+  by hand or wired into a lint/hook, followed by a short checklist. Keep new checks greppable when
+  possible.
 - **Two self-check passes, scoped distinctly.** `SKILL.md`'s **Final Pass** is the **structural**
   review (markup, slot decisions, rule compliance). `composition.md`'s **Polish Checklist** is the
   **visual quality** pass (spacing rhythm, hierarchy, contrast, surface choices). `layouts-page.md`

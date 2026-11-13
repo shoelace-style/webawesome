@@ -13,7 +13,7 @@ import styles from './accordion.styles.js';
 /**
  * @summary Accordions are a vertically stacked set of interactive headings that each contain a title, representing a section of content.
  * @documentation https://webawesome.com/docs/components/accordion
- * @status experimental
+ * @status stable
  * @since 3.8
  *
  * @dependency wa-accordion-item

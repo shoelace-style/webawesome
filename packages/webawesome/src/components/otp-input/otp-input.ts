@@ -19,7 +19,7 @@ import styles from './otp-input.styles.js';
  * @summary OTP inputs collect one-time passcodes, PINs, and other fixed-length codes, one character per segment.
  * Use them for SMS verification, two-factor authentication, and invite codes.
  * @documentation https://webawesome.com/docs/components/otp-input
- * @status experimental
+ * @status stable
  * @since 3.11
  *
  * @slot label - An optional label. Use this for labels that contain HTML. When `label` attribute is set it takes priority.
@@ -134,7 +134,10 @@ export default class WaOtpInput extends WebAwesomeFormAssociatedElement {
   /** Case transformation applied to entered characters. */
   @property({ reflect: true }) case: 'preserve' | 'upper' | 'lower' = 'preserve';
 
-  /** The size of each segment. */
+  /**
+   * The size of each segment.
+   * The long-form values `small`, `medium`, and `large` are deprecated; use `s`, `m`, and `l` instead.
+   */
   @property({ reflect: true }) size: 'xs' | 's' | 'm' | 'l' | 'xl' | 'small' | 'medium' | 'large' = 'm';
 
   @watch('size')

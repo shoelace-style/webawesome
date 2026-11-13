@@ -122,8 +122,10 @@ Any `--wa-*` token can be overridden at any scope. Common knobs:
 }
 ```
 
-Scope overrides to a subtree by putting them on a selector other than `:root`. See
-[composition.md](composition.md) for the spacing/typography scales and for styling component internals
+Scope overrides to a subtree by putting them on a selector other than `:root`. In a project, keep every
+`--wa-*` override in one theme stylesheet, scoped so it applies in both color schemes; the layering and
+the scoping selectors are in [your-design-system.md](your-design-system.md#2-where-customizations-live).
+See [composition.md](composition.md) for the spacing/typography scales and for styling component internals
 via `::part()`, and [customizing](https://webawesome.com/docs/customizing/) for the full reference.
 
 ---

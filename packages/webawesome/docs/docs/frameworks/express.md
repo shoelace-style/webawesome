@@ -1,6 +1,7 @@
 ---
 title: Express
 description: Tips for using Web Awesome in your Express app.
+ogDescription: "Serve Web Awesome from Express. Covers server-side rendering and plugging into a view engine."
 layout: framework
 officialDocs: https://expressjs.com
 ---
@@ -59,7 +60,7 @@ There are other ways to set up Web Awesome, such as with npm or downloading ZIP 
       <strong>Web Awesome is ready to use.</strong><br />
       Want server-side rendering too?
     </p>
-    <wa-button size="small" variant="success" href="#server-side-rendering">
+    <wa-button size="s" variant="success" href="#server-side-rendering">
       Add SSR
     </wa-button>
   </div>

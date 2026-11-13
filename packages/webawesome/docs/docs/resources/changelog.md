@@ -31,17 +31,186 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 ## Unreleased
 
+:::added
+
+- Added the experimental `<wa-rich-text-editor>` pro component for writing and formatting content, with HTML or Markdown values that submit with forms
+- Added the experimental `<wa-code-highlighter>` component for displaying syntax-highlighted code with a copy button
+  - Added `registerCodeGrammar()` for adding or replacing grammars
+- Added the ability to change the default icon family and variant for all icons [pr:2978]
+  - Added the `data-fa-family` and `data-fa-variant` attributes
+  - Added an optional `variant` argument to `setDefaultIconFamily()`
+  - Added `getDefaultIconVariant()`
+  - In {{ site.namePro }}, the icons inside components follow the defaults for the `classic`, `sharp`, `duotone`, and `sharp-duotone` families
+
+:::
+
 :::fixed
 
-- Fixed a bug in `<wa-page>` where empty contents for `navigation-footer` would reserve space for a navigation footer in the mobile navigation drawer.
-- Fixed a bug in `<wa-page>` where the header did not have a background set. [pr:2690]
-- Fixed a bug in `.wa-visually-hidden` utility where it did not set a `top` and `left` causing unexpected overflows. [pr:2765]
 - Fixed `<wa-dropdown>` losing trigger focus after closing with [[Escape]]. [issue:2766]
-- Fixed `<wa-accordion>` removing headers from the page's tab sequence via a roving tabindex; `Tab` and `Shift + Tab` now move through every header, matching the [W3C accordion pattern](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/examples/accordion/). Arrow keys and Home/End remain as shortcuts for moving between headers.
+- Fixed a bug in `<wa-input>` where validity would not properly update on certain property changes. [pr:]
+- Fixed a bug in `<wa-button>` where calling `event.preventDefault()` would not prevent form submissions. [pr:3008]
+- Fixed a bug in `<wa-dropdown>` where scrolling past the end of a long menu on macOS showed the page through the menu's background [issue:2711]
+- Fixed a bug in `<wa-slider>`, `<wa-color-picker>`, `<wa-comparison>`, and `<wa-split-panel>` where releasing a drag outside of the component clicked the element around it, such as a clickable card; drags now capture the pointer [issue:2983]
+- Fixed a bug in `<wa-date-input>` and `<wa-time-input>` where pressing [[Ctrl]]/[[Cmd]] + [[A]] in a segment selected the whole page [issue:2980]
+- Fixed a bug in `<wa-date-input>` and `<wa-time-input>` where dragging across the segments selected their text in Safari [issue:2980]
+- Fixed a bug in `<wa-date-picker>` where the `day-YYYY-MM-DD` slots were missing from its Slots table and `custom-elements.json` [issue:2889]
+- Improved `<wa-popover>` accessibility [pr:2986]
+  - Fixed the anchor not telling screen readers that it opens a popover, or whether it's open
+  - Fixed focus not returning to the anchor after closing with a `data-popover="close"` button
+- Fixed `<wa-accordion-item>` styles to match `<wa-details>`, including label weight, content color, and spacing between the label and content [issue:2963]
+- Fixed `<wa-accordion appearance="filled-outlined">` using the default border color for the lines between items instead of its outer border color [issue:2963]
+- Fixed `<wa-details>` using linear easing for its expand/collapse animation instead of the theme's `--wa-transition-easing` [issue:2963]
+- Fixed a bug in `allDefined()` where an unregistered `wa-*` element anywhere in the document made it wait forever; it now logs a warning and resolves after the new `timeout` option (2 seconds by default) [issue:2957]
+- Fixed `<wa-button-group>` labels missing from the accessibility tree [issue:2863] [pr:2923]
+- Fixed a bug in `<wa-otp-input>` where the last segment was cut off inside `.wa-frame` and other containers that size it to its content [issue:2854]
+- Fixed a bug in `<wa-checkbox-group>` where the vertical spacing of its label and checkboxes didn't match `<wa-radio-group>` [issue:2959]
+- Fixed a regression in `<wa-tooltip>` where tapping an anchor on a touch device immediately dismissed its hover/focus tooltip. [issue:2948] [pr:2955]
+- Fixed a bug in `<wa-select multiple>` where custom tags from `getTag` were squeezed beside the selection count [issue:2913] [pr:2917]
+- Fixed a bug in `<wa-select multiple>` where tags for options added after the first render were misaligned in Firefox [issue:2909] [pr:2917]
+- Fixed `<wa-textarea>` returning the vertical offset as the horizontal scroll position [issue:2919] [pr:2922]
+- Fixed a bug in `<wa-page>` and `<wa-tab-group>` where they did not render on first frame and their first render was delayed [pr:2932]
+- Fixed an issue where `disable-sticky` on `<wa-page>` was not documented. [pr:2932]
+- Fixed a regression in implicit form submission where pressing [[Enter]] submitted the form even when its submit button was disabled [pr:2861]
+- Fixed a bug in `<wa-dropdown-item>` where items without a checkbox sat slightly left of checkbox items in the same menu
+- Fixed a bug in `<wa-radio-group>` where disabled fieldsets cleared the selected radio's checked state or prevented the group from being re-enabled [issue:2907] [pr:2912]
+- Fixed a bug in `<wa-radio-group>` where `focus()` and label clicks failed to focus an enabled radio when the checked radio was disabled [issue:2907] [pr:2912]
+- Fixed a bug in `animateWithClass` internal helper which could occasionally leave animations in indeterminate states. [pr:2870]
+- Fixed a bug in `<wa-copy-button>` where a missing `from` target copied the fallback `value` instead of stopping after `wa-error` [issue:2891] [pr:2911]
+- Fixed a bug in `<wa-dropdown>` where reopening the menu during its hide animation left it stuck open, ignoring [[Escape]] and clicks outside
+- Fixed a bug in `<wa-dropdown>` where submenus that flipped to the opposite side closed while the pointer moved toward them [pr:2978]
+- Fixed a bug in `<wa-dropdown>` where long menus overflowed the viewport horizontally instead of shrinking to fit [pr:2969]
+- Fixed a bug in `<wa-dropdown>` where the initial focused element would get lost. [pr:2886]
+- Fixed a bug in `<wa-dropdown>` where submenus would occasionally get dismissed due to not properly rechecking submenu hover states. [pr:2877]
+- Fixed an issue in `<wa-tooltip>` where `abortController` preserved instances of `anchor` in the exception message causing the anchor to still be reachable. [pr:2873]
+- Fixed a bug in `<wa-popup>` which could lead to possibly stale cleanup functions. [pr:2871]
+- Fixed a bug in `<wa-dropdown-item>` where dynamically added submenus would not trigger a `slotchange` event leading to `HasSlotController` reporting false. [pr:2868]
+- Fixed a bug in `<wa-tooltip>` where it would still open even when it was disabled. [pr:2869]
+- Fixed a bug in `<wa-switch>` where pressing an arrow key dispatched `change` and `input` events even when the switch was already in that position
+- Fixed a bug in `<wa-slider>` where the `tooltip__arrow` part didn't target the tooltip's arrow
+- Fixed a bug in `<wa-slider>` where steps were counted from zero instead of `min` [issue:2951]
+- Fixed a bug in `<wa-tree>` where nested items added in a single DOM mutation were not initialized until another change in the tree occurred
+- Fixed a performance issue in `<wa-tree>` where removing `lazy` from one item re-initialized all items in the tree causing slowness for trees with many items
+- Fixed a bug in `<wa-tree-item>` where the `expanded` attribute was ignored on nested items [issue:2792] [pr:2908]
+- Fixed a bug in `<wa-combobox>` where pressing the listbox's scrollbar, padding, or status message inside a `<wa-dialog>` or `<wa-drawer>` closed the listbox [issue:2967]
+
+:::
+
+:::changed
+
+- Promoted the following components from {{ statusBadge('experimental') }} to {{ statusBadge('stable') }}
+  - Free: `<wa-step>` and `<wa-stepper>`
+  - Pro: `<wa-data-grid>`
+- Changed the indeterminate icon in `<wa-checkbox>` to the system library's `minus` icon so it matches the checkmark [pr:2978]
+
+:::
+
+:::deprecated
+
+- Continued the `base` part deprecation from 3.11.0 [pr:2644]
+  - Added the `button-group` and `tab-panel` CSS parts to `<wa-button-group>` and `<wa-tab-panel>` which render a wrapper element so their deprecated `base` part is no longer on a `<slot>`
+  - Added component-named versions of exported parts that were named after `base`, such as `close-button__button` in `<wa-dialog>` and `tooltip__popup` and `tooltip__arrow` in `<wa-tooltip>`
+- Deprecated exported parts named after `base`, such as `close-button__base` in `<wa-dialog>` and `base__popup` and `base__arrow` in `<wa-tooltip>`, in favor of their component-named versions, continuing the `base` part deprecation from 3.11.0. They keep working until the next major version.
+
+:::
+
+## 3.14.0
+
+<small><time datetime="2026-09-24">September 24th, 2026</time></small>
+
+:::added
+
+- Added the experimental `<wa-stepper>` and `<wa-step>` components [pr:2794]
+- Added a `nonce` attribute to `<wa-page>` and falls back to using `window.litNonce` if `nonce` is not set directly for first render. [pr:2779]
+- Added the `with-label` attribute to `<wa-dialog>` and `<wa-drawer>` for server-side rendering [pr:2846]
+- Added support for labels in `<wa-divider>` [discuss:2802] [pr:2830]
+  - Added the default slot and the `label` part
+  - Added the `label-placement` attribute
+  - Added the `--label-spacing` and `--label-offset` custom properties
+  - Added the `with-label` attribute for server-side rendering
+- Added the `allow`, `name`, and `label` attributes to `<wa-zoomable-frame>` [pr:2832]
+- Added async options to `<wa-combobox>` for loading options from a server [discuss:1881] [pr:2837]
+  - Added the `dataSource` property, which can return options as data or as custom `<wa-option>` HTML
+  - Added the `server`, `loading`, and `filter-debounce` attributes
+  - Added the `reload()` method
+  - Added the `wa-options-request` and `wa-options-error` events
+  - Added the `loading`, `no-results`, `empty`, and `error` status slots
+
+:::
+
+:::fixed
+
+- Fixed a bug in `<wa-animated-image>` that caused the image to stay hidden while playing [issue:2811] [pr:2828]
+- Fixed several screen reader bugs in `<wa-combobox>` [pr:2837]
+  - Fixed announcements that weren't reliably spoken because they came from a live region inside the shadow root
+  - Fixed an `aria-activedescendant` on the input that pointed to an option assistive devices couldn't resolve
+  - Fixed the option position and option count announcements not being localized
+- Fixed a bug in `<wa-date-input>` and `<wa-time-input>` where the clear and expand buttons used a different hover color than `<wa-input>` and `<wa-select>` [issue:2834] [pr:2845]
+- Fixed a bug in `<wa-dialog>` and `<wa-drawer>` where the internal `<dialog>` element had no accessible name [issue:2785] [pr:2846]
+- Fixed a bug in `<wa-dialog>` and `<wa-drawer>` where clicking its own scrollbar closed it when `light-dismiss` was enabled [issue:2778] [pr:2851]
+- Fixed a memory leak in `<wa-option>` where removed `<wa-select>` elements and their options were never garbage collected unless `<wa-combobox>` was also registered [issue:2813] [pr:2814]
+- Fixed a bug in `<wa-page>` where the navigation toggle's icon loaded from the default icon library instead of the system library [issue:2820] [pr:2840]
+- Fixed a bug in `<wa-page>` where `disable-navigation-toggle` was ignored when navigation content was present [issue:2774] [pr:2840]
+- Fixed a bug in `<wa-popover>` that prevented text inside the popover from being selected [pr:2849]
+- Fixed a bug in `<wa-zoomable-frame>` where the internal iframe rendered `referrerpolicy="undefined"` when no referrer policy was set [pr:2832]
+- Fixed a bug in the layout utilities (`wa-stack`, `wa-cluster`, etc.) that stopped native `<dialog>` and popover children from centering [issue:2777] [pr:2847]
+- Fixed a bug in the `.wa-visually-hidden-label` and `.wa-visually-hidden-hint` utilities where they didn't set `top` and `left`, so labels and hints hidden on form controls could still extend the page's scrollable area [pr:2836]
+- Fixed implicit form submission so pressing [[Enter]] submits a form holding one text field alongside non-submittable controls such as checkboxes or hidden inputs, bringing `<wa-input>`, `<wa-number-input>`, `<wa-otp-input>`, `<wa-slider>`, and `<wa-tag-input>` closer to the browser [pr:2850]
+
+:::
+
+:::changed
+
+- Updated `<wa-combobox>` to show a "no results" message instead of closing the listbox when nothing matches the query, except with `allow-custom-value`, where it still closes [pr:2837]
+- Updated `<wa-page>` so only the `banner`, `header`, and `subheader` parts paint a background, which keeps slotted content from covering a background set on them. See [Backgrounds](/docs/components/page#backgrounds) to keep other sections opaque [issue:2827] [pr:2848]
+- Improved the agent skills for design system work [pr:2838]
+  - The `webawesome-design` skill now leads with a discover-the-project step, pairs every rule with its replacement and reason, and ends with a mechanical verification pass
+  - Added a `your-design-system.md` reference for building and extending a project design system on Web Awesome, including a `DESIGN.md` template
+  - Updated the `webawesome` skill's `<wa-page>` guidance to match the design skill and the component's actual behavior
+  - Added missing components to the `choosing-components.md` decision tree and corrected the Pro component list
+
+:::
+
+## 3.13.0
+
+<small><time datetime="2026-09-16">September 16th, 2026</time></small>
+
+:::added
+
+- Added the experimental `<wa-tag-input>` component for collecting a list of short values, such as keywords, email addresses, or labels, as removable tags [pr:2796]
+
+:::
+
+:::fixed
+
+- Fixed a bug in `<wa-page>` where an empty `navigation-footer` slot still reserved space for a footer in the mobile navigation drawer [issue:2609] [pr:2691]
+- Fixed a bug in `<wa-page>` where the built-in mobile navigation toggle had no background, leaving a transparent gap in sticky headers [issue:2666] [pr:2690]
+- Fixed a bug in the `.wa-visually-hidden` utility where it didn't set `top` and `left`, so hidden elements could still extend the page's scrollable area [pr:2765]
+- Fixed a bug in `<wa-tooltip>` where hovering content projected into the tooltip through a `<slot>` closed the tooltip [issue:2745] [pr:2746]
+- Fixed a bug in `<wa-popover>` where dragging to select text inside the popover closed it if the cursor was released outside of it [pr:2773]
+- Fixed `<wa-accordion>` removing headers from the page's tab sequence via a roving tabindex, matching the [W3C accordion pattern](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/examples/accordion/) [issue:2764] [pr:2769]
+  - [[Tab]] and [[Shift]] + [[Tab]] now move through every header
+  - Arrow keys, [[Home]], and [[End]] remain as shortcuts for moving between headers
+- Fixed the `+n` overflow tag in `<wa-select multiple>` ignoring the `pill` and `size` attributes, so it no longer looks different from the tags beside it [pr:2805]
+- Fixed a bug in `<wa-combobox>` where typing into a closed combobox showed all options on the first keystroke instead of filtering [issue:2776]
+- Fixed a bug in `<wa-data-grid>` where picking a date in a `date-range` column filter emptied the filter panel while leaving the popover open, leaving a small empty box anchored to the filter button [issue:2768]
+- Fixed a bug in `<wa-data-grid>` where the first click on a link or button rendered by a `formatter` that returns a DOM node was discarded, so neither the control nor `wa-cell-click` responded until a second click [issue:2763]
+- Fixed a bug in `<wa-data-grid>` where a `flex` column with a `minWidth` above 150 lost its flex and rendered at `minWidth` instead [issue:2791]
+- Fixed a bug in `<wa-data-grid>` where icons incorrectly resolved through the default icon library instead of the system library, so they failed to render when the default library was customized or unavailable [issue:2801] [pr:2804]
+
+:::
+
+:::changed
+
+- Promoted the following components from {{ statusBadge('experimental') }} to {{ statusBadge('stable') }} [pr:2809]
+  - Free: `<wa-accordion>`, `<wa-accordion-item>`, `<wa-known-date>`, `<wa-otp-input>`, `<wa-pagination>`, `<wa-random-content>`, and `<wa-time-input>`
+  - Pro: `<wa-date-input>`, `<wa-date-picker>`, `<wa-video>`, and `<wa-video-playlist>`
+- Updated the tags inside `<wa-select multiple>` and `<wa-combobox multiple>` to use `--wa-border-radius-s`, a step down from the control's own radius, matching `<wa-tag-input>` [pr:2805]
 
 :::
 
 ## 3.12.0
+
+<small><time datetime="2026-08-21">August 21st, 2026</time></small>
 
 :::added
 
@@ -514,7 +683,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::removed
 
-- Removed a `preinstall` script in `webawesome-pro` that was causing issues in some package managers.
+- Removed a `preinstall` script in `webawesome-pro` that was causing issues in some package managers
 
 :::
 
@@ -649,7 +818,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::fixed
 
-- [PRO]: Fixed a few sizing bugs in `<wa-page>` and `slot="footer"` no longer will always "overflow" the container.
+- [PRO]: Fixed a few sizing bugs in `<wa-page>` and `slot="footer"` no longer will always "overflow" the container
 - Fixed a bug in `<wa-slider>` that caused some touch devices to end up with the incorrect value [issue:1703]
 - Fixed a bug in `<wa-card>` that prevented some slots from being detected correctly [discuss:1450]
 - Fixed a z-index bug in `<wa-scroller>` styles [issue:1724]
@@ -1330,7 +1499,7 @@ Many of these changes and improvements were the direct result of feedback from u
         data-track-context="feedback_callout"
         data-track-destination="report_bug"
       >
-        <wa-icon slot="start" variant="regular" name="bug"></wa-icon>
+        <wa-icon slot="start" name="bug"></wa-icon>
         Report a bug
       </wa-button>
       <wa-button
@@ -1341,7 +1510,7 @@ Many of these changes and improvements were the direct result of feedback from u
         data-track-context="feedback_callout"
         data-track-destination="ask_for_help"
       >
-        <wa-icon slot="start" variant="regular" name="message-question"></wa-icon>
+        <wa-icon slot="start" name="message-question"></wa-icon>
         Ask for help
       </wa-button>
     </div>

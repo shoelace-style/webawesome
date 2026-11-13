@@ -1,6 +1,7 @@
 ---
 title: Vue 3
 description: Tips for using Web Awesome in your Vue 3 app.
+ogDescription: "Configure Vue 3 for Web Awesome, with types, slots, SSR, and why v-model only sometimes works."
 layout: framework
 officialDocs: https://vuejs.org
 ---
@@ -116,7 +117,7 @@ For more on slots and their limitations with web components, see [Vue's document
       <strong>Web Awesome is ready to use.</strong><br />
       Want server-side rendering too?
     </p>
-    <wa-button size="small" variant="success" href="#server-side-rendering">
+    <wa-button size="s" variant="success" href="#server-side-rendering">
       Add SSR
     </wa-button>
   </div>

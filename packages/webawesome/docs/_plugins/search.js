@@ -48,6 +48,7 @@ export function searchPlugin(options = {}) {
           synonyms: data.synonyms || [],
           useCases: data['use-cases'] || [],
           category: data.category || '',
+          ogUrl: data.ogUrl || '',
         });
       }
 
@@ -76,7 +77,10 @@ export function searchPlugin(options = {}) {
         doc.querySelectorAll(selector).forEach(el => el.remove());
       });
 
-      const rawUrl = this.page.url === '/' ? '/' : this.page.url.replace(/\/$/, '');
+      // ogUrl is the site's "served at a different public URL" override (signup.njk → /signup); the sitemap honors it
+      // too. Strip any origin so the index stores a path whether the value came from front matter or was computed.
+      const publicUrl = String(existing.ogUrl || '').replace(/^https?:\/\/[^/]+/, '') || this.page.url;
+      const rawUrl = publicUrl === '/' ? '/' : publicUrl.replace(/\/$/, '');
       pagesToIndex.set(this.page.inputPath, {
         title: collapseWhitespace(options.getTitle(doc)),
         description: collapseWhitespace(options.getDescription(doc)),

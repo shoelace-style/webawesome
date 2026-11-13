@@ -21,7 +21,6 @@ export default css`
 
   slot[name]:not([name='skip-to-content'], [name='navigation-toggle'])::slotted(*) {
     display: flex;
-    background-color: var(--wa-color-surface-default);
   }
 
   ::slotted([slot='banner']) {
@@ -116,7 +115,7 @@ export default css`
     max-height: auto;
   }
 
-  [part~='base'] {
+  [part~='page'] {
     min-height: 100dvh;
     display: grid;
     grid-template-rows: repeat(3, minmax(0, auto)) minmax(0, 1fr) minmax(0, auto);
@@ -156,19 +155,20 @@ export default css`
     grid-area: footer;
   }
 
-  /* Z-indexes */
+  /* Sticky regions paint their own surface so content scrolls under them. Slotted content stays
+     transparent so ::part() backgrounds set by consumers show through. */
   [part~='banner'],
   [part~='header'],
   [part~='subheader'] {
     position: sticky;
     z-index: 5;
+    background-color: var(--wa-color-surface-default);
   }
   [part~='banner'] {
     top: 0px;
   }
   [part~='header'] {
     top: var(--banner-top);
-    background-color: var(--wa-color-surface-default);
 
     /** Make the header flex so that you don't unexpectedly have the default toggle button appearing above a slotted div because block elements are fun. */
     display: flex;
