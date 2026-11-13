@@ -60,7 +60,7 @@ export default class WaDropdown extends WebAwesomeElement {
   private userTypedQuery = '';
   private userTypedTimeout: ReturnType<typeof setTimeout>;
   private openSubmenuStack: WaDropdownItem[] = [];
-  private triggerToRestoreFocus: HTMLButtonElement | WaButton | null = null;
+  private originalTrigger: HTMLButtonElement | WaButton | null = null;
 
   @query('slot:not([name])') defaultSlot: HTMLSlotElement;
   @query('#menu') private menu: HTMLDivElement;
@@ -316,12 +316,12 @@ export default class WaDropdown extends WebAwesomeElement {
     this.dispatchEvent(hideEvent);
     if (hideEvent.defaultPrevented) {
       this.open = true;
-      this.triggerToRestoreFocus = null;
+      this.originalTrigger = null;
       return;
     }
 
-    const trigger = this.triggerToRestoreFocus;
-    this.triggerToRestoreFocus = null;
+    const originalTrigger = this.originalTrigger;
+    this.originalTrigger = null;
     this.open = false;
     openDropdowns.delete(this);
     unregisterDismissible(this);
@@ -336,7 +336,7 @@ export default class WaDropdown extends WebAwesomeElement {
     // Sometimes this ends up out of sync. So make sure it aligns with `open`
     this.popup.active = this.open; // Hide using wa-popup
     this.dispatchEvent(new WaAfterHideEvent());
-    trigger?.focus({ preventScroll: true });
+    originalTrigger?.focus({ preventScroll: true });
   }
 
   /** Handles key down events when the menu is open */
@@ -349,7 +349,7 @@ export default class WaDropdown extends WebAwesomeElement {
       event.preventDefault();
       event.stopPropagation();
 
-      this.triggerToRestoreFocus = trigger;
+      this.originalTrigger = trigger;
       this.open = false;
       return;
     }
