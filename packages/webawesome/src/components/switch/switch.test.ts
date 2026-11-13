@@ -368,7 +368,7 @@ describe('<wa-switch>', () => {
       describe('CSS parts and states', () => {
         it('should expose CSS parts', async () => {
           const el = await fixture<WaSwitch>(html`<wa-switch hint="Help">Switch</wa-switch>`);
-          expect(el.shadowRoot!.querySelector('[part~="base"]')).to.exist;
+          expect(el.shadowRoot!.querySelector('[part~="switch"]')!.matches('[part~="base"]')).to.be.true;
           expect(el.shadowRoot!.querySelector('[part="control"]')).to.exist;
           expect(el.shadowRoot!.querySelector('[part="thumb"]')).to.exist;
           expect(el.shadowRoot!.querySelector('[part="label"]')).to.exist;

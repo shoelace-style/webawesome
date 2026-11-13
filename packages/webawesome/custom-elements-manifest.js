@@ -11,11 +11,28 @@ import fs from 'fs';
 import * as path from 'node:path';
 import { pascalCase } from 'pascal-case';
 import * as url from 'url';
+import { BASE_PART } from './scripts/check-css-parts.js';
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 const packageData = JSON.parse(fs.readFileSync(path.join(__dirname, 'package.json'), 'utf8'));
 const { name, description, version, author, homepage, license } = packageData;
 const outdir = 'dist-cdn';
+
+// The package directory with forward slashes and a trailing slash
+const packageRoot = __dirname.replaceAll(path.sep, '/').replace(/\/*$/, '/');
+
+/**
+ * Makes an absolute module path relative to the package directory, keeping a leading slash if it has one. Other paths
+ * are returned as is.
+ */
+function fromPackageRoot(modulePath) {
+  const slash = modulePath?.startsWith(`/${packageRoot}`) ? '/' : '';
+  const absolute = modulePath?.slice(slash.length);
+
+  return absolute?.toLowerCase().startsWith(packageRoot.toLowerCase())
+    ? slash + absolute.slice(packageRoot.length)
+    : modulePath;
+}
 
 function replace(string, terms) {
   terms.forEach(({ from, to }) => {
@@ -136,8 +153,9 @@ export default {
     },
     {
       // Flag legacy duplicate parts in the manifest so editors and other CEM consumers see the
-      // deprecation, not just the docs: `base` everywhere, and `label` on form controls that also
-      // expose the canonical `form-control-label`.
+      // deprecation, not just the docs: `base` and the forwarded names built on it (`close-button__base`,
+      // `base__popup`) everywhere, and `label` on form controls that also expose the canonical
+      // `form-control-label`.
       name: 'wa-deprecate-legacy-parts',
       packageLinkPhase({ customElementsManifest }) {
         customElementsManifest?.modules?.forEach(mod => {
@@ -147,7 +165,7 @@ export default {
             // adds a `label` that isn't the form-control label.
             const hasFormControlLabel = declaration.cssParts?.some(part => part.name === 'form-control-label');
             declaration.cssParts?.forEach(part => {
-              if (part.name === 'base') {
+              if (BASE_PART.test(part.name)) {
                 part.deprecated =
                   'Use the part named after the component instead. This part will be removed in a future major version.';
               }
@@ -169,6 +187,10 @@ export default {
           //
           //  src/components/button/button.ts
           //
+          // or, on Windows, like this:
+          //
+          //  C:/path/to/webawesome/src/components/button/button.ts
+          //
           // But we want them to look like this:
           //
           //  components/button/button.js
@@ -178,17 +200,27 @@ export default {
             { from: /\.(t|j)sx?$/, to: '.js' }, // Convert .ts to .js
           ];
 
-          mod.path = replace(mod.path, terms);
+          mod.path = replace(fromPackageRoot(mod.path), terms);
 
           for (const ex of mod.exports ?? []) {
-            ex.declaration.module = replace(ex.declaration.module, terms);
+            ex.declaration.module = replace(fromPackageRoot(ex.declaration.module), terms);
           }
 
           for (const dec of mod.declarations ?? []) {
             if (dec.kind === 'class') {
               for (const member of dec.members ?? []) {
                 if (member.inheritedFrom) {
-                  member.inheritedFrom.module = replace(member.inheritedFrom.module, terms);
+                  member.inheritedFrom.module = replace(fromPackageRoot(member.inheritedFrom.module), terms);
+                }
+              }
+
+              // These two are left as the analyzer wrote them, apart from an absolute path
+              if (dec.superclass?.module) {
+                dec.superclass.module = fromPackageRoot(dec.superclass.module);
+              }
+              for (const attribute of dec.attributes ?? []) {
+                if (attribute.inheritedFrom?.module) {
+                  attribute.inheritedFrom.module = fromPackageRoot(attribute.inheritedFrom.module);
                 }
               }
             }

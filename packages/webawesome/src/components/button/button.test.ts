@@ -73,7 +73,7 @@ describe('<wa-button>', () => {
 
         it('should set aria-busy when loading', async () => {
           const el = await fixture<WaButton>(html` <wa-button loading>Button Label</wa-button> `);
-          const button = el.shadowRoot!.querySelector<HTMLButtonElement>('[part~="base"]')!;
+          const button = el.shadowRoot!.querySelector<HTMLButtonElement>('[part~="button"]')!;
           expect(button.getAttribute('aria-busy')).to.equal('true');
         });
       });
@@ -81,7 +81,7 @@ describe('<wa-button>', () => {
       describe('properties', () => {
         it('should have title if title attribute is set', async () => {
           const el = await fixture<WaButton>(html` <wa-button title="Test"></wa-button> `);
-          const button = el.shadowRoot!.querySelector<HTMLButtonElement>('[part~="base"]')!;
+          const button = el.shadowRoot!.querySelector<HTMLButtonElement>('[part~="button"]')!;
           expect(button.title).to.equal('Test');
         });
 
@@ -305,6 +305,26 @@ describe('<wa-button>', () => {
 
           expect(submitter.name).to.equal('btn-2');
           expect(submitter.value).to.equal('value-2');
+        });
+
+        // https://github.com/shoelace-style/webawesome/issues/3007
+        it('Should not build a button and click if `defaultPrevented` is called on the click event', async () => {
+          const form = await fixture<HTMLFormElement>(
+            html`<form>
+              <wa-button type="submit">Submit</wa-button>
+            </form>`,
+          );
+
+          const submitSpy = sinon.spy();
+          form.addEventListener('submit', submitSpy);
+          const button = form.querySelector('wa-button');
+
+          button!.addEventListener('click', event => {
+            event.preventDefault();
+          });
+
+          await clickOnElement(button as WaButton);
+          expect(submitSpy).to.not.be.called;
         });
       });
     });

@@ -1,0 +1,46 @@
+/* Popovers opened from the header's icon buttons. They copy wa-dropdown's padding, divider, and Docs item so they sit beside the theme and color scheme menus. */
+.header-popover {
+  &::part(body) {
+    padding: 0.25em;
+  }
+
+  > wa-divider {
+    --spacing: 0.25em;
+  }
+}
+
+/* Lines up with the Docs item's text */
+.header-popover-section {
+  padding: 0.75em 1em;
+}
+
+.header-popover-docs-link {
+  padding: 0.5em 1em;
+  border-radius: var(--wa-border-radius-s);
+  color: var(--wa-color-text-normal);
+  line-height: var(--wa-line-height-condensed);
+  text-decoration: none;
+  transition: var(--wa-transition-fast) background-color var(--wa-transition-easing);
+
+  wa-icon {
+    font-size: var(--wa-font-size-smaller);
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: var(--wa-color-neutral-fill-normal);
+    }
+  }
+
+  &:focus-visible {
+    outline: var(--wa-focus-ring);
+  }
+}
+
+.ssr-popover {
+  --max-width: 20rem;
+}
+
+.ssr-on wa-icon {
+  color: var(--wa-color-brand-on-quiet);
+}

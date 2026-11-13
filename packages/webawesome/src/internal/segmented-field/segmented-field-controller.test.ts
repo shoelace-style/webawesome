@@ -604,4 +604,22 @@ describe('SegmentedFieldController', () => {
       expect(event.defaultPrevented).to.equal(false);
     });
   });
+
+  describe('select all', () => {
+    for (const modifier of ['ctrlKey', 'metaKey'] as const) {
+      it(`preventDefaults ${modifier}+A so the browser does not select the whole page`, async () => {
+        const el = await fixture<TestSegments>(html`<test-segments></test-segments>`);
+        getSegment(el, 'a').focus();
+        const event = new KeyboardEvent('keydown', {
+          key: 'a',
+          [modifier]: true,
+          bubbles: true,
+          composed: true,
+          cancelable: true,
+        });
+        getSegment(el, 'a').dispatchEvent(event);
+        expect(event.defaultPrevented).to.equal(true);
+      });
+    }
+  });
 });

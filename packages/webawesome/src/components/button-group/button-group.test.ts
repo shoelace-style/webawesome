@@ -180,14 +180,15 @@ describe('<wa-button-group>', () => {
       });
 
       describe('CSS parts and states', () => {
-        it('should expose a "base" part', async () => {
+        it('should expose a "button-group" part on a wrapper, not the slot', async () => {
           const el = await fixture<WaButtonGroup>(html`
             <wa-button-group>
               <wa-button>Button 1</wa-button>
             </wa-button-group>
           `);
-          const base = el.shadowRoot!.querySelector('[part~="base"]');
-          expect(base).to.exist;
+          const wrapper = el.shadowRoot!.querySelector('[part~="button-group"]')!;
+          expect(wrapper.localName).to.equal('div');
+          expect(wrapper.matches('[part~="base"]')).to.be.true;
         });
       });
 

@@ -26,7 +26,8 @@ import styles from './tag.styles.js';
  * @csspart base - Deprecated. Style the host element instead.
  * @csspart content - The tag's content.
  * @csspart remove-button - The tag's remove button, a `<wa-button>`.
- * @csspart remove-button__base - The remove button's exported `base` part.
+ * @csspart remove-button__base - Deprecated. Use the `remove-button__button` part instead.
+ * @csspart remove-button__button - The remove button's exported `button` part.
  */
 @customElement('wa-tag')
 export default class WaTag extends WebAwesomeElement {
@@ -69,7 +70,7 @@ export default class WaTag extends WebAwesomeElement {
         ? html`
             <wa-button
               part="remove-button"
-              exportparts="base:remove-button__base"
+              exportparts="base:remove-button__base, button:remove-button__button"
               class="remove"
               appearance="plain"
               size=${this.size}

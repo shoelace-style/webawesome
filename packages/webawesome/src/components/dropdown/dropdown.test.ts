@@ -2,6 +2,7 @@ import { aTimeout, expect, nextFrame, oneEvent, waitUntil } from '@open-wc/testi
 import { sendKeys, sendMouse, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit';
 import sinon from 'sinon';
+import { getDeepestActiveElement } from '../../internal/active-elements.js';
 import { expectEvent } from '../../internal/test/expect-event.js';
 import { clientFixture, fixtures } from '../../internal/test/fixture.js';
 import { clickOnElement } from '../../internal/test/pointer-utilities.js';
@@ -27,7 +28,7 @@ describe('<wa-dropdown>', () => {
           await customElements.whenDefined('wa-button');
           const waButton = trigger as any;
           await waButton.updateComplete;
-          const nativeButton = waButton.shadowRoot!.querySelector('[part~="base"]')!;
+          const nativeButton = waButton.shadowRoot!.querySelector('[part~="button"]')!;
 
           expect(nativeButton.getAttribute('aria-haspopup')).to.equal('menu');
         });
@@ -44,7 +45,7 @@ describe('<wa-dropdown>', () => {
 
           const trigger = el.querySelector<HTMLElement>('[slot="trigger"]')! as any;
           await trigger.updateComplete;
-          const nativeButton = trigger.shadowRoot!.querySelector('[part~="base"]')!;
+          const nativeButton = trigger.shadowRoot!.querySelector('[part~="button"]')!;
 
           expect(nativeButton.getAttribute('aria-expanded')).to.equal('true');
         });
@@ -477,14 +478,21 @@ describe('<wa-dropdown>', () => {
           `);
 
           const trigger = el.querySelector<HTMLElement>('[slot="trigger"]')!;
+          const firstItem = el.querySelector('wa-dropdown-item')!;
+          el.style.setProperty('--hide-duration', '100ms');
           trigger.click();
           await waitUntil(() => el.open);
           await aTimeout(200);
 
+          const afterHide = new Promise(resolve => el.addEventListener('wa-after-hide', resolve, { once: true }));
           await sendKeys({ press: 'Escape' });
-          await waitUntil(() => !el.open);
+          await aTimeout(50);
 
+          expect(getDeepestActiveElement()).to.equal(firstItem);
+
+          await afterHide;
           expect(el.open).to.be.false;
+          expect(getDeepestActiveElement()).to.equal(trigger.shadowRoot!.querySelector('[part~="base"]'));
         });
 
         it('should navigate items with ArrowDown', async () => {
@@ -1031,6 +1039,20 @@ describe('<wa-dropdown>', () => {
       // Allow for the intentional 5px overlap from the offset middleware.
       expect(rect.left).to.be.at.least(itemRect.right - 6);
       expect(rect.right).to.be.at.most(window.innerWidth);
+    });
+
+    it('should aim the safe triangle at the near edge when the submenu flips to the other side', async () => {
+      const el = await submenuFixture();
+      el.querySelector<HTMLElement>('[slot="trigger"]')!.style.cssText = 'position: fixed; top: 0; right: 0;';
+      const parentItem = await openSubmenu(el);
+
+      const rect = parentItem.submenuElement.getBoundingClientRect();
+      expect(parentItem.submenuElement.getAttribute('data-placement')).to.match(/^left/);
+
+      // A cursor over the parent item sits to the right of a flipped submenu, so it shouldn't be clamped to the left edge
+      const clientX = Math.round(rect.right + 20);
+      document.dispatchEvent(new MouseEvent('mousemove', { clientX, clientY: Math.round(rect.top + 10) }));
+      expect(parentItem.submenuElement.style.getPropertyValue('--safe-triangle-cursor-x')).to.equal(`${clientX}px`);
     });
   });
 });

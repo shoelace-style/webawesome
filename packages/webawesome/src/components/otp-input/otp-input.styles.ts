@@ -16,17 +16,16 @@ export default css`
     align-self: start;
     gap: var(--segment-gap, var(--wa-space-xs));
     cursor: text;
-    /* Never grow past the host's available width — long values or large segment sizes scroll
-       horizontally instead of overflowing the page. */
-    max-width: 100%;
+    /* overflow-x clips overflow-y too, which would cut off the focus ring. The padding makes room
+       for the ring and the negative margin cancels it out. */
+    --focus-ring-bleed: calc(var(--wa-focus-ring-offset) + var(--wa-focus-ring-width));
+    padding: var(--focus-ring-bleed);
+    margin: calc(-1 * var(--focus-ring-bleed));
+    /* Scroll instead of overflowing the host. The cap counts the bleed, or a host sized to its
+       content (like inside .wa-frame) clips the last segment. */
+    max-width: calc(100% + 2 * var(--focus-ring-bleed));
     overflow-x: auto;
     scrollbar-width: none;
-    /* Setting overflow-x forces overflow-y to also compute to non-visible, which would otherwise
-       clip the focus ring's bleed around the active segment — above/below for any segment, and
-       left/right for the first/last segment specifically. Reserve room for it with padding, then
-       cancel the layout impact with an equal negative margin on both axes. */
-    padding: calc(var(--wa-focus-ring-offset) + var(--wa-focus-ring-width));
-    margin: calc(-1 * (var(--wa-focus-ring-offset) + var(--wa-focus-ring-width)));
   }
 
   .segments::-webkit-scrollbar {
@@ -147,11 +146,9 @@ export default css`
     border-radius: var(--segment-border-radius, var(--wa-form-control-border-radius));
     background-color: var(--wa-form-control-background-color);
     overflow: hidden;
-    /* The focus ring is drawn inward here (see outline-offset below), so there's no outward bleed
-       to reserve room for. .segments is also the visible bordered box in this appearance, so the
-       padding/negative-margin bleed trick from the base rule would visibly shift and inflate it. */
-    padding: 0;
-    margin: 0;
+    /* No bleed: the ring draws inward here, and padding would inflate this visible box.
+       0px, not 0: calc() can't add a unitless 0 to a length. */
+    --focus-ring-bleed: 0px;
   }
 
   :host([appearance='contained']) .segment {
