@@ -46,6 +46,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::fixed
 
+- Fixed a visual bug with `<wa-details>` and `<details>` not having the same visual alignment. [pr:2973]
 - Fixed an accessibility issue with `<wa-card>` where it would incorrectly be treated as a site-wide header. [issue:2723]
 - Fixed `<wa-dropdown>` losing trigger focus after closing with [[Escape]]. [issue:2766]
 - Fixed a bug in `<wa-input>` where validity would not properly update on certain property changes. [pr:3025]
