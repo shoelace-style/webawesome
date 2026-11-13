@@ -1,7 +1,6 @@
 <div class="wa-stack wa-gap-xs wa-mobile-only">
   {% include "search-trigger-button.njk" %}
   <div class="wa-split wa-gap-xs">
-    {% include "ssr-switch.njk" %}
     <div class="wa-cluster wa-gap-3xs wa-flex-nowrap">
       {% include "color-scheme-selector.njk" %}
       {% if hasThemeSelector %}
@@ -10,8 +9,20 @@
       {% if hasIconSelector %}
         {% include "icon-family-selector.njk" %}
       {% endif %}
+      {% include "ssr-switch.njk" %}
     </div>
+    {% include "github-icon-buttons.njk" %}
   </div>
+  <wa-divider></wa-divider>
+  {# Only the links the docs nav below doesn't already cover #}
+  {% set hasNavIcon = true %}
+  <div class="subheader-links wa-stack wa-gap-0">
+    {% include "nav-link-components.njk" %}
+    {% include "site/pro-nav-link.njk" ignore missing %}
+    {% include "nav-link-create.njk" ignore missing %}
+  </div>
+  {% set hasNavIcon = false %}
+  <wa-divider></wa-divider>
 </div>
 {% from "pro-badge.njk" import proBadge %}
 

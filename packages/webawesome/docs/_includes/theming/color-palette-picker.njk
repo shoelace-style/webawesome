@@ -10,23 +10,38 @@
 {%- endif -%}
 {%- endfor -%}
 
-<wa-tab-group id="palette-picker">
-  {%- for palette in themer.palettes -%}
-  {%- if not palette.isPro -%}
-  <wa-tab panel="{{ palette.name | lower }}">{{ palette.name }}</wa-tab>
-  {%- else -%}
-  <wa-tab panel="{{ palette.name | lower }}" {% raw %}{%- if not currentUser.can.proThemes.allowed -%}{% endraw %} disabled {% raw %}{%- endif -%}{% endraw %}>
-    <span class="wa-cluster wa-gap-xs wa-flex-nowrap">
-      {{ palette.name }}
-      {% raw %}{%- if not currentUser.can.proThemes.allowed -%}{% endraw %}{{ proBadge({ description: "This palette requires access to " ~ site.namePro }) }}{% raw %}{%- endif -%}{% endraw %}
-    </span>
-  </wa-tab>
-  {%- endif -%}
-  {%- endfor -%}
-  {%- for palette in themer.palettes -%}
-  <wa-tab-panel name="{{ palette.name | lower }}"></wa-tab-panel>
-  {%- endfor -%}
-</wa-tab-group>
+<div class="wa-stack wa-gap-l">
+  <wa-tab-group id="palette-picker">
+    {%- for palette in themer.palettes -%}
+    {%- if not palette.isPro -%}
+    <wa-tab panel="{{ palette.name | lower }}">{{ palette.name }}</wa-tab>
+    {%- else -%}
+    <wa-tab panel="{{ palette.name | lower }}" {% raw %}{%- if not currentUser.can.proThemes.allowed -%}{% endraw %} disabled {% raw %}{%- endif -%}{% endraw %}>
+      <span class="wa-cluster wa-gap-xs wa-flex-nowrap">
+        {{ palette.name }}
+        {% raw %}{%- if not currentUser.can.proThemes.allowed -%}{% endraw %}{{ proBadge({ description: "This palette requires access to " ~ site.namePro }) }}{% raw %}{%- endif -%}{% endraw %}
+      </span>
+    </wa-tab>
+    {%- endif -%}
+    {%- endfor -%}
+    {%- for palette in themer.palettes -%}
+    <wa-tab-panel name="{{ palette.name | lower }}"></wa-tab-panel>
+    {%- endfor -%}
+  </wa-tab-group>
+
+  {%- for palette in themer.palettes %}
+  <div class="palette-description" data-palette="{{ palette.name | lower }}" {% if not loop.first %}hidden{% endif %}>
+    <div class="wa-stack wa-gap-2xs">
+      <p>{{ palette.name }} has {{ palette.description }}</p>
+      <p class="wa-caption-s">
+        Pairs with the
+        {%- for theme in palette.pairedThemes %}{% if loop.last and not loop.first %} and{% elif not loop.first %},{% endif %} <a class="wa-color-text-quiet" href="/docs/themes?theme={{ theme.slug }}">{{ theme.name }}</a>{% endfor %}
+        {{ 'themes' if palette.pairedThemes.length > 1 else 'theme' }}.
+      </p>
+    </div>
+  </div>
+  {%- endfor %}
+</div>
 
 <div id="color-palettes" class="wa-palette-default">
   {% include "theming/color-palette-viewer.njk" %}
@@ -42,8 +57,8 @@
     existing.forEach(c => paletteContainer.classList.remove(c));
     paletteContainer.classList.add(`wa-palette-${selectedValue}`);
 
-    document.querySelectorAll('.palette-instructions').forEach(instruction => {
-      instruction.hidden = instruction.dataset.palette !== selectedValue;
+    document.querySelectorAll('.palette-description, .palette-instructions').forEach(section => {
+      section.hidden = section.dataset.palette !== selectedValue;
     });
   });
 </script>

@@ -43,6 +43,11 @@
   <script type="module" src="/assets/scripts/install-tabs.js"></script>
   <script type="module" src="/assets/scripts/component-anatomy.js"></script>
 
+  {# Outside the head block so layouts that replace it still style the search dialog this template draws. #}
+  {% if hasSearch != false %}
+    <link rel="stylesheet" href="/assets/styles/search.css" />
+  {% endif %}
+
   {% block head %}
   <link rel="stylesheet" href="/assets/styles/docs.css" />
   {% endblock %}
@@ -57,15 +62,23 @@
     document.documentElement.classList.toggle('is-mac', /Mac|iPhone|iPad/.test(navigator.platform));
 
     function handleSSRChange (event) {
-      const el = event.target
-      if (!el) { return }
+      const ssrSwitch = event.target.closest?.("wa-switch[data-ssr-toggle]")
+      if (!ssrSwitch) { return }
 
-      if (el.id !== "ssr-switch") { return }
-
-      el.checked ? setCookie({ name: "webawesome_ssr", value: "true" }) : removeCookie({ name: "webawesome_ssr" })
+      ssrSwitch.checked ? setCookie({ name: "webawesome_ssr", value: "true" }) : removeCookie({ name: "webawesome_ssr" })
       window.location.reload()
     }
+
     document.addEventListener("change", handleSSRChange)
+
+    // Keep a header popover's tooltip from covering it while it's open
+    for (const type of ["wa-show", "wa-after-hide"]) {
+      document.addEventListener(type, event => {
+        if (event.target.matches?.(".header-popover")) {
+          event.target.previousElementSibling.disabled = type === "wa-show"
+        }
+      })
+    }
   </script>
 </head>
 {# Full-bleed pages (hasFramedMain: false) own their typography, so a stray
@@ -94,6 +107,9 @@
 
     {# wa-page-based Header #}
     {% block pageHeader %}
+    {# Inside the block so a layout that replaces the header drops these styles with it. #}
+    <link rel="stylesheet" href="/assets/styles/header-popover.css" />
+
     <header slot="header">
       {% include 'nav-products.njk' %}
     </header>

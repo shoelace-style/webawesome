@@ -46,10 +46,21 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::fixed
 
+- Fixed a bug in `<wa-button>` where calling `event.preventDefault()` would not prevent form submissions. [pr:3008]
+- Fixed a bug in `<wa-dropdown>` where scrolling past the end of a long menu on macOS showed the page through the menu's background [issue:2711]
+- Fixed a bug in `<wa-slider>`, `<wa-color-picker>`, `<wa-comparison>`, and `<wa-split-panel>` where releasing a drag outside of the component clicked the element around it, such as a clickable card; drags now capture the pointer [issue:2983]
+- Fixed a bug in `<wa-date-input>` and `<wa-time-input>` where pressing [[Ctrl]]/[[Cmd]] + [[A]] in a segment selected the whole page [issue:2980]
+- Fixed a bug in `<wa-date-input>` and `<wa-time-input>` where dragging across the segments selected their text in Safari [issue:2980]
+- Fixed a bug in `<wa-date-picker>` where the `day-YYYY-MM-DD` slots were missing from its Slots table and `custom-elements.json` [issue:2889]
+- Improved `<wa-popover>` accessibility [pr:2986]
+  - Fixed the anchor not telling screen readers that it opens a popover, or whether it's open
+  - Fixed focus not returning to the anchor after closing with a `data-popover="close"` button
 - Fixed `<wa-accordion-item>` styles to match `<wa-details>`, including label weight, content color, and spacing between the label and content [issue:2963]
+- Fixed `<wa-accordion appearance="filled-outlined">` using the default border color for the lines between items instead of its outer border color [issue:2963]
 - Fixed `<wa-details>` using linear easing for its expand/collapse animation instead of the theme's `--wa-transition-easing` [issue:2963]
 - Fixed a bug in `allDefined()` where an unregistered `wa-*` element anywhere in the document made it wait forever; it now logs a warning and resolves after the new `timeout` option (2 seconds by default) [issue:2957]
 - Fixed `<wa-button-group>` labels missing from the accessibility tree [issue:2863] [pr:2923]
+- Fixed a bug in `<wa-otp-input>` where the last segment was cut off inside `.wa-frame` and other containers that size it to its content [issue:2854]
 - Fixed a bug in `<wa-checkbox-group>` where the vertical spacing of its label and checkboxes didn't match `<wa-radio-group>` [issue:2959]
 - Fixed a regression in `<wa-tooltip>` where tapping an anchor on a touch device immediately dismissed its hover/focus tooltip. [issue:2948] [pr:2955]
 - Fixed a bug in `<wa-select multiple>` where custom tags from `getTag` were squeezed beside the selection count [issue:2913] [pr:2917]
@@ -65,6 +76,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug in `<wa-copy-button>` where a missing `from` target copied the fallback `value` instead of stopping after `wa-error` [issue:2891] [pr:2911]
 - Fixed a bug in `<wa-dropdown>` where reopening the menu during its hide animation left it stuck open, ignoring [[Escape]] and clicks outside
 - Fixed a bug in `<wa-dropdown>` where submenus that flipped to the opposite side closed while the pointer moved toward them [pr:2978]
+- Fixed a bug in `<wa-dropdown>` where long menus overflowed the viewport horizontally instead of shrinking to fit [pr:2969]
 - Fixed a bug in `<wa-dropdown>` where the initial focused element would get lost. [pr:2886]
 - Fixed a bug in `<wa-dropdown>` where submenus would occasionally get dismissed due to not properly rechecking submenu hover states. [pr:2877]
 - Fixed an issue in `<wa-tooltip>` where `abortController` preserved instances of `anchor` in the exception message causing the anchor to still be reachable. [pr:2873]
@@ -77,6 +89,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug in `<wa-tree>` where nested items added in a single DOM mutation were not initialized until another change in the tree occurred
 - Fixed a performance issue in `<wa-tree>` where removing `lazy` from one item re-initialized all items in the tree causing slowness for trees with many items
 - Fixed a bug in `<wa-tree-item>` where the `expanded` attribute was ignored on nested items [issue:2792] [pr:2908]
+- Fixed a bug in `<wa-combobox>` where pressing the listbox's scrollbar, padding, or status message inside a `<wa-dialog>` or `<wa-drawer>` closed the listbox [issue:2967]
 
 :::
 

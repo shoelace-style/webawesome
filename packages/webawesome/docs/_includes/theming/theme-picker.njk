@@ -89,7 +89,22 @@
     );
   }
 
-  applyTab(themePicker.querySelector('wa-tab[panel="default"]'));
+  function applyActiveTab() {
+    const activeTheme = themePicker.getAttribute('active') || 'default';
+    applyTab(themePicker.querySelector(`wa-tab[panel="${activeTheme}"]`));
+  }
+
+  const requestedTheme = new URLSearchParams(location.search).get('theme');
+  const requestedTab = requestedTheme
+    ? themePicker.querySelector(`wa-tab[panel="${CSS.escape(requestedTheme)}"]:not([disabled])`)
+    : null;
+
+  if (requestedTab) {
+    themePicker.setAttribute('active', requestedTheme);
+  }
+
+  applyActiveTab();
+  [afterFrame, beforeFrame].forEach(frame => frame?.addEventListener('load', applyActiveTab));
 
   themePicker.addEventListener('wa-tab-show', event => {
     const tab = themePicker.querySelector(`wa-tab[panel="${event.detail.name}"]`);

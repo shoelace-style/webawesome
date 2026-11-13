@@ -1,4 +1,5 @@
-<wa-button id="github-repo-button" href="{{ site.github.repo }}" rel="noopener noreferrer" target="_blank" appearance="plain" pill>
-  <wa-icon family="brands" name="github" label="View Project on GitHub"></wa-icon>
+{% set githubButtonId = "github-repo-button-" + ("" | uniqueId(8)) %}
+<wa-button id="{{ githubButtonId }}" href="{{ site.github.repo }}" rel="noopener noreferrer" target="_blank" appearance="plain" pill>
+  <wa-icon family="brands" name="github" label="View on GitHub"></wa-icon>
 </wa-button>
-<wa-tooltip for="github-repo-button" distance="2">View Project on GitHub</wa-tooltip>
+<wa-tooltip for="{{ githubButtonId }}" distance="2">View on GitHub</wa-tooltip>

@@ -9,10 +9,8 @@ async function updateTheme(value) {
   const isDark = value === 'dark' || (value === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
 
   // Disable tooltip during transition
-  const tooltip = document.querySelector('#color-scheme-tooltip');
-  if (tooltip) {
-    tooltip.disabled = true;
-  }
+  const tooltips = document.querySelectorAll('.color-scheme-tooltip');
+  tooltips.forEach(tooltip => (tooltip.disabled = true));
 
   // Lifecycle for listeners (e.g. code-example previews): tag elements before the transition captures,
   // update state inside it, clean up after it settles.
@@ -23,15 +21,22 @@ async function updateTheme(value) {
   });
   document.dispatchEvent(new Event('color-scheme-settled'));
 
-  // Sync all selectors and update tooltip
+  syncSelectors(value);
+
+  tooltips.forEach(tooltip => (tooltip.disabled = false));
+}
+
+function syncSelectors(value) {
   document.querySelectorAll('.color-scheme-selector').forEach(el => (el.value = value));
 
-  // Update tooltip content and re-enable after transition completes
-  if (tooltip) {
-    const schemeText = value === 'light' ? 'Light' : value === 'dark' ? 'Dark' : 'System';
-    tooltip.textContent = schemeText;
-    tooltip.disabled = false;
-  }
+  const schemeName = document
+    .querySelector(`.color-scheme-selector wa-dropdown-item[value="${value}"]`)
+    ?.textContent.trim();
+  document.querySelectorAll('.color-scheme-tooltip .tooltip-value').forEach(el => (el.textContent = schemeName));
+}
+
+function savedColorScheme() {
+  return localStorage.getItem('color-scheme') || 'auto';
 }
 
 // Handle changes
@@ -48,7 +53,7 @@ document.addEventListener('keydown', event => {
     event.key === '\\' &&
     !event.composedPath().some(el => el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.isContentEditable)
   ) {
-    const current = localStorage.getItem('color-scheme') || 'auto';
+    const current = savedColorScheme();
     const isDark =
       current === 'dark' || (current === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
     updateTheme(isDark ? 'light' : 'dark');
@@ -56,5 +61,6 @@ document.addEventListener('keydown', event => {
 });
 
 // Initialize
-const saved = localStorage.getItem('color-scheme') || 'auto';
-updateTheme(saved);
+updateTheme(savedColorScheme());
+
+document.addEventListener('turbo:render', () => syncSelectors(savedColorScheme()));
