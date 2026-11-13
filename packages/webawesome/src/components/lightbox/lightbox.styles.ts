@@ -167,7 +167,7 @@ export default css`
       }
 
       &.settling {
-        transition: transform 250ms cubic-bezier(0.2, 0, 0, 1);
+        transition: transform var(--wa-transition-slow) cubic-bezier(0.2, 0, 0, 1);
       }
 
       & :is(img, video) {
