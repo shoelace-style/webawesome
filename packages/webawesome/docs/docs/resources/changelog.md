@@ -89,6 +89,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug in `<wa-popup>` which could lead to possibly stale cleanup functions. [pr:2871]
 - Fixed a bug in `<wa-dropdown-item>` where dynamically added submenus would not trigger a `slotchange` event leading to `HasSlotController` reporting false. [pr:2868]
 - Fixed a bug in `<wa-tooltip>` where it would still open even when it was disabled. [pr:2869]
+- Fixed a bug in `<wa-copy-button>` where the default trigger took up extra inline space beyond its actual bounds. [pr:2934]
 - Fixed a bug in `<wa-switch>` where pressing an arrow key dispatched `change` and `input` events even when the switch was already in that position
 - Fixed a bug in `<wa-slider>` where the `tooltip__arrow` part didn't target the tooltip's arrow
 - Fixed a bug in `<wa-slider>` where steps were counted from zero instead of `min` [issue:2951]
