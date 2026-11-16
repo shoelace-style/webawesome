@@ -18,12 +18,12 @@ use-cases:
 ---
 
 ```html {.example}
-<wa-lightbox class="wa-grid lightbox-overview" label="Landscape photos" with-thumbnails>
+<wa-lightbox class="wa-grid lightbox-overview" label="Landscape photos">
   <wa-lightbox-item
     src="https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=1600&h=1067&fit=crop&q=80"
+    caption="Sunlight breaking over the mountains. Photo by Adam Kool on Unsplash."
     width="1600"
     height="1067"
-    caption="Sunlight breaking over the mountains. Photo by Adam Kool on Unsplash."
   >
     <img
       src="https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=480&h=320&fit=crop&q=60"
@@ -32,9 +32,9 @@ use-cases:
   </wa-lightbox-item>
   <wa-lightbox-item
     src="https://images.unsplash.com/photo-1473448912268-2022ce9509d8?w=1600&h=1067&fit=crop&q=80"
+    caption="A river winding through an evergreen forest. Photo by Luca Bravo on Unsplash."
     width="1600"
     height="1067"
-    caption="A river winding through an evergreen forest. Photo by Luca Bravo on Unsplash."
   >
     <img
       src="https://images.unsplash.com/photo-1473448912268-2022ce9509d8?w=480&h=320&fit=crop&q=60"
@@ -43,9 +43,9 @@ use-cases:
   </wa-lightbox-item>
   <wa-lightbox-item
     src="https://images.unsplash.com/photo-1499002238440-d264edd596ec?w=1600&h=1067&fit=crop&q=80"
+    caption="Sunset over a lavender field. Photo by Leonard Cotte on Unsplash."
     width="1600"
     height="1067"
-    caption="Sunset over a lavender field. Photo by Leonard Cotte on Unsplash."
   >
     <img
       src="https://images.unsplash.com/photo-1499002238440-d264edd596ec?w=480&h=320&fit=crop&q=60"
@@ -54,9 +54,9 @@ use-cases:
   </wa-lightbox-item>
   <wa-lightbox-item
     src="https://images.unsplash.com/photo-1475113548554-5a36f1f523d6?w=1600&h=1067&fit=crop&q=80"
+    caption="Evening light across a field of grass. Photo by Sapan Patel on Unsplash."
     width="1600"
     height="1067"
-    caption="Evening light across a field of grass. Photo by Sapan Patel on Unsplash."
   >
     <img
       src="https://images.unsplash.com/photo-1475113548554-5a36f1f523d6?w=480&h=320&fit=crop&q=60"
@@ -80,10 +80,11 @@ use-cases:
 ```
 
 Wrap each thumbnail in a [`<wa-lightbox-item>`](/docs/components/lightbox-item) and set the item's `src` attribute
-to the full-size image. Clicking a thumbnail opens the lightbox, where you can swipe or use the arrow keys to move
-between items, click or pinch to zoom, and pull up or down or press [[Escape]] to close. On touch screens, tapping the
-image hides the controls and tapping again brings them back. Use the `label` attribute to describe the lightbox's
-contents to assistive devices.
+to the full-size image. Click a thumbnail to open the lightbox at that item. Swipe or use the arrow keys to move
+between items, click or pinch to zoom, and pull up or down or press [[Escape]] to close. On touch screens, tap the
+image to hide the controls and tap again to bring them back.
+
+Use the `label` attribute to describe the lightbox's contents to assistive devices.
 
 The lightbox itself is a plain block element, so you can lay out the thumbnails any way you like.
 
@@ -277,8 +278,13 @@ past them with the buttons or the keyboard.
 
 ### Hiding Controls
 
-Add the `without-counter` attribute to hide the counter and the `without-zoom` attribute to turn off zooming and
-remove the zoom button. The `without-navigation` attribute hides the previous and next buttons.
+Use these attributes to remove controls you don't need. This example hides the counter and turns off zooming.
+
+| Attribute            | Behavior                                                                    |
+| -------------------- | --------------------------------------------------------------------------- |
+| `without-counter`    | Hides the "3 of 12" counter.                                                |
+| `without-zoom`       | Turns off zooming and removes the zoom button.                              |
+| `without-navigation` | Hides the previous and next buttons. Swiping and the arrow keys still work. |
 
 ```html {.example}
 <wa-lightbox class="wa-grid lightbox-controls" label="Landscape photos" without-counter without-zoom>
@@ -334,6 +340,82 @@ The previous and next buttons are hidden on touch screens, and everywhere when `
 `with-thumbnails` so people who can't swipe can still tap their way between items.
 :::
 
+### Image Dimensions
+
+Set the `width` and `height` attributes to the full-size image's dimensions in pixels. The lightbox sizes the slide
+from them before the image loads, so the opening animation is exact. They also set how far the image can be
+zoomed. Without them, the lightbox uses the thumbnail's proportions until the image loads.
+
+These square thumbnails open into a tall photo, a wide one, and a standard one.
+
+```html {.example}
+<wa-lightbox class="wa-grid lightbox-dimensions" label="Landscape photos">
+  <wa-lightbox-item
+    src="https://images.unsplash.com/photo-1475113548554-5a36f1f523d6?w=1067&h=1600&fit=crop&q=80"
+    caption="Evening light across a field of grass. Photo by Sapan Patel on Unsplash."
+    width="1067"
+    height="1600"
+  >
+    <img
+      src="https://images.unsplash.com/photo-1475113548554-5a36f1f523d6?w=320&h=480&fit=crop&q=60"
+      alt="A field of grass with the sun setting in the background"
+    />
+  </wa-lightbox-item>
+  <wa-lightbox-item
+    src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=1600&h=900&fit=crop&q=80"
+    caption="Clouds rolling in over the mountains. Photo by V2osk on Unsplash."
+    width="1600"
+    height="900"
+  >
+    <img
+      src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=480&h=270&fit=crop&q=60"
+      alt="A scenic view of a mountain with clouds rolling in"
+    />
+  </wa-lightbox-item>
+  <wa-lightbox-item
+    src="https://images.unsplash.com/photo-1499002238440-d264edd596ec?w=1600&h=1067&fit=crop&q=80"
+    caption="Sunset over a lavender field. Photo by Leonard Cotte on Unsplash."
+    width="1600"
+    height="1067"
+  >
+    <img
+      src="https://images.unsplash.com/photo-1499002238440-d264edd596ec?w=480&h=320&fit=crop&q=60"
+      alt="The sun is setting over a lavender field"
+    />
+  </wa-lightbox-item>
+</wa-lightbox>
+
+<style>
+  .lightbox-dimensions {
+    --min-column-size: 8rem;
+
+    img {
+      width: 100%;
+      aspect-ratio: 1;
+      border-radius: var(--wa-border-radius-m);
+      object-fit: cover;
+    }
+  }
+</style>
+```
+
+:::info
+<strong>Crop thumbnails with CSS, not in the file.</strong><br />
+The opening animation is smoothest when the thumbnail file has the same proportions as the full-size image. Use
+`object-fit: cover` to show it at a different shape.
+:::
+
+### Responsive Images
+
+Use the `srcset` attribute to offer the full-size image at more than one resolution. The lightbox picks a source for the
+size it's displayed at, and a sharper one when the image is zoomed in. Set the `sizes` attribute to override this.
+
+```html
+<wa-lightbox-item src="photo-1600.jpg" srcset="photo-1600.jpg 1600w, photo-3200.jpg 3200w" width="3200" height="2134">
+  <img src="photo-thumbnail.jpg" alt="..." />
+</wa-lightbox-item>
+```
+
 ### Video
 
 Set an item's `type` attribute to `video` to play a video in the lightbox. The thumbnail gets a play button and is used
@@ -388,9 +470,9 @@ as the video's poster. Videos pause when you move to another item or close the l
 
 ### Custom Content
 
-To show something other than an image or a native video, such as another component, a video player, or an embed, put
-it in a `<template>` inside the item. The lightbox copies the template's content into the slide when it's needed, so
-nothing in it loads until then. Set the `width` and `height` attributes to give the slide its proportions. Custom
+Put anything other than an image or a native video in a `<template>` inside the item. That covers other components,
+video players, and embeds. The lightbox copies the template's content into the slide when it's needed, so nothing in it
+loads until then. Set the `width` and `height` attributes to give the slide its proportions. Custom
 content can't be zoomed.
 
 This example shows a [comparison](/docs/components/comparison) in the first slide.
@@ -462,8 +544,8 @@ This example shows a [comparison](/docs/components/comparison) in the first slid
 
 A video player works the same way. Set the `type` attribute to `video` to add the play button to its thumbnail.
 
-<wa-callout variant="brand">
-  <wa-icon slot="icon" name="crown"></wa-icon>
+<wa-callout class="pro wa-brand-orange">
+  <wa-icon slot="icon" name="crown" family="duotone" variant="regular" class="duotone-illustrated"></wa-icon>
   The <a href="/docs/components/video"><code>&lt;wa-video&gt;</code></a> component requires
   <a href="/pro">Web Awesome Pro</a>.
 </wa-callout>
@@ -484,16 +566,19 @@ A video player works the same way. Set the `type` attribute to `video` to add th
 A lightbox with one item works as an image zoom. The counter, navigation buttons, and thumbnails are hidden when
 there's nothing to navigate.
 
+Use a large, detailed image so there's something to see up close. Open this one and zoom in on the lavender.
+
 ```html {.example}
-<wa-lightbox class="lightbox-single" label="Mountain photo">
+<wa-lightbox class="lightbox-single" label="Lavender field photo">
   <wa-lightbox-item
-    src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=1600&h=1067&fit=crop&q=80"
-    width="1600"
-    height="1067"
+    src="https://images.unsplash.com/photo-1499002238440-d264edd596ec?w=3600&h=2400&fit=crop&q=80"
+    caption="Sunset over a lavender field. Photo by Leonard Cotte on Unsplash."
+    width="3600"
+    height="2400"
   >
     <img
-      src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=480&h=320&fit=crop&q=60"
-      alt="A scenic view of a mountain with clouds rolling in"
+      src="https://images.unsplash.com/photo-1499002238440-d264edd596ec?w=480&h=320&fit=crop&q=60"
+      alt="The sun is setting over a lavender field"
     />
   </wa-lightbox-item>
 </wa-lightbox>
@@ -584,11 +669,15 @@ links, and everything else in between work as usual.
 ### Items Without Thumbnails
 
 An item with nothing slotted in isn't shown on the page, but it still appears in the lightbox. Use this to show one
-image on the page and the rest in the lightbox. Set the `thumbnail` attribute so the item has an image for the
-thumbnail strip and a placeholder while it loads, and the `alt` attribute since there's no thumbnail to take it from.
+image on the page and the rest in the lightbox. Set the `thumbnail` attribute to give the item an image
+for the thumbnail strip and a placeholder while it loads. Set the `alt` attribute too, since there's no thumbnail to
+take it from.
+
+This example shows a cover photo with a button that opens the rest. The button uses
+[declarative opening](#opening-and-closing-declaratively).
 
 ```html {.example}
-<wa-lightbox class="lightbox-hidden" label="Landscape photos" with-thumbnails>
+<wa-lightbox id="lightbox-hidden" class="lightbox-hidden" label="Landscape photos" with-thumbnails>
   <wa-lightbox-item
     src="https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=1600&h=1067&fit=crop&q=80"
     width="1600"
@@ -627,60 +716,52 @@ thumbnail strip and a placeholder while it loads, and the `alt` attribute since 
     width="1600"
     height="1067"
   ></wa-lightbox-item>
+
+  <wa-button size="small" class="view-all" data-lightbox="open lightbox-hidden">
+    <wa-icon slot="start" name="images"></wa-icon>
+    View all 5 photos
+  </wa-button>
 </wa-lightbox>
 
 <style>
-  .lightbox-hidden img {
-    width: 100%;
+  .lightbox-hidden {
+    position: relative;
     max-width: 24rem;
-    aspect-ratio: 3 / 2;
-    border-radius: var(--wa-border-radius-m);
-    object-fit: cover;
+
+    img {
+      width: 100%;
+      aspect-ratio: 3 / 2;
+      border-radius: var(--wa-border-radius-m);
+      object-fit: cover;
+    }
+
+    .view-all {
+      position: absolute;
+      inset-block-end: var(--wa-space-s);
+      inset-inline-end: var(--wa-space-s);
+    }
   }
 </style>
 ```
 
-### Image Dimensions
+### Customizing
 
-Set the `width` and `height` attributes to the full-size image's dimensions in pixels. The lightbox uses them to size
-the slide before the image loads, which keeps the opening animation exact, and to work out how far the image can be
-zoomed. Without them, the lightbox uses the thumbnail's proportions until the image loads.
+Combine custom properties and CSS parts to give a lightbox its own look. This example frosts the page behind the
+lightbox with the `--backdrop-color` and `--backdrop-filter` custom properties. The `--controls-color` and
+`--controls-background` custom properties set the color of the controls, counter, and caption, and the background the
+controls get when the media is behind them. CSS parts give the counter and the thumbnail strip the same
+see-through fill and a thin edge, and set smaller, bolder type for the counter and caption.
 
-```html
-<wa-lightbox-item src="photo.jpg" width="1600" height="1067">
-  <img src="photo-thumbnail.jpg" alt="..." />
-</wa-lightbox-item>
-```
-
-:::info
-<strong>Crop thumbnails with CSS, not in the file.</strong><br />
-The opening animation is smoothest when the thumbnail file has the same proportions as the full-size image. Use
-`object-fit: cover` to show it at a different shape.
-:::
-
-### Responsive Images
-
-Use the `srcset` attribute to offer the full-size image at more than one resolution. The lightbox picks a source for the
-size it's displayed at, and a sharper one when the image is zoomed in. Set the `sizes` attribute to override this.
-
-```html
-<wa-lightbox-item src="photo-1600.jpg" srcset="photo-1600.jpg 1600w, photo-3200.jpg 3200w" width="3200" height="2134">
-  <img src="photo-thumbnail.jpg" alt="..." />
-</wa-lightbox-item>
-```
-
-### Custom Properties
-
-Use the `--backdrop-color` and `--backdrop-filter` custom properties to change the backdrop, `--show-duration` and
-`--hide-duration` to change the speed of the opening and closing animations, and `--spacing`, `--slide-gap`, and
+Use `--show-duration` and `--hide-duration` to set the animation speed, and `--spacing`, `--slide-gap`, and
 `--thumbnail-size` to adjust the layout.
 
 ```html {.example}
-<wa-lightbox class="wa-grid lightbox-custom" label="Landscape photos" with-thumbnails>
+<wa-lightbox class="wa-grid lightbox-styled" label="Landscape photos" with-thumbnails loop>
   <wa-lightbox-item
     src="https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=1600&h=1067&fit=crop&q=80"
     width="1600"
     height="1067"
+    caption="First light in the valley"
   >
     <img
       src="https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=480&h=320&fit=crop&q=60"
@@ -691,6 +772,7 @@ Use the `--backdrop-color` and `--backdrop-filter` custom properties to change t
     src="https://images.unsplash.com/photo-1473448912268-2022ce9509d8?w=1600&h=1067&fit=crop&q=80"
     width="1600"
     height="1067"
+    caption="Where the river slows down"
   >
     <img
       src="https://images.unsplash.com/photo-1473448912268-2022ce9509d8?w=480&h=320&fit=crop&q=60"
@@ -701,27 +783,71 @@ Use the `--backdrop-color` and `--backdrop-filter` custom properties to change t
     src="https://images.unsplash.com/photo-1499002238440-d264edd596ec?w=1600&h=1067&fit=crop&q=80"
     width="1600"
     height="1067"
+    caption="Lavender at golden hour"
   >
     <img
       src="https://images.unsplash.com/photo-1499002238440-d264edd596ec?w=480&h=320&fit=crop&q=60"
       alt="The sun is setting over a lavender field"
     />
   </wa-lightbox-item>
+  <wa-lightbox-item
+    src="https://images.unsplash.com/photo-1475113548554-5a36f1f523d6?w=1600&h=1067&fit=crop&q=80"
+    width="1600"
+    height="1067"
+    caption="The last of the evening sun"
+  >
+    <img
+      src="https://images.unsplash.com/photo-1475113548554-5a36f1f523d6?w=480&h=320&fit=crop&q=60"
+      alt="A field of grass with the sun setting in the background"
+    />
+  </wa-lightbox-item>
 </wa-lightbox>
 
 <style>
-  .lightbox-custom {
+  .lightbox-styled {
     --min-column-size: 8rem;
-    --backdrop-color: color-mix(in oklab, var(--wa-color-brand-20) 70%, transparent);
-    --backdrop-filter: blur(12px);
-    --show-duration: 500ms;
-    --thumbnail-size: 4.5rem;
+    --backdrop-color: color-mix(in oklab, var(--wa-color-surface-default) 30%, transparent);
+    --backdrop-filter: blur(40px) saturate(180%);
+    --controls-color: var(--wa-color-text-normal);
+    --controls-background: color-mix(in oklab, var(--wa-color-surface-raised) 70%, transparent);
+    --media-border-radius: var(--wa-border-radius-l);
+    --thumbnail-size: 3rem;
 
     img {
       width: 100%;
       aspect-ratio: 1;
-      border-radius: var(--wa-border-radius-m);
+      border-radius: var(--wa-border-radius-l);
       object-fit: cover;
+    }
+
+    &::part(counter),
+    &::part(thumbnails) {
+      border: solid 1px color-mix(in oklab, var(--controls-color) 12%, transparent);
+      background: var(--controls-background);
+      backdrop-filter: blur(20px) saturate(180%);
+    }
+
+    &::part(counter) {
+      padding: var(--wa-space-2xs) var(--wa-space-s);
+      border-radius: var(--wa-border-radius-pill);
+      font-size: var(--wa-font-size-s);
+      font-variant-numeric: tabular-nums;
+      font-weight: var(--wa-font-weight-semibold);
+    }
+
+    &::part(caption) {
+      font-size: var(--wa-font-size-s);
+      font-weight: var(--wa-font-weight-semibold);
+      letter-spacing: -0.01em;
+    }
+
+    &::part(thumbnails) {
+      padding: var(--wa-space-xs);
+      border-radius: calc(var(--wa-border-radius-m) + var(--wa-space-xs));
+    }
+
+    &::part(thumbnail) {
+      border-radius: var(--wa-border-radius-m);
     }
   }
 </style>
@@ -729,11 +855,10 @@ Use the `--backdrop-color` and `--backdrop-filter` custom properties to change t
 
 ### Opening & Closing Declaratively
 
-You can open and close the lightbox with JavaScript by toggling the `open` attribute, but you can also do it
-declaratively. Add `data-lightbox="open id"` to any button on the page, where `id` is the ID of the lightbox you want
-to open. To open at a specific item, add the item's ID as well. Without one, the lightbox opens at the first item.
+Add `data-lightbox="open id"` to any button on the page to open a lightbox without JavaScript, where `id` is the
+lightbox's ID. To open at a specific item, add the item's ID as well. Without one, the lightbox opens at the first item.
 
-Similarly, you can add `data-lightbox="close"` to a button _inside_ of a lightbox to tell it to close.
+Add `data-lightbox="close"` to a button _inside_ a lightbox to close it.
 
 ```html {.example}
 <wa-lightbox id="lightbox-declarative" class="wa-grid lightbox-declarative" label="Landscape photos">
@@ -845,11 +970,15 @@ Set the `index` property to choose an item, then set the `open` property to `tru
   }
 </style>
 
-<wa-button class="lightbox-programmatic-open">Open the last photo</wa-button>
+<div class="wa-cluster">
+  <wa-button class="lightbox-programmatic-open">Open the last photo</wa-button>
+  <span class="lightbox-programmatic-status"></span>
+</div>
 
 <script>
   const lightbox = document.querySelector('.lightbox-programmatic');
   const openButton = document.querySelector('.lightbox-programmatic-open');
+  const status = document.querySelector('.lightbox-programmatic-status');
 
   openButton.addEventListener('click', () => {
     lightbox.index = lightbox.items.length - 1;
@@ -857,15 +986,15 @@ Set the `index` property to choose an item, then set the `open` property to `tru
   });
 
   lightbox.addEventListener('wa-item-change', event => {
-    console.log(`Showing item ${event.detail.index + 1}`);
+    status.textContent = `Last viewed: photo ${event.detail.index + 1} of ${lightbox.items.length}`;
   });
 </script>
 ```
 
 ### Toolbar Actions
 
-The toolbar shows zoom and close buttons by default. You can use the `actions` slot to add additional
-[buttons](/docs/components/button) if needed. Buttons in the slot are styled to match the lightbox's controls. The
+The toolbar shows zoom and close buttons by default. Add your own [buttons](/docs/components/button) to the `actions`
+slot. Buttons in the slot are styled to match the lightbox's controls. The
 `currentItem` property gives you the item that's showing.
 
 ```html {.example}
@@ -944,8 +1073,13 @@ wa-button[slot='actions'] {
 By default, the lightbox closes when the user clicks the close button or the backdrop, presses the [[Escape]] key, or
 pulls the image up or down. To keep it open, you can cancel the `wa-hide` event.
 
-You can use `event.detail.source` to determine which element triggered the request to close. This example prevents
-the lightbox from closing unless the close button is clicked.
+Check `event.detail.source` to see which element asked to close. This example keeps the lightbox open unless the close
+button is clicked.
+
+:::warning
+<strong>Always leave a way to close the lightbox.</strong><br />
+It covers the whole screen, so a handler that cancels every request leaves people stuck with no way back to the page.
+:::
 
 ```html {.example}
 <wa-lightbox class="wa-grid lightbox-prevent" label="Landscape photos">
@@ -994,109 +1128,6 @@ the lightbox from closing unless the close button is clicked.
     }
   });
 </script>
-```
-
-### Styling Lightboxes
-
-Combine custom properties and CSS parts to give a lightbox its own look. The `--controls-color` and
-`--controls-background` custom properties set the color of the controls, counter, and caption and the background the
-controls get when the media is behind them. Use CSS parts for everything else, like the gradient on the `backdrop`
-part in this example.
-
-```html {.example}
-<wa-lightbox class="wa-grid lightbox-styled" label="Landscape photos" with-thumbnails loop>
-  <wa-lightbox-item
-    src="https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=1600&h=1067&fit=crop&q=80"
-    width="1600"
-    height="1067"
-    caption="First light in the valley"
-  >
-    <img
-      src="https://images.unsplash.com/photo-1426604966848-d7adac402bff?w=480&h=320&fit=crop&q=60"
-      alt="The sun shines on the mountains and trees"
-    />
-  </wa-lightbox-item>
-  <wa-lightbox-item
-    src="https://images.unsplash.com/photo-1473448912268-2022ce9509d8?w=1600&h=1067&fit=crop&q=80"
-    width="1600"
-    height="1067"
-    caption="Where the river slows down"
-  >
-    <img
-      src="https://images.unsplash.com/photo-1473448912268-2022ce9509d8?w=480&h=320&fit=crop&q=60"
-      alt="A river winding through an evergreen forest"
-    />
-  </wa-lightbox-item>
-  <wa-lightbox-item
-    src="https://images.unsplash.com/photo-1499002238440-d264edd596ec?w=1600&h=1067&fit=crop&q=80"
-    width="1600"
-    height="1067"
-    caption="Lavender at golden hour"
-  >
-    <img
-      src="https://images.unsplash.com/photo-1499002238440-d264edd596ec?w=480&h=320&fit=crop&q=60"
-      alt="The sun is setting over a lavender field"
-    />
-  </wa-lightbox-item>
-  <wa-lightbox-item
-    src="https://images.unsplash.com/photo-1475113548554-5a36f1f523d6?w=1600&h=1067&fit=crop&q=80"
-    width="1600"
-    height="1067"
-    caption="The last of the evening sun"
-  >
-    <img
-      src="https://images.unsplash.com/photo-1475113548554-5a36f1f523d6?w=480&h=320&fit=crop&q=60"
-      alt="A field of grass with the sun setting in the background"
-    />
-  </wa-lightbox-item>
-</wa-lightbox>
-
-<style>
-  .lightbox-styled {
-    --min-column-size: 8rem;
-    --controls-background: color-mix(in oklab, var(--wa-color-indigo-40) 70%, transparent);
-    --show-duration: 450ms;
-    --hide-duration: 350ms;
-    --thumbnail-size: 4rem;
-    --media-border-radius: 1.5rem;
-
-    &::part(backdrop) {
-      background:
-        radial-gradient(at 10% 15%, var(--wa-color-purple-50), transparent 55%),
-        radial-gradient(at 90% 10%, var(--wa-color-blue-60), transparent 55%),
-        radial-gradient(at 85% 90%, var(--wa-color-pink-50), transparent 55%),
-        radial-gradient(at 15% 85%, var(--wa-color-cyan-50), transparent 55%), var(--wa-color-indigo-50);
-    }
-
-    img {
-      width: 100%;
-      aspect-ratio: 1;
-      border-radius: 1.5rem;
-      object-fit: cover;
-    }
-
-    &::part(caption) {
-      font-family: var(--wa-font-family-longform);
-      font-size: var(--wa-font-size-xl);
-    }
-
-    &::part(counter) {
-      font-weight: var(--wa-font-weight-bold);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-    }
-
-    &::part(navigation-button),
-    &::part(zoom-button),
-    &::part(close-button) {
-      border-color: color-mix(in oklab, currentColor 40%, transparent);
-    }
-
-    &::part(thumbnail) {
-      border-radius: var(--wa-border-radius-circle);
-    }
-  }
-</style>
 ```
 
 ## Accessibility Considerations
