@@ -1,6 +1,6 @@
 ---
 title: Server Side Rendering (SSR)
-description: A document on how to get started with SSR in Web Awesome.
+description: Render components on the server, then hydrate them in the browser. Still experimental, with its known issues listed.
 layout: page-outline
 ---
 
