@@ -24,6 +24,10 @@ export default css`
       border-top: none;
     }
 
+    :host([appearance='filled-outlined']:not(:first-child)) {
+      border-top-color: var(--wa-color-neutral-border-quiet);
+    }
+
     [part~='heading'] {
       margin: 0;
       font: inherit;

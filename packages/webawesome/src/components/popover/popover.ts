@@ -12,7 +12,7 @@ import { waitForEvent } from '../../internal/event.js';
 import { uniqueId } from '../../internal/math.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
-import WaPopup from '../popup/popup.js';
+import WaPopup, { type VirtualElement } from '../popup/popup.js';
 import styles from './popover.styles.js';
 
 const openPopovers = new Set<WaPopover>();
@@ -55,7 +55,8 @@ export default class WaPopover extends WebAwesomeElement {
   @query('.body') body: HTMLElement;
   @query('wa-popup') popup: WaPopup;
 
-  @state() anchor: null | Element = null;
+  /** A virtual anchor only positions the popover. It gets no trigger ARIA and no focus return. */
+  @state() anchor: null | Element | VirtualElement = null;
 
   /**
    * The preferred placement of the popover. Note that the actual placement may vary as needed to keep the popover
@@ -122,7 +123,7 @@ export default class WaPopover extends WebAwesomeElement {
     unregisterDismissible(this);
     this.eventController.abort();
 
-    if (this.anchor) {
+    if (this.anchor instanceof Element) {
       this.removeTriggerAria(this.anchor);
     }
   }
@@ -143,7 +144,7 @@ export default class WaPopover extends WebAwesomeElement {
       this.customStates.set('open', this.open);
     }
 
-    if ((changedProperties.has('open') || changedProperties.has('anchor')) && this.anchor) {
+    if ((changedProperties.has('open') || changedProperties.has('anchor')) && this.anchor instanceof Element) {
       this.syncTriggerAria(this.anchor);
     }
   }
@@ -179,7 +180,9 @@ export default class WaPopover extends WebAwesomeElement {
   }
 
   private focusAnchor() {
-    (this.anchor as HTMLElement | null)?.focus({ preventScroll: true });
+    if (this.anchor instanceof HTMLElement || this.anchor instanceof SVGElement) {
+      this.anchor.focus({ preventScroll: true });
+    }
   }
 
   private handleAnchorClick = () => {
@@ -226,7 +229,7 @@ export default class WaPopover extends WebAwesomeElement {
     }
 
     // Ignore clicks on the anchor so it will be closed by the anchor's click handler
-    if (this.anchor && event.composedPath().includes(this.anchor)) {
+    if (this.anchor instanceof Element && event.composedPath().includes(this.anchor)) {
       return;
     }
 
@@ -327,7 +330,7 @@ export default class WaPopover extends WebAwesomeElement {
       newAnchor.addEventListener('click', this.handleAnchorClick, { signal });
     }
 
-    if (oldAnchor) {
+    if (oldAnchor instanceof Element) {
       oldAnchor.removeEventListener('click', this.handleAnchorClick);
       this.removeTriggerAria(oldAnchor);
     }

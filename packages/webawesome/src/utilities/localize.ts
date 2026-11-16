@@ -150,12 +150,14 @@ export interface Translation extends DefaultTranslation {
   keyCtrl: string;
   keyShift: string;
   lastPage: string;
+  lightbox: string;
   link: string;
   linkRemoved: string;
   linkUrl: string;
   lists: string;
   loading: string;
   locked: string;
+  mediaLoadError: string;
   mergeCells: string;
   minute: string;
   month: string;

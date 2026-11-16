@@ -77,6 +77,39 @@ describe('<wa-popover>', () => {
           expect(secondAnchor.hasAttribute('aria-haspopup')).to.be.false;
           expect(secondAnchor.hasAttribute('aria-expanded')).to.be.false;
         });
+
+        it('should open, close, and disconnect with a virtual anchor', async () => {
+          const el = await fixture<HTMLDivElement>(html`
+            <div>
+              <wa-popover>
+                <button data-popover="close">Close</button>
+              </wa-popover>
+            </div>
+          `);
+          const popover = el.querySelector<WaPopover>('wa-popover')!;
+          popover.anchor = { getBoundingClientRect: () => new DOMRect(0, 0, 10, 10) };
+
+          await popover.show();
+          popover.querySelector('button')!.click();
+          await waitUntil(() => !popover.open);
+          popover.remove();
+        });
+
+        it('should switch from a virtual anchor to a real one', async () => {
+          const el = await fixture<HTMLDivElement>(html`
+            <div>
+              <button id="real-anchor">Real</button>
+              <wa-popover>Content</wa-popover>
+            </div>
+          `);
+          const popover = el.querySelector<WaPopover>('wa-popover')!;
+          const realAnchor = el.querySelector('#real-anchor')!;
+          popover.anchor = { getBoundingClientRect: () => new DOMRect(0, 0, 10, 10) };
+          await popover.updateComplete;
+
+          popover.for = 'real-anchor';
+          await waitUntil(() => realAnchor.getAttribute('aria-expanded') === 'false');
+        });
       });
 
       describe('properties', () => {

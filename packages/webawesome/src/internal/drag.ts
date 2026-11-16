@@ -5,10 +5,23 @@ interface DragOptions {
   onStop: () => void;
   /**
    * When an initial event is passed, the first drag will be triggered immediately using the coordinates therein. This
-   * is useful when the drag is initiated by a mousedown/touchstart event but you want the initial "click" to activate
+   * is useful when the drag is initiated by a pointerdown event but you want the initial "click" to activate
    * a drag (e.g. positioning a handle initially at the click target).
    */
   initialEvent: PointerEvent;
+}
+
+/**
+ * Captures the pointer of a drag on an element. Without capture, releasing the pointer elsewhere makes the browser click
+ * the closest element that contains both the press and the release, such as a card around a slider. With capture, the
+ * click is fired at the capturing element instead.
+ */
+function capturePointer(el: Element, event: PointerEvent) {
+  try {
+    el.setPointerCapture(event.pointerId);
+  } catch {
+    // The pointer of a synthetic event isn't active, so it can't be captured. The drag still works without capture.
+  }
 }
 
 /** Begins listening for dragging. */
@@ -38,8 +51,11 @@ export function drag(container: HTMLElement, options?: Partial<DragOptions>) {
   document.addEventListener('pointermove', move, { passive: true });
   document.addEventListener('pointerup', stop);
 
-  // If an initial event is set, trigger the first drag immediately
+  // If an initial event is set, trigger the first drag immediately. Capture on the element that received the press
+  // (the divider, not the host) so clicks after a drag keep their target and composed path.
   if (options?.initialEvent instanceof PointerEvent) {
+    const pressed = options.initialEvent.currentTarget;
+    capturePointer(pressed instanceof Element ? pressed : container, options.initialEvent);
     move(options.initialEvent);
   }
 }
@@ -96,6 +112,10 @@ export class DraggableElement {
     }
 
     this.isDragging = true;
+
+    if (event instanceof PointerEvent) {
+      capturePointer(this.element, event);
+    }
 
     document.addEventListener('pointerup', this.handleDragStop);
     document.addEventListener('pointermove', this.handleDragMove);

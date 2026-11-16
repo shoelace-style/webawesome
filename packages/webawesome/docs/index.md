@@ -1,6 +1,6 @@
 ---
 title: Web Awesome
-description: Build better with Web Awesome, the open source library of web components from Font Awesome.
+description: The open-source UI toolkit from the team behind Font Awesome. Built on web standards, so it works with any framework and matches any brand.
 layout: page
 hasGeneratedTitle: false
 hasFramedMain: false
@@ -227,7 +227,7 @@ hasFramedMain: false
     <h1 class="font-brand">Make something <span class="emphasis">awesome</span> with open-source web components</h1>
     <div class="hero-cta">
       {%- raw -%}
-        {% if currentUser.hasPro %}
+        {% if currentUser.can.proBundle.allowed %}
           <span class="wa-font-size-l" style="text-align: center; width: 100%;">Thanks for being a {{ site.namePro }} subscriber!</span>
         {% else %}
           <div class="wa-stack wa-gap-xs">

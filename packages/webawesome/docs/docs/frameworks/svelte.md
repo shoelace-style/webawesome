@@ -1,6 +1,6 @@
 ---
 title: Svelte
-description: Tips for using Web Awesome in your Svelte app.
+description: Web Awesome in Svelte, including how two-way binding and slots behave.
 layout: framework
 officialDocs: https://svelte.dev
 ---

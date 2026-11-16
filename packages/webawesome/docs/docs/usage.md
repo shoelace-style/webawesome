@@ -1,6 +1,6 @@
 ---
 title: Usage
-description: Learn more about using and customizing custom elements.
+description: Web Awesome components are HTML elements. Attributes, slots, events, and methods, plus where they act differently from native ones.
 layout: page-outline
 synonyms:
   - getting started

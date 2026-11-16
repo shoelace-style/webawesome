@@ -91,6 +91,7 @@ export default css`
     background: transparent;
     border: none;
     padding: 0;
+    -webkit-user-select: none;
     user-select: none;
     transition:
       background-color var(--wa-transition-fast),
@@ -218,6 +219,7 @@ export default css`
     font: inherit;
     text-align: center;
     cursor: text;
+    -webkit-user-select: none;
     user-select: none;
     white-space: nowrap;
     border-radius: var(--wa-border-radius-s);
@@ -246,6 +248,7 @@ export default css`
     display: inline-block;
     color: var(--wa-color-text-quiet);
     white-space: pre;
+    -webkit-user-select: none;
     user-select: none;
   }
 
