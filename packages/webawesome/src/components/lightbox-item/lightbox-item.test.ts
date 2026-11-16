@@ -20,6 +20,14 @@ describe('<wa-lightbox-item>', () => {
         await expect(el).to.be.accessible();
       });
 
+      it('should name the trigger from its alt when the thumbnail is decorative', async () => {
+        const el = await fixture<WaLightboxItem>(html`
+          <wa-lightbox-item src=${pixel} alt="A pixel"><img src=${pixel} alt="" /></wa-lightbox-item>
+        `);
+
+        await expect(el).to.be.accessible();
+      });
+
       it('should link the thumbnail to the full-size media', async () => {
         const el = await fixture<WaLightboxItem>(html`
           <wa-lightbox-item src=${pixel}><img src=${pixel} alt="A pixel" /></wa-lightbox-item>

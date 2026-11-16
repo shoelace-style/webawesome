@@ -1,5 +1,5 @@
 import { html, type PropertyValues } from 'lit';
-import { customElement, property, query } from 'lit/decorators.js';
+import { customElement, property, query, state } from 'lit/decorators.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import '../icon/icon.js';
@@ -24,6 +24,7 @@ import styles from './lightbox-item.styles.js';
  *
  * @cssstate active - Applied when this is the current item in an open lightbox.
  * @cssstate empty - Applied when nothing is slotted in. Empty items aren't displayed on the page.
+ * @cssstate morphing - Applied while the lightbox animates between this item's thumbnail and its full-size media.
  */
 @customElement('wa-lightbox-item')
 export default class WaLightboxItem extends WebAwesomeElement {
@@ -31,6 +32,8 @@ export default class WaLightboxItem extends WebAwesomeElement {
 
   @query('.trigger') trigger: HTMLAnchorElement;
   @query('slot') defaultSlot: HTMLSlotElement;
+
+  @state() private hasOnlyDecorativeImage = false;
 
   /** The kind of media the item shows in the lightbox. Videos show a play button over their thumbnail. */
   @property({ reflect: true }) type: 'image' | 'video' = 'image';
@@ -119,6 +122,7 @@ export default class WaLightboxItem extends WebAwesomeElement {
       );
 
     this.customStates.set('empty', !hasContent);
+    this.hasOnlyDecorativeImage = this.thumbnailElement?.alt === '' && !this.textContent?.trim();
   }
 
   /** Without a URL the trigger isn't a real link, so it needs the keyboard behavior of a button. */
@@ -130,6 +134,9 @@ export default class WaLightboxItem extends WebAwesomeElement {
   }
 
   render() {
+    // A thumbnail with alt="" and no text around it leaves the link without a name, so the item's own alt names it
+    const label = this.hasOnlyDecorativeImage && this.alt ? this.alt : undefined;
+
     return html`
       <a
         part="trigger"
@@ -138,6 +145,7 @@ export default class WaLightboxItem extends WebAwesomeElement {
         role=${ifDefined(this.src ? undefined : 'button')}
         tabindex=${ifDefined(this.src ? undefined : '0')}
         aria-haspopup="dialog"
+        aria-label=${ifDefined(label)}
         @keydown=${this.handleKeyDown}
       >
         <slot @slotchange=${this.handleSlotChange}></slot>
