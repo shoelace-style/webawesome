@@ -45,7 +45,7 @@ export function SimulateWebAwesomeApp(str, context = {}) {
           'accessProThemes',
           'accessProPatterns',
           'downloadFromNpm',
-          'downloadPerpetualLicense',
+          'hasPerpetualLicense',
           'createUnlimitedProjects',
         ].map(action => [action, { allowed: false, reason: 'plan' }]),
       ),
