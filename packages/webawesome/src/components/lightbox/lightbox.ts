@@ -29,7 +29,6 @@ const DOUBLE_TAP_DELAY = 300; // ms
 const DOUBLE_TAP_ZOOM = 2.5;
 const PULL_DISTANCE = 120; // px needed to dismiss
 const KEYBOARD_PAN = 50; // px per arrow key press
-const CROSSFADE_DURATION = 250; // ms
 
 const nextFrame = () => new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
 
@@ -129,6 +128,7 @@ export default class WaLightbox extends WebAwesomeElement {
   private scrollFrame = 0;
   private indexFromScroll = false;
   private isJump = false; // the next index change cuts to its slide, even when it's adjacent
+  private requestedDirection: 1 | -1 | 0 = 0; // a wrap still reads as forward or back
   private departing: { src: string; rect: DOMRect } | null = null; // the image a cut is fading out from
   private isProgrammaticScroll = false;
   private scrollOrigin = 0; // where the last programmatic scroll started
@@ -380,11 +380,12 @@ export default class WaLightbox extends WebAwesomeElement {
       // Cuts go straight to the slide, since the ones in between have nothing loaded to scroll past, and crossfade
       // from the old image to the new one
       if (!isSmooth && item !== this.lastItem && !prefersReducedMotion()) {
-        this.crossfade();
+        this.crossfade(this.requestedDirection || Math.sign(index - this.lastIndex) || 1);
       }
     }
     this.indexFromScroll = false;
     this.isJump = false;
+    this.requestedDirection = 0;
     this.departing = null;
 
     if (item !== this.lastItem) {
@@ -522,7 +523,7 @@ export default class WaLightbox extends WebAwesomeElement {
     unregisterDismissible(this);
   }
 
-  private getDuration(property: '--show-duration' | '--hide-duration') {
+  private getDuration(property: '--show-duration' | '--hide-duration' | '--wa-transition-slow') {
     return prefersReducedMotion() ? 0 : parseDuration(getComputedStyle(this).getPropertyValue(property));
   }
 
@@ -827,13 +828,22 @@ export default class WaLightbox extends WebAwesomeElement {
     return media && src ? { src, rect: media.getBoundingClientRect() } : null;
   }
 
-  /** Fades the new slide in while a copy of the old image fades out over it. */
-  private crossfade() {
-    const options: KeyframeAnimationOptions = { duration: CROSSFADE_DURATION, easing: 'ease' };
+  /** Pushes the new slide in from the side it's coming from. Opaque early so the backdrop never shows through. */
+  private crossfade(direction: number) {
+    const duration = this.getDuration('--wa-transition-slow');
+    const shift = direction * (this.localize.dir() === 'rtl' ? -1 : 1) * this.slides.clientWidth;
     const image = this.departingImage;
 
     image.getAnimations().forEach(animation => animation.cancel());
-    animate(this.slides, [{ opacity: 0 }, { opacity: 1 }], options);
+    animate(
+      this.slides,
+      [
+        { translate: `${shift * 0.05}px 0`, opacity: 0 },
+        { opacity: 1, offset: 0.4 },
+        { translate: '0 0', opacity: 1 },
+      ],
+      { duration, easing: MORPH_EASING },
+    );
 
     if (!this.departing) return;
 
@@ -846,7 +856,14 @@ export default class WaLightbox extends WebAwesomeElement {
       height: `${rect.height}px`,
     });
     image.hidden = false;
-    animate(image, [{ opacity: 1 }, { opacity: 0 }], options).then(() => {
+    animate(
+      image,
+      [
+        { translate: '0 0', opacity: 1 },
+        { translate: `${shift * -0.025}px 0`, opacity: 0 },
+      ],
+      { duration, easing: MORPH_EASING },
+    ).then(() => {
       // A newer crossfade may have taken the image over
       if (image.getAnimations().length === 0) image.hidden = true;
     });
@@ -1528,6 +1545,7 @@ export default class WaLightbox extends WebAwesomeElement {
     if (this.currentIndex < lastIndex) {
       this.index = this.currentIndex + 1;
     } else if (this.loop && lastIndex > 0) {
+      this.requestedDirection = 1;
       this.index = 0;
     }
   }
@@ -1539,6 +1557,7 @@ export default class WaLightbox extends WebAwesomeElement {
     if (this.currentIndex > 0) {
       this.index = this.currentIndex - 1;
     } else if (this.loop && lastIndex > 0) {
+      this.requestedDirection = -1;
       this.index = lastIndex;
     }
   }
