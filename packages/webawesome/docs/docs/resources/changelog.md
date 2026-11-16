@@ -42,11 +42,18 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
   - Added `getDefaultIconVariant()`
   - In {{ site.namePro }}, the icons inside components follow the defaults for the `classic`, `sharp`, `duotone`, and `sharp-duotone` families
 - Added the `--backdrop-color` custom property to `<wa-dialog>` and `<wa-drawer>`
+- Added the Uzbek translation [pr:3028]
 
 :::
 
 :::fixed
 
+- Fixed a bug in `<wa-color-picker>` where the popup's value input had no accessible name, because its label was passed to `<wa-input>` as `aria-label` [issue:2914] [pr:2915]
+- Fixed a visual bug with `<wa-details>` and `<details>` not having the same visual alignment. [pr:2973]
+- Fixed an accessibility issue with `<wa-card>` where it would incorrectly be treated as a site-wide header. [issue:2723]
+- Fixed `<wa-dropdown>` losing trigger focus after closing with [[Escape]]. [issue:2766]
+- Fixed a bug in `<wa-dropdown-item>` where clicking an item with `href` still navigated when `preventDefault()` was called on the click event [issue:2946] [pr:2947]
+- Fixed a bug in `<wa-input>` where validity would not properly update on certain property changes. [pr:3025]
 - Fixed a bug in `<wa-button>` where calling `event.preventDefault()` would not prevent form submissions. [pr:3008]
 - Fixed a bug in `<wa-dropdown>` where scrolling past the end of a long menu on macOS showed the page through the menu's background [issue:2711]
 - Fixed a bug in `<wa-slider>`, `<wa-color-picker>`, `<wa-comparison>`, and `<wa-split-panel>` where releasing a drag outside of the component clicked the element around it, such as a clickable card; drags now capture the pointer [issue:2983]
@@ -84,6 +91,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Fixed a bug in `<wa-popup>` which could lead to possibly stale cleanup functions. [pr:2871]
 - Fixed a bug in `<wa-dropdown-item>` where dynamically added submenus would not trigger a `slotchange` event leading to `HasSlotController` reporting false. [pr:2868]
 - Fixed a bug in `<wa-tooltip>` where it would still open even when it was disabled. [pr:2869]
+- Fixed a bug in `<wa-copy-button>` where the default trigger took up extra inline space beyond its actual bounds. [pr:2934]
 - Fixed a bug in `<wa-switch>` where pressing an arrow key dispatched `change` and `input` events even when the switch was already in that position
 - Fixed a bug in `<wa-slider>` where the `tooltip__arrow` part didn't target the tooltip's arrow
 - Fixed a bug in `<wa-slider>` where steps were counted from zero instead of `min` [issue:2951]
@@ -109,6 +117,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
   - Added the `button-group` and `tab-panel` CSS parts to `<wa-button-group>` and `<wa-tab-panel>` which render a wrapper element so their deprecated `base` part is no longer on a `<slot>`
   - Added component-named versions of exported parts that were named after `base`, such as `close-button__button` in `<wa-dialog>` and `tooltip__popup` and `tooltip__arrow` in `<wa-tooltip>`
 - Deprecated exported parts named after `base`, such as `close-button__base` in `<wa-dialog>` and `base__popup` and `base__arrow` in `<wa-tooltip>`, in favor of their component-named versions, continuing the `base` part deprecation from 3.11.0. They keep working until the next major version.
+  - The custom elements manifest now marks them deprecated too, so editors flag them like `base`
 
 :::
 

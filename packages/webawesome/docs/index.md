@@ -227,7 +227,7 @@ hasFramedMain: false
     <h1 class="font-brand">Make something <span class="emphasis">awesome</span> with open-source web components</h1>
     <div class="hero-cta">
       {%- raw -%}
-        {% if currentUser.hasPro %}
+        {% if currentUser.can.proBundle.allowed %}
           <span class="wa-font-size-l" style="text-align: center; width: 100%;">Thanks for being a {{ site.namePro }} subscriber!</span>
         {% else %}
           <div class="wa-stack wa-gap-xs">

@@ -4,7 +4,7 @@
 {%- if not palette.isPro -%}
 <link rel="stylesheet" href="/dist/styles/color/palettes/{{palette.filename}}" />
 {%- else -%}
-{% raw %}{%- if currentUser.hasPro -%}{% endraw %}
+{% raw %}{%- if currentUser.can.proThemes.allowed -%}{% endraw %}
 <link rel="stylesheet" href="/dist/styles/color/palettes/{{palette.filename}}" />
 {% raw %}{%- endif -%}{% endraw %}
 {%- endif -%}
@@ -16,10 +16,10 @@
     {%- if not palette.isPro -%}
     <wa-tab panel="{{ palette.name | lower }}">{{ palette.name }}</wa-tab>
     {%- else -%}
-    <wa-tab panel="{{ palette.name | lower }}" {% raw %}{%- if not currentUser.hasPro -%}{% endraw %} disabled {% raw %}{%- endif -%}{% endraw %}>
+    <wa-tab panel="{{ palette.name | lower }}" {% raw %}{%- if not currentUser.can.proThemes.allowed -%}{% endraw %} disabled {% raw %}{%- endif -%}{% endraw %}>
       <span class="wa-cluster wa-gap-xs wa-flex-nowrap">
         {{ palette.name }}
-        {% raw %}{%- if not currentUser.hasPro -%}{% endraw %}{{ proBadge({ description: "This palette requires access to " ~ site.namePro }) }}{% raw %}{%- endif -%}{% endraw %}
+        {% raw %}{%- if not currentUser.can.proThemes.allowed -%}{% endraw %}{{ proBadge({ description: "This palette requires access to " ~ site.namePro }) }}{% raw %}{%- endif -%}{% endraw %}
       </span>
     </wa-tab>
     {%- endif -%}
