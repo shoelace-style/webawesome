@@ -201,7 +201,7 @@ A _family_ sets an icon's overall style; a _variant_ sets its weight. Set them w
   <wa-icon slot="icon" family="brands" name="font-awesome"></wa-icon>
   The <code>light</code> and <code>thin</code> variants, the <code>sharp</code>, <code>duotone</code>, and
   <code>sharp-duotone</code> families, and the <a href="#font-awesome-pro-icons">Pro+ packs</a> require a Font Awesome Pro
-  plan. <a href="/docs/#using-font-awesome-kit-codes">Provide a Kit code</a> to unlock them.
+  plan. <a href="/docs/#using-font-awesome-pro-and-pro">Provide a Kit code</a> to unlock them.
 </wa-callout>
 
 ### Changing the Default Family & Variant
@@ -231,7 +231,7 @@ To get the current values, you can call `getDefaultIconFamily()` and `getDefault
 <wa-callout variant="brand">
   <wa-icon slot="icon" family="brands" name="font-awesome"></wa-icon>
   Only the <code>classic</code> family's <code>solid</code> and <code>regular</code> variants are free. Every other
-  default requires a Font Awesome Pro plan and a <a href="/docs/#using-font-awesome-kit-codes">Kit code</a>. This site
+  default requires a Font Awesome Pro plan and a <a href="/docs/#using-font-awesome-pro-and-pro">Kit code</a>. This site
   uses Font Awesome Pro and sets its own default to <code>classic</code> <code>regular</code>, so icons here look
   lighter than the library's <code>solid</code> default. Use the
   <wa-tag class="tag-ui" appearance="outlined"><wa-icon name="icons"></wa-icon></wa-tag> Icon Style selector in the
@@ -849,7 +849,7 @@ Duotone icons render on two layers — a primary and a secondary — that you ca
 <wa-callout variant="brand">
   <wa-icon slot="icon" family="brands" name="font-awesome"></wa-icon>
   Duotone icons can be unlocked by
-  <a href="/docs/#using-font-awesome-kit-codes">providing a valid {{ site.siblings.fontAwesome.name }} Kit code</a>.
+  <a href="/docs/#using-font-awesome-pro-and-pro">providing a valid {{ site.siblings.fontAwesome.name }} Kit code</a>.
 </wa-callout>
 
 ### Swap Duotone Opacity
@@ -1023,7 +1023,7 @@ If you're a [Font Awesome Pro+ customer](https://fontawesome.com/), you have acc
 <wa-callout variant="brand">
   <wa-icon slot="icon" family="brands" name="font-awesome"></wa-icon>
   Pro+ icons can be unlocked by
-  <a href="/docs/#using-font-awesome-kit-codes">providing a valid {{ site.siblings.fontAwesome.name }} Kit code</a>.
+  <a href="/docs/#using-font-awesome-pro-and-pro">providing a valid {{ site.siblings.fontAwesome.name }} Kit code</a>.
 </wa-callout>
 
 ## Custom Icons
