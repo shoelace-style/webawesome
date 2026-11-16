@@ -1,4 +1,5 @@
 import { aTimeout, expect, waitUntil } from '@open-wc/testing';
+import { resetMouse } from '@web/test-runner-commands';
 import { html } from 'lit';
 import sinon from 'sinon';
 import { fixtures } from '../../internal/test/fixture.js';
@@ -6,6 +7,10 @@ import { clickOnElement, moveMouseOnElement } from '../../internal/test/pointer-
 import type WaToastItem from './toast-item.js';
 
 describe('<wa-toast-item>', () => {
+  afterEach(async () => {
+    await resetMouse();
+  });
+
   for (const fixture of fixtures) {
     describe(`with "${fixture.type}" rendering`, () => {
       describe('accessibility', () => {
