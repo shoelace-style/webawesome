@@ -217,6 +217,26 @@ describe('<wa-number-ticker>', () => {
           expect(shown(el)).to.equal('100');
         });
 
+        it('should wait until at least half of it is visible', async () => {
+          // The container clips the ticker so only a sliver of it shows.
+          const container = await fixture<HTMLDivElement>(html`
+            <div style="height: 10px; overflow: hidden">
+              <wa-number-ticker value="100" duration="50" style="display: block; height: 100px"></wa-number-ticker>
+            </div>
+          `);
+          const el = container.querySelector('wa-number-ticker')!;
+          await el.updateComplete;
+          await aTimeout(200);
+
+          expect(shown(el)).to.equal('0');
+          expect(finishHandler).to.not.have.been.called;
+
+          container.style.height = '60px';
+          await finished();
+
+          expect(shown(el)).to.equal('100');
+        });
+
         it('should count right away when eager, even if it is not visible', async () => {
           const container = await fixture<HTMLDivElement>(html`
             <div style="display: none"><wa-number-ticker value="100" duration="50" eager></wa-number-ticker></div>
@@ -259,6 +279,90 @@ describe('<wa-number-ticker>', () => {
       });
 
       describe('updating the value', () => {
+        // The shared live region outlives each test, so empty it first.
+        beforeEach(() =>
+          document.querySelectorAll('[role="log"][aria-live="polite"] > div').forEach(node => node.remove()),
+        );
+        const announcements = () =>
+          [...document.querySelectorAll('[role="log"][aria-live="polite"] > div')].map(node => node.textContent);
+
+        it('should announce a new value once it finishes counting', async () => {
+          const el = await fixture<WaNumberTicker>(
+            html`<wa-number-ticker value="100" duration="300"></wa-number-ticker>`,
+          );
+          await finished();
+
+          el.value = 2468;
+          await el.updateComplete;
+          expect(announcements()).to.deep.equal([]);
+
+          await finished(2);
+          expect(announcements()).to.deep.equal(['2,468']);
+        });
+
+        it('should not announce the first count or a restart', async () => {
+          const el = await fixture<WaNumberTicker>(
+            html`<wa-number-ticker value="1357" duration="50"></wa-number-ticker>`,
+          );
+          await finished();
+
+          el.restart();
+          await finished(2);
+
+          expect(announcements()).to.deep.equal([]);
+        });
+
+        it('should not announce a value set while the ticker is still on its start value', async () => {
+          const el = await fixture<WaNumberTicker>(html`<wa-number-ticker duration="50"></wa-number-ticker>`);
+          await finished();
+
+          el.value = 9753;
+          await finished(2);
+
+          expect(announcements()).to.deep.equal([]);
+        });
+
+        it('should announce only the last of several rapid changes', async () => {
+          const el = await fixture<WaNumberTicker>(
+            html`<wa-number-ticker value="100" duration="50"></wa-number-ticker>`,
+          );
+          await finished();
+
+          el.duration = 300;
+          for (const value of [111, 222, 333]) {
+            el.value = value;
+            await el.updateComplete;
+          }
+          await finished(2);
+          await aTimeout(100);
+
+          expect(announcements()).to.deep.equal(['333']);
+        });
+
+        it('should announce the finished value even if a wa-finish listener changes it', async () => {
+          const el = await fixture<WaNumberTicker>(
+            html`<wa-number-ticker value="100" duration="50"></wa-number-ticker>`,
+          );
+          await finished();
+
+          el.addEventListener('wa-finish', () => (el.value = 999), { once: true });
+          el.value = 2468;
+          await finished(3);
+
+          expect(announcements()).to.deep.equal(['2,468', '999']);
+        });
+
+        it('should announce right away with reduced motion', async () => {
+          stubReducedMotion(true);
+          const el = await fixture<WaNumberTicker>(html`<wa-number-ticker value="100"></wa-number-ticker>`);
+          await finished();
+
+          el.value = 4321;
+          await finished(2);
+
+          expect(announcements()).to.deep.equal(['4,321']);
+        });
+
         it('should count from the number shown to the new value', async () => {
           const el = await fixture<WaNumberTicker>(
             html`<wa-number-ticker value="100" duration="50" easing="linear"></wa-number-ticker>`,

@@ -2,6 +2,7 @@ import { html } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import { WaFinishEvent } from '../../events/finish.js';
 import { prefersReducedMotion } from '../../internal/animate.js';
+import { announce } from '../../internal/live-announcer.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import visuallyHidden from '../../styles/component/visually-hidden.styles.js';
@@ -23,7 +24,7 @@ function decimalPlaces(n: number) {
  * @summary Number tickers count up or down to a value when they scroll into view and format it with the
  *  Intl.NumberFormat API. Use them for dashboard stats, landing page metrics, and running totals.
  * @documentation https://webawesome.com/docs/components/number-ticker
- * @status stable
+ * @status experimental
  * @since 3.15
  *
  * @event wa-finish - Emitted when the ticker finishes counting.
@@ -41,6 +42,8 @@ export default class WaNumberTicker extends WebAwesomeElement {
   private isPending = true;
   private animation?: Animation;
   private frame = 0;
+  /** Set once the ticker settles on a counted value. Later changes are announced. */
+  private hasCounted = false;
 
   /** The number currently shown. Null until counting begins, so the start value shows instead. */
   @state() private displayValue: number | null = null;
@@ -110,10 +113,15 @@ export default class WaNumberTicker extends WebAwesomeElement {
 
   connectedCallback() {
     super.connectedCallback();
-    this.observer = new IntersectionObserver(entries => {
-      this.isIntersecting = entries[entries.length - 1].isIntersecting;
-      if (this.isIntersecting && this.isPending) this.start();
-    });
+    // Wait until half the ticker is visible so people scrolling to it see the count.
+    this.observer = new IntersectionObserver(
+      entries => {
+        const entry = entries[entries.length - 1];
+        this.isIntersecting = entry.intersectionRatio >= 0.5;
+        if (this.isIntersecting && this.isPending) this.start();
+      },
+      { threshold: 0.5 },
+    );
     this.observer.observe(this);
     // An eager ticker that was interrupted resumes without waiting to be seen.
     if (this.eager && this.isPending && this.hasUpdated) this.start();
@@ -141,6 +149,7 @@ export default class WaNumberTicker extends WebAwesomeElement {
   /** Plays the ticker again from `startValue` to `value`. */
   restart() {
     this.stop();
+    this.hasCounted = false;
     this.displayValue = null;
     this.requestRun();
   }
@@ -197,6 +206,13 @@ export default class WaNumberTicker extends WebAwesomeElement {
     await this.updateComplete;
     // Skip the event if a newer run started while rendering.
     if (this.animation || this.isPending) return;
+
+    // Announce before the event so a listener that changes the value can't change what's announced. A live region in
+    // the shadow root isn't reliably announced, so use the shared light DOM one.
+    if (this.hasCounted) announce(this.format(this.value));
+    // A ticker still on its start value hasn't had its first real count.
+    if (this.value !== this.startValue) this.hasCounted = true;
+
     this.dispatchEvent(new WaFinishEvent());
   }
 

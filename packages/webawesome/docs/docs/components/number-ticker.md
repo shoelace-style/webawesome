@@ -33,7 +33,7 @@ use-cases:
 </script>
 ```
 
-Screen readers announce the final value, but not the numbers in between. For a number that doesn't need to count, use [format number](/docs/components/format-number) instead.
+Screen readers read the final value, but not the numbers in between. For a number that doesn't need to count, use [format number](/docs/components/format-number) instead.
 
 :::info
 <strong>Tickers respect the user's [reduced motion](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-reduced-motion) preference.</strong><br />
@@ -137,7 +137,7 @@ Tickers keep as many decimal places as the `value` and `start-value` attributes 
 ```html {.example}
 <div id="number-ticker-decimals" class="wa-stack wa-align-items-start">
   <p>Default: <wa-number-ticker value="99.5"></wa-number-ticker></p>
-  <p>Two places: <wa-number-ticker value="99.5" maximum-fraction-digits="2"></wa-number-ticker></p>
+  <p>Always two places: <wa-number-ticker value="99.5" maximum-fraction-digits="2"></wa-number-ticker></p>
 
   <wa-divider class="wa-align-self-stretch"></wa-divider>
 
@@ -200,7 +200,7 @@ Use the `lang` attribute to set the number formatting locale. Localization is ha
 
 ### Starting When in View
 
-Tickers wait until they scroll into view before they start counting. A ticker inside a hidden container, such as closed [details](/docs/components/details), starts when it's shown. Use the `eager` attribute to start counting right away instead. Call the `restart()` method to play a ticker again.
+Tickers wait until they're at least halfway into view before they start counting. A ticker inside a hidden container, such as closed [details](/docs/components/details), starts when it's shown. Use the `eager` attribute to start counting right away instead. Call the `restart()` method to play a ticker again.
 
 Open both panels. The first ticker counts as it opens. The second is `eager`, so it finished while it was closed.
 
@@ -318,7 +318,7 @@ A prefix or suffix doesn't need a formatter. Place the text next to the ticker i
 
 ### Updating the Value
 
-Change the `value` attribute to count from the number currently shown to the new one. Screen readers don't announce the change. Add a live region if they should.
+Change the `value` attribute to count from the number currently shown to the new one. Screen readers announce the new value once it finishes counting.
 
 ```html {.example}
 <div id="number-ticker-update" class="wa-stack wa-align-items-start">
