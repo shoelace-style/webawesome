@@ -183,7 +183,7 @@ Use the `lang` attribute to set the number formatting locale. Localization is ha
 
 ### Starting When in View
 
-By design, tickers wait until they scroll into view before they start counting. A ticker inside a hidden container, such as closed [details](/docs/components/details), starts when it's shown. Use the `restart()` method to play it again.
+Tickers wait until they scroll into view before they start counting. A ticker inside a hidden container, such as closed [details](/docs/components/details), starts when it's shown. Use the `eager` attribute to start counting right away instead, and the `restart()` method to play a ticker again.
 
 ```html {.example}
 <wa-details summary="New Members This Month">

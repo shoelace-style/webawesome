@@ -66,6 +66,9 @@ export default class WaNumberTicker extends WebAwesomeElement {
    */
   @property() easing = DEFAULT_EASING;
 
+  /** Starts counting right away instead of waiting until the ticker scrolls into view. */
+  @property({ type: Boolean }) eager = false;
+
   /** The formatting style to use. */
   @property() type: 'currency' | 'decimal' | 'percent' = 'decimal';
 
@@ -112,6 +115,8 @@ export default class WaNumberTicker extends WebAwesomeElement {
       if (this.isIntersecting && this.isPending) this.start();
     });
     this.observer.observe(this);
+    // An eager ticker that was interrupted resumes without waiting to be seen.
+    if (this.eager && this.isPending && this.hasUpdated) this.start();
   }
 
   disconnectedCallback() {
@@ -128,6 +133,11 @@ export default class WaNumberTicker extends WebAwesomeElement {
     this.requestRun();
   }
 
+  @watch('eager', { waitUntilFirstUpdate: true })
+  handleEagerChange() {
+    if (this.eager && this.isPending) this.start();
+  }
+
   /** Plays the ticker again from `startValue` to `value`. */
   restart() {
     this.stop();
@@ -138,7 +148,7 @@ export default class WaNumberTicker extends WebAwesomeElement {
   private requestRun() {
     this.isPending = true;
     // A run in progress picks up the new value even when offscreen.
-    if (this.isIntersecting || this.animation) this.start();
+    if (this.eager || this.isIntersecting || this.animation) this.start();
   }
 
   private start() {

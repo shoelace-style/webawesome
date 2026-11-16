@@ -90,6 +90,7 @@ describe('<wa-number-ticker>', () => {
           expect(el.duration).to.equal(2000);
           expect(el.delay).to.equal(0);
           expect(el.easing).to.equal('cubic-bezier(0.16, 1, 0.3, 1)');
+          expect(el.eager).to.be.false;
           expect(el.type).to.equal('decimal');
           expect(el.withoutGrouping).to.be.false;
           expect(el.currency).to.equal('USD');
@@ -211,6 +212,31 @@ describe('<wa-number-ticker>', () => {
           expect(finishHandler).to.not.have.been.called;
 
           container.style.display = '';
+          await finished();
+
+          expect(shown(el)).to.equal('100');
+        });
+
+        it('should count right away when eager, even if it is not visible', async () => {
+          const container = await fixture<HTMLDivElement>(html`
+            <div style="display: none"><wa-number-ticker value="100" duration="50" eager></wa-number-ticker></div>
+          `);
+          const el = container.querySelector('wa-number-ticker')!;
+          await finished();
+
+          expect(shown(el)).to.equal('100');
+        });
+
+        it('should start a waiting ticker when eager is set', async () => {
+          const container = await fixture<HTMLDivElement>(html`
+            <div style="display: none"><wa-number-ticker value="100" duration="50"></wa-number-ticker></div>
+          `);
+          const el = container.querySelector('wa-number-ticker')!;
+          await el.updateComplete;
+          await aTimeout(100);
+          expect(finishHandler).to.not.have.been.called;
+
+          el.eager = true;
           await finished();
 
           expect(shown(el)).to.equal('100');
