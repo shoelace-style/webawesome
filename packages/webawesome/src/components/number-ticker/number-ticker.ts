@@ -20,8 +20,8 @@ function decimalPlaces(n: number) {
 }
 
 /**
- * @summary Number tickers count up or down to a value when they scroll into view, formatted with the Intl.NumberFormat
- *  API. Use them for dashboard stats, landing page metrics, and running totals.
+ * @summary Number tickers count up or down to a value when they scroll into view and format it with the
+ *  Intl.NumberFormat API. Use them for dashboard stats, landing page metrics, and running totals.
  * @documentation https://webawesome.com/docs/components/number-ticker
  * @status stable
  * @since 3.15
