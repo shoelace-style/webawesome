@@ -1,6 +1,7 @@
 ---
 title: Build Awesome (11ty)
 description: Tips for using Web Awesome in your Build Awesome (11ty) app.
+ogDescription: "Add Web Awesome to a Build Awesome (11ty) site, server-side rendering included."
 layout: framework
 officialDocs: https://www.11ty.dev
 ---

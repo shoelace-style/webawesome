@@ -1,6 +1,7 @@
 ---
 title: Form Controls
 description: Using Web Awesome form controls.
+ogDescription: "How form controls validate, from required fields to your own error messages."
 layout: page-outline
 synonyms:
   - forms

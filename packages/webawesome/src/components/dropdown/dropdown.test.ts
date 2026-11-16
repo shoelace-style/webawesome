@@ -2,8 +2,10 @@ import { aTimeout, expect, nextFrame, oneEvent, waitUntil } from '@open-wc/testi
 import { sendKeys, sendMouse, setViewport } from '@web/test-runner-commands';
 import { html } from 'lit';
 import sinon from 'sinon';
+import { getDeepestActiveElement } from '../../internal/active-elements.js';
 import { expectEvent } from '../../internal/test/expect-event.js';
 import { clientFixture, fixtures } from '../../internal/test/fixture.js';
+import { clickOnElement } from '../../internal/test/pointer-utilities.js';
 import type WaDropdownItem from '../dropdown-item/dropdown-item.js';
 import type WaDropdown from './dropdown.js';
 
@@ -307,6 +309,31 @@ describe('<wa-dropdown>', () => {
           expect(el.open).to.be.true;
         });
 
+        it('should not navigate when click is prevented on a link item', async () => {
+          const el = await fixture<WaDropdown>(html`
+            <wa-dropdown open>
+              <wa-button slot="trigger">Dropdown</wa-button>
+              <wa-dropdown-item value="about" href="/about">About</wa-dropdown-item>
+            </wa-dropdown>
+          `);
+          await el.updateComplete;
+          await aTimeout(200);
+
+          const documentClickHandler = (event: MouseEvent) => event.preventDefault();
+          document.addEventListener('click', documentClickHandler, { once: true });
+
+          const item = el.querySelector<HTMLElement>('wa-dropdown-item')!;
+          const link = item.shadowRoot!.querySelector<HTMLAnchorElement>('#link')!;
+          const clickHandler = sinon.spy((event: MouseEvent) => event.preventDefault());
+          link.addEventListener('click', clickHandler);
+
+          await clickOnElement(item);
+          await aTimeout(200);
+
+          expect(clickHandler).to.not.have.been.called;
+          expect(el.open).to.be.false;
+        });
+
         it('should not navigate when a disabled link item is clicked', async () => {
           const el = await fixture<WaDropdown>(html`
             <wa-dropdown open>
@@ -451,14 +478,21 @@ describe('<wa-dropdown>', () => {
           `);
 
           const trigger = el.querySelector<HTMLElement>('[slot="trigger"]')!;
+          const firstItem = el.querySelector('wa-dropdown-item')!;
+          el.style.setProperty('--hide-duration', '100ms');
           trigger.click();
           await waitUntil(() => el.open);
           await aTimeout(200);
 
+          const afterHide = new Promise(resolve => el.addEventListener('wa-after-hide', resolve, { once: true }));
           await sendKeys({ press: 'Escape' });
-          await waitUntil(() => !el.open);
+          await aTimeout(50);
 
+          expect(getDeepestActiveElement()).to.equal(firstItem);
+
+          await afterHide;
           expect(el.open).to.be.false;
+          expect(getDeepestActiveElement()).to.equal(trigger.shadowRoot!.querySelector('[part~="base"]'));
         });
 
         it('should navigate items with ArrowDown', async () => {

@@ -295,6 +295,13 @@ export default class WaInput extends WebAwesomeFormAssociatedElement {
       this.customStates.set('blank', !this.value);
       this.updateValidity();
     }
+
+    // setValidity() calls requestUpdate('validity')
+    // Skip re-validation, otherwise we loop forever
+    const onlyValidityChanged = changedProperties.size === 1 && changedProperties.has('validity');
+    if (!onlyValidityChanged) {
+      this.updateValidity();
+    }
   }
 
   @watch('step', { waitUntilFirstUpdate: true })

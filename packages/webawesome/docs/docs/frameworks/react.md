@@ -1,6 +1,7 @@
 ---
 title: React
 description: Tips for using Web Awesome in your React app.
+ogDescription: "Install Web Awesome in React, then sort out TypeScript types, events, and Jest."
 layout: framework
 officialDocs: https://react.dev
 ---
