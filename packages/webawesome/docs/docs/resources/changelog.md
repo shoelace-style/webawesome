@@ -39,6 +39,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
   - Added the `--wa-color-overlay-media` token for its backdrop
 - Added the experimental `<wa-code-highlighter>` component for displaying syntax-highlighted code with a copy button
   - Added `registerCodeGrammar()` for adding or replacing grammars
+- Added the `<wa-number-ticker>` component for animating a number as it counts up or down to a value
 - Added the ability to change the default icon family and variant for all icons [pr:2978]
   - Added the `data-fa-family` and `data-fa-variant` attributes
   - Added an optional `variant` argument to `setDefaultIconFamily()`
