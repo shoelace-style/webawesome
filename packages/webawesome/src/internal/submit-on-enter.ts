@@ -29,6 +29,7 @@ const submittableTags = new Map([
   ['wa-input', true],
   ['wa-tag-input', true],
   ['wa-number-input', true],
+  ['wa-duration-input', true],
   ['wa-otp-input', true],
   ['wa-slider', true],
 ]);
