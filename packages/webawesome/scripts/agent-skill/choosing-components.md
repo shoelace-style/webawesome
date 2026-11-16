@@ -15,7 +15,7 @@ The major decisions:
 - **Trigger an action** — button, copy button, dropdown menu, button group, tabs
 - **Show feedback or status** — callout, toast, badge, spinner, progress, skeleton, tooltip, popover
 - **Capture input** — input, number input, textarea, date/time inputs, OTP input, file input (Pro)
-- **Show data** — format helpers, relative time, QR code, comparison, carousel, avatar, data grid (Pro), charts (Pro)
+- **Show data** — format helpers, relative time, counter, QR code, comparison, carousel, avatar, data grid (Pro), charts (Pro)
 - **Navigate or organize** — page, breadcrumb, tabs, accordion, details, tree, pagination, split panel, divider, card, tag, badge
 - **Overlay or float** — dialog, drawer, tooltip, popover, dropdown
 
@@ -144,6 +144,7 @@ Read-only data display.
 | Format a date with locale-aware rules                         | `<wa-format-date>`                                                                       |
 | Format a byte count                                           | `<wa-format-bytes>`                                                                      |
 | Show a time as "5 minutes ago" (relative, live)               | `<wa-relative-time>`                                                                     |
+| A live countdown to a date, or time elapsed since one         | `<wa-counter>`                                                                           |
 | A QR code                                                     | `<wa-qr-code>`                                                                           |
 | Side-by-side image comparison                                 | `<wa-comparison>`                                                                        |
 | A carousel / slideshow                                        | `<wa-carousel>` with `<wa-carousel-item>`                                                |
