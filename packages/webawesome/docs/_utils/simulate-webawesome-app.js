@@ -36,10 +36,18 @@ export function SimulateWebAwesomeApp(str, context = {}) {
     currentUser: {
       plan: 'free',
       can: Object.fromEntries(
-        ['proBundle', 'proPatterns', 'figma', 'proThemes', 'perpetualLicense', 'create'].map(action => [
-          action,
-          { allowed: false, reason: 'plan' },
-        ]),
+        [
+          'manageSeats',
+          'downloadFromFigma',
+          'accessCreate',
+          'makePrivateCreations',
+          'accessProCDN',
+          'accessProThemes',
+          'accessProPatterns',
+          'downloadFromNpm',
+          'downloadPerpetualLicense',
+          'createUnlimitedProjects',
+        ].map(action => [action, { allowed: false, reason: 'plan' }]),
       ),
     },
     server: {
