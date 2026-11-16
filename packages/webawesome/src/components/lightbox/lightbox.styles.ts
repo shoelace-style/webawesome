@@ -3,8 +3,8 @@ import { css } from 'lit';
 export default css`
   @layer wa-component {
     :host {
-      --backdrop-color: color-mix(in oklab, black 95%, transparent);
-      --backdrop-filter: none;
+      --backdrop-color: var(--wa-color-overlay-media, color-mix(in oklab, black 90%, transparent));
+      --backdrop-filter: blur(1rem);
       --media-border-radius: 0px;
       --controls-color: var(--wa-color-neutral-95);
       --controls-background: rgb(0 0 0 / 0.5);
@@ -66,7 +66,7 @@ export default css`
       }
 
       &.has-captions {
-        --caption-space: calc(3rem + var(--spacing));
+        --caption-space: calc(3 * var(--wa-font-size-m) * var(--wa-line-height-condensed) + var(--spacing));
       }
 
       &.has-thumbnails {
@@ -84,7 +84,7 @@ export default css`
     /* These follow the finger during a pull, then ease back. */
     .backdrop,
     .chrome {
-      transition: opacity var(--wa-transition-normal) ease;
+      transition: opacity var(--wa-transition-normal) var(--wa-transition-easing);
     }
 
     .pulling :is(.backdrop, .chrome) {
@@ -96,7 +96,7 @@ export default css`
       opacity: 0;
       visibility: hidden;
       transition:
-        opacity var(--wa-transition-normal) ease,
+        opacity var(--wa-transition-normal) var(--wa-transition-easing),
         visibility 0s var(--wa-transition-normal);
     }
 
@@ -186,7 +186,7 @@ export default css`
         position: relative;
         z-index: 1;
         opacity: 0;
-        transition: opacity var(--wa-transition-normal) ease;
+        transition: opacity var(--wa-transition-normal) var(--wa-transition-easing);
         user-select: none;
         -webkit-user-drag: none;
 
@@ -257,7 +257,7 @@ export default css`
       align-items: center;
       justify-content: center;
       gap: var(--wa-space-xs);
-      background: rgb(0 0 0 / 0.6);
+      background: var(--controls-background);
       font-size: var(--wa-font-size-s);
 
       & wa-icon {
@@ -314,7 +314,7 @@ export default css`
       border-radius: var(--wa-border-radius-pill);
       background: var(--control-fill);
       font-size: var(--wa-font-size-s);
-      transition: background var(--wa-transition-fast) ease;
+      transition: background var(--wa-transition-fast) var(--wa-transition-easing);
       font-variant-numeric: tabular-nums;
       unicode-bidi: isolate;
     }
@@ -382,26 +382,25 @@ export default css`
       color: inherit;
       font: inherit;
       cursor: pointer;
-      transition: background var(--wa-transition-fast) ease;
+      transition: background var(--wa-transition-fast) var(--wa-transition-easing);
       -webkit-tap-highlight-color: transparent;
 
       /* The hover tint goes over the backing, so the icon keeps its contrast with the media behind it. */
-      &:hover {
-        background: color-mix(in oklab, var(--controls-color) 20%, var(--control-fill));
+      @media (hover: hover) {
+        &:not([aria-disabled='true']):hover {
+          background: color-mix(in oklab, var(--controls-color) 20%, var(--control-fill));
+        }
       }
 
       &[aria-disabled='true'] {
-        opacity: 0.4;
+        opacity: 0.5;
         cursor: default;
-
-        &:hover {
-          background: var(--control-fill);
-        }
       }
     }
 
     /* A two-tone ring stays visible over light and dark images. */
-    :is(.control, .thumbnail):focus-visible {
+    :is(.control, .thumbnail):focus-visible,
+    ::slotted(:is(button, a)[slot='actions']:focus-visible) {
       outline: solid 2px var(--controls-color);
       outline-offset: 2px;
       box-shadow: 0 0 0 4px black;
@@ -449,12 +448,10 @@ export default css`
       margin-inline: var(--spacing);
       background: var(--navigation-fill);
 
-      &:hover {
-        background: color-mix(in oklab, var(--controls-color) 20%, var(--navigation-fill));
-      }
-
-      &[aria-disabled='true']:hover {
-        background: var(--navigation-fill);
+      @media (hover: hover) {
+        &:not([aria-disabled='true']):hover {
+          background: color-mix(in oklab, var(--controls-color) 20%, var(--navigation-fill));
+        }
       }
 
       &.previous {
@@ -476,19 +473,24 @@ export default css`
       padding: var(--spacing);
     }
 
+    /* Longer captions are cut to the three lines reserved for them, so the media never resizes between slides. */
     .caption {
+      display: -webkit-box;
       max-width: 70ch;
+      overflow: hidden;
       font-size: var(--wa-font-size-m);
       line-height: var(--wa-line-height-condensed);
       text-align: center;
       text-wrap: balance;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
     }
 
     /* Hidden while zoomed, where they would be unreadable over the image. */
     .caption,
     .thumbnails {
       transition:
-        opacity var(--wa-transition-normal) ease,
+        opacity var(--wa-transition-normal) var(--wa-transition-easing),
         visibility 0s;
     }
 
@@ -496,7 +498,7 @@ export default css`
       opacity: 0;
       visibility: hidden;
       transition:
-        opacity var(--wa-transition-normal) ease,
+        opacity var(--wa-transition-normal) var(--wa-transition-easing),
         visibility 0s var(--wa-transition-normal);
     }
 
@@ -541,11 +543,13 @@ export default css`
         height: 100%;
         object-fit: cover;
         opacity: 0.5;
-        transition: opacity var(--wa-transition-fast) ease;
+        transition: opacity var(--wa-transition-fast) var(--wa-transition-easing);
       }
 
-      &:hover img {
-        opacity: 0.8;
+      @media (hover: hover) {
+        &:hover img {
+          opacity: 0.8;
+        }
       }
 
       &[aria-selected='true'] {

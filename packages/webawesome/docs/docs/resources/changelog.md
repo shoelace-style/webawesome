@@ -36,6 +36,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Added the experimental `<wa-rich-text-editor>` pro component for writing and formatting content, with HTML or Markdown values that submit with forms
 - Added the experimental `<wa-lightbox>` component for viewing images and videos full screen with swiping, zooming, and thumbnails
   - Added `<wa-lightbox-item>` for the items it shows
+  - Added the `--wa-color-overlay-media` token for its backdrop
 - Added the experimental `<wa-code-highlighter>` component for displaying syntax-highlighted code with a copy button
   - Added `registerCodeGrammar()` for adding or replacing grammars
 - Added the ability to change the default icon family and variant for all icons [pr:2978]
