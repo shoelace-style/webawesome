@@ -6,6 +6,7 @@ export default css`
       display: inline-block;
       position: relative;
       font-variant-numeric: tabular-nums;
+      white-space: nowrap;
     }
 
     /* Only the final value copies while counting. */
