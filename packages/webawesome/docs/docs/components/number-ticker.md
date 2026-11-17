@@ -219,6 +219,8 @@ Open both panels. The first ticker counts as it opens. The second is `eager`, so
 
 Style a ticker with regular CSS. The `<wa-number-ticker>` element holds the text itself, so `color`, `font-size`, and `font-weight` go right on it. Tickers use tabular figures so digits don't shift as they change.
 
+While a ticker counts, it has the `counting` custom state, so `wa-number-ticker:state(counting)` targets it. This example dims each number until it finishes counting.
+
 ```html {.example}
 <div id="number-ticker-customizing" class="wa-stack wa-align-items-start">
   <div class="wa-cluster wa-gap-2xl">
@@ -246,6 +248,11 @@ Style a ticker with regular CSS. The `<wa-number-ticker>` element holds the text
     font-size: var(--wa-font-size-3xl);
     font-weight: var(--wa-font-weight-bold);
     line-height: var(--wa-line-height-condensed);
+    transition: opacity var(--wa-transition-normal) var(--wa-transition-easing);
+
+    &:state(counting) {
+      opacity: 0.7;
+    }
 
     &.brand {
       color: var(--wa-color-brand-on-quiet);

@@ -183,6 +183,19 @@ describe('<wa-number-ticker>', () => {
           expect(shown(el)).to.equal('100');
         });
 
+        it('should match :state(counting) only while counting', async () => {
+          const el = await fixture<WaNumberTicker>(
+            html`<wa-number-ticker value="100" duration="60000"></wa-number-ticker>`,
+          );
+          await waitUntil(() => el.matches(':state(counting)'), 'never entered the counting state');
+
+          el.duration = 50;
+          el.restart();
+          await finished();
+
+          expect(el.matches(':state(counting)')).to.be.false;
+        });
+
         it('should never show negative zero', async () => {
           const el = await fixture<WaNumberTicker>(
             html`<wa-number-ticker start-value="-3" value="0" duration="300" easing="linear"></wa-number-ticker>`,

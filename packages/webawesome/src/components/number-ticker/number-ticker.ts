@@ -29,6 +29,8 @@ function decimalPlaces(n: number) {
  *
  * @event wa-finish - Emitted when the ticker finishes counting.
  *
+ * @cssstate counting - Applied while the number is counting.
+ *
  * @ssr - `<wa-number-ticker>` renders its start value during SSR, but won't start counting until it hydrates on the
  *  client and scrolls into view.
  */
@@ -192,6 +194,7 @@ export default class WaNumberTicker extends WebAwesomeElement {
       }
       // Leave displayValue null during the delay so a run that's interrupted then keeps its delay.
       if (Number(animation.currentTime) >= delay) {
+        this.customStates.set('counting', true);
         const progress = animation.effect?.getComputedTiming().progress ?? 0;
         this.displayValue = from + (to - from) * progress;
       }
@@ -218,6 +221,7 @@ export default class WaNumberTicker extends WebAwesomeElement {
 
   private stop() {
     cancelAnimationFrame(this.frame);
+    this.customStates.set('counting', false);
     this.animation?.cancel();
     this.animation = undefined;
   }
