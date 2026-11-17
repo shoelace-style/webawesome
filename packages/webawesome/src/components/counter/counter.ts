@@ -86,8 +86,9 @@ export default class WaCounter extends WebAwesomeElement {
   @property() label = '';
 
   /**
-   * The largest unit to show. Time beyond it rolls up into it, so two days show as 48 hours when this is `hours`. Falls
-   * back to the default range when either unit is invalid or the smallest unit is larger than the largest.
+   * The largest unit to show. Time beyond it rolls up into it, so two days show as 48 hours when this is `hours`. Units
+   * at zero ahead of the first non-zero unit are hidden unless `without-labels` is set. Falls back to the default range
+   * when either unit is invalid or the smallest unit is larger than the largest.
    */
   @property({ attribute: 'largest-unit' }) largestUnit: CounterUnit = 'days';
 
@@ -254,13 +255,18 @@ export default class WaCounter extends WebAwesomeElement {
     const units = this.getUnits();
     // Skip leading zero units, but keep the smallest unit when everything is zero
     const firstNonZero = units.findIndex(unit => this.values[unit]);
-    const phrase = units
-      .slice(firstNonZero < 0 ? -1 : firstNonZero)
+    const spokenUnits = units.slice(firstNonZero < 0 ? -1 : firstNonZero);
+    const phrase = spokenUnits
       .map(unit => getUnitFormatter(lang, unit, 'long').format(this.values[unit] ?? 0))
       .join(' ');
 
+    // Clock-style counters keep every unit so the digits hold their place. So does a counter with no time to show,
+    // which keeps the server render and an empty counter the same size as a running one.
+    const hasValues = Object.keys(this.values).length > 0;
+    const shownUnits = this.withoutLabels || !hasValues ? units : spokenUnits;
+
     // No whitespace between elements so the template is safe inside white-space: pre
-    const unitTemplates = units.map((unit, index) => {
+    const unitTemplates = shownUnits.map((unit, index) => {
       const value = this.values[unit] ?? 0;
       const label = this.getLabel(lang, value, unit);
       // The widest plural form reserves space so the unit doesn't resize when its label changes

@@ -23,6 +23,11 @@ function getValues(el: WaCounter) {
   return [...el.shadowRoot!.querySelectorAll('[part~="value"]')].map(value => value.textContent);
 }
 
+// Leading zero units are hidden, so values are read by unit instead of by position
+function getValue(el: WaCounter, unit: string) {
+  return el.shadowRoot!.querySelector(`[part~="unit"]:has(slot[name="${unit}"]) [part~="value"]`)?.textContent;
+}
+
 // Reads the visible default label, not the hidden sizer
 function getLabelText(container: Element) {
   return container.querySelector('.default-label > :first-child')!.textContent;
@@ -164,6 +169,40 @@ describe('<wa-counter>', () => {
           expect(getValues(el)).to.deep.equal(['51', '30']);
         });
 
+        it('hides zero units ahead of the first non-zero unit and keeps inner zeros', async () => {
+          const date = ago(3 * hour + 9 * second);
+          const el = await createCounter(html`<wa-counter direction="up" date=${date} paused></wa-counter>`);
+
+          expect(getUnits(el)).to.deep.equal(['hours', 'minutes', 'seconds']);
+          expect(getValues(el)).to.deep.equal(['03', '00', '09']);
+
+          el.date = ago(2 * day);
+          await el.updateComplete;
+          expect(getUnits(el)).to.deep.equal(['days', 'hours', 'minutes', 'seconds']);
+        });
+
+        it('keeps leading zero units without labels', async () => {
+          const date = ago(3 * hour + 9 * second);
+          const el = await createCounter(
+            html`<wa-counter direction="up" date=${date} paused without-labels delimiter=":"></wa-counter>`,
+          );
+
+          expect(getValues(el)).to.deep.equal(['00', '03', '00', '09']);
+          expect(el.shadowRoot!.querySelectorAll('[part~="delimiter"]')).to.have.lengthOf(3);
+        });
+
+        it('shows one fewer delimiter than units when leading zero units are hidden', async () => {
+          const date = ago(3 * hour + 9 * second);
+          const el = await createCounter(
+            html`<wa-counter direction="up" date=${date} paused delimiter="·"></wa-counter>`,
+          );
+
+          expect(getUnits(el)).to.deep.equal(['hours', 'minutes', 'seconds']);
+          expect(el.shadowRoot!.querySelectorAll('[part~="delimiter"]')).to.have.lengthOf(2);
+          expect(el.shadowRoot!.querySelector('[part~="delimiter"]')!.previousElementSibling!.matches('.unit')).to.be
+            .true;
+        });
+
         it('falls back to the default range for an invalid unit', async () => {
           const el = await createCounter(html`<wa-counter largest-unit="weeks"></wa-counter>`);
           expect(getUnits(el)).to.deep.equal(['days', 'hours', 'minutes', 'seconds']);
@@ -188,14 +227,14 @@ describe('<wa-counter>', () => {
           const el = await createCounter(
             html`<wa-counter date=${new Date(Date.now() + 1200).toISOString()}></wa-counter>`,
           );
-          expect(Number(getValues(el)[3])).to.be.greaterThan(0);
+          expect(Number(getValue(el, 'seconds'))).to.be.greaterThan(0);
 
-          // The zeros are already rendered when the event is emitted
+          // The zero is already rendered when the event is emitted
           let valuesAtFinish: (string | null)[] = [];
           el.addEventListener('wa-finish', () => (valuesAtFinish = getValues(el)), { once: true });
           await oneEvent(el, 'wa-finish');
 
-          expect(valuesAtFinish).to.deep.equal(['00', '00', '00', '00']);
+          expect(valuesAtFinish).to.deep.equal(['00']);
           expect(el.customStates.has('finished')).to.be.true;
 
           // Re-rendering after the finish doesn't emit again
@@ -210,14 +249,14 @@ describe('<wa-counter>', () => {
             html`<wa-counter smallest-unit="minutes" date=${new Date(Date.now() + 20_000).toISOString()}></wa-counter>`,
           );
 
-          expect(getValues(el)).to.deep.equal(['00', '00', '01']);
+          expect(getValues(el)).to.deep.equal(['01']);
           expect(el.customStates.has('finished')).to.be.false;
         });
 
-        it('shows zeros and the finished state without emitting for a date in the past', async () => {
+        it('shows zero and the finished state without emitting for a date in the past', async () => {
           const el = await createCounter(html`<wa-counter date=${ago(day)}></wa-counter>`);
 
-          expect(getValues(el)).to.deep.equal(['00', '00', '00', '00']);
+          expect(getValues(el)).to.deep.equal(['00']);
           expect(el.customStates.has('finished')).to.be.true;
           expect(finishSpy.called).to.be.false;
         });
@@ -229,10 +268,10 @@ describe('<wa-counter>', () => {
           el.date = new Date(Date.now() + hour + 10 * second);
           await el.updateComplete;
           expect(el.customStates.has('finished')).to.be.false;
-          expect(getValues(el)[1]).to.equal('01');
+          expect(getValue(el, 'hours')).to.equal('01');
 
-          const seconds = getValues(el)[3];
-          await waitUntil(() => getValues(el)[3] !== seconds, 'The counter did not tick', { timeout: 1500 });
+          const seconds = getValue(el, 'seconds');
+          await waitUntil(() => getValue(el, 'seconds') !== seconds, 'The counter did not tick', { timeout: 1500 });
           expect(finishSpy.called).to.be.false;
         });
       });
@@ -244,21 +283,21 @@ describe('<wa-counter>', () => {
 
           expect(getValues(el)).to.deep.equal(['01', '02', '03', '04']);
 
-          await waitUntil(() => getValues(el)[3] === '05', 'The counter did not tick', { timeout: 1500 });
+          await waitUntil(() => getValue(el, 'seconds') === '05', 'The counter did not tick', { timeout: 1500 });
           expect(el.customStates.has('finished')).to.be.false;
         });
 
         it('counts up from the moment it starts without a date', async () => {
           const el = await createCounter(html`<wa-counter direction="up"></wa-counter>`);
 
-          expect(getValues(el)).to.deep.equal(['00', '00', '00', '00']);
-          await waitUntil(() => getValues(el)[3] === '01', 'The counter did not tick', { timeout: 1500 });
+          expect(getValues(el)).to.deep.equal(['00']);
+          await waitUntil(() => getValue(el, 'seconds') === '01', 'The counter did not tick', { timeout: 1500 });
         });
 
-        it('shows zeros until a future date passes', async () => {
+        it('shows zero until a future date passes', async () => {
           const el = await createCounter(html`<wa-counter direction="up" date=${fromNow(hour)}></wa-counter>`);
 
-          expect(getValues(el)).to.deep.equal(['00', '00', '00', '00']);
+          expect(getValues(el)).to.deep.equal(['00']);
           expect(el.customStates.has('finished')).to.be.false;
         });
       });
@@ -274,20 +313,20 @@ describe('<wa-counter>', () => {
       describe('paused', () => {
         it('freezes the display and resumes from the time shown', async () => {
           const el = await createCounter(html`<wa-counter direction="up" date=${ago(5 * second)} paused></wa-counter>`);
-          expect(getValues(el)[3]).to.equal('05');
+          expect(getValue(el, 'seconds')).to.equal('05');
 
           await aTimeout(1100);
-          expect(getValues(el)[3]).to.equal('05');
+          expect(getValue(el, 'seconds')).to.equal('05');
 
           el.paused = false;
           await el.updateComplete;
-          expect(getValues(el)[3]).to.equal('05');
-          await waitUntil(() => getValues(el)[3] === '06', 'The counter did not resume', { timeout: 1200 });
+          expect(getValue(el, 'seconds')).to.equal('05');
+          await waitUntil(() => getValue(el, 'seconds') === '06', 'The counter did not resume', { timeout: 1200 });
 
           // Setting the date clears the time spent paused
           el.date = ago(minute);
           await el.updateComplete;
-          expect(getValues(el).slice(2)).to.deep.equal(['01', '00']);
+          expect(getValues(el)).to.deep.equal(['01', '00']);
         });
       });
 
@@ -344,13 +383,13 @@ describe('<wa-counter>', () => {
           const el = await createCounter(
             html`<wa-counter lang="en" direction="up" date=${ago(second)} paused></wa-counter>`,
           );
-          const unit = el.shadowRoot!.querySelectorAll('[part~="unit"]')[3];
-          expect(getLabels(el)[3]).to.equal('second');
+          const unit = el.shadowRoot!.querySelector('[part~="unit"]:has(slot[name="seconds"])')!;
+          expect(getLabels(el)).to.deep.equal(['second']);
           const singularWidth = unit.getBoundingClientRect().width;
 
           el.date = ago(2 * second);
           await el.updateComplete;
-          expect(getLabels(el)[3]).to.equal('seconds');
+          expect(getLabels(el)).to.deep.equal(['seconds']);
           expect(unit.getBoundingClientRect().width).to.equal(singularWidth);
         });
 
@@ -442,16 +481,16 @@ describe('<wa-counter>', () => {
         it('keeps counting while detached and stops its timer until reattached', async () => {
           const el = await createCounter(html`<wa-counter direction="up"></wa-counter>`);
           const parent = el.parentElement!;
-          expect(getValues(el)[3]).to.equal('00');
+          expect(getValue(el, 'seconds')).to.equal('00');
 
           el.remove();
           await aTimeout(1100);
-          expect(getValues(el)[3]).to.equal('00');
+          expect(getValue(el, 'seconds')).to.equal('00');
 
           parent.append(el);
           await el.updateComplete;
-          expect(getValues(el)[3]).to.equal('01');
-          await waitUntil(() => getValues(el)[3] === '02', 'The counter did not resume', { timeout: 1200 });
+          expect(getValue(el, 'seconds')).to.equal('01');
+          await waitUntil(() => getValue(el, 'seconds') === '02', 'The counter did not resume', { timeout: 1200 });
         });
       });
     });

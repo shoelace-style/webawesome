@@ -76,6 +76,8 @@ Use the `largest-unit` and `smallest-unit` attributes to choose which units the 
 
 Time beyond the largest unit rolls up into it, so two days show as 48 hours when the largest unit is `hours`. Months and years follow the calendar instead of a fixed number of days.
 
+Units at zero ahead of the first non-zero unit are hidden, so a countdown with less than a day left starts at hours. [Clock-style](#clock-style) counters keep every unit so the digits hold their place.
+
 ### Counting Up
 
 Set the `direction` attribute to `up` to count up from a past date. A future date shows zeros until it passes.
@@ -130,8 +132,8 @@ Use the `years`, `months`, `days`, `hours`, `minutes`, and `seconds` slots to re
 </wa-counter>
 
 <script>
-  // 35 minutes from now
-  document.getElementById('counter-custom-labels').date = new Date(Date.now() + 35 * 60 * 1000);
+  // 95 minutes from now
+  document.getElementById('counter-custom-labels').date = new Date(Date.now() + 95 * 60 * 1000);
 </script>
 ```
 
