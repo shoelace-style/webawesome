@@ -20,12 +20,8 @@ use-cases:
 ---
 
 ```html {.example}
-<wa-counter id="counter-overview" label="Time until launch" style="font-size: var(--wa-font-size-2xl);"></wa-counter>
-
-<script>
-  // 53 hours from now
-  document.getElementById('counter-overview').date = new Date(Date.now() + 53 * 60 * 60 * 1000);
-</script>
+<!-- 53 hours -->
+<wa-counter duration="190800000" label="Time until launch" style="font-size: var(--wa-font-size-2xl);"></wa-counter>
 ```
 
 :::info
@@ -45,6 +41,17 @@ Set the `date` attribute to an ISO 8601 string to count down to that moment. An 
 
 To count down to a [`Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) object, set the `date` property with JavaScript instead.
 
+### Duration
+
+Set the `duration` attribute to a number of milliseconds to count down from the moment the counter is added to the page. Use it for a countdown that isn't tied to a moment in time, such as a quiz timer or a session that's about to expire.
+
+```html {.example}
+<!-- 25 minutes -->
+<wa-counter duration="1500000" largest-unit="minutes" label="Time left in this quiz"></wa-counter>
+```
+
+Changing the duration starts the countdown over. The `date` attribute takes precedence when both are set, and the duration is ignored when counting up.
+
 ### Label
 
 Use the `label` attribute to name the counter for assistive devices. The label isn't displayed.
@@ -56,22 +63,17 @@ Screen readers read the time as a phrase, such as "2 days 3 hours 5 minutes 9 se
 Use the `largest-unit` and `smallest-unit` attributes to choose which units the counter shows, from `years` to `seconds`. The defaults are `days` and `seconds`.
 
 ```html {.example}
-<div id="counter-units" class="wa-stack">
+<!-- 53 hours -->
+<div class="wa-stack">
   <div class="wa-stack wa-gap-2xs">
     <span class="wa-caption-s">Largest unit is hours</span>
-    <wa-counter largest-unit="hours" label="Time until the conference"></wa-counter>
+    <wa-counter duration="190800000" largest-unit="hours" label="Time until the conference"></wa-counter>
   </div>
   <div class="wa-stack wa-gap-2xs">
     <span class="wa-caption-s">Smallest unit is hours</span>
-    <wa-counter smallest-unit="hours" label="Time until the conference"></wa-counter>
+    <wa-counter duration="190800000" smallest-unit="hours" label="Time until the conference"></wa-counter>
   </div>
 </div>
-
-<script>
-  // 53 hours from now
-  const date = new Date(Date.now() + 53 * 60 * 60 * 1000);
-  document.querySelectorAll('#counter-units wa-counter').forEach(counter => (counter.date = date));
-</script>
 ```
 
 Time beyond the largest unit rolls up into it, so two days show as 48 hours when the largest unit is `hours`. Months and years follow the calendar instead of a fixed number of days.
@@ -98,26 +100,21 @@ Leave out the `date` attribute to count up from when the counter is added to the
 Set the `format` attribute to `short` or `narrow` for shorter unit labels, such as "hr" or "h". The default is `long`. Avoid `narrow` when the counter shows months, since some locales, such as English, label months and minutes both "m".
 
 ```html {.example}
-<div id="counter-format" class="wa-stack">
+<!-- 29 hours -->
+<div class="wa-stack">
   <div class="wa-stack wa-gap-2xs">
     <span class="wa-caption-s">Long</span>
-    <wa-counter format="long" label="Time until the auction closes"></wa-counter>
+    <wa-counter duration="104400000" format="long" label="Time until the auction closes"></wa-counter>
   </div>
   <div class="wa-stack wa-gap-2xs">
     <span class="wa-caption-s">Short</span>
-    <wa-counter format="short" label="Time until the auction closes"></wa-counter>
+    <wa-counter duration="104400000" format="short" label="Time until the auction closes"></wa-counter>
   </div>
   <div class="wa-stack wa-gap-2xs">
     <span class="wa-caption-s">Narrow</span>
-    <wa-counter format="narrow" label="Time until the auction closes"></wa-counter>
+    <wa-counter duration="104400000" format="narrow" label="Time until the auction closes"></wa-counter>
   </div>
 </div>
-
-<script>
-  // 29 hours from now
-  const date = new Date(Date.now() + 29 * 60 * 60 * 1000);
-  document.querySelectorAll('#counter-format wa-counter').forEach(counter => (counter.date = date));
-</script>
 ```
 
 ### Unit Labels
@@ -125,16 +122,12 @@ Set the `format` attribute to `short` or `narrow` for shorter unit labels, such 
 Use the `years`, `months`, `days`, `hours`, `minutes`, and `seconds` slots to replace a unit's label. Slotted labels don't change with the value, and screen readers still read the built-in unit names.
 
 ```html {.example}
-<wa-counter id="counter-custom-labels" label="Time until the pizza arrives" largest-unit="hours">
+<!-- 95 minutes -->
+<wa-counter duration="5700000" label="Time until the pizza arrives" largest-unit="hours">
   <span slot="hours">Hrs</span>
   <span slot="minutes">Mins</span>
   <span slot="seconds">Secs</span>
 </wa-counter>
-
-<script>
-  // 95 minutes from now
-  document.getElementById('counter-custom-labels').date = new Date(Date.now() + 95 * 60 * 1000);
-</script>
 ```
 
 ### Clock Style
@@ -142,19 +135,15 @@ Use the `years`, `months`, `days`, `hours`, `minutes`, and `seconds` slots to re
 Use the `delimiter` attribute to show text between units, such as `:`. Add the `without-labels` attribute to hide the unit labels for a clock-style display.
 
 ```html {.example}
+<!-- 2 hours and 15 minutes -->
 <wa-counter
-  id="counter-clock"
+  duration="8100000"
   delimiter=":"
   without-labels
   largest-unit="hours"
   label="Time until the next train"
   style="font-size: var(--wa-font-size-2xl);"
 ></wa-counter>
-
-<script>
-  // 2 hours and 15 minutes from now
-  document.getElementById('counter-clock').date = new Date(Date.now() + 135 * 60 * 1000);
-</script>
 ```
 
 ### Size
@@ -162,16 +151,12 @@ Use the `delimiter` attribute to show text between units, such as `:`. Add the `
 Counters are sized relative to the current font size. Set `font-size` on the counter or an ancestor to change its size. A counter stays on one line, so give a large one a size that scales with the viewport to fit small screens.
 
 ```html {.example}
+<!-- 20 hours -->
 <wa-counter
-  id="counter-size"
+  duration="72000000"
   label="Time until the show starts"
   style="font-size: min(8vw, var(--wa-font-size-4xl));"
 ></wa-counter>
-
-<script>
-  // 20 hours from now
-  document.getElementById('counter-size').date = new Date(Date.now() + 20 * 60 * 60 * 1000);
-</script>
 ```
 
 ### Localization
@@ -179,30 +164,25 @@ Counters are sized relative to the current font size. Set `font-size` on the cou
 Use the `lang` attribute to set the counter's locale. Localization is handled by the browser's [`Intl.NumberFormat` API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat). No language packs are required.
 
 ```html {.example}
-<div id="counter-localization" class="wa-stack">
+<!-- 53 hours -->
+<div class="wa-stack">
   <div class="wa-stack wa-gap-2xs">
     <span class="wa-caption-s">English</span>
-    <wa-counter lang="en" label="Time until launch"></wa-counter>
+    <wa-counter duration="190800000" lang="en" label="Time until launch"></wa-counter>
   </div>
   <div class="wa-stack wa-gap-2xs">
     <span class="wa-caption-s">German</span>
-    <wa-counter lang="de" label="Zeit bis zum Start"></wa-counter>
+    <wa-counter duration="190800000" lang="de" label="Zeit bis zum Start"></wa-counter>
   </div>
   <div class="wa-stack wa-gap-2xs">
     <span class="wa-caption-s">Japanese</span>
-    <wa-counter lang="ja" label="発売までの時間"></wa-counter>
+    <wa-counter duration="190800000" lang="ja" label="発売までの時間"></wa-counter>
   </div>
   <div class="wa-stack wa-gap-2xs">
     <span class="wa-caption-s">Chinese</span>
-    <wa-counter lang="zh-CN" label="距离发布还有"></wa-counter>
+    <wa-counter duration="190800000" lang="zh-CN" label="距离发布还有"></wa-counter>
   </div>
 </div>
-
-<script>
-  // 53 hours from now
-  const date = new Date(Date.now() + 53 * 60 * 60 * 1000);
-  document.querySelectorAll('#counter-localization wa-counter').forEach(counter => (counter.date = date));
-</script>
 ```
 
 ### Customizing
@@ -210,7 +190,8 @@ Use the `lang` attribute to set the counter's locale. Localization is handled by
 Counters inherit the surrounding font and color, and their digits use tabular figures so the width holds steady as they tick. Every unit is as wide as the widest label, which spaces the digits evenly. Style a counter with regular CSS, and reach inside it with the `unit`, `value`, `label`, and `delimiter` parts.
 
 ```html {.example}
-<wa-counter id="counter-tiles" format="short" label="Time until the sale ends"></wa-counter>
+<!-- 53 hours -->
+<wa-counter id="counter-tiles" duration="190800000" format="short" label="Time until the sale ends"></wa-counter>
 
 <style>
   #counter-tiles::part(unit) {
@@ -230,28 +211,19 @@ Counters inherit the surrounding font and color, and their digits use tabular fi
     text-transform: uppercase;
   }
 </style>
-
-<script>
-  // 53 hours from now
-  document.getElementById('counter-tiles').date = new Date(Date.now() + 53 * 60 * 60 * 1000);
-</script>
 ```
 
 A counter on a colored surface follows the text color there.
 
 ```html {.example}
-<wa-callout id="counter-colors" variant="brand" appearance="accent">
+<!-- 53 hours -->
+<wa-callout variant="brand" appearance="accent">
   <wa-icon slot="icon" name="clock"></wa-icon>
   <div class="wa-split">
     <strong>Launch day is almost here</strong>
-    <wa-counter label="Time until launch"></wa-counter>
+    <wa-counter duration="190800000" label="Time until launch"></wa-counter>
   </div>
 </wa-callout>
-
-<script>
-  // 53 hours from now
-  document.querySelector('#counter-colors wa-counter').date = new Date(Date.now() + 53 * 60 * 60 * 1000);
-</script>
 ```
 
 ### Inline
@@ -259,9 +231,10 @@ A counter on a colored surface follows the text color there.
 To set a counter inside a sentence, use the `unit` part to lay each value and label out in a row, and the `label` part to match the label's size to the text. The `narrow` format keeps it short.
 
 ```html {.example}
+<!-- 53 hours -->
 <p id="counter-inline">
   The sale ends in
-  <wa-counter format="narrow" label="Time until the sale ends"></wa-counter>, so order soon.
+  <wa-counter duration="190800000" format="narrow" label="Time until the sale ends"></wa-counter>, so order soon.
 </p>
 
 <style>
@@ -278,11 +251,6 @@ To set a counter inside a sentence, use the `unit` part to lay each value and la
     font-size: inherit;
   }
 </style>
-
-<script>
-  // 53 hours from now
-  document.querySelector('#counter-inline wa-counter').date = new Date(Date.now() + 53 * 60 * 60 * 1000);
-</script>
 ```
 
 ### Sale Banner
@@ -290,6 +258,7 @@ To set a counter inside a sentence, use the `unit` part to lay each value and la
 Combine a counter with a card and a call to action to show how long an offer lasts.
 
 ```html {.example}
+<!-- 4 days -->
 <wa-card id="counter-sale">
   <div class="wa-stack wa-align-items-center">
     <wa-badge variant="brand" pill>Spring Sale</wa-badge>
@@ -297,7 +266,7 @@ Combine a counter with a card and a call to action to show how long an offer las
     <p class="wa-color-text-quiet">
       Lock in the discount for your first year. The price goes back up when the clock runs out.
     </p>
-    <wa-counter label="Time until the sale ends"></wa-counter>
+    <wa-counter duration="345600000" label="Time until the sale ends"></wa-counter>
     <wa-button variant="brand">Claim Your Discount</wa-button>
   </div>
 </wa-card>
@@ -320,11 +289,6 @@ Combine a counter with a card and a call to action to show how long an offer las
     font-weight: var(--wa-font-weight-bold);
   }
 </style>
-
-<script>
-  // Four days from now
-  document.querySelector('#counter-sale wa-counter').date = new Date(Date.now() + 4 * 24 * 60 * 60 * 1000);
-</script>
 ```
 
 ### Formatting the Value
@@ -332,13 +296,11 @@ Combine a counter with a card and a call to action to show how long an offer las
 Use the `valueFormatter` property to customize how each unit's number is displayed. Set it to a function that accepts the number and its unit and returns a formatted string. By default, numbers are localized and padded to two digits, such as `05`. Screen readers always read the unformatted number.
 
 ```html {.example}
-<wa-counter id="counter-formatter" label="Time until the next episode"></wa-counter>
+<!-- 53 hours -->
+<wa-counter id="counter-formatter" duration="190800000" label="Time until the next episode"></wa-counter>
 
 <script>
   const counter = document.getElementById('counter-formatter');
-
-  // 53 hours from now
-  counter.date = new Date(Date.now() + 53 * 60 * 60 * 1000);
 
   // Show days without padding
   counter.valueFormatter = (value, unit) => (unit === 'days' ? String(value) : String(value).padStart(2, '0'));
@@ -350,8 +312,9 @@ Use the `valueFormatter` property to customize how each unit's number is display
 Use the `paused` attribute to pause the counter. Removing it continues from the time shown, so a countdown that was paused ends later than its date.
 
 ```html {.example}
+<!-- 25 minutes -->
 <div id="counter-pausing">
-  <wa-counter largest-unit="minutes" label="Time left in this focus session"></wa-counter>
+  <wa-counter duration="1500000" largest-unit="minutes" label="Time left in this focus session"></wa-counter>
 
   <wa-divider></wa-divider>
 
@@ -363,8 +326,6 @@ Use the `paused` attribute to pause the counter. Removing it continues from the 
   const counter = container.querySelector('wa-counter');
   const toggle = container.querySelector('wa-switch');
 
-  // 25 minutes from now
-  counter.date = new Date(Date.now() + 25 * 60 * 1000);
   toggle.addEventListener('change', () => (counter.paused = toggle.checked));
 </script>
 ```

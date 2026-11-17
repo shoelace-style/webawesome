@@ -75,9 +75,15 @@ export default class WaCounter extends WebAwesomeElement {
    * The date to count down to, or up from. When passing a string, it's strongly recommended to use the ISO 8601 format
    * to ensure timezones are handled correctly. To convert a date to this format in JavaScript, use
    * [`date.toISOString()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString).
-   * When omitted and `direction` is `up`, the counter counts from the moment it starts.
+   * When omitted, the counter counts down from `duration`, or up from the moment it starts when `direction` is `up`.
    */
   @property() date: Date | string;
+
+  /**
+   * The number of milliseconds to count down from, starting when the counter is added to the page. Changing it starts
+   * the countdown over. Ignored when `date` is set or `direction` is `up`.
+   */
+  @property({ type: Number }) duration: number;
 
   /** The direction to count. Use `down` to count down to the date and `up` to count up from it. */
   @property({ reflect: true }) direction: 'down' | 'up' = 'down';
@@ -144,7 +150,11 @@ export default class WaCounter extends WebAwesomeElement {
       return;
     }
 
-    if (changedProperties.has('date')) {
+    if (changedProperties.has('duration')) {
+      this.startedAt = Date.now();
+    }
+
+    if (changedProperties.has('date') || changedProperties.has('duration')) {
       this.shift = 0;
       this.pausedAt = null;
       this.isCountingDown = false;
@@ -181,10 +191,12 @@ export default class WaCounter extends WebAwesomeElement {
   private tick() {
     clearTimeout(this.timeout);
 
-    const base = this.date ? new Date(this.date).getTime() : this.direction === 'up' ? this.startedAt : NaN;
+    const isDown = this.direction !== 'up';
+    // Without a date, a countdown runs for the duration and a count-up starts from zero
+    const offset = isDown ? (this.duration ?? NaN) : 0;
+    const base = this.date ? new Date(this.date).getTime() : this.startedAt + offset;
     const target = base + this.shift;
     const now = this.pausedAt ?? Date.now();
-    const isDown = this.direction !== 'up';
     const diff = isDown ? target - now : now - target;
     const units = this.getUnits();
     // Countdowns round up to the smallest unit so zero arrives with the finish. Count-ups round down.
