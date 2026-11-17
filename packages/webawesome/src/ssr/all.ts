@@ -19,6 +19,7 @@ export { default as WaCodeHighlighter } from '../components/code-highlighter/cod
 export { default as WaColorPicker } from '../components/color-picker/color-picker.js';
 export { default as WaComparison } from '../components/comparison/comparison.js';
 export { default as WaCopyButton } from '../components/copy-button/copy-button.js';
+export { default as WaCounter } from '../components/counter/counter.js';
 export { default as WaDetails } from '../components/details/details.js';
 export { default as WaDialog } from '../components/dialog/dialog.js';
 export { default as WaDivider } from '../components/divider/divider.js';
