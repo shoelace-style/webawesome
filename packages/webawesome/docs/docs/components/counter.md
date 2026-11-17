@@ -159,13 +159,13 @@ Use the `delimiter` attribute to show text between units, such as `:`. Add the `
 
 ### Size
 
-Counters are sized relative to the current font size. Set `font-size` on the counter or an ancestor to change its size.
+Counters are sized relative to the current font size. Set `font-size` on the counter or an ancestor to change its size. A counter stays on one line, so give a large one a size that scales with the viewport to fit small screens.
 
 ```html {.example}
 <wa-counter
   id="counter-size"
   label="Time until the show starts"
-  style="font-size: var(--wa-font-size-4xl);"
+  style="font-size: min(8vw, var(--wa-font-size-4xl));"
 ></wa-counter>
 
 <script>
@@ -207,14 +207,14 @@ Use the `lang` attribute to set the counter's locale. Localization is handled by
 
 ### Customizing
 
-Counters inherit the surrounding font and color, and their digits use tabular figures so the width holds steady as they tick. Style a counter with regular CSS, and reach inside it with the `unit`, `value`, `label`, and `delimiter` parts.
+Counters inherit the surrounding font and color, and their digits use tabular figures so the width holds steady as they tick. Every unit is as wide as the widest label, which spaces the digits evenly. Style a counter with regular CSS, and reach inside it with the `unit`, `value`, `label`, and `delimiter` parts.
 
 ```html {.example}
-<wa-counter id="counter-tiles" label="Time until the sale ends"></wa-counter>
+<wa-counter id="counter-tiles" format="short" label="Time until the sale ends"></wa-counter>
 
 <style>
   #counter-tiles::part(unit) {
-    min-inline-size: 5em;
+    min-inline-size: 4em;
     padding: var(--wa-space-s);
     border-radius: var(--wa-border-radius-m);
     background: var(--wa-color-neutral-fill-quiet);

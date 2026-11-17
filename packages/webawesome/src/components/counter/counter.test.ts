@@ -393,6 +393,16 @@ describe('<wa-counter>', () => {
           expect(unit.getBoundingClientRect().width).to.equal(singularWidth);
         });
 
+        it('gives every unit the same width', async () => {
+          const el = await createCounter(html`<wa-counter lang="en" date=${fromNow(2 * day)}></wa-counter>`);
+          const widths = [...el.shadowRoot!.querySelectorAll('[part~="unit"]')].map(
+            unit => unit.getBoundingClientRect().width,
+          );
+
+          expect(widths).to.have.lengthOf(4);
+          widths.forEach(width => expect(width).to.be.closeTo(widths[0], 0.5));
+        });
+
         it('does not widen slotted labels', async () => {
           const el = await createCounter(html`<wa-counter lang="en"><span slot="seconds">s</span></wa-counter>`);
           const label = el.shadowRoot!.querySelectorAll('[part~="label"]')[3];
