@@ -37,7 +37,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 - Added the experimental `<wa-lightbox>` component for viewing images and videos full screen with swiping, zooming, and thumbnails [pr:3010]
   - Added `<wa-lightbox-item>` for the items it shows
   - Added the `--wa-color-overlay-media` token for its backdrop
-- Added the experimental `<wa-counter>` component for counting down to a date or up from one, with localized unit labels
+- Added the experimental `<wa-counter>` component for counting down to a date or up from one, with localized unit labels [pr:3035]
 - Added the ability to change the default icon family and variant for all icons [pr:2978]
   - Added the `data-fa-family` and `data-fa-variant` attributes
   - Added an optional `variant` argument to `setDefaultIconFamily()`

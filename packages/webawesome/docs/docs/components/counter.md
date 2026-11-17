@@ -4,13 +4,15 @@ layout: component
 category: Helpers
 synonyms:
   - countdown
-  - countdown timer
   - timer
   - stopwatch
   - count up
   - elapsed time
+  - time remaining
+  - deadline
 use-cases:
   - product launch
+  - coming soon page
   - sale ending
   - event countdown
   - time since
@@ -45,7 +47,9 @@ To count down to a [`Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScr
 
 ### Label
 
-Use the `label` attribute to tell assistive devices how to announce the counter. The label isn't displayed, and screen readers read the time as a phrase, such as "2 days 3 hours 5 minutes 9 seconds", instead of the separate digits and labels.
+Use the `label` attribute to name the counter for assistive devices. The label isn't displayed.
+
+Screen readers read the time as a phrase, such as "2 days 3 hours 5 minutes 9 seconds", instead of the separate digits and labels.
 
 ### Units
 
@@ -53,8 +57,14 @@ Use the `largest-unit` and `smallest-unit` attributes to choose which units the 
 
 ```html {.example}
 <div id="counter-units" class="wa-stack">
-  <wa-counter largest-unit="hours" label="Time until the conference"></wa-counter>
-  <wa-counter smallest-unit="hours" label="Time until the conference"></wa-counter>
+  <div class="wa-stack wa-gap-2xs">
+    <span class="wa-caption-s">Largest unit is hours</span>
+    <wa-counter largest-unit="hours" label="Time until the conference"></wa-counter>
+  </div>
+  <div class="wa-stack wa-gap-2xs">
+    <span class="wa-caption-s">Smallest unit is hours</span>
+    <wa-counter smallest-unit="hours" label="Time until the conference"></wa-counter>
+  </div>
 </div>
 
 <script>
@@ -87,9 +97,18 @@ Set the `format` attribute to `short` or `narrow` for shorter unit labels, such 
 
 ```html {.example}
 <div id="counter-format" class="wa-stack">
-  <wa-counter format="long" label="Time until the auction closes"></wa-counter>
-  <wa-counter format="short" label="Time until the auction closes"></wa-counter>
-  <wa-counter format="narrow" label="Time until the auction closes"></wa-counter>
+  <div class="wa-stack wa-gap-2xs">
+    <span class="wa-caption-s">Long</span>
+    <wa-counter format="long" label="Time until the auction closes"></wa-counter>
+  </div>
+  <div class="wa-stack wa-gap-2xs">
+    <span class="wa-caption-s">Short</span>
+    <wa-counter format="short" label="Time until the auction closes"></wa-counter>
+  </div>
+  <div class="wa-stack wa-gap-2xs">
+    <span class="wa-caption-s">Narrow</span>
+    <wa-counter format="narrow" label="Time until the auction closes"></wa-counter>
+  </div>
 </div>
 
 <script>
@@ -159,10 +178,22 @@ Use the `lang` attribute to set the counter's locale. Localization is handled by
 
 ```html {.example}
 <div id="counter-localization" class="wa-stack">
-  <wa-counter lang="en" label="Time until launch"></wa-counter>
-  <wa-counter lang="de" label="Zeit bis zum Start"></wa-counter>
-  <wa-counter lang="ja" label="発売までの時間"></wa-counter>
-  <wa-counter lang="zh-CN" label="距离发布还有"></wa-counter>
+  <div class="wa-stack wa-gap-2xs">
+    <span class="wa-caption-s">English</span>
+    <wa-counter lang="en" label="Time until launch"></wa-counter>
+  </div>
+  <div class="wa-stack wa-gap-2xs">
+    <span class="wa-caption-s">German</span>
+    <wa-counter lang="de" label="Zeit bis zum Start"></wa-counter>
+  </div>
+  <div class="wa-stack wa-gap-2xs">
+    <span class="wa-caption-s">Japanese</span>
+    <wa-counter lang="ja" label="発売までの時間"></wa-counter>
+  </div>
+  <div class="wa-stack wa-gap-2xs">
+    <span class="wa-caption-s">Chinese</span>
+    <wa-counter lang="zh-CN" label="距离发布还有"></wa-counter>
+  </div>
 </div>
 
 <script>
@@ -181,7 +212,7 @@ Counters inherit the surrounding font and color, and their digits use tabular fi
 
 <style>
   #counter-tiles::part(unit) {
-    min-inline-size: 4em;
+    min-inline-size: 5em;
     padding: var(--wa-space-s);
     border-radius: var(--wa-border-radius-m);
     background: var(--wa-color-neutral-fill-quiet);
@@ -201,6 +232,54 @@ Counters inherit the surrounding font and color, and their digits use tabular fi
 <script>
   // 53 hours from now
   document.getElementById('counter-tiles').date = new Date(Date.now() + 53 * 60 * 60 * 1000);
+</script>
+```
+
+A counter on a colored surface follows the text color there.
+
+```html {.example}
+<wa-callout id="counter-colors" variant="brand" appearance="accent">
+  <wa-icon slot="icon" name="clock"></wa-icon>
+  <div class="wa-split">
+    <strong>Launch day is almost here</strong>
+    <wa-counter label="Time until launch"></wa-counter>
+  </div>
+</wa-callout>
+
+<script>
+  // 53 hours from now
+  document.querySelector('#counter-colors wa-counter').date = new Date(Date.now() + 53 * 60 * 60 * 1000);
+</script>
+```
+
+### Inline
+
+To set a counter inside a sentence, use the `unit` part to lay each value and label out in a row, and the `label` part to match the label's size to the text. The `narrow` format keeps it short.
+
+```html {.example}
+<p id="counter-inline">
+  The sale ends in
+  <wa-counter format="narrow" label="Time until the sale ends"></wa-counter>, so order soon.
+</p>
+
+<style>
+  #counter-inline wa-counter {
+    gap: 0.35em;
+  }
+
+  #counter-inline wa-counter::part(unit) {
+    flex-direction: row;
+    align-items: baseline;
+  }
+
+  #counter-inline wa-counter::part(label) {
+    font-size: inherit;
+  }
+</style>
+
+<script>
+  // 53 hours from now
+  document.querySelector('#counter-inline wa-counter').date = new Date(Date.now() + 53 * 60 * 60 * 1000);
 </script>
 ```
 
@@ -266,11 +345,14 @@ Use the `valueFormatter` property to customize how each unit's number is display
 
 ### Pausing
 
-Use the `paused` attribute to pause the counter. Removing it continues from the time shown.
+Use the `paused` attribute to pause the counter. Removing it continues from the time shown, so a countdown that was paused ends later than its date.
 
 ```html {.example}
-<div id="counter-pausing" class="wa-stack wa-align-items-start">
+<div id="counter-pausing">
   <wa-counter largest-unit="minutes" label="Time left in this focus session"></wa-counter>
+
+  <wa-divider></wa-divider>
+
   <wa-switch>Pause</wa-switch>
 </div>
 
@@ -285,17 +367,29 @@ Use the `paused` attribute to pause the counter. Removing it continues from the 
 </script>
 ```
 
+:::warning
+<strong>Give people a way to pause a counter that isn't essential.</strong><br />
+A counter keeps changing. When it's decoration instead of a real deadline, the movement can distract. Add a visible pause control.
+:::
+
 ### Reacting to Completion
 
 The counter emits the `wa-finish` event when a countdown reaches zero. It isn't emitted when the date had already passed, and a count up never finishes.
 
 Use the `finished` custom state to style a countdown at zero. Unlike the event, the state also applies when the date had already passed.
 
+Screen readers don't announce a counter as it changes, and that includes the finish. To announce it, update an element with `role="status"` when the event fires.
+
 ```html {.example}
-<div id="counter-finish" class="wa-cluster">
-  <wa-counter largest-unit="seconds" label="Time until liftoff"></wa-counter>
+<div id="counter-finish">
+  <div class="wa-cluster">
+    <wa-counter largest-unit="seconds" label="Time until liftoff"></wa-counter>
+    <span role="status"></span>
+  </div>
+
+  <wa-divider></wa-divider>
+
   <wa-button>Run Again</wa-button>
-  <span role="status"></span>
 </div>
 
 <style>
