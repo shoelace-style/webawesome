@@ -610,6 +610,20 @@ describe('getDuration()', () => {
       expect(left(new Date(2027, 1, 2))).to.deep.equal({ months: 0, days: 27 });
     });
 
+    it('rounds a countdown up when the smallest unit is months or years', () => {
+      const to = new Date(2027, 2, 1);
+
+      expect(getDuration(new Date(2027, 1, 9), to, 'years', 'months', true)).to.deep.equal({ years: 0, months: 1 });
+      expect(getDuration(new Date(2027, 1, 1), to, 'years', 'months', true)).to.deep.equal({ years: 0, months: 1 });
+      expect(getDuration(new Date(2026, 2, 1, 0, 0, 1), to, 'years', 'months', true)).to.deep.equal({
+        years: 1,
+        months: 0,
+      });
+      expect(getDuration(new Date(2027, 1, 9), to, 'years', 'years', true)).to.deep.equal({ years: 1 });
+      expect(getDuration(new Date(2025, 9, 1), to, 'years', 'years', true)).to.deep.equal({ years: 2 });
+      expect(getDuration(to, to, 'years', 'months', true)).to.deep.equal({ years: 0, months: 0 });
+    });
+
     it('counts a month only once its time of day has passed', () => {
       expect(getDuration(new Date(2025, 0, 15, 12), new Date(2026, 0, 15, 8), 'years', 'hours')).to.deep.equal({
         years: 0,

@@ -23,6 +23,7 @@ export const unitLengths: Partial<Record<CounterUnit, number>> &
  *
  * Months step from the date that stays put: forward from `from` by default, or back from `to` when `isCountdown` is
  * true. Stepping from the moving date makes the days grow back at month ends, since Jan 28 to 31 all land on Feb 28.
+ * A countdown whose smallest unit is months or years also rounds up, so it only reaches zero at the end date.
  */
 export function getDuration(
   from: Date,
@@ -49,6 +50,14 @@ export function getDuration(
       months--;
     }
     rest = restAfter(months);
+
+    // Countdowns round up to the smallest unit. The counter does this itself for days and smaller.
+    if (isCountdown && (smallest === 'months' || smallest === 'years')) {
+      months += rest > 0 ? 1 : 0;
+      if (smallest === 'years') {
+        months = Math.ceil(months / 12) * 12;
+      }
+    }
 
     if (largest === 'years') {
       result.years = Math.floor(months / 12);
