@@ -29,7 +29,9 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 {% include "changelog-email-signup.njk" %}
 
-## Unreleased
+## 3.15.0
+
+<small><time datetime="2026-11-17">November 11th, 2026</time></small>
 
 :::added
 
