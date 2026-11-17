@@ -29,6 +29,8 @@ function decimalPlaces(n: number) {
  *
  * @event wa-finish - Emitted when the ticker finishes counting.
  *
+ * @cssstate counting - Applied while the number is counting.
+ *
  * @ssr - `<wa-number-ticker>` renders its start value during SSR, but won't start counting until it hydrates on the
  *  client and scrolls into view.
  */
@@ -57,7 +59,10 @@ export default class WaNumberTicker extends WebAwesomeElement {
   /** The number to count from on the first run and when `restart()` is called. */
   @property({ attribute: 'start-value', type: Number }) startValue = 0;
 
-  /** The number of milliseconds each count takes. Set to `0` to skip the animation. */
+  /**
+   * The longest a count can take, in milliseconds. A count ends early once the number shown stops changing. Set to `0`
+   * to skip the animation.
+   */
   @property({ type: Number }) duration = 2000;
 
   /** The number of milliseconds to wait before counting from the start value. Later value changes aren't delayed. */
@@ -176,22 +181,27 @@ export default class WaNumberTicker extends WebAwesomeElement {
 
     const options = { duration: this.duration, delay, fill: 'both' } as const;
     let animation: Animation;
+    let easing = this.easing;
     try {
-      animation = this.animate(null, { ...options, easing: this.easing });
+      animation = this.animate(null, { ...options, easing });
     } catch {
       // Invalid easing.
-      animation = this.animate(null, { ...options, easing: DEFAULT_EASING });
+      easing = DEFAULT_EASING;
+      animation = this.animate(null, { ...options, easing });
     }
     this.animation = animation;
+    const settleTime = this.findSettleTime(from, to, easing);
 
     // The effect's computed progress is already eased. Idle means something else canceled the animation.
     const tick = () => {
-      if (animation.playState === 'finished' || animation.playState === 'idle') {
+      const time = Number(animation.currentTime);
+      if (time >= delay + settleTime || animation.playState === 'finished' || animation.playState === 'idle') {
         this.finish();
         return;
       }
       // Leave displayValue null during the delay so a run that's interrupted then keeps its delay.
-      if (Number(animation.currentTime) >= delay) {
+      if (time >= delay) {
+        this.customStates.set('counting', true);
         const progress = animation.effect?.getComputedTiming().progress ?? 0;
         this.displayValue = from + (to - from) * progress;
       }
@@ -216,8 +226,33 @@ export default class WaNumberTicker extends WebAwesomeElement {
     this.dispatchEvent(new WaFinishEvent());
   }
 
+  /**
+   * Returns how far into a count the shown text stops changing. Walks backward from the end because an easing that
+   * overshoots reaches the final text early, leaves it, and comes back.
+   */
+  private findSettleTime(from: number, to: number, easing: string) {
+    const duration = this.duration;
+    if (!Number.isFinite(duration)) return duration;
+
+    const effect = new KeyframeEffect(null, null, { duration, easing, fill: 'both' });
+    const sampler = new Animation(effect, null);
+    const finalText = this.format(to);
+    const sampleCount = 60;
+
+    for (let sample = sampleCount - 1; sample >= 0; sample--) {
+      sampler.currentTime = (duration * sample) / sampleCount;
+      const progress = effect.getComputedTiming().progress ?? 0;
+      if (this.format(from + (to - from) * progress) !== finalText) {
+        return (duration * (sample + 1)) / sampleCount;
+      }
+    }
+
+    return 0;
+  }
+
   private stop() {
     cancelAnimationFrame(this.frame);
+    this.customStates.set('counting', false);
     this.animation?.cancel();
     this.animation = undefined;
   }
