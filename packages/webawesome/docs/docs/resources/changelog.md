@@ -33,7 +33,7 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::fixed
 
-- Fixed an issue with `<wa-number-ticker>` where it would not work with SSR that calls `connectedCallback` [pr:]
+- Fixed an issue with `<wa-number-ticker>` where it would not work with SSR that calls `connectedCallback` [pr:3040]
 - Fixed an issue with `TouchEvent` in Firefox / Safari for `<wa-video>`
 
 :::
