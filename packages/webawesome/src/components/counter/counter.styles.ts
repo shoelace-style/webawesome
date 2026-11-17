@@ -29,7 +29,7 @@ export default css`
       display: none;
     }
 
-    /* Stacks the visible label over the widest form so the width holds steady */
+    /* Stacks the visible label over the widest label of every unit so the width holds steady */
     .default-label {
       display: inline-grid;
       justify-items: center;

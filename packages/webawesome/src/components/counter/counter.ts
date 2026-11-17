@@ -265,18 +265,22 @@ export default class WaCounter extends WebAwesomeElement {
     const hasValues = Object.keys(this.values).length > 0;
     const shownUnits = this.withoutLabels || !hasValues ? units : spokenUnits;
 
+    // Every unit reserves room for the widest label of any unit, so the units are evenly spaced and a unit doesn't
+    // resize when its label changes between plural forms
+    const widestLabels = units.map(unit =>
+      [0, 1, 2, 5]
+        .map(sample => this.getLabel(lang, sample, unit))
+        .reduce((widest, sample) => (sample.length > widest.length ? sample : widest)),
+    );
+    const sizerSpans = widestLabels.map(label => html`<span class="sizer" aria-hidden="true">${label}</span>`);
+
     // No whitespace between elements so the template is safe inside white-space: pre
     const unitTemplates = shownUnits.map((unit, index) => {
       const value = this.values[unit] ?? 0;
       const label = this.getLabel(lang, value, unit);
-      // The widest plural form reserves space so the unit doesn't resize when its label changes
-      const sizer = [0, 1, 2, 5]
-        .map(sample => this.getLabel(lang, sample, unit))
-        .reduce((widest, sample) => (sample.length > widest.length ? sample : widest));
       const delimiterSpan = html`<span part="delimiter" class="delimiter" aria-hidden="true">${this.delimiter}</span>`;
       const valueSpan = html`<span part="value" class="value">${this.formatValue(lang, value, unit)}</span>`;
-      const sizerSpan = html`<span class="sizer" aria-hidden="true">${sizer}</span>`;
-      const defaultLabel = html`<span class="default-label"><span>${label}</span>${sizerSpan}</span>`;
+      const defaultLabel = html`<span class="default-label"><span>${label}</span>${sizerSpans}</span>`;
       const labelSpan = html`<span part="label" class="label"><slot name=${unit}>${defaultLabel}</slot></span>`;
       const unitSpan = html`<span part="unit" class="unit" aria-hidden="true">${valueSpan}${labelSpan}</span>`;
 
