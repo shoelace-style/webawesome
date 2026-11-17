@@ -39,6 +39,7 @@ export { default as WaLightbox } from '../components/lightbox/lightbox.js';
 export { default as WaMarkdown } from '../components/markdown/markdown.js';
 export { default as WaMutationObserver } from '../components/mutation-observer/mutation-observer.js';
 export { default as WaNumberInput } from '../components/number-input/number-input.js';
+export { default as WaNumberTicker } from '../components/number-ticker/number-ticker.js';
 export { default as WaOption } from '../components/option/option.js';
 export { default as WaOtpInput } from '../components/otp-input/otp-input.js';
 export { default as WaPage } from '../components/page/page.js';
