@@ -41,6 +41,8 @@ Now you can [use any Web Awesome component](/docs/components)! Try putting a but
 
 ## Install with npm {id=npm}
 
+<!-- pro-npm-lead: rendered by the app -->{% raw %}{% include "server/pro-npm-lead.njk" ignore missing %}{% endraw %}
+
 Start by installing the Web Awesome package:
 
 ```bash
@@ -63,6 +65,8 @@ Once a component has been imported, you can use it in your HTML normally. Compon
 <!-- pro-npm: rendered by the app -->{% raw %}{% include "server/pro-npm.njk" ignore missing %}{% endraw %}
 
 ## Download & Self-Host {id=download}
+
+<!-- pro-setup-lead: rendered by the app -->{% raw %}{% include "server/pro-setup-lead.njk" ignore missing %}{% endraw %}
 
 You can download Web Awesome from npm and self-host it.
 
