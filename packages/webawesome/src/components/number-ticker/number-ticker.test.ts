@@ -144,6 +144,15 @@ describe('<wa-number-ticker>', () => {
           expect(shown(el)).to.equal('5');
         });
 
+        it('should finish as soon as the number shown stops changing', async () => {
+          const el = await fixture<WaNumberTicker>(
+            html`<wa-number-ticker value="5" duration="60000" easing="steps(1, jump-start)"></wa-number-ticker>`,
+          );
+          await finished();
+
+          expect(shown(el)).to.equal('5');
+        });
+
         it('should wait for the delay before counting', async () => {
           const el = await fixture<WaNumberTicker>(
             html`<wa-number-ticker value="100" duration="50" delay="60000"></wa-number-ticker>`,

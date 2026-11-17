@@ -66,7 +66,7 @@ Use the `value` attribute to set the number to count to. Tickers count from `0` 
 
 ### Duration & Delay
 
-Use the `duration` attribute to set how long a count takes, in milliseconds. The `delay` attribute waits before counting from the start value. Later changes to `value` aren't delayed.
+Use the `duration` attribute to set the longest a count can take, in milliseconds. A count ends early once the number stops changing. The `delay` attribute waits before counting from the start value. Later changes to `value` aren't delayed.
 
 Keep counts under five seconds. A ticker can't be paused, and [WCAG](https://www.w3.org/WAI/WCAG22/Understanding/pause-stop-hide.html) asks for a pause control on motion that runs longer.
 
