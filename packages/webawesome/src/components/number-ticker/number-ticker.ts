@@ -118,6 +118,12 @@ export default class WaNumberTicker extends WebAwesomeElement {
 
   connectedCallback() {
     super.connectedCallback();
+
+    // Most likely the server running here. We intentionally do not use `isServer` as some things may have stubbed DOMs like JSDOM for example.
+    if (!('IntersectionObserver' in globalThis)) {
+      return;
+    }
+
     // Wait until half the ticker is visible so people scrolling to it see the count.
     this.observer = new IntersectionObserver(
       entries => {
@@ -128,6 +134,7 @@ export default class WaNumberTicker extends WebAwesomeElement {
       { threshold: 0.5 },
     );
     this.observer.observe(this);
+
     // An eager ticker that was interrupted resumes without waiting to be seen.
     if (this.eager && this.isPending && this.hasUpdated) this.start();
   }
