@@ -194,7 +194,7 @@ export default class WaCounter extends WebAwesomeElement {
 
     if (!isNaN(diff)) {
       const from = isDown ? target - shown : target;
-      values = getDuration(new Date(from), new Date(from + shown), units[0], units[units.length - 1]);
+      values = getDuration(new Date(from), new Date(from + shown), units[0], units[units.length - 1], isDown);
     }
 
     if (counterUnits.some(unit => values[unit] !== this.values[unit])) {

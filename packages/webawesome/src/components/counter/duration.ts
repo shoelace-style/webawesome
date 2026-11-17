@@ -20,28 +20,35 @@ export const unitLengths: Partial<Record<CounterUnit, number>> &
  * matches what a wall calendar says. Days and smaller units are exact elapsed time measured from the last whole month,
  * so a day is always 24 real hours. Across a DST change the hours show the real time left (a span with a spring-forward
  * night is one hour shorter) and no value can go negative.
+ *
+ * Months step from the date that stays put: forward from `from` by default, or back from `to` when `isCountdown` is
+ * true. Stepping from the moving date makes the days grow back at month ends, since Jan 28 to 31 all land on Feb 28.
  */
 export function getDuration(
   from: Date,
   to: Date,
   largest: CounterUnit,
   smallest: CounterUnit,
+  isCountdown = false,
 ): Partial<Record<CounterUnit, number>> {
   const shown = counterUnits.slice(counterUnits.indexOf(largest), counterUnits.indexOf(smallest) + 1);
   const result: Partial<Record<CounterUnit, number>> = {};
-  let anchor = from;
 
   if (to < from) {
     to = from;
   }
 
+  let rest = to.getTime() - from.getTime();
+
   if (largest === 'years' || largest === 'months') {
     // Count calendar months, then step back one if the last month isn't complete yet.
     let months = (to.getFullYear() - from.getFullYear()) * 12 + to.getMonth() - from.getMonth();
-    if (addMonths(from, months) > to) {
+    const restAfter = (count: number) =>
+      isCountdown ? addMonths(to, -count).getTime() - from.getTime() : to.getTime() - addMonths(from, count).getTime();
+    if (restAfter(months) < 0) {
       months--;
     }
-    anchor = addMonths(from, months);
+    rest = restAfter(months);
 
     if (largest === 'years') {
       result.years = Math.floor(months / 12);
@@ -52,7 +59,6 @@ export function getDuration(
     }
   }
 
-  let rest = to.getTime() - anchor.getTime();
   for (const unit of ['days', 'hours', 'minutes', 'seconds'] as const) {
     if (shown.includes(unit)) {
       result[unit] = Math.floor(rest / unitLengths[unit]);

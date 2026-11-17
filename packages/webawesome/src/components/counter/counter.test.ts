@@ -599,6 +599,17 @@ describe('getDuration()', () => {
       });
     });
 
+    it('steps months back from the end date for a countdown so the days never grow back', () => {
+      const to = new Date(2027, 2, 1);
+      const left = (from: Date) => getDuration(from, to, 'months', 'days', true);
+
+      expect(left(new Date(2027, 0, 29))).to.deep.equal({ months: 1, days: 3 });
+      expect(left(new Date(2027, 0, 30))).to.deep.equal({ months: 1, days: 2 });
+      expect(left(new Date(2027, 0, 31))).to.deep.equal({ months: 1, days: 1 });
+      expect(left(new Date(2027, 1, 1))).to.deep.equal({ months: 1, days: 0 });
+      expect(left(new Date(2027, 1, 2))).to.deep.equal({ months: 0, days: 27 });
+    });
+
     it('counts a month only once its time of day has passed', () => {
       expect(getDuration(new Date(2025, 0, 15, 12), new Date(2026, 0, 15, 8), 'years', 'hours')).to.deep.equal({
         years: 0,
