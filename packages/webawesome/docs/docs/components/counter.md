@@ -335,6 +335,34 @@ Use the `paused` attribute to pause the counter. Removing it continues from the 
 A counter keeps changing. When it's decoration instead of a real deadline, the movement can distract. Add a visible pause control.
 :::
 
+### Finished Content
+
+Use the `finished` slot to show something else in place of the units when a countdown reaches zero. The slotted content is also shown when the date had already passed. Without it, the counter stays at zero.
+
+```html {.example}
+<div id="counter-finished">
+  <wa-counter largest-unit="seconds" label="Time until the sale ends">
+    <strong slot="finished">The sale has ended.</strong>
+  </wa-counter>
+
+  <wa-divider></wa-divider>
+
+  <wa-button>Run Again</wa-button>
+</div>
+
+<script>
+  const container = document.getElementById('counter-finished');
+  const counter = container.querySelector('wa-counter');
+
+  function start() {
+    counter.date = new Date(Date.now() + 10 * 1000);
+  }
+
+  container.querySelector('wa-button').addEventListener('click', start);
+  start();
+</script>
+```
+
 ### Reacting to Completion
 
 The counter emits the `wa-finish` event when a countdown reaches zero. It isn't emitted when the date had already passed, and a count up never finishes.

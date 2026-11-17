@@ -1,7 +1,8 @@
 import type { PropertyValues } from 'lit';
-import { html, isServer } from 'lit';
+import { html, isServer, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { WaFinishEvent } from '../../events/finish.js';
+import { HasSlotController } from '../../internal/slot.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
 import visuallyHidden from '../../styles/component/visually-hidden.styles.js';
@@ -46,6 +47,8 @@ function getUnitFormatter(lang: string, unit: CounterUnit, unitDisplay: 'long' |
  * @slot hours - A custom label for hours.
  * @slot minutes - A custom label for minutes.
  * @slot seconds - A custom label for seconds.
+ * @slot finished - Content to show in place of the units when a countdown is at zero, including one whose date had
+ *  already passed.
  *
  * @event wa-finish - Emitted when a running countdown reaches zero. Not emitted when the date had already passed.
  *
@@ -63,8 +66,10 @@ function getUnitFormatter(lang: string, unit: CounterUnit, unitDisplay: 'long' |
 export default class WaCounter extends WebAwesomeElement {
   static css = [styles, visuallyHidden];
 
+  private readonly hasSlotController = new HasSlotController(this, 'finished');
   private readonly localize = new LocalizeController(this);
   private isCountingDown = false;
+  private isFinished = false;
   private pausedAt: number | null = null;
   private shift = 0;
   private startedAt = 0;
@@ -217,6 +222,11 @@ export default class WaCounter extends WebAwesomeElement {
 
     this.customStates.set('finished', isFinished);
 
+    if (isFinished !== this.isFinished) {
+      this.isFinished = isFinished;
+      this.requestUpdate();
+    }
+
     if (!isNaN(diff) && !isFinished && this.pausedAt === null && this.isConnected) {
       // Wake at the next whole second of the difference so the display changes on time and counters stay in step
       const delay = isDown ? diff % step || step : 1000 - (((diff % 1000) + 1000) % 1000);
@@ -299,7 +309,11 @@ export default class WaCounter extends WebAwesomeElement {
       return index > 0 && this.delimiter ? html`${delimiterSpan}${unitSpan}` : unitSpan;
     });
 
-    return html`<span class="wa-visually-hidden">${phrase}</span>${unitTemplates}`;
+    // The slot is always rendered so content added to it later is noticed
+    const showFinished = this.isFinished && this.hasSlotController.test('finished');
+    const counter = html`<span class="wa-visually-hidden">${phrase}</span>${unitTemplates}`;
+
+    return html`<slot name="finished" ?hidden=${!showFinished}></slot>${showFinished ? nothing : counter}`;
   }
 }
 

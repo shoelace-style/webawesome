@@ -335,6 +335,86 @@ describe('<wa-counter>', () => {
         });
       });
 
+      describe('finished slot', () => {
+        function getFinishedSlot(el: WaCounter) {
+          return el.shadowRoot!.querySelector<HTMLSlotElement>('slot[name="finished"]')!;
+        }
+
+        it('replaces the units when a countdown reaches zero', async () => {
+          const el = await createCounter(
+            html`<wa-counter duration="1200"><span slot="finished">Done</span></wa-counter>`,
+          );
+          const slotted = el.querySelector<HTMLElement>('[slot="finished"]')!;
+
+          expect(getFinishedSlot(el).hidden).to.be.true;
+          expect(slotted.getBoundingClientRect().width).to.equal(0);
+          expect(getUnits(el)).to.deep.equal(['seconds']);
+
+          // The slotted content is already shown when the event is emitted
+          let unitsAtFinish = ['unset'];
+          el.addEventListener('wa-finish', () => (unitsAtFinish = getUnits(el)), { once: true });
+          await oneEvent(el, 'wa-finish');
+
+          expect(unitsAtFinish).to.deep.equal([]);
+          expect(getFinishedSlot(el).hidden).to.be.false;
+          expect(slotted.getBoundingClientRect().width).to.be.greaterThan(0);
+          expect(el.shadowRoot!.querySelector('.wa-visually-hidden')).to.be.null;
+        });
+
+        it('replaces the units for a date in the past and restores them for a new date', async () => {
+          const el = await createCounter(
+            html`<wa-counter date=${ago(day)}><span slot="finished">Done</span></wa-counter>`,
+          );
+          expect(getFinishedSlot(el).hidden).to.be.false;
+          expect(getUnits(el)).to.deep.equal([]);
+
+          el.date = fromNow(hour);
+          await el.updateComplete;
+          expect(getFinishedSlot(el).hidden).to.be.true;
+          expect(getUnits(el)).to.deep.equal(['hours', 'minutes', 'seconds']);
+          expect(getPhrase(el)).to.not.equal('');
+        });
+
+        it('keeps the units at zero when nothing is slotted, and swaps when content is added', async () => {
+          const el = await createCounter(html`<wa-counter date=${ago(day)}></wa-counter>`);
+          expect(getFinishedSlot(el).hidden).to.be.true;
+          expect(getValues(el)).to.deep.equal(['00']);
+
+          const message = document.createElement('span');
+          message.slot = 'finished';
+          message.textContent = 'Done';
+          el.append(message);
+          await waitUntil(() => !getFinishedSlot(el).hidden, 'The finished slot was not shown');
+          expect(getUnits(el)).to.deep.equal([]);
+
+          message.remove();
+          await waitUntil(() => getFinishedSlot(el).hidden, 'The finished slot was not hidden');
+          expect(getValues(el)).to.deep.equal(['00']);
+        });
+
+        it('stays hidden without a date, for an invalid date, and when counting up', async () => {
+          const el = await createCounter(html`<wa-counter><span slot="finished">Done</span></wa-counter>`);
+          expect(getFinishedSlot(el).hidden).to.be.true;
+
+          el.date = 'not-a-date';
+          await el.updateComplete;
+          expect(getFinishedSlot(el).hidden).to.be.true;
+
+          el.direction = 'up';
+          el.date = fromNow(hour);
+          await el.updateComplete;
+          expect(getFinishedSlot(el).hidden).to.be.true;
+          expect(getValues(el)).to.deep.equal(['00']);
+        });
+
+        it('passes an accessibility audit when finished', async () => {
+          const el = await createCounter(
+            html`<wa-counter label="Time left" date=${ago(day)}><span slot="finished">Done</span></wa-counter>`,
+          );
+          await expect(el).to.be.accessible();
+        });
+      });
+
       describe('counting up', () => {
         it('counts up from a past date', async () => {
           const date = ago(day + 2 * hour + 3 * minute + 4 * second);
