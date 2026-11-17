@@ -1,6 +1,6 @@
 ---
 title: Flank
-description: 'Use the `wa-flank` class to position two items side-by-side, with one item positioned alongside, or _flanking_, content that stretches to fill the available space.'
+description: 'Flanks pair an item at its natural size with one that stretches to fill the rest, like an avatar beside a name or an icon beside text.'
 layout: docs
 tags: layoutUtilities
 synonyms:
