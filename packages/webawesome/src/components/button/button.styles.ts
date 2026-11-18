@@ -4,23 +4,14 @@ export default css`
   @layer wa-component {
     :host {
       display: inline-block;
-
-      /* Workaround because Chrome doesn't like :host(:has()) below
-       * https://issues.chromium.org/issues/40062355
-       * Firefox doesn't like this nested rule, so both are needed */
-      &:has(wa-badge) {
-        position: relative;
-      }
-    }
-
-    /* Apply relative positioning only when needed to position wa-badge
-     * This avoids creating a new stacking context for every button */
-    :host(:has(wa-badge)) {
-      position: relative;
     }
   }
 
   .button {
+    /* Anchors the badge and the loading spinner. It has to be this element, not the host: the press transform makes
+     * .button the containing block anyway, so anchoring elsewhere moved the badge by the border width when a press
+     * ended. Relative positioning without a z-index doesn't create a stacking context. */
+    position: relative;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -310,7 +301,6 @@ export default css`
    */
 
   .loading {
-    position: relative;
     cursor: wait;
 
     .start,
