@@ -10,6 +10,10 @@ export async function animate(el: Element, keyframes: Keyframe[], options?: Keyf
  * the class. Transitions and animations created with the Web Animations API do not delay completion.
  */
 export async function animateWithClass(el: Element, className: string) {
+  if (!el) {
+    return;
+  }
+
   // Flush a previous class removal so immediately reusing the class starts a fresh animation.
   el.getAnimations();
   el.classList.add(className);
