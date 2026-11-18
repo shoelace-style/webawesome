@@ -166,8 +166,8 @@ export default async function (eleventyConfig) {
   eleventyConfig.addGlobalData('eleventyComputed', {
     // Page title with smart + default site name formatting
     pageTitle: data => composePageTitle(data.title),
-    // Open Graph title with smart + default site name formatting
-    ogTitle: data => composePageTitle(data.ogTitle || data.title),
+    // Share titles leave out the site name: og:site_name and the card image already show it
+    ogTitle: data => data.ogTitle || data.title || SITE_NAME,
     ogDescription: data => data.ogDescription || data.description,
     ogImage: data => data.ogImage || siteMetadata.image,
     // Only emit dimensions when we know them: use the default if the page is using the
