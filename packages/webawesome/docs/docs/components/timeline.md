@@ -105,8 +105,8 @@ Add content to an item's `opposite` slot to show it on the other side of the rai
 ```
 
 :::info
-<strong>Rendering on the server? Add the `with-opposite` attribute.</strong><br />
-The opposite column is shown once the component hydrates; `with-opposite` lays it out in the server-rendered markup.
+<strong>Rendering on the server? Add the `with-opposite` attribute to each item.</strong><br />
+The opposite column is shown once the item hydrates; `with-opposite` lays it out in the server-rendered markup. See [Server-Side Rendering](/docs/components/timeline-item#ssr).
 :::
 
 ### Custom Icon
@@ -135,7 +135,7 @@ Use the `icon` slot on an item to replace its default marker with another elemen
 
 ### Variant
 
-Set the `variant` attribute on an item to color its marker and the connector after it with a semantic color. The default is `neutral`. It's cosmetic and doesn't changes the marker's content, similar to `variant` on a badge or callout.
+Set the `variant` attribute on an item to color its marker and the connector after it with a semantic color. The default is `neutral`. The color is cosmetic and never changes the marker's content, like `variant` on a badge or callout.
 
 ```html {.example}
 <wa-timeline>
@@ -157,7 +157,7 @@ Set the `variant` attribute on an item to color its marker and the connector aft
 </wa-timeline>
 ```
 
-To flag something that failed or needs attention, pair variant with an icon and state the reason in the content, so the meaning doesn't depend on color alone.
+To flag something that failed or needs attention, pair the variant with an icon in the [`icon` slot](#custom-icon) and state the reason in the content, so the meaning doesn't depend on color alone.
 
 ```html {.example}
 <wa-timeline style="--marker-size: 2em;">
@@ -179,7 +179,7 @@ To flag something that failed or needs attention, pair variant with an icon and 
 
 ### Size
 
-A timeline is sized relative to the current font size, like a badge. Set `font-size` on the timeline (or parent element) to change it. Everything scales together.
+A timeline is sized relative to the current font size, like a badge. Set `font-size` on the timeline (or an ancestor element) to change it; markers, connectors, and text scale together.
 
 ```html {.example}
 <div class="wa-stack wa-gap-l">
@@ -208,7 +208,7 @@ A timeline is sized relative to the current font size, like a badge. Set `font-s
 
 ### Orientation
 
-Set the `orientation` attribute to `horizontal` to lay items out in a row instead of a column. Wrap the timeline in a [`<wa-scroller>`](/docs/components/scroller) and give each item a minimum width, and it scrolls sideways.
+Set the `orientation` attribute to `horizontal` to lay items out in a row instead of a column. To let a long timeline scroll sideways, wrap it in a [`<wa-scroller>`](/docs/components/scroller) and give each item a minimum width.
 
 ```html {.example}
 <wa-scroller>
@@ -265,10 +265,10 @@ Set the `orientation` attribute to `horizontal` to lay items out in a row instea
 
 ### Marker Placement
 
-Set the `marker-placement` attribute to `end` to move every item to the end of the parent.
+Set the `marker-placement` attribute to `end` to move the markers to the end side, with each item's content before them. Marker placement only applies to vertical timelines.
 
 ```html {.example}
-<wa-timeline marker-placement="end" class="marker-placement">
+<wa-timeline marker-placement="end">
   <wa-timeline-item>
     <wa-format-date slot="opposite" date="2026-03-02" month="short" day="numeric"></wa-format-date>
     <span class="wa-heading-m">Draft written</span>
@@ -282,12 +282,6 @@ Set the `marker-placement` attribute to `end` to move every item to the end of t
     <span class="wa-heading-m">Published</span>
   </wa-timeline-item>
 </wa-timeline>
-
-<style>
- .marker-placement wa-timeline-item {
-    text-align: right;
-  }
-</style>
 ```
 
 Set it to `alternate` to flip each item to the opposite side of its sibling, which suits a wide, centered timeline.
@@ -362,7 +356,7 @@ By default, each marker sits at the top of its item, in line with the first line
 
 ### Providing Content
 
-The default slot accepts any content, not only a title and a line of text.
+An item's default slot accepts any content, so an entry can hold more than a title and a line of text.
 
 ```html {.example}
 <wa-timeline class="timeline-activity">
@@ -483,10 +477,6 @@ The default slot accepts any content, not only a title and a line of text.
 <style>
   .timeline-activity {
     --marker-size: 2.5em;
-  }
-
-  .timeline-activity wa-avatar {
-    --size: 2.5em;
   }
 
   .timeline-activity ul {
@@ -716,17 +706,17 @@ Here the connector and markers become one rule with diamond stops. The `--connec
 ```html {.example}
 <wa-timeline class="release-timeline">
   <wa-timeline-item>
-    <wa-badge slot="opposite" appearance="outlined" pill>v3.13</wa-badge>
-    <span class="wa-heading-m">Added the tag input component</span>
-    <p>Collects a list of short values, such as keywords or email addresses.</p>
-  </wa-timeline-item>
-  <wa-timeline-item>
     <wa-badge slot="opposite" appearance="outlined" pill>v3.14</wa-badge>
     <span class="wa-heading-m">Added the stepper component</span>
     <p>Guides users through a process one step at a time.</p>
   </wa-timeline-item>
+  <wa-timeline-item>
+    <wa-badge slot="opposite" appearance="outlined" pill>v3.15</wa-badge>
+    <span class="wa-heading-m">Added the lightbox component</span>
+    <p>Shows images and videos in a full-screen viewer that opens from their thumbnails.</p>
+  </wa-timeline-item>
   <wa-timeline-item variant="brand">
-    <wa-badge slot="opposite" appearance="outlined" variant="brand" pill>v3.15</wa-badge>
+    <wa-badge slot="opposite" appearance="outlined" variant="brand" pill>v3.16</wa-badge>
     <span class="wa-heading-m">Added the timeline component</span>
     <p>Lays out a chronological list of events, like this one.</p>
   </wa-timeline-item>
@@ -735,7 +725,6 @@ Here the connector and markers become one rule with diamond stops. The `--connec
 <style>
   .release-timeline {
     --marker-size: 0.875em;
-    --gap: var(--wa-space-l);
     --connector-gap: 0px;
     --connector-color: var(--wa-color-neutral-fill-quiet);
   }
@@ -754,7 +743,7 @@ Here the connector and markers become one rule with diamond stops. The `--connec
 
 ## Accessibility Considerations
 
-- **Structure.** The timeline renders an ordered list, and each `<wa-timeline-item>` carries `role="listitem"`.
+- **Structure.** The timeline renders an ordered list, and each `<wa-timeline-item>` carries `role="listitem"`. Set the `label` attribute whenever more than one timeline appears on the same page, so screen reader users can tell them apart.
 - **Keyboard.** Nothing in the timeline takes focus. Items are records, not controls, so the timeline never intercepts clicks or adds keyboard handling. If an entry needs to link somewhere or trigger an action, put a real `<a>` or `<wa-button>` in its content.
 - **Added entries aren't announced.** Adding a `<wa-timeline-item>` updates the list silently; there's no live region. If an update needs to be announced, do it from your own live region rather than relying on the timeline.
 - **Color and meaning.** The `variant` attribute is cosmetic. It changes color, which doesn't carry meaning on its own, so state the reason in the item's visible content rather than relying on color alone.

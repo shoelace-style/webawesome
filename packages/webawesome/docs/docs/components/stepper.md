@@ -26,6 +26,8 @@ use-cases:
 
 Set the `active` attribute to the name of the current [`<wa-step>`](/docs/components/step). A stepper is a display, not a form control, and by default its steps aren't directly interactive. Pair it with your own Next/Back buttons (see [Navigating Declaratively](#navigating-declaratively)) or call its methods directly to move between steps as the user progresses. Add the `clickable` attribute (see [Clickable](#clickable)) to let people click a step, or focus it and press Enter/Space, to jump straight to it.
 
+To show a record of events instead of progress through a process, use [`<wa-timeline>`](/docs/components/timeline).
+
 ## Examples
 
 ### Clickable

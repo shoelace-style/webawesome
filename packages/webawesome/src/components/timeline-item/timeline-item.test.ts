@@ -75,6 +75,20 @@ describe('<wa-timeline-item>', () => {
 
           expect(slot.assignedElements().map(node => node.localName)).to.deep.equal(['wa-icon']);
         });
+
+        it('should size a slotted avatar to the marker', async () => {
+          const timeline = await fixture<HTMLElement>(html`
+            <wa-timeline style="--marker-size: 40px">
+              <wa-timeline-item>
+                <wa-avatar slot="icon" label="Test"></wa-avatar>
+                Done
+              </wa-timeline-item>
+            </wa-timeline>
+          `);
+          const avatar = timeline.querySelector('wa-avatar')!;
+
+          expect(avatar.getBoundingClientRect().width).to.be.closeTo(40, 0.5);
+        });
       });
 
       describe('CSS parts', () => {

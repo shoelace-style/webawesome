@@ -3,8 +3,8 @@ import { css } from 'lit';
 export default css`
   @layer wa-component {
     :host {
-      --_filled: var(--wa-color-fill-normal, var(--wa-color-neutral-fill-normal));
-      --_filled-on: var(--wa-color-on-normal, var(--wa-color-neutral-on-normal));
+      --_filled: var(--wa-color-fill-normal);
+      --_filled-on: var(--wa-color-on-normal);
       --_connector-color: var(--_filled);
       /* How far a first line taller than the marker would rise above the item. Applied as padding so it stays inside. */
       --_line-overhang: max(0px, (1.125lh - var(--marker-size)) / 2);
@@ -14,13 +14,12 @@ export default css`
 
     /* A neutral item takes the timeline's --connector-color; any other variant colors its own connector. */
     :host([variant='neutral']) {
-      --_connector-color: var(--connector-color, var(--wa-color-neutral-fill-normal));
+      --_connector-color: var(--connector-color);
     }
 
-    /* The previous item's variant, set by <wa-timeline> as an attribute, colors a centered connector's incoming half.
-       An attribute rather than step's wa-{variant} class because a class set before hydration never reaches the DOM. */
+    /* The previous item's variant, set by <wa-timeline>, colors a centered connector's incoming half. */
     :host([data-wa-timeline-previous-variant='neutral']) {
-      --_incoming-connector-color: var(--connector-color, var(--wa-color-neutral-fill-normal));
+      --_incoming-connector-color: var(--connector-color);
     }
 
     :host([data-wa-timeline-previous-variant='brand']) {
@@ -56,8 +55,7 @@ export default css`
       align-items: center;
     }
 
-    /* Shift by half the difference between the marker and the first line so the marker centers on that line. 1.125lh,
-       not 1lh, keeps a condensed heading line centered too. */
+    /* Shift by half the marker and first line difference so the marker centers on that line. */
     .content,
     .opposite {
       grid-row: 1;
@@ -94,12 +92,16 @@ export default css`
       border-radius: var(--wa-border-radius-circle);
     }
 
-    /* Same content-to-circle ratio as <wa-avatar>, for icons and avatars alike. */
+    /* Same content-to-circle ratio as <wa-avatar>, which sizes from --size instead. */
     .marker slot {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       font-size: calc(var(--marker-size) * 0.4);
+    }
+
+    slot[name='icon']::slotted(wa-avatar) {
+      --size: var(--marker-size);
     }
 
     /* Connector */
@@ -161,6 +163,7 @@ export default css`
     /* End placement */
     :host([data-wa-timeline-placement='end']) .content {
       margin-inline: 0 1em;
+      text-align: end;
     }
 
     :host([data-wa-timeline-placement='end']) .opposite {
@@ -189,8 +192,7 @@ export default css`
       grid-column: 1;
     }
 
-    /* Center alignment. The connector spans the row behind the marker and splits at it: the incoming half takes the
-       previous item's color, the outgoing half this item's. --connector-gap doesn't apply. */
+    /* Center alignment. The connector runs behind the marker, colored by the previous item above and this one below. */
     :host([data-wa-timeline-center]) .item {
       padding-block-start: 0;
     }

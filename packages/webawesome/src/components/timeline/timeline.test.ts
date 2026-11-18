@@ -42,6 +42,28 @@ describe('<wa-timeline>', () => {
 
           await expect(el).to.be.accessible();
         });
+
+        it('should not set aria-label on the timeline part by default', async () => {
+          const el = await fixture<WaTimeline>(html`
+            <wa-timeline>
+              <wa-timeline-item>First</wa-timeline-item>
+            </wa-timeline>
+          `);
+
+          expect(el.shadowRoot!.querySelector('[part~="timeline"]')!.hasAttribute('aria-label')).to.be.false;
+        });
+
+        it('should set aria-label on the timeline part from label', async () => {
+          const el = await fixture<WaTimeline>(html`
+            <wa-timeline label="Order history">
+              <wa-timeline-item>First</wa-timeline-item>
+            </wa-timeline>
+          `);
+
+          expect(el.shadowRoot!.querySelector('[part~="timeline"]')!.getAttribute('aria-label')).to.equal(
+            'Order history',
+          );
+        });
       });
 
       describe('properties', () => {
@@ -211,6 +233,20 @@ describe('<wa-timeline>', () => {
 
           expect(rect(part(first, 'content')).right).to.be.lessThan(rect(part(first, 'marker')).left + 1);
           expect(rect(part(second, 'content')).right).to.be.lessThan(rect(part(second, 'marker')).left + 1);
+        });
+
+        it('should end-align content with end placement so it hugs the rail', async () => {
+          const el = await fixture<WaTimeline>(html`
+            <wa-timeline marker-placement="end">
+              <wa-timeline-item>First</wa-timeline-item>
+              <wa-timeline-item>Second</wa-timeline-item>
+            </wa-timeline>
+          `);
+          const [first, second] = getItems(el);
+          await waitUntil(() => second.getAttribute('data-wa-timeline-placement') === 'end');
+          await Promise.all([first.updateComplete, second.updateComplete]);
+
+          expect(getComputedStyle(part(first, 'content')).textAlign).to.equal('end');
         });
 
         it('should put alternating items on opposite sides of the rail', async () => {

@@ -6,16 +6,17 @@ import variantStyles from '../../styles/component/variants.styles.js';
 import styles from './timeline-item.styles.js';
 
 /**
- * @summary Timeline items represent a single, dated entry inside a `<wa-timeline>`, such as one event in an order
- *  history or activity feed.
+ * @summary Timeline items represent a single entry inside a `<wa-timeline>`, such as one event in an order history or
+ *  activity feed.
  * @documentation https://webawesome.com/docs/components/timeline-item
  * @status experimental
- * @since 3.15
+ * @since 3.16
  *
  * @slot - The item's main content, such as a title and description.
  * @slot opposite - Optional content shown on the opposite side of the rail from the main content, commonly a date or
  *  timestamp, such as a `<wa-format-date>` or `<wa-relative-time>`.
  * @slot icon - An element, such as `<wa-icon>` or `<wa-avatar>`, that replaces the default dot in the marker.
+ *  An avatar is sized to the marker.
  *
  * @csspart timeline-item - The component's outer wrapper.
  * @csspart marker - The circular marker that marks the item's position on the timeline.

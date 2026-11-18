@@ -1,4 +1,4 @@
-import { html, isServer } from 'lit';
+import { html, isServer, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { watch } from '../../internal/watch.js';
 import WebAwesomeElement from '../../internal/webawesome-element.js';
@@ -10,7 +10,7 @@ import styles from './timeline.styles.js';
  * @summary Timelines lay out a chronological list of events, such as an order history, activity feed, or changelog.
  * @documentation https://webawesome.com/docs/components/timeline
  * @status experimental
- * @since 3.15
+ * @since 3.16
  *
  * @dependency wa-timeline-item
  *
@@ -52,6 +52,9 @@ export default class WaTimeline extends WebAwesomeElement {
    * `orientation` is `vertical`.
    */
   @property({ attribute: 'marker-alignment', reflect: true }) markerAlignment: 'start' | 'center' = 'start';
+
+  /** A label that describes the timeline to assistive devices. Especially useful when more than one is on the page. */
+  @property() label = '';
 
   connectedCallback() {
     super.connectedCallback();
@@ -126,7 +129,7 @@ export default class WaTimeline extends WebAwesomeElement {
 
   render() {
     return html`
-      <ol part="timeline" class="timeline" role="list">
+      <ol part="timeline" class="timeline" role="list" aria-label=${this.label || nothing}>
         <slot @slotchange=${this.handleSlotChange}></slot>
       </ol>
     `;
