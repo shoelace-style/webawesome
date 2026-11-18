@@ -113,16 +113,16 @@ Add content to an item's `opposite` slot to show it on the other side of the rai
 ```
 
 :::info
-<strong>Rendering on the server? Add the `with-opposite` attribute to each item that has opposite content.</strong><br />
-The opposite column is shown once the item hydrates; `with-opposite` lays it out in the server-rendered markup. See [Server-Side Rendering](/docs/components/timeline-item#ssr).
+<strong>Rendering on the server?</strong><br />
+Add the `with-opposite` attribute to items with opposite content and the `with-icon` attribute to items with an icon, so both lay out before the page hydrates. See [Server-Side Rendering](/docs/components/timeline-item#ssr).
 :::
 
 ### Custom Icon
 
-Use the `icon` slot on an item to show an element, such as [`<wa-icon>`](/docs/components/icon), inside its marker. The marker keeps its variant color, and the icon takes the variant's matching foreground color. Icons are drawn at 40% of the marker's size, so increase the `--marker-size` custom property to make room.
+Use the `icon` slot on an item to show an element, such as [`<wa-icon>`](/docs/components/icon), inside its marker. The marker keeps its variant color, and the icon takes the variant's matching foreground color. Icons are drawn at 40% of the marker's size. A marker with an icon is `2em` by default instead of `1em`, and the `--marker-size` custom property overrides it.
 
 ```html {.example}
-<wa-timeline style="--marker-size: 2em;">
+<wa-timeline>
   <wa-timeline-item variant="warning">
     <wa-icon slot="icon" name="hat-wizard"></wa-icon>
     <span class="wa-heading-m">The call</span>
@@ -168,7 +168,7 @@ Set the `variant` attribute on an item to color its marker with a semantic color
 To flag something that failed or needs attention, pair the variant with an icon in the [`icon` slot](#custom-icon) and state the reason in the content, so the meaning doesn't depend on color alone.
 
 ```html {.example}
-<wa-timeline style="--marker-size: 2em;">
+<wa-timeline>
   <wa-timeline-item variant="success">
     <wa-icon slot="icon" name="check"></wa-icon>
     <span class="wa-heading-m">Build passed</span>
@@ -230,7 +230,7 @@ To let a long timeline scroll sideways, wrap it in a [`<wa-scroller>`](/docs/com
 
 ```html {.example}
 <wa-scroller>
-  <wa-timeline class="timeline-space-race" orientation="horizontal" style="--marker-size: 2em;">
+  <wa-timeline class="timeline-space-race" orientation="horizontal">
     <wa-timeline-item>
       <wa-icon slot="icon" name="satellite-dish"></wa-icon>
       <wa-format-date slot="opposite" date="1957-10-04" year="numeric"></wa-format-date>
@@ -319,7 +319,7 @@ Set it to `alternate` to switch sides item by item, so the rail runs down the mi
 By default, each marker sits at the top of its item, in line with the first line of text. Set the `marker-alignment` attribute to `center` to center the marker on the item's full height instead. Marker alignment only applies to vertical timelines.
 
 ```html {.example}
-<wa-timeline marker-alignment="center" style="--marker-size: 2em;">
+<wa-timeline marker-alignment="center">
   <wa-timeline-item variant="success">
     <wa-icon slot="icon" name="campground"></wa-icon>
     <wa-card>

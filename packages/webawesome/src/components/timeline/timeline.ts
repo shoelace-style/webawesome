@@ -20,7 +20,8 @@ import styles from './timeline.styles.js';
  *
  * @cssproperty [--gap=var(--wa-space-l)] - The space between items. Connectors are sized from this value, so set it
  *  here instead of setting `gap` on the `timeline` part. Use a length such as `0px`, not a bare `0`, to remove it.
- * @cssproperty [--marker-size=1em] - The size of each item's marker. Usually set here so every item matches.
+ * @cssproperty --marker-size - The size of each item's marker. Usually set here so every item matches. When unset,
+ *  a marker is `1em`, or `2em` when its item has an icon.
  * @cssproperty [--connector-color=var(--wa-color-neutral-fill-normal)] - The color of the connector line.
  * @cssproperty [--connector-width=var(--wa-border-width-m)] - The thickness of the connector line, in either
  *  orientation.
