@@ -453,6 +453,22 @@ describe('<wa-timeline>', () => {
           expect(getComputedStyle(connector(success, 'start')).backgroundColor).to.equal('rgb(1, 2, 3)');
         });
 
+        it('should give a neutral marker the quiet fill and any other variant a louder one than its connector', async () => {
+          const el = await fixture<WaTimeline>(html`
+            <wa-timeline>
+              <wa-timeline-item>Neutral by default</wa-timeline-item>
+              <wa-timeline-item variant="success">Success</wa-timeline-item>
+              <wa-timeline-item>Last</wa-timeline-item>
+            </wa-timeline>
+          `);
+          const [neutral, success] = getItems(el);
+          await whenSynced(el);
+          const background = (target: Element) => getComputedStyle(target).backgroundColor;
+
+          expect(background(part(neutral, 'marker'))).to.equal(background(connector(neutral, 'end')));
+          expect(background(part(success, 'marker'))).to.not.equal(background(connector(success, 'end')));
+        });
+
         it('should color a centered connector by the previous item above the marker and by itself below', async () => {
           const el = await fixture<WaTimeline>(html`
             <wa-timeline marker-alignment="center" style="--connector-color: rgb(1, 2, 3);">

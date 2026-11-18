@@ -135,7 +135,7 @@ Use the `icon` slot on an item to show an element, such as [`<wa-icon>`](/docs/c
 
 ### Variant
 
-Set the `variant` attribute on an item to color its marker and the connector after it with a semantic color. The default is `neutral`. The color is cosmetic and never changes the marker's content, like `variant` on a badge or callout.
+Set the `variant` attribute on an item to color its marker and the connector after it with a semantic color. The default is `neutral`, whose marker stays quiet so the other variants stand out against it. The color is cosmetic and never changes the marker's content, like `variant` on a badge or callout.
 
 ```html {.example}
 <wa-timeline>

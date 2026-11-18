@@ -3,17 +3,19 @@ import { css } from 'lit';
 export default css`
   @layer wa-component {
     :host {
-      --_filled: var(--wa-color-fill-normal);
-      --_filled-on: var(--wa-color-on-normal);
-      --_connector-color: var(--_filled);
+      --_marker-background: var(--wa-color-fill-loud);
+      --_marker-color: var(--wa-color-on-loud);
+      --_connector-color: var(--wa-color-fill-normal);
       /* How far a first line taller than the marker would rise above the item. Applied as padding so it stays inside. */
       --_line-overhang: max(0px, (1lh - var(--marker-size)) / 2);
 
       display: block;
     }
 
-    /* A neutral item takes the timeline's --connector-color; any other variant colors its own connector. */
+    /* Neutral items keep a quiet marker so a plain timeline reads quietly, and take the timeline's --connector-color. */
     :host([variant='neutral']) {
+      --_marker-background: var(--wa-color-fill-normal);
+      --_marker-color: var(--wa-color-on-normal);
       --_connector-color: var(--connector-color);
     }
 
@@ -95,8 +97,8 @@ export default css`
       justify-content: center;
       width: var(--marker-size);
       height: var(--marker-size);
-      color: var(--_filled-on);
-      background-color: var(--_filled);
+      color: var(--_marker-color);
+      background-color: var(--_marker-background);
       border-radius: var(--wa-border-radius-circle);
     }
 
