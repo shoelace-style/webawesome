@@ -38,6 +38,13 @@ Web Awesome follows <a href="https://semver.org/" class="appearance-plain">Seman
 
 :::
 
+:::changed
+
+- Improved spacing in `<wa-chart>` and its variants with more room below the title and between legend items [pr:3045]
+- Improved readability of `<wa-polar-area-chart>` and `<wa-radar-chart>` by hiding the scale's tick labels, which crossed the data; set `options.scales.r.ticks.display` to `true` to show them [pr:3045]
+
+:::
+
 ## 3.15.0
 
 <small><time datetime="2026-11-17">November 11th, 2026</time></small>
