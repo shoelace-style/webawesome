@@ -154,7 +154,7 @@ export default css`
       grid-column: auto;
       grid-row: opposite;
       margin-inline: 0;
-      margin-block: 0 1em;
+      margin-block: 0 0.5em;
       text-align: center;
     }
 
@@ -173,7 +173,7 @@ export default css`
       grid-column: auto;
       grid-row: content;
       margin-inline: 0;
-      margin-block: 1em 0;
+      margin-block: 0.5em 0;
     }
 
     :host([data-wa-timeline-horizontal]) .connector {
