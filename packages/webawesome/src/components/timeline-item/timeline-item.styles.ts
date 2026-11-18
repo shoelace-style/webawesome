@@ -7,7 +7,7 @@ export default css`
       --_filled-on: var(--wa-color-on-normal);
       --_connector-color: var(--_filled);
       /* How far a first line taller than the marker would rise above the item. Applied as padding so it stays inside. */
-      --_line-overhang: max(0px, (1.125lh - var(--marker-size)) / 2);
+      --_line-overhang: max(0px, (1lh - var(--marker-size)) / 2);
 
       display: block;
     }
@@ -17,7 +17,7 @@ export default css`
       --_connector-color: var(--connector-color);
     }
 
-    /* The previous item's variant, set by <wa-timeline>, colors a centered connector's incoming half. */
+    /* The previous item's variant, set by <wa-timeline>, colors the incoming connector half. */
     :host([data-wa-timeline-previous-variant='neutral']) {
       --_incoming-connector-color: var(--connector-color);
     }
@@ -55,27 +55,35 @@ export default css`
       align-items: center;
     }
 
-    /* Shift by half the marker and first line difference so the marker centers on that line. */
     .content,
     .opposite {
       grid-row: 1;
       align-self: start;
       min-width: 0;
-      margin-block-start: calc((var(--marker-size) - 1.125lh) / 2);
+      overflow-wrap: break-word;
     }
 
+    /* Shift by half the marker and first line difference so the marker centers on that line. */
     .content {
       grid-column: content;
+      margin-block-start: calc((var(--marker-size) - 1lh) / 2);
       margin-inline-start: 1em;
     }
 
+    /* Starts at the marker's middle. The slot then pulls its smaller first line up by half its own height. */
     .opposite {
       grid-column: opposite;
+      margin-block-start: calc(var(--marker-size) / 2);
       margin-inline-end: 1em;
-      font-size: var(--wa-font-size-smaller);
-      line-height: var(--wa-line-height-condensed);
       color: var(--wa-color-text-quiet);
       text-align: end;
+    }
+
+    .opposite slot {
+      display: block;
+      margin-block-start: -0.5lh;
+      font-size: var(--wa-font-size-smaller);
+      line-height: var(--wa-line-height-condensed);
     }
 
     /* Marker */
@@ -92,7 +100,7 @@ export default css`
       border-radius: var(--wa-border-radius-circle);
     }
 
-    /* Same content-to-circle ratio as <wa-avatar>, which sizes from --size instead. */
+    /* Same content-to-circle ratio as <wa-avatar>. A slotted avatar needs 2.5em, the inverse of this 0.4. */
     .marker slot {
       display: inline-flex;
       align-items: center;
@@ -101,22 +109,32 @@ export default css`
     }
 
     slot[name='icon']::slotted(wa-avatar) {
-      --size: var(--marker-size);
+      --size: 2.5em;
     }
 
-    /* Connector */
+    /* Connector. Each item draws two halves that meet in the middle of the gap, so every length is its own. */
     .connector {
       position: absolute;
       z-index: 0;
       inset-inline: 0;
-      inset-block-start: calc(var(--marker-size) + var(--connector-gap));
-      inset-block-end: calc(-1 * var(--gap) - var(--_line-overhang) + var(--connector-gap));
       width: var(--connector-width);
       margin-inline: auto;
+    }
+
+    /* From the middle of the gap above the item to one connector gap above the marker. */
+    .connector-start {
+      inset-block: calc(-1 * (var(--gap) / 2 + var(--_line-overhang))) calc(100% + var(--connector-gap));
+      background-color: var(--_incoming-connector-color, var(--_connector-color));
+    }
+
+    /* From one connector gap below the marker to the middle of the gap below the item. */
+    .connector-end {
+      inset-block: calc(var(--marker-size) + var(--connector-gap)) calc(-1 * var(--gap) / 2);
       background-color: var(--_connector-color);
     }
 
-    :host(:last-child) .connector {
+    :host(:first-of-type) .connector-start,
+    :host(:last-of-type) .connector-end {
       display: none;
     }
 
@@ -138,9 +156,15 @@ export default css`
       text-align: center;
     }
 
+    :host([data-wa-timeline-horizontal]) .opposite slot {
+      margin-block-start: 0;
+    }
+
+    /* Centers markers of different sizes on one line. */
     :host([data-wa-timeline-horizontal]) .rail {
       grid-column: auto;
       grid-row: rail;
+      justify-content: center;
     }
 
     :host([data-wa-timeline-horizontal]) .content {
@@ -151,13 +175,18 @@ export default css`
     }
 
     :host([data-wa-timeline-horizontal]) .connector {
-      inset-inline-start: calc(50% + var(--marker-size) / 2 + var(--connector-gap));
-      inset-inline-end: calc(-50% - var(--gap) + var(--marker-size) / 2 + var(--connector-gap));
-      inset-block-start: calc(var(--marker-size) / 2);
-      inset-block-end: auto;
+      inset-block: 0;
       width: auto;
       height: var(--connector-width);
-      translate: 0 -50%;
+      margin-block: auto;
+    }
+
+    :host([data-wa-timeline-horizontal]) .connector-start {
+      inset-inline: calc(-1 * var(--gap) / 2) calc(50% + var(--marker-size) / 2 + var(--connector-gap));
+    }
+
+    :host([data-wa-timeline-horizontal]) .connector-end {
+      inset-inline: calc(50% + var(--marker-size) / 2 + var(--connector-gap)) calc(-1 * var(--gap) / 2);
     }
 
     /* End placement */
@@ -207,48 +236,22 @@ export default css`
       margin-block-start: 0;
     }
 
-    :host([data-wa-timeline-center]) .connector,
-    :host([data-wa-timeline-center]:first-child) .connector,
-    :host([data-wa-timeline-center]:last-child) .connector {
-      display: block;
-      inset-block: 0;
-      background-color: transparent;
+    :host([data-wa-timeline-center]) .opposite slot {
+      margin-block-start: 0;
     }
 
-    :host([data-wa-timeline-center]) .connector::before,
-    :host([data-wa-timeline-center]) .connector::after {
-      content: '';
-      position: absolute;
-      inset-inline: 0;
+    :host([data-wa-timeline-center]) .connector-start {
+      inset-block: calc(-1 * var(--gap) / 2) 50%;
     }
 
-    :host([data-wa-timeline-center]) .connector::before {
-      inset-block-start: 0;
-      inset-block-end: 50%;
-      background-color: var(--_incoming-connector-color, var(--_connector-color));
-    }
-
-    :host([data-wa-timeline-center]) .connector::after {
-      inset-block-start: 50%;
-      inset-block-end: calc(-1 * var(--gap));
-      background-color: var(--_connector-color);
-    }
-
-    :host([data-wa-timeline-center]:first-child) .connector::before,
-    :host([data-wa-timeline-center]:last-child) .connector::after {
-      display: none;
-    }
-
-    /* A lone item has nothing to connect to. */
-    :host([data-wa-timeline-center]:only-child) .connector {
-      display: none;
+    :host([data-wa-timeline-center]) .connector-end {
+      inset-block: 50% calc(-1 * var(--gap) / 2);
     }
 
     /* Forced colors flatten backgrounds to Canvas, so anything that's fill-only needs a system-color edge. */
     @media (forced-colors: active) {
-      .connector,
-      .connector::before,
-      .connector::after {
+      .connector-start,
+      .connector-end {
         background-color: CanvasText;
       }
 

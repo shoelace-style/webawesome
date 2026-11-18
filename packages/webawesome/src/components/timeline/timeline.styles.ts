@@ -15,7 +15,11 @@ export default css`
     /* The list owns the column tracks and every item subgrids into them, so the rail stays straight. */
     .timeline {
       display: grid;
-      grid-template-columns: [opposite-start] auto [opposite-end rail-start] auto [rail-end content-start] 1fr [content-end];
+      grid-template-columns:
+        [opposite-start] fit-content(40%)
+        [opposite-end rail-start] auto
+        [rail-end content-start] minmax(0, 1fr)
+        [content-end];
       row-gap: var(--gap);
       margin: 0;
       padding: 0;
@@ -23,11 +27,15 @@ export default css`
     }
 
     :host([marker-placement='end']) .timeline {
-      grid-template-columns: [content-start] 1fr [content-end rail-start] auto [rail-end opposite-start] auto [opposite-end];
+      grid-template-columns:
+        [content-start] minmax(0, 1fr)
+        [content-end rail-start] auto
+        [rail-end opposite-start] fit-content(40%)
+        [opposite-end];
     }
 
     :host([marker-placement='alternate']) .timeline {
-      grid-template-columns: 1fr [rail-start] auto [rail-end] 1fr;
+      grid-template-columns: minmax(0, 1fr) [rail-start] auto [rail-end] minmax(0, 1fr);
     }
 
     ::slotted(wa-timeline-item) {

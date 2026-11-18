@@ -15,23 +15,23 @@ import styles from './timeline-item.styles.js';
  * @slot - The item's main content, such as a title and description.
  * @slot opposite - Optional content shown on the opposite side of the rail from the main content, commonly a date or
  *  timestamp, such as a `<wa-format-date>` or `<wa-relative-time>`.
- * @slot icon - An element, such as `<wa-icon>` or `<wa-avatar>`, that replaces the default dot in the marker.
- *  An avatar is sized to the marker.
+ * @slot icon - An element, such as `<wa-icon>` or `<wa-avatar>`, shown inside the marker. Icons are drawn at 40% of the
+ *  marker's size, and an avatar fills the marker.
  *
  * @csspart timeline-item - The component's outer wrapper.
  * @csspart marker - The circular marker that marks the item's position on the timeline.
- * @csspart connector - The line connecting this item to the next one.
+ * @csspart connector - The line connecting this item to its neighbors. Each item draws the half leading in and the
+ *  half leading out, and both carry this part name.
  * @csspart content - The wrapper around the default slot.
  * @csspart opposite - The wrapper around the `opposite` slot.
  *
  * @cssproperty --marker-size - The size of the item's marker. Inherited from `<wa-timeline>`; set it here to make one
  *  item stand out.
- * @cssproperty --connector-color - The color of the connector that follows this item when its `variant` is `neutral`.
- *  Inherited from `<wa-timeline>`.
- * @cssproperty --connector-width - The thickness of the connector that follows this item. Inherited from
- *  `<wa-timeline>`; set it here to make one item's connector stand out.
- * @cssproperty --connector-gap - The gap between this item's marker and its connector. Inherited from `<wa-timeline>`.
- *  Use a length such as `0px`, not a bare `0`, to remove it.
+ * @cssproperty --connector-gap - The gap between this item's marker and its connector. Inherited from `<wa-timeline>`;
+ *  set it here to change it for one item. Use a length such as `0px`, not a bare `0`, to remove it.
+ *
+ * @ssr - If you slot content into `opposite`, set the `with-opposite` attribute, otherwise the opposite column won't
+ *  render until the item hydrates on the client.
  */
 @customElement('wa-timeline-item')
 export default class WaTimelineItem extends WebAwesomeElement {
@@ -65,7 +65,8 @@ export default class WaTimelineItem extends WebAwesomeElement {
           <span part="marker" class="marker">
             <slot name="icon"></slot>
           </span>
-          <span part="connector" class="connector"></span>
+          <span part="connector" class="connector connector-start"></span>
+          <span part="connector" class="connector connector-end"></span>
         </span>
         <span part="content" class="content">
           <slot></slot>

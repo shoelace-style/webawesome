@@ -28,8 +28,9 @@ import styles from './timeline.styles.js';
  * @cssproperty [--connector-gap=0.35em] - The gap between a marker's edge and the connector line. Use a length such
  *  as `0px`, not a bare `0`, to remove it.
  *
- * @ssr - During SSR, `<wa-timeline>` can't reach its items, so server-rendered markup uses the default vertical layout
- *  and document order. `orientation`, `marker-placement`, and `marker-alignment` apply once it hydrates.
+ * @ssr - During SSR, `<wa-timeline>` can't reach its items, so each item renders with the default start placement and
+ *  start alignment until it hydrates. The list itself follows `orientation` and `marker-placement` right away, so a
+ *  horizontal or alternating timeline doesn't lay out correctly until then.
  */
 @customElement('wa-timeline')
 export default class WaTimeline extends WebAwesomeElement {
@@ -41,8 +42,9 @@ export default class WaTimeline extends WebAwesomeElement {
   @property({ reflect: true }) orientation: 'horizontal' | 'vertical' = 'vertical';
 
   /**
-   * Which side of the rail each marker sits on. `start` and `end` put every marker on that edge; `alternate` flips
-   * every other item so the rail runs down the middle. Only applies when `orientation` is `vertical`.
+   * Which side of each item's content the marker sits on. `start` puts the marker before the content and `end` puts
+   * it after. `alternate` switches sides on every other item, so the rail runs down the middle. Only applies when
+   * `orientation` is `vertical`.
    */
   @property({ attribute: 'marker-placement', reflect: true }) markerPlacement: 'start' | 'end' | 'alternate' = 'start';
 
@@ -62,17 +64,16 @@ export default class WaTimeline extends WebAwesomeElement {
     // SSR guard: MutationObserver isn't available during server-side rendering.
     if (isServer) return;
 
-    // After the first update...
-    this.updateComplete.then(() => {
-      this.syncItems();
+    // Resync when an item's variant changes. subtree also sees content inside items and nested timelines, so only
+    // react to direct children. One instance is reused, so reconnecting never leaves a second observer running.
+    this.mutationObserver ??= new MutationObserver(mutations => {
+      const isOwnMutation = mutations.some(mutation => (mutation.target as Element).parentElement === this);
+      if (isOwnMutation) this.syncItems();
+    });
+    this.mutationObserver.observe(this, { attributes: true, attributeFilter: ['variant'], subtree: true });
 
-      // Resync when an item's variant changes. subtree also sees content inside items and nested timelines, so only
-      // react to direct children.
-      this.mutationObserver = new MutationObserver(mutations => {
-        const isOwnMutation = mutations.some(mutation => (mutation.target as Element).parentElement === this);
-        if (isOwnMutation) this.syncItems();
-      });
-      this.mutationObserver.observe(this, { attributes: true, attributeFilter: ['variant'], subtree: true });
+    this.updateComplete.then(() => {
+      if (this.isConnected) this.syncItems();
     });
   }
 
@@ -91,7 +92,7 @@ export default class WaTimeline extends WebAwesomeElement {
 
   /**
    * Hands each item its layout as `data-wa-timeline-*` attributes. Each item also learns the previous item's variant
-   * for its centered connector.
+   * for its incoming connector half.
    */
   private syncItems() {
     const items = this.getAllItems();

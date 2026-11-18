@@ -17,12 +17,12 @@ This component must be used as a child of `<wa-timeline>`. Please see the [Timel
 ```html {.example .anatomy-only}
 <wa-timeline>
   <wa-timeline-item data-anatomy-subject="true">
-    <wa-format-date slot="opposite" date="2026-07-22" month="short" day="numeric"></wa-format-date>
+    <wa-format-date slot="opposite" date="2026-07-22T09:00:00" month="short" day="numeric"></wa-format-date>
     <span class="wa-heading-m">Order placed</span>
     <p>We received your order and will begin processing it shortly.</p>
   </wa-timeline-item>
   <wa-timeline-item>
-    <wa-format-date slot="opposite" date="2026-07-24" month="short" day="numeric"></wa-format-date>
+    <wa-format-date slot="opposite" date="2026-07-24T09:00:00" month="short" day="numeric"></wa-format-date>
     <span class="wa-heading-m">Out for delivery</span>
   </wa-timeline-item>
 </wa-timeline>

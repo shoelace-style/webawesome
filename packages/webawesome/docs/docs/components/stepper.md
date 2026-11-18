@@ -128,7 +128,7 @@ To flag a step that failed or needs attention, pair the variant with an icon in 
 
 ### Size
 
-A stepper is sized relative to the current font size, like a badge. Set `font-size` on the stepper (or an ancestor element) to change it; markers, connectors, and text scale together.
+A stepper is sized relative to the current font size, like a badge. Set `font-size` on the stepper (or an ancestor element) to change it; markers and text scale together.
 
 ```html {.example}
 <div class="wa-stack wa-gap-l">

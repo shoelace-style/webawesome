@@ -77,17 +77,24 @@ describe('<wa-timeline-item>', () => {
         });
 
         it('should size a slotted avatar to the marker', async () => {
-          const timeline = await fixture<HTMLElement>(html`
-            <wa-timeline style="--marker-size: 40px">
-              <wa-timeline-item>
-                <wa-avatar slot="icon" label="Test"></wa-avatar>
-                Done
-              </wa-timeline-item>
-            </wa-timeline>
-          `);
-          const avatar = timeline.querySelector('wa-avatar')!;
+          // An em-based size resolves against the timeline's font size, not the smaller font size inside the marker.
+          for (const [markerSize, expected] of [
+            ['40px', 40],
+            ['3em', 48],
+            ['1em', 16],
+          ] as const) {
+            const timeline = await fixture<HTMLElement>(html`
+              <wa-timeline style="font-size: 16px; --marker-size: ${markerSize}">
+                <wa-timeline-item>
+                  <wa-avatar slot="icon" label="Test"></wa-avatar>
+                  Done
+                </wa-timeline-item>
+              </wa-timeline>
+            `);
+            const avatar = timeline.querySelector('wa-avatar')!;
 
-          expect(avatar.getBoundingClientRect().width).to.be.closeTo(40, 0.5);
+            expect(avatar.getBoundingClientRect().width, markerSize).to.be.closeTo(expected, 0.5);
+          }
         });
       });
 

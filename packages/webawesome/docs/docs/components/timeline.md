@@ -15,7 +15,7 @@ use-cases:
 ---
 
 ```html {.example .anatomy}
-<wa-timeline>
+<wa-timeline label="Order history">
   <wa-timeline-item>
     <span class="wa-heading-m">Order placed</span>
     <p>We received your order and will begin processing it shortly.</p>
@@ -105,13 +105,13 @@ Add content to an item's `opposite` slot to show it on the other side of the rai
 ```
 
 :::info
-<strong>Rendering on the server? Add the `with-opposite` attribute to each item.</strong><br />
+<strong>Rendering on the server? Add the `with-opposite` attribute to each item that has opposite content.</strong><br />
 The opposite column is shown once the item hydrates; `with-opposite` lays it out in the server-rendered markup. See [Server-Side Rendering](/docs/components/timeline-item#ssr).
 :::
 
 ### Custom Icon
 
-Use the `icon` slot on an item to replace its default marker with another element. The marker keeps its variant styling, so an icon is colored the same way the marker would be.
+Use the `icon` slot on an item to show an element, such as [`<wa-icon>`](/docs/components/icon), inside its marker. The marker keeps its variant color, and the icon takes the variant's matching foreground color. Icons are drawn at 40% of the marker's size, so increase the `--marker-size` custom property to make room.
 
 ```html {.example}
 <wa-timeline style="--marker-size: 2em;">
@@ -179,7 +179,7 @@ To flag something that failed or needs attention, pair the variant with an icon 
 
 ### Size
 
-A timeline is sized relative to the current font size, like a badge. Set `font-size` on the timeline (or an ancestor element) to change it; markers, connectors, and text scale together.
+A timeline is sized relative to the current font size, like a badge. Set `font-size` on the timeline (or an ancestor element) to change it; markers and text scale together. The connector's thickness and the space between items come from the `--connector-width` and `--gap` custom properties, which don't follow the font size.
 
 ```html {.example}
 <div class="wa-stack wa-gap-l">
@@ -212,43 +212,33 @@ Set the `orientation` attribute to `horizontal` to lay items out in a row instea
 
 ```html {.example}
 <wa-scroller>
-  <wa-timeline class="timeline-space-race" orientation="horizontal" style="--marker-size: 3em;">
+  <wa-timeline class="timeline-space-race" orientation="horizontal" style="--marker-size: 2em;">
     <wa-timeline-item>
-      <wa-avatar slot="icon" label="Sputnik 1">
-        <wa-icon slot="icon" name="satellite-dish"></wa-icon>
-      </wa-avatar>
+      <wa-icon slot="icon" name="satellite-dish"></wa-icon>
       <wa-format-date slot="opposite" date="1957-10-04" year="numeric"></wa-format-date>
       <span class="wa-heading-m">Sputnik 1</span>
       <p>First artificial satellite.</p>
     </wa-timeline-item>
     <wa-timeline-item>
-      <wa-avatar slot="icon" label="Vostok 1">
-        <wa-icon slot="icon" name="user-astronaut"></wa-icon>
-      </wa-avatar>
+      <wa-icon slot="icon" name="user-astronaut"></wa-icon>
       <wa-format-date slot="opposite" date="1961-04-12" year="numeric"></wa-format-date>
       <span class="wa-heading-m">Vostok 1</span>
       <p>First human in orbit.</p>
     </wa-timeline-item>
     <wa-timeline-item>
-      <wa-avatar slot="icon" label="Apollo 11">
-        <wa-icon slot="icon" name="moon"></wa-icon>
-      </wa-avatar>
+      <wa-icon slot="icon" name="moon"></wa-icon>
       <wa-format-date slot="opposite" date="1969-07-20" year="numeric"></wa-format-date>
       <span class="wa-heading-m">Apollo 11</span>
       <p>First crewed lunar landing.</p>
     </wa-timeline-item>
     <wa-timeline-item>
-      <wa-avatar slot="icon" label="Columbia">
-        <wa-icon slot="icon" name="satellite"></wa-icon>
-      </wa-avatar>
+      <wa-icon slot="icon" name="shuttle-space"></wa-icon>
       <wa-format-date slot="opposite" date="1981-04-12" year="numeric"></wa-format-date>
       <span class="wa-heading-m">Columbia</span>
       <p>First reusable orbiter flies.</p>
     </wa-timeline-item>
     <wa-timeline-item>
-      <wa-avatar slot="icon" label="Zarya">
-        <wa-icon slot="icon" name="shuttle-space-vertical"></wa-icon>
-      </wa-avatar>
+      <wa-icon slot="icon" name="satellite"></wa-icon>
       <wa-format-date slot="opposite" date="1998-11-20" year="numeric"></wa-format-date>
       <span class="wa-heading-m">Zarya</span>
       <p>First ISS module.</p>
@@ -265,26 +255,26 @@ Set the `orientation` attribute to `horizontal` to lay items out in a row instea
 
 ### Marker Placement
 
-Set the `marker-placement` attribute to `end` to move the markers to the end side, with each item's content before them. Marker placement only applies to vertical timelines.
+The `marker-placement` attribute sets where each marker sits relative to its item's content. The default, `start`, puts the marker before the content; set it to `end` to put the marker after the content. Marker placement only applies to vertical timelines.
 
 ```html {.example}
 <wa-timeline marker-placement="end">
   <wa-timeline-item>
-    <wa-format-date slot="opposite" date="2026-03-02" month="short" day="numeric"></wa-format-date>
+    <wa-format-date slot="opposite" date="2026-03-02T09:00:00" month="short" day="numeric"></wa-format-date>
     <span class="wa-heading-m">Draft written</span>
   </wa-timeline-item>
   <wa-timeline-item>
-    <wa-format-date slot="opposite" date="2026-03-09" month="short" day="numeric"></wa-format-date>
+    <wa-format-date slot="opposite" date="2026-03-09T09:00:00" month="short" day="numeric"></wa-format-date>
     <span class="wa-heading-m">Edits returned</span>
   </wa-timeline-item>
   <wa-timeline-item variant="success">
-    <wa-format-date slot="opposite" date="2026-03-16" month="short" day="numeric"></wa-format-date>
+    <wa-format-date slot="opposite" date="2026-03-16T09:00:00" month="short" day="numeric"></wa-format-date>
     <span class="wa-heading-m">Published</span>
   </wa-timeline-item>
 </wa-timeline>
 ```
 
-Set it to `alternate` to flip each item to the opposite side of its sibling, which suits a wide, centered timeline.
+Set it to `alternate` to switch sides item by item, so the rail runs down the middle, which suits a wide timeline.
 
 ```html {.example}
 <wa-timeline marker-placement="alternate">
@@ -361,11 +351,7 @@ An item's default slot accepts any content, so an entry can hold more than a tit
 ```html {.example}
 <wa-timeline class="timeline-activity">
   <wa-timeline-item>
-    <wa-avatar
-      slot="icon"
-      image="https://images.unsplash.com/photo-1490150028299-bf57d78394e0?auto=format&fit=crop&w=96&h=96&q=60"
-      label="Jamie Kim"
-    ></wa-avatar>
+    <wa-avatar slot="icon" initials="JK" label="Jamie Kim"></wa-avatar>
     <wa-format-date
       slot="opposite"
       date="2026-09-14T09:12:00"
@@ -382,16 +368,12 @@ An item's default slot accepts any content, so an entry can hold more than a tit
       </div>
       <p>Adds the timeline component and its docs.</p>
       <div class="wa-cluster">
-        <wa-button size="small" appearance="outlined">View Changes</wa-button>
+        <wa-button size="s" appearance="outlined">View Changes</wa-button>
       </div>
     </div>
   </wa-timeline-item>
   <wa-timeline-item variant="warning">
-    <wa-avatar
-      slot="icon"
-      image="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=96&h=96&q=60"
-      label="Riley Park"
-    ></wa-avatar>
+    <wa-avatar slot="icon" initials="RP" label="Riley Park"></wa-avatar>
     <wa-format-date
       slot="opposite"
       date="2026-09-14T11:03:00"
@@ -410,11 +392,7 @@ An item's default slot accepts any content, so an entry can hold more than a tit
     </div>
   </wa-timeline-item>
   <wa-timeline-item>
-    <wa-avatar
-      slot="icon"
-      image="https://images.unsplash.com/photo-1490150028299-bf57d78394e0?auto=format&fit=crop&w=96&h=96&q=60"
-      label="Jamie Kim"
-    ></wa-avatar>
+    <wa-avatar slot="icon" initials="JK" label="Jamie Kim"></wa-avatar>
     <wa-format-date
       slot="opposite"
       date="2026-09-15T08:20:00"
@@ -435,11 +413,7 @@ An item's default slot accepts any content, so an entry can hold more than a tit
     </div>
   </wa-timeline-item>
   <wa-timeline-item variant="success">
-    <wa-avatar
-      slot="icon"
-      image="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=96&h=96&q=60"
-      label="Riley Park"
-    ></wa-avatar>
+    <wa-avatar slot="icon" initials="RP" label="Riley Park"></wa-avatar>
     <wa-format-date
       slot="opposite"
       date="2026-09-15T08:47:00"
@@ -608,15 +582,13 @@ Sides are assigned in document order, so prepending an entry moves existing entr
 
 ### Customizing
 
-Use the exported [CSS parts](#css-parts) and [custom properties](#css-custom-properties) to restyle the timeline. Each item can also set the `--marker-size` and `--connector-width` custom properties for itself.
+Use the exported [CSS parts](#css-parts) and [custom properties](#css-custom-properties) to restyle the timeline. Most parts, such as `marker` and `connector`, belong to `<wa-timeline-item>`, so the selector targets the items, not the timeline; see the [Timeline Item page](/docs/components/timeline-item#css-parts) for every part an item exposes. Each item can also set the `--marker-size` and `--connector-gap` custom properties for itself.
+
+This example sets the timeline's `--gap`, `--marker-size`, and `--connector-width` custom properties, and the first entry sets a larger `--marker-size` for itself.
 
 ```html {.example}
-<wa-timeline
-  class="timeline-mittens"
-  marker-placement="alternate"
-  style="--marker-size: 0.75em; --connector-width: 0.15em;"
->
-  <wa-timeline-item style="--marker-size: 1.5em; --connector-width: 0.25em;">
+<wa-timeline class="timeline-mittens" marker-placement="alternate">
+  <wa-timeline-item style="--marker-size: 1.5em;">
     <wa-format-date slot="opposite" date="2025-06-14" month="long" year="numeric"></wa-format-date>
     <div class="wa-flank:end wa-gap-s">
       <div>
@@ -694,6 +666,12 @@ Use the exported [CSS parts](#css-parts) and [custom properties](#css-custom-pro
 </wa-timeline>
 
 <style>
+  .timeline-mittens {
+    --gap: var(--wa-space-2xl);
+    --marker-size: 0.75em;
+    --connector-width: 0.15em;
+  }
+
   .timeline-mittens .wa-frame {
     inline-size: 4rem;
     flex: none;
@@ -701,7 +679,7 @@ Use the exported [CSS parts](#css-parts) and [custom properties](#css-custom-pro
 </style>
 ```
 
-Here the connector and markers become one rule with diamond stops. The `--connector-gap` custom property is set to `0px` so the line runs straight into each marker, `--connector-color` fades it back, and the `marker` part is rotated into a diamond that matches. The latest release takes the `brand` variant so it stands out, and version numbers sit in the `opposite` slot as [`<wa-badge>`](/docs/components/badge)s. Note that `--connector-gap` needs a length such as `0px`; a bare `0` isn't valid inside the connector's `calc()` positioning.
+Here the connector and markers become one rule with diamond stops. The `--connector-gap` custom property is set to `0px` so the line runs straight into each marker, the `--connector-color` custom property fades it back, and the `marker` part is rotated into a diamond that matches. The latest release takes the `brand` variant so it stands out, and version numbers sit in the `opposite` slot as [`<wa-badge>`](/docs/components/badge)s. Note that `--connector-gap` needs a length such as `0px`; a bare `0` isn't valid inside the connector's `calc()` positioning.
 
 ```html {.example}
 <wa-timeline class="release-timeline">
@@ -747,4 +725,4 @@ Here the connector and markers become one rule with diamond stops. The `--connec
 - **Keyboard.** Nothing in the timeline takes focus. Items are records, not controls, so the timeline never intercepts clicks or adds keyboard handling. If an entry needs to link somewhere or trigger an action, put a real `<a>` or `<wa-button>` in its content.
 - **Added entries aren't announced.** Adding a `<wa-timeline-item>` updates the list silently; there's no live region. If an update needs to be announced, do it from your own live region rather than relying on the timeline.
 - **Color and meaning.** The `variant` attribute is cosmetic. It changes color, which doesn't carry meaning on its own, so state the reason in the item's visible content rather than relying on color alone.
-- **Custom icons.** When the `icon` slot holds an icon that's the only indicator of an item's meaning (e.g. a checkmark for "completed" with no other label), give it an accessible name with [`<wa-icon label="...">`](/docs/components/icon). A marker that only repeats what the item's own content already says can stay decorative.
+- **Custom icons.** When the `icon` slot holds an icon that's the only indicator of an item's meaning (e.g. a checkmark for "completed" with no other label), give it an accessible name with [`<wa-icon label="...">`](/docs/components/icon#labeling-icons). A marker that only repeats what the item's own content already says can stay decorative.

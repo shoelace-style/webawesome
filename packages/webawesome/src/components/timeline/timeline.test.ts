@@ -5,6 +5,8 @@ import type WaTimeline from './timeline.js';
 
 const getItems = (el: Element) => [...el.querySelectorAll<WaTimelineItem>(':scope > wa-timeline-item')];
 const part = (item: WaTimelineItem, name: string) => item.shadowRoot!.querySelector(`[part~="${name}"]`)!;
+const connector = (item: WaTimelineItem, half: 'start' | 'end') =>
+  item.shadowRoot!.querySelector(`.connector-${half}`)!;
 const rect = (el: Element) => el.getBoundingClientRect();
 const center = (el: Element) => rect(el).top + rect(el).height / 2;
 
@@ -197,8 +199,10 @@ describe('<wa-timeline>', () => {
 
           expect(previousVariant(added)).to.be.null;
           expect(rect(added).top).to.be.lessThan(rect(first).top);
-          expect(getComputedStyle(part(added, 'connector')).display).to.not.equal('none');
-          expect(getComputedStyle(part(last, 'connector')).display).to.equal('none');
+          expect(getComputedStyle(connector(added, 'start')).display).to.equal('none');
+          expect(getComputedStyle(connector(added, 'end')).display).to.not.equal('none');
+          expect(getComputedStyle(connector(first, 'start')).display).to.not.equal('none');
+          expect(getComputedStyle(connector(last, 'end')).display).to.equal('none');
         });
       });
 
@@ -285,12 +289,16 @@ describe('<wa-timeline>', () => {
           expect(Math.abs(center(part(first, 'marker')) - center(first))).to.be.lessThan(1);
 
           // The first item shown has no incoming half above its marker and the last has no outgoing half below it.
-          const half = (item: WaTimelineItem, pseudo: string) =>
-            getComputedStyle(part(item, 'connector'), pseudo).display;
-          expect(half(first, '::before')).to.equal('none');
-          expect(half(first, '::after')).to.not.equal('none');
-          expect(half(last, '::before')).to.not.equal('none');
-          expect(half(last, '::after')).to.equal('none');
+          const display = (item: WaTimelineItem, half: 'start' | 'end') =>
+            getComputedStyle(connector(item, half)).display;
+          expect(display(first, 'start')).to.equal('none');
+          expect(display(first, 'end')).to.not.equal('none');
+          expect(display(last, 'start')).to.not.equal('none');
+          expect(display(last, 'end')).to.equal('none');
+
+          // The halves meet in the middle of the gap and run behind the marker.
+          expect(rect(connector(first, 'end')).bottom).to.be.closeTo(rect(connector(last, 'start')).top, 0.5);
+          expect(rect(connector(last, 'start')).bottom).to.be.closeTo(center(part(last, 'marker')), 0.5);
         });
 
         it('should center the connector under the marker in both directions', async () => {
@@ -305,10 +313,11 @@ describe('<wa-timeline>', () => {
             `);
             const el = wrapper.querySelector<WaTimeline>('wa-timeline')!;
             await whenSynced(el);
-            const [first] = getItems(el);
+            const [first, second] = getItems(el);
             const middle = (target: Element) => rect(target).left + rect(target).width / 2;
 
-            expect(middle(part(first, 'connector'))).to.be.closeTo(middle(part(first, 'marker')), 0.5);
+            expect(middle(connector(first, 'end'))).to.be.closeTo(middle(part(first, 'marker')), 0.5);
+            expect(middle(connector(second, 'start'))).to.be.closeTo(middle(part(second, 'marker')), 0.5);
           }
         });
 
@@ -330,8 +339,8 @@ describe('<wa-timeline>', () => {
 
           // The connector still stops one --connector-gap short of the next marker, which sits lower in its item.
           const gap = parseFloat(getComputedStyle(el).fontSize) * 0.35;
-          const connectorEnd = rect(part(first, 'connector')).bottom;
-          expect(rect(part(second, 'marker')).top - connectorEnd).to.be.closeTo(gap, 1);
+          expect(rect(connector(first, 'end')).bottom).to.be.closeTo(rect(connector(second, 'start')).top, 0.5);
+          expect(rect(part(second, 'marker')).top - rect(connector(second, 'start')).bottom).to.be.closeTo(gap, 1);
         });
 
         it('should center the marker on a first line taller than the marker', async () => {
@@ -343,10 +352,86 @@ describe('<wa-timeline>', () => {
           `);
           await whenSynced(el);
           const [first] = getItems(el);
-          const lineHeight = 16 * 1.8 * 1.125;
+          const lineHeight = 16 * 1.8;
 
           const lineCenter = rect(part(first, 'content')).top + lineHeight / 2;
           expect(center(part(first, 'marker'))).to.be.closeTo(lineCenter, 1);
+        });
+
+        it('should join connectors between items with different marker sizes', async () => {
+          const el = await fixture<WaTimeline>(html`
+            <wa-timeline style="font-size: 16px;">
+              <wa-timeline-item>First</wa-timeline-item>
+              <wa-timeline-item style="--marker-size: 2.5em;">Second</wa-timeline-item>
+              <wa-timeline-item>Third</wa-timeline-item>
+            </wa-timeline>
+          `);
+          await whenSynced(el);
+          const items = getItems(el);
+          const gap = 16 * 0.35;
+
+          for (let index = 0; index < items.length - 1; index++) {
+            const [current, next] = [items[index], items[index + 1]];
+
+            // The halves abut, and the incoming half stops one --connector-gap above the next marker.
+            expect(rect(connector(current, 'end')).bottom).to.be.closeTo(rect(connector(next, 'start')).top, 0.5);
+            expect(rect(part(next, 'marker')).top - rect(connector(next, 'start')).bottom).to.be.closeTo(gap, 0.5);
+          }
+        });
+
+        it('should join horizontal connectors between items of different widths and marker sizes', async () => {
+          const el = await fixture<WaTimeline>(html`
+            <wa-timeline orientation="horizontal" style="font-size: 16px;">
+              <wa-timeline-item>First</wa-timeline-item>
+              <wa-timeline-item style="min-inline-size: 300px;">Second</wa-timeline-item>
+              <wa-timeline-item style="--marker-size: 2.5em;">Third</wa-timeline-item>
+            </wa-timeline>
+          `);
+          const items = getItems(el);
+          await waitUntil(() => items.every(item => item.hasAttribute('data-wa-timeline-horizontal')));
+          await whenSynced(el);
+          const gap = 16 * 0.35;
+          const middle = (target: Element) => rect(target).top + rect(target).height / 2;
+
+          for (let index = 0; index < items.length - 1; index++) {
+            const [current, next] = [items[index], items[index + 1]];
+
+            expect(rect(connector(current, 'end')).right).to.be.closeTo(rect(connector(next, 'start')).left, 0.5);
+            expect(rect(part(next, 'marker')).left - rect(connector(next, 'start')).right).to.be.closeTo(gap, 0.5);
+          }
+
+          // Markers of different sizes share one center line, and the connectors run along it.
+          for (const item of items) {
+            expect(middle(part(item, 'marker'))).to.be.closeTo(middle(part(items[0], 'marker')), 0.5);
+          }
+          for (const item of items.slice(1)) {
+            expect(middle(connector(item, 'start'))).to.be.closeTo(middle(part(item, 'marker')), 0.5);
+          }
+        });
+
+        it("should hide the last item's outgoing connector when a non-item element follows it", async () => {
+          const el = await fixture<WaTimeline>(html`
+            <wa-timeline>
+              <wa-timeline-item>First</wa-timeline-item>
+              <wa-timeline-item>Last</wa-timeline-item>
+              <template></template>
+            </wa-timeline>
+          `);
+          await whenSynced(el);
+          const [, last] = getItems(el);
+
+          expect(getComputedStyle(connector(last, 'end')).display).to.equal('none');
+        });
+
+        it('should wrap long unbroken content instead of overflowing', async () => {
+          const el = await fixture<WaTimeline>(html`
+            <wa-timeline style="width: 300px;">
+              <wa-timeline-item>${'a'.repeat(200)}</wa-timeline-item>
+            </wa-timeline>
+          `);
+          await whenSynced(el);
+
+          expect(el.scrollWidth).to.be.at.most(el.clientWidth + 1);
         });
       });
 
@@ -362,8 +447,10 @@ describe('<wa-timeline>', () => {
           const [neutral, success] = getItems(el);
           await whenSynced(el);
 
-          expect(getComputedStyle(part(neutral, 'connector')).backgroundColor).to.equal('rgb(1, 2, 3)');
-          expect(getComputedStyle(part(success, 'connector')).backgroundColor).to.not.equal('rgb(1, 2, 3)');
+          expect(getComputedStyle(connector(neutral, 'end')).backgroundColor).to.equal('rgb(1, 2, 3)');
+          expect(getComputedStyle(connector(success, 'end')).backgroundColor).to.not.equal('rgb(1, 2, 3)');
+          // The incoming half matches the previous item's outgoing half.
+          expect(getComputedStyle(connector(success, 'start')).backgroundColor).to.equal('rgb(1, 2, 3)');
         });
 
         it('should color a centered connector by the previous item above the marker and by itself below', async () => {
@@ -378,14 +465,14 @@ describe('<wa-timeline>', () => {
           await whenSynced(el);
           await waitUntil(() => third.hasAttribute('data-wa-timeline-center'));
 
-          const half = (item: WaTimelineItem, pseudo: string) =>
-            getComputedStyle(part(item, 'connector'), pseudo).backgroundColor;
+          const color = (item: WaTimelineItem, half: 'start' | 'end') =>
+            getComputedStyle(connector(item, half)).backgroundColor;
 
-          expect(half(second, '::before')).to.equal(half(first, '::after'));
-          expect(half(second, '::before')).to.not.equal('rgb(1, 2, 3)');
-          expect(half(second, '::after')).to.equal('rgb(1, 2, 3)');
+          expect(color(second, 'start')).to.equal(color(first, 'end'));
+          expect(color(second, 'start')).to.not.equal('rgb(1, 2, 3)');
+          expect(color(second, 'end')).to.equal('rgb(1, 2, 3)');
           // A neutral previous item hands down --connector-color, not the neutral fill.
-          expect(half(third, '::before')).to.equal('rgb(1, 2, 3)');
+          expect(color(third, 'start')).to.equal('rgb(1, 2, 3)');
         });
       });
     });
