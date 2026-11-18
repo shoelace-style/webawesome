@@ -206,6 +206,8 @@ export default css`
     font: inherit;
     font-variant-numeric: tabular-nums;
     caret-color: transparent;
+    /* Cancels the first segment's padding so its text lines up with other form controls */
+    margin-inline-start: -0.15em;
   }
 
   .segment {
