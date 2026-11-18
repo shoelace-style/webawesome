@@ -21,8 +21,7 @@ import styles from './timeline.styles.js';
  * @cssproperty [--gap=var(--wa-space-l)] - The space between items. Connectors are sized from this value, so set it
  *  here instead of setting `gap` on the `timeline` part. Use a length such as `0px`, not a bare `0`, to remove it.
  * @cssproperty [--marker-size=1em] - The size of each item's marker. Usually set here so every item matches.
- * @cssproperty [--connector-color=var(--wa-color-neutral-fill-normal)] - The color of the connector line after a
- *  `neutral` item, which is the default. Any other `variant` colors its own connector instead.
+ * @cssproperty [--connector-color=var(--wa-color-neutral-fill-normal)] - The color of the connector line.
  * @cssproperty [--connector-width=var(--wa-border-width-m)] - The thickness of the connector line, in either
  *  orientation.
  * @cssproperty [--connector-gap=0.35em] - The gap between a marker's edge and the connector line. Use a length such
@@ -35,8 +34,6 @@ import styles from './timeline.styles.js';
 @customElement('wa-timeline')
 export default class WaTimeline extends WebAwesomeElement {
   static css = [styles];
-
-  private mutationObserver?: MutationObserver;
 
   /** The timeline's layout direction. */
   @property({ reflect: true }) orientation: 'horizontal' | 'vertical' = 'vertical';
@@ -61,25 +58,12 @@ export default class WaTimeline extends WebAwesomeElement {
   connectedCallback() {
     super.connectedCallback();
 
-    // SSR guard: MutationObserver isn't available during server-side rendering.
+    // SSR guard: the items can't be reached during server-side rendering.
     if (isServer) return;
-
-    // Resync when an item's variant changes. subtree also sees content inside items and nested timelines, so only
-    // react to direct children. One instance is reused, so reconnecting never leaves a second observer running.
-    this.mutationObserver ??= new MutationObserver(mutations => {
-      const isOwnMutation = mutations.some(mutation => (mutation.target as Element).parentElement === this);
-      if (isOwnMutation) this.syncItems();
-    });
-    this.mutationObserver.observe(this, { attributes: true, attributeFilter: ['variant'], subtree: true });
 
     this.updateComplete.then(() => {
       if (this.isConnected) this.syncItems();
     });
-  }
-
-  disconnectedCallback() {
-    super.disconnectedCallback();
-    this.mutationObserver?.disconnect();
   }
 
   private handleSlotChange() {
@@ -90,10 +74,7 @@ export default class WaTimeline extends WebAwesomeElement {
     return [...this.children].filter(el => el.localName === 'wa-timeline-item') as WaTimelineItem[];
   }
 
-  /**
-   * Hands each item its layout as `data-wa-timeline-*` attributes. Each item also learns the previous item's variant
-   * for its incoming connector half.
-   */
+  /** Hands each item its layout as `data-wa-timeline-*` attributes. */
   private syncItems() {
     const items = this.getAllItems();
     const isVertical = this.orientation !== 'horizontal';
@@ -110,15 +91,6 @@ export default class WaTimeline extends WebAwesomeElement {
         item.setAttribute('data-wa-timeline-placement', placement);
       } else {
         item.removeAttribute('data-wa-timeline-placement');
-      }
-
-      // An attribute, not a property: a property set before the item hydrates never reaches its template, but an
-      // attribute is real DOM either way.
-      const previous = items[index - 1];
-      if (previous) {
-        item.setAttribute('data-wa-timeline-previous-variant', previous.variant);
-      } else {
-        item.removeAttribute('data-wa-timeline-previous-variant');
       }
     });
   }

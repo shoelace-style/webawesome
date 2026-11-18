@@ -135,7 +135,7 @@ Use the `icon` slot on an item to show an element, such as [`<wa-icon>`](/docs/c
 
 ### Variant
 
-Set the `variant` attribute on an item to color its marker and the connector after it with a semantic color. The default is `neutral`, whose marker stays quiet so the other variants stand out against it. The color is cosmetic and never changes the marker's content, like `variant` on a badge or callout.
+Set the `variant` attribute on an item to color its marker with a semantic color. The default is `neutral`, whose marker stays quiet so the other variants stand out against it. The color is cosmetic and never changes the marker's content, like `variant` on a badge or callout.
 
 ```html {.example}
 <wa-timeline>
@@ -372,7 +372,7 @@ An item's default slot accepts any content, so an entry can hold more than a tit
       </div>
     </div>
   </wa-timeline-item>
-  <wa-timeline-item variant="warning">
+  <wa-timeline-item>
     <wa-avatar slot="icon" initials="RP" label="Riley Park"></wa-avatar>
     <wa-format-date
       slot="opposite"
@@ -412,7 +412,7 @@ An item's default slot accepts any content, so an entry can hold more than a tit
       </ul>
     </div>
   </wa-timeline-item>
-  <wa-timeline-item variant="success">
+  <wa-timeline-item>
     <wa-avatar slot="icon" initials="RP" label="Riley Park"></wa-avatar>
     <wa-format-date
       slot="opposite"

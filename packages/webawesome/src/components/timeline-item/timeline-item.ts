@@ -40,9 +40,8 @@ export default class WaTimelineItem extends WebAwesomeElement {
   private readonly hasSlotController = new HasSlotController(this, 'opposite');
 
   /**
-   * Colors the item's marker and the connector after it. Neutral items keep a quiet marker, so a variant stands out
-   * against them. The color is cosmetic; pair it with an icon and a clear label when an entry needs to read as failed
-   * or flagged.
+   * Colors the item's marker. Neutral items keep a quiet marker, so a variant stands out against them. The color is
+   * cosmetic; pair it with an icon and a clear label when an entry needs to read as failed or flagged.
    */
   @property({ reflect: true }) variant: 'neutral' | 'brand' | 'success' | 'warning' | 'danger' = 'neutral';
 

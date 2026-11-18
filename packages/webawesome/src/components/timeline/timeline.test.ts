@@ -10,13 +10,10 @@ const connector = (item: WaTimelineItem, half: 'start' | 'end') =>
 const rect = (el: Element) => el.getBoundingClientRect();
 const center = (el: Element) => rect(el).top + rect(el).height / 2;
 
-const previousVariant = (item: Element) => item.getAttribute('data-wa-timeline-previous-variant');
-
-/** Resolves once the timeline has handed every item but the first shown its previous variant, i.e. after a sync. */
+/** Resolves once the timeline and its items have rendered. */
 const whenSynced = async (el: WaTimeline) => {
-  const items = getItems(el);
-  await waitUntil(() => items.filter(item => previousVariant(item) !== null).length === items.length - 1);
-  await Promise.all(items.map(item => item.updateComplete));
+  await el.updateComplete;
+  await Promise.all(getItems(el).map(item => item.updateComplete));
 };
 
 describe('<wa-timeline>', () => {
@@ -131,29 +128,10 @@ describe('<wa-timeline>', () => {
           expect(first.hasAttribute('data-wa-timeline-placement')).to.be.false;
         });
 
-        it('should tell each item the variant of the item shown before it', async () => {
-          const el = await fixture<WaTimeline>(html`
-            <wa-timeline>
-              <wa-timeline-item variant="success">First</wa-timeline-item>
-              <wa-timeline-item>Second</wa-timeline-item>
-              <wa-timeline-item variant="danger">Third</wa-timeline-item>
-            </wa-timeline>
-          `);
-          const [first, second, third] = getItems(el);
-
-          await whenSynced(el);
-          expect(previousVariant(first)).to.be.null;
-          expect(previousVariant(second)).to.equal('success');
-          expect(previousVariant(third)).to.equal('neutral');
-
-          first.setAttribute('variant', 'warning');
-          await waitUntil(() => previousVariant(second) === 'warning');
-        });
-
         it('should scope its sync to its own items, not a timeline nested inside one', async () => {
           const el = await fixture<WaTimeline>(html`
-            <wa-timeline>
-              <wa-timeline-item variant="success">Outer first</wa-timeline-item>
+            <wa-timeline marker-placement="end">
+              <wa-timeline-item>Outer first</wa-timeline-item>
               <wa-timeline-item>
                 Outer second
                 <wa-timeline>
@@ -167,19 +145,16 @@ describe('<wa-timeline>', () => {
           const inner = el.querySelector('wa-timeline wa-timeline')! as WaTimeline;
           const [innerFirst, innerSecond] = getItems(inner);
 
-          await whenSynced(el);
+          await waitUntil(() => outerSecond.getAttribute('data-wa-timeline-placement') === 'end');
           await whenSynced(inner);
-          expect(previousVariant(outerSecond)).to.equal('success');
-          expect(previousVariant(innerSecond)).to.equal('neutral');
 
-          innerFirst.setAttribute('variant', 'danger');
-          await waitUntil(() => previousVariant(innerSecond) === 'danger');
-          expect(previousVariant(outerSecond)).to.equal('success');
+          expect(innerFirst.hasAttribute('data-wa-timeline-placement')).to.be.false;
+          expect(innerSecond.hasAttribute('data-wa-timeline-placement')).to.be.false;
         });
       });
 
       describe('prepending', () => {
-        it('should show a prepended item first and hand off the connector and previous variant', async () => {
+        it('should show a prepended item first and hand off the connector', async () => {
           const el = await fixture<WaTimeline>(html`
             <wa-timeline>
               <wa-timeline-item>First</wa-timeline-item>
@@ -194,10 +169,8 @@ describe('<wa-timeline>', () => {
           added.textContent = 'Newest';
           el.prepend(added);
 
-          await waitUntil(() => previousVariant(first) === 'success');
           await added.updateComplete;
 
-          expect(previousVariant(added)).to.be.null;
           expect(rect(added).top).to.be.lessThan(rect(first).top);
           expect(getComputedStyle(connector(added, 'start')).display).to.equal('none');
           expect(getComputedStyle(connector(added, 'end')).display).to.not.equal('none');
@@ -436,7 +409,7 @@ describe('<wa-timeline>', () => {
       });
 
       describe('connector color', () => {
-        it('should color the connector with --connector-color unless the item has a non-neutral variant', async () => {
+        it('should color every connector with --connector-color whatever the variant', async () => {
           const el = await fixture<WaTimeline>(html`
             <wa-timeline style="--connector-color: rgb(1, 2, 3);">
               <wa-timeline-item>Neutral by default</wa-timeline-item>
@@ -448,12 +421,11 @@ describe('<wa-timeline>', () => {
           await whenSynced(el);
 
           expect(getComputedStyle(connector(neutral, 'end')).backgroundColor).to.equal('rgb(1, 2, 3)');
-          expect(getComputedStyle(connector(success, 'end')).backgroundColor).to.not.equal('rgb(1, 2, 3)');
-          // The incoming half matches the previous item's outgoing half.
           expect(getComputedStyle(connector(success, 'start')).backgroundColor).to.equal('rgb(1, 2, 3)');
+          expect(getComputedStyle(connector(success, 'end')).backgroundColor).to.equal('rgb(1, 2, 3)');
         });
 
-        it('should give a neutral marker the quiet fill and any other variant a louder one than its connector', async () => {
+        it('should give a neutral marker the same quiet fill as the connector and other variants a louder one', async () => {
           const el = await fixture<WaTimeline>(html`
             <wa-timeline>
               <wa-timeline-item>Neutral by default</wa-timeline-item>
@@ -467,28 +439,6 @@ describe('<wa-timeline>', () => {
 
           expect(background(part(neutral, 'marker'))).to.equal(background(connector(neutral, 'end')));
           expect(background(part(success, 'marker'))).to.not.equal(background(connector(success, 'end')));
-        });
-
-        it('should color a centered connector by the previous item above the marker and by itself below', async () => {
-          const el = await fixture<WaTimeline>(html`
-            <wa-timeline marker-alignment="center" style="--connector-color: rgb(1, 2, 3);">
-              <wa-timeline-item variant="success"><div style="height: 120px;">First</div></wa-timeline-item>
-              <wa-timeline-item><div style="height: 120px;">Second</div></wa-timeline-item>
-              <wa-timeline-item variant="danger"><div style="height: 120px;">Third</div></wa-timeline-item>
-            </wa-timeline>
-          `);
-          const [first, second, third] = getItems(el);
-          await whenSynced(el);
-          await waitUntil(() => third.hasAttribute('data-wa-timeline-center'));
-
-          const color = (item: WaTimelineItem, half: 'start' | 'end') =>
-            getComputedStyle(connector(item, half)).backgroundColor;
-
-          expect(color(second, 'start')).to.equal(color(first, 'end'));
-          expect(color(second, 'start')).to.not.equal('rgb(1, 2, 3)');
-          expect(color(second, 'end')).to.equal('rgb(1, 2, 3)');
-          // A neutral previous item hands down --connector-color, not the neutral fill.
-          expect(color(third, 'start')).to.equal('rgb(1, 2, 3)');
         });
       });
     });

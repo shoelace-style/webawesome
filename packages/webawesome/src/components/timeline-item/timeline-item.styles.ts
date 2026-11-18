@@ -5,39 +5,16 @@ export default css`
     :host {
       --_marker-background: var(--wa-color-fill-loud);
       --_marker-color: var(--wa-color-on-loud);
-      --_connector-color: var(--wa-color-fill-normal);
       /* How far a first line taller than the marker would rise above the item. Applied as padding so it stays inside. */
       --_line-overhang: max(0px, (1lh - var(--marker-size)) / 2);
 
       display: block;
     }
 
-    /* Neutral items keep a quiet marker so a plain timeline reads quietly, and take the timeline's --connector-color. */
+    /* Neutral items keep a quiet marker so a plain timeline reads quietly. */
     :host([variant='neutral']) {
       --_marker-background: var(--wa-color-fill-normal);
       --_marker-color: var(--wa-color-on-normal);
-      --_connector-color: var(--connector-color);
-    }
-
-    /* The previous item's variant, set by <wa-timeline>, colors the incoming connector half. */
-    :host([data-wa-timeline-previous-variant='neutral']) {
-      --_incoming-connector-color: var(--connector-color);
-    }
-
-    :host([data-wa-timeline-previous-variant='brand']) {
-      --_incoming-connector-color: var(--wa-color-brand-fill-normal);
-    }
-
-    :host([data-wa-timeline-previous-variant='success']) {
-      --_incoming-connector-color: var(--wa-color-success-fill-normal);
-    }
-
-    :host([data-wa-timeline-previous-variant='warning']) {
-      --_incoming-connector-color: var(--wa-color-warning-fill-normal);
-    }
-
-    :host([data-wa-timeline-previous-variant='danger']) {
-      --_incoming-connector-color: var(--wa-color-danger-fill-normal);
     }
 
     /* Layout */
@@ -126,13 +103,13 @@ export default css`
     /* From the middle of the gap above the item to one connector gap above the marker. */
     .connector-start {
       inset-block: calc(-1 * (var(--gap) / 2 + var(--_line-overhang))) calc(100% + var(--connector-gap));
-      background-color: var(--_incoming-connector-color, var(--_connector-color));
+      background-color: var(--connector-color);
     }
 
     /* From one connector gap below the marker to the middle of the gap below the item. */
     .connector-end {
       inset-block: calc(var(--marker-size) + var(--connector-gap)) calc(-1 * var(--gap) / 2);
-      background-color: var(--_connector-color);
+      background-color: var(--connector-color);
     }
 
     :host(:first-of-type) .connector-start,
